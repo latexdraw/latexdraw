@@ -18,12 +18,12 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.views.AbstractView;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static java.lang.Math.toDegrees;
@@ -31,7 +31,10 @@ import static java.lang.Math.toDegrees;
 /**
  * Defines a PSTricks view of the LShape model.
  */
-abstract class PSTShapeView<S extends IShape> extends AbstractView<S> {
+abstract class PSTShapeView<S extends IShape> {
+	/** The shape model. */
+	protected final S shape;
+
 	/**
 	 * The list of name of the colours added to the generated code. Useful when generating
 	 * the code to define the colours in the latex document.
@@ -46,7 +49,16 @@ abstract class PSTShapeView<S extends IShape> extends AbstractView<S> {
 	 * @since 3.0
 	 */
 	protected PSTShapeView(final @NonNull S model) {
-		super(model);
+		super();
+		shape = Objects.requireNonNull(model);
+	}
+
+
+	/**
+	 * @return The mode of the view.
+	 */
+	public S getShape() {
+		return shape;
 	}
 
 
