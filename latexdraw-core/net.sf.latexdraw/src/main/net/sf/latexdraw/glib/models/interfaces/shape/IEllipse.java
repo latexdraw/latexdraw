@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.shape;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 /**
  * Defines an interface that classes defining an ellipse should implement.<br>
  * <br>
@@ -40,4 +42,9 @@ public interface IEllipse extends IRectangularShape {
 	 * @since 3.0
 	 */
 	void setCentre(final IPoint centre);
+
+	/**
+	 * @return The center of the ellipse. Cannot be null.
+	 */
+	@NonNull IPoint getCenter();
 }

@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a model of an ellipse.<br>
@@ -104,6 +105,11 @@ class LEllipse extends LRectangularShape implements IEllipse {
 			final IPoint gc = getGravityCentre();
 			translate(centre.getX()-gc.getX(), centre.getY()-gc.getY());
 		}
+	}
+
+	@Override
+	public @NonNull IPoint getCenter() {
+		return getGravityCentre();
 	}
 
 

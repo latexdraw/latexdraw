@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.shape;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 /**
  * Defines an interface that classes defining a circle should implement.<br>
  * <br>
@@ -20,5 +22,13 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  * @since 3.0
  */
 public interface ICircle extends ISquaredShape {
-	//
+	/**
+	 * @return The centre of the circle.
+	 */
+	@NonNull IPoint getCenter();
+
+	/**
+	 * @return The radius of the circle.
+	 */
+	double getRadius();
 }

@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import org.eclipse.jdt.annotation.NonNull
 
 /**
  * Defines a model of a rounded arc.<br>
@@ -36,4 +37,8 @@ private[impl] class LCircleArc(tl:IPoint, width:Double) extends LSquaredShape(tl
 			case _ =>
 		}
 	}
+
+	@NonNull def getCenter: IPoint = getGravityCentre
+
+	override def getRadius = getWidth / 2.0
 }

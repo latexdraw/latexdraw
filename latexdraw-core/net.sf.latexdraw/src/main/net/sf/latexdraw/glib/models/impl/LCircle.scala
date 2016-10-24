@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.models.impl
 
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import org.eclipse.jdt.annotation.NonNull
 
 /**
  * Defines a model of a circle.<br>
@@ -23,5 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
  * @since 3.0
  */
 private[impl] class LCircle(pos:IPoint, width:Double) extends LSquaredShape(pos, width) with ICircle {
-//
+	@NonNull def getCenter: IPoint = getGravityCentre
+
+	override def getRadius = getWidth / 2.0
 }
