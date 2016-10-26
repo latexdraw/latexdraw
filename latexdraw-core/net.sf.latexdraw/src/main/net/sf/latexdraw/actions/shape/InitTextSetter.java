@@ -1,9 +1,9 @@
 package net.sf.latexdraw.actions.shape;
 
-import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.instruments.TextSetter;
 
 import org.malai.action.library.ActivateInstrument;

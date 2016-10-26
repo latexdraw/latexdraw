@@ -1,7 +1,7 @@
 package test.svg.loadSave;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ISquare;
 
 import org.junit.Before;
 

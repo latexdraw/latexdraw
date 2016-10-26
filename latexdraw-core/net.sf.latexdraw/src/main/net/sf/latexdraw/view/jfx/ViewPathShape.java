@@ -13,7 +13,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.shape.Path;
-import net.sf.latexdraw.glib.models.interfaces.shape.ISingleShape;
+import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**

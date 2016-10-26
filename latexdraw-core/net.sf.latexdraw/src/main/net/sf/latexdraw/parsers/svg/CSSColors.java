@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 import java.util.Optional;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.Color;
 
 /**
  * Defines colours used in CSS2.<br>

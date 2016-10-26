@@ -2,7 +2,7 @@ package test.parser;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 import org.junit.Test;
 

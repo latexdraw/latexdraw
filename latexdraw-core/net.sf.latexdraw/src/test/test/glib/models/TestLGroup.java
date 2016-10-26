@@ -2,9 +2,9 @@ package test.glib.models;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.*;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.prop.IArcProp;
+import net.sf.latexdraw.models.interfaces.shape.*;
 
 import org.junit.Before;
 import org.junit.Test;

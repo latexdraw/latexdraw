@@ -14,8 +14,8 @@
  */
 package net.sf.latexdraw.actions.shape;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.action.Action;
 
 import java.util.List;

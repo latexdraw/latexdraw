@@ -1,7 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import java.text.ParseException
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.models.interfaces.shape.IGroup
 import scala.collection.mutable.ListBuffer
 
 /**

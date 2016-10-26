@@ -21,8 +21,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
 

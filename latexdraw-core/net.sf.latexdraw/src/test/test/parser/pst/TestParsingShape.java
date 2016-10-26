@@ -6,12 +6,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.view.latex.DviPsColors;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;

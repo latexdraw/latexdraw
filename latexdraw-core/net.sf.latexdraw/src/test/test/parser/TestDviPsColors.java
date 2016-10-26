@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.Optional;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.Color;
+import net.sf.latexdraw.view.latex.DviPsColors;
 
 import org.junit.Test;
 

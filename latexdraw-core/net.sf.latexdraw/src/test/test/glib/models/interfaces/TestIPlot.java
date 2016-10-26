@@ -1,9 +1,9 @@
 package test.glib.models.interfaces;
 
-import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.*;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.*;
+import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
 import org.junit.Test;
 

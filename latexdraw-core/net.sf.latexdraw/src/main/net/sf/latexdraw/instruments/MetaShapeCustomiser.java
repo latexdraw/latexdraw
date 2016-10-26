@@ -1,6 +1,6 @@
 package net.sf.latexdraw.instruments;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 import com.google.inject.Inject;
 

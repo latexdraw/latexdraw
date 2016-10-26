@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 public class TestArrowStyle {
 	@Test

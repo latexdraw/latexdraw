@@ -1,10 +1,10 @@
 package test.svg.loadSave;
 
 import static org.junit.Assert.assertEquals;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
-import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.view.latex.DviPsColors;
 
 import org.junit.Before;
 import org.junit.Test;

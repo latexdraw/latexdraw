@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;

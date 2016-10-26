@@ -5,9 +5,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.shape.TranslateShapes;
-import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 import org.malai.javafx.instrument.library.SpinnerInteractor;
 

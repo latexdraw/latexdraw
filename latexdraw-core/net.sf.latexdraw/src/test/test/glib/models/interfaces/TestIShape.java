@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.view.latex.DviPsColors;
 
 import org.junit.Test;
 

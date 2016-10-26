@@ -5,13 +5,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
-import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IFreehand;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;

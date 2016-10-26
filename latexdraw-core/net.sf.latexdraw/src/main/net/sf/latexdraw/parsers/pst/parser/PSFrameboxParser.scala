@@ -1,6 +1,6 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.views.latex.DviPsColors
+import net.sf.latexdraw.view.latex.DviPsColors
 
 /**
  * A parser parsing psframebox commands.<br>

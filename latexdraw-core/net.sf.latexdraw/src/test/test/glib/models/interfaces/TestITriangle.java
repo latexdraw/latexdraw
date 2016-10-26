@@ -1,6 +1,6 @@
 package test.glib.models.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 
 import org.junit.Test;
 

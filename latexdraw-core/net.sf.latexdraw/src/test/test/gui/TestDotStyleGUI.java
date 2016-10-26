@@ -4,7 +4,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
-import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
 
 import org.junit.Before;

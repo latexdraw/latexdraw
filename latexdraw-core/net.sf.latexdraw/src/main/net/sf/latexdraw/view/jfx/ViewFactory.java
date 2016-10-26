@@ -12,11 +12,11 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 

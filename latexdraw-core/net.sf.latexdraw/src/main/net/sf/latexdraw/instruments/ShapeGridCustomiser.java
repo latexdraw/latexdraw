@@ -18,8 +18,8 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.prop.IGridProp;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 /**
  * This instrument modifies grids properties of shapes or the pencil.<br>

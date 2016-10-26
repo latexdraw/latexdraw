@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 
 public class TestTextPosition {
 	@Test

@@ -3,7 +3,7 @@ package net.sf.latexdraw.actions.shape;
 import java.util.Collections;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.*;
+import net.sf.latexdraw.models.interfaces.shape.*;
 import net.sf.latexdraw.lang.LangTool;
 
 /**

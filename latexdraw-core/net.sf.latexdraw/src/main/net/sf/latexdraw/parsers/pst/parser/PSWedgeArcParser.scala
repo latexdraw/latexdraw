@@ -1,10 +1,10 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IArc
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle
+import net.sf.latexdraw.models.interfaces.shape.IArc
+import net.sf.latexdraw.models.interfaces.shape.IShape
+import net.sf.latexdraw.models.ShapeFactory
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle
+import net.sf.latexdraw.models.interfaces.shape.ArcStyle
 
 /**
  * A parser grouping parsers parsing arcs.<br>

@@ -23,13 +23,13 @@ import org.malai.picking.Pickable;
 import com.google.inject.Inject;
 
 import javafx.scene.Cursor;
-import net.sf.latexdraw.glib.handlers.ArcAngleHandler;
-import net.sf.latexdraw.glib.handlers.CtrlPointHandler;
-import net.sf.latexdraw.glib.handlers.IHandler;
-import net.sf.latexdraw.glib.handlers.MovePtHandler;
-import net.sf.latexdraw.glib.handlers.RotationHandler;
-import net.sf.latexdraw.glib.handlers.ScaleHandler;
-import net.sf.latexdraw.glib.models.interfaces.shape.Position;
+import net.sf.latexdraw.handlers.ArcAngleHandler;
+import net.sf.latexdraw.handlers.CtrlPointHandler;
+import net.sf.latexdraw.handlers.IHandler;
+import net.sf.latexdraw.handlers.MovePtHandler;
+import net.sf.latexdraw.handlers.RotationHandler;
+import net.sf.latexdraw.handlers.ScaleHandler;
+import net.sf.latexdraw.models.interfaces.shape.Position;
 
 /**
  * This instrument manages the selected views.<br>

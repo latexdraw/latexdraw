@@ -7,8 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 public class TestTicksStyle {
 	@Test

@@ -1,6 +1,6 @@
 package test.glib.models.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 
 import org.junit.Test;
 

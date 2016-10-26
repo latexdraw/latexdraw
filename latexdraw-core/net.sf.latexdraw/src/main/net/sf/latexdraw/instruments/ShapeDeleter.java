@@ -21,7 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.actions.shape.DeleteShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.action.ActionsRegistry;
 import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.interaction.JfxInteraction;

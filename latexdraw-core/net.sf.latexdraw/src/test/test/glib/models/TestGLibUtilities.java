@@ -2,8 +2,8 @@ package test.glib.models;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.ShapeFactory;
 
 import org.junit.Test;
 

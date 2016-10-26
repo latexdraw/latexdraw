@@ -2,7 +2,7 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 
 import org.junit.Test;
 

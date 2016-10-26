@@ -1,7 +1,7 @@
 package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
+import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.ExportDialog;
 import org.malai.action.Action;

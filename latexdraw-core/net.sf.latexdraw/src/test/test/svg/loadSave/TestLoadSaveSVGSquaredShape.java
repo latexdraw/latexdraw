@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape;
+import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
 
 public abstract class TestLoadSaveSVGSquaredShape<T extends ISquaredShape> extends TestLoadSaveSVGPositionShape<T> {
 	protected void setSquare(final double x, final double y, final double w) {

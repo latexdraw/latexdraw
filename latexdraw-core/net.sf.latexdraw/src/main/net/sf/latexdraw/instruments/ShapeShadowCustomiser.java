@@ -7,7 +7,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 import java.net.URL;
 import java.util.ResourceBundle;

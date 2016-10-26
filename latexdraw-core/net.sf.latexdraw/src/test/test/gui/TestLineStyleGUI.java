@@ -4,8 +4,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 
 import org.junit.Before;

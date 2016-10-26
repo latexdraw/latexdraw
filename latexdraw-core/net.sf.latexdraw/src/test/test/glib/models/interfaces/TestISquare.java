@@ -2,7 +2,7 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.models.interfaces.shape.ISquare;
 
 import org.junit.Test;
 

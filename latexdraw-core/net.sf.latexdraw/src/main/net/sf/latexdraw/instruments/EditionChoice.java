@@ -1,7 +1,7 @@
 package net.sf.latexdraw.instruments;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.*;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.*;
 
 /**
  * Defines the choices of edition of the canvas.<br>

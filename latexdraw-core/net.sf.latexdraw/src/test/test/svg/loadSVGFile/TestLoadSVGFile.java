@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import net.sf.latexdraw.generators.svg.IShapeSVGFactory;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.view.svg.IShapeSVGFactory;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;

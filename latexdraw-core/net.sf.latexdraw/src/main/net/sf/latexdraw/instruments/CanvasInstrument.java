@@ -1,7 +1,7 @@
 package net.sf.latexdraw.instruments;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.view.jfx.Canvas;
 
 import org.malai.javafx.instrument.JfxInstrument;

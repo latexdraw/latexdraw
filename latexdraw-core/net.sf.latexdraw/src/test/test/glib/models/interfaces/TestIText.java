@@ -1,8 +1,8 @@
 package test.glib.models.interfaces;
 
 import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.models.interfaces.shape.IText;
 
 import org.junit.Test;
 

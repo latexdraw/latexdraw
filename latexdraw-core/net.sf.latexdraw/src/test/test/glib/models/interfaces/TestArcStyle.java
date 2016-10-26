@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle;
+import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 
 public class TestArcStyle {
 	@Test

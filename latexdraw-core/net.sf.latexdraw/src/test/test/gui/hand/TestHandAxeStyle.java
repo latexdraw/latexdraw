@@ -6,10 +6,10 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle;
+import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeAxesCustomiser;

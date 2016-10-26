@@ -3,11 +3,11 @@ package net.sf.latexdraw.instruments;
 import com.google.inject.Inject;
 import javafx.scene.Cursor;
 import net.sf.latexdraw.filters.PictureFilter;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IFreehand;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 import javax.swing.*;
 

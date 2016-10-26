@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 /**
  * This instrument transforms (mirror, etc.) the selected shapes.<br>

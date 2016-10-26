@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;

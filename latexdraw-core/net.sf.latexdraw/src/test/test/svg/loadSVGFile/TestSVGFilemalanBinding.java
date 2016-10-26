@@ -3,16 +3,16 @@ package test.svg.loadSVGFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
-import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.view.latex.DviPsColors;
 
 import org.junit.Test;
 

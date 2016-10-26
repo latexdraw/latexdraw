@@ -1,8 +1,8 @@
 package test.glib.models.interfaces;
 
 import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.Color;
 
 import org.junit.Before;
 import org.junit.Test;

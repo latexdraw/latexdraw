@@ -1,7 +1,7 @@
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
-import net.sf.latexdraw.glib.views.latex.VerticalPosition;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import net.sf.latexdraw.view.latex.VerticalPosition;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.action.Action;

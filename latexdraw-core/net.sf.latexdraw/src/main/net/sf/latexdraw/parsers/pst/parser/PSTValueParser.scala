@@ -2,18 +2,18 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import java.util.Optional
 
-import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos
-import net.sf.latexdraw.glib.models.interfaces.shape.Color
-import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
-import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle
-import net.sf.latexdraw.glib.views.latex.DviPsColors
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle
+import net.sf.latexdraw.models.interfaces.shape.AxesStyle
+import net.sf.latexdraw.models.interfaces.shape.BorderPos
+import net.sf.latexdraw.models.interfaces.shape.Color
+import net.sf.latexdraw.models.interfaces.shape.DotStyle
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle
+import net.sf.latexdraw.models.interfaces.shape.IArrowableShape
+import net.sf.latexdraw.models.interfaces.shape.LineStyle
+import net.sf.latexdraw.models.interfaces.shape.PlottingStyle
+import net.sf.latexdraw.models.interfaces.shape.TicksStyle
+import net.sf.latexdraw.view.latex.DviPsColors
+import net.sf.latexdraw.view.pst.PSTricksConstants
 
 
 /**

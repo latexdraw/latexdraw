@@ -8,10 +8,10 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable;
-import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.prop.IArrowable;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 
 import java.net.URL;

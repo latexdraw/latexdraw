@@ -1,14 +1,15 @@
 package net.sf.latexdraw.actions.shape
 
 import java.util.ArrayList
+
 import org.malai.action.Action
 import org.malai.undo.Undoable
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.views.MagneticGrid
+import net.sf.latexdraw.models.ShapeFactory
+import net.sf.latexdraw.models.interfaces.shape.IShape
 import net.sf.latexdraw.util.LangTool
+import net.sf.latexdraw.view.MagneticGrid
 
 /**
  * This action pastes the copied or cut shapes.<br>

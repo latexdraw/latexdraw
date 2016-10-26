@@ -1,7 +1,7 @@
 package net.sf.latexdraw.ui;
 
 import com.google.inject.Inject;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.mapping.ActiveUnary;

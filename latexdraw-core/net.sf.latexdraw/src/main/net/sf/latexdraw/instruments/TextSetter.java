@@ -1,8 +1,8 @@
 package net.sf.latexdraw.instruments;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 
 import org.malai.action.Action;

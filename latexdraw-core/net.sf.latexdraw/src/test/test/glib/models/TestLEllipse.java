@@ -7,13 +7,13 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import test.HelperTest;
 import test.glib.models.interfaces.TestIEllipse;
 

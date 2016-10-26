@@ -14,7 +14,7 @@ package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.Group;
 import javafx.scene.shape.Shape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**

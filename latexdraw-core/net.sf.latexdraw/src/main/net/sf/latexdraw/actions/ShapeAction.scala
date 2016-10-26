@@ -1,6 +1,6 @@
 package net.sf.latexdraw.actions
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.models.interfaces.shape.IShape
 
 /**
  * This trait encapsulates a shape attribute.<br>

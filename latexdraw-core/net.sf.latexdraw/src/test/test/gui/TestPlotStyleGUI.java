@@ -6,7 +6,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
-import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.instruments.ShapePlotCustomiser;
 
 public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomiser> {

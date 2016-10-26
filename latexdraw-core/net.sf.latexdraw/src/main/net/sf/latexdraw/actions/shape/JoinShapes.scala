@@ -7,7 +7,7 @@ import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapesAction
 import net.sf.latexdraw.lang.LangTool
-import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.models.ShapeFactory
 
 /**
  * This action joins shapes.<br>

@@ -1,6 +1,6 @@
 package net.sf.latexdraw.actions
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.models.interfaces.shape.IShape
 import org.malai.action.Action
 import org.malai.undo.Undoable
 

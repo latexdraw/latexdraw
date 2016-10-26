@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;

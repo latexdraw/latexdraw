@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle;
+import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 
 public class TestFreeHandType {
 	@Test

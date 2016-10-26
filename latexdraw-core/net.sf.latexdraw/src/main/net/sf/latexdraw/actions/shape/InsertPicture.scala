@@ -2,7 +2,7 @@ package net.sf.latexdraw.actions.shape
 
 import javax.swing.JFileChooser
 import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.glib.models.interfaces.shape.IPicture
+import net.sf.latexdraw.models.interfaces.shape.IPicture
 
 /**
  * This action asks the user to select a picture and, if valid, adds it to a drawing.<br>

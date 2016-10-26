@@ -1,14 +1,14 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus
-import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle
+import net.sf.latexdraw.models.interfaces.shape.IRectangle
+import net.sf.latexdraw.models.interfaces.shape.IPoint
+import net.sf.latexdraw.models.interfaces.shape.IShape
+import net.sf.latexdraw.models.interfaces.shape.IEllipse
+import net.sf.latexdraw.models.interfaces.shape.IRectangularShape
+import net.sf.latexdraw.models.interfaces.shape.IRhombus
+import net.sf.latexdraw.models.interfaces.shape.ITriangle
 import net.sf.latexdraw.util.LNumber
-import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.models.ShapeFactory
 
 /**
  * A parser grouping parsers parsing ellipses and rectangles.<br>

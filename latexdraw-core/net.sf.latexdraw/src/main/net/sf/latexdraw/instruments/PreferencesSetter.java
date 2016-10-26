@@ -9,7 +9,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.views.GridStyle;
+import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.ui.XScaleRuler;
 import net.sf.latexdraw.ui.YScaleRuler;
 import net.sf.latexdraw.util.*;

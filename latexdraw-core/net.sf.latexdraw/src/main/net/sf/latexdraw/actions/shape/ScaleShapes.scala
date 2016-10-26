@@ -3,9 +3,9 @@ package net.sf.latexdraw.actions.shape
 import java.awt.geom.Rectangle2D
 
 import net.sf.latexdraw.actions.{DrawingAction, Modifying, ShapeAction}
-import net.sf.latexdraw.glib.models.GLibUtilities
-import net.sf.latexdraw.glib.models.interfaces.shape.Position
-import net.sf.latexdraw.glib.models.interfaces.shape.{IGroup, IPoint}
+import net.sf.latexdraw.models.GLibUtilities
+import net.sf.latexdraw.models.interfaces.shape.Position
+import net.sf.latexdraw.models.interfaces.shape.{IGroup, IPoint}
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.util.LNumber
 import org.malai.action.Action

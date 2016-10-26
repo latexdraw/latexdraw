@@ -1,11 +1,11 @@
 package test.svg.loadSave;
 
 import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.view.latex.DviPsColors;
 
 import org.junit.Before;
 import org.junit.Test;

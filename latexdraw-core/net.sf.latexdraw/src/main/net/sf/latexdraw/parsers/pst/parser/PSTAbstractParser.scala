@@ -4,13 +4,13 @@ import scala.collection.mutable.HashMap
 import scala.language.implicitConversions
 import scala.util.parsing.combinator.syntactical.TokenParsers
 
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos
-import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition
+import net.sf.latexdraw.models.ShapeFactory
+import net.sf.latexdraw.models.interfaces.shape.BorderPos
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle
+import net.sf.latexdraw.models.interfaces.shape.IArrowableShape
+import net.sf.latexdraw.models.interfaces.shape.IShape
+import net.sf.latexdraw.models.interfaces.shape.LineStyle
+import net.sf.latexdraw.models.interfaces.shape.TextPosition
 
 /**
  * Defines an abstract PST parser.<br>

@@ -3,7 +3,7 @@ package test.gui.pencil;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import javafx.scene.paint.Color;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeGridCustomiser;

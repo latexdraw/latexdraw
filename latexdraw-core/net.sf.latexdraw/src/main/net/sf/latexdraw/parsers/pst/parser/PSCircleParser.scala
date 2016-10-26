@@ -1,9 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.ICircle
-import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.models.interfaces.shape.IShape
+import net.sf.latexdraw.models.interfaces.shape.IPoint
+import net.sf.latexdraw.models.interfaces.shape.ICircle
+import net.sf.latexdraw.models.ShapeFactory
 
 /**
  * A parser grouping parsers parsing circles.<br>

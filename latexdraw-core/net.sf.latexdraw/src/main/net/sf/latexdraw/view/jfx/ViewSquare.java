@@ -14,8 +14,8 @@ package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Rectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**

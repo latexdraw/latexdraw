@@ -12,7 +12,7 @@
  */
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.glib.views.latex.VerticalPosition;
+import net.sf.latexdraw.view.latex.VerticalPosition;
 
 /**
  * This enumeration defines the different LaTeX properties that can be modified.

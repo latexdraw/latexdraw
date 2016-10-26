@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ILine;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;
 
 import org.junit.Test;

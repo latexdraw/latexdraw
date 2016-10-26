@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
-import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
 
 import java.net.URL;
 import java.util.ResourceBundle;

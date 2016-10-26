@@ -7,8 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 public class TestAxesStyle {
 	@Test

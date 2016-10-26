@@ -2,8 +2,8 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertEquals;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
+import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
+import net.sf.latexdraw.models.interfaces.shape.IArc;
 
 import org.junit.Test;
 

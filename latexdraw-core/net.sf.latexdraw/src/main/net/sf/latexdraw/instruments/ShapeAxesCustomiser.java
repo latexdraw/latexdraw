@@ -13,12 +13,12 @@ import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 
 import org.malai.javafx.instrument.library.SpinnerInteractor;
 

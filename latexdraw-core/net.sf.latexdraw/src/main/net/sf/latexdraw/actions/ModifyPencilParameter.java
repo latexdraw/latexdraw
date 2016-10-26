@@ -2,7 +2,7 @@ package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.glib.models.interfaces.shape.*;
+import net.sf.latexdraw.models.interfaces.shape.*;
 import net.sf.latexdraw.instruments.Pencil;
 
 /**

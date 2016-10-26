@@ -11,8 +11,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.inject.AbstractModule;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
-import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeTextCustomiser;

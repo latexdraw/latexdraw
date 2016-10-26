@@ -26,7 +26,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.actions.shape.SelectShapes;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.view.jfx.ViewShape;
 
 /**

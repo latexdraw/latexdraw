@@ -2,13 +2,13 @@ package test.glib.models;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 import org.junit.Before;
 import org.junit.Test;

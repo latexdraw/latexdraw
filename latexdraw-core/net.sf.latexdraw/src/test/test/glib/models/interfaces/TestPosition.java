@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.Position;
+import net.sf.latexdraw.models.interfaces.shape.Position;
 
 public class TestPosition {
 

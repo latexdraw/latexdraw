@@ -2,8 +2,8 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import scala.util.parsing.combinator.syntactical.TokenParsers
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.models.interfaces.shape.IGroup
+import net.sf.latexdraw.models.interfaces.shape.IShape
 
 /**
  * Defines an interface for a parser parsing basic PST expressions.<br>

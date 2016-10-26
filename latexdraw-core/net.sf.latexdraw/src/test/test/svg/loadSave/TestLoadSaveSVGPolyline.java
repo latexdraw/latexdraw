@@ -1,6 +1,6 @@
 package test.svg.loadSave;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.models.ShapeFactory;
 
 import org.junit.Before;
 

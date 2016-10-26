@@ -1,8 +1,8 @@
 package test.glib.models;
 
 import static org.junit.Assert.assertNotNull;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 
 import org.junit.Before;
 import org.junit.Test;

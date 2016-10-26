@@ -1,6 +1,6 @@
 package test.glib.models.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape;
+import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 
 import org.junit.Test;
 

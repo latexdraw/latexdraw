@@ -9,9 +9,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.*;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.*;
+import net.sf.latexdraw.view.latex.DviPsColors;
 
 public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Test

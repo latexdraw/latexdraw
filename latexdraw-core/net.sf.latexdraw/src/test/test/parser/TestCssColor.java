@@ -3,7 +3,7 @@ package test.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 
 import org.junit.Test;

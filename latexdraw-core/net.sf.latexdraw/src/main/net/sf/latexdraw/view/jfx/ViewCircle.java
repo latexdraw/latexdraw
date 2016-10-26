@@ -14,8 +14,8 @@ package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Ellipse;
-import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**

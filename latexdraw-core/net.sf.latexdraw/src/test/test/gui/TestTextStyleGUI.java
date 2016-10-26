@@ -4,7 +4,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
-import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.instruments.ShapeTextCustomiser;
 import org.junit.Before;
 import org.junit.Test;

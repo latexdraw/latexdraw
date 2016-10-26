@@ -21,15 +21,17 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
-import net.sf.latexdraw.glib.views.ViewsSynchroniserHandler;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.view.ViewsSynchroniserHandler;
+import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.Page;
@@ -132,6 +134,18 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		sq.setFillingStyle(FillingStyle.PLAIN);
 		sq.setFillingCol(DviPsColors.RED);
 		getDrawing().addShape(sq);
+
+		IEllipse ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(400, 300), ShapeFactory.createPoint(450, 400));
+		ell.setFillingStyle(FillingStyle.PLAIN);
+		ell.setFillingCol(DviPsColors.RED);
+		ell.setHasDbleBord(true);
+		getDrawing().addShape(ell);
+
+		ICircle cir = ShapeFactory.createCircle(ShapeFactory.createPoint(200, 600), 100);
+		cir.setFillingStyle(FillingStyle.PLAIN);
+		cir.setFillingCol(DviPsColors.RED);
+		cir.setHasDbleBord(true);
+		getDrawing().addShape(cir);
 
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);

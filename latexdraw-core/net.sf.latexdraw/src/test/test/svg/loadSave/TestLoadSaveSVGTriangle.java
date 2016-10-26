@@ -1,7 +1,7 @@
 package test.svg.loadSave;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 
 import org.junit.Before;
 

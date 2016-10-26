@@ -12,10 +12,10 @@ package net.sf.latexdraw;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.glib.views.ViewsSynchroniserHandler;
-import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
-import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.view.ViewsSynchroniserHandler;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.instruments.AboutController;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.instruments.CodeInserter;

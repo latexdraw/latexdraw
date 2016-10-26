@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 
 public class TestPlotStyle {
 	@Test

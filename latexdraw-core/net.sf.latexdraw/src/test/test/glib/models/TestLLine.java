@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.models.ShapeFactory;
 import test.glib.models.interfaces.TestILine;
 
 public class TestLLine extends TestILine {

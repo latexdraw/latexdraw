@@ -10,10 +10,10 @@ import java.lang.reflect.Field;
 
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.*;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
+import net.sf.latexdraw.models.interfaces.shape.*;
+import net.sf.latexdraw.view.latex.DviPsColors;
 
 import org.junit.Before;
 import org.junit.Test;

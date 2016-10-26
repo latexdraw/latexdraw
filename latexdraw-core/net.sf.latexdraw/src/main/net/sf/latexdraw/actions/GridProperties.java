@@ -12,7 +12,7 @@
  */
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.glib.views.GridStyle;
+import net.sf.latexdraw.view.GridStyle;
 
 /**
  * The different properties of the magnetic grid that can be modified.

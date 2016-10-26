@@ -1,7 +1,7 @@
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.glib.views.GridStyle;
-import net.sf.latexdraw.glib.views.MagneticGrid;
+import net.sf.latexdraw.view.GridStyle;
+import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.action.library.ModifyValue;

@@ -1,17 +1,14 @@
 package net.sf.latexdraw.actions.shape
 
+import java.util.{ArrayList, List}
+
+import net.sf.latexdraw.actions.{Modifying, ShapeAction}
+import net.sf.latexdraw.lang.LangTool
+import net.sf.latexdraw.models.ShapeFactory
+import net.sf.latexdraw.models.interfaces.shape.{IGroup, IPoint}
+import net.sf.latexdraw.view.MagneticGrid
 import org.malai.action.Action
 import org.malai.undo.Undoable
-import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.views.MagneticGrid
-import net.sf.latexdraw.lang.LangTool
-import net.sf.latexdraw.glib.views.MagneticGrid
-import java.util.List
-import java.util.ArrayList
 
 /**
  * This action updates the given shapes to magnetic grid if activated.<br>
