@@ -14,6 +14,8 @@ package net.sf.latexdraw.view.jfx;
 
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
@@ -44,15 +46,15 @@ public final class ViewFactory {
 		// if(shape instanceof IGroup) return new LGroupView((IGroup)shape);
 		// if(shape instanceof IPlot) return new LPlotView((IPlot)shape);
 		if(shape instanceof ISquare) return Optional.of(new ViewSquare((ISquare) shape));
-		if(shape instanceof IRectangle) return Optional.of(new ViewRectangle2((IRectangle) shape));
+		if(shape instanceof IRectangle) return Optional.of(new ViewRectangle((IRectangle) shape));
 		// if(shape instanceof IText) return new LTextView((IText)shape);
 		// if(shape instanceof ICircleArc) return new LCircleArcView((ICircleArc)shape);
 		if(shape instanceof ICircle) return Optional.of(new ViewCircle((ICircle) shape));
 		if(shape instanceof IEllipse) return Optional.of(new ViewEllipse((IEllipse) shape));
 		// if(shape instanceof ITriangle) return new LTriangleView((ITriangle)shape);
 		// if(shape instanceof IRhombus) return new LRhombusView((IRhombus)shape);
-		// if(shape instanceof IPolyline) return new LPolylineView((IPolyline)shape);
-		// if(shape instanceof IPolygon) return new LPolygonView((IPolygon)shape);
+		 if(shape instanceof IPolyline) return Optional.of(new ViewPolyline((IPolyline)shape));
+		 if(shape instanceof IPolygon) return Optional.of(new ViewPolygon((IPolygon)shape));
 		// if(shape instanceof IBezierCurve) return new LBezierCurveView((IBezierCurve)shape);
 		// if(shape instanceof IAxes) return new LAxesView((IAxes)shape);
 		// if(shape instanceof IGrid) return new LGridView((IGrid)shape);

@@ -12,9 +12,8 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import javafx.scene.shape.ClosePath;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
+import javafx.beans.binding.Bindings;
+import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import org.eclipse.jdt.annotation.NonNull;
@@ -22,16 +21,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * The JFX shape view for rectangles.
  */
-public class ViewRectangle extends ViewPathShape<IRectangle> {
-	/** The top-left path element. */
-	final MoveTo moveTL;
-	/** The top-right path element. */
-	final LineTo lineTR;
-	/** The bottom-right path element. */
-	final LineTo lineBR;
-	/** The bottom-left path element. */
-	final LineTo lineBL;
-
+public class ViewRectangle extends ViewSingleShape<IRectangle, Rectangle> {
 	/**
 	 * Creates the rectangle view.
 	 * @param sh The model.
@@ -39,48 +29,26 @@ public class ViewRectangle extends ViewPathShape<IRectangle> {
 	public ViewRectangle(final @NonNull IRectangle sh) {
 		super(sh);
 
-		moveTL = new MoveTo();
-		lineTR = new LineTo();
-		lineBR = new LineTo();
-		lineBL = new LineTo();
+		final IPoint tlp = model.getPtAt(0);
+		final IPoint trp = model.getPtAt(1);
+		final IPoint blp = model.getPtAt(3);
 
-		border.getElements().add(moveTL);
-		border.getElements().add(lineTR);
-		border.getElements().add(lineBR);
-		border.getElements().add(lineBL);
-		border.getElements().add(new ClosePath());
+		border.xProperty().bind(tlp.xProperty());
+		border.yProperty().bind(tlp.yProperty());
+		border.widthProperty().bind(Bindings.createDoubleBinding(model::getWidth, tlp.xProperty(), trp.xProperty()));
+		border.heightProperty().bind(Bindings.createDoubleBinding(model::getHeight, tlp.yProperty(), blp.yProperty()));
+	}
 
-		IPoint pt = sh.getPtAt(0);
-		moveTL.xProperty().bind(pt.xProperty());
-		moveTL.yProperty().bind(pt.yProperty());
-
-		pt = sh.getPtAt(1);
-		lineTR.xProperty().bind(pt.xProperty());
-		lineTR.yProperty().bind(pt.yProperty());
-
-		pt = sh.getPtAt(2);
-		lineBR.xProperty().bind(pt.xProperty());
-		lineBR.yProperty().bind(pt.yProperty());
-
-		pt = sh.getPtAt(3);
-		lineBL.xProperty().bind(pt.xProperty());
-		lineBL.yProperty().bind(pt.yProperty());
+	@Override
+	protected Rectangle createJFXShape() {
+		return new Rectangle();
 	}
 
 	@Override
 	public void flush() {
-		moveTL.xProperty().unbind();
-		moveTL.yProperty().unbind();
-
-		lineTR.xProperty().unbind();
-		lineTR.yProperty().unbind();
-
-		lineBR.xProperty().unbind();
-		lineBR.yProperty().unbind();
-
-		lineBL.xProperty().unbind();
-		lineBL.yProperty().unbind();
-
-		super.flush();
+		border.xProperty().unbind();
+		border.yProperty().unbind();
+		border.widthProperty().unbind();
+		border.heightProperty().unbind();
 	}
 }
