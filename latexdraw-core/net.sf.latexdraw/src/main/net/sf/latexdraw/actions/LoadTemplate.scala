@@ -41,7 +41,7 @@ private var insertedShapes:IShape = _
 
   override def getUndoName = "template added"
 
-  override def canDo = drawing.isDefined
+  override def canDo = drawing.isPresent
 
   override def isRegisterable = true
 

@@ -1,15 +1,12 @@
 package net.sf.latexdraw.actions.shape
 
-import org.malai.action.Action
-import org.malai.undo.Undoable
-import net.sf.latexdraw.actions.DrawingAction
-import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.actions.ShapeAction
+import net.sf.latexdraw.actions.{DrawingAction, Modifying, ShapeAction}
+import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.models.GLibUtilities
 import net.sf.latexdraw.models.interfaces.shape.IGroup
 import net.sf.latexdraw.util.LNumber
-import net.sf.latexdraw.models.GLibUtilities
-import net.sf.latexdraw.lang.LangTool
+import org.malai.action.Action
+import org.malai.undo.Undoable
 
 /**
  * This action translates shapes.<br>
@@ -61,7 +58,7 @@ class TranslateShapes extends Action with ShapeAction[IGroup] with DrawingAction
 	}
 
 
-	override def canDo =  _drawing.isDefined && _shape.isDefined && !_shape.get.isEmpty && GLibUtilities.isValidPoint(_tx, _ty)
+	override def canDo =  _drawing.isPresent && _shape.isPresent && !_shape.get.isEmpty && GLibUtilities.isValidPoint(_tx, _ty)
 
 
 	override def undo() {

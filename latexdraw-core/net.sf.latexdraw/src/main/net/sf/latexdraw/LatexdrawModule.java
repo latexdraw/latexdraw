@@ -13,6 +13,7 @@ package net.sf.latexdraw;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
@@ -122,5 +123,10 @@ class LatexdrawModule extends AbstractModule {
 	@Provides
 	LaTeXGenerator provideLaTeXGenerator(final PSTCodeGenerator gen) {
 		return gen;
+	}
+
+	@Provides
+	MagneticGrid provideMagneticGrid(final Canvas canvas) {
+		return canvas.getMagneticGrid();
 	}
 }

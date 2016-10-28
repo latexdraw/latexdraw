@@ -49,5 +49,5 @@ class SelectShapes extends Action with ShapesAction with DrawingAction with Modi
 	override def cancelledBy(action : Action) = action.isInstanceOf[SelectShapes] || action.isInstanceOf[CutShapes] || action.isInstanceOf[DeleteShapes]
 
 
-	def canDo = _drawing.isDefined
+	def canDo = _drawing.isPresent
 }

@@ -44,7 +44,7 @@ class DeleteShapes extends Action with ShapesAction with DrawingAction with Undo
 		dr.setModified(true)
 	}
 
-	override def canDo = _drawing.isDefined && !_shapes.isEmpty
+	override def canDo = _drawing.isPresent && !_shapes.isEmpty
 
 	override def undo() {
 		val dr = _drawing.get

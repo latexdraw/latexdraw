@@ -68,7 +68,7 @@ class DistributeShapes extends Action with ShapeAction[IGroup] with Undoable wit
 	}
 
 
-	override def canDo = _shape.isDefined && !_shape.get.isEmpty && _border!=null && _distribution!=null
+	override def canDo = _shape.isPresent && !_shape.get.isEmpty && _border!=null && _distribution!=null
 
 
 	override def undo() {

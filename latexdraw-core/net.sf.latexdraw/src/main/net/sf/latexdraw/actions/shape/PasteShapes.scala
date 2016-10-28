@@ -38,7 +38,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 
 	var pastedShapes : List[IShape] = Nil
 
-	override def canDo = _copy!=null && _drawing.isDefined //&& _grid!=null FIXME
+	override def canDo = _copy!=null && _drawing.isPresent //&& _grid!=null FIXME
 
 
 	override def isRegisterable = true

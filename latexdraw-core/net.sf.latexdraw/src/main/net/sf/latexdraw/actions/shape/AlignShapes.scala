@@ -218,7 +218,7 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 	}
 
 
-	override def canDo = _shape.isDefined && !_shape.get.isEmpty && _border!=null && _alignment!=null
+	override def canDo = _shape.isPresent && !_shape.get.isEmpty && _border!=null && _alignment!=null
 
 
 	override def undo() {

@@ -86,7 +86,7 @@ class MoveBackForegroundShapes extends Action with ShapeAction[IGroup] with Draw
 	}
 
 
-	override def canDo = _shape.isDefined && !_shape.get.isEmpty && _drawing.isDefined
+	override def canDo = _shape.isPresent && !_shape.get.isEmpty && _drawing.isPresent
 
 	override def undo() {
 		val drawing = _drawing.get

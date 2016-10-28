@@ -56,7 +56,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 
 	override def hadEffect = isDone && (!LNumber.equalsDouble(oldWidth, bound.getWidth) || !LNumber.equalsDouble(oldHeight, bound.getHeight))
 
-	override def canDo = _drawing.isDefined && _shape.isDefined && _refPosition.isDefined && isValidScales
+	override def canDo = _drawing.isPresent && _shape.isPresent && _refPosition.isDefined && isValidScales
 
 
 	private def isValidScales = {

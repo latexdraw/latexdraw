@@ -40,7 +40,7 @@ class MirrorShapes extends Action with ShapeAction[IShape] with Undoable with Mo
 	}
 
 
-	override def canDo = _shape.isDefined
+	override def canDo = _shape.isPresent
 
 
 	override def undo() {

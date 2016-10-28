@@ -37,7 +37,7 @@ class JoinShapes extends Action with ShapesAction with DrawingAction with Undoab
 	}
 
 
-	override def canDo = !_shapes.isEmpty && _drawing.isDefined
+	override def canDo = !_shapes.isEmpty && _drawing.isPresent
 
 
 	private def joinShapes() {

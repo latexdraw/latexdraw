@@ -1,14 +1,11 @@
 package net.sf.latexdraw.actions.shape
 
+import net.sf.latexdraw.actions.{Modifying, ShapeAction}
+import net.sf.latexdraw.lang.LangTool
+import net.sf.latexdraw.models.GLibUtilities
+import net.sf.latexdraw.models.interfaces.shape.{IPoint, IShape}
 import org.malai.action.Action
 import org.malai.undo.Undoable
-import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.models.GLibUtilities
-import net.sf.latexdraw.models.interfaces.shape.IPoint
-import net.sf.latexdraw.models.interfaces.shape.IShape
-import net.sf.latexdraw.models.GLibUtilities
-import net.sf.latexdraw.lang.LangTool
 
 /**
  * This action increments to rotation angle of shapes.<br>
@@ -39,7 +36,7 @@ class RotateShapes extends Action with ShapeAction[IShape] with Undoable with Mo
 	var lastRotationAngle : Double = 0.0
 
 
-	override def canDo = _shape.isDefined && _gc.isDefined && GLibUtilities.isValidCoordinate(_rotationAngle) &&
+	override def canDo = _shape.isPresent && _gc.isDefined && GLibUtilities.isValidCoordinate(_rotationAngle) &&
 							GLibUtilities.isValidPoint(_gc.get)
 
 

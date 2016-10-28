@@ -29,7 +29,7 @@ import net.sf.latexdraw.lang.LangTool
  */
 class SeparateShapes extends Action with ShapeAction[IGroup] with DrawingAction with Modifying with Undoable {
 
-	override def canDo = _drawing.isDefined && _shape.isDefined && !_shape.get.isEmpty
+	override def canDo = _drawing.isPresent && _shape.isPresent && !_shape.get.isEmpty
 
 
 	override protected def doActionBody() {

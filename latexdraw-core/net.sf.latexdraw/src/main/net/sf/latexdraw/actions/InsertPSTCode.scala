@@ -81,15 +81,15 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 		}
 	}
 
-	def setStatusBar(value:JLabel) { _statusBar = if(value!=null) Some(value) else None }
+	def setStatusBar(value:JLabel) { _statusBar = Option(value) }
 
-	def setCode(value:String) { _code = if(value!=null) Some(value) else None }
+	def setCode(value:String) { _code = Option(value) }
 
 	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.4")
 
-	override def canDo = _code.isDefined && _drawing.isDefined
+	override def canDo = _code.isDefined && _drawing.isPresent
 
 	override def hadEffect() = isDone && _shapes.isDefined
 
-	override def isRegisterable = hadEffect
+	override def isRegisterable = hadEffect()
 }

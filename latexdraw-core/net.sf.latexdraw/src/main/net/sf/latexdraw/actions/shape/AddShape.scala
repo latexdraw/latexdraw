@@ -39,7 +39,7 @@ class AddShape extends Action with ShapeAction[IShape] with DrawingAction with U
 	override def getUndoName = LangTool.INSTANCE.getStringOthers("UndoRedoManager.create") //$NON-NLS-1$
 
 	override def redo() {
-		doActionBody
+		doActionBody()
 	}
 
 	override def undo() {
@@ -47,5 +47,5 @@ class AddShape extends Action with ShapeAction[IShape] with DrawingAction with U
 		_drawing.get.setModified(true)
 	}
 
-	override def canDo = _drawing.isDefined && _shape.isDefined
+	override def canDo = _drawing.isPresent && _shape.isPresent
 }

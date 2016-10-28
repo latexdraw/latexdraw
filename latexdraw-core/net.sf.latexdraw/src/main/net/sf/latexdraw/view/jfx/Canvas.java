@@ -22,19 +22,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.ISquare;
-import net.sf.latexdraw.view.ViewsSynchroniserHandler;
-import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.Page;
+import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.action.Action;
 import org.malai.action.ActionHandler;
@@ -89,7 +84,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/** Defined whether the canvas has been modified. */
 	protected boolean modified;
 
-	/** The temporary view that the canvas may contain. */
+//	/** The temporary view that the canvas may contain. */
 	// protected final IUnary<IViewShape> tempView;
 
 	/**
@@ -122,36 +117,24 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		defineShapeListToViewBinding();
 		configureSelection();
 
-		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(150, 120), 200, 60);
-		rec.setThickness(10.0);
-		rec.setGradColStart(DviPsColors.APRICOT);
-		rec.setGradColEnd(DviPsColors.BLUEVIOLET);
-		rec.setFillingStyle(FillingStyle.GRAD);
-		rec.setFillingCol(DviPsColors.RED);
-		getDrawing().addShape(rec);
-
-		ISquare sq = ShapeFactory.createSquare(ShapeFactory.createPoint(400, 300), 200);
-		sq.setFillingStyle(FillingStyle.PLAIN);
-		sq.setFillingCol(DviPsColors.RED);
-		getDrawing().addShape(sq);
-
-		IEllipse ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(400, 300), ShapeFactory.createPoint(450, 400));
-		ell.setFillingStyle(FillingStyle.PLAIN);
-		ell.setFillingCol(DviPsColors.RED);
-		ell.setHasDbleBord(true);
-		getDrawing().addShape(ell);
-
-		ICircle cir = ShapeFactory.createCircle(ShapeFactory.createPoint(200, 600), 100);
-		cir.setFillingStyle(FillingStyle.PLAIN);
-		cir.setFillingCol(DviPsColors.RED);
-		cir.setHasDbleBord(true);
-		getDrawing().addShape(cir);
+//		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(150, 120), 200, 60);
+//		rec.setThickness(10.0);
+//		rec.setGradColStart(DviPsColors.APRICOT);
+//		rec.setGradColEnd(DviPsColors.BLUEVIOLET);
+//		rec.setFillingStyle(FillingStyle.GRAD);
+//		rec.setFillingCol(DviPsColors.RED);
+//		getDrawing().addShape(rec);
 
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
 
 		shapesPane.setFocusTraversable(true);
 		shapesPane.addEventHandler(MouseEvent.ANY, evt -> shapesPane.requestFocus());
+	}
+
+
+	public MagneticGrid getMagneticGrid() {
+		return magneticGrid;
 	}
 
 	private void configureSelection() {
