@@ -8,8 +8,10 @@ import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
+import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.CheckboxInteractor;
@@ -47,6 +49,11 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	/** The Pencil instrument. */
 	@Inject protected Pencil pencil;
 
+	@Inject protected Canvas canvas;
+
+	@Inject protected IDrawing drawing;
+
+
 	/**
 	 * Creates the instrument.
 	 */
@@ -78,7 +85,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		if(pencil.isActivated())
 			update(ShapeFactory.createGroup(pencil.createShapeInstance()));
 		else
-			update(hand.getCanvas().getDrawing().getSelection());
+			update(drawing.getSelection());
 	}
 
 	/**
@@ -101,22 +108,6 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	public void setActivated(final boolean act) {
 		super.setActivated(act);
 		setWidgetsVisible(act);
-	}
-
-	/**
-	 * @return The Hand instrument.
-	 * @since 3.0
-	 */
-	public Hand getHand() {
-		return hand;
-	}
-
-	/**
-	 * @return The Pencil instrument.
-	 * @since 3.0
-	 */
-	public Pencil getPencil() {
-		return pencil;
 	}
 
 	static class List4Pencil extends ComboBoxInteractor<ModifyPencilParameter, ShapePropertyCustomiser> {
@@ -150,7 +141,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 		@Override
 		public void initAction() {
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
 			action.setProperty(prop);
 			action.setValue(interaction.getWidget().getSelectionModel().getSelectedItem());
 		}
@@ -206,7 +197,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		@Override
 		public void initAction() {
 			action.setProperty(prop);
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
 			if(angle)
 				action.setValue(Math.toRadians((Double)interaction.getWidget().getValue()));
 			else
@@ -250,7 +241,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 		@Override
 		public void initAction() {
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
 			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
 			action.setProperty(prop);
 		}
@@ -298,7 +289,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		@Override
 		public void initAction() {
 			action.setProperty(prop);
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
 			action.setValue(interaction.getWidget().isSelected());
 		}
 	}

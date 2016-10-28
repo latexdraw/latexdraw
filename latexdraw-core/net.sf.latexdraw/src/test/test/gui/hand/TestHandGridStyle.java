@@ -68,8 +68,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		Color col = colourLabels.getValue();
 		pickcolourLabels.execute();
-		assertEquals(colourLabels.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getGridLabelsColour().toJFX());
-		assertEquals(colourLabels.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getGridLabelsColour().toJFX());
+		assertEquals(colourLabels.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getGridLabelsColour().toJFX());
+		assertEquals(colourLabels.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getGridLabelsColour().toJFX());
 		assertNotEquals(col, colourLabels.getValue());
 	}
 
@@ -78,8 +78,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		Color col = colourSubGrid.getValue();
 		pickcolourSubGrid.execute();
-		assertEquals(colourSubGrid.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getSubGridColour().toJFX());
-		assertEquals(colourSubGrid.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getSubGridColour().toJFX());
+		assertEquals(colourSubGrid.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getSubGridColour().toJFX());
+		assertEquals(colourSubGrid.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getSubGridColour().toJFX());
 		assertNotEquals(col, colourSubGrid.getValue());
 	}
 
@@ -88,8 +88,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		double val = gridWidth.getValue();
 		incrementgridWidth.execute();
-		assertEquals(gridWidth.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getGridWidth(), 0.0001);
-		assertEquals(gridWidth.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getGridWidth(), 0.0001);
+		assertEquals(gridWidth.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getGridWidth(), 0.0001);
+		assertEquals(gridWidth.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getGridWidth(), 0.0001);
 		assertNotEquals(val, gridWidth.getValue(), 0.0001);
 	}
 
@@ -98,8 +98,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		double val = subGridWidth.getValue();
 		incrementsubGridWidth.execute();
-		assertEquals(subGridWidth.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getSubGridWidth(), 0.0001);
-		assertEquals(subGridWidth.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getSubGridWidth(), 0.0001);
+		assertEquals(subGridWidth.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getSubGridWidth(), 0.0001);
+		assertEquals(subGridWidth.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getSubGridWidth(), 0.0001);
 		assertNotEquals(val, subGridWidth.getValue(), 0.0001);
 	}
 
@@ -108,8 +108,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		double val = gridDots.getValue();
 		incrementgridDots.execute();
-		assertEquals((int)gridDots.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getGridDots());
-		assertEquals((int)gridDots.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getGridDots());
+		assertEquals((int)gridDots.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getGridDots());
+		assertEquals((int)gridDots.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getGridDots());
 		assertNotEquals(val, gridDots.getValue(), 0.0001);
 	}
 
@@ -118,8 +118,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		double val = subGridDots.getValue();
 		incrementsubGridDots.execute();
-		assertEquals((int)subGridDots.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getSubGridDots());
-		assertEquals((int)subGridDots.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getSubGridDots());
+		assertEquals((int)subGridDots.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getSubGridDots());
+		assertEquals((int)subGridDots.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getSubGridDots());
 		assertNotEquals(val, subGridDots.getValue(), 0.0001);
 	}
 
@@ -128,8 +128,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		double val = subGridDiv.getValue();
 		incrementsubGridDiv.execute();
-		assertEquals((int)subGridDiv.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getSubGridDiv());
-		assertEquals((int)subGridDiv.getValue(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getSubGridDiv());
+		assertEquals((int)subGridDiv.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getSubGridDiv());
+		assertEquals((int)subGridDiv.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getSubGridDiv());
 		assertNotEquals(val, subGridDiv.getValue(), 0.0001);
 	}
 
@@ -138,8 +138,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		boolean sel = labelsYInvertedCB.isSelected();
 		clicklabelsYInvertedCB.execute();
-		assertEquals(labelsYInvertedCB.isSelected(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).isYLabelWest());
-		assertEquals(labelsYInvertedCB.isSelected(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).isYLabelWest());
+		assertEquals(labelsYInvertedCB.isSelected(), ((IGrid)drawing.getSelection().getShapeAt(1)).isYLabelWest());
+		assertEquals(labelsYInvertedCB.isSelected(), ((IGrid)drawing.getSelection().getShapeAt(2)).isYLabelWest());
 		assertNotEquals(sel, labelsYInvertedCB.isSelected());
 	}
 
@@ -148,8 +148,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		boolean sel = labelsXInvertedCB.isSelected();
 		clicklabelsXInvertedCB.execute();
-		assertEquals(labelsXInvertedCB.isSelected(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).isXLabelSouth());
-		assertEquals(labelsXInvertedCB.isSelected(), ((IGrid)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).isXLabelSouth());
+		assertEquals(labelsXInvertedCB.isSelected(), ((IGrid)drawing.getSelection().getShapeAt(1)).isXLabelSouth());
+		assertEquals(labelsXInvertedCB.isSelected(), ((IGrid)drawing.getSelection().getShapeAt(2)).isXLabelSouth());
 		assertNotEquals(sel, labelsXInvertedCB.isSelected());
 	}
 }

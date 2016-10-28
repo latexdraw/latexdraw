@@ -1,26 +1,23 @@
 package test.gui.hand;
 
+import com.google.inject.AbstractModule;
+import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.ShapeArcCustomiser;
+import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
+import net.sf.latexdraw.models.interfaces.shape.IArc;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+import test.gui.CompositeGUIVoidCommand;
+import test.gui.ShapePropModule;
+import test.gui.TestArcStyleGUI;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-
-import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
-import net.sf.latexdraw.models.interfaces.shape.IArc;
-import net.sf.latexdraw.instruments.Hand;
-import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.ShapeArcCustomiser;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import test.gui.CompositeGUIVoidCommand;
-import test.gui.ShapePropModule;
-import test.gui.TestArcStyleGUI;
-
-import com.google.inject.AbstractModule;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestHandArcStyle extends TestArcStyleGUI {
@@ -67,22 +64,22 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 	@Test
 	public void testArcTypeChordSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectWedge, selectChord).execute();
-		assertEquals(ArcStyle.CHORD, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
-		assertEquals(ArcStyle.CHORD, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
+		assertEquals(ArcStyle.CHORD, ((IArc)drawing.getSelection().getShapeAt(0)).getArcStyle());
+		assertEquals(ArcStyle.CHORD, ((IArc)drawing.getSelection().getShapeAt(2)).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeArcSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectArc).execute();
-		assertEquals(ArcStyle.ARC, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
-		assertEquals(ArcStyle.ARC, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
+		assertEquals(ArcStyle.ARC, ((IArc)drawing.getSelection().getShapeAt(0)).getArcStyle());
+		assertEquals(ArcStyle.ARC, ((IArc)drawing.getSelection().getShapeAt(2)).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeWedgeSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectWedge).execute();
-		assertEquals(ArcStyle.WEDGE, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
-		assertEquals(ArcStyle.WEDGE, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
+		assertEquals(ArcStyle.WEDGE, ((IArc)drawing.getSelection().getShapeAt(0)).getArcStyle());
+		assertEquals(ArcStyle.WEDGE, ((IArc)drawing.getSelection().getShapeAt(2)).getArcStyle());
 	}
 
 	@Test
@@ -90,8 +87,8 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns).execute();
 		double angle = endAngleS.getValue();
 		incrementEndAngle.execute();
-		assertEquals(endAngleS.getValue(), Math.toDegrees(((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getAngleEnd()), 0.0001);
-		assertEquals(endAngleS.getValue(), Math.toDegrees(((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getAngleEnd()), 0.0001);
+		assertEquals(endAngleS.getValue(), Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(0)).getAngleEnd()), 0.0001);
+		assertEquals(endAngleS.getValue(), Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(2)).getAngleEnd()), 0.0001);
 		assertNotEquals(angle, endAngleS.getValue(), 0.0001);
 	}
 
@@ -100,8 +97,8 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns).execute();
 		double angle = startAngleS.getValue();
 		incrementStartAngle.execute();
-		assertEquals(startAngleS.getValue(), Math.toDegrees(((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getAngleStart()), 0.0001);
-		assertEquals(startAngleS.getValue(), Math.toDegrees(((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getAngleStart()), 0.0001);
+		assertEquals(startAngleS.getValue(), Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(0)).getAngleStart()), 0.0001);
+		assertEquals(startAngleS.getValue(), Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(2)).getAngleStart()), 0.0001);
 		assertNotEquals(angle, startAngleS.getValue(), 0.0001);
 	}
 }

@@ -1,24 +1,22 @@
 package test.gui.hand;
 
+import com.google.inject.AbstractModule;
+import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.ShapeStdGridCustomiser;
+import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+import test.gui.CompositeGUIVoidCommand;
+import test.gui.ShapePropModule;
+import test.gui.TestStdGridStyleGUI;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
-import net.sf.latexdraw.instruments.Hand;
-import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.ShapeStdGridCustomiser;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import test.gui.CompositeGUIVoidCommand;
-import test.gui.ShapePropModule;
-import test.gui.TestStdGridStyleGUI;
-
-import com.google.inject.AbstractModule;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestHandStdGridStyle extends TestStdGridStyleGUI {
@@ -67,8 +65,8 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns).execute();
 		double val = labelsSizeS.getValue();
 		incrementlabelsSizeS.execute();
-		assertEquals(labelsSizeS.getValue(), ((IStdGridProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getLabelsSize(), 0.0001);
-		assertEquals(labelsSizeS.getValue(), ((IStdGridProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getLabelsSize(), 0.0001);
+		assertEquals(labelsSizeS.getValue(), ((IStdGridProp)drawing.getSelection().getShapeAt(1)).getLabelsSize(), 0.0001);
+		assertEquals(labelsSizeS.getValue(), ((IStdGridProp)drawing.getSelection().getShapeAt(2)).getLabelsSize(), 0.0001);
 		assertNotEquals(val, labelsSizeS.getValue(), 0.0001);
 	}
 
@@ -77,8 +75,8 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns).execute();
 		double val = xEndS.getValue();
 		incrementxEndS.execute();
-		assertEquals(xEndS.getValue(), ((IStdGridProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getGridEndX(), 0.0001);
-		assertEquals(xEndS.getValue(), ((IStdGridProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getGridEndX(), 0.0001);
+		assertEquals(xEndS.getValue(), ((IStdGridProp)drawing.getSelection().getShapeAt(1)).getGridEndX(), 0.0001);
+		assertEquals(xEndS.getValue(), ((IStdGridProp)drawing.getSelection().getShapeAt(2)).getGridEndX(), 0.0001);
 		assertNotEquals(val, xEndS.getValue(), 0.0001);
 	}
 
@@ -87,8 +85,8 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns).execute();
 		double val = yEndS.getValue();
 		incrementyEndS.execute();
-		assertEquals(yEndS.getValue(), ((IStdGridProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getGridEndY(), 0.0001);
-		assertEquals(yEndS.getValue(), ((IStdGridProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getGridEndY(), 0.0001);
+		assertEquals(yEndS.getValue(), ((IStdGridProp)drawing.getSelection().getShapeAt(1)).getGridEndY(), 0.0001);
+		assertEquals(yEndS.getValue(), ((IStdGridProp)drawing.getSelection().getShapeAt(2)).getGridEndY(), 0.0001);
 		assertNotEquals(val, yEndS.getValue(), 0.0001);
 	}
 
@@ -97,8 +95,8 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns).execute();
 		double val = xStartS.getValue();
 		decrementxStartS.execute();
-		assertEquals(xStartS.getValue(), ((IStdGridProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getGridStartX(), 0.0001);
-		assertEquals(xStartS.getValue(), ((IStdGridProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getGridStartX(), 0.0001);
+		assertEquals(xStartS.getValue(), ((IStdGridProp)drawing.getSelection().getShapeAt(1)).getGridStartX(), 0.0001);
+		assertEquals(xStartS.getValue(), ((IStdGridProp)drawing.getSelection().getShapeAt(2)).getGridStartX(), 0.0001);
 		assertNotEquals(val, xStartS.getValue(), 0.0001);
 	}
 
@@ -107,8 +105,8 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns).execute();
 		double val = yStartS.getValue();
 		decrementyStartS.execute();
-		assertEquals(yStartS.getValue(), ((IStdGridProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getGridStartY(), 0.0001);
-		assertEquals(yStartS.getValue(), ((IStdGridProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getGridStartY(), 0.0001);
+		assertEquals(yStartS.getValue(), ((IStdGridProp)drawing.getSelection().getShapeAt(1)).getGridStartY(), 0.0001);
+		assertEquals(yStartS.getValue(), ((IStdGridProp)drawing.getSelection().getShapeAt(2)).getGridStartY(), 0.0001);
 		assertNotEquals(val, yStartS.getValue(), 0.0001);
 	}
 }

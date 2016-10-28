@@ -193,7 +193,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 		@Override
 		public void initAction() {
 			action.setProperty(ShapeProperties.TEXT_POSITION);
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setGroup(instrument.drawing.getSelection().duplicateDeep(false));
 			action.setValue(map.get(interaction.getWidget()));
 		}
 

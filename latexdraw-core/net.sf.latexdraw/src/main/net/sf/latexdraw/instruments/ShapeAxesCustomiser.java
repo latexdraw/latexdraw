@@ -1,8 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -19,8 +16,10 @@ import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-
 import org.malai.javafx.instrument.library.SpinnerInteractor;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * This instrument modifies axes properties of shapes or the pencil.<br>
@@ -150,7 +149,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setGroup(instrument.drawing.getSelection().duplicateDeep(false));
 		}
 
 		@Override

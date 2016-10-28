@@ -1,24 +1,22 @@
 package test.gui.hand;
 
+import com.google.inject.AbstractModule;
+import javafx.scene.paint.Color;
+import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+import test.gui.CompositeGUIVoidCommand;
+import test.gui.ShapePropModule;
+import test.gui.TestDoubleLineStyleGUI;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import javafx.scene.paint.Color;
-import net.sf.latexdraw.instruments.Hand;
-import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import test.gui.CompositeGUIVoidCommand;
-import test.gui.ShapePropModule;
-import test.gui.TestDoubleLineStyleGUI;
-
-import com.google.inject.AbstractModule;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
@@ -83,8 +81,8 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddAxes, selectionAddRec, updateIns).execute();
 		boolean sel = dbleBoundCB.isSelected();
 		selectdbleLine.execute();
-		assertEquals(!sel, hand.getCanvas().getDrawing().getSelection().getShapeAt(0).hasDbleBord());
-		assertEquals(!sel, hand.getCanvas().getDrawing().getSelection().getShapeAt(2).hasDbleBord());
+		assertEquals(!sel, drawing.getSelection().getShapeAt(0).hasDbleBord());
+		assertEquals(!sel, drawing.getSelection().getShapeAt(2).hasDbleBord());
 		assertNotEquals(sel, dbleBoundCB.isSelected());
 	}
 
@@ -93,8 +91,8 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddAxes, selectionAddRec, selectdbleLine, updateIns).execute();
 		final double value = dbleSepField.getValue();
 		incrementDbleSep.execute();
-		assertEquals(dbleSepField.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getDbleBordSep(), 0.0001);
-		assertEquals(dbleSepField.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(2).getDbleBordSep(), 0.0001);
+		assertEquals(dbleSepField.getValue(), drawing.getSelection().getShapeAt(0).getDbleBordSep(), 0.0001);
+		assertEquals(dbleSepField.getValue(), drawing.getSelection().getShapeAt(2).getDbleBordSep(), 0.0001);
 		assertNotEquals(value, dbleSepField.getValue(), 0.0001);
 	}
 
@@ -103,8 +101,8 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddBezier, selectionAddRec, selectdbleLine, updateIns).execute();
 		Color col = dbleBoundColB.getValue();
 		pickDbleColour.execute();
-		assertEquals(dbleBoundColB.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getDbleBordCol().toJFX());
-		assertEquals(dbleBoundColB.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getDbleBordCol().toJFX());
+		assertEquals(dbleBoundColB.getValue(), drawing.getSelection().getShapeAt(0).getDbleBordCol().toJFX());
+		assertEquals(dbleBoundColB.getValue(), drawing.getSelection().getShapeAt(1).getDbleBordCol().toJFX());
 		assertNotEquals(col, dbleBoundColB.getValue());
 	}
 }

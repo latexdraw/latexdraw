@@ -1,28 +1,25 @@
 package test.gui.hand;
 
+import com.google.inject.AbstractModule;
+import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
+import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+import test.gui.CompositeGUIVoidCommand;
+import test.gui.ShapePropModule;
+import test.gui.TestAxesStyleGUI;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-
-import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
-import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
-import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-import net.sf.latexdraw.instruments.Hand;
-import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import test.gui.CompositeGUIVoidCommand;
-import test.gui.ShapePropModule;
-import test.gui.TestAxesStyleGUI;
-
-import com.google.inject.AbstractModule;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestHandAxeStyle extends TestAxesStyleGUI {
@@ -71,8 +68,8 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		boolean sel = showOrigin.isSelected();
 		selectShowOrigin.execute();
-		assertEquals(!sel, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).isShowOrigin());
-		assertEquals(!sel, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).isShowOrigin());
+		assertEquals(!sel, ((IAxesProp)drawing.getSelection().getShapeAt(0)).isShowOrigin());
+		assertEquals(!sel, ((IAxesProp)drawing.getSelection().getShapeAt(2)).isShowOrigin());
 	}
 
 	@Test
@@ -80,8 +77,8 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		double val = distLabelsY.getValue();
 		incrementDistLabelY.execute();
-		assertEquals(distLabelsY.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getDistLabelsY(), 0.0001);
-		assertEquals(distLabelsY.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getDistLabelsY(), 0.0001);
+		assertEquals(distLabelsY.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(0)).getDistLabelsY(), 0.0001);
+		assertEquals(distLabelsY.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(2)).getDistLabelsY(), 0.0001);
 		assertNotEquals(val, distLabelsY.getValue(), 0.0001);
 	}
 
@@ -90,8 +87,8 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		double val = distLabelsX.getValue();
 		incrementDistLabelX.execute();
-		assertEquals(distLabelsX.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getDistLabelsX(), 0.0001);
-		assertEquals(distLabelsX.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getDistLabelsX(), 0.0001);
+		assertEquals(distLabelsX.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(0)).getDistLabelsX(), 0.0001);
+		assertEquals(distLabelsX.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(2)).getDistLabelsX(), 0.0001);
 		assertNotEquals(val, distLabelsX.getValue(), 0.0001);
 	}
 
@@ -100,8 +97,8 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		double val = incrLabelY.getValue();
 		incrementLabelY.execute();
-		assertEquals(incrLabelY.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getIncrementY(), 0.0001);
-		assertEquals(incrLabelY.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getIncrementY(), 0.0001);
+		assertEquals(incrLabelY.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(0)).getIncrementY(), 0.0001);
+		assertEquals(incrLabelY.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(2)).getIncrementY(), 0.0001);
 		assertNotEquals(val, incrLabelY.getValue(), 0.0001);
 	}
 
@@ -110,8 +107,8 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		double val = incrLabelX.getValue();
 		incrementLabelX.execute();
-		assertEquals(incrLabelX.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getIncrementX(), 0.0001);
-		assertEquals(incrLabelX.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getIncrementX(), 0.0001);
+		assertEquals(incrLabelX.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(0)).getIncrementX(), 0.0001);
+		assertEquals(incrLabelX.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(2)).getIncrementX(), 0.0001);
 		assertNotEquals(val, incrLabelX.getValue(), 0.0001);
 	}
 
@@ -121,8 +118,8 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 		PlottingStyle style = showLabels.getSelectionModel().getSelectedItem();
 		selectPlotLabel.execute();
 		PlottingStyle newStyle = showLabels.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getLabelsDisplayed());
-		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getLabelsDisplayed());
+		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(0)).getLabelsDisplayed());
+		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(2)).getLabelsDisplayed());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -132,8 +129,8 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 		PlottingStyle style = showTicks.getSelectionModel().getSelectedItem();
 		selectPlotTicks.execute();
 		PlottingStyle newStyle = showTicks.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getTicksDisplayed());
-		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getTicksDisplayed());
+		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(0)).getTicksDisplayed());
+		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(2)).getTicksDisplayed());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -143,8 +140,8 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 		TicksStyle style = shapeTicks.getSelectionModel().getSelectedItem();
 		selectTicksStyle.execute();
 		TicksStyle newStyle = shapeTicks.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getTicksStyle());
-		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getTicksStyle());
+		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(0)).getTicksStyle());
+		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(2)).getTicksStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -154,8 +151,8 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 		AxesStyle style = shapeAxes.getSelectionModel().getSelectedItem();
 		selectAxeStyle.execute();
 		AxesStyle newStyle = shapeAxes.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getAxesStyle());
-		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getAxesStyle());
+		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(0)).getAxesStyle());
+		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(2)).getAxesStyle());
 		assertNotEquals(style, newStyle);
 	}
 }

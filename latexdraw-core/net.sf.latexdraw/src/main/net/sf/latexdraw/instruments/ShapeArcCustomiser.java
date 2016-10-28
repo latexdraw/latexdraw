@@ -142,7 +142,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initi
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setGroup(instrument.drawing.getSelection().duplicateDeep(false));
 		}
 
 		@Override

@@ -149,7 +149,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 		@Override
 		public void initAction() {
 			action.setProperty(prop);
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setGroup(instrument.drawing.getSelection().duplicateDeep(false));
 			if(prop == ShapeProperties.GRID_END)
 				action.setValue(ShapeFactory.createPoint(xEndS.getValue(), yEndS.getValue()));
 			else if(prop == ShapeProperties.GRID_START)

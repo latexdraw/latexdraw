@@ -26,6 +26,7 @@ import javafx.stage.StageStyle;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.Action;
 import org.malai.javafx.action.library.ActivateInactivateInstruments;
 import org.malai.javafx.instrument.JfxInstrument;
@@ -112,6 +113,8 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 	/** The instrument used to delete shapes. */
 	@Inject ShapeDeleter deleter;
+
+	@Inject Canvas canvas;
 
 	final Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
 
@@ -204,7 +207,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	@Override
 	public void onActionDone(final Action action) {
 		super.onActionDone(action);
-		hand.getCanvas().requestFocus();
+		canvas.requestFocus();
 	}
 
 	private static class ButtonPressed2DefineStylePencil extends ToggleButtonInteractor<ModifyPencilStyle, EditingSelector> {

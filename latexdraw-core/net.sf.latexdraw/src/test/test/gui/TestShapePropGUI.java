@@ -1,25 +1,27 @@
 package test.gui;
 
 import javafx.application.Platform;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.instruments.EditionChoice;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapePropertyCustomiser;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.junit.Before;
-import org.junit.Test;
 import org.testfx.util.WaitForAsyncUtils;
 import test.gui.robot.FxRobotColourPicker;
 import test.gui.robot.FxRobotListSelection;
 import test.gui.robot.FxRobotSpinner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extends TestLatexdrawGUI implements FxRobotColourPicker, FxRobotListSelection, FxRobotSpinner {
 	protected Pencil pencil;
 	protected Hand hand;
+	protected IDrawing drawing;
 	protected T ins;
 
 	protected final GUIVoidCommand pencilCreatesRec = () -> pencil.setCurrentChoice(EditionChoice.RECT);
@@ -70,56 +72,56 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 
 	protected final GUIVoidCommand selectionAddRec = () -> {
 		IShape sh = ShapeFactory.createRectangle();
-		hand.getCanvas().getDrawing().addShape(sh);
-		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+		drawing.addShape(sh);
+		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddArc = () -> {
 		IShape sh = ShapeFactory.createCircleArc();
-		hand.getCanvas().getDrawing().addShape(sh);
-		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+		drawing.addShape(sh);
+		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddDot = () -> {
 		IShape sh = ShapeFactory.createDot(ShapeFactory.createPoint());
-		hand.getCanvas().getDrawing().addShape(sh);
-		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+		drawing.addShape(sh);
+		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddAxes = () -> {
 		IShape sh = ShapeFactory.createAxes(ShapeFactory.createPoint());
-		hand.getCanvas().getDrawing().addShape(sh);
-		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+		drawing.addShape(sh);
+		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddBezier = () -> {
 		IShape sh = ShapeFactory.createBezierCurve();
-		hand.getCanvas().getDrawing().addShape(sh);
-		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+		drawing.addShape(sh);
+		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddFreehand = () -> {
 		IShape sh = ShapeFactory.createFreeHand();
-		hand.getCanvas().getDrawing().addShape(sh);
-		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+		drawing.addShape(sh);
+		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddGrid = () -> {
 		IShape sh = ShapeFactory.createGrid(ShapeFactory.createPoint());
-		hand.getCanvas().getDrawing().addShape(sh);
-		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+		drawing.addShape(sh);
+		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddText = () -> {
 		IShape sh = ShapeFactory.createText();
-		hand.getCanvas().getDrawing().addShape(sh);
-		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+		drawing.addShape(sh);
+		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddPlot = () -> {
 		IShape sh = ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 10, "x", false);
-		hand.getCanvas().getDrawing().addShape(sh);
-		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+		drawing.addShape(sh);
+		drawing.getSelection().addShape(sh);
 	};
 
 	@Override
@@ -128,15 +130,6 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 		super.setUp();
 		pencil = (Pencil)guiceFactory.call(Pencil.class);
 		hand = (Hand)guiceFactory.call(Hand.class);
-	}
-
-	@Test
-	public void testGetPencil() {
-		assertNotNull(ins.getPencil());
-	}
-
-	@Test
-	public void testGetHand() {
-		assertNotNull(ins.getHand());
+		drawing = (IDrawing) guiceFactory.call(IDrawing.class);
 	}
 }

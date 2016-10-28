@@ -1,26 +1,24 @@
 package test.gui.hand;
 
+import com.google.inject.AbstractModule;
+import javafx.scene.paint.Color;
+import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.ShapeDotCustomiser;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+import test.gui.CompositeGUIVoidCommand;
+import test.gui.ShapePropModule;
+import test.gui.TestDotStyleGUI;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import javafx.scene.paint.Color;
-import net.sf.latexdraw.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.instruments.Hand;
-import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.ShapeDotCustomiser;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import test.gui.CompositeGUIVoidCommand;
-import test.gui.ShapePropModule;
-import test.gui.TestDotStyleGUI;
-
-import com.google.inject.AbstractModule;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestHandDotStyle extends TestDotStyleGUI {
@@ -69,8 +67,8 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns).execute();
 		double angle = dotSizeField.getValue();
 		incrementDotSize.execute();
-		assertEquals(dotSizeField.getValue(), ((IDot)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getDiametre(), 0.0001);
-		assertEquals(dotSizeField.getValue(), ((IDot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getDiametre(), 0.0001);
+		assertEquals(dotSizeField.getValue(), ((IDot)drawing.getSelection().getShapeAt(0)).getDiametre(), 0.0001);
+		assertEquals(dotSizeField.getValue(), ((IDot)drawing.getSelection().getShapeAt(2)).getDiametre(), 0.0001);
 		assertNotEquals(angle, dotSizeField.getValue(), 0.0001);
 	}
 
@@ -80,8 +78,8 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 		DotStyle style = dotCB.getSelectionModel().getSelectedItem();
 		selectNextDotStyle.execute();
 		DotStyle newStyle = dotCB.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((IDot)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getDotStyle());
-		assertEquals(newStyle, ((IDot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getDotStyle());
+		assertEquals(newStyle, ((IDot)drawing.getSelection().getShapeAt(0)).getDotStyle());
+		assertEquals(newStyle, ((IDot)drawing.getSelection().getShapeAt(2)).getDotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -103,8 +101,8 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddBezier, selectionAddDot, setDotStyleFillable, updateIns).execute();
 		Color col = fillingB.getValue();
 		pickFillingColour.execute();
-		assertEquals(fillingB.getValue(), ((IDot)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getDotFillingCol().toJFX());
-		assertEquals(fillingB.getValue(), ((IDot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getDotFillingCol().toJFX());
+		assertEquals(fillingB.getValue(), ((IDot)drawing.getSelection().getShapeAt(0)).getDotFillingCol().toJFX());
+		assertEquals(fillingB.getValue(), ((IDot)drawing.getSelection().getShapeAt(2)).getDotFillingCol().toJFX());
 		assertNotEquals(col, fillingB.getValue());
 	}
 }

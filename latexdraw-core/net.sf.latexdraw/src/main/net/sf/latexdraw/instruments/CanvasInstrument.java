@@ -52,8 +52,4 @@ abstract class CanvasInstrument extends JfxInstrument {
 		final IPoint pt2 = canvas.convertToOrigin(grid.getTransformedPointToGrid(pt));
 		return ShapeFactory.createPoint(canvas.getZoomedPoint(pt2.getX(), pt2.getY()));
 	}
-
-	public Canvas getCanvas() {// FIXME to remove
-		return canvas;
-	}
 }

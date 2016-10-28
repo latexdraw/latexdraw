@@ -1,22 +1,20 @@
 package test.gui.hand;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.google.inject.AbstractModule;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-
 import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestCoordDimShapeGUI;
 
-import com.google.inject.AbstractModule;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
@@ -52,8 +50,8 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		double angle = tlyS.getValue();
 		incrementY.execute();
-		assertEquals(tlyS.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getTopLeftPoint().getY(), 0.0001);
-		assertEquals(tlyS.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getTopLeftPoint().getY(), 0.0001);
+		assertEquals(tlyS.getValue(), drawing.getSelection().getShapeAt(0).getTopLeftPoint().getY(), 0.0001);
+		assertEquals(tlyS.getValue(), drawing.getSelection().getShapeAt(1).getTopLeftPoint().getY(), 0.0001);
 		assertNotEquals(angle, tlyS.getValue(), 0.0001);
 	}
 
@@ -62,8 +60,8 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		double angle = tlxS.getValue();
 		incrementX.execute();
-		assertEquals(tlxS.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getTopLeftPoint().getX(), 0.0001);
-		assertEquals(tlxS.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getTopLeftPoint().getX(), 0.0001);
+		assertEquals(tlxS.getValue(), drawing.getSelection().getShapeAt(0).getTopLeftPoint().getX(), 0.0001);
+		assertEquals(tlxS.getValue(), drawing.getSelection().getShapeAt(1).getTopLeftPoint().getX(), 0.0001);
 		assertNotEquals(angle, tlxS.getValue(), 0.0001);
 	}
 }

@@ -82,12 +82,11 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 
 		@Override
 		public void initAction() {
-			final IDrawing drawing = instrument.pencil.getCanvas().getDrawing();
-			final IPoint tl = drawing.getSelection().getTopLeftPoint();
+			final IPoint tl = instrument.drawing.getSelection().getTopLeftPoint();
 			final double value = (Double)interaction.getWidget().getValue();
 
-			action.setDrawing(drawing);
-			action.setShape(drawing.getSelection().duplicateDeep(false));
+			action.setDrawing(instrument.drawing);
+			action.setShape(instrument.drawing.getSelection().duplicateDeep(false));
 
 			if(interaction.getWidget() == instrument.tlxS)
 				action.setTx(value - tl.getX());

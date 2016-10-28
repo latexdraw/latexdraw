@@ -1,26 +1,23 @@
 package test.gui.hand;
 
+import com.google.inject.AbstractModule;
+import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.ShapePlotCustomiser;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+import test.gui.CompositeGUIVoidCommand;
+import test.gui.ShapePropModule;
+import test.gui.TestPlotStyleGUI;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-
-import net.sf.latexdraw.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
-import net.sf.latexdraw.instruments.Hand;
-import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.ShapePlotCustomiser;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import test.gui.CompositeGUIVoidCommand;
-import test.gui.ShapePropModule;
-import test.gui.TestPlotStyleGUI;
-
-import com.google.inject.AbstractModule;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestHandPlotStyle extends TestPlotStyleGUI {
@@ -70,8 +67,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.DOTS);
 		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -81,8 +78,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.CCURVE);
 		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -92,8 +89,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.POLYGON);
 		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -103,8 +100,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.ECURVE);
 		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -115,8 +112,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.CURVE);
 		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -126,8 +123,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.LINE);
 		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -136,8 +133,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		int val = nbPtsSpinner.getValue();
 		incrementnbPtsSpinner.execute();
-		assertEquals((int)nbPtsSpinner.getValue(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getNbPlottedPoints());
-		assertEquals((int)nbPtsSpinner.getValue(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getNbPlottedPoints());
+		assertEquals((int)nbPtsSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(1)).getNbPlottedPoints());
+		assertEquals((int)nbPtsSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(2)).getNbPlottedPoints());
 		assertNotEquals(val, (int)nbPtsSpinner.getValue());
 	}
 
@@ -146,8 +143,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		double val = minXSpinner.getValue();
 		incrementminXSpinner.execute();
-		assertEquals(minXSpinner.getValue(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getPlotMinX(), 0.0001);
-		assertEquals(minXSpinner.getValue(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getPlotMinX(), 0.0001);
+		assertEquals(minXSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotMinX(), 0.0001);
+		assertEquals(minXSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotMinX(), 0.0001);
 		assertNotEquals(val, minXSpinner.getValue(), 0.0001);
 	}
 
@@ -156,8 +153,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		double val = maxXSpinner.getValue();
 		incrementmaxXSpinner.execute();
-		assertEquals(maxXSpinner.getValue(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getPlotMaxX(), 0.0001);
-		assertEquals(maxXSpinner.getValue(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getPlotMaxX(), 0.0001);
+		assertEquals(maxXSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotMaxX(), 0.0001);
+		assertEquals(maxXSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotMaxX(), 0.0001);
 		assertNotEquals(val, maxXSpinner.getValue(), 0.0001);
 	}
 
@@ -166,8 +163,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		double val = xScaleSpinner.getValue();
 		incrementxScaleSpinner.execute();
-		assertEquals(xScaleSpinner.getValue(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getXScale(), 0.0001);
-		assertEquals(xScaleSpinner.getValue(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getXScale(), 0.0001);
+		assertEquals(xScaleSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(1)).getXScale(), 0.0001);
+		assertEquals(xScaleSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(2)).getXScale(), 0.0001);
 		assertNotEquals(val, xScaleSpinner.getValue(), 0.0001);
 	}
 
@@ -176,8 +173,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		double val = yScaleSpinner.getValue();
 		incrementyScaleSpinner.execute();
-		assertEquals(yScaleSpinner.getValue(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getYScale(), 0.0001);
-		assertEquals(yScaleSpinner.getValue(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getYScale(), 0.0001);
+		assertEquals(yScaleSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(1)).getYScale(), 0.0001);
+		assertEquals(yScaleSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(2)).getYScale(), 0.0001);
 		assertNotEquals(val, yScaleSpinner.getValue(), 0.0001);
 	}
 
@@ -186,8 +183,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		boolean sel = polarCB.isSelected();
 		clickpolarCB.execute();
-		assertEquals(polarCB.isSelected(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).isPolar());
-		assertEquals(polarCB.isSelected(), ((IPlot)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).isPolar());
+		assertEquals(polarCB.isSelected(), ((IPlot)drawing.getSelection().getShapeAt(1)).isPolar());
+		assertEquals(polarCB.isSelected(), ((IPlot)drawing.getSelection().getShapeAt(2)).isPolar());
 		assertNotEquals(sel, polarCB.isSelected());
 	}
 }
