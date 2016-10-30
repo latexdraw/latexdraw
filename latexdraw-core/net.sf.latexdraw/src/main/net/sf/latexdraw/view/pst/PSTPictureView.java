@@ -13,7 +13,7 @@ package net.sf.latexdraw.view.pst;
 import net.sf.latexdraw.models.GLibUtilities;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LResources;
@@ -46,7 +46,7 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 		path = path.replaceAll("\\\\", "/");//$NON-NLS-1$ //$NON-NLS-2$
 
 		if(path.contains(" "))//$NON-NLS-1$
-			start.append(LangTool.INSTANCE.getString16("Picture.0")).append(LResources.EOL); //$NON-NLS-1$
+			start.append(LangTool.INSTANCE.getBundle().getString("Picture.0")).append(LResources.EOL); //$NON-NLS-1$
 
 		if(rot != null) code.append(rot);
 

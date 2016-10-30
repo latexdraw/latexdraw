@@ -14,7 +14,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.view.jfx.ViewShape;
@@ -284,7 +284,7 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringActions("Actions.30");
+		return LangTool.INSTANCE.getBundle().getString("Actions.30");
 	}
 
 	@Override

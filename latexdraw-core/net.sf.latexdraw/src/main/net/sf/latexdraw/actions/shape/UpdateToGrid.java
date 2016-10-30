@@ -14,7 +14,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -95,7 +95,7 @@ public class UpdateToGrid extends ShapeActionImpl<IGroup> implements Undoable, M
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringActions("Actions.33");
+		return LangTool.INSTANCE.getBundle().getString("Actions.33");
 	}
 
 	@Override

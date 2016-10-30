@@ -12,7 +12,7 @@ package net.sf.latexdraw.actions.shape;
 
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.undo.Undoable;
 
@@ -59,7 +59,7 @@ public class MirrorShapes extends ShapeActionImpl<IShape> implements Undoable, M
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringActions("Actions.7");
+		return LangTool.INSTANCE.getBundle().getString("Actions.7");
 	}
 
 	@Override

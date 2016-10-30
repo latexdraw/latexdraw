@@ -1,7 +1,7 @@
 package net.sf.latexdraw.util;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import org.malai.action.library.OpenWebPage;
 
 import javax.swing.*;
@@ -79,7 +79,7 @@ public class VersionChecker extends Thread {
 				if(div!=null && div.length>3 && div[3].compareTo(VERSION)>0) {
 					buttonUpdate = new JButton(LResources.UPDATE_ICON);
 					buttonUpdate.setToolTipText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" + //$NON-NLS-1$
-							LangTool.INSTANCE.getStringDialogFrame("Version.1") + ' ' + div[3]+ "</html>"); //$NON-NLS-1$ //$NON-NLS-2$
+							LangTool.INSTANCE.getBundle().getString("Version.1") + ' ' + div[3]+ "</html>"); //$NON-NLS-1$ //$NON-NLS-2$
 					buttonUpdate.setVisible(true);
 					buttonUpdate.addActionListener(evt -> {
 						try {

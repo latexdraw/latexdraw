@@ -17,7 +17,7 @@ import java.util.Arrays;
 import org.eclipse.jdt.annotation.NonNull;
 
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 
 /** Defines the different kinds of ticks. */
 public enum TicksStyle {
@@ -39,7 +39,7 @@ public enum TicksStyle {
 
 		@Override
 		public String toString() {
-			return LangTool.INSTANCE.getString18("Axe.3"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Axe.3"); //$NON-NLS-1$
 		}
 	},
 	TOP {
@@ -60,7 +60,7 @@ public enum TicksStyle {
 
 		@Override
 		public String toString() {
-			return LangTool.INSTANCE.getString18("Axe.4"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Axe.4"); //$NON-NLS-1$
 		}
 	},
 	BOTTOM {
@@ -81,7 +81,7 @@ public enum TicksStyle {
 
 		@Override
 		public String toString() {
-			return LangTool.INSTANCE.getString18("Axe.5"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Axe.5"); //$NON-NLS-1$
 		}
 	};
 

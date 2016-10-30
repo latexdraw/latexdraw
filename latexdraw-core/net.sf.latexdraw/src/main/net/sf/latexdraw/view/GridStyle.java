@@ -1,9 +1,9 @@
 package net.sf.latexdraw.view;
 
+import net.sf.latexdraw.util.LangTool;
+
 import java.util.Arrays;
 import java.util.Optional;
-
-import net.sf.latexdraw.lang.LangTool;
 
 /**
  * This enumeration contains the different style
@@ -11,9 +11,9 @@ import net.sf.latexdraw.lang.LangTool;
  */
 public enum GridStyle {
 	/** A grid customised by users. */
-	CUSTOMISED {@Override public String getLabel() {return LangTool.INSTANCE.getStringDialogFrame("Res.3");}},
+	CUSTOMISED {@Override public String getLabel() {return LangTool.INSTANCE.getBundle().getString("Res.3");}},
 	/** The standard grid. */
-	STANDARD {@Override public String getLabel() {return LangTool.INSTANCE.getString18("PreferencesFrame.4");}},
+	STANDARD {@Override public String getLabel() {return LangTool.INSTANCE.getBundle().getString("PreferencesFrame.4");}},
 	/** No grid. */
 	NONE {@Override public String getLabel() { return "None";}}; //$NON-NLS-1$
 

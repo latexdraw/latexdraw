@@ -14,7 +14,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.view.jfx.ViewShape;
@@ -216,7 +216,7 @@ class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoable, Modi
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringActions("Actions.6");
+		return LangTool.INSTANCE.getBundle().getString("Actions.6");
 	}
 
 	@Override

@@ -13,7 +13,7 @@ package net.sf.latexdraw.actions.shape;
 import net.sf.latexdraw.actions.DrawingAction;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.undo.Undoable;
@@ -48,7 +48,7 @@ public class AddShape extends ShapeActionImpl<IShape> implements DrawingAction, 
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringOthers("UndoRedoManager.create"); //$NON-NLS-1$
+		return LangTool.INSTANCE.getBundle().getString("UndoRedoManager.create"); //$NON-NLS-1$
 	}
 
 	@Override

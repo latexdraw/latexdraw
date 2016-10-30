@@ -195,7 +195,7 @@ public class Exporter extends JfxInstrument {
 
 	// @Override
 	// public void onActionExecuted(final Action action) {
-	//		statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.184")); //$NON-NLS-1$
+	//		statusBar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.184")); //$NON-NLS-1$
 	// }
 
 	/**

@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import org.malai.action.ActionImpl;
@@ -89,7 +89,7 @@ public class ModifyLatexProperties extends ActionImpl implements Undoable, Modif
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringActions("Actions.0"); //$NON-NLS-1$
+		return LangTool.INSTANCE.getBundle().getString("Actions.0"); //$NON-NLS-1$
 	}
 
 

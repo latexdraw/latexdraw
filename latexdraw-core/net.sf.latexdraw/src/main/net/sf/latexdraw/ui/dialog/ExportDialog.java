@@ -11,7 +11,7 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 
 import net.sf.latexdraw.filters.JPGFilter;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 
 /**
  * Define a JFileChooser that exports the drawing in a graphical format.<br>
@@ -50,7 +50,7 @@ public class ExportDialog extends JFileChooser {
 	public ExportDialog(final String path) {
 		super(path);
 
-		setApproveButtonText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.171")); //$NON-NLS-1$
+		setApproveButtonText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.171")); //$NON-NLS-1$
 		setAcceptAllFileFilterUsed(true);
 		setMultiSelectionEnabled(false);
  		setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -58,7 +58,7 @@ public class ExportDialog extends JFileChooser {
 
  		pCompression = new JPanel();
  		pCompression.setLayout(new BoxLayout(pCompression, BoxLayout.X_AXIS));
- 		pCompression.add(new JLabel(LangTool.INSTANCE.getStringDialogFrame("ExportDialog.0"))); //$NON-NLS-1$
+ 		pCompression.add(new JLabel(LangTool.INSTANCE.getBundle().getString("ExportDialog.0"))); //$NON-NLS-1$
  		compressionSlide = new JSlider(SwingConstants.VERTICAL, 0, 100, 20);
  		compressionSlide.setMajorTickSpacing(10);
  		compressionSlide.setPaintTicks(true);

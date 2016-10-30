@@ -10,7 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.<br>
  */
-package net.sf.latexdraw.lang;
+package net.sf.latexdraw.util;
 
 /**
  * The supported languages
@@ -253,8 +253,9 @@ public enum Lang {
 	 * @since 3.0
 	 */
 	public static Lang getLanguage(final String name) {
-		final Lang lang = LangTool.INSTANCE.getMapLangs().get(name);
-		return lang == null?EN_BR:lang;
+//		final Lang lang = LangTool.INSTANCE.getMapLangs().get(name);
+//		return lang == null?EN_BR:lang;
+		return EN_BR;
 	}
 
 	/**
@@ -262,7 +263,8 @@ public enum Lang {
 	 * @since 3.0
 	 */
 	public static Lang getSystemLanguage() {
-		final Lang language = LangTool.INSTANCE.getMapLangs().get(System.getProperty("user.language"));//$NON-NLS-1$
-		return language == null?Lang.getDefaultLanguage():language;
+//		final Lang language = LangTool.INSTANCE.getMapLangs().get(System.getProperty("user.language"));//$NON-NLS-1$
+//		return language == null?Lang.getDefaultLanguage():language;
+		return Lang.getDefaultLanguage();
 	}
 }

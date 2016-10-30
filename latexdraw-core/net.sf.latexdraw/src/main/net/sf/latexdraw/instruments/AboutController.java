@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.web.WebView;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
@@ -50,10 +50,10 @@ public class AboutController implements Initializable {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		aboutText.getEngine().loadContent("<html><body><div style=\"text-align: center; \"><font size=\"-1\"><br>"+ //$NON-NLS-1$
-				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.219")+" "+ //$NON-NLS-1$ //$NON-NLS-2$
+				LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.219")+" "+ //$NON-NLS-1$ //$NON-NLS-2$
 				VersionChecker.VERSION+VersionChecker.VERSION_STABILITY+ //$NON-NLS-1$ //$NON-NLS-2$
-				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.220")+" "+VersionChecker.ID_BUILD+"<br><br>"+ //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
-				LResources.LABEL_APP+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.221")+"<br>"+ //$NON-NLS-1$//$NON-NLS-2$
+				LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.220")+" "+VersionChecker.ID_BUILD+"<br><br>"+ //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+				LResources.LABEL_APP+LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.221")+"<br>"+ //$NON-NLS-1$//$NON-NLS-2$
 				"Copyright(c) 2005-2015 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>"+ //$NON-NLS-1$
 				"http://latexdraw.sourceforge.net/<br></div></body></html>");//$NON-NLS-1$
 		noteText.setText(LFileUtils.INSTANCE.readTextFile("/res/release_note.txt"));//$NON-NLS-1$

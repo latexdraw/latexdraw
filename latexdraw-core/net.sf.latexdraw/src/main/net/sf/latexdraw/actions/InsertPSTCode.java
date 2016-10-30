@@ -12,7 +12,7 @@ package net.sf.latexdraw.actions;
 
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -63,14 +63,14 @@ public class InsertPSTCode extends DrawingActionImpl implements Undoable {
 						shapes = Optional.of(sh);
 						sh.translate(tx, ty);
 						redo();
-						statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.36")));
+						statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.36")));
 					}
 				}else {
-					statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.33")));
+					statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.33")));
 				}
 			}catch(final Throwable ex) {
 				BadaboomCollector.INSTANCE.add(ex);
-				statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.34")));
+				statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.34")));
 			}
 
 			PSTParser.errorLogs().foreach(str -> BadaboomCollector.INSTANCE.add(new ParseException(str, -1)));
@@ -105,7 +105,7 @@ public class InsertPSTCode extends DrawingActionImpl implements Undoable {
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringActions("Actions.4");
+		return LangTool.INSTANCE.getBundle().getString("Actions.4");
 	}
 
 	@Override

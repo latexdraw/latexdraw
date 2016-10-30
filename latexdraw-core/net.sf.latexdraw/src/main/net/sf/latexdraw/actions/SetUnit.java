@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Unit;
 import org.malai.action.ActionImpl;
@@ -49,7 +49,7 @@ public class SetUnit extends ActionImpl implements Undoable {
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringActions("Actions.3"); //$NON-NLS-1$
+		return LangTool.INSTANCE.getBundle().getString("Actions.3"); //$NON-NLS-1$
 	}
 
 

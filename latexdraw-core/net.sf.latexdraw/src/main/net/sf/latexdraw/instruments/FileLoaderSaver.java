@@ -6,7 +6,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import net.sf.latexdraw.actions.LoadDrawing;
 import net.sf.latexdraw.filters.SVGFilter;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.LNamespace;
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
@@ -238,9 +238,9 @@ public class FileLoaderSaver extends JfxInstrument {
 		}
 
 		if(save)
-			fileChooser.setDialogTitle(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"));//$NON-NLS-1$
+			fileChooser.setDialogTitle(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.188"));//$NON-NLS-1$
 		else
-			fileChooser.setDialogTitle(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.200")); //$NON-NLS-1$
+			fileChooser.setDialogTitle(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.200")); //$NON-NLS-1$
 
 		return fileChooser;
 	}

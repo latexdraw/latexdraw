@@ -4,7 +4,7 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 
 /**
  * This class defines a filter for pictures.<br>
@@ -43,6 +43,6 @@ public class PictureFilter extends FileFilter {
 
 	@Override
 	public String getDescription() {
-		return LangTool.INSTANCE.getStringDialogFrame("Filter.1"); //$NON-NLS-1$
+		return LangTool.INSTANCE.getBundle().getString("Filter.1"); //$NON-NLS-1$
 	}
 }

@@ -13,7 +13,7 @@ package net.sf.latexdraw.actions.shape;
 import net.sf.latexdraw.actions.DrawingActionImpl;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapesAction;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.undo.Undoable;
 
@@ -77,7 +77,7 @@ public class DeleteShapes extends DrawingActionImpl implements ShapesAction, Und
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringActions("Actions.5");
+		return LangTool.INSTANCE.getBundle().getString("Actions.5");
 	}
 
 	@Override

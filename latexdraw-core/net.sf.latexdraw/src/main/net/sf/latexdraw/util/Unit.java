@@ -1,10 +1,8 @@
 package net.sf.latexdraw.util;
 
-import java.util.Arrays;
-
 import org.eclipse.jdt.annotation.NonNull;
 
-import net.sf.latexdraw.lang.LangTool;
+import java.util.Arrays;
 
 /**
  * Defines the different possible units used by the rulers.
@@ -14,14 +12,14 @@ public enum Unit {
 	CM {
 		@Override
 		public String getLabel() {
-			return LangTool.INSTANCE.getStringOthers("XScale.cm"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("XScale.cm"); //$NON-NLS-1$
 		}
 	},
 	/** Inch */
 	INCH {
 		@Override
 		public String getLabel() {
-			return LangTool.INSTANCE.getStringOthers("XScale.inch"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("XScale.inch"); //$NON-NLS-1$
 		}
 	};
 

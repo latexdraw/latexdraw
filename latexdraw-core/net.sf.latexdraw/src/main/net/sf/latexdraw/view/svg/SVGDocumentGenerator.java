@@ -575,7 +575,7 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //			super.done();
 //			// Showing a message in the status bar.
 //			if(statusBar!=null)
-//				statusBar.setText(LangTool.INSTANCE.getStringDialogFrame("SVG.1")); //$NON-NLS-1$
+//				statusBar.setText(LangTool.INSTANCE.getBundle().getString("SVG.1")); //$NON-NLS-1$
 //		}
 //	}
 //

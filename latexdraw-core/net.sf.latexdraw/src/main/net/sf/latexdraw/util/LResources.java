@@ -1,12 +1,10 @@
 package net.sf.latexdraw.util;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 import javax.swing.ImageIcon;
-
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.lang.LangTool;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Contains all the icons and the labels used by latexdraw.<br>
@@ -42,11 +40,9 @@ public final class LResources {
     public static final String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
 
 	/** The label of the newMenu item */
-    public static final String LABEL_NEW = LangTool.INSTANCE.getStringDialogFrame("Res.2"); //$NON-NLS-1$
+    public static final String LABEL_NEW = LangTool.INSTANCE.getBundle().getString("Res.2"); //$NON-NLS-1$
 
-	public static final String LABEL_NEW_WITH_SEL =LangTool.INSTANCE.getStringLaTeXDrawFrame("LRes.0"); //$NON-NLS-1$
-
-	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getString19("DrawPanel.0"); //$NON-NLS-1$
+	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getBundle().getString("DrawPanel.0"); //$NON-NLS-1$
 
 	public static final ImageIcon DIM_POS_ICON;
 	public static final ImageIcon NEW_ICON;

@@ -12,12 +12,11 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
-import java.util.Arrays;
-
+import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.eclipse.jdt.annotation.NonNull;
 
-import net.sf.latexdraw.view.pst.PSTricksConstants;
-import net.sf.latexdraw.lang.LangTool;
+import java.util.Arrays;
 
 /** Defines the different kinds of axes. */
 public enum AxesStyle {
@@ -34,7 +33,7 @@ public enum AxesStyle {
 
 		@Override
 		public String toString() {
-			return LangTool.INSTANCE.getString18("Axe.1"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Axe.1"); //$NON-NLS-1$
 		}
 	},
 	FRAME {
@@ -50,7 +49,7 @@ public enum AxesStyle {
 
 		@Override
 		public String toString() {
-			return LangTool.INSTANCE.getString18("Axe.2"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Axe.2"); //$NON-NLS-1$
 		}
 	},
 	NONE {

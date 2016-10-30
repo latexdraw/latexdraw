@@ -11,7 +11,7 @@
 package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.ui.dialog.ExportDialog;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.malai.action.ActionImpl;
@@ -87,8 +87,8 @@ public class Export extends ActionImpl {
 				f = new File(f.getPath() + format.getFileExtension());
 
 			if(f.exists()) {
-				final int replace = JOptionPane.showConfirmDialog(null, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
-					LangTool.INSTANCE.getStringDialogFrame("Exporter.1"), JOptionPane.YES_NO_OPTION);
+				final int replace = JOptionPane.showConfirmDialog(null, LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.173"), //$NON-NLS-1$
+					LangTool.INSTANCE.getBundle().getString("Exporter.1"), JOptionPane.YES_NO_OPTION);
 
 				if(replace == JOptionPane.NO_OPTION) exported = false; // The user doesn't want to replace the file
 			}

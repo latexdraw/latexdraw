@@ -15,7 +15,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.actions.DrawingAction;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -134,7 +134,7 @@ public class MoveBackForegroundShapes extends ShapeActionImpl<IGroup> implements
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringActions("Actions.8");
+		return LangTool.INSTANCE.getBundle().getString("Actions.8");
 	}
 
 	@Override

@@ -111,8 +111,8 @@ public class SaveDrawing extends ActionImpl { //  Save<LFrame, JLabel>
 //	 * @since 3.0
 //	 */
 //	protected static int showAskModificationsDialog(final SwingUI ui) {
-//		return JOptionPane.showConfirmDialog(ui, LangTool.INSTANCE.getStringActions("Actions.2"), //$NON-NLS-1$
-//				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$
+//		return JOptionPane.showConfirmDialog(ui, LangTool.INSTANCE.getBundle().getString("Actions.2"), //$NON-NLS-1$
+//				LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.188"), JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$
 //	}
 
 
@@ -138,8 +138,8 @@ public class SaveDrawing extends ActionImpl { //  Save<LFrame, JLabel>
 //			f = new File(f.getPath() + SVGFilter.SVG_EXTENSION);
 //
 //		if(f.exists()) {
-//			final int replace = JOptionPane.showConfirmDialog(null, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
-//														LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$
+//			final int replace = JOptionPane.showConfirmDialog(null, LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.173"), //$NON-NLS-1$
+//														LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.188"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$
 //
 //			if(replace == JOptionPane.NO_OPTION || replace == JOptionPane.CLOSED_OPTION)
 //				return null;

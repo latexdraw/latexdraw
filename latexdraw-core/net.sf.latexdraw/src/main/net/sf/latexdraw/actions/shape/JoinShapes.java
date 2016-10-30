@@ -13,7 +13,7 @@ package net.sf.latexdraw.actions.shape;
 import net.sf.latexdraw.actions.DrawingActionImpl;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapesAction;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -83,7 +83,7 @@ public class JoinShapes extends DrawingActionImpl implements ShapesAction, Undoa
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getStringOthers("UndoRedoManager.join");
+		return LangTool.INSTANCE.getBundle().getString("UndoRedoManager.join");
 	}
 
 	@Override

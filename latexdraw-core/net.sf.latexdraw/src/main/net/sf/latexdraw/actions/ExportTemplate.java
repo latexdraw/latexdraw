@@ -33,15 +33,15 @@ public class ExportTemplate extends ActionImpl implements TemplateAction { //ext
 		//		var cancelled = false
 		//
 		//		do {
-		//			val templateName = JOptionPane.showInputDialog(this, LangTool.INSTANCE.getStringOthers("DrawContainer.nameTemplate"))  //$NON-NLS-1$
+		//			val templateName = JOptionPane.showInputDialog(this, LangTool.INSTANCE.getBundle().getString("DrawContainer.nameTemplate"))  //$NON-NLS-1$
 		//			path = LPath.PATH_TEMPLATES_DIR_USER + File.separator + templateName + SVGFilter.SVG_EXTENSION
 		//
 		//			if(templateName==null)
 		//				cancelled = true
 		//			else
 		//				if(new File(path).exists)
-		//					ok = JOptionPane.showConfirmDialog(ui, LangTool.INSTANCE.getStringOthers("DrawContainer.overwriteTemplate"), //$NON-NLS-1$
-		//							LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.42"), JOptionPane.YES_NO_OPTION) match { //$NON-NLS-1$
+		//					ok = JOptionPane.showConfirmDialog(ui, LangTool.INSTANCE.getBundle().getString("DrawContainer.overwriteTemplate"), //$NON-NLS-1$
+		//							LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.42"), JOptionPane.YES_NO_OPTION) match { //$NON-NLS-1$
 		//						case JOptionPane.YES_OPTION => true
 		//						case _ => false
 		//					}
