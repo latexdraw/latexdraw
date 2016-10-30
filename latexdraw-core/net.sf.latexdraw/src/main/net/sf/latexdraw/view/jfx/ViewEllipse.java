@@ -15,7 +15,6 @@ package net.sf.latexdraw.view.jfx;
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -29,15 +28,10 @@ public class ViewEllipse extends ViewSingleShape<IEllipse, Ellipse> {
 	public ViewEllipse(final @NonNull IEllipse sh) {
 		super(sh);
 
-		final IPoint tlp = model.getPtAt(0);
-		final IPoint trp = model.getPtAt(1);
-		final IPoint blp = model.getPtAt(3);
-		final IPoint center = model.getCenter();
-
-		border.centerXProperty().bind(Bindings.createDoubleBinding(center::getX, tlp.xProperty(), trp.xProperty()));
-		border.centerYProperty().bind(Bindings.createDoubleBinding(center::getY, tlp.xProperty(), trp.xProperty()));
-		border.radiusXProperty().bind(Bindings.createDoubleBinding(model::getA, tlp.xProperty(), trp.xProperty()));
-		border.radiusYProperty().bind(Bindings.createDoubleBinding(model::getB, tlp.yProperty(), blp.yProperty()));
+		border.centerXProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getX(), model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
+		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).yProperty(), model.getPtAt(1).yProperty()));
+		border.radiusXProperty().bind(Bindings.createDoubleBinding(model::getA, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
+		border.radiusYProperty().bind(Bindings.createDoubleBinding(model::getB, model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
 	}
 
 	@Override

@@ -15,7 +15,6 @@ package net.sf.latexdraw.view.jfx;
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -29,14 +28,10 @@ public class ViewCircle extends ViewSingleShape<ICircle, Ellipse> {
 	public ViewCircle(final @NonNull ICircle sh) {
 		super(sh);
 
-		final IPoint tlp = model.getPtAt(0);
-		final IPoint trp = model.getPtAt(1);
-		final IPoint center = model.getCenter();
-
-		border.centerXProperty().bind(Bindings.createDoubleBinding(center::getX, tlp.xProperty(), trp.xProperty()));
-		border.centerYProperty().bind(Bindings.createDoubleBinding(center::getY, tlp.xProperty(), trp.xProperty()));
-		border.radiusXProperty().bind(Bindings.createDoubleBinding(model::getRadius, tlp.xProperty(), trp.xProperty()));
-		border.radiusYProperty().bind(Bindings.createDoubleBinding(model::getRadius, tlp.xProperty(), trp.xProperty()));
+		border.centerXProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getX(), model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
+		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
+		border.radiusXProperty().bind(Bindings.createDoubleBinding(model::getRadius, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
+		border.radiusYProperty().bind(Bindings.createDoubleBinding(model::getRadius, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
 	}
 
 	@Override

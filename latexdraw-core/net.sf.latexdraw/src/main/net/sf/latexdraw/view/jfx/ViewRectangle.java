@@ -14,7 +14,6 @@ package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Rectangle;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import org.eclipse.jdt.annotation.NonNull;
 
@@ -29,14 +28,10 @@ public class ViewRectangle extends ViewSingleShape<IRectangle, Rectangle> {
 	public ViewRectangle(final @NonNull IRectangle sh) {
 		super(sh);
 
-		final IPoint tlp = model.getPtAt(0);
-		final IPoint trp = model.getPtAt(1);
-		final IPoint blp = model.getPtAt(3);
-
-		border.xProperty().bind(tlp.xProperty());
-		border.yProperty().bind(tlp.yProperty());
-		border.widthProperty().bind(Bindings.createDoubleBinding(model::getWidth, tlp.xProperty(), trp.xProperty()));
-		border.heightProperty().bind(Bindings.createDoubleBinding(model::getHeight, tlp.yProperty(), blp.yProperty()));
+		border.xProperty().bind(model.getPtAt(0).xProperty());
+		border.yProperty().bind(model.getPtAt(0).yProperty());
+		border.widthProperty().bind(Bindings.createDoubleBinding(model::getWidth, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
+		border.heightProperty().bind(Bindings.createDoubleBinding(model::getHeight, model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
 	}
 
 	@Override

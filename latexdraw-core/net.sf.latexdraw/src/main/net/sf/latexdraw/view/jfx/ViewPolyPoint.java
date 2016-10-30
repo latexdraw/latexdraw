@@ -15,7 +15,6 @@ package net.sf.latexdraw.view.jfx;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.eclipse.jdt.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -37,18 +36,16 @@ abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathS
 		super(sh);
 
 		moveTo = new MoveTo();
-		IPoint pt = sh.getPtAt(0);
-		moveTo.xProperty().bind(pt.xProperty());
-		moveTo.yProperty().bind(pt.yProperty());
+		moveTo.xProperty().bind(sh.getPtAt(0).xProperty());
+		moveTo.yProperty().bind(sh.getPtAt(0).yProperty());
 		border.getElements().add(moveTo);
 
 		lineTos = new ArrayList<>();
 
 		IntStream.range(1, sh.getNbPoints()).forEach(i -> {
 			LineTo lineto = new LineTo();
-			IPoint p = sh.getPtAt(i);
-			lineto.xProperty().bind(p.xProperty());
-			lineto.yProperty().bind(p.yProperty());
+			lineto.xProperty().bind(sh.getPtAt(i).xProperty());
+			lineto.yProperty().bind(sh.getPtAt(i).yProperty());
 			lineTos.add(lineto);
 			border.getElements().add(lineto);
 		});

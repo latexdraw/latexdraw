@@ -14,7 +14,6 @@ package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Rectangle;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import org.eclipse.jdt.annotation.NonNull;
 
@@ -29,13 +28,10 @@ public class ViewSquare extends ViewSingleShape<ISquare, Rectangle> {
 	public ViewSquare(final @NonNull ISquare sh) {
 		super(sh);
 
-		final IPoint tlp = model.getPtAt(0);
-		final IPoint trp = model.getPtAt(1);
-
-		border.xProperty().bind(tlp.xProperty());
-		border.yProperty().bind(tlp.yProperty());
-		border.widthProperty().bind(Bindings.createDoubleBinding(model::getWidth, tlp.xProperty(), trp.xProperty()));
-		border.heightProperty().bind(Bindings.createDoubleBinding(model::getWidth, tlp.xProperty(), trp.xProperty()));
+		border.xProperty().bind(model.getPtAt(0).xProperty());
+		border.yProperty().bind(model.getPtAt(0).yProperty());
+		border.widthProperty().bind(Bindings.createDoubleBinding(model::getWidth, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
+		border.heightProperty().bind(Bindings.createDoubleBinding(model::getWidth, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
 	}
 
 	@Override

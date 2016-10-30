@@ -4,7 +4,6 @@ import javafx.beans.binding.Bindings;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 
 public class ViewRhombus extends ViewPathShape<IRhombus> {
@@ -20,30 +19,24 @@ public class ViewRhombus extends ViewPathShape<IRhombus> {
 	public ViewRhombus(final IRhombus sh) {
 		super(sh);
 		moveTo = new MoveTo();
-		final IPoint pt0 = sh.getPtAt(0);
-		final IPoint pt1 = sh.getPtAt(1);
-		final IPoint pt2 = sh.getPtAt(2);
-		final IPoint pt3 = sh.getPtAt(2);
-		double width = sh.getWidth() / 2.0;
-		double height = sh.getHeight() / 2.0;
 
-		moveTo.xProperty().bind(Bindings.createDoubleBinding(() -> pt0.getX() + width, pt0.xProperty(), pt1.xProperty()));
-		moveTo.yProperty().bind(pt0.yProperty());
+		moveTo.xProperty().bind(Bindings.createDoubleBinding(() -> sh.getPtAt(0).getX() + sh.getWidth() / 2.0, sh.getPtAt(0).xProperty(), sh.getPtAt(1).xProperty()));
+		moveTo.yProperty().bind(sh.getPtAt(0).yProperty());
 		border.getElements().add(moveTo);
 
 		lineTo1 = new LineTo();
-		lineTo1.xProperty().bind(pt2.xProperty());
-		lineTo1.yProperty().bind(Bindings.createDoubleBinding(() -> pt1.getY() + height, pt1.yProperty(), pt2.yProperty()));
+		lineTo1.xProperty().bind(sh.getPtAt(2).xProperty());
+		lineTo1.yProperty().bind(Bindings.createDoubleBinding(() -> sh.getPtAt(1).getY() + sh.getHeight() / 2.0, sh.getPtAt(1).yProperty(), sh.getPtAt(2).yProperty()));
 		border.getElements().add(lineTo1);
 
 		lineTo2 = new LineTo();
-		lineTo2.xProperty().bind(Bindings.createDoubleBinding(() -> pt0.getX() + width, pt0.xProperty(), pt1.xProperty()));
-		lineTo2.yProperty().bind(pt2.yProperty());
+		lineTo2.xProperty().bind(Bindings.createDoubleBinding(() -> sh.getPtAt(0).getX() + sh.getWidth() / 2.0, sh.getPtAt(0).xProperty(), sh.getPtAt(1).xProperty()));
+		lineTo2.yProperty().bind(sh.getPtAt(2).yProperty());
 		border.getElements().add(lineTo2);
 
 		lineTo3 = new LineTo();
-		lineTo3.xProperty().bind(pt0.xProperty());
-		lineTo3.yProperty().bind(Bindings.createDoubleBinding(() -> pt0.getY() + height, pt0.yProperty(), pt3.yProperty()));
+		lineTo3.xProperty().bind(sh.getPtAt(0).xProperty());
+		lineTo3.yProperty().bind(Bindings.createDoubleBinding(() -> sh.getPtAt(0).getY() + sh.getHeight() / 2.0, sh.getPtAt(0).yProperty(), sh.getPtAt(2).yProperty()));
 		border.getElements().add(lineTo3);
 
 		border.getElements().add(new ClosePath());
