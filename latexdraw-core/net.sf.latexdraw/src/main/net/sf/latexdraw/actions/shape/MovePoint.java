@@ -1,30 +1,24 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.actions.shape;
 
 import net.sf.latexdraw.models.GLibUtilities;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;
-
-import org.malai.action.Action;
+import org.malai.action.ActionImpl;
 
 /**
- * This abstract action moves any kind of points.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 12/15/2011<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * This abstract action moves any kind of points.
  */
-public abstract class MovePoint extends Action {
+public abstract class MovePoint extends ActionImpl {
 	/** The index of the point to move. */
 	protected int indexPt;
 
@@ -42,7 +36,7 @@ public abstract class MovePoint extends Action {
 	 * Creates the action.
 	 * @since 3.0
 	 */
-    protected MovePoint() {
+	protected MovePoint() {
 		super();
 		tx = 0;
 		ty = 0;
@@ -51,14 +45,14 @@ public abstract class MovePoint extends Action {
 
 	@Override
 	public boolean canDo() {
-		return indexPt>=0 && GLibUtilities.isValidPoint(newCoord);
+		return indexPt >= 0 && GLibUtilities.isValidPoint(newCoord);
 	}
 
 
 	@Override
 	public void flush() {
 		super.flush();
-		newCoord 	= null;
+		newCoord = null;
 	}
 
 
@@ -75,19 +69,19 @@ public abstract class MovePoint extends Action {
 
 
 	/**
-	 * @param indexPt The index of the point to move.
+	 * @param index The index of the point to move.
 	 * @since 3.0
 	 */
-	public void setIndexPt(final int indexPt) {
-		this.indexPt = indexPt;
+	public void setIndexPt(final int index) {
+		indexPt = index;
 	}
 
 
 	/**
-	 * @param newCoord The new coordinates of the point to move.
+	 * @param coord The new coordinates of the point to move.
 	 * @since 3.0
 	 */
-	public void setNewCoord(final IPoint newCoord) {
-		this.newCoord = newCoord;
+	public void setNewCoord(final IPoint coord) {
+		newCoord = coord;
 	}
 }

@@ -1,10 +1,20 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.ExportDialog;
-import org.malai.action.Action;
+import net.sf.latexdraw.view.pst.PSTCodeGenerator;
+import org.malai.action.ActionImpl;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -22,28 +32,13 @@ import java.util.Locale;
 
 /**
  * This action allows to export a drawing in different formats.
- * <br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  any later version.<br>
- * <br>
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- * <br>
- * @author Arnaud Blouin
- * @since 3.0
  */
-public class Export extends Action {
+public class Export extends ActionImpl {
 	/** The format with which the drawing must be exported. */
 	protected ExportFormat format;
 
-//	/** The canvas that contains views. */
-//	protected ICanvas canvas;
+	//	/** The canvas that contains views. */
+	//	protected ICanvas canvas;
 
 	/** Defines if the shapes have been successfully exported. */
 	protected boolean exported;
@@ -55,7 +50,6 @@ public class Export extends Action {
 	protected PSTCodeGenerator pstGen;
 
 
-
 	/**
 	 * Creates the action.
 	 * @since 3.0
@@ -65,55 +59,47 @@ public class Export extends Action {
 		exported = false;
 	}
 
-
 	@Override
 	public void flush() {
 		super.flush();
-//		canvas 			= null;
-		format 			= null;
-		dialogueBox		= null;
+		//		canvas 			= null;
+		format = null;
+		dialogueBox = null;
 	}
-
 
 	@Override
 	public boolean isRegisterable() {
 		return false;
 	}
 
-
 	@Override
 	protected void doActionBody() {
 		// Showing the dialog.
-		final int response 	= dialogueBox.showSaveDialog(null);
-		File f 				= dialogueBox.getSelectedFile();
+		final int response = dialogueBox.showSaveDialog(null);
+		File f = dialogueBox.getSelectedFile();
 
 		exported = true;
 
 		// Analysing the result of the dialog.
-		if(response != JFileChooser.APPROVE_OPTION || f==null)
-			exported = false;
+		if(response != JFileChooser.APPROVE_OPTION || f == null) exported = false;
 		else {
 			if(!f.getName().toLowerCase().endsWith(format.getFileExtension().toLowerCase()))
 				f = new File(f.getPath() + format.getFileExtension());
 
 			if(f.exists()) {
-				final int replace = JOptionPane.showConfirmDialog(null,
-							LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
-							LangTool.INSTANCE.getStringDialogFrame("Exporter.1"), JOptionPane.YES_NO_OPTION);
+				final int replace = JOptionPane.showConfirmDialog(null, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
+					LangTool.INSTANCE.getStringDialogFrame("Exporter.1"), JOptionPane.YES_NO_OPTION);
 
-				if(replace == JOptionPane.NO_OPTION)
-					exported = false; // The user doesn't want to replace the file
+				if(replace == JOptionPane.NO_OPTION) exported = false; // The user doesn't want to replace the file
 			}
 		}
 
-		if(exported)
-			exported = export(f);
+		if(exported) exported = export(f);
 	}
-
 
 	protected boolean export(final File file) {
 		switch(format) {
-			case BMP: 		return exportAsBMP(file);
+			case BMP: return exportAsBMP(file);
 			case EPS_LATEX: return exportAsEPS(file);
 			case JPG: 		return exportAsJPG(file);
 			case PDF: 		return exportAsPDF(file);
@@ -128,8 +114,8 @@ public class Export extends Action {
 	@Override
 	public boolean canDo() {
 		return false;
-//		return canvas!=null && format!=null && dialogueBox!=null &&
-//				(format==ExportFormat.BMP || format==ExportFormat.JPG || format==ExportFormat.PNG || pstGen!=null);
+		//		return canvas!=null && format!=null && dialogueBox!=null &&
+		//				(format==ExportFormat.BMP || format==ExportFormat.JPG || format==ExportFormat.PNG || pstGen!=null);
 	}
 
 
@@ -137,7 +123,6 @@ public class Export extends Action {
 	public boolean hadEffect() {
 		return super.hadEffect() && exported;
 	}
-
 
 
 	/**
@@ -158,7 +143,6 @@ public class Export extends Action {
 	}
 
 
-
 	/**
 	 * Exports the drawing as a JPG picture.
 	 * @param file The targeted location.
@@ -169,21 +153,20 @@ public class Export extends Action {
 		boolean success = false;
 
 		try {
-			final ImageWriteParam iwparam 	= new JPEGImageWriteParam(Locale.getDefault());
-			final ImageWriter iw 			= ImageIO.getImageWritersByFormatName("jpg").next();//$NON-NLS-1$
-			try(final ImageOutputStream ios = ImageIO.createImageOutputStream(file)){
+			final ImageWriteParam iwparam = new JPEGImageWriteParam(Locale.getDefault());
+			final ImageWriter iw = ImageIO.getImageWritersByFormatName("jpg").next();//$NON-NLS-1$
+			try(final ImageOutputStream ios = ImageIO.createImageOutputStream(file)) {
 				iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-				iwparam.setCompressionQuality(1f-dialogueBox.getCompressionRate()/100f);
+				iwparam.setCompressionQuality(1f - dialogueBox.getCompressionRate() / 100f);
 				iw.setOutput(ios);
 				iw.write(null, new IIOImage(rendImage, null, null), iwparam);
 				iw.dispose();
 				success = true;
 			}
-	    }catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
+		}catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		rendImage.flush();
 		return success;
 	}
-
 
 
 	/**
@@ -193,19 +176,18 @@ public class Export extends Action {
 	 * @since 3.0
 	 */
 	protected boolean exportAsEPS(final File file) {
-//		File psFile;
-//
-//		try{
-//			psFile = LaTeXGenerator.createEPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, pstGen);
-//		}catch(final Exception e) {
-//			BadaboomCollector.INSTANCE.add(e);
-//			psFile = null;
-//		}
-//
-//		return psFile!=null && psFile.exists();
+		//		File psFile;
+		//
+		//		try{
+		//			psFile = LaTeXGenerator.createEPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, pstGen);
+		//		}catch(final Exception e) {
+		//			BadaboomCollector.INSTANCE.add(e);
+		//			psFile = null;
+		//		}
+		//
+		//		return psFile!=null && psFile.exists();
 		return false;
 	}
-
 
 
 	/**
@@ -215,16 +197,16 @@ public class Export extends Action {
 	 * @since 3.0
 	 */
 	protected boolean exportAsPDF(final File file) {
-//		File pdfFile;
-//
-//		try{
-//			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, format==ExportFormat.PDF_CROP, pstGen);
-//		} catch(final Exception e) {
-//			BadaboomCollector.INSTANCE.add(e);
-//			pdfFile = null;
-//		}
-//
-//		return pdfFile!=null && pdfFile.exists();
+		//		File pdfFile;
+		//
+		//		try{
+		//			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, format==ExportFormat.PDF_CROP, pstGen);
+		//		} catch(final Exception e) {
+		//			BadaboomCollector.INSTANCE.add(e);
+		//			pdfFile = null;
+		//		}
+		//
+		//		return pdfFile!=null && pdfFile.exists();
 		return false;
 	}
 
@@ -237,20 +219,19 @@ public class Export extends Action {
 	protected boolean exportAsPST(final File file) {
 		boolean ok;
 
-//		try {
-//			try(final FileWriter fw 	= new FileWriter(file);
-//				final BufferedWriter bw = new BufferedWriter(fw);
-//				final PrintWriter out 	= new PrintWriter(bw)) {
-//				out.println(LaTeXGenerator.getLatexDrawing(pstGen));
-//				ok = true;
-//			}
-//		}catch(final IOException e) {
-//			BadaboomCollector.INSTANCE.add(e);
-			ok = false;
-//		}
+		//		try {
+		//			try(final FileWriter fw 	= new FileWriter(file);
+		//				final BufferedWriter bw = new BufferedWriter(fw);
+		//				final PrintWriter out 	= new PrintWriter(bw)) {
+		//				out.println(LaTeXGenerator.getLatexDrawing(pstGen));
+		//				ok = true;
+		//			}
+		//		}catch(final IOException e) {
+		//			BadaboomCollector.INSTANCE.add(e);
+		ok = false;
+		//		}
 		return ok;
 	}
-
 
 
 	/**
@@ -258,25 +239,24 @@ public class Export extends Action {
 	 * @param file The targeted location.
 	 * @return true if the picture was successfully created.
 	 */
-	protected boolean exportAsBMP(final File file){
+	protected boolean exportAsBMP(final File file) {
 		final BufferedImage rendImage = createRenderedImage();
 		boolean success = false;
 
 		try {
-			final ImageWriteParam iwparam	= new BMPImageWriteParam();
-			final ImageWriter iw			= ImageIO.getImageWritersByFormatName("bmp").next();//$NON-NLS-1$
-			try(final ImageOutputStream ios	= ImageIO.createImageOutputStream(file)) {
+			final ImageWriteParam iwparam = new BMPImageWriteParam();
+			final ImageWriter iw = ImageIO.getImageWritersByFormatName("bmp").next();//$NON-NLS-1$
+			try(final ImageOutputStream ios = ImageIO.createImageOutputStream(file)) {
 				iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 				iw.setOutput(ios);
 				iw.write(null, new IIOImage(rendImage, null, null), iwparam);
 				iw.dispose();
 				success = true;
 			}
-	    }catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
+		}catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		rendImage.flush();
 		return success;
 	}
-
 
 
 	/**
@@ -284,30 +264,30 @@ public class Export extends Action {
 	 * @since 3.0
 	 */
 	protected BufferedImage createRenderedImage() {
-//		final IPoint tr 	= canvas.getTopRightDrawingPoint();
-//		final IPoint bl 	= canvas.getBottomLeftDrawingPoint();
-//		final int width		= (int)Math.abs(tr.getX()-bl.getX());
-//		final int height 	= (int)Math.abs(bl.getY()-tr.getY());
-//		final BufferedImage bi 	= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-//		final Graphics2D graphic 	= bi.createGraphics();
-//
-//		graphic.setColor(Color.WHITE);
-//		graphic.fillRect(0, 0, width, height);
-//		graphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//		graphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-//		graphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-//		graphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-//		graphic.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-//
-//		graphic.translate(-bl.getX(), -tr.getY());
-//
-//		synchronized(canvas.getViews()){
-//			for(final IViewShape view : canvas.getViews())
-//				view.paint(graphic, null);
-//		}
-//
-//		graphic.dispose();
-//		return bi;
+		//		final IPoint tr 	= canvas.getTopRightDrawingPoint();
+		//		final IPoint bl 	= canvas.getBottomLeftDrawingPoint();
+		//		final int width		= (int)Math.abs(tr.getX()-bl.getX());
+		//		final int height 	= (int)Math.abs(bl.getY()-tr.getY());
+		//		final BufferedImage bi 	= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		//		final Graphics2D graphic 	= bi.createGraphics();
+		//
+		//		graphic.setColor(Color.WHITE);
+		//		graphic.fillRect(0, 0, width, height);
+		//		graphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//		graphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		//		graphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		//		graphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		//		graphic.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		//
+		//		graphic.translate(-bl.getX(), -tr.getY());
+		//
+		//		synchronized(canvas.getViews()){
+		//			for(final IViewShape view : canvas.getViews())
+		//				view.paint(graphic, null);
+		//		}
+		//
+		//		graphic.dispose();
+		//		return bi;
 		return null;
 	}
 
@@ -330,13 +310,13 @@ public class Export extends Action {
 	}
 
 
-//	/**
-//	 * @param theCanvas The theCanvas to set.
-//	 * @since 3.0
-//	 */
-//	public void setCanvas(final ICanvas theCanvas) {
-//		canvas = theCanvas;
-//	}
+	//	/**
+	//	 * @param theCanvas The theCanvas to set.
+	//	 * @since 3.0
+	//	 */
+	//	public void setCanvas(final ICanvas theCanvas) {
+	//		canvas = theCanvas;
+	//	}
 
 
 	/**

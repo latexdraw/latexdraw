@@ -1,23 +1,16 @@
 /*
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2016 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 2012-04-20<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
  */
 package net.sf.latexdraw.actions.shape;
 
 import net.sf.latexdraw.actions.Modifying;
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
@@ -31,19 +24,21 @@ import java.util.stream.IntStream;
  */
 public class CutShapes extends CopyShapes implements Undoable, Modifying {
 	/** The index of the cut shapes. */
-	private List<Integer> _positionShapes;
+	private List<Integer> positionShapes;
 
 
 	@Override
 	public void doActionBody() {
 		// Removing the shapes.
-		final List<IShape> drawingSh = selection._drawing().get().getShapes();
+		selection.getDrawing().ifPresent(dr -> {
+			final List<IShape> drawingSh = dr.getShapes();
 
-		copiedShapes = selection.shapes().stream().map(sh -> sh).collect(Collectors.toList());
-		_positionShapes = selection.shapes().stream().map(drawingSh::indexOf).collect(Collectors.toList());
+			copiedShapes = selection.getShapes().stream().map(sh -> sh).collect(Collectors.toList());
+			positionShapes = selection.getShapes().stream().map(drawingSh::indexOf).collect(Collectors.toList());
 
-		deleteShapes();
-		selection.shapes().clear();
+			deleteShapes();
+			selection.getShapes().clear();
+		});
 	}
 
 
@@ -52,9 +47,10 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 	 * @since 3.0
 	 */
 	private void deleteShapes() {
-		final IDrawing dr = selection._drawing().get();
-		copiedShapes.forEach(dr::removeShape);
-		dr.setModified(true);
+		selection.getDrawing().ifPresent(dr -> {
+			copiedShapes.forEach(dr::removeShape);
+			dr.setModified(true);
+		});
 	}
 
 
@@ -66,9 +62,10 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 
 	@Override
 	public void undo() {
-		final IDrawing dr = selection.drawing().get();
-		IntStream.range(0, _positionShapes.size()).forEach(i -> dr.addShape(copiedShapes.get(i), _positionShapes.get(i)));
-		dr.setModified(true);
+		selection.getDrawing().ifPresent(dr -> {
+			IntStream.range(0, positionShapes.size()).forEach(i -> dr.addShape(copiedShapes.get(i), positionShapes.get(i)));
+			dr.setModified(true);
+		});
 	}
 
 

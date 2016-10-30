@@ -1,29 +1,23 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.actions.shape;
 
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.lang.LangTool;
-
 import org.malai.undo.Undoable;
 
 /**
- * This action moves control points.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 12/15/2011<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * This action moves control points.
  */
 public class MoveCtrlPoint extends MovePoint implements Undoable {
 	/** The control point shape to modify. */
@@ -33,7 +27,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 	protected boolean isFirstCtrlPt;
 
 
-    @Override
+	@Override
 	protected void doActionBody() {
 		final IPoint pt = getPoint();
 		tx += newCoord.getX() - pt.getX();
@@ -59,7 +53,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && shape!=null && indexPt<shape.getNbPoints();
+		return super.canDo() && shape != null && indexPt < shape.getNbPoints();
 	}
 
 
@@ -77,19 +71,15 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 		final IPoint pt = ShapeFactory.createPoint(getPoint());
 		pt.translate(-tx, -ty);
 
-		if(isFirstCtrlPt)
-			move(pt, pt.centralSymmetry(shape.getPtAt(indexPt)));
-		else
-			move(pt.centralSymmetry(shape.getPtAt(indexPt)), pt);
+		if(isFirstCtrlPt) move(pt, pt.centralSymmetry(shape.getPtAt(indexPt)));
+		else move(pt.centralSymmetry(shape.getPtAt(indexPt)), pt);
 	}
 
 
 	@Override
 	public void redo() {
-		if(isFirstCtrlPt)
-			move(newCoord, newCoord.centralSymmetry(shape.getPtAt(indexPt)));
-		else
-			move(newCoord.centralSymmetry(shape.getPtAt(indexPt)), newCoord);
+		if(isFirstCtrlPt) move(newCoord, newCoord.centralSymmetry(shape.getPtAt(indexPt)));
+		else move(newCoord.centralSymmetry(shape.getPtAt(indexPt)), newCoord);
 	}
 
 
@@ -100,19 +90,19 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 
 	/**
-	 * @param isFirstCtrlPt True: it is a first control point which is moved.
+	 * @param val True: it is a first control point which is moved.
 	 * @since 3.0
 	 */
-	public void setIsFirstCtrlPt(final boolean isFirstCtrlPt) {
-		this.isFirstCtrlPt = isFirstCtrlPt;
+	public void setIsFirstCtrlPt(final boolean val) {
+		isFirstCtrlPt = val;
 	}
 
 
 	/**
-	 * @param shape The shape to modify.
+	 * @param sh The shape to modify.
 	 * @since 3.0
 	 */
-	public void setShape(final IControlPointShape shape) {
-		this.shape = shape;
+	public void setShape(final IControlPointShape sh) {
+		shape = sh;
 	}
 }

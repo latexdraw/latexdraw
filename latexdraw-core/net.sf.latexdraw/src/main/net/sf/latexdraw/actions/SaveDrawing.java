@@ -1,31 +1,25 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.instruments.PreferencesSetter;
-import org.malai.action.Action;
+import org.malai.action.ActionImpl;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
 import java.io.File;
 
 /**
  * This action saves the given drawing into an SVG document.
- * <br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  any later version.<br>
- * <br>
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- * <br>
- * @author Arnaud Blouin
- * @date 06/09/2011
- * @since 3.0
  */
-public class SaveDrawing extends Action { //  Save<LFrame, JLabel>
+public class SaveDrawing extends ActionImpl { //  Save<LFrame, JLabel>
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
 
@@ -156,36 +150,36 @@ public class SaveDrawing extends Action { //  Save<LFrame, JLabel>
 
 
 	/**
-	 * @param prefSetter The instrument that manages the preferences.
+	 * @param setter The instrument that manages the preferences.
 	 * @since 3.0
 	 */
-	public void setPrefSetter(final PreferencesSetter prefSetter) {
-		this.prefSetter = prefSetter;
+	public void setPrefSetter(final PreferencesSetter setter) {
+		prefSetter = setter;
 	}
 
 
 	/**
-	 * @param fileChooser The file chooser that will be used to select the location to save.
+	 * @param chooser The file chooser that will be used to select the location to save.
 	 * @since 3.0
 	 */
-	public void setFileChooser(final JFileChooser fileChooser) {
-		this.fileChooser = fileChooser;
+	public void setFileChooser(final JFileChooser chooser) {
+		fileChooser = chooser;
 	}
 
 	/**
-	 * @param saveAs True: A dialog bow will be always shown to ask the location to save.
+	 * @param pref True: A dialog bow will be always shown to ask the location to save.
 	 * @since 3.0
 	 */
-	public void setSaveAs(final boolean saveAs) {
-		this.saveAs = saveAs;
+	public void setSaveAs(final boolean pref) {
+		saveAs = pref;
 	}
 
 	/**
-	 * @param saveOnClose True: the app will be closed after the drawing saved.
+	 * @param saveOn True: the app will be closed after the drawing saved.
 	 * @since 3.0
 	 */
-	public void setSaveOnClose(final boolean saveOnClose) {
-		this.saveOnClose = saveOnClose;
+	public void setSaveOnClose(final boolean saveOn) {
+		saveOnClose = saveOn;
 	}
 
 	public void setCurrentFolder(final File currFolder) {

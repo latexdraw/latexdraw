@@ -10,9 +10,23 @@
  */
 package net.sf.latexdraw.actions;
 
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+
+import java.util.Optional;
+
 /**
- * This interface permits to tag with a type actions that modifies the drawing.
+ * This trait encapsulates a drawing attribute.
  */
-public interface Modifying {
-	// Nothing to add. This interface is just to add a type to actions that modifies the drawing.
+public interface DrawingAction {
+	/**
+	 * @param dr The drawing that will be handled by the action
+	 * @since 3.0
+	 */
+	void setDrawing(final IDrawing dr);
+
+	/**
+	 * @return The drawing that will be handled by the action
+	 * @since 3.0
+	 */
+	Optional<IDrawing> getDrawing();
 }

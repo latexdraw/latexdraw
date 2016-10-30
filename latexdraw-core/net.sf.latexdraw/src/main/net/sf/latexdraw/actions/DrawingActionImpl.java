@@ -8,32 +8,32 @@
   * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
   * General Public License for more details.
  */
-package net.sf.latexdraw.actions
+package net.sf.latexdraw.actions;
 
-import java.util.Optional
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import org.malai.action.ActionImpl;
 
-import net.sf.latexdraw.models.interfaces.shape.IDrawing
+import java.util.Optional;
 
-/**
-  * This trait encapsulates a drawing attribute.
-  */
-trait DrawingAction {
+public abstract class DrawingActionImpl extends ActionImpl {
 	/** The drawing that will be handled by the action. */
-	var _drawing: Optional[IDrawing] = Optional.empty()
+	protected Optional<IDrawing> drawing;
 
-
-	/**
-	  * @param drawing The drawing that will be handled by the action
-	  * @since 3.0
-	  */
-	def setDrawing(drawing: IDrawing) {
-		_drawing = Optional.ofNullable(drawing)
+	protected DrawingActionImpl() {
+		super();
+		drawing = Optional.empty();
 	}
 
+	public void setDrawing(final IDrawing dr) {
+		drawing = Optional.ofNullable(dr);
+	}
 
-	/**
-	  * @return The drawing that will be handled by the action
-	  * @since 3.0
-	  */
-	def drawing = _drawing
+	public Optional<IDrawing> getDrawing() {
+		return drawing;
+	}
+
+	@Override
+	public boolean canDo() {
+		return drawing.isPresent();
+	}
 }

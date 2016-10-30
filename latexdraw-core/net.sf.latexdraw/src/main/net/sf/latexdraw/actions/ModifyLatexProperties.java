@@ -1,31 +1,25 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.actions;
 
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
-import net.sf.latexdraw.lang.LangTool;
-
-import org.malai.action.Action;
+import org.malai.action.ActionImpl;
 import org.malai.undo.Undoable;
 
 /**
- * This action modifies the latex properties of the current drawing.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 08/14/2011<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * This action modifies the latex properties of the current drawing.
  */
-public class ModifyLatexProperties extends Action implements Undoable, Modifying {
+public class ModifyLatexProperties extends ActionImpl implements Undoable, Modifying {
 	/** The new value to set. */
 	protected Object value;
 
@@ -100,28 +94,28 @@ public class ModifyLatexProperties extends Action implements Undoable, Modifying
 
 
 	/**
-	 * @param value The new value to set.
+	 * @param val The new val to set.
 	 * @since 3.0
 	 */
-	public void setValue(final Object value) {
-		this.value = value;
+	public void setValue(final Object val) {
+		value = val;
 	}
 
 
 	/**
-	 * @param property The property to modify.
+	 * @param prop The prop to modify.
 	 * @since 3.0
 	 */
-	public void setProperty(final LatexProperties property) {
-		this.property = property;
+	public void setProperty(final LatexProperties prop) {
+		property = prop;
 	}
 
 
 	/**
-	 * @param generator The LaTeX generator to modify.
+	 * @param gen The LaTeX generator to modify.
 	 * @since 3.0
 	 */
-	public void setGenerator(final LaTeXGenerator generator) {
-		this.generator = generator;
+	public void setGenerator(final LaTeXGenerator gen) {
+		generator = gen;
 	}
 }

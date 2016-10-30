@@ -187,7 +187,7 @@ public class Pencil extends CanvasInstrument {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.shape().ifPresent(sh -> interaction.getStartPt().ifPresent(startPt -> {
+			action.getShape().ifPresent(sh -> interaction.getStartPt().ifPresent(startPt -> {
 				final IPoint pt = instrument.getAdaptedPoint(startPt);
 
 				// For squares and circles, the centre of the shape is the reference point during the creation.
@@ -205,7 +205,7 @@ public class Pencil extends CanvasInstrument {
 
 		@Override
 		public void updateAction() {
-			action.shape().ifPresent(sh -> {
+			action.getShape().ifPresent(sh -> {
 				// Getting the points depending on the current zoom.
 				final IPoint startPt = instrument.getAdaptedPoint(interaction.getStartPt().orElse(new Point2D.Double()));
 				final IPoint endPt = instrument.getAdaptedPoint(interaction.getEndPt().orElse(new Point2D.Double()));
@@ -213,7 +213,7 @@ public class Pencil extends CanvasInstrument {
 				if(sh instanceof ISquaredShape) {
 					updateShapeFromCentre((ISquaredShape) sh, startPt, endPt.getX());
 					sh.setModified(true);
-					action.drawing().ifPresent(drawing -> drawing.setModified(true));
+					action.getDrawing().ifPresent(drawing -> drawing.setModified(true));
 				}else if(sh instanceof IFreehand) {
 					final IFreehand fh = (IFreehand) sh;
 					final IPoint last = fh.getPtAt(-1);
@@ -223,7 +223,7 @@ public class Pencil extends CanvasInstrument {
 				}else if(sh instanceof IRectangularShape) {
 					updateShapeFromDiag((IRectangularShape) sh, startPt, endPt);
 					sh.setModified(true);
-					action.drawing().ifPresent(drawing -> drawing.setModified(true));
+					action.getDrawing().ifPresent(drawing -> drawing.setModified(true));
 				}
 			});
 		}

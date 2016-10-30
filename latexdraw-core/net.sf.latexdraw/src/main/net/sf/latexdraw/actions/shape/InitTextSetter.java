@@ -1,30 +1,24 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.actions.shape;
 
+import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.GLibUtilities;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.instruments.TextSetter;
-
 import org.malai.action.library.ActivateInstrument;
 
 /**
- * This action activates and moves the text setter to a given position.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 20/12/2010<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * This action activates and moves the text setter to a given position.
  */
 public class InitTextSetter extends ActivateInstrument {
 	/** The text setter to move. */
@@ -48,10 +42,10 @@ public class InitTextSetter extends ActivateInstrument {
 	@Override
 	public void flush() {
 		super.flush();
-		plotShape	  = null;
-		text		  = null;
-		textShape	  = null;
-		setter 		  = null;
+		plotShape = null;
+		text = null;
+		textShape = null;
+		setter = null;
 		relativePoint = null;
 		absolutePoint = null;
 	}
@@ -59,21 +53,21 @@ public class InitTextSetter extends ActivateInstrument {
 
 	/**
 	 * Sets the text shape to modify.
-	 * @param textShape The text (shape) to modify throw the setter. Can be null.
+	 * @param val The text (shape) to modify throw the setter. Can be null.
 	 * @since 3.0
 	 */
-	public void setTextShape(final IText textShape) {
-		this.textShape = textShape;
+	public void setTextShape(final IText val) {
+		textShape = val;
 	}
 
 
 	/**
 	 * Sets the text to display into the text setter.
-	 * @param text The text to set.
+	 * @param val The text to set.
 	 * @since 3.0
 	 */
-	public void setText(final String text) {
-		this.text = text;
+	public void setText(final String val) {
+		text = val;
 	}
 
 	/**
@@ -119,15 +113,15 @@ public class InitTextSetter extends ActivateInstrument {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && GLibUtilities.isValidPoint(absolutePoint) &&
-				GLibUtilities.isValidPoint(relativePoint) && setter!=null && (text!=null || textShape!=null || plotShape!=null);
+		return super.canDo() && GLibUtilities.isValidPoint(absolutePoint) && GLibUtilities.isValidPoint(relativePoint) &&
+			setter != null && (text != null || textShape != null || plotShape != null);
 	}
 
 
 	@Override
 	protected void doActionBody() {
 		super.doActionBody();
-//		setter.getTextField().setLocation((int)absolutePoint.getX(), (int)absolutePoint.getY()-setter.getTextField().getHeight());
+		//		setter.getTextField().setLocation((int)absolutePoint.getX(), (int)absolutePoint.getY()-setter.getTextField().getHeight());
 		setter.setRelativePoint(relativePoint);
 		setter.getTextField().setText(text);
 		setter.setText(textShape);

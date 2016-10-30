@@ -1,3 +1,13 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.actions.shape.ShapeProperties;
@@ -6,22 +16,7 @@ import net.sf.latexdraw.models.interfaces.shape.*;
 import net.sf.latexdraw.instruments.Pencil;
 
 /**
- * This action modifies a parameter of the pencil and updates its corresponding instrument.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 05/19/2010<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * This action modifies a parameter of the pencil and updates its corresponding instrument.
  */
 public class ModifyPencilParameter extends ShapePropertyAction {
 	/** The pencil to modify. */
@@ -54,7 +49,6 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 	}
 
 
-
 	@Override
 	public boolean isRegisterable() {
 		return false;
@@ -63,11 +57,11 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 
 	/**
 	 * Defines the pencil to modify.
-	 * @param pencil The pencil to modify.
+	 * @param pen The pencil to modify.
 	 * @since 3.0
 	 */
-	public void setPencil(final Pencil pencil) {
-		this.pencil = pencil;
+	public void setPencil(final Pencil pen) {
+		pencil = pen;
 	}
 
 

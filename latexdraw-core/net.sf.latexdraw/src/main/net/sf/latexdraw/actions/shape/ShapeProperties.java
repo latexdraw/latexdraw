@@ -1,28 +1,37 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.actions.shape;
+
+import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
+import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.Color;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 
 import java.util.Collections;
 import java.util.List;
 
-import net.sf.latexdraw.models.interfaces.shape.*;
-import net.sf.latexdraw.lang.LangTool;
-
 /**
- * Defines shape properties.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 05/19/2010<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * Defines shape properties.
  */
 public enum ShapeProperties {
 	/** Plot style. **/

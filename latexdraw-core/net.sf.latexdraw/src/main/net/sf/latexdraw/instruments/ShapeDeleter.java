@@ -97,14 +97,14 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable {
 		@Override
 		public void initAction() {
 			final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-			selection.shapes().forEach(sh -> action.addShape(sh));
-			action.setDrawing(selection.drawing().get());
+			selection.getShapes().forEach(sh -> action.addShape(sh));
+			action.setDrawing(selection.getDrawing().get());
 		}
 
 		@Override
 		public boolean isConditionRespected() {
 			final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-			return selection != null && !selection.shapes().isEmpty();
+			return selection != null && !selection.getShapes().isEmpty();
 		}
 	}
 }

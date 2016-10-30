@@ -51,7 +51,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 	private final Supplier<Boolean> isShapeSelected = () -> {
 		final SelectShapes act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-		return act != null && !act.shapes().isEmpty();
+		return act != null && !act.getShapes().isEmpty();
 	};
 
 

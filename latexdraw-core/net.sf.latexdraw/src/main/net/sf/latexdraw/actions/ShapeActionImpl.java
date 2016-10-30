@@ -10,47 +10,32 @@
  */
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.instruments.PreferencesSetter;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.action.ActionImpl;
 
-/**
- * This action writes the preferences.
- */
-public class WritePreferences extends ActionImpl {
-	/** The setter that sets the preferences. */
-	protected PreferencesSetter setter;
-	
+import java.util.Optional;
 
-	@Override
-	public boolean isRegisterable() {
-		return false;
+public abstract class ShapeActionImpl<T extends IShape> extends ActionImpl implements ShapeAction<T> {
+	/** The shape to add. */
+	protected Optional<T> shape;
+
+	protected ShapeActionImpl() {
+		super();
+		shape = Optional.empty();
 	}
 
-
 	@Override
-	protected void doActionBody() {
-		setter.writeXMLPreferences();
+	public void setShape(final T sh) {
+		shape = Optional.ofNullable(sh);
 	}
 
+	@Override
+	public Optional<T> getShape() {
+		return shape;
+	}
 
 	@Override
 	public boolean canDo() {
-		return setter!=null;
-	}
-
-
-	/**
-	 * @param val The setter that sets the preferences.
-	 * @since 3.0
-	 */
-	public void setSetter(final PreferencesSetter val) {
-		setter = val;
-	}
-
-
-	@Override
-	public void flush() {
-		super.flush();
-		setter = null;
+		return shape.isPresent();
 	}
 }

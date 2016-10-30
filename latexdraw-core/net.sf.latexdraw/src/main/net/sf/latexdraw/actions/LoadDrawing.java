@@ -1,30 +1,24 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.actions;
 
-import org.malai.action.Action;
+import org.malai.action.ActionImpl;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
 import java.io.File;
 
 /**
  * This action loads an SVG document into the app.
- * <br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  any later version.<br>
- * <br>
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- * <br>
- * @author Arnaud Blouin
- * @date 06/09/2011
- * @since 3.0
  */
-public class LoadDrawing extends Action implements Modifying { //  extends Load<LFrame, JLabel>
+public class LoadDrawing extends ActionImpl implements Modifying { //  extends Load<LFrame, JLabel>
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
 	File currentFolder;
@@ -83,11 +77,11 @@ public class LoadDrawing extends Action implements Modifying { //  extends Load<
 
 
 	/**
-	 * @param fileChooser The file chooser that will be used to select the location to save.
+	 * @param chooser The file chooser that will be used to select the location to save.
 	 * @since 3.0
 	 */
-	public void setFileChooser(final JFileChooser fileChooser) {
-		this.fileChooser = fileChooser;
+	public void setFileChooser(final JFileChooser chooser) {
+		this.fileChooser = chooser;
 	}
 
 	public void setCurrentFolder(final File currFolder) {

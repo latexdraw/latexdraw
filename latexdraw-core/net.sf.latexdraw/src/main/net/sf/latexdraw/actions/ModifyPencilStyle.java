@@ -14,16 +14,12 @@ package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.instruments.EditionChoice;
 import net.sf.latexdraw.instruments.Pencil;
-
-import org.malai.action.Action;
+import org.malai.action.ActionImpl;
 
 /**
- * This action allows to set the kind of shape that the pencil must draw.<br>
- * 05/14/2010<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * This action allows to set the kind of shape that the pencil must draw.
  */
-public class ModifyPencilStyle extends Action {
+public class ModifyPencilStyle extends ActionImpl {
 	/** The pencil to set. */
 	protected Pencil pencil;
 
@@ -36,35 +32,31 @@ public class ModifyPencilStyle extends Action {
 		pencil.setCurrentChoice(editingChoice);
 	}
 
-
 	@Override
 	public boolean canDo() {
-		return pencil!=null && editingChoice!=null && pencil.getCurrentChoice()!=editingChoice;
+		return pencil != null && editingChoice != null && pencil.getCurrentChoice() != editingChoice;
 	}
-
 
 	@Override
 	public boolean isRegisterable() {
 		return false;
 	}
 
-
 	/**
 	 * Sets the pencil to parameterise.
-	 * @param pencil The pencil.
+	 * @param pen The pencil.
 	 * @since 3.0
 	 */
-	public void setPencil(final Pencil pencil) {
-		this.pencil = pencil;
+	public void setPencil(final Pencil pen) {
+		pencil = pen;
 	}
-
 
 	/**
 	 * Sets the new editing choice of the pencil.
-	 * @param editingChoice The new editing choice (can be null).
+	 * @param choice The new editing choice (can be null).
 	 * @since 3.0
 	 */
-	public void setEditingChoice(final EditionChoice editingChoice) {
-		this.editingChoice = editingChoice;
+	public void setEditingChoice(final EditionChoice choice) {
+		editingChoice = choice;
 	}
 }

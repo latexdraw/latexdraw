@@ -1,24 +1,19 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.actions.shape;
 
 import org.malai.action.library.ModifyValue;
 
 /**
- * This action modifies a shape property of an object.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 11/01/2010<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * This action modifies a shape property of an object.
  */
 public abstract class ShapePropertyAction extends ModifyValue {
 	/** The property to set. */
@@ -29,7 +24,7 @@ public abstract class ShapePropertyAction extends ModifyValue {
 	 * Creates and initialises the action.
 	 * @since 3.0
 	 */
-    protected ShapePropertyAction() {
+	protected ShapePropertyAction() {
 		super();
 	}
 
@@ -52,16 +47,16 @@ public abstract class ShapePropertyAction extends ModifyValue {
 	 * @since 3.0
 	 */
 	protected boolean isPropertySupported() {
-		return property!=null;
+		return property != null;
 	}
 
 
 	/**
 	 * Defines the property to modify
-	 * @param property The property to modify.
+	 * @param prop The property to modify.
 	 * @since 3.0
 	 */
-	public void setProperty(final ShapeProperties property) {
-		this.property = property;
+	public void setProperty(final ShapeProperties prop) {
+		property = prop;
 	}
 }

@@ -10,9 +10,30 @@
  */
 package net.sf.latexdraw.actions;
 
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import org.malai.action.Action;
+
+import java.util.Optional;
+
 /**
- * This interface permits to tag with a type actions that modifies the drawing.
+ * This trait encapsulates a shape attribute.
  */
-public interface Modifying {
-	// Nothing to add. This interface is just to add a type to actions that modifies the drawing.
+public interface ShapeAction<T extends IShape> extends Action {
+	/**
+	 * Sets the shape to add.
+	 * @param sh The shape to add.
+	 * @since 3.0
+	 */
+	void setShape(final T sh);
+
+	/**
+	 * @return The shape to modify.
+	 * @since 3.0
+	 */
+	Optional<T> getShape();
+
+	@Override
+	default boolean canDo() {
+		return getShape().isPresent();
+	}
 }

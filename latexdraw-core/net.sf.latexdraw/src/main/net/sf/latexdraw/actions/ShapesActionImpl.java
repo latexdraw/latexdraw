@@ -8,32 +8,28 @@
   * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
   * General Public License for more details.
  */
-package net.sf.latexdraw.actions
+package net.sf.latexdraw.actions;
 
-import java.util.Optional
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import org.malai.action.ActionImpl;
 
-import net.sf.latexdraw.models.interfaces.shape.IShape
+import java.util.ArrayList;
+import java.util.List;
 
 /**
-  * This trait encapsulates a shape attribute.
-  */
-trait ShapeAction[T <: IShape] {
-	/** The shape to add. */
-	var _shape: Optional[T] = Optional.empty()
+ * This trait encapsulates a set of shapes attribute.
+ */
+public abstract class ShapesActionImpl extends ActionImpl implements ShapesAction {
+	/** The shapes to handle. */
+	final List<IShape> shapes;
 
-	/**
-	  * Sets the shape to add.
-	  *
-	  * @param shape The shape to add.
-	  * @since 3.0
-	  */
-	def setShape(shape: T) {
-		_shape = Optional.ofNullable(shape)
+	protected ShapesActionImpl() {
+		super();
+		shapes = new ArrayList<>();
 	}
 
-	/**
-	  * @return The shape to modify.
-	  * @since 3.0
-	  */
-	def shape = _shape
+	@Override
+	public List<IShape> getShapes() {
+		return shapes;
+	}
 }
