@@ -31,6 +31,7 @@ import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 import org.malai.action.Action;
 import org.malai.action.ActionHandler;
 import org.malai.action.ActionsRegistry;
@@ -49,6 +50,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Defines a canvas that draw the drawing and manages the selected shapes.
@@ -84,8 +86,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/** Defined whether the canvas has been modified. */
 	protected boolean modified;
 
-//	/** The temporary view that the canvas may contain. */
-	// protected final IUnary<IViewShape> tempView;
+	/** The temporary view that the canvas may contain. */
+	protected Optional<ViewShape<?, ?>> tempView;
 
 	/**
 	 * Creates the canvas.
@@ -96,7 +98,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		modified = false;
 		drawing = ShapeFactory.createDrawing();
 		zoom = new ActiveUnary<>(1.0);
-		// tempView = new ActiveUnary<>();
+		tempView = Optional.empty();
 		page = new PageView(Page.USLETTER, getOrigin());
 		magneticGrid = new MagneticGridImpl(this);
 		handlersPane = new Group();
@@ -117,13 +119,13 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		defineShapeListToViewBinding();
 		configureSelection();
 
-//		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(150, 120), 200, 60);
-//		rec.setThickness(10.0);
-//		rec.setGradColStart(DviPsColors.APRICOT);
-//		rec.setGradColEnd(DviPsColors.BLUEVIOLET);
-//		rec.setFillingStyle(FillingStyle.GRAD);
-//		rec.setFillingCol(DviPsColors.RED);
-//		getDrawing().addShape(rec);
+		//		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(150, 120), 200, 60);
+		//		rec.setThickness(10.0);
+		//		rec.setGradColStart(DviPsColors.APRICOT);
+		//		rec.setGradColEnd(DviPsColors.BLUEVIOLET);
+		//		rec.setFillingStyle(FillingStyle.GRAD);
+		//		rec.setFillingCol(DviPsColors.RED);
+		//		getDrawing().addShape(rec);
 
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
@@ -145,16 +147,15 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
 		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
 
-		final ObservableList<IShape> selection = (ObservableList<IShape>)drawing.getSelection().getShapes();
+		final ObservableList<IShape> selection = (ObservableList<IShape>) drawing.getSelection().getShapes();
 
 		selection.addListener((Change<? extends IShape> evt) -> {
-			if(selection.isEmpty())
-				selectionBorder.setVisible(false);
+			if(selection.isEmpty()) selectionBorder.setVisible(false);
 			else {
 				final double zoomLevel = getZoom();
 				final Rectangle2D rec = selection.stream().map(sh -> {
 					Bounds b = shapesToViewMap.get(sh).getBoundsInLocal();
-					return (Rectangle2D)new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
+					return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
 				}).reduce(Rectangle2D::createUnion).get();
 
 				selectionBorder.setLayoutX(rec.getMinX() * zoomLevel);
@@ -168,7 +169,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	private void defineShapeListToViewBinding() {
 		if(drawing.getShapes() instanceof ObservableList) {
-			((ObservableList<IShape>)drawing.getShapes()).addListener((Change<? extends IShape> evt) -> {
+			((ObservableList<IShape>) drawing.getShapes()).addListener((Change<? extends IShape> evt) -> {
 				while(evt.next()) {
 					if(evt.wasAdded()) {
 						evt.getAddedSubList().forEach(sh -> ViewFactory.INSTANCE.createView(sh).ifPresent(v -> {
@@ -262,45 +263,52 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void onUndoableAdded(final Undoable u) {
-		/* Nothing to do. */ }
+		/* Nothing to do. */
+	}
 
 	@Override
 	public void onUndoableCleared() {
-		/* Nothing to do. */ }
+		/* Nothing to do. */
+	}
 
 	@Override
 	public void onUndoableRedo(final Undoable u) {
-		/* Nothing to do. */ }
+		/* Nothing to do. */
+	}
 
 	@Override
 	public void onUndoableUndo(final Undoable u) {
-		/* Nothing to do. */ }
+		/* Nothing to do. */
+	}
 
 	@Override
 	public void onActionAborted(final Action a) {
-		/* Nothing to do. */ }
+		/* Nothing to do. */
+	}
 
 	@Override
 	public void onActionAdded(final Action a) {
-		/* Nothing to do. */ }
+		/* Nothing to do. */
+	}
 
 	@Override
 	public void onActionCancelled(final Action a) {
-		/* Nothing to do. */ }
+		/* Nothing to do. */
+	}
 
 	@Override
 	public void onActionDone(final Action a) {
-		/* Nothing to do. */ }
+		/* Nothing to do. */
+	}
 
 	@Override
 	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
-		if(document == null || root == null)
-			return;
+		if(document == null || root == null) return;
 
 		Element elt;
 
 		if(!generalPreferences) {
-			final String ns = nsURI == null || nsURI.isEmpty()?"":nsURI + ':'; //$NON-NLS-1$
+			final String ns = nsURI == null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
 			elt = document.createElement(ns + LNamespace.XML_ZOOM);
 			elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
 			root.appendChild(elt);
@@ -311,14 +319,13 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void load(final boolean generalPreferences, final String nsURI, final Element meta) {
-		if(meta == null)
-			return;
+		if(meta == null) return;
 		// Getting the list of meta information tags.
 		final NodeList nl = meta.getChildNodes();
 		Node node;
 		int i;
 		final int size = nl.getLength();
-		final String uri = nsURI == null?"":nsURI; //$NON-NLS-1$
+		final String uri = nsURI == null ? "" : nsURI; //$NON-NLS-1$
 		String name;
 
 		// For each meta information tag.
@@ -345,8 +352,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	@Override
 	public void setModified(final boolean modif) {
 		modified = modif;
-		if(!modif)
-			magneticGrid.setModified(false);
+		if(!modif) magneticGrid.setModified(false);
 	}
 
 	@Override
@@ -399,7 +405,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public Point2D getZoomedPoint(final Point pt) {
-		return pt == null?new Point2D.Double():getZoomedPoint(pt.x, pt.y);
+		return pt == null ? new Point2D.Double() : getZoomedPoint(pt.x, pt.y);
 	}
 
 	@Override
@@ -432,8 +438,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	 */
 	public IPoint convertToOrigin(final IPoint pt) {
 		final IPoint convertion;
-		if(pt == null)
-			convertion = null;
+		if(pt == null) convertion = null;
 		else {
 			convertion = ShapeFactory.createPoint(pt);
 			convertion.translate(-ORIGIN.getX(), -ORIGIN.getY());
@@ -448,11 +453,13 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		return drawing;
 	}
 
-	// /**
-	// * Sets the temporary view.
-	// * @param view The new temporary view.
-	// */
-	// public void setTempView(final @Nullable IViewShape view) {
-	// tempView.setValue(view);
-	// }
+	/**
+	 * Sets the temporary view.
+	 * @param view The new temporary view.
+	 */
+	public void setTempView(final @Nullable ViewShape<?, ?> view) {
+		tempView.ifPresent(v -> shapesPane.getChildren().remove(v));
+		tempView = Optional.ofNullable(view);
+		tempView.ifPresent(v -> shapesPane.getChildren().add(v));
+	}
 }

@@ -87,8 +87,7 @@ public class Pencil extends CanvasInstrument {
 
 	@Override
 	public void interimFeedback() {
-		//		canvas.setTempView(null);
-		// canvas.refresh();
+		canvas.setTempView(null);
 		if(canvas.getScene() != null) canvas.getScene().setCursor(Cursor.DEFAULT);
 	}
 
@@ -165,16 +164,8 @@ public class Pencil extends CanvasInstrument {
 				tmpShape = v;
 				action.setShape(sh);
 				action.setDrawing(instrument.canvas.getDrawing());
-				//				instrument.canvas.setTempView(tmpShape);
+				instrument.canvas.setTempView(tmpShape);
 			});
-		}
-
-		@Override
-		public void interimFeedback() {
-			//			if(tmpShape != null) {
-			//				tmpShape.update();
-			//				instrument.canvas.refresh();
-			//			}
 		}
 	}
 
@@ -282,6 +273,7 @@ public class Pencil extends CanvasInstrument {
 			}else ok = false;
 
 			if(ok) {
+				System.out.println(tlx + " " + bry);
 				shape.setPosition(tlx, bry);
 				shape.setWidth(brx - tlx);
 				shape.setHeight(bry - tly);
@@ -291,7 +283,9 @@ public class Pencil extends CanvasInstrument {
 		@Override
 		public boolean isConditionRespected() {
 			final EditionChoice ec = instrument.currentChoice;
-			return interaction.getButton() == MouseButton.PRIMARY && (ec == EditionChoice.RECT || ec == EditionChoice.ELLIPSE || ec == EditionChoice.SQUARE || ec == EditionChoice.CIRCLE || ec == EditionChoice.RHOMBUS || ec == EditionChoice.TRIANGLE || ec == EditionChoice.CIRCLE_ARC || ec == EditionChoice.FREE_HAND);
+			return interaction.getButton() == MouseButton.PRIMARY && (ec == EditionChoice.RECT || ec == EditionChoice.ELLIPSE ||
+				ec == EditionChoice.SQUARE || ec == EditionChoice.CIRCLE || ec == EditionChoice.RHOMBUS || ec == EditionChoice.TRIANGLE ||
+				ec == EditionChoice.CIRCLE_ARC || ec == EditionChoice.FREE_HAND);
 		}
 	}
 
