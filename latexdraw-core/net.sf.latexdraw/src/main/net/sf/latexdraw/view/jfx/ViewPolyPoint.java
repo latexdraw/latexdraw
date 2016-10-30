@@ -12,9 +12,12 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import javafx.collections.ListChangeListener;
+import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.eclipse.jdt.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -48,6 +51,24 @@ abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathS
 			lineto.yProperty().bind(sh.getPtAt(i).yProperty());
 			lineTos.add(lineto);
 			border.getElements().add(lineto);
+		});
+
+		model.getPoints().addListener((ListChangeListener.Change<? extends IPoint> c) -> {
+			while(c.next()) {
+				if(c.wasAdded()) {
+					c.getAddedSubList().forEach(pt -> {
+						LineTo lineto = new LineTo();
+						lineto.xProperty().bind(pt.xProperty());
+						lineto.yProperty().bind(pt.yProperty());
+						lineTos.add(lineto);
+						border.getElements().add(lineto);
+						if(border.getElements().get(border.getElements().size()-2) instanceof ClosePath) {
+							border.getElements().remove(border.getElements().size()-2);
+							border.getElements().add(new ClosePath());
+						}
+					});
+				}
+			}
 		});
 	}
 

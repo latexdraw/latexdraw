@@ -1,10 +1,10 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
-import java.awt.geom.Rectangle2D;
-import java.util.List;
-
+import javafx.collections.ObservableList;
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.properties.Modifiable;
+
+import java.awt.geom.Rectangle2D;
 
 /**
  * Defines an interface that classes defining an abstract shape should implement.<br>
@@ -36,7 +36,7 @@ public interface IShape extends Modifiable {
 	 * @return The points of the shape.
 	 * @since 3.0
 	 */
-	List<IPoint> getPoints();
+	ObservableList<IPoint> getPoints();
 
 	/**
 	 * @return The number of points of the shape.

@@ -2,20 +2,11 @@ package net.sf.latexdraw.models.impl
 
 import java.awt.geom.Rectangle2D
 import java.util.Optional
+import javafx.collections.FXCollections
+
 import net.sf.latexdraw.models.ShapeFactory
-import net.sf.latexdraw.models.interfaces.shape.BorderPos
-import net.sf.latexdraw.models.interfaces.shape.Color
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle
-import net.sf.latexdraw.models.interfaces.shape.IDot
-import net.sf.latexdraw.models.interfaces.shape.IGroup
-import net.sf.latexdraw.models.interfaces.shape.IPoint
-import net.sf.latexdraw.models.interfaces.shape.IShape
-import net.sf.latexdraw.models.interfaces.shape.ISquaredShape
-import net.sf.latexdraw.models.interfaces.shape.IStandardGrid
-import net.sf.latexdraw.models.interfaces.shape.LineStyle
-import net.sf.latexdraw.models.interfaces.shape.Position
+import net.sf.latexdraw.models.interfaces.shape._
 import net.sf.latexdraw.view.pst.PSTricksConstants
-import java.util.Collections
 
 /**
  * This trait encapsulates the code of the group related to the support of the general shape's properties.<br>
@@ -78,7 +69,7 @@ private[impl] trait LGroupShape extends IGroup {
   
   override def getNbPoints() = 0
   
-  override def getPoints() = Collections.emptyList()
+  override def getPoints() = FXCollections.emptyObservableList();
   
   override def getPtAt(x$1: Int) = null
   

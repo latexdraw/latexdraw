@@ -4,6 +4,8 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import net.sf.latexdraw.models.GLibUtilities;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
@@ -14,13 +16,12 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.models.interfaces.shape.Position;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LNumber;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.mapping.MappingRegistry;
 
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -121,7 +122,7 @@ abstract class LShape implements ISingleShape {
 	protected final @NonNull ObjectProperty<BorderPos> bordersPosition;
 
 	/** The points of the shape. */
-	protected final List<IPoint> points;
+	protected final ObservableList<IPoint> points;
 
 	/** Defined if the shape has been modified. */
 	protected boolean modified;
@@ -158,7 +159,7 @@ abstract class LShape implements ISingleShape {
 		gradColEnd = PSTricksConstants.DEFAULT_GRADIENT_END_COLOR;
 		gradMidPt = PSTricksConstants.DEFAULT_GRADIENT_MID_POINT;
 		showPts = false;
-		points = new ArrayList<>();
+		points = FXCollections.observableArrayList();
 	}
 
 	@Override
@@ -350,7 +351,7 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public List<IPoint> getPoints() {
+	public ObservableList<IPoint> getPoints() {
 		return points;
 	}
 

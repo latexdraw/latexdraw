@@ -16,6 +16,7 @@ import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
@@ -26,11 +27,15 @@ import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.jfx.ViewShape;
+import org.malai.interaction.Interaction;
 import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.interaction.JfxInteraction;
 import org.malai.javafx.interaction.library.AbortableDnD;
+import org.malai.javafx.interaction.library.MultiClick;
+import org.malai.stateMachine.MustAbortStateMachineException;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 
 /**
  * This instrument allows to draw shapes.
@@ -98,7 +103,7 @@ public class Pencil extends CanvasInstrument {
 		// addInteractor(new Press2AddText(this))
 		// addInteractor(new Press2InsertPicture(this))
 		addInteractor(new DnD2AddShape());
-		// addInteractor(new MultiClic2AddShape(this))
+		addInteractor(new MultiClic2AddShape());
 		// addInteractor(new Press2InitTextSetter(this))
 	}
 
@@ -273,7 +278,6 @@ public class Pencil extends CanvasInstrument {
 			}else ok = false;
 
 			if(ok) {
-				System.out.println(tlx + " " + bry);
 				shape.setPosition(tlx, bry);
 				shape.setWidth(brx - tlx);
 				shape.setHeight(bry - tly);
@@ -284,59 +288,73 @@ public class Pencil extends CanvasInstrument {
 		public boolean isConditionRespected() {
 			final EditionChoice ec = instrument.currentChoice;
 			return interaction.getButton() == MouseButton.PRIMARY && (ec == EditionChoice.RECT || ec == EditionChoice.ELLIPSE ||
-				ec == EditionChoice.SQUARE || ec == EditionChoice.CIRCLE || ec == EditionChoice.RHOMBUS || ec == EditionChoice.TRIANGLE ||
-				ec == EditionChoice.CIRCLE_ARC || ec == EditionChoice.FREE_HAND);
+				ec == EditionChoice.SQUARE || ec == EditionChoice.CIRCLE || ec == EditionChoice.RHOMBUS ||
+				ec == EditionChoice.TRIANGLE || ec == EditionChoice.CIRCLE_ARC || ec == EditionChoice.FREE_HAND);
 		}
 	}
 
 
-	//	class MultiClic2AddShape(pencil:Pencil)extends PencilInteractor[MultiClick](pencil,false,classOf[MultiClick])
-	//
-	//	{
-	//		// To avoid the overlapping with the DnD2AddShape, the starting interaction
-	//		must be
-	//		// aborted when the condition is not respected, i.e. when the selected shape
-	//		type is
-	//		// not devoted to the multi-clic interaction.
-	//		override def isInteractionMustBeAborted = !isConditionRespected
-	//
-	//		override def updateAction() {
-	//		val pts = interaction.getPoints val currPoint = instrument.getAdaptedPoint(interaction.getCurrentPosition)
-	//		val shape = action.shape.get.asInstanceOf[IModifiablePointsShape]
-	//
-	//		if(shape.getNbPoints == pts.size && !interaction.isLastPointFinalPoint)
-	//			shape.addPoint(ShapeFactory.createPoint(currPoint.getX, currPoint.getY), pts.size - 1)
-	//		else shape.setPoint(currPoint.getX, currPoint.getY, -1)
-	//
-	//		// Curves need to be balanced.
-	//		shape match {
-	//			case shape1:
-	//				IControlPointShape =>shape1.balance case _ =>
-	//		}
-	//
-	//		shape.setModified(true) action.drawing.get.setModified(true)
-	//	}
-	//
-	//
-	//		override def initAction() {
-	//		super.initAction val shape = action.shape.get
-	//
-	//		shape match {
-	//			case modShape:
-	//				IModifiablePointsShape =>
-	//				val pt = instrument.getAdaptedPoint(interaction.getPoints.get(0)) modShape.setPoint(pt, 0) modShape.setPoint(pt.getX + 1, pt.getY + 1, 1)
-	//			case _ =>
-	//		}
-	//	}
-	//
-	//		override def
-	//		isConditionRespected = instrument.currentChoice == EditionChoice.POLYGON || instrument.currentChoice == EditionChoice.LINES || instrument.currentChoice == EditionChoice.BEZIER_CURVE || instrument.currentChoice == EditionChoice.BEZIER_CURVE_CLOSED
-	//
-	//		override def interactionStarts(inter:Interaction){
-	//		super.interactionStarts(inter) if(instrument.currentChoice == EditionChoice.POLYGON) interaction.setMinPoints(3)
-	//		else interaction.setMinPoints(2)
-	//	}
-	//	}
+	private class MultiClic2AddShape extends PencilInteractor<MultiClick> {
+		MultiClic2AddShape() throws InstantiationException, IllegalAccessException {
+			super(MultiClick.class);
+		}
+
+		// To avoid the overlapping with the DnD2AddShape, the starting interaction must be
+		// aborted when the condition is not respected, i.e. when the selected shape type is
+		// not devoted to the multi-clic interaction.
+		@Override
+		public boolean isInteractionMustBeAborted() {
+			return !isConditionRespected();
+		}
+
+		@Override
+		public void updateAction() {
+			action.getShape().ifPresent(sh -> {
+				final List<Point2D.Double> pts = interaction.getPoints();
+				final IPoint currPoint = instrument.getAdaptedPoint(interaction.getCurrentPosition());
+				final IModifiablePointsShape shape = (IModifiablePointsShape) sh;
+
+				if(shape.getNbPoints() == pts.size() && !interaction.isLastPointFinalPoint()) {
+					shape.addPoint(ShapeFactory.createPoint(currPoint.getX(), currPoint.getY()), -1);
+				}else {
+					shape.setPoint(currPoint.getX(), currPoint.getY(), -1);
+				}
+
+				// Curves need to be balanced.
+				if(sh instanceof IControlPointShape) {
+					((IControlPointShape) sh).balance();
+				}
+
+				shape.setModified(true);
+				action.getDrawing().ifPresent(dr -> dr.setModified(true));
+			});
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.getShape().ifPresent(shape -> {
+				if(shape instanceof IModifiablePointsShape) {
+					final IModifiablePointsShape modShape = (IModifiablePointsShape) shape;
+					final IPoint pt = instrument.getAdaptedPoint(interaction.getPoints().get(0));
+					modShape.setPoint(pt, 0);
+					modShape.setPoint(pt.getX() + 1.0, pt.getY() + 1.0, 1);
+				}
+			});
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.currentChoice == EditionChoice.POLYGON || instrument.currentChoice == EditionChoice.LINES ||
+				instrument.currentChoice == EditionChoice.BEZIER_CURVE || instrument.currentChoice == EditionChoice.BEZIER_CURVE_CLOSED;
+		}
+
+		@Override
+		public void interactionStarts(final Interaction inter) throws MustAbortStateMachineException {
+			super.interactionStarts(inter);
+			interaction.setMinPoints(instrument.currentChoice == EditionChoice.POLYGON ? 3 : 2);
+		}
+	}
 }
 
 // private sealed class Press2InsertPicture(pencil:Pencil) extends
