@@ -14,6 +14,7 @@ package net.sf.latexdraw.view.jfx;
 
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
@@ -61,7 +62,7 @@ public final class ViewFactory {
 		// if(shape instanceof IAxes) return new LAxesView((IAxes)shape);
 		// if(shape instanceof IGrid) return new LGridView((IGrid)shape);
 		// if(shape instanceof IDot) return new LDotView((IDot)shape);
-		// if(shape instanceof IPicture) return new LPictureView((IPicture)shape);
+		if(shape instanceof IPicture) return Optional.of(new ViewPicture((IPicture) shape));
 		// if(shape instanceof IFreehand) return new LFreeHandView((IFreehand)shape);
 		return Optional.empty();
 	}

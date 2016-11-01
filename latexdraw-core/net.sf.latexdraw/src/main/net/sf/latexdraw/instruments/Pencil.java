@@ -13,7 +13,9 @@ package net.sf.latexdraw.instruments;
 import com.google.inject.Inject;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
+import javafx.stage.FileChooser;
 import net.sf.latexdraw.actions.shape.AddShape;
+import net.sf.latexdraw.actions.shape.InsertPicture;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
@@ -25,6 +27,7 @@ import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
 import net.sf.latexdraw.util.LNumber;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import org.malai.interaction.Interaction;
@@ -32,9 +35,11 @@ import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.interaction.JfxInteraction;
 import org.malai.javafx.interaction.library.AbortableDnD;
 import org.malai.javafx.interaction.library.MultiClick;
+import org.malai.javafx.interaction.library.Press;
 import org.malai.stateMachine.MustAbortStateMachineException;
 
 import java.awt.geom.Point2D;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -49,7 +54,7 @@ public class Pencil extends CanvasInstrument {
 
 	//	protected MLayeredPane layers;
 
-	//	private JFileChooser pictureFileChooser;
+	private FileChooser pictureFileChooser;
 
 	private IGroup groupParams;
 
@@ -58,15 +63,14 @@ public class Pencil extends CanvasInstrument {
 		currentChoice = EditionChoice.RECT;
 	}
 
-	//	JFileChooser getPictureFileChooser() {
-	//		if(pictureFileChooser==null) {
-	//			pictureFileChooser = new JFileChooser();
-	//			pictureFileChooser.setMultiSelectionEnabled(false);
-	//			pictureFileChooser.setAcceptAllFileFilterUsed(true);
-	//			pictureFileChooser.setFileFilter(new PictureFilter());
-	//		}
-	//		return pictureFileChooser;
-	//	}
+	FileChooser getPictureFileChooser() {
+		if(pictureFileChooser==null) {
+			pictureFileChooser = new FileChooser();
+			pictureFileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter(
+				LangTool.INSTANCE.getBundle().getString("Filter.1"), Arrays.asList("*.png", "*.bmp", "*.gif", "*.jpeg", "*.jpg")));
+		}
+		return pictureFileChooser;
+	}
 
 	public IGroup getGroupParams() {
 		if(groupParams == null) {
@@ -101,7 +105,7 @@ public class Pencil extends CanvasInstrument {
 		addInteractor(new DnD2MoveViewport(this));
 		// addInteractor(new Press2AddShape(this))
 		// addInteractor(new Press2AddText(this))
-		// addInteractor(new Press2InsertPicture(this))
+		addInteractor(new Press2InsertPicture());
 		addInteractor(new DnD2AddShape());
 		addInteractor(new MultiClic2AddShape());
 		// addInteractor(new Press2InitTextSetter(this))
@@ -355,45 +359,46 @@ public class Pencil extends CanvasInstrument {
 			interaction.setMinPoints(instrument.currentChoice == EditionChoice.POLYGON ? 3 : 2);
 		}
 	}
+
+
+	private class Press2InsertPicture extends JfxInteractor<InsertPicture, Press, Pencil> {
+		Press2InsertPicture() throws InstantiationException, IllegalAccessException {
+			super(Pencil.this, false, InsertPicture.class, Press.class, Pencil.this.canvas);
+		}
+
+		@Override
+		public void initAction() {
+			action.setDrawing(instrument.canvas.getDrawing());
+			action.setShape(ShapeFactory.createPicture(instrument.getAdaptedPoint(interaction.getPoint())));
+			action.setFileChooser(instrument.getPictureFileChooser());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.currentChoice == EditionChoice.PICTURE && interaction.getButton() == MouseButton.PRIMARY;
+		}
+	}
 }
 
-// private sealed class Press2InsertPicture(pencil:Pencil) extends
-// InteractorImpl[InsertPicture, Press, Pencil](pencil, false,
-// classOf[InsertPicture], classOf[Press]) {
-// override def initAction() {
-// action.setDrawing(instrument.canvas.getDrawing)
-// action.setShape(ShapeFactory.createPicture(instrument.getAdaptedPoint(interaction.getPoint)))
-// action.setFileChooser(instrument.pictureFileChooser)
-// }
+//	private sealed class Press2AddShape(pencil:Pencil) extends
+//	PencilInteractor[Press](pencil, false, classOf[Press]) {
+//		override def initAction() {
+//			super.initAction
+//			val shape = action.shape.get
+//			shape match {
+//				case shape1: IPositionShape =>
+//					shape1.setPosition(instrument.getAdaptedPoint(interaction.getPoint))
+//					shape.setModified(true)
+//				case _ =>
+//			}
+//		}
 //
-// override def isConditionRespected =
-// instrument.currentChoice==EditionChoice.PICTURE &&
-// interaction.getButton==MouseEvent.BUTTON1
-// }
-//
-//
-//
-// private sealed class Press2AddShape(pencil:Pencil) extends
-// PencilInteractor[Press](pencil, false, classOf[Press]) {
-// override def initAction() {
-// super.initAction
-// val shape = action.shape.get
-// shape match {
-// case shape1: IPositionShape =>
-// shape1.setPosition(instrument.getAdaptedPoint(interaction.getPoint))
-// shape.setModified(true)
-// case _ =>
-// }
-// }
-//
-// override def isConditionRespected =
-// (instrument.currentChoice==EditionChoice.GRID ||
-// instrument.currentChoice==EditionChoice.DOT ||
-// instrument.currentChoice==EditionChoice.AXES) &&
-// interaction.getButton==MouseEvent.BUTTON1
-// }
-//
-//
+//		override def isConditionRespected =
+//			(instrument.currentChoice==EditionChoice.GRID ||
+//				instrument.currentChoice==EditionChoice.DOT ||
+//				instrument.currentChoice==EditionChoice.AXES) &&
+//				interaction.getButton==MouseEvent.BUTTON1
+//	}
 //
 // /**
 // * When a user starts to type a text using the text setter and then he clicks

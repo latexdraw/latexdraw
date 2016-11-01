@@ -10,10 +10,11 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import javafx.stage.FileChooser;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 
-import javax.swing.JFileChooser;
+import java.io.File;
 import java.util.Optional;
 
 /**
@@ -21,7 +22,7 @@ import java.util.Optional;
  */
 public class InsertPicture extends AddShape {
 	/** The file chooser used to select the picture to add. */
-	Optional<JFileChooser> fileChooser;
+	Optional<FileChooser> fileChooser;
 
 	/** Defines if the picture has been successfully loaded. */
 	boolean loaded;
@@ -35,9 +36,11 @@ public class InsertPicture extends AddShape {
 	protected void doActionBody() {
 		// Asks the user for the picture to load.
 		fileChooser.ifPresent(ch -> shape.ifPresent(sh -> {
-			if(ch.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			final File file = ch.showOpenDialog(null);
+
+			if(file!=null) {
 				try {
-					((IPicture) sh).setPathSource(ch.getSelectedFile().getAbsolutePath());
+					((IPicture) sh).setPathSource(file.getAbsolutePath());
 					loaded = true;
 				}catch(final Throwable ex) {
 					BadaboomCollector.INSTANCE.add(ex);
@@ -70,7 +73,7 @@ public class InsertPicture extends AddShape {
 	 * @param chooser The file chooser used to select the picture to load.
 	 * @since 3.0
 	 */
-	public void setFileChooser(final JFileChooser chooser) {
+	public void setFileChooser(final FileChooser chooser) {
 		fileChooser = Optional.ofNullable(chooser);
 	}
 }

@@ -1,41 +1,34 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.impl;
 
-import java.awt.Image;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.EPSFilter;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LPath;
-
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.sourceforge.jlibeps.epsgraphics.EpsGraphics2D;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
- * Defines a model of a picture.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 07/05/2009<br>
- * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
+ * A model of a picture.
  */
 class LPicture extends LPositionShape implements IPicture {
 	/** The buffered image. */
@@ -64,19 +57,13 @@ class LPicture extends LPositionShape implements IPicture {
 	 * @since 3.0
 	 */
 	protected void loadImage() throws IOException {
-		if(image!=null) {
-			image.flush();
+		if(image != null) {
 			new File(pathTarget).delete();
 		}
 
-		image = ImageIO.read(new File(pathSource));
-
-		if(image==null)
-			throw new IOException("Picture " + pathSource + " is not a valid picture."); //$NON-NLS-1$ //$NON-NLS-2$
-
+		image = new Image(new File(pathSource).toURI().toString());
 		createEPSImage();
 	}
-
 
 
 	@Override
@@ -84,8 +71,7 @@ class LPicture extends LPositionShape implements IPicture {
 		super.copy(sh);
 
 		if(sh instanceof IPicture)
-			try{ setPathSource(((IPicture)sh).getPathSource()); }
-			catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+			try { setPathSource(((IPicture) sh).getPathSource()); }catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 	}
 
 
@@ -95,14 +81,13 @@ class LPicture extends LPositionShape implements IPicture {
 	 * @since 2.0.0
 	 */
 	protected void createEPSImage() throws IOException {
-		if(pathSource==null || image==null)
-			return ;
+		if(pathSource == null || image == null) return;
 
-		final int indexName 	= pathSource.lastIndexOf(File.separator)+1;
-		final String name 		= pathSource.substring(indexName, pathSource.lastIndexOf('.'))+EPSFilter.EPS_EXTENSION;
-		final String dirPath 	= pathSource.substring(0, indexName);
-		pathTarget 				= dirPath+name;
-		File file 				= new File(pathTarget);
+		final int indexName = pathSource.lastIndexOf(File.separator) + 1;
+		final String name = pathSource.substring(indexName, pathSource.lastIndexOf('.')) + EPSFilter.EPS_EXTENSION;
+		final String dirPath = pathSource.substring(0, indexName);
+		pathTarget = dirPath + name;
+		File file = new File(pathTarget);
 		boolean created;
 
 		try {// We create the output file that will contains the eps picture.
@@ -111,19 +96,21 @@ class LPicture extends LPositionShape implements IPicture {
 
 		// If created is false, it may mean that the file already exist.
 		if(!created && !file.canWrite()) {
-			pathTarget = LPath.PATH_CACHE_DIR+File.separator+name;
+			pathTarget = LPath.PATH_CACHE_DIR + File.separator + name;
 			file = new File(pathTarget);
 		}
 
 		// Within jlibeps, graphics are defined using 72 DPI (72/2.54=28,3465 PPC), but latexdraw uses 50 PPC.
 		// That's why, we need the scale the graphics to have a 50 PPC eps picture.
-		final double scale = 72. / PSTricksConstants.INCH_VAL_CM / IShape.PPC;// 72 DPI / 2.54 / 50 PPC
-		try(FileOutputStream finalImage = new FileOutputStream(file)){
-			final EpsGraphics2D g = new EpsGraphics2D("LaTeXDrawPicture", finalImage, 0, 0, (int)(getWidth()*scale), (int)(getHeight()*scale));//$NON-NLS-1$
+		final double scale = 72.0 / PSTricksConstants.INCH_VAL_CM / IShape.PPC;// 72 DPI / 2.54 / 50 PPC
+		try(FileOutputStream finalImage = new FileOutputStream(file)) {
+			final EpsGraphics2D g = new EpsGraphics2D("LaTeXDrawPicture", finalImage, 0, 0, (int) (getWidth() * scale), (int) (getHeight() * scale));//$NON-NLS-1$
 			g.scale(scale, scale);
-			g.drawImage(image, 0, 0, null);
+			BufferedImage buff = SwingFXUtils.fromFXImage(image, null);
+			g.drawImage(buff, 0, 0, null);
 			g.flush();
 			g.close();
+			buff.flush();
 		}
 	}
 
@@ -143,7 +130,7 @@ class LPicture extends LPositionShape implements IPicture {
 	@Override
 	public IPoint getTopRightPoint() {
 		final IPoint pos = getPtAt(0);
-		return ShapeFactory.createPoint(pos.getX()+getWidth(), pos.getY());
+		return ShapeFactory.createPoint(pos.getX() + getWidth(), pos.getY());
 	}
 
 
@@ -162,20 +149,20 @@ class LPicture extends LPositionShape implements IPicture {
 	@Override
 	public IPoint getBottomRightPoint() {
 		final IPoint pos = getPtAt(0);
-		return ShapeFactory.createPoint(pos.getX()+getWidth(), pos.getY()+getHeight());
+		return ShapeFactory.createPoint(pos.getX() + getWidth(), pos.getY() + getHeight());
 	}
 
 
 	@Override
 	public IPoint getBottomLeftPoint() {
 		final IPoint pos = getPtAt(0);
-		return ShapeFactory.createPoint(pos.getX(), pos.getY()+getHeight());
+		return ShapeFactory.createPoint(pos.getX(), pos.getY() + getHeight());
 	}
 
 
 	@Override
 	public double getHeight() {
-		return image==null ? 0 : image.getHeight(null);
+		return image == null ? 0.0 : image.getHeight();
 	}
 
 
@@ -199,7 +186,7 @@ class LPicture extends LPositionShape implements IPicture {
 
 	@Override
 	public double getWidth() {
-		return image==null ? 0 : image.getWidth(null);
+		return image == null ? .0 : image.getWidth();
 	}
 
 

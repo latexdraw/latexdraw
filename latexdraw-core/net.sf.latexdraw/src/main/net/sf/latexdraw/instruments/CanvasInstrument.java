@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
+import javafx.geometry.Point3D;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.view.MagneticGrid;
@@ -24,8 +25,10 @@ import java.awt.geom.Point2D;
  * @since 3.1
  */
 abstract class CanvasInstrument extends JfxInstrument {
-	@Inject	protected Canvas canvas;
-	@Inject protected MagneticGrid grid;
+	@Inject
+	protected Canvas canvas;
+	@Inject
+	protected MagneticGrid grid;
 
 	CanvasInstrument() {
 		super();
@@ -51,5 +54,15 @@ abstract class CanvasInstrument extends JfxInstrument {
 	public IPoint getAdaptedPoint(final Point2D pt) {
 		final IPoint pt2 = canvas.convertToOrigin(grid.getTransformedPointToGrid(pt));
 		return ShapeFactory.createPoint(canvas.getZoomedPoint(pt2.getX(), pt2.getY()));
+	}
+
+	/**
+	 * Computes the point depending on the the zoom level and the magnetic grid.
+	 * @param pt The point to adapted.
+	 * @return The computed point.
+	 * @since 3.0
+	 */
+	public IPoint getAdaptedPoint(final Point3D pt) {
+		return pt == null ? null : getAdaptedPoint(new Point2D.Double(pt.getX(), pt.getY()));
 	}
 }

@@ -13,7 +13,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.Group;
-import javafx.scene.shape.Shape;
+import javafx.scene.Node;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.eclipse.jdt.annotation.NonNull;
 
@@ -22,7 +22,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @param <S> The type of the model.
  * @param <T> The type of the JFX shape used to draw the view.
  */
-public abstract class ViewShape<S extends IShape, T extends Shape> extends Group {
+public abstract class ViewShape<S extends IShape, T extends Node> extends Group {
 	/** The model of the view. */
 	protected final @NonNull S model;
 
@@ -41,6 +41,7 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 	 * Flushes the view.
 	 */
 	public void flush() {
+		getChildren().clear();
 		// Should be overridden to flush the bindings.
 	}
 
