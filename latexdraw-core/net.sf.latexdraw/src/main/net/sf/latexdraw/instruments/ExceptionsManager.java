@@ -90,7 +90,9 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	@Override
 	public void setActivated(final boolean isActivated) {
 		super.setActivated(isActivated);
-		exceptionB.setVisible(isActivated);
+		if(exceptionB!=null) {
+			exceptionB.setVisible(isActivated);
+		}
 	}
 
 	@Override
