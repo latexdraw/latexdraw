@@ -23,6 +23,7 @@ import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
@@ -64,7 +65,7 @@ public class Pencil extends CanvasInstrument {
 	}
 
 	FileChooser getPictureFileChooser() {
-		if(pictureFileChooser==null) {
+		if(pictureFileChooser == null) {
 			pictureFileChooser = new FileChooser();
 			pictureFileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter(
 				LangTool.INSTANCE.getBundle().getString("Filter.1"), Arrays.asList("*.png", "*.bmp", "*.gif", "*.jpeg", "*.jpg")));
@@ -103,7 +104,7 @@ public class Pencil extends CanvasInstrument {
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
 		addInteractor(new DnD2MoveViewport(this));
-		// addInteractor(new Press2AddShape(this))
+		addInteractor(new Press2AddShape());
 		// addInteractor(new Press2AddText(this))
 		addInteractor(new Press2InsertPicture());
 		addInteractor(new DnD2AddShape());
@@ -378,28 +379,32 @@ public class Pencil extends CanvasInstrument {
 			return instrument.currentChoice == EditionChoice.PICTURE && interaction.getButton() == MouseButton.PRIMARY;
 		}
 	}
+
+
+	private class Press2AddShape extends PencilInteractor<Press> {
+		Press2AddShape() throws InstantiationException, IllegalAccessException {
+			super(Press.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.getShape().ifPresent(sh -> {
+				if(sh instanceof IPositionShape) {
+					((IPositionShape) sh).setPosition(instrument.getAdaptedPoint(interaction.getPoint()));
+					sh.setModified(true);
+				}
+			});
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return (instrument.currentChoice == EditionChoice.GRID || instrument.currentChoice == EditionChoice.DOT ||
+				instrument.currentChoice == EditionChoice.AXES) && interaction.getButton() == MouseButton.PRIMARY;
+		}
+	}
 }
 
-//	private sealed class Press2AddShape(pencil:Pencil) extends
-//	PencilInteractor[Press](pencil, false, classOf[Press]) {
-//		override def initAction() {
-//			super.initAction
-//			val shape = action.shape.get
-//			shape match {
-//				case shape1: IPositionShape =>
-//					shape1.setPosition(instrument.getAdaptedPoint(interaction.getPoint))
-//					shape.setModified(true)
-//				case _ =>
-//			}
-//		}
-//
-//		override def isConditionRespected =
-//			(instrument.currentChoice==EditionChoice.GRID ||
-//				instrument.currentChoice==EditionChoice.DOT ||
-//				instrument.currentChoice==EditionChoice.AXES) &&
-//				interaction.getButton==MouseEvent.BUTTON1
-//	}
-//
 // /**
 // * When a user starts to type a text using the text setter and then he clicks
 // somewhere else
