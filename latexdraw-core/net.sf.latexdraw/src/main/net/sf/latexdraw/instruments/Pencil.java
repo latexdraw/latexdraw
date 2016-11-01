@@ -93,12 +93,12 @@ public class Pencil extends CanvasInstrument {
 	@Override
 	public void interimFeedback() {
 		canvas.setTempView(null);
-		if(canvas.getScene() != null) canvas.getScene().setCursor(Cursor.DEFAULT);
+		canvas.setCursor(Cursor.DEFAULT);
 	}
 
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		// addInteractor(new DnD2MoveViewport(canvas, this))
+		addInteractor(new DnD2MoveViewport(this));
 		// addInteractor(new Press2AddShape(this))
 		// addInteractor(new Press2AddText(this))
 		// addInteractor(new Press2InsertPicture(this))

@@ -16,6 +16,8 @@ import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -461,5 +463,13 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		tempView.ifPresent(v -> shapesPane.getChildren().remove(v));
 		tempView = Optional.ofNullable(view);
 		tempView.ifPresent(v -> shapesPane.getChildren().add(v));
+	}
+
+	public ScrollPane getScrollPane() {
+		Parent parent = getParent();
+		while(parent!=null && !(parent instanceof ScrollPane)) {
+			parent = parent.getParent();
+		}
+		return (ScrollPane) parent;
 	}
 }

@@ -12,11 +12,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import org.malai.javafx.action.library.MoveCamera;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +20,10 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
+import org.malai.javafx.action.library.MoveCamera;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * The class that controls the main frame.

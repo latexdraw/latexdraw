@@ -14,27 +14,28 @@
  */
 package net.sf.latexdraw.instruments;
 
-import net.sf.latexdraw.util.LSystem;
-import org.malai.javafx.instrument.JfxInteractor;
-import org.malai.javafx.interaction.library.KeysPressure;
-import org.malai.javafx.interaction.library.Press;
-
 import com.google.inject.Inject;
-
 import javafx.event.EventTarget;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.actions.shape.SelectShapes;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.view.jfx.ViewShape;
+import org.malai.javafx.action.library.MoveCamera;
+import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.interaction.library.DnD;
+import org.malai.javafx.interaction.library.KeysPressure;
+import org.malai.javafx.interaction.library.Press;
 
 /**
- * This instrument allows to manipulate (e.g. move or select) shapes.<br>
- * 2012-04-20<br>
- * 
+ * This instrument allows to manipulate (e.g. move or select) shapes.
  * @author Arnaud BLOUIN
- * @version 3.0
  */
 public class Hand extends CanvasInstrument {
 	@Inject protected MetaShapeCustomiser metaCustomiser;
@@ -49,7 +50,7 @@ public class Hand extends CanvasInstrument {
 		addInteractor(new Press2Select(this));
 		// addInteractor(new DnD2Select(this))
 		// addInteractor(new DnD2Translate(this))
-		// addInteractor(new DnD2MoveViewport(canvas, this))
+		addInteractor(new DnD2MoveViewport(this));
 		// addInteractor(new DoubleClick2InitTextSetter(this))
 		addInteractor(new CtrlA2SelectAllShapes(this));
 		// addInteractor(new CtrlU2UpdateShapes(this))
@@ -57,14 +58,12 @@ public class Hand extends CanvasInstrument {
 
 	@Override
 	public void setActivated(final boolean activated) {
-		if(this.activated != activated)
-			super.setActivated(activated);
+		if(this.activated != activated) super.setActivated(activated);
 	}
 
 	@Override
 	public void interimFeedback() {
-		// The rectangle used for the interim feedback of the selection is
-		// removed.
+		// The rectangle used for the interim feedback of the selection is removed.
 		// canvas.setTempUserSelectionBorder(null);
 		canvas.setCursor(Cursor.DEFAULT);
 	}
@@ -88,21 +87,20 @@ public class Hand extends CanvasInstrument {
 
 		@Override
 		public void updateAction() {
-			final IShape targetSh = ((ViewShape<?, ?>)((Node)interaction.getTarget()).getParent()).getModel();
+			final IShape targetSh = ((ViewShape<?, ?>) ((Node) interaction.getTarget()).getParent()).getModel();
 
 			if(interaction.isShiftPressed())
 				instrument.canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> action.addShape(sh));
 			else if(interaction.isCtrlPressed()) {
 				instrument.canvas.getDrawing().getSelection().getShapes().forEach(sh -> action.addShape(sh));
 				action.addShape(targetSh);
-			}else
-				action.setShape(targetSh);
+			}else action.setShape(targetSh);
 		}
 
 		@Override
 		public boolean isConditionRespected() {
 			final EventTarget obj = interaction.getTarget();
-			return obj instanceof Node && ((Node)obj).getParent() instanceof ViewShape<?, ?>;
+			return obj instanceof Node && ((Node) obj).getParent() instanceof ViewShape<?, ?>;
 		}
 	}
 
@@ -119,9 +117,46 @@ public class Hand extends CanvasInstrument {
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getKeyCodes().size() == 2 && interaction.getKeyCodes().contains(KeyCode.A) &&
-				interaction.getKeyCodes().contains(LSystem.INSTANCE.getControlKey());
+			return interaction.getKeyCodes().size() == 2 && interaction.getKeyCodes().contains(KeyCode.A) && interaction.getKeyCodes().contains(LSystem.INSTANCE.getControlKey());
 		}
+	}
+}
+
+
+/**
+ * Moves the viewport using the hand.
+ */
+class DnD2MoveViewport extends JfxInteractor<MoveCamera, DnD, CanvasInstrument> {
+	private IPoint pt = ShapeFactory.createPoint();
+
+	DnD2MoveViewport(final CanvasInstrument ins) throws IllegalAccessException, InstantiationException {
+		super(ins, true, MoveCamera.class, DnD.class, ins.canvas);
+	}
+
+	@Override
+	public void initAction() {
+		action.setScrollPane(instrument.canvas.getScrollPane());
+		interaction.getStartPt().ifPresent(start -> pt.setPoint(start.getX(), start.getY()));
+	}
+
+	@Override
+	public void updateAction() {
+		interaction.getStartPt().ifPresent(start -> interaction.getEndPt().ifPresent(end -> {
+			final ScrollPane pane = instrument.canvas.getScrollPane();
+			action.setPx(pane.getHvalue() - (end.getX() - pt.getX()) / instrument.canvas.getWidth());
+			action.setPy(pane.getVvalue() - (end.getY() - pt.getY()) / instrument.canvas.getHeight());
+			pt = pt.centralSymmetry(ShapeFactory.createPoint(start));
+		}));
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return interaction.getButton() == MouseButton.MIDDLE;
+	}
+
+	@Override
+	public void interimFeedback() {
+		instrument.canvas.setCursor(Cursor.MOVE);
 	}
 }
 
@@ -278,30 +313,3 @@ public class Hand extends CanvasInstrument {
 // }
 //
 //
-// /**
-// * Moves the viewport using the hand.
-// */
-// class DnD2MoveViewport(canvas:ICanvas, ins:Instrument) extends
-// InteractorImpl[MoveCamera, DnD, Instrument](ins, true, classOf[MoveCamera],
-// classOf[DnD]) {
-// override def initAction() {
-// action.setScrollPane(canvas.getScrollpane)
-// }
-//
-// override def updateAction() {
-// val startPt = interaction.getStartPt
-// val endPt = interaction.getEndPt
-// val pane = canvas.getScrollpane
-// action.setPx(pane.getHorizontalScrollBar.getValue+pane.getHorizontalScrollBar.getWidth/2+(startPt.getX
-// - endPt.getX).toInt)
-// action.setPy(pane.getVerticalScrollBar.getValue+pane.getVerticalScrollBar.getHeight/2+(startPt.getY
-// - endPt.getY).toInt)
-// }
-//
-// override def isConditionRespected = interaction.getButton==MouseEvent.BUTTON2
-//
-// override def interimFeedback() {
-// super.interimFeedback
-// canvas.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR))
-// }
-// }
