@@ -2,6 +2,20 @@
 This installer will install LaTeXDraw in the selected directory and create a directory for shared templates. 
 This last action can require administrator privileges.
 
+
+*** Current issues ***
+
+Hardware acceleration.
+  In the case of a glitches, go in the preferences, in the quality tab, and check/uncheck the OpenGL check box.
+  This option may lead to glitches with some graphical cards.
+
+  In the case of a blanck screen (i.e. you cannot access the preferences through the user interface),
+  you can modify the preferences file that is located: ~/.latexdraw/.preferences.xml on Linux;
+  AppData\Local\latexdraw.preferences.xml on Windows (AppData may be a hidden directory);
+  /Library/Preferences/latexdraw/.preferences.xml on MacOSX. Then, modify or create the .preferences.xml file as explained here:
+  https://bugs.launchpad.net/latexdraw/+bug/1581483/comments/3
+
+
 *** Windows ***
 
 On Windows you must use the install_windows.vbs to install LaTeXDraw.
