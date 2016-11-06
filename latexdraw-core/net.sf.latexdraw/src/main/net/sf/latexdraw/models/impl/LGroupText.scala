@@ -2,9 +2,7 @@ package net.sf.latexdraw.models.impl
 
 import java.util.stream.Collectors
 
-import net.sf.latexdraw.models.interfaces.shape.IGroup
-import net.sf.latexdraw.models.interfaces.shape.IText
-import net.sf.latexdraw.models.interfaces.shape.TextPosition
+import net.sf.latexdraw.models.interfaces.shape.{IGroup, IText, TextPosition}
 
 /**
  * This trait encapsulates the code of the group related to the support of texts.<br>
@@ -42,4 +40,6 @@ private[impl] trait LGroupText extends IGroup {
 	override def setText(text : String) {
 		txtShapes.forEach{_.setText(text)}
 	}
+
+	override def textProperty() = null
 }

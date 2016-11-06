@@ -1,5 +1,17 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.impl;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -8,27 +20,12 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 
 /**
- * Defines a model of a text.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 07/05/2009<br>
+ * Defines a model of a text.
  * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
  */
 class LText extends LPositionShape implements IText {
 	/** The text */
-	protected String text;
+	protected final StringProperty text;
 
 	/** The text position of the text. */
 	protected TextPosition textPosition;
@@ -52,21 +49,27 @@ class LText extends LPositionShape implements IText {
 	protected LText(final IPoint pt, final String text) {
 		super(pt);
 
-		this.text = text==null || text.isEmpty() ? "text" : text; //$NON-NLS-1$
+		this.text = new SimpleStringProperty(text == null || text.isEmpty() ? "text" : text); //$NON-NLS-1$
 		textPosition = TextPosition.BOT_LEFT;
 	}
 
 
 	@Override
 	public String getText() {
-		return text;
+		return text.get();
 	}
 
 
 	@Override
-	public void setText(final String text) {
-		if(text!=null && !text.isEmpty())
-			this.text = text;
+	public void setText(final String newTxt) {
+		if(newTxt != null && !newTxt.isEmpty()) {
+			text.setValue(newTxt);
+		}
+	}
+
+	@Override
+	public StringProperty textProperty() {
+		return text;
 	}
 
 
@@ -75,9 +78,9 @@ class LText extends LPositionShape implements IText {
 		super.copy(s);
 
 		if(s instanceof ITextProp) {
-			final ITextProp textSh= (ITextProp)s;
-			text 			= textSh.getText();
-			textPosition	= textSh.getTextPosition();
+			final ITextProp textSh = (ITextProp) s;
+			text.setValue(textSh.getText());
+			textPosition = textSh.getTextPosition();
 		}
 	}
 
@@ -90,7 +93,8 @@ class LText extends LPositionShape implements IText {
 
 	@Override
 	public void setTextPosition(final TextPosition textPosition) {
-		if(textPosition!=null)
+		if(textPosition != null) {
 			this.textPosition = textPosition;
+		}
 	}
 }

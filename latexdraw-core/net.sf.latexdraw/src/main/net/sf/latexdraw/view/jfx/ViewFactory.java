@@ -21,6 +21,7 @@ import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -50,7 +51,7 @@ public final class ViewFactory {
 		// if(shape instanceof IPlot) return new LPlotView((IPlot)shape);
 		if(shape instanceof ISquare) return Optional.of(new ViewSquare((ISquare) shape));
 		if(shape instanceof IRectangle) return Optional.of(new ViewRectangle((IRectangle) shape));
-		// if(shape instanceof IText) return new LTextView((IText)shape);
+		if(shape instanceof IText) return Optional.of(new ViewTextText((IText)shape));
 		// if(shape instanceof ICircleArc) return new LCircleArcView((ICircleArc)shape);
 		if(shape instanceof ICircle) return Optional.of(new ViewCircle((ICircle) shape));
 		if(shape instanceof IEllipse) return Optional.of(new ViewEllipse((IEllipse) shape));
