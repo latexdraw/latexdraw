@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
+import java.awt.geom.Point2D;
 import javafx.geometry.Point3D;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -18,17 +19,13 @@ import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.javafx.instrument.JfxInstrument;
 
-import java.awt.geom.Point2D;
-
 /**
  * This abstract instrument encapsulates common operations dealing with a canvas.
  * @since 3.1
  */
 abstract class CanvasInstrument extends JfxInstrument {
-	@Inject
-	protected Canvas canvas;
-	@Inject
-	protected MagneticGrid grid;
+	@Inject protected Canvas canvas;
+	@Inject protected MagneticGrid grid;
 
 	CanvasInstrument() {
 		super();

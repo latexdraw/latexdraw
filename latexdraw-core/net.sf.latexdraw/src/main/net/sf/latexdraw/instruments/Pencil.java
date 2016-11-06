@@ -1,6 +1,6 @@
 /*
   * This file is part of LaTeXDraw.
-  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * Copyright (c) 2005-2017 Arnaud BLOUIN
   * LaTeXDraw is free software; you can redistribute it and/or modify it under
   * the terms of the GNU General Public License as published by the Free Software
   * Foundation; either version 2 of the License, or (at your option) any later version.
@@ -15,6 +15,7 @@ import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.actions.shape.AddShape;
+import net.sf.latexdraw.actions.shape.InitTextSetter;
 import net.sf.latexdraw.actions.shape.InsertPicture;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
@@ -50,14 +51,12 @@ public class Pencil extends CanvasInstrument {
 	/** The current editing choice (rectangle, ellipse, etc.) of the instrument. */
 	protected EditionChoice currentChoice;
 
-	@Inject
-	protected TextSetter textSetter;
-
-	//	protected MLayeredPane layers;
+	@Inject protected TextSetter textSetter;
 
 	private FileChooser pictureFileChooser;
 
 	private IGroup groupParams;
+
 
 	public Pencil() {
 		super();
@@ -105,11 +104,11 @@ public class Pencil extends CanvasInstrument {
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
 		addInteractor(new DnD2MoveViewport(this));
 		addInteractor(new Press2AddShape());
-		// addInteractor(new Press2AddText(this))
+		addInteractor(new Press2AddText());
 		addInteractor(new Press2InsertPicture());
 		addInteractor(new DnD2AddShape());
 		addInteractor(new MultiClic2AddShape());
-		// addInteractor(new Press2InitTextSetter(this))
+		addInteractor(new Press2InitTextSetter());
 	}
 
 	/**
@@ -140,10 +139,6 @@ public class Pencil extends CanvasInstrument {
 		return shape;
 	}
 
-	//	/** @return The file chooser used to select pictures. */
-	//	JFileChooser pictureFileChooser() {
-	//		return pictureFileChooser;
-	//	}
 
 	/** @return The current editing choice. */
 	public EditionChoice getCurrentChoice() {
@@ -305,8 +300,7 @@ public class Pencil extends CanvasInstrument {
 		}
 
 		// To avoid the overlapping with the DnD2AddShape, the starting interaction must be
-		// aborted when the condition is not respected, i.e. when the selected shape type is
-		// not devoted to the multi-clic interaction.
+		// aborted when the condition is not respected, i.e. when the selected shape type is not devoted to the multi-click interaction.
 		@Override
 		public boolean isInteractionMustBeAborted() {
 			return !isConditionRespected();
@@ -403,52 +397,53 @@ public class Pencil extends CanvasInstrument {
 				instrument.currentChoice == EditionChoice.AXES) && interaction.getButton() == MouseButton.PRIMARY;
 		}
 	}
-}
 
-// /**
-// * When a user starts to type a text using the text setter and then he clicks
-// somewhere else
-// * in the canvas, the text typed must be added (if possible to the canvas)
-// before starting typing
-// * a new text.
-// */
-// private sealed class Press2AddText(pencil:Pencil) extends
-// PencilInteractor[Press](pencil, false, classOf[Press]) {
-// override def initAction() {
-// action.setDrawing(instrument.canvas.getDrawing)
-// action.setShape(ShapeFactory.createText(ShapeFactory.createPoint(instrument.textSetter.relativePoint),
-// instrument.textSetter.getTextField.getText))
-// }
-//
-// // The action is created only when the user uses the text setter and the text
-// field of the text setter is not empty.
-// override def isConditionRespected =
-// instrument.currentChoice==EditionChoice.TEXT &&
-// instrument.textSetter.isActivated &&
-// instrument.textSetter.getTextField.getText.length>0
-// }
-//
-//
-// /**
-// * This link maps a press interaction to activate the instrument
-// * that allows to add and modify some texts.
-// */
-// private sealed class Press2InitTextSetter(pencil:Pencil) extends
-// InteractorImpl[InitTextSetter, Press, Pencil](pencil, false,
-// classOf[InitTextSetter], classOf[Press]) {
-// override def initAction() {
-// action.setText("")
-// action.setTextShape(null)
-// action.setInstrument(instrument.textSetter)
-// action.setTextSetter(instrument.textSetter)
-// action.setAbsolutePoint(ShapeFactory.createPoint(
-// SwingUtilities.convertPoint(instrument.canvas.asInstanceOf[LCanvas],interaction.getPoint,
-// instrument.layers)))
-// action.setRelativePoint(instrument.getAdaptedPoint(interaction.getPoint))
-// }
-//
-// override def isConditionRespected =
-// (instrument.currentChoice==EditionChoice.TEXT||
-// instrument.currentChoice==EditionChoice.PLOT) &&
-// interaction.getButton==MouseEvent.BUTTON1
-// }
+
+	 /**
+	 * When a user starts to type a text using the text setter and then he clicks somewhere else
+	 * in the canvas, the text typed must be added (if possible to the canvas) before starting typing a new text.
+	 */
+	 private class Press2AddText extends PencilInteractor<Press> {
+		 Press2AddText() throws InstantiationException, IllegalAccessException {
+			 super(Press.class);
+		 }
+
+		 @Override
+		 public void initAction() {
+			 action.setDrawing(instrument.canvas.getDrawing());
+			 action.setShape(ShapeFactory.createText(ShapeFactory.createPoint(instrument.textSetter.position),
+			 					instrument.textSetter.getTextField().getText()));
+		 }
+
+		 // The action is created only when the user uses the text setter and the text field of the text setter is not empty.
+		 @Override
+		 public boolean isConditionRespected() {
+			 return instrument.currentChoice == EditionChoice.TEXT && instrument.textSetter.isActivated() && !instrument.textSetter.getTextField().getText().isEmpty();
+		 }
+	 }
+
+
+	 /**
+	 * This link maps a press interaction to activate the instrument that allows to add and modify some texts.
+	 */
+	 private class Press2InitTextSetter extends JfxInteractor<InitTextSetter, Press, Pencil> {
+		 Press2InitTextSetter() throws IllegalAccessException, InstantiationException {
+			 super(Pencil.this, false, InitTextSetter.class, Press.class, Pencil.this.canvas);
+		 }
+
+		 @Override
+		 public void initAction() {
+			 action.setText("");
+			 action.setTextShape(null);
+			 action.setInstrument(instrument.textSetter);
+			 action.setTextSetter(instrument.textSetter);
+			 action.setPosition(instrument.getAdaptedPoint(interaction.getPoint()));
+		 }
+
+		 @Override
+		 public boolean isConditionRespected() {
+			 return (instrument.currentChoice == EditionChoice.TEXT || instrument.currentChoice == EditionChoice.PLOT) &&
+				 	interaction.getButton() == MouseButton.PRIMARY;
+		 }
+	 }
+}

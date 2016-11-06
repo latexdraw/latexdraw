@@ -1,78 +1,83 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2017 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.ui;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.JTextArea;
+import com.sun.javafx.tk.FontLoader;
+import com.sun.javafx.tk.Toolkit;
+import java.util.Arrays;
+import javafx.beans.binding.Bindings;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import net.sf.latexdraw.util.LResources;
 
 /**
- * This widgets is a text area which automatically resizes is width and height
- * according to its text.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 20/12/2010<br>
+ * This widgets is a text area that automatically resizes its width and height according to its text.
  * @author Arnaud BLOUIN
- * @since 3.0
  */
-public class TextAreaAutoSize {// extends MTextArea {
-	/** States whether the text typed in the filed is valid. If not, the background of the filed is painted in red.
+public class TextAreaAutoSize extends TextArea {
+	/**
+	 * States whether the text typed in the filed is valid. If not, the background of the filed is painted in red.
 	 * That feature can be used when the text typed needed to be validated.
 	 */
 	protected boolean valid;
-	protected final JTextArea msg = new JTextArea();
+	protected final Text msg = new Text();
 
 	/**
 	 * Creates the widget.
 	 */
 	public TextAreaAutoSize() {
-//		super(false, true);
+		super();
 		valid = true;
-//		setRows(1);
-//		setColumns(1);
-//		setBorder(null);
-//		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.SHIFT_MASK), "insertBreakLD"); //$NON-NLS-1$
-//		getActionMap().put("insertBreakLD", new DefaultEditorKit.InsertBreakAction()); //$NON-NLS-1$
-//		addKeyListener(new TextAreaKeyListener());
-//		eventManager = new SwingEventManager();
-//		eventManager.attachTo(this);
 
-		msg.setEditable(false);
-		msg.setFocusable(false);
-		msg.setBorder(null);
-		msg.setBorder(BorderFactory.createLineBorder(java.awt.Color.WHITE));
-		msg.setBackground(java.awt.Color.WHITE);
-		msg.setForeground(java.awt.Color.GRAY);
-	}
+		setOnKeyPressed(evt -> {
+			if(evt.getCode() == KeyCode.ENTER) {
+				if(evt.isShiftDown()) {
+					final int caretPosition = getCaretPosition();
+					setText(getText() + LResources.EOL);
+					positionCaret(caretPosition + 1);
+				}else {
+					evt.consume();
+				}
+			}
+		});
 
+		textProperty().addListener((observable, oldValue, newValue) -> updateDimension(newValue));
 
-//	@Override
-	public void setVisible(final boolean visible) {
-//		super.setVisible(visible);
-//
-//		if(visible){
-//			updateDimension();
-//			updateBackground();
-//			msg.setVisible(!msg.getText().isEmpty());
-//		}else
-//			msg.setVisible(false);
+		msg.setFocusTraversable(false);
+		msg.visibleProperty().bind(Bindings.createBooleanBinding(() -> isVisible() && !msg.getText().isEmpty(), visibleProperty()));
+		msg.setFill(Color.GRAY);
+
+		visibleProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				updateDimension(getText());
+				updateBackground();
+			}
+		});
+
+		msg.layoutXProperty().bind(layoutXProperty());
+		layoutYProperty().addListener((observable, oldValue, newValue) -> msg.setLayoutY(getLayoutY() + getPrefHeight() + 10));
+		heightProperty().addListener((observable, oldValue, newValue) -> msg.setLayoutY(getLayoutY() + getPrefHeight() + 10));
+		updateDimension(getText());
 	}
 
 
 	/**
 	 * @return The text field that contains a message associated to the text area.
 	 */
-	public JTextArea getMessageField() {
+	public Text getMessageField() {
 		return msg;
 	}
 
@@ -93,69 +98,32 @@ public class TextAreaAutoSize {// extends MTextArea {
 	 * @return Whether the text typed in the filed is valid.
 	 * @since 3.1
 	 */
-	public boolean isValidText() { return valid;}
-
-	protected void updateBackground() {
-//		setBackground(valid?java.awt.Color.WHITE:java.awt.Color.RED);
+	public boolean isValidText() {
+		return valid;
 	}
 
 
-//	@Override
-	public void setText(final String text) {
-//		super.setText(text);
-//		updateDimension();
+	private void updateBackground() {
+		setBackground(new Background(new BackgroundFill(valid ? Color.WHITE : Color.RED, null, null)));
 	}
 
 
 	/**
 	 * Updates the size of the widget according to its text.
 	 */
-	public void updateDimension() {
-//		// A space is added at the end of the text to consider all the \n characters.
-//		final String text = getText() + ' ';
-//		final String[] textSplited = text.split("\n"); //$NON-NLS-1$
-//		Rectangle2D rec;
-//		double width 	= 0.;
-//		double height 	= 0.;
-//		final FontMetrics fm 	= getFontMetrics(getFont());
-//		final double heightInc 	= fm.getHeight();
-//
-//		if(textSplited.length>0) // Removing the space added at the beginning of the method.
-//			textSplited[textSplited.length-1] = textSplited[textSplited.length-1].substring(0, textSplited[textSplited.length-1].length()-1);
-//
-//		for(final String str : textSplited) {
-//			rec = fm.getStringBounds(str, null);
-//			if(rec.getWidth()>width)
-//				width = rec.getWidth();
-//			height += heightInc;
-//		}
-//
-//		setBounds(getX(), getY(), (int)width+10, (int)height);
-//
-//		if(!msg.getText().isEmpty())
-//			msg.setBounds(getX(), getY()+getHeight(), (int)fm.getStringBounds(msg.getText(), null).getWidth()+2, (int)heightInc+2);
-	}
-
-
-	/**
-	 * This listener is used to override the key binding "enter" that adds an end of line
-	 * character.
-	 */
-	class TextAreaKeyListener implements KeyListener {
-		@Override
-		public void keyTyped(final KeyEvent e) {
-			//
-		}
-
-		@Override
-		public void keyReleased(final KeyEvent e) {
-			updateDimension();
-		}
-
-		@Override
-		public void keyPressed(final KeyEvent e) {
-			if(e.getKeyCode()==KeyEvent.VK_ENTER && e.getModifiers()==0)
-				e.consume();
-		}
+	private void updateDimension(final String newText) {
+		final String[] lines = newText.split(LResources.EOL);
+		final int countEOL = newText.length() - newText.replace(LResources.EOL, "").length();
+		final String maxLine = Arrays.stream(lines).reduce((a, b) -> a.length() > b.length() ? a : b).orElse("");
+		final Font font = getFont();
+		final FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
+		final double width = fontLoader.computeStringWidth(maxLine + " ", font);
+		float height = fontLoader.getFontMetrics(font).getLineHeight() * (countEOL + 1) + 15;
+		setPrefRowCount(countEOL);
+		setPrefColumnCount(maxLine.length() + 1);
+		setPrefWidth(width + 25);
+		setMinWidth(width + 25);
+		setPrefHeight(height);
+		setMinHeight(height);
 	}
 }

@@ -1,6 +1,6 @@
 /*
   * This file is part of LaTeXDraw.
-  * Copyright (c) 2005-2014 Arnaud BLOUIN
+  * Copyright (c) 2005-2017 Arnaud BLOUIN
   * LaTeXDraw is free software; you can redistribute it and/or modify it under
   * the terms of the GNU General Public License as published by the Free Software
   * Foundation; either version 2 of the License, or (at your option) any later version.
@@ -28,10 +28,7 @@ public class InitTextSetter extends ActivateInstrument {
 	protected String text;
 
 	/** The position that takes account of the zoom. */
-	protected IPoint relativePoint;
-
-	/** The position that does not taks account of the zoom (for the text field). */
-	protected IPoint absolutePoint;
+	protected IPoint position;
 
 	/** The text (shape) to modify throw the setter. Can be null. */
 	protected IText textShape;
@@ -46,10 +43,8 @@ public class InitTextSetter extends ActivateInstrument {
 		text = null;
 		textShape = null;
 		setter = null;
-		relativePoint = null;
-		absolutePoint = null;
+		position = null;
 	}
-
 
 	/**
 	 * Sets the text shape to modify.
@@ -59,7 +54,6 @@ public class InitTextSetter extends ActivateInstrument {
 	public void setTextShape(final IText val) {
 		textShape = val;
 	}
-
 
 	/**
 	 * Sets the text to display into the text setter.
@@ -98,22 +92,14 @@ public class InitTextSetter extends ActivateInstrument {
 	 * @param pt The position that takes account of the zoom.
 	 * @since 3.0
 	 */
-	public void setRelativePoint(final IPoint pt) {
-		relativePoint = pt;
-	}
-
-	/**
-	 * @param pt The position that does not taks account of the zoom (for the text field).
-	 * @since 3.0
-	 */
-	public void setAbsolutePoint(final IPoint pt) {
-		absolutePoint = pt;
+	public void setPosition(final IPoint pt) {
+		position = pt;
 	}
 
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && GLibUtilities.isValidPoint(absolutePoint) && GLibUtilities.isValidPoint(relativePoint) &&
+		return super.canDo() && GLibUtilities.isValidPoint(position) &&
 			setter != null && (text != null || textShape != null || plotShape != null);
 	}
 
@@ -121,8 +107,7 @@ public class InitTextSetter extends ActivateInstrument {
 	@Override
 	protected void doActionBody() {
 		super.doActionBody();
-		//		setter.getTextField().setLocation((int)absolutePoint.getX(), (int)absolutePoint.getY()-setter.getTextField().getHeight());
-		setter.setRelativePoint(relativePoint);
+		setter.setPosition(position);
 		setter.getTextField().setText(text);
 		setter.setText(textShape);
 		setter.setPlot(plotShape);

@@ -76,7 +76,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/** The views of the shape. */
 	private final @NonNull Group shapesPane;
 
-	private final @NonNull Group handlersPane;
+	/** The pane that contains widgets to handle shapes, such as handlers, text fields. */
+	private final @NonNull Group widgetsPane;
 
 	private final @NonNull Rectangle selectionBorder;
 
@@ -103,16 +104,16 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		tempView = Optional.empty();
 		page = new PageView(Page.USLETTER, getOrigin());
 		magneticGrid = new MagneticGridImpl(this);
-		handlersPane = new Group();
+		widgetsPane = new Group();
 		shapesPane = new Group();
 		shapesToViewMap = new HashMap<>();
 		selectionBorder = new Rectangle();
 
 		getChildren().add(page);
 		getChildren().add(shapesPane);
-		getChildren().add(handlersPane);
-		handlersPane.getChildren().add(selectionBorder);
-		handlersPane.relocate(ORIGIN.getX(), ORIGIN.getY());
+		getChildren().add(widgetsPane);
+		widgetsPane.getChildren().add(selectionBorder);
+		widgetsPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 		shapesPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 
 		setPrefWidth(MARGINS * 2 + page.getPage().getWidth() * IShape.PPC);
@@ -471,5 +472,15 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 			parent = parent.getParent();
 		}
 		return (ScrollPane) parent;
+	}
+
+	public void addToWidgetLayer(final javafx.scene.Node node) {
+		if(node!=null) {
+			widgetsPane.getChildren().add(node);
+		}
+	}
+
+	public boolean removeFromWidgetLayer(final javafx.scene.Node node) {
+		return node != null && widgetsPane.getChildren().remove(node);
 	}
 }
