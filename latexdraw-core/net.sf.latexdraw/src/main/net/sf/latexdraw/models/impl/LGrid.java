@@ -1,11 +1,27 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.impl;
 
 import java.awt.geom.Rectangle2D;
-
-import net.sf.latexdraw.models.interfaces.shape.Color;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.models.GLibUtilities;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IGridProp;
+import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -13,50 +29,34 @@ import net.sf.latexdraw.models.interfaces.shape.Position;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
- * Defines a model of a grid.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 07/05/2009<br>
+ * A model of a grid.
  * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
  */
 class LGrid extends LAbstractGrid implements IGrid {
 	/** The colour of the sub-grid. */
-	protected Color subGridColour;
+	protected final ObjectProperty<Color> subGridColour;
 
 	/** The number of division in a sub-grid. */
-	protected int subGridDiv;
+	protected final IntegerProperty subGridDiv;
 
 	/** The thickness of the main borders of the grid. */
-	protected double gridWidth;
+	protected final DoubleProperty gridWidth;
 
 	/** The colour of the labels */
-	protected Color gridLabelsColour;
+	protected final ObjectProperty<Color> gridLabelsColour;
 
-	/** The number of dots in the lines of the grid
-	 * ( if >0, replace a plain line) */
-	protected int gridDots;
+	/** The number of dots in the lines of the grid ( if >0, replace a plain line) */
+	protected final IntegerProperty gridDots;
 
 	/** The thickness of the lines of the sub-grid */
-	protected double subGridWidth;
+	protected final DoubleProperty subGridWidth;
 
-	/** The number of dots in the lines of the sub-grid
-	 * ( if >0, replace a plain line) */
-	protected int subGridDots;
+	/** The number of dots in the lines of the sub-grid ( if >0, replace a plain line) */
+	protected final IntegerProperty subGridDots;
 
 	/** The unit of the grid */
-	protected double unit;
+	protected final DoubleProperty unit;
+
 
 	/**
 	 * Creates a grid with a predefined point.
@@ -64,15 +64,15 @@ class LGrid extends LAbstractGrid implements IGrid {
 	 */
 	protected LGrid(final IPoint pt) {
 		super(pt);
-		gridDots    		= PSTricksConstants.DEFAULT_GRIDDOTS;
-		gridLabelsColour 	= PSTricksConstants.DEFAULT_LABELGRIDCOLOR;
-		labelSize  			= (int)PSTricksConstants.DEFAULT_GRID_LABEL;
-		gridWidth       	= PSTricksConstants.DEFAULT_GRID_WIDTH*PPC;
-		subGridColour 		= PSTricksConstants.DEFAULT_SUB_GRID_COLOR;
-		subGridDiv   		= PSTricksConstants.DEFAULT_SUBGRIDDIV;
-		subGridDots  		= PSTricksConstants.DEFAULT_SUBGRIDDOTS;
-		subGridWidth 		= PSTricksConstants.DEFAULT_SUB_GRID_WIDTH*PPC;
-		unit 		 		= PSTricksConstants.DEFAULT_UNIT;
+		gridDots = new SimpleIntegerProperty(PSTricksConstants.DEFAULT_GRIDDOTS);
+		gridLabelsColour = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_LABELGRIDCOLOR);
+		labelSize = (int) PSTricksConstants.DEFAULT_GRID_LABEL;
+		gridWidth = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_GRID_WIDTH * PPC);
+		subGridColour = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_SUB_GRID_COLOR);
+		subGridDiv = new SimpleIntegerProperty(PSTricksConstants.DEFAULT_SUBGRIDDIV);
+		subGridDots = new SimpleIntegerProperty(PSTricksConstants.DEFAULT_SUBGRIDDOTS);
+		subGridWidth = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_SUB_GRID_WIDTH * PPC);
+		unit = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_UNIT);
 	}
 
 
@@ -83,37 +83,33 @@ class LGrid extends LAbstractGrid implements IGrid {
 		if(sh instanceof IGridProp) {
 			final IGridProp grid = (IGridProp) sh;
 
-			gridDots 		= grid.getGridDots();
-			subGridColour 	= grid.getSubGridColour();
-			subGridDiv 		= grid.getSubGridDiv();
-			subGridDots 	= grid.getSubGridDots();
-			gridLabelsColour= grid.getGridLabelsColour();
-			xLabelSouth 	= grid.isXLabelSouth();
-			yLabelWest 		= grid.isYLabelWest();
-			unit			= grid.getUnit();
-			gridWidth		= grid.getGridWidth();
-			subGridWidth	= grid.getSubGridWidth();
+			gridDots.setValue(grid.getGridDots());
+			subGridColour.setValue(grid.getSubGridColour());
+			subGridDiv.setValue(grid.getSubGridDiv());
+			subGridDots.setValue(grid.getSubGridDots());
+			gridLabelsColour.setValue(grid.getGridLabelsColour());
+			xLabelSouth = grid.isXLabelSouth();
+			yLabelWest = grid.isYLabelWest();
+			unit.setValue(grid.getUnit());
+			gridWidth.setValue(grid.getGridWidth());
+			subGridWidth.setValue(grid.getSubGridWidth());
 		}
 	}
-
 
 	@Override
 	public boolean isXLabelSouth() {
 		return xLabelSouth;
 	}
 
-
 	@Override
 	public boolean isYLabelWest() {
 		return yLabelWest;
 	}
 
-
 	@Override
 	public void setXLabelSouth(final boolean isXLabelSouth) {
 		xLabelSouth = isXLabelSouth;
 	}
-
 
 	@Override
 	public void setYLabelWest(final boolean isYLabelWest) {
@@ -123,14 +119,14 @@ class LGrid extends LAbstractGrid implements IGrid {
 	@Override
 	public IPoint getBottomRightPoint() {
 		final IPoint pos = getPosition();
-		return ShapeFactory.createPoint(pos.getX()+getGridMaxX()*PPC*unit, pos.getY()-getGridMinY()*PPC);
+		return ShapeFactory.createPoint(pos.getX() + getGridMaxX() * PPC * getUnit(), pos.getY() - getGridMinY() * PPC);
 	}
 
 
 	@Override
 	public IPoint getTopLeftPoint() {
 		final IPoint pos = getPosition();
-		return ShapeFactory.createPoint(pos.getX()+getGridMinX()*PPC, pos.getY()-getGridMaxY()*PPC*unit);
+		return ShapeFactory.createPoint(pos.getX() + getGridMinX() * PPC, pos.getY() - getGridMaxY() * PPC * getUnit());
 	}
 
 	@Override
@@ -140,150 +136,196 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 	@Override
 	public void scaleWithRatio(final double x, final double y, final Position pos, final Rectangle2D bound) {
-		if(pos==null || bound==null) return;
+		if(pos == null || bound == null) return;
 
-		final double sx = x/bound.getWidth();
-		final double sy = y/bound.getHeight();
+		final double sx = x / bound.getWidth();
+		final double sy = y / bound.getHeight();
+		final double u = getUnit();
+
 		switch(pos) {
-			case WEST: case SW:
-				if(unit+sx-1>=0.5)
-					setUnit(unit+sx-1);
+			case WEST:
+			case SW:
+				if(u + sx - 1d >= 0.5) {
+					setUnit(u + sx - 1d);
+				}
 				break;
 			case SOUTH:
-				if(unit+sy-1>=0.5)
-					setUnit(unit+sy-1);
+				if(u + sy - 1d >= 0.5) {
+					setUnit(u + sy - 1d);
+				}
 				break;
-			case NORTH: case NW:
-				if(unit+sy-1>=0.5) {
-					setUnit(unit+sy-1);
-					translate(0., -getTopRightPoint().getY()+bound.getY());
+			case NORTH:
+			case NW:
+				if(u + sy - 1d >= 0.5) {
+					setUnit(u + sy - 1d);
+					translate(0., -getTopRightPoint().getY() + bound.getY());
 				}
 				break;
 			case NE:
-				if(unit+sy-1>=0.5) {
-					setUnit(unit+sy-1);
+				if(u + sy - 1d >= 0.5) {
+					setUnit(u + sy - 1d);
 					final IPoint tr = getTopRightPoint();
-					translate(-tr.getX()+bound.getMaxX(), -tr.getY()+bound.getY());
+					translate(-tr.getX() + bound.getMaxX(), -tr.getY() + bound.getY());
 				}
 				break;
-			case EAST: case SE:
-				if(unit+sx-1>=0.5) {
-					setUnit(unit+sx-1);
-					translate(-getTopRightPoint().getX()+bound.getMaxX(), 0.);
+			case EAST:
+			case SE:
+				if(u + sx - 1d >= 0.5) {
+					setUnit(u + sx - 1d);
+					translate(-getTopRightPoint().getX() + bound.getMaxX(), 0d);
 				}
 				break;
 		}
 	}
 
-
-
 	@Override
 	public int getGridDots() {
-		return gridDots;
+		return gridDots.get();
 	}
-
 
 	@Override
 	public Color getGridLabelsColour() {
-		return gridLabelsColour;
+		return gridLabelsColour.get();
 	}
-
 
 	@Override
 	public double getGridWidth() {
-		return gridWidth;
+		return gridWidth.get();
 	}
-
 
 	@Override
 	public Color getSubGridColour() {
-		return subGridColour;
+		return subGridColour.get();
 	}
-
 
 	@Override
 	public int getSubGridDiv() {
-		return subGridDiv;
+		return subGridDiv.get();
 	}
-
 
 	@Override
 	public int getSubGridDots() {
-		return subGridDots;
+		return subGridDots.get();
 	}
-
 
 	@Override
 	public double getSubGridWidth() {
-		return subGridWidth;
+		return subGridWidth.get();
 	}
-
 
 	@Override
 	public double getUnit() {
-		return unit;
+		return unit.get();
 	}
 
+	@Override
+	public ObjectProperty<Color> gridLabelsColourProperty() {
+		return gridLabelsColour;
+	}
+
+	@Override
+	public IntegerProperty gridDotsProperty() {
+		return gridDots;
+	}
+
+	@Override
+	public DoubleProperty unitProperty() {
+		return null;
+	}
+
+	@Override
+	public DoubleProperty subGridWidthProperty() {
+		return subGridWidth;
+	}
+
+	@Override
+	public IntegerProperty subGridDotsProperty() {
+		return subGridDots;
+	}
+
+	@Override
+	public IntegerProperty subGridDivProperty() {
+		return subGridDiv;
+	}
+
+	@Override
+	public ObjectProperty<Color> subGridColourProperty() {
+		return subGridColour;
+	}
+
+	@Override
+	public DoubleProperty gridWidthProperty() {
+		return gridWidth;
+	}
+
+	@Override
+	public BooleanProperty yLabelWestProperty() {
+		return null;
+	}
+
+	@Override
+	public BooleanProperty xLabelSouthProperty() {
+		return null;
+	}
 
 	@Override
 	public void setGridDots(final int grDots) {
-		if(grDots>=0)
-			this.gridDots = grDots;
+		if(grDots >= 0) {
+			gridDots.set(grDots);
+		}
 	}
-
 
 	@Override
 	public void setGridLabelsColour(final Color gridLabelsCol) {
-		if(gridLabelsCol!=null)
-			this.gridLabelsColour = gridLabelsCol;
+		if(gridLabelsCol != null) {
+			gridLabelsColour.setValue(gridLabelsCol);
+		}
 	}
-
-
 
 	@Override
 	public void setGridWidth(final double gridW) {
-		if(gridW>0 && GLibUtilities.isValidCoordinate(gridW))
-			this.gridWidth = gridW;
+		if(gridW > 0d && GLibUtilities.isValidCoordinate(gridW)) {
+			gridWidth.set(gridW);
+		}
 	}
-
 
 	@Override
 	public void setSubGridColour(final Color subGridCol) {
-		if(subGridCol!=null)
-			this.subGridColour = subGridCol;
+		if(subGridCol != null) {
+			subGridColour.set(subGridCol);
+		}
 	}
-
 
 	@Override
 	public void setSubGridDiv(final int subGridD) {
-		if(subGridD>=0)
-			this.subGridDiv = subGridD;
+		if(subGridD >= 0) {
+			subGridDiv.set(subGridD);
+		}
 	}
-
 
 	@Override
 	public void setSubGridDots(final int subGridD) {
-		if(subGridD>=0)
-			this.subGridDots = subGridD;
+		if(subGridD >= 0) {
+			subGridDots.set(subGridD);
+		}
 	}
-
 
 	@Override
 	public void setSubGridWidth(final double subGridW) {
-		if(subGridW>0 && GLibUtilities.isValidCoordinate(subGridW))
-			this.subGridWidth = subGridW;
+		if(subGridW > 0d && GLibUtilities.isValidCoordinate(subGridW)) {
+			subGridWidth.set(subGridW);
+		}
 	}
-
 
 	@Override
 	public void setUnit(final double un) {
-		if(un>0 && GLibUtilities.isValidCoordinate(un))//TODO unit may be lesser than 0.
-			this.unit = un;
+		if(un > 0d && GLibUtilities.isValidCoordinate(un)) { //TODO unit may be lesser than 0.
+			unit.set(un);
+		}
 	}
-
 
 	@Override
 	public double getStep() {
-		return unit*IShape.PPC;
+		return getUnit() * IShape.PPC;
 	}
 }

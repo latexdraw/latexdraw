@@ -1,6 +1,17 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.impl
 
 import java.util.stream.Collectors
+import javafx.beans.property.{BooleanProperty, DoubleProperty, IntegerProperty, ObjectProperty}
 
 import net.sf.latexdraw.models.interfaces.prop.IGridProp
 import net.sf.latexdraw.models.interfaces.shape.Color
@@ -9,22 +20,8 @@ import net.sf.latexdraw.models.interfaces.shape.IShape
 import net.sf.latexdraw.view.latex.DviPsColors
 
 /**
- * This trait encapsulates the code of the group related to the support of grids.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 2012-04-16<br>
+ * This trait encapsulates the code of the group related to the support of grids.
  * @author Arnaud BLOUIN
- * @since 3.0
  */
 private[impl] trait LGroupGrid extends IGroup {
 	/** May return the first grid of the group. */
@@ -92,4 +89,24 @@ private[impl] trait LGroupGrid extends IGroup {
 	}
 
 	override def getUnit = if(firstIGrid.isPresent) firstIGrid.get.getUnit else Double.NaN
+
+	override def gridLabelsColourProperty(): ObjectProperty[Color] = null
+
+	override def gridDotsProperty(): IntegerProperty = null
+
+	override def unitProperty(): DoubleProperty = null
+
+	override def subGridWidthProperty(): DoubleProperty = null
+
+	override def subGridDotsProperty(): IntegerProperty = null
+
+	override def subGridDivProperty(): IntegerProperty = null
+
+	override def subGridColourProperty(): ObjectProperty[Color] = null
+
+	override def gridWidthProperty(): DoubleProperty = null
+
+	override def yLabelWestProperty(): BooleanProperty = null
+
+	override def xLabelSouthProperty(): BooleanProperty = null
 }

@@ -13,16 +13,14 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.Group;
-import javafx.scene.Node;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The base class of a JFX shape view.
  * @param <S> The type of the model.
- * @param <T> The type of the JFX shape used to draw the view.
  */
-public abstract class ViewShape<S extends IShape, T extends Node> extends Group {
+public abstract class ViewShape<S extends IShape> extends Group {
 	/** The model of the view. */
 	protected final @NonNull S model;
 

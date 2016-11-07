@@ -40,7 +40,7 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 	Rectangle2D border;
 
 	/** The views corresponding to the shapes to align. */
-	final List<ViewShape<?, ?>> views;
+	final List<ViewShape<?>> views;
 
 	/** The alignment to perform. */
 	AlignmentType alignment;

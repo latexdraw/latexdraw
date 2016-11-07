@@ -1,19 +1,18 @@
 /*
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
  * General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version.<br>
- * <br>
+ * License, or (at your option) any later version.
  * LaTeXDraw is distributed without any warranty; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.<br>
+ * details.
  */
 package net.sf.latexdraw.view.jfx;
 
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
@@ -46,7 +45,7 @@ public final class ViewFactory {
 	 * @return The created view or empty.
 	 * @since 3.0
 	 */
-	public Optional<ViewShape<?, ?>> createView(final @Nullable IShape shape) {
+	public Optional<ViewShape<?>> createView(final @Nullable IShape shape) {
 		// if(shape instanceof IGroup) return new LGroupView((IGroup)shape);
 		// if(shape instanceof IPlot) return new LPlotView((IPlot)shape);
 		if(shape instanceof ISquare) return Optional.of(new ViewSquare((ISquare) shape));
@@ -61,7 +60,7 @@ public final class ViewFactory {
 		if(shape instanceof IPolygon) return Optional.of(new ViewPolygon((IPolygon) shape));
 		// if(shape instanceof IBezierCurve) return new LBezierCurveView((IBezierCurve)shape);
 		// if(shape instanceof IAxes) return new LAxesView((IAxes)shape);
-		// if(shape instanceof IGrid) return new LGridView((IGrid)shape);
+		if(shape instanceof IGrid) return Optional.of(new ViewGrid((IGrid)shape));
 		// if(shape instanceof IDot) return new LDotView((IDot)shape);
 		if(shape instanceof IPicture) return Optional.of(new ViewPicture((IPicture) shape));
 		// if(shape instanceof IFreehand) return new LFreeHandView((IFreehand)shape);

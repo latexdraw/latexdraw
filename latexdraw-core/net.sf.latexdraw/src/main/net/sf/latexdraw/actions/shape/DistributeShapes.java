@@ -43,7 +43,7 @@ class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoable, Modi
 	Rectangle2D border;
 
 	/** The views corresponding to the shapes to align. */
-	final List<ViewShape<?, ?>> views;
+	final List<ViewShape<?>> views;
 
 	/** The alignment to perform. */
 	DistributionType distribution;

@@ -87,7 +87,7 @@ public class Hand extends CanvasInstrument {
 
 		@Override
 		public void updateAction() {
-			final IShape targetSh = ((ViewShape<?, ?>) ((Node) interaction.getTarget()).getParent()).getModel();
+			final IShape targetSh = ((ViewShape<?>) ((Node) interaction.getTarget()).getParent()).getModel();
 
 			if(interaction.isShiftPressed())
 				instrument.canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> action.addShape(sh));
@@ -100,7 +100,7 @@ public class Hand extends CanvasInstrument {
 		@Override
 		public boolean isConditionRespected() {
 			final EventTarget obj = interaction.getTarget();
-			return obj instanceof Node && ((Node) obj).getParent() instanceof ViewShape<?, ?>;
+			return obj instanceof Node && ((Node) obj).getParent() instanceof ViewShape<?>;
 		}
 	}
 

@@ -160,7 +160,7 @@ public class Pencil extends CanvasInstrument {
 			super(Pencil.this, false, AddShape.class, clazzInteraction, Pencil.this.canvas);
 		}
 
-		ViewShape<?, ?> tmpShape;
+		ViewShape<?> tmpShape;
 
 		@Override
 		public void initAction() {

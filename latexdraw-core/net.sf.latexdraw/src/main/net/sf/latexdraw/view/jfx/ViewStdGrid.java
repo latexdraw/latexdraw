@@ -10,31 +10,33 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import javafx.scene.image.ImageView;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
+import javafx.scene.Group;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
 
 /**
- * The JFX view of a picture.
+ * The JFX view of an abstract grid.
+ * @author Arnaud Blouin
  */
-public class ViewPicture extends ViewShape<IPicture> {
-	ImageView view;
+abstract class ViewStdGrid<T extends IStandardGrid> extends ViewShape<T> {
+	protected final Group labels;
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPicture(final IPicture sh) {
+	protected ViewStdGrid(final T sh) {
 		super(sh);
-		view = new ImageView(model.getImage());
-		view.xProperty().bind(model.getPosition().xProperty());
-		view.yProperty().bind(model.getPosition().yProperty());
-		getChildren().add(view);
+		labels = new Group();
+		getChildren().add(labels);
 	}
 
-	@Override
-	public void flush() {
-		super.flush();
-		view.xProperty().unbind();
-		view.yProperty().unbind();
+
+	protected Text addTextLabel(final String text, final double x, final double y, final Font font) {
+		final Text label = new Text(x, y, text);
+		label.setFont(font);
+		labels.getChildren().add(label);
+		return label;
 	}
 }

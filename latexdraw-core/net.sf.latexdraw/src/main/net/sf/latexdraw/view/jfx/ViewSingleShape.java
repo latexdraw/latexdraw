@@ -37,7 +37,7 @@ import java.awt.geom.Point2D;
  * @param <S> The type of the model.
  * @param <T> The type of the JFX shape used to draw the view.
  */
-public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> extends ViewShape<S, T> {
+public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> extends ViewShape<S> {
 	protected final @NonNull T border;
 
 	/**

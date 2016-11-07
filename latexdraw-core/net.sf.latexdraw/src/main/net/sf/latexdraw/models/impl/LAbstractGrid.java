@@ -1,3 +1,13 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.impl;
 
 import net.sf.latexdraw.models.GLibUtilities;
@@ -8,23 +18,8 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
 
 /**
- * Defines a model of an abstract latex grid.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 07/05/2009<br>
+ * A model of an abstract latex grid.
  * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
  */
 abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	/** If true, the x label will be displayed at the south of the grid. Else at the north */

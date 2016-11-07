@@ -81,7 +81,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	private final @NonNull Rectangle selectionBorder;
 
-	private final @NonNull Map<IShape, ViewShape<?, ?>> shapesToViewMap;
+	private final @NonNull Map<IShape, ViewShape<?>> shapesToViewMap;
 
 	/** The magnetic grid of the canvas. */
 	protected MagneticGridImpl magneticGrid;
@@ -90,7 +90,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	protected boolean modified;
 
 	/** The temporary view that the canvas may contain. */
-	protected Optional<ViewShape<?, ?>> tempView;
+	protected Optional<ViewShape<?>> tempView;
 
 	/**
 	 * Creates the canvas.
@@ -460,7 +460,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	 * Sets the temporary view.
 	 * @param view The new temporary view.
 	 */
-	public void setTempView(final @Nullable ViewShape<?, ?> view) {
+	public void setTempView(final @Nullable ViewShape<?> view) {
 		tempView.ifPresent(v -> shapesPane.getChildren().remove(v));
 		tempView = Optional.ofNullable(view);
 		tempView.ifPresent(v -> shapesPane.getChildren().add(v));
