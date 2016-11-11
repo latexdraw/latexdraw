@@ -13,6 +13,12 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,9 +37,6 @@ import org.malai.action.Action;
 import org.malai.javafx.action.library.ActivateInactivateInstruments;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.ToggleButtonInteractor;
-
-import java.net.URL;
-import java.util.*;
 
 /**
  * This instrument selects the pencil or the hand.
@@ -122,7 +125,6 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 	/**
 	 * Creates the instrument.
-	 * 
 	 * @since 4.0
 	 */
 	public EditingSelector() {
@@ -160,7 +162,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 	/** @return The created latexdraw dialogue box. */
 	protected Stage getInsertCodeDialogue() {
-		if(codeInserterDialogue==null) {
+		if(codeInserterDialogue == null) {
 			try {
 				Parent root = FXMLLoader.load(getClass().getResource("/fxml/InsertCode.fxml"), LangTool.INSTANCE.getBundle());
 				final Scene scene = new Scene(root);
@@ -233,16 +235,14 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 			action.setActivateFirst(false);
 
-			if(button!=instrument.textB)
-				action.addInstrumentToInactivate(instrument.pencil.textSetter);
+			if(button != instrument.textB) action.addInstrumentToInactivate(instrument.pencil.textSetter);
 
 			/* Selection of the instruments to activate/desactivate. */
-			if(button==instrument.handB) {
+			if(button == instrument.handB) {
 				final boolean noSelection = instrument.hand.canvas.getDrawing().getSelection().isEmpty();
 				action.addInstrumentToActivate(instrument.hand);
 
-				if(!noSelection)
-					action.addInstrumentToActivate(instrument.deleter);
+				if(!noSelection) action.addInstrumentToActivate(instrument.deleter);
 
 				action.addInstrumentToInactivate(instrument.pencil);
 

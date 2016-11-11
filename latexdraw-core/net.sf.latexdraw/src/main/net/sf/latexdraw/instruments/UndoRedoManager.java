@@ -12,6 +12,9 @@
  */
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,10 +28,6 @@ import org.malai.javafx.interaction.library.ButtonPressed;
 import org.malai.javafx.interaction.library.KeysPressure;
 import org.malai.undo.UndoCollector;
 import org.malai.undo.Undoable;
-
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  * This instrument allows to undo and redo saved actions.
@@ -158,8 +157,7 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 		@Override
 		public boolean isConditionRespected() {
 			final List<KeyCode> keys = getInteraction().getKeyCodes();
-			return UndoCollector.INSTANCE.getLastRedo() != null && keys.size() == 2 && keys.contains(KeyCode.Y) &&
-				keys.contains(LSystem.INSTANCE.getControlKey());
+			return UndoCollector.INSTANCE.getLastRedo() != null && keys.size() == 2 && keys.contains(KeyCode.Y) && keys.contains(LSystem.INSTANCE.getControlKey());
 		}
 	}
 
@@ -176,8 +174,7 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 		@Override
 		public boolean isConditionRespected() {
 			final List<KeyCode> keys = getInteraction().getKeyCodes();
-			return UndoCollector.INSTANCE.getLastRedo() != null && keys.size() == 2 && keys.contains(KeyCode.Z) &&
-				keys.contains(LSystem.INSTANCE.getControlKey());
+			return UndoCollector.INSTANCE.getLastRedo() != null && keys.size() == 2 && keys.contains(KeyCode.Z) && keys.contains(LSystem.INSTANCE.getControlKey());
 		}
 	}
 }

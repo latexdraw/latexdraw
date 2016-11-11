@@ -1,5 +1,20 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.
+ */
 package net.sf.latexdraw.instruments;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,51 +29,25 @@ import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.MenuItem2OpenWebPageInteractor;
 import org.malai.javafx.instrument.library.MenuItem2ShowLazyStage;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
- * This instrument manages help features.<br>
- * <br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version.<br>
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 11/20/10<br>
- * 
+ * This instrument manages help features.
  * @author Arnaud BLOUIN
- * @version 3.0
  */
 public class Helper extends JfxInstrument implements Initializable {
 	/** This menu item shows the shortcut panel. */
-	@FXML
-	protected MenuItem shortcutItem;
+	@FXML protected MenuItem shortcutItem;
 
 	/** This menu item shows the "About latexdraw" panel. */
-	@FXML
-	protected MenuItem aboutItem;
+	@FXML protected MenuItem aboutItem;
 
 	/** This menu opens the web page used to report bugs. */
-	@FXML
-	protected MenuItem reportBugItem;
+	@FXML protected MenuItem reportBugItem;
 
 	/** This menu opens the web page used to donate to the latexdraw project. */
-	@FXML
-	protected MenuItem donateItem;
+	@FXML protected MenuItem donateItem;
 
 	/** This menu opens the latexdraw forum. */
-	@FXML
-	protected MenuItem forumItem;
+	@FXML protected MenuItem forumItem;
 
 	/** The dialogue box that gives information on latexdraw. */
 	private Stage aboutFrame;
@@ -66,8 +55,7 @@ public class Helper extends JfxInstrument implements Initializable {
 	/** The shortcut dialogue box. */
 	private Stage shortcutFrame;
 
-	@FXML
-	protected MenuItem manuelItem;
+	@FXML protected MenuItem manuelItem;
 
 	/**
 	 * Creates the instrument.
@@ -84,8 +72,8 @@ public class Helper extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		 addInteractor(new MenuItem2ShowLazyStage(this, aboutItem, this::getAboutFrame, true));
-		 addInteractor(new MenuItem2ShowLazyStage(this, shortcutItem, this::getShortcutsFrame, true));
+		addInteractor(new MenuItem2ShowLazyStage(this, aboutItem, this::getAboutFrame, true));
+		addInteractor(new MenuItem2ShowLazyStage(this, shortcutItem, this::getShortcutsFrame, true));
 		try {
 			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("https://sourceforge.net/p/latexdraw/bugs/?source=navbar")));
 			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("https://sourceforge.net/p/latexdraw/discussion/")));

@@ -1,5 +1,20 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.
+ */
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -14,28 +29,9 @@ import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 /**
- * This instrument customises the arrows of shapes or of the pencil.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
- * General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.<br>
- * <br>
- * 08/05/2011<br>
- * 
+ * This instrument customises the arrows of shapes or of the pencil.
  * @author Arnaud BLOUIN
- * @since 3.0
  */
 public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** Allows to change the style of the left-end of the shape. */
@@ -207,12 +203,15 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 				tbarsizeNum.getValueFactory().setValue(arr1.getTBarSizeNum());
 			}
 
-			if(isSBracket)
+			if(isSBracket) {
 				bracketNum.getValueFactory().setValue(arr1.getBracketNum());
+			}
 
-			if(isRBracket)
+			if(isRBracket) {
 				rbracketNum.getValueFactory().setValue(arr1.getRBracketNum());
-		}else
+			}
+		}else {
 			setActivated(false);
+		}
 	}
 }

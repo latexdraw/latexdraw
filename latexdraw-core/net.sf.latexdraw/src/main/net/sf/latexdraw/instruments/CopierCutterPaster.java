@@ -1,5 +1,20 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.
+ */
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.function.Supplier;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
@@ -16,28 +31,9 @@ import org.malai.javafx.instrument.JfxMenuItemInteractor;
 import org.malai.javafx.interaction.library.KeysPressure;
 import org.malai.javafx.interaction.library.MenuItemPressed;
 
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.function.Supplier;
-
 /**
- * This instrument permits to copy, cut and paste the selected shapes.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 06/03/2011<br>
+ * This instrument permits to copy, cut and paste the selected shapes.
  * @author Arnaud BLOUIN, Jan-Cornelius MOLNAR
- * @since 3.0
  */
 public class CopierCutterPaster extends CanvasInstrument implements Initializable {
 	/** The menu item to copy the shapes. */
@@ -100,7 +96,6 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	public void onActionAdded(final Action action) {
 		updateWidgets(action);
 	}
-
 
 
 	class Shortcut2CopyShapes<T extends CopyShapes> extends JfxInteractor<T, KeysPressure, CopierCutterPaster> {

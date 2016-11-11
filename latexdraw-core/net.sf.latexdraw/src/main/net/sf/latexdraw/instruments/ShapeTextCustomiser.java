@@ -1,5 +1,20 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.
+ */
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonBase;
@@ -19,28 +34,9 @@ import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.instrument.library.ToggleButtonInteractor;
 import org.malai.javafx.interaction.library.KeysTyped;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 /**
- * This instrument modifies texts.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
- * General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.<br>
- * <br>
- * 12/27/2010<br>
- * 
+ * This instrument modifies texts.
  * @author Arnaud BLOUIN
- * @since 3.0
  */
 public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The button that selects the bottom-left text position. */
@@ -124,10 +120,9 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 			centreButton.setSelected(tp == TextPosition.CENTER);
 			lButton.setSelected(tp == TextPosition.LEFT);
 			rButton.setSelected(tp == TextPosition.RIGHT);
-			if(!packagesField.isFocused()) // Otherwise it means that this field
-											// is currently being edited and
-											// must not be updated.
+			if(!packagesField.isFocused()){ // Otherwise it means that this field is currently being edited and must not be updated.
 				packagesField.setText(LaTeXGenerator.getPackages());
+			}
 
 			// Updating the log field.
 			//FIXME
@@ -152,8 +147,9 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 //					logField.setText(log);
 //				});
 //			});
-		}else
+		}else {
 			setActivated(false);
+		}
 	}
 
 	@Override

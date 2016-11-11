@@ -1,10 +1,20 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.
+ */
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -22,22 +32,8 @@ import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 
 /**
- * This instrument modifies border properties of shapes or the pencil.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
- * General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.<br>
- * <br>
- * 10/31/2010<br>
- * 
+ * This instrument modifies border properties of shapes or the pencil.
  * @author Arnaud BLOUIN
- * @since 3.0
  */
 public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** The field which allows to change shapes thickness. */
@@ -91,8 +87,9 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape.isEmpty())
+		if(shape.isEmpty()) {
 			setActivated(false);
+		}
 		else {
 			setActivated(true);
 			final boolean isTh = shape.isThicknessable();
@@ -109,18 +106,12 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			lineColButton.setVisible(isColor);
 			showPoints.setVisible(showPts);
 
-			if(isColor)
-				lineColButton.setValue(shape.getLineColour().toJFX());
-			if(isTh)
-				thicknessField.getValueFactory().setValue(shape.getThickness());
-			if(isStylable)
-				lineCB.getSelectionModel().select(shape.getLineStyle());
-			if(isMvble)
-				bordersPosCB.getSelectionModel().select(shape.getBordersPosition());
-			if(supportRound)
-				frameArcField.getValueFactory().setValue(shape.getLineArc());
-			if(showPts)
-				showPoints.setSelected(shape.isShowPts());
+			if(isColor) lineColButton.setValue(shape.getLineColour().toJFX());
+			if(isTh) thicknessField.getValueFactory().setValue(shape.getThickness());
+			if(isStylable) lineCB.getSelectionModel().select(shape.getLineStyle());
+			if(isMvble) bordersPosCB.getSelectionModel().select(shape.getBordersPosition());
+			if(supportRound) frameArcField.getValueFactory().setValue(shape.getLineArc());
+			if(showPts) showPoints.setSelected(shape.isShowPts());
 		}
 	}
 

@@ -12,6 +12,8 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,14 +30,10 @@ import org.malai.javafx.interaction.JfxInteraction;
 import org.malai.javafx.interaction.library.ButtonPressed;
 import org.malai.javafx.interaction.library.KeyPressure;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 
 /**
  * This instrument deletes the selected shapes.
  * @author Arnaud BLOUIN
- * @since 3.0
  */
 public class ShapeDeleter extends CanvasInstrument implements Initializable {
 	/** The button used to remove the selected shapes. */

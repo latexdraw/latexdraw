@@ -1,5 +1,17 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.
+ */
 package net.sf.latexdraw.instruments;
 
+import com.google.inject.Inject;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -10,7 +22,6 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
@@ -20,27 +31,9 @@ import org.malai.javafx.instrument.library.ComboBoxInteractor;
 import org.malai.javafx.instrument.library.SpinnerInteractor;
 import org.malai.undo.Undoable;
 
-import com.google.inject.Inject;
-
 /**
- * This abstract instrument defines the base definition of instruments that customise shape
- * properties.<br>
- * <br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
- * General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version.<br>
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.<br>
- * <br>
- * 10/31/10<br>
- * 
+ * This abstract instrument defines the base definition of instruments that customise shape properties.
  * @author Arnaud BLOUIN
- * @version 3.0
  */
 public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	/** The Hand instrument. */
@@ -78,19 +71,19 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 	/**
 	 * Updates the instrument and its widgets
-	 * 
 	 * @since 3.0
 	 */
 	public void update() {
-		if(pencil.isActivated())
+		if(pencil.isActivated()) {
 			update(ShapeFactory.createGroup(pencil.createShapeInstance()));
-		else
+		}
+		else {
 			update(drawing.getSelection());
+		}
 	}
 
 	/**
 	 * Updates the widgets using the given shape.
-	 * 
 	 * @param shape The shape used to update the widgets. If null, nothing is performed.
 	 * @since 3.0
 	 */
@@ -98,7 +91,6 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 	/**
 	 * Sets the widgets of the instrument visible or not.
-	 * 
 	 * @param visible True: they are visible.
 	 * @since 3.0
 	 */
@@ -166,10 +158,12 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		public void initAction() {
 			action.setProperty(prop);
 			action.setPencil(instrument.pencil);
-			if(angle)
-				action.setValue(Math.toRadians((Double)interaction.getWidget().getValue()));
-			else
+			if(angle) {
+				action.setValue(Math.toRadians((Double) interaction.getWidget().getValue()));
+			}
+			else {
 				action.setValue(interaction.getWidget().getValue());
+			}
 		}
 
 		// TODO see whether spinner actions can be grouped as before.
@@ -198,10 +192,12 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		public void initAction() {
 			action.setProperty(prop);
 			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
-			if(angle)
-				action.setValue(Math.toRadians((Double)interaction.getWidget().getValue()));
-			else
+			if(angle) {
+				action.setValue(Math.toRadians((Double) interaction.getWidget().getValue()));
+			}
+			else {
 				action.setValue(interaction.getWidget().getValue());
+			}
 		}
 
 		@Override
@@ -209,7 +205,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			return instrument.hand.isActivated();
 		}
 	}
-	
+
 	static class ColourPicker4Pencil extends ColorPickerInteractor<ModifyPencilParameter, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 
@@ -251,10 +247,10 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			return instrument.hand.isActivated();
 		}
 	}
-	
+
 	static class Checkbox4Pencil extends CheckboxInteractor<ModifyPencilParameter, ShapePropertyCustomiser> {
 		ShapeProperties prop;
-		
+
 		Checkbox4Pencil(final ShapePropertyCustomiser ins, ButtonBase widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class, widget);
 			prop = property;
@@ -275,7 +271,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 	static class Checkbox4Selection extends CheckboxInteractor<ModifyShapeProperty, ShapePropertyCustomiser> {
 		ShapeProperties prop;
-		
+
 		Checkbox4Selection(final ShapePropertyCustomiser ins, ButtonBase widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class, widget);
 			prop = property;

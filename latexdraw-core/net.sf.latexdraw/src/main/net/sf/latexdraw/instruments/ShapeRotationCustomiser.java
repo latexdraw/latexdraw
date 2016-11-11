@@ -1,8 +1,18 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.
+ */
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,23 +21,8 @@ import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 /**
- * This instrument modifies the rotation angle of selected shapes.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 12/31/2010<br>
- * 
+ * This instrument modifies the rotation angle of selected shapes.
  * @author Arnaud BLOUIN
- * @since 3.0
  */
 public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The rotation button to perform 90 degree rotation. */
@@ -63,8 +58,9 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape.isEmpty())
+		if(shape.isEmpty()) {
 			setActivated(false);
+		}
 		else {
 			rotationField.getValueFactory().setValue(Math.toDegrees(shape.getRotationAngle()));
 			setActivated(true);

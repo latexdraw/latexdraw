@@ -14,6 +14,8 @@
  */
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,12 +31,8 @@ import org.malai.javafx.action.library.ShowStage;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.ButtonInteractor;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
- * This instrument allows to see exceptions launched during the execution of the
- * program.
+ * This instrument allows to see exceptions launched during the execution of the program.
  */
 public class ExceptionsManager extends JfxInstrument implements BadaboomHandler, Initializable {
 	/** The button used to shows the panel of exceptions. */
@@ -45,7 +43,6 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 
 	/**
 	 * Creates the instrument.
-	 * 
 	 * @since 3.0
 	 */
 	public ExceptionsManager() {
@@ -57,7 +54,7 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	 * @return The frame showing the exceptions. Cannot be null.
 	 */
 	public Stage getStageEx() {
-		if(stageEx==null) {
+		if(stageEx == null) {
 			try {
 				Parent root = FXMLLoader.load(getClass().getResource("/fxml/Badaboom.fxml"), LangTool.INSTANCE.getBundle());
 				final Scene scene = new Scene(root);
@@ -90,7 +87,7 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	@Override
 	public void setActivated(final boolean isActivated) {
 		super.setActivated(isActivated);
-		if(exceptionB!=null) {
+		if(exceptionB != null) {
 			exceptionB.setVisible(isActivated);
 		}
 	}

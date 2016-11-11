@@ -1,5 +1,18 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.
+ */
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -18,26 +31,9 @@ import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import org.malai.javafx.instrument.library.SpinnerInteractor;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
- * This instrument modifies axes properties of shapes or the pencil.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
- * General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.<br>
- * <br>
- * 2012-04-05<br>
- * 
+ * This instrument modifies axes properties of shapes or the pencil.
  * @author Arnaud BLOUIN
- * @since 3.0
  */
 public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The widget that permits to select the style of the axes. */
@@ -97,8 +93,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 			distLabelsX.getValueFactory().setValue(shape.getDistLabelsX());
 			distLabelsY.getValueFactory().setValue(shape.getDistLabelsY());
 			setActivated(true);
-		}else
+		}else {
 			setActivated(false);
+		}
 	}
 
 	@Override
