@@ -84,7 +84,7 @@ public class UpdateToGrid extends ShapeActionImpl<IGroup> implements Undoable, M
 			gp.getShapes().forEach(sh -> {
 				j.set(0);
 				sh.getPoints().forEach(pt -> {
-					pt.setPoint(grid.getTransformedPointToGrid(pt.toPoint2D()));
+					pt.setPoint(grid.getTransformedPointToGrid(pt.toPoint3D()));
 					j.set(j.get() + 1);
 				});
 				i.set(i.get() + 1);

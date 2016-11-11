@@ -12,6 +12,14 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.awt.Point;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
@@ -47,13 +55,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.awt.Point;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 /**
  * Defines a canvas that draw the drawing and manages the selected shapes.
  */
@@ -80,6 +81,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	private final @NonNull Group widgetsPane;
 
 	private final @NonNull Rectangle selectionBorder;
+
+	private final @NonNull Rectangle ongoingSelectionBorder;
 
 	private final @NonNull Map<IShape, ViewShape<?>> shapesToViewMap;
 
@@ -108,11 +111,21 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		shapesPane = new Group();
 		shapesToViewMap = new HashMap<>();
 		selectionBorder = new Rectangle();
+		ongoingSelectionBorder = new Rectangle();
+
+		selectionBorder.setFocusTraversable(false);
+		ongoingSelectionBorder.setFocusTraversable(false);
+		ongoingSelectionBorder.setMouseTransparent(true);
+		ongoingSelectionBorder.setFill(null);
+		ongoingSelectionBorder.setStroke(Color.GRAY);
+		ongoingSelectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
+		ongoingSelectionBorder.getStrokeDashArray().addAll(7d, 7d);
 
 		getChildren().add(page);
 		getChildren().add(shapesPane);
 		getChildren().add(widgetsPane);
 		widgetsPane.getChildren().add(selectionBorder);
+		widgetsPane.getChildren().add(ongoingSelectionBorder);
 		widgetsPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 		shapesPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 
@@ -150,25 +163,60 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
 		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
 
-		final ObservableList<IShape> selection = (ObservableList<IShape>) drawing.getSelection().getShapes();
-
-		selection.addListener((Change<? extends IShape> evt) -> {
-			if(selection.isEmpty()) selectionBorder.setVisible(false);
-			else {
-				final double zoomLevel = getZoom();
-				final Rectangle2D rec = selection.stream().map(sh -> {
-					Bounds b = shapesToViewMap.get(sh).getBoundsInLocal();
-					return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
-				}).reduce(Rectangle2D::createUnion).get();
-
-				selectionBorder.setLayoutX(rec.getMinX() * zoomLevel);
-				selectionBorder.setLayoutY(rec.getMinY() * zoomLevel);
-				selectionBorder.setWidth(rec.getWidth() * zoomLevel);
-				selectionBorder.setHeight(rec.getHeight() * zoomLevel);
-				selectionBorder.setVisible(true);
-			}
-		});
+		((ObservableList<IShape>) drawing.getSelection().getShapes()).addListener((Change<? extends IShape> evt) -> updateSelectionBorders());
 	}
+
+
+	private void updateSelectionBorders() {
+		final ObservableList<IShape> selection = (ObservableList<IShape>) drawing.getSelection().getShapes();
+		if(selection.isEmpty()) {
+			selectionBorder.setVisible(false);
+		}
+		else {
+			final double zoomLevel = getZoom();
+			final Rectangle2D rec = selection.stream().map(sh -> {
+				Bounds b = shapesToViewMap.get(sh).getBoundsInLocal();
+				return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
+			}).reduce(Rectangle2D::createUnion).get();
+
+			selectionBorder.setLayoutX(rec.getMinX() * zoomLevel);
+			selectionBorder.setLayoutY(rec.getMinY() * zoomLevel);
+			selectionBorder.setWidth(rec.getWidth() * zoomLevel);
+			selectionBorder.setHeight(rec.getHeight() * zoomLevel);
+			selectionBorder.setVisible(true);
+		}
+	}
+
+
+	public void setOngoingSelectionBorder(final @Nullable Bounds bounds) {
+		if(bounds==null) {
+			ongoingSelectionBorder.setVisible(false);
+		}else {
+			ongoingSelectionBorder.setLayoutX(bounds.getMinX());
+			ongoingSelectionBorder.setLayoutY(bounds.getMinY());
+			ongoingSelectionBorder.setWidth(bounds.getWidth());
+			ongoingSelectionBorder.setHeight(bounds.getHeight());
+			ongoingSelectionBorder.setVisible(true);
+		}
+	}
+
+
+	/**
+	 * @return The selected views.
+	 */
+	public @NonNull List<ViewShape<?>> getSelectedViews() {
+		return drawing.getSelection().getShapes().stream().map(sh -> shapesToViewMap.get(sh)).collect(Collectors.toList());
+	}
+
+
+//	/**
+//	 * @param sh The shape for which we want the view.
+//	 * @return The corresponding view of nothing.
+//	 */
+//	public @NonNull Optional<ViewShape<?>> getViewFromShape(final @Nullable IShape sh) {
+//		return sh==null ? Optional.empty() : Optional.ofNullable(shapesToViewMap.get(sh));
+//	}
+
 
 	private void defineShapeListToViewBinding() {
 		if(drawing.getShapes() instanceof ObservableList) {
@@ -251,7 +299,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void update() {
-		// Nothing to do.
+		updateSelectionBorders();
 	}
 
 	@Override
@@ -482,5 +530,12 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	public boolean removeFromWidgetLayer(final javafx.scene.Node node) {
 		return node != null && widgetsPane.getChildren().remove(node);
+	}
+
+	/**
+	 * @return The views that the canvas contains.
+	 */
+	public Group getViews() {
+		return shapesPane;
 	}
 }

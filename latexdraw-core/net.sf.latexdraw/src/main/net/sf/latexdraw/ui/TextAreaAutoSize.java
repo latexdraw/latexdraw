@@ -112,6 +112,8 @@ public class TextAreaAutoSize extends TextArea {
 	 * Updates the size of the widget according to its text.
 	 */
 	private void updateDimension(final String newText) {
+		if(newText==null) return;
+
 		final String[] lines = newText.split(LResources.EOL);
 		final int countEOL = newText.length() - newText.replace(LResources.EOL, "").length();
 		final String maxLine = Arrays.stream(lines).reduce((a, b) -> a.length() > b.length() ? a : b).orElse("");

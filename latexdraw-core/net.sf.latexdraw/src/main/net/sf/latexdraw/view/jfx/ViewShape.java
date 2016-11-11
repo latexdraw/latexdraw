@@ -32,6 +32,7 @@ public abstract class ViewShape<S extends IShape> extends Group {
 		super();
 		model = sh;
 
+		setUserData(model);
 		setFocusTraversable(false);
 	}
 
@@ -39,6 +40,7 @@ public abstract class ViewShape<S extends IShape> extends Group {
 	 * Flushes the view.
 	 */
 	public void flush() {
+		setUserData(null);
 		getChildren().clear();
 		// Should be overridden to flush the bindings.
 	}

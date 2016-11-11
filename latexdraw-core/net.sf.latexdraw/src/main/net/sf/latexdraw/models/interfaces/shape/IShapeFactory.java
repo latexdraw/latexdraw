@@ -14,7 +14,7 @@ package net.sf.latexdraw.models.interfaces.shape;
 
 import java.awt.geom.Point2D;
 import java.util.Optional;
-
+import javafx.geometry.Point3D;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -288,6 +288,14 @@ public interface IShapeFactory {
 	 * @return The created point. Cannot be null.
 	 */
 	IPoint createPoint(Point2D pt);
+
+	/**
+	 * Duplicates a java 3D point into a IPoint. If the given point pt is null, a point (0,0) is
+	 * created.
+	 * @param pt The point to convert.
+	 * @return The created point. Cannot be null.
+	 */
+	IPoint createPoint(Point3D pt);
 
 	/**
 	 * Creates a Point2D with the specified coordinates.

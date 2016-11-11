@@ -11,6 +11,10 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
+import javafx.application.Platform;
+import javafx.geometry.Point3D;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
@@ -39,10 +43,6 @@ import org.malai.javafx.interaction.library.AbortableDnD;
 import org.malai.javafx.interaction.library.MultiClick;
 import org.malai.javafx.interaction.library.Press;
 import org.malai.stateMachine.MustAbortStateMachineException;
-
-import java.awt.geom.Point2D;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * This instrument allows to draw shapes.
@@ -112,8 +112,7 @@ public class Pencil extends CanvasInstrument {
 	}
 
 	/**
-	 * @return An instance of a shape configured (thickness, colours, etc.) with
-	 * the parameters of the pencil.
+	 * @return An instance of a shape configured (thickness, colours, etc.) with the parameters of the pencil.
 	 * @since 3.0
 	 */
 	public IShape createShapeInstance() {
@@ -121,8 +120,7 @@ public class Pencil extends CanvasInstrument {
 	}
 
 	/**
-	 * Configures the given shape with the parameters (e.g. thickness, colours,
-	 * etc.) of the pencil.
+	 * Configures the given shape with the parameters (e.g. thickness, colours, etc.) of the pencil.
 	 * @param shape The shape to configure.
 	 * @return The modified shape given as argument.
 	 * @since 3.0
@@ -170,6 +168,7 @@ public class Pencil extends CanvasInstrument {
 				action.setShape(sh);
 				action.setDrawing(instrument.canvas.getDrawing());
 				instrument.canvas.setTempView(tmpShape);
+				Platform.runLater(() -> instrument.canvas.requestFocus());
 			});
 		}
 	}
@@ -183,7 +182,7 @@ public class Pencil extends CanvasInstrument {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.getShape().ifPresent(sh -> interaction.getStartPt().ifPresent(startPt -> {
+			action.getShape().ifPresent(sh -> interaction.getSrcPoint().ifPresent(startPt -> {
 				final IPoint pt = instrument.getAdaptedPoint(startPt);
 
 				// For squares and circles, the centre of the shape is the reference point during the creation.
@@ -201,10 +200,10 @@ public class Pencil extends CanvasInstrument {
 
 		@Override
 		public void updateAction() {
-			action.getShape().ifPresent(sh -> {
+			action.getShape().ifPresent(sh -> interaction.getSrcPoint().ifPresent(srcPt -> interaction.getEndPt().ifPresent(finalPt -> {
 				// Getting the points depending on the current zoom.
-				final IPoint startPt = instrument.getAdaptedPoint(interaction.getStartPt().orElse(new Point2D.Double()));
-				final IPoint endPt = instrument.getAdaptedPoint(interaction.getEndPt().orElse(new Point2D.Double()));
+				final IPoint startPt = instrument.getAdaptedPoint(srcPt);
+				final IPoint endPt = instrument.getAdaptedPoint(finalPt);
 
 				if(sh instanceof ISquaredShape) {
 					updateShapeFromCentre((ISquaredShape) sh, startPt, endPt.getX());
@@ -221,7 +220,7 @@ public class Pencil extends CanvasInstrument {
 					sh.setModified(true);
 					action.getDrawing().ifPresent(drawing -> drawing.setModified(true));
 				}
-			});
+			})));
 		}
 
 		/**
@@ -287,8 +286,9 @@ public class Pencil extends CanvasInstrument {
 		@Override
 		public boolean isConditionRespected() {
 			final EditionChoice ec = instrument.currentChoice;
-			return interaction.getButton() == MouseButton.PRIMARY && (ec == EditionChoice.RECT || ec == EditionChoice.ELLIPSE ||
-				ec == EditionChoice.SQUARE || ec == EditionChoice.CIRCLE || ec == EditionChoice.RHOMBUS ||
+			return interaction.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY &&
+				(ec == EditionChoice.RECT || ec == EditionChoice.ELLIPSE || ec == EditionChoice.SQUARE ||
+					ec == EditionChoice.CIRCLE || ec == EditionChoice.RHOMBUS ||
 				ec == EditionChoice.TRIANGLE || ec == EditionChoice.CIRCLE_ARC || ec == EditionChoice.FREE_HAND);
 		}
 	}
@@ -309,7 +309,7 @@ public class Pencil extends CanvasInstrument {
 		@Override
 		public void updateAction() {
 			action.getShape().ifPresent(sh -> {
-				final List<Point2D.Double> pts = interaction.getPoints();
+				final List<Point3D> pts = interaction.getPoints();
 				final IPoint currPoint = instrument.getAdaptedPoint(interaction.getCurrentPosition());
 				final IModifiablePointsShape shape = (IModifiablePointsShape) sh;
 
@@ -363,14 +363,16 @@ public class Pencil extends CanvasInstrument {
 
 		@Override
 		public void initAction() {
-			action.setDrawing(instrument.canvas.getDrawing());
-			action.setShape(ShapeFactory.createPicture(instrument.getAdaptedPoint(interaction.getPoint())));
-			action.setFileChooser(instrument.getPictureFileChooser());
+			interaction.getSrcPoint().ifPresent(srcPt -> {
+				action.setDrawing(instrument.canvas.getDrawing());
+				action.setShape(ShapeFactory.createPicture(instrument.getAdaptedPoint(srcPt)));
+				action.setFileChooser(instrument.getPictureFileChooser());
+			});
 		}
 
 		@Override
 		public boolean isConditionRespected() {
-			return instrument.currentChoice == EditionChoice.PICTURE && interaction.getButton() == MouseButton.PRIMARY;
+			return instrument.currentChoice == EditionChoice.PICTURE && interaction.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY;
 		}
 	}
 
@@ -383,18 +385,18 @@ public class Pencil extends CanvasInstrument {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.getShape().ifPresent(sh -> {
+			action.getShape().ifPresent(sh -> interaction.getSrcPoint().ifPresent(srcPt -> {
 				if(sh instanceof IPositionShape) {
-					((IPositionShape) sh).setPosition(instrument.getAdaptedPoint(interaction.getPoint()));
+					((IPositionShape) sh).setPosition(instrument.getAdaptedPoint(srcPt));
 					sh.setModified(true);
 				}
-			});
+			}));
 		}
 
 		@Override
 		public boolean isConditionRespected() {
 			return (instrument.currentChoice == EditionChoice.GRID || instrument.currentChoice == EditionChoice.DOT ||
-				instrument.currentChoice == EditionChoice.AXES) && interaction.getButton() == MouseButton.PRIMARY;
+				instrument.currentChoice == EditionChoice.AXES) && interaction.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY;
 		}
 	}
 
@@ -433,17 +435,19 @@ public class Pencil extends CanvasInstrument {
 
 		 @Override
 		 public void initAction() {
-			 action.setText("");
-			 action.setTextShape(null);
-			 action.setInstrument(instrument.textSetter);
-			 action.setTextSetter(instrument.textSetter);
-			 action.setPosition(instrument.getAdaptedPoint(interaction.getPoint()));
+			 interaction.getSrcPoint().ifPresent(srcPt -> {
+				 action.setText("");
+				 action.setTextShape(null);
+				 action.setInstrument(instrument.textSetter);
+				 action.setTextSetter(instrument.textSetter);
+				 action.setPosition(instrument.getAdaptedPoint(srcPt));
+			 });
 		 }
 
 		 @Override
 		 public boolean isConditionRespected() {
 			 return (instrument.currentChoice == EditionChoice.TEXT || instrument.currentChoice == EditionChoice.PLOT) &&
-				 	interaction.getButton() == MouseButton.PRIMARY;
+				 	interaction.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY;
 		 }
 	 }
 }

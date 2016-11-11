@@ -1,27 +1,19 @@
 /*
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.<br>
- * <br>
+ *  (at your option) any later version.
  *  LaTeXDraw is distributed without any warranty; without even the
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- * <br>
+ *  PURPOSE. See the GNU General Public License for more details.
  */
 package net.sf.latexdraw.instruments;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.malai.picking.Pickable;
-
-import com.google.inject.Inject;
-
 import javafx.scene.Cursor;
 import net.sf.latexdraw.handlers.ArcAngleHandler;
 import net.sf.latexdraw.handlers.CtrlPointHandler;
@@ -30,13 +22,11 @@ import net.sf.latexdraw.handlers.MovePtHandler;
 import net.sf.latexdraw.handlers.RotationHandler;
 import net.sf.latexdraw.handlers.ScaleHandler;
 import net.sf.latexdraw.models.interfaces.shape.Position;
+import org.malai.picking.Pickable;
 
 /**
- * This instrument manages the selected views.<br>
- * 2012-04-20<br>
- * 
+ * This instrument manages the selected views.
  * @author Arnaud BLOUIN
- * @version 3.0
  */
 public class Border extends CanvasInstrument {
 	/** The handlers that scale shapes. */
@@ -52,8 +42,7 @@ public class Border extends CanvasInstrument {
 	protected final List<CtrlPointHandler> ctrlPt2Handlers;
 
 	// /** The handler that sets the arc frame. */
-	// protected lazy val frameArcHandler : FrameArcHandler = new
-	// FrameArcHandler()
+	// protected lazy val frameArcHandler : FrameArcHandler = new FrameArcHandler()
 
 	/** The handler that sets the start angle of an arc. */
 	protected final ArcAngleHandler arcHandlerStart;
@@ -66,7 +55,6 @@ public class Border extends CanvasInstrument {
 
 	// protected @Inject MetaShapeCustomiser metaCustomiser;
 
-	@Inject
 	public Border() {
 		super();
 		scaleHandlers = new ArrayList<>();

@@ -1,9 +1,9 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
-import javafx.beans.property.DoubleProperty;
-import org.eclipse.jdt.annotation.NonNull;
-
 import java.awt.geom.Point2D;
+import javafx.beans.property.DoubleProperty;
+import javafx.geometry.Point3D;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines an interface that classes defining a point should implement.<br>
@@ -194,6 +194,11 @@ public interface IPoint {
 	 * @since 3.0
 	 */
 	Point2D.Double toPoint2D();
+
+	/**
+	 * @return A Point3D point equivalent to the current point.
+	 */
+	Point3D toPoint3D();
 
 	/**
 	 * Defines the current point using the given point.

@@ -11,6 +11,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.geometry.Bounds;
+import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -27,8 +28,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import java.awt.geom.Point2D;
 
 /**
  * Implementation of a magnetic grid.
@@ -133,7 +132,7 @@ class MagneticGridImpl implements MagneticGrid {
 
 
 	@Override
-	public IPoint getTransformedPointToGrid(final Point2D pt) {
+	public IPoint getTransformedPointToGrid(final Point3D pt) {
 		if(isMagnetic() && isGridDisplayed()) {
 			final IPoint point = ShapeFactory.createPoint(pt.getX(), pt.getY());
 			final double modulo = getMagneticGridGap();

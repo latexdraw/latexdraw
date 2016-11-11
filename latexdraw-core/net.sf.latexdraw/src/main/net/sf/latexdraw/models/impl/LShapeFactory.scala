@@ -2,9 +2,9 @@ package net.sf.latexdraw.models.impl
 
 import java.awt.geom.Point2D
 import java.util.Optional
+import javafx.geometry.Point3D
 
 import org.eclipse.jdt.annotation.NonNullByDefault
-
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.models.ShapeFactory
 import net.sf.latexdraw.models.interfaces.shape.Color
@@ -137,6 +137,8 @@ class LShapeFactory extends IShapeFactory {
 	override def createPlot(pos:IPoint, minX:Double, maxX:Double, eq:String, polar:Boolean) : IPlot = new LPlot(pos, minX, maxX, eq, polar)
 
 	override def createPoint(pt:Point2D):IPoint = if(pt==null) createPoint else createPoint(pt.getX, pt.getY)
+
+	override def createPoint(pt:Point3D):IPoint = if(pt==null) createPoint else createPoint(pt.getX, pt.getY)
 
 	override def createDrawing() : IDrawing = new LDrawing()
 

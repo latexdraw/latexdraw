@@ -11,15 +11,15 @@
  */
 package net.sf.latexdraw.models.impl;
 
+import java.awt.geom.Point2D;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Point3D;
 import net.sf.latexdraw.models.GLibUtilities;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
-
-import java.awt.geom.Point2D;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.atan;
@@ -208,6 +208,11 @@ class LPoint implements IPoint {
 	@Override
 	public Point2D.Double toPoint2D() {
 		return new Point2D.Double(x.getValue(), y.getValue());
+	}
+
+	@Override
+	public Point3D toPoint3D() {
+		return new Point3D(x.getValue(), y.getValue(), 0d);
 	}
 
 	@Override
