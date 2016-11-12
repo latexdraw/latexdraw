@@ -14,7 +14,7 @@
    height="297mm"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="latexdraw_logo.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    version="1.1">
@@ -1608,16 +1608,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="366.85794"
-     inkscape:cy="655.99128"
+     inkscape:cx="346.14365"
+     inkscape:cy="675.99128"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1396"
-     inkscape:window-height="833"
-     inkscape:window-x="202"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
      inkscape:window-y="27"
-     inkscape:window-maximized="0" />
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -1626,7 +1626,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1646,7 +1646,7 @@
        inkscape:export-ydpi="69.099998" />
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#dcdcdc;fill-opacity:1;stroke:none;font-family:ClearlyU Alternate Glyphs"
+       style="font-style:normal;font-weight:normal;font-size:12px;font-family:'ClearlyU Alternate Glyphs';fill:#dcdcdc;fill-opacity:1;stroke:none"
        x="59.598999"
        y="498.79858"
        id="text6422"
@@ -1657,7 +1657,7 @@
          id="tspan6424"
          x="59.598999"
          y="498.79858"
-         style="font-size:32px;fill:#dcdcdc;fill-opacity:1;font-family:ClearlyU Alternate Glyphs">LaTeXDraw 3.3</tspan></text>
+         style="font-size:32px;font-family:'ClearlyU Alternate Glyphs';fill:#dcdcdc;fill-opacity:1">LaTeXDraw 4.0</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:9.7610817px;font-style:normal;font-weight:normal;fill:url(#radialGradient2385);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
