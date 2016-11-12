@@ -1,50 +1,38 @@
-package net.sf.latexdraw.instruments;
-
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-
-import com.google.inject.Inject;
-
-/**
- * This meta-instrument manages the instruments that customises shape
- * properties.<br>
- * <br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
+/*
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version.<br>
- * <br>
+ * Foundation; either version 2 of the License, or (at your option) any later version.
  * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 10/31/10<br>
- * 
- * @author Arnaud BLOUIN
- * @version 3.0
+ * General Public License for more details.
  */
-public class MetaShapeCustomiser extends ShapePropertyCustomiser {
+package net.sf.latexdraw.instruments;
+
+import com.google.inject.Inject;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.collections.ListChangeListener;
+import javafx.fxml.Initializable;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+
+/**
+ * This meta-instrument manages the instruments that customises shape properties.
+ * @author Arnaud BLOUIN
+ */
+public class MetaShapeCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** This instrument customises the line properties of shapes and the pencil. */
 	@Inject protected ShapeBorderCustomiser borderCustomiser;
 
-	/**
-	 * This instrument customises the double line properties of shapes and the
-	 * pencil.
-	 */
+	/** This instrument customises the double line properties of shapes and the pencil. */
 	@Inject protected ShapeDoubleBorderCustomiser doubleBorderCustomiser;
 
-	/**
-	 * This instrument customises the shadow properties of shapes and the
-	 * pencil.
-	 */
+	/** This instrument customises the shadow properties of shapes and the pencil. */
 	@Inject protected ShapeShadowCustomiser shadowCustomiser;
 
-	/**
-	 * This instrument customises the filling properties of shapes and the
-	 * pencil.
-	 */
+	/** This instrument customises the filling properties of shapes and the pencil. */
 	@Inject protected ShapeFillingCustomiser fillingCustomiser;
 
 	/** This instrument customises the texts. */
@@ -99,8 +87,9 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	public void setActivated(final boolean act) {
 		super.setActivated(act);
 
-		if(act)
+		if(act) {
 			update();
+		}
 		else {
 			borderCustomiser.setActivated(false);
 			doubleBorderCustomiser.setActivated(false);
@@ -175,5 +164,20 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		// This instrument does not have any widget.
+	}
+
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		drawing.getSelection().getShapes().addListener((ListChangeListener.Change<? extends IShape> change) -> {
+			while(change.next()) {
+				if(change.wasRemoved()) {
+					if(hand.isActivated()) {
+						setActivated(!drawing.getSelection().isEmpty());
+					}
+				}else {
+					setActivated(true);
+				}
+			}
+		});
 	}
 }

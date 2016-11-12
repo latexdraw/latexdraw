@@ -1,7 +1,6 @@
 package net.sf.latexdraw.models.interfaces.prop;
 
-import java.util.List;
-
+import javafx.collections.ObservableList;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
@@ -86,5 +85,5 @@ public interface ISetShapesProp {
 	/**
 	 * @return The shapes of the drawing.
 	 */
-	List<IShape> getShapes();
+	ObservableList<IShape> getShapes();
 }

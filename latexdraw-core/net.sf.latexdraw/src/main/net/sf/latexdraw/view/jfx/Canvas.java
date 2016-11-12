@@ -163,12 +163,12 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
 		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
 
-		((ObservableList<IShape>) drawing.getSelection().getShapes()).addListener((Change<? extends IShape> evt) -> updateSelectionBorders());
+		drawing.getSelection().getShapes().addListener((Change<? extends IShape> evt) -> updateSelectionBorders());
 	}
 
 
 	private void updateSelectionBorders() {
-		final ObservableList<IShape> selection = (ObservableList<IShape>) drawing.getSelection().getShapes();
+		final ObservableList<IShape> selection = drawing.getSelection().getShapes();
 		if(selection.isEmpty()) {
 			selectionBorder.setVisible(false);
 		}
@@ -177,7 +177,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 			final Rectangle2D rec = selection.stream().map(sh -> {
 				Bounds b = shapesToViewMap.get(sh).getBoundsInLocal();
 				return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
-			}).reduce(Rectangle2D::createUnion).get();
+			}).reduce(Rectangle2D::createUnion).orElse(new Rectangle2D.Double());
 
 			selectionBorder.setLayoutX(rec.getMinX() * zoomLevel);
 			selectionBorder.setLayoutY(rec.getMinY() * zoomLevel);

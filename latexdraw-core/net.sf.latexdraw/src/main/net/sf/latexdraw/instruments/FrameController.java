@@ -32,6 +32,7 @@ public class FrameController implements Initializable {
 	@FXML private ScrollPane scrollPane;
 	@FXML private Canvas canvas;
 	@Inject private TextSetter textSetter;
+	@Inject private MetaShapeCustomiser meta;
 
 	/**
 	 * Creates the controller.
@@ -46,6 +47,7 @@ public class FrameController implements Initializable {
 		scrollPane.heightProperty().addListener(obs -> canvas.update());
 		// Because several instruments are not bound to an FXML widget, have to call the initialization here.
 		textSetter.initialize(null, null);
+		meta.initialize(null, null);
 	}
 
 	public void centreViewport() {
