@@ -43,6 +43,8 @@ import java.io.IOException;
  * The main class of the project.
  */
 public class LaTeXDraw extends Application {
+	private static Injector injector;
+
 	// Setting the size of the the saved actions.
 	static {
 		System.setProperty("sun.java2d.opengl", "true");
@@ -68,9 +70,17 @@ public class LaTeXDraw extends Application {
 		launch(args);
 	}
 
-	Pane splashLayout;
-	Stage mainStage;
-	ProgressBar loadProgress;
+	/**
+	 * @return The dependencies injector of the application.
+	 */
+	public static Injector getInjector() {
+		return injector;
+	}
+
+
+	private Pane splashLayout;
+	private Stage mainStage;
+	private ProgressBar loadProgress;
 
 	@Override
 	public void init() {
@@ -117,7 +127,7 @@ public class LaTeXDraw extends Application {
 			protected Void call() throws InterruptedException {
 				updateProgress(0.1, 1.0);
 				try {
-					final Injector injector = Guice.createInjector(new LatexdrawModule());
+					injector = Guice.createInjector(new LatexdrawModule());
 					final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), LangTool.INSTANCE.getBundle(),
 											new LatexdrawBuilderFactory(injector), injector::getInstance);
 					updateProgress(0.6, 1.0);

@@ -20,23 +20,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.actions.shape.AddShape;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.Action;
 import org.malai.javafx.action.library.ActivateInactivateInstruments;
+import org.malai.javafx.instrument.JFxAnonInteractor;
 import org.malai.javafx.instrument.JfxInstrument;
+import org.malai.javafx.instrument.library.ButtonInteractor;
 import org.malai.javafx.instrument.library.ToggleButtonInteractor;
+import org.malai.javafx.interaction.library.ButtonPressed;
 
 /**
  * This instrument selects the pencil or the hand.
@@ -119,9 +117,10 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 	@Inject Canvas canvas;
 
+	@Inject CodeInserter codeInserter;
+
 	final Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
 
-	private Stage codeInserterDialogue;
 
 	/**
 	 * Creates the instrument.
@@ -154,38 +153,22 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		button2EditingChoiceMap.put(plotB, EditionChoice.PLOT);
 		setActivated(true);
 		handB.setSelected(true);
-		// codeInserter.setActivated(false);
+		codeInserter.setActivated(false);
 		hand.setActivated(true);
 		pencil.setActivated(false);
 		metaShapeCustomiser.update();
 	}
 
-	/** @return The created latexdraw dialogue box. */
-	protected Stage getInsertCodeDialogue() {
-		if(codeInserterDialogue == null) {
-			try {
-				Parent root = FXMLLoader.load(getClass().getResource("/fxml/InsertCode.fxml"), LangTool.INSTANCE.getBundle());
-				final Scene scene = new Scene(root);
-				codeInserterDialogue = new Stage(StageStyle.UTILITY);
-				codeInserterDialogue.setTitle(LangTool.INSTANCE.getBundle().getString("InsertPSTricksCodeFrame.0"));
-				codeInserterDialogue.setScene(scene);
-				codeInserterDialogue.centerOnScreen();
-			}catch(final Exception e) {
-				e.printStackTrace();
-				BadaboomCollector.INSTANCE.add(e);
-			}
-		}
-		return codeInserterDialogue;
-	}
 
 	@Override
 	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
 		final List<Node> nodes = new ArrayList<>(button2EditingChoiceMap.keySet());
 		nodes.add(handB);
-		// addInteractor(new ButtonPressed2AddText(this));
+		addInteractor(new ButtonPressed2AddText(this));
 		addInteractor(new ButtonPressed2DefineStylePencil(this));
 		addInteractor(new ButtonPressed2ActivateIns(this, nodes));
-		// addInteractor(new ButtonPressed2LaunchCodeInserter(this));
+		addInteractor(new JFxAnonInteractor<>(this, false, ActivateInactivateInstruments.class, ButtonPressed.class,
+												action -> action.addInstrumentToActivate(codeInserter), codeB));
 	}
 
 	@Override
@@ -196,15 +179,6 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		codeB.setVisible(activated);
 	}
 
-	// /**
-	// * @param ab The widget to test.
-	// * @return True if the given widget is a widget of the instrument.
-	// * @since 3.0
-	// */
-	// public boolean isWidget(final Object ab) {
-	// return ab!=null && (button2EditingChoiceMap.get(ab)!=null || ab==handB ||
-	// ab==codeB);
-	// }
 
 	@Override
 	public void onActionDone(final Action action) {
@@ -262,45 +236,22 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 			}
 		}
 	}
+
+
+	private static class ButtonPressed2AddText extends ButtonInteractor<AddShape, EditingSelector> {
+		protected ButtonPressed2AddText(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
+			super(ins, AddShape.class, ins.textB);
+		}
+
+		@Override
+		public void initAction() {
+			action.setDrawing(instrument.canvas.getDrawing());
+			action.setShape(ShapeFactory.createText(ShapeFactory.createPoint(instrument.pencil.textSetter.position), instrument.pencil.textSetter.getTextField().getText()));
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.textSetter.isActivated() && !instrument.pencil.textSetter.getTextField().getText().isEmpty();
+		}
+	}
 }
-
-// class ButtonPressed2LaunchCodeInserter extends
-// InteractorImpl<ActivateInactivateInstruments, ButtonPressed, EditingSelector>
-// {
-// ButtonPressed2LaunchCodeInserter(final EditingSelector ins) throws
-// InstantiationException, IllegalAccessException {
-// super(ins, false, ActivateInactivateInstruments.class, ButtonPressed.class);
-// }
-//
-// @Override
-// public void initAction() {
-// action.addInstrumentToActivate(instrument.codeInserter);
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// return interaction.getButton()==instrument.codeB;
-// }
-// }
-
-// class ButtonPressed2AddText extends InteractorImpl<AddShape, ButtonPressed,
-// EditingSelector> {
-// protected ButtonPressed2AddText(final EditingSelector ins) throws
-// InstantiationException, IllegalAccessException {
-// super(ins, false, AddShape.class, ButtonPressed.class);
-// }
-//
-// @Override
-// public void initAction() {
-// action.setDrawing(instrument.pencil.canvas().getDrawing());
-// action.setShape(ShapeFactory.createText(ShapeFactory.createPoint(instrument.pencil.textSetter().relativePoint),
-// instrument.pencil.textSetter().getTextField().getText()));
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// return instrument.pencil.textSetter().isActivated() &&
-// !instrument.pencil.textSetter().getTextField().getText().isEmpty() &&
-// interaction.getButton()==instrument.textB;
-// }
-// }
