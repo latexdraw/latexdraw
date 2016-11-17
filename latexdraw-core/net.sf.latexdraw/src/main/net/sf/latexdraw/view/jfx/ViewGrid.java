@@ -215,7 +215,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	}
 
 
-	public void updatePath() {
+	private void updatePath() {
 		final double minY = model.getGridMinY();
 		final double maxY = model.getGridMaxY();
 		final double minX = model.getGridMinX();
@@ -269,16 +269,6 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	}
 
 
-	private void cleanLabels() {
-		labels.getChildren().parallelStream().forEach(node -> {
-			Text txt = (Text) node;
-			txt.strokeProperty().unbind();
-			txt.fontProperty().unbind();
-		});
-		labels.getChildren().clear();
-	}
-
-
 	@Override
 	public void flush() {
 		super.flush();
@@ -286,6 +276,5 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		maingrid.strokeProperty().unbind();
 		subgrid.strokeProperty().unbind();
 		//FIXME how to clear listeners
-		cleanLabels();
 	}
 }

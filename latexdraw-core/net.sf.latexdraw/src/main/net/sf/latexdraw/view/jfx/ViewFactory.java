@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.util.Optional;
+import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
@@ -24,8 +26,6 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
-
-import java.util.Optional;
 
 /**
  * The factory that creates views from given models.
@@ -50,7 +50,7 @@ public final class ViewFactory {
 		// if(shape instanceof IPlot) return new LPlotView((IPlot)shape);
 		if(shape instanceof ISquare) return Optional.of(new ViewSquare((ISquare) shape));
 		if(shape instanceof IRectangle) return Optional.of(new ViewRectangle((IRectangle) shape));
-		if(shape instanceof IText) return Optional.of(new ViewTextText((IText)shape));
+		if(shape instanceof IText) return Optional.of(new ViewTextText((IText) shape));
 		// if(shape instanceof ICircleArc) return new LCircleArcView((ICircleArc)shape);
 		if(shape instanceof ICircle) return Optional.of(new ViewCircle((ICircle) shape));
 		if(shape instanceof IEllipse) return Optional.of(new ViewEllipse((IEllipse) shape));
@@ -59,8 +59,8 @@ public final class ViewFactory {
 		if(shape instanceof IPolyline) return Optional.of(new ViewPolyline((IPolyline) shape));
 		if(shape instanceof IPolygon) return Optional.of(new ViewPolygon((IPolygon) shape));
 		// if(shape instanceof IBezierCurve) return new LBezierCurveView((IBezierCurve)shape);
-		// if(shape instanceof IAxes) return new LAxesView((IAxes)shape);
-		if(shape instanceof IGrid) return Optional.of(new ViewGrid((IGrid)shape));
+		if(shape instanceof IAxes) return Optional.of(new ViewAxes((IAxes) shape));
+		if(shape instanceof IGrid) return Optional.of(new ViewGrid((IGrid) shape));
 		// if(shape instanceof IDot) return new LDotView((IDot)shape);
 		if(shape instanceof IPicture) return Optional.of(new ViewPicture((IPicture) shape));
 		// if(shape instanceof IFreehand) return new LFreeHandView((IFreehand)shape);

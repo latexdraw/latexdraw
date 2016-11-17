@@ -39,4 +39,21 @@ abstract class ViewStdGrid<T extends IStandardGrid> extends ViewShape<T> {
 		labels.getChildren().add(label);
 		return label;
 	}
+
+
+	protected void cleanLabels() {
+		labels.getChildren().parallelStream().forEach(node -> {
+			Text txt = (Text) node;
+			txt.strokeProperty().unbind();
+			txt.fontProperty().unbind();
+		});
+		labels.getChildren().clear();
+	}
+
+
+	@Override
+	public void flush() {
+		super.flush();
+		cleanLabels();
+	}
 }
