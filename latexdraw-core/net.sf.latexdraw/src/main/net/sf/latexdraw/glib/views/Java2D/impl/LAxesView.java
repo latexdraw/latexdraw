@@ -168,8 +168,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double gap;
 		final Font font 		= fontMetrics.getFont();
 		final int height 		= fontMetrics.getAscent();
-		final boolean noArrowTopY = shape.getArrowStyle(2)==ArrowStyle.NONE;
-		final boolean noArrowBotY  = shape.getArrowStyle(0)==ArrowStyle.NONE;
+		final boolean noArrowTopY = shape.getArrowStyle(2)==ArrowStyle.NONE || shape.getGridMaxY()==shape.getOriginY();
+		final boolean noArrowBotY  = shape.getArrowStyle(0)==ArrowStyle.NONE || shape.getGridMinY()==shape.getOriginY();
 		final boolean showOrig = shape.isShowOrigin();
 		final double distY = shape.getDistLabelsY();
 		final boolean xGE0 = shape.getGridMinX()>=shape.getOriginX();
@@ -213,8 +213,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double gap 		= (ticksDisplay.isX() && ticksStyle.isBottom() ? shape.getTicksSize() : 0) + shape.getThickness()/2. + GAP_LABEL;
 		final double sep 		= shape.getGridMaxY()<=-shape.getOriginY() ? -gap-GAP_LABEL : gap + fontMetrics.getAscent();
 		final Font font 		= fontMetrics.getFont();
-		final boolean noArrowLeftX = shape.getArrowStyle(1)==ArrowStyle.NONE;
-		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE;
+		final boolean noArrowLeftX = shape.getArrowStyle(1)==ArrowStyle.NONE || shape.getGridMinX()==shape.getOriginX();
+		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE || shape.getGridMaxX()==shape.getOriginX();
 		final boolean showOrig = shape.isShowOrigin();
 		final double distX = shape.getDistLabelsX();
 		final boolean yGE0 = shape.getGridMinY()>=shape.getOriginY();
