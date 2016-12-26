@@ -64,8 +64,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final int origx 	= (int)shape.getOriginX();
 		final double posx 	= shape.getPosition().getX();
 		final double posy 	= shape.getPosition().getY();
-		final boolean noArrowLeftX = shape.getArrowStyle(1)==ArrowStyle.NONE;
-		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE;
+		final boolean noArrowLeftX = shape.getArrowStyle(1)==ArrowStyle.NONE || shape.getGridMinX()==shape.getOriginX();
+		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE || shape.getGridMaxX()==shape.getOriginX();
 		final double distX = shape.getDistLabelsX();
 		double x;
 		final double y;
@@ -106,8 +106,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final int origy 	= (int)shape.getOriginY();
 		final double posx 	= shape.getPosition().getX();
 		final double posy 	= shape.getPosition().getY();
-		final boolean noArrowTopY = shape.getArrowStyle(2)==ArrowStyle.NONE;
-		final boolean noArrowBotY  = shape.getArrowStyle(0)==ArrowStyle.NONE;
+		final boolean noArrowTopY = shape.getArrowStyle(2)==ArrowStyle.NONE || shape.getGridMaxY()==shape.getOriginY();
+		final boolean noArrowBotY  = shape.getArrowStyle(0)==ArrowStyle.NONE || shape.getGridMinY()==shape.getOriginY();
 		final double distY = shape.getDistLabelsY();
 		final double x;
 		double y;
