@@ -1,22 +1,18 @@
 /*
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
  * General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version.<br>
- * <br>
+ * License, or (at your option) any later version.
  * LaTeXDraw is distributed without any warranty; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.<br>
+ * details.
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.util.Arrays;
-
-import org.eclipse.jdt.annotation.NonNull;
-
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The arrow styles.
@@ -32,8 +28,7 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return NONE;
 		}
-	},
-	LEFT_ARROW {
+	}, LEFT_ARROW {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.LARROW_STYLE;
@@ -48,8 +43,7 @@ public enum ArrowStyle {
 		public boolean needsLineReduction() {
 			return true;
 		}
-	},
-	RIGHT_ARROW {
+	}, RIGHT_ARROW {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.RARROW_STYLE;
@@ -64,8 +58,7 @@ public enum ArrowStyle {
 		public boolean needsLineReduction() {
 			return true;
 		}
-	},
-	RIGHT_DBLE_ARROW {
+	}, RIGHT_DBLE_ARROW {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.DRARROW_STYLE;
@@ -80,8 +73,7 @@ public enum ArrowStyle {
 		public boolean needsLineReduction() {
 			return true;
 		}
-	},
-	LEFT_DBLE_ARROW {
+	}, LEFT_DBLE_ARROW {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.DLARROW_STYLE;
@@ -96,8 +88,7 @@ public enum ArrowStyle {
 		public boolean needsLineReduction() {
 			return true;
 		}
-	},
-	BAR_END {
+	}, BAR_END {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.BAREND_STYLE;
@@ -107,8 +98,7 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return BAR_END;
 		}
-	},
-	BAR_IN {
+	}, BAR_IN {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.BARIN_STYLE;
@@ -118,8 +108,7 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return BAR_IN;
 		}
-	},
-	LEFT_SQUARE_BRACKET {
+	}, LEFT_SQUARE_BRACKET {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.LSBRACKET_STYLE;
@@ -129,8 +118,7 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return RIGHT_SQUARE_BRACKET;
 		}
-	},
-	RIGHT_SQUARE_BRACKET {
+	}, RIGHT_SQUARE_BRACKET {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.RSBRACKET_STYLE;
@@ -140,8 +128,7 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return LEFT_SQUARE_BRACKET;
 		}
-	},
-	LEFT_ROUND_BRACKET {
+	}, LEFT_ROUND_BRACKET {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.LRBRACKET_STYLE;
@@ -151,8 +138,7 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return RIGHT_ROUND_BRACKET;
 		}
-	},
-	RIGHT_ROUND_BRACKET {
+	}, RIGHT_ROUND_BRACKET {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.RRBRACKET_STYLE;
@@ -162,8 +148,7 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return LEFT_ROUND_BRACKET;
 		}
-	},
-	CIRCLE_END {
+	}, CIRCLE_END {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.CIRCLEEND_STYLE;
@@ -173,8 +158,7 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return CIRCLE_END;
 		}
-	},
-	CIRCLE_IN {
+	}, CIRCLE_IN {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.CIRCLEIN_STYLE;
@@ -184,8 +168,7 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return CIRCLE_IN;
 		}
-	},
-	DISK_END {
+	}, DISK_END {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.DISKEND_STYLE;
@@ -195,8 +178,7 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return DISK_END;
 		}
-	},
-	DISK_IN {
+	}, DISK_IN {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.DISKIN_STYLE;
@@ -206,12 +188,13 @@ public enum ArrowStyle {
 		public ArrowStyle getOppositeArrowStyle() {
 			return DISK_IN;
 		}
-	},
-	// ROUND_END {
-	// @Override public String getPSTToken() { return PSTricksConstants.ROUNDEND_STYLE; }
-	// @Override public ArrowStyle getOppositeArrowStyle() { return ROUND_END; }
-	// },
-	ROUND_IN {
+	}, ROUND_END {
+		@Override
+		public String getPSTToken() { return PSTricksConstants.ROUNDEND_STYLE; }
+
+		@Override
+		public ArrowStyle getOppositeArrowStyle() { return ROUND_END; }
+	}, ROUND_IN {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.ROUNDIN_STYLE;
@@ -226,12 +209,13 @@ public enum ArrowStyle {
 		public boolean needsLineReduction() {
 			return true;
 		}
-	},
-	// SQUARE_END {
-	// @Override public String getPSTToken() { return PSTricksConstants.SQUAREEND_STYLE; }
-	// @Override public ArrowStyle getOppositeArrowStyle() { return SQUARE_END; }
-	// }
-	;
+	}, SQUARE_END {
+		@Override
+		public String getPSTToken() { return PSTricksConstants.SQUAREEND_STYLE; }
+
+		@Override
+		public ArrowStyle getOppositeArrowStyle() { return SQUARE_END; }
+	};
 
 	/**
 	 * @return The opposite arrow of the current one.
@@ -300,18 +284,17 @@ public enum ArrowStyle {
 	/**
 	 * @param style The style to test.
 	 * @return True if the given style and the calling style are of the same kind (e.g. both are
-	 *         circles or disks).
+	 * circles or disks).
 	 * @since 3.0
 	 */
 	public boolean isSameKind(final ArrowStyle style) {
-		return style != null && (isArrow() && style.isArrow() || isBar() && style.isBar() || isCircleDisk() && style.isCircleDisk() || isRoundBracket() && style.isRoundBracket()
-				|| isSquareBracket() && style.isSquareBracket());
+		return style != null && (isArrow() && style.isArrow() || isBar() && style.isBar() || isCircleDisk() && style.isCircleDisk() || isRoundBracket() && style.isRoundBracket() || isSquareBracket() && style.isSquareBracket());
 	}
 
 	/**
 	 * @return True if the current arrow style need its line to be reduced. For instance the arrow
-	 *         style requires its line to be smaller. The width of the arrow can be used in
-	 *         complement to reduce the line.
+	 * style requires its line to be smaller. The width of the arrow can be used in
+	 * complement to reduce the line.
 	 * @since 3.0
 	 */
 	public boolean needsLineReduction() {
@@ -319,11 +302,11 @@ public enum ArrowStyle {
 	}
 
 	/**
-	 * @return The arrow style corresponding to the given PST token or the style name (or null).
 	 * @param token The PST token or the name of the style to get (e.g. NONE.toString()).
+	 * @return The arrow style corresponding to the given PST token or the style name (or null).
 	 * @since 3.0
 	 */
 	public static @NonNull ArrowStyle getArrowStyle(final String token) {
-		return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findFirst().orElse(ArrowStyle.NONE);
+		return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findAny().orElse(ArrowStyle.NONE);
 	}
 }

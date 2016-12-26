@@ -39,6 +39,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 	private final Path mainAxes;
 	private final Path pathTicks;
+	private final ViewArrowableTrait viewArrows;
 
 	/**
 	 * Creates the view.
@@ -48,9 +49,10 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		super(sh);
 		mainAxes = new Path();
 		pathTicks = new Path();
-
+		viewArrows = new ViewArrowableTrait(model);
 		getChildren().add(mainAxes);
 		getChildren().add(pathTicks);
+		getChildren().add(viewArrows.getArrowsView());
 		updatePath();
 	}
 
@@ -312,7 +314,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		pathTicks.getElements().clear();
 		cleanLabels();
 
-//		updatePathArrows();
+		viewArrows.update(model.getAxesStyle().supportsArrows());
 
 		switch(axesStyle) {
 			case AXES:
@@ -333,13 +335,6 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 	}
 
 
-	//	@Override
-	//	protected void updatePathArrows() {
-	//		if(model.getAxesStyle().supportsArrows())
-	//			super.updatePathArrows();
-	//	}
-	//
-	//
 	//	@Override
 	//	public void paint(final Graphics2D g, final Rectangle clip) {
 	//		final IPoint vectorTrans = beginRotation(g);

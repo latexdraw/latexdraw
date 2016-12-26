@@ -163,6 +163,11 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
+	public double getFullThickness() {
+		return isDbleBorderable() && hasDbleBord() ? getThickness()*2.+getDbleBordSep() : getThickness();
+	}
+
+	@Override
 	public void copy(final IShape s) {
 		if(s == null)
 			return;

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.models.interfaces.prop;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 /**
  * Defines an interface to share operations on arrow's properties.<br>
  * <br>
@@ -149,4 +151,10 @@ public interface IArrowable {
 	 * @since 3.0
 	 */
 	double getRBracketNum();
+
+	/**
+	 * Sets the command to execute when one of the properties of the arrow changes.
+	 * @param run The command to execute.
+	 */
+	void setOnArrowChanged(final @NonNull Runnable run);
 }

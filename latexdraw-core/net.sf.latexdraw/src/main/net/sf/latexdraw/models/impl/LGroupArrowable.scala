@@ -2,11 +2,14 @@ package net.sf.latexdraw.models.impl
 
 import java.util.ArrayList
 import java.util.List
+
 import net.sf.latexdraw.models.interfaces.shape.IArrow
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle
 import net.sf.latexdraw.models.interfaces.shape.IArrowableShape
 import net.sf.latexdraw.models.interfaces.shape.IGroup
 import java.util.stream.Collectors
+
+import org.eclipse.jdt.annotation.NonNull
 
 /**
  * This trait encapsulates the code of the group related to the support of arrowable shapes.<br>
@@ -309,4 +312,8 @@ private[impl] trait LGroupArrowable extends IGroup {
 	override def getArrowLength = if(firstIArrowable.isPresent) firstIArrowable.get.getArrowLength else Double.NaN
 
 	override def getRBracketNum = if(firstIArrowable.isPresent) firstIArrowable.get.getRBracketNum else Double.NaN
+
+	override def setOnArrowChanged(@NonNull run: Runnable) {
+		//TODO
+	}
 }

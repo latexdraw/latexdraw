@@ -2,12 +2,12 @@ package net.sf.latexdraw.models.impl
 
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.Buffer
-
 import net.sf.latexdraw.models.ShapeFactory
 import net.sf.latexdraw.models.interfaces.shape.IArrow
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle
 import net.sf.latexdraw.models.interfaces.shape.IArrowableShape
 import net.sf.latexdraw.models.interfaces.shape.IShape
+import org.eclipse.jdt.annotation.NonNull
 
 /**
  * Implementation of IArrowableShape
@@ -127,5 +127,9 @@ private[impl] trait LArrowableShape extends IArrowableShape {
 			case arrow:IArrow => arrow.getArrowStyle
 			case _ => ArrowStyle.NONE
 		}
+	}
+
+	override def setOnArrowChanged(@NonNull run: Runnable) {
+//TODO
 	}
 }
