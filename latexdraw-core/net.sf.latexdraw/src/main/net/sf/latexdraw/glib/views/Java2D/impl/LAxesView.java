@@ -372,18 +372,10 @@ class LAxesView extends LStandardGridView<IAxes> {
 	protected void paintArrows(final Graphics2D g, final boolean asShadow) {
 		if(arrows.size()==4) {
 			final Color colour = asShadow ? shape.getShadowCol() : shape.getFillingCol();
-
-			if(!LNumber.equalsDouble(shape.getGridMinX(), 0))
-				arrows.get(1).paint(g, colour, asShadow);
-
-			if(!LNumber.equalsDouble(shape.getGridMaxX(), 0))
-				arrows.get(3).paint(g, colour, asShadow);
-
-			if(!LNumber.equalsDouble(shape.getGridMaxY(), 0))
-				arrows.get(2).paint(g, colour, asShadow);
-
-			if(!LNumber.equalsDouble(shape.getGridMinY(), 0))
-				arrows.get(0).paint(g, colour, asShadow);
+			arrows.get(1).paint(g, colour, asShadow);
+			arrows.get(3).paint(g, colour, asShadow);
+			arrows.get(2).paint(g, colour, asShadow);
+			arrows.get(0).paint(g, colour, asShadow);
 		}
 	}
 
