@@ -215,7 +215,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.1")); //$NON-NLS-1$
 
 		UIBuilder.addCombobox(list, cust.getFreeHandType());
-		UIBuilder.addSpinner(list, cust.getGapPoints(), 50);
+		UIBuilder.addSpinner(list, cust.getGapPoints(), 60);
 		list.addComponent(cust.getOpen());
 		list.addSeparator();
 
@@ -241,14 +241,14 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		p1.setLayout(new BoxLayout(p1, BoxLayout.X_AXIS));
 		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS));
 		p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));
-		UIBuilder.addSpinner(p1, stdGridCust.getLabelsSizeS(), 50);
+		UIBuilder.addSpinner(p1, stdGridCust.getLabelsSizeS(), 60);
 		UIBuilder.addCombobox(p1, axeCust.getShowLabels());
 		p1.add(gridCust.getColourLabels());
 		p1.add(axeCust.getShowOrigin());
 		p1.add(gridCust.getLabelsXInvertedCB());
 		p1.add(gridCust.getLabelsYInvertedCB());
-		UIBuilder.addSpinner(p2, axeCust.getIncrLabelX(), 50);
-		UIBuilder.addSpinner(p2, axeCust.getIncrLabelY(), 50);
+		UIBuilder.addSpinner(p2, axeCust.getIncrLabelX(), 60);
+		UIBuilder.addSpinner(p2, axeCust.getIncrLabelY(), 60);
 		UIBuilder.addSpinner(p2, axeCust.getDistLabelsX(), 60);
 		UIBuilder.addSpinner(p2, axeCust.getDistLabelsY(), 60);
 		p3.add(p1);
@@ -316,9 +316,9 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		UIBuilder.addSpinner(list, cust.getGridWidth(), 60);
 		UIBuilder.addSpinner(list, cust.getSubGridWidth(), 60);
 		list.addComponent(cust.getColourSubGrid());
-		UIBuilder.addSpinner(list, cust.getGridDots(), 50);
-		UIBuilder.addSpinner(list, cust.getSubGridDots(), 50);
-		UIBuilder.addSpinner(list, cust.getSubGridDiv(), 50);
+		UIBuilder.addSpinner(list, cust.getGridDots(), 60);
+		UIBuilder.addSpinner(list, cust.getSubGridDots(), 60);
+		UIBuilder.addSpinner(list, cust.getSubGridDiv(), 60);
 		list.addSeparator();
 
 		mapContainers.put(cust.getColourSubGrid(), list);
@@ -337,12 +337,12 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.5")); //$NON-NLS-1$
 
-		UIBuilder.addSpinner(list, cust.getxStartS(), 50);
-		UIBuilder.addSpinner(list, cust.getyStartS(), 50);
-		UIBuilder.addSpinner(list, cust.getxEndS(), 50);
-		UIBuilder.addSpinner(list, cust.getyEndS(), 50);
-		UIBuilder.addSpinner(list, cust.getxOriginS(), 50);
-		UIBuilder.addSpinner(list, cust.getyOriginS(), 50);
+		UIBuilder.addSpinner(list, cust.getxStartS(), 60);
+		UIBuilder.addSpinner(list, cust.getyStartS(), 60);
+		UIBuilder.addSpinner(list, cust.getxEndS(), 60);
+		UIBuilder.addSpinner(list, cust.getyEndS(), 60);
+		UIBuilder.addSpinner(list, cust.getxOriginS(), 60);
+		UIBuilder.addSpinner(list, cust.getyOriginS(), 60);
 		list.addSeparator();
 
 		mapContainers.put(cust.getxStartS(), list);
