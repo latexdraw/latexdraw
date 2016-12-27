@@ -2,4 +2,5 @@
 Version 3.3.5
 
 - fixed: latest versions of PSTricks break the cropping of text figures.
-- fixed: various problems of axes rendering
+- fixed: arious problems of axes rendering
+- fixed: shapes were grouped after having loaded a drawing
