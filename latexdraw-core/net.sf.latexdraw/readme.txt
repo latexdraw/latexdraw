@@ -1,4 +1,6 @@
 
+Java 8 is required to run LaTeXDraw: https://www.java.com/
+
 This installer will install LaTeXDraw in the selected directory and create a directory for shared templates. 
 This last action can require administrator privileges.
 
