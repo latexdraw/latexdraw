@@ -140,7 +140,6 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double posx 		= shape.getPosition().getX();
 		final double posy 		= shape.getPosition().getY();
 		final int origy 		= (int)shape.getOriginY();
-		final double incry 		= shape.getIncrementY();
 		final double gap;
 		final Font font 		= fontMetrics.getFont();
 		final int height 		= fontMetrics.getAscent();
@@ -150,28 +149,17 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double distY = shape.getDistLabelsY();
 		final boolean xGE0 = shape.getGridMinX()>=shape.getOriginX();
 		String str;
-		int val;
-		int inti;
 
 		if(ticksStyle.isBottom() && ticksDisplay.isY())
 			gap = -(shape.getTicksSize() + shape.getThickness()/2. + GAP_LABEL);
 		else
 			gap = -(shape.getThickness()/2. + GAP_LABEL);
 
-		for(double maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=origy; i<=maxy*incry; i+=incry) {
-			inti = (int)i;
-			val = inti+origy;
-			if((val!=origy || showOrig && xGE0) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
-				str	 = String.valueOf(val+origy);
-				updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-val*gapy), font, frc);
-			}
-		}
-		for(double maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=origy-incry; i>=miny*incry; i-=incry) {
-			inti = (int)i;
-			val = inti+origy;
-			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
-				str	 = String.valueOf(val+origy);
-				updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-val*gapy), font, frc);
+		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i = miny*incry; i<=maxy*incry; i+=incry*distY) {
+			int inti = (int)i;
+			if((inti!=0 || showOrig && xGE0) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
+				str	 = String.valueOf(inti+origy);
+				updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-inti*gapy), font, frc);
 			}
 		}
 	}
@@ -185,7 +173,6 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double posx 		= shape.getPosition().getX();
 		final double posy 		= shape.getPosition().getY();
 		final int origx 		= (int)shape.getOriginX();
-		final double incrx 		= shape.getIncrementX();
 		final double gap 		= (ticksDisplay.isX() && ticksStyle.isBottom() ? shape.getTicksSize() : 0) + shape.getThickness()/2. + GAP_LABEL;
 		final double sep 		= shape.getGridMaxY()<=-shape.getOriginY() ? -gap-GAP_LABEL : gap + fontMetrics.getAscent();
 		final Font font 		= fontMetrics.getFont();
@@ -195,23 +182,12 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double distX = shape.getDistLabelsX();
 		final boolean yGE0 = shape.getGridMinY()>=shape.getOriginY();
 		String str;
-		int val;
-		int inti;
 
-		for(double maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=origx; i<=maxx*incrx; i+=incrx) {
-			inti = (int)i;
-			val = inti+origx;
-			if((val!=origx || showOrig && yGE0) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
-				str	 = String.valueOf(val+origx);
-				updateText(str, (float)(posx+val*gapx-fontMetrics.stringWidth(str)/2.), (float)(posy+sep), font, frc);
-			}
-		}
-		for(double maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=origx-incrx; i>=minx*incrx; i-=incrx) {
-			inti = (int)i;
-			val = inti+origx;
-			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
-				str	 = String.valueOf(val+origx);
-				updateText(str, (float)(posx+val*gapx-fontMetrics.stringWidth(str)/2.), (float)(posy+sep), font, frc);
+		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i = minx*incrx; i<=maxx*incrx; i+=incrx*distX) {
+			int inti = (int)i;
+			if((inti!=0 || showOrig && yGE0) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
+				str	 = String.valueOf(inti+origx);
+				updateText(str, (float)(posx+inti*gapx-fontMetrics.stringWidth(str)/2.), (float)(posy+sep), font, frc);
 			}
 		}
 	}
