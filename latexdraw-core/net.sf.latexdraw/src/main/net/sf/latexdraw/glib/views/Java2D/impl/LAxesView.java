@@ -61,7 +61,6 @@ class LAxesView extends LStandardGridView<IAxes> {
 	 * Updates the ticks path by drawing the ticks of the X-axis.
 	 */
 	private void updatePathTicksX(final double gapx, final TicksStyle ticksStyle, final double tickLgth) {
-		final int origx 	= (int)shape.getOriginX();
 		final double posx 	= shape.getPosition().getX();
 		final double posy 	= shape.getPosition().getY();
 		final boolean noArrowLeftX = shape.getArrowStyle(1)==ArrowStyle.NONE || shape.getGridMinX()==shape.getOriginX();
@@ -69,7 +68,6 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double distX = shape.getDistLabelsX();
 		double x;
 		final double y;
-		int val;
 		int inti;
 
 		switch(ticksStyle) {
@@ -78,20 +76,10 @@ class LAxesView extends LStandardGridView<IAxes> {
 			default: 	y = posy + tickLgth;
 		}
 
-		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=origx; i<=maxx*incrx; i+=incrx) {
+		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=minx*incrx; i<=maxx*incrx; i+=incrx*distX) {
 			inti = (int)i;
-			val = inti+origx;
 			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
-				x = posx+val*gapx;
-				pathTicks.moveTo(x, y);
-				pathTicks.lineTo(x, y-tickLgth);
-			}
-		}
-		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=origx-incrx; i>=minx*incrx; i-=incrx) {
-			inti = (int)i;
-			val = inti+origx;
-			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
-				x = posx+val*gapx;
+				x = posx+inti*gapx;
 				pathTicks.moveTo(x, y);
 				pathTicks.lineTo(x, y-tickLgth);
 			}
@@ -103,7 +91,6 @@ class LAxesView extends LStandardGridView<IAxes> {
 	 * Updates the ticks path by drawing the ticks of the Y-axis.
 	 */
 	private void updatePathTicksY(final double gapy, final TicksStyle ticksStyle, final double tickLgth) {
-		final int origy 	= (int)shape.getOriginY();
 		final double posx 	= shape.getPosition().getX();
 		final double posy 	= shape.getPosition().getY();
 		final boolean noArrowTopY = shape.getArrowStyle(2)==ArrowStyle.NONE || shape.getGridMaxY()==shape.getOriginY();
@@ -111,7 +98,6 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double distY = shape.getDistLabelsY();
 		final double x;
 		double y;
-		int val;
 		int inti;
 
 		switch(ticksStyle) {
@@ -120,20 +106,10 @@ class LAxesView extends LStandardGridView<IAxes> {
 			default: 	x = posx - tickLgth;
 		}
 
-		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=origy; i<=maxy*incry; i+=incry) {
+		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=miny*incry; i<=maxy*incry; i+=incry*distY) {
 			inti = (int)i;
-			val = inti+origy;
 			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
-				y = posy-val*gapy;
-				pathTicks.moveTo(x, y);
-				pathTicks.lineTo(x+tickLgth, y);
-			}
-		}
-		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=origy-incry; i>=miny*incry; i-=incry) {
-			inti = (int)i;
-			val = inti+origy;
-			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
-				y = posy-val*gapy;
+				y = posy-inti*gapy;
 				pathTicks.moveTo(x, y);
 				pathTicks.lineTo(x+tickLgth, y);
 			}
@@ -244,7 +220,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 	/**
 	 * @return True if a ticks or a label corresponding to the given parameter can be painted.
 	 */
-	private boolean isElementPaintable(final boolean noArrow1, final boolean noArrow2, final double min, final double max, final int i) {
+	private boolean isElementPaintable(final boolean noArrow1, final boolean noArrow2, final double min, final double max, final double i) {
 		return (noArrow2 || !LNumber.equalsDouble(max, i)) && (noArrow1 || !LNumber.equalsDouble(min, i));
 	}
 
