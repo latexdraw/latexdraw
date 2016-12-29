@@ -267,7 +267,6 @@ protected FileLoaderSaver loader;
 	 * @since 3.0
 	 */
 	protected ExportDialog getExportDialog(final ExportFormat format) {
-		System.out.println(loader.currentFile);
 		if(fileChooserExport==null)
 			fileChooserExport = new ExportDialog(pathExport);// currentFile==null ? pathExport : currentFile.getPath());
 

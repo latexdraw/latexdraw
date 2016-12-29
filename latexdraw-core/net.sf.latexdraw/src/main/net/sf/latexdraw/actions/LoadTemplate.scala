@@ -27,30 +27,29 @@ import org.malai.undo.Undoable
  * @since 3.0
  */
 class LoadTemplate extends IOAction[LFrame, JLabel] with Undoable with DrawingAction with Modifying {
-  private var insertedShapes:IShape = _
+	private var insertedShapes: IShape = _
 
 	protected def doActionBody() {
-    insertedShapes = SVGDocumentGenerator.INSTANCE.insert(file.getPath, ui)
-    println(insertedShapes)
-    ok = insertedShapes!=null
+		insertedShapes = SVGDocumentGenerator.INSTANCE.insert(file.getPath, ui)
+		ok = insertedShapes != null
 	}
 
-  override def redo() {
-    _drawing.get.addShape(insertedShapes)
-  }
+	override def redo() {
+		_drawing.get.addShape(insertedShapes)
+	}
 
-  override def undo() {
-    _drawing.get.removeShape(insertedShapes)
-  }
+	override def undo() {
+		_drawing.get.removeShape(insertedShapes)
+	}
 
-  override def getUndoName = "template added"
+	override def getUndoName = "template added"
 
-  override def canDo = super.canDo && drawing.isDefined
+	override def canDo = super.canDo && drawing.isDefined
 
-  override def isRegisterable = true
+	override def isRegisterable = true
 
-  override def flush() {
-    super.flush()
-    insertedShapes = null
-  }
+	override def flush() {
+		super.flush()
+		insertedShapes = null
+	}
 }

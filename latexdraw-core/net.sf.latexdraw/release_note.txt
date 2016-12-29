@@ -7,4 +7,5 @@ Version 3.3.5
 - fixed: same attributes of axes were not saved in SVG documents
 - fixed: colours were not generated when shapes are grouped
 
+- improvement: the code insertion dialogue box provides better feedback on LaTeX errors
 - improvement: buttons added to the error panel to clean the errors and send them by email

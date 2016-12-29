@@ -389,7 +389,6 @@ class LAxesView extends LStandardGridView<IAxes> {
 			final IPoint tl = ShapeFactory.createPoint();
 			final IPoint br = ShapeFactory.createPoint();
 			getRotatedRectangle(bound.getMinX(), bound.getMinY(), bound.getWidth(), bound.getHeight(), angle, shape.getGravityCentre(), tl, br);
-			System.out.println(tl + " " + br);
 			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
 		}
 	}

@@ -1,22 +1,22 @@
 package net.sf.latexdraw.ui.dialog;
 
-import java.awt.*;
-
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Rectangle;
 import javax.swing.BoxLayout;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
-
 import org.malai.instrument.Instrument;
 import org.malai.swing.widget.MButton;
 import org.malai.swing.widget.MDialog;
-import org.malai.swing.widget.MFrame;
+import org.malai.swing.widget.MEditorPane;
 import org.malai.swing.widget.MPanel;
 
 /**
@@ -42,11 +42,13 @@ public class InsertCodeDialog extends MDialog {
 	private static final long serialVersionUID = 1L;
 
 	/** This editor containing code */
-	protected JEditorPane editor;
+	private final MEditorPane editor;
 
-	protected MButton okButton;
+	private final MButton okButton;
 
-	protected MButton cancelButton;
+	private final MButton cancelButton;
+
+	private final JEditorPane errorMessages;
 
 
 	/**
@@ -59,9 +61,9 @@ public class InsertCodeDialog extends MDialog {
   		final MPanel pButton = new MPanel(false, true);
   		okButton = new MButton(LResources.LABEL_OK);
 		cancelButton = new MButton(LResources.LABEL_CANCEL);
+  		editor = new MEditorPane(true, true);
 		parentIns.addEventable(pButton);
-  		editor = new JEditorPane();
-
+		parentIns.addEventable(editor);
   		// The scroller of the editor
 		final JScrollPane scrollPane = new JScrollPane(editor);
 		scrollPane.setMinimumSize(new Dimension(450, 250));
@@ -71,6 +73,12 @@ public class InsertCodeDialog extends MDialog {
 		final JLabel label = new JLabel(LangTool.INSTANCE.getString16("LaTeXDrawFrame.16"), SwingConstants.CENTER); //$NON-NLS-1$
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+		errorMessages = new JEditorPane();
+		errorMessages.setEditable(false);
+		final JScrollPane scrollPaneErr = new JScrollPane(errorMessages);
+		scrollPaneErr.setMinimumSize(new Dimension(450, 50));
+		scrollPaneErr.setPreferredSize(new Dimension(450, 50));
+
 		editor.setText("");//$NON-NLS-1$
 		pButton.add(okButton);
 		pButton.add(cancelButton);
@@ -79,6 +87,7 @@ public class InsertCodeDialog extends MDialog {
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		getContentPane().add(label);
 		getContentPane().add(scrollPane);
+		getContentPane().add(scrollPaneErr);
 		getContentPane().add(pButton);
 
  		final Dimension dim = LSystem.INSTANCE.getScreenDimension();
@@ -120,5 +129,15 @@ public class InsertCodeDialog extends MDialog {
 	 */
 	public MButton getCancelButton() {
 		return cancelButton;
+	}
+
+	public void setErrorMessage(final String message) {
+		okButton.setEnabled(false);
+		errorMessages.setText(message);
+	}
+
+	public void cleanErrorMessage() {
+		okButton.setEnabled(true);
+		errorMessages.setText("");
 	}
 }

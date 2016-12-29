@@ -1,9 +1,9 @@
 package net.sf.latexdraw.instruments
 
 import java.awt.Frame
-import javax.swing.{JFrame, JLabel}
+import javax.swing.JLabel
 
-import net.sf.latexdraw.actions.InsertPSTCode
+import net.sf.latexdraw.actions.{CheckPSTCode, InsertPSTCode}
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.glib.ui.ICanvas
 import net.sf.latexdraw.ui.dialog.InsertCodeDialog
@@ -42,6 +42,7 @@ class CodeInserter(parent: Frame, val canvas : ICanvas, val statusBar : JLabel) 
 
 	override def initialiseInteractors() {
 		try{
+			addInteractor(new KeyToCheckCode(this))
 			addInteractor(new CloseDialogue2InactivateIns(this))
 			addInteractor(new ButtonPressed2InsertCode(this))
 			addInteractor(new ButtonPressed2InactivateIns(this))
@@ -52,6 +53,16 @@ class CodeInserter(parent: Frame, val canvas : ICanvas, val statusBar : JLabel) 
 		super.setActivated(activated)
 		_insertCodeDialog.setVisible(activated)
 	}
+}
+
+class KeyToCheckCode(ins : CodeInserter)
+	extends InteractorImpl[CheckPSTCode, KeyTypedWithTimer, CodeInserter](ins, false, classOf[CheckPSTCode], classOf[KeyTypedWithTimer]){
+
+	override def initAction() {
+		action.setDialog(instrument._insertCodeDialog)
+	}
+
+	override def isConditionRespected: Boolean = true
 }
 
 
