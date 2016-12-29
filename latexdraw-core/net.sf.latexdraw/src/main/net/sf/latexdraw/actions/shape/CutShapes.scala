@@ -65,7 +65,7 @@ class CutShapes extends CopyShapes with Undoable with Modifying {
 
 	override def undo() {
 		val dr = _selection.get.drawing.get
-		for(i <- 0 to _positionShapes.length-1) dr.addShape(copiedShapes.get(i), _positionShapes.get(i))
+		for(i <- _positionShapes.indices) dr.addShape(copiedShapes.get(i), _positionShapes.get(i))
 		dr.setModified(true)
 	}
 

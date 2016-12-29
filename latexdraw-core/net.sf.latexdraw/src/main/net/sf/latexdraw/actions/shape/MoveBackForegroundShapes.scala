@@ -1,16 +1,13 @@
 package net.sf.latexdraw.actions.shape
 
+import net.sf.latexdraw.actions.{DrawingAction, Modifying, ShapeAction}
+import net.sf.latexdraw.glib.models.interfaces.shape.{IGroup, IShape}
+import net.sf.latexdraw.lang.LangTool
 import org.malai.action.Action
 import org.malai.undo.Undoable
-import net.sf.latexdraw.actions.DrawingAction
-import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.actions.ShapesAction
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import collection.JavaConversions._
+
+import scala.collection.JavaConversions._
 import scala.collection.mutable.Buffer
-import net.sf.latexdraw.lang.LangTool
 
 /**
  * This action puts in background / foreground shapes.<br>
@@ -93,7 +90,7 @@ class MoveBackForegroundShapes extends Action with ShapeAction[IGroup] with Draw
 		val drawing = _drawing.get
 
 		if(foreground) {
-			var i = formerId.size-1
+			var i = formerId.length-1
 			sortedSh.reverse.foreach{sh =>
 				drawing.removeShape(sh)
 				drawing.addShape(sh, formerId(i))

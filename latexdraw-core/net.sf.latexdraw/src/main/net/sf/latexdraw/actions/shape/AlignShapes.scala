@@ -1,21 +1,18 @@
 package net.sf.latexdraw.actions.shape
 
-import org.malai.action.Action
-import org.malai.undo.Undoable
-import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import java.awt.geom.Rectangle2D
-import org.malai.mapping.MappingRegistry
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import scala.collection.JavaConversions._
-import scala.collection.mutable.MutableList
-import scala.collection.mutable.ListBuffer
-import net.sf.latexdraw.util.LNumber
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 
+import net.sf.latexdraw.actions.{Modifying, ShapeAction}
+import net.sf.latexdraw.glib.models.interfaces.shape.{IGroup, IPoint}
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.lang.LangTool
+import net.sf.latexdraw.util.LNumber
+import org.malai.action.Action
+import org.malai.mapping.MappingRegistry
+import org.malai.undo.Undoable
+
+import scala.collection.JavaConversions._
+import scala.collection.mutable.ListBuffer
 
 /**
  * This enumeration describes the different possible alignment types.
@@ -25,7 +22,7 @@ object AlignmentType extends Enumeration {
 	val left, right, top, bottom, midHoriz, midVert = Value
 }
 
-import AlignmentType._
+import net.sf.latexdraw.actions.shape.AlignmentType._
 
 /**
  * This action aligns the provided shapes.<br>
@@ -47,13 +44,13 @@ import AlignmentType._
  */
 class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Modifying {
 	/** The reference border that must bounds the shapes to align. */
-	var _border : Rectangle2D = null
+	var _border : Rectangle2D = _
 
 	/** The views corresponding to the shapes to align. */
 	val _views = new ListBuffer[IViewShape]()
 
 	/** The alignment to perform. */
-	var _alignment : AlignmentType = null
+	var _alignment : AlignmentType = _
 
 	/** The former positions of the shapes to align. Used for undoing. */
 	val _oldPositions = new ListBuffer[IPoint]()

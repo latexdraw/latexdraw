@@ -1,18 +1,14 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.Color;
-
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.util.LResources;
-
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButtonIcon;
 import org.malai.swing.widget.MCheckBox;

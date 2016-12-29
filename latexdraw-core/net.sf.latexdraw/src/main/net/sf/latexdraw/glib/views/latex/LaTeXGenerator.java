@@ -476,22 +476,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	}
 
 
-
-	/**
-	 * Create a .ps file that corresponds to the compiled latex document containing
-	 * the pstricks drawing.
-	 * @param drawing The shapes to export.
-	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
-	 * @param synchronizer The object that synchronises the view and the model.
-	 * @param pstGen The PST generator to use.
-	 * @return The create file or null.
-	 * @since 3.0
-	 */
-	public static File createPSFile(final IDrawing drawing, final String pathExportPs, final ViewsSynchroniserHandler synchronizer, final PSTCodeGenerator pstGen){
-		return createPSFile(drawing, pathExportPs, synchronizer, null, pstGen);
-	}
-
-
 	/**
 	 * Create an .eps file that corresponds to the compiled latex document containing the pstricks drawing.
 	 * @param drawing The shapes to export.

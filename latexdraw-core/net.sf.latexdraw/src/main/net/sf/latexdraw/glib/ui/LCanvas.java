@@ -291,17 +291,14 @@ public class LCanvas extends MPanel implements ICanvas {
 
 
 	public void centreViewport() {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				final MoveCamera action = new MoveCamera();
-				action.setScrollPane(getScrollpane());
-				action.setPx(ORIGIN.getX()+page.getWidth()*IShape.PPC/2.);
-				action.setPy(ORIGIN.getY()+getVisibleBound().getHeight()/2.-IShape.PPC);
-				if(action.canDo())
-					action.doIt();
-				action.flush();
-			}
+		SwingUtilities.invokeLater(() -> {
+			final MoveCamera action = new MoveCamera();
+			action.setScrollPane(getScrollpane());
+			action.setPx(ORIGIN.getX()+page.getWidth()*IShape.PPC/2.);
+			action.setPy(ORIGIN.getY()+getVisibleBound().getHeight()/2.-IShape.PPC);
+			if(action.canDo())
+				action.doIt();
+			action.flush();
 		});
 	}
 

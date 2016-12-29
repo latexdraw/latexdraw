@@ -57,9 +57,6 @@ class LGrid extends LAbstractGrid implements IGrid {
 	/** The unit of the grid */
 	protected double unit;
 
-	/** The minimum possible size of the labels */
-	public static final int MIN_LABELS_SIZE = 5;
-
 
 
 	/**

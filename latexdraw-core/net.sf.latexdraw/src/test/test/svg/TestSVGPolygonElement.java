@@ -83,8 +83,7 @@ public class TestSVGPolygonElement extends AbstractTestSVGElement {
 			new SVGPolygonElement(node, null);
 			fail();
 		}
-		catch(MalformedSVGDocument e){/**/}
-		catch(ParseException e)      {/**/}
+		catch(MalformedSVGDocument | ParseException e){/**/}
 
 		node.setAttribute(SVGAttributes.SVG_POINTS, ""); //$NON-NLS-1$
 		new SVGPolygonElement(node, null);
@@ -94,8 +93,7 @@ public class TestSVGPolygonElement extends AbstractTestSVGElement {
 			new SVGPolygonElement(node, null);
 			fail();
 		}
-		catch(MalformedSVGDocument e){/**/}
-		catch(ParseException e)      {/**/}
+		catch(MalformedSVGDocument | ParseException e){/**/}
 
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10"); //$NON-NLS-1$
 		new SVGPolygonElement(node, null);
@@ -105,8 +103,7 @@ public class TestSVGPolygonElement extends AbstractTestSVGElement {
 			new SVGPolygonElement(node, null);
 			fail();
 		}
-		catch(MalformedSVGDocument e){/**/}
-		catch(ParseException e)      {/**/}
+		catch(MalformedSVGDocument | ParseException e){/**/}
 
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20"); //$NON-NLS-1$
 		new SVGPolygonElement(node, null);

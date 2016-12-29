@@ -1,9 +1,6 @@
 package net.sf.latexdraw.util;
 
 import java.io.File;
-import java.net.URL;
-import java.net.URLDecoder;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
@@ -126,20 +123,6 @@ public final class LPath {
 	}
 
 
-
-	/**
-	 * Creates the necessary directories for the installation of LaTeXDraw.
-	 * @since 1.9.2
-	 */
-	public void checkInstallDirectories() {
-		try {
-			new File(PATH_SHARED).mkdirs();
-			new File(PATH_TEMPLATES_SHARED).mkdirs();
-		}
-		catch(final SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
-	}
-
-
 	/**
 	 * Creates the necessary directories for the execution of LaTeXDraw.
 	 * @since 1.9.2
@@ -152,46 +135,5 @@ public final class LPath {
 			new File(PATH_CACHE_SHARE_DIR).mkdirs();
 		}
 		catch(final SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
-	}
-
-
-
-	/**
-	 * Allows to get the path of the project where the class LaTeXDrawPath is located.
-	 * @return The path or null.
-	 * @since 1.9.2
-	 */
-	public String getPathJar() {
-		try {
-			String path = LPath.class.getSimpleName() + ".class";//$NON-NLS-1$
-		    final URL url = LPath.class.getResource(path);
-		    path = URLDecoder.decode(url.toString(), "UTF-8");//$NON-NLS-1$
-		    int index = path.lastIndexOf('/');
-		    path = path.substring(0, index);
-		    final String jar = "jar:file:";//$NON-NLS-1$
-            final String file = "file:"; //$NON-NLS-1$
-
-            if(path.startsWith(jar))  {
-		    	index = path.lastIndexOf('!');
-		    	path = path.substring(jar.length(), path.substring(0, index).lastIndexOf('/'));
-		    }
-		    else {
-		    	path = path.substring(file.length(), path.length());
-		    	final Package pack = LPath.class.getPackage();
-
-		    	if(pack != null) {
-		    		final String packPath = pack.getName().replace('.', '/');
-
-		    		if(path.endsWith(packPath))
-		    			path = path.substring(0, path.length() - packPath.length());
-		      }
-		    }
-
-		    return path;
-
-		}catch(final Exception e) {
-			BadaboomCollector.INSTANCE.add(e);
-			return null;
-		}
 	}
 }

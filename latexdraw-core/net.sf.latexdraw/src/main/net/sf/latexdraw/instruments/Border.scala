@@ -190,7 +190,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	 */
 	private def updateArcHandlers() {
 		if(isArcHandlerShowable) {
-			val sh = _selection(0).getShape
+			val sh = _selection.head.getShape
 
 			sh match {
         case arc: IArc =>
@@ -208,7 +208,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	 */
 	private def updateCtrlMvHandlers() {
 		if(isCtrlPtMvHandlersShowable) {
-			val sh = _selection(0).getShape
+			val sh = _selection.head.getShape
 
 			sh match {
         case cps: IControlPointShape => initialiseCtrlMvHandlers(cps)
@@ -236,7 +236,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 			}
 
 		// Updating handlers.
-		for(i <- 0 until _ctrlPt1Handlers.size) {
+		for(i <- _ctrlPt1Handlers.indices) {
 			val pt1 = cps.getFirstCtrlPtAt(i)
 			_ctrlPt1Handlers(i).setPoint(pt1.getX*zoom, pt1.getY*zoom)
 			val pt2 = cps.getSecondCtrlPtAt(i)
@@ -252,7 +252,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	 */
 	private def updateMvHandlers() {
 		if(isPtMvHandlersShowable) {
-			val sh = _selection(0).getShape
+			val sh = _selection.head.getShape
 
 			sh match {
         case pts: IModifiablePointsShape =>
@@ -266,7 +266,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
             while (_mvPtHandlers.size > nbPts)
               _mvPtHandlers.remove(_mvPtHandlers.size - 1)
 
-          for (i <- 0 until _mvPtHandlers.size) {
+          for (i <- _mvPtHandlers.indices) {
             val pt = pts.getPtAt(i)
             _mvPtHandlers(i).setPoint(pt.getX * zoom, pt.getY * zoom)
           }
@@ -317,13 +317,13 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	}
 
 	/** @return True if the control move point handlers can be painted. */
-	protected def isCtrlPtMvHandlersShowable = _selection.size==1 && _selection(0).isInstanceOf[IViewBezierCurve]
+	protected def isCtrlPtMvHandlersShowable = _selection.size==1 && _selection.head.isInstanceOf[IViewBezierCurve]
 
 	/** @return True if the move point handlers can be painted. */
-	protected def isPtMvHandlersShowable = _selection.size==1 && _selection(0).isInstanceOf[IViewModifiablePtsShape]
+	protected def isPtMvHandlersShowable = _selection.size==1 && _selection.head.isInstanceOf[IViewModifiablePtsShape]
 
 	/** @return True if the arc handlers can be painted. */
-	protected def isArcHandlerShowable = _selection.size==1 && _selection(0).isInstanceOf[IViewArc]
+	protected def isArcHandlerShowable = _selection.size==1 && _selection.head.isInstanceOf[IViewArc]
 
 //	/**
 //	 * @return True if the frame arc handler can be painted.

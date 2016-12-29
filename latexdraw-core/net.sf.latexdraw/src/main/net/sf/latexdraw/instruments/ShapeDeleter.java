@@ -2,21 +2,18 @@ package net.sf.latexdraw.instruments;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
-
 import net.sf.latexdraw.actions.shape.DeleteShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-
-import net.sf.latexdraw.util.LSystem;
 import org.malai.action.ActionsRegistry;
 import org.malai.instrument.InteractorImpl;
 import org.malai.interaction.Interaction;
-import org.malai.swing.interaction.library.KeyPressure;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.interaction.library.KeyPressure;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
 

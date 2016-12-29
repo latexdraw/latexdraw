@@ -155,7 +155,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Boolean> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.<Boolean>emptyList() : group.getAxesShowOriginList();
+			return group==null ? Collections.emptyList() : group.getAxesShowOriginList();
 		}
 
 		@Override

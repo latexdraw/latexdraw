@@ -1,28 +1,26 @@
 package test.svg;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Node;
-
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGComment;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.parsers.svg.SVGText;
+import org.junit.Before;
+import org.junit.Test;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Node;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class TestSVGDocument {
 	protected SVGDocument doc1;
@@ -50,8 +48,7 @@ public class TestSVGDocument {
 			new SVGDocument(new URI("dfqsfg")); //$NON-NLS-1$
 			fail();
 		}
-		catch(MalformedSVGDocument e){ /* ok */ }
-		catch(FileNotFoundException e){ /* ok */ }
+		catch(MalformedSVGDocument | FileNotFoundException e){ /* ok */ }
 
 		SVGDocument doc = new SVGDocument(new URI("src/resources/test/res/test.svg")); //$NON-NLS-1$
 		assertNotNull(doc.getFirstChild());

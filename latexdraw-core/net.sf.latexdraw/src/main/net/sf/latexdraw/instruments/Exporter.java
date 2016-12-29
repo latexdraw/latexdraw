@@ -321,20 +321,6 @@ protected FileLoaderSaver loader;
 
 
 	/**
-	 * @param packages The latex packages used when exporting using latex.
-	 * These packages are defined for the current document but not for all documents.
-	 * These general packages can be set using {@link #setDefaultPackages(String)}.
-	 * @since 3.0
-	 */
-	public void setPackages(final String packages) {
-		if(packages!=null) {
-			LaTeXGenerator.setPackages(packages);
-			setModified(true);
-		}
-	}
-
-
-	/**
 	 * @param path The path where files are exported.
 	 * @since 3.0
 	 */

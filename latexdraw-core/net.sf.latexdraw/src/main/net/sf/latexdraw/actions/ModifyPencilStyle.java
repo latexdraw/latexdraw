@@ -59,17 +59,6 @@ public class ModifyPencilStyle extends Action {
 	}
 
 
-
-	/**
-	 * @return The pencil to parameterise.
-	 * @since 3.0
-	 */
-	public Pencil getPencil() {
-		return pencil;
-	}
-
-
-
 	/**
 	 * Sets the pencil to parameterise.
 	 * @param pencil The pencil.
@@ -77,16 +66,6 @@ public class ModifyPencilStyle extends Action {
 	 */
 	public void setPencil(final Pencil pencil) {
 		this.pencil = pencil;
-	}
-
-
-
-	/**
-	 * @return The editing choice to set.
-	 * @since 3.0
-	 */
-	public EditionChoice getEditingChoice() {
-		return editingChoice;
 	}
 
 

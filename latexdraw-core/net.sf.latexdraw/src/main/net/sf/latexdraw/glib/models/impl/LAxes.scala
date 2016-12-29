@@ -100,7 +100,7 @@ private[impl] class LAxes(pt:IPoint) extends LAbstractGrid(pt) with IAxes with L
 			val pos = (if(position == -1) arrows.size-1 else position) % 4
 			pos match {
 				case 0 => arrows(1).setArrowStyle(style)
-				case 1 => arrows(0).setArrowStyle(style)
+				case 1 => arrows.head.setArrowStyle(style)
 				case 2 => arrows(3).setArrowStyle(style)
 				case 3 => arrows(2).setArrowStyle(style)
 			}
@@ -112,7 +112,7 @@ private[impl] class LAxes(pt:IPoint) extends LAbstractGrid(pt) with IAxes with L
 		if(arrow==arrows(1) || arrow==arrows(3))
 			return getArrowLineX(arrow==arrows(1))
 		// For the Y-axis.
-		if(arrow==arrows(0) || arrow==arrows(2))
+		if(arrow==arrows.head || arrow==arrows(2))
 			return getArrowLineY(arrow==arrows(2))
 		return null
 	}

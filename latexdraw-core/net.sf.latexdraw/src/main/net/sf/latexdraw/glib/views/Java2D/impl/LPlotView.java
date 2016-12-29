@@ -162,9 +162,8 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 				else {
 					final IPoint tl = shape.getTopLeftPoint();
 					final IPoint br = shape.getBottomRightPoint();
-					for(int i=0, size=dotsView.size(); i<size; i++)
-						if(getRotatedShape2D(rota, dotsView.get(i).getBorder(), tl, br).intersects(rec))
-							return true;
+					for(LDotView aDotsView : dotsView)
+						if(getRotatedShape2D(rota, aDotsView.getBorder(), tl, br).intersects(rec)) return true;
 				}
 				return false;
 			case ECURVE: return curveView.intersects(rec);
@@ -188,9 +187,8 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 				else {
 					final IPoint tl = shape.getTopLeftPoint();
 					final IPoint br = shape.getBottomRightPoint();
-					for(int i=0, size=dotsView.size(); i<size; i++)
-						if(getRotatedShape2D(rota, dotsView.get(i).getBorder(), tl, br).contains(px, py))
-							return true;
+					for(LDotView aDotsView : dotsView)
+						if(getRotatedShape2D(rota, aDotsView.getBorder(), tl, br).contains(px, py)) return true;
 				}
 				return false;
 			case ECURVE: return curveView.contains(px, py);

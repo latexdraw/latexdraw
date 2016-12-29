@@ -85,8 +85,7 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 			new SVGPolyLineElement(node, null);
 			fail();
 		}
-		catch(MalformedSVGDocument e){/**/}
-		catch(ParseException e)      {/**/}
+		catch(MalformedSVGDocument | ParseException e){/**/}
 
 		node.setAttribute(SVGAttributes.SVG_POINTS, ""); //$NON-NLS-1$
 		new SVGPolyLineElement(node, null);
@@ -96,8 +95,7 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 			new SVGPolyLineElement(node, null);
 			fail();
 		}
-		catch(MalformedSVGDocument e){/**/}
-		catch(ParseException e)      {/**/}
+		catch(MalformedSVGDocument | ParseException e){/**/}
 
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10"); //$NON-NLS-1$
 		new SVGPolyLineElement(node, null);
@@ -107,8 +105,7 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 			new SVGPolyLineElement(node, null);
 			fail();
 		}
-		catch(MalformedSVGDocument e){/**/}
-		catch(ParseException e)      {/**/}
+		catch(MalformedSVGDocument | ParseException e){/**/}
 
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20"); //$NON-NLS-1$
 		new SVGPolyLineElement(node, null);

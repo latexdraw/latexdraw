@@ -3,11 +3,8 @@ package net.sf.latexdraw.ui.dialog;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +14,6 @@ import javax.swing.JViewport;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-
 import net.sf.latexdraw.instruments.FileLoaderSaver;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -129,12 +125,7 @@ public class ShortcutsFrame extends JFrame {
  		final JViewport vp = scrollPane.getViewport();
 	 	vp.add(table);
 
-		okB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				setVisible(false);
-			}
-		});
+		okB.addActionListener(e -> setVisible(false));
 		panel.add(okB);
 		getContentPane().setLayout(new BorderLayout());
  		getContentPane().add(scrollPane, BorderLayout.CENTER);

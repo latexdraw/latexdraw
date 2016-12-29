@@ -256,15 +256,6 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 
 	/**
-	 * @return The path where documents are saved.
-	 * @since 3.0
-	 */
-	public String getPathSave() {
-		return pathSave;
-	}
-
-
-	/**
 	 * Sets the path where documents are saved.
 	 * @param pathSave The path where documents are saved.
 	 * @since 3.0
@@ -272,16 +263,6 @@ public class FileLoaderSaver extends WidgetInstrument {
 	public void setPathSave(final String pathSave) {
 		if(pathSave!=null)
 			this.pathSave = pathSave;
-	}
-
-
-
-	/**
-	 * @return The current file loaded or saved.
-	 * @since 3.0
-	 */
-	public File getCurrentFile() {
-		return currentFile;
 	}
 
 

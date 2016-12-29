@@ -1,5 +1,9 @@
 package net.sf.latexdraw.instruments;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import javax.swing.AbstractButton;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -8,18 +12,12 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 import org.malai.action.Action;
 import org.malai.instrument.InteractorImpl;
-import org.malai.instrument.InteractorImpl;
 import org.malai.swing.action.library.ActivateInactivateInstruments;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
 import org.malai.swing.widget.MToggleButton;
-
-import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * This instrument selects the pencil or the hand.<br>
@@ -496,23 +494,6 @@ public class EditingSelector extends WidgetInstrument {
 
 	/** @return The button that allows the select instrument Pencil to add pictures. */
 	public MToggleButton getPlotB() { return plotB; }
-
-	/**
-	 * @return The hand.
-	 * @since 3.0
-	 */
-	public Hand getHand() {
-		return hand;
-	}
-
-	/**
-	 * @return The pencil.
-	 * @since 3.0
-	 */
-	public Pencil getPencil() {
-		return pencil;
-	}
-
 
 	@Override
 	public void onActionDone(final Action action) {
