@@ -147,7 +147,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final boolean noArrowBotY  = shape.getArrowStyle(0)==ArrowStyle.NONE || shape.getGridMinY()==shape.getOriginY();
 		final boolean showOrig = shape.isShowOrigin();
 		final double distY = shape.getDistLabelsY();
-		final boolean xGE0 = shape.getGridMinX()>=shape.getOriginX();
+		final boolean xGE0 = shape.getGridMinX()>=0;
 		String str;
 
 		if(ticksStyle.isBottom() && ticksDisplay.isY())
@@ -180,7 +180,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE || shape.getGridMaxX()==shape.getOriginX();
 		final boolean showOrig = shape.isShowOrigin();
 		final double distX = shape.getDistLabelsX();
-		final boolean yGE0 = shape.getGridMinY()>=shape.getOriginY();
+		final boolean yGE0 = shape.getGridMinY()>=0;
 		String str;
 
 		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i = minx*incrx; i<=maxx*incrx; i+=incrx*distX) {
