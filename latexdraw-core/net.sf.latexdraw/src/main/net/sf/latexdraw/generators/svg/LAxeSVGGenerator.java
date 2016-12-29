@@ -161,15 +161,9 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		if(doc==null)
 			return null;
 
-//		final Graphics2D2SVG graphics = new Graphics2D2SVG(doc);
-//		IViewShape view = View2DTK.getFactory().createView(shape);
-
-//        view.paint(graphics);
-        //  graphics.getElement();
         final SVGElement root = new SVGGElement(doc);
 		final String pref = LNamespace.LATEXDRAW_NAMESPACE+':';
-		setThickness(root, shape.getThickness(), false, 0.);
-		root.setStroke(shape.getLineColour());
+		setSVGAttributes(doc, root, false);
 
 		root.setAttribute(pref+LNamespace.XML_STYLE, shape.getAxesStyle().toString());
 		root.setAttribute(pref+LNamespace.XML_GRID_START, shape.getGridStartX() + " " + shape.getGridStartY()); //$NON-NLS-1$
@@ -186,9 +180,6 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 		createSVGAxe(root, doc);
 		setSVGRotationAttribute(root);
-
-//		view.flush();
-//		graphics.dispose();
 
 		return root;
 	}
