@@ -5,3 +5,4 @@ Version 3.3.5
 - fixed: arious problems of axes rendering
 - fixed: shapes were grouped after having loaded a drawing
 - fixed: same attributes of axes were not saved in SVG documents
+- fixed: colours were not generated when shapes are grouped

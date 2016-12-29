@@ -1,21 +1,20 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import static java.lang.Math.toDegrees;
-
 import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
-
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.views.AbstractCodeView;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.util.LNumber;
+
+import static java.lang.Math.toDegrees;
 
 /**
  * Defines a PSTricks view of the LShape model.<br>
