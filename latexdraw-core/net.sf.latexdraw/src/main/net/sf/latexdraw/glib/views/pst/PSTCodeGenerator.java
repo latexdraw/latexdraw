@@ -75,17 +75,6 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	}
 
 
-
-	/**
-	 * @return the synchroniser.
-	 * @since 3.0
-	 */
-	public PSTViewsSynchroniser getSynchro() {
-		return synchro;
-	}
-
-
-
 	/**
 	 * @return the cache.
 	 * @since 3.0
@@ -215,44 +204,5 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	public void updateFull() {
 		synchro.updateFull();
 		update();
-	}
-
-
-	/**
-	 * @return True: The latex parameters must be used by the generated code.
-	 * @since 3.0
-	 */
-	public boolean isWithLatexParams() {
-		return withLatexParams;
-	}
-
-
-	/**
-	 * Defines if the latex parameters must be used by the generated code.
-	 * @param withLatexParams True: The latex parameters must be used by the generated code.
-	 * @since 3.0
-	 */
-	public void setWithLatexParams(final boolean withLatexParams) {
-		this.withLatexParams = withLatexParams;
-	}
-
-
-	/**
-	 * @return True: comments will be included.
-	 * @since 3.0
-	 */
-	public boolean isWithComments() {
-		return withComments;
-	}
-
-
-
-	/**
-	 * Defines if the code must contains comments.
-	 * @param withComments True: comments will be included.
-	 * @since 3.0
-	 */
-	public void setWithComments(final boolean withComments) {
-		this.withComments = withComments;
 	}
 }
