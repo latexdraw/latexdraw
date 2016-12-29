@@ -290,19 +290,19 @@ protected FileLoaderSaver loader;
 
 	@Override
 	public void onActionExecuted(final Action action) {
-		statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.184")); //$NON-NLS-1$
+		if(action instanceof Export) {
+			switch(((Export) action).getExported()) {
+				case OK:
+					statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.184")); //$NON-NLS-1$
+					break;
+				case FAIL:
+					final String checkErr = BadaboomCollector.INSTANCE.isEmpty() ? "" :
+						" Look at the errors by clicking on the blinking icon in the toolbar, a LaTeX package may be missing.";
+					statusBar.setText("The export failed. Check you can write in the targetted folder and your LaTeX installation is ok." + checkErr);
+					break;
+			}
+		}
 	}
-
-
-
-	/**
-	 * @return The latex packages that the interactive system saves by default.
-	 * @since 3.0
-	 */
-	public String getDefaultPackages() {
-		return defaultPackages;
-	}
-
 
 
 	/**
@@ -333,14 +333,6 @@ protected FileLoaderSaver loader;
 		}
 	}
 
-
-	/**
-	 * @return The path where files are exported.
-	 * @since 3.0
-	 */
-	public String getPathExport() {
-		return pathExport;
-	}
 
 	/**
 	 * @param path The path where files are exported.

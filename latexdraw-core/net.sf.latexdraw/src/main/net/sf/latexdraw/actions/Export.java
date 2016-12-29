@@ -38,6 +38,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Locale;
 
+import static net.sf.latexdraw.actions.Export.ExportStatus.CANCEL;
+import static net.sf.latexdraw.actions.Export.ExportStatus.FAIL;
+import static net.sf.latexdraw.actions.Export.ExportStatus.NOT_YET;
+import static net.sf.latexdraw.actions.Export.ExportStatus.OK;
+
 /**
  * This action allows to export a drawing in different formats.
  * <br>
@@ -57,6 +62,8 @@ import java.util.Locale;
  * @since 3.0
  */
 public class Export extends Action {
+	public enum ExportStatus { NOT_YET, OK, CANCEL, FAIL }
+
 	/**
 	 * The enumeration defines the different formats managed to export drawing.
 	 * @author Arnaud Blouin
@@ -181,8 +188,8 @@ public class Export extends Action {
 	/** The canvas that contains views. */
 	protected ICanvas canvas;
 
-	/** Defines if the shapes have been successfully exported. */
-	protected boolean exported;
+	/** Defines whether the shapes have been exported. */
+	protected ExportStatus exported;
 
 	/** The dialogue chooser used to select the targeted file. */
 	protected ExportDialog dialogueBox;
@@ -198,7 +205,7 @@ public class Export extends Action {
 	 */
 	public Export() {
 		super();
-		exported = false;
+		exported = NOT_YET;
 	}
 
 
@@ -223,11 +230,9 @@ public class Export extends Action {
 		final int response 	= dialogueBox.showSaveDialog(null);
 		File f 				= dialogueBox.getSelectedFile();
 
-		exported = true;
-
 		// Analysing the result of the dialog.
 		if(response != JFileChooser.APPROVE_OPTION || f==null)
-			exported = false;
+			exported = CANCEL;
 		else {
 			if(!f.getName().toLowerCase().endsWith(format.getFileExtension().toLowerCase()))
 				f = new File(f.getPath() + format.getFileExtension());
@@ -238,16 +243,17 @@ public class Export extends Action {
 							Exporter.TITLE_DIALOG_EXPORT, JOptionPane.YES_NO_OPTION);
 
 				if(replace == JOptionPane.NO_OPTION)
-					exported = false; // The user doesn't want to replace the file
+					exported = CANCEL; // The user doesn't want to replace the file
 			}
 		}
 
-		if(exported)
+		if(exported!=CANCEL) {
 			exported = export(f);
+		}
 	}
 
 
-	protected boolean export(final File file) {
+	protected ExportStatus export(final File file) {
 		switch(format) {
 			case BMP: 		return exportAsBMP(file);
 			case EPS_LATEX: return exportAsEPS(file);
@@ -257,7 +263,7 @@ public class Export extends Action {
 			case PNG: 		return exportAsPNG(file);
 			case TEX: 		return exportAsPST(file);
 		}
-		return false;
+		return FAIL;
 	}
 
 
@@ -270,7 +276,7 @@ public class Export extends Action {
 
 	@Override
 	public boolean hadEffect() {
-		return super.hadEffect() && exported;
+		return super.hadEffect() && exported!=OK;
 	}
 
 
@@ -280,13 +286,13 @@ public class Export extends Action {
 	 * @param file The targeted location.
 	 * @return true if the picture was well created.
 	 */
-	protected boolean exportAsPNG(final File file) {
+	protected ExportStatus exportAsPNG(final File file) {
 		final BufferedImage rendImage = createRenderedImage();
-		boolean success = false;
+		ExportStatus success = FAIL;
 
 		try {
 			ImageIO.write(rendImage, "png", file);  //$NON-NLS-1$
-			success = true;
+			success = OK;
 		}catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		rendImage.flush();
 		return success;
@@ -299,9 +305,9 @@ public class Export extends Action {
 	 * @param file The targeted location.
 	 * @return true if the picture was well created.
 	 */
-	protected boolean exportAsJPG(final File file) {
+	protected ExportStatus exportAsJPG(final File file) {
 		final BufferedImage rendImage = createRenderedImage();
-		boolean success = false;
+		ExportStatus success = FAIL;
 
 		try {
 			final ImageWriteParam iwparam 	= new JPEGImageWriteParam(Locale.getDefault());
@@ -312,7 +318,7 @@ public class Export extends Action {
 				iw.setOutput(ios);
 				iw.write(null, new IIOImage(rendImage, null, null), iwparam);
 				iw.dispose();
-				success = true;
+				success = OK;
 			}
 	    }catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		rendImage.flush();
@@ -327,7 +333,7 @@ public class Export extends Action {
 	 * @return True: the file has been created.
 	 * @since 3.0
 	 */
-	protected boolean exportAsEPS(final File file) {
+	protected ExportStatus exportAsEPS(final File file) {
 		File psFile;
 
 		try{
@@ -337,7 +343,7 @@ public class Export extends Action {
 			psFile = null;
 		}
 
-		return psFile!=null && psFile.exists();
+		return psFile!=null && psFile.exists() ? OK : FAIL;
 	}
 
 
@@ -348,7 +354,7 @@ public class Export extends Action {
 	 * @return True: the file has been created.
 	 * @since 3.0
 	 */
-	protected boolean exportAsPDF(final File file) {
+	protected ExportStatus exportAsPDF(final File file) {
 		File pdfFile;
 
 		try{
@@ -358,7 +364,7 @@ public class Export extends Action {
 			pdfFile = null;
 		}
 
-		return pdfFile!=null && pdfFile.exists();
+		return pdfFile!=null && pdfFile.exists() ? OK : FAIL;
 	}
 
 
@@ -367,19 +373,19 @@ public class Export extends Action {
 	 * @param file The targeted location.
 	 * @return true if the PST document was been successfully created.
 	 */
-	protected boolean exportAsPST(final File file) {
-		boolean ok;
+	protected ExportStatus exportAsPST(final File file) {
+		ExportStatus ok;
 
 		try {
 			try(final FileWriter fw 	= new FileWriter(file);
 				final BufferedWriter bw = new BufferedWriter(fw);
 				final PrintWriter out 	= new PrintWriter(bw)) {
 				out.println(LaTeXGenerator.getLatexDrawing(pstGen));
-				ok = true;
+				ok = OK;
 			}
 		}catch(final IOException e) {
 			BadaboomCollector.INSTANCE.add(e);
-			ok = false;
+			ok = FAIL;
 		}
 		return ok;
 	}
@@ -391,9 +397,9 @@ public class Export extends Action {
 	 * @param file The targeted location.
 	 * @return true if the picture was successfully created.
 	 */
-	protected boolean exportAsBMP(final File file){
+	protected ExportStatus exportAsBMP(final File file){
 		final BufferedImage rendImage = createRenderedImage();
-		boolean success = false;
+		ExportStatus success = FAIL;
 
 		try {
 			final ImageWriteParam iwparam	= new BMPImageWriteParam();
@@ -403,7 +409,7 @@ public class Export extends Action {
 				iw.setOutput(ios);
 				iw.write(null, new IIOImage(rendImage, null, null), iwparam);
 				iw.dispose();
-				success = true;
+				success = OK;
 			}
 	    }catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		rendImage.flush();
@@ -479,5 +485,9 @@ public class Export extends Action {
 	 */
 	public void setPstGen(final PSTCodeGenerator gen) {
 		pstGen = gen;
+	}
+
+	public ExportStatus getExported() {
+		return exported;
 	}
 }
