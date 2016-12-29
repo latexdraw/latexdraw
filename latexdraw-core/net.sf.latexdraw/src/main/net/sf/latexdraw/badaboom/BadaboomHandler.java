@@ -29,7 +29,7 @@ public interface BadaboomHandler {
 	void notifyEvent(final Throwable e);
 
 	/**
-	 * Actions to do when exceptions are received by the manager.
+	 * Actions to do when exceptions are received or cleaned by the manager.
 	 * @since 3.0
 	 */
 	void notifyEvents();

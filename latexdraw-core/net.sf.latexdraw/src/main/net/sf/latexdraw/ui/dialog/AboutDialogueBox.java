@@ -1,16 +1,28 @@
 package net.sf.latexdraw.ui.dialog;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.Map;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.DisplayCanvas;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.VersionChecker;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.*;
-import java.util.Map.Entry;
 
 /**
  * Define the dialogue box describing the latexdraw information.<br>
@@ -69,8 +81,8 @@ public class AboutDialogueBox extends JFrame {
 	private void setTextToEditorPane(final JEditorPane editor, final String path) {
 		try {
 			try(final InputStream is = getClass().getResourceAsStream(path);
-			final Reader reader = new InputStreamReader(is, "UTF-8");//$NON-NLS-1$
-			final BufferedReader br = new BufferedReader(reader)){
+				final Reader reader = new InputStreamReader(is, "UTF-8");//$NON-NLS-1$
+				final BufferedReader br = new BufferedReader(reader)){
 				final StringBuilder txt = new StringBuilder();
 		        String line = br.readLine();
 
@@ -99,7 +111,7 @@ public class AboutDialogueBox extends JFrame {
 		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LResources.EOL); //$NON-NLS-1$
 
 		builder.append("Java properties:").append(LResources.EOL); //$NON-NLS-1$
-		for(final Entry<Object, Object> entry : System.getProperties().entrySet())
+		for(final Map.Entry<Object, Object> entry : System.getProperties().entrySet())
 			builder.append(entry.getKey()).append(':').append(' ').append(entry.getValue()).append(LResources.EOL);
 
 		editorPane.setText(builder.toString());

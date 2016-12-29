@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import javax.swing.Timer;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
 import net.sf.latexdraw.badaboom.BadaboomManager;
@@ -45,9 +46,12 @@ public class ExceptionsManager extends SwingInstrument implements BadaboomHandle
 		super();
 
 		frame		= new BadaboomManager();
-		exceptionB 	= new MButton(LResources.ERR_ICON);
+		exceptionB 	= new MButton();
 		setActivated(false);
 		BadaboomCollector.INSTANCE.addHandler(this);
+
+		Timer timer = new Timer(2000, e -> exceptionB.setIcon(exceptionB.getIcon()==LResources.ERR_ICON ? LResources.EMPTY_ICON : LResources.ERR_ICON));
+		timer.start();
 	}
 
 
@@ -85,7 +89,7 @@ public class ExceptionsManager extends SwingInstrument implements BadaboomHandle
 
 	@Override
 	public void notifyEvents() {
-		setActivated(true);
+		setActivated(!BadaboomCollector.INSTANCE.isEmpty());
 	}
 }
 
