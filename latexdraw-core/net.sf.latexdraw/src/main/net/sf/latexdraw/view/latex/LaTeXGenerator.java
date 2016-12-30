@@ -13,8 +13,12 @@
 package net.sf.latexdraw.view.latex;
 
 import com.google.inject.Inject;
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.Optional;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -23,20 +27,12 @@ import net.sf.latexdraw.filters.PDFFilter;
 import net.sf.latexdraw.filters.TeXFilter;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.OperatingSystem;
-import org.eclipse.jdt.annotation.NonNull;
+import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import org.malai.properties.Modifiable;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.Optional;
 
 /**
  * Defines an abstract LaTeX generator.<br>
@@ -52,14 +48,14 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * The latex packages used when exporting using latex.
 	 * These packages are defined for the current document but not for all documents.
 	 */
-	@NotNull public static final ObjectProperty<String> PACKAGES = new SimpleObjectProperty<>(""); //$NON-NLS-1$
+	public static final ObjectProperty<String> PACKAGES = new SimpleObjectProperty<>(""); //$NON-NLS-1$
 
 
 	/**
 	 * @param packages the packages to set.
 	 * @since 3.0
 	 */
-	public static void setPackages(@Nullable final String packages) {
+	public static void setPackages(final String packages) {
 		if(packages != null && !packages.equals(getPackages())) PACKAGES.setValue(packages);
 	}
 
@@ -68,23 +64,22 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @return the packages.
 	 * @since 3.0
 	 */
-	@NotNull
 	public static String getPackages() {
 		return PACKAGES.getValue();
 	}
 
 
 	/** The comment of the drawing. */
-	protected @NonNull String comment;
+	protected String comment;
 
 	/** The label of the drawing. */
-	protected @NonNull String label;
+	protected String label;
 
 	/** The caption of the drawing. */
-	protected @NonNull String caption;
+	protected String caption;
 
 	/** The token of the position of the drawing */
-	protected @NonNull VerticalPosition positionVertToken;
+	protected VerticalPosition positionVertToken;
 
 	/** The horizontal position of the drawing */
 	protected boolean positionHoriCentre;
@@ -308,7 +303,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * Produces and returns the code.
 	 * @return The generate code.
 	 */
-	@NotNull
 	public abstract String getDrawingCode();
 
 
@@ -326,7 +320,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @return The latex file or nothing.
 	 * @since 3.0
 	 */
-	public Optional<File> createLatexFile(@NotNull final String pathExportTex) {
+	public Optional<File> createLatexFile(final String pathExportTex) {
 		boolean ok = true;
 
 		try(FileOutputStream fos = new FileOutputStream(pathExportTex); OutputStreamWriter osw = new OutputStreamWriter(fos)) {
