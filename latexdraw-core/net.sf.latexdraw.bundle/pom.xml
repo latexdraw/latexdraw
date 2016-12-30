@@ -5,7 +5,7 @@
   <groupId>net.sf.latexdraw</groupId>
   <artifactId>latexdraw.bundle</artifactId>
   <name>LaTeXDraw bundle</name>
-  <version>3.3.5</version>
+  <version>3.3.6-SNAPSHOT</version>
   <packaging>pom</packaging>
   
   <properties>

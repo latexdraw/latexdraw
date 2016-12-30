@@ -1,4 +1,18 @@
 ************************************************************
+Version 3.3.5 -- 2016-12-30
+
+- fixed: latest versions of PSTricks break the cropping of text figures.
+- fixed: arious problems of axes rendering
+- fixed: shapes were grouped after having loaded a drawing
+- fixed: same attributes of axes were not saved in SVG documents
+- fixed: colours were not generated when shapes are grouped
+- fixed: incorrect message was displayed when an export failed
+
+- improvement: the code insertion dialogue box provides better feedback on LaTeX errors
+- improvement: buttons added to the error panel to clean the errors and send them by email
+
+
+************************************************************
 Version 3.3.4 -- 2016-09-17
 
 Improvements:
