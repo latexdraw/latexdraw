@@ -13,6 +13,7 @@ package net.sf.latexdraw.view.jfx;
 import com.sun.javafx.tk.FontLoader;
 import com.sun.javafx.tk.FontMetrics;
 import com.sun.javafx.tk.Toolkit;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -58,15 +59,13 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 
 	private void updatePathTicksX(final double gapx, final TicksStyle ticksStyle, final double tickLgth) {
-		final int origx = (int) model.getOriginX();
 		final double posx = model.getPosition().getX();
 		final double posy = model.getPosition().getY();
-		final boolean noArrowLeftX = model.getArrowStyle(1) == ArrowStyle.NONE;
-		final boolean noArrowRightX = model.getArrowStyle(3) == ArrowStyle.NONE;
+		final boolean noArrowLeftX = model.getArrowStyle(1) == ArrowStyle.NONE || model.getGridMinX()==model.getOriginX();
+		final boolean noArrowRightX = model.getArrowStyle(3) == ArrowStyle.NONE || model.getGridMaxX()==model.getOriginX();
 		final double distX = model.getDistLabelsX();
 		double x;
 		final double y;
-		int val;
 		int inti;
 
 		switch(ticksStyle) {
@@ -80,21 +79,11 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 				y = posy + tickLgth;
 		}
 
-		for(double incrx = model.getIncrementX(), maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = origx; i <= maxx * incrx; i += incrx) {
+		for(double incrx = model.getIncrementX(), maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = minx * incrx;
+			i <= maxx * incrx; i += incrx * distX) {
 			inti = (int) i;
-			val = inti + origx;
 			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
-				x = posx + val * gapx;
-				pathTicks.getElements().add(new MoveTo(x, y));
-				pathTicks.getElements().add(new LineTo(x, y - tickLgth));
-			}
-		}
-
-		for(double incrx = model.getIncrementX(), maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = origx - incrx; i >= minx * incrx; i -= incrx) {
-			inti = (int) i;
-			val = inti + origx;
-			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
-				x = posx + val * gapx;
+				x = posx + inti * gapx;
 				pathTicks.getElements().add(new MoveTo(x, y));
 				pathTicks.getElements().add(new LineTo(x, y - tickLgth));
 			}
@@ -105,21 +94,19 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 	/**
 	 * @return True if a ticks or a label corresponding to the given parameter can be painted.
 	 */
-	private boolean isElementPaintable(final boolean noArrow1, final boolean noArrow2, final double min, final double max, final int i) {
+	private boolean isElementPaintable(final boolean noArrow1, final boolean noArrow2, final double min, final double max, final double i) {
 		return (noArrow2 || !LNumber.equalsDouble(max, i)) && (noArrow1 || !LNumber.equalsDouble(min, i));
 	}
 
 
 	private void updatePathTicksY(final double gapy, final TicksStyle ticksStyle, final double tickLgth) {
-		final int origy = (int) model.getOriginY();
 		final double posx = model.getPosition().getX();
 		final double posy = model.getPosition().getY();
-		final boolean noArrowTopY = model.getArrowStyle(2) == ArrowStyle.NONE;
-		final boolean noArrowBotY = model.getArrowStyle(0) == ArrowStyle.NONE;
+		final boolean noArrowTopY = model.getArrowStyle(2) == ArrowStyle.NONE || model.getGridMaxY()==model.getOriginY();
+		final boolean noArrowBotY = model.getArrowStyle(0) == ArrowStyle.NONE || model.getGridMinY()==model.getOriginY();
 		final double distY = model.getDistLabelsY();
 		final double x;
 		double y;
-		int val;
 		int inti;
 
 		switch(ticksStyle) {
@@ -133,20 +120,11 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 				x = posx - tickLgth;
 		}
 
-		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = origy; i <= maxy * incry; i += incry) {
+		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i=miny*incry;
+			i<=maxy*incry; i+=incry*distY) {
 			inti = (int) i;
-			val = inti + origy;
 			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
-				y = posy - val * gapy;
-				pathTicks.getElements().add(new MoveTo(x, y));
-				pathTicks.getElements().add(new LineTo(x + tickLgth, y));
-			}
-		}
-		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = origy - incry; i >= miny * incry; i -= incry) {
-			inti = (int) i;
-			val = inti + origy;
-			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
-				y = posy - val * gapy;
+				y = posy - inti * gapy;
 				pathTicks.getElements().add(new MoveTo(x, y));
 				pathTicks.getElements().add(new LineTo(x + tickLgth, y));
 			}
@@ -166,6 +144,9 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		if(ticksDisplay.isY()) {
 			updatePathTicksY(gapy, ticksStyle, tickLgth);
 		}
+
+		pathTicks.setDisable(!ticksDisplay.isX() && !ticksDisplay.isY());
+		pathTicks.setFill(Color.BLACK);
 	}
 
 
@@ -173,17 +154,14 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		final double posx = model.getPosition().getX();
 		final double posy = model.getPosition().getY();
 		final int origy = (int) model.getOriginY();
-		final double incry = model.getIncrementY();
 		final double gap;
 		final float height = fontMetrics.getAscent();
-		final boolean noArrowTopY = model.getArrowStyle(2) == ArrowStyle.NONE;
-		final boolean noArrowBotY = model.getArrowStyle(0) == ArrowStyle.NONE;
+		final boolean noArrowTopY = model.getArrowStyle(2) == ArrowStyle.NONE || model.getGridMaxY()==model.getOriginY();
+		final boolean noArrowBotY = model.getArrowStyle(0) == ArrowStyle.NONE || model.getGridMinY()==model.getOriginY();
 		final boolean showOrig = model.isShowOrigin();
 		final double distY = model.getDistLabelsY();
-		final boolean xGE0 = model.getGridMinX() >= model.getOriginX();
+		final boolean xGE0 = model.getGridMinX() >= 0;
 		String str;
-		int val;
-		int inti;
 
 		if(ticksStyle.isBottom() && ticksDisplay.isY()) {
 			gap = -(model.getTicksSize() + model.getThickness() / 2d + GAP_LABEL);
@@ -191,20 +169,12 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 			gap = -(model.getThickness() / 2d + GAP_LABEL);
 		}
 
-		for(double maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = origy; i <= maxy * incry; i += incry) {
-			inti = (int) i;
-			val = inti + origy;
-			if((val != origy || showOrig && xGE0) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
-				str = String.valueOf(val + origy);
-				addTextLabel(str, posx + gap - fontMetrics.computeStringWidth(str), posy + height / 2d - val * gapy, font);
-			}
-		}
-		for(double maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = origy - incry; i >= miny * incry; i -= incry) {
-			inti = (int) i;
-			val = inti + origy;
-			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
-				str = String.valueOf(val + origy);
-				addTextLabel(str, posx + gap - fontMetrics.computeStringWidth(str), posy + height / 2d - val * gapy, font);
+		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = miny * incry;
+			i <= maxy * incry; i += incry * distY) {
+			int inti = (int) i;
+			if((inti != 0 || showOrig && xGE0) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
+				str = String.valueOf(inti + origy);
+				addTextLabel(str, posx + gap - fontMetrics.computeStringWidth(str), posy + height / 2d - inti * gapy, font);
 			}
 		}
 	}
@@ -218,32 +188,21 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		final double posx = model.getPosition().getX();
 		final double posy = model.getPosition().getY();
 		final int origx = (int) model.getOriginX();
-		final double incrx = model.getIncrementX();
 		final double gap = (ticksDisplay.isX() && ticksStyle.isBottom() ? model.getTicksSize() : 0d) + model.getThickness() / 2d + GAP_LABEL;
 		final double sep = model.getGridMaxY() <= -model.getOriginY() ? -gap - GAP_LABEL : gap + fontMetrics.getAscent();
-		final boolean noArrowLeftX = model.getArrowStyle(1) == ArrowStyle.NONE;
-		final boolean noArrowRightX = model.getArrowStyle(3) == ArrowStyle.NONE;
+		final boolean noArrowLeftX = model.getArrowStyle(1) == ArrowStyle.NONE || model.getGridMinX()==model.getOriginX();
+		final boolean noArrowRightX = model.getArrowStyle(3) == ArrowStyle.NONE || model.getGridMaxX()==model.getOriginX();
 		final boolean showOrig = model.isShowOrigin();
 		final double distX = model.getDistLabelsX();
-		final boolean yGE0 = model.getGridMinY() >= model.getOriginY();
+		final boolean yGE0 = model.getGridMinY() >= 0;
 		String str;
-		int val;
-		int inti;
 
-		for(double maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = origx; i <= maxx * incrx; i += incrx) {
-			inti = (int) i;
-			val = inti + origx;
-			if((val != origx || showOrig && yGE0) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
-				str = String.valueOf(val + origx);
-				addTextLabel(str, posx + val * gapx - fontMetrics.computeStringWidth(str) / 2d, posy + sep, font);
-			}
-		}
-		for(double maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = origx - incrx; i >= minx * incrx; i -= incrx) {
-			inti = (int) i;
-			val = inti + origx;
-			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
-				str = String.valueOf(val + origx);
-				addTextLabel(str, posx + val * gapx - fontMetrics.computeStringWidth(str) / 2d, posy + sep, font);
+		for(double incrx = model.getIncrementX(), maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = minx * incrx;
+			i <= maxx * incrx; i += incrx * distX) {
+			int inti = (int) i;
+			if((inti != 0 || showOrig && yGE0) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
+				str = String.valueOf(inti + origx);
+				addTextLabel(str, posx + inti * gapx - fontMetrics.computeStringWidth(str) / 2d, posy + sep, font);
 			}
 		}
 	}
@@ -330,7 +289,10 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		updatePathTicks(gapX, gapY);
 
 		if(model.getLabelsDisplayed() != PlottingStyle.NONE) {
+			labels.setDisable(false);
 			updatePathLabels(gapX, gapY);
+		}else {
+			labels.setDisable(true);
 		}
 	}
 
@@ -362,18 +324,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 	//	protected void paintArrows(final Graphics2D g, final boolean asShadow) {
 	//		if(arrows.size()==4) {
 	//			final Color colour = asShadow ? model.getShadowCol() : model.getFillingCol();
-	//
-	//			if(!LNumber.equalsDouble(model.getGridMinX(), 0))
-	//				arrows.get(1).paint(g, colour, asShadow);
-	//
-	//			if(!LNumber.equalsDouble(model.getGridMaxX(), 0))
-	//				arrows.get(3).paint(g, colour, asShadow);
-	//
-	//			if(!LNumber.equalsDouble(model.getGridMaxY(), 0))
-	//				arrows.get(2).paint(g, colour, asShadow);
-	//
-	//			if(!LNumber.equalsDouble(model.getGridMinY(), 0))
-	//				arrows.get(0).paint(g, colour, asShadow);
+	//			arrows.forEach(arr -> arr.paint(g, colour, asShadow));
 	//		}
 	//	}
 

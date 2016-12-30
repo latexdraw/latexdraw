@@ -46,7 +46,10 @@ class ViewArrowableTrait {
 		arrowsView.setVisible(showArrows);
 
 		if(showArrows) {
+			arrowsView.setDisable(false);
 			arrows.forEach(v -> v.updatePath());
+		}else {
+			arrowsView.setDisable(true);
 		}
 	}
 }
