@@ -41,7 +41,7 @@ public class VersionChecker extends Thread {
 	public static final String VERSION_STABILITY = ""; //$NON-NLS-1$
 
 	/** The identifier of the build */
-	public static final String ID_BUILD = "20161022";//$NON-NLS-1$
+	public static final String ID_BUILD = "20161230";//$NON-NLS-1$
 
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;

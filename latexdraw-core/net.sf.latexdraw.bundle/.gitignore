@@ -1,1 +1,5 @@
 /target
+/latexdraw.bundle.iml
+/.idea/
+Supprimerait .idea/
+Supprimerait latexdraw.bundle.iml
