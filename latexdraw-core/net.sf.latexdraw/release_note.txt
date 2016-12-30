@@ -1,2 +1,4 @@
 ************************************************************
 Version 3.3.6
+
+- fixed: arcs were not correctly drawn and saved as SVG on certain start/end angles.

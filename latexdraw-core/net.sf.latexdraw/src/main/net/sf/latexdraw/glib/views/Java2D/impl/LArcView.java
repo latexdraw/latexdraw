@@ -122,7 +122,6 @@ abstract class LArcView<M extends IArc> extends LRectangularView<IArc> implement
 		if(LNumber.equalsDouble(sAngle, eAngle))
 			eAngle += 0.1;
 
-		final double end = sAngle>eAngle ? 360.-sAngle+eAngle : eAngle-sAngle;
-		path.append(new Arc2D.Double(tlx, tly, w2, h2, sAngle, end, style), false);
+		path.append(new Arc2D.Double(tlx, tly, w2, h2, sAngle, eAngle-sAngle, style), false);
 	}
 }
