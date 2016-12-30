@@ -281,7 +281,18 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
 //				final IDrawing pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
 //				// Adding loaded shapes.
-//	insertedShapes = toLatexdraw(svgDoc, 0);
+//List<IShape> shapes = toLatexdraw(svgDoc, 0);
+//				if(shapes.size()==1)
+//
+//	{
+//		insertedShapes = shapes.get(0);
+//	}else
+//
+//	{
+//		IGroup gp = ShapeFactory.createGroup();
+//		shapes.forEach(sh -> gp.addShape(sh));
+//		insertedShapes = gp;
+//	}
 //	pres.addShape(insertedShapes);
 //				// Updating the possible widgets of the instruments.
 //				for(final Instrument instrument : ui.getInstruments())
@@ -368,18 +379,18 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //			// We get the list of the templates
 //			final SVGFilter filter = new SVGFilter();
 //			final File[] files = templateDir.listFiles();
-//			IShape template;
-//			File thumbnail;
-//
-//			// We export the updated template
-//			if(files!=null)
-//                for(final File file : files)
-//                    if(filter.accept(file))
-//                        try {
-//                            template = toLatexdraw(new SVGDocument(file.toURI()), 0);
-//                            thumbnail = new File(pathCache + File.separator + file.getName() + PNGFilter.PNG_EXTENSION);
-//                            createTemplateThumbnail(thumbnail, template);
-//                        }catch(final Exception ex) {BadaboomCollector.INSTANCE.add(ex);}
+//				if(files!=null)
+//	{
+//		Stream.of(files).filter(f -> filter.accept(f)).forEach(file -> {
+//			try {
+//				IGroup template = ShapeFactory.createGroup();
+//				List<IShape> shapes = toLatexdraw(new SVGDocument(file.toURI()), 0);
+//				shapes.forEach(sh -> template.addShape(sh));
+//				File thumbnail = new File(pathCache + File.separator + file.getName() + PNGFilter.PNG_EXTENSION);
+//				createTemplateThumbnail(thumbnail, template);
+//			}catch(final Exception ex) {BadaboomCollector.INSTANCE.add(ex);}
+//		});
+//	}
 //		}
 //
 //
@@ -594,20 +605,20 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //		 * @return The created shapes or null.
 //		 * @since 3.0
 //		 */
-//		protected IShape toLatexdraw(final SVGDocument doc, final double incrProgressBar) {
+//		protected List<IShape> toLatexdraw(final SVGDocument doc, final double incrProgressBar) {
 //			final IGroup shapes = ShapeFactory.createGroup();
 //			final NodeList elts = doc.getDocumentElement().getChildNodes();
-//			Node node;
+//			List<IShape> shapes = IntStream.range(0, elts.getLength()).mapToObj(i -> {
+//					setProgress((int) Math.min(100., getProgress() + incrProgressBar));
+//					return elts.item(i);
+//				}).filter(node -> node instanceof SVGElement).map(node -> IShapeSVGFactory.INSTANCE.createShape((SVGElement) node)).
+//					filter(sh -> sh!=null).collect(Collectors.toList());
 //
-//			for(int i=0, size=elts.getLength(); i<size; i++) {
-//				node = elts.item(i);
-//
-//				if(node instanceof SVGElement)
-//					shapes.addShape(IShapeSVGFactory.INSTANCE.createShape((SVGElement)node));
-//				setProgress((int)Math.min(100., getProgress()+incrProgressBar));
+//			if(shapes.size()==1 && shapes.get(0) instanceof IGroup) {
+//					return ((IGroup)shapes.get(0)).getShapes();
 //			}
 //
-//			return shapes.size() == 1 ? shapes.getShapeAt(0) : shapes.isEmpty() ? null : shapes;
+//			return shapes;
 //		}
 //	}
 //
@@ -672,7 +683,7 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //
 //				// Adding loaded shapes.
 //				incrProgressBar		   = Math.max(50./(svgDoc.getDocumentElement().getChildNodes().getLength()+ui.getPresentations().size()), 1.);
-//				drawing.addShape(toLatexdraw(svgDoc, incrProgressBar));
+//				toLatexdraw(svgDoc, incrProgressBar).forEach(s -> drawing.addShape(s));
 //				setProgress(Math.min(100, getProgress()+50));
 //
 //				// Loads the presentation's data.
