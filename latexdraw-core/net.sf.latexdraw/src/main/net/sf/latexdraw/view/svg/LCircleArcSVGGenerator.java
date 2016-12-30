@@ -1,7 +1,6 @@
 package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Arc2D;
-
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
@@ -121,15 +120,16 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
         final IPoint start 		 = shape.getStartPoint();
         final IPoint end 			 = shape.getEndPoint();
         final double radius 		 = shape.getWidth()/2.0;
-        final boolean largeArcFlag = Math.abs(startAngle-endAngle)>=Math.PI || startAngle>endAngle;
-        final SVGPathSegList path  = new SVGPathSegList();
+		final boolean largeArcFlag = Math.abs(endAngle - startAngle) >= Math.PI;
+		final boolean sweepFlag = startAngle >= endAngle;
+		final SVGPathSegList path  = new SVGPathSegList();
         SVGElement elt;
 
         root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_ARC);
         root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
         path.add(new SVGPathSegMoveto(start.getX(), start.getY(), false));
-        path.add(new SVGPathSegArc(end.getX(), end.getY(), radius, radius, 0, largeArcFlag, false, false));
+        path.add(new SVGPathSegArc(end.getX(), end.getY(), radius, radius, 0, largeArcFlag, sweepFlag, false));
 
         if(type==ArcStyle.CHORD)
         	path.add(new SVGPathSegClosePath());
