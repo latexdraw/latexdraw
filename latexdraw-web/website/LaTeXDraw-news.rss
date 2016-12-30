@@ -16,6 +16,15 @@
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
   <item>
+    <title>LaTeXDraw 3.3.5 -- Bugs fixed</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Fri, 30 dec 2016 09:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS55</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS55</link>
+    <description>This new version fixes serious issues, in particular for the latest version of MikTeX. Give an eye to the release note for more details regarding the bug-fixes.</description>
+  </item>
+
+  <item>
     <title>LaTeXDraw 3.3.4 -- Bugs fixed</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Sat, 17 sep 2016 09:00:00 GMT</pubDate>
