@@ -75,7 +75,7 @@ public class Helper extends JfxInstrument implements Initializable {
 		addInteractor(new MenuItem2ShowLazyStage(this, aboutItem, this::getAboutFrame, true));
 		addInteractor(new MenuItem2ShowLazyStage(this, shortcutItem, this::getShortcutsFrame, true));
 		try {
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("https://sourceforge.net/p/latexdraw/bugs/?source=navbar")));
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug")));
 			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("https://sourceforge.net/p/latexdraw/discussion/")));
 			addInteractor(new MenuItem2OpenWebPageInteractor(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
 			addInteractor(new MenuItem2OpenWebPageInteractor(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual")));
