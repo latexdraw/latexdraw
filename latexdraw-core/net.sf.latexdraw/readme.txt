@@ -25,6 +25,10 @@ files in dedicated directories such as "Program Files". It may ask you your pass
 The scripts 'install_debian_ubuntu', 'install_fedora', or 'install_opensuse' will ask
 administrator privileges before launching the installer.
 
+Warning: on Fedora 25 with Wayland, the installation will fail since Wayland forbids graphical applications
+to run in sudo/su mode. See: https://bugzilla.redhat.com/show_bug.cgi?id=1274451
+The workaround consists of installing LaTeXDraw using a X11 sessions, or manually (see below). We will fix that in a next release.
+
 
 *** Running the installer ***
 

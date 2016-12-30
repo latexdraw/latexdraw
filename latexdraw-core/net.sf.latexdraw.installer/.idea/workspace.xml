@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1fd895f0-52ff-43bf-a7c0-e66c22083966" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../net.sf.latexdraw.bundle/.gitignore" afterPath="$PROJECT_DIR$/../net.sf.latexdraw.bundle/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../net.sf.latexdraw.bundle/pom.xml" afterPath="$PROJECT_DIR$/../net.sf.latexdraw.bundle/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../net.sf.latexdraw/readme.txt" afterPath="$PROJECT_DIR$/../net.sf.latexdraw/readme.txt" />
     </list>
     <ignored path="latexdraw.installer.iws" />
     <ignored path=".idea/workspace.xml" />
