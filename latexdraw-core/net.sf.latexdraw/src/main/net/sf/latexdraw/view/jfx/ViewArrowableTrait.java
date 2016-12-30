@@ -12,44 +12,35 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.Group;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A (sort of) trait for grouping all the JFX code related to painting arrows of arrowable shape.
  */
-class ViewArrowableTrait {
-	private final IArrowableShape model;
-	private final Group arrowsView;
+class ViewArrowableTrait extends ViewShape<IArrowableShape> {
 	private final List<ViewArrow> arrows;
 
 	ViewArrowableTrait(final @NonNull IArrowableShape sh) {
-		super();
-		model = sh;
-		arrowsView = new Group();
+		super(sh);
 		arrows = new ArrayList<>();
 
-		for(int i=0, size=model.getNbArrows(); i<size; i++) {
+		for(int i = 0, size = model.getNbArrows(); i < size; i++) {
 			final ViewArrow viewArrow = new ViewArrow(model.getArrowAt(i));
 			arrows.add(viewArrow);
-			arrowsView.getChildren().addAll(viewArrow);
+			getChildren().addAll(viewArrow);
 			model.getArrowAt(i).setOnArrowChanged(() -> viewArrow.updatePath());
 		}
 	}
 
-	Group getArrowsView() {
-		return arrowsView;
-	}
-
 	void update(final boolean showArrows) {
-		arrowsView.setVisible(showArrows);
+		setVisible(showArrows);
 
 		if(showArrows) {
-			arrowsView.setDisable(false);
+			setDisable(false);
 			arrows.forEach(v -> v.updatePath());
 		}else {
-			arrowsView.setDisable(true);
+			setDisable(true);
 		}
 	}
 }

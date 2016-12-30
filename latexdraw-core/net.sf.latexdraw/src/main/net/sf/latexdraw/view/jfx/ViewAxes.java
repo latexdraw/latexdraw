@@ -53,7 +53,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		viewArrows = new ViewArrowableTrait(model);
 		getChildren().add(mainAxes);
 		getChildren().add(pathTicks);
-		getChildren().add(viewArrows.getArrowsView());
+		getChildren().add(viewArrows);
 		updatePath();
 	}
 
