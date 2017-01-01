@@ -31,7 +31,7 @@ import static java.lang.Math.toDegrees;
 /**
  * Defines a PSTricks view of the LShape model.
  */
-abstract class PSTShapeView<S extends IShape> {
+public abstract class PSTShapeView<S extends IShape> {
 	/** The shape model. */
 	protected final S shape;
 

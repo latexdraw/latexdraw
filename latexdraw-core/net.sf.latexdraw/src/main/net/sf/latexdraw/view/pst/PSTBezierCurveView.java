@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Defines a PSTricks view of the LBezierCurve model.<
  */
-class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
+public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 	/**
 	 * Creates and initialises a LBezierCurve PSTricks view.
 	 * @param model The model to view.

@@ -20,7 +20,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the LText model.<br>
  */
-class PSTTextView extends PSTShapeView<IText> {
+public class PSTTextView extends PSTShapeView<IText> {
 	/**
 	 * Creates and initialises a LText PSTricks view.
 	 * @param model The model to view.

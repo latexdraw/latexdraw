@@ -19,7 +19,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the LDot model.
  */
-class PSTDotView extends PSTClassicalView<IDot> {
+public class PSTDotView extends PSTClassicalView<IDot> {
 	/**
 	 * Creates and initialises a LDot PSTricks view.
 	 * @param model The model to view.

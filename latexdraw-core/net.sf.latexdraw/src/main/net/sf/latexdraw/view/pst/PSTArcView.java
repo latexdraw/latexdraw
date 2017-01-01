@@ -20,7 +20,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the LArc model.
  */
-class PSTArcView extends PSTClassicalView<IArc> {
+public class PSTArcView extends PSTClassicalView<IArc> {
 	/**
 	 * Creates and initialises a LArc PSTricks view.
 	 * @param model The model to view.

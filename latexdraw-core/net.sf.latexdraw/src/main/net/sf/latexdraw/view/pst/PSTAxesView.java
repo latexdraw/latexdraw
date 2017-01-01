@@ -19,7 +19,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the LAxes model.
  */
-class PSTAxesView extends PSTShapeView<IAxes> {
+public class PSTAxesView extends PSTShapeView<IAxes> {
 	/**
 	 * Creates and initialises a LAxes PSTricks view.
 	 * @param model The model to view.

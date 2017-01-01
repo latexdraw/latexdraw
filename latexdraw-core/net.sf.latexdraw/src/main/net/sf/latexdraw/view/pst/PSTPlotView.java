@@ -17,7 +17,7 @@ import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
-class PSTPlotView extends PSTClassicalView<IPlot> {
+public class PSTPlotView extends PSTClassicalView<IPlot> {
 	protected PSTPlotView(final @NonNull IPlot model) {
 		super(model);
 	}

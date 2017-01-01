@@ -19,7 +19,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the LRhombus model.
  */
-class PSTRhombusView extends PSTClassicalView<IRhombus> {
+public class PSTRhombusView extends PSTClassicalView<IRhombus> {
 	/**
 	 * Creates and initialises a LRhombus PSTricks view.
 	 * @param model The model to view.

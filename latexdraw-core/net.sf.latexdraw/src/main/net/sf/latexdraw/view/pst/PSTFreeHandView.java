@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Defines a PSTricks view of the LFreeHand model.
  */
-class PSTFreeHandView extends PSTClassicalView<IFreehand> {
+public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 	/**
 	 * Creates and initialises a LFreeHand PSTricks view.
 	 * @param model The model to view.

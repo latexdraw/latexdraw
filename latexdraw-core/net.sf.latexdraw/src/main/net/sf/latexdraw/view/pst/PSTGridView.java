@@ -20,7 +20,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the LGrid model.
  */
-class PSTGridView extends PSTShapeView<IGrid> {
+public class PSTGridView extends PSTShapeView<IGrid> {
 	/**
 	 * Creates and initialises a LGrid PSTricks view.
 	 * @param model The model to view.

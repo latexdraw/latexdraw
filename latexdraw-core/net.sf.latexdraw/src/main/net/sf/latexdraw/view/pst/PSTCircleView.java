@@ -19,7 +19,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the ICircle model.
  */
-class PSTCircleView extends PSTClassicalView<ICircle> {
+public class PSTCircleView extends PSTClassicalView<ICircle> {
 	/**
 	 * Creates an SVG generator for circles.
 	 * @param circle The circle used for the conversion in SVG.

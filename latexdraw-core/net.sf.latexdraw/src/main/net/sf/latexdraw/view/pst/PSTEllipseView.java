@@ -19,7 +19,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the LEllipse model.
  */
-class PSTEllipseView extends PSTClassicalView<IEllipse> {
+public class PSTEllipseView extends PSTClassicalView<IEllipse> {
 	/**
 	 * Creates and initialises a LEllipse PSTricks view.
 	 * @param model The model to view.

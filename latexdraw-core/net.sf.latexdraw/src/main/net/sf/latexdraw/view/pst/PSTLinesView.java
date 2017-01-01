@@ -18,7 +18,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the LLines model.
  */
-class PSTLinesView extends PSTPolygonView {
+public class PSTLinesView extends PSTPolygonView {
 	/**
 	 * Creates and initialises a LLines PSTricks view.
 	 * @param model The model to view.

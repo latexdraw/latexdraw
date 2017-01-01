@@ -19,7 +19,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the LPolygon model.
  */
-class PSTPolygonView extends PSTClassicalView<IPolygon> {
+public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	/**
 	 * Creates and initialises a LRect PSTricks view.
 	 * @param model The model to view.

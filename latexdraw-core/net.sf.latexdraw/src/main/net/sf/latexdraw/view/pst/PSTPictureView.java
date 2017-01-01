@@ -22,7 +22,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * Defines a PSTricks view of the LPicture model.
  */
-class PSTPictureView extends PSTShapeView<IPicture> {
+public class PSTPictureView extends PSTShapeView<IPicture> {
 	/**
 	 * Creates and initialises a LPicture PSTricks view.
 	 * @param model The model to view.

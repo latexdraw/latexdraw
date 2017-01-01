@@ -26,7 +26,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class PSTGroupView extends PSTShapeView<IGroup> {
+public class PSTGroupView extends PSTShapeView<IGroup> {
 	/**
 	 * Creates and initialises a LDrawing PSTricks view.
 	 * @param model The model to view.
