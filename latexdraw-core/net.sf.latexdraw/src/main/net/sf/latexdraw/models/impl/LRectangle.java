@@ -21,7 +21,7 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 class LRectangle extends LRectangularShape implements IRectangle {
 	private final LineArcProp lineArcProp;
 
-	protected LRectangle(final IPoint tl, final IPoint br) {
+	LRectangle(final IPoint tl, final IPoint br) {
 		super(tl, br);
 		lineArcProp = new LineArcProp();
 	}

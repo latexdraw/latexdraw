@@ -22,7 +22,7 @@ import net.sf.latexdraw.models.interfaces.shape.Position;
  */
 abstract class LSquaredShape extends LPositionShape implements ISquaredShape {
 
-	protected LSquaredShape(final IPoint tl, final double width) {
+	LSquaredShape(final IPoint tl, final double width) {
 		super(tl);
 
 		if(!(GLibUtilities.isValidPoint(tl) && width > 0 && GLibUtilities.isValidCoordinate(width))) throw new IllegalArgumentException();

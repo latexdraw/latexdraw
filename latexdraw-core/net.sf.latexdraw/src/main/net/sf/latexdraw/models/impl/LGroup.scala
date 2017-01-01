@@ -1,7 +1,9 @@
 package net.sf.latexdraw.models.impl
 
+import java.util
 import java.util.ArrayList
 import java.util.List
+
 import net.sf.latexdraw.models.ShapeFactory
 import net.sf.latexdraw.models.interfaces.prop.IArcProp
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp
@@ -13,23 +15,10 @@ import net.sf.latexdraw.models.interfaces.prop.IPlotProp
 import net.sf.latexdraw.models.interfaces.prop.IScalable
 import net.sf.latexdraw.models.interfaces.prop.IStdGridProp
 import net.sf.latexdraw.models.interfaces.prop.ITextProp
-import net.sf.latexdraw.models.interfaces.shape.ArcStyle
-import net.sf.latexdraw.models.interfaces.shape.AxesStyle
-import net.sf.latexdraw.models.interfaces.shape.BorderPos
-import net.sf.latexdraw.models.interfaces.shape.Color
-import net.sf.latexdraw.models.interfaces.shape.DotStyle
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle
-import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle
-import net.sf.latexdraw.models.interfaces.shape.IGroup
-import net.sf.latexdraw.models.interfaces.shape.IPoint
-import net.sf.latexdraw.models.interfaces.shape.IShape
-import net.sf.latexdraw.models.interfaces.shape.LineStyle
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle
-import net.sf.latexdraw.models.interfaces.shape.TextPosition
-import net.sf.latexdraw.models.interfaces.shape.TicksStyle
+import net.sf.latexdraw.models.interfaces.shape._
 import net.sf.latexdraw.view.latex.DviPsColors
 import java.util.stream.Collectors
+import javafx.collections.{FXCollections, ObservableList}
 
 /**
  * A Group is a group of IShape instances.<br>
@@ -54,6 +43,8 @@ private[impl] class LGroup() extends IShape
 			with LGroupDot with LGroupFreeHand with LGroupLineArc
 			with LGroupGrid with LGroupShape with LGroupStdGrid
 			with LGroupText with LSetShapes with LPlotGroup {
+	/** The set of shapes. */
+	private val shapes : ObservableList[IShape] = FXCollections.observableArrayList()
 
 	override def duplicate() = duplicateDeep(true)
 
@@ -1105,4 +1096,8 @@ private[impl] class LGroup() extends IShape
 		}
 		return list
 	}
+
+	override def getShapes: ObservableList[IShape] = shapes
+
+	override def getArrows: util.List[IArrow] = util.Collections.emptyList() // FIXME: collect all the arrows?
 }

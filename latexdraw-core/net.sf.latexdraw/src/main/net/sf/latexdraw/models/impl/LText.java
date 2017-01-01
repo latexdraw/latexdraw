@@ -20,25 +20,22 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 
 /**
- * Defines a model of a text.
- * @author Arnaud BLOUIN
+ * A model of a text.
  */
 class LText extends LPositionShape implements IText {
 	/** The text */
-	protected final StringProperty text;
-
+	private final StringProperty text;
 	/** The text position of the text. */
-	protected TextPosition textPosition;
+	private TextPosition textPosition;
 
 
 	/**
 	 * The constructor by default.
 	 * @since 3.0
 	 */
-	protected LText() {
+	LText() {
 		this(ShapeFactory.createPoint(), "text"); //$NON-NLS-1$
 	}
-
 
 	/**
 	 * @param pt The position of the text.
@@ -46,7 +43,7 @@ class LText extends LPositionShape implements IText {
 	 * @throws IllegalArgumentException If pt is not valid.
 	 * @since 3.0
 	 */
-	protected LText(final IPoint pt, final String text) {
+	LText(final IPoint pt, final String text) {
 		super(pt);
 
 		this.text = new SimpleStringProperty(text == null || text.isEmpty() ? "text" : text); //$NON-NLS-1$

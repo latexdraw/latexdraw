@@ -19,7 +19,7 @@ import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
  * A model of a rectangular shape.
  */
 abstract class LRectangularShape extends LPositionShape implements IRectangularShape {
-	protected LRectangularShape(final IPoint tl, final IPoint br) {
+	LRectangularShape(final IPoint tl, final IPoint br) {
 		super(tl);
 
 		if(!(GLibUtilities.isValidPoint(tl) && GLibUtilities.isValidPoint(br) && tl.getX() < br.getX() && tl.getY() < br.getY()))

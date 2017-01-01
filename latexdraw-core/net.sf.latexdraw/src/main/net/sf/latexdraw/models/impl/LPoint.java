@@ -25,31 +25,25 @@ import static java.lang.Math.PI;
 import static java.lang.Math.atan;
 
 /**
- * Defines a model of a point. This model must be used only to define other models. It is not a
- * shape. See the LDot class for the shape.<br>
- * 02/13/2008<br>
- * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
+ * Defines a model of a point. Not a shape.
  */
 class LPoint implements IPoint {
-	protected final @NonNull DoubleProperty x;
-
-	protected final @NonNull DoubleProperty y;
+	private final @NonNull DoubleProperty x;
+	private final @NonNull DoubleProperty y;
 
 	/**
 	 * Creates a Point2D with coordinates (0, 0).
 	 */
-	protected LPoint() {
-		this(0, 0);
+	LPoint() {
+		this(0d, 0d);
 	}
 
 	/**
 	 * Creates a point from a IPoint
 	 * @param pt The IPoint, if null the default value (0,0) will be used.
 	 */
-	protected LPoint(final IPoint pt) {
-		this(pt == null?0d:pt.getX(), pt == null?0d:pt.getY());
+	LPoint(final IPoint pt) {
+		this(pt == null ? 0d : pt.getX(), pt == null ? 0d : pt.getY());
 	}
 
 	/**
@@ -57,7 +51,7 @@ class LPoint implements IPoint {
 	 * @param xCoord The X-coordinate to set.
 	 * @param yCoord The Y-coordinate to set.
 	 */
-	protected LPoint(final double xCoord, final double yCoord) {
+	LPoint(final double xCoord, final double yCoord) {
 		super();
 		x = new SimpleDoubleProperty(xCoord);
 		y = new SimpleDoubleProperty(yCoord);
@@ -65,20 +59,21 @@ class LPoint implements IPoint {
 
 	@Override
 	public double computeAngle(final IPoint pt) {
-		if(!GLibUtilities.isValidPoint(pt))
-			return java.lang.Double.NaN;
+		if(!GLibUtilities.isValidPoint(pt)) return java.lang.Double.NaN;
 
 		double angle;
 		final double x2 = pt.getX() - getX();
 		final double y2 = pt.getY() - getY();
 
-		if(LNumber.equalsDouble(x2, 0.)) {
-			angle = Math.PI / 2.;
+		if(LNumber.equalsDouble(x2, 0d)) {
+			angle = Math.PI / 2d;
 
-			if(y2 < 0.)
-				angle = Math.PI * 2. - angle;
-		}else
-			angle = x2 < 0.?Math.PI - atan(-y2 / x2):atan(y2 / x2);
+			if(y2 < 0d) {
+				angle = Math.PI * 2d - angle;
+			}
+		}else {
+			angle = x2 < 0d ? Math.PI - atan(-y2 / x2) : atan(y2 / x2);
+		}
 
 		return angle;
 	}
@@ -90,8 +85,9 @@ class LPoint implements IPoint {
 
 	@Override
 	public double computeRotationAngle(final IPoint pt1, final IPoint pt2) {
-		if(!GLibUtilities.isValidPoint(pt1) || !GLibUtilities.isValidPoint(pt2))
-			return java.lang.Double.NaN;
+		if(!GLibUtilities.isValidPoint(pt1) || !GLibUtilities.isValidPoint(pt2)) {
+			return Double.NaN;
+		}
 
 		final double thetaOld = computeAngle(pt1);
 		final double thetaNew = computeAngle(pt2);
@@ -106,8 +102,9 @@ class LPoint implements IPoint {
 
 	@Override
 	public IPoint rotatePoint(final IPoint gravityC, final double theta) {
-		if(!GLibUtilities.isValidPoint(gravityC) || !GLibUtilities.isValidCoordinate(theta))
+		if(!GLibUtilities.isValidPoint(gravityC) || !GLibUtilities.isValidCoordinate(theta)) {
 			return null;
+		}
 
 		final IPoint pt = ShapeFactory.createPoint();
 		final double cosTheta;
@@ -116,13 +113,15 @@ class LPoint implements IPoint {
 		final double gx = gravityC.getX();
 		final double gy = gravityC.getY();
 
-		if(angle < 0.)
+		if(angle < 0.) {
 			angle = 2. * PI + angle;
+		}
 
 		angle %= 2. * PI;
 
-		if(LNumber.equalsDouble(angle, 0.))
+		if(LNumber.equalsDouble(angle, 0.)) {
 			return new LPoint(this);
+		}
 
 		if(LNumber.equalsDouble(angle - PI / 2., 0.)) {
 			cosTheta = 0.;
@@ -146,34 +145,32 @@ class LPoint implements IPoint {
 
 	@Override
 	public boolean equals(final IPoint p, final double gap) {
-		return !(!GLibUtilities.isValidCoordinate(gap) || !GLibUtilities.isValidPoint(p)) && LNumber.equalsDouble(getX(), p.getX(), gap) && LNumber.equalsDouble(getY(), p.getY(), gap);
+		return !(!GLibUtilities.isValidCoordinate(gap) || !GLibUtilities.isValidPoint(p)) && LNumber.equalsDouble(getX(), p.getX(), gap) &&
+			LNumber.equalsDouble(getY(), p.getY(), gap);
 	}
 
 	@Override
 	public IPoint getMiddlePoint(final IPoint p) {
-		return p == null?null:ShapeFactory.createPoint((getX() + p.getX()) / 2., (getY() + p.getY()) / 2.);
+		return p == null ? null : ShapeFactory.createPoint((getX() + p.getX()) / 2., (getY() + p.getY()) / 2d);
 	}
 
 	@Override
 	public void translate(final double tx, final double ty) {
-		if(GLibUtilities.isValidPoint(tx, ty))
-			setPoint(getX() + tx, getY() + ty);
+		if(GLibUtilities.isValidPoint(tx, ty)) setPoint(getX() + tx, getY() + ty);
 	}
 
 	@Override
 	public IPoint horizontalSymmetry(final IPoint origin) {
-		if(!GLibUtilities.isValidPoint(origin))
-			return null;
+		if(!GLibUtilities.isValidPoint(origin)) return null;
 
-		return ShapeFactory.createPoint(2. * origin.getX() - getX(), getY());
+		return ShapeFactory.createPoint(2d * origin.getX() - getX(), getY());
 	}
 
 	@Override
 	public IPoint verticalSymmetry(final IPoint origin) {
-		if(!GLibUtilities.isValidPoint(origin))
-			return null;
+		if(!GLibUtilities.isValidPoint(origin)) return null;
 
-		return ShapeFactory.createPoint(getX(), 2. * origin.getY() - getY());
+		return ShapeFactory.createPoint(getX(), 2d * origin.getY() - getY());
 	}
 
 	@Override
@@ -184,25 +181,22 @@ class LPoint implements IPoint {
 
 	@Override
 	public void setX(final double newX) {
-		if(GLibUtilities.isValidCoordinate(newX))
-			x.set(newX);
+		if(GLibUtilities.isValidCoordinate(newX)) x.set(newX);
 	}
 
 	@Override
 	public void setY(final double newY) {
-		if(GLibUtilities.isValidCoordinate(newY))
-			y.set(newY);
+		if(GLibUtilities.isValidCoordinate(newY)) y.set(newY);
 	}
 
 	@Override
 	public void setPoint(final IPoint pt) {
-		if(pt != null)
-			setPoint(pt.getX(), pt.getY());
+		if(pt != null) setPoint(pt.getX(), pt.getY());
 	}
 
 	@Override
 	public double distance(final IPoint pt) {
-		return pt == null?java.lang.Double.NaN:distance(pt.getX(), pt.getY());
+		return pt == null ? java.lang.Double.NaN : distance(pt.getX(), pt.getY());
 	}
 
 	@Override
@@ -217,14 +211,12 @@ class LPoint implements IPoint {
 
 	@Override
 	public void setPoint2D(final Point2D pt) {
-		if(pt != null)
-			setPoint(pt.getX(), pt.getY());
+		if(pt != null) setPoint(pt.getX(), pt.getY());
 	}
 
 	@Override
 	public IPoint substract(final IPoint pt) {
-		if(pt == null)
-			return null;
+		if(pt == null) return null;
 		return ShapeFactory.createPoint(getX() - pt.getX(), getY() - pt.getY());
 	}
 
@@ -242,8 +234,7 @@ class LPoint implements IPoint {
 	@Override
 	public IPoint add(final IPoint pt) {
 		final IPoint added = ShapeFactory.createPoint(this);
-		if(pt != null)
-			added.translate(pt.getX(), pt.getY());
+		if(pt != null) added.translate(pt.getX(), pt.getY());
 		return added;
 	}
 
@@ -277,23 +268,19 @@ class LPoint implements IPoint {
 		final int prime = 31;
 		int result = 1;
 		long temp = Double.doubleToLongBits(x.doubleValue());
-		result = prime * result + (int)(temp ^ (temp >>> 32));
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		temp = Double.doubleToLongBits(y.doubleValue());
-		result = prime * result + (int)(temp ^ (temp >>> 32));
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
 	@Override
 	public boolean equals(final Object obj) {
-		if(this == obj)
-			return true;
-		if(!(obj instanceof IPoint))
-			return false;
-		final IPoint other = (IPoint)obj;
-		if(Double.doubleToLongBits(x.doubleValue()) != Double.doubleToLongBits(other.getX()))
-			return false;
-		if(Double.doubleToLongBits(y.doubleValue()) != Double.doubleToLongBits(other.getY()))
-			return false;
+		if(this == obj) return true;
+		if(!(obj instanceof IPoint)) return false;
+		final IPoint other = (IPoint) obj;
+		if(Double.doubleToLongBits(x.doubleValue()) != Double.doubleToLongBits(other.getX())) return false;
+		if(Double.doubleToLongBits(y.doubleValue()) != Double.doubleToLongBits(other.getY())) return false;
 		return true;
 	}
 

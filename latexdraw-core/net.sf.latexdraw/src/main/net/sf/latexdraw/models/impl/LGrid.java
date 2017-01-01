@@ -34,35 +34,35 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  */
 class LGrid extends LAbstractGrid implements IGrid {
 	/** The colour of the sub-grid. */
-	protected final ObjectProperty<Color> subGridColour;
+	private final ObjectProperty<Color> subGridColour;
 
 	/** The number of division in a sub-grid. */
-	protected final IntegerProperty subGridDiv;
+	private final IntegerProperty subGridDiv;
 
 	/** The thickness of the main borders of the grid. */
-	protected final DoubleProperty gridWidth;
+	private final DoubleProperty gridWidth;
 
 	/** The colour of the labels */
-	protected final ObjectProperty<Color> gridLabelsColour;
+	private final ObjectProperty<Color> gridLabelsColour;
 
 	/** The number of dots in the lines of the grid ( if >0, replace a plain line) */
-	protected final IntegerProperty gridDots;
+	private final IntegerProperty gridDots;
 
 	/** The thickness of the lines of the sub-grid */
-	protected final DoubleProperty subGridWidth;
+	private final DoubleProperty subGridWidth;
 
 	/** The number of dots in the lines of the sub-grid ( if >0, replace a plain line) */
-	protected final IntegerProperty subGridDots;
+	private final IntegerProperty subGridDots;
 
 	/** The unit of the grid */
-	protected final DoubleProperty unit;
+	private final DoubleProperty unit;
 
 
 	/**
 	 * Creates a grid with a predefined point.
 	 * @param pt The position.
 	 */
-	protected LGrid(final IPoint pt) {
+	LGrid(final IPoint pt) {
 		super(pt);
 		gridDots = new SimpleIntegerProperty(PSTricksConstants.DEFAULT_GRIDDOTS);
 		gridLabelsColour = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_LABELGRIDCOLOR);

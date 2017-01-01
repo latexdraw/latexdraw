@@ -1,3 +1,13 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.impl;
 
 import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
@@ -6,33 +16,15 @@ import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
- * Defines a model of a free hand shape.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 07/05/2009<br>
- * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
+ * An implementation of a free hand shape.
  */
 class LFreehand extends LModifiablePointsShape implements IFreehand {
 	/** The type of the curves of the shape. */
-	protected FreeHandStyle type;
-
+	private FreeHandStyle type;
 	/** The interval to consider while painting the shape. */
-	protected int interval;
-
+	private int interval;
 	/** Defines if the drawing is opened of closed. */
-	protected boolean open;
+	private boolean open;
 
 
 	/**
@@ -40,26 +32,24 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 	 * @throws IllegalArgumentException If the given point is not valid.
 	 * @since 3.0
 	 */
-	protected LFreehand() {
+	LFreehand() {
 		super();
-		type 		= FreeHandStyle.CURVES;
-		interval 	= 5;
-		open		= true;
+		type = FreeHandStyle.CURVES;
+		interval = 5;
+		open = true;
 	}
-
 
 	@Override
 	public void copy(final IShape sh) {
 		super.copy(sh);
 
 		if(sh instanceof IFreeHandProp) {
-			final IFreeHandProp fh = (IFreeHandProp)sh;
-			open 	= fh.isOpen();
-			interval= fh.getInterval();
-			type 	= fh.getType();
+			final IFreeHandProp fh = (IFreeHandProp) sh;
+			open = fh.isOpen();
+			interval = fh.getInterval();
+			type = fh.getType();
 		}
 	}
-
 
 	@Override
 	public int getInterval() {
@@ -80,22 +70,24 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 
 
 	@Override
-	public void setInterval(final int interval) {
-		if(interval>0)
-			this.interval = interval;
+	public void setInterval(final int newInterval) {
+		if(newInterval > 0) {
+			interval = newInterval;
+		}
 	}
 
 
 	@Override
-	public void setOpen(final boolean open) {
-		this.open = open;
+	public void setOpen(final boolean isOpen) {
+		open = isOpen;
 	}
 
 
 	@Override
-	public void setType(final FreeHandStyle type) {
-		if(type!=null)
-			this.type = type;
+	public void setType(final FreeHandStyle freeHandStyle) {
+		if(freeHandStyle != null) {
+			type = freeHandStyle;
+		}
 	}
 
 	@Override
@@ -103,42 +95,35 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 		return false;
 	}
 
-
 	@Override
 	public boolean isDbleBorderable() {
 		return false;
 	}
-
 
 	@Override
 	public boolean isFillable() {
 		return true;
 	}
 
-
 	@Override
 	public boolean isInteriorStylable() {
 		return true;
 	}
-
 
 	@Override
 	public boolean isLineStylable() {
 		return true;
 	}
 
-
 	@Override
 	public boolean isShadowable() {
 		return true;
 	}
 
-
 	@Override
 	public boolean isShowPtsable() {
 		return false;
 	}
-
 
 	@Override
 	public boolean isThicknessable() {

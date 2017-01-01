@@ -1,5 +1,6 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
+import java.util.List;
 import net.sf.latexdraw.models.interfaces.prop.IArrowable;
 
 /**
@@ -61,4 +62,6 @@ public interface IArrowableShape extends IShape, IArrowable {
 	 * @since 3.0
 	 */
 	IArrow getArrowAt(final int position);
+
+	List<IArrow> getArrows();
 }

@@ -21,7 +21,7 @@ import net.sf.latexdraw.models.interfaces.shape.ISquare;
 class LSquare extends LSquaredShape implements ISquare {
 	private final LineArcProp lineArcProp;
 
-	protected LSquare(final IPoint tl, final double width) {
+	LSquare(final IPoint tl, final double width) {
 		super(tl, width);
 		lineArcProp = new LineArcProp();
 	}

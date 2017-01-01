@@ -32,12 +32,12 @@ class LineArcProp implements ILineArcProp {
 
 	@Override
 	public boolean isRoundCorner() {
-		return frameArc > 0;
+		return frameArc > 0.0;
 	}
 
 	@Override
 	public void setLineArc(final double arc) {
-		if(GLibUtilities.isValidCoordinate(arc) && arc >= 0 && arc <= 1) {
+		if(GLibUtilities.isValidCoordinate(arc) && arc >= 0.0 && arc <= 1.0) {
 			frameArc = arc;
 		}
 	}

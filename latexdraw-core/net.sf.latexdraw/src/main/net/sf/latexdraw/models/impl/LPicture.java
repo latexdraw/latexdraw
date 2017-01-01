@@ -10,6 +10,10 @@
  */
 package net.sf.latexdraw.models.impl;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -22,23 +26,16 @@ import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.sourceforge.jlibeps.epsgraphics.EpsGraphics2D;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 /**
  * A model of a picture.
  */
 class LPicture extends LPositionShape implements IPicture {
 	/** The buffered image. */
-	protected Image image;
-
+	private Image image;
 	/** The path of the eps image. */
-	protected String pathTarget;
-
+	private String pathTarget;
 	/** The path of the source image. */
-	protected String pathSource;
+	private String pathSource;
 
 
 	/**
@@ -46,7 +43,7 @@ class LPicture extends LPositionShape implements IPicture {
 	 * @param pt The position of the top-left point of the picture.
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 */
-	protected LPicture(final IPoint pt) {
+	LPicture(final IPoint pt) {
 		super(pt);
 	}
 
@@ -56,7 +53,7 @@ class LPicture extends LPositionShape implements IPicture {
 	 * @throws IOException If the picture cannot be loaded.
 	 * @since 3.0
 	 */
-	protected void loadImage() throws IOException {
+	private void loadImage() throws IOException {
 		if(image != null) {
 			new File(pathTarget).delete();
 		}
@@ -80,7 +77,7 @@ class LPicture extends LPositionShape implements IPicture {
 	 * @throws IOException If a problem while reading/writing files occurs.
 	 * @since 2.0.0
 	 */
-	protected void createEPSImage() throws IOException {
+	private void createEPSImage() throws IOException {
 		if(pathSource == null || image == null) return;
 
 		final int indexName = pathSource.lastIndexOf(File.separator) + 1;

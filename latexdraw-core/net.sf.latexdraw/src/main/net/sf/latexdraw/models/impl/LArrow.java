@@ -21,45 +21,33 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 /**
- * An implementation of the arrow interface
- * @author Arnaud BLOUIN
+ * An implementation of an arrow
  */
 class LArrow implements IArrow {
 	/** The style of the arrow. */
-	protected ArrowStyle style;
-
+	private ArrowStyle style;
 	/** The latex parameter arrowSize num. */
-	protected double arrowSizeDim;
-
+	private double arrowSizeDim;
 	/** The latex parameter arrowSize num. */
-	protected double arrowSizeNum;
-
+	private double arrowSizeNum;
 	/** The length of the arrow. */
-	protected double arrowLength;
-
+	private double arrowLength;
 	/** The inset of the arrow. */
-	protected double arrowInset;
-
+	private double arrowInset;
 	/** The latex parameter dotsize dim. */
-	protected double dotSizeDim;
-
+	private double dotSizeDim;
 	/** The latex parameter dotsize num. */
-	protected double dotSizeNum;
-
+	private double dotSizeNum;
 	/** The latex parameter tbarsize num. */
-	protected double tBarSizeDim;
-
+	private double tBarSizeDim;
 	/** The latex parameter tbarsize num. */
-	protected double tBarSizeNum;
-
+	private double tBarSizeNum;
 	/** The latex parameter bracket num. */
-	protected double bracketNum;
-
+	private double bracketNum;
 	/** The latex parameter rbracket num. */
-	protected double rBracketNum;
-
+	private double rBracketNum;
 	/** The owner of the arrow. */
-	protected IArrowableShape owner;
+	private IArrowableShape owner;
 
 	private @Nullable Runnable onChanged;
 
@@ -68,11 +56,11 @@ class LArrow implements IArrow {
 	 * Creates an arrow.
 	 * @param owner The shape that contains the arrow.
 	 */
-	protected LArrow(final IArrowableShape owner) {
+	LArrow(final IArrowableShape owner) {
 		super();
 		this.owner = Objects.requireNonNull(owner);
 		style = ArrowStyle.NONE;
-		arrowInset = 0.;
+		arrowInset = 0.0;
 		arrowLength = PSTricksConstants.DEFAULT_ARROW_LENGTH;
 		arrowSizeDim = PSTricksConstants.DEFAULT_ARROW_SIZE_DIM * IShape.PPC;
 		arrowSizeNum = PSTricksConstants.DEFAULT_ARROW_SIZE_NUM;
@@ -90,7 +78,7 @@ class LArrow implements IArrow {
 	 * @param arrow The arrow to copy.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	protected LArrow(final IArrow arrow, final IArrowableShape owner) {
+	LArrow(final IArrow arrow, final IArrowableShape owner) {
 		this(owner);
 		copy(Objects.requireNonNull(arrow));
 	}
@@ -339,7 +327,7 @@ class LArrow implements IArrow {
 	}
 
 	private void notifyOnChanged() {
-		if(onChanged!=null) {
+		if(onChanged != null) {
 			onChanged.run();
 		}
 	}
