@@ -2,12 +2,27 @@ package test.glib.views.pst;
 
 import java.util.Optional;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IFreehand;
+import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IRhombus;
+import net.sf.latexdraw.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import net.sf.latexdraw.view.pst.PSTShapeView;
 import net.sf.latexdraw.view.pst.PSTViewsFactory;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class TestPSTViewFactory {
@@ -15,121 +30,103 @@ public class TestPSTViewFactory {
 	public void testCreateGroupViewPST() {
 		IGroup gp = ShapeFactory.INST.createGroup();
 		gp.addShape(ShapeFactory.INST.createText());
-		Object view = PSTViewsFactory.INSTANCE.createView(gp);
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("group")); //$NON-NLS-1$
+		Optional<PSTShapeView<IGroup>> view = PSTViewsFactory.INSTANCE.createView(gp);
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateTextViewPST() {
-		Optional<PSTShapeView<?>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createText());
-		assertNotNull(view);
+		Optional<PSTShapeView<IText>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createText());
 		assertTrue(view.isPresent());
-		assertTrue(view.getClass().getName().toLowerCase().contains("text")); //$NON-NLS-1$
 	}
 
 	@Test
 	public void testCreateArcCircleViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createCircleArc());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("arc")); //$NON-NLS-1$
+		Optional<PSTShapeView<ICircleArc>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createCircleArc());
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateRectangleViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createRectangle());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("rect")); //$NON-NLS-1$
+		Optional<PSTShapeView<IRectangle>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createRectangle());
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateSquareViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createSquare());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("square")); //$NON-NLS-1$
+		Optional<PSTShapeView<ISquare>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createSquare());
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateEllipseViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createEllipse());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("ellipse")); //$NON-NLS-1$
+		Optional<PSTShapeView<IEllipse>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createEllipse());
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateCircleViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createCircle());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("circle")); //$NON-NLS-1$
+		Optional<PSTShapeView<ICircle>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createCircle());
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateGridViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("grid")); //$NON-NLS-1$
+		Optional<PSTShapeView<IGrid>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateAxesViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("axes")); //$NON-NLS-1$
+		Optional<PSTShapeView<IAxes>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreatePolygonViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolygon());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("polygon")); //$NON-NLS-1$
+		Optional<PSTShapeView<IPolygon>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolygon());
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreatePolylineViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolyline());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("lines")); //$NON-NLS-1$
+		Optional<PSTShapeView<IPolyline>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolyline());
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateTriangleViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createTriangle());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("triangle")); //$NON-NLS-1$
+		Optional<PSTShapeView<ITriangle>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createTriangle());
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateRhombusViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createRhombus());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("rhombus")); //$NON-NLS-1$
+		Optional<PSTShapeView<IRhombus>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createRhombus());
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateFreehandViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createFreeHand());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("freehand")); //$NON-NLS-1$
+		Optional<PSTShapeView<IFreehand>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createFreeHand());
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreatePictureViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("picture")); //$NON-NLS-1$
+		Optional<PSTShapeView<IPicture>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateDotViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("dot")); //$NON-NLS-1$
+		Optional<PSTShapeView<IDot>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
+		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateBezierCurveViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createBezierCurve());
-		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("beziercurve")); //$NON-NLS-1$
+		Optional<PSTShapeView<IBezierCurve>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createBezierCurve());
+		assertTrue(view.isPresent());
 	}
 }
