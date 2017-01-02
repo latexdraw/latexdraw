@@ -26,7 +26,7 @@ public enum Position {
 
 		@Override
 		public IPoint getReferencePoint(final Rectangle2D bound) {
-			return ShapeFactory.createPoint(bound.getCenterX(), bound.getMinY());
+			return ShapeFactory.INST.createPoint(bound.getCenterX(), bound.getMinY());
 		}
 	},
 	SOUTH {
@@ -37,7 +37,7 @@ public enum Position {
 
 		@Override
 		public IPoint getReferencePoint(final Rectangle2D bound) {
-			return ShapeFactory.createPoint(bound.getCenterX(), bound.getMaxY());
+			return ShapeFactory.INST.createPoint(bound.getCenterX(), bound.getMaxY());
 		}
 	},
 	EAST {
@@ -48,7 +48,7 @@ public enum Position {
 
 		@Override
 		public IPoint getReferencePoint(final Rectangle2D bound) {
-			return ShapeFactory.createPoint(bound.getMaxX(), bound.getCenterY());
+			return ShapeFactory.INST.createPoint(bound.getMaxX(), bound.getCenterY());
 		}
 	},
 	WEST {
@@ -59,7 +59,7 @@ public enum Position {
 
 		@Override
 		public IPoint getReferencePoint(final Rectangle2D bound) {
-			return ShapeFactory.createPoint(bound.getMinX(), bound.getCenterY());
+			return ShapeFactory.INST.createPoint(bound.getMinX(), bound.getCenterY());
 		}
 	},
 	NE {
@@ -70,7 +70,7 @@ public enum Position {
 
 		@Override
 		public IPoint getReferencePoint(final Rectangle2D bound) {
-			return ShapeFactory.createPoint(bound.getMaxX(), bound.getMinY());
+			return ShapeFactory.INST.createPoint(bound.getMaxX(), bound.getMinY());
 		}
 	},
 	NW {
@@ -81,7 +81,7 @@ public enum Position {
 
 		@Override
 		public IPoint getReferencePoint(final Rectangle2D bound) {
-			return ShapeFactory.createPoint(bound.getMinX(), bound.getMinY());
+			return ShapeFactory.INST.createPoint(bound.getMinX(), bound.getMinY());
 		}
 	},
 	SE {
@@ -92,7 +92,7 @@ public enum Position {
 
 		@Override
 		public IPoint getReferencePoint(final Rectangle2D bound) {
-			return ShapeFactory.createPoint(bound.getMaxX(), bound.getMaxY());
+			return ShapeFactory.INST.createPoint(bound.getMaxX(), bound.getMaxY());
 		}
 	},
 	SW {
@@ -103,7 +103,7 @@ public enum Position {
 
 		@Override
 		public IPoint getReferencePoint(final Rectangle2D bound) {
-			return ShapeFactory.createPoint(bound.getMinX(), bound.getMaxY());
+			return ShapeFactory.INST.createPoint(bound.getMinX(), bound.getMaxY());
 		}
 	};
 

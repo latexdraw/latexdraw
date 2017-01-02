@@ -21,6 +21,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
@@ -28,7 +29,6 @@ import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * The JFX view of a axes.
@@ -95,7 +95,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 	 * @return True if a ticks or a label corresponding to the given parameter can be painted.
 	 */
 	private boolean isElementPaintable(final boolean noArrow1, final boolean noArrow2, final double min, final double max, final double i) {
-		return (noArrow2 || !LNumber.equalsDouble(max, i)) && (noArrow1 || !LNumber.equalsDouble(min, i));
+		return (noArrow2 || !MathUtils.INST.equalsDouble(max, i)) && (noArrow1 || !MathUtils.INST.equalsDouble(min, i));
 	}
 
 
@@ -266,8 +266,8 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		final double distX = model.getDistLabelsX();
 		final double distY = model.getDistLabelsY();
 		final AxesStyle axesStyle = model.getAxesStyle();
-		final double gapX = LNumber.equalsDouble(distX, 0d) ? IShape.PPC : distX / incrx * IShape.PPC;
-		final double gapY = LNumber.equalsDouble(distY, 0d) ? IShape.PPC : distY / incry * IShape.PPC;
+		final double gapX = MathUtils.INST.equalsDouble(distX, 0d) ? IShape.PPC : distX / incrx * IShape.PPC;
+		final double gapY = MathUtils.INST.equalsDouble(distY, 0d) ? IShape.PPC : distY / incry * IShape.PPC;
 
 		mainAxes.getElements().clear();
 		pathTicks.getElements().clear();

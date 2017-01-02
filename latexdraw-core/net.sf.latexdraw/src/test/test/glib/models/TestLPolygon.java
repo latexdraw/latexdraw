@@ -19,8 +19,8 @@ import test.glib.models.interfaces.TestIPolygon;
 public class TestLPolygon extends TestIPolygon<IPolygon> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createPolygon();
-		shape2 = ShapeFactory.createPolygon();
+		shape = ShapeFactory.INST.createPolygon();
+		shape2 = ShapeFactory.INST.createPolygon();
 	}
 
 	@Override
@@ -66,9 +66,9 @@ public class TestLPolygon extends TestIPolygon<IPolygon> {
 
 	@Test
 	public void testConstructor() {
-		IPoint pt1 = ShapeFactory.createPoint(1, 1);
-		IPoint pt2 = ShapeFactory.createPoint(2, 2);
-		IPolygon pol = ShapeFactory.createPolygon(pt1, pt2);
+		IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
+		IPoint pt2 = ShapeFactory.INST.createPoint(2, 2);
+		IPolygon pol = ShapeFactory.INST.createPolygon(pt1, pt2);
 		assertEquals(pt1, pol.getPtAt(0));
 		assertEquals(pt2, pol.getPtAt(-1));
 	}

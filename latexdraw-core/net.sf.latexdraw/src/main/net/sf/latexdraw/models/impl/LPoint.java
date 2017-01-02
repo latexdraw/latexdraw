@@ -15,10 +15,9 @@ import java.awt.geom.Point2D;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 import static java.lang.Math.PI;
@@ -59,13 +58,13 @@ class LPoint implements IPoint {
 
 	@Override
 	public double computeAngle(final IPoint pt) {
-		if(!GLibUtilities.isValidPoint(pt)) return java.lang.Double.NaN;
+		if(!MathUtils.INST.isValidPt(pt)) return java.lang.Double.NaN;
 
 		double angle;
 		final double x2 = pt.getX() - getX();
 		final double y2 = pt.getY() - getY();
 
-		if(LNumber.equalsDouble(x2, 0d)) {
+		if(MathUtils.INST.equalsDouble(x2, 0d)) {
 			angle = Math.PI / 2d;
 
 			if(y2 < 0d) {
@@ -80,12 +79,12 @@ class LPoint implements IPoint {
 
 	@Override
 	public IPoint zoom(final double zoomLevel) {
-		return ShapeFactory.createPoint(getX() * zoomLevel, getX() * zoomLevel);
+		return ShapeFactory.INST.createPoint(getX() * zoomLevel, getX() * zoomLevel);
 	}
 
 	@Override
 	public double computeRotationAngle(final IPoint pt1, final IPoint pt2) {
-		if(!GLibUtilities.isValidPoint(pt1) || !GLibUtilities.isValidPoint(pt2)) {
+		if(!MathUtils.INST.isValidPt(pt1) || !MathUtils.INST.isValidPt(pt2)) {
 			return Double.NaN;
 		}
 
@@ -102,11 +101,11 @@ class LPoint implements IPoint {
 
 	@Override
 	public IPoint rotatePoint(final IPoint gravityC, final double theta) {
-		if(!GLibUtilities.isValidPoint(gravityC) || !GLibUtilities.isValidCoordinate(theta)) {
+		if(!MathUtils.INST.isValidPt(gravityC) || !MathUtils.INST.isValidCoord(theta)) {
 			return null;
 		}
 
-		final IPoint pt = ShapeFactory.createPoint();
+		final IPoint pt = ShapeFactory.INST.createPoint();
 		final double cosTheta;
 		final double sinTheta;
 		double angle = theta;
@@ -119,17 +118,17 @@ class LPoint implements IPoint {
 
 		angle %= 2. * PI;
 
-		if(LNumber.equalsDouble(angle, 0.)) {
+		if(MathUtils.INST.equalsDouble(angle, 0.)) {
 			return new LPoint(this);
 		}
 
-		if(LNumber.equalsDouble(angle - PI / 2., 0.)) {
+		if(MathUtils.INST.equalsDouble(angle - PI / 2., 0.)) {
 			cosTheta = 0.;
 			sinTheta = 1.;
-		}else if(LNumber.equalsDouble(angle - PI, 0.)) {
+		}else if(MathUtils.INST.equalsDouble(angle - PI, 0.)) {
 			cosTheta = -1.;
 			sinTheta = 0.;
-		}else if(LNumber.equalsDouble(angle - 3. * PI / 2., 0.)) {
+		}else if(MathUtils.INST.equalsDouble(angle - 3. * PI / 2., 0.)) {
 			cosTheta = 0.;
 			sinTheta = -1.;
 		}else {
@@ -145,32 +144,32 @@ class LPoint implements IPoint {
 
 	@Override
 	public boolean equals(final IPoint p, final double gap) {
-		return !(!GLibUtilities.isValidCoordinate(gap) || !GLibUtilities.isValidPoint(p)) && LNumber.equalsDouble(getX(), p.getX(), gap) &&
-			LNumber.equalsDouble(getY(), p.getY(), gap);
+		return !(!MathUtils.INST.isValidCoord(gap) || !MathUtils.INST.isValidPt(p)) && MathUtils.INST.equalsDouble(getX(), p.getX(), gap) &&
+			MathUtils.INST.equalsDouble(getY(), p.getY(), gap);
 	}
 
 	@Override
 	public IPoint getMiddlePoint(final IPoint p) {
-		return p == null ? null : ShapeFactory.createPoint((getX() + p.getX()) / 2., (getY() + p.getY()) / 2d);
+		return p == null ? null : ShapeFactory.INST.createPoint((getX() + p.getX()) / 2., (getY() + p.getY()) / 2d);
 	}
 
 	@Override
 	public void translate(final double tx, final double ty) {
-		if(GLibUtilities.isValidPoint(tx, ty)) setPoint(getX() + tx, getY() + ty);
+		if(MathUtils.INST.isValidPt(tx, ty)) setPoint(getX() + tx, getY() + ty);
 	}
 
 	@Override
 	public IPoint horizontalSymmetry(final IPoint origin) {
-		if(!GLibUtilities.isValidPoint(origin)) return null;
+		if(!MathUtils.INST.isValidPt(origin)) return null;
 
-		return ShapeFactory.createPoint(2d * origin.getX() - getX(), getY());
+		return ShapeFactory.INST.createPoint(2d * origin.getX() - getX(), getY());
 	}
 
 	@Override
 	public IPoint verticalSymmetry(final IPoint origin) {
-		if(!GLibUtilities.isValidPoint(origin)) return null;
+		if(!MathUtils.INST.isValidPt(origin)) return null;
 
-		return ShapeFactory.createPoint(getX(), 2d * origin.getY() - getY());
+		return ShapeFactory.INST.createPoint(getX(), 2d * origin.getY() - getY());
 	}
 
 	@Override
@@ -181,12 +180,12 @@ class LPoint implements IPoint {
 
 	@Override
 	public void setX(final double newX) {
-		if(GLibUtilities.isValidCoordinate(newX)) x.set(newX);
+		if(MathUtils.INST.isValidCoord(newX)) x.set(newX);
 	}
 
 	@Override
 	public void setY(final double newY) {
-		if(GLibUtilities.isValidCoordinate(newY)) y.set(newY);
+		if(MathUtils.INST.isValidCoord(newY)) y.set(newY);
 	}
 
 	@Override
@@ -217,13 +216,13 @@ class LPoint implements IPoint {
 	@Override
 	public IPoint substract(final IPoint pt) {
 		if(pt == null) return null;
-		return ShapeFactory.createPoint(getX() - pt.getX(), getY() - pt.getY());
+		return ShapeFactory.INST.createPoint(getX() - pt.getX(), getY() - pt.getY());
 	}
 
 	@Override
 	public IPoint normalise() {
 		final double magnitude = magnitude();
-		return ShapeFactory.createPoint(getX() / magnitude, getY() / magnitude);
+		return ShapeFactory.INST.createPoint(getX() / magnitude, getY() / magnitude);
 	}
 
 	@Override
@@ -233,7 +232,7 @@ class LPoint implements IPoint {
 
 	@Override
 	public IPoint add(final IPoint pt) {
-		final IPoint added = ShapeFactory.createPoint(this);
+		final IPoint added = ShapeFactory.INST.createPoint(this);
 		if(pt != null) added.translate(pt.getX(), pt.getY());
 		return added;
 	}

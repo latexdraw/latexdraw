@@ -1,11 +1,9 @@
 package net.sf.latexdraw.parsers.svg;
 
-import net.sf.latexdraw.models.interfaces.shape.Color;
 import java.text.ParseException;
-
+import net.sf.latexdraw.models.MathUtils;
+import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
-import net.sf.latexdraw.util.LNumber;
-
 import org.w3c.dom.Node;
 
 /**
@@ -57,7 +55,7 @@ public class SVGPatternElement extends SVGElement {
 
 	@Override
 	public boolean enableRendering() {
-        return !(LNumber.equalsDouble(getWidth(), 0.) || LNumber.equalsDouble(getHeight(), 0.));
+        return !(MathUtils.INST.equalsDouble(getWidth(), 0.) || MathUtils.INST.equalsDouble(getHeight(), 0.));
     }
 
 
@@ -241,7 +239,7 @@ public class SVGPatternElement extends SVGElement {
 			l2x = Double.valueOf(coord2[1]).floatValue();
 			l2y = Double.valueOf(coord2[2]).floatValue();
 
-			if(LNumber.equalsDouble(l1x, l2x))
+			if(MathUtils.INST.equalsDouble(l1x, l2x))
 				return Math.abs(l1y-l2y)-getHatchingStrokeWidth();
 
 			return Math.abs(l1x-l2x)-getHatchingStrokeWidth();

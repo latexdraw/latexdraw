@@ -127,7 +127,7 @@ class LPicture extends LPositionShape implements IPicture {
 	@Override
 	public IPoint getTopRightPoint() {
 		final IPoint pos = getPtAt(0);
-		return ShapeFactory.createPoint(pos.getX() + getWidth(), pos.getY());
+		return ShapeFactory.INST.createPoint(pos.getX() + getWidth(), pos.getY());
 	}
 
 
@@ -146,14 +146,14 @@ class LPicture extends LPositionShape implements IPicture {
 	@Override
 	public IPoint getBottomRightPoint() {
 		final IPoint pos = getPtAt(0);
-		return ShapeFactory.createPoint(pos.getX() + getWidth(), pos.getY() + getHeight());
+		return ShapeFactory.INST.createPoint(pos.getX() + getWidth(), pos.getY() + getHeight());
 	}
 
 
 	@Override
 	public IPoint getBottomLeftPoint() {
 		final IPoint pos = getPtAt(0);
-		return ShapeFactory.createPoint(pos.getX(), pos.getY() + getHeight());
+		return ShapeFactory.INST.createPoint(pos.getX(), pos.getY() + getHeight());
 	}
 
 

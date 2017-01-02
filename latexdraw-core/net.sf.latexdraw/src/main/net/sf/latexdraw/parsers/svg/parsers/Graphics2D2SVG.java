@@ -109,7 +109,7 @@ public class Graphics2D2SVG extends Graphics2D {
 		if(draw)
 			setShapeStroke(elt);
 		if(fill)
-			elt.setFill(ShapeFactory.createColorInt(currentColour.getRed(), currentColour.getGreen(), currentColour.getBlue()));
+			elt.setFill(ShapeFactory.INST.createColorInt(currentColour.getRed(), currentColour.getGreen(), currentColour.getBlue()));
 			// TODO gradient, etc.
 		if(currentTransforms!=null && !currentTransforms.isEmpty())
 			elt.setAttribute(SVGAttributes.SVG_TRANSFORM, currentTransforms.toString());
@@ -131,7 +131,7 @@ public class Graphics2D2SVG extends Graphics2D {
 			elt.setStrokeMiterLevel(bs.getMiterLimit());
 			elt.setStrokeDashOffset(bs.getDashPhase());
 			setShapeDash(elt, bs.getDashArray());
-			elt.setStroke(ShapeFactory.createColorInt(currentColour.getRed(), currentColour.getGreen(), currentColour.getBlue()));
+			elt.setStroke(ShapeFactory.INST.createColorInt(currentColour.getRed(), currentColour.getGreen(), currentColour.getBlue()));
 		}
 	}
 

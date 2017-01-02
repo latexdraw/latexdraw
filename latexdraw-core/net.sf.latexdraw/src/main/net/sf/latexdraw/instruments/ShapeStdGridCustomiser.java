@@ -122,14 +122,14 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 			action.setProperty(prop);
 			action.setPencil(instrument.pencil);
 			if(prop == ShapeProperties.GRID_END) {
-				action.setValue(ShapeFactory.createPoint(xEndS.getValue(), yEndS.getValue()));
+				action.setValue(ShapeFactory.INST.createPoint(xEndS.getValue(), yEndS.getValue()));
 			}
 			else {
 				if(prop == ShapeProperties.GRID_START) {
-					action.setValue(ShapeFactory.createPoint(xStartS.getValue(), yStartS.getValue()));
+					action.setValue(ShapeFactory.INST.createPoint(xStartS.getValue(), yStartS.getValue()));
 				}
 				else {
-					action.setValue(ShapeFactory.createPoint(xOriginS.getValue(), yOriginS.getValue()));
+					action.setValue(ShapeFactory.INST.createPoint(xOriginS.getValue(), yOriginS.getValue()));
 				}
 			}
 		}
@@ -153,14 +153,14 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 			action.setProperty(prop);
 			action.setGroup(instrument.drawing.getSelection().duplicateDeep(false));
 			if(prop == ShapeProperties.GRID_END) {
-				action.setValue(ShapeFactory.createPoint(xEndS.getValue(), yEndS.getValue()));
+				action.setValue(ShapeFactory.INST.createPoint(xEndS.getValue(), yEndS.getValue()));
 			}
 			else {
 				if(prop == ShapeProperties.GRID_START) {
-					action.setValue(ShapeFactory.createPoint(xStartS.getValue(), yStartS.getValue()));
+					action.setValue(ShapeFactory.INST.createPoint(xStartS.getValue(), yStartS.getValue()));
 				}
 				else {
-					action.setValue(ShapeFactory.createPoint(xOriginS.getValue(), yOriginS.getValue()));
+					action.setValue(ShapeFactory.INST.createPoint(xOriginS.getValue(), yOriginS.getValue()));
 				}
 			}
 		}

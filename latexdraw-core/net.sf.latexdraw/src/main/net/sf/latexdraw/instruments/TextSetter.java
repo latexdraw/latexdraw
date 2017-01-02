@@ -202,7 +202,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void initAction() {
-			action.setGroup(ShapeFactory.createGroup(instrument.text));
+			action.setGroup(ShapeFactory.INST.createGroup(instrument.text));
 			action.setProperty(ShapeProperties.TEXT);
 			action.setValue(instrument.textField.getText());
 		}
@@ -221,7 +221,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void initAction() {
-			action.setGroup(ShapeFactory.createGroup(instrument.plot));
+			action.setGroup(ShapeFactory.INST.createGroup(instrument.plot));
 			action.setProperty(ShapeProperties.PLOT_EQ);
 			action.setValue(instrument.textField.getText());
 		}
@@ -240,7 +240,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void initAction() {
-			final IPoint textPosition = ShapeFactory.createPoint(instrument.position.getX(), instrument.position.getY() + instrument.textField.getHeight());
+			final IPoint textPosition = ShapeFactory.INST.createPoint(instrument.position.getX(), instrument.position.getY() + instrument.textField.getHeight());
 			final IShape sh = instrument.pencil == null ? null : instrument.pencil.createShapeInstance();
 
 			if(sh instanceof IText) {
@@ -267,7 +267,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 		@Override
 		public void initAction() {
 			instrument.textField.setValid(true);
-			final IPoint textPosition = ShapeFactory.createPoint(instrument.position.getX(), instrument.position.getY() + instrument.textField.getHeight());
+			final IPoint textPosition = ShapeFactory.INST.createPoint(instrument.position.getX(), instrument.position.getY() + instrument.textField.getHeight());
 			final IShape sh = instrument.pencil == null ? null : instrument.pencil.createShapeInstance();
 
 			if(sh instanceof IPlot) {

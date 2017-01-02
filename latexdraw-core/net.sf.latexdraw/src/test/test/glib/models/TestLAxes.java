@@ -19,8 +19,8 @@ import test.glib.models.interfaces.TestIAxes;
 public class TestLAxes extends TestIAxes<IAxes> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createAxes(ShapeFactory.createPoint());
-		shape2 = ShapeFactory.createAxes(ShapeFactory.createPoint());
+		shape = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
+		shape2 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class TestLAxes extends TestIAxes<IAxes> {
 
 	@Test
 	public void testConstructor3OK() {
-		IAxes axes = ShapeFactory.createAxes(ShapeFactory.createPoint(10, -20));
+		IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(10, -20));
 
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(10., axes.getPtAt(0).getX());
@@ -46,7 +46,7 @@ public class TestLAxes extends TestIAxes<IAxes> {
 	
 	@Test
 	public void testConstructor3NotOKNAN0() {
-		IAxes axes = ShapeFactory.createAxes(ShapeFactory.createPoint(Double.NaN, 0));
+		IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(Double.NaN, 0));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
@@ -54,7 +54,7 @@ public class TestLAxes extends TestIAxes<IAxes> {
 	
 	@Test
 	public void testConstructor3NotOK0NAN() {
-	IAxes axes = ShapeFactory.createAxes(ShapeFactory.createPoint(0, Double.NaN));
+	IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(0, Double.NaN));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
@@ -62,7 +62,7 @@ public class TestLAxes extends TestIAxes<IAxes> {
 	
 	@Test
 	public void testConstructor3NotOKINF0() {
-		IAxes axes = ShapeFactory.createAxes(ShapeFactory.createPoint(Double.POSITIVE_INFINITY, 0));
+		IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(Double.POSITIVE_INFINITY, 0));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());

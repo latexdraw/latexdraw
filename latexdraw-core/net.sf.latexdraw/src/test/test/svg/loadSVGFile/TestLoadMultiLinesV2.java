@@ -30,7 +30,7 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 	public void testFilling() {
 		final IPolyline line = getLine();
 		assertTrue(line.isFilled());
-		assertEquals(ShapeFactory.createColorInt(183, 44, 44), line.getFillingCol());
+		assertEquals(ShapeFactory.INST.createColorInt(183, 44, 44), line.getFillingCol());
 		assertEquals(FillingStyle.PLAIN, line.getFillingStyle());
 	}
 
@@ -56,7 +56,7 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 	public void testLine() {
 		final IPolyline line = getLine();
 		assertEquals(10.0, line.getThickness(), 0.01);
-		assertEquals(ShapeFactory.createColorInt(22, 131, 175), line.getLineColour());
+		assertEquals(ShapeFactory.INST.createColorInt(22, 131, 175), line.getLineColour());
 		assertEquals(LineStyle.DASHED, line.getLineStyle());
 	}
 
@@ -64,7 +64,7 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 	public void testShadow() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasShadow());
-		assertEquals(ShapeFactory.createColorInt(101, 224, 41), line.getShadowCol());
+		assertEquals(ShapeFactory.INST.createColorInt(101, 224, 41), line.getShadowCol());
 		assertEquals(80.0, Math.toDegrees(line.getShadowAngle()), 0.00001);
 		assertEquals(20.0, line.getShadowSize(), 0.0001);
 	}
@@ -85,7 +85,7 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 	public void testDbleBorder() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasDbleBord());
-		assertEquals(ShapeFactory.createColorInt(213, 240, 66), line.getDbleBordCol());
+		assertEquals(ShapeFactory.INST.createColorInt(213, 240, 66), line.getDbleBordCol());
 		assertEquals(4, line.getDbleBordSep(), 0.001);
 	}
 }

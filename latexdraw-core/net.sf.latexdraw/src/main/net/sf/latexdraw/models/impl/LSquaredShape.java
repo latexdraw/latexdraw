@@ -11,7 +11,7 @@
 package net.sf.latexdraw.models.impl;
 
 import java.awt.geom.Rectangle2D;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
@@ -25,11 +25,11 @@ abstract class LSquaredShape extends LPositionShape implements ISquaredShape {
 	LSquaredShape(final IPoint tl, final double width) {
 		super(tl);
 
-		if(!(GLibUtilities.isValidPoint(tl) && width > 0 && GLibUtilities.isValidCoordinate(width))) throw new IllegalArgumentException();
+		if(!(MathUtils.INST.isValidPt(tl) && width > 0 && MathUtils.INST.isValidCoord(width))) throw new IllegalArgumentException();
 
-		points.add(ShapeFactory.createPoint(tl));
-		points.add(ShapeFactory.createPoint(tl));
-		points.add(ShapeFactory.createPoint(tl));
+		points.add(ShapeFactory.INST.createPoint(tl));
+		points.add(ShapeFactory.INST.createPoint(tl));
+		points.add(ShapeFactory.INST.createPoint(tl));
 		setWidth(width);
 	}
 
@@ -42,7 +42,7 @@ abstract class LSquaredShape extends LPositionShape implements ISquaredShape {
 
 	@Override
 	public void setWidth(final double width) {
-		if(GLibUtilities.isValidCoordinate(width) && width > 0) {
+		if(MathUtils.INST.isValidCoord(width) && width > 0) {
 			final IPoint pt = points.get(points.size() - 1);
 			final double xPos = pt.getX() + width;
 			final double yPos = pt.getY() - width;

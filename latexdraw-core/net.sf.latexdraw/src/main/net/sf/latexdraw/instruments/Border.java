@@ -334,7 +334,7 @@ public class Border extends CanvasInstrument {
 // /** The current handled shape. */
 // var shape : IShape = _
 //
-// var gap : IPoint = ShapeFactory.createPoint
+// var gap : IPoint = ShapeFactory.INST.createPoint
 //
 //
 // def initAction() {
@@ -373,7 +373,7 @@ public class Border extends CanvasInstrument {
 // if(isRotated)
 // pt = pt.rotatePoint(gc, -shape.getRotationAngle)
 //
-// action.setValue(computeAngle(ShapeFactory.createPoint(pt.getX-gap.getX,
+// action.setValue(computeAngle(ShapeFactory.INST.createPoint(pt.getX-gap.getX,
 // pt.getY-gap.getY)))
 // }
 //
@@ -444,7 +444,7 @@ public class Border extends CanvasInstrument {
 //
 // if(group.size==1 && group.getShapeAt(0).isInstanceOf[IControlPointShape]) {
 // val handler = ctrlPtHandler.get
-// sourcePt = ShapeFactory.createPoint(handler.getCentre)
+// sourcePt = ShapeFactory.INST.createPoint(handler.getCentre)
 // action.setIndexPt(handler.getIndexPt)
 // action.setShape(group.getShapeAt(0).asInstanceOf[IControlPointShape])
 // action.setIsFirstCtrlPt(instrument.ctrlPt1Handlers.contains(interaction.getStartObject))
@@ -458,7 +458,7 @@ public class Border extends CanvasInstrument {
 // val endPt = interaction.getEndPt
 // val x = sourcePt.getX + endPt.getX-startPt.getX
 // val y = sourcePt.getY + endPt.getY-startPt.getY
-// action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.createPoint(x,
+// action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.INST.createPoint(x,
 // y)))
 // }
 //
@@ -501,7 +501,7 @@ public class Border extends CanvasInstrument {
 // if(group.size==1 && group.getShapeAt(0).isInstanceOf[IModifiablePointsShape])
 // {
 // val handler = movePtHandler.get
-// sourcePt = ShapeFactory.createPoint(handler.getCentre)
+// sourcePt = ShapeFactory.INST.createPoint(handler.getCentre)
 // action.setIndexPt(handler.getIndexPt)
 // action.setShape(group.getShapeAt(0).asInstanceOf[IModifiablePointsShape])
 // }
@@ -514,7 +514,7 @@ public class Border extends CanvasInstrument {
 // val endPt = interaction.getEndPt
 // val x = sourcePt.getX + endPt.getX-startPt.getX
 // val y = sourcePt.getY + endPt.getY-startPt.getY
-// action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.createPoint(x,
+// action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.INST.createPoint(x,
 // y)))
 // }
 //

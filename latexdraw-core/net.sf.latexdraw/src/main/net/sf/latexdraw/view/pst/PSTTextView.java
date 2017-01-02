@@ -10,11 +10,10 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -34,7 +33,7 @@ public class PSTTextView extends PSTShapeView<IText> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.isValidPoint(origin) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) return "";
 
 		final StringBuilder rot = getRotationHeaderCode(ppc, origin);
 		final StringBuilder code = new StringBuilder();
@@ -55,8 +54,8 @@ public class PSTTextView extends PSTShapeView<IText> {
 		if(tokenPosition == null || tokenPosition.isEmpty()) code.append("\\rput("); //$NON-NLS-1$
 		else code.append("\\rput[").append(shape.getTextPosition().getLatexToken()).append(']').append('('); //$NON-NLS-1$
 
-		code.append(LNumber.getCutNumberFloat((shape.getX() - origin.getX()) / ppc)).append(',');
-		code.append(LNumber.getCutNumberFloat((origin.getY() - shape.getY()) / ppc)).append(')').append('{');
+		code.append(MathUtils.INST.getCutNumberFloat((shape.getX() - origin.getX()) / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat((origin.getY() - shape.getY()) / ppc)).append(')').append('{');
 
 		if(colorName != null) code.append("\\textcolor{").append(colorName).append('}').append('{'); //$NON-NLS-1$
 

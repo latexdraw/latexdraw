@@ -40,7 +40,7 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 	public void testLine() {
 		final IPolyline line = getLine();
 		assertEquals(5, line.getThickness(), 0.01);
-		assertEquals(ShapeFactory.createColorInt(209, 169, 169), line.getLineColour());
+		assertEquals(ShapeFactory.INST.createColorInt(209, 169, 169), line.getLineColour());
 		assertEquals(LineStyle.DASHED, line.getLineStyle());
 	}
 
@@ -70,7 +70,7 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 	public void testDbleBorder() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasDbleBord());
-		assertEquals(ShapeFactory.createColorInt(224, 197, 227), line.getDbleBordCol());
+		assertEquals(ShapeFactory.INST.createColorInt(224, 197, 227), line.getDbleBordCol());
 		assertEquals(6, line.getDbleBordSep(), 0.001);
 	}
 }

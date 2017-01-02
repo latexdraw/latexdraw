@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -27,7 +26,7 @@ public class PSTSquareView extends PSTClassicalView<ISquare> {
 
 	@Override
 	public String getCode(IPoint position, float ppc) {
-		if(!GLibUtilities.isValidPoint(position) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
 
 		final StringBuilder params = getPropertiesCode(ppc);
 		final IPoint tl = shape.getTopLeftPoint();
@@ -38,7 +37,7 @@ public class PSTSquareView extends PSTClassicalView<ISquare> {
 		final double y2 = position.getY() - br.getY();
 		final StringBuilder code = new StringBuilder();
 
-		if(shape.isRoundCorner()) params.append(", framearc=").append(LNumber.getCutNumberFloat(shape.getLineArc())); //$NON-NLS-1$
+		if(shape.isRoundCorner()) params.append(", framearc=").append(MathUtils.INST.getCutNumberFloat(shape.getLineArc())); //$NON-NLS-1$
 
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
 
@@ -47,10 +46,10 @@ public class PSTSquareView extends PSTClassicalView<ISquare> {
 		code.append("\\psframe[");    //$NON-NLS-1$
 		code.append(params);
 		code.append(']').append('(');
-		code.append(LNumber.getCutNumberFloat(x2 / ppc)).append(',');
-		code.append(LNumber.getCutNumberFloat(y1 / ppc)).append(')').append('(');
-		code.append(LNumber.getCutNumberFloat(x1 / ppc)).append(',');
-		code.append(LNumber.getCutNumberFloat(y2 / ppc)).append(')');
+		code.append(MathUtils.INST.getCutNumberFloat(x2 / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat(y1 / ppc)).append(')').append('(');
+		code.append(MathUtils.INST.getCutNumberFloat(x1 / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat(y2 / ppc)).append(')');
 
 		if(rotation != null) code.append('}');
 

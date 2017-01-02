@@ -10,11 +10,10 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 public class PSTPlotView extends PSTClassicalView<IPlot> {
@@ -24,7 +23,7 @@ public class PSTPlotView extends PSTClassicalView<IPlot> {
 
 	@Override
 	public String getCode(final IPoint position, final float ppc) {
-		if(!GLibUtilities.isValidPoint(position) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
 
 		final StringBuilder params = getPropertiesCode(ppc);
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
@@ -33,15 +32,15 @@ public class PSTPlotView extends PSTClassicalView<IPlot> {
 		if(rotation != null) code.append(rotation);
 
 		code.append("\\rput(");//$NON-NLS-1$
-		code.append(LNumber.getCutNumberFloat((shape.getX() - position.getX()) / ppc)).append(',');
-		code.append(LNumber.getCutNumberFloat((position.getY() - shape.getY()) / ppc)).append(')').append('{');
+		code.append(MathUtils.INST.getCutNumberFloat((shape.getX() - position.getX()) / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat((position.getY() - shape.getY()) / ppc)).append(')').append('{');
 		code.append("\\psplot[");    //$NON-NLS-1$
 		code.append(params).append(", plotstyle=").append(shape.getPlotStyle().getPSTToken()).append(", plotpoints=").
 			append(shape.getNbPlottedPoints()).append(", xunit=").append(shape.getXScale()).append(", yunit=").
 			append(shape.getYScale()).append(", polarplot=").append(shape.isPolar());
 		if(shape.getPlotStyle() == PlotStyle.DOTS) {
 			code.append(", dotstyle=").append(shape.getDotStyle().getPSTToken()).
-				append(", dotsize=").append(LNumber.getCutNumberFloat(shape.getDiametre() / ppc));
+				append(", dotsize=").append(MathUtils.INST.getCutNumberFloat(shape.getDiametre() / ppc));
 			if(shape.getDotStyle().isFillable()) code.append(", fillcolor=").append(getColourName(shape.getFillingCol()));
 		}
 		code.append("]{").append(shape.getPlotMinX()).append("}{").append(shape.getPlotMaxX()).append("}{").

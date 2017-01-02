@@ -2,10 +2,8 @@ package net.sf.latexdraw.parsers.svg;
 
 import java.text.ParseException;
 import java.util.List;
-
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
-import net.sf.latexdraw.util.LNumber;
-
 import org.w3c.dom.Node;
 
 /**
@@ -158,7 +156,7 @@ public class SVGSVGElement extends SVGElement {
 
 	@Override
 	public boolean enableRendering() {
-		return !LNumber.equalsDouble(getWidth(), 0.) && !LNumber.equalsDouble(getHeight(), 0.);
+		return !MathUtils.INST.equalsDouble(getWidth(), 0.) && !MathUtils.INST.equalsDouble(getHeight(), 0.);
 	}
 
 

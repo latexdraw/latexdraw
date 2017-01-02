@@ -10,17 +10,15 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.util.Optional;
 import net.sf.latexdraw.actions.DrawingAction;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
-
-import java.util.Optional;
 
 /**
  * This action translates shapes.
@@ -60,13 +58,13 @@ public class TranslateShapes extends ShapeActionImpl<IGroup> implements DrawingA
 
 	@Override
 	public boolean hadEffect() {
-		return !LNumber.equalsDouble(performedTx, 0.0) || !LNumber.equalsDouble(performedTy, 0.0);
+		return !MathUtils.INST.equalsDouble(performedTx, 0.0) || !MathUtils.INST.equalsDouble(performedTy, 0.0);
 	}
 
 	@Override
 	protected void doActionBody() {
 		shape.ifPresent(sh -> drawing.ifPresent(dr -> {
-			if(!LNumber.equalsDouble(tx - performedTx, 0.0) || !LNumber.equalsDouble(ty - performedTy, 0.0)) {
+			if(!MathUtils.INST.equalsDouble(tx - performedTx, 0.0) || !MathUtils.INST.equalsDouble(ty - performedTy, 0.0)) {
 				sh.translate(tx - performedTx, ty - performedTy);
 				sh.setModified(true);
 				dr.setModified(true);
@@ -78,7 +76,7 @@ public class TranslateShapes extends ShapeActionImpl<IGroup> implements DrawingA
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && drawing.isPresent() && !shape.get().isEmpty() && GLibUtilities.isValidPoint(tx, ty);
+		return super.canDo() && drawing.isPresent() && !shape.get().isEmpty() && MathUtils.INST.isValidPt(tx, ty);
 	}
 
 	@Override

@@ -1,8 +1,8 @@
 package net.sf.latexdraw.view.svg;
 
 import java.util.Objects;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -23,7 +23,6 @@ import net.sf.latexdraw.parsers.svg.path.SVGPathSegLinetoVertical;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines an SVG generator for arrows.<br>
@@ -105,15 +104,15 @@ class LArrowSVGGenerator {
 			}
 
 		if(circle.getStroke()==null) {
-			arrow.setArrowStyle(LNumber.equalsDouble(elt.getRefX(), 0.) ? ArrowStyle.DISK_END : ArrowStyle.DISK_IN);
+			arrow.setArrowStyle(MathUtils.INST.equalsDouble(elt.getRefX(), 0.) ? ArrowStyle.DISK_END : ArrowStyle.DISK_IN);
 			dotSizeDim = radius*lineWidth*2.-dotSizeNum*lineWidth;
 		}
 		else {
-			arrow.setArrowStyle(LNumber.equalsDouble(elt.getRefX(), 0.) ? ArrowStyle.CIRCLE_END : ArrowStyle.CIRCLE_IN);
+			arrow.setArrowStyle(MathUtils.INST.equalsDouble(elt.getRefX(), 0.) ? ArrowStyle.CIRCLE_END : ArrowStyle.CIRCLE_IN);
 			dotSizeDim = (radius*lineWidth+lineWidth/2.)*2.-dotSizeNum*lineWidth;
 		}
 
-		if(LNumber.equalsDouble(dotSizeDim,0.0))
+		if(MathUtils.INST.equalsDouble(dotSizeDim,0.0))
 			arrow.setArrowStyle(ArrowStyle.ROUND_IN);
 		else {
 			arrow.setDotSizeDim(dotSizeDim);
@@ -142,13 +141,13 @@ class LArrowSVGGenerator {
 		arrow.setTBarSizeNum(tbarNum);
 		arrow.setTBarSizeDim(y*lineWidth*2. - tbarNum*lineWidth);
 
-		if(seg instanceof SVGPathSegLineto && LNumber.equalsDouble(((SVGPathSegLineto)seg).getX(), m.getX()) || seg instanceof SVGPathSegLinetoVertical)
-			arrow.setArrowStyle(LNumber.equalsDouble(m.getX(),0.) ? ArrowStyle.BAR_IN : ArrowStyle.BAR_END);
+		if(seg instanceof SVGPathSegLineto && MathUtils.INST.equalsDouble(((SVGPathSegLineto)seg).getX(), m.getX()) || seg instanceof SVGPathSegLinetoVertical)
+			arrow.setArrowStyle(MathUtils.INST.equalsDouble(m.getX(),0.) ? ArrowStyle.BAR_IN : ArrowStyle.BAR_END);
 		else if(seg instanceof SVGPathSegCurvetoCubic) {
 			final double width  = (arrow.getTBarSizeDim() + arrow.getTBarSizeNum()*lineWidth)/lineWidth;
 			final double rBrack = (Math.abs(m.getX())-0.5)/width;
 
-			arrow.setArrowStyle(LNumber.equalsDouble(Math.abs(m.getX()), 0.5) ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
+			arrow.setArrowStyle(MathUtils.INST.equalsDouble(Math.abs(m.getX()), 0.5) ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
 			if(!isStartArrow)
 				arrow.setArrowStyle(arrow.getArrowStyle().getOppositeArrowStyle());
 			arrow.setRBracketNum(rBrack);
@@ -175,7 +174,7 @@ class LArrowSVGGenerator {
 			double arrNum;
         final double arrDim;
         final double lgth = Math.abs(((SVGPathSegLineto)seg).getX() - m.getX());
-			final boolean moveIs0 = LNumber.equalsDouble(m.getX(),0.) && LNumber.equalsDouble(m.getY(),0.);
+			final boolean moveIs0 = MathUtils.INST.equalsDouble(m.getX(),0.) && MathUtils.INST.equalsDouble(m.getY(),0.);
 			final boolean isStartArrow = SVGAttributes.SVG_MARKER_START.equals(svgMarker);
 
 			if(arrNumStr==null)
@@ -448,7 +447,7 @@ class LArrowSVGGenerator {
 		if(arrowStyle==ArrowStyle.ROUND_IN)
 			toSVGRoundIn(doc, isShadow, marker);
 
-		if(!LNumber.equalsDouble(gapPostion,0.))
+		if(!MathUtils.INST.equalsDouble(gapPostion,0.))
 			marker.setAttribute(SVGAttributes.SVG_REF_X, String.valueOf(gapPostion/lineWidth));
 
 		marker.setAttribute(SVGAttributes.SVG_OVERFLOW, SVGAttributes.SVG_VALUE_VISIBLE);

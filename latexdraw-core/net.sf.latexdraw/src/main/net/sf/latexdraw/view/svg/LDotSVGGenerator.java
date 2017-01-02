@@ -52,7 +52,7 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 	 * @since 2.0.0
 	 */
 	protected LDotSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createDot(ShapeFactory.createPoint()));
+		this(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
 
 		if(elt==null)
 			throw new IllegalArgumentException();

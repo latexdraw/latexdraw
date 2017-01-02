@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -32,7 +31,7 @@ public class PSTCircleView extends PSTClassicalView<ICircle> {
 
 	@Override
 	public String getCode(final IPoint position, final float ppc) {
-		if(!GLibUtilities.isValidPoint(position) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
 
 		final double radius = shape.getWidth() / 2.0;
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
@@ -45,9 +44,9 @@ public class PSTCircleView extends PSTClassicalView<ICircle> {
 		cache.append("\\pscircle["); //$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc));
 		cache.append(']').append('(');
-		cache.append(LNumber.getCutNumberFloat(x / ppc)).append(',');
-		cache.append(LNumber.getCutNumberFloat(y / ppc)).append(')').append('{');
-		cache.append(LNumber.getCutNumberFloat(radius / ppc)).append('}');
+		cache.append(MathUtils.INST.getCutNumberFloat(x / ppc)).append(',');
+		cache.append(MathUtils.INST.getCutNumberFloat(y / ppc)).append(')').append('{');
+		cache.append(MathUtils.INST.getCutNumberFloat(radius / ppc)).append('}');
 
 		if(rotation != null) cache.append('}');
 

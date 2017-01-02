@@ -57,7 +57,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertTrue(group.getShapeAt(4) instanceof IPolyline);
 		IPolyline pol = (IPolyline)group.getShapeAt(4);
 
-		assertEquals(ShapeFactory.createColorInt(177, 177, 177), pol.getLineColour());
+		assertEquals(ShapeFactory.INST.createColorInt(177, 177, 177), pol.getLineColour());
 		assertEquals(2, pol.getNbPoints());
 		assertFalse(pol.hasDbleBord());
 		assertEquals(4., pol.getThickness(), 0.0001);
@@ -105,7 +105,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertEquals(LineStyle.SOLID, pol.getLineStyle());
 		assertFalse(pol.hasShadow());
 		assertEquals(FillingStyle.PLAIN, pol.getFillingStyle());
-		assertEquals(ShapeFactory.createColorInt(210, 230, 254), pol.getFillingCol());
+		assertEquals(ShapeFactory.INST.createColorInt(210, 230, 254), pol.getFillingCol());
 	}
 
 	@Test

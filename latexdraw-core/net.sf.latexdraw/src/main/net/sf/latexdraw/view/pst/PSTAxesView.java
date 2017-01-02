@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -33,7 +32,7 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 
 	@Override
 	public String getCode(final IPoint origDrawing, final float ppc) {
-		if(!GLibUtilities.isValidPoint(origDrawing) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origDrawing) || ppc < 1) return "";
 
 		final StringBuilder start = new StringBuilder();
 		final StringBuilder end = new StringBuilder();
@@ -48,10 +47,10 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 		final double gridStarty = shape.getGridStartY();
 		final StringBuilder cache = new StringBuilder();
 
-		if(!LNumber.equalsDouble(positionx, 0.0) || !LNumber.equalsDouble(positiony, 0.0)) {
+		if(!MathUtils.INST.equalsDouble(positionx, 0.0) || !MathUtils.INST.equalsDouble(positiony, 0.0)) {
 			end.append('}');
-			start.append("\\rput(").append(LNumber.getCutNumberFloat((positionx - origDrawing.getX()) / ppc)).append(','); //$NON-NLS-1$
-			start.append(LNumber.getCutNumberFloat((origDrawing.getY() - positiony) / ppc)).append(')').append('{');
+			start.append("\\rput(").append(MathUtils.INST.getCutNumberFloat((positionx - origDrawing.getX()) / ppc)).append(','); //$NON-NLS-1$
+			start.append(MathUtils.INST.getCutNumberFloat((origDrawing.getY() - positiony) / ppc)).append(')').append('{');
 		}
 
 		if(rot != null) {
@@ -92,23 +91,23 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 		params.append(", ticks=").append(shape.getTicksDisplayed().getPSTToken());//$NON-NLS-1$
 		//		params.append(", ticksize=").append((float)LNumber.getCutNumber(shape.getTicksSize()/ppc)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
-		if(!LNumber.equalsDouble(distLabelsX, 0.))
-			params.append(", dx=").append(LNumber.getCutNumberFloat(distLabelsX)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(distLabelsX, 0.))
+			params.append(", dx=").append(MathUtils.INST.getCutNumberFloat(distLabelsX)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
-		if(!LNumber.equalsDouble(distLabelsY, 0.))
-			params.append(", dy=").append(LNumber.getCutNumberFloat(distLabelsY)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(distLabelsY, 0.))
+			params.append(", dy=").append(MathUtils.INST.getCutNumberFloat(distLabelsY)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
-		if(!LNumber.equalsDouble(incrementx, PSTricksConstants.DEFAULT_DX))
-			params.append(", Dx=").append(LNumber.equalsDouble(incrementx, incrementx) ? String.valueOf((int) incrementx) : //$NON-NLS-1$
-				String.valueOf(LNumber.getCutNumberFloat(incrementx)));
+		if(!MathUtils.INST.equalsDouble(incrementx, PSTricksConstants.DEFAULT_DX))
+			params.append(", Dx=").append(MathUtils.INST.equalsDouble(incrementx, incrementx) ? String.valueOf((int) incrementx) : //$NON-NLS-1$
+				String.valueOf(MathUtils.INST.getCutNumberFloat(incrementx)));
 
-		if(!LNumber.equalsDouble(incrementy, PSTricksConstants.DEFAULT_DY))
-			params.append(", Dy=").append(LNumber.equalsDouble(incrementy, incrementy) ? String.valueOf((int) incrementy) : //$NON-NLS-1$
-				String.valueOf(LNumber.getCutNumberFloat(incrementy)));
+		if(!MathUtils.INST.equalsDouble(incrementy, PSTricksConstants.DEFAULT_DY))
+			params.append(", Dy=").append(MathUtils.INST.equalsDouble(incrementy, incrementy) ? String.valueOf((int) incrementy) : //$NON-NLS-1$
+				String.valueOf(MathUtils.INST.getCutNumberFloat(incrementy)));
 
-		if(!LNumber.equalsDouble(originx, PSTricksConstants.DEFAULT_OX)) params.append(", Ox=").append((int) originx);//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(originx, PSTricksConstants.DEFAULT_OX)) params.append(", Ox=").append((int) originx);//$NON-NLS-1$
 
-		if(!LNumber.equalsDouble(originy, PSTricksConstants.DEFAULT_OY)) params.append(", Oy=").append((int) originy);//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(originy, PSTricksConstants.DEFAULT_OY)) params.append(", Oy=").append((int) originy);//$NON-NLS-1$
 
 		if(showOrigin != PSTricksConstants.DEFAULT_SHOW_ORIGIN) params.append(", showorigin=").append(showOrigin);//$NON-NLS-1$
 

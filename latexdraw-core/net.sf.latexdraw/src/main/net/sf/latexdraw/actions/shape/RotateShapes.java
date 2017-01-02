@@ -12,7 +12,7 @@ package net.sf.latexdraw.actions.shape;
 
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
@@ -41,7 +41,7 @@ public class RotateShapes extends ShapeActionImpl<IShape> implements Undoable, M
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && gc.isPresent() && GLibUtilities.isValidCoordinate(rotationAngle) && GLibUtilities.isValidPoint(gc.get());
+		return super.canDo() && gc.isPresent() && MathUtils.INST.isValidCoord(rotationAngle) && MathUtils.INST.isValidPt(gc.get());
 	}
 
 	@Override

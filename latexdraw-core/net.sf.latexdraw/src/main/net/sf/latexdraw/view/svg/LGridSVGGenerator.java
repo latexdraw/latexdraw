@@ -1,20 +1,27 @@
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.interfaces.shape.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.geom.Point2D;
 import java.util.List;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.*;
+import net.sf.latexdraw.parsers.svg.CSSColors;
+import net.sf.latexdraw.parsers.svg.SVGAttributes;
+import net.sf.latexdraw.parsers.svg.SVGCircleElement;
+import net.sf.latexdraw.parsers.svg.SVGDocument;
+import net.sf.latexdraw.parsers.svg.SVGElement;
+import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.parsers.svg.SVGLineElement;
+import net.sf.latexdraw.parsers.svg.SVGTextElement;
+import net.sf.latexdraw.parsers.svg.SVGTransform;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LNumber;
 import sun.font.FontDesignMetrics;
 
 /**
@@ -53,7 +60,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 	 * @since 2.0.0
 	 */
 	protected LGridSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createGrid(ShapeFactory.createPoint()));
+		this(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
 
 		if(elt==null)
 			throw new IllegalArgumentException();
@@ -526,7 +533,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		if(shape.getLabelsSize()>0)
 			createSVGGridLabels(document, elt, prefix, minX, maxX, minY, maxY, tlx, tly, xStep, yStep, gridWidth, absStep);
 
-		if(LNumber.equalsDouble(shape.getRotationAngle()%(Math.PI*2), 0.))
+		if(MathUtils.INST.equalsDouble(shape.getRotationAngle()%(Math.PI*2), 0.))
 			setSVGRotationAttribute(elt);
 	}
 

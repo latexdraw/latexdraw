@@ -46,7 +46,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 	 * @since 2.0.0
 	 */
 	protected LBezierCurveSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createBezierCurve());
+		this(ShapeFactory.INST.createBezierCurve());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
@@ -72,7 +72,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 
 
 	protected LBezierCurveSVGGenerator(final SVGPathElement path) {
-		this(ShapeFactory.createBezierCurve());
+		this(ShapeFactory.INST.createBezierCurve());
 
 		setPath(path.getSegList());
 		setSVGParameters(path);
@@ -95,18 +95,18 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		Point2D pt = new Point2D.Double();// Creating a point to support when the first path element is relative.
 
 		pt = m.getPoint(pt);
-        shape.addPoint(ShapeFactory.createPoint(pt));
+        shape.addPoint(ShapeFactory.INST.createPoint(pt));
 
 		if(size>1 && list.get(1) instanceof CtrlPointsSeg) {// We set the control point of the first point.
 			c = (CtrlPointsSeg)list.get(1);
-			shape.getFirstCtrlPtAt(-1).setPoint(ShapeFactory.createPoint(c.getCtrl1(pt)));
+			shape.getFirstCtrlPtAt(-1).setPoint(ShapeFactory.INST.createPoint(c.getCtrl1(pt)));
 		}
 
 		while(i<size && list.get(i) instanceof CtrlPointsSeg) {
 			c = (CtrlPointsSeg)list.get(i);
 			Point2D currPt = c.getPoint(pt);
-			shape.addPoint(ShapeFactory.createPoint(currPt));
-			shape.getFirstCtrlPtAt(-1).setPoint(ShapeFactory.createPoint(c.getCtrl2(pt)));
+			shape.addPoint(ShapeFactory.INST.createPoint(currPt));
+			shape.getFirstCtrlPtAt(-1).setPoint(ShapeFactory.INST.createPoint(c.getCtrl2(pt)));
 			pt = currPt;
 			i++;
 		}

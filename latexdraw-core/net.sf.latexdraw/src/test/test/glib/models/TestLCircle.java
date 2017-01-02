@@ -20,8 +20,8 @@ import test.glib.models.interfaces.TestICircle;
 public class TestLCircle extends TestICircle<ICircle> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createCircle();
-		shape2 = ShapeFactory.createCircle();
+		shape = ShapeFactory.INST.createCircle();
+		shape2 = ShapeFactory.INST.createCircle();
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class TestLCircle extends TestICircle<ICircle> {
 
 	@Test
 	public void testConstructors() {
-		ICircle circle = ShapeFactory.createCircle();
+		ICircle circle = ShapeFactory.INST.createCircle();
 
 		assertEquals(4, circle.getNbPoints());
 		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
@@ -48,7 +48,7 @@ public class TestLCircle extends TestICircle<ICircle> {
 
 	@Test
 	public void testConstructors2() {
-		ICircle circle = ShapeFactory.createCircle();
+		ICircle circle = ShapeFactory.INST.createCircle();
 
 		HelperTest.assertEqualsDouble(4, circle.getNbPoints());
 		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
@@ -57,27 +57,27 @@ public class TestLCircle extends TestICircle<ICircle> {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOKNAN() {
-		ShapeFactory.createCircle(ShapeFactory.createPoint(Double.NaN, 1), 10.);
+		ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(Double.NaN, 1), 10.);
 	}
 			
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOKINF() {
-		ShapeFactory.createCircle(ShapeFactory.createPoint(1, Double.NEGATIVE_INFINITY), 10.);
+		ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(1, Double.NEGATIVE_INFINITY), 10.);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOKNeg() {
-		ShapeFactory.createCircle(ShapeFactory.createPoint(1, 1), -10.);
+		ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(1, 1), -10.);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOK0() {
-		ShapeFactory.createCircle(ShapeFactory.createPoint(1, 1), 0.);
+		ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(1, 1), 0.);
 	}
 	
 	@Test
 	public void testConstructors3OK() {
-		ICircle circle = ShapeFactory.createCircle(ShapeFactory.createPoint(1, 2), 10.);
+		ICircle circle = ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(1, 2), 10.);
 
 		HelperTest.assertEqualsDouble(6., circle.getGravityCentre().getX());
 		HelperTest.assertEqualsDouble(-3., circle.getGravityCentre().getY());

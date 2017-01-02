@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 
 /**
@@ -61,7 +61,7 @@ class ColorImpl implements Color {
 	}
 
 	private void checkChannel(final double val) {
-		if(val < 0.0 || val > 1.0 || !GLibUtilities.isValidCoordinate(val)) {
+		if(val < 0.0 || val > 1.0 || !MathUtils.INST.isValidCoord(val)) {
 			throw new IllegalArgumentException();
 		}
 	}

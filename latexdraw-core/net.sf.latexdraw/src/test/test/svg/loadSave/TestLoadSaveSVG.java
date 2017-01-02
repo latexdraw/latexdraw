@@ -31,7 +31,7 @@ public abstract class TestLoadSaveSVG<T extends IShape> {
 	protected T shape;
 
 	public T saveLoadShape(T sh) {
-		IDrawing drawing = ShapeFactory.createDrawing();
+		IDrawing drawing = ShapeFactory.INST.createDrawing();
 		drawing.addShape(sh);
 		SVGDocument doc = toSVG(drawing);
 		return toLatexdraw(doc);
@@ -39,7 +39,7 @@ public abstract class TestLoadSaveSVG<T extends IShape> {
 
 	@SuppressWarnings("unchecked")
 	protected T toLatexdraw(final SVGDocument doc) {
-		final IGroup shapes = ShapeFactory.createGroup();
+		final IGroup shapes = ShapeFactory.INST.createGroup();
 		final NodeList elts = doc.getDocumentElement().getChildNodes();
 		Node node;
 

@@ -30,7 +30,7 @@ interface LArrowableShape extends IArrowableShape {
 			final List<IArrow> arrows = getArrows();
 
 			arrows.clear();
-			arrows.addAll(arr.getArrows().stream().map(arrow -> ShapeFactory.createArrow(arrow, this)).collect(Collectors.toList()));
+			arrows.addAll(arr.getArrows().stream().map(arrow -> ShapeFactory.INST.createArrow(arrow, this)).collect(Collectors.toList()));
 		}else {
 			if(sh instanceof IArrowableShape) {
 				final IArrowableShape arr = (IArrowableShape) sh;

@@ -13,7 +13,7 @@ package net.sf.latexdraw.models.impl;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
@@ -61,7 +61,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	 * Method used by the balance method. Just returns the balanced control points of the given points.
 	 */
 	private IPoint[] getBalancedPoints(final IPoint pt, final IPoint prevPt, final IPoint nextPt) {
-		final ILine line = ShapeFactory.createLine(prevPt, nextPt);
+		final ILine line = ShapeFactory.INST.createLine(prevPt, nextPt);
 
 		if(line.isHorizontalLine()) {
 			line.setLine(pt.getX(), pt.getY(), pt.getX() + 10.0, pt.getY());
@@ -85,8 +85,8 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		// For the first point, the lines are created differently.
 		final int posPrev = position == 0 ? 1 : position - 1;
 		final int posNext = position == 0 ? points.size() - 1 : position == points.size() - 1 ? 0 : position + 1;
-		final ILine line1 = ShapeFactory.createLine(getPtAt(posPrev), ctrlPts[0]);
-		final ILine line2 = ShapeFactory.createLine(getPtAt(posNext), ctrlPts[1]);
+		final ILine line1 = ShapeFactory.INST.createLine(getPtAt(posPrev), ctrlPts[0]);
+		final ILine line2 = ShapeFactory.INST.createLine(getPtAt(posNext), ctrlPts[1]);
 
 		if(line1.getIntersectionSegment(line2) == null) {
 			firstCtrlPts.get(position).setPoint(ctrlPts[0]);
@@ -156,7 +156,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setXFirstCtrlPt(final double x, final int id) {
-		if(GLibUtilities.isValidCoordinate(x) && id >= 0 && id < firstCtrlPts.size()) {
+		if(MathUtils.INST.isValidCoord(x) && id >= 0 && id < firstCtrlPts.size()) {
 			firstCtrlPts.get(id).setX(x);
 		}
 	}
@@ -164,7 +164,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setXSecondCtrlPt(final double x, final int id) {
-		if(GLibUtilities.isValidCoordinate(x) && id >= 0 && id < secondCtrlPts.size()) {
+		if(MathUtils.INST.isValidCoord(x) && id >= 0 && id < secondCtrlPts.size()) {
 			secondCtrlPts.get(id).setX(x);
 		}
 	}
@@ -172,7 +172,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setYFirstCtrlPt(final double y, final int id) {
-		if(GLibUtilities.isValidCoordinate(y) && id >= 0 && id < firstCtrlPts.size()) {
+		if(MathUtils.INST.isValidCoord(y) && id >= 0 && id < firstCtrlPts.size()) {
 			firstCtrlPts.get(id).setY(y);
 		}
 	}
@@ -180,7 +180,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setYSecondCtrlPt(final double y, final int id) {
-		if(GLibUtilities.isValidCoordinate(y) && id >= 0 && id < secondCtrlPts.size()) {
+		if(MathUtils.INST.isValidCoord(y) && id >= 0 && id < secondCtrlPts.size()) {
 			secondCtrlPts.get(id).setY(y);
 		}
 	}
@@ -198,7 +198,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	public boolean setPoint(final double x, final double y, final int position) {
 		final IPoint pt = getPtAt(position);
 
-		if(pt == null || !GLibUtilities.isValidPoint(x, y)) {
+		if(pt == null || !MathUtils.INST.isValidPt(x, y)) {
 			return false;
 		}
 
@@ -214,7 +214,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setRotationAngle(final double angle) {
-		if(GLibUtilities.isValidCoordinate(angle)) {
+		if(MathUtils.INST.isValidCoord(angle)) {
 			final double diff = angle - this.rotationAngle;
 			final IPoint gc = getGravityCentre();
 
@@ -249,8 +249,8 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		super.addPoint(pt, position);
 
 		// Adding the control points.
-		if(GLibUtilities.isValidPoint(pt) && position >= -1 && position < points.size()) {
-			final IPoint ctrlPt = ShapeFactory.createPoint(pt.getX(), pt.getY() + DEFAULT_POSITION_CTRL);
+		if(MathUtils.INST.isValidPt(pt) && position >= -1 && position < points.size()) {
+			final IPoint ctrlPt = ShapeFactory.INST.createPoint(pt.getX(), pt.getY() + DEFAULT_POSITION_CTRL);
 			if(position == -1) {
 				firstCtrlPts.add(ctrlPt);
 				secondCtrlPts.add(ctrlPt.centralSymmetry(pt));
@@ -271,10 +271,10 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 			List<IPoint> pts = cpSh.getFirstCtrlPts();
 
 			firstCtrlPts.clear();
-			pts.forEach(pt -> firstCtrlPts.add(ShapeFactory.createPoint(pt)));
+			pts.forEach(pt -> firstCtrlPts.add(ShapeFactory.INST.createPoint(pt)));
 			pts = cpSh.getSecondCtrlPts();
 			secondCtrlPts.clear();
-			pts.forEach(pt -> secondCtrlPts.add(ShapeFactory.createPoint(pt)));
+			pts.forEach(pt -> secondCtrlPts.add(ShapeFactory.INST.createPoint(pt)));
 		}
 	}
 
@@ -284,7 +284,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		super.translate(tx, ty);
 
 		// Translating control points.
-		if(GLibUtilities.isValidPoint(tx, ty)) {
+		if(MathUtils.INST.isValidPt(tx, ty)) {
 			firstCtrlPts.forEach(pt -> pt.translate(tx, ty));
 			secondCtrlPts.forEach(pt -> pt.translate(tx, ty));
 		}

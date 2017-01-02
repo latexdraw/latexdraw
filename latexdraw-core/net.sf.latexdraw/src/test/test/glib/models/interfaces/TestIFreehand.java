@@ -75,7 +75,7 @@ public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiable
 
 	@Test
 	public void testCopyWhenNotFreeHand() {
-		IShape sh = ShapeFactory.createCircleArc();
+		IShape sh = ShapeFactory.INST.createCircleArc();
 		shape.copy(sh);
 		// assertTrue(shape.isParametersEquals(sh, false));
 		// assertTrue(shape.isParametersEquals(sh, true));

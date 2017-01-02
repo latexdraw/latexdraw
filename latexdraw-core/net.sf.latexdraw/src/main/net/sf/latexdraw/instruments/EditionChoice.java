@@ -41,112 +41,112 @@ public enum EditionChoice {
 	RECT {
 		@Override
 		public IRectangle createShapeInstance() {
-			return ShapeFactory.createRectangle();
+			return ShapeFactory.INST.createRectangle();
 		}
 	}, DOT {
 		@Override
 		public IDot createShapeInstance() {
-			return ShapeFactory.createDot(ShapeFactory.createPoint());
+			return ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		}
 	}, SQUARE {
 		@Override
 		public ISquare createShapeInstance() {
-			return ShapeFactory.createSquare();
+			return ShapeFactory.INST.createSquare();
 		}
 	}, RHOMBUS {
 		@Override
 		public IRhombus createShapeInstance() {
-			return ShapeFactory.createRhombus();
+			return ShapeFactory.INST.createRhombus();
 		}
 	}, FREE_HAND {
 		@Override
 		public IFreehand createShapeInstance() {
-			return ShapeFactory.createFreeHand();
+			return ShapeFactory.INST.createFreeHand();
 		}
 	}, TRIANGLE {
 		@Override
 		public ITriangle createShapeInstance() {
-			return ShapeFactory.createTriangle();
+			return ShapeFactory.INST.createTriangle();
 		}
 	}, LINES {
 		@Override
 		public IPolyline createShapeInstance() {
-			return ShapeFactory.createPolyline();
+			return ShapeFactory.INST.createPolyline();
 		}
 	}, CIRCLE {
 		@Override
 		public ICircle createShapeInstance() {
-			return ShapeFactory.createCircle();
+			return ShapeFactory.INST.createCircle();
 		}
 	}, GRID {
 		@Override
 		public IGrid createShapeInstance() {
-			return ShapeFactory.createGrid(ShapeFactory.createPoint());
+			return ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
 		}
 	}, AXES {
 		@Override
 		public IAxes createShapeInstance() {
-			return ShapeFactory.createAxes(ShapeFactory.createPoint());
+			return ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 		}
 	}, ELLIPSE {
 		@Override
 		public IEllipse createShapeInstance() {
-			return ShapeFactory.createEllipse();
+			return ShapeFactory.INST.createEllipse();
 		}
 	}, POLYGON {
 		@Override
 		public IPolygon createShapeInstance() {
-			return ShapeFactory.createPolygon();
+			return ShapeFactory.INST.createPolygon();
 		}
 	}, WEDGE {
 		@Override
 		public IArc createShapeInstance() {
-			final IArc shape = ShapeFactory.createCircleArc();
+			final IArc shape = ShapeFactory.INST.createCircleArc();
 			shape.setArcStyle(ArcStyle.WEDGE);
 			return shape;
 		}
 	}, CIRCLE_ARC {
 		@Override
 		public ICircleArc createShapeInstance() {
-			final ICircleArc shape = ShapeFactory.createCircleArc();
+			final ICircleArc shape = ShapeFactory.INST.createCircleArc();
 			shape.setArcStyle(ArcStyle.ARC);
 			return shape;
 		}
 	}, CHORD {
 		@Override
 		public IArc createShapeInstance() {
-			final IArc shape = ShapeFactory.createCircleArc();
+			final IArc shape = ShapeFactory.INST.createCircleArc();
 			shape.setArcStyle(ArcStyle.CHORD);
 			return shape;
 		}
 	}, BEZIER_CURVE {
 		@Override
 		public IBezierCurve createShapeInstance() {
-			final IBezierCurve shape = ShapeFactory.createBezierCurve();
+			final IBezierCurve shape = ShapeFactory.INST.createBezierCurve();
 			shape.setIsClosed(false);
 			return shape;
 		}
 	}, BEZIER_CURVE_CLOSED {
 		@Override
 		public IBezierCurve createShapeInstance() {
-			final IBezierCurve shape = ShapeFactory.createBezierCurve();
+			final IBezierCurve shape = ShapeFactory.INST.createBezierCurve();
 			shape.setIsClosed(true);
 			return shape;
 		}
 	}, TEXT {
 		@Override
 		public IText createShapeInstance() {
-			return ShapeFactory.createText();
+			return ShapeFactory.INST.createText();
 		}
 	}, PICTURE {
 		@Override
 		public IPicture createShapeInstance() {
-			return ShapeFactory.createPicture(ShapeFactory.createPoint());
+			return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		}
 	}, PLOT {
 		@Override
 		public IPlot createShapeInstance() {
-			return ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 5, "x", false);
+			return ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 5, "x", false);
 		}
 	};
 

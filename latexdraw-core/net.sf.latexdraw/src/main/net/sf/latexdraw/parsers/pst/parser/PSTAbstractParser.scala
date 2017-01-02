@@ -105,7 +105,7 @@ trait PSTAbstractParser extends TokenParsers {
 				if(ctx.parsedTxtNoTxt)
 					Nil
 				else {
-					val text = ShapeFactory.createText()
+					val text = ShapeFactory.INST.createText()
 					if(ctx.textParsed.endsWith(" "))
 						text.setText(ctx.textParsed.substring(0, ctx.textParsed.length()-1))
 					else
@@ -139,7 +139,7 @@ trait PSTAbstractParser extends TokenParsers {
 	protected def transformPointTo2DScene(pt : PointUnit, ctx:PSTContext) = {
 		val newX = if(pt.xUnit.length==0) pt.x*IShape.PPC*ctx.xUnit*ctx.unit else pt.x*IShape.PPC
 		val newY = if(pt.yUnit.length==0) -pt.y*IShape.PPC*ctx.yUnit*ctx.unit else -pt.y*IShape.PPC
-		ShapeFactory.createPoint(newX, newY)
+		ShapeFactory.INST.createPoint(newX, newY)
 	}
 
 
@@ -180,7 +180,7 @@ trait PSTAbstractParser extends TokenParsers {
 		sh.setRotationAngle(ctx.rputAngle)
 
 		if(ctx.strokeopacity<1.0)
-			sh.setLineColour(ShapeFactory.createColor(ctx.lineColor.getR, ctx.lineColor.getG, ctx.lineColor.getB, ctx.strokeopacity))
+			sh.setLineColour(ShapeFactory.INST.createColor(ctx.lineColor.getR, ctx.lineColor.getG, ctx.lineColor.getB, ctx.strokeopacity))
 		else sh.setLineColour(ctx.lineColor)
 
 		if(sh.isThicknessable)
@@ -207,7 +207,7 @@ trait PSTAbstractParser extends TokenParsers {
 
 		if(sh.isInteriorStylable) {
 			if(ctx.opacity<1.0)
-				sh.setFillingCol(ShapeFactory.createColor(ctx.fillColor.getR, ctx.fillColor.getG, ctx.fillColor.getB, ctx.opacity))
+				sh.setFillingCol(ShapeFactory.INST.createColor(ctx.fillColor.getR, ctx.fillColor.getG, ctx.fillColor.getB, ctx.opacity))
 			else sh.setFillingCol(ctx.fillColor)
 			sh.setFillingStyle(ctx.fillStyle)
 			sh.setGradAngle(scala.math.toRadians(ctx.gradAngle))

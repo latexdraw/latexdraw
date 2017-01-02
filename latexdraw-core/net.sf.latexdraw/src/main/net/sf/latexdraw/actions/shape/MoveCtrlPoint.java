@@ -68,7 +68,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 	@Override
 	public void undo() {
-		final IPoint pt = ShapeFactory.createPoint(getPoint());
+		final IPoint pt = ShapeFactory.INST.createPoint(getPoint());
 		pt.translate(-tx, -ty);
 
 		if(isFirstCtrlPt) move(pt, pt.centralSymmetry(shape.getPtAt(indexPt)));

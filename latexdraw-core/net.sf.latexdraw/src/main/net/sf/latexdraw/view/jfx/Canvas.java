@@ -31,12 +31,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
@@ -63,7 +63,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	public static final int MARGINS = 2500;
 
 	/** The origin of the drawing in the whole drawing area. */
-	public static final @NonNull IPoint ORIGIN = ShapeFactory.createPoint(MARGINS, MARGINS);
+	public static final @NonNull IPoint ORIGIN = ShapeFactory.INST.createPoint(MARGINS, MARGINS);
 
 	/** The model of the view. */
 	protected final @NonNull IDrawing drawing;
@@ -102,7 +102,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		super();
 
 		modified = false;
-		drawing = ShapeFactory.createDrawing();
+		drawing = ShapeFactory.INST.createDrawing();
 		zoom = new ActiveUnary<>(1.0);
 		tempView = Optional.empty();
 		page = new PageView(Page.USLETTER, getOrigin());
@@ -135,7 +135,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		defineShapeListToViewBinding();
 		configureSelection();
 
-		//		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(150, 120), 200, 60);
+		//		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(150, 120), 200, 60);
 		//		rec.setThickness(10.0);
 		//		rec.setGradColStart(DviPsColors.APRICOT);
 		//		rec.setGradColEnd(DviPsColors.BLUEVIOLET);
@@ -257,7 +257,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	// if(mustZoom)
 	// gc.scale(zoomValue, zoomValue);
 	//
-	// page.paint(gc, ShapeFactory.createPoint());
+	// page.paint(gc, ShapeFactory.INST.createPoint());
 	//
 	// // Getting the clip must be done here to consider the scaling and translation.
 	//// final Rectangle clip = gc.getClipBounds();
@@ -418,19 +418,19 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	@Override
 	public IPoint getTopRightDrawingPoint() {
 		final Bounds border = shapesPane.getBoundsInLocal();
-		return ShapeFactory.createPoint(border.getMaxX(), border.getMinY());
+		return ShapeFactory.INST.createPoint(border.getMaxX(), border.getMinY());
 	}
 
 	@Override
 	public IPoint getBottomLeftDrawingPoint() {
 		final Bounds border = shapesPane.getBoundsInLocal();
-		return ShapeFactory.createPoint(border.getMinX(), border.getMaxY());
+		return ShapeFactory.INST.createPoint(border.getMinX(), border.getMaxY());
 	}
 
 	@Override
 	public IPoint getOriginDrawingPoint() {
 		final Bounds border = shapesPane.getBoundsInLocal();
-		return ShapeFactory.createPoint(border.getMinX(), (border.getMaxY() - border.getMinY()) / 2.0);
+		return ShapeFactory.INST.createPoint(border.getMinX(), (border.getMaxY() - border.getMinY()) / 2.0);
 	}
 
 	@Override
@@ -461,11 +461,11 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void setZoom(final double x, final double y, final double z) {
-		if(z <= getMaxZoom() && z >= getMinZoom() && !LNumber.equalsDouble(z, zoom.getValue())) {
+		if(z <= getMaxZoom() && z >= getMinZoom() && !MathUtils.INST.equalsDouble(z, zoom.getValue())) {
 			// final double oldZoom = zoom.getValue();
 			zoom.setValue(z);
 
-			// if(GLibUtilities.isValidCoordinate(x) && GLibUtilities.isValidCoordinate(y)) {
+			// if(GLibUtilities.isValidCoord(x) && GLibUtilities.isValidCoord(y)) {
 			// final double dx = (z-oldZoom)*(x-ORIGIN.getX())/oldZoom;
 			// final double dy = (z-oldZoom)*(y-ORIGIN.getY())/oldZoom;
 			// final Point pt = scrollpane.getViewport().getViewPosition();
@@ -491,7 +491,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		final IPoint convertion;
 		if(pt == null) convertion = null;
 		else {
-			convertion = ShapeFactory.createPoint(pt);
+			convertion = ShapeFactory.INST.createPoint(pt);
 			convertion.translate(-ORIGIN.getX(), -ORIGIN.getY());
 		}
 		return convertion;

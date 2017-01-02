@@ -1,10 +1,9 @@
 package net.sf.latexdraw.handlers;
 
 import java.awt.geom.Rectangle2D;
-
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a handler that moves a point of a shape.<br>
@@ -50,7 +49,7 @@ public class MovePtHandler extends Handler<Rectangle2D, IModifiablePointsShape> 
 		IPoint pt = sh.getPtAt(indexPt);
 
 		// If the shape is rotated, the handler's position must fit the rotation angle.
-		if(!LNumber.equalsDouble(rotAngle, 0.))
+		if(!MathUtils.INST.equalsDouble(rotAngle, 0.))
 			pt = pt.rotatePoint(zoomedGC, rotAngle);
 
 		point.setPoint(pt.zoom(zoom));

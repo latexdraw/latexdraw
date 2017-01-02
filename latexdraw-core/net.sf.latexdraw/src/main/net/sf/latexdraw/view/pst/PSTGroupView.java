@@ -3,7 +3,7 @@ package net.sf.latexdraw.view.pst;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.eclipse.jdt.annotation.NonNull;
@@ -40,7 +40,7 @@ public class PSTGroupView extends PSTShapeView<IGroup> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.isValidPoint(origin) || ppc<1)
+		if(!MathUtils.INST.isValidPt(origin) || ppc<1)
 			return "";
 
 		final List<PSTShapeView<?>> pstViews = shape.getShapes().stream().map(PSTViewsFactory.INSTANCE::createView).

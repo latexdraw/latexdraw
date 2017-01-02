@@ -10,10 +10,10 @@
  */
 package net.sf.latexdraw.view.pst;
 
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -43,7 +43,7 @@ public class PSTDotView extends PSTClassicalView<IDot> {
 		if(style!=DotStyle.DOT)
 			params.append(", dotstyle=").append(style.getPSTToken()); //$NON-NLS-1$
 
-		params.append(", dotsize=").append((float)LNumber.getCutNumber(shape.getDiametre()/ppc)); //$NON-NLS-1$
+		params.append(", dotsize=").append((float) MathUtils.INST.getCutNumber(shape.getDiametre()/ppc)); //$NON-NLS-1$
 
 		if(rotation!=null)
 			code.append(rotation);
@@ -53,8 +53,8 @@ public class PSTDotView extends PSTClassicalView<IDot> {
 		if(shape.isFillable())
 			code.append(", fillcolor=").append(getColourName(shape.getFillingCol()));
 		code.append(']').append('(');
-		code.append(LNumber.getCutNumberFloat(x/ppc)).append(',');
-		code.append(LNumber.getCutNumberFloat(y/ppc)).append(')');
+		code.append(MathUtils.INST.getCutNumberFloat(x/ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat(y/ppc)).append(')');
 
 		if(rotation!=null)
 			code.append('}');

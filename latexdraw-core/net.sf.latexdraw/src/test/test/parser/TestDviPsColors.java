@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TestDviPsColors {
 	@Test
 	public void test_convertHTML2rgb_success() {
-		assertEquals(ShapeFactory.createColor(1.0, 0, 100.0 / 255., 1.0), DviPsColors.INSTANCE.convertHTML2rgb("#FF0064")); //$NON-NLS-1$
+		assertEquals(ShapeFactory.INST.createColor(1.0, 0, 100.0 / 255., 1.0), DviPsColors.INSTANCE.convertHTML2rgb("#FF0064")); //$NON-NLS-1$
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -28,7 +28,7 @@ public class TestDviPsColors {
 
 	@Test
 	public void test_convertRGB2rgb_success() {
-		assertEquals(ShapeFactory.createColor(0.0, 0.5, 1.0, 1.0), DviPsColors.INSTANCE.convertRGB2rgb(0, 255. / 2., 255.));
+		assertEquals(ShapeFactory.INST.createColor(0.0, 0.5, 1.0, 1.0), DviPsColors.INSTANCE.convertRGB2rgb(0, 255. / 2., 255.));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -38,7 +38,7 @@ public class TestDviPsColors {
 
 	@Test
 	public void test_convertcmyk2rgb_success() {
-		assertEquals(ShapeFactory.createColor(1.0, 0.0, 100.0 / 255.0, 1.0), DviPsColors.INSTANCE.convertcmyk2rgb(0, 1, 0.608, 0));
+		assertEquals(ShapeFactory.INST.createColor(1.0, 0.0, 100.0 / 255.0, 1.0), DviPsColors.INSTANCE.convertcmyk2rgb(0, 1, 0.608, 0));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -48,7 +48,7 @@ public class TestDviPsColors {
 
 	@Test
 	public void testGetColorName() {
-		Color c2 = ShapeFactory.createColor(218. / 255., 29. / 255., 78 / 255., 1.0);
+		Color c2 = ShapeFactory.INST.createColor(218. / 255., 29. / 255., 78 / 255., 1.0);
 
 		assertEquals(Optional.empty(), DviPsColors.INSTANCE.getColourName(null));
 		Optional<String> nameColour = DviPsColors.INSTANCE.addUserColour(c2);
@@ -179,14 +179,14 @@ public class TestDviPsColors {
 
 	@Test
 	public void testAddUserColor() {
-		Color c2 = ShapeFactory.createColor(18. / 255., 29. / 255., 78. / 255., 1.0);
+		Color c2 = ShapeFactory.INST.createColor(18. / 255., 29. / 255., 78. / 255., 1.0);
 		Optional<String> nameColour = DviPsColors.INSTANCE.addUserColour(c2);
 		assertEquals(nameColour.get(), DviPsColors.INSTANCE.getColourName(c2).get());
 	}
 
 	@Test
 	public void testGetUserColorsCode() {
-		Color c = ShapeFactory.createColor(230. / 255., 65. / 255., 78. / 255., 1.0);
+		Color c = ShapeFactory.INST.createColor(230. / 255., 65. / 255., 78. / 255., 1.0);
 		Optional<String> nameColour = DviPsColors.INSTANCE.addUserColour(c);
 		assertNotNull(DviPsColors.INSTANCE.getUsercolourCode(null));
 		assertNotNull(DviPsColors.INSTANCE.getUsercolourCode(nameColour.get()));
@@ -242,7 +242,7 @@ public class TestDviPsColors {
 		}catch(IllegalArgumentException e) {
 			/* Good. */ }
 
-		assertEquals(ShapeFactory.createColor(51. / 255., 92. / 255., 71. / 255., 1.0), DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 0.1, 0.3, 0.6));
+		assertEquals(ShapeFactory.INST.createColor(51. / 255., 92. / 255., 71. / 255., 1.0), DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 0.1, 0.3, 0.6));
 	}
 
 	@Test
@@ -259,6 +259,6 @@ public class TestDviPsColors {
 		}catch(IllegalArgumentException e) {
 			/* Good. */ }
 
-		assertEquals(ShapeFactory.createColor(1.0, 1.0, 1.0, 1.0), DviPsColors.INSTANCE.convertgray2rgb(1));
+		assertEquals(ShapeFactory.INST.createColor(1.0, 1.0, 1.0, 1.0), DviPsColors.INSTANCE.convertgray2rgb(1));
 	}
 }

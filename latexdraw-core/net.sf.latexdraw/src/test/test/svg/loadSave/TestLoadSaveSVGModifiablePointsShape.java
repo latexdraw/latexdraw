@@ -18,9 +18,9 @@ public abstract class TestLoadSaveSVGModifiablePointsShape<T extends IModifiable
 
 	@Override
 	protected void setDefaultDimensions() {
-		shape.addPoint(ShapeFactory.createPoint(10, 20));
-		shape.addPoint(ShapeFactory.createPoint(30, 50));
-		shape.addPoint(ShapeFactory.createPoint(60, 78));
-		shape.addPoint(ShapeFactory.createPoint(-60, -10));
+		shape.addPoint(ShapeFactory.INST.createPoint(10, 20));
+		shape.addPoint(ShapeFactory.INST.createPoint(30, 50));
+		shape.addPoint(ShapeFactory.INST.createPoint(60, 78));
+		shape.addPoint(ShapeFactory.INST.createPoint(-60, -10));
 	}
 }

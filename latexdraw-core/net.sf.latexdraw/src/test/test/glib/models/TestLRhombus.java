@@ -20,8 +20,8 @@ import test.glib.models.interfaces.TestIRhombus;
 public class TestLRhombus extends TestIRhombus<IRhombus> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createRhombus();
-		shape2 = ShapeFactory.createRhombus();
+		shape = ShapeFactory.INST.createRhombus();
+		shape2 = ShapeFactory.INST.createRhombus();
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class TestLRhombus extends TestIRhombus<IRhombus> {
 
 	@Test
 	public void testConstructor2() {
-		IRhombus rho = ShapeFactory.createRhombus(ShapeFactory.createPoint(5, 15), 20, 40);
+		IRhombus rho = ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(5, 15), 20, 40);
 		HelperTest.assertEqualsDouble(4, rho.getNbPoints());
 		assertEquals(20.0, rho.getWidth(), 0.0);
 		assertEquals(40.0, rho.getHeight(), 0.0);
@@ -58,16 +58,16 @@ public class TestLRhombus extends TestIRhombus<IRhombus> {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorInvalidPos() {
-		ShapeFactory.createRhombus(ShapeFactory.createPoint(Double.NaN, 0), 10, 10);
+		ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(Double.NaN, 0), 10, 10);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorInvalidWidth() {
-		ShapeFactory.createRhombus(ShapeFactory.createPoint(1, 1), -10, 10);
+		ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(1, 1), -10, 10);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorInvalidHeight() {
-		ShapeFactory.createRhombus(ShapeFactory.createPoint(1, 1), 10, -10);
+		ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(1, 1), 10, -10);
 	}
 }

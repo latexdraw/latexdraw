@@ -289,7 +289,7 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //	}else
 //
 //	{
-//		IGroup gp = ShapeFactory.createGroup();
+//		IGroup gp = ShapeFactory.INST.createGroup();
 //		shapes.forEach(sh -> gp.addShape(sh));
 //		insertedShapes = gp;
 //	}
@@ -383,7 +383,7 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //	{
 //		Stream.of(files).filter(f -> filter.accept(f)).forEach(file -> {
 //			try {
-//				IGroup template = ShapeFactory.createGroup();
+//				IGroup template = ShapeFactory.INST.createGroup();
 //				List<IShape> shapes = toLatexdraw(new SVGDocument(file.toURI()), 0);
 //				shapes.forEach(sh -> template.addShape(sh));
 //				File thumbnail = new File(pathCache + File.separator + file.getName() + PNGFilter.PNG_EXTENSION);
@@ -606,7 +606,7 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //		 * @since 3.0
 //		 */
 //		protected List<IShape> toLatexdraw(final SVGDocument doc, final double incrProgressBar) {
-//			final IGroup shapes = ShapeFactory.createGroup();
+//			final IGroup shapes = ShapeFactory.INST.createGroup();
 //			final NodeList elts = doc.getDocumentElement().getChildNodes();
 //			List<IShape> shapes = IntStream.range(0, elts.getLength()).mapToObj(i -> {
 //					setProgress((int) Math.min(100., getProgress() + incrProgressBar));

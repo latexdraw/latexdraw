@@ -21,8 +21,8 @@ import test.glib.models.interfaces.TestIBezierCurve;
 public class TestLBezierCurve extends TestIBezierCurve<IBezierCurve> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createBezierCurve();
-		shape2 = ShapeFactory.createBezierCurve();
+		shape = ShapeFactory.INST.createBezierCurve();
+		shape2 = ShapeFactory.INST.createBezierCurve();
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class TestLBezierCurve extends TestIBezierCurve<IBezierCurve> {
 
 	@Test
 	public void testConstructors() {
-		IBezierCurve curve = ShapeFactory.createBezierCurve();
+		IBezierCurve curve = ShapeFactory.INST.createBezierCurve();
 
 		assertNotNull(curve);
 		assertEquals(0, curve.getPoints().size());
@@ -51,7 +51,7 @@ public class TestLBezierCurve extends TestIBezierCurve<IBezierCurve> {
 
 	@Test
 	public void testConstructors2() {
-		IBezierCurve curve = ShapeFactory.createBezierCurve(ShapeFactory.createPoint(100, 200), ShapeFactory.createPoint(300, 400));
+		IBezierCurve curve = ShapeFactory.INST.createBezierCurve(ShapeFactory.INST.createPoint(100, 200), ShapeFactory.INST.createPoint(300, 400));
 
 		assertNotNull(curve);
 		assertEquals(2, curve.getPoints().size());

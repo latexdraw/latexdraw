@@ -29,8 +29,8 @@ class LPolyline extends LPolygon implements IPolyline, LArrowableShape {
 	LPolyline() {
 		super();
 		arrows = new ArrayList<>();
-		arrows.add(ShapeFactory.createArrow(this));
-		arrows.add(ShapeFactory.createArrow(this));
+		arrows.add(ShapeFactory.INST.createArrow(this));
+		arrows.add(ShapeFactory.INST.createArrow(this));
 	}
 
 	LPolyline(final IPoint point, final IPoint point2) {
@@ -52,9 +52,9 @@ class LPolyline extends LPolygon implements IPolyline, LArrowableShape {
 		}
 		switch(arrows.indexOf(arrow)) {
 			case 0:
-				return ShapeFactory.createLine(points.get(0), points.get(1));
+				return ShapeFactory.INST.createLine(points.get(0), points.get(1));
 			case 1:
-				return ShapeFactory.createLine(points.get(getNbPoints() - 1), points.get(getNbPoints() - 2));
+				return ShapeFactory.INST.createLine(points.get(getNbPoints() - 1), points.get(getNbPoints() - 2));
 			default:
 				return null;
 		}

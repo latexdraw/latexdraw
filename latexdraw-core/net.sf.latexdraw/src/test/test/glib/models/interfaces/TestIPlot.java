@@ -1,6 +1,6 @@
 package test.glib.models.interfaces;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.*;
 import net.sf.latexdraw.view.latex.DviPsColors;
@@ -250,7 +250,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		shape.setPosition(10.0, 20.0);
 
 		IPoint pt = shape.getBottomLeftPoint();
-		assertTrue(GLibUtilities.isValidPoint(pt));
+		assertTrue(MathUtils.INST.isValidPt(pt));
 		assertEquals(10.0 + 10.0 * IShape.PPC, pt.getX(), 0.0001);
 		assertEquals(20.0 - 10.0 * IShape.PPC, pt.getY(), 0.0001);
 	}
@@ -267,7 +267,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		shape.setPosition(10.0, 20.0);
 
 		IPoint pt = shape.getBottomRightPoint();
-		assertTrue(GLibUtilities.isValidPoint(pt));
+		assertTrue(MathUtils.INST.isValidPt(pt));
 		assertEquals(10.0 + 20.0 * IShape.PPC, pt.getX(), 0.0001);
 		assertEquals(20.0 - 10.0 * IShape.PPC, pt.getY(), 0.0001);
 	}
@@ -284,7 +284,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		shape.setPosition(10.0, 20.0);
 
 		IPoint pt = shape.getTopLeftPoint();
-		assertTrue(GLibUtilities.isValidPoint(pt));
+		assertTrue(MathUtils.INST.isValidPt(pt));
 		assertEquals(10.0 + 10.0 * IShape.PPC, pt.getX(), 0.0001);
 		assertEquals(20.0 - 20.0 * IShape.PPC, pt.getY(), 0.0001);
 	}
@@ -301,7 +301,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		shape.setPosition(10.0, 20.0);
 
 		IPoint pt = shape.getTopRightPoint();
-		assertTrue(GLibUtilities.isValidPoint(pt));
+		assertTrue(MathUtils.INST.isValidPt(pt));
 		assertEquals(10.0 + 20.0 * IShape.PPC, pt.getX(), 0.0001);
 		assertEquals(20.0 - 20.0 * IShape.PPC, pt.getY(), 0.0001);
 	}
@@ -360,7 +360,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 
 	@Test
 	public void testCopyFromOther() {
-		IRectangle rec = ShapeFactory.createRectangle();
+		IRectangle rec = ShapeFactory.INST.createRectangle();
 		rec.setFillingCol(DviPsColors.BLUE);
 
 		shape.copy(rec);
@@ -370,7 +370,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 
 	@Test
 	public void testCopyFromDot() {
-		IDot dot = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		dot.setDotStyle(DotStyle.DIAMOND);
 		dot.setDotFillingCol(DviPsColors.BLUE);
 		dot.setDiametre(3.0);

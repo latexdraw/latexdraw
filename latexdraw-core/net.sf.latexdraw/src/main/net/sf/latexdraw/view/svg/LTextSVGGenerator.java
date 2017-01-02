@@ -48,7 +48,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 	 * @since 2.0.0
 	 */
 	protected LTextSVGGenerator(final SVGTextElement elt) {
-		this(ShapeFactory.createText());
+		this(ShapeFactory.INST.createText());
 
 		if(elt==null)
 			throw new IllegalArgumentException();
@@ -70,7 +70,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 	 * @since 2.0.0
 	 */
 	protected LTextSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createText());
+		this(ShapeFactory.INST.createText());
 
 		if(elt==null)
 			throw new IllegalArgumentException();

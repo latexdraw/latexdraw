@@ -29,8 +29,8 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArr
 	LBezierCurve(final boolean closed) {
 		super();
 		arrows = new ArrayList<>();
-		arrows.add(ShapeFactory.createArrow(this));
-		arrows.add(ShapeFactory.createArrow(this));
+		arrows.add(ShapeFactory.INST.createArrow(this));
+		arrows.add(ShapeFactory.INST.createArrow(this));
 		isClosed = closed;
 	}
 
@@ -52,9 +52,9 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArr
 		}
 		switch(arrows.indexOf(arrow)) {
 			case 0:
-				return ShapeFactory.createLine(points.get(0), firstCtrlPts.get(0));
+				return ShapeFactory.INST.createLine(points.get(0), firstCtrlPts.get(0));
 			case 1:
-				return ShapeFactory.createLine(points.get(points.size() - 1), firstCtrlPts.get(points.size() - 1));
+				return ShapeFactory.INST.createLine(points.get(points.size() - 1), firstCtrlPts.get(points.size() - 1));
 			default:
 				return null;
 		}

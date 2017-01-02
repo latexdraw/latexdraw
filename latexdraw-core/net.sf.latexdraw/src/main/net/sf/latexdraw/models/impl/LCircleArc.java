@@ -12,7 +12,7 @@ package net.sf.latexdraw.models.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
@@ -38,8 +38,8 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 	LCircleArc(final IPoint tl, final double width) {
 		super(tl, width);
 		arrows = new ArrayList<>();
-		arrows.add(ShapeFactory.createArrow(this));
-		arrows.add(ShapeFactory.createArrow(this));
+		arrows.add(ShapeFactory.INST.createArrow(this));
+		arrows.add(ShapeFactory.INST.createArrow(this));
 		style = ArcStyle.ARC;
 		startAngle = 0.0;
 		endAngle = 3.0 * Math.PI / 2.0;
@@ -69,10 +69,10 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 	@Override
 	public ILine getArrowLine(final IArrow arrow) {
 		if(getArrowAt(0) == arrow) {
-			return GLibUtilities.getTangenteAt(getTopLeftPoint(), getBottomRightPoint(), getGravityCentre(), startAngle, startAngle < Math.PI);
+			return MathUtils.INST.getTangenteAt(getTopLeftPoint(), getBottomRightPoint(), getGravityCentre(), startAngle, startAngle < Math.PI);
 		}
 		if(getArrowAt(1) == arrow) {
-			return GLibUtilities.getTangenteAt(getTopLeftPoint(), getBottomRightPoint(), getGravityCentre(), endAngle, endAngle >= Math.PI);
+			return MathUtils.INST.getTangenteAt(getTopLeftPoint(), getBottomRightPoint(), getGravityCentre(), endAngle, endAngle >= Math.PI);
 		}
 		return null;
 	}
@@ -95,13 +95,13 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 	@Override
 	public IPoint getEndPoint() {
 		final IPoint grav = getGravityCentre();
-		return ShapeFactory.createPoint(grav.getX() + Math.cos(endAngle) * getHeight() / 2.0, grav.getY() - Math.sin(endAngle) * getHeight() / 2.0);
+		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(endAngle) * getHeight() / 2.0, grav.getY() - Math.sin(endAngle) * getHeight() / 2.0);
 	}
 
 	@Override
 	public IPoint getStartPoint() {
 		final IPoint grav = getGravityCentre();
-		return ShapeFactory.createPoint(grav.getX() + Math.cos(startAngle) * getWidth() / 2.0, grav.getY() - Math.sin(startAngle) * getWidth() / 2.0);
+		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(startAngle) * getWidth() / 2.0, grav.getY() - Math.sin(startAngle) * getWidth() / 2.0);
 	}
 
 	@Override
@@ -111,14 +111,14 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 
 	@Override
 	public void setAngleEnd(final double angle) {
-		if(GLibUtilities.isValidCoordinate(angle)) {
+		if(MathUtils.INST.isValidCoord(angle)) {
 			endAngle = angle;
 		}
 	}
 
 	@Override
 	public void setAngleStart(final double angle) {
-		if(GLibUtilities.isValidCoordinate(angle)) {
+		if(MathUtils.INST.isValidCoord(angle)) {
 			startAngle = angle;
 		}
 	}

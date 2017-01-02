@@ -35,7 +35,7 @@ trait PSBezierParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 			case None => ctx.origin.dup :: ptsRaw.flatten
 		}
 
-		val bezier = ShapeFactory.createBezierCurve()
+		val bezier = ShapeFactory.INST.createBezierCurve()
 		var j = 1
 		val size = listPts.length
 

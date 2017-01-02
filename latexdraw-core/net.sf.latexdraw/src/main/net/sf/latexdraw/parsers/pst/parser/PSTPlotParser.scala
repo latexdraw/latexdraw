@@ -62,7 +62,7 @@ trait PSTPlotParser extends PSTAbstractParser with PSTParamParser with PSTBracke
 		case cmdName ~ _ ~ tmin ~ tmax ~ function =>
 		val v1 = tmin.toDouble
 		val v2 = tmax.toDouble
-		val plot = ShapeFactory.createPlot(ShapeFactory.createPoint, if(v1<v2) v1 else v2, if(v1<v2) v2 else v1, function, ctx.polarPlot)
+		val plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint, if(v1<v2) v1 else v2, if(v1<v2) v2 else v1, function, ctx.polarPlot)
 		val dotSizeDim = if(ctx.arrowDotSize._1+ctx.arrowDotSize._2<0) scala.math.abs(ctx.arrowDotSize._1) else ctx.arrowDotSize._1
 		val dotSizeNum = if(ctx.arrowDotSize._1+ctx.arrowDotSize._2<0) scala.math.abs(ctx.arrowDotSize._2) else ctx.arrowDotSize._2
 		

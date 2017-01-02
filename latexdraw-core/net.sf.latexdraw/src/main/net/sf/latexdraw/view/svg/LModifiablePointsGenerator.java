@@ -55,7 +55,7 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 			throw new IllegalArgumentException();
 
 		for(final Point2D pt : ptsPol)
-			shape.addPoint(ShapeFactory.createPoint(pt.getX(), pt.getY()));
+			shape.addPoint(ShapeFactory.INST.createPoint(pt.getX(), pt.getY()));
 	}
 
 
@@ -80,7 +80,7 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 				throw new IllegalArgumentException("The given SVG path element is not a polygon."); //$NON-NLS-1$
 
 			pt = ((SVGPathSegLineto)seg).getPoint(pt);
-			shape.addPoint(ShapeFactory.createPoint(pt.getX(), pt.getY()));
+			shape.addPoint(ShapeFactory.INST.createPoint(pt.getX(), pt.getY()));
 		}
 
 		setSVGParameters(elt);

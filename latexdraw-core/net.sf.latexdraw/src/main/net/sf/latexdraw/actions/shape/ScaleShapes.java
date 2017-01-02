@@ -10,20 +10,18 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.awt.geom.Rectangle2D;
+import java.util.Optional;
 import net.sf.latexdraw.actions.DrawingAction;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.Position;
-import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
-
-import java.awt.geom.Rectangle2D;
-import java.util.Optional;
 
 /**
  * This action scales a shape.
@@ -68,7 +66,7 @@ public class ScaleShapes extends ShapeActionImpl<IGroup> implements DrawingActio
 
 	@Override
 	public boolean hadEffect() {
-		return isDone() && (!LNumber.equalsDouble(oldWidth, bound.getWidth()) || !LNumber.equalsDouble(oldHeight, bound.getHeight()));
+		return isDone() && (!MathUtils.INST.equalsDouble(oldWidth, bound.getWidth()) || !MathUtils.INST.equalsDouble(oldHeight, bound.getHeight()));
 	}
 
 	@Override
@@ -80,15 +78,15 @@ public class ScaleShapes extends ShapeActionImpl<IGroup> implements DrawingActio
 		if(!refPosition.isPresent()) return false;
 		switch(refPosition.get()) {
 			case EAST:
-				return GLibUtilities.isValidCoordinate(newX) && scaledWidth(newX) > 1.0;
+				return MathUtils.INST.isValidCoord(newX) && scaledWidth(newX) > 1.0;
 			case WEST:
-				return GLibUtilities.isValidCoordinate(newX) && scaledWidth(newX) > 1.0;
+				return MathUtils.INST.isValidCoord(newX) && scaledWidth(newX) > 1.0;
 			case NORTH:
-				return GLibUtilities.isValidCoordinate(newY) && scaledHeight(newY) > 1.0;
+				return MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1.0;
 			case SOUTH:
-				return GLibUtilities.isValidCoordinate(newY) && scaledHeight(newY) > 1.0;
+				return MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1.0;
 			default:
-				return GLibUtilities.isValidCoordinate(newX) && GLibUtilities.isValidCoordinate(newY) && scaledHeight(newY) > 1.0 && scaledWidth(newX) > 1.0;
+				return MathUtils.INST.isValidCoord(newX) && MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1.0 && scaledWidth(newX) > 1.0;
 		}
 	}
 

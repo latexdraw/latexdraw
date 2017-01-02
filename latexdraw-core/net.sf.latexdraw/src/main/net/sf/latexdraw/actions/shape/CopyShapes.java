@@ -35,7 +35,7 @@ public class CopyShapes extends ActionImpl {
 
 	@Override
 	protected void doActionBody() {
-		copiedShapes = selection.getShapes().stream().map(ShapeFactory::duplicate).collect(Collectors.toList());
+		copiedShapes = selection.getShapes().stream().map(ShapeFactory.INST::duplicate).collect(Collectors.toList());
 	}
 
 	@Override

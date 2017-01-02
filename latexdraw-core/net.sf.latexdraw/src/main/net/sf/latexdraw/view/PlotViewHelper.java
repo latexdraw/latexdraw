@@ -27,7 +27,7 @@ public class PlotViewHelper {
 		final double angle = Math.toRadians(x);
 		final double x1 = radius * Math.cos(angle);
 		final double y1 = -radius * Math.sin(angle);
-		return ShapeFactory.createPoint(x1 * IShape.PPC * xs + posX, y1 * IShape.PPC * ys + posY);
+		return ShapeFactory.INST.createPoint(x1 * IShape.PPC * xs + posX, y1 * IShape.PPC * ys + posY);
 	}
 	
 	public void fillPoints(final IPlot shape, final IModifiablePointsShape sh, final double posX, final double posY, 
@@ -42,19 +42,19 @@ public class PlotViewHelper {
 			sh.addPoint(getPolarPoint(shape, maxX, xs, ys, posX, posY));
 		}else {
 			for(int i=0; i<shape.getNbPlottedPoints(); i++, x += step)
-				sh.addPoint(ShapeFactory.createPoint(x * IShape.PPC * xs + posX, -shape.getY(x) * IShape.PPC * ys + posY));
-			sh.addPoint(ShapeFactory.createPoint(maxX * IShape.PPC * xs + posX, -shape.getY(maxX) * IShape.PPC * ys + posY));
+				sh.addPoint(ShapeFactory.INST.createPoint(x * IShape.PPC * xs + posX, -shape.getY(x) * IShape.PPC * ys + posY));
+			sh.addPoint(ShapeFactory.INST.createPoint(maxX * IShape.PPC * xs + posX, -shape.getY(maxX) * IShape.PPC * ys + posY));
 		}
 	}
 
 	
 	public List<IDot> updatePoints(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
-		final IPolyline pl = ShapeFactory.createPolyline();
+		final IPolyline pl = ShapeFactory.INST.createPolyline();
 		final List<IDot> dots = new ArrayList<>();
 		fillPoints(shape, pl, posX, posY, minX, maxX, step);
 
 		for(IPoint pt : pl.getPoints()) {
-			IDot dot = ShapeFactory.createDot(pt);
+			IDot dot = ShapeFactory.INST.createDot(pt);
 			dot.copy(shape);
 			dot.setRotationAngle(0.0);
 			dots.add(dot);
@@ -64,7 +64,7 @@ public class PlotViewHelper {
 
 	
 	public IPolygon updatePolygon(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
-		final IPolygon pg = ShapeFactory.createPolygon();
+		final IPolygon pg = ShapeFactory.INST.createPolygon();
 		fillPoints(shape, pg, posX, posY, minX, maxX, step);
 		pg.copy(shape);
 		return pg;
@@ -72,7 +72,7 @@ public class PlotViewHelper {
 
 	
 	public IPolyline updateLine(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
-		final IPolyline pl = ShapeFactory.createPolyline();
+		final IPolyline pl = ShapeFactory.INST.createPolyline();
 		fillPoints(shape, pl, posX, posY, minX, maxX, step);
 		pl.copy(shape);
 		return pl;
@@ -83,7 +83,7 @@ public class PlotViewHelper {
 		// The algorithm follows this definition:
 		// https://stackoverflow.com/questions/15864441/how-to-make-a-line-curve-through-points
 		final double scale = 0.33;
-		final IBezierCurve bc = ShapeFactory.createBezierCurve();
+		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve();
 
 		fillPoints(shape, bc, posX, posY, minX, maxX, step);
 		if(shape.getPlotStyle() == PlotStyle.CCURVE)

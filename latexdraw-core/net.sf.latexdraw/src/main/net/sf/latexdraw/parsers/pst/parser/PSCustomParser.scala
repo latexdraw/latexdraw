@@ -223,7 +223,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	 */
 	def parseClosepath(ctx : PSTContext) : Parser[List[IShape]] = "\\closepath" ^^ { case _ =>
 		if(ctx.isPsCustom) {
-			val fh = ShapeFactory.createFreeHand()
+			val fh = ShapeFactory.INST.createFreeHand()
 			fh.setOpen(false)
 			checkTextParsed(ctx) ::: List(fh)
 		}
@@ -262,8 +262,8 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 
 
 	private def createFreeHand(isLine : Boolean, ctx : PSTContext, pt : PointUnit) : IFreehand = {
-		val freeHand = ShapeFactory.createFreeHand()
-		freeHand.addPoint(ShapeFactory.createPoint(ctx.psCustomLatestPt))
+		val freeHand = ShapeFactory.INST.createFreeHand()
+		freeHand.addPoint(ShapeFactory.INST.createPoint(ctx.psCustomLatestPt))
 		freeHand.addPoint(transformPointTo2DScene(pt, ctx))
 
 		if(isLine)

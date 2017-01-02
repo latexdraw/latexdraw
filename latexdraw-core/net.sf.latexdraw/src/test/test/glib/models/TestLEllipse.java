@@ -20,8 +20,8 @@ import test.glib.models.interfaces.TestIEllipse;
 public class TestLEllipse extends TestIEllipse<IEllipse> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createEllipse();
-		shape2 = ShapeFactory.createEllipse();
+		shape = ShapeFactory.INST.createEllipse();
+		shape2 = ShapeFactory.INST.createEllipse();
 	}
 
 	@Override
@@ -39,35 +39,35 @@ public class TestLEllipse extends TestIEllipse<IEllipse> {
 
 	@Test
 	public void testConstructors2() {
-		IEllipse ell = ShapeFactory.createEllipse();
+		IEllipse ell = ShapeFactory.INST.createEllipse();
 
 		assertEquals(4, ell.getNbPoints());
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOKSamePoints() {
-		ShapeFactory.createEllipse(ShapeFactory.createPoint(), ShapeFactory.createPoint());
+		ShapeFactory.INST.createEllipse(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOKIncorrectPoints() {
-		ShapeFactory.createEllipse(ShapeFactory.createPoint(1, 0), ShapeFactory.createPoint(2, 0));
+		ShapeFactory.INST.createEllipse(ShapeFactory.INST.createPoint(1, 0), ShapeFactory.INST.createPoint(2, 0));
 	}
 	
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOKNAN() {
-		ShapeFactory.createEllipse(ShapeFactory.createPoint(1, Double.NaN), ShapeFactory.createPoint(2, 0));
+		ShapeFactory.INST.createEllipse(ShapeFactory.INST.createPoint(1, Double.NaN), ShapeFactory.INST.createPoint(2, 0));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3() {
-		ShapeFactory.createEllipse(ShapeFactory.createPoint(1, 2), ShapeFactory.createPoint(2, Double.NaN));
+		ShapeFactory.INST.createEllipse(ShapeFactory.INST.createPoint(1, 2), ShapeFactory.INST.createPoint(2, Double.NaN));
 	}
 	
 	@Test
 	public void testConstructors3OK() {
-		IEllipse ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(20, 26), ShapeFactory.createPoint(30, 35));
+		IEllipse ell = ShapeFactory.INST.createEllipse(ShapeFactory.INST.createPoint(20, 26), ShapeFactory.INST.createPoint(30, 35));
 		HelperTest.assertEqualsDouble(20., ell.getPosition().getX());
 		HelperTest.assertEqualsDouble(35., ell.getPosition().getY());
 		HelperTest.assertEqualsDouble(10., ell.getWidth());

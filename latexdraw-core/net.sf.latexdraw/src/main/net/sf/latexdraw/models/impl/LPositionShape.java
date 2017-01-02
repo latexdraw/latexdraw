@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
@@ -25,19 +25,19 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 	 */
 	LPositionShape(final IPoint pt) {
 		super();
-		points.add(GLibUtilities.isValidPoint(pt) ? pt : ShapeFactory.createPoint());
+		points.add(MathUtils.INST.isValidPt(pt) ? pt : ShapeFactory.INST.createPoint());
 	}
 
 
 	@Override
 	public void setPosition(final IPoint pt) {
-		if(GLibUtilities.isValidPoint(pt)) setPosition(pt.getX(), pt.getY());
+		if(MathUtils.INST.isValidPt(pt)) setPosition(pt.getX(), pt.getY());
 	}
 
 
 	@Override
 	public void setPosition(final double x, final double y) {
-		if(GLibUtilities.isValidPoint(x, y)) {
+		if(MathUtils.INST.isValidPt(x, y)) {
 			final IPoint pos = getPosition();
 			translate(x - pos.getX(), y - pos.getY());
 		}
@@ -46,13 +46,13 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 
 	@Override
 	public void setX(final double x) {
-		if(GLibUtilities.isValidCoordinate(x)) translate(x - getPosition().getX(), 0);
+		if(MathUtils.INST.isValidCoord(x)) translate(x - getPosition().getX(), 0);
 	}
 
 
 	@Override
 	public void setY(final double y) {
-		if(GLibUtilities.isValidCoordinate(y)) translate(0, y - getPosition().getY());
+		if(MathUtils.INST.isValidCoord(y)) translate(0, y - getPosition().getY());
 	}
 
 

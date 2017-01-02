@@ -11,7 +11,7 @@
 package net.sf.latexdraw.actions.shape;
 
 import net.sf.latexdraw.instruments.TextSetter;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IText;
@@ -99,7 +99,7 @@ public class InitTextSetter extends ActivateInstrument {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && GLibUtilities.isValidPoint(position) &&
+		return super.canDo() && MathUtils.INST.isValidPt(position) &&
 			setter != null && (text != null || textShape != null || plotShape != null);
 	}
 

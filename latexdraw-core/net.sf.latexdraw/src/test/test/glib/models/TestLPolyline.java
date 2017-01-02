@@ -20,14 +20,14 @@ import test.glib.models.interfaces.TestIPolyline;
 public class TestLPolyline extends TestIPolyline<IPolyline> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createPolyline();
-		shape2 = ShapeFactory.createPolyline();
-		shape.addPoint(ShapeFactory.createPoint(1, 1));
-		shape.addPoint(ShapeFactory.createPoint(2, 2));
-		shape.addPoint(ShapeFactory.createPoint(3, 3));
-		shape2.addPoint(ShapeFactory.createPoint(1, 1));
-		shape2.addPoint(ShapeFactory.createPoint(2, 2));
-		shape2.addPoint(ShapeFactory.createPoint(3, 3));
+		shape = ShapeFactory.INST.createPolyline();
+		shape2 = ShapeFactory.INST.createPolyline();
+		shape.addPoint(ShapeFactory.INST.createPoint(1, 1));
+		shape.addPoint(ShapeFactory.INST.createPoint(2, 2));
+		shape.addPoint(ShapeFactory.INST.createPoint(3, 3));
+		shape2.addPoint(ShapeFactory.INST.createPoint(1, 1));
+		shape2.addPoint(ShapeFactory.INST.createPoint(2, 2));
+		shape2.addPoint(ShapeFactory.INST.createPoint(3, 3));
 	}
 
 	@Override
@@ -45,9 +45,9 @@ public class TestLPolyline extends TestIPolyline<IPolyline> {
 
 	@Test
 	public void testConstructor() {
-		IPoint pt1 = ShapeFactory.createPoint(1, 1);
-		IPoint pt2 = ShapeFactory.createPoint(2, 2);
-		IPolyline pol = ShapeFactory.createPolyline(pt1, pt2);
+		IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
+		IPoint pt2 = ShapeFactory.INST.createPoint(2, 2);
+		IPolyline pol = ShapeFactory.INST.createPolyline(pt1, pt2);
 
 		assertEquals(pt1, pol.getPtAt(0));
 		assertEquals(pt2, pol.getPtAt(-1));

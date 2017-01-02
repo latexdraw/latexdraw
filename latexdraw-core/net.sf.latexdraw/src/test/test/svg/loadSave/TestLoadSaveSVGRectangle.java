@@ -9,7 +9,7 @@ import org.junit.Test;
 public class TestLoadSaveSVGRectangle extends TestLoadSaveSVGRectangularShape<IRectangle> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createRectangle();
+		shape = ShapeFactory.INST.createRectangle();
 	}
 
 	@Test

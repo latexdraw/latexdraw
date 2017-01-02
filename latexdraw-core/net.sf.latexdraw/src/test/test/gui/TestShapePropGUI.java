@@ -56,70 +56,70 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	};
 
 	// protected final GUICommand pencilGroupParams = () -> {
-	// IGroup g = ShapeFactory.createGroup();
-	// g.addShape(ShapeFactory.createRectangle());
-	// g.addShape(ShapeFactory.createDot(ShapeFactory.createPoint()));
-	// g.addShape(ShapeFactory.createGrid(ShapeFactory.createPoint()));
-	// g.addShape(ShapeFactory.createAxes(ShapeFactory.createPoint()));
-	// g.addShape(ShapeFactory.createText());
-	// g.addShape(ShapeFactory.createCircleArc());
-	// g.addShape(ShapeFactory.createPolyline());
-	// g.addShape(ShapeFactory.createBezierCurve());
-	// g.addShape(ShapeFactory.createFreeHand());
-	// g.addShape(ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 10, "x", false));
+	// IGroup g = ShapeFactory.INST.createGroup();
+	// g.addShape(ShapeFactory.INST.createRectangle());
+	// g.addShape(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
+	// g.addShape(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
+	// g.addShape(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
+	// g.addShape(ShapeFactory.INST.createText());
+	// g.addShape(ShapeFactory.INST.createCircleArc());
+	// g.addShape(ShapeFactory.INST.createPolyline());
+	// g.addShape(ShapeFactory.INST.createBezierCurve());
+	// g.addShape(ShapeFactory.INST.createFreeHand());
+	// g.addShape(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 10, "x", false));
 	// when(pencil.getGroupParams()).thenReturn(g);
 	// };
 
 	protected final GUIVoidCommand selectionAddRec = () -> {
-		IShape sh = ShapeFactory.createRectangle();
+		IShape sh = ShapeFactory.INST.createRectangle();
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddArc = () -> {
-		IShape sh = ShapeFactory.createCircleArc();
+		IShape sh = ShapeFactory.INST.createCircleArc();
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddDot = () -> {
-		IShape sh = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IShape sh = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddAxes = () -> {
-		IShape sh = ShapeFactory.createAxes(ShapeFactory.createPoint());
+		IShape sh = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddBezier = () -> {
-		IShape sh = ShapeFactory.createBezierCurve();
+		IShape sh = ShapeFactory.INST.createBezierCurve();
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddFreehand = () -> {
-		IShape sh = ShapeFactory.createFreeHand();
+		IShape sh = ShapeFactory.INST.createFreeHand();
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddGrid = () -> {
-		IShape sh = ShapeFactory.createGrid(ShapeFactory.createPoint());
+		IShape sh = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddText = () -> {
-		IShape sh = ShapeFactory.createText();
+		IShape sh = ShapeFactory.INST.createText();
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddPlot = () -> {
-		IShape sh = ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 10, "x", false);
+		IShape sh = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 10, "x", false);
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};

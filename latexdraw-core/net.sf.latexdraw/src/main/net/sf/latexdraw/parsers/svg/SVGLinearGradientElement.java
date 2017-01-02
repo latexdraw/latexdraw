@@ -1,12 +1,10 @@
 package net.sf.latexdraw.parsers.svg;
 
-import net.sf.latexdraw.models.interfaces.shape.Color;
 import java.awt.geom.Point2D;
 import java.text.ParseException;
-
+import net.sf.latexdraw.models.MathUtils;
+import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
-import net.sf.latexdraw.util.LNumber;
-
 import org.w3c.dom.Node;
 
 /**
@@ -260,13 +258,13 @@ public class SVGLinearGradientElement extends SVGElement {
         final double y2 = getY2();
         double angle = Double.NaN;
 
-		if(LNumber.equalsDouble(x1, x2))
+		if(MathUtils.INST.equalsDouble(x1, x2))
 			if(SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(getGradientUnits()))
 				angle = Math.PI/2.;
 			else
 				angle = 0.;
 		else
-			if(LNumber.equalsDouble(y1, y2))
+			if(MathUtils.INST.equalsDouble(y1, y2))
 				angle = Math.PI;
 
 		if(Double.isNaN(angle)) {

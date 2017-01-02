@@ -66,7 +66,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 
 	private def createAxes(min : PointUnit, max : PointUnit, arrows : Option[String], ctx : PSTContext) : IAxes = {
-		val axes = ShapeFactory.createAxes(ShapeFactory.createPoint)
+		val axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint)
 
 		setArrows(axes, arrows, false, ctx)
 		setStdGridParams(new PointUnit(ctx.ox, ctx.oy, null, null), min, max, axes, ctx)
@@ -84,13 +84,13 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 		axes.setGridEndY(max.y)
 		axes.setGridStartX(min.x)
 		axes.setGridStartY(min.y)
-		axes.setPosition(ShapeFactory.createPoint(0.0, 0.0))
+		axes.setPosition(ShapeFactory.INST.createPoint(0.0, 0.0))
 		axes
 	}
 
 
 	private def createGrid(origin : PointUnit, min : PointUnit, max : PointUnit, ctx : PSTContext) : IGrid = {
-		val grid = ShapeFactory.createGrid(ShapeFactory.createPoint)
+		val grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint)
 		var gridEndX = max.x
 		var gridEndY = max.y
 		var gridStartX = min.x
@@ -114,7 +114,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 		setStdGridParams(origin, min, max, grid, ctx)
 		setShapeGeneralParameters(grid, ctx)
-		grid.setPosition(ShapeFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
+		grid.setPosition(ShapeFactory.INST.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
 		grid.setUnit(ctx.unit)
 		grid.setGridDots(ctx.gridDots.toInt)
 		grid.setGridLabelsColour(ctx.gridlabelcolor)

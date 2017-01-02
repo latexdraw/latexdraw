@@ -63,7 +63,7 @@ public class PasteShapes extends DrawingActionImpl implements Undoable, Modifyin
 			final int gap = copy.nbTimeCopied * gapPaste;
 
 			copy.copiedShapes.forEach(shape -> {
-				final IShape sh = ShapeFactory.duplicate(shape);
+				final IShape sh = ShapeFactory.INST.duplicate(shape);
 				pastedShapes.add(sh);
 				sh.translate(gap, gap);
 				dr.addShape(sh);

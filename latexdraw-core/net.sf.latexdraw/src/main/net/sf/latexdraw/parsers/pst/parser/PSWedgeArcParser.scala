@@ -156,7 +156,7 @@ trait PSWedgeArcParser extends PSTAbstractParser
 		if(radius.isNaN || angle1.isNaN || angle2.isNaN)
 			None
 		else {
-			val arc = ShapeFactory.createCircleArc()
+			val arc = ShapeFactory.INST.createCircleArc()
 			val centre = transformPointTo2DScene(pos, ctx)
 			val width = scala.math.abs(radius*IShape.PPC)*2.0
 			arc.setAngleStart(scala.math.toRadians(angle1))

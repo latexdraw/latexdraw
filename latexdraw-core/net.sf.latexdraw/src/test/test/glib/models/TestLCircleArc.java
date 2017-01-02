@@ -20,8 +20,8 @@ import test.glib.models.interfaces.TestICircleArc;
 public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createCircleArc();
-		shape2 = ShapeFactory.createCircleArc();
+		shape = ShapeFactory.INST.createCircleArc();
+		shape2 = ShapeFactory.INST.createCircleArc();
 	}
 
 	@Override

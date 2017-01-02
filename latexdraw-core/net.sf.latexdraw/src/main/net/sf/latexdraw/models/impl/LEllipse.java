@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -25,7 +25,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	 * @since 3.0
 	 */
 	LEllipse() {
-		this(ShapeFactory.createPoint(), ShapeFactory.createPoint(1.0, 1.0));
+		this(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(1.0, 1.0));
 	}
 
 	/**
@@ -46,7 +46,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	//
 	//		double lineb = line.getB();
 	//		double linea = line.getA();
-	//		boolean vert = !GLibUtilities.isValidPoint(linea, lineb);// The line is vertical.
+	//		boolean vert = !GLibUtilities.isValidPt(linea, lineb);// The line is vertical.
 	//		IPoint[] pts;
 	//		double a	 = getA()/2.;
 	//		double b	 = getB()/2.;
@@ -94,7 +94,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 
 	@Override
 	public void setCentre(final IPoint centre) {
-		if(GLibUtilities.isValidPoint(centre)) {
+		if(MathUtils.INST.isValidPt(centre)) {
 			final IPoint gc = getGravityCentre();
 			translate(centre.getX() - gc.getX(), centre.getY() - gc.getY());
 		}

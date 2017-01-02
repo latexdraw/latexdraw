@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
@@ -22,12 +22,12 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 	LRectangularShape(final IPoint tl, final IPoint br) {
 		super(tl);
 
-		if(!(GLibUtilities.isValidPoint(tl) && GLibUtilities.isValidPoint(br) && tl.getX() < br.getX() && tl.getY() < br.getY()))
+		if(!(MathUtils.INST.isValidPt(tl) && MathUtils.INST.isValidPt(br) && tl.getX() < br.getX() && tl.getY() < br.getY()))
 			throw new IllegalArgumentException();
 
-		points.add(ShapeFactory.createPoint(br.getX(), tl.getY()));
-		points.add(ShapeFactory.createPoint(br));
-		points.add(ShapeFactory.createPoint(tl.getX(), br.getY()));
+		points.add(ShapeFactory.INST.createPoint(br.getX(), tl.getY()));
+		points.add(ShapeFactory.INST.createPoint(br));
+		points.add(ShapeFactory.INST.createPoint(tl.getX(), br.getY()));
 	}
 
 
@@ -36,7 +36,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 		super.mirrorHorizontal(origin);
 
 		if(getWidth() < 0) {
-			final IPoint tmp = ShapeFactory.createPoint(points.get(0));
+			final IPoint tmp = ShapeFactory.INST.createPoint(points.get(0));
 			points.get(0).setPoint(points.get(1));
 			points.get(1).setPoint(tmp);
 			tmp.setPoint(points.get(2));
@@ -49,7 +49,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 	public void mirrorVertical(final IPoint origin) {
 		super.mirrorVertical(origin);
 		if(getHeight() < 0) {
-			final IPoint tmp = ShapeFactory.createPoint(points.get(0));
+			final IPoint tmp = ShapeFactory.INST.createPoint(points.get(0));
 			points.get(0).setPoint(points.get(3));
 			points.get(3).setPoint(tmp);
 			tmp.setPoint(points.get(1));
@@ -70,7 +70,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 
 	@Override
 	public void setWidth(final double width) {
-		if(GLibUtilities.isValidCoordinate(width) && width > 0) {
+		if(MathUtils.INST.isValidCoord(width) && width > 0) {
 			final double xPos = points.get(points.size() - 1).getX() + width;
 			points.get(1).setX(xPos);
 			points.get(2).setX(xPos);
@@ -79,7 +79,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 
 	@Override
 	public void setHeight(final double height) {
-		if(GLibUtilities.isValidCoordinate(height) && height > 0) {
+		if(MathUtils.INST.isValidCoord(height) && height > 0) {
 			final double yPos = points.get(points.size() - 1).getY() - height;
 			points.get(0).setY(yPos);
 			points.get(1).setY(yPos);

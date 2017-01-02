@@ -187,7 +187,7 @@ public class Hand extends CanvasInstrument {
 					final double zoom = instrument.canvas.getZoom();
 					action.setInstrument(instrument.textSetter);
 					action.setTextSetter(instrument.textSetter);
-					action.setPosition(ShapeFactory.createPoint(position.getX() * zoom, position.getY() * zoom));
+					action.setPosition(ShapeFactory.INST.createPoint(position.getX() * zoom, position.getY() * zoom));
 				});
 			});
 		}
@@ -304,7 +304,7 @@ public class Hand extends CanvasInstrument {
 
 
 class DnD2MoveViewport extends JfxInteractor<MoveCamera, DnD, CanvasInstrument> {
-	private IPoint pt = ShapeFactory.createPoint();
+	private IPoint pt = ShapeFactory.INST.createPoint();
 
 	DnD2MoveViewport(final CanvasInstrument ins) throws IllegalAccessException, InstantiationException {
 		super(ins, true, MoveCamera.class, DnD.class, ins.canvas);
@@ -322,7 +322,7 @@ class DnD2MoveViewport extends JfxInteractor<MoveCamera, DnD, CanvasInstrument> 
 			final ScrollPane pane = instrument.canvas.getScrollPane();
 			action.setPx(pane.getHvalue() - (end.getX() - pt.getX()) / instrument.canvas.getWidth());
 			action.setPy(pane.getVvalue() - (end.getY() - pt.getY()) / instrument.canvas.getHeight());
-			pt = pt.centralSymmetry(ShapeFactory.createPoint(start));
+			pt = pt.centralSymmetry(ShapeFactory.INST.createPoint(start));
 		}));
 	}
 

@@ -22,7 +22,7 @@ class LTriangle extends LRectangularShape implements ITriangle {
 	 * Creates a triangle at the position (0,0).
 	 */
 	LTriangle() {
-		this(ShapeFactory.createPoint(), 1, 1);
+		this(ShapeFactory.INST.createPoint(), 1, 1);
 	}
 
 	/**
@@ -33,7 +33,7 @@ class LTriangle extends LRectangularShape implements ITriangle {
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 */
 	LTriangle(final IPoint pos, final double width, final double height) {
-		super(pos, pos == null ? null : ShapeFactory.createPoint(pos.getX() + width, pos.getY() + height));
+		super(pos, pos == null ? null : ShapeFactory.INST.createPoint(pos.getX() + width, pos.getY() + height));
 	}
 }
 

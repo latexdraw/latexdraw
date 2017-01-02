@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 
 /**
@@ -37,7 +37,7 @@ class LineArcProp implements ILineArcProp {
 
 	@Override
 	public void setLineArc(final double arc) {
-		if(GLibUtilities.isValidCoordinate(arc) && arc >= 0.0 && arc <= 1.0) {
+		if(MathUtils.INST.isValidCoord(arc) && arc >= 0.0 && arc <= 1.0) {
 			frameArc = arc;
 		}
 	}

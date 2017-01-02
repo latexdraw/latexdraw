@@ -12,6 +12,7 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.awt.geom.Point2D;
 import javafx.beans.binding.Bindings;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -21,16 +22,14 @@ import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
-
-import java.awt.geom.Point2D;
 
 /**
  * The base class of a JFX single shape view.
@@ -93,8 +92,8 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	private LinearGradient computeGradient() {
 		final IPoint tl = model.getTopLeftPoint();
 		final IPoint br = model.getBottomRightPoint();
-		IPoint pt1 = ShapeFactory.createPoint((tl.getX() + br.getX()) / 2d, tl.getY());
-		IPoint pt2 = ShapeFactory.createPoint((tl.getX() + br.getX()) / 2d, br.getY());
+		IPoint pt1 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, tl.getY());
+		IPoint pt2 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, br.getY());
 		double angle = model.getGradAngle() % (2d * Math.PI);
 		double gradMidPt = model.getGradMidPt();
 
@@ -105,14 +104,14 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			angle -= Math.PI;
 		}
 
-		if(LNumber.equalsDouble(angle, 0d)) {
+		if(MathUtils.INST.equalsDouble(angle, 0d)) {
 			if(gradMidPt < 0.5) pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (tl.getX() + br.getX()) / 2d, br.getY()));
 
 			pt2.setY(tl.getY() + (br.getY() - tl.getY()) * gradMidPt);
 		}else {
-			if(LNumber.equalsDouble(angle % (Math.PI / 2d), 0d)) {
-				pt1 = ShapeFactory.createPoint(tl.getX(), (tl.getY() + br.getY()) / 2d);
-				pt2 = ShapeFactory.createPoint(br.getX(), (tl.getY() + br.getY()) / 2d);
+			if(MathUtils.INST.equalsDouble(angle % (Math.PI / 2d), 0d)) {
+				pt1 = ShapeFactory.INST.createPoint(tl.getX(), (tl.getY() + br.getY()) / 2d);
+				pt2 = ShapeFactory.INST.createPoint(br.getX(), (tl.getY() + br.getY()) / 2d);
 
 				if(gradMidPt < 0.5)
 					pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), br.getX(), (tl.getY() + br.getY()) / 2d));
@@ -125,10 +124,10 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 
 				pt1 = pt1.rotatePoint(cg, -angle);
 				pt2 = pt2.rotatePoint(cg, -angle);
-				l = ShapeFactory.createLine(pt1, pt2);
+				l = ShapeFactory.INST.createLine(pt1, pt2);
 
 				if(angle >= 0d && angle < Math.PI / 2d) l2 = l.getPerpendicularLine(tl);
-				else l2 = l.getPerpendicularLine(ShapeFactory.createPoint(tl.getX(), br.getY()));
+				else l2 = l.getPerpendicularLine(ShapeFactory.INST.createPoint(tl.getX(), br.getY()));
 
 				pt1 = l.getIntersection(l2);
 				final double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());

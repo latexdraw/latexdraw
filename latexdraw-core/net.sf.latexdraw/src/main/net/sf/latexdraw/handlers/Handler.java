@@ -3,7 +3,7 @@ package net.sf.latexdraw.handlers;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -54,8 +54,8 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 		super();
 		opacity	= 0.4;
 		size   	= DEFAULT_SIZE;
-		colour 	= ShapeFactory.createColor(0, 0, 0, opacity);
-		point  	= ShapeFactory.createPoint();
+		colour 	= ShapeFactory.INST.createColor(0, 0, 0, opacity);
+		point  	= ShapeFactory.INST.createPoint();
 	}
 
 
@@ -66,7 +66,7 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 	 */
 	@Override
 	public void setPoint(final double x, final double y) {
-		if(GLibUtilities.isValidPoint(x, y)) {
+		if(MathUtils.INST.isValidPt(x, y)) {
 			point.setPoint(x, y);
 			updateShape();
 		}

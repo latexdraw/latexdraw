@@ -3,7 +3,7 @@ package net.sf.latexdraw.view.svg;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
@@ -52,7 +52,7 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 	 * @since 2.0.0
 	 */
 	protected LRhombusSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createRhombus());
+		this(ShapeFactory.INST.createRhombus());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
@@ -91,14 +91,14 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 		final IPoint tl  = shape.getTopLeftPoint();
 		final IPoint br  = shape.getBottomRightPoint();
 		final IPoint gc = shape.getGravityCentre();
-		final IPoint p1 = ShapeFactory.createPoint((tl.getX()+br.getX())/2., tl.getY());
-		final IPoint p2 = ShapeFactory.createPoint(br.getX(), (tl.getY()+br.getY())/2.);
-		final IPoint p3 = ShapeFactory.createPoint((tl.getX()+br.getX())/2., br.getY());
+		final IPoint p1 = ShapeFactory.INST.createPoint((tl.getX()+br.getX())/2., tl.getY());
+		final IPoint p2 = ShapeFactory.INST.createPoint(br.getX(), (tl.getY()+br.getY())/2.);
+		final IPoint p3 = ShapeFactory.INST.createPoint((tl.getX()+br.getX())/2., br.getY());
 		final SVGElement root = new SVGGElement(doc);
 		SVGElement elt;
 	    final double gap = getPositionGap()/2.;
-	    final double cornerGap1 = GLibUtilities.getCornerGap(gc, p1, p2, gap);
-	    double cornerGap2 = GLibUtilities.getCornerGap(gc, p2, p3, gap);
+	    final double cornerGap1 = MathUtils.INST.getCornerGap(gc, p1, p2, gap);
+	    double cornerGap2 = MathUtils.INST.getCornerGap(gc, p2, p3, gap);
 
 	    if(p2.getX()<p3.getX())
 	    	cornerGap2*=-1;

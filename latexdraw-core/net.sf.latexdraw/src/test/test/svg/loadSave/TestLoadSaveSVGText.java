@@ -12,7 +12,7 @@ import org.junit.Test;
 public class TestLoadSaveSVGText extends TestLoadSaveSVGPositionShape<IText> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createText();
+		shape = ShapeFactory.INST.createText();
 	}
 
 	@Override

@@ -48,7 +48,7 @@ class LSquareSVGGenerator extends LShapeSVGGenerator<ISquare> {
 	 * @since 2.0.0
 	 */
 	protected LSquareSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createSquare());
+		this(ShapeFactory.INST.createSquare());
 		initRectangle(elt, withTransformation);
 	}
 

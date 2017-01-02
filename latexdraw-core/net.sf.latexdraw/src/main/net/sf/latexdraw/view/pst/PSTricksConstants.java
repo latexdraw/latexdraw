@@ -99,10 +99,10 @@ public final class PSTricksConstants {
 	public static final PlottingStyle DEFAULT_TICKS_DISPLAYED = PlottingStyle.ALL;
 
 	/** The first colour of a gradient by default. */
-	public static final Color DEFAULT_GRADIENT_START_COLOR = ShapeFactory.createColor(0.0, 0.1, 0.95, 1.0);
+	public static final Color DEFAULT_GRADIENT_START_COLOR = ShapeFactory.INST.createColor(0.0, 0.1, 0.95, 1.0);
 
 	/** The second color of a gradient by default. */
-	public static final Color DEFAULT_GRADIENT_END_COLOR   = ShapeFactory.createColor(0.0, 1.0, 1.0, 1.0);
+	public static final Color DEFAULT_GRADIENT_END_COLOR   = ShapeFactory.INST.createColor(0.0, 1.0, 1.0, 1.0);
 
 	/** The position of the midpoint, as a fraction of the distance from
 		top to bottom. Should be between 0 and 1. */

@@ -379,7 +379,7 @@ public class TestTextParsing extends TestPSTParser {
 		IText txt = (IText)parser.parsePSTCode("\\definecolor{color0}{rgb}{0.5,0.5,0.5}\\color{color0}couocu").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		assertNotNull(txt);
-		assertEquals(ShapeFactory.createColor(0.5, 0.5, 0.5), txt.getLineColour());
+		assertEquals(ShapeFactory.INST.createColor(0.5, 0.5, 0.5), txt.getLineColour());
 	}
 
 	@Test

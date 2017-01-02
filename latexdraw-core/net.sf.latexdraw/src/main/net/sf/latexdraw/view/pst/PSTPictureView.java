@@ -10,13 +10,12 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.LFileUtils;
-import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LangTool;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -36,7 +35,7 @@ public class PSTPictureView extends PSTShapeView<IPicture> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.isValidPoint(origin) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) return "";
 
 		String path = shape.getPathTarget();
 		final StringBuilder start = new StringBuilder();
@@ -52,8 +51,8 @@ public class PSTPictureView extends PSTShapeView<IPicture> {
 
 		code.append(start);
 		code.append("\\rput(");//$NON-NLS-1$
-		code.append(LNumber.getCutNumberFloat((shape.getX() + shape.getWidth() / 2. - origin.getX()) / ppc)).append(',');
-		code.append(LNumber.getCutNumberFloat((origin.getY() - shape.getY() - shape.getHeight() / 2.) / ppc)).append(')').append('{');
+		code.append(MathUtils.INST.getCutNumberFloat((shape.getX() + shape.getWidth() / 2. - origin.getX()) / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat((origin.getY() - shape.getY() - shape.getHeight() / 2.) / ppc)).append(')').append('{');
 		code.append("\\includegraphics{"); //$NON-NLS-1$
 		code.append(LFileUtils.INSTANCE.normalizeForLaTeX(path));
 		code.append('}').append('}');

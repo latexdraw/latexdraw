@@ -18,7 +18,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.models.interfaces.shape.Color;
@@ -119,14 +119,14 @@ class LGrid extends LAbstractGrid implements IGrid {
 	@Override
 	public IPoint getBottomRightPoint() {
 		final IPoint pos = getPosition();
-		return ShapeFactory.createPoint(pos.getX() + getGridMaxX() * PPC * getUnit(), pos.getY() - getGridMinY() * PPC);
+		return ShapeFactory.INST.createPoint(pos.getX() + getGridMaxX() * PPC * getUnit(), pos.getY() - getGridMinY() * PPC);
 	}
 
 
 	@Override
 	public IPoint getTopLeftPoint() {
 		final IPoint pos = getPosition();
-		return ShapeFactory.createPoint(pos.getX() + getGridMinX() * PPC, pos.getY() - getGridMaxY() * PPC * getUnit());
+		return ShapeFactory.INST.createPoint(pos.getX() + getGridMinX() * PPC, pos.getY() - getGridMaxY() * PPC * getUnit());
 	}
 
 	@Override
@@ -284,7 +284,7 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 	@Override
 	public void setGridWidth(final double gridW) {
-		if(gridW > 0d && GLibUtilities.isValidCoordinate(gridW)) {
+		if(gridW > 0d && MathUtils.INST.isValidCoord(gridW)) {
 			gridWidth.set(gridW);
 		}
 	}
@@ -312,14 +312,14 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 	@Override
 	public void setSubGridWidth(final double subGridW) {
-		if(subGridW > 0d && GLibUtilities.isValidCoordinate(subGridW)) {
+		if(subGridW > 0d && MathUtils.INST.isValidCoord(subGridW)) {
 			subGridWidth.set(subGridW);
 		}
 	}
 
 	@Override
 	public void setUnit(final double un) {
-		if(un > 0d && GLibUtilities.isValidCoordinate(un)) { //TODO unit may be lesser than 0.
+		if(un > 0d && MathUtils.INST.isValidCoord(un)) { //TODO unit may be lesser than 0.
 			unit.set(un);
 		}
 	}

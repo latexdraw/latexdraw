@@ -8,6 +8,6 @@ import net.sf.latexdraw.models.interfaces.shape.IPolygon;
 public class TestLoadSaveSVGPolygon extends TestLoadSaveSVGModifiablePointsShape<IPolygon> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createPolygon();
+		shape = ShapeFactory.INST.createPolygon();
 	}
 }

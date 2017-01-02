@@ -10,16 +10,15 @@
  */
 package net.sf.latexdraw.view.pst;
 
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
-import net.sf.latexdraw.util.LNumber;
-import net.sf.latexdraw.util.LResources;
 import org.eclipse.jdt.annotation.NonNull;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Defines a PSTricks generator; it manages the PSTricks views and the latex additional code.
@@ -103,12 +102,12 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 
 		if(withLatexParams && positionHoriCentre) cache.append("\\begin{center}").append(LResources.EOL);//$NON-NLS-1$
 
-		final float scaleF = LNumber.getCutNumberFloat(getScale());
+		final float scaleF = MathUtils.INST.getCutNumberFloat(getScale());
 		cache.append("\\psscalebox{").append(scaleF).append(' ').append(scaleF).append("} % Change this value to rescale the drawing.");//$NON-NLS-1$ //$NON-NLS-2$
 		cache.append(LResources.EOL).append('{').append(LResources.EOL);
 		cache.append("\\begin{pspicture}("); //$NON-NLS-1$
-		cache.append(0).append(',').append(LNumber.getCutNumberFloat((origin.getY() - br.getY()) / ppc)).append(')').append('(');
-		cache.append(LNumber.getCutNumberFloat((tl.getX() - origin.getX()) / ppc)).append(',').append(LNumber.getCutNumberFloat((origin.getY() - tl.getY()) / ppc));
+		cache.append(0).append(',').append(MathUtils.INST.getCutNumberFloat((origin.getY() - br.getY()) / ppc)).append(')').append('(');
+		cache.append(MathUtils.INST.getCutNumberFloat((tl.getX() - origin.getX()) / ppc)).append(',').append(MathUtils.INST.getCutNumberFloat((origin.getY() - tl.getY()) / ppc));
 		cache.append(')').append(LResources.EOL);
 
 		drawing.getShapes().forEach(shape -> PSTViewsFactory.INSTANCE.createView(shape).ifPresent(pstView -> {

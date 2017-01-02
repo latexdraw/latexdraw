@@ -27,14 +27,14 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	@Before
 	public void setUp() {
 		super.setUp();
-		g = ShapeFactory.createGroup();
+		g = ShapeFactory.INST.createGroup();
 	}
 
 	@Test
 	public void testDoArrowDotSizeNum() {
-		IPolyline line1 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline line2 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
+		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
 		g.addShape(line1);
 		g.addShape(rec);
 		g.addShape(line2);
@@ -67,9 +67,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowDotSizeDim() {
-		IPolyline line1 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline line2 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
+		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
 		g.addShape(line1);
 		g.addShape(rec);
 		g.addShape(line2);
@@ -102,9 +102,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowTBarSizeNum() {
-		IPolyline line1 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline line2 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
+		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
 		g.addShape(line1);
 		g.addShape(rec);
 		g.addShape(line2);
@@ -137,9 +137,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowTBarSizeDim() {
-		IPolyline line1 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline line2 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
+		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
 		g.addShape(line1);
 		g.addShape(rec);
 		g.addShape(line2);
@@ -172,9 +172,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowBracketNum() {
-		IPolyline line1 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline line2 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
+		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
 		g.addShape(line1);
 		g.addShape(rec);
 		g.addShape(line2);
@@ -207,9 +207,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowRBracketNum() {
-		IPolyline line1 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline line2 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
+		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
 		g.addShape(line1);
 		g.addShape(rec);
 		g.addShape(line2);
@@ -242,9 +242,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowSizeNum() {
-		IPolyline line1 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline line2 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
+		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
 		g.addShape(line1);
 		g.addShape(rec);
 		g.addShape(line2);
@@ -277,9 +277,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowSizeDim() {
-		IPolyline line1 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline line2 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
+		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
 		g.addShape(line1);
 		g.addShape(rec);
 		g.addShape(line2);
@@ -312,9 +312,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowLength() {
-		IPolyline line1 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline line2 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
+		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
 		g.addShape(line1);
 		g.addShape(rec);
 		g.addShape(line2);
@@ -347,9 +347,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowInset() {
-		IPolyline line1 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline line2 = ShapeFactory.createPolyline(ShapeFactory.createPoint(), ShapeFactory.createPoint(10, 10));
+		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
 		g.addShape(line1);
 		g.addShape(rec);
 		g.addShape(line2);
@@ -382,9 +382,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoGridStart() {
-		IGrid grid = ShapeFactory.createGrid(ShapeFactory.createPoint());
-		IRectangle rec = ShapeFactory.createRectangle();
-		IAxes axe = ShapeFactory.createAxes(ShapeFactory.createPoint());
+		IGrid grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IAxes axe = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 		g.addShape(grid);
 		g.addShape(rec);
 		g.addShape(axe);
@@ -392,7 +392,7 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		axe.setGridStart(-1, -4);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.GRID_START);
-		action.setValue(ShapeFactory.createPoint(-5, -6));
+		action.setValue(ShapeFactory.INST.createPoint(-5, -6));
 		assertTrue(action.doIt());
 
 		assertEquals(-5., grid.getGridStartX(), 0.0001);
@@ -423,9 +423,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoDotSize() {
-		IDot d1 = ShapeFactory.createDot(ShapeFactory.createPoint());
-		IRectangle rec = ShapeFactory.createRectangle();
-		IDot d2 = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		g.addShape(d1);
 		g.addShape(rec);
 		g.addShape(d2);
@@ -458,9 +458,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoDotStyle() {
-		IDot d1 = ShapeFactory.createDot(ShapeFactory.createPoint());
-		IRectangle rec = ShapeFactory.createRectangle();
-		IDot d2 = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		g.addShape(d1);
 		g.addShape(rec);
 		g.addShape(d2);
@@ -493,9 +493,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoLineStyle() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -528,9 +528,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoFillingStyle() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -563,9 +563,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoThickness() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -598,9 +598,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoShadowAngle() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -633,9 +633,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoShadowSize() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -668,9 +668,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoHasShadow() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -703,9 +703,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoDbleBordSep() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -738,9 +738,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoHasDbleBord() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -773,9 +773,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoFillingDotCol() {
-		IDot d1 = ShapeFactory.createDot(ShapeFactory.createPoint());
-		IRectangle rec = ShapeFactory.createRectangle();
-		IDot d2 = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		d1.setDotStyle(DotStyle.DIAMOND);
 		d2.setDotStyle(DotStyle.DIAMOND);
 		g.addShape(d1);
@@ -814,9 +814,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoStartGradCol() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IRectangle rec2 = ShapeFactory.createRectangle();
-		IDot dot = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
+		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
@@ -849,9 +849,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoEndGradCol() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IRectangle rec2 = ShapeFactory.createRectangle();
-		IDot dot = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
+		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
@@ -884,9 +884,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoShadowCol() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IRectangle rec2 = ShapeFactory.createRectangle();
-		IDot dot = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
+		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
@@ -919,9 +919,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoDbleBordCol() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IRectangle rec2 = ShapeFactory.createRectangle();
-		IDot dot = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
+		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
@@ -954,9 +954,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoHatchingsCol() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IRectangle rec2 = ShapeFactory.createRectangle();
-		IDot dot = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
+		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
@@ -989,9 +989,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoFillingCol() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IRectangle rec2 = ShapeFactory.createRectangle();
-		IDot dot = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
+		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
@@ -1024,9 +1024,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoLineArc() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -1059,9 +1059,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoGradMidPt() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -1094,9 +1094,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoGradAngle() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -1129,9 +1129,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoHatchingsSep() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -1164,9 +1164,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoHatchingsWidth() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -1199,9 +1199,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoHatchingsAngle() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IText p = ShapeFactory.createText();
-		IRectangle rec2 = ShapeFactory.createRectangle();
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IText p = ShapeFactory.INST.createText();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
 		g.addShape(rec1);
 		g.addShape(p);
 		g.addShape(rec2);
@@ -1234,9 +1234,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoText() {
-		IText p1 = ShapeFactory.createText();
-		IRectangle rec = ShapeFactory.createRectangle();
-		IText p2 = ShapeFactory.createText();
+		IText p1 = ShapeFactory.INST.createText();
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IText p2 = ShapeFactory.INST.createText();
 		g.addShape(p1);
 		g.addShape(rec);
 		g.addShape(p2);
@@ -1269,9 +1269,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoTextPosition() {
-		IText p1 = ShapeFactory.createText();
-		IRectangle rec = ShapeFactory.createRectangle();
-		IText p2 = ShapeFactory.createText();
+		IText p1 = ShapeFactory.INST.createText();
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IText p2 = ShapeFactory.INST.createText();
 		g.addShape(p1);
 		g.addShape(rec);
 		g.addShape(p2);
@@ -1304,9 +1304,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowStyle1() {
-		IPolyline p1 = ShapeFactory.createPolyline();
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline p2 = ShapeFactory.createPolyline();
+		IPolyline p1 = ShapeFactory.INST.createPolyline();
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline p2 = ShapeFactory.INST.createPolyline();
 		g.addShape(p1);
 		g.addShape(rec);
 		g.addShape(p2);
@@ -1339,9 +1339,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArrowStyle0() {
-		IPolyline p1 = ShapeFactory.createPolyline();
-		IRectangle rec = ShapeFactory.createRectangle();
-		IPolyline p2 = ShapeFactory.createPolyline();
+		IPolyline p1 = ShapeFactory.INST.createPolyline();
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IPolyline p2 = ShapeFactory.INST.createPolyline();
 		g.addShape(p1);
 		g.addShape(rec);
 		g.addShape(p2);
@@ -1374,9 +1374,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoArcStyle() {
-		IArc arc1 = ShapeFactory.createCircleArc();
-		IRectangle rec = ShapeFactory.createRectangle();
-		IArc arc2 = ShapeFactory.createCircleArc();
+		IArc arc1 = ShapeFactory.INST.createCircleArc();
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IArc arc2 = ShapeFactory.INST.createCircleArc();
 		g.addShape(arc1);
 		g.addShape(rec);
 		g.addShape(arc2);
@@ -1409,9 +1409,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoAngleEnd() {
-		IArc arc1 = ShapeFactory.createCircleArc();
-		IRectangle rec = ShapeFactory.createRectangle();
-		IArc arc2 = ShapeFactory.createCircleArc();
+		IArc arc1 = ShapeFactory.INST.createCircleArc();
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IArc arc2 = ShapeFactory.INST.createCircleArc();
 		g.addShape(arc1);
 		g.addShape(rec);
 		g.addShape(arc2);
@@ -1444,9 +1444,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoAngleStart() {
-		IArc arc1 = ShapeFactory.createCircleArc();
-		IRectangle rec = ShapeFactory.createRectangle();
-		IArc arc2 = ShapeFactory.createCircleArc();
+		IArc arc1 = ShapeFactory.INST.createCircleArc();
+		IRectangle rec = ShapeFactory.INST.createRectangle();
+		IArc arc2 = ShapeFactory.INST.createCircleArc();
 		g.addShape(arc1);
 		g.addShape(rec);
 		g.addShape(arc2);
@@ -1479,9 +1479,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoLineColour() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IRectangle rec2 = ShapeFactory.createRectangle();
-		IDot dot = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
+		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
@@ -1518,9 +1518,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Test
 	public void testDoBorderPosition() {
-		IRectangle rec1 = ShapeFactory.createRectangle();
-		IRectangle rec2 = ShapeFactory.createRectangle();
-		IDot dot = ShapeFactory.createDot(ShapeFactory.createPoint());
+		IRectangle rec1 = ShapeFactory.INST.createRectangle();
+		IRectangle rec2 = ShapeFactory.INST.createRectangle();
+		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
@@ -1566,7 +1566,7 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	@Override
 	@Test
 	public void testFlush() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		IRectangle rec = ShapeFactory.createRectangle();
+		IRectangle rec = ShapeFactory.INST.createRectangle();
 		g.addShape(rec);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.BORDER_POS);
@@ -1584,7 +1584,7 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	@Test
 	public void testDo() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 		assertFalse(action.doIt());
-		IRectangle rec = ShapeFactory.createRectangle();
+		IRectangle rec = ShapeFactory.INST.createRectangle();
 		g.addShape(rec);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.BORDER_POS);
@@ -1595,7 +1595,7 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	@Override
 	@Test
 	public void testCanDo() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		IGroup varTmp = ShapeFactory.createGroup();
+		IGroup varTmp = ShapeFactory.INST.createGroup();
 		assertFalse(action.canDo());
 		action.setGroup(varTmp);
 		assertFalse(action.canDo());
@@ -1603,7 +1603,7 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		assertFalse(action.canDo());
 		action.setValue(100.);
 		assertFalse(action.canDo());
-		varTmp.addShape(ShapeFactory.createCircleArc());
+		varTmp.addShape(ShapeFactory.INST.createCircleArc());
 		assertTrue(action.canDo());
 		action.setGroup(null);
 		assertFalse(action.canDo());

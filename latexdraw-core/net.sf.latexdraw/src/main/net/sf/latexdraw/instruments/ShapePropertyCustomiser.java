@@ -75,7 +75,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	 */
 	public void update() {
 		if(pencil.isActivated()) {
-			update(ShapeFactory.createGroup(pencil.createShapeInstance()));
+			update(ShapeFactory.INST.createGroup(pencil.createShapeInstance()));
 		}
 		else {
 			update(drawing.getSelection());
@@ -216,7 +216,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 		@Override
 		public void initAction() {
-			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
+			action.setValue(ShapeFactory.INST.createColorFX(interaction.getWidget().getValue()));
 			action.setPencil(instrument.pencil);
 			action.setProperty(prop);
 		}
@@ -238,7 +238,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		@Override
 		public void initAction() {
 			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
-			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
+			action.setValue(ShapeFactory.INST.createColorFX(interaction.getWidget().getValue()));
 			action.setProperty(prop);
 		}
 

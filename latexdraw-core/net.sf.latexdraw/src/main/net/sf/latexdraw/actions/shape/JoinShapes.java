@@ -36,7 +36,7 @@ public class JoinShapes extends DrawingActionImpl implements ShapesAction, Undoa
 
 	public JoinShapes() {
 		super();
-		addedGroup = ShapeFactory.createGroup();
+		addedGroup = ShapeFactory.INST.createGroup();
 		shapes = new ArrayList<>();
 	}
 

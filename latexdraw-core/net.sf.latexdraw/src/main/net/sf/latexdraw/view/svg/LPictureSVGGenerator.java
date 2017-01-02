@@ -43,7 +43,7 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 	 * @since 2.0.0
 	 */
 	protected LPictureSVGGenerator(final SVGImageElement elt) throws IOException {
-		this(ShapeFactory.createPicture(ShapeFactory.createPoint()));
+		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 
 		shape.setPathSource(elt.getURI());
 		shape.getPosition().setPoint(elt.getX(), elt.getY());
@@ -58,7 +58,7 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 	 * @since 2.0.0
 	 */
 	protected LPictureSVGGenerator(final SVGGElement elt, final boolean withTransformation) throws IOException {
-		this(ShapeFactory.createPicture(ShapeFactory.createPoint()));
+		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 

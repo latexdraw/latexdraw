@@ -12,7 +12,7 @@ package net.sf.latexdraw.models.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
@@ -56,13 +56,13 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 		super(pt);
 		arrows = new ArrayList<>();
 		// The first arrow is for the bottom of the Y-axis.
-		arrows.add(ShapeFactory.createArrow(this));
+		arrows.add(ShapeFactory.INST.createArrow(this));
 		// The second arrow is for the left of the X-axis.
-		arrows.add(ShapeFactory.createArrow(this));
+		arrows.add(ShapeFactory.INST.createArrow(this));
 		// The third arrow is for the top of the Y-axis.
-		arrows.add(ShapeFactory.createArrow(this));
+		arrows.add(ShapeFactory.INST.createArrow(this));
 		// The fourth arrow is for the right of the X-axis.
-		arrows.add(ShapeFactory.createArrow(this));
+		arrows.add(ShapeFactory.INST.createArrow(this));
 		incrementX = PSTricksConstants.DEFAULT_DX;
 		incrementY = PSTricksConstants.DEFAULT_DY;
 	}
@@ -131,13 +131,13 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	 */
 	private ILine getArrowLineY(final boolean topY) {
 		final IPoint pos = getPosition();
-		final IPoint p2 = ShapeFactory.createPoint(pos.getX(), pos.getY() - gridEndy * IShape.PPC);
-		final IPoint p1 = ShapeFactory.createPoint(pos.getX(), pos.getY() - gridStarty * IShape.PPC);
+		final IPoint p2 = ShapeFactory.INST.createPoint(pos.getX(), pos.getY() - gridEndy * IShape.PPC);
+		final IPoint p1 = ShapeFactory.INST.createPoint(pos.getX(), pos.getY() - gridStarty * IShape.PPC);
 
 		if(topY) {
-			return ShapeFactory.createLine(p2, p1);
+			return ShapeFactory.INST.createLine(p2, p1);
 		}
-		return ShapeFactory.createLine(p1, p2);
+		return ShapeFactory.INST.createLine(p1, p2);
 	}
 
 
@@ -146,13 +146,13 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	 */
 	private ILine getArrowLineX(final boolean leftX) {
 		final IPoint pos = getPosition();
-		final IPoint p2 = ShapeFactory.createPoint(pos.getX() + gridEndx * IShape.PPC, pos.getY());
-		final IPoint p1 = ShapeFactory.createPoint(pos.getX() + gridStartx * IShape.PPC, pos.getY());
+		final IPoint p2 = ShapeFactory.INST.createPoint(pos.getX() + gridEndx * IShape.PPC, pos.getY());
+		final IPoint p1 = ShapeFactory.INST.createPoint(pos.getX() + gridStartx * IShape.PPC, pos.getY());
 
 		if(leftX) {
-			return ShapeFactory.createLine(p1, p2);
+			return ShapeFactory.INST.createLine(p1, p2);
 		}
-		return ShapeFactory.createLine(p2, p1);
+		return ShapeFactory.INST.createLine(p2, p1);
 	}
 
 	@Override
@@ -204,21 +204,21 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public void setDistLabelsX(final double distX) {
-		if(distX > 0.0 && GLibUtilities.isValidCoordinate(distX)) {
+		if(distX > 0.0 && MathUtils.INST.isValidCoord(distX)) {
 			distLabelsX = distX;
 		}
 	}
 
 	@Override
 	public void setDistLabelsY(final double distY) {
-		if(distY > 0.0 && GLibUtilities.isValidCoordinate(distY)) {
+		if(distY > 0.0 && MathUtils.INST.isValidCoord(distY)) {
 			distLabelsY = distY;
 		}
 	}
 
 	@Override
 	public void setIncrementX(final double incr) {
-		if(incr > 0.0 && GLibUtilities.isValidCoordinate(incr)) {
+		if(incr > 0.0 && MathUtils.INST.isValidCoord(incr)) {
 			incrementX = incr;
 		}
 	}
@@ -226,7 +226,7 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public void setIncrementY(final double incr) {
-		if(incr > 0.0 && GLibUtilities.isValidCoordinate(incr)) {
+		if(incr > 0.0 && MathUtils.INST.isValidCoord(incr)) {
 			incrementY = incr;
 		}
 	}
@@ -252,7 +252,7 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public void setTicksSize(final double ticks) {
-		if(ticks > 0.0 && GLibUtilities.isValidCoordinate(ticks)) {
+		if(ticks > 0.0 && MathUtils.INST.isValidCoord(ticks)) {
 			ticksSize = ticks;
 		}
 	}
@@ -291,7 +291,7 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public IPoint getIncrement() {
-		return ShapeFactory.createPoint(incrementX, incrementY);
+		return ShapeFactory.INST.createPoint(incrementX, incrementY);
 	}
 
 	@Override
@@ -304,7 +304,7 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public IPoint getDistLabels() {
-		return ShapeFactory.createPoint(distLabelsX, distLabelsY);
+		return ShapeFactory.INST.createPoint(distLabelsX, distLabelsY);
 	}
 
 	@Override

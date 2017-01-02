@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -38,7 +37,7 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	 * @since 3.0
 	 */
 	protected StringBuilder getPointsCode(final IPoint position, final float ppc) {
-		if(!GLibUtilities.isValidPoint(position) || ppc < 1) return null;
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return null;
 
 		IPoint p;
 		int i;
@@ -47,8 +46,8 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 
 		for(i = 0; i < size; i++) {
 			p = shape.getPtAt(i);
-			points.append('(').append(LNumber.getCutNumberFloat((p.getX() - position.getX()) / ppc));
-			points.append(',').append(LNumber.getCutNumberFloat((position.getY() - p.getY()) / ppc)).append(')');
+			points.append('(').append(MathUtils.INST.getCutNumberFloat((p.getX() - position.getX()) / ppc));
+			points.append(',').append(MathUtils.INST.getCutNumberFloat((position.getY() - p.getY()) / ppc)).append(')');
 		}
 
 		return points;
@@ -57,7 +56,7 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 
 	@Override
 	public String getCode(final IPoint position, final float ppc) {
-		if(!GLibUtilities.isValidPoint(position) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
 
 		final StringBuilder points = getPointsCode(position, ppc);
 		final StringBuilder code = new StringBuilder();

@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LResources;
 import org.eclipse.jdt.annotation.NonNull;
 
@@ -34,7 +33,7 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.isValidPoint(origin) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) return "";
 
 		final double radiusX = shape.getWidth() / 2.0;
 		final double radiusY = shape.getHeight() / 2.0;
@@ -58,8 +57,8 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 
 		if(rotation != null) end.append('}');
 
-		if(!LNumber.equalsDouble(yunit, 1.0)) {
-			start.append("\\psscalebox{1 ").append(LNumber.getCutNumberFloat(yunit)).append('}').append('{'); //$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(yunit, 1.0)) {
+			start.append("\\psscalebox{1 ").append(MathUtils.INST.getCutNumberFloat(yunit)).append('}').append('{'); //$NON-NLS-1$
 			end.append('}');
 		}
 
@@ -75,10 +74,10 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 
 				start.append("\\psarc"); //$NON-NLS-1$
 				end.append(LResources.EOL).append("\\psline[").append(params).append(']').append('('); //$NON-NLS-1$
-				end.append(LNumber.getCutNumberFloat(startPt.getX() / ppc)).append(',');
-				end.append(LNumber.getCutNumberFloat(startPt.getY() / ppc)).append(')').append('(');
-				end.append(LNumber.getCutNumberFloat(endPt.getX() / ppc)).append(',');
-				end.append(LNumber.getCutNumberFloat(endPt.getY() / ppc)).append(')');
+				end.append(MathUtils.INST.getCutNumberFloat(startPt.getX() / ppc)).append(',');
+				end.append(MathUtils.INST.getCutNumberFloat(startPt.getY() / ppc)).append(')').append('(');
+				end.append(MathUtils.INST.getCutNumberFloat(endPt.getX() / ppc)).append(',');
+				end.append(MathUtils.INST.getCutNumberFloat(endPt.getY() / ppc)).append(')');
 				break;
 			case WEDGE:
 				start.append("\\pswedge"); //$NON-NLS-1$
@@ -89,11 +88,11 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 		cache.append('[').append(params).append(']');
 		if(arrowsStyle != null) cache.append(arrowsStyle);
 		cache.append('(');
-		cache.append(LNumber.getCutNumberFloat(x / ppc)).append(',');
-		cache.append(LNumber.getCutNumberFloat(y / ppc)).append(')').append('{');
-		cache.append(LNumber.getCutNumberFloat(radiusX / ppc)).append('}').append('{');
-		cache.append(LNumber.getCutNumberFloat(Math.toDegrees(startAngle))).append('}').append('{');
-		cache.append(LNumber.getCutNumberFloat(Math.toDegrees(endAngle))).append('}');
+		cache.append(MathUtils.INST.getCutNumberFloat(x / ppc)).append(',');
+		cache.append(MathUtils.INST.getCutNumberFloat(y / ppc)).append(')').append('{');
+		cache.append(MathUtils.INST.getCutNumberFloat(radiusX / ppc)).append('}').append('{');
+		cache.append(MathUtils.INST.getCutNumberFloat(Math.toDegrees(startAngle))).append('}').append('{');
+		cache.append(MathUtils.INST.getCutNumberFloat(Math.toDegrees(endAngle))).append('}');
 		cache.append(end);
 
 		return cache.toString();

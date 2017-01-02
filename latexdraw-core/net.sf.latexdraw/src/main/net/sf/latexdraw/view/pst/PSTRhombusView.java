@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -33,7 +32,7 @@ public class PSTRhombusView extends PSTClassicalView<IRhombus> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.isValidPoint(origin) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) return "";
 
 		final IPoint tl = shape.getTopLeftPoint();
 		final IPoint br = shape.getBottomRightPoint();
@@ -47,16 +46,16 @@ public class PSTRhombusView extends PSTClassicalView<IRhombus> {
 		final double rotationAngle = Math.toDegrees(shape.getRotationAngle()) % 360;
 		final StringBuilder code = new StringBuilder();
 
-		if(!LNumber.equalsDouble(rotationAngle, 0.0))
-			params.append(", gangle=").append(LNumber.getCutNumberFloat(-rotationAngle));//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(rotationAngle, 0.0))
+			params.append(", gangle=").append(MathUtils.INST.getCutNumberFloat(-rotationAngle));//$NON-NLS-1$
 
 		code.append("\\psdiamond[");//$NON-NLS-1$
 		code.append(params);
 		code.append(']').append('(');
-		code.append(LNumber.getCutNumberFloat(xCenter / ppc)).append(',');
-		code.append(LNumber.getCutNumberFloat(yCenter / ppc)).append(')').append('(');
-		code.append(LNumber.getCutNumberFloat((brx - tlx) / 2f) / ppc).append(',');
-		code.append(LNumber.getCutNumberFloat((bry - tly) / 2f) / ppc).append(')');
+		code.append(MathUtils.INST.getCutNumberFloat(xCenter / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat(yCenter / ppc)).append(')').append('(');
+		code.append(MathUtils.INST.getCutNumberFloat((brx - tlx) / 2f) / ppc).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat((bry - tly) / 2f) / ppc).append(')');
 
 		return code.toString();
 	}

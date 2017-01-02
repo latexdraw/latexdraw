@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -33,11 +32,11 @@ public class PSTEllipseView extends PSTClassicalView<IEllipse> {
 
 	@Override
 	public String getCode(final IPoint position, final float ppc) {
-		if(!GLibUtilities.isValidPoint(position) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
 
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
-		final float x = LNumber.getCutNumberFloat(shape.getX() + shape.getWidth() / 2.0 - position.getX());
-		final float y = LNumber.getCutNumberFloat(position.getY() + shape.getHeight() / 2.0 - shape.getY());
+		final float x = MathUtils.INST.getCutNumberFloat(shape.getX() + shape.getWidth() / 2.0 - position.getX());
+		final float y = MathUtils.INST.getCutNumberFloat(position.getY() + shape.getHeight() / 2.0 - shape.getY());
 		final StringBuilder code = new StringBuilder();
 
 		if(rotation != null) code.append(rotation);
@@ -45,10 +44,10 @@ public class PSTEllipseView extends PSTClassicalView<IEllipse> {
 		code.append("\\psellipse[");            //$NON-NLS-1$
 		code.append(getPropertiesCode(ppc));
 		code.append(']').append('(');
-		code.append(LNumber.getCutNumber(x / ppc)).append(',');
-		code.append(LNumber.getCutNumber(y / ppc)).append(')').append('(');
-		code.append(LNumber.getCutNumberFloat(shape.getWidth() / 2.0 / ppc)).append(',');
-		code.append(LNumber.getCutNumberFloat(shape.getHeight() / 2.0 / ppc)).append(')');
+		code.append(MathUtils.INST.getCutNumber(x / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumber(y / ppc)).append(')').append('(');
+		code.append(MathUtils.INST.getCutNumberFloat(shape.getWidth() / 2.0 / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat(shape.getHeight() / 2.0 / ppc)).append(')');
 
 		if(rotation != null) code.append('}');
 

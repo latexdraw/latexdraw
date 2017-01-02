@@ -53,7 +53,7 @@ class LPlotSVGGenerator extends LShapeSVGGenerator<IPlot> {
 	 * @param elt The source element.
 	 */
 	protected LPlotSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 5, "x", false));
+		this(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 5, "x", false));
 
 		setSVGParameters(elt);
 		

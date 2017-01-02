@@ -18,11 +18,11 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * The JFX view of an arrow.
@@ -361,7 +361,7 @@ public class ViewArrow extends Group {
 		final double c3x;
 		final double c3y;
 
-		if(LNumber.equalsDouble(Math.abs(lineAngle), Math.PI / 2d)) {
+		if(MathUtils.INST.equalsDouble(Math.abs(lineAngle), Math.PI / 2d)) {
 			final double cx = pt1.getX();
 			final double cy = pt1.getY();
 			xRot = cx;
@@ -421,7 +421,7 @@ public class ViewArrow extends Group {
 				break;
 		}
 
-		if(!LNumber.equalsDouble(lineAngle % (Math.PI * 2d), 0d)) {
+		if(!MathUtils.INST.equalsDouble(lineAngle % (Math.PI * 2d), 0d)) {
 			path.setRotate(Math.toDegrees(lineAngle));
 //			path.setTranslateX(c3x);
 //			path.setTranslateY(c3y);

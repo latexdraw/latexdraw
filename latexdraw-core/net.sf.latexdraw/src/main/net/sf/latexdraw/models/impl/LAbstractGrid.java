@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -86,14 +86,14 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	@Override
 	public IPoint getBottomRightPoint() {
 		final IPoint pos = getPosition();
-		return ShapeFactory.createPoint(pos.getX() + getGridMaxX() * PPC, pos.getY() - getGridMinY() * PPC);
+		return ShapeFactory.INST.createPoint(pos.getX() + getGridMaxX() * PPC, pos.getY() - getGridMinY() * PPC);
 	}
 
 
 	@Override
 	public IPoint getTopLeftPoint() {
 		final IPoint pos = getPosition();
-		return ShapeFactory.createPoint(pos.getX() + getGridMinX() * PPC, pos.getY() - getGridMaxY() * PPC);
+		return ShapeFactory.INST.createPoint(pos.getX() + getGridMinX() * PPC, pos.getY() - getGridMaxY() * PPC);
 	}
 
 
@@ -102,7 +102,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 		final IPoint pos = getPosition();
 		final double step = getStep();
 		//FIXME strange: different from getTopLeftPoint and co. but works for scale.
-		return ShapeFactory.createPoint(pos.getX() + step * (gridEndx - gridStartx), pos.getY() - step * (gridEndy - gridStarty));
+		return ShapeFactory.INST.createPoint(pos.getX() + step * (gridEndx - gridStartx), pos.getY() - step * (gridEndy - gridStarty));
 	}
 
 
@@ -185,7 +185,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setGridEndX(final double x) {
-		if(x >= gridStartx && GLibUtilities.isValidCoordinate(x)) {
+		if(x >= gridStartx && MathUtils.INST.isValidCoord(x)) {
 			gridEndx = x;
 		}
 	}
@@ -193,7 +193,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setGridEndY(final double y) {
-		if(y >= gridStarty && GLibUtilities.isValidCoordinate(y)) {
+		if(y >= gridStarty && MathUtils.INST.isValidCoord(y)) {
 			gridEndy = y;
 		}
 	}
@@ -208,7 +208,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setGridStartX(final double x) {
-		if(x <= gridEndx && GLibUtilities.isValidCoordinate(x)) {
+		if(x <= gridEndx && MathUtils.INST.isValidCoord(x)) {
 			gridStartx = x;
 		}
 	}
@@ -216,7 +216,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setGridStartY(final double y) {
-		if(y <= gridEndy && GLibUtilities.isValidCoordinate(y)) {
+		if(y <= gridEndy && MathUtils.INST.isValidCoord(y)) {
 			gridStarty = y;
 		}
 	}
@@ -231,7 +231,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setOriginX(final double x) {
-		if(GLibUtilities.isValidCoordinate(x)) {
+		if(MathUtils.INST.isValidCoord(x)) {
 			originx = x;
 		}
 	}
@@ -239,7 +239,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setOriginY(final double y) {
-		if(GLibUtilities.isValidCoordinate(y)) {
+		if(MathUtils.INST.isValidCoord(y)) {
 			originy = y;
 		}
 	}
@@ -264,12 +264,12 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public IPoint getGridStart() {
-		return ShapeFactory.createPoint(gridStartx, gridStarty);
+		return ShapeFactory.INST.createPoint(gridStartx, gridStarty);
 	}
 
 
 	@Override
 	public IPoint getGridEnd() {
-		return ShapeFactory.createPoint(gridEndx, gridEndy);
+		return ShapeFactory.INST.createPoint(gridEndx, gridEndy);
 	}
 }

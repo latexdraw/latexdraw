@@ -18,8 +18,8 @@ import test.glib.models.interfaces.TestIFreehand;
 public class TestLFreeHand extends TestIFreehand<IFreehand> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createFreeHand();
-		shape2 = ShapeFactory.createFreeHand();
+		shape = ShapeFactory.INST.createFreeHand();
+		shape2 = ShapeFactory.INST.createFreeHand();
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class TestLFreeHand extends TestIFreehand<IFreehand> {
 
 	@Test
 	public void testConstructors() {
-		final IFreehand fh = ShapeFactory.createFreeHand();
+		final IFreehand fh = ShapeFactory.INST.createFreeHand();
 		assertNotNull(fh);
 	}
 }

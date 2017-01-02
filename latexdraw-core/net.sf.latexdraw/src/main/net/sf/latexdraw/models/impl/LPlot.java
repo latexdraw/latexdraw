@@ -13,7 +13,7 @@ package net.sf.latexdraw.models.impl;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.stream.IntStream;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
@@ -46,8 +46,8 @@ class LPlot extends LPositionShape implements IPlot {
 	LPlot(final IPoint pt, final double xMin, final double xMax, final String equationPlot, final boolean polarCoord) {
 		super(pt);
 
-		if(!(GLibUtilities.isValidPoint(pt) && xMin < xMax && GLibUtilities.isValidCoordinate(xMin) && GLibUtilities.isValidCoordinate(xMax)))
-			throw new IllegalArgumentException("Parameter not valid: " + xMin + " " + xMax + " " + GLibUtilities.isValidPoint(pt));
+		if(!(MathUtils.INST.isValidPt(pt) && xMin < xMax && MathUtils.INST.isValidCoord(xMin) && MathUtils.INST.isValidCoord(xMax)))
+			throw new IllegalArgumentException("Parameter not valid: " + xMin + " " + xMax + " " + MathUtils.INST.isValidPt(pt));
 
 		nbPoints = 50;
 		style = PlotStyle.CURVE;
@@ -92,7 +92,7 @@ class LPlot extends LPositionShape implements IPlot {
 	@Override
 	public void mirrorVertical(final IPoint origin) {
 		final IPoint gc = getGravityCentre();
-		if(GLibUtilities.isValidPoint(origin) && !origin.equals(gc, 0.0001)) {
+		if(MathUtils.INST.isValidPt(origin) && !origin.equals(gc, 0.0001)) {
 			translate(0, gc.verticalSymmetry(origin).getY() - gc.getY());
 		}
 	}
@@ -100,7 +100,7 @@ class LPlot extends LPositionShape implements IPlot {
 	@Override
 	public void mirrorHorizontal(final IPoint origin) {
 		final IPoint gc = getGravityCentre();
-		if(GLibUtilities.isValidPoint(origin) && !origin.equals(gc, 0.0001)) {
+		if(MathUtils.INST.isValidPt(origin) && !origin.equals(gc, 0.0001)) {
 			translate(gc.horizontalSymmetry(origin).getX() - gc.getX(), 0);
 		}
 	}
@@ -171,7 +171,7 @@ class LPlot extends LPositionShape implements IPlot {
 		final double step = getPlottingStep();
 		final IPoint pos = getPosition();
 		final double yMax = IntStream.range(0, nbPoints).mapToDouble(x -> getY(minX + x * step)).max().orElse(0.0);
-		return ShapeFactory.createPoint(pos.getX() + minX * IShape.PPC * xscale, pos.getY() - yMax * IShape.PPC * yscale);
+		return ShapeFactory.INST.createPoint(pos.getX() + minX * IShape.PPC * xscale, pos.getY() - yMax * IShape.PPC * yscale);
 	}
 
 
@@ -180,7 +180,7 @@ class LPlot extends LPositionShape implements IPlot {
 		final double step = getPlottingStep();
 		final IPoint pos = getPosition();
 		final double yMin = IntStream.range(0, nbPoints).mapToDouble(x -> getY(minX + x * step)).min().orElse(0.0);
-		return ShapeFactory.createPoint(pos.getX() + maxX * IShape.PPC * xscale, pos.getY() - yMin * IShape.PPC * yscale);
+		return ShapeFactory.INST.createPoint(pos.getX() + maxX * IShape.PPC * xscale, pos.getY() - yMin * IShape.PPC * yscale);
 	}
 
 
@@ -189,7 +189,7 @@ class LPlot extends LPositionShape implements IPlot {
 		final double step = getPlottingStep();
 		final IPoint pos = getPosition();
 		final double maxY = IntStream.range(0, nbPoints).mapToDouble(x -> getY(minX + x * step)).max().orElse(0.0);
-		return ShapeFactory.createPoint(pos.getX() + maxX * IShape.PPC * xscale, pos.getY() - maxY * IShape.PPC * yscale);
+		return ShapeFactory.INST.createPoint(pos.getX() + maxX * IShape.PPC * xscale, pos.getY() - maxY * IShape.PPC * yscale);
 	}
 
 
@@ -198,7 +198,7 @@ class LPlot extends LPositionShape implements IPlot {
 		final double step = getPlottingStep();
 		final IPoint pos = getPosition();
 		final double yMin = IntStream.range(0, nbPoints).mapToDouble(x -> getY(minX + x * step)).min().orElse(0.0);
-		return ShapeFactory.createPoint(pos.getX() + minX * IShape.PPC * xscale, pos.getY() - yMin * IShape.PPC * yscale);
+		return ShapeFactory.INST.createPoint(pos.getX() + minX * IShape.PPC * xscale, pos.getY() - yMin * IShape.PPC * yscale);
 	}
 
 
@@ -288,14 +288,14 @@ class LPlot extends LPositionShape implements IPlot {
 
 	@Override
 	public void setPlotMaxX(final double x) {
-		if(GLibUtilities.isValidCoordinate(x) && x > minX) {
+		if(MathUtils.INST.isValidCoord(x) && x > minX) {
 			maxX = x;
 		}
 	}
 
 	@Override
 	public void setPlotMinX(final double x) {
-		if(GLibUtilities.isValidCoordinate(x) && x < maxX) {
+		if(MathUtils.INST.isValidCoord(x) && x < maxX) {
 			minX = x;
 		}
 	}
@@ -317,7 +317,7 @@ class LPlot extends LPositionShape implements IPlot {
 
 	@Override
 	public void setDiametre(final double diam) {
-		if(diam > 0.0 && GLibUtilities.isValidCoordinate(diam)) {
+		if(diam > 0.0 && MathUtils.INST.isValidCoord(diam)) {
 			dotDiametre = diam;
 		}
 	}
@@ -336,14 +336,14 @@ class LPlot extends LPositionShape implements IPlot {
 
 	@Override
 	public void setXScale(final double xscalePlot) {
-		if(xscalePlot > 0 && GLibUtilities.isValidCoordinate(xscalePlot)) {
+		if(xscalePlot > 0 && MathUtils.INST.isValidCoord(xscalePlot)) {
 			xscale = xscalePlot;
 		}
 	}
 
 	@Override
 	public void setYScale(final double xScalePlot) {
-		if(xScalePlot > 0 && GLibUtilities.isValidCoordinate(xScalePlot)) {
+		if(xScalePlot > 0 && MathUtils.INST.isValidCoord(xScalePlot)) {
 			yscale = xScalePlot;
 		}
 	}

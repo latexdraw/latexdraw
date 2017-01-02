@@ -134,7 +134,7 @@ class MagneticGridImpl implements MagneticGrid {
 	@Override
 	public IPoint getTransformedPointToGrid(final Point3D pt) {
 		if(isMagnetic() && isGridDisplayed()) {
-			final IPoint point = ShapeFactory.createPoint(pt.getX(), pt.getY());
+			final IPoint point = ShapeFactory.INST.createPoint(pt.getX(), pt.getY());
 			final double modulo = getMagneticGridGap();
 			double x = point.getX();
 			double y = point.getY();
@@ -162,7 +162,7 @@ class MagneticGridImpl implements MagneticGrid {
 			return point;
 		}
 
-		return ShapeFactory.createPoint(pt.getX(), pt.getY());
+		return ShapeFactory.INST.createPoint(pt.getX(), pt.getY());
 	}
 
 

@@ -443,5 +443,5 @@ public interface IShapeFactory {
 	 * @return The duplicated shape or null.
 	 * @since 3.0
 	 */
-	IShape duplicate(IShape shape);
+	<T extends IShape> T duplicate(final T shape);
 }

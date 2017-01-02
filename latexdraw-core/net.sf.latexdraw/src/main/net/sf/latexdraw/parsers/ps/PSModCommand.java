@@ -1,8 +1,7 @@
 package net.sf.latexdraw.parsers.ps;
 
 import java.util.Deque;
-
-import net.sf.latexdraw.util.LNumber;
+import net.sf.latexdraw.models.MathUtils;
 
 /**
  * Defines the mod command.<br>
@@ -33,7 +32,7 @@ public class PSModCommand implements PSArithemticCommand {
 		final double a = stack.pop();
 		final double b = stack.pop();
 
-		if(LNumber.equalsDouble(a, 0.0))
+		if(MathUtils.INST.equalsDouble(a, 0.0))
 			throw new ArithmeticException();
 
 		stack.push(b%a);

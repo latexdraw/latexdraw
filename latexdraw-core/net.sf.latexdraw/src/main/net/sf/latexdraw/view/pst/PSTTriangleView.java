@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -33,7 +32,7 @@ public class PSTTriangleView extends PSTClassicalView<ITriangle> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.isValidPoint(origin) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) return "";
 
 		final IPoint tl = shape.getTopLeftPoint();
 		final IPoint br = shape.getBottomRightPoint();
@@ -47,10 +46,10 @@ public class PSTTriangleView extends PSTClassicalView<ITriangle> {
 
 		code.append("\\pstriangle[");//$NON-NLS-1$
 		code.append(getPropertiesCode(ppc)).append(']').append('(');
-		code.append(LNumber.getCutNumberFloat(((tlx + brx) / 2. - origin.getX()) / ppc)).append(',');
-		code.append(LNumber.getCutNumberFloat((origin.getY() - bry) / ppc)).append(')').append('(');
-		code.append(LNumber.getCutNumberFloat((brx - tlx) / ppc)).append(',');
-		code.append(LNumber.getCutNumberFloat((bry - tl.getY()) / ppc)).append(')');
+		code.append(MathUtils.INST.getCutNumberFloat(((tlx + brx) / 2. - origin.getX()) / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat((origin.getY() - bry) / ppc)).append(')').append('(');
+		code.append(MathUtils.INST.getCutNumberFloat((brx - tlx) / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat((bry - tl.getY()) / ppc)).append(')');
 
 		if(rot != null) code.append('}');
 

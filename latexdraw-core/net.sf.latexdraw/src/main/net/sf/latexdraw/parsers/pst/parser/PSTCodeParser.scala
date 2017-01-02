@@ -49,7 +49,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			consume(parseIncludeGraphics(ctx))() | consume(parsePSCustomCommands(ctx))() | consume(parsePsFrameboxCmds(ctx))() | consume(parsetextCommands(ctx))() |
 			consume(parseText(ctx))()) ^^ {
 		case list =>
-		val group = ShapeFactory.createGroup()
+		val group = ShapeFactory.INST.createGroup()
 
 		list.foreach{
 				case gp : List[_] => gp.foreach{sh => group.addShape(sh.asInstanceOf[IShape])}
@@ -109,7 +109,7 @@ trait PSTCodeParser extends PSTAbstractParser
 				shapes.getShapes.forEach{sh => setShapeForStar(sh)}
 
 			var fh : IFreehand = null
-			val gp = ShapeFactory.createGroup()
+			val gp = ShapeFactory.INST.createGroup()
 
 			// The different created freehand shapes must be merged into a single one.
 			shapes.getShapes.forEach {
@@ -159,7 +159,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			try{
 				colType match {
 					case "rgb" => colSpec.split(',') match {
-							case Array(r,g,b) => colour = ShapeFactory.createColor(r.toDouble, g.toDouble, b.toDouble)
+							case Array(r,g,b) => colour = ShapeFactory.INST.createColor(r.toDouble, g.toDouble, b.toDouble)
 							case _ => PSTParser.errorLogs += "An rgb colour must have 3 numbers."
 						}
 					case "RGB" => colSpec.split(',') match {
@@ -173,11 +173,11 @@ trait PSTCodeParser extends PSTAbstractParser
 							case _ => PSTParser.errorLogs += "An cmyk colour must have 3 numbers."
 						}
 					case "cmy" => colSpec.split(',') match {
-							case Array(c,m,y) => colour = ShapeFactory.createColor(1-c.toDouble, 1-m.toDouble, 1-y.toDouble)
+							case Array(c,m,y) => colour = ShapeFactory.INST.createColor(1-c.toDouble, 1-m.toDouble, 1-y.toDouble)
 							case _ => PSTParser.errorLogs += "An cmy colour must have 3 numbers."
 						}
 					case "hsb" => colSpec.split(',') match {
-							case Array(h,s,b) => colour = ShapeFactory.createColorHSB(h.toDouble, s.toDouble, b.toDouble)
+							case Array(h,s,b) => colour = ShapeFactory.INST.createColorHSB(h.toDouble, s.toDouble, b.toDouble)
 							case _ => PSTParser.errorLogs += "An hsb colour must have 3 numbers."
 						}
 					case _ => PSTParser.errorLogs += "Unknown color type: " + colType
@@ -244,14 +244,14 @@ trait PSTCodeParser extends PSTAbstractParser
 	private def setPspicturePoints(p1: Option[PointUnit], p2: Option[PointUnit], ctx : PSTContext) {
 		(p1,p2) match {
 			case (Some(val1), None) =>
-				ctx.pictureSWPt = ShapeFactory.createPoint
-				ctx.pictureNEPt = ShapeFactory.createPoint(val1.x, val1.x)
+				ctx.pictureSWPt = ShapeFactory.INST.createPoint
+				ctx.pictureNEPt = ShapeFactory.INST.createPoint(val1.x, val1.x)
 			case (Some(val1),Some(val2)) =>
-				ctx.pictureSWPt = ShapeFactory.createPoint(val1.x, val1.y)
-				ctx.pictureNEPt = ShapeFactory.createPoint(val2.x, val2.y)
+				ctx.pictureSWPt = ShapeFactory.INST.createPoint(val1.x, val1.y)
+				ctx.pictureNEPt = ShapeFactory.INST.createPoint(val2.x, val2.y)
 			case _ =>
-				ctx.pictureSWPt = ShapeFactory.createPoint
-				ctx.pictureNEPt = ShapeFactory.createPoint(10, 10)
+				ctx.pictureSWPt = ShapeFactory.INST.createPoint
+				ctx.pictureNEPt = ShapeFactory.INST.createPoint(10, 10)
 		}
 	}
 }

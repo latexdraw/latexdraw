@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
@@ -33,7 +33,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 
 	public void setRotationAngle(final IPoint gc, final double angle) {
-		if(GLibUtilities.isValidCoordinate(angle)) {
+		if(MathUtils.INST.isValidCoord(angle)) {
 			final double diff = angle - this.rotationAngle;
 			final IPoint gc2 = gc == null ? getGravityCentre() : gc;
 
@@ -57,7 +57,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public boolean setPoint(final double x, final double y, final int position) {
-		if(!GLibUtilities.isValidPoint(x, y) || position < -1 || position > points.size() || points.isEmpty()) return false;
+		if(!MathUtils.INST.isValidPt(x, y) || position < -1 || position > points.size() || points.isEmpty()) return false;
 
 		final IPoint p = position == -1 ? points.get(points.size() - 1) : points.get(position);
 		p.setPoint(x, y);
@@ -83,7 +83,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public IPoint replacePoint(final IPoint pt, final int position) {
-		if(!GLibUtilities.isValidPoint(pt) || points.contains(pt) || position < -1 || position > points.size()) return null;
+		if(!MathUtils.INST.isValidPt(pt) || points.contains(pt) || position < -1 || position > points.size()) return null;
 
 		final IPoint pRemoved = points.remove(position == -1 ? points.size() - 1 : position);
 
@@ -102,7 +102,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public void addPoint(final IPoint pt, final int position) {
-		if(GLibUtilities.isValidPoint(pt) && position >= -1 && position <= points.size())
+		if(MathUtils.INST.isValidPt(pt) && position >= -1 && position <= points.size())
 			if(position == -1 || position == points.size()) points.add(pt);
 			else points.add(position, pt);
 	}

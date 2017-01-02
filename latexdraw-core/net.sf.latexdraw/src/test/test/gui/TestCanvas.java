@@ -31,14 +31,14 @@ public class TestCanvas extends TestLatexdrawGUI {
 	IRectangle addedRec;
 
 	final GUIVoidCommand addRec = () -> Platform.runLater(() -> {
-		addedRec = ShapeFactory.createRectangle(ShapeFactory.createPoint(-Canvas.ORIGIN.getX(), -Canvas.ORIGIN.getY()), 100, 100);
+		addedRec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX(), -Canvas.ORIGIN.getY()), 100, 100);
 		addedRec.setFilled(true);
 		addedRec.setFillingCol(DviPsColors.APRICOT);
 		canvas.getDrawing().addShape(addedRec);
 	});
 	
 	final GUIVoidCommand addRec2 = () -> Platform.runLater(() -> {
-		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(-Canvas.ORIGIN.getX()+300, -Canvas.ORIGIN.getY()+300), 100, 100);
+		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300, -Canvas.ORIGIN.getY()+300), 100, 100);
 		rec.setFilled(true);
 		rec.setFillingCol(DviPsColors.APRICOT);
 		canvas.getDrawing().addShape(rec);

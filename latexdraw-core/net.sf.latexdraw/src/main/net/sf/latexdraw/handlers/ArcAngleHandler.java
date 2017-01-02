@@ -1,10 +1,9 @@
 package net.sf.latexdraw.handlers;
 
 import java.awt.geom.Rectangle2D;
-
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a handler that changes the start/end angle of an arc.<br>
@@ -62,7 +61,7 @@ public class ArcAngleHandler extends Handler<Rectangle2D, IArc> {
 			pt = arc.getEndPoint();
 
 		// If the shape is rotated, the handler's position must fit the rotation angle.
-		if(!LNumber.equalsDouble(rotAngle, 0.))
+		if(!MathUtils.INST.equalsDouble(rotAngle, 0.))
 			pt = pt.rotatePoint(zoomedGC, rotAngle);
 
 		point.setPoint(pt.zoom(zoom).getMiddlePoint(zoomedGC));

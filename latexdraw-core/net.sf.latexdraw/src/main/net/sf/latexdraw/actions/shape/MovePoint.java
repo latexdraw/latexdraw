@@ -10,9 +10,8 @@
  */
 package net.sf.latexdraw.actions.shape;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 import org.malai.action.ActionImpl;
 
 /**
@@ -45,7 +44,7 @@ public abstract class MovePoint extends ActionImpl {
 
 	@Override
 	public boolean canDo() {
-		return indexPt >= 0 && GLibUtilities.isValidPoint(newCoord);
+		return indexPt >= 0 && MathUtils.INST.isValidPt(newCoord);
 	}
 
 
@@ -58,7 +57,7 @@ public abstract class MovePoint extends ActionImpl {
 
 	@Override
 	public boolean hadEffect() {
-		return super.hadEffect() && (!LNumber.equalsDouble(tx, 0.) || !LNumber.equalsDouble(ty, 0.));
+		return super.hadEffect() && (!MathUtils.INST.equalsDouble(tx, 0.) || !MathUtils.INST.equalsDouble(ty, 0.));
 	}
 
 

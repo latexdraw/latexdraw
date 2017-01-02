@@ -21,8 +21,8 @@ import test.glib.models.interfaces.TestISquare;
 public class TestLSquare extends TestISquare<ISquare> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createSquare();
-		shape2 = ShapeFactory.createSquare();
+		shape = ShapeFactory.INST.createSquare();
+		shape2 = ShapeFactory.INST.createSquare();
 	}
 
 	@Override
@@ -41,38 +41,38 @@ public class TestLSquare extends TestISquare<ISquare> {
 
 	@Test
 	public void testConstructorsOKPoints() {
-		ISquare sq = ShapeFactory.createSquare();
+		ISquare sq = ShapeFactory.INST.createSquare();
 		assertEquals(4, sq.getNbPoints());
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorsNotNaN() {
-		ShapeFactory.createSquare(ShapeFactory.createPoint(Double.NaN, 0), 10);
+		ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(Double.NaN, 0), 10);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorsNotOK0() {
-		ShapeFactory.createSquare(ShapeFactory.createPoint(), 0);
+		ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(), 0);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorsNotOKNeg() {
-		ShapeFactory.createSquare(ShapeFactory.createPoint(), -10);
+		ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(), -10);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorsNotOKNaNSize() {
-		ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.NaN);
+		ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(), Double.NaN);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorsNotOKInfSize() {
-		ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.POSITIVE_INFINITY);
+		ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(), Double.POSITIVE_INFINITY);
 	}
 	
 	@Test
 	public void testConstructorsOK() {
-		ISquare sq = ShapeFactory.createSquare(ShapeFactory.createPoint(20, 26), 11);
+		ISquare sq = ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(20, 26), 11);
 		HelperTest.assertEqualsDouble(20., sq.getPosition().getX());
 		HelperTest.assertEqualsDouble(26., sq.getPosition().getY());
 		HelperTest.assertEqualsDouble(11., sq.getWidth());

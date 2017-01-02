@@ -12,7 +12,7 @@ public class TestColor {
 
 	@Before
 	public void setUp() {
-		color = ShapeFactory.createColor();
+		color = ShapeFactory.INST.createColor();
 	}
 
 	@Test
@@ -146,7 +146,7 @@ public class TestColor {
 		color.setR(0.3);
 		color.setG(0.7);
 		assertTrue(color.equals(color));
-		assertEquals(color, ShapeFactory.createColor(0.3, 0.7, 0.1, 0.2));
+		assertEquals(color, ShapeFactory.INST.createColor(0.3, 0.7, 0.1, 0.2));
 	}
 
 	@Test
@@ -155,10 +155,10 @@ public class TestColor {
 		color.setB(0.1);
 		color.setR(0.3);
 		color.setG(0.7);
-		assertNotEquals(color, ShapeFactory.createColor(0.2, 0.7, 0.1, 0.2));
-		assertNotEquals(color, ShapeFactory.createColor(0.3, 0.8, 0.1, 0.2));
-		assertNotEquals(color, ShapeFactory.createColor(0.2, 0.7, 0, 0.2));
-		assertNotEquals(color, ShapeFactory.createColor(0.2, 0.7, 0.1, 0.3));
+		assertNotEquals(color, ShapeFactory.INST.createColor(0.2, 0.7, 0.1, 0.2));
+		assertNotEquals(color, ShapeFactory.INST.createColor(0.3, 0.8, 0.1, 0.2));
+		assertNotEquals(color, ShapeFactory.INST.createColor(0.2, 0.7, 0, 0.2));
+		assertNotEquals(color, ShapeFactory.INST.createColor(0.2, 0.7, 0.1, 0.3));
 		assertNotEquals(color, new Object());
 	}
 

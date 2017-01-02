@@ -173,7 +173,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{rgb}{0.5,0.5,0.5}\\psframe[linecolor=color0b](10,10)").get(); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		assertEquals(1, gp.size());
-		assertEquals(ShapeFactory.createColor(0.5, 0.5, 0.5), gp.getShapeAt(0).getLineColour());
+		assertEquals(ShapeFactory.INST.createColor(0.5, 0.5, 0.5), gp.getShapeAt(0).getLineColour());
 	}
 
 	@Test
@@ -181,7 +181,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{HTML}{#FF0064}\\psframe[linecolor=color0b](10,10)").get(); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		assertEquals(1, gp.size());
-		assertEquals(ShapeFactory.createColorInt(255, 0, 100), gp.getShapeAt(0).getLineColour());
+		assertEquals(ShapeFactory.INST.createColorInt(255, 0, 100), gp.getShapeAt(0).getLineColour());
 	}
 
 	@Test
@@ -189,7 +189,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{gray}{0.8}\\psframe[linecolor=color0b](10,10)").get(); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		assertEquals(1, gp.size());
-		assertEquals(ShapeFactory.createColor(0.8, 0.8, 0.8), gp.getShapeAt(0).getLineColour());
+		assertEquals(ShapeFactory.INST.createColor(0.8, 0.8, 0.8), gp.getShapeAt(0).getLineColour());
 	}
 
 	@Test
@@ -197,7 +197,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{cmy}{0,1,0.5}\\psframe[linecolor=color0b](10,10)").get(); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		assertEquals(1, gp.size());
-		assertEquals(ShapeFactory.createColor(1.0, 0.0, 0.5), gp.getShapeAt(0).getLineColour());
+		assertEquals(ShapeFactory.INST.createColor(1.0, 0.0, 0.5), gp.getShapeAt(0).getLineColour());
 	}
 
 	@Test
@@ -205,7 +205,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{cmyk}{0,1,0.608,0}\\psframe[linecolor=color0b](10,10)").get(); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		assertEquals(1, gp.size());
-		assertEquals(ShapeFactory.createColorInt(255, 0, 100), gp.getShapeAt(0).getLineColour());
+		assertEquals(ShapeFactory.INST.createColorInt(255, 0, 100), gp.getShapeAt(0).getLineColour());
 	}
 
 	@Test
@@ -213,7 +213,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{hsb}{0,0,0.95}\\psframe[linecolor=color0b](10,10)").get(); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		assertEquals(1, gp.size());
-		assertEquals(ShapeFactory.createColorInt(242, 242, 242), gp.getShapeAt(0).getLineColour());
+		assertEquals(ShapeFactory.INST.createColorInt(242, 242, 242), gp.getShapeAt(0).getLineColour());
 	}
 
 	@Test
@@ -221,7 +221,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 		IGroup gp = parser.parsePSTCode("\\definecolor{c}{RGB}{200,100,0}\\psframe[linecolor=c](10,10)").get(); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		assertEquals(1, gp.size());
-		assertEquals(ShapeFactory.createColorInt(200, 100, 0), gp.getShapeAt(0).getLineColour());
+		assertEquals(ShapeFactory.INST.createColorInt(200, 100, 0), gp.getShapeAt(0).getLineColour());
 	}
 
 	@Test(expected = ParseException.class)

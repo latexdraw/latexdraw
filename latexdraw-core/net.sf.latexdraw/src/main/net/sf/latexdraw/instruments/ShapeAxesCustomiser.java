@@ -130,10 +130,10 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 
 			if(spinner == instrument.distLabelsX || spinner == instrument.distLabelsY) {
 				action.setProperty(ShapeProperties.AXES_LABELS_DIST);
-				action.setValue(ShapeFactory.createPoint(instrument.distLabelsX.getValue(), instrument.distLabelsY.getValue()));
+				action.setValue(ShapeFactory.INST.createPoint(instrument.distLabelsX.getValue(), instrument.distLabelsY.getValue()));
 			}else {
 				action.setProperty(ShapeProperties.AXES_LABELS_INCR);
-				action.setValue(ShapeFactory.createPoint(instrument.incrLabelX.getValue(), instrument.incrLabelY.getValue()));
+				action.setValue(ShapeFactory.INST.createPoint(instrument.incrLabelX.getValue(), instrument.incrLabelY.getValue()));
 			}
 		}
 	}

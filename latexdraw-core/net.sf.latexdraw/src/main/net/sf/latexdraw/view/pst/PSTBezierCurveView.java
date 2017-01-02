@@ -10,13 +10,11 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import java.util.List;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
-
-import java.util.List;
 
 /**
  * Defines a PSTricks view of the LBezierCurve model.<
@@ -35,7 +33,7 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.isValidPoint(origin) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) return "";
 
 		int i;
 		final int size = shape.getNbPoints();
@@ -54,44 +52,44 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 
 		if(size < 2) return "";
 
-		coord.append('(').append(LNumber.getCutNumberFloat((pts.get(0).getX() - originx) / ppc));
-		coord.append(',').append(LNumber.getCutNumberFloat((originy - pts.get(0).getY()) / ppc));
-		coord.append(')').append('(').append(LNumber.getCutNumberFloat((fCtrlPts.get(0).getX() - originx) / ppc));
-		coord.append(',').append(LNumber.getCutNumberFloat((originy - fCtrlPts.get(0).getY()) / ppc));
-		coord.append(')').append('(').append(LNumber.getCutNumberFloat((fCtrlPts.get(1).getX() - originx) / ppc));
-		coord.append(',').append(LNumber.getCutNumberFloat((originy - fCtrlPts.get(1).getY()) / ppc));
-		coord.append(')').append('(').append(LNumber.getCutNumberFloat((pts.get(1).getX() - originx) / ppc));
-		coord.append(',').append(LNumber.getCutNumber((originy - pts.get(1).getY()) / ppc));
+		coord.append('(').append(MathUtils.INST.getCutNumberFloat((pts.get(0).getX() - originx) / ppc));
+		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - pts.get(0).getY()) / ppc));
+		coord.append(')').append('(').append(MathUtils.INST.getCutNumberFloat((fCtrlPts.get(0).getX() - originx) / ppc));
+		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - fCtrlPts.get(0).getY()) / ppc));
+		coord.append(')').append('(').append(MathUtils.INST.getCutNumberFloat((fCtrlPts.get(1).getX() - originx) / ppc));
+		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - fCtrlPts.get(1).getY()) / ppc));
+		coord.append(')').append('(').append(MathUtils.INST.getCutNumberFloat((pts.get(1).getX() - originx) / ppc));
+		coord.append(',').append(MathUtils.INST.getCutNumber((originy - pts.get(1).getY()) / ppc));
 		coord.append(')');
 
 		for(i = 2; i < size; i++) {
 			ctrlPt1 = fCtrlPts.get(i);
 			ctrlPt2 = sCtrlPts.get(i - 1);
 
-			coord.append('(').append(LNumber.getCutNumberFloat((ctrlPt2.getX() - originx) / ppc));
-			coord.append(',').append(LNumber.getCutNumberFloat((originy - ctrlPt2.getY()) / ppc));
-			coord.append(')').append('(').append(LNumber.getCutNumberFloat((ctrlPt1.getX() - originx) / ppc));
-			coord.append(',').append(LNumber.getCutNumberFloat((originy - ctrlPt1.getY()) / ppc));
+			coord.append('(').append(MathUtils.INST.getCutNumberFloat((ctrlPt2.getX() - originx) / ppc));
+			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - ctrlPt2.getY()) / ppc));
+			coord.append(')').append('(').append(MathUtils.INST.getCutNumberFloat((ctrlPt1.getX() - originx) / ppc));
+			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - ctrlPt1.getY()) / ppc));
 			coord.append(')').append('(');
 
 			pt = pts.get(i);
-			coord.append(LNumber.getCutNumberFloat((pt.getX() - originx) / ppc)).append(',');
-			coord.append(LNumber.getCutNumberFloat((originy - pt.getY()) / ppc)).append(')');
+			coord.append(MathUtils.INST.getCutNumberFloat((pt.getX() - originx) / ppc)).append(',');
+			coord.append(MathUtils.INST.getCutNumberFloat((originy - pt.getY()) / ppc)).append(')');
 		}
 
 		if(shape.isClosed()) {
 			ctrlPt1 = sCtrlPts.get(0);
 			ctrlPt2 = sCtrlPts.get(sCtrlPts.size() - 1);
 
-			coord.append('(').append(LNumber.getCutNumberFloat((ctrlPt2.getX() - originx) / ppc));
-			coord.append(',').append(LNumber.getCutNumberFloat((originy - ctrlPt2.getY()) / ppc));
-			coord.append(')').append('(').append(LNumber.getCutNumberFloat((ctrlPt1.getX() - originx) / ppc));
-			coord.append(',').append(LNumber.getCutNumberFloat((originy - ctrlPt1.getY()) / ppc));
+			coord.append('(').append(MathUtils.INST.getCutNumberFloat((ctrlPt2.getX() - originx) / ppc));
+			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - ctrlPt2.getY()) / ppc));
+			coord.append(')').append('(').append(MathUtils.INST.getCutNumberFloat((ctrlPt1.getX() - originx) / ppc));
+			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - ctrlPt1.getY()) / ppc));
 			coord.append(')').append('(');
 
 			pt = pts.get(0);
-			coord.append(LNumber.getCutNumberFloat((pt.getX() - originx) / ppc)).append(',');
-			coord.append(LNumber.getCutNumberFloat((originy - pt.getY()) / ppc)).append(')');
+			coord.append(MathUtils.INST.getCutNumberFloat((pt.getX() - originx) / ppc)).append(',');
+			coord.append(MathUtils.INST.getCutNumberFloat((originy - pt.getY()) / ppc)).append(')');
 		}
 
 		cache.append("\\psbezier["); //$NON-NLS-1$

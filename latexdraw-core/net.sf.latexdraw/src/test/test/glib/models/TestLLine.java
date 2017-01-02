@@ -12,12 +12,12 @@ import test.glib.models.interfaces.TestILine;
 public class TestLLine extends TestILine {
 	@Before
 	public void setUp() {
-		line = ShapeFactory.createLine(ShapeFactory.createPoint(0, 0), ShapeFactory.createPoint(1, 1));
+		line = ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(0, 0), ShapeFactory.INST.createPoint(1, 1));
 	}
 
 	@Test
 	public void testConstructors2OK() {
-		line = ShapeFactory.createLine(10, ShapeFactory.createPoint(1, 1));
+		line = ShapeFactory.INST.createLine(10, ShapeFactory.INST.createPoint(1, 1));
 
 		assertNotNull(line.getPoint1());
 		assertNotNull(line.getPoint2());
@@ -29,27 +29,27 @@ public class TestLLine extends TestILine {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors2NotOKNaN() {
-		ShapeFactory.createLine(Double.NaN, ShapeFactory.createPoint(1, 2));
+		ShapeFactory.INST.createLine(Double.NaN, ShapeFactory.INST.createPoint(1, 2));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors2NotOKINF() {
-		ShapeFactory.createLine(Double.NEGATIVE_INFINITY, ShapeFactory.createPoint(1, 2));
+		ShapeFactory.INST.createLine(Double.NEGATIVE_INFINITY, ShapeFactory.INST.createPoint(1, 2));
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors2NotOKNaNPoint() {
-		ShapeFactory.createLine(10, ShapeFactory.createPoint(1, Double.NaN));
+		ShapeFactory.INST.createLine(10, ShapeFactory.INST.createPoint(1, Double.NaN));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors2NotOKInfPoint() {
-		ShapeFactory.createLine(10, ShapeFactory.createPoint(Double.NEGATIVE_INFINITY, 2));
+		ShapeFactory.INST.createLine(10, ShapeFactory.INST.createPoint(Double.NEGATIVE_INFINITY, 2));
 	}
 
 	@Test
 	public void testConstructors3OK() {
-		line = ShapeFactory.createLine(ShapeFactory.createPoint(1, 1), ShapeFactory.createPoint(2, 2));
+		line = ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(1, 1), ShapeFactory.INST.createPoint(2, 2));
 
 		assertNotNull(line.getPoint1());
 		assertNotNull(line.getPoint2());
@@ -63,21 +63,21 @@ public class TestLLine extends TestILine {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOKNaN() {
-		ShapeFactory.createLine(ShapeFactory.createPoint(Double.NaN, 2), ShapeFactory.createPoint(1, 2));
+		ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(Double.NaN, 2), ShapeFactory.INST.createPoint(1, 2));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOKINF() {
-		ShapeFactory.createLine(ShapeFactory.createPoint(2, Double.POSITIVE_INFINITY), ShapeFactory.createPoint(1, 2));
+		ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(2, Double.POSITIVE_INFINITY), ShapeFactory.INST.createPoint(1, 2));
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOKNaNPoint() {
-		ShapeFactory.createLine(ShapeFactory.createPoint(1, 2), ShapeFactory.createPoint(Double.NaN, 1));
+		ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(1, 2), ShapeFactory.INST.createPoint(Double.NaN, 1));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3NotOKINFPoint() {
-			line = ShapeFactory.createLine(ShapeFactory.createPoint(1, 2), ShapeFactory.createPoint(1, Double.NEGATIVE_INFINITY));
+			line = ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(1, 2), ShapeFactory.INST.createPoint(1, Double.NEGATIVE_INFINITY));
 	}
 }

@@ -21,6 +21,7 @@ import javafx.stage.FileChooser;
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.actions.shape.InitTextSetter;
 import net.sf.latexdraw.actions.shape.InsertPicture;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
@@ -32,7 +33,6 @@ import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
-import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.jfx.ViewShape;
@@ -74,17 +74,17 @@ public class Pencil extends CanvasInstrument {
 
 	public IGroup getGroupParams() {
 		if(groupParams == null) {
-			groupParams = ShapeFactory.createGroup();
-			groupParams.addShape(ShapeFactory.createRectangle());
-			groupParams.addShape(ShapeFactory.createDot(ShapeFactory.createPoint()));
-			groupParams.addShape(ShapeFactory.createGrid(ShapeFactory.createPoint()));
-			groupParams.addShape(ShapeFactory.createAxes(ShapeFactory.createPoint()));
-			groupParams.addShape(ShapeFactory.createText());
-			groupParams.addShape(ShapeFactory.createCircleArc());
-			groupParams.addShape(ShapeFactory.createPolyline());
-			groupParams.addShape(ShapeFactory.createBezierCurve());
-			groupParams.addShape(ShapeFactory.createFreeHand());
-			groupParams.addShape(ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 10, "x", false));
+			groupParams = ShapeFactory.INST.createGroup();
+			groupParams.addShape(ShapeFactory.INST.createRectangle());
+			groupParams.addShape(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
+			groupParams.addShape(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
+			groupParams.addShape(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
+			groupParams.addShape(ShapeFactory.INST.createText());
+			groupParams.addShape(ShapeFactory.INST.createCircleArc());
+			groupParams.addShape(ShapeFactory.INST.createPolyline());
+			groupParams.addShape(ShapeFactory.INST.createBezierCurve());
+			groupParams.addShape(ShapeFactory.INST.createFreeHand());
+			groupParams.addShape(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 10, "x", false));
 		}
 		return groupParams;
 	}
@@ -128,8 +128,8 @@ public class Pencil extends CanvasInstrument {
 	IShape setShapeParameters(final IShape shape) {
 		if(shape instanceof IModifiablePointsShape && !(shape instanceof IFreehand)) {
 			final IModifiablePointsShape mod = (IModifiablePointsShape) shape;
-			mod.addPoint(ShapeFactory.createPoint());
-			mod.addPoint(ShapeFactory.createPoint());
+			mod.addPoint(ShapeFactory.INST.createPoint());
+			mod.addPoint(ShapeFactory.INST.createPoint());
 		}
 
 		shape.copy(getGroupParams());
@@ -191,7 +191,7 @@ public class Pencil extends CanvasInstrument {
 					sq.setPosition(pt.getX() - 1.0, pt.getY() - 1.0);
 					sq.setWidth(2.0);
 				}else if(sh instanceof IFreehand) {
-					((IFreehand) sh).addPoint(ShapeFactory.createPoint(pt.getX(), pt.getY()));
+					((IFreehand) sh).addPoint(ShapeFactory.INST.createPoint(pt.getX(), pt.getY()));
 				}else {
 					sh.translate(pt.getX(), pt.getY());
 				}
@@ -212,7 +212,7 @@ public class Pencil extends CanvasInstrument {
 				}else if(sh instanceof IFreehand) {
 					final IFreehand fh = (IFreehand) sh;
 					final IPoint last = fh.getPtAt(-1);
-					if(!LNumber.equalsDouble(last.getX(), endPt.getX(), 0.0001) && !LNumber.equalsDouble(last.getY(), endPt.getY(), 0.0001)) {
+					if(!MathUtils.INST.equalsDouble(last.getX(), endPt.getX(), 0.0001) && !MathUtils.INST.equalsDouble(last.getY(), endPt.getY(), 0.0001)) {
 						fh.addPoint(endPt);
 					}
 				}else if(sh instanceof IRectangularShape) {
@@ -314,7 +314,7 @@ public class Pencil extends CanvasInstrument {
 				final IModifiablePointsShape shape = (IModifiablePointsShape) sh;
 
 				if(shape.getNbPoints() == pts.size() && !interaction.isLastPointFinalPoint()) {
-					shape.addPoint(ShapeFactory.createPoint(currPoint.getX(), currPoint.getY()), -1);
+					shape.addPoint(ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY()), -1);
 				}else {
 					shape.setPoint(currPoint.getX(), currPoint.getY(), -1);
 				}
@@ -365,7 +365,7 @@ public class Pencil extends CanvasInstrument {
 		public void initAction() {
 			interaction.getSrcPoint().ifPresent(srcPt -> {
 				action.setDrawing(instrument.canvas.getDrawing());
-				action.setShape(ShapeFactory.createPicture(instrument.getAdaptedPoint(srcPt)));
+				action.setShape(ShapeFactory.INST.createPicture(instrument.getAdaptedPoint(srcPt)));
 				action.setFileChooser(instrument.getPictureFileChooser());
 			});
 		}
@@ -413,7 +413,7 @@ public class Pencil extends CanvasInstrument {
 		 @Override
 		 public void initAction() {
 			 action.setDrawing(instrument.canvas.getDrawing());
-			 action.setShape(ShapeFactory.createText(ShapeFactory.createPoint(instrument.textSetter.position),
+			 action.setShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(instrument.textSetter.position),
 			 					instrument.textSetter.getTextField().getText()));
 		 }
 

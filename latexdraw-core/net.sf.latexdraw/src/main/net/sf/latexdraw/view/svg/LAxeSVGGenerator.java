@@ -48,7 +48,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 	 * @since 2.0.0
 	 */
 	protected LAxeSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createAxes(ShapeFactory.createPoint()));
+		this(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
 
 		if(elt==null)
 			throw new IllegalArgumentException();
@@ -130,7 +130,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 				final IPolyline la = new LPolylinesSVGGenerator(l1, false).shape;
 				final IPolyline lb = new LPolylinesSVGGenerator(l2, false).shape;
 
-				shape.setPosition(ShapeFactory.createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
+				shape.setPosition(ShapeFactory.INST.createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
 				shape.setLineStyle(la.getLineStyle());
 				shape.getArrowAt(1).setArrowStyle(la.getArrowAt(0).getArrowStyle());
 				shape.getArrowAt(3).setArrowStyle(la.getArrowAt(1).getArrowStyle());
@@ -185,13 +185,13 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 			final IArrow arr1 = shape.getArrowAt(3);
 			final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0.;
 			final double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0.;
-			final IPolyline xLine = ShapeFactory.createPolyline();
-			final IPolyline yLine = ShapeFactory.createPolyline();
+			final IPolyline xLine = ShapeFactory.INST.createPolyline();
+			final IPolyline yLine = ShapeFactory.INST.createPolyline();
 
-			xLine.addPoint(ShapeFactory.createPoint(posX+shape.getGridStartX()*IShape.PPC + arr0Reduction, posY));
-			xLine.addPoint(ShapeFactory.createPoint(posX+shape.getGridEndX()*IShape.PPC - arr1Reduction, posY));
-			yLine.addPoint(ShapeFactory.createPoint(posX, posY-shape.getGridStartY()*IShape.PPC - arr0Reduction));
-			yLine.addPoint(ShapeFactory.createPoint(posX, posY-shape.getGridEndY()*IShape.PPC + arr1Reduction));
+			xLine.addPoint(ShapeFactory.INST.createPoint(posX+shape.getGridStartX()*IShape.PPC + arr0Reduction, posY));
+			xLine.addPoint(ShapeFactory.INST.createPoint(posX+shape.getGridEndX()*IShape.PPC - arr1Reduction, posY));
+			yLine.addPoint(ShapeFactory.INST.createPoint(posX, posY-shape.getGridStartY()*IShape.PPC - arr0Reduction));
+			yLine.addPoint(ShapeFactory.INST.createPoint(posX, posY-shape.getGridEndY()*IShape.PPC + arr1Reduction));
 
 			xLine.getArrowAt(0).copy(arr0);
 			xLine.getArrowAt(1).copy(arr1);
@@ -215,8 +215,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 			final double positiony = shape.getPosition().getY();
 			final double xMax = positionx+gridEndx*IShape.PPC;
 			final double yMax = positiony-gridEndy*IShape.PPC;
-			final IPoint pos  = ShapeFactory.createPoint(positionx, gridEndy>0 ? yMax : positiony);
-			final IRectangle r= ShapeFactory.createRectangle(pos, Math.abs(pos.getX()-(gridEndx>0 ? xMax : positionx)),
+			final IPoint pos  = ShapeFactory.INST.createPoint(positionx, gridEndy>0 ? yMax : positiony);
+			final IRectangle r= ShapeFactory.INST.createRectangle(pos, Math.abs(pos.getX()-(gridEndx>0 ? xMax : positionx)),
 																		Math.abs(pos.getY()-positiony));
 
 			r.setBordersPosition(BorderPos.MID);

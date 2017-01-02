@@ -18,8 +18,8 @@ import test.glib.models.interfaces.TestITriangle;
 public class TestLTriangle extends TestITriangle<ITriangle> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createTriangle();
-		shape2 = ShapeFactory.createTriangle();
+		shape = ShapeFactory.INST.createTriangle();
+		shape2 = ShapeFactory.INST.createTriangle();
 	}
 
 	@Override

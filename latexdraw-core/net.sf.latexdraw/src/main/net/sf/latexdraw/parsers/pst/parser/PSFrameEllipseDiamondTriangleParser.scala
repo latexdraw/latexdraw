@@ -1,14 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.models.interfaces.shape.IRectangle
-import net.sf.latexdraw.models.interfaces.shape.IPoint
-import net.sf.latexdraw.models.interfaces.shape.IShape
-import net.sf.latexdraw.models.interfaces.shape.IEllipse
-import net.sf.latexdraw.models.interfaces.shape.IRectangularShape
-import net.sf.latexdraw.models.interfaces.shape.IRhombus
-import net.sf.latexdraw.models.interfaces.shape.ITriangle
-import net.sf.latexdraw.util.LNumber
-import net.sf.latexdraw.models.ShapeFactory
+import net.sf.latexdraw.models.{MathUtils, ShapeFactory}
+import net.sf.latexdraw.models.interfaces.shape._
 
 /**
  * A parser grouping parsers parsing ellipses and rectangles.<br>
@@ -100,10 +93,10 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 	 * Creates and initialises a triangle.
 	 */
 	private def createTriangle(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : ITriangle = {
-		val rh = ShapeFactory.createTriangle()
+		val rh = ShapeFactory.INST.createTriangle()
 		setRectangularShape(rh, p1.getX-p2.getX/2.0, p1.getY, scala.math.abs(p2.getX), scala.math.abs(p2.getY), hasStar, ctx)
 
-		if(!LNumber.equalsDouble(ctx.gangle, 0.0)) {
+		if(!MathUtils.INST.equalsDouble(ctx.gangle, 0.0)) {
 			val gc = rh.getGravityCentre
 			val newGc = gc.rotatePoint(p1, scala.math.toRadians(-ctx.gangle))
 			rh.setRotationAngle(rh.getRotationAngle+scala.math.toRadians(ctx.gangle))
@@ -123,10 +116,10 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 	 * Creates and initialises a rhombus.
 	 */
 	private def createDiamond(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IRhombus = {
-		val rh = ShapeFactory.createRhombus()
+		val rh = ShapeFactory.INST.createRhombus()
 		setRectangularShape(rh, p1.getX-p2.getX, p1.getY-p2.getY, scala.math.abs(p2.getX*2), scala.math.abs(p2.getY*2), hasStar, ctx)
 
-		if(!LNumber.equalsDouble(ctx.gangle, 0.0))
+		if(!MathUtils.INST.equalsDouble(ctx.gangle, 0.0))
 			rh.setRotationAngle(rh.getRotationAngle-scala.math.toRadians(ctx.gangle))
 
 		rh
@@ -137,7 +130,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 	 * Creates and initialises an ellipse.
 	 */
 	private def createEllipse(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IEllipse = {
-		val ell = ShapeFactory.createEllipse()
+		val ell = ShapeFactory.INST.createEllipse()
 		setRectangularShape(ell, p1.getX-p2.getX, p1.getY-p2.getY, scala.math.abs(p2.getX*2), scala.math.abs(p2.getY*2), hasStar, ctx)
 		ell
 	}
@@ -161,7 +154,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 			p2.setY(tmp)
 		}
 
-		val rec = ShapeFactory.createRectangle()
+		val rec = ShapeFactory.INST.createRectangle()
 		rec.setLineArc(ctx.frameArc)
 		setRectangularShape(rec, p1.getX, p1.getY, scala.math.abs(p2.getX-p1.getX), scala.math.abs(p2.getY-p1.getY), hasStar, ctx)
 		rec

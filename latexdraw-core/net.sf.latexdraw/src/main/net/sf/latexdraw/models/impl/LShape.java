@@ -18,7 +18,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.Color;
@@ -28,7 +28,6 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.models.interfaces.shape.Position;
-import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.mapping.MappingRegistry;
@@ -198,12 +197,12 @@ abstract class LShape implements ISingleShape {
 	protected void copyPoints(final IShape sh) {
 		if(sh == null || !getClass().isInstance(sh)) return;
 		points.clear();
-		sh.getPoints().forEach(pt -> points.add(ShapeFactory.createPoint(pt)));
+		sh.getPoints().forEach(pt -> points.add(ShapeFactory.INST.createPoint(pt)));
 	}
 
 	@Override
 	public void addToRotationAngle(final IPoint gravCentre, final double angle) {
-		if(GLibUtilities.isValidCoordinate(angle)) {
+		if(MathUtils.INST.isValidCoord(angle)) {
 			setRotationAngle(getRotationAngle() + angle);
 
 			if(gravCentre != null) {
@@ -309,7 +308,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public IPoint getGravityCentre() {
-		return points.isEmpty() ? ShapeFactory.createPoint() : getTopLeftPoint().getMiddlePoint(getBottomRightPoint());
+		return points.isEmpty() ? ShapeFactory.INST.createPoint() : getTopLeftPoint().getMiddlePoint(getBottomRightPoint());
 	}
 
 	@Override
@@ -483,12 +482,12 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setDashSepBlack(final double dash) {
-		if(dash > 0 && GLibUtilities.isValidCoordinate(dash)) dashSepBlack = dash;
+		if(dash > 0 && MathUtils.INST.isValidCoord(dash)) dashSepBlack = dash;
 	}
 
 	@Override
 	public void setDashSepWhite(final double dash) {
-		if(dash > 0 && GLibUtilities.isValidCoordinate(dash)) dashSepWhite = dash;
+		if(dash > 0 && MathUtils.INST.isValidCoord(dash)) dashSepWhite = dash;
 	}
 
 	@Override
@@ -498,12 +497,12 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setDbleBordSep(final double sep) {
-		if(sep >= 0 && isDbleBorderable() && GLibUtilities.isValidCoordinate(sep)) dbleBordSep = sep;
+		if(sep >= 0 && isDbleBorderable() && MathUtils.INST.isValidCoord(sep)) dbleBordSep = sep;
 	}
 
 	@Override
 	public void setDotSep(final double sep) {
-		if(sep >= 0 && GLibUtilities.isValidCoordinate(sep)) dotSep = sep;
+		if(sep >= 0 && MathUtils.INST.isValidCoord(sep)) dotSep = sep;
 	}
 
 	@Override
@@ -566,7 +565,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setGradAngle(final double angle) {
-		if(GLibUtilities.isValidCoordinate(angle) && isInteriorStylable()) gradAngle = angle;
+		if(MathUtils.INST.isValidCoord(angle) && isInteriorStylable()) gradAngle = angle;
 	}
 
 	@Override
@@ -596,7 +595,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setHatchingsAngle(final double angle) {
-		if(GLibUtilities.isValidCoordinate(angle) && isInteriorStylable()) hatchingsAngle = angle;
+		if(MathUtils.INST.isValidCoord(angle) && isInteriorStylable()) hatchingsAngle = angle;
 	}
 
 	@Override
@@ -606,12 +605,12 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setHatchingsSep(final double sep) {
-		if(GLibUtilities.isValidCoordinate(sep) && sep >= 0 && isInteriorStylable()) hatchingsSep = sep;
+		if(MathUtils.INST.isValidCoord(sep) && sep >= 0 && isInteriorStylable()) hatchingsSep = sep;
 	}
 
 	@Override
 	public void setHatchingsWidth(final double width) {
-		if(GLibUtilities.isValidCoordinate(width) && width > 0 && isInteriorStylable()) hatchingsWidth = width;
+		if(MathUtils.INST.isValidCoord(width) && width > 0 && isInteriorStylable()) hatchingsWidth = width;
 	}
 
 	@Override
@@ -643,8 +642,8 @@ abstract class LShape implements ISingleShape {
 		final double refY = refPt.getY();
 
 		for(final IPoint pt : pts) {
-			if(!LNumber.equalsDouble(pt.getX(), refX)) pt.setX(refX + (pt.getX() - refX) * s);
-			if(!LNumber.equalsDouble(pt.getY(), refY)) pt.setY(refY + (pt.getY() - refY) * s);
+			if(!MathUtils.INST.equalsDouble(pt.getX(), refX)) pt.setX(refX + (pt.getX() - refX) * s);
+			if(!MathUtils.INST.equalsDouble(pt.getY(), refY)) pt.setY(refY + (pt.getY() - refY) * s);
 		}
 	}
 
@@ -658,19 +657,19 @@ abstract class LShape implements ISingleShape {
 		final double refY = refPt.getY();
 
 		pts.forEach(pt -> {
-			if(xScale && !LNumber.equalsDouble(pt.getX(), refX)) pt.setX(refX + (pt.getX() - refX) * sx);
-			if(yScale && !LNumber.equalsDouble(pt.getY(), refY)) pt.setY(refY + (pt.getY() - refY) * sy);
+			if(xScale && !MathUtils.INST.equalsDouble(pt.getX(), refX)) pt.setX(refX + (pt.getX() - refX) * sx);
+			if(yScale && !MathUtils.INST.equalsDouble(pt.getY(), refY)) pt.setY(refY + (pt.getY() - refY) * sy);
 		});
 	}
 
 	@Override
 	public void setRotationAngle(final double angle) {
-		if(GLibUtilities.isValidCoordinate(angle)) rotationAngle = angle;
+		if(MathUtils.INST.isValidCoord(angle)) rotationAngle = angle;
 	}
 
 	@Override
 	public void setShadowAngle(final double angle) {
-		if(isShadowable() && GLibUtilities.isValidCoordinate(angle)) shadowAngle = angle;
+		if(isShadowable() && MathUtils.INST.isValidCoord(angle)) shadowAngle = angle;
 	}
 
 	@Override
@@ -680,7 +679,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setShadowSize(final double size) {
-		if(isShadowable() && size > 0 && GLibUtilities.isValidCoordinate(size)) shadowSize = size;
+		if(isShadowable() && size > 0 && MathUtils.INST.isValidCoord(size)) shadowSize = size;
 	}
 
 	@Override
@@ -690,7 +689,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setThickness(final double thick) {
-		if(thick > 0 && isThicknessable() && GLibUtilities.isValidCoordinate(thick)) thickness.setValue(thick);
+		if(thick > 0 && isThicknessable() && MathUtils.INST.isValidCoord(thick)) thickness.setValue(thick);
 	}
 
 	@Override
@@ -700,42 +699,42 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void translate(final double tx, final double ty) {
-		if(GLibUtilities.isValidPoint(tx, ty)) points.forEach(pt -> pt.translate(tx, ty));
+		if(MathUtils.INST.isValidPt(tx, ty)) points.forEach(pt -> pt.translate(tx, ty));
 	}
 
 	@Override
 	public void mirrorHorizontal(final IPoint origin) {
-		if(GLibUtilities.isValidPoint(origin)) points.forEach(pt -> pt.setPoint(pt.horizontalSymmetry(origin)));
+		if(MathUtils.INST.isValidPt(origin)) points.forEach(pt -> pt.setPoint(pt.horizontalSymmetry(origin)));
 	}
 
 	@Override
 	public void mirrorVertical(final IPoint origin) {
-		if(GLibUtilities.isValidPoint(origin)) points.forEach(pt -> pt.setPoint(pt.verticalSymmetry(origin)));
+		if(MathUtils.INST.isValidPt(origin)) points.forEach(pt -> pt.setPoint(pt.verticalSymmetry(origin)));
 	}
 
 	@Override
 	public IPoint getBottomRightPoint() {
-		return points.stream().reduce((p1, p2) -> ShapeFactory.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.createPoint());
+		return points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
 	}
 
 	@Override
 	public IPoint getBottomLeftPoint() {
-		return points.stream().reduce((p1, p2) -> ShapeFactory.createPoint(Math.min(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.createPoint());
+		return points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
 	}
 
 	@Override
 	public IPoint getTopLeftPoint() {
-		return points.stream().reduce((p1, p2) -> ShapeFactory.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.createPoint());
+		return points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
 	}
 
 	@Override
 	public IPoint getTopRightPoint() {
-		return points.stream().reduce((p1, p2) -> ShapeFactory.createPoint(Math.max(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.createPoint());
+		return points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
 	}
 
 	@Override
-	public IShape duplicate() {
-		final IShape shape = ShapeFactory.newShape(this.getClass()).get();
+	public <T extends IShape> T duplicate() {
+		final T shape = ShapeFactory.INST.newShape((Class<T>)getClass()).get();
 		shape.copy(this);
 		return shape;
 	}

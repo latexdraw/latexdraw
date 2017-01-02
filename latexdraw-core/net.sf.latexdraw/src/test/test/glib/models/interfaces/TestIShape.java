@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
@@ -32,7 +32,7 @@ public abstract class TestIShape<T extends IShape> {
 
 	@Test
 	public void testGetNbPoints() {
-		IPoint pt = ShapeFactory.createPoint();
+		IPoint pt = ShapeFactory.INST.createPoint();
 
 		assertEquals(shape.getPoints().size(), shape.getNbPoints());
 		shape.getPoints().add(pt);
@@ -44,8 +44,8 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetPtAt() {
 		if(shape.getPoints().isEmpty()) {
-			shape.getPoints().add(ShapeFactory.createPoint());
-			shape.getPoints().add(ShapeFactory.createPoint());
+			shape.getPoints().add(ShapeFactory.INST.createPoint());
+			shape.getPoints().add(ShapeFactory.INST.createPoint());
 		}
 
 		for(int i = 0; i < shape.getNbPoints(); i++)
@@ -150,7 +150,7 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetGravityCentre() {
 		final IPoint gc = shape.getGravityCentre();
-		assertTrue(GLibUtilities.isValidPoint(gc));
+		assertTrue(MathUtils.INST.isValidPt(gc));
 		assertEquals((shape.getTopLeftPoint().getX() + shape.getTopRightPoint().getX()) / 2., gc.getX(), 0.0001);
 		assertEquals((shape.getTopLeftPoint().getY() + shape.getBottomLeftPoint().getY()) / 2., gc.getY(), 0.0001);
 	}
@@ -769,8 +769,8 @@ public abstract class TestIShape<T extends IShape> {
 		assertEquals(DviPsColors.CYAN, shape.getLineColour());
 		shape.setLineColour(DviPsColors.RED);
 		assertEquals(DviPsColors.RED, shape.getLineColour());
-		shape.setLineColour(ShapeFactory.createColorInt(100, 100, 100));
-		assertEquals(ShapeFactory.createColorInt(100, 100, 100), shape.getLineColour());
+		shape.setLineColour(ShapeFactory.INST.createColorInt(100, 100, 100));
+		assertEquals(ShapeFactory.INST.createColorInt(100, 100, 100), shape.getLineColour());
 	}
 
 	@Test
@@ -858,8 +858,8 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(shape.getFillingCol(), DviPsColors.DARKGRAY);
 			shape.setFillingCol(DviPsColors.BLUE);
 			assertEquals(shape.getFillingCol(), DviPsColors.BLUE);
-			shape.setFillingCol(ShapeFactory.createColorInt(200, 100, 40));
-			assertEquals(shape.getFillingCol(), ShapeFactory.createColorInt(200, 100, 40));
+			shape.setFillingCol(ShapeFactory.INST.createColorInt(200, 100, 40));
+			assertEquals(shape.getFillingCol(), ShapeFactory.INST.createColorInt(200, 100, 40));
 		}
 	}
 

@@ -22,7 +22,7 @@ class LRhombus extends LRectangularShape implements IRhombus {
 	 * Creates a rhombus at the bottom-left position (0,0) with width=height=1.
 	 */
 	LRhombus() {
-		this(ShapeFactory.createPoint(0.5, -0.5), 1d, 1d);
+		this(ShapeFactory.INST.createPoint(0.5, -0.5), 1d, 1d);
 	}
 
 	/**
@@ -34,7 +34,7 @@ class LRhombus extends LRectangularShape implements IRhombus {
 	 * @throws NullPointerException If the given point is null.
 	 */
 	LRhombus(final IPoint centre, final double width, final double height) {
-		super(ShapeFactory.createPoint(centre.getX() - width / 2d, centre.getY() - height / 2d),
-			ShapeFactory.createPoint(centre.getX() + width / 2d, centre.getY() + height / 2d));
+		super(ShapeFactory.INST.createPoint(centre.getX() - width / 2d, centre.getY() - height / 2d),
+			ShapeFactory.INST.createPoint(centre.getX() + width / 2d, centre.getY() + height / 2d));
 	}
 }

@@ -11,7 +11,7 @@
 package net.sf.latexdraw.models.impl;
 
 import java.awt.geom.Rectangle2D;
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.models.interfaces.shape.Color;
@@ -64,7 +64,7 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public void setDiametre(final double diam) {
-		if(diam > 0.0 && GLibUtilities.isValidCoordinate(diam)) {
+		if(diam > 0.0 && MathUtils.INST.isValidCoord(diam)) {
 			this.diametre = diam;
 		}
 	}
@@ -77,7 +77,7 @@ class LDot extends LPositionShape implements IDot {
 	 * @since 3.0
 	 */
 	protected double getNewRadius(final double value, final boolean isX) {
-		if(GLibUtilities.isValidCoordinate(value)) {
+		if(MathUtils.INST.isValidCoord(value)) {
 			return isX ? Math.abs(getPosition().getX() - value) : Math.abs(getPosition().getY() - value);
 		}
 
@@ -145,32 +145,32 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public IPoint getBottomLeftPoint() {
-		final IPoint tl = ShapeFactory.createPoint();
-		final IPoint br = ShapeFactory.createPoint();
+		final IPoint tl = ShapeFactory.INST.createPoint();
+		final IPoint br = ShapeFactory.INST.createPoint();
 		getTopLeftBottomRightPoints(tl, br);
-		return ShapeFactory.createPoint(tl.getX(), br.getY());
+		return ShapeFactory.INST.createPoint(tl.getX(), br.getY());
 	}
 
 	@Override
 	public IPoint getBottomRightPoint() {
-		final IPoint br = ShapeFactory.createPoint();
-		getTopLeftBottomRightPoints(ShapeFactory.createPoint(), br);
+		final IPoint br = ShapeFactory.INST.createPoint();
+		getTopLeftBottomRightPoints(ShapeFactory.INST.createPoint(), br);
 		return br;
 	}
 
 	@Override
 	public IPoint getTopLeftPoint() {
-		final IPoint tl = ShapeFactory.createPoint();
-		getTopLeftBottomRightPoints(tl, ShapeFactory.createPoint());
+		final IPoint tl = ShapeFactory.INST.createPoint();
+		getTopLeftBottomRightPoints(tl, ShapeFactory.INST.createPoint());
 		return tl;
 	}
 
 	@Override
 	public IPoint getTopRightPoint() {
-		final IPoint tl = ShapeFactory.createPoint();
-		final IPoint br = ShapeFactory.createPoint();
+		final IPoint tl = ShapeFactory.INST.createPoint();
+		final IPoint br = ShapeFactory.INST.createPoint();
 		getTopLeftBottomRightPoints(tl, br);
-		return ShapeFactory.createPoint(br.getX(), tl.getY());
+		return ShapeFactory.INST.createPoint(br.getX(), tl.getY());
 	}
 
 	/**
@@ -284,13 +284,13 @@ class LDot extends LPositionShape implements IDot {
 	@Override
 	public IPoint getLazyTopLeftPoint() {
 		final IPoint centre = getPosition();
-		return ShapeFactory.createPoint(centre.getX() - diametre / 2.0, centre.getY() - diametre / 2.0);
+		return ShapeFactory.INST.createPoint(centre.getX() - diametre / 2.0, centre.getY() - diametre / 2.0);
 	}
 
 	@Override
 	public IPoint getLazyBottomRightPoint() {
 		final IPoint centre = getPosition();
-		return ShapeFactory.createPoint(centre.getX() + diametre / 2.0, centre.getY() + diametre / 2.0);
+		return ShapeFactory.INST.createPoint(centre.getX() + diametre / 2.0, centre.getY() + diametre / 2.0);
 	}
 
 	@Override

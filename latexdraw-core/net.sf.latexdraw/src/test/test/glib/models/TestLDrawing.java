@@ -12,12 +12,12 @@ import test.glib.models.interfaces.TestIDrawing;
 public class TestLDrawing extends TestIDrawing {
 	@Before
 	public void setUp() {
-		drawing = ShapeFactory.createDrawing();
+		drawing = ShapeFactory.INST.createDrawing();
 	}
 
 	@Test
 	public void testConstructor() {
-		IDrawing d = ShapeFactory.createDrawing();
+		IDrawing d = ShapeFactory.INST.createDrawing();
 
 		assertNotNull(d.getSelection());
 		assertNotNull(d.getShapes());

@@ -3,7 +3,7 @@ package net.sf.latexdraw.view.svg;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
@@ -53,7 +53,7 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	 * @since 2.0.0
 	 */
 	protected LTriangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createTriangle());
+		this(ShapeFactory.INST.createTriangle());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
@@ -101,16 +101,16 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	    final double gap 		= getPositionGap()/2.;
 	    final IPoint pt1 		= shape.getTopLeftPoint();
 	    final IPoint pt2 		= shape.getBottomRightPoint();
-		final IPoint p1 		= ShapeFactory.createPoint((pt1.getX()+pt2.getX())/2., pt1.getY());
-		final IPoint p2 		= ShapeFactory.createPoint(pt2.getX(), pt2.getY());
-		final IPoint p3 		= ShapeFactory.createPoint(pt1.getX(), pt2.getY());
+		final IPoint p1 		= ShapeFactory.INST.createPoint((pt1.getX()+pt2.getX())/2., pt1.getY());
+		final IPoint p2 		= ShapeFactory.INST.createPoint(pt2.getX(), pt2.getY());
+		final IPoint p3 		= ShapeFactory.INST.createPoint(pt1.getX(), pt2.getY());
 	    final double p1x = p1.getX();
 	    final double p1y = p1.getY();
 	    final double p2x = p2.getX();
 	    final double p2y = p2.getY();
 	    final double p3x = p3.getX();
-	    double cornerGap1 = GLibUtilities.getCornerGap(ShapeFactory.createPoint(p1x, p2y), p1, p2, gap);
-	    double cornerGap2 = GLibUtilities.getCornerGap(shape.getGravityCentre(), p2, p3, gap);
+	    double cornerGap1 = MathUtils.INST.getCornerGap(ShapeFactory.INST.createPoint(p1x, p2y), p1, p2, gap);
+	    double cornerGap2 = MathUtils.INST.getCornerGap(shape.getGravityCentre(), p2, p3, gap);
 
 	    if(p2x>p3x)
 	    	cornerGap2*=-1;

@@ -36,7 +36,7 @@ class LDrawing implements IDrawing, LSetShapes {
 	LDrawing() {
 		super();
 		shapes = FXCollections.observableArrayList();
-		selection = ShapeFactory.createGroup();
+		selection = ShapeFactory.INST.createGroup();
 		modified = false;
 	}
 

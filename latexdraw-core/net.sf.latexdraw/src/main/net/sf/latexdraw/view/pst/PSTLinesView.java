@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import org.eclipse.jdt.annotation.NonNull;
@@ -32,7 +32,7 @@ public class PSTLinesView extends PSTPolygonView {
 
 	@Override
 	public String getCode(final IPoint position, final float ppc) {
-		if(!GLibUtilities.isValidPoint(position) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
 
 		final StringBuilder points = getPointsCode(position, ppc);
 		final StringBuilder arrowsStyle = getArrowsStyleCode();

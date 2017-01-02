@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TestLoadSaveSVGPlot extends TestLoadSaveSVGPositionShape<IPlot> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createPlot(ShapeFactory.createPoint(), -338.0, 124.0, "2 x mul", true);
+		shape = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), -338.0, 124.0, "2 x mul", true);
 		shape.setNbPlottedPoints(331);
 	}
 

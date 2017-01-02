@@ -10,13 +10,11 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.GLibUtilities;
+import java.util.List;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LNumber;
 import org.eclipse.jdt.annotation.NonNull;
-
-import java.util.List;
 
 /**
  * Defines a PSTricks view of the LFreeHand model.
@@ -48,8 +46,8 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 		float midx = 0f;
 		float midy = 0f;
 
-		coord.append("\\moveto(").append(LNumber.getCutNumberFloat(((curx - originx) / ppc)));//$NON-NLS-1$
-		coord.append(',').append(LNumber.getCutNumberFloat((originy - cury) / ppc)).append(')').append('\n');
+		coord.append("\\moveto(").append(MathUtils.INST.getCutNumberFloat(((curx - originx) / ppc)));//$NON-NLS-1$
+		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - cury) / ppc)).append(')').append('\n');
 
 		if(pts.size() > interval) {
 			prevx = curx;
@@ -59,8 +57,8 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 			midx = (curx + prevx) / 2.0f;
 			midy = (cury + prevy) / 2.0f;
 
-			coord.append("\\lineto(").append(LNumber.getCutNumberFloat(((midx - originx) / ppc)));//$NON-NLS-1$
-			coord.append(',').append(LNumber.getCutNumberFloat((originy - midy) / ppc)).append(')').append('\n');
+			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat(((midx - originx) / ppc)));//$NON-NLS-1$
+			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - midy) / ppc)).append(')').append('\n');
 		}
 
 		for(i = interval * 2; i < size; i += interval) {
@@ -75,12 +73,12 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 			final float x2 = (prevx + midx) / 2.0f;
 			final float y2 = (prevy + midy) / 2.0f;
 
-			coord.append("\\curveto(").append(LNumber.getCutNumberFloat((x1 - originx) / ppc));//$NON-NLS-1$
-			coord.append(',').append(LNumber.getCutNumberFloat((originy - y1) / ppc)).append(')').append('(');
-			coord.append(LNumber.getCutNumberFloat((x2 - originx) / ppc)).append(',');
-			coord.append(LNumber.getCutNumberFloat((originy - y2) / ppc)).append(')').append('(');
-			coord.append(LNumber.getCutNumberFloat((midx - originx) / ppc)).append(',');
-			coord.append(LNumber.getCutNumberFloat((originy - midy) / ppc)).append(')').append('\n');
+			coord.append("\\curveto(").append(MathUtils.INST.getCutNumberFloat((x1 - originx) / ppc));//$NON-NLS-1$
+			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - y1) / ppc)).append(')').append('(');
+			coord.append(MathUtils.INST.getCutNumberFloat((x2 - originx) / ppc)).append(',');
+			coord.append(MathUtils.INST.getCutNumberFloat((originy - y2) / ppc)).append(')').append('(');
+			coord.append(MathUtils.INST.getCutNumberFloat((midx - originx) / ppc)).append(',');
+			coord.append(MathUtils.INST.getCutNumberFloat((originy - midy) / ppc)).append(')').append('\n');
 		}
 
 		if(i - interval + 1 < size) {
@@ -96,12 +94,12 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 			final float y2 = (prevy + midy) / 2.0f;
 
 			coord.append("\\curveto("); //$NON-NLS-1$
-			coord.append(LNumber.getCutNumberFloat((x1 - originx) / ppc)).append(',');
-			coord.append(LNumber.getCutNumberFloat((originy - y1) / ppc)).append(')').append('(');
-			coord.append(LNumber.getCutNumberFloat((x2 - originx) / ppc)).append(',');
-			coord.append(LNumber.getCutNumberFloat((originy - y2) / ppc)).append(')').append('(');
-			coord.append(LNumber.getCutNumberFloat((pts.get(pts.size() - 1).getX() - originx) / ppc)).append(',');
-			coord.append(LNumber.getCutNumberFloat((originy - pts.get(pts.size() - 1).getY()) / ppc)).append(')').append('\n');
+			coord.append(MathUtils.INST.getCutNumberFloat((x1 - originx) / ppc)).append(',');
+			coord.append(MathUtils.INST.getCutNumberFloat((originy - y1) / ppc)).append(')').append('(');
+			coord.append(MathUtils.INST.getCutNumberFloat((x2 - originx) / ppc)).append(',');
+			coord.append(MathUtils.INST.getCutNumberFloat((originy - y2) / ppc)).append(')').append('(');
+			coord.append(MathUtils.INST.getCutNumberFloat((pts.get(pts.size() - 1).getX() - originx) / ppc)).append(',');
+			coord.append(MathUtils.INST.getCutNumberFloat((originy - pts.get(pts.size() - 1).getY()) / ppc)).append(')').append('\n');
 		}
 	}
 
@@ -116,25 +114,25 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 		final int size = shape.getNbPoints();
 		final int interval = shape.getInterval();
 
-		coord.append("\\moveto(").append(LNumber.getCutNumberFloat((p.getX() - originx) / ppc));//$NON-NLS-1$
-		coord.append(',').append(LNumber.getCutNumberFloat((originy - p.getY()) / ppc)).append(')').append('\n');
+		coord.append("\\moveto(").append(MathUtils.INST.getCutNumberFloat((p.getX() - originx) / ppc));//$NON-NLS-1$
+		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - p.getY()) / ppc)).append(')').append('\n');
 
 		for(i = interval; i < size; i += interval) {
 			p = pts.get(i);
-			coord.append("\\lineto(").append(LNumber.getCutNumberFloat((p.getX() - originx) / ppc));//$NON-NLS-1$
-			coord.append(',').append(LNumber.getCutNumberFloat((originy - p.getY()) / ppc)).append(')').append('\n');
+			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat((p.getX() - originx) / ppc));//$NON-NLS-1$
+			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - p.getY()) / ppc)).append(')').append('\n');
 		}
 
 		if(i - interval < size)
-			coord.append("\\lineto(").append(LNumber.getCutNumberFloat((pts.get(pts.size() - 1).getX() - originx) / ppc)).append(//$NON-NLS-1$
-				',').append(LNumber.getCutNumberFloat((originy - pts.get(pts.size() - 1).getY()) / ppc)).append(')').append('\n');
+			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat((pts.get(pts.size() - 1).getX() - originx) / ppc)).append(//$NON-NLS-1$
+				',').append(MathUtils.INST.getCutNumberFloat((originy - pts.get(pts.size() - 1).getY()) / ppc)).append(')').append('\n');
 
 	}
 
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.isValidPoint(origin) || ppc < 1 || shape.getNbPoints() < 2) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1 || shape.getNbPoints() < 2) return "";
 
 		final StringBuilder coord = new StringBuilder();
 		final StringBuilder rot = getRotationHeaderCode(ppc, origin);

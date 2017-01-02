@@ -48,7 +48,7 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 	 * @since 2.0.0
 	 */
 	protected LCircleSVGGenerator(final SVGCircleElement elt) {
-		this(ShapeFactory.createCircle());
+		this(ShapeFactory.INST.createCircle());
 		setSVGParameters(elt);
 		setCircleParameters(elt, 0.);
 		applyTransformations(elt);
@@ -61,7 +61,7 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 	 * @since 2.0.0
 	 */
 	protected LCircleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createCircle());
+		this(ShapeFactory.INST.createCircle());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
