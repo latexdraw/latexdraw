@@ -1,13 +1,12 @@
 package net.sf.latexdraw.util;
 
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class Preference {
 	private static Map<String, Node> preferences = null;

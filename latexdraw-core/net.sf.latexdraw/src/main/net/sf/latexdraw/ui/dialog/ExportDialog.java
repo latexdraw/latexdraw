@@ -2,14 +2,12 @@ package net.sf.latexdraw.ui.dialog;
 
 import java.awt.Component;
 import java.io.File;
-
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
-
 import net.sf.latexdraw.filters.JPGFilter;
 import net.sf.latexdraw.util.LangTool;
 

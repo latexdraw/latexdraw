@@ -12,6 +12,7 @@ package net.sf.latexdraw;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import java.io.IOException;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -36,8 +37,6 @@ import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.ActionsRegistry;
 import org.malai.undo.UndoCollector;
-
-import java.io.IOException;
 
 /**
  * The main class of the project.

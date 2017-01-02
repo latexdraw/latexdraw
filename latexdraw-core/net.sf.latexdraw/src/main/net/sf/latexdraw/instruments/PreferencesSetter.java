@@ -1,32 +1,52 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.view.GridStyle;
-import net.sf.latexdraw.ui.XScaleRuler;
-import net.sf.latexdraw.ui.YScaleRuler;
-import net.sf.latexdraw.util.*;
-import org.malai.javafx.instrument.JfxInstrument;
-import org.w3c.dom.*;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.net.URL;
-import java.util.*;
-import java.util.stream.Collectors;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.ui.XScaleRuler;
+import net.sf.latexdraw.ui.YScaleRuler;
+import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.util.LPath;
+import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.Preference;
+import net.sf.latexdraw.util.Unit;
+import net.sf.latexdraw.util.VersionChecker;
+import net.sf.latexdraw.view.GridStyle;
+import org.malai.javafx.instrument.JfxInstrument;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * This instrument modifies the preferences.<br>

@@ -2,9 +2,7 @@ package net.sf.latexdraw.parsers.pst.lexer
 
 import scala.util.parsing.combinator.Parsers
 import scala.util.parsing.combinator.token.Tokens
-import scala.util.parsing.input.OffsetPosition
-import scala.util.parsing.input.Positional
-import scala.util.parsing.input.CharArrayReader
+import scala.util.parsing.input.{CharArrayReader, OffsetPosition, Positional}
 
 /**
  * Defines the concept of PSTricks token.<br>

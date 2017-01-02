@@ -3,10 +3,8 @@ package net.sf.latexdraw.parsers.svg;
 import java.awt.geom.Point2D;
 import java.text.ParseException;
 import java.util.List;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
-
 import org.w3c.dom.Node;
 
 /**

@@ -1,9 +1,7 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.util.List;
-
 import net.sf.latexdraw.models.interfaces.prop.ISetShapesProp;
-
 import org.malai.presentation.AbstractPresentation;
 
 /**

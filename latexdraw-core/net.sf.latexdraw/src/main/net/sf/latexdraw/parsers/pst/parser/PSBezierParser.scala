@@ -1,7 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.models.interfaces.shape.IShape
 import net.sf.latexdraw.models.ShapeFactory
+import net.sf.latexdraw.models.interfaces.shape.IShape
 
 /**
  * A parser grouping parsers parsing bézier curves.<br>

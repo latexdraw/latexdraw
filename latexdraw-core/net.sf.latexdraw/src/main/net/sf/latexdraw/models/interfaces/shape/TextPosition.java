@@ -13,7 +13,6 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.util.Arrays;
-
 import org.eclipse.jdt.annotation.NonNull;
 
 /** The position of the text (bottom-right, top-left, etc.). */

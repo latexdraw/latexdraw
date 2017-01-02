@@ -1,19 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.models.interfaces.shape.Color
-import net.sf.latexdraw.models.interfaces.shape.IPoint
-import net.sf.latexdraw.view.pst.PSTricksConstants
 import net.sf.latexdraw.models.ShapeFactory
-
+import net.sf.latexdraw.models.interfaces.shape._
 import net.sf.latexdraw.view.latex.DviPsColors
-import net.sf.latexdraw.models.interfaces.shape.BorderPos
-import net.sf.latexdraw.models.interfaces.shape.LineStyle
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle
-import net.sf.latexdraw.models.interfaces.shape.AxesStyle
-import net.sf.latexdraw.models.interfaces.shape.TicksStyle
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle
-import net.sf.latexdraw.models.interfaces.shape.DotStyle
+import net.sf.latexdraw.view.pst.PSTricksConstants
 
 /**
  * The different kinds of font shapes.
@@ -81,9 +71,9 @@ object fontSerie extends Enumeration {
 	}
 }
 
-import fontShape._
-import fontFamily._
-import fontSerie._
+import net.sf.latexdraw.parsers.pst.parser.fontFamily._
+import net.sf.latexdraw.parsers.pst.parser.fontSerie._
+import net.sf.latexdraw.parsers.pst.parser.fontShape._
 
 
 /**

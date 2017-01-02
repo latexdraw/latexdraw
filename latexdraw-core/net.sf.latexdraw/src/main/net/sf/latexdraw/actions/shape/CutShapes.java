@@ -10,14 +10,13 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * This action cuts the selected shapes.

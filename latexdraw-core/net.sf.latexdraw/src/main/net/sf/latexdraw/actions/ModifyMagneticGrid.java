@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.actions;
 
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
-import net.sf.latexdraw.util.LangTool;
-
 import org.malai.action.library.ModifyValue;
 import org.malai.undo.Undoable;
 

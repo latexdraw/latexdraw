@@ -28,7 +28,6 @@ import java.text.AttributedCharacterIterator;
 import java.text.ParseException;
 import java.util.Map;
 import java.util.Objects;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;

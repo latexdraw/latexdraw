@@ -1,20 +1,19 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
+import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javax.swing.JFileChooser;
 import net.sf.latexdraw.actions.LoadDrawing;
 import net.sf.latexdraw.filters.SVGFilter;
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.util.LangTool;
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import javax.swing.*;
-import java.io.File;
 
 /**
  * This instrument saves and loads documents.<br>

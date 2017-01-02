@@ -1,13 +1,25 @@
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.*;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
-import net.sf.latexdraw.parsers.svg.*;
-import net.sf.latexdraw.parsers.svg.path.*;
-import net.sf.latexdraw.util.LNamespace;
-
 import java.awt.geom.Point2D;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.Color;
+import net.sf.latexdraw.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.parsers.svg.SVGAttributes;
+import net.sf.latexdraw.parsers.svg.SVGDefsElement;
+import net.sf.latexdraw.parsers.svg.SVGDocument;
+import net.sf.latexdraw.parsers.svg.SVGElement;
+import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.parsers.svg.SVGPathElement;
+import net.sf.latexdraw.parsers.svg.path.CtrlPointsSeg;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubic;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
+import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
  * Defines a SVG generator for a Bézier curve.<br>

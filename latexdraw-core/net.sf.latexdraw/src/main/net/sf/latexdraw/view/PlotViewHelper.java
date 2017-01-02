@@ -2,7 +2,6 @@ package net.sf.latexdraw.view;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IDot;

@@ -1,11 +1,9 @@
 package net.sf.latexdraw.parsers.svg;
 
 import java.text.ParseException;
-
 import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
-
+import net.sf.latexdraw.view.latex.DviPsColors;
 import org.w3c.dom.Node;
 
 /**

@@ -1,9 +1,7 @@
 package net.sf.latexdraw.parsers.svg;
 
 
-
 import java.util.Objects;
-
 import org.w3c.dom.Node;
 
 /**

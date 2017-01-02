@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.actions;
 
+import java.util.List;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.action.Action;
-
-import java.util.List;
 
 /**
  * An action that handles a set of shapes attribute.

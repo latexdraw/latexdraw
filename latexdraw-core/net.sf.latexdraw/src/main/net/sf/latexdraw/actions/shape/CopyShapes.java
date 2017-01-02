@@ -10,13 +10,12 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.action.Action;
 import org.malai.action.ActionImpl;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This action copies the selected shapes.

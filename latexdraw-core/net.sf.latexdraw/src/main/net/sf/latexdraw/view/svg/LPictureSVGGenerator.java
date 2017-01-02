@@ -1,7 +1,6 @@
 package net.sf.latexdraw.view.svg;
 
 import java.io.IOException;
-
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;

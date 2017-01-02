@@ -10,9 +10,8 @@
  */
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
-
 import java.util.Optional;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 
 /**
  * This trait encapsulates a drawing attribute.

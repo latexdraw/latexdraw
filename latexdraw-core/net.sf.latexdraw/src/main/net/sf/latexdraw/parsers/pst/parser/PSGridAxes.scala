@@ -1,10 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.models.interfaces.shape.IShape
-import net.sf.latexdraw.models.interfaces.shape.IGrid
-import net.sf.latexdraw.models.interfaces.shape.IStandardGrid
-import net.sf.latexdraw.models.interfaces.shape.IAxes
 import net.sf.latexdraw.models.ShapeFactory
+import net.sf.latexdraw.models.interfaces.shape.{IAxes, IGrid, IShape, IStandardGrid}
 
 /**
  * A parser grouping parsers parsing grids and axes.<br>

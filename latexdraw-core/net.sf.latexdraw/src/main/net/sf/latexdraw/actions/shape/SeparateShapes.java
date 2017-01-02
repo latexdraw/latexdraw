@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.util.Optional;
+import java.util.stream.IntStream;
 import net.sf.latexdraw.actions.DrawingAction;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
@@ -17,9 +19,6 @@ import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
-
-import java.util.Optional;
-import java.util.stream.IntStream;
 
 /**
  * This action separates joined shapes.

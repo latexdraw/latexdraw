@@ -2,7 +2,17 @@ package net.sf.latexdraw.view.svg;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.*;
+import net.sf.latexdraw.parsers.svg.SVGCircleElement;
+import net.sf.latexdraw.parsers.svg.SVGElement;
+import net.sf.latexdraw.parsers.svg.SVGEllipseElement;
+import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.parsers.svg.SVGImageElement;
+import net.sf.latexdraw.parsers.svg.SVGLineElement;
+import net.sf.latexdraw.parsers.svg.SVGPathElement;
+import net.sf.latexdraw.parsers.svg.SVGPolyLineElement;
+import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
+import net.sf.latexdraw.parsers.svg.SVGRectElement;
+import net.sf.latexdraw.parsers.svg.SVGTextElement;
 import net.sf.latexdraw.util.LNamespace;
 
 /**

@@ -1,22 +1,24 @@
 package net.sf.latexdraw.ui;
 
 import com.google.inject.Inject;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
+import java.awt.BasicStroke;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.util.Objects;
+import javax.accessibility.Accessible;
+import javax.accessibility.AccessibleContext;
+import javax.accessibility.AccessibleRole;
+import javax.swing.JComponent;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.malai.mapping.ActiveUnary;
 import org.malai.mapping.IUnary;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-
-import javax.accessibility.Accessible;
-import javax.accessibility.AccessibleContext;
-import javax.accessibility.AccessibleRole;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.util.Objects;
 
 /**
  * This class defines an abstract scale ruler.<br>

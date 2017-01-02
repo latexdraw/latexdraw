@@ -2,7 +2,6 @@ package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Point2D;
 import java.util.List;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;

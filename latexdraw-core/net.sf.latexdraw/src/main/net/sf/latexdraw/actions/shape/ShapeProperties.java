@@ -10,7 +10,8 @@
  */
 package net.sf.latexdraw.actions.shape;
 
-import net.sf.latexdraw.util.LangTool;
+import java.util.Collections;
+import java.util.List;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
@@ -26,9 +27,7 @@ import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-
-import java.util.Collections;
-import java.util.List;
+import net.sf.latexdraw.util.LangTool;
 
 /**
  * Defines shape properties.

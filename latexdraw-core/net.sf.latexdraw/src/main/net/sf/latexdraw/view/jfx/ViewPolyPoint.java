@@ -12,6 +12,9 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
 import javafx.collections.ListChangeListener;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.LineTo;
@@ -19,10 +22,6 @@ import javafx.scene.shape.MoveTo;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.eclipse.jdt.annotation.NonNull;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
 
 /**
  * The JFX shape view for multipoints shapes.

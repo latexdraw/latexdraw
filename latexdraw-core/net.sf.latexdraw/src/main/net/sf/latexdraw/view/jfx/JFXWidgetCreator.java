@@ -1,5 +1,7 @@
 package net.sf.latexdraw.view.jfx;
 
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -7,9 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 import org.eclipse.jdt.annotation.NonNull;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A trait for creating items.<br>

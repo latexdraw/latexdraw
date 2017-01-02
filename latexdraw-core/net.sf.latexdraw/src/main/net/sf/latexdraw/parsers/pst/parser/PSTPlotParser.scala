@@ -1,8 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.models.ShapeFactory
-import net.sf.latexdraw.models.interfaces.shape.IShape
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle
+import net.sf.latexdraw.models.interfaces.shape.{IShape, PlotStyle}
 
 /**
  * Parsers parsing commands of the pst-plot package.<br>

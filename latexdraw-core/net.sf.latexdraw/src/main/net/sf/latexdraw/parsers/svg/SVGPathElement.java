@@ -1,10 +1,14 @@
 package net.sf.latexdraw.parsers.svg;
 
-import net.sf.latexdraw.parsers.svg.parsers.SVGPathParser;
-import net.sf.latexdraw.parsers.svg.path.*;
-import org.w3c.dom.Node;
-
 import java.text.ParseException;
+import net.sf.latexdraw.parsers.svg.parsers.SVGPathParser;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubic;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubicSmooth;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
+import org.w3c.dom.Node;
 
 /**
  * Defines the SVG tag <code>path</code>.<br>

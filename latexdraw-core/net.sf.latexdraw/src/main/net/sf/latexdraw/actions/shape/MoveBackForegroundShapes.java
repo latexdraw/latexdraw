@@ -10,21 +10,20 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.actions.DrawingAction;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * This action puts in background / foreground shapes.

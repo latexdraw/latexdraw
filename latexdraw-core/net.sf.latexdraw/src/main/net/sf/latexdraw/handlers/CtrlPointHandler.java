@@ -1,7 +1,6 @@
 package net.sf.latexdraw.handlers;
 
 import java.awt.geom.Ellipse2D;
-
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 
 /**

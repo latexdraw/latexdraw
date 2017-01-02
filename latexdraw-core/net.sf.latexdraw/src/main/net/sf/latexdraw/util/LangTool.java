@@ -10,11 +10,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

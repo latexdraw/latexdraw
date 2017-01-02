@@ -10,15 +10,14 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.sf.latexdraw.actions.DrawingActionImpl;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapesAction;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.action.Action;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This action allows to (un-)select shapes.

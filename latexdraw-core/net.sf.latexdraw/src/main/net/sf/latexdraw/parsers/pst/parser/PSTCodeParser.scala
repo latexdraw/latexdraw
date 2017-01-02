@@ -1,12 +1,10 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import scala.collection.JavaConversions.seqAsJavaList
-import net.sf.latexdraw.models.interfaces.shape.IFreehand
-import net.sf.latexdraw.models.interfaces.shape.IGroup
-import net.sf.latexdraw.models.interfaces.shape.IShape
 import net.sf.latexdraw.models.ShapeFactory
+import net.sf.latexdraw.models.interfaces.shape.{Color, IFreehand, IGroup, IShape}
 import net.sf.latexdraw.view.latex.DviPsColors
-import net.sf.latexdraw.models.interfaces.shape.Color
+
+import scala.collection.JavaConversions.seqAsJavaList
 
 /**
  * Defines a parser parsing PST expressions.<br>

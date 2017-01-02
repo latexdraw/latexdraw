@@ -13,7 +13,6 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.awt.geom.Rectangle2D;
-
 import net.sf.latexdraw.models.ShapeFactory;
 
 /** The different cardinal points. */

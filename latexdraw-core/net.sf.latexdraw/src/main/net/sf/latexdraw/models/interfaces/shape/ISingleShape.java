@@ -1,9 +1,8 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
+import org.eclipse.jdt.annotation.NonNull;
 
 public interface ISingleShape extends IShape {
 	/**

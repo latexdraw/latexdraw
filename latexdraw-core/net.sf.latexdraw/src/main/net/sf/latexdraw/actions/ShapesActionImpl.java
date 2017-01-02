@@ -10,11 +10,10 @@
  */
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.malai.action.ActionImpl;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import org.malai.action.ActionImpl;
 
 /**
  * This trait encapsulates a set of shapes attribute.

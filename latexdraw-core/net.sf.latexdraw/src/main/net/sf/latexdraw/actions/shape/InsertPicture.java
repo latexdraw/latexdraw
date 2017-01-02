@@ -10,12 +10,11 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.io.File;
+import java.util.Optional;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
-
-import java.io.File;
-import java.util.Optional;
 
 /**
  * This action asks the user to select a picture and, if valid, adds it to a drawing.

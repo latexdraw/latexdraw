@@ -1,5 +1,7 @@
 package net.sf.latexdraw.view.svg;
 
+import java.awt.geom.Point2D;
+import java.util.List;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.parsers.svg.AbstractPointsElement;
@@ -8,9 +10,6 @@ import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
-
-import java.awt.geom.Point2D;
-import java.util.List;
 
 /**
  * Defines an SVG generator for shapes composed of points.<br>

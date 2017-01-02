@@ -1,14 +1,13 @@
 package net.sf.latexdraw.badaboom;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.error.ErrorCatcher;
 import org.malai.error.ErrorNotifier;
-
-import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Defines an error collector.<br>

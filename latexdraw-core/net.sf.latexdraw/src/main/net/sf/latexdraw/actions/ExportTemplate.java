@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.actions;
 
+import java.util.Optional;
 import javafx.scene.control.MenuButton;
 import org.malai.action.ActionImpl;
-
-import java.util.Optional;
 
 /**
  * This action exports a set of shapes as a template.

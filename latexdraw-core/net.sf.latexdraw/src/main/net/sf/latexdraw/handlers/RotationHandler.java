@@ -4,7 +4,6 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
-
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**

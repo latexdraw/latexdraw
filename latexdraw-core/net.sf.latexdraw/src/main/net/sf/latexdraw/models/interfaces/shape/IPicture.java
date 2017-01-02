@@ -10,9 +10,8 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
-import javafx.scene.image.Image;
-
 import java.io.IOException;
+import javafx.scene.image.Image;
 
 /**
  * An interface that classes defining a picture should implement.

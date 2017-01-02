@@ -1,7 +1,6 @@
 package net.sf.latexdraw.view.svg;
 
 import java.util.List;
-
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -10,7 +9,6 @@ import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.util.LNamespace;
-
 import org.w3c.dom.NodeList;
 
 /**

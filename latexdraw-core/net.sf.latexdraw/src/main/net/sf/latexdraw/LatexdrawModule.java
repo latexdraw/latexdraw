@@ -12,11 +12,6 @@ package net.sf.latexdraw;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.view.MagneticGrid;
-import net.sf.latexdraw.view.ViewsSynchroniserHandler;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
-import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.instruments.AboutController;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.instruments.CodeInserter;
@@ -57,9 +52,14 @@ import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.instruments.TemplateManager;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.instruments.UndoRedoManager;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.ui.XScaleRuler;
 import net.sf.latexdraw.ui.YScaleRuler;
+import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 
 class LatexdrawModule extends AbstractModule {
 	@Override

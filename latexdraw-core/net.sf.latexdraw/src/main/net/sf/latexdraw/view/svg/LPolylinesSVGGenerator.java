@@ -1,16 +1,22 @@
 package net.sf.latexdraw.view.svg;
 
+import java.text.ParseException;
+import java.util.List;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
-import net.sf.latexdraw.parsers.svg.*;
+import net.sf.latexdraw.parsers.svg.SVGAttributes;
+import net.sf.latexdraw.parsers.svg.SVGDefsElement;
+import net.sf.latexdraw.parsers.svg.SVGDocument;
+import net.sf.latexdraw.parsers.svg.SVGElement;
+import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.parsers.svg.SVGLineElement;
+import net.sf.latexdraw.parsers.svg.SVGPathElement;
+import net.sf.latexdraw.parsers.svg.SVGPolyLineElement;
 import net.sf.latexdraw.util.LNamespace;
-
-import java.text.ParseException;
-import java.util.List;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
  * Defines a SVG generator for some joined lines.<br>

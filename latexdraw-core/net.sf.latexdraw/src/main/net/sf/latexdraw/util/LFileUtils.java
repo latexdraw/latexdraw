@@ -11,10 +11,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Random;
-
-import org.eclipse.jdt.annotation.NonNull;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines some workarounds to deal with the problem of the renameto function.

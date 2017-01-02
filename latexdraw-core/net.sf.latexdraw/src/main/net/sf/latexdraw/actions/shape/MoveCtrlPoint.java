@@ -10,10 +10,10 @@
  */
 package net.sf.latexdraw.actions.shape;
 
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**

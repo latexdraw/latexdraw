@@ -2,7 +2,6 @@ package net.sf.latexdraw.instruments;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
 import org.malai.javafx.instrument.JfxInstrument;
 
 /**

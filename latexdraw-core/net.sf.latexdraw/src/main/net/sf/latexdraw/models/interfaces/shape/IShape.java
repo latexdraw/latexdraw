@@ -1,10 +1,9 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
+import java.awt.geom.Rectangle2D;
 import javafx.collections.ObservableList;
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.properties.Modifiable;
-
-import java.awt.geom.Rectangle2D;
 
 /**
  * Defines an interface that classes defining an abstract shape should implement.<br>

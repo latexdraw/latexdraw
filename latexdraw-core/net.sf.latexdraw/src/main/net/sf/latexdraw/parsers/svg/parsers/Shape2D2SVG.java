@@ -2,7 +2,6 @@ package net.sf.latexdraw.parsers.svg.parsers;
 
 import java.awt.Shape;
 import java.util.Objects;
-
 import net.sf.latexdraw.parsers.Parser;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;

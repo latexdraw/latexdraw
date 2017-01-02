@@ -6,12 +6,12 @@ import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
-import net.sf.latexdraw.view.PlotViewHelper;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.view.PlotViewHelper;
 
 /**
  * Defines a SVG generator for a plotted functions.<br>

@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.actions;
 
-import org.malai.action.ActionImpl;
-
-import javax.swing.JFileChooser;
 import java.io.File;
+import javax.swing.JFileChooser;
+import org.malai.action.ActionImpl;
 
 /**
  * This action loads an SVG document into the app.

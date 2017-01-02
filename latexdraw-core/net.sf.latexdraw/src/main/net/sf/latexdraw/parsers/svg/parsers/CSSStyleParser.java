@@ -2,7 +2,6 @@ package net.sf.latexdraw.parsers.svg.parsers;
 
 import java.text.ParseException;
 import java.util.Objects;
-
 import net.sf.latexdraw.parsers.css.AbstractCSSParser;
 
 /**

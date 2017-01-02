@@ -1,7 +1,6 @@
 package net.sf.latexdraw.parsers.svg.path;
 
 import java.awt.geom.Arc2D;
-
 import org.eclipse.jdt.annotation.NonNull;
 
 /**

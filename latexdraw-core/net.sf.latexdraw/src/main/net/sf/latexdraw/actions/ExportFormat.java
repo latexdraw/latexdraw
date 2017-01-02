@@ -13,7 +13,6 @@
 package net.sf.latexdraw.actions;
 
 import javax.swing.filechooser.FileFilter;
-
 import net.sf.latexdraw.filters.BMPFilter;
 import net.sf.latexdraw.filters.EPSFilter;
 import net.sf.latexdraw.filters.JPGFilter;

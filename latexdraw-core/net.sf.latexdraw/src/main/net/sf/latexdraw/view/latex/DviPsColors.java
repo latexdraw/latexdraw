@@ -3,7 +3,6 @@ package net.sf.latexdraw.view.latex;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 

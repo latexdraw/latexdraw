@@ -1,13 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import scala.collection.mutable.ListBuffer
-
 import net.sf.latexdraw.models.ShapeFactory
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle
-import net.sf.latexdraw.models.interfaces.shape.IPoint
-import net.sf.latexdraw.models.interfaces.shape.IPolyline
-import net.sf.latexdraw.models.interfaces.shape.IShape
+import net.sf.latexdraw.models.interfaces.shape._
+
+import scala.collection.mutable.ListBuffer
 
 /**
  * A parser grouping parsers parsing lines.<br>

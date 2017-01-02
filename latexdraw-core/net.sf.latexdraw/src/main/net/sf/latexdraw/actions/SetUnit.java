@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.ui.ScaleRuler;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.Unit;
 import org.malai.action.ActionImpl;
 import org.malai.undo.Undoable;

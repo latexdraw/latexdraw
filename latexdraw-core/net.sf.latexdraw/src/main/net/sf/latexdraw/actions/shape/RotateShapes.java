@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.util.Optional;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
 import net.sf.latexdraw.models.MathUtils;
@@ -17,8 +18,6 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
-
-import java.util.Optional;
 
 /**
  * This action increments to rotation angle of shapes.

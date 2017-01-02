@@ -10,11 +10,10 @@
  */
 package net.sf.latexdraw.actions;
 
+import java.io.File;
+import javax.swing.JFileChooser;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import org.malai.action.ActionImpl;
-
-import javax.swing.JFileChooser;
-import java.io.File;
 
 /**
  * This action saves the given drawing into an SVG document.

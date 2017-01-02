@@ -1,8 +1,14 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.util.List;
-
-import net.sf.latexdraw.models.interfaces.prop.*;
+import net.sf.latexdraw.models.interfaces.prop.IArcProp;
+import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
+import net.sf.latexdraw.models.interfaces.prop.IGridProp;
+import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
+import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.models.interfaces.prop.ISetShapesProp;
+import net.sf.latexdraw.models.interfaces.prop.ITextProp;
 
 /**
  * Defines an interface that classes defining a group of shapes should implement.<br>

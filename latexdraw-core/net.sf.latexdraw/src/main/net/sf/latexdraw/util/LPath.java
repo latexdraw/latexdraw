@@ -3,7 +3,6 @@ package net.sf.latexdraw.util;
 import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**

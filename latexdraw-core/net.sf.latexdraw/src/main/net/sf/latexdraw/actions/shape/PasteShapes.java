@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import net.sf.latexdraw.actions.DrawingActionImpl;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -18,10 +21,6 @@ import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.MagneticGrid;
 import org.malai.action.Action;
 import org.malai.undo.Undoable;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * This action pastes the copied or cut shapes.

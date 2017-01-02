@@ -1,13 +1,11 @@
 package net.sf.latexdraw.parsers.svg;
 
-import net.sf.latexdraw.models.interfaces.shape.Color;
 import java.text.ParseException;
 import java.util.Objects;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.parsers.svg.parsers.CSSStyleParser;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
-
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;

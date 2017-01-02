@@ -10,12 +10,10 @@
  */
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.util.LangTool;
-import net.sf.latexdraw.ui.dialog.ExportDialog;
-import net.sf.latexdraw.view.pst.PSTCodeGenerator;
-import org.malai.action.ActionImpl;
-
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -25,10 +23,11 @@ import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Locale;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.ui.dialog.ExportDialog;
+import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.view.pst.PSTCodeGenerator;
+import org.malai.action.ActionImpl;
 
 /**
  * This action allows to export a drawing in different formats.

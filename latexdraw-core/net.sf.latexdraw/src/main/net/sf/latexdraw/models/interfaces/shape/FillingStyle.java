@@ -13,10 +13,8 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.util.Arrays;
-
-import org.eclipse.jdt.annotation.NonNull;
-
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.eclipse.jdt.annotation.NonNull;
 
 /** The different styles of filling. */
 public enum FillingStyle {

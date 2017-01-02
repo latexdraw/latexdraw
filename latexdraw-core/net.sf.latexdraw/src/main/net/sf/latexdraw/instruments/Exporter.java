@@ -1,25 +1,24 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
+import java.io.File;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.actions.ExportFormat;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
-import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * This instrument exports a drawing in different formats.<br>

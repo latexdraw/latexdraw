@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.util.List;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
@@ -24,8 +25,6 @@ import net.sf.latexdraw.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import org.malai.undo.Undoable;
-
-import java.util.List;
 
 /**
  * This action modifies a shape property of the given shape.

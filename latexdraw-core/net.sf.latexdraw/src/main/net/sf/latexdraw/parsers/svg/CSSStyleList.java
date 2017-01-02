@@ -1,7 +1,6 @@
 package net.sf.latexdraw.parsers.svg;
 
 import java.util.HashMap;
-
 import net.sf.latexdraw.parsers.svg.parsers.CSSStyleHandler;
 
 /**

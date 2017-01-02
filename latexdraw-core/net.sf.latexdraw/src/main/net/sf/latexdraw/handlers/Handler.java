@@ -2,13 +2,11 @@ package net.sf.latexdraw.handlers;
 
 import java.awt.Graphics2D;
 import java.awt.Shape;
-
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-
 import org.malai.picking.Picker;
 
 /**

@@ -1,16 +1,17 @@
 package net.sf.latexdraw.view.svg;
 
-import static java.lang.Math.min;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGRectElement;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
+
+import static java.lang.Math.min;
 
 /**
  * Defines a SVG generator for a rectangle.<br>

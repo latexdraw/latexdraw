@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.actions;
 
+import java.util.Optional;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import org.malai.action.ActionImpl;
-
-import java.util.Optional;
 
 public abstract class DrawingActionImpl extends ActionImpl {
 	/** The drawing that will be handled by the action. */

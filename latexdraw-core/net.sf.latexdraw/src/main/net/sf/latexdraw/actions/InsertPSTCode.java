@@ -11,18 +11,17 @@
 package net.sf.latexdraw.actions;
 
 
+import java.text.ParseException;
+import java.util.Optional;
+import javax.swing.JLabel;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
+import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 import scala.Option;
-
-import javax.swing.JLabel;
-import java.text.ParseException;
-import java.util.Optional;
 
 /**
  * This action converts PST code into shapes and add them to the drawing.

@@ -1,13 +1,12 @@
 package net.sf.latexdraw.view.jfx;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Page;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The different page sizes that can be used. <br>

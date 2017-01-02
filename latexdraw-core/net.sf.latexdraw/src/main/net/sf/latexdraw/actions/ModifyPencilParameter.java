@@ -12,8 +12,21 @@ package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.models.interfaces.shape.*;
 import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
+import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.Color;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 
 /**
  * This action modifies a parameter of the pencil and updates its corresponding instrument.

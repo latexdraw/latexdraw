@@ -1,13 +1,15 @@
 package net.sf.latexdraw.util;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.util.LangTool;
-import org.malai.action.library.OpenWebPage;
-
-import javax.swing.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
+import javax.swing.JButton;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import org.malai.action.library.OpenWebPage;
 
 /**
  * This class allows to check if a new version of LaTeXDraw is out. This class is a child of Thread

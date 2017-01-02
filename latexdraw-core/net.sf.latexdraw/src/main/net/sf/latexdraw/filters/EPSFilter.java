@@ -1,7 +1,6 @@
 package net.sf.latexdraw.filters;
 
 import java.io.File;
-
 import javax.swing.filechooser.FileFilter;
 
 /**

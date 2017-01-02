@@ -1,8 +1,5 @@
 package net.sf.latexdraw.view.svg;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
@@ -15,6 +12,8 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGTextElement;
 import net.sf.latexdraw.util.LNamespace;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * Defines a SVG generator for a text.<br>

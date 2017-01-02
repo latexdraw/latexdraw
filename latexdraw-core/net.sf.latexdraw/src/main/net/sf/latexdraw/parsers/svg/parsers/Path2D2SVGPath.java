@@ -3,7 +3,6 @@ package net.sf.latexdraw.parsers.svg.parsers;
 import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.text.ParseException;
-
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGPathElement;

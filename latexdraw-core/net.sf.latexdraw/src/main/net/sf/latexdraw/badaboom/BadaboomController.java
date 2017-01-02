@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
-
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;

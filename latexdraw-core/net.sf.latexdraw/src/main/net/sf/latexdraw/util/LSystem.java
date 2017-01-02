@@ -1,10 +1,9 @@
 package net.sf.latexdraw.util;
 
-import javafx.scene.input.KeyCode;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-
 import java.io.File;
 import java.util.Arrays;
+import javafx.scene.input.KeyCode;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * Defines some routines that provides information about the operating system currently used.<br>

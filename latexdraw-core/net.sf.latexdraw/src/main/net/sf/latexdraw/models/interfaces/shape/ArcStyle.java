@@ -13,7 +13,6 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.awt.geom.Arc2D;
-
 import net.sf.latexdraw.util.LangTool;
 
 /** The different styles of arc. */

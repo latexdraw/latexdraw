@@ -10,19 +10,18 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import org.malai.undo.Undoable;
-
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

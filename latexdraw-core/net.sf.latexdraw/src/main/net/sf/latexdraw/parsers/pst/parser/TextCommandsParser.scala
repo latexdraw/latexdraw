@@ -1,9 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.models.interfaces.shape.IShape
-import net.sf.latexdraw.view.latex.DviPsColors
 import java.util.Optional
-import net.sf.latexdraw.models.interfaces.shape.Color
+
+import net.sf.latexdraw.models.interfaces.shape.{Color, IShape}
+import net.sf.latexdraw.view.latex.DviPsColors
 
 /**
  * A parser grouping parsers parsing text commands.<br>

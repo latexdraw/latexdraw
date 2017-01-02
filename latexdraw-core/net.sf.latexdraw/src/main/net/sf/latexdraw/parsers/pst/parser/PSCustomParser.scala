@@ -1,9 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.models.ShapeFactory
-import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle
-import net.sf.latexdraw.models.interfaces.shape.IFreehand
-import net.sf.latexdraw.models.interfaces.shape.IShape
+import net.sf.latexdraw.models.interfaces.shape.{FreeHandStyle, IFreehand, IShape}
 
 /**
  * A parser grouping parsers parsing commands related to the pscustom command.<br>

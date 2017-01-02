@@ -1,8 +1,17 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
-import net.sf.latexdraw.parsers.svg.path.*;
-
 import java.text.ParseException;
+import net.sf.latexdraw.parsers.svg.path.SVGPathHandler;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegArc;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubic;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubicSmooth;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoQuadratic;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoQuadraticSmooth;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegLinetoHorizontal;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegLinetoVertical;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
 
 /**
  * Defines an SVGPath parser.<br>

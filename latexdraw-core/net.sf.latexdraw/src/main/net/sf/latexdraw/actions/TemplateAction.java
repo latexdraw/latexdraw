@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.actions;
 
+import java.util.Optional;
 import javafx.scene.control.MenuButton;
 import org.malai.action.Action;
-
-import java.util.Optional;
 
 /**
  * This trait encapsulates the template menu.

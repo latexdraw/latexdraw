@@ -1,9 +1,7 @@
 package net.sf.latexdraw.parsers.svg;
 
 import java.text.ParseException;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

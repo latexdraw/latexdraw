@@ -1,11 +1,9 @@
 package net.sf.latexdraw.ui;
 
+import com.google.inject.Inject;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
-
-import com.google.inject.Inject;
-
 import net.sf.latexdraw.view.jfx.Canvas;
 
 /**

@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.view.pst;
 
+import java.awt.geom.Point2D;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
@@ -20,8 +21,6 @@ import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.view.latex.DviPsColors;
-
-import java.awt.geom.Point2D;
 
 /**
  * Contains several PSTricks constants.

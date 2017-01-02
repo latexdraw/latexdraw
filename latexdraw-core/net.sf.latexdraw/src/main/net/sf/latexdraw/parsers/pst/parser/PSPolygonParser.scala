@@ -1,10 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.models.interfaces.shape.IShape
-import scala.collection.mutable.ListBuffer
-import net.sf.latexdraw.models.interfaces.shape.IPoint
-import net.sf.latexdraw.models.interfaces.shape.IPolygon
 import net.sf.latexdraw.models.ShapeFactory
+import net.sf.latexdraw.models.interfaces.shape.{IPoint, IPolygon, IShape}
+
+import scala.collection.mutable.ListBuffer
 
 /**
  * A parser grouping parsers parsing polygons.<br>

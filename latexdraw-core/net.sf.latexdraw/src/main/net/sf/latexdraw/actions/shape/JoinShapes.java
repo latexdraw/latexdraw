@@ -10,19 +10,18 @@
  */
 package net.sf.latexdraw.actions.shape;
 
-import net.sf.latexdraw.actions.DrawingActionImpl;
-import net.sf.latexdraw.actions.Modifying;
-import net.sf.latexdraw.actions.ShapesAction;
-import net.sf.latexdraw.util.LangTool;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.malai.undo.Undoable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import net.sf.latexdraw.actions.DrawingActionImpl;
+import net.sf.latexdraw.actions.Modifying;
+import net.sf.latexdraw.actions.ShapesAction;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.LangTool;
+import org.malai.undo.Undoable;
 
 /**
  * This action joins shapes.

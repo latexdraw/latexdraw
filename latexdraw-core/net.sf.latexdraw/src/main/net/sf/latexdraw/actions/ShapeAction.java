@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.actions;
 
+import java.util.Optional;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.action.Action;
-
-import java.util.Optional;
 
 /**
  * This trait encapsulates a shape attribute.

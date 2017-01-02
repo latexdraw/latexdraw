@@ -6,7 +6,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.net.URL;
-
 import javax.swing.ImageIcon;
 
 

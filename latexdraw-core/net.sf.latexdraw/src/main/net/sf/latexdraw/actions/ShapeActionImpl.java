@@ -10,10 +10,9 @@
  */
 package net.sf.latexdraw.actions;
 
+import java.util.Optional;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.action.ActionImpl;
-
-import java.util.Optional;
 
 public abstract class ShapeActionImpl<T extends IShape> extends ActionImpl implements ShapeAction<T> {
 	/** The shape to add. */

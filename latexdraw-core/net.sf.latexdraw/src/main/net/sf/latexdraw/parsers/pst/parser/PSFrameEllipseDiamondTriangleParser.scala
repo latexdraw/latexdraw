@@ -1,7 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.models.{MathUtils, ShapeFactory}
 import net.sf.latexdraw.models.interfaces.shape._
+import net.sf.latexdraw.models.{MathUtils, ShapeFactory}
 
 /**
  * A parser grouping parsers parsing ellipses and rectangles.<br>

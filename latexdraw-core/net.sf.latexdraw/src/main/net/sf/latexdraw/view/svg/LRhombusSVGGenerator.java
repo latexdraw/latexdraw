@@ -2,12 +2,10 @@ package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Point2D;
 import java.util.List;
-
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
@@ -15,6 +13,7 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
  * Defines an SVG generator for a polygon.<br>
