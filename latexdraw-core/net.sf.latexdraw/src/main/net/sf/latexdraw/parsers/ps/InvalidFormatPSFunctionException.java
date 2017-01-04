@@ -16,7 +16,6 @@ package net.sf.latexdraw.parsers.ps;
  * General Public License for more details.<br>
  * <br>
  * 03/11/08<br>
- * 
  * @author Arnaud BLOUIN
  * @version 3.0
  */
@@ -32,9 +31,7 @@ public class InvalidFormatPSFunctionException extends NumberFormatException {
 
 	/**
 	 * Creates the exception.
-	 * 
-	 * @param s
-	 *            The detail message.
+	 * @param s The detail message.
 	 */
 	public InvalidFormatPSFunctionException(final String s) {
 		super(s);
