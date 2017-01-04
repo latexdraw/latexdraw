@@ -2,7 +2,7 @@ package net.sf.latexdraw.parsers.pst.lexer
 
 import java.text.ParseException
 
-import scala.collection.mutable.HashSet
+import scala.collection.mutable
 import scala.util.parsing.combinator.lexical.Lexical
 import scala.util.parsing.input.CharArrayReader.EofCh
 
@@ -27,16 +27,16 @@ import scala.util.parsing.input.CharArrayReader.EofCh
  */
 class PSTLexical extends Lexical with PSTTokens {
 	/** This token is produced by a scanner Scanner when scanning failed. */
-	override def errorToken(msg : String): PSTToken = new KError(msg)
+	override def errorToken(msg : String): PSTToken = KError(msg)
 
 
-	def eof = elem("eof", ch => ch == EofCh)
+	def eof : Parser[Elem] = elem("eof", ch => ch == EofCh)
 
 
 	override def whitespace : Parser[Any] = rep(whitespaceChar | comment)
 
 	/** The reserved token of the PST language. */
-	val reserved : HashSet[String] = HashSet("\\psellipse", "\\psframe", "\\psframe*", "\\psellipse*", "\\pscircle", "\\pscircle*",
+	val reserved : mutable.HashSet[String] = mutable.HashSet("\\psellipse", "\\psframe", "\\psframe*", "\\psellipse*", "\\pscircle", "\\pscircle*",
 			"\\qdisk", "\\psline", "\\psline*", "\\qline", "\\pspolygon*", "\\pspolygon", "\\pswedge*", "\\pswedge", "\\psarc*",
 			"\\psarc", "\\psarcn*", "\\psarcn", "\\psbezier*", "\\psbezier", "\\parabola*", "\\parabola", "\\pscurve", "\\pscurve*",
 			"\\psecurve*", "\\psecurve", "\\psccurve*", "\\psccurve", "\\psdiamond*", "\\psdiamond", "\\pstriangle*", "\\pstriangle",
@@ -55,40 +55,40 @@ class PSTLexical extends Lexical with PSTTokens {
 			"\\slshape", "\\itshape", "\\upshape", "\\it", "\\sl", "\\sc", "\\bf", "\\psaxes", "\\includegraphics", "\\pspicture",
 			"\\endpspicture")
 
-	val textualDelimiters : HashSet[String] = HashSet(",", "(", ")", "[", "]", "=")
+	val textualDelimiters : mutable.HashSet[String] = mutable.HashSet(",", "(", ")", "[", "]", "=")
 
- 	val delimiters : HashSet[String] = HashSet("{", "}", "\\") ++ textualDelimiters
+ 	val delimiters : mutable.HashSet[String] = mutable.HashSet("{", "}", "\\") ++ textualDelimiters
 
 
 
- 	def command : Parser[PSTToken] = positioned('\\' ~> (identifier | specialCommandName) ^^ { case name => Command("\\" + name.chars) })
+ 	def command : Parser[PSTToken] = positioned('\\' ~> (identifier | specialCommandName) ^^ { name => Command("\\" + name.chars) })
 
  	/** Companion of the parser 'command' for parsing special command names. */
 	protected def specialCommandName : Parser[Identifier] =
 		(elem('_')|elem('&')|elem('=')|elem('~')|elem('$')|elem('^')|elem('{')|elem('}')|
 				elem('%')|elem('#')|elem('\\')|elem('\"')|elem('\'')|elem('*')|elem(',')|elem('.')|
-				elem('/')|elem('@')|elem('`')) ^^ {case char => Identifier(char.toString) }
+				elem('/')|elem('@')|elem('`')) ^^ {char => Identifier(char.toString) }
 
 
-	def comment : Parser[PSTToken] = positioned('%' ~> rep(chrExcept(EofCh, '\n')) ^^ { case content => Comment(content.mkString) })
+	def comment : Parser[PSTToken] = positioned('%' ~> rep(chrExcept(EofCh, '\n')) ^^ { content => Comment(content.mkString) })
 
 
 	def mathMode : Parser[MathMode] =
-		positioned('$' ~> mathModeMultiLine ^^ { case math => MathMode(math.chars) }) |
-		positioned('\\' ~> '(' ~> mathModeParenthesisMultiLine ^^ { case math => MathMode(math.chars) }) |
-		positioned('\\' ~> '[' ~> mathModeBracketsMultiLine ^^ { case math => MathMode(math.chars) })
+		positioned('$' ~> mathModeMultiLine ^^ { math => MathMode(math.chars) }) |
+		positioned('\\' ~> '(' ~> mathModeParenthesisMultiLine ^^ { math => MathMode(math.chars) }) |
+		positioned('\\' ~> '[' ~> mathModeBracketsMultiLine ^^ { math => MathMode(math.chars) })
 
 
 	protected def mathModeMultiLine : Parser[MathMode] =
-		'$' ^^ { case _ => MathMode("")  } | chrExcept(EofCh) ~ mathModeMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
+		'$' ^^ { _ => MathMode("")  } | chrExcept(EofCh) ~ mathModeMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
 
 
 	protected def mathModeParenthesisMultiLine : Parser[MathMode] =
-		'\\' ~ ')' ^^ { case _ => MathMode("")  } | chrExcept(EofCh) ~ mathModeParenthesisMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
+		'\\' ~ ')' ^^ { _ => MathMode("")  } | chrExcept(EofCh) ~ mathModeParenthesisMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
 
 
 	protected def mathModeBracketsMultiLine : Parser[MathMode] =
-		'\\' ~ ']' ^^ { case _ => MathMode("")  } | chrExcept(EofCh) ~ mathModeBracketsMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
+		'\\' ~ ']' ^^ { _ => MathMode("")  } | chrExcept(EofCh) ~ mathModeBracketsMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
 
 
 	/**
@@ -138,7 +138,7 @@ class PSTLexical extends Lexical with PSTTokens {
 	/**
 	 * Parses a character that could be part of LaTeX texts.
 	 */
-	def text : Parser[Text] = positioned(elem("char", _.isValidChar) ^^ { case char => Text(char.toString) })
+	def text : Parser[Text] = positioned(elem("char", _.isValidChar) ^^ { char => Text(char.toString) })
 
 
 	private def parseDigitOptDotDigit : Parser[String] =
@@ -165,8 +165,8 @@ class PSTLexical extends Lexical with PSTTokens {
 		| positioned(comment)
 		| positioned(command)
 		| positioned(floatNumber)
-		| positioned(eof ^^ {case _ => KEOF() })
-		| positioned('$' ^^ {case _ => throw new  ParseException("Unclosed math expression (a closing $ is missing).", -1) })
+		| positioned(eof ^^ {_ => KEOF() })
+		| positioned('$' ^^ {_ => throw new  ParseException("Unclosed math expression (a closing $ is missing).", -1) })
 		| positioned(delim)
 		| positioned(text)
 		| positioned(elem("illegal character", p => true) ^^^ KError("Illegal character"))

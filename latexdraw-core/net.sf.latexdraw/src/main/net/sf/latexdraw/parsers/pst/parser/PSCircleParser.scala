@@ -36,7 +36,7 @@ trait PSCircleParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 
 				pos match {
 					case Some(point) => pt = point
-					case _ => pt = ctx.origin.dup
+					case _ => pt = ctx.origin.dup()
 				}
 
 				val pt2d = transformPointTo2DScene(pt, ctx)

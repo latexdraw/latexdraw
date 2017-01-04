@@ -29,10 +29,10 @@ trait PSTNumberParser extends PSTAbstractParser {
 	/**
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
-	def parseNumber : Parser[(Double, String)] = numeric ^^ { case num =>
+	def parseNumber : Parser[(Double, String)] = numeric ^^ { num =>
 		parseValueDim(num) match {
 			case Some(value) => value
-			case None => Tuple2(Double.NaN,"")
+			case None => Tuple2(Double.NaN, "")
 		}
 	}
 
@@ -65,9 +65,10 @@ trait PSTNumberParser extends PSTAbstractParser {
 	 */
 	def parseValueInt(num : String) : Option[Int] = {
 		createValidNumber(num) match {
-			case Some(value) => scala.math.abs(value-scala.math.ceil(value))<0.00001 match {
-				case true => Some(value.toInt)
-				case false => None
+			case Some(value) => if (scala.math.abs(value - scala.math.ceil(value)) < 0.00001) {
+				Some(value.toInt)
+			} else {
+				None
 			}
 			case None => None
 		}
@@ -75,7 +76,7 @@ trait PSTNumberParser extends PSTAbstractParser {
 
 
 	/** Parses numerical values. */
-	def parseValueNum(num : String) = createValidNumber(num)
+	def parseValueNum(num : String) : Option[Double] = createValidNumber(num)
 
 
 //	/** Parses the origin parameter. */

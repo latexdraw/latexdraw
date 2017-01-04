@@ -27,7 +27,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 		"\\psaxes" ~ opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ opt(parseCoord(ctx)) ~ opt(parseCoord(ctx)) ~ opt(parseCoord(ctx)) ^^ {
 		case _ ~ _ ~ arr ~ p1 ~ p2 ~ p3 =>
 		(p1, p2, p3) match {
-			case (Some(pt1), Some(pt2), Some(pt3)) => checkTextParsed(ctx) ::: List(createAxes(pt2, pt3, arr, ctx))
+			case (Some(_), Some(pt2), Some(pt3)) => checkTextParsed(ctx) ::: List(createAxes(pt2, pt3, arr, ctx))
 			case (Some(pt1), Some(pt2), None) => checkTextParsed(ctx) ::: List(createAxes(pt1, pt2, arr, ctx))
 			case (Some(pt1), None, None) =>
 				checkTextParsed(ctx) ::: List(createAxes(new PointUnit(0,0, "", ""), pt1, arr, ctx))

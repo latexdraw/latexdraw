@@ -86,8 +86,8 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	/**
 	 * Parses mrestore commands.
 	 */
-	def parseMrestore(ctx : PSTContext) : Parser[List[IShape]] = "\\mrestore" ^^ { case _ =>
-		if(ctx.isPsCustom)
+	def parseMrestore(ctx : PSTContext) : Parser[List[IShape]] = "\\mrestore" ^^ { _ =>
+		if (ctx.isPsCustom)
 			PSTParser.errorLogs += "The command mrestore is not supported yet."
 		else
 			PSTParser.errorLogs += "The command mrestore " + notIntoPscustomBlockErrorMsg
@@ -98,8 +98,8 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	/**
 	 * Parses msave commands.
 	 */
-	def parseMsave(ctx : PSTContext) : Parser[List[IShape]] = "\\msave" ^^ { case _ =>
-		if(ctx.isPsCustom)
+	def parseMsave(ctx : PSTContext) : Parser[List[IShape]] = "\\msave" ^^ { _ =>
+		if (ctx.isPsCustom)
 			PSTParser.errorLogs += "The command msave is not supported yet."
 		else
 			PSTParser.errorLogs += "The command msave " + notIntoPscustomBlockErrorMsg
@@ -110,8 +110,8 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	/**
 	 * Parses swapaxes commands.
 	 */
-	def parseSwapaxes(ctx : PSTContext) : Parser[List[IShape]] = "\\swapaxes" ^^ { case _ =>
-		if(ctx.isPsCustom)
+	def parseSwapaxes(ctx : PSTContext) : Parser[List[IShape]] = "\\swapaxes" ^^ { _ =>
+		if (ctx.isPsCustom)
 			PSTParser.errorLogs += "The command swapaxes is not supported yet."
 		else
 			PSTParser.errorLogs += "The command swapaxes " + notIntoPscustomBlockErrorMsg
@@ -182,7 +182,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	/**
 	 * Parses grestore commands.
 	 */
-	def parseGrestore(ctx : PSTContext) : Parser[List[IShape]] = "\\grestore" ^^ { case _ =>
+	def parseGrestore(ctx : PSTContext) : Parser[List[IShape]] = "\\grestore" ^^ { _ =>
 		if(ctx.isPsCustom)
 			PSTParser.errorLogs += "The command grestore is not supported yet."
 		else
@@ -194,7 +194,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	/**
 	 * Parses gsave commands.
 	 */
-	def parseGsave(ctx : PSTContext) : Parser[List[IShape]] = "\\gsave" ^^ { case _ =>
+	def parseGsave(ctx : PSTContext) : Parser[List[IShape]] = "\\gsave" ^^ { _ =>
 		if(ctx.isPsCustom)
 			PSTParser.errorLogs += "The command gsave is not supported yet."
 		else
@@ -219,7 +219,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	/**
 	 * Parses closepath commands.
 	 */
-	def parseClosepath(ctx : PSTContext) : Parser[List[IShape]] = "\\closepath" ^^ { case _ =>
+	def parseClosepath(ctx : PSTContext) : Parser[List[IShape]] = "\\closepath" ^^ { _ =>
 		if(ctx.isPsCustom) {
 			val fh = ShapeFactory.INST.createFreeHand()
 			fh.setOpen(false)
@@ -290,7 +290,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	/**
 	 * Parses newpath commands.
 	 */
-	def parseNewpath(ctx : PSTContext) : Parser[List[IShape]] = "\\newpath" ^^ { case _ =>
+	def parseNewpath(ctx : PSTContext) : Parser[List[IShape]] = "\\newpath" ^^ { _ =>
 		if(!ctx.isPsCustom)
 			PSTParser.errorLogs += "The command newpath " + notIntoPscustomBlockErrorMsg
 		checkTextParsed(ctx)

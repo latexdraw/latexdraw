@@ -70,7 +70,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 					p1 = pt1
 					p2 = pt
 				case _ =>
-					p1 = ctx.origin.dup
+					p1 = ctx.origin.dup()
 					p2 = pt1
 			}
 

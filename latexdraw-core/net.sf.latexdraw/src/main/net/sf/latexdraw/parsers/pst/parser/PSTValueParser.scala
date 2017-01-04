@@ -89,7 +89,7 @@ trait PSTValueParser extends PSTNumberParser {
 			case Array(num1) =>
 				// When a single value is defined, it means that the second value equals the single one defined.
 				parseValueNum(num1) match {
-					case Some(value) => Some(Tuple2(value, value))
+					case Some(v2) => Some(Tuple2(v2, v2))
 					case _ => None
 				}
 			case Array(num1, num2) =>
@@ -314,7 +314,7 @@ trait PSTValueParser extends PSTNumberParser {
 					}
 				case _ => None
 			}
-		}catch{case ex: Throwable => None }
+		}catch{case _: Throwable => None }
 
 
 	/**

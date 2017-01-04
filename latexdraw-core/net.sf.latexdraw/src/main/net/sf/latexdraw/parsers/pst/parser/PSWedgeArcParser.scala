@@ -80,9 +80,11 @@ trait PSWedgeArcParser extends PSTAbstractParser
 		opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ opt(parseCoord(ctx)) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ opt(parseBracket(ctx)) ^^ {
 		case _ ~ firstBracketRaw ~ posRaw ~ radiusRaw ~ angle1Raw ~ angle2Raw =>
 		// One of the two bracket blocks must be defined.
-		firstBracketRaw.isDefined || angle2Raw.isDefined match {
-			case true => parsePsarc_(cmdName, posRaw, firstBracketRaw, radiusRaw, angle1Raw, angle2Raw, ctx, inverted)
-			case false => PSTParser.errorLogs += "One set of brackets is missing for the psarc command."; Nil
+		if (firstBracketRaw.isDefined || angle2Raw.isDefined) {
+			parsePsarc_(cmdName, posRaw, firstBracketRaw, radiusRaw, angle1Raw, angle2Raw, ctx, inverted)
+		} else {
+			PSTParser.errorLogs += "One set of brackets is missing for the psarc command.";
+			Nil
 		}
 	}
 
@@ -139,7 +141,7 @@ trait PSWedgeArcParser extends PSTAbstractParser
 
 		val pos = posRaw match {
 			case Some(value) => value
-			case None => ctx.origin.dup
+			case None => ctx.origin.dup()
 		}
 
 		// Inversion of the arrows and the angles (for psarcn)

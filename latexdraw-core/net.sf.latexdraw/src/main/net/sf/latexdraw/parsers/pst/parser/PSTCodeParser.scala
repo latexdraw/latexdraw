@@ -45,8 +45,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			consume(parsePsccurve(new PSTContext(ctx)))() | consume(parsePSTPlotCommands(new PSTContext(ctx)))() | consume(parseNewpsobject(ctx))() |
 			consume(parseNewpsstyle(ctx))() | consume(parsePscustom(new PSTContext(ctx)))() | consume(parseDefineColor(ctx))() |
 			consume(parseIncludeGraphics(ctx))() | consume(parsePSCustomCommands(ctx))() | consume(parsePsFrameboxCmds(ctx))() | consume(parsetextCommands(ctx))() |
-			consume(parseText(ctx))()) ^^ {
-		case list =>
+			consume(parseText(ctx))()) ^^ { list =>
 		val group = ShapeFactory.INST.createGroup()
 
 		list.foreach{
@@ -64,7 +63,7 @@ trait PSTCodeParser extends PSTAbstractParser
 	 * Parses the command psscalebox.
 	 */
 	def parsePsscalebox(ctx:PSTContext) : Parser[IGroup] = "\\psscalebox" ~ parseBracket(ctx) ~ parsePSTBlock(ctx, ctx.isPsCustom) ^^ {
-		case _ ~ factor ~ shapes => shapes
+		case _ ~ _ ~ shapes => shapes
 	}
 
 
@@ -72,12 +71,12 @@ trait PSTCodeParser extends PSTAbstractParser
 	 * Parses the command scalebox.
 	 */
 	def parseScalebox(ctx:PSTContext) : Parser[IGroup] = "\\scalebox" ~ parseBracket(ctx) ~ parsePSTBlock(ctx, ctx.isPsCustom) ^^ {
-		case _ ~ factor ~ shapes => shapes
+		case _ ~ _ ~ shapes => shapes
 	}
 
 
 	override def parseText(ctx : PSTContext) : Parser[List[IShape]] =  (math | text | ident | numeric | commandUnknown) ^^ {
-		case obj =>
+		obj =>
 			if(obj.replace("\\\\", "").startsWith("\\"))
 				PSTParser.errorLogs += "Unknown command: " + obj
 
@@ -199,7 +198,7 @@ trait PSTCodeParser extends PSTAbstractParser
 
 
 	private def parseRputRotationAngle(ctx : PSTContext) : Parser[Unit] = parseBracket(ctx) ^^ {
-		case rotation => parseValuePutRotation(rotation) match {
+		rotation => parseValuePutRotation(rotation) match {
 			case Some(Tuple2(rotationAngle, true)) => ctx.rputAngle += rotationAngle
 			case Some(Tuple2(rotationAngle, false)) => ctx.rputAngle = rotationAngle
 			case _ =>
@@ -208,7 +207,7 @@ trait PSTCodeParser extends PSTAbstractParser
 
 
 	private def parseRputTextPosition(ctx : PSTContext) : Parser[Unit] = parseSquaredBracket(ctx) ^^ {
-		case refPos => ctx.textPosition = refPos
+		refPos => ctx.textPosition = refPos
 	}
 
 

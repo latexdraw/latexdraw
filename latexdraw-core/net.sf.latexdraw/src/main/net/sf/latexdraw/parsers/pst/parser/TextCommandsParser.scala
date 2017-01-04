@@ -37,7 +37,7 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 
 	/** Parses the font families. */
 	private def parseShapeFontCommand(ctx:PSTContext):Parser[List[IShape]] =
-		("\\upshape" | "\\itshape" | "\\slshape" | "\\scshape" | "\\it" | "\\sc" | "\\sl") ^^ {case cmd =>
+		("\\upshape" | "\\itshape" | "\\slshape" | "\\scshape" | "\\it" | "\\sc" | "\\sl") ^^ {cmd =>
 		ctx.textParsed +=cmd
 		cmd match {
 			case "\\upshape" => ctx.currFontShape = fontShape.normal
@@ -53,7 +53,7 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 	}
 
 	/** Parses the font families. */
-	private def parseSerieFontCommand(ctx:PSTContext):Parser[List[IShape]] = ("\\mdseries" | "\\bfseries" | "\\bf") ^^ {case cmd =>
+	private def parseSerieFontCommand(ctx:PSTContext):Parser[List[IShape]] = ("\\mdseries" | "\\bfseries" | "\\bf") ^^ {cmd =>
 		ctx.textParsed +=cmd
 		cmd match {
 			case "\\mdseries" => ctx.currFontSerie = fontSerie.normal
@@ -65,7 +65,7 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 	}
 
 	/** Parses the font families. */
-	private def parseFamilyFontCommand(ctx:PSTContext):Parser[List[IShape]] = ("\\rmfamily" | "\\sffamily" | "\\ttfamily") ^^ {case cmd =>
+	private def parseFamilyFontCommand(ctx:PSTContext):Parser[List[IShape]] = ("\\rmfamily" | "\\sffamily" | "\\ttfamily") ^^ {cmd =>
 		ctx.textParsed +=cmd
 		cmd match {
 			case "\\rmfamily" => ctx.currFontFamily = fontFamily.rm
@@ -77,7 +77,7 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 	}
 
 	/** Parses the accent commands having no bracket block. */
-	private def parsetextCommandWithNoBlock(ctx:PSTContext):Parser[List[IShape]] = "\\l" ^^ {case cmd =>
+	private def parsetextCommandWithNoBlock(ctx:PSTContext):Parser[List[IShape]] = "\\l" ^^ {cmd =>
 		ctx.textParsed +=cmd
 		ctx.parsedTxtNoTxt = false
 		Nil
@@ -99,7 +99,7 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 	/** Parses the text size commands. */
 	private def parseTextSizeCommand(ctx:PSTContext):Parser[List[IShape]] =
 		("\\tiny" | "\\scriptsize" | "\\footnotesize" | "\\small" | "\\normalsize" | "\\large" | "\\Large" | "\\huge" | "\\Huge") ^^ {
-		case cmd =>
+		cmd =>
 			ctx.textParsed +=cmd
 			ctx.parsedTxtNoTxt = false
 			Nil
@@ -118,7 +118,7 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 	/** Parses the colour contained in the block. */
 	private def parseColorBlock(ctx:PSTContext) : Parser[Unit] = {
 		parseBracket(ctx) ^^ {
-			case colourTxt =>
+			colourTxt =>
 				DviPsColors.INSTANCE.getColour(colourTxt) match {
   				case c:Optional[Color] => ctx.textColor = c.get
   				case _ =>

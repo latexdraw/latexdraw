@@ -3,7 +3,7 @@ package net.sf.latexdraw.parsers.pst.parser
 import net.sf.latexdraw.models.ShapeFactory
 import net.sf.latexdraw.models.interfaces.shape._
 
-import scala.collection.mutable.HashMap
+import scala.collection.mutable
 import scala.language.implicitConversions
 import scala.util.parsing.combinator.syntactical.TokenParsers
 
@@ -33,8 +33,8 @@ trait PSTAbstractParser extends TokenParsers {
 
 	import lexical._
 
-	protected val keywordCache : HashMap[String, Parser[String]] = HashMap.empty
-	protected val delimCache : HashMap[String, Parser[String]] = HashMap.empty
+	protected val keywordCache : mutable.HashMap[String, Parser[String]] = mutable.HashMap.empty
+	protected val delimCache : mutable.HashMap[String, Parser[String]] = mutable.HashMap.empty
 
 
 	/** A parser which matches an identifier. */
@@ -62,7 +62,7 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	/** A parser that parses all characters excepted the given ones. */
-	def chrExcept(cs : Char*) = elem("", ch => !cs.exists{c => ch.chars.equals(c.toString)})
+	def chrExcept(cs : Char*) : Parser[Elem] = elem("", ch => !cs.exists{c => ch.chars.equals(c.toString)})
 
 
 	// Error handling
@@ -131,7 +131,7 @@ trait PSTAbstractParser extends TokenParsers {
 	}
 
 
-	protected def transformPointTo2DScene(pt : PointUnit, ctx:PSTContext) = {
+	protected def transformPointTo2DScene(pt : PointUnit, ctx:PSTContext) : IPoint = {
 		val newX = if(pt.xUnit.length==0) pt.x*IShape.PPC*ctx.xUnit*ctx.unit else pt.x*IShape.PPC
 		val newY = if(pt.yUnit.length==0) -pt.y*IShape.PPC*ctx.yUnit*ctx.unit else -pt.y*IShape.PPC
 		ShapeFactory.INST.createPoint(newX, newY)
