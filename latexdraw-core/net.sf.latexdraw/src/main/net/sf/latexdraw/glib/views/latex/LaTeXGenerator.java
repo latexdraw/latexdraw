@@ -485,7 +485,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @return The create file or null.
 	 * @since 3.0
 	 */
-	public static File createEPSFile(final IDrawing drawing, final String pathExportEPS, final ViewsSynchroniserHandler synchronizer, final PSTCodeGenerator pstGen){
+	public static File createEPSFile(final IDrawing drawing, final String pathExportEPS, final ViewsSynchroniserHandler synchronizer,
+									 final PSTCodeGenerator pstGen) throws IllegalAccessException {
 		final File tmpDir = LFileUtils.INSTANCE.createTempDir();
 		final File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + "tmpPSFile.ps", synchronizer, tmpDir, pstGen); //$NON-NLS-1$
 		final File finalFile = new File(pathExportEPS);
@@ -501,8 +502,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		psFile.delete();
 		fileEPS.delete();
 		if(!finalFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException("Cannot create the EPS file at this location: " + finalFile.getAbsolutePath())); //$NON-NLS-1$
-			return null;
+			throw new IllegalAccessException(LSystem.INSTANCE.getLatexErrorMessageFromLog(log));
 		}
 		return finalFile;
 	}
@@ -521,7 +521,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @since 3.0
 	 */
 	public static File createPSFile(final IDrawing drawing, final String pathExportPs, final ViewsSynchroniserHandler synchronizer, final File tmpDir,
-			final PSTCodeGenerator pstGen) {
+			final PSTCodeGenerator pstGen) throws IllegalAccessException {
 		if(pathExportPs==null)
 			return null;
 
@@ -545,7 +545,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final float dec		= 0.2f;
 		final OperatingSystem os = LSystem.INSTANCE.getSystem();
 
-		if(texFile==null || !texFile.exists())
+		if(texFile==null || !texFile.exists() || os==null)
 			return null;
 
 		final String[] paramsLatex = {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$
@@ -566,13 +566,13 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		finalPS = new File(pathExportPs);
 
-		if(!finalPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, pstGen) + LResources.EOL + log));
-			finalPS = null;
+		try {
+			if(!finalPS.exists()) {
+				throw new IllegalAccessException(LSystem.INSTANCE.getLatexErrorMessageFromLog(log));
+			}
+		}finally {
+			if(tmpDir == null) tmpDir2.delete();
 		}
-
-		if(tmpDir==null)
-			tmpDir2.delete();
 
 		return finalPS;
 	}
@@ -591,7 +591,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @since 3.0
 	 */
 	public static File createPDFFile(final IDrawing drawing, final String pathExportPdf, final ViewsSynchroniserHandler synchronizer, final boolean crop,
-			final PSTCodeGenerator pstGen) {
+			final PSTCodeGenerator pstGen) throws IllegalAccessException {
 		if(pathExportPdf==null)
 			return null;
 
@@ -608,7 +608,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		File pdfFile;
 		final OperatingSystem os = LSystem.INSTANCE.getSystem();
 
-		if(psFile==null)
+		if(psFile==null || os==null)
 			return null;
 
 		// On windows, an option must be defined using this format:
@@ -631,9 +631,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 		pdfFile = new File(pathExportPdf);
 		psFile.delete();
 
-		if(!pdfFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, pstGen) + LResources.EOL + log));
-			pdfFile = null;
+		try {
+			if(!pdfFile.exists()) {
+				throw new IllegalAccessException(LSystem.INSTANCE.getLatexErrorMessageFromLog(log));
+			}
+		}finally {
+			tmpDir.delete();
 		}
 
 		tmpDir.delete();

@@ -1,5 +1,10 @@
 package net.sf.latexdraw.instruments;
 
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.Objects;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import net.sf.latexdraw.actions.Export;
 import net.sf.latexdraw.actions.Export.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -22,11 +27,6 @@ import org.malai.swing.widget.MMenu;
 import org.malai.swing.widget.MMenuItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.Objects;
 
 /**
  * This instrument exports a drawing in different formats.<br>
@@ -287,18 +287,17 @@ protected FileLoaderSaver loader;
 	}
 
 
-
 	@Override
 	public void onActionExecuted(final Action action) {
 		if(action instanceof Export) {
-			switch(((Export) action).getExported()) {
+			final Export export = (Export) action;
+			switch(export.getExported()) {
 				case OK:
 					statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.184")); //$NON-NLS-1$
 					break;
 				case FAIL:
-					final String checkErr = BadaboomCollector.INSTANCE.isEmpty() ? "" :
-						" Look at the errors by clicking on the blinking icon in the toolbar, a LaTeX package may be missing.";
-					statusBar.setText("The export failed. Check you can write in the targetted folder and your LaTeX installation is ok." + checkErr);
+					statusBar.setText("The export failed. Check you can write in the targetted folder and your LaTeX installation is ok. The error is: " +
+						"'" + export.getLog() + "'");
 					break;
 			}
 		}
@@ -308,7 +307,7 @@ protected FileLoaderSaver loader;
 	/**
 	 * @param defaultPkgs The latex packages that the interactive system saves by default.
 	 * These packages should by set by the user and must be general, i.e. independent of any document.
-	 * Packages for a given document should by set using {@link #setPackages(String)}.
+	 * Packages for a given document should by set using setPackages(String).
 	 * @since 3.0
 	 */
 	public void setDefaultPackages(final String defaultPkgs) {

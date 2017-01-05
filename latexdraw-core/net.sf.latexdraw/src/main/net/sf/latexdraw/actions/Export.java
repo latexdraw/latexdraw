@@ -183,20 +183,21 @@ public class Export extends Action {
 
 
 	/** The format with which the drawing must be exported. */
-	protected ExportFormat format;
+	private ExportFormat format;
 
 	/** The canvas that contains views. */
-	protected ICanvas canvas;
+	private ICanvas canvas;
 
 	/** Defines whether the shapes have been exported. */
-	protected ExportStatus exported;
+	private ExportStatus exported;
 
 	/** The dialogue chooser used to select the targeted file. */
-	protected ExportDialog dialogueBox;
+	private ExportDialog dialogueBox;
 
 	/** The PST generator to use. */
-	protected PSTCodeGenerator pstGen;
+	private PSTCodeGenerator pstGen;
 
+	private String log;
 
 
 	/**
@@ -338,8 +339,8 @@ public class Export extends Action {
 
 		try{
 			psFile = LaTeXGenerator.createEPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, pstGen);
-		}catch(final Exception e) {
-			BadaboomCollector.INSTANCE.add(e);
+		}catch(final IllegalAccessException e) {
+			log = e.getMessage();
 			psFile = null;
 		}
 
@@ -359,8 +360,8 @@ public class Export extends Action {
 
 		try{
 			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, format==ExportFormat.PDF_CROP, pstGen);
-		} catch(final Exception e) {
-			BadaboomCollector.INSTANCE.add(e);
+		} catch(final IllegalAccessException e) {
+			log = e.getMessage();
 			pdfFile = null;
 		}
 
@@ -451,6 +452,9 @@ public class Export extends Action {
 		return bi;
 	}
 
+	public String getLog() {
+		return log;
+	}
 
 	/**
 	 * @param dialogBox The file chooser to set.

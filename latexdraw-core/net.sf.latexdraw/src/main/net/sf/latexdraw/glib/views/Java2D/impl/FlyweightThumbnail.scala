@@ -1,10 +1,9 @@
 package net.sf.latexdraw.glib.views.Java2D.impl
 
-import java.awt.{Color, Image}
 import java.awt.image.BufferedImage
+import java.awt.{Color, Image}
 import java.io._
 import java.nio.channels.FileChannel
-import java.util.regex.Pattern
 import javax.swing.SwingUtilities
 
 import com.sun.pdfview.PDFFile
@@ -245,40 +244,6 @@ object FlyweightThumbnail {
 
 		doc.append("}\n\\end{document}") //$NON-NLS-1$
 		doc.toString
-	}
-
-
-	/**
-	  * @return The precise latex error messages that the latex compilation produced.
-	  * @since 3.0
-	  */
-	def getLatexErrorMessageFromLog(shape: IText): String = {
-		val log = images.get(shape.getText) match {
-			case Some(elt) => elt._4
-			case _ => ""
-		}
-		val matcher = Pattern.compile(".*\r?\n").matcher(log) //$NON-NLS-1$
-		val errors = new StringBuilder()
-		var line: String = null
-
-		while (matcher.find) {
-			line = matcher.group
-
-			if (line.startsWith("!")) {
-				//$NON-NLS-1$
-				errors.append(line.substring(2, line.length))
-				var ok = true
-				while (ok && matcher.find) {
-					line = matcher.group
-
-					if (line.startsWith("l.")) //$NON-NLS-1$
-						ok = false
-					else
-						errors.append(LResources.EOL).append(line).append(LResources.EOL)
-				}
-			}
-		}
-		errors.toString
 	}
 
 

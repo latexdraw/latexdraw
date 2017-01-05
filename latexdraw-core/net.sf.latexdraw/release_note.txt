@@ -2,3 +2,5 @@
 Version 3.3.6
 
 - fixed: arcs were not correctly drawn and saved as SVG on certain start/end angles.
+
+- improvement: better feedback on compilation errors during exports as PDF/PS documents.

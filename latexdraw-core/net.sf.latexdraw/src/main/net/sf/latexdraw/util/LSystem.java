@@ -7,7 +7,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.Arrays;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
@@ -318,6 +319,26 @@ public final class LSystem {
 	 */
 	public String getPDFCROPVersion() {
 		return execute(new String[]{getSystem().getPdfcropBinPath(), "--version"}, null); //$NON-NLS-1$
+	}
+
+
+	/**
+	 * @return The precise latex error messages that the latex compilation produced.
+	 * @since 3.0
+	 */
+	public String getLatexErrorMessageFromLog(final String log) {
+		final Matcher matcher = Pattern.compile(".*\r?\n").matcher(log); //$NON-NLS-1$
+		final StringBuilder errors = new StringBuilder();
+
+		while(matcher.find()) {
+			String line = matcher.group();
+
+			if(line.startsWith("!") && !line.equals("! Emergency stop.\n")) {
+				//$NON-NLS-1$
+				errors.append(line.substring(2, line.length()));
+			}
+		}
+		return errors.toString();
 	}
 
 
