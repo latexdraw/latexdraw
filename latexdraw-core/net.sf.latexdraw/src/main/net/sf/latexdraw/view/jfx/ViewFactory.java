@@ -12,6 +12,7 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Optional;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
@@ -58,7 +59,7 @@ public final class ViewFactory {
 		if(shape instanceof IRhombus) return Optional.of(new ViewRhombus((IRhombus) shape));
 		if(shape instanceof IPolyline) return Optional.of(new ViewPolyline((IPolyline) shape));
 		if(shape instanceof IPolygon) return Optional.of(new ViewPolygon((IPolygon) shape));
-		// if(shape instanceof IBezierCurve) return new LBezierCurveView((IBezierCurve)shape);
+		if(shape instanceof IBezierCurve) return Optional.of(new ViewBezierCurve((IBezierCurve) shape));
 		if(shape instanceof IAxes) return Optional.of(new ViewAxes((IAxes) shape));
 		if(shape instanceof IGrid) return Optional.of(new ViewGrid((IGrid) shape));
 		// if(shape instanceof IDot) return new LDotView((IDot)shape);

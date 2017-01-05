@@ -16,9 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.eclipse.jdt.annotation.NonNull;
@@ -37,10 +39,11 @@ abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathS
 	ViewPolyPoint(final @NonNull T sh) {
 		super(sh);
 
+		final ObservableList<PathElement> elts = border.getElements();
 		moveTo = new MoveTo();
 		moveTo.xProperty().bind(sh.getPtAt(0).xProperty());
 		moveTo.yProperty().bind(sh.getPtAt(0).yProperty());
-		border.getElements().add(moveTo);
+		elts.add(moveTo);
 
 		lineTos = new ArrayList<>();
 
@@ -49,7 +52,7 @@ abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathS
 			lineto.xProperty().bind(sh.getPtAt(i).xProperty());
 			lineto.yProperty().bind(sh.getPtAt(i).yProperty());
 			lineTos.add(lineto);
-			border.getElements().add(lineto);
+			elts.add(lineto);
 		});
 
 		model.getPoints().addListener((ListChangeListener.Change<? extends IPoint> c) -> {
@@ -60,10 +63,10 @@ abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathS
 						lineto.xProperty().bind(pt.xProperty());
 						lineto.yProperty().bind(pt.yProperty());
 						lineTos.add(lineto);
-						border.getElements().add(lineto);
-						if(border.getElements().get(border.getElements().size()-2) instanceof ClosePath) {
-							border.getElements().remove(border.getElements().size()-2);
-							border.getElements().add(new ClosePath());
+						elts.add(lineto);
+						if(elts.get(elts.size()-2) instanceof ClosePath) {
+							elts.remove(elts.size()-2);
+							elts.add(new ClosePath());
 						}
 					});
 				}
@@ -80,6 +83,7 @@ abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathS
 			lineTo.xProperty().unbind();
 			lineTo.yProperty().unbind();
 		});
+		lineTos.clear();
 		super.flush();
 	}
 }

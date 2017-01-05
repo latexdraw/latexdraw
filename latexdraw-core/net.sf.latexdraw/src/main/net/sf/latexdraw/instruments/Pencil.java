@@ -288,7 +288,7 @@ public class Pencil extends CanvasInstrument {
 			final EditionChoice ec = instrument.currentChoice;
 			return interaction.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY &&
 				(ec == EditionChoice.RECT || ec == EditionChoice.ELLIPSE || ec == EditionChoice.SQUARE ||
-					ec == EditionChoice.CIRCLE || ec == EditionChoice.RHOMBUS ||
+				ec == EditionChoice.CIRCLE || ec == EditionChoice.RHOMBUS ||
 				ec == EditionChoice.TRIANGLE || ec == EditionChoice.CIRCLE_ARC || ec == EditionChoice.FREE_HAND);
 		}
 	}

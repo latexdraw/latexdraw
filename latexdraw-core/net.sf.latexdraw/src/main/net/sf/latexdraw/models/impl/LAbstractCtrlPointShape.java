@@ -204,9 +204,9 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 		final double tx = x - pt.getX();
 		final double ty = y - pt.getY();
-		super.setPoint(x, y, position);
 		getFirstCtrlPtAt(position).translate(tx, ty);
 		getSecondCtrlPtAt(position).translate(tx, ty);
+		super.setPoint(x, y, position);
 
 		return true;
 	}
@@ -246,10 +246,8 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void addPoint(final IPoint pt, final int position) {
-		super.addPoint(pt, position);
-
 		// Adding the control points.
-		if(MathUtils.INST.isValidPt(pt) && position >= -1 && position < points.size()) {
+		if(MathUtils.INST.isValidPt(pt) && position >= -1 && position < points.size()+1) {
 			final IPoint ctrlPt = ShapeFactory.INST.createPoint(pt.getX(), pt.getY() + DEFAULT_POSITION_CTRL);
 			if(position == -1) {
 				firstCtrlPts.add(ctrlPt);
@@ -258,14 +256,14 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 				firstCtrlPts.add(position, ctrlPt);
 				secondCtrlPts.add(position, ctrlPt.centralSymmetry(pt));
 			}
+
+			super.addPoint(pt, position);
 		}
 	}
 
 
 	@Override
 	protected void copyPoints(final IShape sh) {
-		super.copyPoints(sh);
-
 		if(sh instanceof IControlPointShape) {
 			final IControlPointShape cpSh = (IControlPointShape) sh;
 			List<IPoint> pts = cpSh.getFirstCtrlPts();
@@ -276,17 +274,18 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 			secondCtrlPts.clear();
 			pts.forEach(pt -> secondCtrlPts.add(ShapeFactory.INST.createPoint(pt)));
 		}
+
+		super.copyPoints(sh);
 	}
 
 
 	@Override
 	public void translate(final double tx, final double ty) {
-		super.translate(tx, ty);
-
 		// Translating control points.
 		if(MathUtils.INST.isValidPt(tx, ty)) {
 			firstCtrlPts.forEach(pt -> pt.translate(tx, ty));
 			secondCtrlPts.forEach(pt -> pt.translate(tx, ty));
+			super.translate(tx, ty);
 		}
 	}
 }
