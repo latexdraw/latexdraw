@@ -56,8 +56,10 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		}
 
 		if(model.isLineStylable()) {
-			model.linestyleProperty().addListener((obj, oldVal, newVal) -> updateLineStyle(newVal));
-			updateLineStyle(model.getLineStyle());
+			model.linestyleProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
+			model.dashSepBlackProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
+			model.dashSepWhiteProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
+			updateLineStyle();
 		}
 
 		if(model.isFillable()) {
@@ -156,21 +158,29 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		}
 	}
 
-	private void updateLineStyle(final LineStyle newVal) {
+	private void updateLineStyle() {
+		final LineStyle newVal = model.getLineStyle();
+
 		switch(newVal) {
 			case DASHED:
 				border.setStrokeLineCap(StrokeLineCap.BUTT);
+				border.getStrokeDashArray().clear();
 				border.getStrokeDashArray().addAll(model.getDashSepBlack(), model.getDashSepWhite());
 				break;
 			case DOTTED:// FIXME problem when dotted line + INTO/OUT border position.
-				final double dotSep = model.getDotSep() + (model.hasDbleBord() ? model.getThickness() * 2.0 + model.getDbleBordSep() : model.getThickness());
+				final double dotSep = model.getDotSep() + (model.hasDbleBord() ? model.getThickness() * 2d + model.getDbleBordSep() : model.getThickness());
 				border.setStrokeLineCap(StrokeLineCap.ROUND);
-				border.getStrokeDashArray().addAll(0.0, dotSep);
+				border.getStrokeDashArray().clear();
+				border.getStrokeDashArray().addAll(0d, dotSep);
 				break;
 			case SOLID:
 				border.setStrokeLineCap(StrokeLineCap.SQUARE);
 				border.getStrokeDashArray().clear();
 				break;
 		}
+	}
+
+	public T getBorder() {
+		return border;
 	}
 }

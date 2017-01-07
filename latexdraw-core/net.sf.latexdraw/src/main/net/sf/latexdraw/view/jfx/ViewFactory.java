@@ -46,24 +46,24 @@ public final class ViewFactory {
 	 * @return The created view or empty.
 	 * @since 3.0
 	 */
-	public Optional<ViewShape<?>> createView(final @Nullable IShape shape) {
+	public <T extends IShape, S extends ViewShape<T>> Optional<S> createView(final @Nullable T shape) {
 		// if(shape instanceof IGroup) return new LGroupView((IGroup)shape);
 		// if(shape instanceof IPlot) return new LPlotView((IPlot)shape);
-		if(shape instanceof ISquare) return Optional.of(new ViewSquare((ISquare) shape));
-		if(shape instanceof IRectangle) return Optional.of(new ViewRectangle((IRectangle) shape));
-		if(shape instanceof IText) return Optional.of(new ViewTextText((IText) shape));
+		if(shape instanceof ISquare) return Optional.of((S)new ViewSquare((ISquare) shape));
+		if(shape instanceof IRectangle) return Optional.of((S)new ViewRectangle((IRectangle) shape));
+		if(shape instanceof IText) return Optional.of((S)new ViewTextText((IText) shape));
 		// if(shape instanceof ICircleArc) return new LCircleArcView((ICircleArc)shape);
-		if(shape instanceof ICircle) return Optional.of(new ViewCircle((ICircle) shape));
-		if(shape instanceof IEllipse) return Optional.of(new ViewEllipse((IEllipse) shape));
-		if(shape instanceof ITriangle) return Optional.of(new ViewTriangle((ITriangle) shape));
-		if(shape instanceof IRhombus) return Optional.of(new ViewRhombus((IRhombus) shape));
-		if(shape instanceof IPolyline) return Optional.of(new ViewPolyline((IPolyline) shape));
-		if(shape instanceof IPolygon) return Optional.of(new ViewPolygon((IPolygon) shape));
-		if(shape instanceof IBezierCurve) return Optional.of(new ViewBezierCurve((IBezierCurve) shape));
-		if(shape instanceof IAxes) return Optional.of(new ViewAxes((IAxes) shape));
-		if(shape instanceof IGrid) return Optional.of(new ViewGrid((IGrid) shape));
+		if(shape instanceof ICircle) return Optional.of((S)new ViewCircle((ICircle) shape));
+		if(shape instanceof IEllipse) return Optional.of((S)new ViewEllipse((IEllipse) shape));
+		if(shape instanceof ITriangle) return Optional.of((S)new ViewTriangle((ITriangle) shape));
+		if(shape instanceof IRhombus) return Optional.of((S)new ViewRhombus((IRhombus) shape));
+		if(shape instanceof IPolyline) return Optional.of((S)new ViewPolyline((IPolyline) shape));
+		if(shape instanceof IPolygon) return Optional.of((S)new ViewPolygon((IPolygon) shape));
+		if(shape instanceof IBezierCurve) return Optional.of((S)new ViewBezierCurve((IBezierCurve) shape));
+		if(shape instanceof IAxes) return Optional.of((S)new ViewAxes((IAxes) shape));
+		if(shape instanceof IGrid) return Optional.of((S)new ViewGrid((IGrid) shape));
 		// if(shape instanceof IDot) return new LDotView((IDot)shape);
-		if(shape instanceof IPicture) return Optional.of(new ViewPicture((IPicture) shape));
+		if(shape instanceof IPicture) return Optional.of((S)new ViewPicture((IPicture) shape));
 		// if(shape instanceof IFreehand) return new LFreeHandView((IFreehand)shape);
 		return Optional.empty();
 	}
