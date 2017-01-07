@@ -7,7 +7,7 @@ import net.sf.latexdraw.instruments.ShapeStdGridCustomiser;
 import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestStdGridStyleGUI;

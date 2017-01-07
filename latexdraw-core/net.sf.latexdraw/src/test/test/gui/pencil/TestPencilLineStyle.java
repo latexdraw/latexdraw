@@ -15,7 +15,7 @@ import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
