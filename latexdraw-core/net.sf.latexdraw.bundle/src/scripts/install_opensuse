@@ -2,3 +2,5 @@
 
 su -
 java -jar installer.jar
+exit
+

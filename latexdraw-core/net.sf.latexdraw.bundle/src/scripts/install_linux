@@ -1,0 +1,71 @@
+#!/bin/sh
+
+# Checking Java. Does not consider $HOME_JAVA
+
+if type -p java; then
+    version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
+		if [[ "$version" < "1.8" ]]; then
+        echo "Java $version found but at least Java 8 is required."
+				exit 1;
+    fi
+else 
+    echo "No java found. LaTeXDraw requires Java 8."
+		exit 1;
+fi
+
+
+# Getting the installation directory
+
+path="/opt"
+read -e -i "$path" -p "Enter the folder where LaTeXDraw will be installed (default: /opt): " input
+path="${input:-$path}" # If empty, getting the default value
+path=$(echo "$path"|sed 's/\/$//g') #Removing the trailing /
+
+# The installation dir must be a dir
+
+if [ ! -d $path ] ; then 
+	echo "$path is not a directory."
+	exit 1;
+fi
+
+installFolder="latexdraw"
+launcher="/usr/bin/latexdraw"
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+datadir="data"
+home=`eval echo "~$USER"`
+
+if [ ! -w $launcher ] ; then 
+	echo "Cannot write in '/usr/bin'. Make sure to run the script with super user rights."
+	exit 1;
+fi
+
+# Copying files
+
+if [ ! -e $path/$installFolder/"lib" ] ; then 
+	mkdir -p $path/$installFolder/"lib"
+fi
+
+if [ ! -e "/usr/share/latexdraw/images/app/" ] ; then 
+	mkdir -p "/usr/share/latexdraw/images/app/"
+fi
+
+if [ ! -e $HOME/".latexdraw" ] ; then 
+	mkdir $HOME/".latexdraw"
+fi
+
+cp $dir/$datadir/"templates"/* "/usr/share/latexdraw/"
+cp $dir/$datadir/".cache"/* $HOME/".latexdraw/.cacheShared"
+cp $dir/$datadir/"gnome/latexdraw.png" "/usr/share/latexdraw/images/app/"
+cp $dir/$datadir/"gnome/latexdraw.desktop" "/usr/share/applications/"
+
+cp --remove-destination $dir/$datadir/"LaTeXDraw.jar" $path/$installFolder/
+cp --remove-destination $dir/"license.txt" $path/$installFolder/
+cp --remove-destination $dir/"release_note.txt" $path/$installFolder/
+cp --remove-destination $dir/$datadir/"lib"/* $path/$installFolder/"lib/"
+
+## Creation of the launcher
+
+if [ ! -e $launcher ] ; then 
+	printf "#! /bin/sh\njava -jar $path/$installFolder/LaTeXDraw.jar $@\n" > $launcher
+	chmod +x $launcher
+fi

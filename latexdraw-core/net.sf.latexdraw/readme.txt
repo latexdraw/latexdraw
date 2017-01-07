@@ -5,7 +5,7 @@ https://github.com/arnobl/latexdraw/wiki/Manual
 
 
 This installer will install LaTeXDraw in the selected directory and create a directory for shared templates. 
-This last action can require administrator privileges.
+Administrator privileges may be required.
 
 *** Mac ***
 
@@ -22,18 +22,21 @@ files in dedicated directories such as "Program Files". It may ask you your pass
 
 *** Debian/Ubuntu/Fedora/Opensuse ***
 
+
 The scripts 'install_debian_ubuntu', 'install_fedora', or 'install_opensuse' will ask
-administrator privileges before launching the installer.
+administrator privileges before launching the graphical installer.
 
-Warning: on Fedora 25 with Wayland, the installation will fail since Wayland forbids graphical applications
-to run in sudo/su mode. See: https://bugzilla.redhat.com/show_bug.cgi?id=1274451
-The workaround consists of installing LaTeXDraw using a X11 sessions, or manually (see below). We will fix that in a next release.
+The script 'install_linux' (to run with super user rights) will install the application using a command line.
+This may be necessary in the case where graphical applications cannot be run in sudo/su mode (e.g. on the latest versions of Fedora with Wayland).
 
 
-*** Running the installer ***
+*** Running the graphical installer manually ***
 
-If you want to manually launch the installer (i.e. without through a script as explained above)
+If you want to manually launch the graphical installer (i.e. without through a script as explained above)
 in a console, the command is "java -jar installer.jar" (but you must have admin rights).
+
+
+*** Folders ***
 
 The shared templates are located in the following folder:
  - for Unix, /usr/share/latexdraw
@@ -58,3 +61,4 @@ This profile contains the preferences of the user and its templates.
 If you want to install LaTeXDraw without using the installer you must place "LaTeXDraw.jar",
 "release_notes.txt", "licence.txt", "help/" and "lib/" in the same directory.
 You can then double-click on LaTeXDraw.jar to run the application.
+
