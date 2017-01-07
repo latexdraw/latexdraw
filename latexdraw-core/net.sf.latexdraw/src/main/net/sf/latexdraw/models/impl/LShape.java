@@ -49,10 +49,10 @@ abstract class LShape implements ISingleShape {
 	protected final @NonNull ObjectProperty<FillingStyle> fillingStyle;
 
 	/** The white dash separator for dashed lines in pixel. */
-	protected double dashSepWhite;
+	protected final @NonNull DoubleProperty dashSepWhite;
 
 	/** The black dash separator for dashed lines in pixel. */
-	protected double dashSepBlack;
+	protected final @NonNull DoubleProperty dashSepBlack;
 
 	/** The dot separator for dotted lines. */
 	protected double dotSep;
@@ -136,8 +136,8 @@ abstract class LShape implements ISingleShape {
 		lineStyle = new SimpleObjectProperty<>(LineStyle.SOLID);
 		lineColour = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_LINE_COLOR);
 		dotSep = PSTricksConstants.DEFAULT_DOT_STEP * PPC;
-		dashSepBlack = PSTricksConstants.DEFAULT_DASH_BLACK * PPC;
-		dashSepWhite = PSTricksConstants.DEFAULT_DASH_WHITE * PPC;
+		dashSepBlack = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DASH_BLACK * PPC);
+		dashSepWhite = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DASH_WHITE * PPC);
 		hatchingsCol = PSTricksConstants.DEFAULT_HATCHING_COLOR;
 		hatchingsSep = PSTricksConstants.DEFAULT_HATCH_SEP * PPC;
 		hatchingsWidth = PSTricksConstants.DEFAULT_HATCH_WIDTH * PPC;
@@ -233,12 +233,12 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public double getDashSepBlack() {
-		return dashSepBlack;
+		return dashSepBlack.doubleValue();
 	}
 
 	@Override
 	public double getDashSepWhite() {
-		return dashSepWhite;
+		return dashSepWhite.doubleValue();
 	}
 
 	@Override
@@ -482,12 +482,16 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setDashSepBlack(final double dash) {
-		if(dash > 0 && MathUtils.INST.isValidCoord(dash)) dashSepBlack = dash;
+		if(dash > 0d && MathUtils.INST.isValidCoord(dash)) {
+			dashSepBlack.set(dash);
+		}
 	}
 
 	@Override
 	public void setDashSepWhite(final double dash) {
-		if(dash > 0 && MathUtils.INST.isValidCoord(dash)) dashSepWhite = dash;
+		if(dash > 0d && MathUtils.INST.isValidCoord(dash)) {
+			dashSepWhite.set(dash);
+		}
 	}
 
 	@Override
@@ -841,5 +845,15 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public @NonNull ObjectProperty<FillingStyle> fillingProperty() {
 		return fillingStyle;
+	}
+
+	@Override
+	public @NonNull DoubleProperty dashSepWhiteProperty() {
+		return dashSepWhite;
+	}
+
+	@Override
+	public @NonNull DoubleProperty dashSepBlackProperty() {
+		return dashSepBlack;
 	}
 }

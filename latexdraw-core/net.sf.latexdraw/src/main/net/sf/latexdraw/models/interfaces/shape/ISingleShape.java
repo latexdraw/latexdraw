@@ -29,4 +29,8 @@ public interface ISingleShape extends IShape {
 	 * @return The property of the filling.
 	 */
 	@NonNull ObjectProperty<FillingStyle> fillingProperty();
+
+	@NonNull DoubleProperty dashSepWhiteProperty();
+
+	@NonNull DoubleProperty dashSepBlackProperty();
 }
