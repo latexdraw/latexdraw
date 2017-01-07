@@ -7,6 +7,7 @@ import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapePropertyCustomiser;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.junit.Before;
 import org.testfx.util.WaitForAsyncUtils;
@@ -95,13 +96,15 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	};
 
 	protected final GUIVoidCommand selectionAddBezier = () -> {
-		IShape sh = ShapeFactory.INST.createBezierCurve();
+		IShape sh = ShapeFactory.INST.createBezierCurve(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint());
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddFreehand = () -> {
-		IShape sh = ShapeFactory.INST.createFreeHand();
+		IFreehand sh = ShapeFactory.INST.createFreeHand();
+		sh.addPoint(ShapeFactory.INST.createPoint());
+		sh.addPoint(ShapeFactory.INST.createPoint());
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
