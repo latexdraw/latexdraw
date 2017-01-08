@@ -1,5 +1,6 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import org.eclipse.jdt.annotation.NonNull;
@@ -35,4 +36,8 @@ public interface ISingleShape extends IShape {
 	@NonNull DoubleProperty dashSepBlackProperty();
 
 	@NonNull DoubleProperty dotSepProperty();
+
+	@NonNull BooleanProperty dbleBordProperty();
+
+	@NonNull DoubleProperty dbleBordSepProperty();
 }

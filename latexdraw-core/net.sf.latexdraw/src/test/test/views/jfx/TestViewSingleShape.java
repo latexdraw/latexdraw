@@ -147,6 +147,19 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	}
 
 	@Test
+	public void testLineStyleDottedSepDoubleLineDoubleSep() {
+		if(model.isLineStylable()) {
+			model.setLineStyle(LineStyle.DOTTED);
+			if(model.isDbleBorderable()) {
+				model.setHasDbleBord(true);
+				model.setDbleBordSep(33d);
+			}
+			assertEquals(Arrays.asList(0d, model.getDotSep() + model.getFullThickness()), border.getStrokeDashArray());
+		}
+	}
+
+
+	@Test
 	public void testLineStyleDottedSepBefore() {
 		if(model.isLineStylable()) {
 			model.setDotSep(23.23);

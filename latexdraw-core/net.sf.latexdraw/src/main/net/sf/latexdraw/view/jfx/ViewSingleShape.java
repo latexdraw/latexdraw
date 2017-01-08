@@ -63,6 +63,11 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			updateLineStyle();
 		}
 
+		if(model.isDbleBorderable()) {
+			model.dbleBordProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
+			model.dbleBordSepProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
+		}
+
 		if(model.isFillable()) {
 			model.fillingProperty().addListener((obs, oldVal, newVal) -> border.setFill(getFillingPaint(newVal)));
 			border.setFill(getFillingPaint(model.getFillingStyle()));

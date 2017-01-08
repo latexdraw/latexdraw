@@ -12,8 +12,10 @@ package net.sf.latexdraw.models.impl;
 
 import java.awt.geom.Rectangle2D;
 import java.util.List;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -91,13 +93,13 @@ abstract class LShape implements ISingleShape {
 	protected boolean showPts;
 
 	/** Defines if the shape has double borders. */
-	protected boolean hasDbleBord;
+	protected final @NonNull BooleanProperty hasDbleBord;
 
 	/** The colour of the double borders. */
 	protected Color dbleBordCol;
 
 	/** The separation size of the double borders in pixel. */
-	protected double dbleBordSep;
+	protected final @NonNull DoubleProperty dbleBordSep;
 
 	/** Defines if the shape has a shadow. */
 	protected boolean hasShadow;
@@ -132,7 +134,7 @@ abstract class LShape implements ISingleShape {
 		gradAngle = 0d;
 		hatchingsAngle = 0d;
 		hasShadow = false;
-		hasDbleBord = false;
+		hasDbleBord = new SimpleBooleanProperty(false);
 		lineStyle = new SimpleObjectProperty<>(LineStyle.SOLID);
 		lineColour = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_LINE_COLOR);
 		dotSep = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DOT_STEP * PPC);
@@ -145,7 +147,7 @@ abstract class LShape implements ISingleShape {
 		fillingCol = PSTricksConstants.DEFAULT_INTERIOR_COLOR;
 		bordersPosition = new SimpleObjectProperty<>(BorderPos.INTO);
 		dbleBordCol = PSTricksConstants.DEFAULT_DOUBLE_COLOR;
-		dbleBordSep = 6d;
+		dbleBordSep = new SimpleDoubleProperty(6d);
 		shadowCol = PSTricksConstants.DEFAULT_SHADOW_COLOR;
 		shadowSize = PSTricksConstants.DEFAULT_SHADOW_SIZE * PPC;
 		gradColStart = PSTricksConstants.DEFAULT_GRADIENT_START_COLOR;
@@ -217,13 +219,13 @@ abstract class LShape implements ISingleShape {
 	public double getBorderGap() {
 		switch(bordersPosition.get()) {
 			case MID:
-				return hasDbleBord ? thickness.doubleValue() + dbleBordSep / 2.0 : thickness.doubleValue() / 2.0;
+				return hasDbleBord() ? thickness.doubleValue() + getDbleBordSep() / 2d : thickness.doubleValue() / 2d;
 			case OUT:
-				return hasDbleBord ? thickness.doubleValue() * 2.0 + dbleBordSep : thickness.doubleValue();
+				return hasDbleBord() ? thickness.doubleValue() * 2d + getDbleBordSep() : thickness.doubleValue();
 			case INTO:
-				return 0;
+				return 0d;
 		}
-		return 0;
+		return 0d;
 	}
 
 	@Override
@@ -248,7 +250,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public double getDbleBordSep() {
-		return dbleBordSep;
+		return dbleBordSep.doubleValue();
 	}
 
 	@Override
@@ -388,7 +390,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public boolean hasDbleBord() {
-		return hasDbleBord;
+		return hasDbleBord.get();
 	}
 
 	@Override
@@ -501,7 +503,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setDbleBordSep(final double sep) {
-		if(sep >= 0 && isDbleBorderable() && MathUtils.INST.isValidCoord(sep)) dbleBordSep = sep;
+		if(sep >= 0 && isDbleBorderable() && MathUtils.INST.isValidCoord(sep)) {
+			dbleBordSep.set(sep);
+		}
 	}
 
 	@Override
@@ -591,7 +595,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setHasDbleBord(final boolean bord) {
-		if(isDbleBorderable()) hasDbleBord = bord;
+		if(isDbleBorderable()) {
+			hasDbleBord.set(bord);
+		}
 	}
 
 	@Override
@@ -859,9 +865,18 @@ abstract class LShape implements ISingleShape {
 		return dashSepBlack;
 	}
 
-
 	@Override
 	public @NonNull DoubleProperty dotSepProperty() {
 		return dotSep;
+	}
+
+	@Override
+	public @NonNull BooleanProperty dbleBordProperty() {
+		return hasDbleBord;
+	}
+
+	@Override
+	public @NonNull DoubleProperty dbleBordSepProperty() {
+		return dbleBordSep;
 	}
 }
