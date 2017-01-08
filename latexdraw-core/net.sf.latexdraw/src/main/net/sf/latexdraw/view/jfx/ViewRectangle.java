@@ -32,6 +32,11 @@ public class ViewRectangle extends ViewSingleShape<IRectangle, Rectangle> {
 		border.yProperty().bind(model.getPtAt(0).yProperty());
 		border.widthProperty().bind(Bindings.createDoubleBinding(model::getWidth, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
 		border.heightProperty().bind(Bindings.createDoubleBinding(model::getHeight, model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
+
+		if(model.isDbleBorderable()) {
+			dblBorder.widthProperty().bindBidirectional(border.widthProperty());
+			dblBorder.heightProperty().bindBidirectional(border.heightProperty());
+		}
 	}
 
 	@Override
@@ -45,5 +50,10 @@ public class ViewRectangle extends ViewSingleShape<IRectangle, Rectangle> {
 		border.yProperty().unbind();
 		border.widthProperty().unbind();
 		border.heightProperty().unbind();
+
+		if(model.isDbleBorderable()) {
+			dblBorder.widthProperty().unbind();
+			dblBorder.heightProperty().unbind();
+		}
 	}
 }

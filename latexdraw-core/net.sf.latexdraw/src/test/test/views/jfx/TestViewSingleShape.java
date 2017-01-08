@@ -49,6 +49,14 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	}
 
 	@Test
+	public void testDoubleLineThickness() {
+		if(model.isThicknessable()) {
+			model.setHasDbleBord(true);
+			assertEquals(model.getFullThickness(), border.getStrokeWidth(), 0.00d);
+		}
+	}
+
+	@Test
 	public void testLineStylePlainLineCap() {
 		if(model.isLineStylable()) {
 			model.setLineStyle(LineStyle.SOLID);

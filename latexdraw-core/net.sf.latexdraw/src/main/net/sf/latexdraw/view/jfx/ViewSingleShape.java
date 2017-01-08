@@ -31,6 +31,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * The base class of a JFX single shape view.
@@ -39,6 +40,7 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> extends ViewShape<S> {
 	protected final @NonNull T border = createJFXShape();
+	protected final @Nullable T dblBorder;
 
 	protected final ChangeListener<?> lineStyleUpdateCall = (obj, oldVal, newVal) -> updateLineStyle();
 	protected final ChangeListener<FillingStyle> borderFillCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(newVal));
@@ -51,12 +53,22 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	ViewSingleShape(final @NonNull S sh) {
 		super(sh);
 
+		if(model.isDbleBorderable()) {
+			dblBorder = createJFXShape();
+			dblBorder.layoutXProperty().bindBidirectional(border.layoutXProperty());
+			dblBorder.layoutYProperty().bindBidirectional(border.layoutYProperty());
+			model.dbleBordProperty().addListener((ChangeListener<? super Boolean>) lineStyleUpdateCall);
+			model.dbleBordSepProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+		} else {
+			dblBorder = null;
+		}
+
 		getChildren().add(border);
 
 		border.setStrokeLineJoin(StrokeLineJoin.MITER);
 
 		if(model.isThicknessable()) {
-			border.strokeWidthProperty().bind(model.thicknessProperty());
+			model.thicknessProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
 		}
 
 		if(model.isLineStylable()) {
@@ -65,11 +77,6 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.dashSepWhiteProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
 			model.dotSepProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
 			updateLineStyle();
-		}
-
-		if(model.isDbleBorderable()) {
-			model.dbleBordProperty().addListener((ChangeListener<? super Boolean>) lineStyleUpdateCall);
-			model.dbleBordSepProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
 		}
 
 		if(model.isFillable()) {
@@ -169,9 +176,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	}
 
 	private void updateLineStyle() {
-		final LineStyle newVal = model.getLineStyle();
+		border.setStrokeWidth(model.getFullThickness());
 
-		switch(newVal) {
+		switch(model.getLineStyle()) {
 			case DASHED:
 				border.setStrokeLineCap(StrokeLineCap.BUTT);
 				border.getStrokeDashArray().clear();
@@ -197,7 +204,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	public void flush() {
 		super.flush();
 		if(model.isThicknessable()) {
-			border.strokeWidthProperty().unbind();
+			model.thicknessProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
 		}
 
 		if(model.isLineStylable()) {
@@ -208,6 +215,8 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		}
 
 		if(model.isDbleBorderable()) {
+			dblBorder.layoutXProperty().unbind();
+			dblBorder.layoutYProperty().unbind();
 			model.dbleBordProperty().removeListener((ChangeListener<? super Boolean>) lineStyleUpdateCall);
 			model.dbleBordSepProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
 		}
