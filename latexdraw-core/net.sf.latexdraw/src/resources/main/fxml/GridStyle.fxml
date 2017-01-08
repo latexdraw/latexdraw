@@ -43,7 +43,7 @@
             </tooltip>
         </ColorPicker>
         <Label layoutX="0.0" layoutY="30.0" text="%ParametersGridFrame.8"/>
-        <Spinner fx:id="subGridDiv" layoutX="130.0" layoutY="28.0" prefHeight="25.0" prefWidth="60.0">
+        <Spinner fx:id="subGridDiv" layoutX="130.0" layoutY="28.0" prefHeight="25.0" prefWidth="60.0" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="100" initialValue="1" amountToStepBy="1"/>
             </valueFactory>
@@ -52,7 +52,7 @@
         <Spinner fx:id="subGridWidth" layoutX="130.0" layoutY="58.0" prefHeight="25.0" prefWidth="60.0"
                  min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5"/>
         <Label layoutX="0.0" layoutY="90.0" text="%ParametersGridFrame.4"/>
-        <Spinner fx:id="subGridDots" layoutX="130.0" layoutY="88.0" prefHeight="25.0" prefWidth="60.0">
+        <Spinner fx:id="subGridDots" layoutX="130.0" layoutY="88.0" prefHeight="25.0" prefWidth="60.0" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10000" initialValue="0" amountToStepBy="1"/>
             </valueFactory>

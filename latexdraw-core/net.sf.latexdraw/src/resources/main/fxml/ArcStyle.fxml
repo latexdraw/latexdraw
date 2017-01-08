@@ -43,10 +43,10 @@
             </tooltip>
         </ToggleButton>
         <Label layoutX="5.0" layoutY="46.0" text="%ParametersArcFrame.0"/>
-        <Spinner fx:id="startAngleS" layoutX="130.0" layoutY="44.0" prefHeight="25.0" prefWidth="88.0"
+        <Spinner fx:id="startAngleS" layoutX="130.0" layoutY="44.0" prefHeight="25.0" prefWidth="88.0" editable="true"
                  min="-360.0" max="360.0" initialValue="0.0" amountToStepBy="1.0"/>
         <Label layoutX="5.0" layoutY="90.0" text="%ParametersArcFrame.1"/>
-        <Spinner fx:id="endAngleS" layoutX="130.0" layoutY="84.0" prefHeight="25.0" prefWidth="88.0"
+        <Spinner fx:id="endAngleS" layoutX="130.0" layoutY="84.0" prefHeight="25.0" prefWidth="88.0" editable="true"
                  min="-360.0" max="360.0" initialValue="0.0" amountToStepBy="1.0"/>
     </AnchorPane>
 </TitledPane>

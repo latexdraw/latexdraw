@@ -10,7 +10,7 @@
     <ComboBox fx:id="langList" layoutX="226.0" layoutY="9.0" prefHeight="25.0" prefWidth="157.0"/>
     <CheckBox fx:id="checkNewVersion" layoutX="14.0" layoutY="42.0" mnemonicParsing="false" text="%PreferencesFrame.newVers"/>
     <Label layoutX="14.0" layoutY="73.0" text="%PreferencesFrame.0"/>
-    <Spinner fx:id="nbRecentFilesField" amountToStepBy="1" initialValue="5" layoutX="226.0" layoutY="68.0" max="20" min="0"
+    <Spinner fx:id="nbRecentFilesField" amountToStepBy="1" initialValue="5" layoutX="226.0" layoutY="68.0" max="20" min="0" editable="true"
              prefHeight="25.0" prefWidth="75.0"/>
     <Label layoutX="14.0" layoutY="100.0" text="%Pref.2"/>
     <TextArea fx:id="latexIncludes" layoutX="14.0" layoutY="121.0" prefHeight="164.0" prefWidth="367.0"/>
@@ -31,7 +31,7 @@
     <ImageView layoutX="14.0" layoutY="472.0">
         <Image url="@/res/gridGap.png"/>
     </ImageView>
-    <Spinner fx:id="persoGridGapField" amountToStepBy="1" initialValue="10" layoutX="43.0" layoutY="470.0" max="100000" min="2"
+    <Spinner fx:id="persoGridGapField" amountToStepBy="1" initialValue="10" layoutX="43.0" layoutY="470.0" max="100000" min="2" editable="true"
              prefHeight="25.0" prefWidth="75.0">
         <tooltip>
             <Tooltip text="%LaTeXDrawFrame.15"/>
