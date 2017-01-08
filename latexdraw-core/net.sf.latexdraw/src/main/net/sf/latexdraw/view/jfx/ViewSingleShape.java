@@ -59,6 +59,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.linestyleProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
 			model.dashSepBlackProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
 			model.dashSepWhiteProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
+			model.dotSepProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
 			updateLineStyle();
 		}
 
@@ -168,10 +169,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 				border.getStrokeDashArray().addAll(model.getDashSepBlack(), model.getDashSepWhite());
 				break;
 			case DOTTED:// FIXME problem when dotted line + INTO/OUT border position.
-				final double dotSep = model.getDotSep() + (model.hasDbleBord() ? model.getThickness() * 2d + model.getDbleBordSep() : model.getThickness());
 				border.setStrokeLineCap(StrokeLineCap.ROUND);
 				border.getStrokeDashArray().clear();
-				border.getStrokeDashArray().addAll(0d, dotSep);
+				border.getStrokeDashArray().addAll(0d, model.getDotSep() + model.getFullThickness());
 				break;
 			case SOLID:
 				border.setStrokeLineCap(StrokeLineCap.SQUARE);

@@ -55,7 +55,7 @@ abstract class LShape implements ISingleShape {
 	protected final @NonNull DoubleProperty dashSepBlack;
 
 	/** The dot separator for dotted lines. */
-	protected double dotSep;
+	protected final @NonNull DoubleProperty dotSep;
 
 	/** The colour of the interior of the shape. */
 	protected @NonNull Color fillingCol;
@@ -126,16 +126,16 @@ abstract class LShape implements ISingleShape {
 	LShape() {
 		super();
 		modified = false;
-		thickness = new SimpleDoubleProperty(2.0);
-		rotationAngle = 0.;
-		shadowAngle = -Math.PI / 4.;
-		gradAngle = 0.;
-		hatchingsAngle = 0.;
+		thickness = new SimpleDoubleProperty(2d);
+		rotationAngle = 0d;
+		shadowAngle = -Math.PI / 4d;
+		gradAngle = 0d;
+		hatchingsAngle = 0d;
 		hasShadow = false;
 		hasDbleBord = false;
 		lineStyle = new SimpleObjectProperty<>(LineStyle.SOLID);
 		lineColour = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_LINE_COLOR);
-		dotSep = PSTricksConstants.DEFAULT_DOT_STEP * PPC;
+		dotSep = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DOT_STEP * PPC);
 		dashSepBlack = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DASH_BLACK * PPC);
 		dashSepWhite = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DASH_WHITE * PPC);
 		hatchingsCol = PSTricksConstants.DEFAULT_HATCHING_COLOR;
@@ -145,7 +145,7 @@ abstract class LShape implements ISingleShape {
 		fillingCol = PSTricksConstants.DEFAULT_INTERIOR_COLOR;
 		bordersPosition = new SimpleObjectProperty<>(BorderPos.INTO);
 		dbleBordCol = PSTricksConstants.DEFAULT_DOUBLE_COLOR;
-		dbleBordSep = 6.;
+		dbleBordSep = 6d;
 		shadowCol = PSTricksConstants.DEFAULT_SHADOW_COLOR;
 		shadowSize = PSTricksConstants.DEFAULT_SHADOW_SIZE * PPC;
 		gradColStart = PSTricksConstants.DEFAULT_GRADIENT_START_COLOR;
@@ -157,7 +157,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public double getFullThickness() {
-		return isDbleBorderable() && hasDbleBord() ? getThickness() * 2. + getDbleBordSep() : getThickness();
+		return isDbleBorderable() && hasDbleBord() ? getThickness() * 2d + getDbleBordSep() : getThickness();
 	}
 
 	@Override
@@ -253,7 +253,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public double getDotSep() {
-		return dotSep;
+		return dotSep.doubleValue();
 	}
 
 	@Override
@@ -506,7 +506,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setDotSep(final double sep) {
-		if(sep >= 0 && MathUtils.INST.isValidCoord(sep)) dotSep = sep;
+		if(sep >= 0 && MathUtils.INST.isValidCoord(sep)) {
+			dotSep.set(sep);
+		}
 	}
 
 	@Override
@@ -855,5 +857,11 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public @NonNull DoubleProperty dashSepBlackProperty() {
 		return dashSepBlack;
+	}
+
+
+	@Override
+	public @NonNull DoubleProperty dotSepProperty() {
+		return dotSep;
 	}
 }

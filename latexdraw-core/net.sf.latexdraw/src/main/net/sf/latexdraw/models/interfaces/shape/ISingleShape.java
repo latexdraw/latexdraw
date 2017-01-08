@@ -33,4 +33,6 @@ public interface ISingleShape extends IShape {
 	@NonNull DoubleProperty dashSepWhiteProperty();
 
 	@NonNull DoubleProperty dashSepBlackProperty();
+
+	@NonNull DoubleProperty dotSepProperty();
 }
