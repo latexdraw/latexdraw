@@ -14,6 +14,7 @@ package net.sf.latexdraw.view.jfx;
 
 import java.awt.geom.Point2D;
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
@@ -37,7 +38,11 @@ import org.eclipse.jdt.annotation.NonNull;
  * @param <T> The type of the JFX shape used to draw the view.
  */
 public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> extends ViewShape<S> {
-	protected final @NonNull T border;
+	protected final @NonNull T border = createJFXShape();
+
+	protected final ChangeListener<?> lineStyleUpdateCall = (obj, oldVal, newVal) -> updateLineStyle();
+	protected final ChangeListener<FillingStyle> borderFillCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(newVal));
+
 
 	/**
 	 * Creates the view.
@@ -46,7 +51,6 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	ViewSingleShape(final @NonNull S sh) {
 		super(sh);
 
-		border = createJFXShape();
 		getChildren().add(border);
 
 		border.setStrokeLineJoin(StrokeLineJoin.MITER);
@@ -56,20 +60,20 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		}
 
 		if(model.isLineStylable()) {
-			model.linestyleProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
-			model.dashSepBlackProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
-			model.dashSepWhiteProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
-			model.dotSepProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
+			model.linestyleProperty().addListener((ChangeListener<? super LineStyle>) lineStyleUpdateCall);
+			model.dashSepBlackProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+			model.dashSepWhiteProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+			model.dotSepProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
 			updateLineStyle();
 		}
 
 		if(model.isDbleBorderable()) {
-			model.dbleBordProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
-			model.dbleBordSepProperty().addListener((obj, oldVal, newVal) -> updateLineStyle());
+			model.dbleBordProperty().addListener((ChangeListener<? super Boolean>) lineStyleUpdateCall);
+			model.dbleBordSepProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
 		}
 
 		if(model.isFillable()) {
-			model.fillingProperty().addListener((obs, oldVal, newVal) -> border.setFill(getFillingPaint(newVal)));
+			model.fillingProperty().addListener(borderFillCall);
 			border.setFill(getFillingPaint(model.getFillingStyle()));
 		}
 
@@ -187,5 +191,35 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 
 	public T getBorder() {
 		return border;
+	}
+
+	@Override
+	public void flush() {
+		super.flush();
+		if(model.isThicknessable()) {
+			border.strokeWidthProperty().unbind();
+		}
+
+		if(model.isLineStylable()) {
+			model.linestyleProperty().removeListener((ChangeListener<? super LineStyle>) lineStyleUpdateCall);
+			model.dashSepBlackProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+			model.dashSepWhiteProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+			model.dotSepProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+		}
+
+		if(model.isDbleBorderable()) {
+			model.dbleBordProperty().removeListener((ChangeListener<? super Boolean>) lineStyleUpdateCall);
+			model.dbleBordSepProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+		}
+
+		if(model.isFillable()) {
+			model.fillingProperty().removeListener(borderFillCall);
+		}
+
+		border.strokeProperty().unbind();
+
+		if(model.isBordersMovable()) {
+			border.strokeTypeProperty().unbind();
+		}
 	}
 }
