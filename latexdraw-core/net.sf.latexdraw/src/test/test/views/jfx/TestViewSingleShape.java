@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -323,6 +324,26 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 			model.setGradColEnd(DviPsColors.BRICKRED);
 			LinearGradient grad = (LinearGradient) border.getFill();
 			assertEquals(DviPsColors.BRICKRED.toJFX(), grad.getStops().get(1).getColor());
+		}
+	}
+
+	@Test
+	public void testFillGradientAngle() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.GRAD);
+			LinearGradient grad1 = (LinearGradient) border.getFill();
+			model.setGradAngle(Math.PI/1.23);
+			assertNotEquals(grad1, border.getFill());
+		}
+	}
+
+	@Test
+	public void testFillGradientMidPt() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.GRAD);
+			LinearGradient grad1 = (LinearGradient) border.getFill();
+			model.setGradMidPt(0.6352);
+			assertNotEquals(grad1, border.getFill());
 		}
 	}
 }

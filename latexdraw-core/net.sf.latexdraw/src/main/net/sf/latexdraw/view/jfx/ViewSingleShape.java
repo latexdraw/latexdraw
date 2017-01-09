@@ -45,8 +45,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	protected final @Nullable T dblBorder;
 
 	private final ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
-	private final ChangeListener<FillingStyle> borderFillCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(newVal));
-	private final ChangeListener<Color> ColFillCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(model.getFillingStyle()));
+	private final ChangeListener<?> fillUpdateCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(model.getFillingStyle()));
 
 
 	/**
@@ -85,10 +84,12 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		}
 
 		if(model.isFillable()) {
-			model.fillingProperty().addListener(borderFillCall);
-			model.gradColStartProperty().addListener(ColFillCall);
-			model.gradColEndProperty().addListener(ColFillCall);
-			model.fillingColProperty().addListener(ColFillCall);
+			model.fillingProperty().addListener((ChangeListener<? super FillingStyle>) fillUpdateCall);
+			model.gradColStartProperty().addListener((ChangeListener<? super Color>) fillUpdateCall);
+			model.gradColEndProperty().addListener((ChangeListener<? super Color>) fillUpdateCall);
+			model.gradMidPtProperty().addListener((ChangeListener<? super Number>) fillUpdateCall);
+			model.gradAngleProperty().addListener((ChangeListener<? super Number>) fillUpdateCall);
+			model.fillingColProperty().addListener((ChangeListener<? super Color>) fillUpdateCall);
 			border.setFill(getFillingPaint(model.getFillingStyle()));
 		}
 
@@ -268,10 +269,13 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		}
 
 		if(model.isFillable()) {
-			model.fillingProperty().removeListener(borderFillCall);
-			model.gradColStartProperty().removeListener(ColFillCall);
-			model.gradColEndProperty().removeListener(ColFillCall);
-			model.fillingColProperty().removeListener(ColFillCall);
+			model.fillingProperty().removeListener((ChangeListener<? super FillingStyle>) fillUpdateCall);
+			model.gradColStartProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
+			model.gradColEndProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
+			model.gradMidPtProperty().removeListener((ChangeListener<? super Number>) fillUpdateCall);
+			model.gradAngleProperty().removeListener((ChangeListener<? super Number>) fillUpdateCall);
+			model.gradColEndProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
+			model.fillingColProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
 		}
 
 		border.strokeProperty().unbind();

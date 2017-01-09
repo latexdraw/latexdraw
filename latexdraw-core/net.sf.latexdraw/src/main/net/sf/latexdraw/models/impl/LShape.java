@@ -69,10 +69,10 @@ abstract class LShape implements ISingleShape {
 	protected final @NonNull ObjectProperty<Color> gradColEnd;
 
 	/** The angle of the gradient in radian. */
-	protected double gradAngle;
+	protected final @NonNull DoubleProperty gradAngle;
 
 	/** The middle point of the gradient. */
-	protected double gradMidPt;
+	protected final @NonNull DoubleProperty gradMidPt;
 
 	/** The separation size between hatchings in pixel. */
 	protected double hatchingsSep;
@@ -131,7 +131,7 @@ abstract class LShape implements ISingleShape {
 		thickness = new SimpleDoubleProperty(2d);
 		rotationAngle = 0d;
 		shadowAngle = -Math.PI / 4d;
-		gradAngle = 0d;
+		gradAngle = new SimpleDoubleProperty(0d);
 		hatchingsAngle = 0d;
 		hasShadow = false;
 		hasDbleBord = new SimpleBooleanProperty(false);
@@ -152,7 +152,7 @@ abstract class LShape implements ISingleShape {
 		shadowSize = PSTricksConstants.DEFAULT_SHADOW_SIZE * PPC;
 		gradColStart = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_GRADIENT_START_COLOR);
 		gradColEnd = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_GRADIENT_END_COLOR);
-		gradMidPt = PSTricksConstants.DEFAULT_GRADIENT_MID_POINT;
+		gradMidPt = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_GRADIENT_MID_POINT);
 		showPts = false;
 		points = FXCollections.observableArrayList();
 	}
@@ -290,7 +290,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public double getGradAngle() {
-		return gradAngle;
+		return gradAngle.doubleValue();
 	}
 
 	@Override
@@ -305,7 +305,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public double getGradMidPt() {
-		return gradMidPt;
+		return gradMidPt.doubleValue();
 	}
 
 	@Override
@@ -579,7 +579,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setGradAngle(final double angle) {
-		if(MathUtils.INST.isValidCoord(angle) && isInteriorStylable()) gradAngle = angle;
+		if(MathUtils.INST.isValidCoord(angle) && isInteriorStylable()) {
+			gradAngle.set(angle);
+		}
 	}
 
 	@Override
@@ -598,7 +600,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setGradMidPt(final double pt) {
-		if(pt >= 0 && pt <= 1 && isInteriorStylable()) gradMidPt = pt;
+		if(pt >= 0 && pt <= 1 && isInteriorStylable()) {
+			gradMidPt.set(pt);
+		}
 	}
 
 	@Override
@@ -906,5 +910,15 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public @NonNull ObjectProperty<Color> fillingColProperty() {
 		return fillingCol;
+	}
+
+	@Override
+	public @NonNull DoubleProperty gradAngleProperty() {
+		return gradAngle;
+	}
+
+	@Override
+	public @NonNull DoubleProperty gradMidPtProperty() {
+		return gradMidPt;
 	}
 }
