@@ -13,6 +13,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.awt.geom.Point2D;
+import java.util.Optional;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.paint.CycleMethod;
@@ -25,6 +26,7 @@ import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -42,7 +44,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	protected final @NonNull T border = createJFXShape();
 	protected final @Nullable T dblBorder;
 
-	protected final ChangeListener<?> lineStyleUpdateCall = (obj, oldVal, newVal) -> updateLineStyle();
+	protected final ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
 	protected final ChangeListener<FillingStyle> borderFillCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(newVal));
 
 
@@ -55,28 +57,30 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 
 		if(model.isDbleBorderable()) {
 			dblBorder = createJFXShape();
-			dblBorder.layoutXProperty().bindBidirectional(border.layoutXProperty());
-			dblBorder.layoutYProperty().bindBidirectional(border.layoutYProperty());
-			model.dbleBordProperty().addListener((ChangeListener<? super Boolean>) lineStyleUpdateCall);
-			model.dbleBordSepProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+			dblBorder.setFill(null);
+			dblBorder.layoutXProperty().bind(border.layoutXProperty());
+			dblBorder.layoutYProperty().bind(border.layoutYProperty());
+			model.dbleBordProperty().addListener((ChangeListener<? super Boolean>) strokesUpdateCall);
+			model.dbleBordSepProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
+			model.dbleBordColProperty().addListener((ChangeListener<? super Color>) strokesUpdateCall);
 		} else {
 			dblBorder = null;
 		}
 
 		getChildren().add(border);
+		getChildren().add(dblBorder);
 
 		border.setStrokeLineJoin(StrokeLineJoin.MITER);
 
 		if(model.isThicknessable()) {
-			model.thicknessProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+			model.thicknessProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
 		}
 
 		if(model.isLineStylable()) {
-			model.linestyleProperty().addListener((ChangeListener<? super LineStyle>) lineStyleUpdateCall);
-			model.dashSepBlackProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
-			model.dashSepWhiteProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
-			model.dotSepProperty().addListener((ChangeListener<? super Number>) lineStyleUpdateCall);
-			updateLineStyle();
+			model.linestyleProperty().addListener((ChangeListener<? super LineStyle>) strokesUpdateCall);
+			model.dashSepBlackProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
+			model.dashSepWhiteProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
+			model.dotSepProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
 		}
 
 		if(model.isFillable()) {
@@ -87,6 +91,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		border.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getLineColour().toJFX(), model.lineColourProperty()));
 
 		bindBorderMovable();
+		updateStrokes();
 	}
 
 	protected abstract @NonNull T createJFXShape();
@@ -159,7 +164,8 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			}
 		}
 
-		return new LinearGradient(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY(), false, CycleMethod.NO_CYCLE, new Stop(0, model.getGradColStart().toJFX()), new Stop(1, model.getGradColEnd().toJFX()));
+		return new LinearGradient(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY(), false, CycleMethod.NO_CYCLE,
+			new Stop(0d, model.getGradColStart().toJFX()), new Stop(1d, model.getGradColEnd().toJFX()));
 	}
 
 	private void bindBorderMovable() {
@@ -172,27 +178,57 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 					default: return StrokeType.INSIDE;
 				}
 			}, model.borderPosProperty()));
+
+			if(dblBorder != null) {
+				dblBorder.strokeTypeProperty().bind(border.strokeTypeProperty());
+			}
 		}
 	}
 
-	private void updateLineStyle() {
-		border.setStrokeWidth(model.getFullThickness());
+	protected double getDbleBorderGap() {
+		if(!model.isDbleBorderable()) {
+			return 0d;
+		}
 
-		switch(model.getLineStyle()) {
-			case DASHED:
-				border.setStrokeLineCap(StrokeLineCap.BUTT);
-				border.getStrokeDashArray().clear();
-				border.getStrokeDashArray().addAll(model.getDashSepBlack(), model.getDashSepWhite());
-				break;
-			case DOTTED:// FIXME problem when dotted line + INTO/OUT border position.
-				border.setStrokeLineCap(StrokeLineCap.ROUND);
-				border.getStrokeDashArray().clear();
-				border.getStrokeDashArray().addAll(0d, model.getDotSep() + model.getFullThickness());
-				break;
-			case SOLID:
-				border.setStrokeLineCap(StrokeLineCap.SQUARE);
-				border.getStrokeDashArray().clear();
-				break;
+		switch(model.getBordersPosition()) {
+			case MID: return 0d;
+			case INTO: return model.getThickness();
+			case OUT: return -model.getThickness();
+		}
+
+		return 0d;
+	}
+
+	private void updateStrokes() {
+		if(model.isThicknessable()) {
+			border.setStrokeWidth(model.getFullThickness());
+		}
+
+		if(dblBorder != null) {
+			dblBorder.setDisable(!model.hasDbleBord());
+			if(model.hasDbleBord()) {
+				dblBorder.setStroke(model.getDbleBordCol().toJFX());
+				dblBorder.setStrokeWidth(model.getDbleBordSep());
+			}
+		}
+
+		if(model.isLineStylable()) {
+			switch(model.getLineStyle()) {
+				case DASHED:
+					border.setStrokeLineCap(StrokeLineCap.BUTT);
+					border.getStrokeDashArray().clear();
+					border.getStrokeDashArray().addAll(model.getDashSepBlack(), model.getDashSepWhite());
+					break;
+				case DOTTED:// FIXME problem when dotted line + INTO/OUT border position.
+					border.setStrokeLineCap(StrokeLineCap.ROUND);
+					border.getStrokeDashArray().clear();
+					border.getStrokeDashArray().addAll(0d, model.getDotSep() + model.getFullThickness());
+					break;
+				case SOLID:
+					border.setStrokeLineCap(StrokeLineCap.SQUARE);
+					border.getStrokeDashArray().clear();
+					break;
+			}
 		}
 	}
 
@@ -200,25 +236,31 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		return border;
 	}
 
+	public Optional<T> getDbleBorder() {
+		return Optional.ofNullable(dblBorder);
+	}
+
 	@Override
 	public void flush() {
 		super.flush();
 		if(model.isThicknessable()) {
-			model.thicknessProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+			model.thicknessProperty().removeListener((ChangeListener<? super Number>) strokesUpdateCall);
 		}
 
 		if(model.isLineStylable()) {
-			model.linestyleProperty().removeListener((ChangeListener<? super LineStyle>) lineStyleUpdateCall);
-			model.dashSepBlackProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
-			model.dashSepWhiteProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
-			model.dotSepProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+			model.linestyleProperty().removeListener((ChangeListener<? super LineStyle>) strokesUpdateCall);
+			model.dashSepBlackProperty().removeListener((ChangeListener<? super Number>) strokesUpdateCall);
+			model.dashSepWhiteProperty().removeListener((ChangeListener<? super Number>) strokesUpdateCall);
+			model.dotSepProperty().removeListener((ChangeListener<? super Number>) strokesUpdateCall);
 		}
 
-		if(model.isDbleBorderable()) {
+		if(dblBorder!=null) {
 			dblBorder.layoutXProperty().unbind();
 			dblBorder.layoutYProperty().unbind();
-			model.dbleBordProperty().removeListener((ChangeListener<? super Boolean>) lineStyleUpdateCall);
-			model.dbleBordSepProperty().removeListener((ChangeListener<? super Number>) lineStyleUpdateCall);
+			model.dbleBordProperty().removeListener((ChangeListener<? super Boolean>) strokesUpdateCall);
+			model.dbleBordSepProperty().removeListener((ChangeListener<? super Number>) strokesUpdateCall);
+			model.dbleBordColProperty().removeListener((ChangeListener<? super Color>) strokesUpdateCall);
+			dblBorder.strokeTypeProperty().unbind();
 		}
 
 		if(model.isFillable()) {

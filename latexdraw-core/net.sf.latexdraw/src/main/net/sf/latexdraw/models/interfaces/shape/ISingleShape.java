@@ -40,4 +40,6 @@ public interface ISingleShape extends IShape {
 	@NonNull BooleanProperty dbleBordProperty();
 
 	@NonNull DoubleProperty dbleBordSepProperty();
+
+	@NonNull ObjectProperty<Color> dbleBordColProperty();
 }

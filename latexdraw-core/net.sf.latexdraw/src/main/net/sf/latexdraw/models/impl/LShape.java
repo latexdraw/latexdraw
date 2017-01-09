@@ -96,7 +96,7 @@ abstract class LShape implements ISingleShape {
 	protected final @NonNull BooleanProperty hasDbleBord;
 
 	/** The colour of the double borders. */
-	protected Color dbleBordCol;
+	protected final @NonNull ObjectProperty<Color> dbleBordCol;
 
 	/** The separation size of the double borders in pixel. */
 	protected final @NonNull DoubleProperty dbleBordSep;
@@ -146,7 +146,7 @@ abstract class LShape implements ISingleShape {
 		fillingStyle = new SimpleObjectProperty<>(FillingStyle.NONE);
 		fillingCol = PSTricksConstants.DEFAULT_INTERIOR_COLOR;
 		bordersPosition = new SimpleObjectProperty<>(BorderPos.INTO);
-		dbleBordCol = PSTricksConstants.DEFAULT_DOUBLE_COLOR;
+		dbleBordCol = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_DOUBLE_COLOR);
 		dbleBordSep = new SimpleDoubleProperty(6d);
 		shadowCol = PSTricksConstants.DEFAULT_SHADOW_COLOR;
 		shadowSize = PSTricksConstants.DEFAULT_SHADOW_SIZE * PPC;
@@ -245,7 +245,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public Color getDbleBordCol() {
-		return dbleBordCol;
+		return dbleBordCol.get();
 	}
 
 	@Override
@@ -498,7 +498,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setDbleBordCol(final Color col) {
-		if(col != null && isDbleBorderable()) dbleBordCol = col;
+		if(col != null && isDbleBorderable()) {
+			dbleBordCol.set(col);
+		}
 	}
 
 	@Override
@@ -878,5 +880,10 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public @NonNull DoubleProperty dbleBordSepProperty() {
 		return dbleBordSep;
+	}
+
+	@Override
+	public @NonNull ObjectProperty<Color> dbleBordColProperty() {
+		return dbleBordCol;
 	}
 }

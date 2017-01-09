@@ -1,6 +1,7 @@
 package test.views.jfx;
 
 import java.util.Arrays;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -10,10 +11,14 @@ import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.jfx.ViewSingleShape;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends ISingleShape, R extends Shape> {
 	protected T view;
@@ -34,6 +39,11 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 		border = view.getBorder();
 	}
 
+	@After
+	public void tearDown() throws Exception {
+		view.flush();
+	}
+
 	@Test
 	public void testLineColor() {
 		model.setLineColour(DviPsColors.BITTERSWEET);
@@ -49,10 +59,85 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	}
 
 	@Test
+	public void testBorderAdded() {
+		assertTrue(view.getChildren().stream().anyMatch(c -> c==border));
+	}
+
+	@Test
+	public void testBorderEnable() {
+		assertFalse(view.getBorder().isDisable());
+	}
+
+	@Test
 	public void testDoubleLineThickness() {
-		if(model.isThicknessable()) {
+		if(model.isDbleBorderable()) {
 			model.setHasDbleBord(true);
 			assertEquals(model.getFullThickness(), border.getStrokeWidth(), 0.00d);
+		}
+	}
+
+	@Test
+	public void testDoubleLineSepThickness() {
+		if(model.isDbleBorderable()) {
+			model.setHasDbleBord(true);
+			model.setDbleBordSep(30d);
+			assertEquals(model.getFullThickness(), border.getStrokeWidth(), 0.00d);
+		}
+	}
+
+	@Test
+	public void testDoubleLineCol() {
+		if(model.isDbleBorderable()) {
+			model.setHasDbleBord(true);
+			model.setDbleBordCol(DviPsColors.APRICOT);
+			assertEquals(DviPsColors.APRICOT, view.getDbleBorder().map(b -> ShapeFactory.INST.createColorFX((Color)b.getStroke())).orElse(null));
+		}
+	}
+
+	@Test
+	public void testDoubleBorderAdded() {
+		if(model.isDbleBorderable()) {
+		 assertTrue(view.getChildren().stream().anyMatch(c -> c==view.getDbleBorder().get()));
+		}
+	}
+
+	@Test
+	public void testDoubleBorderDefaultDisable() {
+		if(model.isDbleBorderable()) {
+			assertTrue(view.getDbleBorder().get().isDisable());
+		}
+	}
+
+	@Test
+	public void testDoubleBorderEnable() {
+		if(model.isDbleBorderable()) {
+			model.setHasDbleBord(true);
+			assertFalse(view.getDbleBorder().get().isDisable());
+		}
+	}
+
+	@Test
+	public void testDoubleBorderDisable() {
+		if(model.isDbleBorderable()) {
+			model.setHasDbleBord(true);
+			model.setHasDbleBord(false);
+			assertTrue(view.getDbleBorder().get().isDisable());
+		}
+	}
+
+	@Test
+	public void testDoubleBorderStrokeWidth() {
+		if(model.isDbleBorderable()) {
+			model.setHasDbleBord(true);
+			assertEquals(model.getDbleBordSep(), view.getDbleBorder().get().getStrokeWidth(), 0.001);
+		}
+	}
+
+	@Test
+	public void testDoubleBorderNoFill() {
+		if(model.isDbleBorderable()) {
+			model.setHasDbleBord(true);
+			assertNull(view.getDbleBorder().get().getFill());
 		}
 	}
 
