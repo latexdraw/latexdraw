@@ -60,7 +60,7 @@ abstract class LShape implements ISingleShape {
 	protected final @NonNull DoubleProperty dotSep;
 
 	/** The colour of the interior of the shape. */
-	protected @NonNull Color fillingCol;
+	protected final @NonNull ObjectProperty<Color> fillingCol;
 
 	/** The start colour of the gradient. */
 	protected final @NonNull ObjectProperty<Color> gradColStart;
@@ -144,7 +144,7 @@ abstract class LShape implements ISingleShape {
 		hatchingsSep = PSTricksConstants.DEFAULT_HATCH_SEP * PPC;
 		hatchingsWidth = PSTricksConstants.DEFAULT_HATCH_WIDTH * PPC;
 		fillingStyle = new SimpleObjectProperty<>(FillingStyle.NONE);
-		fillingCol = PSTricksConstants.DEFAULT_INTERIOR_COLOR;
+		fillingCol = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_INTERIOR_COLOR);
 		bordersPosition = new SimpleObjectProperty<>(BorderPos.INTO);
 		dbleBordCol = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_DOUBLE_COLOR);
 		dbleBordSep = new SimpleDoubleProperty(6d);
@@ -260,7 +260,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public Color getFillingCol() {
-		return fillingCol;
+		return fillingCol.get();
 	}
 
 	@Override
@@ -567,7 +567,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setFillingCol(final Color col) {
-		if(col != null && isFillable()) fillingCol = col;
+		if(col != null && isFillable()) {
+			fillingCol.set(col);
+		}
 	}
 
 	@Override
@@ -899,5 +901,10 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public @NonNull ObjectProperty<Color> gradColEndProperty() {
 		return gradColEnd;
+	}
+
+	@Override
+	public @NonNull ObjectProperty<Color> fillingColProperty() {
+		return fillingCol;
 	}
 }

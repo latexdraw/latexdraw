@@ -46,4 +46,6 @@ public interface ISingleShape extends IShape {
 	@NonNull ObjectProperty<Color> gradColStartProperty();
 
 	@NonNull ObjectProperty<Color> gradColEndProperty();
+
+	@NonNull ObjectProperty<Color> fillingColProperty();
 }

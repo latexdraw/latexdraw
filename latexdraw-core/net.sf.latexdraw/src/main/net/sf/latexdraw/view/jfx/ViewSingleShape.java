@@ -88,6 +88,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.fillingProperty().addListener(borderFillCall);
 			model.gradColStartProperty().addListener(ColFillCall);
 			model.gradColEndProperty().addListener(ColFillCall);
+			model.fillingColProperty().addListener(ColFillCall);
 			border.setFill(getFillingPaint(model.getFillingStyle()));
 		}
 
@@ -270,6 +271,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.fillingProperty().removeListener(borderFillCall);
 			model.gradColStartProperty().removeListener(ColFillCall);
 			model.gradColEndProperty().removeListener(ColFillCall);
+			model.fillingColProperty().removeListener(ColFillCall);
 		}
 
 		border.strokeProperty().unbind();

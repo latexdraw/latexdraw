@@ -281,6 +281,15 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	}
 
 	@Test
+	public void testFillPlainColor() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.PLAIN);
+			model.setFillingCol(DviPsColors.OLIVEGREEN);
+			assertEquals(DviPsColors.OLIVEGREEN.toJFX(), border.getFill());
+		}
+	}
+
+	@Test
 	public void testFillNone() {
 		if(model.isFillable()) {
 			model.setFillingStyle(FillingStyle.PLAIN);
