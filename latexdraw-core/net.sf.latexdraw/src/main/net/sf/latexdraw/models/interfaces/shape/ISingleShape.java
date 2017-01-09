@@ -42,4 +42,8 @@ public interface ISingleShape extends IShape {
 	@NonNull DoubleProperty dbleBordSepProperty();
 
 	@NonNull ObjectProperty<Color> dbleBordColProperty();
+
+	@NonNull ObjectProperty<Color> gradColStartProperty();
+
+	@NonNull ObjectProperty<Color> gradColEndProperty();
 }

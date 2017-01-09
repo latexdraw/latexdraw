@@ -2,10 +2,12 @@ package test.views.jfx;
 
 import java.util.Arrays;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.view.jfx.ViewFactory;
@@ -267,6 +269,51 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 			model.setLineStyle(LineStyle.DOTTED);
 			model.setDotSep(23.23);
 			assertEquals(Arrays.asList(0d, 23.23 + model.getFullThickness()), border.getStrokeDashArray());
+		}
+	}
+
+	@Test
+	public void testFillPlain() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.PLAIN);
+			assertEquals(Color.WHITE, border.getFill());
+		}
+	}
+
+	@Test
+	public void testFillNone() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.PLAIN);
+			model.setFillingStyle(FillingStyle.NONE);
+			assertNull(border.getFill());
+		}
+	}
+
+	@Test
+	public void testFillGradient() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.GRAD);
+			assertTrue(border.getFill() instanceof LinearGradient);
+		}
+	}
+
+	@Test
+	public void testFillGradientColor1() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.GRAD);
+			model.setGradColStart(DviPsColors.DANDELION);
+			LinearGradient grad = (LinearGradient) border.getFill();
+			assertEquals(DviPsColors.DANDELION.toJFX(), grad.getStops().get(0).getColor());
+		}
+	}
+
+	@Test
+	public void testFillGradientColor2() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.GRAD);
+			model.setGradColEnd(DviPsColors.BRICKRED);
+			LinearGradient grad = (LinearGradient) border.getFill();
+			assertEquals(DviPsColors.BRICKRED.toJFX(), grad.getStops().get(1).getColor());
 		}
 	}
 }

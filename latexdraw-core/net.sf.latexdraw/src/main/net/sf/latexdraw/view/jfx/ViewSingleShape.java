@@ -44,8 +44,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	protected final @NonNull T border = createJFXShape();
 	protected final @Nullable T dblBorder;
 
-	protected final ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
-	protected final ChangeListener<FillingStyle> borderFillCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(newVal));
+	private final ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
+	private final ChangeListener<FillingStyle> borderFillCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(newVal));
+	private final ChangeListener<Color> ColFillCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(model.getFillingStyle()));
 
 
 	/**
@@ -85,6 +86,8 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 
 		if(model.isFillable()) {
 			model.fillingProperty().addListener(borderFillCall);
+			model.gradColStartProperty().addListener(ColFillCall);
+			model.gradColEndProperty().addListener(ColFillCall);
 			border.setFill(getFillingPaint(model.getFillingStyle()));
 		}
 
@@ -265,6 +268,8 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 
 		if(model.isFillable()) {
 			model.fillingProperty().removeListener(borderFillCall);
+			model.gradColStartProperty().removeListener(ColFillCall);
+			model.gradColEndProperty().removeListener(ColFillCall);
 		}
 
 		border.strokeProperty().unbind();

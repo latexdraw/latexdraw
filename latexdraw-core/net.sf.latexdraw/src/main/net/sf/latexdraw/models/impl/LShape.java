@@ -63,10 +63,10 @@ abstract class LShape implements ISingleShape {
 	protected @NonNull Color fillingCol;
 
 	/** The start colour of the gradient. */
-	protected Color gradColStart;
+	protected final @NonNull ObjectProperty<Color> gradColStart;
 
 	/** The end colour of the gradient. */
-	protected Color gradColEnd;
+	protected final @NonNull ObjectProperty<Color> gradColEnd;
 
 	/** The angle of the gradient in radian. */
 	protected double gradAngle;
@@ -150,8 +150,8 @@ abstract class LShape implements ISingleShape {
 		dbleBordSep = new SimpleDoubleProperty(6d);
 		shadowCol = PSTricksConstants.DEFAULT_SHADOW_COLOR;
 		shadowSize = PSTricksConstants.DEFAULT_SHADOW_SIZE * PPC;
-		gradColStart = PSTricksConstants.DEFAULT_GRADIENT_START_COLOR;
-		gradColEnd = PSTricksConstants.DEFAULT_GRADIENT_END_COLOR;
+		gradColStart = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_GRADIENT_START_COLOR);
+		gradColEnd = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_GRADIENT_END_COLOR);
 		gradMidPt = PSTricksConstants.DEFAULT_GRADIENT_MID_POINT;
 		showPts = false;
 		points = FXCollections.observableArrayList();
@@ -295,12 +295,12 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public Color getGradColEnd() {
-		return gradColEnd;
+		return gradColEnd.get();
 	}
 
 	@Override
 	public Color getGradColStart() {
-		return gradColStart;
+		return gradColStart.get();
 	}
 
 	@Override
@@ -582,12 +582,16 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setGradColEnd(final Color col) {
-		if(col != null && isInteriorStylable()) gradColEnd = col;
+		if(col != null && isInteriorStylable()) {
+			gradColEnd.set(col);
+		}
 	}
 
 	@Override
 	public void setGradColStart(final Color col) {
-		if(col != null && isInteriorStylable()) gradColStart = col;
+		if(col != null && isInteriorStylable()) {
+			gradColStart.set(col);
+		}
 	}
 
 	@Override
@@ -885,5 +889,15 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public @NonNull ObjectProperty<Color> dbleBordColProperty() {
 		return dbleBordCol;
+	}
+
+	@Override
+	public @NonNull ObjectProperty<Color> gradColStartProperty() {
+		return gradColStart;
+	}
+
+	@Override
+	public @NonNull ObjectProperty<Color> gradColEndProperty() {
+		return gradColEnd;
 	}
 }
