@@ -30,8 +30,8 @@ public class ViewEllipse extends ViewSingleShape<IEllipse, Ellipse> {
 
 		border.centerXProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getX(), model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
 		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).yProperty(), model.getPtAt(1).yProperty()));
-		border.radiusXProperty().bind(Bindings.createDoubleBinding(model::getA, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
-		border.radiusYProperty().bind(Bindings.createDoubleBinding(model::getB, model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
+		border.radiusXProperty().bind(Bindings.createDoubleBinding(() -> model.getWidth()/2d, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
+		border.radiusYProperty().bind(Bindings.createDoubleBinding(() -> model.getHeight()/2d, model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
 	}
 
 	@Override
