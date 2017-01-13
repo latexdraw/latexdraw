@@ -1,19 +1,17 @@
 package test.models.interfaces;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-
 import org.junit.Test;
 
-import test.HelperTest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 
@@ -63,87 +61,87 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 
 	@Test
 	public void testGetStep() {
-		HelperTest.assertEqualsDouble(IShape.PPC, shape.getStep());
+		assertEqualsDouble(IShape.PPC, shape.getStep());
 	}
 
 	@Test
 	public void testGetSetIncrementX() {
 		shape.setIncrementX(10);
-		HelperTest.assertEqualsDouble(10., shape.getIncrementX());
+		assertEqualsDouble(10., shape.getIncrementX());
 		shape.setIncrementX(0.1);
-		HelperTest.assertEqualsDouble(0.1, shape.getIncrementX());
+		assertEqualsDouble(0.1, shape.getIncrementX());
 		shape.setIncrementX(100.5);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementX());
+		assertEqualsDouble(100.5, shape.getIncrementX());
 		shape.setIncrementX(0);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementX());
+		assertEqualsDouble(100.5, shape.getIncrementX());
 		shape.setIncrementX(-10.5);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementX());
+		assertEqualsDouble(100.5, shape.getIncrementX());
 		shape.setIncrementX(Double.NaN);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementX());
+		assertEqualsDouble(100.5, shape.getIncrementX());
 		shape.setIncrementX(Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementX());
+		assertEqualsDouble(100.5, shape.getIncrementX());
 		shape.setIncrementX(Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementX());
+		assertEqualsDouble(100.5, shape.getIncrementX());
 	}
 
 	@Test
 	public void testGetSetIncrementY() {
 		shape.setIncrementY(10);
-		HelperTest.assertEqualsDouble(10., shape.getIncrementY());
+		assertEqualsDouble(10., shape.getIncrementY());
 		shape.setIncrementY(0.1);
-		HelperTest.assertEqualsDouble(0.1, shape.getIncrementY());
+		assertEqualsDouble(0.1, shape.getIncrementY());
 		shape.setIncrementY(100.5);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementY());
+		assertEqualsDouble(100.5, shape.getIncrementY());
 		shape.setIncrementY(0);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementY());
+		assertEqualsDouble(100.5, shape.getIncrementY());
 		shape.setIncrementY(-10.5);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementY());
+		assertEqualsDouble(100.5, shape.getIncrementY());
 		shape.setIncrementY(Double.NaN);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementY());
+		assertEqualsDouble(100.5, shape.getIncrementY());
 		shape.setIncrementY(Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementY());
+		assertEqualsDouble(100.5, shape.getIncrementY());
 		shape.setIncrementY(Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(100.5, shape.getIncrementY());
+		assertEqualsDouble(100.5, shape.getIncrementY());
 	}
 
 	@Test
 	public void testGetSetDistLabelsX() {
 		shape.setDistLabelsX(10);
-		HelperTest.assertEqualsDouble(10., shape.getDistLabelsX());
+		assertEqualsDouble(10., shape.getDistLabelsX());
 		shape.setDistLabelsX(0.1);
-		HelperTest.assertEqualsDouble(0.1, shape.getDistLabelsX());
+		assertEqualsDouble(0.1, shape.getDistLabelsX());
 		shape.setDistLabelsX(100.5);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsX());
+		assertEqualsDouble(100.5, shape.getDistLabelsX());
 		shape.setDistLabelsX(0);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsX());
+		assertEqualsDouble(100.5, shape.getDistLabelsX());
 		shape.setDistLabelsX(-10.5);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsX());
+		assertEqualsDouble(100.5, shape.getDistLabelsX());
 		shape.setDistLabelsX(Double.NaN);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsX());
+		assertEqualsDouble(100.5, shape.getDistLabelsX());
 		shape.setDistLabelsX(Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsX());
+		assertEqualsDouble(100.5, shape.getDistLabelsX());
 		shape.setDistLabelsX(Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsX());
+		assertEqualsDouble(100.5, shape.getDistLabelsX());
 	}
 
 	@Test
 	public void testGetSetDistLabelsY() {
 		shape.setDistLabelsY(10);
-		HelperTest.assertEqualsDouble(10., shape.getDistLabelsY());
+		assertEqualsDouble(10., shape.getDistLabelsY());
 		shape.setDistLabelsY(0.1);
-		HelperTest.assertEqualsDouble(0.1, shape.getDistLabelsY());
+		assertEqualsDouble(0.1, shape.getDistLabelsY());
 		shape.setDistLabelsY(100.5);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsY());
+		assertEqualsDouble(100.5, shape.getDistLabelsY());
 		shape.setDistLabelsY(0);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsY());
+		assertEqualsDouble(100.5, shape.getDistLabelsY());
 		shape.setDistLabelsY(-10.5);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsY());
+		assertEqualsDouble(100.5, shape.getDistLabelsY());
 		shape.setDistLabelsY(Double.NaN);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsY());
+		assertEqualsDouble(100.5, shape.getDistLabelsY());
 		shape.setDistLabelsY(Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsY());
+		assertEqualsDouble(100.5, shape.getDistLabelsY());
 		shape.setDistLabelsY(Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsY());
+		assertEqualsDouble(100.5, shape.getDistLabelsY());
 	}
 
 	@Test
@@ -205,21 +203,21 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 	@Test
 	public void testGetSetTicksSize() {
 		shape.setTicksSize(10);
-		HelperTest.assertEqualsDouble(10., shape.getTicksSize());
+		assertEqualsDouble(10., shape.getTicksSize());
 		shape.setTicksSize(0.1);
-		HelperTest.assertEqualsDouble(0.1, shape.getTicksSize());
+		assertEqualsDouble(0.1, shape.getTicksSize());
 		shape.setTicksSize(100.5);
-		HelperTest.assertEqualsDouble(100.5, shape.getTicksSize());
+		assertEqualsDouble(100.5, shape.getTicksSize());
 		shape.setTicksSize(0);
-		HelperTest.assertEqualsDouble(100.5, shape.getTicksSize());
+		assertEqualsDouble(100.5, shape.getTicksSize());
 		shape.setTicksSize(-10.5);
-		HelperTest.assertEqualsDouble(100.5, shape.getTicksSize());
+		assertEqualsDouble(100.5, shape.getTicksSize());
 		shape.setTicksSize(Double.NaN);
-		HelperTest.assertEqualsDouble(100.5, shape.getTicksSize());
+		assertEqualsDouble(100.5, shape.getTicksSize());
 		shape.setTicksSize(Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(100.5, shape.getTicksSize());
+		assertEqualsDouble(100.5, shape.getTicksSize());
 		shape.setTicksSize(Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(100.5, shape.getTicksSize());
+		assertEqualsDouble(100.5, shape.getTicksSize());
 	}
 
 	@Test
@@ -253,14 +251,14 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 
 		shape.copy(shape2);
 
-		HelperTest.assertEqualsDouble(shape2.getIncrementX(), shape.getIncrementX());
-		HelperTest.assertEqualsDouble(shape2.getIncrementY(), shape.getIncrementY());
+		assertEqualsDouble(shape2.getIncrementX(), shape.getIncrementX());
+		assertEqualsDouble(shape2.getIncrementY(), shape.getIncrementY());
 		assertEquals(shape2.getAxesStyle(), shape.getAxesStyle());
-		HelperTest.assertEqualsDouble(shape2.getTicksSize(), shape.getTicksSize());
+		assertEqualsDouble(shape2.getTicksSize(), shape.getTicksSize());
 		assertEquals(shape2.getTicksDisplayed(), shape.getTicksDisplayed());
 		assertEquals(shape2.getTicksStyle(), shape.getTicksStyle());
-		HelperTest.assertEqualsDouble(shape2.getDistLabelsX(), shape.getDistLabelsX());
-		HelperTest.assertEqualsDouble(shape2.getDistLabelsY(), shape.getDistLabelsY());
+		assertEqualsDouble(shape2.getDistLabelsX(), shape.getDistLabelsX());
+		assertEqualsDouble(shape2.getDistLabelsY(), shape.getDistLabelsY());
 		assertEquals(shape2.isShowOrigin(), shape.isShowOrigin());
 	}
 
@@ -282,14 +280,14 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		IAxes s2 = (IAxes)shape.duplicate();
 
 		assertNotNull(s2);
-		HelperTest.assertEqualsDouble(s2.getIncrementX(), shape.getIncrementX());
-		HelperTest.assertEqualsDouble(s2.getIncrementY(), shape.getIncrementY());
+		assertEqualsDouble(s2.getIncrementX(), shape.getIncrementX());
+		assertEqualsDouble(s2.getIncrementY(), shape.getIncrementY());
 		assertEquals(s2.getAxesStyle(), shape.getAxesStyle());
-		HelperTest.assertEqualsDouble(s2.getTicksSize(), shape.getTicksSize());
+		assertEqualsDouble(s2.getTicksSize(), shape.getTicksSize());
 		assertEquals(s2.getTicksDisplayed(), shape.getTicksDisplayed());
 		assertEquals(s2.getTicksStyle(), shape.getTicksStyle());
-		HelperTest.assertEqualsDouble(s2.getDistLabelsX(), shape.getDistLabelsX());
-		HelperTest.assertEqualsDouble(s2.getDistLabelsY(), shape.getDistLabelsY());
+		assertEqualsDouble(s2.getDistLabelsX(), shape.getDistLabelsX());
+		assertEqualsDouble(s2.getDistLabelsY(), shape.getDistLabelsY());
 		assertEquals(s2.isShowOrigin(), shape.isShowOrigin());
 	}
 
@@ -297,11 +295,11 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 	@Test
 	public void testGetBottomLeftPoint() {
 		shape.setPosition(10, 20);
-		HelperTest.assertEqualsDouble(10., shape.getBottomLeftPoint().getX());
-		HelperTest.assertEqualsDouble(20., shape.getBottomLeftPoint().getY());
+		assertEqualsDouble(10., shape.getBottomLeftPoint().getX());
+		assertEqualsDouble(20., shape.getBottomLeftPoint().getY());
 		shape.setPosition(-10, -20);
-		HelperTest.assertEqualsDouble(-10., shape.getBottomLeftPoint().getX());
-		HelperTest.assertEqualsDouble(-20., shape.getBottomLeftPoint().getY());
+		assertEqualsDouble(-10., shape.getBottomLeftPoint().getX());
+		assertEqualsDouble(-20., shape.getBottomLeftPoint().getY());
 	}
 
 	@Override
@@ -311,8 +309,8 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 
-		HelperTest.assertEqualsDouble(10. + IShape.PPC * 50., shape.getBottomRightPoint().getX());
-		HelperTest.assertEqualsDouble(10. - IShape.PPC * -100., shape.getBottomRightPoint().getY());
+		assertEqualsDouble(10. + IShape.PPC * 50., shape.getBottomRightPoint().getX());
+		assertEqualsDouble(10. - IShape.PPC * -100., shape.getBottomRightPoint().getY());
 	}
 
 	@Override
@@ -322,8 +320,8 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 
-		HelperTest.assertEqualsDouble(10. - 200. * IShape.PPC, shape.getTopLeftPoint().getX());
-		HelperTest.assertEqualsDouble(10. - 75. * IShape.PPC, shape.getTopLeftPoint().getY());
+		assertEqualsDouble(10. - 200. * IShape.PPC, shape.getTopLeftPoint().getX());
+		assertEqualsDouble(10. - 75. * IShape.PPC, shape.getTopLeftPoint().getY());
 	}
 
 	@Override
@@ -333,8 +331,8 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 
-		HelperTest.assertEqualsDouble(IShape.PPC * 250., shape.getTopRightPoint().getX());
-		HelperTest.assertEqualsDouble(-IShape.PPC * 175., shape.getTopRightPoint().getY());
+		assertEqualsDouble(IShape.PPC * 250., shape.getTopRightPoint().getX());
+		assertEqualsDouble(-IShape.PPC * 175., shape.getTopRightPoint().getY());
 	}
 
 	@Override
@@ -345,8 +343,8 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		shape.setGridEnd(10, 10);
 
 		shape.mirrorHorizontal(ShapeFactory.INST.createPoint(IShape.PPC * 10., 0.));
-		HelperTest.assertEqualsDouble(IShape.PPC * 10., shape.getPosition().getX());
-		HelperTest.assertEqualsDouble(0., shape.getPosition().getY());
+		assertEqualsDouble(IShape.PPC * 10., shape.getPosition().getX());
+		assertEqualsDouble(0., shape.getPosition().getY());
 	}
 
 	@Override
@@ -357,7 +355,7 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		shape.setGridEnd(10, 10);
 
 		shape.mirrorVertical(ShapeFactory.INST.createPoint(0., -IShape.PPC * 10.));
-		HelperTest.assertEqualsDouble(0., shape.getPosition().getX());
-		HelperTest.assertEqualsDouble(-IShape.PPC * 10., shape.getPosition().getY());
+		assertEqualsDouble(0., shape.getPosition().getX());
+		assertEqualsDouble(-IShape.PPC * 10., shape.getPosition().getY());
 	}
 }

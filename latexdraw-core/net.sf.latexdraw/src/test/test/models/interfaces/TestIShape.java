@@ -16,7 +16,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public abstract class TestIShape<T extends IShape> {
+public abstract class TestIShape<T extends IShape> implements HelperTest {
 	public T shape;
 
 	public T shape2;
@@ -102,16 +102,16 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(BorderPos.MID, shape2.getBordersPosition());
 		}
 		if(shape.isLineStylable()) {
-			HelperTest.assertEqualsDouble(shape.getDashSepBlack(), shape2.getDashSepBlack());
-			HelperTest.assertEqualsDouble(shape.getDashSepWhite(), shape2.getDashSepWhite());
-			HelperTest.assertEqualsDouble(shape.getDotSep(), shape2.getDotSep());
+			assertEqualsDouble(shape.getDashSepBlack(), shape2.getDashSepBlack());
+			assertEqualsDouble(shape.getDashSepWhite(), shape2.getDashSepWhite());
+			assertEqualsDouble(shape.getDotSep(), shape2.getDotSep());
 			assertEquals(shape.getLineStyle(), shape2.getLineStyle());
 			assertEquals(shape.getLineColour(), shape2.getLineColour());
-			HelperTest.assertEqualsDouble(shape.getThickness(), shape2.getThickness());
+			assertEqualsDouble(shape.getThickness(), shape2.getThickness());
 		}
 		if(shape.isDbleBorderable()) {
 			assertEquals(shape.getDbleBordCol(), shape2.getDbleBordCol());
-			HelperTest.assertEqualsDouble(shape.getDbleBordSep(), shape2.getDbleBordSep());
+			assertEqualsDouble(shape.getDbleBordSep(), shape2.getDbleBordSep());
 			assertEquals(shape.hasDbleBord(), shape2.hasDbleBord());
 		}
 		if(shape.isFillable()) {
@@ -120,25 +120,25 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(shape.getFillingStyle(), shape2.getFillingStyle());
 		}
 		if(shape.isInteriorStylable()) {
-			HelperTest.assertEqualsDouble(shape.getGradAngle(), shape2.getGradAngle());
+			assertEqualsDouble(shape.getGradAngle(), shape2.getGradAngle());
 			assertEquals(shape.getGradColEnd(), shape2.getGradColEnd());
 			assertEquals(shape.getGradColStart(), shape2.getGradColStart());
-			HelperTest.assertEqualsDouble(shape.getGradMidPt(), shape2.getGradMidPt());
-			HelperTest.assertEqualsDouble(shape.getHatchingsAngle(), shape2.getHatchingsAngle());
+			assertEqualsDouble(shape.getGradMidPt(), shape2.getGradMidPt());
+			assertEqualsDouble(shape.getHatchingsAngle(), shape2.getHatchingsAngle());
 			assertEquals(shape.getHatchingsCol(), shape2.getHatchingsCol());
-			HelperTest.assertEqualsDouble(shape.getHatchingsSep(), shape2.getHatchingsSep());
-			HelperTest.assertEqualsDouble(shape.getHatchingsWidth(), shape2.getHatchingsWidth());
+			assertEqualsDouble(shape.getHatchingsSep(), shape2.getHatchingsSep());
+			assertEqualsDouble(shape.getHatchingsWidth(), shape2.getHatchingsWidth());
 		}
 		if(shape.isShadowable()) {
 			assertEquals(shape.hasShadow(), shape2.hasShadow());
-			HelperTest.assertEqualsDouble(shape.getShadowAngle(), shape2.getShadowAngle());
-			HelperTest.assertEqualsDouble(shape.getShadowSize(), shape2.getShadowSize());
+			assertEqualsDouble(shape.getShadowAngle(), shape2.getShadowAngle());
+			assertEqualsDouble(shape.getShadowSize(), shape2.getShadowSize());
 			assertEquals(shape.getShadowCol(), shape2.getShadowCol());
 		}
 		if(shape.isShowPtsable())
 			assertEquals(shape.isShowPts(), shape2.isShowPts());
 
-		HelperTest.assertEqualsDouble(shape.getRotationAngle(), shape2.getRotationAngle());
+		assertEqualsDouble(shape.getRotationAngle(), shape2.getRotationAngle());
 
 		assertEquals(shape.getPoints().size(), shape2.getPoints().size());
 
@@ -370,15 +370,15 @@ public abstract class TestIShape<T extends IShape> {
 	public void testGetSetGradAngle() {
 		if(shape.isInteriorStylable()) {
 			shape.setGradAngle(30.);
-			HelperTest.assertEqualsDouble(30., shape.getGradAngle());
+			assertEqualsDouble(30., shape.getGradAngle());
 			shape.setGradAngle(20.);
-			HelperTest.assertEqualsDouble(20., shape.getGradAngle());
+			assertEqualsDouble(20., shape.getGradAngle());
 			shape.setGradAngle(Double.NaN);
-			HelperTest.assertEqualsDouble(20., shape.getGradAngle());
+			assertEqualsDouble(20., shape.getGradAngle());
 			shape.setGradAngle(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getGradAngle());
+			assertEqualsDouble(20., shape.getGradAngle());
 			shape.setGradAngle(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getGradAngle());
+			assertEqualsDouble(20., shape.getGradAngle());
 		}
 	}
 
@@ -386,23 +386,23 @@ public abstract class TestIShape<T extends IShape> {
 	public void testGetSetGradMidPt() {
 		if(shape.isInteriorStylable()) {
 			shape.setGradMidPt(0.2);
-			HelperTest.assertEqualsDouble(0.2, shape.getGradMidPt());
+			assertEqualsDouble(0.2, shape.getGradMidPt());
 			shape.setGradMidPt(0.4);
-			HelperTest.assertEqualsDouble(0.4, shape.getGradMidPt());
+			assertEqualsDouble(0.4, shape.getGradMidPt());
 			shape.setGradMidPt(Double.NaN);
-			HelperTest.assertEqualsDouble(0.4, shape.getGradMidPt());
+			assertEqualsDouble(0.4, shape.getGradMidPt());
 			shape.setGradMidPt(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(0.4, shape.getGradMidPt());
+			assertEqualsDouble(0.4, shape.getGradMidPt());
 			shape.setGradMidPt(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(0.4, shape.getGradMidPt());
+			assertEqualsDouble(0.4, shape.getGradMidPt());
 			shape.setGradMidPt(0);
-			HelperTest.assertEqualsDouble(0., shape.getGradMidPt());
+			assertEqualsDouble(0., shape.getGradMidPt());
 			shape.setGradMidPt(1);
-			HelperTest.assertEqualsDouble(1., shape.getGradMidPt());
+			assertEqualsDouble(1., shape.getGradMidPt());
 			shape.setGradMidPt(1.0001);
-			HelperTest.assertEqualsDouble(1., shape.getGradMidPt());
+			assertEqualsDouble(1., shape.getGradMidPt());
 			shape.setGradMidPt(-0.0001);
-			HelperTest.assertEqualsDouble(1., shape.getGradMidPt());
+			assertEqualsDouble(1., shape.getGradMidPt());
 		}
 	}
 
@@ -410,19 +410,19 @@ public abstract class TestIShape<T extends IShape> {
 	public void testGetSetHatchingsSep() {
 		if(shape.isInteriorStylable()) {
 			shape.setHatchingsSep(30.);
-			HelperTest.assertEqualsDouble(30., shape.getHatchingsSep());
+			assertEqualsDouble(30., shape.getHatchingsSep());
 			shape.setHatchingsSep(20.);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsSep());
+			assertEqualsDouble(20., shape.getHatchingsSep());
 			shape.setHatchingsSep(Double.NaN);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsSep());
+			assertEqualsDouble(20., shape.getHatchingsSep());
 			shape.setHatchingsSep(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsSep());
+			assertEqualsDouble(20., shape.getHatchingsSep());
 			shape.setHatchingsSep(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsSep());
+			assertEqualsDouble(20., shape.getHatchingsSep());
 			shape.setHatchingsSep(0);
-			HelperTest.assertEqualsDouble(0., shape.getHatchingsSep());
+			assertEqualsDouble(0., shape.getHatchingsSep());
 			shape.setHatchingsSep(-1);
-			HelperTest.assertEqualsDouble(0., shape.getHatchingsSep());
+			assertEqualsDouble(0., shape.getHatchingsSep());
 		}
 	}
 
@@ -442,19 +442,19 @@ public abstract class TestIShape<T extends IShape> {
 	public void testGetSetHatchingsAngle() {
 		if(shape.isInteriorStylable()) {
 			shape.setHatchingsAngle(30.);
-			HelperTest.assertEqualsDouble(30., shape.getHatchingsAngle());
+			assertEqualsDouble(30., shape.getHatchingsAngle());
 			shape.setHatchingsAngle(20.);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsAngle());
+			assertEqualsDouble(20., shape.getHatchingsAngle());
 			shape.setHatchingsAngle(Double.NaN);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsAngle());
+			assertEqualsDouble(20., shape.getHatchingsAngle());
 			shape.setHatchingsAngle(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsAngle());
+			assertEqualsDouble(20., shape.getHatchingsAngle());
 			shape.setHatchingsAngle(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsAngle());
+			assertEqualsDouble(20., shape.getHatchingsAngle());
 			shape.setHatchingsAngle(0);
-			HelperTest.assertEqualsDouble(0., shape.getHatchingsAngle());
+			assertEqualsDouble(0., shape.getHatchingsAngle());
 			shape.setHatchingsAngle(-30);
-			HelperTest.assertEqualsDouble(-30., shape.getHatchingsAngle());
+			assertEqualsDouble(-30., shape.getHatchingsAngle());
 		}
 	}
 
@@ -462,38 +462,38 @@ public abstract class TestIShape<T extends IShape> {
 	public void testGetSetHatchingsWidth() {
 		if(shape.isInteriorStylable()) {
 			shape.setHatchingsWidth(30.);
-			HelperTest.assertEqualsDouble(30., shape.getHatchingsWidth());
+			assertEqualsDouble(30., shape.getHatchingsWidth());
 			shape.setHatchingsWidth(20.);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsWidth());
+			assertEqualsDouble(20., shape.getHatchingsWidth());
 			shape.setHatchingsWidth(Double.NaN);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsWidth());
+			assertEqualsDouble(20., shape.getHatchingsWidth());
 			shape.setHatchingsWidth(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsWidth());
+			assertEqualsDouble(20., shape.getHatchingsWidth());
 			shape.setHatchingsWidth(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsWidth());
+			assertEqualsDouble(20., shape.getHatchingsWidth());
 			shape.setHatchingsWidth(0);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsWidth());
+			assertEqualsDouble(20., shape.getHatchingsWidth());
 			shape.setHatchingsWidth(-1);
-			HelperTest.assertEqualsDouble(20., shape.getHatchingsWidth());
+			assertEqualsDouble(20., shape.getHatchingsWidth());
 		}
 	}
 
 	@Test
 	public void testGetSetRotationAngle() {
 		shape.setRotationAngle(30.);
-		HelperTest.assertEqualsDouble(30., shape.getRotationAngle());
+		assertEqualsDouble(30., shape.getRotationAngle());
 		shape.setRotationAngle(20.);
-		HelperTest.assertEqualsDouble(20., shape.getRotationAngle());
+		assertEqualsDouble(20., shape.getRotationAngle());
 		shape.setRotationAngle(Double.NaN);
-		HelperTest.assertEqualsDouble(20., shape.getRotationAngle());
+		assertEqualsDouble(20., shape.getRotationAngle());
 		shape.setRotationAngle(Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(20., shape.getRotationAngle());
+		assertEqualsDouble(20., shape.getRotationAngle());
 		shape.setRotationAngle(Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(20., shape.getRotationAngle());
+		assertEqualsDouble(20., shape.getRotationAngle());
 		shape.setRotationAngle(0);
-		HelperTest.assertEqualsDouble(0., shape.getRotationAngle());
+		assertEqualsDouble(0., shape.getRotationAngle());
 		shape.setRotationAngle(-30);
-		HelperTest.assertEqualsDouble(-30., shape.getRotationAngle());
+		assertEqualsDouble(-30., shape.getRotationAngle());
 	}
 
 	@Test
@@ -532,19 +532,19 @@ public abstract class TestIShape<T extends IShape> {
 	public void testGetSetDbleBordSep() {
 		if(shape.isDbleBorderable()) {
 			shape.setDbleBordSep(30.);
-			HelperTest.assertEqualsDouble(30., shape.getDbleBordSep());
+			assertEqualsDouble(30., shape.getDbleBordSep());
 			shape.setDbleBordSep(20.);
-			HelperTest.assertEqualsDouble(20., shape.getDbleBordSep());
+			assertEqualsDouble(20., shape.getDbleBordSep());
 			shape.setDbleBordSep(Double.NaN);
-			HelperTest.assertEqualsDouble(20., shape.getDbleBordSep());
+			assertEqualsDouble(20., shape.getDbleBordSep());
 			shape.setDbleBordSep(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getDbleBordSep());
+			assertEqualsDouble(20., shape.getDbleBordSep());
 			shape.setDbleBordSep(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getDbleBordSep());
+			assertEqualsDouble(20., shape.getDbleBordSep());
 			shape.setDbleBordSep(0);
-			HelperTest.assertEqualsDouble(0., shape.getDbleBordSep());
+			assertEqualsDouble(0., shape.getDbleBordSep());
 			shape.setDbleBordSep(-1);
-			HelperTest.assertEqualsDouble(0., shape.getDbleBordSep());
+			assertEqualsDouble(0., shape.getDbleBordSep());
 		}
 	}
 
@@ -574,19 +574,19 @@ public abstract class TestIShape<T extends IShape> {
 	public void testGetSetShadowAngle() {
 		if(shape.isShadowable()) {
 			shape.setShadowAngle(30.);
-			HelperTest.assertEqualsDouble(30., shape.getShadowAngle());
+			assertEqualsDouble(30., shape.getShadowAngle());
 			shape.setShadowAngle(20.);
-			HelperTest.assertEqualsDouble(20., shape.getShadowAngle());
+			assertEqualsDouble(20., shape.getShadowAngle());
 			shape.setShadowAngle(Double.NaN);
-			HelperTest.assertEqualsDouble(20., shape.getShadowAngle());
+			assertEqualsDouble(20., shape.getShadowAngle());
 			shape.setShadowAngle(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getShadowAngle());
+			assertEqualsDouble(20., shape.getShadowAngle());
 			shape.setShadowAngle(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getShadowAngle());
+			assertEqualsDouble(20., shape.getShadowAngle());
 			shape.setShadowAngle(0);
-			HelperTest.assertEqualsDouble(0., shape.getShadowAngle());
+			assertEqualsDouble(0., shape.getShadowAngle());
 			shape.setShadowAngle(-30);
-			HelperTest.assertEqualsDouble(-30., shape.getShadowAngle());
+			assertEqualsDouble(-30., shape.getShadowAngle());
 		}
 	}
 
@@ -604,36 +604,36 @@ public abstract class TestIShape<T extends IShape> {
 	public void testAddToRotationAngle() {
 		shape.setRotationAngle(0);
 		shape.addToRotationAngle(null, 30.5);
-		HelperTest.assertEqualsDouble(30.5, shape.getRotationAngle());
+		assertEqualsDouble(30.5, shape.getRotationAngle());
 		shape.addToRotationAngle(null, -41);
-		HelperTest.assertEqualsDouble(-10.5, shape.getRotationAngle());
+		assertEqualsDouble(-10.5, shape.getRotationAngle());
 		shape.addToRotationAngle(null, Double.NaN);
-		HelperTest.assertEqualsDouble(-10.5, shape.getRotationAngle());
+		assertEqualsDouble(-10.5, shape.getRotationAngle());
 		shape.addToRotationAngle(null, Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(-10.5, shape.getRotationAngle());
+		assertEqualsDouble(-10.5, shape.getRotationAngle());
 		shape.addToRotationAngle(null, Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(-10.5, shape.getRotationAngle());
+		assertEqualsDouble(-10.5, shape.getRotationAngle());
 		shape.addToRotationAngle(null, 10.5);
-		HelperTest.assertEqualsDouble(0., shape.getRotationAngle());
+		assertEqualsDouble(0., shape.getRotationAngle());
 	}
 
 	@Test
 	public void testGetSetShadowSize() {
 		if(shape.isShadowable()) {
 			shape.setShadowSize(30.);
-			HelperTest.assertEqualsDouble(30., shape.getShadowSize());
+			assertEqualsDouble(30., shape.getShadowSize());
 			shape.setShadowSize(20.);
-			HelperTest.assertEqualsDouble(20., shape.getShadowSize());
+			assertEqualsDouble(20., shape.getShadowSize());
 			shape.setShadowSize(Double.NaN);
-			HelperTest.assertEqualsDouble(20., shape.getShadowSize());
+			assertEqualsDouble(20., shape.getShadowSize());
 			shape.setShadowSize(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getShadowSize());
+			assertEqualsDouble(20., shape.getShadowSize());
 			shape.setShadowSize(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(20., shape.getShadowSize());
+			assertEqualsDouble(20., shape.getShadowSize());
 			shape.setShadowSize(0);
-			HelperTest.assertEqualsDouble(20., shape.getShadowSize());
+			assertEqualsDouble(20., shape.getShadowSize());
 			shape.setShadowSize(-1);
-			HelperTest.assertEqualsDouble(20., shape.getShadowSize());
+			assertEqualsDouble(20., shape.getShadowSize());
 		}
 	}
 
@@ -663,7 +663,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setBordersPosition(BorderPos.INTO);
 		shape.setHasDbleBord(false);
 
-		HelperTest.assertEqualsDouble(0., shape.getBorderGap());
+		assertEqualsDouble(0., shape.getBorderGap());
 
 		if(shape.isThicknessable())
 			shape.setThickness(10.);
@@ -673,7 +673,7 @@ public abstract class TestIShape<T extends IShape> {
 			shape.setDbleBordSep(5.);
 		}
 
-		HelperTest.assertEqualsDouble(0., shape.getBorderGap());
+		assertEqualsDouble(0., shape.getBorderGap());
 		gap = 0.;
 
 		if(!shape.isBordersMovable())
@@ -688,7 +688,7 @@ public abstract class TestIShape<T extends IShape> {
 
 		shape.setHasDbleBord(false);
 
-		HelperTest.assertEqualsDouble(gap, shape.getBorderGap());
+		assertEqualsDouble(gap, shape.getBorderGap());
 		gap = 0.;
 
 		if(shape.isThicknessable()) {
@@ -702,7 +702,7 @@ public abstract class TestIShape<T extends IShape> {
 			gap += shape.getThickness() / 2. + 10.;
 		}
 
-		HelperTest.assertEqualsDouble(gap, shape.getBorderGap());
+		assertEqualsDouble(gap, shape.getBorderGap());
 		gap = 0.;
 
 		shape.setBordersPosition(BorderPos.OUT);
@@ -714,7 +714,7 @@ public abstract class TestIShape<T extends IShape> {
 
 		shape.setHasDbleBord(false);
 
-		HelperTest.assertEqualsDouble(gap, shape.getBorderGap());
+		assertEqualsDouble(gap, shape.getBorderGap());
 		gap = 0.;
 
 		if(shape.isThicknessable()) {
@@ -728,7 +728,7 @@ public abstract class TestIShape<T extends IShape> {
 			gap += shape.getThickness() + 30.;
 		}
 
-		HelperTest.assertEqualsDouble(gap, shape.getBorderGap());
+		assertEqualsDouble(gap, shape.getBorderGap());
 		gap = 0.;
 	}
 
@@ -746,17 +746,17 @@ public abstract class TestIShape<T extends IShape> {
 	public void testSetGetThickness() {
 		if(shape.isThicknessable()) {
 			shape.setThickness(10.);
-			HelperTest.assertEqualsDouble(10., shape.getThickness());
+			assertEqualsDouble(10., shape.getThickness());
 			shape.setThickness(Double.NaN);
-			HelperTest.assertEqualsDouble(10., shape.getThickness());
+			assertEqualsDouble(10., shape.getThickness());
 			shape.setThickness(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(10., shape.getThickness());
+			assertEqualsDouble(10., shape.getThickness());
 			shape.setThickness(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(10., shape.getThickness());
+			assertEqualsDouble(10., shape.getThickness());
 			shape.setThickness(0);
-			HelperTest.assertEqualsDouble(10., shape.getThickness());
+			assertEqualsDouble(10., shape.getThickness());
 			shape.setThickness(-1);
-			HelperTest.assertEqualsDouble(10., shape.getThickness());
+			assertEqualsDouble(10., shape.getThickness());
 		}
 	}
 
@@ -792,19 +792,19 @@ public abstract class TestIShape<T extends IShape> {
 	public void testSetGetDashSepWhite() {
 		if(shape.isLineStylable()) {
 			shape.setDashSepWhite(10.);
-			HelperTest.assertEqualsDouble(shape.getDashSepWhite(), 10.);
+			assertEqualsDouble(shape.getDashSepWhite(), 10.);
 			shape.setDashSepWhite(5.);
-			HelperTest.assertEqualsDouble(shape.getDashSepWhite(), 5.);
+			assertEqualsDouble(shape.getDashSepWhite(), 5.);
 			shape.setDashSepWhite(0.);
-			HelperTest.assertEqualsDouble(shape.getDashSepWhite(), 5.);
+			assertEqualsDouble(shape.getDashSepWhite(), 5.);
 			shape.setDashSepWhite(-10.);
-			HelperTest.assertEqualsDouble(shape.getDashSepWhite(), 5.);
+			assertEqualsDouble(shape.getDashSepWhite(), 5.);
 			shape.setDashSepWhite(Double.NaN);
-			HelperTest.assertEqualsDouble(shape.getDashSepWhite(), 5.);
+			assertEqualsDouble(shape.getDashSepWhite(), 5.);
 			shape.setDashSepWhite(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(shape.getDashSepWhite(), 5.);
+			assertEqualsDouble(shape.getDashSepWhite(), 5.);
 			shape.setDashSepWhite(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(shape.getDashSepWhite(), 5.);
+			assertEqualsDouble(shape.getDashSepWhite(), 5.);
 		}
 	}
 
@@ -812,19 +812,19 @@ public abstract class TestIShape<T extends IShape> {
 	public void testSetGetDashSepBlack() {
 		if(shape.isLineStylable()) {
 			shape.setDashSepBlack(10.);
-			HelperTest.assertEqualsDouble(shape.getDashSepBlack(), 10.);
+			assertEqualsDouble(shape.getDashSepBlack(), 10.);
 			shape.setDashSepBlack(5.);
-			HelperTest.assertEqualsDouble(shape.getDashSepBlack(), 5.);
+			assertEqualsDouble(shape.getDashSepBlack(), 5.);
 			shape.setDashSepBlack(0.);
-			HelperTest.assertEqualsDouble(shape.getDashSepBlack(), 5.);
+			assertEqualsDouble(shape.getDashSepBlack(), 5.);
 			shape.setDashSepBlack(-10.);
-			HelperTest.assertEqualsDouble(shape.getDashSepBlack(), 5.);
+			assertEqualsDouble(shape.getDashSepBlack(), 5.);
 			shape.setDashSepBlack(Double.NaN);
-			HelperTest.assertEqualsDouble(shape.getDashSepBlack(), 5.);
+			assertEqualsDouble(shape.getDashSepBlack(), 5.);
 			shape.setDashSepBlack(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(shape.getDashSepBlack(), 5.);
+			assertEqualsDouble(shape.getDashSepBlack(), 5.);
 			shape.setDashSepBlack(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(shape.getDashSepBlack(), 5.);
+			assertEqualsDouble(shape.getDashSepBlack(), 5.);
 		}
 	}
 
@@ -832,19 +832,19 @@ public abstract class TestIShape<T extends IShape> {
 	public void testSetGetDotSep() {
 		if(shape.isLineStylable()) {
 			shape.setDotSep(10.);
-			HelperTest.assertEqualsDouble(shape.getDotSep(), 10.);
+			assertEqualsDouble(shape.getDotSep(), 10.);
 			shape.setDotSep(5.);
-			HelperTest.assertEqualsDouble(shape.getDotSep(), 5.);
+			assertEqualsDouble(shape.getDotSep(), 5.);
 			shape.setDotSep(0.);
-			HelperTest.assertEqualsDouble(shape.getDotSep(), 0.);
+			assertEqualsDouble(shape.getDotSep(), 0.);
 			shape.setDotSep(-10.);
-			HelperTest.assertEqualsDouble(shape.getDotSep(), 0.);
+			assertEqualsDouble(shape.getDotSep(), 0.);
 			shape.setDotSep(Double.NaN);
-			HelperTest.assertEqualsDouble(shape.getDotSep(), 0.);
+			assertEqualsDouble(shape.getDotSep(), 0.);
 			shape.setDotSep(Double.POSITIVE_INFINITY);
-			HelperTest.assertEqualsDouble(shape.getDotSep(), 0.);
+			assertEqualsDouble(shape.getDotSep(), 0.);
 			shape.setDotSep(Double.NEGATIVE_INFINITY);
-			HelperTest.assertEqualsDouble(shape.getDotSep(), 0.);
+			assertEqualsDouble(shape.getDotSep(), 0.);
 		}
 	}
 

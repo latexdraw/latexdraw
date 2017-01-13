@@ -1,7 +1,5 @@
 package test.models;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
@@ -9,12 +7,12 @@ import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import test.HelperTest;
 import test.models.interfaces.TestIGrid;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestLGrid extends TestIGrid<IGrid> {
 	@Before
@@ -41,7 +39,7 @@ public class TestLGrid extends TestIGrid<IGrid> {
 		IGrid grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
 		assertTrue(grid.getGridEndX() >= grid.getGridStartX());
 		assertTrue(grid.getGridEndY() >= grid.getGridStartY());
-		HelperTest.assertEqualsDouble(0., grid.getPosition().getX());
-		HelperTest.assertEqualsDouble(0., grid.getPosition().getY());
+		assertEqualsDouble(0., grid.getPosition().getX());
+		assertEqualsDouble(0., grid.getPosition().getY());
 	}
 }

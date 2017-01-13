@@ -1,10 +1,7 @@
 package test.models.interfaces;
 
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
-
 import org.junit.Test;
-
-import test.HelperTest;
 
 public abstract class TestICircle<T extends ICircle> extends TestISquaredShape<T> {
 	//
@@ -113,8 +110,8 @@ public abstract class TestICircle<T extends ICircle> extends TestISquaredShape<T
 		shape.setPosition(-5, 0);
 		shape.setWidth(10);
 
-		HelperTest.assertEqualsDouble(-5., shape.getBottomLeftPoint().getX());
-		HelperTest.assertEqualsDouble(0., shape.getBottomLeftPoint().getY());
+		assertEqualsDouble(-5., shape.getBottomLeftPoint().getX());
+		assertEqualsDouble(0., shape.getBottomLeftPoint().getY());
 	}
 
 	@Override
@@ -123,8 +120,8 @@ public abstract class TestICircle<T extends ICircle> extends TestISquaredShape<T
 		shape.setPosition(-15, 100);
 		shape.setWidth(10);
 
-		HelperTest.assertEqualsDouble(-5., shape.getBottomRightPoint().getX());
-		HelperTest.assertEqualsDouble(100., shape.getBottomRightPoint().getY());
+		assertEqualsDouble(-5., shape.getBottomRightPoint().getX());
+		assertEqualsDouble(100., shape.getBottomRightPoint().getY());
 	}
 
 	@Override
@@ -133,8 +130,8 @@ public abstract class TestICircle<T extends ICircle> extends TestISquaredShape<T
 		shape.setPosition(20, 10);
 		shape.setWidth(20);
 
-		HelperTest.assertEqualsDouble(20., shape.getTopLeftPoint().getX());
-		HelperTest.assertEqualsDouble(-10., shape.getTopLeftPoint().getY());
+		assertEqualsDouble(20., shape.getTopLeftPoint().getX());
+		assertEqualsDouble(-10., shape.getTopLeftPoint().getY());
 	}
 
 	@Override
@@ -143,15 +140,15 @@ public abstract class TestICircle<T extends ICircle> extends TestISquaredShape<T
 		shape.setPosition(20, 10);
 		shape.setWidth(10);
 
-		HelperTest.assertEqualsDouble(30., shape.getTopRightPoint().getX());
-		HelperTest.assertEqualsDouble(0., shape.getTopRightPoint().getY());
+		assertEqualsDouble(30., shape.getTopRightPoint().getX());
+		assertEqualsDouble(0., shape.getTopRightPoint().getY());
 	}
 
 	@Test
 	public void testSetWidth() {
 		shape.setPosition(-5, -5);
 		shape.setWidth(3);
-		HelperTest.assertEqualsDouble(3., shape.getWidth());
-		HelperTest.assertEqualsDouble(3., shape.getHeight());
+		assertEqualsDouble(3., shape.getWidth());
+		assertEqualsDouble(3., shape.getHeight());
 	}
 }

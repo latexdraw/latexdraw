@@ -1,8 +1,5 @@
 package test.models;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -11,12 +8,13 @@ import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import test.HelperTest;
 import test.models.interfaces.TestIRectangle;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestLRectangle extends TestIRectangle<IRectangle> {
 	@Before
@@ -100,15 +98,15 @@ public class TestLRectangle extends TestIRectangle<IRectangle> {
 		assertEquals(4, rec.getNbPoints());
 
 		rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(20, 26), ShapeFactory.INST.createPoint(30, 35));
-		HelperTest.assertEqualsDouble(20., rec.getPosition().getX());
-		HelperTest.assertEqualsDouble(35., rec.getPosition().getY());
-		HelperTest.assertEqualsDouble(10., rec.getWidth());
-		HelperTest.assertEqualsDouble(9., rec.getHeight());
+		assertEqualsDouble(20., rec.getPosition().getX());
+		assertEqualsDouble(35., rec.getPosition().getY());
+		assertEqualsDouble(10., rec.getWidth());
+		assertEqualsDouble(9., rec.getHeight());
 
 		rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(5, 6), 11, 12);
-		HelperTest.assertEqualsDouble(5., rec.getPosition().getX());
-		HelperTest.assertEqualsDouble(18., rec.getPosition().getY());
-		HelperTest.assertEqualsDouble(11., rec.getWidth());
-		HelperTest.assertEqualsDouble(12., rec.getHeight());
+		assertEqualsDouble(5., rec.getPosition().getX());
+		assertEqualsDouble(18., rec.getPosition().getY());
+		assertEqualsDouble(11., rec.getWidth());
+		assertEqualsDouble(12., rec.getHeight());
 	}
 }

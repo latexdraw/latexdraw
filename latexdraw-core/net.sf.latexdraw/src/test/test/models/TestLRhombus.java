@@ -1,8 +1,5 @@
 package test.models;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
@@ -10,12 +7,13 @@ import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import test.HelperTest;
 import test.models.interfaces.TestIRhombus;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestLRhombus extends TestIRhombus<IRhombus> {
 	@Before
@@ -49,7 +47,7 @@ public class TestLRhombus extends TestIRhombus<IRhombus> {
 	@Test
 	public void testConstructor2() {
 		IRhombus rho = ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(5, 15), 20, 40);
-		HelperTest.assertEqualsDouble(4, rho.getNbPoints());
+		assertEqualsDouble(4, rho.getNbPoints());
 		assertEquals(20.0, rho.getWidth(), 0.0);
 		assertEquals(40.0, rho.getHeight(), 0.0);
 		assertEquals(-5.0, rho.getPosition().getX(), 0.0);

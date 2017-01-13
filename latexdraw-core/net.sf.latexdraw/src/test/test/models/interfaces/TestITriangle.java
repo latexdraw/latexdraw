@@ -1,10 +1,7 @@
 package test.models.interfaces;
 
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
-
 import org.junit.Test;
-
-import test.HelperTest;
 
 public abstract class TestITriangle<T extends ITriangle> extends TestIPositionShape<T> {
 
@@ -15,8 +12,8 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		shape.setWidth(10);
 		shape.setHeight(10);
 
-		HelperTest.assertEqualsDouble(10., shape.getBottomLeftPoint().getX());
-		HelperTest.assertEqualsDouble(20., shape.getBottomLeftPoint().getY());
+		assertEqualsDouble(10., shape.getBottomLeftPoint().getX());
+		assertEqualsDouble(20., shape.getBottomLeftPoint().getY());
 	}
 
 	@Override
@@ -26,8 +23,8 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		shape.setWidth(10);
 		shape.setHeight(10);
 
-		HelperTest.assertEqualsDouble(20., shape.getBottomRightPoint().getX());
-		HelperTest.assertEqualsDouble(20., shape.getBottomRightPoint().getY());
+		assertEqualsDouble(20., shape.getBottomRightPoint().getX());
+		assertEqualsDouble(20., shape.getBottomRightPoint().getY());
 	}
 
 	@Override
@@ -37,8 +34,8 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		shape.setWidth(10);
 		shape.setHeight(10);
 
-		HelperTest.assertEqualsDouble(10., shape.getTopLeftPoint().getX());
-		HelperTest.assertEqualsDouble(10., shape.getTopLeftPoint().getY());
+		assertEqualsDouble(10., shape.getTopLeftPoint().getX());
+		assertEqualsDouble(10., shape.getTopLeftPoint().getY());
 	}
 
 	@Override
@@ -48,8 +45,8 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		shape.setWidth(10);
 		shape.setHeight(10);
 
-		HelperTest.assertEqualsDouble(20., shape.getTopRightPoint().getX());
-		HelperTest.assertEqualsDouble(10., shape.getTopRightPoint().getY());
+		assertEqualsDouble(20., shape.getTopRightPoint().getX());
+		assertEqualsDouble(10., shape.getTopRightPoint().getY());
 	}
 
 	@Override
@@ -60,10 +57,10 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		shape.setHeight(40);
 		shape.mirrorHorizontal(shape.getGravityCentre());
 
-		HelperTest.assertEqualsDouble(10., shape.getPosition().getX());
-		HelperTest.assertEqualsDouble(20., shape.getPosition().getY());
-		HelperTest.assertEqualsDouble(30., shape.getWidth());
-		HelperTest.assertEqualsDouble(40., shape.getHeight());
+		assertEqualsDouble(10., shape.getPosition().getX());
+		assertEqualsDouble(20., shape.getPosition().getY());
+		assertEqualsDouble(30., shape.getWidth());
+		assertEqualsDouble(40., shape.getHeight());
 	}
 
 	@Override
@@ -74,10 +71,10 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		shape.setHeight(40);
 		shape.mirrorVertical(shape.getGravityCentre());
 
-		HelperTest.assertEqualsDouble(10., shape.getPosition().getX());
-		HelperTest.assertEqualsDouble(20., shape.getPosition().getY());
-		HelperTest.assertEqualsDouble(30., shape.getWidth());
-		HelperTest.assertEqualsDouble(40., shape.getHeight());
+		assertEqualsDouble(10., shape.getPosition().getX());
+		assertEqualsDouble(20., shape.getPosition().getY());
+		assertEqualsDouble(30., shape.getWidth());
+		assertEqualsDouble(40., shape.getHeight());
 	}
 
 	//
@@ -125,9 +122,9 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		shape.setHeight(2);
 
 		shape.translate(10, 5);
-		HelperTest.assertEqualsDouble(10.0, shape.getPosition().getX());
-		HelperTest.assertEqualsDouble(7.0, shape.getPosition().getY());
-		HelperTest.assertEqualsDouble(3.0, shape.getWidth());
-		HelperTest.assertEqualsDouble(2.0, shape.getHeight());
+		assertEqualsDouble(10.0, shape.getPosition().getX());
+		assertEqualsDouble(7.0, shape.getPosition().getY());
+		assertEqualsDouble(3.0, shape.getWidth());
+		assertEqualsDouble(2.0, shape.getHeight());
 	}
 }

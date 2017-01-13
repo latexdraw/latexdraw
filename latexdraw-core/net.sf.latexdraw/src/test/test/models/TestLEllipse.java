@@ -1,12 +1,5 @@
 package test.models;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
@@ -14,8 +7,13 @@ import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import test.HelperTest;
+import org.junit.Before;
+import org.junit.Test;
 import test.models.interfaces.TestIEllipse;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestLEllipse extends TestIEllipse<IEllipse> {
 	@Before
@@ -68,9 +66,9 @@ public class TestLEllipse extends TestIEllipse<IEllipse> {
 	@Test
 	public void testConstructors3OK() {
 		IEllipse ell = ShapeFactory.INST.createEllipse(ShapeFactory.INST.createPoint(20, 26), ShapeFactory.INST.createPoint(30, 35));
-		HelperTest.assertEqualsDouble(20., ell.getPosition().getX());
-		HelperTest.assertEqualsDouble(35., ell.getPosition().getY());
-		HelperTest.assertEqualsDouble(10., ell.getWidth());
-		HelperTest.assertEqualsDouble(9., ell.getHeight());
+		assertEqualsDouble(20., ell.getPosition().getX());
+		assertEqualsDouble(35., ell.getPosition().getY());
+		assertEqualsDouble(10., ell.getWidth());
+		assertEqualsDouble(9., ell.getHeight());
 	}
 }

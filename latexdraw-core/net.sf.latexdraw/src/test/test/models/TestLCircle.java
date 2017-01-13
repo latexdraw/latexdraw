@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestLCircle extends TestICircle<ICircle> {
+public class TestLCircle extends TestICircle<ICircle> implements HelperTest {
 	@Before
 	public void setUp() {
 		shape = ShapeFactory.INST.createCircle();
@@ -41,7 +41,7 @@ public class TestLCircle extends TestICircle<ICircle> {
 		ICircle circle = ShapeFactory.INST.createCircle();
 
 		assertEquals(4, circle.getNbPoints());
-		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
+		assertEqualsDouble(circle.getWidth(), circle.getHeight());
 		assertTrue(circle.getHeight() > 0);
 	}
 
@@ -49,8 +49,8 @@ public class TestLCircle extends TestICircle<ICircle> {
 	public void testConstructors2() {
 		ICircle circle = ShapeFactory.INST.createCircle();
 
-		HelperTest.assertEqualsDouble(4, circle.getNbPoints());
-		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
+		assertEqualsDouble(4, circle.getNbPoints());
+		assertEqualsDouble(circle.getWidth(), circle.getHeight());
 		assertTrue(circle.getHeight() > 0);
 	}
 
@@ -78,10 +78,10 @@ public class TestLCircle extends TestICircle<ICircle> {
 	public void testConstructors3OK() {
 		ICircle circle = ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(1, 2), 10.);
 
-		HelperTest.assertEqualsDouble(6., circle.getGravityCentre().getX());
-		HelperTest.assertEqualsDouble(-3., circle.getGravityCentre().getY());
-		HelperTest.assertEqualsDouble(10., circle.getWidth());
+		assertEqualsDouble(6., circle.getGravityCentre().getX());
+		assertEqualsDouble(-3., circle.getGravityCentre().getY());
+		assertEqualsDouble(10., circle.getWidth());
 		assertEquals(4, circle.getNbPoints());
-		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
+		assertEqualsDouble(circle.getWidth(), circle.getHeight());
 	}
 }

@@ -1,26 +1,38 @@
 package test.action;
 
+import java.lang.reflect.Field;
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
+import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
+import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.IArc;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.view.latex.DviPsColors;
+import org.junit.Before;
+import org.junit.Test;
+import test.HelperTest;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Field;
-
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
-import net.sf.latexdraw.models.interfaces.shape.*;
-import net.sf.latexdraw.view.latex.DviPsColors;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import test.HelperTest;
-
-public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapeProperty> {
+public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapeProperty> implements HelperTest {
 	protected IGroup g;
 
 	@Override
@@ -1573,9 +1585,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(BorderPos.OUT);
 		action.doIt();
 		action.flush();
-		Field f = HelperTest.getField(ModifyShapeProperty.class, "shapes"); //$NON-NLS-1$
+		Field f = getField(ModifyShapeProperty.class, "shapes"); //$NON-NLS-1$
 		assertNull(f.get(action));
-		f = HelperTest.getField(ModifyShapeProperty.class, "oldValue"); //$NON-NLS-1$
+		f = getField(ModifyShapeProperty.class, "oldValue"); //$NON-NLS-1$
 		assertNull(f.get(action));
 		action.flush();
 	}

@@ -1,17 +1,15 @@
 package test.models.interfaces;
 
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-
-import org.junit.Test;
-
-import test.HelperTest;
 
 public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShape> extends TestIShape<T> {
 	// @Override
@@ -65,14 +63,14 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		shape.addPoint(pt3);
 		shape.addPoint(pt4);
 		shape.mirrorHorizontal(shape.getGravityCentre());
-		HelperTest.assertEqualsDouble(3., pt1.getX());
-		HelperTest.assertEqualsDouble(1., pt2.getX());
-		HelperTest.assertEqualsDouble(1., pt3.getX());
-		HelperTest.assertEqualsDouble(3., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(3., pt1.getX());
+		assertEqualsDouble(1., pt2.getX());
+		assertEqualsDouble(1., pt3.getX());
+		assertEqualsDouble(3., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 	}
 
 	@Override
@@ -87,14 +85,14 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		shape.addPoint(pt3);
 		shape.addPoint(pt4);
 		shape.mirrorVertical(shape.getGravityCentre());
-		HelperTest.assertEqualsDouble(1., pt1.getX());
-		HelperTest.assertEqualsDouble(3., pt2.getX());
-		HelperTest.assertEqualsDouble(3., pt3.getX());
-		HelperTest.assertEqualsDouble(1., pt4.getX());
-		HelperTest.assertEqualsDouble(3., pt1.getY());
-		HelperTest.assertEqualsDouble(3., pt2.getY());
-		HelperTest.assertEqualsDouble(1., pt3.getY());
-		HelperTest.assertEqualsDouble(1., pt4.getY());
+		assertEqualsDouble(1., pt1.getX());
+		assertEqualsDouble(3., pt2.getX());
+		assertEqualsDouble(3., pt3.getX());
+		assertEqualsDouble(1., pt4.getX());
+		assertEqualsDouble(3., pt1.getY());
+		assertEqualsDouble(3., pt2.getY());
+		assertEqualsDouble(1., pt3.getY());
+		assertEqualsDouble(1., pt4.getY());
 	}
 
 	@Override
@@ -109,114 +107,114 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		shape.addPoint(pt3);
 		shape.addPoint(pt4);
 		shape.translate(10, 0);
-		HelperTest.assertEqualsDouble(11., pt1.getX());
-		HelperTest.assertEqualsDouble(13., pt2.getX());
-		HelperTest.assertEqualsDouble(13., pt3.getX());
-		HelperTest.assertEqualsDouble(11., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(11., pt1.getX());
+		assertEqualsDouble(13., pt2.getX());
+		assertEqualsDouble(13., pt3.getX());
+		assertEqualsDouble(11., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 
 		shape.translate(5, 5);
-		HelperTest.assertEqualsDouble(16., pt1.getX());
-		HelperTest.assertEqualsDouble(18., pt2.getX());
-		HelperTest.assertEqualsDouble(18., pt3.getX());
-		HelperTest.assertEqualsDouble(16., pt4.getX());
-		HelperTest.assertEqualsDouble(6., pt1.getY());
-		HelperTest.assertEqualsDouble(6., pt2.getY());
-		HelperTest.assertEqualsDouble(8., pt3.getY());
-		HelperTest.assertEqualsDouble(8., pt4.getY());
+		assertEqualsDouble(16., pt1.getX());
+		assertEqualsDouble(18., pt2.getX());
+		assertEqualsDouble(18., pt3.getX());
+		assertEqualsDouble(16., pt4.getX());
+		assertEqualsDouble(6., pt1.getY());
+		assertEqualsDouble(6., pt2.getY());
+		assertEqualsDouble(8., pt3.getY());
+		assertEqualsDouble(8., pt4.getY());
 
 		shape.translate(-5, -5);
-		HelperTest.assertEqualsDouble(11., pt1.getX());
-		HelperTest.assertEqualsDouble(13., pt2.getX());
-		HelperTest.assertEqualsDouble(13., pt3.getX());
-		HelperTest.assertEqualsDouble(11., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(11., pt1.getX());
+		assertEqualsDouble(13., pt2.getX());
+		assertEqualsDouble(13., pt3.getX());
+		assertEqualsDouble(11., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 
 		shape.translate(-10, 0);
-		HelperTest.assertEqualsDouble(1., pt1.getX());
-		HelperTest.assertEqualsDouble(3., pt2.getX());
-		HelperTest.assertEqualsDouble(3., pt3.getX());
-		HelperTest.assertEqualsDouble(1., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(1., pt1.getX());
+		assertEqualsDouble(3., pt2.getX());
+		assertEqualsDouble(3., pt3.getX());
+		assertEqualsDouble(1., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 
 		shape.translate(Double.NaN, -5);
-		HelperTest.assertEqualsDouble(1., pt1.getX());
-		HelperTest.assertEqualsDouble(3., pt2.getX());
-		HelperTest.assertEqualsDouble(3., pt3.getX());
-		HelperTest.assertEqualsDouble(1., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(1., pt1.getX());
+		assertEqualsDouble(3., pt2.getX());
+		assertEqualsDouble(3., pt3.getX());
+		assertEqualsDouble(1., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 
 		shape.translate(1, Double.NaN);
-		HelperTest.assertEqualsDouble(1., pt1.getX());
-		HelperTest.assertEqualsDouble(3., pt2.getX());
-		HelperTest.assertEqualsDouble(3., pt3.getX());
-		HelperTest.assertEqualsDouble(1., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(1., pt1.getX());
+		assertEqualsDouble(3., pt2.getX());
+		assertEqualsDouble(3., pt3.getX());
+		assertEqualsDouble(1., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 
 		shape.translate(Double.NEGATIVE_INFINITY, -5);
-		HelperTest.assertEqualsDouble(1., pt1.getX());
-		HelperTest.assertEqualsDouble(3., pt2.getX());
-		HelperTest.assertEqualsDouble(3., pt3.getX());
-		HelperTest.assertEqualsDouble(1., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(1., pt1.getX());
+		assertEqualsDouble(3., pt2.getX());
+		assertEqualsDouble(3., pt3.getX());
+		assertEqualsDouble(1., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 
 		shape.translate(1, Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(1., pt1.getX());
-		HelperTest.assertEqualsDouble(3., pt2.getX());
-		HelperTest.assertEqualsDouble(3., pt3.getX());
-		HelperTest.assertEqualsDouble(1., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(1., pt1.getX());
+		assertEqualsDouble(3., pt2.getX());
+		assertEqualsDouble(3., pt3.getX());
+		assertEqualsDouble(1., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 
 		shape.translate(Double.POSITIVE_INFINITY, -5);
-		HelperTest.assertEqualsDouble(1., pt1.getX());
-		HelperTest.assertEqualsDouble(3., pt2.getX());
-		HelperTest.assertEqualsDouble(3., pt3.getX());
-		HelperTest.assertEqualsDouble(1., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(1., pt1.getX());
+		assertEqualsDouble(3., pt2.getX());
+		assertEqualsDouble(3., pt3.getX());
+		assertEqualsDouble(1., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 
 		shape.translate(1, Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(1., pt1.getX());
-		HelperTest.assertEqualsDouble(3., pt2.getX());
-		HelperTest.assertEqualsDouble(3., pt3.getX());
-		HelperTest.assertEqualsDouble(1., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(1., pt1.getX());
+		assertEqualsDouble(3., pt2.getX());
+		assertEqualsDouble(3., pt3.getX());
+		assertEqualsDouble(1., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 
 		shape.translate(0, 0);
-		HelperTest.assertEqualsDouble(1., pt1.getX());
-		HelperTest.assertEqualsDouble(3., pt2.getX());
-		HelperTest.assertEqualsDouble(3., pt3.getX());
-		HelperTest.assertEqualsDouble(1., pt4.getX());
-		HelperTest.assertEqualsDouble(1., pt1.getY());
-		HelperTest.assertEqualsDouble(1., pt2.getY());
-		HelperTest.assertEqualsDouble(3., pt3.getY());
-		HelperTest.assertEqualsDouble(3., pt4.getY());
+		assertEqualsDouble(1., pt1.getX());
+		assertEqualsDouble(3., pt2.getX());
+		assertEqualsDouble(3., pt3.getX());
+		assertEqualsDouble(1., pt4.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+		assertEqualsDouble(3., pt3.getY());
+		assertEqualsDouble(3., pt4.getY());
 	}
 
 	@Override
@@ -348,8 +346,8 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(Double.POSITIVE_INFINITY, 0), 0));
 		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(0, Double.POSITIVE_INFINITY), 0));
 		assertTrue(shape.setPoint(ShapeFactory.INST.createPoint(10, 12), 0));
-		HelperTest.assertEqualsDouble(10., pt.getX());
-		HelperTest.assertEqualsDouble(12., pt.getY());
+		assertEqualsDouble(10., pt.getX());
+		assertEqualsDouble(12., pt.getY());
 	}
 
 	@Test
@@ -369,8 +367,8 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		assertFalse(shape.setPoint(Double.POSITIVE_INFINITY, 0, 0));
 		assertFalse(shape.setPoint(0, Double.POSITIVE_INFINITY, 0));
 		assertTrue(shape.setPoint(10, 12, 0));
-		HelperTest.assertEqualsDouble(10., pt.getX());
-		HelperTest.assertEqualsDouble(12., pt.getY());
+		assertEqualsDouble(10., pt.getX());
+		assertEqualsDouble(12., pt.getY());
 	}
 
 	@Test

@@ -16,7 +16,7 @@ import test.models.interfaces.TestICircleArc;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestLCircleArc extends TestICircleArc<ICircleArc> {
+public class TestLCircleArc extends TestICircleArc<ICircleArc> implements HelperTest {
 	@Before
 	public void setUp() {
 		shape = ShapeFactory.INST.createCircleArc();
@@ -30,8 +30,8 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		shape.setPosition(-1, -1);
 
 		shape.setAngleStart(0);
-		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(-2, shape.getStartPoint().getY());
+		assertEqualsDouble(1, shape.getStartPoint().getX());
+		assertEqualsDouble(-2, shape.getStartPoint().getY());
 	}
 
 	@Test
@@ -39,8 +39,8 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		shape.setWidth(2.0);
 		shape.setPosition(-1, -1);
 		shape.setAngleStart(Math.PI / 2.);
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(-3, shape.getStartPoint().getY());
+		assertEqualsDouble(0, shape.getStartPoint().getX());
+		assertEqualsDouble(-3, shape.getStartPoint().getY());
 	}
 
 	@Test
@@ -48,8 +48,8 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		shape.setWidth(2.0);
 		shape.setPosition(-1, -1);
 		shape.setAngleStart(Math.PI);
-		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(-2, shape.getStartPoint().getY());
+		assertEqualsDouble(-1, shape.getStartPoint().getX());
+		assertEqualsDouble(-2, shape.getStartPoint().getY());
 	}
 
 	@Test
@@ -57,8 +57,8 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		shape.setWidth(2.0);
 		shape.setPosition(-1, -1);
 		shape.setAngleStart(1.5 * Math.PI);
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getY());
+		assertEqualsDouble(0, shape.getStartPoint().getX());
+		assertEqualsDouble(-1, shape.getStartPoint().getY());
 	}
 
 	@Test
@@ -66,8 +66,8 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		shape.setWidth(2.0);
 		shape.setPosition(-1, -1);
 		shape.setAngleStart(2. * Math.PI);
-		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(-2, shape.getStartPoint().getY());
+		assertEqualsDouble(1, shape.getStartPoint().getX());
+		assertEqualsDouble(-2, shape.getStartPoint().getY());
 	}
 
 	@Test
@@ -75,8 +75,8 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		shape.setWidth(2.0);
 		shape.setPosition(-1, -1);
 		shape.setAngleStart(-2. * Math.PI);
-		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(-2, shape.getStartPoint().getY());
+		assertEqualsDouble(1, shape.getStartPoint().getX());
+		assertEqualsDouble(-2, shape.getStartPoint().getY());
 	}
 
 	@Test
@@ -84,8 +84,8 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		shape.setWidth(2.0);
 		shape.setPosition(-1, -1);
 		shape.setAngleStart(-Math.PI / 2.);
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getY());
+		assertEqualsDouble(0, shape.getStartPoint().getX());
+		assertEqualsDouble(-1, shape.getStartPoint().getY());
 	}
 
 	@Test
@@ -93,8 +93,8 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		shape.setWidth(2.0);
 		shape.setPosition(-1, -1);
 		shape.setAngleStart(-Math.PI);
-		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(-2, shape.getStartPoint().getY());
+		assertEqualsDouble(-1, shape.getStartPoint().getX());
+		assertEqualsDouble(-2, shape.getStartPoint().getY());
 	}
 
 	@Override

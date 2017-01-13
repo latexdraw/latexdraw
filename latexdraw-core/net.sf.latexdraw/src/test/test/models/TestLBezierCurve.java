@@ -17,7 +17,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class TestLBezierCurve extends TestIBezierCurve<IBezierCurve> {
+public class TestLBezierCurve extends TestIBezierCurve<IBezierCurve> implements HelperTest {
 	@Before
 	public void setUp() {
 		shape = ShapeFactory.INST.createBezierCurve();
@@ -54,10 +54,10 @@ public class TestLBezierCurve extends TestIBezierCurve<IBezierCurve> {
 
 		assertNotNull(curve);
 		assertEquals(2, curve.getPoints().size());
-		HelperTest.assertEqualsDouble(100., curve.getPoints().get(0).getX());
-		HelperTest.assertEqualsDouble(200., curve.getPoints().get(0).getY());
-		HelperTest.assertEqualsDouble(300., curve.getPoints().get(1).getX());
-		HelperTest.assertEqualsDouble(400., curve.getPoints().get(1).getY());
+		assertEqualsDouble(100., curve.getPoints().get(0).getX());
+		assertEqualsDouble(200., curve.getPoints().get(0).getY());
+		assertEqualsDouble(300., curve.getPoints().get(1).getX());
+		assertEqualsDouble(400., curve.getPoints().get(1).getY());
 		assertEquals(2, curve.getFirstCtrlPts().size());
 		assertEquals(2, curve.getSecondCtrlPts().size());
 		assertEquals(2, curve.getNbArrows());

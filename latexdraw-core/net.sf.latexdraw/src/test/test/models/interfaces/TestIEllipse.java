@@ -1,10 +1,7 @@
 package test.models.interfaces;
 
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
-
 import org.junit.Test;
-
-import test.HelperTest;
 
 public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularShape<T> {
 	// @Test
@@ -18,15 +15,15 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 	//
 	// assertEquals(2, pts.length);
 	// if(pts[0].getX()<pts[1].getX()) {
-	// HelperTest.assertEqualsDouble(-1., pts[0].getX());
-	// HelperTest.assertEqualsDouble(0., pts[0].getY());
-	// HelperTest.assertEqualsDouble(1., pts[1].getX());
-	// HelperTest.assertEqualsDouble(0., pts[1].getY());
+	// assertEqualsDouble(-1., pts[0].getX());
+	// assertEqualsDouble(0., pts[0].getY());
+	// assertEqualsDouble(1., pts[1].getX());
+	// assertEqualsDouble(0., pts[1].getY());
 	// }else {
-	// HelperTest.assertEqualsDouble(1., pts[0].getX());
-	// HelperTest.assertEqualsDouble(0., pts[0].getY());
-	// HelperTest.assertEqualsDouble(-1., pts[1].getX());
-	// HelperTest.assertEqualsDouble(0., pts[1].getY());
+	// assertEqualsDouble(1., pts[0].getX());
+	// assertEqualsDouble(0., pts[0].getY());
+	// assertEqualsDouble(-1., pts[1].getX());
+	// assertEqualsDouble(0., pts[1].getY());
 	// }
 	// }
 	//
@@ -41,9 +38,9 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 	// IPoint[] pts = shape.getIntersection(line);
 	//
 	// assertNotNull(pts);
-	// HelperTest.assertEqualsDouble(1, pts.length);
-	// HelperTest.assertEqualsDouble(0., pts[0].getX());
-	// HelperTest.assertEqualsDouble(1., pts[0].getY());
+	// assertEqualsDouble(1, pts.length);
+	// assertEqualsDouble(0., pts[0].getX());
+	// assertEqualsDouble(1., pts[0].getY());
 	// }
 	//
 	//
@@ -57,9 +54,9 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 	// IPoint[] pts = shape.getIntersection(line);
 	//
 	// assertNotNull(pts);
-	// HelperTest.assertEqualsDouble(1, pts.length);
-	// HelperTest.assertEqualsDouble(-0., pts[0].getX());
-	// HelperTest.assertEqualsDouble(-1., pts[0].getY());
+	// assertEqualsDouble(1, pts.length);
+	// assertEqualsDouble(-0., pts[0].getX());
+	// assertEqualsDouble(-1., pts[0].getY());
 	// }
 	//
 	//
@@ -76,15 +73,15 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 	// assertNotNull(pts);
 	// assertEquals(2, pts.length);
 	// if(pts[0].getY()<pts[1].getY()) {
-	// HelperTest.assertEqualsDouble(0., pts[0].getX());
-	// HelperTest.assertEqualsDouble(-1., pts[0].getY());
-	// HelperTest.assertEqualsDouble(0., pts[1].getX());
-	// HelperTest.assertEqualsDouble(1., pts[1].getY());
+	// assertEqualsDouble(0., pts[0].getX());
+	// assertEqualsDouble(-1., pts[0].getY());
+	// assertEqualsDouble(0., pts[1].getX());
+	// assertEqualsDouble(1., pts[1].getY());
 	// }else {
-	// HelperTest.assertEqualsDouble(0., pts[0].getX());
-	// HelperTest.assertEqualsDouble(1., pts[0].getY());
-	// HelperTest.assertEqualsDouble(0., pts[1].getX());
-	// HelperTest.assertEqualsDouble(-1., pts[1].getY());
+	// assertEqualsDouble(0., pts[0].getX());
+	// assertEqualsDouble(1., pts[0].getY());
+	// assertEqualsDouble(0., pts[1].getX());
+	// assertEqualsDouble(-1., pts[1].getY());
 	// }
 	// }
 	//
@@ -100,8 +97,8 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 	//
 	// assertNotNull(pts);
 	// assertEquals(1, pts.length);
-	// HelperTest.assertEqualsDouble(1., pts[0].getX());
-	// HelperTest.assertEqualsDouble(0., pts[0].getY());
+	// assertEqualsDouble(1., pts[0].getX());
+	// assertEqualsDouble(0., pts[0].getY());
 	// }
 	//
 	//
@@ -116,8 +113,8 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 	//
 	// assertNotNull(pts);
 	// assertEquals(1, pts.length);
-	// HelperTest.assertEqualsDouble(-1., pts[0].getX());
-	// HelperTest.assertEqualsDouble(0., pts[0].getY());
+	// assertEqualsDouble(-1., pts[0].getX());
+	// assertEqualsDouble(0., pts[0].getY());
 	// }
 
 	@Test
@@ -126,12 +123,12 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 		shape.setWidth(20);
 		shape.setHeight(15);
 
-		HelperTest.assertEqualsDouble(10., shape.getA());
+		assertEqualsDouble(10., shape.getA());
 
 		shape.setWidth(10);
 		shape.setHeight(15);
 
-		HelperTest.assertEqualsDouble(7.5, shape.getA());
+		assertEqualsDouble(7.5, shape.getA());
 	}
 
 	@Test
@@ -140,11 +137,11 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 		shape.setWidth(20);
 		shape.setHeight(15);
 
-		HelperTest.assertEqualsDouble(7.5, shape.getB());
+		assertEqualsDouble(7.5, shape.getB());
 
 		shape.setWidth(10);
 		shape.setHeight(15);
 
-		HelperTest.assertEqualsDouble(5., shape.getB());
+		assertEqualsDouble(5., shape.getB());
 	}
 }

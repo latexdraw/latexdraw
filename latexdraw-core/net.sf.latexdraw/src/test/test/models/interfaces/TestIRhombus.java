@@ -1,11 +1,10 @@
 package test.models.interfaces;
 
-import static org.junit.Assert.*;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-
 import org.junit.Test;
 
-import test.HelperTest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShape<T> {
 	@Override
@@ -16,8 +15,8 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 
 		assertNotNull(shape.getBottomLeftPoint());
-		HelperTest.assertEqualsDouble(0., shape.getBottomLeftPoint().getX());
-		HelperTest.assertEqualsDouble(5., shape.getBottomLeftPoint().getY());
+		assertEqualsDouble(0., shape.getBottomLeftPoint().getX());
+		assertEqualsDouble(5., shape.getBottomLeftPoint().getY());
 	}
 
 	@Override
@@ -28,8 +27,8 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 
 		assertNotNull(shape.getBottomRightPoint());
-		HelperTest.assertEqualsDouble(10., shape.getBottomRightPoint().getX());
-		HelperTest.assertEqualsDouble(5., shape.getBottomRightPoint().getY());
+		assertEqualsDouble(10., shape.getBottomRightPoint().getX());
+		assertEqualsDouble(5., shape.getBottomRightPoint().getY());
 	}
 
 	@Override
@@ -40,8 +39,8 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 
 		assertNotNull(shape.getTopLeftPoint());
-		HelperTest.assertEqualsDouble(0., shape.getTopLeftPoint().getX());
-		HelperTest.assertEqualsDouble(-5., shape.getTopLeftPoint().getY());
+		assertEqualsDouble(0., shape.getTopLeftPoint().getX());
+		assertEqualsDouble(-5., shape.getTopLeftPoint().getY());
 	}
 
 	@Override
@@ -52,8 +51,8 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 
 		assertNotNull(shape.getTopRightPoint());
-		HelperTest.assertEqualsDouble(10., shape.getTopRightPoint().getX());
-		HelperTest.assertEqualsDouble(-5., shape.getTopRightPoint().getY());
+		assertEqualsDouble(10., shape.getTopRightPoint().getX());
+		assertEqualsDouble(-5., shape.getTopRightPoint().getY());
 	}
 
 	@Override
