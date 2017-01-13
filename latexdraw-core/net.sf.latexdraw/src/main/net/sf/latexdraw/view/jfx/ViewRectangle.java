@@ -36,8 +36,8 @@ public class ViewRectangle extends ViewSingleShape<IRectangle, Rectangle> {
 		if(dblBorder != null) {
 			dblBorder.xProperty().bind(Bindings.add(getDbleBorderGap(), border.xProperty()));
 			dblBorder.yProperty().bind(Bindings.add(getDbleBorderGap(), border.yProperty()));
-			dblBorder.heightProperty().bind(Bindings.subtract(border.heightProperty(), getDbleBorderGap()*2d));
-			dblBorder.widthProperty().bind(Bindings.subtract(border.widthProperty(), getDbleBorderGap()*2d));
+			dblBorder.heightProperty().bind(Bindings.subtract(border.heightProperty(), getDbleBorderGap() * 2d));
+			dblBorder.widthProperty().bind(Bindings.subtract(border.widthProperty(), getDbleBorderGap() * 2d));
 		}
 
 		if(shadow != null) {
@@ -48,6 +48,15 @@ public class ViewRectangle extends ViewSingleShape<IRectangle, Rectangle> {
 		}
 	}
 
+	private static void unbindRect(Rectangle rec) {
+		if(rec != null) {
+			rec.xProperty().unbind();
+			rec.yProperty().unbind();
+			rec.widthProperty().unbind();
+			rec.heightProperty().unbind();
+		}
+	}
+
 	@Override
 	protected Rectangle createJFXShape() {
 		return new Rectangle();
@@ -55,21 +64,8 @@ public class ViewRectangle extends ViewSingleShape<IRectangle, Rectangle> {
 
 	@Override
 	public void flush() {
-		border.xProperty().unbind();
-		border.yProperty().unbind();
-		border.widthProperty().unbind();
-		border.heightProperty().unbind();
-
-		if(dblBorder != null) {
-			dblBorder.widthProperty().unbind();
-			dblBorder.heightProperty().unbind();
-		}
-
-		if(shadow != null) {
-			shadow.xProperty().unbind();
-			shadow.yProperty().unbind();
-			shadow.widthProperty().unbind();
-			shadow.heightProperty().unbind();
-		}
+		unbindRect(border);
+		unbindRect(dblBorder);
+		unbindRect(shadow);
 	}
 }

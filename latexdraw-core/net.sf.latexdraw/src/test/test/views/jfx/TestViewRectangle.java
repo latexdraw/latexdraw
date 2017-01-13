@@ -131,41 +131,6 @@ public class TestViewRectangle extends TestViewSingleShape<ViewRectangle, IRecta
 
 	@Override
 	@Test
-	public void testShadowAngle0Translate() {
-		if(model.isShadowable()) {
-			model.setHasShadow(true);
-			model.setShadowAngle(0d);
-			assertEquals(model.getShadowSize(), view.getShadow().get().getTranslateX(), 0.01);
-			assertEquals(0d, view.getShadow().get().getTranslateY(), 0.01);
-		}
-	}
-
-	@Override
-	@Test
-	public void testShadowSizeAngle0Translate() {
-		if(model.isShadowable()) {
-			model.setHasShadow(true);
-			model.setShadowAngle(0d);
-			model.setShadowSize(100.21d);
-			assertEquals(100.21, view.getShadow().get().getTranslateX(), 0.01);
-			assertEquals(0d, view.getShadow().get().getTranslateY(), 0.01);
-		}
-	}
-
-
-	@Override
-	@Test
-	public void testShadowAngle90Translate() {
-		if(model.isShadowable()) {
-			model.setHasShadow(true);
-			model.setShadowAngle(Math.PI/2d);
-			assertEquals(0d, view.getShadow().get().getTranslateX(), 0.01);
-			assertEquals(-model.getShadowSize(), view.getShadow().get().getTranslateY(), 0.01);
-		}
-	}
-
-	@Override
-	@Test
 	public void testShadowPositionSameThanBorder() {
 		if(model.isShadowable()) {
 			model.setHasShadow(true);
