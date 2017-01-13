@@ -52,4 +52,12 @@ public interface ISingleShape extends IShape {
 	@NonNull DoubleProperty gradAngleProperty();
 
 	@NonNull DoubleProperty gradMidPtProperty();
+
+	@NonNull BooleanProperty shadowProperty();
+
+	@NonNull ObjectProperty<Color> shadowColProperty();
+
+	@NonNull DoubleProperty shadowAngleProperty();
+
+	@NonNull DoubleProperty shadowSizeProperty();
 }

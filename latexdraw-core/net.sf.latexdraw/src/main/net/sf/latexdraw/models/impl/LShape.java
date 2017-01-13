@@ -102,16 +102,16 @@ abstract class LShape implements ISingleShape {
 	protected final @NonNull DoubleProperty dbleBordSep;
 
 	/** Defines if the shape has a shadow. */
-	protected boolean hasShadow;
+	protected final @NonNull BooleanProperty hasShadow;
 
 	/** The colour of the shadow. */
-	protected Color shadowCol;
+	protected final @NonNull ObjectProperty<Color> shadowCol;
 
 	/** The angle of the shadow in radian. */
-	protected double shadowAngle;
+	protected final @NonNull DoubleProperty shadowAngle;
 
 	/** The size of the shadow in pixel. */
-	protected double shadowSize;
+	protected final @NonNull DoubleProperty shadowSize;
 
 	/** The position of the border of the shape. */
 	protected final @NonNull ObjectProperty<BorderPos> bordersPosition;
@@ -130,10 +130,10 @@ abstract class LShape implements ISingleShape {
 		modified = false;
 		thickness = new SimpleDoubleProperty(2d);
 		rotationAngle = 0d;
-		shadowAngle = -Math.PI / 4d;
+		shadowAngle = new SimpleDoubleProperty(-Math.PI / 4d);
 		gradAngle = new SimpleDoubleProperty(0d);
 		hatchingsAngle = 0d;
-		hasShadow = false;
+		hasShadow = new SimpleBooleanProperty(false);
 		hasDbleBord = new SimpleBooleanProperty(false);
 		lineStyle = new SimpleObjectProperty<>(LineStyle.SOLID);
 		lineColour = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_LINE_COLOR);
@@ -148,8 +148,8 @@ abstract class LShape implements ISingleShape {
 		bordersPosition = new SimpleObjectProperty<>(BorderPos.INTO);
 		dbleBordCol = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_DOUBLE_COLOR);
 		dbleBordSep = new SimpleDoubleProperty(6d);
-		shadowCol = PSTricksConstants.DEFAULT_SHADOW_COLOR;
-		shadowSize = PSTricksConstants.DEFAULT_SHADOW_SIZE * PPC;
+		shadowCol = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_SHADOW_COLOR);
+		shadowSize = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_SHADOW_SIZE * PPC);
 		gradColStart = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_GRADIENT_START_COLOR);
 		gradColEnd = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_GRADIENT_END_COLOR);
 		gradMidPt = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_GRADIENT_MID_POINT);
@@ -370,17 +370,17 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public double getShadowAngle() {
-		return shadowAngle;
+		return shadowAngle.get();
 	}
 
 	@Override
 	public Color getShadowCol() {
-		return shadowCol;
+		return shadowCol.get();
 	}
 
 	@Override
 	public double getShadowSize() {
-		return shadowSize;
+		return shadowSize.get();
 	}
 
 	@Override
@@ -405,7 +405,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public boolean hasShadow() {
-		return hasShadow;
+		return hasShadow.get();
 	}
 
 	@Override
@@ -614,7 +614,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setHasShadow(final boolean shad) {
-		if(isShadowable()) hasShadow = shad;
+		if(isShadowable()) {
+			hasShadow.set(shad);
+		}
 	}
 
 	@Override
@@ -693,17 +695,23 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setShadowAngle(final double angle) {
-		if(isShadowable() && MathUtils.INST.isValidCoord(angle)) shadowAngle = angle;
+		if(isShadowable() && MathUtils.INST.isValidCoord(angle)) {
+			shadowAngle.set(angle);
+		}
 	}
 
 	@Override
 	public void setShadowCol(final Color col) {
-		if(col != null && isShadowable()) shadowCol = col;
+		if(col != null && isShadowable()) {
+			shadowCol.set(col);
+		}
 	}
 
 	@Override
 	public void setShadowSize(final double size) {
-		if(isShadowable() && size > 0 && MathUtils.INST.isValidCoord(size)) shadowSize = size;
+		if(isShadowable() && size > 0 && MathUtils.INST.isValidCoord(size)) {
+			shadowSize.set(size);
+		}
 	}
 
 	@Override
@@ -713,7 +721,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setThickness(final double thick) {
-		if(thick > 0 && isThicknessable() && MathUtils.INST.isValidCoord(thick)) thickness.setValue(thick);
+		if(thick > 0 && isThicknessable() && MathUtils.INST.isValidCoord(thick)) {
+			thickness.setValue(thick);
+		}
 	}
 
 	@Override
@@ -920,5 +930,25 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public @NonNull DoubleProperty gradMidPtProperty() {
 		return gradMidPt;
+	}
+
+	@Override
+	public @NonNull BooleanProperty shadowProperty() {
+		return hasShadow;
+	}
+
+	@Override
+	public @NonNull ObjectProperty<Color> shadowColProperty() {
+		return shadowCol;
+	}
+
+	@Override
+	public @NonNull DoubleProperty shadowAngleProperty() {
+		return shadowAngle;
+	}
+
+	@Override
+	public @NonNull DoubleProperty shadowSizeProperty() {
+		return shadowSize;
 	}
 }

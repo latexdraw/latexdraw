@@ -41,11 +41,14 @@ import org.eclipse.jdt.annotation.Nullable;
  * @param <T> The type of the JFX shape used to draw the view.
  */
 public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> extends ViewShape<S> {
-	protected final @NonNull T border = createJFXShape();
+	protected final @NonNull T border;
 	protected final @Nullable T dblBorder;
+	protected final @Nullable T shadow;
 
-	private final ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
-	private final ChangeListener<?> fillUpdateCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(model.getFillingStyle()));
+	private final  @NonNull ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
+	private final @Nullable ChangeListener<?> fillUpdateCall;
+	private final @Nullable ChangeListener<Boolean> shadowSetCall;
+	private final @Nullable ChangeListener<Number> shadowUpdateCall = (obs, oldVal, newVal) -> updateShadowPosition();
 
 
 	/**
@@ -55,8 +58,38 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	ViewSingleShape(final @NonNull S sh) {
 		super(sh);
 
+		border = createJFXShape();
+		border.setStrokeLineJoin(StrokeLineJoin.MITER);
+
+		if(model.isShadowable()) {
+			shadow = createJFXShape();
+			getChildren().add(shadow);
+			shadowSetCall = (obs, oldVal, newVal) -> {
+				if(shadow != null) {
+					shadow.setDisable(!newVal);
+					if(newVal && model.isFillable() && model.shadowFillsShape()) {
+						border.setFill(getFillingPaint(model.getFillingStyle()));
+					}
+				}
+			};
+			model.shadowProperty().addListener(shadowSetCall);
+			shadow.setDisable(!model.hasShadow());
+			shadow.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getShadowCol().toJFX(), model.shadowColProperty()));
+			shadow.fillProperty().bind(Bindings.createObjectBinding(
+				() -> model.isFillable() && (model.isFilled() || model.shadowFillsShape()) ? model.getShadowCol().toJFX() : null, model.shadowColProperty()));
+			model.shadowAngleProperty().addListener(shadowUpdateCall);
+			model.shadowSizeProperty().addListener(shadowUpdateCall);
+			shadow.strokeTypeProperty().bind(border.strokeTypeProperty());
+		}else {
+			shadow = null;
+			shadowSetCall = null;
+		}
+
+		getChildren().add(border);
+
 		if(model.isDbleBorderable()) {
 			dblBorder = createJFXShape();
+			getChildren().add(dblBorder);
 			dblBorder.setFill(null);
 			dblBorder.layoutXProperty().bind(border.layoutXProperty());
 			dblBorder.layoutYProperty().bind(border.layoutYProperty());
@@ -66,11 +99,6 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		} else {
 			dblBorder = null;
 		}
-
-		getChildren().add(border);
-		getChildren().add(dblBorder);
-
-		border.setStrokeLineJoin(StrokeLineJoin.MITER);
 
 		if(model.isThicknessable()) {
 			model.thicknessProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
@@ -84,6 +112,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		}
 
 		if(model.isFillable()) {
+			fillUpdateCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(model.getFillingStyle()));
 			model.fillingProperty().addListener((ChangeListener<? super FillingStyle>) fillUpdateCall);
 			model.gradColStartProperty().addListener((ChangeListener<? super Color>) fillUpdateCall);
 			model.gradColEndProperty().addListener((ChangeListener<? super Color>) fillUpdateCall);
@@ -91,21 +120,34 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.gradAngleProperty().addListener((ChangeListener<? super Number>) fillUpdateCall);
 			model.fillingColProperty().addListener((ChangeListener<? super Color>) fillUpdateCall);
 			border.setFill(getFillingPaint(model.getFillingStyle()));
+		}else {
+			fillUpdateCall = null;
 		}
 
 		border.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getLineColour().toJFX(), model.lineColourProperty()));
 
 		bindBorderMovable();
 		updateStrokes();
+		updateShadowPosition();
 	}
+
+
+	protected void updateShadowPosition() {
+		if(shadow != null) {
+			final IPoint gc = model.getGravityCentre();
+			final IPoint shadowgc = ShapeFactory.INST.createPoint(gc.getX() + model.getShadowSize(), gc.getY());
+			shadowgc.setPoint(shadowgc.rotatePoint(gc, model.getShadowAngle()));
+			shadow.setTranslateX(shadowgc.getX() - gc.getX());
+			shadow.setTranslateY(gc.getY() - shadowgc.getY());
+		}
+	}
+
 
 	protected abstract @NonNull T createJFXShape();
 
 	private Paint getFillingPaint(final FillingStyle style) {
 		switch(style) {
-			case NONE:
-				if(model.hasShadow() && model.shadowFillsShape()) return model.getFillingCol().toJFX();
-				return null;
+			case NONE: return model.hasShadow() && model.shadowFillsShape() ? model.getFillingCol().toJFX() : null;
 			case PLAIN: return model.getFillingCol().toJFX();
 			case GRAD: return computeGradient();
 			case CLINES_PLAIN:
@@ -207,6 +249,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	private void updateStrokes() {
 		if(model.isThicknessable()) {
 			border.setStrokeWidth(model.getFullThickness());
+			if(shadow != null) {
+				shadow.setStrokeWidth(model.getFullThickness());
+			}
 		}
 
 		if(dblBorder != null) {
@@ -245,6 +290,10 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		return Optional.ofNullable(dblBorder);
 	}
 
+	public Optional<T> getShadow() {
+		return Optional.ofNullable(shadow);
+	}
+
 	@Override
 	public void flush() {
 		super.flush();
@@ -259,7 +308,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.dotSepProperty().removeListener((ChangeListener<? super Number>) strokesUpdateCall);
 		}
 
-		if(dblBorder!=null) {
+		if(dblBorder != null) {
 			dblBorder.layoutXProperty().unbind();
 			dblBorder.layoutYProperty().unbind();
 			model.dbleBordProperty().removeListener((ChangeListener<? super Boolean>) strokesUpdateCall);
@@ -268,7 +317,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			dblBorder.strokeTypeProperty().unbind();
 		}
 
-		if(model.isFillable()) {
+		if(fillUpdateCall != null) {
 			model.fillingProperty().removeListener((ChangeListener<? super FillingStyle>) fillUpdateCall);
 			model.gradColStartProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
 			model.gradColEndProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
@@ -276,6 +325,15 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.gradAngleProperty().removeListener((ChangeListener<? super Number>) fillUpdateCall);
 			model.gradColEndProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
 			model.fillingColProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
+		}
+
+		if(shadowSetCall != null) {
+			model.shadowProperty().removeListener(shadowSetCall);
+			shadow.strokeProperty().unbind();
+			shadow.fillProperty().unbind();
+			model.shadowAngleProperty().removeListener(shadowUpdateCall);
+			model.shadowSizeProperty().removeListener(shadowUpdateCall);
+			shadow.strokeTypeProperty().unbind();
 		}
 
 		border.strokeProperty().unbind();

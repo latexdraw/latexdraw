@@ -33,11 +33,18 @@ public class ViewRectangle extends ViewSingleShape<IRectangle, Rectangle> {
 		border.widthProperty().bind(Bindings.createDoubleBinding(model::getWidth, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
 		border.heightProperty().bind(Bindings.createDoubleBinding(model::getHeight, model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
 
-		if(model.isDbleBorderable()) {
+		if(dblBorder != null) {
 			dblBorder.xProperty().bind(Bindings.add(getDbleBorderGap(), border.xProperty()));
 			dblBorder.yProperty().bind(Bindings.add(getDbleBorderGap(), border.yProperty()));
 			dblBorder.heightProperty().bind(Bindings.subtract(border.heightProperty(), getDbleBorderGap()*2d));
 			dblBorder.widthProperty().bind(Bindings.subtract(border.widthProperty(), getDbleBorderGap()*2d));
+		}
+
+		if(shadow != null) {
+			shadow.xProperty().bind(border.xProperty());
+			shadow.yProperty().bind(border.yProperty());
+			shadow.widthProperty().bind(border.widthProperty());
+			shadow.heightProperty().bind(border.heightProperty());
 		}
 	}
 
@@ -53,9 +60,16 @@ public class ViewRectangle extends ViewSingleShape<IRectangle, Rectangle> {
 		border.widthProperty().unbind();
 		border.heightProperty().unbind();
 
-		if(model.isDbleBorderable()) {
+		if(dblBorder != null) {
 			dblBorder.widthProperty().unbind();
 			dblBorder.heightProperty().unbind();
+		}
+
+		if(shadow != null) {
+			shadow.xProperty().unbind();
+			shadow.yProperty().unbind();
+			shadow.widthProperty().unbind();
+			shadow.heightProperty().unbind();
 		}
 	}
 }

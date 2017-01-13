@@ -7,6 +7,7 @@ import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
@@ -57,7 +58,7 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	public void testLineThickness() {
 		if(model.isThicknessable()) {
 			model.setThickness(10d);
-			assertEquals(10d, border.getStrokeWidth(), 0.00d);
+			assertEquals(10d, border.getStrokeWidth(), 0.001);
 		}
 	}
 
@@ -75,7 +76,7 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	public void testDoubleLineThickness() {
 		if(model.isDbleBorderable()) {
 			model.setHasDbleBord(true);
-			assertEquals(model.getFullThickness(), border.getStrokeWidth(), 0.00d);
+			assertEquals(model.getFullThickness(), border.getStrokeWidth(), 0.001);
 		}
 	}
 
@@ -84,7 +85,7 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 		if(model.isDbleBorderable()) {
 			model.setHasDbleBord(true);
 			model.setDbleBordSep(30d);
-			assertEquals(model.getFullThickness(), border.getStrokeWidth(), 0.00d);
+			assertEquals(model.getFullThickness(), border.getStrokeWidth(), 0.001);
 		}
 	}
 
@@ -344,6 +345,137 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 			LinearGradient grad1 = (LinearGradient) border.getFill();
 			model.setGradMidPt(0.6352);
 			assertNotEquals(grad1, border.getFill());
+		}
+	}
+
+	@Test
+	public void testShadowAdded() {
+		if(model.isDbleBorderable()) {
+			assertTrue(view.getChildren().stream().anyMatch(c -> c==view.getShadow().get()));
+		}
+	}
+
+	@Test
+	public void testShadowDefaultDisable() {
+		if(model.isShadowable()) {
+			assertTrue(view.getShadow().get().isDisable());
+		}
+	}
+
+	@Test
+	public void testShadowEnable() {
+		if(model.isShadowable()) {
+			model.setHasShadow(true);
+			assertFalse(view.getShadow().get().isDisable());
+		}
+	}
+
+	@Test
+	public void testShadowDisable() {
+		if(model.isShadowable()) {
+			model.setHasShadow(true);
+			model.setHasShadow(false);
+			assertTrue(view.getShadow().get().isDisable());
+		}
+	}
+
+	@Test
+	public void testShadowColorStroke() {
+		if(model.isShadowable()) {
+			model.setHasShadow(true);
+			model.setShadowCol(DviPsColors.NAVYBLUE);
+			assertEquals(DviPsColors.NAVYBLUE.toJFX(), view.getShadow().get().getStroke());
+		}
+	}
+
+	@Test
+	public void testShadowColorFillWhenFilled() {
+		if(model.isShadowable() && model.isFillable()) {
+			model.setHasShadow(true);
+			model.setFillingStyle(FillingStyle.PLAIN);
+			model.setShadowCol(DviPsColors.APRICOT);
+			assertEquals(DviPsColors.APRICOT.toJFX(), view.getShadow().get().getFill());
+		}
+	}
+
+	@Test
+	public void testShadowColorFillWhenNotFilled() {
+		if(model.isShadowable() && model.isFillable() && !model.shadowFillsShape()) {
+			model.setHasShadow(true);
+			model.setFillingStyle(FillingStyle.NONE);
+			assertNull(view.getShadow().get().getFill());
+		}
+	}
+
+	@Test
+	public void testShadowColorFillWhenNotFilledButShadowFills() {
+		if(model.isShadowable() && model.isFillable() && model.shadowFillsShape()) {
+			model.setHasShadow(true);
+			model.setFillingStyle(FillingStyle.NONE);
+			model.setShadowCol(DviPsColors.APRICOT);
+			assertEquals(DviPsColors.APRICOT.toJFX(), view.getShadow().get().getFill());
+		}
+	}
+
+
+	@Test
+	public void testShadowBoundNotSamePositionThanBorder() {
+		if(model.isShadowable()) {
+			model.setHasShadow(true);
+			assertNotEquals(border.getBoundsInParent().getMinX(), view.getShadow().get().getBoundsInParent().getMinX(), 0.001);
+			assertNotEquals(border.getBoundsInParent().getMinY(), view.getShadow().get().getBoundsInParent().getMinY(), 0.001);
+		}
+	}
+
+	@Test
+	public void testLineSizeShadowSameThanBorder() {
+		if(model.isThicknessable()) {
+			model.setThickness(20d);
+			assertEquals(20d, view.getShadow().get().getStrokeWidth(), 0.001);
+		}
+	}
+
+	@Test
+	public void testLinePositionShadowSameThanBorder() {
+		if(model.isThicknessable()) {
+			model.setBordersPosition(BorderPos.INTO);
+			assertEquals(border.getStrokeType(), view.getShadow().get().getStrokeType());
+		}
+	}
+
+	@Test
+	public void testShadowBoundSizeSameThanBorder() {
+		if(model.isShadowable()) {
+			model.setHasShadow(true);
+			assertEquals(border.getBoundsInLocal().getWidth(), view.getShadow().get().getBoundsInLocal().getWidth(), 0.001);
+			assertEquals(border.getBoundsInLocal().getHeight(), view.getShadow().get().getBoundsInLocal().getHeight(), 0.001);
+		}
+	}
+
+
+	@Test
+	public abstract void testShadowAngle0Translate();
+
+	@Test
+	public abstract void testShadowAngle90Translate();
+
+	@Test
+	public abstract void testShadowSizeAngle0Translate();
+
+	@Test
+	public abstract void testShadowPositionSameThanBorder();
+
+	@Test
+	public void testShadowBeforeBorder() {
+		if(model.isShadowable()) {
+			assertTrue(view.getChildren().indexOf(border)>view.getChildren().indexOf(view.getShadow().get()));
+		}
+	}
+
+	@Test
+	public void testDbleBorderAfterBorder() {
+		if(model.isShadowable()) {
+			assertTrue(view.getChildren().indexOf(border)<view.getChildren().indexOf(view.getDbleBorder().get()));
 		}
 	}
 }
