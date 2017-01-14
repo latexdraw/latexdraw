@@ -11,37 +11,22 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
-import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX shape view for circles.
  */
-public class ViewCircle extends ViewSingleShape<ICircle, Ellipse> {
+public class ViewCircle extends ViewEllipseBased<ICircle> {
 	/**
 	 * Creates the circle view.
 	 * @param sh The model.
 	 */
 	public ViewCircle(final @NonNull ICircle sh) {
 		super(sh);
-
 		border.centerXProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getX(), model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
-		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
+		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).yProperty(), model.getPtAt(1).yProperty()));
 		border.radiusXProperty().bind(Bindings.createDoubleBinding(model::getRadius, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
-		border.radiusYProperty().bind(Bindings.createDoubleBinding(model::getRadius, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
-	}
-
-	@Override
-	protected Ellipse createJFXShape() {
-		return new Ellipse();
-	}
-
-	@Override
-	public void flush() {
-		border.centerXProperty().unbind();
-		border.centerYProperty().unbind();
-		border.radiusXProperty().unbind();
-		border.radiusYProperty().unbind();
+		border.radiusYProperty().bind(Bindings.createDoubleBinding(model::getRadius, model.getPtAt(0).yProperty(), model.getPtAt(1).yProperty()));
 	}
 }

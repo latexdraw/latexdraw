@@ -13,14 +13,13 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
-import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX shape view for ellipses.
  */
-public class ViewEllipse extends ViewSingleShape<IEllipse, Ellipse> {
+public class ViewEllipse extends ViewEllipseBased<IEllipse> {
 	/**
 	 * Creates the ellipse view.
 	 * @param sh The model.
@@ -30,42 +29,7 @@ public class ViewEllipse extends ViewSingleShape<IEllipse, Ellipse> {
 
 		border.centerXProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getX(), model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
 		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).yProperty(), model.getPtAt(1).yProperty()));
-		border.radiusXProperty().bind(Bindings.createDoubleBinding(() -> model.getWidth()/2d, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
-		border.radiusYProperty().bind(Bindings.createDoubleBinding(() -> model.getHeight()/2d, model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
-
-		if(dblBorder != null) {
-			dblBorder.centerXProperty().bind(border.centerXProperty());
-			dblBorder.centerYProperty().bind(border.centerYProperty());
-			dblBorder.radiusXProperty().bind(Bindings.subtract(border.radiusXProperty(), getDbleBorderGap()));
-			dblBorder.radiusYProperty().bind(Bindings.subtract(border.radiusYProperty(), getDbleBorderGap()));
-		}
-
-		if(shadow != null) {
-			shadow.centerXProperty().bind(border.centerXProperty());
-			shadow.centerYProperty().bind(border.centerYProperty());
-			shadow.radiusXProperty().bind(border.radiusXProperty());
-			shadow.radiusYProperty().bind(border.radiusYProperty());
-		}
-	}
-
-	@Override
-	protected Ellipse createJFXShape() {
-		return new Ellipse();
-	}
-
-	@Override
-	public void flush() {
-		unbindEll(border);
-		unbindEll(dblBorder);
-		unbindEll(shadow);
-	}
-
-	private static void unbindEll(Ellipse sh) {
-		if(sh != null) {
-			sh.centerXProperty().unbind();
-			sh.centerYProperty().unbind();
-			sh.radiusXProperty().unbind();
-			sh.radiusYProperty().unbind();
-		}
+		border.radiusXProperty().bind(Bindings.createDoubleBinding(() -> model.getWidth() / 2d, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
+		border.radiusYProperty().bind(Bindings.createDoubleBinding(() -> model.getHeight() / 2d, model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
 	}
 }
