@@ -73,13 +73,14 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 				}
 			};
 			model.shadowProperty().addListener(shadowSetCall);
-			shadow.setDisable(!model.hasShadow());
 			shadow.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getShadowCol().toJFX(), model.shadowColProperty()));
 			shadow.fillProperty().bind(Bindings.createObjectBinding(
 				() -> model.isFillable() && (model.isFilled() || model.shadowFillsShape()) ? model.getShadowCol().toJFX() : null, model.shadowColProperty()));
 			model.shadowAngleProperty().addListener(shadowUpdateCall);
 			model.shadowSizeProperty().addListener(shadowUpdateCall);
 			shadow.strokeTypeProperty().bind(border.strokeTypeProperty());
+			shadow.visibleProperty().bind(Bindings.createBooleanBinding(() -> !shadow.isDisable(), shadow.disableProperty()));
+			shadow.setDisable(!model.hasShadow());
 		}else {
 			shadow = null;
 			shadowSetCall = null;
@@ -96,6 +97,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.dbleBordProperty().addListener((ChangeListener<? super Boolean>) strokesUpdateCall);
 			model.dbleBordSepProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
 			model.dbleBordColProperty().addListener((ChangeListener<? super Color>) strokesUpdateCall);
+			dblBorder.visibleProperty().bind(Bindings.createBooleanBinding(() -> !dblBorder.isDisable(), dblBorder.disableProperty()));
 		} else {
 			dblBorder = null;
 		}
@@ -315,6 +317,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.dbleBordSepProperty().removeListener((ChangeListener<? super Number>) strokesUpdateCall);
 			model.dbleBordColProperty().removeListener((ChangeListener<? super Color>) strokesUpdateCall);
 			dblBorder.strokeTypeProperty().unbind();
+			dblBorder.visibleProperty().unbind();
 		}
 
 		if(fillUpdateCall != null) {
@@ -334,6 +337,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.shadowAngleProperty().removeListener(shadowUpdateCall);
 			model.shadowSizeProperty().removeListener(shadowUpdateCall);
 			shadow.strokeTypeProperty().unbind();
+			shadow.visibleProperty().unbind();
 		}
 
 		border.strokeProperty().unbind();

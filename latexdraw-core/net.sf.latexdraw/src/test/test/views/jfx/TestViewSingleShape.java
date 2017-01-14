@@ -130,6 +130,30 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	}
 
 	@Test
+	public void testDoubleBorderDefaultVisible() {
+		if(model.isDbleBorderable()) {
+			assertFalse(view.getDbleBorder().get().isVisible());
+		}
+	}
+
+	@Test
+	public void testDoubleBorderVisible() {
+		if(model.isDbleBorderable()) {
+			model.setHasDbleBord(true);
+			assertTrue(view.getDbleBorder().get().isVisible());
+		}
+	}
+
+	@Test
+	public void testDoubleBorderNotVisible() {
+		if(model.isDbleBorderable()) {
+			model.setHasDbleBord(true);
+			model.setHasDbleBord(false);
+			assertFalse(view.getDbleBorder().get().isVisible());
+		}
+	}
+
+	@Test
 	public void testDoubleBorderStrokeWidth() {
 		if(model.isDbleBorderable()) {
 			model.setHasDbleBord(true);

@@ -18,7 +18,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * A JFX abstract view to factorise code of views based on a JFX rectangle.
  */
-class ViewRectangularBased<T extends ISingleShape> extends ViewSingleShape<T, Rectangle> {
+abstract class ViewRectangularBased<T extends ISingleShape> extends ViewSingleShape<T, Rectangle> {
 	/**
 	 * Creates the rectangle view.
 	 * @param sh The model.
