@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+//TODO JUNIT 5: use this trait in Rectangle/Square view test class
 public interface TestLineArcView<T extends ViewSingleShape<S, Rectangle>, S extends ISingleShape & ILineArcProp> extends ITestViewShape<T, S, Rectangle> {
 	@Test
 	default void testBorderLineArcWidth() {

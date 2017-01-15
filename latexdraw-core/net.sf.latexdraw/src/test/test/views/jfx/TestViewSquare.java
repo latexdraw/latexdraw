@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestViewSquare extends TestViewSingleShape<ViewSquare, ISquare, Rectangle> implements TestLineArcView<ViewSquare, ISquare> {
+public class TestViewSquare extends TestViewSingleShape<ViewSquare, ISquare, Rectangle> {
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
@@ -116,6 +116,51 @@ public class TestViewSquare extends TestViewSingleShape<ViewSquare, ISquare, Rec
 			model.setHasShadow(true);
 			assertEquals(border.getX(), view.getShadow().get().getX(), 0.01);
 			assertEquals(border.getY(), view.getShadow().get().getY(), 0.01);
+		}
+	}
+
+
+	@Test
+	public void testBorderLineArcWidth() {
+		getModel().setLineArc(0.33);
+		assertEquals(0.33 * getModel().getWidth(), getBorder().getArcWidth(), 0.000001);
+	}
+
+	@Test
+	public void testBorderLineArcHeight() {
+		getModel().setLineArc(0.33);
+		assertEquals(0.33 * getModel().getHeight(), getBorder().getArcHeight(), 0.000001);
+	}
+
+	@Test
+	public void testShadowLineArcWidth() {
+		if(getModel().isShadowable()) {
+			getModel().setLineArc(0.33);
+			assertEquals(0.33 * getModel().getWidth(), getView().getShadow().get().getArcWidth(), 0.000001);
+		}
+	}
+
+	@Test
+	public void testShadowLineArcHeight() {
+		if(getModel().isShadowable()) {
+			getModel().setLineArc(0.33);
+			assertEquals(0.33 * getModel().getHeight(), getView().getShadow().get().getArcHeight(), 0.000001);
+		}
+	}
+
+	@Test
+	public void testDbleLineArcWidth() {
+		if(getModel().isDbleBorderable()) {
+			getModel().setLineArc(0.33);
+			assertEquals(0.33 * getModel().getWidth(), getView().getDbleBorder().get().getArcWidth(), 0.000001);
+		}
+	}
+
+	@Test
+	public void testDbleLineArcHeight() {
+		if(getModel().isDbleBorderable()) {
+			getModel().setLineArc(0.33);
+			assertEquals(0.33 * getModel().getHeight(), getView().getDbleBorder().get().getArcHeight(), 0.000001);
 		}
 	}
 }
