@@ -1,7 +1,9 @@
 package test.views.jfx;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeoutException;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
@@ -17,6 +19,7 @@ import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import test.HelperTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -24,7 +27,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends ISingleShape, R extends Shape> {
+abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends ISingleShape, R extends Shape> implements HelperTest {
 	protected T view;
 	protected S model;
 	protected R border;
@@ -64,7 +67,7 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 
 	@Test
 	public void testBorderAdded() {
-		assertTrue(view.getChildren().stream().anyMatch(c -> c==border));
+		assertTrue(view.getChildren().stream().anyMatch(c -> c == border));
 	}
 
 	@Test
@@ -94,14 +97,14 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 		if(model.isDbleBorderable()) {
 			model.setHasDbleBord(true);
 			model.setDbleBordCol(DviPsColors.APRICOT);
-			assertEquals(DviPsColors.APRICOT, view.getDbleBorder().map(b -> ShapeFactory.INST.createColorFX((Color)b.getStroke())).orElse(null));
+			assertEquals(DviPsColors.APRICOT, view.getDbleBorder().map(b -> ShapeFactory.INST.createColorFX((Color) b.getStroke())).orElse(null));
 		}
 	}
 
 	@Test
 	public void testDoubleBorderAdded() {
 		if(model.isDbleBorderable()) {
-		 assertTrue(view.getChildren().stream().anyMatch(c -> c==view.getDbleBorder().get()));
+			assertTrue(view.getChildren().stream().anyMatch(c -> c == view.getDbleBorder().get()));
 		}
 	}
 
@@ -357,7 +360,7 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 		if(model.isFillable()) {
 			model.setFillingStyle(FillingStyle.GRAD);
 			LinearGradient grad1 = (LinearGradient) border.getFill();
-			model.setGradAngle(Math.PI/1.23);
+			model.setGradAngle(Math.PI / 1.23);
 			assertNotEquals(grad1, border.getFill());
 		}
 	}
@@ -373,9 +376,100 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	}
 
 	@Test
+	public void testFillHatchingsCLINES() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.CLINES);
+			assertTrue(border.getFill() instanceof ImagePattern);
+		}
+	}
+
+	@Test
+	public void testFillHatchingsVLINES() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.VLINES);
+			assertTrue(border.getFill() instanceof ImagePattern);
+		}
+	}
+
+	@Test
+	public void testFillHatchingsCLINESPLAIN() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.CLINES_PLAIN);
+			assertTrue(border.getFill() instanceof ImagePattern);
+		}
+	}
+
+	@Test
+	public void testFillHatchingsVLINESPLAIN() throws TimeoutException {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.VLINES_PLAIN);
+			assertTrue(border.getFill() instanceof ImagePattern);
+		}
+	}
+
+	@Test
+	public void testFillHatchingsHLINES() throws TimeoutException {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.HLINES);
+			assertTrue(border.getFill() instanceof ImagePattern);
+		}
+	}
+
+	@Test
+	public void testFillHatchingsHLINESPLAIN() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.HLINES_PLAIN);
+			assertTrue(border.getFill() instanceof ImagePattern);
+		}
+	}
+
+	@Test
+	public void testFillHatchingsWidth() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.HLINES);
+			assertNotEqualsSnapshot(view, () -> model.setHatchingsWidth(model.getHatchingsWidth() + 10d));
+		}
+	}
+
+	@Test
+	public void testFillHatchingsSep() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.HLINES);
+			assertNotEqualsSnapshot(view, () -> model.setHatchingsSep(model.getHatchingsSep() + 10d));
+		}
+	}
+
+	@Test
+	public void testFillHatchingsAngle() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.HLINES);
+			assertNotEqualsSnapshot(view, () -> model.setHatchingsAngle(model.getHatchingsAngle() + Math.PI / 3d));
+		}
+	}
+
+	@Test
+	public void testFillHatchingsCol() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.HLINES);
+			assertNotEqualsSnapshot(view, () -> model.setHatchingsCol(DviPsColors.FUSHIA));
+		}
+	}
+
+	@Test
+	public void testFillHatchingsFillingCol() {
+		if(model.isFillable()) {
+			model.setFillingStyle(FillingStyle.HLINES);
+			assertNotEqualsSnapshot(view, () -> {
+				model.setFillingStyle(FillingStyle.HLINES_PLAIN);
+				model.setFillingCol(DviPsColors.FUSHIA);
+			});
+		}
+	}
+
+	@Test
 	public void testShadowAdded() {
 		if(model.isDbleBorderable()) {
-			assertTrue(view.getChildren().stream().anyMatch(c -> c==view.getShadow().get()));
+			assertTrue(view.getChildren().stream().anyMatch(c -> c == view.getShadow().get()));
 		}
 	}
 
@@ -503,7 +597,7 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	public void testShadowAngle90Translate() {
 		if(model.isShadowable()) {
 			model.setHasShadow(true);
-			model.setShadowAngle(Math.PI/2d);
+			model.setShadowAngle(Math.PI / 2d);
 			assertEquals(0d, view.getShadow().get().getTranslateX(), 0.01);
 			assertEquals(-model.getShadowSize(), view.getShadow().get().getTranslateY(), 0.01);
 		}
@@ -515,14 +609,14 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	@Test
 	public void testShadowBeforeBorder() {
 		if(model.isShadowable()) {
-			assertTrue(view.getChildren().indexOf(border)>view.getChildren().indexOf(view.getShadow().get()));
+			assertTrue(view.getChildren().indexOf(border) > view.getChildren().indexOf(view.getShadow().get()));
 		}
 	}
 
 	@Test
 	public void testDbleBorderAfterBorder() {
 		if(model.isShadowable()) {
-			assertTrue(view.getChildren().indexOf(border)<view.getChildren().indexOf(view.getDbleBorder().get()));
+			assertTrue(view.getChildren().indexOf(border) < view.getChildren().indexOf(view.getDbleBorder().get()));
 		}
 	}
 }

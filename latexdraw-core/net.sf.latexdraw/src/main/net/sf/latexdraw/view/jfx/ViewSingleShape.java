@@ -14,12 +14,20 @@ package net.sf.latexdraw.view.jfx;
 
 import java.awt.geom.Point2D;
 import java.util.Optional;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.Bounds;
+import javafx.scene.Group;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Stop;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
@@ -45,7 +53,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	protected final @Nullable T dblBorder;
 	protected final @Nullable T shadow;
 
-	private final  @NonNull ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
+	private final @NonNull ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
 	private final @Nullable ChangeListener<?> fillUpdateCall;
 	private final @Nullable ChangeListener<Boolean> shadowSetCall;
 	private final @Nullable ChangeListener<Number> shadowUpdateCall = (obs, oldVal, newVal) -> updateShadowPosition();
@@ -121,6 +129,10 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.gradMidPtProperty().addListener((ChangeListener<? super Number>) fillUpdateCall);
 			model.gradAngleProperty().addListener((ChangeListener<? super Number>) fillUpdateCall);
 			model.fillingColProperty().addListener((ChangeListener<? super Color>) fillUpdateCall);
+			model.hatchingsAngleProperty().addListener((ChangeListener<? super Number>) fillUpdateCall);
+			model.hatchingsSepProperty().addListener((ChangeListener<? super Number>) fillUpdateCall);
+			model.hatchingsWidthProperty().addListener((ChangeListener<? super Number>) fillUpdateCall);
+			model.hatchingsColProperty().addListener((ChangeListener<? super Color>) fillUpdateCall);
 			border.setFill(getFillingPaint(model.getFillingStyle()));
 		}else {
 			fillUpdateCall = null;
@@ -150,17 +162,123 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	private Paint getFillingPaint(final FillingStyle style) {
 		switch(style) {
 			case NONE: return model.hasShadow() && model.shadowFillsShape() ? model.getFillingCol().toJFX() : null;
-			case PLAIN: return model.getFillingCol().toJFX();
 			case GRAD: return computeGradient();
+			case PLAIN: return model.getFillingCol().toJFX();
 			case CLINES_PLAIN:
 			case HLINES_PLAIN:
 			case VLINES_PLAIN:
 			case CLINES:
 			case VLINES:
-			case HLINES: return null;
+			case HLINES: return gethatchingsFillingPaint(style);
 			default: return null;
 		}
 	}
+
+
+	private Paint gethatchingsFillingPaint(final FillingStyle style) {
+		final Bounds bounds = border.getBoundsInParent();
+
+		if(bounds.getWidth() > 0d && bounds.getHeight() > 0d) {
+			final Group hatchings = new Group();
+			final double hAngle = model.getHatchingsAngle();
+
+			hatchings.getChildren().add(new Rectangle(bounds.getWidth(), bounds.getHeight(), style.isFilled() ? model.getFillingCol().toJFX() : null));
+
+			if(style == FillingStyle.VLINES || style == FillingStyle.VLINES_PLAIN) {
+				computeHatchings(hatchings, hAngle, bounds.getWidth(), bounds.getHeight());
+			}else {
+				if(style == FillingStyle.HLINES || style == FillingStyle.HLINES_PLAIN) {
+					computeHatchings(hatchings, hAngle > 0d ? hAngle - Math.PI / 2d : hAngle + Math.PI / 2d, bounds.getWidth(), bounds.getHeight());
+				}else {
+					if(style == FillingStyle.CLINES || style == FillingStyle.CLINES_PLAIN) {
+						computeHatchings(hatchings, hAngle, bounds.getWidth(), bounds.getHeight());
+						computeHatchings(hatchings, hAngle > 0d ? hAngle - Math.PI / 2d : hAngle + Math.PI / 2d, bounds.getWidth(), bounds.getHeight());
+					}
+				}
+			}
+
+			final WritableImage image = new WritableImage((int) bounds.getWidth(), (int) bounds.getHeight());
+			Platform.runLater(() -> hatchings.snapshot(new SnapshotParameters(), image));
+			return new ImagePattern(image, 0, 0, 1, 1, true);
+		}
+
+		return null;
+	}
+
+
+	private void computeHatchings(final Group hatchings, final double angle, final double width, final double height) {
+		double angle2 = angle % (Math.PI * 2d);
+		final float halfPI = (float) (Math.PI / 2d);
+		final double val = model.getHatchingsWidth() + model.getHatchingsSep();
+
+		if(angle2 > 0d) {
+			if((float) angle2 > 3f * halfPI) {
+				angle2 -= Math.PI * 2d;
+			}else {
+				if((float) angle2 > halfPI) {
+					angle2 -= Math.PI;
+				}
+			}
+		}else {
+			if((float) angle2 < -3f * halfPI) {
+				angle2 += Math.PI * 2d;
+			}else {
+				if((float) angle2 < -halfPI) {
+					angle2 += Math.PI;
+				}
+			}
+		}
+
+		if(MathUtils.INST.equalsDouble(angle2, 0d)) {
+			for(double x = 0d; x < width; x += val) {
+				createHatchingLine(hatchings, x, 0d, x, height, width, height);
+			}
+		}else if(MathUtils.INST.equalsDouble(angle2, Math.abs(halfPI))) {
+			for(double y = 0d; y < height; y += val) {
+				createHatchingLine(hatchings, 0d, y, width, y, width, height);
+			}
+		}else {
+			final double incX = val / Math.cos(angle2);
+			final double incY = val / Math.sin(angle2);
+			final double limitX;
+			double startY;
+			double endX = 0d;
+
+			if(angle2 > 0) {
+				startY = 0d;
+				limitX = width + height * Math.tan(angle2);
+			}else {
+				startY = height;
+				limitX = width - height * Math.tan(angle2);
+			}
+
+			final double endY = startY;
+
+			while(endX < limitX) {
+				endX += incX;
+				startY += incY;
+				createHatchingLine(hatchings, 0d, startY, endX, endY, width, height);
+			}
+		}
+	}
+
+	private Line createHatchingLine(final Group group, final double x1, final double y1, final double x2, final double y2,
+									final double clipWidth, final double clipHeight) {
+		final Line line = new Line();
+		line.setStrokeWidth(model.getHatchingsWidth());
+		line.setStrokeLineJoin(StrokeLineJoin.MITER);
+		line.setStrokeLineCap(StrokeLineCap.SQUARE);
+		line.setStroke(model.getHatchingsCol().toJFX());
+		line.setStartX(x1);
+		line.setStartY(y1);
+		line.setEndX(x2);
+		line.setEndY(y2);
+		// Required, otherwise the line may not be drawn.
+		line.setClip(new Rectangle(0, 0, clipWidth, clipHeight));
+		group.getChildren().add(line);
+		return line;
+	}
+
 
 	private LinearGradient computeGradient() {
 		final IPoint tl = model.getTopLeftPoint();
@@ -328,6 +446,10 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.gradAngleProperty().removeListener((ChangeListener<? super Number>) fillUpdateCall);
 			model.gradColEndProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
 			model.fillingColProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
+			model.hatchingsAngleProperty().removeListener((ChangeListener<? super Number>) fillUpdateCall);
+			model.hatchingsSepProperty().removeListener((ChangeListener<? super Number>) fillUpdateCall);
+			model.hatchingsWidthProperty().removeListener((ChangeListener<? super Number>) fillUpdateCall);
+			model.hatchingsColProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
 		}
 
 		if(shadowSetCall != null) {

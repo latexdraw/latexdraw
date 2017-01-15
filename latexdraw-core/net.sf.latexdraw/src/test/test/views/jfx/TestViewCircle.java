@@ -1,15 +1,23 @@
 package test.views.jfx;
 
+import java.util.concurrent.TimeoutException;
 import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.view.jfx.ViewCircle;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestViewCircle extends TestViewSingleShape<ViewCircle, ICircle, Ellipse> {
+	@BeforeClass
+	public static void beforeClass() throws TimeoutException {
+		FxToolkit.registerPrimaryStage();
+	}
+
 	@Override
 	protected ICircle createModel() {
 		final ICircle rec = ShapeFactory.INST.createCircle();

@@ -1,15 +1,23 @@
 package test.views.jfx;
 
+import java.util.concurrent.TimeoutException;
 import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.view.jfx.ViewEllipse;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestViewEllipse extends TestViewSingleShape<ViewEllipse, IEllipse, Ellipse> {
+	@BeforeClass
+	public static void beforeClass() throws TimeoutException {
+		FxToolkit.registerPrimaryStage();
+	}
+
 	@Override
 	protected IEllipse createModel() {
 		final IEllipse rec = ShapeFactory.INST.createEllipse();

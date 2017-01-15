@@ -1,15 +1,23 @@
 package test.views.jfx;
 
+import java.util.concurrent.TimeoutException;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.view.jfx.ViewSquare;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestViewSquare extends TestViewSingleShape<ViewSquare, ISquare, Rectangle> {
+	@BeforeClass
+	public static void beforeClass() throws TimeoutException {
+		FxToolkit.registerPrimaryStage();
+	}
+
 	@Override
 	protected ISquare createModel() {
 		final ISquare sh = ShapeFactory.INST.createSquare();
@@ -29,21 +37,21 @@ public class TestViewSquare extends TestViewSingleShape<ViewSquare, ISquare, Rec
 	public void testXPositionDbleBordInside() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.INTO);
-		assertEquals(123d+model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
+		assertEquals(123d + model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
 	}
 
 	@Test
 	public void testXPositionDbleBordMiddle() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(123d+model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
+		assertEquals(123d + model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
 	}
 
 	@Test
 	public void testXPositionDbleBordOutside() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(123d+model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
+		assertEquals(123d + model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
 	}
 
 
@@ -57,21 +65,21 @@ public class TestViewSquare extends TestViewSingleShape<ViewSquare, ISquare, Rec
 	public void testYPositionDbleBordInside() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.INTO);
-		assertEquals(border.getY()+model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
+		assertEquals(border.getY() + model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
 	}
 
 	@Test
 	public void testYPositionDbleBordMiddle() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getY()+model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
+		assertEquals(border.getY() + model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
 	}
 
 	@Test
 	public void testYPositionDbleBordOutside() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getY()+model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
+		assertEquals(border.getY() + model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
 	}
 
 	@Test
@@ -84,21 +92,21 @@ public class TestViewSquare extends TestViewSingleShape<ViewSquare, ISquare, Rec
 	public void testWidthDbleBordInside() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.INTO);
-		assertEquals(border.getWidth()-2d*model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
+		assertEquals(border.getWidth() - 2d * model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
 	}
 
 	@Test
 	public void testWidthDbleBordMiddle() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getWidth()-2d*model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
+		assertEquals(border.getWidth() - 2d * model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
 	}
 
 	@Test
 	public void testWidthDbleBordOutside() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getWidth()-2d*model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
+		assertEquals(border.getWidth() - 2d * model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
 	}
 
 	@Override

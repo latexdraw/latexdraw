@@ -75,16 +75,16 @@ abstract class LShape implements ISingleShape {
 	protected final @NonNull DoubleProperty gradMidPt;
 
 	/** The separation size between hatchings in pixel. */
-	protected double hatchingsSep;
+	protected final @NonNull DoubleProperty hatchingsSep;
 
 	/** The colour of the hatchings. */
-	protected Color hatchingsCol;
+	protected final @NonNull ObjectProperty<Color> hatchingsCol;
 
 	/** The angle of the hatchings in radian. */
-	protected double hatchingsAngle;
+	protected final @NonNull DoubleProperty hatchingsAngle;
 
 	/** The thickness of the hatchings in pixel. */
-	protected double hatchingsWidth;
+	protected final @NonNull DoubleProperty hatchingsWidth;
 
 	/** The rotation angle of the shape. */
 	protected double rotationAngle;
@@ -132,7 +132,7 @@ abstract class LShape implements ISingleShape {
 		rotationAngle = 0d;
 		shadowAngle = new SimpleDoubleProperty(-Math.PI / 4d);
 		gradAngle = new SimpleDoubleProperty(0d);
-		hatchingsAngle = 0d;
+		hatchingsAngle = new SimpleDoubleProperty(0d);
 		hasShadow = new SimpleBooleanProperty(false);
 		hasDbleBord = new SimpleBooleanProperty(false);
 		lineStyle = new SimpleObjectProperty<>(LineStyle.SOLID);
@@ -140,9 +140,9 @@ abstract class LShape implements ISingleShape {
 		dotSep = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DOT_STEP * PPC);
 		dashSepBlack = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DASH_BLACK * PPC);
 		dashSepWhite = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DASH_WHITE * PPC);
-		hatchingsCol = PSTricksConstants.DEFAULT_HATCHING_COLOR;
-		hatchingsSep = PSTricksConstants.DEFAULT_HATCH_SEP * PPC;
-		hatchingsWidth = PSTricksConstants.DEFAULT_HATCH_WIDTH * PPC;
+		hatchingsCol = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_HATCHING_COLOR);
+		hatchingsSep = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_HATCH_SEP * PPC);
+		hatchingsWidth = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_HATCH_WIDTH * PPC);
 		fillingStyle = new SimpleObjectProperty<>(FillingStyle.NONE);
 		fillingCol = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_INTERIOR_COLOR);
 		bordersPosition = new SimpleObjectProperty<>(BorderPos.INTO);
@@ -315,22 +315,22 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public double getHatchingsAngle() {
-		return hatchingsAngle;
+		return hatchingsAngle.doubleValue();
 	}
 
 	@Override
 	public Color getHatchingsCol() {
-		return hatchingsCol;
+		return hatchingsCol.get();
 	}
 
 	@Override
 	public double getHatchingsSep() {
-		return hatchingsSep;
+		return hatchingsSep.doubleValue();
 	}
 
 	@Override
 	public double getHatchingsWidth() {
-		return hatchingsWidth;
+		return hatchingsWidth.doubleValue();
 	}
 
 	@Override
@@ -621,32 +621,44 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setHatchingsAngle(final double angle) {
-		if(MathUtils.INST.isValidCoord(angle) && isInteriorStylable()) hatchingsAngle = angle;
+		if(MathUtils.INST.isValidCoord(angle) && isInteriorStylable()) {
+			hatchingsAngle.set(angle);
+		}
 	}
 
 	@Override
 	public void setHatchingsCol(final Color col) {
-		if(col != null && isInteriorStylable()) hatchingsCol = col;
+		if(col != null && isInteriorStylable()) {
+			hatchingsCol.set(col);
+		}
 	}
 
 	@Override
 	public void setHatchingsSep(final double sep) {
-		if(MathUtils.INST.isValidCoord(sep) && sep >= 0 && isInteriorStylable()) hatchingsSep = sep;
+		if(MathUtils.INST.isValidCoord(sep) && sep >= 0d && isInteriorStylable()) {
+			hatchingsSep.set(sep);
+		}
 	}
 
 	@Override
 	public void setHatchingsWidth(final double width) {
-		if(MathUtils.INST.isValidCoord(width) && width > 0 && isInteriorStylable()) hatchingsWidth = width;
+		if(MathUtils.INST.isValidCoord(width) && width > 0d && isInteriorStylable()) {
+			hatchingsWidth.set(width);
+		}
 	}
 
 	@Override
 	public void setLineColour(final Color col) {
-		if(col != null) lineColour.set(col);
+		if(col != null) {
+			lineColour.set(col);
+		}
 	}
 
 	@Override
 	public void setLineStyle(final LineStyle style) {
-		if(style != null && isLineStylable()) lineStyle.setValue(style);
+		if(style != null && isLineStylable()) {
+			lineStyle.setValue(style);
+		}
 	}
 
 	@Override
@@ -950,5 +962,25 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public @NonNull DoubleProperty shadowSizeProperty() {
 		return shadowSize;
+	}
+
+	@Override
+	public @NonNull DoubleProperty hatchingsAngleProperty() {
+		return hatchingsAngle;
+	}
+
+	@Override
+	public @NonNull DoubleProperty hatchingsSepProperty() {
+		return hatchingsSep;
+	}
+
+	@Override
+	public @NonNull DoubleProperty hatchingsWidthProperty() {
+		return hatchingsWidth;
+	}
+
+	@Override
+	public @NonNull ObjectProperty<Color> hatchingsColProperty() {
+		return hatchingsCol;
 	}
 }

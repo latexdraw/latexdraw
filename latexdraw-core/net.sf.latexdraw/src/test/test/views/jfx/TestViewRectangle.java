@@ -1,15 +1,23 @@
 package test.views.jfx;
 
+import java.util.concurrent.TimeoutException;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.view.jfx.ViewRectangle;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestViewRectangle extends TestViewSingleShape<ViewRectangle, IRectangle, Rectangle> {
+	@BeforeClass
+	public static void beforeClass() throws TimeoutException {
+		FxToolkit.registerPrimaryStage();
+	}
+
 	@Override
 	protected IRectangle createModel() {
 		final IRectangle rec = ShapeFactory.INST.createRectangle();

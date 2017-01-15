@@ -60,4 +60,12 @@ public interface ISingleShape extends IShape {
 	@NonNull DoubleProperty shadowAngleProperty();
 
 	@NonNull DoubleProperty shadowSizeProperty();
+
+	@NonNull DoubleProperty hatchingsAngleProperty();
+
+	@NonNull DoubleProperty hatchingsSepProperty();
+
+	@NonNull DoubleProperty hatchingsWidthProperty();
+
+	@NonNull ObjectProperty<Color> hatchingsColProperty();
 }
