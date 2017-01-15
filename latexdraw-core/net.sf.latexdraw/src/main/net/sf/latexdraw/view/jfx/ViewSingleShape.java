@@ -134,6 +134,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.hatchingsWidthProperty().addListener((ChangeListener<? super Number>) fillUpdateCall);
 			model.hatchingsColProperty().addListener((ChangeListener<? super Color>) fillUpdateCall);
 			border.setFill(getFillingPaint(model.getFillingStyle()));
+			// The filling must be updated on resize and co.
+			border.boundsInLocalProperty().addListener((ChangeListener<? super Bounds>) fillUpdateCall);
+
 		}else {
 			fillUpdateCall = null;
 		}
@@ -450,6 +453,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			model.hatchingsSepProperty().removeListener((ChangeListener<? super Number>) fillUpdateCall);
 			model.hatchingsWidthProperty().removeListener((ChangeListener<? super Number>) fillUpdateCall);
 			model.hatchingsColProperty().removeListener((ChangeListener<? super Color>) fillUpdateCall);
+			border.boundsInLocalProperty().removeListener((ChangeListener<? super Bounds>) fillUpdateCall);
 		}
 
 		if(shadowSetCall != null) {
