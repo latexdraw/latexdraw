@@ -51,7 +51,7 @@
             <fx:include source="CopyPaste.fxml"/>
             <fx:include source="Undo.fxml"/>
             <fx:include source="Export.fxml"/>
-            <Spinner min="10" max="450" initialValue="100" amountToStepBy="5" prefHeight="25.0" prefWidth="75.0" editable="true"/>
+            <fx:include source="Zoom.fxml"/>
             <fx:include source="Deleter.fxml"/>
             <HBox spacing="10"/>
             <fx:include source="EditingModes.fxml"/>
