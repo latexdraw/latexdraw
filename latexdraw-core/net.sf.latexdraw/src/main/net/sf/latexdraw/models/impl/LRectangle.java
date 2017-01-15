@@ -10,10 +10,12 @@
  */
 package net.sf.latexdraw.models.impl;
 
+import javafx.beans.property.DoubleProperty;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A model of a rectangle.
@@ -47,5 +49,10 @@ class LRectangle extends LRectangularShape implements IRectangle {
 	@Override
 	public boolean isRoundCorner() {
 		return lineArcProp.isRoundCorner();
+	}
+
+	@Override
+	public @NonNull DoubleProperty frameArcProperty() {
+		return lineArcProp.frameArc;
 	}
 }

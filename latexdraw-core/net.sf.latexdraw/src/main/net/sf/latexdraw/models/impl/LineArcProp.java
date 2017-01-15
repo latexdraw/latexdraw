@@ -10,8 +10,11 @@
  */
 package net.sf.latexdraw.models.impl;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Line arc properties.
@@ -19,26 +22,27 @@ import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
  */
 class LineArcProp implements ILineArcProp {
 	/** The radius of arcs drawn at the corners of lines. */
-	private double frameArc;
+	final @NonNull DoubleProperty frameArc;
 
 	LineArcProp() {
-		frameArc = 0.0;
+		super();
+		frameArc = new SimpleDoubleProperty(0d);
 	}
 
 	@Override
 	public double getLineArc() {
-		return frameArc;
+		return frameArc.doubleValue();
 	}
 
 	@Override
 	public boolean isRoundCorner() {
-		return frameArc > 0.0;
+		return getLineArc() > 0d;
 	}
 
 	@Override
 	public void setLineArc(final double arc) {
-		if(MathUtils.INST.isValidCoord(arc) && arc >= 0.0 && arc <= 1.0) {
-			frameArc = arc;
+		if(MathUtils.INST.isValidCoord(arc) && arc >= 0d && arc <= 1d) {
+			frameArc.set(arc);
 		}
 	}
 }

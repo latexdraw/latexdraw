@@ -27,7 +27,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends ISingleShape, R extends Shape> implements HelperTest {
+abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends ISingleShape, R extends Shape> implements HelperTest, ITestViewShape<T, S, R> {
 	protected T view;
 	protected S model;
 	protected R border;
@@ -49,6 +49,21 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 	@After
 	public void tearDown() throws Exception {
 		view.flush();
+	}
+
+	@Override
+	public T getView() {
+		return view;
+	}
+
+	@Override
+	public S getModel() {
+		return model;
+	}
+
+	@Override
+	public R getBorder() {
+		return border;
 	}
 
 	@Test

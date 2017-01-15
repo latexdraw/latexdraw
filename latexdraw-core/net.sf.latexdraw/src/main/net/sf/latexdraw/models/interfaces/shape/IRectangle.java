@@ -1,6 +1,8 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
+import javafx.beans.property.DoubleProperty;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines an interface that classes defining a rectangle should implement.<br>
@@ -22,5 +24,6 @@ import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
  * @since 3.0
  */
 public interface IRectangle extends IRectangularShape, ILineArcProp {
+	@NonNull DoubleProperty frameArcProperty();
 	//
 }

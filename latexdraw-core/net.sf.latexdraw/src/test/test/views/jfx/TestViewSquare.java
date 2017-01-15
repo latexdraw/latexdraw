@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestViewSquare extends TestViewSingleShape<ViewSquare, ISquare, Rectangle> {
+public class TestViewSquare extends TestViewSingleShape<ViewSquare, ISquare, Rectangle> implements TestLineArcView<ViewSquare, ISquare> {
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
