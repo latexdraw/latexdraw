@@ -52,6 +52,12 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 		plotStyleCB.getItems().addAll(PlotStyle.values());
 		((DoubleSpinnerValueFactory) minXSpinner.getValueFactory()).maxProperty().bind(maxXSpinner.valueProperty());
 		((DoubleSpinnerValueFactory) maxXSpinner.getValueFactory()).minProperty().bind(minXSpinner.valueProperty());
+
+		scrollOnSpinner(nbPtsSpinner);
+		scrollOnSpinner(minXSpinner);
+		scrollOnSpinner(maxXSpinner);
+		scrollOnSpinner(xScaleSpinner);
+		scrollOnSpinner(yScaleSpinner);
 	}
 
 	@Override

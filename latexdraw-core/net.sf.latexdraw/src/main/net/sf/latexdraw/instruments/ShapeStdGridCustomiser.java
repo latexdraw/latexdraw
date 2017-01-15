@@ -68,6 +68,14 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 		((DoubleSpinnerValueFactory) yStartS.getValueFactory()).maxProperty().bind(yEndS.valueProperty());
 		((DoubleSpinnerValueFactory) xEndS.getValueFactory()).minProperty().bind(xStartS.valueProperty());
 		((DoubleSpinnerValueFactory) yEndS.getValueFactory()).minProperty().bind(yStartS.valueProperty());
+
+		scrollOnSpinner(yOriginS);
+		scrollOnSpinner(xOriginS);
+		scrollOnSpinner(labelsSizeS);
+		scrollOnSpinner(yEndS);
+		scrollOnSpinner(xEndS);
+		scrollOnSpinner(yStartS);
+		scrollOnSpinner(xStartS);
 	}
 
 	@Override

@@ -78,6 +78,11 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 		shapeTicks.getItems().addAll(TicksStyle.values());
 		showTicks.getItems().addAll(PlottingStyle.values());
 		showLabels.getItems().addAll(PlottingStyle.values());
+
+		scrollOnSpinner(distLabelsX);
+		scrollOnSpinner(distLabelsY);
+		scrollOnSpinner(incrLabelX);
+		scrollOnSpinner(incrLabelY);
 	}
 
 	@Override

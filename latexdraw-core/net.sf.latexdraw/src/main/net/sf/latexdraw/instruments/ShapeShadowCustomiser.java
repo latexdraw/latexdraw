@@ -52,6 +52,9 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser implements In
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
+
+		scrollOnSpinner(shadowSizeField);
+		scrollOnSpinner(shadowAngleField);
 	}
 
 	@Override

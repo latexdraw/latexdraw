@@ -59,6 +59,8 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initi
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
+		scrollOnSpinner(startAngleS);
+		scrollOnSpinner(endAngleS);
 	}
 
 	@Override

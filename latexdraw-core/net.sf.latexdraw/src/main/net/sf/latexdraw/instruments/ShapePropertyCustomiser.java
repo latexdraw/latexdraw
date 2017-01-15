@@ -54,6 +54,16 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		super();
 	}
 
+	static void scrollOnSpinner(final Spinner<?> spinner) {
+		spinner.setOnScroll(event -> {
+			if(event.getDeltaY() < 0d) {
+				spinner.decrement();
+			}else if(event.getDeltaY() > 0d) {
+				spinner.increment();
+			}
+		});
+	}
+
 	@Override
 	public void onActionDone(final Action action) {
 		update();

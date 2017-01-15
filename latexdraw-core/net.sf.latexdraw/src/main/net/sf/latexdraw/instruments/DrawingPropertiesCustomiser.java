@@ -1,7 +1,10 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -34,7 +37,7 @@ import org.w3c.dom.Element;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class DrawingPropertiesCustomiser extends JfxInstrument {
+public class DrawingPropertiesCustomiser extends JfxInstrument implements Initializable {
 	/** The field that changes the title of the drawing. */
 	@FXML protected TextField titleField;
 
@@ -58,6 +61,11 @@ public class DrawingPropertiesCustomiser extends JfxInstrument {
 	 */
 	public DrawingPropertiesCustomiser() {
 		super();
+	}
+
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		ShapePropertyCustomiser.scrollOnSpinner(scaleField);
 	}
 
 	@Override

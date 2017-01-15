@@ -48,6 +48,8 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser impleme
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
+
+		scrollOnSpinner(dbleSepField);
 	}
 
 	@Override

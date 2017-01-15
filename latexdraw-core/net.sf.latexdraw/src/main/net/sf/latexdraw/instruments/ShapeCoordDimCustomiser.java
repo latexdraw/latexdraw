@@ -58,6 +58,9 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
+
+		scrollOnSpinner(tlxS);
+		scrollOnSpinner(tlyS);
 	}
 
 	@Override

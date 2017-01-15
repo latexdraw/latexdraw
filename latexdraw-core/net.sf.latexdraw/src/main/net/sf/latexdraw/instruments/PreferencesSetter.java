@@ -75,18 +75,12 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	/** Allows the set if the program must check new version on start up. */
 	@FXML protected CheckBox checkNewVersion;
 
-	/**
-	 * This textField allows to set the default directories for open/save
-	 * actions.
-	 */
+	/** This textField allows to set the default directories for open/save actions. */
 	@FXML protected TextField pathOpenField;
 
 	@FXML protected CheckBox openGL;
 
-	/**
-	 * This textField allows to set the default directories for exporting
-	 * actions.
-	 */
+	/** This textField allows to set the default directories for exporting actions. */
 	@FXML protected TextField pathExportField;
 
 	/** The text field used to defines the latex packages to use. */
@@ -140,6 +134,9 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		langList.getItems().addAll(LangTool.INSTANCE.getSupportedLocales().stream().map(Locale::getDisplayLanguage).collect(Collectors.toList()));
 		unitChoice.getItems().addAll(Arrays.stream(Unit.values()).map(Unit::getLabel).collect(Collectors.toList()));
 		styleList.getItems().addAll(GridStyle.values());
+
+		ShapePropertyCustomiser.scrollOnSpinner(nbRecentFilesField);
+		ShapePropertyCustomiser.scrollOnSpinner(persoGridGapField);
 	}
 
 	/**

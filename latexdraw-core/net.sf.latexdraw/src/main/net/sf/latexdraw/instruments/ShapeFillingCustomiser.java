@@ -90,6 +90,12 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 		cache.put(FillingStyle.VLINES_PLAIN, new Image("/res/hatch/hatchf.vert.png"));
 		cache.put(FillingStyle.GRAD, new Image("/res/hatch/gradient.png"));
 		initComboBox(fillStyleCB, cache, FillingStyle.values());
+
+		scrollOnSpinner(hatchAngleField);
+		scrollOnSpinner(hatchSepField);
+		scrollOnSpinner(hatchWidthField);
+		scrollOnSpinner(gradAngleField);
+		scrollOnSpinner(gradMidPtField);
 	}
 
 	@Override
