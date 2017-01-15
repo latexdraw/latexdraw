@@ -26,10 +26,9 @@ public class ViewEllipse extends ViewEllipseBased<IEllipse> {
 	 */
 	public ViewEllipse(final @NonNull IEllipse sh) {
 		super(sh);
-
-		border.centerXProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getX(), model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
-		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).yProperty(), model.getPtAt(1).yProperty()));
+		border.centerXProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getX(), model.getPtAt(2).xProperty(), model.getPtAt(3).xProperty()));
+		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
 		border.radiusXProperty().bind(Bindings.createDoubleBinding(() -> model.getWidth() / 2d, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
-		border.radiusYProperty().bind(Bindings.createDoubleBinding(() -> model.getHeight() / 2d, model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
+		border.radiusYProperty().bind(Bindings.createDoubleBinding(() -> model.getHeight() / 2d, model.getPtAt(1).yProperty(), model.getPtAt(2).yProperty()));
 	}
 }
