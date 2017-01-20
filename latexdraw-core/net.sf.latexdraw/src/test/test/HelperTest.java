@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import org.testfx.util.WaitForAsyncUtils;
@@ -47,11 +48,18 @@ public interface HelperTest {
 		Platform.runLater(() -> node.snapshot(params, observ));
 		WaitForAsyncUtils.waitForFxEvents();
 
-		assertNotEquals(0d, computeSnapshotSimilarity(oracle, observ), 0.0000001);
+		assertNotEquals("The two snapshots do not differ.", 100d, computeSnapshotSimilarity(oracle, observ), 0.001);
 	}
 
 
-	default double computeSnapshotSimilarity(final WritableImage image1, final WritableImage image2) {
+	/**
+	 * Compute the similarity of two JavaFX images.
+	 * @param image1 The first image to test.
+	 * @param image2 The second image to test.
+	 * @return A double value in [0;100] corresponding to the similarity between the two images (pixel comparison).
+	 * @throws NullPointerException If image1 or image2 is null.
+	 */
+	default double computeSnapshotSimilarity(final Image image1, final Image image2) {
 		final int width = (int) image1.getWidth();
 		final int height = (int) image1.getHeight();
 		final PixelReader reader1 = image1.getPixelReader();
@@ -60,6 +68,6 @@ public interface HelperTest {
 		final double nbNonSimilarPixels = IntStream.range(0, width).parallel().mapToLong(i ->
 			IntStream.range(0, height).parallel().filter(j -> reader1.getArgb(i, j) != reader2.getArgb(i, j)).count()).sum();
 
-		return nbNonSimilarPixels / (width * height);
+		return 100d - nbNonSimilarPixels / (width * height) * 100d;
 	}
 }
