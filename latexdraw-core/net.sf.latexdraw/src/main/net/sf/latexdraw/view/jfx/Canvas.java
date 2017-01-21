@@ -164,8 +164,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		}
 		else {
 			final double zoomLevel = getZoom();
-			final Rectangle2D rec = selection.stream().map(sh -> {
-				Bounds b = shapesToViewMap.get(sh).getBoundsInLocal();
+			final Rectangle2D rec = selection.stream().map(sh -> shapesToViewMap.get(sh)).filter(vi -> vi!=null).map(vi -> {
+				Bounds b = vi.getBoundsInLocal();
 				return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
 			}).reduce(Rectangle2D::createUnion).orElse(new Rectangle2D.Double());
 
