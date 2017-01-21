@@ -1,10 +1,10 @@
 package test.gui.robot;
 
-import static org.junit.Assert.fail;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
-
 import org.testfx.api.FxRobotInterface;
+
+import static org.junit.Assert.fail;
 
 /**
  * TestFX does not provide all the required routines to test GUIs. This trait defines routines for
@@ -19,17 +19,23 @@ public interface FxRobotListSelection extends FxRobotInterface {
 		final int index = combo.getItems().indexOf(item);
 		final int indexSel = combo.getSelectionModel().getSelectedIndex();
 
-		if(index == -1)
+		if(index == -1) {
 			fail("The item " + item + " is not in the combo box " + combo);
+		}
 
 		clickOn(combo);
 
-		if(index > indexSel)
-			for(int i = indexSel; i < index; i++)
+		if(index > indexSel) {
+			for(int i = indexSel; i < index; i++) {
 				type(KeyCode.DOWN);
-		else if(index < indexSel)
-			for(int i = indexSel; i > index; i--)
-				type(KeyCode.UP);
+			}
+		}else {
+			if(index < indexSel) {
+				for(int i = indexSel; i > index; i--) {
+					type(KeyCode.UP);
+				}
+			}
+		}
 
 		type(KeyCode.ENTER);
 	}

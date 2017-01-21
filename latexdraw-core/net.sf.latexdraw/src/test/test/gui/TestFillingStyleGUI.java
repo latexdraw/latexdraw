@@ -58,5 +58,7 @@ public abstract class TestFillingStyleGUI extends TestShapePropGUI<ShapeFillingC
 		hatchWidthField = find("#hatchWidthField");
 		ins = (ShapeFillingCustomiser)guiceFactory.call(ShapeFillingCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
 	}
 }

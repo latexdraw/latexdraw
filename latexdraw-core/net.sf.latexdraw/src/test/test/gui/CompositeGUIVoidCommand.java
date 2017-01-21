@@ -3,6 +3,7 @@ package test.gui;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.testfx.util.WaitForAsyncUtils;
 
 public class CompositeGUIVoidCommand implements GUIVoidCommand {
 	protected final List<GUIVoidCommand> cmds;
@@ -15,6 +16,10 @@ public class CompositeGUIVoidCommand implements GUIVoidCommand {
 
 	@Override
 	public void execute() {
-		cmds.forEach(GUIVoidCommand::execute);
+		WaitForAsyncUtils.waitForFxEvents(12);
+		cmds.forEach(cmd -> {
+			cmd.execute();
+			WaitForAsyncUtils.waitForFxEvents(12);
+		});
 	}
 }

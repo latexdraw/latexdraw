@@ -38,5 +38,7 @@ public abstract class TestArcStyleGUI extends TestShapePropGUI<ShapeArcCustomise
 		startAngleS = find("#startAngleS");
 		ins = (ShapeArcCustomiser)guiceFactory.call(ShapeArcCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
 	}
 }

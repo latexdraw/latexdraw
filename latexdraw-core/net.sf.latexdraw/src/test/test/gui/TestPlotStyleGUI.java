@@ -46,5 +46,7 @@ public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomi
 		mainPane = find("#mainPane");
 		ins = (ShapePlotCustomiser)guiceFactory.call(ShapePlotCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
 	}
 }

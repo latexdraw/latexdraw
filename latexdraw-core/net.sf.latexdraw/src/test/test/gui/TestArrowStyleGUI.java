@@ -4,9 +4,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
-
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import org.junit.Before;
 
 public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCustomiser> {
@@ -29,8 +28,8 @@ public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCusto
 	protected AnchorPane rbracketPane;
 	protected TitledPane mainPane;
 
-	protected final GUICommand<ArrowStyle> selectArrowLeftCB = (style) -> selectGivenComboBoxItem(arrowLeftCB, style);
-	protected final GUICommand<ArrowStyle> selectArrowRightCB = (style) -> selectGivenComboBoxItem(arrowRightCB, style);
+	protected final GUICommand<ArrowStyle> selectArrowLeftCB = style -> selectGivenComboBoxItem(arrowLeftCB, style);
+	protected final GUICommand<ArrowStyle> selectArrowRightCB = style -> selectGivenComboBoxItem(arrowRightCB, style);
 	protected final GUIVoidCommand incrementdotSizeNum = () -> incrementSpinner(dotSizeNum);
 	protected final GUIVoidCommand incrementdotSizeDim = () -> incrementSpinner(dotSizeDim);
 	protected final GUIVoidCommand incrementbracketNum = () -> incrementSpinner(bracketNum);
@@ -75,5 +74,7 @@ public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCusto
 		bracketPane = find("#bracketPane");
 		ins = (ShapeArrowCustomiser)guiceFactory.call(ShapeArrowCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
 	}
 }

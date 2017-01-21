@@ -36,5 +36,7 @@ public abstract class TestShadowStyleGUI extends TestShapePropGUI<ShapeShadowCus
 		mainPane = find("#mainPane");
 		ins = (ShapeShadowCustomiser)guiceFactory.call(ShapeShadowCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
 	}
 }

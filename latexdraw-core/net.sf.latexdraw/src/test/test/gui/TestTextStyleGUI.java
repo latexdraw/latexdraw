@@ -58,6 +58,9 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 		mainPane = find("#mainPane");
 		ins = (ShapeTextCustomiser)guiceFactory.call(ShapeTextCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
+
 	}
 
 	@Test

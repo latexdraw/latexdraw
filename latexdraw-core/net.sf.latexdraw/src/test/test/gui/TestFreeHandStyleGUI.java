@@ -36,5 +36,7 @@ public abstract class TestFreeHandStyleGUI extends TestShapePropGUI<ShapeFreeHan
 		mainPane = find("#mainPane");
 		ins = (ShapeFreeHandCustomiser)guiceFactory.call(ShapeFreeHandCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
 	}
 }

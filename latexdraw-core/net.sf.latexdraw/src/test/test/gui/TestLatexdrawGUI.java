@@ -3,12 +3,16 @@ package test.gui;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.latexdraw.LaTeXDraw;
@@ -21,9 +25,6 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
 import static org.junit.Assert.assertTrue;
 
 public abstract class TestLatexdrawGUI extends ApplicationTest {
@@ -34,12 +35,13 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	@Before
 	public void setUp() {
 		BadaboomCollector.INSTANCE.clear();
-		waitFXEvents.execute();
+		WaitForAsyncUtils.waitForFxEvents();
 	}
 
 	@After
 	public void tearDown() throws TimeoutException {
 		FxToolkit.hideStage();
+		FxToolkit.cleanupStages();
 		release(new KeyCode[] {});
 		release(new MouseButton[] {});
 	}
@@ -47,15 +49,23 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	@Override
 	public void start(Stage stage) {
 		try {
-			Injector injector = Guice.createInjector(createModule());
+			final Injector injector = Guice.createInjector(createModule());
 			guiceFactory = injector::getInstance;
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), LangTool.INSTANCE.getBundle(), new LatexdrawBuilderFactory(injector), guiceFactory);
-			Scene scene = new Scene(root);
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), LangTool.INSTANCE.getBundle(),
+				new LatexdrawBuilderFactory(injector), guiceFactory);
+			final BorderPane pane = new BorderPane();
+			pane.setCenter(root);
+			final Scene scene = new Scene(pane);
 			stage.setScene(scene);
 			stage.show();
 			stage.toFront();
-		}catch(IOException e) {
-			e.printStackTrace();
+			if(root instanceof Region) {
+				stage.minHeightProperty().bind(((Region)root).heightProperty());
+				stage.minWidthProperty().bind(((Region)root).widthProperty());
+			}
+			stage.sizeToScene();
+		}catch(final IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 

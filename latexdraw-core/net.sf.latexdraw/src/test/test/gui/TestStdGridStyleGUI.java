@@ -43,5 +43,7 @@ public abstract class TestStdGridStyleGUI extends TestShapePropGUI<ShapeStdGridC
 		mainPane = find("#mainPane");
 		ins = (ShapeStdGridCustomiser)guiceFactory.call(ShapeStdGridCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
 	}
 }

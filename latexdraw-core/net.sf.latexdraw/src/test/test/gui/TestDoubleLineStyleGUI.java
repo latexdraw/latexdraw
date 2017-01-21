@@ -5,7 +5,6 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
-
 import org.junit.Before;
 
 public abstract class TestDoubleLineStyleGUI extends TestShapePropGUI<ShapeDoubleBorderCustomiser> {
@@ -31,7 +30,9 @@ public abstract class TestDoubleLineStyleGUI extends TestShapePropGUI<ShapeDoubl
 		dbleBoundCB = find("#dbleBoundCB");
 		dbleBoundColB = find("#dbleBoundColB");
 		dbleSepField = find("#dbleSepField");
-		ins = (ShapeDoubleBorderCustomiser)guiceFactory.call(ShapeDoubleBorderCustomiser.class);
+		ins = (ShapeDoubleBorderCustomiser) guiceFactory.call(ShapeDoubleBorderCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
 	}
 }

@@ -28,5 +28,7 @@ public abstract class TestCoordDimShapeGUI extends TestShapePropGUI<ShapeCoordDi
 		mainPane = find("#mainPane");
 		ins = (ShapeCoordDimCustomiser)guiceFactory.call(ShapeCoordDimCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
 	}
 }

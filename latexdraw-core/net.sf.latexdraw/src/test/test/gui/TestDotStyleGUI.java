@@ -36,5 +36,7 @@ public abstract class TestDotStyleGUI extends TestShapePropGUI<ShapeDotCustomise
 		dotSizeField = find("#dotSizeField");
 		ins = (ShapeDotCustomiser)guiceFactory.call(ShapeDotCustomiser.class);
 		ins.setActivated(true);
+		mainPane.setAnimated(false);
+		expandPane(mainPane);
 	}
 }
