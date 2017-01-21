@@ -1,14 +1,12 @@
 /*
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
  * General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version.<br>
- * <br>
+ * License, or (at your option) any later version.
  * LaTeXDraw is distributed without any warranty; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.<br>
+ * details.
  */
 package net.sf.latexdraw.view.jfx;
 
@@ -103,7 +101,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 		modified = false;
 		drawing = ShapeFactory.INST.createDrawing();
-		zoom = new ActiveUnary<>(1.0);
+		zoom = new ActiveUnary<>(1d);
 		tempView = Optional.empty();
 		page = new PageView(Page.USLETTER, getOrigin());
 		magneticGrid = new MagneticGridImpl(this);
@@ -129,19 +127,11 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		widgetsPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 		shapesPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 
-		setPrefWidth(MARGINS * 2 + page.getPage().getWidth() * IShape.PPC);
-		setPrefHeight(MARGINS * 2 + page.getPage().getHeight() * IShape.PPC);
+		setPrefWidth(MARGINS * 2d + page.getPage().getWidth() * IShape.PPC);
+		setPrefHeight(MARGINS * 2d + page.getPage().getHeight() * IShape.PPC);
 
 		defineShapeListToViewBinding();
 		configureSelection();
-
-		//		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(150, 120), 200, 60);
-		//		rec.setThickness(10.0);
-		//		rec.setGradColStart(DviPsColors.APRICOT);
-		//		rec.setGradColEnd(DviPsColors.BLUEVIOLET);
-		//		rec.setFillingStyle(FillingStyle.GRAD);
-		//		rec.setFillingCol(DviPsColors.RED);
-		//		getDrawing().addShape(rec);
 
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
@@ -209,30 +199,19 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	}
 
 
-//	/**
-//	 * @param sh The shape for which we want the view.
-//	 * @return The corresponding view of nothing.
-//	 */
-//	public @NonNull Optional<ViewShape<?>> getViewFromShape(final @Nullable IShape sh) {
-//		return sh==null ? Optional.empty() : Optional.ofNullable(shapesToViewMap.get(sh));
-//	}
-
-
 	private void defineShapeListToViewBinding() {
-		if(drawing.getShapes() instanceof ObservableList) {
-			((ObservableList<IShape>) drawing.getShapes()).addListener((Change<? extends IShape> evt) -> {
-				while(evt.next()) {
-					if(evt.wasAdded()) {
-						evt.getAddedSubList().forEach(sh -> ViewFactory.INSTANCE.createView(sh).ifPresent(v -> {
-							shapesToViewMap.put(sh, v);
-							shapesPane.getChildren().add(v);
-						}));
-					}else if(evt.wasRemoved()) {
-						evt.getRemoved().forEach(sh -> shapesPane.getChildren().remove(shapesToViewMap.remove(sh)));
-					}
+		drawing.getShapes().addListener((Change<? extends IShape> evt) -> {
+			while(evt.next()) {
+				if(evt.wasAdded()) {
+					evt.getAddedSubList().forEach(sh -> ViewFactory.INSTANCE.createView(sh).ifPresent(v -> {
+						shapesToViewMap.put(sh, v);
+						shapesPane.getChildren().add(v);
+					}));
+				}else if(evt.wasRemoved()) {
+					evt.getRemoved().forEach(sh -> shapesPane.getChildren().remove(shapesToViewMap.remove(sh)));
 				}
-			});
-		}
+			}
+		});
 	}
 
 	// /**
