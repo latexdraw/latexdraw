@@ -37,8 +37,7 @@ abstract class CanvasInstrument extends JfxInstrument {
 	 * @since 3.0
 	 */
 	public IPoint getAdaptedOriginPoint(final IPoint pt) {
-		final IPoint pt2 = canvas.convertToOrigin(pt);
-		return ShapeFactory.INST.createPoint(canvas.getZoomedPoint(pt2.getX(), pt2.getY()));
+		return canvas.convertToOrigin(pt);
 	}
 
 	/**
@@ -57,7 +56,6 @@ abstract class CanvasInstrument extends JfxInstrument {
 	 * @since 3.0
 	 */
 	public IPoint getAdaptedPoint(final Point3D pt) {
-		final IPoint pt2 = canvas.convertToOrigin(grid.getTransformedPointToGrid(pt));
-		return ShapeFactory.INST.createPoint(canvas.getZoomedPoint(pt2.getX(), pt2.getY()));
+		return canvas.convertToOrigin(grid.getTransformedPointToGrid(pt));
 	}
 }

@@ -8,7 +8,7 @@
         <TabPane tabClosingPolicy="UNAVAILABLE">
             <Tab closable="false" text="%UIBuilder.1">
                 <SplitPane dividerPositions="0.85">
-                    <ScrollPane fx:id="scrollPane" >
+                    <ScrollPane fx:id="scrollPane">
                         <fx:include fx:id="canvas" source="Canvas.fxml"/>
                     </ScrollPane>
                     <ScrollPane maxWidth="310" minWidth="310" prefWidth="310">

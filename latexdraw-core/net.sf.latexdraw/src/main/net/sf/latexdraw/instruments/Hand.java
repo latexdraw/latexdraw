@@ -100,7 +100,7 @@ public class Hand extends CanvasInstrument {
 		@Override
 		public void updateAction() {
 			interaction.getSrcObject().ifPresent(target -> {
-				final IShape targetSh = ((ViewShape<?>) ((Node) target).getParent()).getModel();
+				final IShape targetSh = ((ViewShape<?>) target.getParent()).getModel();
 
 				if(interaction.isShiftPressed()) {
 					instrument.canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> action.addShape(sh));

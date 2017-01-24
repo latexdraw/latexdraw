@@ -52,6 +52,7 @@ import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.instruments.TemplateManager;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.instruments.UndoRedoManager;
+import net.sf.latexdraw.instruments.Zoomer;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.ui.XScaleRuler;
 import net.sf.latexdraw.ui.YScaleRuler;
@@ -108,6 +109,7 @@ class LatexdrawModule extends AbstractModule {
 		bind(YScaleRuler.class).asEagerSingleton();
 		bind(FrameController.class).asEagerSingleton();
 		bind(UndoRedoManager.class).asEagerSingleton();
+		bind(Zoomer.class).asEagerSingleton();
 	}
 
 	@Provides

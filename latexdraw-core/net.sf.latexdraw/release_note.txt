@@ -5,4 +5,6 @@ Version 4.0.0
     - The user interface has been completely redesigned.
     - Better performances.
 
-Improvement: can scroll on a spinner to change its value.
+Improvements:
+- can scroll on a spinner to change its value.
+- A better zoom animation.

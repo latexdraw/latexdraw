@@ -18,6 +18,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
@@ -29,6 +33,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.util.Duration;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
@@ -54,7 +59,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Defines a canvas that draw the drawing and manages the selected shapes.
+ * The JFX canvas where shapes are painted.
  */
 public class Canvas extends Pane implements ConcretePresentation, ActionHandler, Zoomable, ViewsSynchroniserHandler {
 	/** The margin used to surround the drawing. */
@@ -163,23 +168,22 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 			selectionBorder.setVisible(false);
 		}
 		else {
-			final double zoomLevel = getZoom();
 			final Rectangle2D rec = selection.stream().map(sh -> shapesToViewMap.get(sh)).filter(vi -> vi!=null).map(vi -> {
 				Bounds b = vi.getBoundsInLocal();
 				return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
 			}).reduce(Rectangle2D::createUnion).orElse(new Rectangle2D.Double());
 
-			selectionBorder.setLayoutX(rec.getMinX() * zoomLevel);
-			selectionBorder.setLayoutY(rec.getMinY() * zoomLevel);
-			selectionBorder.setWidth(rec.getWidth() * zoomLevel);
-			selectionBorder.setHeight(rec.getHeight() * zoomLevel);
+			selectionBorder.setLayoutX(rec.getMinX());
+			selectionBorder.setLayoutY(rec.getMinY());
+			selectionBorder.setWidth(rec.getWidth());
+			selectionBorder.setHeight(rec.getHeight());
 			selectionBorder.setVisible(true);
 		}
 	}
 
 
 	public void setOngoingSelectionBorder(final @Nullable Bounds bounds) {
-		if(bounds==null) {
+		if(bounds == null) {
 			ongoingSelectionBorder.setVisible(false);
 		}else {
 			ongoingSelectionBorder.setLayoutX(bounds.getMinX());
@@ -366,8 +370,9 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 			if(node != null && uri.equals(node.getNamespaceURI())) {
 				name = node.getNodeName();
 
-				if(!generalPreferences && name.endsWith(LNamespace.XML_ZOOM))
+				if(!generalPreferences && name.endsWith(LNamespace.XML_ZOOM)) {
 					setZoom(Double.NaN, Double.NaN, Double.parseDouble(node.getTextContent()));
+				}
 			} // if
 		}// for
 
@@ -382,7 +387,9 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	@Override
 	public void setModified(final boolean modif) {
 		modified = modif;
-		if(!modif) magneticGrid.setModified(false);
+		if(!modif) {
+			magneticGrid.setModified(false);
+		}
 	}
 
 	@Override
@@ -390,7 +397,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		synchronized(shapesPane) {
 			shapesPane.getChildren().clear();
 		}
-		zoom.setValue(1.);
+		zoom.setValue(1d);
 		update();
 	}
 
@@ -441,18 +448,16 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	@Override
 	public void setZoom(final double x, final double y, final double z) {
 		if(z <= getMaxZoom() && z >= getMinZoom() && !MathUtils.INST.equalsDouble(z, zoom.getValue())) {
-			// final double oldZoom = zoom.getValue();
 			zoom.setValue(z);
+			final Duration duration = Duration.millis(250);
+			ParallelTransition parallelTransition = new ParallelTransition();
+			parallelTransition.getChildren().addAll(
+				new Timeline(new KeyFrame(duration, new KeyValue(scaleYProperty(), z))),
+				new Timeline(new KeyFrame(duration, new KeyValue(scaleXProperty(), z)))
+			);
 
-			// if(GLibUtilities.isValidCoord(x) && GLibUtilities.isValidCoord(y)) {
-			// final double dx = (z-oldZoom)*(x-ORIGIN.getX())/oldZoom;
-			// final double dy = (z-oldZoom)*(y-ORIGIN.getY())/oldZoom;
-			// final Point pt = scrollpane.getViewport().getViewPosition();
-			// pt.x += dx;
-			// pt.y += dy;
-			// getScrollpane().getViewport().setViewPosition(pt);
-			// }
-			//
+			parallelTransition.play();
+
 			// borderIns.update();
 			update();
 			setModified(true);
