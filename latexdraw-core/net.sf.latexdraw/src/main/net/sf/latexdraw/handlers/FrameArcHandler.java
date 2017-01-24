@@ -8,7 +8,7 @@ package net.sf.latexdraw.handlers;
 // * Defines a handler to change the frame arc attribute.<br>
 // *<br>
 // * This file is part of LaTeXDraw<br>
-// * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
+// * Copyright (c) 2005-2017 Arnaud BLOUIN<br>
 // *<br>
 // *  LaTeXDraw is free software; you can redistribute it and/or modify
 // *  it under the terms of the GNU General Public License as published by

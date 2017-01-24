@@ -75,14 +75,14 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 		}
 
 		@Override
-		public void initAction() {
-			action.setZoomable(instrument.zoomable);
-
+		public void updateAction() {
+			action.setZoomLevel(Double.valueOf(interaction.getWidget().getValue().toString()) / 100d);
 		}
 
 		@Override
-		public void updateAction() {
-			action.setZoomLevel(Double.valueOf(interaction.getWidget().getValue().toString()) / 100d);
+		public void initAction() {
+			action.setZoomable(instrument.zoomable);
+
 		}
 	}
 }

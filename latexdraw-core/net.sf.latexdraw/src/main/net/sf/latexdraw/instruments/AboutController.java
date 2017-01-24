@@ -48,7 +48,7 @@ public class AboutController implements Initializable {
 			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + //$NON-NLS-1$ //$NON-NLS-2$
 			LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.220") + " " + VersionChecker.ID_BUILD + "<br><br>" + //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
 			LResources.LABEL_APP + LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.221") + "<br>" + //$NON-NLS-1$//$NON-NLS-2$
-			"Copyright(c) 2005-2015 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>" + //$NON-NLS-1$
+			"Copyright(c) 2005-2017 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>" + //$NON-NLS-1$
 			"http://latexdraw.sourceforge.net/<br></div></body></html>");//$NON-NLS-1$
 		noteText.setText(LFileUtils.INSTANCE.readTextFile("/res/release_note.txt"));//$NON-NLS-1$
 		contribText.setText(LFileUtils.INSTANCE.readTextFile("/res/contributors.txt"));//$NON-NLS-1$

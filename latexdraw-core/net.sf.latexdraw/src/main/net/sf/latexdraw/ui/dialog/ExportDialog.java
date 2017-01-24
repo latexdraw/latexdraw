@@ -15,7 +15,7 @@ import net.sf.latexdraw.util.LangTool;
  * Define a JFileChooser that exports the drawing in a graphical format.<br>
  * <br>
  * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2017 Arnaud BLOUIN<br>
  * <br>
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
