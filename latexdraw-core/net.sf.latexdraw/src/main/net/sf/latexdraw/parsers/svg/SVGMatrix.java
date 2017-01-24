@@ -1,24 +1,20 @@
 package net.sf.latexdraw.parsers.svg;
 
 /**
- * Defines a matrix according to the SVG specifications.<br>
- *<br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2017 Arnaud BLOUIN<br>
- *<br>
+ * Defines a matrix according to the SVG specifications.
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
- *  any later version.<br>
- *<br>
+ *  any later version.
  *  LaTeXDraw is distributed without any warranty; without even the
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE.  See the GNU General Public License for more details.<br>
- *<br>
- * 10/16/07<br>
+ *  PURPOSE.  See the GNU General Public License for more details.
+ * 10/16/07
  * @author Arnaud BLOUIN
  * @version 3.0
- * @since 0.1<br>
+ * @since 0.1
  */
 public class SVGMatrix {
 	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */

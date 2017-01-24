@@ -41,21 +41,17 @@ import net.sf.latexdraw.parsers.svg.SVGTransformList;
 /**
  * This Graphics can be used to convert Java drawing (using Graphics2D) into SVG.
  * Instead of the classical Java Graphics2D, this graphics can be given as argument to
- * paint methods in order to create an SVG element.<br>
- *<br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2017 Arnaud BLOUIN<br>
- *<br>
+ * paint methods in order to create an SVG element.
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.<br>
- *<br>
+ *  (at your option) any later version.
  *  LaTeXDraw is distributed without any warranty; without even the
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- *<br>
- * 08/03/11<br>
+ *  PURPOSE. See the GNU General Public License for more details.
+ * 08/03/11
  * @author Arnaud BLOUIN
  * @version 3.0
  */

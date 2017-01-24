@@ -2,19 +2,15 @@ package net.sf.latexdraw.models.interfaces.prop;
 
 /**
  * An interface for shapes having X/Y scale properties.
- * <br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2017 Arnaud BLOUIN<br>
- *<br>
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
- *  any later version.<br>
- *<br>
+ *  any later version.
  *  LaTeXDraw is distributed without any warranty; without even the
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- *<br>
+ *  PURPOSE. See the GNU General Public License for more details.
  * @author Arnaud Blouin
  * @since 3.2
  */

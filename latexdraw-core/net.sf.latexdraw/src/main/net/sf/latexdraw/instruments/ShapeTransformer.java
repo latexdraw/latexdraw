@@ -9,21 +9,17 @@ import javafx.scene.layout.VBox;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 /**
- * This instrument transforms (mirror, etc.) the selected shapes.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2017 Arnaud BLOUIN<br>
- * <br>
+ * This instrument transforms (mirror, etc.) the selected shapes.
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option) any later
- * version. <br>
+ * version.
  * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 2013-03-07<br>
- * 
+ * General Public License for more details.
+ * 2013-03-07
  * @author Arnaud BLOUIN
  * @since 3.0
  */

@@ -4,21 +4,17 @@ import java.util.Objects;
 
 
 /**
- * Defines an abstract parser that parses code.<br>
- *<br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2017 Arnaud BLOUIN<br>
- *<br>
+ * Defines an abstract parser that parses code.
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.<br>
- *<br>
+ *  (at your option) any later version.
  *  LaTeXDraw is distributed without any warranty; without even the
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- *<br>
- * 11/21/08<br>
+ *  PURPOSE. See the GNU General Public License for more details.
+ * 11/21/08
  * @author Arnaud BLOUIN
  * @version 3.0
  */
@@ -55,7 +51,7 @@ public abstract class CodeParser implements Parser {
 	}
 
 
-	/** The core level of the parser that contains the code to parse,...<br>
+	/** The core level of the parser that contains the code to parse,...
 	 * It can be shared with others code parsers. */
 	private Code codeCore;
 

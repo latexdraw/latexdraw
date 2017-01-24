@@ -17,7 +17,7 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * Defines a PSTricks view of the LText model.<br>
+ * Defines a PSTricks view of the LText model.
  */
 public class PSTTextView extends PSTShapeView<IText> {
 	/**

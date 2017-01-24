@@ -3,20 +3,16 @@ package net.sf.latexdraw.models.interfaces.shape;
 
 
 /**
- * Defines the concept of colour.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2017 Arnaud BLOUIN<br>
- * <br>
+ * Defines the concept of colour.
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
  * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 2014-10-13<br>
+ * General Public License for more details.
+ * 2014-10-13
  * @author Arnaud BLOUIN
  * @version 4.0
  * @since 4.0

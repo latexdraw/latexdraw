@@ -10,24 +10,20 @@ import javax.swing.ImageIcon;
 
 
 /**
- * This class contains defined several cursors using in LaTeXDraw.<br>
- *<br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2017 Arnaud BLOUIN<br>
- *<br>
+ * This class contains defined several cursors using in LaTeXDraw.
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
- *  any later version.<br>
- *<br>
+ *  any later version.
  *  LaTeXDraw is distributed without any warranty; without even the
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- *<br>
- * 11/20/06<br>
+ *  PURPOSE. See the GNU General Public License for more details.
+ * 11/20/06
  * @author Arnaud BLOUIN
- * @version 2.0.0<br>
- * @since 1.9<br>
+ * @version 2.0.0
+ * @since 1.9
  */
 public final class LCursor {
 	/** The singleton. */

@@ -14,7 +14,7 @@ package net.sf.latexdraw.parsers.svg.path;
 import java.awt.geom.Point2D;
 
 /**
- * Defines a path segment composed of 2D coordinates.<br>
+ * Defines a path segment composed of 2D coordinates.
  * @author Arnaud BLOUIN
  */
 public abstract class SVGPathPointSeg extends SVGPathSeg implements PointSeg {

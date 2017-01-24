@@ -231,12 +231,12 @@ public final class PSTricksConstants {
 	/** The radius of arcs drawn at the corner of lines by default (in pt) **/
 	public static final double DEFAULT_LINE_ARC = 0;
 
-	/** The radius of rounded corners by default (between 0 and 1)<br>
-	 *  The radius is compute with :<br>
+	/** The radius of rounded corners by default (between 0 and 1)
+	 *  The radius is compute with :
 	 *  radius = min(width, height)*1.5*frameArc **/
 	public static final double DEFAULT_FRAME_ARC = 0;
 
-	/** Is the corner size relative by default (if not, it's absolute)<br>
+	/** Is the corner size relative by default (if not, it's absolute)
 	 * If cornersize is relative, then the framearc parameter determines
 	 * the radius of the rounded corners for \psframe. If
  	 * cornersize is absolute, then the linearc parameter determines the
