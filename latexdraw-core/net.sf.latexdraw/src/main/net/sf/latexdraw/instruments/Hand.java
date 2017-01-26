@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
@@ -56,6 +57,25 @@ public class Hand extends CanvasInstrument {
 
 	@Override
 	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		canvas.getViews().getChildren().addListener((ListChangeListener<Node>) evt -> {
+			while(evt.next()) {
+				if(evt.wasAdded()) {
+					evt.getAddedSubList().forEach(v -> {
+						v.setOnMouseEntered(mouseEvt -> {
+							if(isActivated()) {
+								canvas.setCursor(Cursor.HAND);
+							}
+						});
+						v.setOnMouseExited(mouseEvt -> {
+							if(activated) {
+								canvas.setCursor(Cursor.DEFAULT);
+							}
+						});
+					});
+				}
+			}
+		});
+
 		addInteractor(new Press2Select(this));
 		addInteractor(new DnD2Select(this));
 		addInteractor(new DnD2Translate(this));

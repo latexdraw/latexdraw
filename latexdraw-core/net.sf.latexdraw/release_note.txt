@@ -4,6 +4,7 @@ Version 4.0.0
 - New: The user interface is now developed in JavaFX (instead of Swing):
     - The user interface has been completely redesigned.
     - Better performances.
+    - To ease the selection, the cursor changes when moving the mouse over a shape with the hand.
 
 Improvements:
 - can scroll on a spinner to change its value.
