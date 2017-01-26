@@ -22,6 +22,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
@@ -48,8 +50,6 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.malai.action.Action;
 import org.malai.action.ActionHandler;
 import org.malai.action.ActionsRegistry;
-import org.malai.mapping.ActiveUnary;
-import org.malai.mapping.IUnary;
 import org.malai.presentation.ConcretePresentation;
 import org.malai.properties.Zoomable;
 import org.malai.undo.Undoable;
@@ -72,7 +72,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	protected final @NonNull IDrawing drawing;
 
 	/** The zoom applied on the canvas. */
-	protected final IUnary<Double> zoom;
+	protected final DoubleProperty zoom;
 
 	/** The current page of the canvas. */
 	private final @NonNull PageView page;
@@ -106,7 +106,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 		modified = false;
 		drawing = ShapeFactory.INST.createDrawing();
-		zoom = new ActiveUnary<>(1d);
+		zoom = new SimpleDoubleProperty(1d);
 		tempView = Optional.empty();
 		page = new PageView(Page.USLETTER, getOrigin());
 		magneticGrid = new MagneticGridImpl(this);
