@@ -207,7 +207,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 			}
 
 			comment = String.valueOf(buffer, 0, j);
-			comment += LResources.EOL;
 			setModified(true);
 		}
 	}

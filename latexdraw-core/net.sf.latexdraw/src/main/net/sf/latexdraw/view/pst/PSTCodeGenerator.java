@@ -91,6 +91,8 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			cache.append(pkg).append(LResources.EOL);
 		}
 
+		cache.append(LResources.EOL);
+
 		if(withLatexParams && (positionVertToken != VerticalPosition.NONE || !caption.isEmpty() || !label.isEmpty())) {
 			cache.append("\\begin{figure}"); //$NON-NLS-1$
 
