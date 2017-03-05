@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8"
             fx:controller="net.sf.latexdraw.instruments.FrameController">
     <center>
@@ -9,7 +16,7 @@
             <Tab closable="false" text="%UIBuilder.1">
                 <SplitPane dividerPositions="0.85">
                     <ScrollPane fx:id="scrollPane">
-                        <fx:include fx:id="canvas" source="Canvas.fxml"/>
+                        <fx:include fx:id="canvasPane" source="Canvas.fxml"/>
                     </ScrollPane>
                     <ScrollPane maxWidth="310" minWidth="310" prefWidth="310">
                         <VBox maxWidth="310" minWidth="310" prefWidth="310">
@@ -39,7 +46,7 @@
                     </ScrollPane>
                 </SplitPane>
             </Tab>
-                <fx:include source="CodePanel.fxml"/>
+            <fx:include source="CodePanel.fxml"/>
             <Tab closable="false" text="%PreferencesFrame.Pref2">
                 <fx:include source="Preferences.fxml"/>
             </Tab>

@@ -10,10 +10,13 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import javafx.geometry.Bounds;
+import java.util.List;
 import javafx.geometry.Point3D;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.ui.ScaleRuler;
@@ -32,21 +35,17 @@ import org.w3c.dom.NodeList;
 /**
  * Implementation of a magnetic grid.
  */
-class MagneticGridImpl implements MagneticGrid {
-	/** Allows to know if the grid is magnetic or not. */
-	protected boolean isMagnetic;
-
-	/** defines the spacing between the lines of the grid. */
-	protected int gridSpacing;
-
-	/** The style of the grid. */
-	protected GridStyle style;
-
+class MagneticGridImpl extends Path implements MagneticGrid {
 	/** The canvas that paints the grid. */
-	protected final @NonNull Canvas canvas;
-
+	private final @NonNull Canvas canvas;
+	/** Allows to know if the grid is magnetic or not. */
+	private boolean isMagnetic;
+	/** defines the spacing between the lines of the grid. */
+	private int gridSpacing;
+	/** The style of the grid. */
+	private GridStyle style;
 	/** Defined if the canvas has been modified. */
-	protected boolean modified;
+	private boolean modified;
 
 
 	/**
@@ -59,31 +58,30 @@ class MagneticGridImpl implements MagneticGrid {
 		modified = false;
 		canvas = canv;
 		reinitGrid();
+		setStroke(Color.BLACK);
+		setStrokeWidth(0.3);
+		canvas.zoomProperty().addListener((observable, oldValue, newValue) -> update());
 	}
 
 
-	/**
-	 * Paints the magnetic grid is activated.
-	 * @param graph The graphics in which the grid will be drawn.
-	 */
-	protected void paint(final GraphicsContext graph) {
-		if(!isGridDisplayed()) return;
-		//		final Rectangle clip = graph.getClipBounds();
-		//		if(clip==null) return;
+	@Override
+	public void update() {
+		if(isDisable()) return;
 
-		graph.setStroke(Color.BLACK);
-		graph.setLineWidth(0.1);
+		getElements().clear();
 
 		switch(style) {
 			case STANDARD:
 				double ppc = canvas.getPPCDrawing();
-				if(ScaleRuler.getUnit() == Unit.INCH) ppc *= PSTricksConstants.INCH_VAL_CM;
+				if(ScaleRuler.getUnit() == Unit.INCH) {
+					ppc *= PSTricksConstants.INCH_VAL_CM;
+				}
 
-				paintSubLines(graph, canvas.getLayoutBounds());//FIXME clip
-				paintMainLines(graph, ppc, canvas.getLayoutBounds());
+//				paintSubLines(getElements(), canvas.getLayoutBounds());
+				paintMainLines(getElements(), ppc);
 				break;
 			case CUSTOMISED:
-				paintMainLines(graph, gridSpacing, canvas.getLayoutBounds());
+				paintMainLines(getElements(), gridSpacing);
 				break;
 			case NONE:
 				break;
@@ -91,43 +89,75 @@ class MagneticGridImpl implements MagneticGrid {
 	}
 
 
-	protected void paintSubLines(final GraphicsContext graph, final Bounds clip) {
-		double pixPerCm10 = canvas.getPPCDrawing() * canvas.getZoom() / 10.;
-		if(ScaleRuler.getUnit() == Unit.INCH) pixPerCm10 *= PSTricksConstants.INCH_VAL_CM;
+	private void createLine(final List<PathElement> elts, final double x1, final double y1, final double x2, final double y2) {
+		elts.add(new MoveTo(x1, y1));
+		elts.add(new LineTo(x2, y2));
+	}
 
-		if(Double.compare(pixPerCm10, 4.) > 0) {
-			final double xMinclip = Math.floor(clip.getMinX() / pixPerCm10) * pixPerCm10 - clip.getMinX();
-			final double yMinclip = Math.floor(clip.getMinY() / pixPerCm10) * pixPerCm10 - clip.getMinY();
-			final double xMaxclip = clip.getMaxX();
-			final double yMaxclip = clip.getMaxY();
-			final double minX = clip.getMinX();
-			final double minY = clip.getMinY();
 
-			for(double i = pixPerCm10 - 1 + xMinclip + minX + canvas.getOrigin().getX() % pixPerCm10; i < xMaxclip; i += pixPerCm10)
-				graph.strokeLine(i, minY, i, yMaxclip);
+	private void paintSubLines(final List<PathElement> elts) {
+		double pixPerCm10 = canvas.getPPCDrawing() / 10d;
 
-			for(double i = pixPerCm10 - 1 + yMinclip + minY + canvas.getOrigin().getY() % pixPerCm10; i < yMaxclip; i += pixPerCm10)
-				graph.strokeLine(minX, i, xMaxclip, i);
+		if(ScaleRuler.getUnit() == Unit.INCH) {
+			pixPerCm10 *= PSTricksConstants.INCH_VAL_CM;
+		}
+
+		if(Double.compare(pixPerCm10, 4d) > 0d) {
+//			final double xMinclip = Math.floor(clip.getMinX() / pixPerCm10) * pixPerCm10 - clip.getMinX();
+//			final double yMinclip = Math.floor(clip.getMinY() / pixPerCm10) * pixPerCm10 - clip.getMinY();
+//			final double xMaxclip = clip.getMaxX();
+//			final double yMaxclip = clip.getMaxY();
+//			final double minX = clip.getMinX();
+//			final double minY = clip.getMinY();
+
+//			for(double i = pixPerCm10 - 1d + xMinclip + minX + canvas.getOrigin().getX() % pixPerCm10; i < xMaxclip; i += pixPerCm10) {
+//				createLine(i, minY, i, yMaxclip);
+//			}
+//
+//			for(double i = pixPerCm10 - 1d + yMinclip + minY + canvas.getOrigin().getY() % pixPerCm10; i < yMaxclip; i += pixPerCm10) {
+//				createLine(minX, i, xMaxclip, i);
+//			}
+
+			final double height = canvas.getPrefHeight();
+			final double width = canvas.getPrefWidth();
+
+			for(double i = 0; i<width; i+=pixPerCm10) {
+				createLine(elts, i, 0, i, height);
+			}
+
+			for(double j = 0; j<height; j+=pixPerCm10) {
+				createLine(elts, 0, j, width, j);
+			}
 		}
 	}
 
 
-	protected void paintMainLines(final GraphicsContext graph, final double gap, final Bounds clip) {
-		final double gap2 = gap * canvas.getZoom();
-		final double xMinclip = Math.floor(clip.getMinX() / gap2) * gap2 - clip.getMinX();
-		final double yMinclip = Math.floor(clip.getMinY() / gap2) * gap2 - clip.getMinY();
-		final double xMaxclip = clip.getMaxX();
-		final double yMaxclip = clip.getMaxY();
-		final double minX = clip.getMinX();
-		final double minY = clip.getMinY();
+	private void paintMainLines(final List<PathElement> elts, final double gap) {
+//		final double zoom = canvas.getZoom();
+//		final double widthGap = clip.getWidth() - clip.getWidth() / zoom;
+//		final double minX = -1d * clip.getMinX() + widthGap / 2d;// - (clip.getWidth() - clip.getWidth()*zoom);
+//		final double maxX = minX + clip.getWidth() + widthGap + widthGap / 2d;
+//		final double minY = -1d * clip.getMinY();
+//		final double maxY = minY + clip.getHeight();
 
-		for(double i = gap2 - 1 + xMinclip + minX + canvas.getOrigin().getX() % gap2; i < xMaxclip; i += gap2) {
-			graph.strokeLine(i, minY, i, yMaxclip);
+		final double height = canvas.getPrefHeight();
+		final double width = canvas.getPrefWidth();
+
+		for(double i = 0; i<width; i+=gap) {
+			createLine(elts, i, 0, i, height);
 		}
 
-		for(double j = gap2 - 1 + yMinclip + minY + canvas.getOrigin().getY() % gap2; j < yMaxclip; j += gap2) {
-			graph.strokeLine(minX, j, xMaxclip, j);
+		for(double j = 0; j<height; j+=gap) {
+			createLine(elts, 0, j, width, j);
 		}
+
+//		for(double i = minX - minX % gap, endX = maxX - maxX % gap + gap; i<endX; i+=gap) {
+//			createLine(elts, i, minY, i, maxY);
+//		}
+//
+//		for(double j = minY - minY % gap, endY = maxY - maxY % gap + gap; j<endY; j+=gap) {
+//			createLine(elts, minX, j, maxX, j);
+//		}
 	}
 
 
@@ -140,22 +170,30 @@ class MagneticGridImpl implements MagneticGrid {
 			double y = point.getY();
 			int base = (int) ((int) (x / modulo) * modulo);
 
-			if(x > modulo) x %= (int) modulo;
+			if(x > modulo) {
+				x %= (int) modulo;
+			}
 
 			double res = modulo - x;
 			x = base;
 
-			if(res < modulo / 2.) x += modulo;
+			if(res < modulo / 2d) {
+				x += modulo;
+			}
 
 			point.setX((int) x);
 			base = (int) ((int) (point.getY() / modulo) * modulo);
 
-			if(y > modulo) y %= (int) modulo;
+			if(y > modulo) {
+				y %= (int) modulo;
+			}
 
 			res = modulo - y;
 			y = base;
 
-			if(res < modulo / 2.) y += modulo;
+			if(res < modulo / 2d) {
+				y += modulo;
+			}
 
 			point.setY((int) y);
 
@@ -173,8 +211,8 @@ class MagneticGridImpl implements MagneticGrid {
 		if(isPersonalGrid()) gap = getGridSpacing();
 		else {
 			final double ppc = canvas.getPPCDrawing();
-			gap = ScaleRuler.getUnit() == Unit.CM ? ppc / 10. : ppc * PSTricksConstants.INCH_VAL_CM / 10.;
-			gap = gap - (int) gap > 0.5 ? (int) gap + 1 : (int) gap;
+			gap = ScaleRuler.getUnit() == Unit.CM ? ppc / 10d : ppc * PSTricksConstants.INCH_VAL_CM / 10d;
+			gap = gap - (int) gap > 0.5 ? (int) gap + 1d : (int) gap;
 		}
 
 		return gap;
@@ -183,7 +221,7 @@ class MagneticGridImpl implements MagneticGrid {
 
 	@Override
 	public void reinitGrid() {
-		setStyle(GridStyle.CUSTOMISED);
+		setGridStyle(GridStyle.CUSTOMISED);
 		setGridSpacing(20);
 		setMagnetic(true);
 	}
@@ -226,13 +264,13 @@ class MagneticGridImpl implements MagneticGrid {
 
 
 	@Override
-	public GridStyle getStyle() {
+	public GridStyle getGridStyle() {
 		return style;
 	}
 
 
 	@Override
-	public void setStyle(final GridStyle gridStyle) {
+	public void setGridStyle(final GridStyle gridStyle) {
 		if(gridStyle != null && gridStyle != style) {
 			style = gridStyle;
 			setModified(true);
@@ -246,13 +284,13 @@ class MagneticGridImpl implements MagneticGrid {
 	}
 
 	@Override
-	public void setModified(final boolean modif) {
-		modified = modif;
+	public boolean isModified() {
+		return modified;
 	}
 
 	@Override
-	public boolean isModified() {
-		return modified;
+	public void setModified(final boolean modif) {
+		modified = modif;
 	}
 
 	@Override
@@ -261,7 +299,7 @@ class MagneticGridImpl implements MagneticGrid {
 
 		final String ns = generalPreferences ? "" : LPath.INSTANCE.getNormaliseNamespaceURI(nsURI); //$NON-NLS-1$
 		Element elt = document.createElement(ns + LNamespace.XML_MAGNETIC_GRID_STYLE);
-		elt.setTextContent(getStyle().toString());
+		elt.setTextContent(getGridStyle().toString());
 		root.appendChild(elt);
 		elt = document.createElement(ns + LNamespace.XML_GRID_GAP);
 		elt.setTextContent(String.valueOf(getGridSpacing()));
@@ -286,10 +324,17 @@ class MagneticGridImpl implements MagneticGrid {
 			if(node != null && uri.equals(node.getNamespaceURI())) {
 				name = node.getNodeName();
 
-				if(name.endsWith(LNamespace.XML_GRID_GAP)) setGridSpacing(Integer.parseInt(node.getTextContent()));
-				else if(name.endsWith(LNamespace.XML_MAGNETIC_GRID)) setMagnetic(Boolean.parseBoolean(node.getTextContent()));
-				else if(name.endsWith(LNamespace.XML_MAGNETIC_GRID_STYLE))
-					setStyle(GridStyle.getStylefromName(node.getTextContent()).orElse(GridStyle.STANDARD));
+				if(name.endsWith(LNamespace.XML_GRID_GAP)) {
+					setGridSpacing(Integer.parseInt(node.getTextContent()));
+				}else {
+					if(name.endsWith(LNamespace.XML_MAGNETIC_GRID)) {
+						setMagnetic(Boolean.parseBoolean(node.getTextContent()));
+					}else {
+						if(name.endsWith(LNamespace.XML_MAGNETIC_GRID_STYLE)) {
+							setGridStyle(GridStyle.getStylefromName(node.getTextContent()).orElse(GridStyle.STANDARD));
+						}
+					}
+				}
 			}
 		}
 	}

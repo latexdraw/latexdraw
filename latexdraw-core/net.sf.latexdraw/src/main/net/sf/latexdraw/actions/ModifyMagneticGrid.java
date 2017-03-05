@@ -61,7 +61,7 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 				grid.setMagnetic((Boolean)object);
 				break;
 			case STYLE:
-				grid.setStyle((GridStyle)object);
+				grid.setGridStyle((GridStyle)object);
 				break;
 		}
 	}
@@ -90,7 +90,7 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 				oldValue = grid.isMagnetic();
 				break;
 			case STYLE:
-				oldValue = grid.getStyle();
+				oldValue = grid.getGridStyle();
 				break;
 		}
 		// Modifying the property.

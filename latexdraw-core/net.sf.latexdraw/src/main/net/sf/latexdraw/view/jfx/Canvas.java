@@ -63,16 +63,16 @@ import org.w3c.dom.NodeList;
  */
 public class Canvas extends Pane implements ConcretePresentation, ActionHandler, Zoomable, ViewsSynchroniserHandler {
 	/** The margin used to surround the drawing. */
-	public static final int MARGINS = 2500;
+	public static final int MARGINS = 1500;
 
 	/** The origin of the drawing in the whole drawing area. */
 	public static final @NonNull IPoint ORIGIN = ShapeFactory.INST.createPoint(MARGINS, MARGINS);
 
 	/** The model of the view. */
-	protected final @NonNull IDrawing drawing;
+	private final @NonNull IDrawing drawing;
 
 	/** The zoom applied on the canvas. */
-	protected final DoubleProperty zoom;
+	private final DoubleProperty zoom;
 
 	/** The current page of the canvas. */
 	private final @NonNull PageView page;
@@ -90,13 +90,13 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	private final @NonNull Map<IShape, ViewShape<?>> shapesToViewMap;
 
 	/** The magnetic grid of the canvas. */
-	protected MagneticGridImpl magneticGrid;
+	private final MagneticGridImpl magneticGrid;
 
 	/** Defined whether the canvas has been modified. */
-	protected boolean modified;
+	private boolean modified;
 
 	/** The temporary view that the canvas may contain. */
-	protected Optional<ViewShape<?>> tempView;
+	private Optional<ViewShape<?>> tempView;
 
 	/**
 	 * Creates the canvas.
@@ -109,7 +109,12 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		zoom = new SimpleDoubleProperty(1d);
 		tempView = Optional.empty();
 		page = new PageView(Page.USLETTER, getOrigin());
+
+		setPrefWidth(MARGINS * 2d + page.getPage().getWidth() * IShape.PPC);
+		setPrefHeight(MARGINS * 2d + page.getPage().getHeight() * IShape.PPC);
+
 		magneticGrid = new MagneticGridImpl(this);
+
 		widgetsPane = new Group();
 		shapesPane = new Group();
 		shapesToViewMap = new HashMap<>();
@@ -125,15 +130,13 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		ongoingSelectionBorder.getStrokeDashArray().addAll(7d, 7d);
 
 		getChildren().add(page);
+		getChildren().add(magneticGrid);
 		getChildren().add(shapesPane);
 		getChildren().add(widgetsPane);
 		widgetsPane.getChildren().add(selectionBorder);
 		widgetsPane.getChildren().add(ongoingSelectionBorder);
 		widgetsPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 		shapesPane.relocate(ORIGIN.getX(), ORIGIN.getY());
-
-		setPrefWidth(MARGINS * 2d + page.getPage().getWidth() * IShape.PPC);
-		setPrefHeight(MARGINS * 2d + page.getPage().getHeight() * IShape.PPC);
 
 		defineShapeListToViewBinding();
 		configureSelection();
@@ -143,6 +146,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 		shapesPane.setFocusTraversable(true);
 		shapesPane.addEventHandler(MouseEvent.ANY, evt -> shapesPane.requestFocus());
+		magneticGrid.update();
 	}
 
 
@@ -218,48 +222,6 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		});
 	}
 
-	// /**
-	// * Repaints the canvas.
-	// * @param withZoom True: zoom will be activated.
-	// * @param withGrid True: the grid will be painted.
-	// */
-	// public void repaint(final boolean withZoom, final boolean withGrid) {
-	// final GraphicsContext gc = getGraphicsContext2D();
-	// final double zoomValue = getZoom();
-	// final boolean mustZoom = withZoom && !LNumber.equalsDouble(zoomValue, 1.);
-	//
-	// gc.setFill(Color.WHITE);
-	// gc.fillRect(0, 0, getWidth(), getHeight());
-	//
-	// // Displaying the magnetic grid.
-	// if(withGrid && magneticGrid.isGridDisplayed())
-	// magneticGrid.paint(gc);
-	//
-	// gc.translate(ORIGIN.getX(), ORIGIN.getY());
-	//
-	// if(mustZoom)
-	// gc.scale(zoomValue, zoomValue);
-	//
-	// page.paint(gc, ShapeFactory.INST.createPoint());
-	//
-	// // Getting the clip must be done here to consider the scaling and translation.
-	//// final Rectangle clip = gc.getClipBounds();
-	//
-	//// synchronized(views){
-	//// for(final IViewShape view : views)
-	//// view.paint(g, clip);
-	//// }
-	//
-	//// if(temp!=null)
-	//// temp.paint(g, clip);
-	//
-	// if(mustZoom)
-	// gc.scale(1./zoomValue, 1./zoomValue);
-	//
-	//// borderIns.paint(g);
-	//
-	// gc.translate(-ORIGIN.getX(), -ORIGIN.getY());
-	// }
 
 	/**
 	 * @return The point where the page is located.
@@ -288,6 +250,10 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	@Override
 	public double getZoom() {
 		return zoom.getValue();
+	}
+
+	public DoubleProperty zoomProperty() {
+		return zoom;
 	}
 
 	@Override
@@ -450,24 +416,21 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		if(z <= getMaxZoom() && z >= getMinZoom() && !MathUtils.INST.equalsDouble(z, zoom.getValue())) {
 			zoom.setValue(z);
 			final Duration duration = Duration.millis(250);
-			ParallelTransition parallelTransition = new ParallelTransition();
+			final ParallelTransition parallelTransition = new ParallelTransition();
+
 			parallelTransition.getChildren().addAll(
 				new Timeline(new KeyFrame(duration, new KeyValue(scaleYProperty(), z))),
 				new Timeline(new KeyFrame(duration, new KeyValue(scaleXProperty(), z)))
 			);
 
 			parallelTransition.play();
-
-			// borderIns.update();
-			update();
 			setModified(true);
 		}
 	}
 
 	/**
 	 * Converts the given point in the coordinate system based on the canvas' origin. The given
-	 * point must be in the coordinate system of a container widget (the top-left point is the
-	 * origin).
+	 * point must be in the coordinate system of a container widget (the top-left point is the origin).
 	 * @param pt The point to convert.
 	 * @return The converted point or null if the given point is null.
 	 */
@@ -500,7 +463,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	public ScrollPane getScrollPane() {
 		Parent parent = getParent();
-		while(parent!=null && !(parent instanceof ScrollPane)) {
+		while(parent != null && !(parent instanceof ScrollPane)) {
 			parent = parent.getParent();
 		}
 		return (ScrollPane) parent;

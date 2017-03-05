@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- <?import javafx.scene.canvas.Canvas?> -->
-
+<?import javafx.scene.layout.StackPane?>
 <?import net.sf.latexdraw.view.jfx.Canvas?>
-<Canvas xmlns:fx="http://javafx.com/fxml/1" fx:id="canvas"/>
-
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="stackCanvas">
+    <Canvas/>
+</StackPane>

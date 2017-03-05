@@ -14,9 +14,12 @@ import com.google.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Page;
@@ -30,9 +33,10 @@ import org.malai.javafx.action.library.MoveCamera;
 public class FrameController implements Initializable {
 
 	@FXML private ScrollPane scrollPane;
-	@FXML private Canvas canvas;
+	@FXML private StackPane canvasPane;
 	@Inject private TextSetter textSetter;
 	@Inject private MetaShapeCustomiser meta;
+	@Inject private Canvas canvas;
 
 	/**
 	 * Creates the controller.
@@ -43,11 +47,35 @@ public class FrameController implements Initializable {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		scrollPane.widthProperty().addListener(obs -> canvas.update());
-		scrollPane.heightProperty().addListener(obs -> canvas.update());
+		canvasPane.setPrefWidth(canvas.getPrefWidth());
+		canvasPane.setPrefHeight(canvas.getPrefHeight());
+
+		canvas.scaleXProperty().addListener(obs -> {
+			canvasPane.setPrefWidth(canvas.getPrefWidth()*canvas.getScaleX());
+			canvasPane.setTranslateX((canvasPane.getPrefWidth()*canvas.getScaleX() - canvasPane.getPrefWidth())/2d);
+		});
+
+		canvas.scaleYProperty().addListener(obs -> {
+			canvasPane.setPrefHeight(canvas.getPrefHeight()*canvas.getScaleY());
+			canvasPane.setTranslateY((canvasPane.getPrefHeight()*canvas.getScaleY() - canvasPane.getPrefHeight())/2d);
+		});
+
 		// Because several instruments are not bound to an FXML widget, have to call the initialization here.
 		textSetter.initialize(null, null);
 		meta.initialize(null, null);
+
+		canvas.clipProperty().bind(Bindings.createObjectBinding(() -> {
+			final double zoom = canvas.getScaleX();
+			final double hmin = scrollPane.getHmin();
+			final double vmin = scrollPane.getVmin();
+			final double contentWidth = canvasPane.getPrefWidth() / zoom;
+			final double contentHeight = canvasPane.getPrefHeight() / zoom;
+			final double vpWidth = scrollPane.getViewportBounds().getWidth() / zoom;
+			final double vpHeight = scrollPane.getViewportBounds().getHeight() / zoom;
+			final double x = Math.max(0d, contentWidth - vpWidth) * (scrollPane.getHvalue() - hmin) / (scrollPane.getHmax() - hmin);
+			final double y = Math.max(0d,  contentHeight - vpHeight) * (scrollPane.getVvalue() - vmin) / (scrollPane.getVmax() - vmin);
+			return new Rectangle(x, y, vpWidth, vpHeight);
+		}, scrollPane.vvalueProperty(), scrollPane.hvalueProperty(), scrollPane.viewportBoundsProperty()));
 	}
 
 	public void centreViewport() {
