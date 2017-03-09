@@ -1,26 +1,24 @@
 package test.gui.pencil;
 
+import com.google.inject.AbstractModule;
+import javafx.scene.paint.Color;
+import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.ShapeDotCustomiser;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
+import test.gui.CompositeGUIVoidCommand;
+import test.gui.ShapePropModule;
+import test.gui.TestDotStyleGUI;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import javafx.scene.paint.Color;
-import net.sf.latexdraw.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.instruments.Hand;
-import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.ShapeDotCustomiser;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import test.gui.CompositeGUIVoidCommand;
-import test.gui.ShapePropModule;
-import test.gui.TestDotStyleGUI;
-
-import com.google.inject.AbstractModule;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestPencilDotStyle extends TestDotStyleGUI {
@@ -51,13 +49,13 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
-		assertTrue(mainPane.isVisible());
+		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test

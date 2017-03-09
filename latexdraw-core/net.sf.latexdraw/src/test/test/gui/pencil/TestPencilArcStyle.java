@@ -1,26 +1,23 @@
 package test.gui.pencil;
 
+import com.google.inject.AbstractModule;
+import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.ShapeArcCustomiser;
+import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
+import net.sf.latexdraw.models.interfaces.shape.IArc;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
+import test.gui.CompositeGUIVoidCommand;
+import test.gui.ShapePropModule;
+import test.gui.TestArcStyleGUI;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-
-import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
-import net.sf.latexdraw.models.interfaces.shape.IArc;
-import net.sf.latexdraw.instruments.Hand;
-import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.ShapeArcCustomiser;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import test.gui.CompositeGUIVoidCommand;
-import test.gui.ShapePropModule;
-import test.gui.TestArcStyleGUI;
-
-import com.google.inject.AbstractModule;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestPencilArcStyle extends TestArcStyleGUI {
@@ -51,13 +48,13 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns).execute();
-		assertTrue(mainPane.isVisible());
+		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test

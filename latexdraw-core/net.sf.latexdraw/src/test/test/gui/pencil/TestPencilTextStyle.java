@@ -1,25 +1,22 @@
 package test.gui.pencil;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-
-import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import com.google.inject.AbstractModule;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeTextCustomiser;
-
+import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestTextStyleGUI;
 
-import com.google.inject.AbstractModule;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestPencilTextStyle extends TestTextStyleGUI {
@@ -123,12 +120,12 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
-		assertTrue(mainPane.isVisible());
+		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 }

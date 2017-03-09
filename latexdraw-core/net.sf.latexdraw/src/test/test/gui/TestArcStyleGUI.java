@@ -1,10 +1,8 @@
 package test.gui;
 
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import net.sf.latexdraw.instruments.ShapeArcCustomiser;
-
 import org.junit.Before;
 
 public abstract class TestArcStyleGUI extends TestShapePropGUI<ShapeArcCustomiser> {
@@ -13,7 +11,6 @@ public abstract class TestArcStyleGUI extends TestShapePropGUI<ShapeArcCustomise
 	protected ToggleButton chordB;
 	protected Spinner<Double> startAngleS;
 	protected Spinner<Double> endAngleS;
-	protected TitledPane mainPane;
 
 	protected final GUIVoidCommand selectArc = () -> clickOn(arcB);
 	protected final GUIVoidCommand selectWedge = () -> clickOn(wedgeB);
@@ -30,15 +27,12 @@ public abstract class TestArcStyleGUI extends TestShapePropGUI<ShapeArcCustomise
 	@Before
 	public void setUp() {
 		super.setUp();
-		mainPane = find("#mainPane");
 		arcB = find("#arcB");
 		wedgeB = find("#wedgeB");
 		chordB = find("#chordB");
 		endAngleS = find("#endAngleS");
 		startAngleS = find("#startAngleS");
-		ins = (ShapeArcCustomiser)guiceFactory.call(ShapeArcCustomiser.class);
+		ins = (ShapeArcCustomiser) guiceFactory.call(ShapeArcCustomiser.class);
 		ins.setActivated(true);
-		mainPane.setAnimated(false);
-		expandPane(mainPane);
 	}
 }

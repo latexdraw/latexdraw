@@ -5,7 +5,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.instruments.ShapeGridCustomiser;
-
 import org.junit.Before;
 
 public abstract class TestGridStyleGUI extends TestShapePropGUI<ShapeGridCustomiser> {

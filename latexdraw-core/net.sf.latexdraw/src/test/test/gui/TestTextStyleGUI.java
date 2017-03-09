@@ -1,11 +1,10 @@
 package test.gui;
 
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.instruments.ShapeTextCustomiser;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +22,6 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 	protected ToggleButton centreButton;
 	protected TextArea packagesField;
 	protected TextArea logField;
-	protected TitledPane mainPane;
 
 	protected final GUIVoidCommand clickOnblButton = () -> clickOn(blButton);
 	protected final GUIVoidCommand clickOnbButton = () -> clickOn(bButton);
@@ -55,12 +53,8 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 		centreButton = find("#centreButton");
 		packagesField = find("#packagesField");
 		logField = find("#logField");
-		mainPane = find("#mainPane");
 		ins = (ShapeTextCustomiser)guiceFactory.call(ShapeTextCustomiser.class);
 		ins.setActivated(true);
-		mainPane.setAnimated(false);
-		expandPane(mainPane);
-
 	}
 
 	@Test

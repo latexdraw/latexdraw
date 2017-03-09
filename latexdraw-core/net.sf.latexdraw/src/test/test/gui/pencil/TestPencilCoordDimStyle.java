@@ -1,20 +1,18 @@
 package test.gui.pencil;
 
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
+import com.google.inject.AbstractModule;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestCoordDimShapeGUI;
 
-import com.google.inject.AbstractModule;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestPencilCoordDimStyle extends TestCoordDimShapeGUI {
@@ -40,6 +38,6 @@ public class TestPencilCoordDimStyle extends TestCoordDimShapeGUI {
 	@Test
 	public void testControllerNotVisibleWithPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 }

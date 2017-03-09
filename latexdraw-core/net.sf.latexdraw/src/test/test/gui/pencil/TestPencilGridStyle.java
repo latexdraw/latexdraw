@@ -1,22 +1,23 @@
 package test.gui.pencil;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
+import com.google.inject.AbstractModule;
 import javafx.scene.paint.Color;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeGridCustomiser;
-
+import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestGridStyleGUI;
 
-import com.google.inject.AbstractModule;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestPencilGridStyle extends TestGridStyleGUI {

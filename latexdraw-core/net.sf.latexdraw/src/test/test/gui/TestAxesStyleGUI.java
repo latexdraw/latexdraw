@@ -4,11 +4,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
+import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
-
 import org.junit.Before;
 
 public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomiser> {
@@ -52,7 +51,7 @@ public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomi
 		distLabelsX = find("#distLabelsX");
 		distLabelsY = find("#distLabelsY");
 		showOrigin = find("#showOrigin");
-		ins = (ShapeAxesCustomiser)guiceFactory.call(ShapeAxesCustomiser.class);
+		ins = (ShapeAxesCustomiser) guiceFactory.call(ShapeAxesCustomiser.class);
 		ins.setActivated(true);
 	}
 }

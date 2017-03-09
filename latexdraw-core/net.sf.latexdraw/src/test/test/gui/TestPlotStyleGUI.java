@@ -1,13 +1,11 @@
 package test.gui;
 
-import org.junit.Before;
-
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TitledPane;
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.instruments.ShapePlotCustomiser;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import org.junit.Before;
 
 public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomiser> {
 	protected Spinner<Integer> nbPtsSpinner;
@@ -17,7 +15,6 @@ public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomi
 	protected Spinner<Double> yScaleSpinner;
 	protected CheckBox polarCB;
 	protected ComboBox<PlotStyle> plotStyleCB;
-	protected TitledPane mainPane;
 
 	protected final GUICommand<PlotStyle> selectplotStyleCB = (style) -> selectGivenComboBoxItem(plotStyleCB, style);
 	protected final GUIVoidCommand incrementnbPtsSpinner = () -> incrementSpinner(nbPtsSpinner);
@@ -43,10 +40,7 @@ public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomi
 		minXSpinner = find("#minXSpinner");
 		nbPtsSpinner = find("#nbPtsSpinner");
 		plotStyleCB = find("#plotStyleCB");
-		mainPane = find("#mainPane");
 		ins = (ShapePlotCustomiser)guiceFactory.call(ShapePlotCustomiser.class);
 		ins.setActivated(true);
-		mainPane.setAnimated(false);
-		expandPane(mainPane);
 	}
 }

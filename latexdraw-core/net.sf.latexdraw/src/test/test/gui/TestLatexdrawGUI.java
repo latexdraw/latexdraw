@@ -4,14 +4,17 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -31,6 +34,9 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	protected Callback<Class<?>, Object> guiceFactory;
 
 	protected final GUIVoidCommand waitFXEvents = WaitForAsyncUtils::waitForFxEvents;
+	protected final GUIVoidCommand waitFX1Second = () -> WaitForAsyncUtils.sleep(1, TimeUnit.SECONDS);
+
+	protected TitledPane titledPane;
 
 	@Before
 	public void setUp() {
@@ -53,9 +59,30 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 			guiceFactory = injector::getInstance;
 			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), LangTool.INSTANCE.getBundle(),
 				new LatexdrawBuilderFactory(injector), guiceFactory);
-			final BorderPane pane = new BorderPane();
-			pane.setCenter(root);
-			final Scene scene = new Scene(pane);
+
+			Parent parent = root;
+
+
+			// If the root is not a pane, its content may not be visible.
+			// So, need to add a fictive pane to contain the widgets.
+			if(root instanceof Pane) {
+				parent = root;
+			}else {
+				// TitledPane leads to flaky tests with TestFX. So, replacing the TitlePane with a classical pane.
+				if(parent instanceof TitledPane) {
+					titledPane = (TitledPane) parent;
+					final Node content = ((TitledPane) parent).getContent();
+					if(content instanceof Parent) {
+						parent = (Parent) content;
+					}else {
+						final BorderPane pane = new BorderPane();
+						pane.setCenter(content);
+						parent = pane;
+					}
+				}
+			}
+
+			final Scene scene = new Scene(parent);
 			stage.setScene(scene);
 			stage.show();
 			stage.toFront();

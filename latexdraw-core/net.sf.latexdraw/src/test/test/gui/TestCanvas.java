@@ -74,8 +74,8 @@ public class TestCanvas extends TestLatexdrawGUI {
 	@Before
 	public void setUp() {
 		super.setUp();
-		pencil = (Pencil)guiceFactory.call(Pencil.class);
-		hand = (Hand)guiceFactory.call(Hand.class);
+		pencil = (Pencil) guiceFactory.call(Pencil.class);
+		hand = (Hand) guiceFactory.call(Hand.class);
 
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
@@ -84,7 +84,7 @@ public class TestCanvas extends TestLatexdrawGUI {
 	}
 
 	Group getPane() {
-		return (Group)canvas.getChildren().get(1);
+		return (Group) canvas.getChildren().get(1);
 	}
 
 	@Test
@@ -136,18 +136,18 @@ public class TestCanvas extends TestLatexdrawGUI {
 		new CompositeGUIVoidCommand(addRec, waitFXEvents, clickOnAddedRec, waitFXEvents, shiftClickOnAddedRec, waitFXEvents).execute();
 		assertTrue(canvas.getDrawing().getSelection().isEmpty());
 	}
-	
+
 	@Test
 	public void testCtrlClickOnShapeAddsSelection() {
 		new CompositeGUIVoidCommand(addRec, addRec2, waitFXEvents, clickOnAddedRec, waitFXEvents, ctrlClickOnAddedRec2, waitFXEvents).execute();
 		assertEquals(2, canvas.getDrawing().getSelection().size());
 		assertNotSame(canvas.getDrawing().getSelection().getShapeAt(0), canvas.getDrawing().getSelection().getShapeAt(1));
 	}
-	
+
 	@Test
 	public void testTwoAddsAndShiftClickSelectsOneShape() {
 		new CompositeGUIVoidCommand(addRec, addRec2, waitFXEvents, clickOnAddedRec, waitFXEvents, ctrlClickOnAddedRec2, waitFXEvents,
-				shiftClickOnAddedRec, waitFXEvents).execute();
+			shiftClickOnAddedRec, waitFXEvents).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertNotSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
 	}

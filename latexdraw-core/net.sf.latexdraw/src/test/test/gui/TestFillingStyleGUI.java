@@ -3,10 +3,8 @@ package test.gui;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TitledPane;
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
-
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import org.junit.Before;
 
 public abstract class TestFillingStyleGUI extends TestShapePropGUI<ShapeFillingCustomiser> {
@@ -20,7 +18,6 @@ public abstract class TestFillingStyleGUI extends TestShapePropGUI<ShapeFillingC
 	protected Spinner<Double> hatchSepField;
 	protected Spinner<Double> hatchAngleField;
 	protected Spinner<Double> hatchWidthField;
-	protected TitledPane mainPane;
 
 	protected final GUIVoidCommand pickfillCol = () -> pickColour(fillColButton);
 	protected final GUIVoidCommand pickhatchCol = () -> pickColour(hatchColButton);
@@ -45,7 +42,6 @@ public abstract class TestFillingStyleGUI extends TestShapePropGUI<ShapeFillingC
 	@Before
 	public void setUp() {
 		super.setUp();
-		mainPane = find("#mainPane");
 		fillColButton = find("#fillColButton");
 		hatchColButton = find("#hatchColButton");
 		gradStartColButton = find("#gradStartColButton");
@@ -56,9 +52,7 @@ public abstract class TestFillingStyleGUI extends TestShapePropGUI<ShapeFillingC
 		hatchSepField = find("#hatchSepField");
 		hatchAngleField = find("#hatchAngleField");
 		hatchWidthField = find("#hatchWidthField");
-		ins = (ShapeFillingCustomiser)guiceFactory.call(ShapeFillingCustomiser.class);
+		ins = (ShapeFillingCustomiser) guiceFactory.call(ShapeFillingCustomiser.class);
 		ins.setActivated(true);
-		mainPane.setAnimated(false);
-		expandPane(mainPane);
 	}
 }

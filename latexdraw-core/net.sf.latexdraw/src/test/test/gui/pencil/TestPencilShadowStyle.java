@@ -49,13 +49,13 @@ public class TestPencilShadowStyle extends TestShadowStyleGUI {
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		assertTrue(mainPane.isVisible());
+		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test

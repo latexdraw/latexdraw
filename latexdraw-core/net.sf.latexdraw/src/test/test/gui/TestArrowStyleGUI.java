@@ -2,7 +2,6 @@ package test.gui;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
@@ -26,7 +25,6 @@ public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCusto
 	protected AnchorPane barPane;
 	protected AnchorPane bracketPane;
 	protected AnchorPane rbracketPane;
-	protected TitledPane mainPane;
 
 	protected final GUICommand<ArrowStyle> selectArrowLeftCB = style -> selectGivenComboBoxItem(arrowLeftCB, style);
 	protected final GUICommand<ArrowStyle> selectArrowRightCB = style -> selectGivenComboBoxItem(arrowRightCB, style);
@@ -54,7 +52,6 @@ public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCusto
 	@Before
 	public void setUp() {
 		super.setUp();
-		mainPane = find("#mainPane");
 		arrowLeftCB = find("#arrowLeftCB");
 		arrowRightCB = find("#arrowRightCB");
 		dotSizeNum = find("#dotSizeNum");
@@ -72,9 +69,7 @@ public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCusto
 		arrowPane = find("#arrowPane");
 		barPane = find("#barPane");
 		bracketPane = find("#bracketPane");
-		ins = (ShapeArrowCustomiser)guiceFactory.call(ShapeArrowCustomiser.class);
+		ins = (ShapeArrowCustomiser) guiceFactory.call(ShapeArrowCustomiser.class);
 		ins.setActivated(true);
-		mainPane.setAnimated(false);
-		expandPane(mainPane);
 	}
 }

@@ -43,21 +43,21 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 	public void testControllerActivatedWhenSelectionGrid() {
 		new CompositeGUIVoidCommand(selectionAddGrid, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
-		assertTrue(mainPane.isVisible());
+		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotGrid() {
 		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
 		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test

@@ -43,21 +43,21 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 	public void testControllerActivatedWhenSelectionDot() {
 		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
-		assertTrue(mainPane.isVisible());
+		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotDot() {
 		new CompositeGUIVoidCommand(selectionAddAxes, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
 		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test

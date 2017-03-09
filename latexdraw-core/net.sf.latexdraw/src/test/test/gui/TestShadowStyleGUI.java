@@ -3,9 +3,7 @@ package test.gui;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
-
 import org.junit.Before;
 
 public abstract class TestShadowStyleGUI extends TestShapePropGUI<ShapeShadowCustomiser> {
@@ -13,7 +11,6 @@ public abstract class TestShadowStyleGUI extends TestShapePropGUI<ShapeShadowCus
 	protected ColorPicker shadowColB;
 	protected Spinner<Double> shadowSizeField;
 	protected Spinner<Double> shadowAngleField;
-	protected TitledPane mainPane;
 
 	protected final GUIVoidCommand checkShadow = () -> clickOn(shadowCB);
 	protected final GUIVoidCommand pickShadCol = () -> pickColour(shadowColB);
@@ -33,10 +30,7 @@ public abstract class TestShadowStyleGUI extends TestShapePropGUI<ShapeShadowCus
 		shadowColB = find("#shadowColB");
 		shadowSizeField = find("#shadowSizeField");
 		shadowAngleField = find("#shadowAngleField");
-		mainPane = find("#mainPane");
 		ins = (ShapeShadowCustomiser)guiceFactory.call(ShapeShadowCustomiser.class);
 		ins.setActivated(true);
-		mainPane.setAnimated(false);
-		expandPane(mainPane);
 	}
 }

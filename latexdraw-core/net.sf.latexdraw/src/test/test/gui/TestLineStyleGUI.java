@@ -4,10 +4,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
+import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
-
 import org.junit.Before;
 
 public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCustomiser> {
@@ -40,7 +39,7 @@ public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCusto
 		bordersPosCB = find("#bordersPosCB");
 		frameArcField = find("#frameArcField");
 		showPoints = find("#showPoints");
-		ins = (ShapeBorderCustomiser)guiceFactory.call(ShapeBorderCustomiser.class);
+		ins = (ShapeBorderCustomiser) guiceFactory.call(ShapeBorderCustomiser.class);
 		ins.setActivated(true);
 	}
 }

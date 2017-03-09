@@ -1,9 +1,7 @@
 package test.gui;
 
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.instruments.ShapeStdGridCustomiser;
-
 import org.junit.Before;
 
 public abstract class TestStdGridStyleGUI extends TestShapePropGUI<ShapeStdGridCustomiser> {
@@ -14,7 +12,6 @@ public abstract class TestStdGridStyleGUI extends TestShapePropGUI<ShapeStdGridC
 	protected Spinner<Integer> labelsSizeS;
 	protected Spinner<Double> xOriginS;
 	protected Spinner<Double> yOriginS;
-	protected TitledPane mainPane;
 
 	protected final GUIVoidCommand decrementxStartS = () -> decrementSpinner(xStartS);
 	protected final GUIVoidCommand decrementyStartS = () -> decrementSpinner(yStartS);
@@ -40,10 +37,7 @@ public abstract class TestStdGridStyleGUI extends TestShapePropGUI<ShapeStdGridC
 		labelsSizeS = find("#labelsSizeS");
 		xOriginS = find("#xOriginS");
 		yOriginS = find("#yOriginS");
-		mainPane = find("#mainPane");
 		ins = (ShapeStdGridCustomiser)guiceFactory.call(ShapeStdGridCustomiser.class);
 		ins.setActivated(true);
-		mainPane.setAnimated(false);
-		expandPane(mainPane);
 	}
 }

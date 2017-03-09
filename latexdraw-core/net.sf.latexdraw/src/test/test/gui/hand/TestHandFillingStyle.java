@@ -44,21 +44,21 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 	public void testControllerActivatedWhenSelection() {
 		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
-		assertTrue(mainPane.isVisible());
+		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotFillable() {
 		new CompositeGUIVoidCommand(selectionAddAxes, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
 		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test

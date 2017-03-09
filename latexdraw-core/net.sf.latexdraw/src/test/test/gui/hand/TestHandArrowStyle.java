@@ -44,21 +44,21 @@ public class TestHandArrowStyle extends TestArrowStyleGUI {
 	public void testControllerActivatedWhenSelectionArrowable() {
 		new CompositeGUIVoidCommand(selectionAddBezier, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
-		assertTrue(mainPane.isVisible());
+		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotArrowable() {
 		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
 		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
-		assertFalse(mainPane.isVisible());
+		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
