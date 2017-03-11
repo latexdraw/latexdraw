@@ -1,21 +1,23 @@
 package test.gui;
 
 import com.google.inject.AbstractModule;
+import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.PageView;
 import net.sf.latexdraw.view.jfx.ViewRectangle;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.malai.action.ActionsRegistry;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -31,24 +33,26 @@ public class TestCanvas extends TestLatexdrawGUI {
 	IRectangle addedRec;
 
 	final GUIVoidCommand addRec = () -> Platform.runLater(() -> {
-		addedRec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX(), -Canvas.ORIGIN.getY()), 100, 100);
+		addedRec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+50),
+			200, 100);
 		addedRec.setFilled(true);
 		addedRec.setFillingCol(DviPsColors.APRICOT);
 		canvas.getDrawing().addShape(addedRec);
 	});
-	
+
 	final GUIVoidCommand addRec2 = () -> Platform.runLater(() -> {
-		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300, -Canvas.ORIGIN.getY()+300), 100, 100);
+		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300,
+			-Canvas.ORIGIN.getY()+300), 100, 100);
 		rec.setFilled(true);
 		rec.setFillingCol(DviPsColors.APRICOT);
 		canvas.getDrawing().addShape(rec);
 	});
 
-	final GUIVoidCommand clickOnAddedRec = () -> rightClickOn(new Point2D(50, 50));
-	
-	final GUIVoidCommand ctrlClickOnAddedRec2 = () -> press(KeyCode.CONTROL).rightClickOn(new Point2D(330, 350)).release(KeyCode.CONTROL);
+	final GUIVoidCommand clickOnAddedRec = () -> rightClickOn(getPane().getChildren().get(0));
 
-	final GUIVoidCommand shiftClickOnAddedRec = () -> press(KeyCode.SHIFT).rightClickOn(new Point2D(55, 55)).release(KeyCode.SHIFT);
+	final GUIVoidCommand ctrlClickOnAddedRec2 = () -> press(KeyCode.CONTROL).rightClickOn(getPane().getChildren().get(1)).release(KeyCode.CONTROL);
+
+	final GUIVoidCommand shiftClickOnAddedRec = () -> press(KeyCode.SHIFT).rightClickOn(getPane().getChildren().get(0)).release(KeyCode.SHIFT);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
@@ -61,11 +65,9 @@ public class TestCanvas extends TestLatexdrawGUI {
 			@Override
 			protected void configure() {
 				super.configure();
-				this.pencil = mock(Pencil.class);
-				bind(ShapeBorderCustomiser.class).asEagerSingleton();
+				pencil = mock(Pencil.class);
 				bind(Hand.class).asEagerSingleton();
-				bind(Canvas.class).asEagerSingleton();
-				bind(Pencil.class).toInstance(this.pencil);
+				bind(Pencil.class).toInstance(pencil);
 			}
 		};
 	}
@@ -76,15 +78,37 @@ public class TestCanvas extends TestLatexdrawGUI {
 		super.setUp();
 		pencil = (Pencil) guiceFactory.call(Pencil.class);
 		hand = (Hand) guiceFactory.call(Hand.class);
-
+		canvas = (Canvas) guiceFactory.call(Canvas.class);
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
 
-		canvas = lookup("#canvas").query();
+		Platform.runLater(() -> {
+			final int width = 800;
+			final int height = 600;
+			stage.minHeightProperty().unbind();
+			stage.minWidthProperty().unbind();
+			canvas.setMaxWidth(width);
+			canvas.setMaxHeight(height);
+			canvas.getScene().getWindow().setWidth(width);
+			canvas.getScene().getWindow().setHeight(height);
+			stage.setMaxWidth(width);
+			stage.setMaxHeight(height);
+			stage.setMinWidth(width);
+			stage.setMinHeight(height);
+			stage.centerOnScreen();
+			stage.toFront();
+		});
+	}
+
+	@Override
+	@After
+	public void tearDown() throws TimeoutException {
+		super.tearDown();
+		ActionsRegistry.INSTANCE.removeHandler(canvas);
 	}
 
 	Group getPane() {
-		return (Group) canvas.getChildren().get(1);
+		return (Group) canvas.getChildren().get(2);
 	}
 
 	@Test
@@ -93,8 +117,13 @@ public class TestCanvas extends TestLatexdrawGUI {
 	}
 
 	@Test
+	public void testMagneticGridExists() {
+		assertTrue(canvas.getChildren().get(1) instanceof MagneticGrid);
+	}
+
+	@Test
 	public void testViewsPaneExists() {
-		assertTrue(canvas.getChildren().get(1) instanceof Group);
+		assertTrue(canvas.getChildren().get(2) instanceof Group);
 	}
 
 	@Test
@@ -107,15 +136,13 @@ public class TestCanvas extends TestLatexdrawGUI {
 	@Test
 	public void testShapeAddedViewCreated() {
 		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
-		Group group = getPane();
-		assertEquals(1, group.getChildren().size());
+		assertEquals(1, getPane().getChildren().size());
 	}
 
 	@Test
 	public void testShapeAddedViewRecCreated() {
 		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
-		Group group = getPane();
-		assertTrue(group.getChildren().get(0) instanceof ViewRectangle);
+		assertTrue(getPane().getChildren().get(0) instanceof ViewRectangle);
 	}
 
 	@Test

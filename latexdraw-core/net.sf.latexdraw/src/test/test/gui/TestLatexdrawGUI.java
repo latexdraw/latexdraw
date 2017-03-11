@@ -37,6 +37,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	protected final GUIVoidCommand waitFX1Second = () -> WaitForAsyncUtils.sleep(1, TimeUnit.SECONDS);
 
 	protected TitledPane titledPane;
+	protected Stage stage;
 
 	@Before
 	public void setUp() {
@@ -53,7 +54,9 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	}
 
 	@Override
-	public void start(Stage stage) {
+	public void start(Stage aStage) {
+		stage = aStage;
+
 		try {
 			final Injector injector = Guice.createInjector(createModule());
 			guiceFactory = injector::getInstance;
@@ -83,14 +86,14 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 			}
 
 			final Scene scene = new Scene(parent);
-			stage.setScene(scene);
-			stage.show();
-			stage.toFront();
+			aStage.setScene(scene);
+			aStage.show();
+			aStage.toFront();
 			if(root instanceof Region) {
-				stage.minHeightProperty().bind(((Region)root).heightProperty());
-				stage.minWidthProperty().bind(((Region)root).widthProperty());
+				aStage.minHeightProperty().bind(((Region)root).heightProperty());
+				aStage.minWidthProperty().bind(((Region)root).widthProperty());
 			}
-			stage.sizeToScene();
+			aStage.sizeToScene();
 		}catch(final IOException ex) {
 			ex.printStackTrace();
 		}
