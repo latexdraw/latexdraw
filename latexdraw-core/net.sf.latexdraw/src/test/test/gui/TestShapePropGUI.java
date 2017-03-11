@@ -14,14 +14,13 @@ import org.testfx.util.WaitForAsyncUtils;
 import test.gui.robot.FxRobotColourPicker;
 import test.gui.robot.FxRobotListSelection;
 import test.gui.robot.FxRobotSpinner;
-import test.gui.robot.FxRobotTitledPane;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extends TestLatexdrawGUI implements FxRobotColourPicker,
-	FxRobotListSelection, FxRobotSpinner, FxRobotTitledPane {
+	FxRobotListSelection, FxRobotSpinner {
 	protected Pencil pencil;
 	protected Hand hand;
 	protected IDrawing drawing;
