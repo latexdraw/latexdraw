@@ -40,8 +40,4 @@ public class CodePanelController extends CanvasInstrument implements Initializab
 	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
 		// Nothing to do.
 	}
-
-	public LaTeXGenerator getPstGenerator() {
-		return pstGenerator;
-	}
 }

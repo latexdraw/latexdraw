@@ -15,7 +15,6 @@ import com.google.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -53,7 +52,7 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable {
 	public void initialize(final URL location, final ResourceBundle resources) {
 		setActivated(false);
 
-		((ObservableList<IShape>)canvas.getDrawing().getSelection().getShapes()).addListener(
+		canvas.getDrawing().getSelection().getShapes().addListener(
 			(ListChangeListener.Change<? extends IShape> evt) -> setActivated(hand.isActivated() && !evt.getList().isEmpty()));
 	}
 

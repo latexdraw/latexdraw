@@ -106,7 +106,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	}
 
 
-	class MenuItem2CopyShapes<T extends CopyShapes> extends JfxMenuItemInteractor<T, MenuItemPressed, CopierCutterPaster> {
+	private class MenuItem2CopyShapes<T extends CopyShapes> extends JfxMenuItemInteractor<T, MenuItemPressed, CopierCutterPaster> {
 		MenuItem2CopyShapes(final Class<T> clazz, final MenuItem item) throws InstantiationException, IllegalAccessException {
 			super(CopierCutterPaster.this, false, clazz, MenuItemPressed.class, item);
 		}
@@ -122,7 +122,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 		}
 	}
 
-	class MenuItem2PasteShapes extends JfxMenuItemInteractor<PasteShapes, MenuItemPressed, CopierCutterPaster> {
+	private class MenuItem2PasteShapes extends JfxMenuItemInteractor<PasteShapes, MenuItemPressed, CopierCutterPaster> {
 		MenuItem2PasteShapes() throws InstantiationException, IllegalAccessException {
 			super(CopierCutterPaster.this, false, PasteShapes.class, MenuItemPressed.class, pasteMenu);
 		}
