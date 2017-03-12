@@ -31,7 +31,6 @@ import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.instrument.library.CheckboxInteractor;
 import org.malai.javafx.instrument.library.ComboBoxInteractor;
 import org.malai.javafx.instrument.library.SpinnerInteractor;
-import org.malai.javafx.interaction.library.KeyTypedWithTimer;
 import org.malai.javafx.interaction.library.KeysTyped;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
@@ -206,9 +205,9 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 		}
 	}
 
-	private class LabelFieldToChangeLabel extends JfxInteractor<ModifyLatexProperties, KeyTypedWithTimer, DrawingPropertiesCustomiser> {
+	private class LabelFieldToChangeLabel extends JfxInteractor<ModifyLatexProperties, KeysTyped, DrawingPropertiesCustomiser> {
 		LabelFieldToChangeLabel() throws InstantiationException, IllegalAccessException {
-			super(DrawingPropertiesCustomiser.this, false, ModifyLatexProperties.class, KeyTypedWithTimer.class, labelField);
+			super(DrawingPropertiesCustomiser.this, false, ModifyLatexProperties.class, KeysTyped.class, labelField);
 		}
 
 		@Override
