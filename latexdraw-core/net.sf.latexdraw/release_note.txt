@@ -1,6 +1,7 @@
 ************************************************************
 Version 3.3.6
 
+- fixed: problem of encoding (MS950) not supported by the XML serialiser that prevented SVG files to be saved.
 - fixed: arcs were not correctly drawn and saved as SVG on certain start/end angles.
 - fixed: the installer cannot be run on some configurations (e.g. Fedora 25 with Wayland).
 

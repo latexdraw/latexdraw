@@ -7,14 +7,27 @@ import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.charset.Charset;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-
-import org.w3c.dom.*;
+import org.w3c.dom.Attr;
+import org.w3c.dom.CDATASection;
+import org.w3c.dom.Comment;
+import org.w3c.dom.DOMConfiguration;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.DocumentFragment;
+import org.w3c.dom.DocumentType;
+import org.w3c.dom.Element;
+import org.w3c.dom.EntityReference;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.ProcessingInstruction;
+import org.w3c.dom.Text;
+import org.w3c.dom.UserDataHandler;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
@@ -516,21 +529,37 @@ public class SVGDocument implements Document {
 
 		boolean ok = true;
 		try{
-	        DOMImplementationLS impl = (DOMImplementationLS) DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0 LS 3.0"); //$NON-NLS-1$
-	        LSSerializer serializer = impl.createLSSerializer();
-	        serializer.getDomConfig().setParameter("format-pretty-print", true); //$NON-NLS-1$
-	        serializer.getDomConfig().setParameter("namespaces", false); //$NON-NLS-1$
-	        LSOutput output = impl.createLSOutput();
+	        final DOMImplementationLS impl = (DOMImplementationLS) DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0 LS 3.0"); //$NON-NLS-1$
 	        final Charset charset = Charset.defaultCharset();
-	        try(OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(path), charset.newEncoder())){
-	        	output.setEncoding(charset.name());
-	        	output.setCharacterStream(fw);
-	        	serializer.write(getDocumentElement(), output);
-	        }
-		}catch(ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IOException ex){
+			try {
+				// First try using the system encoding.
+				serialise(path, impl, charset);
+			}catch(final Exception ex) {
+				// If a problem with the encoding happens, try with the default DOM encoding.
+				serialise(path, impl, null);
+			}
+		}catch(final Exception ex){
 			ex.printStackTrace();
+			BadaboomCollector.INSTANCE.add(ex);
+			ok = false;
 		}
         return ok;
+	}
+
+	private void serialise(final String path, final DOMImplementationLS impl, final Charset charset) throws IOException {
+		try(final OutputStreamWriter fw = charset == null ? new OutputStreamWriter(new FileOutputStream(path)) :
+			new OutputStreamWriter(new FileOutputStream(path), charset.newEncoder())) {
+			final LSOutput output = impl.createLSOutput();
+			final LSSerializer serializer = impl.createLSSerializer();
+			serializer.getDomConfig().setParameter("format-pretty-print", true); //$NON-NLS-1$
+			serializer.getDomConfig().setParameter("namespaces", false); //$NON-NLS-1$
+
+			if(charset != null) {
+				output.setEncoding(charset.name());
+			}
+			output.setCharacterStream(fw);
+			serializer.write(getDocumentElement(), output);
+		}
 	}
 
 
