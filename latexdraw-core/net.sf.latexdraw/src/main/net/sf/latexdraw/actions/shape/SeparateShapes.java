@@ -28,7 +28,7 @@ public class SeparateShapes extends ShapeActionImpl<IGroup> implements DrawingAc
 	protected Optional<IDrawing> drawing;
 
 
-	protected SeparateShapes() {
+	public SeparateShapes() {
 		super();
 		drawing = Optional.empty();
 	}
