@@ -485,4 +485,13 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	public Group getViews() {
 		return shapesPane;
 	}
+
+	/**
+	 * @param sh The shape to look for.
+	 * @return The view corresponding to the given shape or nothing.
+	 */
+	public Optional<ViewShape<?>> getViewFromShape(final IShape sh) {
+		if(sh == null) return Optional.empty();
+		return Optional.ofNullable(shapesToViewMap.get(sh));
+	}
 }

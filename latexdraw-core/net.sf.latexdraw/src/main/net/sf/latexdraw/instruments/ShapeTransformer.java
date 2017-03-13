@@ -1,3 +1,13 @@
+/*
+  * This file is part of LaTeXDraw.
+  * Copyright (c) 2005-2017 Arnaud BLOUIN
+  * LaTeXDraw is free software; you can redistribute it and/or modify it under
+  * the terms of the GNU General Public License as published by the Free Software
+  * Foundation; either version 2 of the License, or (at your option) any later version.
+  * LaTeXDraw is distributed without any warranty; without even the implied
+  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * General Public License for more details.
+ */
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
@@ -6,73 +16,63 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import net.sf.latexdraw.actions.shape.AlignShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import org.malai.javafx.instrument.library.ButtonInteractor;
 
 /**
  * This instrument transforms (mirror, etc.) the selected shapes.
- * This file is part of LaTeXDraw.
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version.
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.
- * 2013-03-07
- * @author Arnaud BLOUIN
- * @since 3.0
  */
 public class ShapeTransformer extends ShapePropertyCustomiser implements Initializable {
 	/** The widget to mirror horizontally. */
-	@FXML protected Button mirrorH;
+	@FXML private Button mirrorH;
 
 	/** The widget to mirror vertically. */
-	@FXML protected Button mirrorV;
+	@FXML private Button mirrorV;
 
-	/** The widget to bottom align the shapes. */
-	@FXML protected Button alignBot;
+	/** The widget to BOTTOM align the shapes. */
+	@FXML private Button alignBot;
 
-	/** The widget to left align the shapes. */
-	@FXML protected Button alignLeft;
+	/** The widget to LEFT align the shapes. */
+	@FXML private Button alignLeft;
 
-	/** The widget to right align the shapes. */
-	@FXML protected Button alignRight;
+	/** The widget to RIGHT align the shapes. */
+	@FXML private Button alignRight;
 
-	/** The widget to top align the shapes. */
-	@FXML protected Button alignTop;
+	/** The widget to TOP align the shapes. */
+	@FXML private Button alignTop;
 
 	/** The widget to middle horizontal align the shapes. */
-	@FXML protected Button alignMidHoriz;
+	@FXML private Button alignMidHoriz;
 
 	/** The widget to middle vertical align the shapes. */
-	@FXML protected Button alignMidVert;
+	@FXML private Button alignMidVert;
 
-	/** The widget to bottom-vertically distribute the shapes. */
-	@FXML protected Button distribVertBot;
+	/** The widget to BOTTOM-vertically distribute the shapes. */
+	@FXML private Button distribVertBot;
 
 	/** The widget to equal-vertically distribute the shapes. */
-	@FXML protected Button distribVertEq;
+	@FXML private Button distribVertEq;
 
 	/** The widget to middle-vertically distribute the shapes. */
-	@FXML protected Button distribVertMid;
+	@FXML private Button distribVertMid;
 
-	/** The widget to top-vertically distribute the shapes. */
-	@FXML protected Button distribVertTop;
+	/** The widget to TOP-vertically distribute the shapes. */
+	@FXML private Button distribVertTop;
 
 	/** The widget to equal-horizontally distribute the shapes. */
-	@FXML protected Button distribHorizEq;
+	@FXML private Button distribHorizEq;
 
-	/** The widget to left-horizontally distribute the shapes. */
-	@FXML protected Button distribHorizLeft;
+	/** The widget to LEFT-horizontally distribute the shapes. */
+	@FXML private Button distribHorizLeft;
 
 	/** The widget to middle-horizontally distribute the shapes. */
-	@FXML protected Button distribHorizMid;
+	@FXML private Button distribHorizMid;
 
-	/** The widget to right-horizontally distribute the shapes. */
-	@FXML protected Button distribHorizRight;
+	/** The widget to RIGHT-horizontally distribute the shapes. */
+	@FXML private Button distribHorizRight;
 
-	@FXML VBox mainPane;
+	@FXML private VBox mainPane;
 
 	/**
 	 * Creates the instrument.
@@ -84,6 +84,12 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
+		alignBot.setUserData(AlignShapes.Alignment.BOTTOM);
+		alignLeft.setUserData(AlignShapes.Alignment.LEFT);
+		alignMidHoriz.setUserData(AlignShapes.Alignment.MID_HORIZ);
+		alignMidVert.setUserData(AlignShapes.Alignment.MID_VERT);
+		alignRight.setUserData(AlignShapes.Alignment.RIGHT);
+		alignTop.setUserData(AlignShapes.Alignment.TOP);
 	}
 
 	@Override
@@ -93,50 +99,30 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 
 	@Override
 	protected void update(final IGroup shape) {
-		setActivated(!shape.isEmpty());
+		setActivated(hand.isActivated() && shape.size() > 1);
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		// addInteractor(new Button2Mirror(this))
-		// addInteractor(new Button2Align(this))
-		// addInteractor(new Button2Distribute(this))
+	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
+		addInteractor(new Button2Align(this));
+//		 addInteractor(new Button2Align(this))
+//		 addInteractor(new Button2Distribute(this))
+	}
+
+	private static class Button2Align extends ButtonInteractor<AlignShapes, ShapeTransformer> {
+		Button2Align(final ShapeTransformer ins) throws InstantiationException, IllegalAccessException {
+			super(ins, AlignShapes.class, ins.alignBot, ins.alignLeft, ins.alignMidHoriz, ins.alignMidVert, ins.alignRight, ins.alignTop);
+		}
+
+		@Override
+		public void initAction() {
+			action.setAlignment((AlignShapes.Alignment) getInteraction().getWidget().getUserData());
+			action.setCanvas(getInstrument().canvas);
+			action.setShape(instrument.pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
+		}
 	}
 }
 
-// /**
-// * Maps a button interaction with an action that aligns the selected shapes.
-// */
-// private sealed class Button2Align(ins:ShapeTransformer) extends
-// InteractorImpl[AlignShapes, ButtonPressed, ShapeTransformer](ins, false,
-// classOf[AlignShapes], classOf[ButtonPressed]) {
-// override def initAction() {
-// val but = interaction.getButton
-//
-// action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicateDeep(false))
-// if(but==instrument._alignBot) action.setAlignment(AlignmentType.bottom)
-// else if(but==instrument._alignLeft) action.setAlignment(AlignmentType.left)
-// else if(but==instrument._alignMidHoriz)
-// action.setAlignment(AlignmentType.midHoriz)
-// else if(but==instrument._alignMidVert)
-// action.setAlignment(AlignmentType.midVert)
-// else if(but==instrument._alignRight) action.setAlignment(AlignmentType.right)
-// else if(but==instrument._alignTop) action.setAlignment(AlignmentType.top)
-// action.setBorder(instrument.border.border)
-// }
-//
-// override def isConditionRespected = {
-// val but = interaction.getButton
-// but==instrument._alignBot || but==instrument._alignLeft ||
-// but==instrument._alignMidHoriz || but==instrument._alignMidVert ||
-// but==instrument._alignRight || but==instrument._alignTop
-// }
-// }
-//
-// /**
-// * Maps a button interaction with an action that distributes the selected
-// shapes.
-// */
 // private sealed class Button2Distribute(ins:ShapeTransformer) extends
 // InteractorImpl[DistributeShapes, ButtonPressed, ShapeTransformer](ins, false,
 // classOf[DistributeShapes], classOf[ButtonPressed]) {

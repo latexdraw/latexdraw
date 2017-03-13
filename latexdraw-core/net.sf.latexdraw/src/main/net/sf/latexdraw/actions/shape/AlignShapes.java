@@ -10,16 +10,19 @@
  */
 package net.sf.latexdraw.actions.shape;
 
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import org.malai.undo.Undoable;
 
@@ -31,198 +34,160 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 	/**
 	 * This enumeration describes the different possible alignment types.
 	 */
-	public enum AlignmentType {
-		left, right, top, bottom, midHoriz, midVert;
+	public enum Alignment {
+		LEFT, RIGHT, TOP, BOTTOM, MID_HORIZ, MID_VERT
 	}
 
-	/** The reference border that must bounds the shapes to align. */
-	Rectangle2D border;
-
 	/** The views corresponding to the shapes to align. */
-	final List<ViewShape<?>> views;
-
+	private List<ViewShape<?>> views;
 	/** The alignment to perform. */
-	AlignmentType alignment;
-
+	private Alignment alignment;
 	/** The former positions of the shapes to align. Used for undoing. */
-	final List<IPoint> oldPositions;
+	private List<IPoint> oldPositions;
+	private Canvas canvas;
 
 
 	public AlignShapes() {
 		super();
-		views = new ArrayList<>();
-		oldPositions = new ArrayList<>();
 	}
 
 	@Override
 	protected void doActionBody() {
-		//		var v : IViewShape = null
-		//		shape.get.getShapes.foreach{sh=>
-		//			// Because the views have already computed the border of their shape, we get the corresponding views.
-		//			_views += MappingRegistry.REGISTRY.getTargetFromSource(sh, classOf[IViewShape])
-		//			// Saving the old position of the shape for undoing.
-		//			_oldPositions += sh.getTopLeftPoint
-		//		}
-		//		redo
+		views = shape.get().getShapes().stream().map(sh -> canvas.getViewFromShape(sh).get()).collect(Collectors.toList());
+		oldPositions = shape.get().getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList());
+		redo();
 	}
 
 	/**
 	 * Middle-horizontal aligning the provided shapes.
 	 */
-	protected void alignMidHoriz() {
-		//		var theMaxY = Double.MinValue
-		//		var theMinY = Double.MaxValue
-		//		var middles = new ListBuffer[Double]()
-		//		var i = 0
-		//
-		//		_views.foreach{view=>
-		//			val maxY = view.getBorder.getMaxY
-		//			val minY = view.getBorder.getMinY
-		//			if(maxY>theMaxY) theMaxY = maxY
-		//			if(minY<theMinY) theMinY = minY
-		//			middles+=(minY+maxY)/2
-		//		}
-		//
-		//		val middle = (theMaxY+theMinY)/2
-		//
-		//		shape.get.getShapes.foreach{sh=>
-		//			val middle2 = middles(i)
-		//			if(!LNumber.equalsDouble(middle2, middle))
-		//				sh.translate(0, middle-middle2)
-		//			i+=1
-		//		}
-	}
+	private void alignMidHoriz() {
+		double theMaxY = Double.MIN_VALUE;
+		double theMinY = Double.MAX_VALUE;
+		final List<Double> middles = new ArrayList<>();
 
+		for(final ViewShape<?> view : views) {
+			final double maxY = view.getBoundsInLocal().getMaxY();
+			final double minY = view.getBoundsInLocal().getMinY();
+			if(maxY > theMaxY) theMaxY = maxY;
+			if(minY < theMinY) theMinY = minY;
+			middles.add((minY + maxY) / 2d);
+		}
+
+		translateY(middles, (theMaxY + theMinY) / 2d);
+	}
 
 	/**
 	 * Middle-vertical aligning the provided shapes.
 	 */
-	protected void alignMidVert() {
-		//		var theMaxX = Double.MinValue
-		//		var theMinX = Double.MaxValue
-		//		var middles = new ListBuffer[Double]()
-		//		var i = 0
-		//
-		//		_views.foreach{view=>
-		//			val maxX = view.getBorder.getMaxX
-		//			val minX = view.getBorder.getMinX
-		//			if(maxX>theMaxX) theMaxX = maxX
-		//			if(minX<theMinX) theMinX = minX
-		//			middles+=(minX+maxX)/2
-		//		}
-		//
-		//		val middle = (theMaxX+theMinX)/2
-		//
-		//		shape.get.getShapes.foreach{sh=>
-		//			val middle2 = middles(i)
-		//			if(!LNumber.equalsDouble(middle2, middle))
-		//				sh.translate(middle-middle2, 0)
-		//			i+=1
-		//		}
+	private void alignMidVert() {
+		double theMaxX = Double.MIN_VALUE;
+		double theMinX = Double.MAX_VALUE;
+		final List<Double> middles = new ArrayList<>();
+
+		for(final ViewShape<?> view : views) {
+			final double maxX = view.getBoundsInLocal().getMaxX();
+			final double minX = view.getBoundsInLocal().getMinX();
+			if(maxX > theMaxX) theMaxX = maxX;
+			if(minX < theMinX) theMinX = minX;
+			middles.add((minX + maxX) / 2d);
+		}
+
+		translateX(middles, (theMaxX + theMinX) / 2d);
 	}
 
+	private void translateX(final List<Double> vals, final double ref) {
+		int i = 0;
+
+		for(final IShape sh : shape.get().getShapes()) {
+			final double middle2 = vals.get(i);
+			if(!MathUtils.INST.equalsDouble(middle2, ref)) {
+				sh.translate(ref - middle2, 0d);
+			}
+			i++;
+		}
+	}
+
+	private void translateY(final List<Double> vals, final double ref) {
+		int i = 0;
+
+		for(final IShape sh : shape.get().getShapes()) {
+			final double y = vals.get(i);
+			if(!MathUtils.INST.equalsDouble(y, ref)) {
+				sh.translate(0d, ref - y);
+			}
+			i++;
+		}
+	}
 
 	/**
 	 * Bottom aligning the provided shapes.
 	 */
-	protected void alignBottom() {
-		//		var theMaxY = Double.MinValue
-		//		var ys = new ListBuffer[Double]()
-		//		var i = 0
-		//
-		//		_views.foreach{view=>
-		//			val maxY = view.getBorder.getMaxY
-		//			if(maxY>theMaxY)
-		//				theMaxY = maxY
-		//				ys+=maxY
-		//		}
-		//
-		//		shape.get.getShapes.foreach{sh=>
-		//		val y = ys(i)
-		//		if(!LNumber.equalsDouble(y, theMaxY))
-		//			sh.translate(0, theMaxY-y)
-		//			i+=1
-		//		}
-	}
+	private void alignBottom() {
+		double theMaxY = Double.MIN_VALUE;
+		final List<Double> ys = new ArrayList<>();
 
+		for(final ViewShape<?> view : views) {
+			final double maxY = view.getBoundsInLocal().getMaxY();
+			if(maxY > theMaxY) theMaxY = maxY;
+			ys.add(maxY);
+		}
+
+		translateY(ys, theMaxY);
+	}
 
 	/**
 	 * Top aligning the provided shapes.
 	 */
-	protected void alignTop() {
-		//		var theMinY = Double.MaxValue
-		//		var ys = new ListBuffer[Double]()
-		//		var i = 0
-		//
-		//		_views.foreach{view=>
-		//			val minY = view.getBorder.getMinY
-		//			if(minY<theMinY)
-		//				theMinY = minY
-		//			ys+=minY
-		//		}
-		//
-		//		shape.get.getShapes.foreach{sh=>
-		//			val y = ys(i)
-		//			if(!LNumber.equalsDouble(y, theMinY))
-		//				sh.translate(0, theMinY-y)
-		//			i+=1
-		//		}
-	}
+	private void alignTop() {
+		double theMinY = Double.MAX_VALUE;
+		final List<Double> ys = new ArrayList<>();
 
+		for(final ViewShape<?> view : views) {
+			final double minY = view.getBoundsInLocal().getMinY();
+			if(minY < theMinY) theMinY = minY;
+			ys.add(minY);
+		}
+
+		translateY(ys, theMinY);
+	}
 
 	/**
 	 * Right aligning the provided shapes.
 	 */
-	protected void alignRight() {
-		//		var theMaxX = Double.MinValue
-		//		var xs = new ListBuffer[Double]()
-		//		var i = 0
-		//
-		//		_views.foreach{view=>
-		//			val maxX = view.getBorder.getMaxX
-		//			if(maxX>theMaxX)
-		//				theMaxX = maxX
-		//			xs+=maxX
-		//		}
-		//
-		//		shape.get.getShapes.foreach{sh=>
-		//			val x = xs(i)
-		//			if(!LNumber.equalsDouble(x, theMaxX))
-		//				sh.translate(theMaxX-x, 0)
-		//			i+=1
-		//		}
-	}
+	private void alignRight() {
+		double theMaxX = Double.MIN_VALUE;
+		final List<Double> xs = new ArrayList<>();
 
+		for(final ViewShape<?> view : views) {
+			final double maxX = view.getBoundsInLocal().getMaxX();
+			if(maxX > theMaxX) theMaxX = maxX;
+			xs.add(maxX);
+		}
+
+		translateX(xs, theMaxX);
+	}
 
 	/**
 	 * Left aligning the provided shapes.
 	 */
-	protected void alignLeft() {
-		//		var theMinX = Double.MaxValue
-		//		var xs = new ListBuffer[Double]()
-		//		var i = 0
-		//
-		//		_views.foreach{view=>
-		//			val minX = view.getBorder.getMinX
-		//			if(minX<theMinX)
-		//				theMinX = minX
-		//			xs+=minX
-		//		}
-		//
-		//		shape.get.getShapes.foreach{sh=>
-		//			val x = xs(i)
-		//			if(!LNumber.equalsDouble(x, theMinX))
-		//				sh.translate(theMinX-x, 0)
-		//			i+=1
-		//		}
-	}
+	private void alignLeft() {
+		double theMinX = Double.MAX_VALUE;
+		final List<Double> xs = new ArrayList<>();
 
+		for(final ViewShape<?> view : views) {
+			final double minX = view.getBoundsInLocal().getMinX();
+			if(minX < theMinX) theMinX = minX;
+			xs.add(minX);
+		}
+
+		translateX(xs, theMinX);
+	}
 
 	@Override
 	public boolean canDo() {
-		return shape.isPresent() && !shape.get().isEmpty() && border != null && alignment != null;
+		return shape.isPresent() && !shape.get().isEmpty() && canvas != null && alignment != null;
 	}
-
 
 	@Override
 	public void undo() {
@@ -231,35 +196,36 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 		shape.ifPresent(gp -> {
 			gp.getShapes().forEach(sh -> {
 				// Reusing the old position.
-				IPoint pt = sh.getTopLeftPoint();
-				IPoint oldPt = oldPositions.get(pos.get());
-				if(!pt.equals(oldPt)) sh.translate(oldPt.getX() - pt.getX(), oldPt.getY() - pt.getY());
+				final IPoint pt = sh.getTopLeftPoint();
+				final IPoint oldPt = oldPositions.get(pos.get());
+				if(!pt.equals(oldPt)) {
+					sh.translate(oldPt.getX() - pt.getX(), oldPt.getY() - pt.getY());
+				}
 				pos.set(pos.get() + 1);
 			});
 			gp.setModified(true);
 		});
 	}
 
-
 	@Override
 	public void redo() {
 		switch(alignment) {
-			case left:
+			case LEFT:
 				alignLeft();
 				break;
-			case right:
+			case RIGHT:
 				alignRight();
 				break;
-			case top:
+			case TOP:
 				alignTop();
 				break;
-			case bottom:
+			case BOTTOM:
 				alignBottom();
 				break;
-			case midHoriz:
+			case MID_HORIZ:
 				alignMidHoriz();
 				break;
-			case midVert:
+			case MID_VERT:
 				alignMidVert();
 				break;
 		}
@@ -270,15 +236,12 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 	/**
 	 * Sets the alignment to perform.
 	 */
-	public void setAlignment(final AlignmentType align) {
+	public void setAlignment(final Alignment align) {
 		alignment = align;
 	}
 
-	/**
-	 * Sets the reference border that must bounds the shapes to align.
-	 */
-	public void setBorder(final Rectangle2D rec) {
-		border = rec;
+	public void setCanvas(final Canvas theCanvas) {
+		canvas = theCanvas;
 	}
 
 	@Override
