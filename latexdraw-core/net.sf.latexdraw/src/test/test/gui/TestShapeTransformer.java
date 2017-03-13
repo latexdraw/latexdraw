@@ -19,6 +19,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer> {
+	Button mirrorH;
+	Button mirrorV;
 	Button alignBot;
 	Button alignLeft;
 	Button alignRight;
@@ -33,6 +35,8 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	final GUIVoidCommand clickAlignRight = () -> clickOn(alignRight);
 	final GUIVoidCommand clickAlignMidHoriz = () -> clickOn(alignMidHoriz);
 	final GUIVoidCommand clickAlignMidVert = () -> clickOn(alignMidVert);
+	final GUIVoidCommand clickMirrorH = () -> clickOn(mirrorH);
+	final GUIVoidCommand clickMirrorV = () -> clickOn(mirrorV);
 
 	@Override
 	protected String getFXMLPathFromLatexdraw() {
@@ -43,6 +47,8 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	@Before
 	public void setUp() {
 		super.setUp();
+		mirrorH = find("#mirrorH");
+		mirrorV = find("#mirrorV");
 		alignBot = find("#alignBot");
 		alignLeft = find("#alignLeft");
 		alignRight = find("#alignRight");
@@ -89,13 +95,13 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	@Test
 	public void testNotActivateOnOneShapeSelected() throws Exception {
 		selectOneShape.execute();
-		assertFalse(ins.isActivated());
+		assertTrue(ins.isActivated());
 	}
 
 	@Test
 	public void testNotVisibleOnOneShapeSelected() throws Exception {
 		selectOneShape.execute();
-		assertFalse(mainPane.isVisible());
+		assertTrue(mainPane.isVisible());
 	}
 
 	@Test
@@ -160,5 +166,23 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
 		clickAlignMidVert.execute();
 		assertNotEquals(dups.get(0).getPoints(), drawing.getShapes().get(0).getPoints());
+	}
+
+	@Test
+	public void testMirrorH() {
+		selectTwoShapes.execute();
+		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
+		clickMirrorH.execute();
+		assertNotEquals(dups.get(0).getPoints(), drawing.getShapes().get(0).getPoints());
+		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
+	}
+
+	@Test
+	public void testMirrorV() {
+		selectTwoShapes.execute();
+		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
+		clickMirrorV.execute();
+		assertNotEquals(dups.get(0).getPoints(), drawing.getShapes().get(0).getPoints());
+		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 }

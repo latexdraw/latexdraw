@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import net.sf.latexdraw.actions.shape.AlignShapes;
+import net.sf.latexdraw.actions.shape.MirrorShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import org.malai.javafx.instrument.library.ButtonInteractor;
 
@@ -99,13 +100,13 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 
 	@Override
 	protected void update(final IGroup shape) {
-		setActivated(hand.isActivated() && shape.size() > 1);
+		setActivated(hand.isActivated() && !shape.isEmpty());
 	}
 
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
 		addInteractor(new Button2Align(this));
-//		 addInteractor(new Button2Align(this))
+		addInteractor(new Button2Mirror(this));
 //		 addInteractor(new Button2Distribute(this))
 	}
 
@@ -118,6 +119,18 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 		public void initAction() {
 			action.setAlignment((AlignShapes.Alignment) getInteraction().getWidget().getUserData());
 			action.setCanvas(getInstrument().canvas);
+			action.setShape(instrument.pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
+		}
+	}
+
+	private static class Button2Mirror extends ButtonInteractor<MirrorShapes, ShapeTransformer> {
+		Button2Mirror(final ShapeTransformer ins) throws InstantiationException, IllegalAccessException {
+			super(ins, MirrorShapes.class, ins.mirrorH, ins.mirrorV);
+		}
+
+		@Override
+		public void initAction() {
+			action.setHorizontally(interaction.getWidget() == instrument.mirrorH);
 			action.setShape(instrument.pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		}
 	}
