@@ -10,68 +10,60 @@
  */
 package net.sf.latexdraw.actions.shape;
 
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalInt;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import org.malai.undo.Undoable;
 
 /**
  * This action distributes the provided shapes.
  */
-class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoable, Modifying {
+public class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoable, Modifying {
 	/**
 	 * This enumeration describes the different possible alignment types.
 	 */
-	public enum DistributionType {
-		vertBot, vertTop, vertMid, vertEq, horizLeft, horizRight, horizMid, horizEq;
+	public enum Distribution {
+		VERT_BOT, VERT_TOP, VERT_MID, VERT_EQ, HORIZ_LEFT, HORIZ_RIGHT, HORIZ_MID, HORIZ_EQ;
 
-		public boolean isVertical(final DistributionType distrib) {
-			return distrib == vertBot || distrib == vertTop || distrib == vertMid || distrib == vertEq;
+		public static boolean isVertical(final Distribution distrib) {
+			return distrib == VERT_BOT || distrib == VERT_TOP || distrib == VERT_MID || distrib == VERT_EQ;
 		}
 	}
 
-	/** The reference border that must bounds the shapes to align. */
-	Rectangle2D border;
-
 	/** The views corresponding to the shapes to align. */
-	final List<ViewShape<?>> views;
-
+	private List<ViewShape<?>> views;
 	/** The alignment to perform. */
-	DistributionType distribution;
-
+	private Distribution distribution;
 	/** The former positions of the shapes to align. Used for undoing. */
-	final List<IPoint> oldPositions;
-
+	private List<IPoint> oldPositions;
+	private Canvas canvas;
 
 	public DistributeShapes() {
 		super();
-		views = new ArrayList<>();
-		oldPositions = new ArrayList<>();
 	}
 
 	@Override
 	protected void doActionBody() {
-		//		var v : IViewShape = null
-		//		shape.get.getShapes.foreach{sh=>
-		//			// Because the views have already computed the border of their shape, we get the corresponding views.
-		//			_views += MappingRegistry.REGISTRY.getTargetFromSource(sh, classOf[IViewShape])
-		//			// Saving the old position of the shape for undoing.
-		//			_oldPositions += sh.getTopLeftPoint
-		//		}
-		//		redo
+		views = shape.get().getShapes().stream().map(sh -> canvas.getViewFromShape(sh).get()).collect(Collectors.toList());
+		oldPositions = shape.get().getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList());
+		redo();
 	}
 
 	@Override
 	public boolean canDo() {
-		return shape.isPresent() && !shape.get().isEmpty() && border != null && distribution != null;
+		return shape.isPresent() && !shape.get().isEmpty() && canvas != null && distribution != null;
 	}
 
 	@Override
@@ -81,9 +73,11 @@ class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoable, Modi
 		shape.ifPresent(gp -> {
 			gp.getShapes().forEach(sh -> {
 				// Reusing the old position.
-				IPoint pt = sh.getTopLeftPoint();
-				IPoint oldPt = oldPositions.get(pos.get());
-				if(!pt.equals(oldPt)) sh.translate(oldPt.getX() - pt.getX(), oldPt.getY() - pt.getY());
+				final IPoint pt = sh.getTopLeftPoint();
+				final IPoint oldPt = oldPositions.get(pos.get());
+				if(!pt.equals(oldPt)) {
+					sh.translate(oldPt.getX() - pt.getX(), oldPt.getY() - pt.getY());
+				}
 				pos.set(pos.get() + 1);
 			});
 			gp.setModified(true);
@@ -93,105 +87,102 @@ class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoable, Modi
 	/**
 	 * Distributes at equal distance between the shapes.
 	 */
-	protected void distributeEq() {
-		//		var sortedSh= new ListBuffer[IViewShape]()
-		//		var mins	= new ListBuffer[Double]()
-		//		var maxs	= new ListBuffer[Double]()
-		//		var i : Int = 0
-		//		val shapes = shape.get.getShapes
-		//
-		//		_views.foreach{view =>
-		//			val coord = _distribution match {
-		//				case DistributionType.horizEq => view.getBorder.getMinX
-		//				case DistributionType.vertEq => view.getBorder.getMinY
-		//			}
-		//
-		//			i = mins.indexWhere{value=> coord<value}
-		//
-		//			if(i == -1) {
-		//				sortedSh+=view
-		//				mins+=coord
-		//				if(_distribution==DistributionType.horizEq)
-		//					 maxs+=view.getBorder.getMaxX
-		//				else maxs+=view.getBorder.getMaxY
-		//			}else {
-		//				sortedSh.insert(i, view)
-		//				mins.insert(i, coord)
-		//				if(_distribution==DistributionType.horizEq)
-		//					 maxs.insert(i, view.getBorder.getMaxX)
-		//				else maxs.insert(i, view.getBorder.getMaxY)
-		//			}
-		//		}
-		//
-		//		var gap = mins.last - maxs.head
-		//
-		//		for(i <- 1 until sortedSh.size-1)
-		//			gap -= maxs(i) - mins(i)
-		//
-		//		gap/=(sortedSh.size-1)
-		//
-		//		if(DistributionType.isVertical(_distribution))
-		//			for(i <- 1 until sortedSh.size-1) {
-		//				sortedSh(i).getShape.translate(0, (sortedSh(i-1).getBorder.getMaxY + gap) - mins(i))
-		//				sortedSh(i).updateBorder
-		//			}
-		//		else
-		//			for(i <- 1 until sortedSh.size-1) {
-		//				sortedSh(i).getShape.translate((sortedSh(i-1).getBorder.getMaxX + gap) - mins(i), 0)
-		//				sortedSh(i).updateBorder
-		//			}
-		//
-		//		sortedSh.clear
-		//		mins.clear
-		//		maxs.clear
+	private void distributeEq() {
+		final List<ViewShape<?>> sortedSh = new ArrayList<>();
+		final List<Double> mins = new ArrayList<>();
+		final List<Double> maxs = new ArrayList<>();
+
+		for(final ViewShape<?> view : views) {
+			final double coord = distribution == Distribution.HORIZ_EQ ? view.getBoundsInLocal().getMinX() : view.getBoundsInLocal().getMinY();
+			final OptionalInt res = IntStream.range(0, mins.size()).filter(index -> coord < mins.get(index)).findFirst();
+
+			if(res.isPresent()) {
+				final int i = res.getAsInt();
+				sortedSh.add(i, view);
+				mins.add(i, coord);
+				maxs.add(i, distribution == Distribution.HORIZ_EQ ? view.getBoundsInLocal().getMaxX() : view.getBoundsInLocal().getMaxY());
+			}else {
+				sortedSh.add(view);
+				mins.add(coord);
+				maxs.add(distribution == Distribution.HORIZ_EQ ? view.getBoundsInLocal().getMaxX() : view.getBoundsInLocal().getMaxY());
+			}
+		}
+
+		double gap = mins.get(mins.size() - 1) - maxs.get(0);
+
+		for(int i = 1, size = sortedSh.size() - 1; i < size; i++) {
+			gap -= maxs.get(i) - mins.get(i);
+		}
+
+		gap /= sortedSh.size() - 1;
+		final double finalGap = gap;
+
+		if(Distribution.isVertical(distribution)) {
+			IntStream.range(1, sortedSh.size() - 1).forEach(i -> ((IShape) sortedSh.get(i).getUserData()).
+				translate(0d, sortedSh.get(i - 1).getBoundsInLocal().getMaxY() + finalGap - mins.get(i)));
+		}else {
+			IntStream.range(1, sortedSh.size() - 1).forEach(i -> ((IShape) sortedSh.get(i).getUserData()).
+				translate(sortedSh.get(i - 1).getBoundsInLocal().getMaxX() + finalGap - mins.get(i), 0d));
+		}
 	}
 
 	/**
 	 * Distributes using bottom/top/left/right reference.
 	 */
-	protected void distributeNotEq() {
-		//		var sortedSh= new ListBuffer[IViewShape]()
-		//		var centres	= new ListBuffer[Double]()
-		//		var i : Int = 0
-		//		val shapes = shape.get.getShapes
-		//
-		//		_views.foreach{view =>
-		//			val x = _distribution match {
-		//				case DistributionType.horizLeft => view.getBorder.getMinX
-		//				case DistributionType.horizMid => view.getBorder.getCenterX
-		//				case DistributionType.horizRight => view.getBorder.getMaxX
-		//				case DistributionType.vertBot => view.getBorder.getMaxY
-		//				case DistributionType.vertMid => view.getBorder.getCenterY
-		//				case DistributionType.vertTop => view.getBorder.getMinY
-		//			}
-		//
-		//			i = centres.indexWhere{value=> x<value}
-		//
-		//			if(i == -1) {
-		//				sortedSh+=view
-		//				centres+=x
-		//			}else {
-		//				sortedSh.insert(i, view)
-		//				centres.insert(i, x)
-		//			}
-		//		}
-		//
-		//		val gap = (centres.last - centres.head)/(_views.size-1)
-		//
-		//		if(DistributionType.isVertical(_distribution))
-		//			for(i <- 1 until sortedSh.size-1)
-		//				sortedSh(i).getShape.translate(0, (centres.head+i*gap)-centres(i))
-		//		else
-		//			for(i <- 1 until sortedSh.size-1)
-		//				sortedSh(i).getShape.translate((centres.head+i*gap)-centres(i), 0)
-		//
-		//		sortedSh.clear
-		//		centres.clear
+	private void distributeNotEq() {
+		final List<ViewShape<?>> sortedSh = new ArrayList<>();
+		final List<Double> centres = new ArrayList<>();
+
+		for(final ViewShape<?> view : views) {
+			double x = 0;
+			switch(distribution) {
+				case HORIZ_LEFT:
+					x = view.getBoundsInLocal().getMinX();
+					break;
+				case HORIZ_MID:
+					x = (view.getBoundsInLocal().getMinX() + view.getBoundsInLocal().getMaxX()) / 2d;
+					break;
+				case HORIZ_RIGHT:
+					x = view.getBoundsInLocal().getMaxX();
+					break;
+				case VERT_BOT:
+					x = view.getBoundsInLocal().getMaxY();
+					break;
+				case VERT_MID:
+					x = (view.getBoundsInLocal().getMinY() + view.getBoundsInLocal().getMaxY()) / 2d;
+					break;
+				case VERT_TOP:
+					x = view.getBoundsInLocal().getMinY();
+					break;
+			}
+
+			final double finalX = x;
+			final OptionalInt res = IntStream.range(0, centres.size()).filter(index -> finalX < centres.get(index)).findFirst();
+
+			if(res.isPresent()) {
+				final int i = res.getAsInt();
+				sortedSh.add(i, view);
+				centres.add(i, x);
+			}else {
+				sortedSh.add(view);
+				centres.add(x);
+			}
+		}
+
+		final double gap = (centres.get(centres.size() - 1) - centres.get(0)) / (views.size() - 1);
+
+		if(Distribution.isVertical(distribution)) {
+			IntStream.range(1, sortedSh.size() - 1).forEach(i -> ((IShape) sortedSh.get(i).getUserData()).
+				translate(0d, centres.get(0) + i * gap - centres.get(i)));
+		}else {
+			IntStream.range(1, sortedSh.size() - 1).forEach(i -> ((IShape) sortedSh.get(i).getUserData()).
+				translate(centres.get(0) + i * gap - centres.get(i), 0d));
+		}
 	}
 
 	@Override
 	public void redo() {
-		if(distribution == DistributionType.horizEq || distribution == DistributionType.vertEq) {
+		if(distribution == Distribution.HORIZ_EQ || distribution == Distribution.VERT_EQ) {
 			distributeEq();
 		}else {
 			distributeNotEq();
@@ -202,15 +193,12 @@ class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoable, Modi
 	/**
 	 * Sets the alignment to perform.
 	 */
-	public void setDistribution(final DistributionType distrib) {
+	public void setDistribution(final Distribution distrib) {
 		distribution = distrib;
 	}
 
-	/**
-	 * Sets the reference border that must bounds the shapes to align.
-	 */
-	public void setBorder(final Rectangle2D rec) {
-		border = rec;
+	public void setCanvas(final Canvas theCanvas) {
+		canvas = theCanvas;
 	}
 
 	@Override
@@ -221,12 +209,5 @@ class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoable, Modi
 	@Override
 	public boolean isRegisterable() {
 		return true;
-	}
-
-	@Override
-	public void flush() {
-		super.flush();
-		views.clear();
-		oldPositions.clear();
 	}
 }

@@ -27,6 +27,14 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	Button alignTop;
 	Button alignMidHoriz;
 	Button alignMidVert;
+	Button distribVertBot;
+	Button distribVertEq;
+	Button distribVertMid;
+	Button distribVertTop;
+	Button distribHorizEq;
+	Button distribHorizLeft;
+	Button distribHorizMid;
+	Button distribHorizRight;
 	VBox mainPane;
 
 	final GUIVoidCommand clickAlignBot = () -> clickOn(alignBot);
@@ -37,6 +45,14 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	final GUIVoidCommand clickAlignMidVert = () -> clickOn(alignMidVert);
 	final GUIVoidCommand clickMirrorH = () -> clickOn(mirrorH);
 	final GUIVoidCommand clickMirrorV = () -> clickOn(mirrorV);
+	final GUIVoidCommand clickDistribVertBot = () -> clickOn(distribVertBot);
+	final GUIVoidCommand clickDistribVertEq = () -> clickOn(distribVertEq);
+	final GUIVoidCommand clickDistribVertMid = () -> clickOn(distribVertMid);
+	final GUIVoidCommand clickDistribVertTop = () -> clickOn(distribVertTop);
+	final GUIVoidCommand clickDistribHorizEq = () -> clickOn(distribHorizEq);
+	final GUIVoidCommand clickDistribHorizLeft = () -> clickOn(distribHorizLeft);
+	final GUIVoidCommand clickDistribHorizMid = () -> clickOn(distribHorizMid);
+	final GUIVoidCommand clickDistribHorizRight = () -> clickOn(distribHorizRight);
 
 	@Override
 	protected String getFXMLPathFromLatexdraw() {
@@ -55,6 +71,14 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 		alignTop = find("#alignTop");
 		alignMidHoriz = find("#alignMidHoriz");
 		alignMidVert = find("#alignMidVert");
+		distribVertBot = find("#distribVertBot");
+		distribVertEq = find("#distribVertEq");
+		distribVertMid = find("#distribVertMid");
+		distribVertTop = find("#distribVertTop");
+		distribHorizEq = find("#distribHorizEq");
+		distribHorizMid = find("#distribHorizMid");
+		distribHorizRight = find("#distribHorizRight");
+		distribHorizLeft = find("#distribHorizLeft");
 		mainPane = find("#mainPane");
 		ins = (ShapeTransformer) guiceFactory.call(ShapeTransformer.class);
 		ins.setActivated(true);
@@ -183,6 +207,70 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
 		clickMirrorV.execute();
 		assertNotEquals(dups.get(0).getPoints(), drawing.getShapes().get(0).getPoints());
+		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
+	}
+
+	@Test
+	public void testdistribVertBot() {
+		selectThreeShapes.execute();
+		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
+		clickDistribVertBot.execute();
+		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
+	}
+
+	@Test
+	public void testdistribVertEq() {
+		selectThreeShapes.execute();
+		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
+		clickDistribVertEq.execute();
+		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
+	}
+
+	@Test
+	public void testdistribVertMid() {
+		selectThreeShapes.execute();
+		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
+		clickDistribVertMid.execute();
+		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
+	}
+
+	@Test
+	public void testdistribVertTop() {
+		selectThreeShapes.execute();
+		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
+		clickDistribVertTop.execute();
+		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
+	}
+
+	@Test
+	public void testdistribHorizEq() {
+		selectThreeShapes.execute();
+		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
+		clickDistribHorizEq.execute();
+		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
+	}
+
+	@Test
+	public void testdistribHorizLeft() {
+		selectThreeShapes.execute();
+		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
+		clickDistribHorizLeft.execute();
+		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
+	}
+
+	@Test
+	public void testdistribHorizMid() {
+		selectThreeShapes.execute();
+		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
+		clickDistribHorizMid.execute();
+		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
+	}
+
+	@Test
+	public void testdistribHorizRight() {
+		selectThreeShapes.execute();
+		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
+		clickDistribHorizRight.execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 }

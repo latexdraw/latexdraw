@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import net.sf.latexdraw.actions.shape.AlignShapes;
+import net.sf.latexdraw.actions.shape.DistributeShapes;
 import net.sf.latexdraw.actions.shape.MirrorShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import org.malai.javafx.instrument.library.ButtonInteractor;
@@ -91,6 +92,14 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 		alignMidVert.setUserData(AlignShapes.Alignment.MID_VERT);
 		alignRight.setUserData(AlignShapes.Alignment.RIGHT);
 		alignTop.setUserData(AlignShapes.Alignment.TOP);
+		distribHorizEq.setUserData(DistributeShapes.Distribution.HORIZ_EQ);
+		distribHorizLeft.setUserData(DistributeShapes.Distribution.HORIZ_LEFT);
+		distribHorizMid.setUserData(DistributeShapes.Distribution.HORIZ_MID);
+		distribHorizRight.setUserData(DistributeShapes.Distribution.HORIZ_RIGHT);
+		distribVertBot.setUserData(DistributeShapes.Distribution.VERT_BOT);
+		distribVertEq.setUserData(DistributeShapes.Distribution.VERT_EQ);
+		distribVertMid.setUserData(DistributeShapes.Distribution.VERT_MID);
+		distribVertTop.setUserData(DistributeShapes.Distribution.VERT_BOT);
 	}
 
 	@Override
@@ -107,7 +116,7 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
 		addInteractor(new Button2Align(this));
 		addInteractor(new Button2Mirror(this));
-//		 addInteractor(new Button2Distribute(this))
+		addInteractor(new Button2Distribute(this));
 	}
 
 	private static class Button2Align extends ButtonInteractor<AlignShapes, ShapeTransformer> {
@@ -134,56 +143,18 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 			action.setShape(instrument.pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		}
 	}
+
+	private static class Button2Distribute extends ButtonInteractor<DistributeShapes, ShapeTransformer> {
+		Button2Distribute(final ShapeTransformer ins) throws InstantiationException, IllegalAccessException {
+			super(ins, DistributeShapes.class, ins.distribHorizEq, ins.distribHorizLeft, ins.distribHorizMid, ins.distribHorizRight,
+				ins.distribVertBot, ins.distribVertEq, ins.distribVertMid, ins.distribVertTop);
+		}
+
+		@Override
+		public void initAction() {
+			action.setDistribution((DistributeShapes.Distribution) getInteraction().getWidget().getUserData());
+			action.setCanvas(getInstrument().canvas);
+			action.setShape(instrument.pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
+		}
+	}
 }
-
-// private sealed class Button2Distribute(ins:ShapeTransformer) extends
-// InteractorImpl[DistributeShapes, ButtonPressed, ShapeTransformer](ins, false,
-// classOf[DistributeShapes], classOf[ButtonPressed]) {
-// override def initAction() {
-// val but = interaction.getButton
-//
-// action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicateDeep(false))
-// if(but==instrument._distribHorizEq)
-// action.setDistribution(DistributionType.horizEq)
-// else if(but==instrument._distribHorizLeft)
-// action.setDistribution(DistributionType.horizLeft)
-// else if(but==instrument._distribHorizMid)
-// action.setDistribution(DistributionType.horizMid)
-// else if(but==instrument._distribHorizRight)
-// action.setDistribution(DistributionType.horizRight)
-// else if(but==instrument._distribVertBot)
-// action.setDistribution(DistributionType.vertBot)
-// else if(but==instrument._distribVertEq)
-// action.setDistribution(DistributionType.vertEq)
-// else if(but==instrument._distribVertMid)
-// action.setDistribution(DistributionType.vertMid)
-// else if(but==instrument._distribVertTop)
-// action.setDistribution(DistributionType.vertTop)
-// action.setBorder(instrument.border.border)
-// }
-//
-// override def isConditionRespected = {
-// val but = interaction.getButton
-// but==instrument._distribHorizEq || but==instrument._distribHorizLeft ||
-// but==instrument._distribHorizMid || but==instrument._distribHorizRight ||
-// but==instrument._distribVertBot || but==instrument._distribVertEq ||
-// but==instrument._distribVertMid || but==instrument._distribVertTop
-// }
-// }
-//
-// /**
-// * Maps a button interaction with an action that mirrors the selected shapes.
-// */
-// private sealed class Button2Mirror(ins:ShapeTransformer) extends
-// InteractorImpl[MirrorShapes, ButtonPressed, ShapeTransformer](ins, false,
-// classOf[MirrorShapes], classOf[ButtonPressed]) {
-// override def initAction() {
-// action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicateDeep(false))
-// action.setHorizontally(interaction.getButton==instrument._mirrorH)
-// }
-//
-// override def isConditionRespected =
-// interaction.getButton==instrument._mirrorH ||
-// interaction.getButton==instrument._mirrorV
-// }
-

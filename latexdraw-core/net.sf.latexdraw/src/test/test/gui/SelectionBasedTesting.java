@@ -29,6 +29,19 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		ins.update();
 	};
 
+	final GUIVoidCommand selectThreeShapes = () -> {
+		drawing.addShape(ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(1, 3), 11));
+		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(270, 335), 13));
+		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(412, 711), 15));
+		drawing.setSelection(Arrays.asList(drawing.getShapeAt(0), drawing.getShapeAt(1), drawing.getShapeAt(2)));
+		SelectShapes action = new SelectShapes();
+		action.addShape(drawing.getShapeAt(0));
+		action.addShape(drawing.getShapeAt(1));
+		action.addShape(drawing.getShapeAt(2));
+		ActionsRegistry.INSTANCE.addAction(action, handler);
+		ins.update();
+	};
+
 	final GUIVoidCommand selectOneShape = () -> {
 		drawing.addShape(ShapeFactory.INST.createCircle());
 		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(0)));

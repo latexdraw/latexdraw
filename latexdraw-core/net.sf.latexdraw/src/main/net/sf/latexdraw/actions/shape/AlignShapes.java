@@ -253,11 +253,4 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 	public boolean isRegisterable() {
 		return true;
 	}
-
-	@Override
-	public void flush() {
-		super.flush();
-		views.clear();
-		oldPositions.clear();
-	}
 }
