@@ -63,41 +63,33 @@ public class TabSelector extends SwingInstrument {
 
 		@Override
 		public void initAction() {
-			action.setHideWidgets(true);
-
 			switch(interaction.getTabbedPane().getSelectedIndex()) {
 				case 0: // Drawing tab.
-					initActionOnDrawingPanel();
+					action.addInstrumentToActivate(instrument.frame.getEditingSelector());
+					action.addInstrumentToActivate(instrument.frame.getGridCustomiser());
+					action.addInstrumentToActivate(instrument.frame.getPaster());
+					action.addInstrumentToActivate(instrument.frame.getScaleRulersCustomiser());
+					action.addInstrumentToActivate(instrument.frame.getUndoManager());
+					action.addInstrumentToActivate(instrument.frame.getZoomer());
+					if(getInstrument().frame.getDrawing().getSelection().isEmpty()) {
+						action.addInstrumentToInactivate(instrument.frame.getDeleter());
+					}else {
+						action.addInstrumentToActivate(instrument.frame.getDeleter());
+					}
 					break;
 				case 1: // PST tab.
-					initActionOnPSTCodePanel();
+					action.setHideWidgets(true);
+					action.addInstrumentToInactivate(instrument.frame.getEditingSelector());
+					action.addInstrumentToInactivate(instrument.frame.getGridCustomiser());
+					action.addInstrumentToInactivate(instrument.frame.getPaster());
+					action.addInstrumentToInactivate(instrument.frame.getScaleRulersCustomiser());
+					action.addInstrumentToInactivate(instrument.frame.getUndoManager());
+					action.addInstrumentToInactivate(instrument.frame.getZoomer());
+					action.addInstrumentToInactivate(instrument.frame.getDeleter());
 					break;
 					default:
 			}
 		}
-
-
-		protected void initActionOnDrawingPanel() {
-			action.addInstrumentToActivate(instrument.frame.getEditingSelector());
-			action.addInstrumentToActivate(instrument.frame.getGridCustomiser());
-			action.addInstrumentToActivate(instrument.frame.getPaster());
-			action.addInstrumentToActivate(instrument.frame.getScaleRulersCustomiser());
-			action.addInstrumentToActivate(instrument.frame.getUndoManager());
-			action.addInstrumentToActivate(instrument.frame.getZoomer());
-		}
-
-
-		protected void initActionOnPSTCodePanel() {
-			action.addInstrumentToInactivate(instrument.frame.getEditingSelector());
-			action.addInstrumentToInactivate(instrument.frame.getGridCustomiser());
-			action.addInstrumentToInactivate(instrument.frame.getPaster());
-			action.addInstrumentToInactivate(instrument.frame.getScaleRulersCustomiser());
-			action.addInstrumentToInactivate(instrument.frame.getUndoManager());
-			action.addInstrumentToInactivate(instrument.frame.getZoomer());
-			// The deleter must be added to use the hideWidgets parameter of the action.
-			action.addInstrumentToInactivate(instrument.frame.getDeleter());
-		}
-
 
 		@Override
 		public boolean isConditionRespected() {
