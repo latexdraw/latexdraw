@@ -16,6 +16,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.util.LNumber;
+import net.sf.latexdraw.util.LSystem;
 import sun.font.FontDesignMetrics;
 
 /**
@@ -279,18 +280,6 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 	@Override
 	public String getToolTip() {
-		String msg;
-		final String log = FlyweightThumbnail.getLog(this);
-
-		if(log==null || log.isEmpty())
-			msg = ""; //$NON-NLS-1$
-		else {
-			msg = FlyweightThumbnail.getLatexErrorMessageFromLog(shape);
-
-			if(msg.isEmpty())
-				msg = log;
-		}
-
-		return msg;
+		return LSystem.INSTANCE.getLatexErrorMessageFromLog(FlyweightThumbnail.getLog(this));
 	}
 }

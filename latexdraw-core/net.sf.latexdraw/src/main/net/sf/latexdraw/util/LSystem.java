@@ -327,6 +327,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public String getLatexErrorMessageFromLog(final String log) {
+		if(log == null) return "";
 		final Matcher matcher = Pattern.compile(".*\r?\n").matcher(log); //$NON-NLS-1$
 		final StringBuilder errors = new StringBuilder();
 

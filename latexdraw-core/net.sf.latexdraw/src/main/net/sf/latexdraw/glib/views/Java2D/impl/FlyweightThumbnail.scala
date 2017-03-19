@@ -371,18 +371,4 @@ object FlyweightThumbnail {
 
 		return (bi, pathPic, log)
 	}
-
-
-	/**
-	  * @return The precise latex error messages that the latex compilation produced.
-	  * @since 3.0
-	  */
-	def getLatexErrorMessageFromLog(shape: IText): String = {
-		val log = images.get(shape.getText) match {
-			case Some(elt) => elt._4
-			case _ => ""
-		}
-
-		LSystem.INSTANCE.getLatexErrorMessageFromLog(log)
-	}
 }

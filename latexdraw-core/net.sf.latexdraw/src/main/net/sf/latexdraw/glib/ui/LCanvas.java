@@ -672,7 +672,13 @@ public class LCanvas extends MPanel implements ICanvas {
 
 				if(tooltipable.isToolTipVisible(x, y)) {
 					final String text = tooltipable.getToolTip();
-					setToolTipText(text==null || text.isEmpty() ? null : text);
+
+					if(text==null || text.isEmpty()) {
+						setToolTipText(null);
+					}else {
+						final int width = getWidth();
+						setToolTipText(text.length()>width ? text.substring(0, width) : text);
+					}
 					again = false;
 				}
 			}
