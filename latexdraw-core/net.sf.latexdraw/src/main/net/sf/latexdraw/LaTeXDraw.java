@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.instruments.FrameController;
+import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -142,7 +142,7 @@ public class LaTeXDraw extends Application {
 						updateProgress(0.9, 1.0);
 						mainStage.show();
 						mainStage.centerOnScreen();
-						injector.getInstance(FrameController.class).centreViewport();
+						injector.getInstance(TabSelector.class).centreViewport();
 						injector.getInstance(Canvas.class).requestFocus();
 					});
 				}catch(final IOException ex) {

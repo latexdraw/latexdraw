@@ -1,0 +1,46 @@
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.VBox?>
+<TabPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" tabClosingPolicy="UNAVAILABLE" fx:id="tabPane"
+         fx:controller="net.sf.latexdraw.instruments.TabSelector">
+    <Tab closable="false" text="%UIBuilder.1">
+        <SplitPane dividerPositions="0.85">
+            <ScrollPane fx:id="scrollPane">
+                <fx:include fx:id="canvasPane" source="Canvas.fxml"/>
+            </ScrollPane>
+            <ScrollPane maxWidth="310" minWidth="310" prefWidth="310">
+                <VBox maxWidth="310" minWidth="310" prefWidth="310">
+                    <fx:include source="LineStyle.fxml"/>
+                    <fx:include source="FillingStyle.fxml"/>
+                    <fx:include source="ShadowStyle.fxml"/>
+                    <fx:include source="DoubleLineStyle.fxml"/>
+                    <fx:include source="StdGridStyle.fxml"/>
+                    <fx:include source="PlotStyle.fxml"/>
+                    <fx:include source="ArrowStyle.fxml"/>
+                    <fx:include source="TextStyle.fxml"/>
+                    <fx:include source="DotStyle.fxml"/>
+                    <fx:include source="ArcStyle.fxml"/>
+                    <fx:include source="FreehandStyle.fxml"/>
+                    <TitledPane text="Shape Transformation" alignment="TOP_LEFT" expanded="false">
+                        <VBox spacing="10">
+                            <fx:include source="Rotation.fxml"/>
+                            <fx:include source="Transformation.fxml"/>
+                            <fx:include source="PositionZ.fxml"/>
+                            <fx:include source="Group.fxml"/>
+                        </VBox>
+                    </TitledPane>
+                    <fx:include source="Dimension.fxml"/>
+                    <fx:include source="Template.fxml"/>
+                    <fx:include source="DrawingProps.fxml"/>
+                </VBox>
+            </ScrollPane>
+        </SplitPane>
+    </Tab>
+    <fx:include source="CodePanel.fxml"/>
+    <Tab closable="false" text="%PreferencesFrame.Pref2">
+        <fx:include source="Preferences.fxml"/>
+    </Tab>
+</TabPane>

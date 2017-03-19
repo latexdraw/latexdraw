@@ -22,7 +22,6 @@ import net.sf.latexdraw.instruments.EditingSelector;
 import net.sf.latexdraw.instruments.ExceptionsManager;
 import net.sf.latexdraw.instruments.Exporter;
 import net.sf.latexdraw.instruments.FileLoaderSaver;
-import net.sf.latexdraw.instruments.FrameController;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Helper;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
@@ -107,7 +106,6 @@ class LatexdrawModule extends AbstractModule {
 		bind(TextSetter.class).asEagerSingleton();
 		bind(XScaleRuler.class).asEagerSingleton();
 		bind(YScaleRuler.class).asEagerSingleton();
-		bind(FrameController.class).asEagerSingleton();
 		bind(UndoRedoManager.class).asEagerSingleton();
 		bind(Zoomer.class).asEagerSingleton();
 	}

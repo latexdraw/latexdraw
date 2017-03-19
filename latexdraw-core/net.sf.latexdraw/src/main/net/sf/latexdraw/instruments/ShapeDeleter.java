@@ -56,6 +56,11 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable {
 			(ListChangeListener.Change<? extends IShape> evt) -> setActivated(hand.isActivated() && !evt.getList().isEmpty()));
 	}
 
+	@Override
+	public void setActivated(final boolean activated, final boolean hideWidgets) {
+		super.setActivated(activated, hideWidgets);
+		updateWidgets(hideWidgets);
+	}
 
 	@Override
 	public void setActivated(final boolean activ) {
