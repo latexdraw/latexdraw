@@ -13,18 +13,14 @@ package net.sf.latexdraw.instruments;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 public class ShapeTransformationPaner implements Initializable {
 	@FXML TitledPane pane;
-	@FXML AnchorPane posPane;
-	@FXML VBox transfoPane;
-	@FXML AnchorPane groupPane;
-	@FXML AnchorPane rotPane;
 	@FXML VBox layout;
 
 	@Override
@@ -32,6 +28,6 @@ public class ShapeTransformationPaner implements Initializable {
 		pane.managedProperty().bind(pane.visibleProperty());
 
 		pane.visibleProperty().bind(Bindings.createBooleanBinding(() -> layout.getChildren().stream().allMatch(c -> c.isVisible()),
-			posPane.visibleProperty(), transfoPane.visibleProperty(), groupPane.visibleProperty(), rotPane.visibleProperty()));
+			layout.getChildren().stream().map(c -> c.visibleProperty()).toArray(size -> new BooleanProperty[size])));
 	}
 }

@@ -6,9 +6,9 @@
             text="Shape Transformation" alignment="TOP_LEFT" expanded="false"
             fx:controller="net.sf.latexdraw.instruments.ShapeTransformationPaner" fx:id="pane">
     <VBox spacing="10" fx:id="layout">
-        <fx:include source="Rotation.fxml" fx:id="rotPane"/>
-        <fx:include source="Transformation.fxml" fx:id="transfoPane"/>
-        <fx:include source="PositionZ.fxml" fx:id="posPane"/>
-        <fx:include source="Group.fxml" fx:id="groupPane"/>
+        <fx:include source="Rotation.fxml" />
+        <fx:include source="Transformation.fxml" />
+        <fx:include source="PositionZ.fxml" />
+        <fx:include source="Group.fxml" />
     </VBox>
 </TitledPane>
