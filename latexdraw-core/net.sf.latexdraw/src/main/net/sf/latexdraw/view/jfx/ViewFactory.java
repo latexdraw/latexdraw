@@ -15,6 +15,7 @@ import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
@@ -65,7 +66,7 @@ public final class ViewFactory {
 		if(shape instanceof IGrid) return Optional.of((S) new ViewGrid((IGrid) shape));
 		// if(shape instanceof IDot) return new LDotView((IDot)shape);
 		if(shape instanceof IPicture) return Optional.of((S) new ViewPicture((IPicture) shape));
-		// if(shape instanceof IFreehand) return new LFreeHandView((IFreehand)shape);
+		if(shape instanceof IFreehand) return Optional.of((S) new ViewFreeHand((IFreehand) shape));
 		return Optional.empty();
 	}
 }
