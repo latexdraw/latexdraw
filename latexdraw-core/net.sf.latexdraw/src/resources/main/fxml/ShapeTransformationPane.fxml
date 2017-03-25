@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.VBox?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+            text="Shape Transformation" alignment="TOP_LEFT" expanded="false"
+            fx:controller="net.sf.latexdraw.instruments.ShapeTransformationPaner" fx:id="pane">
+    <VBox spacing="10" fx:id="layout">
+        <fx:include source="Rotation.fxml" fx:id="rotPane"/>
+        <fx:include source="Transformation.fxml" fx:id="transfoPane"/>
+        <fx:include source="PositionZ.fxml" fx:id="posPane"/>
+        <fx:include source="Group.fxml" fx:id="groupPane"/>
+    </VBox>
+</TitledPane>

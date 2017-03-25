@@ -2,7 +2,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.VBox?>
 <TabPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" tabClosingPolicy="UNAVAILABLE" fx:id="tabPane"
          fx:controller="net.sf.latexdraw.instruments.TabSelector">
@@ -24,14 +23,7 @@
                     <fx:include source="DotStyle.fxml"/>
                     <fx:include source="ArcStyle.fxml"/>
                     <fx:include source="FreehandStyle.fxml"/>
-                    <TitledPane text="Shape Transformation" alignment="TOP_LEFT" expanded="false">
-                        <VBox spacing="10">
-                            <fx:include source="Rotation.fxml"/>
-                            <fx:include source="Transformation.fxml"/>
-                            <fx:include source="PositionZ.fxml"/>
-                            <fx:include source="Group.fxml"/>
-                        </VBox>
-                    </TitledPane>
+                    <fx:include source="ShapeTransformationPane.fxml"/>
                     <fx:include source="Dimension.fxml"/>
                     <fx:include source="Template.fxml"/>
                     <fx:include source="DrawingProps.fxml"/>
