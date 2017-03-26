@@ -17,7 +17,7 @@ import org.testfx.api.FxToolkit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class TestViewFreeHand extends TestViewSingleShape<ViewFreeHand, IFreehand, Path> {
+public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreehand, Path> {
 	List<PathElement> before;
 
 

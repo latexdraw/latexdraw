@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestViewRectangle extends TestViewSingleShape<ViewRectangle, IRectangle, Rectangle> {
+public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRectangle, Rectangle> {
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();

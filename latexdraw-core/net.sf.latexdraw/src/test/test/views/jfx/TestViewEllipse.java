@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestViewEllipse extends TestViewSingleShape<ViewEllipse, IEllipse, Ellipse> {
+public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, IEllipse, Ellipse> {
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
