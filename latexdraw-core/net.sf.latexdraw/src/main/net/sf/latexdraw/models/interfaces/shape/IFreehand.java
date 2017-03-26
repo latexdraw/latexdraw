@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
 
 /**
@@ -17,5 +20,18 @@ import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
  * @author Arnaud BLOUIN
  */
 public interface IFreehand extends IFreeHandProp, IModifiablePointsShape {
-	//
+	/**
+	 * @return The property of the freehand type.
+	 */
+	ObjectProperty<FreeHandStyle> typeProperty();
+
+	/**
+	 * @return The property of the open parameter.
+	 */
+	BooleanProperty openProperty();
+
+	/**
+	 * @return The property of the interval parameter.
+	 */
+	IntegerProperty intervalProperty();
 }

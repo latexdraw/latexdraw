@@ -11,6 +11,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.CubicCurveTo;
@@ -25,6 +26,9 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Arnaud Blouin
  */
 public class ViewFreeHand extends ViewPathShape<IFreehand> {
+	private final ChangeListener<Object> update = (observable, oldValue, newValue) -> setPath();
+
+
 	/**
 	 * Creates the view.
 	 * @param sh The model.
@@ -36,9 +40,13 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 
 		// To update on translation. To improve.
 		if(!model.getPoints().isEmpty()) {
-			model.getPoints().get(model.getPoints().size()-1).xProperty().addListener((observable, oldValue, newValue) -> setPath());
-			model.getPoints().get(model.getPoints().size()-1).yProperty().addListener((observable, oldValue, newValue) -> setPath());
+			model.getPoints().get(model.getPoints().size() - 1).xProperty().addListener(update);
+			model.getPoints().get(model.getPoints().size() - 1).yProperty().addListener(update);
 		}
+
+		model.intervalProperty().addListener(update);
+		model.typeProperty().addListener(update);
+		model.openProperty().addListener(update);
 
 		setPath();
 	}
@@ -46,6 +54,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 
 	private void setPath() {
 		border.getElements().clear();
+		shadow.getElements().clear();
 
 		if(model.getNbPoints() > 1) {
 			switch(model.getType()) {
@@ -58,8 +67,10 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 			}
 
 			if(!model.isOpen()) {
-				border.getElements().addAll(new ClosePath());
+				border.getElements().add(new ClosePath());
 			}
+
+			shadow.getElements().addAll(border.getElements());
 		}
 	}
 
@@ -151,5 +162,19 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 		if(i - interval < size) {
 			border.getElements().add(new LineTo(pts.get(size - 1).getX(), pts.get(size - 1).getY()));
 		}
+	}
+
+	@Override
+	public void flush() {
+		if(!border.getElements().isEmpty()) {
+			model.getPoints().get(model.getPoints().size() - 1).xProperty().removeListener(update);
+			model.getPoints().get(model.getPoints().size() - 1).yProperty().removeListener(update);
+		}
+
+		model.intervalProperty().removeListener(update);
+		model.typeProperty().removeListener(update);
+		model.openProperty().removeListener(update);
+
+		super.flush();
 	}
 }

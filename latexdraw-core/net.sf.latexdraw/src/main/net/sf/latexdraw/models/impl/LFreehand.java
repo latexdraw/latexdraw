@@ -10,6 +10,12 @@
  */
 package net.sf.latexdraw.models.impl;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
@@ -20,11 +26,11 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
  */
 class LFreehand extends LModifiablePointsShape implements IFreehand {
 	/** The type of the curves of the shape. */
-	private FreeHandStyle type;
+	private final ObjectProperty<FreeHandStyle> type;
 	/** The interval to consider while painting the shape. */
-	private int interval;
+	private final IntegerProperty interval;
 	/** Defines if the drawing is opened of closed. */
-	private boolean open;
+	private final BooleanProperty open;
 
 
 	/**
@@ -34,9 +40,9 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 	 */
 	LFreehand() {
 		super();
-		type = FreeHandStyle.CURVES;
-		interval = 5;
-		open = true;
+		type = new SimpleObjectProperty<>(FreeHandStyle.CURVES);
+		interval = new SimpleIntegerProperty(2);
+		open = new SimpleBooleanProperty(true);
 	}
 
 	@Override
@@ -45,49 +51,59 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 
 		if(sh instanceof IFreeHandProp) {
 			final IFreeHandProp fh = (IFreeHandProp) sh;
-			open = fh.isOpen();
-			interval = fh.getInterval();
-			type = fh.getType();
+			open.set(fh.isOpen());
+			interval.set(fh.getInterval());
+			type.set(fh.getType());
 		}
 	}
 
 	@Override
 	public int getInterval() {
-		return interval;
+		return interval.get();
 	}
-
-
-	@Override
-	public FreeHandStyle getType() {
-		return type;
-	}
-
-
-	@Override
-	public boolean isOpen() {
-		return open;
-	}
-
 
 	@Override
 	public void setInterval(final int newInterval) {
 		if(newInterval > 0) {
-			interval = newInterval;
+			interval.set(newInterval);
 		}
 	}
 
-
 	@Override
-	public void setOpen(final boolean isOpen) {
-		open = isOpen;
+	public FreeHandStyle getType() {
+		return type.get();
 	}
-
 
 	@Override
 	public void setType(final FreeHandStyle freeHandStyle) {
 		if(freeHandStyle != null) {
-			type = freeHandStyle;
+			type.set(freeHandStyle);
 		}
+	}
+
+	@Override
+	public boolean isOpen() {
+		return open.get();
+	}
+
+	@Override
+	public void setOpen(final boolean isOpen) {
+		open.set(isOpen);
+	}
+
+	@Override
+	public ObjectProperty<FreeHandStyle> typeProperty() {
+		return type;
+	}
+
+	@Override
+	public BooleanProperty openProperty() {
+		return open;
+	}
+
+	@Override
+	public IntegerProperty intervalProperty() {
+		return interval;
 	}
 
 	@Override

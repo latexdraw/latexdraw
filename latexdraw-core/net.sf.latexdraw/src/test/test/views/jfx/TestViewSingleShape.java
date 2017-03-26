@@ -630,7 +630,7 @@ abstract class TestViewSingleShape<T extends ViewSingleShape<S, R>, S extends IS
 
 	@Test
 	public void testDbleBorderAfterBorder() {
-		if(model.isShadowable()) {
+		if(model.isDbleBorderable()) {
 			assertTrue(view.getChildren().indexOf(border) < view.getChildren().indexOf(view.getDbleBorder().get()));
 		}
 	}
