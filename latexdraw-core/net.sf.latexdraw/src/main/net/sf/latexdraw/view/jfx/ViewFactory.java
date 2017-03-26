@@ -11,6 +11,9 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Optional;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -68,5 +71,65 @@ public final class ViewFactory {
 		if(shape instanceof IPicture) return Optional.of((S) new ViewPicture((IPicture) shape));
 		if(shape instanceof IFreehand) return Optional.of((S) new ViewFreeHand((IFreehand) shape));
 		return Optional.empty();
+	}
+
+	public LineTo createLineTo(final double x, final double y) {
+		return new EqLineTo(x, y);
+	}
+
+	public MoveTo createMoveTo(final double x, final double y) {
+		return new EqMoveTo(x, y);
+	}
+
+	private static class EqLineTo extends LineTo {
+		EqLineTo(final double x, final double y) {
+			super(x, y);
+		}
+
+		@Override
+		public int hashCode() {
+			int result;
+			long temp = Double.doubleToLongBits(getX());
+			result = (int) (temp ^ temp >>> 32);
+			temp = Double.doubleToLongBits(getY());
+			result = 31 * result + (int) (temp ^ temp >>> 32);
+			result = 31 * result + (isAbsolute() ? 1 : 0);
+			return result;
+		}
+
+		@Override
+		public boolean equals(final Object obj) {
+			if(obj == null) return false;
+			if(obj == this) return true;
+			if(!(obj instanceof LineTo)) return false;
+			final LineTo lt = (LineTo) obj;
+			return MathUtils.INST.equalsDouble(lt.getX(), getX()) && MathUtils.INST.equalsDouble(lt.getY(), getY()) && lt.isAbsolute() == isAbsolute();
+		}
+	}
+
+	private static class EqMoveTo extends MoveTo {
+		EqMoveTo(final double x, final double y) {
+			super(x, y);
+		}
+
+		@Override
+		public int hashCode() {
+			int result;
+			long temp = Double.doubleToLongBits(getX());
+			result = (int) (temp ^ temp >>> 32);
+			temp = Double.doubleToLongBits(getY());
+			result = 31 * result + (int) (temp ^ temp >>> 32);
+			result = 31 * result + (isAbsolute() ? 1 : 0);
+			return result;
+		}
+
+		@Override
+		public boolean equals(final Object obj) {
+			if(obj == null) return false;
+			if(obj == this) return true;
+			if(!(obj instanceof MoveTo)) return false;
+			final MoveTo mt = (MoveTo) obj;
+			return MathUtils.INST.equalsDouble(mt.getX(), getX()) && MathUtils.INST.equalsDouble(mt.getY(), getY()) && mt.isAbsolute() == isAbsolute();
+		}
 	}
 }

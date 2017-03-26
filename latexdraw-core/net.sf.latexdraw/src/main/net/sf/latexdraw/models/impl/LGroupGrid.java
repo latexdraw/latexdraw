@@ -13,10 +13,6 @@ package net.sf.latexdraw.models.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -134,55 +130,5 @@ interface LGroupGrid extends IGroup {
 	@Override
 	default double getUnit() {
 		return firstIGrid().map(sh -> sh.getUnit()).orElse(Double.NaN);
-	}
-
-	@Override
-	default ObjectProperty<Color> gridLabelsColourProperty() {
-		return null;
-	}
-
-	@Override
-	default IntegerProperty gridDotsProperty() {
-		return null;
-	}
-
-	@Override
-	default DoubleProperty unitProperty() {
-		return null;
-	}
-
-	@Override
-	default DoubleProperty subGridWidthProperty() {
-		return null;
-	}
-
-	@Override
-	default IntegerProperty subGridDotsProperty() {
-		return null;
-	}
-
-	@Override
-	default IntegerProperty subGridDivProperty() {
-		return null;
-	}
-
-	@Override
-	default ObjectProperty<Color> subGridColourProperty() {
-		return null;
-	}
-
-	@Override
-	default DoubleProperty gridWidthProperty() {
-		return null;
-	}
-
-	@Override
-	default BooleanProperty yLabelWestProperty() {
-		return null;
-	}
-
-	@Override
-	default BooleanProperty xLabelSouthProperty() {
-		return null;
 	}
 }

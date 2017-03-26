@@ -10,6 +10,10 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.models.interfaces.prop.IGridProp;
 
 /**
@@ -17,5 +21,23 @@ import net.sf.latexdraw.models.interfaces.prop.IGridProp;
  * @author Arnaud BLOUIN
  */
 public interface IGrid extends IStandardGrid, IGridProp {
-	//
+	ObjectProperty<Color> gridLabelsColourProperty();
+
+	IntegerProperty gridDotsProperty();
+
+	DoubleProperty unitProperty();
+
+	DoubleProperty subGridWidthProperty();
+
+	IntegerProperty subGridDotsProperty();
+
+	IntegerProperty subGridDivProperty();
+
+	ObjectProperty<Color> subGridColourProperty();
+
+	DoubleProperty gridWidthProperty();
+
+	BooleanProperty yLabelWestProperty();
+
+	BooleanProperty xLabelSouthProperty();
 }

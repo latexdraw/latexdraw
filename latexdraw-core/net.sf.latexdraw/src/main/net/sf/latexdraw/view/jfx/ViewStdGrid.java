@@ -19,7 +19,7 @@ import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
  * The JFX view of an abstract grid.
  * @author Arnaud Blouin
  */
-abstract class ViewStdGrid<T extends IStandardGrid> extends ViewShape<T> {
+public abstract class ViewStdGrid<T extends IStandardGrid> extends ViewShape<T> {
 	protected final Group labels;
 
 	/**
@@ -55,5 +55,12 @@ abstract class ViewStdGrid<T extends IStandardGrid> extends ViewShape<T> {
 	public void flush() {
 		super.flush();
 		cleanLabels();
+	}
+
+	/**
+	 * @return The JFX group of labels of the grid shape.
+	 */
+	public Group getLabels() {
+		return labels;
 	}
 }

@@ -10,10 +10,6 @@
  */
 package net.sf.latexdraw.models.interfaces.prop;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 
 /**
@@ -119,24 +115,4 @@ public interface IGridProp extends IStdGridProp {
 	 * @param unit The unit to set. Must be greater than 0.
 	 */
 	void setUnit(final double unit);
-
-	ObjectProperty<Color> gridLabelsColourProperty();
-
-	IntegerProperty gridDotsProperty();
-
-	DoubleProperty unitProperty();
-
-	DoubleProperty subGridWidthProperty();
-
-	IntegerProperty subGridDotsProperty();
-
-	IntegerProperty subGridDivProperty();
-
-	ObjectProperty<Color> subGridColourProperty();
-
-	DoubleProperty gridWidthProperty();
-
-	BooleanProperty yLabelWestProperty();
-
-	BooleanProperty xLabelSouthProperty();
 }

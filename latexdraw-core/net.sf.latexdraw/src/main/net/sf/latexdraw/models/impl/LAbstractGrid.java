@@ -10,6 +10,10 @@
  */
 package net.sf.latexdraw.models.impl;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
@@ -21,24 +25,20 @@ import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
  * A implementation of an abstract latex grid.
  */
 abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
-	/** If true, the x label will be displayed at the south of the grid. Else at the north */
-	protected boolean xLabelSouth;
-	/** If true, the y label will be displayed at the west of the grid. Else at the east */
-	protected boolean yLabelWest;
 	/** The x-minimum values of the axes */
-	protected double gridStartx;
+	protected final DoubleProperty gridStartx;
 	/** The y-minimum values of the axes */
-	protected double gridStarty;
+	protected final DoubleProperty gridStarty;
 	/** The x-maximum values of the axes */
-	protected double gridEndx;
+	protected final DoubleProperty gridEndx;
 	/** The y-maximum values of the axes */
-	protected double gridEndy;
+	protected final DoubleProperty gridEndy;
 	/** The x-coordinate of the origin of the grid */
-	protected double originx;
+	protected final DoubleProperty originx;
 	/** The y-coordinate of the origin of the grid */
-	protected double originy;
+	protected final DoubleProperty originy;
 	/** The size of the labels. */
-	protected int labelSize;
+	protected final IntegerProperty labelSize;
 
 
 	/**
@@ -47,39 +47,37 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	 */
 	LAbstractGrid(final IPoint pt) {
 		super(pt);
-		xLabelSouth = true;
-		yLabelWest = true;
-		originx = 0.0;
-		originy = 0.0;
-		gridStartx = 0.0;
-		gridStarty = 0.0;
-		gridEndx = 2.0;
-		gridEndy = 2.0;
-		labelSize = 10;
+		originx = new SimpleDoubleProperty(0d);
+		originy = new SimpleDoubleProperty(0d);
+		gridStartx = new SimpleDoubleProperty(0d);
+		gridStarty = new SimpleDoubleProperty(0d);
+		gridEndx = new SimpleDoubleProperty(2d);
+		gridEndy = new SimpleDoubleProperty(2d);
+		labelSize = new SimpleIntegerProperty(10);
 	}
 
 
 	@Override
 	public double getGridMinX() {
-		return gridEndx < gridStartx ? gridEndx : gridStartx;
+		return getGridEndX() < getGridStartX() ? getGridEndX() : getGridStartX();
 	}
 
 
 	@Override
 	public double getGridMaxX() {
-		return gridEndx >= gridStartx ? gridEndx : gridStartx;
+		return getGridEndX() >= getGridStartX() ? getGridEndX() : getGridStartX();
 	}
 
 
 	@Override
 	public double getGridMinY() {
-		return gridEndy < gridStarty ? gridEndy : gridStarty;
+		return getGridEndY() < getGridStartY() ? getGridEndY() : getGridStartY();
 	}
 
 
 	@Override
 	public double getGridMaxY() {
-		return gridEndy >= gridStarty ? gridEndy : gridStarty;
+		return getGridEndY() >= getGridStartY() ? getGridEndY() : getGridStartY();
 	}
 
 
@@ -102,7 +100,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 		final IPoint pos = getPosition();
 		final double step = getStep();
 		//FIXME strange: different from getTopLeftPoint and co. but works for scale.
-		return ShapeFactory.INST.createPoint(pos.getX() + step * (gridEndx - gridStartx), pos.getY() - step * (gridEndy - gridStarty));
+		return ShapeFactory.INST.createPoint(pos.getX() + step * (getGridEndX() - getGridStartX()), pos.getY() - step * (getGridEndY() - getGridStartY()));
 	}
 
 
@@ -131,48 +129,48 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	@Override
 	public void setLabelsSize(final int labelsSize) {
 		if(labelsSize >= 0) {
-			labelSize = labelsSize;
+			labelSize.set(labelsSize);
 		}
 	}
 
 
 	@Override
 	public double getGridEndX() {
-		return gridEndx;
+		return gridEndx.get();
 	}
 
 
 	@Override
 	public double getGridEndY() {
-		return gridEndy;
+		return gridEndy.get();
 	}
 
 	@Override
 	public double getGridStartX() {
-		return gridStartx;
+		return gridStartx.get();
 	}
 
 
 	@Override
 	public double getGridStartY() {
-		return gridStarty;
+		return gridStarty.get();
 	}
 
 
 	@Override
 	public int getLabelsSize() {
-		return labelSize;
+		return labelSize.get();
 	}
 
 
 	@Override
 	public double getOriginX() {
-		return originx;
+		return originx.get();
 	}
 
 	@Override
 	public double getOriginY() {
-		return originy;
+		return originy.get();
 	}
 
 
@@ -185,16 +183,16 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setGridEndX(final double x) {
-		if(x >= gridStartx && MathUtils.INST.isValidCoord(x)) {
-			gridEndx = x;
+		if(x >= getGridStartX() && MathUtils.INST.isValidCoord(x)) {
+			gridEndx.set(x);
 		}
 	}
 
 
 	@Override
 	public void setGridEndY(final double y) {
-		if(y >= gridStarty && MathUtils.INST.isValidCoord(y)) {
-			gridEndy = y;
+		if(y >= getGridStartY() && MathUtils.INST.isValidCoord(y)) {
+			gridEndy.set(y);
 		}
 	}
 
@@ -208,16 +206,16 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setGridStartX(final double x) {
-		if(x <= gridEndx && MathUtils.INST.isValidCoord(x)) {
-			gridStartx = x;
+		if(x <= getGridEndX() && MathUtils.INST.isValidCoord(x)) {
+			gridStartx.set(x);
 		}
 	}
 
 
 	@Override
 	public void setGridStartY(final double y) {
-		if(y <= gridEndy && MathUtils.INST.isValidCoord(y)) {
-			gridStarty = y;
+		if(y <= getGridEndY() && MathUtils.INST.isValidCoord(y)) {
+			gridStarty.set(y);
 		}
 	}
 
@@ -232,7 +230,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	@Override
 	public void setOriginX(final double x) {
 		if(MathUtils.INST.isValidCoord(x)) {
-			originx = x;
+			originx.set(x);
 		}
 	}
 
@@ -240,7 +238,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	@Override
 	public void setOriginY(final double y) {
 		if(MathUtils.INST.isValidCoord(y)) {
-			originy = y;
+			originy.set(y);
 		}
 	}
 
@@ -251,12 +249,12 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 		if(s instanceof IStdGridProp) {
 			final IStdGridProp grid = (IStdGridProp) s;
-			gridEndx = grid.getGridEndX();
-			gridEndy = grid.getGridEndY();
-			gridStartx = grid.getGridStartX();
-			gridStarty = grid.getGridStartY();
-			originx = grid.getOriginX();
-			originy = grid.getOriginY();
+			gridEndx.set(grid.getGridEndX());
+			gridEndy.set(grid.getGridEndY());
+			gridStartx.set(grid.getGridStartX());
+			gridStarty.set(grid.getGridStartY());
+			originx.set(grid.getOriginX());
+			originy.set(grid.getOriginY());
 			setLabelsSize(grid.getLabelsSize());
 		}
 	}
@@ -264,12 +262,47 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public IPoint getGridStart() {
-		return ShapeFactory.INST.createPoint(gridStartx, gridStarty);
+		return ShapeFactory.INST.createPoint(getGridStartX(), getGridStartY());
 	}
 
 
 	@Override
 	public IPoint getGridEnd() {
-		return ShapeFactory.INST.createPoint(gridEndx, gridEndy);
+		return ShapeFactory.INST.createPoint(getGridEndX(), getGridEndY());
+	}
+
+	@Override
+	public IntegerProperty labelsSizeProperty() {
+		return labelSize;
+	}
+
+	@Override
+	public DoubleProperty gridStartXProperty() {
+		return gridStartx;
+	}
+
+	@Override
+	public DoubleProperty gridStartYProperty() {
+		return gridStarty;
+	}
+
+	@Override
+	public DoubleProperty gridEndXProperty() {
+		return gridEndx;
+	}
+
+	@Override
+	public DoubleProperty gridEndYProperty() {
+		return gridEndy;
+	}
+
+	@Override
+	public DoubleProperty originXProperty() {
+		return originx;
+	}
+
+	@Override
+	public DoubleProperty originYProperty() {
+		return originy;
 	}
 }

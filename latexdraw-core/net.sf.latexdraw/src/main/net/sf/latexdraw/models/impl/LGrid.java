@@ -15,6 +15,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -33,6 +34,12 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * @author Arnaud BLOUIN
  */
 class LGrid extends LAbstractGrid implements IGrid {
+	/** If true, the x label will be displayed at the south of the grid. Else at the north */
+	private final BooleanProperty xLabelSouth;
+
+	/** If true, the y label will be displayed at the west of the grid. Else at the east */
+	private final BooleanProperty yLabelWest;
+
 	/** The colour of the sub-grid. */
 	private final ObjectProperty<Color> subGridColour;
 
@@ -64,9 +71,11 @@ class LGrid extends LAbstractGrid implements IGrid {
 	 */
 	LGrid(final IPoint pt) {
 		super(pt);
+		xLabelSouth = new SimpleBooleanProperty(true);
+		yLabelWest = new SimpleBooleanProperty(true);
 		gridDots = new SimpleIntegerProperty(PSTricksConstants.DEFAULT_GRIDDOTS);
 		gridLabelsColour = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_LABELGRIDCOLOR);
-		labelSize = (int) PSTricksConstants.DEFAULT_GRID_LABEL;
+		labelSize.set((int) PSTricksConstants.DEFAULT_GRID_LABEL);
 		gridWidth = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_GRID_WIDTH * PPC);
 		subGridColour = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_SUB_GRID_COLOR);
 		subGridDiv = new SimpleIntegerProperty(PSTricksConstants.DEFAULT_SUBGRIDDIV);
@@ -83,37 +92,37 @@ class LGrid extends LAbstractGrid implements IGrid {
 		if(sh instanceof IGridProp) {
 			final IGridProp grid = (IGridProp) sh;
 
-			gridDots.setValue(grid.getGridDots());
-			subGridColour.setValue(grid.getSubGridColour());
-			subGridDiv.setValue(grid.getSubGridDiv());
-			subGridDots.setValue(grid.getSubGridDots());
-			gridLabelsColour.setValue(grid.getGridLabelsColour());
-			xLabelSouth = grid.isXLabelSouth();
-			yLabelWest = grid.isYLabelWest();
-			unit.setValue(grid.getUnit());
-			gridWidth.setValue(grid.getGridWidth());
-			subGridWidth.setValue(grid.getSubGridWidth());
+			gridDots.set(grid.getGridDots());
+			subGridColour.set(grid.getSubGridColour());
+			subGridDiv.set(grid.getSubGridDiv());
+			subGridDots.set(grid.getSubGridDots());
+			gridLabelsColour.set(grid.getGridLabelsColour());
+			xLabelSouth.set(grid.isXLabelSouth());
+			yLabelWest.set(grid.isYLabelWest());
+			unit.set(grid.getUnit());
+			gridWidth.set(grid.getGridWidth());
+			subGridWidth.set(grid.getSubGridWidth());
 		}
 	}
 
 	@Override
 	public boolean isXLabelSouth() {
-		return xLabelSouth;
-	}
-
-	@Override
-	public boolean isYLabelWest() {
-		return yLabelWest;
+		return xLabelSouth.get();
 	}
 
 	@Override
 	public void setXLabelSouth(final boolean isXLabelSouth) {
-		xLabelSouth = isXLabelSouth;
+		xLabelSouth.set(isXLabelSouth);
+	}
+
+	@Override
+	public boolean isYLabelWest() {
+		return yLabelWest.get();
 	}
 
 	@Override
 	public void setYLabelWest(final boolean isYLabelWest) {
-		yLabelWest = isYLabelWest;
+		yLabelWest.set(isYLabelWest);
 	}
 
 	@Override
@@ -184,8 +193,22 @@ class LGrid extends LAbstractGrid implements IGrid {
 	}
 
 	@Override
+	public void setGridDots(final int grDots) {
+		if(grDots >= 0) {
+			gridDots.set(grDots);
+		}
+	}
+
+	@Override
 	public Color getGridLabelsColour() {
 		return gridLabelsColour.get();
+	}
+
+	@Override
+	public void setGridLabelsColour(final Color gridLabelsCol) {
+		if(gridLabelsCol != null) {
+			gridLabelsColour.setValue(gridLabelsCol);
+		}
 	}
 
 	@Override
@@ -194,8 +217,22 @@ class LGrid extends LAbstractGrid implements IGrid {
 	}
 
 	@Override
+	public void setGridWidth(final double gridW) {
+		if(gridW > 0d && MathUtils.INST.isValidCoord(gridW)) {
+			gridWidth.set(gridW);
+		}
+	}
+
+	@Override
 	public Color getSubGridColour() {
 		return subGridColour.get();
+	}
+
+	@Override
+	public void setSubGridColour(final Color subGridCol) {
+		if(subGridCol != null) {
+			subGridColour.set(subGridCol);
+		}
 	}
 
 	@Override
@@ -204,8 +241,22 @@ class LGrid extends LAbstractGrid implements IGrid {
 	}
 
 	@Override
+	public void setSubGridDiv(final int subGridD) {
+		if(subGridD >= 0) {
+			subGridDiv.set(subGridD);
+		}
+	}
+
+	@Override
 	public int getSubGridDots() {
 		return subGridDots.get();
+	}
+
+	@Override
+	public void setSubGridDots(final int subGridD) {
+		if(subGridD >= 0) {
+			subGridDots.set(subGridD);
+		}
 	}
 
 	@Override
@@ -214,8 +265,22 @@ class LGrid extends LAbstractGrid implements IGrid {
 	}
 
 	@Override
+	public void setSubGridWidth(final double subGridW) {
+		if(subGridW > 0d && MathUtils.INST.isValidCoord(subGridW)) {
+			subGridWidth.set(subGridW);
+		}
+	}
+
+	@Override
 	public double getUnit() {
 		return unit.get();
+	}
+
+	@Override
+	public void setUnit(final double un) {
+		if(un > 0d && MathUtils.INST.isValidCoord(un)) { //TODO unit may be lesser than 0.
+			unit.set(un);
+		}
 	}
 
 	@Override
@@ -230,7 +295,7 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 	@Override
 	public DoubleProperty unitProperty() {
-		return null;
+		return unit;
 	}
 
 	@Override
@@ -260,68 +325,12 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 	@Override
 	public BooleanProperty yLabelWestProperty() {
-		return null;
+		return yLabelWest;
 	}
 
 	@Override
 	public BooleanProperty xLabelSouthProperty() {
-		return null;
-	}
-
-	@Override
-	public void setGridDots(final int grDots) {
-		if(grDots >= 0) {
-			gridDots.set(grDots);
-		}
-	}
-
-	@Override
-	public void setGridLabelsColour(final Color gridLabelsCol) {
-		if(gridLabelsCol != null) {
-			gridLabelsColour.setValue(gridLabelsCol);
-		}
-	}
-
-	@Override
-	public void setGridWidth(final double gridW) {
-		if(gridW > 0d && MathUtils.INST.isValidCoord(gridW)) {
-			gridWidth.set(gridW);
-		}
-	}
-
-	@Override
-	public void setSubGridColour(final Color subGridCol) {
-		if(subGridCol != null) {
-			subGridColour.set(subGridCol);
-		}
-	}
-
-	@Override
-	public void setSubGridDiv(final int subGridD) {
-		if(subGridD >= 0) {
-			subGridDiv.set(subGridD);
-		}
-	}
-
-	@Override
-	public void setSubGridDots(final int subGridD) {
-		if(subGridD >= 0) {
-			subGridDots.set(subGridD);
-		}
-	}
-
-	@Override
-	public void setSubGridWidth(final double subGridW) {
-		if(subGridW > 0d && MathUtils.INST.isValidCoord(subGridW)) {
-			subGridWidth.set(subGridW);
-		}
-	}
-
-	@Override
-	public void setUnit(final double un) {
-		if(un > 0d && MathUtils.INST.isValidCoord(un)) { //TODO unit may be lesser than 0.
-			unit.set(un);
-		}
+		return xLabelSouth;
 	}
 
 	@Override

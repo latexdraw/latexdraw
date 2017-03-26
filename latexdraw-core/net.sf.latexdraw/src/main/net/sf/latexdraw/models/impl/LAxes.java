@@ -131,8 +131,8 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	 */
 	private ILine getArrowLineY(final boolean topY) {
 		final IPoint pos = getPosition();
-		final IPoint p2 = ShapeFactory.INST.createPoint(pos.getX(), pos.getY() - gridEndy * IShape.PPC);
-		final IPoint p1 = ShapeFactory.INST.createPoint(pos.getX(), pos.getY() - gridStarty * IShape.PPC);
+		final IPoint p2 = ShapeFactory.INST.createPoint(pos.getX(), pos.getY() - getGridEndY() * IShape.PPC);
+		final IPoint p1 = ShapeFactory.INST.createPoint(pos.getX(), pos.getY() - getGridStartY() * IShape.PPC);
 
 		if(topY) {
 			return ShapeFactory.INST.createLine(p2, p1);
@@ -146,8 +146,8 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	 */
 	private ILine getArrowLineX(final boolean leftX) {
 		final IPoint pos = getPosition();
-		final IPoint p2 = ShapeFactory.INST.createPoint(pos.getX() + gridEndx * IShape.PPC, pos.getY());
-		final IPoint p1 = ShapeFactory.INST.createPoint(pos.getX() + gridStartx * IShape.PPC, pos.getY());
+		final IPoint p2 = ShapeFactory.INST.createPoint(pos.getX() + getGridEndX() * IShape.PPC, pos.getY());
+		final IPoint p1 = ShapeFactory.INST.createPoint(pos.getX() + getGridStartX() * IShape.PPC, pos.getY());
 
 		if(leftX) {
 			return ShapeFactory.INST.createLine(p1, p2);

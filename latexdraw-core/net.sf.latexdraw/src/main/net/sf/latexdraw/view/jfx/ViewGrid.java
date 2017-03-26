@@ -16,8 +16,6 @@ import java.awt.geom.Rectangle2D;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import javafx.scene.shape.StrokeLineCap;
@@ -38,6 +36,10 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	private final Path maingrid;
 	private final ChangeListener<Number> mainGridLineCapUpdate;
 	private final ChangeListener<Number> subGridLineCapUpdate;
+	private final ChangeListener<Number> gridWidthUpdate;
+	private final ChangeListener<Number> subGridUpdate;
+	private final ChangeListener<Object> gridUpdate;
+	private final ChangeListener<Object> labelUpdate;
 
 	/**
 	 * Creates the view.
@@ -47,8 +49,21 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		super(sh);
 		maingrid = new Path();
 		subgrid = new Path();
-		mainGridLineCapUpdate = (o, formerv, newv) -> maingrid.setStrokeLineCap(newv.doubleValue() > 0d ? StrokeLineCap.ROUND : StrokeLineCap.SQUARE);
-		subGridLineCapUpdate = (o, formerv, newv) -> subgrid.setStrokeLineCap(newv.doubleValue() > 0d ? StrokeLineCap.ROUND : StrokeLineCap.SQUARE);
+		mainGridLineCapUpdate = (o, formerv, newv) -> {
+			maingrid.setStrokeLineCap(newv.doubleValue() > 0d ? StrokeLineCap.ROUND : StrokeLineCap.SQUARE);
+			updatePath(true, false, false);
+		};
+		subGridLineCapUpdate = (o, formerv, newv) -> {
+			subgrid.setStrokeLineCap(newv.doubleValue() > 0d ? StrokeLineCap.ROUND : StrokeLineCap.SQUARE);
+			updatePath(false, true, false);
+		};
+		gridUpdate = (o, formerv, newv) -> updatePath(true, true, true);
+		labelUpdate = (o, formerv, newv) -> updatePath(false, false, true);
+		gridWidthUpdate = (o, formerv, newv) -> {
+			maingrid.setStrokeWidth(model.getGridWidth());
+			updatePath(false, false, true);
+		};
+		subGridUpdate = (o, formerv, newv) -> updatePath(false, true, false);
 
 		getChildren().add(subgrid);
 		getChildren().add(maingrid);
@@ -57,15 +72,23 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		model.gridDotsProperty().addListener(mainGridLineCapUpdate);
 		subgrid.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getSubGridColour().toJFX(), model.subGridColourProperty()));
 		model.subGridDotsProperty().addListener(subGridLineCapUpdate);
-		updatePath();
+		model.gridEndXProperty().addListener(gridUpdate);
+		model.gridEndYProperty().addListener(gridUpdate);
+		model.gridStartXProperty().addListener(gridUpdate);
+		model.gridStartYProperty().addListener(gridUpdate);
+		model.originXProperty().addListener(labelUpdate);
+		model.originYProperty().addListener(labelUpdate);
+		model.labelsSizeProperty().addListener(labelUpdate);
+		model.yLabelWestProperty().addListener(labelUpdate);
+		model.xLabelSouthProperty().addListener(labelUpdate);
+		model.subGridDivProperty().addListener(subGridUpdate);
+		model.gridWidthProperty().addListener(gridWidthUpdate);
+		model.subGridWidthProperty().addListener(subGridUpdate);
+		subgrid.strokeWidthProperty().bind(model.subGridWidthProperty());
+		model.unitProperty().addListener(gridUpdate);
+
+		updatePath(true, true, true);
 	}
-
-
-	//		// Drawing the labels.
-	//		if(model.getLabelsSize()>0) {
-	//			g.setColor(model.getGridLabelsColour());
-	//			g.fill(pathLabels);
-	//		}
 
 
 	private void updatePathMainGridDots(final double unit, final double minX, final double maxX, final double minY, final double maxY,
@@ -78,8 +101,8 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		for(double k = minX, i = posX; k <= maxX; i += xStep, k++) {
 			for(double m = tly, n = minY; n < maxY; n++, m += absStep) {
 				for(double l = 0d, j = m; l < gridDots; l++, j += dotStep) {
-					elements.add(new MoveTo(i, j));
-					elements.add(new LineTo(i, j));
+					elements.add(ViewFactory.INSTANCE.createMoveTo(i, j));
+					elements.add(ViewFactory.INSTANCE.createLineTo(i, j));
 				}
 			}
 		}
@@ -87,14 +110,14 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		for(double k = minY, i = posY; k <= maxY; i -= yStep, k++) {
 			for(double m = tlx, n = minX; n < maxX; n++, m += absStep) {
 				for(double l = 0d, j = m; l < gridDots; l++, j += dotStep) {
-					elements.add(new MoveTo(j, i));
-					elements.add(new LineTo(j, i));
+					elements.add(ViewFactory.INSTANCE.createMoveTo(j, i));
+					elements.add(ViewFactory.INSTANCE.createLineTo(j, i));
 				}
 			}
 		}
 
-		elements.add(new MoveTo(brx, bry));
-		elements.add(new LineTo(brx, bry));
+		elements.add(ViewFactory.INSTANCE.createMoveTo(brx, bry));
+		elements.add(ViewFactory.INSTANCE.createLineTo(brx, bry));
 	}
 
 
@@ -107,13 +130,13 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 			final ObservableList<PathElement> elements = maingrid.getElements();
 
 			for(double k = minX, i = posX; k <= maxX; i += xStep, k++) {
-				elements.add(new MoveTo(i, bry));
-				elements.add(new LineTo(i, tly));
+				elements.add(ViewFactory.INSTANCE.createMoveTo(i, bry));
+				elements.add(ViewFactory.INSTANCE.createLineTo(i, tly));
 			}
 
 			for(double k = minY, i = posY; k <= maxY; i -= yStep, k++) {
-				elements.add(new MoveTo(tlx, i));
-				elements.add(new LineTo(brx, i));
+				elements.add(ViewFactory.INSTANCE.createMoveTo(tlx, i));
+				elements.add(ViewFactory.INSTANCE.createLineTo(brx, i));
 			}
 		}
 	}
@@ -136,8 +159,8 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 			for(double i = 0d, n = tlx; i < nbX; i++, n += xSubStep) {
 				for(double j = 0d, m = tly; j <= nbY; j++, m += ySubStep) {
 					for(double k = 0d; k < subGridDots; k++) {
-						elements.add(new MoveTo(n + k * dotStep, m));
-						elements.add(new LineTo(n + k * dotStep, m));
+						elements.add(ViewFactory.INSTANCE.createMoveTo(n + k * dotStep, m));
+						elements.add(ViewFactory.INSTANCE.createLineTo(n + k * dotStep, m));
 					}
 				}
 			}
@@ -145,27 +168,27 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 			for(double j = 0d, n = tly; j < nbY; j++, n += ySubStep) {
 				for(double i = 0d, m = tlx; i <= nbX; i++, m += xSubStep) {
 					for(double k = 0d; k < subGridDots; k++) {
-						elements.add(new MoveTo(m, n + k * dotStep));
-						elements.add(new LineTo(m, n + k * dotStep));
+						elements.add(ViewFactory.INSTANCE.createMoveTo(m, n + k * dotStep));
+						elements.add(ViewFactory.INSTANCE.createLineTo(m, n + k * dotStep));
 					}
 				}
 			}
 
-			elements.add(new MoveTo(brx, bry));
-			elements.add(new LineTo(brx, bry));
+			elements.add(ViewFactory.INSTANCE.createMoveTo(brx, bry));
+			elements.add(ViewFactory.INSTANCE.createLineTo(brx, bry));
 		}else {
 			if(subGridDiv > 1d) {
 				for(double k = minX, i = posX; k < maxX; i += xStep, k++) {
 					for(double j = 0d; j <= subGridDiv; j++) {
-						elements.add(new MoveTo(i + xSubStep * j, bry));
-						elements.add(new LineTo(i + xSubStep * j, tly));
+						elements.add(ViewFactory.INSTANCE.createMoveTo(i + xSubStep * j, bry));
+						elements.add(ViewFactory.INSTANCE.createLineTo(i + xSubStep * j, tly));
 					}
 				}
 
 				for(double k = minY, i = posY; k < maxY; i -= yStep, k++) {
 					for(double j = 0d; j <= subGridDiv; j++) {
-						elements.add(new MoveTo(tlx, i - ySubStep * j));
-						elements.add(new LineTo(brx, i - ySubStep * j));
+						elements.add(ViewFactory.INSTANCE.createMoveTo(tlx, i - ySubStep * j));
+						elements.add(ViewFactory.INSTANCE.createLineTo(brx, i - ySubStep * j));
 					}
 				}
 			}
@@ -187,7 +210,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		final boolean isWest = model.isYLabelWest();
 		final boolean isSouth = model.isXLabelSouth();
 		final double xorig = posX + (origX - minX) * xStep;
-		final double yorig = isSouth ? posY - yStep * (origY - minY) + labelHeight : posY - yStep * (origY - minY) - 2;
+		final double yorig = isSouth ? posY - yStep * (origY - minY) + labelHeight : posY - yStep * (origY - minY) - 2d;
 		final double width = model.getGridWidth() / 2d;
 		final double tmp = isSouth ? width : -width;
 		String label;
@@ -201,7 +224,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 
 		for(double i = tly + (isSouth ? -width - labelsSize / 4d : width + labelHeight), j = maxY; j >= minY; i += absStep, j--) {
 			label = String.valueOf((int) j);
-			double x = isWest ? xorig - fontLoader.computeStringWidth(label, font) - labelsSize / 4. - width : xGapNotWest;
+			double x = isWest ? xorig - fontLoader.computeStringWidth(label, font) - labelsSize / 4d - width : xGapNotWest;
 			addTextLabel(label, x, i, font);
 		}
 	}
@@ -212,15 +235,15 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		final Text label = super.addTextLabel(text, x, y, font);
 		final FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
 
-		label.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getLineColour().toJFX(), model.gridLabelsColourProperty()));
+		label.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getGridLabelsColour().toJFX(), model.gridLabelsColourProperty()));
 		label.fontProperty().bind(Bindings.createObjectBinding(() ->
-			fontLoader.font(font.getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, model.getLabelsSize()), model.gridWidthProperty()));
+			fontLoader.font(font.getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, model.getLabelsSize()), model.labelsSizeProperty()));
 
 		return label;
 	}
 
 
-	private void updatePath() {
+	private void updatePath(final boolean mainGrid, final boolean subGrid, final boolean labels) {
 		final double minY = model.getGridMinY();
 		final double maxY = model.getGridMaxY();
 		final double minX = model.getGridMinX();
@@ -238,15 +261,21 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		final double tlx = bounds.getMinX();
 		final double tly = bounds.getMinY();
 
-		maingrid.getElements().clear();
-		subgrid.getElements().clear();
-		cleanLabels();
+		if(subGrid) {
+			subgrid.getElements().clear();
+			updatePathSubGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, bounds.getMaxX(), bounds.getMaxY());
+		}
 
-		updatePathSubGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, bounds.getMaxX(), bounds.getMaxY());
-		updatePathMainGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, bounds.getMaxX(), bounds.getMaxY(), absStep);
-		updatePathLabels(minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, absStep);
+		if(mainGrid) {
+			maingrid.getElements().clear();
+			updatePathMainGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, bounds.getMaxX(), bounds.getMaxY(), absStep);
+		}
+
+		if(labels) {
+			cleanLabels();
+			updatePathLabels(minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, absStep);
+		}
 	}
-
 
 	private Rectangle2D getGridBounds(final double posX, final double posY) {
 		final Rectangle2D rec = new Rectangle2D.Double();
@@ -273,7 +302,6 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		return rec;
 	}
 
-
 	@Override
 	public void flush() {
 		super.flush();
@@ -282,5 +310,33 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		subgrid.strokeProperty().unbind();
 		model.gridDotsProperty().removeListener(mainGridLineCapUpdate);
 		model.subGridDotsProperty().removeListener(subGridLineCapUpdate);
+		model.gridEndXProperty().removeListener(gridUpdate);
+		model.gridEndYProperty().removeListener(gridUpdate);
+		model.gridStartXProperty().removeListener(gridUpdate);
+		model.gridStartYProperty().removeListener(gridUpdate);
+		model.originXProperty().removeListener(gridUpdate);
+		model.originYProperty().removeListener(gridUpdate);
+		model.labelsSizeProperty().removeListener(labelUpdate);
+		model.yLabelWestProperty().removeListener(labelUpdate);
+		model.xLabelSouthProperty().removeListener(labelUpdate);
+		model.subGridDivProperty().removeListener(subGridUpdate);
+		model.gridWidthProperty().removeListener(gridWidthUpdate);
+		model.subGridWidthProperty().removeListener(subGridUpdate);
+		subgrid.strokeWidthProperty().unbind();
+		model.unitProperty().removeListener(gridUpdate);
+	}
+
+	/**
+	 * @return The JFX sub path of the grid.
+	 */
+	public Path getSubgrid() {
+		return subgrid;
+	}
+
+	/**
+	 * @return The JFX main path of the grid.
+	 */
+	public Path getMaingrid() {
+		return maingrid;
 	}
 }
