@@ -1,3 +1,13 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.awt.geom.Rectangle2D;
@@ -6,19 +16,8 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.malai.properties.Modifiable;
 
 /**
- * Defines an interface that classes defining an abstract shape should implement.
- * This file is part of LaTeXDraw.
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.
- * 07/02/2009
+ * The API for abstract shapes.
  * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
  */
 public interface IShape extends Modifiable {
 	/** The number of pixels per centimetre by default. */
@@ -174,7 +173,7 @@ public interface IShape extends Modifiable {
 	 * @since 3.0
 	 */
 	void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound);
-	
+
 	/**
 	 * Scales the shape by using the same ratio between X and Y.
 	 * @param prevWidth The previous width of the scaled shape.
@@ -191,15 +190,15 @@ public interface IShape extends Modifiable {
 
 	/**
 	 * Returns horizontally the shape.
-	 * @since 1.8
 	 * @param origin The location of the horizontal axe.
+	 * @since 1.8
 	 */
 	void mirrorHorizontal(final IPoint origin);
 
 	/**
 	 * Returns vertically the shape.
-	 * @since 1.8
 	 * @param origin The location of the vertical axe.
+	 * @since 1.8
 	 */
 	void mirrorVertical(final IPoint origin);
 

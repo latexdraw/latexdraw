@@ -17,7 +17,7 @@ import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 
 /**
- * Groups properties of grids.
+ * Properties of grids.
  */
 public interface IGridProp extends IStdGridProp {
 	/**
@@ -111,14 +111,14 @@ public interface IGridProp extends IStdGridProp {
 	void setSubGridWidth(final double subGridWidth);
 
 	/**
-	 * @param unit The unit to set. Must be greater than 0.
-	 */
-	void setUnit(final double unit);
-
-	/**
 	 * @return Returns the unit.
 	 */
 	double getUnit();
+
+	/**
+	 * @param unit The unit to set. Must be greater than 0.
+	 */
+	void setUnit(final double unit);
 
 	ObjectProperty<Color> gridLabelsColourProperty();
 

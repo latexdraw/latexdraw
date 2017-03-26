@@ -1,18 +1,20 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.interfaces.prop;
 
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+
 /**
- * Defines the properties of standard grids.
- * This file is part of LaTeXDraw
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  any later version.
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.
- *
+ * Properties of standard grids.
+ * @author Arnaud Blouin
  */
 public interface IStdGridProp {
 	/**
@@ -53,24 +55,24 @@ public interface IStdGridProp {
 	void setLabelsSize(final int labelsSize);
 
 	/**
-	 * @param x The x-coordinate to set.
-	 */
-	void setGridEndX(final double x);
-
-	/**
-	 * @param y The y-coordinate to set.
-	 */
-	void setGridEndY(final double y);
-
-	/**
 	 * @return The x-coordinate of the starting point of the grid.
 	 */
 	double getGridStartX();
 
 	/**
+	 * @param x The x-coordinate to set.
+	 */
+	void setGridStartX(final double x);
+
+	/**
 	 * @return The y-coordinate of the starting point of the grid.
 	 */
 	double getGridStartY();
+
+	/**
+	 * @param y The y-coordinate to set.
+	 */
+	void setGridStartY(final double y);
 
 	/**
 	 * @return The starting point of the grid.
@@ -96,9 +98,19 @@ public interface IStdGridProp {
 	double getGridEndX();
 
 	/**
+	 * @param x The x-coordinate to set.
+	 */
+	void setGridEndX(final double x);
+
+	/**
 	 * @return The y-coordinate of the ending point of the grid.
 	 */
 	double getGridEndY();
+
+	/**
+	 * @param y The y-coordinate to set.
+	 */
+	void setGridEndY(final double y);
 
 	/**
 	 * @param x The x-coordinate of the ending point of the grid.
@@ -112,35 +124,25 @@ public interface IStdGridProp {
 	double getOriginX();
 
 	/**
+	 * @param x The X-coordinate to set.
+	 */
+	void setOriginX(final double x);
+
+	/**
 	 * @return The y-coordinate of the origin.
 	 */
 	double getOriginY();
+
+	/**
+	 * @param y The Y-coordinate to set.
+	 */
+	void setOriginY(final double y);
 
 	/**
 	 * @param x The x-coordinate of the origin of the grid.
 	 * @param y The y-coordinate of the origin of the grid.
 	 */
 	void setOrigin(final double x, final double y);
-
-	/**
-	 * @param y The y-coordinate to set.
-	 */
-	void setGridStartY(final double y);
-
-	/**
-	 * @param x The x-coordinate to set.
-	 */
-	void setGridStartX(final double x);
-
-	/**
-	 * @param x The X-coordinate to set.
-	 */
-	void setOriginX(final double x);
-
-	/**
-	 * @param y The Y-coordinate to set.
-	 */
-	void setOriginY(final double y);
 
 	/**
 	 * @return The size of a step of the grid (can be LShape.PPC or LShape.PPC*unit for instance).

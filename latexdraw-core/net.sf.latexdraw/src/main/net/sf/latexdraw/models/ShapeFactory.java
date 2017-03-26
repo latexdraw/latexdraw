@@ -13,9 +13,8 @@ package net.sf.latexdraw.models;
 import net.sf.latexdraw.models.impl.LShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IShapeFactory;
 
-
 /**
- * This singleton to use the shape factory.
+ * The current shape factory (a singleton) of the abstract factory pattern.
  */
 public final class ShapeFactory extends LShapeFactory {
 	public static final IShapeFactory INST = new LShapeFactory();

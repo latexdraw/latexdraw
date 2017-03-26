@@ -14,20 +14,21 @@ import java.io.IOException;
 import javafx.scene.image.Image;
 
 /**
- * An interface that classes defining a picture should implement.
+ * The API for pictures.
+ * @author Arnaud Blouin
  */
 public interface IPicture extends IPositionShape {
+	/**
+	 * @return the pathSource.
+	 */
+	String getPathSource();
+
 	/**
 	 * Sets the new picture.
 	 * @param pathSource the pathSource to set.
 	 * @throws IOException If a problem while reading/writing pictures occurs.
 	 */
-	void setPathSource(String pathSource) throws IOException;
-
-	/**
-	 * @return the pathSource.
-	 */
-	String getPathSource();
+	void setPathSource(final String pathSource) throws IOException;
 
 	/**
 	 * @return the pathTarget.

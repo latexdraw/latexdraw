@@ -1,3 +1,13 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.awt.geom.Point2D;
@@ -6,19 +16,8 @@ import javafx.geometry.Point3D;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * Defines an interface that classes defining a point should implement.
- * This file is part of LaTeXDraw.
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.
- * 07/02/2009
+ * The API for points.
  * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
  */
 public interface IPoint {
 	/**
@@ -28,17 +27,17 @@ public interface IPoint {
 	double getY();
 
 	/**
+	 * Sets the Y coordinate of the point.
+	 * @param newY The new Y coordinate. Must be valid (not equal too NaN,...).
+	 * @since 3.0
+	 */
+	void setY(final double newY);
+
+	/**
 	 * @return The X coordinate of the point.
 	 * @since 3.0
 	 */
 	double getX();
-
-	/**
-	 * Changes the coordinates of the point.
-	 * @param pt The new position.
-	 * @since 3.0
-	 */
-	void setPoint(final IPoint pt);
 
 	/**
 	 * Sets the X coordinate of the point.
@@ -48,11 +47,11 @@ public interface IPoint {
 	void setX(final double newX);
 
 	/**
-	 * Sets the Y coordinate of the point.
-	 * @param newY The new Y coordinate. Must be valid (not equal too NaN,...).
+	 * Changes the coordinates of the point.
+	 * @param pt The new position.
 	 * @since 3.0
 	 */
-	void setY(final double newY);
+	void setPoint(final IPoint pt);
 
 	/**
 	 * Sets the coordinates of the point.
@@ -135,7 +134,7 @@ public interface IPoint {
 	 * @param p The point to compare.
 	 * @param gap The approximation gap.
 	 * @return True if they are equals considering the gap.
-	 * @exception IllegalArgumentException When <code>gap<0</code>
+	 * @throws IllegalArgumentException When <code>gap<0</code>
 	 */
 	boolean equals(final IPoint p, final double gap);
 
@@ -201,13 +200,13 @@ public interface IPoint {
 	 * @param pt The point 2D to copy.
 	 * @since 3.0
 	 */
-	void setPoint2D(Point2D pt);
-	
+	void setPoint2D(final Point2D pt);
+
 	/**
 	 * @return The X property of the point.
 	 */
 	@NonNull DoubleProperty xProperty();
-	
+
 	/**
 	 * @return The Y property of the point.
 	 */

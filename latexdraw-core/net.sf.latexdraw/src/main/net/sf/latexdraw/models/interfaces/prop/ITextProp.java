@@ -14,7 +14,8 @@ import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 
 /**
- * Text shape properties.
+ * Properties of text shapes.
+ * @author Arnaud Blouin
  */
 public interface ITextProp {
 	/**

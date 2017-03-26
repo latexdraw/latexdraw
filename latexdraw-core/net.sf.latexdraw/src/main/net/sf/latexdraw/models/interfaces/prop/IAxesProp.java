@@ -1,3 +1,13 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.interfaces.prop;
 
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
@@ -6,17 +16,7 @@ import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 
 /**
- * Groups axes' properties.
- * This file is part of LaTeXDraw
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  any later version.
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.
- *
+ * Properties of axes.
  */
 public interface IAxesProp extends IStdGridProp {
 	/**
@@ -26,26 +26,26 @@ public interface IAxesProp extends IStdGridProp {
 	double getIncrementX();
 
 	/**
+	 * @param increment the X increment to set.
+	 */
+	void setIncrementX(final double increment);
+
+	/**
 	 * @return The Y increment of the axes.
 	 * @since 3.0
 	 */
 	double getIncrementY();
 
 	/**
+	 * @param increment the Y increment to set.
+	 */
+	void setIncrementY(final double increment);
+
+	/**
 	 * @return The increments of the axes.
 	 * @since 3.0
 	 */
 	IPoint getIncrement();
-
-	/**
-	 * @param increment the X increment to set.
-	 */
-	void setIncrementX(final double increment);
-
-	/**
-	 * @param increment the Y increment to set.
-	 */
-	void setIncrementY(final double increment);
 
 	/**
 	 * @param increment The axes' increment to set.
@@ -58,24 +58,24 @@ public interface IAxesProp extends IStdGridProp {
 	IPoint getDistLabels();
 
 	/**
-	 * @return the distLabels.x.
-	 */
-	double getDistLabelsX();
-
-	/**
-	 * @return the distLabels.y.
-	 */
-	double getDistLabelsY();
-
-	/**
 	 * @param distLabels The distance between the labels of the axes.
 	 */
 	void setDistLabels(final IPoint distLabels);
 
 	/**
+	 * @return the distLabels.x.
+	 */
+	double getDistLabelsX();
+
+	/**
 	 * @param distLabelsX the distLabels.x to set.
 	 */
 	void setDistLabelsX(final double distLabelsX);
+
+	/**
+	 * @return the distLabels.y.
+	 */
+	double getDistLabelsY();
 
 	/**
 	 * @param distLabelsY the distLabels.y to set.

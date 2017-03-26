@@ -13,7 +13,7 @@ package net.sf.latexdraw.models.interfaces.shape;
 import net.sf.latexdraw.models.interfaces.prop.IArrowable;
 
 /**
- * The concept of arrow.
+ * The API for arrows.
  * @author Arnaud BLOUIN
  */
 public interface IArrow extends IArrowable {

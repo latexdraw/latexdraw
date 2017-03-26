@@ -1,20 +1,18 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.interfaces.shape;
 
-
 /**
- * Defines an interface that classes defining a line should implement.
- * This file is part of LaTeXDraw.
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.
- * 07/02/2009
+ * The API for lines.
  * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
  */
 public interface ILine {
 	/**
@@ -31,10 +29,24 @@ public interface ILine {
 	double getX1();
 
 	/**
+	 * Sets the x coordinate of the first point.
+	 * @param x1 The new x coordinate of the first point.
+	 * @since 3.0
+	 */
+	void setX1(final double x1);
+
+	/**
 	 * @return The x coordinate of the second point.
 	 * @since 3.0
 	 */
 	double getX2();
+
+	/**
+	 * Sets the x coordinate of the second point.
+	 * @param x2 The new x coordinate of the second point.
+	 * @since 3.0
+	 */
+	void setX2(final double x2);
 
 	/**
 	 * @return The y coordinate of the first point.
@@ -43,10 +55,24 @@ public interface ILine {
 	double getY1();
 
 	/**
+	 * Sets the y coordinate of the first point.
+	 * @param y1 The new y coordinate of the first point.
+	 * @since 3.0
+	 */
+	void setY1(final double y1);
+
+	/**
 	 * @return The y coordinate of the second point.
 	 * @since 3.0
 	 */
 	double getY2();
+
+	/**
+	 * Sets the y coordinate of the second point.
+	 * @param y2 The new y coordinate of the second point.
+	 * @since 3.0
+	 */
+	void setY2(final double y2);
 
 	/**
 	 * @return The first point.
@@ -60,13 +86,11 @@ public interface ILine {
 	 */
 	IPoint getPoint2();
 
-
 	/**
 	 * @return True if the line is vertical.
 	 * @since 3.0
 	 */
 	boolean isVerticalLine();
-
 
 	/**
 	 * @return True if the line is horizontal.
@@ -75,9 +99,9 @@ public interface ILine {
 	boolean isHorizontalLine();
 
 	/**
+	 * @param pt The point to check.
 	 * @return True if the segment defined by the line contains the given point. False otherwise or
 	 * if the given point is null.
-	 * @param pt The point to check.
 	 * @since 3.0
 	 */
 	boolean isInSegment(final IPoint pt);
@@ -92,34 +116,6 @@ public interface ILine {
 	 * @since 3.0
 	 */
 	void setLine(final double x1, final double y1, final double x2, final double y2);
-
-	/**
-	 * Sets the x coordinate of the first point.
-	 * @param x1 The new x coordinate of the first point.
-	 * @since 3.0
-	 */
-	void setX1(final double x1);
-
-	/**
-	 * Sets the x coordinate of the second point.
-	 * @param x2 The new x coordinate of the second point.
-	 * @since 3.0
-	 */
-	void setX2(final double x2);
-
-	/**
-	 * Sets the y coordinate of the first point.
-	 * @param y1 The new y coordinate of the first point.
-	 * @since 3.0
-	 */
-	void setY1(final double y1);
-
-	/**
-	 * Sets the y coordinate of the second point.
-	 * @param y2 The new y coordinate of the second point.
-	 * @since 3.0
-	 */
-	void setY2(final double y2);
 
 	/**
 	 * Sets the first point.

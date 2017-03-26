@@ -17,8 +17,7 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
 /**
- * Defines the concept of a shape factory.
- * 2014-11-04
+ * The API for shape factories.
  * @author Arnaud BLOUIN
  */
 @NonNullByDefault
@@ -35,14 +34,14 @@ public interface IShapeFactory {
 	 * @param col The colour to convert.
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColorFX(javafx.scene.paint.Color col);//FIXME add @Nullable when sbt will not crash anymore...
+	Color createColorFX(final javafx.scene.paint.Color col);//FIXME add @Nullable when sbt will not crash anymore...
 
 	/**
 	 * Creates a color from an AWT color.
 	 * @param col The colour to convert.
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColorAWT(java.awt.Color col);
+	Color createColorAWT(final java.awt.Color col);
 
 	/**
 	 * Creates a color following the HSB format.
@@ -158,8 +157,8 @@ public interface IShapeFactory {
 	 * Creates an ellipse.
 	 * @param tl The top-left point of the ellipse.
 	 * @param br The bottom-right point of the ellipse.
-	 * @throws IllegalArgumentException If a or b is not valid.
 	 * @return The created ellipse.
+	 * @throws IllegalArgumentException If a or b is not valid.
 	 */
 	IEllipse createEllipse(IPoint tl, IPoint br);
 
@@ -173,8 +172,8 @@ public interface IShapeFactory {
 	 * @param pos The north-west point of the triangle.
 	 * @param width The width of the triangle.
 	 * @param height The height of the triangle.
-	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created triangle.
+	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 */
 	ITriangle createTriangle(IPoint pos, double width, double height);
 
@@ -188,8 +187,8 @@ public interface IShapeFactory {
 	 * @param centre The centre of the rhombus.
 	 * @param width The width of the rhombus.
 	 * @param height The height of the rhombus.
-	 * @throws IllegalArgumentException If the width, the height or the centre is not valid.
 	 * @return The created rhombus.
+	 * @throws IllegalArgumentException If the width, the height or the centre is not valid.
 	 */
 	IRhombus createRhombus(IPoint centre, double width, double height);
 
@@ -217,8 +216,8 @@ public interface IShapeFactory {
 
 	/**
 	 * Creates and initialises a freehand model.
-	 * @throws IllegalArgumentException If the given point is not valid.
 	 * @return The created freehand shape.
+	 * @throws IllegalArgumentException If the given point is not valid.
 	 * @since 3.0
 	 */
 	IFreehand createFreeHand();
@@ -227,9 +226,9 @@ public interface IShapeFactory {
 	 * Creates a circle.
 	 * @param pt The position of the top-left point of the picture.
 	 * @param radius The radius.
+	 * @return The created circle.
 	 * @throws IllegalArgumentException If the radius is not valid.
 	 * @throws NullPointerException If the given point pt is null.
-	 * @return The created circle.
 	 */
 	ICircle createCircle(IPoint pt, double radius);
 
@@ -250,8 +249,8 @@ public interface IShapeFactory {
 	 * @param y1 the Y coordinate of the start point.
 	 * @param x2 the X coordinate of the end point.
 	 * @param y2 the Y coordinate of the end point.
-	 * @throws IllegalArgumentException If one of the given coordinate is not valid.
 	 * @return The created line.
+	 * @throws IllegalArgumentException If one of the given coordinate is not valid.
 	 */
 	ILine createLine(double x1, double y1, double x2, double y2);
 
@@ -259,8 +258,8 @@ public interface IShapeFactory {
 	 * Creates a line by creating a second point with
 	 * @param b y = ax+ b
 	 * @param p1 The first point.
-	 * @throws IllegalArgumentException If one of the given parameter is not valid.
 	 * @return The created line.
+	 * @throws IllegalArgumentException If one of the given parameter is not valid.
 	 */
 	ILine createLine(double b, IPoint p1);
 
@@ -268,8 +267,8 @@ public interface IShapeFactory {
 	 * Constructs a line from the specified <code>Point2D</code> objects.
 	 * @param p1 the start <code>Point2D</code> of this line segment.
 	 * @param p2 the end <code>Point2D</code> of this line segment.
-	 * @throws IllegalArgumentException If one of the given points is not valid.
 	 * @return The created line.
+	 * @throws IllegalArgumentException If one of the given points is not valid.
 	 */
 	ILine createLine(IPoint p1, IPoint p2);
 
@@ -353,9 +352,9 @@ public interface IShapeFactory {
 	 * @param pos The north-west point of the rectangle.
 	 * @param width The width of the rectangle.
 	 * @param height The height of the rectangle.
+	 * @return The created rectangle.
 	 * @throws IllegalArgumentException If the width, the height or the point is not valid.
 	 * @throws NullPointerException if the given point is null.
-	 * @return The created rectangle.
 	 * @since 3.0
 	 */
 	IRectangle createRectangle(IPoint pos, double width, double height);
@@ -364,8 +363,8 @@ public interface IShapeFactory {
 	 * Creates a rectangle.
 	 * @param tl The top left point of the rectangle.
 	 * @param br The bottom right point of the rectangle.
-	 * @throws IllegalArgumentException if one of the given points is not valid.
 	 * @return The created rectangle.
+	 * @throws IllegalArgumentException if one of the given points is not valid.
 	 * @since 3.0
 	 */
 	IRectangle createRectangle(IPoint tl, IPoint br);
@@ -381,8 +380,8 @@ public interface IShapeFactory {
 	 * Creates a text.
 	 * @param pt The position of the text.
 	 * @param text The text.
-	 * @throws IllegalArgumentException If pt is not valid.
 	 * @return The created text.
+	 * @throws IllegalArgumentException If pt is not valid.
 	 * @since 3.0
 	 */
 	IText createText(IPoint pt, @Nullable String text);
@@ -398,8 +397,8 @@ public interface IShapeFactory {
 	 * Creates a square.
 	 * @param pos The north-west point of the square.
 	 * @param width The width of the square.
-	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created square.
+	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @since 3.0
 	 */
 	ISquare createSquare(IPoint pos, double width);
@@ -408,8 +407,8 @@ public interface IShapeFactory {
 	 * Creates a circled arc.
 	 * @param pos The north-west point of the square.
 	 * @param width The width of the square.
-	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created circled arc.
+	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @since 3.0
 	 */
 	ICircleArc createCircleArc(IPoint pos, double width);
@@ -428,9 +427,9 @@ public interface IShapeFactory {
 	 * @param maxX The max position of the function.
 	 * @param eq The equation of the function.
 	 * @param polar Defines the coordinates to use (polar or cartesian).
-	 * @throws IllegalArgumentException If the given point is not valid or minX is greater than
-	 *         maxX.
 	 * @return The created function.
+	 * @throws IllegalArgumentException If the given point is not valid or minX is greater than
+	 * maxX.
 	 * @since 3.2
 	 */
 	IPlot createPlot(IPoint pos, double minX, double maxX, String eq, boolean polar);

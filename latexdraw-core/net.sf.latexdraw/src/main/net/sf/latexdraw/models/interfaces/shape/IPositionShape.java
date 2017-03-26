@@ -1,19 +1,18 @@
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package net.sf.latexdraw.models.interfaces.shape;
 
 /**
- * Defines an interface that classes defining a shape that has a position should implement.
- * This file is part of LaTeXDraw.
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.
- * 07/02/2009
+ * The API for shapes that have a position.
  * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
  */
 public interface IPositionShape extends ISingleShape {
 	/**
@@ -23,18 +22,6 @@ public interface IPositionShape extends ISingleShape {
 	double getX();
 
 	/**
-	 * @return The Y coordinate of the shape (of the bottom-left point of the shape).
-	 * @since 3.0
-	 */
-	double getY();
-
-	/**
-	 * @return The position of the shape (the bottom-left point of the shape).
-	 * @since 3.0
-	 */
-	IPoint getPosition();
-
-	/**
 	 * Sets the X coordinate of the shape (of the bottom-left point of the shape).
 	 * @param x The X coordinate of the shape.
 	 * @since 3.0
@@ -42,11 +29,23 @@ public interface IPositionShape extends ISingleShape {
 	void setX(final double x);
 
 	/**
+	 * @return The Y coordinate of the shape (of the bottom-left point of the shape).
+	 * @since 3.0
+	 */
+	double getY();
+
+	/**
 	 * Sets the Y coordinate of the shape (of the bottom-left point of the shape).
 	 * @param y The Y coordinate of the shape.
 	 * @since 3.0
 	 */
 	void setY(final double y);
+
+	/**
+	 * @return The position of the shape (the bottom-left point of the shape).
+	 * @since 3.0
+	 */
+	IPoint getPosition();
 
 	/**
 	 * Sets the position of the shape (the bottom-left point of the shape).
