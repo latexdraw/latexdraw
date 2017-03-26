@@ -14,6 +14,7 @@ import com.sun.javafx.tk.FontLoader;
 import com.sun.javafx.tk.Toolkit;
 import java.awt.geom.Rectangle2D;
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -35,6 +36,8 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 public class ViewGrid extends ViewStdGrid<IGrid> {
 	private final Path subgrid;
 	private final Path maingrid;
+	private final ChangeListener<Number> mainGridLineCapUpdate;
+	private final ChangeListener<Number> subGridLineCapUpdate;
 
 	/**
 	 * Creates the view.
@@ -44,14 +47,16 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		super(sh);
 		maingrid = new Path();
 		subgrid = new Path();
+		mainGridLineCapUpdate = (o, formerv, newv) -> maingrid.setStrokeLineCap(newv.doubleValue() > 0d ? StrokeLineCap.ROUND : StrokeLineCap.SQUARE);
+		subGridLineCapUpdate = (o, formerv, newv) -> subgrid.setStrokeLineCap(newv.doubleValue() > 0d ? StrokeLineCap.ROUND : StrokeLineCap.SQUARE);
 
 		getChildren().add(subgrid);
 		getChildren().add(maingrid);
 
 		maingrid.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getLineColour().toJFX(), model.lineColourProperty()));
-		model.gridDotsProperty().addListener((o, formerv, newv) -> maingrid.setStrokeLineCap(newv.doubleValue() > 0d ? StrokeLineCap.ROUND : StrokeLineCap.SQUARE));
+		model.gridDotsProperty().addListener(mainGridLineCapUpdate);
 		subgrid.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getSubGridColour().toJFX(), model.subGridColourProperty()));
-		model.subGridDotsProperty().addListener((o, formerv, newv) -> subgrid.setStrokeLineCap(newv.doubleValue() > 0d ? StrokeLineCap.ROUND : StrokeLineCap.SQUARE));
+		model.subGridDotsProperty().addListener(subGridLineCapUpdate);
 		updatePath();
 	}
 
@@ -275,6 +280,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		maingrid.getElements().clear();
 		maingrid.strokeProperty().unbind();
 		subgrid.strokeProperty().unbind();
-		//FIXME how to clear listeners
+		model.gridDotsProperty().removeListener(mainGridLineCapUpdate);
+		model.subGridDotsProperty().removeListener(subGridLineCapUpdate);
 	}
 }
