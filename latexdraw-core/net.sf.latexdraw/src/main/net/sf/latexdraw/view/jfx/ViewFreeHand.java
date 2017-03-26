@@ -13,10 +13,6 @@ package net.sf.latexdraw.view.jfx;
 import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
-import javafx.scene.shape.ClosePath;
-import javafx.scene.shape.CubicCurveTo;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.eclipse.jdt.annotation.NonNull;
@@ -67,7 +63,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 			}
 
 			if(!model.isOpen()) {
-				border.getElements().add(new ClosePath());
+				border.getElements().add(ViewFactory.INSTANCE.createClosePath());
 			}
 
 			shadow.getElements().addAll(border.getElements());
@@ -94,7 +90,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 		double y1;
 		double y2;
 
-		border.getElements().add(new MoveTo(curx, cury));
+		border.getElements().add(ViewFactory.INSTANCE.createMoveTo(curx, cury));
 
 		// Starting the drawing of the shape with a line.
 		if(size > interval) {
@@ -105,7 +101,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 			midx = (curx + prevx) / 2d;
 			midy = (cury + prevy) / 2d;
 
-			border.getElements().add(new LineTo(midx, midy));
+			border.getElements().add(ViewFactory.INSTANCE.createLineTo(midx, midy));
 		}
 
 		// Adding curves
@@ -121,7 +117,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 			x2 = (prevx + midx) / 2d;
 			y2 = (prevy + midy) / 2d;
 
-			border.getElements().add(new CubicCurveTo(x1, y1, x2, y2, midx, midy));
+			border.getElements().add(ViewFactory.INSTANCE.createCubicCurveTo(x1, y1, x2, y2, midx, midy));
 		}
 
 		// If it remains not used points.
@@ -137,7 +133,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 			x2 = (prevx + midx) / 2d;
 			y2 = (prevy + midy) / 2d;
 
-			border.getElements().add(new CubicCurveTo(x1, y1, x2, y2, pts.get(size - 1).getX(), pts.get(size - 1).getY()));
+			border.getElements().add(ViewFactory.INSTANCE.createCubicCurveTo(x1, y1, x2, y2, pts.get(size - 1).getX(), pts.get(size - 1).getY()));
 		}
 	}
 
@@ -152,15 +148,15 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 		IPoint pt = pts.get(0);
 		int i;
 
-		border.getElements().add(new MoveTo(pt.getX(), pt.getY()));
+		border.getElements().add(ViewFactory.INSTANCE.createMoveTo(pt.getX(), pt.getY()));
 
 		for(i = interval; i < size; i += interval) {
 			pt = pts.get(i);
-			border.getElements().add(new LineTo(pt.getX(), pt.getY()));
+			border.getElements().add(ViewFactory.INSTANCE.createLineTo(pt.getX(), pt.getY()));
 		}
 
 		if(i - interval < size) {
-			border.getElements().add(new LineTo(pts.get(size - 1).getX(), pts.get(size - 1).getY()));
+			border.getElements().add(ViewFactory.INSTANCE.createLineTo(pts.get(size - 1).getX(), pts.get(size - 1).getY()));
 		}
 	}
 

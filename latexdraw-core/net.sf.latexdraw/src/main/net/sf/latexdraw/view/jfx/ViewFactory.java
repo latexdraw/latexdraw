@@ -11,6 +11,8 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Optional;
+import javafx.scene.shape.ClosePath;
+import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import net.sf.latexdraw.models.MathUtils;
@@ -81,6 +83,64 @@ public final class ViewFactory {
 		return new EqMoveTo(x, y);
 	}
 
+	public ClosePath createClosePath() {
+		return new EqClosePath();
+	}
+
+	public CubicCurveTo createCubicCurveTo(final double controlX1, final double controlY1, final double controlX2, final double controlY2, final double x, final double y) {
+		return new EqCubicCurveTo(controlX1, controlY1, controlX2, controlY2, x, y);
+	}
+
+
+	private static class EqCubicCurveTo extends CubicCurveTo {
+		EqCubicCurveTo(final double controlX1, final double controlY1, final double controlX2, final double controlY2, final double x, final double y) {
+			super(controlX1, controlY1, controlX2, controlY2, x, y);
+		}
+
+		@Override
+		public boolean equals(final Object o) {
+			if(this == o) return true;
+			if(o == null || getClass() != o.getClass()) return false;
+
+			EqCubicCurveTo that = (EqCubicCurveTo) o;
+
+			if(Double.compare(that.getControlX1(), getControlX1()) != 0) return false;
+			if(Double.compare(that.getControlY1(), getControlY1()) != 0) return false;
+			if(Double.compare(that.getControlX2(), getControlX2()) != 0) return false;
+			if(Double.compare(that.getControlY2(), getControlY2()) != 0) return false;
+			if(Double.compare(that.getX(), getX()) != 0) return false;
+			return Double.compare(that.getY(), getY()) == 0;
+		}
+
+		@Override
+		public int hashCode() {
+			int result;
+			long temp;
+			temp = Double.doubleToLongBits(getControlX1());
+			result = (int) (temp ^ temp >>> 32);
+			temp = Double.doubleToLongBits(getControlY1());
+			result = 31 * result + (int) (temp ^ temp >>> 32);
+			temp = Double.doubleToLongBits(getControlX2());
+			result = 31 * result + (int) (temp ^ temp >>> 32);
+			temp = Double.doubleToLongBits(getControlY2());
+			result = 31 * result + (int) (temp ^ temp >>> 32);
+			temp = Double.doubleToLongBits(getX());
+			result = 31 * result + (int) (temp ^ temp >>> 32);
+			temp = Double.doubleToLongBits(getY());
+			result = 31 * result + (int) (temp ^ temp >>> 32);
+			return result;
+		}
+	}
+
+
+	private static class EqClosePath extends ClosePath {
+		@Override
+		public boolean equals(final Object obj) {
+			return obj != null && (obj == this || obj instanceof ClosePath);
+		}
+	}
+
+
 	private static class EqLineTo extends LineTo {
 		EqLineTo(final double x, final double y) {
 			super(x, y);
@@ -106,6 +166,7 @@ public final class ViewFactory {
 			return MathUtils.INST.equalsDouble(lt.getX(), getX()) && MathUtils.INST.equalsDouble(lt.getY(), getY()) && lt.isAbsolute() == isAbsolute();
 		}
 	}
+
 
 	private static class EqMoveTo extends MoveTo {
 		EqMoveTo(final double x, final double y) {
