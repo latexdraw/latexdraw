@@ -12,6 +12,12 @@ package net.sf.latexdraw.models.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
@@ -32,29 +38,29 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
 class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	private final List<IArrow> arrows;
 	/** The increment of X axe (Dx in PST). */
-	private double incrementX;
+	private final DoubleProperty incrementX;
 	/** The increment of Y axe (Dy in PST). */
-	private double incrementY;
+	private final DoubleProperty incrementY;
 	/** The distance between each label of the X axe; if 0, the default value will be used (in cm). */
-	private double distLabelsX = 1.0;
+	private final DoubleProperty distLabelsX;
 	/** The distance between each label of the Y axe; if 0, the default value will be used (in cm). */
-	private double distLabelsY = 1.0;
+	private final DoubleProperty distLabelsY;
 	/** Define which labels must be displayed. */
-	private PlottingStyle labelsDisplayed = PlottingStyle.ALL;
+	private final ObjectProperty<PlottingStyle> labelsDisplayed;
 	/** Define the origin must be shown. */
-	private boolean showOrigin = true;
+	private final BooleanProperty showOrigin;
 	/** Define how the ticks must be shown. */
-	private PlottingStyle ticksDisplayed = PlottingStyle.ALL;
+	private final ObjectProperty<PlottingStyle> ticksDisplayed;
 	/** Define the style of the ticks. */
-	private TicksStyle ticksStyle = TicksStyle.FULL;
+	private final ObjectProperty<TicksStyle> ticksStyle;
 	/** The size of the ticks. */
-	private double ticksSize = PSTricksConstants.DEFAULT_TICKS_SIZE * IShape.PPC;
+	private final DoubleProperty ticksSize;
 	/** The style of the axes. */
-	private AxesStyle axesStyle = AxesStyle.AXES;
+	private final ObjectProperty<AxesStyle> axesStyle;
 
 	LAxes(final IPoint pt) {
 		super(pt);
-		arrows = new ArrayList<>();
+		arrows = new ArrayList<>(4);
 		// The first arrow is for the bottom of the Y-axis.
 		arrows.add(ShapeFactory.INST.createArrow(this));
 		// The second arrow is for the left of the X-axis.
@@ -63,8 +69,16 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 		arrows.add(ShapeFactory.INST.createArrow(this));
 		// The fourth arrow is for the right of the X-axis.
 		arrows.add(ShapeFactory.INST.createArrow(this));
-		incrementX = PSTricksConstants.DEFAULT_DX;
-		incrementY = PSTricksConstants.DEFAULT_DY;
+		incrementX = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DX);
+		incrementY = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DY);
+		distLabelsX = new SimpleDoubleProperty(1.0);
+		distLabelsY = new SimpleDoubleProperty(1.0);
+		labelsDisplayed = new SimpleObjectProperty<>(PlottingStyle.ALL);
+		showOrigin = new SimpleBooleanProperty(true);
+		ticksDisplayed = new SimpleObjectProperty<>(PlottingStyle.ALL);
+		ticksStyle = new SimpleObjectProperty<>(TicksStyle.FULL);
+		ticksSize = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_TICKS_SIZE * IShape.PPC);
+		axesStyle = new SimpleObjectProperty<>(AxesStyle.AXES);
 	}
 
 
@@ -157,69 +171,69 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public AxesStyle getAxesStyle() {
-		return axesStyle;
+		return axesStyle.getValue();
 	}
 
 	@Override
 	public double getDistLabelsX() {
-		return distLabelsX;
+		return distLabelsX.get();
 	}
 
 	@Override
 	public double getDistLabelsY() {
-		return distLabelsY;
+		return distLabelsY.get();
 	}
 
 	@Override
 	public PlottingStyle getLabelsDisplayed() {
-		return labelsDisplayed;
+		return labelsDisplayed.getValue();
 	}
 
 	@Override
 	public PlottingStyle getTicksDisplayed() {
-		return ticksDisplayed;
+		return ticksDisplayed.getValue();
 	}
 
 	@Override
 	public double getTicksSize() {
-		return ticksSize;
+		return ticksSize.get();
 	}
 
 	@Override
 	public TicksStyle getTicksStyle() {
-		return ticksStyle;
+		return ticksStyle.getValue();
 	}
 
 	@Override
 	public boolean isShowOrigin() {
-		return showOrigin;
+		return showOrigin.get();
 	}
 
 	@Override
 	public void setAxesStyle(final AxesStyle style) {
 		if(style != null) {
-			axesStyle = style;
+			axesStyle.set(style);
 		}
 	}
 
 	@Override
 	public void setDistLabelsX(final double distX) {
 		if(distX > 0.0 && MathUtils.INST.isValidCoord(distX)) {
-			distLabelsX = distX;
+			distLabelsX.set(distX);
 		}
 	}
 
 	@Override
 	public void setDistLabelsY(final double distY) {
 		if(distY > 0.0 && MathUtils.INST.isValidCoord(distY)) {
-			distLabelsY = distY;
+			distLabelsY.set(distY);
 		}
 	}
 
 	@Override
 	public void setIncrementX(final double incr) {
 		if(incr > 0.0 && MathUtils.INST.isValidCoord(incr)) {
-			incrementX = incr;
+			incrementX.set(incr);
 		}
 	}
 
@@ -227,40 +241,40 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	@Override
 	public void setIncrementY(final double incr) {
 		if(incr > 0.0 && MathUtils.INST.isValidCoord(incr)) {
-			incrementY = incr;
+			incrementY.set(incr);
 		}
 	}
 
 	@Override
 	public void setLabelsDisplayed(final PlottingStyle style) {
 		if(style != null) {
-			labelsDisplayed = style;
+			labelsDisplayed.set(style);
 		}
 	}
 
 	@Override
 	public void setShowOrigin(final boolean show) {
-		showOrigin = show;
+		showOrigin.set(show);
 	}
 
 	@Override
 	public void setTicksDisplayed(final PlottingStyle style) {
 		if(style != null) {
-			ticksDisplayed = style;
+			ticksDisplayed.set(style);
 		}
 	}
 
 	@Override
 	public void setTicksSize(final double ticks) {
 		if(ticks > 0.0 && MathUtils.INST.isValidCoord(ticks)) {
-			ticksSize = ticks;
+			ticksSize.set(ticks);
 		}
 	}
 
 	@Override
 	public void setTicksStyle(final TicksStyle style) {
 		if(style != null) {
-			ticksStyle = style;
+			ticksStyle.set(style);
 		}
 	}
 
@@ -281,17 +295,17 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public double getIncrementX() {
-		return incrementX;
+		return incrementX.get();
 	}
 
 	@Override
 	public double getIncrementY() {
-		return incrementY;
+		return incrementY.get();
 	}
 
 	@Override
 	public IPoint getIncrement() {
-		return ShapeFactory.INST.createPoint(incrementX, incrementY);
+		return ShapeFactory.INST.createPoint(getIncrementX(), getIncrementY());
 	}
 
 	@Override
@@ -304,7 +318,7 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public IPoint getDistLabels() {
-		return ShapeFactory.INST.createPoint(distLabelsX, distLabelsY);
+		return ShapeFactory.INST.createPoint(getDistLabelsX(), getDistLabelsY());
 	}
 
 	@Override
@@ -318,5 +332,55 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	@Override
 	public List<IArrow> getArrows() {
 		return arrows;
+	}
+
+	@Override
+	public DoubleProperty incrementXProperty() {
+		return incrementX;
+	}
+
+	@Override
+	public DoubleProperty incrementYProperty() {
+		return incrementY;
+	}
+
+	@Override
+	public DoubleProperty distLabelsXProperty() {
+		return distLabelsX;
+	}
+
+	@Override
+	public DoubleProperty distLabelsYProperty() {
+		return distLabelsY;
+	}
+
+	@Override
+	public ObjectProperty<PlottingStyle> labelsDisplayedProperty() {
+		return labelsDisplayed;
+	}
+
+	@Override
+	public BooleanProperty showOriginProperty() {
+		return showOrigin;
+	}
+
+	@Override
+	public ObjectProperty<PlottingStyle> ticksDisplayedProperty() {
+		return ticksDisplayed;
+	}
+
+	@Override
+	public ObjectProperty<TicksStyle> ticksStyleProperty() {
+		return ticksStyle;
+	}
+
+	@Override
+	public DoubleProperty ticksSizeProperty() {
+		return ticksSize;
+	}
+
+	@Override
+	public ObjectProperty<AxesStyle> axesStyleProperty() {
+		return axesStyle;
 	}
 }

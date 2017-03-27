@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
 
 /**
@@ -17,5 +20,23 @@ import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
  * @author Arnaud BLOUIN
  */
 public interface IAxes extends IStandardGrid, IAxesProp, IArrowableShape {
-	//
+	DoubleProperty incrementXProperty();
+
+	DoubleProperty incrementYProperty();
+
+	DoubleProperty distLabelsXProperty();
+
+	DoubleProperty distLabelsYProperty();
+
+	ObjectProperty<PlottingStyle> labelsDisplayedProperty();
+
+	BooleanProperty showOriginProperty();
+
+	ObjectProperty<PlottingStyle> ticksDisplayedProperty();
+
+	ObjectProperty<TicksStyle> ticksStyleProperty();
+
+	DoubleProperty ticksSizeProperty();
+
+	ObjectProperty<AxesStyle> axesStyleProperty();
 }
