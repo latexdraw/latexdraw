@@ -456,7 +456,10 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	 * @param view The new temporary view.
 	 */
 	public void setTempView(final @Nullable ViewShape<?> view) {
-		tempView.ifPresent(v -> shapesPane.getChildren().remove(v));
+		tempView.ifPresent(v -> {
+			shapesPane.getChildren().remove(v);
+			v.flush();
+		});
 		tempView = Optional.ofNullable(view);
 		tempView.ifPresent(v -> shapesPane.getChildren().add(v));
 	}
