@@ -216,7 +216,11 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 						shapesPane.getChildren().add(v);
 					}));
 				}else if(evt.wasRemoved()) {
-					evt.getRemoved().forEach(sh -> shapesPane.getChildren().remove(shapesToViewMap.remove(sh)));
+					evt.getRemoved().forEach(sh -> {
+						final ViewShape<?> toRemove = shapesToViewMap.remove(sh);
+						shapesPane.getChildren().remove(toRemove);
+						toRemove.flush();
+					});
 				}
 			}
 		});
