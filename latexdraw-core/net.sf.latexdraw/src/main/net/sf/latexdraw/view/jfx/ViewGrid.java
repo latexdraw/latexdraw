@@ -24,7 +24,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
@@ -253,9 +252,8 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		double xStep = IShape.PPC * unit;
 		xStep *= model.getGridEndX() < model.getGridStartX() ? -1d : 1d;
 		yStep *= model.getGridEndY() < model.getGridStartY() ? -1d : 1d;
-		final IPoint pos = model.getPosition();
-		final double posX = pos.getX() + Math.min(model.getGridStartX(), model.getGridEndX()) * IShape.PPC * unit;
-		final double posY = pos.getY() - Math.min(model.getGridStartY(), model.getGridEndY()) * IShape.PPC * unit;
+		final double posX = Math.min(model.getGridStartX(), model.getGridEndX()) * IShape.PPC * unit;
+		final double posY = - Math.min(model.getGridStartY(), model.getGridEndY()) * IShape.PPC * unit;
 		final double absStep = Math.abs(xStep);
 		final Rectangle2D bounds = getGridBounds(posX, posY);
 		final double tlx = bounds.getMinX();

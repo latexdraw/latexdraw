@@ -74,4 +74,18 @@ public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreeh
 	public void testShadowPositionSameThanBorder() {
 		assertEquals(border.getElements(), view.getShadow().get().getElements());
 	}
+
+	@Override
+	@Test
+	public void testOnTranslateX() {
+		model.translate(11d, 0d);
+		assertNotEquals(before, border.getElements());
+	}
+
+	@Override
+	@Test
+	public void testOnTranslateY() {
+		model.translate(0d, 11d);
+		assertNotEquals(before, border.getElements());
+	}
 }

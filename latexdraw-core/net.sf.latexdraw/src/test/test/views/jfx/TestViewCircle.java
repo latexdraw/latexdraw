@@ -119,4 +119,20 @@ public class TestViewCircle extends TestViewBorderedShape<ViewCircle, ICircle, E
 			assertEquals(border.getCenterY(), view.getShadow().get().getCenterY(), 0.01);
 		}
 	}
+
+	@Override
+	@Test
+	public void testOnTranslateX() {
+		final double x = getBorder().getCenterX();
+		model.translate(11d, 0d);
+		assertEquals(x + 11d, getBorder().getCenterX(), 0.0000001);
+	}
+
+	@Override
+	@Test
+	public void testOnTranslateY() {
+		final double y = getBorder().getCenterY();
+		model.translate(0d, 13d);
+		assertEquals(y + 13d, getBorder().getCenterY(), 0.0000001);
+	}
 }

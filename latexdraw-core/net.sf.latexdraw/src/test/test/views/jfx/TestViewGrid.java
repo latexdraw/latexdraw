@@ -173,4 +173,20 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 		assertNotEquals(yBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList()));
 		assertEquals(xBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList()));
 	}
+
+	@Override
+	@Test
+	public void testOnTranslateX() {
+		final double x = view.getTranslateX();
+		model.translate(11d, 0d);
+		assertEquals(x + 11d, view.getTranslateX(), 0.0000001);
+	}
+
+	@Override
+	@Test
+	public void testOnTranslateY() {
+		final double y = view.getTranslateY();
+		model.translate(0d, 13d);
+		assertEquals(y + 13d, view.getTranslateY(), 0.0000001);
+	}
 }

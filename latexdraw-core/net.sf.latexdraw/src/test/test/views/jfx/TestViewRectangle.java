@@ -140,11 +140,9 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 	@Override
 	@Test
 	public void testShadowPositionSameThanBorder() {
-		if(model.isShadowable()) {
-			model.setHasShadow(true);
-			assertEquals(border.getX(), view.getShadow().get().getX(), 0.01);
-			assertEquals(border.getY(), view.getShadow().get().getY(), 0.01);
-		}
+		model.setHasShadow(true);
+		assertEquals(border.getX(), view.getShadow().get().getX(), 0.01);
+		assertEquals(border.getY(), view.getShadow().get().getY(), 0.01);
 	}
 
 	@Test
@@ -161,18 +159,14 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 
 	@Test
 	public void testShadowLineArcWidth() {
-		if(getModel().isShadowable()) {
-			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getWidth(), getView().getShadow().get().getArcWidth(), 0.000001);
-		}
+		getModel().setLineArc(0.33);
+		assertEquals(0.33 * getModel().getWidth(), getView().getShadow().get().getArcWidth(), 0.000001);
 	}
 
 	@Test
 	public void testShadowLineArcHeight() {
-		if(getModel().isShadowable()) {
-			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getHeight(), getView().getShadow().get().getArcHeight(), 0.000001);
-		}
+		getModel().setLineArc(0.33);
+		assertEquals(0.33 * getModel().getHeight(), getView().getShadow().get().getArcHeight(), 0.000001);
 	}
 
 	@Test
@@ -185,9 +179,23 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 
 	@Test
 	public void testDbleLineArcHeight() {
-		if(getModel().isDbleBorderable()) {
-			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getHeight(), getView().getDbleBorder().get().getArcHeight(), 0.000001);
-		}
+		getModel().setLineArc(0.33);
+		assertEquals(0.33 * getModel().getHeight(), getView().getDbleBorder().get().getArcHeight(), 0.000001);
+	}
+
+	@Override
+	@Test
+	public void testOnTranslateX() {
+		final double x = getBorder().getX();
+		model.translate(11d, 0d);
+		assertEquals(x + 11d, getBorder().getX(), 0.0000001);
+	}
+
+	@Override
+	@Test
+	public void testOnTranslateY() {
+		final double y = getBorder().getY();
+		model.translate(0d, 13d);
+		assertEquals(y + 13d, getBorder().getY(), 0.0000001);
 	}
 }

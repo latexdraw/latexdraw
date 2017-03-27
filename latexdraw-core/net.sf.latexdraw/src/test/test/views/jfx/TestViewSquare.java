@@ -163,4 +163,20 @@ public class TestViewSquare extends TestViewBorderedShape<ViewSquare, ISquare, R
 			assertEquals(0.33 * getModel().getHeight(), getView().getDbleBorder().get().getArcHeight(), 0.000001);
 		}
 	}
+
+	@Override
+	@Test
+	public void testOnTranslateX() {
+		final double x = getBorder().getX();
+		model.translate(11d, 0d);
+		assertEquals(x + 11d, getBorder().getX(), 0.0000001);
+	}
+
+	@Override
+	@Test
+	public void testOnTranslateY() {
+		final double y = getBorder().getY();
+		model.translate(0d, 13d);
+		assertEquals(y + 13d, getBorder().getY(), 0.0000001);
+	}
 }

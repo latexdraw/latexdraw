@@ -30,6 +30,9 @@ public abstract class ViewStdGrid<T extends IStandardGrid> extends ViewShape<T> 
 		super(sh);
 		labels = new Group();
 		getChildren().add(labels);
+
+		translateXProperty().bind(model.getPosition().xProperty());
+		translateYProperty().bind(model.getPosition().yProperty());
 	}
 
 
@@ -53,8 +56,10 @@ public abstract class ViewStdGrid<T extends IStandardGrid> extends ViewShape<T> 
 
 	@Override
 	public void flush() {
-		super.flush();
 		cleanLabels();
+		translateXProperty().unbind();
+		translateYProperty().unbind();
+		super.flush();
 	}
 
 	/**
