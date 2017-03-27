@@ -302,7 +302,7 @@ public class Hand extends CanvasInstrument {
 						selectedShapes.forEach(sh -> action.addShape(sh));
 					}
 					if(!selectionBorder.isEmpty()) {
-						instrument.canvas.getViews().getChildren().stream().filter(view -> view.intersects(selectionBorder)).
+						instrument.canvas.getViews().getChildren().stream().filter(view -> view.getBoundsInParent().intersects(selectionBorder)).
 							forEach(view -> action.addShape((IShape) view.getUserData()));
 					}
 				}
