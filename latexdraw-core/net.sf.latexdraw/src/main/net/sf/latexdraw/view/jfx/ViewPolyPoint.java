@@ -10,14 +10,13 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.IntStream;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -27,29 +26,27 @@ import org.eclipse.jdt.annotation.NonNull;
  * The JFX shape view for multipoints shapes.
  */
 abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathShape<T> {
-	final MoveTo moveTo;
-	final List<LineTo> lineTos;
-
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
 	ViewPolyPoint(final @NonNull T sh) {
 		super(sh);
+		initPath(border);
+		initPath(shadow);
+	}
 
-		final ObservableList<PathElement> elts = border.getElements();
-		moveTo = new MoveTo();
-		moveTo.xProperty().bind(sh.getPtAt(0).xProperty());
-		moveTo.yProperty().bind(sh.getPtAt(0).yProperty());
+	private void initPath(final Path path) {
+		final ObservableList<PathElement> elts = path.getElements();
+		final MoveTo moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
+		moveTo.xProperty().bind(model.getPtAt(0).xProperty());
+		moveTo.yProperty().bind(model.getPtAt(0).yProperty());
 		elts.add(moveTo);
 
-		lineTos = new ArrayList<>();
-
-		IntStream.range(1, sh.getNbPoints()).forEach(i -> {
-			LineTo lineto = new LineTo();
-			lineto.xProperty().bind(sh.getPtAt(i).xProperty());
-			lineto.yProperty().bind(sh.getPtAt(i).yProperty());
-			lineTos.add(lineto);
+		IntStream.range(1, model.getNbPoints()).forEach(i -> {
+			LineTo lineto = ViewFactory.INSTANCE.createLineTo(0d, 0d);
+			lineto.xProperty().bind(model.getPtAt(i).xProperty());
+			lineto.yProperty().bind(model.getPtAt(i).yProperty());
 			elts.add(lineto);
 		});
 
@@ -57,14 +54,13 @@ abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathS
 			while(c.next()) {
 				if(c.wasAdded()) {
 					c.getAddedSubList().forEach(pt -> {
-						LineTo lineto = new LineTo();
+						LineTo lineto = ViewFactory.INSTANCE.createLineTo(0d, 0d);
 						lineto.xProperty().bind(pt.xProperty());
 						lineto.yProperty().bind(pt.yProperty());
-						lineTos.add(lineto);
 						elts.add(lineto);
-						if(elts.get(elts.size()-2) instanceof ClosePath) {
-							elts.remove(elts.size()-2);
-							elts.add(new ClosePath());
+						if(elts.get(elts.size() - 2) instanceof ClosePath) {
+							elts.remove(elts.size() - 2);
+							elts.add(ViewFactory.INSTANCE.createClosePath());
 						}
 					});
 				}
@@ -74,14 +70,22 @@ abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathS
 
 	@Override
 	public void flush() {
-		moveTo.xProperty().unbind();
-		moveTo.yProperty().unbind();
-
-		lineTos.forEach(lineTo -> {
-			lineTo.xProperty().unbind();
-			lineTo.yProperty().unbind();
-		});
-		lineTos.clear();
+		flushPath(border);
+		flushPath(shadow);
 		super.flush();
+	}
+
+	private static void flushPath(final Path path) {
+		path.getElements().forEach(elt -> {
+			if(elt instanceof LineTo) {
+				LineTo lineTo = (LineTo) elt;
+				lineTo.xProperty().unbind();
+				lineTo.yProperty().unbind();
+			}else if(elt instanceof MoveTo) {
+				MoveTo moveTo = (MoveTo) elt;
+				moveTo.xProperty().unbind();
+				moveTo.yProperty().unbind();
+			}
+		});
 	}
 }

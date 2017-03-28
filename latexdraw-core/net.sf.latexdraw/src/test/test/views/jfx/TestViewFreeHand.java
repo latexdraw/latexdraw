@@ -1,15 +1,10 @@
 package test.views.jfx;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeoutException;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.view.jfx.ViewFreeHand;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
@@ -17,10 +12,7 @@ import org.testfx.api.FxToolkit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreehand, Path> {
-	List<PathElement> before;
-
-
+public class TestViewFreeHand extends TestViewPolyPoint<ViewFreeHand, IFreehand> {
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
@@ -42,13 +34,6 @@ public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreeh
 		sh.addPoint(ShapeFactory.INST.createPoint(445, 33));
 
 		return sh;
-	}
-
-	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-		before = new ArrayList<>(border.getElements());
 	}
 
 	@Test
@@ -79,13 +64,13 @@ public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreeh
 	@Test
 	public void testOnTranslateX() {
 		model.translate(11d, 0d);
-		assertNotEquals(before, border.getElements());
+		assertPathSameButNotEqual(before, border.getElements());
 	}
 
 	@Override
 	@Test
 	public void testOnTranslateY() {
 		model.translate(0d, 11d);
-		assertNotEquals(before, border.getElements());
+		assertPathSameButNotEqual(before, border.getElements());
 	}
 }
