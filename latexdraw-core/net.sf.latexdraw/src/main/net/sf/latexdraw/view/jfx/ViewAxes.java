@@ -88,10 +88,8 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 
 	private void updatePathTicksX(final double gapx, final TicksStyle ticksStyle, final double tickLgth) {
-		final double posx = model.getPosition().getX();
-		final double posy = model.getPosition().getY();
-		final boolean noArrowLeftX = model.getArrowStyle(1) == ArrowStyle.NONE || model.getGridMinX()==model.getOriginX();
-		final boolean noArrowRightX = model.getArrowStyle(3) == ArrowStyle.NONE || model.getGridMaxX()==model.getOriginX();
+		final boolean noArrowLeftX = model.getArrowStyle(1) == ArrowStyle.NONE || model.getGridMinX() == model.getOriginX();
+		final boolean noArrowRightX = model.getArrowStyle(3) == ArrowStyle.NONE || model.getGridMaxX() == model.getOriginX();
 		final double distX = model.getDistLabelsX();
 		double x;
 		final double y;
@@ -99,20 +97,20 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 		switch(ticksStyle) {
 			case FULL:
-				y = posy + tickLgth / 2d;
+				y = tickLgth / 2d;
 				break;
 			case TOP:
-				y = posy;
+				y = 0d;
 				break;
 			default:
-				y = posy + tickLgth;
+				y = tickLgth;
 		}
 
 		for(double incrx = model.getIncrementX(), maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = minx * incrx;
 			i <= maxx * incrx; i += incrx * distX) {
 			inti = (int) i;
 			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
-				x = posx + inti * gapx;
+				x = inti * gapx;
 				pathTicks.getElements().add(ViewFactory.INSTANCE.createMoveTo(x, y));
 				pathTicks.getElements().add(ViewFactory.INSTANCE.createLineTo(x, y - tickLgth));
 			}
@@ -129,8 +127,6 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 
 	private void updatePathTicksY(final double gapy, final TicksStyle ticksStyle, final double tickLgth) {
-		final double posx = model.getPosition().getX();
-		final double posy = model.getPosition().getY();
 		final boolean noArrowTopY = model.getArrowStyle(2) == ArrowStyle.NONE || model.getGridMaxY() == model.getOriginY();
 		final boolean noArrowBotY = model.getArrowStyle(0) == ArrowStyle.NONE || model.getGridMinY() == model.getOriginY();
 		final double distY = model.getDistLabelsY();
@@ -140,20 +136,20 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 		switch(ticksStyle) {
 			case FULL:
-				x = posx - tickLgth / 2d;
+				x = -tickLgth / 2d;
 				break;
 			case TOP:
-				x = posx;
+				x = 0d;
 				break;
 			default:
-				x = posx - tickLgth;
+				x = -tickLgth;
 		}
 
-		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i=miny*incry;
-			i<=maxy*incry; i+=incry*distY) {
+		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = miny * incry;
+			i <= maxy * incry; i += incry * distY) {
 			inti = (int) i;
 			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
-				y = posy - inti * gapy;
+				y = -inti * gapy;
 				pathTicks.getElements().add(ViewFactory.INSTANCE.createMoveTo(x, y));
 				pathTicks.getElements().add(ViewFactory.INSTANCE.createLineTo(x + tickLgth, y));
 			}
@@ -180,8 +176,6 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 
 	private void updatePathLabelsY(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapy, final Font font, final FontMetrics fontMetrics) {
-		final double posx = model.getPosition().getX();
-		final double posy = model.getPosition().getY();
 		final int origy = (int) model.getOriginY();
 		final double gap;
 		final float height = fontMetrics.getAscent();
@@ -198,12 +192,11 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 			gap = -(model.getThickness() / 2d + GAP_LABEL);
 		}
 
-		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = miny * incry;
-			i <= maxy * incry; i += incry * distY) {
+		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = miny * incry; i <= maxy * incry; i += incry * distY) {
 			int inti = (int) i;
 			if((inti != 0 || showOrig && xGE0) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				str = String.valueOf(inti + origy);
-				addTextLabel(str, posx + gap - fontMetrics.computeStringWidth(str), posy + height / 2d - inti * gapy, font);
+				addTextLabel(str, gap - fontMetrics.computeStringWidth(str), height / 2d - inti * gapy, font);
 			}
 		}
 	}
@@ -214,8 +207,6 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 	 */
 	private void updatePathLabelsX(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapx, final Font font, final FontMetrics fontMetrics) {
 		// Painting the labels on the X-axis.
-		final double posx = model.getPosition().getX();
-		final double posy = model.getPosition().getY();
 		final int origx = (int) model.getOriginX();
 		final double gap = (ticksDisplay.isX() && ticksStyle.isBottom() ? model.getTicksSize() : 0d) + model.getThickness() / 2d + GAP_LABEL;
 		final double sep = model.getGridMaxY() <= -model.getOriginY() ? -gap - GAP_LABEL : gap + fontMetrics.getAscent();
@@ -226,12 +217,11 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		final boolean yGE0 = model.getGridMinY() >= 0;
 		String str;
 
-		for(double incrx = model.getIncrementX(), maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = minx * incrx;
-			i <= maxx * incrx; i += incrx * distX) {
+		for(double incrx = model.getIncrementX(), maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = minx * incrx; i <= maxx * incrx; i += incrx * distX) {
 			int inti = (int) i;
 			if((inti != 0 || showOrig && yGE0) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
 				str = String.valueOf(inti + origx);
-				addTextLabel(str, posx + inti * gapx - fontMetrics.computeStringWidth(str) / 2d, posy + sep, font);
+				addTextLabel(str, inti * gapx - fontMetrics.computeStringWidth(str) / 2d, sep, font);
 			}
 		}
 	}
@@ -260,32 +250,28 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		final double endy = model.getGridEndY();
 
 		if(endx > 0d || endy > 0d) {
-			final double posx = model.getPosition().getX();
-			final double posy = model.getPosition().getY();
-			final double y1 = endy > 0d ? posy - endy * IShape.PPC : posy;
-			final double x2 = endx > 0d ? posx + endx * IShape.PPC : posx;
+			final double y1 = endy > 0d ? - endy * IShape.PPC : 0d;
+			final double x2 = endx > 0d ? + endx * IShape.PPC : 0d;
 
-			mainAxes.getElements().add(ViewFactory.INSTANCE.createMoveTo(posx, y1));
+			mainAxes.getElements().add(ViewFactory.INSTANCE.createMoveTo(0d, y1));
 			mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(x2, y1));
-			mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(x2, posy));
-			mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(posx, posy));
+			mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(x2, 0d));
+			mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(0d, 0d));
 			mainAxes.getElements().add(ViewFactory.INSTANCE.createClosePath());
 		}
 	}
 
 
 	private void updatePathAxes() {
-		final double posX = model.getPosition().getX();
-		final double posY = model.getPosition().getY();
 		final IArrow arr0 = model.getArrowAt(1);
 		final IArrow arr1 = model.getArrowAt(3);
 		final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0d;
 		final double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0d;
 
-		mainAxes.getElements().add(ViewFactory.INSTANCE.createMoveTo(posX + model.getGridStartX() * IShape.PPC + arr0Reduction, posY));
-		mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(posX + model.getGridEndX() * IShape.PPC - arr1Reduction, posY));
-		mainAxes.getElements().add(ViewFactory.INSTANCE.createMoveTo(posX, posY - model.getGridStartY() * IShape.PPC - arr0Reduction));
-		mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(posX, posY - model.getGridEndY() * IShape.PPC + arr1Reduction));
+		mainAxes.getElements().add(ViewFactory.INSTANCE.createMoveTo(model.getGridStartX() * IShape.PPC + arr0Reduction, 0d));
+		mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(model.getGridEndX() * IShape.PPC - arr1Reduction, 0d));
+		mainAxes.getElements().add(ViewFactory.INSTANCE.createMoveTo(0d, -model.getGridStartY() * IShape.PPC - arr0Reduction));
+		mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(0d, -model.getGridEndY() * IShape.PPC + arr1Reduction));
 	}
 
 
