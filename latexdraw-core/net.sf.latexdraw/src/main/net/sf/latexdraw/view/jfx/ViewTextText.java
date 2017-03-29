@@ -13,28 +13,25 @@ package net.sf.latexdraw.view.jfx;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 
-public class ViewTextText extends ViewSingleShape<IText, Text> {
+/**
+ * The JFX shape view for text shapes.
+ */
+public class ViewTextText extends ViewPositionShape<IText> {
+	final Text text;
+
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
 	ViewTextText(final IText sh) {
 		super(sh);
-		border.textProperty().bind(sh.textProperty());
-		border.layoutXProperty().bind(sh.getPosition().xProperty());
-		border.layoutYProperty().bind(sh.getPosition().yProperty());
-	}
-
-	@Override
-	protected Text createJFXShape() {
-		return new Text();
+		text = new Text();
+		text.textProperty().bind(sh.textProperty());
 	}
 
 	@Override
 	public void flush() {
-		border.textProperty().unbind();
-		border.layoutXProperty().unbind();
-		border.layoutYProperty().unbind();
+		text.textProperty().unbind();
 		super.flush();
 	}
 }

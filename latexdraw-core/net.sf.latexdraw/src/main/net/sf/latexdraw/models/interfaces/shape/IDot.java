@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.models.interfaces.prop.IDotProp;
 
 /**
@@ -18,7 +20,10 @@ import net.sf.latexdraw.models.interfaces.prop.IDotProp;
  */
 public interface IDot extends IPositionShape, IDotProp {
 	/** Useful to calculate the thickness of dot with the o style. */
-	double THICKNESS_O_STYLE_FACTOR = 16.;
+	double THICKNESS_O_STYLE_FACTOR = 16d;
+
+	/** The thickness of the plus shape is computed with that coefficient. */
+	double PLUS_COEFF_WIDTH = 6.5;
 
 	/**
 	 * While getTopLeftPoint takes care about the current shape of the dot to compute the top left point,
@@ -80,4 +85,14 @@ public interface IDot extends IPositionShape, IDotProp {
 	 */
 	@Override
 	boolean isFillable();
+
+	/**
+	 * @return The dot style property.
+	 */
+	ObjectProperty<DotStyle> styleProperty();
+
+	/**
+	 * @return The dot diametre property.
+	 */
+	DoubleProperty diametreProperty();
 }

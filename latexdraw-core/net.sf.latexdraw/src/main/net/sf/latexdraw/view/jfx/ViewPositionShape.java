@@ -10,22 +10,28 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import javafx.scene.image.ImageView;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * The JFX view of a picture.
+ * The JFX view for positionable shapes.
+ * @param <T> The type of the shape to view.
  */
-public class ViewPicture extends ViewPositionShape<IPicture> {
-	ImageView view;
-
+abstract class ViewPositionShape<T extends IPositionShape> extends ViewShape<T> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPicture(final IPicture sh) {
+	ViewPositionShape(final @NonNull T sh) {
 		super(sh);
-		view = new ImageView(model.getImage());
-		getChildren().add(view);
+		translateXProperty().bind(model.getPosition().xProperty());
+		translateYProperty().bind(model.getPosition().yProperty());
+	}
+
+	@Override
+	public void flush() {
+		translateXProperty().unbind();
+		translateYProperty().unbind();
+		super.flush();
 	}
 }

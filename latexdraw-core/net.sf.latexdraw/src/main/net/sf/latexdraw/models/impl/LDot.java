@@ -11,6 +11,10 @@
 package net.sf.latexdraw.models.impl;
 
 import java.awt.geom.Rectangle2D;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IDotProp;
@@ -27,9 +31,9 @@ import net.sf.latexdraw.view.latex.DviPsColors;
  */
 class LDot extends LPositionShape implements IDot {
 	/** The current style of the dot. */
-	private DotStyle style;
+	private final ObjectProperty<DotStyle> style;
 	/** The radius of the dot. */
-	private double diametre;
+	private final DoubleProperty diametre;
 
 
 	/**
@@ -37,9 +41,8 @@ class LDot extends LPositionShape implements IDot {
 	 */
 	LDot(final IPoint pt) {
 		super(pt);
-
-		style = DotStyle.DOT;
-		diametre = 20.0;
+		style = new SimpleObjectProperty<>(DotStyle.DOT);
+		diametre = new SimpleDoubleProperty(40d);
 	}
 
 	@Override
@@ -49,23 +52,25 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public DotStyle getDotStyle() {
-		return style;
+		return style.get();
+	}
+
+	@Override
+	public void setDotStyle(final DotStyle dotStyle) {
+		if(dotStyle != null) {
+			style.set(dotStyle);
+		}
 	}
 
 	@Override
 	public double getDiametre() {
-		return diametre;
-	}
-
-	@Override
-	public void setDotStyle(final DotStyle style) {
-		if(style != null) this.style = style;
+		return diametre.get();
 	}
 
 	@Override
 	public void setDiametre(final double diam) {
-		if(diam > 0.0 && MathUtils.INST.isValidCoord(diam)) {
-			this.diametre = diam;
+		if(diam > 0d && MathUtils.INST.isValidCoord(diam)) {
+			diametre.set(diam);
 		}
 	}
 
@@ -74,7 +79,6 @@ class LDot extends LPositionShape implements IDot {
 	 * @param value The new X or Y coordinate of the extremity of the dot.
 	 * @param isX True: the value will be considered on the X-axe. Otherwise, on the Y-axe.
 	 * @return The new radius.
-	 * @since 3.0
 	 */
 	protected double getNewRadius(final double value, final boolean isX) {
 		if(MathUtils.INST.isValidCoord(value)) {
@@ -95,23 +99,23 @@ class LDot extends LPositionShape implements IDot {
 	}
 
 	@Override
-	public void setX(final double x) {
-		points.get(0).setX(x);
-	}
-
-	@Override
-	public void setY(final double y) {
-		points.get(0).setY(y);
-	}
-
-	@Override
 	public double getX() {
 		return points.get(0).getX();
 	}
 
 	@Override
+	public void setX(final double x) {
+		points.get(0).setX(x);
+	}
+
+	@Override
 	public double getY() {
 		return points.get(0).getY();
+	}
+
+	@Override
+	public void setY(final double y) {
+		points.get(0).setY(y);
 	}
 
 	@Override
@@ -121,7 +125,7 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
-		setDiametre(diametre * Math.max(prevWidth / bound.getWidth(), prevHeight / bound.getHeight()));
+		setDiametre(getDiametre() * Math.max(prevWidth / bound.getWidth(), prevHeight / bound.getHeight()));
 	}
 
 	@Override
@@ -179,59 +183,60 @@ class LDot extends LPositionShape implements IDot {
 	 * @param tl The top-left point to set. Must not be null.
 	 * @param br The bottom-right point to set. Must not be null.
 	 * @throws NullPointerException If tl or br is null.
-	 * @since 3.0
+	 * @since 3d
 	 */
 	protected void getTopLeftBottomRightPoints(final IPoint tl, final IPoint br) {
 		final IPoint centre = getPosition();
 		final double x = centre.getX();
 		final double y = centre.getY();
-		final double tlx = x - diametre;
-		final double tly = y - diametre;
-		final double brx = x + diametre;
-		final double bry = y + diametre;
-		final double dec = 2.0 * diametre / THICKNESS_O_STYLE_FACTOR;
+		final double diam = getDiametre();
+		final double tlx = x - diam;
+		final double tly = y - diam;
+		final double brx = x + diam;
+		final double bry = y + diam;
+		final double dec = 2d * diam / THICKNESS_O_STYLE_FACTOR;
 
 		// Each dot shape has a special shape computed from the parameters
 		// defined below.
-		switch(style) {
+		switch(getDotStyle()) {
 			case ASTERISK:// TODO: to check, I do not think it works.
-				final double radiusAst = tly + diametre / 5.0 - (bry - diametre / 5.0) / 2.0 + dec;
-				tl.setX(Math.cos(7.0 * Math.PI / 6.0) * radiusAst + x);
-				tl.setY(tly + diametre / 5.0 - dec);
-				br.setX(Math.cos(Math.PI / 6.0) * radiusAst + x);
-				br.setY(bry - diametre / 5.0 + dec);
+				final double radiusAst = tly + diam / 5d - (bry - diam / 5d) / 2d + dec;
+				tl.setX(Math.cos(7d * Math.PI / 6d) * radiusAst + x);
+				tl.setY(tly + diam / 5d - dec);
+				br.setX(Math.cos(Math.PI / 6d) * radiusAst + x);
+				br.setY(bry - diam / 5d + dec);
 				break;
 			case BAR:
 				// The thickness of the bar.
-				final double barThickness = diametre / 8.0;
+				final double barThickness = diam / 8d;
 				tl.setX(x - barThickness);
 				tl.setY(tly);
 				br.setX(x + barThickness);
 				// TODO: check if it is not radius*(1/1.875+1/8.): the bar
 				// thickness may be used into radius/1.875
-				br.setY(bry + diametre / 1.875);
+				br.setY(bry + diam / 1.875);
 				break;
 			case DIAMOND:
 			case FDIAMOND:
-				final double p = 2.0 * Math.abs(tlx - brx) / (2.0 * Math.sin(GOLDEN_ANGLE)) * Math.cos(GOLDEN_ANGLE);
+				final double p = 2d * Math.abs(tlx - brx) / (2d * Math.sin(GOLDEN_ANGLE)) * Math.cos(GOLDEN_ANGLE);
 				final double x1 = brx - 1.5 * dec;
 				final double x2 = tlx + 1.5 * dec;
 				tl.setX(x1 < x2 ? x1 : x2);
-				tl.setY((tly + bry) / 2.0 + p / 2.0 - 1.5 * dec);
+				tl.setY((tly + bry) / 2d + p / 2d - 1.5 * dec);
 				br.setX(x1 > x2 ? x1 : x2);
-				br.setY((tly + bry) / 2.0 - p / 2.0 + 1.5 * dec);
+				br.setY((tly + bry) / 2d - p / 2d + 1.5 * dec);
 				break;
 			case FPENTAGON:
 			case PENTAGON:
-				final double dist = diametre + dec;
-				final double xValue = Math.sin(2.0 * Math.PI / 5.0) * dist;
+				final double dist = diam + dec;
+				final double xValue = Math.sin(2d * Math.PI / 5d) * dist;
 				tl.setX(-xValue + x);
 				tl.setY(tly - dec);
 				br.setX(xValue + x);
-				br.setY(0.25 * (Math.sqrt(5.0) + 1.0) * dist + y + dec);
+				br.setY(0.25 * (Math.sqrt(5d) + 1d) * dist + y + dec);
 				break;
 			case FSQUARE:
-			case SQUARE:// TODO may be wrong, to compare with 2.0.
+			case SQUARE:// TODO may be wrong, to compare with 2d.
 				tl.setX(tlx);
 				tl.setY(tly);
 				br.setX(brx);
@@ -242,7 +247,7 @@ class LDot extends LPositionShape implements IDot {
 				tl.setX(tlx - 0.3 * dec);
 				tl.setY(tly - 1.5 * dec);
 				br.setX(brx + 0.3 * dec);
-				br.setY(bry - 3.0 * dec);
+				br.setY(bry - 3d * dec);
 				break;
 			case DOT:
 			case O:
@@ -253,15 +258,15 @@ class LDot extends LPositionShape implements IDot {
 				br.setX(brx);
 				br.setY(bry);
 				break;
-			case PLUS:// TODO may be wrong, to compare with 2.0.
-				final double plusGap = diametre / 80.0;
+			case PLUS:// TODO may be wrong, to compare with 2d.
+				final double plusGap = diam / 80d;
 				tl.setX(tlx - plusGap);
 				tl.setY(tly - plusGap);
 				br.setX(brx + plusGap);
 				br.setY(bry + plusGap);
 				break;
-			case X:// TODO may be wrong, to compare with 2.0.
-				final double crossGap = diametre / 5.0;
+			case X:// TODO may be wrong, to compare with 2d.
+				final double crossGap = diam / 5d;
 				tl.setX(tlx - crossGap);
 				tl.setY(tly - crossGap);
 				br.setX(brx + crossGap);
@@ -272,56 +277,59 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public boolean isFillable() {
-		return style.isFillable();
+		return getDotStyle().isFillable();
 	}
 
 	@Override
 	public boolean isFilled() {
-		return isFillable() || style == DotStyle.FDIAMOND || style == DotStyle.FPENTAGON || style == DotStyle.FSQUARE ||
-			style == DotStyle.FTRIANGLE || style == DotStyle.DOT;
+		final DotStyle dotStyle = getDotStyle();
+		return isFillable() || dotStyle == DotStyle.FDIAMOND || dotStyle == DotStyle.FPENTAGON || dotStyle == DotStyle.FSQUARE ||
+			dotStyle == DotStyle.FTRIANGLE || dotStyle == DotStyle.DOT;
 	}
 
 	@Override
 	public IPoint getLazyTopLeftPoint() {
 		final IPoint centre = getPosition();
-		return ShapeFactory.INST.createPoint(centre.getX() - diametre / 2.0, centre.getY() - diametre / 2.0);
+		final double diam = getDiametre();
+		return ShapeFactory.INST.createPoint(centre.getX() - diam / 2d, centre.getY() - diam / 2d);
 	}
 
 	@Override
 	public IPoint getLazyBottomRightPoint() {
 		final IPoint centre = getPosition();
-		return ShapeFactory.INST.createPoint(centre.getX() + diametre / 2.0, centre.getY() + diametre / 2.0);
+		final double diam = getDiametre();
+		return ShapeFactory.INST.createPoint(centre.getX() + diam / 2d, centre.getY() + diam / 2d);
 	}
 
 	@Override
 	public double getPlusGap() {
-		return diametre / 160.0;
+		return getDiametre() / 160d;
 	}
 
 	@Override
 	public double getCrossGap() {
-		return diametre / 10.0;
+		return getDiametre() / 10d;
 	}
 
 	@Override
 	public double getBarGap() {
-		return diametre / 3.75;
+		return getDiametre() / 3.75;
 	}
 
 	@Override
 	public double getBarThickness() {
-		return diametre / 8.0;
+		return getDiametre() / 8d;
 	}
 
 	@Override
 	public double getGeneralGap() {
-		return diametre / IDot.THICKNESS_O_STYLE_FACTOR;
+		return getDiametre() / IDot.THICKNESS_O_STYLE_FACTOR;
 	}
 
 	@Override
 	public double getOGap() {
-		final double dec = style == DotStyle.O ? 3.6 : 2.6;
-		return diametre * (0.1 / dec) * 2.0;
+		final double dec = getDotStyle() == DotStyle.O ? 3.6 : 2.6;
+		return getDiametre() * (0.1 / dec) * 2d;
 	}
 
 	@Override
@@ -332,5 +340,15 @@ class LDot extends LPositionShape implements IDot {
 	@Override
 	public void setDotFillingCol(final Color value) {
 		setFillingCol(value);
+	}
+
+	@Override
+	public ObjectProperty<DotStyle> styleProperty() {
+		return style;
+	}
+
+	@Override
+	public DoubleProperty diametreProperty() {
+		return diametre;
 	}
 }
