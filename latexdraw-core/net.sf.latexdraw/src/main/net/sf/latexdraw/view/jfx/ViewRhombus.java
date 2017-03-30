@@ -11,7 +11,7 @@ public class ViewRhombus extends ViewPathShape<IRhombus> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	public ViewRhombus(final IRhombus sh) {
+	ViewRhombus(final IRhombus sh) {
 		super(sh);
 		setupPath(border);
 		setupPath(shadow);

@@ -26,7 +26,7 @@ public class ViewSquare extends ViewRectangularBased<ISquare> {
 	 * Creates the square view.
 	 * @param sh The model.
 	 */
-	public ViewSquare(final @NonNull ISquare sh) {
+	ViewSquare(final @NonNull ISquare sh) {
 		super(sh);
 		border.xProperty().bind(model.getPtAt(0).xProperty());
 		border.yProperty().bind(model.getPtAt(0).yProperty());

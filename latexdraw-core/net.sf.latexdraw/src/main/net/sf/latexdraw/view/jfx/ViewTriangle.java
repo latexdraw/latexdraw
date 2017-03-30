@@ -15,7 +15,7 @@ public class ViewTriangle extends ViewPathShape<ITriangle> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	public ViewTriangle(final ITriangle sh) {
+	ViewTriangle(final ITriangle sh) {
 		super(sh);
 		moveTo = new MoveTo();
 

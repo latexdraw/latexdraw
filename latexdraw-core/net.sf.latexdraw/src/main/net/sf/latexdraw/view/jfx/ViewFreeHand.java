@@ -29,7 +29,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	protected ViewFreeHand(final @NonNull IFreehand sh) {
+	ViewFreeHand(final @NonNull IFreehand sh) {
 		super(sh);
 
 		model.getPoints().addListener((ListChangeListener.Change<? extends IPoint> c) -> setPath());

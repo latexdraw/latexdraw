@@ -17,7 +17,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * The JFX view for positionable shapes.
  * @param <T> The type of the shape to view.
  */
-abstract class ViewPositionShape<T extends IPositionShape> extends ViewShape<T> {
+public abstract class ViewPositionShape<T extends IPositionShape> extends ViewShape<T> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.

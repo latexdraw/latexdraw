@@ -25,7 +25,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * The JFX shape view for multipoints shapes.
  */
-abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathShape<T> {
+public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathShape<T> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.

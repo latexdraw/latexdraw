@@ -17,7 +17,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * A JFX abstract view to factorise code of views based on a JFX ellipse.
  */
-abstract class ViewEllipseBased<T extends ISingleShape> extends ViewSingleShape<T, Ellipse> {
+public abstract class ViewEllipseBased<T extends ISingleShape> extends ViewSingleShape<T, Ellipse> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.

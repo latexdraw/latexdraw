@@ -26,7 +26,7 @@ public abstract class ViewStdGrid<T extends IStandardGrid> extends ViewPositionS
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	protected ViewStdGrid(final T sh) {
+	ViewStdGrid(final T sh) {
 		super(sh);
 		labels = new Group();
 		getChildren().add(labels);

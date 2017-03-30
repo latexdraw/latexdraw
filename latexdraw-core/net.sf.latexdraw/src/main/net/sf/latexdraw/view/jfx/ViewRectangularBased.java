@@ -19,7 +19,7 @@ import org.eclipse.jdt.annotation.NonNull;
 /**
  * A JFX abstract view to factorise code of views based on a JFX rectangle.
  */
-abstract class ViewRectangularBased<T extends ISingleShape> extends ViewSingleShape<T, Rectangle> {
+public abstract class ViewRectangularBased<T extends ISingleShape> extends ViewSingleShape<T, Rectangle> {
 	final @NonNull ChangeListener<? super Number> lineArcCall = (observable, oldValue, newValue) -> {
 		final double lineArc = newValue.doubleValue();
 		final double width = model.getWidth();

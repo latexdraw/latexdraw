@@ -37,7 +37,7 @@ public class ViewArrow extends Group {
 	 * @param model The arrow. Cannot be null.
 	 * @throws NullPointerException if the given arrow is null.
 	 */
-	public ViewArrow(final IArrow model) {
+	ViewArrow(final IArrow model) {
 		super();
 		arrow = Objects.requireNonNull(model);
 		path = new Path();

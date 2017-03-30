@@ -26,7 +26,7 @@ public abstract class ViewPathShape<S extends ISingleShape> extends ViewSingleSh
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	protected ViewPathShape(final @NonNull S sh) {
+	ViewPathShape(final @NonNull S sh) {
 		super(sh);
 	}
 

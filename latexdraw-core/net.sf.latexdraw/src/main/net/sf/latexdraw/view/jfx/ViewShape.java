@@ -26,7 +26,7 @@ public abstract class ViewShape<S extends IShape> extends Group {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	protected ViewShape(final @NonNull S sh) {
+	ViewShape(final @NonNull S sh) {
 		super();
 		model = sh;
 

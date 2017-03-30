@@ -27,7 +27,7 @@ public class ViewRectangle extends ViewRectangularBased<IRectangle> {
 	 * Creates the rectangle view.
 	 * @param sh The model.
 	 */
-	public ViewRectangle(final @NonNull IRectangle sh) {
+	ViewRectangle(final @NonNull IRectangle sh) {
 		super(sh);
 		border.xProperty().bind(model.getPtAt(0).xProperty());
 		border.yProperty().bind(model.getPtAt(0).yProperty());
