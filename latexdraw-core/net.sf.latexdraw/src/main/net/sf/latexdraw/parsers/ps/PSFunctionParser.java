@@ -25,22 +25,10 @@ public class PSFunctionParser {
 	/** The postscript function. */
 	private final String function;
 	private final List<PSArithemticCommand> commands;
-	private final Map<String, Supplier<PSArithemticCommand>> factoryMap;
+	private static final Map<String, Supplier<PSArithemticCommand>> factoryMap;
 
-	/**
-	 * Creates and parser from postscript functions.
-	 * @param fct The function to parse.
-	 * @throws InvalidFormatPSFunctionException If the function format is not valid.
-	 * @since 3.0
-	 */
-	public PSFunctionParser(final String fct) throws InvalidFormatPSFunctionException {
-		super();
-		if(fct == null || fct.isEmpty()) throw new IllegalArgumentException();
-
+	static {
 		factoryMap = new HashMap<>();
-		commands = new ArrayList<>();
-		function = fct;
-
 		factoryMap.put("add", () -> new PSAddCommand());
 		factoryMap.put("mul", () -> new PSMulCommand());
 		factoryMap.put("sub", () -> new PSSubCommand());
@@ -63,6 +51,20 @@ public class PSFunctionParser {
 		factoryMap.put("count", () -> new PSCountCommand());
 		factoryMap.put("x", () -> new PSPlotXVariable());
 		factoryMap.put("log", () -> new PSLogCommand());
+	}
+
+	/**
+	 * Creates and parser from postscript functions.
+	 * @param fct The function to parse.
+	 * @throws InvalidFormatPSFunctionException If the function format is not valid.
+	 * @since 3.0
+	 */
+	public PSFunctionParser(final String fct) throws InvalidFormatPSFunctionException {
+		super();
+		if(fct == null || fct.isEmpty()) throw new IllegalArgumentException();
+
+		commands = new ArrayList<>();
+		function = fct;
 
 		parseFunction();
 	}
