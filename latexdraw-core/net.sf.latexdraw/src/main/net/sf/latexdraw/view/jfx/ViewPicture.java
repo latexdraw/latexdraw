@@ -17,15 +17,12 @@ import net.sf.latexdraw.models.interfaces.shape.IPicture;
  * The JFX view of a picture.
  */
 public class ViewPicture extends ViewPositionShape<IPicture> {
-	ImageView view;
-
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
 	ViewPicture(final IPicture sh) {
 		super(sh);
-		view = new ImageView(model.getImage());
-		getChildren().add(view);
+		getChildren().add(new ImageView(model.getImage()));
 	}
 }
