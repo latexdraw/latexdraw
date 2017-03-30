@@ -27,6 +27,7 @@ public class ViewTextText extends ViewPositionShape<IText> {
 		super(sh);
 		text = new Text();
 		text.textProperty().bind(sh.textProperty());
+		getChildren().add(text);
 	}
 
 	@Override
