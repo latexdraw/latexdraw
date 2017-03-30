@@ -13,6 +13,16 @@ package net.sf.latexdraw.models.impl;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.stream.IntStream;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IDotProp;
@@ -31,17 +41,17 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * Implementation of the plotted function.
  */
 class LPlot extends LPositionShape implements IPlot {
-	private int nbPoints;
-	private PlotStyle style;
+	private final IntegerProperty nbPoints;
+	private final ObjectProperty<PlotStyle> style;
+	private final ObjectProperty<DotStyle> dotStyle;
+	private final DoubleProperty dotDiametre;
+	private final BooleanProperty polar;
+	private final DoubleProperty minX;
+	private final DoubleProperty maxX;
+	private final StringProperty equation;
+	private final DoubleProperty xscale;
+	private final DoubleProperty yscale;
 	private PSFunctionParser parser;
-	private DotStyle dotStyle;
-	private double dotDiametre;
-	private boolean polar;
-	private double minX;
-	private double maxX;
-	private String equation;
-	private double xscale;
-	private double yscale;
 
 	LPlot(final IPoint pt, final double xMin, final double xMax, final String equationPlot, final boolean polarCoord) {
 		super(pt);
@@ -49,17 +59,17 @@ class LPlot extends LPositionShape implements IPlot {
 		if(!(MathUtils.INST.isValidPt(pt) && xMin < xMax && MathUtils.INST.isValidCoord(xMin) && MathUtils.INST.isValidCoord(xMax)))
 			throw new IllegalArgumentException("Parameter not valid: " + xMin + " " + xMax + " " + MathUtils.INST.isValidPt(pt));
 
-		nbPoints = 50;
-		style = PlotStyle.CURVE;
-		equation = equationPlot;
+		nbPoints = new SimpleIntegerProperty(50);
+		style = new SimpleObjectProperty<>(PlotStyle.CURVE);
+		equation = new SimpleStringProperty(equationPlot);
 		parser = new PSFunctionParser(equationPlot);
-		dotStyle = DotStyle.DOT;
-		dotDiametre = PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM * IShape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM;
-		polar = polarCoord;
-		minX = xMin;
-		maxX = xMax;
-		xscale = 1.0;
-		yscale = 1.0;
+		dotStyle = new SimpleObjectProperty<>(DotStyle.DOT);
+		dotDiametre = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM * IShape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM);
+		polar = new SimpleBooleanProperty(polarCoord);
+		minX = new SimpleDoubleProperty(xMin);
+		maxX = new SimpleDoubleProperty(xMax);
+		xscale = new SimpleDoubleProperty(1d);
+		yscale = new SimpleDoubleProperty(1d);
 	}
 
 
@@ -68,24 +78,24 @@ class LPlot extends LPositionShape implements IPlot {
 		super.copy(sh);
 
 		if(sh instanceof IPlotProp) {
-			IPlotProp plot = (IPlotProp) sh;
-			style = plot.getPlotStyle();
-			nbPoints = plot.getNbPlottedPoints();
-			polar = plot.isPolar();
-			dotStyle = plot.getDotStyle();
-			dotDiametre = plot.getDiametre();
-			minX = plot.getPlotMinX();
-			maxX = plot.getPlotMaxX();
-			xscale = plot.getXScale();
-			yscale = plot.getYScale();
+			final IPlotProp plot = (IPlotProp) sh;
+			style.set(plot.getPlotStyle());
+			nbPoints.set(plot.getNbPlottedPoints());
+			polar.set(plot.isPolar());
+			dotStyle.set(plot.getDotStyle());
+			dotDiametre.set(plot.getDiametre());
+			minX.set(plot.getPlotMinX());
+			maxX.set(plot.getPlotMaxX());
+			xscale.set(plot.getXScale());
+			yscale.set(plot.getYScale());
 			setPlotEquation(plot.getPlotEquation());
 		}else if(sh instanceof IDotProp) {
-			IDotProp dot = (IDotProp) sh;
-			dotStyle = dot.getDotStyle();
-			dotDiametre = dot.getDiametre();
+			final IDotProp dot = (IDotProp) sh;
+			dotStyle.set(dot.getDotStyle());
+			dotDiametre.set(dot.getDiametre());
 		}
 
-		parser = new PSFunctionParser(equation);
+		parser = new PSFunctionParser(equation.get());
 	}
 
 
@@ -93,7 +103,7 @@ class LPlot extends LPositionShape implements IPlot {
 	public void mirrorVertical(final IPoint origin) {
 		final IPoint gc = getGravityCentre();
 		if(MathUtils.INST.isValidPt(origin) && !origin.equals(gc, 0.0001)) {
-			translate(0, gc.verticalSymmetry(origin).getY() - gc.getY());
+			translate(0d, gc.verticalSymmetry(origin).getY() - gc.getY());
 		}
 	}
 
@@ -101,27 +111,19 @@ class LPlot extends LPositionShape implements IPlot {
 	public void mirrorHorizontal(final IPoint origin) {
 		final IPoint gc = getGravityCentre();
 		if(MathUtils.INST.isValidPt(origin) && !origin.equals(gc, 0.0001)) {
-			translate(gc.horizontalSymmetry(origin).getX() - gc.getX(), 0);
-		}
-	}
-
-
-	@Override
-	public void setPlotStyle(final PlotStyle plotStyle) {
-		if(plotStyle != null) {
-			style = plotStyle;
+			translate(gc.horizontalSymmetry(origin).getX() - gc.getX(), 0d);
 		}
 	}
 
 	@Override
 	public PlotStyle getPlotStyle() {
-		return style;
+		return style.get();
 	}
 
 	@Override
-	public void setNbPlottedPoints(final int nbPts) {
-		if(nbPts > 1) {
-			nbPoints = nbPts;
+	public void setPlotStyle(final PlotStyle plotStyle) {
+		if(plotStyle != null) {
+			style.setValue(plotStyle);
 		}
 	}
 
@@ -132,96 +134,94 @@ class LPlot extends LPositionShape implements IPlot {
 
 	@Override
 	public boolean isThicknessable() {
-		return style != PlotStyle.DOTS;
+		return getPlotStyle() != PlotStyle.DOTS;
 	}
 
 	@Override
 	public boolean isShadowable() {
-		return style != PlotStyle.DOTS;
+		return getPlotStyle() != PlotStyle.DOTS;
 	}
 
 	@Override
 	public boolean isLineStylable() {
-		return style != PlotStyle.DOTS;
+		return getPlotStyle() != PlotStyle.DOTS;
 	}
 
 	@Override
 	public boolean isInteriorStylable() {
-		return style != PlotStyle.DOTS;
+		return getPlotStyle() != PlotStyle.DOTS;
 	}
 
 	@Override
 	public boolean isFillable() {
-		return style != PlotStyle.DOTS || dotStyle.isFillable();
+		return getPlotStyle() != PlotStyle.DOTS || dotStyle.get().isFillable();
 	}
 
 	@Override
 	public boolean isDbleBorderable() {
-		return style != PlotStyle.DOTS;
+		return getPlotStyle() != PlotStyle.DOTS;
 	}
 
 	@Override
 	public double getPlottingStep() {
-		return (maxX - minX) / (nbPoints - 1);
+		return (getPlotMaxX() - getPlotMinX()) / (getNbPlottedPoints() - 1);
 	}
-
 
 	@Override
 	public IPoint getTopLeftPoint() {
 		final double step = getPlottingStep();
 		final IPoint pos = getPosition();
-		final double yMax = IntStream.range(0, nbPoints).mapToDouble(x -> getY(minX + x * step)).max().orElse(0.0);
-		return ShapeFactory.INST.createPoint(pos.getX() + minX * IShape.PPC * xscale, pos.getY() - yMax * IShape.PPC * yscale);
+		final double plotMinX = getPlotMinX();
+		final double yMax = IntStream.range(0, getNbPlottedPoints()).mapToDouble(x -> getY(plotMinX + x * step)).max().orElse(0.0);
+		return ShapeFactory.INST.createPoint(pos.getX() + plotMinX * IShape.PPC * getXScale(), pos.getY() - yMax * IShape.PPC * getYScale());
 	}
-
 
 	@Override
 	public IPoint getBottomRightPoint() {
 		final double step = getPlottingStep();
 		final IPoint pos = getPosition();
-		final double yMin = IntStream.range(0, nbPoints).mapToDouble(x -> getY(minX + x * step)).min().orElse(0.0);
-		return ShapeFactory.INST.createPoint(pos.getX() + maxX * IShape.PPC * xscale, pos.getY() - yMin * IShape.PPC * yscale);
+		final double plotMinX = getPlotMinX();
+		final double yMin = IntStream.range(0, getNbPlottedPoints()).mapToDouble(x -> getY(plotMinX + x * step)).min().orElse(0.0);
+		return ShapeFactory.INST.createPoint(pos.getX() + getPlotMaxX() * IShape.PPC * getXScale(), pos.getY() - yMin * IShape.PPC * getYScale());
 	}
-
 
 	@Override
 	public IPoint getTopRightPoint() {
 		final double step = getPlottingStep();
 		final IPoint pos = getPosition();
-		final double maxY = IntStream.range(0, nbPoints).mapToDouble(x -> getY(minX + x * step)).max().orElse(0.0);
-		return ShapeFactory.INST.createPoint(pos.getX() + maxX * IShape.PPC * xscale, pos.getY() - maxY * IShape.PPC * yscale);
+		final double plotMinX = getPlotMinX();
+		final double maxY = IntStream.range(0, getNbPlottedPoints()).mapToDouble(x -> getY(plotMinX + x * step)).max().orElse(0.0);
+		return ShapeFactory.INST.createPoint(pos.getX() + getPlotMaxX() * IShape.PPC * getXScale(), pos.getY() - maxY * IShape.PPC * getYScale());
 	}
-
 
 	@Override
 	public IPoint getBottomLeftPoint() {
 		final double step = getPlottingStep();
 		final IPoint pos = getPosition();
-		final double yMin = IntStream.range(0, nbPoints).mapToDouble(x -> getY(minX + x * step)).min().orElse(0.0);
-		return ShapeFactory.INST.createPoint(pos.getX() + minX * IShape.PPC * xscale, pos.getY() - yMin * IShape.PPC * yscale);
+		final double plotMinX = getPlotMinX();
+		final double yMin = IntStream.range(0, getNbPlottedPoints()).mapToDouble(x -> getY(plotMinX + x * step)).min().orElse(0.0);
+		return ShapeFactory.INST.createPoint(pos.getX() + plotMinX * IShape.PPC * getXScale(), pos.getY() - yMin * IShape.PPC * getYScale());
 	}
-
 
 	@Override
 	protected void scaleSetPointsWithRatio(final List<IPoint> pts, final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
 		scaleSetPoints(pts, prevWidth, prevHeight, pos, bound);
 	}
 
-
 	@Override
 	protected void scaleSetPoints(final List<IPoint> pts, final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
 		switch(pos) {
 			case EAST:
-				getPtAt(0).translate(bound.getWidth() - prevWidth, 0.0);
+				getPtAt(0).translate(bound.getWidth() - prevWidth, 0d);
 				break;
 			case WEST:
-				getPtAt(0).translate(prevWidth - bound.getWidth(), 0.0);
+				getPtAt(0).translate(prevWidth - bound.getWidth(), 0d);
 				break;
 			case SOUTH:
-				getPtAt(0).translate(0.0, bound.getHeight() - prevHeight);
+				getPtAt(0).translate(0d, bound.getHeight() - prevHeight);
 				break;
 			case NORTH:
-				getPtAt(0).translate(0.0, prevHeight - bound.getHeight());
+				getPtAt(0).translate(0d, prevHeight - bound.getHeight());
 				break;
 			case NE:
 				getPtAt(0).translate(bound.getWidth() - prevWidth, prevHeight - bound.getHeight());
@@ -245,7 +245,14 @@ class LPlot extends LPositionShape implements IPlot {
 
 	@Override
 	public int getNbPlottedPoints() {
-		return nbPoints;
+		return nbPoints.get();
+	}
+
+	@Override
+	public void setNbPlottedPoints(final int nbPts) {
+		if(nbPts > 1) {
+			nbPoints.setValue(nbPts);
+		}
 	}
 
 	@Override
@@ -255,54 +262,61 @@ class LPlot extends LPositionShape implements IPlot {
 
 	@Override
 	public String getPlotEquation() {
-		return equation;
+		return equation.get();
 	}
 
 	@Override
 	public void setPlotEquation(final String eq) {
 		if(eq != null && !eq.isEmpty()) {
-			equation = eq;
-			parser = new PSFunctionParser(equation);
+			parser = new PSFunctionParser(eq);
+			equation.setValue(eq);
 		}
 	}
 
 	@Override
 	public double getPlotMinX() {
-		return minX;
-	}
-
-	@Override
-	public double getPlotMaxX() {
-		return maxX;
-	}
-
-	@Override
-	public void setPolar(final boolean pol) {
-		polar = pol;
-	}
-
-	@Override
-	public boolean isPolar() {
-		return polar;
-	}
-
-	@Override
-	public void setPlotMaxX(final double x) {
-		if(MathUtils.INST.isValidCoord(x) && x > minX) {
-			maxX = x;
-		}
+		return minX.get();
 	}
 
 	@Override
 	public void setPlotMinX(final double x) {
-		if(MathUtils.INST.isValidCoord(x) && x < maxX) {
-			minX = x;
+		if(MathUtils.INST.isValidCoord(x) && x < getPlotMaxX()) {
+			minX.setValue(x);
 		}
 	}
 
 	@Override
+	public double getPlotMaxX() {
+		return maxX.get();
+	}
+
+	@Override
+	public void setPlotMaxX(final double x) {
+		if(MathUtils.INST.isValidCoord(x) && x > getPlotMinX()) {
+			maxX.setValue(x);
+		}
+	}
+
+	@Override
+	public boolean isPolar() {
+		return polar.get();
+	}
+
+	@Override
+	public void setPolar(final boolean pol) {
+		polar.setValue(pol);
+	}
+
+	@Override
 	public double getDiametre() {
-		return dotDiametre;
+		return dotDiametre.get();
+	}
+
+	@Override
+	public void setDiametre(final double diam) {
+		if(diam > 0d && MathUtils.INST.isValidCoord(diam)) {
+			dotDiametre.setValue(diam);
+		}
 	}
 
 	@Override
@@ -311,40 +325,19 @@ class LPlot extends LPositionShape implements IPlot {
 	}
 
 	@Override
-	public DotStyle getDotStyle() {
-		return dotStyle;
-	}
-
-	@Override
-	public void setDiametre(final double diam) {
-		if(diam > 0.0 && MathUtils.INST.isValidCoord(diam)) {
-			dotDiametre = diam;
-		}
-	}
-
-	@Override
 	public void setDotFillingCol(final Color col) {
 		setFillingCol(col);
 	}
 
 	@Override
+	public DotStyle getDotStyle() {
+		return dotStyle.get();
+	}
+
+	@Override
 	public void setDotStyle(final DotStyle dotst) {
 		if(dotst != null) {
-			dotStyle = dotst;
-		}
-	}
-
-	@Override
-	public void setXScale(final double xscalePlot) {
-		if(xscalePlot > 0 && MathUtils.INST.isValidCoord(xscalePlot)) {
-			xscale = xscalePlot;
-		}
-	}
-
-	@Override
-	public void setYScale(final double xScalePlot) {
-		if(xScalePlot > 0 && MathUtils.INST.isValidCoord(xScalePlot)) {
-			yscale = xScalePlot;
+			dotStyle.setValue(dotst);
 		}
 	}
 
@@ -356,11 +349,75 @@ class LPlot extends LPositionShape implements IPlot {
 
 	@Override
 	public double getXScale() {
-		return xscale;
+		return xscale.get();
+	}
+
+	@Override
+	public void setXScale(final double xscalePlot) {
+		if(xscalePlot > 0d && MathUtils.INST.isValidCoord(xscalePlot)) {
+			xscale.setValue(xscalePlot);
+		}
 	}
 
 	@Override
 	public double getYScale() {
+		return yscale.get();
+	}
+
+	@Override
+	public void setYScale(final double yScalePlot) {
+		if(yScalePlot > 0d && MathUtils.INST.isValidCoord(yScalePlot)) {
+			yscale.setValue(yScalePlot);
+		}
+	}
+
+	@Override
+	public BooleanProperty polarProperty() {
+		return polar;
+	}
+
+	@Override
+	public StringProperty plotEquationProperty() {
+		return equation;
+	}
+
+	@Override
+	public DoubleProperty plotMinXProperty() {
+		return minX;
+	}
+
+	@Override
+	public DoubleProperty plotMaxXProperty() {
+		return maxX;
+	}
+
+	@Override
+	public IntegerProperty nbPlottedPointsProperty() {
+		return nbPoints;
+	}
+
+	@Override
+	public ObjectProperty<PlotStyle> plotStyleProperty() {
+		return style;
+	}
+
+	@Override
+	public ObjectProperty<DotStyle> dotStyleProperty() {
+		return dotStyle;
+	}
+
+	@Override
+	public DoubleProperty dotDiametreProperty() {
+		return dotDiametre;
+	}
+
+	@Override
+	public DoubleProperty xScaleProperty() {
+		return xscale;
+	}
+
+	@Override
+	public DoubleProperty yScaleProperty() {
 		return yscale;
 	}
 }

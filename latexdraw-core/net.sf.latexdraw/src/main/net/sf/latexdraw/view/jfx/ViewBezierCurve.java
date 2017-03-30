@@ -39,7 +39,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 		super(sh);
 		ObservableList<PathElement> elts = border.getElements();
 		showPoint = new Group();
-		moveTo = new MoveTo();
+		moveTo =  ViewFactory.INSTANCE.createMoveTo(0d, 0d);
 		moveTo.xProperty().bind(sh.getPtAt(0).xProperty());
 		moveTo.yProperty().bind(sh.getPtAt(0).yProperty());
 		elts.add(moveTo);
@@ -62,7 +62,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	}
 
 	private void addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {
-		CubicCurveTo curveto = new CubicCurveTo();
+		CubicCurveTo curveto = ViewFactory.INSTANCE.createCubicCurveTo(0d, 0d, 0d, 0d, 0d, 0d);
 		curveto.xProperty().bind(pt.xProperty());
 		curveto.yProperty().bind(pt.yProperty());
 		curveto.controlX1Property().bind(ctrl1.xProperty());

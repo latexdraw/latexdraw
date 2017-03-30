@@ -25,6 +25,7 @@ import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
@@ -56,7 +57,7 @@ public final class ViewFactory {
 	 */
 	public <T extends IShape, S extends ViewShape<T>> Optional<S> createView(final @Nullable T shape) {
 		if(shape instanceof IGroup) return Optional.of((S) new ViewGroup((IGroup) shape));
-		// if(shape instanceof IPlot) return new LPlotView((IPlot)shape);
+		if(shape instanceof IPlot) return Optional.of((S) new ViewPlot((IPlot) shape));
 		if(shape instanceof ISquare) return Optional.of((S) new ViewSquare((ISquare) shape));
 		if(shape instanceof IRectangle) return Optional.of((S) new ViewRectangle((IRectangle) shape));
 		if(shape instanceof IText) return Optional.of((S) new ViewTextText((IText) shape));

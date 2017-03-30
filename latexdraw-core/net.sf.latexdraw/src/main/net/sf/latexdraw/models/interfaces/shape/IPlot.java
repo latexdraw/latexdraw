@@ -10,6 +10,11 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
 
 /**
@@ -22,4 +27,24 @@ public interface IPlot extends IPositionShape, IPlotProp {
 	 * @return The corresponding Y coordinate or NaN if a problem occurs.
 	 */
 	double getY(final double x);
+
+	BooleanProperty polarProperty();
+
+	StringProperty plotEquationProperty();
+
+	DoubleProperty plotMinXProperty();
+
+	DoubleProperty plotMaxXProperty();
+
+	IntegerProperty nbPlottedPointsProperty();
+
+	ObjectProperty<PlotStyle> plotStyleProperty();
+
+	ObjectProperty<DotStyle> dotStyleProperty();
+
+	DoubleProperty dotDiametreProperty();
+
+	DoubleProperty xScaleProperty();
+
+	DoubleProperty yScaleProperty();
 }
