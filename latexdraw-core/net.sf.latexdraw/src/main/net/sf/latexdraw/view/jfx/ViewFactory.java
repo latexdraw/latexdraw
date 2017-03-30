@@ -15,6 +15,7 @@ import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
@@ -75,6 +76,26 @@ public final class ViewFactory {
 		if(shape instanceof IPicture) return Optional.of((S) new ViewPicture((IPicture) shape));
 		if(shape instanceof IFreehand) return Optional.of((S) new ViewFreeHand((IFreehand) shape));
 		return Optional.empty();
+	}
+
+	public void flushPathElement(final PathElement elt) {
+		if(elt instanceof LineTo) {
+			final LineTo lineTo = (LineTo) elt;
+			lineTo.xProperty().unbind();
+			lineTo.yProperty().unbind();
+		}else if(elt instanceof MoveTo) {
+			final MoveTo moveTo = (MoveTo) elt;
+			moveTo.xProperty().unbind();
+			moveTo.yProperty().unbind();
+		}else if(elt instanceof CubicCurveTo) {
+			final CubicCurveTo cct = (CubicCurveTo) elt;
+			cct.xProperty().unbind();
+			cct.yProperty().unbind();
+			cct.controlX1Property().unbind();
+			cct.controlX2Property().unbind();
+			cct.controlY1Property().unbind();
+			cct.controlY2Property().unbind();
+		}
 	}
 
 	public LineTo createLineTo(final double x, final double y) {
