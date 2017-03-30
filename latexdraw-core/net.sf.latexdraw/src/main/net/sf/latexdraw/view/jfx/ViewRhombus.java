@@ -31,17 +31,17 @@ public class ViewRhombus extends ViewPathShape<IRhombus> {
 			model.getPtAt(1).yProperty(), model.getPtAt(2).yProperty()));
 		path.getElements().add(lineTo);
 
-		LineTo lineTo2 = ViewFactory.INSTANCE.createLineTo(0d, 0d);
-		lineTo2.xProperty().bind(Bindings.createDoubleBinding(() -> model.getPtAt(0).getX() + model.getWidth() / 2d,
+		lineTo = ViewFactory.INSTANCE.createLineTo(0d, 0d);
+		lineTo.xProperty().bind(Bindings.createDoubleBinding(() -> model.getPtAt(0).getX() + model.getWidth() / 2d,
 			model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
-		lineTo2.yProperty().bind(model.getPtAt(2).yProperty());
-		path.getElements().add(lineTo2);
+		lineTo.yProperty().bind(model.getPtAt(2).yProperty());
+		path.getElements().add(lineTo);
 
-		LineTo lineTo3 = ViewFactory.INSTANCE.createLineTo(0d, 0d);
-		lineTo3.xProperty().bind(model.getPtAt(0).xProperty());
-		lineTo3.yProperty().bind(Bindings.createDoubleBinding(() -> model.getPtAt(0).getY() + model.getHeight() / 2d,
+		lineTo = ViewFactory.INSTANCE.createLineTo(0d, 0d);
+		lineTo.xProperty().bind(model.getPtAt(0).xProperty());
+		lineTo.yProperty().bind(Bindings.createDoubleBinding(() -> model.getPtAt(0).getY() + model.getHeight() / 2d,
 			model.getPtAt(0).yProperty(), model.getPtAt(2).yProperty()));
-		path.getElements().add(lineTo3);
+		path.getElements().add(lineTo);
 
 		path.getElements().add(ViewFactory.INSTANCE.createClosePath());
 	}
