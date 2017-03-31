@@ -25,6 +25,11 @@ public class TemplateManager extends JfxInstrument {
 
 	// protected Drawing drawing;
 
+	TemplateManager() {
+		super();
+	}
+
+
 	// override def setActivated(activated : Boolean) {
 	// super.setActivated(activated)
 	// templateMenu.setEnabled(isActivated)

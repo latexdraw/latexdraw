@@ -61,7 +61,7 @@ public class Helper extends JfxInstrument implements Initializable {
 	 * Creates the instrument.
 	 * @since 3.0
 	 */
-	public Helper() {
+	Helper() {
 		super();
 	}
 

@@ -60,7 +60,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	public TextSetter() {
+	TextSetter() {
 		super();
 		textField = new TextAreaAutoSize();
 	}

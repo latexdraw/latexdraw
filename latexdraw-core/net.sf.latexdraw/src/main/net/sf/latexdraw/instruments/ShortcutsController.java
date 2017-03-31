@@ -35,7 +35,7 @@ public class ShortcutsController implements Initializable {
 	/**
 	 * Creates the controller.
 	 */
-	public ShortcutsController() {
+	ShortcutsController() {
 		super();
 	}
 

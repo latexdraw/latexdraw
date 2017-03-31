@@ -114,7 +114,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	public PreferencesSetter() {
+	PreferencesSetter() {
 		super();
 		recentFilesName = new ArrayList<>();
 	}

@@ -42,7 +42,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapePlotCustomiser() {
+	ShapePlotCustomiser() {
 		super();
 	}
 

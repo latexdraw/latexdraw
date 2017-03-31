@@ -42,7 +42,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapeRotationCustomiser() {
+	ShapeRotationCustomiser() {
 		super();
 	}
 

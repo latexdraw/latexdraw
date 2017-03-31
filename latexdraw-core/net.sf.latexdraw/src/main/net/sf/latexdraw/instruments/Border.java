@@ -55,7 +55,7 @@ public class Border extends CanvasInstrument {
 
 	// protected @Inject MetaShapeCustomiser metaCustomiser;
 
-	public Border() {
+	Border() {
 		super();
 		scaleHandlers = new ArrayList<>();
 		mvPtHandlers = new ArrayList<>();

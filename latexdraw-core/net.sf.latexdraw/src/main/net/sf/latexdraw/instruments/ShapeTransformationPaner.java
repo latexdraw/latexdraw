@@ -23,6 +23,10 @@ public class ShapeTransformationPaner implements Initializable {
 	@FXML TitledPane pane;
 	@FXML VBox layout;
 
+	ShapeTransformationPaner() {
+		super();
+	}
+
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		pane.managedProperty().bind(pane.visibleProperty());

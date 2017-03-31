@@ -49,7 +49,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	public CodeInserter() {
+	CodeInserter() {
 		super();
 	}
 

@@ -57,7 +57,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapeStdGridCustomiser() {
+	ShapeStdGridCustomiser() {
 		super();
 	}
 

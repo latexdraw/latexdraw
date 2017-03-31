@@ -51,7 +51,7 @@ public class Hand extends CanvasInstrument {
 	@Inject protected TextSetter textSetter;
 	@Inject protected Border border;
 
-	public Hand() {
+	Hand() {
 		super();
 	}
 

@@ -98,7 +98,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	public Exporter() {
+	Exporter() {
 		super();
 		defaultPackages = ""; //$NON-NLS-1$
 		reinit();

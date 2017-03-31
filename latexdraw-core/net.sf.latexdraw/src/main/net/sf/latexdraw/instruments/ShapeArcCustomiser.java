@@ -52,7 +52,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initi
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapeArcCustomiser() {
+	ShapeArcCustomiser() {
 		super();
 	}
 

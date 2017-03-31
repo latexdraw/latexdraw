@@ -47,7 +47,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapeDotCustomiser() {
+	ShapeDotCustomiser() {
 		super();
 	}
 

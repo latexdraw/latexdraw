@@ -35,7 +35,7 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapePositioner() {
+	ShapePositioner() {
 		super();
 	}
 

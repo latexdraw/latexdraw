@@ -61,7 +61,7 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	/**
 	 * Creates the instrument.
 	 */
-	public DrawingPropertiesCustomiser() {
+	DrawingPropertiesCustomiser() {
 		super();
 	}
 

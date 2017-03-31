@@ -30,6 +30,10 @@ public class CodePanelController extends CanvasInstrument implements Initializab
 	/** The PSTricks generator. */
 	@Inject LaTeXGenerator pstGenerator;
 
+	CodePanelController() {
+		super();
+	}
+
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		tab.selectedProperty().addListener(evt -> codeArea.setText(pstGenerator.getDrawingCode()));

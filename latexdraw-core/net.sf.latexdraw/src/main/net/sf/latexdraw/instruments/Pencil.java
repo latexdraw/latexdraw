@@ -58,7 +58,7 @@ public class Pencil extends CanvasInstrument {
 	private IGroup groupParams;
 
 
-	public Pencil() {
+	Pencil() {
 		super();
 		currentChoice = EditionChoice.RECT;
 	}

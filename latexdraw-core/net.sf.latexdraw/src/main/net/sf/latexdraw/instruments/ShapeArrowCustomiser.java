@@ -80,7 +80,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapeArrowCustomiser() {
+	ShapeArrowCustomiser() {
 		super();
 	}
 

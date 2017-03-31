@@ -53,7 +53,7 @@ public class TabSelector extends JfxInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	public TabSelector() {
+	TabSelector() {
 		super();
 	}
 

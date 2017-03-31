@@ -44,7 +44,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser implements In
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapeShadowCustomiser() {
+	ShapeShadowCustomiser() {
 		super();
 	}
 

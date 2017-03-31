@@ -43,7 +43,7 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	public UndoRedoManager() {
+	UndoRedoManager() {
 		super();
 		UndoCollector.INSTANCE.addHandler(this);
 	}

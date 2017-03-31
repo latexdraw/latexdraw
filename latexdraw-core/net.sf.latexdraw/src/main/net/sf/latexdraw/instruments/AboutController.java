@@ -37,7 +37,7 @@ public class AboutController implements Initializable {
 	/**
 	 * Creates the controller.
 	 */
-	public AboutController() {
+	AboutController() {
 		super();
 	}
 

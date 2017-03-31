@@ -50,7 +50,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	/**
 	 * Creates the instrument.
 	 */
-	protected ShapePropertyCustomiser() {
+	ShapePropertyCustomiser() {
 		super();
 	}
 

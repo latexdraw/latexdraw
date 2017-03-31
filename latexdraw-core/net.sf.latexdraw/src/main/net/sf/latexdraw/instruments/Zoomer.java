@@ -27,7 +27,7 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	@FXML private Spinner<Double> zoom;
 	@Inject private Canvas canvas;
 
-	public Zoomer() {
+	Zoomer() {
 		super();
 	}
 

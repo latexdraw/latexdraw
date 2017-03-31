@@ -79,7 +79,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser implements Init
 	/**
 	 * Creates the instrument.
 	 */
-	public MetaShapeCustomiser() {
+	MetaShapeCustomiser() {
 		super();
 	}
 

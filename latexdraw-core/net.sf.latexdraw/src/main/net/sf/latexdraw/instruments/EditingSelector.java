@@ -124,7 +124,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	 * Creates the instrument.
 	 * @since 4.0
 	 */
-	public EditingSelector() {
+	EditingSelector() {
 		super();
 		button2EditingChoiceMap = new HashMap<>();
 	}

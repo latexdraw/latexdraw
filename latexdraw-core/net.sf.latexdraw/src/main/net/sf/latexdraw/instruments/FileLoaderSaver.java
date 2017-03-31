@@ -76,7 +76,7 @@ public class FileLoaderSaver extends JfxInstrument {
 	/**
 	 * Creates the file loader/saver.
 	 */
-	public FileLoaderSaver() {
+	FileLoaderSaver() {
 		super();
 	}
 

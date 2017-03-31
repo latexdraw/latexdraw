@@ -44,7 +44,7 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapeDeleter() {
+	ShapeDeleter() {
 		super();
 	}
 

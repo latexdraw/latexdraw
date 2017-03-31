@@ -41,7 +41,7 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser impleme
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapeDoubleBorderCustomiser() {
+	ShapeDoubleBorderCustomiser() {
 		super();
 	}
 
