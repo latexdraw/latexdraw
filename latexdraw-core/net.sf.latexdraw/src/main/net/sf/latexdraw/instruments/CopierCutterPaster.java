@@ -88,16 +88,20 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 			action.setCopy(ActionsRegistry.INSTANCE.getAction(CopyShapes.class, CutShapes.class));
 			action.setDrawing(canvas.getDrawing());
 			action.setGrid(grid);
-			System.out.println(action.canDo());
-		}, interaction -> ActionsRegistry.INSTANCE.getAction(CopyShapes.class, CutShapes.class) != null, Arrays.asList(KeyCode.V, LSystem.INSTANCE.getControlKey()), canvas));
+		}, interaction -> ActionsRegistry.INSTANCE.getAction(CopyShapes.class, CutShapes.class) != null,
+			Arrays.asList(KeyCode.V, LSystem.INSTANCE.getControlKey()), canvas));
 
 		addInteractor(new MenuItem2CopyShapes<>(CopyShapes.class, copyMenu));
 
-		addInteractor(new KeysShortcutInteractor<>(this, CopyShapes.class, action -> action.setSelection(ActionsRegistry.INSTANCE.getAction(SelectShapes.class)), interaction -> isShapeSelected.get(), Arrays.asList(KeyCode.C, LSystem.INSTANCE.getControlKey()), canvas));
+		addInteractor(new KeysShortcutInteractor<>(this, CopyShapes.class,
+			action -> action.setSelection(ActionsRegistry.INSTANCE.getAction(SelectShapes.class)),
+			interaction -> isShapeSelected.get(), Arrays.asList(KeyCode.C, LSystem.INSTANCE.getControlKey()), canvas));
 
 		addInteractor(new MenuItem2CopyShapes<>(CutShapes.class, cutMenu));
 
-		addInteractor(new KeysShortcutInteractor<>(this, CutShapes.class, action -> action.setSelection(ActionsRegistry.INSTANCE.getAction(SelectShapes.class)), interaction -> isShapeSelected.get(), Arrays.asList(KeyCode.X, LSystem.INSTANCE.getControlKey()), canvas));
+		addInteractor(new KeysShortcutInteractor<>(this, CutShapes.class,
+			action -> action.setSelection(ActionsRegistry.INSTANCE.getAction(SelectShapes.class)),
+			interaction -> isShapeSelected.get(), Arrays.asList(KeyCode.X, LSystem.INSTANCE.getControlKey()), canvas));
 	}
 
 	@Override
