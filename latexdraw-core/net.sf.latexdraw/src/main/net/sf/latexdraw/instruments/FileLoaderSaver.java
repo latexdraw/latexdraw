@@ -7,7 +7,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javax.swing.JFileChooser;
 import net.sf.latexdraw.actions.LoadDrawing;
-import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.action.Action;
@@ -97,8 +96,8 @@ public class FileLoaderSaver extends JfxInstrument {
 			if(file!=null) {
 				currentFolder = file.getParentFile();
 				currentFile = file;
-				if(!currentFile.getPath().endsWith(SVGFilter.SVG_EXTENSION))
-					currentFile = new File(currentFile.getPath()+SVGFilter.SVG_EXTENSION);
+				if(!currentFile.getPath().endsWith(".svg"))
+					currentFile = new File(currentFile.getPath()+".svg");
 			}
 
 //			// Updating the recent files on I/O actions.
@@ -228,7 +227,7 @@ public class FileLoaderSaver extends JfxInstrument {
 		if(fileChooser==null) {
 			fileChooser = new JFileChooser();
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			fileChooser.addChoosableFileFilter(new SVGFilter());
+//			fileChooser.addChoosableFileFilter(new SVGFilter());
 			fileChooser.setMultiSelectionEnabled(false);
 		}
 

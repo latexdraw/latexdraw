@@ -10,13 +10,7 @@
  */
 package net.sf.latexdraw.actions;
 
-import javax.swing.filechooser.FileFilter;
-import net.sf.latexdraw.filters.BMPFilter;
-import net.sf.latexdraw.filters.EPSFilter;
-import net.sf.latexdraw.filters.JPGFilter;
-import net.sf.latexdraw.filters.PDFFilter;
-import net.sf.latexdraw.filters.PNGFilter;
-import net.sf.latexdraw.filters.TeXFilter;
+import javafx.stage.FileChooser;
 
 /**
  * The enumeration defines the different formats managed to export drawing.
@@ -28,13 +22,13 @@ public enum ExportFormat {
 	 */
 	TEX {
 		@Override
-		public FileFilter getFilter() {
-			return new TeXFilter();
+		public FileChooser.ExtensionFilter getFilter() {
+			return new FileChooser.ExtensionFilter("TeX", "*."+getFileExtension());
 		}
 
 		@Override
 		public String getFileExtension() {
-			return TeXFilter.TEX_EXTENSION;
+			return ".tex";
 		}
 	},
 	/**
@@ -42,13 +36,13 @@ public enum ExportFormat {
 	 */
 	PDF {
 		@Override
-		public FileFilter getFilter() {
-			return new PDFFilter();
+		public FileChooser.ExtensionFilter getFilter() {
+			return new FileChooser.ExtensionFilter("PDF", "*."+getFileExtension());
 		}
 
 		@Override
 		public String getFileExtension() {
-			return PDFFilter.PDF_EXTENSION;
+			return ".pdf";
 		}
 	},
 	/**
@@ -56,13 +50,13 @@ public enum ExportFormat {
 	 */
 	EPS_LATEX {
 		@Override
-		public FileFilter getFilter() {
-			return new EPSFilter();
+		public FileChooser.ExtensionFilter getFilter() {
+			return new FileChooser.ExtensionFilter("EPS", "*."+getFileExtension());
 		}
 
 		@Override
 		public String getFileExtension() {
-			return EPSFilter.EPS_EXTENSION;
+			return ".eps";
 		}
 	},
 	/**
@@ -70,13 +64,13 @@ public enum ExportFormat {
 	 */
 	PDF_CROP {
 		@Override
-		public FileFilter getFilter() {
-			return new PDFFilter();
+		public FileChooser.ExtensionFilter getFilter() {
+			return new FileChooser.ExtensionFilter("PDF", "*."+getFileExtension());
 		}
 
 		@Override
 		public String getFileExtension() {
-			return PDFFilter.PDF_EXTENSION;
+			return ".pdf";
 		}
 	},
 	/**
@@ -84,13 +78,13 @@ public enum ExportFormat {
 	 */
 	BMP {
 		@Override
-		public FileFilter getFilter() {
-			return new BMPFilter();
+		public FileChooser.ExtensionFilter getFilter() {
+			return new FileChooser.ExtensionFilter("BMP", "*."+getFileExtension());
 		}
 
 		@Override
 		public String getFileExtension() {
-			return BMPFilter.BMP_EXTENSION;
+			return ".bmp";
 		}
 	},
 	/**
@@ -98,13 +92,13 @@ public enum ExportFormat {
 	 */
 	PNG {
 		@Override
-		public FileFilter getFilter() {
-			return new PNGFilter();
+		public FileChooser.ExtensionFilter getFilter() {
+			return new FileChooser.ExtensionFilter("PNG", "*."+getFileExtension());
 		}
 
 		@Override
 		public String getFileExtension() {
-			return PNGFilter.PNG_EXTENSION;
+			return ".png";
 		}
 	},
 	/**
@@ -112,13 +106,13 @@ public enum ExportFormat {
 	 */
 	JPG {
 		@Override
-		public FileFilter getFilter() {
-			return new JPGFilter();
+		public FileChooser.ExtensionFilter getFilter() {
+			return new FileChooser.ExtensionFilter("JPG", "*."+getFileExtension());
 		}
 
 		@Override
 		public String getFileExtension() {
-			return JPGFilter.JPG_EXTENSION;
+			return ".jpg";
 		}
 	};
 
@@ -126,7 +120,7 @@ public enum ExportFormat {
 	 * @return The file filter corresponding to the format.
 	 * @since 3.0
 	 */
-	public abstract FileFilter getFilter();
+	public abstract FileChooser.ExtensionFilter getFilter();
 
 	/**
 	 * @return The extension corresponding to the format.

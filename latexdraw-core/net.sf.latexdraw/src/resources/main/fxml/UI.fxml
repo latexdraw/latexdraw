@@ -21,4 +21,7 @@
             <fx:include source="Help.fxml"/>
         </ToolBar>
     </top>
+    <bottom>
+        <fx:include source="StatusBar.fxml" />
+    </bottom>
 </BorderPane>

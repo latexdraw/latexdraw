@@ -47,6 +47,7 @@ import net.sf.latexdraw.instruments.ShapeStdGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeTextCustomiser;
 import net.sf.latexdraw.instruments.ShapeTransformer;
 import net.sf.latexdraw.instruments.ShortcutsController;
+import net.sf.latexdraw.instruments.StatusBarController;
 import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.instruments.TemplateManager;
 import net.sf.latexdraw.instruments.TextSetter;
@@ -65,6 +66,7 @@ class LatexdrawModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(Canvas.class).asEagerSingleton();
+		bind(StatusBarController.class).asEagerSingleton();
 		bind(PSTCodeGenerator.class).asEagerSingleton();
 		bind(AboutController.class).asEagerSingleton();
 		bind(Border.class).asEagerSingleton();
