@@ -538,6 +538,7 @@ class ButtonPressed2DefineStylePencil extends InteractorImpl<ModifyPencilStyle, 
 	public void initAction() {
 		action.setEditingChoice(instrument.button2EditingChoiceMap.get(interaction.getButton()));
 		action.setPencil(instrument.pencil);
+		action.setStatusBar(instrument.codeInserter.statusBar());
 	}
 
 	@Override

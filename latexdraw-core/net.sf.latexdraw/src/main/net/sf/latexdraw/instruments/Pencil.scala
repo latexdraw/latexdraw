@@ -2,7 +2,7 @@ package net.sf.latexdraw.instruments
 
 import java.awt.Cursor
 import java.awt.event.MouseEvent
-import javax.swing.{JFileChooser, SwingUtilities}
+import javax.swing.{JFileChooser, JLabel, SwingUtilities}
 
 import net.sf.latexdraw.actions.shape.{AddShape, InitTextSetter, InsertPicture}
 import net.sf.latexdraw.badaboom.BadaboomCollector
@@ -37,7 +37,7 @@ import org.malai.swing.widget.MLayeredPane
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPane) extends CanvasInstrument(canvas) {
+class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPane, val statusbar:JLabel) extends CanvasInstrument(canvas) {
 	/** The current editing choice (rectangle, ellipse, etc.) of the instrument. */
 	var _currentChoice = EditionChoice.RECT
 
@@ -66,8 +66,10 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
 	}
 
 	override def setActivated(activated:Boolean) {
-		if(this.activated!=activated)
+		if(this.activated!=activated) {
 			super.setActivated(activated)
+			statusbar.setText(_currentChoice.getExplanations)
+		}
 	}
 
 	override def interimFeedback() {

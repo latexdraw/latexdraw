@@ -185,7 +185,7 @@ public class LFrame extends SwingUI {
 
 		// Initialisation of the status bar.
 		statusBar = new JLabel("");//$NON-NLS-1$
-//		statusBar.setEditable(false);
+		statusBar.setVisible(true);
 
 		/* Creation of the instruments. */
 		instantiateInstruments(canvas, drawing);
@@ -241,7 +241,7 @@ public class LFrame extends SwingUI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { hand 			= new Hand(canvas, textSetter); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { pencil 		= new Pencil(canvas, textSetter, layeredPanel); }
+		try { pencil 		= new Pencil(canvas, textSetter, layeredPanel, statusBar); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try {
 			metaShapeCustomiser = new MetaShapeCustomiser(composer, hand, pencil, canvas.getBorderInstrument());

@@ -8,5 +8,5 @@ Version 3.3.6
 - fixed: the installer cannot be run on some configurations (e.g. Fedora 25 with Wayland).
 - fixed: the shape deletion is not re-activated when clicking the PST tab and the clicking the drawing tab back.
 - fixed: the generated PSTricks may be incorrectly commented preventing the compilation
-
-- improvement: better feedback on compilation errors during exports as PDF/PS documents.
+- fixed (usability): no message was displayed in the status bar to explain how to draw shapes.
+- fixed (usability): better feedback on compilation errors during exports as PDF/PS documents.

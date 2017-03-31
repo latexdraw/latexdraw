@@ -1,5 +1,6 @@
 package net.sf.latexdraw.actions;
 
+import javax.swing.JLabel;
 import net.sf.latexdraw.instruments.EditionChoice;
 import net.sf.latexdraw.instruments.Pencil;
 
@@ -25,10 +26,12 @@ import org.malai.action.Action;
  */
 public class ModifyPencilStyle extends Action {
 	/** The pencil to set. */
-	protected Pencil pencil;
+	private Pencil pencil;
 
 	/** The new editing choice to set. */
-	protected EditionChoice editingChoice;
+	private EditionChoice editingChoice;
+
+	private JLabel statusBar;
 
 
     @Override
@@ -36,12 +39,18 @@ public class ModifyPencilStyle extends Action {
 		super.flush();
 		pencil 			= null;
 		editingChoice 	= null;
+		statusBar 		= null;
 	}
 
 
 	@Override
 	protected void doActionBody() {
 		pencil.setCurrentChoice(editingChoice);
+
+		if(statusBar != null) {
+			statusBar.setText(editingChoice.getExplanations());
+			statusBar.setVisible(true);
+		}
 	}
 
 
@@ -76,5 +85,13 @@ public class ModifyPencilStyle extends Action {
 	 */
 	public void setEditingChoice(final EditionChoice editingChoice) {
 		this.editingChoice = editingChoice;
+	}
+
+	/**
+	 * Sets the status bar.
+	 * @param bar The JLabel used as the status bar. Can be null.
+	 */
+	public void setStatusBar(final JLabel bar) {
+		statusBar = bar;
 	}
 }
