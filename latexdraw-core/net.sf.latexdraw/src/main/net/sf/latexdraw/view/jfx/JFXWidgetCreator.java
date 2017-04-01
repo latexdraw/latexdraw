@@ -49,7 +49,6 @@ public interface JFXWidgetCreator {
 				protected void updateItem(T item, boolean empty) {
 					super.updateItem(item, empty);
 					if(item != null && !empty) {
-						if(cache.get(item) == null) System.out.println(item);
 						setGraphic(new ImageView(cache.get(item)));
 					}
 				}
