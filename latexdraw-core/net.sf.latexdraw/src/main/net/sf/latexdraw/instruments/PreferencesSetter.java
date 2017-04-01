@@ -133,6 +133,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 			File file = getFileChooser().showDialog(null);
 			if(file != null) {
 				pathExportField.setText(file.getPath());
+				exporter.setPathExport(file.getPath());
 			}
 		});
 	}
