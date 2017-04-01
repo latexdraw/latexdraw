@@ -49,6 +49,7 @@ public class TabSelector extends JfxInstrument implements Initializable {
 	@Inject private TextSetter textSetter;
 	@Inject private MetaShapeCustomiser meta;
 	@Inject private Canvas canvas;
+	@Inject private PreferencesSetter prefSetter;
 
 	/**
 	 * Creates the instrument.
@@ -118,6 +119,7 @@ public class TabSelector extends JfxInstrument implements Initializable {
 				action.addInstrumentToActivate(paster);
 				action.addInstrumentToActivate(undo);
 				action.addInstrumentToActivate(zoomer);
+				action.addInstrumentToInactivate(prefSetter);
 				if(canvas.getDrawing().getSelection().getShapes().isEmpty()) {
 					action.addInstrumentToInactivate(deleter);
 				}else {
@@ -131,6 +133,11 @@ public class TabSelector extends JfxInstrument implements Initializable {
 				action.addInstrumentToInactivate(zoomer);
 				// The deleter must be added to use the hideWidgets parameter of the
 				action.addInstrumentToInactivate(deleter);
+				if(tabPane.getSelectionModel().getSelectedIndex() == 1) {
+					action.addInstrumentToInactivate(prefSetter);
+				}else {
+					action.addInstrumentToActivate(prefSetter);
+				}
 			}
 		}, tabPane));
 	}

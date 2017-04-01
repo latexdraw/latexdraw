@@ -2,6 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
 import java.io.File;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -42,10 +43,7 @@ public class FileLoaderSaver extends JfxInstrument {
 	/** The menu used to create a new document. */
 	@FXML protected MenuItem newMenu;
 
-	/**
-	 * The menu that contains the menu item corresponding to the recent
-	 * documents.
-	 */
+	/** The menu that contains the menu item corresponding to the recent documents. */
 	@FXML protected Menu recentFilesMenu;
 
 	/** The path where documents are saved. */
@@ -194,12 +192,12 @@ public class FileLoaderSaver extends JfxInstrument {
 			this.currentFile = currentFile;
 	}
 
-	// /**
-	// * Updates the recent menu items.
-	// * @param recentDocs The list of recent documents.
-	// * @since 3.0
-	// */
-	// public void updateRecentMenuItems(final List<String> recentDocs) {
+	 /**
+	 * Updates the recent menu items.
+	 * @param recentDocs The list of recent documents.
+	 * @since 3.0
+	 */
+	 public void updateRecentMenuItems(final List<String> recentDocs) {
 	// recentFilesMenu.removeAll();
 	//
 	// if(recentDocs!=null && !recentDocs.isEmpty()) {
@@ -214,7 +212,7 @@ public class FileLoaderSaver extends JfxInstrument {
 	// }
 	//
 	// recentFilesMenu.setEnabled(recentFilesMenu.getMenuComponentCount()>0);
-	// }
+	 }
 
 	/**
 	 * @param save

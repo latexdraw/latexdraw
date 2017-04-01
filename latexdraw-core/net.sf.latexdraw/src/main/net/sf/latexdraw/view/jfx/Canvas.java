@@ -146,7 +146,6 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 		shapesPane.setFocusTraversable(true);
 		shapesPane.addEventHandler(MouseEvent.ANY, evt -> shapesPane.requestFocus());
-		magneticGrid.update();
 	}
 
 

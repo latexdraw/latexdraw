@@ -16,10 +16,10 @@
     <TextArea fx:id="latexIncludes" layoutX="14.0" layoutY="121.0" prefHeight="164.0" prefWidth="367.0"/>
     <Label layoutX="14.0" layoutY="297.0" text="%PreferencesFrame.defOpenSave"/>
     <TextField fx:id="pathOpenField" layoutX="14.0" layoutY="319.0" prefHeight="25.0" prefWidth="303.0"/>
-    <Button fx:id="buttonOpen" layoutX="320.0" layoutY="319.0" mnemonicParsing="false" text="Button"/>
+    <Button fx:id="buttonOpen" layoutX="320.0" layoutY="319.0" mnemonicParsing="false" text="%PreferencesFrame.selectFolder"/>
     <Label layoutX="14.0" layoutY="352.0" text="%PreferencesFrame.defFold"/>
     <TextField fx:id="pathExportField" layoutX="14.0" layoutY="374.0" prefHeight="25.0" prefWidth="303.0"/>
-    <Button fx:id="buttonExport" layoutX="320.0" layoutY="374.0" mnemonicParsing="false" text="Button"/>
+    <Button fx:id="buttonExport" layoutX="320.0" layoutY="374.0" mnemonicParsing="false" text="%PreferencesFrame.selectFolder"/>
     <Label layoutX="14.0" layoutY="409.0" text="%MenuBuilder.1"/>
     <ComboBox fx:id="unitChoice" layoutX="84.0" layoutY="404.0" prefHeight="25.0" prefWidth="140.0"/>
     <ComboBox fx:id="styleList" editable="false" layoutX="126.0" layoutY="438.0" prefHeight="25.0" prefWidth="120.0"/>
@@ -38,5 +38,4 @@
         </tooltip>
     </Spinner>
     <CheckBox fx:id="openGL" layoutX="14.0" layoutY="500.0" mnemonicParsing="false" text="OpenGL"/>
-    <Button fx:id="saveB" layoutX="171.0" layoutY="544.0" mnemonicParsing="false" text="Save"/>
 </AnchorPane>

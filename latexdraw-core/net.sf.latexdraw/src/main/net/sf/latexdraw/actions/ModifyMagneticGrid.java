@@ -56,12 +56,14 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 		switch(property) {
 			case GRID_SPACING:
 				grid.setGridSpacing((Integer)object);
+				grid.update();
 				break;
 			case MAGNETIC:
 				grid.setMagnetic((Boolean)object);
 				break;
 			case STYLE:
 				grid.setGridStyle((GridStyle)object);
+				grid.update();
 				break;
 		}
 	}
