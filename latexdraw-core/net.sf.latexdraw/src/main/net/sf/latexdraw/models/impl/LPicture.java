@@ -16,8 +16,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import net.sf.latexdraw.actions.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.filters.EPSFilter;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -81,7 +81,7 @@ class LPicture extends LPositionShape implements IPicture {
 		if(pathSource == null || image == null) return;
 
 		final int indexName = pathSource.lastIndexOf(File.separator) + 1;
-		final String name = pathSource.substring(indexName, pathSource.lastIndexOf('.')) + EPSFilter.EPS_EXTENSION;
+		final String name = pathSource.substring(indexName, pathSource.lastIndexOf('.')) + ExportFormat.EPS_LATEX.getFileExtension();
 		final String dirPath = pathSource.substring(0, indexName);
 		pathTarget = dirPath + name;
 		File file = new File(pathTarget);

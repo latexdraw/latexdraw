@@ -19,10 +19,8 @@ import java.io.OutputStreamWriter;
 import java.util.Optional;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import net.sf.latexdraw.actions.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.filters.EPSFilter;
-import net.sf.latexdraw.filters.PDFFilter;
-import net.sf.latexdraw.filters.TeXFilter;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LFileUtils;
@@ -372,7 +370,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final File finalFile = new File(pathExportEPS);
-		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", EPSFilter.EPS_EXTENSION)); //$NON-NLS-1$
+		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", ExportFormat.EPS_LATEX.getFileExtension())); //$NON-NLS-1$
 		final String[] paramsLatex = {os.getPS2EPSBinPath(), psFile.getAbsolutePath(), fileEPS.getAbsolutePath()};
 		final String log = LSystem.INSTANCE.execute(paramsLatex, tmpDir);
 
@@ -414,7 +412,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final String path = tmpDir2.getAbsolutePath() + LResources.FILE_SEP;
-		Optional<File> optFile = createLatexFile(path + name + TeXFilter.TEX_EXTENSION);
+		Optional<File> optFile = createLatexFile(path + name + ExportFormat.TEX.getFileExtension());
 		File texFile;
 
 		if(optFile.isPresent()) {
@@ -480,7 +478,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return Optional.empty();
 		}
 
-		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP) + 1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
+		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
 		final File psFile;
 		Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + ".ps");//$NON-NLS-1$
 
@@ -500,10 +498,10 @@ public abstract class LaTeXGenerator implements Modifiable {
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
 		final String optionEmbed = "-dEmbedAllFonts" + (LSystem.INSTANCE.isWindows() ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-		log = LSystem.INSTANCE.execute(new String[]{os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), crop ? name + PDFFilter.PDF_EXTENSION : pathExportPdf}, tmpDir);
+		log = LSystem.INSTANCE.execute(new String[]{os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), crop ? name + ExportFormat.PDF.getFileExtension() : pathExportPdf}, tmpDir);
 
 		if(crop) {
-			pdfFile = new File(tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PDFFilter.PDF_EXTENSION);
+			pdfFile = new File(tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + ExportFormat.PDF.getFileExtension());
 			log = LSystem.INSTANCE.execute(new String[]{os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir);
 			// JAVA7: test pdfFile.toPath().move(pathExportPdf)
 			// the renameto method is weak and fails sometimes.
