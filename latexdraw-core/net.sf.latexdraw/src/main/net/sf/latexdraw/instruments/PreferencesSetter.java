@@ -70,7 +70,7 @@ import org.w3c.dom.NodeList;
  */
 public class PreferencesSetter extends JfxInstrument implements Initializable {
 	/** The recent files. */
-	private final List<String> recentFilesName;
+	private final List<String> recentFileNames;
 	/** Sets if the grid is magnetic. */
 	@FXML private CheckBox magneticCB;
 	/** Allows the set if the program must check new version on start up. */
@@ -105,7 +105,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	 */
 	PreferencesSetter() {
 		super();
-		recentFilesName = new ArrayList<>();
+		recentFileNames = new ArrayList<>();
 	}
 
 	@Override
@@ -143,18 +143,22 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	 * @param absolutePath The absolute path of the file to add.
 	 */
 	public void addRecentFile(final String absolutePath) {
-		final int i = recentFilesName.indexOf(absolutePath);
+		final int i = recentFileNames.indexOf(absolutePath);
 		final int max = (int) Double.parseDouble(nbRecentFilesField.getValue().toString());
 
 		if(i != -1) {
-			recentFilesName.remove(i);
+			recentFileNames.remove(i);
 		}
 
-		while(recentFilesName.size() >= max) {
-			recentFilesName.remove(max - 1);
+		while(recentFileNames.size() >= max) {
+			recentFileNames.remove(max - 1);
 		}
 
-		recentFilesName.add(0, absolutePath);
+		recentFileNames.add(0, absolutePath);
+	}
+
+	public List<String> getRecentFileNames() {
+		return recentFileNames;
 	}
 
 	@Override
@@ -232,7 +236,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		if(node != null) {
 			final NodeList nl2 = node.getChildNodes();
 			final NamedNodeMap nnm = node.getAttributes();
-			recentFilesName.clear();
+			recentFileNames.clear();
 
 			if(nnm != null && nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES) != null) {
 				final Node attr = nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES);
@@ -246,7 +250,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				n2 = nl2.item(j);
 
 				if(n2.getNodeName().equals(LNamespace.XML_RECENT_FILE) && n2.getTextContent() != null) {
-					recentFilesName.add(n2.getTextContent());
+					recentFileNames.add(n2.getTextContent());
 				}
 			}
 		}
@@ -313,7 +317,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		exporter.setPathExport(pathExportField.getText());
 
 		saver.setPathSave(pathOpenField.getText());
-		saver.updateRecentMenuItems(recentFilesName);
+		saver.updateRecentMenuItems(recentFileNames);
 
 		ScaleRuler.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()));
 	}
@@ -388,7 +392,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				elt.setAttribute(LNamespace.XML_NB_RECENT_FILES, nbRecentFilesField.getValue().toString());
 				root.appendChild(elt);
 
-				for(final String recentFile : recentFilesName) {
+				for(final String recentFile : recentFileNames) {
 					elt2 = document.createElement(LNamespace.XML_RECENT_FILE);
 					elt2.setTextContent(recentFile);
 					elt.appendChild(elt2);

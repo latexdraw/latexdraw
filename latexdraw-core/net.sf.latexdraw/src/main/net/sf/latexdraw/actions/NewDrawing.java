@@ -11,61 +11,71 @@
 package net.sf.latexdraw.actions;
 
 import java.io.File;
-import javax.swing.JFileChooser;
+import java.util.concurrent.ExecutionException;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
-import org.malai.action.ActionImpl;
+import org.malai.action.ActionsRegistry;
+import org.malai.javafx.action.library.IOAction;
+import org.malai.undo.UndoCollector;
 
 /**
  * This action permits to create a new drawing and initialises the application as required.
  */
-public class NewDrawing extends ActionImpl implements Modifying {// IOAction<LFrame, JLabel>
+public class NewDrawing extends IOAction<Label> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
-	protected JFileChooser fileChooser;
+	private FileChooser fileChooser;
 
 	/** The instrument used that manage the preferences. */
-	protected PreferencesSetter prefSetter;
+	private PreferencesSetter prefSetter;
 
-	File currentFolder;
+	private File currentFolder;
 
 
 	@Override
 	protected void doActionBody() {
-//		if(ui.isModified())
-//			switch(SaveDrawing.showAskModificationsDialog(ui)) {
-//				case JOptionPane.NO_OPTION: //new
-//					newDrawing();
-//					break;
-//				case JOptionPane.YES_OPTION: // save + load
-//					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file, currentFolder);
-//					if(f!=null) {
-//						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
-//						ui.setModified(false);
-//						newDrawing();
-//					}
-//					break;
-//				case JOptionPane.CANCEL_OPTION: // nothing
-//					break;
-//				default:
-//					break;
-//			}
-//		else newDrawing();
+		if(ui.isModified()) {
+			final ButtonType type = SaveDrawing.showAskModificationsDialog();
+
+			if(type == ButtonType.NO) {
+				newDrawing();
+			}else {
+				if(type == ButtonType.YES) {
+					SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui).ifPresent(f -> {
+						try {
+							openSaveManager.save(f.getPath(), progressBar, statusWidget).get();
+						}catch(InterruptedException | ExecutionException ex) {
+							BadaboomCollector.INSTANCE.add(ex);
+						}
+						ui.setModified(false);
+						newDrawing();
+					});
+				}
+			}
+		}else {
+			newDrawing();
+		}
 	}
 
 
 	protected void newDrawing() {
-//		ui.reinit();
-//		UndoCollector.INSTANCE.clear();
-//		ActionsRegistry.INSTANCE.clear();
-//		FlyweightThumbnail.clear();
-//		try{ prefSetter.readXMLPreferences(); }
-//		catch(final Exception exception){ BadaboomCollector.INSTANCE.add(exception); }
+		ui.reinit();
+		UndoCollector.INSTANCE.clear();
+		ActionsRegistry.INSTANCE.clear();
+		//		FlyweightThumbnail.clear();//FIXME flyweight thumbnail
+		try {
+			prefSetter.readXMLPreferences();
+		}catch(final Exception exc) {
+			BadaboomCollector.INSTANCE.add(exc);
+		}
 	}
 
 
 	@Override
 	public boolean canDo() {
-//		return fileChooser!=null && ui!=null && openSaveManager!=null && prefSetter!=null;
-		return false;
+		return fileChooser != null && ui != null && openSaveManager != null && prefSetter != null;
 	}
 
 
@@ -75,19 +85,15 @@ public class NewDrawing extends ActionImpl implements Modifying {// IOAction<LFr
 		fileChooser = null;
 	}
 
-
 	/**
 	 * @param chooser The file chooser that will be used to select the location to save.
-	 * @since 3.0
 	 */
-	public void setFileChooser(final JFileChooser chooser) {
+	public void setFileChooser(final FileChooser chooser) {
 		fileChooser = chooser;
 	}
 
-
 	/**
 	 * @param setter The instrument used that manage the preferences.
-	 * @since 3.0
 	 */
 	public void setPrefSetter(final PreferencesSetter setter) {
 		prefSetter = setter;
@@ -95,11 +101,5 @@ public class NewDrawing extends ActionImpl implements Modifying {// IOAction<LFr
 
 	public void setCurrentFolder(final File currFolder) {
 		currentFolder = currFolder;
-	}
-
-	//FIXME to remove
-	@Override
-	public boolean isRegisterable() {
-		return false;
 	}
 }

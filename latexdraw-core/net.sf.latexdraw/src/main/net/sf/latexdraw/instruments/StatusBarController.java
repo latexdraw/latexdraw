@@ -10,16 +10,20 @@
  */
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 
 /**
  * The controller for the status bar.
  * @author Arnaud Blouin
  */
-public class StatusBarController {
-	@FXML
-	private Label statusBar;
+public class StatusBarController implements Initializable {
+	@FXML private Label statusBar;
+	@FXML private ProgressBar progressBar;
 
 	/**
 	 * Creates the controller.
@@ -33,5 +37,17 @@ public class StatusBarController {
 	 */
 	public Label getStatusBar() {
 		return statusBar;
+	}
+
+	/**
+	 * @return The progress bar of the app.
+	 */
+	public ProgressBar getProgressBar() {
+		return progressBar;
+	}
+
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		progressBar.managedProperty().bind(progressBar.visibleProperty());
 	}
 }

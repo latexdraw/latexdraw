@@ -10,11 +10,13 @@
  */
 package net.sf.latexdraw;
 
+import com.google.common.collect.Sets;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import javafx.animation.FadeTransition;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
@@ -29,27 +31,35 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.instruments.TabSelector;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.LPath;
+import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.ActionsRegistry;
+import org.malai.javafx.instrument.JfxInstrument;
+import org.malai.javafx.ui.JfxUI;
+import org.malai.properties.Modifiable;
+import org.malai.properties.Reinitialisable;
 import org.malai.undo.UndoCollector;
 
 /**
  * The main class of the project.
  */
-public class LaTeXDraw extends Application {
-	private static Injector injector;
+public class LaTeXDraw extends JfxUI {
+	public static final String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
 
-	// Setting the size of the the saved actions.
+	private static LaTeXDraw INSTANCE;
+
 	static {
 		System.setProperty("sun.java2d.opengl", "true");
-
 		Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE);
 		UndoCollector.INSTANCE.setSizeMax(30);
 		ActionsRegistry.INSTANCE.setSizeMax(30);
@@ -71,17 +81,33 @@ public class LaTeXDraw extends Application {
 		launch(args);
 	}
 
-	/**
-	 * @return The dependencies injector of the application.
-	 */
-	public static Injector getInjector() {
-		return injector;
+	public static LaTeXDraw getINSTANCE() {
+		return INSTANCE;
 	}
-
 
 	private Pane splashLayout;
 	private Stage mainStage;
 	private ProgressBar loadProgress;
+	private final Callback<Class<?>, Object> instanceCallBack;
+	private final Injector injector;
+	private final Set<JfxInstrument> instruments;
+
+
+	public LaTeXDraw() {
+		super();
+		INSTANCE = this;
+		instruments = new HashSet<>();
+		injector = Guice.createInjector(com.google.inject.Stage.PRODUCTION, new LatexdrawModule());
+		// This callback gathers all the JFX instruments.
+		instanceCallBack = cl -> {
+			final Object instance = injector.getInstance(cl);
+			if(instance instanceof JfxInstrument) {
+				instruments.add((JfxInstrument) instance);
+			}
+			return instance;
+		};
+	}
+
 
 	@Override
 	public void init() {
@@ -116,6 +142,7 @@ public class LaTeXDraw extends Application {
 		final Scene splashScene = new Scene(splashLayout);
 		initStage.initStyle(StageStyle.UNDECORATED);
 		initStage.setScene(splashScene);
+		initStage.getIcons().add(new Image(LResources.LATEXDRAW_ICON_PATH));
 		initStage.centerOnScreen();
 		initStage.toFront();
 		initStage.show();
@@ -128,28 +155,34 @@ public class LaTeXDraw extends Application {
 			protected Void call() throws InterruptedException {
 				updateProgress(0.1, 1.0);
 				try {
-					injector = Guice.createInjector(new LatexdrawModule());
+					Platform.runLater(() -> {
+						mainStage = new Stage(StageStyle.DECORATED);
+						mainStage.setIconified(true);
+						mainStage.setTitle(LABEL_APP);
+					});
+
 					final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), LangTool.INSTANCE.getBundle(),
-											new LatexdrawBuilderFactory(injector), injector::getInstance);
+						new LatexdrawBuilderFactory(injector), instanceCallBack);
 					updateProgress(0.6, 1.0);
 					final Scene scene = new Scene(root);
 					updateProgress(0.7, 1.0);
 					scene.getStylesheets().add("css/style.css");
 					updateProgress(0.8, 1.0);
+
 					Platform.runLater(() -> {
-						mainStage = new Stage(StageStyle.DECORATED);
-						mainStage.setIconified(true);
-						mainStage.setTitle("LaTeXDraw");
 						mainStage.setScene(scene);
 						updateProgress(0.9, 1.0);
 						mainStage.show();
 						final PreferencesSetter prefSetter = injector.getInstance(PreferencesSetter.class);
 						prefSetter.readXMLPreferences();
-						mainStage.setOnCloseRequest(we -> prefSetter.writeXMLPreferences());
+						// Preventing the stage to close automatically.
+						mainStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, we -> we.consume());
+						mainStage.getIcons().add(new Image(LResources.LATEXDRAW_ICON_PATH));
 						mainStage.centerOnScreen();
 						injector.getInstance(MagneticGrid.class).update();
 						injector.getInstance(TabSelector.class).centreViewport();
 						injector.getInstance(Canvas.class).requestFocus();
+						setModified(false);
 					});
 				}catch(final IOException ex) {
 					ex.printStackTrace();
@@ -162,14 +195,6 @@ public class LaTeXDraw extends Application {
 		showSplash(stage, task);
 		new Thread(task).start();
 
-		// frame.getPrefSetters.readXMLPreferences
-		//
-		// // Showing the user interface.
-		// MappingRegistry.REGISTRY.initMappings
-		// frame.setModified(false)
-		// frame.getCanvas.requestFocusInWindow
-		// frame.getCanvas.centreViewport
-		//
 		// if(cmdLine.getFilename!=null) {
 		// val action = new LoadDrawing()
 		//		val file = new File(cmdLine.getFilename)
@@ -190,12 +215,40 @@ public class LaTeXDraw extends Application {
 		// new VersionChecker(frame.getComposer).run
 	}
 
-	// FIXME clean strings(?): LaTeXDrawFrame.38, LaTeXDrawFrame.39
-	// LaTeXDrawFrame.90 FileLoaderSaver.4 LaTeXDrawFrame.200 LaTeXDrawFrame.188
-	// ShapeBord.1, AbstractParametersFrame.3, AbstractParametersFrame.0b,
-	// PropBuilder.13, PropBuilder.11 LaTeXDrawFrame.48
-	// ParametersAkinPointsFrame.2 PreferencesFrame.quality Pref.1
-	// PreferencesFrame.antiAl PreferencesFrame.rendQ PreferencesFrame.colRendQ
-	// PreferencesFrame.AlphaQ
-	// PreferencesFrame.1 LaTeXDrawFrame.137 LaTeXDrawFrame.138
+	/**
+	 * @return The callback that creates controller instances.
+	 */
+	public Callback<Class<?>, Object> getInstanceCallBack() {
+		return instanceCallBack;
+	}
+
+	@Override
+	public Set<JfxInstrument> getInstruments() {
+		return instruments;
+	}
+
+	@Override
+	protected <T extends Modifiable & Reinitialisable> Set<T> getAdditionalComponents() {
+		return Sets.newHashSet((T) injector.getInstance(Canvas.class), (T) injector.getInstance(IDrawing.class));
+	}
+
+	@Override
+	public void reinit() {
+		super.reinit();
+		mainStage.setTitle(LABEL_APP);
+	}
+
+	/**
+	 * @return The instance injector of the app.
+	 */
+	public Injector getInjector() {
+		return injector;
+	}
+
+	/**
+	 * @return The main stage of the app.
+	 */
+	public Stage getMainStage() {
+		return mainStage;
+	}
 }

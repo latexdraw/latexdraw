@@ -11,86 +11,80 @@
 package net.sf.latexdraw.actions;
 
 import java.io.File;
-import javax.swing.JFileChooser;
-import org.malai.action.ActionImpl;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
+import net.sf.latexdraw.LaTeXDraw;
+import org.malai.javafx.action.library.Load;
 
 /**
  * This action loads an SVG document into the app.
  */
-public class LoadDrawing extends ActionImpl implements Modifying { //  extends Load<LFrame, JLabel>
+public class LoadDrawing extends Load<Label> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
-	protected JFileChooser fileChooser;
-	File currentFolder;
+	private FileChooser fileChooser;
+	private File currentFolder;
+
 
 	@Override
 	protected void doActionBody() {
-//		if(ui.isModified())
-//			switch(SaveDrawing.showAskModificationsDialog(ui)) {
-//				case JOptionPane.NO_OPTION: //load
-//					load();
-//					break;
-//				case JOptionPane.YES_OPTION: // save + load
-//					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file, currentFolder);
-//					if(f!=null) {
-//						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
-//						ui.setModified(false);
-//						load();
-//					}
-//					break;
-//				case JOptionPane.CANCEL_OPTION: // nothing
-//					break;
-//				default:
-//					break;
-//			}
-//		else load();
-//		done();
+		if(ui.isModified()) {
+			final ButtonType type = SaveDrawing.showAskModificationsDialog();
+
+			if(type == ButtonType.NO) {
+				load();
+			}else {
+				if(type == ButtonType.YES) {
+					SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui).ifPresent(f -> {
+						openSaveManager.save(f.getPath(), progressBar, statusWidget);
+						ui.setModified(false);
+						load();
+					});
+				}
+			}
+		}else {
+			load();
+		}
+		done();
 	}
 
 
 	@Override
 	public void flush() {
-		super.flush();
 		fileChooser = null;
+		super.flush();
 	}
 
 	@Override
 	public boolean canDo() {
-//		return ui!=null && openSaveManager!=null && fileChooser!=null;
-		return false;
+		return ui != null && openSaveManager != null && fileChooser != null;
 	}
 
 
 	protected void load() {
-//		if(file==null) {
-//			fileChooser.setCurrentDirectory(currentFolder);
-//			file = fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
-//		}
-//		else
-//			fileChooser.setSelectedFile(file);
-//
-//		if(file!=null && file.canRead())
-//			super.doActionBody();
-//		else
-//			ok = false;
-	}
+		if(file == null) {
+			fileChooser.setInitialDirectory(currentFolder);
+			file = fileChooser.showOpenDialog(LaTeXDraw.getINSTANCE().getMainStage());
+		}else {
+			fileChooser.setInitialDirectory(file.getParentFile());
+			fileChooser.setInitialFileName(file.getName());
+		}
 
+		if(file != null && file.canRead()) {
+			super.doActionBody();
+		}else {
+			ok = false;
+		}
+	}
 
 	/**
 	 * @param chooser The file chooser that will be used to select the location to save.
-	 * @since 3.0
 	 */
-	public void setFileChooser(final JFileChooser chooser) {
+	public void setFileChooser(final FileChooser chooser) {
 		this.fileChooser = chooser;
 	}
 
 	public void setCurrentFolder(final File currFolder) {
 		currentFolder = currFolder;
 	}
-
-	//FIXME to remove
-	@Override
-	public boolean isRegisterable() {
-		return false;
-	}
 }
-

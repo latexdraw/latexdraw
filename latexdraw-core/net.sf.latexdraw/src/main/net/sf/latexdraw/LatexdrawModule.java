@@ -62,7 +62,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 
-class LatexdrawModule extends AbstractModule {
+public class LatexdrawModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(Canvas.class).asEagerSingleton();

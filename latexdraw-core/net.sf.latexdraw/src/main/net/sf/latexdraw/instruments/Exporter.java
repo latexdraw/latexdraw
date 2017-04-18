@@ -177,8 +177,9 @@ public class Exporter extends JfxInstrument implements Initializable {
 		fileChooserExport.getExtensionFilters().addAll(format.getFilter());
 
 		if(pathExport == null || !new File(pathExport).isDirectory()) {
-			if(loader.currentFile != null && loader.currentFile.isDirectory()) {
-				fileChooserExport.setInitialDirectory(new File(loader.currentFile.getPath()).getParentFile());
+			final File currentFile = loader.getCurrentFile();
+			if(currentFile != null && currentFile.isDirectory()) {
+				fileChooserExport.setInitialDirectory(new File(currentFile.getPath()).getParentFile());
 			}
 		}else {
 			fileChooserExport.setInitialDirectory(new File(pathExport));

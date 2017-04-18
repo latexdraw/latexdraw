@@ -64,7 +64,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 		if(codeInserterDialogue == null) {
 			try {
 				Parent root = FXMLLoader.load(getClass().getResource("/fxml/InsertCode.fxml"), LangTool.INSTANCE.getBundle(),
-					new JavaFXBuilderFactory(), LaTeXDraw.getInjector()::getInstance);
+					new JavaFXBuilderFactory(), LaTeXDraw.getINSTANCE().getInstanceCallBack());
 				final Scene scene = new Scene(root);
 				codeInserterDialogue = new Stage(StageStyle.UTILITY);
 				codeInserterDialogue.setTitle(LangTool.INSTANCE.getBundle().getString("InsertPSTricksCodeFrame.0"));

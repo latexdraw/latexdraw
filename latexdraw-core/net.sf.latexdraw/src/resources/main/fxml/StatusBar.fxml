@@ -1,3 +1,8 @@
 <?import javafx.scene.control.Label?>
-<Label xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:id="statusBar"
-       fx:controller="net.sf.latexdraw.instruments.StatusBarController"/>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ProgressBar?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+      fx:controller="net.sf.latexdraw.instruments.StatusBarController">
+    <ProgressBar fx:id="progressBar" visible="false"/>
+    <Label fx:id="statusBar"/>
+</HBox>

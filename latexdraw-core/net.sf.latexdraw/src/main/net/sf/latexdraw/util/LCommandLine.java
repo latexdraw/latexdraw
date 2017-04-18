@@ -1,6 +1,7 @@
 package net.sf.latexdraw.util;
 
 import java.io.File;
+import net.sf.latexdraw.LaTeXDraw;
 
 /**
  * Defines a command line parser for latexdraw.
@@ -94,7 +95,7 @@ public class LCommandLine {
 	 * @since 2.0.3
 	 */
 	public void displayHelp() {
-		System.out.println(LResources.LABEL_APP + ' ' + VersionChecker.VERSION + VersionChecker.VERSION_STABILITY);
+		System.out.println(LaTeXDraw.LABEL_APP + ' ' + VersionChecker.VERSION + VersionChecker.VERSION_STABILITY);
 		System.out.println("Options:"); //$NON-NLS-1$
 		System.out.println("\t"+OPTION_HELP+"\t\t\t\tDisplay the different options"); //$NON-NLS-1$ //$NON-NLS-2$
 		System.out.println("\t<filename>\t\t\tOpens the given file <filename> into latexdraw."); //$NON-NLS-1$
