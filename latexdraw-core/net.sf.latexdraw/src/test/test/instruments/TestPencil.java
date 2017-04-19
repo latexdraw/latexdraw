@@ -1,10 +1,8 @@
 package test.instruments;
 
-import static org.junit.Assert.assertTrue;
-
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-
+import javax.swing.JLabel;
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
@@ -24,14 +22,14 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.instruments.EditionChoice;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.TextSetter;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.malai.instrument.Interactor;
 import org.malai.swing.instrument.library.WidgetZoomer;
 import org.malai.swing.widget.MLayeredPane;
-
 import test.HelperTest;
+
+import static org.junit.Assert.assertTrue;
 
 public class TestPencil extends TestInstrument<Pencil> {
 	protected LCanvas canvas;
@@ -45,7 +43,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 		canvas 		= new LCanvas(drawing);
 		LMagneticGrid grid = new LMagneticGrid(canvas);
 		WidgetZoomer zoomer = new WidgetZoomer(canvas, true, true, null, "", null, "", true); //$NON-NLS-1$ //$NON-NLS-2$
-		instrument 	= new Pencil(canvas, new TextSetter(layers), layers);
+		instrument 	= new Pencil(canvas, new TextSetter(layers), layers, new JLabel());
 		instrument.addEventable(canvas);
 	}
 
