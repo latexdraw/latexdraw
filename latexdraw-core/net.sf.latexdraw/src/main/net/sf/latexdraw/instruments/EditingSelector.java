@@ -28,11 +28,9 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.Action;
 import org.malai.javafx.action.library.ActivateInactivateInstruments;
-import org.malai.javafx.instrument.JFxAnonInteractor;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.ButtonInteractor;
 import org.malai.javafx.instrument.library.ToggleButtonInteractor;
-import org.malai.javafx.interaction.library.ButtonPressed;
 
 /**
  * This instrument selects the pencil or the hand.
@@ -166,8 +164,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		addInteractor(new ButtonPressed2AddText(this));
 		addInteractor(new ButtonPressed2DefineStylePencil(this));
 		addInteractor(new ButtonPressed2ActivateIns(this, nodes));
-		addInteractor(new JFxAnonInteractor<>(this, false, ActivateInactivateInstruments.class, ButtonPressed.class,
-												action -> action.addInstrumentToActivate(codeInserter), codeB));
+		addButtonInteractor(ActivateInactivateInstruments.class, action -> action.addInstrumentToActivate(codeInserter), codeB);
 	}
 
 	@Override

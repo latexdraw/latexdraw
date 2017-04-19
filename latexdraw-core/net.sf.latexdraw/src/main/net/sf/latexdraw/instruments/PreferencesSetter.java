@@ -52,11 +52,7 @@ import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
-import org.malai.javafx.instrument.JFxAnonInteractor;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.interaction.library.BoxChecked;
-import org.malai.javafx.interaction.library.ComboBoxSelected;
-import org.malai.javafx.interaction.library.SpinnerValueChanged;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -163,21 +159,21 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new JFxAnonInteractor<>(this, false, ModifyMagneticGrid.class, ComboBoxSelected.class, action -> {
+		addComboBoxInteractor(ModifyMagneticGrid.class, action -> {
 			action.setValue(styleList.getSelectionModel().getSelectedItem());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.STYLE);
-		}, styleList));
-		addInteractor(new JFxAnonInteractor<>(this, false, ModifyMagneticGrid.class, BoxChecked.class, action -> {
+		}, styleList);
+		addCheckBoxInteractor(ModifyMagneticGrid.class, action -> {
 			action.setValue(magneticCB.isSelected());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.MAGNETIC);
-		}, magneticCB));
-		addInteractor(new JFxAnonInteractor<>(this, false, ModifyMagneticGrid.class, SpinnerValueChanged.class, action -> {
+		}, magneticCB);
+		addSpinnerInteractor(ModifyMagneticGrid.class, action -> {
 			action.setValue(persoGridGapField.getValue());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.GRID_SPACING);
-		}, persoGridGapField));
+		}, persoGridGapField);
 	}
 
 	/**

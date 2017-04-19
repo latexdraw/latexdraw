@@ -30,9 +30,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.action.library.InactivateInstrument;
-import org.malai.javafx.instrument.JFxAnonInteractor;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.interaction.library.ButtonPressed;
 
 /**
  * This instrument converts PST code into graphical shapes.
@@ -80,14 +78,12 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new JFxAnonInteractor<>(this, false, InsertPSTCode.class, ButtonPressed.class,
-		action -> {
+		addButtonInteractor(InsertPSTCode.class, action -> {
 			 action.setDrawing(drawing);
 			 action.setCode(text.getText());
 			 action.setStatusBar(null);
-		}, ok));
-		addInteractor(new JFxAnonInteractor<>(this, false, InactivateInstrument.class, ButtonPressed.class,
-						action -> action.setInstrument(this), cancel, ok));
+		}, ok);
+		addButtonInteractor(InactivateInstrument.class, action -> action.setInstrument(this), cancel, ok);
 	}
 
 	@Override

@@ -24,9 +24,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.javafx.action.library.ShowStage;
-import org.malai.javafx.instrument.JFxAnonInteractor;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.interaction.library.ButtonPressed;
 
 /**
  * This instrument allows to see exceptions launched during the execution of the program.
@@ -74,11 +72,10 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 
 	@Override
 	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new JFxAnonInteractor<>(this, false, ShowStage.class, ButtonPressed.class,
-			action -> {
-				action.setWidget(getStageEx());
-				action.setVisible(true);
-			}, exceptionB));
+		addButtonInteractor(ShowStage.class, action -> {
+			action.setWidget(getStageEx());
+			action.setVisible(true);
+		}, exceptionB);
 	}
 
 	@Override

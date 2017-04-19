@@ -23,8 +23,6 @@ import net.sf.latexdraw.actions.shape.SeparateShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.action.ActionsRegistry;
-import org.malai.javafx.instrument.JFxAnonInteractor;
-import org.malai.javafx.interaction.library.ButtonPressed;
 
 /**
  * This instrument groups and separates shapes.
@@ -69,7 +67,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new JFxAnonInteractor<>(this, false, SeparateShapes.class, ButtonPressed.class, action -> {
+		addButtonInteractor(SeparateShapes.class, action -> {
 			final List<IShape> shapes = ActionsRegistry.INSTANCE.getAction(SelectShapes.class).getShapes();
 
 			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {
@@ -77,11 +75,11 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 			}
 
 			action.setDrawing(pencil.canvas.getDrawing());
-		}, sepB));
+		}, sepB);
 
-		addInteractor(new JFxAnonInteractor<>(this, false, JoinShapes.class, ButtonPressed.class, action -> {
+		addButtonInteractor(JoinShapes.class, action -> {
 			ActionsRegistry.INSTANCE.getAction(SelectShapes.class).getShapes().forEach(sh -> action.addShape(sh));
 			action.setDrawing(pencil.canvas.getDrawing());
-		}, groupB));
+		}, groupB);
 	}
 }

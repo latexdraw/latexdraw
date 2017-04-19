@@ -27,9 +27,6 @@ import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.JfxInteractor;
-import org.malai.javafx.instrument.library.CheckboxInteractor;
-import org.malai.javafx.instrument.library.ComboBoxInteractor;
-import org.malai.javafx.instrument.library.SpinnerInteractor;
 import org.malai.javafx.interaction.library.KeysTyped;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
@@ -157,52 +154,21 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
 		addInteractor(new LabelFieldToChangeLabel());
 		addInteractor(new titleFieldToChangeCaption());
-		addInteractor(new CheckBox2CustDrawing());
-		addInteractor(new ComboBox2CustDrawing());
-		addInteractor(new Spinner2CustDrawing());
-	}
-
-	private class CheckBox2CustDrawing extends CheckboxInteractor<ModifyLatexProperties, DrawingPropertiesCustomiser> {
-		CheckBox2CustDrawing() throws InstantiationException, IllegalAccessException {
-			super(DrawingPropertiesCustomiser.this, ModifyLatexProperties.class, middleHorizPosCB);
-		}
-
-		@Override
-		public void initAction() {
+		addCheckBoxInteractor(ModifyLatexProperties.class, action -> {
 			action.setProperty(LatexProperties.POSITION_HORIZONTAL);
-			action.setGenerator(instrument.latexGen);
-			action.setValue(instrument.middleHorizPosCB.isSelected());
-		}
-	}
-
-	private class ComboBox2CustDrawing extends ComboBoxInteractor<ModifyLatexProperties, DrawingPropertiesCustomiser> {
-		ComboBox2CustDrawing() throws InstantiationException, IllegalAccessException {
-			super(DrawingPropertiesCustomiser.this, ModifyLatexProperties.class, positionCB);
-		}
-
-		@Override
-		public void initAction() {
+			action.setGenerator(latexGen);
+			action.setValue(middleHorizPosCB.isSelected());
+		}, middleHorizPosCB);
+		addComboBoxInteractor(ModifyLatexProperties.class, action -> {
 			action.setProperty(LatexProperties.POSITION_VERTICAL);
-			action.setGenerator(instrument.latexGen);
-			action.setValue(instrument.positionCB.getSelectionModel().getSelectedItem());
-		}
-	}
-
-	private class Spinner2CustDrawing extends SpinnerInteractor<ModifyLatexProperties, DrawingPropertiesCustomiser> {
-		Spinner2CustDrawing() throws InstantiationException, IllegalAccessException {
-			super(DrawingPropertiesCustomiser.this, ModifyLatexProperties.class, scaleField);
-		}
-
-		@Override
-		public void initAction() {
+			action.setGenerator(latexGen);
+			action.setValue(positionCB.getSelectionModel().getSelectedItem());
+		}, positionCB);
+		addSpinnerInteractor(ModifyLatexProperties.class, action -> {
+			action.setValue(scaleField.getValue());
 			action.setProperty(LatexProperties.SCALE);
-			action.setGenerator(instrument.latexGen);
-		}
-
-		@Override
-		public void updateAction() {
-			action.setValue(instrument.scaleField.getValue());
-		}
+			action.setGenerator(latexGen);
+		}, scaleField);
 	}
 
 	private class LabelFieldToChangeLabel extends JfxInteractor<ModifyLatexProperties, KeysTyped, DrawingPropertiesCustomiser> {

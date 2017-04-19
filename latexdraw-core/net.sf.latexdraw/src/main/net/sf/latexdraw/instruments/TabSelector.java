@@ -27,9 +27,7 @@ import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.javafx.action.library.ActivateInactivateInstruments;
 import org.malai.javafx.action.library.MoveCamera;
-import org.malai.javafx.instrument.JFxAnonInteractor;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.interaction.library.TabSelected;
 
 /**
  * This instrument (de-)activates instruments while changing of tab (drawing tab, PST tab, etc.) and
@@ -112,7 +110,7 @@ public class TabSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new JFxAnonInteractor<>(this, false, ActivateInactivateInstruments.class, TabSelected.class, action -> {
+		addTabInteractor(ActivateInactivateInstruments.class, action -> {
 			if(tabPane.getSelectionModel().getSelectedIndex() == 0) {
 				action.addInstrumentToActivate(selector);
 				action.addInstrumentToActivate(paster);
@@ -138,6 +136,6 @@ public class TabSelector extends JfxInstrument implements Initializable {
 					action.addInstrumentToActivate(prefSetter);
 				}
 			}
-		}, tabPane));
+		}, tabPane);
 	}
 }
