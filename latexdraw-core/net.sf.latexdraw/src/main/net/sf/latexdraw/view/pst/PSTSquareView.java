@@ -17,6 +17,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LSquare model.
+ * @author Arnaud Blouin
  */
 public class PSTSquareView extends PSTClassicalView<ISquare> {
 

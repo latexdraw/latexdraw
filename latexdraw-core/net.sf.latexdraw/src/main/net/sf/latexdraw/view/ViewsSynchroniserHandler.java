@@ -14,6 +14,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
  * Defines a handler that provides information to a views synchroniser.
+ * @author Arnaud Blouin
  */
 public interface ViewsSynchroniserHandler {
 	/**

@@ -18,6 +18,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LDot model.
+ * @author Arnaud Blouin
  */
 public class PSTDotView extends PSTClassicalView<IDot> {
 	/**

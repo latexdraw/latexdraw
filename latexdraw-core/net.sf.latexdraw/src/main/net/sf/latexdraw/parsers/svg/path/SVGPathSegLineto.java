@@ -12,10 +12,8 @@
 package net.sf.latexdraw.parsers.svg.path;
 
 /**
- * Defines the SVGPath lineto segment.
- * 10/20/07
+ * The SVGPath lineto segment.
  * @author Arnaud BLOUIN
- * @version 3.0
  */
 public class SVGPathSegLineto extends SVGPathPointSeg {
 	/**

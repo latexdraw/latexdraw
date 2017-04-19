@@ -18,6 +18,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LText model.
+ * @author Arnaud Blouin
  */
 public class PSTTextView extends PSTShapeView<IText> {
 	/**

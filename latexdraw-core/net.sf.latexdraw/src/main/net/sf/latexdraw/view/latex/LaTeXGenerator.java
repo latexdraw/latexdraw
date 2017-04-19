@@ -32,6 +32,7 @@ import org.malai.properties.Modifiable;
 
 /**
  * Defines an abstract LaTeX generator.
+ * @author Arnaud Blouin
  */
 public abstract class LaTeXGenerator implements Modifiable {
 	/**

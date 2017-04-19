@@ -1,3 +1,13 @@
+/*
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ */
 package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Point2D;
@@ -48,19 +58,8 @@ import static java.lang.Math.PI;
 import static java.lang.Math.toDegrees;
 
 /**
- * This class allows the generation or the importation of SVG parameters to a general LaTeXDraw shape.
- * This file is part of LaTeXDraw.
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.
- * 05/30/10
+ * The generation or the importation of SVG parameters to a general LaTeXDraw shape.
  * @author Arnaud BLOUIN
- * @version 3.0
  */
 abstract class LShapeSVGGenerator<S extends IShape> {
 	/** The shape model use for the generation. */

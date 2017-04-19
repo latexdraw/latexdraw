@@ -16,6 +16,7 @@ import org.malai.action.Action;
 
 /**
  * This trait encapsulates the template menu.
+ * @author Arnaud Blouin
  */
 public interface TemplateAction extends Action {
 	/**

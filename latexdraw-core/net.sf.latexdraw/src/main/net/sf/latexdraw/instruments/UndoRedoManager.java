@@ -1,10 +1,10 @@
 /*
- * This file is part of latexdraw.
+ * This file is part of LaTeXDraw.
  * Copyright (c) 2005-2017 Arnaud BLOUIN
- * latexdraw is free software; you can redistribute it and/or modify it under
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option) any later version.
- * latexdraw is distributed without any warranty; without even the implied
+ * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  */
@@ -31,6 +31,7 @@ import org.malai.undo.Undoable;
  * This instrument allows to undo and redo saved actions.
  * This instrument provides two buttons to interact with and two shortcuts
  * (ctrl/apple-Z, ctrl-apple-Y).
+ * @author Arnaud Blouin
  */
 public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	/** The button used to undo actions. */

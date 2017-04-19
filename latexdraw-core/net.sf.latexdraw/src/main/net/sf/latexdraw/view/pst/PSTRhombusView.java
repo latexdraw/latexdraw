@@ -17,6 +17,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LRhombus model.
+ * @author Arnaud Blouin
  */
 public class PSTRhombusView extends PSTClassicalView<IRhombus> {
 	/**

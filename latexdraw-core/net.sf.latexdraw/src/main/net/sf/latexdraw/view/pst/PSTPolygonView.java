@@ -17,6 +17,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LPolygon model.
+ * @author Arnaud Blouin
  */
 public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	/**

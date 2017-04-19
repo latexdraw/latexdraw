@@ -28,6 +28,7 @@ import static java.lang.Math.toDegrees;
 
 /**
  * Defines a PSTricks view of the LShape model.
+ * @author Arnaud Blouin
  */
 public abstract class PSTShapeView<S extends IShape> {
 	/** The shape model. */

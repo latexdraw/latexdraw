@@ -1,3 +1,13 @@
+/*
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ */
 package net.sf.latexdraw.util;
 
 import java.io.BufferedReader;
@@ -12,20 +22,8 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import org.malai.action.library.OpenWebPage;
 
 /**
- * This class allows to check if a new version of LaTeXDraw is out. This class is a child of Thread
- * to avoid a freeze when the application starts.
- * This file is part of LaTeXDraw
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.
- * 05/20/2010
+ * To check if a new version of LaTeXDraw is out. This class is a child of Thread to avoid a freeze when the application starts.
  * @author Arnaud BLOUIN
- * @version 3.0
  * @since 1.8
  */
 public class VersionChecker extends Thread {

@@ -1,3 +1,14 @@
+/*
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ */
+
 package net.sf.latexdraw.parsers.pst.lexer
 
 import java.text.ParseException
@@ -7,19 +18,8 @@ import scala.util.parsing.combinator.lexical.Lexical
 import scala.util.parsing.input.CharArrayReader.EofCh
 
 /**
- * Defines a PSTricks lexical.
- * This file is part of LaTeXDraw
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.
- * 2012-04-23
+ * A PSTricks lexical.
  * @author Arnaud BLOUIN
- * @version 3.0
  */
 class PSTLexical extends Lexical with PSTTokens {
 	/** This token is produced by a scanner Scanner when scanning failed. */

@@ -1,19 +1,18 @@
-package net.sf.latexdraw.parsers.ps;
-
-/**
- * Defines an exception for the ps parser.
- * This file is part of LaTeXDraw
+/*
+ * This file is part of LaTeXDraw.
  * Copyright (c) 2005-2017 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version.
+ * Foundation; either version 2 of the License, or (at your option) any later version.
  * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
- * 03/11/08
+ */
+package net.sf.latexdraw.parsers.ps;
+
+/**
+ * An exception for the ps parser.
  * @author Arnaud BLOUIN
- * @version 3.0
  */
 public class InvalidFormatPSFunctionException extends NumberFormatException {
 	private static final long serialVersionUID = 1L;

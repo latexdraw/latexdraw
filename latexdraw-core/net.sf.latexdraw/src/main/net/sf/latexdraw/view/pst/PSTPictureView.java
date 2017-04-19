@@ -20,6 +20,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LPicture model.
+ * @author Arnaud Blouin
  */
 public class PSTPictureView extends PSTShapeView<IPicture> {
 	/**

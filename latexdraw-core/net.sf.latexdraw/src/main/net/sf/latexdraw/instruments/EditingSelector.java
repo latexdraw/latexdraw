@@ -36,6 +36,7 @@ import org.malai.javafx.interaction.library.ButtonPressed;
 
 /**
  * This instrument selects the pencil or the hand.
+ * @author Arnaud Blouin
  */
 public class EditingSelector extends JfxInstrument implements Initializable {
 	/** The button that allows to select the instrument Hand. */

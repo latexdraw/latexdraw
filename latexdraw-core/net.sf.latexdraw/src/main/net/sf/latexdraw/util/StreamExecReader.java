@@ -1,3 +1,13 @@
+/*
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ */
 package net.sf.latexdraw.util;
 
 import java.io.BufferedReader;
@@ -8,20 +18,8 @@ import java.util.Objects;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
- * Defines a thread for managing command execution. While the process is running,
- * the log is gathered from it.
- * This file is part of LaTeXDraw
- * Copyright (c) 2005-2017 Arnaud BLOUIN
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.
- * 09/14/09
+ * A thread for managing command execution. While the process is running, the log is gathered from it.
  * @author Arnaud BLOUIN
- * @version 2.0.4
  */
 public class StreamExecReader extends Thread {
 	/** The stream to listen. */

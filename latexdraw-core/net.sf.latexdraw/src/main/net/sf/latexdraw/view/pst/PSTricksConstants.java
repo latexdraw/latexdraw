@@ -24,6 +24,7 @@ import net.sf.latexdraw.view.latex.DviPsColors;
 
 /**
  * Contains several PSTricks constants.
+ * @author Arnaud Blouin
  */
 public final class PSTricksConstants {
     /** The size in centimetres of an inch */

@@ -18,6 +18,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LArc model.
+ * @author Arnaud Blouin
  */
 public class PSTArcView extends PSTClassicalView<IArc> {
 	/**

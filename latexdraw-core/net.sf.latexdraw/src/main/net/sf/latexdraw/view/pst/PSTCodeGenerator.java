@@ -22,6 +22,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks generator; it manages the PSTricks views and the latex additional code.
+ * @author Arnaud Blouin
  */
 public class PSTCodeGenerator extends LaTeXGenerator {
 	static final @NonNull String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + LResources.EOL +//$NON-NLS-1$

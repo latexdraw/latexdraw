@@ -17,7 +17,8 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * Defines a PSTricks view of the LBezierCurve model.<
+ * Defines a PSTricks view of the LBezierCurve model.
+ * @author Arnaud Blouin
  */
 public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 	/**

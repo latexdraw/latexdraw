@@ -17,6 +17,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LRect model.
+ * @author Arnaud Blouin
  */
 public class PSTRectView extends PSTClassicalView<IRectangle> {
 	/**

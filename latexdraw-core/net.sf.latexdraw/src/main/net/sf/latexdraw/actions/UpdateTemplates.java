@@ -16,6 +16,7 @@ import org.malai.action.ActionImpl;
 
 /**
  * This action updates the templates.
+ * @author Arnaud Blouin
  */
 public class UpdateTemplates extends ActionImpl implements TemplateAction {
 	/** Defines if the thumbnails must be updated. */

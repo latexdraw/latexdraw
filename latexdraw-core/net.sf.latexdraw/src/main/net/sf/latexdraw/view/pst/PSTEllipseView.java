@@ -17,6 +17,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LEllipse model.
+ * @author Arnaud Blouin
  */
 public class PSTEllipseView extends PSTClassicalView<IEllipse> {
 	/**

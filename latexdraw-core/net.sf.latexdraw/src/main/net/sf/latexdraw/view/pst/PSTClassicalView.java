@@ -15,6 +15,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines methods for classical PSTricks views.
+ * @author Arnaud Blouin
  */
 abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
 	/**

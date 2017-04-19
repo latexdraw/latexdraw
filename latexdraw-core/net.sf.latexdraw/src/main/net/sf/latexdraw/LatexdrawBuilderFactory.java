@@ -16,6 +16,9 @@ import javafx.util.Builder;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.view.jfx.Canvas;
 
+/**
+ * @author Arnaud Blouin
+ */
 class LatexdrawBuilderFactory implements BuilderFactory {
 	private final Injector injector;
 	private final BuilderFactory defaultFactory;

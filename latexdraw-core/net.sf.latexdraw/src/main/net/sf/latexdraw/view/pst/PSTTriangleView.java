@@ -17,6 +17,7 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LTriangle model.
+ * @author Arnaud Blouin
  */
 public class PSTTriangleView extends PSTClassicalView<ITriangle> {
 	/**

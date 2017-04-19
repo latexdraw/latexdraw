@@ -16,6 +16,7 @@ import org.malai.action.ActionImpl;
 
 /**
  * This action exports a set of shapes as a template.
+ * @author Arnaud Blouin
  */
 public class ExportTemplate extends ActionImpl implements TemplateAction { //extends IOAction[Void, JLabel]
 	Optional<MenuButton> templatesMenu;

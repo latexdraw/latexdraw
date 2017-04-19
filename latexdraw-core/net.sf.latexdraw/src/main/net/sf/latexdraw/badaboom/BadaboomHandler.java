@@ -1,10 +1,4 @@
-package net.sf.latexdraw.badaboom;
-
-import org.eclipse.jdt.annotation.NonNull;
-
-/**
- * Defines a badaboom handler. A object that wants to be aware of the
- * Activities of a 'bordel' manager must implement this interface.
+/*
  * This file is part of LaTeXDraw.
  * Copyright (c) 2005-2017 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
@@ -13,9 +7,14 @@ import org.eclipse.jdt.annotation.NonNull;
  * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
- * 03/19/2008
+ */
+package net.sf.latexdraw.badaboom;
+
+import org.eclipse.jdt.annotation.NonNull;
+
+/**
+ * Defines a badaboom handler. A object that wants to be aware of the activities of a 'bordel' manager must implement this interface.
  * @author Arnaud BLOUIN
- * @version 3.0
  * @since 3.0
  */
 public interface BadaboomHandler {

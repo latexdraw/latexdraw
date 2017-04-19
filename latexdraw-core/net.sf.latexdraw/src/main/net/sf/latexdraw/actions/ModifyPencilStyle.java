@@ -16,6 +16,7 @@ import org.malai.action.ActionImpl;
 
 /**
  * This action allows to set the kind of shape that the pencil must draw.
+ * @author Arnaud Blouin
  */
 public class ModifyPencilStyle extends ActionImpl {
 	/** The pencil to set. */

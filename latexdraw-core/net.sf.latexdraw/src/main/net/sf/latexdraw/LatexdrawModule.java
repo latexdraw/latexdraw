@@ -62,6 +62,9 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 
+/**
+ * @author Arnaud Blouin
+ */
 public class LatexdrawModule extends AbstractModule {
 	@Override
 	protected void configure() {

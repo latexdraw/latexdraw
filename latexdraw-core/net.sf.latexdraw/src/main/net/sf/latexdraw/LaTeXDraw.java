@@ -52,6 +52,7 @@ import org.malai.undo.UndoCollector;
 
 /**
  * The main class of the project.
+ * @author Arnaud Blouin
  */
 public class LaTeXDraw extends JfxUI {
 	public static final String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
