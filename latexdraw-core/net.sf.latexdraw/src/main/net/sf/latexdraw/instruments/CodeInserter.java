@@ -43,6 +43,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 	@FXML private TextArea text;
 	private Stage codeInserterDialogue;
 	@Inject private IDrawing drawing;
+	@Inject private StatusBarController statusBar;
 
 	/**
 	 * Creates the instrument.
@@ -81,7 +82,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 		addButtonInteractor(InsertPSTCode.class, action -> {
 			 action.setDrawing(drawing);
 			 action.setCode(text.getText());
-			 action.setStatusBar(null);
+			 action.setStatusBar(statusBar.getLabel());
 		}, ok);
 		addButtonInteractor(InactivateInstrument.class, action -> action.setInstrument(this), cancel, ok);
 	}

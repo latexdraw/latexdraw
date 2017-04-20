@@ -10,20 +10,27 @@
  */
 package net.sf.latexdraw.instruments;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * The controller for the status bar.
  * @author Arnaud Blouin
  */
 public class StatusBarController implements Initializable {
-	@FXML private Label statusBar;
+	@FXML private Label label;
 	@FXML private ProgressBar progressBar;
+	@FXML private Hyperlink link;
 
 	/**
 	 * Creates the controller.
@@ -33,21 +40,43 @@ public class StatusBarController implements Initializable {
 	}
 
 	/**
-	 * @return The status bar.
+	 * @return The label of status bar.
 	 */
-	public Label getStatusBar() {
-		return statusBar;
+	public Label getLabel() {
+		return label;
 	}
 
 	/**
-	 * @return The progress bar of the app.
+	 * @return The progress bar of the status bar.
 	 */
 	public ProgressBar getProgressBar() {
 		return progressBar;
 	}
 
+	/**
+	 * @return The hyperlink of the status bar.
+	 */
+	public Hyperlink getLink() {
+		return link;
+	}
+
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		progressBar.managedProperty().bind(progressBar.visibleProperty());
+		link.setVisible(false);
+		link.setOnAction(evt -> {
+			if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+				new Thread(() -> {
+					try {
+						Desktop.getDesktop().browse(new URI(link.getText()));
+						link.setVisible(false);
+						label.setVisible(false);
+					}catch(IOException | URISyntaxException ex) {
+						BadaboomCollector.INSTANCE.add(ex);
+					}
+				}).start();
+			}
+		});
+
 	}
 }

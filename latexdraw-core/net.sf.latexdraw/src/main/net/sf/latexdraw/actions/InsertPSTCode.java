@@ -13,7 +13,7 @@ package net.sf.latexdraw.actions;
 
 import java.text.ParseException;
 import java.util.Optional;
-import javax.swing.JLabel;
+import javafx.scene.control.Label;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -32,7 +32,7 @@ public class InsertPSTCode extends DrawingActionImpl implements Undoable {
 	Optional<String> code;
 
 	/** The status bar. */
-	Optional<JLabel> statusBar;
+	Optional<Label> statusBar;
 
 	/** The added shapes. */
 	Optional<IShape> shapes;
@@ -95,7 +95,7 @@ public class InsertPSTCode extends DrawingActionImpl implements Undoable {
 		}));
 	}
 
-	public void setStatusBar(final JLabel value) {
+	public void setStatusBar(final Label value) {
 		statusBar = Optional.ofNullable(value);
 	}
 
