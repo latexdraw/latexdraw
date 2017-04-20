@@ -15,81 +15,65 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.net.URL;
-import javax.swing.JButton;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import org.malai.action.library.OpenWebPage;
+import javafx.application.Platform;
+import net.sf.latexdraw.instruments.StatusBarController;
 
 /**
- * To check if a new version of LaTeXDraw is out. This class is a child of Thread to avoid a freeze when the application starts.
+ * To check whether a new version of LaTeXDraw is out. This class is a child of Thread to avoid a freeze when the application starts.
  * @author Arnaud BLOUIN
  * @since 1.8
  */
-public class VersionChecker extends Thread {
+public final class VersionChecker extends Thread {
 	/** The version of the application */
-    public static final String VERSION   = "4.0.0";//$NON-NLS-1$
+    public static final String VERSION   = "4.0.0"; //$NON-NLS-1$
 
-    /** The stability of the build. */
+	/** The stability of the build. */
 	public static final String VERSION_STABILITY = "-snapshot"; //$NON-NLS-1$
 
 	/** The identifier of the build */
-	public static final String ID_BUILD = "20160727";//$NON-NLS-1$
+	public static final String ID_BUILD = "20170419"; //$NON-NLS-1$
 
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;
 
-    /** The path of the file containing the news */
-    public static final String PATH_MSG = "http://latexdraw.sourceforge.net/news.txt"; //$NON-NLS-1$
+	/** The path of the file containing the news */
+	public static final String PATH_MSG = "http://latexdraw.sourceforge.net/news.txt"; //$NON-NLS-1$
 
-    /** The field where messages will be displayed. */
-    protected JButton buttonUpdate;
+	private final StatusBarController statusBar;
 
 
 	/**
 	 * Creates the version checker.
 	 */
-	public VersionChecker() {
+	public VersionChecker(final StatusBarController statusBarCtrl) {
 		super();
+		statusBar = statusBarCtrl;
 	}
 
 
 	@Override
 	public void run() {
-        checkNewVersion();
-	}
-
-
- 	/**
-  	 * Checks if a new version of latexdraw is out.
-  	 */
-	protected void checkNewVersion() {
 		try {
-			try(InputStream is  = new URL(PATH_MSG).openStream();
-				DataInputStream dis = new DataInputStream(is);
-				InputStreamReader isr = new InputStreamReader(dis);
-				BufferedReader br 	= new BufferedReader(isr)){
-	  			final String line = br.readLine();
-				final String[] div = line==null ? null : line.split("_"); //$NON-NLS-1$
+			try(final InputStream is  = new URL(PATH_MSG).openStream();
+				final DataInputStream dis = new DataInputStream(is);
+				final InputStreamReader isr = new InputStreamReader(dis);
+				final BufferedReader br = new BufferedReader(isr)) {
+				final String line = br.readLine();
+				final String[] div = line == null ? null : line.split("_"); //$NON-NLS-1$
 
-				if(div!=null && div.length>3 && div[3].compareTo(VERSION)>0) {
-					buttonUpdate = new JButton(LResources.UPDATE_ICON);
-					buttonUpdate.setToolTipText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" + //$NON-NLS-1$
-							LangTool.INSTANCE.getBundle().getString("Version.1") + ' ' + div[3]+ "</html>"); //$NON-NLS-1$ //$NON-NLS-2$
-					buttonUpdate.setVisible(true);
-					buttonUpdate.addActionListener(evt -> {
-						try {
-							final OpenWebPage action = new OpenWebPage();
-							action.setUri(new URI("http://latexdraw.sourceforge.net/")); //$NON-NLS-1$
-							if(action.canDo())
-								action.doIt();
-							action.flush();
-							buttonUpdate.setVisible(false);
-						}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
+				if(div != null && div.length > 3 && div[3].compareTo(VERSION) > 0) {
+					Platform.runLater(() -> {
+						statusBar.getLabel().setVisible(true);
+						statusBar.getLabel().setText(LangTool.INSTANCE.getBundle().getString("Version.1") + ' ' + div[3] + ". "
+							+ "See the release note:");
+						statusBar.getLink().setVisible(true);
+						statusBar.getLink().setText("http://latexdraw.sourceforge.net/");
 					});
-//					builder.getToolbar().add(buttonUpdate);
 				}
 			}
-		}catch(final IOException e) { /* Nothing to do. */ }
-  	}
+		}catch(final IOException ex) {
+			/* Nothing to do. */
+		}
+	}
 }

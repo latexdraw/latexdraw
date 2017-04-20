@@ -36,11 +36,13 @@ import javafx.util.Callback;
 import javafx.util.Duration;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
+import net.sf.latexdraw.instruments.StatusBarController;
 import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.ActionsRegistry;
@@ -183,6 +185,10 @@ public class LaTeXDraw extends JfxUI {
 						injector.getInstance(MagneticGrid.class).update();
 						injector.getInstance(TabSelector.class).centreViewport();
 						injector.getInstance(Canvas.class).requestFocus();
+						// Checking a new version if required.
+						if(VersionChecker.WITH_UPDATE && injector.getInstance(PreferencesSetter.class).isVersionCheckEnable()) {
+							new VersionChecker(injector.getInstance(StatusBarController.class)).run();
+						}
 						setModified(false);
 					});
 				}catch(final IOException ex) {
@@ -209,11 +215,6 @@ public class LaTeXDraw extends JfxUI {
 		// frame.getFileLoader.onActionDone(action)
 		// action.flush
 		// }
-		//
-		// // Checking a new version if required.
-		// if(VersionChecker.WITH_UPDATE &&
-		// frame.getPrefSetters.isVersionCheckEnable)
-		// new VersionChecker(frame.getComposer).run
 	}
 
 	/**

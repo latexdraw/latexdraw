@@ -49,7 +49,7 @@ import org.w3c.dom.Element;
  */
 public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	private static final BiFunction<IOAction<Label>, FileLoaderSaver, Void> initIOAction = (action, instrument) -> {
-		action.setStatusWidget(instrument.statusBar.getStatusBar());
+		action.setStatusWidget(instrument.statusBar.getLabel());
 		action.setProgressBar(instrument.statusBar.getProgressBar());
 		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 		action.setUi(LaTeXDraw.getINSTANCE());

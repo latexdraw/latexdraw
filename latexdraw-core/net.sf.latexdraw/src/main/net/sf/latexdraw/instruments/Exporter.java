@@ -190,7 +190,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void onActionExecuted(final Action action) {
-		statusBar.getStatusBar().setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.184")); //$NON-NLS-1$
+		statusBar.getLabel().setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.184")); //$NON-NLS-1$
 
 		if(action instanceof Export) {
 			final File outputFile = ((Export) action).getOutputFile();

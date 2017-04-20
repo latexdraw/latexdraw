@@ -10,11 +10,6 @@
  */
 package net.sf.latexdraw.util;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import javax.swing.ImageIcon;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-
 /**
  * Contains all the icons and the labels used by latexdraw.
  * @author Arnaud BLOUIN
@@ -35,7 +30,6 @@ public final class LResources {
 //	public static final ImageIcon DEL_ICON = loadImageIcon("/res/del.png");
 //	public static final ImageIcon EMPTY_ICON = loadImageIcon("/res/empty.png");
 //	public static final ImageIcon PROPERTIES_ICON = loadImageIcon("/res/preferences-desktop-theme.png");
-	public static final ImageIcon UPDATE_ICON = loadImageIcon("/res/system-software-update.png");
 //	public static final ImageIcon ABOUT_ICON = loadImageIcon("/res/emblem-important.png");
 //	public static final ImageIcon HELP_ICON = loadImageIcon("/res/help-browser.png");
 //	public static final ImageIcon DRAWING_PROP_ICON = loadImageIcon("/res/document-properties.png");
@@ -48,26 +42,6 @@ public final class LResources {
 //	public static final ImageIcon BUTTON_CLOSE_IN_ICON = loadImageIcon("/res/closeIn.png");
 //	public static final ImageIcon BUTTON_CLOSE_OUT_ICON = loadImageIcon("/res/closeOut.png");
 	public static final String LATEXDRAW_ICON_PATH = "/res/LaTeXDrawIcon.png";
-
-	/**
-	 * Allows to load a image icon from a path.
-	 * @param path The path.
-	 * @return The image icon or null.
-	 */
-	public static ImageIcon loadImageIcon(final String path) {
-		try {
-			final URL url = Class.class.getResource(path);
-
-			if(url == null) throw new MalformedURLException(path);
-
-			return new ImageIcon(url);
-		}catch(final Exception e) {
-			e.printStackTrace();
-			BadaboomCollector.INSTANCE.add(e);
-			return null;
-		}
-	}
-
 
 	private LResources() {
 		super();
