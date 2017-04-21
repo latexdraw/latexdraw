@@ -61,5 +61,6 @@ public abstract class ViewEllipseBased<T extends ISingleShape> extends ViewSingl
 		unbindEll(border);
 		unbindEll(dblBorder);
 		unbindEll(shadow);
+		super.flush();
 	}
 }
