@@ -20,6 +20,7 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
@@ -63,7 +64,7 @@ public final class ViewFactory {
 		if(shape instanceof ISquare) return Optional.of((S) new ViewSquare((ISquare) shape));
 		if(shape instanceof IRectangle) return Optional.of((S) new ViewRectangle((IRectangle) shape));
 		if(shape instanceof IText) return Optional.of((S) new ViewTextText((IText) shape));
-		// if(shape instanceof ICircleArc) return new LCircleArcView((ICircleArc)shape);
+		if(shape instanceof ICircleArc) return Optional.of((S) new ViewCircleArc((ICircleArc) shape));
 		if(shape instanceof ICircle) return Optional.of((S) new ViewCircle((ICircle) shape));
 		if(shape instanceof IEllipse) return Optional.of((S) new ViewEllipse((IEllipse) shape));
 		if(shape instanceof ITriangle) return Optional.of((S) new ViewTriangle((ITriangle) shape));
