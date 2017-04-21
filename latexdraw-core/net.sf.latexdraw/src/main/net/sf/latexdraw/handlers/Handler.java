@@ -10,119 +10,27 @@
  */
 package net.sf.latexdraw.handlers;
 
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.malai.picking.Picker;
+import javafx.scene.paint.Color;
 
 /**
- * A handler to manipulate a shape view.
+ * The API for the handlers that manipulate shape views.
  * @author Arnaud BLOUIN
  */
-abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S> {
-	/** The coordinates of the centre of the delimiter. */
-	protected IPoint point;
-
-	/** The size of the handler. */
-	protected double size;
-
-	/** The opacity of the delimiters. Can be changed. */
-	protected double opacity;
-
-	/** The colour of the handler. */
-	protected Color colour;
-
-	/** The shape of the handler. */
-	protected T shape;
-
+public interface Handler {
+	/**
+	 * The default size of a handler.
+	 */
+	int DEFAULT_SIZE = 16;
 
 	/**
-	 * Creates the handler.
+	 * The default colour of the handler.
 	 */
-    protected Handler() {
-		super();
-		opacity	= 0.4;
-		size   	= DEFAULT_SIZE;
-		colour 	= ShapeFactory.INST.createColor(0, 0, 0, opacity);
-		point  	= ShapeFactory.INST.createPoint();
-	}
-
+	Color DEFAULT_COLOR = new Color(0d, 0d, 0d, 0.4);
 
 	/**
-	 * Changes the centre of the handler and updates the shape.
-	 * @param x The new X coordinate.
-	 * @param y The new Y coordinate.
+	 * Flushes the handler.
 	 */
-	@Override
-	public void setPoint(final double x, final double y) {
-		if(MathUtils.INST.isValidPt(x, y)) {
-			point.setPoint(x, y);
-			updateShape();
-		}
-	}
-
-
-	/**
-	 * @return The centre of the handler.
-	 */
-	@Override
-	public IPoint getCentre() {
-		return point;
-	}
-
-
-	/**
-	 * paint the handler.
-	 */
-	@Override
-	public void paint(final Graphics2D g) {
-		if(g==null) return ;
-
-		g.setColor(colour.toAWT());
-		g.fill(shape);
-	}
-
-
-	/**
-	 * Updates the handler.
-	 */
-	@Override
-	public void update(final S model, final double zoom) {
-		colour.setO(opacity);
-		updateShape();
-	}
-
-
-	/**
-	 * Updates the Java2D shape of the handler.
-	 * @since 3.0
-	 */
-	protected abstract void updateShape();
-
-
-	@Override
-	public String toString() {
-        return super.toString() + "[centre=" + point + ", size=" + size + ", colour=" + colour + ']'; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-	}
-
-	@Override
-	public void updateFromShape(final Shape sh) {
-		updateShape();
-	}
-
-
-	@Override
-	public boolean contains(final double x, final double y) {
-		return shape.contains(x, y);
-	}
-
-
-	@Override
-	public Picker getPicker() {
-		return null;
+	default void flush() {
+		// Do nothing by default.
 	}
 }

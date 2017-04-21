@@ -10,126 +10,151 @@
  */
 package net.sf.latexdraw.handlers;
 
-import java.awt.Shape;
-import java.awt.geom.Path2D;
-import java.awt.geom.Rectangle2D;
+import java.util.List;
 import java.util.Objects;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import javafx.beans.binding.Bindings;
+import javafx.scene.shape.ClosePath;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
+import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.interfaces.shape.Position;
 
 /**
  * A handler to scale shapes.
  * @author Arnaud BLOUIN
  */
-public class ScaleHandler extends Handler<Path2D, IShape> {
-	/** The position of the possible scalings. */
-	protected Position position;
+public class ScaleHandler extends Path implements Handler {
+	/** The position of the handler. */
+	private final Position position;
 
 	/**
-	 * The constructor by default.
-	 * @param position The position of the handler.
-	 * @see Position
+	 * Creates the handler.
+	 * @param handlerPosition The position of the handler.
+	 * @throws NullPointerException If one of the given arguments is null.
 	 */
-	public ScaleHandler(final Position position) {
+	public ScaleHandler(final Position handlerPosition, final Rectangle border) {
 		super();
-		this.position 	= Objects.requireNonNull(position);
-		shape			= new Path2D.Double();
-		updateShape();
-	}
+		position = Objects.requireNonNull(handlerPosition);
+		setStroke(null);
+		setFill(DEFAULT_COLOR);
 
-
-	@Override
-	protected void updateShape() {
-		final double x 		= point.getX();
-		final double y 		= point.getY();
-		final double mid 	= size/2.;
-		final double quat 	= size/4.;
-		final double oct 	= size/8.;
-
-		shape.reset();
+		final List<PathElement> elements = getElements();
+		final double x = 0d;
+		final double y = 0d;
+		final double quart = DEFAULT_SIZE / 4d;
+		final double half = DEFAULT_SIZE / 2d;
+		final double oct = DEFAULT_SIZE / 8d;
 
 		switch(position) {
 			case EAST:
-				shape.moveTo(x, y-size/4.);
-				shape.lineTo(x, y+size/4.);
-				shape.lineTo(x+size/2., y+size/4.);
-				shape.lineTo(x+size/2., y+size/2.);
-				shape.lineTo(x+size, y);
-				shape.lineTo(x+size/2., y-size/2.);
-				shape.lineTo(x+size/2., y-size/4.);
-				shape.closePath();
+				elements.add(new MoveTo(x, y - quart));
+				elements.add(new LineTo(x, y + quart));
+				elements.add(new LineTo(x + half, y + quart));
+				elements.add(new LineTo(x + half, y + half));
+				elements.add(new LineTo(x + DEFAULT_SIZE, y));
+				elements.add(new LineTo(x + half, y - half));
+				elements.add(new LineTo(x + half, y - quart));
+				translateXProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutX() + border.getWidth(),
+					border.xProperty(), border.widthProperty(), border.layoutXProperty()));
+				translateYProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutY() + border.getHeight() / 2d,
+					border.yProperty(), border.heightProperty(), border.layoutYProperty()));
 				break;
 			case NORTH:
-				shape.moveTo(x-size/4., y);
-				shape.lineTo(x+size/4., y);
-				shape.lineTo(x+size/4., y-size/2.);
-				shape.lineTo(x+size/2., y-size/2.);
-				shape.lineTo(x, y-size);
-				shape.lineTo(x-size/2., y-size/2.);
-				shape.lineTo(x-size/4., y-size/2.);
-				shape.closePath();
+				elements.add(new MoveTo(x - quart, y));
+				elements.add(new LineTo(x + quart, y));
+				elements.add(new LineTo(x + quart, y - half));
+				elements.add(new LineTo(x + half, y - half));
+				elements.add(new LineTo(x, y - DEFAULT_SIZE));
+				elements.add(new LineTo(x - half, y - half));
+				elements.add(new LineTo(x - quart, y - half));
+				translateXProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutX() + border.getWidth() / 2d,
+					border.xProperty(), border.widthProperty(), border.layoutXProperty()));
+				translateYProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutY(),
+					border.yProperty(), border.heightProperty(), border.layoutYProperty()));
 				break;
 			case SOUTH:
-				shape.moveTo(x-size/4., y);
-				shape.lineTo(x+size/4., y);
-				shape.lineTo(x+size/4., y+size/2.);
-				shape.lineTo(x+size/2., y+size/2.);
-				shape.lineTo(x, y+size);
-				shape.lineTo(x-size/2., y+size/2.);
-				shape.lineTo(x-size/4., y+size/2.);
-				shape.closePath();
+				elements.add(new MoveTo(x - quart, y));
+				elements.add(new LineTo(x + quart, y));
+				elements.add(new LineTo(x + quart, y + half));
+				elements.add(new LineTo(x + half, y + half));
+				elements.add(new LineTo(x, y + DEFAULT_SIZE));
+				elements.add(new LineTo(x - half, y + half));
+				elements.add(new LineTo(x - quart, y + half));
+				translateXProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutX() + border.getWidth() / 2d,
+					border.xProperty(), border.widthProperty(), border.layoutXProperty()));
+				translateYProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutY() + border.getHeight(),
+					border.yProperty(), border.heightProperty(), border.layoutYProperty()));
 				break;
 			case WEST:
-				shape.moveTo(x, y-size/4.);
-				shape.lineTo(x, y+size/4.);
-				shape.lineTo(x-size/2., y+size/4.);
-				shape.lineTo(x-size/2., y+size/2.);
-				shape.lineTo(x-size, y);
-				shape.lineTo(x-size/2., y-size/2.);
-				shape.lineTo(x-size/2., y-size/4.);
-				shape.closePath();
+				elements.add(new MoveTo(x, y - quart));
+				elements.add(new LineTo(x, y + quart));
+				elements.add(new LineTo(x - half, y + quart));
+				elements.add(new LineTo(x - half, y + half));
+				elements.add(new LineTo(x - DEFAULT_SIZE, y));
+				elements.add(new LineTo(x - half, y - half));
+				elements.add(new LineTo(x - half, y - quart));
+				translateXProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutX(),
+					border.xProperty(), border.widthProperty(), border.layoutXProperty()));
+				translateYProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutY() + border.getHeight() / 2d,
+					border.yProperty(), border.heightProperty(), border.layoutYProperty()));
 				break;
 			case NE:
-				shape.moveTo(x+size-oct, y-size+oct);
-				shape.lineTo(x+size-oct, y-quat+oct);
-				shape.lineTo(x+mid+quat-oct, y-mid+oct);
-				shape.lineTo(x+quat-oct, y+oct);
-				shape.lineTo(x-oct, y-quat+oct);
-				shape.lineTo(x+mid-oct, y-mid-quat+oct);
-				shape.lineTo(x+quat-oct, y-size+oct);
-				shape.closePath();
+				elements.add(new MoveTo(x + DEFAULT_SIZE - oct, y - DEFAULT_SIZE + oct));
+				elements.add(new LineTo(x + DEFAULT_SIZE - oct, y - quart + oct));
+				elements.add(new LineTo(x + half + quart - oct, y - half + oct));
+				elements.add(new LineTo(x + quart - oct, y + oct));
+				elements.add(new LineTo(x - oct, y - quart + oct));
+				elements.add(new LineTo(x + half - oct, y - half - quart + oct));
+				elements.add(new LineTo(x + quart - oct, y - DEFAULT_SIZE + oct));
+				translateXProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutX() + border.getWidth(),
+					border.xProperty(), border.widthProperty(), border.layoutXProperty()));
+				translateYProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutY(),
+					border.yProperty(), border.heightProperty(), border.layoutYProperty()));
 				break;
 			case NW:
-				shape.moveTo(x-size+oct, y-size+oct);
-				shape.lineTo(x-size+oct, y-quat+oct);
-				shape.lineTo(x-mid-quat+oct, y-mid+oct);
-				shape.lineTo(x-quat+oct, y+oct);
-				shape.lineTo(x+oct, y-quat+oct);
-				shape.lineTo(x-mid+oct, y-mid-quat+oct);
-				shape.lineTo(x-quat+oct, y-size+oct);
-				shape.closePath();
+				elements.add(new MoveTo(x - DEFAULT_SIZE + oct, y - DEFAULT_SIZE + oct));
+				elements.add(new LineTo(x - DEFAULT_SIZE + oct, y - quart + oct));
+				elements.add(new LineTo(x - half - quart + oct, y - half + oct));
+				elements.add(new LineTo(x - quart + oct, y + oct));
+				elements.add(new LineTo(x + oct, y - quart + oct));
+				elements.add(new LineTo(x - half + oct, y - half - quart + oct));
+				elements.add(new LineTo(x - quart + oct, y - DEFAULT_SIZE + oct));
+				translateXProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutX(),
+					border.xProperty(), border.widthProperty(), border.layoutXProperty()));
+				translateYProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutY(),
+					border.yProperty(), border.heightProperty(), border.layoutYProperty()));
 				break;
 			case SW:
-				shape.moveTo(x-size+oct, y+size-oct);
-				shape.lineTo(x-size+oct, y+quat-oct);
-				shape.lineTo(x-mid-quat+oct, y+mid-oct);
-				shape.lineTo(x-quat+oct, y-oct);
-				shape.lineTo(x+oct, y+quat-oct);
-				shape.lineTo(x-mid+oct, y+mid+quat-oct);
-				shape.lineTo(x-quat+oct, y+size-oct);
-				shape.closePath();
+				elements.add(new MoveTo(x - DEFAULT_SIZE + oct, y + DEFAULT_SIZE - oct));
+				elements.add(new LineTo(x - DEFAULT_SIZE + oct, y + quart - oct));
+				elements.add(new LineTo(x - half - quart + oct, y + half - oct));
+				elements.add(new LineTo(x - quart + oct, y - oct));
+				elements.add(new LineTo(x + oct, y + quart - oct));
+				elements.add(new LineTo(x - half + oct, y + half + quart - oct));
+				elements.add(new LineTo(x - quart + oct, y + DEFAULT_SIZE - oct));
+				translateXProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutX(),
+					border.xProperty(), border.widthProperty(), border.layoutXProperty()));
+				translateYProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutY() + border.getHeight(),
+					border.yProperty(), border.heightProperty(), border.layoutYProperty()));
 				break;
 			case SE:
-				shape.moveTo(x+size-oct, y+size-oct);
-				shape.lineTo(x+size-oct, y+quat-oct);
-				shape.lineTo(x+mid+quat-oct, y+mid-oct);
-				shape.lineTo(x+quat-oct, y-oct);
-				shape.lineTo(x-oct, y+quat-oct);
-				shape.lineTo(x+mid-oct, y+mid+quat-oct);
-				shape.lineTo(x+quat-oct, y+size-oct);
-				shape.closePath();
+				elements.add(new MoveTo(x + DEFAULT_SIZE - oct, y + DEFAULT_SIZE - oct));
+				elements.add(new LineTo(x + DEFAULT_SIZE - oct, y + quart - oct));
+				elements.add(new LineTo(x + half + quart - oct, y + half - oct));
+				elements.add(new LineTo(x + quart - oct, y - oct));
+				elements.add(new LineTo(x - oct, y + quart - oct));
+				elements.add(new LineTo(x + half - oct, y + half + quart - oct));
+				elements.add(new LineTo(x + quart - oct, y + DEFAULT_SIZE - oct));
+				translateXProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutX() + border.getWidth(),
+					border.xProperty(), border.widthProperty(), border.layoutXProperty()));
+				translateYProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutY() + border.getHeight(),
+					border.yProperty(), border.heightProperty(), border.layoutYProperty()));
 				break;
 		}
+
+		elements.add(new ClosePath());
 	}
 
 
@@ -139,24 +164,5 @@ public class ScaleHandler extends Handler<Path2D, IShape> {
 	 */
 	public Position getPosition() {
 		return position;
-	}
-
-
-	@Override
-	public void updateFromShape(final Shape sh) {
-		if(sh instanceof Rectangle2D) {
-			final Rectangle2D frame = (Rectangle2D)sh;
-
-			switch(position) {
-				case EAST:	setPoint(frame.getMaxX(), frame.getCenterY()); break;
-				case NE:	setPoint(frame.getMaxX(), frame.getMinY()); 	break;
-				case NORTH:	setPoint(frame.getCenterX(), frame.getMinY()); break;
-				case NW:	setPoint(frame.getMinX(), frame.getMinY()); break;
-				case SE:	setPoint(frame.getMaxX(), frame.getMaxY()); break;
-				case SOUTH:	setPoint(frame.getCenterX(), frame.getMaxY()); break;
-				case SW:	setPoint(frame.getMinX(), frame.getMaxY()); break;
-				case WEST:	setPoint(frame.getMinX(), frame.getCenterY()); break;
-			}
-		}
 	}
 }

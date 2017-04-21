@@ -10,59 +10,45 @@
  */
 package net.sf.latexdraw.handlers;
 
-import java.awt.geom.Rectangle2D;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
+import java.util.Objects;
+import javafx.beans.binding.Bindings;
+import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
  * A handler that moves a point of a shape.
  * @author Arnaud BLOUIN
  */
-public class MovePtHandler extends Handler<Rectangle2D, IModifiablePointsShape> {
-	/** The index of the point in its shape. */
-	protected int indexPt;
-
+public class MovePtHandler extends Rectangle implements Handler {
+	/** The point moved by the handler. */
+	private IPoint point;
 
 	/**
 	 * The constructor by default.
-	 * @param indexPt The index of the point in its shape.
+	 * @throws NullPointerException If the given point is null.
 	 */
-	public MovePtHandler(final int indexPt) {
+	public MovePtHandler(final IPoint pt) {
 		super();
-		shape  = new Rectangle2D.Double();
-		this.indexPt = indexPt;
-		updateShape();
+		point = Objects.requireNonNull(pt);
+		setWidth(DEFAULT_SIZE);
+		setHeight(DEFAULT_SIZE);
+		translateXProperty().bind(Bindings.createDoubleBinding(() -> pt.getX() - DEFAULT_SIZE / 2d, pt.xProperty()));
+		translateYProperty().bind(Bindings.createDoubleBinding(() -> pt.getY() - DEFAULT_SIZE / 2d, pt.yProperty()));
+		setStroke(null);
+		setFill(DEFAULT_COLOR);
 	}
 
 	@Override
-	public void update(final IModifiablePointsShape sh, final double zoom) {
-		if(sh==null) return;
-
-		final IPoint zoomedGC = sh.getGravityCentre().zoom(zoom);
-		final double rotAngle = sh.getRotationAngle();
-		IPoint pt = sh.getPtAt(indexPt);
-
-		// If the shape is rotated, the handler's position must fit the rotation angle.
-		if(!MathUtils.INST.equalsDouble(rotAngle, 0.))
-			pt = pt.rotatePoint(zoomedGC, rotAngle);
-
-		point.setPoint(pt.zoom(zoom));
-		super.update(sh, zoom);
+	public void flush() {
+		translateXProperty().unbind();
+		translateYProperty().unbind();
+		point = null;
 	}
-
-
-	@Override
-	protected void updateShape() {
-		shape.setFrame(point.getX()-size/2., point.getY()-size/2., size, size);
-	}
-
 
 	/**
-	 * @return The index of the point in its shape.
-	 * @since 3.0
+	 * @return The point controlled by the handler.
 	 */
-	public int getIndexPt() {
-		return indexPt;
+	public IPoint getPoint() {
+		return point;
 	}
 }

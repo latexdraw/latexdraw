@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.handlers;
 
-import java.awt.geom.Rectangle2D;
-import net.sf.latexdraw.models.MathUtils;
+import javafx.beans.binding.Bindings;
+import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
@@ -19,47 +19,35 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  * A handler that changes the start/end angle of an arc.
  * @author Arnaud BLOUIN
  */
-public class ArcAngleHandler extends Handler<Rectangle2D, IArc> {
-	/** Defines if the handled angle is the starting or the ending angle. */
-	protected boolean start;
+public class ArcAngleHandler extends Rectangle implements Handler {
+	/** Defines whether the handled angle is the starting or the ending angle. */
+	private final boolean start;
 
 	/**
 	 * Creates and initialises an arc angle handler.
-	 * @param isStart Defines if the handled angle is the starting or the ending angle.
+	 * @param isStart Defines whether the handled angle is the starting or the ending angle.
 	 * @since 3.0
 	 */
 	public ArcAngleHandler(final boolean isStart) {
 		super();
-		this.start  = isStart;
-		shape 		= new Rectangle2D.Double();
-		updateShape();
+		start = isStart;
+		setWidth(DEFAULT_SIZE);
+		setHeight(DEFAULT_SIZE);
+		setStroke(null);
+		setFill(DEFAULT_COLOR);
 	}
 
+	public void setCurrentArc(final IArc arc) {
+		translateXProperty().unbind();
+		translateYProperty().unbind();
 
-	@Override
-	protected void updateShape() {
-		shape.setFrame(point.getX()-size/2., point.getY()-size/2., size, size);
+		translateXProperty().bind(Bindings.createDoubleBinding(() -> getPosition(arc).getX() - DEFAULT_SIZE / 2d,
+			arc.angleStartProperty(), arc.angleEndProperty(), arc.getPtAt(0).xProperty(), arc.getPtAt(2).xProperty()));
+		translateYProperty().bind(Bindings.createDoubleBinding(() -> getPosition(arc).getY() - DEFAULT_SIZE / 2d,
+			arc.angleStartProperty(), arc.angleEndProperty(), arc.getPtAt(0).yProperty(), arc.getPtAt(2).yProperty()));
 	}
 
-
-	@Override
-	public void update(final IArc arc, final double zoom) {
-		if(arc==null) return;
-
-		final IPoint zoomedGC = arc.getGravityCentre().zoom(zoom);
-		final double rotAngle = arc.getRotationAngle();
-		IPoint pt;
-
-		if(start)
-			pt = arc.getStartPoint();
-		else
-			pt = arc.getEndPoint();
-
-		// If the shape is rotated, the handler's position must fit the rotation angle.
-		if(!MathUtils.INST.equalsDouble(rotAngle, 0.))
-			pt = pt.rotatePoint(zoomedGC, rotAngle);
-
-		point.setPoint(pt.zoom(zoom).getMiddlePoint(zoomedGC));
-		super.update(arc, zoom);
+	private IPoint getPosition(final IArc arc) {
+		return start ? arc.getStartPoint() : arc.getEndPoint();
 	}
 }

@@ -10,54 +10,53 @@
  */
 package net.sf.latexdraw.handlers;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
-import java.awt.geom.Arc2D;
-import java.awt.geom.Path2D;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import javafx.beans.binding.Bindings;
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.ClosePath;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeLineCap;
 
 /**
  * A handler to rotate shapes.
  * @author Arnaud BLOUIN
  */
-public class RotationHandler extends Handler<Path2D, IShape> {
-	public static final BasicStroke STROKE = new BasicStroke(2.5f);
-
-	private final Arc2D arc;
-
+public class RotationHandler extends Group implements Handler {
 	/**
 	 * The constructor by default.
+	 * @param border The selection border.
 	 */
-	public RotationHandler() {
+	public RotationHandler(final Rectangle border) {
 		super();
-		shape	= new Path2D.Double();
-		arc		= new Arc2D.Double();
-		updateShape();
-	}
+		final Arc arc = new Arc();
+		arc.setCenterX(DEFAULT_SIZE / 2d);
+		arc.setRadiusX(DEFAULT_SIZE / 2d);
+		arc.setRadiusY(DEFAULT_SIZE / 2d);
+		arc.setType(ArcType.OPEN);
+		arc.setLength(270d);
+		arc.setStroke(DEFAULT_COLOR);
+		arc.setStrokeWidth(2.5d);
+		arc.setStrokeLineCap(StrokeLineCap.BUTT);
+		arc.setFill(new Color(1d, 1d, 1d, 0d));
+		getChildren().add(arc);
 
+		final Path arrows = new Path();
+		arrows.setStroke(null);
+		arrows.setFill(new Color(0d, 0d, 0d, 0.4));
+		arrows.getElements().add(new MoveTo(DEFAULT_SIZE + DEFAULT_SIZE / 4d, 0d));
+		arrows.getElements().add(new LineTo(DEFAULT_SIZE, DEFAULT_SIZE / 2d));
+		arrows.getElements().add(new LineTo(DEFAULT_SIZE - DEFAULT_SIZE / 4d, 0d));
+		arrows.getElements().add(new ClosePath());
+		getChildren().add(arrows);
 
-	@Override
-	protected void updateShape() {
-		arc.setArc(point.getX()+STROKE.getLineWidth()/2., point.getY()+STROKE.getLineWidth()/2., size, size, 0, 270, Arc2D.OPEN);
-		shape.reset();
-		shape.append(arc, false);
-		shape.moveTo(point.getX()+STROKE.getLineWidth()/2.+size+2., point.getY()+STROKE.getLineWidth()/2.+size/2.);
-		shape.lineTo(point.getX()+STROKE.getLineWidth()/2.+size-2., point.getY()+STROKE.getLineWidth()/2.+size/2.);
-		shape.lineTo(point.getX()+STROKE.getLineWidth()/2.+size, point.getY()+STROKE.getLineWidth()/2.+size/2.+4.);
-		shape.closePath();
-	}
-
-
-	@Override
-	public void paint(final Graphics2D g) {
-		g.setColor(colour.toAWT());
-		g.setStroke(STROKE);
-		g.draw(shape);
-	}
-
-
-	@Override
-	public boolean contains(final double x, final double y) {
-		return super.contains(x, y) || STROKE.createStrokedShape(shape).contains(x, y);
+		translateXProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutX() + border.getWidth(), border.xProperty(),
+			border.widthProperty(), border.layoutXProperty()));
+		translateYProperty().bind(Bindings.createDoubleBinding(() -> border.getLayoutY() + DEFAULT_SIZE, border.yProperty(),
+			border.heightProperty(), border.layoutYProperty()));
 	}
 }

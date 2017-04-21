@@ -10,41 +10,46 @@
  */
 package net.sf.latexdraw.handlers;
 
-import java.awt.geom.Ellipse2D;
-import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
+import java.util.Objects;
+import javafx.beans.binding.Bindings;
+import javafx.scene.shape.Ellipse;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
- * A handler that moves a control point (for Bézier curves).
+ * A handler for moving control points (for Bézier curves).
  * @author Arnaud BLOUIN
  */
-public class CtrlPointHandler extends Handler<Ellipse2D, IControlPointShape> {
-	/** The index of the point in its shape. */
-	protected int indexPt;
-
+public class CtrlPointHandler extends Ellipse implements Handler {
+	/** The control point to move. */
+	private IPoint point;
 
 	/**
 	 * Creates the handler.
-	 * @param index The index of the point in its shape.
+	 * @param pt The control point to move.
+	 * @throws NullPointerException If the given point is null.
 	 */
-	public CtrlPointHandler(final int index) {
+	public CtrlPointHandler(final IPoint pt) {
 		super();
-		shape = new Ellipse2D.Double();
-		indexPt = index;
-		updateShape();
+		point = Objects.requireNonNull(pt);
+		setRadiusX(DEFAULT_SIZE / 2d);
+		setRadiusY(DEFAULT_SIZE / 2d);
+		translateXProperty().bind(Bindings.createDoubleBinding(() -> pt.getX() - DEFAULT_SIZE / 2d, pt.xProperty()));
+		translateYProperty().bind(Bindings.createDoubleBinding(() -> pt.getY() - DEFAULT_SIZE / 2d, pt.yProperty()));
+		setStroke(null);
+		setFill(DEFAULT_COLOR);
 	}
-
 
 	@Override
-	protected void updateShape() {
-		shape.setFrame(point.getX()-size/2., point.getY()-size/2., size, size);
+	public void flush() {
+		translateXProperty().unbind();
+		translateYProperty().unbind();
+		point = null;
 	}
 
-
 	/**
-	 * @return The index of the point in its shape.
-	 * @since 3.0
+	 * @return The control point controlled by the handler.
 	 */
-	public int getIndexPt() {
-		return indexPt;
+	public IPoint getPoint() {
+		return point;
 	}
 }

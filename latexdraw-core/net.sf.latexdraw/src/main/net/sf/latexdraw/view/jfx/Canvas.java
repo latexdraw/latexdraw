@@ -251,6 +251,10 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		updateSelectionBorders();
 	}
 
+	public Rectangle getSelectionBorder() {
+		return selectionBorder;
+	}
+
 	@Override
 	public double getZoom() {
 		return zoom.getValue();
