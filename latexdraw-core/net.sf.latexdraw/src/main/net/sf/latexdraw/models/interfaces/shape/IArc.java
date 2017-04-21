@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 
 /**
@@ -28,4 +30,10 @@ public interface IArc extends IPositionShape, IArcProp, IArrowableShape {
 	 * @since 1.9
 	 */
 	IPoint getEndPoint();
+
+	ObjectProperty<ArcStyle> arcStyleProperty();
+
+	DoubleProperty angleStartProperty();
+
+	DoubleProperty angleEndProperty();
 }

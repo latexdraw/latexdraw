@@ -10,8 +10,12 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
@@ -23,37 +27,35 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
- * An implementation of a rounded arc.
+ * An implementation of the circle arc.
  * @author Arnaud Blouin
  */
 class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 	private final List<IArrow> arrows;
 	/** The style of the arc. */
-	private ArcStyle style;
+	private final ObjectProperty<ArcStyle> style;
 	/** The start angle of the arc. In radian. */
-	private double startAngle;
+	private final DoubleProperty startAngle;
 	/** The end angle of the arc. In radian. */
-	private double endAngle;
+	private final DoubleProperty endAngle;
 
 
 	LCircleArc(final IPoint tl, final double width) {
 		super(tl, width);
-		arrows = new ArrayList<>();
-		arrows.add(ShapeFactory.INST.createArrow(this));
-		arrows.add(ShapeFactory.INST.createArrow(this));
-		style = ArcStyle.ARC;
-		startAngle = 0.0;
-		endAngle = 3.0 * Math.PI / 2.0;
+		arrows = Arrays.asList(ShapeFactory.INST.createArrow(this), ShapeFactory.INST.createArrow(this));
+		style = new SimpleObjectProperty<>(ArcStyle.ARC);
+		startAngle = new SimpleDoubleProperty(0d);
+		endAngle = new SimpleDoubleProperty(3d * Math.PI / 2d);
 	}
 
 	@Override
 	public void copy(final IShape sh) {
 		super.copy(sh);
 		if(sh instanceof IArcProp) {
-			IArcProp arc = (IArcProp) sh;
-			startAngle = arc.getAngleStart();
-			endAngle = arc.getAngleEnd();
-			style = arc.getArcStyle();
+			final IArcProp arc = (IArcProp) sh;
+			startAngle.set(arc.getAngleStart());
+			endAngle.set(arc.getAngleEnd());
+			style.set(arc.getArcStyle());
 		}
 	}
 
@@ -64,16 +66,18 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 
 	@Override
 	public double getRadius() {
-		return getWidth() / 2.0;
+		return getWidth() / 2d;
 	}
 
 	@Override
 	public ILine getArrowLine(final IArrow arrow) {
 		if(getArrowAt(0) == arrow) {
-			return MathUtils.INST.getTangenteAt(getTopLeftPoint(), getBottomRightPoint(), getGravityCentre(), startAngle, startAngle < Math.PI);
+			return MathUtils.INST.getTangenteAt(getTopLeftPoint(), getBottomRightPoint(), getGravityCentre(), getAngleStart(),
+				getAngleStart() < Math.PI);
 		}
 		if(getArrowAt(1) == arrow) {
-			return MathUtils.INST.getTangenteAt(getTopLeftPoint(), getBottomRightPoint(), getGravityCentre(), endAngle, endAngle >= Math.PI);
+			return MathUtils.INST.getTangenteAt(getTopLeftPoint(), getBottomRightPoint(), getGravityCentre(), getAngleEnd(),
+				getAngleEnd() >= Math.PI);
 		}
 		return null;
 	}
@@ -85,54 +89,71 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 
 	@Override
 	public double getAngleEnd() {
-		return endAngle;
+		return endAngle.get();
 	}
 
 	@Override
 	public double getAngleStart() {
-		return startAngle;
+		return startAngle.get();
 	}
 
 	@Override
 	public IPoint getEndPoint() {
 		final IPoint grav = getGravityCentre();
-		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(endAngle) * getHeight() / 2.0, grav.getY() - Math.sin(endAngle) * getHeight() / 2.0);
+		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(getAngleEnd()) * getHeight() / 2d,
+			grav.getY() - Math.sin(getAngleEnd()) * getHeight() / 2d);
 	}
 
 	@Override
 	public IPoint getStartPoint() {
 		final IPoint grav = getGravityCentre();
-		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(startAngle) * getWidth() / 2.0, grav.getY() - Math.sin(startAngle) * getWidth() / 2.0);
+		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(getAngleStart()) * getWidth() / 2d,
+			grav.getY() - Math.sin(getAngleStart()) * getWidth() / 2d);
 	}
 
 	@Override
 	public ArcStyle getArcStyle() {
-		return style;
+		return style.get();
 	}
 
 	@Override
 	public void setAngleEnd(final double angle) {
 		if(MathUtils.INST.isValidCoord(angle)) {
-			endAngle = angle;
+			endAngle.set(angle);
 		}
 	}
 
 	@Override
 	public void setAngleStart(final double angle) {
 		if(MathUtils.INST.isValidCoord(angle)) {
-			startAngle = angle;
+			startAngle.set(angle);
 		}
 	}
 
 	@Override
 	public void setArcStyle(ArcStyle arcStyle) {
 		if(arcStyle != null) {
-			style = arcStyle;
+			style.set(arcStyle);
 		}
 	}
 
 	@Override
 	public List<IArrow> getArrows() {
 		return arrows;
+	}
+
+	@Override
+	public ObjectProperty<ArcStyle> arcStyleProperty() {
+		return style;
+	}
+
+	@Override
+	public DoubleProperty angleStartProperty() {
+		return startAngle;
+	}
+
+	@Override
+	public DoubleProperty angleEndProperty() {
+		return endAngle;
 	}
 }

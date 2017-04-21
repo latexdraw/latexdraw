@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
-import java.awt.geom.Arc2D;
+import javafx.scene.shape.ArcType;
 import net.sf.latexdraw.util.LangTool;
 
 /**
@@ -30,11 +30,10 @@ public enum ArcStyle {
 		}
 
 		@Override
-		public int getJava2DArcStyle() {
-			return Arc2D.PIE;
+		public ArcType getJFXStyle() {
+			return ArcType.ROUND;
 		}
-	},
-	ARC {
+	}, ARC {
 		@Override
 		public boolean supportArrow() {
 			return true;
@@ -46,12 +45,10 @@ public enum ArcStyle {
 		}
 
 		@Override
-		public int getJava2DArcStyle() {
-			return Arc2D.OPEN;
+		public ArcType getJFXStyle() {
+			return ArcType.OPEN;
 		}
-
-	},
-	CHORD {
+	}, CHORD {
 		@Override
 		public boolean supportArrow() {
 			return false;
@@ -63,10 +60,9 @@ public enum ArcStyle {
 		}
 
 		@Override
-		public int getJava2DArcStyle() {
-			return Arc2D.CHORD;
+		public ArcType getJFXStyle() {
+			return ArcType.CHORD;
 		}
-
 	};
 
 	/**
@@ -76,14 +72,13 @@ public enum ArcStyle {
 	public abstract boolean supportArrow();
 
 	/**
-	 * @return The translated label of the arc type.
+	 * @return The internationalised label of the arc type.
 	 * @since 3.0
 	 */
 	public abstract String getLabel();
 
 	/**
-	 * @return The Java value corresponding to the arc style.
-	 * @since 3.1
+	 * @return The JFX arc style corresponding to the current arc style.
 	 */
-	public abstract int getJava2DArcStyle();
+	public abstract ArcType getJFXStyle();
 }
