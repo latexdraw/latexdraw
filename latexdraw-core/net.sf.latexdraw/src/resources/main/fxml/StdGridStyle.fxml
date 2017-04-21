@@ -8,49 +8,49 @@
     <VBox spacing="5">
         <AnchorPane>
             <Label layoutX="0.0" layoutY="4.0" text="%ParametersGridFrame.12"/>
-            <Spinner fx:id="xStartS" layoutX="70.0" layoutY="0.0" prefHeight="25.0" prefWidth="50.0" editable="true"
+            <Spinner fx:id="xStartS" layoutX="70.0" layoutY="0.0" prefHeight="25.0" prefWidth="55.0" editable="true"
                      min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
                 <tooltip>
                     <Tooltip text="%ShapeStdGrid.1"/>
                 </tooltip>
             </Spinner>
             <Label layoutX="125.0" layoutY="4.0" text="%ParametersGridFrame.14"/>
-            <Spinner fx:id="yStartS" layoutX="195.0" layoutY="0.0" prefHeight="25.0" prefWidth="50.0" editable="true"
+            <Spinner fx:id="yStartS" layoutX="195.0" layoutY="0.0" prefHeight="25.0" prefWidth="55.0" editable="true"
                      min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
                 <tooltip>
                     <Tooltip text="%ShapeStdGrid.2"/>
                 </tooltip>
             </Spinner>
             <Label layoutX="0.0" layoutY="37.0" text="%ParametersGridFrame.11"/>
-            <Spinner fx:id="xEndS" layoutX="70.0" layoutY="32.0" prefHeight="25.0" prefWidth="50.0" editable="true"
+            <Spinner fx:id="xEndS" layoutX="70.0" layoutY="32.0" prefHeight="25.0" prefWidth="55.0" editable="true"
                      min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
                 <tooltip>
                     <Tooltip text="%ShapeStdGrid.3"/>
                 </tooltip>
             </Spinner>
             <Label layoutX="125.0" layoutY="37.0" text="%ParametersGridFrame.13"/>
-            <Spinner fx:id="yEndS" layoutX="195.0" layoutY="32.0" prefHeight="25.0" prefWidth="50.0" editable="true"
+            <Spinner fx:id="yEndS" layoutX="195.0" layoutY="32.0" prefHeight="25.0" prefWidth="55.0" editable="true"
                      min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
                 <tooltip>
                     <Tooltip text="%ShapeStdGrid.4"/>
                 </tooltip>
             </Spinner>
             <Label layoutX="0.0" layoutY="70.0" text="%ParametersGridFrame.1"/>
-            <Spinner fx:id="xOriginS" layoutX="70.0" layoutY="65.0" prefHeight="25.0" prefWidth="50.0" editable="true"
+            <Spinner fx:id="xOriginS" layoutX="70.0" layoutY="65.0" prefHeight="25.0" prefWidth="55.0" editable="true"
                      min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
                 <tooltip>
                     <Tooltip text="%ShapeStdGrid.6"/>
                 </tooltip>
             </Spinner>
             <Label layoutX="125.0" layoutY="70.0" text="%ParametersGridFrame.0"/>
-            <Spinner fx:id="yOriginS" layoutX="195.0" layoutY="65.0" prefHeight="25.0" prefWidth="50.0" editable="true"
+            <Spinner fx:id="yOriginS" layoutX="195.0" layoutY="65.0" prefHeight="25.0" prefWidth="55.0" editable="true"
                      min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
                 <tooltip>
                     <Tooltip text="%ShapeStdGrid.7"/>
                 </tooltip>
             </Spinner>
             <Label layoutX="0.0" layoutY="103.0" text="%ParametersGridFrame.9"/>
-            <Spinner fx:id="labelsSizeS" layoutX="110.0" layoutY="98.0" prefHeight="25.0" prefWidth="60.0" editable="true">
+            <Spinner fx:id="labelsSizeS" layoutX="110.0" layoutY="98.0" prefHeight="25.0" prefWidth="65.0" editable="true">
                 <tooltip>
                     <Tooltip text="%ShapeStdGrid.5"/>
                 </tooltip>
