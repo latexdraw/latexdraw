@@ -22,18 +22,23 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.MoveCtrlPoint;
 import net.sf.latexdraw.actions.shape.MovePointShape;
 import net.sf.latexdraw.actions.shape.ScaleShapes;
+import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.handlers.ArcAngleHandler;
 import net.sf.latexdraw.handlers.CtrlPointHandler;
 import net.sf.latexdraw.handlers.Handler;
 import net.sf.latexdraw.handlers.MovePtHandler;
 import net.sf.latexdraw.handlers.RotationHandler;
 import net.sf.latexdraw.handlers.ScaleHandler;
+import net.sf.latexdraw.models.MathUtils;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -208,7 +213,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		addInteractor(movePointInteractor);
 		addInteractor(moveCtrlPtInteractor);
 		// addInteractor(new DnD2Rotate(this))
-		// addInteractor(new DnD2ArcAngle(this))
+		addInteractor(new DnD2ArcAngle(this));
 	}
 
 
@@ -283,81 +288,83 @@ public class Border extends CanvasInstrument implements Initializable {
 				&& interaction.getSrcObject().get() instanceof CtrlPointHandler;
 		}
 	}
+
+	private static class DnD2ArcAngle extends JfxInteractor<ModifyShapeProperty, DnD, Border> {
+		/** The gravity centre used for the rotation. */
+		private IPoint gc;
+		/** Defines whether the current handled shape is rotated. */
+		private boolean isRotated;
+		/** The current handled shape. */
+		private IArc shape;
+		private IPoint gap;
+
+		DnD2ArcAngle(final Border ins) throws IllegalAccessException, InstantiationException {
+			super(ins, true, ModifyShapeProperty.class, DnD.class, ins.arcHandlerStart, ins.arcHandlerEnd);
+			gap = ShapeFactory.INST.createPoint();
+			isRotated = false;
+		}
+
+		@Override
+		public void initAction() {
+			final IDrawing drawing = instrument.canvas.getDrawing();
+
+			if(drawing.getSelection().size() == 1) {
+				shape = (IArc) drawing.getSelection().getShapeAt(0);
+				final double rotAngle = shape.getRotationAngle();
+				IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcPoint().get()));
+				gc = shape.getGravityCentre();
+				IPoint pCentre;
+
+				if(interaction.getSrcObject().get() == instrument.arcHandlerStart) {
+					action.setProperty(ShapeProperties.ARC_START_ANGLE);
+					pCentre = shape.getStartPoint();
+				}else {
+					action.setProperty(ShapeProperties.ARC_END_ANGLE);
+					pCentre = shape.getEndPoint();
+				}
+
+				if(MathUtils.INST.equalsDouble(rotAngle, 0d)) {
+					isRotated = false;
+				}else {
+					pt = pt.rotatePoint(gc, -rotAngle);
+					pCentre = pCentre.rotatePoint(gc, -rotAngle);
+					isRotated = true;
+				}
+
+				gap.setPoint(pt.getX() - pCentre.getX(), pt.getY() - pCentre.getY());
+				action.setGroup(drawing.getSelection().duplicateDeep(false));
+			}
+		}
+
+
+		@Override
+		public void updateAction() {
+			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndPt().get()));
+
+			if(isRotated) {
+				pt = pt.rotatePoint(gc, -shape.getRotationAngle());
+			}
+
+			gap = ShapeFactory.INST.createPoint();
+			action.setValue(computeAngle(ShapeFactory.INST.createPoint(pt.getX() - gap.getX(), pt.getY() - gap.getY())));
+		}
+
+
+		private double computeAngle(final IPoint position) {
+			final double angle = Math.acos((position.getX() - gc.getX()) / position.distance(gc));
+
+			return position.getY() > gc.getY() ? 2d * Math.PI - angle : angle;
+		}
+
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getSrcObject().isPresent() && interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent();
+		}
+	}
 }
 
-// /** Maps a DnD interaction to an action that changes the arc angles. */
-// private sealed class DnD2ArcAngle(ins : Border) extends
-// InteractorImpl[ModifyShapeProperty, DnD, Border](ins, true,
-// classOf[ModifyShapeProperty], classOf[DnD]) {
-// /** The gravity centre used for the rotation. */
-// var gc : IPoint = _
-//
-// /** Defines whether the current handled shape is rotated. */
-// var isRotated = false
-//
-// /** The current handled shape. */
-// var shape : IShape = _
-//
-// var gap : IPoint = ShapeFactory.INST.createPoint
-//
-//
-// def initAction() {
-// val drawing = instrument.canvas.getDrawing
-//
-// if(drawing.getSelection.size==1) {
-// shape = drawing.getSelection.getShapeAt(0)
-// val rotAngle = shape.getRotationAngle
-// var pCentre = interaction.getStartObject.asInstanceOf[IHandler[_]].getCentre
-// var pt : IPoint = interaction.getStartPt
-// gc = instrument.getAdaptedOriginPoint(shape.getGravityCentre)
-//
-// if(LNumber.equalsDouble(rotAngle, 0.0))
-// isRotated = false
-// else {
-// pt = pt.rotatePoint(gc, -rotAngle)
-// pCentre = pCentre.rotatePoint(gc, -rotAngle)
-// isRotated = true
-// }
-//
-// gap.setPoint(pt.getX-pCentre.getX, pt.getY-pCentre.getY)
-//
-// if(interaction.getStartObject==instrument.arcHandlerStart)
-// action.setProperty(ShapeProperties.ARC_START_ANGLE)
-// else
-// action.setProperty(ShapeProperties.ARC_END_ANGLE)
-//
-// action.setGroup(drawing.getSelection.duplicateDeep(false))
-// }
-// }
-//
-//
-// override def updateAction() {
-// var pt : IPoint = instrument.getAdaptedOriginPoint(interaction.getEndPt)
-//
-// if(isRotated)
-// pt = pt.rotatePoint(gc, -shape.getRotationAngle)
-//
-// action.setValue(computeAngle(ShapeFactory.INST.createPoint(pt.getX-gap.getX,
-// pt.getY-gap.getY)))
-// }
-//
-//
-// private def computeAngle(position : IPoint) : Double = {
-// val angle = math.acos((position.getX-gc.getX)/position.distance(gc))
-//
-// if(position.getY>gc.getY)
-// 2*math.Pi - angle
-// else angle
-// }
-//
-//
-// override def isConditionRespected =
-// interaction.getStartObject==instrument.arcHandlerEnd ||
-// interaction.getStartObject==instrument.arcHandlerStart
-// }
-//
-//
-//
+
 // /**
 // * This link maps a DnD interaction on a rotation handler to an action that
 // rotates the selected shapes.
