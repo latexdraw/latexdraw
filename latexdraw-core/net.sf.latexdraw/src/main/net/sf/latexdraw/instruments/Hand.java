@@ -51,7 +51,6 @@ import org.malai.javafx.interaction.library.Press;
 public class Hand extends CanvasInstrument {
 	@Inject private MetaShapeCustomiser metaCustomiser;
 	@Inject private TextSetter textSetter;
-	@Inject private Border border;
 
 	Hand() {
 		super();
