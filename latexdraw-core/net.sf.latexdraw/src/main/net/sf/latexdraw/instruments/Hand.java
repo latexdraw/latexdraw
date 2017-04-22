@@ -229,7 +229,7 @@ public class Hand extends CanvasInstrument {
 		@Override
 		public boolean isConditionRespected() {
 			final Optional<Node> src = interaction.getSrcObject();
-			return src.isPresent() && (src.get().getParent() instanceof ViewTextText || src.get().getParent() instanceof ViewPlot);
+			return src.isPresent() && (src.get().getParent() instanceof ViewTextText || src.get().getParent().getUserData() instanceof ViewPlot);
 		}
 	}
 

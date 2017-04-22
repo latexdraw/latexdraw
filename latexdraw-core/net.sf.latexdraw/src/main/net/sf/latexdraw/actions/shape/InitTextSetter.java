@@ -23,28 +23,22 @@ import org.malai.action.library.ActivateInstrument;
  */
 public class InitTextSetter extends ActivateInstrument {
 	/** The text setter to move. */
-	protected TextSetter setter;
+	private TextSetter setter;
 
 	/** The text to set to the setter. */
-	protected String text;
+	private String text;
 
 	/** The position that takes account of the zoom. */
-	protected IPoint position;
+	private IPoint position;
 
 	/** The text (shape) to modify throw the setter. Can be null. */
-	protected IText textShape;
+	private IText textShape;
 
-	protected IPlot plotShape;
+	private IPlot plotShape;
 
 
-	@Override
-	public void flush() {
-		super.flush();
-		plotShape = null;
-		text = null;
-		textShape = null;
-		setter = null;
-		position = null;
+	public InitTextSetter() {
+		super();
 	}
 
 	/**
@@ -82,12 +76,10 @@ public class InitTextSetter extends ActivateInstrument {
 		setter = textSetter;
 	}
 
-
 	@Override
 	public boolean isRegisterable() {
 		return false;
 	}
-
 
 	/**
 	 * @param pt The position that takes account of the zoom.
@@ -97,13 +89,11 @@ public class InitTextSetter extends ActivateInstrument {
 		position = pt;
 	}
 
-
 	@Override
 	public boolean canDo() {
-		return super.canDo() && MathUtils.INST.isValidPt(position) &&
-			setter != null && (text != null || textShape != null || plotShape != null);
+		System.out.println((super.canDo() && MathUtils.INST.isValidPt(position) && setter != null && (text != null || textShape != null || plotShape != null)));
+		return super.canDo() && MathUtils.INST.isValidPt(position) && setter != null && (text != null || textShape != null || plotShape != null);
 	}
-
 
 	@Override
 	protected void doActionBody() {
@@ -112,5 +102,15 @@ public class InitTextSetter extends ActivateInstrument {
 		setter.getTextField().setText(text);
 		setter.setText(textShape);
 		setter.setPlot(plotShape);
+	}
+
+	@Override
+	public void flush() {
+		plotShape = null;
+		text = null;
+		textShape = null;
+		setter = null;
+		position = null;
+		super.flush();
 	}
 }
