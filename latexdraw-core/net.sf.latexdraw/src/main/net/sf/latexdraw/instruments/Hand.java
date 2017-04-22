@@ -28,10 +28,12 @@ import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.actions.shape.TranslateShapes;
 import net.sf.latexdraw.actions.shape.UpdateToGrid;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.util.LSystem;
+import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewTextText;
 import org.malai.javafx.action.library.MoveCamera;
@@ -105,6 +107,19 @@ public class Hand extends CanvasInstrument {
 	// }
 	// }
 
+	/**
+	 * A tricky workaround to get the real plot view hidden behind its content views (Bezier curve, dots, etc.).
+	 * If the view has a ViewPlot as its user data, this view plot is returned. The source view is returned otherwise.
+	 * setMouseTransparency cannot be used since the mouse over would not work anymore.
+	 * @param view The view to check. Cannot be null.
+	 * @return The given view or the plot view.
+	 */
+	private static ViewShape<?> getRealViewShape(final ViewShape<?> view) {
+		if(view.getUserData() instanceof ViewPlot) {
+			return (ViewShape<?>) view.getUserData();
+		}
+		return view;
+	}
 
 	private static class Press2Select extends JfxInteractor<SelectShapes, Press, Hand> {
 		Press2Select(final Hand hand) throws InstantiationException, IllegalAccessException {
@@ -119,7 +134,7 @@ public class Hand extends CanvasInstrument {
 		@Override
 		public void updateAction() {
 			interaction.getSrcObject().ifPresent(target -> {
-				final IShape targetSh = ((ViewShape<?>) target.getParent()).getModel();
+				final IShape targetSh = getRealViewShape((ViewShape<?>) target.getParent()).getModel();
 
 				if(interaction.isShiftPressed()) {
 					instrument.canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> action.addShape(sh));
@@ -189,18 +204,17 @@ public class Hand extends CanvasInstrument {
 		public void initAction() {
 			interaction.getSrcObject().ifPresent(srcObj -> {
 				Optional<IPoint> pos = Optional.empty();
-				final Node node = srcObj.getParent();
+				final IShape sh = getRealViewShape((ViewShape<?>) srcObj.getParent()).getModel();
 
-				if(node instanceof ViewTextText) {
-					final IText text = ((ViewTextText) node).getModel();
+				if(sh instanceof IText) {
+					final IText text = (IText) sh;
 					action.setTextShape(text);
 					pos = Optional.of(text.getPosition());
+				}else if(sh instanceof IPlot) {
+					final IPlot plot = (IPlot) sh;
+					action.setPlotShape(plot);
+					pos = Optional.of(plot.getPosition());
 				}
-				//		 else if(interaction.getTarget instanceof ViewPlot) {
-				//			 final IPlot plot = ((ViewPlot)interaction.getTarget).getShape();
-				//			 action.setPlotShape(plot);
-				//			 pos = Optional.of(plot.getPosition());
-				//		 }
 
 				pos.ifPresent(position -> {
 					final double zoom = instrument.canvas.getZoom();
@@ -213,8 +227,8 @@ public class Hand extends CanvasInstrument {
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getSrcObject().isPresent() && interaction.getSrcObject().get().getParent() instanceof ViewTextText;
-			// || interaction.getTarget instanceof ViewPlot;
+			final Optional<Node> src = interaction.getSrcObject();
+			return src.isPresent() && (src.get().getParent() instanceof ViewTextText || src.get().getParent() instanceof ViewPlot);
 		}
 	}
 
@@ -287,7 +301,6 @@ public class Hand extends CanvasInstrument {
 				final double maxX = Math.max(start.getX(), end.getX());
 				final double minY = Math.min(start.getY(), end.getY());
 				final double maxY = Math.max(start.getY(), end.getY());
-				final double zoom = instrument.canvas.getZoom();
 
 				// Updating the rectangle used for the interim feedback and for the selection of shapes.
 				selectionBorder = new BoundingBox(minX, minY, Math.max(maxX - minX, 1d), Math.max(maxY - minY, 1d));

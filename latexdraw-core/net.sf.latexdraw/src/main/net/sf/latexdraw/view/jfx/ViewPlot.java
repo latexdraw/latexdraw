@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.beans.value.ChangeListener;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
@@ -85,37 +85,35 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 
 
 	private void updatePoints(final double minX, final double maxX, final double step) {
-		if(dotsView == null) {
-			dotsView = new ArrayList<>();
-		}else {
-			for(ViewDot v : dotsView) {
-				v.flush();
-			}
-			dotsView.clear();
-		}
+		flushDots();
 
 		final List<IDot> dots = PlotViewHelper.INSTANCE.updatePoints(model, 0d, 0d, minX, maxX, step);
 
-		for(final IDot dot : dots) {
-			dotsView.add(new ViewDot(dot));
-		}
+		dotsView = dots.parallelStream().map(dot -> {
+			final ViewDot viewDot = new ViewDot(dot);
+			viewDot.setUserData(this);
+			return viewDot;
+		}).collect(Collectors.toList());
 		getChildren().addAll(dotsView);
 	}
 
 	private void updatePolygon(final double minX, final double maxX, final double step) {
 		polygonView = new ViewPolygon(PlotViewHelper.INSTANCE.updatePolygon(model, 0d, 0d, minX, maxX, step));
+		polygonView.setUserData(this);
 		getChildren().add(polygonView);
 	}
 
 
 	private void updateLine(final double minX, final double maxX, final double step) {
 		lineView = new ViewPolyline(PlotViewHelper.INSTANCE.updateLine(model, 0d, 0d, minX, maxX, step));
+		lineView.setUserData(this);
 		getChildren().add(lineView);
 	}
 
 
 	private void updateCurve(final double minX, final double maxX, final double step) {
 		curveView = new ViewBezierCurve(PlotViewHelper.INSTANCE.updateCurve(model, 0d, 0d, minX, maxX, step));
+		curveView.setUserData(this);
 		getChildren().add(curveView);
 	}
 
@@ -136,18 +134,27 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 
 		if(lineView != null) {
 			lineView.flush();
+			lineView.setUserData(null);
 		}
 		if(curveView != null) {
 			curveView.flush();
+			curveView.setUserData(null);
 		}
-		if(dotsView != null) {
-			for(ViewDot v : dotsView) {
-				v.flush();
-			}
-			dotsView.clear();
-		}
+		flushDots();
 		if(polygonView != null) {
 			polygonView.flush();
+			polygonView.setUserData(null);
+		}
+	}
+
+
+	private void flushDots() {
+		if(dotsView != null) {
+			dotsView.forEach(v -> {
+				v.flush();
+				v.setUserData(null);
+			});
+			dotsView.clear();
 		}
 	}
 }
