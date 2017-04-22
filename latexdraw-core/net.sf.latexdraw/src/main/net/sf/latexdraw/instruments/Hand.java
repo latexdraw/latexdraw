@@ -36,6 +36,7 @@ import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewTextText;
+import org.malai.action.Action;
 import org.malai.javafx.action.library.MoveCamera;
 import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.interaction.library.DnD;
@@ -48,9 +49,9 @@ import org.malai.javafx.interaction.library.Press;
  * @author Arnaud BLOUIN
  */
 public class Hand extends CanvasInstrument {
-	//	@Inject protected MetaShapeCustomiser metaCustomiser;
-	@Inject protected TextSetter textSetter;
-	@Inject protected Border border;
+	@Inject private MetaShapeCustomiser metaCustomiser;
+	@Inject private TextSetter textSetter;
+	@Inject private Border border;
 
 	Hand() {
 		super();
@@ -100,12 +101,12 @@ public class Hand extends CanvasInstrument {
 		canvas.setCursor(Cursor.DEFAULT);
 	}
 
-	// @Override
-	// public void onActionDone(final Action action) {
-	// if(action instanceof TranslateShapes) {
-	// _metaCustomiser.dimPosCustomiser.update();
-	// }
-	// }
+	@Override
+	public void onActionDone(final Action action) {
+		if(action instanceof TranslateShapes) {
+			metaCustomiser.dimPosCustomiser.update();
+		}
+	}
 
 	/**
 	 * A tricky workaround to get the real plot view hidden behind its content views (Bezier curve, dots, etc.).
