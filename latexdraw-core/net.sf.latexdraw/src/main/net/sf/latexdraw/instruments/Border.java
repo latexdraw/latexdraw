@@ -209,7 +209,7 @@ public class Border extends CanvasInstrument implements Initializable {
 	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
 		movePointInteractor = new DnD2MovePoint(this);
 		moveCtrlPtInteractor = new DnD2MoveCtrlPoint(this);
-		// addInteractor(new DnD2Scale(this))
+		addInteractor(new DnD2Scale(this));
 		addInteractor(movePointInteractor);
 		addInteractor(moveCtrlPtInteractor);
 		// addInteractor(new DnD2Rotate(this))
@@ -362,6 +362,131 @@ public class Border extends CanvasInstrument implements Initializable {
 			return interaction.getSrcObject().isPresent() && interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent();
 		}
 	}
+
+	private static class DnD2Scale extends JfxInteractor<ScaleShapes, DnD, Border> {
+		/** The point corresponding to the 'press' position. */
+		private IPoint p1;
+		/** The x gap (gap between the pressed position and the targeted position) of the X-scaling. */
+		private double xGap;
+		/** The y gap (gap between the pressed position and the targeted position) of the Y-scaling. */
+		private double yGap;
+
+		DnD2Scale(final Border ins) throws IllegalAccessException, InstantiationException {
+			super(ins, true, ScaleShapes.class, DnD.class, ins.scaleHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()));
+		}
+
+		private void setXGap(final Position refPosition, final IPoint tl, final IPoint br) {
+			switch(refPosition) {
+				case NW:
+				case SW:
+				case WEST:
+					xGap = p1.getX() - br.getX();
+					break;
+				case NE:
+				case SE:
+				case EAST:
+					xGap = tl.getX() - p1.getX();
+					break;
+				default:
+					xGap = 0d;
+			}
+		}
+
+		private void setYGap(final Position refPosition, final IPoint tl, final IPoint br) {
+			switch(refPosition) {
+				case NW:
+				case NE:
+				case NORTH:
+					yGap = p1.getY() - br.getY();
+					break;
+				case SW:
+				case SE:
+				case SOUTH:
+					yGap = tl.getY() - p1.getY();
+					break;
+				default:
+					yGap = 0d;
+			}
+		}
+
+		@Override
+		public void initAction() {
+			final IDrawing drawing = instrument.canvas.getDrawing();
+			final ScaleHandler handler = (ScaleHandler) getInteraction().getSrcObject().get();
+			final Position refPosition = handler.getPosition().getOpposite();
+			final IPoint br = drawing.getSelection().getBottomRightPoint();
+			final IPoint tl = drawing.getSelection().getTopLeftPoint();
+
+			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcPoint().get()));
+
+			setXGap(refPosition, tl, br);
+			setYGap(refPosition, tl, br);
+			action.setDrawing(drawing);
+			action.setShape(drawing.getSelection().duplicateDeep(false));
+			action.setRefPosition(refPosition);
+		}
+
+
+		@Override
+		public void updateAction() {
+			super.updateAction();
+
+			final IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndPt().get()));
+			final Position refPosition = action.getRefPosition().get();
+
+			if(refPosition.isSouth()) {
+				action.setNewY(pt.getY() + yGap);
+			}else if(refPosition.isNorth()) {
+				action.setNewY(pt.getY() - yGap);
+			}
+
+			if(refPosition.isWest()) {
+				action.setNewX(pt.getX() - xGap);
+			}else if(refPosition.isEast()) {
+				action.setNewX(pt.getX() + xGap);
+			}
+		}
+
+
+		@Override
+		public boolean isConditionRespected() {
+			return true;
+		}
+
+
+		@Override
+		public void interimFeedback() {
+			super.interimFeedback();
+			action.getRefPosition().ifPresent(pos -> {
+				switch(pos) {
+					case EAST:
+						instrument.canvas.setCursor(Cursor.W_RESIZE);
+						break;
+					case NE:
+						instrument.canvas.setCursor(Cursor.SW_RESIZE);
+						break;
+					case NORTH:
+						instrument.canvas.setCursor(Cursor.S_RESIZE);
+						break;
+					case NW:
+						instrument.canvas.setCursor(Cursor.SE_RESIZE);
+						break;
+					case SE:
+						instrument.canvas.setCursor(Cursor.NW_RESIZE);
+						break;
+					case SOUTH:
+						instrument.canvas.setCursor(Cursor.N_RESIZE);
+						break;
+					case SW:
+						instrument.canvas.setCursor(Cursor.NE_RESIZE);
+						break;
+					case WEST:
+						instrument.canvas.setCursor(Cursor.E_RESIZE);
+						break;
+				}
+			});
+		}
+	}
 }
 
 
@@ -395,112 +520,4 @@ public class Border extends CanvasInstrument implements Initializable {
 //
 // override def isConditionRespected =
 // interaction.getStartObject==instrument.rotHandler
-// }
-
-// /**
-// * This link maps a DnD interaction on a scale handler to an action that
-// scales the selection.
-// */
-// private sealed class DnD2Scale(ins : Border) extends
-// InteractorImpl[ScaleShapes, DnD, Border](ins, true, classOf[ScaleShapes],
-// classOf[DnD]) {
-// /** The point corresponding to the 'press' position. */
-// var p1 : IPoint = _
-//
-// /** The x gap (gap between the pressed position and the targeted position) of
-// the X-scaling. */
-// var xGap : Double = _
-//
-// /** The y gap (gap between the pressed position and the targeted position) of
-// the Y-scaling. */
-// var yGap : Double = _
-//
-//
-// private def setXGap(refPosition : Position, tl : IPoint, br : IPoint) {
-// refPosition match {
-// case Position.NW | Position.SW | Position.WEST => xGap = p1.getX - br.getX
-// case Position.NE | Position.SE | Position.EAST => xGap = tl.getX - p1.getX
-// case _ => xGap = 0.0
-// }
-// }
-//
-// private def setYGap(refPosition : Position, tl : IPoint, br : IPoint) {
-// refPosition match {
-// case Position.NW | Position.NE | Position.NORTH => yGap = p1.getY - br.getY
-// case Position.SW | Position.SE | Position.SOUTH => yGap = tl.getY - p1.getY
-// case _ => yGap = 0.0
-// }
-// }
-//
-//
-// override def initAction() {
-// val drawing = instrument.canvas.getDrawing
-// val refPosition = scaleHandler.get.getPosition.getOpposite
-// val br = drawing.getSelection.getBottomRightPoint
-// val tl = drawing.getSelection.getTopLeftPoint
-//
-// // p1 =
-// instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt))
-//
-// setXGap(refPosition, tl, br)
-// setYGap(refPosition, tl, br)
-// action.setDrawing(drawing)
-// action.setShape(drawing.getSelection.duplicateDeep(false))
-// action.refPosition = refPosition
-// }
-//
-//
-// override def updateAction() {
-// super.updateAction
-//
-// val pt = instrument.getAdaptedGridPoint(interaction.getEndPt)
-// val refPosition = action.refPosition.get
-//
-// if(refPosition.isSouth)
-// action.newY = pt.getY + yGap
-// else if(refPosition.isNorth)
-// action.newY = pt.getY - yGap
-//
-// if(refPosition.isWest)
-// action.newX = pt.getX - xGap
-// else if(refPosition.isEast)
-// action.newX = pt.getX + xGap
-// }
-//
-//
-// override def isConditionRespected = scaleHandler.isDefined
-//
-//
-// override def interimFeedback() {
-// super.interimFeedback
-// action.refPosition.get match {
-// case Position.EAST =>
-// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR))
-// case Position.NE =>
-// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR))
-// case Position.NORTH =>
-// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR))
-// case Position.NW =>
-// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR))
-// case Position.SE =>
-// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR))
-// case Position.SOUTH =>
-// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR))
-// case Position.SW =>
-// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR))
-// case Position.WEST =>
-// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR))
-// }
-// }
-//
-//
-// private def scaleHandler : Option[ScaleHandler] = {
-// val obj = interaction.getStartObject
-//
-// obj.isInstanceOf[ScaleHandler] && instrument.scaleHandlers.contains(obj)
-// match {
-// case true => Some(obj.asInstanceOf[ScaleHandler])
-// case false => None
-// }
-// }
 // }
