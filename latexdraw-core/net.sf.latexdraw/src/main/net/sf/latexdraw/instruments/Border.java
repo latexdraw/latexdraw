@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
@@ -32,6 +33,7 @@ import net.sf.latexdraw.handlers.RotationHandler;
 import net.sf.latexdraw.handlers.ScaleHandler;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -68,6 +70,8 @@ public class Border extends CanvasInstrument implements Initializable {
 	private RotationHandler rotHandler;
 
 	private DnD2MovePoint movePointInteractor;
+
+	DnD2MoveCtrlPoint moveCtrlPtInteractor;
 
 //	@Inject private MetaShapeCustomiser metaCustomiser;
 
@@ -177,6 +181,8 @@ public class Border extends CanvasInstrument implements Initializable {
 			final IBezierCurve pts = (IBezierCurve) selectedShape;
 			initialisePointHandler(ctrlPt1Handlers, pt -> new CtrlPointHandler(pt), pts.getFirstCtrlPts());
 			initialisePointHandler(ctrlPt2Handlers, pt -> new CtrlPointHandler(pt), pts.getSecondCtrlPts());
+			moveCtrlPtInteractor.getInteraction().registerToNodes(
+				Stream.concat(ctrlPt1Handlers.stream(), ctrlPt2Handlers.stream()).map(h -> (Node)h).collect(Collectors.toList()));
 		}
 	}
 
@@ -197,9 +203,10 @@ public class Border extends CanvasInstrument implements Initializable {
 	@Override
 	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
 		movePointInteractor = new DnD2MovePoint(this);
+		moveCtrlPtInteractor = new DnD2MoveCtrlPoint(this);
 		// addInteractor(new DnD2Scale(this))
 		addInteractor(movePointInteractor);
-		// addInteractor(new DnD2MoveCtrlPoint(this))
+		addInteractor(moveCtrlPtInteractor);
 		// addInteractor(new DnD2Rotate(this))
 		// addInteractor(new DnD2ArcAngle(this))
 	}
@@ -237,6 +244,43 @@ public class Border extends CanvasInstrument implements Initializable {
 		public boolean isConditionRespected() {
 			return interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent() && interaction.getSrcObject().isPresent() &&
 				interaction.getSrcObject().get() instanceof MovePtHandler;
+		}
+	}
+
+
+	private static class DnD2MoveCtrlPoint extends JfxInteractor<MoveCtrlPoint, DnD, Border> {
+		DnD2MoveCtrlPoint(final Border ins) throws IllegalAccessException, InstantiationException {
+			super(ins, true, MoveCtrlPoint.class, DnD.class);
+		}
+
+		@Override
+		public void initAction() {
+			final IGroup group = instrument.canvas.getDrawing().getSelection();
+
+			if(group.size() == 1 && group.getShapeAt(0) instanceof IControlPointShape) {
+				final CtrlPointHandler handler = (CtrlPointHandler) interaction.getSrcObject().get();
+				action.setPoint(handler.getPoint());
+				action.setShape((IControlPointShape) group.getShapeAt(0));
+				action.setIsFirstCtrlPt(instrument.ctrlPt1Handlers.contains(interaction.getSrcObject().get()));
+			}
+		}
+
+		@Override
+		public void updateAction() {
+			super.updateAction();
+			final Node node = interaction.getSrcObject().get();
+			final Point3D startPt = node.localToParent(interaction.getSrcPoint().get());
+			final Point3D endPt = node.localToParent(interaction.getEndPt().get());
+			final IPoint ptToMove = ((CtrlPointHandler) node).getPoint();
+			final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
+			final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
+			action.setNewCoord(instrument.grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent() && interaction.getSrcObject().isPresent()
+				&& interaction.getSrcObject().get() instanceof CtrlPointHandler;
 		}
 	}
 }
@@ -344,62 +388,6 @@ public class Border extends CanvasInstrument implements Initializable {
 //
 // override def isConditionRespected =
 // interaction.getStartObject==instrument.rotHandler
-// }
-//
-//
-//
-// /**
-// * This link maps a DnD interaction on a move control point handler to an
-// action that moves the selected control point.
-// */
-// private sealed class DnD2MoveCtrlPoint(ins : Border) extends
-// InteractorImpl[MoveCtrlPoint, DnD, Border](ins, true, classOf[MoveCtrlPoint],
-// classOf[DnD]) {
-// /** The original coordinates of the moved point. */
-// var sourcePt : IPoint = _
-//
-//
-// override def initAction() {
-// val group = instrument.canvas.getDrawing.getSelection
-//
-// if(group.size==1 && group.getShapeAt(0).isInstanceOf[IControlPointShape]) {
-// val handler = ctrlPtHandler.get
-// sourcePt = ShapeFactory.INST.createPoint(handler.getCentre)
-// action.setIndexPt(handler.getIndexPt)
-// action.setShape(group.getShapeAt(0).asInstanceOf[IControlPointShape])
-// action.setIsFirstCtrlPt(instrument.ctrlPt1Handlers.contains(interaction.getStartObject))
-// }
-// }
-//
-//
-// override def updateAction() {
-// super.updateAction
-// val startPt = interaction.getStartPt
-// val endPt = interaction.getEndPt
-// val x = sourcePt.getX + endPt.getX-startPt.getX
-// val y = sourcePt.getY + endPt.getY-startPt.getY
-// action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.INST.createPoint(x,
-// y)))
-// }
-//
-//
-// override def isConditionRespected = ctrlPtHandler.isDefined
-//
-//
-// /**
-// * @return The selected move control point handler or null.
-// * @since 3.0
-// */
-// private def ctrlPtHandler : Option[CtrlPointHandler] = {
-// val obj = interaction.getStartObject
-//
-// obj.isInstanceOf[CtrlPointHandler] &&
-// (instrument.ctrlPt1Handlers.contains(obj) ||
-// instrument.ctrlPt2Handlers.contains(obj)) match {
-// case true => Some(obj.asInstanceOf[CtrlPointHandler])
-// case false => None
-// }
-// }
 // }
 
 // /**
