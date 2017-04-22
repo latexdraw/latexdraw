@@ -278,8 +278,8 @@ public class Hand extends CanvasInstrument {
 	private static class DnD2Select extends JfxInteractor<SelectShapes, DnD, Hand> {
 		/** The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
 		private Bounds selectionBorder;
-		List<IShape> selectedShapes;
-		List<ViewShape<?>> selectedViews;
+		private List<IShape> selectedShapes;
+		private List<ViewShape<?>> selectedViews;
 
 		DnD2Select(final Hand hand) throws IllegalAccessException, InstantiationException {
 			super(hand, true, SelectShapes.class, DnD.class, hand.canvas);
@@ -333,39 +333,39 @@ public class Hand extends CanvasInstrument {
 			selectionBorder = null;
 		}
 	}
-}
 
+	static class DnD2MoveViewport extends JfxInteractor<MoveCamera, DnD, CanvasInstrument> {
+		private IPoint pt;
 
-class DnD2MoveViewport extends JfxInteractor<MoveCamera, DnD, CanvasInstrument> {
-	private IPoint pt = ShapeFactory.INST.createPoint();
+		DnD2MoveViewport(final CanvasInstrument ins) throws IllegalAccessException, InstantiationException {
+			super(ins, true, MoveCamera.class, DnD.class, ins.canvas);
+			pt = ShapeFactory.INST.createPoint();
+		}
 
-	DnD2MoveViewport(final CanvasInstrument ins) throws IllegalAccessException, InstantiationException {
-		super(ins, true, MoveCamera.class, DnD.class, ins.canvas);
-	}
+		@Override
+		public void initAction() {
+			action.setScrollPane(instrument.canvas.getScrollPane());
+			interaction.getSrcPoint().ifPresent(start -> pt.setPoint(start.getX(), start.getY()));
+		}
 
-	@Override
-	public void initAction() {
-		action.setScrollPane(instrument.canvas.getScrollPane());
-		interaction.getSrcPoint().ifPresent(start -> pt.setPoint(start.getX(), start.getY()));
-	}
+		@Override
+		public void updateAction() {
+			interaction.getSrcPoint().ifPresent(start -> interaction.getEndPt().ifPresent(end -> {
+				final ScrollPane pane = instrument.canvas.getScrollPane();
+				action.setPx(pane.getHvalue() - (end.getX() - pt.getX()) / instrument.canvas.getWidth());
+				action.setPy(pane.getVvalue() - (end.getY() - pt.getY()) / instrument.canvas.getHeight());
+				pt = pt.centralSymmetry(ShapeFactory.INST.createPoint(start));
+			}));
+		}
 
-	@Override
-	public void updateAction() {
-		interaction.getSrcPoint().ifPresent(start -> interaction.getEndPt().ifPresent(end -> {
-			final ScrollPane pane = instrument.canvas.getScrollPane();
-			action.setPx(pane.getHvalue() - (end.getX() - pt.getX()) / instrument.canvas.getWidth());
-			action.setPy(pane.getVvalue() - (end.getY() - pt.getY()) / instrument.canvas.getHeight());
-			pt = pt.centralSymmetry(ShapeFactory.INST.createPoint(start));
-		}));
-	}
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getButton().orElse(MouseButton.NONE) == MouseButton.MIDDLE;
+		}
 
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getButton().orElse(MouseButton.NONE) == MouseButton.MIDDLE;
-	}
-
-	@Override
-	public void interimFeedback() {
-		instrument.canvas.setCursor(Cursor.MOVE);
+		@Override
+		public void interimFeedback() {
+			instrument.canvas.setCursor(Cursor.MOVE);
+		}
 	}
 }

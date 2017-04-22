@@ -103,7 +103,7 @@ public class Pencil extends CanvasInstrument {
 
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new DnD2MoveViewport(this));
+		addInteractor(new Hand.DnD2MoveViewport(this));
 		addInteractor(new Press2AddShape());
 		addInteractor(new Press2AddText());
 		addInteractor(new Press2InsertPicture());
