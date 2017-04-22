@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point3D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import net.sf.latexdraw.actions.shape.MoveCtrlPoint;
@@ -36,6 +38,8 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.Position;
 import org.malai.action.Action;
+import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.interaction.library.DnD;
 
 /**
  * This instrument manages the selected views.
@@ -62,6 +66,8 @@ public class Border extends CanvasInstrument implements Initializable {
 
 	/** The handler that rotates shapes. */
 	private RotationHandler rotHandler;
+
+	private DnD2MovePoint movePointInteractor;
 
 //	@Inject private MetaShapeCustomiser metaCustomiser;
 
@@ -162,6 +168,7 @@ public class Border extends CanvasInstrument implements Initializable {
 	private void updateMvPtHandlers(final IShape selectedShape) {
 		if(selectedShape instanceof IModifiablePointsShape) {
 			initialisePointHandler(mvPtHandlers, pt -> new MovePtHandler(pt), selectedShape.getPoints());
+			movePointInteractor.getInteraction().registerToNodes(mvPtHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()));
 		}
 	}
 
@@ -188,12 +195,49 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 	@Override
-	protected void initialiseInteractors() {
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		movePointInteractor = new DnD2MovePoint(this);
 		// addInteractor(new DnD2Scale(this))
-		// addInteractor(new DnD2MovePoint(this))
+		addInteractor(movePointInteractor);
 		// addInteractor(new DnD2MoveCtrlPoint(this))
 		// addInteractor(new DnD2Rotate(this))
 		// addInteractor(new DnD2ArcAngle(this))
+	}
+
+
+	private static class DnD2MovePoint extends JfxInteractor<MovePointShape, DnD, Border> {
+		DnD2MovePoint(final Border ins) throws IllegalAccessException, InstantiationException {
+			super(ins, true, MovePointShape.class, DnD.class);
+		}
+
+		@Override
+		public void initAction() {
+			final IGroup group = instrument.canvas.getDrawing().getSelection();
+
+			if(group.size() == 1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
+				final MovePtHandler handler = (MovePtHandler) interaction.getSrcObject().get();
+				action.setPoint(handler.getPoint());
+				action.setShape((IModifiablePointsShape) group.getShapeAt(0));
+			}
+		}
+
+		@Override
+		public void updateAction() {
+			super.updateAction();
+			final Node node = interaction.getSrcObject().get();
+			final Point3D startPt = node.localToParent(interaction.getSrcPoint().get());
+			final Point3D endPt = node.localToParent(interaction.getEndPt().get());
+			final IPoint ptToMove = ((MovePtHandler) node).getPoint();
+			final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
+			final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
+			action.setNewCoord(instrument.grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent() && interaction.getSrcObject().isPresent() &&
+				interaction.getSrcObject().get() instanceof MovePtHandler;
+		}
 	}
 }
 
@@ -357,63 +401,7 @@ public class Border extends CanvasInstrument implements Initializable {
 // }
 // }
 // }
-//
-//
-//
-// /**
-// * This link maps a DnD interaction on a move point handler to an action that
-// moves the selected point.
-// */
-// private sealed class DnD2MovePoint(ins : Border) extends
-// InteractorImpl[MovePointShape, DnD, Border](ins, true,
-// classOf[MovePointShape], classOf[DnD]) {
-// /** The original coordinates of the moved point. */
-// var sourcePt : IPoint = _
-//
-//
-// override def initAction() {
-// val group = instrument.canvas.getDrawing.getSelection
-//
-// if(group.size==1 && group.getShapeAt(0).isInstanceOf[IModifiablePointsShape])
-// {
-// val handler = movePtHandler.get
-// sourcePt = ShapeFactory.INST.createPoint(handler.getCentre)
-// action.setIndexPt(handler.getIndexPt)
-// action.setShape(group.getShapeAt(0).asInstanceOf[IModifiablePointsShape])
-// }
-// }
-//
-//
-// override def updateAction() {
-// super.updateAction
-// val startPt = interaction.getStartPt
-// val endPt = interaction.getEndPt
-// val x = sourcePt.getX + endPt.getX-startPt.getX
-// val y = sourcePt.getY + endPt.getY-startPt.getY
-// action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.INST.createPoint(x,
-// y)))
-// }
-//
-//
-// override def isConditionRespected = movePtHandler.isDefined
-//
-//
-// /**
-// * @return The selected move point handler or null.
-// * @since 3.0
-// */
-// private def movePtHandler : Option[MovePtHandler] = {
-// val obj = interaction.getStartObject
-// obj.isInstanceOf[MovePtHandler] && instrument.mvPtHandlers.contains(obj)
-// match {
-// case true => Some(obj.asInstanceOf[MovePtHandler])
-// case false => None
-// }
-// }
-// }
-//
-//
-//
+
 // /**
 // * This link maps a DnD interaction on a scale handler to an action that
 // scales the selection.

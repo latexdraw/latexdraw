@@ -11,7 +11,6 @@
 package net.sf.latexdraw.actions.shape;
 
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
@@ -21,35 +20,39 @@ import org.malai.undo.Undoable;
  */
 public class MovePointShape extends MovePoint implements Undoable {
 	/** The shape to modify. */
-	protected IModifiablePointsShape shape;
+	private IModifiablePointsShape shape;
 
+	public MovePointShape() {
+		super();
+	}
 
 	@Override
 	protected void doActionBody() {
-		final IPoint pt = shape.getPtAt(indexPt);
-		tx += newCoord.getX() - pt.getX();
-		ty += newCoord.getY() - pt.getY();
+		tx += newCoord.getX() - point.getX();
+		ty += newCoord.getY() - point.getY();
 		redo();
 	}
 
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && shape != null && indexPt < shape.getNbPoints();
+		return super.canDo() && shape != null && shape.getPoints().indexOf(point) != -1;
 	}
 
 
 	@Override
 	public void undo() {
-		final IPoint pt = shape.getPtAt(indexPt);
-		shape.setPoint(pt.getX() - tx, pt.getY() - ty, indexPt);
+		final int index = shape.getPoints().indexOf(point);
+		// Must use setPoint since other attributes of the shape may depend on the point (e.g. control points).
+		shape.setPoint(point.getX() - tx, point.getY() - ty, index);
 		shape.setModified(true);
 	}
 
 
 	@Override
 	public void redo() {
-		shape.setPoint(newCoord, indexPt);
+		final int index = shape.getPoints().indexOf(point);
+		shape.setPoint(newCoord, index);
 		shape.setModified(true);
 	}
 

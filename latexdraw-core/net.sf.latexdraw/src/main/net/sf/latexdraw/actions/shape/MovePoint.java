@@ -19,16 +19,16 @@ import org.malai.action.ActionImpl;
  * @author Arnaud Blouin
  */
 public abstract class MovePoint extends ActionImpl {
-	/** The index of the point to move. */
-	protected int indexPt;
+	/** The point to move. */
+	protected IPoint point;
 
 	/** The new coordinates of the point to move. */
 	protected IPoint newCoord;
 
-	/** The X-translation factor performed by the action. */
+	/** The X-translation vector performed by the action. For undo/redo. */
 	protected double tx;
 
-	/** The Y-translation factor performed by the action. */
+	/** The Y-translation vector performed by the action. For undo/redo. */
 	protected double ty;
 
 
@@ -38,46 +38,35 @@ public abstract class MovePoint extends ActionImpl {
 	 */
 	protected MovePoint() {
 		super();
-		tx = 0;
-		ty = 0;
+		tx = 0d;
+		ty = 0d;
 	}
-
 
 	@Override
 	public boolean canDo() {
-		return indexPt >= 0 && MathUtils.INST.isValidPt(newCoord);
+		return MathUtils.INST.isValidPt(point) && MathUtils.INST.isValidPt(newCoord);
 	}
-
-
-	@Override
-	public void flush() {
-		super.flush();
-		newCoord = null;
-	}
-
 
 	@Override
 	public boolean hadEffect() {
-		return super.hadEffect() && (!MathUtils.INST.equalsDouble(tx, 0.) || !MathUtils.INST.equalsDouble(ty, 0.));
+		return super.hadEffect() && (!MathUtils.INST.equalsDouble(tx, 0d) || !MathUtils.INST.equalsDouble(ty, 0d));
 	}
-
 
 	@Override
 	public boolean isRegisterable() {
 		return true;
 	}
 
-
 	/**
-	 * @param index The index of the point to move.
-	 * @since 3.0
+	 * Sets the point to move.
+	 * @param pt The point to move.
 	 */
-	public void setIndexPt(final int index) {
-		indexPt = index;
+	public void setPoint(final IPoint pt) {
+		point = pt;
 	}
 
-
 	/**
+	 * Sets the new coordinates of the point to move.
 	 * @param coord The new coordinates of the point to move.
 	 * @since 3.0
 	 */
