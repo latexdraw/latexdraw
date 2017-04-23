@@ -17,7 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
@@ -62,7 +62,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 	/** The distance between the Y-labels. */
 	@FXML protected Spinner<Double> distLabelsY;
 
-	@FXML protected AnchorPane mainPane;
+	@FXML protected Pane mainPane;
 
 	/**
 	 * Creates the instrument.

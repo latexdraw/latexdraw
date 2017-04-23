@@ -17,7 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -54,7 +54,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Init
 	/** The field that defines the X-coordinates of the labels. */
 	@FXML protected ToggleButton labelsXInvertedCB;
 
-	@FXML protected AnchorPane mainPane;
+	@FXML protected Pane mainPane;
 
 	/**
 	 * Creates the instrument.
