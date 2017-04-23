@@ -24,11 +24,10 @@ import net.sf.latexdraw.view.latex.LaTeXGenerator;
  * @author Arnaud Blouin
  */
 public class CodePanelController extends CanvasInstrument implements Initializable {
-	@FXML TextArea codeArea;
-	@FXML Tab tab;
-
+	@FXML private TextArea codeArea;
+	@FXML private Tab tab;
 	/** The PSTricks generator. */
-	@Inject LaTeXGenerator pstGenerator;
+	@Inject private LaTeXGenerator pstGenerator;
 
 	CodePanelController() {
 		super();
@@ -38,7 +37,6 @@ public class CodePanelController extends CanvasInstrument implements Initializab
 	public void initialize(final URL location, final ResourceBundle resources) {
 		tab.selectedProperty().addListener(evt -> codeArea.setText(pstGenerator.getDrawingCode()));
 	}
-
 
 	@Override
 	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {

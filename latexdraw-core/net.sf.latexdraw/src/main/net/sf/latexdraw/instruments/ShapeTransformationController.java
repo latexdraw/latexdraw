@@ -23,8 +23,8 @@ import javafx.scene.layout.VBox;
  * @author Arnaud Blouin
  */
 public class ShapeTransformationController implements Initializable {
-	@FXML TitledPane pane;
-	@FXML VBox layout;
+	@FXML private TitledPane pane;
+	@FXML private VBox layout;
 
 	ShapeTransformationController() {
 		super();

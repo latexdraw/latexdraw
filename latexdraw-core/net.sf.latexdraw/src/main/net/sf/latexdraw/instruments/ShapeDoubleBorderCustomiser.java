@@ -27,15 +27,12 @@ import net.sf.latexdraw.models.interfaces.shape.IGroup;
  */
 public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** Sets if the shape has double borders or not. */
-	@FXML protected CheckBox dbleBoundCB;
-
+	@FXML private CheckBox dbleBoundCB;
 	/** Allows to change the colour of the space between the double boundaries. */
-	@FXML protected ColorPicker dbleBoundColB;
-
+	@FXML private ColorPicker dbleBoundColB;
 	/** This field modifies the double separation of the double line. */
-	@FXML protected Spinner<Double> dbleSepField;
-
-	@FXML protected TitledPane mainPane;
+	@FXML private Spinner<Double> dbleSepField;
+	@FXML private TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.

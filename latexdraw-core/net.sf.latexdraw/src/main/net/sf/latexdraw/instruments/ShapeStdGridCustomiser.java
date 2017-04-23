@@ -31,27 +31,20 @@ import org.malai.javafx.instrument.library.SpinnerInteractor;
  */
 public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The field that sets the X-coordinate of the starting point of the grid. */
-	@FXML protected Spinner<Double> xStartS;
-
+	@FXML private Spinner<Double> xStartS;
 	/** The field that sets the Y-coordinate of the starting point of the grid. */
-	@FXML protected Spinner<Double> yStartS;
-
+	@FXML private Spinner<Double> yStartS;
 	/** The field that sets the X-coordinate of the ending point of the grid. */
-	@FXML protected Spinner<Double> xEndS;
-
+	@FXML private Spinner<Double> xEndS;
 	/** The field that sets the Y-coordinate of the ending point of the grid. */
-	@FXML protected Spinner<Double> yEndS;
-
+	@FXML private Spinner<Double> yEndS;
 	/** The field that sets the size of the labels of the grid. */
-	@FXML protected Spinner<Integer> labelsSizeS;
-
+	@FXML private Spinner<Integer> labelsSizeS;
 	/** The field that sets the X-coordinate of the origin point of the grid. */
-	@FXML protected Spinner<Double> xOriginS;
-
+	@FXML private Spinner<Double> xOriginS;
 	/** The field that sets the Y-coordinate of the origin point of the grid. */
-	@FXML protected Spinner<Double> yOriginS;
-
-	@FXML protected TitledPane mainPane;
+	@FXML private Spinner<Double> yOriginS;
+	@FXML private TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.

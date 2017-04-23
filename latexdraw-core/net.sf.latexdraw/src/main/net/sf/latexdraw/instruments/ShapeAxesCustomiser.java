@@ -36,33 +36,24 @@ import org.malai.javafx.instrument.library.SpinnerInteractor;
  */
 public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The widget that permits to select the style of the axes. */
-	@FXML protected ComboBox<AxesStyle> shapeAxes;
-
+	@FXML private ComboBox<AxesStyle> shapeAxes;
 	/** The widget that permits to select the style of the ticks. */
-	@FXML protected ComboBox<TicksStyle> shapeTicks;
-
+	@FXML private ComboBox<TicksStyle> shapeTicks;
 	/** The widget that permits to show/hide the ticks of the axes. */
-	@FXML protected ComboBox<PlottingStyle> showTicks;
-
+	@FXML private ComboBox<PlottingStyle> showTicks;
 	/** The widget that permits to set the increment of X-labels. */
-	@FXML protected Spinner<Double> incrLabelX;
-
+	@FXML private Spinner<Double> incrLabelX;
 	/** The widget that permits to set the increment of Y-labels. */
-	@FXML protected Spinner<Double> incrLabelY;
-
+	@FXML private Spinner<Double> incrLabelY;
 	/** The widget that permits to set the visibility of the labels. */
-	@FXML protected ComboBox<PlottingStyle> showLabels;
-
+	@FXML private ComboBox<PlottingStyle> showLabels;
 	/** The widget that permits to set the visibility of the origin point. */
-	@FXML protected CheckBox showOrigin;
-
+	@FXML private CheckBox showOrigin;
 	/** The distance between the X-labels. */
-	@FXML protected Spinner<Double> distLabelsX;
-
+	@FXML private Spinner<Double> distLabelsX;
 	/** The distance between the Y-labels. */
-	@FXML protected Spinner<Double> distLabelsY;
-
-	@FXML protected Pane mainPane;
+	@FXML private Spinner<Double> distLabelsY;
+	@FXML private Pane mainPane;
 
 	/**
 	 * Creates the instrument.

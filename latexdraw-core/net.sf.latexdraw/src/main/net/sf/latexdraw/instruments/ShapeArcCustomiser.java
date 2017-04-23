@@ -32,21 +32,16 @@ import org.malai.javafx.instrument.library.ToggleButtonInteractor;
  */
 public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The toggle button that selects the arc style. */
-	@FXML protected ToggleButton arcB;
-
+	@FXML private ToggleButton arcB;
 	/** The toggle button that selects the wedge style. */
-	@FXML protected ToggleButton wedgeB;
-
+	@FXML private ToggleButton wedgeB;
 	/** The toggle button that selects the chord style. */
-	@FXML protected ToggleButton chordB;
-
+	@FXML private ToggleButton chordB;
 	/** The spinner that sets the start angle. */
-	@FXML protected Spinner<Double> startAngleS;
-
+	@FXML private Spinner<Double> startAngleS;
 	/** The spinner that sets the end angle. */
-	@FXML protected Spinner<Double> endAngleS;
-
-	@FXML protected TitledPane mainPane;
+	@FXML private Spinner<Double> endAngleS;
+	@FXML private TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.

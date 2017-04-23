@@ -32,11 +32,11 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 	@FXML Spinner<Integer> nbPtsSpinner;
 	@FXML Spinner<Double> minXSpinner;
 	@FXML Spinner<Double> maxXSpinner;
-	@FXML Spinner<Double> xScaleSpinner;
-	@FXML Spinner<Double> yScaleSpinner;
-	@FXML CheckBox polarCB;
-	@FXML ComboBox<PlotStyle> plotStyleCB;
-	@FXML TitledPane mainPane;
+	@FXML private Spinner<Double> xScaleSpinner;
+	@FXML private Spinner<Double> yScaleSpinner;
+	@FXML private CheckBox polarCB;
+	@FXML private ComboBox<PlotStyle> plotStyleCB;
+	@FXML private TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.

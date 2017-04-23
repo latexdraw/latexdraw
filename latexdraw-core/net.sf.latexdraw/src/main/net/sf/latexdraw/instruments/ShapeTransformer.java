@@ -29,52 +29,36 @@ import org.malai.javafx.instrument.library.ButtonInteractor;
 public class ShapeTransformer extends ShapePropertyCustomiser implements Initializable {
 	/** The widget to mirror horizontally. */
 	@FXML private Button mirrorH;
-
 	/** The widget to mirror vertically. */
 	@FXML private Button mirrorV;
-
 	/** The widget to BOTTOM align the shapes. */
 	@FXML private Button alignBot;
-
 	/** The widget to LEFT align the shapes. */
 	@FXML private Button alignLeft;
-
 	/** The widget to RIGHT align the shapes. */
 	@FXML private Button alignRight;
-
 	/** The widget to TOP align the shapes. */
 	@FXML private Button alignTop;
-
 	/** The widget to middle horizontal align the shapes. */
 	@FXML private Button alignMidHoriz;
-
 	/** The widget to middle vertical align the shapes. */
 	@FXML private Button alignMidVert;
-
 	/** The widget to BOTTOM-vertically distribute the shapes. */
 	@FXML private Button distribVertBot;
-
 	/** The widget to equal-vertically distribute the shapes. */
 	@FXML private Button distribVertEq;
-
 	/** The widget to middle-vertically distribute the shapes. */
 	@FXML private Button distribVertMid;
-
 	/** The widget to TOP-vertically distribute the shapes. */
 	@FXML private Button distribVertTop;
-
 	/** The widget to equal-horizontally distribute the shapes. */
 	@FXML private Button distribHorizEq;
-
 	/** The widget to LEFT-horizontally distribute the shapes. */
 	@FXML private Button distribHorizLeft;
-
 	/** The widget to middle-horizontally distribute the shapes. */
 	@FXML private Button distribHorizMid;
-
 	/** The widget to RIGHT-horizontally distribute the shapes. */
 	@FXML private Button distribHorizRight;
-
 	@FXML private VBox mainPane;
 
 	/**

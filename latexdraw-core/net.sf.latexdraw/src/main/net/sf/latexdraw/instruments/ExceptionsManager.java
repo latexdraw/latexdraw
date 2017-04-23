@@ -32,8 +32,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  */
 public class ExceptionsManager extends JfxInstrument implements BadaboomHandler, Initializable {
 	/** The button used to shows the panel of exceptions. */
-	@FXML Button exceptionB;
-
+	@FXML private Button exceptionB;
 	/** The frame to show when exceptions occur. */
 	private Stage stageEx;
 

@@ -46,54 +46,40 @@ import org.w3c.dom.Element;
 public class Exporter extends JfxInstrument implements Initializable {
 	/** The export menu that contains all the export menu item. */
 	@FXML private MenuButton exportMenu;
-
 	/** The menu item that export as PST code. */
 	@FXML private MenuItem menuItemPST;
-
 	/** The menu item that export as JPG picture. */
 	@FXML private MenuItem menuItemJPG;
-
 	/** The menu item that export as PNG picture. */
 	@FXML private MenuItem menuItemPNG;
-
 	/** The menu item that export as BMP picture. */
 	@FXML private MenuItem menuItemBMP;
-
 	/** The menu item that export as PDF document. */
 	@FXML private MenuItem menuItemPDF;
-
 	/** The menu item that export as PS (using latex) document. */
 	@FXML private MenuItem menuItemEPSLatex;
-
 	/** The menu item that export as PDF (using pdfcrop) document. */
 	@FXML private MenuItem menuItemPDFcrop;
-
 	@FXML private MenuItem exportTemplateMenu;
-
 	/** The PST generator. */
 	@Inject private PSTCodeGenerator pstGen;
-
 	@Inject private StatusBarController statusBar;
-
 	/** The default location of the exports. */
 	private String pathExport;
-
 	/**
 	 * The latex packages that the interactive system saves by default. These
 	 * packages should by set by the user and must be general, i.e. independent of any document.
 	 */
 	private String defaultPackages;
-
 	@Inject private FileLoaderSaver loader;
-
 	/**
 	 * The canvas that contains the shapes to export. The canvas is used instead
 	 * of the drawing because to export as picture, we paint the views into a graphics.
 	 */
 	@Inject private Canvas canvas;
-
 	/** The dialog box that allows to define where the drawing must be exported. */
 	private FileChooser fileChooserExport;
+
 
 	/**
 	 * Creates the instrument.

@@ -27,18 +27,14 @@ import net.sf.latexdraw.models.interfaces.shape.IGroup;
  */
 public class ShapeShadowCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** Sets if the a shape has a shadow or not. */
-	@FXML protected CheckBox shadowCB;
-
+	@FXML private CheckBox shadowCB;
 	/** Sets the colour of the shadow of a figure. */
-	@FXML protected ColorPicker shadowColB;
-
+	@FXML private ColorPicker shadowColB;
 	/** Changes the size of the shadow. */
-	@FXML protected Spinner<Double> shadowSizeField;
-
+	@FXML private Spinner<Double> shadowSizeField;
 	/** Changes the angle of the shadow. */
-	@FXML protected Spinner<Double> shadowAngleField;
-
-	@FXML protected TitledPane mainPane;
+	@FXML private Spinner<Double> shadowAngleField;
+	@FXML private TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.

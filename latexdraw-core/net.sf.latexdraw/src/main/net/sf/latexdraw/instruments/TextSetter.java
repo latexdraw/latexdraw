@@ -38,25 +38,19 @@ import org.malai.javafx.interaction.library.KeyTyped;
  */
 public class TextSetter extends CanvasInstrument implements Initializable {
 	/** The text field. */
-	protected final TextAreaAutoSize textField;
-
+	private final TextAreaAutoSize textField;
 	/**
 	 * The position where texts are added. It may not corresponds with the location
 	 * of the text field since the text field position is absolute (does not consider the zoom level).
 	 */
-	protected IPoint position;
-
+	private IPoint position;
 	/** The text to modify throw this instrument. If it is not set, a new text will be created. */
-	protected IText text;
-
-	protected IPlot plot;
-
+	private IText text;
+	private IPlot plot;
 	/** The pencil used to create shapes. */
-	@Inject protected Pencil pencil;
-
-	@Inject protected ShapeTextCustomiser custom;
-
-	@Inject protected ShapePlotCustomiser plotCustom;
+	@Inject private Pencil pencil;
+	@Inject private ShapeTextCustomiser custom;
+	@Inject private ShapePlotCustomiser plotCustom;
 
 	/**
 	 * Creates the instrument.
@@ -167,6 +161,10 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	 */
 	public void setPosition(final IPoint rel) {
 		position = rel;
+	}
+
+	public IPoint getPosition() {
+		return position;
 	}
 
 	@Override

@@ -20,7 +20,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  */
 public class TemplateManager extends JfxInstrument {
 	// /** The menu item that permits to update the templates. */
-	@FXML protected Button updateTemplates;
+	@FXML private Button updateTemplates;
 
 	// protected Drawing drawing;
 

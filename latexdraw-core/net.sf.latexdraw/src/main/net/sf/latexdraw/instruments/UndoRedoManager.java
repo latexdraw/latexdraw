@@ -29,17 +29,14 @@ import org.malai.undo.Undoable;
 
 /**
  * This instrument allows to undo and redo saved actions.
- * This instrument provides two buttons to interact with and two shortcuts
- * (ctrl/apple-Z, ctrl-apple-Y).
+ * This instrument provides two buttons to interact with and two shortcuts (ctrl/apple-Z, ctrl-apple-Y).
  * @author Arnaud Blouin
  */
 public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	/** The button used to undo actions. */
-	@FXML protected Button undoB;
-
+	@FXML private Button undoB;
 	/** The button used to redo actions. */
-	@FXML protected Button redoB;
-
+	@FXML private Button redoB;
 
 	/**
 	 * Creates the instrument.

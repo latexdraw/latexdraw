@@ -34,27 +34,20 @@ import org.malai.javafx.instrument.library.MenuItem2ShowLazyStage;
  */
 public class Helper extends JfxInstrument implements Initializable {
 	/** This menu item shows the shortcut panel. */
-	@FXML protected MenuItem shortcutItem;
-
+	@FXML private MenuItem shortcutItem;
 	/** This menu item shows the "About latexdraw" panel. */
-	@FXML protected MenuItem aboutItem;
-
+	@FXML private MenuItem aboutItem;
 	/** This menu opens the web page used to report bugs. */
-	@FXML protected MenuItem reportBugItem;
-
+	@FXML private MenuItem reportBugItem;
 	/** This menu opens the web page used to donate to the latexdraw project. */
-	@FXML protected MenuItem donateItem;
-
+	@FXML private MenuItem donateItem;
 	/** This menu opens the latexdraw forum. */
-	@FXML protected MenuItem forumItem;
-
+	@FXML private MenuItem forumItem;
 	/** The dialogue box that gives information on latexdraw. */
 	private Stage aboutFrame;
-
 	/** The shortcut dialogue box. */
 	private Stage shortcutFrame;
-
-	@FXML protected MenuItem manuelItem;
+	@FXML private MenuItem manuelItem;
 
 	/**
 	 * Creates the instrument.

@@ -27,12 +27,10 @@ import org.malai.javafx.instrument.library.SpinnerInteractor;
  */
 public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** Sets the X-coordinate of the top-left position. */
-	@FXML Spinner<Double> tlxS;
-
+	@FXML private Spinner<Double> tlxS;
 	/** Sets the Y-coordinate of the top-left position. */
-	@FXML Spinner<Double> tlyS;
-
-	@FXML TitledPane mainPane;
+	@FXML private Spinner<Double> tlyS;
+	@FXML private TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.

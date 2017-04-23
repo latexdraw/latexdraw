@@ -28,33 +28,24 @@ import net.sf.latexdraw.models.interfaces.shape.IGroup;
  */
 public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** Changes the colour of the labels. */
-	@FXML protected ColorPicker colourLabels;
-
+	@FXML private ColorPicker colourLabels;
 	/** Changes the colour of the sub-grid. */
-	@FXML protected ColorPicker colourSubGrid;
-
+	@FXML private ColorPicker colourSubGrid;
 	/** Changes the width of the main grid. */
-	@FXML protected Spinner<Double> gridWidth;
-
+	@FXML private Spinner<Double> gridWidth;
 	/** Changes the width of the sub-grid. */
-	@FXML protected Spinner<Double> subGridWidth;
-
+	@FXML private Spinner<Double> subGridWidth;
 	/** Changes the number of dots composing the main grid. */
-	@FXML protected Spinner<Integer> gridDots;
-
+	@FXML private Spinner<Integer> gridDots;
 	/** Changes the number of dots composing the sub-grid. */
-	@FXML protected Spinner<Integer> subGridDots;
-
+	@FXML private Spinner<Integer> subGridDots;
 	/** Changes the division of the sub-grid. */
-	@FXML protected Spinner<Integer> subGridDiv;
-
+	@FXML private Spinner<Integer> subGridDiv;
 	/** The field that defines the Y-coordinates of the labels. */
-	@FXML protected ToggleButton labelsYInvertedCB;
-
+	@FXML private ToggleButton labelsYInvertedCB;
 	/** The field that defines the X-coordinates of the labels. */
-	@FXML protected ToggleButton labelsXInvertedCB;
-
-	@FXML protected Pane mainPane;
+	@FXML private ToggleButton labelsXInvertedCB;
+	@FXML private Pane mainPane;
 
 	/**
 	 * Creates the instrument.

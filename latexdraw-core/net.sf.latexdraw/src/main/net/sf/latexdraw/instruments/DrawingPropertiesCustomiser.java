@@ -39,19 +39,14 @@ import org.w3c.dom.Element;
 public class DrawingPropertiesCustomiser extends JfxInstrument implements Initializable {
 	/** The field that changes the title of the drawing. */
 	@FXML private TextField titleField;
-
 	/** The field that changes the label of the drawing. */
 	@FXML private TextField labelField;
-
 	/** Defines if the horizontal position of the drawing must be centred. */
 	@FXML private CheckBox middleHorizPosCB;
-
 	/** Defines the position of the drawing. */
 	@FXML private ComboBox<VerticalPosition> positionCB;
-
 	/** Defines the scale of the drawing. */
 	@FXML private Spinner<Double> scaleField;
-
 	/** The LaTeX code generator. */
 	@Inject private LaTeXGenerator latexGen;
 

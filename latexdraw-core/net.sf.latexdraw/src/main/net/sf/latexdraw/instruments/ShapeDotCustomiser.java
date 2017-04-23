@@ -33,15 +33,12 @@ import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
  */
 public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** Allows to define the size of a dot. */
-	@FXML protected Spinner<Double> dotSizeField;
-
+	@FXML private Spinner<Double> dotSizeField;
 	/** Allows the selection of a dot shape. */
-	@FXML protected ComboBox<DotStyle> dotCB;
-
+	@FXML private ComboBox<DotStyle> dotCB;
 	/** Changes the colour of the filling of the dot. */
-	@FXML protected ColorPicker fillingB;
-
-	@FXML protected TitledPane mainPane;
+	@FXML private ColorPicker fillingB;
+	@FXML private TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.

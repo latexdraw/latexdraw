@@ -242,7 +242,8 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		@Override
 		public void initAction() {
 			action.setDrawing(instrument.canvas.getDrawing());
-			action.setShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(instrument.pencil.textSetter.position), instrument.pencil.textSetter.getTextField().getText()));
+			action.setShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(instrument.pencil.textSetter.getPosition()),
+				instrument.pencil.textSetter.getTextField().getText()));
 		}
 
 		@Override

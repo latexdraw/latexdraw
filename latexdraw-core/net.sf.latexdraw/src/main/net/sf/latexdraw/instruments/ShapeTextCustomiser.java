@@ -39,43 +39,29 @@ import org.malai.javafx.interaction.library.KeysTyped;
  */
 public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The button that selects the bottom-left text position. */
-	@FXML protected ToggleButton blButton;
-
+	@FXML private ToggleButton blButton;
 	/** The button that selects the bottom text position. */
-	@FXML protected ToggleButton bButton;
-
+	@FXML private ToggleButton bButton;
 	/** The button that selects the bottom-right text position. */
-	@FXML protected ToggleButton brButton;
-
+	@FXML private ToggleButton brButton;
 	/** The button that selects the top-left text position. */
-	@FXML protected ToggleButton tlButton;
-
+	@FXML private ToggleButton tlButton;
 	/** The button that selects the top text position. */
-	@FXML protected ToggleButton tButton;
-
+	@FXML private ToggleButton tButton;
 	/** The button that selects the top-right text position. */
-	@FXML protected ToggleButton trButton;
-
+	@FXML private ToggleButton trButton;
 	/** The button that selects the left text position. */
-	@FXML protected ToggleButton lButton;
-
+	@FXML private ToggleButton lButton;
 	/** The button that selects the right text position. */
-	@FXML protected ToggleButton rButton;
-
+	@FXML private ToggleButton rButton;
 	/** The button that selects the centre text position. */
-	@FXML protected ToggleButton centreButton;
-
-	/**
-	 * This text field permits to add latex packages that will be used during compilation.
-	 */
-	@FXML protected TextArea packagesField;
-
+	@FXML private ToggleButton centreButton;
+	/** This text field permits to add latex packages that will be used during compilation. */
+	@FXML private TextArea packagesField;
 	/** The error log field. */
-	@FXML protected TextArea logField;
-
-	@FXML protected TitledPane mainPane;
-
-	protected final Map<ButtonBase, TextPosition> map;
+	@FXML private TextArea logField;
+	@FXML private TitledPane mainPane;
+	private final Map<ButtonBase, TextPosition> map;
 
 	/**
 	 * Creates the instrument.

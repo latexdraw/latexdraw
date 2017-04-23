@@ -34,47 +34,35 @@ import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
  */
 public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** Allows to change the style of the left-end of the shape. */
-	@FXML protected ComboBox<ArrowStyle> arrowLeftCB;
-
+	@FXML private ComboBox<ArrowStyle> arrowLeftCB;
 	/** Allows to change the style of the right-end of the shape. */
-	@FXML protected ComboBox<ArrowStyle> arrowRightCB;
-
+	@FXML private ComboBox<ArrowStyle> arrowRightCB;
 	/** The field to set the dot size num parameter of arrows. */
-	@FXML protected Spinner<Double> dotSizeNum;
-
+	@FXML private Spinner<Double> dotSizeNum;
 	/** The field to set the dot size dim parameter of arrows. */
-	@FXML protected Spinner<Double> dotSizeDim;
-
+	@FXML private Spinner<Double> dotSizeDim;
 	/** The field to set the bracket num parameter of arrows. */
-	@FXML protected Spinner<Double> bracketNum;
-
+	@FXML private Spinner<Double> bracketNum;
 	/** The field to set the rounded bracket num parameter of arrows. */
-	@FXML protected Spinner<Double> rbracketNum;
-
+	@FXML private Spinner<Double> rbracketNum;
 	/** The field to set the t bar size num parameter of arrows. */
-	@FXML protected Spinner<Double> tbarsizeNum;
-
+	@FXML private Spinner<Double> tbarsizeNum;
 	/** The field to set the t bar size dim parameter of arrows. */
-	@FXML protected Spinner<Double> tbarsizeDim;
-
+	@FXML private Spinner<Double> tbarsizeDim;
 	/** The field to set the arrows size dim parameter of arrows. */
-	@FXML protected Spinner<Double> arrowSizeDim;
-
+	@FXML private Spinner<Double> arrowSizeDim;
 	/** The field to set the arrow size num parameter of arrows. */
-	@FXML protected Spinner<Double> arrowSizeNum;
-
+	@FXML private Spinner<Double> arrowSizeNum;
 	/** The field to set the arrow length parameter of arrows. */
-	@FXML protected Spinner<Double> arrowLength;
-
+	@FXML private Spinner<Double> arrowLength;
 	/** The field to set the arrow inset parameter of arrows. */
-	@FXML protected Spinner<Double> arrowInset;
-
-	@FXML protected AnchorPane dotPane;
-	@FXML protected AnchorPane arrowPane;
-	@FXML protected AnchorPane barPane;
-	@FXML protected AnchorPane bracketPane;
-	@FXML protected AnchorPane rbracketPane;
-	@FXML protected TitledPane mainPane;
+	@FXML private Spinner<Double> arrowInset;
+	@FXML private AnchorPane dotPane;
+	@FXML private AnchorPane arrowPane;
+	@FXML private AnchorPane barPane;
+	@FXML private AnchorPane bracketPane;
+	@FXML private AnchorPane rbracketPane;
+	@FXML private TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.

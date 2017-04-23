@@ -33,39 +33,29 @@ import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
  */
 public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** Sets the colour of the interior of a shape. */
-	@FXML protected ColorPicker fillColButton;
-
+	@FXML private ColorPicker fillColButton;
 	/** Sets the colour of the hatchings. */
-	@FXML protected ColorPicker hatchColButton;
-
+	@FXML private ColorPicker hatchColButton;
 	/** Changes the first colour of a gradient. */
-	@FXML protected ColorPicker gradStartColButton;
-
+	@FXML private ColorPicker gradStartColButton;
 	/** Changes the second colour of a gradient. */
-	@FXML protected ColorPicker gradEndColButton;
-
+	@FXML private ColorPicker gradEndColButton;
 	/** Changes the style of filling. */
-	@FXML protected ComboBox<FillingStyle> fillStyleCB;
-
+	@FXML private ComboBox<FillingStyle> fillStyleCB;
 	/** Changes the mid point of the gradient. */
-	@FXML protected Spinner<Double> gradMidPtField;
-
+	@FXML private Spinner<Double> gradMidPtField;
 	/** Changes the angle of the gradient. */
-	@FXML protected Spinner<Double> gradAngleField;
-
+	@FXML private Spinner<Double> gradAngleField;
 	/** Changes the separation of the hatchings. */
-	@FXML protected Spinner<Double> hatchSepField;
-
+	@FXML private Spinner<Double> hatchSepField;
 	/** Changes the angle of the hatchings. */
-	@FXML protected Spinner<Double> hatchAngleField;
-
+	@FXML private Spinner<Double> hatchAngleField;
 	/** Changes the width of the hatchings. */
-	@FXML protected Spinner<Double> hatchWidthField;
-
-	@FXML protected AnchorPane fillPane;
-	@FXML protected AnchorPane hatchingsPane;
-	@FXML protected AnchorPane gradientPane;
-	@FXML protected TitledPane mainPane;
+	@FXML private Spinner<Double> hatchWidthField;
+	@FXML private AnchorPane fillPane;
+	@FXML private AnchorPane hatchingsPane;
+	@FXML private AnchorPane gradientPane;
+	@FXML private TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.

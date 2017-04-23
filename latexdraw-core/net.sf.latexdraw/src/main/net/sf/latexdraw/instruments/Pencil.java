@@ -414,7 +414,7 @@ public class Pencil extends CanvasInstrument {
 		 @Override
 		 public void initAction() {
 			 action.setDrawing(instrument.canvas.getDrawing());
-			 action.setShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(instrument.textSetter.position),
+			 action.setShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(instrument.textSetter.getPosition()),
 			 					instrument.textSetter.getTextField().getText()));
 		 }
 

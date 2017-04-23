@@ -30,12 +30,10 @@ import org.malai.action.ActionsRegistry;
  */
 public class ShapeGrouper extends ShapePropertyCustomiser implements Initializable {
 	/** The widget to group shapes. */
-	@FXML protected Button groupB;
-
+	@FXML private Button groupB;
 	/** The widget to separate shapes. */
-	@FXML protected Button sepB;
-
-	@FXML protected AnchorPane mainPane;
+	@FXML private Button sepB;
+	@FXML private AnchorPane mainPane;
 
 	/**
 	 * Creates the instrument.

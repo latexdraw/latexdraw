@@ -35,13 +35,11 @@ import org.malai.javafx.interaction.library.MenuItemPressed;
  */
 public class CopierCutterPaster extends CanvasInstrument implements Initializable {
 	/** The menu item to copy the shapes. */
-	@FXML protected MenuItem copyMenu;
-
+	@FXML private MenuItem copyMenu;
 	/** The menu item to paste the shapes. */
-	@FXML protected MenuItem pasteMenu;
-
+	@FXML private MenuItem pasteMenu;
 	/** The menu item to cut the shapes. */
-	@FXML protected MenuItem cutMenu;
+	@FXML private MenuItem cutMenu;
 
 	private final Supplier<Boolean> isShapeSelected = () -> {
 		final SelectShapes act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);

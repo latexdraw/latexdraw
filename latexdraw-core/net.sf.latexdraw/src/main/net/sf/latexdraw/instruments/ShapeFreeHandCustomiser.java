@@ -33,15 +33,12 @@ import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
  */
 public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** The type of the freehand. */
-	@FXML protected ComboBox<FreeHandStyle> freeHandType;
-
+	@FXML private ComboBox<FreeHandStyle> freeHandType;
 	/** The gap to consider between the points. */
-	@FXML protected Spinner<Integer> gapPoints;
-
+	@FXML private Spinner<Integer> gapPoints;
 	/** Defines if the shape is open. */
-	@FXML protected CheckBox open;
-
-	@FXML protected TitledPane mainPane;
+	@FXML private CheckBox open;
+	@FXML private TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.

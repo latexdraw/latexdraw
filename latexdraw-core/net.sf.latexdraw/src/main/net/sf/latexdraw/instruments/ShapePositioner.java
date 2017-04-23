@@ -24,12 +24,10 @@ import net.sf.latexdraw.models.interfaces.shape.IGroup;
  */
 public class ShapePositioner extends ShapePropertyCustomiser implements Initializable {
 	/** The foreground button. */
-	@FXML protected Button foregroundB;
-
+	@FXML private Button foregroundB;
 	/** The background button. */
-	@FXML protected Button backgroundB;
-
-	@FXML protected AnchorPane mainPane;
+	@FXML private Button backgroundB;
+	@FXML private AnchorPane mainPane;
 
 	/**
 	 * Creates the instrument.

@@ -34,9 +34,8 @@ import org.malai.javafx.interaction.library.KeyPressure;
  */
 public class ShapeDeleter extends CanvasInstrument implements Initializable {
 	/** The button used to remove the selected shapes. */
-	@FXML protected Button deleteB;
-
-	@Inject protected Hand hand;
+	@FXML private Button deleteB;
+	@Inject private Hand hand;
 
 
 	/**
