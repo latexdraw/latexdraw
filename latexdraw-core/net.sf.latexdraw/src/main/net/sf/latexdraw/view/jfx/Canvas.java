@@ -212,8 +212,15 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 			while(evt.next()) {
 				if(evt.wasAdded()) {
 					evt.getAddedSubList().forEach(sh -> ViewFactory.INSTANCE.createView(sh).ifPresent(v -> {
-						shapesToViewMap.put(sh, v);
-						shapesPane.getChildren().add(v);
+						final int index = drawing.getShapes().indexOf(sh);
+						if(index!=-1) {
+							shapesToViewMap.put(sh, v);
+							if(index==drawing.size()) {
+								shapesPane.getChildren().add(v);
+							}else {
+								shapesPane.getChildren().add(index, v);
+							}
+						}
 					}));
 				}else if(evt.wasRemoved()) {
 					evt.getRemoved().forEach(sh -> {
