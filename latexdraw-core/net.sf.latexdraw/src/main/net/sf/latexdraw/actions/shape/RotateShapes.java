@@ -25,13 +25,11 @@ import org.malai.undo.Undoable;
  */
 public class RotateShapes extends ShapeActionImpl<IShape> implements Undoable, Modifying {
 	/** The rotation angle to apply. */
-	double rotationAngle;
-
+	private double rotationAngle;
 	/** The gravity centre used for the rotation. */
-	Optional<IPoint> gc;
-
+	private Optional<IPoint> gc;
 	/** The last increment performed on shapes. Used to execute several times the action. */
-	double lastRotationAngle;
+	private double lastRotationAngle;
 
 
 	public RotateShapes() {
