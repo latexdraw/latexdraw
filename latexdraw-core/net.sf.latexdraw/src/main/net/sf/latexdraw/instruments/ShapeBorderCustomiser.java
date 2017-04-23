@@ -35,27 +35,21 @@ import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
  * @author Arnaud BLOUIN
  */
 public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
-	/** The field which allows to change shapes thickness. */
-	@FXML protected Spinner<Double> thicknessField;
-
-	/** Allows to set the colour of the borders of shapes. */
-	@FXML protected ColorPicker lineColButton;
-
-	/** Allows to change the style of the borders */
-	@FXML protected ComboBox<LineStyle> lineCB;
-
-	/** Allows to select the position of the borders of the shape. */
-	@FXML protected ComboBox<BorderPos> bordersPosCB;
-
-	/** Allows to change the angle of the round corner. */
-	@FXML protected Spinner<Double> frameArcField;
-
-	/** Defines if the points of the shape must be painted. */
-	@FXML protected CheckBox showPoints;
-
-	@FXML protected ImageView thicknessPic;
-	@FXML protected ImageView frameArcPic;
-	@FXML protected TitledPane linePane;
+	/** For changing shapes thickness. */
+	@FXML private Spinner<Double> thicknessField;
+	@FXML private ImageView thicknessPic;
+	/** For changing the style of the borders */
+	@FXML private ComboBox<LineStyle> lineCB;
+	/** For setting the colour of the borders of shapes. */
+	@FXML private ColorPicker lineColButton;
+	/** For changing the position of the borders of the shape. */
+	@FXML private ComboBox<BorderPos> bordersPosCB;
+	/** For changing the angle of the round corner. */
+	@FXML private Spinner<Double> frameArcField;
+	@FXML private ImageView frameArcPic;
+	/** For setting whether the points of the shape must be painted. */
+	@FXML private CheckBox showPoints;
+	@FXML private TitledPane linePane;
 
 	/**
 	 * Creates the instrument.
@@ -66,10 +60,16 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		linePane.managedProperty().bind(linePane.visibleProperty());
+		thicknessPic.managedProperty().bind(thicknessPic.visibleProperty());
+		thicknessField.managedProperty().bind(thicknessField.visibleProperty());
+		lineCB.managedProperty().bind(lineCB.visibleProperty());
+		lineColButton.managedProperty().bind(lineColButton.visibleProperty());
+		bordersPosCB.managedProperty().bind(bordersPosCB.visibleProperty());
+		frameArcField.managedProperty().bind(frameArcField.visibleProperty());
+		frameArcPic.managedProperty().bind(frameArcPic.visibleProperty());
+		showPoints.managedProperty().bind(showPoints.visibleProperty());
 
-		thicknessPic.visibleProperty().bind(thicknessField.visibleProperty());
-		frameArcPic.visibleProperty().bind(frameArcField.visibleProperty());
+		linePane.managedProperty().bind(linePane.visibleProperty());
 
 		Map<BorderPos, Image> cachePos = new HashMap<>();
 		cachePos.put(BorderPos.INTO, new Image("/res/doubleBoundary/double.boundary.into.png"));
@@ -102,11 +102,14 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			final boolean showPts = shape.isShowPtsable();
 
 			thicknessField.setVisible(isTh);
+			thicknessPic.setVisible(isTh);
 			lineCB.setVisible(isStylable);
+			lineColButton.setVisible(isColor);
 			bordersPosCB.setVisible(isMvble);
 			frameArcField.setVisible(supportRound);
-			lineColButton.setVisible(isColor);
+			frameArcPic.setVisible(supportRound);
 			showPoints.setVisible(showPts);
+			linePane.setVisible(isTh || isStylable || isColor || isMvble || supportRound || showPts);
 
 			if(isColor) lineColButton.setValue(shape.getLineColour().toJFX());
 			if(isTh) thicknessField.getValueFactory().setValue(shape.getThickness());

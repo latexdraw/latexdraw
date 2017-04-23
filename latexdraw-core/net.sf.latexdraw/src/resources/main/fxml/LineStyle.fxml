@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="linePane" text="Line" xmlns="http://javafx.com/javafx/8"
             fx:controller="net.sf.latexdraw.instruments.ShapeBorderCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
         <Tooltip text="%PropBuilder.15"/>
     </tooltip>
-    <AnchorPane>
-        <Spinner fx:id="thicknessField" layoutX="43.0" layoutY="4.0" prefHeight="25.0" prefWidth="75.0" editable="true"
-                 min="0.1" max="1000.0" initialValue="2.0" amountToStepBy="0.1">
-            <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.65"/>
-            </tooltip>
-        </Spinner>
-        <ComboBox fx:id="lineCB" layoutX="13.0" layoutY="104.0" prefHeight="25.0" prefWidth="90.0">
-            <tooltip>
-                <Tooltip text="Set the style of the lines."/>
-            </tooltip>
-        </ComboBox>
-        <ColorPicker fx:id="lineColButton" layoutX="13.0" layoutY="37.0" prefHeight="25.0" prefWidth="90.0">
+    <VBox spacing="5">
+        <ColorPicker fx:id="lineColButton" prefHeight="25.0" prefWidth="90.0">
             <tooltip>
                 <Tooltip text="%LaTeXDrawFrame.66"/>
             </tooltip>
         </ColorPicker>
-        <ImageView fx:id="thicknessPic" layoutX="14.0" layoutY="6.0">
-            <Image url="@/res/thickness.png"/>
-        </ImageView>
-        <ComboBox fx:id="bordersPosCB" layoutX="110.0" layoutY="104.0" prefHeight="25.0" prefWidth="90.0">
-            <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.77"/>
-            </tooltip>
-        </ComboBox>
-        <Spinner fx:id="frameArcField" layoutX="43.0" layoutY="70.0" prefHeight="25.0" prefWidth="75.0" editable="true"
-                 min="0.0" max="1.0" initialValue="0.0" amountToStepBy="0.05">
-            <tooltip>
-                <Tooltip text="Set the roundness of line angles."/>
-            </tooltip>
-        </Spinner>
-        <ImageView fx:id="frameArcPic" layoutX="14.0" layoutY="72.0">
-            <Image url="@/res/roundness.png"/>
-        </ImageView>
-        <CheckBox fx:id="showPoints" layoutX="14.0" layoutY="138.0" text="%ShapeBord.2">
+        <HBox alignment="CENTER_LEFT" spacing="4">
+            <ImageView fx:id="thicknessPic">
+                <Image url="@/res/thickness.png"/>
+            </ImageView>
+            <Spinner fx:id="thicknessField" prefHeight="25.0" prefWidth="75.0" editable="true" min="0.1" max="1000.0" initialValue="2.0"
+                     amountToStepBy="0.1">
+                <tooltip>
+                    <Tooltip text="%LaTeXDrawFrame.65"/>
+                </tooltip>
+            </Spinner>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="4">
+            <ImageView fx:id="frameArcPic">
+                <Image url="@/res/roundness.png"/>
+            </ImageView>
+            <Spinner fx:id="frameArcField" prefHeight="25.0" prefWidth="75.0" editable="true"
+                     min="0.0" max="1.0" initialValue="0.0" amountToStepBy="0.05">
+                <tooltip>
+                    <Tooltip text="Set the roundness of line angles."/>
+                </tooltip>
+            </Spinner>
+        </HBox>
+        <HBox spacing="4">
+            <ComboBox fx:id="lineCB" prefHeight="25.0" prefWidth="90.0">
+                <tooltip>
+                    <Tooltip text="Set the style of the lines."/>
+                </tooltip>
+            </ComboBox>
+            <ComboBox fx:id="bordersPosCB" prefHeight="25.0" prefWidth="90.0">
+                <tooltip>
+                    <Tooltip text="%LaTeXDrawFrame.77"/>
+                </tooltip>
+            </ComboBox>
+        </HBox>
+        <CheckBox fx:id="showPoints" text="%ShapeBord.2">
             <tooltip>
                 <Tooltip text="%ShapeBord.3"/>
             </tooltip>
         </CheckBox>
-    </AnchorPane>
+    </VBox>
 </TitledPane>
 

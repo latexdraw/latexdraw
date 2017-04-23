@@ -77,6 +77,9 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
+		fillPane.managedProperty().bind(fillPane.visibleProperty());
+		hatchingsPane.managedProperty().bind(hatchingsPane.visibleProperty());
+		gradientPane.managedProperty().bind(gradientPane.visibleProperty());
 
 		final Map<FillingStyle, Image> cache = new HashMap<>();
 		cache.put(FillingStyle.NONE, new Image("/res/hatch/hatch.none.png"));

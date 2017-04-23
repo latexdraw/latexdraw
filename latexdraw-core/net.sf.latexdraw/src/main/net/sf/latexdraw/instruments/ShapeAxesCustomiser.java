@@ -73,6 +73,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
+
 		shapeAxes.getItems().addAll(AxesStyle.values());
 		shapeTicks.getItems().addAll(TicksStyle.values());
 		showTicks.getItems().addAll(PlottingStyle.values());

@@ -65,6 +65,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
+
 		scrollOnSpinner(subGridDiv);
 		scrollOnSpinner(subGridDots);
 		scrollOnSpinner(gridDots);

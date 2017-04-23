@@ -86,6 +86,11 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
+		dotPane.managedProperty().bind(dotPane.visibleProperty());
+		arrowPane.managedProperty().bind(arrowPane.visibleProperty());
+		barPane.managedProperty().bind(barPane.visibleProperty());
+		bracketPane.managedProperty().bind(bracketPane.visibleProperty());
+		rbracketPane.managedProperty().bind(rbracketPane.visibleProperty());
 
 		Map<ArrowStyle, Image> cacheLeft = new HashMap<>();
 		cacheLeft.put(ArrowStyle.NONE, new Image("/res/arrowStyles/line.none.left.png"));
