@@ -110,7 +110,7 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 
 	@Override
 	protected void update(final IGroup shape) {
-		setActivated(hand.isActivated() && !shape.isEmpty());
+		setActivated(hand.isActivated() && shape.size() > 1);
 	}
 
 	@Override

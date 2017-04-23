@@ -25,18 +25,14 @@ import net.sf.latexdraw.models.interfaces.shape.IGroup;
  */
 public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The rotation button to perform 90 degree rotation. */
-	@FXML protected Button rotate90Button;
-
+	@FXML private Button rotate90Button;
 	/** The rotation button to perform 180 degree rotation. */
-	@FXML protected Button rotate180Button;
-
+	@FXML private Button rotate180Button;
 	/** The rotation button to perform 270 degree rotation. */
-	@FXML protected Button rotate270Button;
-
+	@FXML private Button rotate270Button;
 	/** The field that modifies the rotation angle. */
-	@FXML protected Spinner<Double> rotationField;
-
-	@FXML protected AnchorPane mainPane;
+	@FXML private Spinner<Double> rotationField;
+	@FXML private AnchorPane mainPane;
 
 	/**
 	 * Creates the instrument.
@@ -53,19 +49,19 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
-
 		scrollOnSpinner(rotationField);
 	}
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape.isEmpty()) {
-			setActivated(false);
-		}
-		else {
-			rotationField.getValueFactory().setValue(Math.toDegrees(shape.getRotationAngle()));
-			setActivated(true);
-		}
+		setActivated(hand.isActivated() && !shape.isEmpty());
+
+//		if(shape.isEmpty()) {
+//			setActivated(false);
+//		}else {
+//			rotationField.getValueFactory().setValue(Math.toDegrees(shape.getRotationAngle()));
+//			setActivated(true);
+//		}
 	}
 
 	@Override

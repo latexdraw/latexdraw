@@ -55,7 +55,7 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 
 	@Override
 	protected void update(final IGroup shape) {
-		setActivated(!shape.isEmpty());
+		setActivated(hand.isActivated() && !shape.isEmpty());
 	}
 }
 

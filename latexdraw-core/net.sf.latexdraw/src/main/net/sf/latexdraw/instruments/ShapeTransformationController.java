@@ -22,11 +22,11 @@ import javafx.scene.layout.VBox;
 /**
  * @author Arnaud Blouin
  */
-public class ShapeTransformationPaner implements Initializable {
+public class ShapeTransformationController implements Initializable {
 	@FXML TitledPane pane;
 	@FXML VBox layout;
 
-	ShapeTransformationPaner() {
+	ShapeTransformationController() {
 		super();
 	}
 
@@ -34,7 +34,7 @@ public class ShapeTransformationPaner implements Initializable {
 	public void initialize(final URL location, final ResourceBundle resources) {
 		pane.managedProperty().bind(pane.visibleProperty());
 
-		pane.visibleProperty().bind(Bindings.createBooleanBinding(() -> layout.getChildren().stream().allMatch(c -> c.isVisible()),
+		pane.visibleProperty().bind(Bindings.createBooleanBinding(() -> layout.getChildren().stream().anyMatch(c -> c.isVisible()),
 			layout.getChildren().stream().map(c -> c.visibleProperty()).toArray(size -> new BooleanProperty[size])));
 	}
 }
