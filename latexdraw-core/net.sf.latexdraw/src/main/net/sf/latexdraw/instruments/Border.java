@@ -25,6 +25,7 @@ import javafx.scene.Node;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.MoveCtrlPoint;
 import net.sf.latexdraw.actions.shape.MovePointShape;
+import net.sf.latexdraw.actions.shape.RotateShapes;
 import net.sf.latexdraw.actions.shape.ScaleShapes;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.handlers.ArcAngleHandler;
@@ -55,29 +56,20 @@ import org.malai.javafx.interaction.library.DnD;
 public class Border extends CanvasInstrument implements Initializable {
 	/** The handlers that scale shapes. */
 	private final List<ScaleHandler> scaleHandlers;
-
 	/** The handlers that move points. */
 	private final List<MovePtHandler> mvPtHandlers;
-
 	/** The handlers that move first control points. */
 	private final List<CtrlPointHandler> ctrlPt1Handlers;
-
 	/** The handlers that move second control points. */
 	private final List<CtrlPointHandler> ctrlPt2Handlers;
-
 	/** The handler that sets the start angle of an arc. */
 	private final ArcAngleHandler arcHandlerStart;
-
 	/** The handler that sets the end angle of an arc. */
 	private final ArcAngleHandler arcHandlerEnd;
-
 	/** The handler that rotates shapes. */
 	private RotationHandler rotHandler;
-
 	private DnD2MovePoint movePointInteractor;
-
-	DnD2MoveCtrlPoint moveCtrlPtInteractor;
-
+	private DnD2MoveCtrlPoint moveCtrlPtInteractor;
 //	@Inject private MetaShapeCustomiser metaCustomiser;
 
 	Border() {
@@ -212,7 +204,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		addInteractor(new DnD2Scale(this));
 		addInteractor(movePointInteractor);
 		addInteractor(moveCtrlPtInteractor);
-		// addInteractor(new DnD2Rotate(this))
+		addInteractor(new DnD2Rotate(this));
 		addInteractor(new DnD2ArcAngle(this));
 	}
 
@@ -450,7 +442,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public boolean isConditionRespected() {
-			return true;
+			return interaction.getSrcObject().isPresent() && interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent();
 		}
 
 
@@ -487,37 +479,37 @@ public class Border extends CanvasInstrument implements Initializable {
 			});
 		}
 	}
+
+	private static class DnD2Rotate extends JfxInteractor<RotateShapes, DnD, Border> {
+		/** The point corresponding to the 'press' position. */
+		private IPoint p1;
+		/** The gravity centre used for the rotation. */
+		private IPoint gc;
+
+		DnD2Rotate(final Border ins) throws IllegalAccessException, InstantiationException {
+			super(ins, true, RotateShapes.class, DnD.class, ins.rotHandler);
+		}
+
+		@Override
+		public void initAction() {
+			final IDrawing drawing = instrument.canvas.getDrawing();
+			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcPoint().get()));
+			gc = drawing.getSelection().getGravityCentre();
+			action.setGravityCentre(gc);
+			action.setShape(drawing.getSelection().duplicateDeep(false));
+		}
+
+
+		@Override
+		public void updateAction() {
+			action.setRotationAngle(gc.computeRotationAngle(p1,
+				ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndPt().get()))));
+
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getSrcObject().isPresent() && interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent();
+		}
+	}
 }
-
-
-// /**
-// * This link maps a DnD interaction on a rotation handler to an action that
-// rotates the selected shapes.
-// */
-// private sealed class DnD2Rotate(ins : Border) extends
-// InteractorImpl[RotateShapes, DnD, Border](ins, true, classOf[RotateShapes],
-// classOf[DnD]) {
-// /** The point corresponding to the 'press' position. */
-// var p1 : IPoint = _
-//
-// /** The gravity centre used for the rotation. */
-// var gc : IPoint = _
-//
-//
-// def initAction() {
-// val drawing = instrument.canvas.getDrawing
-// p1 = instrument.getAdaptedOriginPoint(interaction.getStartPt)
-// gc = drawing.getSelection.getGravityCentre
-// action.setGravityCentre(gc)
-// action.setShape(drawing.getSelection.duplicateDeep(false))
-// }
-//
-//
-// override def updateAction() {
-// action.setRotationAngle(gc.computeRotationAngle(p1,
-// instrument.getAdaptedOriginPoint(interaction.getEndPt)))
-// }
-//
-// override def isConditionRespected =
-// interaction.getStartObject==instrument.rotHandler
-// }
