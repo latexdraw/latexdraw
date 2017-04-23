@@ -31,19 +31,15 @@ import org.malai.undo.Undoable;
  */
 public class MoveBackForegroundShapes extends ShapeActionImpl<IGroup> implements DrawingAction, Undoable, Modifying {
 	/** Defines whether the shapes must be placed in the foreground. */
-	boolean foreground;
-
+	private boolean foreground;
 	/** The former position of the shapes. */
-	int[] formerId;
-
+	private int[] formerId;
 	/** The shapes sorted by their position. */
-	List<IShape> sortedSh;
-
+	private List<IShape> sortedSh;
 	/** The drawing that will be handled by the action. */
-	Optional<IDrawing> drawing;
+	private Optional<IDrawing> drawing;
 
-
-	protected MoveBackForegroundShapes() {
+	public MoveBackForegroundShapes() {
 		super();
 		drawing = Optional.empty();
 		foreground = false;
@@ -52,14 +48,14 @@ public class MoveBackForegroundShapes extends ShapeActionImpl<IGroup> implements
 	@Override
 	protected void doActionBody() {
 		if(foreground) {
-			moveInForeground();
+			moveForeground();
 		}else {
-			moveInBackground();
+			moveBackground();
 		}
 	}
 
 	/** Puts the shapes in the foreground. */
-	private void moveInForeground() {
+	private void moveForeground() {
 		shape.ifPresent(gp -> {
 			final int size = gp.size();
 			formerId = new int[size];
@@ -80,7 +76,7 @@ public class MoveBackForegroundShapes extends ShapeActionImpl<IGroup> implements
 
 
 	/** Puts the shapes in the background. */
-	private void moveInBackground() {
+	private void moveBackground() {
 		shape.ifPresent(gp -> {
 			final int size = gp.size();
 			formerId = new int[size];
@@ -98,6 +94,22 @@ public class MoveBackForegroundShapes extends ShapeActionImpl<IGroup> implements
 			});
 		});
 	}
+	/*
+			val size = _shape.get.size
+		formerId = Array.ofDim[Int](size)
+		var sh : IShape = null
+		val drawing = _drawing.get
+		val drawingShapes = drawing.getShapes
+		sortedSh = _shape.get.getShapes.sortBy(drawingShapes.indexOf(_))
+
+		for(i <- size-1 to 0 by -1) {
+			sh = sortedSh(i)
+			formerId(i) = drawingShapes.indexOf(sh)
+			drawing.removeShape(sh)
+			drawing.addShape(sh, 0)
+		}
+drawing.setModified(true)
+	 */
 
 	@Override
 	public boolean canDo() {

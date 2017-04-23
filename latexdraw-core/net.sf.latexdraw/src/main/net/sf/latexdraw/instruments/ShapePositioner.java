@@ -12,10 +12,12 @@ package net.sf.latexdraw.instruments;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.BiConsumer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import net.sf.latexdraw.actions.shape.MoveBackForegroundShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 /**
@@ -27,7 +29,7 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 	@FXML private Button foregroundB;
 	/** The background button. */
 	@FXML private Button backgroundB;
-	@FXML private AnchorPane mainPane;
+	@FXML private Pane mainPane;
 
 	/**
 	 * Creates the instrument.
@@ -37,8 +39,15 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		// addInteractor(new Button2MoveBackForeground(this));
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		final BiConsumer<Boolean, MoveBackForegroundShapes> init = (isForeground, action) -> {
+			action.setIsForeground(isForeground);
+			action.setDrawing(pencil.canvas.getDrawing());
+			action.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
+		};
+
+		addButtonInteractor(MoveBackForegroundShapes.class, action -> init.accept(true, action), foregroundB);
+		addButtonInteractor(MoveBackForegroundShapes.class, action -> init.accept(false, action), backgroundB);
 	}
 
 	@Override
@@ -56,26 +65,3 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 		setActivated(hand.isActivated() && !shape.isEmpty());
 	}
 }
-
-// /** This link maps a button interaction to an action that puts shapes in
-// foreground / background. */
-// class Button2MoveBackForeground extends
-// InteractorImpl<MoveBackForegroundShapes, ButtonPressed, ShapePositioner> {
-// protected Button2MoveBackForeground(final ShapePositioner ins) throws
-// InstantiationException, IllegalAccessException {
-// super(ins, false, MoveBackForegroundShapes.class, ButtonPressed.class);
-// }
-//
-// @Override
-// public void initAction() {
-// action.setIsForeground(interaction.getButton()==instrument.foregroundB);
-// action.setDrawing(instrument.pencil.canvas().getDrawing());
-// action.setShape(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// return interaction.getButton()==instrument.backgroundB ||
-// interaction.getButton()==instrument.foregroundB;
-// }
-// }
