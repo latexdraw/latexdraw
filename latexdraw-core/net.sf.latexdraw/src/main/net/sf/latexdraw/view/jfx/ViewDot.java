@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Path;
@@ -46,7 +47,7 @@ public class ViewDot extends ViewShape<IDot> {
 		model.getPosition().yProperty().addListener(updateDot);
 		model.diametreProperty().addListener(updateDot);
 		model.fillingColProperty().addListener(updateDot);
-
+		rotateProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getRotationAngle()), model.rotationAngleProperty()));
 		updateDot();
 	}
 

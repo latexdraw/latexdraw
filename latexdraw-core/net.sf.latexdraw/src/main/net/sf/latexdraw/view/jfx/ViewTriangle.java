@@ -28,6 +28,7 @@ public class ViewTriangle extends ViewPathShape<ITriangle> {
 		super(sh);
 		setupPath(border);
 		setupPath(shadow);
+		rotateProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getRotationAngle()), model.rotationAngleProperty()));
 	}
 
 	private void setupPath(final Path path) {

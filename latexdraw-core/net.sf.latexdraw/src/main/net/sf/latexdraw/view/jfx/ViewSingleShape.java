@@ -147,6 +147,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		updateShadowPosition();
 	}
 
+	protected void bindRotationAngle() {
+		rotateProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getRotationAngle()), model.rotationAngleProperty()));
+	}
 
 	protected void updateShadowPosition() {
 		if(shadow != null) {

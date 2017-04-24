@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import javafx.beans.binding.Bindings;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import org.eclipse.jdt.annotation.NonNull;
 
@@ -27,6 +28,7 @@ public abstract class ViewPositionShape<T extends IPositionShape> extends ViewSh
 		super(sh);
 		translateXProperty().bind(model.getPosition().xProperty());
 		translateYProperty().bind(model.getPosition().yProperty());
+		rotateProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getRotationAngle()), model.rotationAngleProperty()));
 	}
 
 	@Override
