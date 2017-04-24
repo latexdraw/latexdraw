@@ -82,4 +82,6 @@ public interface ISingleShape extends IShape {
 	@NonNull DoubleProperty hatchingsWidthProperty();
 
 	@NonNull ObjectProperty<Color> hatchingsColProperty();
+
+	@NonNull DoubleProperty rotationAngleProperty();
 }

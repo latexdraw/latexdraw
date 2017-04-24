@@ -35,7 +35,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	public void setRotationAngle(final IPoint gc, final double angle) {
 		if(MathUtils.INST.isValidCoord(angle)) {
-			final double diff = angle - this.rotationAngle;
+			final double diff = angle - getRotationAngle();
 			final IPoint gc2 = gc == null ? getGravityCentre() : gc;
 
 			super.setRotationAngle(angle);

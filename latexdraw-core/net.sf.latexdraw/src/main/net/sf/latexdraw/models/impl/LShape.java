@@ -88,7 +88,7 @@ abstract class LShape implements ISingleShape {
 	protected final @NonNull DoubleProperty hatchingsWidth;
 
 	/** The rotation angle of the shape. */
-	protected double rotationAngle;
+	protected final @NonNull DoubleProperty rotationAngle;
 
 	/** Defines if the points of the shape must be considered. */
 	protected boolean showPts;
@@ -130,7 +130,7 @@ abstract class LShape implements ISingleShape {
 		super();
 		modified = false;
 		thickness = new SimpleDoubleProperty(2d);
-		rotationAngle = 0d;
+		rotationAngle = new SimpleDoubleProperty(0d);
 		shadowAngle = new SimpleDoubleProperty(-Math.PI / 4d);
 		gradAngle = new SimpleDoubleProperty(0d);
 		hatchingsAngle = new SimpleDoubleProperty(0d);
@@ -366,7 +366,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public double getRotationAngle() {
-		return rotationAngle;
+		return rotationAngle.get();
 	}
 
 	@Override
@@ -703,7 +703,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setRotationAngle(final double angle) {
-		if(MathUtils.INST.isValidCoord(angle)) rotationAngle = angle;
+		if(MathUtils.INST.isValidCoord(angle)) {
+			rotationAngle.set(angle);
+		}
 	}
 
 	@Override
@@ -807,7 +809,7 @@ abstract class LShape implements ISingleShape {
 			translate(rotGC.getX() - gc.getX(), rotGC.getY() - gc.getY());
 		}
 
-		setRotationAngle(rotationAngle + angle);
+		setRotationAngle(getRotationAngle() + angle);
 	}
 
 	@Override
@@ -983,5 +985,10 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public @NonNull ObjectProperty<Color> hatchingsColProperty() {
 		return hatchingsCol;
+	}
+
+	@Override
+	public @NonNull DoubleProperty rotationAngleProperty() {
+		return rotationAngle;
 	}
 }
