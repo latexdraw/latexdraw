@@ -35,6 +35,7 @@ public class RotateShapes extends ShapeActionImpl<IShape> implements Undoable, M
 	public RotateShapes() {
 		super();
 		gc = Optional.empty();
+		lastRotationAngle = 0d;
 	}
 
 	@Override
