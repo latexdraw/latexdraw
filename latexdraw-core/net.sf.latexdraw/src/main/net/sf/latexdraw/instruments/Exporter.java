@@ -247,6 +247,14 @@ public class Exporter extends JfxInstrument implements Initializable {
 	public void initialize(final URL location, final ResourceBundle resources) {
 		setActivated(false);
 		canvas.getDrawing().getShapes().addListener((ListChangeListener<IShape>) c -> setActivated(!canvas.getDrawing().isEmpty()));
+
+		menuItemPDF.setUserData(ExportFormat.PDF);
+		menuItemPDFcrop.setUserData(ExportFormat.PDF_CROP);
+		menuItemEPSLatex.setUserData(ExportFormat.EPS_LATEX);
+		menuItemJPG.setUserData(ExportFormat.JPG);
+		menuItemPST.setUserData(ExportFormat.TEX);
+		menuItemPNG.setUserData(ExportFormat.PNG);
+		menuItemBMP.setUserData(ExportFormat.BMP);
 	}
 
 
@@ -258,19 +266,8 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 		@Override
 		public void initAction() {
-			final MenuItem item = interaction.getWidget();
-			final ExportFormat format;
-
-			if(item == instrument.menuItemPDF) format = ExportFormat.PDF;
-			else if(item == instrument.menuItemPDFcrop) format = ExportFormat.PDF_CROP;
-			else if(item == instrument.menuItemEPSLatex) format = ExportFormat.EPS_LATEX;
-			else if(item == instrument.menuItemJPG) format = ExportFormat.JPG;
-			else if(item == instrument.menuItemPST) format = ExportFormat.TEX;
-			else if(item == instrument.menuItemPNG) format = ExportFormat.PNG;
-			else if(item == instrument.menuItemBMP) format = ExportFormat.BMP;
-			else format = null;
-
-			if(format != null) {
+			if(interaction.getWidget().getUserData() instanceof ExportFormat) {
+				final ExportFormat format = (ExportFormat) interaction.getWidget().getUserData();
 				action.setDialogueBox(instrument.getExportDialog(format));
 				action.setCanvas(instrument.canvas);
 				action.setFormat(format);
