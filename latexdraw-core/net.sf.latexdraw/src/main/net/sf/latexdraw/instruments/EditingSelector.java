@@ -12,14 +12,11 @@ package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
@@ -30,7 +27,6 @@ import org.malai.action.Action;
 import org.malai.javafx.action.library.ActivateInactivateInstruments;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.ButtonInteractor;
-import org.malai.javafx.instrument.library.ToggleButtonInteractor;
 
 /**
  * This instrument selects the pencil or the hand.
@@ -159,11 +155,50 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		final List<Node> nodes = new ArrayList<>(button2EditingChoiceMap.keySet());
-		nodes.add(handB);
+		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[button2EditingChoiceMap.size()+1]);
+		nodes[nodes.length-1] = handB;
+
 		addInteractor(new ButtonPressed2AddText(this));
-		addInteractor(new ButtonPressed2DefineStylePencil(this));
-		addInteractor(new ButtonPressed2ActivateIns(this, nodes));
+
+		addToggleButtonInteractor(ModifyPencilStyle.class, (action, interaction) -> {
+			action.setEditingChoice(button2EditingChoiceMap.get(interaction.getWidget()));
+			action.setPencil(pencil);
+		}, nodes);
+
+		addToggleButtonInteractor(ActivateInactivateInstruments.class, (action, interaction) -> {
+			final ToggleButton button = interaction.getWidget();
+
+			action.setActivateFirst(false);
+
+			if(button != textB) {
+				action.addInstrumentToInactivate(pencil.textSetter);
+			}
+
+			/* Selection of the instruments to activate/desactivate. */
+			if(button == handB) {
+				final boolean noSelection = hand.canvas.getDrawing().getSelection().isEmpty();
+				action.addInstrumentToActivate(hand);
+
+				if(!noSelection) action.addInstrumentToActivate(deleter);
+
+				action.addInstrumentToInactivate(pencil);
+
+				if(noSelection) {
+					action.addInstrumentToInactivate(metaShapeCustomiser);
+					action.addInstrumentToInactivate(border);
+				}else {
+					action.addInstrumentToActivate(metaShapeCustomiser);
+					action.addInstrumentToActivate(border);
+				}
+			}else {
+				action.addInstrumentToInactivate(hand);
+				action.addInstrumentToInactivate(border);
+				action.addInstrumentToInactivate(deleter);
+				action.addInstrumentToActivate(pencil);
+				action.addInstrumentToActivate(metaShapeCustomiser);
+			}
+		}, nodes);
+
 		addButtonInteractor(ActivateInactivateInstruments.class, action -> action.addInstrumentToActivate(codeInserter), codeB);
 	}
 
@@ -180,57 +215,6 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	public void onActionDone(final Action action) {
 		super.onActionDone(action);
 		canvas.requestFocus();
-	}
-
-	private static class ButtonPressed2DefineStylePencil extends ToggleButtonInteractor<ModifyPencilStyle, EditingSelector> {
-		ButtonPressed2DefineStylePencil(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilStyle.class, new ArrayList<>(ins.button2EditingChoiceMap.keySet()));
-		}
-
-		@Override
-		public void initAction() {
-			action.setEditingChoice(instrument.button2EditingChoiceMap.get(interaction.getWidget()));
-			action.setPencil(instrument.pencil);
-		}
-	}
-
-	private static class ButtonPressed2ActivateIns extends ToggleButtonInteractor<ActivateInactivateInstruments, EditingSelector> {
-		ButtonPressed2ActivateIns(final EditingSelector ins, final List<Node> nodes) throws InstantiationException, IllegalAccessException {
-			super(ins, ActivateInactivateInstruments.class, nodes);
-		}
-
-		@Override
-		public void initAction() {
-			final ToggleButton button = interaction.getWidget();
-
-			action.setActivateFirst(false);
-
-			if(button != instrument.textB) action.addInstrumentToInactivate(instrument.pencil.textSetter);
-
-			/* Selection of the instruments to activate/desactivate. */
-			if(button == instrument.handB) {
-				final boolean noSelection = instrument.hand.canvas.getDrawing().getSelection().isEmpty();
-				action.addInstrumentToActivate(instrument.hand);
-
-				if(!noSelection) action.addInstrumentToActivate(instrument.deleter);
-
-				action.addInstrumentToInactivate(instrument.pencil);
-
-				if(noSelection) {
-					action.addInstrumentToInactivate(instrument.metaShapeCustomiser);
-					action.addInstrumentToInactivate(instrument.border);
-				}else {
-					action.addInstrumentToActivate(instrument.metaShapeCustomiser);
-					action.addInstrumentToActivate(instrument.border);
-				}
-			}else {
-				action.addInstrumentToInactivate(instrument.hand);
-				action.addInstrumentToInactivate(instrument.border);
-				action.addInstrumentToInactivate(instrument.deleter);
-				action.addInstrumentToActivate(instrument.pencil);
-				action.addInstrumentToActivate(instrument.metaShapeCustomiser);
-			}
-		}
 	}
 
 

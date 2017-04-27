@@ -34,8 +34,6 @@ import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.instrument.JfxMenuItemInteractor;
-import org.malai.javafx.interaction.library.MenuItemPressed;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -145,7 +143,15 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new MenuPressed2Export(this));
+		addMenuInteractor(Export.class, (action, interaction) -> {
+			if(interaction.getWidget().getUserData() instanceof ExportFormat) {
+				final ExportFormat format = (ExportFormat) interaction.getWidget().getUserData();
+				action.setDialogueBox(getExportDialog(format));
+				action.setCanvas(canvas);
+				action.setFormat(format);
+				action.setPstGen(pstGen);
+			}
+		}, menuItemBMP, menuItemEPSLatex, exportTemplateMenu, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST);
 	}
 
 	/**
@@ -255,24 +261,5 @@ public class Exporter extends JfxInstrument implements Initializable {
 		menuItemPST.setUserData(ExportFormat.TEX);
 		menuItemPNG.setUserData(ExportFormat.PNG);
 		menuItemBMP.setUserData(ExportFormat.BMP);
-	}
-
-
-	private static class MenuPressed2Export extends JfxMenuItemInteractor<Export, MenuItemPressed, Exporter> {
-		MenuPressed2Export(final Exporter ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, Export.class, MenuItemPressed.class, ins.menuItemBMP, ins.menuItemEPSLatex, ins.exportTemplateMenu,
-				ins.menuItemJPG, ins.menuItemPDF, ins.menuItemPDFcrop, ins.menuItemPNG, ins.menuItemPST);
-		}
-
-		@Override
-		public void initAction() {
-			if(interaction.getWidget().getUserData() instanceof ExportFormat) {
-				final ExportFormat format = (ExportFormat) interaction.getWidget().getUserData();
-				action.setDialogueBox(instrument.getExportDialog(format));
-				action.setCanvas(instrument.canvas);
-				action.setFormat(format);
-				action.setPstGen(instrument.pstGen);
-			}
-		}
 	}
 }
