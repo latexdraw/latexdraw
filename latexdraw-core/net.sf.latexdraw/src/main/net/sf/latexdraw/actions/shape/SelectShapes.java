@@ -55,7 +55,7 @@ public class SelectShapes extends DrawingActionImpl implements ShapesAction, Mod
 	}
 
 	@Override
-	public boolean cancelledBy(final Action action) {
+	public boolean unregisteredBy(final Action action) {
 		return action instanceof SelectShapes || action instanceof CutShapes || action instanceof DeleteShapes;
 	}
 

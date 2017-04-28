@@ -38,7 +38,7 @@ public class CopyShapes extends ActionImpl {
 	}
 
 	@Override
-	public boolean cancelledBy(final Action action) {
+	public boolean unregisteredBy(final Action action) {
 		return action instanceof CopyShapes;
 	}
 
