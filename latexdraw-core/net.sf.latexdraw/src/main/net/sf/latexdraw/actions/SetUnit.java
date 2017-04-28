@@ -17,48 +17,18 @@ import org.malai.action.ActionImpl;
 import org.malai.undo.Undoable;
 
 /**
- * This action allows to modify the unit.
+ * This action changes the unit system used in the user interface.
  * @author Arnaud Blouin
  */
 public class SetUnit extends ActionImpl implements Undoable {
 	/** The new unit to set. */
-	protected Unit unit;
-
+	private Unit unit;
 	/** The former unit. */
-	protected Unit oldUnit;
+	private Unit oldUnit;
 
-
-    @Override
-	public void flush() {
-		super.flush();
-		unit 	= null;
-		oldUnit = null;
+	public SetUnit() {
+		super();
 	}
-
-
-	@Override
-	public void undo() {
-		ScaleRuler.setUnit(oldUnit);
-	}
-
-
-	@Override
-	public void redo() {
-		ScaleRuler.setUnit(unit);
-	}
-
-
-	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.3"); //$NON-NLS-1$
-	}
-
-
-	@Override
-	public boolean isRegisterable() {
-		return true;
-	}
-
 
 	@Override
 	protected void doActionBody() {
@@ -66,18 +36,36 @@ public class SetUnit extends ActionImpl implements Undoable {
 		redo();
 	}
 
-
 	@Override
 	public boolean canDo() {
-		return unit!=null;
+		return unit != null;
 	}
 
+	@Override
+	public void undo() {
+		ScaleRuler.setUnit(oldUnit);
+	}
+
+	@Override
+	public void redo() {
+		ScaleRuler.setUnit(unit);
+	}
+
+	@Override
+	public String getUndoName() {
+		return LangTool.INSTANCE.getBundle().getString("Actions.3"); //$NON-NLS-1$
+	}
+
+	@Override
+	public boolean isRegisterable() {
+		return true;
+	}
 
 	/**
-	 * @param val The new unit to set.
+	 * @param newUnit The new unit to set.
 	 * @since 3.0
 	 */
-	public void setUnit(final Unit val) {
-		unit = val;
+	public void setUnit(final Unit newUnit) {
+		unit = newUnit;
 	}
 }

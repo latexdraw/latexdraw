@@ -42,6 +42,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import net.sf.latexdraw.actions.GridProperties;
 import net.sf.latexdraw.actions.ModifyMagneticGrid;
+import net.sf.latexdraw.actions.SetUnit;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.LNamespace;
@@ -174,6 +175,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 			action.setGrid(grid);
 			action.setProperty(GridProperties.GRID_SPACING);
 		}, persoGridGapField);
+		addComboBoxInteractor(SetUnit.class, action -> action.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem())), unitChoice);
 	}
 
 	/**
