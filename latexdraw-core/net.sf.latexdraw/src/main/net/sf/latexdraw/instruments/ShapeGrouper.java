@@ -18,17 +18,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.actions.shape.JoinShapes;
-import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.actions.shape.SeparateShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.malai.action.ActionsRegistry;
 
 /**
  * This instrument groups and separates shapes.
  * @author Arnaud Blouin
  */
-public class ShapeGrouper extends ShapePropertyCustomiser implements Initializable {
+public class ShapeGrouper extends ShapePropertyCustomiser implements Initializable, ActionRegistrySearcher {
 	/** The widget to group shapes. */
 	@FXML private Button groupB;
 	/** The widget to separate shapes. */
@@ -66,7 +64,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
 		addButtonInteractor(SeparateShapes.class, action -> {
-			final List<IShape> shapes = ActionsRegistry.INSTANCE.getAction(SelectShapes.class).getShapes();
+			final List<IShape> shapes = getSelectAction().get().getShapes();
 
 			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {
 				action.setShape((IGroup)shapes.get(0));
@@ -76,7 +74,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 		}, sepB);
 
 		addButtonInteractor(JoinShapes.class, action -> {
-			ActionsRegistry.INSTANCE.getAction(SelectShapes.class).getShapes().forEach(sh -> action.addShape(sh));
+			getSelectAction().get().getShapes().forEach(sh -> action.addShape(sh));
 			action.setDrawing(pencil.canvas.getDrawing());
 		}, groupB);
 	}

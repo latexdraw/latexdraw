@@ -33,7 +33,7 @@ import org.malai.javafx.interaction.library.MenuItemPressed;
  * This instrument permits to copy, cut and paste the selected shapes.
  * @author Arnaud BLOUIN, Jan-Cornelius MOLNAR
  */
-public class CopierCutterPaster extends CanvasInstrument implements Initializable {
+public class CopierCutterPaster extends CanvasInstrument implements Initializable, ActionRegistrySearcher {
 	/** The menu item to copy the shapes. */
 	@FXML private MenuItem copyMenu;
 	/** The menu item to paste the shapes. */
@@ -42,7 +42,8 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	@FXML private MenuItem cutMenu;
 
 	private final Supplier<Boolean> isShapeSelected = () -> {
-		final SelectShapes act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
+		final SelectShapes act = (SelectShapes) ActionsRegistry.INSTANCE.getActions().parallelStream().
+			filter(action -> action instanceof SelectShapes).findFirst().orElse(null);
 		return act != null && !act.getShapes().isEmpty();
 	};
 
@@ -74,7 +75,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	protected void updateWidgets(final Action executedAction) {
 		copyMenu.setDisable(!activated || !isShapeSelected.get());
 		cutMenu.setDisable(!activated || copyMenu.isDisable());
-		pasteMenu.setDisable(!activated || !(executedAction instanceof CopyShapes || ActionsRegistry.INSTANCE.getAction(CopyShapes.class, CutShapes.class) != null));
+		pasteMenu.setDisable(!activated || !(executedAction instanceof CopyShapes || getCopyCutAction().isPresent()));
 	}
 
 	@Override
@@ -82,22 +83,21 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 		addInteractor(new MenuItem2PasteShapes());
 
 		addInteractor(new KeysShortcutInteractor<>(this, PasteShapes.class, action -> {
-			action.setCopy(ActionsRegistry.INSTANCE.getAction(CopyShapes.class, CutShapes.class));
+			action.setCopy(getCopyCutAction().orElse(null));
 			action.setDrawing(canvas.getDrawing());
 			action.setGrid(grid);
-		}, interaction -> ActionsRegistry.INSTANCE.getAction(CopyShapes.class, CutShapes.class) != null,
-			Arrays.asList(KeyCode.V, LSystem.INSTANCE.getControlKey()), canvas));
+		}, interaction -> getCopyCutAction().isPresent(), Arrays.asList(KeyCode.V, LSystem.INSTANCE.getControlKey()), canvas));
 
 		addInteractor(new MenuItem2CopyShapes<>(CopyShapes.class, copyMenu));
 
 		addInteractor(new KeysShortcutInteractor<>(this, CopyShapes.class,
-			action -> action.setSelection(ActionsRegistry.INSTANCE.getAction(SelectShapes.class)),
+			action -> action.setSelection(getSelectAction().orElse(null)),
 			interaction -> isShapeSelected.get(), Arrays.asList(KeyCode.C, LSystem.INSTANCE.getControlKey()), canvas));
 
 		addInteractor(new MenuItem2CopyShapes<>(CutShapes.class, cutMenu));
 
 		addInteractor(new KeysShortcutInteractor<>(this, CutShapes.class,
-			action -> action.setSelection(ActionsRegistry.INSTANCE.getAction(SelectShapes.class)),
+			action -> action.setSelection(getSelectAction().orElse(null)),
 			interaction -> isShapeSelected.get(), Arrays.asList(KeyCode.X, LSystem.INSTANCE.getControlKey()), canvas));
 	}
 
@@ -114,7 +114,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 		@Override
 		public void initAction() {
-			action.setSelection(ActionsRegistry.INSTANCE.getAction(SelectShapes.class));
+			action.setSelection(getSelectAction().orElse(null));
 		}
 
 		@Override
@@ -130,14 +130,14 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 		@Override
 		public void initAction() {
-			action.setCopy(ActionsRegistry.INSTANCE.getAction(CopyShapes.class, CutShapes.class));
+			action.setCopy(getCopyCutAction().orElse(null));
 			action.setDrawing(canvas.getDrawing());
 			action.setGrid(grid);
 		}
 
 		@Override
 		public boolean isConditionRespected() {
-			return ActionsRegistry.INSTANCE.getAction(CopyShapes.class, CutShapes.class) != null;
+			return getCopyCutAction().isPresent();
 		}
 	}
 }

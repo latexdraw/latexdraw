@@ -22,7 +22,6 @@ import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.actions.shape.DeleteShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.malai.action.ActionsRegistry;
 import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.interaction.JfxInteraction;
 import org.malai.javafx.interaction.library.ButtonPressed;
@@ -32,7 +31,7 @@ import org.malai.javafx.interaction.library.KeyPressure;
  * This instrument deletes the selected shapes.
  * @author Arnaud BLOUIN
  */
-public class ShapeDeleter extends CanvasInstrument implements Initializable {
+public class ShapeDeleter extends CanvasInstrument implements Initializable, ActionRegistrySearcher {
 	/** The button used to remove the selected shapes. */
 	@FXML private Button deleteB;
 	@Inject private Hand hand;
@@ -95,14 +94,14 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void initAction() {
-			final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
+			final SelectShapes selection = instrument.getSelectAction().get();
 			selection.getShapes().forEach(sh -> action.addShape(sh));
 			action.setDrawing(selection.getDrawing().get());
 		}
 
 		@Override
 		public boolean isConditionRespected() {
-			final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
+			final SelectShapes selection = instrument.getSelectAction().orElse(null);
 			return selection != null && !selection.getShapes().isEmpty();
 		}
 	}
