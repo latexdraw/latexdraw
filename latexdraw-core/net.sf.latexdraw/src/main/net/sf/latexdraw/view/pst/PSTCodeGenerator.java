@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
@@ -25,13 +25,13 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Arnaud Blouin
  */
 public class PSTCodeGenerator extends LaTeXGenerator {
-	static final @NonNull String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + LResources.EOL +//$NON-NLS-1$
-		"% \\usepackage{epsfig}" + LResources.EOL + "% \\usepackage{pst-grad} % For gradients" +//$NON-NLS-1$//$NON-NLS-2$
-		LResources.EOL + "% \\usepackage{pst-plot} % For axes" + LResources.EOL; //$NON-NLS-1$
+	static final @NonNull String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + LSystem.EOL +//$NON-NLS-1$
+		"% \\usepackage{epsfig}" + LSystem.EOL + "% \\usepackage{pst-grad} % For gradients" +//$NON-NLS-1$//$NON-NLS-2$
+		LSystem.EOL + "% \\usepackage{pst-plot} % For axes" + LSystem.EOL; //$NON-NLS-1$
 
-	public static final @NonNull String PACKAGE_FOR_SPACE_PICTURE = "\\usepackage[space]{grffile} % For spaces in paths" + LResources.EOL +
-		"\\usepackage{etoolbox} % For spaces in paths" + LResources.EOL + "\\makeatletter % For spaces in paths" + LResources.EOL +
-		"\\patchcmd\\Gread@eps{\\@inputcheck#1 }{\\@inputcheck\"#1\"\\relax}{}{}" + LResources.EOL + "\\makeatother" + LResources.EOL;
+	public static final @NonNull String PACKAGE_FOR_SPACE_PICTURE = "\\usepackage[space]{grffile} % For spaces in paths" + LSystem.EOL +
+		"\\usepackage{etoolbox} % For spaces in paths" + LSystem.EOL + "\\makeatletter % For spaces in paths" + LSystem.EOL +
+		"\\patchcmd\\Gread@eps{\\@inputcheck#1 }{\\@inputcheck\"#1\"\\relax}{}{}" + LSystem.EOL + "\\makeatother" + LSystem.EOL;
 
 
 	/**
@@ -54,16 +54,16 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			tr.setY(0.0);
 		}
 
-		doc.append("\\documentclass{article}").append(LResources.EOL).append("\\pagestyle{empty}").append(LResources.EOL).append(getPackages()).append(LResources.EOL).append( //$NON-NLS-1$ //$NON-NLS-2$
+		doc.append("\\documentclass{article}").append(LSystem.EOL).append("\\pagestyle{empty}").append(LSystem.EOL).append(getPackages()).append(LSystem.EOL).append( //$NON-NLS-1$ //$NON-NLS-2$
 			"\\usepackage[left=0cm,top=0.1cm,right=0cm,bottom=0cm,nohead,nofoot,paperwidth=").append( //$NON-NLS-1$
 			tr.getX() / ppc * scale).append("cm,paperheight=").append( //$NON-NLS-1$
 			bl.getY() / ppc * scale + 0.2).append("cm]{geometry}").append( //$NON-NLS-1$
-			LResources.EOL).append("\\usepackage[usenames,dvipsnames]{pstricks}").append(//$NON-NLS-1$
-			LResources.EOL).append("\\usepackage{epsfig}").append(//$NON-NLS-1$
-			LResources.EOL).append("\\usepackage{pst-grad}").append(LResources.EOL).append("\\usepackage{pst-plot}").append(LResources.EOL).append(//$NON-NLS-1$//$NON-NLS-2$
-			PSTCodeGenerator.PACKAGE_FOR_SPACE_PICTURE).append("\\begin{document}").append(LResources.EOL).append( //$NON-NLS-1$
-			"\\addtolength{\\oddsidemargin}{-0.2in}").append(LResources.EOL).append("\\addtolength{\\evensidemargin}{-0.2in}").append( //$NON-NLS-1$ //$NON-NLS-2$
-			LResources.EOL).append(getDrawingCode()).append(LResources.EOL).append("\\end{document}");//$NON-NLS-1$
+			LSystem.EOL).append("\\usepackage[usenames,dvipsnames]{pstricks}").append(//$NON-NLS-1$
+			LSystem.EOL).append("\\usepackage{epsfig}").append(//$NON-NLS-1$
+			LSystem.EOL).append("\\usepackage{pst-grad}").append(LSystem.EOL).append("\\usepackage{pst-plot}").append(LSystem.EOL).append(//$NON-NLS-1$//$NON-NLS-2$
+			PSTCodeGenerator.PACKAGE_FOR_SPACE_PICTURE).append("\\begin{document}").append(LSystem.EOL).append( //$NON-NLS-1$
+			"\\addtolength{\\oddsidemargin}{-0.2in}").append(LSystem.EOL).append("\\addtolength{\\evensidemargin}{-0.2in}").append( //$NON-NLS-1$ //$NON-NLS-2$
+			LSystem.EOL).append(getDrawingCode()).append(LSystem.EOL).append("\\end{document}");//$NON-NLS-1$
 
 		return doc.toString();
 	}
@@ -85,46 +85,46 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 
 		if(withComments && comment != null && !comment.isEmpty()) cache.append(comment);
 
-		cache.append(PACKAGE_PSTRICKS).append("% ").append(PACKAGE_FOR_SPACE_PICTURE.replaceAll(LResources.EOL, LResources.EOL + "% "));
+		cache.append(PACKAGE_PSTRICKS).append("% ").append(PACKAGE_FOR_SPACE_PICTURE.replaceAll(LSystem.EOL, LSystem.EOL + "% "));
 
 		if(!pkg.isEmpty()) {
-			pkg = "% User Packages:" + LResources.EOL + "% " + pkg.replace(LResources.EOL, LResources.EOL + "% "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			cache.append(pkg).append(LResources.EOL);
+			pkg = "% User Packages:" + LSystem.EOL + "% " + pkg.replace(LSystem.EOL, LSystem.EOL + "% "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			cache.append(pkg).append(LSystem.EOL);
 		}
 
-		cache.append(LResources.EOL);
+		cache.append(LSystem.EOL);
 
 		if(withLatexParams && (positionVertToken != VerticalPosition.NONE || !caption.isEmpty() || !label.isEmpty())) {
 			cache.append("\\begin{figure}"); //$NON-NLS-1$
 
-			if(positionVertToken == VerticalPosition.NONE) cache.append(LResources.EOL);
-			else cache.append('[').append(positionVertToken.getToken()).append(']').append(LResources.EOL);
+			if(positionVertToken == VerticalPosition.NONE) cache.append(LSystem.EOL);
+			else cache.append('[').append(positionVertToken.getToken()).append(']').append(LSystem.EOL);
 
 			hasBeginFigure = true;
 		}else hasBeginFigure = false;
 
-		if(withLatexParams && positionHoriCentre) cache.append("\\begin{center}").append(LResources.EOL);//$NON-NLS-1$
+		if(withLatexParams && positionHoriCentre) cache.append("\\begin{center}").append(LSystem.EOL);//$NON-NLS-1$
 
 		final float scaleF = MathUtils.INST.getCutNumberFloat(getScale());
 		cache.append("\\psscalebox{").append(scaleF).append(' ').append(scaleF).append("} % Change this value to rescale the drawing.");//$NON-NLS-1$ //$NON-NLS-2$
-		cache.append(LResources.EOL).append('{').append(LResources.EOL);
+		cache.append(LSystem.EOL).append('{').append(LSystem.EOL);
 		cache.append("\\begin{pspicture}("); //$NON-NLS-1$
 		cache.append(0).append(',').append(MathUtils.INST.getCutNumberFloat((origin.getY() - br.getY()) / ppc)).append(')').append('(');
 		cache.append(MathUtils.INST.getCutNumberFloat((tl.getX() - origin.getX()) / ppc)).append(',').append(MathUtils.INST.getCutNumberFloat((origin.getY() - tl.getY()) / ppc));
-		cache.append(')').append(LResources.EOL);
+		cache.append(')').append(LSystem.EOL);
 
 		drawing.getShapes().forEach(shape -> PSTViewsFactory.INSTANCE.createView(shape).ifPresent(pstView -> {
-			shapeCode.append(pstView.getCode(origin, ppc)).append(LResources.EOL);
+			shapeCode.append(pstView.getCode(origin, ppc)).append(LSystem.EOL);
 			cache.append(generateColourCode(pstView, addedColours));
 		}));
 
-		cache.append(shapeCode).append("\\end{pspicture}").append(LResources.EOL).append('}').append(LResources.EOL); //$NON-NLS-1$
+		cache.append(shapeCode).append("\\end{pspicture}").append(LSystem.EOL).append('}').append(LSystem.EOL); //$NON-NLS-1$
 
 		if(withLatexParams) {
-			if(positionHoriCentre) cache.append("\\end{center}").append(LResources.EOL);//$NON-NLS-1$
-			if(!label.isEmpty()) cache.append("\\label{").append(label).append('}').append(LResources.EOL);//$NON-NLS-1$
-			if(!caption.isEmpty()) cache.append("\\caption{").append(caption).append('}').append(LResources.EOL);//$NON-NLS-1$
-			if(hasBeginFigure) cache.append("\\end{figure}").append(LResources.EOL);//$NON-NLS-1$
+			if(positionHoriCentre) cache.append("\\end{center}").append(LSystem.EOL);//$NON-NLS-1$
+			if(!label.isEmpty()) cache.append("\\label{").append(label).append('}').append(LSystem.EOL);//$NON-NLS-1$
+			if(!caption.isEmpty()) cache.append("\\caption{").append(caption).append('}').append(LSystem.EOL);//$NON-NLS-1$
+			if(hasBeginFigure) cache.append("\\end{figure}").append(LSystem.EOL);//$NON-NLS-1$
 		}
 
 		return cache.toString();
@@ -142,7 +142,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			for(final String nameColour : pstView.coloursName) {
 				if(addedColours.get(nameColour) == null && !DviPsColors.INSTANCE.getPredefinedColour(nameColour).isPresent()) {
 					addedColours.put(nameColour, nameColour);
-					return DviPsColors.INSTANCE.getUsercolourCode(nameColour) + LResources.EOL;
+					return DviPsColors.INSTANCE.getUsercolourCode(nameColour) + LSystem.EOL;
 				}
 			}
 		}

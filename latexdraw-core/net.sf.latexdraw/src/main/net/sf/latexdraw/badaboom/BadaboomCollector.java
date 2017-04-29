@@ -53,7 +53,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	public void addHandler(final @NonNull BadaboomHandler handler) {
 		synchronized(handlers){ handlers.add(handler); }
 
-		// If there is events, the hander is notified.
+		// If there is events, the handler is notified.
 		synchronized(INSTANCE){
 			if(!INSTANCE.isEmpty())
 				handler.notifyEvents();
@@ -64,7 +64,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	 * Notifies the handlers that an event occurred.
 	 * @since 3.0
 	 */
-	protected void notifyHandlers(final @NonNull Throwable error) {
+	private void notifyHandlers(final @NonNull Throwable error) {
 		synchronized(handlers){
 			for(final BadaboomHandler handler : handlers)
 				handler.notifyEvent(error);
@@ -110,13 +110,13 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 
 
 	@Override
-	public void uncaughtException(final Thread t, final Throwable e) {
-		add(e);
+	public void uncaughtException(final Thread thread, final Throwable trowable) {
+		add(trowable);
 	}
 
 
 	@Override
-	public void onMalaiException(final Exception exception) {
+	public void onException(final Exception exception) {
 		add(exception);
 	}
 

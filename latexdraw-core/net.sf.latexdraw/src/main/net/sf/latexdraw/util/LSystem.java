@@ -22,6 +22,10 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 public final class LSystem {
 	/** The singleton. */
 	public static final LSystem INSTANCE = new LSystem();
+	/** The line separator of the current system. */
+	public static final String EOL = System.getProperty("line.separator"); //$NON-NLS-1$
+	/** The file separator of the current system. */
+	public static final String FILE_SEP = System.getProperty("file.separator"); //$NON-NLS-1$
 
 	/**
 	 * Creates the singleton.
@@ -223,7 +227,7 @@ public final class LSystem {
 
 			process.waitFor();// Waiting for the end of the process.
 
-			return err.getLog() + LResources.EOL + inp.getLog();
+			return err.getLog() + EOL + inp.getLog();
 		}catch(final Exception e) {
 			return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + e.getMessage(); //$NON-NLS-1$ //$NON-NLS-2$
 		}

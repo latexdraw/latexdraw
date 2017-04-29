@@ -18,7 +18,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.web.WebView;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.util.LFileUtils;
-import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.VersionChecker;
@@ -55,13 +54,13 @@ public class AboutController implements Initializable {
 		licenseText.setText(LFileUtils.INSTANCE.readTextFile("/res/license.txt"));//$NON-NLS-1$
 
 		final StringBuilder builder = new StringBuilder();
-		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LResources.EOL); //$NON-NLS-1$
-		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LResources.EOL); //$NON-NLS-1$
-		builder.append("PS2PDF version:").append(LResources.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LResources.EOL); //$NON-NLS-1$
-		builder.append("PS2EPSI version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LResources.EOL); //$NON-NLS-1$
-		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LResources.EOL); //$NON-NLS-1$
-		builder.append("Java properties:").append(LResources.EOL); //$NON-NLS-1$
-		System.getProperties().forEach((key, value) -> builder.append(key).append(':').append(' ').append(value).append(LResources.EOL));
+		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LSystem.EOL); //$NON-NLS-1$
+		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LSystem.EOL); //$NON-NLS-1$
+		builder.append("PS2PDF version:").append(LSystem.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LSystem.EOL); //$NON-NLS-1$
+		builder.append("PS2EPSI version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LSystem.EOL); //$NON-NLS-1$
+		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LSystem.EOL); //$NON-NLS-1$
+		builder.append("Java properties:").append(LSystem.EOL); //$NON-NLS-1$
+		System.getProperties().forEach((key, value) -> builder.append(key).append(':').append(' ').append(value).append(LSystem.EOL));
 		sysText.setText(builder.toString());
 	}
 }

@@ -13,7 +13,7 @@ package net.sf.latexdraw.view.pst;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -74,7 +74,7 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 				final IPoint endPt = shape.getEndPoint();
 
 				start.append("\\psarc"); //$NON-NLS-1$
-				end.append(LResources.EOL).append("\\psline[").append(params).append(']').append('('); //$NON-NLS-1$
+				end.append(LSystem.EOL).append("\\psline[").append(params).append(']').append('('); //$NON-NLS-1$
 				end.append(MathUtils.INST.getCutNumberFloat(startPt.getX() / ppc)).append(',');
 				end.append(MathUtils.INST.getCutNumberFloat(startPt.getY() / ppc)).append(')').append('(');
 				end.append(MathUtils.INST.getCutNumberFloat(endPt.getX() / ppc)).append(',');

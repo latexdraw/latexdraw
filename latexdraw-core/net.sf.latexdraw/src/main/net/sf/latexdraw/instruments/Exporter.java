@@ -29,7 +29,7 @@ import net.sf.latexdraw.actions.ExportTemplate;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
@@ -104,10 +104,10 @@ public class Exporter extends JfxInstrument implements Initializable {
 		final String name = root.getNodeName();
 
 		if(name.endsWith(LNamespace.XML_LATEX_INCLUDES)) {
-			final String[] lines = root.getTextContent().split(LResources.EOL);
+			final String[] lines = root.getTextContent().split(LSystem.EOL);
 			final String pkgs = LaTeXGenerator.getPackages();
 			LaTeXGenerator.setPackages(LaTeXGenerator.getPackages() +
-				Arrays.stream(lines).filter(line -> !pkgs.contains(line)).collect(Collectors.joining(LResources.EOL, LResources.EOL, "")));
+				Arrays.stream(lines).filter(line -> !pkgs.contains(line)).collect(Collectors.joining(LSystem.EOL, LSystem.EOL, "")));
 		}
 	}
 
@@ -223,7 +223,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	public void setDefaultPackages(final String defaultPkgs) {
 		if(defaultPkgs != null) {
 			if(defaultPackages.isEmpty()) {
-				LaTeXGenerator.setPackages(defaultPkgs + LResources.EOL + LaTeXGenerator.getPackages());
+				LaTeXGenerator.setPackages(defaultPkgs + LSystem.EOL + LaTeXGenerator.getPackages());
 			}
 			defaultPackages = defaultPkgs;
 		}

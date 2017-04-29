@@ -39,60 +39,6 @@ class LEllipse extends LRectangularShape implements IEllipse {
 		super(tl, br);
 	}
 
-	//
-	//	@Override
-	//	public IPoint[] getIntersection(final ILine line) {
-	//		if(line==null)
-	//			return null;
-	//
-	//		double lineb = line.getB();
-	//		double linea = line.getA();
-	//		boolean vert = !GLibUtilities.isValidPt(linea, lineb);// The line is vertical.
-	//		IPoint[] pts;
-	//		double a	 = getA()/2.;
-	//		double b	 = getB()/2.;
-	//		IPoint centre= getGravityCentre();
-	//
-	//		if(vert) { // We rotate the two points of the line to get a horizontal line
-	//			ILine line2 = new LLine(line.getPoint1().rotatePoint(centre, Math.PI/2.), line.getPoint2().rotatePoint(centre, Math.PI/2.));
-	//			linea = line2.getA();
-	//			lineb = line2.getB();
-	//		}
-	//
-	//		double alpha = lineb-centre.getY();
-	//		double beta  = b*b+linea*linea*a*a;
-	//		double gamma = 2.*alpha*linea*a*a-2.*centre.getX()*b*b;
-	//		double mu    = b*b*centre.getX()*centre.getX()+a*a*alpha*alpha-a*a*b*b;
-	//		double delta = gamma*gamma - 4*beta*mu;
-	//
-	//		if(delta>0) {
-	//			double x1 = (-gamma+Math.sqrt(delta))/(2.*beta);
-	//			double x2 = (-gamma-Math.sqrt(delta))/(2.*beta);
-	//			pts = new LPoint[2];
-	//
-	//			pts[0] = new LPoint(x1, linea*x1+lineb);
-	//			pts[1] = new LPoint(x2, linea*x2+lineb);
-	//		}
-	//		else
-	//			if(LNumber.equalsDouble(delta,0.)) {
-	//				double x0 = -gamma/(2.*beta);
-	//				pts = new LPoint[1];
-	//				pts[0] = new LPoint(x0, linea*x0+lineb);
-	//			}
-	//			else
-	//				pts = null;
-	//
-	//		if(vert && pts!=null) {// If the line is vertical, we rotate the resulting points at their real position.
-	//			pts[0] = pts[0].rotatePoint(centre, -Math.PI/2.);
-	//
-	//			if(pts.length>1)
-	//				pts[1] = pts[1].rotatePoint(centre, -Math.PI/2.);
-	//		}
-	//
-	//		return pts;
-	//	}
-
-
 	@Override
 	public void setCentre(final IPoint centre) {
 		if(MathUtils.INST.isValidPt(centre)) {

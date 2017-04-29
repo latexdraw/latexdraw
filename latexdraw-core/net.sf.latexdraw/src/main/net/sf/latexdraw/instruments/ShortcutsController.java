@@ -21,7 +21,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LangTool;
 
 /**
@@ -62,7 +61,7 @@ public class ShortcutsController implements Initializable {
 			FXCollections.observableArrayList(ctrl + "+X", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.44"), catEdit),//$NON-NLS-1$
 			FXCollections.observableArrayList(ctrl + "+Z", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.23"), catEdit),//$NON-NLS-1$ //$NON-NLS-2$
 			FXCollections.observableArrayList(ctrl + "+Y", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.22"), catEdit),//$NON-NLS-1$ //$NON-NLS-2$
-			FXCollections.observableArrayList(ctrl + "+N", LResources.LABEL_NEW, catFile),//$NON-NLS-1$
+			FXCollections.observableArrayList(ctrl + "+N", LangTool.INSTANCE.getBundle().getString("Res.2"), catFile),//$NON-NLS-1$
 			FXCollections.observableArrayList(ctrl + "+O", LangTool.INSTANCE.getBundle().getString("FileLoaderSaver.3"), catFile),//$NON-NLS-1$
 			FXCollections.observableArrayList(ctrl + "+S", LangTool.INSTANCE.getBundle().getString("FileLoaderSaver.1"), catFile),//$NON-NLS-1$
 			FXCollections.observableArrayList(ctrl + "+W", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.18"), catFile),//$NON-NLS-1$ //$NON-NLS-2$

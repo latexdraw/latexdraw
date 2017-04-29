@@ -48,7 +48,7 @@ public class StreamExecReader extends Thread {
 		        String line = br.readLine();
 
 		        while(line != null) {
-		            log.append(line).append(LResources.EOL);
+		            log.append(line).append(LSystem.EOL);
 		            line = br.readLine();
 		        }
 			}

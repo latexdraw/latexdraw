@@ -85,41 +85,6 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		assertEquals(0., shape.getRotationAngle(), 0.001);
 	}
 
-	//
-	// @Override
-	// @Test
-	// public void testScale() {
-	// shape.setPosition(0, 2);
-	// shape.setRight(2);
-	// shape.setTop(0);
-	//
-	// IPoint tl1 = shape.getTopLeftPoint();
-	// IPoint br1 = shape.getBottomRightPoint();
-	//
-	// shape.scale(1.5, 1, Position.EAST);
-	// IPoint tl2 = shape.getTopLeftPoint();
-	// IPoint br2 = shape.getBottomRightPoint();
-	//
-	// assertEquals((br1.getX()-tl1.getX())*1.5, br2.getX()-tl2.getX());
-	// shape.scale(1, 1.5, Position.SOUTH);
-	// tl2 = shape.getTopLeftPoint();
-	// br2 = shape.getBottomRightPoint();
-	// assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
-	//
-	// tl1 = shape.getTopLeftPoint();
-	// br1 = shape.getBottomRightPoint();
-	// shape.scale(1.5, 1, Position.WEST);
-	// tl2 = shape.getTopLeftPoint();
-	// br2 = shape.getBottomRightPoint();
-	// assertEquals((br1.getX()-tl1.getX())*1.5, br2.getX()-tl2.getX());
-	//
-	// tl1 = shape.getTopLeftPoint();
-	// br1 = shape.getBottomRightPoint();
-	// shape.scale(1, 1.5, Position.NORTH);
-	// tl2 = shape.getTopLeftPoint();
-	// br2 = shape.getBottomRightPoint();
-	// assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
-	// }
 
 	@Override
 	@Test

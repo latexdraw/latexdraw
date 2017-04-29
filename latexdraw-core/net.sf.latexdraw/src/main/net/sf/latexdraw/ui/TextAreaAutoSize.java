@@ -21,7 +21,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 
 /**
  * This widgets is a text area that automatically resizes its width and height according to its text.
@@ -46,7 +46,7 @@ public class TextAreaAutoSize extends TextArea {
 			if(evt.getCode() == KeyCode.ENTER) {
 				if(evt.isShiftDown()) {
 					final int caretPosition = getCaretPosition();
-					setText(getText() + LResources.EOL);
+					setText(getText() + LSystem.EOL);
 					positionCaret(caretPosition + 1);
 				}else {
 					evt.consume();
@@ -114,8 +114,8 @@ public class TextAreaAutoSize extends TextArea {
 	private void updateDimension(final String newText) {
 		if(newText==null) return;
 
-		final String[] lines = newText.split(LResources.EOL);
-		final int countEOL = newText.length() - newText.replace(LResources.EOL, "").length();
+		final String[] lines = newText.split(LSystem.EOL);
+		final int countEOL = newText.length() - newText.replace(LSystem.EOL, "").length();
 		final String maxLine = Arrays.stream(lines).reduce((a, b) -> a.length() > b.length() ? a : b).orElse("");
 		final Font font = getFont();
 		final FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();

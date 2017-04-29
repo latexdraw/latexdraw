@@ -24,7 +24,6 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LFileUtils;
-import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.OperatingSystem;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
@@ -166,7 +165,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		final String str = String.valueOf(buffer, 0, j);
 
-		return str.length() > 1 ? str.substring(0, str.length() - LResources.EOL.length()) : str;
+		return str.length() > 1 ? str.substring(0, str.length() - LSystem.EOL.length()) : str;
 	}
 
 
@@ -356,7 +355,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return Optional.empty();
 		}
 
-		Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LResources.FILE_SEP + "tmpPSFile.ps", tmpDir);//$NON-NLS-1$
+		Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "tmpPSFile.ps", tmpDir);//$NON-NLS-1$
 		File psFile;
 
 		if(optFile.isPresent()) {
@@ -376,7 +375,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final String log = LSystem.INSTANCE.execute(paramsLatex, tmpDir);
 
 		if(!fileEPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + LResources.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + LSystem.EOL + log));
 			return Optional.empty();
 		}
 
@@ -403,7 +402,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	public Optional<File> createPSFile(final String pathExportPs, final File tmpDir) {
 		if(pathExportPs == null) return Optional.empty();
 
-		final int lastSep = pathExportPs.lastIndexOf(LResources.FILE_SEP) + 1;
+		final int lastSep = pathExportPs.lastIndexOf(LSystem.FILE_SEP) + 1;
 		final String name = pathExportPs.substring(lastSep == -1 ? 0 : lastSep, pathExportPs.lastIndexOf(".ps")); //$NON-NLS-1$
 		final File tmpDir2 = tmpDir == null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
 
@@ -412,7 +411,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return Optional.empty();
 		}
 
-		final String path = tmpDir2.getAbsolutePath() + LResources.FILE_SEP;
+		final String path = tmpDir2.getAbsolutePath() + LSystem.FILE_SEP;
 		Optional<File> optFile = createLatexFile(path + name + ExportFormat.TEX.getFileExtension());
 		File texFile;
 
@@ -435,8 +434,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final String[] paramsLatex = {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$
 			LFileUtils.INSTANCE.normalizeForLaTeX(texFile.getAbsolutePath())};//$NON-NLS-1$
 		log = LSystem.INSTANCE.execute(paramsLatex, tmpDir2);
-		final File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
-		final boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
+		final File dviFile = new File(tmpDir2.getAbsolutePath() + LSystem.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
+		final boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LSystem.FILE_SEP + name));
 
 		final String[] paramsDvi = {os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
 			(tr.getX() - bl.getX()) / ppc * scale + dec + "cm," + ((bl.getY() - tr.getY()) / ppc * scale + dec) + "cm", //$NON-NLS-1$ //$NON-NLS-2$
@@ -451,7 +450,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		finalPS = new File(pathExportPs);
 
 		if(!finalPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + LResources.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + LSystem.EOL + log));
 			finalPS = null;
 		}
 
@@ -479,9 +478,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return Optional.empty();
 		}
 
-		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
+		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LSystem.FILE_SEP) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
 		final File psFile;
-		Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + ".ps");//$NON-NLS-1$
+		Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + name + ".ps");//$NON-NLS-1$
 
 		if(optFile.isPresent()) {
 			psFile = optFile.get();
@@ -502,7 +501,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		log = LSystem.INSTANCE.execute(new String[]{os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), crop ? name + ExportFormat.PDF.getFileExtension() : pathExportPdf}, tmpDir);
 
 		if(crop) {
-			pdfFile = new File(tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + ExportFormat.PDF.getFileExtension());
+			pdfFile = new File(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + name + ExportFormat.PDF.getFileExtension());
 			log = LSystem.INSTANCE.execute(new String[]{os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir);
 			// JAVA7: test pdfFile.toPath().move(pathExportPdf)
 			// the renameto method is weak and fails sometimes.
@@ -515,7 +514,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		psFile.delete();
 
 		if(!pdfFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + LResources.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + LSystem.EOL + log));
 			pdfFile = null;
 		}
 

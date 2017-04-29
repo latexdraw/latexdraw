@@ -40,7 +40,6 @@ import net.sf.latexdraw.instruments.StatusBarController;
 import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.MagneticGrid;
@@ -145,7 +144,7 @@ public class LaTeXDraw extends JfxUI {
 		final Scene splashScene = new Scene(splashLayout);
 		initStage.initStyle(StageStyle.UNDECORATED);
 		initStage.setScene(splashScene);
-		initStage.getIcons().add(new Image(LResources.LATEXDRAW_ICON_PATH));
+		initStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png"));
 		initStage.centerOnScreen();
 		initStage.toFront();
 		initStage.show();
@@ -180,7 +179,7 @@ public class LaTeXDraw extends JfxUI {
 						prefSetter.readXMLPreferences();
 						// Preventing the stage to close automatically.
 						mainStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, we -> we.consume());
-						mainStage.getIcons().add(new Image(LResources.LATEXDRAW_ICON_PATH));
+						mainStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png"));
 						mainStage.centerOnScreen();
 						injector.getInstance(MagneticGrid.class).update();
 						injector.getInstance(TabSelector.class).centreViewport();

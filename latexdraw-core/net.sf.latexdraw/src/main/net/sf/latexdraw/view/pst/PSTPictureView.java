@@ -14,7 +14,7 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LFileUtils;
-import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.LangTool;
 import org.eclipse.jdt.annotation.NonNull;
 
@@ -46,7 +46,7 @@ public class PSTPictureView extends PSTShapeView<IPicture> {
 		path = path.replaceAll("\\\\", "/");//$NON-NLS-1$ //$NON-NLS-2$
 
 		if(path.contains(" "))//$NON-NLS-1$
-			start.append(LangTool.INSTANCE.getBundle().getString("Picture.0")).append(LResources.EOL); //$NON-NLS-1$
+			start.append(LangTool.INSTANCE.getBundle().getString("Picture.0")).append(LSystem.EOL); //$NON-NLS-1$
 
 		if(rot != null) code.append(rot);
 
