@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
+import com.google.inject.Inject;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class Border extends CanvasInstrument implements Initializable {
 	private RotationHandler rotHandler;
 	private DnD2MovePoint movePointInteractor;
 	private DnD2MoveCtrlPoint moveCtrlPtInteractor;
-//	@Inject private MetaShapeCustomiser metaCustomiser;
+	@Inject private MetaShapeCustomiser metaCustomiser;
 
 	Border() {
 		super();
@@ -108,10 +109,6 @@ public class Border extends CanvasInstrument implements Initializable {
 		setActivated(false);
 	}
 
-	@Override
-	public void reinit() {
-		// selection.clear();
-	}
 
 	@Override
 	public void setActivated(final boolean activated) {
@@ -138,7 +135,7 @@ public class Border extends CanvasInstrument implements Initializable {
 	@Override
 	public void onActionDone(final Action action) {
 		if(action instanceof MoveCtrlPoint || action instanceof MovePointShape || action instanceof ScaleShapes) {
-//			metaCustomiser.dimPosCustomiser.update();
+			metaCustomiser.dimPosCustomiser.update();
 		}
 	}
 
