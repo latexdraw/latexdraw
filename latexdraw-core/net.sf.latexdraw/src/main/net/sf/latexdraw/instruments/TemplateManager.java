@@ -10,84 +10,128 @@
  */
 package net.sf.latexdraw.instruments;
 
+import com.google.inject.Inject;
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Point3D;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import net.sf.latexdraw.LaTeXDraw;
+import net.sf.latexdraw.actions.LoadTemplate;
+import net.sf.latexdraw.actions.UpdateTemplates;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.javafx.instrument.JfxInstrument;
+import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.interaction.library.DnD;
 
 /**
  * This instrument manages the templates.
  * @author Arnaud BLOUIN
  */
-public class TemplateManager extends JfxInstrument {
-	// /** The menu item that permits to update the templates. */
+public class TemplateManager extends JfxInstrument implements Initializable {
+	 /** The menu item that permits to update the templates. */
 	@FXML private Button updateTemplates;
+	@FXML FlowPane templatePane;
+	@FXML private TitledPane mainPane;
+	@FXML private Label emptyLabel;
+	@Inject private IDrawing drawing;
+	@Inject private StatusBarController statusController;
 
-	// protected Drawing drawing;
 
 	TemplateManager() {
 		super();
 	}
 
 
-	// override def setActivated(activated : Boolean) {
-	// super.setActivated(activated)
-	// templateMenu.setEnabled(isActivated)
-	// }
-
 	@Override
-	protected void initialiseInteractors() {
-		// addInteractor(new MenuItem2UpdateTemplates(this))
-		// addInteractor(new MenuItem2LoadTemplate(this))
-		// addInteractor(new MenuItem2ExportTemplate(this))
+	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
+		emptyLabel.managedProperty().bind(emptyLabel.visibleProperty());
+		emptyLabel.visibleProperty().bind(Bindings.createBooleanBinding(() -> templatePane.getChildren().isEmpty(), templatePane.getChildren()));
+		emptyLabel.setFont(Font.font(emptyLabel.getFont().getFamily(), FontPosture.ITALIC, emptyLabel.getFont().getSize()));
+
+		final UpdateTemplates action = new UpdateTemplates();
+		action.setTemplatesPane(templatePane);
+		action.updateThumbnails(false);
+
+		if(action.canDo()) {
+			action.doIt();
+		}
+		action.flush();
+		setActivated(true);
 	}
 
-	// override protected def initialiseWidgets() {
-	// val action = new UpdateTemplates()
-	// action.templatesMenu = _templateMenu
-	// action.updateThumbnails = false
-	// action.doIt
-	// action.flush
-	// }
-}
+	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		mainPane.setVisible(activated);
+	}
 
-// private sealed class MenuItem2ExportTemplate(ins : TemplateManager) extends
-// InteractorImpl[ExportTemplate, MenuItemPressed, TemplateManager](ins, false,
-// classOf[ExportTemplate], classOf[MenuItemPressed]) {
-// override def initAction() {
-// action.setUi(instrument.ui)
-// action.templatesMenu = instrument.templateMenu
-// }
-//
-// override def isConditionRespected =
-// interaction.getMenuItem==instrument.exportTemplateMenu
-// }
-//
-//
-// private sealed class MenuItem2LoadTemplate(ins : TemplateManager) extends
-// InteractorImpl[LoadTemplate, MenuItemPressed, TemplateManager](ins, false,
-// classOf[LoadTemplate], classOf[MenuItemPressed]) {
-// override def initAction() {
-// action.setFile(new File(interaction.getMenuItem.getName))
-// action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE)
-// action.setUi(instrument.ui)
-// action.setDrawing(instrument.drawing)
-// }
-//
-// override def isConditionRespected =
-// interaction.getMenuItem!=instrument.updateTemplatesMenu &&
-// instrument.templateMenu.contains(interaction.getMenuItem)
-// }
-//
-//
-// /** Maps a menu item interaction to an action that updates the templates. */
-// private sealed class MenuItem2UpdateTemplates(ins : TemplateManager) extends
-// InteractorImpl[UpdateTemplates, MenuItemPressed, TemplateManager](ins, false,
-// classOf[UpdateTemplates], classOf[MenuItemPressed]) {
-// override def initAction() {
-// action.updateThumbnails = true
-// action.templatesMenu = instrument.templateMenu
-// }
-//
-// override def isConditionRespected =
-// interaction.getMenuItem==instrument.updateTemplatesMenu
-// }
+	@Override
+	public void interimFeedback() {
+		templatePane.setCursor(Cursor.MOVE);
+	}
+
+
+	@Override
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		 addButtonInteractor(UpdateTemplates.class, action -> {
+			 action.setTemplatesPane(templatePane);
+			 action.updateThumbnails(true);
+		 }, updateTemplates);
+		 addInteractor(new DnD2AddTemplate(this));
+	}
+
+
+	private static class DnD2AddTemplate extends JfxInteractor<LoadTemplate, DnD, TemplateManager> {
+		DnD2AddTemplate(final TemplateManager ins) throws InstantiationException, IllegalAccessException {
+			super(ins, false, LoadTemplate.class, DnD.class, ins.templatePane);
+		}
+
+		@Override
+		public void initAction() {
+			action.setDrawing(instrument.drawing);
+			action.setFile(new File((String) interaction.getSrcObject().get().getUserData()));
+			action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
+			action.setProgressBar(instrument.statusController.getProgressBar());
+			action.setStatusWidget(instrument.statusController.getLabel());
+			action.setUi(LaTeXDraw.getINSTANCE());
+		}
+
+		@Override
+		public void updateAction() {
+			interaction.getEndPt().ifPresent(pt -> {
+				final Node srcObj = interaction.getSrcObject().get();
+				final Point3D pt3d = interaction.getEndObjet().get().sceneToLocal(srcObj.localToScene(pt)).
+					subtract(Canvas.ORIGIN.getX() + srcObj.getLayoutX(), Canvas.ORIGIN.getY() + srcObj.getLayoutY(), 0d);
+				action.setPosition(ShapeFactory.INST.createPoint(pt3d));
+			});
+		}
+
+		@Override
+		public void interimFeedback() {
+			instrument.templatePane.setCursor(Cursor.CLOSED_HAND);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getSrcObject().orElse(null) instanceof ImageView &&
+				interaction.getSrcObject().get().getUserData() instanceof String &&
+				interaction.getEndObjet().orElse(null) instanceof Canvas;
+		}
+	}
+}

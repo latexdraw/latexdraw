@@ -10,55 +10,64 @@
  */
 package net.sf.latexdraw.actions;
 
-import java.util.Optional;
-import javafx.scene.control.MenuButton;
-import org.malai.action.ActionImpl;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.Pane;
+import net.sf.latexdraw.util.LPath;
+import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import org.malai.javafx.action.library.IOAction;
 
 /**
  * This action exports a set of shapes as a template.
  * @author Arnaud Blouin
  */
-public class ExportTemplate extends ActionImpl implements TemplateAction { //extends IOAction[Void, JLabel]
-	Optional<MenuButton> templatesMenu;
+public class ExportTemplate extends IOAction<Label> implements TemplateAction {
+	private Pane templatesPane;
 
-	@Override
-	public boolean canDo() {
-		return false; //ui!=null && _templatesMenu.isDefined
+	public ExportTemplate() {
+		super();
 	}
 
 	@Override
 	protected void doActionBody() {
-		//		var path = ""
-		//		var ok = true
-		//		var cancelled = false
-		//
-		//		do {
-		//			val templateName = JOptionPane.showInputDialog(this, LangTool.INSTANCE.getBundle().getString("DrawContainer.nameTemplate"))  //$NON-NLS-1$
-		//			path = LPath.PATH_TEMPLATES_DIR_USER + File.separator + templateName + SVGFilter.SVG_EXTENSION
-		//
-		//			if(templateName==null)
-		//				cancelled = true
-		//			else
-		//				if(new File(path).exists)
-		//					ok = JOptionPane.showConfirmDialog(ui, LangTool.INSTANCE.getBundle().getString("DrawContainer.overwriteTemplate"), //$NON-NLS-1$
-		//							LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.42"), JOptionPane.YES_NO_OPTION) match { //$NON-NLS-1$
-		//						case JOptionPane.YES_OPTION => true
-		//						case _ => false
-		//					}
-		//				else ok = templateName.length>0
-		//		}while(!ok && !cancelled)
-		//
-		//		if(!cancelled)
-		//			SVGDocumentGenerator.INSTANCE.saveTemplate(path, ui, progressBar, statusWidget, _templatesMenu.get)
+		final TextInputDialog dialog = new TextInputDialog("templateFileName");
+		dialog.setHeaderText(LangTool.INSTANCE.getBundle().getString("DrawContainer.nameTemplate"));
+
+		dialog.showAndWait().ifPresent(name -> {
+			String path = LPath.PATH_TEMPLATES_DIR_USER + File.separator + name + ".svg";
+
+			if(Files.exists(Paths.get(path))) {
+				final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+				alert.setHeaderText(LangTool.INSTANCE.getBundle().getString("DrawContainer.overwriteTemplate"));
+				alert.setTitle(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.42"));
+
+				if(alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+					SVGDocumentGenerator.INSTANCE.saveTemplate(path, progressBar, statusWidget, templatesPane);
+				}
+			}else {
+				SVGDocumentGenerator.INSTANCE.saveTemplate(path, progressBar, statusWidget, templatesPane);
+			}
+		});
 	}
 
 	@Override
-	public void templatesMenu(final MenuButton menu) {
-		templatesMenu = Optional.ofNullable(menu);
+	public boolean canDo() {
+		return ui != null && templatesPane != null;
 	}
 
 	@Override
-	public Optional<MenuButton> getTemplatesMenu() {
-		return templatesMenu;
+	public void setTemplatesPane(final Pane pane) {
+		templatesPane = pane;
+	}
+
+	@Override
+	public Pane getTemplatesPane() {
+		return templatesPane;
 	}
 }

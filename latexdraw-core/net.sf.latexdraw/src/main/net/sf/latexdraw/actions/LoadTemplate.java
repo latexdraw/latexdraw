@@ -10,15 +10,23 @@
  */
 package net.sf.latexdraw.actions;
 
+import java.util.Optional;
+import javafx.scene.control.Label;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import org.malai.javafx.action.library.IOAction;
 import org.malai.undo.Undoable;
 
 /**
  * This action loads a given template.
  * @author Arnaud Blouin
  */
-public class LoadTemplate extends DrawingActionImpl implements Undoable, Modifying { //IOAction[LFrame, JLabel] {
-	IShape insertedShapes;
+public class LoadTemplate extends IOAction<Label> implements DrawingAction, Undoable, Modifying {
+	private IShape insertedShapes;
+	private IDrawing drawing;
+	private IPoint position;
 
 	public LoadTemplate() {
 		super();
@@ -26,19 +34,18 @@ public class LoadTemplate extends DrawingActionImpl implements Undoable, Modifyi
 
 	@Override
 	protected void doActionBody() {
-		//    insertedShapes = SVGDocumentGenerator.INSTANCE.insert(file.getPath, ui)
-		//    println(insertedShapes)
-		//    ok = insertedShapes!=null
+		insertedShapes = SVGDocumentGenerator.INSTANCE.insert(file.getPath(), position);
+		ok = insertedShapes != null;
 	}
 
 	@Override
 	public void redo() {
-		drawing.ifPresent(dr -> dr.addShape(insertedShapes));
+		drawing.addShape(insertedShapes);
 	}
 
 	@Override
 	public void undo() {
-		drawing.ifPresent(dr -> dr.removeShape(insertedShapes));
+		drawing.removeShape(insertedShapes);
 	}
 
 	@Override
@@ -48,7 +55,7 @@ public class LoadTemplate extends DrawingActionImpl implements Undoable, Modifyi
 
 	@Override
 	public boolean canDo() {
-		return drawing.isPresent();
+		return drawing != null;
 	}
 
 	@Override
@@ -60,5 +67,19 @@ public class LoadTemplate extends DrawingActionImpl implements Undoable, Modifyi
 	public void flush() {
 		super.flush();
 		insertedShapes = null;
+	}
+
+	@Override
+	public void setDrawing(final IDrawing dr) {
+		drawing = dr;
+	}
+
+	@Override
+	public Optional<IDrawing> getDrawing() {
+		return Optional.ofNullable(drawing);
+	}
+
+	public void setPosition(final IPoint templatePosition) {
+		position = templatePosition;
 	}
 }

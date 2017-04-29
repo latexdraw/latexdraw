@@ -22,8 +22,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
+import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.actions.Export;
 import net.sf.latexdraw.actions.ExportFormat;
+import net.sf.latexdraw.actions.ExportTemplate;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
@@ -32,6 +34,7 @@ import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
+import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.w3c.dom.Document;
@@ -62,6 +65,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	/** The PST generator. */
 	@Inject private PSTCodeGenerator pstGen;
 	@Inject private StatusBarController statusBar;
+	@Inject TemplateManager templateManager;
 	/** The default location of the exports. */
 	private String pathExport;
 	/**
@@ -151,7 +155,15 @@ public class Exporter extends JfxInstrument implements Initializable {
 				action.setFormat(format);
 				action.setPstGen(pstGen);
 			}
-		}, menuItemBMP, menuItemEPSLatex, exportTemplateMenu, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST);
+		}, menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST);
+
+		addMenuInteractor(ExportTemplate.class, action -> {
+			action.setTemplatesPane(templateManager.templatePane);
+			action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
+			action.setUi(LaTeXDraw.getINSTANCE());
+			action.setProgressBar(statusBar.getProgressBar());
+			action.setStatusWidget(statusBar.getLabel());
+		}, exportTemplateMenu);
 	}
 
 	/**

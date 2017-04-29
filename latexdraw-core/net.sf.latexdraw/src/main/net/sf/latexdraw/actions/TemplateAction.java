@@ -10,8 +10,7 @@
  */
 package net.sf.latexdraw.actions;
 
-import java.util.Optional;
-import javafx.scene.control.MenuButton;
+import javafx.scene.layout.Pane;
 import org.malai.action.Action;
 
 /**
@@ -20,11 +19,11 @@ import org.malai.action.Action;
  */
 public interface TemplateAction extends Action {
 	/**
-	 * @param menu The menu that contains the template menu items.
+	 * @param pane The pane that contains the templates.
 	 */
-	void templatesMenu(final MenuButton menu);
+	void setTemplatesPane(final Pane pane);
 
-	Optional<MenuButton> getTemplatesMenu();
+	Pane getTemplatesPane();
 
 	@Override
 	default boolean isRegisterable() {
@@ -33,6 +32,6 @@ public interface TemplateAction extends Action {
 
 	@Override
 	default boolean canDo() {
-		return getTemplatesMenu().isPresent();
+		return getTemplatesPane() != null;
 	}
 }

@@ -10,26 +10,44 @@
  */
 package net.sf.latexdraw.view.svg;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Bounds;
+import javafx.scene.Group;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.transform.Scale;
+import javax.imageio.ImageIO;
 import net.sf.latexdraw.LaTeXDraw;
+import net.sf.latexdraw.actions.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.ExceptionsManager;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
@@ -40,8 +58,10 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGMetadataElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.ui.OpenSaver;
 import org.w3c.dom.Element;
@@ -84,10 +104,10 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 	 * @param path The path where the template will be saved.
 	 * @param progressBar The progress bar.
 	 * @param statusBar The status bar.
-	 * @param templateMenu The menu that contains the template menu items.
+	 * @param templatePane The menu that contains the template menu items.
 	 */
-	public void saveTemplate(final String path, final ProgressBar progressBar, final Label statusBar, final Menu templateMenu) {
-		final SaveTemplateWorker stw = new SaveTemplateWorker(path, statusBar, templateMenu, progressBar);
+	public void saveTemplate(final String path, final ProgressBar progressBar, final Label statusBar, final Pane templatePane) {
+		final SaveTemplateWorker stw = new SaveTemplateWorker(path, statusBar, templatePane, progressBar);
 		progressBar.progressProperty().bind(stw.progressProperty());
 		new Thread(stw).start();
 	}
@@ -96,9 +116,10 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 	/**
 	 * Inserts a set of shapes into the drawing.
 	 * @param path The file of the SVG document to load.
+	 * @param position The position where the shapes will be inserted. Can be null.
 	 */
-	public IShape insert(final String path) {
-		final InsertWorker worker = new InsertWorker(path);
+	public IShape insert(final String path, final IPoint position) {
+		final InsertWorker worker = new InsertWorker(path, position);
 		new Thread(worker).start();
 
 		try {
@@ -114,11 +135,11 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 
 	/**
 	 * Updates the templates.
-	 * @param templatesMenu The menu that contains the templates.
+	 * @param templatesPane The pane that contains the templates.
 	 * @param updatesThumbnails True: the thumbnails of the template will be updated.
 	 */
-	public void updateTemplates(final Menu templatesMenu, final boolean updatesThumbnails) {
-		//			new UpdateTemplatesWorker(templatesMenu, updatesThumbnails).execute();
+	public void updateTemplates(final Pane templatesPane, final boolean updatesThumbnails) {
+		new Thread(new UpdateTemplatesWorker(templatesPane, updatesThumbnails)).start();
 	}
 
 
@@ -166,7 +187,9 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 
 		@Override
 		protected Boolean call() throws Exception {
-			progressBar.setVisible(true);
+			if(progressBar!=null) {
+				progressBar.setVisible(true);
+			}
 
 			Platform.runLater(() -> LaTeXDraw.getINSTANCE().getInstruments().stream().filter(ins -> !(ins instanceof ExceptionsManager))
 				.forEach(ins -> {
@@ -191,69 +214,40 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 	}
 
 
-	//	/** Abstract class dedicated to the support of templates. */
-	//    abstract static class TemplatesWorker extends LoadShapesWorker {
-	//		protected TemplatesWorker(final LFrame ui, final String path, final JLabel statusBar) {
-	//			super(ui, path, statusBar);
-	//		}
-	//
-	//		/**
-	//	     * Creates a menu item using the name of the thumbnail.
-	//	     * @param nameThumb The name of the thumbnail.
-	//	     * @return The created menu item.
-	//	     */
-	//	    protected MMenuItem createTemplateMenuItem(final String svgPath, final String nameThumb, final String pathPic) {
-	//	    	MMenuItem menu = null;
-	//	    	ImageIcon icon;
-	//	    	final String pngPath = pathPic+File.separator+nameThumb;
-	//	    	final int id = nameThumb.lastIndexOf(SVGFilter.SVG_EXTENSION+PNGFilter.PNG_EXTENSION);
-	//
-	//	    	try {
-	//	    		final Image image = ImageIO.read(new File(pngPath));
-	//	    		icon = new ImageIcon(image);
-	//	    		image.flush();
-	//	    	}
-	//    		catch(final Exception e) {
-	//    			icon = LResources.EMPTY_ICON;
-	//	    	}
-	//
-	//			if(id!=-1) {
-	//				menu = new MMenuItem(nameThumb.substring(0, id), icon);
-	//				menu.setName(svgPath);
-	//			}
-	//
-	//	    	return menu;
-	//	    }
-	//	}
-
-
 	/** This worker inserts the given set of shapes into the drawing. */
 	private static class InsertWorker extends LoadShapesWorker {
 		private IShape insertedShapes;
+		private IPoint position;
 
-		InsertWorker(final String path) {
+		InsertWorker(final String path, final IPoint positionTemplate) {
 			super(path, null, null);
 			setModified = true;
 			insertedShapes = null;
+			position = positionTemplate;
 		}
 
 		@Override
 		protected Boolean call() throws Exception {
-			super.call();
 			try {
 				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
 				final IDrawing drawing = LaTeXDraw.getINSTANCE().getInjector().getInstance(IDrawing.class);
-				final List<IShape> shapes = toLatexdraw(svgDoc, 0);
-
-				if(shapes.size() == 1) {
-					insertedShapes = shapes.get(0);
-				}else {
-					final IGroup gp = ShapeFactory.INST.createGroup();
-					shapes.forEach(sh -> gp.addShape(sh));
-					insertedShapes = gp;
-				}
 
 				Platform.runLater(() -> {
+					final List<IShape> shapes = toLatexdraw(svgDoc, 0);
+
+					if(shapes.size() == 1) {
+						insertedShapes = shapes.get(0);
+					}else {
+						final IGroup gp = ShapeFactory.INST.createGroup();
+						shapes.forEach(sh -> gp.addShape(sh));
+						insertedShapes = gp;
+					}
+
+					if(position != null) {
+						final IPoint tp = insertedShapes.getTopLeftPoint();
+						insertedShapes.translate(position.getX() - tp.getX(), position.getY() - tp.getY());
+					}
+
 					drawing.addShape(insertedShapes);
 					// Updating the possible widgets of the instruments.
 					LaTeXDraw.getINSTANCE().getInstruments().forEach(ins -> ins.interimFeedback());
@@ -272,179 +266,150 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 	}
 
 
-	//	/** This worker updates the templates. */
-	//	static class UpdateTemplatesWorker extends TemplatesWorker {
-	//		protected MMenu templatesMenu;
-	//
-	//		protected boolean updateThumbnails;
-	//
-	//		protected UpdateTemplatesWorker(final MMenu templatesMenu, final boolean updateThumbnails) {
-	//			super(null, null, null);
-	//			this.templatesMenu = templatesMenu;
-	//			this.updateThumbnails = updateThumbnails;
-	//		}
-	//
-	//
-	//		@Override
-	//		protected Boolean doInBackground() throws Exception {
-	//			super.doInBackground();
-	//
-	//			if(updateThumbnails) {
-	//				updateTemplates(LPath.PATH_TEMPLATES_DIR_USER, LPath.PATH_CACHE_DIR);
-	//				updateTemplates(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR);
-	//			}
-	//
-	//			// Removing the former menu items but the last two of them (the update menu item and the separator).
-	//			for(int i=0, size=templatesMenu.getMenuComponentCount()-2; i<size; i++)
-	//				templatesMenu.remove(0);
-	//
-	//			createMenuItems(LPath.PATH_TEMPLATES_DIR_USER, LPath.PATH_CACHE_DIR, true);
-	//			createMenuItems(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR, true);
-	//
-	//			return true;
-	//		}
-	//
-	//
-	//		/**
-	//		 * fills the template menu with menu item gathered from the given directory of templates.
-	//		 * @param pathTemplate The path of the templates.
-	//		 * @param pathCache The path of the cache of the templates.
-	//		 * @param sharedTemplates True if the templates are shared templates (in the shared directory).
-	//		 */
-	//		protected void createMenuItems(final String pathTemplate, final String pathCache, final boolean sharedTemplates) {
-	//			final SVGFilter filter = new SVGFilter();
-	//			final File[] files = new File(pathTemplate).listFiles();
-	//
-	//			if(files!=null)
-	//				for(int i=0; i<files.length; i++)
-	//					if(filter.accept(files[i]) && !files[i].isDirectory()) {
-	//						final MMenuItem menu = createTemplateMenuItem(files[i].getPath(), files[i].getName()+PNGFilter.PNG_EXTENSION,
-	// pathCache);
-	//
-	//						if(menu!=null)
-	//							templatesMenu.add(menu, i);
-	//					}
-	//		}
-	//
-	//
-	//		/**
-	//		 * Updates the templates from the given path, in the given cache path.
-	//		 * @param pathTemplate The path of the templates to update.
-	//		 * @param pathCache The path where the cache of the thumbnails of the templates will be stored.
-	//		 */
-	//		protected void updateTemplates(final String pathTemplate, final String pathCache) {
-	//			final File templateDir = new File(pathTemplate);
-	//
-	//			if(!templateDir.isDirectory())
-	//				return; // There is no template
-	//
-	//			// We get the list of the templates
-	//			final SVGFilter filter = new SVGFilter();
-	//			final File[] files = templateDir.listFiles();
-	//				if(files!=null)
-	//	{
-	//		Stream.of(files).filter(f -> filter.accept(f)).forEach(file -> {
-	//			try {
-	//				IGroup template = ShapeFactory.INST.createGroup();
-	//				List<IShape> shapes = toLatexdraw(new SVGDocument(file.toURI()), 0);
-	//				shapes.forEach(sh -> template.addShape(sh));
-	//				File thumbnail = new File(pathCache + File.separator + file.getName() + PNGFilter.PNG_EXTENSION);
-	//				createTemplateThumbnail(thumbnail, template);
-	//			}catch(final Exception ex) {BadaboomCollector.INSTANCE.add(ex);}
-	//		});
-	//	}
-	//		}
-	//
-	//
-	//		/**
-	//		 * Creates a thumbnail from the given selection in the given file.
-	//		 * @param templateFile The file of the future thumbnail.
-	//		 * @param selection The set of shapes composing the template.
-	//		 */
-	//		protected void createTemplateThumbnail(final File templateFile, final IShape selection) {
-	//			final IPoint br = selection.getBottomRightPoint();
-	//			final IPoint tl = selection.getTopLeftPoint();
-	//			final double dec = 8.;
-	//			final double width = Math.abs(br.getX()-tl.getX())+2*dec;
-	//			final double height = Math.abs(br.getY()-tl.getY())+2*dec;
-	//			final double maxSize = 20.;
-	//			final BufferedImage bufferImage = new BufferedImage((int)width, (int)height, BufferedImage.TYPE_INT_RGB);
-	//			final Graphics2D graphic = bufferImage.createGraphics();
-	//			final double scale = Math.min(maxSize/width, maxSize/height);
-	//			final BufferedImage bufferImage2 = new BufferedImage((int)maxSize, (int)maxSize, BufferedImage.TYPE_INT_ARGB);
-	//			final Graphics2D graphic2 = bufferImage2.createGraphics();
-	////			final IViewShape view = View2DTK.getFactory().createView(selection);
-	//			final AffineTransform aff = new AffineTransform();
-	//			final int MAX_CPT = 100;
-	//			int cpt = 0;
-	//
-	//			graphic.setColor(Color.WHITE);
-	//			graphic.fillRect(0, 0, (int)width, (int)height);
-	//			graphic.scale(scale, scale);
-	//			graphic.translate(-tl.getX()+dec, -tl.getY()+dec);
-	//
-	//			aff.translate(0, 0);
-	//
-	////			view.paint(graphic, null);
-	////
-	////			// Waiting for the producing of the thumbnails before flushing them.
-	////			while(FlyweightThumbnail.hasThumbnailsInProgress() && cpt<MAX_CPT) {
-	////				try {
-	////					Thread.sleep(100);
-	////					cpt++;
-	////				}catch(final InterruptedException ex) {
-	////					BadaboomCollector.INSTANCE.add(ex);
-	////				}
-	////			}
-	////
-	////			view.flush();
-	//
-	//			graphic2.setColor(Color.WHITE);
-	//			graphic2.fillRect(0, 0, (int)maxSize, (int)maxSize);
-	//			graphic2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-	//			graphic2.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
-	//			graphic2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-	//			graphic2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-	//			graphic2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-	//
-	//			// Drawing the template
-	//			graphic2.drawImage(bufferImage, aff, null);
-	//
-	//			// Creation of the png file with the second picture
-	//			final ImageWriteParam iwparam = new JPEGImageWriteParam(Locale.getDefault());
-	//			final ImageWriter iw = ImageIO.getImageWritersByFormatName("png").next();//$NON-NLS-1$
-	//
-	//			iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-	//			iwparam.setCompressionQuality(1);
-	//
-	//			try {
-	//				try(final ImageOutputStream ios = ImageIO.createImageOutputStream(templateFile)){
-	//					iw.setOutput(ios);
-	//					iw.write(null, new IIOImage(bufferImage2, null, null), iwparam);
-	//					iw.dispose();
-	//				}
-	//			}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-	//
-	//			graphic.dispose();
-	//			graphic2.dispose();
-	//			bufferImage.flush();
-	//			bufferImage2.flush();
-	//		}
-	//	}
+	/** This worker updates the templates. */
+	private static class UpdateTemplatesWorker extends LoadShapesWorker {
+		private final Pane templatesPane;
+		private final boolean updateThumbnails;
+
+		UpdateTemplatesWorker(final Pane pane, final boolean updateThumbs) {
+			super(null, null, null);
+			templatesPane = pane;
+			updateThumbnails = updateThumbs;
+		}
+
+		@Override
+		protected Boolean call() throws Exception {
+			if(updateThumbnails) {
+				updateTemplates(LPath.PATH_TEMPLATES_DIR_USER, LPath.PATH_CACHE_DIR);
+				updateTemplates(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR);
+			}
+
+			Platform.runLater(() -> {
+				templatesPane.getChildren().clear();
+				fillTemplatePane(LPath.PATH_TEMPLATES_DIR_USER, LPath.PATH_CACHE_DIR, true);
+				fillTemplatePane(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR, true);
+			});
+
+			return true;
+		}
+
+		/**
+		 * Creates an image view from the template
+		 * @param nameThumb The name of the thumbnail.
+		 * @param  pathPic The path of the thumbnail of the template.
+		 * @return The created image view or nothing.
+		 */
+		private Optional<ImageView> createTemplateItem(final String svgPath, final String nameThumb, final String pathPic) {
+			try {
+				final ImageView view = new ImageView(new Image("file:"+pathPic + File.separator + nameThumb));
+				view.setUserData(svgPath);
+
+				final int id = nameThumb.lastIndexOf(".svg" + ExportFormat.PNG.getFileExtension());
+				if(id != -1) {
+					Tooltip.install(view, new Tooltip(nameThumb.substring(0, id)));
+				}
+				return Optional.of(view);
+			}catch(final Exception ex) {
+				return Optional.empty();
+			}
+		}
+
+		/**
+		 * fills the template pane with image views gathered from the given directory of templates.
+		 * @param pathTemplate The path of the folder that contains the templates.
+		 * @param pathCache The path of the folder that contains the cache of the templates.
+		 * @param sharedTemplates True: the templates are shared templates (in the shared directory).
+		 */
+		private void fillTemplatePane(final String pathTemplate, final String pathCache, final boolean sharedTemplates) {
+			try {
+				Files.newDirectoryStream(Paths.get(pathTemplate), elt -> Files.isRegularFile(elt) && elt.toString().endsWith(".svg")).
+					forEach(entry -> createTemplateItem(entry.toFile().getPath(),
+						entry.getFileName() + ExportFormat.PNG.getFileExtension(), pathCache).
+					ifPresent(item -> templatesPane.getChildren().add(item)));
+			}catch(final IOException ex) {
+				// No matter.
+			}
+		}
+
+		/**
+		 * Updates the templates from the given path, in the given cache path.
+		 * @param pathTemplate The path of the templates to update.
+		 * @param pathCache The path where the cache of the thumbnails of the templates will be stored.
+		 */
+		private void updateTemplates(final String pathTemplate, final String pathCache) {
+			final File templateDir = new File(pathTemplate);
+
+			if(!templateDir.isDirectory()) return;
+
+			try {
+				Files.newDirectoryStream(Paths.get(pathTemplate), elt -> Files.isRegularFile(elt) && elt.toString().endsWith(".svg")).
+					forEach(file -> Platform.runLater(() -> {
+						try {
+							final Group template = new Group();
+							final List<IShape> shapes = toLatexdraw(new SVGDocument(file.toUri()), 0);
+							template.getChildren().setAll(shapes.stream().map(sh -> ViewFactory.INSTANCE.createView(sh)).
+								filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList()));
+							final File thumb = new File(pathCache + File.separator + file.getFileName() + ExportFormat.PNG.getFileExtension());
+							createTemplateThumbnail(thumb, template);
+						}catch(final Exception ex) {
+							BadaboomCollector.INSTANCE.add(ex);
+						}
+					}));
+			}catch(final IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		/**
+		 * Creates a thumbnail from the given selection in the given file.
+		 * @param templateFile The file of the future thumbnail.
+		 * @param selection The set of shapes composing the template.
+		 */
+		private void createTemplateThumbnail(final File templateFile, final Group selection) {
+			final Bounds bounds = selection.getBoundsInParent();
+			final double scale = 70d / Math.max(bounds.getWidth(), bounds.getHeight());
+			final WritableImage img = new WritableImage((int) (bounds.getWidth() * scale), (int) (bounds.getHeight() * scale));
+			final SnapshotParameters snapshotParameters = new SnapshotParameters();
+
+			snapshotParameters.setFill(Color.WHITE);
+			snapshotParameters.setTransform(new Scale(scale, scale));
+			selection.snapshot(snapshotParameters, img);
+
+			while(img.isBackgroundLoading()) {
+				try {
+					Thread.sleep(100);
+				}catch(final InterruptedException ex) {
+					BadaboomCollector.INSTANCE.add(ex);
+				}
+			}
+
+			final BufferedImage bufferedImage = SwingFXUtils.fromFXImage(img, null);
+
+			try {
+				ImageIO.write(bufferedImage, "png", templateFile);  //$NON-NLS-1$
+			}catch(final IOException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
+			}
+			bufferedImage.flush();
+		}
+	}
 
 
-	static class SaveTemplateWorker extends SaveWorker {
-		protected final Menu templateMenu;
+	private static class SaveTemplateWorker extends SaveWorker {
+		private final Pane templatePane;
 
-		SaveTemplateWorker(final String path, final Label statusBar, final Menu templateContainer, final ProgressBar bar) {
+		SaveTemplateWorker(final String path, final Label statusBar, final Pane templates, final ProgressBar bar) {
 			super(path, statusBar, false, true, bar);
-			templateMenu = templateContainer;
+			templatePane = templates;
 		}
 
 		@Override
 		protected void done() {
 			super.done();
-			//				INSTANCE.updateTemplates(templateMenu, true);
+			INSTANCE.updateTemplates(templatePane, true);
+			if(statusBar != null) {
+				Platform.runLater(() -> statusBar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.169"))); //$NON-NLS-1$
+			}
 		}
 	}
 
@@ -502,7 +467,6 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		@Override
 		protected Boolean call() throws Exception {
 			super.call();
-
 			final IDrawing drawing = LaTeXDraw.getINSTANCE().getInjector().getInstance(IDrawing.class);
 			final Canvas canvas = LaTeXDraw.getINSTANCE().getInjector().getInstance(Canvas.class);
 			// Creation of the SVG document.

@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.actions;
 
-import java.util.Optional;
-import javafx.scene.control.MenuButton;
+import javafx.scene.layout.Pane;
+import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.action.ActionImpl;
 
 /**
@@ -20,14 +20,13 @@ import org.malai.action.ActionImpl;
  */
 public class UpdateTemplates extends ActionImpl implements TemplateAction {
 	/** Defines if the thumbnails must be updated. */
-	boolean updateThumbnails;
-
-	Optional<MenuButton> templatesMenu;
+	private boolean updateThumbnails;
+	private Pane templatesPane;
 
 
 	@Override
 	public void doActionBody() {
-//		SVGDocumentGenerator.INSTANCE.updateTemplates(_templatesMenu.get, _updateThumbnails)
+		SVGDocumentGenerator.INSTANCE.updateTemplates(templatesPane, updateThumbnails);
 	}
 
 	/**
@@ -37,17 +36,13 @@ public class UpdateTemplates extends ActionImpl implements TemplateAction {
 		updateThumbnails = update;
 	}
 
-	public boolean getUpdateThumbnails() {
-		return updateThumbnails;
+	@Override
+	public void setTemplatesPane(final Pane templatePanel) {
+		templatesPane = templatePanel;
 	}
 
 	@Override
-	public void templatesMenu(final MenuButton menu) {
-		templatesMenu = Optional.ofNullable(menu);
-	}
-
-	@Override
-	public Optional<MenuButton> getTemplatesMenu() {
-		return templatesMenu;
+	public Pane getTemplatesPane() {
+		return templatesPane;
 	}
 }
