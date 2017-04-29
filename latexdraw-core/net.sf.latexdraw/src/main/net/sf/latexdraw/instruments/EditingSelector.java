@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -93,6 +94,8 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	/** The button that allows to insert some code (converted in shapes). */
 	@FXML Button codeB;
 
+	@FXML ToggleGroup groupEditing;
+
 	/** The instrument Hand. */
 	@Inject Hand hand;
 
@@ -150,6 +153,13 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		hand.setActivated(true);
 		pencil.setActivated(false);
 		metaShapeCustomiser.update();
+
+		// At least one button must be selected.
+		groupEditing.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue == null && oldValue != null) {
+				oldValue.setSelected(true);
+			}
+		});
 	}
 
 
