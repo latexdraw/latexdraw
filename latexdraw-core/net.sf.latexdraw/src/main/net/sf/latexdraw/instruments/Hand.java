@@ -35,7 +35,7 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
-import net.sf.latexdraw.view.jfx.ViewTextText;
+import net.sf.latexdraw.view.jfx.ViewText;
 import org.malai.action.Action;
 import org.malai.javafx.action.library.MoveCamera;
 import org.malai.javafx.instrument.JfxInteractor;
@@ -228,7 +228,7 @@ public class Hand extends CanvasInstrument {
 		@Override
 		public boolean isConditionRespected() {
 			final Optional<Node> src = interaction.getSrcObject();
-			return src.isPresent() && (src.get().getParent() instanceof ViewTextText || src.get().getParent().getUserData() instanceof ViewPlot);
+			return src.isPresent() && (src.get().getParent() instanceof ViewText || src.get().getParent().getUserData() instanceof ViewPlot);
 		}
 	}
 

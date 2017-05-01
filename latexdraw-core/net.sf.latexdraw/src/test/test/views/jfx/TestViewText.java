@@ -4,7 +4,7 @@ import java.util.concurrent.TimeoutException;
 import javafx.geometry.Bounds;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.view.jfx.ViewTextText;
+import net.sf.latexdraw.view.jfx.ViewText;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestViewText extends TestViewShape<ViewTextText, IText> {
+public class TestViewText extends TestViewShape<ViewText, IText> {
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();

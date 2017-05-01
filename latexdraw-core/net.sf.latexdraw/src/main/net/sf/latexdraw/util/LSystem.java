@@ -12,6 +12,8 @@ package net.sf.latexdraw.util;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
@@ -231,5 +233,25 @@ public final class LSystem {
 		}catch(final Exception e) {
 			return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + e.getMessage(); //$NON-NLS-1$ //$NON-NLS-2$
 		}
+	}
+
+
+	/**
+	 * @return The precise latex error messages that the latex compilation produced.
+	 * @since 3.0
+	 */
+	public String getLatexErrorMessageFromLog(final String log) {
+		if(log == null) return "";
+		final Matcher matcher = Pattern.compile(".*\r?\n").matcher(log); //$NON-NLS-1$
+		final StringBuilder errors = new StringBuilder();
+
+		while(matcher.find()) {
+			final String line = matcher.group();
+
+			if(line.startsWith("!") && !line.equals("! Emergency stop.\n")) { //$NON-NLS-1$ //$NON-NLS-2$
+				errors.append(line.substring(2, line.length()));
+			}
+		}
+		return errors.toString();
 	}
 }

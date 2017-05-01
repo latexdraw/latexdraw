@@ -63,7 +63,7 @@ public final class ViewFactory {
 		if(shape instanceof IPlot) return Optional.of((S) new ViewPlot((IPlot) shape));
 		if(shape instanceof ISquare) return Optional.of((S) new ViewSquare((ISquare) shape));
 		if(shape instanceof IRectangle) return Optional.of((S) new ViewRectangle((IRectangle) shape));
-		if(shape instanceof IText) return Optional.of((S) new ViewTextText((IText) shape));
+		if(shape instanceof IText) return Optional.of((S) new ViewText((IText) shape));
 		if(shape instanceof ICircleArc) return Optional.of((S) new ViewCircleArc((ICircleArc) shape));
 		if(shape instanceof ICircle) return Optional.of((S) new ViewCircle((ICircle) shape));
 		if(shape instanceof IEllipse) return Optional.of((S) new ViewEllipse((IEllipse) shape));
