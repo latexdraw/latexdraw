@@ -9,8 +9,6 @@ public abstract class TestPSTParser {
 
 	@Before
 	public void setUp() throws Exception {
-		// FlyweightThumbnail.images().clear();
-		// FlyweightThumbnail.setThread(false);
 		parser = new PSTParser();
 		PSTParser.cleanErrors();
 	}

@@ -1,30 +1,26 @@
 package test.svg.loadSVGFile;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import net.sf.latexdraw.view.svg.IShapeSVGFactory;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
-
+import net.sf.latexdraw.view.svg.IShapeSVGFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import static org.junit.Assert.assertEquals;
 
 public abstract class TestLoadSVGFile {
 	protected IGroup group;
 
 	@Before
 	public void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
-		// FlyweightThumbnail.images().clear();
-		// FlyweightThumbnail.setThread(false);
 		final SVGDocument doc = new SVGDocument(new URI(getPathSVGFile()));
 		group = toLatexdraw(doc);
 	}

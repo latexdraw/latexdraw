@@ -1,26 +1,23 @@
 package test.models;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import test.models.interfaces.TestIText;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class TestLText extends TestIText<IText> {
 	@Before
 	public void setUp() {
-		// FlyweightThumbnail.images().clear();
-		// FlyweightThumbnail.setThread(false);
 		shape = ShapeFactory.INST.createText();
 		shape2 = ShapeFactory.INST.createText();
 	}
@@ -41,21 +38,21 @@ public class TestLText extends TestIText<IText> {
 	public void testConstructorsOK1() {
 		IText txt = ShapeFactory.INST.createText();
 		assertNotNull(txt.getText());
-		assertTrue(txt.getText().length() > 0);
+		assertFalse(txt.getText().isEmpty());
 	}
 	
 	@Test
 	public void testConstructorsOK2() {
 		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), "coucou"); //$NON-NLS-1$
 		assertNotNull(txt.getText());
-		assertTrue(txt.getText().length() > 0);
+		assertFalse(txt.getText().isEmpty());
 	}
 	
 	@Test
 	public void testConstructorsOK3() {
 		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), ""); //$NON-NLS-1$
 		assertNotNull(txt.getText());
-		assertTrue(txt.getText().length() > 0);
+		assertFalse(txt.getText().isEmpty());
 	}
 	
 	@Test

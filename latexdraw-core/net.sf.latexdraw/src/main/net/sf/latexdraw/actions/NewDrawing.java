@@ -65,7 +65,6 @@ public class NewDrawing extends IOAction<Label> implements Modifying {
 		ui.reinit();
 		UndoCollector.INSTANCE.clear();
 		ActionsRegistry.INSTANCE.clear();
-		//		FlyweightThumbnail.clear();//FIXME flyweight thumbnail
 		try {
 			prefSetter.readXMLPreferences();
 		}catch(final Exception exc) {
