@@ -49,7 +49,7 @@ public class PageView extends Group {
 	 * @param page The page format. Cannot be null.
 	 * @param orig The origin point where the page has to be placed. Cannot be null.
 	 */
-	public PageView(@NonNull final Page page, @NonNull final IPoint orig) {
+	public PageView(final @NonNull Page page, final @NonNull IPoint orig) {
 		super();
 
 		format = page;
@@ -72,6 +72,7 @@ public class PageView extends Group {
 
 		recPage.toFront();
 		setMouseTransparent(true);
+		setFocusTraversable(false);
 		setPage(page);
 	}
 
@@ -86,7 +87,7 @@ public class PageView extends Group {
 	 * Sets the current page format.
 	 * @param page The new page format to use. Cannot be null.
 	 */
-	public void setPage(@NonNull final Page page) {
+	public void setPage(final @NonNull Page page) {
 		recPage.setX(origin.getX());
 		recPage.setY(origin.getY());
 		recPage.setWidth(page.getWidth() * IShape.PPC);

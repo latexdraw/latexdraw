@@ -30,7 +30,6 @@ import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -122,7 +121,9 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		selectionBorder = new Rectangle();
 		ongoingSelectionBorder = new Rectangle();
 
+		widgetsPane.setFocusTraversable(false);
 		selectionBorder.setFocusTraversable(false);
+		selectionBorder.setMouseTransparent(true);
 		ongoingSelectionBorder.setFocusTraversable(false);
 		ongoingSelectionBorder.setMouseTransparent(true);
 		ongoingSelectionBorder.setFill(null);
@@ -145,8 +146,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
 
-		shapesPane.setFocusTraversable(true);
-		shapesPane.addEventHandler(MouseEvent.ANY, evt -> shapesPane.requestFocus());
+		shapesPane.setFocusTraversable(false);
 	}
 
 
@@ -476,7 +476,10 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 			v.flush();
 		});
 		tempView = Optional.ofNullable(view);
-		tempView.ifPresent(v -> shapesPane.getChildren().add(v));
+		tempView.ifPresent(v -> {
+			view.setMouseTransparent(true);
+			shapesPane.getChildren().add(v);
+		});
 	}
 
 	public ScrollPane getScrollPane() {
