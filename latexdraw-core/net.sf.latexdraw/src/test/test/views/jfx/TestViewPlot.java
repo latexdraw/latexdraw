@@ -111,7 +111,6 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	@Test
 	public void testOnChangeStyleDOTS() {
 		model.setPlotStyle(PlotStyle.DOTS);
-		System.out.println(view.getChildren().get(0));
 		assertTrue(view.getChildren().get(0) instanceof ViewDot);
 	}
 

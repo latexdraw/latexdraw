@@ -91,7 +91,6 @@ public class InitTextSetter extends ActivateInstrument {
 
 	@Override
 	public boolean canDo() {
-		System.out.println((super.canDo() && MathUtils.INST.isValidPt(position) && setter != null && (text != null || textShape != null || plotShape != null)));
 		return super.canDo() && MathUtils.INST.isValidPt(position) && setter != null && (text != null || textShape != null || plotShape != null);
 	}
 
