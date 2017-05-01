@@ -104,12 +104,12 @@ public class Pencil extends CanvasInstrument {
 	@Override
 	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
 		addInteractor(new Hand.DnD2MoveViewport(this));
-		addInteractor(new Press2AddShape());
-		addInteractor(new Press2AddText());
-		addInteractor(new Press2InsertPicture());
-		addInteractor(new DnD2AddShape());
-		addInteractor(new MultiClic2AddShape());
-		addInteractor(new Press2InitTextSetter());
+		addInteractor(new Press2AddShape(this));
+		addInteractor(new Press2AddText(this));
+		addInteractor(new Press2InsertPicture(this));
+		addInteractor(new DnD2AddShape(this));
+		addInteractor(new MultiClic2AddShape(this));
+		addInteractor(new Press2InitTextSetter(this));
 	}
 
 	/**
@@ -154,9 +154,9 @@ public class Pencil extends CanvasInstrument {
 	}
 
 
-	private abstract class PencilInteractor<I extends JfxInteraction> extends JfxInteractor<AddShape, I, Pencil> {
-		PencilInteractor(final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
-			super(Pencil.this, false, AddShape.class, clazzInteraction, Pencil.this.canvas);
+	private abstract static class PencilInteractor<I extends JfxInteraction> extends JfxInteractor<AddShape, I, Pencil> {
+		PencilInteractor(final Class<I> clazzInteraction, final Pencil pencil) throws InstantiationException, IllegalAccessException {
+			super(pencil, false, AddShape.class, clazzInteraction, pencil.canvas);
 		}
 
 		ViewShape<?> tmpShape;
@@ -164,6 +164,9 @@ public class Pencil extends CanvasInstrument {
 		@Override
 		public void initAction() {
 			final IShape sh = instrument.createShapeInstance();
+
+			tmpShape = null;
+
 			ViewFactory.INSTANCE.createView(sh).ifPresent(v -> {
 				tmpShape = v;
 				action.setShape(sh);
@@ -175,9 +178,9 @@ public class Pencil extends CanvasInstrument {
 	}
 
 
-	private class DnD2AddShape extends PencilInteractor<AbortableDnD> {
-		DnD2AddShape() throws InstantiationException, IllegalAccessException {
-			super(AbortableDnD.class);
+	private static class DnD2AddShape extends PencilInteractor<AbortableDnD> {
+		DnD2AddShape(final Pencil pencil) throws InstantiationException, IllegalAccessException {
+			super(AbortableDnD.class, pencil);
 		}
 
 		@Override
@@ -189,8 +192,8 @@ public class Pencil extends CanvasInstrument {
 				// For squares and circles, the centre of the shape is the reference point during the creation.
 				if(sh instanceof ISquaredShape) {
 					final ISquaredShape sq = (ISquaredShape) sh;
-					sq.setPosition(pt.getX() - 1.0, pt.getY() - 1.0);
-					sq.setWidth(2.0);
+					sq.setPosition(pt.getX() - 1d, pt.getY() - 1d);
+					sq.setWidth(2d);
 				}else if(sh instanceof IFreehand) {
 					((IFreehand) sh).addPoint(ShapeFactory.INST.createPoint(pt.getX(), pt.getY()));
 				}else {
@@ -213,7 +216,8 @@ public class Pencil extends CanvasInstrument {
 				}else if(sh instanceof IFreehand) {
 					final IFreehand fh = (IFreehand) sh;
 					final IPoint last = fh.getPtAt(-1);
-					if(!MathUtils.INST.equalsDouble(last.getX(), endPt.getX(), 0.0001) && !MathUtils.INST.equalsDouble(last.getY(), endPt.getY(), 0.0001)) {
+					if(!MathUtils.INST.equalsDouble(last.getX(), endPt.getX(), 0.0001) &&
+						!MathUtils.INST.equalsDouble(last.getY(), endPt.getY(), 0.0001)) {
 						fh.addPoint(endPt);
 					}
 				}else if(sh instanceof IRectangularShape) {
@@ -233,15 +237,15 @@ public class Pencil extends CanvasInstrument {
 			// These lines are necessary to avoid shape to disappear. It appends when the borders position is INTO.
 			// In this case,the minimum radius must be computed using the thickness and the double size.
 			if(shape.isBordersMovable() && shape.getBordersPosition() == BorderPos.INTO)
-				return shape.getThickness() + (shape.isDbleBorderable() && shape.hasDbleBord() ? shape.getDbleBordSep() : 0.0);
-			return 1.0;
+				return shape.getThickness() + (shape.isDbleBorderable() && shape.hasDbleBord() ? shape.getDbleBordSep() : 0d);
+			return 1d;
 		}
 
 		private void updateShapeFromCentre(final ISquaredShape shape, final IPoint startPt, final double endX) {
 			final double sx = startPt.getX();
 			final double radius = Math.max(sx < endX ? endX - sx : sx - endX, getGap(shape));
 			shape.setPosition(sx - radius, startPt.getY() + radius);
-			shape.setWidth(radius * 2.0);
+			shape.setWidth(radius * 2d);
 		}
 
 		private void updateShapeFromDiag(final IRectangularShape shape, final IPoint startPt, final IPoint endPt) {
@@ -295,9 +299,9 @@ public class Pencil extends CanvasInstrument {
 	}
 
 
-	private class MultiClic2AddShape extends PencilInteractor<MultiClick> {
-		MultiClic2AddShape() throws InstantiationException, IllegalAccessException {
-			super(MultiClick.class);
+	private static class MultiClic2AddShape extends PencilInteractor<MultiClick> {
+		MultiClic2AddShape(final Pencil pencil) throws InstantiationException, IllegalAccessException {
+			super(MultiClick.class, pencil);
 		}
 
 		// To avoid the overlapping with the DnD2AddShape, the starting interaction must be
@@ -338,7 +342,7 @@ public class Pencil extends CanvasInstrument {
 					final IModifiablePointsShape modShape = (IModifiablePointsShape) shape;
 					final IPoint pt = instrument.getAdaptedPoint(interaction.getPoints().get(0));
 					modShape.setPoint(pt, 0);
-					modShape.setPoint(pt.getX() + 1.0, pt.getY() + 1.0, 1);
+					modShape.setPoint(pt.getX() + 1d, pt.getY() + 1d, 1);
 				}
 			});
 		}
@@ -357,9 +361,9 @@ public class Pencil extends CanvasInstrument {
 	}
 
 
-	private class Press2InsertPicture extends JfxInteractor<InsertPicture, Press, Pencil> {
-		Press2InsertPicture() throws InstantiationException, IllegalAccessException {
-			super(Pencil.this, false, InsertPicture.class, Press.class, Pencil.this.canvas);
+	private static class Press2InsertPicture extends JfxInteractor<InsertPicture, Press, Pencil> {
+		Press2InsertPicture(final Pencil pencil) throws InstantiationException, IllegalAccessException {
+			super(pencil, false, InsertPicture.class, Press.class, pencil.canvas);
 		}
 
 		@Override
@@ -378,9 +382,9 @@ public class Pencil extends CanvasInstrument {
 	}
 
 
-	private class Press2AddShape extends PencilInteractor<Press> {
-		Press2AddShape() throws InstantiationException, IllegalAccessException {
-			super(Press.class);
+	private static class Press2AddShape extends PencilInteractor<Press> {
+		Press2AddShape(final Pencil pencil) throws InstantiationException, IllegalAccessException {
+			super(Press.class, pencil);
 		}
 
 		@Override
@@ -407,8 +411,8 @@ public class Pencil extends CanvasInstrument {
 	 * in the canvas, the text typed must be added (if possible to the canvas) before starting typing a new text.
 	 */
 	 private class Press2AddText extends PencilInteractor<Press> {
-		 Press2AddText() throws InstantiationException, IllegalAccessException {
-			 super(Press.class);
+		 Press2AddText(final Pencil pencil) throws InstantiationException, IllegalAccessException {
+			 super(Press.class, pencil);
 		 }
 
 		 @Override
@@ -421,17 +425,15 @@ public class Pencil extends CanvasInstrument {
 		 // The action is created only when the user uses the text setter and the text field of the text setter is not empty.
 		 @Override
 		 public boolean isConditionRespected() {
-			 return instrument.currentChoice == EditionChoice.TEXT && instrument.textSetter.isActivated() && !instrument.textSetter.getTextField().getText().isEmpty();
+			 return instrument.currentChoice == EditionChoice.TEXT && instrument.textSetter.isActivated() &&
+				 !instrument.textSetter.getTextField().getText().isEmpty();
 		 }
 	 }
 
 
-	 /**
-	 * This link maps a press interaction to activate the instrument that allows to add and modify some texts.
-	 */
-	 private class Press2InitTextSetter extends JfxInteractor<InitTextSetter, Press, Pencil> {
-		 Press2InitTextSetter() throws IllegalAccessException, InstantiationException {
-			 super(Pencil.this, false, InitTextSetter.class, Press.class, Pencil.this.canvas);
+	 private static class Press2InitTextSetter extends JfxInteractor<InitTextSetter, Press, Pencil> {
+		 Press2InitTextSetter(final Pencil pencil) throws IllegalAccessException, InstantiationException {
+			 super(pencil, false, InitTextSetter.class, Press.class, pencil.canvas);
 		 }
 
 		 @Override
