@@ -100,9 +100,9 @@
             </tooltip>
         </ToggleButton>
         <Label layoutX="5.0" layoutY="84.0" text="%TextCust.1"/>
-        <TextArea fx:id="packagesField" layoutX="5.0" layoutY="104.0" prefHeight="100.0" prefWidth="225.0"/>
+        <TextArea fx:id="packagesField" layoutX="5.0" layoutY="104.0" prefHeight="100.0" prefWidth="290.0"/>
         <Label layoutX="5.0" layoutY="209.0" text="Compilation log:"/>
-        <TextArea fx:id="logField" layoutX="5.0" layoutY="230.0" prefHeight="120.0" prefWidth="225.0" editable="false">
+        <TextArea fx:id="logField" layoutX="5.0" layoutY="230.0" prefHeight="130.0" prefWidth="290.0" editable="false">
             <tooltip>
                 <Tooltip text="%TextCust.2"/>
             </tooltip>

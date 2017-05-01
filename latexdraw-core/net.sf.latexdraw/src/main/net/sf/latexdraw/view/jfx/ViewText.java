@@ -23,8 +23,10 @@ import java.io.RandomAccessFile;
 import java.io.StringWriter;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import javafx.beans.value.ChangeListener;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Tooltip;
@@ -60,6 +62,7 @@ public class ViewText extends ViewPositionShape<IText> {
 	private final ImageView compiledText;
 	private final Tooltip compileTooltip;
 	private final ChangeListener<String> textUpdate;
+	private Future<?> currentCompilation;
 
 
 	/**
@@ -86,11 +89,24 @@ public class ViewText extends ViewPositionShape<IText> {
 
 	private void update() {
 		text.setText(model.getText());
-		COMPILATION_POOL.submit(() -> updateImageText(createImage()));
+		currentCompilation = COMPILATION_POOL.submit(() -> updateImageText(createImage()));
+	}
+
+	/**
+	 * @return The current text compilation. May be null.
+	 */
+	public Future<?> getCurrentCompilation() {
+		return currentCompilation;
 	}
 
 	private void updateImageText(final Triple<Image, String, String> values) {
 		deleteImage();
+
+		if(currentCompilation != null && currentCompilation.isDone()) {
+			currentCompilation = null;
+		}
+
+		compiledText.setUserData(new Tuple<>(values.b, values.c));
 
 		// A text will be used to render the text shape.
 		if(values.a == null) {
@@ -98,27 +114,29 @@ public class ViewText extends ViewPositionShape<IText> {
 			Tooltip.install(text, compileTooltip);
 			compiledText.setVisible(false);
 			compiledText.setImage(null);
-			compiledText.setUserData(null);
 			text.setVisible(true);
 		}else {
 			// An image will be used to render the text shape.
 			compileTooltip.setText(null);
 			Tooltip.uninstall(text, compileTooltip);
-			compiledText.setUserData(values.b);
 			compiledText.setVisible(true);
 			text.setVisible(false);
 			compiledText.setImage(values.a);
 		}
 	}
 
+	public Optional<Tuple<String, String>> getCompilationData() {
+		if(compiledText.getUserData() instanceof Tuple) {
+			return Optional.of((Tuple<String, String>) compiledText.getUserData());
+		}
+		return Optional.empty();
+	}
 
 	/**
 	 * Deletes the image written on the disk.
 	 */
 	private void deleteImage() {
-		if(compiledText.getImage() != null && compiledText.getUserData() instanceof String) {
-			new File((String) compiledText.getUserData()).delete();
-		}
+		getCompilationData().ifPresent(data -> new File(data.a).delete());
 	}
 
 

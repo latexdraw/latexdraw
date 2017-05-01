@@ -14,6 +14,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonBase;
@@ -25,9 +28,12 @@ import net.sf.latexdraw.actions.ModifyLatexProperties;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.view.jfx.ViewText;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.instrument.library.ToggleButtonInteractor;
@@ -110,28 +116,22 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 			}
 
 			// Updating the log field.
-			//FIXME
-//			SwingUtilities.invokeLater(() -> {
-//				shape.getShapes().stream().filter(sh -> sh instanceof IText).findFirst().ifPresent(txt -> {
-//					final int max = 10;
-//					final String msg = FlyweightThumbnail.inProgressMsg();
-//					String log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
-//					int i = 0;
-//
-//					while(i < max && msg.equals(log)) {
-//						try {
-//							Thread.sleep(100);
-//						}catch(final InterruptedException e) {
-//							BadaboomCollector.INSTANCE.add(e);
-//						}
-//						log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
-//						i++;
-//					}
-//					if(log == null)
-//						log = ""; //$NON-NLS-1$
-//					logField.setText(log);
-//				});
-//			});
+			Platform.runLater(() -> shape.getShapes().stream().filter(sh -> sh instanceof IText &&
+				canvas.getViewFromShape(sh).orElse(null) instanceof ViewText &&
+				((ViewText)canvas.getViewFromShape(sh).get()).getCompilationData().isPresent()).findFirst().ifPresent(txt -> {
+					final ViewText view = (ViewText) canvas.getViewFromShape(txt).get();
+					final Future<?> currentCompil = view.getCurrentCompilation();
+
+					if(currentCompil != null) {
+						try {
+							currentCompil.get();
+						}catch(InterruptedException | ExecutionException ex) {
+							BadaboomCollector.INSTANCE.add(ex);
+						}
+					}
+
+					logField.setText(view.getCompilationData().map(data -> data.b).orElse(""));
+				}));
 		}else {
 			setActivated(false);
 		}
