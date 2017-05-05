@@ -35,8 +35,8 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.view.jfx.ViewText;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
-import org.malai.javafx.instrument.JfxInteractor;
-import org.malai.javafx.instrument.library.ToggleButtonInteractor;
+import org.malai.javafx.binding.JfXWidgetBinding;
+import org.malai.javafx.binding.ToggleButtonBinding;
 import org.malai.javafx.interaction.library.KeysTyped;
 
 /**
@@ -138,13 +138,13 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new ButtonPressed2ChangeTextPosPencil());
-		addInteractor(new ButtonPressed2ChangeTextPosSelection());
-		addInteractor(new KeysTyped2ChangePackages());
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new ButtonPressed2ChangeTextPosPencil());
+		addBinding(new ButtonPressed2ChangeTextPosSelection());
+		addBinding(new KeysTyped2ChangePackages());
 	}
 
-	class ButtonPressed2ChangeTextPosPencil extends ToggleButtonInteractor<ModifyPencilParameter, ShapeTextCustomiser> {
+	class ButtonPressed2ChangeTextPosPencil extends ToggleButtonBinding<ModifyPencilParameter, ShapeTextCustomiser> {
 		ButtonPressed2ChangeTextPosPencil() throws InstantiationException, IllegalAccessException {
 			super(ShapeTextCustomiser.this, ModifyPencilParameter.class, ShapeTextCustomiser.this.bButton, ShapeTextCustomiser.this.blButton, ShapeTextCustomiser.this.brButton,
 					ShapeTextCustomiser.this.centreButton, ShapeTextCustomiser.this.lButton, ShapeTextCustomiser.this.rButton, ShapeTextCustomiser.this.tButton, ShapeTextCustomiser.this.tlButton,
@@ -164,7 +164,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 		}
 	}
 
-	class ButtonPressed2ChangeTextPosSelection extends ToggleButtonInteractor<ModifyShapeProperty, ShapeTextCustomiser> {
+	class ButtonPressed2ChangeTextPosSelection extends ToggleButtonBinding<ModifyShapeProperty, ShapeTextCustomiser> {
 		ButtonPressed2ChangeTextPosSelection() throws InstantiationException, IllegalAccessException {
 			super(ShapeTextCustomiser.this, ModifyShapeProperty.class, ShapeTextCustomiser.this.bButton, ShapeTextCustomiser.this.blButton, ShapeTextCustomiser.this.brButton,
 					ShapeTextCustomiser.this.centreButton, ShapeTextCustomiser.this.lButton, ShapeTextCustomiser.this.rButton, ShapeTextCustomiser.this.tButton, ShapeTextCustomiser.this.tlButton,
@@ -184,7 +184,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 		}
 	}
 
-	class KeysTyped2ChangePackages extends JfxInteractor<ModifyLatexProperties, KeysTyped, ShapeTextCustomiser> {
+	class KeysTyped2ChangePackages extends JfXWidgetBinding<ModifyLatexProperties, KeysTyped, ShapeTextCustomiser> {
 		KeysTyped2ChangePackages() throws InstantiationException, IllegalAccessException {
 			super(ShapeTextCustomiser.this, false, ModifyLatexProperties.class, KeysTyped.class, ShapeTextCustomiser.this.packagesField);
 		}

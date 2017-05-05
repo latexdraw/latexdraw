@@ -35,9 +35,9 @@ import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.action.Action;
-import org.malai.javafx.action.library.IOAction;
+import org.malai.javafx.action.IOAction;
+import org.malai.javafx.binding.JfxMenuItemBinding;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.instrument.JfxMenuItemInteractor;
 import org.malai.javafx.interaction.library.MenuItemPressed;
 import org.malai.javafx.interaction.library.WindowClosed;
 import org.w3c.dom.Document;
@@ -144,7 +144,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() throws IllegalAccessException, InstantiationException {
 		final BiFunction<SaveDrawing, FileLoaderSaver, Void> initSaveAction = (action, instrument) -> {
 			initIOAction.apply(action, instrument);
 			action.setFileChooser(instrument.getDialog(true));
@@ -174,28 +174,28 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		};
 
 		// Close window
-		addWindowInteractor(SaveDrawing.class, action -> {
+		bindWindow(SaveDrawing.class, action -> {
 			initSaveAction.apply(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(true);
 		}, WindowClosed.class, LaTeXDraw.getINSTANCE().getMainStage());
 
 		// Quit shortcut
-		addKeyShortcutInteractor(Arrays.asList(KeyCode.W, LSystem.INSTANCE.getControlKey()), SaveDrawing.class, action -> {
+		bindKeyShortcut(Arrays.asList(KeyCode.W, LSystem.INSTANCE.getControlKey()), SaveDrawing.class, action -> {
 			initSaveAction.apply(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(true);
 		}, LaTeXDraw.getINSTANCE().getMainStage());
 
 		// Save menu
-		addMenuInteractor(SaveDrawing.class, saveAction, saveMenu);
+		bindMenu(SaveDrawing.class, saveAction, saveMenu);
 
 		// Save shortcut
-		addKeyShortcutInteractor(Arrays.asList(KeyCode.S, LSystem.INSTANCE.getControlKey()), SaveDrawing.class, saveAction, LaTeXDraw
+		bindKeyShortcut(Arrays.asList(KeyCode.S, LSystem.INSTANCE.getControlKey()), SaveDrawing.class, saveAction, LaTeXDraw
 			.getINSTANCE().getMainStage());
 
 		// Save as menu
-		addMenuInteractor(SaveDrawing.class, action -> {
+		bindMenu(SaveDrawing.class, action -> {
 			initSaveAction.apply(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(false);
@@ -203,22 +203,22 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		}, saveAsMenu);
 
 		// Load menu
-		addMenuInteractor(LoadDrawing.class, loadAction, loadMenu);
+		bindMenu(LoadDrawing.class, loadAction, loadMenu);
 
 		// Load shortcut
-		addKeyShortcutInteractor(Arrays.asList(KeyCode.O, LSystem.INSTANCE.getControlKey()), LoadDrawing.class, loadAction, LaTeXDraw
+		bindKeyShortcut(Arrays.asList(KeyCode.O, LSystem.INSTANCE.getControlKey()), LoadDrawing.class, loadAction, LaTeXDraw
 			.getINSTANCE().getMainStage());
 
 		// New menu
-		addMenuInteractor(NewDrawing.class, newAction, newMenu);
+		bindMenu(NewDrawing.class, newAction, newMenu);
 
 		// New shortcut
-		addKeyShortcutInteractor(Arrays.asList(KeyCode.N, LSystem.INSTANCE.getControlKey()), NewDrawing.class, newAction, LaTeXDraw
+		bindKeyShortcut(Arrays.asList(KeyCode.N, LSystem.INSTANCE.getControlKey()), NewDrawing.class, newAction, LaTeXDraw
 			.getINSTANCE().getMainStage());
 
 		// Recent files menus
 		recentInterator = new RecentMenuItem2LoadInteractor(this);
-		addInteractor(recentInterator);
+		addBinding(recentInterator);
 	}
 
 	/**
@@ -310,7 +310,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		setActivated(true);
 	}
 
-	private static final class RecentMenuItem2LoadInteractor extends JfxMenuItemInteractor<LoadDrawing, MenuItemPressed, FileLoaderSaver> {
+	private static final class RecentMenuItem2LoadInteractor extends JfxMenuItemBinding<LoadDrawing, MenuItemPressed, FileLoaderSaver> {
 		private RecentMenuItem2LoadInteractor(final FileLoaderSaver ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, LoadDrawing.class, MenuItemPressed.class);
 		}

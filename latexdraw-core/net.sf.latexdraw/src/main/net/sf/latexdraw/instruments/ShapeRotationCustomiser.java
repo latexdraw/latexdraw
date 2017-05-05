@@ -65,17 +65,17 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		final BiConsumer<Double, RotateShapes> init = (angle, action) -> {
 			action.setGravityCentre(pencil.canvas.getDrawing().getSelection().getGravityCentre());
 			action.setRotationAngle(angle);
 			action.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		};
 
-		addSpinnerInteractor(RotateShapes.class, action -> init.accept(Math.toRadians(rotationField.getValue()) -
+		bindSpinner(RotateShapes.class, action -> init.accept(Math.toRadians(rotationField.getValue()) -
 			pencil.canvas.getDrawing().getSelection().getRotationAngle(), action), rotationField);
-		addButtonInteractor(RotateShapes.class, action -> init.accept(Math.PI / 2d, action), rotate90Button);
-		addButtonInteractor(RotateShapes.class, action -> init.accept(Math.PI, action), rotate180Button);
-		addButtonInteractor(RotateShapes.class, action -> init.accept(-Math.PI / 2d, action), rotate270Button);
+		bindButton(RotateShapes.class, action -> init.accept(Math.PI / 2d, action), rotate90Button);
+		bindButton(RotateShapes.class, action -> init.accept(Math.PI, action), rotate180Button);
+		bindButton(RotateShapes.class, action -> init.accept(-Math.PI / 2d, action), rotate270Button);
 	}
 }

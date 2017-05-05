@@ -23,7 +23,7 @@ import javafx.stage.StageStyle;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
 import net.sf.latexdraw.util.LangTool;
-import org.malai.javafx.action.library.ShowStage;
+import org.malai.javafx.action.ShowStage;
 import org.malai.javafx.instrument.JfxInstrument;
 
 /**
@@ -70,8 +70,8 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addButtonInteractor(ShowStage.class, action -> {
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		bindButton(ShowStage.class, action -> {
 			action.setWidget(getStageEx());
 			action.setVisible(true);
 		}, exceptionB);

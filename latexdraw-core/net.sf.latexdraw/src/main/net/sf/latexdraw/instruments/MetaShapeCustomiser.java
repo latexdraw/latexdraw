@@ -157,7 +157,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void initialiseInteractors() {
+	protected void configureBindings() {
 		// This instrument does not have any link.
 	}
 

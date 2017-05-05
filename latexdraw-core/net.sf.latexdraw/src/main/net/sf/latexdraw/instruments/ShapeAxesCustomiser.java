@@ -28,7 +28,7 @@ import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-import org.malai.javafx.instrument.library.SpinnerInteractor;
+import org.malai.javafx.binding.SpinnerBinding;
 
 /**
  * This instrument modifies axes properties of shapes or the pencil.
@@ -101,22 +101,22 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new List4Selection(this, shapeAxes, ShapeProperties.AXES_STYLE));
-		addInteractor(new List4Selection(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
-		addInteractor(new List4Selection(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
-		addInteractor(new List4Selection(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
-		addInteractor(new List4Pencil(this, shapeAxes, ShapeProperties.AXES_STYLE));
-		addInteractor(new List4Pencil(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
-		addInteractor(new List4Pencil(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
-		addInteractor(new List4Pencil(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
-		addInteractor(new Spinner2CustomPencilAxes(this));
-		addInteractor(new Spinner2CustomSelectedAxes(this));
-		addInteractor(new Checkbox4Pencil(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
-		addInteractor(new Checkbox4Selection(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new List4Selection(this, shapeAxes, ShapeProperties.AXES_STYLE));
+		addBinding(new List4Selection(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
+		addBinding(new List4Selection(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
+		addBinding(new List4Selection(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
+		addBinding(new List4Pencil(this, shapeAxes, ShapeProperties.AXES_STYLE));
+		addBinding(new List4Pencil(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
+		addBinding(new List4Pencil(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
+		addBinding(new List4Pencil(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
+		addBinding(new Spinner2CustomPencilAxes(this));
+		addBinding(new Spinner2CustomSelectedAxes(this));
+		addBinding(new Checkbox4Pencil(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
+		addBinding(new Checkbox4Selection(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
 	}
 
-	private abstract static class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerInteractor<A, ShapeAxesCustomiser> {
+	private abstract static class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerBinding<A, ShapeAxesCustomiser> {
 		Spinner2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(ins, clazzAction, ins.distLabelsX, ins.distLabelsY, ins.incrLabelX, ins.incrLabelY);
 		}

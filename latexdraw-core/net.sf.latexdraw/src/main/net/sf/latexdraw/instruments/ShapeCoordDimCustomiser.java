@@ -19,7 +19,7 @@ import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.shape.TranslateShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.malai.javafx.instrument.library.SpinnerInteractor;
+import org.malai.javafx.binding.SpinnerBinding;
 
 /**
  * This instrument modifies arc dimensions and coordinates of shapes or pencil parameters.
@@ -61,8 +61,8 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new Spinner2TranslateShape(this));
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new Spinner2TranslateShape(this));
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 		mainPane.setVisible(visible);
 	}
 
-	private static class Spinner2TranslateShape extends SpinnerInteractor<TranslateShapes, ShapeCoordDimCustomiser> {
+	private static class Spinner2TranslateShape extends SpinnerBinding<TranslateShapes, ShapeCoordDimCustomiser> {
 		Spinner2TranslateShape(final ShapeCoordDimCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, TranslateShapes.class, ins.tlxS, ins.tlyS);
 		}

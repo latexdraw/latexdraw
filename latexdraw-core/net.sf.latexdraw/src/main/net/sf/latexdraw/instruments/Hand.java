@@ -37,8 +37,8 @@ import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewText;
 import org.malai.action.Action;
-import org.malai.javafx.action.library.MoveCamera;
-import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.action.MoveCamera;
+import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.DoubleClick;
 import org.malai.javafx.interaction.library.KeysPressure;
@@ -57,7 +57,7 @@ public class Hand extends CanvasInstrument {
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		canvas.getViews().getChildren().addListener((ListChangeListener<Node>) evt -> {
 			while(evt.next()) {
 				if(evt.wasAdded()) {
@@ -77,13 +77,13 @@ public class Hand extends CanvasInstrument {
 			}
 		});
 
-		addInteractor(new Press2Select(this));
-		addInteractor(new DnD2Select(this));
-		addInteractor(new DnD2Translate(this));
-		addInteractor(new DnD2MoveViewport(this));
-		addInteractor(new DoubleClick2InitTextSetter(this));
-		addInteractor(new CtrlA2SelectAllShapes(this));
-		addInteractor(new CtrlU2UpdateShapes(this));
+		addBinding(new Press2Select(this));
+		addBinding(new DnD2Select(this));
+		addBinding(new DnD2Translate(this));
+		addBinding(new DnD2MoveViewport(this));
+		addBinding(new DoubleClick2InitTextSetter(this));
+		addBinding(new CtrlA2SelectAllShapes(this));
+		addBinding(new CtrlU2UpdateShapes(this));
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class Hand extends CanvasInstrument {
 		return view;
 	}
 
-	private static class Press2Select extends JfxInteractor<SelectShapes, Press, Hand> {
+	private static class Press2Select extends JfXWidgetBinding<SelectShapes, Press, Hand> {
 		Press2Select(final Hand hand) throws InstantiationException, IllegalAccessException {
 			super(hand, false, SelectShapes.class, Press.class, hand.canvas);
 		}
@@ -157,7 +157,7 @@ public class Hand extends CanvasInstrument {
 	}
 
 
-	private static class CtrlA2SelectAllShapes extends JfxInteractor<SelectShapes, KeysPressure, Hand> {
+	private static class CtrlA2SelectAllShapes extends JfXWidgetBinding<SelectShapes, KeysPressure, Hand> {
 		CtrlA2SelectAllShapes(final Hand hand) throws InstantiationException, IllegalAccessException {
 			super(hand, false, SelectShapes.class, KeysPressure.class, hand.canvas);
 		}
@@ -176,7 +176,7 @@ public class Hand extends CanvasInstrument {
 	}
 
 
-	private static class CtrlU2UpdateShapes extends JfxInteractor<UpdateToGrid, KeysPressure, Hand> {
+	private static class CtrlU2UpdateShapes extends JfXWidgetBinding<UpdateToGrid, KeysPressure, Hand> {
 		CtrlU2UpdateShapes(final Hand ins) throws IllegalAccessException, InstantiationException {
 			super(ins, false, UpdateToGrid.class, KeysPressure.class, ins.canvas);
 		}
@@ -195,7 +195,7 @@ public class Hand extends CanvasInstrument {
 	}
 
 
-	private static class DoubleClick2InitTextSetter extends JfxInteractor<InitTextSetter, DoubleClick, Hand> {
+	private static class DoubleClick2InitTextSetter extends JfXWidgetBinding<InitTextSetter, DoubleClick, Hand> {
 		DoubleClick2InitTextSetter(final Hand ins) throws IllegalAccessException, InstantiationException {
 			super(ins, false, InitTextSetter.class, DoubleClick.class, ins.canvas);
 		}
@@ -233,7 +233,7 @@ public class Hand extends CanvasInstrument {
 	}
 
 
-	private static class DnD2Translate extends JfxInteractor<TranslateShapes, DnD, Hand> {
+	private static class DnD2Translate extends JfXWidgetBinding<TranslateShapes, DnD, Hand> {
 		DnD2Translate(final Hand hand) throws IllegalAccessException, InstantiationException {
 			super(hand, true, TranslateShapes.class, DnD.class, hand.canvas);
 		}
@@ -274,7 +274,7 @@ public class Hand extends CanvasInstrument {
 	}
 
 
-	private static class DnD2Select extends JfxInteractor<SelectShapes, DnD, Hand> {
+	private static class DnD2Select extends JfXWidgetBinding<SelectShapes, DnD, Hand> {
 		/** The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
 		private Bounds selectionBorder;
 		private List<IShape> selectedShapes;
@@ -333,7 +333,7 @@ public class Hand extends CanvasInstrument {
 		}
 	}
 
-	static class DnD2MoveViewport extends JfxInteractor<MoveCamera, DnD, CanvasInstrument> {
+	static class DnD2MoveViewport extends JfXWidgetBinding<MoveCamera, DnD, CanvasInstrument> {
 		private IPoint pt;
 
 		DnD2MoveViewport(final CanvasInstrument ins) throws IllegalAccessException, InstantiationException {

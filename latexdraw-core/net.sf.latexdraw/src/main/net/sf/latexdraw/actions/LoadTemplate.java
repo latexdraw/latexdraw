@@ -16,7 +16,7 @@ import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
-import org.malai.javafx.action.library.IOAction;
+import org.malai.javafx.action.IOAction;
 import org.malai.undo.Undoable;
 
 /**

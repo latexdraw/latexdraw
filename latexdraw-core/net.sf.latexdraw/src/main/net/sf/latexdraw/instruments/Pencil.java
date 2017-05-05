@@ -37,7 +37,7 @@ import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import org.malai.interaction.Interaction;
-import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.JfxInteraction;
 import org.malai.javafx.interaction.library.AbortableDnD;
 import org.malai.javafx.interaction.library.MultiClick;
@@ -102,14 +102,14 @@ public class Pencil extends CanvasInstrument {
 	}
 
 	@Override
-	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new Hand.DnD2MoveViewport(this));
-		addInteractor(new Press2AddShape(this));
-		addInteractor(new Press2AddText(this));
-		addInteractor(new Press2InsertPicture(this));
-		addInteractor(new DnD2AddShape(this));
-		addInteractor(new MultiClic2AddShape(this));
-		addInteractor(new Press2InitTextSetter(this));
+	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+		addBinding(new Hand.DnD2MoveViewport(this));
+		addBinding(new Press2AddShape(this));
+		addBinding(new Press2AddText(this));
+		addBinding(new Press2InsertPicture(this));
+		addBinding(new DnD2AddShape(this));
+		addBinding(new MultiClic2AddShape(this));
+		addBinding(new Press2InitTextSetter(this));
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class Pencil extends CanvasInstrument {
 	}
 
 
-	private abstract static class PencilInteractor<I extends JfxInteraction> extends JfxInteractor<AddShape, I, Pencil> {
+	private abstract static class PencilInteractor<I extends JfxInteraction> extends JfXWidgetBinding<AddShape, I, Pencil> {
 		PencilInteractor(final Class<I> clazzInteraction, final Pencil pencil) throws InstantiationException, IllegalAccessException {
 			super(pencil, false, AddShape.class, clazzInteraction, pencil.canvas);
 		}
@@ -361,7 +361,7 @@ public class Pencil extends CanvasInstrument {
 	}
 
 
-	private static class Press2InsertPicture extends JfxInteractor<InsertPicture, Press, Pencil> {
+	private static class Press2InsertPicture extends JfXWidgetBinding<InsertPicture, Press, Pencil> {
 		Press2InsertPicture(final Pencil pencil) throws InstantiationException, IllegalAccessException {
 			super(pencil, false, InsertPicture.class, Press.class, pencil.canvas);
 		}
@@ -431,7 +431,7 @@ public class Pencil extends CanvasInstrument {
 	 }
 
 
-	 private static class Press2InitTextSetter extends JfxInteractor<InitTextSetter, Press, Pencil> {
+	 private static class Press2InitTextSetter extends JfXWidgetBinding<InitTextSetter, Press, Pencil> {
 		 Press2InitTextSetter(final Pencil pencil) throws IllegalAccessException, InstantiationException {
 			 super(pencil, false, InitTextSetter.class, Press.class, pencil.canvas);
 		 }

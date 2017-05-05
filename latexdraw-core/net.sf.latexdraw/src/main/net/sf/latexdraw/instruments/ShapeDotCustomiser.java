@@ -93,12 +93,12 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new Spinner4Pencil(this, dotSizeField, ShapeProperties.DOT_SIZE, false));
-		addInteractor(new Spinner4Selection(this, dotSizeField, ShapeProperties.DOT_SIZE, false));
-		addInteractor(new List4Pencil(this, dotCB, ShapeProperties.DOT_STYLE));
-		addInteractor(new List4Selection(this, dotCB, ShapeProperties.DOT_STYLE));
-		addInteractor(new ColourPicker4Selection(this, fillingB, ShapeProperties.DOT_FILLING_COL));
-		addInteractor(new ColourPicker4Pencil(this, fillingB, ShapeProperties.DOT_FILLING_COL));
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new Spinner4Pencil(this, dotSizeField, ShapeProperties.DOT_SIZE, false));
+		addBinding(new Spinner4Selection(this, dotSizeField, ShapeProperties.DOT_SIZE, false));
+		addBinding(new List4Pencil(this, dotCB, ShapeProperties.DOT_STYLE));
+		addBinding(new List4Selection(this, dotCB, ShapeProperties.DOT_STYLE));
+		addBinding(new ColourPicker4Selection(this, fillingB, ShapeProperties.DOT_FILLING_COL));
+		addBinding(new ColourPicker4Pencil(this, fillingB, ShapeProperties.DOT_FILLING_COL));
 	}
 }

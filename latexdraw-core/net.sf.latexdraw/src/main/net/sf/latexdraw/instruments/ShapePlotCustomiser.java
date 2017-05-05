@@ -81,20 +81,20 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new List4Pencil(this, plotStyleCB, ShapeProperties.PLOT_STYLE));
-		addInteractor(new List4Selection(this, plotStyleCB, ShapeProperties.PLOT_STYLE));
-		addInteractor(new Spinner4Pencil(this, nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false));
-		addInteractor(new Spinner4Selection(this, nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false));
-		addInteractor(new Spinner4Pencil(this, minXSpinner, ShapeProperties.PLOT_MIN_X, false));
-		addInteractor(new Spinner4Selection(this, minXSpinner, ShapeProperties.PLOT_MIN_X, false));
-		addInteractor(new Spinner4Pencil(this, maxXSpinner, ShapeProperties.PLOT_MAX_X, false));
-		addInteractor(new Spinner4Selection(this, maxXSpinner, ShapeProperties.PLOT_MAX_X, false));
-		addInteractor(new Spinner4Pencil(this, xScaleSpinner, ShapeProperties.X_SCALE, false));
-		addInteractor(new Spinner4Selection(this, xScaleSpinner, ShapeProperties.X_SCALE, false));
-		addInteractor(new Spinner4Pencil(this, yScaleSpinner, ShapeProperties.Y_SCALE, false));
-		addInteractor(new Spinner4Selection(this, yScaleSpinner, ShapeProperties.Y_SCALE, false));
-		addInteractor(new Checkbox4Pencil(this, polarCB, ShapeProperties.PLOT_POLAR));
-		addInteractor(new Checkbox4Selection(this, polarCB, ShapeProperties.PLOT_POLAR));
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new List4Pencil(this, plotStyleCB, ShapeProperties.PLOT_STYLE));
+		addBinding(new List4Selection(this, plotStyleCB, ShapeProperties.PLOT_STYLE));
+		addBinding(new Spinner4Pencil(this, nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false));
+		addBinding(new Spinner4Selection(this, nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false));
+		addBinding(new Spinner4Pencil(this, minXSpinner, ShapeProperties.PLOT_MIN_X, false));
+		addBinding(new Spinner4Selection(this, minXSpinner, ShapeProperties.PLOT_MIN_X, false));
+		addBinding(new Spinner4Pencil(this, maxXSpinner, ShapeProperties.PLOT_MAX_X, false));
+		addBinding(new Spinner4Selection(this, maxXSpinner, ShapeProperties.PLOT_MAX_X, false));
+		addBinding(new Spinner4Pencil(this, xScaleSpinner, ShapeProperties.X_SCALE, false));
+		addBinding(new Spinner4Selection(this, xScaleSpinner, ShapeProperties.X_SCALE, false));
+		addBinding(new Spinner4Pencil(this, yScaleSpinner, ShapeProperties.Y_SCALE, false));
+		addBinding(new Spinner4Selection(this, yScaleSpinner, ShapeProperties.Y_SCALE, false));
+		addBinding(new Checkbox4Pencil(this, polarCB, ShapeProperties.PLOT_POLAR));
+		addBinding(new Checkbox4Selection(this, polarCB, ShapeProperties.PLOT_POLAR));
 	}
 }

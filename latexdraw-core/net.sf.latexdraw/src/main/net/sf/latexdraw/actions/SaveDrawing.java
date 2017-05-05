@@ -19,7 +19,7 @@ import javafx.stage.FileChooser;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.util.LangTool;
-import org.malai.javafx.action.library.Save;
+import org.malai.javafx.action.Save;
 import org.malai.javafx.ui.JfxUI;
 
 /**

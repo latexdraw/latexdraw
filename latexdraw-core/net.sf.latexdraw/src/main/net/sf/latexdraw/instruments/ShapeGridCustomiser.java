@@ -89,24 +89,24 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new ColourPicker4Pencil(this, colourLabels, ShapeProperties.GRID_LABELS_COLOUR));
-		addInteractor(new ColourPicker4Selection(this, colourLabels, ShapeProperties.GRID_LABELS_COLOUR));
-		addInteractor(new ColourPicker4Pencil(this, colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR));
-		addInteractor(new ColourPicker4Selection(this, colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR));
-		addInteractor(new Spinner4Pencil(this, gridWidth, ShapeProperties.GRID_WIDTH, false));
-		addInteractor(new Spinner4Selection(this, gridWidth, ShapeProperties.GRID_WIDTH, false));
-		addInteractor(new Spinner4Pencil(this, subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false));
-		addInteractor(new Spinner4Selection(this, subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false));
-		addInteractor(new Spinner4Pencil(this, subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false));
-		addInteractor(new Spinner4Selection(this, subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false));
-		addInteractor(new Spinner4Pencil(this, gridDots, ShapeProperties.GRID_DOTS, false));
-		addInteractor(new Spinner4Selection(this, gridDots, ShapeProperties.GRID_DOTS, false));
-		addInteractor(new Spinner4Pencil(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
-		addInteractor(new Spinner4Selection(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
-		addInteractor(new Checkbox4Pencil(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y));
-		addInteractor(new Checkbox4Selection(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y));
-		addInteractor(new Checkbox4Pencil(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X));
-		addInteractor(new Checkbox4Selection(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X));
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new ColourPicker4Pencil(this, colourLabels, ShapeProperties.GRID_LABELS_COLOUR));
+		addBinding(new ColourPicker4Selection(this, colourLabels, ShapeProperties.GRID_LABELS_COLOUR));
+		addBinding(new ColourPicker4Pencil(this, colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR));
+		addBinding(new ColourPicker4Selection(this, colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR));
+		addBinding(new Spinner4Pencil(this, gridWidth, ShapeProperties.GRID_WIDTH, false));
+		addBinding(new Spinner4Selection(this, gridWidth, ShapeProperties.GRID_WIDTH, false));
+		addBinding(new Spinner4Pencil(this, subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false));
+		addBinding(new Spinner4Selection(this, subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false));
+		addBinding(new Spinner4Pencil(this, subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false));
+		addBinding(new Spinner4Selection(this, subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false));
+		addBinding(new Spinner4Pencil(this, gridDots, ShapeProperties.GRID_DOTS, false));
+		addBinding(new Spinner4Selection(this, gridDots, ShapeProperties.GRID_DOTS, false));
+		addBinding(new Spinner4Pencil(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
+		addBinding(new Spinner4Selection(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
+		addBinding(new Checkbox4Pencil(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y));
+		addBinding(new Checkbox4Selection(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y));
+		addBinding(new Checkbox4Pencil(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X));
+		addBinding(new Checkbox4Selection(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X));
 	}
 }

@@ -73,12 +73,12 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser impleme
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new Checkbox4Pencil(this, dbleBoundCB, ShapeProperties.DBLE_BORDERS));
-		addInteractor(new Checkbox4Selection(this, dbleBoundCB, ShapeProperties.DBLE_BORDERS));
-		addInteractor(new ColourPicker4Selection(this, dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD));
-		addInteractor(new ColourPicker4Pencil(this, dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD));
-		addInteractor(new Spinner4Pencil(this, dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false));
-		addInteractor(new Spinner4Selection(this, dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false));
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new Checkbox4Pencil(this, dbleBoundCB, ShapeProperties.DBLE_BORDERS));
+		addBinding(new Checkbox4Selection(this, dbleBoundCB, ShapeProperties.DBLE_BORDERS));
+		addBinding(new ColourPicker4Selection(this, dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD));
+		addBinding(new ColourPicker4Pencil(this, dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD));
+		addBinding(new Spinner4Pencil(this, dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false));
+		addBinding(new Spinner4Selection(this, dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false));
 	}
 }

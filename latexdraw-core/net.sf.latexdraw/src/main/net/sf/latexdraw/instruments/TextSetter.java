@@ -28,8 +28,8 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import org.malai.action.Action;
-import org.malai.javafx.action.library.ActivateInactivateInstruments;
-import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.action.ActivateInactivateInstruments;
+import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.KeyTyped;
 
 /**
@@ -103,12 +103,12 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	}
 
 	@Override
-	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new Enter2SetText(this));
-		addInteractor(new Enter2SetEquation(this));
-		addInteractor(new Enter2AddText(this));
-		addInteractor(new Enter2CheckPlot(this));
-		addInteractor(new KeyPress2Desactivate(this));
+	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+		addBinding(new Enter2SetText(this));
+		addBinding(new Enter2SetEquation(this));
+		addBinding(new Enter2AddText(this));
+		addBinding(new Enter2CheckPlot(this));
+		addBinding(new KeyPress2Desactivate(this));
 	}
 
 	private void setTextMessage() {
@@ -175,7 +175,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	}
 
 
-	private static class KeyPress2Desactivate extends JfxInteractor<ActivateInactivateInstruments, KeyTyped, TextSetter> {
+	private static class KeyPress2Desactivate extends JfXWidgetBinding<ActivateInactivateInstruments, KeyTyped, TextSetter> {
 		KeyPress2Desactivate(TextSetter setter) throws InstantiationException, IllegalAccessException {
 			super(setter, false, ActivateInactivateInstruments.class, KeyTyped.class, setter.textField);
 		}
@@ -194,7 +194,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	}
 
 
-	private static class Enter2SetText extends JfxInteractor<ModifyShapeProperty, KeyTyped, TextSetter> {
+	private static class Enter2SetText extends JfXWidgetBinding<ModifyShapeProperty, KeyTyped, TextSetter> {
 		Enter2SetText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ModifyShapeProperty.class, KeyTyped.class, ins.textField);
 		}
@@ -213,7 +213,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	}
 
 
-	private static class Enter2SetEquation extends JfxInteractor<ModifyShapeProperty, KeyTyped, TextSetter> {
+	private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapeProperty, KeyTyped, TextSetter> {
 		Enter2SetEquation(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ModifyShapeProperty.class, KeyTyped.class, ins.textField);
 		}
@@ -232,7 +232,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	}
 
 
-	private static class Enter2AddText extends JfxInteractor<AddShape, KeyTyped, TextSetter> {
+	private static class Enter2AddText extends JfXWidgetBinding<AddShape, KeyTyped, TextSetter> {
 		Enter2AddText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, AddShape.class, KeyTyped.class, ins.textField);
 		}
@@ -258,7 +258,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 		}
 	}
 
-	private static class Enter2CheckPlot extends JfxInteractor<AddShape, KeyTyped, TextSetter> {
+	private static class Enter2CheckPlot extends JfXWidgetBinding<AddShape, KeyTyped, TextSetter> {
 		Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, AddShape.class, KeyTyped.class, ins.textField);
 		}

@@ -136,31 +136,31 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new List4Pencil(this, arrowLeftCB, ShapeProperties.ARROW1_STYLE));
-		addInteractor(new List4Pencil(this, arrowRightCB, ShapeProperties.ARROW2_STYLE));
-		addInteractor(new List4Selection(this, arrowLeftCB, ShapeProperties.ARROW1_STYLE));
-		addInteractor(new List4Selection(this, arrowRightCB, ShapeProperties.ARROW2_STYLE));
-		addInteractor(new Spinner4Pencil(this, tbarsizeDim, ShapeProperties.ARROW_T_BAR_SIZE_DIM, false));
-		addInteractor(new Spinner4Pencil(this, rbracketNum, ShapeProperties.ARROW_R_BRACKET_NUM, false));
-		addInteractor(new Spinner4Pencil(this, dotSizeNum, ShapeProperties.ARROW_DOT_SIZE_NUM, false));
-		addInteractor(new Spinner4Pencil(this, dotSizeDim, ShapeProperties.ARROW_DOT_SIZE_DIM, false));
-		addInteractor(new Spinner4Pencil(this, bracketNum, ShapeProperties.ARROW_BRACKET_NUM, false));
-		addInteractor(new Spinner4Pencil(this, arrowSizeNum, ShapeProperties.ARROW_SIZE_NUM, false));
-		addInteractor(new Spinner4Pencil(this, arrowSizeDim, ShapeProperties.ARROW_SIZE_DIM, false));
-		addInteractor(new Spinner4Pencil(this, arrowInset, ShapeProperties.ARROW_INSET, false));
-		addInteractor(new Spinner4Pencil(this, arrowLength, ShapeProperties.ARROW_LENGTH, false));
-		addInteractor(new Spinner4Pencil(this, tbarsizeNum, ShapeProperties.ARROW_T_BAR_SIZE_NUM, false));
-		addInteractor(new Spinner4Selection(this, tbarsizeDim, ShapeProperties.ARROW_T_BAR_SIZE_DIM, false));
-		addInteractor(new Spinner4Selection(this, rbracketNum, ShapeProperties.ARROW_R_BRACKET_NUM, false));
-		addInteractor(new Spinner4Selection(this, dotSizeNum, ShapeProperties.ARROW_DOT_SIZE_NUM, false));
-		addInteractor(new Spinner4Selection(this, dotSizeDim, ShapeProperties.ARROW_DOT_SIZE_DIM, false));
-		addInteractor(new Spinner4Selection(this, bracketNum, ShapeProperties.ARROW_BRACKET_NUM, false));
-		addInteractor(new Spinner4Selection(this, arrowSizeNum, ShapeProperties.ARROW_SIZE_NUM, false));
-		addInteractor(new Spinner4Selection(this, arrowSizeDim, ShapeProperties.ARROW_SIZE_DIM, false));
-		addInteractor(new Spinner4Selection(this, arrowInset, ShapeProperties.ARROW_INSET, false));
-		addInteractor(new Spinner4Selection(this, arrowLength, ShapeProperties.ARROW_LENGTH, false));
-		addInteractor(new Spinner4Selection(this, tbarsizeNum, ShapeProperties.ARROW_T_BAR_SIZE_NUM, false));
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new List4Pencil(this, arrowLeftCB, ShapeProperties.ARROW1_STYLE));
+		addBinding(new List4Pencil(this, arrowRightCB, ShapeProperties.ARROW2_STYLE));
+		addBinding(new List4Selection(this, arrowLeftCB, ShapeProperties.ARROW1_STYLE));
+		addBinding(new List4Selection(this, arrowRightCB, ShapeProperties.ARROW2_STYLE));
+		addBinding(new Spinner4Pencil(this, tbarsizeDim, ShapeProperties.ARROW_T_BAR_SIZE_DIM, false));
+		addBinding(new Spinner4Pencil(this, rbracketNum, ShapeProperties.ARROW_R_BRACKET_NUM, false));
+		addBinding(new Spinner4Pencil(this, dotSizeNum, ShapeProperties.ARROW_DOT_SIZE_NUM, false));
+		addBinding(new Spinner4Pencil(this, dotSizeDim, ShapeProperties.ARROW_DOT_SIZE_DIM, false));
+		addBinding(new Spinner4Pencil(this, bracketNum, ShapeProperties.ARROW_BRACKET_NUM, false));
+		addBinding(new Spinner4Pencil(this, arrowSizeNum, ShapeProperties.ARROW_SIZE_NUM, false));
+		addBinding(new Spinner4Pencil(this, arrowSizeDim, ShapeProperties.ARROW_SIZE_DIM, false));
+		addBinding(new Spinner4Pencil(this, arrowInset, ShapeProperties.ARROW_INSET, false));
+		addBinding(new Spinner4Pencil(this, arrowLength, ShapeProperties.ARROW_LENGTH, false));
+		addBinding(new Spinner4Pencil(this, tbarsizeNum, ShapeProperties.ARROW_T_BAR_SIZE_NUM, false));
+		addBinding(new Spinner4Selection(this, tbarsizeDim, ShapeProperties.ARROW_T_BAR_SIZE_DIM, false));
+		addBinding(new Spinner4Selection(this, rbracketNum, ShapeProperties.ARROW_R_BRACKET_NUM, false));
+		addBinding(new Spinner4Selection(this, dotSizeNum, ShapeProperties.ARROW_DOT_SIZE_NUM, false));
+		addBinding(new Spinner4Selection(this, dotSizeDim, ShapeProperties.ARROW_DOT_SIZE_DIM, false));
+		addBinding(new Spinner4Selection(this, bracketNum, ShapeProperties.ARROW_BRACKET_NUM, false));
+		addBinding(new Spinner4Selection(this, arrowSizeNum, ShapeProperties.ARROW_SIZE_NUM, false));
+		addBinding(new Spinner4Selection(this, arrowSizeDim, ShapeProperties.ARROW_SIZE_DIM, false));
+		addBinding(new Spinner4Selection(this, arrowInset, ShapeProperties.ARROW_INSET, false));
+		addBinding(new Spinner4Selection(this, arrowLength, ShapeProperties.ARROW_LENGTH, false));
+		addBinding(new Spinner4Selection(this, tbarsizeNum, ShapeProperties.ARROW_T_BAR_SIZE_NUM, false));
 	}
 
 	@Override

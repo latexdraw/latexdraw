@@ -9,8 +9,8 @@
   <packaging>pom</packaging>
   
   <properties>
-      <malai.version>2.0-SNAPSHOT</malai.version>
-      <scala.version>2.12.0-M4</scala.version>
+      <malai.version>3.0-SNAPSHOT</malai.version>
+      <scala.version>2.12.1</scala.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
@@ -65,8 +65,8 @@
         </dependency>
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-parser-combinators_2.12.0-M4</artifactId>
-            <version>1.0.4</version>
+            <artifactId>scala-parser-combinators_2.12</artifactId>
+            <version>1.0.5</version>
         </dependency>
         <dependency>
             <groupId>org.swinglabs</groupId>

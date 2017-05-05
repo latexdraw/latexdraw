@@ -18,7 +18,7 @@ import javafx.stage.FileChooser;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import org.malai.action.ActionsRegistry;
-import org.malai.javafx.action.library.IOAction;
+import org.malai.javafx.action.IOAction;
 import org.malai.undo.UndoCollector;
 
 /**

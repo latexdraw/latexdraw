@@ -24,9 +24,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.LangTool;
+import org.malai.javafx.binding.MenuItem2OpenWebPage;
+import org.malai.javafx.binding.MenuItem2ShowLazyStage;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.instrument.library.MenuItem2OpenWebPageInteractor;
-import org.malai.javafx.instrument.library.MenuItem2ShowLazyStage;
 
 /**
  * This instrument manages help features.
@@ -63,14 +63,14 @@ public class Helper extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new MenuItem2ShowLazyStage(this, aboutItem, this::getAboutFrame, true));
-		addInteractor(new MenuItem2ShowLazyStage(this, shortcutItem, this::getShortcutsFrame, true));
+	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+		addBinding(new MenuItem2ShowLazyStage(this, aboutItem, this::getAboutFrame, true));
+		addBinding(new MenuItem2ShowLazyStage(this, shortcutItem, this::getShortcutsFrame, true));
 		try {
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug")));
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("https://sourceforge.net/p/latexdraw/discussion/")));
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual")));
+			addBinding(new MenuItem2OpenWebPage(this, reportBugItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug")));
+			addBinding(new MenuItem2OpenWebPage(this, forumItem, new URI("https://sourceforge.net/p/latexdraw/discussion/")));
+			addBinding(new MenuItem2OpenWebPage(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
+			addBinding(new MenuItem2OpenWebPage(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual")));
 		}catch(URISyntaxException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}

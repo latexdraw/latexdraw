@@ -47,7 +47,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.Position;
 import org.malai.action.Action;
-import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.DnD;
 
 /**
@@ -195,18 +195,18 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		movePointInteractor = new DnD2MovePoint(this);
 		moveCtrlPtInteractor = new DnD2MoveCtrlPoint(this);
-		addInteractor(new DnD2Scale(this));
-		addInteractor(movePointInteractor);
-		addInteractor(moveCtrlPtInteractor);
-		addInteractor(new DnD2Rotate(this));
-		addInteractor(new DnD2ArcAngle(this));
+		addBinding(new DnD2Scale(this));
+		addBinding(movePointInteractor);
+		addBinding(moveCtrlPtInteractor);
+		addBinding(new DnD2Rotate(this));
+		addBinding(new DnD2ArcAngle(this));
 	}
 
 
-	private static class DnD2MovePoint extends JfxInteractor<MovePointShape, DnD, Border> {
+	private static class DnD2MovePoint extends JfXWidgetBinding<MovePointShape, DnD, Border> {
 		DnD2MovePoint(final Border ins) throws IllegalAccessException, InstantiationException {
 			super(ins, true, MovePointShape.class, DnD.class);
 		}
@@ -242,7 +242,7 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 
-	private static class DnD2MoveCtrlPoint extends JfxInteractor<MoveCtrlPoint, DnD, Border> {
+	private static class DnD2MoveCtrlPoint extends JfXWidgetBinding<MoveCtrlPoint, DnD, Border> {
 		DnD2MoveCtrlPoint(final Border ins) throws IllegalAccessException, InstantiationException {
 			super(ins, true, MoveCtrlPoint.class, DnD.class);
 		}
@@ -278,7 +278,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		}
 	}
 
-	private static class DnD2ArcAngle extends JfxInteractor<ModifyShapeProperty, DnD, Border> {
+	private static class DnD2ArcAngle extends JfXWidgetBinding<ModifyShapeProperty, DnD, Border> {
 		/** The gravity centre used for the rotation. */
 		private IPoint gc;
 		/** Defines whether the current handled shape is rotated. */
@@ -352,7 +352,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		}
 	}
 
-	private static class DnD2Scale extends JfxInteractor<ScaleShapes, DnD, Border> {
+	private static class DnD2Scale extends JfXWidgetBinding<ScaleShapes, DnD, Border> {
 		/** The point corresponding to the 'press' position. */
 		private IPoint p1;
 		/** The x gap (gap between the pressed position and the targeted position) of the X-scaling. */
@@ -477,7 +477,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		}
 	}
 
-	private static class DnD2Rotate extends JfxInteractor<RotateShapes, DnD, Border> {
+	private static class DnD2Rotate extends JfXWidgetBinding<RotateShapes, DnD, Border> {
 		/** The point corresponding to the 'press' position. */
 		private IPoint p1;
 		/** The gravity centre used for the rotation. */

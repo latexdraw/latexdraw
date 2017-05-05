@@ -39,15 +39,15 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		final BiConsumer<Boolean, MoveBackForegroundShapes> init = (isForeground, action) -> {
 			action.setIsForeground(isForeground);
 			action.setDrawing(pencil.canvas.getDrawing());
 			action.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		};
 
-		addButtonInteractor(MoveBackForegroundShapes.class, action -> init.accept(true, action), foregroundB);
-		addButtonInteractor(MoveBackForegroundShapes.class, action -> init.accept(false, action), backgroundB);
+		bindButton(MoveBackForegroundShapes.class, action -> init.accept(true, action), foregroundB);
+		bindButton(MoveBackForegroundShapes.class, action -> init.accept(false, action), backgroundB);
 	}
 
 	@Override

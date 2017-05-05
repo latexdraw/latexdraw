@@ -25,8 +25,8 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
-import org.malai.javafx.action.library.ActivateInactivateInstruments;
-import org.malai.javafx.action.library.MoveCamera;
+import org.malai.javafx.action.ActivateInactivateInstruments;
+import org.malai.javafx.action.MoveCamera;
 import org.malai.javafx.instrument.JfxInstrument;
 
 /**
@@ -109,8 +109,8 @@ public class TabSelector extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addTabInteractor(ActivateInactivateInstruments.class, action -> {
+	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+		bindTab(ActivateInactivateInstruments.class, action -> {
 			if(tabPane.getSelectionModel().getSelectedIndex() == 0) {
 				action.addInstrumentToActivate(selector);
 				action.addInstrumentToActivate(paster);

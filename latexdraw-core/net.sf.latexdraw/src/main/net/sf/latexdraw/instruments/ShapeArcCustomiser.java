@@ -24,7 +24,7 @@ import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import org.malai.javafx.instrument.library.ToggleButtonInteractor;
+import org.malai.javafx.binding.ToggleButtonBinding;
 
 /**
  * This instrument modifies arc parameters.
@@ -78,16 +78,16 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initi
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new Spinner4Selection(this, startAngleS, ShapeProperties.ARC_START_ANGLE, true));
-		addInteractor(new Spinner4Selection(this, endAngleS, ShapeProperties.ARC_END_ANGLE, true));
-		addInteractor(new Spinner4Pencil(this, startAngleS, ShapeProperties.ARC_START_ANGLE, true));
-		addInteractor(new Spinner4Pencil(this, endAngleS, ShapeProperties.ARC_END_ANGLE, true));
-		addInteractor(new Button2SelectionArcStyle(this));
-		addInteractor(new Button2PencilArcStyle(this));
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new Spinner4Selection(this, startAngleS, ShapeProperties.ARC_START_ANGLE, true));
+		addBinding(new Spinner4Selection(this, endAngleS, ShapeProperties.ARC_END_ANGLE, true));
+		addBinding(new Spinner4Pencil(this, startAngleS, ShapeProperties.ARC_START_ANGLE, true));
+		addBinding(new Spinner4Pencil(this, endAngleS, ShapeProperties.ARC_END_ANGLE, true));
+		addBinding(new Button2SelectionArcStyle(this));
+		addBinding(new Button2PencilArcStyle(this));
 	}
 
-	private abstract static class Button2ArcStyle<T extends ShapePropertyAction> extends ToggleButtonInteractor<T, ShapeArcCustomiser> {
+	private abstract static class Button2ArcStyle<T extends ShapePropertyAction> extends ToggleButtonBinding<T, ShapeArcCustomiser> {
 		Button2ArcStyle(final ShapeArcCustomiser ins, final Class<T> act) throws InstantiationException, IllegalAccessException {
 			super(ins, act, ins.arcB, ins.chordB, ins.wedgeB);
 		}

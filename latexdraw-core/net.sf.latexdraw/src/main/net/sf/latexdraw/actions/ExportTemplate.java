@@ -21,7 +21,7 @@ import javafx.scene.layout.Pane;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
-import org.malai.javafx.action.library.IOAction;
+import org.malai.javafx.action.IOAction;
 
 /**
  * This action exports a set of shapes as a template.

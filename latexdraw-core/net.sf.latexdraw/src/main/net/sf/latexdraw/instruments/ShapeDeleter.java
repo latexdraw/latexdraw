@@ -22,7 +22,7 @@ import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.actions.shape.DeleteShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.JfxInteraction;
 import org.malai.javafx.interaction.library.ButtonPressed;
 import org.malai.javafx.interaction.library.KeyPressure;
@@ -75,9 +75,9 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Act
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new DeleteShapesInteractor<>(this, ButtonPressed.class, deleteB));
-		addInteractor(new DeleteShapesInteractor<KeyPressure>(this, KeyPressure.class, canvas) {
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new DeleteShapesInteractor<>(this, ButtonPressed.class, deleteB));
+		addBinding(new DeleteShapesInteractor<KeyPressure>(this, KeyPressure.class, canvas) {
 			@Override
 			public boolean isConditionRespected() {
 				return interaction.getKeyCode().isPresent() && interaction.getKeyCode().get() == KeyCode.DELETE && super.isConditionRespected();
@@ -87,7 +87,7 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Act
 
 
 	/** This abstract link maps an interaction to an action that delete shapes. */
-	private static class DeleteShapesInteractor<I extends JfxInteraction> extends JfxInteractor<DeleteShapes, I, ShapeDeleter> {
+	private static class DeleteShapesInteractor<I extends JfxInteraction> extends JfXWidgetBinding<DeleteShapes, I, ShapeDeleter> {
 		DeleteShapesInteractor(final ShapeDeleter ins, final Class<I> clazzInteraction, Node widget) throws InstantiationException, IllegalAccessException {
 			super(ins, false, DeleteShapes.class, clazzInteraction, widget);
 		}

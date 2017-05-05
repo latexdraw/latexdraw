@@ -25,8 +25,8 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
+import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.interaction.library.KeysTyped;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
@@ -146,27 +146,27 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	}
 
 	@Override
-	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new LabelFieldToChangeLabel());
-		addInteractor(new titleFieldToChangeCaption());
-		addCheckBoxInteractor(ModifyLatexProperties.class, action -> {
+	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+		addBinding(new LabelFieldToChangeLabel());
+		addBinding(new titleFieldToChangeCaption());
+		bindCheckbox(ModifyLatexProperties.class, action -> {
 			action.setProperty(LatexProperties.POSITION_HORIZONTAL);
 			action.setGenerator(latexGen);
 			action.setValue(middleHorizPosCB.isSelected());
 		}, middleHorizPosCB);
-		addComboBoxInteractor(ModifyLatexProperties.class, action -> {
+		bindComboBox(ModifyLatexProperties.class, action -> {
 			action.setProperty(LatexProperties.POSITION_VERTICAL);
 			action.setGenerator(latexGen);
 			action.setValue(positionCB.getSelectionModel().getSelectedItem());
 		}, positionCB);
-		addSpinnerInteractor(ModifyLatexProperties.class, action -> {
+		bindSpinner(ModifyLatexProperties.class, action -> {
 			action.setValue(scaleField.getValue());
 			action.setProperty(LatexProperties.SCALE);
 			action.setGenerator(latexGen);
 		}, scaleField);
 	}
 
-	private class LabelFieldToChangeLabel extends JfxInteractor<ModifyLatexProperties, KeysTyped, DrawingPropertiesCustomiser> {
+	private class LabelFieldToChangeLabel extends JfXWidgetBinding<ModifyLatexProperties, KeysTyped, DrawingPropertiesCustomiser> {
 		LabelFieldToChangeLabel() throws InstantiationException, IllegalAccessException {
 			super(DrawingPropertiesCustomiser.this, false, ModifyLatexProperties.class, KeysTyped.class, labelField);
 		}
@@ -183,7 +183,7 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 		}
 	}
 
-	private class titleFieldToChangeCaption extends JfxInteractor<ModifyLatexProperties, KeysTyped, DrawingPropertiesCustomiser> {
+	private class titleFieldToChangeCaption extends JfXWidgetBinding<ModifyLatexProperties, KeysTyped, DrawingPropertiesCustomiser> {
 		titleFieldToChangeCaption() throws InstantiationException, IllegalAccessException {
 			super(DrawingPropertiesCustomiser.this, false, ModifyLatexProperties.class, KeysTyped.class, titleField);
 		}

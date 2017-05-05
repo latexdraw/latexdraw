@@ -79,14 +79,14 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser implements In
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new Checkbox4Pencil(this, shadowCB, ShapeProperties.SHADOW));
-		addInteractor(new Checkbox4Selection(this, shadowCB, ShapeProperties.SHADOW));
-		addInteractor(new ColourPicker4Pencil(this, shadowColB, ShapeProperties.SHADOW_COLOUR));
-		addInteractor(new ColourPicker4Selection(this, shadowColB, ShapeProperties.SHADOW_COLOUR));
-		addInteractor(new Spinner4Pencil(this, shadowSizeField, ShapeProperties.SHADOW_SIZE, false));
-		addInteractor(new Spinner4Selection(this, shadowSizeField, ShapeProperties.SHADOW_SIZE, false));
-		addInteractor(new Spinner4Pencil(this, shadowAngleField, ShapeProperties.SHADOW_ANGLE, true));
-		addInteractor(new Spinner4Selection(this, shadowAngleField, ShapeProperties.SHADOW_ANGLE, true));
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new Checkbox4Pencil(this, shadowCB, ShapeProperties.SHADOW));
+		addBinding(new Checkbox4Selection(this, shadowCB, ShapeProperties.SHADOW));
+		addBinding(new ColourPicker4Pencil(this, shadowColB, ShapeProperties.SHADOW_COLOUR));
+		addBinding(new ColourPicker4Selection(this, shadowColB, ShapeProperties.SHADOW_COLOUR));
+		addBinding(new Spinner4Pencil(this, shadowSizeField, ShapeProperties.SHADOW_SIZE, false));
+		addBinding(new Spinner4Selection(this, shadowSizeField, ShapeProperties.SHADOW_SIZE, false));
+		addBinding(new Spinner4Pencil(this, shadowAngleField, ShapeProperties.SHADOW_ANGLE, true));
+		addBinding(new Spinner4Selection(this, shadowAngleField, ShapeProperties.SHADOW_ANGLE, true));
 	}
 }

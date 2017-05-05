@@ -25,9 +25,9 @@ import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.Action;
-import org.malai.javafx.action.library.ActivateInactivateInstruments;
+import org.malai.javafx.action.ActivateInactivateInstruments;
+import org.malai.javafx.binding.ButtonBinding;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.instrument.library.ButtonInteractor;
 
 /**
  * This instrument selects the pencil or the hand.
@@ -164,18 +164,18 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[button2EditingChoiceMap.size()+1]);
 		nodes[nodes.length-1] = handB;
 
-		addInteractor(new ButtonPressed2AddText(this));
+		addBinding(new ButtonPressed2AddText(this));
 
-		addToggleButtonInteractor(ModifyPencilStyle.class, (action, interaction) -> {
+		bindToggleButton(ModifyPencilStyle.class, (action, interaction) -> {
 			action.setEditingChoice(button2EditingChoiceMap.get(interaction.getWidget()));
 			action.setPencil(pencil);
 		}, nodes);
 
-		addToggleButtonInteractor(ActivateInactivateInstruments.class, (action, interaction) -> {
+		bindToggleButton(ActivateInactivateInstruments.class, (action, interaction) -> {
 			final ToggleButton button = interaction.getWidget();
 
 			action.setActivateFirst(false);
@@ -209,7 +209,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 			}
 		}, nodes);
 
-		addButtonInteractor(ActivateInactivateInstruments.class, action -> action.addInstrumentToActivate(codeInserter), codeB);
+		bindButton(ActivateInactivateInstruments.class, action -> action.addInstrumentToActivate(codeInserter), codeB);
 	}
 
 	@Override
@@ -228,7 +228,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	}
 
 
-	private static class ButtonPressed2AddText extends ButtonInteractor<AddShape, EditingSelector> {
+	private static class ButtonPressed2AddText extends ButtonBinding<AddShape, EditingSelector> {
 		protected ButtonPressed2AddText(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
 			super(ins, AddShape.class, ins.textB);
 		}

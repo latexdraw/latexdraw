@@ -15,7 +15,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.LaTeXDraw;
-import org.malai.javafx.action.library.Load;
+import org.malai.javafx.action.Load;
 
 /**
  * This action loads an SVG document into the app.

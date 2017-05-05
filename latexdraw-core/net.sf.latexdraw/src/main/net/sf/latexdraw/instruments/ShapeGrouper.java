@@ -62,8 +62,8 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 	}
 
 	@Override
-	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addButtonInteractor(SeparateShapes.class, action -> {
+	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+		bindButton(SeparateShapes.class, action -> {
 			final List<IShape> shapes = getSelectAction().get().getShapes();
 
 			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {
@@ -73,7 +73,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 			action.setDrawing(pencil.canvas.getDrawing());
 		}, sepB);
 
-		addButtonInteractor(JoinShapes.class, action -> {
+		bindButton(JoinShapes.class, action -> {
 			getSelectAction().get().getShapes().forEach(sh -> action.addShape(sh));
 			action.setDrawing(pencil.canvas.getDrawing());
 		}, groupB);

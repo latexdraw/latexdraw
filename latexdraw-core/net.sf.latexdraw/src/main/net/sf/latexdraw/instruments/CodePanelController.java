@@ -39,7 +39,7 @@ public class CodePanelController extends CanvasInstrument implements Initializab
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		// Nothing to do.
 	}
 }

@@ -23,7 +23,7 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import org.malai.javafx.instrument.library.SpinnerInteractor;
+import org.malai.javafx.binding.SpinnerBinding;
 
 /**
  * This instrument modifies the parameters of grids and axes.
@@ -92,24 +92,24 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 	}
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		addInteractor(new Spinner4Pencil(this, labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false));
-		addInteractor(new Spinner4Selection(this, labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false));
-		addInteractor(new Spinner4StdGridPencil(xEndS, ShapeProperties.GRID_END));
-		addInteractor(new Spinner4StdGridPencil(yEndS, ShapeProperties.GRID_END));
-		addInteractor(new Spinner4StdGridHand(xEndS, ShapeProperties.GRID_END));
-		addInteractor(new Spinner4StdGridHand(yEndS, ShapeProperties.GRID_END));
-		addInteractor(new Spinner4StdGridPencil(xStartS, ShapeProperties.GRID_START));
-		addInteractor(new Spinner4StdGridPencil(yStartS, ShapeProperties.GRID_START));
-		addInteractor(new Spinner4StdGridHand(xStartS, ShapeProperties.GRID_START));
-		addInteractor(new Spinner4StdGridHand(yStartS, ShapeProperties.GRID_START));
-		addInteractor(new Spinner4StdGridPencil(xOriginS, ShapeProperties.GRID_ORIGIN));
-		addInteractor(new Spinner4StdGridPencil(yOriginS, ShapeProperties.GRID_ORIGIN));
-		addInteractor(new Spinner4StdGridHand(xOriginS, ShapeProperties.GRID_ORIGIN));
-		addInteractor(new Spinner4StdGridHand(yOriginS, ShapeProperties.GRID_ORIGIN));
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new Spinner4Pencil(this, labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false));
+		addBinding(new Spinner4Selection(this, labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false));
+		addBinding(new Spinner4StdGridPencil(xEndS, ShapeProperties.GRID_END));
+		addBinding(new Spinner4StdGridPencil(yEndS, ShapeProperties.GRID_END));
+		addBinding(new Spinner4StdGridHand(xEndS, ShapeProperties.GRID_END));
+		addBinding(new Spinner4StdGridHand(yEndS, ShapeProperties.GRID_END));
+		addBinding(new Spinner4StdGridPencil(xStartS, ShapeProperties.GRID_START));
+		addBinding(new Spinner4StdGridPencil(yStartS, ShapeProperties.GRID_START));
+		addBinding(new Spinner4StdGridHand(xStartS, ShapeProperties.GRID_START));
+		addBinding(new Spinner4StdGridHand(yStartS, ShapeProperties.GRID_START));
+		addBinding(new Spinner4StdGridPencil(xOriginS, ShapeProperties.GRID_ORIGIN));
+		addBinding(new Spinner4StdGridPencil(yOriginS, ShapeProperties.GRID_ORIGIN));
+		addBinding(new Spinner4StdGridHand(xOriginS, ShapeProperties.GRID_ORIGIN));
+		addBinding(new Spinner4StdGridHand(yOriginS, ShapeProperties.GRID_ORIGIN));
 	}
 
-	class Spinner4StdGridPencil extends SpinnerInteractor<ModifyPencilParameter, ShapeStdGridCustomiser> {
+	class Spinner4StdGridPencil extends SpinnerBinding<ModifyPencilParameter, ShapeStdGridCustomiser> {
 		final ShapeProperties prop;
 
 		Spinner4StdGridPencil(final Spinner<?> widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
@@ -140,7 +140,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 		}
 	}
 
-	class Spinner4StdGridHand extends SpinnerInteractor<ModifyShapeProperty, ShapeStdGridCustomiser> {
+	class Spinner4StdGridHand extends SpinnerBinding<ModifyShapeProperty, ShapeStdGridCustomiser> {
 		final ShapeProperties prop;
 
 		Spinner4StdGridHand(final Spinner<?> widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {

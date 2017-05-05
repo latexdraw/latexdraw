@@ -21,7 +21,7 @@ import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.util.LSystem;
 import org.malai.action.library.Redo;
 import org.malai.action.library.Undo;
-import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.ButtonPressed;
 import org.malai.javafx.interaction.library.KeysPressure;
 import org.malai.undo.UndoCollector;
@@ -52,11 +52,11 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	}
 
 	@Override
-	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new ButtonPressed2Undo());
-		addInteractor(new ButtonPressed2Redo());
-		addInteractor(new Keys2Undo());
-		addInteractor(new Keys2Redo());
+	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+		addBinding(new ButtonPressed2Undo());
+		addBinding(new ButtonPressed2Redo());
+		addBinding(new Keys2Undo());
+		addBinding(new Keys2Redo());
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 		updateWidgets();
 	}
 
-	class ButtonPressed2Redo extends JfxInteractor<Redo, ButtonPressed, UndoRedoManager> {
+	class ButtonPressed2Redo extends JfXWidgetBinding<Redo, ButtonPressed, UndoRedoManager> {
 		ButtonPressed2Redo() throws InstantiationException, IllegalAccessException {
 			super(UndoRedoManager.this, false, Redo.class, ButtonPressed.class, redoB);
 		}
@@ -124,7 +124,7 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 		}
 	}
 
-	class ButtonPressed2Undo extends JfxInteractor<Undo, ButtonPressed, UndoRedoManager> {
+	class ButtonPressed2Undo extends JfXWidgetBinding<Undo, ButtonPressed, UndoRedoManager> {
 		ButtonPressed2Undo() throws InstantiationException, IllegalAccessException {
 			super(UndoRedoManager.this, false, Undo.class, ButtonPressed.class, undoB);
 		}
@@ -140,7 +140,7 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 		}
 	}
 
-	class Keys2Redo extends JfxInteractor<Redo, KeysPressure, UndoRedoManager> {
+	class Keys2Redo extends JfXWidgetBinding<Redo, KeysPressure, UndoRedoManager> {
 		Keys2Redo() throws InstantiationException, IllegalAccessException {
 			super(UndoRedoManager.this, false, Redo.class, KeysPressure.class, canvas);
 		}
@@ -157,7 +157,7 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 		}
 	}
 
-	class Keys2Undo extends JfxInteractor<Undo, KeysPressure, UndoRedoManager> {
+	class Keys2Undo extends JfXWidgetBinding<Undo, KeysPressure, UndoRedoManager> {
 		Keys2Undo() throws InstantiationException, IllegalAccessException {
 			super(UndoRedoManager.this, false, Undo.class, KeysPressure.class, canvas);
 		}

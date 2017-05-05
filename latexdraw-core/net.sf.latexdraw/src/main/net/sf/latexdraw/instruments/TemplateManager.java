@@ -34,8 +34,8 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.interaction.library.DnD;
 
 /**
@@ -88,16 +88,16 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 
 
 	@Override
-	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
-		 addButtonInteractor(UpdateTemplates.class, action -> {
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		 bindButton(UpdateTemplates.class, action -> {
 			 action.setTemplatesPane(templatePane);
 			 action.updateThumbnails(true);
 		 }, updateTemplates);
-		 addInteractor(new DnD2AddTemplate(this));
+		 addBinding(new DnD2AddTemplate(this));
 	}
 
 
-	private static class DnD2AddTemplate extends JfxInteractor<LoadTemplate, DnD, TemplateManager> {
+	private static class DnD2AddTemplate extends JfXWidgetBinding<LoadTemplate, DnD, TemplateManager> {
 		DnD2AddTemplate(final TemplateManager ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, LoadTemplate.class, DnD.class, ins.templatePane);
 		}

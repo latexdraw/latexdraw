@@ -159,23 +159,23 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addComboBoxInteractor(ModifyMagneticGrid.class, action -> {
+	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+		bindComboBox(ModifyMagneticGrid.class, action -> {
 			action.setValue(styleList.getSelectionModel().getSelectedItem());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.STYLE);
 		}, styleList);
-		addCheckBoxInteractor(ModifyMagneticGrid.class, action -> {
+		bindCheckbox(ModifyMagneticGrid.class, action -> {
 			action.setValue(magneticCB.isSelected());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.MAGNETIC);
 		}, magneticCB);
-		addSpinnerInteractor(ModifyMagneticGrid.class, action -> {
+		bindSpinner(ModifyMagneticGrid.class, action -> {
 			action.setValue(persoGridGapField.getValue());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.GRID_SPACING);
 		}, persoGridGapField);
-		addComboBoxInteractor(SetUnit.class, action -> action.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem())), unitChoice);
+		bindComboBox(SetUnit.class, action -> action.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem())), unitChoice);
 	}
 
 	/**

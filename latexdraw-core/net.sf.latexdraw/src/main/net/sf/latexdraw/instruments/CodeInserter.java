@@ -78,13 +78,13 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	public void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addButtonInteractor(InsertPSTCode.class, action -> {
+	public void configureBindings() throws IllegalAccessException, InstantiationException {
+		bindButton(InsertPSTCode.class, action -> {
 			 action.setDrawing(drawing);
 			 action.setCode(text.getText());
 			 action.setStatusBar(statusBar.getLabel());
 		}, ok);
-		addButtonInteractor(InactivateInstrument.class, action -> action.setInstrument(this), cancel, ok);
+		bindButton(InactivateInstrument.class, action -> action.setInstrument(this), cancel, ok);
 	}
 
 	@Override

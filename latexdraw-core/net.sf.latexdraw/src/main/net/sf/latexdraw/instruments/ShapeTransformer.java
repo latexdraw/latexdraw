@@ -20,7 +20,7 @@ import net.sf.latexdraw.actions.shape.AlignShapes;
 import net.sf.latexdraw.actions.shape.DistributeShapes;
 import net.sf.latexdraw.actions.shape.MirrorShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import org.malai.javafx.instrument.library.ButtonInteractor;
+import org.malai.javafx.binding.ButtonBinding;
 
 /**
  * This instrument transforms (mirror, etc.) the selected shapes.
@@ -98,13 +98,13 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 	}
 
 	@Override
-	protected void initialiseInteractors() throws IllegalAccessException, InstantiationException {
-		addInteractor(new Button2Align(this));
-		addInteractor(new Button2Mirror(this));
-		addInteractor(new Button2Distribute(this));
+	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+		addBinding(new Button2Align(this));
+		addBinding(new Button2Mirror(this));
+		addBinding(new Button2Distribute(this));
 	}
 
-	private static class Button2Align extends ButtonInteractor<AlignShapes, ShapeTransformer> {
+	private static class Button2Align extends ButtonBinding<AlignShapes, ShapeTransformer> {
 		Button2Align(final ShapeTransformer ins) throws InstantiationException, IllegalAccessException {
 			super(ins, AlignShapes.class, ins.alignBot, ins.alignLeft, ins.alignMidHoriz, ins.alignMidVert, ins.alignRight, ins.alignTop);
 		}
@@ -117,7 +117,7 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 		}
 	}
 
-	private static class Button2Mirror extends ButtonInteractor<MirrorShapes, ShapeTransformer> {
+	private static class Button2Mirror extends ButtonBinding<MirrorShapes, ShapeTransformer> {
 		Button2Mirror(final ShapeTransformer ins) throws InstantiationException, IllegalAccessException {
 			super(ins, MirrorShapes.class, ins.mirrorH, ins.mirrorV);
 		}
@@ -129,7 +129,7 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 		}
 	}
 
-	private static class Button2Distribute extends ButtonInteractor<DistributeShapes, ShapeTransformer> {
+	private static class Button2Distribute extends ButtonBinding<DistributeShapes, ShapeTransformer> {
 		Button2Distribute(final ShapeTransformer ins) throws InstantiationException, IllegalAccessException {
 			super(ins, DistributeShapes.class, ins.distribHorizEq, ins.distribHorizLeft, ins.distribHorizMid, ins.distribHorizRight,
 				ins.distribVertBot, ins.distribVertEq, ins.distribVertMid, ins.distribVertTop);

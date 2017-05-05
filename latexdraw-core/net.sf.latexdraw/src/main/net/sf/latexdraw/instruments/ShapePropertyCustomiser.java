@@ -25,11 +25,11 @@ import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.Action;
+import org.malai.javafx.binding.CheckboxBinding;
+import org.malai.javafx.binding.ColorPickerBinding;
+import org.malai.javafx.binding.ComboBoxBinding;
+import org.malai.javafx.binding.SpinnerBinding;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.instrument.library.CheckboxInteractor;
-import org.malai.javafx.instrument.library.ColorPickerInteractor;
-import org.malai.javafx.instrument.library.ComboBoxInteractor;
-import org.malai.javafx.instrument.library.SpinnerInteractor;
 import org.malai.undo.Undoable;
 
 /**
@@ -131,7 +131,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		setWidgetsVisible(act);
 	}
 
-	static class List4Pencil extends ComboBoxInteractor<ModifyPencilParameter, ShapePropertyCustomiser> {
+	static class List4Pencil extends ComboBoxBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 
 		List4Pencil(final ShapePropertyCustomiser ins, final ComboBox<?> combo, ShapeProperties property) throws InstantiationException, IllegalAccessException {
@@ -152,7 +152,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		}
 	}
 
-	static class List4Selection extends ComboBoxInteractor<ModifyShapeProperty, ShapePropertyCustomiser> {
+	static class List4Selection extends ComboBoxBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 
 		List4Selection(final ShapePropertyCustomiser ins, final ComboBox<?> combo, ShapeProperties property) throws InstantiationException, IllegalAccessException {
@@ -173,7 +173,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		}
 	}
 
-	static class Spinner4Pencil extends SpinnerInteractor<ModifyPencilParameter, ShapePropertyCustomiser> {
+	static class Spinner4Pencil extends SpinnerBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 		boolean angle;
 
@@ -207,7 +207,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		}
 	}
 
-	static class Spinner4Selection extends SpinnerInteractor<ModifyShapeProperty, ShapePropertyCustomiser> {
+	static class Spinner4Selection extends SpinnerBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 		boolean angle;
 
@@ -235,7 +235,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		}
 	}
 
-	static class ColourPicker4Pencil extends ColorPickerInteractor<ModifyPencilParameter, ShapePropertyCustomiser> {
+	static class ColourPicker4Pencil extends ColorPickerBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 
 		ColourPicker4Pencil(final ShapePropertyCustomiser ins, ColorPicker picker, ShapeProperties property) throws InstantiationException, IllegalAccessException {
@@ -256,7 +256,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		}
 	}
 
-	static class ColourPicker4Selection extends ColorPickerInteractor<ModifyShapeProperty, ShapePropertyCustomiser> {
+	static class ColourPicker4Selection extends ColorPickerBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 
 		ColourPicker4Selection(final ShapePropertyCustomiser ins, ColorPicker picker, ShapeProperties property) throws InstantiationException, IllegalAccessException {
@@ -277,7 +277,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		}
 	}
 
-	static class Checkbox4Pencil extends CheckboxInteractor<ModifyPencilParameter, ShapePropertyCustomiser> {
+	static class Checkbox4Pencil extends CheckboxBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 
 		Checkbox4Pencil(final ShapePropertyCustomiser ins, ButtonBase widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
@@ -298,7 +298,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		}
 	}
 
-	static class Checkbox4Selection extends CheckboxInteractor<ModifyShapeProperty, ShapePropertyCustomiser> {
+	static class Checkbox4Selection extends CheckboxBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 
 		Checkbox4Selection(final ShapePropertyCustomiser ins, ButtonBase widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
