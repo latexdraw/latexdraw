@@ -131,8 +131,6 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 				case PLOT:
 					setPlotMessage();
 					break;
-				default:
-					break;
 			}
 		}
 
@@ -239,7 +237,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void initAction() {
-			final IPoint textPosition = ShapeFactory.INST.createPoint(instrument.position.getX(), instrument.position.getY() + instrument.textField.getHeight());
+			final IPoint textPosition = ShapeFactory.INST.createPoint(instrument.position.getX(), instrument.position.getY());
 			final IShape sh = instrument.pencil == null ? null : instrument.pencil.createShapeInstance();
 
 			if(sh instanceof IText) {
