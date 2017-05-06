@@ -80,6 +80,12 @@ public class ViewText extends ViewPositionShape<IText> {
 		compiledText.setVisible(false);
 		compiledText.setSmooth(true);
 		compiledText.setCache(true);
+		compiledText.imageProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue != null) {
+				compiledText.setX(-newValue.getWidth() / 4d);
+				compiledText.setY(-newValue.getHeight() * 0.75);
+			}
+		});
 
 		textUpdate = (observable, oldValue, newValue) -> update();
 		model.textProperty().addListener(textUpdate);
