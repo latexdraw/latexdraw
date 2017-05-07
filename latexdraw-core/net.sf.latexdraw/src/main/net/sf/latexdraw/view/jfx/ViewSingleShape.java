@@ -267,7 +267,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		}
 	}
 
-	private Line createHatchingLine(final Group group, final double x1, final double y1, final double x2, final double y2,
+	private void createHatchingLine(final Group group, final double x1, final double y1, final double x2, final double y2,
 									final double clipWidth, final double clipHeight) {
 		final Line line = new Line();
 		line.setStrokeWidth(model.getHatchingsWidth());
@@ -281,7 +281,6 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		// Required, otherwise the line may not be drawn.
 		line.setClip(new Rectangle(0, 0, clipWidth, clipHeight));
 		group.getChildren().add(line);
-		return line;
 	}
 
 
