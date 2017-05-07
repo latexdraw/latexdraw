@@ -35,6 +35,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Duration;
+import net.sf.latexdraw.actions.DrawingAction;
+import net.sf.latexdraw.actions.ShapesAction;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
@@ -49,6 +51,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.malai.action.Action;
 import org.malai.action.ActionHandler;
 import org.malai.action.ActionsRegistry;
+import org.malai.javafx.action.IOAction;
 import org.malai.presentation.ConcretePresentation;
 import org.malai.properties.Zoomable;
 import org.malai.undo.Undoable;
@@ -273,7 +276,9 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void onActionExecuted(final Action a) {
-		update();
+		if(a instanceof ShapesAction || a instanceof DrawingAction || a instanceof IOAction) {
+			update();
+		}
 	}
 
 	@Override
