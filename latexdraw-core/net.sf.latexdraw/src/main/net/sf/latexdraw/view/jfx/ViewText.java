@@ -130,6 +130,8 @@ public class ViewText extends ViewPositionShape<IText> {
 			compiledText.setVisible(true);
 			text.setVisible(false);
 			compiledText.setImage(values.a);
+
+			getCanvasParent().ifPresent(canvas -> canvas.update());
 		}
 	}
 

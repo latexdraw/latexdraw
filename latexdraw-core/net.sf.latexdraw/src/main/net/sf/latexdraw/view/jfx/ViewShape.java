@@ -10,7 +10,9 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.util.Optional;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.eclipse.jdt.annotation.NonNull;
 
@@ -46,5 +48,15 @@ public abstract class ViewShape<S extends IShape> extends Group {
 
 	public @NonNull S getModel() {
 		return model;
+	}
+
+	protected Optional<Canvas> getCanvasParent() {
+		Parent parent = getParent();
+		while(parent != null && !(parent instanceof Canvas)) {
+			parent = parent.getParent();
+		}
+
+		if(parent != null) return Optional.of((Canvas) parent);
+		return Optional.empty();
 	}
 }
