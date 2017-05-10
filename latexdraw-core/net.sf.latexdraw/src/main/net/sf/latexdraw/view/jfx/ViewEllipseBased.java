@@ -30,8 +30,10 @@ public abstract class ViewEllipseBased<T extends ISingleShape> extends ViewSingl
 		if(dblBorder != null) {
 			dblBorder.centerXProperty().bind(border.centerXProperty());
 			dblBorder.centerYProperty().bind(border.centerYProperty());
-			dblBorder.radiusXProperty().bind(Bindings.subtract(border.radiusXProperty(), getDbleBorderGap()));
-			dblBorder.radiusYProperty().bind(Bindings.subtract(border.radiusYProperty(), getDbleBorderGap()));
+			dblBorder.radiusXProperty().bind(Bindings.createDoubleBinding(() -> border.getRadiusX() - getDbleBorderGap(),
+				border.radiusXProperty(), border.strokeWidthProperty(), border.strokeTypeProperty()));
+			dblBorder.radiusYProperty().bind(Bindings.createDoubleBinding(() -> border.getRadiusY() - getDbleBorderGap(),
+				border.radiusYProperty(), border.strokeWidthProperty(), border.strokeTypeProperty()));
 		}
 
 		if(shadow != null) {

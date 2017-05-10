@@ -49,10 +49,14 @@ public abstract class ViewRectangularBased<T extends ISingleShape> extends ViewS
 		super(sh);
 
 		if(dblBorder != null) {
-			dblBorder.xProperty().bind(Bindings.add(getDbleBorderGap(), border.xProperty()));
-			dblBorder.yProperty().bind(Bindings.add(getDbleBorderGap(), border.yProperty()));
-			dblBorder.heightProperty().bind(Bindings.subtract(border.heightProperty(), getDbleBorderGap() * 2d));
-			dblBorder.widthProperty().bind(Bindings.subtract(border.widthProperty(), getDbleBorderGap() * 2d));
+			dblBorder.xProperty().bind(Bindings.createDoubleBinding(() -> getDbleBorderGap() + border.getX(),
+				border.xProperty(), border.strokeWidthProperty(), border.strokeTypeProperty()));
+			dblBorder.yProperty().bind(Bindings.createDoubleBinding(() -> getDbleBorderGap() + border.getY(),
+				border.yProperty(), border.strokeWidthProperty(), border.strokeTypeProperty()));
+			dblBorder.heightProperty().bind(Bindings.createDoubleBinding(() -> border.getHeight() - getDbleBorderGap() * 2d,
+				border.heightProperty(), border.strokeWidthProperty(), border.strokeTypeProperty()));
+			dblBorder.widthProperty().bind(Bindings.createDoubleBinding(() -> border.getWidth() - getDbleBorderGap() * 2d,
+				border.widthProperty(), border.strokeWidthProperty(), border.strokeTypeProperty()));
 		}
 
 		if(shadow != null) {
