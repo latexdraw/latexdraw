@@ -28,16 +28,17 @@ import org.malai.undo.Undoable;
  */
 public class PasteShapes extends DrawingActionImpl implements Undoable, Modifying {
 	/** The cut or copy action. */
-	CopyShapes copy;
+	private CopyShapes copy;
 
 	/** The magnetic grid to use. */
-	MagneticGrid grid;
+	private MagneticGrid grid;
 
-	List<IShape> pastedShapes;
+	private final List<IShape> pastedShapes;
 
 
 	public PasteShapes() {
 		super();
+		pastedShapes = new ArrayList<>();
 	}
 
 	@Override
