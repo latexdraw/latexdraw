@@ -208,7 +208,7 @@ public class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoabl
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 }

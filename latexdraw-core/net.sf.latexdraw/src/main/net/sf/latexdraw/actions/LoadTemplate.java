@@ -59,8 +59,8 @@ public class LoadTemplate extends IOAction<Label> implements DrawingAction, Undo
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 
 	@Override

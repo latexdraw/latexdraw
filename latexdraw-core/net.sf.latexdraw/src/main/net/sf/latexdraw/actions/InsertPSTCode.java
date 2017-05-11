@@ -119,7 +119,7 @@ public class InsertPSTCode extends DrawingActionImpl implements Undoable {
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return hadEffect();
+	public RegistrationPolicy getRegistrationPolicy() {
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.LIMITED;
 	}
 }

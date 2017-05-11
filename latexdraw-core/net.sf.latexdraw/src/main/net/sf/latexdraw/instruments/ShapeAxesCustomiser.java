@@ -118,7 +118,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 
 	private abstract static class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerBinding<A, ShapeAxesCustomiser> {
 		Spinner2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-			super(ins, clazzAction, ins.distLabelsX, ins.distLabelsY, ins.incrLabelX, ins.incrLabelY);
+			super(ins, true, clazzAction, ins.distLabelsX, ins.distLabelsY, ins.incrLabelX, ins.incrLabelY);
 		}
 
 		@Override

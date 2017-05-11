@@ -42,8 +42,8 @@ public class AddShape extends ShapeActionImpl<IShape> implements DrawingAction, 
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 
 	@Override

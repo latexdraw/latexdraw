@@ -73,7 +73,7 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 
 	private static class Spinner2Zoom extends SpinnerBinding<Zoom, Zoomer> {
 		Spinner2Zoom(final Zoomer ins) throws InstantiationException, IllegalAccessException {
-			super(ins, Zoom.class, ins.zoom);
+			super(ins, true, Zoom.class, ins.zoom);
 		}
 
 		@Override

@@ -47,8 +47,8 @@ public class PasteShapes extends DrawingActionImpl implements Undoable, Modifyin
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 
 	@Override

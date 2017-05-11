@@ -174,7 +174,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 			action.setValue(persoGridGapField.getValue());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.GRID_SPACING);
-		}, persoGridGapField);
+		}, action -> action.setValue(persoGridGapField.getValue()), true, persoGridGapField);
 		bindComboBox(SetUnit.class, action -> action.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem())), unitChoice);
 	}
 

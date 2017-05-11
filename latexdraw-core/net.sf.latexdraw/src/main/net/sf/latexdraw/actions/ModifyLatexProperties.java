@@ -34,9 +34,13 @@ public class ModifyLatexProperties extends ActionImpl implements Undoable, Modif
 	protected LaTeXGenerator generator;
 
 
+	public ModifyLatexProperties() {
+		super();
+	}
+
 	@Override
-	public boolean isRegisterable() {
-		return hadEffect();
+	public RegistrationPolicy getRegistrationPolicy() {
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.LIMITED;
 	}
 
 

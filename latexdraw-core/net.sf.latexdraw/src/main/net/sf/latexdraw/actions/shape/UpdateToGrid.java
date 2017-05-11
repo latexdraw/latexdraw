@@ -99,8 +99,8 @@ public class UpdateToGrid extends ShapeActionImpl<IGroup> implements Undoable, M
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return hadEffect();
+	public RegistrationPolicy getRegistrationPolicy() {
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.LIMITED;
 	}
 
 	/** Sets the magnetic grid to use. */

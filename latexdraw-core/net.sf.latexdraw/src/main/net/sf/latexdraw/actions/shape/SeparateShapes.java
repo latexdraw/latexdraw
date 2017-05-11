@@ -72,8 +72,8 @@ public class SeparateShapes extends ShapeActionImpl<IGroup> implements DrawingAc
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 
 	@Override

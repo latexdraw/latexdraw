@@ -63,12 +63,6 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 	}
 
 
-	@Override
-	public boolean isRegisterable() {
-		return false;
-	}
-
-
 	/**
 	 * Defines the pencil to modify.
 	 * @param pen The pencil to modify.

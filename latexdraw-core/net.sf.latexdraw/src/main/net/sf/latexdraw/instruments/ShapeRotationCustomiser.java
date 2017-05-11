@@ -72,8 +72,10 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 			action.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		};
 
-		bindSpinner(RotateShapes.class, action -> init.accept(Math.toRadians(rotationField.getValue()) -
-			pencil.canvas.getDrawing().getSelection().getRotationAngle(), action), rotationField);
+		bindSpinner(RotateShapes.class,
+			action -> init.accept(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle(), action),
+			action -> action.setRotationAngle(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle()),
+			true, rotationField);
 		bindButton(RotateShapes.class, action -> init.accept(Math.PI / 2d, action), rotate90Button);
 		bindButton(RotateShapes.class, action -> init.accept(Math.PI, action), rotate180Button);
 		bindButton(RotateShapes.class, action -> init.accept(-Math.PI / 2d, action), rotate270Button);

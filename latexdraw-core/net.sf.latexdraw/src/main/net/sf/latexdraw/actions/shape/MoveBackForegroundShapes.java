@@ -150,8 +150,8 @@ drawing.setModified(true)
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 
 	/** Defines whether the shapes must be placed in the foreground. */

@@ -72,7 +72,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 
 	private static class Spinner2TranslateShape extends SpinnerBinding<TranslateShapes, ShapeCoordDimCustomiser> {
 		Spinner2TranslateShape(final ShapeCoordDimCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, TranslateShapes.class, ins.tlxS, ins.tlyS);
+			super(ins, true, TranslateShapes.class, ins.tlxS, ins.tlyS);
 		}
 
 		@Override

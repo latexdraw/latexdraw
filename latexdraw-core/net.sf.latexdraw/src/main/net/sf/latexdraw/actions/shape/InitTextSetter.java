@@ -76,10 +76,6 @@ public class InitTextSetter extends ActivateInstrument {
 		setter = textSetter;
 	}
 
-	@Override
-	public boolean isRegisterable() {
-		return false;
-	}
 
 	/**
 	 * @param pt The position that takes account of the zoom.

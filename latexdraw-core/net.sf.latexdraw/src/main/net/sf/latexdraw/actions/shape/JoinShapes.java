@@ -87,8 +87,8 @@ public class JoinShapes extends DrawingActionImpl implements ShapesAction, Undoa
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 
 	@Override

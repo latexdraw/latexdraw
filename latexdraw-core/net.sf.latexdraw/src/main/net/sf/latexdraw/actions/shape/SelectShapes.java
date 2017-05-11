@@ -50,8 +50,8 @@ public class SelectShapes extends DrawingActionImpl implements ShapesAction, Mod
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.UNLIMITED;
 	}
 
 	@Override

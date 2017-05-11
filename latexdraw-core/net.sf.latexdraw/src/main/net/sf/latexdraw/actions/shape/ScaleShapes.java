@@ -61,8 +61,8 @@ public class ScaleShapes extends ShapeActionImpl<IGroup> implements DrawingActio
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return hadEffect();
+	public RegistrationPolicy getRegistrationPolicy() {
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.LIMITED;
 	}
 
 	@Override

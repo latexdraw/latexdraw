@@ -26,11 +26,6 @@ public interface TemplateAction extends Action {
 	Pane getTemplatesPane();
 
 	@Override
-	default boolean isRegisterable() {
-		return false;
-	}
-
-	@Override
 	default boolean canDo() {
 		return getTemplatesPane() != null;
 	}

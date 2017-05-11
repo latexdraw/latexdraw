@@ -64,8 +64,8 @@ public class MirrorShapes extends ShapeActionImpl<IShape> implements Undoable, M
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 
 	/**

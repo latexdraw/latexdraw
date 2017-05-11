@@ -53,8 +53,8 @@ public abstract class MovePoint extends ActionImpl {
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 
 	/**

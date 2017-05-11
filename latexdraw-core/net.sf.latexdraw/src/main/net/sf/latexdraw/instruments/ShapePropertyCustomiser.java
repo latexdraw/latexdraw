@@ -178,7 +178,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		boolean angle;
 
 		Spinner4Pencil(final ShapePropertyCustomiser ins, final Spinner<?> widget, ShapeProperties property, boolean isAngle) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, widget);
+			super(ins, true, ModifyPencilParameter.class, widget);
 			prop = property;
 			angle = isAngle;
 		}
@@ -195,11 +195,10 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			}
 		}
 
-		// TODO see whether spinner actions can be grouped as before.
-		// @Override
-		// public void updateAction() {
-		// action.setValue(Math.toRadians((double)interaction.getWidget().getValue()));
-		// }
+		@Override
+		public void updateAction() {
+			action.setValue(Math.toRadians((Double) interaction.getWidget().getValue()));
+		}
 
 		@Override
 		public boolean isConditionRespected() {
@@ -212,7 +211,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		boolean angle;
 
 		Spinner4Selection(final ShapePropertyCustomiser ins, final Spinner<?> widget, ShapeProperties property, boolean isAngle) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, widget);
+			super(ins, true, ModifyShapeProperty.class, widget);
 			prop = property;
 			angle = isAngle;
 		}
@@ -221,12 +220,21 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		public void initAction() {
 			action.setProperty(prop);
 			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
+			updateActionValue();
+		}
+
+		private void updateActionValue() {
 			if(angle) {
 				action.setValue(Math.toRadians((Double) interaction.getWidget().getValue()));
 			}
 			else {
 				action.setValue(interaction.getWidget().getValue());
 			}
+		}
+
+		@Override
+		public void updateAction() {
+			updateActionValue();
 		}
 
 		@Override

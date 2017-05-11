@@ -163,7 +163,7 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 			action.setValue(scaleField.getValue());
 			action.setProperty(LatexProperties.SCALE);
 			action.setGenerator(latexGen);
-		}, scaleField);
+		}, action -> action.setValue(scaleField.getValue()), true, scaleField);
 	}
 
 	private class LabelFieldToChangeLabel extends JfXWidgetBinding<ModifyLatexProperties, KeysTyped, DrawingPropertiesCustomiser> {

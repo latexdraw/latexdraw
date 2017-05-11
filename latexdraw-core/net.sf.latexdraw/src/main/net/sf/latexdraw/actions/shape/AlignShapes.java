@@ -251,7 +251,7 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 }

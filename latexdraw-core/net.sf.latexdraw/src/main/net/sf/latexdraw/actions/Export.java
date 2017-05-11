@@ -71,10 +71,6 @@ public class Export extends ActionImpl {
 		dialogueBox = null;
 	}
 
-	@Override
-	public boolean isRegisterable() {
-		return false;
-	}
 
 	@Override
 	protected void doActionBody() {

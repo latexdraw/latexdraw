@@ -38,8 +38,8 @@ public class DeleteShapes extends DrawingActionImpl implements ShapesAction, Und
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 
 	@Override

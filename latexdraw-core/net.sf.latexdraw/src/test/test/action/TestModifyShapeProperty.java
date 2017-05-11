@@ -24,6 +24,7 @@ import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
 import org.junit.Test;
+import org.malai.action.Action;
 import test.HelperTest;
 
 import static org.junit.Assert.assertEquals;
@@ -1624,7 +1625,7 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	@Override
 	@Test
 	public void testIsRegisterable() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		assertTrue(action.isRegisterable());
+		assertEquals(Action.RegistrationPolicy.LIMITED, action.getRegistrationPolicy());
 	}
 
 	@Override

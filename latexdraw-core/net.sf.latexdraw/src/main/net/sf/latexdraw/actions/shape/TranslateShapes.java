@@ -53,8 +53,8 @@ public class TranslateShapes extends ShapeActionImpl<IGroup> implements DrawingA
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return hadEffect();
+	public RegistrationPolicy getRegistrationPolicy() {
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 
 	@Override

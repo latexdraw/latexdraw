@@ -113,7 +113,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 		final ShapeProperties prop;
 
 		Spinner4StdGridPencil(final Spinner<?> widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
-			super(ShapeStdGridCustomiser.this, ModifyPencilParameter.class, widget);
+			super(ShapeStdGridCustomiser.this, true, ModifyPencilParameter.class, widget);
 			prop = property;
 		}
 
@@ -144,7 +144,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 		final ShapeProperties prop;
 
 		Spinner4StdGridHand(final Spinner<?> widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
-			super(ShapeStdGridCustomiser.this, ModifyShapeProperty.class, widget);
+			super(ShapeStdGridCustomiser.this, true, ModifyShapeProperty.class, widget);
 			prop = property;
 		}
 

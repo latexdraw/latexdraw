@@ -36,10 +36,6 @@ public class ModifyPencilStyle extends ActionImpl {
 		return pencil != null && editingChoice != null && pencil.getCurrentChoice() != editingChoice;
 	}
 
-	@Override
-	public boolean isRegisterable() {
-		return false;
-	}
 
 	/**
 	 * Sets the pencil to parameterise.

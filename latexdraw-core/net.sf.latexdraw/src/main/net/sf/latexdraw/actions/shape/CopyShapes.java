@@ -43,8 +43,8 @@ public class CopyShapes extends ActionImpl {
 	}
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.UNLIMITED;
 	}
 
 	@Override

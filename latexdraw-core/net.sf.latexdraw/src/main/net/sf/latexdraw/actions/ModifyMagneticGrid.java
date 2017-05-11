@@ -77,8 +77,8 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 
 
 	@Override
-	public boolean isRegisterable() {
-		return true;
+	public RegistrationPolicy getRegistrationPolicy() {
+		return RegistrationPolicy.LIMITED;
 	}
 
 
