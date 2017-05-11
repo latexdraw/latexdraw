@@ -147,7 +147,6 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		defineShapeListToViewBinding();
 		configureSelection();
 
-		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
 
 		shapesPane.setFocusTraversable(false);
