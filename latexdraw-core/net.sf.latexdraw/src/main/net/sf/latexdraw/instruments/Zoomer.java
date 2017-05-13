@@ -18,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.library.Zoom;
-import org.malai.javafx.binding.SpinnerBinding;
 import org.malai.javafx.instrument.BasicZoomer;
 
 /**
@@ -52,7 +51,7 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		super.configureBindings();
-		addBinding(new Spinner2Zoom(this));
+		bindSpinner(Zoom.class, action -> action.setZoomable(zoomable), action -> action.setZoomLevel(zoom.getValue() / 100d), true, zoom);
 	}
 
 	@Override
@@ -69,22 +68,5 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
 		zoom.setVisible(activated);
-	}
-
-	private static class Spinner2Zoom extends SpinnerBinding<Zoom, Zoomer> {
-		Spinner2Zoom(final Zoomer ins) throws InstantiationException, IllegalAccessException {
-			super(ins, true, Zoom.class, ins.zoom);
-		}
-
-		@Override
-		public void updateAction() {
-			action.setZoomLevel(Double.valueOf(interaction.getWidget().getValue().toString()) / 100d);
-		}
-
-		@Override
-		public void initAction() {
-			action.setZoomable(instrument.zoomable);
-
-		}
 	}
 }
