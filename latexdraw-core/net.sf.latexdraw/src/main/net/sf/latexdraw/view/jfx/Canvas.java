@@ -36,6 +36,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Duration;
 import net.sf.latexdraw.actions.DrawingAction;
+import net.sf.latexdraw.actions.ShapeAction;
 import net.sf.latexdraw.actions.ShapesAction;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.models.MathUtils;
@@ -276,7 +277,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void onActionExecuted(final Action a) {
-		if(a instanceof ShapesAction || a instanceof DrawingAction || a instanceof IOAction || a instanceof ShapePropertyAction) {
+		if(a instanceof ShapesAction || a instanceof DrawingAction || a instanceof IOAction || a instanceof ShapePropertyAction ||
+			a instanceof ShapeAction) {
 			update();
 		}
 	}
