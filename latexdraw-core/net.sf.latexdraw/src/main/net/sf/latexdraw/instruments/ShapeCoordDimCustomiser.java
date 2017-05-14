@@ -19,6 +19,7 @@ import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.shape.TranslateShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import org.malai.javafx.binding.SpinnerBinding;
 
 /**
  * This instrument modifies arc dimensions and coordinates of shapes or pencil parameters.
@@ -61,21 +62,37 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		bindSpinner(TranslateShapes.class, action -> {
-			action.setDrawing(drawing);
-			action.setShape(drawing.getSelection().duplicateDeep(false));
-			action.setTx(tlxS.getValue() - drawing.getSelection().getTopLeftPoint().getX());
-		}, action -> action.setTx(tlxS.getValue() - drawing.getSelection().getTopLeftPoint().getX()), true, tlxS);
-
-		bindSpinner(TranslateShapes.class, action -> {
-			action.setDrawing(drawing);
-			action.setShape(drawing.getSelection().duplicateDeep(false));
-			action.setTy(tlyS.getValue() - drawing.getSelection().getTopLeftPoint().getY());
-		}, action -> action.setTy(tlyS.getValue() - drawing.getSelection().getTopLeftPoint().getY()), true, tlyS);
+		addBinding(new Spinner2Translate(this));
 	}
 
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
+	}
+
+
+	private static class Spinner2Translate extends SpinnerBinding<TranslateShapes, ShapeCoordDimCustomiser> {
+		private IPoint tl;
+
+		Spinner2Translate(final ShapeCoordDimCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, true, TranslateShapes.class, ins.tlxS, ins.tlyS);
+		}
+
+		@Override
+		public void initAction() {
+			tl = instrument.drawing.getSelection().getTopLeftPoint();
+			action.setDrawing(instrument.drawing);
+			action.setShape(instrument.drawing.getSelection().duplicateDeep(false));
+			updateAction();
+		}
+
+		@Override
+		public void updateAction() {
+			if(interaction.getWidget() == instrument.tlxS) {
+				action.setTx(instrument.tlxS.getValue() - tl.getX());
+			}else {
+				action.setTy(instrument.tlyS.getValue() - tl.getY());
+			}
+		}
 	}
 }
