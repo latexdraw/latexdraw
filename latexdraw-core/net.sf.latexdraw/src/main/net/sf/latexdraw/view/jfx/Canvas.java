@@ -173,6 +173,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 
 	private void updateSelectionBorders() {
+		if(selectionBorder.isDisable()) return;
+
 		final ObservableList<IShape> selection = drawing.getSelection().getShapes();
 		if(selection.isEmpty()) {
 			selectionBorder.setVisible(false);
