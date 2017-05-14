@@ -53,6 +53,8 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.malai.action.Action;
 import org.malai.action.ActionHandler;
 import org.malai.action.ActionsRegistry;
+import org.malai.action.library.Redo;
+import org.malai.action.library.Undo;
 import org.malai.javafx.action.IOAction;
 import org.malai.presentation.ConcretePresentation;
 import org.malai.properties.Zoomable;
@@ -278,7 +280,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	@Override
 	public void onActionExecuted(final Action a) {
 		if(a instanceof ShapesAction || a instanceof DrawingAction || a instanceof IOAction || a instanceof ShapePropertyAction ||
-			a instanceof ShapeAction) {
+			a instanceof ShapeAction || a instanceof Undo || a instanceof Redo) {
 			update();
 		}
 	}
