@@ -90,6 +90,7 @@ public class Hand extends CanvasInstrument {
 	public void setActivated(final boolean activ) {
 		if(activated != activ) {
 			super.setActivated(activ);
+			canvas.getSelectionBorder().setVisible(activated);
 		}
 	}
 
