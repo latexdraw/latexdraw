@@ -3,7 +3,7 @@ package test.gui;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
@@ -20,7 +20,7 @@ public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomi
 	protected Spinner<Double> distLabelsX;
 	protected Spinner<Double> distLabelsY;
 	protected CheckBox showOrigin;
-	protected AnchorPane mainPane;
+	protected Pane mainPane;
 
 	protected final GUIVoidCommand selectAxeStyle = () -> selectNextComboBoxItem(shapeAxes);
 	protected final GUIVoidCommand selectTicksStyle = () -> selectNextComboBoxItem(shapeTicks);
