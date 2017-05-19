@@ -1,7 +1,7 @@
 package test.gui.robot;
 
 import javafx.scene.control.Spinner;
-
+import javafx.scene.input.KeyCode;
 import org.testfx.api.FxRobotInterface;
 
 /**
@@ -10,11 +10,12 @@ import org.testfx.api.FxRobotInterface;
  */
 public interface FxRobotSpinner extends FxRobotInterface {
 	default <T> void incrementSpinner(final Spinner<T> combo) {
-		// clickOn(combo).type(KeyCode.UP);
 		combo.getValueFactory().increment(1);
+		clickOn(combo).press(KeyCode.ENTER);
 	}
 
 	default <T> void decrementSpinner(final Spinner<T> combo) {
 		combo.getValueFactory().decrement(1);
+		clickOn(combo).press(KeyCode.ENTER);
 	}
 }
