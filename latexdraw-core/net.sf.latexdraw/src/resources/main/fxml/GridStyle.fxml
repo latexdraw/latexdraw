@@ -52,7 +52,7 @@
         </Spinner>
         <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="%ParametersGridFrame.7"/>
         <Spinner fx:id="subGridWidth" GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="25.0" prefWidth="75.0"
-                 min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5"/>
+                 min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5" editable="true"/>
         <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="%ParametersGridFrame.4"/>
         <Spinner fx:id="subGridDots" GridPane.columnIndex="1" GridPane.rowIndex="3" prefHeight="25.0" prefWidth="75.0" editable="true">
             <valueFactory>
@@ -64,9 +64,9 @@
               style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
         <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="%ParametersGridFrame.6"/>
         <Spinner fx:id="gridWidth" GridPane.columnIndex="1" GridPane.rowIndex="0" prefHeight="25.0" prefWidth="75.0"
-                 min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5"/>
+                 min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5" editable="true"/>
         <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%ParametersGridFrame.5"/>
-        <Spinner fx:id="gridDots" GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="25.0" prefWidth="75.0">
+        <Spinner fx:id="gridDots" GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="25.0" prefWidth="75.0" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10000" initialValue="0" amountToStepBy="1"/>
             </valueFactory>
