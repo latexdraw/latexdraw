@@ -44,4 +44,17 @@ class ViewArrowableTrait extends ViewShape<IArrowableShape> {
 			setDisable(true);
 		}
 	}
+
+	void update(final boolean showArrows, final int idArrows) {
+		setVisible(showArrows);
+
+		if(showArrows) {
+			setDisable(false);
+			if(idArrows >= 0 && idArrows < arrows.size()) {
+				arrows.get(idArrows).updatePath();
+			}
+		}else {
+			setDisable(true);
+		}
+	}
 }

@@ -18,7 +18,8 @@ import net.sf.latexdraw.models.interfaces.shape.IPolyline;
  */
 public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 	private final ViewArrowableTrait viewArrows = new ViewArrowableTrait(model);
-	private final ChangeListener<Number> updateArrows = (observable, oldValue, newValue) -> viewArrows.update(true);
+	private final ChangeListener<Number> updateArrow1 = (observable, oldValue, newValue) -> viewArrows.update(true, 0);
+	private final ChangeListener<Number> updateArrow2 = (observable, oldValue, newValue) -> viewArrows.update(true, 1);
 
 	/**
 	 * Creates the view.
@@ -31,18 +32,18 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 		viewArrows.update(true);
 
 		// TODO: to optimise: the arrows may be re-computed four times instead of a single one (on a shape move for example).
-		model.getPtAt(0).xProperty().addListener(updateArrows);
-		model.getPtAt(0).yProperty().addListener(updateArrows);
-		model.getPtAt(-1).xProperty().addListener(updateArrows);
-		model.getPtAt(-1).yProperty().addListener(updateArrows);
+		model.getPtAt(0).xProperty().addListener(updateArrow1);
+		model.getPtAt(0).yProperty().addListener(updateArrow1);
+		model.getPtAt(-1).xProperty().addListener(updateArrow2);
+		model.getPtAt(-1).yProperty().addListener(updateArrow2);
 	}
 
 	@Override
 	public void flush() {
-		model.getPtAt(0).xProperty().removeListener(updateArrows);
-		model.getPtAt(0).yProperty().removeListener(updateArrows);
-		model.getPtAt(-1).xProperty().removeListener(updateArrows);
-		model.getPtAt(-1).yProperty().removeListener(updateArrows);
+		model.getPtAt(0).xProperty().removeListener(updateArrow1);
+		model.getPtAt(0).yProperty().removeListener(updateArrow1);
+		model.getPtAt(-1).xProperty().removeListener(updateArrow2);
+		model.getPtAt(-1).yProperty().removeListener(updateArrow2);
 		super.flush();
 	}
 }
