@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
+import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -59,8 +60,10 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		spinner.setOnScroll(event -> {
 			if(event.getDeltaY() < 0d) {
 				spinner.decrement();
+				spinner.fireEvent(new ActionEvent(spinner, null));
 			}else if(event.getDeltaY() > 0d) {
 				spinner.increment();
+				spinner.fireEvent(new ActionEvent(spinner, null));
 			}
 		});
 
