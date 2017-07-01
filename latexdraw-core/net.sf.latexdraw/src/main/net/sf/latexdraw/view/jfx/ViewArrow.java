@@ -11,6 +11,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Objects;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ClosePath;
@@ -340,96 +341,98 @@ public class ViewArrow extends Group {
 
 
 	public void updatePath() {
-		path.getElements().clear();
-		additionalShapes.getChildren().clear();
+		Platform.runLater(() -> {
+			path.getElements().clear();
+			additionalShapes.getChildren().clear();
 
-		final ILine arrowLine = arrow.getArrowLine();
+			final ILine arrowLine = arrow.getArrowLine();
 
-		if(arrow.getArrowStyle() == ArrowStyle.NONE || arrowLine == null) {
-			return;
-		}
+			if(arrow.getArrowStyle() == ArrowStyle.NONE || arrowLine == null) {
+				return;
+			}
 
-		if(!arrow.hasStyle()) return;
+			if(!arrow.hasStyle()) return;
 
-		final double xRot;
-		final double yRot;
-		final double lineAngle = arrowLine.getLineAngle();
-		final IPoint pt1 = arrowLine.getPoint1();
-		final IPoint pt2 = arrowLine.getPoint2();
-		final double lineB = arrowLine.getB();
-		final double c2x;
-		final double c2y;
-		final double c3x;
-		final double c3y;
+			final double xRot;
+			final double yRot;
+			final double lineAngle = arrowLine.getLineAngle();
+			final IPoint pt1 = arrowLine.getPoint1();
+			final IPoint pt2 = arrowLine.getPoint2();
+			final double lineB = arrowLine.getB();
+			final double c2x;
+			final double c2y;
+			final double c3x;
+			final double c3y;
 
-		if(MathUtils.INST.equalsDouble(Math.abs(lineAngle), Math.PI / 2d)) {
-			final double cx = pt1.getX();
-			final double cy = pt1.getY();
-			xRot = cx;
-			yRot = cy;
-			c2x = Math.cos(lineAngle) * cx - Math.sin(lineAngle) * cy;
-			c2y = Math.sin(lineAngle) * cx + Math.cos(lineAngle) * cy;
-			c3x = Math.cos(-lineAngle) * (cx - c2x) - Math.sin(-lineAngle) * (cy - c2y);
-			c3y = Math.sin(-lineAngle) * (cx - c2x) + Math.cos(-lineAngle) * (cy - c2y);
-		}else {
-			c2x = -Math.sin(lineAngle) * lineB;
-			c2y = Math.cos(lineAngle) * lineB;
-			c3x = Math.cos(-lineAngle) * -c2x - Math.sin(-lineAngle) * (lineB - c2y);
-			c3y = Math.sin(-lineAngle) * -c2x + Math.cos(-lineAngle) * (lineB - c2y);
-			xRot = Math.cos(-lineAngle) * pt1.getX() - Math.sin(-lineAngle) * (pt1.getY() - lineB);
-			yRot = Math.sin(-lineAngle) * pt1.getX() + Math.cos(-lineAngle) * (pt1.getY() - lineB) + lineB;
-		}
+			if(MathUtils.INST.equalsDouble(Math.abs(lineAngle), Math.PI / 2d)) {
+				final double cx = pt1.getX();
+				final double cy = pt1.getY();
+				xRot = cx;
+				yRot = cy;
+				c2x = Math.cos(lineAngle) * cx - Math.sin(lineAngle) * cy;
+				c2y = Math.sin(lineAngle) * cx + Math.cos(lineAngle) * cy;
+				c3x = Math.cos(-lineAngle) * (cx - c2x) - Math.sin(-lineAngle) * (cy - c2y);
+				c3y = Math.sin(-lineAngle) * (cx - c2x) + Math.cos(-lineAngle) * (cy - c2y);
+			}else {
+				c2x = -Math.sin(lineAngle) * lineB;
+				c2y = Math.cos(lineAngle) * lineB;
+				c3x = Math.cos(-lineAngle) * -c2x - Math.sin(-lineAngle) * (lineB - c2y);
+				c3y = Math.sin(-lineAngle) * -c2x + Math.cos(-lineAngle) * (lineB - c2y);
+				xRot = Math.cos(-lineAngle) * pt1.getX() - Math.sin(-lineAngle) * (pt1.getY() - lineB);
+				yRot = Math.sin(-lineAngle) * pt1.getX() + Math.cos(-lineAngle) * (pt1.getY() - lineB) + lineB;
+			}
 
-		switch(arrow.getArrowStyle()) {
-			case BAR_END:
-				updatePathBarEnd(xRot, yRot);
-				break;
-			case BAR_IN:
-				updatePathBarIn(xRot, yRot, pt1, pt2, new double[2], new double[2]);
-				break;
-			case CIRCLE_END:
-			case DISK_END:
-				updatePathDiskCircleEnd(xRot, yRot);
-				break;
-			case CIRCLE_IN:
-			case DISK_IN:
-				updatePathDiskCircleIn(xRot, yRot, pt1, pt2);
-				break;
-			case RIGHT_ARROW:
-			case LEFT_ARROW:
-				updatePathRightLeftArrow(xRot, yRot, pt1, pt2);
-				break;
-			case RIGHT_DBLE_ARROW:
-			case LEFT_DBLE_ARROW:
-				updatePathDoubleLeftRightArrow(xRot, yRot, pt1, pt2);
-				break;
-			case RIGHT_ROUND_BRACKET:
-			case LEFT_ROUND_BRACKET:
-				updatePathRoundLeftRightBracket(xRot, yRot, pt1, pt2);
-				break;
-			case LEFT_SQUARE_BRACKET:
-			case RIGHT_SQUARE_BRACKET:
-				updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2);
-				break;
-			case SQUARE_END:
-			case ROUND_END:
-				updatePathSquareRoundEnd(xRot, yRot, pt1, pt2);
-				break;
-			case ROUND_IN:
-				updatePathRoundIn(xRot, yRot, pt1, pt2);
-				break;
-			case NONE:
-				break;
-		}
+			switch(arrow.getArrowStyle()) {
+				case BAR_END:
+					updatePathBarEnd(xRot, yRot);
+					break;
+				case BAR_IN:
+					updatePathBarIn(xRot, yRot, pt1, pt2, new double[2], new double[2]);
+					break;
+				case CIRCLE_END:
+				case DISK_END:
+					updatePathDiskCircleEnd(xRot, yRot);
+					break;
+				case CIRCLE_IN:
+				case DISK_IN:
+					updatePathDiskCircleIn(xRot, yRot, pt1, pt2);
+					break;
+				case RIGHT_ARROW:
+				case LEFT_ARROW:
+					updatePathRightLeftArrow(xRot, yRot, pt1, pt2);
+					break;
+				case RIGHT_DBLE_ARROW:
+				case LEFT_DBLE_ARROW:
+					updatePathDoubleLeftRightArrow(xRot, yRot, pt1, pt2);
+					break;
+				case RIGHT_ROUND_BRACKET:
+				case LEFT_ROUND_BRACKET:
+					updatePathRoundLeftRightBracket(xRot, yRot, pt1, pt2);
+					break;
+				case LEFT_SQUARE_BRACKET:
+				case RIGHT_SQUARE_BRACKET:
+					updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2);
+					break;
+				case SQUARE_END:
+				case ROUND_END:
+					updatePathSquareRoundEnd(xRot, yRot, pt1, pt2);
+					break;
+				case ROUND_IN:
+					updatePathRoundIn(xRot, yRot, pt1, pt2);
+					break;
+				case NONE:
+					break;
+			}
 
-		if(!MathUtils.INST.equalsDouble(lineAngle % (Math.PI * 2d), 0d)) {
-			path.setRotate(Math.toDegrees(lineAngle));
-//			path.setTranslateX(c3x);
-//			path.setTranslateY(c3y);
-			additionalShapes.setRotate(Math.toDegrees(lineAngle));
-//			additionalShapes.setTranslateX(c3x);
-//			additionalShapes.setTranslateY(c3y);
-		}
+			if(!MathUtils.INST.equalsDouble(lineAngle % (Math.PI * 2d), 0d)) {
+				path.setRotate(Math.toDegrees(lineAngle));
+				//			path.setTranslateX(c3x);
+				//			path.setTranslateY(c3y);
+				additionalShapes.setRotate(Math.toDegrees(lineAngle));
+				//			additionalShapes.setTranslateX(c3x);
+				//			additionalShapes.setTranslateY(c3y);
+			}
+		});
 	}
 
 
