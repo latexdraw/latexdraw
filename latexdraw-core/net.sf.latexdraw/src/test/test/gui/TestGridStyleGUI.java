@@ -3,7 +3,7 @@ package test.gui;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import net.sf.latexdraw.instruments.ShapeGridCustomiser;
 import org.junit.Before;
 
@@ -17,7 +17,7 @@ public abstract class TestGridStyleGUI extends TestShapePropGUI<ShapeGridCustomi
 	protected Spinner<Integer> subGridDiv;
 	protected ToggleButton labelsYInvertedCB;
 	protected ToggleButton labelsXInvertedCB;
-	protected AnchorPane mainPane;
+	protected Pane mainPane;
 
 	protected final GUIVoidCommand pickcolourLabels = () -> pickColour(colourLabels);
 	protected final GUIVoidCommand pickcolourSubGrid = () -> pickColour(colourSubGrid);
