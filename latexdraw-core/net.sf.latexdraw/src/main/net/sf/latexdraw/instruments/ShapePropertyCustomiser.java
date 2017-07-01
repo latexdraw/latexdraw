@@ -80,6 +80,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 					}else {
 						factory.setValue(value);
 					}
+					spinner.fireEvent(new ActionEvent(spinner, null));
 				}
 			}
 			action.consume();
