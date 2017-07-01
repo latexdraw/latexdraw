@@ -10,17 +10,39 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import javafx.beans.value.ChangeListener;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 
 /**
  * @author Arnaud Blouin
  */
 public class ViewPolyline extends ViewPolyPoint<IPolyline> {
+	private final ViewArrowableTrait viewArrows = new ViewArrowableTrait(model);
+	private final ChangeListener<Number> updateArrows = (observable, oldValue, newValue) -> viewArrows.update(true);
+
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
 	ViewPolyline(final IPolyline sh) {
 		super(sh);
+
+		getChildren().add(viewArrows);
+		viewArrows.update(true);
+
+		// TODO: to optimise: the arrows may be re-computed four times instead of a single one (on a shape move for example).
+		model.getPtAt(0).xProperty().addListener(updateArrows);
+		model.getPtAt(0).yProperty().addListener(updateArrows);
+		model.getPtAt(-1).xProperty().addListener(updateArrows);
+		model.getPtAt(-1).yProperty().addListener(updateArrows);
+	}
+
+	@Override
+	public void flush() {
+		model.getPtAt(0).xProperty().removeListener(updateArrows);
+		model.getPtAt(0).yProperty().removeListener(updateArrows);
+		model.getPtAt(-1).xProperty().removeListener(updateArrows);
+		model.getPtAt(-1).yProperty().removeListener(updateArrows);
+		super.flush();
 	}
 }
