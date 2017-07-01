@@ -292,7 +292,13 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		double angle = model.getGradAngle() % (2d * Math.PI);
 		double gradMidPt = model.getGradMidPt();
 
-		if(angle < 0d) angle = 2d * Math.PI + angle;
+		if(tl.equals(br)) {
+			return null;
+		}
+
+		if(angle < 0d) {
+			angle = 2d * Math.PI + angle;
+		}
 
 		if(angle >= Math.PI) {
 			gradMidPt = 1d - gradMidPt;
@@ -321,8 +327,11 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 				pt2 = pt2.rotatePoint(cg, -angle);
 				l = ShapeFactory.INST.createLine(pt1, pt2);
 
-				if(angle >= 0d && angle < Math.PI / 2d) l2 = l.getPerpendicularLine(tl);
-				else l2 = l.getPerpendicularLine(ShapeFactory.INST.createPoint(tl.getX(), br.getY()));
+				if(angle >= 0d && angle < Math.PI / 2d) {
+					l2 = l.getPerpendicularLine(tl);
+				}else {
+					l2 = l.getPerpendicularLine(ShapeFactory.INST.createPoint(tl.getX(), br.getY()));
+				}
 
 				pt1 = l.getIntersection(l2);
 				final double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
@@ -331,7 +340,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 				final IPoint[] pts = l.findPoints(pt1, 2d * distance * gradMidPt);
 				pt2 = pts[0];
 
-				if(gradMidPt < 0.5) pt1 = pt1.rotatePoint(model.getGravityCentre(), Math.PI);
+				if(gradMidPt < 0.5) {
+					pt1 = pt1.rotatePoint(model.getGravityCentre(), Math.PI);
+				}
 			}
 		}
 
