@@ -16,9 +16,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
@@ -27,12 +26,12 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
  */
 interface LGroupArrowable extends IGroup {
 	/** May return the first grid of the group. */
-	default Optional<IArrowableShape> firstIArrowable() {
-		return arrowShapes().stream().filter(sh -> sh.isTypeOf(IArrowableShape.class)).findFirst();
+	default Optional<IArrowableSingleShape> firstIArrowable() {
+		return arrowShapes().stream().filter(sh -> sh.isTypeOf(IArrowableSingleShape.class)).findFirst();
 	}
 
-	default List<IArrowableShape> arrowShapes() {
-		return getShapes().stream().filter(sh -> sh instanceof IArrowableShape).map(sh -> (IArrowableShape) sh).collect(Collectors.toList());
+	default List<IArrowableSingleShape> arrowShapes() {
+		return getShapes().stream().filter(sh -> sh instanceof IArrowableSingleShape).map(sh -> (IArrowableSingleShape) sh).collect(Collectors.toList());
 	}
 
 	@Override
@@ -51,8 +50,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setTBarSizeDim(values.get(i));
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setTBarSizeDim(values.get(i));
 				}
 			});
 		}
@@ -60,7 +59,7 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default List<Double> getTBarSizeDimList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getTBarSizeDim() : Double.NaN).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getTBarSizeDim() : Double.NaN).collect(Collectors.toList());
 	}
 
 	@Override
@@ -69,8 +68,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setTBarSizeNum(values.get(i));
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setTBarSizeNum(values.get(i));
 				}
 			});
 		}
@@ -78,7 +77,7 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default List<Double> getTBarSizeNumList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getTBarSizeNum() : Double.NaN).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getTBarSizeNum() : Double.NaN).collect(Collectors.toList());
 	}
 
 	@Override
@@ -87,8 +86,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setDotSizeNum(values.get(i));
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setDotSizeNum(values.get(i));
 				}
 			});
 		}
@@ -96,7 +95,7 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default List<Double> getDotSizeNumList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getDotSizeNum() : Double.NaN).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getDotSizeNum() : Double.NaN).collect(Collectors.toList());
 	}
 
 	@Override
@@ -105,8 +104,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setDotSizeDim(values.get(i));
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setDotSizeDim(values.get(i));
 				}
 			});
 		}
@@ -114,7 +113,7 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default List<Double> getDotSizeDimList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getDotSizeDim() : Double.NaN).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getDotSizeDim() : Double.NaN).collect(Collectors.toList());
 	}
 
 	@Override
@@ -123,8 +122,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setBracketNum(values.get(i));
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setBracketNum(values.get(i));
 				}
 			});
 		}
@@ -132,7 +131,7 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default List<Double> getBracketNumList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getBracketNum() : Double.NaN).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getBracketNum() : Double.NaN).collect(Collectors.toList());
 	}
 
 	@Override
@@ -141,8 +140,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setRBracketNum(values.get(i));
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setRBracketNum(values.get(i));
 				}
 			});
 		}
@@ -150,7 +149,7 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default List<Double> getRBracketNumList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getRBracketNum() : Double.NaN).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getRBracketNum() : Double.NaN).collect(Collectors.toList());
 	}
 
 	@Override
@@ -159,8 +158,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setArrowSizeNum(values.get(i));
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setArrowSizeNum(values.get(i));
 				}
 			});
 		}
@@ -168,7 +167,7 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default List<Double> getArrowSizeNumList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getArrowSizeNum() : Double.NaN).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getArrowSizeNum() : Double.NaN).collect(Collectors.toList());
 	}
 
 	@Override
@@ -177,8 +176,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setArrowSizeDim(values.get(i));
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setArrowSizeDim(values.get(i));
 				}
 			});
 		}
@@ -186,7 +185,7 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default List<Double> getArrowSizeDimList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getArrowSizeDim() : Double.NaN).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getArrowSizeDim() : Double.NaN).collect(Collectors.toList());
 	}
 
 	@Override
@@ -195,8 +194,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setArrowLength(values.get(i));
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setArrowLength(values.get(i));
 				}
 			});
 		}
@@ -204,7 +203,7 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default List<Double> getArrowLengthList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getArrowLength() : Double.NaN).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getArrowLength() : Double.NaN).collect(Collectors.toList());
 	}
 
 	@Override
@@ -213,8 +212,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setArrowInset(values.get(i));
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setArrowInset(values.get(i));
 				}
 			});
 		}
@@ -222,12 +221,12 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default List<Double> getArrowInsetList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getArrowInset() : Double.NaN).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getArrowInset() : Double.NaN).collect(Collectors.toList());
 	}
 
 	@Override
 	default List<ArrowStyle> getArrowStyleList(final int i) {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableShape ? ((IArrowableShape) sh).getArrowStyle(i) : ArrowStyle.NONE).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getArrowStyle(i) : ArrowStyle.NONE).collect(Collectors.toList());
 	}
 
 	@Override
@@ -236,8 +235,8 @@ interface LGroupArrowable extends IGroup {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableShape) {
-					((IArrowableShape) sh).setArrowStyle(values.get(i), index);
+				if(sh instanceof IArrowableSingleShape) {
+					((IArrowableSingleShape) sh).setArrowStyle(values.get(i), index);
 				}
 			});
 		}
@@ -256,11 +255,6 @@ interface LGroupArrowable extends IGroup {
 	@Override
 	default IArrow getArrowAt(final int position) {
 		return firstIArrowable().map(sh -> sh.getArrowAt(position)).orElse(null);
-	}
-
-	@Override
-	default ILine getArrowLine(final IArrow arrow) {
-		return firstIArrowable().map(arc -> arc.getArrowLine(arrow)).orElse(null);
 	}
 
 	@Override

@@ -20,7 +20,7 @@ import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
@@ -159,7 +159,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 
 	//FIXME scala trait
-	protected static void setSVGArrow(final IArrowableShape shape, final SVGElement parent, final int arrowPos, final boolean isShadow, final SVGDocument doc, final SVGDefsElement defs) {
+	protected static void setSVGArrow(final IArrowableSingleShape shape, final SVGElement parent, final int arrowPos, final boolean isShadow, final SVGDocument doc, final SVGDefsElement defs) {
 		final IArrow arrow = shape.getArrowAt(arrowPos);
 
 		if(arrow.getArrowStyle()!=ArrowStyle.NONE) {

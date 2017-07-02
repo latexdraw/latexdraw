@@ -18,7 +18,7 @@ import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.view.latex.DviPsColors;
@@ -84,8 +84,8 @@ public abstract class PSTShapeView<S extends IShape> {
 	protected StringBuilder getArrowsParametersCode() {
 		StringBuilder code = null;
 
-		if(shape instanceof IArrowableShape) {
-			final IArrowableShape arr = (IArrowableShape) shape;
+		if(shape instanceof IArrowableSingleShape) {
+			final IArrowableSingleShape arr = (IArrowableSingleShape) shape;
 			final ArrowStyle style1 = arr.getArrowStyle(0);
 			final ArrowStyle style2 = arr.getArrowStyle(-1);
 
@@ -138,8 +138,8 @@ public abstract class PSTShapeView<S extends IShape> {
 	protected StringBuilder getArrowsStyleCode() {
 		final StringBuilder code;
 
-		if(shape instanceof IArrowableShape) {
-			final IArrowableShape arr = (IArrowableShape) shape;
+		if(shape instanceof IArrowableSingleShape) {
+			final IArrowableSingleShape arr = (IArrowableSingleShape) shape;
 			final ArrowStyle style1 = arr.getArrowStyle(0);
 			final ArrowStyle style2 = arr.getArrowStyle(-1);
 

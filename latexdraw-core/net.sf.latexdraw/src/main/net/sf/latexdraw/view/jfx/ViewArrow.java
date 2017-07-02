@@ -12,7 +12,9 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Objects;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.Ellipse;
@@ -46,6 +48,8 @@ public class ViewArrow extends Group {
 		additionalShapes = new Group();
 		getChildren().add(path);
 		getChildren().add(additionalShapes);
+
+		path.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 	}
 
 
@@ -180,6 +184,7 @@ public class ViewArrow extends Group {
 		ell.setLayoutX(xRot - arrowRadius + lineWidth / 2d);
 		ell.setLayoutY(yRot - arrowRadius + lineWidth / 2d);
 		additionalShapes.getChildren().add(ell);
+		setStrokeFillDiskCircle(ell);
 	}
 
 
@@ -196,6 +201,21 @@ public class ViewArrow extends Group {
 		ell.setLayoutX(x);
 		ell.setLayoutY(yRot - arrowRadius + lineWidth / 2d);
 		additionalShapes.getChildren().add(ell);
+		setStrokeFillDiskCircle(ell);
+	}
+
+
+	private void setStrokeFillDiskCircle(final Ellipse ell) {
+		if(arrow.getArrowStyle() == ArrowStyle.CIRCLE_IN || arrow.getArrowStyle() == ArrowStyle.CIRCLE_END) {
+			if(arrow.getShape().isFillable()) {
+				ell.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getFillingCol().toJFX(), arrow.getShape().fillingColProperty()));
+			}else {
+				ell.setFill(Color.WHITE);
+			}
+			ell.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
+		}else {
+			ell.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
+		}
 	}
 
 
@@ -270,6 +290,7 @@ public class ViewArrow extends Group {
 		}
 
 		updatePathArrow(x, yRot, x + length, yRot - width / 2., x + length - inset, yRot, x + length, yRot + width / 2d);
+		path.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 	}
 
 
@@ -322,6 +343,7 @@ public class ViewArrow extends Group {
 
 		path.getElements().add(new LineTo(x2, yRot));
 		path.getElements().add(new MoveTo(x2bis, yRot));
+		path.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 	}
 
 
@@ -344,14 +366,11 @@ public class ViewArrow extends Group {
 		Platform.runLater(() -> {
 			path.getElements().clear();
 			additionalShapes.getChildren().clear();
+			path.fillProperty().unbind();
 
 			final ILine arrowLine = arrow.getArrowLine();
 
-			if(arrow.getArrowStyle() == ArrowStyle.NONE || arrowLine == null) {
-				return;
-			}
-
-			if(!arrow.hasStyle()) return;
+			if(arrow.getArrowStyle() == ArrowStyle.NONE || arrowLine == null || !arrow.hasStyle()) return;
 
 			final double xRot;
 			final double yRot;
@@ -426,17 +445,19 @@ public class ViewArrow extends Group {
 
 			if(!MathUtils.INST.equalsDouble(lineAngle % (Math.PI * 2d), 0d)) {
 				path.setRotate(Math.toDegrees(lineAngle));
-				//			path.setTranslateX(c3x);
-				//			path.setTranslateY(c3y);
+				path.setTranslateX(c3x);
+				path.setTranslateY(c3y);
 				additionalShapes.setRotate(Math.toDegrees(lineAngle));
-				//			additionalShapes.setTranslateX(c3x);
-				//			additionalShapes.setTranslateY(c3y);
+				additionalShapes.setTranslateX(c3x);
+				additionalShapes.setTranslateY(c3y);
 			}
 		});
 	}
 
 
 	public void flush() {
+		path.strokeProperty().unbind();
+		path.fillProperty().unbind();
 		getChildren().clear();
 	}
 }

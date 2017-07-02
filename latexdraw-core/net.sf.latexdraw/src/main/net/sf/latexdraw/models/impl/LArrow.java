@@ -13,7 +13,7 @@ package net.sf.latexdraw.models.impl;
 import java.util.Objects;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
@@ -48,7 +48,7 @@ class LArrow implements IArrow {
 	/** The latex parameter rbracket num. */
 	private double rBracketNum;
 	/** The owner of the arrow. */
-	private IArrowableShape owner;
+	private IArrowableSingleShape owner;
 
 	private @Nullable Runnable onChanged;
 
@@ -57,7 +57,7 @@ class LArrow implements IArrow {
 	 * Creates an arrow.
 	 * @param owner The shape that contains the arrow.
 	 */
-	LArrow(final IArrowableShape owner) {
+	LArrow(final IArrowableSingleShape owner) {
 		super();
 		this.owner = Objects.requireNonNull(owner);
 		style = ArrowStyle.NONE;
@@ -79,7 +79,7 @@ class LArrow implements IArrow {
 	 * @param arrow The arrow to copy.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	LArrow(final IArrow arrow, final IArrowableShape owner) {
+	LArrow(final IArrow arrow, final IArrowableSingleShape owner) {
 		this(owner);
 		copy(Objects.requireNonNull(arrow));
 	}
@@ -207,7 +207,7 @@ class LArrow implements IArrow {
 	}
 
 	@Override
-	public IArrowableShape getShape() {
+	public IArrowableSingleShape getShape() {
 		return owner;
 	}
 

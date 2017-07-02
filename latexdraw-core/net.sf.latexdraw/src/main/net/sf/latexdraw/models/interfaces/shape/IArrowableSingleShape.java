@@ -11,19 +11,14 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 /**
- * The API for Bezier curves.
- * @author Arnaud BLOUIN
+ * The API for single shapes that can have arrows.
+ * @author Arnaud Blouin
  */
-public interface IBezierCurve extends IControlPointShape, IArrowableSingleShape {
+public interface IArrowableSingleShape extends ISingleShape, IArrowableShape {
 	/**
-	 * @return the isClosed.
-	 */
-	boolean isClosed();
-
-	/**
-	 * Defines if the shape is closed.
-	 * @param isClosed True: the shape will be closed.
+	 * @param arrow The arrow to analyse.
+	 * @return The line that will be used to place the arrow.
 	 * @since 3.0
 	 */
-	void setIsClosed(final boolean isClosed);
+	ILine getArrowLine(final IArrow arrow);
 }

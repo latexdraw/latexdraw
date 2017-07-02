@@ -11,7 +11,7 @@ import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
@@ -1338,16 +1338,16 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	public void testUndoArrowStyle1() {
 		testDoArrowStyle1();
 		action.undo();
-		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, ((IArrowableShape)g.getShapeAt(0)).getArrowStyle(1));
-		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, ((IArrowableShape)g.getShapeAt(2)).getArrowStyle(1));
+		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, ((IArrowableSingleShape)g.getShapeAt(0)).getArrowStyle(1));
+		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, ((IArrowableSingleShape)g.getShapeAt(2)).getArrowStyle(1));
 	}
 
 	@Test
 	public void testRedoArrowStyle1() {
 		testUndoArrowStyle1();
 		action.redo();
-		assertEquals(ArrowStyle.BAR_IN, ((IArrowableShape)g.getShapeAt(0)).getArrowStyle(1));
-		assertEquals(ArrowStyle.BAR_IN, ((IArrowableShape)g.getShapeAt(2)).getArrowStyle(1));
+		assertEquals(ArrowStyle.BAR_IN, ((IArrowableSingleShape)g.getShapeAt(0)).getArrowStyle(1));
+		assertEquals(ArrowStyle.BAR_IN, ((IArrowableSingleShape)g.getShapeAt(2)).getArrowStyle(1));
 	}
 
 	@Test
@@ -1373,16 +1373,16 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	public void testUndoArrowStyle0() {
 		testDoArrowStyle0();
 		action.undo();
-		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, ((IArrowableShape)g.getShapeAt(0)).getArrowStyle(0));
-		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, ((IArrowableShape)g.getShapeAt(2)).getArrowStyle(0));
+		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, ((IArrowableSingleShape)g.getShapeAt(0)).getArrowStyle(0));
+		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, ((IArrowableSingleShape)g.getShapeAt(2)).getArrowStyle(0));
 	}
 
 	@Test
 	public void testRedoArrowStyle0() {
 		testUndoArrowStyle0();
 		action.redo();
-		assertEquals(ArrowStyle.BAR_IN, ((IArrowableShape)g.getShapeAt(0)).getArrowStyle(0));
-		assertEquals(ArrowStyle.BAR_IN, ((IArrowableShape)g.getShapeAt(2)).getArrowStyle(0));
+		assertEquals(ArrowStyle.BAR_IN, ((IArrowableSingleShape)g.getShapeAt(0)).getArrowStyle(0));
+		assertEquals(ArrowStyle.BAR_IN, ((IArrowableSingleShape)g.getShapeAt(2)).getArrowStyle(0));
 	}
 
 	@Test

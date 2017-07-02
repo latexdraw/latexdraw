@@ -12,17 +12,17 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A (sort of) trait for grouping all the JFX code related to painting arrows of arrowable shape.
  * @author Arnaud Blouin
  */
-class ViewArrowableTrait extends ViewShape<IArrowableShape> {
+class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 	private final List<ViewArrow> arrows;
 
-	ViewArrowableTrait(final @NonNull IArrowableShape sh) {
+	ViewArrowableTrait(final @NonNull IArrowableSingleShape sh) {
 		super(sh);
 		arrows = new ArrayList<>();
 

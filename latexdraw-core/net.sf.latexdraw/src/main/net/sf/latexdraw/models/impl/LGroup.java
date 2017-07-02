@@ -49,7 +49,7 @@ import net.sf.latexdraw.view.latex.DviPsColors;
  * An implemenation of the IGroup interface.
  * @author Arnaud Blouin
  */
-class LGroup implements IShape, LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGroupFreeHand, LGroupLineArc, LGroupGrid,
+class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGroupFreeHand, LGroupLineArc, LGroupGrid,
 	LGroupShape, LGroupStdGrid, LGroupText, LSetShapes, LPlotGroup {
 	/** The set of shapes. */
 	private final ObservableList<IShape> shapes;

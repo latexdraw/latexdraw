@@ -22,7 +22,7 @@ import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.models.interfaces.prop.IScalable;
 import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.models.interfaces.prop.ITextProp;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import org.malai.undo.Undoable;
 
@@ -127,7 +127,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case ARROW_INSET:
 				case ARROW_LENGTH:
 				case ARROW1_STYLE:
-				case ARROW2_STYLE:		return shapes.isTypeOf(IArrowableShape.class);
+				case ARROW2_STYLE:		return shapes.isTypeOf(IArrowableSingleShape.class);
 				case BORDER_POS:		return shapes.isBordersMovable();
 				case COLOUR_FILLING:	return shapes.isFillable();
 				case COLOUR_GRADIENT_END:

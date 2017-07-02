@@ -19,7 +19,7 @@ import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
  * The API for LaTeX axes.
  * @author Arnaud BLOUIN
  */
-public interface IAxes extends IStandardGrid, IAxesProp, IArrowableShape {
+public interface IAxes extends IStandardGrid, IAxesProp, IArrowableSingleShape {
 	DoubleProperty incrementXProperty();
 
 	DoubleProperty incrementYProperty();

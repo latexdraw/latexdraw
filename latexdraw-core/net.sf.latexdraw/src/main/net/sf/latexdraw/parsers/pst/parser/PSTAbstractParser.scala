@@ -119,7 +119,7 @@ trait PSTAbstractParser extends TokenParsers {
 			setShapeGeneralParameters(sh, ctx)
 
 			sh match {
-        case sh1: IArrowableShape => setShapeArrows(sh1, ctx)
+        case sh1: IArrowableSingleShape => setShapeArrows(sh1, ctx)
         case _ =>
       }
 		}
@@ -149,7 +149,7 @@ trait PSTAbstractParser extends TokenParsers {
 	/**
 	 * Sets the arrows' parameters.
 	 */
-	protected def setShapeArrows(sh : IArrowableShape, ctx : PSTContext) {
+	protected def setShapeArrows(sh : IArrowableSingleShape, ctx : PSTContext) {
 		sh.setArrowStyle(ctx.arrowStyle._1, 0)
 		sh.setArrowStyle(ctx.arrowStyle._2, 1)
 		sh.setArrowSizeDim(ctx.arrowSize._1*IShape.PPC)

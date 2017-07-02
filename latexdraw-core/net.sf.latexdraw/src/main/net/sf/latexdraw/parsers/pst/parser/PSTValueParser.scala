@@ -144,7 +144,7 @@ trait PSTValueParser extends PSTNumberParser {
 
 
 
-	def setArrows(sh : IArrowableShape, arrowsRaw : Option[String], invert : Boolean, ctx:PSTContext) {
+	def setArrows(sh : IArrowableSingleShape, arrowsRaw : Option[String], invert : Boolean, ctx:PSTContext) {
 		arrowsRaw match {
 			case Some(value) =>
 				val arrows = parseValueArrows(value)

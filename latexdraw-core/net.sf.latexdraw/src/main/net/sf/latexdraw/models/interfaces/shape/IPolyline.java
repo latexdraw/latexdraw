@@ -14,6 +14,6 @@ package net.sf.latexdraw.models.interfaces.shape;
  * The API for polylines.
  * @author Arnaud BLOUIN
  */
-public interface IPolyline extends IPolygon, IArrowableShape {
+public interface IPolyline extends IPolygon, IArrowableSingleShape {
 	//
 }

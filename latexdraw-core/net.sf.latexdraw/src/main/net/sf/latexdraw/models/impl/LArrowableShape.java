@@ -15,25 +15,25 @@ import java.util.stream.Collectors;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
  * Implementation of IArrowableShape.
  * @author Arnaud Blouin
  */
-interface LArrowableShape extends IArrowableShape {
+interface LArrowableShape extends IArrowableSingleShape {
 	@Override
 	default void copy(final IShape sh) {
 		if(getClass().isInstance(sh)) {
-			final IArrowableShape arr = (IArrowableShape) sh;
+			final IArrowableSingleShape arr = (IArrowableSingleShape) sh;
 			final List<IArrow> arrows = getArrows();
 
 			arrows.clear();
 			arrows.addAll(arr.getArrows().stream().map(arrow -> ShapeFactory.INST.createArrow(arrow, this)).collect(Collectors.toList()));
 		}else {
-			if(sh instanceof IArrowableShape) {
-				final IArrowableShape arr = (IArrowableShape) sh;
+			if(sh instanceof IArrowableSingleShape) {
+				final IArrowableSingleShape arr = (IArrowableSingleShape) sh;
 				setArrowStyle(arr.getArrowStyle(0), 0);
 				setArrowStyle(arr.getArrowStyle(-1), -1);
 				setArrowInset(arr.getArrowInset());

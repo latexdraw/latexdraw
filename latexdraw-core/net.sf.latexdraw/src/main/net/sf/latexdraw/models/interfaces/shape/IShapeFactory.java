@@ -117,14 +117,14 @@ public interface IShapeFactory {
 	 * @return The created arrow.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	IArrow createArrow(IArrow arrow, IArrowableShape owner);
+	IArrow createArrow(IArrow arrow, IArrowableSingleShape owner);
 
 	/**
 	 * Creates an arrow.
 	 * @param owner The shape that contains the arrow.
 	 * @return The created arrow.
 	 */
-	IArrow createArrow(IArrowableShape owner);
+	IArrow createArrow(IArrowableSingleShape owner);
 
 	/**
 	 * Creates axes with default values.

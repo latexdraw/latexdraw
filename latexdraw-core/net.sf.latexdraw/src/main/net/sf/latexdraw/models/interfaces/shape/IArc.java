@@ -18,7 +18,7 @@ import net.sf.latexdraw.models.interfaces.prop.IArcProp;
  * The API for an elliptic arc.
  * @author Arnaud BLOUIN
  */
-public interface IArc extends IPositionShape, IArcProp, IArrowableShape {
+public interface IArc extends IPositionShape, IArcProp, IArrowableSingleShape {
 	/**
 	 * @return The coordinate of the start point of the arc.
 	 * @since 1.9

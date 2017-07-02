@@ -20,7 +20,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -182,12 +182,12 @@ public class LShapeFactory implements IShapeFactory {
 	}
 
 	@Override
-	public IArrow createArrow(final IArrow arrow, final IArrowableShape owner) {
+	public IArrow createArrow(final IArrow arrow, final IArrowableSingleShape owner) {
 		return new LArrow(arrow, owner);
 	}
 
 	@Override
-	public IArrow createArrow(final IArrowableShape owner) {
+	public IArrow createArrow(final IArrowableSingleShape owner) {
 		return new LArrow(owner);
 	}
 
