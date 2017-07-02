@@ -41,7 +41,7 @@
                 </tooltip>
             </Spinner>
             <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.27"/>
-            <Spinner fx:id="arrowLength" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="88.0"
+            <Spinner fx:id="arrowLength" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="88.0" editable="true"
                      min="0.0" max="100.0" initialValue="10.0" amountToStepBy="0.01">
                 <tooltip>
                     <Tooltip text="Set the length of the arrow."/>
