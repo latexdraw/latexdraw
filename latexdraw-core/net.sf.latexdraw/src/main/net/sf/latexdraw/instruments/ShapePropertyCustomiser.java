@@ -198,7 +198,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		@Override
 		public void updateAction() {
 			if(angle) {
-				action.setValue(Math.toRadians((Double) interaction.getWidget().getValue()));
+				action.setValue(Math.toRadians(((Number) interaction.getWidget().getValue()).doubleValue()));
 			}else {
 				action.setValue(interaction.getWidget().getValue());
 			}
@@ -230,7 +230,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		@Override
 		public void updateAction() {
 			if(angle) {
-				action.setValue(Math.toRadians((Double) interaction.getWidget().getValue()));
+				action.setValue(Math.toRadians(((Number) interaction.getWidget().getValue()).doubleValue()));
 			}
 			else {
 				action.setValue(interaction.getWidget().getValue());
