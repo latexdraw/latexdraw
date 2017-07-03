@@ -2099,7 +2099,7 @@ public enum ShapeProperties {
 
 		@Override
 		public boolean isValueValid(final Object obj) {
-			return obj instanceof Integer || obj instanceof Double || obj instanceof Float;
+			return obj instanceof Number;
 		}
 
 		@Override
@@ -2109,15 +2109,17 @@ public enum ShapeProperties {
 
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			if(group!=null && isValueValid(value))
-				group.setDiametre((Double)value);
+			if(group!=null && isValueValid(value)) {
+				group.setDiametre((Double) value);
+			}
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
 		public void setPropertyValueList(final IGroup group, final List<?> values) {
-			if(group!=null)
-				group.setDotSizeList((List<Double>)values);
+			if(group!=null) {
+				group.setDotSizeList((List<Double>) values);
+			}
 		}
 	};
 

@@ -81,7 +81,9 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 			dotCB.getSelectionModel().select(shape.getDotStyle());
 			fillingB.setDisable(!shape.isFillable());
 
-			if(shape.isFillable()) fillingB.setValue(shape.getDotFillingCol().toJFX());
+			if(shape.isFillable()) {
+				fillingB.setValue(shape.getDotFillingCol().toJFX());
+			}
 		}else {
 			setActivated(false);
 		}

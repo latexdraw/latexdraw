@@ -63,6 +63,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 				spinner.fireEvent(new ActionEvent(spinner, null));
 			}else if(event.getDeltaY() > 0d) {
 				spinner.increment();
+				System.out.println("incrementing: " + spinner.getValueFactory().getValue());
 				spinner.fireEvent(new ActionEvent(spinner, null));
 			}
 		});
@@ -191,17 +192,16 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		public void initAction() {
 			action.setProperty(prop);
 			action.setPencil(instrument.pencil);
-			if(angle) {
-				action.setValue(Math.toRadians((Double) interaction.getWidget().getValue()));
-			}
-			else {
-				action.setValue(interaction.getWidget().getValue());
-			}
+			updateAction();
 		}
 
 		@Override
 		public void updateAction() {
-			action.setValue(Math.toRadians((Double) interaction.getWidget().getValue()));
+			if(angle) {
+				action.setValue(Math.toRadians((Double) interaction.getWidget().getValue()));
+			}else {
+				action.setValue(interaction.getWidget().getValue());
+			}
 		}
 
 		@Override
@@ -224,21 +224,17 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		public void initAction() {
 			action.setProperty(prop);
 			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
-			updateActionValue();
+			updateAction();
 		}
 
-		private void updateActionValue() {
+		@Override
+		public void updateAction() {
 			if(angle) {
 				action.setValue(Math.toRadians((Double) interaction.getWidget().getValue()));
 			}
 			else {
 				action.setValue(interaction.getWidget().getValue());
 			}
-		}
-
-		@Override
-		public void updateAction() {
-			updateActionValue();
 		}
 
 		@Override
