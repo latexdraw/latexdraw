@@ -22,6 +22,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.transform.Rotate;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
@@ -233,18 +234,21 @@ public class ViewArrow extends Group {
 	}
 
 
-	private void updatePathSquareRoundEnd(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
-		path.getElements().add(new LineTo(pt1.getX() < pt2.getX() ? xRot + 1d : xRot - 1d, yRot));
-		path.getElements().add(new MoveTo(xRot, yRot));
+	private void updatePathSquareRoundEnd(final IPoint pt1, final IPoint pt2) {
+		final double x = pt1.getX();
+		final double y = pt1.getY();
+		path.getElements().add(new MoveTo(x, y));
+		path.getElements().add(new LineTo(x < pt2.getX() ? x + 1d : x - 1d, y));
 	}
 
 
-	private void updatePathRoundIn(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
+	private void updatePathRoundIn(final IPoint pt1, final IPoint pt2) {
 		final double lineWidth = isArrowInPositiveDirection(pt1, pt2) ? arrow.getShape().getFullThickness() : -arrow.getShape().getFullThickness();
-		final double x = xRot + lineWidth / 2d;
+		final double x = pt1.getX() + lineWidth / 2d;
+		final double y = pt1.getY();
 
-		path.getElements().add(new MoveTo(x, yRot));
-		path.getElements().add(new LineTo(x, yRot));
+		path.getElements().add(new MoveTo(x, y));
+		path.getElements().add(new LineTo(x, y));
 	}
 
 
@@ -261,39 +265,15 @@ public class ViewArrow extends Group {
 		additionalShapes.getChildren().clear();
 		path.fillProperty().unbind();
 		path.strokeWidthProperty().unbind();
+		path.getTransforms().clear();
 
 		final ILine arrowLine = arrow.getArrowLine();
 
 		if(arrow.getArrowStyle() == ArrowStyle.NONE || arrowLine == null || !arrow.hasStyle()) return;
 
-		final double xRot;
-		final double yRot;
 		final double lineAngle = arrowLine.getLineAngle();
 		final IPoint pt1 = arrowLine.getPoint1();
 		final IPoint pt2 = arrowLine.getPoint2();
-		final double lineB = arrowLine.getB();
-		final double c2x;
-		final double c2y;
-		final double c3x;
-		final double c3y;
-
-		if(MathUtils.INST.equalsDouble(Math.abs(lineAngle), Math.PI / 2d) || MathUtils.INST.equalsDouble(Math.abs(lineAngle), 0d)) {
-			final double cx = pt1.getX();
-			final double cy = pt1.getY();
-			xRot = cx;
-			yRot = cy;
-			c2x = Math.cos(lineAngle) * cx - Math.sin(lineAngle) * cy;
-			c2y = Math.sin(lineAngle) * cx + Math.cos(lineAngle) * cy;
-			c3x = Math.cos(-lineAngle) * (cx - c2x) - Math.sin(-lineAngle) * (cy - c2y);
-			c3y = Math.sin(-lineAngle) * (cx - c2x) + Math.cos(-lineAngle) * (cy - c2y);
-		}else {
-			c2x = -Math.sin(lineAngle) * lineB;
-			c2y = Math.cos(lineAngle) * lineB;
-			c3x = Math.cos(-lineAngle) * -c2x - Math.sin(-lineAngle) * (lineB - c2y);
-			c3y = Math.sin(-lineAngle) * -c2x + Math.cos(-lineAngle) * (lineB - c2y);
-			xRot = Math.cos(-lineAngle) * pt1.getX() - Math.sin(-lineAngle) * (pt1.getY() - lineB);
-			yRot = Math.sin(-lineAngle) * pt1.getX() + Math.cos(-lineAngle) * (pt1.getY() - lineB) + lineB;
-		}
 
 		switch(arrow.getArrowStyle()) {
 			case BAR_END:
@@ -328,23 +308,19 @@ public class ViewArrow extends Group {
 				break;
 			case SQUARE_END:
 			case ROUND_END:
-				updatePathSquareRoundEnd(xRot, yRot, pt1, pt2);
+				updatePathSquareRoundEnd(pt1, pt2);
 				break;
 			case ROUND_IN:
-				updatePathRoundIn(xRot, yRot, pt1, pt2);
+				updatePathRoundIn(pt1, pt2);
 				break;
 			case NONE:
 				break;
 		}
 
-//			if(!MathUtils.INST.equalsDouble(lineAngle % (Math.PI * 2d), 0d)) {
-//				path.setRotate(Math.toDegrees(lineAngle));
-//				path.setTranslateX(c3x);
-//				path.setTranslateY(c3y);
-//				additionalShapes.setRotate(Math.toDegrees(lineAngle));
-//				additionalShapes.setTranslateX(c3x);
-//				additionalShapes.setTranslateY(c3y);
-//			}
+		if(!MathUtils.INST.equalsDouble(lineAngle % (Math.PI * 2d), 0d)) {
+			path.getTransforms().add(new Rotate(Math.toDegrees(lineAngle), pt1.getX(), pt1.getY()));
+			additionalShapes.getTransforms().add(new Rotate(Math.toDegrees(lineAngle), pt1.getX(), pt1.getY()));
+		}
 	}
 
 
