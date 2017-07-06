@@ -38,6 +38,7 @@ import javafx.util.Duration;
 import net.sf.latexdraw.actions.DrawingAction;
 import net.sf.latexdraw.actions.ShapeAction;
 import net.sf.latexdraw.actions.ShapesAction;
+import net.sf.latexdraw.actions.shape.MovePoint;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -280,9 +281,9 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	}
 
 	@Override
-	public void onActionExecuted(final Action a) {
-		if(a instanceof ShapesAction || a instanceof DrawingAction || a instanceof IOAction || a instanceof ShapePropertyAction ||
-			a instanceof ShapeAction || a instanceof Undo || a instanceof Redo) {
+	public void onActionExecuted(final Action act) {
+		if(act instanceof ShapesAction || act instanceof DrawingAction || act instanceof IOAction || act instanceof ShapePropertyAction ||
+			act instanceof ShapeAction || act instanceof Undo || act instanceof Redo || act instanceof MovePoint) {
 			update();
 		}
 	}
