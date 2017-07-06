@@ -63,7 +63,6 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 				spinner.fireEvent(new ActionEvent(spinner, null));
 			}else if(event.getDeltaY() > 0d) {
 				spinner.increment();
-				System.out.println("incrementing: " + spinner.getValueFactory().getValue());
 				spinner.fireEvent(new ActionEvent(spinner, null));
 			}
 		});
