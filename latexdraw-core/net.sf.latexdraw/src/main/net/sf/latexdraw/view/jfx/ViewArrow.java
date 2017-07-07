@@ -266,6 +266,7 @@ public class ViewArrow extends Group {
 		path.fillProperty().unbind();
 		path.strokeWidthProperty().unbind();
 		path.getTransforms().clear();
+		additionalShapes.getTransforms().clear();
 
 		final ILine arrowLine = arrow.getArrowLine();
 
