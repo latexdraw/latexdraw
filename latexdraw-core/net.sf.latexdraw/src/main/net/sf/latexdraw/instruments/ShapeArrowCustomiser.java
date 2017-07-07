@@ -97,6 +97,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 		cacheLeft.put(ArrowStyle.LEFT_DBLE_ARROW, new Image("/res/arrowStyles/line.dbleArrow.left.png"));
 		cacheLeft.put(ArrowStyle.RIGHT_DBLE_ARROW, new Image("/res/arrowStyles/line.rdbleArrow.left.png"));
 		cacheLeft.put(ArrowStyle.ROUND_IN, new Image("/res/arrowStyles/line.roundIn.left.png"));
+		cacheLeft.put(ArrowStyle.ROUND_END, new Image("/res/arrowStyles/line.roundEnd.left.png"));
+		cacheLeft.put(ArrowStyle.SQUARE_END, new Image("/res/arrowStyles/lineEnd.left.png"));
 		initComboBox(arrowLeftCB, cacheLeft, ArrowStyle.values());
 
 		Map<ArrowStyle, Image> cacheRight = new HashMap<>();
@@ -116,6 +118,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 		cacheRight.put(ArrowStyle.LEFT_DBLE_ARROW, new Image("/res/arrowStyles/line.dbleArrow.right.png"));
 		cacheRight.put(ArrowStyle.RIGHT_DBLE_ARROW, new Image("/res/arrowStyles/line.rdbleArrow.right.png"));
 		cacheRight.put(ArrowStyle.ROUND_IN, new Image("/res/arrowStyles/line.roundIn.right.png"));
+		cacheRight.put(ArrowStyle.ROUND_END, new Image("/res/arrowStyles/line.roundEnd.right.png"));
+		cacheRight.put(ArrowStyle.SQUARE_END, new Image("/res/arrowStyles/lineEnd.right.png"));
 		initComboBox(arrowRightCB, cacheRight, ArrowStyle.values());
 
 		scrollOnSpinner(arrowInset);
