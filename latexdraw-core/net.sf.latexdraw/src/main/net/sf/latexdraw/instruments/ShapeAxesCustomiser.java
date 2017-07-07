@@ -18,17 +18,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.Pane;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-import org.malai.javafx.binding.SpinnerBinding;
 
 /**
  * This instrument modifies axes properties of shapes or the pencil.
@@ -110,62 +106,63 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 		addBinding(new List4Pencil(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
 		addBinding(new List4Pencil(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
 		addBinding(new List4Pencil(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
-		addBinding(new Spinner2CustomPencilAxes(this));
-		addBinding(new Spinner2CustomSelectedAxes(this));
+
+		addBinding(new Spinner2IncrementLabelsPencil(incrLabelX));
+		addBinding(new Spinner2IncrementLabelsPencil(incrLabelY));
+		addBinding(new Spinner2DistLabelsPencil(distLabelsX));
+		addBinding(new Spinner2DistLabelsPencil(distLabelsY));
+
+		addBinding(new Spinner2IncrementLabelsSelection(incrLabelX));
+		addBinding(new Spinner2IncrementLabelsSelection(incrLabelY));
+		addBinding(new Spinner2DistLabelsSelection(distLabelsX));
+		addBinding(new Spinner2DistLabelsSelection(distLabelsY));
+
+
 		addBinding(new Checkbox4Pencil(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
 		addBinding(new Checkbox4Selection(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
 	}
 
-	private abstract static class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerBinding<A, ShapeAxesCustomiser> {
-		Spinner2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-			super(ins, true, clazzAction, ins.distLabelsX, ins.distLabelsY, ins.incrLabelX, ins.incrLabelY);
+	private class Spinner2IncrementLabelsPencil extends Spinner4Pencil {
+		Spinner2IncrementLabelsPencil(final Spinner<?> widget) throws InstantiationException, IllegalAccessException {
+			super(ShapeAxesCustomiser.this, widget, ShapeProperties.AXES_LABELS_INCR, false);
 		}
 
 		@Override
-		public void initAction() {
-			final Spinner<?> spinner = interaction.getWidget();
-
-			if(spinner == instrument.distLabelsX || spinner == instrument.distLabelsY) {
-				action.setProperty(ShapeProperties.AXES_LABELS_DIST);
-				action.setValue(ShapeFactory.INST.createPoint(instrument.distLabelsX.getValue(), instrument.distLabelsY.getValue()));
-			}else {
-				action.setProperty(ShapeProperties.AXES_LABELS_INCR);
-				action.setValue(ShapeFactory.INST.createPoint(instrument.incrLabelX.getValue(), instrument.incrLabelY.getValue()));
-			}
+		public void updateAction() {
+			action.setValue(ShapeFactory.INST.createPoint(incrLabelX.getValue(), incrLabelY.getValue()));
 		}
 	}
 
-	private static class Spinner2CustomSelectedAxes extends Spinner2CustomAxes<ModifyShapeProperty> {
-		Spinner2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class);
+	private class Spinner2DistLabelsPencil extends Spinner4Pencil {
+		Spinner2DistLabelsPencil(final Spinner<?> widget) throws InstantiationException, IllegalAccessException {
+			super(ShapeAxesCustomiser.this, widget, ShapeProperties.AXES_LABELS_DIST, false);
 		}
 
 		@Override
-		public void initAction() {
-			super.initAction();
-			action.setGroup(instrument.drawing.getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
+		public void updateAction() {
+			action.setValue(ShapeFactory.INST.createPoint(distLabelsX.getValue(), distLabelsY.getValue()));
 		}
 	}
 
-	private static class Spinner2CustomPencilAxes extends Spinner2CustomAxes<ModifyPencilParameter> {
-		Spinner2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class);
+	private class Spinner2IncrementLabelsSelection extends Spinner4Selection {
+		Spinner2IncrementLabelsSelection(final Spinner<?> widget) throws InstantiationException, IllegalAccessException {
+			super(ShapeAxesCustomiser.this, widget, ShapeProperties.AXES_LABELS_INCR, false);
 		}
 
 		@Override
-		public void initAction() {
-			super.initAction();
-			action.setPencil(instrument.pencil);
+		public void updateAction() {
+			action.setValue(ShapeFactory.INST.createPoint(incrLabelX.getValue(), incrLabelY.getValue()));
+		}
+	}
+
+	private class Spinner2DistLabelsSelection extends Spinner4Selection {
+		Spinner2DistLabelsSelection(final Spinner<?> widget) throws InstantiationException, IllegalAccessException {
+			super(ShapeAxesCustomiser.this, widget, ShapeProperties.AXES_LABELS_DIST, false);
 		}
 
 		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
+		public void updateAction() {
+			action.setValue(ShapeFactory.INST.createPoint(distLabelsX.getValue(), distLabelsY.getValue()));
 		}
 	}
 }
