@@ -51,11 +51,11 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 	 */
 	ViewAxes(final IAxes sh) {
 		super(sh);
-		labelUpdate = (o, formerv, newv) -> updatePath(false, false, true, false);
-		labelTicksUpdate = (o, formerv, newv) -> updatePath(false, true, true, false);
-		fullAxesUpdate = (o, formerv, newv) -> updatePath(true, true, true, false);
-		ticksUpdate = (o, formerv, newv) -> updatePath(false, true, false, false);
-		axesUpdate = (o, formerv, newv) -> updatePath(true, false, false, false);
+		labelUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, false, true, false));
+		labelTicksUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, true, true, false));
+		fullAxesUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(true, true, true, false));
+		ticksUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, true, false, false));
+		axesUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(true, false, false, false));
 
 		mainAxes = new Path();
 		pathTicks = new Path();

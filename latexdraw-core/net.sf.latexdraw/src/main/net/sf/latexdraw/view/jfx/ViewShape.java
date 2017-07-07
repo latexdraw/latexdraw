@@ -11,6 +11,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Optional;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -58,5 +59,13 @@ public abstract class ViewShape<S extends IShape> extends Group {
 
 		if(parent != null) return Optional.of((Canvas) parent);
 		return Optional.empty();
+	}
+
+	protected void checkToExecuteOnUIThread(final Runnable cmd) {
+		if(Platform.isFxApplicationThread()) {
+			cmd.run();
+		}else {
+			Platform.runLater(() -> cmd.run());
+		}
 	}
 }
