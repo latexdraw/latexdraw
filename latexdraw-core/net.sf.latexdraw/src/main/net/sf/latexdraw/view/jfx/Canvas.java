@@ -22,6 +22,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener.Change;
@@ -176,22 +177,24 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	private void updateSelectionBorders() {
 		if(selectionBorder.isDisable()) return;
 
-		final ObservableList<IShape> selection = drawing.getSelection().getShapes();
-		if(selection.isEmpty()) {
-			selectionBorder.setVisible(false);
-		}
-		else {
-			final Rectangle2D rec = selection.stream().map(sh -> shapesToViewMap.get(sh)).filter(vi -> vi!=null).map(vi -> {
-				Bounds b = vi.getBoundsInParent();
-				return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
-			}).reduce(Rectangle2D::createUnion).orElse(new Rectangle2D.Double());
+		Platform.runLater(() -> {
+			final ObservableList<IShape> selection = drawing.getSelection().getShapes();
+			if(selection.isEmpty()) {
+				selectionBorder.setVisible(false);
+			}
+			else {
+				final Rectangle2D rec = selection.stream().map(sh -> shapesToViewMap.get(sh)).filter(vi -> vi!=null).map(vi -> {
+					Bounds b = vi.getBoundsInParent();
+					return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
+				}).reduce(Rectangle2D::createUnion).orElse(new Rectangle2D.Double());
 
-			selectionBorder.setLayoutX(rec.getMinX());
-			selectionBorder.setLayoutY(rec.getMinY());
-			selectionBorder.setWidth(rec.getWidth());
-			selectionBorder.setHeight(rec.getHeight());
-			selectionBorder.setVisible(true);
-		}
+				selectionBorder.setLayoutX(rec.getMinX());
+				selectionBorder.setLayoutY(rec.getMinY());
+				selectionBorder.setWidth(rec.getWidth());
+				selectionBorder.setHeight(rec.getHeight());
+				selectionBorder.setVisible(true);
+			}
+		});
 	}
 
 
