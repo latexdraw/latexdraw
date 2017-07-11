@@ -23,6 +23,7 @@ import javafx.util.StringConverter;
 public class LSpinner<T> extends Spinner<T> {
 	public LSpinner() {
 		super();
+		configureSpinner();
 	}
 
 	public LSpinner(@NamedArg("min") int min,
