@@ -11,13 +11,10 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
-import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.util.StringConverter;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
@@ -54,37 +51,6 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	 */
 	ShapePropertyCustomiser() {
 		super();
-	}
-
-	static <T extends Number> void scrollOnSpinner(final Spinner<T> spinner) {
-		spinner.setOnScroll(event -> {
-			if(event.getDeltaY() < 0d) {
-				spinner.decrement();
-				spinner.fireEvent(new ActionEvent(spinner, null));
-			}else if(event.getDeltaY() > 0d) {
-				spinner.increment();
-				spinner.fireEvent(new ActionEvent(spinner, null));
-			}
-		});
-
-		// Workaround to avoid NPE when setting no value in a spinner.
-		// Fixed in Java 9
-		spinner.getEditor().setOnAction(action -> {
-			final SpinnerValueFactory<T> factory = spinner.getValueFactory();
-			if(factory != null) {
-				final StringConverter<T> converter = factory.getConverter();
-				if(converter != null) {
-					final T value = converter.fromString(spinner.getEditor().getText());
-					if(value == null) {
-						spinner.getEditor().setText(converter.toString(factory.getValue()));
-					}else {
-						factory.setValue(value);
-					}
-					spinner.fireEvent(new ActionEvent(spinner, null));
-				}
-			}
-			action.consume();
-		});
 	}
 
 	@Override

@@ -116,9 +116,6 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		unitChoice.getItems().addAll(Arrays.stream(Unit.values()).map(Unit::getLabel).collect(Collectors.toList()));
 		styleList.getItems().addAll(GridStyle.values());
 
-		ShapePropertyCustomiser.scrollOnSpinner(nbRecentFilesField);
-		ShapePropertyCustomiser.scrollOnSpinner(persoGridGapField);
-
 		buttonOpen.setOnAction(evt -> {
 			File file = getFileChooser().showDialog(null);
 			if(file != null) {

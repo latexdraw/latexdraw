@@ -69,8 +69,6 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 		cache.put(DotStyle.SQUARE, new Image("/res/dotStyles/dot.square.png"));
 		cache.put(DotStyle.FSQUARE, new Image("/res/dotStyles/dot.squareF.png"));
 		initComboBox(dotCB, cache, DotStyle.values());
-
-		scrollOnSpinner(dotSizeField);
 	}
 
 	@Override

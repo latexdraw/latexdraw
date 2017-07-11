@@ -82,9 +82,6 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		cacheStyle.put(LineStyle.DASHED, new Image("/res/lineStyles/lineStyle.dashed.png"));
 		cacheStyle.put(LineStyle.DOTTED, new Image("/res/lineStyles/lineStyle.dotted.png"));
 		initComboBox(lineCB, cacheStyle, LineStyle.values());
-
-		scrollOnSpinner(frameArcField);
-		scrollOnSpinner(thicknessField);
 	}
 
 	@Override

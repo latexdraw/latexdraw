@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Double line" xmlns="http://javafx.com/javafx/8"
             fx:controller="net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
@@ -23,11 +27,11 @@
         <ImageView layoutX="14.0" layoutY="67.0">
             <Image url="@/res/gridGap.png"/>
         </ImageView>
-        <Spinner fx:id="dbleSepField" layoutX="38.0" layoutY="65.0" prefHeight="25.0" prefWidth="75.0" editable="true"
-                 min="1.0" max="1000.0" initialValue="5.0" amountToStepBy="1.0">
+        <LSpinner fx:id="dbleSepField" layoutX="38.0" layoutY="65.0" prefHeight="25.0" prefWidth="75.0" editable="true"
+                  min="1.0" max="1000.0" initialValue="5.0" amountToStepBy="1.0">
             <tooltip>
                 <Tooltip text="Set the gap between the double lines."/>
             </tooltip>
-        </Spinner>
+        </LSpinner>
     </AnchorPane>
 </TitledPane>

@@ -34,7 +34,6 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		ShapePropertyCustomiser.scrollOnSpinner(zoom);
 		setZoomable(canvas);
 		setWithKeys(true);
 		setActivated(true);

@@ -121,17 +121,6 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 		cacheRight.put(ArrowStyle.ROUND_END, new Image("/res/arrowStyles/line.roundEnd.right.png"));
 		cacheRight.put(ArrowStyle.SQUARE_END, new Image("/res/arrowStyles/lineEnd.right.png"));
 		initComboBox(arrowRightCB, cacheRight, ArrowStyle.values());
-
-		scrollOnSpinner(arrowInset);
-		scrollOnSpinner(arrowLength);
-		scrollOnSpinner(arrowSizeDim);
-		scrollOnSpinner(arrowSizeNum);
-		scrollOnSpinner(bracketNum);
-		scrollOnSpinner(dotSizeDim);
-		scrollOnSpinner(dotSizeNum);
-		scrollOnSpinner(rbracketNum);
-		scrollOnSpinner(tbarsizeDim);
-		scrollOnSpinner(tbarsizeNum);
 	}
 
 	@Override

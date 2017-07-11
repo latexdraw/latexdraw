@@ -55,8 +55,6 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 		cache.put(FreeHandStyle.LINES, new Image("/res/freehand/line.png"));
 		cache.put(FreeHandStyle.CURVES, new Image("/res/freehand/curve.png"));
 		initComboBox(freeHandType, cache, FreeHandStyle.values());
-
-		scrollOnSpinner(gapPoints);
 	}
 
 	@Override

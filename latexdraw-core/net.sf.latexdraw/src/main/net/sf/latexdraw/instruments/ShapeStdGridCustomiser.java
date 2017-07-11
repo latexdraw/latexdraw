@@ -20,6 +20,7 @@ import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -60,14 +61,6 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 		((DoubleSpinnerValueFactory) yStartS.getValueFactory()).maxProperty().bind(yEndS.valueProperty());
 		((DoubleSpinnerValueFactory) xEndS.getValueFactory()).minProperty().bind(xStartS.valueProperty());
 		((DoubleSpinnerValueFactory) yEndS.getValueFactory()).minProperty().bind(yStartS.valueProperty());
-
-		scrollOnSpinner(yOriginS);
-		scrollOnSpinner(xOriginS);
-		scrollOnSpinner(labelsSizeS);
-		scrollOnSpinner(yEndS);
-		scrollOnSpinner(xEndS);
-		scrollOnSpinner(yStartS);
-		scrollOnSpinner(xStartS);
 	}
 
 	@Override
@@ -109,18 +102,23 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 		addBinding(new Spinner4StdGridHand(yOriginS, ShapeProperties.GRID_ORIGIN));
 	}
 
-	class Spinner4StdGridPencil extends SpinnerBinding<ModifyPencilParameter, ShapeStdGridCustomiser> {
-		final ShapeProperties prop;
 
-		Spinner4StdGridPencil(final Spinner<?> widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
-			super(ShapeStdGridCustomiser.this, true, ModifyPencilParameter.class, widget);
+	private abstract class Spinner4StdGrid<A extends ShapePropertyAction> extends SpinnerBinding<A, ShapeStdGridCustomiser> {
+		protected final ShapeProperties prop;
+
+		Spinner4StdGrid(final Spinner<?> widget, final ShapeProperties property, final Class<A> classAction) throws InstantiationException, IllegalAccessException {
+			super(ShapeStdGridCustomiser.this, false, classAction, widget);
 			prop = property;
 		}
 
 		@Override
 		public void initAction() {
 			action.setProperty(prop);
-			action.setPencil(instrument.pencil);
+			updateAction();
+		}
+
+		@Override
+		public void updateAction() {
 			if(prop == ShapeProperties.GRID_END) {
 				action.setValue(ShapeFactory.INST.createPoint(xEndS.getValue(), yEndS.getValue()));
 			}
@@ -132,6 +130,19 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 					action.setValue(ShapeFactory.INST.createPoint(xOriginS.getValue(), yOriginS.getValue()));
 				}
 			}
+		}
+	}
+
+
+	class Spinner4StdGridPencil extends Spinner4StdGrid<ModifyPencilParameter> {
+		Spinner4StdGridPencil(final Spinner<?> widget, final ShapeProperties property) throws InstantiationException, IllegalAccessException {
+			super(widget, property, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setPencil(instrument.pencil);
 		}
 
 		@Override
@@ -140,29 +151,15 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 		}
 	}
 
-	class Spinner4StdGridHand extends SpinnerBinding<ModifyShapeProperty, ShapeStdGridCustomiser> {
-		final ShapeProperties prop;
-
+	class Spinner4StdGridHand extends Spinner4StdGrid<ModifyShapeProperty> {
 		Spinner4StdGridHand(final Spinner<?> widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
-			super(ShapeStdGridCustomiser.this, true, ModifyShapeProperty.class, widget);
-			prop = property;
+			super(widget, property, ModifyShapeProperty.class);
 		}
 
 		@Override
 		public void initAction() {
-			action.setProperty(prop);
+			super.initAction();
 			action.setGroup(instrument.drawing.getSelection().duplicateDeep(false));
-			if(prop == ShapeProperties.GRID_END) {
-				action.setValue(ShapeFactory.INST.createPoint(xEndS.getValue(), yEndS.getValue()));
-			}
-			else {
-				if(prop == ShapeProperties.GRID_START) {
-					action.setValue(ShapeFactory.INST.createPoint(xStartS.getValue(), yStartS.getValue()));
-				}
-				else {
-					action.setValue(ShapeFactory.INST.createPoint(xOriginS.getValue(), yOriginS.getValue()));
-				}
-			}
 		}
 
 		@Override

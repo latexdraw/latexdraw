@@ -59,7 +59,6 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		ShapePropertyCustomiser.scrollOnSpinner(scaleField);
 		positionCB.getItems().addAll(VerticalPosition.values());
 		setActivated(true);
 	}
