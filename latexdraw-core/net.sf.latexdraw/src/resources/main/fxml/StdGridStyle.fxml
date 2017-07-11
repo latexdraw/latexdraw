@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 <?import net.sf.latexdraw.view.jfx.LSpinner?>
-<?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Grid/Axe" xmlns="http://javafx.com/javafx/8"
             fx:controller="net.sf.latexdraw.instruments.ShapeStdGridCustomiser" alignment="TOP_LEFT" expanded="false">
     <VBox spacing="10">
