@@ -1,5 +1,5 @@
 ************************************************************
-Version 3.3.6
+Version 3.3.6 -- 2017/07/12
 
 - fixed: the tooltip that shows LaTeX compilation errors while putting the cursor over a text shape may freeze the application.
  Moreover, the displayed message was not correct.
