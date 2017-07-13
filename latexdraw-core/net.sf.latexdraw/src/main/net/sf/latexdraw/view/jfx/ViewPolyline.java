@@ -27,15 +27,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 	private final ViewArrowableTrait viewArrows = new ViewArrowableTrait(model);
 
-	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> {
-		viewArrows.update(true);
-
-		if(viewArrows.arrows.stream().anyMatch(ar -> ar.arrow.hasStyle())) {
-			clipPath(border);
-		}else {
-			border.setClip(null);
-		}
-	};
+	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> update();
 
 	/**
 	 * Creates the view.
@@ -45,13 +37,25 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 		super(sh);
 
 		getChildren().add(viewArrows);
-		viewArrows.update(true);
 
 		// TODO: to optimise: the arrows may be re-computed four times instead of a single one (on a shape move for example).
 		model.getPtAt(0).xProperty().addListener(updateArrow);
 		model.getPtAt(0).yProperty().addListener(updateArrow);
 		model.getPtAt(-1).xProperty().addListener(updateArrow);
 		model.getPtAt(-1).yProperty().addListener(updateArrow);
+
+		update();
+	}
+
+
+	private void update() {
+		viewArrows.update(true);
+
+		if(viewArrows.arrows.stream().anyMatch(ar -> ar.arrow.hasStyle())) {
+			clipPath(border);
+		}else {
+			border.setClip(null);
+		}
 	}
 
 
