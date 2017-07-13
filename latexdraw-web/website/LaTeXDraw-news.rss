@@ -16,6 +16,17 @@
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
   <item>
+    <title>LaTeXDraw 3.3.6 -- Bugs fixed</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Fri, 12 jul 2017 02:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS56</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS56</link>
+    <description>Another bugfix release. This may be the last release before a first public beta release of the 4.0 version.
+This 4.0 version will be a huge release (new design, new user interfaces, better performance) and will allow the support of new major LaTeX features in a near future.
+Give an eye to the release note for more details regarding the bugs fixed.</description>
+  </item>
+
+  <item>
     <title>LaTeXDraw 3.3.5 -- Bugs fixed</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Fri, 30 dec 2016 09:00:00 GMT</pubDate>
