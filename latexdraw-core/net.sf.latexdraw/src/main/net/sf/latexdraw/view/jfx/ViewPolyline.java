@@ -10,7 +10,15 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.util.Arrays;
+import java.util.Optional;
 import javafx.beans.value.ChangeListener;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import net.sf.latexdraw.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.models.interfaces.shape.ILine;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 
 /**
@@ -18,7 +26,16 @@ import net.sf.latexdraw.models.interfaces.shape.IPolyline;
  */
 public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 	private final ViewArrowableTrait viewArrows = new ViewArrowableTrait(model);
-	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> viewArrows.update(true);
+
+	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> {
+		viewArrows.update(true);
+
+		if(viewArrows.arrows.stream().anyMatch(ar -> ar.arrow.hasStyle())) {
+			clipPath(border);
+		}else {
+			border.setClip(null);
+		}
+	};
 
 	/**
 	 * Creates the view.
@@ -36,6 +53,47 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 		model.getPtAt(-1).xProperty().addListener(updateArrow);
 		model.getPtAt(-1).yProperty().addListener(updateArrow);
 	}
+
+
+	private Optional<IPoint> getArrowReducedPoint(final IArrow arrow) {
+		final ILine l = arrow.getArrowLine();
+		return Arrays.stream(l.findPoints(l.getX1(), l.getY1(), arrow.getArrowShapeLength())).
+			reduce((p1, p2) -> p1.distance(l.getPoint2()) < p2.distance(l.getPoint2()) ? p1 : p2);
+	}
+
+
+	/**
+	 * If the shape has an arrow, the corresponding point must be move (in fact clipped) to the beginning of the arrow to avoid the
+	 * line to be visible behind the arrow. To do so, a new point (for each arrow) is computed and the view is clipped.
+	 * @param path The path to clip. Cannot be null.
+	 * @throws NullPointerException if the given path is null.
+	 */
+	private void clipPath(final Path path) {
+		final Path clip = ViewFactory.INSTANCE.clonePath(path);
+
+		if(!clip.getElements().isEmpty()) { // Defensive programming
+			final Optional<IPoint> pt1 = getArrowReducedPoint(viewArrows.arrows.get(0).arrow);
+			final Optional<IPoint> pt2 = getArrowReducedPoint(viewArrows.arrows.get(viewArrows.arrows.size() - 1).arrow);
+
+			if(pt1.isPresent() && clip.getElements().get(0) instanceof MoveTo) { // Defensive programming
+				// Changing the first point to the one at the beginning of the arrow.
+				final MoveTo moveTo = (MoveTo) clip.getElements().get(0);
+				moveTo.setX(pt1.get().getX());
+				moveTo.setY(pt1.get().getY());
+			}
+
+			if(pt2.isPresent() && clip.getElements().get(clip.getElements().size()-1) instanceof LineTo) {
+				final LineTo lineTo = (LineTo) clip.getElements().get(clip.getElements().size()-1);
+				lineTo.setX(pt2.get().getX());
+				lineTo.setY(pt2.get().getY());
+			}
+		}
+
+		clip.setStrokeWidth(path.getStrokeWidth());
+		clip.setStrokeLineCap(path.getStrokeLineCap());
+		path.setClip(clip);
+	}
+
 
 	@Override
 	public void flush() {

@@ -20,7 +20,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Arnaud Blouin
  */
 class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
-	private final List<ViewArrow> arrows;
+	protected final List<ViewArrow> arrows;
 
 	ViewArrowableTrait(final @NonNull IArrowableSingleShape sh) {
 		super(sh);

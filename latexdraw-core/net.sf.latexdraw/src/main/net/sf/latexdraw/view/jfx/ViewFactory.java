@@ -11,10 +11,12 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
@@ -98,6 +100,22 @@ public final class ViewFactory {
 			cct.controlY1Property().unbind();
 			cct.controlY2Property().unbind();
 		}
+	}
+
+	Optional<PathElement> createPathElement(final PathElement elt) {
+		if(elt instanceof LineTo) return Optional.of(createLineTo(((LineTo)elt).getX(), ((LineTo)elt).getY()));
+		if(elt instanceof MoveTo) return Optional.of(createMoveTo(((MoveTo)elt).getX(), ((MoveTo)elt).getY()));
+		if(elt instanceof ClosePath) return Optional.of(createClosePath());
+		if(elt instanceof CubicCurveTo) {
+			final CubicCurveTo curve = (CubicCurveTo) elt;
+			return Optional.of(createCubicCurveTo(curve.getControlX1(), curve.getControlY1(), curve.getControlX2(), curve.getControlY2(), curve.getX(), curve.getY()));
+		}
+		return Optional.empty();
+	}
+
+	Path clonePath(final Path path) {
+		return new Path(path.getElements().stream().map(elt -> ViewFactory.INSTANCE.createPathElement(elt).orElse(null)).
+			filter(elt -> elt != null).collect(Collectors.toList()));
 	}
 
 	public LineTo createLineTo(final double x, final double y) {
