@@ -43,7 +43,7 @@ public class SVGPatternElement extends SVGElement {
 
 	@Override
 	public boolean checkAttributes() {
-		return !(getWidth()<0. || getHeight()<0.);
+		return true;
 	}
 
 
