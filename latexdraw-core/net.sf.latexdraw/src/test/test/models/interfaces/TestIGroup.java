@@ -1,17 +1,30 @@
 package test.models.interfaces;
 
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
+import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
+import net.sf.latexdraw.view.latex.DviPsColors;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.*;
-import net.sf.latexdraw.view.latex.DviPsColors;
 
 public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Test
@@ -243,7 +256,18 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testDuplicate() {
-		// TODO
+		shape2 = shape.duplicate();
+		assertNotNull(shape2);
+	}
+
+	@Test
+	public void testDuplicateArrow() {
+		shape.addShape(ShapeFactory.INST.createPolyline());
+		shape.setArrowStyle(ArrowStyle.BAR_END, 0);
+		shape.setArrowStyle(ArrowStyle.CIRCLE_END, 1);
+		shape2 = shape.duplicate();
+		assertEquals(ArrowStyle.BAR_END, shape2.getArrowStyle(0));
+		assertEquals(ArrowStyle.CIRCLE_END, shape2.getArrowStyle(1));
 	}
 
 	private IRectangle setRectangle(double x, double y, double w, double h) {

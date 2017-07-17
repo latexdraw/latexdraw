@@ -11,10 +11,9 @@
 package net.sf.latexdraw.models.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
@@ -25,28 +24,26 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 interface LArrowableShape extends IArrowableSingleShape {
 	@Override
 	default void copy(final IShape sh) {
-		if(getClass().isInstance(sh)) {
-			final IArrowableSingleShape arr = (IArrowableSingleShape) sh;
-			final List<IArrow> arrows = getArrows();
+		if(sh instanceof IArrowableShape) {
+			final IArrowableShape arr = (IArrowableShape) sh;
+			int i = 0;
+			final int nbArrowsArr = arr.getNbArrows();
+			final int nbArrows = getNbArrows();
 
-			arrows.clear();
-			arrows.addAll(arr.getArrows().stream().map(arrow -> ShapeFactory.INST.createArrow(arrow, this)).collect(Collectors.toList()));
-		}else {
-			if(sh instanceof IArrowableSingleShape) {
-				final IArrowableSingleShape arr = (IArrowableSingleShape) sh;
-				setArrowStyle(arr.getArrowStyle(0), 0);
-				setArrowStyle(arr.getArrowStyle(-1), -1);
-				setArrowInset(arr.getArrowInset());
-				setArrowLength(arr.getArrowLength());
-				setArrowSizeDim(arr.getArrowSizeDim());
-				setArrowSizeNum(arr.getArrowSizeNum());
-				setDotSizeDim(arr.getDotSizeDim());
-				setDotSizeNum(arr.getDotSizeNum());
-				setBracketNum(arr.getBracketNum());
-				setRBracketNum(arr.getRBracketNum());
-				setTBarSizeDim(arr.getTBarSizeDim());
-				setTBarSizeNum(arr.getTBarSizeNum());
+			while(i < nbArrows && i < nbArrowsArr) {
+				setArrowStyle(arr.getArrowStyle(i), i);
+				i++;
 			}
+			setArrowInset(arr.getArrowInset());
+			setArrowLength(arr.getArrowLength());
+			setArrowSizeDim(arr.getArrowSizeDim());
+			setArrowSizeNum(arr.getArrowSizeNum());
+			setDotSizeDim(arr.getDotSizeDim());
+			setDotSizeNum(arr.getDotSizeNum());
+			setBracketNum(arr.getBracketNum());
+			setRBracketNum(arr.getRBracketNum());
+			setTBarSizeDim(arr.getTBarSizeDim());
+			setTBarSizeNum(arr.getTBarSizeNum());
 		}
 	}
 
