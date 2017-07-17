@@ -219,12 +219,12 @@ interface LGroupShape extends IGroup {
 
 	@Override
 	default void setLineColour(final Color lineColour) {
-		getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> sh.setLineColour(lineColour));
+		getShapes().forEach(sh -> sh.setLineColour(lineColour));
 	}
 
 	@Override
 	default void setDbleBordCol(final Color colour) {
-		getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> sh.setDbleBordCol(colour));
+		getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> sh.setDbleBordCol(colour));
 	}
 
 	@Override

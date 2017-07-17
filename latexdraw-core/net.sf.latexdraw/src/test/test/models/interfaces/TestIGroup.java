@@ -847,7 +847,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		init4setFill();
 		shape.setRotationAngle(1);
 		assertEquals(1d, shape.getRotationAngle(), 0d);
-		shape.getShapes().stream().forEach(sh -> assertEquals(1d, sh.getRotationAngle(), 0d));
+		shape.getShapes().forEach(sh -> assertEquals(1d, sh.getRotationAngle(), 0d));
 	}
 
 	@Override
@@ -973,7 +973,16 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		init4setFill();
 		shape.setLineColour(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getLineColour().toAWT());
-		shape.getShapes().stream().forEach(sh -> assertEquals(java.awt.Color.RED, sh.getLineColour().toAWT()));
+		shape.getShapes().forEach(sh -> assertEquals(java.awt.Color.RED, sh.getLineColour().toAWT()));
+	}
+
+	@Test
+	public void testSetGetLineColourWithDot() {
+		init4setFill();
+		shape.addShape(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
+		shape.setLineColour(DviPsColors.RED);
+		assertEquals(java.awt.Color.RED, shape.getLineColour().toAWT());
+		shape.getShapes().forEach(sh -> assertEquals(java.awt.Color.RED, sh.getLineColour().toAWT()));
 	}
 
 	@Override
