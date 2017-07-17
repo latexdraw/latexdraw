@@ -1594,20 +1594,22 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.<Color>emptyList() : group.getLineColourList();
+			return group == null ? Collections.<Color>emptyList() : group.getLineColourList();
 		}
 
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			if(group!=null && isValueValid(value))
-				group.setLineColour((Color)value);
+			if(group != null && isValueValid(value)) {
+				group.setLineColour((Color) value);
+			}
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
 		public void setPropertyValueList(final IGroup group, final List<?> values) {
-			if(group!=null)
-				group.setLineColourList((List<Color>)values);
+			if(group != null) {
+				group.setLineColourList((List<Color>) values);
+			}
 		}
 	},
 	/** Modification of the colour of the hatchings of a shape. */
