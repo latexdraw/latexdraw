@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -61,19 +61,19 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	LAxes(final IPoint pt) {
 		super(pt);
-		arrows = new ArrayList<>(4);
-		// The first arrow is for the bottom of the Y-axis.
-		arrows.add(ShapeFactory.INST.createArrow(this));
-		// The second arrow is for the left of the X-axis.
-		arrows.add(ShapeFactory.INST.createArrow(this));
-		// The third arrow is for the top of the Y-axis.
-		arrows.add(ShapeFactory.INST.createArrow(this));
-		// The fourth arrow is for the right of the X-axis.
-		arrows.add(ShapeFactory.INST.createArrow(this));
+		arrows = Arrays.asList(
+			// The left arrow of the X-axis.
+			ShapeFactory.INST.createArrow(this),
+			// The bottom arrow of the Y-axis.
+			ShapeFactory.INST.createArrow(this),
+			// The right arrow of the X-axis.
+			ShapeFactory.INST.createArrow(this),
+			// The top arrow of the Y-axis.
+			ShapeFactory.INST.createArrow(this));
 		incrementX = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DX);
 		incrementY = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_DY);
-		distLabelsX = new SimpleDoubleProperty(1.0);
-		distLabelsY = new SimpleDoubleProperty(1.0);
+		distLabelsX = new SimpleDoubleProperty(1d);
+		distLabelsY = new SimpleDoubleProperty(1d);
 		labelsDisplayed = new SimpleObjectProperty<>(PlottingStyle.ALL);
 		showOrigin = new SimpleBooleanProperty(true);
 		ticksDisplayed = new SimpleObjectProperty<>(PlottingStyle.ALL);
@@ -104,24 +104,23 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	}
 
 	@Override
-	public void setArrowStyle(ArrowStyle style, final int position) {
-		final IArrow arr1 = getArrowAt(position);
+	public void setArrowStyle(final ArrowStyle style, final int position) {
+		final int pos = position == -1 ? arrows.size() - 1 : position;
 
-		if(style != null && arr1 != null) {
+		if(style != null && position < 4 && position >=0) {
 			LArrowableShape.super.setArrowStyle(style, position);
-			final int pos = (position == -1 ? arrows.size() - 1 : position) % 4;
 			switch(pos) {
 				case 0:
-					arrows.get(1).setArrowStyle(style);
+					arrows.get(2).setArrowStyle(style);
 					break;
 				case 1:
-					arrows.get(0).setArrowStyle(style);
-					break;
-				case 2:
 					arrows.get(3).setArrowStyle(style);
 					break;
+				case 2:
+					arrows.get(0).setArrowStyle(style);
+					break;
 				case 3:
-					arrows.get(2).setArrowStyle(style);
+					arrows.get(1).setArrowStyle(style);
 					break;
 			}
 		}
@@ -219,21 +218,21 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public void setDistLabelsX(final double distX) {
-		if(distX > 0.0 && MathUtils.INST.isValidCoord(distX)) {
+		if(distX > 0d && MathUtils.INST.isValidCoord(distX)) {
 			distLabelsX.set(distX);
 		}
 	}
 
 	@Override
 	public void setDistLabelsY(final double distY) {
-		if(distY > 0.0 && MathUtils.INST.isValidCoord(distY)) {
+		if(distY > 0d && MathUtils.INST.isValidCoord(distY)) {
 			distLabelsY.set(distY);
 		}
 	}
 
 	@Override
 	public void setIncrementX(final double incr) {
-		if(incr > 0.0 && MathUtils.INST.isValidCoord(incr)) {
+		if(incr > 0d && MathUtils.INST.isValidCoord(incr)) {
 			incrementX.set(incr);
 		}
 	}
@@ -241,7 +240,7 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public void setIncrementY(final double incr) {
-		if(incr > 0.0 && MathUtils.INST.isValidCoord(incr)) {
+		if(incr > 0d && MathUtils.INST.isValidCoord(incr)) {
 			incrementY.set(incr);
 		}
 	}
@@ -267,7 +266,7 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 
 	@Override
 	public void setTicksSize(final double ticks) {
-		if(ticks > 0.0 && MathUtils.INST.isValidCoord(ticks)) {
+		if(ticks > 0d && MathUtils.INST.isValidCoord(ticks)) {
 			ticksSize.set(ticks);
 		}
 	}

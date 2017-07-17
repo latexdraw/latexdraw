@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -29,9 +29,7 @@ class LPolyline extends LPolygon implements IPolyline, LArrowableShape {
 
 	LPolyline() {
 		super();
-		arrows = new ArrayList<>();
-		arrows.add(ShapeFactory.INST.createArrow(this));
-		arrows.add(ShapeFactory.INST.createArrow(this));
+		arrows = Arrays.asList(ShapeFactory.INST.createArrow(this), ShapeFactory.INST.createArrow(this));
 	}
 
 	LPolyline(final IPoint point, final IPoint point2) {
