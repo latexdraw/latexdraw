@@ -34,10 +34,10 @@ import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
  */
 public class ModifyPencilParameter extends ShapePropertyAction {
 	/** The pencil to modify. */
-	protected Pencil pencil;
+	private Pencil pencil;
 
 
-    @Override
+	@Override
 	public void flush() {
 		super.flush();
 		pencil = null;
@@ -46,13 +46,13 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && pencil!=null;
+		return super.canDo() && pencil != null;
 	}
 
 
 	@Override
 	protected boolean isPropertySupported() {
-		return super.isPropertySupported() && property!=ShapeProperties.TEXT;
+		return super.isPropertySupported() && property != ShapeProperties.TEXT;
 	}
 
 
@@ -66,7 +66,6 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 	/**
 	 * Defines the pencil to modify.
 	 * @param pen The pencil to modify.
-	 * @since 3.0
 	 */
 	public void setPencil(final Pencil pen) {
 		pencil = pen;
@@ -104,7 +103,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 				pencil.getGroupParams().setHasDbleBord((Boolean) value);
 				break;
 			case DOT_FILLING_COL:
-				pencil.getGroupParams().setDotFillingCol((Color)value);
+				pencil.getGroupParams().setDotFillingCol((Color) value);
 				break;
 			case DOT_SIZE:
 				pencil.getGroupParams().setDiametre((Double) value);
@@ -125,88 +124,180 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 				pencil.getGroupParams().setHasShadow((Boolean) value);
 				break;
 			case ROUND_CORNER_VALUE:
-				pencil.getGroupParams().setLineArc((Double)value);
+				pencil.getGroupParams().setLineArc((Double) value);
 				break;
 			case DBLE_BORDERS_SIZE:
-				pencil.getGroupParams().setDbleBordSep((Double)value);
+				pencil.getGroupParams().setDbleBordSep((Double) value);
 				break;
 			case SHADOW_ANGLE:
-				pencil.getGroupParams().setShadowAngle((Double)value);
+				pencil.getGroupParams().setShadowAngle((Double) value);
 				break;
 			case SHADOW_SIZE:
-				pencil.getGroupParams().setShadowSize((Double)value);
+				pencil.getGroupParams().setShadowSize((Double) value);
 				break;
 			case GRAD_ANGLE:
-				pencil.getGroupParams().setGradAngle((Double)value);
+				pencil.getGroupParams().setGradAngle((Double) value);
 				break;
 			case GRAD_MID_POINT:
-				pencil.getGroupParams().setGradMidPt((Double)value);
+				pencil.getGroupParams().setGradMidPt((Double) value);
 				break;
 			case HATCHINGS_ANGLE:
-				pencil.getGroupParams().setHatchingsAngle((Double)value);
+				pencil.getGroupParams().setHatchingsAngle((Double) value);
 				break;
 			case HATCHINGS_SEP:
-				pencil.getGroupParams().setHatchingsSep((Double)value);
+				pencil.getGroupParams().setHatchingsSep((Double) value);
 				break;
 			case HATCHINGS_WIDTH:
-				pencil.getGroupParams().setHatchingsWidth((Double)value);
+				pencil.getGroupParams().setHatchingsWidth((Double) value);
 				break;
 			case TEXT_POSITION:
-				pencil.getGroupParams().setTextPosition((TextPosition)value);
+				pencil.getGroupParams().setTextPosition((TextPosition) value);
 				break;
 			case ARROW1_STYLE:
-				pencil.getGroupParams().setArrowStyle((ArrowStyle)value, 0);
+				pencil.getGroupParams().setArrowStyle((ArrowStyle) value, 0);
 				break;
-			case ARROW2_STYLE: pencil.getGroupParams().setArrowStyle((ArrowStyle)value, -1); break;
+			case ARROW2_STYLE:
+				pencil.getGroupParams().setArrowStyle((ArrowStyle) value, -1);
+				break;
 			case TEXT:
 				// The pencil does not set text values.
 				break;
-			case ARC_END_ANGLE	: pencil.getGroupParams().setAngleEnd((Double)value); 	break;
-			case ARC_START_ANGLE: pencil.getGroupParams().setAngleStart((Double)value);	break;
-			case ARC_STYLE		: pencil.getGroupParams().setArcStyle((ArcStyle)value);		break;
-			case GRID_START: pencil.getGroupParams().setGridStart(((IPoint)value).getX(), ((IPoint)value).getY()); break;
-			case GRID_END: pencil.getGroupParams().setGridEnd(((IPoint)value).getX(), ((IPoint)value).getY()); break;
-			case GRID_LABEL_POSITION_Y: pencil.getGroupParams().setXLabelSouth((Boolean)value); break;
-			case GRID_LABEL_POSITION_X: pencil.getGroupParams().setYLabelWest((Boolean)value); break;
-			case ARROW_INSET: pencil.getGroupParams().setArrowInset((Double)value); break;
-			case ARROW_LENGTH: pencil.getGroupParams().setArrowLength((Double)value); break;
-			case ARROW_BRACKET_NUM: pencil.getGroupParams().setBracketNum((Double)value); break;
-			case ARROW_DOT_SIZE_DIM: pencil.getGroupParams().setDotSizeDim((Double)value); break;
-			case ARROW_DOT_SIZE_NUM: pencil.getGroupParams().setDotSizeNum((Double)value); break;
-			case ARROW_R_BRACKET_NUM: pencil.getGroupParams().setRBracketNum((Double)value); break;
-			case ARROW_SIZE_DIM: pencil.getGroupParams().setArrowSizeDim((Double)value); break;
-			case ARROW_SIZE_NUM: pencil.getGroupParams().setArrowSizeNum((Double)value); break;
-			case ARROW_T_BAR_SIZE_DIM: pencil.getGroupParams().setTBarSizeDim((Double)value); break;
-			case ARROW_T_BAR_SIZE_NUM: pencil.getGroupParams().setTBarSizeNum((Double)value); break;
-			case GRID_SIZE_LABEL: pencil.getGroupParams().setLabelsSize((Integer)value); break;
-			case GRID_ORIGIN: pencil.getGroupParams().setOrigin(((IPoint)value).getX(), ((IPoint)value).getY()); break;
-			case AXES_STYLE: pencil.getGroupParams().setAxesStyle((AxesStyle)value); break;
-			case AXES_TICKS_STYLE: pencil.getGroupParams().setTicksStyle((TicksStyle)value); break;
-//			case AXES_TICKS_SIZE: pencil.getGroupParams().setTicksSize((Double)value); break;
-			case AXES_TICKS_SHOW: pencil.getGroupParams().setTicksDisplayed((PlottingStyle)value); break;
-			case AXES_LABELS_INCR: pencil.getGroupParams().setIncrement((IPoint)value); break;
-			case AXES_LABELS_SHOW: pencil.getGroupParams().setLabelsDisplayed((PlottingStyle)value); break;
-			case AXES_SHOW_ORIGIN: pencil.getGroupParams().setShowOrigin((Boolean)value); break;
-			case AXES_LABELS_DIST: pencil.getGroupParams().setDistLabels((IPoint)value); break;
-			case GRID_LABELS_COLOUR: pencil.getGroupParams().setGridLabelsColour((Color)value); break;
-			case GRID_SUBGRID_COLOUR: pencil.getGroupParams().setSubGridColour((Color)value); break;
-			case GRID_WIDTH: pencil.getGroupParams().setGridWidth((Double)value); break;
-			case GRID_SUBGRID_WIDTH: pencil.getGroupParams().setSubGridWidth((Double)value); break;
-			case GRID_DOTS: pencil.getGroupParams().setGridDots((Integer)value); break;
-			case GRID_SUBGRID_DOTS: pencil.getGroupParams().setSubGridDots((Integer)value); break;
-			case GRID_SUBGRID_DIV: pencil.getGroupParams().setSubGridDiv((Integer)value); break;
-			case FREEHAND_STYLE: pencil.getGroupParams().setType((FreeHandStyle)value); break;
-			case FREEHAND_INTERVAL: pencil.getGroupParams().setInterval((Integer)value); break;
-			case FREEHAND_OPEN: pencil.getGroupParams().setOpen((Boolean)value); break;
-			case SHOW_POINTS: pencil.getGroupParams().setShowPts((Boolean)value); break;
-			case PLOT_NB_PTS: pencil.getGroupParams().setNbPlottedPoints((Integer)value); break;
-			case PLOT_MAX_X: pencil.getGroupParams().setPlotMaxX((Double)value); break;
-			case PLOT_MIN_X: pencil.getGroupParams().setPlotMinX((Double)value); break;
-			case X_SCALE: pencil.getGroupParams().setXScale((Double)value); break;
-			case Y_SCALE: pencil.getGroupParams().setYScale((Double)value); break;
-			case PLOT_EQ: pencil.getGroupParams().setPlotEquation((String)value); break;
-			case PLOT_POLAR: pencil.getGroupParams().setPolar((Boolean)value); break;
-			case PLOT_STYLE: pencil.getGroupParams().setPlotStyle((PlotStyle)value); break;
+			case ARC_END_ANGLE:
+				pencil.getGroupParams().setAngleEnd((Double) value);
+				break;
+			case ARC_START_ANGLE:
+				pencil.getGroupParams().setAngleStart((Double) value);
+				break;
+			case ARC_STYLE:
+				pencil.getGroupParams().setArcStyle((ArcStyle) value);
+				break;
+			case GRID_START:
+				pencil.getGroupParams().setGridStart(((IPoint) value).getX(), ((IPoint) value).getY());
+				break;
+			case GRID_END:
+				pencil.getGroupParams().setGridEnd(((IPoint) value).getX(), ((IPoint) value).getY());
+				break;
+			case GRID_LABEL_POSITION_Y:
+				pencil.getGroupParams().setXLabelSouth((Boolean) value);
+				break;
+			case GRID_LABEL_POSITION_X:
+				pencil.getGroupParams().setYLabelWest((Boolean) value);
+				break;
+			case ARROW_INSET:
+				pencil.getGroupParams().setArrowInset((Double) value);
+				break;
+			case ARROW_LENGTH:
+				pencil.getGroupParams().setArrowLength((Double) value);
+				break;
+			case ARROW_BRACKET_NUM:
+				pencil.getGroupParams().setBracketNum((Double) value);
+				break;
+			case ARROW_DOT_SIZE_DIM:
+				pencil.getGroupParams().setDotSizeDim((Double) value);
+				break;
+			case ARROW_DOT_SIZE_NUM:
+				pencil.getGroupParams().setDotSizeNum((Double) value);
+				break;
+			case ARROW_R_BRACKET_NUM:
+				pencil.getGroupParams().setRBracketNum((Double) value);
+				break;
+			case ARROW_SIZE_DIM:
+				pencil.getGroupParams().setArrowSizeDim((Double) value);
+				break;
+			case ARROW_SIZE_NUM:
+				pencil.getGroupParams().setArrowSizeNum((Double) value);
+				break;
+			case ARROW_T_BAR_SIZE_DIM:
+				pencil.getGroupParams().setTBarSizeDim((Double) value);
+				break;
+			case ARROW_T_BAR_SIZE_NUM:
+				pencil.getGroupParams().setTBarSizeNum((Double) value);
+				break;
+			case GRID_SIZE_LABEL:
+				pencil.getGroupParams().setLabelsSize((Integer) value);
+				break;
+			case GRID_ORIGIN:
+				pencil.getGroupParams().setOrigin(((IPoint) value).getX(), ((IPoint) value).getY());
+				break;
+			case AXES_STYLE:
+				pencil.getGroupParams().setAxesStyle((AxesStyle) value);
+				break;
+			case AXES_TICKS_STYLE:
+				pencil.getGroupParams().setTicksStyle((TicksStyle) value);
+				break;
+			//			case AXES_TICKS_SIZE: pencil.getGroupParams().setTicksSize((Double)value); break;
+			case AXES_TICKS_SHOW:
+				pencil.getGroupParams().setTicksDisplayed((PlottingStyle) value);
+				break;
+			case AXES_LABELS_INCR:
+				pencil.getGroupParams().setIncrement((IPoint) value);
+				break;
+			case AXES_LABELS_SHOW:
+				pencil.getGroupParams().setLabelsDisplayed((PlottingStyle) value);
+				break;
+			case AXES_SHOW_ORIGIN:
+				pencil.getGroupParams().setShowOrigin((Boolean) value);
+				break;
+			case AXES_LABELS_DIST:
+				pencil.getGroupParams().setDistLabels((IPoint) value);
+				break;
+			case GRID_LABELS_COLOUR:
+				pencil.getGroupParams().setGridLabelsColour((Color) value);
+				break;
+			case GRID_SUBGRID_COLOUR:
+				pencil.getGroupParams().setSubGridColour((Color) value);
+				break;
+			case GRID_WIDTH:
+				pencil.getGroupParams().setGridWidth((Double) value);
+				break;
+			case GRID_SUBGRID_WIDTH:
+				pencil.getGroupParams().setSubGridWidth((Double) value);
+				break;
+			case GRID_DOTS:
+				pencil.getGroupParams().setGridDots((Integer) value);
+				break;
+			case GRID_SUBGRID_DOTS:
+				pencil.getGroupParams().setSubGridDots((Integer) value);
+				break;
+			case GRID_SUBGRID_DIV:
+				pencil.getGroupParams().setSubGridDiv((Integer) value);
+				break;
+			case FREEHAND_STYLE:
+				pencil.getGroupParams().setType((FreeHandStyle) value);
+				break;
+			case FREEHAND_INTERVAL:
+				pencil.getGroupParams().setInterval((Integer) value);
+				break;
+			case FREEHAND_OPEN:
+				pencil.getGroupParams().setOpen((Boolean) value);
+				break;
+			case SHOW_POINTS:
+				pencil.getGroupParams().setShowPts((Boolean) value);
+				break;
+			case PLOT_NB_PTS:
+				pencil.getGroupParams().setNbPlottedPoints((Integer) value);
+				break;
+			case PLOT_MAX_X:
+				pencil.getGroupParams().setPlotMaxX((Double) value);
+				break;
+			case PLOT_MIN_X:
+				pencil.getGroupParams().setPlotMinX((Double) value);
+				break;
+			case X_SCALE:
+				pencil.getGroupParams().setXScale((Double) value);
+				break;
+			case Y_SCALE:
+				pencil.getGroupParams().setYScale((Double) value);
+				break;
+			case PLOT_EQ:
+				pencil.getGroupParams().setPlotEquation((String) value);
+				break;
+			case PLOT_POLAR:
+				pencil.getGroupParams().setPolar((Boolean) value);
+				break;
+			case PLOT_STYLE:
+				pencil.getGroupParams().setPlotStyle((PlotStyle) value);
+				break;
 		}
 	}
 }

@@ -32,22 +32,22 @@ import org.malai.undo.Undoable;
  */
 public class ModifyShapeProperty extends ShapePropertyAction implements Undoable, Modifying {
 	/** The shape to modify. */
-	protected IGroup shapes;
+	private IGroup shapes;
 
 	/** The old value of the property. */
-	protected List<?> oldValue;
+	private List<?> oldValue;
 
 
-    @Override
+	@Override
 	public void flush() {
 		super.flush();
 
-		if(shapes!=null) {
+		if(shapes != null) {
 			shapes.clear();
 			shapes = null;
 		}
 
-		if(oldValue!=null) {
+		if(oldValue != null) {
 			oldValue.clear();
 			oldValue = null;
 		}
@@ -56,7 +56,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && shapes!=null;
+		return super.canDo() && shapes != null;
 	}
 
 
@@ -75,7 +75,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 
 	@Override
 	public String getUndoName() {
-		return property==null ? "" : property.getMessage(); //$NON-NLS-1$
+		return property == null ? "" : property.getMessage(); //$NON-NLS-1$
 	}
 
 
@@ -94,103 +94,121 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 
 	@Override
 	protected void doActionBody() {
-		if(oldValue==null)
+		if(oldValue == null) {
 			oldValue = property.getPropertyValues(shapes);
+		}
 		applyValue(value);
 	}
 
 
 	/**
 	 * Sets the group of shapes to modify.
-	 * @param group The group of shapes to modify.
-	 * @since 3.0
+	 * @param gp The group of shapes to modify.
 	 */
-	public void setGroup(final IGroup group) {
-		this.shapes = group;
+	public void setGroup(final IGroup gp) {
+		shapes = gp;
 	}
-
 
 
 	@Override
 	protected boolean isPropertySupported() {
-		if(shapes!=null && super.isPropertySupported())
-			switch(property) {
-				case SHOW_POINTS: return shapes.isShowPtsable();
-				case ARROW_BRACKET_NUM:
-				case ARROW_DOT_SIZE_DIM:
-				case ARROW_DOT_SIZE_NUM:
-				case ARROW_R_BRACKET_NUM:
-				case ARROW_SIZE_DIM:
-				case ARROW_SIZE_NUM:
-				case ARROW_T_BAR_SIZE_DIM:
-				case ARROW_T_BAR_SIZE_NUM:
-				case ARROW_INSET:
-				case ARROW_LENGTH:
-				case ARROW1_STYLE:
-				case ARROW2_STYLE:		return shapes.isTypeOf(IArrowableSingleShape.class);
-				case BORDER_POS:		return shapes.isBordersMovable();
-				case COLOUR_FILLING:	return shapes.isFillable();
-				case COLOUR_GRADIENT_END:
-				case COLOUR_GRADIENT_START:
-				case LINE_STYLE:		return shapes.isLineStylable();
-				case LINE_THICKNESS:	return shapes.isThicknessable();
-				case DBLE_BORDERS_SIZE:
-				case DBLE_BORDERS:
-				case COLOUR_DBLE_BORD:	return shapes.isDbleBorderable();
-				case SHADOW_ANGLE:
-				case SHADOW_SIZE:
-				case SHADOW_COLOUR:
-				case SHADOW:			return shapes.isShadowable();
-				case GRAD_ANGLE:
-				case GRAD_MID_POINT:
-				case HATCHINGS_ANGLE:
-				case HATCHINGS_SEP:
-				case HATCHINGS_WIDTH:
-				case COLOUR_HATCHINGS:
-				case FILLING_STYLE:		return shapes.isInteriorStylable();
-				case GRID_START:
-				case GRID_END:
-				case GRID_LABEL_POSITION_Y:
-				case GRID_LABEL_POSITION_X:
-				case GRID_SIZE_LABEL:
-				case GRID_ORIGIN:		return shapes.isTypeOf(IStdGridProp.class);
-				case ARC_END_ANGLE:
-				case ARC_START_ANGLE:
-				case ARC_STYLE: return shapes.isTypeOf(IArcProp.class);
-				case ROUND_CORNER_VALUE: return shapes.isTypeOf(ILineArcProp.class);
-				case DOT_SIZE:
-				case DOT_FILLING_COL:
-				case DOT_STYLE:	return shapes.isTypeOf(IDotProp.class);
-				case TEXT:
-				case TEXT_POSITION:		return shapes.isTypeOf(ITextProp.class);
-				case COLOUR_LINE:		return true;
-				case AXES_TICKS_STYLE:
-//				case AXES_TICKS_SIZE:
-				case AXES_TICKS_SHOW:
-				case AXES_LABELS_INCR:
-				case AXES_LABELS_SHOW:
-				case AXES_SHOW_ORIGIN:
-				case AXES_LABELS_DIST:
-				case AXES_STYLE:		return shapes.isTypeOf(IAxesProp.class);
-				case GRID_SUBGRID_COLOUR:
-				case GRID_SUBGRID_WIDTH:
-				case GRID_WIDTH:
-				case GRID_DOTS:
-				case GRID_SUBGRID_DOTS:
-				case GRID_SUBGRID_DIV:
-				case GRID_LABELS_COLOUR: return shapes.isTypeOf(IGridProp.class);
-				case FREEHAND_INTERVAL:
-				case FREEHAND_OPEN:
-				case FREEHAND_STYLE : return shapes.isTypeOf(IFreeHandProp.class);
-				case PLOT_EQ:
-				case PLOT_STYLE:
-				case PLOT_POLAR:
-				case PLOT_NB_PTS:
-				case PLOT_MAX_X:
-				case PLOT_MIN_X: return shapes.isTypeOf(IPlotProp.class);
-				case X_SCALE:
-				case Y_SCALE: return shapes.isTypeOf(IScalable.class);
-			}
+		if(shapes != null && super.isPropertySupported()) switch(property) {
+			case SHOW_POINTS:
+				return shapes.isShowPtsable();
+			case ARROW_BRACKET_NUM:
+			case ARROW_DOT_SIZE_DIM:
+			case ARROW_DOT_SIZE_NUM:
+			case ARROW_R_BRACKET_NUM:
+			case ARROW_SIZE_DIM:
+			case ARROW_SIZE_NUM:
+			case ARROW_T_BAR_SIZE_DIM:
+			case ARROW_T_BAR_SIZE_NUM:
+			case ARROW_INSET:
+			case ARROW_LENGTH:
+			case ARROW1_STYLE:
+			case ARROW2_STYLE:
+				return shapes.isTypeOf(IArrowableSingleShape.class);
+			case BORDER_POS:
+				return shapes.isBordersMovable();
+			case COLOUR_FILLING:
+				return shapes.isFillable();
+			case COLOUR_GRADIENT_END:
+			case COLOUR_GRADIENT_START:
+			case LINE_STYLE:
+				return shapes.isLineStylable();
+			case LINE_THICKNESS:
+				return shapes.isThicknessable();
+			case DBLE_BORDERS_SIZE:
+			case DBLE_BORDERS:
+			case COLOUR_DBLE_BORD:
+				return shapes.isDbleBorderable();
+			case SHADOW_ANGLE:
+			case SHADOW_SIZE:
+			case SHADOW_COLOUR:
+			case SHADOW:
+				return shapes.isShadowable();
+			case GRAD_ANGLE:
+			case GRAD_MID_POINT:
+			case HATCHINGS_ANGLE:
+			case HATCHINGS_SEP:
+			case HATCHINGS_WIDTH:
+			case COLOUR_HATCHINGS:
+			case FILLING_STYLE:
+				return shapes.isInteriorStylable();
+			case GRID_START:
+			case GRID_END:
+			case GRID_LABEL_POSITION_Y:
+			case GRID_LABEL_POSITION_X:
+			case GRID_SIZE_LABEL:
+			case GRID_ORIGIN:
+				return shapes.isTypeOf(IStdGridProp.class);
+			case ARC_END_ANGLE:
+			case ARC_START_ANGLE:
+			case ARC_STYLE:
+				return shapes.isTypeOf(IArcProp.class);
+			case ROUND_CORNER_VALUE:
+				return shapes.isTypeOf(ILineArcProp.class);
+			case DOT_SIZE:
+			case DOT_FILLING_COL:
+			case DOT_STYLE:
+				return shapes.isTypeOf(IDotProp.class);
+			case TEXT:
+			case TEXT_POSITION:
+				return shapes.isTypeOf(ITextProp.class);
+			case COLOUR_LINE:
+				return true;
+			case AXES_TICKS_STYLE:
+				//				case AXES_TICKS_SIZE:
+			case AXES_TICKS_SHOW:
+			case AXES_LABELS_INCR:
+			case AXES_LABELS_SHOW:
+			case AXES_SHOW_ORIGIN:
+			case AXES_LABELS_DIST:
+			case AXES_STYLE:
+				return shapes.isTypeOf(IAxesProp.class);
+			case GRID_SUBGRID_COLOUR:
+			case GRID_SUBGRID_WIDTH:
+			case GRID_WIDTH:
+			case GRID_DOTS:
+			case GRID_SUBGRID_DOTS:
+			case GRID_SUBGRID_DIV:
+			case GRID_LABELS_COLOUR:
+				return shapes.isTypeOf(IGridProp.class);
+			case FREEHAND_INTERVAL:
+			case FREEHAND_OPEN:
+			case FREEHAND_STYLE:
+				return shapes.isTypeOf(IFreeHandProp.class);
+			case PLOT_EQ:
+			case PLOT_STYLE:
+			case PLOT_POLAR:
+			case PLOT_NB_PTS:
+			case PLOT_MAX_X:
+			case PLOT_MIN_X:
+				return shapes.isTypeOf(IPlotProp.class);
+			case X_SCALE:
+			case Y_SCALE:
+				return shapes.isTypeOf(IScalable.class);
+		}
 
 		return false;
 	}
