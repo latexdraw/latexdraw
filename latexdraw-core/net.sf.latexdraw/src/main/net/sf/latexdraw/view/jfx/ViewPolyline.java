@@ -61,8 +61,10 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 
 	private Optional<IPoint> getArrowReducedPoint(final IArrow arrow) {
 		final ILine l = arrow.getArrowLine();
-		return Arrays.stream(l.findPoints(l.getX1(), l.getY1(), arrow.getArrowShapeLength())).
-			reduce((p1, p2) -> p1.distance(l.getPoint2()) < p2.distance(l.getPoint2()) ? p1 : p2);
+		if(l == null) return Optional.empty();
+		final IPoint[] points = l.findPoints(l.getX1(), l.getY1(), arrow.getArrowShapeLength());
+		if(points == null) return Optional.empty();
+		return Arrays.stream(points).reduce((p1, p2) -> p1.distance(l.getPoint2()) < p2.distance(l.getPoint2()) ? p1 : p2);
 	}
 
 
