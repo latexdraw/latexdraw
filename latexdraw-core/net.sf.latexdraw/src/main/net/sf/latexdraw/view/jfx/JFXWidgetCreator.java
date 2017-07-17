@@ -26,8 +26,8 @@ import org.eclipse.jdt.annotation.NonNull;
  * @since 4.0
  */
 public interface JFXWidgetCreator {
-	default <T> void initComboBox(final ComboBox<T> box, final @NonNull Map<T, Image> map, T[] values) {
-		ComboBoxFactoryList<T> factory = new ComboBoxFactoryList<>(map);
+	default <T> void initComboBox(final ComboBox<T> box, final @NonNull Map<T, Image> map, final T[] values) {
+		final ComboBoxFactoryList<T> factory = new ComboBoxFactoryList<>(map);
 		box.getItems().addAll(values);
 		box.setButtonCell(factory.call(null));
 		box.setCellFactory(factory);
@@ -37,17 +37,16 @@ public interface JFXWidgetCreator {
 	class ComboBoxFactoryList<T> implements Callback<ListView<T>, ListCell<T>> {
 		final Map<T, Image> cache;
 
-		public ComboBoxFactoryList(final @NonNull Map<T, Image> itemMap) {
+		public ComboBoxFactoryList(final Map<T, Image> itemMap) {
 			super();
-			cache = new HashMap<>();
-			cache.putAll(itemMap);
+			cache = new HashMap<>(itemMap);
 		}
 
 		@Override
-		public ListCell<T> call(ListView<T> p) {
+		public ListCell<T> call(final ListView<T> p) {
 			return new ListCell<T>() {
 				@Override
-				protected void updateItem(T item, boolean empty) {
+				protected void updateItem(final T item, final boolean empty) {
 					super.updateItem(item, empty);
 					if(item != null && !empty) {
 						setGraphic(new ImageView(cache.get(item)));
