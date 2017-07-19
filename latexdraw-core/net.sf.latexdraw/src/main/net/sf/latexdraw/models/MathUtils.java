@@ -192,7 +192,7 @@ public final class MathUtils {
 	 * @since 1.9
 	 */
 	public float getCutNumber(final float value, final double threshold) {
-		return Math.abs(value) < threshold ? 0f : value;
+		return Math.abs(value) < Math.abs(threshold) ? 0f : value;
 	}
 
 	/**
@@ -206,6 +206,6 @@ public final class MathUtils {
 	 * @since 1.9
 	 */
 	public double getCutNumber(final double value, final double threshold) {
-		return Math.abs(value) < threshold ? 0d : value;
+		return Math.abs(value) < Math.abs(threshold) ? 0d : value;
 	}
 }
