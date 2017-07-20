@@ -14,8 +14,8 @@ import static org.junit.Assume.assumeThat;
 
 @RunWith(Theories.class)
 public class TestMathUtils {
-	@DataPoints public static double[] dbleValues = ValuesGenerator.posNegZeroDoubleValues();
-	@DataPoints public static float[] floatValues = ValuesGenerator.posNegZeroFloatValues();
+	@DataPoints public static double[] dbleValues = ValuesGenerator.posNegZeroDoubleValues;
+	@DataPoints public static float[] floatValues = ValuesGenerator.posNegZeroFloatValues;
 
 	@Theory
 	public void testEquals(final double value) {
