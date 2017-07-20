@@ -14,6 +14,7 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
  * A model of a rectangular shape.
@@ -84,6 +85,14 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 			final double yPos = points.get(points.size() - 1).getY() - height;
 			points.get(0).setY(yPos);
 			points.get(1).setY(yPos);
+		}
+	}
+
+	@Override
+	protected void copyPoints(final IShape sh) {
+		if(!(sh instanceof IRectangularShape)) return;
+		for(int i = 0, size = points.size(); i < size; i++) {
+			getPtAt(i).setPoint(sh.getPtAt(i));
 		}
 	}
 

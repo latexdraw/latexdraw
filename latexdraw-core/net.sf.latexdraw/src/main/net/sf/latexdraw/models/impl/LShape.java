@@ -12,6 +12,7 @@ package net.sf.latexdraw.models.impl;
 
 import java.awt.geom.Rectangle2D;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
@@ -199,8 +200,13 @@ abstract class LShape implements ISingleShape {
 
 	protected void copyPoints(final IShape sh) {
 		if(sh == null || !getClass().isInstance(sh)) return;
-		points.clear();
-		sh.getPoints().forEach(pt -> points.add(ShapeFactory.INST.createPoint(pt)));
+		if(sh.getNbPoints() == points.size()) {
+			for(int i = 0, size = points.size(); i < size; i++) {
+				getPtAt(i).setPoint(sh.getPtAt(i));
+			}
+		}else {
+			points.setAll(sh.getPoints().stream().map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList()));
+		}
 	}
 
 	@Override
