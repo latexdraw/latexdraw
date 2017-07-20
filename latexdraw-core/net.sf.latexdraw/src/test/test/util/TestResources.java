@@ -19,7 +19,7 @@ public class TestResources {
 		path = pathToTest;
 	}
 
-	@Parameterized.Parameters
+	@Parameterized.Parameters(name = "{0}")
 	public static Collection<String> getPaths() {
 		return Arrays.asList("/res/LaTeXDrawIcon.png",
 			"/res/LaTeXDrawSmall.png",
