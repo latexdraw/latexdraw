@@ -11,7 +11,6 @@
     <properties>
         <malai.version>3.0-SNAPSHOT</malai.version>
         <scala.version>2.12.1</scala.version>
-        <quickcheck.version>0.7</quickcheck.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -255,22 +254,6 @@
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
             <version>4.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.pholser</groupId>
-            <artifactId>junit-quickcheck</artifactId>
-            <version>${quickcheck.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.pholser</groupId>
-            <artifactId>junit-quickcheck-core</artifactId>
-            <version>${quickcheck.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.pholser</groupId>
-            <artifactId>junit-quickcheck-generators</artifactId>
-            <version>${quickcheck.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
