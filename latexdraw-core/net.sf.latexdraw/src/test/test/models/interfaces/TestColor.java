@@ -1,28 +1,31 @@
 package test.models.interfaces;
 
-import static org.junit.Assert.*;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
-
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
+import test.data.DoubleData;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+@RunWith(Theories.class)
 public class TestColor {
-	protected Color color;
+	Color color;
 
 	@Before
 	public void setUp() {
 		color = ShapeFactory.INST.createColor();
 	}
 
-	@Test
-	public void testSetGetO() {
-		color.setO(0.2);
-		assertEquals(0.2, color.getO(), 0.0001);
-		color.setO(0);
-		assertEquals(0, color.getO(), 0.0001);
-		color.setO(1);
-		assertEquals(1, color.getO(), 0.0001);
+	@Theory
+	public void testSetGetO(@DoubleData(vals = {0d, 0.2, 1d}) final double value) {
+		color.setO(value);
+		assertEquals(value, color.getO(), 0.0001);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -40,14 +43,10 @@ public class TestColor {
 		color.setO(Double.NaN);
 	}
 
-	@Test
-	public void testSetGetB() {
-		color.setB(0.2);
-		assertEquals(0.2, color.getB(), 0.0001);
-		color.setB(0);
-		assertEquals(0, color.getB(), 0.0001);
-		color.setB(1);
-		assertEquals(1, color.getB(), 0.0001);
+	@Theory
+	public void testSetGetB(@DoubleData(vals = {0d, 0.2, 1d}) final double value) {
+		color.setB(value);
+		assertEquals(value, color.getB(), 0.0001);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -65,14 +64,10 @@ public class TestColor {
 		color.setB(Double.NaN);
 	}
 
-	@Test
-	public void testSetGetG() {
-		color.setG(0.2);
-		assertEquals(0.2, color.getG(), 0.0001);
-		color.setG(0);
-		assertEquals(0, color.getG(), 0.0001);
-		color.setG(1);
-		assertEquals(1, color.getG(), 0.0001);
+	@Theory
+	public void testSetGetG(@DoubleData(vals = {0d, 0.2, 1d}) final double value) {
+		color.setG(value);
+		assertEquals(value, color.getG(), 0.0001);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -90,14 +85,10 @@ public class TestColor {
 		color.setG(Double.NaN);
 	}
 
-	@Test
-	public void testSetGetR() {
-		color.setR(0.2);
-		assertEquals(0.2, color.getR(), 0.0001);
-		color.setR(0);
-		assertEquals(0, color.getR(), 0.0001);
-		color.setR(1);
-		assertEquals(1, color.getR(), 0.0001);
+	@Theory
+	public void testSetGetR(@DoubleData(vals = {0d, 0.2, 1d}) final double value) {
+		color.setR(value);
+		assertEquals(value, color.getR(), 0.0001);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -115,46 +106,58 @@ public class TestColor {
 		color.setR(Double.NaN);
 	}
 
-	@Test
-	public void testtoJFX() {
-		color.setO(0.2);
-		color.setB(0.1);
-		color.setR(0.3);
-		color.setG(0.7);
-		assertEquals(0.1, color.toJFX().getBlue(), 0.0001);
-		assertEquals(0.3, color.toJFX().getRed(), 0.0001);
-		assertEquals(0.7, color.toJFX().getGreen(), 0.0001);
-		assertEquals(0.2, color.toJFX().getOpacity(), 0.0001);
+	@Theory
+	public void testtoJFX(@DoubleData(vals = {0d, 0.21, 0.51, 1d}) final double o,
+						  @DoubleData(vals = {0d, 0.22, 0.52, 1d}) final double b,
+						  @DoubleData(vals = {0d, 0.23, 0.53, 1d}) final double r,
+						  @DoubleData(vals = {0d, 0.24, 0.54, 1d}) final double g) {
+		color.setO(o);
+		color.setB(b);
+		color.setR(r);
+		color.setG(g);
+		assertEquals(o, color.toJFX().getOpacity(), 0.0001);
+		assertEquals(b, color.toJFX().getBlue(), 0.0001);
+		assertEquals(r, color.toJFX().getRed(), 0.0001);
+		assertEquals(g, color.toJFX().getGreen(), 0.0001);
 	}
 
-	@Test
-	public void testtoAWT() {
-		color.setO(0.2);
-		color.setB(0.1);
-		color.setR(0.3);
-		color.setG(0.7);
-		assertEquals(Math.ceil(0.1 * 255.0), color.toAWT().getBlue(), 0.0001);
-		assertEquals(Math.ceil(0.3 * 255.0), color.toAWT().getRed(), 0.0001);
-		assertEquals(Math.ceil(0.7 * 255.0), color.toAWT().getGreen(), 0.0001);
-		assertEquals(Math.ceil(0.2 * 255.0), color.toAWT().getAlpha(), 0.0001);
+	@Theory
+	public void testtoAWT(@DoubleData(vals = {0d, 0.21, 0.51, 1d}) final double o,
+						  @DoubleData(vals = {0d, 0.22, 0.52, 1d}) final double b,
+						  @DoubleData(vals = {0d, 0.23, 0.53, 1d}) final double r,
+						  @DoubleData(vals = {0d, 0.24, 0.54, 1d}) final double g) {
+		color.setO(o);
+		color.setB(b);
+		color.setR(r);
+		color.setG(g);
+		assertEquals(Math.round(o * 255d), color.toAWT().getAlpha(), 0.0001);
+		assertEquals(Math.round(b * 255d), color.toAWT().getBlue(), 0.0001);
+		assertEquals(Math.round(r * 255d), color.toAWT().getRed(), 0.0001);
+		assertEquals(Math.round(g * 255d), color.toAWT().getGreen(), 0.0001);
 	}
 
-	@Test
-	public void testEqualsOK() {
-		color.setO(0.2);
-		color.setB(0.1);
-		color.setR(0.3);
-		color.setG(0.7);
-		assertTrue(color.equals(color));
-		assertEquals(color, ShapeFactory.INST.createColor(0.3, 0.7, 0.1, 0.2));
+	@Theory
+	public void testEqualsOK(@DoubleData(vals = {0d, 0.21, 0.51, 1d}) final double o,
+							 @DoubleData(vals = {0d, 0.22, 0.52, 1d}) final double b,
+							 @DoubleData(vals = {0d, 0.23, 0.53, 1d}) final double r,
+							 @DoubleData(vals = {0d, 0.24, 0.54, 1d}) final double g) {
+		color.setO(o);
+		color.setB(b);
+		color.setR(r);
+		color.setG(g);
+		assertEquals(color, color);
+		assertEquals(color, ShapeFactory.INST.createColor(r, g, b, o));
 	}
 
-	@Test
-	public void testEqualsNOK() {
-		color.setO(0.2);
-		color.setB(0.1);
-		color.setR(0.3);
-		color.setG(0.7);
+	@Theory
+	public void testEqualsNOK(@DoubleData(vals = {0d, 0.21, 0.51, 1d}) final double o,
+							  @DoubleData(vals = {0d, 0.22, 0.52, 1d}) final double b,
+							  @DoubleData(vals = {0d, 0.23, 0.53, 1d}) final double r,
+							  @DoubleData(vals = {0d, 0.24, 0.54, 1d}) final double g) {
+		color.setO(o);
+		color.setB(b);
+		color.setR(r);
+		color.setG(g);
 		assertNotEquals(color, ShapeFactory.INST.createColor(0.2, 0.7, 0.1, 0.2));
 		assertNotEquals(color, ShapeFactory.INST.createColor(0.3, 0.8, 0.1, 0.2));
 		assertNotEquals(color, ShapeFactory.INST.createColor(0.2, 0.7, 0, 0.2));

@@ -1,11 +1,10 @@
 package test.models.interfaces;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestArrowStyle {
 	@Test
@@ -25,12 +24,12 @@ public class TestArrowStyle {
 		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW.getPSTToken(), PSTricksConstants.DRARROW_STYLE);
 		assertEquals(ArrowStyle.RIGHT_ROUND_BRACKET.getPSTToken(), PSTricksConstants.RRBRACKET_STYLE);
 		assertEquals(ArrowStyle.RIGHT_SQUARE_BRACKET.getPSTToken(), PSTricksConstants.RSBRACKET_STYLE);
-		// assertEquals(ArrowStyle.ROUND_END.getPSTToken(), PSTricksConstants.ROUNDEND_STYLE);
+		assertEquals(ArrowStyle.ROUND_END.getPSTToken(), PSTricksConstants.ROUNDEND_STYLE);
 		assertEquals(ArrowStyle.ROUND_IN.getPSTToken(), PSTricksConstants.ROUNDIN_STYLE);
 	}
 
 	@Test
-	public void testGetArrowStyle() {
+	public void testGetArrowStylePSTConst() {
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.BAREND_STYLE), ArrowStyle.BAR_END);
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.BARIN_STYLE), ArrowStyle.BAR_IN);
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.CIRCLEEND_STYLE), ArrowStyle.CIRCLE_END);
@@ -46,14 +45,19 @@ public class TestArrowStyle {
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.DRARROW_STYLE), ArrowStyle.RIGHT_DBLE_ARROW);
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.RRBRACKET_STYLE), ArrowStyle.RIGHT_ROUND_BRACKET);
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.RSBRACKET_STYLE), ArrowStyle.RIGHT_SQUARE_BRACKET);
-		// assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.ROUNDEND_STYLE),
-		// ArrowStyle.ROUND_END);
+		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.ROUNDEND_STYLE), ArrowStyle.ROUND_END);
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.ROUNDIN_STYLE), ArrowStyle.ROUND_IN);
+	}
 
+	@Test
+	public void testGetArrowStyleKO() {
 		assertEquals(ArrowStyle.NONE, ArrowStyle.getArrowStyle(null));
 		assertEquals(ArrowStyle.NONE, ArrowStyle.getArrowStyle("")); //$NON-NLS-1$
 		assertEquals(ArrowStyle.NONE, ArrowStyle.getArrowStyle("diqdo ")); //$NON-NLS-1$
+	}
 
+	@Test
+	public void testGetArrowStyleArrowStyle() {
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.BAR_END.toString()), ArrowStyle.BAR_END);
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.BAR_IN.toString()), ArrowStyle.BAR_IN);
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.CIRCLE_END.toString()), ArrowStyle.CIRCLE_END);
@@ -69,8 +73,7 @@ public class TestArrowStyle {
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.RIGHT_DBLE_ARROW.toString()), ArrowStyle.RIGHT_DBLE_ARROW);
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.RIGHT_ROUND_BRACKET.toString()), ArrowStyle.RIGHT_ROUND_BRACKET);
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.RIGHT_SQUARE_BRACKET.toString()), ArrowStyle.RIGHT_SQUARE_BRACKET);
-		// assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.ROUND_END.toString()),
-		// ArrowStyle.ROUND_END);
+		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.ROUND_END.toString()), ArrowStyle.ROUND_END);
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.ROUND_IN.toString()), ArrowStyle.ROUND_IN);
 	}
 }

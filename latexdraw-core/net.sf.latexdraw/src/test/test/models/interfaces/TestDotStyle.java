@@ -1,13 +1,12 @@
 package test.models.interfaces;
 
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
-import net.sf.latexdraw.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 public class TestDotStyle {
 	@Test
@@ -31,7 +30,7 @@ public class TestDotStyle {
 	}
 
 	@Test
-	public void testGetStyle() {
+	public void testGetStyleOKPSTConst() {
 		assertEquals(DotStyle.getStyle(PSTricksConstants.ASTERISK_STYLE), DotStyle.ASTERISK);
 		assertEquals(DotStyle.getStyle(PSTricksConstants.BAR_STYLE), DotStyle.BAR);
 		assertEquals(DotStyle.getStyle(PSTricksConstants.DIAMOND_STYLE), DotStyle.DIAMOND);
@@ -48,7 +47,10 @@ public class TestDotStyle {
 		assertEquals(DotStyle.getStyle(PSTricksConstants.SQUARE_STYLE), DotStyle.SQUARE);
 		assertEquals(DotStyle.getStyle(PSTricksConstants.TRIANGLE_STYLE), DotStyle.TRIANGLE);
 		assertEquals(DotStyle.getStyle(PSTricksConstants.X_STYLE), DotStyle.X);
+	}
 
+	@Test
+	public void testGetStyleOKDotStyle() {
 		assertEquals(DotStyle.getStyle(DotStyle.ASTERISK.toString()), DotStyle.ASTERISK);
 		assertEquals(DotStyle.getStyle(DotStyle.BAR.toString()), DotStyle.BAR);
 		assertEquals(DotStyle.getStyle(DotStyle.DIAMOND.toString()), DotStyle.DIAMOND);
@@ -65,7 +67,10 @@ public class TestDotStyle {
 		assertEquals(DotStyle.getStyle(DotStyle.SQUARE.toString()), DotStyle.SQUARE);
 		assertEquals(DotStyle.getStyle(DotStyle.TRIANGLE.toString()), DotStyle.TRIANGLE);
 		assertEquals(DotStyle.getStyle(DotStyle.X.toString()), DotStyle.X);
+	}
 
+	@Test
+	public void testGetStyleKO() {
 		assertEquals(DotStyle.DOT, DotStyle.getStyle(null));
 		assertEquals(DotStyle.DOT, DotStyle.getStyle("")); //$NON-NLS-1$
 	}
