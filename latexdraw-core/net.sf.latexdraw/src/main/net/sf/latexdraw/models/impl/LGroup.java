@@ -672,7 +672,7 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 
 	@Override
 	public List<BorderPos> getBordersPositionList() {
-		return getShapes().stream().map(sh -> sh.isBordersMovable() ? sh.getBordersPosition() : BorderPos.INTO).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh.isBordersMovable() ? sh.getBordersPosition() : null).collect(Collectors.toList());
 	}
 
 	@Override
@@ -714,7 +714,7 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 
 	@Override
 	public List<ArcStyle> getArcStyleList() {
-		return getShapes().stream().map(sh -> sh instanceof IArcProp ? ((IArcProp) sh).getArcStyle() : ArcStyle.ARC).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IArcProp ? ((IArcProp) sh).getArcStyle() : null).collect(Collectors.toList());
 	}
 
 	@Override
@@ -724,12 +724,12 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 
 	@Override
 	public List<TextPosition> getTextPositionList() {
-		return getShapes().stream().map(sh -> sh instanceof ITextProp ? ((ITextProp) sh).getTextPosition() : TextPosition.BOT_LEFT).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof ITextProp ? ((ITextProp) sh).getTextPosition() : null).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<String> getTextList() {
-		return getShapes().stream().map(sh -> sh instanceof ITextProp ? ((ITextProp) sh).getText() : "").collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof ITextProp ? ((ITextProp) sh).getText() : null).collect(Collectors.toList());
 	}
 
 
@@ -771,12 +771,12 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 
 	@Override
 	public List<Color> getFillingColList() {
-		return getShapes().stream().map(sh -> sh.isInteriorStylable() ? sh.getFillingCol() : DviPsColors.BLACK).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh.isInteriorStylable() ? sh.getFillingCol() : null).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Color> getHatchingsColList() {
-		return getShapes().stream().map(sh -> sh.isInteriorStylable() ? sh.getHatchingsCol() : DviPsColors.BLACK).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh.isInteriorStylable() ? sh.getHatchingsCol() : null).collect(Collectors.toList());
 	}
 
 	@Override
@@ -793,7 +793,7 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 
 	@Override
 	public List<Color> getDbleBordColList() {
-		return getShapes().stream().map(sh -> sh.isDbleBorderable() ? sh.getDbleBordCol() : DviPsColors.BLACK).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh.isDbleBorderable() ? sh.getDbleBordCol() : null).collect(Collectors.toList());
 	}
 
 	@Override
@@ -815,17 +815,17 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 
 	@Override
 	public List<Color> getShadowColList() {
-		return getShapes().stream().map(sh -> sh.isShadowable() ? sh.getShadowCol() : DviPsColors.BLACK).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh.isShadowable() ? sh.getShadowCol() : null).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Color> getGradColStartList() {
-		return getShapes().stream().map(sh -> sh.isInteriorStylable() ? sh.getGradColStart() : DviPsColors.BLACK).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh.isInteriorStylable() ? sh.getGradColStart() : null).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Color> getGradColEndList() {
-		return getShapes().stream().map(sh -> sh.isInteriorStylable() ? sh.getGradColEnd() : DviPsColors.BLACK).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh.isInteriorStylable() ? sh.getGradColEnd() : null).collect(Collectors.toList());
 	}
 
 	@Override
@@ -835,22 +835,22 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 
 	@Override
 	public List<FillingStyle> getFillingStyleList() {
-		return getShapes().stream().map(sh -> sh.isInteriorStylable() ? sh.getFillingStyle() : FillingStyle.NONE).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh.isInteriorStylable() ? sh.getFillingStyle() : null).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<LineStyle> getLineStyleList() {
-		return getShapes().stream().map(sh -> sh.isLineStylable() ? sh.getLineStyle() : LineStyle.SOLID).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh.isLineStylable() ? sh.getLineStyle() : null).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Color> getDotFillingColList() {
-		return getShapes().stream().map(sh -> sh instanceof IDotProp ? ((IDotProp) sh).getDotFillingCol() : DviPsColors.BLACK).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IDotProp ? ((IDotProp) sh).getDotFillingCol() : null).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<DotStyle> getDotStyleList() {
-		return getShapes().stream().map(sh -> sh instanceof IDotProp ? ((IDotProp) sh).getDotStyle() : DotStyle.DOT).collect(Collectors.toList());
+		return getShapes().stream().map(sh -> sh instanceof IDotProp ? ((IDotProp) sh).getDotStyle() : null).collect(Collectors.toList());
 	}
 
 	@Override
