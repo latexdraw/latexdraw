@@ -5,6 +5,7 @@ import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
+import test.data.ValuesGenerator;
 
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.greaterThan;
@@ -14,8 +15,10 @@ import static org.junit.Assume.assumeThat;
 
 @RunWith(Theories.class)
 public class TestMathUtils {
-	@DataPoints public static double[] dbleValues = ValuesGenerator.posNegZeroDoubleValues;
-	@DataPoints public static float[] floatValues = ValuesGenerator.posNegZeroFloatValues;
+	@DataPoints
+	public static double[] dbleValues = ValuesGenerator.doubleValues;
+	@DataPoints
+	public static float[] floatValues = ValuesGenerator.floatValues;
 
 	@Theory
 	public void testEquals(final double value) {

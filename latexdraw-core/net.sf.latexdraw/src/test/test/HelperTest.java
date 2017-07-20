@@ -12,8 +12,9 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 
 public interface HelperTest {
 	default Field getField(final Class<?> clazz, final String name) throws SecurityException, NoSuchFieldException {
@@ -26,8 +27,8 @@ public interface HelperTest {
 		return !GraphicsEnvironment.getLocalGraphicsEnvironment().isHeadlessInstance();
 	}
 
-	default void assertEqualsDouble(double v1, double v2) {
-		assertEquals(v1, v2, 0.0000001);
+	default void assertEqualsDouble(final double v1, final double v2) {
+		assertThat(v1, closeTo(v2, 0.0000001));
 	}
 
 

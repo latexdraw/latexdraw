@@ -8,35 +8,14 @@ import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.junit.Before;
 import org.junit.Test;
-import test.models.interfaces.TestIRectangle;
+import test.HelperTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestLRectangle extends TestIRectangle<IRectangle> {
-	@Before
-	public void setUp() {
-		shape = ShapeFactory.INST.createRectangle();
-		shape2 = ShapeFactory.INST.createRectangle();
-	}
-
-	@Override
-	@Test
-	public void testIsTypeOf() {
-		assertFalse(shape.isTypeOf(null));
-		assertFalse(shape.isTypeOf(IEllipse.class));
-		assertFalse(shape.isTypeOf(ICircle.class));
-		assertTrue(shape.isTypeOf(IShape.class));
-		assertTrue(shape.isTypeOf(ILineArcProp.class));
-		assertTrue(shape.isTypeOf(IPositionShape.class));
-		assertTrue(shape.isTypeOf(IRectangularShape.class));
-		assertTrue(shape.isTypeOf(IRectangle.class));
-		assertTrue(shape.isTypeOf(shape.getClass()));
-	}
-
+public class TestLRectangle implements HelperTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid1() {
 		ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(Double.NaN, 0), 10, 10);
@@ -114,5 +93,19 @@ public class TestLRectangle extends TestIRectangle<IRectangle> {
 		assertEqualsDouble(18., rec.getPosition().getY());
 		assertEqualsDouble(11., rec.getWidth());
 		assertEqualsDouble(12., rec.getHeight());
+	}
+
+	@Test
+	public void testIsTypeOf() {
+		final IRectangle shape = ShapeFactory.INST.createRectangle();
+		assertFalse(shape.isTypeOf(null));
+		assertFalse(shape.isTypeOf(IEllipse.class));
+		assertFalse(shape.isTypeOf(ICircle.class));
+		assertTrue(shape.isTypeOf(IShape.class));
+		assertTrue(shape.isTypeOf(ILineArcProp.class));
+		assertTrue(shape.isTypeOf(IPositionShape.class));
+		assertTrue(shape.isTypeOf(IRectangularShape.class));
+		assertTrue(shape.isTypeOf(IRectangle.class));
+		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 }
