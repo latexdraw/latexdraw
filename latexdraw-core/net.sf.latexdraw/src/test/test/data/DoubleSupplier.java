@@ -14,6 +14,11 @@ public class DoubleSupplier extends ParameterSupplier {
 		final DoubleData doubledata = sig.getAnnotation(DoubleData.class);
 		DoubleStream stream = Arrays.stream(doubledata.vals());
 
+		if(doubledata.angle()) {
+			stream = DoubleStream.of(0d, Math.PI / 2d, Math.PI, 3d * Math.PI / 2d, 2d * Math.PI, -Math.PI / 2d, -Math.PI,
+				-3d * Math.PI / 2d, -2d * Math.PI, 1.234, -1.234, 3d * Math.PI, -3d * Math.PI);
+		}
+
 		if(doubledata.bads()) {
 			stream = DoubleStream.concat(stream, DoubleStream.of(Double.NaN, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY));
 		}

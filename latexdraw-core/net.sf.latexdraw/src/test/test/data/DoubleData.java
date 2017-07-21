@@ -12,5 +12,10 @@ import static java.lang.annotation.ElementType.PARAMETER;
 @Target(PARAMETER)
 public @interface DoubleData {
 	double[] vals() default {-0.00001, -1.34, -83.12, 0d, 0.00001, 1.34, 83.12};
+
 	boolean bads() default false;
+
+	/** Defines whether the double values will be angles. If true <code>vals</code> is replaced by a set of predefined and representative
+	 * angle values */
+	boolean angle() default false;
 }

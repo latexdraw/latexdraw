@@ -101,15 +101,15 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 	@Override
 	public IPoint getEndPoint() {
 		final IPoint grav = getGravityCentre();
-		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(getAngleEnd()) * getHeight() / 2d,
-			grav.getY() - Math.sin(getAngleEnd()) * getHeight() / 2d);
+		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(getAngleEnd()) * getRadius(),
+			grav.getY() - Math.sin(getAngleEnd()) * getRadius());
 	}
 
 	@Override
 	public IPoint getStartPoint() {
 		final IPoint grav = getGravityCentre();
-		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(getAngleStart()) * getWidth() / 2d,
-			grav.getY() - Math.sin(getAngleStart()) * getWidth() / 2d);
+		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(getAngleStart()) * getRadius(),
+			grav.getY() - Math.sin(getAngleStart()) * getRadius());
 	}
 
 	@Override
