@@ -7,51 +7,30 @@ import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.junit.Before;
 import org.junit.Test;
-import test.models.interfaces.TestIRhombus;
+import test.HelperTest;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestLRhombus extends TestIRhombus<IRhombus> {
-	@Before
-	public void setUp() {
-		shape = ShapeFactory.INST.createRhombus();
-		shape2 = ShapeFactory.INST.createRhombus();
-	}
-
-	@Override
-	@Test
-	public void testIsTypeOf() {
-		assertFalse(shape.isTypeOf(null));
-		assertFalse(shape.isTypeOf(IRectangle.class));
-		assertFalse(shape.isTypeOf(ICircle.class));
-		assertTrue(shape.isTypeOf(IShape.class));
-		assertTrue(shape.isTypeOf(IPositionShape.class));
-		assertTrue(shape.isTypeOf(IRectangularShape.class));
-		assertTrue(shape.isTypeOf(IRhombus.class));
-		assertTrue(shape.isTypeOf(shape.getClass()));
-	}
-
+public class TestLRhombus implements HelperTest {
 	@Test
 	public void testConstructor1() {
-		assertEquals(4, shape.getNbPoints());
-		assertEquals(1.0, shape.getWidth(), 0.0);
-		assertEquals(1.0, shape.getHeight(), 0.0);
-		assertEquals(0, shape.getPosition().getX(), 0.0);
-		assertEquals(0, shape.getPosition().getY(), 0.0);
+		final IRhombus shape = ShapeFactory.INST.createRhombus();
+		assertEqualsDouble(1d, shape.getWidth());
+		assertEqualsDouble(1d, shape.getHeight());
+		assertEqualsDouble(0d, shape.getPosition().getX());
+		assertEqualsDouble(0d, shape.getPosition().getY());
 	}
 
 	@Test
 	public void testConstructor2() {
-		IRhombus rho = ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(5, 15), 20, 40);
-		assertEqualsDouble(4, rho.getNbPoints());
-		assertEquals(20.0, rho.getWidth(), 0.0);
-		assertEquals(40.0, rho.getHeight(), 0.0);
-		assertEquals(-5.0, rho.getPosition().getX(), 0.0);
-		assertEquals(35.0, rho.getPosition().getY(), 0.0);
+		final IRhombus rho = ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(5, 15), 20, 40);
+		assertEqualsDouble(4d, rho.getNbPoints());
+		assertEqualsDouble(20d, rho.getWidth());
+		assertEqualsDouble(40d, rho.getHeight());
+		assertEqualsDouble(-5d, rho.getPosition().getX());
+		assertEqualsDouble(35d, rho.getPosition().getY());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -67,5 +46,18 @@ public class TestLRhombus extends TestIRhombus<IRhombus> {
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorInvalidHeight() {
 		ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(1, 1), 10, -10);
+	}
+
+	@Test
+	public void testIsTypeOf() {
+		final IRhombus shape = ShapeFactory.INST.createRhombus();
+		assertFalse(shape.isTypeOf(null));
+		assertFalse(shape.isTypeOf(IRectangle.class));
+		assertFalse(shape.isTypeOf(ICircle.class));
+		assertTrue(shape.isTypeOf(IShape.class));
+		assertTrue(shape.isTypeOf(IPositionShape.class));
+		assertTrue(shape.isTypeOf(IRectangularShape.class));
+		assertTrue(shape.isTypeOf(IRhombus.class));
+		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 }
