@@ -3,288 +3,191 @@ package test.models.interfaces;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
-import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.runner.RunWith;
+import test.HelperTest;
+import test.data.DoubleData;
+import test.data.RectangularData;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-public abstract class TestIRectangularShape<T extends IRectangularShape> extends TestIPositionShape<T> {
-	@Override
-	@Test
-	public void testCopy() {
-		super.testCopy();
-
-		shape2.setPosition(-120., 200.);
-		shape2.setWidth(385.);
-		shape2.setHeight(300.);
+@RunWith(Theories.class)
+public class TestIRectangularShape implements HelperTest {
+	@Theory
+	public void testCopy(@RectangularData final IRectangularShape shape, @RectangularData final IRectangularShape shape2) {
+		shape2.setPosition(-120d, 200d);
+		shape2.setWidth(385d);
+		shape2.setHeight(300d);
 		shape.copy(shape2);
 
-		for(int i = 0; i < shape.getPoints().size(); i++)
-			assertEquals(shape.getPtAt(i), shape2.getPtAt(i));
+		assertEquals(shape.getPoints(), shape2.getPoints());
 	}
 
-	@Test
-	public void testGetSetWidth() {
-		shape.setPosition(0, 0);
-		shape.setWidth(20);
-		assertEqualsDouble(20., shape.getWidth());
-		shape.setWidth(50);
-		assertEqualsDouble(50., shape.getWidth());
-		shape.setWidth(-10);
-		assertEqualsDouble(50., shape.getWidth());
-		shape.setWidth(0);
-		assertEqualsDouble(50., shape.getWidth());
-		shape.setWidth(Double.NaN);
-		assertEqualsDouble(50., shape.getWidth());
-		shape.setWidth(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(50., shape.getWidth());
-		shape.setWidth(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(50., shape.getWidth());
+	@Theory
+	public void testGetSetWidthOK(@RectangularData final IRectangularShape sh, @DoubleData(vals = {0.001, 2d, 13.3d}) final double w) {
+		sh.setPosition(0d, 0d);
+		sh.setWidth(w);
+		assertEqualsDouble(w, sh.getWidth());
 	}
 
-	@Test
-	public void testGetSetHeight() {
-		shape.setPosition(0, 0);
-		shape.setHeight(20);
-		assertEqualsDouble(20., shape.getHeight());
-		shape.setHeight(50);
-		assertEqualsDouble(50., shape.getHeight());
-		shape.setHeight(0);
-		assertEqualsDouble(50., shape.getHeight());
-		shape.setHeight(-10);
-		assertEqualsDouble(50., shape.getHeight());
-		shape.setHeight(Double.NaN);
-		assertEqualsDouble(50., shape.getHeight());
-		shape.setHeight(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(50., shape.getHeight());
-		shape.setHeight(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(50., shape.getHeight());
+	@Theory
+	public void testGetSetWidthKO(@RectangularData final IRectangularShape sh, @DoubleData(vals = {0d, -1d}, bads = true) final double w) {
+		final double value = sh.getWidth();
+		sh.setWidth(w);
+		assertEqualsDouble(value, sh.getWidth());
 	}
 
-	@Override
-	@Test
-	public void testGetNbPoints() {
+	@Theory
+	public void testGetSetHeightOK(@RectangularData final IRectangularShape shape, @DoubleData(vals = {0.001, 2d, 13.3d}) final double h) {
+		shape.setPosition(0d, 0d);
+		shape.setHeight(h);
+		assertEqualsDouble(h, shape.getHeight());
+	}
+
+	@Theory
+	public void testGetSetHeightKO(@RectangularData final IRectangularShape sh, @DoubleData(vals = {0d, -1d}, bads = true) final double h) {
+		final double value = sh.getHeight();
+		sh.setHeight(h);
+		assertEqualsDouble(value, sh.getHeight());
+	}
+
+	@Theory
+	public void testGetNbPoints(@RectangularData final IRectangularShape shape) {
 		assertEquals(4, shape.getNbPoints());
 	}
 
-	@Override
-	@Test
-	public void testGetPtAt() {
-		assertNotNull(shape.getPtAt(0));
-		assertNotNull(shape.getPtAt(1));
-		assertNotNull(shape.getPtAt(2));
-		assertNotNull(shape.getPtAt(3));
-		assertNotNull(shape.getPtAt(-1));
-		assertNull(shape.getPtAt(4));
-		assertNull(shape.getPtAt(-2));
+	@Theory
+	public void testGetPtAt(@RectangularData final IRectangularShape shape, @TestedOn(ints = {-1, 0, 1, 2, 3}) final int i) {
+		assertNotNull(shape.getPtAt(i));
 	}
 
+	@Theory
+	public void testGetPtAtKO(@RectangularData final IRectangularShape shape, @TestedOn(ints = {-2, 4}) final int i) {
+		assertNull(shape.getPtAt(i));
+	}
 
-	@Override
-	@Test
-	public void testGetBottomLeftPoint() {
+	@Theory
+	public void testGetBottomLeftPoint(@RectangularData final IRectangularShape shape) {
 		shape.setPosition(-5, 0);
 		shape.setWidth(10);
 		shape.setHeight(20);
 
-		assertEqualsDouble(-5., shape.getBottomLeftPoint().getX());
-		assertEqualsDouble(0., shape.getBottomLeftPoint().getY());
+		assertEqualsDouble(-5d, shape.getBottomLeftPoint().getX());
+		assertEqualsDouble(0d, shape.getBottomLeftPoint().getY());
 	}
 
-	@Override
-	@Test
-	public void testGetBottomRightPoint() {
+	@Theory
+	public void testGetBottomRightPoint(@RectangularData final IRectangularShape shape) {
 		shape.setPosition(-15, 100);
 		shape.setWidth(10);
 		shape.setHeight(20);
 
-		assertEqualsDouble(-5., shape.getBottomRightPoint().getX());
-		assertEqualsDouble(100., shape.getBottomRightPoint().getY());
+		assertEqualsDouble(-5d, shape.getBottomRightPoint().getX());
+		assertEqualsDouble(100d, shape.getBottomRightPoint().getY());
 	}
 
-	@Override
-	@Test
-	public void testGetTopLeftPoint() {
+	@Theory
+	public void testGetTopLeftPoint(@RectangularData final IRectangularShape shape) {
 		shape.setPosition(20, 10);
 		shape.setWidth(10);
 		shape.setHeight(20);
 
-		assertEqualsDouble(20., shape.getTopLeftPoint().getX());
-		assertEqualsDouble(-10., shape.getTopLeftPoint().getY());
+		assertEqualsDouble(20d, shape.getTopLeftPoint().getX());
+		assertEqualsDouble(-10d, shape.getTopLeftPoint().getY());
 	}
 
-	@Override
-	@Test
-	public void testGetTopRightPoint() {
+	@Theory
+	public void testGetTopRightPoint(@RectangularData final IRectangularShape shape) {
 		shape.setPosition(20, 10);
 		shape.setWidth(10);
 		shape.setHeight(20);
 
-		assertEqualsDouble(30., shape.getTopRightPoint().getX());
-		assertEqualsDouble(-10., shape.getTopRightPoint().getY());
+		assertEqualsDouble(30d, shape.getTopRightPoint().getX());
+		assertEqualsDouble(-10d, shape.getTopRightPoint().getY());
 	}
 
-	@Override
-	@Test
-	public void testMirrorHorizontal() {
-		IPoint pt2 = ShapeFactory.INST.createPoint(4, 1);
-		IPoint pt4 = ShapeFactory.INST.createPoint(1, 3);
+	@Theory
+	public void testMirrorHorizontal(@RectangularData final IRectangularShape shape) {
+		final IPoint p1 = ShapeFactory.INST.createPoint(4, 1);
+		final IPoint p2 = ShapeFactory.INST.createPoint(1, 3);
 
-		shape.setPosition(pt4);
-		shape.setWidth(pt2.getX() - pt4.getX());
-		shape.setHeight(pt4.getY() - pt2.getY());
+		shape.setPosition(p2);
+		shape.setWidth(p1.getX() - p2.getX());
+		shape.setHeight(p2.getY() - p1.getY());
 
 		shape.mirrorHorizontal(shape.getGravityCentre());
-		assertEqualsDouble(1., shape.getTopLeftPoint().getX());
-		assertEqualsDouble(4., shape.getTopRightPoint().getX());
-		assertEqualsDouble(1., shape.getTopLeftPoint().getY());
-		assertEqualsDouble(3., shape.getBottomLeftPoint().getY());
-		assertEqualsDouble(1., shape.getPtAt(0).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(4., shape.getPtAt(2).getX());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
+		assertEqualsDouble(1d, shape.getTopLeftPoint().getX());
+		assertEqualsDouble(4d, shape.getTopRightPoint().getX());
+		assertEqualsDouble(1d, shape.getTopLeftPoint().getY());
+		assertEqualsDouble(3d, shape.getBottomLeftPoint().getY());
+		assertEqualsDouble(1d, shape.getPtAt(0).getX());
+		assertEqualsDouble(1d, shape.getPtAt(0).getY());
+		assertEqualsDouble(4d, shape.getPtAt(2).getX());
+		assertEqualsDouble(3d, shape.getPtAt(2).getY());
 	}
 
-	@Override
-	@Test
-	public void testMirrorVertical() {
-		IPoint pt2 = ShapeFactory.INST.createPoint(4, 1);
-		IPoint pt4 = ShapeFactory.INST.createPoint(1, 3);
+	@Theory
+	public void testMirrorVertical(@RectangularData final IRectangularShape shape) {
+		final IPoint p1 = ShapeFactory.INST.createPoint(4, 1);
+		final IPoint p2 = ShapeFactory.INST.createPoint(1, 3);
 
-		shape.setPosition(pt4);
-		shape.setWidth(pt2.getX() - pt4.getX());
-		shape.setHeight(pt4.getY() - pt2.getY());
+		shape.setPosition(p2);
+		shape.setWidth(p1.getX() - p2.getX());
+		shape.setHeight(p2.getY() - p1.getY());
 
 		shape.mirrorVertical(shape.getGravityCentre());
-		assertEqualsDouble(1., shape.getTopLeftPoint().getX());
-		assertEqualsDouble(4., shape.getTopRightPoint().getX());
-		assertEqualsDouble(1., shape.getTopLeftPoint().getY());
-		assertEqualsDouble(3., shape.getBottomLeftPoint().getY());
-		assertEqualsDouble(1., shape.getPtAt(0).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(4., shape.getPtAt(2).getX());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
+		assertEqualsDouble(1d, shape.getTopLeftPoint().getX());
+		assertEqualsDouble(4d, shape.getTopRightPoint().getX());
+		assertEqualsDouble(1d, shape.getTopLeftPoint().getY());
+		assertEqualsDouble(3d, shape.getBottomLeftPoint().getY());
+		assertEqualsDouble(1d, shape.getPtAt(0).getX());
+		assertEqualsDouble(1d, shape.getPtAt(0).getY());
+		assertEqualsDouble(4d, shape.getPtAt(2).getX());
+		assertEqualsDouble(3d, shape.getPtAt(2).getY());
 	}
 
-	@Override
-	@Test
-	public void testTranslate() {
-		IPoint pt2 = ShapeFactory.INST.createPoint(3, 1);
-		IPoint pt4 = ShapeFactory.INST.createPoint(1, 3);
+	@Theory
+	public void testTranslate(@RectangularData final IRectangularShape shape, @DoubleData final double tx, @DoubleData final double ty) {
+		final IPoint p1 = ShapeFactory.INST.createPoint(3, 1);
+		final IPoint p2 = ShapeFactory.INST.createPoint(1, 3);
 
-		shape.setPosition(pt4);
-		shape.setWidth(pt2.getX() - pt4.getX());
-		shape.setHeight(pt4.getY() - pt2.getY());
+		shape.setPosition(p2);
+		shape.setWidth(p1.getX() - p2.getX());
+		shape.setHeight(p2.getY() - p1.getY());
+		shape.translate(tx, ty);
 
-		shape.translate(10, 0);
-		assertEqualsDouble(11., shape.getPtAt(0).getX());
-		assertEqualsDouble(13., shape.getPtAt(1).getX());
-		assertEqualsDouble(13., shape.getPtAt(2).getX());
-		assertEqualsDouble(11., shape.getPtAt(-1).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(1., shape.getPtAt(1).getY());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
-		assertEqualsDouble(3., shape.getPtAt(-1).getY());
+		assertEqualsDouble(p2.getX() + tx, shape.getPtAt(0).getX());
+		assertEqualsDouble(p1.getX() + tx, shape.getPtAt(1).getX());
+		assertEqualsDouble(p1.getX() + tx, shape.getPtAt(2).getX());
+		assertEqualsDouble(p2.getX() + tx, shape.getPtAt(-1).getX());
+		assertEqualsDouble(p1.getY() + ty, shape.getPtAt(0).getY());
+		assertEqualsDouble(p1.getY() + ty, shape.getPtAt(1).getY());
+		assertEqualsDouble(p2.getY() + ty, shape.getPtAt(2).getY());
+		assertEqualsDouble(p2.getY() + ty, shape.getPtAt(-1).getY());
+	}
 
-		shape.translate(5, 5);
-		assertEqualsDouble(16., shape.getPtAt(0).getX());
-		assertEqualsDouble(18., shape.getPtAt(1).getX());
-		assertEqualsDouble(18., shape.getPtAt(2).getX());
-		assertEqualsDouble(16., shape.getPtAt(-1).getX());
-		assertEqualsDouble(6., shape.getPtAt(0).getY());
-		assertEqualsDouble(6., shape.getPtAt(1).getY());
-		assertEqualsDouble(8., shape.getPtAt(2).getY());
-		assertEqualsDouble(8., shape.getPtAt(-1).getY());
+	@Theory
+	public void testTranslateKO(@RectangularData final IRectangularShape shape, @DoubleData(vals = {0d}, bads = true) final double tx,
+								@DoubleData(vals = {0d}, bads = true) final double ty) {
+		final IPoint p1 = ShapeFactory.INST.createPoint(3, 1);
+		final IPoint p2 = ShapeFactory.INST.createPoint(1, 3);
 
-		shape.translate(-5, -5);
-		assertEqualsDouble(11., shape.getPtAt(0).getX());
-		assertEqualsDouble(13., shape.getPtAt(1).getX());
-		assertEqualsDouble(13., shape.getPtAt(2).getX());
-		assertEqualsDouble(11., shape.getPtAt(-1).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(1., shape.getPtAt(1).getY());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
-		assertEqualsDouble(3., shape.getPtAt(-1).getY());
+		shape.setPosition(p2);
+		shape.setWidth(p1.getX() - p2.getX());
+		shape.setHeight(p2.getY() - p1.getY());
+		shape.translate(tx, ty);
 
-		shape.translate(-10, 0);
-		assertEqualsDouble(1., shape.getPtAt(0).getX());
-		assertEqualsDouble(3., shape.getPtAt(1).getX());
-		assertEqualsDouble(3., shape.getPtAt(2).getX());
-		assertEqualsDouble(1., shape.getPtAt(-1).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(1., shape.getPtAt(1).getY());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
-		assertEqualsDouble(3., shape.getPtAt(-1).getY());
-
-		shape.translate(Double.NaN, -5);
-		assertEqualsDouble(1., shape.getPtAt(0).getX());
-		assertEqualsDouble(3., shape.getPtAt(1).getX());
-		assertEqualsDouble(3., shape.getPtAt(2).getX());
-		assertEqualsDouble(1., shape.getPtAt(-1).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(1., shape.getPtAt(1).getY());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
-		assertEqualsDouble(3., shape.getPtAt(-1).getY());
-
-		shape.translate(1, Double.NaN);
-		assertEqualsDouble(1., shape.getPtAt(0).getX());
-		assertEqualsDouble(3., shape.getPtAt(1).getX());
-		assertEqualsDouble(3., shape.getPtAt(2).getX());
-		assertEqualsDouble(1., shape.getPtAt(-1).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(1., shape.getPtAt(1).getY());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
-		assertEqualsDouble(3., shape.getPtAt(-1).getY());
-
-		shape.translate(Double.NEGATIVE_INFINITY, -5);
-		assertEqualsDouble(1., shape.getPtAt(0).getX());
-		assertEqualsDouble(3., shape.getPtAt(1).getX());
-		assertEqualsDouble(3., shape.getPtAt(2).getX());
-		assertEqualsDouble(1., shape.getPtAt(-1).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(1., shape.getPtAt(1).getY());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
-		assertEqualsDouble(3., shape.getPtAt(-1).getY());
-
-		shape.translate(1, Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(1., shape.getPtAt(0).getX());
-		assertEqualsDouble(3., shape.getPtAt(1).getX());
-		assertEqualsDouble(3., shape.getPtAt(2).getX());
-		assertEqualsDouble(1., shape.getPtAt(-1).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(1., shape.getPtAt(1).getY());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
-		assertEqualsDouble(3., shape.getPtAt(-1).getY());
-
-		shape.translate(Double.POSITIVE_INFINITY, -5);
-		assertEqualsDouble(1., shape.getPtAt(0).getX());
-		assertEqualsDouble(3., shape.getPtAt(1).getX());
-		assertEqualsDouble(3., shape.getPtAt(2).getX());
-		assertEqualsDouble(1., shape.getPtAt(-1).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(1., shape.getPtAt(1).getY());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
-		assertEqualsDouble(3., shape.getPtAt(-1).getY());
-
-		shape.translate(1, Double.POSITIVE_INFINITY);
-		assertEqualsDouble(1., shape.getPtAt(0).getX());
-		assertEqualsDouble(3., shape.getPtAt(1).getX());
-		assertEqualsDouble(3., shape.getPtAt(2).getX());
-		assertEqualsDouble(1., shape.getPtAt(-1).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(1., shape.getPtAt(1).getY());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
-		assertEqualsDouble(3., shape.getPtAt(-1).getY());
-
-		shape.translate(0, 0);
-		assertEqualsDouble(1., shape.getPtAt(0).getX());
-		assertEqualsDouble(3., shape.getPtAt(1).getX());
-		assertEqualsDouble(3., shape.getPtAt(2).getX());
-		assertEqualsDouble(1., shape.getPtAt(-1).getX());
-		assertEqualsDouble(1., shape.getPtAt(0).getY());
-		assertEqualsDouble(1., shape.getPtAt(1).getY());
-		assertEqualsDouble(3., shape.getPtAt(2).getY());
-		assertEqualsDouble(3., shape.getPtAt(-1).getY());
+		assertEqualsDouble(1d, shape.getPtAt(0).getX());
+		assertEqualsDouble(3d, shape.getPtAt(1).getX());
+		assertEqualsDouble(3d, shape.getPtAt(2).getX());
+		assertEqualsDouble(1d, shape.getPtAt(-1).getX());
+		assertEqualsDouble(1d, shape.getPtAt(0).getY());
+		assertEqualsDouble(1d, shape.getPtAt(1).getY());
+		assertEqualsDouble(3d, shape.getPtAt(2).getY());
+		assertEqualsDouble(3d, shape.getPtAt(-1).getY());
 	}
 }
