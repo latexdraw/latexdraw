@@ -51,6 +51,7 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 	@Override
 	public void copy(final IShape sh) {
 		super.copy(sh);
+		LArrowableShape.super.copy(sh);
 		if(sh instanceof IArcProp) {
 			final IArcProp arc = (IArcProp) sh;
 			startAngle.set(arc.getAngleStart());
