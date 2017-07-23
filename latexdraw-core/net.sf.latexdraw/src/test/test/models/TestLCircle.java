@@ -7,25 +7,21 @@ import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 import test.HelperTest;
-import test.models.interfaces.TestICircle;
+import test.data.CircleData;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestLCircle extends TestICircle<ICircle> implements HelperTest {
-	@Before
-	public void setUp() {
-		shape = ShapeFactory.INST.createCircle();
-		shape2 = ShapeFactory.INST.createCircle();
-	}
-
-	@Override
-	@Test
-	public void testIsTypeOf() {
+@RunWith(Theories.class)
+public class TestLCircle implements HelperTest {
+	@Theory
+	public void testIsTypeOf(@CircleData final ICircle shape) {
 		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(IRectangle.class));
 		assertFalse(shape.isTypeOf(ISquare.class));
@@ -38,18 +34,8 @@ public class TestLCircle extends TestICircle<ICircle> implements HelperTest {
 
 	@Test
 	public void testConstructors() {
-		ICircle circle = ShapeFactory.INST.createCircle();
-
+		final ICircle circle = ShapeFactory.INST.createCircle();
 		assertEquals(4, circle.getNbPoints());
-		assertEqualsDouble(circle.getWidth(), circle.getHeight());
-		assertTrue(circle.getHeight() > 0);
-	}
-
-	@Test
-	public void testConstructors2() {
-		ICircle circle = ShapeFactory.INST.createCircle();
-
-		assertEqualsDouble(4, circle.getNbPoints());
 		assertEqualsDouble(circle.getWidth(), circle.getHeight());
 		assertTrue(circle.getHeight() > 0);
 	}
@@ -76,8 +62,7 @@ public class TestLCircle extends TestICircle<ICircle> implements HelperTest {
 
 	@Test
 	public void testConstructors3OK() {
-		ICircle circle = ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(1, 2), 10.);
-
+		final ICircle circle = ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(1, 2), 10.);
 		assertEqualsDouble(6., circle.getGravityCentre().getX());
 		assertEqualsDouble(-3., circle.getGravityCentre().getY());
 		assertEqualsDouble(10., circle.getWidth());
