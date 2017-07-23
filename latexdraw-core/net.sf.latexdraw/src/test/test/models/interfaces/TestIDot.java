@@ -2,77 +2,97 @@ package test.models.interfaces;
 
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
+import test.HelperTest;
+import test.data.DoubleData;
 
+import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeThat;
 
-public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
+@RunWith(Theories.class)
+public class TestIDot implements HelperTest {
+	IDot shape;
+	IDot shape2;
+
+	@Before
+	public void setUp() {
+		shape = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		shape2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+	}
+
 	@Test
-	public void testGetSetDotStyle() {
-		shape.setDotStyle(DotStyle.ASTERISK);
-		assertEquals(DotStyle.ASTERISK, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.BAR);
-		assertEquals(DotStyle.BAR, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.DIAMOND);
-		assertEquals(DotStyle.DIAMOND, shape.getDotStyle());
+	public void testIsTypeOf() {
+		assertFalse(shape.isTypeOf(null));
+		assertFalse(shape.isTypeOf(IRectangle.class));
+		assertFalse(shape.isTypeOf(ICircle.class));
+		assertTrue(shape.isTypeOf(IShape.class));
+		assertTrue(shape.isTypeOf(IDot.class));
+		assertTrue(shape.isTypeOf(IPositionShape.class));
+		assertTrue(shape.isTypeOf(IDot.class));
+		assertTrue(shape.isTypeOf(shape.getClass()));
+	}
+
+	@Test
+	public void testConstructor1() {
+		IDot dot1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+
+		assertTrue(dot1.getDiametre() > 0);
+		assertNotNull(dot1.getDotStyle());
+		assertNotNull(dot1.getPosition());
+		assertEqualsDouble(0., dot1.getPosition().getX());
+		assertEqualsDouble(0., dot1.getPosition().getY());
+	}
+
+	@Test
+	public void testConstructor3() {
+		IDot dot1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint(-1, 2));
+		assertEqualsDouble(-1., dot1.getPosition().getX());
+		assertEqualsDouble(2., dot1.getPosition().getY());
+	}
+
+	@Theory
+	public void testGetSetDotStyle(final DotStyle style) {
+		shape.setDotStyle(style);
+		assertEquals(style, shape.getDotStyle());
+	}
+
+	@Test
+	public void testGetSetDotStyleKO() {
 		shape.setDotStyle(DotStyle.DOT);
-		assertEquals(DotStyle.DOT, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.FDIAMOND);
-		assertEquals(DotStyle.FDIAMOND, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.FPENTAGON);
-		assertEquals(DotStyle.FPENTAGON, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.FSQUARE);
-		assertEquals(DotStyle.FSQUARE, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.FTRIANGLE);
-		assertEquals(DotStyle.FTRIANGLE, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.O);
-		assertEquals(DotStyle.O, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.OPLUS);
-		assertEquals(DotStyle.OPLUS, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.OTIMES);
-		assertEquals(DotStyle.OTIMES, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.PENTAGON);
-		assertEquals(DotStyle.PENTAGON, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.PLUS);
-		assertEquals(DotStyle.PLUS, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.SQUARE);
-		assertEquals(DotStyle.SQUARE, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.TRIANGLE);
-		assertEquals(DotStyle.TRIANGLE, shape.getDotStyle());
-		shape.setDotStyle(DotStyle.X);
-		assertEquals(DotStyle.X, shape.getDotStyle());
 		shape.setDotStyle(null);
-		assertEquals(DotStyle.X, shape.getDotStyle());
+		assertEquals(DotStyle.DOT, shape.getDotStyle());
 	}
 
-	@Test
-	public void testGetSetRadius() {
-		shape.setDiametre(22);
-		assertEqualsDouble(22., shape.getDiametre());
-		shape.setDiametre(1);
-		assertEqualsDouble(1., shape.getDiametre());
-		shape.setDiametre(0.001);
-		assertEqualsDouble(0.001, shape.getDiametre());
-		shape.setDiametre(0);
-		assertEqualsDouble(0.001, shape.getDiametre());
-		shape.setDiametre(-0.001);
-		assertEqualsDouble(0.001, shape.getDiametre());
-		shape.setDiametre(-1);
-		assertEqualsDouble(0.001, shape.getDiametre());
-		shape.setDiametre(Double.NaN);
-		assertEqualsDouble(0.001, shape.getDiametre());
-		shape.setDiametre(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(0.001, shape.getDiametre());
-		shape.setDiametre(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(0.001, shape.getDiametre());
+	@Theory
+	public void testGetSetRadius(@DoubleData final double value) {
+		assumeThat(value, greaterThan(0d));
+
+		shape.setDiametre(value);
+		assertEqualsDouble(value, shape.getDiametre());
 	}
 
-	@Override
+	@Theory
+	public void testGetSetRadiusKO(@DoubleData(vals = {0d, -1d}, bads = true) final double value) {
+		shape.setDiametre(10d);
+		shape.setDiametre(value);
+		assertEqualsDouble(10d, shape.getDiametre());
+	}
+
 	@Test
 	public void testCopy() {
-		super.testCopy();
-
 		shape2.setDotStyle(DotStyle.DIAMOND);
 		shape2.setDiametre(31);
 		shape.copy(shape2);
@@ -80,31 +100,6 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 		assertEqualsDouble(shape2.getDiametre(), shape.getDiametre());
 	}
 
-	@Override
-	@Test
-	public void testGetBottomLeftPoint() {
-		// TODO
-	}
-
-	@Override
-	@Test
-	public void testGetBottomRightPoint() {
-		// TODO
-	}
-
-	@Override
-	@Test
-	public void testGetTopLeftPoint() {
-		// TODO
-	}
-
-	@Override
-	@Test
-	public void testGetTopRightPoint() {
-		// TODO
-	}
-
-	@Override
 	@Test
 	public void testMirrorHorizontal() {
 		shape.setPosition(-10, -20);
@@ -129,7 +124,6 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 		assertEqualsDouble(-20., shape.getPosition().getY());
 	}
 
-	@Override
 	@Test
 	public void testMirrorVertical() {
 		shape.setPosition(-10, -20);
