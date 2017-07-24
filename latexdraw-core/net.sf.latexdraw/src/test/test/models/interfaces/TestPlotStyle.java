@@ -1,11 +1,14 @@
 package test.models.interfaces;
 
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
+
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
-
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
-
+@RunWith(Theories.class)
 public class TestPlotStyle {
 	@Test
 	public void testGetPSTToken() {
@@ -32,14 +35,8 @@ public class TestPlotStyle {
 		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle("dfs@fgd")); //$NON-NLS-1$
 	}
 
-	@Test
-	public void testGetPlotStyleOK() {
-		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle(PlotStyle.CURVE.getPSTToken()));
-		assertEquals(PlotStyle.CCURVE, PlotStyle.getPlotStyle(PlotStyle.CCURVE.getPSTToken()));
-		assertEquals(PlotStyle.DOTS, PlotStyle.getPlotStyle(PlotStyle.DOTS.getPSTToken()));
-		assertEquals(PlotStyle.ECURVE, PlotStyle.getPlotStyle(PlotStyle.ECURVE.getPSTToken()));
-		assertEquals(PlotStyle.LINE, PlotStyle.getPlotStyle(PlotStyle.LINE.getPSTToken()));
-		assertEquals(PlotStyle.POLYGON, PlotStyle.getPlotStyle(PlotStyle.POLYGON.getPSTToken()));
-
+	@Theory
+	public void testGetPlotStyleOK(final PlotStyle style) {
+		assertEquals(style, PlotStyle.getPlotStyle(style.getPSTToken()));
 	}
 }

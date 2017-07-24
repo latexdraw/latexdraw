@@ -2,20 +2,46 @@ package test.models.interfaces;
 
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.*;
-import net.sf.latexdraw.view.latex.DviPsColors;
+import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
+import net.sf.latexdraw.view.latex.DviPsColors;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.runner.RunWith;
+import test.HelperTest;
+import test.data.DoubleData;
+import test.data.StringData;
 
-import java.util.Arrays;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.lessThan;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeThat;
 
-import static org.junit.Assert.*;
+@RunWith(Theories.class)
+public class TestIPlot implements HelperTest {
+	IPlot shape;
 
-public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
-	@Override
+	@Before
+	public void setUp() throws Exception {
+		shape = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0d, 10d, "x", false);
+	}
+
 	@Test
 	public void testDuplicate() {
-		super.testDuplicate();
 		shape.setPlotEquation("2 x mul");
 		shape.setPolar(true);
 		shape.setNbPlottedPoints(73);
@@ -27,7 +53,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		shape.setDotFillingCol(DviPsColors.YELLOW);
 		shape.setPlotEquation("x");
 
-		final IPlot plot = (IPlot)shape.duplicate();
+		final IPlot plot = shape.duplicate();
 
 		assertEquals("x", plot.getPlotEquation());
 		assertTrue(plot.isPolar());
@@ -40,14 +66,9 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertEquals(73, plot.getNbPlottedPoints());
 	}
 
-	@Test
-	public void testNotValidEquation() {
-		shape.setPlotEquation("x");
-
-		shape.setPlotEquation("");
-		assertEquals("x", shape.getPlotEquation());
-
-		shape.setPlotEquation(null);
+	@Theory
+	public void testNotValidEquation(@StringData(vals = {""}, withNull = true) final String value) {
+		shape.setPlotEquation(value);
 		assertEquals("x", shape.getPlotEquation());
 	}
 
@@ -56,103 +77,57 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		shape.setPlotEquation("y");
 	}
 
-	@Test
-	public void testValidEquation() {
-		shape.setPlotEquation("x");
-		assertEquals("x", shape.getPlotEquation());
-
-		shape.setPlotEquation("x 2 sub");
-		assertEquals("x 2 sub", shape.getPlotEquation());
-
-		shape.setPlotEquation("2 x mul sin");
-		assertEquals("2 x mul sin", shape.getPlotEquation());
+	@Theory
+	public void testValidEquation(@StringData(vals = {"x 2 sub", "2 x mul sin"}) final String value) {
+		shape.setPlotEquation(value);
+		assertEquals(value, shape.getPlotEquation());
 	}
 
-	@Test
-	public void testPolar() {
-		shape.setPolar(true);
-		assertTrue(shape.isPolar());
-		shape.setPolar(false);
-		assertFalse(shape.isPolar());
-		shape.setPolar(true);
-		assertTrue(shape.isPolar());
+	@Theory
+	public void testPolar(final boolean value) {
+		shape.setPolar(value);
+		assertEquals(value, shape.isPolar());
 	}
 
-	@Test
-	public void testValidPlotXMinMax() {
-		shape.setPlotMaxX(200.0);
-		assertEquals(200.0, shape.getPlotMaxX(), 0.000001);
-		shape.setPlotMinX(100.0);
-		assertEquals(100.0, shape.getPlotMinX(), 0.000001);
+	@Theory
+	public void testValidPlotXMax(@DoubleData final double value) {
+		assumeThat(value, greaterThan(0d));
 
-		shape.setPlotMaxX(300.0);
-		assertEquals(300.0, shape.getPlotMaxX(), 0.000001);
-		shape.setPlotMinX(200.0);
-		assertEquals(200.0, shape.getPlotMinX(), 0.000001);
-
-		shape.setPlotMinX(-300.0);
-		assertEquals(-300.0, shape.getPlotMinX(), 0.000001);
-		shape.setPlotMaxX(0.0);
-		assertEquals(0.0, shape.getPlotMaxX(), 0.000001);
+		shape.setPlotMaxX(value);
+		assertEqualsDouble(value, shape.getPlotMaxX());
 	}
 
-	@Test
-	public void testNotValidPlotXMinMax() {
-		shape.setPlotMaxX(200.0);
-		shape.setPlotMinX(100.0);
-
-		shape.setPlotMaxX(0.0);
-		assertEquals(200.0, shape.getPlotMaxX(), 0.000001);
-		assertEquals(100.0, shape.getPlotMinX(), 0.000001);
-
-		shape.setPlotMaxX(Double.NaN);
-		assertEquals(200.0, shape.getPlotMaxX(), 0.000001);
-		assertEquals(100.0, shape.getPlotMinX(), 0.000001);
-
-		shape.setPlotMaxX(Double.NEGATIVE_INFINITY);
-		assertEquals(200.0, shape.getPlotMaxX(), 0.000001);
-		assertEquals(100.0, shape.getPlotMinX(), 0.000001);
-
-		shape.setPlotMaxX(Double.POSITIVE_INFINITY);
-		assertEquals(200.0, shape.getPlotMaxX(), 0.000001);
-		assertEquals(100.0, shape.getPlotMinX(), 0.000001);
-
-		shape.setPlotMinX(300.0);
-		assertEquals(200.0, shape.getPlotMaxX(), 0.000001);
-		assertEquals(100.0, shape.getPlotMinX(), 0.000001);
-
-		shape.setPlotMinX(Double.NaN);
-		assertEquals(200.0, shape.getPlotMaxX(), 0.000001);
-		assertEquals(100.0, shape.getPlotMinX(), 0.000001);
-
-		shape.setPlotMinX(Double.NEGATIVE_INFINITY);
-		assertEquals(200.0, shape.getPlotMaxX(), 0.000001);
-		assertEquals(100.0, shape.getPlotMinX(), 0.000001);
-
-		shape.setPlotMinX(Double.POSITIVE_INFINITY);
-		assertEquals(200.0, shape.getPlotMaxX(), 0.000001);
-		assertEquals(100.0, shape.getPlotMinX(), 0.000001);
+	@Theory
+	public void testValidPlotXMaxKO(@DoubleData(bads = true, vals = {0d, -1d}) final double value) {
+		shape.setPlotMaxX(value);
+		assertEqualsDouble(10d, shape.getPlotMaxX());
 	}
 
-	@Test
-	public void testValidGetSetNbPlottedPoints() {
-		shape.setNbPlottedPoints(200);
-		assertEquals(200, shape.getNbPlottedPoints());
-		shape.setNbPlottedPoints(2);
-		assertEquals(2, shape.getNbPlottedPoints());
+	@Theory
+	public void testValidPlotXMin(@DoubleData final double value) {
+		assumeThat(value, lessThan(10d));
+
+		shape.setPlotMinX(value);
+		assertEqualsDouble(value, shape.getPlotMinX());
 	}
 
-	@Test
-	public void testNotValidGetSetNbPlottedPoints() {
-		shape.setNbPlottedPoints(200);
-		shape.setNbPlottedPoints(1);
-		assertEquals(200, shape.getNbPlottedPoints());
-		shape.setNbPlottedPoints(0);
-		assertEquals(200, shape.getNbPlottedPoints());
-		shape.setNbPlottedPoints(-1);
-		assertEquals(200, shape.getNbPlottedPoints());
-		shape.setNbPlottedPoints(1);
-		assertEquals(200, shape.getNbPlottedPoints());
+	@Theory
+	public void testValidPlotXMinKO(@DoubleData(bads = true, vals = {10d, 11d}) final double value) {
+		shape.setPlotMinX(value);
+		assertEqualsDouble(0d, shape.getPlotMinX());
+	}
+
+	@Theory
+	public void testValidGetSetNbPlottedPoints(@TestedOn(ints = {2, 10, 200}) final int value) {
+		shape.setNbPlottedPoints(value);
+		assertEquals(value, shape.getNbPlottedPoints());
+	}
+
+	@Theory
+	public void testValidGetSetNbPlottedPointsKO(@TestedOn(ints = {1, 0, -1}) final int value) {
+		shape.setNbPlottedPoints(10);
+		shape.setNbPlottedPoints(value);
+		assertEquals(10, shape.getNbPlottedPoints());
 	}
 
 	@Test
@@ -163,59 +138,45 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertEquals(1.0, shape.getPlottingStep(), 0.00001);
 	}
 
-	@Test
-	public void testValidPlotStyle() {
-		for(PlotStyle style : Arrays.asList(PlotStyle.values())) {
-			shape.setPlotStyle(style);
-			assertEquals(style, shape.getPlotStyle());
-		}
+	@Theory
+	public void testValidPlotStyle(final PlotStyle style) {
+		shape.setPlotStyle(style);
+		assertEquals(style, shape.getPlotStyle());
 	}
 
 	@Test
-	public void testNotValidPlotStyle() {
+	public void testValidPlotStyleKO() {
 		shape.setPlotStyle(PlotStyle.ECURVE);
 		shape.setPlotStyle(null);
 		assertEquals(PlotStyle.ECURVE, shape.getPlotStyle());
 	}
 
-	@Test
-	public void testValidDotStyle() {
+	@Theory
+	public void testValidDotStyle(final DotStyle style) {
 		shape.setPlotStyle(PlotStyle.DOTS);
-		for(DotStyle style : Arrays.asList(DotStyle.values())) {
-			shape.setDotStyle(style);
-			assertEquals(style, shape.getDotStyle());
-		}
+		shape.setDotStyle(style);
+		assertEquals(style, shape.getDotStyle());
 	}
 
 	@Test
-	public void testNotValidDotStyle() {
+	public void testValidDotStyleKO() {
 		shape.setDotStyle(DotStyle.BAR);
 		shape.setDotStyle(null);
 		assertEquals(DotStyle.BAR, shape.getDotStyle());
 	}
 
-	@Test
-	public void testValidDotSize() {
+	@Theory
+	public void testValidDotSize(@DoubleData(vals = {1d, 23d}) final double value) {
 		shape.setPlotStyle(PlotStyle.DOTS);
-		shape.setDiametre(23.0);
-		assertEquals(23.0, shape.getDiametre(), 0.00001);
-		shape.setDiametre(1.0);
-		assertEquals(1.0, shape.getDiametre(), 0.00001);
+		shape.setDiametre(value);
+		assertEquals(value, shape.getDiametre(), 0.00001);
 	}
 
-	@Test
-	public void testNotValidDotSize() {
+	@Theory
+	public void testValidDotSizeKO(@DoubleData(vals = {0d, -1d}) final double value) {
 		shape.setPlotStyle(PlotStyle.DOTS);
 		shape.setDiametre(23.0);
-		shape.setDiametre(0.0);
-		assertEquals(23.0, shape.getDiametre(), 0.00001);
-		shape.setDiametre(-1.0);
-		assertEquals(23.0, shape.getDiametre(), 0.00001);
-		shape.setDiametre(Double.NaN);
-		assertEquals(23.0, shape.getDiametre(), 0.00001);
-		shape.setDiametre(Double.NEGATIVE_INFINITY);
-		assertEquals(23.0, shape.getDiametre(), 0.00001);
-		shape.setDiametre(Double.POSITIVE_INFINITY);
+		shape.setDiametre(value);
 		assertEquals(23.0, shape.getDiametre(), 0.00001);
 	}
 
@@ -224,21 +185,16 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		shape.setDotFillingCol(DviPsColors.RED);
 		assertEquals(DviPsColors.RED, shape.getDotFillingCol());
 		assertEquals(DviPsColors.RED, shape.getFillingCol());
-
-		shape.setDotFillingCol(DviPsColors.BLUE);
-		assertEquals(DviPsColors.BLUE, shape.getDotFillingCol());
-		assertEquals(DviPsColors.BLUE, shape.getFillingCol());
 	}
 
 	@Test
-	public void testNotValidDotFillingCol() {
+	public void testValidDotFillingColKO() {
 		shape.setDotFillingCol(DviPsColors.RED);
 		shape.setDotFillingCol(null);
 		assertEquals(DviPsColors.RED, shape.getDotFillingCol());
 		assertEquals(DviPsColors.RED, shape.getFillingCol());
 	}
 
-	@Override
 	@Test
 	public void testGetBottomLeftPoint() {
 		shape.setPlotEquation("x");
@@ -255,7 +211,6 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertEquals(20.0 - 10.0 * IShape.PPC, pt.getY(), 0.0001);
 	}
 
-	@Override
 	@Test
 	public void testGetBottomRightPoint() {
 		shape.setPlotEquation("x");
@@ -272,7 +227,6 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertEquals(20.0 - 10.0 * IShape.PPC, pt.getY(), 0.0001);
 	}
 
-	@Override
 	@Test
 	public void testGetTopLeftPoint() {
 		shape.setPlotEquation("x");
@@ -289,7 +243,6 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertEquals(20.0 - 20.0 * IShape.PPC, pt.getY(), 0.0001);
 	}
 
-	@Override
 	@Test
 	public void testGetTopRightPoint() {
 		shape.setPlotEquation("x");
@@ -322,7 +275,6 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertEquals(200.0, shape.getY(), 0.00001);
 	}
 
-	@Override
 	@Test
 	public void testMirrorHorizontal() {
 		shape.setPosition(100, 200);
@@ -331,31 +283,12 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertEquals(200.0, shape.getY(), 0.00001);
 	}
 
-	@Override
 	@Test
 	public void testMirrorVertical() {
 		shape.setPosition(100, 200);
 		shape.mirrorVertical(shape.getGravityCentre());
 		assertEquals(100.0, shape.getX(), 0.00001);
 		assertEquals(200.0, shape.getY(), 0.00001);
-	}
-
-	@Test
-	public void test2ShapesMirrorHorizontal() {
-		shape.setPosition(100, 200);
-		shape2.setPosition(-100, -200);
-		shape.mirrorHorizontal(shape.getGravityCentre().getMiddlePoint(shape2.getGravityCentre()));
-		assertEquals(-100.0, shape.getX(), 0.00001);
-		assertEquals(200.0, shape.getY(), 0.00001);
-	}
-
-	@Test
-	public void test2ShapesMirrorVertical() {
-		shape.setPosition(100, 200);
-		shape2.setPosition(-100, -200);
-		shape.mirrorVertical(shape.getGravityCentre().getMiddlePoint(shape2.getGravityCentre()));
-		assertEquals(100.0, shape.getX(), 0.00001);
-		assertEquals(-200.0, shape.getY(), 0.00001);
 	}
 
 	@Test
@@ -382,10 +315,10 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertEquals(DotStyle.DIAMOND, shape.getDotStyle());
 	}
 
-	@Override
 	@Test
 	public void testCopy() {
-		super.testCopy();
+		final IPlot shape2 = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1d, 11d, "x 2 mul", false);
+
 		shape2.setPlotEquation("2 x mul");
 		shape2.setPolar(true);
 		shape2.setNbPlottedPoints(73);
@@ -408,5 +341,17 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertEquals(-234.0, shape.getPlotMinX(), 0.0001);
 		assertEquals(PlotStyle.ECURVE, shape.getPlotStyle());
 		assertEquals(73, shape.getNbPlottedPoints());
+	}
+
+	@Test
+	public void testIsTypeOf() {
+		assertFalse(shape.isTypeOf(null));
+		assertFalse(shape.isTypeOf(IRectangle.class));
+		assertFalse(shape.isTypeOf(ICircle.class));
+		assertTrue(shape.isTypeOf(IShape.class));
+		assertTrue(shape.isTypeOf(IPositionShape.class));
+		assertTrue(shape.isTypeOf(IPlot.class));
+		assertTrue(shape.isTypeOf(IPlotProp.class));
+		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 }
