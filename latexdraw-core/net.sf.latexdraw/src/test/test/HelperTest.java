@@ -2,6 +2,9 @@ package test;
 
 import java.awt.GraphicsEnvironment;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
@@ -21,6 +24,12 @@ public interface HelperTest {
 		final Field field = clazz.getDeclaredField(name);
 		field.setAccessible(true);
 		return field;
+	}
+
+	default <T> List<T> cloneList(final List<T> list, final Function<T, T> cloner) {
+		final List<T> clone = new ArrayList<>(list.size());
+		list.forEach(elt -> clone.add(cloner.apply(elt)));
+		return clone;
 	}
 
 	default boolean isX11Set() {
