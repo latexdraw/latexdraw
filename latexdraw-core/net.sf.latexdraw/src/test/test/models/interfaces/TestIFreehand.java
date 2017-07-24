@@ -1,96 +1,101 @@
 package test.models.interfaces;
 
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.IFreehand;
+import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.runner.RunWith;
+import test.HelperTest;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
-import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
 
-import org.junit.Test;
+@RunWith(Theories.class)
+public class TestIFreehand implements HelperTest {
+	IFreehand shape;
+	IFreehand shape2;
 
-public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiablePointsShape<T> {
-	@Test
-	public void testGetType() {
-		assertEquals(FreeHandStyle.CURVES, shape.getType());
+	@Before
+	public void setUp() {
+		shape = ShapeFactory.INST.createFreeHand();
+		shape2 = ShapeFactory.INST.createFreeHand();
+	}
+
+	@Theory
+	public void testSetGetType(final FreeHandStyle style) {
+		shape.setType(style);
+		assertEquals(style, shape.getType());
 	}
 
 	@Test
-	public void testSetType() {
-		shape.setType(FreeHandStyle.LINES);
-		assertEquals(FreeHandStyle.LINES, shape.getType());
+	public void testSetGetTypeKO() {
 		shape.setType(FreeHandStyle.CURVES);
-		assertEquals(FreeHandStyle.CURVES, shape.getType());
 		shape.setType(null);
 		assertEquals(FreeHandStyle.CURVES, shape.getType());
 	}
 
-	@Test
-	public void testIsOpen() {
-		assertTrue(shape.isOpen());
+	@Theory
+	public void testSetIsOpen(final boolean open) {
+		shape.setOpen(open);
+		assertEquals(open, shape.isOpen());
+	}
+
+	@Theory
+	public void testGetSetInterval(@TestedOn(ints = {1, 10}) final int value) {
+		shape.setInterval(value);
+		assertEquals(value, shape.getInterval());
 	}
 
 	@Test
-	public void testSetOpen() {
-		shape.setOpen(false);
-		assertFalse(shape.isOpen());
-		shape.setOpen(true);
-		assertTrue(shape.isOpen());
-	}
-
-	@Test
-	public void testGetInterval() {
-		shape.setInterval(22);
-		assertEquals(22, shape.getInterval());
-	}
-
-	@Test
-	public void testSetInterval() {
-		shape.setInterval(1);
-		assertEquals(1, shape.getInterval());
-		shape.setInterval(0);
-		assertEquals(1, shape.getInterval());
+	public void testGetSetIntervalKO() {
+		shape.setInterval(10);
 		shape.setInterval(-1);
-		assertEquals(1, shape.getInterval());
-		shape.setInterval(50);
-		assertEquals(50, shape.getInterval());
-		shape.setInterval(Integer.MAX_VALUE);
-		assertEquals(Integer.MAX_VALUE, shape.getInterval());
-		shape.setInterval(Integer.MIN_VALUE);
-		assertEquals(Integer.MAX_VALUE, shape.getInterval());
+		assertEquals(10, shape.getInterval());
 	}
 
-	@Override
 	@Test
 	public void testCopy() {
-		shape2.setOpen(false);
-		shape2.setInterval(10);
+		shape2.setOpen(!shape2.isOpen());
+		shape.setInterval(shape.getInterval() * 2);
 		shape2.setType(FreeHandStyle.LINES);
+
 		shape.copy(shape2);
-		assertFalse(shape.isOpen());
-		assertEquals(10, shape.getInterval());
+
+		assertEquals(shape2.isOpen(), shape.isOpen());
+		assertEquals(shape2.getInterval(), shape.getInterval());
 		assertEquals(FreeHandStyle.LINES, shape.getType());
 	}
 
 	@Test
-	public void testCopyWhenNotFreeHand() {
-		IShape sh = ShapeFactory.INST.createCircleArc();
-		shape.copy(sh);
-		// assertTrue(shape.isParametersEquals(sh, false));
-		// assertTrue(shape.isParametersEquals(sh, true));
-		// TODO
+	public void testDuplicate() {
+		shape.setOpen(!shape.isOpen());
+		shape.setInterval(shape.getInterval() * 2);
+		shape.setType(FreeHandStyle.LINES);
+
+		final IFreehand dup = shape.duplicate();
+
+		assertEquals(shape.isOpen(), dup.isOpen());
+		assertEquals(shape.getInterval(), dup.getInterval());
+		assertEquals(FreeHandStyle.LINES, dup.getType());
 	}
 
-	@Override
 	@Test
-	public void testDuplicate() {
-		shape.setOpen(false);
-		shape.setInterval(10);
-		shape.setType(FreeHandStyle.LINES);
-		// final IFreehand dup = (IFreehand)shape.duplicate();
-		// assertTrue(shape.isParametersEquals(dup, false));
-		// assertTrue(shape.isParametersEquals(dup, true));
-		// TODO
+	public void testIsTypeOf() {
+		assertFalse(shape.isTypeOf(null));
+		assertFalse(shape.isTypeOf(IRectangle.class));
+		assertFalse(shape.isTypeOf(ICircle.class));
+		assertTrue(shape.isTypeOf(IShape.class));
+		assertTrue(shape.isTypeOf(IModifiablePointsShape.class));
+		assertTrue(shape.isTypeOf(IFreehand.class));
+		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 }
