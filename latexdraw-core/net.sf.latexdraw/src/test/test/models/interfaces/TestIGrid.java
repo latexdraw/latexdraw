@@ -1,155 +1,178 @@
 package test.models.interfaces;
 
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.runner.RunWith;
+import test.HelperTest;
+import test.data.DoubleData;
 
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeThat;
 
-public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
-	@Test
-	public void testGetStep() {
-		shape.setUnit(1);
-		assertEqualsDouble(IShape.PPC, shape.getStep());
-		shape.setUnit(2);
-		assertEqualsDouble(2. * IShape.PPC, shape.getStep());
+@RunWith(Theories.class)
+public class TestIGrid implements HelperTest {
+	IGrid shape;
+
+	@Before
+	public void setUp() {
+		shape = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
+	}
+
+	@Theory
+	public void testGetStep(@DoubleData final double value) {
+		assumeThat(value, greaterThan(0d));
+
+		shape.setUnit(value);
+		assertEqualsDouble(value * IShape.PPC, shape.getStep());
+	}
+
+	@Theory
+	public void testGetStepKO(@DoubleData(bads = true, vals = {0d, -1d}) final double value) {
+		shape.setUnit(11);
+		shape.setUnit(value);
+		assertEqualsDouble(11d * IShape.PPC, shape.getStep());
+	}
+
+	@Theory
+	public void testIsSetXLabelSouth(final boolean value) {
+		shape.setXLabelSouth(value);
+		assertEquals(value, shape.isXLabelSouth());
+	}
+
+	@Theory
+	public void testIsSetYLabelWest(final boolean value) {
+		shape.setYLabelWest(value);
+		assertEquals(value, shape.isYLabelWest());
+	}
+
+	@Theory
+	public void testGetSetGridDots(@TestedOn(ints = {0, 1, 10}) final int value) {
+		shape.setGridDots(value);
+		assertEquals(value, shape.getGridDots());
 	}
 
 	@Test
-	public void testIsSetXLabelSouth() {
-		shape.setXLabelSouth(true);
-		assertTrue(shape.isXLabelSouth());
-		shape.setXLabelSouth(false);
-		assertFalse(shape.isXLabelSouth());
-	}
-
-	@Test
-	public void testIsSetYLabelWest() {
-		shape.setYLabelWest(true);
-		assertTrue(shape.isYLabelWest());
-		shape.setYLabelWest(false);
-		assertFalse(shape.isYLabelWest());
-	}
-
-	@Test
-	public void testGetSetGridDots() {
-		shape.setGridDots(20);
-		assertEquals(20, shape.getGridDots());
-		shape.setGridDots(10);
-		assertEquals(10, shape.getGridDots());
-		shape.setGridDots(0);
-		assertEquals(0, shape.getGridDots());
-		shape.setGridDots(-30);
-		assertEquals(0, shape.getGridDots());
+	public void testGetSetGridDotsKO() {
+		shape.setGridDots(11);
+		shape.setGridDots(-1);
+		assertEquals(11, shape.getGridDots());
 	}
 
 	@Test
 	public void testGetSetGridLabelsColor() {
 		shape.setGridLabelsColour(DviPsColors.BLUE);
 		assertEquals(DviPsColors.BLUE, shape.getGridLabelsColour());
-		shape.setGridLabelsColour(DviPsColors.RED);
-		assertEquals(DviPsColors.RED, shape.getGridLabelsColour());
-		shape.setGridLabelsColour(null);
-		assertEquals(DviPsColors.RED, shape.getGridLabelsColour());
 	}
 
 	@Test
-	public void testGetSetGridWidth() {
-		shape.setGridWidth(30);
-		assertEqualsDouble(30., shape.getGridWidth());
-		shape.setGridWidth(50);
-		assertEqualsDouble(50., shape.getGridWidth());
-		shape.setGridWidth(0);
-		assertEqualsDouble(50., shape.getGridWidth());
-		shape.setGridWidth(-1);
-		assertEqualsDouble(50., shape.getGridWidth());
-		shape.setGridWidth(Double.NaN);
-		assertEqualsDouble(50., shape.getGridWidth());
-		shape.setGridWidth(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(50., shape.getGridWidth());
-		shape.setGridWidth(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(50., shape.getGridWidth());
+	public void testGetSetGridLabelsColorKO() {
+		shape.setGridLabelsColour(DviPsColors.BLUE);
+		shape.setGridLabelsColour(null);
+		assertEquals(DviPsColors.BLUE, shape.getGridLabelsColour());
+	}
+
+	@Theory
+	public void testGetSetGridWidth(@DoubleData final double value) {
+		assumeThat(value, greaterThan(0d));
+
+		shape.setGridWidth(value);
+		assertEqualsDouble(value, shape.getGridWidth());
+	}
+
+	@Theory
+	public void testGetSetGridWidthKO(@DoubleData(bads = true, vals = {-1d, 0d}) final double value) {
+		shape.setGridWidth(11d);
+		shape.setGridWidth(value);
+		assertEqualsDouble(11d, shape.getGridWidth());
 	}
 
 	@Test
 	public void testGetSetSubGridColor() {
-		shape.setSubGridColour(DviPsColors.BLUE);
-		assertEquals(DviPsColors.BLUE, shape.getSubGridColour());
 		shape.setSubGridColour(DviPsColors.RED);
 		assertEquals(DviPsColors.RED, shape.getSubGridColour());
+	}
+
+	@Test
+	public void testGetSetSubGridColorKO() {
+		shape.setSubGridColour(DviPsColors.RED);
 		shape.setSubGridColour(null);
 		assertEquals(DviPsColors.RED, shape.getSubGridColour());
 	}
 
-	@Test
-	public void testGetSetSubGridDiv() {
-		shape.setSubGridDiv(20);
-		assertEquals(20, shape.getSubGridDiv());
-		shape.setSubGridDiv(10);
-		assertEquals(10, shape.getSubGridDiv());
-		shape.setSubGridDiv(0);
-		assertEquals(0, shape.getSubGridDiv());
-		shape.setSubGridDiv(-30);
-		assertEquals(0, shape.getSubGridDiv());
+	@Theory
+	public void testGetSetSubGridDiv(@TestedOn(ints = {0, 1, 10}) final int value) {
+		shape.setSubGridDiv(value);
+		assertEquals(value, shape.getSubGridDiv());
 	}
 
 	@Test
-	public void testGetSetSubGridDots() {
-		shape.setSubGridDots(20);
-		assertEquals(20, shape.getSubGridDots());
-		shape.setSubGridDots(10);
-		assertEquals(10, shape.getSubGridDots());
-		shape.setSubGridDots(0);
-		assertEquals(0, shape.getSubGridDots());
-		shape.setSubGridDots(-30);
-		assertEquals(0, shape.getSubGridDots());
+	public void testGetSetSubGridDivKO() {
+		shape.setSubGridDiv(11);
+		shape.setSubGridDiv(-1);
+		assertEquals(11, shape.getSubGridDiv());
+	}
+
+	@Theory
+	public void testGetSetSubGridDots(@TestedOn(ints = {0, 1, 10}) final int value) {
+		shape.setSubGridDots(value);
+		assertEquals(value, shape.getSubGridDots());
 	}
 
 	@Test
-	public void testGetSetSubGridWidth() {
-		shape.setSubGridWidth(30);
-		assertEqualsDouble(30., shape.getSubGridWidth());
-		shape.setSubGridWidth(50);
-		assertEqualsDouble(50., shape.getSubGridWidth());
-		shape.setSubGridWidth(0);
-		assertEqualsDouble(50., shape.getSubGridWidth());
-		shape.setSubGridWidth(-1);
-		assertEqualsDouble(50., shape.getSubGridWidth());
-		shape.setSubGridWidth(Double.NaN);
-		assertEqualsDouble(50., shape.getSubGridWidth());
-		shape.setSubGridWidth(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(50., shape.getSubGridWidth());
-		shape.setSubGridWidth(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(50., shape.getSubGridWidth());
+	public void testGetSetSubGridDotsKO() {
+		shape.setSubGridDots(11);
+		shape.setSubGridDots(-1);
+		assertEquals(11, shape.getSubGridDots());
 	}
 
-	@Test
-	public void testGetSetUnit() {
-		shape.setUnit(30);
-		assertEqualsDouble(30., shape.getUnit());
-		shape.setUnit(50);
-		assertEqualsDouble(50., shape.getUnit());
-		shape.setUnit(0);
-		assertEqualsDouble(50., shape.getUnit());
-		shape.setUnit(-1);
-		assertEqualsDouble(50., shape.getUnit());
-		shape.setUnit(Double.NaN);
-		assertEqualsDouble(50., shape.getUnit());
-		shape.setUnit(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(50., shape.getUnit());
-		shape.setUnit(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(50., shape.getUnit());
+	@Theory
+	public void testGetSetSubGridWidth(@DoubleData final double value) {
+		assumeThat(value, greaterThan(0d));
+
+		shape.setSubGridWidth(value);
+		assertEqualsDouble(value, shape.getSubGridWidth());
 	}
 
-	@Override
+	@Theory
+	public void testGetSetSubGridWidthKO(@DoubleData(vals = {0d, -1d}, bads = true) final double value) {
+		shape.setSubGridWidth(11d);
+		shape.setSubGridWidth(value);
+		assertEqualsDouble(11d, shape.getSubGridWidth());
+	}
+
+	@Theory
+	public void testGetSetUnit(@DoubleData final double value) {
+		assumeThat(value, greaterThan(0d));
+
+		shape.setUnit(value);
+		assertEqualsDouble(value, shape.getUnit());
+	}
+
+	@Theory
+	public void testGetSetUnitKO(@DoubleData(vals = {0d, -1d}, bads = true) final double value) {
+		shape.setUnit(11d);
+		shape.setUnit(value);
+		assertEqualsDouble(11d, shape.getUnit());
+	}
+
 	@Test
 	public void testDuplicate() {
-		super.testDuplicate();
-
 		shape.setGridDots(45);
 		shape.setSubGridDots(55);
 		shape.setGridLabelsColour(DviPsColors.CYAN);
@@ -161,21 +184,20 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		shape.setXLabelSouth(false);
 		shape.setYLabelWest(false);
 
-		IGrid g2 = (IGrid)shape.duplicate();
+		final IGrid dup = shape.duplicate();
 
-		assertEquals(g2.getGridDots(), shape.getGridDots());
-		assertEquals(g2.getSubGridDiv(), shape.getSubGridDiv());
-		assertEquals(g2.getGridLabelsColour(), shape.getGridLabelsColour());
-		assertEquals(g2.getSubGridColour(), shape.getSubGridColour());
-		assertEqualsDouble(g2.getUnit(), shape.getUnit());
-		assertEqualsDouble(g2.getGridWidth(), shape.getGridWidth());
-		assertEqualsDouble(g2.getSubGridWidth(), shape.getSubGridWidth());
-		assertEquals(g2.getSubGridDiv(), shape.getSubGridDiv());
-		assertFalse(g2.isXLabelSouth());
-		assertFalse(g2.isYLabelWest());
+		assertEquals(dup.getGridDots(), shape.getGridDots());
+		assertEquals(dup.getSubGridDiv(), shape.getSubGridDiv());
+		assertEquals(dup.getGridLabelsColour(), shape.getGridLabelsColour());
+		assertEquals(dup.getSubGridColour(), shape.getSubGridColour());
+		assertEqualsDouble(dup.getUnit(), shape.getUnit());
+		assertEqualsDouble(dup.getGridWidth(), shape.getGridWidth());
+		assertEqualsDouble(dup.getSubGridWidth(), shape.getSubGridWidth());
+		assertEquals(dup.getSubGridDiv(), shape.getSubGridDiv());
+		assertFalse(dup.isXLabelSouth());
+		assertFalse(dup.isYLabelWest());
 	}
 
-	@Override
 	@Test
 	public void testGetBottomLeftPoint() {
 		shape.setPosition(10, 20);
@@ -186,7 +208,6 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		assertEqualsDouble(-20., shape.getBottomLeftPoint().getY());
 	}
 
-	@Override
 	@Test
 	public void testGetBottomRightPoint() {
 		shape.setPosition(0, 0);
@@ -198,7 +219,6 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		assertEqualsDouble(-IShape.PPC * -100., shape.getBottomRightPoint().getY());
 	}
 
-	@Override
 	@Test
 	public void testGetTopLeftPoint() {
 		shape.setPosition(0, 0);
@@ -210,7 +230,6 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		assertEqualsDouble(-2. * IShape.PPC * 75., shape.getTopLeftPoint().getY());
 	}
 
-	@Override
 	@Test
 	public void testGetTopRightPoint() {
 		shape.setPosition(0, 0);
@@ -222,7 +241,6 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		assertEqualsDouble(-2. * IShape.PPC * 175., shape.getTopRightPoint().getY());
 	}
 
-	@Override
 	@Test
 	public void testMirrorHorizontal() {
 		shape.setPosition(0, 0);
@@ -235,7 +253,6 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		assertEqualsDouble(0., shape.getPosition().getY());
 	}
 
-	@Override
 	@Test
 	public void testMirrorVertical() {
 		shape.setPosition(0, 0);
@@ -249,10 +266,9 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 	}
 
 
-	@Override
 	@Test
 	public void testCopy() {
-		super.testCopy();
+		final IGrid shape2 = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
 
 		shape2.setGridDots(45);
 		shape2.setSubGridDots(55);
@@ -277,5 +293,26 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		assertEquals(shape2.getSubGridDiv(), shape.getSubGridDiv());
 		assertFalse(shape2.isXLabelSouth());
 		assertFalse(shape2.isYLabelWest());
+	}
+
+	@Test
+	public void testIsTypeOf() {
+		assertFalse(shape.isTypeOf(null));
+		assertFalse(shape.isTypeOf(IRectangle.class));
+		assertFalse(shape.isTypeOf(ICircle.class));
+		assertTrue(shape.isTypeOf(IShape.class));
+		assertTrue(shape.isTypeOf(IPositionShape.class));
+		assertTrue(shape.isTypeOf(IStandardGrid.class));
+		assertTrue(shape.isTypeOf(IGrid.class));
+		assertTrue(shape.isTypeOf(shape.getClass()));
+	}
+
+	@Test
+	public void testConstructors() {
+		final IGrid grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
+		assertThat(grid.getGridEndX(), greaterThanOrEqualTo(grid.getGridStartX()));
+		assertThat(grid.getGridEndY(), greaterThanOrEqualTo(grid.getGridStartY()));
+		assertEqualsDouble(0d, grid.getPosition().getX());
+		assertEqualsDouble(0d, grid.getPosition().getY());
 	}
 }

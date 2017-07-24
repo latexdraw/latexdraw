@@ -1,219 +1,197 @@
 package test.models.interfaces;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
-import org.junit.Test;
+import org.junit.experimental.theories.ParameterSignature;
+import org.junit.experimental.theories.ParameterSupplier;
+import org.junit.experimental.theories.ParametersSuppliedBy;
+import org.junit.experimental.theories.PotentialAssignment;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.runner.RunWith;
+import test.HelperTest;
+import test.data.DoubleData;
 
+import static java.lang.annotation.ElementType.PARAMETER;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeThat;
 
-public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPositionShape<T> {
-	@Test
-	public void testGetSetLabelsSize() {
-		shape.setLabelsSize(5);
-		assertEquals(5, shape.getLabelsSize());
-		shape.setLabelsSize(30);
-		assertEquals(30, shape.getLabelsSize());
-		shape.setLabelsSize(0);
-		assertEquals(0, shape.getLabelsSize());
+@RunWith(Theories.class)
+public class TestIStandardGrid implements HelperTest {
+	@Theory
+	public void testGetSetLabelsSize(@StdGridData IStandardGrid shape, @TestedOn(ints = {0, 1, 10}) final int value) {
+		shape.setLabelsSize(value);
+		assertEquals(value, shape.getLabelsSize());
+	}
+
+	@Theory
+	public void testGetSetLabelsSizeKO(@StdGridData IStandardGrid shape) {
+		shape.setLabelsSize(11);
 		shape.setLabelsSize(-1);
-		assertEquals(0, shape.getLabelsSize());
+		assertEquals(11, shape.getLabelsSize());
 	}
 
-	@Test
-	public void testGetSetGridEndX() {
-		shape.setGridStartX(-10);
-		shape.setGridEndX(5);
-		assertEqualsDouble(5., shape.getGridEndX());
-		shape.setGridEndX(0);
-		assertEqualsDouble(0., shape.getGridEndX());
-		shape.setGridEndX(-5);
-		assertEqualsDouble(-5., shape.getGridEndX());
-		shape.setGridEndX(-15);
-		assertEqualsDouble(-5., shape.getGridEndX());
-		shape.setGridEndX(Double.NaN);
-		assertEqualsDouble(-5., shape.getGridEndX());
-		shape.setGridEndX(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(-5., shape.getGridEndX());
-		shape.setGridEndX(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(-5., shape.getGridEndX());
+	@Theory
+	public void testGetSetGridEndX(@StdGridData IStandardGrid shape, @DoubleData final double value) {
+		assumeThat(value, greaterThan(-10d));
+
+		shape.setGridStartX(-10d);
+		shape.setGridEndX(value);
+		assertEqualsDouble(value, shape.getGridEndX());
 	}
 
-	@Test
-	public void testGetSetGridEndY() {
-		shape.setGridStartY(-10);
-		shape.setGridEndY(5);
-		assertEqualsDouble(5., shape.getGridEndY());
-		shape.setGridEndY(0);
-		assertEqualsDouble(0., shape.getGridEndY());
-		shape.setGridEndY(-5);
-		assertEqualsDouble(-5., shape.getGridEndY());
-		shape.setGridEndY(-15);
-		assertEqualsDouble(-5., shape.getGridEndY());
-		shape.setGridEndY(Double.NaN);
-		assertEqualsDouble(-5., shape.getGridEndY());
-		shape.setGridEndY(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(-5., shape.getGridEndY());
-		shape.setGridEndY(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(-5., shape.getGridEndY());
+	@Theory
+	public void testGetSetGridEndXKO(@StdGridData IStandardGrid shape, @DoubleData(bads = true, vals = {-20d}) final double value) {
+		shape.setGridStartX(-10d);
+		shape.setGridEndX(10d);
+		shape.setGridEndX(value);
+		assertEqualsDouble(10d, shape.getGridEndX());
 	}
 
-	@Test
-	public void testSetGridStart() {
-		shape.setGridEnd(5, 9);
-		shape.setGridStart(-5, -4);
-		assertEqualsDouble(-5., shape.getGridStartX());
-		assertEqualsDouble(-4., shape.getGridStartY());
-		shape.setGridStart(-6, 10);
-		assertEqualsDouble(-6., shape.getGridStartX());
-		assertEqualsDouble(-4., shape.getGridStartY());
-		shape.setGridStart(6, 8);
-		assertEqualsDouble(-6., shape.getGridStartX());
-		assertEqualsDouble(8., shape.getGridStartY());
-		shape.setGridStart(6, Double.NaN);
-		assertEqualsDouble(-6., shape.getGridStartX());
-		assertEqualsDouble(8., shape.getGridStartY());
-		shape.setGridStart(Double.NEGATIVE_INFINITY, 8);
-		assertEqualsDouble(-6., shape.getGridStartX());
-		assertEqualsDouble(8., shape.getGridStartY());
+	@Theory
+	public void testGetSetGridEndY(@StdGridData IStandardGrid shape, @DoubleData final double value) {
+		assumeThat(value, greaterThan(-10d));
+
+		shape.setGridStartY(-10d);
+		shape.setGridEndY(value);
+		assertEqualsDouble(value, shape.getGridEndY());
 	}
 
-	@Test
-	public void testSetGridEnd() {
-		shape.setGridStart(-5, -4);
-		shape.setGridEnd(5, 9);
-		assertEqualsDouble(5., shape.getGridEndX());
-		assertEqualsDouble(9., shape.getGridEndY());
-		shape.setGridEnd(6, -5);
-		assertEqualsDouble(6., shape.getGridEndX());
-		assertEqualsDouble(9., shape.getGridEndY());
-		shape.setGridEnd(-6, 10);
-		assertEqualsDouble(6., shape.getGridEndX());
-		assertEqualsDouble(10., shape.getGridEndY());
-		shape.setGridEnd(-6, Double.POSITIVE_INFINITY);
-		assertEqualsDouble(6., shape.getGridEndX());
-		assertEqualsDouble(10., shape.getGridEndY());
-		shape.setGridEnd(Double.NaN, 10);
-		assertEqualsDouble(6., shape.getGridEndX());
-		assertEqualsDouble(10., shape.getGridEndY());
+	@Theory
+	public void testGetSetGridEndYKO(@StdGridData IStandardGrid shape, @DoubleData(bads = true, vals = {-20d}) final double value) {
+		shape.setGridStartY(-10d);
+		shape.setGridEndY(10d);
+		shape.setGridEndY(value);
+		assertEqualsDouble(10d, shape.getGridEndY());
 	}
 
-	@Test
-	public void testGetSetOrigin() {
-		shape.setOrigin(10, 6);
-		assertEqualsDouble(10., shape.getOriginX());
-		assertEqualsDouble(6., shape.getOriginY());
-		shape.setOrigin(0, 0);
-		assertEqualsDouble(0., shape.getOriginX());
-		assertEqualsDouble(0., shape.getOriginY());
-		shape.setOrigin(0, -5);
-		assertEqualsDouble(0., shape.getOriginX());
-		assertEqualsDouble(-5., shape.getOriginY());
-		shape.setOrigin(-8, 0);
-		assertEqualsDouble(-8., shape.getOriginX());
-		assertEqualsDouble(0., shape.getOriginY());
-		shape.setOrigin(-9, Double.NaN);
-		assertEqualsDouble(-9., shape.getOriginX());
-		assertEqualsDouble(0., shape.getOriginY());
-		shape.setOrigin(Double.POSITIVE_INFINITY, 1);
-		assertEqualsDouble(-9., shape.getOriginX());
-		assertEqualsDouble(1., shape.getOriginY());
+	@Theory
+	public void testGetSetGridStartY(@StdGridData IStandardGrid shape, @DoubleData final double value) {
+		assumeThat(value, lessThan(10d));
+
+		shape.setGridEndY(10d);
+		shape.setGridStartY(value);
+		assertEqualsDouble(value, shape.getGridStartY());
 	}
 
-	@Test
-	public void testGetSetGridStartY() {
-		shape.setGridEndY(10);
-		shape.setGridStartY(5);
-		assertEqualsDouble(5., shape.getGridStartY());
-		shape.setGridStartY(0);
-		assertEqualsDouble(0., shape.getGridStartY());
-		shape.setGridStartY(-5);
-		assertEqualsDouble(-5., shape.getGridStartY());
-		shape.setGridStartY(15);
-		assertEqualsDouble(-5., shape.getGridStartY());
-		shape.setGridStartY(Double.NaN);
-		assertEqualsDouble(-5., shape.getGridStartY());
-		shape.setGridStartY(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(-5., shape.getGridStartY());
-		shape.setGridStartY(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(-5., shape.getGridStartY());
+	@Theory
+	public void testGetSetGridStartYKO(@StdGridData IStandardGrid shape, @DoubleData(bads = true, vals = {20d}) final double value) {
+		shape.setGridEndY(10d);
+		shape.setGridStartY(-10d);
+		shape.setGridStartY(value);
+		assertEqualsDouble(-10d, shape.getGridStartY());
 	}
 
-	@Test
-	public void testGetSetGridStartX() {
-		shape.setGridEndX(10);
-		shape.setGridStartX(5);
-		assertEqualsDouble(5., shape.getGridStartX());
-		shape.setGridStartX(0);
-		assertEqualsDouble(0., shape.getGridStartX());
-		shape.setGridStartX(-5);
-		assertEqualsDouble(-5., shape.getGridStartX());
-		shape.setGridStartX(15);
-		assertEqualsDouble(-5., shape.getGridStartX());
-		shape.setGridStartX(Double.NaN);
-		assertEqualsDouble(-5., shape.getGridStartX());
-		shape.setGridStartX(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(-5., shape.getGridStartX());
-		shape.setGridStartX(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(-5., shape.getGridStartX());
+	@Theory
+	public void testGetSetGridStartX(@StdGridData IStandardGrid shape, @DoubleData final double value) {
+		assumeThat(value, lessThan(10d));
+
+		shape.setGridEndX(10d);
+		shape.setGridStartX(value);
+		assertEqualsDouble(value, shape.getGridStartX());
 	}
 
-	@Test
-	public void testGetSetOriginX() {
-		shape.setOriginX(100);
-		assertEqualsDouble(100., shape.getOriginX());
-		shape.setOriginX(-100);
-		assertEqualsDouble(-100., shape.getOriginX());
-		shape.setOriginX(0);
-		assertEqualsDouble(0., shape.getOriginX());
-		shape.setOriginX(Double.NaN);
-		assertEqualsDouble(0., shape.getOriginX());
-		shape.setOriginX(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(0., shape.getOriginX());
-		shape.setOriginX(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(0., shape.getOriginX());
+	@Theory
+	public void testGetSetGridStartXKO(@StdGridData IStandardGrid shape, @DoubleData(bads = true, vals = {20d}) final double value) {
+		shape.setGridEndX(10d);
+		shape.setGridStartX(-10d);
+		shape.setGridStartX(value);
+		assertEqualsDouble(-10d, shape.getGridStartX());
 	}
 
-	@Test
-	public void testGetSetOriginY() {
-		shape.setOriginY(100);
-		assertEqualsDouble(100., shape.getOriginY());
-		shape.setOriginY(-100);
-		assertEqualsDouble(-100., shape.getOriginY());
-		shape.setOriginY(0);
-		assertEqualsDouble(0., shape.getOriginY());
-		shape.setOriginY(Double.NaN);
-		assertEqualsDouble(0., shape.getOriginY());
-		shape.setOriginY(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(0., shape.getOriginY());
-		shape.setOriginY(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(0., shape.getOriginY());
+	@Theory
+	public void testSetGridStart(@StdGridData IStandardGrid shape, @DoubleData final double x, @DoubleData final double y) {
+		assumeThat(x, lessThan(20d));
+		assumeThat(y, lessThan(20d));
+
+		shape.setGridEnd(20, 20);
+		shape.setGridStart(x, y);
+		assertEqualsDouble(x, shape.getGridStartX());
+		assertEqualsDouble(y, shape.getGridStartY());
 	}
 
-	@Override
-	@Test
-	public void testDuplicate() {
-		super.testDuplicate();
+	@Theory
+	public void testSetGridEnd(@StdGridData IStandardGrid shape, @DoubleData final double x, @DoubleData final double y) {
+		assumeThat(x, greaterThan(-20d));
+		assumeThat(y, greaterThan(-20d));
 
+		shape.setGridStart(-20, -20);
+		shape.setGridEnd(x, y);
+		assertEqualsDouble(x, shape.getGridEndX());
+		assertEqualsDouble(y, shape.getGridEndY());
+	}
+
+	@Theory
+	public void testSetOrigin(@StdGridData IStandardGrid shape, @DoubleData final double x, @DoubleData final double y) {
+		shape.setOrigin(x, y);
+		assertEqualsDouble(x, shape.getOriginX());
+		assertEqualsDouble(y, shape.getOriginY());
+	}
+
+	@Theory
+	public void testSetOriginKO(@StdGridData IStandardGrid shape, @DoubleData(vals = {}, bads = true) final double x,
+								@DoubleData(vals ={}, bads = true) final double y) {
+		shape.setOrigin(11d, 13d);
+		shape.setOrigin(x, y);
+		assertEqualsDouble(11d, shape.getOriginX());
+		assertEqualsDouble(13d, shape.getOriginY());
+	}
+
+	@Theory
+	public void testGetSetOriginX(@StdGridData IStandardGrid shape, @DoubleData final double value) {
+		shape.setOriginX(value);
+		assertEqualsDouble(value, shape.getOriginX());
+	}
+
+	@Theory
+	public void testGetSetOriginXKO(@StdGridData IStandardGrid shape, @DoubleData(bads = true, vals = {}) final double value) {
+		shape.setOriginX(-10d);
+		shape.setOriginX(value);
+		assertEqualsDouble(-10d, shape.getOriginX());
+	}
+
+	@Theory
+	public void testGetSetOriginY(@StdGridData IStandardGrid shape, @DoubleData final double value) {
+		shape.setOriginY(value);
+		assertEqualsDouble(value, shape.getOriginY());
+	}
+
+	@Theory
+	public void testGetSetOriginYKO(@StdGridData IStandardGrid shape, @DoubleData(bads = true, vals = {}) final double value) {
+		shape.setOriginY(-10d);
+		shape.setOriginY(value);
+		assertEqualsDouble(-10d, shape.getOriginY());
+	}
+
+	@Theory
+	public void testDuplicate(@StdGridData IStandardGrid shape) {
 		shape.setOrigin(20, 30);
 		shape.setGridStart(-100, -40);
 		shape.setGridEnd(200, 300);
-		// shape.setLabelsSize(IText.TestSize.HUGE1.getSize());
+		shape.setLabelsSize(12);
 
-		IStandardGrid g2 = (IStandardGrid)shape.duplicate();
+		final IStandardGrid dup = shape.duplicate();
 
-		assertEqualsDouble(20., g2.getOriginX());
-		assertEqualsDouble(30., g2.getOriginY());
-		assertEqualsDouble(-100., g2.getGridStartX());
-		assertEqualsDouble(-40., g2.getGridStartY());
-		assertEqualsDouble(200., g2.getGridEndX());
-		assertEqualsDouble(300., g2.getGridEndY());
-		// assertEquals(IText.TestSize.HUGE1.getSize(), shape2.getLabelsSize());//FIXME
+		assertEqualsDouble(20., dup.getOriginX());
+		assertEqualsDouble(30., dup.getOriginY());
+		assertEqualsDouble(-100., dup.getGridStartX());
+		assertEqualsDouble(-40., dup.getGridStartY());
+		assertEqualsDouble(200., dup.getGridEndX());
+		assertEqualsDouble(300., dup.getGridEndY());
+		assertEquals(12, dup.getLabelsSize());
 	}
 
-	@Override
-	@Test
-	public void testCopy() {
-		super.testCopy();
-
+	@Theory
+	public void testCopy(@StdGridData IStandardGrid shape, @StdGridData IStandardGrid shape2) {
 		shape2.setOrigin(20, 30);
 		shape2.setGridEnd(100, -40);
 		shape2.setGridStart(200, 300);
@@ -228,5 +206,20 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 		assertEqualsDouble(shape2.getGridStartX(), shape.getGridStartX());
 		assertEqualsDouble(shape2.getGridStartY(), shape.getGridStartY());
 		assertEquals(shape2.getLabelsSize(), shape.getLabelsSize());
+	}
+
+	@Retention(RetentionPolicy.RUNTIME)
+	@ParametersSuppliedBy(StdGridSupplier.class)
+	@Target(PARAMETER)
+	public @interface StdGridData {
+	}
+
+	public static class StdGridSupplier extends ParameterSupplier {
+		@Override
+		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+			return Stream.of(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()),
+				ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint())).
+				map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
+		}
 	}
 }
