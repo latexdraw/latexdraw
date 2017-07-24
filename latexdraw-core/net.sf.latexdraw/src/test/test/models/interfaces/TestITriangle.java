@@ -1,4 +1,4 @@
-package test.models;
+package test.models.interfaces;
 
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -13,7 +13,7 @@ import test.HelperTest;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestLTriangle implements HelperTest {
+public class TestITriangle implements HelperTest {
 	@Test
 	public void testConstructor1() {
 		final ITriangle shape = ShapeFactory.INST.createTriangle();

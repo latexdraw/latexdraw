@@ -1,4 +1,4 @@
-package test.models;
+package test.models.interfaces;
 
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestLPolyline implements HelperTest {
+public class TestIPolyline implements HelperTest {
 	@Test
 	public void testConstructor() {
 		final IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);

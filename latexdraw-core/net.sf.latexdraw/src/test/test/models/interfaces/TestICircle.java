@@ -1,4 +1,4 @@
-package test.models;
+package test.models.interfaces;
 
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Theories.class)
-public class TestLCircle implements HelperTest {
+public class TestICircle implements HelperTest {
 	@Theory
 	public void testIsTypeOf(@CircleData final ICircle shape) {
 		assertFalse(shape.isTypeOf(null));

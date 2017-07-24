@@ -1,4 +1,4 @@
-package test.models;
+package test.models.interfaces;
 
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Theories.class)
-public class TestLCircleArc implements HelperTest {
+public class TestICircleArc implements HelperTest {
 	@Theory
 	public void testGetStartPoint(@ArcData final ICircleArc sh, @DoubleData(angle = true) final double angle) {
 		sh.setWidth(2d);

@@ -1,4 +1,4 @@
-package test.models;
+package test.models.interfaces;
 
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestLSquare implements HelperTest {
+public class TestISquare implements HelperTest {
 	@Test
 	public void testConstructorsOKPoints() {
 		ISquare sq = ShapeFactory.INST.createSquare();

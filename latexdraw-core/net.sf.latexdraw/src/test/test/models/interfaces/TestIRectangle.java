@@ -1,4 +1,4 @@
-package test.models;
+package test.models.interfaces;
 
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestLRectangle implements HelperTest {
+public class TestIRectangle implements HelperTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid1() {
 		ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(Double.NaN, 0), 10, 10);
