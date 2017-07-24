@@ -44,9 +44,6 @@
             <resource>
                 <directory>src/resources/main/</directory>
             </resource>
-            <resource>
-                <directory>lib/</directory>
-            </resource>
         </resources>
         <testResources>
             <testResource>
