@@ -1,59 +1,133 @@
 package test.models.interfaces;
 
-import static org.junit.Assert.*;
+import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
-
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
+import test.HelperTest;
 
-public abstract class TestIText<T extends IText> extends TestIPositionShape<T> {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-	@Override
+@RunWith(Theories.class)
+public class TestIText implements HelperTest {
+	IText shape;
+
+	@Before
+	public void setUp() throws Exception {
+		shape = ShapeFactory.INST.createText();
+	}
+
+	@Test
+	public void testGetSetText() {
+		shape.setText("bar");
+		assertEquals("bar", shape.getText());
+	}
+
+	@Test
+	public void testGetSetTextKO() {
+		shape.setText("bar");
+		shape.setText(null);
+		assertEquals("bar", shape.getText());
+	}
+
+	@Theory
+	public void testGetSetTextPosition(final TextPosition value) {
+		shape.setTextPosition(value);
+		assertEquals(value, shape.getTextPosition());
+	}
+
+	@Test
+	public void testGetSetTextPositionKO() {
+		shape.setTextPosition(TextPosition.BOT_RIGHT);
+		shape.setTextPosition(null);
+		assertEquals(TextPosition.BOT_RIGHT, shape.getTextPosition());
+	}
+
 	@Test
 	public void testGetBottomLeftPoint() {
-		assertEquals(shape.getBottomLeftPoint(), ((IPositionShape)shape).getPosition());
+		assertEquals(shape.getBottomLeftPoint(), shape.getPosition());
 	}
 
-	@Override
-	@Test
-	public void testGetBottomRightPoint() {
-		// TODO
-	}
-
-	@Override
-	@Test
-	public void testGetTopLeftPoint() {
-		// TODO
-	}
-
-	@Override
-	@Test
-	public void testGetTopRightPoint() {
-		// TODO
-	}
-
-	@Override
 	@Test
 	public void testMirrorHorizontal() {
-		// TODO
+		final IPoint pos = ShapeFactory.INST.createPoint(shape.getPosition());
+		shape.mirrorHorizontal(shape.getGravityCentre());
+		assertEquals(pos, shape.getPosition());
 	}
 
-	@Override
 	@Test
 	public void testMirrorVertical() {
-		// TODO
+		final IPoint pos = ShapeFactory.INST.createPoint(shape.getPosition());
+		shape.mirrorVertical(shape.getGravityCentre());
+		assertEquals(pos, shape.getPosition());
 	}
 
-	@Override
 	@Test
 	public void testCopy() {
-		// TODO
+		final IText s2 = ShapeFactory.INST.createText();
+		shape.setText("foo");
+		shape.setTextPosition(TextPosition.BOT_RIGHT);
+		s2.copy(shape);
+		assertEquals(shape.getText(), s2.getText());
+		assertEquals(shape.getTextPosition(), s2.getTextPosition());
 	}
 
-	@Override
 	@Test
 	public void testDuplicate() {
-		super.testDuplicate();
-		// TODO
+		shape.setText("foo");
+		shape.setTextPosition(TextPosition.BOT_RIGHT);
+		final IText dup = shape.duplicate();
+		assertEquals(shape.getText(), dup.getText());
+		assertEquals(shape.getTextPosition(), dup.getTextPosition());
+	}
+
+	@Test
+	public void testIsTypeOf() {
+		assertFalse(shape.isTypeOf(null));
+		assertFalse(shape.isTypeOf(IRectangle.class));
+		assertFalse(shape.isTypeOf(ICircle.class));
+		assertTrue(shape.isTypeOf(IShape.class));
+		assertTrue(shape.isTypeOf(IPositionShape.class));
+		assertTrue(shape.isTypeOf(IText.class));
+		assertTrue(shape.isTypeOf(shape.getClass()));
+	}
+
+	@Test
+	public void testConstructorsOK1() {
+		IText txt = ShapeFactory.INST.createText();
+		assertNotNull(txt.getText());
+		assertFalse(txt.getText().isEmpty());
+	}
+
+	@Test
+	public void testConstructorsOK2() {
+		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), "coucou"); //$NON-NLS-1$
+		assertNotNull(txt.getText());
+		assertFalse(txt.getText().isEmpty());
+	}
+
+	@Test
+	public void testConstructorsOK3() {
+		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), ""); //$NON-NLS-1$
+		assertNotNull(txt.getText());
+		assertFalse(txt.getText().isEmpty());
+	}
+
+	@Test
+	public void testConstructorsOK4() {
+		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(0, Double.NEGATIVE_INFINITY), "aa"); //$NON-NLS-1$
+		assertEquals(ShapeFactory.INST.createPoint(), txt.getPosition());
 	}
 }
