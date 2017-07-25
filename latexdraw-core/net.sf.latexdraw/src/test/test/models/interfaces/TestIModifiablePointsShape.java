@@ -1,370 +1,239 @@
 package test.models.interfaces;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.junit.Test;
+import org.junit.experimental.theories.ParameterSignature;
+import org.junit.experimental.theories.ParameterSupplier;
+import org.junit.experimental.theories.ParametersSuppliedBy;
+import org.junit.experimental.theories.PotentialAssignment;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.runner.RunWith;
+import test.HelperTest;
+import test.data.DoubleData;
 
+import static java.lang.annotation.ElementType.PARAMETER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShape> extends TestIShape<T> {
-	@Override
-	@Test
-	public void testMirrorHorizontal() {
-		IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
-		IPoint pt2 = ShapeFactory.INST.createPoint(3, 1);
-		IPoint pt3 = ShapeFactory.INST.createPoint(3, 3);
-		IPoint pt4 = ShapeFactory.INST.createPoint(1, 3);
+@RunWith(Theories.class)
+public class TestIModifiablePointsShape implements HelperTest {
+	@Theory
+	public void testMirrorHorizontal(@ModifPtShapeData final IModifiablePointsShape shape) {
+		final IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
+		final IPoint pt2 = ShapeFactory.INST.createPoint(3, 1);
 		shape.addPoint(pt1);
 		shape.addPoint(pt2);
-		shape.addPoint(pt3);
-		shape.addPoint(pt4);
 		shape.mirrorHorizontal(shape.getGravityCentre().getX());
 		assertEqualsDouble(3., pt1.getX());
 		assertEqualsDouble(1., pt2.getX());
-		assertEqualsDouble(1., pt3.getX());
-		assertEqualsDouble(3., pt4.getX());
 		assertEqualsDouble(1., pt1.getY());
 		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
 	}
 
-	@Override
-	@Test
-	public void testMirrorVertical() {
-		IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
-		IPoint pt2 = ShapeFactory.INST.createPoint(3, 1);
-		IPoint pt3 = ShapeFactory.INST.createPoint(3, 3);
-		IPoint pt4 = ShapeFactory.INST.createPoint(1, 3);
+	@Theory
+	public void testMirrorVertical(@ModifPtShapeData final IModifiablePointsShape shape) {
+		final IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
+		final IPoint pt2 = ShapeFactory.INST.createPoint(3, 3);
 		shape.addPoint(pt1);
 		shape.addPoint(pt2);
-		shape.addPoint(pt3);
-		shape.addPoint(pt4);
 		shape.mirrorVertical(shape.getGravityCentre().getY());
 		assertEqualsDouble(1., pt1.getX());
 		assertEqualsDouble(3., pt2.getX());
-		assertEqualsDouble(3., pt3.getX());
-		assertEqualsDouble(1., pt4.getX());
 		assertEqualsDouble(3., pt1.getY());
-		assertEqualsDouble(3., pt2.getY());
-		assertEqualsDouble(1., pt3.getY());
-		assertEqualsDouble(1., pt4.getY());
+		assertEqualsDouble(1., pt2.getY());
 	}
 
-	@Override
-	@Test
-	public void testTranslate() {
+	@Theory
+	public void testTranslate(@ModifPtShapeData final IModifiablePointsShape shape) {
 		IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
 		IPoint pt2 = ShapeFactory.INST.createPoint(3, 1);
-		IPoint pt3 = ShapeFactory.INST.createPoint(3, 3);
-		IPoint pt4 = ShapeFactory.INST.createPoint(1, 3);
 		shape.addPoint(pt1);
 		shape.addPoint(pt2);
-		shape.addPoint(pt3);
-		shape.addPoint(pt4);
 		shape.translate(10, 0);
 		assertEqualsDouble(11., pt1.getX());
 		assertEqualsDouble(13., pt2.getX());
-		assertEqualsDouble(13., pt3.getX());
-		assertEqualsDouble(11., pt4.getX());
 		assertEqualsDouble(1., pt1.getY());
 		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
-
-		shape.translate(5, 5);
-		assertEqualsDouble(16., pt1.getX());
-		assertEqualsDouble(18., pt2.getX());
-		assertEqualsDouble(18., pt3.getX());
-		assertEqualsDouble(16., pt4.getX());
-		assertEqualsDouble(6., pt1.getY());
-		assertEqualsDouble(6., pt2.getY());
-		assertEqualsDouble(8., pt3.getY());
-		assertEqualsDouble(8., pt4.getY());
-
-		shape.translate(-5, -5);
-		assertEqualsDouble(11., pt1.getX());
-		assertEqualsDouble(13., pt2.getX());
-		assertEqualsDouble(13., pt3.getX());
-		assertEqualsDouble(11., pt4.getX());
-		assertEqualsDouble(1., pt1.getY());
-		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
-
-		shape.translate(-10, 0);
-		assertEqualsDouble(1., pt1.getX());
-		assertEqualsDouble(3., pt2.getX());
-		assertEqualsDouble(3., pt3.getX());
-		assertEqualsDouble(1., pt4.getX());
-		assertEqualsDouble(1., pt1.getY());
-		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
-
-		shape.translate(Double.NaN, -5);
-		assertEqualsDouble(1., pt1.getX());
-		assertEqualsDouble(3., pt2.getX());
-		assertEqualsDouble(3., pt3.getX());
-		assertEqualsDouble(1., pt4.getX());
-		assertEqualsDouble(1., pt1.getY());
-		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
-
-		shape.translate(1, Double.NaN);
-		assertEqualsDouble(1., pt1.getX());
-		assertEqualsDouble(3., pt2.getX());
-		assertEqualsDouble(3., pt3.getX());
-		assertEqualsDouble(1., pt4.getX());
-		assertEqualsDouble(1., pt1.getY());
-		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
-
-		shape.translate(Double.NEGATIVE_INFINITY, -5);
-		assertEqualsDouble(1., pt1.getX());
-		assertEqualsDouble(3., pt2.getX());
-		assertEqualsDouble(3., pt3.getX());
-		assertEqualsDouble(1., pt4.getX());
-		assertEqualsDouble(1., pt1.getY());
-		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
-
-		shape.translate(1, Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(1., pt1.getX());
-		assertEqualsDouble(3., pt2.getX());
-		assertEqualsDouble(3., pt3.getX());
-		assertEqualsDouble(1., pt4.getX());
-		assertEqualsDouble(1., pt1.getY());
-		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
-
-		shape.translate(Double.POSITIVE_INFINITY, -5);
-		assertEqualsDouble(1., pt1.getX());
-		assertEqualsDouble(3., pt2.getX());
-		assertEqualsDouble(3., pt3.getX());
-		assertEqualsDouble(1., pt4.getX());
-		assertEqualsDouble(1., pt1.getY());
-		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
-
-		shape.translate(1, Double.POSITIVE_INFINITY);
-		assertEqualsDouble(1., pt1.getX());
-		assertEqualsDouble(3., pt2.getX());
-		assertEqualsDouble(3., pt3.getX());
-		assertEqualsDouble(1., pt4.getX());
-		assertEqualsDouble(1., pt1.getY());
-		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
-
-		shape.translate(0, 0);
-		assertEqualsDouble(1., pt1.getX());
-		assertEqualsDouble(3., pt2.getX());
-		assertEqualsDouble(3., pt3.getX());
-		assertEqualsDouble(1., pt4.getX());
-		assertEqualsDouble(1., pt1.getY());
-		assertEqualsDouble(1., pt2.getY());
-		assertEqualsDouble(3., pt3.getY());
-		assertEqualsDouble(3., pt4.getY());
 	}
 
-	@Override
-	@Test
-	public void testGetGravityCentre() {
-		super.testGetGravityCentre();
+	@Theory
+	public void testTranslateKO(@ModifPtShapeData final IModifiablePointsShape shape, @DoubleData(vals = {}, bads = true) final double value) {
+		IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
+		IPoint pt2 = ShapeFactory.INST.createPoint(3, 1);
+		shape.addPoint(pt1);
+		shape.addPoint(pt2);
+		shape.translate(value, value);
+		assertEqualsDouble(1., pt1.getX());
+		assertEqualsDouble(3., pt2.getX());
+		assertEqualsDouble(1., pt1.getY());
+		assertEqualsDouble(1., pt2.getY());
+	}
 
+	@Theory
+	public void testGetGravityCentre(@ModifPtShapeData final IModifiablePointsShape shape) {
 		IPoint pt1 = ShapeFactory.INST.createPoint(0, 0);
 		IPoint pt2 = ShapeFactory.INST.createPoint(2, 0);
 		IPoint pt3 = ShapeFactory.INST.createPoint(2, 2);
-		IPoint pt4 = ShapeFactory.INST.createPoint(0, 2);
-
 		assertNotNull(shape.getGravityCentre());
-
 		shape.getPoints().clear();
 		shape.addPoint(pt1);
 		shape.addPoint(pt2);
 		shape.addPoint(pt3);
-		shape.addPoint(pt4);
 		assertTrue(shape.getGravityCentre().equals(ShapeFactory.INST.createPoint(1, 1)));
 	}
 
-	@Test
-	public void testAddPoint() {
-		IPoint pt = ShapeFactory.INST.createPoint();
-		int size = shape.getNbPoints();
-
-		shape.addPoint(null);
-		assertEquals(size, shape.getPoints().size());
-
+	@Theory
+	public void testAddPoint(@ModifPtShapeData final IModifiablePointsShape shape) {
+		final IPoint pt = ShapeFactory.INST.createPoint();
+		final int size = shape.getNbPoints();
 		shape.addPoint(pt);
 		assertEquals(pt, shape.getPoints().get(shape.getPoints().size() - 1));
 		assertEquals(size + 1, shape.getPoints().size());
-
-		pt = ShapeFactory.INST.createPoint(1, 1);
-		shape.addPoint(pt);
-		assertEquals(pt, shape.getPoints().get(shape.getPoints().size() - 1));
-		assertEquals(size + 2, shape.getPoints().size());
-
-		shape.getPoints().remove(shape.getPoints().size() - 1);
-		shape.getPoints().remove(shape.getPoints().size() - 1);
 	}
 
-	@Test
-	public void testAddPointAt() {
-		IPoint pt = ShapeFactory.INST.createPoint();
-		int size = shape.getNbPoints();
+	@Theory
+	public void testAddPointKO(@ModifPtShapeData final IModifiablePointsShape shape) {
+		final int size = shape.getNbPoints();
+		shape.addPoint(null);
+		assertEquals(size, shape.getPoints().size());
+	}
 
+	@Theory
+	public void testAddPointAtNULL(@ModifPtShapeData final IModifiablePointsShape shape) {
+		int size = shape.getNbPoints();
 		shape.addPoint(null, 0);
 		assertEquals(size, shape.getPoints().size());
+	}
 
-		shape.addPoint(null, -1);
+	@Theory
+	public void testAddPointAtKO(@ModifPtShapeData final IModifiablePointsShape shape,
+								 @DoubleData(bads = true, vals = {}) final double value) {
+		int size = shape.getNbPoints();
+		shape.addPoint(ShapeFactory.INST.createPoint(value, value), 0);
 		assertEquals(size, shape.getPoints().size());
+	}
 
-		shape.addPoint(null, 7863);
+	@Theory
+	public void testAddPointAtKO2(@ModifPtShapeData final IModifiablePointsShape shape,
+								 @TestedOn(ints = {-2, 10}) final int value) {
+		int size = shape.getNbPoints();
+		shape.addPoint(ShapeFactory.INST.createPoint(), value);
 		assertEquals(size, shape.getPoints().size());
+	}
 
-		shape.addPoint(pt, Integer.MAX_VALUE);
-		assertEquals(size, shape.getPoints().size());
-
-		shape.addPoint(pt, -2);
-		assertEquals(size, shape.getPoints().size());
-
-		shape.addPoint(pt, shape.getPoints().size() + 1);
-		assertEquals(size, shape.getPoints().size());
-
+	@Theory
+	public void testAddPointAt(@ModifPtShapeData final IModifiablePointsShape shape) {
+		IPoint pt = ShapeFactory.INST.createPoint();
+		int size = shape.getNbPoints();
 		shape.addPoint(pt, 0);
 		assertEquals(pt, shape.getPoints().get(0));
 		assertEquals(size + 1, shape.getPoints().size());
-		shape.removePoint(0);
-
-		shape.addPoint(pt, -1);
-		assertEquals(pt, shape.getPoints().get(shape.getPoints().size() - 1));
-		assertEquals(size + 1, shape.getPoints().size());
-		shape.removePoint(pt);
-
-		shape.addPoint(pt, shape.getPoints().size());
-		assertEquals(pt, shape.getPoints().get(shape.getPoints().size() - 1));
-		assertEquals(size + 1, shape.getPoints().size());
-		shape.removePoint(pt);
 	}
 
-	@Test
-	public void testRemovePoint() {
+	@Theory
+	public void testRemovePoint(@ModifPtShapeData final IModifiablePointsShape shape) {
 		int size = shape.getPoints().size();
 		IPoint pt = ShapeFactory.INST.createPoint();
-
 		shape.addPoint(pt);
-		assertFalse(shape.removePoint(null));
 		assertEquals(size + 1, shape.getPoints().size());
 		assertTrue(shape.removePoint(pt));
 		assertEquals(size, shape.getPoints().size());
 	}
 
-	@Test
-	public void testRemovePoint2() {
-		int size = shape.getPoints().size();
-		IPoint pt = ShapeFactory.INST.createPoint();
-
-		shape.addPoint(pt);
-		assertNull(shape.removePoint(Integer.MAX_VALUE));
-		assertEquals(size + 1, shape.getPoints().size());
-		assertNull(shape.removePoint(Integer.MIN_VALUE));
-		assertEquals(size + 1, shape.getPoints().size());
-		assertEquals(shape.removePoint(-1), pt);
-		assertEquals(size, shape.getPoints().size());
-		shape.addPoint(pt);
-		assertEquals(shape.removePoint(shape.getPoints().size() - 1), pt);
-		assertEquals(size, shape.getPoints().size());
-		shape.addPoint(pt, 0);
-		assertEquals(shape.removePoint(0), pt);
-		assertEquals(size, shape.getPoints().size());
+	@Theory
+	public void testRemovePointNULL(@ModifPtShapeData final IModifiablePointsShape shape) {
+		assertFalse(shape.removePoint(null));
 	}
 
-	@Test
-	public void testSetPoint() {
-		IPoint pt = ShapeFactory.INST.createPoint(1, 0);
+	@Theory
+	public void testRemovePointKO(@ModifPtShapeData final IModifiablePointsShape shape) {
+		IPoint pt = ShapeFactory.INST.createPoint();
+		shape.addPoint(pt);
+		int size = shape.getPoints().size();
+		assertNull(shape.removePoint(size));
+	}
 
+	@Theory
+	public void testSetPoint(@ModifPtShapeData final IModifiablePointsShape shape) {
+		IPoint pt = ShapeFactory.INST.createPoint(1, 0);
 		shape.getPoints().clear();
 		shape.addPoint(pt);
-
-		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(), -2));
-		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(), Integer.MIN_VALUE));
-		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(), Integer.MAX_VALUE));
-		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(0, Double.NaN), 0));
-		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(Double.NaN, 0), 0));
-		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(Double.POSITIVE_INFINITY, 0), 0));
-		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(0, Double.POSITIVE_INFINITY), 0));
-		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(Double.POSITIVE_INFINITY, 0), 0));
-		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(0, Double.POSITIVE_INFINITY), 0));
 		assertTrue(shape.setPoint(ShapeFactory.INST.createPoint(10, 12), 0));
 		assertEqualsDouble(10., pt.getX());
 		assertEqualsDouble(12., pt.getY());
 	}
 
-	@Test
-	public void testSetPoint2() {
-		IPoint pt = ShapeFactory.INST.createPoint(1, 0);
+	@Theory
+	public void testSetPointKO1(@ModifPtShapeData final IModifiablePointsShape shape,
+							   @DoubleData(bads = true, vals = {}) final double value) {
+		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(value, value), 0));
+	}
 
+	@Theory
+	public void testSetPointKO2(@ModifPtShapeData final IModifiablePointsShape shape,
+							   @TestedOn(ints = {-2, 10}) final int value) {
+		assertFalse(shape.setPoint(ShapeFactory.INST.createPoint(0, 0), value));
+	}
+
+	@Theory
+	public void testSetPoint2(@ModifPtShapeData final IModifiablePointsShape shape) {
+		IPoint pt = ShapeFactory.INST.createPoint(1, 0);
 		shape.getPoints().clear();
 		shape.addPoint(pt);
-
-		assertFalse(shape.setPoint(0, 0, -2));
-		assertFalse(shape.setPoint(0, 0, Integer.MIN_VALUE));
-		assertFalse(shape.setPoint(0, 0, Integer.MAX_VALUE));
-		assertFalse(shape.setPoint(0, Double.NaN, 0));
-		assertFalse(shape.setPoint(Double.NaN, 0, 0));
-		assertFalse(shape.setPoint(Double.NEGATIVE_INFINITY, 0, 0));
-		assertFalse(shape.setPoint(0, Double.NEGATIVE_INFINITY, 0));
-		assertFalse(shape.setPoint(Double.POSITIVE_INFINITY, 0, 0));
-		assertFalse(shape.setPoint(0, Double.POSITIVE_INFINITY, 0));
 		assertTrue(shape.setPoint(10, 12, 0));
 		assertEqualsDouble(10., pt.getX());
 		assertEqualsDouble(12., pt.getY());
 	}
 
-	@Test
-	public void testReplacePoint() {
+	@Theory
+	public void testSetPoint2KO1(@ModifPtShapeData final IModifiablePointsShape shape,
+								@DoubleData(bads = true, vals = {}) final double value) {
+		assertFalse(shape.setPoint(value, value, 0));
+	}
+
+	@Theory
+	public void testSetPoint2KO2(@ModifPtShapeData final IModifiablePointsShape shape,
+								@TestedOn(ints = {-2, 10}) final int value) {
+		assertFalse(shape.setPoint(0, 0, value));
+	}
+
+	@Theory
+	public void testReplacePoint(@ModifPtShapeData final IModifiablePointsShape shape) {
 		IPoint pt1 = ShapeFactory.INST.createPoint(2, 0);
 		IPoint pt2 = ShapeFactory.INST.createPoint(2, 1);
 		IPoint pt3 = ShapeFactory.INST.createPoint(2, 2);
-		IPoint pt4 = ShapeFactory.INST.createPoint(2, 3);
-
 		shape.getPoints().clear();
 		shape.addPoint(pt1);
 		shape.addPoint(pt2);
-		shape.addPoint(pt3);
-
-		assertNull(shape.replacePoint(null, 0));
-		assertNull(shape.replacePoint(pt2, 0));
-		assertEquals(pt1, shape.replacePoint(pt4, 0));
-		assertEquals(0, shape.getPoints().indexOf(pt4));
-		assertEquals(pt3, shape.replacePoint(pt1, -1));
-		assertEquals(shape.getPoints().size() - 1, shape.getPoints().indexOf(pt1));
-		assertEquals(pt1, shape.replacePoint(pt3, shape.getPoints().size() - 1));
-		assertEquals(shape.getPoints().size() - 1, shape.getPoints().indexOf(pt3));
+		assertEquals(pt1, shape.replacePoint(pt3, 0));
+		assertEquals(0, shape.getPoints().indexOf(pt3));
 	}
 
-	@Override
-	@Test
-	public void testGetTopLeftPoint() {
+	@Theory
+	public void testReplacePointKO(@ModifPtShapeData final IModifiablePointsShape shape) {
+		assertNull(shape.replacePoint(null, 0));
+		assertNull(shape.replacePoint(ShapeFactory.INST.createPoint(2, 2), 10));
+	}
+
+	@Theory
+	public void testGetTopLeftPoint(@ModifPtShapeData final IModifiablePointsShape shape) {
 		IPoint pt1 = ShapeFactory.INST.createPoint(0, 0);
 		IPoint pt2 = ShapeFactory.INST.createPoint(2, 0);
 		IPoint pt3 = ShapeFactory.INST.createPoint(2, 2);
 		IPoint pt4 = ShapeFactory.INST.createPoint(0, 2);
-
-		assertNotNull(shape.getTopLeftPoint());
 		shape.getPoints().clear();
-		assertNotNull(shape.getTopLeftPoint());
 		shape.addPoint(pt1);
 		shape.addPoint(pt2);
 		shape.addPoint(pt3);
@@ -372,17 +241,13 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		assertTrue(shape.getTopLeftPoint().equals(pt1));
 	}
 
-	@Override
-	@Test
-	public void testGetTopRightPoint() {
+	@Theory
+	public void testGetTopRightPoint(@ModifPtShapeData final IModifiablePointsShape shape) {
 		IPoint pt1 = ShapeFactory.INST.createPoint(0, 0);
 		IPoint pt2 = ShapeFactory.INST.createPoint(2, 0);
 		IPoint pt3 = ShapeFactory.INST.createPoint(2, 2);
 		IPoint pt4 = ShapeFactory.INST.createPoint(0, 2);
-
-		assertNotNull(shape.getTopRightPoint());
 		shape.getPoints().clear();
-		assertNotNull(shape.getTopRightPoint());
 		shape.addPoint(pt1);
 		shape.addPoint(pt2);
 		shape.addPoint(pt3);
@@ -390,17 +255,13 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		assertTrue(shape.getTopRightPoint().equals(pt2));
 	}
 
-	@Override
-	@Test
-	public void testGetBottomRightPoint() {
+	@Theory
+	public void testGetBottomRightPoint(@ModifPtShapeData final IModifiablePointsShape shape) {
 		IPoint pt1 = ShapeFactory.INST.createPoint(0, 0);
 		IPoint pt2 = ShapeFactory.INST.createPoint(2, 0);
 		IPoint pt3 = ShapeFactory.INST.createPoint(2, 2);
 		IPoint pt4 = ShapeFactory.INST.createPoint(0, 2);
-
-		assertNotNull(shape.getBottomRightPoint());
 		shape.getPoints().clear();
-		assertNotNull(shape.getBottomRightPoint());
 		shape.addPoint(pt1);
 		shape.addPoint(pt2);
 		shape.addPoint(pt3);
@@ -408,21 +269,34 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		assertTrue(shape.getBottomRightPoint().equals(pt3));
 	}
 
-	@Override
-	@Test
-	public void testGetBottomLeftPoint() {
+	@Theory
+	public void testGetBottomLeftPoint(@ModifPtShapeData final IModifiablePointsShape shape) {
 		IPoint pt1 = ShapeFactory.INST.createPoint(0, 0);
 		IPoint pt2 = ShapeFactory.INST.createPoint(2, 0);
 		IPoint pt3 = ShapeFactory.INST.createPoint(2, 2);
 		IPoint pt4 = ShapeFactory.INST.createPoint(0, 2);
-
-		assertNotNull(shape.getBottomLeftPoint());
 		shape.getPoints().clear();
-		assertNotNull(shape.getBottomLeftPoint());
 		shape.addPoint(pt1);
 		shape.addPoint(pt2);
 		shape.addPoint(pt3);
 		shape.addPoint(pt4);
 		assertTrue(shape.getBottomLeftPoint().equals(pt4));
+	}
+
+	@Retention(RetentionPolicy.RUNTIME)
+	@ParametersSuppliedBy(ModifPtShapeSupplier.class)
+	@Target(PARAMETER)
+	public @interface ModifPtShapeData {
+	}
+
+	public static class ModifPtShapeSupplier extends ParameterSupplier {
+		@Override
+		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+			return Stream.of(ShapeFactory.INST.createBezierCurve(),
+				ShapeFactory.INST.createFreeHand(),
+				ShapeFactory.INST.createPolyline(),
+				ShapeFactory.INST.createPolygon()).
+				map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
+		}
 	}
 }
