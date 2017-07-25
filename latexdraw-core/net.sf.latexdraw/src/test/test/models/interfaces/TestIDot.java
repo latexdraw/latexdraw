@@ -103,48 +103,32 @@ public class TestIDot implements HelperTest {
 	@Test
 	public void testMirrorHorizontal() {
 		shape.setPosition(-10, -20);
-		shape.mirrorHorizontal(ShapeFactory.INST.createPoint(0, 0));
+		shape.mirrorHorizontal(0d);
 		assertEqualsDouble(10., shape.getPosition().getX());
 		assertEqualsDouble(-20., shape.getPosition().getY());
 	}
 
-	@Test
-	public void testMirrorHorizontal2() {
-		shape.setPosition(-10, -20);
-		shape.mirrorHorizontal(null);
-		assertEqualsDouble(-10., shape.getPosition().getX());
-		assertEqualsDouble(-20., shape.getPosition().getY());
-	}
-
-	@Test
-	public void testMirrorHorizontal3() {
-		shape.setPosition(-10, -20);
-		shape.mirrorHorizontal(ShapeFactory.INST.createPoint(Double.NaN, Double.POSITIVE_INFINITY));
-		assertEqualsDouble(-10., shape.getPosition().getX());
-		assertEqualsDouble(-20., shape.getPosition().getY());
+	@Theory
+	public void testInvalidMirrorHorizontal(@DoubleData(bads = true, vals = {}) final double value) {
+		shape.setPosition(100, 200);
+		shape.mirrorHorizontal(value);
+		assertEquals(100.0, shape.getX(), 0.00001);
+		assertEquals(200.0, shape.getY(), 0.00001);
 	}
 
 	@Test
 	public void testMirrorVertical() {
 		shape.setPosition(-10, -20);
-		shape.mirrorVertical(ShapeFactory.INST.createPoint(100, 0));
+		shape.mirrorVertical(0d);
 		assertEqualsDouble(-10., shape.getPosition().getX());
 		assertEqualsDouble(20., shape.getPosition().getY());
 	}
 
-	@Test
-	public void testMirrorVertical2() {
-		shape.setPosition(-10, -20);
-		shape.mirrorVertical(null);
-		assertEqualsDouble(-10., shape.getPosition().getX());
-		assertEqualsDouble(-20., shape.getPosition().getY());
-	}
-
-	@Test
-	public void testMirrorVertical3() {
-		shape.setPosition(-10, -20);
-		shape.mirrorVertical(ShapeFactory.INST.createPoint(Double.NaN, Double.POSITIVE_INFINITY));
-		assertEqualsDouble(-10., shape.getPosition().getX());
-		assertEqualsDouble(-20., shape.getPosition().getY());
+	@Theory
+	public void testInvalidMirrorVertical(@DoubleData(bads = true, vals = {}) final double value) {
+		shape.setPosition(100, 200);
+		shape.mirrorVertical(value);
+		assertEquals(100.0, shape.getX(), 0.00001);
+		assertEquals(200.0, shape.getY(), 0.00001);
 	}
 }

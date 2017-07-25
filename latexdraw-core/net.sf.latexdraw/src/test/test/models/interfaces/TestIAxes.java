@@ -325,7 +325,7 @@ public class TestIAxes implements HelperTest {
 		shape.setGridStart(0d, 0d);
 		shape.setGridEnd(10d, 10d);
 
-		shape.mirrorHorizontal(ShapeFactory.INST.createPoint(IShape.PPC * 10d, 0d));
+		shape.mirrorHorizontal(IShape.PPC * 10d);
 		assertEqualsDouble(IShape.PPC * 10d, shape.getPosition().getX());
 		assertEqualsDouble(0d, shape.getPosition().getY());
 	}
@@ -336,7 +336,7 @@ public class TestIAxes implements HelperTest {
 		shape.setGridStart(0d, 0d);
 		shape.setGridEnd(10d, 10d);
 
-		shape.mirrorVertical(ShapeFactory.INST.createPoint(0d, -IShape.PPC * 10d));
+		shape.mirrorVertical(-IShape.PPC * 10d);
 		assertEqualsDouble(0d, shape.getPosition().getX());
 		assertEqualsDouble(-IShape.PPC * 10d, shape.getPosition().getY());
 	}

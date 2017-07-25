@@ -34,10 +34,9 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 
 
 	@Override
-	public void mirrorHorizontal(final IPoint origin) {
-		super.mirrorHorizontal(origin);
-
-		if(getWidth() < 0) {
+	public void mirrorHorizontal(final double x) {
+		super.mirrorHorizontal(x);
+		if(getWidth() < 0d) {
 			final IPoint tmp = ShapeFactory.INST.createPoint(points.get(0));
 			points.get(0).setPoint(points.get(1));
 			points.get(1).setPoint(tmp);
@@ -48,9 +47,9 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 	}
 
 	@Override
-	public void mirrorVertical(final IPoint origin) {
-		super.mirrorVertical(origin);
-		if(getHeight() < 0) {
+	public void mirrorVertical(final double y) {
+		super.mirrorVertical(y);
+		if(getHeight() < 0d) {
 			final IPoint tmp = ShapeFactory.INST.createPoint(points.get(0));
 			points.get(0).setPoint(points.get(3));
 			points.get(3).setPoint(tmp);

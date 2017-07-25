@@ -75,18 +75,18 @@ class LPicture extends LPositionShape implements IPicture {
 
 
 	@Override
-	public void mirrorVertical(final IPoint origin) {
+	public void mirrorVertical(final double y) {
 		final IPoint gc = getGravityCentre();
-		if(MathUtils.INST.isValidPt(origin) && !origin.equals(gc, 0.0001)) {
-			translate(0d, gc.verticalSymmetry(origin).getY() - gc.getY());
+		if(MathUtils.INST.isValidCoord(y) && !MathUtils.INST.equalsDouble(y, gc.getY())) {
+			translate(0d, gc.verticalSymmetry(y).getY() - gc.getY());
 		}
 	}
 
 	@Override
-	public void mirrorHorizontal(final IPoint origin) {
+	public void mirrorHorizontal(final double x) {
 		final IPoint gc = getGravityCentre();
-		if(MathUtils.INST.isValidPt(origin) && !origin.equals(gc, 0.0001)) {
-			translate(gc.horizontalSymmetry(origin).getX() - gc.getX(), 0d);
+		if(MathUtils.INST.isValidCoord(x) && !MathUtils.INST.equalsDouble(x, gc.getX())) {
+			translate(gc.horizontalSymmetry(x).getX() - gc.getX(), 0d);
 		}
 	}
 

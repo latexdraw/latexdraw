@@ -159,17 +159,17 @@ class LPoint implements IPoint {
 	}
 
 	@Override
-	public IPoint horizontalSymmetry(final IPoint origin) {
-		if(!MathUtils.INST.isValidPt(origin)) return null;
+	public IPoint horizontalSymmetry(final double x) {
+		if(!MathUtils.INST.isValidCoord(x)) return null;
 
-		return ShapeFactory.INST.createPoint(2d * origin.getX() - getX(), getY());
+		return ShapeFactory.INST.createPoint(2d * x - getX(), getY());
 	}
 
 	@Override
-	public IPoint verticalSymmetry(final IPoint origin) {
-		if(!MathUtils.INST.isValidPt(origin)) return null;
+	public IPoint verticalSymmetry(final double y) {
+		if(!MathUtils.INST.isValidCoord(y)) return null;
 
-		return ShapeFactory.INST.createPoint(getX(), 2d * origin.getY() - getY());
+		return ShapeFactory.INST.createPoint(getX(), 2d * y - getY());
 	}
 
 	@Override

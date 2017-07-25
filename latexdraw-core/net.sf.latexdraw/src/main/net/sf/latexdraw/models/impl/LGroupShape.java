@@ -124,13 +124,13 @@ interface LGroupShape extends IGroup {
 	}
 
 	@Override
-	default void mirrorHorizontal(final IPoint origin) {
-		getShapes().forEach(sh -> sh.mirrorHorizontal(origin));
+	default void mirrorHorizontal(final double x) {
+		getShapes().forEach(sh -> sh.mirrorHorizontal(x));
 	}
 
 	@Override
-	default void mirrorVertical(final IPoint origin) {
-		getShapes().forEach(sh -> sh.mirrorVertical(origin));
+	default void mirrorVertical(final double y) {
+		getShapes().forEach(sh -> sh.mirrorVertical(y));
 	}
 
 	@Override

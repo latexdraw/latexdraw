@@ -259,18 +259,18 @@ public class TestIPlot implements HelperTest {
 		assertEquals(20.0 - 20.0 * IShape.PPC, pt.getY(), 0.0001);
 	}
 
-	@Test
-	public void testInvalidMirrorHorizontal() {
+	@Theory
+	public void testInvalidMirrorHorizontal(@DoubleData(bads = true, vals = {}) final double value) {
 		shape.setPosition(100, 200);
-		shape.mirrorHorizontal(null);
+		shape.mirrorHorizontal(value);
 		assertEquals(100.0, shape.getX(), 0.00001);
 		assertEquals(200.0, shape.getY(), 0.00001);
 	}
 
-	@Test
-	public void testInvalidMirrorVertical() {
+	@Theory
+	public void testInvalidMirrorVertical(@DoubleData(bads = true, vals = {}) final double value) {
 		shape.setPosition(100, 200);
-		shape.mirrorVertical(null);
+		shape.mirrorVertical(value);
 		assertEquals(100.0, shape.getX(), 0.00001);
 		assertEquals(200.0, shape.getY(), 0.00001);
 	}
@@ -278,7 +278,7 @@ public class TestIPlot implements HelperTest {
 	@Test
 	public void testMirrorHorizontal() {
 		shape.setPosition(100, 200);
-		shape.mirrorHorizontal(shape.getGravityCentre());
+		shape.mirrorHorizontal(shape.getGravityCentre().getX());
 		assertEquals(100.0, shape.getX(), 0.00001);
 		assertEquals(200.0, shape.getY(), 0.00001);
 	}
@@ -286,7 +286,7 @@ public class TestIPlot implements HelperTest {
 	@Test
 	public void testMirrorVertical() {
 		shape.setPosition(100, 200);
-		shape.mirrorVertical(shape.getGravityCentre());
+		shape.mirrorVertical(shape.getGravityCentre().getY());
 		assertEquals(100.0, shape.getX(), 0.00001);
 		assertEquals(200.0, shape.getY(), 0.00001);
 	}

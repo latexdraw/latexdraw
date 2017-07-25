@@ -106,24 +106,22 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 
 	@Override
-	public void mirrorHorizontal(final IPoint origin) {
-		if(origin == null) return;
-
-		final IPoint bl = points.get(0).horizontalSymmetry(origin);
-		final IPoint br = getBottomRightPoint().horizontalSymmetry(origin);
-
-		points.get(0).setPoint(br.getX() < bl.getX() ? br.getX() : bl.getX(), br.getY());
+	public void mirrorHorizontal(final double x) {
+		if(MathUtils.INST.isValidCoord(x)) {
+			final IPoint bl = points.get(0).horizontalSymmetry(x);
+			final IPoint br = getBottomRightPoint().horizontalSymmetry(x);
+			points.get(0).setPoint(br.getX() < bl.getX() ? br.getX() : bl.getX(), br.getY());
+		}
 	}
 
 
 	@Override
-	public void mirrorVertical(final IPoint origin) {
-		if(origin == null) return;
-
-		final IPoint bl = points.get(0).verticalSymmetry(origin);
-		final IPoint tl = getTopLeftPoint().verticalSymmetry(origin);
-
-		points.get(0).setPoint(bl.getX(), bl.getY() > tl.getY() ? bl.getY() : tl.getY());
+	public void mirrorVertical(final double y) {
+		if(MathUtils.INST.isValidCoord(y)) {
+			final IPoint bl = points.get(0).verticalSymmetry(y);
+			final IPoint tl = getTopLeftPoint().verticalSymmetry(y);
+			points.get(0).setPoint(bl.getX(), bl.getY() > tl.getY() ? bl.getY() : tl.getY());
+		}
 	}
 
 

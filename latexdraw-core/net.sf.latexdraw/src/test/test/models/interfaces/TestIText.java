@@ -63,14 +63,14 @@ public class TestIText implements HelperTest {
 	@Test
 	public void testMirrorHorizontal() {
 		final IPoint pos = ShapeFactory.INST.createPoint(shape.getPosition());
-		shape.mirrorHorizontal(shape.getGravityCentre());
+		shape.mirrorHorizontal(shape.getGravityCentre().getX());
 		assertEquals(pos, shape.getPosition());
 	}
 
 	@Test
 	public void testMirrorVertical() {
 		final IPoint pos = ShapeFactory.INST.createPoint(shape.getPosition());
-		shape.mirrorVertical(shape.getGravityCentre());
+		shape.mirrorVertical(shape.getGravityCentre().getY());
 		assertEquals(pos, shape.getPosition());
 	}
 

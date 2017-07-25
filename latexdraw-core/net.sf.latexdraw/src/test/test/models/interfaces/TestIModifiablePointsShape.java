@@ -23,7 +23,7 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		shape.addPoint(pt2);
 		shape.addPoint(pt3);
 		shape.addPoint(pt4);
-		shape.mirrorHorizontal(shape.getGravityCentre());
+		shape.mirrorHorizontal(shape.getGravityCentre().getX());
 		assertEqualsDouble(3., pt1.getX());
 		assertEqualsDouble(1., pt2.getX());
 		assertEqualsDouble(1., pt3.getX());
@@ -45,7 +45,7 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		shape.addPoint(pt2);
 		shape.addPoint(pt3);
 		shape.addPoint(pt4);
-		shape.mirrorVertical(shape.getGravityCentre());
+		shape.mirrorVertical(shape.getGravityCentre().getY());
 		assertEqualsDouble(1., pt1.getX());
 		assertEqualsDouble(3., pt2.getX());
 		assertEqualsDouble(3., pt3.getX());

@@ -70,17 +70,17 @@ public interface IPoint {
 
 	/**
 	 * Returns horizontally the point.
-	 * @param origin The location of the horizontal axe.
+	 * @param x The location of the horizontal axe.
 	 * @return the computed point or null is the given point is not valid or if a problem occurs.
 	 */
-	IPoint horizontalSymmetry(final IPoint origin);
+	IPoint horizontalSymmetry(final double x);
 
 	/**
 	 * Returns vertically the point.
-	 * @param origin The location of the vertical axe.
+	 * @param y The location of the vertical axe.
 	 * @return the computed point or null is the given point is not valid or if a problem occurs.
 	 */
-	IPoint verticalSymmetry(final IPoint origin);
+	IPoint verticalSymmetry(final double y);
 
 	/**
 	 * Adds the given pt to the current one: this+pt

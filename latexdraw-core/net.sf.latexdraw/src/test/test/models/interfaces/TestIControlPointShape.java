@@ -121,12 +121,12 @@ public class TestIControlPointShape implements HelperTest {
 	@Theory
 	public void testMirrorHorizontal(@CtrlShapeData final IControlPointShape sh) {
 		sh.translate(-100d, 120d);
-		final IPoint pt = sh.getGravityCentre();
+		final double x = sh.getGravityCentre().getX();
 		List<IPoint> ctrlPts1 = cloneList(sh.getFirstCtrlPts(), p -> ShapeFactory.INST.createPoint(p));
 		List<IPoint> ctrlPts2 = cloneList(sh.getSecondCtrlPts(), p -> ShapeFactory.INST.createPoint(p));
-		sh.mirrorHorizontal(pt);
-		ctrlPts1 = ctrlPts1.stream().map(p -> p.horizontalSymmetry(pt)).collect(Collectors.toList());
-		ctrlPts2 = ctrlPts2.stream().map(p -> p.horizontalSymmetry(pt)).collect(Collectors.toList());
+		sh.mirrorHorizontal(x);
+		ctrlPts1 = ctrlPts1.stream().map(p -> p.horizontalSymmetry(x)).collect(Collectors.toList());
+		ctrlPts2 = ctrlPts2.stream().map(p -> p.horizontalSymmetry(x)).collect(Collectors.toList());
 
 		assertEquals(ctrlPts1, sh.getFirstCtrlPts());
 		assertEquals(ctrlPts2, sh.getSecondCtrlPts());
@@ -135,12 +135,12 @@ public class TestIControlPointShape implements HelperTest {
 	@Theory
 	public void testMirrorVertical(@CtrlShapeData final IControlPointShape sh) {
 		sh.translate(-100d, 120d);
-		final IPoint pt = sh.getGravityCentre();
+		final double y = sh.getGravityCentre().getY();
 		List<IPoint> ctrlPts1 = cloneList(sh.getFirstCtrlPts(), p -> ShapeFactory.INST.createPoint(p));
 		List<IPoint> ctrlPts2 = cloneList(sh.getSecondCtrlPts(), p -> ShapeFactory.INST.createPoint(p));
-		sh.mirrorVertical(pt);
-		ctrlPts1 = ctrlPts1.stream().map(p -> p.verticalSymmetry(pt)).collect(Collectors.toList());
-		ctrlPts2 = ctrlPts2.stream().map(p -> p.verticalSymmetry(pt)).collect(Collectors.toList());
+		sh.mirrorVertical(y);
+		ctrlPts1 = ctrlPts1.stream().map(p -> p.verticalSymmetry(y)).collect(Collectors.toList());
+		ctrlPts2 = ctrlPts2.stream().map(p -> p.verticalSymmetry(y)).collect(Collectors.toList());
 
 		assertEquals(ctrlPts1, sh.getFirstCtrlPts());
 		assertEquals(ctrlPts2, sh.getSecondCtrlPts());

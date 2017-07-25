@@ -34,9 +34,9 @@ public class MirrorShapes extends ShapeActionImpl<IShape> implements Undoable, M
 	protected void doActionBody() {
 		shape.ifPresent(sh -> {
 			if(horizontally) {
-				sh.mirrorHorizontal(sh.getGravityCentre());
+				sh.mirrorHorizontal(sh.getGravityCentre().getX());
 			}else {
-				sh.mirrorVertical(sh.getGravityCentre());
+				sh.mirrorVertical(sh.getGravityCentre().getY());
 			}
 			sh.setModified(true);
 		});

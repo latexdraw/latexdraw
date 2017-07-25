@@ -190,17 +190,15 @@ public interface IShape extends Modifiable {
 
 	/**
 	 * Returns horizontally the shape.
-	 * @param origin The location of the horizontal axe.
-	 * @since 1.8
+	 * @param x The location of the horizontal axe.
 	 */
-	void mirrorHorizontal(final IPoint origin);
+	void mirrorHorizontal(final double x);
 
 	/**
 	 * Returns vertically the shape.
-	 * @param origin The location of the vertical axe.
-	 * @since 1.8
+	 * @param y The location of the vertical axe.
 	 */
-	void mirrorVertical(final IPoint origin);
+	void mirrorVertical(final double y);
 
 	/**
 	 * Translates the shape.

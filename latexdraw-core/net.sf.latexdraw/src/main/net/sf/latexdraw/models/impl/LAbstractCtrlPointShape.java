@@ -140,20 +140,20 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	}
 
 	@Override
-	public void mirrorHorizontal(final IPoint origin) {
-		super.mirrorHorizontal(origin);
-		if(MathUtils.INST.isValidPt(origin)) {
-			firstCtrlPts.forEach(pt -> pt.setPoint(pt.horizontalSymmetry(origin)));
-			secondCtrlPts.forEach(pt -> pt.setPoint(pt.horizontalSymmetry(origin)));
+	public void mirrorHorizontal(final double x) {
+		super.mirrorHorizontal(x);
+		if(MathUtils.INST.isValidCoord(x)) {
+			firstCtrlPts.forEach(pt -> pt.setPoint(pt.horizontalSymmetry(x)));
+			secondCtrlPts.forEach(pt -> pt.setPoint(pt.horizontalSymmetry(x)));
 		}
 	}
 
 	@Override
-	public void mirrorVertical(final IPoint origin) {
-		super.mirrorVertical(origin);
-		if(MathUtils.INST.isValidPt(origin)) {
-			firstCtrlPts.forEach(pt -> pt.setPoint(pt.verticalSymmetry(origin)));
-			secondCtrlPts.forEach(pt -> pt.setPoint(pt.verticalSymmetry(origin)));
+	public void mirrorVertical(final double y) {
+		super.mirrorVertical(y);
+		if(MathUtils.INST.isValidCoord(y)) {
+			firstCtrlPts.forEach(pt -> pt.setPoint(pt.verticalSymmetry(y)));
+			secondCtrlPts.forEach(pt -> pt.setPoint(pt.verticalSymmetry(y)));
 		}
 	}
 

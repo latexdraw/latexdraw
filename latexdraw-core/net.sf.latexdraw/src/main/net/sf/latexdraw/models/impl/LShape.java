@@ -705,13 +705,17 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public void mirrorHorizontal(final IPoint origin) {
-		if(MathUtils.INST.isValidPt(origin)) points.forEach(pt -> pt.setPoint(pt.horizontalSymmetry(origin)));
+	public void mirrorHorizontal(final double x) {
+		if(MathUtils.INST.isValidCoord(x)) {
+			points.forEach(pt -> pt.setPoint(pt.horizontalSymmetry(x)));
+		}
 	}
 
 	@Override
-	public void mirrorVertical(final IPoint origin) {
-		if(MathUtils.INST.isValidPt(origin)) points.forEach(pt -> pt.setPoint(pt.verticalSymmetry(origin)));
+	public void mirrorVertical(final double y) {
+		if(MathUtils.INST.isValidCoord(y)) {
+			points.forEach(pt -> pt.setPoint(pt.verticalSymmetry(y)));
+		}
 	}
 
 	@Override

@@ -248,7 +248,7 @@ public class TestIGrid implements HelperTest {
 		shape.setGridEnd(10, 10);
 		shape.setUnit(1);
 
-		shape.mirrorHorizontal(ShapeFactory.INST.createPoint(IShape.PPC * 10., 0.));
+		shape.mirrorHorizontal(IShape.PPC * 10.);
 		assertEqualsDouble(IShape.PPC * 10., shape.getPosition().getX());
 		assertEqualsDouble(0., shape.getPosition().getY());
 	}
@@ -260,7 +260,7 @@ public class TestIGrid implements HelperTest {
 		shape.setGridEnd(10, 10);
 		shape.setUnit(1);
 
-		shape.mirrorVertical(ShapeFactory.INST.createPoint(0., -IShape.PPC * 10.));
+		shape.mirrorVertical(-IShape.PPC * 10.);
 		assertEqualsDouble(0., shape.getPosition().getX());
 		assertEqualsDouble(-IShape.PPC * 10., shape.getPosition().getY());
 	}

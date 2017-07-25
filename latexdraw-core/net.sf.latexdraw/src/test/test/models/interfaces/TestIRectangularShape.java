@@ -119,7 +119,7 @@ public class TestIRectangularShape implements HelperTest {
 		shape.setWidth(p1.getX() - p2.getX());
 		shape.setHeight(p2.getY() - p1.getY());
 
-		shape.mirrorHorizontal(shape.getGravityCentre());
+		shape.mirrorHorizontal(shape.getGravityCentre().getX());
 		assertEqualsDouble(1d, shape.getTopLeftPoint().getX());
 		assertEqualsDouble(4d, shape.getTopRightPoint().getX());
 		assertEqualsDouble(1d, shape.getTopLeftPoint().getY());
@@ -139,7 +139,7 @@ public class TestIRectangularShape implements HelperTest {
 		shape.setWidth(p1.getX() - p2.getX());
 		shape.setHeight(p2.getY() - p1.getY());
 
-		shape.mirrorVertical(shape.getGravityCentre());
+		shape.mirrorVertical(shape.getGravityCentre().getY());
 		assertEqualsDouble(1d, shape.getTopLeftPoint().getX());
 		assertEqualsDouble(4d, shape.getTopRightPoint().getX());
 		assertEqualsDouble(1d, shape.getTopLeftPoint().getY());

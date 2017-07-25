@@ -101,7 +101,7 @@ public class TestISquaredShape implements HelperTest {
 		shape.setPosition(p2);
 		shape.setWidth(p1.getX() - p2.getX());
 
-		shape.mirrorHorizontal(shape.getGravityCentre());
+		shape.mirrorHorizontal(shape.getGravityCentre().getX());
 		assertEqualsDouble(3., shape.getPtAt(0).getX());
 		assertEqualsDouble(1., shape.getPtAt(1).getX());
 		assertEqualsDouble(1., shape.getPtAt(2).getX());
@@ -120,7 +120,7 @@ public class TestISquaredShape implements HelperTest {
 		shape.setPosition(p2);
 		shape.setWidth(p1.getX() - p2.getX());
 
-		shape.mirrorVertical(shape.getGravityCentre());
+		shape.mirrorVertical(shape.getGravityCentre().getY());
 		assertEqualsDouble(1., shape.getPtAt(0).getX());
 		assertEqualsDouble(3., shape.getPtAt(1).getX());
 		assertEqualsDouble(3., shape.getPtAt(2).getX());
