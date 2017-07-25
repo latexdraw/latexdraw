@@ -60,11 +60,6 @@ class LPolyline extends LPolygon implements IPolyline, LArrowableShape {
 	}
 
 	@Override
-	public boolean isFillable() {
-		return getNbPoints() > 2;
-	}
-
-	@Override
 	public boolean shadowFillsShape() {
 		return false;
 	}
