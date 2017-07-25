@@ -8,7 +8,6 @@ import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
@@ -17,192 +16,39 @@ import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.runner.RunWith;
+import test.HelperTest;
+import test.data.ShapeData;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.closeTo;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
-	@Test
-	public void testAddShapeIShape() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IShape sh2 = ShapeFactory.INST.createRectangle();
+@RunWith(Theories.class)
+public class TestIGroup implements HelperTest {
+	IGroup shape;
+	IRectangle sh1;
+	IShape sh2;
+	IShape sh3;
 
-		shape.addShape(sh1);
-		shape.addShape(sh2);
-		assertEquals(2, shape.getShapes().size());
-		assertEquals(sh1, shape.getShapes().get(0));
-		assertEquals(sh2, shape.getShapes().get(1));
-		shape.addShape((IShape)null);
-		assertEquals(2, shape.getShapes().size());
-		assertEquals(sh1, shape.getShapes().get(0));
-		assertEquals(sh2, shape.getShapes().get(1));
-	}
-
-	@Override
-	@Test
-	public void testAddToRotationAngle() {
-		shape.addShape(ShapeFactory.INST.createRectangle());
-		shape.addShape(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
-		super.testAddToRotationAngle();
-	}
-
-	@Test
-	public void testAddShapeIShapeInt() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IShape sh2 = ShapeFactory.INST.createRectangle();
-		IShape sh3 = ShapeFactory.INST.createRectangle();
-
-		shape.addShape(sh1, 1);
-		assertEquals(0, shape.getShapes().size());
-		shape.addShape(sh1, -2);
-		assertEquals(0, shape.getShapes().size());
-		shape.addShape(sh1, 0);
-		assertEquals(1, shape.getShapes().size());
-		assertEquals(sh1, shape.getShapes().get(0));
-		shape.addShape(null, 0);
-		assertEquals(1, shape.getShapes().size());
-		assertEquals(sh1, shape.getShapes().get(0));
-		shape.addShape(sh2, 2);
-		assertEquals(1, shape.getShapes().size());
-		shape.addShape(sh2, -2);
-		assertEquals(1, shape.getShapes().size());
-		shape.addShape(sh2, -1);
-		assertEquals(2, shape.getShapes().size());
-		assertEquals(sh1, shape.getShapes().get(0));
-		assertEquals(sh2, shape.getShapes().get(1));
-		shape.addShape(sh3, 1);
-		assertEquals(3, shape.getShapes().size());
-		assertEquals(sh1, shape.getShapes().get(0));
-		assertEquals(sh2, shape.getShapes().get(2));
-		assertEquals(sh3, shape.getShapes().get(1));
-	}
-
-	@Test
-	public void testRemoveShapeIShape() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IShape sh2 = ShapeFactory.INST.createRectangle();
-		IShape sh3 = ShapeFactory.INST.createRectangle();
-
-		shape.getShapes().add(sh1);
-		shape.getShapes().add(sh2);
-		shape.getShapes().add(sh3);
-		shape.removeShape(sh2);
-		assertEquals(2, shape.getShapes().size());
-		assertEquals(sh1, shape.getShapes().get(0));
-		assertEquals(sh3, shape.getShapes().get(1));
-		shape.removeShape(null);
-		assertEquals(2, shape.getShapes().size());
-		assertEquals(sh1, shape.getShapes().get(0));
-		assertEquals(sh3, shape.getShapes().get(1));
-		shape.removeShape(ShapeFactory.INST.createRectangle());
-		assertEquals(2, shape.getShapes().size());
-		assertEquals(sh1, shape.getShapes().get(0));
-		assertEquals(sh3, shape.getShapes().get(1));
-	}
-
-	@Test
-	public void testRemoveShapeInt() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IShape sh2 = ShapeFactory.INST.createRectangle();
-		IShape sh3 = ShapeFactory.INST.createRectangle();
-
-		shape.getShapes().add(sh1);
-		shape.getShapes().add(sh2);
-		shape.getShapes().add(sh3);
-
-		assertNull(shape.removeShape(4));
-		assertNull(shape.removeShape(-2));
-		assertEquals(sh2, shape.removeShape(1));
-		assertEquals(sh1, shape.removeShape(0));
-		assertEquals(sh3, shape.removeShape(-1));
-	}
-
-	@Test
-	public void testGetShapeAt() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IShape sh2 = ShapeFactory.INST.createRectangle();
-		IShape sh3 = ShapeFactory.INST.createRectangle();
-
-		shape.getShapes().add(sh1);
-		shape.getShapes().add(sh2);
-		shape.getShapes().add(sh3);
-
-		assertEquals(sh1, shape.getShapeAt(0));
-		assertEquals(sh2, shape.getShapeAt(1));
-		assertEquals(sh3, shape.getShapeAt(2));
-		assertEquals(sh3, shape.getShapeAt(-1));
-		assertNull(shape.getShapeAt(-2));
-		assertNull(shape.getShapeAt(3));
-	}
-
-	@Test
-	public void testSize() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IShape sh2 = ShapeFactory.INST.createRectangle();
-		IShape sh3 = ShapeFactory.INST.createRectangle();
-
-		shape.getShapes().add(sh1);
-		assertEquals(1, shape.size());
-		shape.getShapes().add(sh2);
-		assertEquals(2, shape.size());
-		shape.getShapes().add(sh3);
-		assertEquals(3, shape.size());
-		shape.getShapes().clear();
-		assertEquals(0, shape.size());
-	}
-
-	@Test
-	public void testContains() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IShape sh2 = ShapeFactory.INST.createRectangle();
-		IShape sh3 = ShapeFactory.INST.createRectangle();
-		IShape sh4 = ShapeFactory.INST.createRectangle();
-
-		shape.getShapes().add(sh1);
-		shape.getShapes().add(sh2);
-		shape.getShapes().add(sh3);
-
-		assertFalse(shape.contains(null));
-		assertFalse(shape.contains(sh4));
-		assertTrue(shape.contains(sh1));
-		assertTrue(shape.contains(sh2));
-		assertTrue(shape.contains(sh3));
-	}
-
-	@Test
-	public void testIsEmpty() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IShape sh2 = ShapeFactory.INST.createRectangle();
-		IShape sh3 = ShapeFactory.INST.createRectangle();
-
-		shape.getShapes().clear();
-		assertTrue(shape.isEmpty());
-		shape.getShapes().add(sh1);
-		assertFalse(shape.isEmpty());
-		shape.getShapes().add(sh2);
-		assertFalse(shape.isEmpty());
-		shape.getShapes().add(sh3);
-		assertFalse(shape.isEmpty());
-		shape.getShapes().clear();
-		assertTrue(shape.isEmpty());
-	}
-
-	@Test
-	public void testClear() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IShape sh2 = ShapeFactory.INST.createRectangle();
-		IShape sh3 = ShapeFactory.INST.createRectangle();
-
-		shape.getShapes().add(sh1);
-		shape.getShapes().add(sh2);
-		shape.getShapes().add(sh3);
-		shape.clear();
-		assertEquals(0, shape.getShapes().size());
+	@Before
+	public void setUp() {
+		shape = ShapeFactory.INST.createGroup();
+		sh1 = ShapeFactory.INST.createRectangle();
+		sh2 = ShapeFactory.INST.createEllipse();
+		sh3 = ShapeFactory.INST.createRhombus();
 	}
 
 	@Test
@@ -211,53 +57,215 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	}
 
 	@Test
+	public void testCannotAddShapeWhichIsEmptyGroup() {
+		shape.addShape(ShapeFactory.INST.createGroup());
+		assertThat(shape.getShapes(), empty());
+	}
+
+	@Test
+	public void testIsTypeOfKO() {
+		assertFalse(shape.isTypeOf(null));
+	}
+
+	@Test
+	public void testIsTypeOfOK() {
+		assertTrue(shape.isTypeOf(shape.getClass()));
+		assertTrue(shape.isTypeOf(IShape.class));
+	}
+
+	@Theory
+	public void testIsTypeOf(@ShapeData final IShape sh2) {
+		assertFalse(shape.isTypeOf(sh2.getClass()));
+		shape.addShape(sh2);
+		assertTrue(shape.isTypeOf(sh2.getClass()));
+	}
+
+	@Test
+	public void testAddShapeIShape() {
+		shape.addShape(sh1);
+		shape.addShape(sh2);
+		assertThat(shape.getShapes(), contains(sh1, sh2));
+	}
+
+	@Test
+	public void testAddShapeIShapeKO() {
+		shape.addShape(null);
+		assertThat(shape.getShapes(), empty());
+	}
+
+	@Theory
+	public void testAddToRotationAngle(@ShapeData final IShape sh2, @ShapeData final IShape sh3) {
+		shape.addShape(sh2);
+		shape.addShape(sh3);
+		shape.setRotationAngle(0d);
+		shape.addToRotationAngle(ShapeFactory.INST.createPoint(), 10d);
+		assertThat(sh2.getRotationAngle(), closeTo(10d, 0.0001));
+		assertThat(sh3.getRotationAngle(), closeTo(10d, 0.0001));
+		assertThat(shape.getRotationAngle(), closeTo(10d, 0.0001));
+	}
+
+	@Test
+	public void testAddShapeIShapeIntKO1() {
+		shape.addShape(ShapeFactory.INST.createRectangle(), 1);
+		assertThat(shape.getShapes(), empty());
+	}
+
+	@Test
+	public void testAddShapeIShapeIntKO2() {
+		shape.addShape(ShapeFactory.INST.createRectangle(), -2);
+		assertThat(shape.getShapes(), empty());
+	}
+
+	@Test
+	public void testAddShapeIShapeInt() {
+		shape.addShape(sh1);
+		shape.addShape(sh2, 0);
+		assertThat(shape.getShapes(), contains(sh2, sh1));
+	}
+
+	@Test
+	public void testRemoveShapeKO() {
+		shape.removeShape(ShapeFactory.INST.createRectangle());
+		assertThat(shape.getShapes(), empty());
+	}
+
+	@Test
+	public void testRemoveShape1() {
+		shape.getShapes().addAll(sh1, sh2, sh3);
+		shape.removeShape(sh2);
+		assertThat(shape.getShapes(), contains(sh1, sh3));
+	}
+
+	@Test
+	public void testRemoveShape2() {
+		shape.getShapes().addAll(sh1, sh2, sh3);
+		shape.removeShape(sh1);
+		shape.removeShape(sh2);
+		assertThat(shape.getShapes(), contains(sh3));
+	}
+
+	@Test
+	public void testRemoveShape3() {
+		shape.getShapes().addAll(sh1, sh2, sh3);
+		shape.removeShape(sh3);
+		shape.removeShape(sh1);
+		shape.removeShape(sh2);
+		assertThat(shape.getShapes(), empty());
+	}
+
+	@Theory
+	public void testRemoveShapeIntKO(@TestedOn(ints = {-2, -1, 1, 2}) final int value) {
+		shape.getShapes().add(sh1);
+		shape.removeShape(value);
+	}
+
+	@Test
+	public void testRemoveShapeIntOK1() {
+		shape.getShapes().add(sh1);
+		shape.removeShape(0);
+		assertThat(shape.getShapes(), empty());
+	}
+
+	@Test
+	public void testRemoveShapeIntOK2() {
+		shape.getShapes().addAll(sh1, sh2, sh3);
+		shape.removeShape(0);
+		assertThat(shape.getShapes(), contains(sh2, sh3));
+	}
+
+	@Test
+	public void testRemoveShapeIntOK3() {
+		shape.getShapes().addAll(sh1, sh2, sh3);
+		shape.removeShape(2);
+		assertThat(shape.getShapes(), contains(sh1, sh2));
+	}
+
+	@Test
+	public void testGetShapeAt() {
+		shape.getShapes().addAll(sh1, sh2, sh3);
+		assertEquals(sh1, shape.getShapeAt(0));
+		assertEquals(sh2, shape.getShapeAt(1));
+		assertEquals(sh3, shape.getShapeAt(2));
+		assertEquals(sh3, shape.getShapeAt(-1));
+	}
+
+	@Test
+	public void testGetShapeAtKO() {
+		shape.getShapes().addAll(sh1, sh2, sh3);
+		assertNull(shape.getShapeAt(-2));
+		assertNull(shape.getShapeAt(3));
+	}
+
+	@Test
+	public void testSize() {
+		shape.getShapes().addAll(sh1, sh2, sh3);
+		assertEquals(3, shape.size());
+	}
+
+	@Test
+	public void testContains() {
+		shape.getShapes().addAll(sh1, sh2);
+		assertTrue(shape.contains(sh1));
+		assertTrue(shape.contains(sh2));
+	}
+
+	@Test
+	public void testContainsKO() {
+		shape.getShapes().addAll(sh1, sh2);
+		assertFalse(shape.contains(null));
+		assertFalse(shape.contains(sh3));
+	}
+
+	@Test
+	public void testIsEmpty() {
+		assertTrue(shape.isEmpty());
+	}
+
+	@Test
+	public void testIsNotEmpty() {
+		shape.getShapes().add(sh1);
+		assertFalse(shape.isEmpty());
+	}
+
+	@Test
+	public void testClear() {
+		shape.getShapes().addAll(sh1, sh2);
+		shape.clear();
+		assertThat(shape.getShapes(), empty());
+	}
+
+	@Test
 	public void testGetDotStyleOK() {
-		IShape sh = ShapeFactory.INST.createRectangle();
 		IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-
 		d1.setDotStyle(DotStyle.BAR);
-
-		shape.getShapes().add(sh);
+		shape.getShapes().add(sh1);
 		shape.getShapes().add(d1);
 		shape.getShapes().add(d2);
-
 		assertEquals(DotStyle.BAR, shape.getDotStyle());
 	}
 
 	@Test
 	public void testGetDotStyleNoDot() {
-		shape.getShapes().add(ShapeFactory.INST.createRectangle());
+		shape.getShapes().add(sh1);
 		assertEquals(DotStyle.DOT, shape.getDotStyle());
 	}
 
 	@Test
 	public void testSetDotStyle() {
-		IShape sh = ShapeFactory.INST.createRectangle();
 		IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-
-		shape.getShapes().add(sh);
+		shape.getShapes().add(sh1);
 		shape.getShapes().add(d1);
 		shape.getShapes().add(d2);
-
 		shape.setDotStyle(DotStyle.DIAMOND);
-
 		assertEquals(DotStyle.DIAMOND, d1.getDotStyle());
 		assertEquals(DotStyle.DIAMOND, d2.getDotStyle());
 	}
 
-	@Override
-	@Test
-	public void testCopy() {
-		// TODO
-	}
-
-	@Override
 	@Test
 	public void testDuplicate() {
-		shape2 = shape.duplicate();
-		assertNotNull(shape2);
+		assertNotNull(shape.duplicate());
 	}
 
 	@Test
@@ -265,252 +273,165 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.addShape(ShapeFactory.INST.createPolyline());
 		shape.setArrowStyle(ArrowStyle.BAR_END, 0);
 		shape.setArrowStyle(ArrowStyle.CIRCLE_END, 1);
-		shape2 = shape.duplicate();
+		IGroup shape2 = shape.duplicate();
 		assertEquals(ArrowStyle.BAR_END, shape2.getArrowStyle(0));
 		assertEquals(ArrowStyle.CIRCLE_END, shape2.getArrowStyle(1));
 	}
 
-	private IRectangle setRectangle(double x, double y, double w, double h) {
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		rec.setPosition(x, y);
-		rec.setWidth(w);
-		rec.setHeight(h);
-		return rec;
-	}
-
-	@Override
 	@Test
 	public void testGetFullBottomRightPoint() {
+		sh1.setPosition(10d, 20d);
+		sh1.setWidth(11d);
+		shape.addShape(sh1);
+		assertEquals(sh1.getFullBottomRightPoint(), shape.getFullBottomRightPoint());
+	}
+
+	@Test
+	public void testGetFullBottomRightPointKO() {
 		assertTrue(Double.isNaN(shape.getFullBottomRightPoint().getX()));
 		assertTrue(Double.isNaN(shape.getFullBottomRightPoint().getY()));
-		IRectangle rec1 = setRectangle(5, 10, 6, 20);
-		shape.addShape(rec1);
-		assertEquals(rec1.getFullBottomRightPoint(), shape.getFullBottomRightPoint());
-
-		IRectangle rec2 = setRectangle(90, 40, 100, 200);
-
-		shape.addShape(rec2);
-		assertEquals(rec2.getFullBottomRightPoint(), shape.getFullBottomRightPoint());
 	}
 
-	@Override
 	@Test
 	public void testGetFullTopLeftPoint() {
+		sh1.setPosition(10d, 20d);
+		sh1.setWidth(11d);
+		shape.addShape(sh1);
+		assertEquals(sh1.getFullTopLeftPoint(), shape.getFullTopLeftPoint());
+	}
+
+	@Test
+	public void testGetFullTopLeftPointKO() {
 		assertTrue(Double.isNaN(shape.getFullTopLeftPoint().getX()));
 		assertTrue(Double.isNaN(shape.getFullTopLeftPoint().getY()));
-		IRectangle rec2 = setRectangle(90, 40, 10, 21);
-
-		shape.addShape(rec2);
-		assertEquals(rec2.getFullTopLeftPoint(), shape.getFullTopLeftPoint());
-
-		IRectangle rec1 = setRectangle(5, 10, 6, 20);
-		shape.addShape(rec1);
-		assertEquals(rec1.getFullTopLeftPoint(), shape.getFullTopLeftPoint());
 	}
 
-	@Override
 	@Test
 	public void testGetBottomLeftPoint() {
+		sh1.setPosition(10d, 20d);
+		sh1.setWidth(11d);
+		shape.addShape(sh1);
+		assertEquals(sh1.getBottomLeftPoint(), shape.getBottomLeftPoint());
+	}
+
+	@Test
+	public void testGetBottomLeftPointKO() {
 		assertTrue(Double.isNaN(shape.getBottomLeftPoint().getX()));
 		assertTrue(Double.isNaN(shape.getBottomLeftPoint().getY()));
-		IRectangle rec2 = setRectangle(90, 40, 10, 21);
-
-		shape.addShape(rec2);
-		assertEquals(ShapeFactory.INST.createPoint(90, 40), shape.getBottomLeftPoint());
-
-		IRectangle rec1 = setRectangle(5, 10, 6, 20);
-		shape.addShape(rec1);
-		assertEquals(ShapeFactory.INST.createPoint(5, 40), shape.getBottomLeftPoint());
 	}
 
-	@Override
 	@Test
 	public void testGetBottomRightPoint() {
+		sh1.setPosition(10d, 20d);
+		sh1.setWidth(11d);
+		shape.addShape(sh1);
+		assertEquals(sh1.getBottomRightPoint(), shape.getBottomRightPoint());
+	}
+
+	@Test
+	public void testGetBottomRightPointKO() {
 		assertTrue(Double.isNaN(shape.getBottomRightPoint().getX()));
 		assertTrue(Double.isNaN(shape.getBottomRightPoint().getY()));
-		IRectangle rec1 = setRectangle(5, 10, 6, 20);
-		shape.addShape(rec1);
-		assertEquals(ShapeFactory.INST.createPoint(11, 10), shape.getBottomRightPoint());
-
-		IRectangle rec2 = setRectangle(90, 40, 10, 21);
-
-		shape.addShape(rec2);
-		assertEquals(ShapeFactory.INST.createPoint(100, 40), shape.getBottomRightPoint());
 	}
 
-	@Override
 	@Test
 	public void testGetTopLeftPoint() {
+		sh1.setPosition(10d, 20d);
+		sh1.setWidth(11d);
+		shape.addShape(sh1);
+		assertEquals(sh1.getTopLeftPoint(), shape.getTopLeftPoint());
+	}
+
+	@Test
+	public void testGetTopLeftPointKO() {
 		assertTrue(Double.isNaN(shape.getTopLeftPoint().getX()));
 		assertTrue(Double.isNaN(shape.getTopLeftPoint().getY()));
-		IRectangle rec2 = setRectangle(90, 40, 10, 21);
-
-		shape.addShape(rec2);
-		assertEquals(ShapeFactory.INST.createPoint(90, 19), shape.getTopLeftPoint());
-
-		IRectangle rec1 = setRectangle(5, 10, 6, 20);
-		shape.addShape(rec1);
-		assertEquals(ShapeFactory.INST.createPoint(5, -10), shape.getTopLeftPoint());
 	}
 
-	@Override
 	@Test
 	public void testGetTopRightPoint() {
+		sh1.setPosition(10d, 20d);
+		sh1.setWidth(11d);
+		shape.addShape(sh1);
+		assertEquals(sh1.getTopRightPoint(), shape.getTopRightPoint());
+	}
+
+	@Test
+	public void testGetTopRightPointKO() {
 		assertTrue(Double.isNaN(shape.getTopRightPoint().getX()));
 		assertTrue(Double.isNaN(shape.getTopRightPoint().getY()));
-		IRectangle rec1 = setRectangle(5, 10, 6, 20);
-		shape.addShape(rec1);
-		assertEquals(ShapeFactory.INST.createPoint(11, -10), shape.getTopRightPoint());
-
-		IRectangle rec2 = setRectangle(90, 40, 10, 21);
-
-		shape.addShape(rec2);
-		assertEquals(ShapeFactory.INST.createPoint(100, -10), shape.getTopRightPoint());
 	}
 
-	@Override
 	@Test
-	public void testMirrorHorizontal() {
-		// TODO
+	public void testGetGravityCentreKO() {
+		assertEquals(ShapeFactory.INST.createPoint(0, 0), shape.getGravityCentre());
 	}
 
-	@Override
-	@Test
-	public void testMirrorVertical() {
-		// TODO
-	}
-
-	@Override
-	@Test
-	public void testTranslate() {
-		// TODO
-	}
-
-	@Override
 	@Test
 	public void testGetGravityCentre() {
-		assertEquals(ShapeFactory.INST.createPoint(0, 0), shape.getGravityCentre());
-
-		IRectangle rec1 = setRectangle(100, 2, 924, 12);
-		IRectangle rec2 = setRectangle(200, 828, 17, 87);
-
-		shape.addShape(rec1);
-		shape.addShape(rec2);
-		assertEquals(ShapeFactory.INST.createPoint((100 + 100 + 924) / 2., (828 + 2 - 12) / 2.), shape.getGravityCentre());
+		sh1.setPosition(33d, -13d);
+		shape.addShape(sh1);
+		shape.addShape(sh2);
+		assertEquals(sh1.getGravityCentre().getMiddlePoint(sh2.getGravityCentre()), shape.getGravityCentre());
 	}
 
-	@Override
+	@Test
+	public void testSetHasHatchingsKO() {
+		assertFalse(shape.hasHatchings());
+	}
+
 	@Test
 	public void testSetHasHatchings() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-
-		shape.addShape(rec1);
-		shape.addShape(rec2);
-		assertFalse(shape.hasHatchings());
-
-		rec2.setFillingStyle(FillingStyle.HLINES);
+		shape.getShapes().addAll(sh1, sh2);
+		sh2.setFillingStyle(FillingStyle.HLINES);
 		assertTrue(shape.hasHatchings());
-
-		rec1.setFillingStyle(FillingStyle.HLINES);
-		rec2.setFillingStyle(FillingStyle.GRAD);
-		assertTrue(shape.hasHatchings());
-
-		rec1.setFillingStyle(FillingStyle.HLINES);
-		rec2.setFillingStyle(FillingStyle.VLINES);
-		assertTrue(shape.hasHatchings());
-
-		rec1.setFillingStyle(FillingStyle.PLAIN);
-		rec2.setFillingStyle(FillingStyle.GRAD);
-		assertFalse(shape.hasHatchings());
 	}
 
 	@Test
 	public void testHasHatchingsWithUnstylableShape() {
-		IGrid grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
-
-		// The test is useful only if the shape is not stylable.
-		assertFalse(grid.isInteriorStylable());
-
-		shape.addShape(grid);
-
+		shape.addShape(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
 		assertFalse(shape.hasHatchings());
-		grid.setFillingStyle(FillingStyle.CLINES_PLAIN);
-		assertFalse(shape.hasHatchings());
-
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		shape.addShape(rec1);
-		assertFalse(shape.hasHatchings());
-
-		rec1.setFillingStyle(FillingStyle.HLINES);
-		assertTrue(shape.hasHatchings());
 	}
 
-	@Override
+	@Test
+	public void testSetHasGradientKO() {
+		shape.addShape(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
+		assertFalse(shape.hasGradient());
+	}
+
 	@Test
 	public void testSetHasGradient() {
-		IGrid grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
-
-		// The test is useful only if the shape is not stylable.
-		assertFalse(grid.isInteriorStylable());
-
-		shape.addShape(grid);
-
-		assertFalse(shape.hasGradient());
-		grid.setFillingStyle(FillingStyle.GRAD);
-		assertFalse(shape.hasGradient());
-
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		shape.addShape(rec1);
-		assertFalse(shape.hasGradient());
-
-		rec1.setFillingStyle(FillingStyle.VLINES_PLAIN);
-		assertFalse(shape.hasGradient());
-
-		rec1.setFillingStyle(FillingStyle.GRAD);
+		sh1.setFillingStyle(FillingStyle.GRAD);
+		shape.addShape(sh1);
 		assertTrue(shape.hasGradient());
 	}
 
-	@Override
+	@Test
+	public void testGetSetGradColEndKO() {
+		assertEquals(PSTricksConstants.DEFAULT_GRADIENT_END_COLOR, shape.getGradColEnd());
+	}
+
 	@Test
 	public void testGetSetGradColEnd() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-
-		// The test is useful only if the shape is stylable.
-		assertTrue(rec1.isInteriorStylable());
-
-		shape.addShape(rec1);
-		shape.addShape(rec2);
-
+		shape.getShapes().addAll(sh1, sh2);
 		shape.setGradColEnd(DviPsColors.CYAN);
-		assertEquals(DviPsColors.CYAN, rec1.getGradColEnd());
-		assertEquals(DviPsColors.CYAN, rec2.getGradColEnd());
+		assertEquals(DviPsColors.CYAN, sh1.getGradColEnd());
+		assertEquals(DviPsColors.CYAN, sh2.getGradColEnd());
 	}
 
 	@Test
-	public void testGetGradColEnd() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-
-		// The test is useful only if the shape is stylable.
-		assertTrue(rec1.isInteriorStylable());
-
-		shape.addShape(rec1);
-		shape.addShape(rec2);
-
-		rec1.setGradColEnd(DviPsColors.ORANGE);
-		rec2.setGradColEnd(DviPsColors.PINK);
-
-		assertNotNull(shape.getGradColEnd());
-		assertNotEquals(DviPsColors.PINK, shape.getGradColEnd());
-		assertNotEquals(DviPsColors.ORANGE, shape.getGradColEnd());
-
-		rec1.setFillingStyle(FillingStyle.GRAD);
-		rec2.setFillingStyle(FillingStyle.GRAD);
-
-		assertEquals(DviPsColors.ORANGE, shape.getGradColEnd());
+	public void testGetSetGradColStartKO() {
+		assertEquals(PSTricksConstants.DEFAULT_GRADIENT_START_COLOR, shape.getGradColStart());
 	}
+
+	@Test
+	public void testGetSetGradColStart() {
+		shape.getShapes().addAll(sh1, sh2);
+		shape.setGradColStart(DviPsColors.CYAN);
+		assertEquals(DviPsColors.CYAN, sh1.getGradColStart());
+		assertEquals(DviPsColors.CYAN, sh2.getGradColStart());
+	}
+
 
 	private IAxes init4getAxes() {
 		IShape sh1 = ShapeFactory.INST.createRectangle();
@@ -537,7 +458,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Test
 	public void testGetAxesIncrementYOk() {
 		init4getAxes().setIncrementY(11.0);
-		assertEquals(11.0, shape.getIncrementY(), 0.0);
+		assertEqualsDouble(11.0, shape.getIncrementY());
 	}
 
 	@Test
@@ -549,7 +470,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Test
 	public void testGetAxesDistLabelsYOk() {
 		init4getAxes().setDistLabelsY(11.0);
-		assertEquals(11.0, shape.getDistLabelsY(), 0.0);
+		assertEqualsDouble(11.0, shape.getDistLabelsY());
 	}
 
 	@Test
@@ -561,7 +482,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Test
 	public void testGetAxesDistLabelsXOk() {
 		init4getAxes().setDistLabelsX(11.0);
-		assertEquals(11.0, shape.getDistLabelsX(), 0.0);
+		assertEqualsDouble(11.0, shape.getDistLabelsX());
 	}
 
 	@Test
@@ -573,7 +494,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Test
 	public void testGetAxesTicksSizeOk() {
 		init4getAxes().setTicksSize(11.0);
-		assertEquals(11.0, shape.getTicksSize(), 0.0);
+		assertEqualsDouble(11.0, shape.getTicksSize());
 	}
 
 	@Test
@@ -683,70 +604,79 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	public void testSetAxesLabelsDisplay() {
 		init4setAxes();
 		shape.setLabelsDisplayed(PlottingStyle.NONE);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(PlottingStyle.NONE, sh.getLabelsDisplayed()));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
+			forEach(sh -> assertEquals(PlottingStyle.NONE, sh.getLabelsDisplayed()));
 	}
 
 	@Test
 	public void testSetAxesIncrementX() {
 		init4setAxes();
 		shape.setIncrementX(12d);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(12d, sh.getIncrementX(), 0.0));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
+			forEach(sh -> assertEqualsDouble(12d, sh.getIncrementX()));
 	}
 
 	@Test
 	public void testSetAxesIncrementY() {
 		init4setAxes();
 		shape.setIncrementY(12d);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(12d, sh.getIncrementY(), 0.0));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
+			forEach(sh -> assertEqualsDouble(12d, sh.getIncrementY()));
 	}
 
 	@Test
 	public void testSetAxesDistLabelsX() {
 		init4setAxes();
 		shape.setDistLabelsX(12d);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(12d, sh.getDistLabelsX(), 0.0));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).forEach(sh -> assertEqualsDouble(12d, sh
+			.getDistLabelsX()));
 	}
 
 	@Test
 	public void testSetAxesDistLabelsY() {
 		init4setAxes();
 		shape.setDistLabelsY(12d);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(12d, sh.getDistLabelsY(), 0.0));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).forEach(sh -> assertEqualsDouble(12d, sh
+			.getDistLabelsY()));
 	}
 
 	@Test
 	public void testSetAxesticksSize() {
 		init4setAxes();
 		shape.setTicksSize(12d);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(12d, sh.getTicksSize(), 0.0));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
+			forEach(sh -> assertEqualsDouble(12d, sh.getTicksSize()));
 	}
 
 	@Test
 	public void testSetShowOrigin() {
 		init4setAxes();
 		shape.setShowOrigin(false);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertFalse(sh.isShowOrigin()));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).forEach(sh -> assertFalse(sh.isShowOrigin()));
 	}
 
 	@Test
 	public void testSetAxesticksDisplayed() {
 		init4setAxes();
 		shape.setTicksDisplayed(PlottingStyle.X);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(PlottingStyle.X, sh.getTicksDisplayed()));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
+			forEach(sh -> assertEquals(PlottingStyle.X, sh.getTicksDisplayed()));
 	}
 
 	@Test
 	public void testSetAxesticksStyle() {
 		init4setAxes();
 		shape.setTicksStyle(TicksStyle.BOTTOM);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(TicksStyle.BOTTOM, sh.getTicksStyle()));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
+			forEach(sh -> assertEquals(TicksStyle.BOTTOM, sh.getTicksStyle()));
 	}
 
 	@Test
 	public void testSetAxesStyle() {
 		init4setAxes();
 		shape.setAxesStyle(AxesStyle.FRAME);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(AxesStyle.FRAME, sh.getAxesStyle()));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
+			forEach(sh -> assertEquals(AxesStyle.FRAME, sh.getAxesStyle()));
 	}
 
 	@Test
@@ -754,7 +684,8 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		init4setAxes();
 		IPoint pt = ShapeFactory.INST.createPoint(13d, 14d);
 		shape.setIncrement(pt);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(pt, sh.getIncrement()));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
+			forEach(sh -> assertEquals(pt, sh.getIncrement()));
 	}
 
 	@Test
@@ -762,7 +693,8 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		init4setAxes();
 		IPoint pt = ShapeFactory.INST.createPoint(13d, 14d);
 		shape.setDistLabels(pt);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes)sh).forEach(sh -> assertEquals(pt, sh.getDistLabels()));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
+			forEach(sh -> assertEquals(pt, sh.getDistLabels()));
 	}
 
 	private void init4setFill() {
@@ -774,83 +706,67 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.getShapes().add(sh1b);
 	}
 
-	@Override
-	@Test
-	public void testGetSetGradColStart() {
-		init4setFill();
-		shape.setFillingStyle(FillingStyle.GRAD);
-		shape.setGradColStart(DviPsColors.RED);		assertEquals(java.awt.Color.RED, shape.getGradColStart().toAWT());
-		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getGradColStart().toAWT()));
-	}
-
-	@Override
 	@Test
 	public void testGetSetGradAngle() {
 		init4setFill();
 		shape.setFillingStyle(FillingStyle.GRAD);
 		shape.setGradAngle(1d);
-		assertEquals(1d, shape.getGradAngle(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(1d, sh.getGradAngle(), 0d));
+		assertEqualsDouble(1d, shape.getGradAngle());
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEqualsDouble(1d, sh.getGradAngle()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetGradMidPt() {
 		init4setFill();
 		shape.setFillingStyle(FillingStyle.GRAD);
 		shape.setGradMidPt(1d);
-		assertEquals(1d, shape.getGradMidPt(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(1d, sh.getGradMidPt(), 0d));
+		assertEqualsDouble(1d, shape.getGradMidPt());
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEqualsDouble(1d, sh.getGradMidPt()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetHatchingsSep() {
 		init4setFill();
 		shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
 		shape.setHatchingsSep(1d);
-		assertEquals(1d, shape.getHatchingsSep(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(1d, sh.getHatchingsSep(), 0d));
+		assertEqualsDouble(1d, shape.getHatchingsSep());
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEqualsDouble(1d, sh.getHatchingsSep()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetHatchingsCol() {
 		init4setFill();
 		shape.setFillingStyle(FillingStyle.HLINES);
 		shape.setHatchingsCol(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getHatchingsCol().toAWT());
-		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getHatchingsCol().toAWT()));
+		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getHatchingsCol().toAWT
+			()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetHatchingsAngle() {
 		init4setFill();
 		shape.setHatchingsAngle(15d);
-		assertEquals(15d, shape.getHatchingsAngle(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(15d, sh.getHatchingsAngle(), 0d));
+		assertEqualsDouble(15d, shape.getHatchingsAngle());
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEqualsDouble(15d, sh.getHatchingsAngle()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetHatchingsWidth() {
 		init4setFill();
 		shape.setHatchingsWidth(15d);
-		assertEquals(15d, shape.getHatchingsWidth(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(15d, sh.getHatchingsWidth(), 0d));
+		assertEqualsDouble(15d, shape.getHatchingsWidth());
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEqualsDouble(15d, sh.getHatchingsWidth()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetRotationAngle() {
 		init4setFill();
 		shape.setRotationAngle(1);
-		assertEquals(1d, shape.getRotationAngle(), 0d);
-		shape.getShapes().forEach(sh -> assertEquals(1d, sh.getRotationAngle(), 0d));
+		assertEqualsDouble(1d, shape.getRotationAngle());
+		shape.getShapes().forEach(sh -> assertEqualsDouble(1d, sh.getRotationAngle()));
 	}
 
-	@Override
 	@Test
 	public void testIsSetShowPts() {
 		init4setFill();
@@ -860,7 +776,6 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.getShapes().stream().filter(sh -> sh.isShowPtsable()).forEach(sh -> assertTrue(sh.isShowPts()));
 	}
 
-	@Override
 	@Test
 	public void testhasSetDbleBord() {
 		init4setFill();
@@ -869,39 +784,35 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertTrue(sh.hasDbleBord()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetDbleBordCol() {
 		init4setFill();
 		shape.setHasDbleBord(true);
 		shape.setDbleBordCol(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getDbleBordCol().toAWT());
-		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getDbleBordCol().toAWT()));
+		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).
+			forEach(sh -> assertEquals(java.awt.Color.RED, sh.getDbleBordCol().toAWT()));
 	}
 
-	@Override
 	@Test
 	public void testGetPtAt() {
 		assertNull(shape.getPtAt(0));
 	}
 
-	@Override
 	@Test
 	public void testGetNbPoints() {
 		assertEquals(0, shape.getNbPoints());
 	}
 
-	@Override
 	@Test
 	public void testGetSetDbleBordSep() {
 		init4setFill();
 		shape.setHasDbleBord(true);
 		shape.setDbleBordSep(15d);
-		assertEquals(15d, shape.getDbleBordSep(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertEquals(15d, sh.getDbleBordSep(), 0d));
+		assertEqualsDouble(15d, shape.getDbleBordSep());
+		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertEqualsDouble(15d, sh.getDbleBordSep()));
 	}
 
-	@Override
 	@Test
 	public void testHasSetShadow() {
 		init4setFill();
@@ -910,27 +821,25 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.getShapes().stream().filter(sh -> sh.isShadowable()).forEach(sh -> assertTrue(sh.hasShadow()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetShadowCol() {
 		init4setFill();
 		shape.setHasShadow(true);
 		shape.setShadowCol(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getShadowCol().toAWT());
-		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getShadowCol().toAWT()));
+		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).
+			forEach(sh -> assertEquals(java.awt.Color.RED, sh.getShadowCol().toAWT()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetShadowAngle() {
 		init4setFill();
 		shape.setHasShadow(true);
 		shape.setShadowAngle(1d);
-		assertEquals(1d, shape.getShadowAngle(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(1d, sh.getShadowAngle(), 0d));
+		assertEqualsDouble(1d, shape.getShadowAngle());
+		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEqualsDouble(1d, sh.getShadowAngle()));
 	}
 
-	@Override
 	@Test
 	public void testIsSetFilled() {
 		init4setFill();
@@ -939,17 +848,15 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertTrue(shape.isFilled()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetShadowSize() {
 		init4setFill();
 		shape.setHasShadow(true);
 		shape.setShadowSize(1d);
-		assertEquals(1d, shape.getShadowSize(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(1d, sh.getShadowSize(), 0d));
+		assertEqualsDouble(1d, shape.getShadowSize());
+		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEqualsDouble(1d, sh.getShadowSize()));
 	}
 
-	@Override
 	@Test
 	public void testGetSetBorderPosition() {
 		init4setFill();
@@ -958,16 +865,14 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.getShapes().stream().filter(sh -> sh.isBordersMovable()).forEach(sh -> assertEquals(BorderPos.MID, sh.getBordersPosition()));
 	}
 
-	@Override
 	@Test
 	public void testSetGetThickness() {
 		init4setFill();
 		shape.setThickness(10d);
-		assertEquals(10d, shape.getThickness(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isThicknessable()).forEach(sh -> assertEquals(10d, sh.getThickness(), 0d));
+		assertEqualsDouble(10d, shape.getThickness());
+		shape.getShapes().stream().filter(sh -> sh.isThicknessable()).forEach(sh -> assertEqualsDouble(10d, sh.getThickness()));
 	}
 
-	@Override
 	@Test
 	public void testSetGetLineColour() {
 		init4setFill();
@@ -985,7 +890,6 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.getShapes().forEach(sh -> assertEquals(java.awt.Color.RED, sh.getLineColour().toAWT()));
 	}
 
-	@Override
 	@Test
 	public void testSetGetLineStyle() {
 		init4setFill();
@@ -994,49 +898,46 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.getShapes().stream().filter(sh -> sh.isBordersMovable()).forEach(sh -> assertEquals(LineStyle.DASHED, sh.getLineStyle()));
 	}
 
-	@Override
 	@Test
 	public void testSetGetDashSepWhite() {
 		init4setFill();
 		shape.setDashSepWhite(15d);
-		assertEquals(15d, shape.getDashSepWhite(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> assertEquals(15d, sh.getDashSepWhite(), 0d));
+		assertEqualsDouble(15d, shape.getDashSepWhite());
+		shape.getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> assertEqualsDouble(15d, sh.getDashSepWhite()));
 	}
 
-	@Override
 	@Test
 	public void testSetGetDashSepBlack() {
 		init4setFill();
 		shape.setDashSepBlack(15d);
-		assertEquals(15d, shape.getDashSepBlack(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> assertEquals(15d, sh.getDashSepBlack(), 0d));
+		assertEqualsDouble(15d, shape.getDashSepBlack());
+		shape.getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> assertEqualsDouble(15d, sh.getDashSepBlack()));
 	}
 
-	@Override
 	@Test
 	public void testSetGetDotSep() {
 		init4setFill();
 		shape.setDotSep(15d);
-		assertEquals(15d, shape.getDotSep(), 0d);
-		shape.getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> assertEquals(15d, sh.getDotSep(), 0d));
+		assertEqualsDouble(15d, shape.getDotSep());
+		shape.getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> assertEqualsDouble(15d, sh.getDotSep()));
 	}
 
-	@Override
 	@Test
 	public void testSetGetFillingCol() {
 		init4setFill();
 		shape.setFilled(true);
 		shape.setFillingCol(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getFillingCol().toAWT());
-		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getFillingCol().toAWT()));
+		shape.getShapes().stream().filter(sh -> sh.isFillable()).
+			forEach(sh -> assertEquals(java.awt.Color.RED, sh.getFillingCol().toAWT()));
 	}
 
-	@Override
 	@Test
 	public void testSetGetFillingStyle() {
 		init4setFill();
 		shape.setFillingStyle(FillingStyle.GRAD);
 		assertEquals(FillingStyle.GRAD, shape.getFillingStyle());
-		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(FillingStyle.GRAD, sh.getFillingStyle()));
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).
+			forEach(sh -> assertEquals(FillingStyle.GRAD, sh.getFillingStyle()));
 	}
 }
