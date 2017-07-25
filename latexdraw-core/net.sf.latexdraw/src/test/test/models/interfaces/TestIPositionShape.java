@@ -1,131 +1,125 @@
 package test.models.interfaces;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
-import org.junit.Test;
+import org.junit.experimental.theories.ParameterSignature;
+import org.junit.experimental.theories.ParameterSupplier;
+import org.junit.experimental.theories.ParametersSuppliedBy;
+import org.junit.experimental.theories.PotentialAssignment;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
+import test.HelperTest;
+import test.data.DoubleData;
 
-public abstract class TestIPositionShape<T extends IPositionShape> extends TestIShape<T> {
-	@Override
-	@Test
-	public void testTranslate() {
+import static java.lang.annotation.ElementType.PARAMETER;
+
+@RunWith(Theories.class)
+public class TestIPositionShape implements HelperTest {
+	@Theory
+	public void testTranslate(@PosShapeData final IPositionShape shape) {
 		shape.setPosition(0, 0);
 		shape.translate(100, 50);
 		assertEqualsDouble(100., shape.getPosition().getX());
 		assertEqualsDouble(50., shape.getPosition().getY());
 	}
 
-	@Test
-	public void testGetSetX() {
-		shape.setX(10.);
-		assertEqualsDouble(10., shape.getX());
-		shape.setX(-20.);
-		assertEqualsDouble(-20., shape.getX());
-		shape.setX(Double.NaN);
-		assertEqualsDouble(-20., shape.getX());
-		shape.setX(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(-20., shape.getX());
-		shape.setX(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(-20., shape.getX());
+	@Theory
+	public void testGetSetX(@PosShapeData final IPositionShape shape, @DoubleData final double value) {
+		shape.setX(value);
+		assertEqualsDouble(value, shape.getX());
 	}
 
-	@Test
-	public void testGetSetY() {
-		shape.setY(10.);
-		assertEqualsDouble(10., shape.getY());
-		shape.setY(-20.);
-		assertEqualsDouble(-20., shape.getY());
-		shape.setY(Double.NaN);
-		assertEqualsDouble(-20., shape.getY());
-		shape.setY(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(-20., shape.getY());
-		shape.setY(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(-20., shape.getY());
+	@Theory
+	public void testGetSetXKO(@PosShapeData final IPositionShape shape, @DoubleData(vals = {}, bads = true) final double value) {
+		shape.setX(10d);
+		shape.setX(value);
+		assertEqualsDouble(10d, shape.getX());
 	}
 
-	@Test
-	public void testSetXThenSetY() {
-		shape.setX(40.);
-		assertEqualsDouble(40., shape.getX());
-		shape.setX(-30.);
-		assertEqualsDouble(-30., shape.getX());
-
-		shape.setY(10.);
-		assertEqualsDouble(10., shape.getY());
-		assertEqualsDouble(-30., shape.getX());
-		shape.setY(-20.);
-		assertEqualsDouble(-20., shape.getY());
-		assertEqualsDouble(-30., shape.getX());
+	@Theory
+	public void testGetSetY(@PosShapeData final IPositionShape shape, @DoubleData final double value) {
+		shape.setY(value);
+		assertEqualsDouble(value, shape.getY());
 	}
 
-	@Test
-	public void testSetYThenSetX() {
-		shape.setY(10.);
-		assertEqualsDouble(10., shape.getY());
-		shape.setY(-20.);
-		assertEqualsDouble(-20., shape.getY());
-
-		shape.setX(40.);
-		assertEqualsDouble(40., shape.getX());
-		assertEqualsDouble(-20., shape.getY());
-		shape.setX(-30.);
-		assertEqualsDouble(-30., shape.getX());
-		assertEqualsDouble(-20., shape.getY());
+	@Theory
+	public void testGetSetYKO(@PosShapeData final IPositionShape shape, @DoubleData(vals = {}, bads = true) final double value) {
+		shape.setY(10d);
+		shape.setY(value);
+		assertEqualsDouble(10d, shape.getY());
 	}
 
-	@Test
-	public void testGetSetPosition() {
-		IPoint pt = ShapeFactory.INST.createPoint(15, 25);
+	@Theory
+	public void testSetXThenSetY(@PosShapeData final IPositionShape shape, @DoubleData final double value) {
+		shape.setX(value);
+		assertEqualsDouble(value, shape.getX());
+	}
 
+	@Theory
+	public void testSetYThenSetX(@PosShapeData final IPositionShape shape, @DoubleData final double value) {
+		shape.setY(value);
+		assertEqualsDouble(value, shape.getY());
+	}
+
+	@Theory
+	public void testGetSetPosition(@PosShapeData final IPositionShape shape) {
+		IPoint pt = ShapeFactory.INST.createPoint(15d, 25d);
 		shape.setPosition(pt);
 		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		assertEqualsDouble(15., shape.getX());
-		assertEqualsDouble(25., shape.getY());
+		assertEqualsDouble(15d, shape.getX());
+		assertEqualsDouble(25d, shape.getY());
+	}
+
+	@Theory
+	public void testGetSetPositionKONULL(@PosShapeData final IPositionShape shape) {
+		IPoint pt = ShapeFactory.INST.createPoint(15d, 25d);
+		shape.setPosition(pt);
 		shape.setPosition(null);
 		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.INST.createPoint(Double.NaN, 0));
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.INST.createPoint(Double.NEGATIVE_INFINITY, 0));
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.INST.createPoint(Double.POSITIVE_INFINITY, 0));
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.INST.createPoint(0, Double.NaN));
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.INST.createPoint(0, Double.NEGATIVE_INFINITY));
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.INST.createPoint(0, Double.POSITIVE_INFINITY));
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
+	}
 
-		shape.setPosition(15, 25);
+	@Theory
+	public void testGetSetPositionKO(@PosShapeData final IPositionShape shape, @DoubleData(vals = {}, bads = true) final double value) {
+		IPoint pt = ShapeFactory.INST.createPoint(15d, 25d);
+		shape.setPosition(pt);
+		shape.setPosition(ShapeFactory.INST.createPoint(value, value));
 		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		assertEqualsDouble(15., shape.getX());
-		assertEqualsDouble(25., shape.getY());
-		shape.setPosition(Double.NaN, 0);
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(Double.NEGATIVE_INFINITY, 0);
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(Double.POSITIVE_INFINITY, 0);
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(0, Double.NaN);
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(0, Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(0, Double.POSITIVE_INFINITY);
-		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
-		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
+	}
+
+	@Retention(RetentionPolicy.RUNTIME)
+	@ParametersSuppliedBy(PosShapeSupplier.class)
+	@Target(PARAMETER)
+	public @interface PosShapeData {
+	}
+
+	public static class PosShapeSupplier extends ParameterSupplier {
+		@Override
+		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+			return Stream.of(ShapeFactory.INST.createEllipse(),
+				ShapeFactory.INST.createCircleArc(),
+				ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()),
+				ShapeFactory.INST.createCircle(),
+				ShapeFactory.INST.createRectangle(),
+				ShapeFactory.INST.createText(),
+				ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()),
+				ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()),
+				ShapeFactory.INST.createSquare(),
+				ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0d, 10d, "x", false),
+				ShapeFactory.INST.createRhombus(),
+				ShapeFactory.INST.createTriangle(),
+				ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint())).
+				map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
+		}
 	}
 }
