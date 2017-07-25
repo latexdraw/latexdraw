@@ -1,11 +1,10 @@
 package test.models.interfaces;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestLineStyle {
 	@Test
@@ -17,9 +16,13 @@ public class TestLineStyle {
 	}
 
 	@Test
-	public void testGetStyle() {
+	public void testGetStyleKO() {
 		assertEquals(LineStyle.SOLID, LineStyle.getStyle(null));
 		assertEquals(LineStyle.SOLID, LineStyle.getStyle("")); //$NON-NLS-1$
+	}
+
+	@Test
+	public void testGetStyle() {
 		assertEquals(LineStyle.getStyle(LineStyle.DASHED.toString()), LineStyle.DASHED);
 		assertEquals(LineStyle.getStyle(LineStyle.DOTTED.toString()), LineStyle.DOTTED);
 		// assertEquals(LineStyle.getStyle(LineStyle.NONE.toString()), LineStyle.NONE);

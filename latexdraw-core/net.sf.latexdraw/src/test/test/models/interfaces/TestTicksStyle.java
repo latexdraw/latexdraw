@@ -1,15 +1,20 @@
 package test.models.interfaces;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(Theories.class)
 public class TestTicksStyle {
 	@Test
 	public void testGetPSTToken() {
@@ -32,23 +37,24 @@ public class TestTicksStyle {
 		assertFalse(TicksStyle.BOTTOM.isTop());
 	}
 
-	@Test
-	public void testToString() {
-		assertNotNull(TicksStyle.BOTTOM.toString());
-		assertTrue(TicksStyle.BOTTOM.toString().length() > 0);
-		assertNotNull(TicksStyle.FULL.toString());
-		assertTrue(TicksStyle.FULL.toString().length() > 0);
-		assertNotNull(TicksStyle.TOP.toString());
-		assertTrue(TicksStyle.TOP.toString().length() > 0);
+	@Theory
+	public void testToString(final TicksStyle style) {
+		assertThat(style.toString(), not(isEmptyOrNullString()));
 	}
 
 	@Test
-	public void testGetStyle() {
+	public void testGetStyleKO() {
 		assertEquals(TicksStyle.FULL, TicksStyle.getStyle(null));
 		assertEquals(TicksStyle.FULL, TicksStyle.getStyle("")); //$NON-NLS-1$
-		assertEquals(TicksStyle.getStyle(TicksStyle.BOTTOM.toString()), TicksStyle.BOTTOM);
-		assertEquals(TicksStyle.getStyle(TicksStyle.FULL.toString()), TicksStyle.FULL);
-		assertEquals(TicksStyle.getStyle(TicksStyle.TOP.toString()), TicksStyle.TOP);
+	}
+
+	@Theory
+	public void testGetStyle(final TicksStyle style) {
+		assertEquals(TicksStyle.getStyle(style.toString()), style);
+	}
+
+	@Test
+	public void testGetStylePST() {
 		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM), TicksStyle.BOTTOM);
 		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_FULL), TicksStyle.FULL);
 		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_TOP), TicksStyle.TOP);

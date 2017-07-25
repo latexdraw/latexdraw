@@ -1,13 +1,12 @@
 package test.models.interfaces;
 
+import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 public class TestPlottingStyle {
 	@Test
@@ -35,9 +34,13 @@ public class TestPlottingStyle {
 	}
 
 	@Test
-	public void testGetStyle() {
+	public void testGetStyleKO() {
 		assertEquals(PlottingStyle.ALL, PlottingStyle.getStyle(null));
 		assertEquals(PlottingStyle.ALL, PlottingStyle.getStyle("")); //$NON-NLS-1$
+	}
+
+	@Test
+	public void testGetStyle() {
 		assertEquals(PlottingStyle.getStyle(PlottingStyle.ALL.toString()), PlottingStyle.ALL);
 		assertEquals(PlottingStyle.getStyle(PlottingStyle.NONE.toString()), PlottingStyle.NONE);
 		assertEquals(PlottingStyle.getStyle(PlottingStyle.X.toString()), PlottingStyle.X);
