@@ -69,8 +69,13 @@ class LPicture extends LPositionShape implements IPicture {
 	public void copy(final IShape sh) {
 		super.copy(sh);
 
-		if(sh instanceof IPicture)
-			try { setPathSource(((IPicture) sh).getPathSource()); }catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+		if(sh instanceof IPicture) {
+			try {
+				setPathSource(((IPicture) sh).getPathSource());
+			}catch(final IOException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
+			}
+		}
 	}
 
 
@@ -202,14 +207,17 @@ class LPicture extends LPositionShape implements IPicture {
 
 	@Override
 	public double getWidth() {
-		return image == null ? .0 : image.getWidth();
+		return image == null ? 0d : image.getWidth();
 	}
 
 
 	@Override
-	public void setPathSource(final String pathSource) throws IOException {
-		this.pathSource = pathSource;
-		loadImage();
+	public void setPathSource(final String path) throws IOException {
+		pathSource = path;
+		image = null;
+		if(pathSource != null) {
+			loadImage();
+		}
 	}
 
 	@Override
