@@ -1,18 +1,22 @@
 package test.models.interfaces;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
+import test.data.StringData;
 
+import static org.junit.Assert.assertEquals;
+
+@RunWith(Theories.class)
 public class TestFreeHandType {
-	@Test
-	public void testGetType() {
-		assertEquals(FreeHandStyle.getType(FreeHandStyle.CURVES.toString()), FreeHandStyle.CURVES);
-		assertEquals(FreeHandStyle.getType(FreeHandStyle.LINES.toString()), FreeHandStyle.LINES);
-		assertEquals(FreeHandStyle.CURVES, FreeHandStyle.getType(null));
-		assertEquals(FreeHandStyle.getType(""), FreeHandStyle.CURVES); //$NON-NLS-1$
-		assertEquals(FreeHandStyle.getType("ds qoqs"), FreeHandStyle.CURVES); //$NON-NLS-1$
+	@Theory
+	public void testGetType(final FreeHandStyle style) {
+		assertEquals(FreeHandStyle.getType(style.toString()), style);
+	}
+
+	@Theory
+	public void testGetTypeKO(@StringData(vals = {"", "ds qoqs"}, withNull = true) final String value) {
+		assertEquals(FreeHandStyle.getType(value), FreeHandStyle.CURVES);
 	}
 }
