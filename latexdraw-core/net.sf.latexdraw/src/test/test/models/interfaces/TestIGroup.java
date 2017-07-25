@@ -21,14 +21,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 import test.HelperTest;
 import test.data.ShapeData;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -49,11 +47,6 @@ public class TestIGroup implements HelperTest {
 		sh1 = ShapeFactory.INST.createRectangle();
 		sh2 = ShapeFactory.INST.createEllipse();
 		sh3 = ShapeFactory.INST.createRhombus();
-	}
-
-	@Test
-	public void testGetShapes() {
-		assertNotNull(shape.getShapes());
 	}
 
 	@Test
@@ -80,19 +73,6 @@ public class TestIGroup implements HelperTest {
 		assertTrue(shape.isTypeOf(sh2.getClass()));
 	}
 
-	@Test
-	public void testAddShapeIShape() {
-		shape.addShape(sh1);
-		shape.addShape(sh2);
-		assertThat(shape.getShapes(), contains(sh1, sh2));
-	}
-
-	@Test
-	public void testAddShapeIShapeKO() {
-		shape.addShape(null);
-		assertThat(shape.getShapes(), empty());
-	}
-
 	@Theory
 	public void testAddToRotationAngle(@ShapeData final IShape sh2, @ShapeData final IShape sh3) {
 		shape.addShape(sh2);
@@ -102,136 +82,6 @@ public class TestIGroup implements HelperTest {
 		assertThat(sh2.getRotationAngle(), closeTo(10d, 0.0001));
 		assertThat(sh3.getRotationAngle(), closeTo(10d, 0.0001));
 		assertThat(shape.getRotationAngle(), closeTo(10d, 0.0001));
-	}
-
-	@Test
-	public void testAddShapeIShapeIntKO1() {
-		shape.addShape(ShapeFactory.INST.createRectangle(), 1);
-		assertThat(shape.getShapes(), empty());
-	}
-
-	@Test
-	public void testAddShapeIShapeIntKO2() {
-		shape.addShape(ShapeFactory.INST.createRectangle(), -2);
-		assertThat(shape.getShapes(), empty());
-	}
-
-	@Test
-	public void testAddShapeIShapeInt() {
-		shape.addShape(sh1);
-		shape.addShape(sh2, 0);
-		assertThat(shape.getShapes(), contains(sh2, sh1));
-	}
-
-	@Test
-	public void testRemoveShapeKO() {
-		shape.removeShape(ShapeFactory.INST.createRectangle());
-		assertThat(shape.getShapes(), empty());
-	}
-
-	@Test
-	public void testRemoveShape1() {
-		shape.getShapes().addAll(sh1, sh2, sh3);
-		shape.removeShape(sh2);
-		assertThat(shape.getShapes(), contains(sh1, sh3));
-	}
-
-	@Test
-	public void testRemoveShape2() {
-		shape.getShapes().addAll(sh1, sh2, sh3);
-		shape.removeShape(sh1);
-		shape.removeShape(sh2);
-		assertThat(shape.getShapes(), contains(sh3));
-	}
-
-	@Test
-	public void testRemoveShape3() {
-		shape.getShapes().addAll(sh1, sh2, sh3);
-		shape.removeShape(sh3);
-		shape.removeShape(sh1);
-		shape.removeShape(sh2);
-		assertThat(shape.getShapes(), empty());
-	}
-
-	@Theory
-	public void testRemoveShapeIntKO(@TestedOn(ints = {-2, -1, 1, 2}) final int value) {
-		shape.getShapes().add(sh1);
-		shape.removeShape(value);
-	}
-
-	@Test
-	public void testRemoveShapeIntOK1() {
-		shape.getShapes().add(sh1);
-		shape.removeShape(0);
-		assertThat(shape.getShapes(), empty());
-	}
-
-	@Test
-	public void testRemoveShapeIntOK2() {
-		shape.getShapes().addAll(sh1, sh2, sh3);
-		shape.removeShape(0);
-		assertThat(shape.getShapes(), contains(sh2, sh3));
-	}
-
-	@Test
-	public void testRemoveShapeIntOK3() {
-		shape.getShapes().addAll(sh1, sh2, sh3);
-		shape.removeShape(2);
-		assertThat(shape.getShapes(), contains(sh1, sh2));
-	}
-
-	@Test
-	public void testGetShapeAt() {
-		shape.getShapes().addAll(sh1, sh2, sh3);
-		assertEquals(sh1, shape.getShapeAt(0));
-		assertEquals(sh2, shape.getShapeAt(1));
-		assertEquals(sh3, shape.getShapeAt(2));
-		assertEquals(sh3, shape.getShapeAt(-1));
-	}
-
-	@Test
-	public void testGetShapeAtKO() {
-		shape.getShapes().addAll(sh1, sh2, sh3);
-		assertNull(shape.getShapeAt(-2));
-		assertNull(shape.getShapeAt(3));
-	}
-
-	@Test
-	public void testSize() {
-		shape.getShapes().addAll(sh1, sh2, sh3);
-		assertEquals(3, shape.size());
-	}
-
-	@Test
-	public void testContains() {
-		shape.getShapes().addAll(sh1, sh2);
-		assertTrue(shape.contains(sh1));
-		assertTrue(shape.contains(sh2));
-	}
-
-	@Test
-	public void testContainsKO() {
-		shape.getShapes().addAll(sh1, sh2);
-		assertFalse(shape.contains(null));
-		assertFalse(shape.contains(sh3));
-	}
-
-	@Test
-	public void testIsEmpty() {
-		assertTrue(shape.isEmpty());
-	}
-
-	@Test
-	public void testIsNotEmpty() {
-		shape.getShapes().add(sh1);
-		assertFalse(shape.isEmpty());
-	}
-
-	@Test
-	public void testClear() {
-		shape.getShapes().addAll(sh1, sh2);
-		shape.clear();
-		assertThat(shape.getShapes(), empty());
 	}
 
 	@Test
