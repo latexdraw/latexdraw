@@ -8,883 +8,694 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 import test.HelperTest;
+import test.data.DoubleData;
+import test.data.ShapeData;
 
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
 
-public abstract class TestIShape<T extends IShape> implements HelperTest {
-	public T shape;
-
-	public T shape2;
-
-	@Test
-	public abstract void testIsTypeOf();
-
-	@Test
-	public void testGetPoints() {
+@RunWith(Theories.class)
+public class TestIShape implements HelperTest {
+	@Theory
+	public void testGetPoints(@ShapeData final IShape shape) {
 		assertNotNull(shape.getPoints());
 	}
 
-	@Test
-	public void testGetNbPoints() {
-		IPoint pt = ShapeFactory.INST.createPoint();
-
-		assertEquals(shape.getPoints().size(), shape.getNbPoints());
-		shape.getPoints().add(pt);
-		assertEquals(shape.getPoints().size(), shape.getNbPoints());
-		shape.getPoints().remove(pt);
+	@Theory
+	public void testGetNbPoints(@ShapeData final IShape shape) {
 		assertEquals(shape.getPoints().size(), shape.getNbPoints());
 	}
 
-	@Test
-	public void testGetPtAt() {
+	@Theory
+	public void testGetPtAt(@ShapeData final IShape shape) {
 		if(shape.getPoints().isEmpty()) {
 			shape.getPoints().add(ShapeFactory.INST.createPoint());
 			shape.getPoints().add(ShapeFactory.INST.createPoint());
 		}
-
-		for(int i = 0; i < shape.getNbPoints(); i++)
+		for(int i = 0; i < shape.getNbPoints(); i++) {
 			assertEquals(shape.getPoints().get(i), shape.getPtAt(i));
+		}
 	}
 
-	@Test
-	public void testCopy() {
-		if(shape2.isBordersMovable())
-			shape2.setBordersPosition(BorderPos.MID);
-		if(shape2.isLineStylable()) {
-			shape2.setDashSepBlack(12.);
-			shape2.setDashSepWhite(14.);
-			shape2.setDotSep(25.);
-			shape2.setLineStyle(LineStyle.DOTTED);
-			shape2.setLineColour(DviPsColors.GREEN);
-			shape2.setThickness(13);
-		}
-		if(shape2.isDbleBorderable()) {
-			shape2.setDbleBordCol(DviPsColors.RED);
-			shape2.setDbleBordSep(20.);
-			shape2.setHasDbleBord(true);
-		}
-		if(shape2.isFillable()) {
-			shape2.setFilled(true);
-			shape2.setFillingCol(DviPsColors.BLUE);
-			shape2.setFillingStyle(FillingStyle.GRAD);
-		}
-		if(shape2.isInteriorStylable()) {
-			shape2.setGradAngle(90);
-			shape2.setGradColEnd(DviPsColors.MAGENTA);
-			shape2.setGradColStart(DviPsColors.DARKGRAY);
-			shape2.setGradMidPt(0.9);
-			shape2.setHatchingsAngle(25);
-			shape2.setHatchingsCol(DviPsColors.GRAY);
-			shape2.setHatchingsSep(30);
-			shape2.setHatchingsWidth(100);
-		}
+	@Theory
+	public void testCopyBorderMov(@ShapeData final IShape shape, @ShapeData final IShape shape2) {
+		assumeTrue(shape.isBordersMovable());
+		assumeTrue(shape2.isBordersMovable());
 
-		if(shape2.isShadowable()) {
-			shape2.setHasShadow(true);
-			shape2.setShadowAngle(-40);
-			shape2.setShadowCol(DviPsColors.ORANGE);
-			shape2.setShadowSize(17);
-		}
-		if(shape2.isShowPtsable())
-			shape2.setShowPts(true);
-
-		shape2.setRotationAngle(-30);
-
+		shape2.setBordersPosition(BorderPos.MID);
 		shape.copy(shape2);
-
-		if(shape.isBordersMovable()) {
-			assertEquals(shape.getBordersPosition(), shape2.getBordersPosition());
-			assertEquals(BorderPos.MID, shape2.getBordersPosition());
-		}
-		if(shape.isLineStylable()) {
-			assertEqualsDouble(shape.getDashSepBlack(), shape2.getDashSepBlack());
-			assertEqualsDouble(shape.getDashSepWhite(), shape2.getDashSepWhite());
-			assertEqualsDouble(shape.getDotSep(), shape2.getDotSep());
-			assertEquals(shape.getLineStyle(), shape2.getLineStyle());
-			assertEquals(shape.getLineColour(), shape2.getLineColour());
-			assertEqualsDouble(shape.getThickness(), shape2.getThickness());
-		}
-		if(shape.isDbleBorderable()) {
-			assertEquals(shape.getDbleBordCol(), shape2.getDbleBordCol());
-			assertEqualsDouble(shape.getDbleBordSep(), shape2.getDbleBordSep());
-			assertEquals(shape.hasDbleBord(), shape2.hasDbleBord());
-		}
-		if(shape.isFillable()) {
-			assertEquals(shape.isFilled(), shape2.isFilled());
-			assertEquals(shape.getFillingCol(), shape2.getFillingCol());
-			assertEquals(shape.getFillingStyle(), shape2.getFillingStyle());
-		}
-		if(shape.isInteriorStylable()) {
-			assertEqualsDouble(shape.getGradAngle(), shape2.getGradAngle());
-			assertEquals(shape.getGradColEnd(), shape2.getGradColEnd());
-			assertEquals(shape.getGradColStart(), shape2.getGradColStart());
-			assertEqualsDouble(shape.getGradMidPt(), shape2.getGradMidPt());
-			assertEqualsDouble(shape.getHatchingsAngle(), shape2.getHatchingsAngle());
-			assertEquals(shape.getHatchingsCol(), shape2.getHatchingsCol());
-			assertEqualsDouble(shape.getHatchingsSep(), shape2.getHatchingsSep());
-			assertEqualsDouble(shape.getHatchingsWidth(), shape2.getHatchingsWidth());
-		}
-		if(shape.isShadowable()) {
-			assertEquals(shape.hasShadow(), shape2.hasShadow());
-			assertEqualsDouble(shape.getShadowAngle(), shape2.getShadowAngle());
-			assertEqualsDouble(shape.getShadowSize(), shape2.getShadowSize());
-			assertEquals(shape.getShadowCol(), shape2.getShadowCol());
-		}
-		if(shape.isShowPtsable())
-			assertEquals(shape.isShowPts(), shape2.isShowPts());
-
-		assertEqualsDouble(shape.getRotationAngle(), shape2.getRotationAngle());
-
-		assertEquals(shape.getPoints().size(), shape2.getPoints().size());
-
-		for(int i = 0; i < shape.getPoints().size(); i++)
-			assertEquals(shape.getPtAt(i), shape2.getPtAt(i));
+		assertEquals(shape.getBordersPosition(), shape2.getBordersPosition());
+		assertEquals(BorderPos.MID, shape2.getBordersPosition());
 	}
 
-	@Test
-	public void testGetGravityCentre() {
+	@Theory
+	public void testCopyLineStyle(@ShapeData final IShape shape, @ShapeData final IShape shape2) {
+		assumeTrue(shape.isLineStylable());
+		assumeTrue(shape2.isLineStylable());
+
+		shape2.setDashSepBlack(12.);
+		shape2.setDashSepWhite(14.);
+		shape2.setDotSep(25.);
+		shape2.setLineStyle(LineStyle.DOTTED);
+		shape2.setLineColour(DviPsColors.GREEN);
+		shape2.setThickness(13);
+		shape.copy(shape2);
+		assertEqualsDouble(shape.getDashSepBlack(), shape2.getDashSepBlack());
+		assertEqualsDouble(shape.getDashSepWhite(), shape2.getDashSepWhite());
+		assertEqualsDouble(shape.getDotSep(), shape2.getDotSep());
+		assertEquals(shape.getLineStyle(), shape2.getLineStyle());
+		assertEquals(shape.getLineColour(), shape2.getLineColour());
+		assertEqualsDouble(shape.getThickness(), shape2.getThickness());
+	}
+
+	@Theory
+	public void testCopyDbleBorderable(@ShapeData final IShape shape, @ShapeData final IShape shape2) {
+		assumeTrue(shape.isDbleBorderable());
+		assumeTrue(shape2.isDbleBorderable());
+		shape2.setDbleBordCol(DviPsColors.RED);
+		shape2.setDbleBordSep(20.);
+		shape2.setHasDbleBord(true);
+		shape.copy(shape2);
+		assertEquals(shape.getDbleBordCol(), shape2.getDbleBordCol());
+		assertEqualsDouble(shape.getDbleBordSep(), shape2.getDbleBordSep());
+		assertEquals(shape.hasDbleBord(), shape2.hasDbleBord());
+	}
+
+	@Theory
+	public void testCopyFillable(@ShapeData final IShape shape, @ShapeData final IShape shape2) {
+		assumeTrue(shape.isFillable());
+		assumeTrue(shape2.isFillable());
+
+		shape2.setFilled(true);
+		shape2.setFillingCol(DviPsColors.BLUE);
+		shape2.setFillingStyle(FillingStyle.GRAD);
+		shape.copy(shape2);
+		assertEquals(shape.isFilled(), shape2.isFilled());
+		assertEquals(shape.getFillingCol(), shape2.getFillingCol());
+		assertEquals(shape.getFillingStyle(), shape2.getFillingStyle());
+	}
+
+	@Theory
+	public void testCopyInteriorStylable(@ShapeData final IShape shape, @ShapeData final IShape shape2) {
+		assumeTrue(shape.isInteriorStylable());
+		assumeTrue(shape2.isInteriorStylable());
+
+		shape2.setGradAngle(90);
+		shape2.setGradColEnd(DviPsColors.MAGENTA);
+		shape2.setGradColStart(DviPsColors.DARKGRAY);
+		shape2.setGradMidPt(0.9);
+		shape2.setHatchingsAngle(25);
+		shape2.setHatchingsCol(DviPsColors.GRAY);
+		shape2.setHatchingsSep(30);
+		shape2.setHatchingsWidth(100);
+		shape.copy(shape2);
+		assertEqualsDouble(shape.getGradAngle(), shape2.getGradAngle());
+		assertEquals(shape.getGradColEnd(), shape2.getGradColEnd());
+		assertEquals(shape.getGradColStart(), shape2.getGradColStart());
+		assertEqualsDouble(shape.getGradMidPt(), shape2.getGradMidPt());
+		assertEqualsDouble(shape.getHatchingsAngle(), shape2.getHatchingsAngle());
+		assertEquals(shape.getHatchingsCol(), shape2.getHatchingsCol());
+		assertEqualsDouble(shape.getHatchingsSep(), shape2.getHatchingsSep());
+		assertEqualsDouble(shape.getHatchingsWidth(), shape2.getHatchingsWidth());
+	}
+
+	@Theory
+	public void testCopyShadowable(@ShapeData final IShape shape, @ShapeData final IShape shape2) {
+		assumeTrue(shape.isShadowable());
+		assumeTrue(shape2.isShadowable());
+
+		shape2.setHasShadow(true);
+		shape2.setShadowAngle(-40);
+		shape2.setShadowCol(DviPsColors.ORANGE);
+		shape2.setShadowSize(17);
+		shape.copy(shape2);
+		assertEquals(shape.hasShadow(), shape2.hasShadow());
+		assertEqualsDouble(shape.getShadowAngle(), shape2.getShadowAngle());
+		assertEqualsDouble(shape.getShadowSize(), shape2.getShadowSize());
+		assertEquals(shape.getShadowCol(), shape2.getShadowCol());
+	}
+
+	@Theory
+	public void testCopyisShowPtsable(@ShapeData final IShape shape, @ShapeData final IShape shape2) {
+		assumeTrue(shape.isShowPtsable());
+		assumeTrue(shape2.isShowPtsable());
+		shape2.setShowPts(true);
+		shape.copy(shape2);
+		assertEquals(shape.isShowPts(), shape2.isShowPts());
+	}
+
+	@Theory
+	public void testCopy(@ShapeData final IShape shape, @ShapeData final IShape shape2) {
+		shape2.setRotationAngle(-30);
+		shape.copy(shape2);
+		assertEqualsDouble(shape.getRotationAngle(), shape2.getRotationAngle());
+	}
+
+	@Theory
+	public void testGetGravityCentre(@ShapeData final IShape shape) {
 		final IPoint gc = shape.getGravityCentre();
 		assertTrue(MathUtils.INST.isValidPt(gc));
 		assertEquals((shape.getTopLeftPoint().getX() + shape.getTopRightPoint().getX()) / 2., gc.getX(), 0.0001);
 		assertEquals((shape.getTopLeftPoint().getY() + shape.getBottomLeftPoint().getY()) / 2., gc.getY(), 0.0001);
 	}
 
-	@Test
-	public abstract void testGetTopLeftPoint();
-
-	@Test
-	public abstract void testGetTopRightPoint();
-
-	@Test
-	public abstract void testGetBottomRightPoint();
-
-	@Test
-	public abstract void testGetBottomLeftPoint();
-
-	@Test
-	public void testGetFullBottomRightPoint() {
-		IPoint pt;
-		double gap;
-
+	@Theory
+	public void testGetFullBottomRightPoint(@ShapeData final IShape shape) {
 		shape.setThickness(10.);
 		shape.setHasDbleBord(false);
 		shape.setBordersPosition(BorderPos.INTO);
-		pt = shape.getBottomRightPoint();
-		gap = shape.getBorderGap();
-
-		pt.translate(gap, gap);
-		assertEquals(pt, shape.getFullBottomRightPoint());
-
-		shape.setThickness(20.);
-		shape.setHasDbleBord(false);
-		shape.setBordersPosition(BorderPos.MID);
-		pt = shape.getBottomRightPoint();
-		gap = shape.getBorderGap();
-
-		pt.translate(gap, gap);
-		assertEquals(pt, shape.getFullBottomRightPoint());
-
-		shape.setThickness(30.);
-		shape.setHasDbleBord(false);
-		shape.setBordersPosition(BorderPos.OUT);
-		pt = shape.getBottomRightPoint();
-		gap = shape.getBorderGap();
-
-		pt.translate(gap, gap);
-		assertEquals(pt, shape.getFullBottomRightPoint());
-
-		shape.setThickness(10.);
-		shape.setHasDbleBord(true);
-		shape.setBordersPosition(BorderPos.INTO);
-		pt = shape.getBottomRightPoint();
-		gap = shape.getBorderGap();
-
-		pt.translate(gap, gap);
-		assertEquals(pt, shape.getFullBottomRightPoint());
-
-		shape.setThickness(20.);
-		shape.setHasDbleBord(true);
-		shape.setBordersPosition(BorderPos.MID);
-		pt = shape.getBottomRightPoint();
-		gap = shape.getBorderGap();
-
-		pt.translate(gap, gap);
-		assertEquals(pt, shape.getFullBottomRightPoint());
-
-		shape.setThickness(30.);
-		shape.setHasDbleBord(true);
-		shape.setBordersPosition(BorderPos.OUT);
-		pt = shape.getBottomRightPoint();
-		gap = shape.getBorderGap();
-
+		IPoint pt = shape.getBottomRightPoint();
+		double gap = shape.getBorderGap();
 		pt.translate(gap, gap);
 		assertEquals(pt, shape.getFullBottomRightPoint());
 	}
 
-	@Test
-	public void testGetFullTopLeftPoint() {
-		IPoint pt;
-		double gap;
-
+	@Theory
+	public void testGetFullTopLeftPoint(@ShapeData final IShape shape) {
 		shape.setThickness(10.);
 		shape.setHasDbleBord(false);
 		shape.setBordersPosition(BorderPos.INTO);
-		pt = shape.getTopLeftPoint();
-		gap = shape.getBorderGap();
-
+		IPoint pt = shape.getTopLeftPoint();
+		double gap = shape.getBorderGap();
 		pt.translate(-gap, -gap);
 		assertEquals(pt, shape.getFullTopLeftPoint());
+	}
 
-		shape.setThickness(20.);
-		shape.setHasDbleBord(false);
+	@Theory
+	public void testSetHasHatchings(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.CLINES);
+		assertTrue(shape.hasHatchings());
+		shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
+		assertTrue(shape.hasHatchings());
+		shape.setFillingStyle(FillingStyle.HLINES);
+		assertTrue(shape.hasHatchings());
+		shape.setFillingStyle(FillingStyle.HLINES_PLAIN);
+		assertTrue(shape.hasHatchings());
+		shape.setFillingStyle(FillingStyle.VLINES);
+		assertTrue(shape.hasHatchings());
+		shape.setFillingStyle(FillingStyle.VLINES_PLAIN);
+		assertTrue(shape.hasHatchings());
+		shape.setFillingStyle(FillingStyle.GRAD);
+		assertFalse(shape.hasHatchings());
+		shape.setFillingStyle(FillingStyle.NONE);
+		assertFalse(shape.hasHatchings());
+		shape.setFillingStyle(FillingStyle.PLAIN);
+		assertFalse(shape.hasHatchings());
+	}
+
+	@Theory
+	public void testSetHasGradient(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.GRAD);
+		assertTrue(shape.hasGradient());
+		shape.setFillingStyle(FillingStyle.CLINES);
+		assertFalse(shape.hasGradient());
+		shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
+		assertFalse(shape.hasGradient());
+		shape.setFillingStyle(FillingStyle.HLINES);
+		assertFalse(shape.hasGradient());
+		shape.setFillingStyle(FillingStyle.HLINES_PLAIN);
+		assertFalse(shape.hasGradient());
+		shape.setFillingStyle(FillingStyle.VLINES);
+		assertFalse(shape.hasGradient());
+		shape.setFillingStyle(FillingStyle.VLINES_PLAIN);
+		assertFalse(shape.hasGradient());
+		shape.setFillingStyle(FillingStyle.NONE);
+		assertFalse(shape.hasGradient());
+		shape.setFillingStyle(FillingStyle.PLAIN);
+		assertFalse(shape.hasGradient());
+	}
+
+	@Theory
+	public void testGetSetGradColEnd(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setGradColEnd(DviPsColors.BLUE);
+		assertEquals(DviPsColors.BLUE, shape.getGradColEnd());
+	}
+
+	@Theory
+	public void testGetSetGradColEndKO(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setGradColEnd(DviPsColors.BLUE);
+		shape.setGradColEnd(null);
+		assertEquals(DviPsColors.BLUE, shape.getGradColEnd());
+	}
+
+	@Theory
+	public void testGetSetGradColStart(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setGradColStart(DviPsColors.BLUE);
+		assertEquals(DviPsColors.BLUE, shape.getGradColStart());
+	}
+
+	@Theory
+	public void testGetSetGradColStartKO(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setGradColStart(DviPsColors.BLUE);
+		shape.setGradColStart(null);
+		assertEquals(DviPsColors.BLUE, shape.getGradColStart());
+	}
+
+	@Theory
+	public void testGetSetGradAngle(@ShapeData final IShape shape, @DoubleData final double value) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setGradAngle(value);
+		assertEqualsDouble(value, shape.getGradAngle());
+	}
+
+	@Theory
+	public void testGetSetGradAngleKO(@ShapeData final IShape shape, @DoubleData(vals = {}, bads = true) final double value) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setGradAngle(10d);
+		shape.setGradAngle(value);
+		assertEqualsDouble(10d, shape.getGradAngle());
+	}
+
+	@Theory
+	public void testGetSetGradMidPt(@ShapeData final IShape shape, @DoubleData(vals = {0d, 0.4, 1d}) final double value) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setGradMidPt(value);
+		assertEqualsDouble(value, shape.getGradMidPt());
+	}
+
+	@Theory
+	public void testGetSetGradMidPtKO(@ShapeData final IShape shape, @DoubleData(vals = {-0.1d, 1.1d}, bads = true) final double value) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setGradMidPt(0.4);
+		shape.setGradMidPt(value);
+		assertEqualsDouble(0.4, shape.getGradMidPt());
+	}
+
+	@Theory
+	public void testGetSetHatchingsSep(@ShapeData final IShape shape, @DoubleData final double value) {
+		assumeTrue(shape.isInteriorStylable());
+		assumeThat(value, greaterThan(0d));
+		shape.setHatchingsSep(value);
+		assertEqualsDouble(value, shape.getHatchingsSep());
+	}
+
+	@Theory
+	public void testGetSetHatchingsSepKO(@ShapeData final IShape shape, @DoubleData(vals = {0d, -1d}, bads = true) final double value) {
+		assumeTrue(shape.isInteriorStylable());
+		assumeThat(value, greaterThan(0d));
+		shape.setHatchingsSep(20d);
+		shape.setHatchingsSep(value);
+		assertEqualsDouble(20d, shape.getHatchingsSep());
+	}
+
+	@Theory
+	public void testGetSetHatchingsCol(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setHatchingsCol(DviPsColors.CYAN);
+		assertEquals(DviPsColors.CYAN, shape.getHatchingsCol());
+	}
+
+	@Theory
+	public void testGetSetHatchingsColKO(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setHatchingsCol(DviPsColors.CYAN);
+		shape.setHatchingsCol(null);
+		assertEquals(DviPsColors.CYAN, shape.getHatchingsCol());
+	}
+
+	@Theory
+	public void testGetSetHatchingsAngle(@ShapeData final IShape shape, @DoubleData(angle = true) final double value) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setHatchingsAngle(value);
+		assertEqualsDouble(value, shape.getHatchingsAngle());
+	}
+
+	@Theory
+	public void testGetSetHatchingsAngleKO(@ShapeData final IShape shape, @DoubleData(bads = true, vals = {}) final double value) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setHatchingsAngle(3d);
+		shape.setHatchingsAngle(value);
+		assertEqualsDouble(3d, shape.getHatchingsAngle());
+	}
+
+	@Theory
+	public void testGetSetHatchingsWidth(@ShapeData final IShape shape, @DoubleData final double value) {
+		assumeTrue(shape.isInteriorStylable());
+		assumeThat(value, greaterThan(0d));
+		shape.setHatchingsWidth(value);
+		assertEqualsDouble(value, shape.getHatchingsWidth());
+	}
+
+	@Theory
+	public void testGetSetHatchingsWidthKO(@ShapeData final IShape shape, @DoubleData(vals = {-1d, 0d}, bads = true) final double value) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setHatchingsWidth(20d);
+		shape.setHatchingsWidth(value);
+		assertEqualsDouble(20d, shape.getHatchingsWidth());
+	}
+
+	@Theory
+	public void testGetSetRotationAngle(@ShapeData final IShape shape, @DoubleData(angle = true) final double value) {
+		shape.setRotationAngle(value);
+		assertEqualsDouble(value, shape.getRotationAngle());
+	}
+
+	@Theory
+	public void testGetSetRotationAngleKO(@ShapeData final IShape shape, @DoubleData(bads = true, vals = {}) final double value) {
+		shape.setRotationAngle(3d);
+		shape.setRotationAngle(value);
+		assertEqualsDouble(3d, shape.getRotationAngle());
+	}
+
+	@Theory
+	public void testIsSetShowPts(@ShapeData final IShape shape, final boolean value) {
+		assumeTrue(shape.isShowPtsable());
+		shape.setShowPts(value);
+		assertEquals(value, shape.isShowPts());
+	}
+
+	@Theory
+	public void testhasSetDbleBord(@ShapeData final IShape shape, final boolean value) {
+		assumeTrue(shape.isDbleBorderable());
+		shape.setHasDbleBord(value);
+		assertEquals(value, shape.hasDbleBord());
+	}
+
+	@Theory
+	public void testGetSetDbleBordCol(@ShapeData final IShape shape) {
+		assumeTrue(shape.isDbleBorderable());
+		shape.setDbleBordCol(DviPsColors.CYAN);
+		assertEquals(DviPsColors.CYAN, shape.getDbleBordCol());
+	}
+
+	@Theory
+	public void testGetSetDbleBordColKO(@ShapeData final IShape shape) {
+		assumeTrue(shape.isDbleBorderable());
+		shape.setDbleBordCol(DviPsColors.CYAN);
+		shape.setDbleBordCol(null);
+		assertEquals(DviPsColors.CYAN, shape.getDbleBordCol());
+	}
+
+	@Theory
+	public void testGetSetDbleBordSep(@ShapeData final IShape shape, @DoubleData final double value) {
+		assumeTrue(shape.isDbleBorderable());
+		assumeThat(value, greaterThan(0d));
+		shape.setDbleBordSep(value);
+		assertEqualsDouble(value, shape.getDbleBordSep());
+	}
+
+	@Theory
+	public void testGetSetDbleBordSepKO(@ShapeData final IShape shape, @DoubleData(bads = true, vals = {}) final double value) {
+		assumeTrue(shape.isDbleBorderable());
+		shape.setDbleBordSep(20d);
+		shape.setDbleBordSep(value);
+		assertEqualsDouble(20d, shape.getDbleBordSep());
+	}
+
+	@Theory
+	public void testHasSetShadow(@ShapeData final IShape shape, final boolean value) {
+		assumeTrue(shape.isShadowable());
+		shape.setHasShadow(value);
+		assertEquals(value, shape.hasShadow());
+	}
+
+	@Theory
+	public void testGetSetShadowCol(@ShapeData final IShape shape) {
+		assumeTrue(shape.isShadowable());
+		shape.setShadowCol(DviPsColors.CYAN);
+		assertEquals(DviPsColors.CYAN, shape.getShadowCol());
+	}
+
+	@Theory
+	public void testGetSetShadowColKO(@ShapeData final IShape shape) {
+		assumeTrue(shape.isShadowable());
+		shape.setShadowCol(DviPsColors.CYAN);
+		shape.setShadowCol(null);
+		assertEquals(DviPsColors.CYAN, shape.getShadowCol());
+	}
+
+	@Theory
+	public void testGetSetShadowAngle(@ShapeData final IShape shape, @DoubleData(angle = true) final double value) {
+		assumeTrue(shape.isShadowable());
+		shape.setShadowAngle(value);
+		assertEqualsDouble(value, shape.getShadowAngle());
+	}
+
+	@Theory
+	public void testGetSetShadowAngleKO(@ShapeData final IShape shape, @DoubleData(bads = true, vals = {}) final double value) {
+		assumeTrue(shape.isShadowable());
+		shape.setShadowAngle(20d);
+		shape.setShadowAngle(value);
+		assertEqualsDouble(20d, shape.getShadowAngle());
+	}
+
+	@Theory
+	public void testIsSetFilled(@ShapeData final IShape shape, final boolean value) {
+		assumeTrue(shape.isFillable());
+		shape.setFilled(value);
+		assertEquals(value, shape.isFilled());
+	}
+
+	@Theory
+	public void testAddToRotationAngle(@ShapeData final IShape shape, @DoubleData(angle = true) final double value) {
+		shape.setRotationAngle(0d);
+		shape.addToRotationAngle(null, value);
+		assertEqualsDouble(value, shape.getRotationAngle());
+	}
+
+	@Theory
+	public void testAddToRotationAngleKO(@ShapeData final IShape shape, @DoubleData(bads = true, vals = {}) final double value) {
+		shape.setRotationAngle(10d);
+		shape.addToRotationAngle(null, value);
+		assertEqualsDouble(10d, shape.getRotationAngle());
+	}
+
+	@Theory
+	public void testGetSetShadowSize(@ShapeData final IShape shape, @DoubleData final double value) {
+		assumeTrue(shape.isShadowable());
+		assumeThat(value, greaterThan(0d));
+		shape.setShadowSize(value);
+		assertEqualsDouble(value, shape.getShadowSize());
+	}
+
+	@Theory
+	public void testGetSetShadowSizeKO(@ShapeData final IShape shape, @DoubleData(bads = true, vals = {}) final double value) {
+		assumeTrue(shape.isShadowable());
+		shape.setShadowSize(20d);
+		shape.setShadowSize(value);
+		assertEqualsDouble(20d, shape.getShadowSize());
+	}
+
+	@Theory
+	public void testGetSetBorderPosition(@ShapeData final IShape shape, final BorderPos style) {
+		assumeTrue(shape.isBordersMovable());
+		shape.setBordersPosition(style);
+		assertEquals(style, shape.getBordersPosition());
+	}
+
+	@Theory
+	public void testGetSetBorderPositionKO(@ShapeData final IShape shape) {
+		assumeTrue(shape.isBordersMovable());
 		shape.setBordersPosition(BorderPos.MID);
-		pt = shape.getTopLeftPoint();
-		gap = shape.getBorderGap();
+		shape.setBordersPosition(null);
+		assertEquals(BorderPos.MID, shape.getBordersPosition());
+	}
 
-		pt.translate(-gap, -gap);
-		assertEquals(pt, shape.getFullTopLeftPoint());
-
-		shape.setThickness(30.);
-		shape.setHasDbleBord(false);
-		shape.setBordersPosition(BorderPos.OUT);
-		pt = shape.getTopLeftPoint();
-		gap = shape.getBorderGap();
-
-		pt.translate(-gap, -gap);
-		assertEquals(pt, shape.getFullTopLeftPoint());
-
-		shape.setThickness(10.);
-		shape.setHasDbleBord(true);
+	@Theory
+	public void testGetBorderGapThickINTONoDble(@ShapeData final IShape shape) {
+		assumeTrue(shape.isThicknessable());
+		assumeTrue(shape.isBordersMovable());
+		shape.setThickness(10d);
 		shape.setBordersPosition(BorderPos.INTO);
-		pt = shape.getTopLeftPoint();
-		gap = shape.getBorderGap();
-
-		pt.translate(-gap, -gap);
-		assertEquals(pt, shape.getFullTopLeftPoint());
-
-		shape.setThickness(20.);
-		shape.setHasDbleBord(true);
-		shape.setBordersPosition(BorderPos.MID);
-		pt = shape.getTopLeftPoint();
-		gap = shape.getBorderGap();
-
-		pt.translate(-gap, -gap);
-		assertEquals(pt, shape.getFullTopLeftPoint());
-
-		shape.setThickness(30.);
-		shape.setHasDbleBord(true);
-		shape.setBordersPosition(BorderPos.OUT);
-		pt = shape.getTopLeftPoint();
-		gap = shape.getBorderGap();
-
-		pt.translate(-gap, -gap);
-		assertEquals(pt, shape.getFullTopLeftPoint());
+		assertEqualsDouble(0d, shape.getBorderGap());
 	}
 
-	// @Test
-	// public abstract void testScale();
-
-	@Test
-	public abstract void testMirrorHorizontal();
-
-	@Test
-	public abstract void testMirrorVertical();
-
-	@Test
-	public abstract void testTranslate();
-
-	@Test
-	public void testSetHasHatchings() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.CLINES);
-			assertTrue(shape.hasHatchings());
-			shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
-			assertTrue(shape.hasHatchings());
-			shape.setFillingStyle(FillingStyle.HLINES);
-			assertTrue(shape.hasHatchings());
-			shape.setFillingStyle(FillingStyle.HLINES_PLAIN);
-			assertTrue(shape.hasHatchings());
-			shape.setFillingStyle(FillingStyle.VLINES);
-			assertTrue(shape.hasHatchings());
-			shape.setFillingStyle(FillingStyle.VLINES_PLAIN);
-			assertTrue(shape.hasHatchings());
-			shape.setFillingStyle(FillingStyle.GRAD);
-			assertFalse(shape.hasHatchings());
-			shape.setFillingStyle(FillingStyle.NONE);
-			assertFalse(shape.hasHatchings());
-			shape.setFillingStyle(FillingStyle.PLAIN);
-			assertFalse(shape.hasHatchings());
-		}
-	}
-
-	@Test
-	public void testSetHasGradient() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.GRAD);
-			assertTrue(shape.hasGradient());
-			shape.setFillingStyle(FillingStyle.CLINES);
-			assertFalse(shape.hasGradient());
-			shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
-			assertFalse(shape.hasGradient());
-			shape.setFillingStyle(FillingStyle.HLINES);
-			assertFalse(shape.hasGradient());
-			shape.setFillingStyle(FillingStyle.HLINES_PLAIN);
-			assertFalse(shape.hasGradient());
-			shape.setFillingStyle(FillingStyle.VLINES);
-			assertFalse(shape.hasGradient());
-			shape.setFillingStyle(FillingStyle.VLINES_PLAIN);
-			assertFalse(shape.hasGradient());
-			shape.setFillingStyle(FillingStyle.NONE);
-			assertFalse(shape.hasGradient());
-			shape.setFillingStyle(FillingStyle.PLAIN);
-			assertFalse(shape.hasGradient());
-		}
-	}
-
-	@Test
-	public void testGetSetGradColEnd() {
-		if(shape.isInteriorStylable()) {
-			shape.setGradColEnd(DviPsColors.BLUE);
-			assertEquals(DviPsColors.BLUE, shape.getGradColEnd());
-			shape.setGradColEnd(null);
-			assertEquals(DviPsColors.BLUE, shape.getGradColEnd());
-		}
-	}
-
-	@Test
-	public void testGetSetGradColStart() {
-		if(shape.isInteriorStylable()) {
-			shape.setGradColStart(DviPsColors.BLUE);
-			assertEquals(DviPsColors.BLUE, shape.getGradColStart());
-			shape.setGradColStart(null);
-			assertEquals(DviPsColors.BLUE, shape.getGradColStart());
-		}
-	}
-
-	@Test
-	public void testGetSetGradAngle() {
-		if(shape.isInteriorStylable()) {
-			shape.setGradAngle(30.);
-			assertEqualsDouble(30., shape.getGradAngle());
-			shape.setGradAngle(20.);
-			assertEqualsDouble(20., shape.getGradAngle());
-			shape.setGradAngle(Double.NaN);
-			assertEqualsDouble(20., shape.getGradAngle());
-			shape.setGradAngle(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(20., shape.getGradAngle());
-			shape.setGradAngle(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(20., shape.getGradAngle());
-		}
-	}
-
-	@Test
-	public void testGetSetGradMidPt() {
-		if(shape.isInteriorStylable()) {
-			shape.setGradMidPt(0.2);
-			assertEqualsDouble(0.2, shape.getGradMidPt());
-			shape.setGradMidPt(0.4);
-			assertEqualsDouble(0.4, shape.getGradMidPt());
-			shape.setGradMidPt(Double.NaN);
-			assertEqualsDouble(0.4, shape.getGradMidPt());
-			shape.setGradMidPt(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(0.4, shape.getGradMidPt());
-			shape.setGradMidPt(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(0.4, shape.getGradMidPt());
-			shape.setGradMidPt(0);
-			assertEqualsDouble(0., shape.getGradMidPt());
-			shape.setGradMidPt(1);
-			assertEqualsDouble(1., shape.getGradMidPt());
-			shape.setGradMidPt(1.0001);
-			assertEqualsDouble(1., shape.getGradMidPt());
-			shape.setGradMidPt(-0.0001);
-			assertEqualsDouble(1., shape.getGradMidPt());
-		}
-	}
-
-	@Test
-	public void testGetSetHatchingsSep() {
-		if(shape.isInteriorStylable()) {
-			shape.setHatchingsSep(30.);
-			assertEqualsDouble(30., shape.getHatchingsSep());
-			shape.setHatchingsSep(20.);
-			assertEqualsDouble(20., shape.getHatchingsSep());
-			shape.setHatchingsSep(Double.NaN);
-			assertEqualsDouble(20., shape.getHatchingsSep());
-			shape.setHatchingsSep(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(20., shape.getHatchingsSep());
-			shape.setHatchingsSep(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(20., shape.getHatchingsSep());
-			shape.setHatchingsSep(0);
-			assertEqualsDouble(0., shape.getHatchingsSep());
-			shape.setHatchingsSep(-1);
-			assertEqualsDouble(0., shape.getHatchingsSep());
-		}
-	}
-
-	@Test
-	public void testGetSetHatchingsCol() {
-		if(shape.isInteriorStylable()) {
-			shape.setHatchingsCol(DviPsColors.CYAN);
-			assertEquals(DviPsColors.CYAN, shape.getHatchingsCol());
-			shape.setHatchingsCol(DviPsColors.BLACK);
-			assertEquals(DviPsColors.BLACK, shape.getHatchingsCol());
-			shape.setHatchingsCol(null);
-			assertEquals(DviPsColors.BLACK, shape.getHatchingsCol());
-		}
-	}
-
-	@Test
-	public void testGetSetHatchingsAngle() {
-		if(shape.isInteriorStylable()) {
-			shape.setHatchingsAngle(30.);
-			assertEqualsDouble(30., shape.getHatchingsAngle());
-			shape.setHatchingsAngle(20.);
-			assertEqualsDouble(20., shape.getHatchingsAngle());
-			shape.setHatchingsAngle(Double.NaN);
-			assertEqualsDouble(20., shape.getHatchingsAngle());
-			shape.setHatchingsAngle(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(20., shape.getHatchingsAngle());
-			shape.setHatchingsAngle(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(20., shape.getHatchingsAngle());
-			shape.setHatchingsAngle(0);
-			assertEqualsDouble(0., shape.getHatchingsAngle());
-			shape.setHatchingsAngle(-30);
-			assertEqualsDouble(-30., shape.getHatchingsAngle());
-		}
-	}
-
-	@Test
-	public void testGetSetHatchingsWidth() {
-		if(shape.isInteriorStylable()) {
-			shape.setHatchingsWidth(30.);
-			assertEqualsDouble(30., shape.getHatchingsWidth());
-			shape.setHatchingsWidth(20.);
-			assertEqualsDouble(20., shape.getHatchingsWidth());
-			shape.setHatchingsWidth(Double.NaN);
-			assertEqualsDouble(20., shape.getHatchingsWidth());
-			shape.setHatchingsWidth(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(20., shape.getHatchingsWidth());
-			shape.setHatchingsWidth(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(20., shape.getHatchingsWidth());
-			shape.setHatchingsWidth(0);
-			assertEqualsDouble(20., shape.getHatchingsWidth());
-			shape.setHatchingsWidth(-1);
-			assertEqualsDouble(20., shape.getHatchingsWidth());
-		}
-	}
-
-	@Test
-	public void testGetSetRotationAngle() {
-		shape.setRotationAngle(30.);
-		assertEqualsDouble(30., shape.getRotationAngle());
-		shape.setRotationAngle(20.);
-		assertEqualsDouble(20., shape.getRotationAngle());
-		shape.setRotationAngle(Double.NaN);
-		assertEqualsDouble(20., shape.getRotationAngle());
-		shape.setRotationAngle(Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(20., shape.getRotationAngle());
-		shape.setRotationAngle(Double.POSITIVE_INFINITY);
-		assertEqualsDouble(20., shape.getRotationAngle());
-		shape.setRotationAngle(0);
-		assertEqualsDouble(0., shape.getRotationAngle());
-		shape.setRotationAngle(-30);
-		assertEqualsDouble(-30., shape.getRotationAngle());
-	}
-
-	@Test
-	public void testIsSetShowPts() {
-		if(shape.isShowPtsable()) {
-			shape.setShowPts(true);
-			assertEquals(true, shape.isShowPts());
-			shape.setShowPts(false);
-			assertEquals(false, shape.isShowPts());
-		}
-	}
-
-	@Test
-	public void testhasSetDbleBord() {
-		if(shape.isDbleBorderable()) {
-			shape.setHasDbleBord(true);
-			assertEquals(true, shape.hasDbleBord());
-			shape.setHasDbleBord(false);
-			assertEquals(false, shape.hasDbleBord());
-		}
-	}
-
-	@Test
-	public void testGetSetDbleBordCol() {
-		if(shape.isDbleBorderable()) {
-			shape.setDbleBordCol(DviPsColors.CYAN);
-			assertEquals(DviPsColors.CYAN, shape.getDbleBordCol());
-			shape.setDbleBordCol(DviPsColors.BLACK);
-			assertEquals(DviPsColors.BLACK, shape.getDbleBordCol());
-			shape.setDbleBordCol(null);
-			assertEquals(DviPsColors.BLACK, shape.getDbleBordCol());
-		}
-	}
-
-	@Test
-	public void testGetSetDbleBordSep() {
-		if(shape.isDbleBorderable()) {
-			shape.setDbleBordSep(30.);
-			assertEqualsDouble(30., shape.getDbleBordSep());
-			shape.setDbleBordSep(20.);
-			assertEqualsDouble(20., shape.getDbleBordSep());
-			shape.setDbleBordSep(Double.NaN);
-			assertEqualsDouble(20., shape.getDbleBordSep());
-			shape.setDbleBordSep(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(20., shape.getDbleBordSep());
-			shape.setDbleBordSep(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(20., shape.getDbleBordSep());
-			shape.setDbleBordSep(0);
-			assertEqualsDouble(0., shape.getDbleBordSep());
-			shape.setDbleBordSep(-1);
-			assertEqualsDouble(0., shape.getDbleBordSep());
-		}
-	}
-
-	@Test
-	public void testHasSetShadow() {
-		if(shape.isShadowable()) {
-			shape.setHasShadow(true);
-			assertEquals(true, shape.hasShadow());
-			shape.setHasShadow(false);
-			assertEquals(false, shape.hasShadow());
-		}
-	}
-
-	@Test
-	public void testGetSetShadowCol() {
-		if(shape.isShadowable()) {
-			shape.setShadowCol(DviPsColors.CYAN);
-			assertEquals(DviPsColors.CYAN, shape.getShadowCol());
-			shape.setShadowCol(DviPsColors.BLACK);
-			assertEquals(DviPsColors.BLACK, shape.getShadowCol());
-			shape.setShadowCol(null);
-			assertEquals(DviPsColors.BLACK, shape.getShadowCol());
-		}
-	}
-
-	@Test
-	public void testGetSetShadowAngle() {
-		if(shape.isShadowable()) {
-			shape.setShadowAngle(30.);
-			assertEqualsDouble(30., shape.getShadowAngle());
-			shape.setShadowAngle(20.);
-			assertEqualsDouble(20., shape.getShadowAngle());
-			shape.setShadowAngle(Double.NaN);
-			assertEqualsDouble(20., shape.getShadowAngle());
-			shape.setShadowAngle(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(20., shape.getShadowAngle());
-			shape.setShadowAngle(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(20., shape.getShadowAngle());
-			shape.setShadowAngle(0);
-			assertEqualsDouble(0., shape.getShadowAngle());
-			shape.setShadowAngle(-30);
-			assertEqualsDouble(-30., shape.getShadowAngle());
-		}
-	}
-
-	@Test
-	public void testIsSetFilled() {
-		if(shape.isFillable()) {
-			shape.setFilled(true);
-			assertEquals(true, shape.isFilled());
-			shape.setFilled(false);
-			assertEquals(false, shape.isFilled());
-		}
-	}
-
-	@Test
-	public void testAddToRotationAngle() {
-		shape.setRotationAngle(0);
-		shape.addToRotationAngle(null, 30.5);
-		assertEqualsDouble(30.5, shape.getRotationAngle());
-		shape.addToRotationAngle(null, -41);
-		assertEqualsDouble(-10.5, shape.getRotationAngle());
-		shape.addToRotationAngle(null, Double.NaN);
-		assertEqualsDouble(-10.5, shape.getRotationAngle());
-		shape.addToRotationAngle(null, Double.NEGATIVE_INFINITY);
-		assertEqualsDouble(-10.5, shape.getRotationAngle());
-		shape.addToRotationAngle(null, Double.POSITIVE_INFINITY);
-		assertEqualsDouble(-10.5, shape.getRotationAngle());
-		shape.addToRotationAngle(null, 10.5);
-		assertEqualsDouble(0., shape.getRotationAngle());
-	}
-
-	@Test
-	public void testGetSetShadowSize() {
-		if(shape.isShadowable()) {
-			shape.setShadowSize(30.);
-			assertEqualsDouble(30., shape.getShadowSize());
-			shape.setShadowSize(20.);
-			assertEqualsDouble(20., shape.getShadowSize());
-			shape.setShadowSize(Double.NaN);
-			assertEqualsDouble(20., shape.getShadowSize());
-			shape.setShadowSize(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(20., shape.getShadowSize());
-			shape.setShadowSize(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(20., shape.getShadowSize());
-			shape.setShadowSize(0);
-			assertEqualsDouble(20., shape.getShadowSize());
-			shape.setShadowSize(-1);
-			assertEqualsDouble(20., shape.getShadowSize());
-		}
-	}
-
-	@Test
-	public void testGetSetBorderPosition() {
-		if(shape.isBordersMovable()) {
-			shape.setBordersPosition(BorderPos.INTO);
-			assertEquals(BorderPos.INTO, shape.getBordersPosition());
-			shape.setBordersPosition(BorderPos.MID);
-			assertEquals(BorderPos.MID, shape.getBordersPosition());
-			shape.setBordersPosition(BorderPos.OUT);
-			assertEquals(BorderPos.OUT, shape.getBordersPosition());
-			shape.setBordersPosition(BorderPos.INTO);
-			assertEquals(BorderPos.INTO, shape.getBordersPosition());
-			shape.setBordersPosition(null);
-			assertEquals(BorderPos.INTO, shape.getBordersPosition());
-		}
-	}
-
-	@Test
-	public void testGetBorderGap() {
-		double gap = 0.;
-
-		if(shape.isThicknessable())
-			shape.setThickness(10.);
-
+	@Theory
+	public void testGetBorderGapThickINTODble(@ShapeData final IShape shape) {
+		assumeTrue(shape.isThicknessable());
+		assumeTrue(shape.isBordersMovable());
+		assumeTrue(shape.isDbleBorderable());
+		shape.setThickness(10d);
 		shape.setBordersPosition(BorderPos.INTO);
-		shape.setHasDbleBord(false);
-
-		assertEqualsDouble(0., shape.getBorderGap());
-
-		if(shape.isThicknessable())
-			shape.setThickness(10.);
-
-		if(shape.isDbleBorderable()) {
-			shape.setHasDbleBord(true);
-			shape.setDbleBordSep(5.);
-		}
-
-		assertEqualsDouble(0., shape.getBorderGap());
-		gap = 0.;
-
-		if(!shape.isBordersMovable())
-			return;
-
-		shape.setBordersPosition(BorderPos.MID);
-
-		if(shape.isThicknessable()) {
-			shape.setThickness(10.);
-			gap = 5.;
-		}
-
-		shape.setHasDbleBord(false);
-
-		assertEqualsDouble(gap, shape.getBorderGap());
-		gap = 0.;
-
-		if(shape.isThicknessable()) {
-			shape.setThickness(10.);
-			gap = 5.;
-		}
-
-		if(shape.isDbleBorderable()) {
-			shape.setHasDbleBord(true);
-			shape.setDbleBordSep(20.);
-			gap += shape.getThickness() / 2. + 10.;
-		}
-
-		assertEqualsDouble(gap, shape.getBorderGap());
-		gap = 0.;
-
-		shape.setBordersPosition(BorderPos.OUT);
-
-		if(shape.isThicknessable()) {
-			shape.setThickness(50.);
-			gap = 50.;
-		}
-
-		shape.setHasDbleBord(false);
-
-		assertEqualsDouble(gap, shape.getBorderGap());
-		gap = 0.;
-
-		if(shape.isThicknessable()) {
-			shape.setThickness(100.);
-			gap = 100.;
-		}
-
-		if(shape.isDbleBorderable()) {
-			shape.setHasDbleBord(true);
-			shape.setDbleBordSep(30.);
-			gap += shape.getThickness() + 30.;
-		}
-
-		assertEqualsDouble(gap, shape.getBorderGap());
-		gap = 0.;
+		shape.setHasDbleBord(true);
+		shape.setDbleBordSep(5.);
+		assertEqualsDouble(0d, shape.getBorderGap());
 	}
 
-	@Test
-	public void testDuplicate() {
-		IShape sh = shape.duplicate();
+	@Theory
+	public void testGetBorderGapThickMIDNoDble(@ShapeData final IShape shape) {
+		assumeTrue(shape.isThicknessable());
+		assumeTrue(shape.isBordersMovable());
+		shape.setThickness(10d);
+		shape.setBordersPosition(BorderPos.MID);
+		assertEqualsDouble(5d, shape.getBorderGap());
+	}
 
+	@Theory
+	public void testGetBorderGapThickMIDDble(@ShapeData final IShape shape) {
+		assumeTrue(shape.isThicknessable());
+		assumeTrue(shape.isBordersMovable());
+		assumeTrue(shape.isDbleBorderable());
+		shape.setThickness(10d);
+		shape.setBordersPosition(BorderPos.MID);
+		shape.setHasDbleBord(true);
+		shape.setDbleBordSep(20d);
+		assertEqualsDouble(20d, shape.getBorderGap());
+	}
+
+	@Theory
+	public void testGetBorderGapThickOUTNoDble(@ShapeData final IShape shape) {
+		assumeTrue(shape.isThicknessable());
+		assumeTrue(shape.isBordersMovable());
+		shape.setThickness(50d);
+		shape.setBordersPosition(BorderPos.OUT);
+		assertEqualsDouble(50d, shape.getBorderGap());
+	}
+
+	@Theory
+	public void testGetBorderGapThickOUTDble(@ShapeData final IShape shape) {
+		assumeTrue(shape.isThicknessable());
+		assumeTrue(shape.isBordersMovable());
+		assumeTrue(shape.isDbleBorderable());
+		shape.setThickness(100d);
+		shape.setBordersPosition(BorderPos.OUT);
+		shape.setHasDbleBord(true);
+		shape.setDbleBordSep(30d);
+		assertEqualsDouble(230d, shape.getBorderGap());
+	}
+
+	@Theory
+	public void testDuplicate(@ShapeData final IShape shape) {
+		final IShape sh = shape.duplicate();
 		assertNotNull(sh);
 		assertEquals(sh.getClass(), shape.getClass());
-		// assertTrue(shape.isParametersEquals(sh, true));
-		// TODO
 	}
 
-	@Test
-	public void testSetGetThickness() {
-		if(shape.isThicknessable()) {
-			shape.setThickness(10.);
-			assertEqualsDouble(10., shape.getThickness());
-			shape.setThickness(Double.NaN);
-			assertEqualsDouble(10., shape.getThickness());
-			shape.setThickness(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(10., shape.getThickness());
-			shape.setThickness(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(10., shape.getThickness());
-			shape.setThickness(0);
-			assertEqualsDouble(10., shape.getThickness());
-			shape.setThickness(-1);
-			assertEqualsDouble(10., shape.getThickness());
-		}
+	@Theory
+	public void testSetGetThickness(@ShapeData final IShape shape, @DoubleData final double value) {
+		assumeTrue(shape.isThicknessable());
+		assumeThat(value, greaterThan(0d));
+		shape.setThickness(value);
+		assertEqualsDouble(value, shape.getThickness());
 	}
 
-	@Test
-	public void testSetGetLineColour() {
+	@Theory
+	public void testSetGetThicknessKO(@ShapeData final IShape shape, @DoubleData(bads = true, vals = {0d, -1d}) final double value) {
+		assumeTrue(shape.isThicknessable());
+		shape.setThickness(11d);
+		shape.setThickness(value);
+		assertEqualsDouble(11d, shape.getThickness());
+	}
+
+	@Theory
+	public void testSetGetLineColour(@ShapeData final IShape shape) {
 		shape.setLineColour(DviPsColors.CYAN);
 		assertEquals(DviPsColors.CYAN, shape.getLineColour());
+	}
+
+	@Theory
+	public void testSetGetLineColourKO(@ShapeData final IShape shape) {
+		shape.setLineColour(DviPsColors.CYAN);
 		shape.setLineColour(null);
 		assertEquals(DviPsColors.CYAN, shape.getLineColour());
-		shape.setLineColour(DviPsColors.RED);
-		assertEquals(DviPsColors.RED, shape.getLineColour());
-		shape.setLineColour(ShapeFactory.INST.createColorInt(100, 100, 100));
-		assertEquals(ShapeFactory.INST.createColorInt(100, 100, 100), shape.getLineColour());
 	}
 
-	@Test
-	public void testSetGetLineStyle() {
-		if(shape.isLineStylable()) {
-			shape.setLineStyle(LineStyle.DOTTED);
-			assertEquals(shape.getLineStyle(), LineStyle.DOTTED);
-			shape.setLineStyle(LineStyle.DASHED);
-			assertEquals(shape.getLineStyle(), LineStyle.DASHED);
-			// shape.setLineStyle(LineStyle.NONE);
-			// assertEquals(shape.getLineStyle(), LineStyle.NONE);
-			shape.setLineStyle(LineStyle.SOLID);
-			assertEquals(shape.getLineStyle(), LineStyle.SOLID);
-			shape.setLineStyle(null);
-			assertEquals(shape.getLineStyle(), LineStyle.SOLID);
-		}
+	@Theory
+	public void testSetGetLineStyle(@ShapeData final IShape shape, final LineStyle style) {
+		assumeTrue(shape.isLineStylable());
+		shape.setLineStyle(style);
+		assertEquals(style, shape.getLineStyle());
 	}
 
-	@Test
-	public void testSetGetDashSepWhite() {
-		if(shape.isLineStylable()) {
-			shape.setDashSepWhite(10.);
-			assertEqualsDouble(shape.getDashSepWhite(), 10.);
-			shape.setDashSepWhite(5.);
-			assertEqualsDouble(shape.getDashSepWhite(), 5.);
-			shape.setDashSepWhite(0.);
-			assertEqualsDouble(shape.getDashSepWhite(), 5.);
-			shape.setDashSepWhite(-10.);
-			assertEqualsDouble(shape.getDashSepWhite(), 5.);
-			shape.setDashSepWhite(Double.NaN);
-			assertEqualsDouble(shape.getDashSepWhite(), 5.);
-			shape.setDashSepWhite(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(shape.getDashSepWhite(), 5.);
-			shape.setDashSepWhite(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(shape.getDashSepWhite(), 5.);
-		}
+	@Theory
+	public void testSetGetLineStyleKO(@ShapeData final IShape shape) {
+		assumeTrue(shape.isLineStylable());
+		shape.setLineStyle(LineStyle.DASHED);
+		shape.setLineStyle(null);
+		assertEquals(LineStyle.DASHED, shape.getLineStyle());
 	}
 
-	@Test
-	public void testSetGetDashSepBlack() {
-		if(shape.isLineStylable()) {
-			shape.setDashSepBlack(10.);
-			assertEqualsDouble(shape.getDashSepBlack(), 10.);
-			shape.setDashSepBlack(5.);
-			assertEqualsDouble(shape.getDashSepBlack(), 5.);
-			shape.setDashSepBlack(0.);
-			assertEqualsDouble(shape.getDashSepBlack(), 5.);
-			shape.setDashSepBlack(-10.);
-			assertEqualsDouble(shape.getDashSepBlack(), 5.);
-			shape.setDashSepBlack(Double.NaN);
-			assertEqualsDouble(shape.getDashSepBlack(), 5.);
-			shape.setDashSepBlack(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(shape.getDashSepBlack(), 5.);
-			shape.setDashSepBlack(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(shape.getDashSepBlack(), 5.);
-		}
+	@Theory
+	public void testSetGetDashSepWhite(@ShapeData final IShape shape, @DoubleData final double value) {
+		assumeTrue(shape.isLineStylable());
+		assumeThat(value, greaterThan(0d));
+		shape.setDashSepWhite(value);
+		assertEqualsDouble(value, shape.getDashSepWhite());
 	}
 
-	@Test
-	public void testSetGetDotSep() {
-		if(shape.isLineStylable()) {
-			shape.setDotSep(10.);
-			assertEqualsDouble(shape.getDotSep(), 10.);
-			shape.setDotSep(5.);
-			assertEqualsDouble(shape.getDotSep(), 5.);
-			shape.setDotSep(0.);
-			assertEqualsDouble(shape.getDotSep(), 0.);
-			shape.setDotSep(-10.);
-			assertEqualsDouble(shape.getDotSep(), 0.);
-			shape.setDotSep(Double.NaN);
-			assertEqualsDouble(shape.getDotSep(), 0.);
-			shape.setDotSep(Double.POSITIVE_INFINITY);
-			assertEqualsDouble(shape.getDotSep(), 0.);
-			shape.setDotSep(Double.NEGATIVE_INFINITY);
-			assertEqualsDouble(shape.getDotSep(), 0.);
-		}
+	@Theory
+	public void testSetGetDashSepWhiteKO(@ShapeData final IShape shape, @DoubleData(bads = true, vals = {0d, -1d}) final double value) {
+		assumeTrue(shape.isLineStylable());
+		shape.setDashSepWhite(5d);
+		shape.setDashSepWhite(value);
+		assertEqualsDouble(5d, shape.getDashSepWhite());
 	}
 
-	@Test
-	public void testSetGetFillingCol() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingCol(DviPsColors.DARKGRAY);
-			assertEquals(shape.getFillingCol(), DviPsColors.DARKGRAY);
-			shape.setFillingCol(null);
-			assertEquals(shape.getFillingCol(), DviPsColors.DARKGRAY);
-			shape.setFillingCol(DviPsColors.BLUE);
-			assertEquals(shape.getFillingCol(), DviPsColors.BLUE);
-			shape.setFillingCol(ShapeFactory.INST.createColorInt(200, 100, 40));
-			assertEquals(shape.getFillingCol(), ShapeFactory.INST.createColorInt(200, 100, 40));
-		}
+	@Theory
+	public void testSetGetDashSepBlack(@ShapeData final IShape shape, @DoubleData final double value) {
+		assumeTrue(shape.isLineStylable());
+		assumeThat(value, greaterThan(0d));
+		shape.setDashSepBlack(value);
+		assertEqualsDouble(value, shape.getDashSepBlack());
 	}
 
-	@Test
-	public void testSetGetFillingStyle() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.GRAD);
-			assertEquals(shape.getFillingStyle(), FillingStyle.GRAD);
-			shape.setFillingStyle(null);
-			assertEquals(shape.getFillingStyle(), FillingStyle.GRAD);
-			shape.setFillingStyle(FillingStyle.CLINES);
-			assertEquals(shape.getFillingStyle(), FillingStyle.CLINES);
-			shape.setFillingStyle(FillingStyle.NONE);
-			assertEquals(shape.getFillingStyle(), FillingStyle.NONE);
-			shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
-			assertEquals(shape.getFillingStyle(), FillingStyle.CLINES_PLAIN);
-			shape.setFillingStyle(FillingStyle.HLINES);
-			assertEquals(shape.getFillingStyle(), FillingStyle.HLINES);
-			shape.setFillingStyle(FillingStyle.HLINES_PLAIN);
-			assertEquals(shape.getFillingStyle(), FillingStyle.HLINES_PLAIN);
-			shape.setFillingStyle(FillingStyle.PLAIN);
-			assertEquals(shape.getFillingStyle(), FillingStyle.PLAIN);
-			shape.setFillingStyle(FillingStyle.VLINES);
-			assertEquals(shape.getFillingStyle(), FillingStyle.VLINES);
-			shape.setFillingStyle(FillingStyle.VLINES_PLAIN);
-			assertEquals(shape.getFillingStyle(), FillingStyle.VLINES_PLAIN);
-		}
+	@Theory
+	public void testSetGetDashSepBlackKO(@ShapeData final IShape shape, @DoubleData(bads = true, vals = {0d, -1d}) final double value) {
+		assumeTrue(shape.isLineStylable());
+		shape.setDashSepBlack(5d);
+		shape.setDashSepBlack(value);
+		assertEqualsDouble(5d, shape.getDashSepBlack());
+	}
+
+	@Theory
+	public void testSetGetDotSep(@ShapeData final IShape shape, @DoubleData final double value) {
+		assumeTrue(shape.isLineStylable());
+		assumeThat(value, greaterThanOrEqualTo(0d));
+		shape.setDotSep(value);
+		assertEqualsDouble(value, shape.getDotSep());
+	}
+
+	@Theory
+	public void testSetGetDotSepKO(@ShapeData final IShape shape, @DoubleData(bads = true, vals = {-1d, -0.01d}) final double value) {
+		assumeTrue(shape.isLineStylable());
+		shape.setDotSep(5d);
+		shape.setDotSep(value);
+		assertEqualsDouble(5d, shape.getDotSep());
+	}
+
+	@Theory
+	public void testSetGetFillingCol(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingCol(DviPsColors.DARKGRAY);
+		assertEquals(shape.getFillingCol(), DviPsColors.DARKGRAY);
+	}
+
+	@Theory
+	public void testSetGetFillingColKO(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingCol(DviPsColors.DARKGRAY);
+		shape.setFillingCol(null);
+		assertEquals(shape.getFillingCol(), DviPsColors.DARKGRAY);
+	}
+
+	@Theory
+	public void testSetGetFillingStyle(@ShapeData final IShape shape, final FillingStyle style) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(style);
+		assertEquals(style, shape.getFillingStyle());
+	}
+
+	@Theory
+	public void testSetGetFillingStyleKO(@ShapeData final IShape shape) {
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.CLINES);
+		shape.setFillingStyle(null);
+		assertEquals(FillingStyle.CLINES, shape.getFillingStyle());
 	}
 }
