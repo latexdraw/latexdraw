@@ -34,26 +34,6 @@
     </repositories>
 
     <build>
-        <sourceDirectory>src/main/</sourceDirectory>
-        <testSourceDirectory>src/test/</testSourceDirectory>
-
-        <resources>
-            <resource>
-                <directory>src/main</directory>
-            </resource>
-            <resource>
-                <directory>src/resources/main/</directory>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/resources/test/</directory>
-            </testResource>
-            <testResource>
-                <directory>src/resources/main/</directory>
-            </testResource>
-        </testResources>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
