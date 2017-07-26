@@ -152,10 +152,10 @@ trait PSTValueParser extends PSTNumberParser {
 					ctx.arrowStyle = arrows.get
 					if(invert) {
 						sh.setArrowStyle(arrows.get._2, 0)
-						sh.setArrowStyle(arrows.get._1, -1)
+						sh.setArrowStyle(arrows.get._1, 1)
 					}else {
 						sh.setArrowStyle(arrows.get._1, 0)
-						sh.setArrowStyle(arrows.get._2, -1)
+						sh.setArrowStyle(arrows.get._2, 1)
 					}
 				}
 			case None =>
