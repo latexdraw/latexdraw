@@ -13,7 +13,7 @@
                <include>org.scala-lang:scala-library</include>
                <include>net.sf.jlibeps:jlibeps</include>
                <include>org.swinglabs:pdf-renderer</include>
-               <include>org.scala-lang.modules:scala-parser-combinators_2.12.0-M4</include>
+               <include>org.scala-lang.modules:scala-parser-combinators_2.12</include>
            </includes>
            <unpack>false</unpack>
            <outputDirectory>data/lib/</outputDirectory>
@@ -26,7 +26,7 @@
 	     <destName>installer.jar</destName>
   	</file>
      <file>
-	     <source>${project.basedir}/../net.sf.latexdraw/src/resources/main/res/LaTeXDrawIcon.png</source>
+	     <source>${project.basedir}/../net.sf.latexdraw/src/main/resources/res/LaTeXDrawIcon.png</source>
 	     <outputDirectory>data/gnome/</outputDirectory>
 	     <destName>latexdraw.png</destName>
   	</file>
@@ -41,15 +41,15 @@
   	</file>
   </files>
   <fileSets>
-    <fileSet>
-      <directory>${project.basedir}/../net.sf.latexdraw/templates/</directory>
-      <outputDirectory>data/</outputDirectory>
-      <includes>
-        <include>.cache/</include>
-        <include>templates/</include>
-      </includes>
-      <useDefaultExcludes>true</useDefaultExcludes>
-    </fileSet>
+    <!--<fileSet>-->
+      <!--<directory>${project.basedir}/../net.sf.latexdraw/templates/</directory>-->
+      <!--<outputDirectory>data/</outputDirectory>-->
+      <!--<includes>-->
+        <!--<include>.cache/</include>-->
+        <!--<include>templates/</include>-->
+      <!--</includes>-->
+      <!--<useDefaultExcludes>true</useDefaultExcludes>-->
+    <!--</fileSet>-->
     <fileSet>
       <directory>${project.basedir}/../net.sf.latexdraw/</directory>
       <outputDirectory>.</outputDirectory>
