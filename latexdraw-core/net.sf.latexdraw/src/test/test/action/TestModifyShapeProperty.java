@@ -1,1567 +1,612 @@
 package test.action;
 
-import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.prop.IArcProp;
+import net.sf.latexdraw.models.interfaces.prop.IArrowable;
+import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.models.interfaces.prop.IDotProp;
+import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
+import net.sf.latexdraw.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
+import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.models.interfaces.prop.IScalable;
+import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
+import net.sf.latexdraw.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.models.interfaces.shape.IArc;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
+import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.IRhombus;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.malai.action.Action;
-import test.HelperTest;
 
+import static org.hamcrest.Matchers.closeTo;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 
-public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapeProperty> implements HelperTest {
-	protected IGroup g;
+@RunWith(Parameterized.class)
+public class TestModifyShapeProperty extends TestUndoableAction<ModifyShapeProperty, List<?>> {
+	@Parameterized.Parameters(name = "{0}")
+	public static Collection<Object> data() {
+		return Arrays.stream(ShapeProperties.values()).collect(Collectors.toList());
+	}
+
+	// The property to test
+	@Parameterized.Parameter
+	public ShapeProperties property;
+	// The value to set
+	private Object value;
+	// The group of shapes
+	private IGroup group;
+	// The function that provides the memento, ie the values before setting the new value
+	private Supplier<List<?>> mementoCmd;
+	// The function that provides the value to check after the setting of the new value
+	private Function<IShape, Object> valueToCheckCmd;
+	// The function that returns a boolean to know whether the property is supported by the given shape.
+	private Function<IShape, Boolean> supportsPropCmd;
 
 	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
-		g = ShapeFactory.INST.createGroup();
-	}
-
-	@Test
-	public void testDoArrowDotSizeNum() {
-		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		g.addShape(line1);
-		g.addShape(rec);
-		g.addShape(line2);
-		line1.setDotSizeNum(0.12);
-		line2.setDotSizeNum(0.23);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW_DOT_SIZE_NUM);
-		action.setValue(0.33);
-		assertTrue(action.doIt());
-
-		assertEquals(0.33, line1.getDotSizeNum(), 0.0001);
-		assertEquals(0.33, line2.getDotSizeNum(), 0.0001);
-	}
-
-	@Test
-	public void testUndoArrowDotSizeNum() {
-		testDoArrowDotSizeNum();
-		action.undo();
-		assertEquals(0.12, ((IPolyline)g.getShapeAt(0)).getDotSizeNum(), 0.0001);
-		assertEquals(0.23, ((IPolyline)g.getShapeAt(2)).getDotSizeNum(), 0.0001);
-	}
-
-	@Test
-	public void testRedoArrowDotSizeNum() {
-		testUndoArrowDotSizeNum();
-		action.redo();
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(0)).getDotSizeNum(), 0.0001);
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(2)).getDotSizeNum(), 0.0001);
-	}
-
-	@Test
-	public void testDoArrowDotSizeDim() {
-		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		g.addShape(line1);
-		g.addShape(rec);
-		g.addShape(line2);
-		line1.setDotSizeDim(0.12);
-		line2.setDotSizeDim(0.23);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW_DOT_SIZE_DIM);
-		action.setValue(0.33);
-		assertTrue(action.doIt());
-
-		assertEquals(0.33, line1.getDotSizeDim(), 0.0001);
-		assertEquals(0.33, line2.getDotSizeDim(), 0.0001);
-	}
-
-	@Test
-	public void testUndoArrowDotSizeDim() {
-		testDoArrowDotSizeDim();
-		action.undo();
-		assertEquals(0.12, ((IPolyline)g.getShapeAt(0)).getDotSizeDim(), 0.0001);
-		assertEquals(0.23, ((IPolyline)g.getShapeAt(2)).getDotSizeDim(), 0.0001);
-	}
-
-	@Test
-	public void testRedoArrowDotSizeDim() {
-		testUndoArrowDotSizeDim();
-		action.redo();
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(0)).getDotSizeDim(), 0.0001);
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(2)).getDotSizeDim(), 0.0001);
-	}
-
-	@Test
-	public void testDoArrowTBarSizeNum() {
-		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		g.addShape(line1);
-		g.addShape(rec);
-		g.addShape(line2);
-		line1.setTBarSizeNum(0.12);
-		line2.setTBarSizeNum(0.23);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW_T_BAR_SIZE_NUM);
-		action.setValue(0.33);
-		assertTrue(action.doIt());
-
-		assertEquals(0.33, line1.getTBarSizeNum(), 0.0001);
-		assertEquals(0.33, line2.getTBarSizeNum(), 0.0001);
-	}
-
-	@Test
-	public void testUndoArrowTBarSizeNum() {
-		testDoArrowTBarSizeNum();
-		action.undo();
-		assertEquals(0.12, ((IPolyline)g.getShapeAt(0)).getTBarSizeNum(), 0.0001);
-		assertEquals(0.23, ((IPolyline)g.getShapeAt(2)).getTBarSizeNum(), 0.0001);
-	}
-
-	@Test
-	public void testRedoArrowTBarSizeNum() {
-		testUndoArrowTBarSizeNum();
-		action.redo();
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(0)).getTBarSizeNum(), 0.0001);
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(2)).getTBarSizeNum(), 0.0001);
-	}
-
-	@Test
-	public void testDoArrowTBarSizeDim() {
-		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		g.addShape(line1);
-		g.addShape(rec);
-		g.addShape(line2);
-		line1.setTBarSizeDim(0.12);
-		line2.setTBarSizeDim(0.23);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW_T_BAR_SIZE_DIM);
-		action.setValue(0.33);
-		assertTrue(action.doIt());
-
-		assertEquals(0.33, line1.getTBarSizeDim(), 0.0001);
-		assertEquals(0.33, line2.getTBarSizeDim(), 0.0001);
-	}
-
-	@Test
-	public void testUndoArrowTBarSizeDim() {
-		testDoArrowTBarSizeDim();
-		action.undo();
-		assertEquals(0.12, ((IPolyline)g.getShapeAt(0)).getTBarSizeDim(), 0.0001);
-		assertEquals(0.23, ((IPolyline)g.getShapeAt(2)).getTBarSizeDim(), 0.0001);
-	}
-
-	@Test
-	public void testRedoArrowTBarSizeDim() {
-		testUndoArrowTBarSizeDim();
-		action.redo();
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(0)).getTBarSizeDim(), 0.0001);
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(2)).getTBarSizeDim(), 0.0001);
-	}
-
-	@Test
-	public void testDoArrowBracketNum() {
-		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		g.addShape(line1);
-		g.addShape(rec);
-		g.addShape(line2);
-		line1.setBracketNum(0.12);
-		line2.setBracketNum(0.23);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW_BRACKET_NUM);
-		action.setValue(0.33);
-		assertTrue(action.doIt());
-
-		assertEquals(0.33, line1.getBracketNum(), 0.0001);
-		assertEquals(0.33, line2.getBracketNum(), 0.0001);
-	}
-
-	@Test
-	public void testUndoArrowBracketNum() {
-		testDoArrowBracketNum();
-		action.undo();
-		assertEquals(0.12, ((IPolyline)g.getShapeAt(0)).getBracketNum(), 0.0001);
-		assertEquals(0.23, ((IPolyline)g.getShapeAt(2)).getBracketNum(), 0.0001);
-	}
-
-	@Test
-	public void testRedoArrowBracketNum() {
-		testUndoArrowBracketNum();
-		action.redo();
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(0)).getBracketNum(), 0.0001);
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(2)).getBracketNum(), 0.0001);
-	}
-
-	@Test
-	public void testDoArrowRBracketNum() {
-		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		g.addShape(line1);
-		g.addShape(rec);
-		g.addShape(line2);
-		line1.setRBracketNum(0.12);
-		line2.setRBracketNum(0.23);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW_R_BRACKET_NUM);
-		action.setValue(0.33);
-		assertTrue(action.doIt());
-
-		assertEquals(0.33, line1.getRBracketNum(), 0.0001);
-		assertEquals(0.33, line2.getRBracketNum(), 0.0001);
-	}
-
-	@Test
-	public void testUndoArrowRBracketNum() {
-		testDoArrowRBracketNum();
-		action.undo();
-		assertEquals(0.12, ((IPolyline)g.getShapeAt(0)).getRBracketNum(), 0.0001);
-		assertEquals(0.23, ((IPolyline)g.getShapeAt(2)).getRBracketNum(), 0.0001);
-	}
-
-	@Test
-	public void testRedoArrowRBracketNum() {
-		testUndoArrowRBracketNum();
-		action.redo();
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(0)).getRBracketNum(), 0.0001);
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(2)).getRBracketNum(), 0.0001);
-	}
-
-	@Test
-	public void testDoArrowSizeNum() {
-		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		g.addShape(line1);
-		g.addShape(rec);
-		g.addShape(line2);
-		line1.setArrowSizeNum(0.12);
-		line2.setArrowSizeNum(0.23);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW_SIZE_NUM);
-		action.setValue(0.33);
-		assertTrue(action.doIt());
-
-		assertEquals(0.33, line1.getArrowSizeNum(), 0.0001);
-		assertEquals(0.33, line2.getArrowSizeNum(), 0.0001);
-	}
-
-	@Test
-	public void testUndoArrowSizeNum() {
-		testDoArrowSizeNum();
-		action.undo();
-		assertEquals(0.12, ((IPolyline)g.getShapeAt(0)).getArrowSizeNum(), 0.0001);
-		assertEquals(0.23, ((IPolyline)g.getShapeAt(2)).getArrowSizeNum(), 0.0001);
-	}
-
-	@Test
-	public void testRedoArrowSizeNum() {
-		testUndoArrowSizeNum();
-		action.redo();
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(0)).getArrowSizeNum(), 0.0001);
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(2)).getArrowSizeNum(), 0.0001);
-	}
-
-	@Test
-	public void testDoArrowSizeDim() {
-		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		g.addShape(line1);
-		g.addShape(rec);
-		g.addShape(line2);
-		line1.setArrowSizeDim(0.12);
-		line2.setArrowSizeDim(0.23);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW_SIZE_DIM);
-		action.setValue(0.33);
-		assertTrue(action.doIt());
-
-		assertEquals(0.33, line1.getArrowSizeDim(), 0.0001);
-		assertEquals(0.33, line2.getArrowSizeDim(), 0.0001);
-	}
-
-	@Test
-	public void testUndoArrowSizeDim() {
-		testDoArrowSizeDim();
-		action.undo();
-		assertEquals(0.12, ((IPolyline)g.getShapeAt(0)).getArrowSizeDim(), 0.0001);
-		assertEquals(0.23, ((IPolyline)g.getShapeAt(2)).getArrowSizeDim(), 0.0001);
-	}
-
-	@Test
-	public void testRedoArrowsSizeDim() {
-		testUndoArrowSizeDim();
-		action.redo();
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(0)).getArrowSizeDim(), 0.0001);
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(2)).getArrowSizeDim(), 0.0001);
-	}
-
-	@Test
-	public void testDoArrowLength() {
-		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		g.addShape(line1);
-		g.addShape(rec);
-		g.addShape(line2);
-		line1.setArrowLength(0.12);
-		line2.setArrowLength(0.23);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW_LENGTH);
-		action.setValue(0.33);
-		assertTrue(action.doIt());
-
-		assertEquals(0.33, line1.getArrowLength(), 0.0001);
-		assertEquals(0.33, line2.getArrowLength(), 0.0001);
-	}
-
-	@Test
-	public void testUndoArrowLength() {
-		testDoArrowLength();
-		action.undo();
-		assertEquals(0.12, ((IPolyline)g.getShapeAt(0)).getArrowLength(), 0.0001);
-		assertEquals(0.23, ((IPolyline)g.getShapeAt(2)).getArrowLength(), 0.0001);
-	}
-
-	@Test
-	public void testRedoArrowLength() {
-		testUndoArrowLength();
-		action.redo();
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(0)).getArrowLength(), 0.0001);
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(2)).getArrowLength(), 0.0001);
-	}
-
-	@Test
-	public void testDoArrowInset() {
-		IPolyline line1 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline line2 = ShapeFactory.INST.createPolyline(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10, 10));
-		g.addShape(line1);
-		g.addShape(rec);
-		g.addShape(line2);
-		line1.setArrowInset(0.12);
-		line2.setArrowInset(0.23);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW_INSET);
-		action.setValue(0.33);
-		assertTrue(action.doIt());
-
-		assertEquals(0.33, line1.getArrowInset(), 0.0001);
-		assertEquals(0.33, line2.getArrowInset(), 0.0001);
-	}
-
-	@Test
-	public void testUndoArrowInset() {
-		testDoArrowInset();
-		action.undo();
-		assertEquals(0.12, ((IPolyline)g.getShapeAt(0)).getArrowInset(), 0.0001);
-		assertEquals(0.23, ((IPolyline)g.getShapeAt(2)).getArrowInset(), 0.0001);
-	}
-
-	@Test
-	public void testRedoArrowInset() {
-		testUndoArrowInset();
-		action.redo();
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(0)).getArrowInset(), 0.0001);
-		assertEquals(0.33, ((IPolyline)g.getShapeAt(2)).getArrowInset(), 0.0001);
-	}
-
-	@Test
-	public void testDoGridStart() {
-		IGrid grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IAxes axe = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
-		g.addShape(grid);
-		g.addShape(rec);
-		g.addShape(axe);
-		grid.setGridStart(-3, -2);
-		axe.setGridStart(-1, -4);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.GRID_START);
-		action.setValue(ShapeFactory.INST.createPoint(-5, -6));
-		assertTrue(action.doIt());
-
-		assertEquals(-5., grid.getGridStartX(), 0.0001);
-		assertEquals(-6., grid.getGridStartY(), 0.0001);
-		assertEquals(-5., axe.getGridStartX(), 0.0001);
-		assertEquals(-6., axe.getGridStartY(), 0.0001);
-	}
-
-	@Test
-	public void testUndoGridStart() {
-		testDoGridStart();
-		action.undo();
-		assertEquals(-3., ((IGrid)g.getShapeAt(0)).getGridStartX(), 0.0001);
-		assertEquals(-2., ((IGrid)g.getShapeAt(0)).getGridStartY(), 0.0001);
-		assertEquals(-1., ((IAxes)g.getShapeAt(2)).getGridStartX(), 0.0001);
-		assertEquals(-4., ((IAxes)g.getShapeAt(2)).getGridStartY(), 0.0001);
-	}
-
-	@Test
-	public void testRedoGridStart() {
-		testUndoGridStart();
-		action.redo();
-		assertEquals(-5., ((IGrid)g.getShapeAt(0)).getGridStartX(), 0.0001);
-		assertEquals(-6., ((IGrid)g.getShapeAt(0)).getGridStartY(), 0.0001);
-		assertEquals(-5., ((IAxes)g.getShapeAt(2)).getGridStartX(), 0.0001);
-		assertEquals(-6., ((IAxes)g.getShapeAt(2)).getGridStartY(), 0.0001);
-	}
-
-	@Test
-	public void testDoDotSize() {
-		IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		g.addShape(d1);
-		g.addShape(rec);
-		g.addShape(d2);
-		d1.setDiametre(11.);
-		d2.setDiametre(22.2);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.DOT_SIZE);
-		action.setValue(33.3);
-		assertTrue(action.doIt());
-
-		assertEquals(33.3, d1.getDiametre(), 0.0001);
-		assertEquals(33.3, d2.getDiametre(), 0.0001);
-	}
-
-	@Test
-	public void testUndoDotSize() {
-		testDoDotSize();
-		action.undo();
-		assertEquals(11., ((IDot)g.getShapeAt(0)).getDiametre(), 0.0001);
-		assertEquals(22.2, ((IDot)g.getShapeAt(2)).getDiametre(), 0.0001);
-	}
-
-	@Test
-	public void testRedoDotSize() {
-		testUndoDotSize();
-		action.redo();
-		assertEquals(33.3, ((IDot)g.getShapeAt(0)).getDiametre(), 0.0001);
-		assertEquals(33.3, ((IDot)g.getShapeAt(2)).getDiametre(), 0.0001);
-	}
-
-	@Test
-	public void testDoDotStyle() {
-		IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		g.addShape(d1);
-		g.addShape(rec);
-		g.addShape(d2);
-		d1.setDotStyle(DotStyle.BAR);
-		d2.setDotStyle(DotStyle.PLUS);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.DOT_STYLE);
-		action.setValue(DotStyle.FDIAMOND);
-		assertTrue(action.doIt());
-
-		assertEquals(DotStyle.FDIAMOND, d1.getDotStyle());
-		assertEquals(DotStyle.FDIAMOND, d2.getDotStyle());
-	}
-
-	@Test
-	public void testUndoDotStyle() {
-		testDoDotStyle();
-		action.undo();
-		assertEquals(DotStyle.BAR, ((IDot)g.getShapeAt(0)).getDotStyle());
-		assertEquals(DotStyle.PLUS, ((IDot)g.getShapeAt(2)).getDotStyle());
-	}
-
-	@Test
-	public void testRedoDotStyle() {
-		testUndoDotStyle();
-		action.redo();
-		assertEquals(DotStyle.FDIAMOND, ((IDot)g.getShapeAt(0)).getDotStyle());
-		assertEquals(DotStyle.FDIAMOND, ((IDot)g.getShapeAt(2)).getDotStyle());
-	}
-
-	@Test
-	public void testDoLineStyle() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setLineStyle(LineStyle.DASHED);
-		rec2.setLineStyle(LineStyle.DOTTED);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.LINE_STYLE);
-		action.setValue(LineStyle.SOLID);
-		assertTrue(action.doIt());
-
-		assertEquals(LineStyle.SOLID, rec1.getLineStyle());
-		assertEquals(LineStyle.SOLID, rec2.getLineStyle());
-	}
-
-	@Test
-	public void testUndoLineStyle() {
-		testDoLineStyle();
-		action.undo();
-		assertEquals(LineStyle.DASHED, g.getShapeAt(0).getLineStyle());
-		assertEquals(LineStyle.DOTTED, g.getShapeAt(2).getLineStyle());
-	}
-
-	@Test
-	public void testRedoLineStyle() {
-		testUndoLineStyle();
-		action.redo();
-		assertEquals(LineStyle.SOLID, g.getShapeAt(0).getLineStyle());
-		assertEquals(LineStyle.SOLID, g.getShapeAt(2).getLineStyle());
-	}
-
-	@Test
-	public void testDoFillingStyle() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setFillingStyle(FillingStyle.CLINES_PLAIN);
-		rec2.setFillingStyle(FillingStyle.GRAD);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.FILLING_STYLE);
-		action.setValue(FillingStyle.VLINES);
-		assertTrue(action.doIt());
-
-		assertEquals(FillingStyle.VLINES, rec1.getFillingStyle());
-		assertEquals(FillingStyle.VLINES, rec2.getFillingStyle());
-	}
-
-	@Test
-	public void testUndoFillingStyle() {
-		testDoFillingStyle();
-		action.undo();
-		assertEquals(FillingStyle.CLINES_PLAIN, g.getShapeAt(0).getFillingStyle());
-		assertEquals(FillingStyle.GRAD, g.getShapeAt(2).getFillingStyle());
-	}
-
-	@Test
-	public void testRedoFillingStyle() {
-		testUndoFillingStyle();
-		action.redo();
-		assertEquals(FillingStyle.VLINES, g.getShapeAt(0).getFillingStyle());
-		assertEquals(FillingStyle.VLINES, g.getShapeAt(2).getFillingStyle());
-	}
-
-	@Test
-	public void testDoThickness() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setThickness(12.5);
-		rec2.setThickness(33.);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.LINE_THICKNESS);
-		action.setValue(101.);
-		assertTrue(action.doIt());
-
-		assertEquals(101., rec1.getThickness(), 0.0001);
-		assertEquals(101., rec2.getThickness(), 0.0001);
-	}
-
-	@Test
-	public void testUndoThickness() {
-		testDoThickness();
-		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getThickness(), 0.0001);
-		assertEquals(33., g.getShapeAt(2).getThickness(), 0.0001);
-	}
-
-	@Test
-	public void testRedoThickness() {
-		testUndoThickness();
-		action.redo();
-		assertEquals(101., g.getShapeAt(0).getThickness(), 0.0001);
-		assertEquals(101., g.getShapeAt(2).getThickness(), 0.0001);
-	}
-
-	@Test
-	public void testDoShadowAngle() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setShadowAngle(12.5);
-		rec2.setShadowAngle(33.);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.SHADOW_ANGLE);
-		action.setValue(101.);
-		assertTrue(action.doIt());
-
-		assertEquals(101., rec1.getShadowAngle(), 0.0001);
-		assertEquals(101., rec2.getShadowAngle(), 0.0001);
-	}
-
-	@Test
-	public void testUndoShadowAngle() {
-		testDoShadowAngle();
-		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getShadowAngle(), 0.0001);
-		assertEquals(33., g.getShapeAt(2).getShadowAngle(), 0.0001);
-	}
-
-	@Test
-	public void testRedoShadowAngle() {
-		testUndoShadowAngle();
-		action.redo();
-		assertEquals(101., g.getShapeAt(0).getShadowAngle(), 0.0001);
-		assertEquals(101., g.getShapeAt(2).getShadowAngle(), 0.0001);
-	}
-
-	@Test
-	public void testDoShadowSize() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setShadowSize(12.5);
-		rec2.setShadowSize(33.);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.SHADOW_SIZE);
-		action.setValue(101.);
-		assertTrue(action.doIt());
-
-		assertEquals(101., rec1.getShadowSize(), 0.0001);
-		assertEquals(101., rec2.getShadowSize(), 0.0001);
-	}
-
-	@Test
-	public void testUndoShadowSize() {
-		testDoShadowSize();
-		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getShadowSize(), 0.0001);
-		assertEquals(33., g.getShapeAt(2).getShadowSize(), 0.0001);
-	}
-
-	@Test
-	public void testRedoShadowSize() {
-		testUndoShadowSize();
-		action.redo();
-		assertEquals(101., g.getShapeAt(0).getShadowSize(), 0.0001);
-		assertEquals(101., g.getShapeAt(2).getShadowSize(), 0.0001);
-	}
-
-	@Test
-	public void testDoHasShadow() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setHasShadow(true);
-		rec2.setHasShadow(false);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.SHADOW);
-		action.setValue(true);
-		assertTrue(action.doIt());
-
-		assertTrue(rec1.hasShadow());
-		assertTrue(rec2.hasShadow());
-	}
-
-	@Test
-	public void testUndoHasShadow() {
-		testDoHasShadow();
-		action.undo();
-		assertTrue(g.getShapeAt(0).hasShadow());
-		assertFalse(g.getShapeAt(2).hasShadow());
-	}
-
-	@Test
-	public void testRedoHasShadow() {
-		testUndoHasShadow();
-		action.redo();
-		assertTrue(g.getShapeAt(0).hasShadow());
-		assertTrue(g.getShapeAt(2).hasShadow());
-	}
-
-	@Test
-	public void testDoDbleBordSep() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setDbleBordSep(12.5);
-		rec2.setDbleBordSep(33.);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
-		action.setValue(101.);
-		assertTrue(action.doIt());
-
-		assertEquals(101., rec1.getDbleBordSep(), 0.0001);
-		assertEquals(101., rec2.getDbleBordSep(), 0.0001);
-	}
-
-	@Test
-	public void testUndoDbleBordSep() {
-		testDoDbleBordSep();
-		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getDbleBordSep(), 0.0001);
-		assertEquals(33., g.getShapeAt(2).getDbleBordSep(), 0.0001);
-	}
-
-	@Test
-	public void testRedoDbleBordSep() {
-		testUndoDbleBordSep();
-		action.redo();
-		assertEquals(101., g.getShapeAt(0).getDbleBordSep(), 0.0001);
-		assertEquals(101., g.getShapeAt(2).getDbleBordSep(), 0.0001);
-	}
-
-	@Test
-	public void testDoHasDbleBord() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setHasDbleBord(true);
-		rec2.setHasDbleBord(false);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.DBLE_BORDERS);
-		action.setValue(true);
-		assertTrue(action.doIt());
-
-		assertTrue(rec1.hasDbleBord());
-		assertTrue(rec2.hasDbleBord());
-	}
-
-	@Test
-	public void testUndoHasDbleBord() {
-		testDoHasDbleBord();
-		action.undo();
-		assertTrue(g.getShapeAt(0).hasDbleBord());
-		assertFalse(g.getShapeAt(2).hasDbleBord());
-	}
-
-	@Test
-	public void testRedoHasDbleBord() {
-		testUndoHasDbleBord();
-		action.redo();
-		assertTrue(g.getShapeAt(0).hasDbleBord());
-		assertTrue(g.getShapeAt(2).hasDbleBord());
-	}
-
-	@Test
-	public void testDoFillingDotCol() {
-		IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		d1.setDotStyle(DotStyle.DIAMOND);
-		d2.setDotStyle(DotStyle.DIAMOND);
-		g.addShape(d1);
-		g.addShape(rec);
-		g.addShape(d2);
-		d1.setDotFillingCol(DviPsColors.RED);
-		d2.setDotFillingCol(DviPsColors.GREEN);
-		rec.setFillingCol(DviPsColors.CYAN);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.DOT_FILLING_COL);
-		action.setValue(DviPsColors.GRAY);
-		assertTrue(action.doIt());
-
-		assertEquals(DviPsColors.GRAY, d1.getDotFillingCol());
-		assertEquals(DviPsColors.GRAY, d2.getDotFillingCol());
-		assertEquals(DviPsColors.CYAN, rec.getFillingCol());
-	}
-
-	@Test
-	public void testUndoFillingDotCol() {
-		testDoFillingDotCol();
-		action.undo();
-		assertEquals(DviPsColors.RED, ((IDot)g.getShapeAt(0)).getDotFillingCol());
-		assertEquals(DviPsColors.CYAN, g.getShapeAt(1).getFillingCol());
-		assertEquals(DviPsColors.GREEN, ((IDot)g.getShapeAt(2)).getDotFillingCol());
-	}
-
-	@Test
-	public void testRedoFillingDotCol() {
-		testUndoFillingDotCol();
-		action.redo();
-		assertEquals(DviPsColors.GRAY, ((IDot)g.getShapeAt(0)).getDotFillingCol());
-		assertEquals(DviPsColors.CYAN, g.getShapeAt(1).getFillingCol());
-		assertEquals(DviPsColors.GRAY, ((IDot)g.getShapeAt(2)).getDotFillingCol());
-	}
-
-	@Test
-	public void testDoStartGradCol() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		g.addShape(rec1);
-		g.addShape(dot);
-		g.addShape(rec2);
-		rec1.setGradColStart(DviPsColors.RED);
-		rec2.setGradColStart(DviPsColors.GREEN);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.COLOUR_GRADIENT_START);
-		action.setValue(DviPsColors.GRAY);
-		assertTrue(action.doIt());
-
-		assertEquals(DviPsColors.GRAY, rec1.getGradColStart());
-		assertEquals(DviPsColors.GRAY, rec2.getGradColStart());
-	}
-
-	@Test
-	public void testUndoStartGradCol() {
-		testDoStartGradCol();
-		action.undo();
-		assertEquals(DviPsColors.RED, g.getShapeAt(0).getGradColStart());
-		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getGradColStart());
-	}
-
-	@Test
-	public void testRedoStartGradCol() {
-		testUndoStartGradCol();
-		action.redo();
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getGradColStart());
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getGradColStart());
-	}
-
-	@Test
-	public void testDoEndGradCol() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		g.addShape(rec1);
-		g.addShape(dot);
-		g.addShape(rec2);
-		rec1.setGradColEnd(DviPsColors.RED);
-		rec2.setGradColEnd(DviPsColors.GREEN);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.COLOUR_GRADIENT_END);
-		action.setValue(DviPsColors.GRAY);
-		assertTrue(action.doIt());
-
-		assertEquals(DviPsColors.GRAY, rec1.getGradColEnd());
-		assertEquals(DviPsColors.GRAY, rec2.getGradColEnd());
-	}
-
-	@Test
-	public void testUndoEndGradCol() {
-		testDoEndGradCol();
-		action.undo();
-		assertEquals(DviPsColors.RED, g.getShapeAt(0).getGradColEnd());
-		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getGradColEnd());
-	}
-
-	@Test
-	public void testRedoEndGradCol() {
-		testUndoEndGradCol();
-		action.redo();
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getGradColEnd());
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getGradColEnd());
-	}
-
-	@Test
-	public void testDoShadowCol() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		g.addShape(rec1);
-		g.addShape(dot);
-		g.addShape(rec2);
-		rec1.setShadowCol(DviPsColors.RED);
-		rec2.setShadowCol(DviPsColors.GREEN);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.SHADOW_COLOUR);
-		action.setValue(DviPsColors.GRAY);
-		assertTrue(action.doIt());
-
-		assertEquals(DviPsColors.GRAY, rec1.getShadowCol());
-		assertEquals(DviPsColors.GRAY, rec2.getShadowCol());
-	}
-
-	@Test
-	public void testUndoShadowCol() {
-		testDoShadowCol();
-		action.undo();
-		assertEquals(DviPsColors.RED, g.getShapeAt(0).getShadowCol());
-		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getShadowCol());
-	}
-
-	@Test
-	public void testRedoShadowCol() {
-		testUndoShadowCol();
-		action.redo();
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getShadowCol());
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getShadowCol());
-	}
-
-	@Test
-	public void testDoDbleBordCol() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		g.addShape(rec1);
-		g.addShape(dot);
-		g.addShape(rec2);
-		rec1.setDbleBordCol(DviPsColors.RED);
-		rec2.setDbleBordCol(DviPsColors.GREEN);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.COLOUR_DBLE_BORD);
-		action.setValue(DviPsColors.GRAY);
-		assertTrue(action.doIt());
-
-		assertEquals(DviPsColors.GRAY, rec1.getDbleBordCol());
-		assertEquals(DviPsColors.GRAY, rec2.getDbleBordCol());
-	}
-
-	@Test
-	public void testUndoDbleBordCol() {
-		testDoDbleBordCol();
-		action.undo();
-		assertEquals(DviPsColors.RED, g.getShapeAt(0).getDbleBordCol());
-		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getDbleBordCol());
-	}
-
-	@Test
-	public void testRedoDbleBordCol() {
-		testUndoDbleBordCol();
-		action.redo();
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getDbleBordCol());
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getDbleBordCol());
-	}
-
-	@Test
-	public void testDoHatchingsCol() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		g.addShape(rec1);
-		g.addShape(dot);
-		g.addShape(rec2);
-		rec1.setHatchingsCol(DviPsColors.RED);
-		rec2.setHatchingsCol(DviPsColors.GREEN);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.COLOUR_HATCHINGS);
-		action.setValue(DviPsColors.GRAY);
-		assertTrue(action.doIt());
-
-		assertEquals(DviPsColors.GRAY, rec1.getHatchingsCol());
-		assertEquals(DviPsColors.GRAY, rec2.getHatchingsCol());
-	}
-
-	@Test
-	public void testUndoHatchingsCol() {
-		testDoHatchingsCol();
-		action.undo();
-		assertEquals(DviPsColors.RED, g.getShapeAt(0).getHatchingsCol());
-		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getHatchingsCol());
-	}
-
-	@Test
-	public void testRedoHatchingsCol() {
-		testUndoHatchingsCol();
-		action.redo();
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getHatchingsCol());
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getHatchingsCol());
-	}
-
-	@Test
-	public void testDoFillingCol() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		g.addShape(rec1);
-		g.addShape(dot);
-		g.addShape(rec2);
-		rec1.setFillingCol(DviPsColors.RED);
-		rec2.setFillingCol(DviPsColors.GREEN);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.COLOUR_FILLING);
-		action.setValue(DviPsColors.GRAY);
-		assertTrue(action.doIt());
-
-		assertEquals(DviPsColors.GRAY, rec1.getFillingCol());
-		assertEquals(DviPsColors.GRAY, rec2.getFillingCol());
-	}
-
-	@Test
-	public void testUndoFillingCol() {
-		testDoFillingCol();
-		action.undo();
-		assertEquals(DviPsColors.RED, g.getShapeAt(0).getFillingCol());
-		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getFillingCol());
-	}
-
-	@Test
-	public void testRedoFillingCol() {
-		testUndoFillingCol();
-		action.redo();
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getFillingCol());
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getFillingCol());
-	}
-
-	@Test
-	public void testDoLineArc() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setLineArc(0.1);
-		rec2.setLineArc(0.2);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
-		action.setValue(0.3);
-		assertTrue(action.doIt());
-
-		assertEquals(0.3, rec1.getLineArc(), 0.0001);
-		assertEquals(0.3, rec2.getLineArc(), 0.0001);
-	}
-
-	@Test
-	public void testUndoLineArc() {
-		testDoLineArc();
-		action.undo();
-		assertEquals(0.1, ((ILineArcProp)g.getShapeAt(0)).getLineArc(), 0.0001);
-		assertEquals(0.2, ((ILineArcProp)g.getShapeAt(2)).getLineArc(), 0.0001);
-	}
-
-	@Test
-	public void testRedoLineArc() {
-		testUndoLineArc();
-		action.redo();
-		assertEquals(0.3, ((ILineArcProp)g.getShapeAt(0)).getLineArc(), 0.0001);
-		assertEquals(0.3, ((ILineArcProp)g.getShapeAt(2)).getLineArc(), 0.0001);
-	}
-
-	@Test
-	public void testDoGradMidPt() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setGradMidPt(0.1);
-		rec2.setGradMidPt(0.2);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.GRAD_MID_POINT);
-		action.setValue(0.3);
-		assertTrue(action.doIt());
-
-		assertEquals(0.3, rec1.getGradMidPt(), 0.0001);
-		assertEquals(0.3, rec2.getGradMidPt(), 0.0001);
-	}
-
-	@Test
-	public void testUndoGradMidPt() {
-		testDoGradMidPt();
-		action.undo();
-		assertEquals(0.1, g.getShapeAt(0).getGradMidPt(), 0.0001);
-		assertEquals(0.2, g.getShapeAt(2).getGradMidPt(), 0.0001);
-	}
-
-	@Test
-	public void testRedoGradMidPt() {
-		testUndoGradMidPt();
-		action.redo();
-		assertEquals(0.3, g.getShapeAt(0).getGradMidPt(), 0.0001);
-		assertEquals(0.3, g.getShapeAt(2).getGradMidPt(), 0.0001);
-	}
-
-	@Test
-	public void testDoGradAngle() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setGradAngle(12.5);
-		rec2.setGradAngle(33.);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.GRAD_ANGLE);
-		action.setValue(101.);
-		assertTrue(action.doIt());
-
-		assertEquals(101., rec1.getGradAngle(), 0.0001);
-		assertEquals(101., rec2.getGradAngle(), 0.0001);
-	}
-
-	@Test
-	public void testUndoGradAngle() {
-		testDoGradAngle();
-		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getGradAngle(), 0.0001);
-		assertEquals(33., g.getShapeAt(2).getGradAngle(), 0.0001);
-	}
-
-	@Test
-	public void testRedoGradAngle() {
-		testUndoGradAngle();
-		action.redo();
-		assertEquals(101., g.getShapeAt(0).getGradAngle(), 0.0001);
-		assertEquals(101., g.getShapeAt(2).getGradAngle(), 0.0001);
-	}
-
-	@Test
-	public void testDoHatchingsSep() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setHatchingsSep(12.5);
-		rec2.setHatchingsSep(33.);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.HATCHINGS_SEP);
-		action.setValue(101.);
-		assertTrue(action.doIt());
-
-		assertEquals(101., rec1.getHatchingsSep(), 0.0001);
-		assertEquals(101., rec2.getHatchingsSep(), 0.0001);
-	}
-
-	@Test
-	public void testUndoHatchingsSep() {
-		testDoHatchingsSep();
-		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getHatchingsSep(), 0.0001);
-		assertEquals(33., g.getShapeAt(2).getHatchingsSep(), 0.0001);
-	}
-
-	@Test
-	public void testRedoHatchingsSep() {
-		testUndoHatchingsSep();
-		action.redo();
-		assertEquals(101., g.getShapeAt(0).getHatchingsSep(), 0.0001);
-		assertEquals(101., g.getShapeAt(2).getHatchingsSep(), 0.0001);
-	}
-
-	@Test
-	public void testDoHatchingsWidth() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setHatchingsWidth(12.5);
-		rec2.setHatchingsWidth(33.);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.HATCHINGS_WIDTH);
-		action.setValue(101.);
-		assertTrue(action.doIt());
-
-		assertEquals(101., rec1.getHatchingsWidth(), 0.0001);
-		assertEquals(101., rec2.getHatchingsWidth(), 0.0001);
-	}
-
-	@Test
-	public void testUndoHatchingsWidth() {
-		testDoHatchingsWidth();
-		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getHatchingsWidth(), 0.0001);
-		assertEquals(33., g.getShapeAt(2).getHatchingsWidth(), 0.0001);
-	}
-
-	@Test
-	public void testRedoHatchingsWidth() {
-		testUndoHatchingsWidth();
-		action.redo();
-		assertEquals(101., g.getShapeAt(0).getHatchingsWidth(), 0.0001);
-		assertEquals(101., g.getShapeAt(2).getHatchingsWidth(), 0.0001);
-	}
-
-	@Test
-	public void testDoHatchingsAngle() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IText p = ShapeFactory.INST.createText();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		g.addShape(rec1);
-		g.addShape(p);
-		g.addShape(rec2);
-		rec1.setHatchingsAngle(12.5);
-		rec2.setHatchingsAngle(-33.);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.HATCHINGS_ANGLE);
-		action.setValue(101.);
-		assertTrue(action.doIt());
-
-		assertEquals(101., rec1.getHatchingsAngle(), 0.0001);
-		assertEquals(101., rec2.getHatchingsAngle(), 0.0001);
-	}
-
-	@Test
-	public void testUndoHatchingsAngle() {
-		testDoHatchingsAngle();
-		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getHatchingsAngle(), 0.0001);
-		assertEquals(-33., g.getShapeAt(2).getHatchingsAngle(), 0.0001);
-	}
-
-	@Test
-	public void testRedoHatchingsAngle() {
-		testUndoHatchingsAngle();
-		action.redo();
-		assertEquals(101., g.getShapeAt(0).getHatchingsAngle(), 0.0001);
-		assertEquals(101., g.getShapeAt(2).getHatchingsAngle(), 0.0001);
-	}
-
-	@Test
-	public void testDoText() {
-		IText p1 = ShapeFactory.INST.createText();
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IText p2 = ShapeFactory.INST.createText();
-		g.addShape(p1);
-		g.addShape(rec);
-		g.addShape(p2);
-		p1.setText("foo1"); //$NON-NLS-1$
-		p2.setText("foo2"); //$NON-NLS-1$
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.TEXT);
-		action.setValue("foo3"); //$NON-NLS-1$
-		assertTrue(action.doIt());
-
-		assertEquals("foo3", p1.getText()); //$NON-NLS-1$
-		assertEquals("foo3", p2.getText()); //$NON-NLS-1$
-	}
-
-	@Test
-	public void testUndoText() {
-		testDoText();
-		action.undo();
-		assertEquals("foo1", ((IText)g.getShapeAt(0)).getText()); //$NON-NLS-1$
-		assertEquals("foo2", ((IText)g.getShapeAt(2)).getText()); //$NON-NLS-1$
-	}
-
-	@Test
-	public void testRedoText() {
-		testUndoText();
-		action.redo();
-		assertEquals("foo3", ((IText)g.getShapeAt(0)).getText()); //$NON-NLS-1$
-		assertEquals("foo3", ((IText)g.getShapeAt(2)).getText()); //$NON-NLS-1$
-	}
-
-	@Test
-	public void testDoTextPosition() {
-		IText p1 = ShapeFactory.INST.createText();
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IText p2 = ShapeFactory.INST.createText();
-		g.addShape(p1);
-		g.addShape(rec);
-		g.addShape(p2);
-		p1.setTextPosition(TextPosition.BOT_LEFT);
-		p2.setTextPosition(TextPosition.TOP);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.TEXT_POSITION);
-		action.setValue(TextPosition.BOT);
-		assertTrue(action.doIt());
-
-		assertEquals(TextPosition.BOT, p1.getTextPosition());
-		assertEquals(TextPosition.BOT, p2.getTextPosition());
-	}
-
-	@Test
-	public void testUndoTextPosition() {
-		testDoTextPosition();
-		action.undo();
-		assertEquals(TextPosition.BOT_LEFT, ((IText)g.getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.TOP, ((IText)g.getShapeAt(2)).getTextPosition());
-	}
-
-	@Test
-	public void testRedoTextPosition() {
-		testUndoTextPosition();
-		action.redo();
-		assertEquals(TextPosition.BOT, ((IText)g.getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.BOT, ((IText)g.getShapeAt(2)).getTextPosition());
-	}
-
-	@Test
-	public void testDoArrowStyle1() {
-		IPolyline p1 = ShapeFactory.INST.createPolyline();
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline p2 = ShapeFactory.INST.createPolyline();
-		g.addShape(p1);
-		g.addShape(rec);
-		g.addShape(p2);
-		p1.setArrowStyle(ArrowStyle.LEFT_DBLE_ARROW, 1);
-		p2.setArrowStyle(ArrowStyle.RIGHT_DBLE_ARROW, 1);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW2_STYLE);
-		action.setValue(ArrowStyle.BAR_IN);
-		assertTrue(action.doIt());
-
-		assertEquals(ArrowStyle.BAR_IN, p1.getArrowStyle(1));
-		assertEquals(ArrowStyle.BAR_IN, p2.getArrowStyle(1));
-	}
-
-	@Test
-	public void testUndoArrowStyle1() {
-		testDoArrowStyle1();
-		action.undo();
-		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, ((IArrowableSingleShape)g.getShapeAt(0)).getArrowStyle(1));
-		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, ((IArrowableSingleShape)g.getShapeAt(2)).getArrowStyle(1));
-	}
-
-	@Test
-	public void testRedoArrowStyle1() {
-		testUndoArrowStyle1();
-		action.redo();
-		assertEquals(ArrowStyle.BAR_IN, ((IArrowableSingleShape)g.getShapeAt(0)).getArrowStyle(1));
-		assertEquals(ArrowStyle.BAR_IN, ((IArrowableSingleShape)g.getShapeAt(2)).getArrowStyle(1));
-	}
-
-	@Test
-	public void testDoArrowStyle0() {
-		IPolyline p1 = ShapeFactory.INST.createPolyline();
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IPolyline p2 = ShapeFactory.INST.createPolyline();
-		g.addShape(p1);
-		g.addShape(rec);
-		g.addShape(p2);
-		p1.setArrowStyle(ArrowStyle.LEFT_DBLE_ARROW, 0);
-		p2.setArrowStyle(ArrowStyle.RIGHT_DBLE_ARROW, 0);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARROW1_STYLE);
-		action.setValue(ArrowStyle.BAR_IN);
-		assertTrue(action.doIt());
-
-		assertEquals(ArrowStyle.BAR_IN, p1.getArrowStyle(0));
-		assertEquals(ArrowStyle.BAR_IN, p2.getArrowStyle(0));
-	}
-
-	@Test
-	public void testUndoArrowStyle0() {
-		testDoArrowStyle0();
-		action.undo();
-		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, ((IArrowableSingleShape)g.getShapeAt(0)).getArrowStyle(0));
-		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, ((IArrowableSingleShape)g.getShapeAt(2)).getArrowStyle(0));
-	}
-
-	@Test
-	public void testRedoArrowStyle0() {
-		testUndoArrowStyle0();
-		action.redo();
-		assertEquals(ArrowStyle.BAR_IN, ((IArrowableSingleShape)g.getShapeAt(0)).getArrowStyle(0));
-		assertEquals(ArrowStyle.BAR_IN, ((IArrowableSingleShape)g.getShapeAt(2)).getArrowStyle(0));
-	}
-
-	@Test
-	public void testDoArcStyle() {
-		IArc arc1 = ShapeFactory.INST.createCircleArc();
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IArc arc2 = ShapeFactory.INST.createCircleArc();
-		g.addShape(arc1);
-		g.addShape(rec);
-		g.addShape(arc2);
-		arc1.setArcStyle(ArcStyle.CHORD);
-		arc2.setArcStyle(ArcStyle.WEDGE);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARC_STYLE);
-		action.setValue(ArcStyle.ARC);
-		assertTrue(action.doIt());
-
-		assertEquals(ArcStyle.ARC, arc1.getArcStyle());
-		assertEquals(ArcStyle.ARC, arc2.getArcStyle());
-	}
-
-	@Test
-	public void testUndoArcStyle() {
-		testDoArcStyle();
-		action.undo();
-		assertEquals(ArcStyle.CHORD, ((IArc)g.getShapeAt(0)).getArcStyle());
-		assertEquals(ArcStyle.WEDGE, ((IArc)g.getShapeAt(2)).getArcStyle());
-	}
-
-	@Test
-	public void testRedoArcStyle() {
-		testUndoArcStyle();
-		action.redo();
-		assertEquals(ArcStyle.ARC, ((IArc)g.getShapeAt(0)).getArcStyle());
-		assertEquals(ArcStyle.ARC, ((IArc)g.getShapeAt(2)).getArcStyle());
-	}
-
-	@Test
-	public void testDoAngleEnd() {
-		IArc arc1 = ShapeFactory.INST.createCircleArc();
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IArc arc2 = ShapeFactory.INST.createCircleArc();
-		g.addShape(arc1);
-		g.addShape(rec);
-		g.addShape(arc2);
-		arc1.setAngleEnd(111.);
-		arc2.setAngleEnd(-23.43);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARC_END_ANGLE);
-		action.setValue(21.);
-		assertTrue(action.doIt());
-
-		assertEquals(21., arc1.getAngleEnd(), 0.0001);
-		assertEquals(21., arc2.getAngleEnd(), 0.0001);
-	}
-
-	@Test
-	public void testUndoAngleEnd() {
-		testDoAngleEnd();
-		action.undo();
-		assertEquals(111., ((IArc)g.getShapeAt(0)).getAngleEnd(), 0.0001);
-		assertEquals(-23.43, ((IArc)g.getShapeAt(2)).getAngleEnd(), 0.0001);
-	}
-
-	@Test
-	public void testRedoAngleEnd() {
-		testUndoAngleEnd();
-		action.redo();
-		assertEquals(21., ((IArc)g.getShapeAt(0)).getAngleEnd(), 0.0001);
-		assertEquals(21., ((IArc)g.getShapeAt(2)).getAngleEnd(), 0.0001);
-	}
-
-	@Test
-	public void testDoAngleStart() {
-		IArc arc1 = ShapeFactory.INST.createCircleArc();
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		IArc arc2 = ShapeFactory.INST.createCircleArc();
-		g.addShape(arc1);
-		g.addShape(rec);
-		g.addShape(arc2);
-		arc1.setAngleStart(111.);
-		arc2.setAngleStart(-23.43);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ARC_START_ANGLE);
-		action.setValue(21.);
-		assertTrue(action.doIt());
-
-		assertEquals(21., arc1.getAngleStart(), 0.0001);
-		assertEquals(21., arc2.getAngleStart(), 0.0001);
-	}
-
-	@Test
-	public void testUndoAngleStart() {
-		testDoAngleStart();
-		action.undo();
-		assertEquals(111., ((IArc)g.getShapeAt(0)).getAngleStart(), 0.0001);
-		assertEquals(-23.43, ((IArc)g.getShapeAt(2)).getAngleStart(), 0.0001);
-	}
-
-	@Test
-	public void testRedoAngleStart() {
-		testUndoAngleStart();
-		action.redo();
-		assertEquals(21., ((IArc)g.getShapeAt(0)).getAngleStart(), 0.0001);
-		assertEquals(21., ((IArc)g.getShapeAt(2)).getAngleStart(), 0.0001);
-	}
-
-	@Test
-	public void testDoLineColour() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		g.addShape(rec1);
-		g.addShape(dot);
-		g.addShape(rec2);
-		rec1.setLineColour(DviPsColors.RED);
-		rec2.setLineColour(DviPsColors.GREEN);
-		dot.setLineColour(DviPsColors.YELLOW);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.COLOUR_LINE);
-		action.setValue(DviPsColors.GRAY);
-		assertTrue(action.doIt());
-
-		assertEquals(DviPsColors.GRAY, rec1.getLineColour());
-		assertEquals(DviPsColors.GRAY, rec2.getLineColour());
-		assertEquals(DviPsColors.GRAY, dot.getLineColour());
-	}
-
-	@Test
-	public void testUndoLineColour() {
-		testDoLineColour();
-		action.undo();
-		assertEquals(DviPsColors.RED, g.getShapeAt(0).getLineColour());
-		assertEquals(DviPsColors.YELLOW, g.getShapeAt(1).getLineColour());
-		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getLineColour());
-	}
-
-	@Test
-	public void testRedoLineColour() {
-		testUndoLineColour();
-		action.redo();
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getLineColour());
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(1).getLineColour());
-		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getLineColour());
-	}
-
-	@Test
-	public void testDoBorderPosition() {
-		IRectangle rec1 = ShapeFactory.INST.createRectangle();
-		IRectangle rec2 = ShapeFactory.INST.createRectangle();
-		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		g.addShape(rec1);
-		g.addShape(dot);
-		g.addShape(rec2);
-		rec1.setBordersPosition(BorderPos.MID);
-		rec2.setBordersPosition(BorderPos.INTO);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.BORDER_POS);
-		action.setValue(BorderPos.OUT);
-		assertTrue(action.doIt());
-
-		assertEquals(BorderPos.OUT, rec1.getBordersPosition());
-		assertEquals(BorderPos.OUT, rec2.getBordersPosition());
-	}
-
-	@Test
-	public void testUndoBorderPosition() {
-		testDoBorderPosition();
-		action.undo();
-		assertEquals(BorderPos.MID, g.getShapeAt(0).getBordersPosition());
-		assertEquals(BorderPos.INTO, g.getShapeAt(2).getBordersPosition());
-	}
-
-	@Test
-	public void testRedoBorderPosition() {
-		testUndoBorderPosition();
-		action.redo();
-		assertEquals(BorderPos.OUT, g.getShapeAt(0).getBordersPosition());
-		assertEquals(BorderPos.OUT, g.getShapeAt(2).getBordersPosition());
+		group = ShapeFactory.INST.createGroup();
+
+		switch(property) {
+			case PLOT_STYLE:
+				mementoCmd = () -> group.getPlotStyleList();
+				valueToCheckCmd = sh -> ((IPlotProp)sh).getPlotStyle();
+				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
+				value = PlotStyle.DOTS;
+				break;
+			case PLOT_POLAR:
+				mementoCmd = () -> group.getPlotPolarList();
+				valueToCheckCmd = sh -> ((IPlotProp)sh).isPolar();
+				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
+				value = true;
+				break;
+			case PLOT_EQ:
+				mementoCmd = () -> group.getPlotEquationList();
+				valueToCheckCmd = sh -> ((IPlotProp)sh).getPlotEquation();
+				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
+				value = "x 2 mul";
+				break;
+			case Y_SCALE:
+				mementoCmd = () -> group.getYScaleList();
+				valueToCheckCmd = sh -> ((IScalable)sh).getYScale();
+				supportsPropCmd = sh -> sh.isTypeOf(IScalable.class);
+				value = 2d;
+				break;
+			case X_SCALE:
+				mementoCmd = () -> group.getXScaleList();
+				valueToCheckCmd = sh -> ((IScalable)sh).getXScale();
+				supportsPropCmd = sh -> sh.isTypeOf(IScalable.class);
+				value = 2d;
+				break;
+			case PLOT_MAX_X:
+				mementoCmd = () -> group.getPlotMaxXList();
+				valueToCheckCmd = sh -> ((IPlotProp)sh).getPlotMaxX();
+				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
+				value = 20d;
+				break;
+			case PLOT_MIN_X:
+				mementoCmd = () -> group.getPlotMinXList();
+				valueToCheckCmd = sh -> ((IPlotProp)sh).getPlotMinX();
+				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
+				value = -10d;
+				break;
+			case PLOT_NB_PTS:
+				mementoCmd = () -> group.getNbPlottedPointsList();
+				valueToCheckCmd = sh -> ((IPlotProp)sh).getNbPlottedPoints();
+				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
+				value = 123;
+				break;
+			case SHOW_POINTS:
+				mementoCmd = () -> group.getShowPointsList();
+				valueToCheckCmd = sh -> sh.isShowPts();
+				supportsPropCmd = sh -> sh.isShowPtsable();
+				value = true;
+				break;
+			case AXES_SHOW_ORIGIN:
+				mementoCmd = () -> group.getAxesShowOriginList();
+				valueToCheckCmd = sh -> ((IAxesProp)sh).isShowOrigin();
+				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
+				value = false;
+				break;
+			case AXES_LABELS_DIST:
+				mementoCmd = () -> group.getAxesDistLabelsList();
+				valueToCheckCmd = sh -> ((IAxesProp)sh).getDistLabels();
+				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
+				value = ShapeFactory.INST.createPoint(1d, 2d);
+				break;
+			case AXES_LABELS_INCR:
+				mementoCmd = () -> group.getAxesIncrementsList();
+				valueToCheckCmd = sh -> ((IAxesProp)sh).getIncrement();
+				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
+				value = ShapeFactory.INST.createPoint(1d, 2d);
+				break;
+			case AXES_LABELS_SHOW:
+				mementoCmd = () -> group.getAxesLabelsDisplayedList();
+				valueToCheckCmd = sh -> ((IAxesProp)sh).getLabelsDisplayed();
+				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
+				value = PlottingStyle.X;
+				break;
+			case AXES_TICKS_SHOW:
+				mementoCmd = () -> group.getAxesTicksDisplayedList();
+				valueToCheckCmd = sh -> ((IAxesProp)sh).getTicksDisplayed();
+				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
+				value = PlottingStyle.Y;
+				break;
+			case GRID_SUBGRID_WIDTH:
+				mementoCmd = () -> group.getSubGridWidthList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).getSubGridWidth();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = 21d;
+				break;
+			case FREEHAND_OPEN:
+				mementoCmd = () -> group.getFreeHandOpenList();
+				valueToCheckCmd = sh -> ((IFreeHandProp)sh).isOpen();
+				supportsPropCmd = sh -> sh.isTypeOf(IFreeHandProp.class);
+				value = false;
+				break;
+			case FREEHAND_INTERVAL:
+				mementoCmd = () -> group.getFreeHandIntervalList();
+				valueToCheckCmd = sh -> ((IFreeHandProp)sh).getInterval();
+				supportsPropCmd = sh -> sh.isTypeOf(IFreeHandProp.class);
+				value = 7;
+				break;
+			case GRID_SUBGRID_DIV:
+				mementoCmd = () -> group.getSubGridDivList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).getSubGridDiv();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = 5;
+				break;
+			case GRID_SUBGRID_DOTS:
+				mementoCmd = () -> group.getSubGridDotsList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).getSubGridDots();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = 3;
+				break;
+			case GRID_DOTS:
+				mementoCmd = () -> group.getGridDotsList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).getGridDots();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = 7;
+				break;
+			case GRID_WIDTH:
+				mementoCmd = () -> group.getGridWidthList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).getGridWidth();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = 7d;
+				break;
+			case AXES_TICKS_STYLE:
+				mementoCmd = () -> group.getAxesTicksStyleList();
+				valueToCheckCmd = sh -> ((IAxesProp)sh).getTicksStyle();
+				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
+				value = TicksStyle.FULL;
+				break;
+			case FREEHAND_STYLE:
+				mementoCmd = () -> group.getFreeHandTypeList();
+				valueToCheckCmd = sh -> ((IFreeHandProp)sh).getType();
+				supportsPropCmd = sh -> sh.isTypeOf(IFreeHandProp.class);
+				value = FreeHandStyle.LINES;
+				break;
+			case AXES_STYLE:
+				mementoCmd = () -> group.getAxesStyleList();
+				valueToCheckCmd = sh -> ((IAxesProp)sh).getAxesStyle();
+				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
+				value = AxesStyle.FRAME;
+				break;
+			case GRID_LABEL_POSITION_X:
+				mementoCmd = () -> group.getGridYLabelWestList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).isYLabelWest();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = false;
+				break;
+			case GRID_LABEL_POSITION_Y:
+				mementoCmd = () -> group.getGridXLabelSouthList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).isXLabelSouth();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = false;
+				break;
+			case GRID_SIZE_LABEL:
+				mementoCmd = () -> group.getGridLabelSizeList();
+				valueToCheckCmd = sh -> ((IStdGridProp)sh).getLabelsSize();
+				supportsPropCmd = sh -> sh.isTypeOf(IStdGridProp.class);
+				value = 11;
+				break;
+			case ARROW_T_BAR_SIZE_DIM:
+				mementoCmd = () -> group.getTBarSizeDimList();
+				valueToCheckCmd = sh -> ((IArrowable)sh).getTBarSizeDim();
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
+				value = 0.55;
+				break;
+			case ARROW_T_BAR_SIZE_NUM:
+				mementoCmd = () -> group.getTBarSizeNumList();
+				valueToCheckCmd = sh -> ((IArrowable)sh).getTBarSizeNum();
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
+				value = 0.55;
+				break;
+			case ARROW_DOT_SIZE_NUM:
+				mementoCmd = () -> group.getDotSizeNumList();
+				valueToCheckCmd = sh -> ((IArrowable)sh).getDotSizeNum();
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
+				value = 0.55;
+				break;
+			case ARROW_DOT_SIZE_DIM:
+				mementoCmd = () -> group.getDotSizeDimList();
+				valueToCheckCmd = sh -> ((IArrowable)sh).getDotSizeDim();
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
+				value = 0.55;
+				break;
+			case ARROW_BRACKET_NUM:
+				mementoCmd = () -> group.getBracketNumList();
+				valueToCheckCmd = sh -> ((IArrowable)sh).getBracketNum();
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
+				value = 0.55;
+				break;
+			case ARROW_R_BRACKET_NUM:
+				mementoCmd = () -> group.getRBracketNumList();
+				valueToCheckCmd = sh -> ((IArrowable)sh).getRBracketNum();
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
+				value = 0.55;
+				break;
+			case ARROW_SIZE_NUM:
+				mementoCmd = () -> group.getArrowSizeNumList();
+				valueToCheckCmd = sh -> ((IArrowable)sh).getArrowSizeNum();
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
+				value = 0.55;
+				break;
+			case ARROW_SIZE_DIM:
+				mementoCmd = () -> group.getArrowSizeDimList();
+				valueToCheckCmd = sh -> ((IArrowable)sh).getArrowSizeDim();
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
+				value = 0.55;
+				break;
+			case ARROW_LENGTH:
+				mementoCmd = () -> group.getArrowLengthList();
+				valueToCheckCmd = sh -> ((IArrowable)sh).getArrowLength();
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
+				value = 0.55;
+				break;
+			case ARROW_INSET:
+				mementoCmd = () -> group.getArrowInsetList();
+				valueToCheckCmd = sh -> ((IArrowable)sh).getArrowInset();
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
+				value = 0.22;
+				break;
+			case GRID_END:
+				mementoCmd = () -> group.getGridEndList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).getGridEnd();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = ShapeFactory.INST.createPoint(10d, 20d);
+				break;
+			case GRID_ORIGIN:
+				mementoCmd = () -> group.getGridOriginList();
+				valueToCheckCmd = sh -> ShapeFactory.INST.createPoint(((IGridProp)sh).getOriginX(), ((IGridProp)sh).getOriginY());
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = ShapeFactory.INST.createPoint(10d, 20d);
+				break;
+			case GRID_START:
+				mementoCmd = () -> group.getGridStartList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).getGridStart();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = ShapeFactory.INST.createPoint(-10d, -20d);
+				break;
+			case ARC_START_ANGLE:
+				mementoCmd = () -> group.getAngleStartList();
+				valueToCheckCmd = sh -> ((IArcProp)sh).getAngleStart();
+				supportsPropCmd = sh -> sh.isTypeOf(IArcProp.class);
+				value = 11d;
+				break;
+			case ARC_END_ANGLE:
+				mementoCmd = () -> group.getAngleEndList();
+				valueToCheckCmd = sh -> ((IArcProp)sh).getAngleEnd();
+				supportsPropCmd = sh -> sh.isTypeOf(IArcProp.class);
+				value = 11d;
+				break;
+			case ARC_STYLE:
+				mementoCmd = () -> group.getArcStyleList();
+				valueToCheckCmd = sh -> ((IArcProp)sh).getArcStyle();
+				supportsPropCmd = sh -> sh.isTypeOf(IArcProp.class);
+				value = ArcStyle.CHORD;
+				break;
+			case ARROW2_STYLE:
+				mementoCmd = () -> group.getArrowStyleList(1);
+				valueToCheckCmd = sh -> ((IArrowableShape)sh).getArrowStyle(1);
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowableShape.class);
+				value = ArrowStyle.CIRCLE_END;
+				break;
+			case ARROW1_STYLE:
+				mementoCmd = () -> group.getArrowStyleList(0);
+				valueToCheckCmd = sh -> ((IArrowableShape)sh).getArrowStyle(0);
+				supportsPropCmd = sh -> sh.isTypeOf(IArrowableShape.class);
+				value = ArrowStyle.CIRCLE_END;
+				break;
+			case TEXT_POSITION:
+				mementoCmd = () -> group.getTextPositionList();
+				valueToCheckCmd = sh -> ((ITextProp)sh).getTextPosition();
+				supportsPropCmd = sh -> sh.isTypeOf(ITextProp.class);
+				value = TextPosition.TOP_RIGHT;
+				break;
+			case TEXT:
+				mementoCmd = () -> group.getTextList();
+				valueToCheckCmd = sh -> ((ITextProp)sh).getText();
+				supportsPropCmd = sh -> sh.isTypeOf(ITextProp.class);
+				value = "foo";
+				break;
+			case HATCHINGS_ANGLE:
+				mementoCmd = () -> {
+					group.setFillingStyle(FillingStyle.CLINES);
+					return group.getHatchingsAngleList();
+				};
+				valueToCheckCmd = sh -> sh.getHatchingsAngle();
+				supportsPropCmd = sh -> sh.isInteriorStylable();
+				value = 11.123;
+				break;
+			case HATCHINGS_WIDTH:
+				mementoCmd = () -> {
+					group.setFillingStyle(FillingStyle.CLINES);
+					return group.getHatchingsWidthList();
+				};
+				valueToCheckCmd = sh -> sh.getHatchingsWidth();
+				supportsPropCmd = sh -> sh.isInteriorStylable();
+				value = 11.123;
+				break;
+			case HATCHINGS_SEP:
+				mementoCmd = () -> {
+					group.setFillingStyle(FillingStyle.HLINES);
+					return group.getHatchingsSepList();
+				};
+				valueToCheckCmd = sh -> sh.getHatchingsSep();
+				supportsPropCmd = sh -> sh.isInteriorStylable();
+				value = 11.123;
+				break;
+			case GRAD_ANGLE:
+				mementoCmd = () -> {
+					group.setFillingStyle(FillingStyle.GRAD);
+					return group.getGradAngleList();
+				};
+				valueToCheckCmd = sh -> sh.getGradAngle();
+				supportsPropCmd = sh -> sh.isInteriorStylable();
+				value = 11.123;
+				break;
+			case GRAD_MID_POINT:
+				mementoCmd = () -> {
+					group.setFillingStyle(FillingStyle.GRAD);
+					return group.getGradMidPtList();
+				};
+				valueToCheckCmd = sh -> sh.getGradMidPt();
+				supportsPropCmd = sh -> sh.isInteriorStylable();
+				value = 0.35;
+				break;
+			case ROUND_CORNER_VALUE:
+				mementoCmd = () -> group.getLineArcList();
+				valueToCheckCmd = sh -> ((ILineArcProp)sh).getLineArc();
+				supportsPropCmd = sh -> sh.isTypeOf(ILineArcProp.class);
+				value = 0.13;
+				break;
+			case GRID_SUBGRID_COLOUR:
+				mementoCmd = () -> group.getSubGridColourList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).getSubGridColour();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = DviPsColors.BITTERSWEET;
+				break;
+			case GRID_LABELS_COLOUR:
+				mementoCmd = () -> group.getGridLabelsColourList();
+				valueToCheckCmd = sh -> ((IGridProp)sh).getGridLabelsColour();
+				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
+				value = DviPsColors.BITTERSWEET;
+				break;
+			case COLOUR_FILLING:
+				mementoCmd = () -> {
+					group.setFillingStyle(FillingStyle.PLAIN);
+					return group.getFillingColList();
+				};
+				valueToCheckCmd = sh -> sh.getFillingCol();
+				supportsPropCmd = sh -> sh.isInteriorStylable();
+				value = DviPsColors.GRAY;
+				break;
+			case COLOUR_LINE:
+				mementoCmd = () -> group.getLineColourList();
+				valueToCheckCmd = sh -> sh.getLineColour();
+				supportsPropCmd = sh -> true;
+				value = DviPsColors.GRAY;
+				break;
+			case COLOUR_HATCHINGS:
+				mementoCmd = () -> {
+					group.setFillingStyle(FillingStyle.CLINES);
+					return group.getHatchingsColList();
+				};
+				valueToCheckCmd = sh -> sh.getHatchingsCol();
+				supportsPropCmd = sh -> sh.isInteriorStylable();
+				value = DviPsColors.GRAY;
+				break;
+			case DBLE_BORDERS:
+				mementoCmd = () -> group.hasDbleBordList();
+				valueToCheckCmd = sh -> sh.hasDbleBord();
+				supportsPropCmd = sh -> sh.isDbleBorderable();
+				value = true;
+				break;
+			case DBLE_BORDERS_SIZE:
+				mementoCmd = () -> {
+					group.setHasDbleBord(true);
+					return group.getDbleBordSepList();
+				};
+				valueToCheckCmd = sh -> sh.getDbleBordSep();
+				supportsPropCmd = sh -> sh.isDbleBorderable();
+				value = 98.2;
+				break;
+			case COLOUR_DBLE_BORD:
+				mementoCmd = () -> {
+					group.setHasDbleBord(true);
+					return group.getDbleBordColList();
+				};
+				valueToCheckCmd = sh -> sh.getDbleBordCol();
+				supportsPropCmd = sh -> sh.isDbleBorderable();
+				value = DviPsColors.JUNGLEGREEN;
+				break;
+			case SHADOW:
+				mementoCmd = () -> group.hasShadowList();
+				valueToCheckCmd = sh -> sh.hasShadow();
+				supportsPropCmd = sh -> sh.isShadowable();
+				value = true;
+				break;
+			case SHADOW_SIZE:
+				mementoCmd = () -> {
+					group.setHasShadow(true);
+					return group.getShadowSizeList();
+				};
+				valueToCheckCmd = sh -> sh.getShadowSize();
+				supportsPropCmd = sh -> sh.isShadowable();
+				value = 123d;
+				break;
+			case SHADOW_ANGLE:
+				mementoCmd = () -> {
+					group.setHasShadow(true);
+					return group.getShadowAngleList();
+				};
+				valueToCheckCmd = sh -> sh.getShadowAngle();
+				supportsPropCmd = sh -> sh.isShadowable();
+				value = 122d;
+				break;
+			case SHADOW_COLOUR:
+				mementoCmd = () -> {
+					group.setHasShadow(true);
+					return group.getShadowColList();
+				};
+				valueToCheckCmd = sh -> sh.getShadowCol();
+				supportsPropCmd = sh -> sh.isShadowable();
+				value = DviPsColors.JUNGLEGREEN;
+				break;
+			case COLOUR_GRADIENT_START:
+				mementoCmd = () -> {
+					group.setFillingStyle(FillingStyle.GRAD);
+					return group.getGradColStartList();
+				};
+				valueToCheckCmd = sh -> sh.getGradColStart();
+				supportsPropCmd = sh -> sh.isInteriorStylable();
+				value = DviPsColors.GOLDEN_ROD;
+				break;
+			case COLOUR_GRADIENT_END:
+				mementoCmd = () -> {
+					group.setFillingStyle(FillingStyle.GRAD);
+					return group.getGradColEndList();
+				};
+				valueToCheckCmd = sh -> sh.getGradColEnd();
+				supportsPropCmd = sh -> sh.isInteriorStylable();
+				value = DviPsColors.MULBERRY;
+				break;
+			case LINE_THICKNESS:
+				mementoCmd = () -> group.getThicknessList();
+				valueToCheckCmd = sh -> sh.getThickness();
+				supportsPropCmd = sh -> sh.isThicknessable();
+				value = 11.123;
+				break;
+			case FILLING_STYLE:
+				mementoCmd = () -> group.getFillingStyleList();
+				valueToCheckCmd = sh -> sh.getFillingStyle();
+				supportsPropCmd = sh -> sh.isInteriorStylable();
+				value = FillingStyle.GRAD;
+				break;
+			case BORDER_POS:
+				mementoCmd = () -> group.getBordersPositionList();
+				supportsPropCmd = sh -> sh.isBordersMovable();
+				valueToCheckCmd = sh -> sh.getBordersPosition();
+				value = BorderPos.OUT;
+				break;
+			case LINE_STYLE:
+				mementoCmd = () -> group.getLineStyleList();
+				supportsPropCmd = sh -> sh.isLineStylable();
+				valueToCheckCmd = sh -> sh.getLineStyle();
+				value = LineStyle.DOTTED;
+				break;
+			case DOT_FILLING_COL:
+				mementoCmd = () -> {
+					group.setDotStyle(DotStyle.DIAMOND);
+					return group.getDotFillingColList();
+				};
+				valueToCheckCmd = sh -> ((IDotProp)sh).getDotFillingCol();
+				supportsPropCmd = sh -> sh.isTypeOf(IDotProp.class);
+				value = DviPsColors.BITTERSWEET;
+				break;
+			case DOT_STYLE:
+				mementoCmd = () -> group.getDotStyleList();
+				valueToCheckCmd = sh -> ((IDotProp)sh).getDotStyle();
+				supportsPropCmd = sh -> sh.isTypeOf(IDotProp.class);
+				value = DotStyle.DIAMOND;
+				break;
+			case DOT_SIZE:
+				mementoCmd = () -> group.getDotSizeList();
+				valueToCheckCmd = sh -> ((IDotProp)sh).getDiametre();
+				supportsPropCmd = sh -> sh.isTypeOf(IDotProp.class);
+				value = 11.123;
+				break;
+		}
+	}
+
+	@Override
+	protected void checkUndo() {
+		int i = 0;
+		for(final Object mem : memento) {
+			if(mem instanceof Double) {
+				final double value = (Double) mem;
+				if(Double.isNaN(value)) {
+					assertFalse(supportsPropCmd.apply(group.getShapeAt(i)));
+				}else {
+					assertThat((Double) valueToCheckCmd.apply(group.getShapeAt(i)), closeTo(value, 0.0001));
+				}
+			}else {
+				if(mem == null) {
+					assertFalse(String.format("Shape %s supports %s but has null value", group.getShapeAt(i), property),
+						supportsPropCmd.apply(group.getShapeAt(i)));
+				}else {
+					if(supportsPropCmd.apply(group.getShapeAt(i))) {
+						assertEquals(String.format("Incorrect value for shape %s", group.getShapeAt(i)), mem, valueToCheckCmd.apply(group.getShapeAt(i)));
+					}
+				}
+			}
+			i++;
+		}
 	}
 
 	@Override
@@ -1569,79 +614,122 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		return new ModifyShapeProperty();
 	}
 
-	@SuppressWarnings("unused")
-	@Override
-	@Test
-	public void testConstructor() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		new ModifyShapeProperty();
+
+	private void configureShapes() {
+		final IGrid grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
+		final IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
+		final IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		final ICircle circle = ShapeFactory.INST.createCircle();
+		final IEllipse ell = ShapeFactory.INST.createEllipse();
+		final IText txt = ShapeFactory.INST.createText();
+		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve();
+		final IPolyline pl = ShapeFactory.INST.createPolyline();
+		final IPolygon pg = ShapeFactory.INST.createPolygon();
+		final ITriangle tr = ShapeFactory.INST.createTriangle();
+		final IRhombus rh = ShapeFactory.INST.createRhombus();
+		final IRectangle r1 = ShapeFactory.INST.createRectangle();
+		final IPlot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0d, 1d, "x", false);
+		final ICircleArc carc = ShapeFactory.INST.createCircleArc();
+		final ISquare sq = ShapeFactory.INST.createSquare();
+		final IFreehand fh = ShapeFactory.INST.createFreeHand();
+		r1.setLineStyle(LineStyle.DASHED);
+		r1.setBordersPosition(BorderPos.INTO);
+		r1.setFillingStyle(FillingStyle.PLAIN);
+		r1.setThickness(2.3);
+		r1.setHasDbleBord(true);
+		r1.setLineArc(0.2);
+		r1.setDbleBordSep(1.3);
+		r1.setHatchingsAngle(0.33);
+		r1.setHatchingsSep(9.1);
+		r1.setHatchingsWidth(12.11);
+		r1.setShadowAngle(0.1);
+		r1.setGradMidPt(0.66);
+		r1.setHatchingsCol(DviPsColors.CYAN);
+		r1.setLineColour(DviPsColors.NAVYBLUE);
+		r1.setShadowSize(87.2);
+		r1.setFillingCol(DviPsColors.CARNATIONPINK);
+		r1.setShadowCol(DviPsColors.CORNFLOWERBLUE);
+		r1.setDashSepBlack(1.2);
+		r1.setDashSepWhite(2.1);
+		r1.setDotSep(23.1);
+		r1.setGradAngle(1.3);
+		r1.setDbleBordCol(DviPsColors.RED);
+		r1.setGradColEnd(DviPsColors.BITTERSWEET);
+		r1.setGradColStart(DviPsColors.FORESTGREEN);
+		r1.setShowPts(true);
+		final IRectangle r2 = ShapeFactory.INST.createRectangle();
+		r2.setLineStyle(LineStyle.SOLID);
+		r2.setBordersPosition(BorderPos.MID);
+		r2.setFillingStyle(FillingStyle.HLINES);
+		r2.setThickness(6.3);
+		r2.setHasShadow(true);
+		r2.setLineArc(0.33);
+		r2.setDbleBordSep(2.3);
+		r2.setHatchingsAngle(-0.53);
+		r2.setHatchingsSep(1.1);
+		r2.setHatchingsWidth(2.11);
+		r2.setShadowAngle(-0.1);
+		r2.setGradMidPt(0.31);
+		r2.setHatchingsCol(DviPsColors.APRICOT);
+		r2.setLineColour(DviPsColors.YELLOW);
+		r2.setShadowSize(8.1);
+		r2.setFillingCol(DviPsColors.CERULEAN);
+		r2.setShadowCol(DviPsColors.DARKORCHID);
+		r1.setDashSepBlack(11.2);
+		r1.setDashSepWhite(21.1);
+		r1.setDotSep(231.1);
+		r1.setGradAngle(11.3);
+		r1.setDbleBordCol(DviPsColors.ROYALBLUE);
+		r1.setGradColEnd(DviPsColors.CADETBLUE);
+		r1.setGradColStart(DviPsColors.OLIVE);
+		txt.copy(r1);
+		ell.copy(r1);
+		circle.copy(r2);
+		dot.copy(r2);
+		bc.copy(r2);
+		pl.copy(r1);
+		pg.copy(r2);
+		tr.copy(r1);
+		rh.copy(r2);
+		plot.copy(r1);
+		carc.copy(r2);
+		sq.copy(r1);
+		fh.copy(r2);
+		group.addShape(r1);
+		group.addShape(txt);
+		group.addShape(grid);
+		group.addShape(pl);
+		group.addShape(pg);
+		group.addShape(r2);
+		group.addShape(axes);
+		group.addShape(ell);
+		group.addShape(circle);
+		group.addShape(tr);
+		group.addShape(rh);
+		group.addShape(dot);
+		group.addShape(bc);
+		group.addShape(plot);
+		group.addShape(carc);
+		group.addShape(sq);
+		group.addShape(fh);
 	}
 
 	@Override
-	@Test
-	public void testFlush() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		g.addShape(rec);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.BORDER_POS);
-		action.setValue(BorderPos.OUT);
-		action.doIt();
-		action.flush();
-		Field f = getField(ModifyShapeProperty.class, "shapes"); //$NON-NLS-1$
-		assertNull(f.get(action));
-		f = getField(ModifyShapeProperty.class, "oldValue"); //$NON-NLS-1$
-		assertNull(f.get(action));
-		action.flush();
+	protected void configCorrectAction() {
+		configureShapes();
+		memento = mementoCmd.get();
+		action.setGroup(group);
+		action.setProperty(property);
+		action.setValue(value);
 	}
 
 	@Override
-	@Test
-	public void testDo() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		assertFalse(action.doIt());
-		IRectangle rec = ShapeFactory.INST.createRectangle();
-		g.addShape(rec);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.BORDER_POS);
-		action.setValue(BorderPos.OUT);
-		assertTrue(action.doIt());
+	protected void checkDo() {
+		assertThat(valueToCheckCmd.apply(group), equalTo(value));
 	}
 
 	@Override
-	@Test
-	public void testCanDo() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		IGroup varTmp = ShapeFactory.INST.createGroup();
-		assertFalse(action.canDo());
-		action.setGroup(varTmp);
-		assertFalse(action.canDo());
-		action.setProperty(ShapeProperties.ARC_END_ANGLE);
-		assertFalse(action.canDo());
-		action.setValue(100.);
-		assertFalse(action.canDo());
-		varTmp.addShape(ShapeFactory.INST.createCircleArc());
-		assertTrue(action.canDo());
-		action.setGroup(null);
-		assertFalse(action.canDo());
-	}
-
-	@Override
-	@Test
-	public void testIsRegisterable() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		assertEquals(Action.RegistrationPolicy.LIMITED, action.getRegistrationPolicy());
-	}
-
-	@Override
-	@Test
-	public void testHadEffect() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		assertFalse(action.hadEffect());
-		action.done();
-		assertTrue(action.hadEffect());
-	}
-
-	@Test
-	public void testGetUndoName() {
-		assertNotNull(action.getUndoName());
-		action.setProperty(ShapeProperties.ARC_END_ANGLE);
-		assertNotNull(action.getUndoName());
-		action.setProperty(null);
-		assertNotNull(action.getUndoName());
+	public void testIsRegisterable() {
+		assertThat(action.getRegistrationPolicy(), is(Action.RegistrationPolicy.LIMITED));
 	}
 }
