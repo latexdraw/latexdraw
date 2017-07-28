@@ -75,20 +75,6 @@ class LDot extends LPositionShape implements IDot {
 		}
 	}
 
-	/**
-	 * Returns the radius computed using a new position (value) and an axe (isX).
-	 * @param value The new X or Y coordinate of the extremity of the dot.
-	 * @param isX True: the value will be considered on the X-axe. Otherwise, on the Y-axe.
-	 * @return The new radius.
-	 */
-	protected double getNewRadius(final double value, final boolean isX) {
-		if(MathUtils.INST.isValidCoord(value)) {
-			return isX ? Math.abs(getPosition().getX() - value) : Math.abs(getPosition().getY() - value);
-		}
-
-		return Double.NaN;
-	}
-
 	@Override
 	public void mirrorHorizontal(final double x) {
 		if(MathUtils.INST.isValidCoord(x)) {
