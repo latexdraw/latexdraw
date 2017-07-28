@@ -227,11 +227,11 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 			if(fill!=null && !fill.equals(SVGAttributes.SVG_VALUE_NONE) && !fill.startsWith(SVG_URL_TOKEN_BEGIN))
 				shape.setShadowCol(CSSColors.INSTANCE.getRGBColour(fill));
-		}else {
-			final Color strok = elt.getStroke();
+		}
 
-			if(strok!=null)
-				shape.setShadowCol(strok);
+		final Color strok = elt.getStroke();
+		if(strok!=null) {
+			shape.setShadowCol(strok);
 		}
 
 		final SVGTransformList tl = elt.getTransform();
@@ -540,127 +540,135 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @since 2.0.0
 	 */
 	protected void setSVGAttributes(final SVGDocument doc, final SVGElement root, final boolean shadowFills) {
-		if(root==null || doc.getFirstChild().getDefs()==null)
-			throw new IllegalArgumentException();
+		if(root == null || doc.getFirstChild().getDefs() == null) throw new IllegalArgumentException();
 
-		final SVGDefsElement defs 	= doc.getFirstChild().getDefs();
-		final FillingStyle fillStyle= shape.getFillingStyle();
+		final SVGDefsElement defs = doc.getFirstChild().getDefs();
+		final FillingStyle fillStyle = shape.getFillingStyle();
 
 		// Setting the position of the borders.
-		if(shape.isBordersMovable())
-	        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE +':'+ LNamespace.XML_BORDERS_POS, shape.getBordersPosition().getLatexToken());
+		if(shape.isBordersMovable()) {
+			root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_BORDERS_POS, shape.getBordersPosition().getLatexToken());
+		}
+
+		root.setStroke(shape.getLineColour());
 
 		// Setting the thickness of the borders.
 		if(shape.isThicknessable()) {
 			LShapeSVGGenerator.setThickness(root, shape.getThickness(), shape.hasDbleBord(), shape.getDbleBordSep());
-			root.setStroke(shape.getLineColour());
-			if(shape.getLineColour().getO()<1.0)
+			if(shape.getLineColour().getO() < 1d) {
 				root.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, String.valueOf((float) MathUtils.INST.getCutNumber(shape.getLineColour().getO())));
+			}
 		}
 
 		// Setting the filling properties.
-		if(shape.isFillable())
+		if(shape.isFillable()) {
 			if((shape.isFilled() || shape.hasShadow() && shadowFills) && !shape.hasHatchings() && !shape.hasGradient()) {
 				root.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
-				if(shape.getFillingCol().getO()<1.0)
+				if(shape.getFillingCol().getO() < 1d) {
 					root.setAttribute(SVGAttributes.SVG_FILL_OPACITY, String.valueOf((float) MathUtils.INST.getCutNumber(shape.getFillingCol().getO())));
-			}
-			else
+				}
+			}else
 				// Setting the filling colour.
-				if(fillStyle==FillingStyle.NONE)
-		        	root.setAttribute(SVGAttributes.SVG_FILL, SVGAttributes.SVG_VALUE_NONE);
-		        else
-		        	// Setting the gradient properties.
-		        	if(fillStyle==FillingStyle.GRAD) {
-		        		final SVGElement grad	= new SVGLinearGradientElement(doc);
-		        		SVGStopElement stop;
-		        		final String id 		= SVGElements.SVG_LINEAR_GRADIENT + shape.hashCode();
-		        		final double gradMidPt 	= shape.getGradAngle()>PI || shape.getGradMidPt()<0 && shape.getGradMidPt()>-PI?
-		        								1-shape.getGradMidPt() : shape.getGradMidPt();
+				if(fillStyle == FillingStyle.NONE) {
+					root.setAttribute(SVGAttributes.SVG_FILL, SVGAttributes.SVG_VALUE_NONE);
+				}else
+					// Setting the gradient properties.
+					if(fillStyle == FillingStyle.GRAD) {
+						final SVGElement grad = new SVGLinearGradientElement(doc);
+						SVGStopElement stop;
+						final String id = SVGElements.SVG_LINEAR_GRADIENT + shape.hashCode();
+						final double gradMidPt = shape.getGradAngle() > PI || shape.getGradMidPt() < 0d && shape.getGradMidPt() > -PI ? 1d
+							- shape.getGradMidPt() : shape.getGradMidPt();
 
-		        		grad.setAttribute(SVGAttributes.SVG_ID, id);
+						grad.setAttribute(SVGAttributes.SVG_ID, id);
 
-		        		if(!MathUtils.INST.equalsDouble(shape.getGradAngle()%(2*PI), PI/2.)) {
-		        			final Point2D.Float p1 = new Point2D.Float();
-                            final Point2D.Float p2 = new Point2D.Float();
+						if(!MathUtils.INST.equalsDouble(shape.getGradAngle() % (2d * PI), PI / 2d)) {
+							final Point2D.Float p1 = new Point2D.Float();
+							final Point2D.Float p2 = new Point2D.Float();
 
-                            getGradientPoints(p1, p2, true);
+							getGradientPoints(p1, p2, true);
 
-		            		grad.setAttribute(SVGAttributes.SVG_X1, String.valueOf(p1.x));
-		            		grad.setAttribute(SVGAttributes.SVG_Y1, String.valueOf(p1.y));
-		            		grad.setAttribute(SVGAttributes.SVG_X2, String.valueOf(p2.x));
-		            		grad.setAttribute(SVGAttributes.SVG_Y2, String.valueOf(p2.y));
-		            		grad.setAttribute(SVGAttributes.SVG_GRADIENT_UNITS, SVGAttributes.SVG_UNITS_VALUE_USR);
-		        		}
+							grad.setAttribute(SVGAttributes.SVG_X1, String.valueOf(p1.x));
+							grad.setAttribute(SVGAttributes.SVG_Y1, String.valueOf(p1.y));
+							grad.setAttribute(SVGAttributes.SVG_X2, String.valueOf(p2.x));
+							grad.setAttribute(SVGAttributes.SVG_Y2, String.valueOf(p2.y));
+							grad.setAttribute(SVGAttributes.SVG_GRADIENT_UNITS, SVGAttributes.SVG_UNITS_VALUE_USR);
+						}
 
-		        		// Setting the middle point of the gradient and its colours.
-		        		if(!MathUtils.INST.equalsDouble(gradMidPt, 0.)) {
-			        		stop = new SVGStopElement(doc);
-			        		stop.setAttribute(SVGAttributes.SVG_OFFSET, "0");//$NON-NLS-1$
-			        		stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColStart(), true));
-			        		grad.appendChild(stop);
-		        		}
+						// Setting the middle point of the gradient and its colours.
+						if(!MathUtils.INST.equalsDouble(gradMidPt, 0.)) {
+							stop = new SVGStopElement(doc);
+							stop.setAttribute(SVGAttributes.SVG_OFFSET, "0");//$NON-NLS-1$
+							stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColStart(),
+								true));
+							grad.appendChild(stop);
+						}
 
-		        		stop = new SVGStopElement(doc);
-		        		stop.setAttribute(SVGAttributes.SVG_OFFSET, String.valueOf(gradMidPt));
-		        		stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColEnd(), true));
-		        		grad.appendChild(stop);
+						stop = new SVGStopElement(doc);
+						stop.setAttribute(SVGAttributes.SVG_OFFSET, String.valueOf(gradMidPt));
+						stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColEnd(), true));
+						grad.appendChild(stop);
 
-		        		if(!MathUtils.INST.equalsDouble(gradMidPt, 1.)) {
-		            		stop = new SVGStopElement(doc);
-		            		stop.setAttribute(SVGAttributes.SVG_OFFSET, "1");//$NON-NLS-1$
-		            		stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColStart(), true));
-		            		grad.appendChild(stop);
-		        		}
+						if(!MathUtils.INST.equalsDouble(gradMidPt, 1.)) {
+							stop = new SVGStopElement(doc);
+							stop.setAttribute(SVGAttributes.SVG_OFFSET, "1");//$NON-NLS-1$
+							stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColStart(),
+								true));
+							grad.appendChild(stop);
+						}
 
-		        		defs.appendChild(grad);
-		        		root.setAttribute(SVGAttributes.SVG_FILL, SVG_URL_TOKEN_BEGIN + id + ')');
-		        	}
-		        	else {
-		        		// Setting the hatchings.
-		        		if(shape.hasHatchings()) {
-		        			final String id 		= SVGElements.SVG_PATTERN + shape.hashCode();
-		        			final SVGPatternElement hatch = new SVGPatternElement(doc);
-		        			final SVGGElement gPath = new SVGGElement(doc);
-		        			final IPoint max 		= shape.getFullBottomRightPoint();
-		        			final SVGPathElement path = new SVGPathElement(doc);
+						defs.appendChild(grad);
+						root.setAttribute(SVGAttributes.SVG_FILL, SVG_URL_TOKEN_BEGIN + id + ')');
+					}else {
+						// Setting the hatchings.
+						if(shape.hasHatchings()) {
+							final String id = SVGElements.SVG_PATTERN + shape.hashCode();
+							final SVGPatternElement hatch = new SVGPatternElement(doc);
+							final SVGGElement gPath = new SVGGElement(doc);
+							final IPoint max = shape.getFullBottomRightPoint();
+							final SVGPathElement path = new SVGPathElement(doc);
 
-		        			root.setAttribute(SVGAttributes.SVG_FILL, SVG_URL_TOKEN_BEGIN + id + ')');
-		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, shape.getFillingStyle().getLatexToken());
-		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ROTATION, String.valueOf(shape.getHatchingsAngle()));
-		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_SIZE, String.valueOf(shape.getHatchingsSep()));
-		        			hatch.setAttribute(SVGAttributes.SVG_PATTERN_UNITS, SVGAttributes.SVG_UNITS_VALUE_USR);
-		        			hatch.setAttribute(SVGAttributes.SVG_ID, id);
-		        			hatch.setAttribute(SVGAttributes.SVG_X, "0"); //$NON-NLS-1$
-		        			hatch.setAttribute(SVGAttributes.SVG_Y, "0"); //$NON-NLS-1$
-		        			hatch.setAttribute(SVGAttributes.SVG_WIDTH,  String.valueOf((int)max.getX()));
-		        			hatch.setAttribute(SVGAttributes.SVG_HEIGHT, String.valueOf((int)max.getY()));
-		        			gPath.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(shape.getHatchingsCol(), true));
-		        			gPath.setAttribute(SVGAttributes.SVG_STROKE_WIDTH, String.valueOf(shape.getHatchingsWidth()));
-		        			gPath.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, SVGAttributes.SVG_VALUE_NONE);
+							root.setAttribute(SVGAttributes.SVG_FILL, SVG_URL_TOKEN_BEGIN + id + ')');
+							hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, shape.getFillingStyle()
+								.getLatexToken());
+							hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION, String.valueOf(shape
+								.getHatchingsAngle()));
+							hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_SIZE, String.valueOf(shape
+								.getHatchingsSep()));
+							hatch.setAttribute(SVGAttributes.SVG_PATTERN_UNITS, SVGAttributes.SVG_UNITS_VALUE_USR);
+							hatch.setAttribute(SVGAttributes.SVG_ID, id);
+							hatch.setAttribute(SVGAttributes.SVG_X, "0"); //$NON-NLS-1$
+							hatch.setAttribute(SVGAttributes.SVG_Y, "0"); //$NON-NLS-1$
+							hatch.setAttribute(SVGAttributes.SVG_WIDTH, String.valueOf((int) max.getX()));
+							hatch.setAttribute(SVGAttributes.SVG_HEIGHT, String.valueOf((int) max.getY()));
+							gPath.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(shape.getHatchingsCol(), true));
+							gPath.setAttribute(SVGAttributes.SVG_STROKE_WIDTH, String.valueOf(shape.getHatchingsWidth()));
+							gPath.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, SVGAttributes.SVG_VALUE_NONE);
 
-		        			path.setAttribute(SVGAttributes.SVG_D, getSVGHatchingsPath().toString());
-	        				gPath.appendChild(path);
+							path.setAttribute(SVGAttributes.SVG_D, getSVGHatchingsPath().toString());
+							gPath.appendChild(path);
 
-	        				// Several shapes having hatching must have their shadow filled.
-		        			if(shape.isFilled() || shape.hasShadow() && shadowFills) {
-		        				final SVGRectElement fill = new SVGRectElement(doc);
-		        				fill.setAttribute(SVGAttributes.SVG_FILL,   CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
-		        				fill.setAttribute(SVGAttributes.SVG_STROKE, SVGAttributes.SVG_VALUE_NONE);
-		        				fill.setAttribute(SVGAttributes.SVG_WIDTH,  String.valueOf((int)max.getX()));
-		        				fill.setAttribute(SVGAttributes.SVG_HEIGHT, String.valueOf((int)max.getY()));
+							// Several shapes having hatching must have their shadow filled.
+							if(shape.isFilled() || shape.hasShadow() && shadowFills) {
+								final SVGRectElement fill = new SVGRectElement(doc);
+								fill.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
+								fill.setAttribute(SVGAttributes.SVG_STROKE, SVGAttributes.SVG_VALUE_NONE);
+								fill.setAttribute(SVGAttributes.SVG_WIDTH, String.valueOf((int) max.getX()));
+								fill.setAttribute(SVGAttributes.SVG_HEIGHT, String.valueOf((int) max.getY()));
 
-		        				hatch.appendChild(fill);
-		        			}
+								hatch.appendChild(fill);
+							}
 
-		        			defs.appendChild(hatch);
-		        			hatch.appendChild(gPath);
-		        		}
-		        	}//else
+							defs.appendChild(hatch);
+							hatch.appendChild(gPath);
+						}
+					}//else
+		}
 
-		if(shape.isLineStylable())
-	        LShapeSVGGenerator.setDashedDotted(root, shape.getDashSepBlack(), shape.getDashSepWhite(), shape.getDotSep(),
-	        		shape.getLineStyle().getLatexToken(), shape.hasDbleBord(), shape.getThickness(), shape.getDbleBordSep());
+		if(shape.isLineStylable()) {
+			LShapeSVGGenerator.setDashedDotted(root, shape.getDashSepBlack(), shape.getDashSepWhite(), shape.getDotSep(),
+				shape.getLineStyle().getLatexToken(), shape.hasDbleBord(), shape.getThickness(), shape.getDbleBordSep());
+		}
 	}
 
 

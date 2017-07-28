@@ -1106,12 +1106,11 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	/**
 	 * Sets the colour of the filling.
-	 * @param c The new filling colour.
-	 * @since 0.1
+	 * @param col The new filling colour. If null, 'none' will be used.
 	 */
-	public void setFill(final Color c) {
-		if(c!=null)
-			setAttribute(getUsablePrefix()+SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(c, true));
+	public void setFill(final Color col) {
+		setAttribute(getUsablePrefix()+SVGAttributes.SVG_FILL,
+			col== null ? SVGAttributes.SVG_VALUE_NONE : CSSColors.INSTANCE.getColorName(col, true));
 	}
 
 
@@ -1130,12 +1129,11 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	/**
 	 * Sets The colour of the stroke.
-	 * @param c The new colour of the stroke (must not be null).
-	 * @since 0.1
+	 * @param col The new colour of the stroke. If null, 'none' will be used.
 	 */
-	public void setStroke(final Color c) {
-		if(c!=null)
-			setAttribute(getUsablePrefix()+SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(c, true));
+	public void setStroke(final Color col) {
+		setAttribute(getUsablePrefix() + SVGAttributes.SVG_STROKE,
+			col == null ? SVGAttributes.SVG_VALUE_NONE : CSSColors.INSTANCE.getColorName(col, true));
 	}
 
 

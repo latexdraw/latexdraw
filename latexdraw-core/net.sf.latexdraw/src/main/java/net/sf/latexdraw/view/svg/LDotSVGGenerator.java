@@ -21,9 +21,10 @@ import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.parsers.Graphics2D2SVG;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.view.jfx.JFXToSVG;
+import net.sf.latexdraw.view.jfx.ViewFactory;
 
 /**
  * An SVG generator for a dot.
@@ -84,32 +85,17 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		if(doc==null)
 			return null;
 
-		final Graphics2D2SVG graphics = new Graphics2D2SVG(doc);
-        final SVGElement root;
-//        final boolean viewCreated;
-        // Instead of creating a view, its is gathered from the Java view of the application.
-        //FIXME
-//		IViewShape view = MappingRegistry.REGISTRY.getTargetFromSource(shape, IViewDot.class);
-//
-//		if(view==null) {
-//			view =  View2DTK.getFactory().createView(shape);
-//			viewCreated = true;
-//		}
-//		else viewCreated = false;
-//
-//        view.paint(graphics, null);
-        root = graphics.getElement();
+		final SVGElement root = new SVGGElement(doc);
 
-        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_DOT);
-        root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_DOT);
+		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_SIZE, String.valueOf(shape.getDiametre()));
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_DOT_SHAPE, shape.getDotStyle().getPSTToken());
-		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POSITION, shape.getPosition().getX() + " " + shape.getPosition().getY()); //$NON-NLS-1$
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POSITION, shape.getPosition().getX() + " " +
+			shape.getPosition().getY()); //$NON-NLS-1$
 
-		graphics.dispose();
-
-//		if(viewCreated)
-//			view.flush();
+		ViewFactory.INSTANCE.createView(shape).ifPresent(vdot -> JFXToSVG.INSTANCE.shapesToElements(vdot.getChildren(), doc).
+			forEach(elt -> root.appendChild(elt)));
 
 		return root;
 	}
