@@ -37,7 +37,7 @@
     <g>
         <g latexdraw:type="line" id="id49">
             <line x1="204.37871770404524" x2="401.1313214746576"
-                y1="193.85937" y2="193.0" stroke-width="8.0"
+                y1="193.85937" y2="193.0" stroke-width="8.0" fill="none"
                 stroke="black" latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-49)"/>
             <line x1="204.37871770404524" x2="401.1313214746576"
                 y1="193.85937" y2="193.0" stroke="white"
@@ -51,7 +51,7 @@
         <g latexdraw:type="line" id="id51">
             <line x1="204.37871770404524" x2="401.1313214746576"
                 y1="72.43911988159883" y2="71.57974988159881"
-                stroke-width="8.0" stroke="black"
+                stroke-width="8.0" stroke="black" fill="none"
                 latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-51)"/>
             <line x1="204.37871770404524" x2="401.1313214746576"
                 y1="72.43911988159883" y2="71.57974988159881"
@@ -64,7 +64,7 @@
         </g>
         <g latexdraw:type="line" id="id54">
             <line x1="294.0" x2="294.0" y1="102.0" y2="167.0"
-                stroke-width="4.0" stroke="#b1b1b1"
+                stroke-width="4.0" stroke="#b1b1b1" fill="none"
                 stroke-dasharray="8.0, 8.0"
                 latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-54)"/>
         </g>

@@ -68,7 +68,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertEquals(0., pol.getRotationAngle(), 0.0001);
 		assertEquals(LineStyle.DASHED, pol.getLineStyle());
 		assertFalse(pol.hasShadow());
-		assertEquals(FillingStyle.NONE, pol.getFillingStyle());
+		assertFalse(pol.isFilled());
 	}
 
 	@Test
@@ -132,7 +132,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertEquals(2.65, pol.getArrowAt(1).getArrowSizeDim(), 0.01);
 		assertEquals(2.0, pol.getArrowAt(1).getArrowSizeNum(), 0.00001);
 		assertEquals(1.4, pol.getArrowAt(1).getArrowLength(), 0.00001);
-		assertEquals(FillingStyle.NONE, pol.getFillingStyle());
+		assertFalse(pol.isFilled());
 	}
 
 	@Override
