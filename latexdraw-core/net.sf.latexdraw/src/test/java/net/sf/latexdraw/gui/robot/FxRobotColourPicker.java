@@ -2,7 +2,6 @@ package net.sf.latexdraw.gui.robot;
 
 import javafx.scene.control.ColorPicker;
 import javafx.scene.input.KeyCode;
-
 import org.testfx.api.FxRobotInterface;
 
 /**

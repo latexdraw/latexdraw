@@ -1,10 +1,8 @@
 package net.sf.latexdraw.parsers.ps;
 
-import static org.junit.Assert.*;
-import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
-import net.sf.latexdraw.parsers.ps.PSDivCommand;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestPSDivCommand extends TestPSCommand<PSDivCommand> {
 	@Override

@@ -15,7 +15,6 @@ import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A model of a square.

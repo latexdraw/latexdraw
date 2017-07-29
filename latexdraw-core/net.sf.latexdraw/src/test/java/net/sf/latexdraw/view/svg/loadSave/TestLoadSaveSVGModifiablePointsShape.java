@@ -1,8 +1,9 @@
 package net.sf.latexdraw.view.svg.loadSave;
 
-import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
+
+import static org.junit.Assert.assertEquals;
 
 public abstract class TestLoadSaveSVGModifiablePointsShape<T extends IModifiablePointsShape> extends TestLoadSaveSVG<T> {
 	@Override

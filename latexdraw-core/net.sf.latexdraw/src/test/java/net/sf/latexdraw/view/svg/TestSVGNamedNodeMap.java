@@ -1,17 +1,17 @@
 package net.sf.latexdraw.view.svg;
 
+import net.sf.latexdraw.parsers.svg.SVGAttr;
+import net.sf.latexdraw.parsers.svg.SVGDocument;
+import net.sf.latexdraw.parsers.svg.SVGNamedNodeMap;
+import org.junit.Before;
+import org.junit.Test;
+import org.w3c.dom.DOMException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import net.sf.latexdraw.parsers.svg.SVGAttr;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGNamedNodeMap;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.w3c.dom.DOMException;
 
 public class TestSVGNamedNodeMap {
 	protected SVGNamedNodeMap map;

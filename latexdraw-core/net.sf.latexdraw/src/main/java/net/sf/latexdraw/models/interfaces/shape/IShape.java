@@ -12,7 +12,6 @@ package net.sf.latexdraw.models.interfaces.shape;
 
 import java.awt.geom.Rectangle2D;
 import javafx.collections.ObservableList;
-import org.eclipse.jdt.annotation.NonNull;
 import org.malai.properties.Modifiable;
 
 /**

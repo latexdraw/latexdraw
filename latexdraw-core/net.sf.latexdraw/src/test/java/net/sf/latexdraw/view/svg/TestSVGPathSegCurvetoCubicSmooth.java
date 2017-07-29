@@ -1,5 +1,6 @@
 package net.sf.latexdraw.view.svg;
 
+import java.text.ParseException;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parsers.svg.path.SVGPathHandler;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
@@ -7,9 +8,9 @@ import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubicSmooth;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
 import org.junit.Test;
 
-import java.text.ParseException;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestSVGPathSegCurvetoCubicSmooth implements SVGPathHandler {
 	protected final SVGPathSegCurvetoCubicSmooth seg = new SVGPathSegCurvetoCubicSmooth(0.8E2, -2., -5.e-1, .5, false);

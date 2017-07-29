@@ -1,13 +1,13 @@
 package net.sf.latexdraw.view.svg;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGText;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Node;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class TestSVGText {
 	protected SVGDocument doc;

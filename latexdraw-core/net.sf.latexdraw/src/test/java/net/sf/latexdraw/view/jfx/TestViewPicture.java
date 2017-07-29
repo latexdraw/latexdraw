@@ -4,7 +4,6 @@ import java.util.concurrent.TimeoutException;
 import javafx.geometry.Bounds;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
-import net.sf.latexdraw.view.jfx.ViewPicture;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

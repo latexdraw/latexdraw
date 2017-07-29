@@ -1,13 +1,13 @@
 package net.sf.latexdraw.view.svg.loadSave;
 
-import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.view.latex.DviPsColors;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestLoadSaveSVGText extends TestLoadSaveSVGPositionShape<IText> {
 	@Before

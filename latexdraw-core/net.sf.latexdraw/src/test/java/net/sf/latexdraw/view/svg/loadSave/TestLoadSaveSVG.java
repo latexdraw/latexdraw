@@ -1,23 +1,12 @@
 package net.sf.latexdraw.view.svg.loadSave;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
-
-import org.junit.Test;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import net.sf.latexdraw.view.svg.IShapeSVGFactory;
-import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -25,6 +14,15 @@ import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.view.latex.DviPsColors;
+import net.sf.latexdraw.view.svg.IShapeSVGFactory;
+import net.sf.latexdraw.view.svg.SVGShapesFactory;
+import org.junit.Test;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public abstract class TestLoadSaveSVG<T extends IShape> {
 

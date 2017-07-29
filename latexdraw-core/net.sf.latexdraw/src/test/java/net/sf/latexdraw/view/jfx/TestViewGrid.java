@@ -11,7 +11,6 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
-import net.sf.latexdraw.view.jfx.ViewGrid;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
 import org.junit.BeforeClass;

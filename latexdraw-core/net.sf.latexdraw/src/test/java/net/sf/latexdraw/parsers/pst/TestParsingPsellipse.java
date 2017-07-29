@@ -1,16 +1,14 @@
 package net.sf.latexdraw.parsers.pst;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.text.ParseException;
-
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
-
+import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestParsingPsellipse extends TestParsingShape {
 	@Override

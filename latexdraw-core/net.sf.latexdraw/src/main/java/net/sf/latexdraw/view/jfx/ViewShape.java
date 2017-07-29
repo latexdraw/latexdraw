@@ -15,7 +15,6 @@ import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The base class of a JFX shape view.

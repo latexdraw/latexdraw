@@ -21,7 +21,6 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX shape view for Bézier curves.

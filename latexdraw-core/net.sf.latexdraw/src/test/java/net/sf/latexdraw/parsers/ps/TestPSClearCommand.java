@@ -1,10 +1,8 @@
 package net.sf.latexdraw.parsers.ps;
 
-import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
-import net.sf.latexdraw.parsers.ps.PSClearCommand;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class TestPSClearCommand extends TestPSCommand<PSClearCommand> {
 	@Override

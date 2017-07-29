@@ -14,7 +14,6 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LDot model.

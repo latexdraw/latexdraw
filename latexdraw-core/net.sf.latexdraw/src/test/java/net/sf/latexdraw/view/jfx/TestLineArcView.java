@@ -3,7 +3,6 @@ package net.sf.latexdraw.view.jfx;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
-import net.sf.latexdraw.view.jfx.ViewSingleShape;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

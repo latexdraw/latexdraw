@@ -14,7 +14,6 @@ import java.util.List;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LFreeHand model.

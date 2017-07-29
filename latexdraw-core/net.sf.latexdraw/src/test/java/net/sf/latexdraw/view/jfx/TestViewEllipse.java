@@ -5,7 +5,6 @@ import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
-import net.sf.latexdraw.view.jfx.ViewEllipse;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;

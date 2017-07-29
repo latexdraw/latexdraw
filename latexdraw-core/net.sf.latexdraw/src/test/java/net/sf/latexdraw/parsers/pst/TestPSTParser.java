@@ -1,7 +1,6 @@
 package net.sf.latexdraw.parsers.pst;
 
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
-
 import org.junit.Before;
 
 public abstract class TestPSTParser {

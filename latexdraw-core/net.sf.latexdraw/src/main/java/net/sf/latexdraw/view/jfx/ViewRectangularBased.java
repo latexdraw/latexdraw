@@ -14,7 +14,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A JFX abstract view to factorise code of views based on a JFX rectangle.

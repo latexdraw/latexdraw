@@ -16,7 +16,6 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.LangTool;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LPicture model.

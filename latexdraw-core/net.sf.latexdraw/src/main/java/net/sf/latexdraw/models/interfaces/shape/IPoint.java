@@ -13,7 +13,6 @@ package net.sf.latexdraw.models.interfaces.shape;
 import java.awt.geom.Point2D;
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Point3D;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The API for points.

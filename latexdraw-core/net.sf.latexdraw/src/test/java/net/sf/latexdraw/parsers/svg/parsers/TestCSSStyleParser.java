@@ -1,17 +1,12 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import java.text.ParseException;
-
-import net.sf.latexdraw.parsers.svg.parsers.CSSStyleHandler;
-import net.sf.latexdraw.parsers.svg.parsers.CSSStyleParser;
-
+import net.sf.latexdraw.parsers.TestCodeParser;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.sf.latexdraw.parsers.TestCodeParser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandler {
 	protected String name;

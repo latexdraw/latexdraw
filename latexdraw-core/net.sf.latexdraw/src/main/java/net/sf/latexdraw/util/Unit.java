@@ -11,7 +11,6 @@
 package net.sf.latexdraw.util;
 
 import java.util.Arrays;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The different possible units used by the rulers.

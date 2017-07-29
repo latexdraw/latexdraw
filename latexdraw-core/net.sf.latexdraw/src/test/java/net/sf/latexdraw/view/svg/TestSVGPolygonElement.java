@@ -3,14 +3,15 @@ package net.sf.latexdraw.view.svg;
 import java.awt.geom.Point2D;
 import java.text.ParseException;
 import java.util.List;
-
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
-
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class TestSVGPolygonElement extends AbstractTestSVGElement {
 	@Test

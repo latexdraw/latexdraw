@@ -22,7 +22,6 @@ import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.eclipse.jdt.annotation.NonNull;
 
 import static java.lang.Math.toDegrees;
 

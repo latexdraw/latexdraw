@@ -18,7 +18,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A trait for creating items.

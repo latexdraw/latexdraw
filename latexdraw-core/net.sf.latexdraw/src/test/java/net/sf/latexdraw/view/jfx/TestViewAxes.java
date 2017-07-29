@@ -11,7 +11,6 @@ import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-import net.sf.latexdraw.view.jfx.ViewAxes;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

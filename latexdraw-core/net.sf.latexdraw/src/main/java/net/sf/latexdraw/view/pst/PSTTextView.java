@@ -14,7 +14,6 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IText;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LText model.

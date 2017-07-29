@@ -1,9 +1,8 @@
 package net.sf.latexdraw.view.svg.loadSave;
 
-import org.junit.Before;
-
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
+import org.junit.Before;
 
 public class TestLoadSaveSVGPolygon extends TestLoadSaveSVGModifiablePointsShape<IPolygon> {
 	@Before

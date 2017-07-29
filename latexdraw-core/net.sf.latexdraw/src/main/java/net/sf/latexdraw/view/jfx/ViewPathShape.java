@@ -12,7 +12,6 @@ package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.shape.Path;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX view for shapes that can be painted as a path.

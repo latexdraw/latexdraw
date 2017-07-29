@@ -1,18 +1,16 @@
 package net.sf.latexdraw.view.svg;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.text.ParseException;
-
 import net.sf.latexdraw.parsers.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parsers.svg.path.SVGPathHandler;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoQuadraticSmooth;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestSVGPathSegCurvetoQuadraticSmooth implements SVGPathHandler {
 	protected final SVGPathSegCurvetoQuadraticSmooth seg = new SVGPathSegCurvetoQuadraticSmooth(-5.23e-10, 6.5, false);

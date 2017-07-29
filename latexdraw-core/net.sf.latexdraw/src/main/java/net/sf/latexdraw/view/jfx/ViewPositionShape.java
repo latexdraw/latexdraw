@@ -12,7 +12,6 @@ package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX view for positionable shapes.

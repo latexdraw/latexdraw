@@ -1,17 +1,17 @@
 package net.sf.latexdraw.view.svg;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 import net.sf.latexdraw.parsers.svg.SVGAttr;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGNodeList;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.DOMException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public abstract class AbstractTestSVGElement {
 	protected SVGElement node;

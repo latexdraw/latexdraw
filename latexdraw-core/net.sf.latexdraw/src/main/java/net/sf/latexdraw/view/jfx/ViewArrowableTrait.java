@@ -13,7 +13,6 @@ package net.sf.latexdraw.view.jfx;
 import java.util.ArrayList;
 import java.util.List;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A (sort of) trait for grouping all the JFX code related to painting arrows of arrowable shape.

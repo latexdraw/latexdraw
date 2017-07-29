@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A PSTricks view of the LDrawing model.

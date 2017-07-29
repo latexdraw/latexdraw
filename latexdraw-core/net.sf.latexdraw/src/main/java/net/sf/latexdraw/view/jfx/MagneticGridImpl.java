@@ -26,7 +26,6 @@ import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.eclipse.jdt.annotation.NonNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

@@ -1,14 +1,16 @@
 package net.sf.latexdraw.view.svg.loadSave;
 
-import static org.junit.Assert.*;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.view.latex.DviPsColors;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestLoadSaveSVGPlot extends TestLoadSaveSVGPositionShape<IPlot> {
 	@Before

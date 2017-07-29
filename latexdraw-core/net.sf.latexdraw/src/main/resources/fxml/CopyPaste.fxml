@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <MenuButton xmlns:fx="http://javafx.com/fxml/1" mnemonicParsing="false" xmlns="http://javafx.com/javafx/8"
             fx:controller="net.sf.latexdraw.instruments.CopierCutterPaster">
     <graphic>

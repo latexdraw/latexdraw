@@ -12,7 +12,6 @@ package net.sf.latexdraw.models.interfaces.shape;
 
 import javafx.beans.property.DoubleProperty;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The API for rectangles.

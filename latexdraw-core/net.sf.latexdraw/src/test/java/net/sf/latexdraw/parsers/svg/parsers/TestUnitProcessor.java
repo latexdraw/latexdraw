@@ -1,11 +1,9 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import net.sf.latexdraw.parsers.svg.parsers.SVGLength;
-import net.sf.latexdraw.parsers.svg.parsers.UnitProcessor;
-
-import org.junit.Test;
 
 public class TestUnitProcessor {
 	@Test

@@ -1,7 +1,8 @@
 package net.sf.latexdraw.view.svg.loadSave;
 
-import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+
+import static org.junit.Assert.assertEquals;
 
 public abstract class TestLoadSaveSVGPositionShape<T extends IPositionShape> extends TestLoadSaveSVG<T> {
 	@Override

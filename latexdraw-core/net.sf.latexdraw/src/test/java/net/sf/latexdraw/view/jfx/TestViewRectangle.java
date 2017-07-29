@@ -5,7 +5,6 @@ import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.view.jfx.ViewRectangle;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;

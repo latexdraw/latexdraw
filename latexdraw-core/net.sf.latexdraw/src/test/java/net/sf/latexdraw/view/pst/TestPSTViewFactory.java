@@ -19,8 +19,6 @@ import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
-import net.sf.latexdraw.view.pst.PSTShapeView;
-import net.sf.latexdraw.view.pst.PSTViewsFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

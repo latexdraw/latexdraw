@@ -50,7 +50,6 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
-import org.eclipse.jdt.annotation.Nullable;
 import org.malai.action.Action;
 import org.malai.action.ActionHandler;
 import org.malai.action.ActionsRegistry;

@@ -3,7 +3,6 @@ package net.sf.latexdraw.view.jfx;
 import java.util.concurrent.TimeoutException;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.view.jfx.ViewPolyline;
 import org.junit.BeforeClass;
 import org.testfx.api.FxToolkit;
 

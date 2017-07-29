@@ -1,19 +1,15 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
+import java.awt.geom.Point2D;
+import java.text.ParseException;
+import net.sf.latexdraw.parsers.TestCodeParser;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import java.awt.geom.Point2D;
-import java.text.ParseException;
-
-import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import net.sf.latexdraw.parsers.TestCodeParser;
 
 public class TestSVGPointsParser extends TestCodeParser {
 	@Before

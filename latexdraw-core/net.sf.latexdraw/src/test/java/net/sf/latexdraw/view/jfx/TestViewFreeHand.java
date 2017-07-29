@@ -4,7 +4,6 @@ import java.util.concurrent.TimeoutException;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.view.jfx.ViewFreeHand;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;

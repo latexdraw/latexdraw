@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.models.interfaces.prop;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 /**
  * Properties of arrows.
  * @author Arnaud BLOUIN

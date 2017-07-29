@@ -1,10 +1,9 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import net.sf.latexdraw.parsers.svg.parsers.URIReferenceParser;
-
-import org.junit.Test;
 
 public class TestURIReferenceParser {
 	@SuppressWarnings("unused")

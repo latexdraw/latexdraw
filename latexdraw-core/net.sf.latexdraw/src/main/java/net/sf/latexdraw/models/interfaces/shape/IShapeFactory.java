@@ -13,14 +13,11 @@ package net.sf.latexdraw.models.interfaces.shape;
 import java.awt.geom.Point2D;
 import java.util.Optional;
 import javafx.geometry.Point3D;
-import org.eclipse.jdt.annotation.NonNullByDefault;
-import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * The API for shape factories.
  * @author Arnaud BLOUIN
  */
-@NonNullByDefault
 public interface IShapeFactory {
 	/**
 	 * @param shapeClass The class of the shape to instantiated.

@@ -2,7 +2,6 @@ package net.sf.latexdraw.gui.robot;
 
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
-
 import org.testfx.api.FxRobotInterface;
 import org.testfx.util.WaitForAsyncUtils;
 

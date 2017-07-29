@@ -11,7 +11,6 @@
 package net.sf.latexdraw.view.pst;
 
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines methods for classical PSTricks views.

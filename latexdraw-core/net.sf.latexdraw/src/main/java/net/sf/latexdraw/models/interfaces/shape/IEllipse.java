@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 /**
  * The API for ellipses.
  * @author Arnaud BLOUIN

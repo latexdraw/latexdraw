@@ -14,7 +14,6 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LSystem;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks view of the LArc model.

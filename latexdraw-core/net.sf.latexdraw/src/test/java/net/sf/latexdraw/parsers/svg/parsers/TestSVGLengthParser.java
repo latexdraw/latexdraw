@@ -1,15 +1,10 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
+import java.text.ParseException;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
-import java.text.ParseException;
-
-import net.sf.latexdraw.parsers.svg.parsers.SVGLength;
-import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
-import net.sf.latexdraw.parsers.svg.parsers.UnitProcessor;
-
-import org.junit.Test;
 
 public class TestSVGLengthParser {
 	@SuppressWarnings("unused")

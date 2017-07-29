@@ -6,9 +6,12 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGEllipseElement;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLength;
 import net.sf.latexdraw.parsers.svg.parsers.UnitProcessor;
-
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class TestSVGEllipseElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")

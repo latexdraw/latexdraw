@@ -1,10 +1,10 @@
 package net.sf.latexdraw.view.svg;
 
+import net.sf.latexdraw.parsers.svg.CSSStyleList;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import net.sf.latexdraw.parsers.svg.CSSStyleList;
-
-import org.junit.Test;
 
 public class TestCSSStyleList {
 	protected CSSStyleList list = new CSSStyleList();

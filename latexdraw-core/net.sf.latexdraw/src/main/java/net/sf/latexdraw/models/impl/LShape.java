@@ -32,7 +32,6 @@ import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.models.interfaces.shape.Position;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.eclipse.jdt.annotation.NonNull;
 import org.malai.mapping.MappingRegistry;
 
 /**

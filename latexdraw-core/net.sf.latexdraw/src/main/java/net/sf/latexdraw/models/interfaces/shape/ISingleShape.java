@@ -13,7 +13,6 @@ package net.sf.latexdraw.models.interfaces.shape;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The API for shapes not composed of several shapes.

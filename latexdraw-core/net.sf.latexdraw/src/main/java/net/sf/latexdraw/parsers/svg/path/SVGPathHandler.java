@@ -10,9 +10,6 @@
  */
 package net.sf.latexdraw.parsers.svg.path;
 
-import org.eclipse.jdt.annotation.NonNull;
-
-
 /**
  * The model of an SVGPath handler.
  * @author Arnaud BLOUIN

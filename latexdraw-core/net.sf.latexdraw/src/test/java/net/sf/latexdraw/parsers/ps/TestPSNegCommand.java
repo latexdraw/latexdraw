@@ -1,10 +1,8 @@
 package net.sf.latexdraw.parsers.ps;
 
-import static org.junit.Assert.assertEquals;
-import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
-import net.sf.latexdraw.parsers.ps.PSNegCommand;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestPSNegCommand extends TestPSCommand<PSNegCommand> {
 	@Override

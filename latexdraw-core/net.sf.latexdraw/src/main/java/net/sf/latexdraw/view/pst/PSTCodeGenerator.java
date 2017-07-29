@@ -18,7 +18,6 @@ import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines a PSTricks generator; it manages the PSTricks views and the latex additional code.

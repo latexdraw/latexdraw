@@ -4,7 +4,6 @@ import java.util.List;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
-import net.sf.latexdraw.view.jfx.ViewPathShape;
 import org.junit.Before;
 import org.junit.Test;
 

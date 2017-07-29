@@ -31,7 +31,6 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A singleton factory that produces PSTricks views.

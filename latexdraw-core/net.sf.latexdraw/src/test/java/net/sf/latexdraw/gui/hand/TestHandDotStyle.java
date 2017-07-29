@@ -2,6 +2,9 @@ package net.sf.latexdraw.gui.hand;
 
 import com.google.inject.AbstractModule;
 import javafx.scene.paint.Color;
+import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
+import net.sf.latexdraw.gui.ShapePropModule;
+import net.sf.latexdraw.gui.TestDotStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
@@ -10,9 +13,6 @@ import net.sf.latexdraw.models.interfaces.shape.IDot;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
-import net.sf.latexdraw.gui.ShapePropModule;
-import net.sf.latexdraw.gui.TestDotStyleGUI;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

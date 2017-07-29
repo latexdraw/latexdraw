@@ -20,7 +20,6 @@ import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX shape view for dot shapes.

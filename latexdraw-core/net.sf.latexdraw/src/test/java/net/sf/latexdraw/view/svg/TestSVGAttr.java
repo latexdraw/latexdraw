@@ -1,18 +1,18 @@
 package net.sf.latexdraw.view.svg;
 
+import net.sf.latexdraw.parsers.svg.SVGAttr;
+import net.sf.latexdraw.parsers.svg.SVGDocument;
+import net.sf.latexdraw.parsers.svg.SVGElement;
+import org.junit.Before;
+import org.junit.Test;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Node;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.parsers.svg.SVGAttr;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Node;
 
 public class TestSVGAttr {
 	protected SVGElement node;

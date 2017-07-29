@@ -20,7 +20,6 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX shape view for multipoints shapes.

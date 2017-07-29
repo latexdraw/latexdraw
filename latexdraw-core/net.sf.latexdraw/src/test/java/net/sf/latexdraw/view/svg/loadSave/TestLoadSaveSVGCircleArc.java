@@ -2,7 +2,6 @@ package net.sf.latexdraw.view.svg.loadSave;
 
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
-
 import org.junit.Before;
 import org.junit.Test;
 

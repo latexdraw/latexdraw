@@ -1,13 +1,12 @@
 package net.sf.latexdraw.view.svg;
 
+import java.text.ParseException;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parsers.svg.path.SVGPathHandler;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubic;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
 import org.junit.Test;
-
-import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

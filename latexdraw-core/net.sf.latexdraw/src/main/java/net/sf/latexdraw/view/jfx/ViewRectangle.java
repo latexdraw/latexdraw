@@ -14,7 +14,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX shape view for rectangles.

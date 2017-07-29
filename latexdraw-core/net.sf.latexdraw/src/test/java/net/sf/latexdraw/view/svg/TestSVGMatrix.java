@@ -1,9 +1,9 @@
 package net.sf.latexdraw.view.svg;
 
-import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.parsers.svg.SVGMatrix;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestSVGMatrix {
 	@Test

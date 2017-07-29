@@ -1,13 +1,12 @@
 package net.sf.latexdraw.models.interfaces;
 
+import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 public class TestFillingStyle {
 	@Test

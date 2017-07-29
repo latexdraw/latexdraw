@@ -4,7 +4,6 @@ import java.util.concurrent.TimeoutException;
 import javafx.geometry.Bounds;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.view.jfx.ViewText;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

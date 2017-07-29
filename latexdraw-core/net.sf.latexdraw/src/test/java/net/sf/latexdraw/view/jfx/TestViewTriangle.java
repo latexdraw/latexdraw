@@ -5,7 +5,6 @@ import javafx.geometry.Bounds;
 import javafx.scene.shape.Path;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
-import net.sf.latexdraw.view.jfx.ViewTriangle;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;

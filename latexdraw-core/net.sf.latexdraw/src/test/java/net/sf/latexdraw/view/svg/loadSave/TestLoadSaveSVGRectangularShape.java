@@ -1,11 +1,10 @@
 package net.sf.latexdraw.view.svg.loadSave;
 
-import static org.junit.Assert.assertEquals;
-
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public abstract class TestLoadSaveSVGRectangularShape<T extends IRectangularShape> extends TestLoadSaveSVGPositionShape<T> {
 	protected void setRectangle(final double x, final double y, final double w, final double h) {

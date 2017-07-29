@@ -44,13 +44,11 @@ import net.sf.latexdraw.models.interfaces.shape.IShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
-import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
  * An implementation of the abstract factory.
  * @author Arnaud Blouin
  */
-@NonNullByDefault
 public class LShapeFactory implements IShapeFactory {
 	/** The map that maps types to creation operations. */
 	final Map<Class<?>, Supplier<IShape>> factoryMap;

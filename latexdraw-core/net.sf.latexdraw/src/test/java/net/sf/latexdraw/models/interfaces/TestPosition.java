@@ -1,11 +1,10 @@
 package net.sf.latexdraw.models.interfaces;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import net.sf.latexdraw.models.interfaces.shape.Position;
 import org.junit.Test;
 
-import net.sf.latexdraw.models.interfaces.shape.Position;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestPosition {
 

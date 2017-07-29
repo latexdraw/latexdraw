@@ -9,7 +9,6 @@ import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.VerticalPosition;
-import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.junit.Before;
 import org.junit.Test;
 

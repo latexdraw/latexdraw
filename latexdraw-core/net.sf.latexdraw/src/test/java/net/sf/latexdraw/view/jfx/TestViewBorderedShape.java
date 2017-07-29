@@ -12,7 +12,6 @@ import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.view.jfx.ViewSingleShape;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
 import org.junit.Test;

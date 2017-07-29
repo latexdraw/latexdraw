@@ -1,15 +1,14 @@
 package net.sf.latexdraw.parsers.pst;
 
-import static org.junit.Assert.*;
-
 import java.text.ParseException;
-
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestParsingPlotCommands extends TestPSTParser {
 	@Test

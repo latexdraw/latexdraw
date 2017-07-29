@@ -13,7 +13,6 @@ package net.sf.latexdraw.view.jfx;
 import java.util.stream.Collectors;
 import javafx.scene.Group;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX view of a group of shapes.

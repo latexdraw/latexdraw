@@ -5,7 +5,6 @@ import javafx.geometry.Bounds;
 import javafx.scene.shape.Path;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-import net.sf.latexdraw.view.jfx.ViewRhombus;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;

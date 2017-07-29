@@ -15,7 +15,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX view of a freehand model.

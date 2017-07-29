@@ -2,11 +2,6 @@ package net.sf.latexdraw.parsers.ps;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-
-import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
-import net.sf.latexdraw.parsers.ps.PSArithemticCommand;
-
-import org.eclipse.jdt.annotation.NonNull;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -13,7 +13,6 @@ package net.sf.latexdraw.models.interfaces.shape;
 import java.util.Arrays;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines the different kinds of axes.

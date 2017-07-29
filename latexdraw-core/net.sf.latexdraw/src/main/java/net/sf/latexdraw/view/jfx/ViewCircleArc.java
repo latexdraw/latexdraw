@@ -13,7 +13,6 @@ package net.sf.latexdraw.view.jfx;
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Arc;
 import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A JFX view to render arcs.

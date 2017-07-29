@@ -1,10 +1,9 @@
 package net.sf.latexdraw.models.interfaces;
 
-import static org.junit.Assert.assertEquals;
-
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import org.junit.Test;
 
-import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import static org.junit.Assert.assertEquals;
 
 public class TestTextPosition {
 	@Test

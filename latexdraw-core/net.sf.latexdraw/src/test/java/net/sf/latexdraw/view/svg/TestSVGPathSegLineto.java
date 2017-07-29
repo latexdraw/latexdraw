@@ -1,17 +1,15 @@
 package net.sf.latexdraw.view.svg;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.text.ParseException;
-
 import net.sf.latexdraw.parsers.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parsers.svg.path.SVGPathHandler;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestSVGPathSegLineto implements SVGPathHandler {
 	protected final SVGPathSegLineto seg = new SVGPathSegLineto(-1, -2, true);

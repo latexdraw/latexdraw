@@ -11,7 +11,6 @@
 package net.sf.latexdraw.parsers.ps;
 
 import java.util.Deque;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * An abstract arithmetic command.

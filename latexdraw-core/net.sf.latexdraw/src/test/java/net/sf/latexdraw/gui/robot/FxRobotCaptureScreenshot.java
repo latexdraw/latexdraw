@@ -6,14 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
-
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.image.WritableImage;
-
 import javax.imageio.ImageIO;
-
 import org.testfx.api.FxRobotInterface;
 
 /**

@@ -1,11 +1,11 @@
 package net.sf.latexdraw.view.svg;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLength;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLength.LengthType;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class TestSVGLength {
 	@SuppressWarnings("unused")

@@ -14,7 +14,6 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * @author Arnaud Blouin

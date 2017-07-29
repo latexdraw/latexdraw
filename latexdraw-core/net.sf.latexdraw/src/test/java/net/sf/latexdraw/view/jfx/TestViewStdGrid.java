@@ -3,7 +3,6 @@ package net.sf.latexdraw.view.jfx;
 import java.util.concurrent.TimeoutException;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
-import net.sf.latexdraw.view.jfx.ViewStdGrid;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;

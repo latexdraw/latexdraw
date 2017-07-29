@@ -13,7 +13,6 @@ package net.sf.latexdraw.view.jfx;
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A JFX abstract view to factorise code of views based on a JFX ellipse.

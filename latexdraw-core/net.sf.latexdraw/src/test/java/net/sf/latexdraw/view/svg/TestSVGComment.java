@@ -1,11 +1,11 @@
 package net.sf.latexdraw.view.svg;
 
-import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.parsers.svg.SVGComment;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
-
 import org.junit.Test;
 import org.w3c.dom.Node;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestSVGComment extends TestSVGText {
 	@Override

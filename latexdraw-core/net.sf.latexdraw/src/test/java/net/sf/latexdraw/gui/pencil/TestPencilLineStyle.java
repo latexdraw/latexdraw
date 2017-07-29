@@ -1,27 +1,25 @@
 package net.sf.latexdraw.gui.pencil;
 
+import com.google.inject.AbstractModule;
+import javafx.scene.paint.Color;
+import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
+import net.sf.latexdraw.gui.ShapePropModule;
+import net.sf.latexdraw.gui.TestLineStyleGUI;
+import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
+import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import javafx.scene.paint.Color;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.instruments.Hand;
-import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
-import net.sf.latexdraw.gui.ShapePropModule;
-import net.sf.latexdraw.gui.TestLineStyleGUI;
-
-import com.google.inject.AbstractModule;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestPencilLineStyle extends TestLineStyleGUI {

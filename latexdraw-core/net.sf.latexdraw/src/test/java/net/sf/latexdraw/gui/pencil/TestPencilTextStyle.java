@@ -1,6 +1,9 @@
 package net.sf.latexdraw.gui.pencil;
 
 import com.google.inject.AbstractModule;
+import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
+import net.sf.latexdraw.gui.ShapePropModule;
+import net.sf.latexdraw.gui.TestTextStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeTextCustomiser;
@@ -9,9 +12,6 @@ import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
-import net.sf.latexdraw.gui.ShapePropModule;
-import net.sf.latexdraw.gui.TestTextStyleGUI;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

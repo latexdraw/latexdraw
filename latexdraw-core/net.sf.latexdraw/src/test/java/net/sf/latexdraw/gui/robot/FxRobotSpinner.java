@@ -5,9 +5,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import javafx.scene.control.Spinner;
 import javafx.scene.input.MouseButton;
+import net.sf.latexdraw.gui.GUIVoidCommand;
 import org.testfx.api.FxRobotInterface;
 import org.testfx.util.WaitForAsyncUtils;
-import net.sf.latexdraw.gui.GUIVoidCommand;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

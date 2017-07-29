@@ -38,14 +38,11 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
-import org.eclipse.jdt.annotation.NonNullByDefault;
-import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * The factory that creates views from given models.
  * @author Arnaud Blouin
  */
-@NonNullByDefault
 public final class ViewFactory {
 	/** The singleton. */
 	public static final ViewFactory INSTANCE = new ViewFactory();
