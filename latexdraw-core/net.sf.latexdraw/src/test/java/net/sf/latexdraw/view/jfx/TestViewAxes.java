@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -46,6 +47,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	public void testChangeincrementXProperty() {
 		final List<String> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList());
 		model.setIncrementX(model.getIncrementX() + 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(textBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList()));
 	}
 
@@ -53,6 +55,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	public void testChangeincrementYProperty() {
 		final List<String> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList());
 		model.setIncrementY(model.getIncrementY() + 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(textBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList()));
 	}
 
@@ -60,6 +63,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	public void testChangedistLabelsXProperty() {
 		final List<Double> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		model.setDistLabelsX(model.getDistLabelsX() + 0.53);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(textBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList()));
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
@@ -68,6 +72,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	public void testChangedistLabelsYProperty() {
 		final List<Double> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		model.setDistLabelsY(model.getDistLabelsY() + 0.53);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(textBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList()));
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
@@ -76,6 +81,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	public void testChangelabelsDisplayedXProperty() {
 		final int sizeBefore = view.getLabels().getChildren().size();
 		model.setLabelsDisplayed(PlottingStyle.X);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(sizeBefore, view.getLabels().getChildren().size());
 	}
 
@@ -83,6 +89,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	public void testChangelabelsDisplayedYProperty() {
 		final int sizeBefore = view.getLabels().getChildren().size();
 		model.setLabelsDisplayed(PlottingStyle.Y);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(sizeBefore, view.getLabels().getChildren().size());
 	}
 
@@ -96,8 +103,10 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	@Test
 	public void testChangelabelsDisplayedAllProperty() {
 		model.setLabelsDisplayed(PlottingStyle.X);
+		WaitForAsyncUtils.waitForFxEvents();
 		final int sizeBefore = view.getLabels().getChildren().size();
 		model.setLabelsDisplayed(PlottingStyle.ALL);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(sizeBefore, view.getLabels().getChildren().size());
 	}
 
@@ -105,78 +114,93 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	public void testChangeshowOriginProperty() {
 		final int sizeBefore = view.getLabels().getChildren().size();
 		model.setShowOrigin(!model.isShowOrigin());
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(sizeBefore, view.getLabels().getChildren().size());
 	}
 
 	@Test
 	public void testChangeticksDisplayedXProperty() {
 		model.setTicksDisplayed(PlottingStyle.X);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
 
 	@Test
 	public void testChangeticksDisplayedYProperty() {
 		model.setTicksDisplayed(PlottingStyle.Y);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
 
 	@Test
 	public void testChangeticksDisplayedNoneProperty() {
 		model.setTicksDisplayed(PlottingStyle.NONE);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.getPathTicks().getElements().isEmpty());
 	}
 
 	@Test
 	public void testChangeticksDisplayedAllProperty() {
 		model.setTicksDisplayed(PlottingStyle.X);
+		WaitForAsyncUtils.waitForFxEvents();
 		pathTicksBefore = new ArrayList<>(view.getPathTicks().getElements());
 		model.setTicksDisplayed(PlottingStyle.ALL);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
 
 	@Test
 	public void testChangeticksStyleBottomProperty() {
 		model.setTicksStyle(TicksStyle.BOTTOM);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
 
 	@Test
 	public void testChangeticksStyleTopProperty() {
 		model.setTicksStyle(TicksStyle.TOP);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
 
 	@Test
 	public void testChangeticksStyleFullProperty() {
 		model.setTicksStyle(TicksStyle.TOP);
+		WaitForAsyncUtils.waitForFxEvents();
 		pathTicksBefore = new ArrayList<>(view.getPathTicks().getElements());
 		model.setTicksStyle(TicksStyle.FULL);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
 
 	@Test
 	public void testChangeticksSizeProperty() {
 		model.setTicksSize(model.getTicksSize() + 2.34);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
 
 	@Test
 	public void testChangeaxesStyleFrameProperty() {
 		model.setAxesStyle(AxesStyle.FRAME);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainAxesBefore, view.getMainAxes().getElements());
 	}
 
 	@Test
 	public void testChangeaxesStyleNoneProperty() {
 		model.setAxesStyle(AxesStyle.NONE);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.getMainAxes().getElements().isEmpty());
 	}
 
 	@Test
 	public void testChangeaxesStyleAxesProperty() {
 		model.setAxesStyle(AxesStyle.NONE);
+		WaitForAsyncUtils.waitForFxEvents();
 		mainAxesBefore = new ArrayList<>(view.getMainAxes().getElements());
 		model.setAxesStyle(AxesStyle.FRAME);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainAxesBefore, view.getMainAxes().getElements());
 	}
 
@@ -184,6 +208,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	@Test
 	public void testChangeGridEndX() {
 		model.setGridEndX(model.getGridEndX() + 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainAxesBefore, view.getMainAxes().getElements());
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
@@ -192,6 +217,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	@Override
 	public void testChangeGridEndY() {
 		model.setGridEndY(model.getGridEndY() + 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainAxesBefore, view.getMainAxes().getElements());
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
@@ -200,6 +226,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	@Override
 	public void testChangeGridStartX() {
 		model.setGridStartX(model.getGridStartX() - 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainAxesBefore, view.getMainAxes().getElements());
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
@@ -208,6 +235,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	@Override
 	public void testChangeGridStartY() {
 		model.setGridStartY(model.getGridStartY() - 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainAxesBefore, view.getMainAxes().getElements());
 		assertNotEquals(pathTicksBefore, view.getPathTicks().getElements());
 	}
@@ -218,6 +246,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	public void testChangeOriginX() {
 		final List<String> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList());
 		model.setOriginX(model.getOriginX() + 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(textBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList()));
 	}
 
@@ -226,6 +255,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	public void testChangeOriginY() {
 		final List<String> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList());
 		model.setOriginX(model.getOriginY() + 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(textBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList()));
 	}
 

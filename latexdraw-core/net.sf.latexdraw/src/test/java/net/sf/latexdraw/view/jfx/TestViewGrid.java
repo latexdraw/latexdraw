@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -47,6 +48,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 		final List<Double> xBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		final List<Double> yBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		model.setUnit(1.345);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
 		assertNotEquals(subGridBefore, view.getSubgrid().getElements());
 		assertNotEquals(xBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList()));
@@ -57,12 +59,14 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	public void testChangeLabelsColour() {
 		final Paint strokeBefore = ((Shape) view.getLabels().getChildren().get(0)).getStroke();
 		model.setGridLabelsColour(DviPsColors.CARNATIONPINK);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(strokeBefore, ((Shape) view.getLabels().getChildren().get(0)).getStroke());
 	}
 
 	@Test
 	public void testChangeGridDots() {
 		model.setGridDots(23);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
 		assertEquals(StrokeLineCap.ROUND, view.getMaingrid().getStrokeLineCap());
 		assertEquals(subGridBefore, view.getSubgrid().getElements());
@@ -71,6 +75,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	@Test
 	public void testChangeSubGridDots() {
 		model.setSubGridDots(21);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(subGridBefore, view.getSubgrid().getElements());
 		assertEquals(StrokeLineCap.ROUND, view.getSubgrid().getStrokeLineCap());
 		assertEquals(mainGridBefore, view.getMaingrid().getElements());
@@ -79,6 +84,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	@Test
 	public void testChangeSubGridDiv() {
 		model.setSubGridDiv(11);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(subGridBefore, view.getSubgrid().getElements());
 		assertEquals(mainGridBefore, view.getMaingrid().getElements());
 	}
@@ -87,6 +93,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	public void testChangeGridWidthImpactOnStrokeWidth() {
 		final double strokeBefore = view.getMaingrid().getStrokeWidth();
 		model.setGridWidth(21d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(strokeBefore, view.getMaingrid().getStrokeWidth());
 	}
 
@@ -95,6 +102,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 		final List<Double> xBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		final List<Double> yBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		model.setGridWidth(43d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(xBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList()));
 		assertNotEquals(yBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList()));
 	}
@@ -104,6 +112,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	public void testChangeSubGridWidth() {
 		final double strokeBefore = view.getSubgrid().getStrokeWidth();
 		model.setSubGridWidth(11d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(strokeBefore, view.getSubgrid().getStrokeWidth());
 	}
 
@@ -111,6 +120,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	public void testChangeYLabelWest() {
 		final List<Double> xBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		model.setYLabelWest(!model.isYLabelWest());
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(xBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList()));
 	}
 
@@ -118,6 +128,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	public void testChangeXLabelSouth() {
 		final List<Double> yBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		model.setXLabelSouth(!model.isXLabelSouth());
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(yBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList()));
 	}
 
@@ -125,6 +136,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	@Test
 	public void testChangeGridEndX() {
 		model.setGridEndX(model.getGridEndX() + 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
 		assertNotEquals(subGridBefore, view.getSubgrid().getElements());
 	}
@@ -133,6 +145,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	@Test
 	public void testChangeGridEndY() {
 		model.setGridEndY(model.getGridEndY() + 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
 		assertNotEquals(subGridBefore, view.getSubgrid().getElements());
 	}
@@ -141,6 +154,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	@Test
 	public void testChangeGridStartX() {
 		model.setGridStartX(model.getGridStartX() - 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
 		assertNotEquals(subGridBefore, view.getSubgrid().getElements());
 	}
@@ -149,6 +163,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	@Test
 	public void testChangeGridStartY() {
 		model.setGridStartY(model.getGridStartY() - 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
 		assertNotEquals(subGridBefore, view.getSubgrid().getElements());
 	}
@@ -159,6 +174,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 		final List<Double> yBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		final List<Double> xBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		model.setOriginX(model.getOriginX() + 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(xBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList()));
 		assertEquals(yBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList()));
 	}
@@ -169,6 +185,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 		final List<Double> yBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		final List<Double> xBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		model.setOriginY(model.getOriginY() + 1d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(yBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList()));
 		assertEquals(xBefore, view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList()));
 	}
