@@ -56,14 +56,14 @@ public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, IEllipse
 	public void testXPositionDbleBordMiddle() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(123d + model.getThickness(), view.getDbleBorder().get().getCenterX() - view.getDbleBorder().get().getRadiusX(), 0.001);
+		assertEquals(123d, view.getDbleBorder().get().getCenterX() - view.getDbleBorder().get().getRadiusX(), 0.001);
 	}
 
 	@Test
 	public void testXPositionDbleBordOutside() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(123d + model.getThickness(), view.getDbleBorder().get().getCenterX() - view.getDbleBorder().get().getRadiusX(), 0.001);
+		assertEquals(123d - model.getThickness(), view.getDbleBorder().get().getCenterX() - view.getDbleBorder().get().getRadiusX(), 0.001);
 	}
 
 
@@ -84,14 +84,14 @@ public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, IEllipse
 	public void testYPositionDbleBordMiddle() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getCenterY() - border.getRadiusY() + model.getThickness(), view.getDbleBorder().get().getCenterY() - view.getDbleBorder().get().getRadiusY(), 0.001);
+		assertEquals(border.getCenterY() - border.getRadiusY(), view.getDbleBorder().get().getCenterY() - view.getDbleBorder().get().getRadiusY(), 0.001);
 	}
 
 	@Test
 	public void testYPositionDbleBordOutside() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getCenterY() - border.getRadiusY() + model.getThickness(), view.getDbleBorder().get().getCenterY() - view.getDbleBorder().get().getRadiusY(), 0.001);
+		assertEquals(border.getCenterY() - border.getRadiusY() - model.getThickness(), view.getDbleBorder().get().getCenterY() - view.getDbleBorder().get().getRadiusY(), 0.001);
 	}
 
 	@Test
@@ -105,14 +105,14 @@ public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, IEllipse
 	public void testWidthDbleBordMiddle() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getRadiusX() - model.getThickness(), view.getDbleBorder().get().getRadiusX(), 0.001);
+		assertEquals(border.getRadiusX(), view.getDbleBorder().get().getRadiusX(), 0.001);
 	}
 
 	@Test
 	public void testWidthDbleBordOutside() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getRadiusX() - model.getThickness(), view.getDbleBorder().get().getRadiusX(), 0.001);
+		assertEquals(border.getRadiusX() + model.getThickness(), view.getDbleBorder().get().getRadiusX(), 0.001);
 	}
 
 	@Test
@@ -126,14 +126,14 @@ public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, IEllipse
 	public void testHeightDbleBordMiddle() {
 		model.setHeight(10d);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getRadiusY() - model.getThickness(), view.getDbleBorder().get().getRadiusY(), 0.001);
+		assertEquals(border.getRadiusY(), view.getDbleBorder().get().getRadiusY(), 0.001);
 	}
 
 	@Test
 	public void testHeightDbleBordOutside() {
 		model.setHeight(10d);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getRadiusY() - model.getThickness(), view.getDbleBorder().get().getRadiusY(), 0.001);
+		assertEquals(border.getRadiusY() + model.getThickness(), view.getDbleBorder().get().getRadiusY(), 0.001);
 	}
 
 

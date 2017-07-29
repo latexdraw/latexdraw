@@ -44,14 +44,14 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 	public void testXPositionDbleBordMiddle() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(123d + model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
+		assertEquals(123d, view.getDbleBorder().get().getX(), 0.001);
 	}
 
 	@Test
 	public void testXPositionDbleBordOutside() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(123d + model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
+		assertEquals(123d - model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
 	}
 
 
@@ -72,14 +72,14 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 	public void testYPositionDbleBordMiddle() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getY() + model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
+		assertEquals(border.getY(), view.getDbleBorder().get().getY(), 0.001);
 	}
 
 	@Test
 	public void testYPositionDbleBordOutside() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getY() + model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
+		assertEquals(border.getY() - model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
 	}
 
 	@Test
@@ -99,14 +99,14 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 	public void testWidthDbleBordMiddle() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getWidth() - 2d * model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
+		assertEquals(border.getWidth(), view.getDbleBorder().get().getWidth(), 0.001);
 	}
 
 	@Test
 	public void testWidthDbleBordOutside() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getWidth() - 2d * model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
+		assertEquals(border.getWidth() + 2d * model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
 	}
 
 	@Test
@@ -126,14 +126,14 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 	public void testHeightDbleBordMiddle() {
 		model.setHeight(10d);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getHeight() - 2d * model.getThickness(), view.getDbleBorder().get().getHeight(), 0.001);
+		assertEquals(border.getHeight(), view.getDbleBorder().get().getHeight(), 0.001);
 	}
 
 	@Test
 	public void testHeightDbleBordOutside() {
 		model.setHeight(10d);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getHeight() - 2d * model.getThickness(), view.getDbleBorder().get().getHeight(), 0.001);
+		assertEquals(border.getHeight() + 2d * model.getThickness(), view.getDbleBorder().get().getHeight(), 0.001);
 	}
 
 	@Override

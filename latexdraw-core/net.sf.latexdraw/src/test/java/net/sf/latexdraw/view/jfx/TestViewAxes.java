@@ -96,6 +96,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	@Test
 	public void testChangelabelsDisplayedNoneProperty() {
 		model.setLabelsDisplayed(PlottingStyle.NONE);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.getLabels().getChildren().isEmpty());
 	}
 
