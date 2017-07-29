@@ -35,6 +35,7 @@ public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends Vi
 		super(sh);
 		initPath(border);
 		initPath(shadow);
+		initPath(dblBorder);
 	}
 
 	private void initPath(final Path path) {
@@ -73,6 +74,7 @@ public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends Vi
 	public void flush() {
 		flushPath(border);
 		flushPath(shadow);
+		flushPath(dblBorder);
 		super.flush();
 	}
 

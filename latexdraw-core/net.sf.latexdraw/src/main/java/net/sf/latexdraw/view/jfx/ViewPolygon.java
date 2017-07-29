@@ -24,5 +24,6 @@ public class ViewPolygon extends ViewPolyPoint<IPolygon> {
 		super(sh);
 		border.getElements().add(ViewFactory.INSTANCE.createClosePath());
 		shadow.getElements().add(ViewFactory.INSTANCE.createClosePath());
+		dblBorder.getElements().add(ViewFactory.INSTANCE.createClosePath());
 	}
 }
