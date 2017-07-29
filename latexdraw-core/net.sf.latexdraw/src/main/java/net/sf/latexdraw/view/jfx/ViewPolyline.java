@@ -16,6 +16,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.StrokeLineCap;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -44,6 +45,9 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 		model.getPtAt(-1).xProperty().addListener(updateArrow);
 		model.getPtAt(-1).yProperty().addListener(updateArrow);
 
+		border.setStrokeLineCap(StrokeLineCap.BUTT);
+		shadow.setStrokeLineCap(StrokeLineCap.BUTT);
+		dblBorder.setStrokeLineCap(StrokeLineCap.BUTT);
 		update();
 	}
 
