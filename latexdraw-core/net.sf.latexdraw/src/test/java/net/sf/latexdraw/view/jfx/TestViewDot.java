@@ -2,13 +2,14 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.view.jfx.ViewDot;
+import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -79,6 +80,15 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 		checkDot();
 		assertFalse(getPathView().getElements().isEmpty());
 		assertTrue(getPathView().isVisible());
+	}
+
+	@Test
+	public void testUpdateOnLineColorChange() {
+		Paint fill = view.dot.getFill();
+		Paint stroke = view.dot.getStroke();
+		model.setLineColour(DviPsColors.YELLOW);
+		assertNotEquals(fill, view.dot.getFill());
+		assertNotEquals(stroke, view.dot.getStroke());
 	}
 
 	private void checkDot() {

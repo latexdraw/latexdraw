@@ -30,6 +30,10 @@ public class ViewDot extends ViewShape<IDot> {
 	final Path path;
 	final Ellipse dot;
 	final ChangeListener<Object> updateDot = (observable, oldValue, newValue) -> updateDot();
+	final ChangeListener<Object> updateStrokeFill = (observable, oldValue, newValue) -> {
+		setFill();
+		setStroke();
+	};
 
 
 	/**
@@ -47,6 +51,7 @@ public class ViewDot extends ViewShape<IDot> {
 		model.getPosition().yProperty().addListener(updateDot);
 		model.diametreProperty().addListener(updateDot);
 		model.fillingColProperty().addListener(updateDot);
+		model.lineColourProperty().addListener(updateStrokeFill);
 		rotateProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getRotationAngle()), model.rotationAngleProperty()));
 		updateDot();
 	}
@@ -371,6 +376,7 @@ public class ViewDot extends ViewShape<IDot> {
 
 	@Override
 	public void flush() {
+		model.lineColourProperty().removeListener(updateStrokeFill);
 		model.styleProperty().removeListener(updateDot);
 		model.getPosition().xProperty().removeListener(updateDot);
 		model.getPosition().yProperty().removeListener(updateDot);
