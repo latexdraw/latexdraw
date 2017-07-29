@@ -232,7 +232,7 @@ public interface IShape extends Modifiable {
 	/**
 	 * @return the lineColour.
 	 */
-	@NonNull Color getLineColour();
+	 Color getLineColour();
 
 	/**
 	 * @param lineColour the lineColour to set.
@@ -242,7 +242,7 @@ public interface IShape extends Modifiable {
 	/**
 	 * @return the lineStyle.
 	 */
-	@NonNull LineStyle getLineStyle();
+	 LineStyle getLineStyle();
 
 	/**
 	 * @param lineStyle the lineStyle to set.
@@ -282,7 +282,7 @@ public interface IShape extends Modifiable {
 	/**
 	 * @return the fillingCol.
 	 */
-	@NonNull Color getFillingCol();
+	 Color getFillingCol();
 
 	/**
 	 * @param fillingCol the fillingCol to set.
@@ -292,7 +292,7 @@ public interface IShape extends Modifiable {
 	/**
 	 * @return the fillingStyle.
 	 */
-	@NonNull FillingStyle getFillingStyle();
+	 FillingStyle getFillingStyle();
 
 	/**
 	 * @param fillingStyle the fillingStyle to set.
@@ -494,7 +494,7 @@ public interface IShape extends Modifiable {
 	/**
 	 * @return the bordersPosition.
 	 */
-	@NonNull BorderPos getBordersPosition();
+	 BorderPos getBordersPosition();
 
 	/**
 	 * Sets the position of the borders.

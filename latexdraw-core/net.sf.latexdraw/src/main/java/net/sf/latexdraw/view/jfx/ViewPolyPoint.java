@@ -31,7 +31,7 @@ public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends Vi
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPolyPoint(final @NonNull T sh) {
+	ViewPolyPoint(final  T sh) {
 		super(sh);
 		initPath(border);
 		initPath(shadow);

@@ -19,5 +19,5 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Arnaud BLOUIN
  */
 public interface ISquare extends ISquaredShape, ILineArcProp {
-	@NonNull DoubleProperty frameArcProperty();
+	 DoubleProperty frameArcProperty();
 }

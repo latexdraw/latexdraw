@@ -27,7 +27,7 @@ public class PSTDotView extends PSTClassicalView<IDot> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTDotView(final @NonNull IDot model) {
+	protected PSTDotView(final  IDot model) {
 		super(model);
 	}
 

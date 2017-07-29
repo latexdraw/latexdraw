@@ -21,14 +21,14 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Arnaud Blouin
  */
 public class ViewRectangle extends ViewRectangularBased<IRectangle> {
-	final @NonNull ChangeListener<Bounds> lineArcUp = (observable, oldValue, newValue) -> lineArcCall.changed(model.frameArcProperty(), model.getLineArc(), model.getLineArc());
+	final  ChangeListener<Bounds> lineArcUp = (observable, oldValue, newValue) -> lineArcCall.changed(model.frameArcProperty(), model.getLineArc(), model.getLineArc());
 
 
 	/**
 	 * Creates the rectangle view.
 	 * @param sh The model.
 	 */
-	ViewRectangle(final @NonNull IRectangle sh) {
+	ViewRectangle(final  IRectangle sh) {
 		super(sh);
 		border.xProperty().bind(model.getPtAt(0).xProperty());
 		border.yProperty().bind(model.getPtAt(0).yProperty());

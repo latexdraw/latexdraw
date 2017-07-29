@@ -114,7 +114,7 @@ public enum PlottingStyle {
 	 * @return The corresponding style or ALL.
 	 * @since 3.0
 	 */
-	public static @NonNull PlottingStyle getStyle(final String style) {
+	public static  PlottingStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(ALL);
 	}
 }

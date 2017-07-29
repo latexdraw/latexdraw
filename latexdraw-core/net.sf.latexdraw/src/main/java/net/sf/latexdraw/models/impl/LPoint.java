@@ -17,7 +17,6 @@ import javafx.geometry.Point3D;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.eclipse.jdt.annotation.NonNull;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.atan;
@@ -27,8 +26,8 @@ import static java.lang.Math.atan;
  * @author Arnaud Blouin
  */
 class LPoint implements IPoint {
-	private final @NonNull DoubleProperty x;
-	private final @NonNull DoubleProperty y;
+	private final  DoubleProperty x;
+	private final  DoubleProperty y;
 
 	/**
 	 * Creates a Point2D with coordinates (0, 0).
@@ -238,12 +237,12 @@ class LPoint implements IPoint {
 	}
 
 	@Override
-	public @NonNull DoubleProperty xProperty() {
+	public  DoubleProperty xProperty() {
 		return x;
 	}
 
 	@Override
-	public @NonNull DoubleProperty yProperty() {
+	public  DoubleProperty yProperty() {
 		return y;
 	}
 

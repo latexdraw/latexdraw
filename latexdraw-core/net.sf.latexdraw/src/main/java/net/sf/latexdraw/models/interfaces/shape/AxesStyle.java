@@ -87,7 +87,7 @@ public enum AxesStyle {
 	 * @return The corresponding style or AXES.
 	 * @since 3.0
 	 */
-	public static @NonNull AxesStyle getStyle(final String style) {
+	public static  AxesStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(AXES);
 	}
 }

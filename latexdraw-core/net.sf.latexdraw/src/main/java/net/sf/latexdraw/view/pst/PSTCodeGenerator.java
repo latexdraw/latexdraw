@@ -25,11 +25,11 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Arnaud Blouin
  */
 public class PSTCodeGenerator extends LaTeXGenerator {
-	static final @NonNull String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + LSystem.EOL +//$NON-NLS-1$
+	static final  String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + LSystem.EOL +//$NON-NLS-1$
 		"% \\usepackage{epsfig}" + LSystem.EOL + "% \\usepackage{pst-grad} % For gradients" +//$NON-NLS-1$//$NON-NLS-2$
 		LSystem.EOL + "% \\usepackage{pst-plot} % For axes" + LSystem.EOL; //$NON-NLS-1$
 
-	public static final @NonNull String PACKAGE_FOR_SPACE_PICTURE = "\\usepackage[space]{grffile} % For spaces in paths" + LSystem.EOL +
+	public static final  String PACKAGE_FOR_SPACE_PICTURE = "\\usepackage[space]{grffile} % For spaces in paths" + LSystem.EOL +
 		"\\usepackage{etoolbox} % For spaces in paths" + LSystem.EOL + "\\makeatletter % For spaces in paths" + LSystem.EOL +
 		"\\patchcmd\\Gread@eps{\\@inputcheck#1 }{\\@inputcheck\"#1\"\\relax}{}{}" + LSystem.EOL + "\\makeatother" + LSystem.EOL;
 
@@ -137,7 +137,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	 * @param addedColours The PST colours already generated.
 	 * @since 3.0
 	 */
-	private @NonNull String generateColourCode(final @NonNull PSTShapeView<?> pstView, final @NonNull Map<String, String> addedColours) {
+	private  String generateColourCode(final  PSTShapeView<?> pstView, final  Map<String, String> addedColours) {
 		if(pstView.coloursName != null) {
 			for(final String nameColour : pstView.coloursName) {
 				if(addedColours.get(nameColour) == null && !DviPsColors.INSTANCE.getPredefinedColour(nameColour).isPresent()) {

@@ -25,7 +25,7 @@ public class PSTCircleView extends PSTClassicalView<ICircle> {
 	 * @param circle The circle used for the conversion in SVG.
 	 * @since 3.0
 	 */
-	protected PSTCircleView(final @NonNull ICircle circle) {
+	protected PSTCircleView(final  ICircle circle) {
 		super(circle);
 	}
 

@@ -26,7 +26,7 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTAxesView(final @NonNull IAxes model) {
+	protected PSTAxesView(final  IAxes model) {
 		super(model);
 	}
 

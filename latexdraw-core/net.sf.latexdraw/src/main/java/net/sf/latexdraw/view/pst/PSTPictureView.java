@@ -29,7 +29,7 @@ public class PSTPictureView extends PSTShapeView<IPicture> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTPictureView(final @NonNull IPicture model) {
+	protected PSTPictureView(final  IPicture model) {
 		super(model);
 	}
 

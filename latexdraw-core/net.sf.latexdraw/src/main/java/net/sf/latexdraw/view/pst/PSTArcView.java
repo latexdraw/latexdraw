@@ -27,7 +27,7 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTArcView(final @NonNull IArc model) {
+	protected PSTArcView(final  IArc model) {
 		super(model);
 	}
 

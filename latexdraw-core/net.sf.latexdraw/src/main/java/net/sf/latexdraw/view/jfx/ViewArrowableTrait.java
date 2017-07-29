@@ -22,7 +22,7 @@ import org.eclipse.jdt.annotation.NonNull;
 class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 	protected final List<ViewArrow> arrows;
 
-	ViewArrowableTrait(final @NonNull IArrowableSingleShape sh) {
+	ViewArrowableTrait(final  IArrowableSingleShape sh) {
 		super(sh);
 		arrows = new ArrayList<>();
 

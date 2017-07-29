@@ -50,7 +50,6 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
-import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.malai.action.Action;
 import org.malai.action.ActionHandler;
@@ -75,28 +74,28 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	public static final int MARGINS = 1500;
 
 	/** The origin of the drawing in the whole drawing area. */
-	public static final @NonNull IPoint ORIGIN = ShapeFactory.INST.createPoint(MARGINS, MARGINS);
+	public static final  IPoint ORIGIN = ShapeFactory.INST.createPoint(MARGINS, MARGINS);
 
 	/** The model of the view. */
-	private final @NonNull IDrawing drawing;
+	private final  IDrawing drawing;
 
 	/** The zoom applied on the canvas. */
 	private final DoubleProperty zoom;
 
 	/** The current page of the canvas. */
-	private final @NonNull PageView page;
+	private final  PageView page;
 
 	/** The views of the shape. */
-	private final @NonNull Group shapesPane;
+	private final  Group shapesPane;
 
 	/** The pane that contains widgets to handle shapes, such as handlers, text fields. */
-	private final @NonNull Group widgetsPane;
+	private final  Group widgetsPane;
 
-	private final @NonNull Rectangle selectionBorder;
+	private final  Rectangle selectionBorder;
 
-	private final @NonNull Rectangle ongoingSelectionBorder;
+	private final  Rectangle ongoingSelectionBorder;
 
-	private final @NonNull Map<IShape, ViewShape<?>> shapesToViewMap;
+	private final  Map<IShape, ViewShape<?>> shapesToViewMap;
 
 	/** The magnetic grid of the canvas. */
 	private final MagneticGridImpl magneticGrid;
@@ -198,7 +197,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	}
 
 
-	public void setOngoingSelectionBorder(final @Nullable Bounds bounds) {
+	public void setOngoingSelectionBorder(final  Bounds bounds) {
 		if(bounds == null) {
 			ongoingSelectionBorder.setVisible(false);
 		}else {
@@ -214,7 +213,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/**
 	 * @return The selected views.
 	 */
-	public @NonNull List<ViewShape<?>> getSelectedViews() {
+	public  List<ViewShape<?>> getSelectedViews() {
 		return drawing.getSelection().getShapes().stream().map(sh -> shapesToViewMap.get(sh)).collect(Collectors.toList());
 	}
 
@@ -249,7 +248,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/**
 	 * @return The point where the page is located.
 	 */
-	public @NonNull IPoint getOrigin() {
+	public  IPoint getOrigin() {
 		return ORIGIN;
 	}
 
@@ -261,7 +260,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/**
 	 * @return The page of the drawing area. Cannot be null.
 	 */
-	public @NonNull PageView getPage() {
+	public  PageView getPage() {
 		return page;
 	}
 
@@ -477,7 +476,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/**
 	 * @return The model of the canvas.
 	 */
-	public @NonNull IDrawing getDrawing() {
+	public  IDrawing getDrawing() {
 		return drawing;
 	}
 
@@ -485,7 +484,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	 * Sets the temporary view.
 	 * @param view The new temporary view.
 	 */
-	public void setTempView(final @Nullable ViewShape<?> view) {
+	public void setTempView(final  ViewShape<?> view) {
 		tempView.ifPresent(v -> {
 			shapesPane.getChildren().remove(v);
 			v.flush();

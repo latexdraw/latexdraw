@@ -25,12 +25,12 @@ public abstract class ViewPathShape<S extends ISingleShape> extends ViewSingleSh
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPathShape(final @NonNull S sh) {
+	ViewPathShape(final  S sh) {
 		super(sh);
 	}
 
 	@Override
-	protected @NonNull Path createJFXShape() {
+	protected  Path createJFXShape() {
 		return new Path();
 	}
 

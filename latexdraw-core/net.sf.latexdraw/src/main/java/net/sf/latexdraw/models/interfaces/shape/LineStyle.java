@@ -47,7 +47,7 @@ public enum LineStyle {
 	 * @return The style which name is the given name style.
 	 * @since 3.0
 	 */
-	public static @NonNull LineStyle getStyle(final String style) {
+	public static  LineStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(SOLID);
 	}
 

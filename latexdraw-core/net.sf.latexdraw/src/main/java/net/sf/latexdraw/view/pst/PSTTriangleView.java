@@ -26,7 +26,7 @@ public class PSTTriangleView extends PSTClassicalView<ITriangle> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTTriangleView(final @NonNull ITriangle model) {
+	protected PSTTriangleView(final  ITriangle model) {
 		super(model);
 	}
 

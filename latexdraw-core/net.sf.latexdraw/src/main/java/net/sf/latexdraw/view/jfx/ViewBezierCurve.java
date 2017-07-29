@@ -36,7 +36,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewBezierCurve(final @NonNull IBezierCurve sh) {
+	ViewBezierCurve(final  IBezierCurve sh) {
 		super(sh);
 		ObservableList<PathElement> elts = border.getElements();
 		showPoint = new Group();

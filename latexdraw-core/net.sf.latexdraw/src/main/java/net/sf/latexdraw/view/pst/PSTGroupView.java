@@ -29,7 +29,7 @@ public class PSTGroupView extends PSTShapeView<IGroup> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTGroupView(final @NonNull IGroup model) {
+	protected PSTGroupView(final  IGroup model) {
 		super(model);
 	}
 

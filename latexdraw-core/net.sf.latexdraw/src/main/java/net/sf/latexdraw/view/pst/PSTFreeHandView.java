@@ -27,7 +27,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTFreeHandView(final @NonNull IFreehand model) {
+	protected PSTFreeHandView(final  IFreehand model) {
 		super(model);
 	}
 

@@ -26,7 +26,7 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTPolygonView(final @NonNull IPolygon model) {
+	protected PSTPolygonView(final  IPolygon model) {
 		super(model);
 	}
 

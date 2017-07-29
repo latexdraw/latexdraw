@@ -41,82 +41,82 @@ import org.malai.mapping.MappingRegistry;
  */
 abstract class LShape implements ISingleShape {
 	/** The thickness of the lines of the shape in pixels. */
-	protected final @NonNull DoubleProperty thickness;
+	protected final  DoubleProperty thickness;
 
 	/** The colour of the lines. */
-	protected final @NonNull ObjectProperty<Color> lineColour;
+	protected final  ObjectProperty<Color> lineColour;
 
 	/** The style of the lines. */
-	protected final @NonNull ObjectProperty<LineStyle> lineStyle;
+	protected final  ObjectProperty<LineStyle> lineStyle;
 
 	/** The style of the interior of the shape. */
-	protected final @NonNull ObjectProperty<FillingStyle> fillingStyle;
+	protected final  ObjectProperty<FillingStyle> fillingStyle;
 
 	/** The white dash separator for dashed lines in pixel. */
-	protected final @NonNull DoubleProperty dashSepWhite;
+	protected final  DoubleProperty dashSepWhite;
 
 	/** The black dash separator for dashed lines in pixel. */
-	protected final @NonNull DoubleProperty dashSepBlack;
+	protected final  DoubleProperty dashSepBlack;
 
 	/** The dot separator for dotted lines. */
-	protected final @NonNull DoubleProperty dotSep;
+	protected final  DoubleProperty dotSep;
 
 	/** The colour of the interior of the shape. */
-	protected final @NonNull ObjectProperty<Color> fillingCol;
+	protected final  ObjectProperty<Color> fillingCol;
 
 	/** The start colour of the gradient. */
-	protected final @NonNull ObjectProperty<Color> gradColStart;
+	protected final  ObjectProperty<Color> gradColStart;
 
 	/** The end colour of the gradient. */
-	protected final @NonNull ObjectProperty<Color> gradColEnd;
+	protected final  ObjectProperty<Color> gradColEnd;
 
 	/** The angle of the gradient in radian. */
-	protected final @NonNull DoubleProperty gradAngle;
+	protected final  DoubleProperty gradAngle;
 
 	/** The middle point of the gradient. */
-	protected final @NonNull DoubleProperty gradMidPt;
+	protected final  DoubleProperty gradMidPt;
 
 	/** The separation size between hatchings in pixel. */
-	protected final @NonNull DoubleProperty hatchingsSep;
+	protected final  DoubleProperty hatchingsSep;
 
 	/** The colour of the hatchings. */
-	protected final @NonNull ObjectProperty<Color> hatchingsCol;
+	protected final  ObjectProperty<Color> hatchingsCol;
 
 	/** The angle of the hatchings in radian. */
-	protected final @NonNull DoubleProperty hatchingsAngle;
+	protected final  DoubleProperty hatchingsAngle;
 
 	/** The thickness of the hatchings in pixel. */
-	protected final @NonNull DoubleProperty hatchingsWidth;
+	protected final  DoubleProperty hatchingsWidth;
 
 	/** The rotation angle of the shape. */
-	protected final @NonNull DoubleProperty rotationAngle;
+	protected final  DoubleProperty rotationAngle;
 
 	/** Defines if the points of the shape must be considered. */
 	protected boolean showPts;
 
 	/** Defines if the shape has double borders. */
-	protected final @NonNull BooleanProperty hasDbleBord;
+	protected final  BooleanProperty hasDbleBord;
 
 	/** The colour of the double borders. */
-	protected final @NonNull ObjectProperty<Color> dbleBordCol;
+	protected final  ObjectProperty<Color> dbleBordCol;
 
 	/** The separation size of the double borders in pixel. */
-	protected final @NonNull DoubleProperty dbleBordSep;
+	protected final  DoubleProperty dbleBordSep;
 
 	/** Defines if the shape has a shadow. */
-	protected final @NonNull BooleanProperty hasShadow;
+	protected final  BooleanProperty hasShadow;
 
 	/** The colour of the shadow. */
-	protected final @NonNull ObjectProperty<Color> shadowCol;
+	protected final  ObjectProperty<Color> shadowCol;
 
 	/** The angle of the shadow in radian. */
-	protected final @NonNull DoubleProperty shadowAngle;
+	protected final  DoubleProperty shadowAngle;
 
 	/** The size of the shadow in pixel. */
-	protected final @NonNull DoubleProperty shadowSize;
+	protected final  DoubleProperty shadowSize;
 
 	/** The position of the border of the shape. */
-	protected final @NonNull ObjectProperty<BorderPos> bordersPosition;
+	protected final  ObjectProperty<BorderPos> bordersPosition;
 
 	/** The points of the shape. */
 	protected final ObservableList<IPoint> points;
@@ -236,7 +236,7 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public @NonNull BorderPos getBordersPosition() {
+	public  BorderPos getBordersPosition() {
 		return bordersPosition.get();
 	}
 
@@ -271,7 +271,7 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public @NonNull FillingStyle getFillingStyle() {
+	public  FillingStyle getFillingStyle() {
 		return fillingStyle.get();
 	}
 
@@ -341,12 +341,12 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public @NonNull Color getLineColour() {
+	public  Color getLineColour() {
 		return lineColour.get();
 	}
 
 	@Override
-	public @NonNull LineStyle getLineStyle() {// TODO add  to the generics but sbt crashes... 
+	public  LineStyle getLineStyle() {// TODO add  to the generics but sbt crashes...
 		return lineStyle.get();
 	}
 
@@ -825,127 +825,127 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public @NonNull DoubleProperty thicknessProperty() {
+	public  DoubleProperty thicknessProperty() {
 		return thickness;
 	}
 
 	@Override
-	public @NonNull ObjectProperty<LineStyle> linestyleProperty() {
+	public  ObjectProperty<LineStyle> linestyleProperty() {
 		return lineStyle;
 	}
 
 	@Override
-	public @NonNull ObjectProperty<BorderPos> borderPosProperty() {
+	public  ObjectProperty<BorderPos> borderPosProperty() {
 		return bordersPosition;
 	}
 
 	@Override
-	public @NonNull ObjectProperty<Color> lineColourProperty() {
+	public  ObjectProperty<Color> lineColourProperty() {
 		return lineColour;
 	}
 
 	@Override
-	public @NonNull ObjectProperty<FillingStyle> fillingProperty() {
+	public  ObjectProperty<FillingStyle> fillingProperty() {
 		return fillingStyle;
 	}
 
 	@Override
-	public @NonNull DoubleProperty dashSepWhiteProperty() {
+	public  DoubleProperty dashSepWhiteProperty() {
 		return dashSepWhite;
 	}
 
 	@Override
-	public @NonNull DoubleProperty dashSepBlackProperty() {
+	public  DoubleProperty dashSepBlackProperty() {
 		return dashSepBlack;
 	}
 
 	@Override
-	public @NonNull DoubleProperty dotSepProperty() {
+	public  DoubleProperty dotSepProperty() {
 		return dotSep;
 	}
 
 	@Override
-	public @NonNull BooleanProperty dbleBordProperty() {
+	public  BooleanProperty dbleBordProperty() {
 		return hasDbleBord;
 	}
 
 	@Override
-	public @NonNull DoubleProperty dbleBordSepProperty() {
+	public  DoubleProperty dbleBordSepProperty() {
 		return dbleBordSep;
 	}
 
 	@Override
-	public @NonNull ObjectProperty<Color> dbleBordColProperty() {
+	public  ObjectProperty<Color> dbleBordColProperty() {
 		return dbleBordCol;
 	}
 
 	@Override
-	public @NonNull ObjectProperty<Color> gradColStartProperty() {
+	public  ObjectProperty<Color> gradColStartProperty() {
 		return gradColStart;
 	}
 
 	@Override
-	public @NonNull ObjectProperty<Color> gradColEndProperty() {
+	public  ObjectProperty<Color> gradColEndProperty() {
 		return gradColEnd;
 	}
 
 	@Override
-	public @NonNull ObjectProperty<Color> fillingColProperty() {
+	public  ObjectProperty<Color> fillingColProperty() {
 		return fillingCol;
 	}
 
 	@Override
-	public @NonNull DoubleProperty gradAngleProperty() {
+	public  DoubleProperty gradAngleProperty() {
 		return gradAngle;
 	}
 
 	@Override
-	public @NonNull DoubleProperty gradMidPtProperty() {
+	public  DoubleProperty gradMidPtProperty() {
 		return gradMidPt;
 	}
 
 	@Override
-	public @NonNull BooleanProperty shadowProperty() {
+	public  BooleanProperty shadowProperty() {
 		return hasShadow;
 	}
 
 	@Override
-	public @NonNull ObjectProperty<Color> shadowColProperty() {
+	public  ObjectProperty<Color> shadowColProperty() {
 		return shadowCol;
 	}
 
 	@Override
-	public @NonNull DoubleProperty shadowAngleProperty() {
+	public  DoubleProperty shadowAngleProperty() {
 		return shadowAngle;
 	}
 
 	@Override
-	public @NonNull DoubleProperty shadowSizeProperty() {
+	public  DoubleProperty shadowSizeProperty() {
 		return shadowSize;
 	}
 
 	@Override
-	public @NonNull DoubleProperty hatchingsAngleProperty() {
+	public  DoubleProperty hatchingsAngleProperty() {
 		return hatchingsAngle;
 	}
 
 	@Override
-	public @NonNull DoubleProperty hatchingsSepProperty() {
+	public  DoubleProperty hatchingsSepProperty() {
 		return hatchingsSep;
 	}
 
 	@Override
-	public @NonNull DoubleProperty hatchingsWidthProperty() {
+	public  DoubleProperty hatchingsWidthProperty() {
 		return hatchingsWidth;
 	}
 
 	@Override
-	public @NonNull ObjectProperty<Color> hatchingsColProperty() {
+	public  ObjectProperty<Color> hatchingsColProperty() {
 		return hatchingsCol;
 	}
 
 	@Override
-	public @NonNull DoubleProperty rotationAngleProperty() {
+	public  DoubleProperty rotationAngleProperty() {
 		return rotationAngle;
 	}
 }

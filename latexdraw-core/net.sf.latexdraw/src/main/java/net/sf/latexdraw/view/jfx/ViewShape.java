@@ -24,13 +24,13 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 public abstract class ViewShape<S extends IShape> extends Group {
 	/** The model of the view. */
-	protected final @NonNull S model;
+	protected final  S model;
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewShape(final @NonNull S sh) {
+	ViewShape(final  S sh) {
 		super();
 		model = sh;
 
@@ -47,7 +47,7 @@ public abstract class ViewShape<S extends IShape> extends Group {
 		// Should be overridden to flush the bindings.
 	}
 
-	public @NonNull S getModel() {
+	public  S getModel() {
 		return model;
 	}
 

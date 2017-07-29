@@ -14,7 +14,6 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * An implementation of an ellipse.
@@ -48,7 +47,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	}
 
 	@Override
-	public @NonNull IPoint getCenter() {
+	public IPoint getCenter() {
 		return getGravityCentre();
 	}
 

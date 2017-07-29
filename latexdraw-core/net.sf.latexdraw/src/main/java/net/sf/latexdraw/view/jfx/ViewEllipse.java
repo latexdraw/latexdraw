@@ -23,7 +23,7 @@ public class ViewEllipse extends ViewEllipseBased<IEllipse> {
 	 * Creates the ellipse view.
 	 * @param sh The model.
 	 */
-	ViewEllipse(final @NonNull IEllipse sh) {
+	ViewEllipse(final  IEllipse sh) {
 		super(sh);
 		border.centerXProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getX(), model.getPtAt(2).xProperty(), model.getPtAt(3).xProperty()));
 		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));

@@ -39,5 +39,5 @@ public interface IEllipse extends IRectangularShape {
 	/**
 	 * @return The center of the ellipse. Cannot be null.
 	 */
-	@NonNull IPoint getCenter();
+	 IPoint getCenter();
 }

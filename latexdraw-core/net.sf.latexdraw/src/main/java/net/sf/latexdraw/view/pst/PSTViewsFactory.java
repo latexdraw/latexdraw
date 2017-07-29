@@ -51,7 +51,7 @@ public final class PSTViewsFactory {
 	 * @return The created view or null.
 	 * @since 3.0
 	 */
-	public <T extends IShape> @NonNull Optional<PSTShapeView<T>> createView(final T shape) {
+	public <T extends IShape>  Optional<PSTShapeView<T>> createView(final T shape) {
 		if(shape instanceof IGroup) return Optional.of((PSTShapeView<T>) new PSTGroupView((IGroup) shape));
 		if(shape instanceof IPlot) return Optional.of((PSTShapeView<T>) new PSTPlotView((IPlot) shape));
 		if(shape instanceof ISquare) return Optional.of((PSTShapeView<T>) new PSTSquareView((ISquare) shape));

@@ -27,7 +27,7 @@ public class PSTTextView extends PSTShapeView<IText> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTTextView(final @NonNull IText model) {
+	protected PSTTextView(final  IText model) {
 		super(model);
 	}
 

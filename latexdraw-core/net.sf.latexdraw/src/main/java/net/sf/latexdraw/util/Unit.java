@@ -44,7 +44,7 @@ public enum Unit {
 	 * @return The unit corresponding to the given label, or CM.
 	 * @since 3.0
 	 */
-	public static @NonNull Unit getUnit(final String label) {
+	public static  Unit getUnit(final String label) {
 		return Arrays.stream(values()).filter(it -> it.getLabel().equals(label)).findFirst().orElse(CM);
 	}
 }

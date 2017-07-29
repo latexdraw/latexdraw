@@ -23,5 +23,5 @@ public interface SVGPathHandler {
 	 * @param pathSeg The parsed SVGPath.
 	 * @since 2.0
 	 */
-	void onPathSeg(@NonNull final SVGPathSeg pathSeg);
+	void onPathSeg( final SVGPathSeg pathSeg);
 }

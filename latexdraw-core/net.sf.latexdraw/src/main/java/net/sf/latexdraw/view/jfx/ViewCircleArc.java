@@ -24,7 +24,7 @@ public class ViewCircleArc extends ViewSingleShape<ICircleArc, Arc> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewCircleArc(final @NonNull ICircleArc sh) {
+	ViewCircleArc(final  ICircleArc sh) {
 		super(sh);
 
 		// Code duplicated from ViewCircle and ViewEllipseBased, but Arc and Ellipse share no common interface and no structural typing in Java.

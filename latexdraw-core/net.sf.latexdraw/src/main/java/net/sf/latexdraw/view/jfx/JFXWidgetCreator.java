@@ -26,7 +26,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @since 4.0
  */
 public interface JFXWidgetCreator {
-	default <T> void initComboBox(final ComboBox<T> box, final @NonNull Map<T, Image> map, final T[] values) {
+	default <T> void initComboBox(final ComboBox<T> box, final  Map<T, Image> map, final T[] values) {
 		final ComboBoxFactoryList<T> factory = new ComboBoxFactoryList<>(map);
 		box.getItems().addAll(values);
 		box.setButtonCell(factory.call(null));

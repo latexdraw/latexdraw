@@ -47,7 +47,7 @@ public abstract class PSTShapeView<S extends IShape> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTShapeView(final @NonNull S model) {
+	protected PSTShapeView(final  S model) {
 		super();
 		shape = Objects.requireNonNull(model);
 	}

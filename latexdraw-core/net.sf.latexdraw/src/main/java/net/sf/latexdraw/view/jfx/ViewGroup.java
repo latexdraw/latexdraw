@@ -26,7 +26,7 @@ public class ViewGroup extends ViewShape<IGroup> {
 	 * Creates the view.
 	 * @param gp The model.
 	 */
-	ViewGroup(final @NonNull IGroup gp) {
+	ViewGroup(final  IGroup gp) {
 		super(gp);
 		group = new Group();
 		group.getChildren().addAll(model.getShapes().stream().map(sh -> ViewFactory.INSTANCE.createView(sh).get()).collect(Collectors.toList()));

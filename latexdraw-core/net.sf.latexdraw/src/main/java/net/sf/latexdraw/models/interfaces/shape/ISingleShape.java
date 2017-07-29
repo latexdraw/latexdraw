@@ -23,65 +23,65 @@ public interface ISingleShape extends IShape {
 	/**
 	 * @return The property of the thickness.
 	 */
-	@NonNull DoubleProperty thicknessProperty();
+	 DoubleProperty thicknessProperty();
 
 	/**
 	 * @return The property of the line style.
 	 */
-	@NonNull ObjectProperty<LineStyle> linestyleProperty();
+	 ObjectProperty<LineStyle> linestyleProperty();
 
 	/**
 	 * @return The property of the border position.
 	 */
-	@NonNull ObjectProperty<BorderPos> borderPosProperty();
+	 ObjectProperty<BorderPos> borderPosProperty();
 
 	/**
 	 * @return The property of the line colour.
 	 */
-	@NonNull ObjectProperty<Color> lineColourProperty();
+	 ObjectProperty<Color> lineColourProperty();
 
 	/**
 	 * @return The property of the filling.
 	 */
-	@NonNull ObjectProperty<FillingStyle> fillingProperty();
+	 ObjectProperty<FillingStyle> fillingProperty();
 
-	@NonNull DoubleProperty dashSepWhiteProperty();
+	 DoubleProperty dashSepWhiteProperty();
 
-	@NonNull DoubleProperty dashSepBlackProperty();
+	 DoubleProperty dashSepBlackProperty();
 
-	@NonNull DoubleProperty dotSepProperty();
+	 DoubleProperty dotSepProperty();
 
-	@NonNull BooleanProperty dbleBordProperty();
+	 BooleanProperty dbleBordProperty();
 
-	@NonNull DoubleProperty dbleBordSepProperty();
+	 DoubleProperty dbleBordSepProperty();
 
-	@NonNull ObjectProperty<Color> dbleBordColProperty();
+	 ObjectProperty<Color> dbleBordColProperty();
 
-	@NonNull ObjectProperty<Color> gradColStartProperty();
+	 ObjectProperty<Color> gradColStartProperty();
 
-	@NonNull ObjectProperty<Color> gradColEndProperty();
+	 ObjectProperty<Color> gradColEndProperty();
 
-	@NonNull ObjectProperty<Color> fillingColProperty();
+	 ObjectProperty<Color> fillingColProperty();
 
-	@NonNull DoubleProperty gradAngleProperty();
+	 DoubleProperty gradAngleProperty();
 
-	@NonNull DoubleProperty gradMidPtProperty();
+	 DoubleProperty gradMidPtProperty();
 
-	@NonNull BooleanProperty shadowProperty();
+	 BooleanProperty shadowProperty();
 
-	@NonNull ObjectProperty<Color> shadowColProperty();
+	 ObjectProperty<Color> shadowColProperty();
 
-	@NonNull DoubleProperty shadowAngleProperty();
+	 DoubleProperty shadowAngleProperty();
 
-	@NonNull DoubleProperty shadowSizeProperty();
+	 DoubleProperty shadowSizeProperty();
 
-	@NonNull DoubleProperty hatchingsAngleProperty();
+	 DoubleProperty hatchingsAngleProperty();
 
-	@NonNull DoubleProperty hatchingsSepProperty();
+	 DoubleProperty hatchingsSepProperty();
 
-	@NonNull DoubleProperty hatchingsWidthProperty();
+	 DoubleProperty hatchingsWidthProperty();
 
-	@NonNull ObjectProperty<Color> hatchingsColProperty();
+	 ObjectProperty<Color> hatchingsColProperty();
 
-	@NonNull DoubleProperty rotationAngleProperty();
+	 DoubleProperty rotationAngleProperty();
 }

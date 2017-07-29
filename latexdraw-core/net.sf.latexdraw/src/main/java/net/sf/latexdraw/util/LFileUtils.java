@@ -22,7 +22,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Random;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Defines some workarounds to deal with the problem of the renameto function.
@@ -120,7 +119,7 @@ public final class LFileUtils {
 	 * @return  <code>true</code> if and only if the renaming succeeded;
 	 *          <code>false</code> otherwise
 	 */
-	public boolean copy(@NonNull final File fromFile, @NonNull final File toFile) {
+	public boolean copy(final File fromFile, final File toFile) {
 		boolean ok = true;
 
 		try {

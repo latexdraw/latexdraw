@@ -34,7 +34,7 @@ public interface IShapeFactory {
 	 * @param col The colour to convert.
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColorFX(final javafx.scene.paint.Color col);//FIXME add @Nullable when sbt will not crash anymore...
+	Color createColorFX(final javafx.scene.paint.Color col);//FIXME add  when sbt will not crash anymore...
 
 	/**
 	 * Creates a color from an AWT color.
@@ -384,7 +384,7 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If pt is not valid.
 	 * @since 3.0
 	 */
-	IText createText(IPoint pt, @Nullable String text);
+	IText createText(IPoint pt,  String text);
 
 	/**
 	 * Creates a square at position (0,0) which width equals 10.

@@ -21,7 +21,7 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 public class PSTSquareView extends PSTClassicalView<ISquare> {
 
-	protected PSTSquareView(final @NonNull ISquare model) {
+	protected PSTSquareView(final  ISquare model) {
 		super(model);
 	}
 

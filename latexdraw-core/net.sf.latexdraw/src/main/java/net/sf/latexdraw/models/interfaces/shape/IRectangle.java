@@ -19,5 +19,5 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Arnaud BLOUIN
  */
 public interface IRectangle extends IRectangularShape, ILineArcProp {
-	@NonNull DoubleProperty frameArcProperty();
+	 DoubleProperty frameArcProperty();
 }

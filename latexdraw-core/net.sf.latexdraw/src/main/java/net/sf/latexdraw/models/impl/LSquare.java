@@ -53,7 +53,7 @@ class LSquare extends LSquaredShape implements ISquare {
 	}
 
 	@Override
-	public @NonNull DoubleProperty frameArcProperty() {
+	public  DoubleProperty frameArcProperty() {
 		return lineArcProp.frameArc;
 	}
 }

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
-import org.eclipse.jdt.annotation.NonNull;
 import org.malai.error.ErrorCatcher;
 import org.malai.error.ErrorNotifier;
 
@@ -50,7 +49,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	 * @param handler The handler to add. Must not be null.
 	 * @since 3.0
 	 */
-	public void addHandler(final @NonNull BadaboomHandler handler) {
+	public void addHandler(final BadaboomHandler handler) {
 		synchronized(handlers){ handlers.add(handler); }
 
 		// If there is events, the handler is notified.
@@ -64,7 +63,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	 * Notifies the handlers that an event occurred.
 	 * @since 3.0
 	 */
-	private void notifyHandlers(final @NonNull Throwable error) {
+	private void notifyHandlers(final Throwable error) {
 		synchronized(handlers){
 			for(final BadaboomHandler handler : handlers)
 				handler.notifyEvent(error);

@@ -66,7 +66,7 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 	 * @return An Java Arc2D with double values.
 	 * @since 2.0
 	 */
-	@NonNull public Arc2D getArc2D(final double x0, final double y0) {
+	 public Arc2D getArc2D(final double x0, final double y0) {
     	double a 	= getAngle();
     	double rx2 	= getRX();
     	double ry2 	= getRY();

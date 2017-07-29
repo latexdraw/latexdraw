@@ -24,7 +24,7 @@ public abstract class ViewEllipseBased<T extends ISingleShape> extends ViewSingl
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewEllipseBased(final @NonNull T sh) {
+	ViewEllipseBased(final  T sh) {
 		super(sh);
 
 		if(dblBorder != null) {

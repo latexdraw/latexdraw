@@ -17,8 +17,6 @@ import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * An implementation of an arrow.
@@ -50,7 +48,7 @@ class LArrow implements IArrow {
 	/** The owner of the arrow. */
 	private IArrowableSingleShape owner;
 
-	private @Nullable Runnable onChanged;
+	private  Runnable onChanged;
 
 
 	/**
@@ -152,7 +150,7 @@ class LArrow implements IArrow {
 	}
 
 	@Override
-	public void setOnArrowChanged(final @NonNull Runnable changed) {
+	public void setOnArrowChanged(final Runnable changed) {
 		onChanged = changed;
 	}
 

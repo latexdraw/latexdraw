@@ -15,7 +15,6 @@ import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A model of a rectangle.
@@ -53,7 +52,7 @@ class LRectangle extends LRectangularShape implements IRectangle {
 	}
 
 	@Override
-	public @NonNull DoubleProperty frameArcProperty() {
+	public  DoubleProperty frameArcProperty() {
 		return lineArcProp.frameArc;
 	}
 }

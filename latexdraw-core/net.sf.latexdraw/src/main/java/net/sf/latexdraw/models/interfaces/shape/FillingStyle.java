@@ -136,7 +136,7 @@ public enum FillingStyle {
 	 * @return The style which name is the given name style (or null).
 	 * @since 3.0
 	 */
-	public static @NonNull FillingStyle getStyleFromLatex(final String token) {
+	public static  FillingStyle getStyleFromLatex(final String token) {
 		return Arrays.stream(values()).filter(style -> style.getLatexToken().equals(token)).findFirst().orElse(NONE);
 	}
 
@@ -145,7 +145,7 @@ public enum FillingStyle {
 	 * @return The filling style that corresponds to the given text (or null).
 	 * @since 3.0
 	 */
-	public static @NonNull FillingStyle getStyle(final String style) {
+	public static  FillingStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(item -> item.toString().equals(style)).findFirst().orElse(NONE);
 	}
 

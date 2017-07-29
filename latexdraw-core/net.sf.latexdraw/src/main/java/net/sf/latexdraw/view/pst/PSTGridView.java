@@ -27,7 +27,7 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTGridView(final @NonNull IGrid model) {
+	protected PSTGridView(final  IGrid model) {
 		super(model);
 	}
 

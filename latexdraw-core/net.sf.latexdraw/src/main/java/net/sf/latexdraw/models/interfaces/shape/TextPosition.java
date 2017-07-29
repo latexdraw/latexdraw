@@ -91,7 +91,7 @@ public enum TextPosition {
 	 * @return The TextPosition enumeration item corresponding to the given latex token.
 	 * @since 3.0
 	 */
-	public static @NonNull TextPosition getTextPosition(final String latexToken) {
+	public static  TextPosition getTextPosition(final String latexToken) {
 		return Arrays.stream(values()).filter(it -> it.getLatexToken().equals(latexToken)).findFirst().orElse(BOT_LEFT);
 	}
 }

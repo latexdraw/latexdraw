@@ -26,7 +26,7 @@ public class PSTLinesView extends PSTPolygonView {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTLinesView(final @NonNull IPolyline model) {
+	protected PSTLinesView(final  IPolyline model) {
 		super(model);
 	}
 

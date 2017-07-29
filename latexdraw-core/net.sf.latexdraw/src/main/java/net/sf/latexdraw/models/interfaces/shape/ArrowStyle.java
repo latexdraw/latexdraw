@@ -307,7 +307,7 @@ public enum ArrowStyle {
 	 * @return The arrow style corresponding to the given PST token or the style name (or null).
 	 * @since 3.0
 	 */
-	public static @NonNull ArrowStyle getArrowStyle(final String token) {
+	public static  ArrowStyle getArrowStyle(final String token) {
 		return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findAny().orElse(ArrowStyle.NONE);
 	}
 }

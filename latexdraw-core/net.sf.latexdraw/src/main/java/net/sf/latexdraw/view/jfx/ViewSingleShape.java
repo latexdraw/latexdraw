@@ -38,8 +38,6 @@ import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * The base class of a JFX single shape view.
@@ -48,21 +46,21 @@ import org.eclipse.jdt.annotation.Nullable;
  * @author Arnaud Blouin
  */
 public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> extends ViewShape<S> {
-	protected final @NonNull T border;
-	protected final @Nullable T dblBorder;
-	protected final @Nullable T shadow;
+	protected final  T border;
+	protected final  T dblBorder;
+	protected final  T shadow;
 
-	private final @NonNull ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
-	private final @Nullable ChangeListener<?> fillUpdateCall;
-	private final @Nullable ChangeListener<Boolean> shadowSetCall;
-	private final @Nullable ChangeListener<Number> shadowUpdateCall = (obs, oldVal, newVal) -> updateShadowPosition();
+	private final  ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
+	private final  ChangeListener<?> fillUpdateCall;
+	private final  ChangeListener<Boolean> shadowSetCall;
+	private final  ChangeListener<Number> shadowUpdateCall = (obs, oldVal, newVal) -> updateShadowPosition();
 
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewSingleShape(final @NonNull S sh) {
+	ViewSingleShape(final  S sh) {
 		super(sh);
 
 		border = createJFXShape();
@@ -162,7 +160,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	}
 
 
-	protected abstract @NonNull T createJFXShape();
+	protected abstract  T createJFXShape();
 
 	private Paint getFillingPaint(final FillingStyle style) {
 		switch(style) {

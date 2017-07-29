@@ -60,7 +60,7 @@ public final class ViewFactory {
 	 * @return The created view or empty.
 	 * @since 3.0
 	 */
-	public <T extends IShape, S extends ViewShape<T>> Optional<S> createView(final @Nullable T shape) {
+	public <T extends IShape, S extends ViewShape<T>> Optional<S> createView(final  T shape) {
 		if(shape instanceof IGroup) return Optional.of((S) new ViewGroup((IGroup) shape));
 		if(shape instanceof IPlot) return Optional.of((S) new ViewPlot((IPlot) shape));
 		if(shape instanceof ISquare) return Optional.of((S) new ViewSquare((ISquare) shape));

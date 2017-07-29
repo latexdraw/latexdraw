@@ -21,7 +21,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Arnaud Blouin
  */
 public abstract class ViewRectangularBased<T extends ISingleShape> extends ViewSingleShape<T, Rectangle> {
-	final @NonNull ChangeListener<? super Number> lineArcCall = (observable, oldValue, newValue) -> {
+	final  ChangeListener<? super Number> lineArcCall = (observable, oldValue, newValue) -> {
 		final double lineArc = newValue.doubleValue();
 		final double width = model.getWidth();
 		final double height = model.getHeight();
@@ -45,7 +45,7 @@ public abstract class ViewRectangularBased<T extends ISingleShape> extends ViewS
 	 * Creates the rectangle view.
 	 * @param sh The model.
 	 */
-	ViewRectangularBased(final @NonNull T sh) {
+	ViewRectangularBased(final  T sh) {
 		super(sh);
 
 		if(dblBorder != null) {

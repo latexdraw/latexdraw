@@ -30,26 +30,26 @@ public class PageView extends Group {
 	private static final int SIZE_SHADOW = 4;
 
 	/** The main rectangle of the page. */
-	private final @NonNull Rectangle recPage;
+	private final  Rectangle recPage;
 
 	/** The shadow rectangle of the page. */
-	private final @NonNull Rectangle recShadowBottom;
+	private final  Rectangle recShadowBottom;
 	/** The shadow rectangle of the page. */
 
-	private final @NonNull Rectangle recShadowRight;
+	private final  Rectangle recShadowRight;
 
 	/** The origin point where the page has to ben placed. */
-	private final @NonNull IPoint origin;
+	private final  IPoint origin;
 
 	/** The current page format. */
-	private @NonNull Page format;
+	private  Page format;
 
 	/**
 	 * Creates a view of a page.
 	 * @param page The page format. Cannot be null.
 	 * @param orig The origin point where the page has to be placed. Cannot be null.
 	 */
-	public PageView(final @NonNull Page page, final @NonNull IPoint orig) {
+	public PageView(final  Page page, final  IPoint orig) {
 		super();
 
 		format = page;
@@ -79,7 +79,7 @@ public class PageView extends Group {
 	/**
 	 * @return The current page format.
 	 */
-	public @NonNull Page getPage() {
+	public  Page getPage() {
 		return format;
 	}
 
@@ -87,7 +87,7 @@ public class PageView extends Group {
 	 * Sets the current page format.
 	 * @param page The new page format to use. Cannot be null.
 	 */
-	public void setPage(final @NonNull Page page) {
+	public void setPage(final  Page page) {
 		recPage.setX(origin.getX());
 		recPage.setY(origin.getY());
 		recPage.setWidth(page.getWidth() * IShape.PPC);

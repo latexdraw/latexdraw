@@ -26,7 +26,7 @@ public class PSTEllipseView extends PSTClassicalView<IEllipse> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTEllipseView(final @NonNull IEllipse model) {
+	protected PSTEllipseView(final  IEllipse model) {
 		super(model);
 	}
 

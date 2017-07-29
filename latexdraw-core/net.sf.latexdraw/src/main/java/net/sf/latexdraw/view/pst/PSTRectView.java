@@ -26,7 +26,7 @@ public class PSTRectView extends PSTClassicalView<IRectangle> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTRectView(final @NonNull IRectangle model) {
+	protected PSTRectView(final  IRectangle model) {
 		super(model);
 	}
 

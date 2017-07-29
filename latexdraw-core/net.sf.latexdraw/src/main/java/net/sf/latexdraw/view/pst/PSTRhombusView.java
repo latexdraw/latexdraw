@@ -26,7 +26,7 @@ public class PSTRhombusView extends PSTClassicalView<IRhombus> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTRhombusView(final @NonNull IRhombus model) {
+	protected PSTRhombusView(final  IRhombus model) {
 		super(model);
 	}
 

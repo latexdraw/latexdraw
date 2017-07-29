@@ -24,7 +24,7 @@ abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTClassicalView(final @NonNull S model) {
+	protected PSTClassicalView(final  S model) {
 		super(model);
 	}
 

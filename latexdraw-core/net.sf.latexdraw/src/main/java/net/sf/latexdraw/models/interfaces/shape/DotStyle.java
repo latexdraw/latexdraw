@@ -160,7 +160,7 @@ public enum DotStyle {
 	 * @return The style which name is the given name style or DOT.
 	 * @since 3.0
 	 */
-	public static @NonNull DotStyle getStyle(final String styleName) {
+	public static  DotStyle getStyle(final String styleName) {
 		return Arrays.stream(values()).filter(style -> style.name().equals(styleName) || style.getPSTToken().equals(styleName)).findFirst().orElse(DOT);
 	}
 }
