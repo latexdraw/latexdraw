@@ -163,7 +163,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	public void testLineStylePlainLineCap() {
 		if(model.isLineStylable()) {
 			model.setLineStyle(LineStyle.SOLID);
-			assertEquals(StrokeLineCap.SQUARE, border.getStrokeLineCap());
+			assertEquals(StrokeLineCap.BUTT, border.getStrokeLineCap());
 		}
 	}
 

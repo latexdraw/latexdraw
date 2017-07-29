@@ -65,9 +65,11 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 
 		border = createJFXShape();
 		border.setStrokeLineJoin(StrokeLineJoin.MITER);
+		border.setStrokeLineCap(StrokeLineCap.BUTT);
 
 		if(model.isShadowable()) {
 			shadow = createJFXShape();
+			shadow.setStrokeLineCap(StrokeLineCap.BUTT);
 			getChildren().add(shadow);
 			shadowSetCall = (obs, oldVal, newVal) -> {
 				if(shadow != null) {
@@ -97,6 +99,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			dblBorder = createJFXShape();
 			getChildren().add(dblBorder);
 			dblBorder.setFill(null);
+			dblBorder.setStrokeLineCap(StrokeLineCap.BUTT);
 			dblBorder.layoutXProperty().bind(border.layoutXProperty());
 			dblBorder.layoutYProperty().bind(border.layoutYProperty());
 			model.dbleBordProperty().addListener((ChangeListener<? super Boolean>) strokesUpdateCall);
@@ -160,7 +163,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	}
 
 
-	protected abstract  T createJFXShape();
+	protected abstract T createJFXShape();
 
 	private Paint getFillingPaint(final FillingStyle style) {
 		switch(style) {
@@ -408,7 +411,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 					border.getStrokeDashArray().addAll(0d, model.getDotSep() + model.getFullThickness());
 					break;
 				case SOLID:
-					border.setStrokeLineCap(StrokeLineCap.SQUARE);
+					border.setStrokeLineCap(StrokeLineCap.BUTT);
 					border.getStrokeDashArray().clear();
 					break;
 			}
