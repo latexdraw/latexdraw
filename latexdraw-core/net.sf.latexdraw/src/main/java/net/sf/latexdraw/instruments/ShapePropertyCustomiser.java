@@ -11,10 +11,11 @@
 package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
-import javafx.scene.control.ButtonBase;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.ToggleButton;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
@@ -27,6 +28,7 @@ import org.malai.javafx.binding.CheckboxBinding;
 import org.malai.javafx.binding.ColorPickerBinding;
 import org.malai.javafx.binding.ComboBoxBinding;
 import org.malai.javafx.binding.SpinnerBinding;
+import org.malai.javafx.binding.ToggleButtonBinding;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.undo.Undoable;
 
@@ -253,7 +255,8 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	static class Checkbox4Pencil extends CheckboxBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 
-		Checkbox4Pencil(final ShapePropertyCustomiser ins, ButtonBase widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
+		Checkbox4Pencil(final ShapePropertyCustomiser ins, final CheckBox widget, final ShapeProperties property)
+			throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class, widget);
 			prop = property;
 		}
@@ -274,7 +277,8 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	static class Checkbox4Selection extends CheckboxBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 
-		Checkbox4Selection(final ShapePropertyCustomiser ins, ButtonBase widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
+		Checkbox4Selection(final ShapePropertyCustomiser ins, final CheckBox widget, final ShapeProperties property)
+			throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class, widget);
 			prop = property;
 		}
@@ -289,6 +293,54 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			action.setProperty(prop);
 			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
 			action.setValue(interaction.getWidget().isSelected());
+		}
+	}
+
+	static class ToggleButton4Pencil extends ToggleButtonBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
+		ShapeProperties prop;
+		boolean invert;
+
+		ToggleButton4Pencil(final ShapePropertyCustomiser ins, final ToggleButton widget, final ShapeProperties property, final boolean inverted)
+			throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class, widget);
+			prop = property;
+			invert = inverted;
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(prop);
+			action.setPencil(instrument.pencil);
+			action.setValue(interaction.getWidget().isSelected() ^ invert);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+
+	static class ToggleButton4Selection extends ToggleButtonBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
+		ShapeProperties prop;
+		boolean invert;
+
+		ToggleButton4Selection(final ShapePropertyCustomiser ins, final ToggleButton widget, final ShapeProperties property, final boolean inverted)
+			throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class, widget);
+			prop = property;
+			invert = inverted;
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(prop);
+			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
+			action.setValue(interaction.getWidget().isSelected() ^ invert);
 		}
 	}
 }

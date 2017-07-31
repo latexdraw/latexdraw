@@ -98,9 +98,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Init
 		addBinding(new Spinner4Selection(this, gridDots, ShapeProperties.GRID_DOTS, false));
 		addBinding(new Spinner4Pencil(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
 		addBinding(new Spinner4Selection(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
-		addBinding(new Checkbox4Pencil(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y));
-		addBinding(new Checkbox4Selection(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y));
-		addBinding(new Checkbox4Pencil(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X));
-		addBinding(new Checkbox4Selection(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X));
+		addBinding(new ToggleButton4Pencil(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y, true));
+		addBinding(new ToggleButton4Selection(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y, true));
+		addBinding(new ToggleButton4Pencil(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X, true));
+		addBinding(new ToggleButton4Selection(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X, true));
 	}
 }

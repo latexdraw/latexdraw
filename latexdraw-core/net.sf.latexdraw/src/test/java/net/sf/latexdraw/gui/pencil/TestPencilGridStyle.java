@@ -125,7 +125,7 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
 		boolean sel = labelsYInvertedCB.isSelected();
 		clicklabelsYInvertedCB.execute();
-		assertEquals(!sel, ((IGrid)pencil.createShapeInstance()).isYLabelWest());
+		assertEquals(sel, ((IGrid) pencil.createShapeInstance()).isXLabelSouth());
 		assertNotEquals(sel, labelsYInvertedCB.isSelected());
 	}
 
@@ -134,7 +134,7 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
 		boolean sel = labelsXInvertedCB.isSelected();
 		clicklabelsXInvertedCB.execute();
-		assertEquals(!sel, ((IGrid)pencil.createShapeInstance()).isXLabelSouth());
+		assertEquals(sel, ((IGrid) pencil.createShapeInstance()).isYLabelWest());
 		assertNotEquals(sel, labelsXInvertedCB.isSelected());
 	}
 }

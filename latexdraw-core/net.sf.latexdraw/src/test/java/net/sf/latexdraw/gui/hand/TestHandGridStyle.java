@@ -134,20 +134,20 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 	@Test
 	public void testSelectlabelsYInvertedCBHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
-		boolean sel = labelsYInvertedCB.isSelected();
+		final boolean sel = labelsYInvertedCB.isSelected();
 		clicklabelsYInvertedCB.execute();
-		assertEquals(labelsYInvertedCB.isSelected(), ((IGrid)drawing.getSelection().getShapeAt(1)).isYLabelWest());
-		assertEquals(labelsYInvertedCB.isSelected(), ((IGrid)drawing.getSelection().getShapeAt(2)).isYLabelWest());
+		assertEquals(sel, ((IGrid) drawing.getSelection().getShapeAt(1)).isXLabelSouth());
+		assertEquals(sel, ((IGrid) drawing.getSelection().getShapeAt(2)).isXLabelSouth());
 		assertNotEquals(sel, labelsYInvertedCB.isSelected());
 	}
 
 	@Test
 	public void testSelectlabelsXInvertedCBHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
-		boolean sel = labelsXInvertedCB.isSelected();
+		final boolean sel = labelsXInvertedCB.isSelected();
 		clicklabelsXInvertedCB.execute();
-		assertEquals(labelsXInvertedCB.isSelected(), ((IGrid)drawing.getSelection().getShapeAt(1)).isXLabelSouth());
-		assertEquals(labelsXInvertedCB.isSelected(), ((IGrid)drawing.getSelection().getShapeAt(2)).isXLabelSouth());
+		assertEquals(sel, ((IGrid) drawing.getSelection().getShapeAt(1)).isYLabelWest());
+		assertEquals(sel, ((IGrid) drawing.getSelection().getShapeAt(2)).isYLabelWest());
 		assertNotEquals(sel, labelsXInvertedCB.isSelected());
 	}
 }
