@@ -165,9 +165,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 			final ArrowStyle arrStyle1 = arr1.getArrowStyle();
 			final ArrowStyle arrStyle2 = arr2.getArrowStyle();
 
-			arrowLeftCB.getSelectionModel().select(arrStyle1);
-			arrowRightCB.getSelectionModel().select(arrStyle2);
-
+			arrowLeftCB.setValue(arrStyle1);
+			arrowRightCB.setValue(arrStyle2);
 			final boolean isArrow = arrStyle1.isArrow() || arrStyle2.isArrow();
 			final boolean isDot = arrStyle1.isCircleDisk() || arrStyle2.isCircleDisk();
 			final boolean isBar = arrStyle1.isBar() || arrStyle2.isBar();

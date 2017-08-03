@@ -3,6 +3,7 @@ package net.sf.latexdraw.models.interfaces;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -45,6 +46,13 @@ public class TestIAxes implements HelperTest {
 		assertTrue(shape.isTypeOf(IStandardGrid.class));
 		assertTrue(shape.isTypeOf(IAxes.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
+	}
+
+	@Test
+	public void testSetArrowStyleLast() {
+		shape.setArrowStyle(ArrowStyle.BAR_IN, -1);
+		assertEquals(ArrowStyle.BAR_IN, shape.getArrowStyle(-1));
+		assertEquals(ArrowStyle.BAR_IN, shape.getArrowStyle(1));
 	}
 
 	@Test
