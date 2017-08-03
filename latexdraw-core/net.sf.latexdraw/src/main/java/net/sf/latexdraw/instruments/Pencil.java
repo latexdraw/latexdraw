@@ -92,7 +92,9 @@ public class Pencil extends CanvasInstrument {
 
 	@Override
 	public void setActivated(boolean act) {
-		if(this.activated != act) super.setActivated(act);
+		if(activated != act) {
+			super.setActivated(act);
+		}
 	}
 
 	@Override
