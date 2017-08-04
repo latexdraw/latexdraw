@@ -1,10 +1,17 @@
 package net.sf.latexdraw.view.jfx;
 
+import java.util.List;
 import java.util.concurrent.TimeoutException;
+import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.testfx.api.FxToolkit;
+import org.testfx.util.WaitForAsyncUtils;
+
+import static org.junit.Assert.assertNotEquals;
 
 public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline> {
 	@BeforeClass
@@ -28,5 +35,15 @@ public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline>
 		sh.addPoint(ShapeFactory.INST.createPoint(445, 33));
 
 		return sh;
+	}
+
+	@Test
+	public void testThicknessChangesArrow() {
+		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
+		WaitForAsyncUtils.waitForFxEvents();
+		final List<PathElement> pathArrow = duplicatePath(view.viewArrows.arrows.get(0).path.getElements());
+		model.setThickness(model.getThickness() * 2d);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertNotEquals(pathArrow, view.viewArrows.arrows.get(0).path.getElements());
 	}
 }

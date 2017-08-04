@@ -25,7 +25,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPolyline;
  * @author Arnaud Blouin
  */
 public class ViewPolyline extends ViewPolyPoint<IPolyline> {
-	private final ViewArrowableTrait viewArrows = new ViewArrowableTrait(model);
+	protected final ViewArrowableTrait viewArrows = new ViewArrowableTrait(model);
 
 	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> update();
 
@@ -43,6 +43,7 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 		model.getPtAt(0).yProperty().addListener(updateArrow);
 		model.getPtAt(-1).xProperty().addListener(updateArrow);
 		model.getPtAt(-1).yProperty().addListener(updateArrow);
+		model.thicknessProperty().addListener(updateArrow);
 		update();
 	}
 
