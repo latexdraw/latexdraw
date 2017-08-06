@@ -52,7 +52,7 @@ public class MovePointShape extends MovePoint implements Undoable {
 	@Override
 	public void redo() {
 		final int index = shape.getPoints().indexOf(point);
-		shape.setPoint(newCoord, index);
+		shape.setPoint(newCoord.getX(), newCoord.getY(), index);
 		shape.setModified(true);
 	}
 

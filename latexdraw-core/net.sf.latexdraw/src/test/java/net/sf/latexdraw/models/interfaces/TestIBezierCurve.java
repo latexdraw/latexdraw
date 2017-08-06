@@ -1,5 +1,7 @@
 package net.sf.latexdraw.models.interfaces;
 
+import java.util.Arrays;
+import java.util.Collections;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
@@ -24,7 +26,7 @@ public class TestIBezierCurve implements HelperTest {
 
 	@Before
 	public void setUp() throws Exception {
-		shape = ShapeFactory.INST.createBezierCurve();
+		shape = ShapeFactory.INST.createBezierCurve(Collections.emptyList());
 	}
 
 	@Test
@@ -49,7 +51,8 @@ public class TestIBezierCurve implements HelperTest {
 
 	@Test
 	public void testConstructors2() {
-		final IBezierCurve curve = ShapeFactory.INST.createBezierCurve(ShapeFactory.INST.createPoint(100, 200), ShapeFactory.INST.createPoint(300, 400));
+		final IBezierCurve curve = ShapeFactory.INST.createBezierCurve(Arrays.asList(
+			ShapeFactory.INST.createPoint(100, 200), ShapeFactory.INST.createPoint(300, 400)));
 
 		assertEquals(2, curve.getPoints().size());
 		assertEqualsDouble(100., curve.getPoints().get(0).getX());
@@ -69,7 +72,7 @@ public class TestIBezierCurve implements HelperTest {
 
 	@Test
 	public void testCopy() {
-		final IBezierCurve sh2 = ShapeFactory.INST.createBezierCurve();
+		final IBezierCurve sh2 = ShapeFactory.INST.createBezierCurve(Collections.emptyList());
 		shape.setIsClosed(sh2.isClosed());
 		sh2.setIsClosed(!sh2.isClosed());
 		shape.copy(sh2);

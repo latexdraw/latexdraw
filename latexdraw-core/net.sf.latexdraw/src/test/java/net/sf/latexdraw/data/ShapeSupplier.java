@@ -1,5 +1,6 @@
 package net.sf.latexdraw.data;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,14 +17,14 @@ public class ShapeSupplier extends ParameterSupplier {
 			ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()),
 			ShapeFactory.INST.createCircle(),
 			ShapeFactory.INST.createRectangle(),
-			ShapeFactory.INST.createBezierCurve(),
+			ShapeFactory.INST.createBezierCurve(Collections.emptyList()),
 			ShapeFactory.INST.createText(),
 			ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()),
-			ShapeFactory.INST.createPolyline(),
-			ShapeFactory.INST.createPolygon(),
+			ShapeFactory.INST.createPolyline(Collections.emptyList()),
+			ShapeFactory.INST.createPolygon(Collections.emptyList()),
 			ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()),
 			ShapeFactory.INST.createSquare(),
-			ShapeFactory.INST.createFreeHand(),
+			ShapeFactory.INST.createFreeHand(Collections.emptyList()),
 			ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0d, 10d, "x", false),
 			ShapeFactory.INST.createRhombus(),
 			ShapeFactory.INST.createTriangle(),

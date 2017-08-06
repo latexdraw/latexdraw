@@ -1,5 +1,7 @@
 package net.sf.latexdraw.gui;
 
+import java.util.Arrays;
+import java.util.Collections;
 import javafx.application.Platform;
 import net.sf.latexdraw.gui.robot.FxRobotColourPicker;
 import net.sf.latexdraw.gui.robot.FxRobotListSelection;
@@ -97,15 +99,15 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	};
 
 	protected final GUIVoidCommand selectionAddBezier = () -> {
-		IShape sh = ShapeFactory.INST.createBezierCurve(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint());
+		IShape sh = ShapeFactory.INST.createBezierCurve(Collections.emptyList());
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddFreehand = () -> {
-		IFreehand sh = ShapeFactory.INST.createFreeHand();
-		sh.addPoint(ShapeFactory.INST.createPoint());
-		sh.addPoint(ShapeFactory.INST.createPoint());
+		IFreehand sh = ShapeFactory.INST.createFreeHand(Arrays.asList(
+			ShapeFactory.INST.createPoint(),
+			ShapeFactory.INST.createPoint()));
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};

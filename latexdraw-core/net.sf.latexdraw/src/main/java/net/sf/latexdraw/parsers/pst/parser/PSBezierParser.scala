@@ -11,8 +11,10 @@
 
 package net.sf.latexdraw.parsers.pst.parser
 
+import java.util
+
 import net.sf.latexdraw.models.ShapeFactory
-import net.sf.latexdraw.models.interfaces.shape.IShape
+import net.sf.latexdraw.models.interfaces.shape.{IPoint, IShape}
 
 /**
  * A parser grouping parsers parsing bézier curves.
@@ -31,33 +33,40 @@ trait PSBezierParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 			case None => ctx.origin.dup :: ptsRaw.flatten
 		}
 
-		val bezier = ShapeFactory.INST.createBezierCurve()
-		var j = 1
+		val pts = new util.ArrayList[IPoint]()
+		val ctrlpts = new util.ArrayList[IPoint]()
 		val size = listPts.length
 
 		// Setting the points.
-		for(i <- 0 until size by 3) bezier.addPoint(transformPointTo2DScene(listPts(i), ctx))
-
-		for(i <- 2 until size by 3){
-			bezier.getFirstCtrlPtAt(j).setPoint(transformPointTo2DScene(listPts(i), ctx))
-			j +=1
+		for(i <- 0 until size by 3) {
+			pts.add(transformPointTo2DScene(listPts(i), ctx))
 		}
 
-		if(size>1)
-			bezier.getFirstCtrlPtAt(0).setPoint(transformPointTo2DScene(listPts(1), ctx))
+		for(i <- 2 until size by 3) {
+			ctrlpts.add(transformPointTo2DScene(listPts(i), ctx))
+		}
 
+		if(size > 1) {
+			ctrlpts.add(0, transformPointTo2DScene(listPts(1), ctx))
+		}
+
+		var closed = false
+
+		if(pts.size() > 2 && pts.get(0).equals(pts.get(pts.size() - 1))) {
+			pts.remove(pts.size() - 1)
+			ctrlpts.remove(ctrlpts.size() - 1)
+			closed = true
+		}
+
+		val bezier = ShapeFactory.INST.createBezierCurve(pts, ctrlpts)
+		bezier.setIsClosed(closed)
 		setShapeParameters(bezier, ctx)
-		setArrows(bezier, arrowRaw, false, ctx)
+		setArrows(bezier, arrowRaw, invert = false, ctx)
 		bezier.updateSecondControlPoints()
-		
-		if(bezier.getNbPoints>2 && bezier.getPtAt(0).equals(bezier.getPtAt(-1))) {
-		  bezier.removePoint(-1)
-		}
-		else
-		  bezier.setIsClosed(false)
 
-		if(cmdName.endsWith("*"))
+		if(cmdName.endsWith("*")) {
 			setShapeForStar(bezier)
+		}
 
 		checkTextParsed(ctx) ::: List(bezier)
 	}

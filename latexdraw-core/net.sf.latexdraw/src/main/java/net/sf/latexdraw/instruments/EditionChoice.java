@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.instruments;
 
+import java.util.Arrays;
+import java.util.Collections;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
@@ -60,7 +62,7 @@ public enum EditionChoice {
 	}, FREE_HAND {
 		@Override
 		public IFreehand createShapeInstance() {
-			return ShapeFactory.INST.createFreeHand();
+			return ShapeFactory.INST.createFreeHand(Collections.singletonList(ShapeFactory.INST.createPoint()));
 		}
 	}, TRIANGLE {
 		@Override
@@ -70,7 +72,7 @@ public enum EditionChoice {
 	}, LINES {
 		@Override
 		public IPolyline createShapeInstance() {
-			return ShapeFactory.INST.createPolyline();
+			return ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint()));
 		}
 	}, CIRCLE {
 		@Override
@@ -95,7 +97,7 @@ public enum EditionChoice {
 	}, POLYGON {
 		@Override
 		public IPolygon createShapeInstance() {
-			return ShapeFactory.INST.createPolygon();
+			return ShapeFactory.INST.createPolygon(Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint()));
 		}
 	}, WEDGE {
 		@Override
@@ -121,14 +123,14 @@ public enum EditionChoice {
 	}, BEZIER_CURVE {
 		@Override
 		public IBezierCurve createShapeInstance() {
-			final IBezierCurve shape = ShapeFactory.INST.createBezierCurve();
+			final IBezierCurve shape = ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint()));
 			shape.setIsClosed(false);
 			return shape;
 		}
 	}, BEZIER_CURVE_CLOSED {
 		@Override
 		public IBezierCurve createShapeInstance() {
-			final IBezierCurve shape = ShapeFactory.INST.createBezierCurve();
+			final IBezierCurve shape = ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint()));
 			shape.setIsClosed(true);
 			return shape;
 		}

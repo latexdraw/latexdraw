@@ -24,6 +24,14 @@ import static java.lang.annotation.ElementType.PARAMETER;
 @RunWith(Theories.class)
 public class TestIPositionShape implements HelperTest {
 	@Theory
+	public void testCopy(@PosShapeData final IPositionShape shape, @PosShapeData final IPositionShape shape2) {
+		shape.setPosition(11d, 23d);
+		shape2.copy(shape);
+		assertEqualsDouble(11d, shape2.getPosition().getX());
+		assertEqualsDouble(23d, shape2.getPosition().getY());
+	}
+
+	@Theory
 	public void testTranslate(@PosShapeData final IPositionShape shape) {
 		shape.setPosition(0, 0);
 		shape.translate(100, 50);

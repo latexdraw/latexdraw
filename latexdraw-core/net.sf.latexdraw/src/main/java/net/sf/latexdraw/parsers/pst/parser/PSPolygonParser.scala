@@ -13,6 +13,7 @@ package net.sf.latexdraw.parsers.pst.parser
 import net.sf.latexdraw.models.ShapeFactory
 import net.sf.latexdraw.models.interfaces.shape.{IPoint, IPolygon, IShape}
 
+import scala.collection.JavaConverters
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -42,8 +43,7 @@ trait PSPolygonParser extends PSTAbstractParser with PSTParamParser with PSTCoor
 	 * Creates and initialises a line.
 	 */
 	private def createPolygon(hasStar : Boolean, pts : ListBuffer[IPoint], ctx : PSTContext) : IPolygon = {
-		val pol = ShapeFactory.INST.createPolygon()
-		pts.foreach{pt => pol.addPoint(pt)}
+		val pol = ShapeFactory.INST.createPolygon(JavaConverters.bufferAsJavaList(pts))
 
 		setShapeParameters(pol, ctx)
 

@@ -4,7 +4,6 @@ import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.data.ShapeData;
 import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -38,10 +37,6 @@ public class TestIShape implements HelperTest {
 
 	@Theory
 	public void testGetPtAt(@ShapeData final IShape shape) {
-		if(shape.getPoints().isEmpty()) {
-			shape.getPoints().add(ShapeFactory.INST.createPoint());
-			shape.getPoints().add(ShapeFactory.INST.createPoint());
-		}
 		for(int i = 0; i < shape.getNbPoints(); i++) {
 			assertEquals(shape.getPoints().get(i), shape.getPtAt(i));
 		}

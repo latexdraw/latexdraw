@@ -11,6 +11,7 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.Optional;
 import javafx.geometry.Point3D;
 
@@ -137,18 +138,15 @@ public interface IShapeFactory {
 	IDot createDot(IPoint pt);
 
 	/**
-	 * Creates a model with no point.
+	 * Creates a bezier curve with a set of points.
+	 * @param pts The points of the curve.
 	 * @return The created bezier curve.
 	 */
-	IBezierCurve createBezierCurve();
+	IBezierCurve createBezierCurve(final List<IPoint> pts);
 
-	/**
-	 * Creates a bezier curve with two points.
-	 * @param point The first point of the curve.
-	 * @param point2 The second point of the curve.
-	 * @return The created bezier curve.
-	 */
-	IBezierCurve createBezierCurve(IPoint point, IPoint point2);
+	IBezierCurve createBezierCurve(final List<IPoint> pts, final List<IPoint> ctrlpts);
+
+	IBezierCurve createBezierCurveFrom(final IBezierCurve bc, final IPoint pointToAdd);
 
 	/**
 	 * Creates an ellipse.
@@ -217,7 +215,9 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If the given point is not valid.
 	 * @since 3.0
 	 */
-	IFreehand createFreeHand();
+	IFreehand createFreeHand(final List<IPoint> pts);
+
+	IFreehand createFreeHandFrom(IFreehand sh, IPoint pointToAdd);
 
 	/**
 	 * Creates a circle.
@@ -309,34 +309,24 @@ public interface IShapeFactory {
 	IPoint createPoint(IPoint pt);
 
 	/**
-	 * @return The created polyline
-	 * @since 3.0
-	 */
-	IPolyline createPolyline();
-
-	/**
-	 * Creates a model with two points.
-	 * @param point The first point of the shape.
-	 * @param point2 The second point of the shape.
+	 * Creates a model with a set of points.
+	 * @param pts The points of the shape.
 	 * @return The created polyline.
 	 * @since 3.0
 	 */
-	IPolyline createPolyline(IPoint point, IPoint point2);
+	IPolyline createPolyline(final List<IPoint> pts);
+
+	IPolyline createPolylineFrom(IPolyline sh, IPoint pointToAdd);
 
 	/**
-	 * @return The created polygon
-	 * @since 3.0
-	 */
-	IPolygon createPolygon();
-
-	/**
-	 * Creates a polygon with two points.
-	 * @param point The first point of the shape.
-	 * @param point2 The second point of the shape.
+	 * Creates a polygon with a set of points.
+	 * @param pts The points of the shape.
 	 * @return The created polygon.
 	 * @since 3.0
 	 */
-	IPolygon createPolygon(IPoint point, IPoint point2);
+	IPolygon createPolygon(final List<IPoint> pts);
+
+	IPolygon createPolygonFrom(IPolygon sh, IPoint pointToAdd);
 
 	/**
 	 * @return The created rectangle with position (0,0) and width=10 and height=10.

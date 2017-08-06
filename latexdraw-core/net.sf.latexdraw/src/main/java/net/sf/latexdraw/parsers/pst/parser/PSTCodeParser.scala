@@ -105,22 +105,32 @@ trait PSTCodeParser extends PSTAbstractParser
 
 			// The different created freehand shapes must be merged into a single one.
 			shapes.getShapes.forEach {
-        case ifh: IFreehand =>
-          fh match {
-            case null => gp.addShape(ifh); fh = ifh; fh.setInterval(1) // This shape is now the reference shape used for the merge.
-            case _ =>
-              if (ifh.getNbPoints == 1) {
-                // If the shape has a single point, it means it is a closepath command
-                fh.setOpen(ifh.isOpen)
-              } else {
-                // Otherwise, the shape has two points. So, we take the last one and add it to the first shape.
-                fh.addPoint(ifh.getPtAt(ifh.getNbPoints - 1))
-                fh.setType(ifh.getType)
-              }
-          }
-        case sh => gp.addShape(sh)
-      }
-			gp
+				case ifh: IFreehand =>
+					fh match {
+						case null =>
+							gp.addShape(ifh)
+							fh = ifh
+							fh.setInterval(1) // This shape is now the reference shape used for the merge.
+						case _ =>
+							if(ifh.getNbPoints == 1) {
+								// If the shape has a single point, it means it is a closepath command
+								fh.setOpen(ifh.isOpen)
+							}else {
+								// Otherwise, the shape has two points. So, we take the last one and add it to the first shape.
+								if(ifh.getNbPoints > 0) {
+									val fh2 = ShapeFactory.INST.createFreeHandFrom(fh, ifh.getPtAt(ifh.getNbPoints - 1))
+									val index = gp.getShapes.indexOf(fh)
+									if (index != -1) {
+										gp.getShapes.set(index, fh2)
+									}
+									fh = fh2
+								}
+								fh.setType(ifh.getType)
+							}
+					}
+				case sh => gp.addShape(sh)
+			}
+		gp
 	}
 
 

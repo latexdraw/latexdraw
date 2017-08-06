@@ -1,5 +1,7 @@
 package net.sf.latexdraw.models.interfaces;
 
+import java.util.Arrays;
+import java.util.Collections;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
@@ -20,8 +22,8 @@ public class TestIPolygon {
 
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.INST.createPolygon();
-		shape2 = ShapeFactory.INST.createPolygon();
+		shape = ShapeFactory.INST.createPolygon(Collections.emptyList());
+		shape2 = ShapeFactory.INST.createPolygon(Collections.emptyList());
 	}
 
 	@Test
@@ -39,7 +41,7 @@ public class TestIPolygon {
 	public void testConstructor() {
 		IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
 		IPoint pt2 = ShapeFactory.INST.createPoint(2, 2);
-		IPolygon pol = ShapeFactory.INST.createPolygon(pt1, pt2);
+		IPolygon pol = ShapeFactory.INST.createPolygon(Arrays.asList(pt1, pt2));
 		assertEquals(pt1, pol.getPtAt(0));
 		assertEquals(pt2, pol.getPtAt(-1));
 	}

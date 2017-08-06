@@ -12,7 +12,6 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.ListChangeListener;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
@@ -30,8 +29,6 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 	 */
 	ViewFreeHand(final  IFreehand sh) {
 		super(sh);
-
-		model.getPoints().addListener((ListChangeListener.Change<? extends IPoint> c) -> setPath());
 
 		// To update on translation. To improve.
 		if(!model.getPoints().isEmpty()) {

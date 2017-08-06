@@ -10,8 +10,7 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import java.awt.geom.Point2D;
-import java.util.List;
+import java.util.stream.Collectors;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
@@ -42,51 +41,51 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 
 	protected LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.INST.createFreeHand());
+		this(ShapeFactory.INST.createFreeHand(SVGPointsParser.getPoints(
+			elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS)).stream().
+			map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList())));
 
-		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final SVGElement main = getLaTeXDrawElement(elt, null);
+		String v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_INTERVAL);
 
-		if(elt==null || elt2==null || !(elt2 instanceof SVGPathElement))
-			throw new IllegalArgumentException();
-
-		final SVGPathElement main = (SVGPathElement)elt2;
-		String v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_INTERVAL);
-
-		if(v!=null)
-			try{ shape.setInterval(Double.valueOf(v).intValue()); }
-		catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
-
-		final List<Point2D> pts = SVGPointsParser.getPoints(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POINTS));
-
-		if(pts==null)
-			throw new IllegalArgumentException();
-
-		for(final Point2D pt : pts)
-			shape.addPoint(ShapeFactory.INST.createPoint(pt.getX(), pt.getY()));
+		if(v != null) {
+			try {
+				shape.setInterval(Double.valueOf(v).intValue());
+			}catch(final NumberFormatException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
+			}
+		}
 
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 
-		v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ROTATION);
+		v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION);
 
-		if(v!=null)
-			try{ shape.setRotationAngle(Double.valueOf(v)); }
-			catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+		if(v != null) {
+			try {
+				shape.setRotationAngle(Double.valueOf(v));
+			}catch(final NumberFormatException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
+			}
+		}
 
-		try{
-			FreeHandStyle type = FreeHandStyle.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE));
-			if(type==null) {
-				final int val = Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE)).intValue();
-				type = val==0 ? FreeHandStyle.LINES : FreeHandStyle.CURVES;
+		try {
+			FreeHandStyle type = FreeHandStyle.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE));
+			if(type == null) {
+				final int val = Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE))
+					.intValue();
+				type = val == 0 ? FreeHandStyle.LINES : FreeHandStyle.CURVES;
 			}
 
 			shape.setType(type);
+		}catch(final NumberFormatException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 		}
-		catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-		if(withTransformation)
+		if(withTransformation) {
 			applyTransformations(elt);
+		}
 	}
 
 

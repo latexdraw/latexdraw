@@ -32,6 +32,14 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 		points.add(ShapeFactory.INST.createPoint(tl.getX(), br.getY()));
 	}
 
+	@Override
+	public void copy(final IShape sh) {
+		super.copy(sh);
+		if(sh instanceof IRectangularShape) {
+			setWidth(sh.getWidth());
+			setHeight(sh.getHeight());
+		}
+	}
 
 	@Override
 	public void mirrorHorizontal(final double x) {
@@ -84,14 +92,6 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 			final double yPos = points.get(points.size() - 1).getY() - height;
 			points.get(0).setY(yPos);
 			points.get(1).setY(yPos);
-		}
-	}
-
-	@Override
-	protected void copyPoints(final IShape sh) {
-		if(!(sh instanceof IRectangularShape)) return;
-		for(int i = 0, size = points.size(); i < size; i++) {
-			getPtAt(i).setPoint(sh.getPtAt(i));
 		}
 	}
 

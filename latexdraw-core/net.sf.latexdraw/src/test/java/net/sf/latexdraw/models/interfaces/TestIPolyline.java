@@ -1,5 +1,7 @@
 package net.sf.latexdraw.models.interfaces;
 
+import java.util.Arrays;
+import java.util.Collections;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -20,7 +22,7 @@ public class TestIPolyline implements HelperTest {
 	public void testConstructor() {
 		final IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
 		final IPoint pt2 = ShapeFactory.INST.createPoint(2, 2);
-		final IPolyline pol = ShapeFactory.INST.createPolyline(pt1, pt2);
+		final IPolyline pol = ShapeFactory.INST.createPolyline(Arrays.asList(pt1, pt2));
 
 		assertEquals(pt1, pol.getPtAt(0));
 		assertEquals(pt2, pol.getPtAt(-1));
@@ -28,7 +30,7 @@ public class TestIPolyline implements HelperTest {
 
 	@Test
 	public void testIsTypeOf() {
-		final IPolyline shape = ShapeFactory.INST.createPolyline();
+		final IPolyline shape = ShapeFactory.INST.createPolyline(Collections.emptyList());
 		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(IRectangle.class));
 		assertFalse(shape.isTypeOf(ICircle.class));

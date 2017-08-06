@@ -14,6 +14,7 @@ import java.awt.geom.Rectangle2D;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
 import net.sf.latexdraw.models.interfaces.shape.Position;
 
@@ -38,6 +39,14 @@ abstract class LSquaredShape extends LPositionShape implements ISquaredShape {
 	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
 		if(bound != null && pos != null) {
 			scaleSetPointsWithRatio(points, prevWidth, prevHeight, pos, bound);
+		}
+	}
+
+	@Override
+	public void copy(final IShape sh) {
+		super.copy(sh);
+		if(sh instanceof ISquaredShape) {
+			setWidth(sh.getWidth());
 		}
 	}
 

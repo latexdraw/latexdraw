@@ -12,7 +12,6 @@ package net.sf.latexdraw.models.impl;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
@@ -27,21 +26,26 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 class LPolyline extends LPolygon implements IPolyline, LArrowableShape {
 	private final List<IArrow> arrows;
 
-	LPolyline() {
-		super();
+	/**
+	 * Creates a model with a set of points.
+	 * @throws IllegalArgumentException If one of the points or the list is null.
+	 */
+	LPolyline(final List<IPoint> pts) {
+		super(pts);
 		arrows = Arrays.asList(ShapeFactory.INST.createArrow(this), ShapeFactory.INST.createArrow(this));
-	}
-
-	LPolyline(final IPoint point, final IPoint point2) {
-		this();
-		addPoint(Objects.requireNonNull(point));
-		addPoint(Objects.requireNonNull(point2));
 	}
 
 	@Override
 	public void copy(final IShape sh) {
 		super.copy(sh);
 		LArrowableShape.super.copy(sh);
+	}
+
+	@Override
+	public IPolyline duplicate() {
+		final IPolyline dup = ShapeFactory.INST.createPolyline(points);
+		dup.copy(this);
+		return dup;
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
  * A model of a shape that has a position.
@@ -29,6 +30,14 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 		points.add(MathUtils.INST.isValidPt(pt) ? pt : ShapeFactory.INST.createPoint());
 	}
 
+	@Override
+	public void copy(final IShape sh) {
+		super.copy(sh);
+
+		if(sh instanceof IPositionShape) {
+			setPosition(((IPositionShape) sh).getPosition());
+		}
+	}
 
 	@Override
 	public void setPosition(final IPoint pt) {

@@ -11,15 +11,12 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.stream.IntStream;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
  * The JFX shape view for multipoints shapes.
@@ -49,23 +46,6 @@ public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends Vi
 			lineto.xProperty().bind(model.getPtAt(i).xProperty());
 			lineto.yProperty().bind(model.getPtAt(i).yProperty());
 			elts.add(lineto);
-		});
-
-		model.getPoints().addListener((ListChangeListener.Change<? extends IPoint> c) -> {
-			while(c.next()) {
-				if(c.wasAdded()) {
-					c.getAddedSubList().forEach(pt -> {
-						LineTo lineto = ViewFactory.INSTANCE.createLineTo(0d, 0d);
-						lineto.xProperty().bind(pt.xProperty());
-						lineto.yProperty().bind(pt.yProperty());
-						elts.add(lineto);
-						if(elts.get(elts.size() - 2) instanceof ClosePath) {
-							elts.remove(elts.size() - 2);
-							elts.add(ViewFactory.INSTANCE.createClosePath());
-						}
-					});
-				}
-			}
 		});
 	}
 

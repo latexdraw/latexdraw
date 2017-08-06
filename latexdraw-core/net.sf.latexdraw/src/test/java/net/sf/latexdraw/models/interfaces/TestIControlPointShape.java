@@ -3,6 +3,7 @@ package net.sf.latexdraw.models.interfaces;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -94,20 +95,6 @@ public class TestIControlPointShape implements HelperTest {
 		assertEquals(ctrlPts2, sh.getSecondCtrlPts());
 	}
 
-	@Theory
-	public void testCopy(@CtrlShapeData final IControlPointShape sh, @CtrlShapeData final IControlPointShape sh2) {
-		List<IPoint> ctrlPts1 = cloneList(sh.getFirstCtrlPts(), p -> ShapeFactory.INST.createPoint(p));
-		List<IPoint> ctrlPts2 = cloneList(sh.getSecondCtrlPts(), p -> ShapeFactory.INST.createPoint(p));
-
-		sh2.translate(10d, -12d);
-		sh.copy(sh2);
-
-		ctrlPts1.forEach(p -> p.translate(10d, -12d));
-		ctrlPts2.forEach(p -> p.translate(10d, -12d));
-
-		assertEquals(ctrlPts1, sh.getFirstCtrlPts());
-		assertEquals(ctrlPts2, sh.getSecondCtrlPts());
-	}
 
 	@Theory
 	public void testDuplicate(@CtrlShapeData final IControlPointShape sh) {
@@ -172,9 +159,10 @@ public class TestIControlPointShape implements HelperTest {
 	public static class CtrlPtShapeSupplier extends ParameterSupplier {
 		@Override
 		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
-			return Stream.of(ShapeFactory.INST.createBezierCurve(ShapeFactory.INST.createPoint(10d, 20d), ShapeFactory.INST.createPoint
-				(30d, 40d))).map(r -> PotentialAssignment.forValue("", r)).
-				collect(Collectors.toList());
+			return Stream.of(ShapeFactory.INST.createBezierCurve(Arrays.asList(
+				ShapeFactory.INST.createPoint(10d, 20d),
+				ShapeFactory.INST.createPoint(30d, 40d)))).
+				map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
 		}
 	}
 }

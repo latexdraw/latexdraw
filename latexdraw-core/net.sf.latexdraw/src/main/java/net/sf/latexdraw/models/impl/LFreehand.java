@@ -10,15 +10,18 @@
  */
 package net.sf.latexdraw.models.impl;
 
+import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
@@ -39,11 +42,18 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 	 * @throws IllegalArgumentException If the given point is not valid.
 	 * @since 3.0
 	 */
-	LFreehand() {
-		super();
+	LFreehand(final List<IPoint> pts) {
+		super(pts);
 		type = new SimpleObjectProperty<>(FreeHandStyle.CURVES);
 		interval = new SimpleIntegerProperty(2);
 		open = new SimpleBooleanProperty(true);
+	}
+
+	@Override
+	public IFreehand duplicate() {
+		final IFreehand dup = ShapeFactory.INST.createFreeHand(points);
+		dup.copy(this);
+		return dup;
 	}
 
 	@Override

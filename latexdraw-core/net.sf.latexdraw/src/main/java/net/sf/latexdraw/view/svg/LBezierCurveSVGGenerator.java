@@ -11,6 +11,8 @@
 package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
@@ -53,85 +55,80 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 	 * @since 2.0.0
 	 */
 	protected LBezierCurveSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.INST.createBezierCurve());
+		this(pathToBezierCurve(getLaTeXDrawElement(elt, null)));
 
-		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
-
-		if(elt==null || !(elt2 instanceof SVGPathElement))
-			throw new IllegalArgumentException();
-
-		final SVGPathElement main = (SVGPathElement)elt2;
-		setPath(main.getSegList());
+		final SVGElement main = getLaTeXDrawElement(elt, null);
 		setSVGParameters(main);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 		final IArrow arrow1 = shape.getArrowAt(0);
 		final IArrow arrow2 = shape.getArrowAt(-1);
-		setSVGArrow(arrow1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main, SVGAttributes.SVG_MARKER_START);
-		setSVGArrow(arrow2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main, SVGAttributes.SVG_MARKER_END);
+		setSVGArrow(arrow1, main.getAttribute(main.getUsablePrefix() + SVGAttributes.SVG_MARKER_START), main, SVGAttributes.SVG_MARKER_START);
+		setSVGArrow(arrow2, main.getAttribute(main.getUsablePrefix() + SVGAttributes.SVG_MARKER_END), main, SVGAttributes.SVG_MARKER_END);
 		homogeniseArrows(arrow1, arrow2);
 
-		shape.setShowPts(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHOW_PTS)!=null);
+		shape.setShowPts(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHOW_PTS) != null);
 
-		if(withTransformation)
+		if(withTransformation) {
 			applyTransformations(elt);
+		}
 	}
 
 
 	protected LBezierCurveSVGGenerator(final SVGPathElement path) {
-		this(ShapeFactory.INST.createBezierCurve());
-
-		setPath(path.getSegList());
+		this(pathToBezierCurve(path));
 		setSVGParameters(path);
 		applyTransformations(path);
 	}
 
 	/**
-	 * Sets the shape path according to the given SVG path segments.
-	 * @param list The SVG path segments list
-	 * @since 2.0.0
+	 * Creates a bezier curve and inits its path from an SVG element.
 	 */
-	public void setPath(final SVGPathSegList list) {
-		if(list==null || list.size()<2 || !(list.get(0) instanceof SVGPathSegMoveto))
-			throw new IllegalArgumentException();
+	private static IBezierCurve pathToBezierCurve(final SVGElement elt) {
+		if(!(elt instanceof SVGPathElement)) return null;
 
-		final SVGPathSegMoveto m = (SVGPathSegMoveto)list.get(0);
+		final SVGPathSegList list = ((SVGPathElement) elt).getSegList();
+
+		if(list == null || list.size() < 2 || !(list.get(0) instanceof SVGPathSegMoveto)) return null;
+
+		final SVGPathSegMoveto m = (SVGPathSegMoveto) list.get(0);
 		CtrlPointsSeg c;
-		int i=1;
-        final int size = list.size();
-		Point2D pt = new Point2D.Double();// Creating a point to support when the first path element is relative.
+		int i = 1;
+		final int size = list.size();
+		Point2D pt = new Point2D.Double(); // Creating a point to support when the first path element is relative.
+		final List<IPoint> pts = new ArrayList<>();
+		final List<IPoint> ctrlpts = new ArrayList<>();
+		boolean closed;
 
 		pt = m.getPoint(pt);
-        shape.addPoint(ShapeFactory.INST.createPoint(pt));
+		pts.add(ShapeFactory.INST.createPoint(pt));
 
-		if(size>1 && list.get(1) instanceof CtrlPointsSeg) {// We set the control point of the first point.
-			c = (CtrlPointsSeg)list.get(1);
-			shape.getFirstCtrlPtAt(-1).setPoint(ShapeFactory.INST.createPoint(c.getCtrl1(pt)));
+		if(list.get(1) instanceof CtrlPointsSeg) {// We set the control point of the first point.
+			c = (CtrlPointsSeg) list.get(1);
+			ctrlpts.add(ShapeFactory.INST.createPoint(c.getCtrl1(pt)));
 		}
 
-		while(i<size && list.get(i) instanceof CtrlPointsSeg) {
-			c = (CtrlPointsSeg)list.get(i);
+		while(i < size && list.get(i) instanceof CtrlPointsSeg) {
+			c = (CtrlPointsSeg) list.get(i);
 			Point2D currPt = c.getPoint(pt);
-			shape.addPoint(ShapeFactory.INST.createPoint(currPt));
-			shape.getFirstCtrlPtAt(-1).setPoint(ShapeFactory.INST.createPoint(c.getCtrl2(pt)));
+			pts.add(ShapeFactory.INST.createPoint(currPt));
+			ctrlpts.add(ShapeFactory.INST.createPoint(c.getCtrl2(pt)));
 			pt = currPt;
 			i++;
 		}
 
-		if(shape.getNbPoints()>2 && shape.getPtAt(-1).equals(shape.getPtAt(0), 0.00001)) {// We set the shape as closed
-			shape.removePoint(-1);
-			shape.setIsClosed(true);
+		if(pts.size() > 2 && pts.get(pts.size() - 1).equals(pts.get(0), 0.00001)) { // We set the shape as closed
+			pts.remove(pts.size() - 1);
+			ctrlpts.remove(ctrlpts.size() - 1);
+			closed = true;
+		}else {
+			closed = i < size && list.get(i) instanceof SVGPathSegClosePath; // There is something else at the end of the path.
 		}
-		else
-			if(i<size && list.get(i) instanceof SVGPathSegClosePath)// There is something else at the end of the path.
-				shape.setIsClosed(true);
-			else
-				shape.setIsClosed(false);
 
-		shape.updateSecondControlPoints();
+		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve(pts, ctrlpts);
+		bc.setIsClosed(closed);
+		return bc;
 	}
-
-
 
 
 	/**

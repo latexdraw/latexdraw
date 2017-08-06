@@ -11,7 +11,7 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.awt.geom.Rectangle2D;
-import javafx.collections.ObservableList;
+import java.util.List;
 import org.malai.properties.Modifiable;
 
 /**
@@ -29,7 +29,7 @@ public interface IShape extends Modifiable {
 	 * @return The points of the shape.
 	 * @since 3.0
 	 */
-	ObservableList<IPoint> getPoints();
+	List<IPoint> getPoints();
 
 	/**
 	 * @return The number of points of the shape.

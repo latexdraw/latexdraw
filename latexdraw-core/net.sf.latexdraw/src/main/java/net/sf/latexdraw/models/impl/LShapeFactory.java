@@ -11,12 +11,16 @@
 package net.sf.latexdraw.models.impl;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 import javafx.geometry.Point3D;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
@@ -71,20 +75,20 @@ public class LShapeFactory implements IShapeFactory {
 		factoryMap.put(LTriangle.class, () -> createTriangle());
 		factoryMap.put(IRhombus.class, () -> createRhombus());
 		factoryMap.put(LRhombus.class, () -> createRhombus());
-		factoryMap.put(IPolyline.class, () -> createPolyline());
-		factoryMap.put(LPolyline.class, () -> createPolyline());
-		factoryMap.put(IPolygon.class, () -> createPolygon());
-		factoryMap.put(LPolygon.class, () -> createPolygon());
+		factoryMap.put(IPolyline.class, () -> createPolyline(Collections.emptyList()));
+		factoryMap.put(LPolyline.class, () -> createPolyline(Collections.emptyList()));
+		factoryMap.put(IPolygon.class, () -> createPolygon(Collections.emptyList()));
+		factoryMap.put(LPolygon.class, () -> createPolygon(Collections.emptyList()));
 		factoryMap.put(IAxes.class, () -> createAxes(createPoint()));
 		factoryMap.put(LAxes.class, () -> createAxes(createPoint()));
 		factoryMap.put(IGrid.class, () -> createGrid(createPoint()));
 		factoryMap.put(LGrid.class, () -> createGrid(createPoint()));
-		factoryMap.put(IBezierCurve.class, () -> createBezierCurve());
-		factoryMap.put(LBezierCurve.class, () -> createBezierCurve());
+		factoryMap.put(IBezierCurve.class, () -> createBezierCurve(Collections.emptyList()));
+		factoryMap.put(LBezierCurve.class, () -> createBezierCurve(Collections.emptyList()));
 		factoryMap.put(IDot.class, () -> createDot(createPoint()));
 		factoryMap.put(LDot.class, () -> createDot(createPoint()));
-		factoryMap.put(IFreehand.class, () -> createFreeHand());
-		factoryMap.put(LFreehand.class, () -> createFreeHand());
+		factoryMap.put(IFreehand.class, () -> createFreeHand(Collections.emptyList()));
+		factoryMap.put(LFreehand.class, () -> createFreeHand(Collections.emptyList()));
 		factoryMap.put(IGroup.class, () -> createGroup());
 		factoryMap.put(LGroup.class, () -> createGroup());
 		factoryMap.put(IPicture.class, () -> createPicture(createPoint()));
@@ -200,13 +204,26 @@ public class LShapeFactory implements IShapeFactory {
 	}
 
 	@Override
-	public IBezierCurve createBezierCurve() {
-		return new LBezierCurve(true);
+	public IBezierCurve createBezierCurve(final List<IPoint> pts) {
+		return new LBezierCurve(pts, true);
 	}
 
 	@Override
-	public IBezierCurve createBezierCurve(final IPoint point, final IPoint point2) {
-		return new LBezierCurve(point, point2, true);
+	public IBezierCurve createBezierCurve(final List<IPoint> pts, final List<IPoint> ctrlpts) {
+		return new LBezierCurve(pts, ctrlpts, true);
+	}
+
+	@Override
+	public IBezierCurve createBezierCurveFrom(final IBezierCurve bc, final IPoint pointToAdd) {
+		if(bc == null || !MathUtils.INST.isValidPt(pointToAdd)) return null;
+		final List<IPoint> pts = new ArrayList<>(bc.getPoints());
+		final List<IPoint> ptsCtrl = new ArrayList<>(bc.getFirstCtrlPts());
+		pts.add(pointToAdd);
+		pts.add(createPoint(pointToAdd.getX(), pointToAdd.getY() + IBezierCurve.DEFAULT_POSITION_CTRL));
+
+		final IBezierCurve copy = new LBezierCurve(pts, ptsCtrl, true);
+		copy.copy(bc);
+		return copy;
 	}
 
 	@Override
@@ -250,8 +267,18 @@ public class LShapeFactory implements IShapeFactory {
 	}
 
 	@Override
-	public IFreehand createFreeHand() {
-		return new LFreehand();
+	public IFreehand createFreeHand(final List<IPoint> pts) {
+		return new LFreehand(pts);
+	}
+
+	@Override
+	public IFreehand createFreeHandFrom(final IFreehand sh, final IPoint pointToAdd) {
+		if(sh == null || !MathUtils.INST.isValidPt(pointToAdd)) return null;
+		final List<IPoint> pts = new ArrayList<>(sh.getPoints());
+		pts.add(pointToAdd);
+		final IFreehand copy = createFreeHand(pts);
+		copy.copy(sh);
+		return copy;
 	}
 
 	@Override
@@ -298,23 +325,33 @@ public class LShapeFactory implements IShapeFactory {
 	}
 
 	@Override
-	public IPolyline createPolyline() {
-		return new LPolyline();
+	public IPolyline createPolyline(final List<IPoint> pts) {
+		return new LPolyline(pts);
 	}
 
 	@Override
-	public IPolyline createPolyline(final IPoint point, final IPoint point2) {
-		return new LPolyline(point, point2);
+	public IPolyline createPolylineFrom(final IPolyline sh, final IPoint pointToAdd) {
+		if(sh == null || !MathUtils.INST.isValidPt(pointToAdd)) return null;
+		final List<IPoint> pts = new ArrayList<>(sh.getPoints());
+		pts.add(pointToAdd);
+		final IPolyline copy = createPolyline(pts);
+		copy.copy(sh);
+		return copy;
 	}
 
 	@Override
-	public IPolygon createPolygon() {
-		return new LPolygon();
+	public IPolygon createPolygon(final List<IPoint> pts) {
+		return new LPolygon(pts);
 	}
 
 	@Override
-	public IPolygon createPolygon(final IPoint point, final IPoint point2) {
-		return new LPolygon(point, point2);
+	public IPolygon createPolygonFrom(final IPolygon sh, final IPoint pointToAdd) {
+		if(sh == null || !MathUtils.INST.isValidPt(pointToAdd)) return null;
+		final List<IPoint> pts = new ArrayList<>(sh.getPoints());
+		pts.add(pointToAdd);
+		final IPolygon copy = createPolygon(pts);
+		copy.copy(sh);
+		return copy;
 	}
 
 	@Override

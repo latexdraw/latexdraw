@@ -1,5 +1,6 @@
 package net.sf.latexdraw.models.interfaces;
 
+import java.util.Collections;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.ShapeData;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -120,7 +121,7 @@ public class TestIGroup implements HelperTest {
 
 	@Test
 	public void testDuplicateArrow() {
-		shape.addShape(ShapeFactory.INST.createPolyline());
+		shape.addShape(ShapeFactory.INST.createPolyline(Collections.emptyList()));
 		shape.setArrowStyle(ArrowStyle.BAR_END, 0);
 		shape.setArrowStyle(ArrowStyle.CIRCLE_END, 1);
 		IGroup shape2 = shape.duplicate();
@@ -620,7 +621,7 @@ public class TestIGroup implements HelperTest {
 	@Test
 	public void testIsSetShowPts() {
 		init4setFill();
-		shape.addShape(ShapeFactory.INST.createBezierCurve());
+		shape.addShape(ShapeFactory.INST.createBezierCurve(Collections.emptyList()));
 		shape.setShowPts(true);
 		assertTrue(shape.isShowPts());
 		shape.getShapes().stream().filter(sh -> sh.isShowPtsable()).forEach(sh -> assertTrue(sh.isShowPts()));

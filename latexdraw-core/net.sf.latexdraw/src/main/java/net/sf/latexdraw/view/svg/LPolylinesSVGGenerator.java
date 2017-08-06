@@ -11,6 +11,7 @@
 package net.sf.latexdraw.view.svg;
 
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.List;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -32,7 +33,7 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * An SVG generator for some joined lines.
  * @author Arnaud BLOUIN
  */
-class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
+class LPolylinesSVGGenerator extends LShapeSVGGenerator<IPolyline> {
 	/**
 	 * Creates a generator for IPolyline.
 	 * @param polyline The source polyline used to generate the SVG element.
@@ -47,13 +48,10 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @param elt The SVG path.
 	 */
 	protected LPolylinesSVGGenerator(final SVGPathElement elt) {
-		super(ShapeFactory.INST.createPolyline());
-
-		if(elt==null || (!elt.isLines() && !elt.isLine()))
-			throw new IllegalArgumentException();
-
-		initModifiablePointsShape(elt);
+		super(ShapeFactory.INST.createPolyline(LPolygonSVGGenerator.initModifiablePointsShape(elt)));
+		if(elt==null || !elt.isLines() && !elt.isLine()) throw new IllegalArgumentException();
 		setSVGParameters(elt);
+		applyTransformations(elt);
 	}
 
 
@@ -64,9 +62,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGPolyLineElement elt) {
-		this(ShapeFactory.INST.createPolyline());
-
-		setSVGModifiablePointsParameters(elt);
+		this(ShapeFactory.INST.createPolyline(LPolygonSVGGenerator.getPointsFromSVGElement(elt)));
 		setSVGParameters(elt);
 		applyTransformations(elt);
 	}
@@ -78,7 +74,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGLineElement elt) {
-		this(ShapeFactory.INST.createPolyline());
+		this(ShapeFactory.INST.createPolyline(Collections.emptyList()));
 
 		setSVGParameters(elt);
 		applyTransformations(elt);
@@ -91,35 +87,23 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.INST.createPolyline());
+		this(ShapeFactory.INST.createPolyline(LPolygonSVGGenerator.getPointsFromSVGElement(getLaTeXDrawElement(elt, null))));
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
-
-		if(elt==null || !(elt2 instanceof SVGPolyLineElement) && !(elt2 instanceof SVGLineElement))
-			throw new IllegalArgumentException();
-
-		if(elt2 instanceof SVGPolyLineElement) {
-			setSVGModifiablePointsParameters((SVGPolyLineElement)elt2);
-		}else {
-			final SVGLineElement lineElt = (SVGLineElement)elt2;
-			shape.addPoint(ShapeFactory.INST.createPoint(lineElt.getX1(), lineElt.getY1()));
-			shape.addPoint(ShapeFactory.INST.createPoint(lineElt.getX2(), lineElt.getY2()));
-		}
-
 		setSVGParameters(elt2);
 		setSVGLatexdrawParameters(elt);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
-		final IArrow arrow1 	= shape.getArrowAt(0);
-		final IArrow arrow2 	= shape.getArrowAt(-1);
-		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), elt2, SVGAttributes.SVG_MARKER_START);
-		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), elt2, SVGAttributes.SVG_MARKER_END);
+		final IArrow arrow1 = shape.getArrowAt(0);
+		final IArrow arrow2 = shape.getArrowAt(-1);
+		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix() + SVGAttributes.SVG_MARKER_START), elt2, SVGAttributes.SVG_MARKER_START);
+		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix() + SVGAttributes.SVG_MARKER_END), elt2, SVGAttributes.SVG_MARKER_END);
 		homogeniseArrows(arrow1, arrow2);
 
-		if(withTransformation)
+		if(withTransformation) {
 			applyTransformations(elt);
+		}
 	}
-
 
 
 	@Override

@@ -12,13 +12,14 @@ package net.sf.latexdraw.models.impl;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.Position;
 
 /**
@@ -34,15 +35,17 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	protected final List<IPoint> secondCtrlPts;
 
 
-	/**
-	 * Creates the shape.
-	 */
-	LAbstractCtrlPointShape() {
-		super();
-		firstCtrlPts = new ArrayList<>();
-		secondCtrlPts = new ArrayList<>();
+	LAbstractCtrlPointShape(final List<IPoint> pts, final List<IPoint> ctrlPts) {
+		super(pts);
+		firstCtrlPts = Collections.unmodifiableList(new ArrayList<>(ctrlPts));
+		secondCtrlPts = Collections.unmodifiableList(pts.stream().map(pt -> ShapeFactory.INST.createPoint()).collect(Collectors.toList()));
+		updateSecondControlPoints();
 	}
 
+	static List<IPoint> computeDefaultFirstCtrlPoints(final List<IPoint> pts) {
+		return pts == null ? Collections.emptyList() :
+		pts.stream().map(pt -> ShapeFactory.INST.createPoint(pt.getX(), pt.getY() + DEFAULT_POSITION_CTRL)).collect(Collectors.toList());
+	}
 
 	@Override
 	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
@@ -240,60 +243,6 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 			firstCtrlPts.forEach(pt -> pt.setPoint(pt.rotatePoint(gc, diff)));
 			updateSecondControlPoints();
 		}
-	}
-
-
-	@Override
-	public boolean removePoint(final IPoint pt) {
-		return removePoint(points.indexOf(pt)) != null;
-	}
-
-
-	@Override
-	public IPoint removePoint(final int position) {
-		final IPoint deleted = super.removePoint(position);
-
-		if(deleted != null) {
-			firstCtrlPts.remove(position == -1 ? firstCtrlPts.size() - 1 : position);
-			secondCtrlPts.remove(position == -1 ? secondCtrlPts.size() - 1 : position);
-		}
-
-		return deleted;
-	}
-
-
-	@Override
-	public void addPoint(final IPoint pt, final int position) {
-		// Adding the control points.
-		if(MathUtils.INST.isValidPt(pt) && position >= -1 && position < points.size()+1) {
-			final IPoint ctrlPt = ShapeFactory.INST.createPoint(pt.getX(), pt.getY() + DEFAULT_POSITION_CTRL);
-			if(position == -1) {
-				firstCtrlPts.add(ctrlPt);
-				secondCtrlPts.add(ctrlPt.centralSymmetry(pt));
-			}else {
-				firstCtrlPts.add(position, ctrlPt);
-				secondCtrlPts.add(position, ctrlPt.centralSymmetry(pt));
-			}
-
-			super.addPoint(pt, position);
-		}
-	}
-
-
-	@Override
-	protected void copyPoints(final IShape sh) {
-		if(sh instanceof IControlPointShape) {
-			final IControlPointShape cpSh = (IControlPointShape) sh;
-			List<IPoint> pts = cpSh.getFirstCtrlPts();
-
-			firstCtrlPts.clear();
-			pts.forEach(pt -> firstCtrlPts.add(ShapeFactory.INST.createPoint(pt)));
-			pts = cpSh.getSecondCtrlPts();
-			secondCtrlPts.clear();
-			pts.forEach(pt -> secondCtrlPts.add(ShapeFactory.INST.createPoint(pt)));
-		}
-
-		super.copyPoints(sh);
 	}
 
 

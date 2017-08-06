@@ -11,16 +11,15 @@
 package net.sf.latexdraw.models.impl;
 
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
@@ -118,7 +117,7 @@ abstract class LShape implements ISingleShape {
 	protected final  ObjectProperty<BorderPos> bordersPosition;
 
 	/** The points of the shape. */
-	protected final ObservableList<IPoint> points;
+	protected final List<IPoint> points;
 
 	/** Defined if the shape has been modified. */
 	protected boolean modified;
@@ -155,7 +154,7 @@ abstract class LShape implements ISingleShape {
 		gradColEnd = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_GRADIENT_END_COLOR);
 		gradMidPt = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_GRADIENT_MID_POINT);
 		showPts = false;
-		points = FXCollections.observableArrayList();
+		points = new ArrayList<>();
 	}
 
 	@Override
@@ -193,19 +192,6 @@ abstract class LShape implements ISingleShape {
 		setGradColEnd(s.getGradColEnd());
 		setGradMidPt(s.getGradMidPt());
 		setShowPts(s.isShowPts());
-
-		copyPoints(s);
-	}
-
-	protected void copyPoints(final IShape sh) {
-		if(sh == null || !getClass().isInstance(sh)) return;
-		if(sh.getNbPoints() == points.size()) {
-			for(int i = 0, size = points.size(); i < size; i++) {
-				getPtAt(i).setPoint(sh.getPtAt(i));
-			}
-		}else {
-			points.setAll(sh.getPoints().stream().map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList()));
-		}
 	}
 
 	@Override
@@ -355,8 +341,8 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public ObservableList<IPoint> getPoints() {
-		return points;
+	public List<IPoint> getPoints() {
+		return Collections.unmodifiableList(points);
 	}
 
 	@Override

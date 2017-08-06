@@ -382,7 +382,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @return The Researched element.
 	 * @since 2.0.0
 	 */
-	protected SVGElement getLaTeXDrawElement(final SVGGElement elt, final String type) {
+	protected static SVGElement getLaTeXDrawElement(final SVGGElement elt, final String type) {
 		if(elt==null)
 			return null;
 

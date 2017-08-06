@@ -1,5 +1,6 @@
 package net.sf.latexdraw.view.jfx;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
@@ -14,19 +15,16 @@ public class TestViewPolygon extends TestViewPolyPoint<ViewPolygon, IPolygon> {
 
 	@Override
 	protected IPolygon createModel() {
-		final IPolygon sh = ShapeFactory.INST.createPolygon();
-
-		sh.addPoint(ShapeFactory.INST.createPoint(9, 23));
-		sh.addPoint(ShapeFactory.INST.createPoint(21, 11));
-		sh.addPoint(ShapeFactory.INST.createPoint(45, 3));
-		sh.addPoint(ShapeFactory.INST.createPoint(87, 125));
-		sh.addPoint(ShapeFactory.INST.createPoint(187, 25));
-		sh.addPoint(ShapeFactory.INST.createPoint(287, 425));
-		sh.addPoint(ShapeFactory.INST.createPoint(387, 325));
-		sh.addPoint(ShapeFactory.INST.createPoint(19, 233));
-		sh.addPoint(ShapeFactory.INST.createPoint(121, 114));
-		sh.addPoint(ShapeFactory.INST.createPoint(445, 33));
-
-		return sh;
+		return ShapeFactory.INST.createPolygon(Arrays.asList(
+			ShapeFactory.INST.createPoint(9, 23),
+			ShapeFactory.INST.createPoint(21, 11),
+			ShapeFactory.INST.createPoint(45, 3),
+			ShapeFactory.INST.createPoint(87, 125),
+			ShapeFactory.INST.createPoint(187, 25),
+			ShapeFactory.INST.createPoint(287, 425),
+			ShapeFactory.INST.createPoint(387, 325),
+			ShapeFactory.INST.createPoint(19, 233),
+			ShapeFactory.INST.createPoint(121, 114),
+			ShapeFactory.INST.createPoint(445, 33)));
 	}
 }

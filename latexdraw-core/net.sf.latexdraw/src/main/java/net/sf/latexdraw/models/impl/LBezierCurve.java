@@ -27,23 +27,20 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArr
 	private final List<IArrow> arrows;
 	private boolean isClosed;
 
-	LBezierCurve(final boolean closed) {
-		super();
+	/**
+	 * Creates a bezier curve with a set of points.
+	 * @param pts The list of points.
+	 */
+	LBezierCurve(final List<IPoint> pts, final boolean closed) {
+		this(pts, computeDefaultFirstCtrlPoints(pts), closed);
+	}
+
+	LBezierCurve(final List<IPoint> pts, final List<IPoint> ptsCtrl, final boolean closed) {
+		super(pts, ptsCtrl);
 		arrows = new ArrayList<>();
 		arrows.add(ShapeFactory.INST.createArrow(this));
 		arrows.add(ShapeFactory.INST.createArrow(this));
 		isClosed = closed;
-	}
-
-	/**
-	 * Creates a bezier curve with two points.
-	 * @param point The first point of the curve.
-	 * @param point2 The second point of the curve.
-	 */
-	LBezierCurve(final IPoint point, final IPoint point2, final boolean closed) {
-		this(closed);
-		addPoint(point);
-		addPoint(point2);
 	}
 
 	@Override
@@ -93,6 +90,13 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArr
 		if(sh instanceof IBezierCurve) {
 			setIsClosed(((IBezierCurve) sh).isClosed());
 		}
+	}
+
+	@Override
+	public IBezierCurve duplicate() {
+		final IBezierCurve dup = ShapeFactory.INST.createBezierCurve(points, firstCtrlPts);
+		dup.copy(this);
+		return dup;
 	}
 
 	@Override

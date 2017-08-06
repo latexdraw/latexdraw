@@ -1,5 +1,6 @@
 package net.sf.latexdraw.models.interfaces;
 
+import java.util.Collections;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
@@ -26,8 +27,8 @@ public class TestIFreehand implements HelperTest {
 
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.INST.createFreeHand();
-		shape2 = ShapeFactory.INST.createFreeHand();
+		shape = ShapeFactory.INST.createFreeHand(Collections.emptyList());
+		shape2 = ShapeFactory.INST.createFreeHand(Collections.emptyList());
 	}
 
 	@Theory

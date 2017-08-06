@@ -10,17 +10,29 @@
  */
 package net.sf.latexdraw.view.svg;
 
+import java.awt.geom.Point2D;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.parsers.svg.AbstractPointsElement;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.parsers.svg.SVGLineElement;
 import net.sf.latexdraw.parsers.svg.SVGPathElement;
 import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
@@ -28,7 +40,7 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * A SVG generator for a polygon.
  * @author Arnaud BLOUIN
  */
-class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
+class LPolygonSVGGenerator extends LShapeSVGGenerator<IPolygon> {
 	/**
 	 * Creates a generator for IPolygon.
 	 * @param polygon The source polygon used to generate the SVG element.
@@ -41,16 +53,14 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	/**
 	 * Creates a latexdraw shape from the given SVG element.
 	 * @param elt The source SVG element.
-	 * @throws IllegalArgumentException If the given SVG element is not valid.
+	 * @throws IllegalArgumentException If the given SVG element is null.
 	 * @since 3.0
 	 */
 	protected LPolygonSVGGenerator(final SVGPathElement elt) {
-		super(ShapeFactory.INST.createPolygon());
-
-		if(elt==null)
-			throw new IllegalArgumentException();
-
-		initModifiablePointsShape(elt);
+		super(ShapeFactory.INST.createPolygon(initModifiablePointsShape(elt)));
+		if(elt == null) throw new IllegalArgumentException();
+		setSVGParameters(elt);
+		applyTransformations(elt);
 	}
 
 
@@ -61,9 +71,8 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @since 2.0.0
 	 */
 	protected LPolygonSVGGenerator(final SVGPolygonElement elt) {
-		this(ShapeFactory.INST.createPolygon());
-
-		setSVGModifiablePointsParameters(elt);
+		this(ShapeFactory.INST.createPolygon(getPointsFromSVGElement(elt)));
+		setSVGParameters(elt);
 		applyTransformations(elt);
 	}
 
@@ -74,23 +83,17 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @since 2.0.0
 	 */
 	protected LPolygonSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.INST.createPolygon());
+		this(ShapeFactory.INST.createPolygon(getPointsFromSVGElement(getLaTeXDrawElement(elt, null))));
 
-		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
-
-		if(elt==null || !(elt2 instanceof SVGPolygonElement))
-			throw new IllegalArgumentException();
-
-		final SVGPolygonElement main = (SVGPolygonElement)elt2;
 		setSVGLatexdrawParameters(elt);
-		setSVGModifiablePointsParameters(main);
+		setSVGParameters(getLaTeXDrawElement(elt, null));
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 
-		if(withTransformation)
+		if(withTransformation) {
 			applyTransformations(elt);
+		}
 	}
-
 
 
 	@Override
@@ -138,5 +141,50 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
         }
 
         return root;
+	}
+
+	/**
+	 * Returns a set of points from an SVG element.
+	 */
+	static List<IPoint> getPointsFromSVGElement(final SVGElement elt) {
+		if(elt instanceof SVGLineElement) {
+			final SVGLineElement lineElt = (SVGLineElement)elt;
+			return Arrays.asList(
+				ShapeFactory.INST.createPoint(lineElt.getX1(), lineElt.getY1()),
+				ShapeFactory.INST.createPoint(lineElt.getX2(), lineElt.getY2()));
+		}
+
+		if(elt instanceof AbstractPointsElement) {
+			final List<Point2D> ptsPol = ((AbstractPointsElement) elt).getPoints2D();
+			if(ptsPol == null) return null;
+			return ptsPol.stream().map(pt -> ShapeFactory.INST.createPoint(pt.getX(), pt.getY())).collect(Collectors.toList());
+		}
+
+		return Collections.emptyList();
+	}
+
+
+	/**
+	 * Sets the points of the modifiable points shape using the given SVG element.
+	 */
+	static List<IPoint> initModifiablePointsShape(final SVGPathElement elt) {
+		if(elt == null) return Collections.emptyList();
+
+		final SVGPathSegList segs = elt.getSegList();
+		final int size = segs.get(segs.size() - 1) instanceof SVGPathSegClosePath ? segs.size() - 1 : segs.size();
+		Point2D pt = new Point2D.Double(); // Creating a point to support when the first path element is relative.
+		final List<IPoint> pts = new ArrayList<>();
+
+		for(int i = 0; i < size; i++) {
+			final SVGPathSeg seg = segs.get(i);
+
+			if(!(seg instanceof SVGPathSegLineto))
+				throw new IllegalArgumentException("The given SVG path element is not a polygon."); //$NON-NLS-1$
+
+			pt = ((SVGPathSegLineto) seg).getPoint(pt);
+			pts.add(ShapeFactory.INST.createPoint(pt.getX(), pt.getY()));
+		}
+
+		return pts;
 	}
 }

@@ -12,6 +12,7 @@ package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.geometry.Point3D;
@@ -24,11 +25,14 @@ import net.sf.latexdraw.actions.shape.InsertPicture;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -82,9 +86,9 @@ public class Pencil extends CanvasInstrument {
 			groupParams.addShape(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
 			groupParams.addShape(ShapeFactory.INST.createText());
 			groupParams.addShape(ShapeFactory.INST.createCircleArc());
-			groupParams.addShape(ShapeFactory.INST.createPolyline());
-			groupParams.addShape(ShapeFactory.INST.createBezierCurve());
-			groupParams.addShape(ShapeFactory.INST.createFreeHand());
+			groupParams.addShape(ShapeFactory.INST.createPolyline(Collections.emptyList()));
+			groupParams.addShape(ShapeFactory.INST.createBezierCurve(Collections.emptyList()));
+			groupParams.addShape(ShapeFactory.INST.createFreeHand(Collections.emptyList()));
 			groupParams.addShape(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 10, "x", false));
 		}
 		return groupParams;
@@ -129,12 +133,6 @@ public class Pencil extends CanvasInstrument {
 	 * @since 3.0
 	 */
 	IShape setShapeParameters(final IShape shape) {
-		if(shape instanceof IModifiablePointsShape && !(shape instanceof IFreehand)) {
-			final IModifiablePointsShape mod = (IModifiablePointsShape) shape;
-			mod.addPoint(ShapeFactory.INST.createPoint());
-			mod.addPoint(ShapeFactory.INST.createPoint());
-		}
-
 		shape.copy(getGroupParams());
 		shape.setModified(true);
 		return shape;
@@ -177,6 +175,18 @@ public class Pencil extends CanvasInstrument {
 				Platform.runLater(() -> instrument.canvas.requestFocus());
 			});
 		}
+
+		void replaceShape(final IShape newSh) {
+			if(tmpShape != null) {
+				tmpShape.flush();
+				tmpShape = null;
+			}
+			ViewFactory.INSTANCE.createView(newSh).ifPresent(v -> {
+				tmpShape = v;
+				action.setShape(newSh);
+				instrument.canvas.setTempView(tmpShape);
+			});
+		}
 	}
 
 
@@ -197,7 +207,7 @@ public class Pencil extends CanvasInstrument {
 					sq.setPosition(pt.getX() - 1d, pt.getY() - 1d);
 					sq.setWidth(2d);
 				}else if(sh instanceof IFreehand) {
-					((IFreehand) sh).addPoint(ShapeFactory.INST.createPoint(pt.getX(), pt.getY()));
+					((IFreehand) sh).setPoint(pt.getX(), pt.getY(), 0);
 				}else {
 					sh.translate(pt.getX(), pt.getY());
 				}
@@ -216,11 +226,10 @@ public class Pencil extends CanvasInstrument {
 					sh.setModified(true);
 					action.getDrawing().ifPresent(drawing -> drawing.setModified(true));
 				}else if(sh instanceof IFreehand) {
-					final IFreehand fh = (IFreehand) sh;
-					final IPoint last = fh.getPtAt(-1);
+					final IPoint last = sh.getPtAt(-1);
 					if(!MathUtils.INST.equalsDouble(last.getX(), endPt.getX(), 0.0001) &&
 						!MathUtils.INST.equalsDouble(last.getY(), endPt.getY(), 0.0001)) {
-						fh.addPoint(endPt);
+						replaceShape(ShapeFactory.INST.createFreeHandFrom((IFreehand) sh, endPt));
 					}
 				}else if(sh instanceof IRectangularShape) {
 					updateShapeFromDiag((IRectangularShape) sh, startPt, endPt);
@@ -318,12 +327,18 @@ public class Pencil extends CanvasInstrument {
 			action.getShape().ifPresent(sh -> {
 				final List<Point3D> pts = interaction.getPoints();
 				final IPoint currPoint = instrument.getAdaptedPoint(interaction.getCurrentPosition());
-				final IModifiablePointsShape shape = (IModifiablePointsShape) sh;
 
-				if(shape.getNbPoints() == pts.size() && !interaction.isLastPointFinalPoint()) {
-					shape.addPoint(ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY()), -1);
+				if(sh.getNbPoints() == pts.size() && !interaction.isLastPointFinalPoint()) {
+					final IPoint point = ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY());
+					if(sh instanceof IPolyline) {
+						replaceShape(ShapeFactory.INST.createPolylineFrom((IPolyline) sh, point));
+					}else if(sh instanceof IPolygon) {
+						replaceShape(ShapeFactory.INST.createPolygonFrom((IPolygon) sh, point));
+					}else if(sh instanceof IBezierCurve) {
+						replaceShape(ShapeFactory.INST.createBezierCurveFrom((IBezierCurve) sh, point));
+					}
 				}else {
-					shape.setPoint(currPoint.getX(), currPoint.getY(), -1);
+					((IModifiablePointsShape) sh).setPoint(currPoint.getX(), currPoint.getY(), -1);
 				}
 
 				// Curves need to be balanced.
@@ -331,7 +346,7 @@ public class Pencil extends CanvasInstrument {
 					((IControlPointShape) sh).balance();
 				}
 
-				shape.setModified(true);
+				sh.setModified(true);
 				action.getDrawing().ifPresent(dr -> dr.setModified(true));
 			});
 		}
@@ -343,7 +358,7 @@ public class Pencil extends CanvasInstrument {
 				if(shape instanceof IModifiablePointsShape) {
 					final IModifiablePointsShape modShape = (IModifiablePointsShape) shape;
 					final IPoint pt = instrument.getAdaptedPoint(interaction.getPoints().get(0));
-					modShape.setPoint(pt, 0);
+					modShape.setPoint(pt.getX(), pt.getY(), 0);
 					modShape.setPoint(pt.getX() + 1d, pt.getY() + 1d, 1);
 				}
 			});

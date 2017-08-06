@@ -11,6 +11,9 @@
 
 package net.sf.latexdraw.parsers.pst.parser
 
+import java.util
+import java.util.Collections
+
 import net.sf.latexdraw.models.ShapeFactory
 import net.sf.latexdraw.models.interfaces.shape.{FreeHandStyle, IFreehand, IShape}
 
@@ -217,7 +220,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	 */
 	def parseClosepath(ctx : PSTContext) : Parser[List[IShape]] = "\\closepath" ^^ { _ =>
 		if(ctx.isPsCustom) {
-			val fh = ShapeFactory.INST.createFreeHand()
+			val fh = ShapeFactory.INST.createFreeHand(Collections.emptyList())
 			fh.setOpen(false)
 			checkTextParsed(ctx) ::: List(fh)
 		}
@@ -256,9 +259,8 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 
 
 	private def createFreeHand(isLine : Boolean, ctx : PSTContext, pt : PointUnit) : IFreehand = {
-		val freeHand = ShapeFactory.INST.createFreeHand()
-		freeHand.addPoint(ShapeFactory.INST.createPoint(ctx.psCustomLatestPt))
-		freeHand.addPoint(transformPointTo2DScene(pt, ctx))
+		val freeHand = ShapeFactory.INST.createFreeHand(
+			util.Arrays.asList(ShapeFactory.INST.createPoint(ctx.psCustomLatestPt), transformPointTo2DScene(pt, ctx)))
 
 		if(isLine)
 			freeHand.setType(FreeHandStyle.LINES)

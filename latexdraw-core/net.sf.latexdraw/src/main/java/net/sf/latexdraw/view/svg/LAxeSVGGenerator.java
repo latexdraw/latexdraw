@@ -11,6 +11,7 @@
 package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Point2D;
+import java.util.Arrays;
 import java.util.List;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -188,13 +189,13 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 			final IArrow arr1 = shape.getArrowAt(3);
 			final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0.;
 			final double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0.;
-			final IPolyline xLine = ShapeFactory.INST.createPolyline();
-			final IPolyline yLine = ShapeFactory.INST.createPolyline();
+			final IPolyline xLine = ShapeFactory.INST.createPolyline(
+				Arrays.asList(ShapeFactory.INST.createPoint(posX+shape.getGridStartX()*IShape.PPC + arr0Reduction, posY),
+				ShapeFactory.INST.createPoint(posX+shape.getGridEndX()*IShape.PPC - arr1Reduction, posY)));
+			final IPolyline yLine = ShapeFactory.INST.createPolyline(
+				Arrays.asList(ShapeFactory.INST.createPoint(posX, posY-shape.getGridStartY()*IShape.PPC - arr0Reduction),
+				ShapeFactory.INST.createPoint(posX, posY-shape.getGridEndY()*IShape.PPC + arr1Reduction)));
 
-			xLine.addPoint(ShapeFactory.INST.createPoint(posX+shape.getGridStartX()*IShape.PPC + arr0Reduction, posY));
-			xLine.addPoint(ShapeFactory.INST.createPoint(posX+shape.getGridEndX()*IShape.PPC - arr1Reduction, posY));
-			yLine.addPoint(ShapeFactory.INST.createPoint(posX, posY-shape.getGridStartY()*IShape.PPC - arr0Reduction));
-			yLine.addPoint(ShapeFactory.INST.createPoint(posX, posY-shape.getGridEndY()*IShape.PPC + arr1Reduction));
 
 			xLine.getArrowAt(0).copy(arr0);
 			xLine.getArrowAt(1).copy(arr1);

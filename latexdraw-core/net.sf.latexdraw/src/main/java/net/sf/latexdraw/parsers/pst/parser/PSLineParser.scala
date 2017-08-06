@@ -10,9 +10,11 @@
  */
 package net.sf.latexdraw.parsers.pst.parser
 
+
 import net.sf.latexdraw.models.ShapeFactory
 import net.sf.latexdraw.models.interfaces.shape._
 
+import scala.collection.JavaConverters
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -54,11 +56,9 @@ trait PSLineParser extends PSTAbstractParser
 	 * Creates and initialises a line.
 	 */
 	private def createLine(hasStar : Boolean, pts : ListBuffer[IPoint], arrows : Option[String], ctx : PSTContext, qObject:Boolean) : IPolyline = {
-		val line = ShapeFactory.INST.createPolyline()
-		pts.foreach{pt => line.addPoint(pt)}
+		val line = ShapeFactory.INST.createPolyline(JavaConverters.bufferAsJavaList(pts))
 
 		setShapeParameters(line, ctx)
-
 		setArrows(line, arrows, false, ctx)
 
 		if(qObject) {

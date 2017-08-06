@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.models.impl;
 
+import java.util.List;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
 
@@ -19,23 +21,18 @@ import net.sf.latexdraw.models.interfaces.shape.IPolygon;
  */
 class LPolygon extends LModifiablePointsShape implements IPolygon {
 	/**
-	 * Creates a model with no point.
+	 * Creates a model with a set of points.
+	 * @throws IllegalArgumentException If one of the points or the list is null.
 	 */
-	LPolygon() {
-		super();
+	LPolygon(final List<IPoint> pts) {
+		super(pts);
 	}
 
-	/**
-	 * Creates a model with two points.
-	 * @throws IllegalArgumentException If one of the two points is null.
-	 */
-	LPolygon(final IPoint point, final IPoint point2) {
-		this();
-
-		if(point == null || point2 == null) throw new IllegalArgumentException();
-
-		addPoint(point);
-		addPoint(point2);
+	@Override
+	public IPolygon duplicate() {
+		final IPolygon dup = ShapeFactory.INST.createPolygon(points);
+		dup.copy(this);
+		return dup;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.view.pst;
 
+import java.util.Collections;
 import java.util.Optional;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
@@ -82,13 +83,13 @@ public class TestPSTViewFactory {
 
 	@Test
 	public void testCreatePolygonViewPST() {
-		Optional<PSTShapeView<IPolygon>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolygon());
+		Optional<PSTShapeView<IPolygon>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolygon(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreatePolylineViewPST() {
-		Optional<PSTShapeView<IPolyline>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolyline());
+		Optional<PSTShapeView<IPolyline>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolyline(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 
@@ -106,7 +107,7 @@ public class TestPSTViewFactory {
 
 	@Test
 	public void testCreateFreehandViewPST() {
-		Optional<PSTShapeView<IFreehand>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createFreeHand());
+		Optional<PSTShapeView<IFreehand>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createFreeHand(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 
@@ -124,7 +125,7 @@ public class TestPSTViewFactory {
 
 	@Test
 	public void testCreateBezierCurveViewPST() {
-		Optional<PSTShapeView<IBezierCurve>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createBezierCurve());
+		Optional<PSTShapeView<IBezierCurve>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createBezierCurve(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 }

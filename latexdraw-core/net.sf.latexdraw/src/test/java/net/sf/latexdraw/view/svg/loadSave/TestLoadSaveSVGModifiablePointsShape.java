@@ -1,6 +1,5 @@
 package net.sf.latexdraw.view.svg.loadSave;
 
-import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 
 import static org.junit.Assert.assertEquals;
@@ -19,9 +18,5 @@ public abstract class TestLoadSaveSVGModifiablePointsShape<T extends IModifiable
 
 	@Override
 	protected void setDefaultDimensions() {
-		shape.addPoint(ShapeFactory.INST.createPoint(10, 20));
-		shape.addPoint(ShapeFactory.INST.createPoint(30, 50));
-		shape.addPoint(ShapeFactory.INST.createPoint(60, 78));
-		shape.addPoint(ShapeFactory.INST.createPoint(-60, -10));
 	}
 }

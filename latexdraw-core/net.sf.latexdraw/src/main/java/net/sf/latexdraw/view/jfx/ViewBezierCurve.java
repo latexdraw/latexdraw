@@ -13,7 +13,6 @@ package net.sf.latexdraw.view.jfx;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.shape.CubicCurveTo;
@@ -49,16 +48,6 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 
 		IntStream.range(2, sh.getNbPoints()).forEach(index ->
 			addCurveTo(sh.getPtAt(index), model.getSecondCtrlPtAt(index-1), model.getFirstCtrlPtAt(index)));
-
-		model.getPoints().addListener((ListChangeListener.Change<? extends IPoint> c) -> {
-			while(c.next()) {
-				if(c.wasAdded()) {
-					c.getAddedSubList().forEach(pt -> {
-						addCurveTo(pt, model.getSecondCtrlPtAt(model.getNbPoints()-2), model.getFirstCtrlPtAt(model.getNbPoints()-1));
-					});
-				}
-			}
-		});
 	}
 
 	private void addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {
@@ -91,7 +80,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	}
 
 	//	@Override
-	//	protected void setPath(final boolean close) {
+	//	protected void pathToBezierCurve(final boolean close) {
 	//		if(shape.getNbPoints()<2) return ;
 	//
 	//		final List<IPoint> pts 		= shape.getPoints();

@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -622,16 +623,16 @@ public class TestModifyShapeProperty extends TestUndoableAction<ModifyShapePrope
 		final ICircle circle = ShapeFactory.INST.createCircle();
 		final IEllipse ell = ShapeFactory.INST.createEllipse();
 		final IText txt = ShapeFactory.INST.createText();
-		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve();
-		final IPolyline pl = ShapeFactory.INST.createPolyline();
-		final IPolygon pg = ShapeFactory.INST.createPolygon();
+		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve(Collections.emptyList());
+		final IPolyline pl = ShapeFactory.INST.createPolyline(Collections.emptyList());
+		final IPolygon pg = ShapeFactory.INST.createPolygon(Collections.emptyList());
 		final ITriangle tr = ShapeFactory.INST.createTriangle();
 		final IRhombus rh = ShapeFactory.INST.createRhombus();
 		final IRectangle r1 = ShapeFactory.INST.createRectangle();
 		final IPlot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0d, 1d, "x", false);
 		final ICircleArc carc = ShapeFactory.INST.createCircleArc();
 		final ISquare sq = ShapeFactory.INST.createSquare();
-		final IFreehand fh = ShapeFactory.INST.createFreeHand();
+		final IFreehand fh = ShapeFactory.INST.createFreeHand(Collections.emptyList());
 		r1.setLineStyle(LineStyle.DASHED);
 		r1.setBordersPosition(BorderPos.INTO);
 		r1.setFillingStyle(FillingStyle.PLAIN);

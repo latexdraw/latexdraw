@@ -10,7 +10,10 @@
  */
 package net.sf.latexdraw.models.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import net.sf.latexdraw.models.MathUtils;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
@@ -19,13 +22,12 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  * @author Arnaud Blouin
  */
 abstract class LModifiablePointsShape extends LShape implements IModifiablePointsShape {
-	/**
-	 * Creates the shape.
-	 */
-	LModifiablePointsShape() {
+	protected LModifiablePointsShape(final List<IPoint> pts) {
 		super();
+		if(pts == null || pts.stream().anyMatch(pt -> !MathUtils.INST.isValidPt(pt)))
+			throw new IllegalArgumentException();
+		points.addAll(pts.stream().map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList()));
 	}
-
 
 	@Override
 	public void rotate(final IPoint point, final double angle) {
@@ -51,12 +53,6 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 
 	@Override
-	public boolean setPoint(final IPoint p, final int position) {
-		return p != null && setPoint(p.getX(), p.getY(), position);
-	}
-
-
-	@Override
 	public boolean setPoint(final double x, final double y, final int position) {
 		if(!MathUtils.INST.isValidPt(x, y) || position < -1 || position > points.size() || points.isEmpty()) return false;
 
@@ -64,49 +60,5 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 		p.setPoint(x, y);
 
 		return true;
-	}
-
-
-	@Override
-	public boolean removePoint(final IPoint pt) {
-		if(pt == null) return false;
-		final int ind = points.indexOf(pt);
-		return ind != -1 && removePoint(ind) != null;
-	}
-
-
-	@Override
-	public IPoint removePoint(final int position) {
-		if(!points.isEmpty() && position >= -1 && position < points.size()) {
-			return points.remove(position == -1 ? points.size() - 1 : position);
-		}
-		return null;
-	}
-
-
-	@Override
-	public IPoint replacePoint(final IPoint pt, final int position) {
-		if(!MathUtils.INST.isValidPt(pt) || points.contains(pt) || position < -1 || position > points.size()) return null;
-
-		final IPoint pRemoved = points.remove(position == -1 ? points.size() - 1 : position);
-
-		if(position == -1 || points.isEmpty()) points.add(pt);
-		else points.add(position, pt);
-
-		return pRemoved;
-	}
-
-
-	@Override
-	public void addPoint(final IPoint pt) {
-		addPoint(pt, -1);
-	}
-
-
-	@Override
-	public void addPoint(final IPoint pt, final int position) {
-		if(MathUtils.INST.isValidPt(pt) && position >= -1 && position <= points.size())
-			if(position == -1 || position == points.size()) points.add(pt);
-			else points.add(position, pt);
 	}
 }
