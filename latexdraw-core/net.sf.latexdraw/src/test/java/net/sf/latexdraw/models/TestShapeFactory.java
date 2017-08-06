@@ -1,5 +1,7 @@
 package net.sf.latexdraw.models;
 
+import java.util.Collections;
+import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -19,10 +21,10 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestShapeFactory {
-	@SuppressWarnings("null")
+public class TestShapeFactory implements HelperTest {
 	@Test
 	public void testNewShape() {
 		assertTrue(ShapeFactory.INST.newShape(IRectangle.class).isPresent());
@@ -63,5 +65,28 @@ public class TestShapeFactory {
 		assertTrue(ShapeFactory.INST.newShape(IGroup.class).isPresent());
 		assertTrue(ShapeFactory.INST.newShape(IText.class).isPresent());
 		assertTrue(ShapeFactory.INST.newShape(ISquare.class).isPresent());
+	}
+
+	@Test
+	public void testCreateBezierCurveFromSameNbPoints() {
+		IBezierCurve bc = ShapeFactory.INST.createBezierCurve(Collections.singletonList(ShapeFactory.INST.createPoint()));
+		bc = ShapeFactory.INST.createBezierCurveFrom(bc, ShapeFactory.INST.createPoint(1d, 2d));
+		assertEquals(bc.getNbPoints(), bc.getFirstCtrlPts().size());
+	}
+
+	@Test
+	public void testCreateBezierCurveFromSameNewPoint() {
+		IBezierCurve bc = ShapeFactory.INST.createBezierCurve(Collections.singletonList(ShapeFactory.INST.createPoint()));
+		bc = ShapeFactory.INST.createBezierCurveFrom(bc, ShapeFactory.INST.createPoint(1d, 2d));
+		assertEqualsDouble(1d, bc.getPtAt(1).getX());
+		assertEqualsDouble(2d, bc.getPtAt(1).getY());
+	}
+
+	@Test
+	public void testCreateBezierCurveFromSameNewCtrlPoint() {
+		IBezierCurve bc = ShapeFactory.INST.createBezierCurve(Collections.singletonList(ShapeFactory.INST.createPoint()));
+		bc = ShapeFactory.INST.createBezierCurveFrom(bc, ShapeFactory.INST.createPoint(1d, 2d));
+		assertEqualsDouble(1d, bc.getFirstCtrlPtAt(1).getX());
+		assertEqualsDouble(2d + IBezierCurve.DEFAULT_POSITION_CTRL, bc.getFirstCtrlPtAt(1).getY());
 	}
 }

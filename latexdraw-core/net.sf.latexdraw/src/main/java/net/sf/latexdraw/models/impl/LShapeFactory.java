@@ -219,7 +219,7 @@ public class LShapeFactory implements IShapeFactory {
 		final List<IPoint> pts = new ArrayList<>(bc.getPoints());
 		final List<IPoint> ptsCtrl = new ArrayList<>(bc.getFirstCtrlPts());
 		pts.add(pointToAdd);
-		pts.add(createPoint(pointToAdd.getX(), pointToAdd.getY() + IBezierCurve.DEFAULT_POSITION_CTRL));
+		ptsCtrl.add(createPoint(pointToAdd.getX(), pointToAdd.getY() + IBezierCurve.DEFAULT_POSITION_CTRL));
 
 		final IBezierCurve copy = new LBezierCurve(pts, ptsCtrl, true);
 		copy.copy(bc);
