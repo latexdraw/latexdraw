@@ -38,9 +38,18 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 
 		getChildren().add(viewArrows);
 
-		// TODO: to optimise: the arrows may be re-computed four times instead of a single one (on a shape move for example).
+		final int nbPts = model.getNbPoints();
+
 		model.getPtAt(0).xProperty().addListener(updateArrow);
 		model.getPtAt(0).yProperty().addListener(updateArrow);
+		if(nbPts > 2) {
+			model.getPtAt(1).xProperty().addListener(updateArrow);
+			model.getPtAt(1).yProperty().addListener(updateArrow);
+		}
+		if(nbPts > 3) {
+			model.getPtAt(nbPts - 2).xProperty().addListener(updateArrow);
+			model.getPtAt(nbPts - 2).yProperty().addListener(updateArrow);
+		}
 		model.getPtAt(-1).xProperty().addListener(updateArrow);
 		model.getPtAt(-1).yProperty().addListener(updateArrow);
 		model.thicknessProperty().addListener(updateArrow);
@@ -103,10 +112,19 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 
 	@Override
 	public void flush() {
+		final int nbPts = model.getNbPoints();
 		model.getPtAt(0).xProperty().removeListener(updateArrow);
 		model.getPtAt(0).yProperty().removeListener(updateArrow);
 		model.getPtAt(-1).xProperty().removeListener(updateArrow);
 		model.getPtAt(-1).yProperty().removeListener(updateArrow);
+		if(nbPts > 2) {
+			model.getPtAt(1).xProperty().removeListener(updateArrow);
+			model.getPtAt(1).yProperty().removeListener(updateArrow);
+		}
+		if(nbPts > 3) {
+			model.getPtAt(nbPts - 2).xProperty().removeListener(updateArrow);
+			model.getPtAt(nbPts - 2).yProperty().removeListener(updateArrow);
+		}
 		super.flush();
 	}
 }
