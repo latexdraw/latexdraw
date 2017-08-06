@@ -63,7 +63,7 @@ import static java.lang.Math.toDegrees;
  */
 abstract class LShapeSVGGenerator<S extends IShape> {
 	/** The shape model use for the generation. */
-	protected S shape;
+	protected final S shape;
 
 	/** The beginning of the token used to declare a URL in an SVG document. */
 	protected static final String SVG_URL_TOKEN_BEGIN = "url(#"; //$NON-NLS-1$
