@@ -482,21 +482,18 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			root.appendChild(meta);
 
 			if(saveParameters) {
-				Platform.runLater(() -> {
 					// The parameters of the instruments are now saved.
-					instruments.forEach(ins -> {
-						ins.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-						updateProgress(getProgress() + incr, 100d);
-					});
-
-					canvas.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-					updateProgress(getProgress() + incr, 100d);
-
-					LaTeXDraw.getINSTANCE().save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-					LaTeXDraw.getINSTANCE().getMainStage().setTitle(getDocumentName());
+				instruments.forEach(ins -> {
+					ins.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
+					Platform.runLater(() -> updateProgress(getProgress() + incr, 100d));
 				});
-			}
 
+				canvas.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
+				Platform.runLater(() -> updateProgress(getProgress() + incr, 100d));
+
+				LaTeXDraw.getINSTANCE().save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
+				Platform.runLater(() -> LaTeXDraw.getINSTANCE().getMainStage().setTitle(getDocumentName()));
+			}
 			return doc.saveSVGDocument(path);
 		}
 
