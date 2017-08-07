@@ -11,6 +11,7 @@ import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.junit.experimental.theories.ParameterSignature;
 import org.junit.experimental.theories.ParameterSupplier;
 import org.junit.experimental.theories.ParametersSuppliedBy;
@@ -103,6 +104,14 @@ public class TestIControlPointShape implements HelperTest {
 
 		assertEquals(sh.getFirstCtrlPts(), dup.getFirstCtrlPts());
 		assertEquals(sh.getSecondCtrlPts(), dup.getSecondCtrlPts());
+	}
+
+	@Theory
+	public void testDuplicateDoNotShareCtrlPoints(@CtrlShapeData final IControlPointShape shape) {
+		final List<IPoint> ctrlPts = cloneList(shape.getFirstCtrlPts(), pt -> ShapeFactory.INST.createPoint(pt));
+		final IShape sh = shape.duplicate();
+		sh.translate(11d, 12d);
+		assertEquals(ctrlPts, shape.getFirstCtrlPts());
 	}
 
 	@Theory

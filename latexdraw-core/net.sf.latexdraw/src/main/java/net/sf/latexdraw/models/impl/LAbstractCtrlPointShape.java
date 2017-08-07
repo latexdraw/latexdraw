@@ -11,7 +11,6 @@
 package net.sf.latexdraw.models.impl;
 
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	LAbstractCtrlPointShape(final List<IPoint> pts, final List<IPoint> ctrlPts) {
 		super(pts);
-		firstCtrlPts = Collections.unmodifiableList(new ArrayList<>(ctrlPts));
+		firstCtrlPts = Collections.unmodifiableList(ctrlPts.stream().map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList()));
 		secondCtrlPts = Collections.unmodifiableList(pts.stream().map(pt -> ShapeFactory.INST.createPoint()).collect(Collectors.toList()));
 		updateSecondControlPoints();
 	}

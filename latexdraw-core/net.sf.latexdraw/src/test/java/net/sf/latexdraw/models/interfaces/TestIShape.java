@@ -1,9 +1,11 @@
 package net.sf.latexdraw.models.interfaces;
 
+import java.util.List;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.data.ShapeData;
 import net.sf.latexdraw.models.MathUtils;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -570,6 +572,14 @@ public class TestIShape implements HelperTest {
 		final IShape sh = shape.duplicate();
 		assertNotNull(sh);
 		assertEquals(sh.getClass(), shape.getClass());
+	}
+
+	@Theory
+	public void testDuplicateDoNotSharePoints(@ShapeData final IShape shape) {
+		final List<IPoint> pts = cloneList(shape.getPoints(), pt -> ShapeFactory.INST.createPoint(pt));
+		final IShape sh = shape.duplicate();
+		sh.translate(11d, 12d);
+		assertEquals(pts, shape.getPoints());
 	}
 
 	@Theory
