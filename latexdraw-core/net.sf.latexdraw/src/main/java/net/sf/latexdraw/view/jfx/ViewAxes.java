@@ -38,7 +38,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 	private final Path mainAxes;
 	private final Path pathTicks;
-	private final ViewArrowableTrait viewArrows;
+//	private final ViewArrowableTrait viewArrows;
 	private final ChangeListener<Object> labelUpdate;
 	private final ChangeListener<Object> labelTicksUpdate;
 	private final ChangeListener<Object> fullAxesUpdate;
@@ -59,11 +59,11 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 		mainAxes = new Path();
 		pathTicks = new Path();
-		viewArrows = new ViewArrowableTrait(model);
+//		viewArrows = new ViewArrowableTrait(this);
 
 		getChildren().add(mainAxes);
 		getChildren().add(pathTicks);
-		getChildren().add(viewArrows);
+//		getChildren().add(viewArrows);
 
 		model.labelsSizeProperty().addListener(labelUpdate);
 		model.gridEndXProperty().addListener(fullAxesUpdate);
@@ -285,7 +285,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 		final double gapY = MathUtils.INST.equalsDouble(distY, 0d) ? IShape.PPC : distY / incry * IShape.PPC;
 
 		if(arrows || axes) {
-			viewArrows.update(model.getAxesStyle().supportsArrows());
+//			viewArrows.update(model.getAxesStyle().supportsArrows());
 		}
 
 		if(axes) {

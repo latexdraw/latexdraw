@@ -10,24 +10,15 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import java.util.Arrays;
-import java.util.Optional;
-import javafx.beans.value.ChangeListener;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.ILine;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 
 /**
  * @author Arnaud Blouin
  */
 public class ViewPolyline extends ViewPolyPoint<IPolyline> {
-	protected final ViewArrowableTrait viewArrows = new ViewArrowableTrait(model);
+	protected final ViewArrowableTrait viewArrows = new ViewArrowableTrait(this);
 
-	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> update();
+//	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> update();
 
 	/**
 	 * Creates the view.
@@ -35,96 +26,53 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 	 */
 	ViewPolyline(final IPolyline sh) {
 		super(sh);
-
 		getChildren().add(viewArrows);
 
-		final int nbPts = model.getNbPoints();
-
-		model.getPtAt(0).xProperty().addListener(updateArrow);
-		model.getPtAt(0).yProperty().addListener(updateArrow);
-		if(nbPts > 2) {
-			model.getPtAt(1).xProperty().addListener(updateArrow);
-			model.getPtAt(1).yProperty().addListener(updateArrow);
-		}
-		if(nbPts > 3) {
-			model.getPtAt(nbPts - 2).xProperty().addListener(updateArrow);
-			model.getPtAt(nbPts - 2).yProperty().addListener(updateArrow);
-		}
-		model.getPtAt(-1).xProperty().addListener(updateArrow);
-		model.getPtAt(-1).yProperty().addListener(updateArrow);
-		model.thicknessProperty().addListener(updateArrow);
-		update();
+//		final int nbPts = model.getNbPoints();
+//
+//		model.getPtAt(0).xProperty().addListener(updateArrow);
+//		model.getPtAt(0).yProperty().addListener(updateArrow);
+//		if(nbPts > 2) {
+//			model.getPtAt(1).xProperty().addListener(updateArrow);
+//			model.getPtAt(1).yProperty().addListener(updateArrow);
+//		}
+//		if(nbPts > 3) {
+//			model.getPtAt(nbPts - 2).xProperty().addListener(updateArrow);
+//			model.getPtAt(nbPts - 2).yProperty().addListener(updateArrow);
+//		}
+//		model.getPtAt(-1).xProperty().addListener(updateArrow);
+//		model.getPtAt(-1).yProperty().addListener(updateArrow);
+//		model.thicknessProperty().addListener(updateArrow);
+		viewArrows.updateArr();
 	}
 
 
-	private void update() {
-		viewArrows.update(true);
-
-		if(viewArrows.arrows.stream().anyMatch(ar -> ar.arrow.hasStyle())) {
-			clipPath(border);
-		}else {
-			border.setClip(null);
-		}
-	}
-
-
-	private Optional<IPoint> getArrowReducedPoint(final IArrow arrow) {
-		final ILine l = arrow.getArrowLine();
-		if(l == null) return Optional.empty();
-		final IPoint[] points = l.findPoints(l.getX1(), l.getY1(), arrow.getArrowShapeLength());
-		if(points == null) return Optional.empty();
-		return Arrays.stream(points).reduce((p1, p2) -> p1.distance(l.getPoint2()) < p2.distance(l.getPoint2()) ? p1 : p2);
-	}
+//	private void update() {
+//		viewArrows.update(true);
+//
+//		if(viewArrows.arrows.stream().anyMatch(ar -> ar.arrow.hasStyle())) {
+//			clipPath(border);
+//		}else {
+//			border.setClip(null);
+//		}
+//	}
 
 
-	/**
-	 * If the shape has an arrow, the corresponding point must be move (in fact clipped) to the beginning of the arrow to avoid the
-	 * line to be visible behind the arrow. To do so, a new point (for each arrow) is computed and the view is clipped.
-	 * @param path The path to clip. Cannot be null.
-	 * @throws NullPointerException if the given path is null.
-	 */
-	private void clipPath(final Path path) {
-		final Path clip = ViewFactory.INSTANCE.clonePath(path);
-
-		if(!clip.getElements().isEmpty()) { // Defensive programming
-			final Optional<IPoint> pt1 = getArrowReducedPoint(viewArrows.arrows.get(0).arrow);
-			final Optional<IPoint> pt2 = getArrowReducedPoint(viewArrows.arrows.get(viewArrows.arrows.size() - 1).arrow);
-
-			if(pt1.isPresent() && clip.getElements().get(0) instanceof MoveTo) { // Defensive programming
-				// Changing the first point to the one at the beginning of the arrow.
-				final MoveTo moveTo = (MoveTo) clip.getElements().get(0);
-				moveTo.setX(pt1.get().getX());
-				moveTo.setY(pt1.get().getY());
-			}
-
-			if(pt2.isPresent() && clip.getElements().get(clip.getElements().size()-1) instanceof LineTo) {
-				final LineTo lineTo = (LineTo) clip.getElements().get(clip.getElements().size()-1);
-				lineTo.setX(pt2.get().getX());
-				lineTo.setY(pt2.get().getY());
-			}
-		}
-
-		clip.setStrokeWidth(path.getStrokeWidth());
-		clip.setStrokeLineCap(path.getStrokeLineCap());
-		path.setClip(clip);
-	}
-
-
-	@Override
-	public void flush() {
-		final int nbPts = model.getNbPoints();
-		model.getPtAt(0).xProperty().removeListener(updateArrow);
-		model.getPtAt(0).yProperty().removeListener(updateArrow);
-		model.getPtAt(-1).xProperty().removeListener(updateArrow);
-		model.getPtAt(-1).yProperty().removeListener(updateArrow);
-		if(nbPts > 2) {
-			model.getPtAt(1).xProperty().removeListener(updateArrow);
-			model.getPtAt(1).yProperty().removeListener(updateArrow);
-		}
-		if(nbPts > 3) {
-			model.getPtAt(nbPts - 2).xProperty().removeListener(updateArrow);
-			model.getPtAt(nbPts - 2).yProperty().removeListener(updateArrow);
-		}
-		super.flush();
-	}
+//	@Override
+//	public void flush() {
+//		final int nbPts = model.getNbPoints();
+//		model.getPtAt(0).xProperty().removeListener(updateArrow);
+//		model.getPtAt(0).yProperty().removeListener(updateArrow);
+//		model.getPtAt(-1).xProperty().removeListener(updateArrow);
+//		model.getPtAt(-1).yProperty().removeListener(updateArrow);
+//		if(nbPts > 2) {
+//			model.getPtAt(1).xProperty().removeListener(updateArrow);
+//			model.getPtAt(1).yProperty().removeListener(updateArrow);
+//		}
+//		if(nbPts > 3) {
+//			model.getPtAt(nbPts - 2).xProperty().removeListener(updateArrow);
+//			model.getPtAt(nbPts - 2).yProperty().removeListener(updateArrow);
+//		}
+//		super.flush();
+//	}
 }

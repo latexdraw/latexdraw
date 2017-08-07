@@ -26,6 +26,8 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  * @author Arnaud Blouin
  */
 public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
+	protected final ViewArrowableTrait viewArrows = new ViewArrowableTrait(this);
+
 	final MoveTo moveTo;
 	final List<CubicCurveTo> curvesTo;
 	final Group showPoint;
@@ -34,20 +36,23 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewBezierCurve(final  IBezierCurve sh) {
+	ViewBezierCurve(final IBezierCurve sh) {
 		super(sh);
 		ObservableList<PathElement> elts = border.getElements();
 		showPoint = new Group();
-		moveTo =  ViewFactory.INSTANCE.createMoveTo(0d, 0d);
+		moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
 		moveTo.xProperty().bind(sh.getPtAt(0).xProperty());
 		moveTo.yProperty().bind(sh.getPtAt(0).yProperty());
 		elts.add(moveTo);
 
 		curvesTo = new ArrayList<>();
-		addCurveTo(sh.getPtAt(1), model.getFirstCtrlPtAt(1), model.getFirstCtrlPtAt(1));
+		addCurveTo(sh.getPtAt(1), model.getFirstCtrlPtAt(0), model.getFirstCtrlPtAt(1));
 
-		IntStream.range(2, sh.getNbPoints()).forEach(index ->
-			addCurveTo(sh.getPtAt(index), model.getSecondCtrlPtAt(index-1), model.getFirstCtrlPtAt(index)));
+		IntStream.range(2, sh.getNbPoints()).forEach(index -> addCurveTo(sh.getPtAt(index), model.getSecondCtrlPtAt(index - 1),
+			model.getFirstCtrlPtAt(index)));
+
+		getChildren().add(viewArrows);
+		viewArrows.updateArr();
 	}
 
 	private void addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {
@@ -79,53 +84,6 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 		super.flush();
 	}
 
-	//	@Override
-	//	protected void pathToBezierCurve(final boolean close) {
-	//		if(shape.getNbPoints()<2) return ;
-	//
-	//		final List<IPoint> pts 		= shape.getPoints();
-	//		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
-	//		final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
-	//		IPoint ctrl1;
-	//		final int size;
-	//		final double[] coords = updatePoint4Arrows(pts.get(0).getX(), pts.get(0).getY(), shape.getArrowAt(0));
-	//		final double[] coords2;
-	//		if(pts.size()==2)
-	//			// In this case the first curve contains the first and last points that must be modified.
-	//			coords2 = updatePoint4Arrows(pts.get(1).getX(),pts.get(1).getY(), shape.getArrowAt(-1));
-	//		else coords2 = new double[]{pts.get(1).getX(),pts.get(1).getY()};
-	//
-	//		path.reset();
-	//		path.moveTo(coords[0], coords[1]);
-	//		path.curveTo(ctrlPts1.get(0).getX(), ctrlPts1.get(0).getY(),
-	//			ctrlPts1.get(1).getX(), ctrlPts1.get(1).getY(),
-	//			coords2[0], coords2[1]);
-	//
-	//		if(shape.isClosed())
-	//			size = pts.size();
-	//		else size = pts.size()-1;
-	//
-	//		for(int i=2; i<size; i++) {
-	//			ctrl1 = ctrlPts2.get(i-1);
-	//			path.curveTo(ctrl1.getX(), ctrl1.getY(),
-	//				ctrlPts1.get(i).getX(), ctrlPts1.get(i).getY(),
-	//				pts.get(i).getX(), pts.get(i).getY());
-	//		}
-	//
-	//		if(shape.isClosed()) {
-	//			final IPoint ctrl1b = ctrlPts1.get(0).centralSymmetry(pts.get(0));
-	//			final IPoint ctrl2b = ctrlPts1.get(ctrlPts1.size()-1).centralSymmetry(pts.get(pts.size()-1));
-	//			path.curveTo(ctrl2b.getX(), ctrl2b.getY(), ctrl1b.getX(), ctrl1b.getY(), pts.get(0).getX(), pts.get(0).getY());
-	//			path.closePath();
-	//		}else {
-	//			if(pts.size()>2) {
-	//				ctrl1 = ctrlPts2.get(size-1);
-	//				path.curveTo(ctrl1.getX(), ctrl1.getY(), ctrlPts1.get(size).getX(), ctrlPts1.get(size).getY(), pts.get(size).getX(),  pts.get(size).getY());
-	//			}
-	//		}
-	//	}
-
-//	@Override
 //	public void paintShowPointsDots(final Graphics2D g) {
 //		final boolean isClosed		= shape.isClosed();
 //		final IArrow arr1			= shape.getArrowAt(0);
@@ -211,28 +169,5 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 //		paintLine(line, pts.get(0), ctrlPts1.get(0), g);
 //		paintLine(line, ctrlPts1.get(0), ctrlPts1.get(1), g);
 //		paintLine(line, ctrlPts1.get(1), pts.get(1), g);
-//	}
-//
-//
-//	protected static double[] updatePoint4Arrows(final double x, final double y, final IArrow arr) {
-//		final double[] coords = {x, y};
-//
-//		if(arr.getArrowStyle().isReducingShape()) {
-//			final ILine line = arr.getArrowLine();
-//
-//			if(line!=null) {
-//				final IPoint[] ps = line.findPoints(line.getPoint1(), arr.getArrowShapeLength()/2.);
-//				if(ps!=null) {
-//					if(line.isInSegment(ps[0])) {
-//						coords[0] = ps[0].getX();
-//						coords[1] = ps[0].getY();
-//					}else {
-//						coords[0] = ps[1].getX();
-//						coords[1] = ps[1].getY();
-//					}
-//				}
-//			}
-//		}
-//		return coords;
 //	}
 }
