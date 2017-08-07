@@ -181,7 +181,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 				selectionBorder.setVisible(false);
 			}else {
 				final Rectangle2D rec = selection.stream().map(sh -> shapesToViewMap.get(sh)).filter(vi -> vi != null).map(vi -> {
-					Bounds b = vi.getBoundsInParent();
+					final Bounds b = vi.getBoundsInParent();
 					return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
 				}).reduce(Rectangle2D::createUnion).orElse(new Rectangle2D.Double());
 
@@ -231,12 +231,14 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 							}
 						}
 					}));
-				}else if(evt.wasRemoved()) {
-					evt.getRemoved().forEach(sh -> {
-						final ViewShape<?> toRemove = shapesToViewMap.remove(sh);
-						shapesPane.getChildren().remove(toRemove);
-						toRemove.flush();
-					});
+				}else {
+					if(evt.wasRemoved()) {
+						evt.getRemoved().forEach(sh -> {
+							final ViewShape<?> toRemove = shapesToViewMap.remove(sh);
+							shapesPane.getChildren().remove(toRemove);
+							toRemove.flush();
+						});
+					}
 				}
 			}
 		});
@@ -282,8 +284,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void onActionExecuted(final Action act) {
-		if(act instanceof ShapesAction || act instanceof DrawingAction || act instanceof IOAction || act instanceof ShapePropertyAction || act instanceof
-			ShapeAction || act instanceof Undo || act instanceof Redo || act instanceof MovePoint) {
+		if(act instanceof ShapesAction || act instanceof DrawingAction || act instanceof IOAction || act instanceof ShapePropertyAction ||
+			act instanceof ShapeAction || act instanceof Undo || act instanceof Redo || act instanceof MovePoint) {
 			update();
 		}
 	}
@@ -332,11 +334,9 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
 		if(document == null || root == null) return;
 
-		Element elt;
-
 		if(!generalPreferences) {
 			final String ns = nsURI == null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
-			elt = document.createElement(ns + LNamespace.XML_ZOOM);
+			final Element elt = document.createElement(ns + LNamespace.XML_ZOOM);
 			elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
 			root.appendChild(elt);
 		}
@@ -349,25 +349,17 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		if(meta == null) return;
 		// Getting the list of meta information tags.
 		final NodeList nl = meta.getChildNodes();
-		Node node;
-		int i;
-		final int size = nl.getLength();
 		final String uri = nsURI == null ? "" : nsURI; //$NON-NLS-1$
-		String name;
 
 		// For each meta information tag.
-		for(i = 0; i < size; i++) {
-			node = nl.item(i);
+		for(int i = 0, size = nl.getLength(); i < size; i++) {
+			final Node node = nl.item(i);
 
 			// Must be a latexdraw tag.
-			if(node != null && uri.equals(node.getNamespaceURI())) {
-				name = node.getNodeName();
-
-				if(!generalPreferences && name.endsWith(LNamespace.XML_ZOOM)) {
-					setZoom(Double.NaN, Double.NaN, Double.parseDouble(node.getTextContent()));
-				}
-			} // if
-		}// for
+			if(node != null && uri.equals(node.getNamespaceURI()) && !generalPreferences && node.getNodeName().endsWith(LNamespace.XML_ZOOM)) {
+				setZoom(Double.NaN, Double.NaN, Double.parseDouble(node.getTextContent()));
+			}
+		}
 
 		magneticGrid.load(generalPreferences, nsURI, meta);
 	}
@@ -463,8 +455,9 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	 */
 	public IPoint convertToOrigin(final IPoint pt) {
 		final IPoint convertion;
-		if(pt == null) convertion = null;
-		else {
+		if(pt == null) {
+			convertion = null;
+		}else {
 			convertion = ShapeFactory.INST.createPoint(pt);
 			convertion.translate(-ORIGIN.getX(), -ORIGIN.getY());
 		}
