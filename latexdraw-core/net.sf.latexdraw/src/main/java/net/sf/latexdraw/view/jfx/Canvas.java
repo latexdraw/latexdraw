@@ -73,28 +73,28 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	public static final int MARGINS = 1500;
 
 	/** The origin of the drawing in the whole drawing area. */
-	public static final  IPoint ORIGIN = ShapeFactory.INST.createPoint(MARGINS, MARGINS);
+	public static final IPoint ORIGIN = ShapeFactory.INST.createPoint(MARGINS, MARGINS);
 
 	/** The model of the view. */
-	private final  IDrawing drawing;
+	private final IDrawing drawing;
 
 	/** The zoom applied on the canvas. */
 	private final DoubleProperty zoom;
 
 	/** The current page of the canvas. */
-	private final  PageView page;
+	private final PageView page;
 
 	/** The views of the shape. */
-	private final  Group shapesPane;
+	private final Group shapesPane;
 
 	/** The pane that contains widgets to handle shapes, such as handlers, text fields. */
-	private final  Group widgetsPane;
+	private final Group widgetsPane;
 
-	private final  Rectangle selectionBorder;
+	private final Rectangle selectionBorder;
 
-	private final  Rectangle ongoingSelectionBorder;
+	private final Rectangle ongoingSelectionBorder;
 
-	private final  Map<IShape, ViewShape<?>> shapesToViewMap;
+	private final Map<IShape, ViewShape<?>> shapesToViewMap;
 
 	/** The magnetic grid of the canvas. */
 	private final MagneticGridImpl magneticGrid;
@@ -179,9 +179,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 			final ObservableList<IShape> selection = drawing.getSelection().getShapes();
 			if(selection.isEmpty()) {
 				selectionBorder.setVisible(false);
-			}
-			else {
-				final Rectangle2D rec = selection.stream().map(sh -> shapesToViewMap.get(sh)).filter(vi -> vi!=null).map(vi -> {
+			}else {
+				final Rectangle2D rec = selection.stream().map(sh -> shapesToViewMap.get(sh)).filter(vi -> vi != null).map(vi -> {
 					Bounds b = vi.getBoundsInParent();
 					return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
 				}).reduce(Rectangle2D::createUnion).orElse(new Rectangle2D.Double());
@@ -196,7 +195,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	}
 
 
-	public void setOngoingSelectionBorder(final  Bounds bounds) {
+	public void setOngoingSelectionBorder(final Bounds bounds) {
 		if(bounds == null) {
 			ongoingSelectionBorder.setVisible(false);
 		}else {
@@ -212,7 +211,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/**
 	 * @return The selected views.
 	 */
-	public  List<ViewShape<?>> getSelectedViews() {
+	public List<ViewShape<?>> getSelectedViews() {
 		return drawing.getSelection().getShapes().stream().map(sh -> shapesToViewMap.get(sh)).collect(Collectors.toList());
 	}
 
@@ -223,9 +222,9 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 				if(evt.wasAdded()) {
 					evt.getAddedSubList().forEach(sh -> ViewFactory.INSTANCE.createView(sh).ifPresent(v -> {
 						final int index = drawing.getShapes().indexOf(sh);
-						if(index!=-1) {
+						if(index != -1) {
 							shapesToViewMap.put(sh, v);
-							if(index==drawing.size()) {
+							if(index == drawing.size()) {
 								shapesPane.getChildren().add(v);
 							}else {
 								shapesPane.getChildren().add(index, v);
@@ -247,7 +246,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/**
 	 * @return The point where the page is located.
 	 */
-	public  IPoint getOrigin() {
+	public IPoint getOrigin() {
 		return ORIGIN;
 	}
 
@@ -259,7 +258,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/**
 	 * @return The page of the drawing area. Cannot be null.
 	 */
-	public  PageView getPage() {
+	public PageView getPage() {
 		return page;
 	}
 
@@ -283,8 +282,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void onActionExecuted(final Action act) {
-		if(act instanceof ShapesAction || act instanceof DrawingAction || act instanceof IOAction || act instanceof ShapePropertyAction ||
-			act instanceof ShapeAction || act instanceof Undo || act instanceof Redo || act instanceof MovePoint) {
+		if(act instanceof ShapesAction || act instanceof DrawingAction || act instanceof IOAction || act instanceof ShapePropertyAction || act instanceof
+			ShapeAction || act instanceof Undo || act instanceof Redo || act instanceof MovePoint) {
 			update();
 		}
 	}
@@ -475,7 +474,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/**
 	 * @return The model of the canvas.
 	 */
-	public  IDrawing getDrawing() {
+	public IDrawing getDrawing() {
 		return drawing;
 	}
 
@@ -483,7 +482,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	 * Sets the temporary view.
 	 * @param view The new temporary view.
 	 */
-	public void setTempView(final  ViewShape<?> view) {
+	public void setTempView(final ViewShape<?> view) {
 		tempView.ifPresent(v -> {
 			shapesPane.getChildren().remove(v);
 			v.flush();
@@ -504,7 +503,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	}
 
 	public void addToWidgetLayer(final javafx.scene.Node node) {
-		if(node!=null) {
+		if(node != null) {
 			widgetsPane.getChildren().add(node);
 		}
 	}

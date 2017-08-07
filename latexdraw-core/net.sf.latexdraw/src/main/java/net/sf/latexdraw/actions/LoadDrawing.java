@@ -62,7 +62,7 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 	}
 
 
-	protected void load() {
+	private void load() {
 		if(file == null) {
 			fileChooser.setInitialDirectory(currentFolder);
 			file = fileChooser.showOpenDialog(LaTeXDraw.getINSTANCE().getMainStage());
