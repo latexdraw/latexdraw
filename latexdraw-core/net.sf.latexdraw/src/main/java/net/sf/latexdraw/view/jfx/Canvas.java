@@ -379,9 +379,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void reinit() {
-		synchronized(shapesPane) {
-			shapesPane.getChildren().clear();
-		}
+		// No need to clean the views and the associated map since the binding between the model and the view will do the job.
 		setScaleX(1d);
 		setScaleY(1d);
 		zoom.setValue(1d);
