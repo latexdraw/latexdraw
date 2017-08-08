@@ -382,6 +382,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		synchronized(shapesPane) {
 			shapesPane.getChildren().clear();
 		}
+		setScaleX(1d);
+		setScaleY(1d);
 		zoom.setValue(1d);
 		update();
 	}

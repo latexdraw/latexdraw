@@ -13,7 +13,7 @@ package net.sf.latexdraw.instruments;
 import com.google.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
+import javafx.animation.PauseTransition;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +21,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Page;
@@ -90,22 +91,29 @@ public class TabSelector extends JfxInstrument implements Initializable {
 		setActivated(true);
 	}
 
+	@Override
+	public void reinit() {
+		// Needs to do a pause before doing the centering. The canvas is also reinitialised so that we have to wait for all the refresh of the canvas
+		// before the reinit of the scroll pane. Otherwise the centering will fail.
+		final PauseTransition pause = new PauseTransition(Duration.millis(200));
+		pause.setOnFinished(evt -> centreViewport());
+		pause.play();
+	}
+
 	public void centreViewport() {
-		Platform.runLater(() -> {
-			final MoveCamera action = new MoveCamera();
-			final Page page = canvas.getPage().getPage();
-			final IPoint origin = canvas.getOrigin();
+		final MoveCamera action = new MoveCamera();
+		final Page page = canvas.getPage().getPage();
+		final IPoint origin = canvas.getOrigin();
 
-			action.setScrollPane(scrollPane);
-			action.setPx((origin.getX() + page.getWidth() * IShape.PPC / 2d) / canvas.getWidth());
-			action.setPy((origin.getY() + page.getHeight() * IShape.PPC / 5d) / canvas.getHeight());
+		action.setScrollPane(scrollPane);
+		action.setPx((origin.getX() + page.getWidth() * IShape.PPC / 2d) / canvas.getWidth());
+		action.setPy((origin.getY() + page.getHeight() * IShape.PPC / 5d) / canvas.getHeight());
 
-			if(action.canDo()) {
-				action.doIt();
-			}
+		if(action.canDo()) {
+			action.doIt();
+		}
 
-			action.flush();
-		});
+		action.flush();
 	}
 
 	@Override
