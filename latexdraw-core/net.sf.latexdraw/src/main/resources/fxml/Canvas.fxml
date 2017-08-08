@@ -2,6 +2,6 @@
 
 <?import javafx.scene.layout.StackPane?>
 <?import net.sf.latexdraw.view.jfx.Canvas?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="stackCanvas" fx:controller="net.sf.latexdraw.instruments.Border">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.sf.latexdraw.instruments.Border">
     <Canvas/>
 </StackPane>
