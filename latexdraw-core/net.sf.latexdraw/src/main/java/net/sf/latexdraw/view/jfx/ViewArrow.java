@@ -34,6 +34,8 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  * @author Arnaud Blouin
  */
 public class ViewArrow extends Group {
+	public static final String ID = "arrow";
+
 	final IArrow arrow;
 	final Path path;
 	final Group additionalShapes;
@@ -45,6 +47,7 @@ public class ViewArrow extends Group {
 	 */
 	ViewArrow(final IArrow model) {
 		super();
+		setId(ID);
 		arrow = Objects.requireNonNull(model);
 		path = new Path();
 		additionalShapes = new Group();

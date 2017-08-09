@@ -1,6 +1,7 @@
 package net.sf.latexdraw.gui;
 
 import com.google.inject.AbstractModule;
+import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -8,10 +9,16 @@ import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.PageView;
+import net.sf.latexdraw.view.jfx.ViewArrow;
+import net.sf.latexdraw.view.jfx.ViewPlot;
+import net.sf.latexdraw.view.jfx.ViewPolyline;
 import net.sf.latexdraw.view.jfx.ViewRectangle;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
@@ -31,6 +38,8 @@ public class TestCanvas extends TestLatexdrawGUI {
 	Hand hand;
 	Canvas canvas;
 	IRectangle addedRec;
+	IPolyline addedPolyline;
+	IPlot addedPlot;
 
 	final GUIVoidCommand addRec = () -> Platform.runLater(() -> {
 		addedRec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+50),
@@ -38,6 +47,22 @@ public class TestCanvas extends TestLatexdrawGUI {
 		addedRec.setFilled(true);
 		addedRec.setFillingCol(DviPsColors.APRICOT);
 		canvas.getDrawing().addShape(addedRec);
+	});
+
+	final GUIVoidCommand addLines = () -> Platform.runLater(() -> {
+		addedPolyline = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+50),
+			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300, -Canvas.ORIGIN.getY()+150),
+			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+120, -Canvas.ORIGIN.getY()+200)));
+		addedPolyline.setArrowStyle(ArrowStyle.LEFT_ARROW, 0);
+		addedPolyline.setThickness(20d);
+		canvas.getDrawing().addShape(addedPolyline);
+	});
+
+	final GUIVoidCommand addPlot = () -> Platform.runLater(() -> {
+		addedPlot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+400),
+			0d, 5d, "x", false);
+		addedPlot.setThickness(10d);
+		canvas.getDrawing().addShape(addedPlot);
 	});
 
 	final GUIVoidCommand addRec2 = () -> Platform.runLater(() -> {
@@ -177,5 +202,23 @@ public class TestCanvas extends TestLatexdrawGUI {
 			shiftClickOnAddedRec, waitFXEvents).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertNotSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
+	}
+
+	@Test
+	public void testClickArrowSelectsShape() {
+		new CompositeGUIVoidCommand(addLines, waitFXEvents).execute();
+		final ViewPolyline vlines = (ViewPolyline) getPane().getChildren().get(0);
+		new CompositeGUIVoidCommand(() -> rightClickOn(vlines.lookup("#"+ViewArrow.ID)), waitFXEvents).execute();
+		assertEquals(1, canvas.getDrawing().getSelection().size());
+		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0));
+	}
+
+	@Test
+	public void testClickPlotSelectsShape() {
+		new CompositeGUIVoidCommand(addPlot, waitFXEvents).execute();
+		final ViewPlot vplot = (ViewPlot) getPane().getChildren().get(0);
+		new CompositeGUIVoidCommand(() -> rightClickOn(vplot), waitFXEvents).execute();
+		assertEquals(1, canvas.getDrawing().getSelection().size());
+		assertSame(addedPlot, canvas.getDrawing().getSelection().getShapeAt(0));
 	}
 }

@@ -138,8 +138,8 @@ public class Hand extends CanvasInstrument {
 
 		@Override
 		public void updateAction() {
-			interaction.getSrcObject().ifPresent(target -> {
-				final IShape targetSh = getRealViewShape((ViewShape<?>) target.getParent()).getModel();
+			getViewShape(interaction.getSrcObject()).ifPresent(view -> {
+				final IShape targetSh = view.getModel();
 
 				if(interaction.isShiftPressed()) {
 					instrument.canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> action.addShape(sh));
@@ -154,10 +154,18 @@ public class Hand extends CanvasInstrument {
 			});
 		}
 
+		private Optional<ViewShape<?>> getViewShape(final Optional<Node> node) {
+			if(node.isPresent()) {
+				final Node value = node.get();
+				if(value.getParent() instanceof ViewShape<?>) return Optional.of(getRealViewShape((ViewShape<?>)value.getParent()));
+				if(value.getParent().getParent() instanceof ViewShape<?>) return Optional.of(getRealViewShape((ViewShape<?>)value.getParent().getParent()));
+			}
+			return Optional.empty();
+		}
+
 		@Override
 		public boolean isConditionRespected() {
-			final Optional<Node> obj = interaction.getSrcObject();
-			return obj.isPresent() && obj.get().getParent() instanceof ViewShape<?>;
+			return getViewShape(interaction.getSrcObject()).isPresent();
 		}
 	}
 
