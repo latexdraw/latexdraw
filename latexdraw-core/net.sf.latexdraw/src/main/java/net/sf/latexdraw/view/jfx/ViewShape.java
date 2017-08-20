@@ -10,10 +10,17 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javafx.application.Platform;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Parent;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
@@ -23,18 +30,48 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
  */
 public abstract class ViewShape<S extends IShape> extends Group {
 	/** The model of the view. */
-	protected final  S model;
+	protected final S model;
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewShape(final  S sh) {
+	ViewShape(final S sh) {
 		super();
 		model = sh;
 
 		setUserData(model);
 		setFocusTraversable(false);
+	}
+
+	public Collection<Shape> getActivatedShapes() {
+		return getActivatedGroupNodes(this);
+	}
+
+	private static Collection<Shape> getActivatedGroupNodes(final Group gp) {
+		// Adding all the shape children
+		final Collection<Shape> shapes = gp.getChildren().stream().filter(node -> node instanceof Shape && node.isVisible() && !node.isDisable()).
+			map(node -> (Shape) node).collect(Collectors.toList());
+
+		// Adding all the view shape children
+		shapes.addAll(gp.getChildren().stream().filter(node -> node instanceof ViewShape<?> && node.isVisible() && !node.isDisable()).
+			map(vs -> ((ViewShape<?>)vs).getActivatedShapes()).flatMap(st -> st.stream()).collect(Collectors.toList()));
+
+		// Adding the shapes contained in groups that are not view shapes
+		shapes.addAll(gp.getChildren().stream().filter(node -> node instanceof Group && !(node instanceof ViewShape<?>)).
+			map(node -> getActivatedGroupNodes((Group) node)).flatMap(st -> st.stream()).collect(Collectors.toList()));
+
+		// Adding the images contained in the group
+		shapes.addAll(gp.getChildren().stream().filter(node -> node instanceof ImageView && node.isVisible() && !node.isDisable()).
+			map(node -> {
+				final Bounds bounds = node.getBoundsInParent();
+				Rectangle rec = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+				rec.setFill(Color.WHITE);
+				rec.getTransforms().setAll(gp.getLocalToSceneTransform());
+				return rec;
+			}).collect(Collectors.toList()));
+
+		return shapes;
 	}
 
 	/**
@@ -46,7 +83,7 @@ public abstract class ViewShape<S extends IShape> extends Group {
 		// Should be overridden to flush the bindings.
 	}
 
-	public  S getModel() {
+	public S getModel() {
 		return model;
 	}
 

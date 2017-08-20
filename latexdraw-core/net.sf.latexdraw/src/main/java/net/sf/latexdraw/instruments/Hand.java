@@ -23,6 +23,10 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.scene.transform.NonInvertibleTransformException;
+import javafx.scene.transform.Transform;
 import net.sf.latexdraw.actions.shape.InitTextSetter;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.actions.shape.TranslateShapes;
@@ -33,6 +37,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.util.LSystem;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewText;
@@ -317,6 +322,10 @@ public class Hand extends CanvasInstrument {
 
 				// Updating the rectangle used for the interim feedback and for the selection of shapes.
 				selectionBorder = new BoundingBox(minX, minY, Math.max(maxX - minX, 1d), Math.max(maxY - minY, 1d));
+				final Rectangle selectionRec = new Rectangle(selectionBorder.getMinX() + Canvas.ORIGIN.getX(),
+					selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
+				// Transforming the selection rectangle to match the transformation of the canvas.
+				selectionRec.getTransforms().setAll(getInstrument().canvas.getLocalToSceneTransform());
 				// Cleaning the selected shapes in the action.
 				action.setShape(null);
 
@@ -327,8 +336,22 @@ public class Hand extends CanvasInstrument {
 						selectedShapes.forEach(sh -> action.addShape(sh));
 					}
 					if(!selectionBorder.isEmpty()) {
-						instrument.canvas.getViews().getChildren().stream().filter(view -> view.getBoundsInParent().intersects(selectionBorder)).
-							forEach(view -> action.addShape((IShape) view.getUserData()));
+						instrument.canvas.getViews().getChildren().stream().filter(view -> {
+							Bounds bounds;
+							final Transform transform = view.getLocalToParentTransform();
+							if(transform.isIdentity()) {
+								bounds = selectionBorder;
+							}else {
+								try {
+									bounds = transform.createInverse().transform(selectionBorder);
+								}catch(final NonInvertibleTransformException ex) {
+									bounds = selectionBorder;
+									//TODO log
+								}
+							}
+							return view.intersects(bounds) &&
+								((ViewShape<?>) view).getActivatedShapes().stream().anyMatch(sh -> !Shape.intersect(sh, selectionRec).getLayoutBounds().isEmpty());
+						}).forEach(view -> action.addShape((IShape) view.getUserData()));
 					}
 				}
 			}));
