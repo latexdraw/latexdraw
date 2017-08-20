@@ -18,8 +18,6 @@ import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 	protected final ViewArrowableTrait viewArrows = new ViewArrowableTrait(this);
 
-//	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> update();
-
 	/**
 	 * Creates the view.
 	 * @param sh The model.
@@ -27,52 +25,6 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 	ViewPolyline(final IPolyline sh) {
 		super(sh);
 		getChildren().add(viewArrows);
-
-//		final int nbPts = model.getNbPoints();
-//
-//		model.getPtAt(0).xProperty().addListener(updateArrow);
-//		model.getPtAt(0).yProperty().addListener(updateArrow);
-//		if(nbPts > 2) {
-//			model.getPtAt(1).xProperty().addListener(updateArrow);
-//			model.getPtAt(1).yProperty().addListener(updateArrow);
-//		}
-//		if(nbPts > 3) {
-//			model.getPtAt(nbPts - 2).xProperty().addListener(updateArrow);
-//			model.getPtAt(nbPts - 2).yProperty().addListener(updateArrow);
-//		}
-//		model.getPtAt(-1).xProperty().addListener(updateArrow);
-//		model.getPtAt(-1).yProperty().addListener(updateArrow);
-//		model.thicknessProperty().addListener(updateArrow);
 		viewArrows.updateArr();
 	}
-
-
-//	private void update() {
-//		viewArrows.update(true);
-//
-//		if(viewArrows.arrows.stream().anyMatch(ar -> ar.arrow.hasStyle())) {
-//			clipPath(border);
-//		}else {
-//			border.setClip(null);
-//		}
-//	}
-
-
-//	@Override
-//	public void flush() {
-//		final int nbPts = model.getNbPoints();
-//		model.getPtAt(0).xProperty().removeListener(updateArrow);
-//		model.getPtAt(0).yProperty().removeListener(updateArrow);
-//		model.getPtAt(-1).xProperty().removeListener(updateArrow);
-//		model.getPtAt(-1).yProperty().removeListener(updateArrow);
-//		if(nbPts > 2) {
-//			model.getPtAt(1).xProperty().removeListener(updateArrow);
-//			model.getPtAt(1).yProperty().removeListener(updateArrow);
-//		}
-//		if(nbPts > 3) {
-//			model.getPtAt(nbPts - 2).xProperty().removeListener(updateArrow);
-//			model.getPtAt(nbPts - 2).yProperty().removeListener(updateArrow);
-//		}
-//		super.flush();
-//	}
 }
