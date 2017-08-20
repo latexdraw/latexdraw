@@ -355,4 +355,18 @@ public class TestCanvas extends TestLatexdrawGUI {
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedGrid, canvas.getDrawing().getSelection().getShapeAt(0));
 	}
+
+	@Test
+	public void testDnDToSelectRecOutToInRotated() {
+		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
+		addedRec.setRotationAngle(Math.PI / 8d);
+		waitFXEvents.execute();
+		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
+		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() - 20d;
+		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY();
+		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
+			() -> drag(x + 60, y + 20), waitFXEvents).execute();
+		assertEquals(1, canvas.getDrawing().getSelection().size());
+		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
+	}
 }
