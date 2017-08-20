@@ -54,11 +54,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 		final double maxX = model.getPlotMaxX();
 		final double step = model.getPlottingStep();
 
-		getChildren().forEach(ch -> {
-			if(ch instanceof ViewShape<?>) {
-				((ViewShape<?>) ch).flush();
-			}
-		});
+		getChildren().stream().filter(node -> node instanceof ViewShape<?>).forEach(vs -> ((ViewShape<?>) vs).flush());
 		getChildren().clear();
 
 		switch(model.getPlotStyle()) {
