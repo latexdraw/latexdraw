@@ -27,7 +27,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewFreeHand(final  IFreehand sh) {
+	ViewFreeHand(final IFreehand sh) {
 		super(sh);
 
 		// To update on translation. To improve.

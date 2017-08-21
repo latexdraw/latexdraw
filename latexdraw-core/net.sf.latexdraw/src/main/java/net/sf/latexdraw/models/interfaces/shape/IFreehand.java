@@ -19,7 +19,7 @@ import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
  * The API for freehand shapes.
  * @author Arnaud BLOUIN
  */
-public interface IFreehand extends IFreeHandProp, IModifiablePointsShape {
+public interface IFreehand extends IFreeHandProp, ISingleShape {
 	/**
 	 * @return The property of the freehand type.
 	 */

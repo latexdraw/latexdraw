@@ -207,7 +207,7 @@ public class Pencil extends CanvasInstrument {
 					sq.setPosition(pt.getX() - 1d, pt.getY() - 1d);
 					sq.setWidth(2d);
 				}else if(sh instanceof IFreehand) {
-					((IFreehand) sh).setPoint(pt.getX(), pt.getY(), 0);
+					sh.getPoints().get(0).setPoint(pt.getX(), pt.getY());
 				}else {
 					sh.translate(pt.getX(), pt.getY());
 				}

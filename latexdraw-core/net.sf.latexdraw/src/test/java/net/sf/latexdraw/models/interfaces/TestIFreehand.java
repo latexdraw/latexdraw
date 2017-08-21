@@ -6,7 +6,6 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.junit.Before;
@@ -95,7 +94,6 @@ public class TestIFreehand implements HelperTest {
 		assertFalse(shape.isTypeOf(IRectangle.class));
 		assertFalse(shape.isTypeOf(ICircle.class));
 		assertTrue(shape.isTypeOf(IShape.class));
-		assertTrue(shape.isTypeOf(IModifiablePointsShape.class));
 		assertTrue(shape.isTypeOf(IFreehand.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}

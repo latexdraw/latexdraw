@@ -28,7 +28,7 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
  * An implementation of a free hand shape.
  * @author Arnaud Blouin
  */
-class LFreehand extends LModifiablePointsShape implements IFreehand {
+class LFreehand extends LShape implements IFreehand {
 	/** The type of the curves of the shape. */
 	private final ObjectProperty<FreeHandStyle> type;
 	/** The interval to consider while painting the shape. */
@@ -43,10 +43,11 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 	 * @since 3.0
 	 */
 	LFreehand(final List<IPoint> pts) {
-		super(pts);
+		super();
 		type = new SimpleObjectProperty<>(FreeHandStyle.CURVES);
 		interval = new SimpleIntegerProperty(2);
 		open = new SimpleBooleanProperty(true);
+		points.addAll(pts);
 	}
 
 	@Override

@@ -1,10 +1,14 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
@@ -12,7 +16,16 @@ import org.testfx.api.FxToolkit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class TestViewFreeHand extends TestViewPolyPoint<ViewFreeHand, IFreehand> {
+public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreehand, Path> {
+	List<PathElement> before;
+
+	@Override
+	@Before
+	public void setUp() {
+		super.setUp();
+		before = duplicatePath(border.getElements());
+	}
+
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
