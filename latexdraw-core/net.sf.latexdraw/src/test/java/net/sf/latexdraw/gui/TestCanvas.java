@@ -349,7 +349,6 @@ public class TestCanvas extends TestLatexdrawGUI {
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() - 20d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY();
-		System.out.println(x + " " + y);
 		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 50, y + 20), () -> drag(x + 60, y + 20), waitFXEvents).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
