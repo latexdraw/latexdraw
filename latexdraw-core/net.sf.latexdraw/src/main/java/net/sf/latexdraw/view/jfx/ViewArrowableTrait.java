@@ -31,7 +31,8 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  */
 class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 	protected final List<ViewArrow> arrows;
-	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> updateAllArrows();
+	private final ChangeListener<Object> updateArrow = (observable, oldValue, newValue) -> updateAllArrows();
+	private final ChangeListener<Object> updateClip = (observable, oldValue, newValue) -> updateClip();
 	private final ViewSingleShape<? extends IArrowableSingleShape, Path> mainView;
 
 	ViewArrowableTrait(final ViewSingleShape<? extends IArrowableSingleShape, Path> view) {
@@ -70,6 +71,9 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 		}
 
 		model.thicknessProperty().addListener(updateArrow);
+		model.fillingProperty().addListener(updateClip);
+		model.dbleBordProperty().addListener(updateArrow);
+		model.dbleBordSepProperty().addListener(updateArrow);
 	}
 
 	void updateAllArrows() {
@@ -78,7 +82,10 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 
 	void updateArrows(final int index) {
 		update(index);
+		updateClip();
+	}
 
+	void updateClip() {
 		if(arrows.stream().anyMatch(ar -> ar.arrow.hasStyle())) {
 			clipPath(mainView.border);
 		}else {
@@ -105,6 +112,8 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 	 */
 	private void clipPath(final Path path) {
 		final Path clip = ViewFactory.INSTANCE.clonePath(path);
+		clip.setFill(path.getFill());
+		clip.setStrokeWidth(path.getStrokeWidth());
 
 		if(!clip.getElements().isEmpty()) { // Defensive programming
 			final Optional<IPoint> pt1 = getArrowReducedPoint(arrows.get(0).arrow);
@@ -158,6 +167,23 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 			model.getPtAt(nbPts - 2).xProperty().removeListener(updateArrow);
 			model.getPtAt(nbPts - 2).yProperty().removeListener(updateArrow);
 		}
+
+		model.thicknessProperty().removeListener(updateArrow);
+		model.fillingProperty().removeListener(updateClip);
+		model.dbleBordProperty().removeListener(updateArrow);
+		model.dbleBordSepProperty().removeListener(updateArrow);
+		model.getArrows().forEach(arr -> arr.setOnArrowChanged(null));
+		model.getPoints().forEach(pt -> {
+			pt.xProperty().removeListener(updateArrow);
+			pt.yProperty().removeListener(updateArrow);
+		});
+		if(model instanceof IControlPointShape) {
+			((IControlPointShape) model).getFirstCtrlPts().forEach(pt -> {
+				pt.xProperty().removeListener(updateArrow);
+				pt.yProperty().removeListener(updateArrow);
+			});
+		}
+
 		super.flush();
 	}
 }
