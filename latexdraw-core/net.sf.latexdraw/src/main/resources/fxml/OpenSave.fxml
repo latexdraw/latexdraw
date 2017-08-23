@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <MenuButton xmlns:fx="http://javafx.com/fxml/1" mnemonicParsing="false"
             style="-fx-padding: 0 0 0 0" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.FileLoaderSaver" fx:id="fileMenu">
+            fx:controller="net.sf.latexdraw.instruments.FileLoaderSaver">
     <tooltip>
         <Tooltip text="%LaTeXDrawFrame.91"/>
     </tooltip>
