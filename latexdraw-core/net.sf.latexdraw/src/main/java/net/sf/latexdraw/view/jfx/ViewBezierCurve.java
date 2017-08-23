@@ -52,7 +52,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 			model.getFirstCtrlPtAt(index)));
 
 		getChildren().add(viewArrows);
-		viewArrows.updateArr();
+		viewArrows.updateAllArrows();
 	}
 
 	private void addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {

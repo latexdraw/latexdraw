@@ -31,7 +31,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  */
 class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 	protected final List<ViewArrow> arrows;
-	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> updateArr();
+	private final ChangeListener<Number> updateArrow = (observable, oldValue, newValue) -> updateAllArrows();
 	private final ViewSingleShape<? extends IArrowableSingleShape, Path> mainView;
 
 	ViewArrowableTrait(final ViewSingleShape<? extends IArrowableSingleShape, Path> view) {
@@ -43,7 +43,7 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 			final ViewArrow viewArrow = new ViewArrow(model.getArrowAt(i));
 			arrows.add(viewArrow);
 			getChildren().addAll(viewArrow);
-			model.getArrowAt(i).setOnArrowChanged(() -> viewArrow.updatePath());
+			model.getArrowAt(i).setOnArrowChanged(() -> updateArrows(arrows.indexOf(viewArrow)));
 		}
 
 		final int nbPts = model.getNbPoints();
@@ -72,8 +72,12 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 		model.thicknessProperty().addListener(updateArrow);
 	}
 
-	void updateArr() {
-		update(true);
+	void updateAllArrows() {
+		updateArrows(-1);
+	}
+
+	void updateArrows(final int index) {
+		update(index);
 
 		if(arrows.stream().anyMatch(ar -> ar.arrow.hasStyle())) {
 			clipPath(mainView.border);
@@ -82,14 +86,14 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 		}
 	}
 
-	private void update(final boolean showArrows) {
-		setVisible(showArrows);
+	private void update(final int index) {
+		setVisible(true);
+		setDisable(false);
 
-		if(showArrows) {
-			setDisable(false);
+		if(index < 0 || index >= arrows.size()) {
 			arrows.forEach(v -> v.updatePath());
-		}else {
-			setDisable(true);
+		} else {
+			arrows.get(index).updatePath();
 		}
 	}
 

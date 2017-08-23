@@ -25,6 +25,6 @@ public class ViewPolyline extends ViewPolyPoint<IPolyline> {
 	ViewPolyline(final IPolyline sh) {
 		super(sh);
 		getChildren().add(viewArrows);
-		viewArrows.updateArr();
+		viewArrows.updateAllArrows();
 	}
 }
