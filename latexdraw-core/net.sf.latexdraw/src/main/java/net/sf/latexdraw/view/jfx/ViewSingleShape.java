@@ -46,21 +46,21 @@ import net.sf.latexdraw.models.interfaces.shape.LineStyle;
  * @author Arnaud Blouin
  */
 public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> extends ViewShape<S> {
-	protected final  T border;
-	protected final  T dblBorder;
-	protected final  T shadow;
+	protected final T border;
+	protected final T dblBorder;
+	protected final T shadow;
 
-	private final  ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
-	private final  ChangeListener<?> fillUpdateCall;
-	private final  ChangeListener<Boolean> shadowSetCall;
-	private final  ChangeListener<Number> shadowUpdateCall = (obs, oldVal, newVal) -> updateShadowPosition();
+	private final ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
+	private final ChangeListener<?> fillUpdateCall;
+	private final ChangeListener<Boolean> shadowSetCall;
+	private final ChangeListener<Number> shadowUpdateCall = (obs, oldVal, newVal) -> updateShadowPosition();
 
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewSingleShape(final  S sh) {
+	ViewSingleShape(final S sh) {
 		super(sh);
 
 		border = createJFXShape();
@@ -72,11 +72,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			shadow.setStrokeLineCap(StrokeLineCap.BUTT);
 			getChildren().add(shadow);
 			shadowSetCall = (obs, oldVal, newVal) -> {
-				if(shadow != null) {
-					shadow.setDisable(!newVal);
-					if(newVal && model.isFillable() && model.shadowFillsShape()) {
-						border.setFill(getFillingPaint(model.getFillingStyle()));
-					}
+				shadow.setDisable(!newVal);
+				if(newVal && model.isFillable() && model.shadowFillsShape()) {
+					border.setFill(getFillingPaint(model.getFillingStyle()));
 				}
 			};
 			model.shadowProperty().addListener(shadowSetCall);
@@ -175,13 +173,13 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			case VLINES_PLAIN:
 			case CLINES:
 			case VLINES:
-			case HLINES: return gethatchingsFillingPaint(style);
+			case HLINES: return getHatchingsFillingPaint(style);
 			default: return null;
 		}
 	}
 
 
-	private Paint gethatchingsFillingPaint(final FillingStyle style) {
+	private Paint getHatchingsFillingPaint(final FillingStyle style) {
 		final Bounds bounds = border.getBoundsInParent();
 
 		if(bounds.getWidth() > 0d && bounds.getHeight() > 0d) {
