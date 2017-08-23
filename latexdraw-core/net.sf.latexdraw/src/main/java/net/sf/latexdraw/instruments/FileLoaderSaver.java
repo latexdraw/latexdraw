@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
@@ -65,6 +66,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	@FXML private Menu recentFilesMenu;
 	/** The menu item used to save as a document. */
 	@FXML private MenuItem saveAsMenu;
+	@FXML private MenuButton fileMenu;
 	/** The path where documents are saved. */
 	private String pathSave;
 	/** The current file loaded or saved. */
@@ -94,6 +96,8 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	@Override
 	public void onActionDone(final Action action) {
 		super.onActionDone(action);
+
+		fileMenu.hide();
 
 		// Updating the recent files on I/O actions.
 		if(action instanceof IOAction && action.hadEffect()) {
