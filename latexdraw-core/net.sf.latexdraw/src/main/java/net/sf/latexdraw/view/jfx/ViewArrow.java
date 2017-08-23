@@ -58,6 +58,14 @@ public class ViewArrow extends Group {
 	}
 
 
+	private void enableShape(final boolean enablePath) {
+		path.setVisible(enablePath);
+		path.setDisable(!enablePath);
+		additionalShapes.setVisible(!enablePath);
+		additionalShapes.setDisable(enablePath);
+	}
+
+
 	private void updatePathDiskCircleEnd(final double x, final double y) {
 		final double lineWidth = arrow.getShape().getFullThickness();
 		final double arrowRadius = arrow.getRoundShapedArrowRadius();
@@ -66,6 +74,7 @@ public class ViewArrow extends Group {
 		ell.setCenterY(y);
 		additionalShapes.getChildren().add(ell);
 		setStrokeFillDiskCircle(ell);
+		enableShape(false);
 	}
 
 
@@ -79,6 +88,7 @@ public class ViewArrow extends Group {
 		ell.setCenterY(y);
 		additionalShapes.getChildren().add(ell);
 		setStrokeFillDiskCircle(ell);
+		enableShape(false);
 	}
 
 
@@ -124,6 +134,7 @@ public class ViewArrow extends Group {
 		path.getElements().add(new LineTo(x3, ys[0] + lineWidth / 2d));
 		path.getElements().add(new MoveTo(xs[1], ys[1] - lineWidth / 2d));
 		path.getElements().add(new LineTo(x4, ys[1] - lineWidth / 2d));
+		enableShape(true);
 	}
 
 
@@ -141,6 +152,7 @@ public class ViewArrow extends Group {
 		path.getElements().add(new MoveTo(xs[0], ys[0]));
 		path.getElements().add(new LineTo(xs[1], ys[1]));
 		path.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
+		enableShape(true);
 	}
 
 
@@ -150,6 +162,7 @@ public class ViewArrow extends Group {
 		path.getElements().add(new MoveTo(x, y - width / 2d));
 		path.getElements().add(new LineTo(x, y + width / 2d));
 		path.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
+		enableShape(true);
 	}
 
 
@@ -160,6 +173,7 @@ public class ViewArrow extends Group {
 		path.getElements().add(new LineTo(x3, y3));
 		path.getElements().add(new LineTo(x4, y4));
 		path.getElements().add(new ClosePath());
+		enableShape(true);
 	}
 
 
@@ -204,6 +218,7 @@ public class ViewArrow extends Group {
 		arc.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 		arc.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
 		additionalShapes.getChildren().add(arc);
+		enableShape(false);
 	}
 
 
@@ -239,6 +254,7 @@ public class ViewArrow extends Group {
 		final double y = pt1.getY();
 		path.getElements().add(new MoveTo(x, y));
 		path.getElements().add(new LineTo(x < pt2.getX() ? x + 1d : x - 1d, y));
+		enableShape(true);
 	}
 
 
@@ -249,6 +265,7 @@ public class ViewArrow extends Group {
 
 		path.getElements().add(new MoveTo(x, y));
 		path.getElements().add(new LineTo(x, y));
+		enableShape(true);
 	}
 
 
