@@ -48,7 +48,7 @@ class LArrow implements IArrow {
 	/** The owner of the arrow. */
 	private IArrowableSingleShape owner;
 
-	private  Runnable onChanged;
+	private Runnable onChanged;
 
 
 	/**
@@ -221,14 +221,12 @@ class LArrow implements IArrow {
 
 	@Override
 	public boolean isInverted() {
-		final boolean isLeft = isLeftArrow();
-		final boolean isRightStyle = style.isRightStyle();
-		return isLeft && isRightStyle || !isLeft && !isRightStyle;
+		return isLeftArrow() != style.isRightStyle();
 	}
 
 	@Override
 	public boolean isLeftArrow() {
-		return owner.getArrowIndex(this) < owner.getNbArrows() / 2;
+		return owner.getArrowIndex(this) % 2 == 0;
 	}
 
 	@Override

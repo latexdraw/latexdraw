@@ -96,14 +96,21 @@ public class ViewArrow extends Group {
 	}
 
 
-	private void updatePathRightLeftSquaredBracket(final IPoint pt1, final IPoint pt2) {
+	private boolean shouldInvertArrow(final IPoint pt1, final IPoint pt2) {
 		final boolean invert = arrow.isInverted();
+		final boolean left = arrow.isLeftArrow();
+		final boolean positiv = isArrowInPositiveDirection(pt1, pt2);
+		return positiv == invert && !left || positiv != invert && left;
+	}
+
+
+	private void updatePathRightLeftSquaredBracket(final IPoint pt1, final IPoint pt2) {
 		final double[] xs = new double[2];
 		final double[] ys = new double[2];
 		final double lineWidth = arrow.getShape().getFullThickness();
 		double lgth = arrow.getBracketShapedArrowLength() + arrow.getShape().getFullThickness() / 2d;
 
-		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert)) {
+		if(shouldInvertArrow(pt1, pt2)) {
 			lgth *= -1d;
 		}
 
@@ -157,18 +164,17 @@ public class ViewArrow extends Group {
 
 
 	private void updatePathRightLeftArrow(final IPoint pt1, final IPoint pt2) {
-		final boolean invert = arrow.isInverted();
 		final double width = arrow.getArrowShapedWidth();
 		double length = arrow.getArrowLength() * width;
 		double inset = arrow.getArrowInset() * length;
 		double x = pt1.getX();
-		double y = pt1.getY();
+		final double y = pt1.getY();
 
-		if(invert) {
+		if(arrow.isInverted() != arrow.isLeftArrow()) {
 			x += isArrowInPositiveDirection(pt1, pt2) ? length : -length;
 		}
 
-		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert)) {
+		if(shouldInvertArrow(pt1, pt2)) {
 			length *= -1d;
 			inset *= -1d;
 		}
@@ -179,7 +185,7 @@ public class ViewArrow extends Group {
 
 
 	private boolean isArrowInPositiveDirection(final IPoint pt1, final IPoint pt2) {
-		return pt1.getX() < pt2.getX() || pt1.getX() == pt2.getX() && pt1.getY() < pt2.getY();
+		return pt1.getX() < pt2.getX() || MathUtils.INST.equalsDouble(pt1.getX(), pt2.getX()) && pt1.getY() < pt2.getY();
 	}
 
 
@@ -189,18 +195,10 @@ public class ViewArrow extends Group {
 		final double lgth = arrow.getRBracketNum() * width;
 		final double x = pt1.getX();
 		final double y = pt1.getY();
-//		final double xarc = arrow.isInverted() ? x : x + arrow.getShape().getThickness() / 2d;
 		final double widtharc = lgth * 2d + (invert ? arrow.getShape().getThickness() / 2d : 0d);
-		final Arc arc = new Arc(x + widtharc, y, widtharc, width / 2d, 130d, 100d);
-
-		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert)) {
-			final double rotX = Math.cos(Math.PI) * x - Math.sin(Math.PI) * y;
-			final double rotY = Math.sin(Math.PI) * x + Math.cos(Math.PI) * y;
-
-			arc.setTranslateX(x - rotX);
-			arc.setTranslateY(y - rotY);
-			arc.setRotate(Math.PI);
-		}
+		final double xarc = shouldInvertArrow(pt1, pt2) ? x - widtharc / 2d : x + widtharc / 2d;
+		final double angle = shouldInvertArrow(pt1, pt2) ? -50d : 130d;
+		final Arc arc = new Arc(xarc, y, widtharc / 2d, width / 2d, angle, 100d);
 
 		arc.setFill(null);
 		arc.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
@@ -210,18 +208,17 @@ public class ViewArrow extends Group {
 
 
 	private void updatePathDoubleLeftRightArrow(final IPoint pt1, final IPoint pt2) {
-		final boolean invert = arrow.isInverted();
 		final double width = arrow.getArrowShapedWidth();
 		double length = arrow.getArrowLength() * width;
 		double inset = arrow.getArrowInset() * length;
 		double x = pt1.getX();
 		final double y = pt1.getY();
 
-		if(invert) {
+		if(arrow.isInverted() != arrow.isLeftArrow()) {
 			x += isArrowInPositiveDirection(pt1, pt2) ? 2d * length : -2d * length;
 		}
 
-		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert)) {
+		if(shouldInvertArrow(pt1, pt2)) {
 			length *= -1d;
 			inset *= -1d;
 		}
