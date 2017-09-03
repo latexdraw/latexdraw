@@ -40,18 +40,17 @@ import net.sf.latexdraw.util.LNamespace;
  */
 class LArrowSVGGenerator {
 	/** The arrowhead generated or used to generate the SVG-arrow. */
-	protected IArrow arrow;
+	IArrow arrow;
 
 
 	/**
 	 * Creates an SVG arrow generator.
 	 * @param arr The arrow. Must not be null.
 	 */
-	protected LArrowSVGGenerator(final IArrow arr) {
+	LArrowSVGGenerator(final IArrow arr) {
 		super();
 		arrow = Objects.requireNonNull(arr);
 	}
-
 
 
 	/**
@@ -60,19 +59,19 @@ class LArrowSVGGenerator {
 	 * @param owner The figure the has the arrow.
 	 * @since 2.0.0
 	 */
-	protected void setArrow(final SVGMarkerElement elt, final IShape owner, final String svgMarker) {
+	void setArrow(final SVGMarkerElement elt, final IShape owner, final String svgMarker) {
 		SVGNodeList nl = elt.getChildren(SVGElements.SVG_PATH);
 
-		if(nl.getLength()==0) {
+		if(nl.getLength() == 0) {
 			nl = elt.getChildren(SVGElements.SVG_CIRCLE);
 
-			if(nl.getLength()>0)
-				setArrow((SVGCircleElement)nl.item(0), elt, owner);
+			if(nl.getLength() > 0) {
+				setArrow((SVGCircleElement) nl.item(0), elt, owner);
+			}
+		}else {
+			setArrow((SVGPathElement) nl.item(0), elt, owner, svgMarker);
 		}
-		else
-			setArrow((SVGPathElement)nl.item(0), elt, owner, svgMarker);
 	}
-
 
 
 	/**
@@ -82,118 +81,126 @@ class LArrowSVGGenerator {
 	 * @param owner The shape that has the arrow.
 	 * @since 2.0.0
 	 */
-	protected void setArrow(final SVGCircleElement circle, final SVGMarkerElement elt, final IShape owner) {
+	void setArrow(final SVGCircleElement circle, final SVGMarkerElement elt, final IShape owner) {
 		final double radius = circle.getR();
-		final String dotSizeNumStr = circle.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_DOT_SIZE_NUM);
+		final String dotSizeNumStr = circle.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_DOT_SIZE_NUM);
 		final double dotSizeDim;
 		double dotSizeNum;
-		final double lineWidth = owner.hasDbleBord() ? owner.getDbleBordSep() + 2.*owner.getThickness() : owner.getThickness();
+		final double lineWidth = owner.hasDbleBord() ? owner.getDbleBordSep() + 2. * owner.getThickness() : owner.getThickness();
 
-		if(dotSizeNumStr==null)
-			dotSizeNum = 1.;
-		else
-			try { dotSizeNum = Double.parseDouble(dotSizeNumStr); }
-			catch(final NumberFormatException e) {
+		if(dotSizeNumStr == null) {
+			dotSizeNum = 1d;
+		}else {
+			try {
+				dotSizeNum = Double.parseDouble(dotSizeNumStr);
+			}catch(final NumberFormatException e) {
 				BadaboomCollector.INSTANCE.add(e);
-				dotSizeNum = 1.;
+				dotSizeNum = 1d;
 			}
+		}
 
-		if(circle.getStroke()==null) {
+		if(circle.getStroke() == null) {
 			arrow.setArrowStyle(MathUtils.INST.equalsDouble(elt.getRefX(), 0.) ? ArrowStyle.DISK_END : ArrowStyle.DISK_IN);
-			dotSizeDim = radius*lineWidth*2.-dotSizeNum*lineWidth;
-		}
-		else {
+			dotSizeDim = radius * lineWidth * 2. - dotSizeNum * lineWidth;
+		}else {
 			arrow.setArrowStyle(MathUtils.INST.equalsDouble(elt.getRefX(), 0.) ? ArrowStyle.CIRCLE_END : ArrowStyle.CIRCLE_IN);
-			dotSizeDim = (radius*lineWidth+lineWidth/2.)*2.-dotSizeNum*lineWidth;
+			dotSizeDim = (radius * lineWidth + lineWidth / 2.) * 2. - dotSizeNum * lineWidth;
 		}
 
-		if(MathUtils.INST.equalsDouble(dotSizeDim,0.0))
+		if(MathUtils.INST.equalsDouble(dotSizeDim, 0.0)) {
 			arrow.setArrowStyle(ArrowStyle.ROUND_IN);
-		else {
+		}else {
 			arrow.setDotSizeDim(dotSizeDim);
 			arrow.setDotSizeNum(dotSizeNum);
 		}
 	}
 
 
-
 	private void setArrowBarBracket(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final SVGPathSeg seg,
 									final SVGMarkerElement elt, final SVGPathSegList list, final String svgMarker) {
-		final String tbarNumStr = path.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_TBAR_SIZE_NUM);
+		final String tbarNumStr = path.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_TBAR_SIZE_NUM);
 		double tbarNum;
 		double y = Math.abs(m.getY());
 		final boolean isStartArrow = SVGAttributes.SVG_MARKER_START.equals(svgMarker);
 
-		if(tbarNumStr==null)
-			tbarNum = 1.;
-		else
-			try { tbarNum = Double.parseDouble(tbarNumStr); }
-			catch(final NumberFormatException e) {
+		if(tbarNumStr == null) {
+			tbarNum = 1d;
+		}else {
+			try {
+				tbarNum = Double.parseDouble(tbarNumStr);
+			}catch(final NumberFormatException e) {
 				BadaboomCollector.INSTANCE.add(e);
-				tbarNum = 1.;
+				tbarNum = 1d;
 			}
+		}
 
 		arrow.setTBarSizeNum(tbarNum);
-		arrow.setTBarSizeDim(y*lineWidth*2. - tbarNum*lineWidth);
+		arrow.setTBarSizeDim(y * lineWidth * 2d - tbarNum * lineWidth);
 
-		if(seg instanceof SVGPathSegLineto && MathUtils.INST.equalsDouble(((SVGPathSegLineto)seg).getX(), m.getX()) || seg instanceof SVGPathSegLinetoVertical)
-			arrow.setArrowStyle(MathUtils.INST.equalsDouble(m.getX(),0.) ? ArrowStyle.BAR_IN : ArrowStyle.BAR_END);
-		else if(seg instanceof SVGPathSegCurvetoCubic) {
-			final double width  = (arrow.getTBarSizeDim() + arrow.getTBarSizeNum()*lineWidth)/lineWidth;
-			final double rBrack = (Math.abs(m.getX())-0.5)/width;
+		if(seg instanceof SVGPathSegLineto && MathUtils.INST.equalsDouble(((SVGPathSegLineto) seg).getX(), m.getX()) || seg instanceof SVGPathSegLinetoVertical) {
+			arrow.setArrowStyle(MathUtils.INST.equalsDouble(m.getX(), 0d) ? ArrowStyle.BAR_IN : ArrowStyle.BAR_END);
+		}else {
+			if(seg instanceof SVGPathSegCurvetoCubic) {
+				final double width = (arrow.getTBarSizeDim() + arrow.getTBarSizeNum() * lineWidth) / lineWidth;
+				final double rBrack = (Math.abs(m.getX()) - 0.5) / width;
 
-			arrow.setArrowStyle(MathUtils.INST.equalsDouble(Math.abs(m.getX()), 0.5) ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
-			if(!isStartArrow)
-				arrow.setArrowStyle(arrow.getArrowStyle().getOppositeArrowStyle());
-			arrow.setRBracketNum(rBrack);
-		}
-		else // It may be a bracket.
-		if(list.size()==4 && seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto) {
-			final double lgth = Math.abs(m.getX()-((SVGPathSegLineto)seg).getX());
+				arrow.setArrowStyle(MathUtils.INST.equalsDouble(Math.abs(m.getX()), 0.5) ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
+				if(!isStartArrow) {
+					arrow.setArrowStyle(arrow.getArrowStyle().getOppositeArrowStyle());
+				}
+				arrow.setRBracketNum(rBrack);
+			}else { // It may be a bracket.
+				if(list.size() == 4 && seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto) {
+					final double lgth = Math.abs(m.getX() - ((SVGPathSegLineto) seg).getX());
 
-            y += m.getY() > 0. ? -0.5 : 0.5;
-			arrow.setTBarSizeDim(y*lineWidth*2. - tbarNum*lineWidth);
-			arrow.setBracketNum((lgth-0.5)*lineWidth/(arrow.getTBarSizeDim()/IShape.PPC + arrow.getTBarSizeNum()*lineWidth));
-			arrow.setArrowStyle(elt.getRefX()>0.? ArrowStyle.RIGHT_SQUARE_BRACKET : ArrowStyle.LEFT_SQUARE_BRACKET);
+					y += m.getY() > 0d ? -0.5 : 0.5;
+					arrow.setTBarSizeDim(y * lineWidth * 2d - tbarNum * lineWidth);
+					arrow.setBracketNum((lgth - 0.5) * lineWidth / (arrow.getTBarSizeDim() / IShape.PPC + arrow.getTBarSizeNum() * lineWidth));
+					arrow.setArrowStyle(elt.getRefX() > 0d ? ArrowStyle.RIGHT_SQUARE_BRACKET : ArrowStyle.LEFT_SQUARE_BRACKET);
+				}
+			}
 		}
 	}
 
 
-	private void setArrowArrow(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final SVGPathSeg seg,
-							   final SVGPathSegList list, final String svgMarker) {
-		if(!(seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto &&
-				list.get(3) instanceof SVGPathSegLineto && list.get(4) instanceof SVGPathSegClosePath))
-				return ;
+	private void setArrowArrow(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final SVGPathSeg seg, final SVGPathSegList list,
+							   final String svgMarker) {
+		if(!(seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto &&
+			list.get(4) instanceof SVGPathSegClosePath)) return;
 
-			final String arrNumStr = path.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_SIZE_NUM);
-			double arrNum;
-        final double arrDim;
-        final double lgth = Math.abs(((SVGPathSegLineto)seg).getX() - m.getX());
-			final boolean moveIs0 = MathUtils.INST.equalsDouble(m.getX(),0.) && MathUtils.INST.equalsDouble(m.getY(),0.);
-			final boolean isStartArrow = SVGAttributes.SVG_MARKER_START.equals(svgMarker);
+		final String arrNumStr = path.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_SIZE_NUM);
+		double arrNum;
+		final double arrDim;
+		final double lgth = Math.abs(((SVGPathSegLineto) seg).getX() - m.getX());
+		final boolean moveIs0 = MathUtils.INST.equalsDouble(m.getX(), 0d) && MathUtils.INST.equalsDouble(m.getY(), 0d);
+		final boolean isStartArrow = SVGAttributes.SVG_MARKER_START.equals(svgMarker);
 
-			if(arrNumStr==null)
-				arrNum = 1.;
-			else
-				try { arrNum = Double.parseDouble(arrNumStr); }
-				catch(final NumberFormatException e) {
-					BadaboomCollector.INSTANCE.add(e);
-					arrNum = 1.;
-				}
+		if(arrNumStr == null) {
+			arrNum = 1d;
+		}else {
+			try {
+				arrNum = Double.parseDouble(arrNumStr);
+			}catch(final NumberFormatException e) {
+				BadaboomCollector.INSTANCE.add(e);
+				arrNum = 1d;
+			}
+		}
 
-			if(list.size()==10)
-				arrow.setArrowStyle(moveIs0 ? ArrowStyle.LEFT_DBLE_ARROW : ArrowStyle.RIGHT_DBLE_ARROW);
-			else
-				arrow.setArrowStyle(moveIs0 ? ArrowStyle.LEFT_ARROW : ArrowStyle.RIGHT_ARROW);
+		if(list.size() == 10) {
+			arrow.setArrowStyle(moveIs0 ? ArrowStyle.LEFT_DBLE_ARROW : ArrowStyle.RIGHT_DBLE_ARROW);
+		}else {
+			arrow.setArrowStyle(moveIs0 ? ArrowStyle.LEFT_ARROW : ArrowStyle.RIGHT_ARROW);
+		}
 
-			if(!isStartArrow)
-				arrow.setArrowStyle(arrow.getArrowStyle().getOppositeArrowStyle());
+		if(!isStartArrow) {
+			arrow.setArrowStyle(arrow.getArrowStyle().getOppositeArrowStyle());
+		}
 
-			arrDim = lineWidth*(((SVGPathSegLineto)seg).getY()*2. - arrNum);
-			arrow.setArrowLength(lgth/((arrNum*lineWidth + arrDim)/lineWidth));
-			arrow.setArrowSizeDim(arrDim);
-			arrow.setArrowSizeNum(arrNum);
-			arrow.setArrowInset(Math.abs(((SVGPathSegLineto)seg).getX()-((SVGPathSegLineto)list.get(2)).getX())/lgth);
+		arrDim = lineWidth * (((SVGPathSegLineto) seg).getY() * 2d - arrNum);
+		arrow.setArrowLength(lgth / ((arrNum * lineWidth + arrDim) / lineWidth));
+		arrow.setArrowSizeDim(arrDim);
+		arrow.setArrowSizeNum(arrNum);
+		arrow.setArrowInset(Math.abs(((SVGPathSegLineto) seg).getX() - ((SVGPathSegLineto) list.get(2)).getX()) / lgth);
 	}
 
 
@@ -204,99 +211,97 @@ class LArrowSVGGenerator {
 	 * @param owner The shape that has the arrow.
 	 * @since 2.0.0
 	 */
-	protected void setArrow(final SVGPathElement path, final SVGMarkerElement elt, final IShape owner, final String svgMarker) {
-		final SVGPathSegList list	= path.getSegList();
-		final SVGPathSegMoveto m 	= (SVGPathSegMoveto)list.get(0);
-		final double lineWidth  	= owner.hasDbleBord() ? owner.getDbleBordSep() + 2.*owner.getThickness() : owner.getThickness();
+	void setArrow(final SVGPathElement path, final SVGMarkerElement elt, final IShape owner, final String svgMarker) {
+		final SVGPathSegList list = path.getSegList();
+		final SVGPathSegMoveto m = (SVGPathSegMoveto) list.get(0);
+		final double lineWidth = owner.hasDbleBord() ? owner.getDbleBordSep() + 2d * owner.getThickness() : owner.getThickness();
 
-		if(list.size()==2 || list.size()==4) // It may be a bar or a bracket
+		if(list.size() == 2 || list.size() == 4) { // It may be a bar or a bracket
 			setArrowBarBracket(path, m, lineWidth, list.get(1), elt, list, svgMarker);
-		else if(list.size()==5 || list.size()==10)// It may be an arrow or a double arrow
-			setArrowArrow(path, m, lineWidth, list.get(1), list, svgMarker);
+		}else {
+			if(list.size() == 5 || list.size() == 10) { // It may be an arrow or a double arrow
+				setArrowArrow(path, m, lineWidth, list.get(1), list, svgMarker);
+			}
+		}
 	}
 
 
-
 	private double toSVGCircle(final SVGDocument doc, final double lineWidth, final boolean isShadow, final SVGElement marker) {
-		final IShape shape 		= arrow.getShape();
+		final IShape shape = arrow.getShape();
 		final SVGElement circle = new SVGCircleElement(doc);
-		final double r 			= (arrow.getDotSizeDim()+arrow.getDotSizeNum()*lineWidth)/2.-lineWidth/2.;
+		final double r = (arrow.getDotSizeDim() + arrow.getDotSizeNum() * lineWidth) / 2d - lineWidth / 2d;
 
-		circle.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_DOT_SIZE_NUM, String.valueOf(arrow.getDotSizeNum()));
-		circle.setAttribute(SVGAttributes.SVG_R, String.valueOf(r/lineWidth));
+		circle.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_DOT_SIZE_NUM, String.valueOf(arrow.getDotSizeNum()));
+		circle.setAttribute(SVGAttributes.SVG_R, String.valueOf(r / lineWidth));
 		circle.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
 		circle.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(isShadow ? shape.getShadowCol() : shape.getLineColour(), true));
 		circle.setStrokeWidth(1);
 		marker.appendChild(circle);
 
-		return arrow.getArrowStyle()==ArrowStyle.CIRCLE_IN ? lineWidth*(arrow.isLeftArrow() ? -1. : 1.) : 0.;
+		return arrow.getArrowStyle() == ArrowStyle.CIRCLE_IN ? lineWidth * (arrow.isLeftArrow() ? -1d : 1d) : 0d;
 	}
-
 
 
 	private double toSVGDisk(final SVGDocument doc, final double lineWidth, final boolean isShadow, final SVGElement marker) {
-		final IShape shape 		= arrow.getShape();
+		final IShape shape = arrow.getShape();
 		final SVGElement circle = new SVGCircleElement(doc);
-		final double r 			= (arrow.getDotSizeDim()+arrow.getDotSizeNum()*lineWidth)/2.;
+		final double r = (arrow.getDotSizeDim() + arrow.getDotSizeNum() * lineWidth) / 2d;
 
-		circle.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_DOT_SIZE_NUM, String.valueOf(arrow.getDotSizeNum()));
-		circle.setAttribute(SVGAttributes.SVG_R, String.valueOf(r/lineWidth));
+		circle.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_DOT_SIZE_NUM, String.valueOf(arrow.getDotSizeNum()));
+		circle.setAttribute(SVGAttributes.SVG_R, String.valueOf(r / lineWidth));
 		circle.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(isShadow ? shape.getShadowCol() : shape.getLineColour(), true));
 		marker.appendChild(circle);
 
-		return arrow.getArrowStyle()==ArrowStyle.DISK_IN ? lineWidth *  (arrow.isLeftArrow() ? -1. : 1.) : 0.;
+		return arrow.getArrowStyle() == ArrowStyle.DISK_IN ? lineWidth * (arrow.isLeftArrow() ? -1d : 1d) : 0d;
 	}
 
 
-
 	private void toSVGBar(final SVGDocument doc, final double lineWidth, final boolean isShadow, final SVGElement marker) {
-		final IShape shape			= arrow.getShape();
-		final SVGPathElement bar	= new SVGPathElement(doc);
-		final double width 			= arrow.getTBarSizeDim() + arrow.getTBarSizeNum()*lineWidth;
-		final SVGPathSegList path 	= new SVGPathSegList();
-		final double x 				= arrow.getArrowStyle()==ArrowStyle.BAR_IN ? arrow.isLeftArrow() ? 0.5 : -0.5 : 0.;
+		final IShape shape = arrow.getShape();
+		final SVGPathElement bar = new SVGPathElement(doc);
+		final double width = arrow.getTBarSizeDim() + arrow.getTBarSizeNum() * lineWidth;
+		final SVGPathSegList path = new SVGPathSegList();
+		final double x = arrow.getArrowStyle() == ArrowStyle.BAR_IN ? arrow.isLeftArrow() ? 0.5 : -0.5 : 0d;
 
-		bar.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_TBAR_SIZE_NUM, String.valueOf(arrow.getTBarSizeNum()));
-		path.add(new SVGPathSegMoveto(x, -width/(lineWidth*2.), false));
-		path.add(new SVGPathSegLineto(x, width/(lineWidth*2.), false));
+		bar.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_TBAR_SIZE_NUM, String.valueOf(arrow.getTBarSizeNum()));
+		path.add(new SVGPathSegMoveto(x, -width / (lineWidth * 2d), false));
+		path.add(new SVGPathSegLineto(x, width / (lineWidth * 2d), false));
 		bar.setPathData(path);
 		bar.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(isShadow ? shape.getShadowCol() : shape.getLineColour(), true));
 		bar.setAttribute(SVGAttributes.SVG_FILL, SVGAttributes.SVG_VALUE_NONE);
 		bar.setPathData(path);
-		bar.setStrokeWidth(1.);
+		bar.setStrokeWidth(1d);
 		marker.appendChild(bar);
 	}
 
 
-
 	private double toSVGSquareBracket(final SVGDocument doc, final double lineWidth, final boolean isShadow, final SVGElement marker) {
-		final IShape shape			= arrow.getShape();
-		final SVGPathElement bar 	= new SVGPathElement(doc);
-		final double width 			= arrow.getTBarSizeDim() + arrow.getTBarSizeNum()*lineWidth;
-		final SVGPathSegList path 	= new SVGPathSegList();
-		final double lgth 			= arrow.getBracketNum()*(arrow.getTBarSizeDim()/IShape.PPC + arrow.getTBarSizeNum()*lineWidth)/lineWidth;
-		final boolean isInverted  	= arrow.isInverted();//FIXME shape.PPC
+		final IShape shape = arrow.getShape();
+		final SVGPathElement bar = new SVGPathElement(doc);
+		final double width = arrow.getTBarSizeDim() + arrow.getTBarSizeNum() * lineWidth;
+		final SVGPathSegList path = new SVGPathSegList();
+		final double lgth = arrow.getBracketNum() * (arrow.getTBarSizeDim() / IShape.PPC + arrow.getTBarSizeNum() * lineWidth) / lineWidth;
+		final boolean isInverted = arrow.isInverted();//FIXME shape.PPC
 		final double gapPostion;
 
-		if(arrow.getArrowStyle()==ArrowStyle.LEFT_SQUARE_BRACKET) {
-			final double lgth2 = isInverted ? -lgth : 0.;
-			path.add(new SVGPathSegMoveto(lgth+lgth2+0.5, -width/(lineWidth*2)+0.5, false));
-			path.add(new SVGPathSegLineto(lgth2, -width/(lineWidth*2)+0.5, false));
-			path.add(new SVGPathSegLineto(lgth2, width/(lineWidth*2)-0.5, false));
-			path.add(new SVGPathSegLineto(lgth+lgth2+0.5, width/(lineWidth*2)-0.5, false));
-			gapPostion = isInverted ? -lineWidth/4. : -lineWidth/2.;
-		}
-		else {
-			final double lgth2 = isInverted ? lgth : 0.;
-			path.add(new SVGPathSegMoveto(-lgth+lgth2-0.5, -width/(lineWidth*2)+0.5, false));
-			path.add(new SVGPathSegLineto(lgth2, -width/(lineWidth*2)+0.5, false));
-			path.add(new SVGPathSegLineto(lgth2, width/(lineWidth*2)-0.5, false));
-			path.add(new SVGPathSegLineto(-lgth+lgth2-0.5, width/(lineWidth*2)-0.5, false));
-			gapPostion = isInverted ? lineWidth/4. : lineWidth/2.;
+		if(arrow.getArrowStyle() == ArrowStyle.LEFT_SQUARE_BRACKET) {
+			final double lgth2 = isInverted ? -lgth : 0d;
+			path.add(new SVGPathSegMoveto(lgth + lgth2 + 0.5, -width / (lineWidth * 2d) + 0.5, false));
+			path.add(new SVGPathSegLineto(lgth2, -width / (lineWidth * 2) + 0.5, false));
+			path.add(new SVGPathSegLineto(lgth2, width / (lineWidth * 2) - 0.5, false));
+			path.add(new SVGPathSegLineto(lgth + lgth2 + 0.5, width / (lineWidth * 2d) - 0.5, false));
+			gapPostion = isInverted ? -lineWidth / 4d : -lineWidth / 2d;
+		}else {
+			final double lgth2 = isInverted ? lgth : 0d;
+			path.add(new SVGPathSegMoveto(-lgth + lgth2 - 0.5, -width / (lineWidth * 2d) + 0.5, false));
+			path.add(new SVGPathSegLineto(lgth2, -width / (lineWidth * 2d) + 0.5, false));
+			path.add(new SVGPathSegLineto(lgth2, width / (lineWidth * 2d) - 0.5, false));
+			path.add(new SVGPathSegLineto(-lgth + lgth2 - 0.5, width / (lineWidth * 2d) - 0.5, false));
+			gapPostion = isInverted ? lineWidth / 4d : lineWidth / 2d;
 		}
 
 		marker.appendChild(bar);
-		bar.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_TBAR_SIZE_NUM, String.valueOf(arrow.getTBarSizeNum()));
+		bar.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_TBAR_SIZE_NUM, String.valueOf(arrow.getTBarSizeNum()));
 		bar.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(isShadow ? shape.getShadowCol() : shape.getLineColour(), true));
 		bar.setAttribute(SVGAttributes.SVG_FILL, SVGAttributes.SVG_VALUE_NONE);
 		bar.setPathData(path);
@@ -306,101 +311,98 @@ class LArrowSVGGenerator {
 	}
 
 
-
 	private void toSVGArrow(final SVGDocument doc, final double lineWidth, final boolean isShadow, final SVGElement marker) {
-		final IShape shape			= arrow.getShape();
-		final SVGElement arrowSVG 	= new SVGPathElement(doc);
-		final double width  		= (arrow.getArrowSizeNum()*lineWidth + arrow.getArrowSizeDim())/lineWidth;
-		double length 				= arrow.getArrowLength()*width;
-        double inset                = arrow.getArrowInset()*length;
-        final SVGPathSegList path 	= new SVGPathSegList();
+		final IShape shape = arrow.getShape();
+		final SVGElement arrowSVG = new SVGPathElement(doc);
+		final double width = (arrow.getArrowSizeNum() * lineWidth + arrow.getArrowSizeDim()) / lineWidth;
+		double length = arrow.getArrowLength() * width;
+		double inset = arrow.getArrowInset() * length;
+		final SVGPathSegList path = new SVGPathSegList();
 
-		if(arrow.getArrowStyle()==ArrowStyle.LEFT_ARROW) {
-			length *= -1.;
-			inset *= -1.;
+		if(arrow.getArrowStyle() == ArrowStyle.LEFT_ARROW) {
+			length *= -1d;
+			inset *= -1d;
 		}
 
-		final double lgth2 = arrow.isInverted() ? length : 0.;
-		path.add(new SVGPathSegMoveto(lgth2, 0., false));
-		path.add(new SVGPathSegLineto(-length+lgth2, width/2., false));
-		path.add(new SVGPathSegLineto(-length+inset+lgth2, 0.,  false));
-		path.add(new SVGPathSegLineto(-length+lgth2, -width/2., false));
+		final double lgth2 = arrow.isInverted() ? length : 0d;
+		path.add(new SVGPathSegMoveto(lgth2, 0d, false));
+		path.add(new SVGPathSegLineto(-length + lgth2, width / 2d, false));
+		path.add(new SVGPathSegLineto(-length + inset + lgth2, 0d, false));
+		path.add(new SVGPathSegLineto(-length + lgth2, -width / 2d, false));
 		path.add(new SVGPathSegClosePath());
 
 		marker.appendChild(arrowSVG);
-		arrowSVG.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_SIZE_NUM, String.valueOf(arrow.getArrowSizeNum()));
+		arrowSVG.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_SIZE_NUM, String.valueOf(arrow.getArrowSizeNum()));
 		arrowSVG.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(isShadow ? shape.getShadowCol() : shape.getLineColour(), true));
 		arrowSVG.setAttribute(SVGAttributes.SVG_D, path.toString());
 	}
 
 
-
 	private void toSVGRoundBracket(final SVGDocument doc, final double lineWidth, final boolean isShadow, final SVGElement marker) {
-		final IShape shape				= arrow.getShape();
-		final SVGPathElement rbracket 	= new SVGPathElement(doc);
-		final double width 				= (arrow.getTBarSizeDim() + arrow.getTBarSizeNum()*lineWidth)/lineWidth;
-		double lgth  					= arrow.getRBracketNum()*width;
-		final SVGPathSegList path 		= new SVGPathSegList();
-		double gap						= 0.5;
+		final IShape shape = arrow.getShape();
+		final SVGPathElement rbracket = new SVGPathElement(doc);
+		final double width = (arrow.getTBarSizeDim() + arrow.getTBarSizeNum() * lineWidth) / lineWidth;
+		double lgth = arrow.getRBracketNum() * width;
+		final SVGPathSegList path = new SVGPathSegList();
+		double gap = 0.5;
 
-		if(arrow.getArrowStyle()==ArrowStyle.LEFT_ROUND_BRACKET) {
-			lgth *= -1.;
-			gap *= -1.;
+		if(arrow.getArrowStyle() == ArrowStyle.LEFT_ROUND_BRACKET) {
+			lgth *= -1d;
+			gap *= -1d;
 		}
 
-		final double lgth2 = arrow.isInverted() ? lgth : 0.;
-		path.add(new SVGPathSegMoveto(-lgth+lgth2-gap, width/2., false));
-		path.add(new SVGPathSegCurvetoCubic(-lgth+lgth2-gap, -width/2., 0., width/2., 0., -width/2., false));
+		final double lgth2 = arrow.isInverted() ? lgth : 0d;
+		path.add(new SVGPathSegMoveto(-lgth + lgth2 - gap, width / 2d, false));
+		path.add(new SVGPathSegCurvetoCubic(-lgth + lgth2 - gap, -width / 2d, 0d, width / 2d, 0d, -width / 2d, false));
 
 		marker.appendChild(rbracket);
 		rbracket.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(isShadow ? shape.getShadowCol() : shape.getLineColour(), true));
 		rbracket.setAttribute(SVGAttributes.SVG_FILL, SVGAttributes.SVG_VALUE_NONE);
-		rbracket.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_TBAR_SIZE_NUM, String.valueOf(arrow.getTBarSizeNum()));
+		rbracket.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_TBAR_SIZE_NUM, String.valueOf(arrow.getTBarSizeNum()));
 		rbracket.setPathData(path);
-		rbracket.setStrokeWidth(1);
+		rbracket.setStrokeWidth(1d);
 	}
 
 
 	private void toSVGDoubleArrow(final SVGDocument doc, final double lineWidth, final boolean isShadow, final SVGElement marker) {
-		final IShape shape			= arrow.getShape();
-		final SVGElement arrowSVG 	= new SVGPathElement(doc);
-		final double width  		= (arrow.getArrowSizeNum()*lineWidth + arrow.getArrowSizeDim())/lineWidth;
-		double length 				= arrow.getArrowLength()*width;
-        double inset                = arrow.getArrowInset()*length;
-        final SVGPathSegList path 	= new SVGPathSegList();
+		final IShape shape = arrow.getShape();
+		final SVGElement arrowSVG = new SVGPathElement(doc);
+		final double width = (arrow.getArrowSizeNum() * lineWidth + arrow.getArrowSizeDim()) / lineWidth;
+		double length = arrow.getArrowLength() * width;
+		double inset = arrow.getArrowInset() * length;
+		final SVGPathSegList path = new SVGPathSegList();
 
-		if(arrow.getArrowStyle()==ArrowStyle.LEFT_DBLE_ARROW) {
-			inset *= -1.;
-			length *= -1.;
+		if(arrow.getArrowStyle() == ArrowStyle.LEFT_DBLE_ARROW) {
+			inset *= -1d;
+			length *= -1d;
 		}
 
-		final double lgth2 = arrow.isInverted() ? length*2 : 0.;
-		path.add(new SVGPathSegMoveto(lgth2, 0., false));
-		path.add(new SVGPathSegLineto(-length+lgth2, width/2., false));
-		path.add(new SVGPathSegLineto(-length+inset+lgth2, 0., false));
-		path.add(new SVGPathSegLineto(-length+lgth2, -width/2., false));
+		final double lgth2 = arrow.isInverted() ? length * 2d : 0d;
+		path.add(new SVGPathSegMoveto(lgth2, 0d, false));
+		path.add(new SVGPathSegLineto(-length + lgth2, width / 2d, false));
+		path.add(new SVGPathSegLineto(-length + inset + lgth2, 0d, false));
+		path.add(new SVGPathSegLineto(-length + lgth2, -width / 2d, false));
 		path.add(new SVGPathSegClosePath());
-		path.add(new SVGPathSegMoveto(-length+lgth2, 0., false));
-		path.add(new SVGPathSegLineto(-length*2+lgth2, width/2., false));
-		path.add(new SVGPathSegLineto(-length*2+inset+lgth2, 0., false));
-		path.add(new SVGPathSegLineto(-length*2+lgth2, -width/2., false));
+		path.add(new SVGPathSegMoveto(-length + lgth2, 0d, false));
+		path.add(new SVGPathSegLineto(-length * 2d + lgth2, width / 2d, false));
+		path.add(new SVGPathSegLineto(-length * 2d + inset + lgth2, 0d, false));
+		path.add(new SVGPathSegLineto(-length * 2d + lgth2, -width / 2d, false));
 		path.add(new SVGPathSegClosePath());
 
 		marker.appendChild(arrowSVG);
-		arrowSVG.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_SIZE_NUM, String.valueOf(arrow.getArrowSizeNum()));
+		arrowSVG.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_SIZE_NUM, String.valueOf(arrow.getArrowSizeNum()));
 		arrowSVG.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(isShadow ? shape.getShadowCol() : shape.getLineColour(), true));
 		arrowSVG.setAttribute(SVGAttributes.SVG_D, path.toString());
 	}
 
 
 	private void toSVGRoundIn(final SVGDocument doc, final boolean isShadow, final SVGElement marker) {
-		final IShape shape 		= arrow.getShape();
+		final IShape shape = arrow.getShape();
 		final SVGElement circle = new SVGCircleElement(doc);
 		circle.setAttribute(SVGAttributes.SVG_R, "0.5"); //$NON-NLS-1$
 		circle.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(isShadow ? shape.getShadowCol() : shape.getLineColour(), true));
 		marker.appendChild(circle);
 	}
-
 
 
 	/**
@@ -417,36 +419,39 @@ class LArrowSVGGenerator {
 		final ArrowStyle arrowStyle = arrow.getArrowStyle();
 		final SVGElement marker 	= new SVGMarkerElement(doc);
 		final double lineWidth  	= arrow.getLineThickness();
-		double gapPostion 			= 0.;
-
-		if(arrowStyle==ArrowStyle.CIRCLE_END || arrowStyle==ArrowStyle.CIRCLE_IN)
-			gapPostion = toSVGCircle(doc, lineWidth, isShadow, marker);
-		else
-		if(arrowStyle==ArrowStyle.DISK_END || arrowStyle==ArrowStyle.DISK_IN)
-			gapPostion = toSVGDisk(doc, lineWidth, isShadow, marker);
-		else
-		if(arrowStyle.isBar())
-			toSVGBar(doc, lineWidth, isShadow, marker);
-		else if(arrowStyle.isSquareBracket())
-			toSVGSquareBracket(doc, lineWidth, isShadow, marker);
-		else
-		if(arrowStyle==ArrowStyle.RIGHT_ARROW || arrowStyle==ArrowStyle.LEFT_ARROW)
-			toSVGArrow(doc, lineWidth, isShadow, marker);
-		else
-		if(arrowStyle.isRoundBracket())
-			toSVGRoundBracket(doc, lineWidth, isShadow, marker);
-		else
-		if(arrowStyle==ArrowStyle.LEFT_DBLE_ARROW || arrowStyle==ArrowStyle.RIGHT_DBLE_ARROW)
-			toSVGDoubleArrow(doc, lineWidth, isShadow, marker);
-		else
-		if(arrowStyle==ArrowStyle.ROUND_IN)
-			toSVGRoundIn(doc, isShadow, marker);
-
-		if(!MathUtils.INST.equalsDouble(gapPostion,0.))
-			marker.setAttribute(SVGAttributes.SVG_REF_X, String.valueOf(gapPostion/lineWidth));
 
 		marker.setAttribute(SVGAttributes.SVG_OVERFLOW, SVGAttributes.SVG_VALUE_VISIBLE);
 		marker.setAttribute(SVGAttributes.SVG_ORIENT, SVGAttributes.SVG_VALUE_AUTO);
+
+		if(arrowStyle.isCircleDisk()) {
+			final double gapPostion = arrowStyle==ArrowStyle.DISK_END || arrowStyle==ArrowStyle.DISK_IN ?
+				toSVGDisk(doc, lineWidth, isShadow, marker) : toSVGCircle(doc, lineWidth, isShadow, marker);
+			marker.setAttribute(SVGAttributes.SVG_REF_X, String.valueOf(gapPostion / lineWidth));
+		}
+
+		if(arrowStyle.isBar()) {
+			toSVGBar(doc, lineWidth, isShadow, marker);
+		}
+
+		if(arrowStyle.isSquareBracket()) {
+			toSVGSquareBracket(doc, lineWidth, isShadow, marker);
+		}
+
+		if(arrowStyle == ArrowStyle.RIGHT_ARROW || arrowStyle == ArrowStyle.LEFT_ARROW) {
+			toSVGArrow(doc, lineWidth, isShadow, marker);
+		}
+
+		if(arrowStyle.isRoundBracket()) {
+			toSVGRoundBracket(doc, lineWidth, isShadow, marker);
+		}
+
+		if(arrowStyle == ArrowStyle.LEFT_DBLE_ARROW || arrowStyle == ArrowStyle.RIGHT_DBLE_ARROW) {
+			toSVGDoubleArrow(doc, lineWidth, isShadow, marker);
+		}
+
+		if(arrowStyle == ArrowStyle.ROUND_IN) {
+			toSVGRoundIn(doc, isShadow, marker);
+		}
 
 		return marker;
 	}
