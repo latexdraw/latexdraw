@@ -221,7 +221,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public boolean isInverted() {
-		return isLeftArrow() != style.isRightStyle();
+		return isLeftArrow() == style.isRightStyle();
 	}
 
 	@Override

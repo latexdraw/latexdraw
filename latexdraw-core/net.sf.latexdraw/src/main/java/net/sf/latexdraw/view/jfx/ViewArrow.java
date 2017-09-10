@@ -107,10 +107,7 @@ public class ViewArrow extends Group {
 
 
 	private boolean shouldInvertArrow(final IPoint pt1, final IPoint pt2) {
-		final boolean invert = arrow.isInverted();
-		final boolean left = arrow.isLeftArrow();
-		final boolean positiv = isArrowInPositiveDirection(pt1, pt2);
-		return positiv == invert && !left || positiv != invert && left;
+		return arrow.isInverted() == isArrowInPositiveDirection(pt1, pt2);
 	}
 
 
@@ -184,7 +181,7 @@ public class ViewArrow extends Group {
 		double x = pt1.getX();
 		final double y = pt1.getY();
 
-		if(arrow.isInverted() != arrow.isLeftArrow()) {
+		if(arrow.isInverted()) {
 			x += isArrowInPositiveDirection(pt1, pt2) ? length : -length;
 		}
 
