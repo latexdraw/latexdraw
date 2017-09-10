@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.models.impl;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -18,7 +19,6 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
-import static java.lang.Math.PI;
 import static java.lang.Math.atan;
 
 /**
@@ -104,41 +104,9 @@ class LPoint implements IPoint {
 			return null;
 		}
 
-		final IPoint pt = ShapeFactory.INST.createPoint();
-		final double cosTheta;
-		final double sinTheta;
-		double angle = theta;
-		final double gx = gravityC.getX();
-		final double gy = gravityC.getY();
-
-		if(angle < 0.) {
-			angle = 2. * PI + angle;
-		}
-
-		angle %= 2. * PI;
-
-		if(MathUtils.INST.equalsDouble(angle, 0.)) {
-			return new LPoint(this);
-		}
-
-		if(MathUtils.INST.equalsDouble(angle - PI / 2., 0.)) {
-			cosTheta = 0.;
-			sinTheta = 1.;
-		}else if(MathUtils.INST.equalsDouble(angle - PI, 0.)) {
-			cosTheta = -1.;
-			sinTheta = 0.;
-		}else if(MathUtils.INST.equalsDouble(angle - 3. * PI / 2., 0.)) {
-			cosTheta = 0.;
-			sinTheta = -1.;
-		}else {
-			cosTheta = Math.cos(angle);
-			sinTheta = Math.sin(angle);
-		}
-
-		pt.setX(cosTheta * (getX() - gx) - sinTheta * (getY() - gy) + gx);
-		pt.setY(sinTheta * (getX() - gx) + cosTheta * (getY() - gy) + gy);
-
-		return pt;
+		final double[] coords = new double[]{getX(), getY()};
+		AffineTransform.getRotateInstance(theta, gravityC.getX(), gravityC.getY()).transform(coords, 0, coords, 0, 1);
+		return ShapeFactory.INST.createPoint(coords[0], coords[1]);
 	}
 
 	@Override
@@ -276,10 +244,7 @@ class LPoint implements IPoint {
 	public boolean equals(final Object obj) {
 		if(this == obj) return true;
 		if(!(obj instanceof IPoint)) return false;
-		final IPoint other = (IPoint) obj;
-		if(Double.doubleToLongBits(x.doubleValue()) != Double.doubleToLongBits(other.getX())) return false;
-		if(Double.doubleToLongBits(y.doubleValue()) != Double.doubleToLongBits(other.getY())) return false;
-		return true;
+		return equals((IPoint) obj, 0.0000001);
 	}
 
 	@Override
