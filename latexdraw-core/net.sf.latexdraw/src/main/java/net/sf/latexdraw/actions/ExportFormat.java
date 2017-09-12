@@ -37,7 +37,7 @@ public enum ExportFormat {
 	PDF {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("PDF", "*."+getFileExtension());
+			return new FileChooser.ExtensionFilter("PDF", "*"+getFileExtension());
 		}
 
 		@Override
@@ -51,7 +51,7 @@ public enum ExportFormat {
 	EPS_LATEX {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("EPS", "*."+getFileExtension());
+			return new FileChooser.ExtensionFilter("EPS", "*"+getFileExtension());
 		}
 
 		@Override
@@ -65,7 +65,7 @@ public enum ExportFormat {
 	PDF_CROP {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("PDF", "*."+getFileExtension());
+			return new FileChooser.ExtensionFilter("PDF", "*"+getFileExtension());
 		}
 
 		@Override
@@ -79,7 +79,7 @@ public enum ExportFormat {
 	BMP {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("BMP", "*."+getFileExtension());
+			return new FileChooser.ExtensionFilter("BMP", "*"+getFileExtension());
 		}
 
 		@Override
@@ -93,7 +93,7 @@ public enum ExportFormat {
 	PNG {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("PNG", "*."+getFileExtension());
+			return new FileChooser.ExtensionFilter("PNG", "*"+getFileExtension());
 		}
 
 		@Override
@@ -107,7 +107,7 @@ public enum ExportFormat {
 	JPG {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("JPG", "*."+getFileExtension());
+			return new FileChooser.ExtensionFilter("JPG", "*"+getFileExtension());
 		}
 
 		@Override
