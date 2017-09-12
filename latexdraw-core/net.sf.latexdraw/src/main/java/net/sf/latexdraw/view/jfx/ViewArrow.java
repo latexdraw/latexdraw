@@ -72,6 +72,7 @@ public class ViewArrow extends Group {
 		final Ellipse ell = new Ellipse(arrowRadius - lineWidth / 2d, arrowRadius - lineWidth / 2d);
 		ell.setCenterX(x);
 		ell.setCenterY(y);
+		ell.setStrokeWidth(lineWidth);
 		additionalShapes.getChildren().add(ell);
 		setStrokeFillDiskCircle(ell);
 		enableShape(false);
@@ -93,13 +94,14 @@ public class ViewArrow extends Group {
 
 
 	private void setStrokeFillDiskCircle(final Ellipse ell) {
+		ell.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
+
 		if(arrow.getArrowStyle() == ArrowStyle.CIRCLE_IN || arrow.getArrowStyle() == ArrowStyle.CIRCLE_END) {
 			if(arrow.getShape().isFillable()) {
 				ell.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getFillingCol().toJFX(), arrow.getShape().fillingColProperty()));
 			}else {
 				ell.setFill(Color.WHITE);
 			}
-			ell.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 		}else {
 			ell.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 		}
