@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,12 +48,11 @@ import org.w3c.dom.Element;
  * @author Arnaud Blouin
  */
 public class FileLoaderSaver extends JfxInstrument implements Initializable {
-	private static final BiFunction<IOAction<Label>, FileLoaderSaver, Void> initIOAction = (action, instrument) -> {
+	private static final BiConsumer<IOAction<Label>, FileLoaderSaver> initIOAction = (action, instrument) -> {
 		action.setStatusWidget(instrument.statusBar.getLabel());
 		action.setProgressBar(instrument.statusBar.getProgressBar());
 		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 		action.setUi(LaTeXDraw.getINSTANCE());
-		return null;
 	};
 
 	/** The menu used to save documents. */
@@ -149,7 +147,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
 		final BiConsumer<SaveDrawing, FileLoaderSaver> initSaveAction = (action, instrument) -> {
-			initIOAction.apply(action, instrument);
+			initIOAction.accept(action, instrument);
 			action.setFileChooser(instrument.getDialog(true));
 			action.setFile(instrument.currentFile);
 			action.setCurrentFolder(instrument.currentFolder);
@@ -163,13 +161,13 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		};
 
 		final Consumer<LoadDrawing> loadAction = action -> {
-			initIOAction.apply(action, this);
+			initIOAction.accept(action, this);
 			action.setFileChooser(getDialog(false));
 			action.setCurrentFolder(currentFolder);
 		};
 
 		final Consumer<NewDrawing> newAction = action -> {
-			initIOAction.apply(action, this);
+			initIOAction.accept(action, this);
 			action.setPrefSetter(prefSetter);
 			action.setFileChooser(getDialog(false));
 			action.setCurrentFolder(currentFolder);
@@ -319,7 +317,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 		@Override
 		public void initAction() {
-			initIOAction.apply(action, instrument);
+			initIOAction.accept(action, instrument);
 			action.setFileChooser(instrument.getDialog(false));
 			action.setCurrentFolder(instrument.currentFolder);
 			action.setFile(new File((String) interaction.getWidget().getUserData()));
