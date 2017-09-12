@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import javafx.fxml.FXML;
@@ -147,17 +148,16 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		final BiFunction<SaveDrawing, FileLoaderSaver, Void> initSaveAction = (action, instrument) -> {
+		final BiConsumer<SaveDrawing, FileLoaderSaver> initSaveAction = (action, instrument) -> {
 			initIOAction.apply(action, instrument);
 			action.setFileChooser(instrument.getDialog(true));
 			action.setFile(instrument.currentFile);
 			action.setCurrentFolder(instrument.currentFolder);
 			action.setPrefSetter(prefSetter);
-			return null;
 		};
 
 		final Consumer<SaveDrawing> saveAction = action -> {
-			initSaveAction.apply(action, FileLoaderSaver.this);
+			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(false);
 			action.setSaveOnClose(false);
 		};
@@ -177,14 +177,14 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 		// Close window
 		bindWindow(SaveDrawing.class, action -> {
-			initSaveAction.apply(action, FileLoaderSaver.this);
+			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(true);
 		}, WindowClosed.class, LaTeXDraw.getINSTANCE().getMainStage());
 
 		// Quit shortcut
 		bindKeyShortcut(Arrays.asList(KeyCode.W, LSystem.INSTANCE.getControlKey()), SaveDrawing.class, action -> {
-			initSaveAction.apply(action, FileLoaderSaver.this);
+			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(true);
 		}, LaTeXDraw.getINSTANCE().getMainStage());
@@ -198,7 +198,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 		// Save as menu
 		bindMenu(SaveDrawing.class, action -> {
-			initSaveAction.apply(action, FileLoaderSaver.this);
+			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(false);
 			action.setFile(null);
