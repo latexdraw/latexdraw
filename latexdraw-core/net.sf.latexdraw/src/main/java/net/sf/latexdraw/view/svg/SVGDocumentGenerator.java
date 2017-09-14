@@ -15,10 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -43,7 +40,6 @@ import javax.imageio.ImageIO;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.actions.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.instruments.ExceptionsManager;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -150,8 +146,6 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		protected final Label statusBar;
 		protected final String path;
 		protected final ProgressBar progressBar;
-		private final Map<JfxInstrument, Boolean> instrumentsState;
-		private final List<JfxInstrument> instruments;
 		/** set the ui as modified after the work? */
 		protected boolean setModified;
 
@@ -161,8 +155,6 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			statusBar = status;
 			setModified = false;
 			progressBar = bar;
-			instrumentsState = new HashMap<>();
-			instruments = new ArrayList<>();
 		}
 
 		/**
@@ -190,21 +182,12 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			if(progressBar!=null) {
 				progressBar.setVisible(true);
 			}
-
-			Platform.runLater(() -> LaTeXDraw.getINSTANCE().getInstruments().stream().filter(ins -> !(ins instanceof ExceptionsManager))
-				.forEach(ins -> {
-				instrumentsState.put(ins, ins.isActivated());
-				instruments.add(ins);
-				ins.setActivated(false, true);
-			}));
-
 			return true;
 		}
 
 		@Override
 		protected void done() {
 			super.done();
-			Platform.runLater(() -> instruments.forEach(ins -> ins.setActivated(instrumentsState.getOrDefault(ins, false))));
 			if(progressBar != null) {
 				progressBar.progressProperty().unbind();
 				progressBar.setVisible(false);
