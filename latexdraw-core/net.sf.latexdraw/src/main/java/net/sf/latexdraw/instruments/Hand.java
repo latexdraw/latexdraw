@@ -131,6 +131,21 @@ public class Hand extends CanvasInstrument {
 		return view;
 	}
 
+	private static Optional<ViewShape<?>> getViewShape(final Optional<Node> node) {
+		if(node.isPresent()) {
+			final Node value = node.get();
+			Node parent = value.getParent();
+
+			while(parent != null && !(parent instanceof ViewShape<?>)) {
+				parent = parent.getParent();
+			}
+
+			return Optional.ofNullable((ViewShape<?>) parent);
+		}
+		return Optional.empty();
+	}
+
+
 	private static class Press2Select extends JfXWidgetBinding<SelectShapes, Press, Hand> {
 		Press2Select(final Hand hand) throws InstantiationException, IllegalAccessException {
 			super(hand, false, SelectShapes.class, Press.class, hand.canvas);
@@ -157,15 +172,6 @@ public class Hand extends CanvasInstrument {
 					}
 				}
 			});
-		}
-
-		private Optional<ViewShape<?>> getViewShape(final Optional<Node> node) {
-			if(node.isPresent()) {
-				final Node value = node.get();
-				if(value.getParent() instanceof ViewShape<?>) return Optional.of(getRealViewShape((ViewShape<?>)value.getParent()));
-				if(value.getParent().getParent() instanceof ViewShape<?>) return Optional.of(getRealViewShape((ViewShape<?>)value.getParent().getParent()));
-			}
-			return Optional.empty();
 		}
 
 		@Override
@@ -246,7 +252,8 @@ public class Hand extends CanvasInstrument {
 		@Override
 		public boolean isConditionRespected() {
 			final Optional<Node> src = interaction.getSrcObject();
-			return src.isPresent() && (src.get().getParent() instanceof ViewText || src.get().getParent().getUserData() instanceof ViewPlot);
+			return src.isPresent() && src.get().getParent() != null &&
+				(src.get().getParent() instanceof ViewText || src.get().getParent().getUserData() instanceof ViewPlot);
 		}
 	}
 
@@ -280,7 +287,7 @@ public class Hand extends CanvasInstrument {
 
 			return startObject.isPresent() && !instrument.canvas.getDrawing().getSelection().isEmpty() &&
 				(startObject.get() == instrument.canvas && button == MouseButton.SECONDARY ||
-				startObject.get().getParent() instanceof ViewShape<?> && (button == MouseButton.PRIMARY || button == MouseButton.SECONDARY));
+				getViewShape(startObject).isPresent() && (button == MouseButton.PRIMARY || button == MouseButton.SECONDARY));
 		}
 
 

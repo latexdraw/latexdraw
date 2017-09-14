@@ -38,7 +38,8 @@ public class ViewArrow extends Group {
 
 	final IArrow arrow;
 	final Path path;
-	final Group additionalShapes;
+	final Ellipse ellipse;
+	final Arc arc;
 
 	/**
 	 * Creates the view.
@@ -50,10 +51,15 @@ public class ViewArrow extends Group {
 		setId(ID);
 		arrow = Objects.requireNonNull(model);
 		path = new Path();
-		additionalShapes = new Group();
+		ellipse = new Ellipse();
+		arc = new Arc();
 		getChildren().add(path);
-		getChildren().add(additionalShapes);
+		getChildren().add(ellipse);
+		getChildren().add(arc);
 
+		arc.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
+		arc.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
+		ellipse.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 		path.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 	}
 
@@ -61,20 +67,22 @@ public class ViewArrow extends Group {
 	private void enableShape(final boolean enablePath) {
 		path.setVisible(enablePath);
 		path.setDisable(!enablePath);
-		additionalShapes.setVisible(!enablePath);
-		additionalShapes.setDisable(enablePath);
+		ellipse.setVisible(!enablePath);
+		ellipse.setDisable(enablePath);
+		arc.setVisible(!enablePath);
+		arc.setDisable(enablePath);
 	}
 
 
 	private void updatePathDiskCircleEnd(final double x, final double y) {
 		final double lineWidth = arrow.getShape().getFullThickness();
 		final double arrowRadius = arrow.getRoundShapedArrowRadius();
-		final Ellipse ell = new Ellipse(arrowRadius - lineWidth / 2d, arrowRadius - lineWidth / 2d);
-		ell.setCenterX(x);
-		ell.setCenterY(y);
-		ell.setStrokeWidth(lineWidth);
-		additionalShapes.getChildren().add(ell);
-		setStrokeFillDiskCircle(ell);
+		ellipse.setCenterX(x);
+		ellipse.setCenterY(y);
+		ellipse.setRadiusX(arrowRadius - lineWidth / 2d);
+		ellipse.setRadiusY(arrowRadius - lineWidth / 2d);
+		ellipse.setStrokeWidth(lineWidth);
+		setStrokeFillDiskCircle();
 		enableShape(false);
 	}
 
@@ -82,28 +90,26 @@ public class ViewArrow extends Group {
 	private void updatePathDiskCircleIn(final IPoint pt1, final IPoint pt2) {
 		final double arrowRadius = arrow.getRoundShapedArrowRadius();
 		final double lineWidth = arrow.getShape().getFullThickness();
-		final double x = pt1.getX() + (isArrowInPositiveDirection(pt1, pt2) ? arrowRadius : -arrowRadius);
-		final double y = pt1.getY();
-		final Ellipse ell = new Ellipse(arrowRadius - lineWidth / 2d, arrowRadius - lineWidth / 2d);
-		ell.setCenterX(x);
-		ell.setCenterY(y);
-		additionalShapes.getChildren().add(ell);
-		setStrokeFillDiskCircle(ell);
+		ellipse.setCenterX(pt1.getX() + (isArrowInPositiveDirection(pt1, pt2) ? arrowRadius : -arrowRadius));
+		ellipse.setCenterY(pt1.getY());
+		ellipse.setRadiusX(arrowRadius - lineWidth / 2d);
+		ellipse.setRadiusY(arrowRadius - lineWidth / 2d);
+		setStrokeFillDiskCircle();
 		enableShape(false);
 	}
 
 
-	private void setStrokeFillDiskCircle(final Ellipse ell) {
-		ell.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
+	private void setStrokeFillDiskCircle() {
+		ellipse.fillProperty().unbind();
 
 		if(arrow.getArrowStyle() == ArrowStyle.CIRCLE_IN || arrow.getArrowStyle() == ArrowStyle.CIRCLE_END) {
 			if(arrow.getShape().isFillable()) {
-				ell.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getFillingCol().toJFX(), arrow.getShape().fillingColProperty()));
+				ellipse.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getFillingCol().toJFX(), arrow.getShape().fillingColProperty()));
 			}else {
-				ell.setFill(Color.WHITE);
+				ellipse.setFill(Color.WHITE);
 			}
 		}else {
-			ell.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
+			ellipse.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 		}
 	}
 
@@ -211,12 +217,14 @@ public class ViewArrow extends Group {
 		final double widtharc = lgth * 2d + (invert ? arrow.getShape().getThickness() / 2d : 0d);
 		final double xarc = shouldInvertArrow(pt1, pt2) ? x - widtharc / 2d : x + widtharc / 2d;
 		final double angle = shouldInvertArrow(pt1, pt2) ? -50d : 130d;
-		final Arc arc = new Arc(xarc, y, widtharc / 2d, width / 2d, angle, 100d);
 
+		arc.setCenterX(xarc);
+		arc.setCenterY(y);
+		arc.setRadiusX(widtharc / 2d);
+		arc.setRadiusY(width / 2d);
+		arc.setStartAngle(angle);
+		arc.setLength(100d);
 		arc.setFill(null);
-		arc.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
-		arc.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
-		additionalShapes.getChildren().add(arc);
 		enableShape(false);
 	}
 
@@ -278,11 +286,11 @@ public class ViewArrow extends Group {
 
 	private void updatePathConcrete() {
 		path.getElements().clear();
-		additionalShapes.getChildren().clear();
 		path.fillProperty().unbind();
 		path.strokeWidthProperty().unbind();
 		path.getTransforms().clear();
-		additionalShapes.getTransforms().clear();
+		ellipse.getTransforms().clear();
+		arc.getTransforms().clear();
 
 		final ILine arrowLine = arrow.getArrowLine();
 
@@ -335,8 +343,10 @@ public class ViewArrow extends Group {
 		}
 
 		if(!MathUtils.INST.equalsDouble(lineAngle % (Math.PI * 2d), 0d)) {
-			path.getTransforms().add(new Rotate(Math.toDegrees(lineAngle), pt1.getX(), pt1.getY()));
-			additionalShapes.getTransforms().add(new Rotate(Math.toDegrees(lineAngle), pt1.getX(), pt1.getY()));
+			final Rotate rotate = new Rotate(Math.toDegrees(lineAngle), pt1.getX(), pt1.getY());
+			path.getTransforms().add(rotate);
+			ellipse.getTransforms().add(rotate);
+			arc.getTransforms().add(rotate);
 		}
 	}
 
@@ -345,6 +355,10 @@ public class ViewArrow extends Group {
 		path.strokeProperty().unbind();
 		path.fillProperty().unbind();
 		path.strokeWidthProperty().unbind();
+		arc.strokeProperty().unbind();
+		arc.strokeWidthProperty().unbind();
+		ellipse.strokeProperty().unbind();
+		ellipse.fillProperty().unbind();
 		getChildren().clear();
 	}
 }
