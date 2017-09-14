@@ -64,13 +64,16 @@ public class ViewArrow extends Group {
 	}
 
 
-	private void enableShape(final boolean enablePath) {
+	/**
+	 * Method to enable some of the JFX shapes that represent arrows.
+	 */
+	private void enableShape(final boolean enablePath, final boolean enableArc, final boolean enableEll) {
 		path.setVisible(enablePath);
 		path.setDisable(!enablePath);
-		ellipse.setVisible(!enablePath);
-		ellipse.setDisable(enablePath);
-		arc.setVisible(!enablePath);
-		arc.setDisable(enablePath);
+		ellipse.setVisible(enableEll);
+		ellipse.setDisable(!enableEll);
+		arc.setVisible(enableArc);
+		arc.setDisable(!enableArc);
 	}
 
 
@@ -83,7 +86,7 @@ public class ViewArrow extends Group {
 		ellipse.setRadiusY(arrowRadius - lineWidth / 2d);
 		ellipse.setStrokeWidth(lineWidth);
 		setStrokeFillDiskCircle();
-		enableShape(false);
+		enableShape(false, false, true);
 	}
 
 
@@ -95,7 +98,7 @@ public class ViewArrow extends Group {
 		ellipse.setRadiusX(arrowRadius - lineWidth / 2d);
 		ellipse.setRadiusY(arrowRadius - lineWidth / 2d);
 		setStrokeFillDiskCircle();
-		enableShape(false);
+		enableShape(false, false, true);
 	}
 
 
@@ -139,7 +142,7 @@ public class ViewArrow extends Group {
 		path.getElements().add(new LineTo(x3, ys[0] + lineWidth / 2d));
 		path.getElements().add(new MoveTo(xs[1], ys[1] - lineWidth / 2d));
 		path.getElements().add(new LineTo(x4, ys[1] - lineWidth / 2d));
-		enableShape(true);
+		enableShape(true, false, false);
 	}
 
 
@@ -157,7 +160,7 @@ public class ViewArrow extends Group {
 		path.getElements().add(new MoveTo(xs[0], ys[0]));
 		path.getElements().add(new LineTo(xs[1], ys[1]));
 		path.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
-		enableShape(true);
+		enableShape(true, false, false);
 	}
 
 
@@ -167,7 +170,7 @@ public class ViewArrow extends Group {
 		path.getElements().add(new MoveTo(x, y - width / 2d));
 		path.getElements().add(new LineTo(x, y + width / 2d));
 		path.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
-		enableShape(true);
+		enableShape(true, false, false);
 	}
 
 
@@ -178,7 +181,7 @@ public class ViewArrow extends Group {
 		path.getElements().add(new LineTo(x3, y3));
 		path.getElements().add(new LineTo(x4, y4));
 		path.getElements().add(new ClosePath());
-		enableShape(true);
+		enableShape(true, false, false);
 	}
 
 
@@ -225,7 +228,7 @@ public class ViewArrow extends Group {
 		arc.setStartAngle(angle);
 		arc.setLength(100d);
 		arc.setFill(null);
-		enableShape(false);
+		enableShape(false, true, false);
 	}
 
 
@@ -261,7 +264,7 @@ public class ViewArrow extends Group {
 		final double y = pt1.getY();
 		path.getElements().add(new MoveTo(x, y));
 		path.getElements().add(new LineTo(x < pt2.getX() ? x + 1d : x - 1d, y));
-		enableShape(true);
+		enableShape(true, false, false);
 	}
 
 
@@ -272,7 +275,7 @@ public class ViewArrow extends Group {
 
 		path.getElements().add(new MoveTo(x, y));
 		path.getElements().add(new LineTo(x, y));
-		enableShape(true);
+		enableShape(true, false, false);
 	}
 
 
