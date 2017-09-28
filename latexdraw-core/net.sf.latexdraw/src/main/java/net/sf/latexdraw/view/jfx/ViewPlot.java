@@ -94,6 +94,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 	}
 
 	private void updatePolygon(final double minX, final double maxX, final double step) {
+		flushPolygon();
 		polygonView = new ViewPolygon(PlotViewHelper.INSTANCE.updatePolygon(model, 0d, 0d, minX, maxX, step));
 		polygonView.setUserData(this);
 		getChildren().add(polygonView);
@@ -101,6 +102,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 
 
 	private void updateLine(final double minX, final double maxX, final double step) {
+		flushLine();
 		lineView = new ViewPolyline(PlotViewHelper.INSTANCE.updateLine(model, 0d, 0d, minX, maxX, step));
 		lineView.setUserData(this);
 		getChildren().add(lineView);
@@ -108,6 +110,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 
 
 	private void updateCurve(final double minX, final double maxX, final double step) {
+		flushCurve();
 		curveView = new ViewBezierCurve(PlotViewHelper.INSTANCE.updateCurve(model, 0d, 0d, minX, maxX, step));
 		curveView.setUserData(this);
 		getChildren().add(curveView);
@@ -128,28 +131,33 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 		model.xScaleProperty().removeListener(updatePath);
 		model.yScaleProperty().removeListener(updatePath);
 
+		flushLine();
+		flushCurve();
+		flushDots();
+		flushPolygon();
+	}
+
+	private void flushLine() {
 		if(lineView != null) {
 			lineView.flush();
-			lineView.setUserData(null);
-		}
-		if(curveView != null) {
-			curveView.flush();
-			curveView.setUserData(null);
-		}
-		flushDots();
-		if(polygonView != null) {
-			polygonView.flush();
-			polygonView.setUserData(null);
 		}
 	}
 
+	private void flushCurve() {
+		if(curveView != null) {
+			curveView.flush();
+		}
+	}
+
+	private void flushPolygon() {
+		if(polygonView != null) {
+			polygonView.flush();
+		}
+	}
 
 	private void flushDots() {
 		if(dotsView != null) {
-			dotsView.forEach(v -> {
-				v.flush();
-				v.setUserData(null);
-			});
+			dotsView.forEach(v -> v.flush());
 			dotsView.clear();
 		}
 	}
