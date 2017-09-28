@@ -1,11 +1,11 @@
 package net.sf.latexdraw.util;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.lang.LangTool;
-
-import javax.swing.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import javax.swing.ImageIcon;
+import net.sf.latexdraw.LaTeXDraw;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.lang.LangTool;
 
 /**
  * Contains all the icons and the labels used by latexdraw.<br>
@@ -350,7 +350,7 @@ public final class LResources {
 	 */
 	public static ImageIcon loadImageIcon(final String path) {
 		try {
-			final URL url = Class.class.getResource(path);
+			final URL url = LaTeXDraw.class.getResource(path);
 
 			if(url==null)
 				throw new MalformedURLException(path);

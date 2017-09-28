@@ -1,4 +1,17 @@
 ************************************************************
+Version 3.3.6 -- 2017/07/12
+
+- fixed: the tooltip that shows LaTeX compilation errors while putting the cursor over a text shape may freeze the application.
+ Moreover, the displayed message was not correct.
+- fixed: problem of encoding (MS950) not supported by the XML serialiser that prevented SVG files to be saved.
+- fixed: arcs were not correctly drawn and saved as SVG on certain start/end angles.
+- fixed: the installer cannot be run on some configurations (e.g. Fedora 25 with Wayland).
+- fixed: the shape deletion is not re-activated when clicking the PST tab and the clicking the drawing tab back.
+- fixed: the generated PSTricks may be incorrectly commented preventing the compilation
+- fixed (usability): no message was displayed in the status bar to explain how to draw shapes.
+- fixed (usability): better feedback on compilation errors during exports as PDF/PS documents.
+
+************************************************************
 Version 3.3.5 -- 2016-12-30
 
 - fixed: latest versions of PSTricks break the cropping of text figures.
