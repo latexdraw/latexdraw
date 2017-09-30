@@ -284,6 +284,14 @@ public interface IShapeFactory {
 	IPoint createPoint(Point2D pt);
 
 	/**
+	 * Duplicates a JFX point into a IPoint. If the given point pt is null, a point (0,0) is
+	 * created.
+	 * @param pt The point to convert.
+	 * @return The created point. Cannot be null.
+	 */
+	IPoint createPoint(javafx.geometry.Point2D pt);
+
+	/**
 	 * Duplicates a java 3D point into a IPoint. If the given point pt is null, a point (0,0) is
 	 * created.
 	 * @param pt The point to convert.

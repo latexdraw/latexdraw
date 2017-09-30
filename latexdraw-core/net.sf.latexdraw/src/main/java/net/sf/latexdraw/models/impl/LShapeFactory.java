@@ -174,6 +174,11 @@ public class LShapeFactory implements IShapeFactory {
 	}
 
 	@Override
+	public IPoint createPoint(final javafx.geometry.Point2D pt) {
+		return pt == null ? createPoint() : createPoint(pt.getX(), pt.getY());
+	}
+
+	@Override
 	public IPoint createPoint(final Point3D pt) {
 		return pt == null ? createPoint() : createPoint(pt.getX(), pt.getY());
 	}
