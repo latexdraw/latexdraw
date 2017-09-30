@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.parsers.pst;
 
-import com.google.common.collect.Streams;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,6 +20,7 @@ import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
@@ -46,10 +47,15 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		Stream<IPoint> stream = ctx.pts.stream().map(node -> coordToPoint(node, ctx.pstctx));
 
 		if(ctx.pts.size() == 1) {
-			stream = Streams.concat(Stream.of(ShapeFactory.INST.createPoint(ctx.pstctx.originToPoint())), stream);
+			stream = Stream.concat(Stream.of(ShapeFactory.INST.createPoint(ctx.pstctx.originToPoint())), stream);
 		}
 
 		shapes.add(createLine(starredCmd(ctx.cmd), stream.collect(Collectors.toList()), ctx.pstctx, false));
+	}
+
+	@Override
+	public void exitPsqline(final net.sf.latexdraw.parsers.pst.PSTParser.PsqlineContext ctx) {
+		shapes.add(createLine(false, Arrays.asList(coordToPoint(ctx.p1, ctx.pstctx), coordToPoint(ctx.p2, ctx.pstctx)), ctx.pstctx, false));
 	}
 
 	@Override
@@ -60,9 +66,40 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		shapes.add(rec);
 	}
 
+	@Override
+	public void exitPsdot(final net.sf.latexdraw.parsers.pst.PSTParser.PsdotContext ctx) {
+		setDot(coordToPoint(ctx.pt, ctx.pstctx), ctx.pstctx, starredCmd(ctx.cmd));
+	}
 
-	private void setRectangularShape(final IRectangularShape sh, final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext c1, final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext c2, final PSTContext ctx,
-									 final Token cmd) {
+	@Override
+	public void exitPsdots(final net.sf.latexdraw.parsers.pst.PSTParser.PsdotsContext ctx) {
+	}
+
+	/**
+	 * Creates a dot shape.
+	 * @param pt The point of the dot.
+	 * @param ctx The PST context.
+	 * @param starred If a starred command.
+	 */
+	private void setDot(final IPoint pt, final PSTContext ctx, final boolean starred) {
+		final IDot dot = ShapeFactory.INST.createDot(pt);
+		final double dotSizeDim = ctx.arrowDotSize.a + ctx.arrowDotSize.b < 0d ? Math.abs(ctx.arrowDotSize.a) : ctx.arrowDotSize.a;
+		final double dotSizeNum = ctx.arrowDotSize.a + ctx.arrowDotSize.b < 0d ? Math.abs(ctx.arrowDotSize.a) : ctx.arrowDotSize.b;
+
+		dot.setDiametre((dotSizeDim + dotSizeNum * ctx.lineWidth) * IShape.PPC * ctx.dotScale.a);
+		setShapeParameters(dot, ctx);
+		dot.setRotationAngle(dot.getRotationAngle() + Math.toRadians(ctx.dotAngle));
+		dot.setDotStyle(ctx.dotStyle);
+
+		if(starred) {
+			setShapeForStar(dot);
+		}
+
+		shapes.add(dot);
+	}
+
+	private void setRectangularShape(final IRectangularShape sh, final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext c1, final net.sf.latexdraw.parsers
+		.pst.PSTParser.CoordContext c2, final PSTContext ctx, final Token cmd) {
 		final IPoint pt1;
 		final IPoint pt2;
 
@@ -124,6 +161,8 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	}
 
 	private IPoint coordToPoint(final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext coord, final PSTContext ctx) {
+		if(coord == null) return ShapeFactory.INST.createPoint(
+			PSTContext.doubleUnitToUnit(ctx.originX.a, ctx.originX.b), PSTContext.doubleUnitToUnit(ctx.originY.a, ctx.originY.b));
 		return ShapeFactory.INST.createPoint(fromXvalDimToCoord(coord.x, ctx), fromYvalDimToCoord(coord.y, ctx));
 	}
 

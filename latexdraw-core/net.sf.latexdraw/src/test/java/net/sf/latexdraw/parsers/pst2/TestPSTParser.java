@@ -20,7 +20,19 @@ public abstract class TestPSTParser {
 
 	@Before
 	public void setUp() throws Exception {
-		listener = new PSTLatexdrawListener();
+		listener = new PSTLatexdrawListener() {
+			@Override
+			public void enterUnknowncmds(final PSTParser.UnknowncmdsContext ctx) {
+				super.enterUnknowncmds(ctx);
+				fail(ctx.LATEXCMD().getText());
+			}
+
+			@Override
+			public void enterUnkownParamSetting(final PSTParser.UnkownParamSettingContext ctx) {
+				super.enterUnkownParamSetting(ctx);
+				fail(ctx.name.getText());
+			}
+		};
 		listener.LOG.addHandler(new Handler() {
 			@Override
 			public void publish(final LogRecord record) {

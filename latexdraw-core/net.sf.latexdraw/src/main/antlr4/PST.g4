@@ -219,9 +219,9 @@ paramSetting[PSTContext pstctx] : paramArrow[pstctx] | paramArrowscale[pstctx] |
         paramgridwidth[pstctx] | paramgridcolor[pstctx] | paramgriddots[pstctx] | paramgridlabels[pstctx] | paramgridlabelcolor[pstctx] |
         paramsubgriddiv[pstctx] | paramsubgridwidth[pstctx] | paramsubgridcolor[pstctx] | paramsubgriddots[pstctx] | paramplotstyle[pstctx] |
         paramplotpoints[pstctx] | paramgradbegin[pstctx] | paramgradend[pstctx] | paramgradlines[pstctx] | paramgradmidpoint[pstctx] | paramgradangle[pstctx] |
-        unkownParamSetting[pstctx] ;
+        paramdotsize[pstctx] | unkownParamSetting[pstctx] ;
 
-unkownParamSetting[PSTContext pstctx] : name=WORD '=' .*?~(',') ;
+unkownParamSetting[PSTContext pstctx] : name=WORD '=' (valueDim | NUMBER | booleanvalue | WORD)+ ;
 
 paramArrow[PSTContext pstctx] : 'arrows' '=' arrowvalue[pstctx] ;
 paramArrowscale[PSTContext pstctx] : 'arrowscale' '=' sx=valueDim sy=valueDim ;
@@ -241,7 +241,7 @@ paramdash[PSTContext pstctx] : 'dash' '=' dash1=valueDim dash2=valueDim ;
 paramframearc[PSTContext pstctx] : 'framearc' '=' NUMBER ;
 paramorigin[PSTContext pstctx] : 'origin' '=' BRACE_OPEN x=valueDim? ',' y=valueDim? BRACE_CLOSE;
 paramswapaxes[PSTContext pstctx] : 'swapaxes' '=' booleanvalue ;
-paramlinestyle[PSTContext pstctx] : 'linestyle' '=' ('none' | 'solid' | 'dashed' | 'dotted') ;
+paramlinestyle[PSTContext pstctx] : 'linestyle' '=' style=('none' | 'solid' | 'dashed' | 'dotted') ;
 parambordercolor[PSTContext pstctx] : 'bordercolor' '=' WORD ;
 paramdoubleline[PSTContext pstctx] : 'doubleline' '=' booleanvalue ;
 paramdoublesep[PSTContext pstctx] : 'doublesep' '=' valueDim ;
@@ -250,7 +250,7 @@ paramshadow[PSTContext pstctx] : 'shadow' '=' booleanvalue ;
 paramshadowsize[PSTContext pstctx] : 'shadowsize' '=' valueDim ;
 paramshadowangle[PSTContext pstctx] : 'shadowangle' '=' NUMBER ;
 paramshadowcolor[PSTContext pstctx] : 'shadowcolor' '=' WORD ;
-paramdimen[PSTContext pstctx] : 'dimen' '=' ('outer' | 'inner' | 'middle') ;
+paramdimen[PSTContext pstctx] : 'dimen' '=' type=('outer' | 'inner' | 'middle') ;
 paramfillstyle[PSTContext pstctx] : 'fillstyle' '=' fillstyle ;
 paramfillcolor[PSTContext pstctx] : 'fillcolor' '=' WORD ;
 paramhatchwidth[PSTContext pstctx] : 'hatchwidth' '=' valueDim ;
@@ -261,10 +261,10 @@ paramliftpen[PSTContext pstctx] : 'liftpen' '=' INT ;
 paramlabelsep[PSTContext pstctx] : 'labelsep' '=' valueDim ;
 paramlabels[PSTContext pstctx] : 'labels' '=' show ;
 paramticks[PSTContext pstctx] : 'ticks' '=' show ;
-paramtickstyle[PSTContext pstctx] : 'tickstyle' '=' ('full'  | 'top' | 'bottom') ;
+paramtickstyle[PSTContext pstctx] : 'tickstyle' '=' style=('full'  | 'top' | 'bottom') ;
 paramshoworigin[PSTContext pstctx] : 'showorigin' '=' booleanvalue ;
 paramticksize[PSTContext pstctx] : 'ticksize' '=' valueDim ;
-paramaxesstyle[PSTContext pstctx] : 'axesstyle' '=' ('axes' | 'frame' | 'none') ;
+paramaxesstyle[PSTContext pstctx] : 'axesstyle' '=' style=('axes' | 'frame' | 'none') ;
 paramframesep[PSTContext pstctx] : 'framesep' '=' valueDim ;
 paramboxsep[PSTContext pstctx] : 'boxsep' '=' booleanvalue ;
 paramrunit[PSTContext pstctx] : 'runit' '=' valueDim ;
@@ -272,13 +272,14 @@ paramlinewidth[PSTContext pstctx] : 'linewidth' '=' valueDim ;
 paramlinecolor[PSTContext pstctx] : 'linecolor' '=' WORD ;
 paramshowpoints[PSTContext pstctx] : 'showpoints' '=' booleanvalue ;
 paramlinearc[PSTContext pstctx] : 'linearc' '=' valueDim ;
-paramcornersize[PSTContext pstctx] : 'cornersize' '=' ('relative' | 'absolute') ;
+paramcornersize[PSTContext pstctx] : 'cornersize' '=' type=('relative' | 'absolute') ;
 paramarcsepA[PSTContext pstctx] : 'arcsepA' '=' valueDim ;
 paramarcsepB[PSTContext pstctx] : 'arcsepB' '=' valueDim ;
 paramarcsep[PSTContext pstctx] : 'arcsep' '=' valueDim ;
 paramcurvature[PSTContext pstctx] : 'curvature' '=' num1=NUMBER num2=NUMBER num3=NUMBER ;
-paramdotstyle[PSTContext pstctx] : 'dotstyle' '=' ('*' | 'o' | '+' | 'triangle' | 'triangle*' | 'square' | 'square*' | 'pentagon' | 'pentagon*' | '|') ;
-paramdotscale[PSTContext pstctx] : 'dotscale' '=' num1=NUMBER num2=NUMBER;
+paramdotstyle[PSTContext pstctx] : 'dotstyle' '=' style=('*' | 'o' | '+' | 'triangle' | 'triangle*' | 'square' | 'square*' | 'pentagon' | 'pentagon*' | '|' |
+                                                    'otimes' | 'oplus' | 'x' | 'asterisk' | 'diamond*' | 'diamond') ;
+paramdotscale[PSTContext pstctx] : 'dotscale' '=' num1=NUMBER num2=NUMBER?;
 paramdotdotangle[PSTContext pstctx] : 'dotangle' '=' NUMBER ;
 paramgridwidth[PSTContext pstctx] : 'gridwidth' '=' valueDim ;
 paramgridcolor[PSTContext pstctx] : 'gridcolor' '=' WORD ;
@@ -289,13 +290,14 @@ paramsubgriddiv[PSTContext pstctx] : 'subgriddiv' '=' INT ;
 paramsubgridwidth[PSTContext pstctx] : 'subgridwidth' '=' valueDim ;
 paramsubgridcolor[PSTContext pstctx] : 'subgridcolor' '=' WORD ;
 paramsubgriddots[PSTContext pstctx] : 'subgriddots' '=' INT ;
-paramplotstyle[PSTContext pstctx] : 'plotstyle' '=' ('dots' | 'line' | 'polygon' | 'curve' | 'ecurve' | 'ccurve') ;
+paramplotstyle[PSTContext pstctx] : 'plotstyle' '=' style=('dots' | 'line' | 'polygon' | 'curve' | 'ecurve' | 'ccurve') ;
 paramplotpoints[PSTContext pstctx] : 'plotpoints' '=' INT ;
 paramgradbegin[PSTContext pstctx] : 'gradbegin' '=' WORD ;
 paramgradend[PSTContext pstctx] : 'gradend' '=' WORD ;
 paramgradlines[PSTContext pstctx] : 'gradlines' '=' INT ;
 paramgradmidpoint[PSTContext pstctx] : 'gradmidpoint' '=' NUMBER ;
 paramgradangle[PSTContext pstctx] : 'gradangle' '=' NUMBER ;
+paramdotsize[PSTContext pstctx] : 'dotsize' '=' dim=valueDim num=NUMBER? ;
 
 arrowBlock[PSTContext pstctx] : BRACE_OPEN arrowvalue[pstctx] BRACE_CLOSE ;
 

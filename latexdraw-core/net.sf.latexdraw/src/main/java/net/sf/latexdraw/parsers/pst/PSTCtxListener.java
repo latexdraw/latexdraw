@@ -10,9 +10,13 @@
  */
 package net.sf.latexdraw.parsers.pst;
 
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.latexdraw.models.interfaces.shape.Color;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.util.Tuple;
+import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -33,22 +37,22 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 
 	@Override
 	public void exitParamRbracketlength(final net.sf.latexdraw.parsers.pst.PSTParser.ParamRbracketlengthContext ctx) {
-		ctx.pstctx.arrowrBrLgth = numberToDouble(ctx.NUMBER());
+		ctx.pstctx.arrowrBrLgth = numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
 	public void exitParamBracketlength(final net.sf.latexdraw.parsers.pst.PSTParser.ParamBracketlengthContext ctx) {
-		ctx.pstctx.arrowBrLgth = numberToDouble(ctx.NUMBER());
+		ctx.pstctx.arrowBrLgth = numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
 	public void exitParamArrowinset(final net.sf.latexdraw.parsers.pst.PSTParser.ParamArrowinsetContext ctx) {
-		ctx.pstctx.arrowInset = numberToDouble(ctx.NUMBER());
+		ctx.pstctx.arrowInset = numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
 	public void exitParamArrowlength(final net.sf.latexdraw.parsers.pst.PSTParser.ParamArrowlengthContext ctx) {
-		ctx.pstctx.arrowLgth = numberToDouble(ctx.NUMBER());
+		ctx.pstctx.arrowLgth = numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
@@ -76,23 +80,45 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 		ctx.pstctx.yUnit = valDimtoDouble(ctx.valueDim());
 	}
 
-//	@Override
-//	public void exitParamborder(final PSTParser.ParamborderContext ctx) {
-//	}
-
 	@Override
 	public void exitParamdotsep(final net.sf.latexdraw.parsers.pst.PSTParser.ParamdotsepContext ctx) {
 		ctx.pstctx.dotStep = valDimtoDouble(ctx.valueDim());
 	}
 
-//	@Override
-//	public void exitParamdash(final PSTParser.ParamdashContext ctx) {
-//		ctx.pstctx.dash = new Tuple<>(valDimtoDouble(ctx.valueDim()), valDimtoDouble(ctx.valueDim()));
-//	}
-
 	@Override
 	public void exitParamframearc(final net.sf.latexdraw.parsers.pst.PSTParser.ParamframearcContext ctx) {
-		ctx.pstctx.frameArc = numberToDouble(ctx.NUMBER());
+		ctx.pstctx.frameArc = numberToDouble(ctx.NUMBER().getSymbol());
+	}
+
+	@Override
+	public void exitParamdotstyle(final net.sf.latexdraw.parsers.pst.PSTParser.ParamdotstyleContext ctx) {
+		ctx.pstctx.dotStyle = DotStyle.getStyle(ctx.style.getText());
+	}
+
+	@Override
+	public void exitParamdotscale(final net.sf.latexdraw.parsers.pst.PSTParser.ParamdotscaleContext ctx) {
+		ctx.pstctx.dotScale = new Tuple<>(numberToDouble(ctx.num1), ctx.num2 == null ? numberToDouble(ctx.num1) : numberToDouble(ctx.num2));
+	}
+
+	@Override
+	public void exitParamdotdotangle(final net.sf.latexdraw.parsers.pst.PSTParser.ParamdotdotangleContext ctx) {
+		ctx.pstctx.dotAngle = numberToDouble(ctx.NUMBER().getSymbol());
+	}
+
+	@Override
+	public void exitParamdotsize(final net.sf.latexdraw.parsers.pst.PSTParser.ParamdotsizeContext ctx) {
+		ctx.pstctx.arrowDotSize = valNumNumberToDoubles(ctx.valueDim(), ctx.NUMBER());
+	}
+
+	@Override
+	public void exitParamlinecolor(final net.sf.latexdraw.parsers.pst.PSTParser.ParamlinecolorContext ctx) {
+		final Optional<Color> colour = DviPsColors.INSTANCE.getColour(ctx.WORD().getText());
+
+		if(colour.isPresent()) {
+			ctx.pstctx.lineColor = colour.get();
+		}else {
+			LOG.severe("The following colour is unknown: " + ctx.WORD().getText());
+		}
 	}
 
 	@Override
@@ -100,7 +126,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 		LOG.severe("Unkown parameter: " + ctx.name.getText());
 	}
 
-	double numberToDouble(final TerminalNode node) {
+	double numberToDouble(final Token node) {
 		return valToDouble(node.getText());
 	}
 
