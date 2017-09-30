@@ -73,6 +73,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPsdots(final net.sf.latexdraw.parsers.pst.PSTParser.PsdotsContext ctx) {
+		ctx.pts.forEach(pt -> setDot(coordToPoint(pt, ctx.pstctx), ctx.pstctx, starredCmd(ctx.cmd)));
 	}
 
 	/**

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertFalse;
 public class TestParsingQline extends TestPSTParser {
 	@Test
 	public void testCoordinatesCm() {
-		parser("\\" + getCommandName() + "(35cm,20cm)(11.12cm,-2cm)");
+		parser("\\qline(35cm,20cm)(11.12cm,-2cm)");
 		final IPolyline line = (IPolyline) listener.getShapes().get(0);
 		assertEquals(2, line.getNbPoints());
 		assertEquals(35d * IShape.PPC, line.getPtAt(0).getX(), 0.001);
@@ -22,32 +22,22 @@ public class TestParsingQline extends TestPSTParser {
 
 	@Test
 	public void testNoDbleBord() {
-		parser("\\psset{doubleline=true}\\" + getCommandName() + "(35cm,20cm)(11.12cm,-2cm)");
+		parser("\\psset{doubleline=true}\\qline(35cm,20cm)(11.12cm,-2cm)");
 		final IPolyline line = (IPolyline) listener.getShapes().get(0);
 		assertFalse(line.hasDbleBord());
 	}
 
 	@Test
 	public void testNoShadow() {
-		parser("\\psset{shadow=true}\\" + getCommandName() + "(35cm,20cm)(11.12cm,-2cm)");
+		parser("\\psset{shadow=true}\\qline(35cm,20cm)(11.12cm,-2cm)");
 		final IPolyline line = (IPolyline) listener.getShapes().get(0);
 		assertFalse(line.hasShadow());
 	}
 
 	@Test
 	public void testMustNotBeFilled() {
-		parser("\\" + getCommandName() + "(35cm,20cm)(11.12cm,-2cm)");
+		parser("\\qline(35cm,20cm)(11.12cm,-2cm)");
 		final IPolyline line = (IPolyline) listener.getShapes().get(0);
 		assertEquals(FillingStyle.NONE, line.getFillingStyle());
-	}
-
-	@Override
-	public String getCommandName() {
-		return "qline";
-	}
-
-	@Override
-	public String getBasicCoordinates() {
-		return "(,){1}";
 	}
 }

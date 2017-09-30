@@ -381,14 +381,4 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.LEFT_ARROW, line.getArrowStyle(0));
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 	}
-
-	@Override
-	public String getCommandName() {
-		return "";
-	}
-
-	@Override
-	public String getBasicCoordinates() {
-		return "";
-	}
 }

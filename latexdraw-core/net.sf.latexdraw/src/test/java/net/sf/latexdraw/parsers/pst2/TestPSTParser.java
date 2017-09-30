@@ -56,10 +56,6 @@ public abstract class TestPSTParser {
 		parser.pstCode(new PSTContext(false));
 	}
 
-	public abstract String getCommandName();
-
-	public abstract String getBasicCoordinates();
-
 	static class ErrorListener extends BaseErrorListener {
 		@Override
 		public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol, final int line, final int charPositionInLine, final
