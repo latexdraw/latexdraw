@@ -131,6 +131,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 	}
 
 	double valDimtoDouble(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valdim) {
+		if(valdim == null) return PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE;
 		return PSTContext.doubleUnitToUnit(valToDouble(valdim.NUMBER().getText()), unitOrEmpty(valdim.unit()));
 	}
 
@@ -140,12 +141,14 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 
 	double fromXvalDimToCoord(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim, final PSTContext ctx) {
 		if(valDim == null) return PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE * getPPC();
-		return PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * getPPC() * ctx.xUnit * ctx.unit, unitOrEmpty(valDim.unit()));
+		final double xunit = valDim.unit() == null ? ctx.xUnit * ctx.unit : 1d;
+		return PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * getPPC() * xunit, unitOrEmpty(valDim.unit()));
 	}
 
 	double fromYvalDimToCoord(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim, final PSTContext ctx) {
 		if(valDim == null) return -PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE * getPPC();
-		return -PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * getPPC() * ctx.yUnit * ctx.unit, unitOrEmpty(valDim.unit()));
+		final double yunit = valDim.unit() == null ? ctx.yUnit * ctx.unit : 1d;
+		return -PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * getPPC() * yunit, unitOrEmpty(valDim.unit()));
 	}
 
 	String unitOrEmpty(final net.sf.latexdraw.parsers.pst.PSTParser.UnitContext unit) {

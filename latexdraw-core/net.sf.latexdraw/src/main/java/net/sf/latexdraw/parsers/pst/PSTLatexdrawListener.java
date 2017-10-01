@@ -21,12 +21,14 @@ import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.util.Tuple;
 import org.antlr.v4.runtime.Token;
 
 public class PSTLatexdrawListener extends PSTCtxListener {
@@ -55,14 +57,32 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPsqline(final net.sf.latexdraw.parsers.pst.PSTParser.PsqlineContext ctx) {
-		shapes.add(createLine(false, Arrays.asList(coordToPoint(ctx.p1, ctx.pstctx), coordToPoint(ctx.p2, ctx.pstctx)), ctx.pstctx, false));
+		shapes.add(createLine(false, Arrays.asList(coordToPoint(ctx.p1, ctx.pstctx), coordToPoint(ctx.p2, ctx.pstctx)),
+			ctx.pstctx, false));
 	}
 
 	@Override
 	public void exitPsframe(final net.sf.latexdraw.parsers.pst.PSTParser.PsframeContext ctx) {
 		final IRectangle rec = ShapeFactory.INST.createRectangle();
+		final Tuple<IPoint, IPoint> pts = getRectangularPoints(ctx.p1, ctx.p2, ctx.pstctx);
 		rec.setLineArc(ctx.pstctx.frameArc);
-		setRectangularShape(rec, ctx.p1, ctx.p2, ctx.pstctx, ctx.cmd);
+
+		// The x-coordinates of pt1 must be lower than pt2 one.
+		if(pts.a.getX() > pts.b.getX()) {
+			final double tmp = pts.a.getX();
+			pts.a.setX(pts.b.getX());
+			pts.b.setX(tmp);
+		}
+
+		// The y-coordinates of pt1 must be lower than pt2 one.
+		if(pts.a.getY() < pts.b.getY()) {
+			final double tmp = pts.a.getY();
+			pts.a.setY(pts.b.getY());
+			pts.b.setY(tmp);
+		}
+
+		setRectangularShape(rec, pts.a.getX(), pts.a.getY(), Math.abs(pts.b.getX() - pts.a.getX()),
+			Math.abs(pts.b.getY() - pts.a.getY()), ctx.pstctx, ctx.cmd);
 		shapes.add(rec);
 	}
 
@@ -74,6 +94,95 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	@Override
 	public void exitPsdots(final net.sf.latexdraw.parsers.pst.PSTParser.PsdotsContext ctx) {
 		ctx.pts.forEach(pt -> setDot(coordToPoint(pt, ctx.pstctx), ctx.pstctx, starredCmd(ctx.cmd)));
+	}
+
+	@Override
+	public void exitPsellipse(final net.sf.latexdraw.parsers.pst.PSTParser.PsellipseContext ctx) {
+		final IEllipse ell = ShapeFactory.INST.createEllipse();
+		final Tuple<IPoint, IPoint> pts = getRectangularPoints(ctx.p1, ctx.p2, ctx.pstctx);
+		setRectangularShape(ell, pts.a.getX() - pts.b.getX(), pts.a.getY() - pts.b.getY(), Math.abs(pts.b.getX() * 2d),
+			Math.abs(pts.b.getY() * 2d), ctx.pstctx, ctx.cmd);
+		shapes.add(ell);
+	}
+
+	@Override
+	public void exitPsdiamond(final net.sf.latexdraw.parsers.pst.PSTParser.PsdiamondContext ctx) {
+	}
+
+	@Override
+	public void exitPscircle(final net.sf.latexdraw.parsers.pst.PSTParser.PscircleContext ctx) {
+	}
+
+	@Override
+	public void exitPsqdisk(final net.sf.latexdraw.parsers.pst.PSTParser.PsqdiskContext ctx) {
+	}
+
+	@Override
+	public void exitPspolygon(final net.sf.latexdraw.parsers.pst.PSTParser.PspolygonContext ctx) {
+	}
+
+	@Override
+	public void exitPsbezier(final net.sf.latexdraw.parsers.pst.PSTParser.PsbezierContext ctx) {
+	}
+
+	@Override
+	public void exitPsaxes(final net.sf.latexdraw.parsers.pst.PSTParser.PsaxesContext ctx) {
+	}
+
+	@Override
+	public void exitPsgrid(final net.sf.latexdraw.parsers.pst.PSTParser.PsgridContext ctx) {
+	}
+
+	@Override
+	public void exitPsarc(final net.sf.latexdraw.parsers.pst.PSTParser.PsarcContext ctx) {
+	}
+
+	@Override
+	public void exitPscurve(final net.sf.latexdraw.parsers.pst.PSTParser.PscurveContext ctx) {
+	}
+
+	@Override
+	public void exitPsecurve(final net.sf.latexdraw.parsers.pst.PSTParser.PsecurveContext ctx) {
+	}
+
+	@Override
+	public void exitPsccurve(final net.sf.latexdraw.parsers.pst.PSTParser.PsccurveContext ctx) {
+	}
+
+	@Override
+	public void exitPsframebox(final net.sf.latexdraw.parsers.pst.PSTParser.PsframeboxContext ctx) {
+	}
+
+	@Override
+	public void exitPsdblframebox(final net.sf.latexdraw.parsers.pst.PSTParser.PsdblframeboxContext ctx) {
+	}
+
+	@Override
+	public void exitPsshadowbox(final net.sf.latexdraw.parsers.pst.PSTParser.PsshadowboxContext ctx) {
+	}
+
+	@Override
+	public void exitPscirclebox(final net.sf.latexdraw.parsers.pst.PSTParser.PscircleboxContext ctx) {
+	}
+
+	@Override
+	public void exitPsovalbox(final net.sf.latexdraw.parsers.pst.PSTParser.PsovalboxContext ctx) {
+	}
+
+	@Override
+	public void exitPsdiabox(final net.sf.latexdraw.parsers.pst.PSTParser.PsdiaboxContext ctx) {
+	}
+
+	@Override
+	public void exitPsplot(final net.sf.latexdraw.parsers.pst.PSTParser.PsplotContext ctx) {
+	}
+
+	@Override
+	public void exitPscustom(final net.sf.latexdraw.parsers.pst.PSTParser.PscustomContext ctx) {
+	}
+
+	@Override
+	public void exitPspictureBlock(final net.sf.latexdraw.parsers.pst.PSTParser.PspictureBlockContext ctx) {
 	}
 
 	/**
@@ -99,8 +208,8 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		shapes.add(dot);
 	}
 
-	private void setRectangularShape(final IRectangularShape sh, final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext c1, final net.sf.latexdraw.parsers
-		.pst.PSTParser.CoordContext c2, final PSTContext ctx, final Token cmd) {
+	private Tuple<IPoint, IPoint> getRectangularPoints(final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext c1,
+													   final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext c2, final PSTContext ctx) {
 		final IPoint pt1;
 		final IPoint pt2;
 
@@ -112,23 +221,14 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			pt2 = coordToPoint(c2, ctx);
 		}
 
-		// The x-coordinates of pt1 must be lower than pt2 one.
-		if(pt1.getX() > pt2.getX()) {
-			final double tmp = pt1.getX();
-			pt1.setX(pt2.getX());
-			pt2.setX(tmp);
-		}
+		return new Tuple<>(pt1, pt2);
+	}
 
-		// The y-coordinates of pt1 must be lower than pt2 one.
-		if(pt1.getY() < pt2.getY()) {
-			final double tmp = pt1.getY();
-			pt1.setY(pt2.getY());
-			pt2.setY(tmp);
-		}
-
-		sh.setPosition(pt1.getX(), pt1.getY());
-		sh.setWidth(Math.max(0.1, Math.abs(pt2.getX() - pt1.getX())));
-		sh.setHeight(Math.max(0.1, Math.abs(pt2.getY() - pt1.getY())));
+	private void setRectangularShape(final IRectangularShape sh, final double x, final double y, final double width, final double height,
+									 final PSTContext ctx, final Token cmd) {
+		sh.setPosition(x, y);
+		sh.setWidth(Math.max(0.1, width));
+		sh.setHeight(Math.max(0.1, height));
 		setShapeParameters(sh, ctx);
 
 		if(starredCmd(cmd)) {
