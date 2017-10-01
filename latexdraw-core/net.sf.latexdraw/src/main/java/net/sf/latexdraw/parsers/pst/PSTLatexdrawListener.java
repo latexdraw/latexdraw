@@ -25,6 +25,7 @@ import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
@@ -150,6 +151,23 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPspolygon(final net.sf.latexdraw.parsers.pst.PSTParser.PspolygonContext ctx) {
+		Stream<IPoint> stream = ctx.ps.stream().map(node -> coordToPoint(node, ctx.pstctx));
+
+		stream = Stream.concat(Stream.of(coordToPoint(ctx.p1, ctx.pstctx)), stream);
+
+		if(ctx.ps.size() == 1) {
+			stream = Stream.concat(Stream.of(ShapeFactory.INST.createPoint(ctx.pstctx.originToPoint())), stream);
+		}
+
+		final IPolygon pol = ShapeFactory.INST.createPolygon(stream.collect(Collectors.toList()));
+
+		setShapeParameters(pol, ctx.pstctx);
+
+		if(starredCmd(ctx.cmd)) {
+			setShapeForStar(pol);
+		}
+
+		shapes.add(pol);
 	}
 
 	@Override

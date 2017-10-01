@@ -60,7 +60,7 @@ pscircle[PSTContext pstctx] : cmd=('\\pscircle*' | '\\pscircle') paramBlock[pstc
 
 psqdisk[PSTContext pstctx] : '\\qdisk' coord bracketValueDim ;
 
-pspolygon[PSTContext pstctx] : ('\\pspolygon*' | '\\pspolygon') paramBlock[pstctx]?  p1=coord  ps+=coord+ ;
+pspolygon[PSTContext pstctx] : cmd=('\\pspolygon*' | '\\pspolygon') paramBlock[pstctx]?  p1=coord  ps+=coord+ ;
 
 psbezier[PSTContext pstctx] : cmd=('\\psbezier*' | '\\psbezier') paramBlock[pstctx]? arrowBlock[pstctx]? (p1+=coord p2+=coord p3+=coord)* p4=coord? ;
 
