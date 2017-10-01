@@ -18,7 +18,7 @@ import static org.junit.Assume.assumeTrue;
 public class TestStarredCommand extends TestPSTParser {
 	@DataPoints
 	public static String[] cmds() {
-		return new String[]{"\\psframe*(10, 11)", "\\psellipse*(10, 11)(1, 2)", "\\psdot*(1,1)", "\\psdots*(1,1)"};
+		return new String[]{"\\psframe*(10, 11)", "\\psellipse*(10, 11)(1, 2)", "\\psdot*(1,1)", "\\psdots*(1,1)", "\\psline*(1,1)(2,2)(3,3)"};
 	}
 
 	@Theory

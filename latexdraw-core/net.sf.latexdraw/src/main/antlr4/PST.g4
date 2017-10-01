@@ -12,7 +12,7 @@ pstCode[PSTContext pstctx] : (pstBlock[pstctx] | pspictureBlock[pstctx] | center
             newpsobject[pstctx] | newpsstyle[pstctx] | pscustom[pstctx] | definecolor[pstctx] | includegraphics[pstctx] | psframebox[pstctx] | psdblframebox[pstctx] |
             psshadowbox[pstctx] | pscirclebox[pstctx] | psovalbox[pstctx] | psdiabox[pstctx] | pstribox[pstctx] | upshape[pstctx] | itshape[pstctx] |
             slshape[pstctx] | scshape[pstctx] | it[pstctx] | sc[pstctx] | sl[pstctx] | mdseries[pstctx] | bfseries[pstctx] | bf[pstctx] | rmfamily[pstctx] |
-            sffamily[pstctx] | ttfamily[pstctx] | textcolor[pstctx] | color[pstctx] | usefont[pstctx] | comment[pstctx] | unknowncmds[pstctx] | text[pstctx])* ;
+            sffamily[pstctx] | ttfamily[pstctx] | textcolor[pstctx] | color[pstctx] | usefont[pstctx] | unknowncmds[pstctx] | text[pstctx])* ;
 
 pstcustomBlock[PSTContext pstctx]
 @init {
@@ -305,8 +305,6 @@ arrowvalue[PSTContext pstctx] : arrLeft=arrow? '-' arrRight=arrow? ;
 
 coord : '(' x=valueDim? ',' y=valueDim? ')';
 
-comment[PSTContext pstctx] : COMMENT+ ;
-
 text[PSTContext pstctx] : (.)*?~'\\' ;
 
 show : 'all'  | 'x' | 'y' | 'none' ;
@@ -348,7 +346,7 @@ fragment LETTER : 'A'..'Z' | 'a'..'z' | '\u00C0'..'\u00D6' | '\u00D8'..'\u00F6'|
 
 fragment DIGIT: '0'..'9' ;
 
-COMMENT :  '%' ~('\r' | '\n')* ;
+COMMENT :  '%' ~('\r' | '\n')* -> skip ;
 
 PUNCTUATION : [-+*.,?;:/!'"`°_^#~–] ;
 
