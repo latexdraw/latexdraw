@@ -29,6 +29,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
+import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
@@ -111,6 +112,16 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPsdiamond(final net.sf.latexdraw.parsers.pst.PSTParser.PsdiamondContext ctx) {
+		final IRhombus rhombus = ShapeFactory.INST.createRhombus();
+		final Tuple<IPoint, IPoint> pts = getRectangularPoints(ctx.p1, ctx.p2, ctx.pstctx);
+		setRectangularShape(rhombus, pts.a.getX() - pts.b.getX(), pts.a.getY() - pts.b.getY(), Math.abs(pts.b.getX() * 2d),
+			Math.abs(pts.b.getY() * 2d), ctx.pstctx, ctx.cmd);
+
+		if(!MathUtils.INST.equalsDouble(ctx.pstctx.gangle, 0d)) {
+			rhombus.setRotationAngle(rhombus.getRotationAngle() - Math.toRadians(ctx.pstctx.gangle));
+		}
+
+		shapes.add(rhombus);
 	}
 
 	@Override
