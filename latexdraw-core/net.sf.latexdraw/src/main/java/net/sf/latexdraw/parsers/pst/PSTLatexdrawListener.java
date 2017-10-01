@@ -17,11 +17,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -182,6 +184,13 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	}
 
 	@Override
+	public void exitPswedge(final net.sf.latexdraw.parsers.pst.PSTParser.PswedgeContext ctx) {
+		final ICircleArc arc = ShapeFactory.INST.createCircleArc();
+		setArc(arc, ArcStyle.WEDGE, ctx.pos, ctx.radius.valueDim(), ctx.angle1.valueDim(), ctx.angle2.valueDim(), ctx.pstctx, false, ctx.cmd);
+		shapes.add(arc);
+	}
+
+	@Override
 	public void exitPsbezier(final net.sf.latexdraw.parsers.pst.PSTParser.PsbezierContext ctx) {
 	}
 
@@ -243,6 +252,40 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPspictureBlock(final net.sf.latexdraw.parsers.pst.PSTParser.PspictureBlockContext ctx) {
+	}
+
+
+	/**
+	 * Creates an arc using the given parameters.
+	 */
+	private void setArc(final ICircleArc arc, final ArcStyle arcType, final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext posRaw,
+						final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext radius, final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext a1,
+						final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext a2, final PSTContext ctx, final boolean inverted, final Token cmd) {
+		final IPoint centre = coordToPoint(posRaw, ctx);
+		double angle1 = valDimtoDouble(a1);
+		double angle2 = valDimtoDouble(a2);
+		final double width = Math.abs(valDimtoDouble(radius) * IShape.PPC) * 2d;
+
+		// Inversion of the arrows and the angles (for psarcn)
+		if(inverted) {
+			final double tmpAngle = angle1;
+			angle1 = angle2;
+			angle2 = tmpAngle;
+			ctx.arrowLeft = ArrowStyle.getArrowStyle(ctx.arrowLeft).getOppositeArrowStyle().getPSTToken();
+			ctx.arrowRight = ArrowStyle.getArrowStyle(ctx.arrowRight).getOppositeArrowStyle().getPSTToken();
+		}
+
+		arc.setAngleStart(Math.toRadians(angle1));
+		arc.setAngleEnd(Math.toRadians(angle2));
+		arc.setWidth(width);
+		arc.setPosition(centre.getX() - width / 2d, centre.getY() + width / 2d);
+		arc.setArcStyle(arcType);
+		setArrows(arc, inverted, ctx);
+		setShapeParameters(arc, ctx);
+
+		if(starredCmd(cmd)) {
+			setShapeForStar(arc);
+		}
 	}
 
 

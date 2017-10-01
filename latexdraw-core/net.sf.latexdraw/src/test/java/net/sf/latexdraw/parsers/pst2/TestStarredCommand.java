@@ -19,7 +19,7 @@ public class TestStarredCommand extends TestPSTParser {
 	@DataPoints
 	public static String[] cmds() {
 		return new String[]{"\\psframe*(10, 11)", "\\psellipse*(10, 11)(1, 2)", "\\psdot*(1,1)", "\\psdots*(1,1)", "\\psline*(1,1)(2,2)(3,3)",
-		"\\pscircle*(1, 2){2}", "\\pstriangle*(1,2)(3,4)", "\\pspolygon*(5,10)(15,20)", "\\psdiamond*(1,2)(3,4)"};
+		"\\pscircle*(1, 2){2}", "\\pstriangle*(1,2)(3,4)", "\\pspolygon*(5,10)(15,20)", "\\psdiamond*(1,2)(3,4)", "\\pswedge*(35,50){1.25}{10}{20}"};
 	}
 
 	@Theory
