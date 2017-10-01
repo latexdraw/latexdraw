@@ -119,6 +119,9 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPsqdisk(final net.sf.latexdraw.parsers.pst.PSTParser.PsqdiskContext ctx) {
+		final ICircle circle = ShapeFactory.INST.createCircle();
+		setCircle(circle, coordToPoint(ctx.coord(), ctx.pstctx), valDimtoDouble(ctx.bracketValueDim().valueDim()) * getPPC(), ctx.pstctx, true);
+		shapes.add(circle);
 	}
 
 	@Override
