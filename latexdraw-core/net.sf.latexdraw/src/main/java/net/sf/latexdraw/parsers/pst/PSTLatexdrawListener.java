@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
@@ -28,6 +29,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.util.Tuple;
 import org.antlr.v4.runtime.Token;
@@ -122,6 +124,28 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		final ICircle circle = ShapeFactory.INST.createCircle();
 		setCircle(circle, coordToPoint(ctx.coord(), ctx.pstctx), valDimtoDouble(ctx.bracketValueDim().valueDim()) * getPPC(), ctx.pstctx, true);
 		shapes.add(circle);
+	}
+
+	@Override
+	public void exitPstriangle(final net.sf.latexdraw.parsers.pst.PSTParser.PstriangleContext ctx) {
+		final ITriangle triangle = ShapeFactory.INST.createTriangle();
+		final Tuple<IPoint, IPoint> pts = getRectangularPoints(ctx.p1, ctx.p2, ctx.pstctx);
+		setRectangularShape(triangle, pts.a.getX() - pts.b.getX() / 2d, pts.a.getY(), Math.abs(pts.b.getX()), Math.abs(pts.b.getY()), ctx.pstctx, ctx.cmd);
+
+		if(!MathUtils.INST.equalsDouble(ctx.pstctx.gangle, 0d)) {
+			final IPoint gc = triangle.getGravityCentre();
+			final IPoint newGc = gc.rotatePoint(pts.a, Math.toRadians(-ctx.pstctx.gangle));
+			triangle.setRotationAngle(triangle.getRotationAngle() + Math.toRadians(ctx.pstctx.gangle));
+			triangle.translate(newGc.getX() - gc.getX(), newGc.getY() - gc.getY());
+		}
+
+		// If the height is negative, the position and the rotation of the triangle changes.
+		if(pts.b.getY() > 0) {
+			triangle.setRotationAngle(triangle.getRotationAngle() + Math.PI);
+			triangle.translate(0, triangle.getHeight());
+		}
+
+		shapes.add(triangle);
 	}
 
 	@Override

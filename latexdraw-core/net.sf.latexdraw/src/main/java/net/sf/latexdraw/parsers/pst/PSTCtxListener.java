@@ -122,8 +122,13 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 	}
 
 	@Override
+	public void exitParamgangle(final net.sf.latexdraw.parsers.pst.PSTParser.ParamgangleContext ctx) {
+		ctx.pstctx.gangle = numberToDouble(ctx.NUMBER().getSymbol());
+	}
+
+	@Override
 	public void exitUnkownParamSetting(final net.sf.latexdraw.parsers.pst.PSTParser.UnkownParamSettingContext ctx) {
-		LOG.severe("Unkown parameter: " + ctx.name.getText());
+		LOG.severe("Unkown parameter: " + ctx.getText());
 	}
 
 	double numberToDouble(final Token node) {

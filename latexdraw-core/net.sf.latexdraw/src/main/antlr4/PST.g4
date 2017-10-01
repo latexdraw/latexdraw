@@ -1,9 +1,24 @@
-grammar PST;
+/*
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ */
+ grammar PST;
 
 @header {
 package net.sf.latexdraw.parsers.pst;
 }
 
+// PST is a internal DSL of LaTeX. PST is a dynamic language so defining its grammar may be considered as a non-sense.
+// PST, however, can be considered as a static language (i.e., all its commands are known and predefined) as the PST packages are quite stable
+// since many years.
+// The goal of this parser is to ease the process of common PST commands.
+// PSTContext is a grammar context -- a Java implementation is provided -- that supplements the ANTLR one with information related to the current PST values.
 pstCode[PSTContext pstctx] : (pstBlock[pstctx] | pspictureBlock[pstctx] | centerBlock[pstctx] | psset[pstctx] | psellipse[pstctx] | psframe[pstctx] | psdiamond[pstctx] |
             pstriangle[pstctx] | psline[pstctx] | psqline[pstctx] | pscircle[pstctx] | psqdisk[pstctx] | pspolygon[pstctx] | psbezier[pstctx] | psdot[pstctx] |
             psdots[pstctx] | psaxes[pstctx] | psgrid[pstctx] | rput[pstctx] | scalebox[pstctx] | psscalebox[pstctx] | pswedge[pstctx] | psellipticarc[pstctx] |
@@ -206,6 +221,7 @@ bracketValueDim : BRACE_OPEN valueDim BRACE_CLOSE ;
 
 valueDim : NUMBER unit? ;
 
+// This complefixies the grammar but eases, IMO, the support of the predefined PST commands' parameters
 paramSetting[PSTContext pstctx] : paramArrow[pstctx] | paramArrowscale[pstctx] | paramRbracketlength[pstctx] | paramBracketlength[pstctx] |
         paramArrowinset[pstctx] | paramArrowlength[pstctx] | paramtbarsize[pstctx] | paramarrowsize[pstctx] | paramunit[pstctx] | paramaddfillstyle[pstctx] |
         paramborder[pstctx] | paramdotsep[pstctx] | paramdash[pstctx] | paramframearc[pstctx] | paramxunit[pstctx] | paramyunit[pstctx] | paramorigin[pstctx] |
@@ -219,7 +235,7 @@ paramSetting[PSTContext pstctx] : paramArrow[pstctx] | paramArrowscale[pstctx] |
         paramgridwidth[pstctx] | paramgridcolor[pstctx] | paramgriddots[pstctx] | paramgridlabels[pstctx] | paramgridlabelcolor[pstctx] |
         paramsubgriddiv[pstctx] | paramsubgridwidth[pstctx] | paramsubgridcolor[pstctx] | paramsubgriddots[pstctx] | paramplotstyle[pstctx] |
         paramplotpoints[pstctx] | paramgradbegin[pstctx] | paramgradend[pstctx] | paramgradlines[pstctx] | paramgradmidpoint[pstctx] | paramgradangle[pstctx] |
-        paramdotsize[pstctx] | unkownParamSetting[pstctx] ;
+        paramdotsize[pstctx] | paramgangle[pstctx] | unkownParamSetting[pstctx] ;
 
 unkownParamSetting[PSTContext pstctx] : name=WORD '=' (valueDim | NUMBER | booleanvalue | WORD)+ ;
 
@@ -298,6 +314,7 @@ paramgradlines[PSTContext pstctx] : 'gradlines' '=' INT ;
 paramgradmidpoint[PSTContext pstctx] : 'gradmidpoint' '=' NUMBER ;
 paramgradangle[PSTContext pstctx] : 'gradangle' '=' NUMBER ;
 paramdotsize[PSTContext pstctx] : 'dotsize' '=' dim=valueDim num=NUMBER? ;
+paramgangle[PSTContext pstctx] : 'gangle' '=' NUMBER ;
 
 arrowBlock[PSTContext pstctx] : BRACE_OPEN arrowvalue[pstctx] BRACE_CLOSE ;
 
