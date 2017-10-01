@@ -186,7 +186,23 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	@Override
 	public void exitPswedge(final net.sf.latexdraw.parsers.pst.PSTParser.PswedgeContext ctx) {
 		final ICircleArc arc = ShapeFactory.INST.createCircleArc();
-		setArc(arc, ArcStyle.WEDGE, ctx.pos, ctx.radius.valueDim(), ctx.angle1.valueDim(), ctx.angle2.valueDim(), ctx.pstctx, false, ctx.cmd);
+		setArc(arc, ArcStyle.WEDGE, ctx.pos, ctx.radius.valueDim(), ctx.angle1.valueDim(), ctx.angle2.valueDim(), ctx.pstctx, ctx.cmd);
+		shapes.add(arc);
+	}
+
+	@Override
+	public void exitPsarc(final net.sf.latexdraw.parsers.pst.PSTParser.PsarcContext ctx) {
+		final ICircleArc arc = ShapeFactory.INST.createCircleArc();
+		setArc(arc, ArcStyle.ARC, ctx.pos, ctx.radius.valueDim(), ctx.angle1.valueDim(), ctx.angle2.valueDim(), ctx.pstctx, ctx.cmd);
+		shapes.add(arc);
+	}
+
+	@Override
+	public void exitPsarcn(final net.sf.latexdraw.parsers.pst.PSTParser.PsarcnContext ctx) {
+		final ICircleArc arc = ShapeFactory.INST.createCircleArc();
+		ctx.pstctx.arrowLeft = ArrowStyle.getArrowStyle(ctx.pstctx.arrowLeft).getOppositeArrowStyle().getPSTToken();
+		ctx.pstctx.arrowRight = ArrowStyle.getArrowStyle(ctx.pstctx.arrowRight).getOppositeArrowStyle().getPSTToken();
+		setArc(arc, ArcStyle.ARC, ctx.pos, ctx.radius.valueDim(), ctx.angle2.valueDim(), ctx.angle1.valueDim(), ctx.pstctx, ctx.cmd);
 		shapes.add(arc);
 	}
 
@@ -200,10 +216,6 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPsgrid(final net.sf.latexdraw.parsers.pst.PSTParser.PsgridContext ctx) {
-	}
-
-	@Override
-	public void exitPsarc(final net.sf.latexdraw.parsers.pst.PSTParser.PsarcContext ctx) {
 	}
 
 	@Override
@@ -260,27 +272,18 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	 */
 	private void setArc(final ICircleArc arc, final ArcStyle arcType, final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext posRaw,
 						final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext radius, final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext a1,
-						final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext a2, final PSTContext ctx, final boolean inverted, final Token cmd) {
+						final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext a2, final PSTContext ctx, final Token cmd) {
 		final IPoint centre = coordToPoint(posRaw, ctx);
-		double angle1 = valDimtoDouble(a1);
-		double angle2 = valDimtoDouble(a2);
+		final double angle1 = valDimtoDouble(a1);
+		final double angle2 = valDimtoDouble(a2);
 		final double width = Math.abs(valDimtoDouble(radius) * IShape.PPC) * 2d;
-
-		// Inversion of the arrows and the angles (for psarcn)
-		if(inverted) {
-			final double tmpAngle = angle1;
-			angle1 = angle2;
-			angle2 = tmpAngle;
-			ctx.arrowLeft = ArrowStyle.getArrowStyle(ctx.arrowLeft).getOppositeArrowStyle().getPSTToken();
-			ctx.arrowRight = ArrowStyle.getArrowStyle(ctx.arrowRight).getOppositeArrowStyle().getPSTToken();
-		}
 
 		arc.setAngleStart(Math.toRadians(angle1));
 		arc.setAngleEnd(Math.toRadians(angle2));
 		arc.setWidth(width);
 		arc.setPosition(centre.getX() - width / 2d, centre.getY() + width / 2d);
 		arc.setArcStyle(arcType);
-		setArrows(arc, inverted, ctx);
+		setArrows(arc, ctx);
 		setShapeParameters(arc, ctx);
 
 		if(starredCmd(cmd)) {
@@ -363,7 +366,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		final IPolyline line = ShapeFactory.INST.createPolyline(points);
 
 		setShapeParameters(line, ctx);
-		setArrows(line, false, ctx);
+		setArrows(line, ctx);
 
 		if(qObject) {
 			line.setHasShadow(false);
@@ -457,7 +460,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	/**
 	 * Sets the arrows' parameters.
 	 */
-	private void setArrows(final IArrowableSingleShape sh, final boolean invert, final PSTContext ctx) {
+	private void setArrows(final IArrowableSingleShape sh, final PSTContext ctx) {
 		sh.setArrowSizeDim(ctx.arrowSize.a * IShape.PPC);
 		sh.setArrowSizeNum(ctx.arrowSize.b);
 		sh.setArrowLength(ctx.arrowLgth);
@@ -466,14 +469,8 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		sh.setTBarSizeNum(ctx.arrowTBar.b);
 		sh.setBracketNum(ctx.arrowBrLgth);
 		sh.setRBracketNum(ctx.arrowrBrLgth);
-
-		if(invert) {
-			sh.setArrowStyle(ArrowStyle.getArrowStyle(ctx.arrowRight), 0);
-			sh.setArrowStyle(ArrowStyle.getArrowStyle(ctx.arrowLeft), 1);
-		}else {
-			sh.setArrowStyle(ArrowStyle.getArrowStyle(ctx.arrowLeft), 0);
-			sh.setArrowStyle(ArrowStyle.getArrowStyle(ctx.arrowRight), 1);
-		}
+		sh.setArrowStyle(ArrowStyle.getArrowStyle(ctx.arrowLeft), 0);
+		sh.setArrowStyle(ArrowStyle.getArrowStyle(ctx.arrowRight), 1);
 	}
 
 	public List<IShape> getShapes() {
