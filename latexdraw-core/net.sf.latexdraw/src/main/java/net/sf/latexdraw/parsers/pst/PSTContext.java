@@ -30,9 +30,6 @@ import static net.sf.latexdraw.view.pst.PSTricksConstants.DEFAULT_ORIGIN;
  * @author Arnaud BLOUIN
  */
 public class PSTContext {
-//	static final Logger LOG = Logger.getAnonymousLogger();
-//	static final Tuple<Supplier<Object>, Consumer<Object>> NOTOKEN = new Tuple<>(() -> null, value -> {});
-
 	AxesStyle axesStyle = PSTricksConstants.DEFAULT_AXES_STYLE;
 	String arrowLeft = "";
 	String arrowRight = "";
@@ -135,84 +132,12 @@ public class PSTContext {
 	double strokeopacity = 1d;
 	boolean polarPlot = false;
 
-//	final Map<String, Tuple<Supplier<Object>, Consumer<Object>>> token2Fct;
-
 	/** Text text parsed in the current context. */
 	String textParsed = "";
 
 	public PSTContext(final boolean isCustom) {
 		super();
 		isPsCustom = isCustom;
-//		token2Fct = new HashMap<>();
-//		token2Fct.put("strokeopacity", new Tuple<>(() -> strokeopacity, value -> strokeopacity = (double) value));
-//		token2Fct.put("opacity", new Tuple<>(() -> opacity, value -> opacity = (double) value));
-//		token2Fct.put("boxsep", new Tuple<>(() -> boxSep, value -> boxSep = (boolean) value));
-//		token2Fct.put("showpoints", new Tuple<>(() -> showPoints, value -> showPoints = (boolean) value));
-//		token2Fct.put("swapaxes", new Tuple<>(() -> swapAxes, value -> swapAxes = (boolean) value));
-//		token2Fct.put("doubleline", new Tuple<>(() -> dbleLine, value -> dbleLine = (boolean) value));
-//		token2Fct.put("shadow", new Tuple<>(() -> shadow, value -> shadow = (boolean) value));
-//		token2Fct.put("showorigin", new Tuple<>(() -> showOrigin, value -> showOrigin = (boolean) value));
-//		token2Fct.put("linecolor", new Tuple<>(() -> lineColor, value -> lineColor = (Color) value));
-//		token2Fct.put("fillcolor", new Tuple<>(() -> fillColor, value -> fillColor = (Color) value));
-//		token2Fct.put("gridcolor", new Tuple<>(() -> gridColor, value -> gridColor = (Color) value));
-//		token2Fct.put("gridlabelcolor", new Tuple<>(() -> gridlabelcolor, value -> gridlabelcolor = (Color) value));
-//		token2Fct.put("subgridcolor", new Tuple<>(() -> subGridCol, value -> subGridCol = (Color) value));
-//		token2Fct.put("bordercolor", new Tuple<>(() -> borderColor, value -> borderColor = (Color) value));
-//		token2Fct.put("doublecolor", new Tuple<>(() -> dbleColor, value -> dbleColor = (Color) value));
-//		token2Fct.put("shadowcolor", new Tuple<>(() -> shadowCol, value -> shadowCol = (Color) value));
-//		token2Fct.put("hatchcolor", new Tuple<>(() -> hatchCol, value -> hatchCol = (Color) value));
-//		token2Fct.put("gradend", new Tuple<>(() -> gradEnd, value -> gradEnd = (Color) value));
-//		token2Fct.put("gradbegin", new Tuple<>(() -> gradBegin, value -> gradBegin = (Color) value));
-//		token2Fct.put("fillstyle", new Tuple<>(() -> fillingStyle, value -> fillingStyle = (FillingStyle) value));
-//		token2Fct.put("linestyle", new Tuple<>(() -> lineStyle, value -> lineStyle = (LineStyle) value));
-//		token2Fct.put("dimen", new Tuple<>(() -> borderPos, value -> borderPos = (BorderPos) value));
-//		token2Fct.put("linewidth", new Tuple<>(() -> lineWidth, value -> lineWidth = (double) value));
-//		token2Fct.put("shadowsize", new Tuple<>(() -> shadowSize, value -> shadowSize = (double) value));
-//		token2Fct.put("doublesep", new Tuple<>(() -> dbleSep, value -> dbleSep = (double) value));
-//		token2Fct.put("hatchsep", new Tuple<>(() -> hatchSep, value -> hatchSep = (double) value));
-//		token2Fct.put("hatchwidth", new Tuple<>(() -> hatchWidth, value -> hatchWidth = (double) value));
-//		token2Fct.put("shadowangle", new Tuple<>(() -> shadowAngle, value -> shadowAngle = (double) value));
-//		token2Fct.put("gradangle", new Tuple<>(() -> gradAngle, value -> gradAngle = (double) value));
-//		token2Fct.put("gradmidpoint", new Tuple<>(() -> gradMidPoint, value -> gradMidPoint = (double) value));
-//		token2Fct.put("hatchangle", new Tuple<>(() -> hatchAngle, value -> hatchAngle = (double) value));
-//		token2Fct.put("gradlines", new Tuple<>(() -> gradLines, value -> gradLines = (int) value));
-//		token2Fct.put("framearc", new Tuple<>(() -> frameArc, value -> frameArc = (double) value));
-//		token2Fct.put("linearc", new Tuple<>(() -> lineArc, value -> lineArc = (double) value));
-//		token2Fct.put("cornersize", new Tuple<>(() -> isCornerRel, value -> isCornerRel = (boolean) value));
-//		token2Fct.put("arrows", new Tuple<>(() -> arrowStyle, value -> arrowStyle = (Tuple<ArrowStyle, ArrowStyle>) value));
-//		token2Fct.put("arcsep", new Tuple<>(() -> arcSep, value -> arcSep = (double) value));
-//		token2Fct.put("arcsepA", new Tuple<>(() -> arcSepA, value -> arcSepA = (double) value));
-//		token2Fct.put("arcsepB", new Tuple<>(() -> arcSepB, value -> arcSepB = (double) value));
-//		token2Fct.put("curvature", new Tuple<>(() -> curvature, value -> curvature = (double[]) value));
-//		token2Fct.put("gangle", new Tuple<>(() -> gangle, value -> gangle = (double) value));
-//		token2Fct.put("dotstyle", new Tuple<>(() -> dotStyle, value -> dotStyle = (DotStyle) value));
-//		token2Fct.put("dotsize", new Tuple<>(() -> arrowDotSize, value -> arrowDotSize = (Tuple<Double, Double>) value));
-//		token2Fct.put("dotscale", new Tuple<>(() -> dotScale, value -> dotScale = (Tuple<Double, Double>) value));
-//		token2Fct.put("dotangle", new Tuple<>(() -> dotAngle, value -> dotAngle = (double) value));
-//		token2Fct.put("gridwidth", new Tuple<>(() -> gridWidth, value -> gridWidth = (double) value));
-//		token2Fct.put("griddots", new Tuple<>(() -> gridDots, value -> gridDots = (double) value));
-//		token2Fct.put("gridlabels", new Tuple<>(() -> gridLabel, value -> gridLabel = (double) value));
-//		token2Fct.put("subgriddiv", new Tuple<>(() -> subGridDiv, value -> subGridDiv = (double) value));
-//		token2Fct.put("subgridwidth", new Tuple<>(() -> subGridWidth, value -> subGridWidth = (double) value));
-//		token2Fct.put("subgriddots", new Tuple<>(() -> subGridDots, value -> subGridDots = (double) value));
-//		token2Fct.put("unit", new Tuple<>(() -> unit, value -> unit = (double) value));
-//		token2Fct.put("xunit", new Tuple<>(() -> xUnit, value -> xUnit = (double) value));
-//		token2Fct.put("yunit", new Tuple<>(() -> yUnit, value -> yUnit = (double) value));
-//		token2Fct.put("plotstyle", new Tuple<>(() -> plotStyle, value -> plotStyle = (String) value));
-//		token2Fct.put("plotpoints", new Tuple<>(() -> plotPoints, value -> plotPoints = (int) value));
-//		token2Fct.put("origin", new Tuple<>(() -> origin, value -> origin = (PointUnit) value));
-//		token2Fct.put("dash", new Tuple<>(() -> dash, value -> dash = (Tuple<Double, Double>) value));
-//		token2Fct.put("dotsep", new Tuple<>(() -> dotStep, value -> dotStep = (double) value));
-//		token2Fct.put("border", new Tuple<>(() -> border, value -> border = (double) value));
-//		token2Fct.put("addfillstyle", new Tuple<>(() -> addfillstyle, value -> addfillstyle = (FillingStyle) value));
-//		token2Fct.put("arrowsize", new Tuple<>(() -> arrowSize, value -> arrowSize = (Tuple<Double, Double>) value));
-//		token2Fct.put("arrowlength", new Tuple<>(() -> arrowLgth, value -> arrowLgth = (double) value));
-//		token2Fct.put("tbarsize", new Tuple<>(() -> arrowTBar, value -> arrowTBar = (Tuple<Double, Double>) value));
-//		token2Fct.put("bracketlength", new Tuple<>(() -> arrowBrLgth, value -> arrowBrLgth = (double) value));
-//		token2Fct.put("rbracketlength", new Tuple<>(() -> arrowrBrLgth, value -> arrowrBrLgth = (double) value));
-//		token2Fct.put("arrowscale", new Tuple<>(() -> arrowScale, value -> arrowScale = (Tuple<Double, Double>) value));
-//		token2Fct.put("liftpen", new Tuple<>(() -> liftpen, value -> liftpen = (int) value));
-//		token2Fct.put("polarplot", new Tuple<>(() -> polarPlot, value -> polarPlot = (boolean) value));
 	}
 
 	public PSTContext(final PSTContext ctx) {
@@ -337,31 +262,6 @@ public class PSTContext {
 			default : return value;
 		}
 	}
-
-//	/**
-//	 * Returns the value corresponding to the given parameter.
-//	 */
-//	public Object getParam(final String name) {
-//		final Object value = token2Fct.getOrDefault(name, NOTOKEN).a.get();
-//		if(value == null) {
-//			LOG.severe("Parameter unknown: " + name);
-//		}
-//		return value;
-//	}
-//
-//
-//	/**
-//	 * Sets the value of the given parameter.
-//	 */
-//	public void setParam(final String name, final Object value) {
-//		if(name != null && value != null) {
-//			try {
-//				token2Fct.getOrDefault(name, NOTOKEN).b.accept(value);
-//			}catch(final ClassCastException ex) {
-//				LOG.severe("Incorrect parameter '" + name + "' value: " + value);
-//			}
-//		}
-//	}
 
 	public enum FontShape {
 		ITALIC("it", "\\it"), SLANTED("sl", "\\sl"), SMALCAPS("sc", "\\sc"), NORMAL("n", "\\upshape");

@@ -20,6 +20,7 @@ import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
+import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -111,6 +112,9 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPscircle(final net.sf.latexdraw.parsers.pst.PSTParser.PscircleContext ctx) {
+		final ICircle circle = ShapeFactory.INST.createCircle();
+		setCircle(circle, coordToPoint(ctx.centre, ctx.pstctx), valDimtoDouble(ctx.bracketValueDim().valueDim()) * getPPC(), ctx.pstctx, starredCmd(ctx.cmd));
+		shapes.add(circle);
 	}
 
 	@Override
@@ -185,8 +189,24 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	public void exitPspictureBlock(final net.sf.latexdraw.parsers.pst.PSTParser.PspictureBlockContext ctx) {
 	}
 
+
 	/**
-	 * Creates a dot shape.
+	 * Initialises a circle.
+	 */
+	private void setCircle(final ICircle circle, final IPoint centre, final double radius, final PSTContext ctx, final boolean starred) {
+		final double width = Math.max(0.1, radius) * 2d;
+		circle.setWidth(width);
+		circle.setPosition(centre.getX() - width / 2d, centre.getY() + width / 2d);
+		setShapeParameters(circle, ctx);
+
+		if(starred) {
+			setShapeForStar(circle);
+		}
+	}
+
+
+	/**
+	 * Initialises a dot shape.
 	 * @param pt The point of the dot.
 	 * @param ctx The PST context.
 	 * @param starred If a starred command.
