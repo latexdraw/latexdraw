@@ -87,7 +87,7 @@ public class TestParsingPsdots extends TestPSTParser {
 	@Test
 	public void testCoordinatesFloat2() {
 		parser("\\psdots(35.5,50.5)");
-		final IDot dot = (IDot) listener.getShapes().get(0);
+		final IDot dot = getShapeAt(0);
 		assertEquals(35.5 * IShape.PPC, dot.getPtAt(0).getX(), 0.0001);
 		assertEquals(-50.5 * IShape.PPC, dot.getPtAt(0).getY(), 0.0001);
 	}

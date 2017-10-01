@@ -49,6 +49,10 @@ public abstract class TestPSTParser {
 		});
 	}
 
+	<T> T getShapeAt(final int i) {
+		return (T) listener.getShapes().get(i);
+	}
+
 	void parser(final String code) {
 		final PSTParser parser = new PSTParser(new CommonTokenStream(new PSTLexer(CharStreams.fromString(code))));
 		parser.addParseListener(listener);
