@@ -240,7 +240,7 @@ paramSetting[PSTContext pstctx] : paramArrow[pstctx] | paramArrowscale[pstctx] |
 unkownParamSetting[PSTContext pstctx] : name=WORD '=' (valueDim | NUMBER | booleanvalue | WORD)+ ;
 
 paramArrow[PSTContext pstctx] : 'arrows' '=' arrowvalue[pstctx] ;
-paramArrowscale[PSTContext pstctx] : 'arrowscale' '=' sx=valueDim sy=valueDim ;
+paramArrowscale[PSTContext pstctx] : 'arrowscale' '=' sx=valueDim sy=valueDim? ;
 paramRbracketlength[PSTContext pstctx] : 'rbracketlength' '=' NUMBER ;
 paramBracketlength[PSTContext pstctx] : 'bracketlength' '=' NUMBER ;
 paramArrowinset[PSTContext pstctx] : 'arrowinset' '=' NUMBER ;
