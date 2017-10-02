@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -22,6 +23,8 @@ import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
+import net.sf.latexdraw.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
@@ -33,6 +36,7 @@ import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.util.Tuple;
@@ -208,10 +212,95 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPsbezier(final net.sf.latexdraw.parsers.pst.PSTParser.PsbezierContext ctx) {
+		// Transforming all the parsed points
+		Stream<IPoint> stream = IntStream.range(0, ctx.p1.size()).mapToObj(i -> Stream.of(ctx.p1.get(i), ctx.p2.get(i), ctx.p3.get(i))).
+			flatMap(s -> s).map(pt -> coordToPoint(pt, ctx.pstctx));
+
+		// Managing the optional last point
+		if(ctx.p4 == null) {
+			stream = Stream.concat(Stream.of(ShapeFactory.INST.createPoint(ctx.pstctx.originToPoint())), stream);
+		}else {
+			stream = Stream.concat(stream, Stream.of(coordToPoint(ctx.p4, ctx.pstctx)));
+		}
+
+		final List<IPoint> allPts = stream.collect(Collectors.toList());
+		// Point 1: shape point, point 2 : second control point (ignored), point 3 : first control point
+		final List<IPoint> pts = IntStream.range(0, allPts.size()).filter(i -> i % 3 == 0).mapToObj(i -> allPts.get(i)).collect(Collectors.toList());
+		final List<IPoint> ctrls = IntStream.range(2, allPts.size()).filter(i -> i % 3 == 2).mapToObj(i -> allPts.get(i)).collect(Collectors.toList());
+
+		if(allPts.size() > 1) {
+			ctrls.add(0, allPts.get(1));
+		}
+
+		boolean closed = false;
+
+		// Closing the shape
+		if(pts.size() > 2 && pts.get(0).equals(pts.get(pts.size() - 1))) {
+			pts.remove(pts.size() - 1);
+			ctrls.remove(ctrls.size() - 1);
+			closed = true;
+		}
+
+		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve(pts);
+		bc.setIsClosed(closed);
+		setShapeParameters(bc, ctx.pstctx);
+		setArrows(bc, ctx.pstctx);
+
+		// Setting the control points
+		IntStream.range(0, bc.getFirstCtrlPts().size()).forEach(i -> bc.getFirstCtrlPtAt(i).setPoint(ctrls.get(i)));
+
+		// Updating the second control points to the first ones
+		bc.updateSecondControlPoints();
+
+		if(starredCmd(ctx.cmd)) {
+			setShapeForStar(bc);
+		}
+		shapes.add(bc);
 	}
 
 	@Override
 	public void exitPsaxes(final net.sf.latexdraw.parsers.pst.PSTParser.PsaxesContext ctx) {
+		final IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
+		final IPoint gridstart;
+		final IPoint gridend;
+		final double ppc = getPPC();
+
+		if(ctx.p3 == null) {
+			if(ctx.p2 == null) {
+				if(ctx.p1 == null) {
+					gridstart = ShapeFactory.INST.createPoint(Math.round(ctx.pstctx.pictureSWPt.getX()), Math.round(ctx.pstctx.pictureSWPt.getY()));
+					gridend = ShapeFactory.INST.createPoint(Math.round(ctx.pstctx.pictureNEPt.getX()), Math.round(ctx.pstctx.pictureNEPt.getY()));
+				}else {
+					gridstart = ShapeFactory.INST.createPoint();
+					gridend = coordToPoint(ctx.p1, ctx.pstctx);
+				}
+			}else {
+				gridstart = coordToPoint(ctx.p1, ctx.pstctx);
+				gridend = coordToPoint(ctx.p2, ctx.pstctx);
+			}
+		}else {
+			gridstart = coordToPoint(ctx.p2, ctx.pstctx);
+			gridend = coordToPoint(ctx.p3, ctx.pstctx);
+		}
+
+		setArrows(axes, ctx.pstctx);
+		setStdGridParams(ctx.pstctx.ox, ctx.pstctx.oy, axes, ctx.pstctx);
+		setShapeParameters(axes, ctx.pstctx);
+		axes.setAxesStyle(ctx.pstctx.axesStyle);
+		axes.setTicksDisplayed(ctx.pstctx.ticks);
+		axes.setLabelsDisplayed(ctx.pstctx.labels);
+		axes.setTicksStyle(ctx.pstctx.ticksStyle);
+		axes.setIncrementX(ctx.pstctx.dxIncrement);
+		axes.setIncrementY(ctx.pstctx.dyIncrement);
+		axes.setDistLabelsX(ctx.pstctx.dxLabelDist);
+		axes.setDistLabelsY(ctx.pstctx.dyLabelDist);
+		axes.setShowOrigin(ctx.pstctx.showOrigin);
+		axes.setGridEndX(gridend.getX() / ppc);
+		axes.setGridEndY(gridend.getY() / ppc * -1d);
+		axes.setGridStartX(gridstart.getX() / ppc);
+		axes.setGridStartY(gridstart.getY() / ppc * -1d);
+		axes.setPosition(ShapeFactory.INST.createPoint(0d, 0d));
+		shapes.add(axes);
 	}
 
 	@Override
@@ -264,6 +353,15 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPspictureBlock(final net.sf.latexdraw.parsers.pst.PSTParser.PspictureBlockContext ctx) {
+	}
+
+	/**
+	 * Sets the parameters of std grids (axes and grids).
+	 */
+	private void setStdGridParams(final double originX, final double originY, final IStandardGrid grid, final PSTContext ctx) {
+		grid.setLineColour(ctx.gridColor);
+		grid.setOriginX(originX);
+		grid.setOriginY(originY);
 	}
 
 
@@ -385,7 +483,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	private IPoint coordToPoint(final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext coord, final PSTContext ctx) {
 		if(coord == null) return ShapeFactory.INST.createPoint(
-			PSTContext.doubleUnitToUnit(ctx.originX.a, ctx.originX.b), PSTContext.doubleUnitToUnit(ctx.originY.a, ctx.originY.b));
+			PSTContext.doubleUnitToUnit(ctx.originX.a, ctx.originX.b) * getPPC(), PSTContext.doubleUnitToUnit(ctx.originY.a, ctx.originY.b) * getPPC());
 		return ShapeFactory.INST.createPoint(fromXvalDimToCoord(coord.x, ctx), fromYvalDimToCoord(coord.y, ctx));
 	}
 
