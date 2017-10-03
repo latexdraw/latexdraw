@@ -17,9 +17,6 @@ import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.tree.TerminalNode;
 
 public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBaseListener {
 	public final Logger LOG = Logger.getAnonymousLogger();
@@ -36,58 +33,103 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 	}
 
 	@Override
+	public void exitParamgridwidth(final net.sf.latexdraw.parsers.pst.PSTParser.ParamgridwidthContext ctx) {
+		ctx.pstctx.gridWidth = ctx.pstctx.valDimtoDouble(ctx.valueDim());
+	}
+
+	@Override
+	public void exitParamgridcolor(final net.sf.latexdraw.parsers.pst.PSTParser.ParamgridcolorContext ctx) {
+		getColor(ctx.WORD().getText()).ifPresent(col -> ctx.pstctx.gridColor = col);
+	}
+
+	@Override
+	public void exitParamgriddots(final net.sf.latexdraw.parsers.pst.PSTParser.ParamgriddotsContext ctx) {
+		ctx.pstctx.gridDots = ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
+	}
+
+	@Override
+	public void exitParamgridlabels(final net.sf.latexdraw.parsers.pst.PSTParser.ParamgridlabelsContext ctx) {
+		ctx.pstctx.gridLabel = ctx.pstctx.valDimtoDouble(ctx.valueDim());
+	}
+
+	@Override
+	public void exitParamgridlabelcolor(final net.sf.latexdraw.parsers.pst.PSTParser.ParamgridlabelcolorContext ctx) {
+		getColor(ctx.WORD().getText()).ifPresent(col -> ctx.pstctx.gridlabelcolor = col);
+	}
+
+	@Override
+	public void exitParamsubgriddiv(final net.sf.latexdraw.parsers.pst.PSTParser.ParamsubgriddivContext ctx) {
+		ctx.pstctx.subGridDiv = ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
+	}
+
+	@Override
+	public void exitParamsubgridwidth(final net.sf.latexdraw.parsers.pst.PSTParser.ParamsubgridwidthContext ctx) {
+		ctx.pstctx.subGridWidth = ctx.pstctx.valDimtoDouble(ctx.valueDim());
+	}
+
+	@Override
+	public void exitParamsubgridcolor(final net.sf.latexdraw.parsers.pst.PSTParser.ParamsubgridcolorContext ctx) {
+		getColor(ctx.WORD().getText()).ifPresent(col -> ctx.pstctx.subGridCol = col);
+	}
+
+	@Override
+	public void exitParamsubgriddots(final net.sf.latexdraw.parsers.pst.PSTParser.ParamsubgriddotsContext ctx) {
+		ctx.pstctx.subGridDots = ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
+	}
+
+	@Override
 	public void exitParamRbracketlength(final net.sf.latexdraw.parsers.pst.PSTParser.ParamRbracketlengthContext ctx) {
-		ctx.pstctx.arrowrBrLgth = numberToDouble(ctx.NUMBER().getSymbol());
+		ctx.pstctx.arrowrBrLgth = ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
 	public void exitParamBracketlength(final net.sf.latexdraw.parsers.pst.PSTParser.ParamBracketlengthContext ctx) {
-		ctx.pstctx.arrowBrLgth = numberToDouble(ctx.NUMBER().getSymbol());
+		ctx.pstctx.arrowBrLgth = ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
 	public void exitParamArrowinset(final net.sf.latexdraw.parsers.pst.PSTParser.ParamArrowinsetContext ctx) {
-		ctx.pstctx.arrowInset = numberToDouble(ctx.NUMBER().getSymbol());
+		ctx.pstctx.arrowInset = ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
 	public void exitParamArrowlength(final net.sf.latexdraw.parsers.pst.PSTParser.ParamArrowlengthContext ctx) {
-		ctx.pstctx.arrowLgth = numberToDouble(ctx.NUMBER().getSymbol());
+		ctx.pstctx.arrowLgth = ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
 	public void exitParamtbarsize(final net.sf.latexdraw.parsers.pst.PSTParser.ParamtbarsizeContext ctx) {
-		ctx.pstctx.arrowTBar = valNumNumberToDoubles(ctx.valueDim(), ctx.NUMBER());
+		ctx.pstctx.arrowTBar = ctx.pstctx.valNumNumberToDoubles(ctx.valueDim(), ctx.NUMBER());
 	}
 
 	@Override
 	public void exitParamarrowsize(final net.sf.latexdraw.parsers.pst.PSTParser.ParamarrowsizeContext ctx) {
-		ctx.pstctx.arrowSize = valNumNumberToDoubles(ctx.valueDim(), ctx.NUMBER());
+		ctx.pstctx.arrowSize = ctx.pstctx.valNumNumberToDoubles(ctx.valueDim(), ctx.NUMBER());
 	}
 
 	@Override
 	public void exitParamunit(final net.sf.latexdraw.parsers.pst.PSTParser.ParamunitContext ctx) {
-		ctx.pstctx.unit = valDimtoDouble(ctx.valueDim());
+		ctx.pstctx.unit = ctx.pstctx.valDimtoDouble(ctx.valueDim());
 	}
 
 	@Override
 	public void exitParamxunit(final net.sf.latexdraw.parsers.pst.PSTParser.ParamxunitContext ctx) {
-		ctx.pstctx.xUnit = valDimtoDouble(ctx.valueDim());
+		ctx.pstctx.xUnit = ctx.pstctx.valDimtoDouble(ctx.valueDim());
 	}
 
 	@Override
 	public void exitParamyunit(final net.sf.latexdraw.parsers.pst.PSTParser.ParamyunitContext ctx) {
-		ctx.pstctx.yUnit = valDimtoDouble(ctx.valueDim());
+		ctx.pstctx.yUnit = ctx.pstctx.valDimtoDouble(ctx.valueDim());
 	}
 
 	@Override
 	public void exitParamdotsep(final net.sf.latexdraw.parsers.pst.PSTParser.ParamdotsepContext ctx) {
-		ctx.pstctx.dotStep = valDimtoDouble(ctx.valueDim());
+		ctx.pstctx.dotStep = ctx.pstctx.valDimtoDouble(ctx.valueDim());
 	}
 
 	@Override
 	public void exitParamframearc(final net.sf.latexdraw.parsers.pst.PSTParser.ParamframearcContext ctx) {
-		ctx.pstctx.frameArc = numberToDouble(ctx.NUMBER().getSymbol());
+		ctx.pstctx.frameArc = ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
@@ -97,33 +139,27 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 
 	@Override
 	public void exitParamdotscale(final net.sf.latexdraw.parsers.pst.PSTParser.ParamdotscaleContext ctx) {
-		ctx.pstctx.dotScale = new Tuple<>(numberToDouble(ctx.num1), ctx.num2 == null ? numberToDouble(ctx.num1) : numberToDouble(ctx.num2));
+		ctx.pstctx.dotScale = new Tuple<>(ctx.pstctx.numberToDouble(ctx.num1), ctx.num2 == null ? ctx.pstctx.numberToDouble(ctx.num1) : ctx.pstctx.numberToDouble(ctx.num2));
 	}
 
 	@Override
 	public void exitParamdotdotangle(final net.sf.latexdraw.parsers.pst.PSTParser.ParamdotdotangleContext ctx) {
-		ctx.pstctx.dotAngle = numberToDouble(ctx.NUMBER().getSymbol());
+		ctx.pstctx.dotAngle = ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
 	public void exitParamdotsize(final net.sf.latexdraw.parsers.pst.PSTParser.ParamdotsizeContext ctx) {
-		ctx.pstctx.arrowDotSize = valNumNumberToDoubles(ctx.valueDim(), ctx.NUMBER());
+		ctx.pstctx.arrowDotSize = ctx.pstctx.valNumNumberToDoubles(ctx.valueDim(), ctx.NUMBER());
 	}
 
 	@Override
 	public void exitParamlinecolor(final net.sf.latexdraw.parsers.pst.PSTParser.ParamlinecolorContext ctx) {
-		final Optional<Color> colour = DviPsColors.INSTANCE.getColour(ctx.WORD().getText());
-
-		if(colour.isPresent()) {
-			ctx.pstctx.lineColor = colour.get();
-		}else {
-			LOG.severe("The following colour is unknown: " + ctx.WORD().getText());
-		}
+		getColor(ctx.WORD().getText()).ifPresent(col -> ctx.pstctx.lineColor = col);
 	}
 
 	@Override
 	public void exitParamgangle(final net.sf.latexdraw.parsers.pst.PSTParser.ParamgangleContext ctx) {
-		ctx.pstctx.gangle = numberToDouble(ctx.NUMBER().getSymbol());
+		ctx.pstctx.gangle = ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override
@@ -131,49 +167,18 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 		LOG.severe("Unkown parameter: " + ctx.getText());
 	}
 
-	double numberToDouble(final Token node) {
-		return valToDouble(node.getText());
-	}
-
-	double valDimtoDouble(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valdim) {
-		if(valdim == null) return PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE;
-		return PSTContext.doubleUnitToUnit(valToDouble(valdim.NUMBER().getText()), unitOrEmpty(valdim.unit()));
-	}
-
-	Tuple<Double, Double> valNumNumberToDoubles(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valdim, final TerminalNode number) {
-		return new Tuple<>(valDimtoDouble(valdim), numberOrZero(number));
-	}
-
-	double fromXvalDimToCoord(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim, final PSTContext ctx) {
-		if(valDim == null) return PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE * getPPC();
-		final double xunit = valDim.unit() == null ? ctx.xUnit * ctx.unit : 1d;
-		return PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * getPPC() * xunit, unitOrEmpty(valDim.unit()));
-	}
-
-	double fromYvalDimToCoord(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim, final PSTContext ctx) {
-		if(valDim == null) return -PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE * getPPC();
-		final double yunit = valDim.unit() == null ? ctx.yUnit * ctx.unit : 1d;
-		return -PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * getPPC() * yunit, unitOrEmpty(valDim.unit()));
-	}
-
-	String unitOrEmpty(final net.sf.latexdraw.parsers.pst.PSTParser.UnitContext unit) {
-		return unit == null ? "" : unit.getText();
-	}
-
-	double numberOrZero(final TerminalNode node) {
-		return node==null ? 0d : valToDouble(node.getText());
-	}
-
 	/**
-	 * Converts the given parsed coordinate into a valid Java value.
+	 * Parses the given text to produce a colour.
+	 * @param txtColor The text to parse.
+	 * @return The possible created colour. The Optional cannot be null.
 	 */
-	double valToDouble(final String val) {
-		return Double.valueOf(val.replace("+", "").replace("--", ""));
-	}
+	Optional<Color> getColor(final String txtColor) {
+		final Optional<Color> colour = DviPsColors.INSTANCE.getColour(txtColor);
 
-	boolean starredCmd(final Token cmd) {
-		return cmd.getText().endsWith("*");
-	}
+		if(!colour.isPresent()) {
+			LOG.severe("The following colour is unknown: " + txtColor);
+		}
 
-	abstract double getPPC();
+		return colour;
+	}
 }

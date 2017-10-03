@@ -22,6 +22,8 @@ import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import static net.sf.latexdraw.view.pst.PSTricksConstants.DEFAULT_ORIGIN;
 
@@ -30,6 +32,8 @@ import static net.sf.latexdraw.view.pst.PSTricksConstants.DEFAULT_ORIGIN;
  * @author Arnaud BLOUIN
  */
 public class PSTContext {
+	static double PPC = 1d;
+
 	AxesStyle axesStyle = PSTricksConstants.DEFAULT_AXES_STYLE;
 	String arrowLeft = "";
 	String arrowRight = "";
@@ -251,6 +255,91 @@ public class PSTContext {
 
 	Point2D originToPoint() {
 		return new Point2D(doubleUnitToUnit(originX.a, originX.b), doubleUnitToUnit(originY.a, originY.b));
+	}
+
+	void setPspicturePoints(final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext coord1,
+							final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext coord2) {
+		final Point2D p1 = coordToRawPoint(coord1);
+		final Point2D p2 = coordToRawPoint(coord2);
+
+		if(coord1 == null) {
+			if(coord2 == null) {
+				pictureSWPt = new Point2D(0d, 0d);
+				pictureNEPt = new Point2D(10d, 10d);
+			}
+		}else {
+			if(coord2 == null) {
+				pictureSWPt = new Point2D(0d, 0d);
+				pictureNEPt = new Point2D(p1.getX(), p1.getY());
+			}else {
+				pictureSWPt = new Point2D(p1.getX(), p1.getY());
+				pictureNEPt = new Point2D(p2.getX(), p2.getY());
+			}
+		}
+	}
+
+	/**
+	 * Converts the given parsed coordinate into a valid Java value.
+	 */
+	double valToDouble(final String val) {
+		return Double.valueOf(val.replace("+", "").replace("--", ""));
+	}
+
+	double numberToDouble(final Token node) {
+		return valToDouble(node.getText());
+	}
+
+	double valDimtoDouble(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valdim) {
+		if(valdim == null) return PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE;
+		return PSTContext.doubleUnitToUnit(valToDouble(valdim.NUMBER().getText()), unitOrEmpty(valdim.unit()));
+	}
+
+	Tuple<Double, Double> valNumNumberToDoubles(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valdim, final TerminalNode number) {
+		return new Tuple<>(valDimtoDouble(valdim), numberOrZero(number));
+	}
+
+	String unitOrEmpty(final net.sf.latexdraw.parsers.pst.PSTParser.UnitContext unit) {
+		return unit == null ? "" : unit.getText();
+	}
+
+	double numberOrZero(final TerminalNode node) {
+		return node==null ? 0d : valToDouble(node.getText());
+	}
+
+	boolean starredCmd(final Token cmd) {
+		return cmd.getText().endsWith("*");
+	}
+
+	double fromXvalDimToCoord(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim) {
+		if(valDim == null) return PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE * PPC;
+		final double xunit = valDim.unit() == null ? xUnit * unit : 1d;
+		return PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * PPC * xunit, unitOrEmpty(valDim.unit()));
+	}
+
+	double fromYvalDimToCoord(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim) {
+		if(valDim == null) return -PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE * PPC;
+		final double yunit = valDim.unit() == null ? yUnit * unit : 1d;
+		return -PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * PPC * yunit, unitOrEmpty(valDim.unit()));
+	}
+
+	/**
+	 * Converts a coord token into a raw point (no adaptation to be a coordinate done).
+	 * @param coord The coord to convert.
+	 * @return The transformed point. Cannot be null.
+	 */
+	Point2D coordToRawPoint(final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext coord) {
+		if(coord == null) return new Point2D(PSTContext.doubleUnitToUnit(originX.a, originX.b), PSTContext.doubleUnitToUnit(originY.a, originY.b));
+		return new Point2D(valDimtoDouble(coord.x), valDimtoDouble(coord.y));
+	}
+
+	/**
+	 * Converts a coord token into a point. The point is adapted to be a coordinated: negative Y, PPC used.
+	 * @param coord The coord to convert.
+	 * @return The transformed point. Cannot be null.
+	 */
+	Point2D coordToAdjustedPoint(final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext coord) {
+		if(coord == null) return new Point2D(PSTContext.doubleUnitToUnit(originX.a, originX.b) * PPC, PSTContext.doubleUnitToUnit(originY.a, originY.b) * PPC);
+		return new Point2D(fromXvalDimToCoord(coord.x), fromYvalDimToCoord(coord.y));
 	}
 
 	static double doubleUnitToUnit(final double value, final String unit) {

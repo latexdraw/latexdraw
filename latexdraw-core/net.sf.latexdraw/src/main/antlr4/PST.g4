@@ -19,7 +19,8 @@ package net.sf.latexdraw.parsers.pst;
 // since many years.
 // The goal of this parser is to ease the process of common PST commands.
 // PSTContext is a grammar context -- a Java implementation is provided -- that supplements the ANTLR one with information related to the current PST values.
-pstCode[PSTContext pstctx] : (pstBlock[pstctx] | pspictureBlock[pstctx] | centerBlock[pstctx] | psset[pstctx] | psellipse[pstctx] | psframe[pstctx] | psdiamond[pstctx] |
+pstCode[PSTContext pstctx] : (pstBlock[pstctx] | pspictureBlock[pstctx] | centerBlock[pstctx] | pspicturecmd[pstctx] | psset[pstctx] | psellipse[pstctx] |
+            psframe[pstctx] | psdiamond[pstctx] |
             pstriangle[pstctx] | psline[pstctx] | psqline[pstctx] | pscircle[pstctx] | psqdisk[pstctx] | pspolygon[pstctx] | psbezier[pstctx] | psdot[pstctx] |
             psdots[pstctx] | psaxes[pstctx] | psgrid[pstctx] | rput[pstctx] | scalebox[pstctx] | psscalebox[pstctx] | pswedge[pstctx] | psellipticarc[pstctx] |
             psellipticarcn[pstctx] | psarcn[pstctx] | psarc[pstctx] | parabola[pstctx] | pscurve[pstctx] | psecurve[pstctx] | psccurve[pstctx] |
@@ -208,8 +209,10 @@ definecolor[PSTContext pstctx] : '\\definecolor' BRACE_OPEN name=IDENT BRACE_CLO
 
 includegraphics[PSTContext pstctx] : '\\includegraphics' paramBlock[pstctx] BRACE_OPEN path=.*? ~(BRACE_CLOSE) BRACE_CLOSE ;
 
-pspictureBlock[PSTContext pstctx] locals [boolean hasStar = false;] : '\\begin' BRACE_OPEN (('pspicture*' {$hasStar=true;}) | ('pspicture' {$hasStar=false;})) BRACE_CLOSE
-        p1=coord? p2=coord? pstCode[pstctx] '\\end' BRACE_OPEN ({$hasStar}? 'pspicture*' | 'pspicture') BRACE_CLOSE ;
+pspicturecmd[PSTContext pstctx] : '\\pspicture' p1=coord? p2=coord? {$pstctx.setPspicturePoints($p1.ctx, $p2.ctx);} pstCode[pstctx] '\\endpspicture' ;
+
+pspictureBlock[PSTContext pstctx] locals [boolean hasStar = false;] : '\\begin' BRACE_OPEN (('pspicture*' {$hasStar=true;}) | ('pspicture' {$hasStar=false;}))
+        BRACE_CLOSE p1=coord? p2=coord? {$pstctx.setPspicturePoints($p1.ctx, $p2.ctx);} pstCode[pstctx] '\\end' BRACE_OPEN ({$hasStar}? 'pspicture*' | 'pspicture') BRACE_CLOSE ;
 
 centerBlock[PSTContext pstctx] : '\\begin' BRACE_OPEN 'center' BRACE_CLOSE pstCode[pstctx] '\\end' BRACE_OPEN 'center' BRACE_CLOSE ;
 
@@ -273,7 +276,7 @@ paramhatchwidth[PSTContext pstctx] : 'hatchwidth' '=' valueDim ;
 paramhatchsep[PSTContext pstctx] : 'hatchsep' '=' valueDim ;
 paramhatchcolor[PSTContext pstctx] : 'hatchcolor' '=' WORD ;
 paramhatchangle[PSTContext pstctx] : 'hatchangle' '=' NUMBER ;
-paramliftpen[PSTContext pstctx] : 'liftpen' '=' INT ;
+paramliftpen[PSTContext pstctx] : 'liftpen' '=' NUMBER ;
 paramlabelsep[PSTContext pstctx] : 'labelsep' '=' valueDim ;
 paramlabels[PSTContext pstctx] : 'labels' '=' show ;
 paramticks[PSTContext pstctx] : 'ticks' '=' show ;
@@ -302,15 +305,15 @@ paramgridcolor[PSTContext pstctx] : 'gridcolor' '=' WORD ;
 paramgriddots[PSTContext pstctx] : 'griddots' '=' NUMBER ;
 paramgridlabels[PSTContext pstctx] : 'gridlabels' '=' valueDim ;
 paramgridlabelcolor[PSTContext pstctx] : 'gridlabelcolor' '=' WORD ;
-paramsubgriddiv[PSTContext pstctx] : 'subgriddiv' '=' INT ;
+paramsubgriddiv[PSTContext pstctx] : 'subgriddiv' '=' NUMBER ;
 paramsubgridwidth[PSTContext pstctx] : 'subgridwidth' '=' valueDim ;
 paramsubgridcolor[PSTContext pstctx] : 'subgridcolor' '=' WORD ;
-paramsubgriddots[PSTContext pstctx] : 'subgriddots' '=' INT ;
+paramsubgriddots[PSTContext pstctx] : 'subgriddots' '=' NUMBER ;
 paramplotstyle[PSTContext pstctx] : 'plotstyle' '=' style=('dots' | 'line' | 'polygon' | 'curve' | 'ecurve' | 'ccurve') ;
-paramplotpoints[PSTContext pstctx] : 'plotpoints' '=' INT ;
+paramplotpoints[PSTContext pstctx] : 'plotpoints' '=' NUMBER ;
 paramgradbegin[PSTContext pstctx] : 'gradbegin' '=' WORD ;
 paramgradend[PSTContext pstctx] : 'gradend' '=' WORD ;
-paramgradlines[PSTContext pstctx] : 'gradlines' '=' INT ;
+paramgradlines[PSTContext pstctx] : 'gradlines' '=' NUMBER ;
 paramgradmidpoint[PSTContext pstctx] : 'gradmidpoint' '=' NUMBER ;
 paramgradangle[PSTContext pstctx] : 'gradangle' '=' NUMBER ;
 paramdotsize[PSTContext pstctx] : 'dotsize' '=' dim=valueDim num=NUMBER? ;
@@ -355,8 +358,6 @@ WORD : LETTER (LETTER | DIGIT)* ;
 IDENT : WORD '*'? ;
 
 NUMBER: ('+'|'-')* (('.' DIGIT+) | (DIGIT+ ('.' DIGIT*)? )) ;
-
-INT: ('+'|'-')* DIGIT+ ;
 
 fragment LETTER : 'A'..'Z' | 'a'..'z' | '\u00C0'..'\u00D6' | '\u00D8'..'\u00F6'| '\u00F8'..'\u02FF'| '\u0370'..'\u037D'| '\u037F'..'\u1FFF' |
                     '\u200C'..'\u200D'| '\u2070'..'\u218F'| '\u2C00'..'\u2FEF'| '\u3001'..'\uD7FF'| '\uF900'..'\uFDCF'| '\uFDF0'..'\uFFFD';
