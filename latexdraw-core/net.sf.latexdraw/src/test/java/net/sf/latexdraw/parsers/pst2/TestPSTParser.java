@@ -57,7 +57,7 @@ public abstract class TestPSTParser {
 		final PSTParser parser = new PSTParser(new CommonTokenStream(new PSTLexer(CharStreams.fromString(code))));
 		parser.addParseListener(listener);
 		parser.addErrorListener(new ErrorListener());
-		parser.pstCode(new PSTContext(false));
+		parser.pstCode(new PSTContext());
 	}
 
 	static class ErrorListener extends BaseErrorListener {

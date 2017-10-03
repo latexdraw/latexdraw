@@ -163,6 +163,11 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 	}
 
 	@Override
+	public void exitParamlinewidth(final net.sf.latexdraw.parsers.pst.PSTParser.ParamlinewidthContext ctx) {
+		ctx.pstctx.lineWidth = ctx.pstctx.valDimtoDouble(ctx.valueDim());
+	}
+
+	@Override
 	public void exitUnkownParamSetting(final net.sf.latexdraw.parsers.pst.PSTParser.UnkownParamSettingContext ctx) {
 		LOG.severe("Unkown parameter: " + ctx.getText());
 	}

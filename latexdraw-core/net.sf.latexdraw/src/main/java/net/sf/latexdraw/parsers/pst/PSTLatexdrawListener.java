@@ -12,6 +12,7 @@ package net.sf.latexdraw.parsers.pst;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -23,6 +24,7 @@ import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
@@ -30,7 +32,9 @@ import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
@@ -46,11 +50,15 @@ import org.antlr.v4.runtime.Token;
 
 public class PSTLatexdrawListener extends PSTCtxListener {
 	private final List<IShape> shapes;
+	private final List<IShape> tmpCustomShapes;
+	Point2D psCustomLatestPt;
 
 	public PSTLatexdrawListener() {
 		super();
 		shapes = new ArrayList<>();
+		tmpCustomShapes = new ArrayList<>();
 		PSTContext.PPC = IShape.PPC;
+		psCustomLatestPt = new Point2D(0d, 0d);
 	}
 
 	@Override
@@ -372,6 +380,66 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	}
 
 	@Override
+	public void exitClosepath(final net.sf.latexdraw.parsers.pst.PSTParser.ClosepathContext ctx) {
+		final IFreehand fh = ShapeFactory.INST.createFreeHand(Collections.emptyList());
+		fh.setOpen(false);
+		tmpCustomShapes.add(fh);
+	}
+
+	@Override
+	public void exitCurveto(final net.sf.latexdraw.parsers.pst.PSTParser.CurvetoContext ctx) {
+		tmpCustomShapes.add(createFreeHand(false, ctx.pstctx, ShapeFactory.INST.createPoint(ctx.pstctx.coordToAdjustedPoint(ctx.p3))));
+	}
+
+	@Override
+	public void exitLineto(final net.sf.latexdraw.parsers.pst.PSTParser.LinetoContext ctx) {
+		tmpCustomShapes.add(createFreeHand(true, ctx.pstctx, ShapeFactory.INST.createPoint(ctx.pstctx.coordToAdjustedPoint(ctx.coord()))));
+	}
+
+	@Override
+	public void exitMoveto(final net.sf.latexdraw.parsers.pst.PSTParser.MovetoContext ctx) {
+		psCustomLatestPt = ctx.pstctx.coordToAdjustedPoint(ctx.coord());
+	}
+
+	@Override
+	public void exitPscustom(final net.sf.latexdraw.parsers.pst.PSTParser.PscustomContext ctx) {
+		if(ctx.pstctx.starredCmd(ctx.cmd)) {
+			tmpCustomShapes.forEach(sh -> setShapeForStar(sh));
+		}
+
+		IFreehand fh = null;
+		final IGroup gp = ShapeFactory.INST.createGroup();
+		// The different created freehand shapes must be merged into a single one.
+		for(final IShape sh : tmpCustomShapes) {
+			if(sh instanceof IFreehand) {
+				final IFreehand ifh = (IFreehand) sh;
+				if(fh == null) {
+					gp.addShape(ifh);
+					fh = ifh;
+					fh.setInterval(1); // This shape is now the reference shape used for the merge.
+				}else {
+					if(ifh.getNbPoints() == 0) {
+						// If the shape has a single point, it means it is a closepath command
+						fh.setOpen(ifh.isOpen());
+					}else {
+						// Otherwise, the shape has two points. So, we take the last one and add it to the first shape.
+						final IFreehand fh2 = ShapeFactory.INST.createFreeHandFrom(fh, ifh.getPtAt(ifh.getNbPoints() - 1));
+						gp.getShapes().set(gp.getShapes().indexOf(fh), fh2);
+						fh = fh2;
+						fh.setType(ifh.getType());
+					}
+				}
+			}else {
+				gp.addShape(sh);
+			}
+		}
+
+		shapes.addAll(gp.getShapes());
+		tmpCustomShapes.clear();
+		psCustomLatestPt = new Point2D(0d, 0d);
+	}
+
+	@Override
 	public void exitPsframebox(final net.sf.latexdraw.parsers.pst.PSTParser.PsframeboxContext ctx) {
 	}
 
@@ -399,10 +467,19 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	public void exitPsplot(final net.sf.latexdraw.parsers.pst.PSTParser.PsplotContext ctx) {
 	}
 
-	@Override
-	public void exitPscustom(final net.sf.latexdraw.parsers.pst.PSTParser.PscustomContext ctx) {
-	}
+	private IFreehand createFreeHand(final boolean isLine, final PSTContext ctx, final IPoint pt) {
+		final IFreehand freeHand = ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(psCustomLatestPt), pt));
 
+		if(isLine) {
+			freeHand.setType(FreeHandStyle.LINES);
+		}else {
+			freeHand.setType(FreeHandStyle.CURVES);
+		}
+
+		setShapeParameters(freeHand, ctx);
+		psCustomLatestPt = new Point2D(pt.getX(), pt.getY());
+		return freeHand;
+	}
 
 	/**
 	 * Sets the parameters of std grids (axes and grids).

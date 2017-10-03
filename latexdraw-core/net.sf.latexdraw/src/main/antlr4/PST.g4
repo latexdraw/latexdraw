@@ -32,16 +32,16 @@ pstCode[PSTContext pstctx] : (pstBlock[pstctx] | pspictureBlock[pstctx] | center
 
 pstcustomBlock[PSTContext pstctx]
 @init {
-	PSTContext newpstctx = new PSTContext(pstctx, true);
+	PSTContext newpstctx = new PSTContext(pstctx);
 }
-    : BRACE_OPEN (pstCode[newpstctx] | rlineto[newpstctx] | movepath[newpstctx] | closedshadow[newpstctx] | openshadow[newpstctx] | mrestore[newpstctx] |
+    : BRACE_OPEN (rlineto[newpstctx] | movepath[newpstctx] | closedshadow[newpstctx] | openshadow[newpstctx] | mrestore[newpstctx] |
         msave[newpstctx] | swapaxes[newpstctx] | rotate[newpstctx] | scale[newpstctx] | translate[newpstctx] | fill[newpstctx] |
         stroke[newpstctx] | grestore[newpstctx] | gsave[newpstctx] | rcurveto[newpstctx] | closepath[newpstctx] | curveto[newpstctx] | lineto[newpstctx] |
-        moveto[pstctx] | newpath[newpstctx]) BRACE_CLOSE ;
+        moveto[pstctx] | newpath[newpstctx])* BRACE_CLOSE ;
 
 pstBlock[PSTContext pstctx]
 @init {
-	PSTContext newpstctx = new PSTContext(pstctx, pstctx.isPsCustom);
+	PSTContext newpstctx = new PSTContext(pstctx);
 }
     : BRACE_OPEN pstCode[newpstctx] BRACE_CLOSE ;
 
@@ -203,7 +203,7 @@ newpsobject[PSTContext pstctx] : '\\newpsobject' BRACE_OPEN name=IDENT BRACE_CLO
 
 newpsstyle[PSTContext pstctx] : '\\newpsstyle' ('[' pkgname=.*? ~(']') ']')? BRACE_OPEN name=IDENT BRACE_CLOSE BRACE_OPEN def=.*? ~(BRACE_CLOSE) BRACE_CLOSE ;
 
-pscustom[PSTContext pstctx] : ('\\pscustom*' | '\\pscustom') paramBlock[pstctx]? pstcustomBlock[pstctx] ;
+pscustom[PSTContext pstctx] : cmd=('\\pscustom*' | '\\pscustom') paramBlock[pstctx]? pstcustomBlock[pstctx] ;
 
 definecolor[PSTContext pstctx] : '\\definecolor' BRACE_OPEN name=IDENT BRACE_CLOSE BRACE_OPEN colortype BRACE_CLOSE BRACE_OPEN NUMBER (',' NUMBER)* BRACE_CLOSE ;
 

@@ -124,14 +124,13 @@ public class PSTContext {
 	int plotPoints = 50;
 	FillingStyle addfillstyle = PSTricksConstants.DEFAULT_FILL_STYLE;
 //	int liftpen = 0;
-	boolean isPsCustom;
+//	boolean isPsCustom;
 	String textPosition = "";
 	double rputAngle = 0d;
 	boolean parsedTxtNoTxt = true;
 	FontShape currFontShape = FontShape.NORMAL;
 	FontSerie currFontSerie = FontSerie.NORMAL;
 	FontFamily currFontFamily = FontFamily.RM;
-	Point2D psCustomLatestPt = new Point2D(0d, 0d);
 	double opacity = 1d;
 	double strokeopacity = 1d;
 	boolean polarPlot = false;
@@ -139,17 +138,12 @@ public class PSTContext {
 	/** Text text parsed in the current context. */
 	String textParsed = "";
 
-	public PSTContext(final boolean isCustom) {
+	public PSTContext() {
 		super();
-		isPsCustom = isCustom;
 	}
 
 	public PSTContext(final PSTContext ctx) {
-		this(ctx.isPsCustom);
-	}
-
-	public PSTContext(final PSTContext ctx, final boolean isCustom) {
-		this(isCustom);
+		this();
 		axesStyle = ctx.axesStyle;
 		arrowLeft = ctx.arrowLeft;
 		arrowRight = ctx.arrowRight;
@@ -246,7 +240,6 @@ public class PSTContext {
 		currFontShape = ctx.currFontShape;
 		currFontSerie = ctx.currFontSerie;
 		currFontFamily = ctx.currFontFamily;
-		psCustomLatestPt = ctx.psCustomLatestPt;
 		opacity = ctx.opacity;
 		strokeopacity = ctx.strokeopacity;
 		polarPlot = ctx.polarPlot;
