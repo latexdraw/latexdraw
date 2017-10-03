@@ -4,12 +4,10 @@ import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Theories.class)
@@ -26,12 +24,6 @@ public class TestAxesStyle {
 		assertEquals(PSTricksConstants.TOKEN_AXES_STYLE_AXES, AxesStyle.AXES.getPSTToken());
 		assertEquals(PSTricksConstants.TOKEN_AXES_STYLE_FRAME, AxesStyle.FRAME.getPSTToken());
 		assertEquals(PSTricksConstants.TOKEN_AXES_STYLE_NONE, AxesStyle.NONE.getPSTToken());
-	}
-
-	@Theory
-	public void testToString(final AxesStyle style) {
-		assertNotNull(style.toString());
-		assertFalse(style.toString().isEmpty());
 	}
 
 	@Test
