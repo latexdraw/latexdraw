@@ -12,14 +12,7 @@ package net.sf.latexdraw.view.pst;
 
 import java.awt.geom.Point2D;
 import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
-import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.view.latex.DviPsColors;
 
 /**
@@ -89,14 +82,6 @@ public final class PSTricksConstants {
 
 	/** The text to display when the axes must not be shown. */
 	public static final String TOKEN_AXES_STYLE_NONE 	= "none";//$NON-NLS-1$
-
-	public static final AxesStyle DEFAULT_AXES_STYLE = AxesStyle.AXES;
-
-	public static final TicksStyle DEFAULT_TICKS_STYLE = TicksStyle.FULL;
-
-	public static final PlottingStyle DEFAULT_LABELS_DISPLAYED = PlottingStyle.ALL;
-
-	public static final PlottingStyle DEFAULT_TICKS_DISPLAYED = PlottingStyle.ALL;
 
 	/** The first colour of a gradient by default. */
 	public static final Color DEFAULT_GRADIENT_START_COLOR = ShapeFactory.INST.createColor(0.0, 0.1, 0.95, 1.0);
@@ -261,9 +246,6 @@ public final class PSTricksConstants {
 	/** The curvature parameters control the curvature of a parabola */
 	public static final double DEFAULT_CRUVATURE_NUM3 = 0;
 
-	/** The type of the dot by default */
-	public static final DotStyle DEFAULT_DOT_STYLE = DotStyle.DOT;
-
 	/** The scale of the dot by default */
 	public static final double DEFAULT_DOT_SCALE1 = 1;
 
@@ -293,9 +275,6 @@ public final class PSTricksConstants {
 
 	/** The dimensions of the figure are with reference to the middle boundary. */
 	public static final String BORDERS_MIDDLE = "middle"; //$NON-NLS-1$
-
-	/** The position of the borders by default */
-	public static final BorderPos DEFAULT_BORDERS_POS = BorderPos.INTO;
 
 	/** The colour of the double boundary of the figure by default */
 	public static final Color DEFAULT_DOUBLE_COLOR = DviPsColors.WHITE;
@@ -345,9 +324,6 @@ public final class PSTricksConstants {
 	/** The line(s) of the figure are solid */
 	public static final String LINE_SOLID_STYLE = "solid"; //$NON-NLS-1$
 
-	/** The style of the lines by default */
-	public static final LineStyle DEFAULT_LINE_STYLE = LineStyle.SOLID;
-
 	/** The black-white dash pattern for the dashed line style (in cm) */
 	public static final double DEFAULT_DASH_BLACK = 5./CM_VAL_PT;
 
@@ -380,9 +356,6 @@ public final class PSTricksConstants {
 
 	/** The colour of the shadow by default */
 	public static final Color DEFAULT_SHADOW_COLOR = DviPsColors.DARKGRAY;
-
-	/** The type of the fill by default */
-	public static final FillingStyle DEFAULT_FILL_STYLE = FillingStyle.NONE;
 
 	/** The colour of the filling */
 	public static final Color DEFAULT_FILL_COLOR = DviPsColors.WHITE;

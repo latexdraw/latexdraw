@@ -10,15 +10,10 @@
  */
 package net.sf.latexdraw.parsers.pst;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Point2D;
-import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
-import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
@@ -34,7 +29,7 @@ import static net.sf.latexdraw.view.pst.PSTricksConstants.DEFAULT_ORIGIN;
 public class PSTContext {
 	static double PPC = 1d;
 
-	AxesStyle axesStyle = PSTricksConstants.DEFAULT_AXES_STYLE;
+	String axesStyle = PSTricksConstants.TOKEN_AXES_STYLE_AXES;
 	String arrowLeft = "";
 	String arrowRight = "";
 	Tuple<Double, Double> arrowSize = new Tuple<>(PSTricksConstants.DEFAULT_ARROW_SIZE_DIM, PSTricksConstants.DEFAULT_ARROW_SIZE_NUM);
@@ -48,27 +43,19 @@ public class PSTContext {
 	double arcSep = PSTricksConstants.DEFAULT_ARC_SEP;
 	double arcSepA = PSTricksConstants.DEFAULT_ARC_SEP_A;
 	double arcSepB = PSTricksConstants.DEFAULT_ARC_SEP_B;
-	boolean boxSep = PSTricksConstants.DEFAULT_BOX_SEP;
-	Color borderColor = PSTricksConstants.DEFAULT_BORDER_COLOR;
-	BorderPos borderPos = PSTricksConstants.DEFAULT_BORDERS_POS;
-//	double border = PSTricksConstants.DEFAULT_BORDER;
-	double[] curvature = new double[]{PSTricksConstants.DEFAULT_CURVATURE_NUM1, PSTricksConstants.DEFAULT_CRUVATURE_NUM2, PSTricksConstants.DEFAULT_CRUVATURE_NUM3};
+	String dimen = PSTricksConstants.BORDERS_OUTSIDE;
 	double dxIncrement = PSTricksConstants.DEFAULT_DX;
 	double dyIncrement = PSTricksConstants.DEFAULT_DY;
 	double dxLabelDist = PSTricksConstants.DEFAULT_DIST_X_LABEL;
 	double dyLabelDist = PSTricksConstants.DEFAULT_DIST_Y_LABEL;
-	DotStyle dotStyle = PSTricksConstants.DEFAULT_DOT_STYLE;
+	String dotStyle = PSTricksConstants.DOT_STYLE;
 	Tuple<Double, Double> dotScale = new Tuple<>(PSTricksConstants.DEFAULT_DOT_SCALE1, PSTricksConstants.DEFAULT_DOT_SCALE2);
 	double dotAngle = PSTricksConstants.DEFAULT_DOT_ANGLE;
-	double dotStep = PSTricksConstants.DEFAULT_DOT_STEP;
-//	Tuple<Double, Double> dash = new Tuple<>(PSTricksConstants.DEFAULT_DASH_BLACK, PSTricksConstants.DEFAULT_DASH_WHITE);
 	boolean dbleLine = PSTricksConstants.DEFAULT_DOUBLE_LINE;
 	double dbleSep = PSTricksConstants.DEFAULT_DOUBLE_SEP;
 	Color dbleColor = PSTricksConstants.DEFAULT_DOUBLE_COLOR;
-	double degrees = PSTricksConstants.DEFAULT_DEGREES;
-	double frameSep = PSTricksConstants.DEFAULT_FRAME_SEP;
 	double frameArc = PSTricksConstants.DEFAULT_FRAME_ARC;
-	FillingStyle fillingStyle = PSTricksConstants.DEFAULT_FILL_STYLE;
+	String fillingStyle = PSTricksConstants.TOKEN_FILL_NONE;
 	Color fillColor = PSTricksConstants.DEFAULT_FILL_COLOR;
 	double gridWidth = PSTricksConstants.DEFAULT_GRID_WIDTH;
 	double gridLabel = PSTricksConstants.DEFAULT_GRID_LABEL / PSTricksConstants.CM_VAL_PT;
@@ -78,37 +65,32 @@ public class PSTContext {
 	double gradMidPoint = PSTricksConstants.DEFAULT_GRADIENT_MID_POINT;
 	Color gradBegin = PSTricksConstants.DEFAULT_GRADIENT_START_COLOR;
 	Color gradEnd = PSTricksConstants.DEFAULT_GRADIENT_END_COLOR;
-	int gradLines = PSTricksConstants.DEFAULT_GRADIENT_LINES;
 	double gangle = PSTricksConstants.DEFAULT_GANGLE;
 	double hatchWidth = PSTricksConstants.DEFAULT_HATCH_WIDTH;
 	double hatchSep = PSTricksConstants.DEFAULT_HATCH_SEP;
 	Color hatchCol = PSTricksConstants.DEFAULT_HATCHING_COLOR;
 	double hatchAngle = PSTricksConstants.DEFAULT_HATCH_ANGLE;
-	boolean isCornerRel = PSTricksConstants.DEFAULT_CORNER_SIZE_RELATIVE;
 	boolean isShadow = PSTricksConstants.DEFAULT_SHADOW;
 	double lineWidth = PSTricksConstants.DEFAULT_LINE_WIDTH;
 	Color lineColor = PSTricksConstants.DEFAULT_LINE_COLOR;
-	PlottingStyle labels = PSTricksConstants.DEFAULT_LABELS_DISPLAYED;
+	String labels = PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL;
 	double lineArc = PSTricksConstants.DEFAULT_LINE_ARC;
-	LineStyle lineStyle = PSTricksConstants.DEFAULT_LINE_STYLE;
+	String lineStyle = PSTricksConstants.LINE_SOLID_STYLE;
 	double ox = PSTricksConstants.DEFAULT_OX;
 	double oy = PSTricksConstants.DEFAULT_OY;
-	boolean onRadians = PSTricksConstants.DEFAULT_ON_RADIANS;
 	Tuple<Double, String> originX = new Tuple<>(DEFAULT_ORIGIN.getX(), PSTricksConstants.TOKEN_CM);
 	Tuple<Double, String> originY = new Tuple<>(DEFAULT_ORIGIN.getY(), PSTricksConstants.TOKEN_CM);
-//	boolean specialCoor = PSTricksConstants.DEFAULT_SPECIAL_COOR;
 	boolean showPoints = PSTricksConstants.DEFAULT_SHOW_POINTS;
 	boolean showOrigin = PSTricksConstants.DEFAULT_SHOW_ORIGIN;
 	double subGridWidth = PSTricksConstants.DEFAULT_SUB_GRID_WIDTH;
-	boolean swapAxes = PSTricksConstants.DEFAULT_SWAP_AXES;
 	Color shadowCol = PSTricksConstants.DEFAULT_SHADOW_COLOR;
 	Color subGridCol = PSTricksConstants.DEFAULT_SUB_GRID_COLOR;
 	double shadowAngle = PSTricksConstants.DEFAULT_SHADOW_ANGLE;
 	double shadowSize = PSTricksConstants.DEFAULT_SHADOW_SIZE;
 	double subGridDots = PSTricksConstants.DEFAULT_SUBGRIDDOTS;
 	double subGridDiv = PSTricksConstants.DEFAULT_SUBGRIDDIV;
-	PlottingStyle ticks = PSTricksConstants.DEFAULT_TICKS_DISPLAYED;
-	TicksStyle ticksStyle = PSTricksConstants.DEFAULT_TICKS_STYLE;
+	String ticks = PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL;
+	String ticksStyle = PSTricksConstants.TOKEN_TICKS_STYLE_FULL;
 	double ticksSize = PSTricksConstants.DEFAULT_TICKS_SIZE;
 	double unit = PSTricksConstants.DEFAULT_UNIT;
 	double xUnit = PSTricksConstants.DEFAULT_UNIT;
@@ -122,27 +104,20 @@ public class PSTContext {
 	String tokenPosition = "";
 	String plotStyle = "line";
 	int plotPoints = 50;
-	FillingStyle addfillstyle = PSTricksConstants.DEFAULT_FILL_STYLE;
-//	int liftpen = 0;
-//	boolean isPsCustom;
 	String textPosition = "";
 	double rputAngle = 0d;
-	boolean parsedTxtNoTxt = true;
-	FontShape currFontShape = FontShape.NORMAL;
-	FontSerie currFontSerie = FontSerie.NORMAL;
-	FontFamily currFontFamily = FontFamily.RM;
 	double opacity = 1d;
 	double strokeopacity = 1d;
 	boolean polarPlot = false;
 
-	/** Text text parsed in the current context. */
-	String textParsed = "";
+	/** Text chunks parsed in the current context. */
+	List<String> textParsed = new ArrayList<>();
 
 	public PSTContext() {
 		super();
 	}
 
-	public PSTContext(final PSTContext ctx) {
+	public PSTContext(final PSTContext ctx, final boolean shareTexts) {
 		this();
 		axesStyle = ctx.axesStyle;
 		arrowLeft = ctx.arrowLeft;
@@ -158,11 +133,10 @@ public class PSTContext {
 		arcSep = ctx.arcSep;
 		arcSepA = ctx.arcSepA;
 		arcSepB = ctx.arcSepB;
-		boxSep = ctx.boxSep;
-		borderColor = ctx.borderColor;
-		borderPos = ctx.borderPos;
-//		border = ctx.border;
-		curvature = ctx.curvature;
+//		boxSep = ctx.boxSep;
+//		borderColor = ctx.borderColor;
+		dimen = ctx.dimen;
+//		curvature = ctx.curvature;
 		dxIncrement = ctx.dxIncrement;
 		dyIncrement = ctx.dyIncrement;
 		dxLabelDist = ctx.dxLabelDist;
@@ -170,13 +144,10 @@ public class PSTContext {
 		dotStyle = ctx.dotStyle;
 		dotScale = ctx.dotScale;
 		dotAngle = ctx.dotAngle;
-		dotStep = ctx.dotStep;
-//		dash = ctx.dash;
+//		dotStep = ctx.dotStep;
 		dbleLine = ctx.dbleLine;
 		dbleSep = ctx.dbleSep;
 		dbleColor = ctx.dbleColor;
-		degrees = ctx.degrees;
-		frameSep = ctx.frameSep;
 		frameArc = ctx.frameArc;
 		fillingStyle = ctx.fillingStyle;
 		fillColor = ctx.fillColor;
@@ -188,13 +159,11 @@ public class PSTContext {
 		gradMidPoint = ctx.gradMidPoint;
 		gradBegin = ctx.gradBegin;
 		gradEnd = ctx.gradEnd;
-		gradLines = ctx.gradLines;
 		gangle = ctx.gangle;
 		hatchWidth = ctx.hatchWidth;
 		hatchSep = ctx.hatchSep;
 		hatchCol = ctx.hatchCol;
 		hatchAngle = ctx.hatchAngle;
-		isCornerRel = ctx.isCornerRel;
 		isShadow = ctx.isShadow;
 		lineWidth = ctx.lineWidth;
 		lineColor = ctx.lineColor;
@@ -203,14 +172,11 @@ public class PSTContext {
 		lineStyle = ctx.lineStyle;
 		ox = ctx.ox;
 		oy = ctx.oy;
-		onRadians = ctx.onRadians;
 		originX = ctx.originX;
 		originY = ctx.originY;
-//		specialCoor = ctx.specialCoor;
 		showPoints = ctx.showPoints;
 		showOrigin = ctx.showOrigin;
 		subGridWidth = ctx.subGridWidth;
-		swapAxes = ctx.swapAxes;
 		shadowCol = ctx.shadowCol;
 		subGridCol = ctx.subGridCol;
 		shadowAngle = ctx.shadowAngle;
@@ -232,17 +198,15 @@ public class PSTContext {
 		tokenPosition = ctx.tokenPosition;
 		plotStyle = ctx.plotStyle;
 		plotPoints = ctx.plotPoints;
-		addfillstyle = ctx.addfillstyle;
-//		liftpen = ctx.liftpen;
 		textPosition = ctx.textPosition;
 		rputAngle = ctx.rputAngle;
-		parsedTxtNoTxt = ctx.parsedTxtNoTxt;
-		currFontShape = ctx.currFontShape;
-		currFontSerie = ctx.currFontSerie;
-		currFontFamily = ctx.currFontFamily;
 		opacity = ctx.opacity;
 		strokeopacity = ctx.strokeopacity;
 		polarPlot = ctx.polarPlot;
+
+		if(shareTexts) {
+			textParsed = ctx.textParsed;
+		}
 	}
 
 
@@ -267,6 +231,41 @@ public class PSTContext {
 			}else {
 				pictureSWPt = new Point2D(p1.getX(), p1.getY());
 				pictureNEPt = new Point2D(p2.getX(), p2.getY());
+			}
+		}
+	}
+
+	void setRputAngle(final Token star, final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim, final net.sf.latexdraw.parsers.pst.PSTParser.PutContext put) {
+		if(put != null) {
+			switch(put.getText()) {
+				case "L":
+					rputAngle += -Math.PI / 2d;
+					break;
+				case "D":
+					rputAngle += -Math.PI;
+					break;
+				case "R":
+					rputAngle += -3d * Math.PI / 2d;
+					break;
+				case "N":
+					rputAngle = 0d;
+					break;
+				case "W":
+					rputAngle = -Math.PI / 2d;
+					break;
+				case "S":
+					rputAngle = -Math.PI;
+					break;
+				case "E":
+					rputAngle = -3d * Math.PI / 2d;
+					break;
+			}
+		}else {
+			final double angle = -Math.toRadians(valDimtoDouble(valDim));
+			if(star != null) {
+				rputAngle = angle;
+			}else {
+				rputAngle += angle;
 			}
 		}
 	}
@@ -342,42 +341,6 @@ public class PSTContext {
 			case PSTricksConstants.TOKEN_PS_PT: return value / PSTricksConstants.CM_VAL_PT;
 			case PSTricksConstants.TOKEN_INCH: return value / PSTricksConstants.INCH_VAL_CM;
 			default : return value;
-		}
-	}
-
-	public enum FontShape {
-		ITALIC("it", "\\it"), SLANTED("sl", "\\sl"), SMALCAPS("sc", "\\sc"), NORMAL("n", "\\upshape");
-
-		public final String pstToken;
-		public final String equivCmd;
-
-		FontShape(final String pst, final String cmd) {
-			pstToken = pst;
-			equivCmd = cmd;
-		}
-	}
-
-	public enum FontFamily {
-		RM("cmr", "\\rmfamily"), SF("cmss", "\\sffamily"), TT("cmtt", "\\ttfamily");
-
-		public final String pstToken;
-		public final String equivCmd;
-
-		FontFamily(final String pst, final String cmd) {
-			pstToken = pst;
-			equivCmd = cmd;
-		}
-	}
-
-	public enum FontSerie {
-		NORMAL("m", "\\mdseries"), BF("b", "\\bf");
-
-		public final String pstToken;
-		public final String equivCmd;
-
-		FontSerie(final String pst, final String cmd) {
-			pstToken = pst;
-			equivCmd = cmd;
 		}
 	}
 }

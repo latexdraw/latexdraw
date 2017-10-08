@@ -1,180 +1,68 @@
 package net.sf.latexdraw.parsers.pst;
 
-import java.text.ParseException;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
-import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
+@RunWith(Theories.class)
 public class TestParsingPlotCommands extends TestPSTParser {
 	@Test
-	public void testParametricplot() throws ParseException {
-		parser.parsePSTCode("\\parametricplot[plotstyle=dots,plotpoints=13]{-6}{6}{1.2 t exp 1.2 t neg exp}"); //$NON-NLS-1$
-		assertEquals(1, PSTParser.errorLogs().size());
+	public void testPsplot() {
+		parser("\\psplot{0}{720}{x sin}");
+		IPlot plot = getShapeAt(0);
+		assertEquals(0d, plot.getPlotMinX(), 0.00001);
+		assertEquals(720d, plot.getPlotMaxX(), 0.00001);
+		assertEquals("x sin", plot.getPlotEquation());
 	}
 
 	@Test
-	public void testParametricplotStar() throws ParseException {
-		parser.parsePSTCode("\\parametricplot*[plotstyle=dots,plotpoints=13]{-6}{6}{1.2 t exp 1.2 t neg exp}"); //$NON-NLS-1$
-		assertEquals(1, PSTParser.errorLogs().size());
-	}
-
-	@Test
-	public void testPsplot() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(0.0, plot.getPlotMinX(), 0.0);
-		assertEquals(720.0, plot.getPlotMaxX(), 0.0);
-		assertEquals("x sin", plot.getPlotEquation()); //$NON-NLS-1$
-	}
-
-	@Test
-	public void testPsplotNbPoints() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotpoints=213]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testPsplotNbPoints() {
+		parser("\\psplot[plotpoints=213]{0}{720}{x sin}");
+		IPlot plot = getShapeAt(0);
 		assertEquals(213, plot.getNbPlottedPoints());
 	}
 
-	@Test
-	public void testPsplotPlotStyleCurve() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=curve]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(PlotStyle.CURVE, plot.getPlotStyle());
+	@Theory
+	public void testPsplotPlotStyle(final PlotStyle style) {
+		parser("\\psplot[plotstyle=" + style.getPSTToken() + "]{0}{720}{x sin}");
+		IPlot plot = getShapeAt(0);
+		assertEquals(style, plot.getPlotStyle());
 	}
 
 	@Test
-	public void testPsplotPlotStyleCCurve() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=ccurve]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(PlotStyle.CCURVE, plot.getPlotStyle());
+	public void testPsplotXUnit() {
+		parser("\\psplot[xunit=0.1]{0}{720}{x sin}");
+		IPlot plot = getShapeAt(0);
+		assertEquals(0.1, plot.getXScale(), 0.00001);
 	}
 
 	@Test
-	public void testPsplotPlotStyleECurve() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=ecurve]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(PlotStyle.ECURVE, plot.getPlotStyle());
+	public void testPsplotYUnit() {
+		parser("\\psplot[yunit=0.1]{0}{720}{x sin}");
+		IPlot plot = getShapeAt(0);
+		assertEquals(0.1, plot.getYScale(), 0.00001);
 	}
 
 	@Test
-	public void testPsplotPlotStyleDots() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=dots]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(PlotStyle.DOTS, plot.getPlotStyle());
-	}
-
-	@Test
-	public void testPsplotPlotStyleLine() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=line]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(PlotStyle.LINE, plot.getPlotStyle());
-	}
-
-	@Test
-	public void testPsplotPlotStylePloygon() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=polygon]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(PlotStyle.POLYGON, plot.getPlotStyle());
-	}
-
-	@Test
-	public void testPsplotXUnit() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[xunit=0.1]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(0.1, plot.getXScale(), 0.0);
-	}
-
-	@Test
-	public void testPsplotYUnit() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[yunit=0.1]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(0.1, plot.getYScale(), 0.0);
-	}
-
-	@Test
-	public void testPsplotStar() throws ParseException {
-		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot*[plotpoints=200]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(0.0, plot.getPlotMinX(), 0.0);
-		assertEquals(720.0, plot.getPlotMaxX(), 0.0);
-		assertEquals("x sin", plot.getPlotEquation()); //$NON-NLS-1$
+	public void testPsplotStar() {
+		parser("\\psplot*[plotpoints=200]{0}{720}{x sin}");
+		IPlot plot = getShapeAt(0);
+		assertEquals(0d, plot.getPlotMinX(), 0.00001);
+		assertEquals(720d, plot.getPlotMaxX(), 0.00001);
+		assertEquals("x sin", plot.getPlotEquation());
 		assertEquals(FillingStyle.PLAIN, plot.getFillingStyle());
 	}
 
-	@Test
-	public void testListplot() throws ParseException {
-		parser.parsePSTCode("\\listplot[plotstyle=line]{\\mydata}"); //$NON-NLS-1$
-		assertEquals(1, PSTParser.errorLogs().size());
-	}
-
-	@Test
-	public void testListplotStar() throws ParseException {
-		parser.parsePSTCode("\\listplot*[plotstyle=line]{\\mydata}"); //$NON-NLS-1$
-		assertEquals(1, PSTParser.errorLogs().size());
-	}
-
-	@Test
-	public void testFileplot() throws ParseException {
-		parser.parsePSTCode("\\fileplot[plotstyle=line]{file}"); //$NON-NLS-1$
-		assertEquals(1, PSTParser.errorLogs().size());
-	}
-
-	@Test
-	public void testFileplotStar() throws ParseException {
-		parser.parsePSTCode("\\fileplot*[plotstyle=line]{file}"); //$NON-NLS-1$
-		assertEquals(1, PSTParser.errorLogs().size());
-	}
-
-	@Test
-	public void testDataplot() throws ParseException {
-		parser.parsePSTCode("\\dataplot[plotstyle=line]{\\cmdName}"); //$NON-NLS-1$
-		assertEquals(1, PSTParser.errorLogs().size());
-	}
-
-	@Test
-	public void testDataplotStar() throws ParseException {
-		parser.parsePSTCode("\\dataplot*[plotstyle=line]{\\foo\\bar}"); //$NON-NLS-1$
-		assertEquals(1, PSTParser.errorLogs().size());
-	}
-
-	@Test
-	public void testSavedata() throws ParseException {
-		parser.parsePSTCode("\\savedata{\\foo}[{{0, 0}, {1., 0.946083}, {2., 1.60541}, {3., 1.84865}, {4., 1.7582}," + //$NON-NLS-1$
-				"{5., 1.54993}, {6., 1.42469}, {7., 1.4546}, {8., 1.57419}," + //$NON-NLS-1$
-				"{9., 1.66504}, {10., 1.65835}, {11., 1.57831}, {12., 1.50497}," + //$NON-NLS-1$
-				"{13., 1.49936}, {14., 1.55621}, {15., 1.61819}, {16., 1.6313}," + //$NON-NLS-1$
-				"{17., 1.59014}, {18., 1.53661}, {19., 1.51863}, {20., 1.54824}}]"); //$NON-NLS-1$
-		assertEquals(1, PSTParser.errorLogs().size());
-	}
-
-	@Test
-	public void testReaddata() throws ParseException {
-		parser.parsePSTCode("\\readdata{\\foo}{foo.data}"); //$NON-NLS-1$
-		assertEquals(1, PSTParser.errorLogs().size());
-	}
-
-	@Test
-	public void testPlotstyle() throws ParseException {
-		parser.parsePSTCode("\\psframe[plotstyle=line](1,1)"); //$NON-NLS-1$
-		parser.parsePSTCode("\\psframe[plotstyle=dots](1,1)"); //$NON-NLS-1$
-		parser.parsePSTCode("\\psframe[plotstyle=polygon](1,1)"); //$NON-NLS-1$
-		parser.parsePSTCode("\\psframe[plotstyle=curve](1,1)"); //$NON-NLS-1$
-		parser.parsePSTCode("\\psframe[plotstyle=ecurve](1,1)"); //$NON-NLS-1$
-		parser.parsePSTCode("\\psframe[plotstyle=ccurve](1,1)"); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-	}
-
-	@Override
-	public String getCommandName() {
-		return "dataplot"; //$NON-NLS-1$
-	}
-
-	@Override
-	public String getBasicCoordinates() {
-		return null;
+	@Theory
+	public void testpsplotPolar(final boolean polar) {
+		parser("\\psplot[polarplot=" + polar + "]{0}{720}{x sin}");
+		final IPlot plot = getShapeAt(0);
+		assertEquals(polar, plot.isPolar());
 	}
 }

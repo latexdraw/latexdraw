@@ -1,9 +1,7 @@
-package net.sf.latexdraw.parsers.pst2;
+package net.sf.latexdraw.parsers.pst;
 
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.junit.Test;
 
@@ -56,7 +54,7 @@ public class TestParsingPscustom extends TestPSTParser {
 
 	@Test
 	public void testPsCustomMovetoCurvetoLineTo() {
-		parser("\\pscustom{%\n\\moveto(1,2)\\curveto(3.1,4.1)(3.2,4.3)(3,4)\\lineto(5,6)}");
+		parser("\\pscustom{\\moveto(1,2)\\curveto(3.1,4.1)(3.2,4.3)(3,4)\\lineto(5,6)}");
 		assertEquals(1, listener.getShapes().size());
 		IFreehand fh = getShapeAt(0);
 		assertEquals(3, fh.getNbPoints());
@@ -71,7 +69,7 @@ public class TestParsingPscustom extends TestPSTParser {
 
 	@Test
 	public void testPsCustomMovetoCurveto() {
-		parser("\\pscustom[linewidth=10cm]{%\n\\moveto(1,2)\\curveto(3.1,4.1)(3.2,4.3)(3,4)}");
+		parser("\\pscustom[linewidth=10cm]{\\moveto(1,2)\\curveto(3.1,4.1)(3.2,4.3)(3,4)}");
 		IFreehand fh = getShapeAt(0);
 		assertEquals(2, fh.getNbPoints());
 		assertEquals(1d * IShape.PPC, fh.getPtAt(0).getX(), 0.001);
@@ -83,7 +81,7 @@ public class TestParsingPscustom extends TestPSTParser {
 
 	@Test
 	public void testPsCustomMovetoLineto() {
-		parser("\\pscustom[linewidth=10cm]{%\n\\moveto(1,2)\\lineto(3,4)}");
+		parser("\\pscustom[linewidth=10cm]{\\moveto(1,2)\\lineto(3,4)}");
 		IFreehand fh = getShapeAt(0);
 		assertEquals(2, fh.getNbPoints());
 		assertEquals(1d * IShape.PPC, fh.getPtAt(0).getX(), 0.001);
@@ -95,7 +93,7 @@ public class TestParsingPscustom extends TestPSTParser {
 
 	@Test
 	public void testPsCustomNothingWithNewpathCommand() {
-		parser("\\pscustom{\\newpath\n}");
+		parser("\\pscustom{\\newpath}");
 		assertTrue(listener.getShapes().isEmpty());
 	}
 
@@ -108,17 +106,9 @@ public class TestParsingPscustom extends TestPSTParser {
 
 	@Test
 	public void testPsCustomStarCommand() {
-		parser("\\pscustom*{\\moveto(1,2)\\lineto(3,4)\\lineto(4,4)\n}");
+		parser("\\pscustom*{\\moveto(1,2)\\lineto(3,4)\\lineto(4,4)}");
 		IShape sh = getShapeAt(0);
 		assertTrue(sh.isFilled());
-	}
-
-	@Test
-	public void testPsCustomNotEmptyCommand() {
-		parser("\\pscustom{%\n\\psdots(1,1)\n\\psframe(2,2)\n}");
-		assertEquals(2, listener.getShapes().size());
-		assertTrue(getShapeAt(0) instanceof IDot);
-		assertTrue(getShapeAt(1) instanceof IRectangle);
 	}
 
 	@Test

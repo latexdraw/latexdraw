@@ -1,497 +1,241 @@
 package net.sf.latexdraw.parsers.pst;
 
-import java.text.ParseException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.parsers.pst.parser.PSTParser;
+import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
+import org.junit.Before;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.FromDataPoints;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.runner.RunWith;
 
+import static org.hamcrest.Matchers.closeTo;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assume.assumeTrue;
 
-public abstract class TestParsingShape extends TestPSTParser {
-	@Test
-	public void testParamGradlines() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradlines=100]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isInteriorStylable()) {
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradlines=200]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradlines=300]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradlines=-100]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			PSTParser.errorLogs().clear();
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradlines=100.12]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertFalse(PSTParser.errorLogs().isEmpty());
-		}
+@RunWith(Theories.class)
+public class TestParsingShape extends TestPSTParser {
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	@DataPoints
+	public static Tuple<String, String>[] cmds() {
+		return new Tuple[]{new Tuple<>("\\psline", "(1,1)(2,2)(3,3)"), new Tuple<>("\\psbezier", "(1,2)(3,4)(5,6)(7,8)"), new Tuple<>("\\psaxes", "(0,0)(0,0)" +
+			"(3,4)"), new Tuple<>("\\psframe", "(1,2)(3,4)"), new Tuple<>("\\psarc", "(5,10){1}{30}{40}"), new Tuple<>("\\pscircle", "(2,3cm){5}"), new
+			Tuple<>("\\psdot", "(1,2)"), new Tuple<>("\\psdiamond", "(35,20)"), new Tuple<>("\\psellipse", "(1,2)"), new Tuple<>("\\psgrid", "(0,0)(0,0)(1,1)" +
+			""), new Tuple<>("\\pspolygon", "(1,2)(3,4)(5,6)"), new Tuple<>("\\pstriangle", "(2,3)(4,5)"), new Tuple<>("\\pswedge", "(1,2)")};
 	}
 
-	@Test
-	public void testParamShadowangle() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowangle=10]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isShadowable()) {
-			assertEquals(Math.toRadians(10.), sh.getShadowAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowangle=20.]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(20.), sh.getShadowAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowangle=0.5]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(0.5), sh.getShadowAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowangle=+---123.1]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(-123.1), sh.getShadowAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowangle=10, shadowangle=-12]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(-12.), sh.getShadowAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@DataPoints("unit")
+	public static String[] units() {
+		return new String[]{"cm", "", "pt", "mm", "in"};
+	}
+	DecimalFormat df;
+
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+		df.setMaximumFractionDigits(10);
 	}
 
-	@Test
-	public void testParamGradangle() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradangle=10]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isInteriorStylable()) {
-			assertEquals(Math.toRadians(10.), sh.getGradAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradangle=20.]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(20.), sh.getGradAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradangle=0.5]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(0.5), sh.getGradAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradangle=+---123.1]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(-123.1), sh.getGradAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradangle=10, gradangle=-12]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(-12.), sh.getGradAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamGradlines(final Tuple<String, String> cmd, @TestedOn(ints = {200, 2}) final int gradlines) {
+		parser(cmd.a + "[fillstyle=gradient, gradlines=" + gradlines + "]" + cmd.b);
 	}
 
-	@Test
-	public void testParamGradmidpoint() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradmidpoint=0]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isInteriorStylable()) {
-			assertEquals(0., sh.getGradMidPt(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradmidpoint=1]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(1., sh.getGradMidPt(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradmidpoint=0.5]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.5, sh.getGradMidPt(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradmidpoint=0.22]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.22, sh.getGradMidPt(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradmidpoint=-1]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertFalse(PSTParser.errorLogs().isEmpty());
-			PSTParser.errorLogs().clear();
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradmidpoint=2]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertFalse(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamShadowangle(final Tuple<String, String> cmd, @DoubleData final double angle) {
+		parser(cmd.a + "[shadow=true, shadowangle=" + df.format(angle) + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isShadowable());
+		assertEquals(Math.toRadians(angle), sh.getShadowAngle(), 0.00001);
 	}
 
-	@Test
-	public void testParamHatchangle() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchangle=10]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isInteriorStylable()) {
-			assertEquals(Math.toRadians(10.), sh.getHatchingsAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchangle=20.]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(20.), sh.getHatchingsAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchangle=0.5]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(0.5), sh.getHatchingsAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchangle=+---123.1]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(-123.1), sh.getHatchingsAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchangle=10, hatchangle=-12]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Math.toRadians(-12.), sh.getHatchingsAngle(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamGradangle(final Tuple<String, String> cmd, @DoubleData final double angle) {
+		parser(cmd.a + "[fillstyle=gradient, gradangle=" + df.format(angle) + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isInteriorStylable());
+		assertEquals(Math.toRadians(angle), sh.getGradAngle(), 0.00001);
 	}
 
-	@Test
-	public void testParamHatchsep() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchsep=0.2]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isInteriorStylable()) {
-			assertEquals(0.2 * IShape.PPC, sh.getHatchingsSep(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchsep=0.2cm]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.2 * IShape.PPC, sh.getHatchingsSep(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchsep=2mm]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.2 * IShape.PPC, sh.getHatchingsSep(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchsep=0.1in]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.1 * IShape.PPC / PSTricksConstants.INCH_VAL_CM, sh.getHatchingsSep(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchsep=2mm, hatchsep=0.1pt]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.1 * IShape.PPC / PSTricksConstants.CM_VAL_PT, sh.getHatchingsSep(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamGradmidpoint(final Tuple<String, String> cmd, @DoubleData(vals = {1d, 0.5, 0.22, 0d}) final double pt) {
+		parser(cmd.a + "[fillstyle=gradient, gradmidpoint=" + df.format(pt) + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isInteriorStylable());
+		assertEquals(pt, sh.getGradMidPt(), 0.00001);
 	}
 
-	@Test
-	public void testParamHatchwidth() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchwidth=0.2]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isInteriorStylable()) {
-			assertEquals(0.2 * IShape.PPC, sh.getHatchingsWidth(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchwidth=0.2cm]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.2 * IShape.PPC, sh.getHatchingsWidth(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchwidth=2mm]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.2 * IShape.PPC, sh.getHatchingsWidth(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchwidth=0.1in]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.1 * IShape.PPC / PSTricksConstants.INCH_VAL_CM, sh.getHatchingsWidth(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchwidth=2mm, hatchwidth=0.1pt]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.1 * IShape.PPC / PSTricksConstants.CM_VAL_PT, sh.getHatchingsWidth(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamHatchangle(final Tuple<String, String> cmd, @DoubleData final double angle) {
+		parser(cmd.a + "[fillstyle=clines, hatchangle=" + df.format(angle) + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isInteriorStylable());
+		assertThat(sh.getHatchingsAngle(), closeTo(Math.toRadians(angle), 0.00001));
 	}
 
-	@Test
-	public void testParamDoublesep() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline=true, doublesep=0.2]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isDbleBorderable()) {
-			assertEquals(0.2 * IShape.PPC, sh.getDbleBordSep(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline=true, doublesep=0.2cm]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.2 * IShape.PPC, sh.getDbleBordSep(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline=true, doublesep=2mm]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.2 * IShape.PPC, sh.getDbleBordSep(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline=true, doublesep=0.1in]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.1 * IShape.PPC / PSTricksConstants.INCH_VAL_CM, sh.getDbleBordSep(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline=true, doublesep=2mm, doublesep=0.1pt]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.1 * IShape.PPC / PSTricksConstants.CM_VAL_PT, sh.getDbleBordSep(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamHatchsep(final Tuple<String, String> cmd, @DoubleData(vals = {0.2, 2}) final double val, @FromDataPoints("unit") final String unit) {
+		parser(cmd.a + "[fillstyle=clines, hatchsep=" + df.format(val) + unit + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isInteriorStylable());
+		assertEquals(PSTContext.doubleUnitToUnit(val, unit) * IShape.PPC, sh.getHatchingsSep(), 0.00001);
 	}
 
-	@Test
-	public void testParamShadowsize() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowsize=0.2]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isShadowable()) {
-			assertEquals(0.2 * IShape.PPC, sh.getShadowSize(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowsize=0.2cm]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.2 * IShape.PPC, sh.getShadowSize(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowsize=2mm]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.2 * IShape.PPC, sh.getShadowSize(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowsize=0.1in]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.1 * IShape.PPC / PSTricksConstants.INCH_VAL_CM, sh.getShadowSize(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowsize=2mm, shadowsize=0.1pt]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.1 * IShape.PPC / PSTricksConstants.CM_VAL_PT, sh.getShadowSize(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamHatchwidth(final Tuple<String, String> cmd, @DoubleData(vals = {0.2, 2}) final double val, @FromDataPoints("unit") final String
+		unit) {
+		parser(cmd.a + "[fillstyle=clines, hatchwidth=" + df.format(val) + unit + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isInteriorStylable());
+		assertEquals(PSTContext.doubleUnitToUnit(val, unit) * IShape.PPC, sh.getHatchingsWidth(), 0.00001);
 	}
 
-	@Test
-	public void testParamLinewidth() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[linewidth=0.2]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isThicknessable()) {
-			assertEquals(0.2 * IShape.PPC, sh.getThickness(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[linewidth=0.2cm]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.2 * IShape.PPC, sh.getThickness(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[linewidth=2mm]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.2 * IShape.PPC, sh.getThickness(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[linewidth=0.1in]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.1 * IShape.PPC / PSTricksConstants.INCH_VAL_CM, sh.getThickness(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[linewidth=0.2, linewidth=0.1pt]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(0.1 * IShape.PPC / PSTricksConstants.CM_VAL_PT, sh.getThickness(), 0.00001);
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamDoublesep(final Tuple<String, String> cmd, @DoubleData(vals = {0.2, 2}) final double val, @FromDataPoints("unit") final String unit) {
+		parser(cmd.a + "[doubleline=true, doublesep=" + df.format(val) + unit + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isDbleBorderable());
+		assertEquals(PSTContext.doubleUnitToUnit(val, unit) * IShape.PPC, sh.getDbleBordSep(), 0.00001);
 	}
 
-	@Test
-	public void testStarFillsShape() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "*" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		assertTrue(sh.isFilled());
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	@Theory
+	public void testParamShadowsize(final Tuple<String, String> cmd, @DoubleData(vals = {0.2, 2}) final double val, @FromDataPoints("unit") final String
+		unit) {
+		parser(cmd.a + "[shadow=true, shadowsize=" + df.format(val) + unit + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isShadowable());
+		assertEquals(PSTContext.doubleUnitToUnit(val, unit) * IShape.PPC, sh.getShadowSize(), 0.00001);
 	}
 
-	@Test
-	public void testStarBorderPosOuter() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "*[" + "dimen=inner]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		if(sh.isBordersMovable()) {
-			assertEquals(BorderPos.INTO, sh.getBordersPosition());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamLinewidth(final Tuple<String, String> cmd, @DoubleData(vals = {0.2, 2}) final double val, @FromDataPoints("unit") final String unit) {
+		parser(cmd.a + "[linewidth=" + df.format(val) + unit + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isThicknessable());
+		assertEquals(PSTContext.doubleUnitToUnit(val, unit) * IShape.PPC, sh.getThickness(), 0.00001);
 	}
 
-	@Test
-	public void testStarHasNoLineStyle() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "*[" + "linestyle=dashed]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		if(sh.isLineStylable()) {
-			assertEquals(LineStyle.SOLID, sh.getLineStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamDimen(final Tuple<String, String> cmd, final BorderPos pos) {
+		parser(cmd.a + "[dimen=" + pos.getLatexToken() + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isBordersMovable());
+		assertEquals(pos, sh.getBordersPosition());
 	}
 
-	@Test
-	public void testStarHasNoDoubleBorder() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "*[" + "doubleline=true]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		if(sh.isDbleBorderable()) {
-			assertFalse(sh.hasDbleBord());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamLineStyle(final Tuple<String, String> cmd, final LineStyle style) {
+		parser(cmd.a + "[linestyle=" + style.getLatexToken() + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isLineStylable());
+		assertEquals(style, sh.getLineStyle());
 	}
 
-	@Test
-	public void testStarFillingParametershaveNoEffect() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "*[" + "fillstyle=gradient]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		assertEquals(FillingStyle.PLAIN, sh.getFillingStyle());
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	@Theory
+	public void testParamFillingStyle(final Tuple<String, String> cmd, final FillingStyle style) {
+		parser(cmd.a + "[fillstyle=" + style.getLatexToken() + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isFillable());
+		assertEquals(style, sh.getFillingStyle());
 	}
 
-	@Test
-	public void testStarLineColourIsFillingColour() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "*[" + "linecolor=green]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		assertEquals(DviPsColors.GREEN, sh.getFillingCol());
-		assertEquals(DviPsColors.GREEN, sh.getLineColour());
-		assertTrue(PSTParser.errorLogs().isEmpty());
-	}
-
-	@Test
-	public void testStarNoShadow() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "*[" + "shadow=true]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		if(sh.isShadowable()) {
-			assertFalse(sh.hasShadow());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
-	}
-
-	@Test
-	public void testParamDimen() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[dimen=inner]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isBordersMovable()) {
-			assertEquals(BorderPos.OUT, sh.getBordersPosition());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$
-			assertEquals(BorderPos.INTO, sh.getBordersPosition());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[dimen=outer]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(BorderPos.INTO, sh.getBordersPosition());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[dimen=middle]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(BorderPos.MID, sh.getBordersPosition());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[dimen=outer,dimen=middle]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(BorderPos.MID, sh.getBordersPosition());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
-	}
-
-	@Test
-	public void testParamLineStyle() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[linestyle=dashed]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isLineStylable()) {
-			assertEquals(LineStyle.DASHED, sh.getLineStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$
-			assertEquals(LineStyle.SOLID, sh.getLineStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[linestyle=dotted]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(LineStyle.DOTTED, sh.getLineStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[linestyle=solid]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(LineStyle.SOLID, sh.getLineStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[linestyle=dashed,linestyle=dotted]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(LineStyle.DOTTED, sh.getLineStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
-	}
-
-	@Test
-	public void testParamFillingStyle() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle =gradient]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isFillable()) {
-			assertTrue(sh.hasGradient());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$
-			assertFalse(sh.isFilled());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(FillingStyle.CLINES, sh.getFillingStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines*]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(FillingStyle.CLINES_PLAIN, sh.getFillingStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=hlines*]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(FillingStyle.HLINES_PLAIN, sh.getFillingStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=hlines]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(FillingStyle.HLINES, sh.getFillingStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=vlines*]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(FillingStyle.VLINES_PLAIN, sh.getFillingStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=vlines]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(FillingStyle.VLINES, sh.getFillingStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=none]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(FillingStyle.NONE, sh.getFillingStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient,fillstyle=clines]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(FillingStyle.CLINES, sh.getFillingStyle());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=solid]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(FillingStyle.PLAIN, sh.getFillingStyle());
-			assertTrue(sh.isFilled());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
-	}
-
-	@Test
-	public void testParamLinecolor() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[linecolor =blue]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
+	@Theory
+	public void testParamLinecolorPredefinedColor(final Tuple<String, String> cmd) {
+		parser(cmd.a + "[linecolor=blue]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isLineStylable());
 		assertEquals(DviPsColors.BLUE, sh.getLineColour());
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		sh = parser.parsePSTCode("\\" + getCommandName() + "[linecolor=\\psfillcolor]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(DviPsColors.WHITE, sh.getLineColour());
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		sh = parser.parsePSTCode("\\" + getCommandName() + "[linecolor=\\psfillcolor,linecolor=red]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(DviPsColors.RED, sh.getLineColour());
-		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-	@Test
-	public void testParamShadow() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow =true]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isShadowable()) {
-			assertTrue(sh.hasShadow());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow  =false]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertFalse(sh.hasShadow());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true,shadow  =false]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertFalse(sh.hasShadow());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamShadow(final Tuple<String, String> cmd, final boolean shadow) {
+		parser(cmd.a + "[shadow =" + shadow + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isShadowable());
+		assertEquals(shadow, sh.hasShadow());
 	}
 
-	@Test
-	public void testParamshadowcolor() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowcolor =blue]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isShadowable()) {
-			assertEquals(DviPsColors.BLUE, sh.getShadowCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowcolor=\\psfillcolor]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.WHITE, sh.getShadowCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[shadow=true, shadowcolor=\\psfillcolor,shadowcolor=red]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.RED, sh.getShadowCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamshadowcolorPredefinedColor(final Tuple<String, String> cmd) {
+		parser(cmd.a + "[shadow=true, shadowcolor=blue]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isShadowable());
+		assertEquals(DviPsColors.BLUE, sh.getShadowCol());
 	}
 
-	@Test
-	public void testParamDoublecolor() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline=true, doublecolor =blue]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isDbleBorderable()) {
-			assertEquals(DviPsColors.BLUE, sh.getDbleBordCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline=true, doublecolor=\\psfillcolor]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.WHITE, sh.getDbleBordCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline=true, doublecolor=\\psfillcolor,doublecolor=red]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.RED, sh.getDbleBordCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamDoublecolorPredefined(final Tuple<String, String> cmd) {
+		parser(cmd.a + "[doubleline=true, doublecolor=red]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isDbleBorderable());
+		assertEquals(DviPsColors.RED, sh.getDbleBordCol());
 	}
 
-	@Test
-	public void testParamFillingcolor() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=solid, fillcolor =blue]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isFillable()) {
-			assertEquals(DviPsColors.BLUE, sh.getFillingCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=solid, fillcolor=\\psfillcolor]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.WHITE, sh.getFillingCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=solid, fillcolor=\\psfillcolor,fillcolor=red]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.RED, sh.getFillingCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamFillingcolorPredefined(final Tuple<String, String> cmd) {
+		parser(cmd.a + "[fillstyle=solid, fillcolor=green]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isFillable());
+		assertEquals(DviPsColors.GREEN, sh.getFillingCol());
 	}
 
-	@Test
-	public void testParamGradbegin() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradbegin =blue]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isInteriorStylable()) {
-			assertEquals(DviPsColors.BLUE, sh.getGradColStart());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradbegin=\\psfillcolor]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.WHITE, sh.getGradColStart());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradbegin=\\psfillcolor,gradbegin=red]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.RED, sh.getGradColStart());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamGradbegin(final Tuple<String, String> cmd) {
+		parser(cmd.a + "[fillstyle=gradient, gradbegin=yellow]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isInteriorStylable());
+		assertEquals(DviPsColors.YELLOW, sh.getGradColStart());
 	}
 
-	@Test
-	public void testParamGradend() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradend =blue]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isInteriorStylable()) {
-			assertEquals(DviPsColors.BLUE, sh.getGradColEnd());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradend=\\psfillcolor]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$//$NON-NLS-2$
-			assertEquals(DviPsColors.WHITE, sh.getGradColEnd());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=gradient, gradend=\\psfillcolor,gradend=red]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.RED, sh.getGradColEnd());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamGradend(final Tuple<String, String> cmd) {
+		parser(cmd.a + "[fillstyle=gradient, gradend=blue]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isInteriorStylable());
+		assertEquals(DviPsColors.BLUE, sh.getGradColEnd());
 	}
 
-	@Test
-	public void testParamHatchcolor() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchcolor =blue]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isInteriorStylable()) {
-			assertEquals(DviPsColors.BLUE, sh.getHatchingsCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchcolor=\\psfillcolor]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.WHITE, sh.getHatchingsCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[fillstyle=clines, hatchcolor=\\psfillcolor,hatchcolor=red]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(DviPsColors.RED, sh.getHatchingsCol());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamHatchcolor(final Tuple<String, String> cmd) {
+		parser(cmd.a + "[fillstyle=clines, hatchcolor=blue]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isInteriorStylable());
+		assertEquals(DviPsColors.BLUE, sh.getHatchingsCol());
 	}
 
-	@Test
-	public void testParamDoubleLine() throws ParseException {
-		IShape sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline = true]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		if(sh.isDbleBorderable()) {
-			assertTrue(sh.hasDbleBord());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline =false]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertFalse(sh.hasDbleBord());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-			sh = parser.parsePSTCode("\\" + getCommandName() + "[doubleline =true, doubleline=false]" + getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertFalse(sh.hasDbleBord());
-			assertTrue(PSTParser.errorLogs().isEmpty());
-		}
+	@Theory
+	public void testParamDoubleLine(final Tuple<String, String> cmd, final boolean dble) {
+		parser(cmd.a + "[doubleline = " + dble + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isDbleBorderable());
+		assertEquals(dble, sh.hasDbleBord());
+	}
+
+	@Theory
+	public void testStrokeOpacity(final Tuple<String, String> cmd, @DoubleData(vals = {0d, 0.2, 0.5, 1d}) final double opacity) {
+		parser(cmd.a + "[strokeopacity = " + df.format(opacity) + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isLineStylable());
+		assertEquals(opacity, sh.getLineColour().getO(), 0.00001);
+	}
+
+	@Theory
+	public void testOpacity(final Tuple<String, String> cmd, @DoubleData(vals = {0d, 0.2, 0.5, 1d}) final double opacity) {
+		parser(cmd.a + "[fillstyle = solid, opacity = " + df.format(opacity) + "]" + cmd.b);
+		final IShape sh = getShapeAt(0);
+		assumeTrue(sh.isFillable());
+		assertEquals(opacity, sh.getFillingCol().getO(), 0.00001);
 	}
 }

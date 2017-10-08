@@ -1,4 +1,4 @@
-package net.sf.latexdraw.parsers.pst2;
+package net.sf.latexdraw.parsers.pst;
 
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
@@ -185,5 +185,12 @@ public class TestParsingPSbezier extends TestPSTParser {
 		assertEquals(-18d * IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
 		assertEquals(3d * IShape.PPC, bc.getFirstCtrlPtAt(1).getX(), 0.0001);
 		assertEquals(-4d * IShape.PPC, bc.getFirstCtrlPtAt(1).getY(), 0.0001);
+	}
+
+	@Test
+	public void testShowPoints() {
+		parser("\\psbezier[showpoints=true](5,10)(1,2)(3,4)(5,6)");
+		IBezierCurve bc = getShapeAt(0);
+		assertTrue(bc.isShowPts());
 	}
 }

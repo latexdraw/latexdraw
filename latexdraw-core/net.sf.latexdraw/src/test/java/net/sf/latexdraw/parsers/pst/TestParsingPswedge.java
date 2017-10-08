@@ -1,4 +1,4 @@
-package net.sf.latexdraw.parsers.pst2;
+package net.sf.latexdraw.parsers.pst;
 
 import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.models.interfaces.shape.IArc;

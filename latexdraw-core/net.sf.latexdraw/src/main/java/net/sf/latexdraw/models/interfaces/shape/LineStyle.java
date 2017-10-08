@@ -47,7 +47,7 @@ public enum LineStyle {
 	 * @since 3.0
 	 */
 	public static  LineStyle getStyle(final String style) {
-		return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(SOLID);
+		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getLatexToken().equals(style)).findFirst().orElse(SOLID);
 	}
 
 	/**

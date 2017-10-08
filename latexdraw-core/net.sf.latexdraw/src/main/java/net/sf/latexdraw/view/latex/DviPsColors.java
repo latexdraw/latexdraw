@@ -209,7 +209,10 @@ public final class DviPsColors  {
 		ctColours = 0;
 	}
 
-
+	public void clearUserColours() {
+		userColourHT.clear();
+		userNameColourHT.clear();
+	}
 
 	/**
 	 * Creates the hashTable {@link #nameColourHT}.

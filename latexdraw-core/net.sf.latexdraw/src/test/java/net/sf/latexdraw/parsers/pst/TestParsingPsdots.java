@@ -1,4 +1,4 @@
-package net.sf.latexdraw.parsers.pst2;
+package net.sf.latexdraw.parsers.pst;
 
 import java.util.List;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;

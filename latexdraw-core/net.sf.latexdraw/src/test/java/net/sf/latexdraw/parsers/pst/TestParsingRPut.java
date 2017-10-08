@@ -1,302 +1,295 @@
 package net.sf.latexdraw.parsers.pst;
 
-import java.text.ParseException;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
-import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class TestParsingRPut extends TestPSTParser {
 	@Test
-	public void testRefPointCombo_t_br() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[t](0,0){\\rput[br](2,2){coucou}}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPointCombo_t_br() {
+		parser("\\rput[t](0,0){\\rput[br](2,2){coucou}}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT_RIGHT, txt.getTextPosition());
 	}
 
 	@Test
-	public void testRefPoint_None() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput(10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRputPosition() {
+		parser("\\rput(1,2){coucou}");
+		assertEquals(1, listener.getShapes().size());
+		IText text = getShapeAt(0);
+		assertEquals("coucou", text.getText());
+		assertEquals(1d * IShape.PPC, text.getPosition().getX(), 0.001);
+		assertEquals(-2d * IShape.PPC, text.getPosition().getY(), 0.001);
+	}
+
+	@Test
+	public void testRefPoint_None() {
+		parser("\\rput(10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.CENTER, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_B() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[B](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_B() {
+		parser("\\rput[B](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BASE, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_Br() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[Br](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_Br() {
+		parser("\\rput[Br](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BASE_RIGHT, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_Bl() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[Bl](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_Bl() {
+		parser("\\rput[Bl](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BASE_LEFT, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_r() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[r](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_r() {
+		parser("\\rput[r](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.RIGHT, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_l() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[l](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_l() {
+		parser("\\rput[l](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.LEFT, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_tr() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[tr](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_tr() {
+		parser("\\rput[tr](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.TOP_RIGHT, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_b() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[b](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_b() {
+		parser("\\rput[b](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_t() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[t](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_t() {
+		parser("\\rput[t](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.TOP, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_tl() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[tl](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_tl() {
+		parser("\\rput[tl](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.TOP_LEFT, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_bl() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[bl](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_bl() {
+		parser("\\rput[bl](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT_LEFT, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRefPoint_br() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput[br](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testRefPoint_br() {
+		parser("\\rput[br](10,20){coucou}");
+		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT_RIGHT, txt.getTextPosition());
-		assertEquals(10. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-20. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(10d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-20d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testDoubleRputRotationMustNotRotateOtherShapes() throws ParseException {
-		IGroup gp = parser.parsePSTCode("\\rput{10}(0,0){\\rput{80}(0,0){coucou}}\\psframe(10,10)").get(); //$NON-NLS-1$
-		IText txt = (IText)gp.getShapeAt(0);
-		IRectangle rec = (IRectangle)gp.getShapeAt(1);
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testDoubleRputRotationMustNotRotateOtherShapes() {
+		parser("\\rput{10}(0,0){\\rput{80}(0,0){coucou}}\\psframe(10,10)");
+		final IText txt = getShapeAt(0);
+		final IRectangle rec = getShapeAt(1);
 		assertEquals(Math.toRadians(-90), txt.getRotationAngle(), 0.001);
-		assertEquals(0., rec.getRotationAngle(), 0.001);
+		assertEquals(0d, rec.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testTripleRputRotationWithStar() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{10}(0,0){\\rput{*30}(0,0){\\rput{50}(0,0){coucou}}}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(-80., Math.toDegrees(txt.getRotationAngle()), 0.001);
+	public void testTripleRputRotationWithStar() {
+		parser("\\rput{10}(0,0){\\rput{*30}(0,0){\\rput{50}(0,0){coucou}}}");
+		final IText txt = getShapeAt(0);
+		assertEquals(-80d, Math.toDegrees(txt.getRotationAngle()), 0.001);
 	}
 
 	@Test
-	public void testDoubleRputRotation() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{10}(0,0){\\rput{80}(0,0){coucou}}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
+	public void testDoubleRputRotation() {
+		parser("\\rput{10}(0,0){\\rput{80}(0,0){coucou}}");
+		final IText txt = getShapeAt(0);
 		assertEquals(Math.toRadians(-90), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testDoubleRputPosition() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput(1,2){\\rput(2,3){coucou}}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
-		assertEquals(3. * IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-5. * IShape.PPC, txt.getPosition().getY(), 0.001);
+	public void testDoubleRputPosition() {
+		parser("\\rput(1,2){\\rput(2,3){coucou}}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
+		assertEquals(3d * IShape.PPC, txt.getPosition().getX(), 0.001);
+		assertEquals(-5d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordStarFloatText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{*-90.8929}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordStarFloatText() {
+		parser("\\rput{*-90.8929}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
 		assertEquals(Math.toRadians(90.8929), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordStarSignedIntText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{*-++-90}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordStarSignedIntText() {
+		parser("\\rput{*-++-90}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(Math.toRadians(-90.), txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(Math.toRadians(-90d), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordStarIntText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{*90}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordStarIntText() {
+		parser("\\rput{*90}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(Math.toRadians(-90.), txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(Math.toRadians(-90d), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordRotationRText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{R}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordRotationRText() {
+		parser("\\rput{R}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(Math.toRadians(-270.), txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(Math.toRadians(-270d), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordRotationDText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{D}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordRotationDText() {
+		parser("\\rput{D}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(Math.toRadians(-180.), txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(Math.toRadians(-180d), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordRotationLText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{L}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordRotationLText() {
+		parser("\\rput{L}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(Math.toRadians(-90.), txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(Math.toRadians(-90d), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordRotationUText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{U}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordRotationUText() {
+		parser("\\rput{U}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(0., txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(0d, txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordRotationEText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{E}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordRotationEText() {
+		parser("\\rput{E}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(Math.toRadians(-270.), txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(Math.toRadians(-270d), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordRotationSText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{S}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordRotationSText() {
+		parser("\\rput{S}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(Math.toRadians(-180.), txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(Math.toRadians(-180d), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordRotationWText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{W}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordRotationWText() {
+		parser("\\rput{W}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(Math.toRadians(-90.), txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(Math.toRadians(-90d), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordRotationNText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{N}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordRotationNText() {
+		parser("\\rput{N}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(0., txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(0d, txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordRotationDoubleText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput{-10.0}(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordRotationDoubleText() {
+		parser("\\rput{-10.0}(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-		assertEquals(Math.toRadians(10.), txt.getRotationAngle(), 0.001);
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
+		assertEquals(Math.toRadians(10d), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testRPutCoordText() throws ParseException {
-		IText txt = (IText)parser.parsePSTCode("\\rput(1,2){coucou}").get().getShapeAt(0); //$NON-NLS-1$
-		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals("coucou", txt.getText()); //$NON-NLS-1$
+	public void testRPutCoordText() {
+		parser("\\rput(1,2){coucou}");
+		final IText txt = getShapeAt(0);
+		assertEquals("coucou", txt.getText());
 		assertEquals(IShape.PPC, txt.getPosition().getX(), 0.001);
-		assertEquals(-2. * IShape.PPC, txt.getPosition().getY(), 0.001);
-	}
-
-	@Override
-	public String getCommandName() {
-		return "rput"; //$NON-NLS-1$
-	}
-
-	@Override
-	public String getBasicCoordinates() {
-		return ""; //$NON-NLS-1$
+		assertEquals(-2d * IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
 }

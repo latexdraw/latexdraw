@@ -1,4 +1,4 @@
-package net.sf.latexdraw.parsers.pst2;
+package net.sf.latexdraw.parsers.pst;
 
 import java.text.ParseException;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
@@ -137,5 +137,12 @@ public class TestParsingPsdiamond extends TestPSTParser {
 		IRhombus rh = getShapeAt(0);
 		assertThat(rh.getWidth(), greaterThan(0d));
 		assertThat(rh.getHeight(), greaterThan(0d));
+	}
+
+	@Test
+	public void testgangle() throws ParseException {
+		parser("\\psdiamond[gangle=90](0,0)(1,1)");
+		final IRhombus rh = getShapeAt(0);
+		assertEquals(-Math.PI/2d, rh.getRotationAngle(), 0.001);
 	}
 }
