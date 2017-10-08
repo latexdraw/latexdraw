@@ -54,7 +54,8 @@ public abstract class TestPSTParser {
 	}
 
 	void parser(final String code) {
-		final PSTParser parser = new PSTParser(new CommonTokenStream(new PSTLexer(CharStreams.fromString(code))));
+		final net.sf.latexdraw.parsers.pst.PSTParser parser =
+			new net.sf.latexdraw.parsers.pst.PSTParser(new CommonTokenStream(new net.sf.latexdraw.parsers.pst.PSTLexer(CharStreams.fromString(code))));
 		parser.addParseListener(listener);
 		parser.addErrorListener(new ErrorListener());
 		parser.pstCode(new PSTContext());

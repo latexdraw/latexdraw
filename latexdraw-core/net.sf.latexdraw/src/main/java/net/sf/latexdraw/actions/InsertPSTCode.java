@@ -11,17 +11,21 @@
 package net.sf.latexdraw.actions;
 
 
-import java.text.ParseException;
 import java.util.Optional;
 import javafx.scene.control.Label;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.pst.parser.PSTParser;
+import net.sf.latexdraw.parsers.pst.PSTContext;
+import net.sf.latexdraw.parsers.pst.PSTLatexdrawListener;
+import net.sf.latexdraw.parsers.pst.PSTLexer;
+import net.sf.latexdraw.parsers.pst.PSTParser;
 import net.sf.latexdraw.util.LangTool;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.malai.undo.Undoable;
-import scala.Option;
 
 /**
  * This action converts PST code into shapes and add them to the drawing.
@@ -46,34 +50,31 @@ public class InsertPSTCode extends DrawingActionImpl implements Undoable {
 
 	@Override
 	protected void doActionBody() {
-		PSTParser.cleanErrors();
-
 		code.ifPresent(co -> {
 			try {
-				Option<IGroup> parserRes = new PSTParser().parsePSTCode(co);
+				PSTLatexdrawListener listener = new PSTLatexdrawListener();
+				final PSTParser parser = new PSTParser(new CommonTokenStream(new PSTLexer(CharStreams.fromString(co))));
+				parser.addParseListener(listener);
+				parser.pstCode(new PSTContext());
 
-				if(parserRes.isDefined()) {
-					IGroup group = parserRes.get();
-					if(!group.isEmpty()) {
-						final IShape sh = group.size() > 1 ? group : group.getShapeAt(0);
-						final IPoint tl = sh.getTopLeftPoint();
-						final double tx = tl.getX() < 0.0 ? -tl.getX() + 50.0 : 0.0;
-						final double ty = tl.getY() < 0.0 ? -tl.getY() + 50.0 : 0.0;
+				final IGroup group = ShapeFactory.INST.createGroup();
+				group.getShapes().addAll(listener.getShapes());
 
-						shapes = Optional.of(sh);
-						sh.translate(tx, ty);
-						redo();
-						statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.36")));
-					}
-				}else {
-					statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.33")));
+				if(!group.isEmpty()) {
+					final IShape sh = group.size() > 1 ? group : group.getShapeAt(0);
+					final IPoint tl = sh.getTopLeftPoint();
+					final double tx = tl.getX() < 0d ? -tl.getX() + 50d : 0d;
+					final double ty = tl.getY() < 0d ? -tl.getY() + 50d : 0d;
+
+					shapes = Optional.of(sh);
+					sh.translate(tx, ty);
+					redo();
+					statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.36")));
 				}
 			}catch(final Throwable ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 				statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.34")));
 			}
-
-			PSTParser.errorLogs().foreach(str -> BadaboomCollector.INSTANCE.add(new ParseException(str, -1)));
 		});
 
 		done();
