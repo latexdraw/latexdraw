@@ -3,9 +3,13 @@ package net.sf.latexdraw.models.interfaces;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(Theories.class)
 public class TestBorderPos {
 	@Test
 	public void testGetLatexToken() {
@@ -17,21 +21,16 @@ public class TestBorderPos {
 	@Test
 	public void testGetStyleKO() {
 		assertEquals(BorderPos.INTO, BorderPos.getStyle(null));
-		assertEquals(BorderPos.INTO, BorderPos.getStyle("")); //$NON-NLS-1$
-		assertEquals(BorderPos.INTO, BorderPos.getStyle("ezpoke zae")); //$NON-NLS-1$
+		assertEquals(BorderPos.INTO, BorderPos.getStyle(""));
 	}
 
-	@Test
-	public void testGetStyleOKBorderPos() {
-		assertEquals(BorderPos.getStyle(BorderPos.INTO.toString()), BorderPos.INTO);
-		assertEquals(BorderPos.getStyle(BorderPos.MID.toString()), BorderPos.MID);
-		assertEquals(BorderPos.getStyle(BorderPos.OUT.toString()), BorderPos.OUT);
+	@Theory
+	public void testGetStyleOKBorderPos(final BorderPos style) {
+		assertEquals(BorderPos.getStyle(style.toString()), style);
 	}
 
-	@Test
-	public void testGetStyleOKPSTConst() {
-		assertEquals(BorderPos.getStyle(PSTricksConstants.BORDERS_INSIDE), BorderPos.INTO);
-		assertEquals(BorderPos.getStyle(PSTricksConstants.BORDERS_MIDDLE), BorderPos.MID);
-		assertEquals(BorderPos.getStyle(PSTricksConstants.BORDERS_OUTSIDE), BorderPos.OUT);
+	@Theory
+	public void testGetStyleOKPSTConst(final BorderPos style) {
+		assertEquals(BorderPos.getStyle(style.getLatexToken()), style);
 	}
 }

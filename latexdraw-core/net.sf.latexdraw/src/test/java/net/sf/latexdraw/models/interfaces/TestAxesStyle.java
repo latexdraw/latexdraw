@@ -4,6 +4,7 @@ import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
@@ -26,23 +27,19 @@ public class TestAxesStyle {
 		assertEquals(PSTricksConstants.TOKEN_AXES_STYLE_NONE, AxesStyle.NONE.getPSTToken());
 	}
 
-	@Test
-	public void testGetStylePSTConst() {
-		assertEquals(AxesStyle.getStyle(PSTricksConstants.TOKEN_AXES_STYLE_AXES), AxesStyle.AXES);
-		assertEquals(AxesStyle.getStyle(PSTricksConstants.TOKEN_AXES_STYLE_FRAME), AxesStyle.FRAME);
-		assertEquals(AxesStyle.getStyle(PSTricksConstants.TOKEN_AXES_STYLE_NONE), AxesStyle.NONE);
+	@Theory
+	public void testGetStylePSTConst(final AxesStyle style) {
+		assertEquals(AxesStyle.getStyle(style.getPSTToken()), style);
 	}
 
 	@Test
 	public void testGetStyleKO() {
 		assertEquals(AxesStyle.AXES, AxesStyle.getStyle(null));
-		assertEquals(AxesStyle.AXES, AxesStyle.getStyle("")); //$NON-NLS-1$
+		assertEquals(AxesStyle.AXES, AxesStyle.getStyle(""));
 	}
 
-	@Test
-	public void testGetStyleAxesStyle() {
-		assertEquals(AxesStyle.getStyle(AxesStyle.NONE.toString()), AxesStyle.NONE);
-		assertEquals(AxesStyle.getStyle(AxesStyle.AXES.toString()), AxesStyle.AXES);
-		assertEquals(AxesStyle.getStyle(AxesStyle.FRAME.toString()), AxesStyle.FRAME);
+	@Theory
+	public void testGetStyleAxesStyle(final AxesStyle style) {
+		assertEquals(AxesStyle.getStyle(style.toString()), style);
 	}
 }

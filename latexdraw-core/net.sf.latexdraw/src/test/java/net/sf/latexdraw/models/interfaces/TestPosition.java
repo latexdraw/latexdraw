@@ -7,7 +7,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TestPosition {
-
 	@Test
 	public void testIsSouth() {
 		assertTrue(Position.SE.isSouth());
@@ -55,5 +54,4 @@ public class TestPosition {
 		assertFalse(Position.SW.isEast());
 		assertFalse(Position.WEST.isEast());
 	}
-
 }

@@ -3,11 +3,15 @@ package net.sf.latexdraw.models.interfaces;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(Theories.class)
 public class TestDotStyle {
 	@Test
 	public void testIsFillable() {
@@ -49,29 +53,19 @@ public class TestDotStyle {
 		assertEquals(DotStyle.getStyle(PSTricksConstants.X_STYLE), DotStyle.X);
 	}
 
-	@Test
-	public void testGetStyleOKDotStyle() {
-		assertEquals(DotStyle.getStyle(DotStyle.ASTERISK.toString()), DotStyle.ASTERISK);
-		assertEquals(DotStyle.getStyle(DotStyle.BAR.toString()), DotStyle.BAR);
-		assertEquals(DotStyle.getStyle(DotStyle.DIAMOND.toString()), DotStyle.DIAMOND);
-		assertEquals(DotStyle.getStyle(DotStyle.DOT.toString()), DotStyle.DOT);
-		assertEquals(DotStyle.getStyle(DotStyle.FDIAMOND.toString()), DotStyle.FDIAMOND);
-		assertEquals(DotStyle.getStyle(DotStyle.FPENTAGON.toString()), DotStyle.FPENTAGON);
-		assertEquals(DotStyle.getStyle(DotStyle.FSQUARE.toString()), DotStyle.FSQUARE);
-		assertEquals(DotStyle.getStyle(DotStyle.FTRIANGLE.toString()), DotStyle.FTRIANGLE);
-		assertEquals(DotStyle.getStyle(DotStyle.O.toString()), DotStyle.O);
-		assertEquals(DotStyle.getStyle(DotStyle.OPLUS.toString()), DotStyle.OPLUS);
-		assertEquals(DotStyle.getStyle(DotStyle.OTIMES.toString()), DotStyle.OTIMES);
-		assertEquals(DotStyle.getStyle(DotStyle.PENTAGON.toString()), DotStyle.PENTAGON);
-		assertEquals(DotStyle.getStyle(DotStyle.PLUS.toString()), DotStyle.PLUS);
-		assertEquals(DotStyle.getStyle(DotStyle.SQUARE.toString()), DotStyle.SQUARE);
-		assertEquals(DotStyle.getStyle(DotStyle.TRIANGLE.toString()), DotStyle.TRIANGLE);
-		assertEquals(DotStyle.getStyle(DotStyle.X.toString()), DotStyle.X);
+	@Theory
+	public void testGetStyleOKDotStyle(final DotStyle style) {
+		assertEquals(DotStyle.getStyle(style.toString()), style);
+	}
+
+	@Theory
+	public void testGetStyleOKDotStylePST(final DotStyle style) {
+		assertEquals(DotStyle.getStyle(style.getPSTToken()), style);
 	}
 
 	@Test
 	public void testGetStyleKO() {
 		assertEquals(DotStyle.DOT, DotStyle.getStyle(null));
-		assertEquals(DotStyle.DOT, DotStyle.getStyle("")); //$NON-NLS-1$
+		assertEquals(DotStyle.DOT, DotStyle.getStyle(""));
 	}
 }

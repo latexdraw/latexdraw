@@ -3,11 +3,15 @@ package net.sf.latexdraw.models.interfaces;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(Theories.class)
 public class TestPlottingStyle {
 	@Test
 	public void testIsX() {
@@ -36,14 +40,16 @@ public class TestPlottingStyle {
 	@Test
 	public void testGetStyleKO() {
 		assertEquals(PlottingStyle.ALL, PlottingStyle.getStyle(null));
-		assertEquals(PlottingStyle.ALL, PlottingStyle.getStyle("")); //$NON-NLS-1$
+		assertEquals(PlottingStyle.ALL, PlottingStyle.getStyle(""));
 	}
 
-	@Test
-	public void testGetStyle() {
-		assertEquals(PlottingStyle.getStyle(PlottingStyle.ALL.toString()), PlottingStyle.ALL);
-		assertEquals(PlottingStyle.getStyle(PlottingStyle.NONE.toString()), PlottingStyle.NONE);
-		assertEquals(PlottingStyle.getStyle(PlottingStyle.X.toString()), PlottingStyle.X);
-		assertEquals(PlottingStyle.getStyle(PlottingStyle.Y.toString()), PlottingStyle.Y);
+	@Theory
+	public void testGetStyle(final PlottingStyle style) {
+		assertEquals(PlottingStyle.getStyle(style.toString()), style);
+	}
+
+	@Theory
+	public void testGetStylePST(final PlottingStyle style) {
+		assertEquals(PlottingStyle.getStyle(style.getPSTToken()), style);
 	}
 }

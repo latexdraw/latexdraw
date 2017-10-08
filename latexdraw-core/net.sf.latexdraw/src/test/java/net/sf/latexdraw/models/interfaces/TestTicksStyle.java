@@ -7,9 +7,6 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -37,15 +34,10 @@ public class TestTicksStyle {
 		assertFalse(TicksStyle.BOTTOM.isTop());
 	}
 
-	@Theory
-	public void testToString(final TicksStyle style) {
-		assertThat(style.toString(), not(isEmptyOrNullString()));
-	}
-
 	@Test
 	public void testGetStyleKO() {
 		assertEquals(TicksStyle.FULL, TicksStyle.getStyle(null));
-		assertEquals(TicksStyle.FULL, TicksStyle.getStyle("")); //$NON-NLS-1$
+		assertEquals(TicksStyle.FULL, TicksStyle.getStyle(""));
 	}
 
 	@Theory
@@ -53,10 +45,8 @@ public class TestTicksStyle {
 		assertEquals(TicksStyle.getStyle(style.toString()), style);
 	}
 
-	@Test
-	public void testGetStylePST() {
-		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM), TicksStyle.BOTTOM);
-		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_FULL), TicksStyle.FULL);
-		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_TOP), TicksStyle.TOP);
+	@Theory
+	public void testGetStylePST(final TicksStyle style) {
+		assertEquals(TicksStyle.getStyle(style.getPSTToken()), style);
 	}
 }
