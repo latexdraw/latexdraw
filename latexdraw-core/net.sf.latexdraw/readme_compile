@@ -1,3 +1,4 @@
-To compile you need JDK7 and maven.
+To compile you need JDK8 and maven.
+To build the different packages of the application, go to net.sf.latexdraw.bundle folder and run the same command.
 Run:
-maven clean package install
+maven clean package
