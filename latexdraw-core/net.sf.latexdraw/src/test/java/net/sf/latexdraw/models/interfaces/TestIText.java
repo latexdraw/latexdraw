@@ -113,21 +113,21 @@ public class TestIText implements HelperTest {
 
 	@Test
 	public void testConstructorsOK2() {
-		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), "coucou"); //$NON-NLS-1$
+		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), "coucou");
 		assertNotNull(txt.getText());
 		assertFalse(txt.getText().isEmpty());
 	}
 
 	@Test
 	public void testConstructorsOK3() {
-		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), ""); //$NON-NLS-1$
+		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), "");
 		assertNotNull(txt.getText());
 		assertFalse(txt.getText().isEmpty());
 	}
 
 	@Test
 	public void testConstructorsOK4() {
-		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(0, Double.NEGATIVE_INFINITY), "aa"); //$NON-NLS-1$
+		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(0, Double.NEGATIVE_INFINITY), "aa");
 		assertEquals(ShapeFactory.INST.createPoint(), txt.getPosition());
 	}
 }

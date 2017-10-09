@@ -12,7 +12,7 @@ public class TestSVGLength {
 	@Test
 	public void testConsctrutor() {
 		try {
-			new SVGLength(1, null, "1"); //$NON-NLS-1$
+			new SVGLength(1, null, "1");
 			fail();
 		}catch(IllegalArgumentException e) {
 			/* */ }
@@ -26,10 +26,10 @@ public class TestSVGLength {
 
 	@Test
 	public void testGetters() {
-		SVGLength l = new SVGLength(1, LengthType.MM, "1"); //$NON-NLS-1$
+		SVGLength l = new SVGLength(1, LengthType.MM, "1");
 
 		assertEquals(l.getValue(), 1., 0.1);
 		assertEquals(l.getLengthType(), LengthType.MM);
-		assertEquals(l.getValueAsString(), "1"); //$NON-NLS-1$
+		assertEquals(l.getValueAsString(), "1");
 	}
 }

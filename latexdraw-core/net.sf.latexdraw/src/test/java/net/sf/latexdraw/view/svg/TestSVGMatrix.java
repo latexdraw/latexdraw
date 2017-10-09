@@ -10,12 +10,12 @@ public class TestSVGMatrix {
 	public void testConstructor() {
 		SVGMatrix m = new SVGMatrix();
 
-		assertEquals(m.getA(), 1., 0.0001);
-		assertEquals(m.getD(), 1., 0.0001);
-		assertEquals(m.getE(), 0., 0.0001);
-		assertEquals(m.getB(), 0., 0.0001);
-		assertEquals(m.getC(), 0., 0.0001);
-		assertEquals(m.getF(), 0., 0.0001);
+		assertEquals(m.getA(), 1d, 0.0001);
+		assertEquals(m.getD(), 1d, 0.0001);
+		assertEquals(m.getE(), 0d, 0.0001);
+		assertEquals(m.getB(), 0d, 0.0001);
+		assertEquals(m.getC(), 0d, 0.0001);
+		assertEquals(m.getF(), 0d, 0.0001);
 	}
 
 	@Test
@@ -23,12 +23,12 @@ public class TestSVGMatrix {
 		SVGMatrix m = new SVGMatrix();
 		m.initMatrix();
 
-		assertEquals(m.getA(), 1., 0.0001);
-		assertEquals(m.getD(), 1., 0.0001);
-		assertEquals(m.getE(), 0., 0.0001);
-		assertEquals(m.getB(), 0., 0.0001);
-		assertEquals(m.getC(), 0., 0.0001);
-		assertEquals(m.getF(), 0., 0.0001);
+		assertEquals(m.getA(), 1d, 0.0001);
+		assertEquals(m.getD(), 1d, 0.0001);
+		assertEquals(m.getE(), 0d, 0.0001);
+		assertEquals(m.getB(), 0d, 0.0001);
+		assertEquals(m.getC(), 0d, 0.0001);
+		assertEquals(m.getF(), 0d, 0.0001);
 	}
 
 	@Test
@@ -41,8 +41,8 @@ public class TestSVGMatrix {
 		assertEquals(m.getB(), Math.sin(angle), 0.0001);
 		assertEquals(m.getC(), -Math.sin(angle), 0.0001);
 		assertEquals(m.getD(), Math.cos(angle), 0.0001);
-		assertEquals(m.getE(), 0., 0.0001);
-		assertEquals(m.getF(), 0., 0.0001);
+		assertEquals(m.getE(), 0d, 0.0001);
+		assertEquals(m.getF(), 0d, 0.0001);
 	}
 
 	@Test
@@ -51,10 +51,10 @@ public class TestSVGMatrix {
 		double tx = 1.4, ty = -0.4;
 
 		m.translate(tx, ty);
-		assertEquals(m.getA(), 1., 0.0001);
-		assertEquals(m.getB(), 0., 0.0001);
-		assertEquals(m.getC(), 0., 0.0001);
-		assertEquals(m.getD(), 1., 0.0001);
+		assertEquals(m.getA(), 1d, 0.0001);
+		assertEquals(m.getB(), 0d, 0.0001);
+		assertEquals(m.getC(), 0d, 0.0001);
+		assertEquals(m.getD(), 1d, 0.0001);
 		assertEquals(m.getE(), tx, 0.0001);
 		assertEquals(m.getF(), ty, 0.0001);
 	}
@@ -66,11 +66,11 @@ public class TestSVGMatrix {
 
 		m.scaleNonUniform(sx, sy);
 		assertEquals(m.getA(), sx, 0.0001);
-		assertEquals(m.getB(), 0., 0.0001);
-		assertEquals(m.getC(), 0., 0.0001);
+		assertEquals(m.getB(), 0d, 0.0001);
+		assertEquals(m.getC(), 0d, 0.0001);
 		assertEquals(m.getD(), sy, 0.0001);
-		assertEquals(m.getE(), 0., 0.0001);
-		assertEquals(m.getF(), 0., 0.0001);
+		assertEquals(m.getE(), 0d, 0.0001);
+		assertEquals(m.getF(), 0d, 0.0001);
 	}
 
 	@Test
@@ -80,11 +80,11 @@ public class TestSVGMatrix {
 
 		m.scale(s);
 		assertEquals(m.getA(), s, 0.0001);
-		assertEquals(m.getB(), 0., 0.0001);
-		assertEquals(m.getC(), 0., 0.0001);
+		assertEquals(m.getB(), 0d, 0.0001);
+		assertEquals(m.getC(), 0d, 0.0001);
 		assertEquals(m.getD(), s, 0.0001);
-		assertEquals(m.getE(), 0., 0.0001);
-		assertEquals(m.getF(), 0., 0.0001);
+		assertEquals(m.getE(), 0d, 0.0001);
+		assertEquals(m.getF(), 0d, 0.0001);
 	}
 
 	@Test
@@ -93,12 +93,12 @@ public class TestSVGMatrix {
 		double angle = 1.92837;
 
 		m.skewX(angle);
-		assertEquals(m.getA(), 1., 0.0001);
-		assertEquals(m.getB(), 0., 0.0001);
+		assertEquals(m.getA(), 1d, 0.0001);
+		assertEquals(m.getB(), 0d, 0.0001);
 		assertEquals(m.getC(), Math.tan(angle), 0.0001);
-		assertEquals(m.getD(), 1., 0.0001);
-		assertEquals(m.getE(), 0., 0.0001);
-		assertEquals(m.getF(), 0., 0.0001);
+		assertEquals(m.getD(), 1d, 0.0001);
+		assertEquals(m.getE(), 0d, 0.0001);
+		assertEquals(m.getF(), 0d, 0.0001);
 	}
 
 	@Test
@@ -107,12 +107,12 @@ public class TestSVGMatrix {
 		double angle = -7.7283;
 
 		m.skewY(angle);
-		assertEquals(m.getA(), 1., 0.0001);
+		assertEquals(m.getA(), 1d, 0.0001);
 		assertEquals(m.getB(), Math.tan(angle), 0.0001);
-		assertEquals(m.getC(), 0., 0.0001);
-		assertEquals(m.getD(), 1., 0.0001);
-		assertEquals(m.getE(), 0., 0.0001);
-		assertEquals(m.getF(), 0., 0.0001);
+		assertEquals(m.getC(), 0d, 0.0001);
+		assertEquals(m.getD(), 1d, 0.0001);
+		assertEquals(m.getE(), 0d, 0.0001);
+		assertEquals(m.getF(), 0d, 0.0001);
 	}
 
 	@Test
@@ -120,12 +120,12 @@ public class TestSVGMatrix {
 		SVGMatrix m = new SVGMatrix();
 
 		m.setMatrix(2, 3, 4, 5, 6, 7);
-		assertEquals(m.getA(), 2., 0.0001);
-		assertEquals(m.getB(), 3., 0.0001);
-		assertEquals(m.getC(), 4., 0.0001);
-		assertEquals(m.getD(), 5., 0.0001);
-		assertEquals(m.getE(), 6., 0.0001);
-		assertEquals(m.getF(), 7., 0.0001);
+		assertEquals(m.getA(), 2d, 0.0001);
+		assertEquals(m.getB(), 3d, 0.0001);
+		assertEquals(m.getC(), 4d, 0.0001);
+		assertEquals(m.getD(), 5d, 0.0001);
+		assertEquals(m.getE(), 6d, 0.0001);
+		assertEquals(m.getF(), 7d, 0.0001);
 	}
 
 	@Test
@@ -138,11 +138,11 @@ public class TestSVGMatrix {
 		m2.setMatrix(7, 8, 9, 10, 11, 12);
 		m3 = m1.multiply(m2);
 
-		assertEquals(m3.getA(), 31., 0.0001);
-		assertEquals(m3.getB(), 46., 0.0001);
-		assertEquals(m3.getC(), 39., 0.0001);
-		assertEquals(m3.getD(), 58., 0.0001);
-		assertEquals(m3.getE(), 52., 0.0001);
-		assertEquals(m3.getF(), 76., 0.0001);
+		assertEquals(m3.getA(), 31d, 0.0001);
+		assertEquals(m3.getB(), 46d, 0.0001);
+		assertEquals(m3.getC(), 39d, 0.0001);
+		assertEquals(m3.getD(), 58d, 0.0001);
+		assertEquals(m3.getE(), 52d, 0.0001);
+		assertEquals(m3.getF(), 76d, 0.0001);
 	}
 }

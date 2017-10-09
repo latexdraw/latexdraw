@@ -14,13 +14,13 @@ public class TestCSSStyleList {
 		list.clear();
 		list.addCSSStyle(null, null);
 		assertEquals(0, list.size());
-		list.addCSSStyle("", null); //$NON-NLS-1$
+		list.addCSSStyle("", null);
 		assertEquals(0, list.size());
-		list.addCSSStyle(null, ""); //$NON-NLS-1$
+		list.addCSSStyle(null, "");
 		assertEquals(0, list.size());
-		list.addCSSStyle("name", "value"); //$NON-NLS-1$ //$NON-NLS-2$
+		list.addCSSStyle("name", "value");
 		assertEquals(1, list.size());
-		assertEquals("value", list.getCSSValue("name")); //$NON-NLS-1$ //$NON-NLS-2$
+		assertEquals("value", list.getCSSValue("name"));
 		list.clear();
 	}
 
@@ -28,14 +28,14 @@ public class TestCSSStyleList {
 	public void testGetCSSValue() {
 		list.clear();
 		assertNull(list.getCSSValue(null));
-		assertNull(list.getCSSValue("")); //$NON-NLS-1$
-		assertNull(list.getCSSValue("test")); //$NON-NLS-1$
-		list.addCSSStyle("name", "value"); //$NON-NLS-1$ //$NON-NLS-2$
+		assertNull(list.getCSSValue(""));
+		assertNull(list.getCSSValue("test"));
+		list.addCSSStyle("name", "value");
 		assertEquals(1, list.size());
-		assertEquals("value", list.getCSSValue("name")); //$NON-NLS-1$ //$NON-NLS-2$
+		assertEquals("value", list.getCSSValue("name"));
 		assertNull(list.getCSSValue(null));
-		assertNull(list.getCSSValue("")); //$NON-NLS-1$
-		assertNull(list.getCSSValue("test")); //$NON-NLS-1$
+		assertNull(list.getCSSValue(""));
+		assertNull(list.getCSSValue("test"));
 		list.clear();
 	}
 
@@ -44,13 +44,13 @@ public class TestCSSStyleList {
 		list.clear();
 		list.addCSSStyle(null, null);
 		assertEquals(0, list.size());
-		list.addCSSStyle("", null); //$NON-NLS-1$
+		list.addCSSStyle("", null);
 		assertEquals(0, list.size());
-		list.addCSSStyle(null, ""); //$NON-NLS-1$
+		list.addCSSStyle(null, "");
 		assertEquals(0, list.size());
-		list.addCSSStyle("name", "value"); //$NON-NLS-1$ //$NON-NLS-2$
+		list.addCSSStyle("name", "value");
 		assertEquals(1, list.size());
-		assertEquals("value", list.getCSSValue("name")); //$NON-NLS-1$ //$NON-NLS-2$
+		assertEquals("value", list.getCSSValue("name"));
 		list.clear();
 	}
 }

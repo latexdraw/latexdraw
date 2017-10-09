@@ -15,7 +15,6 @@ public class TestPSPlotXCommand extends TestPSCommand<PSPlotXVariable> {
 	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		cmd.execute(dequeue, 0.0);
 		assertEquals(0.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -23,7 +22,6 @@ public class TestPSPlotXCommand extends TestPSCommand<PSPlotXVariable> {
 	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		cmd.execute(dequeue, -10.0);
 		assertEquals(-10.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -31,7 +29,6 @@ public class TestPSPlotXCommand extends TestPSCommand<PSPlotXVariable> {
 	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		cmd.execute(dequeue, 10.0);
 		assertEquals(10.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override

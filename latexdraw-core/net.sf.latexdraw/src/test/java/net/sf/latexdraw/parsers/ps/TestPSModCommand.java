@@ -32,7 +32,6 @@ public class TestPSModCommand extends TestPSCommand<PSModCommand> {
 		dequeue.push(2.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(-1.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -42,7 +41,6 @@ public class TestPSModCommand extends TestPSCommand<PSModCommand> {
 		dequeue.push(2.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(1.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override

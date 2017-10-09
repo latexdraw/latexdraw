@@ -29,14 +29,14 @@ public class TestSVGNodeList {
 	public void testGetLength() {
 		list.getNodes().clear();
 		assertEquals(0, list.getLength());
-		list.getNodes().add((SVGElement)doc.createElement("elt")); //$NON-NLS-1$
+		list.getNodes().add((SVGElement)doc.createElement("elt"));
 		assertEquals(1, list.getLength());
 		list.getNodes().clear();
 	}
 
 	@Test
 	public void testItem() {
-		SVGElement elt = (SVGElement)doc.createElement("elt"); //$NON-NLS-1$
+		SVGElement elt = (SVGElement)doc.createElement("elt");
 
 		list.getNodes().clear();
 		assertNull(list.item(0));

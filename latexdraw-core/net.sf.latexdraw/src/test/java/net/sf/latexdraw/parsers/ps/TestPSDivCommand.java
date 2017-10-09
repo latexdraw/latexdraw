@@ -32,7 +32,6 @@ public class TestPSDivCommand extends TestPSCommand<PSDivCommand> {
 		dequeue.push(-20.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(0.5, dequeue.peek(), 0.000001);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Test
@@ -41,7 +40,6 @@ public class TestPSDivCommand extends TestPSCommand<PSDivCommand> {
 		dequeue.push(20.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(-0.5, dequeue.peek(), 0.000001);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -51,7 +49,6 @@ public class TestPSDivCommand extends TestPSCommand<PSDivCommand> {
 		dequeue.push(10.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(2.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override

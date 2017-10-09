@@ -1,244 +1,147 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
 import java.text.ParseException;
+import net.sf.latexdraw.data.StringData;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
+@RunWith(Theories.class)
 public class TestSVGLengthParser {
-	@SuppressWarnings("unused")
-	@Test
-	public void testParseLength() throws ParseException {
-		SVGLengthParser p;
-		SVGLength l;
+	@Rule public ExpectedException exceptionGrabber = ExpectedException.none();
 
-		try {
-			new SVGLengthParser(null);
-			fail();
-		}catch(IllegalArgumentException e) {
-			/* */ }
-
-		try {
-			p = new SVGLengthParser(""); //$NON-NLS-1$
-			l = p.parseLength();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
-
-		try {
-			p = new SVGLengthParser("1m"); //$NON-NLS-1$
-			l = p.parseLength();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
-
-		try {
-			p = new SVGLengthParser("m"); //$NON-NLS-1$
-			l = p.parseLength();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
-
-		try {
-			p = new SVGLengthParser("1p"); //$NON-NLS-1$
-			l = p.parseLength();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
-
-		try {
-			p = new SVGLengthParser("1e1i"); //$NON-NLS-1$
-			l = p.parseLength();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
-
-		try {
-			p = new SVGLengthParser("1ci"); //$NON-NLS-1$
-			l = p.parseLength();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
-
-		try {
-			p = new SVGLengthParser("1 c "); //$NON-NLS-1$
-			l = p.parseLength();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
-
-		p = new SVGLengthParser("1mm"); //$NON-NLS-1$
-		l = p.parseLength();
-
-		assertEquals(l.getValueAsString(), "1"); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1, SVGLength.LengthType.MM), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("0.65 cm"); //$NON-NLS-1$
-		l = p.parseLength();
-
-		assertEquals(l.getValueAsString(), "0.65"); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(0.65, SVGLength.LengthType.CM), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("\t -10.65  \t \n pc"); //$NON-NLS-1$
-		l = p.parseLength();
-
-		assertEquals(l.getValueAsString(), "-10.65"); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65, SVGLength.LengthType.PC), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("\t -10.65e2  \t \n px \t   "); //$NON-NLS-1$
-		l = p.parseLength();
-
-		assertEquals(l.getValueAsString(), "-10.65e2"); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65e2, SVGLength.LengthType.PX), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("\t -10.65e0pt \t   "); //$NON-NLS-1$
-		l = p.parseLength();
-
-		assertEquals(l.getValueAsString(), "-10.65e0"); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65e0, SVGLength.LengthType.PT), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("\t -1.in \t   "); //$NON-NLS-1$
-		l = p.parseLength();
-
-		assertEquals(l.getValueAsString(), "-1."); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-1., SVGLength.LengthType.IN), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("-1."); //$NON-NLS-1$
-		l = p.parseLength();
-
-		assertEquals(l.getValueAsString(), "-1."); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-1., SVGLength.LengthType.NUMBER), l.getValue(), 0.001);
+	@Theory
+	public void testParseLengthKO(@StringData(vals = {"", "1m", "m", "1p", "1e1i", "1ci", "1 c "}) final String data) throws ParseException {
+		exceptionGrabber.expect(ParseException.class);
+		new SVGLengthParser(data).parseLength();
 	}
 
 	@Test
-	public void testParseNumberOrPercent() throws ParseException {
-		SVGLengthParser p;
-		SVGLength l;
+	public void testParseLengthNULL() {
+		exceptionGrabber.expect(IllegalArgumentException.class);
+		new SVGLengthParser(null);
+	}
 
-		p = new SVGLengthParser("1mm"); //$NON-NLS-1$
-		l = p.parseNumberOrPercent();
+	@Test
+	public void testParseLengthOKMM() throws ParseException {
+		final SVGLength length = new SVGLengthParser("0.65mm").parseLength();
+		assertEquals(length.getValueAsString(), "0.65");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(0.65, SVGLength.LengthType.MM), length.getValue(), 0.001);
+	}
 
-		assertEquals(l.getValueAsString(), "1"); //$NON-NLS-1$
+	@Test
+	public void testParseLengthOKSpace() throws ParseException {
+		final SVGLength length = new SVGLengthParser("\t -10.65  \t \n pc").parseLength();
+		assertEquals(length.getValueAsString(), "-10.65");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65, SVGLength.LengthType.PC), length.getValue(), 0.001);
+	}
+
+	@Test
+	public void testParseLengthOKpower() throws ParseException {
+		final SVGLength length = new SVGLengthParser("-10.65e2 px").parseLength();
+		assertEquals(length.getValueAsString(), "-10.65e2");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65e2, SVGLength.LengthType.PX), length.getValue(), 0.001);
+	}
+
+	@Test
+	public void testParseLengthOKpt() throws ParseException {
+		final SVGLength length = new SVGLengthParser("-10.65e0pt").parseLength();
+		assertEquals(length.getValueAsString(), "-10.65e0");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65e0, SVGLength.LengthType.PT), length.getValue(), 0.001);
+	}
+
+	@Test
+	public void testParseLengthOKin() throws ParseException {
+		final SVGLength length = new SVGLengthParser("-1.in").parseLength();
+		assertEquals(length.getValueAsString(), "-1.");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-1., SVGLength.LengthType.IN), length.getValue(), 0.001);
+	}
+
+	@Test
+	public void testParseLengthOKDouble() throws ParseException {
+		final SVGLength length = new SVGLengthParser("-1.").parseLength();
+		assertEquals(length.getValueAsString(), "-1.");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-1., SVGLength.LengthType.NUMBER), length.getValue(), 0.001);
+	}
+
+	@Test
+	public void testParseNumberOrPercentmm() throws ParseException {
+		SVGLength l = new SVGLengthParser("1mm").parseNumberOrPercent();
+		assertEquals(l.getValueAsString(), "1");
 		assertEquals(l.getLengthType(), SVGLength.LengthType.NUMBER);
 		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1, SVGLength.LengthType.NUMBER), l.getValue(), 0.001);
+	}
 
-		p = new SVGLengthParser("0.876"); //$NON-NLS-1$
-		l = p.parseNumberOrPercent();
-
-		assertEquals(l.getValueAsString(), "0.876"); //$NON-NLS-1$
+	@Test
+	public void testParseNumberOrPercentdouble() throws ParseException {
+		SVGLength l = new SVGLengthParser("0.876").parseNumberOrPercent();
+		assertEquals(l.getValueAsString(), "0.876");
 		assertEquals(l.getLengthType(), SVGLength.LengthType.NUMBER);
 		assertEquals(UnitProcessor.INSTANCE.toUserUnit(0.876, SVGLength.LengthType.NUMBER), l.getValue(), 0.001);
 	}
 
+	@Theory
+	public void testParseCoordinate(@StringData(vals = {"", "1m", "m", "1p", "1e1i", "1ci", "1 c "}) final String data) throws ParseException {
+		exceptionGrabber.expect(ParseException.class);
+		new SVGLengthParser(data).parseCoordinate();
+	}
+
 	@Test
-	public void testParseCoordinate() throws ParseException {
-		SVGLengthParser p;
-		SVGLength l;
+	public void testParseCoordinateOKMM() throws ParseException {
+		final SVGLength length = new SVGLengthParser("0.65mm").parseCoordinate();
+		assertEquals(length.getValueAsString(), "0.65");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(0.65, SVGLength.LengthType.MM), length.getValue(), 0.001);
+	}
 
-		try {
-			p = new SVGLengthParser(""); //$NON-NLS-1$
-			l = p.parseCoordinate();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
+	@Test
+	public void testParseCoordinateOKSpace() throws ParseException {
+		final SVGLength length = new SVGLengthParser("\t -10.65  \t \n pc").parseCoordinate();
+		assertEquals(length.getValueAsString(), "-10.65");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65, SVGLength.LengthType.PC), length.getValue(), 0.001);
+	}
 
-		try {
-			p = new SVGLengthParser("1m"); //$NON-NLS-1$
-			l = p.parseCoordinate();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
+	@Test
+	public void testParseCoordinateOKpower() throws ParseException {
+		final SVGLength length = new SVGLengthParser("-10.65e2 px").parseCoordinate();
+		assertEquals(length.getValueAsString(), "-10.65e2");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65e2, SVGLength.LengthType.PX), length.getValue(), 0.001);
+	}
 
-		try {
-			p = new SVGLengthParser("m"); //$NON-NLS-1$
-			l = p.parseCoordinate();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
+	@Test
+	public void testParseCoordinateOKpt() throws ParseException {
+		final SVGLength length = new SVGLengthParser("-10.65e0pt").parseCoordinate();
+		assertEquals(length.getValueAsString(), "-10.65e0");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65e0, SVGLength.LengthType.PT), length.getValue(), 0.001);
+	}
 
-		try {
-			p = new SVGLengthParser("1p"); //$NON-NLS-1$
-			l = p.parseCoordinate();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
+	@Test
+	public void testParseCoordinateOKin() throws ParseException {
+		final SVGLength length = new SVGLengthParser("-1.in").parseCoordinate();
+		assertEquals(length.getValueAsString(), "-1.");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-1., SVGLength.LengthType.IN), length.getValue(), 0.001);
+	}
 
-		try {
-			p = new SVGLengthParser("1e1i"); //$NON-NLS-1$
-			l = p.parseCoordinate();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
-
-		try {
-			p = new SVGLengthParser("1ci"); //$NON-NLS-1$
-			l = p.parseCoordinate();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
-
-		try {
-			p = new SVGLengthParser("1 c "); //$NON-NLS-1$
-			l = p.parseCoordinate();
-			fail();
-		}catch(ParseException e) {
-			/* */ }
-
-		p = new SVGLengthParser("1mm"); //$NON-NLS-1$
-		l = p.parseCoordinate();
-
-		assertEquals(l.getValueAsString(), "1"); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1, SVGLength.LengthType.MM), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("0.65 cm"); //$NON-NLS-1$
-		l = p.parseCoordinate();
-
-		assertEquals(l.getValueAsString(), "0.65"); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(0.65, SVGLength.LengthType.CM), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("\t -10.65  \t \n pc"); //$NON-NLS-1$
-		l = p.parseCoordinate();
-
-		assertEquals(l.getValueAsString(), "-10.65"); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65, SVGLength.LengthType.PC), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("\t -10.65e2  \t \n px \t   "); //$NON-NLS-1$
-		l = p.parseCoordinate();
-
-		assertEquals(l.getValueAsString(), "-10.65e2"); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65e2, SVGLength.LengthType.PX), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("\t -10.65e0pt \t   "); //$NON-NLS-1$
-		l = p.parseCoordinate();
-
-		assertEquals(l.getValueAsString(), "-10.65e0"); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-10.65e0, SVGLength.LengthType.PT), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("\t -1.in \t   "); //$NON-NLS-1$
-		l = p.parseCoordinate();
-
-		assertEquals(l.getValueAsString(), "-1."); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-1., SVGLength.LengthType.IN), l.getValue(), 0.001);
-
-		p = new SVGLengthParser("-1."); //$NON-NLS-1$
-		l = p.parseCoordinate();
-
-		assertEquals(l.getValueAsString(), "-1."); //$NON-NLS-1$
-		assertEquals(l.getLengthType(), SVGLength.LengthType.PX);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-1., SVGLength.LengthType.NUMBER), l.getValue(), 0.001);
+	@Test
+	public void testParseCoordinateOKDouble() throws ParseException {
+		final SVGLength length = new SVGLengthParser("-1.").parseCoordinate();
+		assertEquals(length.getValueAsString(), "-1.");
+		assertEquals(length.getLengthType(), SVGLength.LengthType.PX);
+		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-1., SVGLength.LengthType.NUMBER), length.getValue(), 0.001);
 	}
 }

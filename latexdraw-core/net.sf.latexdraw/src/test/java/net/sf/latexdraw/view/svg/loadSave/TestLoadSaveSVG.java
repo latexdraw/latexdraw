@@ -62,7 +62,7 @@ public abstract class TestLoadSaveSVG<T extends IShape> {
 
 		root.appendChild(defs);
 		root.appendChild(g);
-		root.setAttribute("xmlns:" + LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);//$NON-NLS-1$
+		root.setAttribute("xmlns:" + LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);
 
 		for(final IShape sh : shapes)
 			if(sh != null) {
@@ -74,8 +74,8 @@ public abstract class TestLoadSaveSVG<T extends IShape> {
 			}
 
 		// Setting SVG attributes to the created document.
-		root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");//$NON-NLS-1$
-//		root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");//$NON-NLS-1$
+		root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");
+//		root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");
 
 		return doc;
 	}

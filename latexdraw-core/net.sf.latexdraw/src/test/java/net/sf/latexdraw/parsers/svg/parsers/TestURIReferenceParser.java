@@ -15,35 +15,35 @@ public class TestURIReferenceParser {
 		}catch(IllegalArgumentException e) {
 			/* */ }
 
-		new URIReferenceParser("test"); //$NON-NLS-1$
+		new URIReferenceParser("test");
 	}
 
 	@Test
 	public void testGetURI() {
-		URIReferenceParser p = new URIReferenceParser("url(#id)"); //$NON-NLS-1$
+		URIReferenceParser p = new URIReferenceParser("url(#id)");
 
-		assertEquals(p.getURI(), "id"); //$NON-NLS-1$
-		p.setCode(""); //$NON-NLS-1$
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
-		p.setCode("url(#id"); //$NON-NLS-1$
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
-		p.setCode("url#id)"); //$NON-NLS-1$
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
-		p.setCode("url(id)"); //$NON-NLS-1$
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
+		assertEquals(p.getURI(), "id");
+		p.setCode("");
+		assertEquals(p.getURI(), "");
+		p.setCode("url(#id");
+		assertEquals(p.getURI(), "");
+		p.setCode("url#id)");
+		assertEquals(p.getURI(), "");
+		p.setCode("url(id)");
+		assertEquals(p.getURI(), "");
 		p.setCode(null);
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
-		p.setCode("u"); //$NON-NLS-1$
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
-		p.setCode("ur"); //$NON-NLS-1$
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
-		p.setCode("url"); //$NON-NLS-1$
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
-		p.setCode("url("); //$NON-NLS-1$
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
-		p.setCode("url()"); //$NON-NLS-1$
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
-		p.setCode("url(#)"); //$NON-NLS-1$
-		assertEquals(p.getURI(), ""); //$NON-NLS-1$
+		assertEquals(p.getURI(), "");
+		p.setCode("u");
+		assertEquals(p.getURI(), "");
+		p.setCode("ur");
+		assertEquals(p.getURI(), "");
+		p.setCode("url");
+		assertEquals(p.getURI(), "");
+		p.setCode("url(");
+		assertEquals(p.getURI(), "");
+		p.setCode("url()");
+		assertEquals(p.getURI(), "");
+		p.setCode("url(#)");
+		assertEquals(p.getURI(), "");
 	}
 }

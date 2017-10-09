@@ -38,79 +38,79 @@ public class TestSVGCircleElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
 	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail3() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_R, "dsd"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_R, "dsd");
 		new SVGCircleElement(node, null);
 	}
 
 	@SuppressWarnings("unused")
 	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail4() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_R, "-1"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_R, "-1");
 		new SVGCircleElement(node, null);
 	}
 
 	@SuppressWarnings("unused")
 	@Test
 	public void testContructorOK() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_R, "10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_R, "10");
 		new SVGCircleElement(node, null);
 	}
 
 	@Test
 	public void testGetCy() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_R, "10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_R, "10");
 		SVGCircleElement e = new SVGCircleElement(node, null);
 		assertEquals(e.getCy(), 0., 0.0001);
 
-		node.setAttribute(SVGAttributes.SVG_CY, "40"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_CY, "40");
 		e = new SVGCircleElement(node, null);
 		assertEquals(e.getCy(), 40., 0.0001);
 
-		node.setAttribute(SVGAttributes.SVG_CY, "40px "); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_CY, "40px ");
 		e = new SVGCircleElement(node, null);
 		assertEquals(e.getCy(), 40., 0.0001);
 
-		node.setAttribute(SVGAttributes.SVG_CY, " 40 cm "); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_CY, " 40 cm ");
 		e = new SVGCircleElement(node, null);
 		assertEquals(e.getCy(), UnitProcessor.INSTANCE.toUserUnit(40, SVGLength.LengthType.CM), 0.0001);
 	}
 
 	@Test
 	public void testGetCx() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_R, "10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_R, "10");
 		SVGCircleElement e = new SVGCircleElement(node, null);
 		assertEquals(e.getCx(), 0., 0.0001);
 
-		node.setAttribute(SVGAttributes.SVG_CX, "76.987"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_CX, "76.987");
 		e = new SVGCircleElement(node, null);
 		assertEquals(e.getCx(), 76.987, 0.0001);
 
-		node.setAttribute(SVGAttributes.SVG_CX, "40px "); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_CX, "40px ");
 		e = new SVGCircleElement(node, null);
 		assertEquals(e.getCx(), 40., 0.0001);
 
-		node.setAttribute(SVGAttributes.SVG_CX, " 30.5 mm "); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_CX, " 30.5 mm ");
 		e = new SVGCircleElement(node, null);
 		assertEquals(e.getCx(), UnitProcessor.INSTANCE.toUserUnit(30.5, SVGLength.LengthType.MM), 0.0001);
 	}
 
 	@Test
 	public void testEnableRendering() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_R, "0"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_R, "0");
 		SVGCircleElement e = new SVGCircleElement(node, null);
 		assertFalse(e.enableRendering());
 
-		node.setAttribute(SVGAttributes.SVG_R, "10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_R, "10");
 		e = new SVGCircleElement(node, null);
 		assertTrue(e.enableRendering());
 	}
 
 	@Test
 	public void testGetR() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_R, "20"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_R, "20");
 		SVGCircleElement e = new SVGCircleElement(node, null);
 		assertEquals(e.getR(), 20., 0.0001);
-		node.setAttribute(SVGAttributes.SVG_R, "20 pt"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_R, "20 pt");
 		e = new SVGCircleElement(node, null);
 		assertEquals(e.getR(), UnitProcessor.INSTANCE.toUserUnit(20, SVGLength.LengthType.PT), 0.0001);
 	}

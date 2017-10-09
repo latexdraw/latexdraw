@@ -25,7 +25,7 @@ public class TestSVGPathSegCurvetoCubic implements SVGPathHandler {
 	@Test
 	public void testToString() throws ParseException {
 		SVGPathSegMoveto m = new SVGPathSegMoveto(0, 0, false);
-		SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), this); //$NON-NLS-1$
+		SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), this);
 
 		parser.parse();
 	}

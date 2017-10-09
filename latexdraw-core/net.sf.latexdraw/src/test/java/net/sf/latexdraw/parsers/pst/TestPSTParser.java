@@ -28,8 +28,8 @@ public abstract class TestPSTParser {
 			}
 
 			@Override
-			public void enterUnkownParamSetting(final net.sf.latexdraw.parsers.pst.PSTParser.UnkownParamSettingContext ctx) {
-				super.enterUnkownParamSetting(ctx);
+			public void enterUnknownParamSetting(final net.sf.latexdraw.parsers.pst.PSTParser.UnknownParamSettingContext ctx) {
+				super.enterUnknownParamSetting(ctx);
 				fail(ctx.name.getText());
 			}
 		};

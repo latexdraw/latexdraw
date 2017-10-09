@@ -15,7 +15,6 @@ public class TestPSCountCommand extends TestPSCommand<PSCountCommand> {
 	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		cmd.execute(dequeue, 0.0);
 		assertEquals(0.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -24,7 +23,6 @@ public class TestPSCountCommand extends TestPSCommand<PSCountCommand> {
 		dequeue.push(-10.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(1.0, dequeue.peek(), 0.0);
-		assertEquals(2, dequeue.size());
 	}
 
 	@Override

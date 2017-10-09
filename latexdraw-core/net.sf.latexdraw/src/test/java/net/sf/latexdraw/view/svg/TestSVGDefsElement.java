@@ -28,9 +28,9 @@ public class TestSVGDefsElement extends AbstractTestSVGElement {
 		defs.appendChild(mark);
 
 		assertNull(defs.getDef(null));
-		assertNull(defs.getDef("")); //$NON-NLS-1$
-		assertNull(defs.getDef("dsqd")); //$NON-NLS-1$
-		assertEquals(mark, defs.getDef("id")); //$NON-NLS-1$
+		assertNull(defs.getDef(""));
+		assertNull(defs.getDef("dsqd"));
+		assertEquals(mark, defs.getDef("id"));
 	}
 
 	@SuppressWarnings("unused")

@@ -20,7 +20,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 
 	@Override
 	public String getPathSVGFile() {
-		return "src/test/resources/testLoad/malanBinding.svg"; //$NON-NLS-1$
+		return "src/test/resources/testLoad/malanBinding.svg";
 	}
 
 	@Test
@@ -76,7 +76,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertTrue(group.getShapeAt(3) instanceof IText);
 		IText txt = (IText)group.getShapeAt(3);
 		assertEquals(DviPsColors.BLACK, txt.getLineColour());
-		assertEquals("\\emph{\\textbf{\\scriptsize{Correspondance de schémas}}}", txt.getText()); //$NON-NLS-1$
+		assertEquals("\\emph{\\textbf{\\scriptsize{Correspondance de schémas}}}", txt.getText());
 		assertEquals(210.585929, txt.getPosition().getX(), 0.00001);
 		assertEquals(61.859375, txt.getPosition().getY(), 0.00001);
 		assertEquals(TextPosition.BOT_LEFT, txt.getTextPosition());

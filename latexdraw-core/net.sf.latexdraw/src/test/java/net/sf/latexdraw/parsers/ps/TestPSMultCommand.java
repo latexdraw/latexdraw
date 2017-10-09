@@ -17,7 +17,6 @@ public class TestPSMultCommand extends TestPSCommand<PSMulCommand> {
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(0.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Test
@@ -26,7 +25,6 @@ public class TestPSMultCommand extends TestPSCommand<PSMulCommand> {
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(0.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -36,7 +34,6 @@ public class TestPSMultCommand extends TestPSCommand<PSMulCommand> {
 		dequeue.push(-20.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(200.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Test
@@ -45,7 +42,6 @@ public class TestPSMultCommand extends TestPSCommand<PSMulCommand> {
 		dequeue.push(-20.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(-200.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -55,7 +51,6 @@ public class TestPSMultCommand extends TestPSCommand<PSMulCommand> {
 		dequeue.push(5.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(50.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override

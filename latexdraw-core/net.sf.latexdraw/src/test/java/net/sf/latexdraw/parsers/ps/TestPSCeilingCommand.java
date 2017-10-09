@@ -16,7 +16,6 @@ public class TestPSCeilingCommand extends TestPSCommand<PSCeilingCommand> {
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(0.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -25,7 +24,6 @@ public class TestPSCeilingCommand extends TestPSCommand<PSCeilingCommand> {
 		dequeue.push(-11.2);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(Math.ceil(-11.2), dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -34,7 +32,6 @@ public class TestPSCeilingCommand extends TestPSCommand<PSCeilingCommand> {
 		dequeue.push(11.2);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(Math.ceil(11.2), dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override

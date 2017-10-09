@@ -16,7 +16,6 @@ public class TestPSSinCommand extends TestPSCommand<PSSinCommand> {
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(Math.sin(0.0), dequeue.peek(), 0.00001);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -25,7 +24,6 @@ public class TestPSSinCommand extends TestPSCommand<PSSinCommand> {
 		dequeue.push(-10.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(Math.sin(Math.toRadians(-10.0)), dequeue.peek(), 0.00001);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -34,7 +32,6 @@ public class TestPSSinCommand extends TestPSCommand<PSSinCommand> {
 		dequeue.push(10.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(Math.sin(Math.toRadians(10.0)), dequeue.peek(), 0.00001);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override

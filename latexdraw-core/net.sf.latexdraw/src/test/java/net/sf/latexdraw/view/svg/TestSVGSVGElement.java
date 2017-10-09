@@ -42,7 +42,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		assertNull(e.getMeta());
 
 		n = document.createElement(SVGElements.SVG_SVG);
-		n.setAttribute("xmlns", SVGDocument.SVG_NAMESPACE); //$NON-NLS-1$
+		n.setAttribute("xmlns", SVGDocument.SVG_NAMESPACE);
 		elt = document.createElement(SVGElements.SVG_DEFS);
 		n.appendChild(elt);
 		e = new SVGSVGElement(n, null);
@@ -60,7 +60,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		assertNull(e.getMeta());
 
 		n = document.createElement(SVGElements.SVG_SVG);
-		n.setAttribute("xmlns", SVGDocument.SVG_NAMESPACE); //$NON-NLS-1$
+		n.setAttribute("xmlns", SVGDocument.SVG_NAMESPACE);
 		elt = document.createElement(SVGElements.SVG_METADATA);
 		n.appendChild(elt);
 		e = new SVGSVGElement(n, null);
@@ -69,7 +69,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testGetHeight() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_HEIGHT, "200"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "200");
 		SVGSVGElement e = new SVGSVGElement(node, null);
 		assertEquals(e.getHeight(), 200., 0.0001);
 	}
@@ -79,17 +79,17 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		SVGSVGElement e = new SVGSVGElement(node, null);
 		assertTrue(e.enableRendering());
 
-		node.setAttribute(SVGAttributes.SVG_WIDTH, "0"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "0");
 		e = new SVGSVGElement(node, null);
 		assertFalse(e.enableRendering());
 
-		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
-		node.setAttribute(SVGAttributes.SVG_HEIGHT, "0"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "0");
 		e = new SVGSVGElement(node, null);
 		assertFalse(e.enableRendering());
 
-		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
-		node.setAttribute(SVGAttributes.SVG_HEIGHT, "10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "10");
 		e = new SVGSVGElement(node, null);
 		assertTrue(e.enableRendering());
 	}
@@ -99,7 +99,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		SVGSVGElement e = new SVGSVGElement(node, null);
 		assertEquals(e.getY(), 0., 0.0001);
 
-		node.setAttribute(SVGAttributes.SVG_Y, "-10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_Y, "-10");
 		e = new SVGSVGElement(node, null);
 		assertEquals(e.getY(), -10., 0.0001);
 	}
@@ -109,23 +109,23 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		SVGSVGElement e = new SVGSVGElement(node, null);
 		assertEquals(e.getX(), 0., 0.0001);
 
-		node.setAttribute(SVGAttributes.SVG_X, "10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_X, "10");
 		e = new SVGSVGElement(node, null);
 		assertEquals(e.getX(), 10., 0.0001);
 	}
 
 	@Test
 	public void testGetWidth() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_WIDTH, "100"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "100");
 		SVGSVGElement e = new SVGSVGElement(node, null);
 		assertEquals(e.getWidth(), 100., 0.0001);
 	}
 
 	@Test
 	public void testVersion() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_VERSION, "1.1"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_VERSION, "1.1");
 		SVGSVGElement e = new SVGSVGElement(node, null);
-		assertEquals(e.getVersion(), "1.1"); //$NON-NLS-1$
+		assertEquals(e.getVersion(), "1.1");
 	}
 
 	@Override

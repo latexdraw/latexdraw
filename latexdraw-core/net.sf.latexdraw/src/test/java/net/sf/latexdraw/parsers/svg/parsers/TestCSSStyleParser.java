@@ -9,85 +9,60 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandler {
-	protected String name;
-
-	protected String value;
+	String name;
+	String value;
 
 	@Before
 	public void setUp() {
-		parser = new CSSStyleParser("", this); //$NON-NLS-1$
-		parser2 = new CSSStyleParser("", this); //$NON-NLS-1$
+		parser = new CSSStyleParser("", this);
+		parser2 = new CSSStyleParser("", this);
 	}
 
 	@Test
 	@Override
 	public void testParse() throws ParseException {
-		name = null;
-		value = null;
-		parser.setCode(""); //$NON-NLS-1$
+		parser.setCode("stroke\t \n/**/ :\n\r \t red/* fldijfsd */ ;\nstroke-width : 2cm");
+		parser.parse();
+		assertEquals(name, "stroke-width");
+		assertEquals(value, "2cm");
+	}
+
+	@Test
+	public void testParseEmpty() throws ParseException {
+		parser.setCode("");
 		parser.parse();
 		assertNull(name);
 		assertNull(value);
-		name = null;
-		value = null;
-		parser.setCode("\t \n/**/ \n\r \t /* fldijfsd */ \n"); //$NON-NLS-1$
+	}
+
+	@Test
+	public void testParseKO() throws ParseException {
+		parser.setCode("\t \n/**/ \n\r \t /* fldijfsd */ \n");
 		parser.parse();
 		assertNull(name);
 		assertNull(value);
-		parser.setCode("stroke\t \n/**/ :\n\r \t red/* fldijfsd */ \n"); //$NON-NLS-1$
-		parser.parse();
-		assertEquals(name, "stroke"); //$NON-NLS-1$
-		assertEquals(value, "red"); //$NON-NLS-1$
-		parser.setCode("stroke\t \n/**/ :\n\r \t red/* fldijfsd */ ;\nstroke-width : 2cm"); //$NON-NLS-1$
-		parser.parse();
-		assertEquals(name, "stroke-width"); //$NON-NLS-1$
-		assertEquals(value, "2cm"); //$NON-NLS-1$
 	}
 
 	@Test
 	@Override
 	public void testSkipComment() throws ParseException {
-		parser.setCode("fill:/*test*/green"); //$NON-NLS-1$
+		parser.setCode("fill:/*test*/green");
 		parser.parse();
-		assertEquals(name, "fill"); //$NON-NLS-1$
-		assertEquals(value, "green"); //$NON-NLS-1$
-		parser.setCode(" /* fksduh fdssd \n \t fdsf d */ stroke : blue"); //$NON-NLS-1$
-		parser.parse();
-		assertEquals(name, "stroke"); //$NON-NLS-1$
-		assertEquals(value, "blue"); //$NON-NLS-1$
-		parser.setCode("fill:green /* fkdhf fss */  "); //$NON-NLS-1$
-		parser.parse();
-		assertEquals(name, "fill"); //$NON-NLS-1$
-		assertEquals(value, "green"); //$NON-NLS-1$
-		parser.setCode("stroke: /**/ blue   "); //$NON-NLS-1$
-		parser.parse();
-		assertEquals(name, "stroke"); //$NON-NLS-1$
-		assertEquals(value, "blue"); //$NON-NLS-1$
-		parser.setCode("stroke:/**/blue;"); //$NON-NLS-1$
-		parser.parse();
-		assertEquals(name, "stroke"); //$NON-NLS-1$
-		assertEquals(value, "blue"); //$NON-NLS-1$
-		parser.setCode("fill:green /* fkdhf fss */;/*f*/stroke/*fds fsd*/:/**/blue/*fgdds */"); //$NON-NLS-1$
-		parser.parse();
-		assertEquals(name, "stroke"); //$NON-NLS-1$
-		assertEquals(value, "blue"); //$NON-NLS-1$
+		assertEquals(name, "fill");
+		assertEquals(value, "green");
 	}
 
 	@Test
 	@Override
 	public void testSkipWSP() throws ParseException {
-		parser.setCode("fill:green ;stroke:blue"); //$NON-NLS-1$
+		parser.setCode(" \n \t \r stroke\t\n \r: \r \t\n blue \r\t \n \t ;\t\t\n\r fill\t\r :\n green \r \t ");
 		parser.parse();
-		assertEquals(name, "stroke"); //$NON-NLS-1$
-		assertEquals(value, "blue"); //$NON-NLS-1$
-		parser.setCode(" \n \t \r stroke\t\n \r: \r \t\n blue \r\t \n \t ;\t\t\n\r fill\t\r :\n green \r \t "); //$NON-NLS-1$
-		parser.parse();
-		assertEquals(name, "fill"); //$NON-NLS-1$
-		assertEquals(value, "green"); //$NON-NLS-1$
+		assertEquals(name, "fill");
+		assertEquals(value, "green");
 	}
 
 	@Override
-	public void onCSSStyle(String n, String v) {
+	public void onCSSStyle(final String n, final String v) {
 		name = n;
 		value = v;
 	}

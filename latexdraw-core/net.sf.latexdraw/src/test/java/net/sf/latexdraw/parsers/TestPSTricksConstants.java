@@ -8,9 +8,17 @@ import static org.junit.Assert.assertTrue;
 
 public class TestPSTricksConstants {
 	@Test
-	public void testIsValidArrowStyle() {
+	public void testIsValidArrowStyleNULL() {
 		assertFalse(PSTricksConstants.isValidFillStyle(null));
-		assertFalse(PSTricksConstants.isValidFillStyle("coucou!!")); //$NON-NLS-1$
+	}
+
+	@Test
+	public void testIsValidArrowStyleKO() {
+		assertFalse(PSTricksConstants.isValidFillStyle("notanarrow"));
+	}
+
+	@Test
+	public void testIsValidArrowStyle() {
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_CROSSHATCH));
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_CROSSHATCH_F));
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_GRADIENT));

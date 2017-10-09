@@ -14,7 +14,7 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 
 	@Override
 	public String getPathSVGFile() {
-		return "src/test/resources/testLoad/testLine.svg"; //$NON-NLS-1$
+		return "src/test/resources/testLoad/testLine.svg";
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 	public void testShadow() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasShadow());
-		assertEquals(DviPsColors.INSTANCE.convertHTML2rgb("#e9e937"), line.getShadowCol()); //$NON-NLS-1$
+		assertEquals(DviPsColors.INSTANCE.convertHTML2rgb("#e9e937"), line.getShadowCol());
 		assertEquals(90.0, Math.toDegrees(line.getShadowAngle()), 0.00001);
 		assertEquals(10.0, line.getShadowSize(), 0.0001);
 	}

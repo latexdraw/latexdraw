@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class TestSVGtestArrow extends TestLoadSVGFile {
 	@Override
 	public String getPathSVGFile() {
-		return "src/test/resources/testLoad/testArrow.svg"; //$NON-NLS-1$
+		return "src/test/resources/testLoad/testArrow.svg";
 	}
 
 	@Test

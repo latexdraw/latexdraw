@@ -16,7 +16,7 @@ public class TestSVGText {
 	@Before
 	public void setUp() {
 		doc = new SVGDocument();
-		txt = createSVGText("test", doc); //$NON-NLS-1$
+		txt = createSVGText("test", doc);
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -31,46 +31,46 @@ public class TestSVGText {
 
 	@Test
 	public void testConstructorOK1() {
-		txt = createSVGText("a", null); //$NON-NLS-1$
-		assertEquals("a", txt.getData()); //$NON-NLS-1$
+		txt = createSVGText("a", null);
+		assertEquals("a", txt.getData());
 		assertNull(txt.getOwnerDocument());
 	}
 
 	@Test
 	public void testConstructorOK2() {
-		assertEquals("test", txt.getData()); //$NON-NLS-1$
+		assertEquals("test", txt.getData());
 		assertEquals(txt.getOwnerDocument(), doc);
 	}
 
 	@Test
 	public void testGetNodeValue() {
-		assertEquals("test", txt.getNodeValue()); //$NON-NLS-1$
-		txt = createSVGText("", doc); //$NON-NLS-1$
-		assertEquals("", txt.getNodeValue()); //$NON-NLS-1$
+		assertEquals("test", txt.getNodeValue());
+		txt = createSVGText("", doc);
+		assertEquals("", txt.getNodeValue());
 	}
 
 	@Test
 	public void testAppendData() {
 		txt.appendData(null);
-		assertEquals("test", txt.getData()); //$NON-NLS-1$
-		txt.appendData("coucou"); //$NON-NLS-1$
-		assertEquals("testcoucou", txt.getData()); //$NON-NLS-1$
-		txt.appendData(""); //$NON-NLS-1$
-		assertEquals("testcoucou", txt.getData()); //$NON-NLS-1$
+		assertEquals("test", txt.getData());
+		txt.appendData("coucou");
+		assertEquals("testcoucou", txt.getData());
+		txt.appendData("");
+		assertEquals("testcoucou", txt.getData());
 	}
 
 	@Test
 	public void testGetData() {
-		assertEquals("test", txt.getData()); //$NON-NLS-1$
-		txt = createSVGText("", doc); //$NON-NLS-1$
-		assertEquals("", txt.getData()); //$NON-NLS-1$
+		assertEquals("test", txt.getData());
+		txt = createSVGText("", doc);
+		assertEquals("", txt.getData());
 	}
 
 	@Test
 	public void testGetLength() {
-		assertEquals("text".length(), txt.getLength()); //$NON-NLS-1$
-		txt = createSVGText("", doc); //$NON-NLS-1$
-		assertEquals("".length(), txt.getLength()); //$NON-NLS-1$
+		assertEquals("text".length(), txt.getLength());
+		txt = createSVGText("", doc);
+		assertEquals("".length(), txt.getLength());
 	}
 
 	@Test
@@ -80,10 +80,10 @@ public class TestSVGText {
 
 	@Test
 	public void testSetData() {
-		txt.setData(""); //$NON-NLS-1$
-		assertEquals(txt.getData(), ""); //$NON-NLS-1$
-		txt.setData("coucou"); //$NON-NLS-1$
-		assertEquals(txt.getData(), "coucou"); //$NON-NLS-1$
+		txt.setData("");
+		assertEquals(txt.getData(), "");
+		txt.setData("coucou");
+		assertEquals(txt.getData(), "coucou");
 	}
 
 	protected SVGText createSVGText(String str, SVGDocument document) {

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public abstract class TestPSCommand<T extends PSArithemticCommand> {
 	T cmd;
-	 Deque<Double> dequeue = new ArrayDeque<>();
+	Deque<Double> dequeue = new ArrayDeque<>();
 
 	@Before
 	public void setUp() throws Exception {

@@ -16,7 +16,7 @@ public class TestSVGStopElement extends AbstractTestSVGElement {
 	@Before
 	public void setUp() {
 		super.setUp();
-		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
 	}
 
 	@SuppressWarnings("unused")
@@ -28,7 +28,7 @@ public class TestSVGStopElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
 	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail3() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_OFFSET, "dsd"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_OFFSET, "dsd");
 		new SVGStopElement(node, null);
 	}
 
@@ -42,8 +42,8 @@ public class TestSVGStopElement extends AbstractTestSVGElement {
 	public void testGetStopColor1() throws MalformedSVGDocument {
 		SVGStopElement e = new SVGStopElement(node, null);
 		assertEquals(e.getStopColor(), DviPsColors.BLACK);
-		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5"); //$NON-NLS-1$
-		node.setAttribute(SVGAttributes.SVG_STOP_COLOR, "blue"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
+		node.setAttribute(SVGAttributes.SVG_STOP_COLOR, "blue");
 		e = new SVGStopElement(node, null);
 		assertEquals(e.getStopColor(), DviPsColors.BLUE);
 	}

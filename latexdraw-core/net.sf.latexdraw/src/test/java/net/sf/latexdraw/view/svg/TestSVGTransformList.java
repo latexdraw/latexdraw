@@ -19,10 +19,10 @@ public class TestSVGTransformList {
 		t = new SVGTransformList(null);
 		assertTrue(t.isEmpty());
 
-		t = new SVGTransformList(""); //$NON-NLS-1$
+		t = new SVGTransformList("");
 		assertTrue(t.isEmpty());
 
-		t = new SVGTransformList("translate(2,2)"); //$NON-NLS-1$
+		t = new SVGTransformList("translate(2,2)");
 		assertFalse(t.isEmpty());
 	}
 
@@ -33,76 +33,76 @@ public class TestSVGTransformList {
 		t.addTransformations(null);
 		assertTrue(t.isEmpty());
 
-		t.addTransformations(""); //$NON-NLS-1$
+		t.addTransformations("");
 		assertTrue(t.isEmpty());
 
-		t.addTransformations("dsqdsq"); //$NON-NLS-1$
+		t.addTransformations("dsqdsq");
 		assertTrue(t.isEmpty());
 
-		t.addTransformations("translate"); //$NON-NLS-1$
+		t.addTransformations("translate");
 		assertTrue(t.isEmpty());
 
-		t.addTransformations("translate(,)"); //$NON-NLS-1$
+		t.addTransformations("translate(,)");
 		assertTrue(t.isEmpty());
 
-		t.addTransformations("translate( )"); //$NON-NLS-1$
+		t.addTransformations("translate( )");
 		assertTrue(t.isEmpty());
 
-		t.addTransformations("scale( 3"); //$NON-NLS-1$
+		t.addTransformations("scale( 3");
 		assertTrue(t.isEmpty());
 
-		t.addTransformations("rotate(a)"); //$NON-NLS-1$
+		t.addTransformations("rotate(a)");
 		assertTrue(t.isEmpty());
 
-		t.addTransformations("rotate(1)"); //$NON-NLS-1$
+		t.addTransformations("rotate(1)");
 		assertFalse(t.isEmpty());
 		t.clear();
 
-		t.addTransformations("rotate(1 , 2 4)"); //$NON-NLS-1$
+		t.addTransformations("rotate(1 , 2 4)");
 		assertFalse(t.isEmpty());
 		t.clear();
 
-		t.addTransformations("skewY(	1)"); //$NON-NLS-1$
+		t.addTransformations("skewY(	1)");
 		assertFalse(t.isEmpty());
 		t.clear();
 
-		t.addTransformations("skewX(1)"); //$NON-NLS-1$
+		t.addTransformations("skewX(1)");
 		assertFalse(t.isEmpty());
 		t.clear();
 
-		t.addTransformations("scale(1 1)"); //$NON-NLS-1$
+		t.addTransformations("scale(1 1)");
 		assertFalse(t.isEmpty());
 		t.clear();
 
-		t.addTransformations("translate(1 ,1)"); //$NON-NLS-1$
+		t.addTransformations("translate(1 ,1)");
 		assertFalse(t.isEmpty());
 		t.clear();
 
-		t.addTransformations("translate(1 1) ,"); //$NON-NLS-1$
+		t.addTransformations("translate(1 1) ,");
 		assertFalse(t.isEmpty());
 		t.clear();
 
-		t.addTransformations("matrix(1 2 3)"); //$NON-NLS-1$
+		t.addTransformations("matrix(1 2 3)");
 		assertTrue(t.isEmpty());
 
-		t.addTransformations("matrix(1 2 3 ,4 ,5 ,6)"); //$NON-NLS-1$
+		t.addTransformations("matrix(1 2 3 ,4 ,5 ,6)");
 		assertFalse(t.isEmpty());
 		t.clear();
 
-		t.addTransformations("matrix(1 2 3 ,4 ,5 ,6) translate(2 2)"); //$NON-NLS-1$
+		t.addTransformations("matrix(1 2 3 ,4 ,5 ,6) translate(2 2)");
 		assertEquals(2, t.size());
 		t.clear();
 
-		t.addTransformations("rotate ( 2, 3 5), \n skewX( 2	\n)"); //$NON-NLS-1$
+		t.addTransformations("rotate ( 2, 3 5), \n skewX( 2	\n)");
 		assertEquals(2, t.size());
 		t.clear();
 
-		t.addTransformations("rotate ( 2, 3 5)scale( 2)"); //$NON-NLS-1$
+		t.addTransformations("rotate ( 2, 3 5)scale( 2)");
 		assertEquals(2, t.size());
 		t.clear();
 
-		t.addTransformations("rotate ( 2, 3 5), \n skewX( 2	\n)"); //$NON-NLS-1$
-		t.addTransformations("rotate ( 2, 3 5)scale( 2)"); //$NON-NLS-1$
+		t.addTransformations("rotate ( 2, 3 5), \n skewX( 2	\n)");
+		t.addTransformations("rotate ( 2, 3 5)scale( 2)");
 		assertEquals(4, t.size());
 	}
 
@@ -113,11 +113,11 @@ public class TestSVGTransformList {
 		Point2D pt2 = new Point2D.Double(3, 4);
 		Point2D pt3;
 
-		t.addTransformations("translate( 2 3)"); //$NON-NLS-1$
+		t.addTransformations("translate( 2 3)");
 		assertEquals(t.transformPoint(pt1), pt2);
 
-		t.addTransformations("translate( -2 -3)"); //$NON-NLS-1$
-		t.addTransformations("rotate(90)"); //$NON-NLS-1$
+		t.addTransformations("translate( -2 -3)");
+		t.addTransformations("rotate(90)");
 		pt2.setLocation(0, 1);
 		pt1.setLocation(1, 0);
 
@@ -134,7 +134,7 @@ public class TestSVGTransformList {
 		m = t.getGlobalTransformationMatrix();
 		assertNull(m);
 
-		t.addTransformations("scale( 2 3)"); //$NON-NLS-1$
+		t.addTransformations("scale( 2 3)");
 		m = t.getGlobalTransformationMatrix();
 
 		assertEquals(m.getA(), 2., 0.0001);
@@ -144,7 +144,7 @@ public class TestSVGTransformList {
 		assertEquals(m.getE(), 0., 0.0001);
 		assertEquals(m.getF(), 0., 0.0001);
 
-		t.addTransformations("skewX( 0.5	\n)"); //$NON-NLS-1$
+		t.addTransformations("skewX( 0.5	\n)");
 		m = t.getGlobalTransformationMatrix();
 
 		assertEquals(m.getA(), 2., 0.0001);

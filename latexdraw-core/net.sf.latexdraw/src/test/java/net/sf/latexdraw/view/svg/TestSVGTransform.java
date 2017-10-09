@@ -185,7 +185,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation() {
-		t.setTransformation("\n \t translate (		2\n \n\t	 4     )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t translate (		2\n \n\t	 4     )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_TRANSLATE);
 		assertTrue(t.isTranslation());
 		assertEquals(t.getTX(), 2., 0.0001);
@@ -194,7 +194,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation2() {
-		t.setTransformation("\n \t translate (		2\n \n\t ,	 4     )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t translate (		2\n \n\t ,	 4     )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_TRANSLATE);
 		assertTrue(t.isTranslation());
 		assertEquals(t.getTX(), 2., 0.0001);
@@ -203,7 +203,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation3() {
-		t.setTransformation("\n \t translate (		2\n \n\t )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t translate (		2\n \n\t )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_TRANSLATE);
 		assertTrue(t.isTranslation());
 		assertEquals(t.getTX(), 2., 0.0001);
@@ -212,7 +212,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation4() {
-		t.setTransformation("\n \t scale (		2\n \n\t	 4     )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t scale (		2\n \n\t	 4     )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SCALE);
 		assertTrue(t.isScale());
 		assertEquals(t.getXScaleFactor(), 2., 0.0001);
@@ -221,7 +221,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation5() {
-		t.setTransformation("\n \t scale (		2\n \n\t ,	 4     )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t scale (		2\n \n\t ,	 4     )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SCALE);
 		assertTrue(t.isScale());
 		assertEquals(t.getXScaleFactor(), 2., 0.0001);
@@ -230,7 +230,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation6() {
-		t.setTransformation("\n \t scale (		2\n \n\t )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t scale (		2\n \n\t )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SCALE);
 		assertTrue(t.isScale());
 		assertEquals(t.getXScaleFactor(), 2., 0.0001);
@@ -239,7 +239,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation7() {
-		t.setTransformation("\n \t matrix (	2\n \n\t	 4  \t 5 \n 6 	7 	8    )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t matrix (	2\n \n\t	 4  \t 5 \n 6 	7 	8    )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_MATRIX);
 		m = t.getMatrix();
 		assertEquals(m.getA(), 2., 0.0001);
@@ -252,7 +252,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation8() {
-		t.setTransformation("\n \t matrix (	2 ,\n \n\t	 4   \t 5 ,\n 6  	7 ,	8     )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t matrix (	2 ,\n \n\t	 4   \t 5 ,\n 6  	7 ,	8     )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_MATRIX);
 		m = t.getMatrix();
 		assertEquals(m.getA(), 2., 0.0001);
@@ -265,7 +265,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation9() {
-		t.setTransformation("\n \t skewX (		2\n \n\t  )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t skewX (		2\n \n\t  )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SKEWX);
 		assertTrue(t.isXSkew());
 		assertEquals(t.getXSkewAngle(), 2., 0.0001);
@@ -273,7 +273,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation10() {
-		t.setTransformation("\n \t skewY (		3\n \n\t  )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t skewY (		3\n \n\t  )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SKEWY);
 		assertTrue(t.isYSkew());
 		assertEquals(t.getYSkewAngle(), 3., 0.0001);
@@ -281,7 +281,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation11() {
-		t.setTransformation("\n \t rotate (		3\n \n\t  )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t rotate (		3\n \n\t  )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_ROTATE);
 		assertTrue(t.isRotation());
 		assertEquals(t.getRotationAngle(), 3., 0.0001);
@@ -289,7 +289,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testSetTransformation12() {
-		t.setTransformation("\n \t rotate (		1\n \n\t , 4 	\n 6 \n \t )   \n"); //$NON-NLS-1$
+		t.setTransformation("\n \t rotate (		1\n \n\t , 4 	\n 6 \n \t )   \n");
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_ROTATE);
 		assertTrue(t.isRotation());
 		assertEquals(t.getRotationAngle(), 1., 0.0001);

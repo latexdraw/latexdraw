@@ -16,7 +16,6 @@ public class TestPSAbsCommand extends TestPSCommand<PSAbsCommand> {
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(0.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -25,7 +24,6 @@ public class TestPSAbsCommand extends TestPSCommand<PSAbsCommand> {
 		dequeue.push(-10.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(10.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override
@@ -34,7 +32,6 @@ public class TestPSAbsCommand extends TestPSCommand<PSAbsCommand> {
 		dequeue.push(10.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(10.0, dequeue.peek(), 0.0);
-		assertEquals(1, dequeue.size());
 	}
 
 	@Override

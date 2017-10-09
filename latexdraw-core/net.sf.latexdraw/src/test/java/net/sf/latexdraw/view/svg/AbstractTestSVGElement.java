@@ -32,7 +32,7 @@ public abstract class AbstractTestSVGElement {
 
 		node.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.CSS_ALICEBLUE_NAME);
 		assertEquals(node.getStroke(), CSSColors.CSS_ALICEBLUE_RGB_VALUE);
-		node.setAttribute(SVGAttributes.SVG_STROKE, "testtest"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_STROKE, "testtest");
 		assertEquals(node.getStroke(), null);
 	}
 
@@ -43,15 +43,15 @@ public abstract class AbstractTestSVGElement {
 
 	@Test
 	public void testSetNodeName() {
-		node.setNodeName("test"); //$NON-NLS-1$
-		assertEquals("test", node.getNodeName()); //$NON-NLS-1$
+		node.setNodeName("test");
+		assertEquals("test", node.getNodeName());
 		node.setNodeName(getNameNode());
 		assertEquals(getNameNode(), node.getNodeName());
 	}
 
 	@Test
 	public void testSetParent() {
-		SVGElement elt = (SVGElement)doc.createElement("elt"); //$NON-NLS-1$
+		SVGElement elt = (SVGElement)doc.createElement("elt");
 
 		node.setParent(null);
 		assertNull(node.getParent());
@@ -67,17 +67,17 @@ public abstract class AbstractTestSVGElement {
 	@Test
 	public void testGetAttribute() {
 		assertNull(node.getAttribute(null));
-		assertNull(node.getAttribute("")); //$NON-NLS-1$
-		node.setAttribute("testAttr", "valAttr"); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(node.getAttribute("testAttr"), "valAttr"); //$NON-NLS-1$ //$NON-NLS-2$
+		assertNull(node.getAttribute(""));
+		node.setAttribute("testAttr", "valAttr");
+		assertEquals(node.getAttribute("testAttr"), "valAttr");
 	}
 
 	@Test
 	public void testGetAttributeNode() {
 		assertNull(node.getAttributeNode(null));
-		assertNull(node.getAttributeNode("")); //$NON-NLS-1$
-		node.setAttribute("testAttr2", "valAttr2"); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(node.getAttributeNode("testAttr2").getNodeValue(), "valAttr2"); //$NON-NLS-1$ //$NON-NLS-2$
+		assertNull(node.getAttributeNode(""));
+		node.setAttribute("testAttr2", "valAttr2");
+		assertEquals(node.getAttributeNode("testAttr2").getNodeValue(), "valAttr2");
 	}
 
 	@Test
@@ -92,13 +92,13 @@ public abstract class AbstractTestSVGElement {
 
 	@Test(expected = DOMException.class)
 	public void testAppendChildEmpty() {
-		node.appendChild(new SVGAttr("", "", node)); //$NON-NLS-1$ //$NON-NLS-2$
+		node.appendChild(new SVGAttr("", "", node));
 	}
 
 	@Test
 	public void testAppendChild() {
-		SVGElement elt = (SVGElement)doc.createElement("eltAppendChild"); //$NON-NLS-1$
+		SVGElement elt = (SVGElement)doc.createElement("eltAppendChild");
 		assertEquals(node.appendChild(elt), elt);
-		assertEquals(node.getChildren("eltAppendChild").getLength(), 1); //$NON-NLS-1$
+		assertEquals(node.getChildren("eltAppendChild").getLength(), 1);
 	}
 }
