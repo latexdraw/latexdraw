@@ -221,9 +221,9 @@ paramSetting[PSTContext pstctx] : paramArrow[pstctx] | paramArrowscale[pstctx] |
         paramsubgriddiv[pstctx] | paramsubgridwidth[pstctx] | paramsubgridcolor[pstctx] | paramsubgriddots[pstctx] | paramplotstyle[pstctx] |
         paramplotpoints[pstctx] | paramgradbegin[pstctx] | paramgradend[pstctx] | paramgradlines[pstctx] | paramgradmidpoint[pstctx] | paramgradangle[pstctx] |
         paramdotsize[pstctx] | paramgangle[pstctx] | paramstrokeopacity[pstctx] | paramopacity[pstctx] | paramdx[pstctx] | paramdy[pstctx] |
-        paramDx[pstctx] | paramDy[pstctx] | paramOx[pstctx] | paramOy[pstctx] | parampolarplot[pstctx] | unkownParamSetting[pstctx] ;
+        paramDx[pstctx] | paramDy[pstctx] | paramOx[pstctx] | paramOy[pstctx] | parampolarplot[pstctx] | unknownParamSetting[pstctx] ;
 
-unkownParamSetting[PSTContext pstctx] : name=WORD '=' (valueDim | NUMBER | booleanvalue | WORD)+ ;
+unknownParamSetting[PSTContext pstctx] : name=WORD '=' (valueDim | NUMBER | booleanvalue | WORD)+ ;
 
 paramArrow[PSTContext pstctx] : 'arrows' '=' arrowvalue[pstctx] ;
 paramArrowscale[PSTContext pstctx] : 'arrowscale' '=' sx=valueDim sy=valueDim? ;
