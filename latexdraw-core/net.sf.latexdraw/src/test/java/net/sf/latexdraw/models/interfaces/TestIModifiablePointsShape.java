@@ -139,7 +139,7 @@ public class TestIModifiablePointsShape implements HelperTest {
 				pts.get(i).setY(data.y()[i]);
 			}
 
-			return Stream.of(ShapeFactory.INST.createBezierCurve(pts), ShapeFactory.INST.createFreeHand(pts),
+			return Stream.of(ShapeFactory.INST.createBezierCurve(pts),
 				ShapeFactory.INST.createPolyline(pts), ShapeFactory.INST.createPolygon(pts)).
 				map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
 		}
