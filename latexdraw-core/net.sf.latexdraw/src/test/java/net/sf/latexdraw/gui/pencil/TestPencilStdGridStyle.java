@@ -11,6 +11,7 @@ import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -62,6 +63,7 @@ public class TestPencilStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
 		double val = labelsSizeS.getValue();
 		incrementlabelsSizeS.execute();
+		WaitForAsyncUtils.waitForFxEvents(50);
 		assertEquals(labelsSizeS.getValue(), ((IStdGridProp)pencil.createShapeInstance()).getLabelsSize(), 0.0001);
 		assertNotEquals(val, labelsSizeS.getValue(), 0.0001);
 	}
@@ -71,6 +73,7 @@ public class TestPencilStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
 		double val = xEndS.getValue();
 		incrementxEndS.execute();
+		WaitForAsyncUtils.waitForFxEvents(50);
 		assertEquals(xEndS.getValue(), ((IStdGridProp)pencil.createShapeInstance()).getGridEndX(), 0.0001);
 		assertNotEquals(val, xEndS.getValue(), 0.0001);
 	}
@@ -80,6 +83,7 @@ public class TestPencilStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
 		double val = yEndS.getValue();
 		incrementyEndS.execute();
+		WaitForAsyncUtils.waitForFxEvents(50);
 		assertEquals(yEndS.getValue(), ((IStdGridProp)pencil.createShapeInstance()).getGridEndY(), 0.0001);
 		assertNotEquals(val, yEndS.getValue(), 0.0001);
 	}
@@ -89,6 +93,7 @@ public class TestPencilStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
 		double val = xStartS.getValue();
 		decrementxStartS.execute();
+		WaitForAsyncUtils.waitForFxEvents(50);
 		assertEquals(xStartS.getValue(), ((IStdGridProp)pencil.createShapeInstance()).getGridStartX(), 0.0001);
 		assertNotEquals(val, xStartS.getValue(), 0.0001);
 	}
@@ -98,6 +103,7 @@ public class TestPencilStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
 		double val = yStartS.getValue();
 		decrementyStartS.execute();
+		WaitForAsyncUtils.waitForFxEvents(50);
 		assertEquals(yStartS.getValue(), ((IStdGridProp)pencil.createShapeInstance()).getGridStartY(), 0.0001);
 		assertNotEquals(val, yStartS.getValue(), 0.0001);
 	}
@@ -107,6 +113,7 @@ public class TestPencilStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
 		double val = xOriginS.getValue();
 		incrementxOriginS.execute();
+		WaitForAsyncUtils.waitForFxEvents(50);
 		assertEquals(xOriginS.getValue(), ((IStdGridProp)pencil.createShapeInstance()).getOriginX(), 0.0001);
 		assertNotEquals(val, xOriginS.getValue(), 0.0001);
 	}
@@ -116,6 +123,7 @@ public class TestPencilStdGridStyle extends TestStdGridStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
 		double val = yOriginS.getValue();
 		incrementyOriginS.execute();
+		WaitForAsyncUtils.waitForFxEvents(50);
 		assertEquals(yOriginS.getValue(), ((IStdGridProp)pencil.createShapeInstance()).getOriginY(), 0.0001);
 		assertNotEquals(val, yOriginS.getValue(), 0.0001);
 	}
