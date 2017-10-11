@@ -141,7 +141,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 				// The FXML file only loaded only when this method is called: this JFX controller is created by
 				// Guice and lives as a singleton. A call to this function loads the FXML.
 				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/InsertCode.fxml"), LangTool.INSTANCE.getBundle(),
-					new JavaFXBuilderFactory(), LaTeXDraw.getINSTANCE().getInstanceCallBack());
+					new JavaFXBuilderFactory(), LaTeXDraw.getInstance().getInstanceCallBack());
 				final Scene scene = new Scene(root);
 				codeInserterDialogue = new Stage(StageStyle.UTILITY);
 				codeInserterDialogue.setTitle(LangTool.INSTANCE.getBundle().getString("InsertPSTricksCodeFrame.0"));

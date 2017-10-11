@@ -65,7 +65,7 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 	private void load() {
 		if(file == null) {
 			fileChooser.setInitialDirectory(currentFolder);
-			file = fileChooser.showOpenDialog(LaTeXDraw.getINSTANCE().getMainStage());
+			file = fileChooser.showOpenDialog(LaTeXDraw.getInstance().getMainStage());
 		}else {
 			fileChooser.setInitialDirectory(file.getParentFile());
 			fileChooser.setInitialFileName(file.getName());

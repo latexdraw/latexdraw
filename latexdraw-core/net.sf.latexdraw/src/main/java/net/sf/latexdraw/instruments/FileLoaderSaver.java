@@ -52,7 +52,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		action.setStatusWidget(instrument.statusBar.getLabel());
 		action.setProgressBar(instrument.statusBar.getProgressBar());
 		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
-		action.setUi(LaTeXDraw.getINSTANCE());
+		action.setUi(LaTeXDraw.getInstance());
 	};
 
 	/** The menu used to save documents. */
@@ -178,21 +178,21 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(true);
-		}, WindowClosed.class, LaTeXDraw.getINSTANCE().getMainStage());
+		}, WindowClosed.class, LaTeXDraw.getInstance().getMainStage());
 
 		// Quit shortcut
 		bindKeyShortcut(Arrays.asList(KeyCode.W, LSystem.INSTANCE.getControlKey()), SaveDrawing.class, action -> {
 			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(true);
-		}, LaTeXDraw.getINSTANCE().getMainStage());
+		}, LaTeXDraw.getInstance().getMainStage());
 
 		// Save menu
 		bindMenu(SaveDrawing.class, saveAction, saveMenu);
 
 		// Save shortcut
 		bindKeyShortcut(Arrays.asList(KeyCode.S, LSystem.INSTANCE.getControlKey()), SaveDrawing.class, saveAction, LaTeXDraw
-			.getINSTANCE().getMainStage());
+			.getInstance().getMainStage());
 
 		// Save as menu
 		bindMenu(SaveDrawing.class, action -> {
@@ -207,14 +207,14 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 		// Load shortcut
 		bindKeyShortcut(Arrays.asList(KeyCode.O, LSystem.INSTANCE.getControlKey()), LoadDrawing.class, loadAction, LaTeXDraw
-			.getINSTANCE().getMainStage());
+			.getInstance().getMainStage());
 
 		// New menu
 		bindMenu(NewDrawing.class, newAction, newMenu);
 
 		// New shortcut
 		bindKeyShortcut(Arrays.asList(KeyCode.N, LSystem.INSTANCE.getControlKey()), NewDrawing.class, newAction, LaTeXDraw
-			.getINSTANCE().getMainStage());
+			.getInstance().getMainStage());
 
 		// Recent files menus
 		recentInterator = new RecentMenuItem2LoadInteractor(this);

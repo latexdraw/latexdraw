@@ -192,7 +192,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 				progressBar.progressProperty().unbind();
 				progressBar.setVisible(false);
 			}
-			LaTeXDraw.getINSTANCE().setModified(setModified);
+			LaTeXDraw.getInstance().setModified(setModified);
 		}
 	}
 
@@ -213,7 +213,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		protected Boolean call() throws Exception {
 			try {
 				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
-				final IDrawing drawing = LaTeXDraw.getINSTANCE().getInjector().getInstance(IDrawing.class);
+				final IDrawing drawing = LaTeXDraw.getInstance().getInjector().getInstance(IDrawing.class);
 
 				Platform.runLater(() -> {
 					final List<IShape> shapes = toLatexdraw(svgDoc, 0);
@@ -233,7 +233,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 
 					drawing.addShape(insertedShapes);
 					// Updating the possible widgets of the instruments.
-					LaTeXDraw.getINSTANCE().getInstruments().forEach(ins -> ins.interimFeedback());
+					LaTeXDraw.getInstance().getInstruments().forEach(ins -> ins.interimFeedback());
 					//				ui.updatePresentations();
 				});
 				return true;
@@ -450,10 +450,10 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		@Override
 		protected Boolean call() throws Exception {
 			super.call();
-			final IDrawing drawing = LaTeXDraw.getINSTANCE().getInjector().getInstance(IDrawing.class);
-			final Canvas canvas = LaTeXDraw.getINSTANCE().getInjector().getInstance(Canvas.class);
+			final IDrawing drawing = LaTeXDraw.getInstance().getInjector().getInstance(IDrawing.class);
+			final Canvas canvas = LaTeXDraw.getInstance().getInjector().getInstance(Canvas.class);
 			// Creation of the SVG document.
-			final Set<JfxInstrument> instruments = LaTeXDraw.getINSTANCE().getInstruments();
+			final Set<JfxInstrument> instruments = LaTeXDraw.getInstance().getInstruments();
 			final double incr = 100d / (drawing.size() + instruments.size() + 1d);
 			final SVGDocument doc = toSVG(drawing, incr);
 			final SVGMetadataElement meta = new SVGMetadataElement(doc);
@@ -474,8 +474,8 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 				canvas.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
 				Platform.runLater(() -> updateProgress(getProgress() + incr, 100d));
 
-				LaTeXDraw.getINSTANCE().save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-				Platform.runLater(() -> LaTeXDraw.getINSTANCE().getMainStage().setTitle(getDocumentName()));
+				LaTeXDraw.getInstance().save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
+				Platform.runLater(() -> LaTeXDraw.getInstance().getMainStage().setTitle(getDocumentName()));
 			}
 			return doc.saveSVGDocument(path);
 		}
@@ -558,9 +558,9 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			try {
 				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
 				final Element meta = svgDoc.getDocumentElement().getMeta();
-				final Set<JfxInstrument> instruments = LaTeXDraw.getINSTANCE().getInstruments();
-				final IDrawing drawing = LaTeXDraw.getINSTANCE().getInjector().getInstance(IDrawing.class);
-				final Canvas canvas = LaTeXDraw.getINSTANCE().getInjector().getInstance(Canvas.class);
+				final Set<JfxInstrument> instruments = LaTeXDraw.getInstance().getInstruments();
+				final IDrawing drawing = LaTeXDraw.getInstance().getInjector().getInstance(IDrawing.class);
+				final Canvas canvas = LaTeXDraw.getInstance().getInjector().getInstance(Canvas.class);
 				final Element ldMeta;
 
 				if(meta == null) {
@@ -592,10 +592,10 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 						ins.interimFeedback();
 
 						if(ldMeta != null) {
-							LaTeXDraw.getINSTANCE().load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
+							LaTeXDraw.getInstance().load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
 						}
 
-						LaTeXDraw.getINSTANCE().getMainStage().setTitle(getDocumentName());
+						LaTeXDraw.getInstance().getMainStage().setTitle(getDocumentName());
 					});
 				});
 

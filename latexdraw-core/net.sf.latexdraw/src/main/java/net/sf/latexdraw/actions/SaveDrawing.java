@@ -36,7 +36,7 @@ public class SaveDrawing extends Save<Label> {
 
 		if(saveAs || file == null && ui.isModified()) {
 			fc.setInitialDirectory(currFolder);
-			f = fc.showSaveDialog(LaTeXDraw.getINSTANCE().getMainStage());
+			f = fc.showSaveDialog(LaTeXDraw.getInstance().getMainStage());
 		}else {
 			f = file;
 		}
@@ -117,7 +117,7 @@ public class SaveDrawing extends Save<Label> {
 
 	private void quit() {
 		prefSetter.writeXMLPreferences();
-		LaTeXDraw.getINSTANCE().getMainStage().close();
+		LaTeXDraw.getInstance().getMainStage().close();
 	}
 
 	@Override

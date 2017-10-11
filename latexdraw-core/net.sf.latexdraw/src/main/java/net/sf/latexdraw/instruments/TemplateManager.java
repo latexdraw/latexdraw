@@ -109,7 +109,7 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 			action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 			action.setProgressBar(instrument.statusController.getProgressBar());
 			action.setStatusWidget(instrument.statusController.getLabel());
-			action.setUi(LaTeXDraw.getINSTANCE());
+			action.setUi(LaTeXDraw.getInstance());
 		}
 
 		@Override

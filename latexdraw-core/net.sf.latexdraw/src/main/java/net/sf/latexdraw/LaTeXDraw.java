@@ -58,7 +58,7 @@ import org.malai.undo.UndoCollector;
 public class LaTeXDraw extends JfxUI {
 	public static final String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
 
-	private static LaTeXDraw INSTANCE;
+	private static LaTeXDraw instance;
 
 	static {
 		System.setProperty("sun.java2d.opengl", "true");
@@ -74,22 +74,14 @@ public class LaTeXDraw extends JfxUI {
 	 * @param args The parameters.
 	 */
 	public static void main(String[] args) {
-		// val cmdLine = new LCommandLine()
-		// cmdLine.parse(args) match {
-		// case CmdLineState.APPLICATION => launchLatexdraw(cmdLine)
-		// case CmdLineState.STOP =>
-		// case CmdLineState.APPLICATION_FILENAME => launchLatexdraw(cmdLine)
-		// }
 		launch(args);
 	}
 
-	public static LaTeXDraw getINSTANCE() {
-		return INSTANCE;
+	public static LaTeXDraw getInstance() {
+		return instance;
 	}
 
-	private Pane splashLayout;
 	private Stage mainStage;
-	private ProgressBar loadProgress;
 	private final Callback<Class<?>, Object> instanceCallBack;
 	private final Injector injector;
 	private final Set<JfxInstrument> instruments;
@@ -97,7 +89,7 @@ public class LaTeXDraw extends JfxUI {
 
 	public LaTeXDraw() {
 		super();
-		INSTANCE = this;
+		instance = this;
 		instruments = new HashSet<>();
 		injector = Guice.createInjector(com.google.inject.Stage.PRODUCTION, new LatexdrawModule());
 		// This callback gathers all the JFX instruments.
@@ -110,28 +102,24 @@ public class LaTeXDraw extends JfxUI {
 		};
 	}
 
+	private void showSplash(final Stage initStage, Task<Void> task) {
+		final ProgressBar loadProgress = new ProgressBar();
+		loadProgress.progressProperty().bind(task.progressProperty());
 
-	@Override
-	public void init() {
-		Image img = new Image("res/LaTeXDrawSmall.png");
-		ImageView splash = new ImageView(img);
-		loadProgress = new ProgressBar();
-		loadProgress.setPrefWidth(img.getWidth());
-		splashLayout = new VBox();
+		final Pane splashLayout = new VBox();
+		final Image img = new Image("res/LaTeXDrawSmall.png");
+		final ImageView splash = new ImageView(img);
 		splashLayout.getChildren().addAll(splash, loadProgress);
 		splashLayout.setEffect(new DropShadow());
-	}
-
-	private void showSplash(final Stage initStage, Task<Void> task) {
-		loadProgress.progressProperty().bind(task.progressProperty());
+		loadProgress.setPrefWidth(img.getWidth());
 
 		task.stateProperty().addListener((observableValue, oldState, newState) -> {
 			if(newState == Worker.State.SUCCEEDED) {
 				loadProgress.progressProperty().unbind();
-				loadProgress.setProgress(1);
+				loadProgress.setProgress(1d);
 				FadeTransition fadeSplash = new FadeTransition(Duration.seconds(0.8), splashLayout);
-				fadeSplash.setFromValue(1.0);
-				fadeSplash.setToValue(0.0);
+				fadeSplash.setFromValue(1d);
+				fadeSplash.setToValue(0d);
 				fadeSplash.setOnFinished(evt -> {
 					initStage.hide();
 					mainStage.setIconified(false);
@@ -155,7 +143,7 @@ public class LaTeXDraw extends JfxUI {
 		final Task<Void> task = new Task<Void>() {
 			@Override
 			protected Void call() throws InterruptedException {
-				updateProgress(0.1, 1.0);
+				updateProgress(0.1, 1d);
 				try {
 					Platform.runLater(() -> {
 						mainStage = new Stage(StageStyle.DECORATED);
@@ -165,15 +153,15 @@ public class LaTeXDraw extends JfxUI {
 
 					final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), LangTool.INSTANCE.getBundle(),
 						new LatexdrawBuilderFactory(injector), instanceCallBack);
-					updateProgress(0.6, 1.0);
+					updateProgress(0.6, 1d);
 					final Scene scene = new Scene(root);
-					updateProgress(0.7, 1.0);
+					updateProgress(0.7, 1d);
 					scene.getStylesheets().add("css/style.css");
-					updateProgress(0.8, 1.0);
+					updateProgress(0.8, 1d);
 
 					Platform.runLater(() -> {
 						mainStage.setScene(scene);
-						updateProgress(0.9, 1.0);
+						updateProgress(0.9, 1d);
 						mainStage.show();
 						final PreferencesSetter prefSetter = injector.getInstance(PreferencesSetter.class);
 						prefSetter.readXMLPreferences();
@@ -186,7 +174,7 @@ public class LaTeXDraw extends JfxUI {
 						injector.getInstance(Canvas.class).requestFocus();
 						// Checking a new version if required.
 						if(VersionChecker.WITH_UPDATE && injector.getInstance(PreferencesSetter.class).isVersionCheckEnable()) {
-							new VersionChecker(injector.getInstance(StatusBarController.class)).run();
+							new VersionChecker(injector.getInstance(StatusBarController.class)).start();
 						}
 						setModified(false);
 					});
@@ -200,20 +188,6 @@ public class LaTeXDraw extends JfxUI {
 		task.setOnFailed(BadaboomCollector.INSTANCE);
 		showSplash(stage, task);
 		new Thread(task).start();
-
-		// if(cmdLine.getFilename!=null) {
-		// val action = new LoadDrawing()
-		//		val file = new File(cmdLine.getFilename)
-		//		action.setFile(file)
-		//		action.setCurrentFolder(file.getParentFile)
-		// action.setUi(frame)
-		// action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE)
-		// action.setFileChooser(frame.getFileLoader.getDialog(false))
-		// action.doIt
-		// frame.getFileLoader.onActionExecuted(action)
-		// frame.getFileLoader.onActionDone(action)
-		// action.flush
-		// }
 	}
 
 	/**

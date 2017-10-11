@@ -160,7 +160,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 		bindMenu(ExportTemplate.class, action -> {
 			action.setTemplatesPane(templateManager.templatePane);
 			action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
-			action.setUi(LaTeXDraw.getINSTANCE());
+			action.setUi(LaTeXDraw.getInstance());
 			action.setProgressBar(statusBar.getProgressBar());
 			action.setStatusWidget(statusBar.getLabel());
 		}, exportTemplateMenu);
