@@ -119,13 +119,13 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	@Test
 	public void testNotActivateOnOneShapeSelected() throws Exception {
 		selectOneShape.execute();
-		assertTrue(ins.isActivated());
+		assertFalse(ins.isActivated());
 	}
 
 	@Test
 	public void testNotVisibleOnOneShapeSelected() throws Exception {
 		selectOneShape.execute();
-		assertTrue(mainPane.isVisible());
+		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
