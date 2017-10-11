@@ -94,26 +94,10 @@ public class MoveBackForegroundShapes extends ShapeActionImpl<IGroup> implements
 			});
 		});
 	}
-	/*
-			val size = _shape.get.size
-		formerId = Array.ofDim[Int](size)
-		var sh : IShape = null
-		val drawing = _drawing.get
-		val drawingShapes = drawing.getShapes
-		sortedSh = _shape.get.getShapes.sortBy(drawingShapes.indexOf(_))
-
-		for(i <- size-1 to 0 by -1) {
-			sh = sortedSh(i)
-			formerId(i) = drawingShapes.indexOf(sh)
-			drawing.removeShape(sh)
-			drawing.addShape(sh, 0)
-		}
-drawing.setModified(true)
-	 */
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && !shape.get().isEmpty() && drawing.isPresent();
+		return super.canDo() && shape.isPresent() && !shape.get().isEmpty() && drawing.isPresent();
 	}
 
 	@Override

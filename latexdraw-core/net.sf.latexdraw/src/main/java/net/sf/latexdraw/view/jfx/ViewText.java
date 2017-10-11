@@ -218,16 +218,10 @@ public class ViewText extends ViewPositionShape<IText> {
 		final String doc = getLaTeXDocument();
 		final String pathPic = tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
 		final String pathTex = pathPic + ExportFormat.TEX.getFileExtension();
-		final OperatingSystem os = LSystem.INSTANCE.getSystem();
+		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
 
-		try {
-			final FileOutputStream fos = new FileOutputStream(pathTex);
-			final OutputStreamWriter osw = new OutputStreamWriter(fos);
+		try(final OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(pathTex))) {
 			osw.append(doc);
-			osw.flush();
-			osw.close();
-			fos.flush();
-			fos.close();
 
 			Tuple<Boolean, String> res = execute(new String[]{os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //$NON-NLS-1$ //$NON-NLS-2$
 				"--output-directory=" + tmpDir.getAbsolutePath(), LFileUtils.INSTANCE.normalizeForLaTeX(pathTex)}); //$NON-NLS-1$
@@ -252,32 +246,33 @@ public class ViewText extends ViewPositionShape<IText> {
 				log = log + res.b;
 			}
 
-			if(ok) try {
+			if(ok) {
 				final File file = new File(pathPic + ExportFormat.PDF.getFileExtension());
-				final RandomAccessFile raf = new RandomAccessFile(file, "r");
-				final FileChannel fc = raf.getChannel();
-				final MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-				final PDFFile pdfFile = new PDFFile(mbb);
-				mbb.clear();
-				fc.close();
-				raf.close();
+				try(final RandomAccessFile raf = new RandomAccessFile(file, "r");
+					final FileChannel fc = raf.getChannel()) {
+					final MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+					final PDFFile pdfFile = new PDFFile(mbb);
+					mbb.clear();
 
-				if(pdfFile.getNumPages() == 1) {
-					final PDFPage page = pdfFile.getPage(0);
-					final Rectangle2D bound = page.getBBox();
-					final java.awt.Image img = page.getImage((int) bound.getWidth(), (int) bound.getHeight(), bound, null, false, true);
+					if(pdfFile.getNumPages() == 1) {
+						final PDFPage page = pdfFile.getPage(0);
+						final Rectangle2D bound = page.getBBox();
+						final java.awt.Image img = page.getImage((int) bound.getWidth(), (int) bound.getHeight(), bound, null, false, true);
 
-					if(img instanceof BufferedImage) {
-						bi = ImageCropper.INSTANCE.cropImage((BufferedImage) img);
+						if(img instanceof BufferedImage) {
+							bi = ImageCropper.INSTANCE.cropImage((BufferedImage) img);
+						}
+
+						if(img != null) {
+							img.flush();
+						}
+					}else {
+						BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
 					}
-
-					if(img != null) img.flush();
-				}else {
-					BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
+					file.delete();
+				}catch(final Throwable ex) {
+					BadaboomCollector.INSTANCE.add(ex);
 				}
-				file.delete();
-			}catch(final Throwable ex) {
-				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}catch(final Throwable ex) {
 			try(final StringWriter sw = new StringWriter();

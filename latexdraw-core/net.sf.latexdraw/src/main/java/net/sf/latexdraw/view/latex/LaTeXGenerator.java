@@ -363,12 +363,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}else {
 			return Optional.empty();
 		}
-		final OperatingSystem os = LSystem.INSTANCE.getSystem();
-
-		if(os == null) {
-			return Optional.empty();
-		}
-
+		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
 		final File finalFile = new File(pathExportEPS);
 		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", ExportFormat.EPS_LATEX.getFileExtension())); //$NON-NLS-1$
 		final String[] paramsLatex = {os.getPS2EPSBinPath(), psFile.getAbsolutePath(), fileEPS.getAbsolutePath()};
@@ -427,9 +422,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final IPoint bl = handler.getBottomLeftDrawingPoint();
 		final int ppc = handler.getPPCDrawing();
 		final float dec = 0.2f;
-		final OperatingSystem os = LSystem.INSTANCE.getSystem();
+		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
 
-		if(texFile == null || !texFile.exists() || os == null) return Optional.empty();
+		if(!texFile.exists()) return Optional.empty();
 
 		final String[] paramsLatex = {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$
 			LFileUtils.INSTANCE.normalizeForLaTeX(texFile.getAbsolutePath())};//$NON-NLS-1$
@@ -490,9 +485,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		String log;
 		File pdfFile;
-		final OperatingSystem os = LSystem.INSTANCE.getSystem();
-
-		if(psFile == null || os == null) return Optional.empty();
+		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
 
 		// On windows, an option must be defined using this format:
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.

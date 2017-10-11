@@ -71,7 +71,8 @@ public final class MathUtils {
 
 		if(MathUtils.INST.equalsDouble(ab, ac)) return a.distance((b.getX() + c.getX()) / 2d, (b.getY() + c.getY()) / 2d);
 
-		return ab * ac / b.distance(c);
+		final double distance = b.distance(c);
+		return equalsDouble(distance, 0d) ? 0d : ab * ac / b.distance(c);
 	}
 
 	/**
@@ -86,7 +87,8 @@ public final class MathUtils {
 	 */
 	public double getCornerGap(final IPoint a, final IPoint b, final IPoint c, final double gap) {
 		if(!isValidPt(a) || !isValidPt(b) || !isValidPt(c)) return 0d;
-		return gap / getAltitude(a, b, c) * a.distance(b);
+		final double altitude = getAltitude(a, b, c);
+		return equalsDouble(altitude, 0d) ? 0d : gap / altitude * a.distance(b);
 	}
 
 	/**
@@ -102,7 +104,7 @@ public final class MathUtils {
 		final float fAngle = MathUtils.INST.getCutNumber((float) angle);
 		final float fPI = MathUtils.INST.getCutNumber((float) Math.PI);
 
-		if(fAngle % fPI <= 0.01f) {
+		if(fPI != 0f && fAngle % fPI <= 0.01f) {
 			tgt.setX2(pt.getX());
 			if(orientation) {
 				tgt.setY2(pt.getY() - dec);
@@ -116,7 +118,7 @@ public final class MathUtils {
 				tgt.setX2(pt.getX() + dec);
 			}
 
-			if(fAngle % (fPI / 2f) <= 0.01f) {
+			if(fPI != 0f && fAngle % (fPI / 2f) <= 0.01f) {
 				tgt.setY2(pt.getY());
 			}else {
 				final double a = Math.abs(tl.getX() - gc.getX());

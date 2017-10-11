@@ -118,7 +118,7 @@ public class PasteShapes extends DrawingActionImpl implements Undoable, Modifyin
 
 	@Override
 	public List<Action> followingActions() {
-		if(drawing.isPresent()) return Collections.emptyList();
+		if(!drawing.isPresent()) return Collections.emptyList();
 
 		final List<Action> list = new ArrayList<>();
 		final SelectShapes selectAction = new SelectShapes();

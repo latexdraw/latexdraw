@@ -77,7 +77,7 @@ public class TranslateShapes extends ShapeActionImpl<IGroup> implements DrawingA
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && drawing.isPresent() && !shape.get().isEmpty() && MathUtils.INST.isValidPt(tx, ty) &&
+		return super.canDo() && drawing.isPresent() && shape.isPresent() && !shape.get().isEmpty() && MathUtils.INST.isValidPt(tx, ty) &&
 			(!MathUtils.INST.equalsDouble(tx, 0d) || !MathUtils.INST.equalsDouble(ty, 0d));
 	}
 

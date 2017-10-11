@@ -40,7 +40,7 @@ public class ModifyLatexProperties extends ActionImpl implements Undoable, Modif
 
 	@Override
 	public RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.LIMITED;
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 
 

@@ -12,6 +12,7 @@ package net.sf.latexdraw.util;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.input.KeyCode;
@@ -48,7 +49,7 @@ public final class LSystem {
 	 * @return True: the operating system currently used is Windows 10.
 	 */
 	public boolean is10() {
-		return getSystem() == OperatingSystem.TEN;
+		return getSystem().orElse(null) == OperatingSystem.TEN;
 	}
 
 	/**
@@ -56,7 +57,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean is8() {
-		return getSystem() == OperatingSystem.EIGHT;
+		return getSystem().orElse(null) == OperatingSystem.EIGHT;
 	}
 
 	/**
@@ -64,7 +65,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean isVista() {
-		return getSystem() == OperatingSystem.VISTA;
+		return getSystem().orElse(null) == OperatingSystem.VISTA;
 	}
 
 	/**
@@ -72,7 +73,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean isXP() {
-		return getSystem() == OperatingSystem.XP;
+		return getSystem().orElse(null) == OperatingSystem.XP;
 	}
 
 	/**
@@ -80,7 +81,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean isSeven() {
-		return getSystem() == OperatingSystem.SEVEN;
+		return getSystem().orElse(null) == OperatingSystem.SEVEN;
 	}
 
 	/**
@@ -88,7 +89,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean isLinux() {
-		return getSystem() == OperatingSystem.LINUX;
+		return getSystem().orElse(null) == OperatingSystem.LINUX;
 	}
 
 	/**
@@ -96,7 +97,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean isMacOSX() {
-		return getSystem() == OperatingSystem.MAC_OS_X;
+		return getSystem().orElse(null) == OperatingSystem.MAC_OS_X;
 	}
 
 	/**
@@ -104,7 +105,7 @@ public final class LSystem {
 	 * @since 3.3
 	 */
 	public boolean isMacOSXElCapitan() {
-		return getSystem() == OperatingSystem.MAC_OS_X_CAPITAN;
+		return getSystem().orElse(null) == OperatingSystem.MAC_OS_X_CAPITAN;
 	}
 
 	/**
@@ -125,27 +126,36 @@ public final class LSystem {
 		return KeyCode.CONTROL;
 	}
 
+	public void sleep(final long sleep) {
+		try {
+			Thread.sleep(sleep);
+		}catch(final InterruptedException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+			Thread.currentThread().interrupt();
+		}
+	}
+
 	/**
 	 * @return The name of the operating system currently used.
 	 * @since 3.0
 	 */
-	public OperatingSystem getSystem() {
+	public Optional<OperatingSystem> getSystem() {
 		final String os = System.getProperty("os.name"); //$NON-NLS-1$
 
 		if("linux".equalsIgnoreCase(os)) //$NON-NLS-1$
-			return OperatingSystem.LINUX;
+			return Optional.of(OperatingSystem.LINUX);
 
 		if("windows 7".equalsIgnoreCase(os)) //$NON-NLS-1$
-			return OperatingSystem.SEVEN;
+			return Optional.of(OperatingSystem.SEVEN);
 
 		if("windows vista".equalsIgnoreCase(os)) //$NON-NLS-1$
-			return OperatingSystem.VISTA;
+			return Optional.of(OperatingSystem.VISTA);
 
 		if("windows xp".equalsIgnoreCase(os)) //$NON-NLS-1$
-			return OperatingSystem.XP;
+			return Optional.of(OperatingSystem.XP);
 
 		if("mac os x".equalsIgnoreCase(os)) { //$NON-NLS-1$
-			final String[] v = System.getProperty("os.version").split("\\.");
+			final String[] v = System.getProperty("os.version").split("\\."); //$NON-NLS-1$ //$NON-NLS-2$
 			final double[] d = new double[v.length];
 
 			for(int i = 0; i < v.length; i++)
@@ -153,19 +163,19 @@ public final class LSystem {
 
 			// A change since El Capitan
 			if((d.length >= 1 && d[0] > 10) || (d.length >= 2 && d[0] == 10 && d[1] >= 11))
-				return OperatingSystem.MAC_OS_X_CAPITAN;
-			return OperatingSystem.MAC_OS_X; // $NON-NLS-1$
+				return Optional.of(OperatingSystem.MAC_OS_X_CAPITAN);
+			return Optional.of(OperatingSystem.MAC_OS_X);
 		}
 
 		if(os.toLowerCase().contains("windows 8")) //$NON-NLS-1$
-			return OperatingSystem.EIGHT;
+			return Optional.of(OperatingSystem.EIGHT);
 
 		if(os.toLowerCase().contains("windows 10")) //$NON-NLS-1$
-			return OperatingSystem.TEN;
+			return Optional.of(OperatingSystem.TEN);
 
 		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os)); //$NON-NLS-1$
 
-		return null;
+		return Optional.empty();
 	}
 
 	/**
@@ -173,7 +183,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getLaTeXVersion() {
-		return execute(new String[] { getSystem().getLatexBinPath(), "--version" }, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getLatexBinPath(), "--version" }, null); //$NON-NLS-1$
 	}
 
 	/**
@@ -181,7 +191,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getDVIPSVersion() {
-		return execute(new String[] { getSystem().getDvipsBinPath(), "--version" }, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getDvipsBinPath(), "--version" }, null); //$NON-NLS-1$
 	}
 
 	/**
@@ -189,7 +199,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPS2PDFVersion() {
-		return execute(new String[] { getSystem().getPs2pdfBinPath() }, null);
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPs2pdfBinPath() }, null);
 	}
 
 	/**
@@ -197,7 +207,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPS2EPSVersion() {
-		return execute(new String[] { getSystem().getPS2EPSBinPath(), "--version" }, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPS2EPSBinPath(), "--version" }, null); //$NON-NLS-1$
 	}
 
 	/**
@@ -205,7 +215,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPDFCROPVersion() {
-		return execute(new String[] { getSystem().getPdfcropBinPath(), "--version" }, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPdfcropBinPath(), "--version" }, null); //$NON-NLS-1$
 	}
 
 	/**

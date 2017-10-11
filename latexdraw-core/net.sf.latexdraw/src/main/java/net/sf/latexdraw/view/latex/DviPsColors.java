@@ -247,7 +247,6 @@ public final class DviPsColors  {
 		colourHT.put(N_PURPLE, PURPLE);
 		colourHT.put(N_DARK_GRAY, DARKGRAY);
 		colourHT.put(N_LIGHT_GRAY, LIGHTGRAY);
-		colourHT.put(N_PINK, PINK);
 		colourHT.put(N_GREEN_YELLOW, GREEN_YELLOW);
 		colourHT.put(N_YELLOW, YELLOW);
 		colourHT.put(N_GOLDEN_ROD, GOLDEN_ROD);

@@ -27,6 +27,7 @@ import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.malai.action.ActionImpl;
@@ -148,7 +149,7 @@ public class Export extends ActionImpl {
 		}
 
 		try {
-			ImageIO.write(rendImage, format, file);  //$NON-NLS-1$
+			ImageIO.write(rendImage, format, file);
 			success = true;
 		}catch(final IOException e) {
 			BadaboomCollector.INSTANCE.add(e);
@@ -236,11 +237,7 @@ public class Export extends ActionImpl {
 		views.snapshot(snapshotParameters, img);
 
 		while(img.isBackgroundLoading()) {
-			try {
-				Thread.sleep(100);
-			}catch(InterruptedException e) {
-				BadaboomCollector.INSTANCE.add(e);
-			}
+			LSystem.INSTANCE.sleep(100L);
 		}
 
 		return SwingFXUtils.fromFXImage(img, null);

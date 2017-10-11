@@ -12,6 +12,7 @@ package net.sf.latexdraw.instruments;
 
 import com.google.inject.Inject;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
@@ -135,7 +136,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 
 
 	/** @return The created latexdraw dialogue box. */
-	private Stage getInsertCodeDialogue() {
+	private Optional<Stage> getInsertCodeDialogue() {
 		if(codeInserterDialogue == null) {
 			try {
 				// The FXML file only loaded only when this method is called: this JFX controller is created by
@@ -151,7 +152,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}
-		return codeInserterDialogue;
+		return Optional.ofNullable(codeInserterDialogue);
 	}
 
 	@Override
@@ -167,14 +168,15 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 	@Override
 	public void setActivated(final boolean activated) {
 		if(isActivated() != activated) {
-			final Stage dialogue = getInsertCodeDialogue();
-			super.setActivated(activated);
-			if(activated) {
-				dialogue.show();
-				dialogue.centerOnScreen();
-			}else {
-				dialogue.hide();
-			}
+			getInsertCodeDialogue().ifPresent(dialogue -> {
+				super.setActivated(activated);
+				if(activated) {
+					dialogue.show();
+					dialogue.centerOnScreen();
+				}else {
+					dialogue.hide();
+				}
+			});
 		}
 	}
 }

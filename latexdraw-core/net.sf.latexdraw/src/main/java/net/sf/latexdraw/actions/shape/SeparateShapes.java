@@ -36,7 +36,7 @@ public class SeparateShapes extends ShapeActionImpl<IGroup> implements DrawingAc
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && drawing.isPresent() && !shape.get().isEmpty();
+		return super.canDo() && drawing.isPresent() && shape.isPresent() && !shape.get().isEmpty();
 	}
 
 	@Override

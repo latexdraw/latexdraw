@@ -66,7 +66,7 @@ public class InsertPicture extends AddShape {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && fileChooser.isPresent() && shape.get() instanceof IPicture;
+		return super.canDo() && fileChooser.isPresent() && shape.orElse(null) instanceof IPicture;
 	}
 
 	/**

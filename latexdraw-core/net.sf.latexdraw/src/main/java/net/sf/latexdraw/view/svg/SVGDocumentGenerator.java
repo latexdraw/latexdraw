@@ -13,7 +13,9 @@ package net.sf.latexdraw.view.svg;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +57,7 @@ import net.sf.latexdraw.parsers.svg.SVGMetadataElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
+import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
@@ -304,10 +307,9 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		 * @param sharedTemplates True: the templates are shared templates (in the shared directory).
 		 */
 		private void fillTemplatePane(final String pathTemplate, final String pathCache, final boolean sharedTemplates) {
-			try {
-				Files.newDirectoryStream(Paths.get(pathTemplate), elt -> Files.isRegularFile(elt) && elt.toString().endsWith(".svg")).
-					forEach(entry -> createTemplateItem(entry.toFile().getPath(),
-						entry.getFileName() + ExportFormat.PNG.getFileExtension(), pathCache).
+			try(final DirectoryStream<Path> paths = Files.newDirectoryStream(Paths.get(pathTemplate), elt -> Files.isRegularFile(elt) && elt.toString()
+				.endsWith(".svg"))) {
+				paths.forEach(entry -> createTemplateItem(entry.toFile().getPath(), entry.getFileName() + ExportFormat.PNG.getFileExtension(), pathCache).
 					ifPresent(item -> templatesPane.getChildren().add(item)));
 			}catch(final IOException ex) {
 				// No matter.
@@ -324,9 +326,8 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 
 			if(!templateDir.isDirectory()) return;
 
-			try {
-				Files.newDirectoryStream(Paths.get(pathTemplate), elt -> Files.isRegularFile(elt) && elt.toString().endsWith(".svg")).
-					forEach(file -> Platform.runLater(() -> {
+			try(final DirectoryStream<Path> paths = Files.newDirectoryStream(Paths.get(pathTemplate), elt -> Files.isRegularFile(elt) && elt.toString().endsWith(".svg"))) {
+				paths.forEach(file -> Platform.runLater(() -> {
 						try {
 							final Group template = new Group();
 							final List<IShape> shapes = toLatexdraw(new SVGDocument(file.toUri()), 0);
@@ -359,11 +360,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			selection.snapshot(snapshotParameters, img);
 
 			while(img.isBackgroundLoading()) {
-				try {
-					Thread.sleep(100);
-				}catch(final InterruptedException ex) {
-					BadaboomCollector.INSTANCE.add(ex);
-				}
+				LSystem.INSTANCE.sleep(100L);
 			}
 
 			final BufferedImage bufferedImage = SwingFXUtils.fromFXImage(img, null);
