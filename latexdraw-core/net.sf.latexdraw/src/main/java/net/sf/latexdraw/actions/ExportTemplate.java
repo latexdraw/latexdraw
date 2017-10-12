@@ -11,7 +11,6 @@
 package net.sf.latexdraw.actions;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -42,7 +41,7 @@ public class ExportTemplate extends IOAction<Label> implements TemplateAction {
 		dialog.showAndWait().ifPresent(name -> {
 			String path = LPath.PATH_TEMPLATES_DIR_USER + File.separator + name + ".svg";
 
-			if(Files.exists(Paths.get(path))) {
+			if(Paths.get(path).toFile().exists()) {
 				final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 				alert.setHeaderText(LangTool.INSTANCE.getBundle().getString("DrawContainer.overwriteTemplate"));
 				alert.setTitle(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.42"));

@@ -13,7 +13,6 @@ package net.sf.latexdraw.view.jfx;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.beans.value.ChangeListener;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.view.PlotViewHelper;
 
@@ -82,10 +81,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 
 	private void updatePoints(final double minX, final double maxX, final double step) {
 		flushDots();
-
-		final List<IDot> dots = PlotViewHelper.INSTANCE.updatePoints(model, 0d, 0d, minX, maxX, step);
-
-		dotsView = dots.parallelStream().map(dot -> {
+		dotsView = PlotViewHelper.INSTANCE.updatePoints(model, 0d, 0d, minX, maxX, step).parallelStream().map(dot -> {
 			final ViewDot viewDot = new ViewDot(dot);
 			viewDot.setUserData(this);
 			return viewDot;

@@ -25,6 +25,7 @@ import net.sf.latexdraw.parsers.pst.PSTParser;
 import net.sf.latexdraw.util.LangTool;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.RecognitionException;
 import org.malai.undo.Undoable;
 
 /**
@@ -71,7 +72,7 @@ public class InsertPSTCode extends DrawingActionImpl implements Undoable {
 					redo();
 					statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.36")));
 				}
-			}catch(final Throwable ex) {
+			}catch(final RecognitionException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 				statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.34")));
 			}

@@ -83,25 +83,7 @@ public class SaveDrawing extends Save<Label> {
 	@Override
 	protected void doActionBody() {
 		if(saveOnClose) {
-			if(ui.isModified()) {
-				saveAs = true;
-				final ButtonType type = showAskModificationsDialog();
-				if(type == ButtonType.NO) {
-					quit();
-				}else {
-					if(type == ButtonType.YES) {
-						showDialog(fileChooser, saveAs, file, currentFolder, ui).ifPresent(f -> {
-							file = f;
-							super.doActionBody();
-							quit();
-						});
-					}else {
-						ok = false;
-					}
-				}
-			}else {
-				quit();
-			}
+			saveOnClose();
 		}else {
 			if(file == null) {
 				file = showDialog(fileChooser, saveAs, null, currentFolder, ui).orElse(null);
@@ -113,6 +95,31 @@ public class SaveDrawing extends Save<Label> {
 			}
 		}
 		done();
+	}
+
+	/**
+	 * Does save on close.
+	 */
+	private void saveOnClose() {
+		if(ui.isModified()) {
+			saveAs = true;
+			final ButtonType type = showAskModificationsDialog();
+			if(type == ButtonType.NO) {
+				quit();
+			}else {
+				if(type == ButtonType.YES) {
+					showDialog(fileChooser, saveAs, file, currentFolder, ui).ifPresent(f -> {
+						file = f;
+						super.doActionBody();
+						quit();
+					});
+				}else {
+					ok = false;
+				}
+			}
+		}else {
+			quit();
+		}
 	}
 
 	private void quit() {

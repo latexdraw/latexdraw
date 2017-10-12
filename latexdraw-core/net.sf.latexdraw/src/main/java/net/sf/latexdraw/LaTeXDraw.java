@@ -94,11 +94,11 @@ public class LaTeXDraw extends JfxUI {
 		injector = Guice.createInjector(com.google.inject.Stage.PRODUCTION, new LatexdrawModule());
 		// This callback gathers all the JFX instruments.
 		instanceCallBack = cl -> {
-			final Object instance = injector.getInstance(cl);
-			if(instance instanceof JfxInstrument) {
-				instruments.add((JfxInstrument) instance);
+			final Object inst = injector.getInstance(cl);
+			if(inst instanceof JfxInstrument) {
+				instruments.add((JfxInstrument) inst);
 			}
-			return instance;
+			return inst;
 		};
 	}
 
@@ -165,7 +165,7 @@ public class LaTeXDraw extends JfxUI {
 					final PreferencesSetter prefSetter = injector.getInstance(PreferencesSetter.class);
 					prefSetter.readXMLPreferences();
 					// Preventing the stage to close automatically.
-					mainStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, we -> we.consume());
+					mainStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, WindowEvent::consume);
 					mainStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png"));
 					mainStage.centerOnScreen();
 					injector.getInstance(MagneticGrid.class).update();

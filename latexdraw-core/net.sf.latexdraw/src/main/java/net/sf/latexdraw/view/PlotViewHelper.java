@@ -12,6 +12,7 @@ package net.sf.latexdraw.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
@@ -57,7 +58,7 @@ public final class PlotViewHelper {
 			for(int i = 0; i < shape.getNbPlottedPoints(); i++, x += step) {
 				pts.add(ShapeFactory.INST.createPoint(x * IShape.PPC * xs + posX, -shape.getY(x) * IShape.PPC * ys + posY));
 			}
-			pts.add(ShapeFactory.INST.createPoint(maxX * IShape.PPC * xs + posX, -shape.getY(maxX) * IShape.PPC * ys + posY));
+//			pts.add(ShapeFactory.INST.createPoint(maxX * IShape.PPC * xs + posX, -shape.getY(maxX) * IShape.PPC * ys + posY));
 		}
 
 		return pts;
@@ -65,16 +66,13 @@ public final class PlotViewHelper {
 
 
 	public List<IDot> updatePoints(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
-		final List<IDot> dots = new ArrayList<>();
-		final IPolyline pl = ShapeFactory.INST.createPolyline(fillPoints(shape, posX, posY, minX, maxX, step));
-
-		for(IPoint pt : pl.getPoints()) {
+		return ShapeFactory.INST.createPolyline(fillPoints(shape, posX, posY, minX, maxX, step)).getPoints().stream().map(pt -> {
 			final IDot dot = ShapeFactory.INST.createDot(pt);
 			dot.copy(shape);
+			dot.setPosition(pt);
 			dot.setRotationAngle(0d);
-			dots.add(dot);
-		}
-		return dots;
+			return dot;
+		}).collect(Collectors.toList());
 	}
 
 
