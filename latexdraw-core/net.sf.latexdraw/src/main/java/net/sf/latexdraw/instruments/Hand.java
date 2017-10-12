@@ -125,7 +125,7 @@ public class Hand extends CanvasInstrument {
 	 * @return The given view or the plot view.
 	 */
 	private static ViewShape<?> getRealViewShape(final ViewShape<?> view) {
-		if(view.getUserData() instanceof ViewPlot) {
+		if(view != null && view.getUserData() instanceof ViewPlot) {
 			return (ViewShape<?>) view.getUserData();
 		}
 		return view;
