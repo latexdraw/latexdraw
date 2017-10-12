@@ -49,25 +49,27 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 
 		final int nbPts = model.getNbPoints();
 
-		model.getPtAt(0).xProperty().addListener(updateArrow);
-		model.getPtAt(0).yProperty().addListener(updateArrow);
-		if(nbPts > 2) {
-			model.getPtAt(1).xProperty().addListener(updateArrow);
-			model.getPtAt(1).yProperty().addListener(updateArrow);
-		}
-		if(nbPts > 3) {
-			model.getPtAt(nbPts - 2).xProperty().addListener(updateArrow);
-			model.getPtAt(nbPts - 2).yProperty().addListener(updateArrow);
-		}
-		model.getPtAt(-1).xProperty().addListener(updateArrow);
-		model.getPtAt(-1).yProperty().addListener(updateArrow);
+		if(nbPts > 0) {
+			model.getPtAt(0).xProperty().addListener(updateArrow);
+			model.getPtAt(0).yProperty().addListener(updateArrow);
+			if(nbPts > 2) {
+				model.getPtAt(1).xProperty().addListener(updateArrow);
+				model.getPtAt(1).yProperty().addListener(updateArrow);
+			}
+			if(nbPts > 3) {
+				model.getPtAt(nbPts - 2).xProperty().addListener(updateArrow);
+				model.getPtAt(nbPts - 2).yProperty().addListener(updateArrow);
+			}
+			model.getPtAt(-1).xProperty().addListener(updateArrow);
+			model.getPtAt(-1).yProperty().addListener(updateArrow);
 
-		if(model instanceof IControlPointShape) {
-			final IControlPointShape ctrl = (IControlPointShape) model;
-			ctrl.getFirstCtrlPtAt(0).xProperty().addListener(updateArrow);
-			ctrl.getFirstCtrlPtAt(0).yProperty().addListener(updateArrow);
-			ctrl.getFirstCtrlPtAt(-1).xProperty().addListener(updateArrow);
-			ctrl.getFirstCtrlPtAt(-1).yProperty().addListener(updateArrow);
+			if(model instanceof IControlPointShape) {
+				final IControlPointShape ctrl = (IControlPointShape) model;
+				ctrl.getFirstCtrlPtAt(0).xProperty().addListener(updateArrow);
+				ctrl.getFirstCtrlPtAt(0).yProperty().addListener(updateArrow);
+				ctrl.getFirstCtrlPtAt(-1).xProperty().addListener(updateArrow);
+				ctrl.getFirstCtrlPtAt(-1).yProperty().addListener(updateArrow);
+			}
 		}
 
 		model.thicknessProperty().addListener(updateArrow);
