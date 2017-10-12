@@ -27,6 +27,7 @@ import net.sf.latexdraw.view.jfx.ViewRectangle;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.malai.action.ActionsRegistry;
 
@@ -202,12 +203,14 @@ public class TestCanvas extends TestLatexdrawGUI {
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 	}
 
+	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testShiftClickOnShapeDeselectsIt() {
 		new CompositeGUIVoidCommand(addRec, waitFXEvents, clickOnAddedRec, waitFXEvents, shiftClickOnAddedRec, waitFXEvents).execute();
 		assertTrue(canvas.getDrawing().getSelection().isEmpty());
 	}
 
+	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testCtrlClickOnShapeAddsSelection() {
 		new CompositeGUIVoidCommand(addRec, addRec2, waitFXEvents, clickOnAddedRec, waitFXEvents, ctrlClickOnAddedRec2, waitFXEvents).execute();
@@ -215,6 +218,7 @@ public class TestCanvas extends TestLatexdrawGUI {
 		assertNotSame(canvas.getDrawing().getSelection().getShapeAt(0), canvas.getDrawing().getSelection().getShapeAt(1));
 	}
 
+	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testTwoAddsAndShiftClickSelectsOneShape() {
 		new CompositeGUIVoidCommand(addRec, addRec2, waitFXEvents, clickOnAddedRec, waitFXEvents, ctrlClickOnAddedRec2, waitFXEvents,
