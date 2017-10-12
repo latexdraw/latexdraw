@@ -142,45 +142,41 @@ public class LaTeXDraw extends JfxUI {
 	public void start(final Stage stage) throws IOException {
 		final Task<Void> task = new Task<Void>() {
 			@Override
-			protected Void call() throws InterruptedException {
+			protected Void call() throws InterruptedException, IOException {
 				updateProgress(0.1, 1d);
-				try {
-					Platform.runLater(() -> {
-						mainStage = new Stage(StageStyle.DECORATED);
-						mainStage.setIconified(true);
-						mainStage.setTitle(LABEL_APP);
-					});
+				Platform.runLater(() -> {
+					mainStage = new Stage(StageStyle.DECORATED);
+					mainStage.setIconified(true);
+					mainStage.setTitle(LABEL_APP);
+				});
 
-					final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), LangTool.INSTANCE.getBundle(),
-						new LatexdrawBuilderFactory(injector), instanceCallBack);
-					updateProgress(0.6, 1d);
-					final Scene scene = new Scene(root);
-					updateProgress(0.7, 1d);
-					scene.getStylesheets().add("css/style.css");
-					updateProgress(0.8, 1d);
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), LangTool.INSTANCE.getBundle(),
+					new LatexdrawBuilderFactory(injector), instanceCallBack);
+				updateProgress(0.6, 1d);
+				final Scene scene = new Scene(root);
+				updateProgress(0.7, 1d);
+				scene.getStylesheets().add("css/style.css");
+				updateProgress(0.8, 1d);
 
-					Platform.runLater(() -> {
-						mainStage.setScene(scene);
-						updateProgress(0.9, 1d);
-						mainStage.show();
-						final PreferencesSetter prefSetter = injector.getInstance(PreferencesSetter.class);
-						prefSetter.readXMLPreferences();
-						// Preventing the stage to close automatically.
-						mainStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, we -> we.consume());
-						mainStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png"));
-						mainStage.centerOnScreen();
-						injector.getInstance(MagneticGrid.class).update();
-						injector.getInstance(TabSelector.class).centreViewport();
-						injector.getInstance(Canvas.class).requestFocus();
-						// Checking a new version if required.
-						if(VersionChecker.WITH_UPDATE && injector.getInstance(PreferencesSetter.class).isVersionCheckEnable()) {
-							new VersionChecker(injector.getInstance(StatusBarController.class)).start();
-						}
-						setModified(false);
-					});
-				}catch(final IOException ex) {
-					ex.printStackTrace();
-				}
+				Platform.runLater(() -> {
+					mainStage.setScene(scene);
+					updateProgress(0.9, 1d);
+					mainStage.show();
+					final PreferencesSetter prefSetter = injector.getInstance(PreferencesSetter.class);
+					prefSetter.readXMLPreferences();
+					// Preventing the stage to close automatically.
+					mainStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, we -> we.consume());
+					mainStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png"));
+					mainStage.centerOnScreen();
+					injector.getInstance(MagneticGrid.class).update();
+					injector.getInstance(TabSelector.class).centreViewport();
+					injector.getInstance(Canvas.class).requestFocus();
+					// Checking a new version if required.
+					if(VersionChecker.WITH_UPDATE && injector.getInstance(PreferencesSetter.class).isVersionCheckEnable()) {
+						new VersionChecker(injector.getInstance(StatusBarController.class)).start();
+					}
+					setModified(false);
+				});
 				return null;
 			}
 		};
