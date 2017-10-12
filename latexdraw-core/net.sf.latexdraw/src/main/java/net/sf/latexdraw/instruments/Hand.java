@@ -140,7 +140,7 @@ public class Hand extends CanvasInstrument {
 				parent = parent.getParent();
 			}
 
-			return Optional.ofNullable((ViewShape<?>) parent);
+			return Optional.ofNullable(getRealViewShape((ViewShape<?>) parent));
 		}
 		return Optional.empty();
 	}
