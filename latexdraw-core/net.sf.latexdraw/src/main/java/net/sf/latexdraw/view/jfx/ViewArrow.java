@@ -11,7 +11,6 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Objects;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -56,7 +55,7 @@ public class ViewArrow extends Group {
 		getChildren().add(path);
 		getChildren().add(ellipse);
 		getChildren().add(arc);
-
+		enableShape(false, false, false);
 		arc.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 		arc.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
 		ellipse.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
@@ -280,14 +279,6 @@ public class ViewArrow extends Group {
 
 
 	public void updatePath() {
-		if(Platform.isFxApplicationThread()) {
-			updatePathConcrete();
-		}else {
-			Platform.runLater(() -> updatePathConcrete());
-		}
-	}
-
-	private void updatePathConcrete() {
 		path.getElements().clear();
 		path.fillProperty().unbind();
 		path.strokeWidthProperty().unbind();
