@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -51,7 +52,9 @@ public class Preference {
 			}
 
 			return Collections.unmodifiableMap(preferences);
-		}catch(final Exception e) { e.printStackTrace(); }
+		}catch(final Exception ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+		}
 		return Collections.emptyMap();
 	}
 

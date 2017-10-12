@@ -69,7 +69,6 @@ public final class LangTool {
 				}
 			}
 		}catch(final Exception ex) {
-			ex.printStackTrace();
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 		return getDefaultLanguage();
@@ -86,7 +85,6 @@ public final class LangTool {
 			return list.filter(f -> !Files.isDirectory(f) && Files.isReadable(f)).
 				map(f -> getLocaleFromFileName(f.getFileName().toString())).collect(Collectors.toList());
 		}catch(final IOException | URISyntaxException e) {
-			e.printStackTrace();
 			BadaboomCollector.INSTANCE.add(e);
 		}
 		return Collections.emptyList();
@@ -103,7 +101,6 @@ public final class LangTool {
 		try {
 			return ResourceBundle.getBundle("lang.bundle", locale);
 		}catch(final Exception ex) {
-			ex.printStackTrace();
 			BadaboomCollector.INSTANCE.add(ex);
 			return null;
 		}

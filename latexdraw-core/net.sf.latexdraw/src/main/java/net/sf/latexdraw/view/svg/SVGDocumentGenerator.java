@@ -340,7 +340,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 						}
 					}));
 			}catch(final IOException ex) {
-				ex.printStackTrace();
+				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}
 
