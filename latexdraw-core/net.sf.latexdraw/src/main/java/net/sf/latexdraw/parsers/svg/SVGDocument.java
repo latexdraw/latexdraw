@@ -535,10 +535,11 @@ public class SVGDocument implements Document {
 	        	output.setCharacterStream(fw);
 	        	serializer.write(getDocumentElement(), output);
 	        }
-		}catch(ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IOException ex){
-			ex.printStackTrace();
+		}catch(final ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IOException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+			ok = false;
 		}
-        return ok;
+		return ok;
 	}
 
 
