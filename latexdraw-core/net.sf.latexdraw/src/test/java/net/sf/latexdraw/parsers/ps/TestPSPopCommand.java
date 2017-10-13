@@ -24,7 +24,7 @@ public class TestPSPopCommand extends TestPSCommand<PSPopCommand> {
 		dequeue.push(-10.0);
 		dequeue.push(-20.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(-10.0, dequeue.peek(), 0.0);
+		assertEquals(-10.0, dequeue.peek(), 0.00001);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class TestPSPopCommand extends TestPSCommand<PSPopCommand> {
 		dequeue.push(20.0);
 		dequeue.push(30.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(20.0, dequeue.peek(), 0.0);
+		assertEquals(20.0, dequeue.peek(), 0.00001);
 		assertEquals(2, dequeue.size());
 	}
 

@@ -15,7 +15,7 @@ public class TestPSNegCommand extends TestPSCommand<PSNegCommand> {
 	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(-0.0, dequeue.peek(), 0.0);
+		assertEquals(-0.0, dequeue.peek(), 0.00001);
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class TestPSNegCommand extends TestPSCommand<PSNegCommand> {
 	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(-10.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(10.0, dequeue.peek(), 0.0);
+		assertEquals(10.0, dequeue.peek(), 0.00001);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class TestPSNegCommand extends TestPSCommand<PSNegCommand> {
 	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(10.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(-10.0, dequeue.peek(), 0.0);
+		assertEquals(-10.0, dequeue.peek(), 0.00001);
 	}
 
 	@Override

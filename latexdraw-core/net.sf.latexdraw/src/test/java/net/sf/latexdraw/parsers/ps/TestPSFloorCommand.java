@@ -15,7 +15,7 @@ public class TestPSFloorCommand extends TestPSCommand<PSFloorCommand> {
 	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(0.0, dequeue.peek(), 0.0);
+		assertEquals(0.0, dequeue.peek(), 0.00001);
 	}
 
 	@Override
@@ -23,14 +23,14 @@ public class TestPSFloorCommand extends TestPSCommand<PSFloorCommand> {
 	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(-12.3);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(Math.floor(-12.3), dequeue.peek(), 0.0);
+		assertEquals(Math.floor(-12.3), dequeue.peek(), 0.00001);
 	}
 
 	@Test
 	public void testExecuteValNeg2() throws InvalidFormatPSFunctionException {
 		dequeue.push(-12.8);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(Math.floor(-12.8), dequeue.peek(), 0.0);
+		assertEquals(Math.floor(-12.8), dequeue.peek(), 0.00001);
 	}
 
 	@Override
@@ -38,14 +38,14 @@ public class TestPSFloorCommand extends TestPSCommand<PSFloorCommand> {
 	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(10.1);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(Math.floor(10.1), dequeue.peek(), 0.0);
+		assertEquals(Math.floor(10.1), dequeue.peek(), 0.00001);
 	}
 
 	@Test
 	public void testExecuteValPos2() throws InvalidFormatPSFunctionException {
 		dequeue.push(10.9);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(Math.floor(10.9), dequeue.peek(), 0.0);
+		assertEquals(Math.floor(10.9), dequeue.peek(), 0.00001);
 	}
 
 	@Override

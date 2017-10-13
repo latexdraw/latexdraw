@@ -18,7 +18,7 @@ import java.util.Deque;
  */
 public class PSFloorCommand implements PSArithemticCommand {
 	@Override
-	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
+	public void execute(final Deque<Double> stack, final double x) {
 		if(stack.isEmpty()) throw new InvalidFormatPSFunctionException();
 
 		stack.push(Math.floor(stack.pop()));

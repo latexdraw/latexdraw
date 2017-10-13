@@ -11,7 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -71,7 +71,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 		hatchingsPane.managedProperty().bind(hatchingsPane.visibleProperty());
 		gradientPane.managedProperty().bind(gradientPane.visibleProperty());
 
-		final Map<FillingStyle, Image> cache = new HashMap<>();
+		final Map<FillingStyle, Image> cache = new EnumMap<>(FillingStyle.class);
 		cache.put(FillingStyle.NONE, new Image("/res/hatch/hatch.none.png"));
 		cache.put(FillingStyle.PLAIN, new Image("/res/hatch/hatch.solid.png"));
 		cache.put(FillingStyle.CLINES, new Image("/res/hatch/hatch.cross.png"));

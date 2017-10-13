@@ -11,7 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -51,7 +51,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 
-		final Map<FreeHandStyle, Image> cache = new HashMap<>();
+		final Map<FreeHandStyle, Image> cache = new EnumMap<>(FreeHandStyle.class);
 		cache.put(FreeHandStyle.LINES, new Image("/res/freehand/line.png"));
 		cache.put(FreeHandStyle.CURVES, new Image("/res/freehand/curve.png"));
 		initComboBox(freeHandType, cache, FreeHandStyle.values());

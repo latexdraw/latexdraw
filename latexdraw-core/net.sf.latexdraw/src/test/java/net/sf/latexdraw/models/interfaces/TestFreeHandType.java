@@ -12,11 +12,11 @@ import static org.junit.Assert.assertEquals;
 public class TestFreeHandType {
 	@Theory
 	public void testGetType(final FreeHandStyle style) {
-		assertEquals(FreeHandStyle.getType(style.toString()), style);
+		assertEquals(style, FreeHandStyle.getType(style.toString()));
 	}
 
 	@Theory
 	public void testGetTypeKO(@StringData(vals = {"", "ds qoqs"}, withNull = true) final String value) {
-		assertEquals(FreeHandStyle.getType(value), FreeHandStyle.CURVES);
+		assertEquals(FreeHandStyle.CURVES, FreeHandStyle.getType(value));
 	}
 }

@@ -14,28 +14,28 @@ import static org.junit.Assert.assertEquals;
 public class TestArrowStyle {
 	@Test
 	public void testGetPSTToken() {
-		assertEquals(ArrowStyle.BAR_END.getPSTToken(), PSTricksConstants.BAREND_STYLE);
-		assertEquals(ArrowStyle.BAR_IN.getPSTToken(), PSTricksConstants.BARIN_STYLE);
-		assertEquals(ArrowStyle.CIRCLE_END.getPSTToken(), PSTricksConstants.CIRCLEEND_STYLE);
-		assertEquals(ArrowStyle.CIRCLE_IN.getPSTToken(), PSTricksConstants.CIRCLEIN_STYLE);
-		assertEquals(ArrowStyle.DISK_END.getPSTToken(), PSTricksConstants.DISKEND_STYLE);
-		assertEquals(ArrowStyle.DISK_IN.getPSTToken(), PSTricksConstants.DISKIN_STYLE);
-		assertEquals(ArrowStyle.LEFT_ARROW.getPSTToken(), PSTricksConstants.LARROW_STYLE);
-		assertEquals(ArrowStyle.LEFT_DBLE_ARROW.getPSTToken(), PSTricksConstants.DLARROW_STYLE);
-		assertEquals(ArrowStyle.LEFT_ROUND_BRACKET.getPSTToken(), PSTricksConstants.LRBRACKET_STYLE);
-		assertEquals(ArrowStyle.LEFT_SQUARE_BRACKET.getPSTToken(), PSTricksConstants.LSBRACKET_STYLE);
-		assertEquals(ArrowStyle.NONE.getPSTToken(), "");
-		assertEquals(ArrowStyle.RIGHT_ARROW.getPSTToken(), PSTricksConstants.RARROW_STYLE);
-		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW.getPSTToken(), PSTricksConstants.DRARROW_STYLE);
-		assertEquals(ArrowStyle.RIGHT_ROUND_BRACKET.getPSTToken(), PSTricksConstants.RRBRACKET_STYLE);
-		assertEquals(ArrowStyle.RIGHT_SQUARE_BRACKET.getPSTToken(), PSTricksConstants.RSBRACKET_STYLE);
-		assertEquals(ArrowStyle.ROUND_END.getPSTToken(), PSTricksConstants.ROUNDEND_STYLE);
-		assertEquals(ArrowStyle.ROUND_IN.getPSTToken(), PSTricksConstants.ROUNDIN_STYLE);
+		assertEquals(PSTricksConstants.BAREND_STYLE, ArrowStyle.BAR_END.getPSTToken());
+		assertEquals(PSTricksConstants.BARIN_STYLE, ArrowStyle.BAR_IN.getPSTToken());
+		assertEquals(PSTricksConstants.CIRCLEEND_STYLE, ArrowStyle.CIRCLE_END.getPSTToken());
+		assertEquals(PSTricksConstants.CIRCLEIN_STYLE, ArrowStyle.CIRCLE_IN.getPSTToken());
+		assertEquals(PSTricksConstants.DISKEND_STYLE, ArrowStyle.DISK_END.getPSTToken());
+		assertEquals(PSTricksConstants.DISKIN_STYLE, ArrowStyle.DISK_IN.getPSTToken());
+		assertEquals(PSTricksConstants.LARROW_STYLE, ArrowStyle.LEFT_ARROW.getPSTToken());
+		assertEquals(PSTricksConstants.DLARROW_STYLE, ArrowStyle.LEFT_DBLE_ARROW.getPSTToken());
+		assertEquals(PSTricksConstants.LRBRACKET_STYLE, ArrowStyle.LEFT_ROUND_BRACKET.getPSTToken());
+		assertEquals(PSTricksConstants.LSBRACKET_STYLE, ArrowStyle.LEFT_SQUARE_BRACKET.getPSTToken());
+		assertEquals("", ArrowStyle.NONE.getPSTToken());
+		assertEquals(PSTricksConstants.RARROW_STYLE, ArrowStyle.RIGHT_ARROW.getPSTToken());
+		assertEquals(PSTricksConstants.DRARROW_STYLE, ArrowStyle.RIGHT_DBLE_ARROW.getPSTToken());
+		assertEquals(PSTricksConstants.RRBRACKET_STYLE, ArrowStyle.RIGHT_ROUND_BRACKET.getPSTToken());
+		assertEquals(PSTricksConstants.RSBRACKET_STYLE, ArrowStyle.RIGHT_SQUARE_BRACKET.getPSTToken());
+		assertEquals(PSTricksConstants.ROUNDEND_STYLE, ArrowStyle.ROUND_END.getPSTToken());
+		assertEquals(PSTricksConstants.ROUNDIN_STYLE, ArrowStyle.ROUND_IN.getPSTToken());
 	}
 
 	@Theory
 	public void testGetArrowStylePSTConst(final ArrowStyle style) {
-		assertEquals(ArrowStyle.getArrowStyle(style.getPSTToken()), style);
+		assertEquals(style, ArrowStyle.getArrowStyle(style.getPSTToken()));
 	}
 
 	@Test
@@ -50,6 +50,6 @@ public class TestArrowStyle {
 
 	@Theory
 	public void testGetArrowStyleArrowStyle(final ArrowStyle style) {
-		assertEquals(ArrowStyle.getArrowStyle(style.toString()), style);
+		assertEquals(style, ArrowStyle.getArrowStyle(style.toString()));
 	}
 }

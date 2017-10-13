@@ -11,7 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -80,7 +80,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 		bracketPane.managedProperty().bind(bracketPane.visibleProperty());
 		rbracketPane.managedProperty().bind(rbracketPane.visibleProperty());
 
-		Map<ArrowStyle, Image> cacheLeft = new HashMap<>();
+		Map<ArrowStyle, Image> cacheLeft = new EnumMap<>(ArrowStyle.class);
 		cacheLeft.put(ArrowStyle.NONE, new Image("/res/arrowStyles/line.none.left.png"));
 		cacheLeft.put(ArrowStyle.BAR_END, new Image("/res/arrowStyles/line.barEnd.left.png"));
 		cacheLeft.put(ArrowStyle.BAR_IN, new Image("/res/arrowStyles/line.barIn.left.png"));
@@ -101,7 +101,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 		cacheLeft.put(ArrowStyle.SQUARE_END, new Image("/res/arrowStyles/lineEnd.left.png"));
 		initComboBox(arrowLeftCB, cacheLeft, ArrowStyle.values());
 
-		Map<ArrowStyle, Image> cacheRight = new HashMap<>();
+		Map<ArrowStyle, Image> cacheRight = new EnumMap<>(ArrowStyle.class);
 		cacheRight.put(ArrowStyle.NONE, new Image("/res/arrowStyles/line.none.right.png"));
 		cacheRight.put(ArrowStyle.BAR_END, new Image("/res/arrowStyles/line.barEnd.right.png"));
 		cacheRight.put(ArrowStyle.BAR_IN, new Image("/res/arrowStyles/line.barIn.right.png"));

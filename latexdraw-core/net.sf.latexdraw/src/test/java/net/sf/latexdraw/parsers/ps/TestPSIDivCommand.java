@@ -31,7 +31,7 @@ public class TestPSIDivCommand extends TestPSCommand<PSIDivCommand> {
 		dequeue.push(-10.1);
 		dequeue.push(-5.2);
 		cmd.execute(dequeue, 0.0);
-		assertEquals((int)(-10.1 / -5.2), dequeue.peek(), 0.0);
+		assertEquals((int)(-10.1 / -5.2), dequeue.peek(), 0.00001);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class TestPSIDivCommand extends TestPSCommand<PSIDivCommand> {
 		dequeue.push(10.1);
 		dequeue.push(5.3);
 		cmd.execute(dequeue, 0.0);
-		assertEquals((int)(10.1 / 5.3), dequeue.peek(), 0.0);
+		assertEquals((int)(10.1 / 5.3), dequeue.peek(), 0.00001);
 	}
 
 	@Override

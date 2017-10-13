@@ -11,7 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -51,7 +51,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 
-		Map<DotStyle, Image> cache = new HashMap<>();
+		final Map<DotStyle, Image> cache = new EnumMap<>(DotStyle.class);
 		cache.put(DotStyle.DOT, new Image("/res/dotStyles/dot.none.png"));
 		cache.put(DotStyle.ASTERISK, new Image("/res/dotStyles/dot.asterisk.png"));
 		cache.put(DotStyle.BAR, new Image("/res/dotStyles/dot.bar.png"));

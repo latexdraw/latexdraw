@@ -13,9 +13,9 @@ import static org.junit.Assert.assertEquals;
 public class TestBorderPos {
 	@Test
 	public void testGetLatexToken() {
-		assertEquals(BorderPos.INTO.getLatexToken(), PSTricksConstants.BORDERS_INSIDE);
-		assertEquals(BorderPos.MID.getLatexToken(), PSTricksConstants.BORDERS_MIDDLE);
-		assertEquals(BorderPos.OUT.getLatexToken(), PSTricksConstants.BORDERS_OUTSIDE);
+		assertEquals(PSTricksConstants.BORDERS_INSIDE, BorderPos.INTO.getLatexToken());
+		assertEquals(PSTricksConstants.BORDERS_MIDDLE, BorderPos.MID.getLatexToken());
+		assertEquals(PSTricksConstants.BORDERS_OUTSIDE, BorderPos.OUT.getLatexToken());
 	}
 
 	@Test
@@ -26,11 +26,11 @@ public class TestBorderPos {
 
 	@Theory
 	public void testGetStyleOKBorderPos(final BorderPos style) {
-		assertEquals(BorderPos.getStyle(style.toString()), style);
+		assertEquals(style, BorderPos.getStyle(style.toString()));
 	}
 
 	@Theory
 	public void testGetStyleOKPSTConst(final BorderPos style) {
-		assertEquals(BorderPos.getStyle(style.getLatexToken()), style);
+		assertEquals(style, BorderPos.getStyle(style.getLatexToken()));
 	}
 }

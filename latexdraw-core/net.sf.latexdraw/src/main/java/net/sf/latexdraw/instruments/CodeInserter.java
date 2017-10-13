@@ -77,7 +77,6 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 			@Override
 			public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol, final int line, final int charPositionInLine,
 									final String msg, final RecognitionException e) {
-				System.out.println(msg);
 				errorLog.setText(errorLog.getText() + "Syntax error: " + msg + LSystem.EOL);
 			}
 		};
@@ -118,7 +117,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 			}
 
 			@Override
-			public void close() throws SecurityException {
+			public void close() {
 			}
 		});
 

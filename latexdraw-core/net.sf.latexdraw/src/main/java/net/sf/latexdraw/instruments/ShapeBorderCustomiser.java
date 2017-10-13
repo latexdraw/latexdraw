@@ -11,7 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -71,13 +71,13 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 		linePane.managedProperty().bind(linePane.visibleProperty());
 
-		Map<BorderPos, Image> cachePos = new HashMap<>();
+		Map<BorderPos, Image> cachePos = new EnumMap<>(BorderPos.class);
 		cachePos.put(BorderPos.INTO, new Image("/res/doubleBoundary/double.boundary.into.png"));
 		cachePos.put(BorderPos.MID, new Image("/res/doubleBoundary/double.boundary.middle.png"));
 		cachePos.put(BorderPos.OUT, new Image("/res/doubleBoundary/double.boundary.out.png"));
 		initComboBox(bordersPosCB, cachePos, BorderPos.values());
 
-		Map<LineStyle, Image> cacheStyle = new HashMap<>();
+		Map<LineStyle, Image> cacheStyle = new EnumMap<>(LineStyle.class);
 		cacheStyle.put(LineStyle.SOLID, new Image("/res/lineStyles/lineStyle.none.png"));
 		cacheStyle.put(LineStyle.DASHED, new Image("/res/lineStyles/lineStyle.dashed.png"));
 		cacheStyle.put(LineStyle.DOTTED, new Image("/res/lineStyles/lineStyle.dotted.png"));

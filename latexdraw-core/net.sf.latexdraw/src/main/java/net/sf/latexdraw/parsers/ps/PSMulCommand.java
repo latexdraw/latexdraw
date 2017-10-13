@@ -18,7 +18,7 @@ import java.util.Deque;
  */
 public class PSMulCommand implements PSArithemticCommand {
 	@Override
-	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
+	public void execute(final Deque<Double> stack, final double x) {
 		if(stack.size() < 2) throw new InvalidFormatPSFunctionException();
 
 		final double a = stack.pop();

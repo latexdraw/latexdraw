@@ -18,7 +18,7 @@ import java.util.Deque;
  */
 public class PSNegCommand implements PSArithemticCommand {
 	@Override
-	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
+	public void execute(final Deque<Double> stack, final double x) {
 		if(stack.isEmpty()) throw new InvalidFormatPSFunctionException();
 
 		stack.push(-stack.pop());

@@ -60,7 +60,7 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function format is not valid.
 	 * @since 3.0
 	 */
-	public PSFunctionParser(final String fct) throws InvalidFormatPSFunctionException {
+	public PSFunctionParser(final String fct) {
 		super();
 		if(fct == null || fct.isEmpty()) throw new IllegalArgumentException();
 
@@ -101,7 +101,7 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 * @throws ArithmeticException If an error occurs during the computation of the points (e.g. division by 0).
 	 */
-	public double getY(final double x) throws InvalidFormatPSFunctionException {
+	public double getY(final double x) {
 		final Deque<Double> stack = new ArrayDeque<>();
 
 		commands.forEach(cmd -> cmd.execute(stack, x));
@@ -116,7 +116,7 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 * @throws NumberFormatException If the function is not correct.
 	 */
-	protected void parseFunction() throws NumberFormatException {
+	protected void parseFunction() {
 		int i = 0;
 		final int lgth = function.length();
 		final StringBuilder cmd = new StringBuilder();
@@ -145,7 +145,7 @@ public class PSFunctionParser {
 	 * @throws NumberFormatException If the function is not correct.
 	 * @since 3.0
 	 */
-	protected PSArithemticCommand identifyCommand(final String cmd) throws NumberFormatException {
+	protected PSArithemticCommand identifyCommand(final String cmd) {
 		if(cmd == null || cmd.isEmpty()) throw new InvalidFormatPSFunctionException();
 
 		try {

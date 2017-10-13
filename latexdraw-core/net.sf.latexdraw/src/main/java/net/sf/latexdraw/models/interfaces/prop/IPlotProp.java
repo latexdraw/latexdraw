@@ -41,7 +41,7 @@ public interface IPlotProp extends IScalable, IDotProp {
 	 * @param equation The equation to set. Nothing done if null or empty.
 	 * @throws InvalidFormatPSFunctionException When the given equation is not valid.
 	 */
-	void setPlotEquation(final String equation) throws InvalidFormatPSFunctionException;
+	void setPlotEquation(final String equation);
 
 	/**
 	 * @return Returns the X-min value of the plotted function.

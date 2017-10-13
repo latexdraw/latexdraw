@@ -28,20 +28,20 @@ public class TestFillingStyle {
 
 	@Test
 	public void testGetLatexToken() {
-		assertEquals(FillingStyle.CLINES.getLatexToken(), PSTricksConstants.TOKEN_FILL_CROSSHATCH);
-		assertEquals(FillingStyle.CLINES_PLAIN.getLatexToken(), PSTricksConstants.TOKEN_FILL_CROSSHATCH_F);
-		assertEquals(FillingStyle.GRAD.getLatexToken(), PSTricksConstants.TOKEN_FILL_GRADIENT);
-		assertEquals(FillingStyle.HLINES.getLatexToken(), PSTricksConstants.TOKEN_FILL_HLINES);
-		assertEquals(FillingStyle.HLINES_PLAIN.getLatexToken(), PSTricksConstants.TOKEN_FILL_HLINES_F);
-		assertEquals(FillingStyle.NONE.getLatexToken(), PSTricksConstants.TOKEN_FILL_NONE);
-		assertEquals(FillingStyle.PLAIN.getLatexToken(), PSTricksConstants.TOKEN_FILL_SOLID);
-		assertEquals(FillingStyle.VLINES.getLatexToken(), PSTricksConstants.TOKEN_FILL_VLINES);
-		assertEquals(FillingStyle.VLINES_PLAIN.getLatexToken(), PSTricksConstants.TOKEN_FILL_VLINES_F);
+		assertEquals(PSTricksConstants.TOKEN_FILL_CROSSHATCH, FillingStyle.CLINES.getLatexToken());
+		assertEquals(PSTricksConstants.TOKEN_FILL_CROSSHATCH_F, FillingStyle.CLINES_PLAIN.getLatexToken());
+		assertEquals(PSTricksConstants.TOKEN_FILL_GRADIENT, FillingStyle.GRAD.getLatexToken());
+		assertEquals(PSTricksConstants.TOKEN_FILL_HLINES, FillingStyle.HLINES.getLatexToken());
+		assertEquals(PSTricksConstants.TOKEN_FILL_HLINES_F, FillingStyle.HLINES_PLAIN.getLatexToken());
+		assertEquals(PSTricksConstants.TOKEN_FILL_NONE, FillingStyle.NONE.getLatexToken());
+		assertEquals(PSTricksConstants.TOKEN_FILL_SOLID, FillingStyle.PLAIN.getLatexToken());
+		assertEquals(PSTricksConstants.TOKEN_FILL_VLINES, FillingStyle.VLINES.getLatexToken());
+		assertEquals(PSTricksConstants.TOKEN_FILL_VLINES_F, FillingStyle.VLINES_PLAIN.getLatexToken());
 	}
 
 	@Theory
 	public void testGetStyleFromLatexOK(final FillingStyle style) {
-		assertEquals(FillingStyle.getStyleFromLatex(style.getLatexToken()), style);
+		assertEquals(style, FillingStyle.getStyleFromLatex(style.getLatexToken()));
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class TestFillingStyle {
 
 	@Theory
 	public void testGetStyle(final FillingStyle style) {
-		assertEquals(FillingStyle.getStyle(style.toString()), style);
+		assertEquals(style, FillingStyle.getStyle(style.toString()));
 	}
 
 	@Test

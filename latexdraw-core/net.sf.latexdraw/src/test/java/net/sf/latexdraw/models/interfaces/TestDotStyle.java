@@ -35,32 +35,32 @@ public class TestDotStyle {
 
 	@Test
 	public void testGetStyleOKPSTConst() {
-		assertEquals(DotStyle.getStyle(PSTricksConstants.ASTERISK_STYLE), DotStyle.ASTERISK);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.BAR_STYLE), DotStyle.BAR);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.DIAMOND_STYLE), DotStyle.DIAMOND);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.DOT_STYLE), DotStyle.DOT);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.FDIAMOND_STYLE), DotStyle.FDIAMOND);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.FPENTAGON_STYLE), DotStyle.FPENTAGON);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.FSQUARE_STYLE), DotStyle.FSQUARE);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.FTRIANGLE_STYLE), DotStyle.FTRIANGLE);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.O_STYLE), DotStyle.O);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.OPLUS_STYLE), DotStyle.OPLUS);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.OTIMES_STYLE), DotStyle.OTIMES);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.PENTAGON_STYLE), DotStyle.PENTAGON);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.PLUS_STYLE), DotStyle.PLUS);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.SQUARE_STYLE), DotStyle.SQUARE);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.TRIANGLE_STYLE), DotStyle.TRIANGLE);
-		assertEquals(DotStyle.getStyle(PSTricksConstants.X_STYLE), DotStyle.X);
+		assertEquals(DotStyle.ASTERISK, DotStyle.getStyle(PSTricksConstants.ASTERISK_STYLE));
+		assertEquals(DotStyle.BAR, DotStyle.getStyle(PSTricksConstants.BAR_STYLE));
+		assertEquals(DotStyle.DIAMOND, DotStyle.getStyle(PSTricksConstants.DIAMOND_STYLE));
+		assertEquals(DotStyle.DOT, DotStyle.getStyle(PSTricksConstants.DOT_STYLE));
+		assertEquals(DotStyle.FDIAMOND, DotStyle.getStyle(PSTricksConstants.FDIAMOND_STYLE));
+		assertEquals(DotStyle.FPENTAGON, DotStyle.getStyle(PSTricksConstants.FPENTAGON_STYLE));
+		assertEquals(DotStyle.FSQUARE, DotStyle.getStyle(PSTricksConstants.FSQUARE_STYLE));
+		assertEquals(DotStyle.FTRIANGLE, DotStyle.getStyle(PSTricksConstants.FTRIANGLE_STYLE));
+		assertEquals(DotStyle.O, DotStyle.getStyle(PSTricksConstants.O_STYLE));
+		assertEquals(DotStyle.OPLUS, DotStyle.getStyle(PSTricksConstants.OPLUS_STYLE));
+		assertEquals(DotStyle.OTIMES, DotStyle.getStyle(PSTricksConstants.OTIMES_STYLE));
+		assertEquals(DotStyle.PENTAGON, DotStyle.getStyle(PSTricksConstants.PENTAGON_STYLE));
+		assertEquals(DotStyle.PLUS, DotStyle.getStyle(PSTricksConstants.PLUS_STYLE));
+		assertEquals(DotStyle.SQUARE, DotStyle.getStyle(PSTricksConstants.SQUARE_STYLE));
+		assertEquals(DotStyle.TRIANGLE, DotStyle.getStyle(PSTricksConstants.TRIANGLE_STYLE));
+		assertEquals(DotStyle.X, DotStyle.getStyle(PSTricksConstants.X_STYLE));
 	}
 
 	@Theory
 	public void testGetStyleOKDotStyle(final DotStyle style) {
-		assertEquals(DotStyle.getStyle(style.toString()), style);
+		assertEquals(style, DotStyle.getStyle(style.toString()));
 	}
 
 	@Theory
 	public void testGetStyleOKDotStylePST(final DotStyle style) {
-		assertEquals(DotStyle.getStyle(style.getPSTToken()), style);
+		assertEquals(style, DotStyle.getStyle(style.getPSTToken()));
 	}
 
 	@Test

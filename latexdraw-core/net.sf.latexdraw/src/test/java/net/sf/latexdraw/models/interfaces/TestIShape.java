@@ -678,7 +678,7 @@ public class TestIShape implements HelperTest {
 	public void testSetGetFillingCol(@ShapeData final IShape shape) {
 		assumeTrue(shape.isInteriorStylable());
 		shape.setFillingCol(DviPsColors.DARKGRAY);
-		assertEquals(shape.getFillingCol(), DviPsColors.DARKGRAY);
+		assertEquals(DviPsColors.DARKGRAY, shape.getFillingCol());
 	}
 
 	@Theory
@@ -686,7 +686,7 @@ public class TestIShape implements HelperTest {
 		assumeTrue(shape.isInteriorStylable());
 		shape.setFillingCol(DviPsColors.DARKGRAY);
 		shape.setFillingCol(null);
-		assertEquals(shape.getFillingCol(), DviPsColors.DARKGRAY);
+		assertEquals(DviPsColors.DARKGRAY, shape.getFillingCol());
 	}
 
 	@Theory

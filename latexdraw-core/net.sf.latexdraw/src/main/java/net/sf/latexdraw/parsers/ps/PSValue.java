@@ -31,7 +31,7 @@ public class PSValue implements PSArithemticCommand {
 	}
 
 	@Override
-	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
+	public void execute(final Deque<Double> stack, final double x) {
 		stack.push(value);
 	}
 }

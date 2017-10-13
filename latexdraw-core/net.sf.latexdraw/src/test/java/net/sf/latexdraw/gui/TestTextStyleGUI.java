@@ -60,6 +60,6 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 	@Test
 	public void testEditPackagesField() {
 		clickOn(packagesField).type(KeyCode.A).sleep(1200);
-		assertEquals(LaTeXGenerator.getPackages(), "a");
+		assertEquals("a", LaTeXGenerator.getPackages());
 	}
 }

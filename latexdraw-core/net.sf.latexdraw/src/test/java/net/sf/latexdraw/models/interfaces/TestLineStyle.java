@@ -13,9 +13,9 @@ import static org.junit.Assert.assertEquals;
 public class TestLineStyle {
 	@Test
 	public void testgetLatexToken() {
-		assertEquals(LineStyle.DASHED.getLatexToken(), PSTricksConstants.LINE_DASHED_STYLE);
-		assertEquals(LineStyle.DOTTED.getLatexToken(), PSTricksConstants.LINE_DOTTED_STYLE);
-		assertEquals(LineStyle.SOLID.getLatexToken(), PSTricksConstants.LINE_SOLID_STYLE);
+		assertEquals(PSTricksConstants.LINE_DASHED_STYLE, LineStyle.DASHED.getLatexToken());
+		assertEquals(PSTricksConstants.LINE_DOTTED_STYLE, LineStyle.DOTTED.getLatexToken());
+		assertEquals(PSTricksConstants.LINE_SOLID_STYLE, LineStyle.SOLID.getLatexToken());
 	}
 
 	@Test
