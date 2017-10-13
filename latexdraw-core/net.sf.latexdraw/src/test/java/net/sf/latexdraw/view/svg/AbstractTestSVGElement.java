@@ -20,7 +20,7 @@ public abstract class AbstractTestSVGElement {
 	public abstract String getNameNode();
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		doc = new SVGDocument();
 		node = (SVGElement)doc.createElement(getNameNode());
 	}
@@ -28,12 +28,12 @@ public abstract class AbstractTestSVGElement {
 	@Test
 	public void testGetStroke() {
 		node.removeAttribute(SVGAttributes.SVG_STROKE);
-		assertEquals(node.getStroke(), null);
+		assertNull(node.getStroke());
 
 		node.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.CSS_ALICEBLUE_NAME);
-		assertEquals(node.getStroke(), CSSColors.CSS_ALICEBLUE_RGB_VALUE);
+		assertEquals(CSSColors.CSS_ALICEBLUE_RGB_VALUE, node.getStroke());
 		node.setAttribute(SVGAttributes.SVG_STROKE, "testtest");
-		assertEquals(node.getStroke(), null);
+		assertNull(node.getStroke());
 	}
 
 	@Test
@@ -69,7 +69,7 @@ public abstract class AbstractTestSVGElement {
 		assertNull(node.getAttribute(null));
 		assertNull(node.getAttribute(""));
 		node.setAttribute("testAttr", "valAttr");
-		assertEquals(node.getAttribute("testAttr"), "valAttr");
+		assertEquals("valAttr", node.getAttribute("testAttr"));
 	}
 
 	@Test
@@ -77,7 +77,7 @@ public abstract class AbstractTestSVGElement {
 		assertNull(node.getAttributeNode(null));
 		assertNull(node.getAttributeNode(""));
 		node.setAttribute("testAttr2", "valAttr2");
-		assertEquals(node.getAttributeNode("testAttr2").getNodeValue(), "valAttr2");
+		assertEquals("valAttr2", node.getAttributeNode("testAttr2").getNodeValue());
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public abstract class AbstractTestSVGElement {
 	@Test
 	public void testAppendChild() {
 		SVGElement elt = (SVGElement)doc.createElement("eltAppendChild");
-		assertEquals(node.appendChild(elt), elt);
-		assertEquals(node.getChildren("eltAppendChild").getLength(), 1);
+		assertEquals(elt, node.appendChild(elt));
+		assertEquals(1, node.getChildren("eltAppendChild").getLength());
 	}
 }

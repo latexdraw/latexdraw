@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class TestSVGText {
-	protected SVGDocument doc;
+	SVGDocument doc;
 	SVGText txt;
 
 	@Before
@@ -50,27 +50,30 @@ public class TestSVGText {
 	}
 
 	@Test
-	public void testAppendData() {
+	public void testAppendDataDefault() {
+		assertEquals("test", txt.getData());
+	}
+
+	@Test
+	public void testAppendDataNULL() {
 		txt.appendData(null);
 		assertEquals("test", txt.getData());
+	}
+
+	@Test
+	public void testAppendDataAppend() {
 		txt.appendData("coucou");
-		assertEquals("testcoucou", txt.getData());
-		txt.appendData("");
 		assertEquals("testcoucou", txt.getData());
 	}
 
 	@Test
 	public void testGetData() {
 		assertEquals("test", txt.getData());
-		txt = createSVGText("", doc);
-		assertEquals("", txt.getData());
 	}
 
 	@Test
 	public void testGetLength() {
 		assertEquals("text".length(), txt.getLength());
-		txt = createSVGText("", doc);
-		assertEquals("".length(), txt.getLength());
 	}
 
 	@Test
@@ -80,8 +83,6 @@ public class TestSVGText {
 
 	@Test
 	public void testSetData() {
-		txt.setData("");
-		assertEquals(txt.getData(), "");
 		txt.setData("coucou");
 		assertEquals(txt.getData(), "coucou");
 	}

@@ -14,44 +14,45 @@ import static org.junit.Assert.assertTrue;
 public class TestSVGStopElement extends AbstractTestSVGElement {
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
 	}
 
-	@SuppressWarnings("unused")
 	@Test(expected = IllegalArgumentException.class)
 	public void testContructorFail1() throws MalformedSVGDocument {
 		new SVGStopElement(null, null);
 	}
 
-	@SuppressWarnings("unused")
 	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail3() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_OFFSET, "dsd");
 		new SVGStopElement(node, null);
 	}
 
-	@SuppressWarnings("unused")
 	@Test
 	public void testContructor() throws MalformedSVGDocument {
 		new SVGStopElement(node, null);
 	}
 
 	@Test
-	public void testGetStopColor1() throws MalformedSVGDocument {
+	public void testGetStopColorDefault() throws MalformedSVGDocument {
 		SVGStopElement e = new SVGStopElement(node, null);
 		assertEquals(e.getStopColor(), DviPsColors.BLACK);
+	}
+
+	@Test
+	public void testGetStopColor() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
 		node.setAttribute(SVGAttributes.SVG_STOP_COLOR, "blue");
-		e = new SVGStopElement(node, null);
-		assertEquals(e.getStopColor(), DviPsColors.BLUE);
+		SVGStopElement e = new SVGStopElement(node, null);
+		assertEquals(DviPsColors.BLUE, e.getStopColor());
 	}
 
 	@Test
 	public void testGetOffset() throws MalformedSVGDocument {
 		SVGStopElement e = new SVGStopElement(node, null);
-		assertEquals(e.getOffset(), 0.5, 0.0001);
+		assertEquals(0.5, e.getOffset(), 0.0001);
 	}
 
 	@Test

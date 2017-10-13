@@ -5,14 +5,19 @@ import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGNodeList;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+@RunWith(Theories.class)
 public class TestSVGNodeList {
-	protected SVGNodeList list;
-	protected SVGDocument doc;
+	SVGNodeList list;
+	SVGDocument doc;
 
 	@Before
 	public void setUp() {
@@ -26,26 +31,34 @@ public class TestSVGNodeList {
 	}
 
 	@Test
-	public void testGetLength() {
-		list.getNodes().clear();
+	public void testGetLength0() {
 		assertEquals(0, list.getLength());
-		list.getNodes().add((SVGElement)doc.createElement("elt"));
-		assertEquals(1, list.getLength());
-		list.getNodes().clear();
 	}
 
 	@Test
-	public void testItem() {
-		SVGElement elt = (SVGElement)doc.createElement("elt");
+	public void testGetLength1() {
+		list.getNodes().add((SVGElement) doc.createElement("elt"));
+		assertEquals(1, list.getLength());
+	}
 
-		list.getNodes().clear();
-		assertNull(list.item(0));
-		assertNull(list.item(-1));
-		assertNull(list.item(1));
+	@Theory
+	public void testItem(@TestedOn(ints = {0, -1, 1}) final int index) {
+		assertNull(list.item(index));
+	}
+
+	@Test
+	public void testItemKO() {
+		final SVGElement elt = (SVGElement) doc.createElement("elt");
 		list.getNodes().add(elt);
 		assertNull(list.item(-1));
 		assertNull(list.item(1));
-		assertEquals(list.item(0), elt);
+	}
+
+	@Test
+	public void testItemOK() {
+		final SVGElement elt = (SVGElement) doc.createElement("elt");
+		list.getNodes().add(elt);
+		assertEquals(elt, list.item(0));
 	}
 
 	@Test

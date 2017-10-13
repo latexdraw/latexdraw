@@ -38,13 +38,14 @@ public class SVGImageElement extends SVGElement {
 	 * Creates an SVG image.
 	 * @param doc The owner document.
 	 * @param pathSource The path of the picture.
+	 * @throws NullPointerException If the document is null.
+	 * @throws IllegalArgumentException If the given path is null.
 	 * @since 0.1
 	 */
 	public SVGImageElement(final SVGDocument doc, final String pathSource) {
 		super(doc);
 
-		if(pathSource==null)
-			throw new IllegalArgumentException();
+		if(pathSource == null) throw new IllegalArgumentException();
 
 		setNodeName(SVGElements.SVG_IMAGE);
 		setAttribute("xlink:href", pathSource);//$NON-NLS-1$

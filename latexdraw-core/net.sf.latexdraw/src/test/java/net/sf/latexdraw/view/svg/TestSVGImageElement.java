@@ -9,55 +9,48 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 public class TestSVGImageElement extends AbstractTestSVGElement {
-	@SuppressWarnings("unused")
+	@Test(expected = NullPointerException.class)
+	public void testContructorNULLEmpty() throws MalformedSVGDocument {
+		new SVGImageElement(null, "");
+	}
+
+	@Test(expected = MalformedSVGDocument.class)
+	public void testContructorNodeNULL() throws MalformedSVGDocument {
+		new SVGImageElement(node, null);
+	}
+
+	@Test(expected = MalformedSVGDocument.class)
+	public void testContructorNodeInvalidNULL() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "dsd");
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "dsd");
+		new SVGImageElement(node, null);
+	}
+
+	@Test(expected = MalformedSVGDocument.class)
+	public void testContructorNodeInvalid2NULL() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "1");
+		new SVGImageElement(node, null);
+	}
+
+	@Test(expected = MalformedSVGDocument.class)
+	public void testContructorNodeInvalid3NULL() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "-1");
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "10");
+		new SVGImageElement(node, null);
+	}
+
+	@Test(expected = MalformedSVGDocument.class)
+	public void testContructorNodeInvalid4NULL() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "-1");
+		new SVGImageElement(node, null);
+	}
+
 	@Test
-	public void testContructor() throws MalformedSVGDocument {
-		try {
-			new SVGImageElement(null, "");
-			fail();
-		}catch(Exception e) {
-			/**/}
-
-		try {
-			new SVGImageElement(node, null);
-			fail();
-		}catch(MalformedSVGDocument e) {
-			/**/}
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "dsd");
-			node.setAttribute(SVGAttributes.SVG_HEIGHT, "dsd");
-			new SVGImageElement(node, null);
-			fail();
-		}catch(MalformedSVGDocument e) {
-			/**/}
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "1");
-			new SVGImageElement(node, null);
-			fail();
-		}catch(MalformedSVGDocument e) {
-			/**/}
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "-1");
-			node.setAttribute(SVGAttributes.SVG_HEIGHT, "10");
-			new SVGImageElement(node, null);
-			fail();
-		}catch(MalformedSVGDocument e) {
-			/**/}
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
-			node.setAttribute(SVGAttributes.SVG_HEIGHT, "-1");
-			new SVGImageElement(node, null);
-			fail();
-		}catch(MalformedSVGDocument e) {
-			/**/}
-
+	public void testContructorOK() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		new SVGImageElement(node, null);
 	}
@@ -67,7 +60,7 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGImageElement e = new SVGImageElement(node, null);
-		assertEquals(e.getHeight(), 20., 0.0001);
+		assertEquals(20d, e.getHeight(), 0.0001);
 	}
 
 	@Test
@@ -75,71 +68,99 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGImageElement e = new SVGImageElement(node, null);
-		assertEquals(e.getWidth(), 10., 0.0001);
+		assertEquals(10d, e.getWidth(), 0.0001);
 	}
 
 	@Test
-	public void testGetURI() throws MalformedSVGDocument {
+	public void testGetURINULL() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGImageElement e = new SVGImageElement(node, null);
 		assertNull(e.getURI());
+	}
 
+	@Test
+	public void testGetURIxlink() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		node.setAttribute("xlink:href", "/dir/file");
-		e = new SVGImageElement(node, null);
-		assertEquals(e.getURI(), "/dir/file");
+		SVGImageElement e = new SVGImageElement(node, null);
+		assertEquals("/dir/file", e.getURI());
 	}
 
 	@Test
-	public void testEnableRendering() throws MalformedSVGDocument {
+	public void testEnableRenderingNULL() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGImageElement e = new SVGImageElement(node, null);
 		assertFalse(e.enableRendering());
+	}
 
+	@Test
+	public void testEnableRenderingBadxlink() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		node.setAttribute("xlink:href", "/rerzerojcsf/dsqdsdfgdre");
-		e = new SVGImageElement(node, null);
+		SVGImageElement e = new SVGImageElement(node, null);
 		assertFalse(e.enableRendering());
+	}
 
-		node.setAttribute("xlink:href", "build.xml");
-		e = new SVGImageElement(node, null);
-		assertFalse(e.enableRendering());
-
+	@Test
+	public void testEnableRenderingBadSVG_WIDTH() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "0");
-		e = new SVGImageElement(node, null);
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
+		SVGImageElement e = new SVGImageElement(node, null);
 		assertFalse(e.enableRendering());
+	}
 
+	@Test
+	public void testEnableRenderingBadSVG_HEIGHT() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "0");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "0");
-		e = new SVGImageElement(node, null);
+		SVGImageElement e = new SVGImageElement(node, null);
 		assertFalse(e.enableRendering());
+	}
 
+	@Test
+	public void testEnableRenderingBadSVG_HEIGHTOKSVG_WIDTH() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "0");
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "20");
-		e = new SVGImageElement(node, null);
+		SVGImageElement e = new SVGImageElement(node, null);
 		assertFalse(e.enableRendering());
 	}
 
 	@Test
-	public void testGetY() throws MalformedSVGDocument {
+	public void testGetY0() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGImageElement e = new SVGImageElement(node, null);
-		assertEquals(e.getY(), 0., 0.0001);
-
-		node.setAttribute(SVGAttributes.SVG_Y, "1");
-		e = new SVGImageElement(node, null);
-		assertEquals(1., e.getY(), 0.0001);
+		assertEquals(0d, e.getY(), 0.0001);
 	}
 
 	@Test
-	public void testGetX() throws MalformedSVGDocument {
+	public void testGetY1() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
+		node.setAttribute(SVGAttributes.SVG_Y, "1");
+		SVGImageElement e = new SVGImageElement(node, null);
+		assertEquals(1d, e.getY(), 0.0001);
+	}
+
+	@Test
+	public void testGetX0() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGImageElement e = new SVGImageElement(node, null);
-		assertEquals(e.getX(), 0., 0.0001);
+		assertEquals(e.getX(), 0d, 0.0001);
+	}
 
+	@Test
+	public void testGetX1() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		node.setAttribute(SVGAttributes.SVG_X, "1");
-		e = new SVGImageElement(node, null);
-		assertEquals(1., e.getX(), 0.0001);
+		SVGImageElement e = new SVGImageElement(node, null);
+		assertEquals(1d, e.getX(), 0.0001);
 	}
 
 	@Override

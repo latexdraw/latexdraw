@@ -73,6 +73,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	/**
 	 * Creates an simple SVGElement with the owner document.
 	 * @param owner The owner document.
+	 * @throws NullPointerException If the document is null.
 	 * @since 0.1
 	 */
     protected SVGElement(final SVGDocument owner) {

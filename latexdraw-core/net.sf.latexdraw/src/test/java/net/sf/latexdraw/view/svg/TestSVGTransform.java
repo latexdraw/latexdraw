@@ -26,13 +26,11 @@ public class TestSVGTransform {
 		assertNotNull(t.getMatrix());
 	}
 
-	@SuppressWarnings("unused")
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNull() {
 		new SVGTransform(null);
 	}
 
-	@SuppressWarnings("unused")
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorEmpty() {
 		new SVGTransform("");

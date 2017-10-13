@@ -18,21 +18,16 @@ import net.sf.latexdraw.parsers.svg.parsers.CSSStyleHandler;
  * @author Arnaud BLOUIN
  */
 public class CSSStyleList extends HashMap<String, String> implements CSSStyleHandler {
-	private static final long serialVersionUID = 1L;
-
-
 	/**
 	 * Adds a CSS style to the list.
 	 * @param name The name of the style.
 	 * @param value The value of the style.
-	 * @since 0.1
 	 */
 	public void addCSSStyle(final String name, final String value) {
-		if(name!=null && value!=null)
+		if(name != null && value != null) {
 			put(name, value);
+		}
 	}
-
-
 
 	/**
 	 * @param styleName The name of the style.
@@ -42,11 +37,10 @@ public class CSSStyleList extends HashMap<String, String> implements CSSStyleHan
 		return get(styleName);
 	}
 
-
-
 	@Override
 	public void onCSSStyle(final String name, final String value) {
-		if(name!=null && value!=null)
+		if(name != null && value != null) {
 			addCSSStyle(name, value);
+		}
 	}
 }

@@ -16,7 +16,7 @@ public class TestSVGComment extends TestSVGText {
 	}
 
 	@Override
-	protected SVGComment createSVGText(String str, SVGDocument document) throws IllegalArgumentException {
+	protected SVGComment createSVGText(String str, SVGDocument document) {
 		return new SVGComment(str, document);
 	}
 }

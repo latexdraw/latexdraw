@@ -23,8 +23,8 @@ public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandle
 	public void testParse() throws ParseException {
 		parser.setCode("stroke\t \n/**/ :\n\r \t red/* fldijfsd */ ;\nstroke-width : 2cm");
 		parser.parse();
-		assertEquals(name, "stroke-width");
-		assertEquals(value, "2cm");
+		assertEquals("stroke-width", name);
+		assertEquals("2cm", value);
 	}
 
 	@Test
@@ -48,8 +48,8 @@ public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandle
 	public void testSkipComment() throws ParseException {
 		parser.setCode("fill:/*test*/green");
 		parser.parse();
-		assertEquals(name, "fill");
-		assertEquals(value, "green");
+		assertEquals("fill", name);
+		assertEquals("green", value);
 	}
 
 	@Test
@@ -57,8 +57,8 @@ public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandle
 	public void testSkipWSP() throws ParseException {
 		parser.setCode(" \n \t \r stroke\t\n \r: \r \t\n blue \r\t \n \t ;\t\t\n\r fill\t\r :\n green \r \t ");
 		parser.parse();
-		assertEquals(name, "fill");
-		assertEquals(value, "green");
+		assertEquals("fill", name);
+		assertEquals("green", value);
 	}
 
 	@Override

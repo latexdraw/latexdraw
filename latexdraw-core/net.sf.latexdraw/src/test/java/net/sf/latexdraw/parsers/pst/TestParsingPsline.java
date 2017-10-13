@@ -14,8 +14,8 @@ public class TestParsingPsline extends TestPSTParser {
 	public void testBugTwoSameArrows() {
 		parser("\\psline{<-<}(-0.1,-0.2)(2,5)");
 		final IPolyline sh = (IPolyline) listener.getShapes().get(0);
-		assertEquals(sh.getArrowAt(0).getArrowStyle(), ArrowStyle.LEFT_ARROW);
-		assertEquals(sh.getArrowAt(1).getArrowStyle(), ArrowStyle.LEFT_ARROW);
+		assertEquals(ArrowStyle.LEFT_ARROW, sh.getArrowAt(0).getArrowStyle());
+		assertEquals(ArrowStyle.LEFT_ARROW, sh.getArrowAt(1).getArrowStyle());
 		assertNotEquals(sh.getArrowAt(0), sh.getArrowAt(1));
 	}
 

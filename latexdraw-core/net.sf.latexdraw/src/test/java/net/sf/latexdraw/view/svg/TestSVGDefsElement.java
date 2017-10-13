@@ -5,43 +5,58 @@ import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGMarkerElement;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 public class TestSVGDefsElement extends AbstractTestSVGElement {
+	SVGDefsElement defs;
+
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		defs = new SVGDefsElement(node, null);
+	}
+
 	@Test
 	public void testEnableRendering() throws MalformedSVGDocument {
-		SVGDefsElement defs = new SVGDefsElement(node, null);
 		assertFalse(defs.enableRendering());
 	}
 
 	@Test
-	public void testGetDef() throws MalformedSVGDocument {
-		SVGDefsElement defs = new SVGDefsElement(node, null);
-		SVGMarkerElement mark = new SVGMarkerElement(node.getOwnerDocument());
+	public void testGetDefNULL() throws MalformedSVGDocument {
+		assertNull(defs.getDef(null));
+	}
 
+	@Test
+	public void testGetDefEmpty() throws MalformedSVGDocument {
+		assertNull(defs.getDef(""));
+	}
+
+	@Test
+	public void testGetDefInvalid() throws MalformedSVGDocument {
+		assertNull(defs.getDef("dsqd"));
+	}
+
+	@Test
+	public void testGetDefOK() throws MalformedSVGDocument {
+		final SVGMarkerElement mark = new SVGMarkerElement(node.getOwnerDocument());
 		mark.setAttribute(SVGAttributes.SVG_ID, SVGAttributes.SVG_ID);
 		defs.appendChild(mark);
-
-		assertNull(defs.getDef(null));
-		assertNull(defs.getDef(""));
-		assertNull(defs.getDef("dsqd"));
 		assertEquals(mark, defs.getDef("id"));
 	}
 
-	@SuppressWarnings("unused")
-	@Test
-	public void testContructor() throws MalformedSVGDocument {
-		try {
-			new SVGDefsElement(null, null);
-			fail();
-		}catch(Exception e) {
-			/**/}
+	@Test(expected = IllegalArgumentException.class)
+	public void testContructorKO() throws MalformedSVGDocument {
+		new SVGDefsElement(null, null);
+	}
 
+	@Test
+	public void testContructorOK() throws MalformedSVGDocument {
 		new SVGDefsElement(node, null);
 	}
 

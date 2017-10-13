@@ -5,17 +5,21 @@ import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGNamedNodeMap;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.runner.RunWith;
 import org.w3c.dom.DOMException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
+@RunWith(Theories.class)
 public class TestSVGNamedNodeMap {
-	protected SVGNamedNodeMap map;
-	protected SVGDocument doc;
+	SVGNamedNodeMap map;
+	SVGDocument doc;
 
 	@Before
 	public void setUp() {
@@ -29,111 +33,123 @@ public class TestSVGNamedNodeMap {
 	}
 
 	@Test
-	public void testGetLength() {
+	public void testGetLengthEmpty() {
 		map.getAttributes().clear();
 		assertEquals(0, map.getLength());
+	}
+
+	@Test
+	public void testGetLength() {
 		map.getAttributes().add(new SVGAttr("", "", doc.createElement("elt")));
 		assertEquals(1, map.getLength());
-		map.getAttributes().clear();
 	}
 
 	@Test
-	public void testGetNamedItem() {
-		map.getAttributes().clear();
+	public void testGetNamedItemNULL() {
 		assertNull(map.getNamedItem(null));
+	}
+
+	@Test
+	public void testGetNamedItemEmpty() {
 		assertNull(map.getNamedItem(""));
+	}
+
+	@Test
+	public void testGetNamedItemInvalid() {
 		assertNull(map.getNamedItem("test"));
-		map.getAttributes().add(new SVGAttr("test", "", doc.createElement("elt")));
-		assertNull(map.getNamedItem(null));
-		assertNull(map.getNamedItem(""));
-		assertNotNull(map.getNamedItem("test"));
-		map.getAttributes().clear();
 	}
 
 	@Test
-	public void testItem() {
-		SVGAttr attr = new SVGAttr("test", "", doc.createElement("elt"));
+	public void testGetNamedItemOK() {
+		map.getAttributes().add(new SVGAttr("test", "", doc.createElement("elt")));
+		assertNotNull(map.getNamedItem("test"));
+	}
 
-		map.getAttributes().clear();
-		assertNull(map.item(0));
-		assertNull(map.item(-1));
-		assertNull(map.item(1));
+	@Theory
+	public void testItem(@TestedOn(ints = {0, -1, 1}) final int index) {
+		assertNull(map.item(index));
+	}
+
+	@Test
+	public void testItemKO() {
+		final SVGAttr attr = new SVGAttr("test", "", doc.createElement("elt"));
 		map.getAttributes().add(attr);
 		assertNull(map.item(-1));
-		assertNull(map.item(1));
-		assertEquals(map.item(0), attr);
-		map.getAttributes().clear();
 	}
 
 	@Test
-	public void testRemoveNamedItem() {
-		SVGAttr attr = new SVGAttr("test", "", doc.createElement("elt"));
+	public void testItemOK() {
+		final SVGAttr attr = new SVGAttr("test", "", doc.createElement("elt"));
+		map.getAttributes().add(attr);
+		assertEquals(map.item(0), attr);
+	}
 
-		map.getAttributes().clear();
+	@Test(expected = DOMException.class)
+	public void testRemoveNamedItemKONULL() {
+		map.removeNamedItem(null);
+	}
 
-		try {
-			map.removeNamedItem(null);
-			fail();
-		}catch(DOMException e) {
-			/* ok */ }
 
-		try {
-			map.removeNamedItem("");
-			fail();
-		}catch(DOMException e) {
-			/* ok */ }
+	@Test(expected = DOMException.class)
+	public void testRemoveNamedItemKOEmpty() {
+		map.removeNamedItem("");
+	}
 
-		try {
-			map.removeNamedItem("test");
-			fail();
-		}catch(DOMException e) {
-			/* ok */ }
+	@Test(expected = DOMException.class)
+	public void testRemoveNamedItemKOInvalid() {
+		map.removeNamedItem("test");
+	}
 
+	@Test
+	public void testRemoveNamedItemOK() {
+		final SVGAttr attr = new SVGAttr("test", "", doc.createElement("elt"));
 		map.getAttributes().add(attr);
 		assertEquals(attr, map.removeNamedItem("test"));
+	}
 
-		try {
-			map.removeNamedItem("test");
-			fail();
-		}catch(DOMException e) {
-			/* ok */ }
+	@Test(expected = DOMException.class)
+	public void testRemoveNamedItemKOAlreadyRemoved() {
+		final SVGAttr attr = new SVGAttr("test", "", doc.createElement("elt"));
+		map.getAttributes().add(attr);
+		map.removeNamedItem("test");
+		map.removeNamedItem("test");
+	}
 
-		map.getAttributes().clear();
+	@Test
+	public void testSetNamedItemKONULL() {
+		assertNull(map.setNamedItem(null));
+	}
+
+	@Test
+	public void testSetNamedItemKOInvalid() {
+		assertNull(map.setNamedItem(new SVGAttr("test1", "v1", doc.createElement("elt1"))));
 	}
 
 	@Test
 	public void testSetNamedItem() {
-		SVGAttr attr1 = new SVGAttr("test1", "v1", doc.createElement("elt1"));
-		SVGAttr attr2 = new SVGAttr("test2", "v2", doc.createElement("elt2"));
-		SVGAttr attr3 = new SVGAttr("test1", "v1b", doc.createElement("elt1b"));
-
-		map.getAttributes().clear();
-		assertNull(map.setNamedItem(null));
-		assertNull(map.setNamedItem(attr1));
+		final SVGAttr attr1 = new SVGAttr("test1", "v1", doc.createElement("elt1"));
+		map.setNamedItem(attr1);
 		assertEquals(attr1, map.getNamedItem("test1"));
-		assertNull(map.setNamedItem(attr2));
-		assertEquals(attr1, map.getNamedItem("test1"));
-		assertEquals(attr2, map.getNamedItem("test2"));
-		assertEquals(attr1, map.setNamedItem(attr3));
-		assertEquals(attr3, map.getNamedItem("test1"));
-		assertEquals(attr2, map.getNamedItem("test2"));
-		map.getAttributes().clear();
 	}
 
 	@Test
-	public void testClone() {
-		SVGAttr attr1 = new SVGAttr("test1", "v1", doc.createElement("elt1"));
-		SVGAttr attr2 = new SVGAttr("test2", "v2", doc.createElement("elt2"));
-		SVGNamedNodeMap map2;
+	public void testSetNamedItem2() {
+		final SVGAttr attr1 = new SVGAttr("test1", "v1", doc.createElement("elt1"));
+		final SVGAttr attr3 = new SVGAttr("test1", "v1b", doc.createElement("elt1b"));
+		map.setNamedItem(attr1);
+		assertEquals(attr1, map.setNamedItem(attr3));
+	}
 
-		map.getAttributes().clear();
-		assertNull(map.setNamedItem(attr1));
-		assertNull(map.setNamedItem(attr2));
-		map2 = (SVGNamedNodeMap)map.clone();
+	@Test
+	public void testClone2() {
+		final SVGAttr attr1 = new SVGAttr("test1", "v1", doc.createElement("elt1"));
+		final SVGAttr attr2 = new SVGAttr("test2", "v2", doc.createElement("elt2"));
+		map.setNamedItem(attr1);
+		map.setNamedItem(attr2);
+		SVGNamedNodeMap map2 = (SVGNamedNodeMap) map.clone();
 		assertEquals(map.getLength(), map2.getLength());
 		assertTrue(map.getNamedItem("test1").isEqualNode(map2.getNamedItem("test1")));
 		assertTrue(map.getNamedItem("test2").isEqualNode(map2.getNamedItem("test2")));
-		map.getAttributes().clear();
 	}
 
 	@Test
