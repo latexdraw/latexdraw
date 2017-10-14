@@ -23,20 +23,20 @@ import org.w3c.dom.NodeList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assume.assumeTrue;
 
 public abstract class TestLoadSaveSVG<T extends IShape> {
 
 	protected T shape;
 
-	public T saveLoadShape(T sh) {
+	T saveLoadShape(T sh) {
 		IDrawing drawing = ShapeFactory.INST.createDrawing();
 		drawing.addShape(sh);
 		SVGDocument doc = toSVG(drawing);
 		return toLatexdraw(doc);
 	}
 
-	@SuppressWarnings("unchecked")
-	protected T toLatexdraw(final SVGDocument doc) {
+	T toLatexdraw(final SVGDocument doc) {
 		final IGroup shapes = ShapeFactory.INST.createGroup();
 		final NodeList elts = doc.getDocumentElement().getChildNodes();
 		Node node;
@@ -44,14 +44,15 @@ public abstract class TestLoadSaveSVG<T extends IShape> {
 		for(int i = 0, size = elts.getLength(); i < size; i++) {
 			node = elts.item(i);
 
-			if(node instanceof SVGElement)
-				shapes.addShape(IShapeSVGFactory.INSTANCE.createShape((SVGElement)node));
+			if(node instanceof SVGElement) {
+				shapes.addShape(IShapeSVGFactory.INSTANCE.createShape((SVGElement) node));
+			}
 		}
 
-		return (T)(shapes.size() == 1?shapes.getShapeAt(0):shapes.size() == 0?null:shapes);
+		return (T) (shapes.size() == 1 ? shapes.getShapeAt(0) : shapes.isEmpty() ? null : shapes);
 	}
 
-	protected SVGDocument toSVG(final IDrawing drawing) {
+	SVGDocument toSVG(final IDrawing drawing) {
 		// Creation of the SVG document.
 		final List<IShape> shapes = drawing.getShapes();
 		final SVGDocument doc = new SVGDocument();
@@ -69,25 +70,24 @@ public abstract class TestLoadSaveSVG<T extends IShape> {
 				// For each shape an SVG element is created.
 				elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
 
-				if(elt != null)
-					g.appendChild(elt);
+				if(elt != null) g.appendChild(elt);
 			}
 
 		// Setting SVG attributes to the created document.
 		root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");
-//		root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");
+		//		root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");
 
 		return doc;
 	}
 
-	protected T generateShape() {
+	T generateShape() {
 		final T sh = saveLoadShape(shape);
 		assertNotNull(sh);
 		assertEquals(sh.getClass(), shape.getClass());
 		return sh;
 	}
 
-	protected void compareShapes(final T sh2) {
+	void compareShapes(final T sh2) {
 		if(shape.isShowPtsable()) {
 			assertEquals(shape.isShowPts(), sh2.isShowPts());
 		}
@@ -123,6 +123,7 @@ public abstract class TestLoadSaveSVG<T extends IShape> {
 			assertEquals(shape.getFillingStyle(), sh2.getFillingStyle());
 			assertEquals(shape.isFilled(), sh2.isFilled());
 			assertEquals(shape.getFillingCol(), sh2.getFillingCol());
+
 			if(shape.getFillingStyle().isHatchings()) {
 				assertEquals(shape.getHatchingsAngle(), sh2.getHatchingsAngle(), 0.0001);
 				assertEquals(shape.getHatchingsCol(), sh2.getHatchingsCol());
@@ -139,164 +140,151 @@ public abstract class TestLoadSaveSVG<T extends IShape> {
 
 	@Test
 	public void testShowPoints() {
-		if(shape.isShowPtsable()) {
-			setDefaultDimensions();
-			shape.setShowPts(true);
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isShowPtsable());
+		setDefaultDimensions();
+		shape.setShowPts(true);
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testShadow() {
-		if(shape.isShadowable()) {
-			setDefaultDimensions();
-			shape.setFillingStyle(FillingStyle.PLAIN);// Must fill the shape before.
-			shape.setHasShadow(true);
-			shape.setShadowAngle(-1);
-			shape.setShadowCol(DviPsColors.RED);
-			shape.setShadowSize(11.2);
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isShadowable());
+		setDefaultDimensions();
+		shape.setFillingStyle(FillingStyle.PLAIN);// Must fill the shape before.
+		shape.setHasShadow(true);
+		shape.setShadowAngle(-1);
+		shape.setShadowCol(DviPsColors.RED);
+		shape.setShadowSize(11.2);
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testDoubleBorders() {
-		if(shape.isDbleBorderable()) {
-			setDefaultDimensions();
-			shape.setHasDbleBord(true);
-			shape.setDbleBordCol(DviPsColors.GREEN);
-			shape.setDbleBordSep(3.);
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isDbleBorderable());
+		setDefaultDimensions();
+		shape.setHasDbleBord(true);
+		shape.setDbleBordCol(DviPsColors.GREEN);
+		shape.setDbleBordSep(3d);
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testDoubleBordersWithShadow() {
-		if(shape.isShadowable() && shape.isDbleBorderable()) {
-			setDefaultDimensions();
-			shape.setFillingStyle(FillingStyle.PLAIN);// Must fill the shape before.
-			shape.setHasDbleBord(true);
-			shape.setDbleBordCol(DviPsColors.GREEN);
-			shape.setDbleBordSep(3.);
-			shape.setHasShadow(true);
-			shape.setShadowAngle(-1);
-			shape.setShadowCol(DviPsColors.RED);
-			shape.setShadowSize(11.2);
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isShadowable() && shape.isDbleBorderable());
+		setDefaultDimensions();
+		shape.setFillingStyle(FillingStyle.PLAIN);// Must fill the shape before.
+		shape.setHasDbleBord(true);
+		shape.setDbleBordCol(DviPsColors.GREEN);
+		shape.setDbleBordSep(3d);
+		shape.setHasShadow(true);
+		shape.setShadowAngle(-1);
+		shape.setShadowCol(DviPsColors.RED);
+		shape.setShadowSize(11.2);
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testBorderStyle() {
-		if(shape.isLineStylable()) {
-			shape.setLineStyle(LineStyle.DASHED);
-			shape.setThickness(10);
-			shape.setLineColour(DviPsColors.YELLOW);
-			setDefaultDimensions();
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isLineStylable());
+		shape.setLineStyle(LineStyle.DASHED);
+		shape.setThickness(10);
+		shape.setLineColour(DviPsColors.YELLOW);
+		setDefaultDimensions();
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testFillingHatchingsPLAIN() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.PLAIN);
-			shape.setHatchingsCol(DviPsColors.GRAY);
-			setDefaultDimensions();
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.PLAIN);
+		shape.setHatchingsCol(DviPsColors.GRAY);
+		setDefaultDimensions();
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testFillingHatchingsVLINESPLAIN() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.VLINES_PLAIN);
-			shape.setHatchingsAngle(1.2);
-			shape.setHatchingsCol(DviPsColors.GRAY);
-			shape.setHatchingsSep(3.12);
-			shape.setHatchingsWidth(123.3);
-			setDefaultDimensions();
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.VLINES_PLAIN);
+		shape.setHatchingsAngle(1.2);
+		shape.setHatchingsCol(DviPsColors.GRAY);
+		shape.setHatchingsSep(3.12);
+		shape.setHatchingsWidth(123.3);
+		setDefaultDimensions();
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testFillingHatchingsVLINES() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.VLINES);
-			shape.setHatchingsAngle(1.2);
-			shape.setHatchingsCol(DviPsColors.GRAY);
-			shape.setHatchingsSep(3.12);
-			shape.setHatchingsWidth(123.3);
-			setDefaultDimensions();
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.VLINES);
+		shape.setHatchingsAngle(1.2);
+		shape.setHatchingsCol(DviPsColors.GRAY);
+		shape.setHatchingsSep(3.12);
+		shape.setHatchingsWidth(123.3);
+		setDefaultDimensions();
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testFillingHatchingsHLINESPLAIN() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.HLINES_PLAIN);
-			shape.setHatchingsAngle(1.2);
-			shape.setHatchingsCol(DviPsColors.GRAY);
-			shape.setHatchingsSep(3.12);
-			shape.setHatchingsWidth(123.3);
-			setDefaultDimensions();
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.HLINES_PLAIN);
+		shape.setHatchingsAngle(1.2);
+		shape.setHatchingsCol(DviPsColors.GRAY);
+		shape.setHatchingsSep(3.12);
+		shape.setHatchingsWidth(123.3);
+		setDefaultDimensions();
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testFillingHatchingsHLINES() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.HLINES);
-			shape.setHatchingsAngle(1.2);
-			shape.setHatchingsCol(DviPsColors.GRAY);
-			shape.setHatchingsSep(3.12);
-			shape.setHatchingsWidth(123.3);
-			setDefaultDimensions();
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.HLINES);
+		shape.setHatchingsAngle(1.2);
+		shape.setHatchingsCol(DviPsColors.GRAY);
+		shape.setHatchingsSep(3.12);
+		shape.setHatchingsWidth(123.3);
+		setDefaultDimensions();
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testFillingHatchingsCLINESPLAIN() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
-			shape.setHatchingsAngle(1.2);
-			shape.setFillingCol(DviPsColors.LIGHTGRAY);
-			shape.setHatchingsCol(DviPsColors.GRAY);
-			shape.setHatchingsSep(3.12);
-			shape.setHatchingsWidth(123.3);
-			setDefaultDimensions();
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
+		shape.setHatchingsAngle(1.2);
+		shape.setFillingCol(DviPsColors.LIGHTGRAY);
+		shape.setHatchingsCol(DviPsColors.GRAY);
+		shape.setHatchingsSep(3.12);
+		shape.setHatchingsWidth(123.3);
+		setDefaultDimensions();
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testFillingHatchingsCLINES() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.CLINES);
-			shape.setHatchingsAngle(1.2);
-			shape.setHatchingsCol(DviPsColors.GRAY);
-			shape.setHatchingsSep(3.12);
-			shape.setHatchingsWidth(123.3);
-			setDefaultDimensions();
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.CLINES);
+		shape.setHatchingsAngle(1.2);
+		shape.setHatchingsCol(DviPsColors.GRAY);
+		shape.setHatchingsSep(3.12);
+		shape.setHatchingsWidth(123.3);
+		setDefaultDimensions();
+		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testFillingGradient() {
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(FillingStyle.GRAD);
-			shape.setGradAngle(0.2);
-			shape.setGradColEnd(DviPsColors.BLUE);
-			shape.setGradColStart(DviPsColors.CYAN);
-			shape.setGradMidPt(0.1);
-			setDefaultDimensions();
-			compareShapes(generateShape());
-		}
+		assumeTrue(shape.isInteriorStylable());
+		shape.setFillingStyle(FillingStyle.GRAD);
+		shape.setGradAngle(0.2);
+		shape.setGradColEnd(DviPsColors.BLUE);
+		shape.setGradColStart(DviPsColors.CYAN);
+		shape.setGradMidPt(0.1);
+		setDefaultDimensions();
+		compareShapes(generateShape());
 	}
 
 	protected abstract void setDefaultDimensions();
