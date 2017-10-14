@@ -55,7 +55,7 @@ public class TestTextParsing extends TestPSTParser {
 	}
 
 	@Test
-	public void testText_bugParsingSeveralRputCmds() {
+	public void testTextbugParsingSeveralRputCmds() {
 		parser("\\rput(0.9,0.6){aa}\\rput(7.4,0){bb}\\rput(1,0){cc}");
 		assertEquals(3, listener.getShapes().size());
 		assertEquals("aa", ((IText) getShapeAt(0)).getText());
@@ -72,7 +72,7 @@ public class TestTextParsing extends TestPSTParser {
 	}
 
 	@Test
-	public void testBug722075_3() {
+	public void testBug7220753() {
 		// https://bugs.launchpad.net/latexdraw/+bug/722075
 		parser("\\textcolor{blue}{xyz} foobar");
 		assertEquals(2, listener.getShapes().size());
@@ -82,7 +82,7 @@ public class TestTextParsing extends TestPSTParser {
 	}
 
 	@Test
-	public void testBug722075_2() {
+	public void testBug7220752() {
 		// https://bugs.launchpad.net/latexdraw/+bug/722075
 		parser("\\textcolor{blue}{xyz}");
 		assertEquals(1, listener.getShapes().size());
@@ -92,7 +92,7 @@ public class TestTextParsing extends TestPSTParser {
 	}
 
 	@Test
-	public void testBug722075_1() {
+	public void testBug7220751() {
 		// https://bugs.launchpad.net/latexdraw/+bug/722075
 		parser("\\color{blue} xyz");
 		assertEquals(1, listener.getShapes().size());
@@ -111,7 +111,7 @@ public class TestTextParsing extends TestPSTParser {
 	}
 
 	@Test
-	public void testParseText_tiny() {
+	public void testParseTexttiny() {
 		parser("\\rput(1,2){\\tiny coucou}");
 		assertEquals(1, listener.getShapes().size());
 		IText text = getShapeAt(0);
@@ -119,7 +119,7 @@ public class TestTextParsing extends TestPSTParser {
 	}
 
 	@Test
-	public void testParseText_footnotesize() {
+	public void testParseTextfootnotesize() {
 		parser("\\rput(1,2){\\footnotesize coucou}");
 		assertEquals(1, listener.getShapes().size());
 		IText text = getShapeAt(0);

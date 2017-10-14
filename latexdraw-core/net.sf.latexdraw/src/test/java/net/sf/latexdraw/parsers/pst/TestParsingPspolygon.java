@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestParsingPspolygon extends TestPSTParser {
 	@Test
-	public void test2Coordinates() {
+	public void testParse2Coordinates() {
 		parser("\\pspolygon(5,10)(15,20)");
 		IPolygon line = getShapeAt(0);
 		assertEquals(3, line.getNbPoints());

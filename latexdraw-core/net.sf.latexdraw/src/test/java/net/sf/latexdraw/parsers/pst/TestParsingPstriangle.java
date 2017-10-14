@@ -70,7 +70,7 @@ public class TestParsingPstriangle extends TestPSTParser {
 	}
 
 	@Test
-	public void test1Coordinates() {
+	public void testParse1Coordinates() {
 		parser("\\pstriangle(35,20)");
 		ITriangle tri = getShapeAt(0);
 		assertEquals(-35d / 2d * IShape.PPC, tri.getPosition().getX(), 0.001);
@@ -80,7 +80,7 @@ public class TestParsingPstriangle extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesInt() {
+	public void testParse2CoordinatesInt() {
 		parser("\\pstriangle(10,20)(35,50)");
 		ITriangle tri = getShapeAt(0);
 		assertEquals(10d * IShape.PPC - 35d / 2d * IShape.PPC, tri.getPosition().getX(), 0.001);
@@ -90,7 +90,7 @@ public class TestParsingPstriangle extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloatSigns2() {
+	public void testParse2CoordinatesFloatSigns2() {
 		parser("\\pstriangle(-+.5,+-5)(+++35.5,--50.5)");
 		ITriangle tri = getShapeAt(0);
 		assertEquals(-.5 * IShape.PPC - 35.5 / 2d * IShape.PPC, tri.getPosition().getX(), 0.001);
@@ -100,7 +100,7 @@ public class TestParsingPstriangle extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloatSigns() {
+	public void testParse2CoordinatesFloatSigns() {
 		parser("\\pstriangle(-+-.5,+--.5)(+++35.5,--50.5)");
 		ITriangle tri = getShapeAt(0);
 		assertEquals(0.5 * IShape.PPC - 35.5 / 2d * IShape.PPC, tri.getPosition().getX(), 0.001);
@@ -110,7 +110,7 @@ public class TestParsingPstriangle extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloat2() {
+	public void testParse2CoordinatesFloat2() {
 		parser("\\pstriangle(0.5,.5)(35.5,50.5)");
 		ITriangle tri = getShapeAt(0);
 		assertEquals(0.5 * IShape.PPC - 35.5 / 2d * IShape.PPC, tri.getPosition().getX(), 0.001);
@@ -120,7 +120,7 @@ public class TestParsingPstriangle extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloat() {
+	public void testParse2CoordinatesFloat() {
 		parser("\\pstriangle(10.5,20.5)(35.5,50.5)");
 		ITriangle tri = getShapeAt(0);
 		assertEquals(10.5 * IShape.PPC - 35.5 / 2d * IShape.PPC, tri.getPosition().getX(), 0.001);
@@ -130,7 +130,7 @@ public class TestParsingPstriangle extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesTwoFirstMissing() {
+	public void testParse2CoordinatesTwoFirstMissing() {
 		parser("\\pstriangle(,)(35,50)");
 		ITriangle tri = getShapeAt(0);
 		assertEquals(IShape.PPC - 35d / 2d * IShape.PPC, tri.getPosition().getX(), 0.001);
@@ -140,7 +140,7 @@ public class TestParsingPstriangle extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesTwoLastMissing() {
+	public void testParse2CoordinatesTwoLastMissing() {
 		parser("\\pstriangle(0,0)(,)");
 		ITriangle tri = getShapeAt(0);
 		assertEquals(-IShape.PPC / 2d, tri.getPosition().getX(), 0.001);
@@ -150,7 +150,7 @@ public class TestParsingPstriangle extends TestPSTParser {
 	}
 
 	@Test
-	public void test2WidthHeight0() {
+	public void testParse2WidthHeight0() {
 		parser("\\pstriangle(0,0)(0,0)");
 		ITriangle tri = getShapeAt(0);
 		assertThat(tri.getWidth(), greaterThan(0d));

@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(Theories.class)
 public class TestParsingPsdots extends TestPSTParser {
 	@Test
-	public void test2Points() {
+	public void testParse2Points() {
 		parser("\\psdots(35.5,50.5)(2,2)");
 		final List<IShape> group = listener.getShapes();
 		assertEquals(2, group.size());
@@ -56,7 +56,7 @@ public class TestParsingPsdots extends TestPSTParser {
 	}
 
 	@Test
-	public void test1Coordinates() {
+	public void testParse1Coordinates() {
 		parser("\\psdots" + "(5,10)");
 		final List<IShape> group = listener.getShapes();
 		assertEquals(1, group.size());

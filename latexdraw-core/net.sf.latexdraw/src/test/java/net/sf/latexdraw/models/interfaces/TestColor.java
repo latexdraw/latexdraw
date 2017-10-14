@@ -107,7 +107,7 @@ public class TestColor {
 	}
 
 	@Theory
-	public void testtoJFX(@DoubleData(vals = {0d, 0.21, 0.51, 1d}) final double o,
+	public void testToJFX(@DoubleData(vals = {0d, 0.21, 0.51, 1d}) final double o,
 						  @DoubleData(vals = {0d, 0.22, 0.52, 1d}) final double b,
 						  @DoubleData(vals = {0d, 0.23, 0.53, 1d}) final double r,
 						  @DoubleData(vals = {0d, 0.24, 0.54, 1d}) final double g) {
@@ -122,7 +122,7 @@ public class TestColor {
 	}
 
 	@Theory
-	public void testtoAWT(@DoubleData(vals = {0d, 0.21, 0.51, 1d}) final double o,
+	public void testToAWT(@DoubleData(vals = {0d, 0.21, 0.51, 1d}) final double o,
 						  @DoubleData(vals = {0d, 0.22, 0.52, 1d}) final double b,
 						  @DoubleData(vals = {0d, 0.23, 0.53, 1d}) final double r,
 						  @DoubleData(vals = {0d, 0.24, 0.54, 1d}) final double g) {
@@ -165,7 +165,7 @@ public class TestColor {
 	}
 
 	@Test
-	public void testtoString() {
+	public void testToString() {
 		assertNotNull(color.toString());
 	}
 }

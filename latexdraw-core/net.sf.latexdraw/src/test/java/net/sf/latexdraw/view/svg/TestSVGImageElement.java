@@ -106,7 +106,7 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 	}
 
 	@Test
-	public void testEnableRenderingBadSVG_WIDTH() throws MalformedSVGDocument {
+	public void testEnableRenderingBadSVGWIDTH() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "0");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGImageElement e = new SVGImageElement(node, null);
@@ -114,7 +114,7 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 	}
 
 	@Test
-	public void testEnableRenderingBadSVG_HEIGHT() throws MalformedSVGDocument {
+	public void testEnableRenderingBadSVGHEIGHT() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "0");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "0");
 		SVGImageElement e = new SVGImageElement(node, null);
@@ -122,7 +122,7 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 	}
 
 	@Test
-	public void testEnableRenderingBadSVG_HEIGHTOKSVG_WIDTH() throws MalformedSVGDocument {
+	public void testEnableRenderingBadSVGHEIGHTOKSVGWIDTH() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "0");
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "20");
 		SVGImageElement e = new SVGImageElement(node, null);

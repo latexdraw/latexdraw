@@ -138,7 +138,7 @@ public class TestParsingArrow extends TestPSTParser {
 	}
 
 	@Theory
-	public void testCNone(final Tuple<String, String> cmd) {
+	public void testArrowCNone(final Tuple<String, String> cmd) {
 		parser(cmd.a + "{C-}" + cmd.b);
 		final IArrowableSingleShape line = (IArrowableSingleShape) listener.getShapes().get(0);
 		assertEquals(ArrowStyle.SQUARE_END, line.getArrowStyle(0));
@@ -154,7 +154,7 @@ public class TestParsingArrow extends TestPSTParser {
 	}
 
 	@Theory
-	public void testccNone(final Tuple<String, String> cmd) {
+	public void testCcNone(final Tuple<String, String> cmd) {
 		parser(cmd.a + "{cc-}" + cmd.b);
 		final IArrowableSingleShape line = (IArrowableSingleShape) listener.getShapes().get(0);
 		assertEquals(ArrowStyle.ROUND_IN, line.getArrowStyle(0));
@@ -170,7 +170,7 @@ public class TestParsingArrow extends TestPSTParser {
 	}
 
 	@Theory
-	public void testcNone(final Tuple<String, String> cmd) {
+	public void testArrowcNone(final Tuple<String, String> cmd) {
 		parser(cmd.a + "{c-}" + cmd.b);
 		final IArrowableSingleShape line = (IArrowableSingleShape) listener.getShapes().get(0);
 		assertEquals(ArrowStyle.ROUND_END, line.getArrowStyle(0));

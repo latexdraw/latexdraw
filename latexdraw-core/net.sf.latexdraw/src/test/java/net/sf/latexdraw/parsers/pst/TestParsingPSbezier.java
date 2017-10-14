@@ -61,7 +61,7 @@ public class TestParsingPSbezier extends TestPSTParser {
 	}
 
 	@Test
-	public void test9Coordinates() {
+	public void testParse9Coordinates() {
 		parser("\\psbezier(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)(13,14)(15,16)(17,18)");
 		IBezierCurve bc = getShapeAt(0);
 		assertEquals(4, bc.getNbPoints());
@@ -88,7 +88,7 @@ public class TestParsingPSbezier extends TestPSTParser {
 	}
 
 	@Test
-	public void test10Coordinates() {
+	public void testParse10Coordinates() {
 		parser("\\psbezier(5,10)(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)(13,14)(15,16)(17,18)");
 		IBezierCurve bc = getShapeAt(0);
 		assertEquals(4, bc.getNbPoints());
@@ -115,7 +115,7 @@ public class TestParsingPSbezier extends TestPSTParser {
 	}
 
 	@Test
-	public void test6Coordinates() {
+	public void testParse6Coordinates() {
 		parser("\\psbezier(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)");
 		IBezierCurve bc = getShapeAt(0);
 		// $NON-NLS-2$
@@ -137,7 +137,7 @@ public class TestParsingPSbezier extends TestPSTParser {
 	}
 
 	@Test
-	public void test7Coordinates() {
+	public void testParse7Coordinates() {
 		parser("\\psbezier(5,10)(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)");
 		IBezierCurve bc = getShapeAt(0);
 		assertEquals(3, bc.getNbPoints());
@@ -158,7 +158,7 @@ public class TestParsingPSbezier extends TestPSTParser {
 	}
 
 	@Test
-	public void test3Coordinates() {
+	public void testParse3Coordinates() {
 		parser("\\psbezier(1,2)(3,4)(5,6)");
 		IBezierCurve bc = getShapeAt(0);
 		assertEquals(2, bc.getNbPoints());
@@ -173,7 +173,7 @@ public class TestParsingPSbezier extends TestPSTParser {
 	}
 
 	@Test
-	public void test4Coordinates() {
+	public void testParse4Coordinates() {
 		parser("\\psbezier(5,10)(1,2)(3,4)(5,6)");
 		IBezierCurve bc = getShapeAt(0);
 		assertEquals(2, bc.getNbPoints());

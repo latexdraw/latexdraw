@@ -22,7 +22,7 @@ public class TestParsingPSdot extends TestPSTParser {
 	}
 
 	@Theory
-	public void testpssetunityunit(final String cmd) {
+	public void testPssetunityunit(final String cmd) {
 		parser("\\psset{unit=2,yunit=3}" + cmd + "(1,1)");
 		final IDot dot = getShapeAt(0);
 		assertEquals(2d * IShape.PPC, dot.getX(), 0.000001);
@@ -30,7 +30,7 @@ public class TestParsingPSdot extends TestPSTParser {
 	}
 
 	@Theory
-	public void testpssetunitxunit(final String cmd) {
+	public void testPssetunitxunit(final String cmd) {
 		parser("\\psset{unit=2,xunit=3}" + cmd + "(1,1)");
 		final IDot dot = getShapeAt(0);
 		assertEquals(2d * 3d * IShape.PPC, dot.getX(), 0.000001);
@@ -38,7 +38,7 @@ public class TestParsingPSdot extends TestPSTParser {
 	}
 
 	@Theory
-	public void testpssetdotunitdot(final String cmd) {
+	public void testPssetdotunitdot(final String cmd) {
 		parser("\\psdot(1,1)\\psset{unit=2}" + cmd + "(1,1)");
 		IDot dot = getShapeAt(1);
 		assertEquals(2d * IShape.PPC, dot.getX(), 0.000001);
@@ -49,7 +49,7 @@ public class TestParsingPSdot extends TestPSTParser {
 	}
 
 	@Theory
-	public void testpssetunit(final String cmd) {
+	public void testPssetunit(final String cmd) {
 		parser("\\psset{unit=2}" + cmd + "(1,1)");
 		final IDot dot = getShapeAt(0);
 		assertEquals(2d * IShape.PPC, dot.getX(), 0.000001);
@@ -139,7 +139,7 @@ public class TestParsingPSdot extends TestPSTParser {
 	}
 
 	@Theory
-	public void test1Coordinates(final String cmd) {
+	public void testParse1Coordinates(final String cmd) {
 		parser(cmd + "(5,10)");
 		final IDot dot = getShapeAt(0);
 		assertEquals(5d * IShape.PPC, dot.getPtAt(0).getX(), 0.0001);

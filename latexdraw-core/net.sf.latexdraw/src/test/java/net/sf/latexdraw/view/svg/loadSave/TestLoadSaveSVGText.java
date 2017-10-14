@@ -43,7 +43,7 @@ public class TestLoadSaveSVGText extends TestLoadSaveSVGPositionShape<IText> {
 	}
 
 	@Test
-	public void testTextPositionTOP_LEFT() {
+	public void testTextPositionTOPLEFT() {
 		shape.setText("coucou");
 		shape.setPosition(101., 1.);
 		shape.setTextPosition(TextPosition.TOP_LEFT);
@@ -51,7 +51,7 @@ public class TestLoadSaveSVGText extends TestLoadSaveSVGPositionShape<IText> {
 	}
 
 	@Test
-	public void testTextPositionTOP_RIGHT() {
+	public void testTextPositionTOPRIGHT() {
 		shape.setText("coucou");
 		shape.setPosition(11., 12.);
 		shape.setTextPosition(TextPosition.TOP_RIGHT);
@@ -59,7 +59,7 @@ public class TestLoadSaveSVGText extends TestLoadSaveSVGPositionShape<IText> {
 	}
 
 	@Test
-	public void testTextPositionBOT_RIGHT() {
+	public void testTextPositionBOTRIGHT() {
 		shape.setText("coucou");
 		shape.setPosition(1., 0.);
 		shape.setTextPosition(TextPosition.BOT_RIGHT);
@@ -67,7 +67,7 @@ public class TestLoadSaveSVGText extends TestLoadSaveSVGPositionShape<IText> {
 	}
 
 	@Test
-	public void testTextPositionBOT_LEFT() {
+	public void testTextPositionBOTLEFT() {
 		shape.setText("coucou");
 		shape.setPosition(111., 123.);
 		shape.setTextPosition(TextPosition.BOT_LEFT);

@@ -60,7 +60,7 @@ public class TestParsingPlotCommands extends TestPSTParser {
 	}
 
 	@Theory
-	public void testpsplotPolar(final boolean polar) {
+	public void testPsplotPolar(final boolean polar) {
 		parser("\\psplot[polarplot=" + polar + "]{0}{720}{x sin}");
 		final IPlot plot = getShapeAt(0);
 		assertEquals(polar, plot.isPolar());

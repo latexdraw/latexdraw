@@ -58,7 +58,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleLEFT_ARROWPencil() {
+	public void testSelectLeftArrowStyleLEFTARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.LEFT_ARROW);
@@ -74,7 +74,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleBAR_ENDPencil() {
+	public void testSelectLeftArrowStyleBARENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.BAR_END);
@@ -90,7 +90,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleBAR_INPencil() {
+	public void testSelectLeftArrowStyleBARINPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.BAR_IN);
@@ -106,7 +106,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleCIRCLE_ENDPencil() {
+	public void testSelectLeftArrowStyleCIRCLEENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.CIRCLE_END);
@@ -122,7 +122,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleCIRCLE_INPencil() {
+	public void testSelectLeftArrowStyleCIRCLEINPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.CIRCLE_IN);
@@ -138,7 +138,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleDISK_ENDPencil() {
+	public void testSelectLeftArrowStyleDISKENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.DISK_END);
@@ -154,7 +154,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleDISK_INPencil() {
+	public void testSelectLeftArrowStyleDISKINPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.DISK_IN);
@@ -170,7 +170,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleLEFT_DBLE_ARROWPencil() {
+	public void testSelectLeftArrowStyleLEFTDBLEARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.LEFT_DBLE_ARROW);
@@ -186,7 +186,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleLEFT_ROUND_BRACKETPencil() {
+	public void testSelectLeftArrowStyleLEFTROUNDBRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.LEFT_ROUND_BRACKET);
@@ -202,7 +202,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleLEFT_SQUARE_BRACKETPencil() {
+	public void testSelectLeftArrowStyleLEFTSQUAREBRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.LEFT_SQUARE_BRACKET);
@@ -232,7 +232,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleRIGHT_ARROWPencil() {
+	public void testSelectLeftArrowStyleRIGHTARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.RIGHT_ARROW);
@@ -248,7 +248,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleRIGHT_DBLE_ARROWPencil() {
+	public void testSelectLeftArrowStyleRIGHTDBLEARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.RIGHT_DBLE_ARROW);
@@ -264,7 +264,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleRIGHT_ROUND_BRACKETPencil() {
+	public void testSelectLeftArrowStyleRIGHTROUNDBRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.RIGHT_ROUND_BRACKET);
@@ -280,7 +280,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleRIGHT_SQUARE_BRACKETPencil() {
+	public void testSelectLeftArrowStyleRIGHTSQUAREBRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.RIGHT_SQUARE_BRACKET);
@@ -296,7 +296,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectLeftArrowStyleROUND_INPencil() {
+	public void testSelectLeftArrowStyleROUNDINPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.ROUND_IN);
@@ -312,7 +312,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleLEFT_ARROWPencil() {
+	public void testSelectRightArrowStyleLEFTARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.LEFT_ARROW);
@@ -328,7 +328,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleBAR_ENDPencil() {
+	public void testSelectRightArrowStyleBARENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.BAR_END);
@@ -344,7 +344,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleBAR_INPencil() {
+	public void testSelectRightArrowStyleBARINPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.BAR_IN);
@@ -360,7 +360,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleCIRCLE_ENDPencil() {
+	public void testSelectRightArrowStyleCIRCLEENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.CIRCLE_END);
@@ -376,7 +376,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleCIRCLE_INPencil() {
+	public void testSelectRightArrowStyleCIRCLEINPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.CIRCLE_IN);
@@ -392,7 +392,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleDISK_ENDPencil() {
+	public void testSelectRightArrowStyleDISKENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.DISK_END);
@@ -408,7 +408,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleDISK_INPencil() {
+	public void testSelectRightArrowStyleDISKINPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.DISK_IN);
@@ -424,7 +424,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleLEFT_DBLE_ARROWPencil() {
+	public void testSelectRightArrowStyleLEFTDBLEARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.LEFT_DBLE_ARROW);
@@ -440,7 +440,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleLEFT_ROUND_BRACKETPencil() {
+	public void testSelectRightArrowStyleLEFTROUNDBRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.LEFT_ROUND_BRACKET);
@@ -456,7 +456,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleLEFT_SQUARE_BRACKETPencil() {
+	public void testSelectRightArrowStyleLEFTSQUAREBRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.LEFT_SQUARE_BRACKET);
@@ -486,7 +486,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleRIGHT_ARROWPencil() {
+	public void testSelectRightArrowStyleRIGHTARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.RIGHT_ARROW);
@@ -502,7 +502,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleRIGHT_DBLE_ARROWPencil() {
+	public void testSelectRightArrowStyleRIGHTDBLEARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.RIGHT_DBLE_ARROW);
@@ -518,7 +518,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleRIGHT_ROUND_BRACKETPencil() {
+	public void testSelectRightArrowStyleRIGHTROUNDBRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.RIGHT_ROUND_BRACKET);
@@ -534,7 +534,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleRIGHT_SQUARE_BRACKETPencil() {
+	public void testSelectRightArrowStyleRIGHTSQUAREBRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.RIGHT_SQUARE_BRACKET);
@@ -550,7 +550,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	}
 
 	@Test
-	public void testSelectRightArrowStyleROUND_INPencil() {
+	public void testSelectRightArrowStyleROUNDINPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
 		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.ROUND_IN);

@@ -129,7 +129,7 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 	}
 
 	@Test
-	public void testincrementnbPtsSpinnerHand() {
+	public void testIncrementnbPtsSpinnerHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		int val = nbPtsSpinner.getValue();
 		incrementnbPtsSpinner.execute();
@@ -139,7 +139,7 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 	}
 
 	@Test
-	public void testincrementminXSpinnerHand() {
+	public void testIncrementminXSpinnerHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		double val = minXSpinner.getValue();
 		incrementminXSpinner.execute();
@@ -149,7 +149,7 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 	}
 
 	@Test
-	public void testincrementmaxXSpinnerHand() {
+	public void testIncrementmaxXSpinnerHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		double val = maxXSpinner.getValue();
 		incrementmaxXSpinner.execute();
@@ -159,7 +159,7 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 	}
 
 	@Test
-	public void testincrementxScaleSpinnerHand() {
+	public void testIncrementxScaleSpinnerHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		double val = xScaleSpinner.getValue();
 		incrementxScaleSpinner.execute();
@@ -169,7 +169,7 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 	}
 
 	@Test
-	public void testincrementyScaleSpinnerHand() {
+	public void testIncrementyScaleSpinnerHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		double val = yScaleSpinner.getValue();
 		incrementyScaleSpinner.execute();

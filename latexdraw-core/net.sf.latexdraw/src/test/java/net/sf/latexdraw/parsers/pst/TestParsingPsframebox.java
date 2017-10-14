@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestParsingPsframebox extends TestPSTParser {
 	@Test
-	public void testParse_pstribox_star() {
+	public void testParsepstriboxstar() {
 		parser("\\pstribox*[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -15,7 +15,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_pstribox() {
+	public void testParsepstribox() {
 		parser("\\pstribox[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -23,7 +23,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_psdiabox_star() {
+	public void testParsepsdiaboxstar() {
 		parser("\\psdiabox*[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -31,7 +31,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_psdiabox() {
+	public void testParsepsdiabox() {
 		parser("\\psdiabox[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -39,7 +39,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_psovalbox_star() {
+	public void testParsepsovalboxstar() {
 		parser("\\psovalbox*[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -47,7 +47,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_psovalbox() {
+	public void testParsepsovalbox() {
 		parser("\\psovalbox[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -55,7 +55,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_pscirclebox_star() {
+	public void testParsepscircleboxstar() {
 		parser("\\pscirclebox*[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -63,7 +63,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_pscirclebox() {
+	public void testParsepscirclebox() {
 		parser("\\pscirclebox[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -71,7 +71,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_psshadowbox_star() {
+	public void testParsepsshadowboxstar() {
 		parser("\\psshadowbox*[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -79,7 +79,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_psshadowbox() {
+	public void testParsepsshadowbox() {
 		parser("\\psshadowbox[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -96,7 +96,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_psframebox() {
+	public void testParsepsframebox() {
 		parser("\\psframebox[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -104,7 +104,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_psdblframebox() {
+	public void testParsepsdblframebox() {
 		parser("\\psdblframebox{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -112,7 +112,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_psframebox_star() {
+	public void testParsepsframeboxstar() {
 		parser("\\psframebox*[doubleline=true]{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);
@@ -120,7 +120,7 @@ public class TestParsingPsframebox extends TestPSTParser {
 	}
 
 	@Test
-	public void testParse_psdblframebox_star() {
+	public void testParsepsdblframeboxstar() {
 		parser("\\psdblframebox*{\\psframe(0,1)}");
 		assertEquals(1, listener.getShapes().size());
 		final IText text = getShapeAt(0);

@@ -88,7 +88,7 @@ public class TestParsingPscircle extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloat2() {
+	public void testParse2CoordinatesFloat2() {
 		parser("\\pscircle(35.5,50.5){1.25}");
 		ICircle cir = getShapeAt(0);
 		assertEquals(35.5 * IShape.PPC - 1.25 * IShape.PPC, cir.getPosition().getX(), 0.001);

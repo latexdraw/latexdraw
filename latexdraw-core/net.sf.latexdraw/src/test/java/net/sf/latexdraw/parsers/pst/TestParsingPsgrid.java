@@ -173,7 +173,7 @@ public class TestParsingPsgrid extends TestPSTParser {
 	}
 
 	@Test
-	public void test1Coord() {
+	public void testParse1Coord() {
 		parser("\\psgrid(1,2)");
 		final IGrid grid = getShapeAt(0);
 		assertEquals(0d, grid.getOriginX(), 0.0001);
@@ -187,7 +187,7 @@ public class TestParsingPsgrid extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordInverted() {
+	public void testParse2CoordInverted() {
 		parser("\\psgrid(3,4)(1,2)");
 		final IGrid grid = getShapeAt(0);
 		assertEquals(3d, grid.getOriginX(), 0.0001);
@@ -201,7 +201,7 @@ public class TestParsingPsgrid extends TestPSTParser {
 	}
 
 	@Test
-	public void test2Coord() {
+	public void testParse2Coord() {
 		parser("\\psgrid(1,2)(3,4)");
 		final IGrid grid = getShapeAt(0);
 		assertEquals(1d, grid.getOriginX(), 0.0001);
@@ -215,7 +215,7 @@ public class TestParsingPsgrid extends TestPSTParser {
 	}
 
 	@Test
-	public void test3CoordInverted() {
+	public void testParse3CoordInverted() {
 		parser("\\psgrid(0,-1)(3,4)(1,2)");
 		final IGrid grid = getShapeAt(0);
 		assertEquals(0d, grid.getOriginX(), 0.0001);
@@ -229,7 +229,7 @@ public class TestParsingPsgrid extends TestPSTParser {
 	}
 
 	@Test
-	public void test3Coord() {
+	public void testParse3Coord() {
 		parser("\\psgrid(0,-1)(1,2)(3,4)");
 		final IGrid grid = getShapeAt(0);
 		assertEquals(0d, grid.getOriginX(), 0.0001);

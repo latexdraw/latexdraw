@@ -119,7 +119,7 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	}
 
 	@Test
-	public void testincrementnbPtsSpinnerPencil() {
+	public void testIncrementnbPtsSpinnerPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
 		int val = nbPtsSpinner.getValue();
 		incrementnbPtsSpinner.execute();
@@ -128,7 +128,7 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	}
 
 	@Test
-	public void testincrementminXSpinnerPencil() {
+	public void testIncrementminXSpinnerPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
 		double val = minXSpinner.getValue();
 		incrementminXSpinner.execute();
@@ -137,7 +137,7 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	}
 
 	@Test
-	public void testincrementmaxXSpinnerPencil() {
+	public void testIncrementmaxXSpinnerPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
 		double val = maxXSpinner.getValue();
 		incrementmaxXSpinner.execute();
@@ -146,7 +146,7 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	}
 
 	@Test
-	public void testincrementxScaleSpinnerPencil() {
+	public void testIncrementxScaleSpinnerPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
 		double val = xScaleSpinner.getValue();
 		incrementxScaleSpinner.execute();
@@ -155,7 +155,7 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	}
 
 	@Test
-	public void testincrementyScaleSpinnerPencil() {
+	public void testIncrementyScaleSpinnerPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
 		double val = yScaleSpinner.getValue();
 		incrementyScaleSpinner.execute();

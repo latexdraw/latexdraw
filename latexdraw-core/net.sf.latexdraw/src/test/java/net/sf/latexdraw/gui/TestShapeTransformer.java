@@ -211,7 +211,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	}
 
 	@Test
-	public void testdistribVertBot() {
+	public void testDistribVertBot() {
 		selectThreeShapes.execute();
 		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
 		clickDistribVertBot.execute();
@@ -219,7 +219,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	}
 
 	@Test
-	public void testdistribVertEq() {
+	public void testDistribVertEq() {
 		selectThreeShapes.execute();
 		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
 		clickDistribVertEq.execute();
@@ -227,7 +227,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	}
 
 	@Test
-	public void testdistribVertMid() {
+	public void testDistribVertMid() {
 		selectThreeShapes.execute();
 		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
 		clickDistribVertMid.execute();
@@ -235,7 +235,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	}
 
 	@Test
-	public void testdistribVertTop() {
+	public void testDistribVertTop() {
 		selectThreeShapes.execute();
 		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
 		clickDistribVertTop.execute();
@@ -243,7 +243,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	}
 
 	@Test
-	public void testdistribHorizEq() {
+	public void testDistribHorizEq() {
 		selectThreeShapes.execute();
 		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
 		clickDistribHorizEq.execute();
@@ -251,7 +251,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	}
 
 	@Test
-	public void testdistribHorizLeft() {
+	public void testDistribHorizLeft() {
 		selectThreeShapes.execute();
 		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
 		clickDistribHorizLeft.execute();
@@ -259,7 +259,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	}
 
 	@Test
-	public void testdistribHorizMid() {
+	public void testDistribHorizMid() {
 		selectThreeShapes.execute();
 		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
 		clickDistribHorizMid.execute();
@@ -267,7 +267,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	}
 
 	@Test
-	public void testdistribHorizRight() {
+	public void testDistribHorizRight() {
 		selectThreeShapes.execute();
 		List<IShape> dups = drawing.getShapes().stream().map(sh -> (IShape)sh.duplicate()).collect(Collectors.toList());
 		clickDistribHorizRight.execute();

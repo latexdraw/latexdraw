@@ -30,7 +30,7 @@ public class TestParsingPsline extends TestPSTParser {
 	}
 
 	@Test
-	public void testcornersizeParsed() {
+	public void testCornersizeParsed() {
 		parser("\\psline[cornersize=relative](5,10)");
 	}
 
@@ -55,7 +55,7 @@ public class TestParsingPsline extends TestPSTParser {
 	}
 
 	@Test
-	public void test1Coordinates() {
+	public void testParse1Coordinates() {
 		parser("\\psline(5,10)");
 		final IPolyline line = (IPolyline) listener.getShapes().get(0);
 		assertEquals(2, line.getNbPoints());

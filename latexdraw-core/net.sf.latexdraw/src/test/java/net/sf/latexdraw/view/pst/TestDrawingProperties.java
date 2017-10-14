@@ -121,7 +121,7 @@ public class TestDrawingProperties {
 	}
 
 	@Test
-	public void testGetSetVertTokenFLOATS_PAGE() throws Exception {
+	public void testGetSetVertTokenFLOATSPAGE() throws Exception {
 		gen.setPositionVertToken(VerticalPosition.FLOATS_PAGE);
 		assertEquals(VerticalPosition.FLOATS_PAGE, gen.getPositionVertToken());
 	}
@@ -133,7 +133,7 @@ public class TestDrawingProperties {
 	}
 
 	@Test
-	public void testGetSetVertTokenHERE_HERE() throws Exception {
+	public void testGetSetVertTokenHEREHERE() throws Exception {
 		gen.setPositionVertToken(VerticalPosition.HERE_HERE);
 		assertEquals(VerticalPosition.HERE_HERE, gen.getPositionVertToken());
 	}
@@ -157,7 +157,7 @@ public class TestDrawingProperties {
 	}
 
 	@Test
-	public void testGetSetVertTokenFLOATS_PAGEInGenCode() throws Exception {
+	public void testGetSetVertTokenFLOATSPAGEInGenCode() throws Exception {
 		gen.setPositionVertToken(VerticalPosition.FLOATS_PAGE);
 		assertTrue(gen.getDocumentCode(), gen.getDocumentCode().contains("\\begin{figure}[p]"));
 	}
@@ -169,7 +169,7 @@ public class TestDrawingProperties {
 	}
 
 	@Test
-	public void testGetSetVertTokenHERE_HEREInGenCode() throws Exception {
+	public void testGetSetVertTokenHEREHEREInGenCode() throws Exception {
 		gen.setPositionVertToken(VerticalPosition.HERE_HERE);
 		assertTrue(gen.getDocumentCode().contains("\\begin{figure}[H]"));
 	}

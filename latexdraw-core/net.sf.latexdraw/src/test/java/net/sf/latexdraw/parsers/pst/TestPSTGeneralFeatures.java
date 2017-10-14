@@ -28,7 +28,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 	}
 
 	@Test
-	public void testbugpssetsetOfShapes() {
+	public void testBugpssetsetOfShapes() {
 		parser("\\psframe(0.5,0.5)(1.5,1.5)\\psdot[linewidth=1cm,dotsize=1](1,1)\\psset{unit=2}\\psframe(0.5,0.5)(1.5,1.5)\\psdot(2," + "2)");
 		IRectangle rec = getShapeAt(0);
 		assertEquals(0.5 * IShape.PPC, rec.getX(), 0.000001);
@@ -52,7 +52,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 	}
 
 	@Test
-	public void testpssetlinewidth() {
+	public void testPssetlinewidth() {
 		parser("\\psset{linewidth=2cm}\\psframe(10,10)");
 		IRectangle rec = getShapeAt(0);
 		assertEquals(2d * IShape.PPC, rec.getThickness(), 0.0001);
@@ -79,13 +79,13 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 	}
 
 	@Test
-	public void testpsscalebox() {
+	public void testPsscalebox() {
 		parser("\\psscalebox{1 1}{\\psframe(2,3)(5,1)}");
 		assertEquals(1, listener.getShapes().size());
 	}
 
 	@Test
-	public void testscalebox() {
+	public void testScalebox() {
 		parser("\\scalebox{0.75}{\\psframe(2,3)(5,1)}");
 		assertEquals(1, listener.getShapes().size());
 	}

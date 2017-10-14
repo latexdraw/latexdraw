@@ -628,7 +628,7 @@ public class TestIGroup implements HelperTest {
 	}
 
 	@Test
-	public void testhasSetDbleBord() {
+	public void testHasSetDbleBord() {
 		init4setFill();
 		shape.setHasDbleBord(true);
 		assertTrue(shape.hasDbleBord());

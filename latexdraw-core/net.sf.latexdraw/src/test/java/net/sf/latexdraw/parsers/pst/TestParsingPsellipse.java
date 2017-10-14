@@ -60,7 +60,7 @@ public class TestParsingPsellipse extends TestPSTParser {
 	}
 
 	@Test
-	public void test1Coordinates() {
+	public void testParse1Coordinates() {
 		parser("\\psellipse(35,20)");
 		IEllipse ell = getShapeAt(0);
 		assertEquals(-35d * IShape.PPC, ell.getPosition().getX(), 0.001);
@@ -70,7 +70,7 @@ public class TestParsingPsellipse extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesInt() {
+	public void testParse2CoordinatesInt() {
 		parser("\\psellipse(10,20)(35,50)");
 		IEllipse ell = getShapeAt(0);
 		assertEquals(10d * IShape.PPC - 35d * IShape.PPC, ell.getPosition().getX(), 0.001);
@@ -80,7 +80,7 @@ public class TestParsingPsellipse extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloatSigns2() {
+	public void testParse2CoordinatesFloatSigns2() {
 		parser("\\psellipse(-+.5,+-5)(+++35.5,--50.5)");
 		IEllipse ell = getShapeAt(0);
 		assertEquals(-.5 * IShape.PPC - 35.5 * IShape.PPC, ell.getPosition().getX(), 0.001);
@@ -90,7 +90,7 @@ public class TestParsingPsellipse extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloatSigns() {
+	public void testParse2CoordinatesFloatSigns() {
 		parser("\\psellipse(-+-.5,+--.5)(+++35.5,--50.5)");
 		IEllipse ell = getShapeAt(0);
 		assertEquals(.5 * IShape.PPC - 35.5 * IShape.PPC, ell.getPosition().getX(), 0.001);
@@ -100,7 +100,7 @@ public class TestParsingPsellipse extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloat2() {
+	public void testParse2CoordinatesFloat2() {
 		parser("\\psellipse(.5,.5)(35.5,50.5)");
 		IEllipse ell = getShapeAt(0);
 		assertEquals(.5 * IShape.PPC - 35.5 * IShape.PPC, ell.getPosition().getX(), 0.001);
@@ -110,7 +110,7 @@ public class TestParsingPsellipse extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloat() {
+	public void testParse2CoordinatesFloat() {
 		parser("\\psellipse(10.5,20.5)(35.5,50.5)");
 		IEllipse ell = getShapeAt(0);
 		assertEquals(10.5 * IShape.PPC - 35.5 * IShape.PPC, ell.getPosition().getX(), 0.001);
@@ -120,7 +120,7 @@ public class TestParsingPsellipse extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesTwoFirstMissing() {
+	public void testParse2CoordinatesTwoFirstMissing() {
 		parser("\\psellipse(,)(35,50)");
 		IEllipse ell = getShapeAt(0);
 		assertEquals(IShape.PPC - 35 * IShape.PPC, ell.getPosition().getX(), 0.001);
@@ -130,7 +130,7 @@ public class TestParsingPsellipse extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesTwoLastMissing() {
+	public void testParse2CoordinatesTwoLastMissing() {
 		parser("\\psellipse(0,0)(,)");
 		IEllipse ell = getShapeAt(0);
 		assertEquals(-IShape.PPC, ell.getPosition().getX(), 0.001);
@@ -140,7 +140,7 @@ public class TestParsingPsellipse extends TestPSTParser {
 	}
 
 	@Test
-	public void test2WidthHeight0() {
+	public void testParse2WidthHeight0() {
 		parser("\\psellipse(0,0)(0,0)");
 		IEllipse ell = getShapeAt(0);
 		assertTrue(ell.getWidth() > 0);

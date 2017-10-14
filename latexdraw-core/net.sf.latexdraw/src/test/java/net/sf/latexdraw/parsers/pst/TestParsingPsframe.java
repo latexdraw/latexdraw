@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Theories.class)
 public class TestParsingPsframe extends TestPSTParser {
 	@Test
-	public void testpssetunityunit() {
+	public void testPssetunityunit() {
 		parser("\\psset{unit=2,yunit=3}\\psframe(1,1)(5,5)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(2d * IShape.PPC, rec.getX(), 0.000001);
@@ -24,7 +24,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void testpssetunitxunit() {
+	public void testPssetunitxunit() {
 		parser("\\psset{unit=2,xunit=3}\\psframe(1,1)(5,5)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(2d * 3d * IShape.PPC, rec.getX(), 0.000001);
@@ -34,7 +34,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void testpssetunit() {
+	public void testPssetunit() {
 		parser("\\psset{unit=2}\\psframe(1,1)(5,5)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(2d * IShape.PPC, rec.getX(), 0.000001);
@@ -135,7 +135,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test1Coordinates() {
+	public void testParse1Coordinates() {
 		parser("\\psframe(35,20)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(0d, rec.getPosition().getX(), 0.001);
@@ -145,7 +145,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesIntOppositeAll() {
+	public void testParse2CoordinatesIntOppositeAll() {
 		parser("\\psframe(35,50)(10,20)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(10d * IShape.PPC, rec.getPosition().getX(), 0.001);
@@ -155,7 +155,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesIntOppositeX() {
+	public void testParse2CoordinatesIntOppositeX() {
 		parser("\\psframe(35,20)(10,50)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(10d * IShape.PPC, rec.getPosition().getX(), 0.001);
@@ -165,7 +165,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesIntOppositeY() {
+	public void testParse2CoordinatesIntOppositeY() {
 		parser("\\psframe(10,50)(35,20)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(10d * IShape.PPC, rec.getPosition().getX(), 0.001);
@@ -175,7 +175,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesInt() {
+	public void testParse2CoordinatesInt() {
 		parser("\\psframe(10,20)(35,50)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(10d * IShape.PPC, rec.getPosition().getX(), 0.001);
@@ -185,7 +185,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloatSigns2() {
+	public void testParse2CoordinatesFloatSigns2() {
 		parser("\\psframe(-+.5,+-5)(+++35.5,--50.5)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(-0.5 * IShape.PPC, rec.getPosition().getX(), 0.001);
@@ -195,7 +195,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloatSigns() {
+	public void testParse2CoordinatesFloatSigns() {
 		parser("\\psframe(-+-.5,+--.5)(+++35.5,--50.5)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(0.5 * IShape.PPC, rec.getPosition().getX(), 0.001);
@@ -205,7 +205,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloat2() {
+	public void testParse2CoordinatesFloat2() {
 		parser("\\psframe(.5,.5)(35.5,50.5)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(0.5 * IShape.PPC, rec.getPosition().getX(), 0.001);
@@ -215,7 +215,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloat() {
+	public void testParse2CoordinatesFloat() {
 		parser("\\psframe(10.5,20.5)(35.5,50.5)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(10.5 * IShape.PPC, rec.getPosition().getX(), 0.001);
@@ -225,7 +225,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesTwoFirstMissing() {
+	public void testParse2CoordinatesTwoFirstMissing() {
 		parser("\\psframe(,)(35,50)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(IShape.PPC, rec.getPosition().getX(), 0.001);
@@ -235,7 +235,7 @@ public class TestParsingPsframe extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesTwoLastMissing() {
+	public void testParse2CoordinatesTwoLastMissing() {
 		parser("\\psframe(0,0)(,)");
 		final IRectangle rec = getShapeAt(0);
 		assertEquals(0d, rec.getPosition().getX(), 0.001);

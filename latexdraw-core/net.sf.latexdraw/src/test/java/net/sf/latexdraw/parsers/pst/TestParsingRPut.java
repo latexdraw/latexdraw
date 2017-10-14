@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestParsingRPut extends TestPSTParser {
 	@Test
-	public void testRefPointCombo_t_br() {
+	public void testRefPointCombotbr() {
 		parser("\\rput[t](0,0){\\rput[br](2,2){coucou}}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT_RIGHT, txt.getTextPosition());
@@ -27,14 +27,14 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_None() {
+	public void testRefPointNone() {
 		parser("\\rput(10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.CENTER, txt.getTextPosition());
 	}
 
 	@Test
-	public void testRefPoint_B() {
+	public void testRefPointB() {
 		parser("\\rput[B](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BASE, txt.getTextPosition());
@@ -43,7 +43,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_Br() {
+	public void testRefPointBr() {
 		parser("\\rput[Br](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BASE_RIGHT, txt.getTextPosition());
@@ -52,7 +52,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_Bl() {
+	public void testRefPointBl() {
 		parser("\\rput[Bl](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BASE_LEFT, txt.getTextPosition());
@@ -61,7 +61,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_r() {
+	public void testRefPointr() {
 		parser("\\rput[r](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.RIGHT, txt.getTextPosition());
@@ -70,7 +70,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_l() {
+	public void testRefPointl() {
 		parser("\\rput[l](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.LEFT, txt.getTextPosition());
@@ -79,7 +79,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_tr() {
+	public void testRefPointtr() {
 		parser("\\rput[tr](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.TOP_RIGHT, txt.getTextPosition());
@@ -88,7 +88,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_b() {
+	public void testRefPointb() {
 		parser("\\rput[b](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT, txt.getTextPosition());
@@ -97,7 +97,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_t() {
+	public void testRefPointt() {
 		parser("\\rput[t](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.TOP, txt.getTextPosition());
@@ -106,7 +106,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_tl() {
+	public void testRefPointtl() {
 		parser("\\rput[tl](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.TOP_LEFT, txt.getTextPosition());
@@ -115,7 +115,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_bl() {
+	public void testRefPointbl() {
 		parser("\\rput[bl](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT_LEFT, txt.getTextPosition());
@@ -124,7 +124,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPoint_br() {
+	public void testRefPointbr() {
 		parser("\\rput[br](10,20){coucou}");
 		final IText txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT_RIGHT, txt.getTextPosition());

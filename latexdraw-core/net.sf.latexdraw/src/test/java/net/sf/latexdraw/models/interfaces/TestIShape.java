@@ -378,7 +378,7 @@ public class TestIShape implements HelperTest {
 	}
 
 	@Theory
-	public void testhasSetDbleBord(@ShapeData final IShape shape, final boolean value) {
+	public void testHasSetDbleBord(@ShapeData final IShape shape, final boolean value) {
 		assumeTrue(shape.isDbleBorderable());
 		shape.setHasDbleBord(value);
 		assertEquals(value, shape.hasDbleBord());

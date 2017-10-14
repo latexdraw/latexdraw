@@ -162,7 +162,7 @@ public class TestPSFunctionParser {
 	}
 
 	@Test(expected = InvalidFormatPSFunctionException.class)
-	public void testGetYXAdd_notOK() throws InvalidFormatPSFunctionException {
+	public void testGetYXAddnotOK() throws InvalidFormatPSFunctionException {
 		PSFunctionParser parser = new PSFunctionParser("x add");
 		parser.getY(3);
 	}

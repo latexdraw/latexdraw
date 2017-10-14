@@ -52,7 +52,7 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	}
 
 	@Test
-	public void test1Coordinates() throws ParseException {
+	public void testParse1Coordinates() throws ParseException {
 		parser("\\psdiamond(35,20)");
 		IRhombus rh = getShapeAt(0);
 		assertEquals(-35d * IShape.PPC, rh.getPosition().getX(), 0.001);
@@ -62,7 +62,7 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesInt() throws ParseException {
+	public void testParse2CoordinatesInt() throws ParseException {
 		parser("\\psdiamond(10,20)(35,50)");
 		IRhombus rh = getShapeAt(0);
 		assertEquals(10d * IShape.PPC - 35d * IShape.PPC, rh.getPosition().getX(), 0.001);
@@ -72,7 +72,7 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloatSigns2() throws ParseException {
+	public void testParse2CoordinatesFloatSigns2() throws ParseException {
 		parser("\\psdiamond(-+.5,+-5)(+++35.5,--50.5)");
 		IRhombus rh = getShapeAt(0);
 		assertEquals(-.5 * IShape.PPC - 35.5 * IShape.PPC, rh.getPosition().getX(), 0.001);
@@ -82,7 +82,7 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloatSigns() throws ParseException {
+	public void testParse2CoordinatesFloatSigns() throws ParseException {
 		parser("\\psdiamond(-+-.5,+--.5)(+++35.5,--50.5)");
 		IRhombus rh = getShapeAt(0);
 		assertEquals(.5 * IShape.PPC - 35.5 * IShape.PPC, rh.getPosition().getX(), 0.001);
@@ -92,7 +92,7 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloat2() throws ParseException {
+	public void testParse2CoordinatesFloat2() throws ParseException {
 		parser("\\psdiamond(.5,.5)(35.5,50.5)");
 		IRhombus rh = getShapeAt(0);
 		assertEquals(.5 * IShape.PPC - 35.5 * IShape.PPC, rh.getPosition().getX(), 0.001);
@@ -102,7 +102,7 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesFloat() throws ParseException {
+	public void testParse2CoordinatesFloat() throws ParseException {
 		parser("\\psdiamond(10.5,20.5)(35.5,50.5)");
 		IRhombus rh = getShapeAt(0);
 		assertEquals(10.5 * IShape.PPC - 35.5 * IShape.PPC, rh.getPosition().getX(), 0.001);
@@ -112,7 +112,7 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesTwoFirstMissing() throws ParseException {
+	public void testParse2CoordinatesTwoFirstMissing() throws ParseException {
 		parser("\\psdiamond(,)(35,50)");
 		IRhombus rh = getShapeAt(0);
 		assertEquals(IShape.PPC - 35 * IShape.PPC, rh.getPosition().getX(), 0.001);
@@ -122,7 +122,7 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	}
 
 	@Test
-	public void test2CoordinatesTwoLastMissing() throws ParseException {
+	public void testParse2CoordinatesTwoLastMissing() throws ParseException {
 		parser("\\psdiamond(0,0)(,)");
 		IRhombus rh = getShapeAt(0);
 		assertEquals(-IShape.PPC, rh.getPosition().getX(), 0.001);
@@ -132,7 +132,7 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	}
 
 	@Test
-	public void test2WidthHeight0() throws ParseException {
+	public void testParse2WidthHeight0() throws ParseException {
 		parser("\\psdiamond(0,0)(0,0)");
 		IRhombus rh = getShapeAt(0);
 		assertThat(rh.getWidth(), greaterThan(0d));
@@ -140,7 +140,7 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	}
 
 	@Test
-	public void testgangle() throws ParseException {
+	public void testGangle() throws ParseException {
 		parser("\\psdiamond[gangle=90](0,0)(1,1)");
 		final IRhombus rh = getShapeAt(0);
 		assertEquals(-Math.PI/2d, rh.getRotationAngle(), 0.001);

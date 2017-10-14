@@ -112,7 +112,7 @@ public class TestParsingPswedge extends TestPSTParser {
 	}
 
 	@Theory
-	public void test2CoordinatesFloat2(final String cmd) {
+	public void testParse2CoordinatesFloat2(final String cmd) {
 		parser(cmd + "(35.5,50.5){1.25}{10}{20}");
 		IArc arc = getShapeAt(0);
 		assertEquals(35.5 * IShape.PPC - 1.25 * IShape.PPC, arc.getPosition().getX(), 0.001);
