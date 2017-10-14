@@ -39,7 +39,7 @@ public class ViewDot extends ViewShape<IDot> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewDot(final  IDot sh) {
+	ViewDot(final IDot sh) {
 		super(sh);
 		path = new Path();
 		dot = new Ellipse();

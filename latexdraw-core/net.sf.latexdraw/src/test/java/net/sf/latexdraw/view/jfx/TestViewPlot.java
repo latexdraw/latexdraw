@@ -14,8 +14,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
@@ -143,6 +146,24 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 		final List<PathElement> before = ((Path) ((ViewDot) view.getChildren().get(0)).getChildren().get(1)).getElements();
 		model.setDotStyle(DotStyle.FDIAMOND);
 		assertNotEquals(before, ((Path) ((ViewDot) view.getChildren().get(0)).getChildren().get(1)).getElements());
+	}
+
+
+	@Test
+	public void testOnDotNotSamePoints() {
+		model.setPlotStyle(PlotStyle.DOTS);
+		// Computing the number of different x
+		final int nbXDiff = (int) view.getChildren().stream().map(node -> ((ViewDot)node).dot.centerXProperty().get()).distinct().count();
+		// Computing the number of different y
+		final int nbYDiff = (int) view.getChildren().stream().map(node -> ((ViewDot)node).dot.centerYProperty().get()).distinct().count();
+		// The points of the plot must all differ
+		assertThat(view.getChildren().size(), anyOf(equalTo(nbXDiff), equalTo(nbYDiff)));
+	}
+
+	@Test
+	public void testOnDotNbPoints() {
+		model.setPlotStyle(PlotStyle.DOTS);
+		assertEquals(model.getNbPlottedPoints(), view.getChildren().size());
 	}
 
 

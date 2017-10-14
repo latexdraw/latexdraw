@@ -58,7 +58,6 @@ public final class PlotViewHelper {
 			for(int i = 0; i < shape.getNbPlottedPoints(); i++, x += step) {
 				pts.add(ShapeFactory.INST.createPoint(x * IShape.PPC * xs + posX, -shape.getY(x) * IShape.PPC * ys + posY));
 			}
-//			pts.add(ShapeFactory.INST.createPoint(maxX * IShape.PPC * xs + posX, -shape.getY(maxX) * IShape.PPC * ys + posY));
 		}
 
 		return pts;
