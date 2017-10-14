@@ -305,11 +305,11 @@ public class TestSVGTransform {
 		assertFalse(t.isScale());
 		assertEquals(1d, t.getTX(), 0.0001);
 		assertEquals(2d, t.getTY(), 0.0001);
-		assertEquals(Double.NaN, t.getXScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getYScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getXSkewAngle(), 0.0001);
-		assertEquals(Double.NaN, t.getYSkewAngle(), 0.0001);
-		assertEquals(Double.NaN, t.getRotationAngle(), 0.0001);
+		assertTrue(Double.isNaN(t.getXScaleFactor()));
+		assertTrue(Double.isNaN(t.getYScaleFactor()));
+		assertTrue(Double.isNaN(t.getXSkewAngle()));
+		assertTrue(Double.isNaN(t.getYSkewAngle()));
+		assertTrue(Double.isNaN(t.getRotationAngle()));
 		assertEquals(SVGTransform.SVG_TRANSFORM_TRANSLATE, t.getType());
 	}
 
@@ -323,13 +323,13 @@ public class TestSVGTransform {
 		assertFalse(t.isXSkew());
 		assertFalse(t.isRotation());
 		assertFalse(t.isTranslation());
-		assertEquals(Double.NaN, t.getTX(), 0.0001);
-		assertEquals(Double.NaN, t.getTY(), 0.0001);
+		assertTrue(Double.isNaN(t.getTX()));
+		assertTrue(Double.isNaN(t.getTY()));
 		assertEquals(3d, t.getXScaleFactor(), 0.0001);
 		assertEquals(4d, t.getYScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getXSkewAngle(), 0.0001);
-		assertEquals(Double.NaN, t.getYSkewAngle(), 0.0001);
-		assertEquals(Double.NaN, t.getRotationAngle(), 0.0001);
+		assertTrue(Double.isNaN(t.getXSkewAngle()));
+		assertTrue(Double.isNaN(t.getYSkewAngle()));
+		assertTrue(Double.isNaN(t.getRotationAngle()));
 		assertEquals(SVGTransform.SVG_TRANSFORM_SCALE, t.getType());
 	}
 
@@ -343,12 +343,12 @@ public class TestSVGTransform {
 		assertFalse(t.isYSkew());
 		assertFalse(t.isRotation());
 		assertFalse(t.isTranslation());
-		assertEquals(Double.NaN, t.getTX(), 0.0001);
-		assertEquals(Double.NaN, t.getTY(), 0.0001);
-		assertEquals(Double.NaN, t.getXScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getYScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getYSkewAngle(), 0.0001);
-		assertEquals(Double.NaN, t.getRotationAngle(), 0.0001);
+		assertTrue(Double.isNaN(t.getTX()));
+		assertTrue(Double.isNaN(t.getTY()));
+		assertTrue(Double.isNaN(t.getXScaleFactor()));
+		assertTrue(Double.isNaN(t.getYScaleFactor()));
+		assertTrue(Double.isNaN(t.getYSkewAngle()));
+		assertTrue(Double.isNaN(t.getRotationAngle()));
 		assertEquals(SVGTransform.SVG_TRANSFORM_SKEWX, t.getType());
 	}
 
@@ -362,12 +362,12 @@ public class TestSVGTransform {
 		assertFalse(t.isXSkew());
 		assertFalse(t.isRotation());
 		assertFalse(t.isTranslation());
-		assertEquals(Double.NaN, t.getTX(), 0.0001);
-		assertEquals(Double.NaN, t.getTY(), 0.0001);
-		assertEquals(Double.NaN, t.getXScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getYScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getXSkewAngle(), 0.0001);
-		assertEquals(Double.NaN, t.getRotationAngle(), 0.0001);
+		assertTrue(Double.isNaN(t.getTX()));
+		assertTrue(Double.isNaN(t.getTY()));
+		assertTrue(Double.isNaN(t.getXScaleFactor()));
+		assertTrue(Double.isNaN(t.getYScaleFactor()));
+		assertTrue(Double.isNaN(t.getXSkewAngle()));
+		assertTrue(Double.isNaN(t.getRotationAngle()));
 		assertEquals(SVGTransform.SVG_TRANSFORM_SKEWY, t.getType());
 	}
 
@@ -379,12 +379,12 @@ public class TestSVGTransform {
 		assertFalse(t.isXSkew());
 		assertFalse(t.isYSkew());
 		assertFalse(t.isTranslation());
-		assertEquals(Double.NaN, t.getTX(), 0.0001);
-		assertEquals(Double.NaN, t.getTY(), 0.0001);
-		assertEquals(Double.NaN, t.getXScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getYScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getXSkewAngle(), 0.0001);
-		assertEquals(Double.NaN, t.getYSkewAngle(), 0.0001);
+		assertTrue(Double.isNaN(t.getTX()));
+		assertTrue(Double.isNaN(t.getTY()));
+		assertTrue(Double.isNaN(t.getXScaleFactor()));
+		assertTrue(Double.isNaN(t.getYScaleFactor()));
+		assertTrue(Double.isNaN(t.getXSkewAngle()));
+		assertTrue(Double.isNaN(t.getYSkewAngle()));
 		assertEquals(SVGTransform.SVG_TRANSFORM_ROTATE, t.getType());
 		m = t.getMatrix();
 		assertEquals(2d, t.getRotationAngle(), 0.0001);
@@ -407,13 +407,13 @@ public class TestSVGTransform {
 		assertEquals(6d, m.getE(), 0.0001);
 		assertEquals(7d, m.getF(), 0.0001);
 		assertEquals(SVGTransform.SVG_TRANSFORM_MATRIX, t.getType());
-		assertEquals(Double.NaN, t.getTX(), 0.0001);
-		assertEquals(Double.NaN, t.getTY(), 0.0001);
-		assertEquals(Double.NaN, t.getXScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getYScaleFactor(), 0.0001);
-		assertEquals(Double.NaN, t.getXSkewAngle(), 0.0001);
-		assertEquals(Double.NaN, t.getYSkewAngle(), 0.0001);
-		assertEquals(Double.NaN, t.getRotationAngle(), 0.0001);
+		assertTrue(Double.isNaN(t.getTX()));
+		assertTrue(Double.isNaN(t.getTY()));
+		assertTrue(Double.isNaN(t.getXScaleFactor()));
+		assertTrue(Double.isNaN(t.getYScaleFactor()));
+		assertTrue(Double.isNaN(t.getXSkewAngle()));
+		assertTrue(Double.isNaN(t.getYSkewAngle()));
+		assertTrue(Double.isNaN(t.getRotationAngle()));
 		assertFalse(t.isRotation());
 		assertFalse(t.isScale());
 		assertFalse(t.isXSkew());

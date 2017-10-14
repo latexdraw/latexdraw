@@ -67,7 +67,7 @@ public class TestIPoint implements HelperTest {
 
 	@Test
 	public void testComputeAngleKO() {
-		assertEquals(Double.NaN, pt.computeAngle(null), 0.1);
+		assertTrue(Double.isNaN(pt.computeAngle(null)));
 	}
 
 	@Test
@@ -89,9 +89,9 @@ public class TestIPoint implements HelperTest {
 
 	@Test
 	public void testComputeRotationAngleKO() {
-		assertEquals(Double.NaN, pt.computeRotationAngle(null, null), 0.1);
-		assertEquals(Double.NaN, pt.computeRotationAngle(ShapeFactory.INST.createPoint(), null), 0.1);
-		assertEquals(Double.NaN, pt.computeRotationAngle(null, ShapeFactory.INST.createPoint()), 0.1);
+		assertTrue(Double.isNaN(pt.computeRotationAngle(null, null)));
+		assertTrue(Double.isNaN(pt.computeRotationAngle(ShapeFactory.INST.createPoint(), null)));
+		assertTrue(Double.isNaN(pt.computeRotationAngle(null, ShapeFactory.INST.createPoint())));
 	}
 
 	@Test
