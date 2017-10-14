@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
@@ -201,7 +202,7 @@ public class ViewText extends ViewPositionShape<IText> {
 			}
 
 			log = outReader.getLog() + LSystem.EOL + errReader.getLog();
-		}catch(final Throwable ex) {
+		}catch(final IOException | InterruptedException | IllegalThreadStateException ex) {
 			log += ex.getMessage();
 		}
 		return new Tuple<>(false, log);
@@ -270,11 +271,11 @@ public class ViewText extends ViewPositionShape<IText> {
 						BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
 					}
 					file.delete();
-				}catch(final Throwable ex) {
+				}catch(final IOException | IllegalArgumentException | SecurityException ex) {
 					BadaboomCollector.INSTANCE.add(ex);
 				}
 			}
-		}catch(final Throwable ex) {
+		}catch(final IOException | IllegalArgumentException | SecurityException ex) {
 			try(final StringWriter sw = new StringWriter();
 				final PrintWriter pw = new PrintWriter(sw)) {
 				ex.printStackTrace(pw);
@@ -285,7 +286,7 @@ public class ViewText extends ViewPositionShape<IText> {
 				new File(pathPic + ".aux").delete(); //$NON-NLS-1$
 				new File(pathPic + ".log").delete(); //$NON-NLS-1$
 				BadaboomCollector.INSTANCE.add(new FileNotFoundException("Log:\n" + log + "\nException:\n" + sw));
-			}catch(final Throwable ex2) {
+			}catch(final IOException ex2) {
 				BadaboomCollector.INSTANCE.add(ex2);
 			}
 		}

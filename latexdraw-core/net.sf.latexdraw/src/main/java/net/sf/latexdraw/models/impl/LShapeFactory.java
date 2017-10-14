@@ -104,8 +104,8 @@ public class LShapeFactory implements IShapeFactory {
 	public <T extends IShape> Optional<T> newShape(final Class<T> shapeClass) {
 		if(shapeClass == null) return Optional.empty();
 		try {
-			return Optional.of(shapeClass.cast(factoryMap.get(shapeClass).get()));
-		}catch(final Throwable ex) {
+			return Optional.ofNullable(shapeClass.cast(factoryMap.get(shapeClass).get()));
+		}catch(final ClassCastException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			return Optional.empty();
 		}
