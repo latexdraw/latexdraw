@@ -27,7 +27,7 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 	 */
 	LPositionShape(final IPoint pt) {
 		super();
-		points.add(MathUtils.INST.isValidPt(pt) ? pt : ShapeFactory.INST.createPoint());
+		points.add(MathUtils.INST.isValidPt(pt) ? ShapeFactory.INST.createPoint(pt) : ShapeFactory.INST.createPoint());
 	}
 
 	@Override
