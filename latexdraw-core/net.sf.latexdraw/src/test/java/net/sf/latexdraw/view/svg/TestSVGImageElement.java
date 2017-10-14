@@ -151,7 +151,7 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGImageElement e = new SVGImageElement(node, null);
-		assertEquals(e.getX(), 0d, 0.0001);
+		assertEquals(0.0001, e.getX(), 0d);
 	}
 
 	@Test

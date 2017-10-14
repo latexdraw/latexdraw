@@ -50,41 +50,41 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 	@Test
 	public void testGetPatternUnitsdefault() throws MalformedSVGDocument {
 		SVGPatternElement e = new SVGPatternElement(node, null);
-		assertEquals(e.getPatternUnits(), SVGAttributes.SVG_UNITS_VALUE_OBJ);
+		assertEquals(SVGAttributes.SVG_UNITS_VALUE_OBJ, e.getPatternUnits());
 	}
 
 	@Test
 	public void testGetPatternUnitsUSR() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_PATTERN_UNITS, SVGAttributes.SVG_UNITS_VALUE_USR);
 		SVGPatternElement e = new SVGPatternElement(node, null);
-		assertEquals(e.getPatternUnits(), SVGAttributes.SVG_UNITS_VALUE_USR);
+		assertEquals(SVGAttributes.SVG_UNITS_VALUE_USR, e.getPatternUnits());
 	}
 
 	@Test
 	public void testGetPatternUnitsOBJ() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_PATTERN_UNITS, SVGAttributes.SVG_UNITS_VALUE_OBJ);
 		SVGPatternElement e = new SVGPatternElement(node, null);
-		assertEquals(e.getPatternUnits(), SVGAttributes.SVG_UNITS_VALUE_OBJ);
+		assertEquals(SVGAttributes.SVG_UNITS_VALUE_OBJ, e.getPatternUnits());
 	}
 
 	@Test
 	public void testGetPatternContentUnitsdefault() throws MalformedSVGDocument {
 		SVGPatternElement e = new SVGPatternElement(node, null);
-		assertEquals(e.getPatternContentUnits(), SVGAttributes.SVG_UNITS_VALUE_USR);
+		assertEquals(SVGAttributes.SVG_UNITS_VALUE_USR, e.getPatternContentUnits());
 	}
 
 	@Test
 	public void testGetPatternContentUnitsUSR() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_PATTERN_CONTENTS_UNITS, SVGAttributes.SVG_UNITS_VALUE_USR);
 		SVGPatternElement e = new SVGPatternElement(node, null);
-		assertEquals(e.getPatternContentUnits(), SVGAttributes.SVG_UNITS_VALUE_USR);
+		assertEquals(SVGAttributes.SVG_UNITS_VALUE_USR, e.getPatternContentUnits());
 	}
 
 	@Test
 	public void testGetPatternContentUnitsOBJ() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_PATTERN_CONTENTS_UNITS, SVGAttributes.SVG_UNITS_VALUE_OBJ);
 		SVGPatternElement e = new SVGPatternElement(node, null);
-		assertEquals(e.getPatternContentUnits(), SVGAttributes.SVG_UNITS_VALUE_OBJ);
+		assertEquals(SVGAttributes.SVG_UNITS_VALUE_OBJ, e.getPatternContentUnits());
 	}
 
 	@Test

@@ -12,26 +12,26 @@ public class TestUnitProcessor {
 
 	@Test
 	public void testToUserUnitCM() {
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1d, SVGLength.LengthType.CM), 35.43307, 0.001);
+		assertEquals(35.43307, UnitProcessor.INSTANCE.toUserUnit(1d, SVGLength.LengthType.CM), 0.001);
 	}
 
 	@Test
 	public void testToUserUnitMM() {
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1d, SVGLength.LengthType.MM), 3.543307, 0.001);
+		assertEquals(3.543307, UnitProcessor.INSTANCE.toUserUnit(1d, SVGLength.LengthType.MM), 0.001);
 	}
 
 	@Test
 	public void testToUserUnitPT() {
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1d, SVGLength.LengthType.PT), 1.25, 0.001);
+		assertEquals(1.25, UnitProcessor.INSTANCE.toUserUnit(1d, SVGLength.LengthType.PT), 0.001);
 	}
 
 	@Test
 	public void testToUserUnitPC() {
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1d, SVGLength.LengthType.PC), 15d, 0.001);
+		assertEquals(15d, UnitProcessor.INSTANCE.toUserUnit(1d, SVGLength.LengthType.PC), 0.001);
 	}
 
 	@Test
 	public void testToUserUnitIN() {
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1d, SVGLength.LengthType.IN), 90d, 0.001);
+		assertEquals(90d, UnitProcessor.INSTANCE.toUserUnit(1d, SVGLength.LengthType.IN), 0.001);
 	}
 }

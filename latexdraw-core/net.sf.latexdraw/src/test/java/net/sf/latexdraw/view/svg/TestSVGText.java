@@ -73,7 +73,7 @@ public class TestSVGText {
 
 	@Test
 	public void testGetLength() {
-		assertEquals("text".length(), txt.getLength());
+		assertEquals(txt.getLength(), "text".length());
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class TestSVGText {
 	@Test
 	public void testSetData() {
 		txt.setData("coucou");
-		assertEquals(txt.getData(), "coucou");
+		assertEquals("coucou", txt.getData());
 	}
 
 	protected SVGText createSVGText(String str, SVGDocument document) {

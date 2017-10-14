@@ -55,7 +55,7 @@ public class TestSVGPointsParser extends TestCodeParser {
 	public void testSkipWSP() {
 		parser.setCode(" \r  \t \n 10 10");
 		parser.skipWSP();
-		assertEquals(parser.getChar(), '1');
+		assertEquals('1', parser.getChar());
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class TestSVGPointsParser extends TestCodeParser {
 	public void testSkipWSPComma() {
 		parser.setCode(" \r , \t \n 10 10");
 		((SVGPointsParser) parser).skipWSPComma();
-		assertEquals(parser.getChar(), '1');
+		assertEquals('1', parser.getChar());
 	}
 
 	@Theory
@@ -102,8 +102,8 @@ public class TestSVGPointsParser extends TestCodeParser {
 		parser.setCode(" 1, 2,3 4 5,6");
 		parser.parse();
 		assertNotNull(((SVGPointsParser) parser).getPoints());
-		assertEquals(((SVGPointsParser) parser).getPoints().get(0), new Point2D.Double(1d, 2d));
-		assertEquals(((SVGPointsParser) parser).getPoints().get(1), new Point2D.Double(3d, 4d));
-		assertEquals(((SVGPointsParser) parser).getPoints().get(((SVGPointsParser) parser).getPoints().size() - 1), new Point2D.Double(5d, 6d));
+		assertEquals(new Point2D.Double(1d, 2d), ((SVGPointsParser) parser).getPoints().get(0));
+		assertEquals(new Point2D.Double(3d, 4d), ((SVGPointsParser) parser).getPoints().get(1));
+		assertEquals(new Point2D.Double(5d, 6d), ((SVGPointsParser) parser).getPoints().get(((SVGPointsParser) parser).getPoints().size() - 1));
 	}
 }

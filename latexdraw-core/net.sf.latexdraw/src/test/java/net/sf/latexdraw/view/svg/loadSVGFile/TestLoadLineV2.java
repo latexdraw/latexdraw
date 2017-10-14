@@ -23,7 +23,7 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 	}
 
 	public IPolyline getLine() {
-		return (IPolyline)group.getShapeAt(0);
+		return (IPolyline) group.getShapeAt(0);
 	}
 
 	@Test
@@ -39,7 +39,7 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 	@Test
 	public void testLine() {
 		final IPolyline line = getLine();
-		assertEquals(5, line.getThickness(), 0.01);
+		assertEquals(5d, line.getThickness(), 0.01);
 		assertEquals(ShapeFactory.INST.createColorInt(209, 169, 169), line.getLineColour());
 		assertEquals(LineStyle.DASHED, line.getLineStyle());
 	}
@@ -71,6 +71,6 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 		final IPolyline line = getLine();
 		assertTrue(line.hasDbleBord());
 		assertEquals(ShapeFactory.INST.createColorInt(224, 197, 227), line.getDbleBordCol());
-		assertEquals(6, line.getDbleBordSep(), 0.001);
+		assertEquals(6d, line.getDbleBordSep(), 0.001);
 	}
 }

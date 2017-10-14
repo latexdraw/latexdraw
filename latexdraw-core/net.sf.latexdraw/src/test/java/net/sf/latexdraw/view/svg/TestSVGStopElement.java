@@ -38,7 +38,7 @@ public class TestSVGStopElement extends AbstractTestSVGElement {
 	@Test
 	public void testGetStopColorDefault() throws MalformedSVGDocument {
 		SVGStopElement e = new SVGStopElement(node, null);
-		assertEquals(e.getStopColor(), DviPsColors.BLACK);
+		assertEquals(DviPsColors.BLACK, e.getStopColor());
 	}
 
 	@Test

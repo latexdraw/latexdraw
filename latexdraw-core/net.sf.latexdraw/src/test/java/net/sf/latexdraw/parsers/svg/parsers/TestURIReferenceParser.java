@@ -1,49 +1,42 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
+import net.sf.latexdraw.data.StringData;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
+@RunWith(Theories.class)
 public class TestURIReferenceParser {
-	@SuppressWarnings("unused")
-	@Test
-	public void testConstructor() {
-		try {
-			new URIReferenceParser(null);
-			fail();
-		}catch(IllegalArgumentException e) {
-			/* */ }
+	URIReferenceParser p;
 
-		new URIReferenceParser("test");
+	@Before
+	public void setUp() throws Exception {
+		p = new URIReferenceParser("url(#id)");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testConstructorKO() {
+		new URIReferenceParser(null);
 	}
 
 	@Test
-	public void testGetURI() {
-		URIReferenceParser p = new URIReferenceParser("url(#id)");
+	public void testGetURIOK() {
+		assertEquals("id", p.getURI());
+	}
 
-		assertEquals(p.getURI(), "id");
-		p.setCode("");
-		assertEquals(p.getURI(), "");
-		p.setCode("url(#id");
-		assertEquals(p.getURI(), "");
-		p.setCode("url#id)");
-		assertEquals(p.getURI(), "");
-		p.setCode("url(id)");
-		assertEquals(p.getURI(), "");
-		p.setCode(null);
-		assertEquals(p.getURI(), "");
-		p.setCode("u");
-		assertEquals(p.getURI(), "");
-		p.setCode("ur");
-		assertEquals(p.getURI(), "");
-		p.setCode("url");
-		assertEquals(p.getURI(), "");
-		p.setCode("url(");
-		assertEquals(p.getURI(), "");
-		p.setCode("url()");
-		assertEquals(p.getURI(), "");
-		p.setCode("url(#)");
-		assertEquals(p.getURI(), "");
+	@Test
+	public void testSetCodeOK() {
+		p.setCode("url(#id2)");
+		assertEquals("id2", p.getURI());
+	}
+
+	@Theory
+	public void testSetCodeKO(@StringData(vals = {"", "url(#id", "url#id)", "url(id)", "u", "url(", "url(#)"}) final String data) {
+		p.setCode(data);
+		assertEquals("", p.getURI());
 	}
 }

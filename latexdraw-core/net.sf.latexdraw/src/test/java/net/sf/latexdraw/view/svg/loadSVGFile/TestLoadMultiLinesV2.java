@@ -23,7 +23,7 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 	}
 
 	public IPolyline getLine() {
-		return (IPolyline)group.getShapeAt(0);
+		return (IPolyline) group.getShapeAt(0);
 	}
 
 	@Test
@@ -86,6 +86,6 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 		final IPolyline line = getLine();
 		assertTrue(line.hasDbleBord());
 		assertEquals(ShapeFactory.INST.createColorInt(213, 240, 66), line.getDbleBordCol());
-		assertEquals(4, line.getDbleBordSep(), 0.001);
+		assertEquals(4d, line.getDbleBordSep(), 0.001);
 	}
 }

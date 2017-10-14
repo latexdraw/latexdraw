@@ -192,7 +192,7 @@ public class TestSVGDocument {
 	@Test
 	public void testCreateElementOK() {
 		SVGElement elt = (SVGElement) doc1.createElement("test");
-		assertEquals(elt.getNodeName(), "test");
+		assertEquals("test", elt.getNodeName());
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
@@ -205,7 +205,7 @@ public class TestSVGDocument {
 	@Test
 	public void testCreateTextNodeOK() {
 		SVGText elt = (SVGText) doc1.createTextNode("test");
-		assertEquals(elt.getData(), "test");
+		assertEquals("test", elt.getData());
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
@@ -217,7 +217,7 @@ public class TestSVGDocument {
 	@Test
 	public void testCreateCommentOK() {
 		SVGComment elt = (SVGComment) doc1.createComment("test");
-		assertEquals(elt.getData(), "test");
+		assertEquals("test", elt.getData());
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 }
