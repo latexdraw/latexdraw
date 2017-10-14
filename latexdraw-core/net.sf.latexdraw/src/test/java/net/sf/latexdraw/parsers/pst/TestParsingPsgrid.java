@@ -145,7 +145,7 @@ public class TestParsingPsgrid extends TestPSTParser {
 	}
 
 	@Test
-	public void test0CoordDoubleValue() {
+	public void testParse0CoordDoubleValue() {
 		parser("\\begin{pspicture}(2.1,2.6)(5.6,5.5)\\psgrid\\end{pspicture}");
 		final IGrid grid = getShapeAt(0);
 		assertEquals(0d, grid.getOriginX(), 0.0001);
@@ -159,7 +159,7 @@ public class TestParsingPsgrid extends TestPSTParser {
 	}
 
 	@Test
-	public void test0Coord() {
+	public void testParse0Coord() {
 		parser("\\begin{pspicture}(2,2)(5,5)\\psgrid\\end{pspicture}");
 		final IGrid grid = getShapeAt(0);
 		assertEquals(0d, grid.getOriginX(), 0.0001);

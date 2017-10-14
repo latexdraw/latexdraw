@@ -20,37 +20,37 @@ public class TestDviPsColors {
 	@Rule public ExpectedException exceptionGrabber = ExpectedException.none();
 
 	@Test
-	public void testconvertHTML2rgbsuccess() {
+	public void testConvertHTML2rgbsuccess() {
 		assertEquals(ShapeFactory.INST.createColor(1d, 0, 100d / 255d, 1d), DviPsColors.INSTANCE.convertHTML2rgb("#FF0064"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testconvertHTML2rgbfailtooshort() {
+	public void testConvertHTML2rgbfailtooshort() {
 		DviPsColors.INSTANCE.convertHTML2rgb("DU87");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testconvertHTML2rgbfailtoolong() {
+	public void testConvertHTML2rgbfailtoolong() {
 		DviPsColors.INSTANCE.convertHTML2rgb("#FF00643");
 	}
 
 	@Test
-	public void testconvertRGB2rgbsuccess() {
+	public void testConvertRGB2rgbsuccess() {
 		assertEquals(ShapeFactory.INST.createColor(0d, 0.5, 1d, 1d), DviPsColors.INSTANCE.convertRGB2rgb(0, 255d / 2d, 255d));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testconvertRGB2rgbfail() {
+	public void testConvertRGB2rgbfail() {
 		DviPsColors.INSTANCE.convertRGB2rgb(-1d, -255d / 2d, -255d);
 	}
 
 	@Test
-	public void testconvertcmyk2rgbsuccess() {
+	public void testConvertcmyk2rgbsuccess() {
 		assertEquals(ShapeFactory.INST.createColor(1d, 0d, 100d / 255d, 1d), DviPsColors.INSTANCE.convertcmyk2rgb(0d, 1d, 0.608, 0d));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testconvertcmyk2rgbfail() {
+	public void testConvertcmyk2rgbfail() {
 		DviPsColors.INSTANCE.convertcmyk2rgb(-1d, -2d, 1d, 3d);
 	}
 
