@@ -8,6 +8,8 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import net.sf.latexdraw.HelperTest;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import org.junit.Before;
@@ -80,13 +82,15 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 	public void testValidLaTeXTextProducesTooltip() throws InterruptedException, TimeoutException, ExecutionException {
 		model.setText("$hello$");
 		view.getCurrentCompilation().get(5000, TimeUnit.SECONDS);
-		assertNull(getTooltip());
+		assertTrue(HelperTest.getBadaboomMessages(), BadaboomCollector.INSTANCE.isEmpty());
+		assertNull(getTooltip() == null ? "" : getTooltip().getText(), getTooltip());// Junit5 message
 	}
 
 	@Test
 	public void testCompilationDataDuringCompilation() throws InterruptedException, TimeoutException, ExecutionException {
 		model.setText("$hello$");
 		view.getCurrentCompilation().get(5000, TimeUnit.SECONDS);
+		assertTrue(HelperTest.getBadaboomMessages(), BadaboomCollector.INSTANCE.isEmpty());
 		assertTrue(view.getCompilationData().isPresent());
 	}
 
@@ -102,6 +106,7 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 		model.setLineColour(ShapeFactory.INST.createColorFX(Color.AQUAMARINE));
 		model.setText("hello");
 		view.getCurrentCompilation().get(5000, TimeUnit.SECONDS);
+		assertTrue(HelperTest.getBadaboomMessages(), BadaboomCollector.INSTANCE.isEmpty());
 		assertFalse(getImage().isDisable());
 		assertTrue(getImage().isVisible());
 	}

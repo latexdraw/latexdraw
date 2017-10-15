@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
@@ -13,6 +14,8 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.LSystem;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.hamcrest.number.IsCloseTo.closeTo;
@@ -40,6 +43,9 @@ public interface HelperTest {
 		assertThat(v1, closeTo(v2, 0.0000001));
 	}
 
+	static String getBadaboomMessages() {
+		return BadaboomCollector.INSTANCE.stream().map(ex -> ex.getMessage()).collect(Collectors.joining(LSystem.EOL));
+	}
 
 	default <T extends Node> void assertNotEqualsSnapshot(T node, Runnable toExecBetweenSnap) {
 		Bounds bounds = node.getBoundsInLocal();
