@@ -9,6 +9,7 @@
     <packaging>jar</packaging>
 
     <properties>
+        <argLine>-Dheadless.geometry=1920x1080-32 -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k</argLine>
         <malai.version>3.0-SNAPSHOT</malai.version>
         <antlr.version>4.7</antlr.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -74,7 +75,6 @@
                     <threadCount>1</threadCount>
                     <skipTests>false</skipTests>
                     <testFailureIgnore>false</testFailureIgnore>
-                    <argLine>@{argLine} -Dheadless.geometry=1920x1080-32 -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k</argLine>
                 </configuration>
             </plugin>
 
