@@ -43,16 +43,18 @@ public class StreamExecReader extends Thread {
 	public void run() {
 		try {
 			try(final InputStreamReader isr = new InputStreamReader(stream);
-				final BufferedReader br = new BufferedReader(isr)){
-		        log = new StringBuilder();
-		        String line = br.readLine();
+				final BufferedReader br = new BufferedReader(isr)) {
+				log = new StringBuilder();
+				String line = br.readLine();
 
-		        while(line != null) {
-		            log.append(line).append(LSystem.EOL);
-		            line = br.readLine();
-		        }
+				while(line != null) {
+					log.append(line).append(LSystem.EOL);
+					line = br.readLine();
+				}
 			}
-        }catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+		}catch(final IOException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+		}
 	}
 
 
@@ -60,6 +62,6 @@ public class StreamExecReader extends Thread {
 	 * @return The read log.
 	 */
 	public String getLog() {
-		return log==null ? "" : log.toString(); //$NON-NLS-1$
+		return log == null ? "" : log.toString(); //$NON-NLS-1$
 	}
 }
