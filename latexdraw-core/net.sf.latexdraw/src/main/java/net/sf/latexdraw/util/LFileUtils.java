@@ -28,6 +28,7 @@ import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Stream;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
@@ -74,10 +75,10 @@ public final class LFileUtils {
 		if(dir == null) return;
 
 		final Path path = Paths.get(dir);
-		if(!Files.isDirectory(path)) return;
+		if(!path.toFile().isDirectory()) return;
 
-		try {
-			Files.walk(path).sorted(Comparator.reverseOrder()).forEach(file -> removeFilePath(file));
+		try(final Stream<Path> paths = Files.walk(path)) {
+			paths.sorted(Comparator.reverseOrder()).forEach(file -> removeFilePath(file));
 		}catch(final IOException | SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
