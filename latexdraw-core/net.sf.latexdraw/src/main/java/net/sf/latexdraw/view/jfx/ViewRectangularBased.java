@@ -20,7 +20,7 @@ import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
  * @author Arnaud Blouin
  */
 public abstract class ViewRectangularBased<T extends ISingleShape> extends ViewSingleShape<T, Rectangle> {
-	final  ChangeListener<? super Number> lineArcCall = (observable, oldValue, newValue) -> {
+	final ChangeListener<? super Number> lineArcCall = (observable, oldValue, newValue) -> {
 		final double lineArc = newValue.doubleValue();
 		final double width = model.getWidth();
 		final double height = model.getHeight();
@@ -44,7 +44,7 @@ public abstract class ViewRectangularBased<T extends ISingleShape> extends ViewS
 	 * Creates the rectangle view.
 	 * @param sh The model.
 	 */
-	ViewRectangularBased(final  T sh) {
+	ViewRectangularBased(final T sh) {
 		super(sh);
 
 		if(dblBorder != null) {
@@ -83,6 +83,7 @@ public abstract class ViewRectangularBased<T extends ISingleShape> extends ViewS
 
 	@Override
 	public void flush() {
+		super.flush();
 		unbindRect(border);
 		unbindRect(dblBorder);
 		unbindRect(shadow);

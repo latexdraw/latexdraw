@@ -20,13 +20,13 @@ import net.sf.latexdraw.models.interfaces.shape.ISquare;
  * @author Arnaud Blouin
  */
 public class ViewSquare extends ViewRectangularBased<ISquare> {
-	final  ChangeListener<Bounds> lineArcUp = (observable, oldValue, newValue) -> lineArcCall.changed(model.frameArcProperty(), model.getLineArc(), model.getLineArc());
+	final ChangeListener<Bounds> lineArcUp = (observable, oldValue, newValue) -> lineArcCall.changed(model.frameArcProperty(), model.getLineArc(), model.getLineArc());
 
 	/**
 	 * Creates the square view.
 	 * @param sh The model.
 	 */
-	ViewSquare(final  ISquare sh) {
+	ViewSquare(final ISquare sh) {
 		super(sh);
 		border.xProperty().bind(model.getPtAt(0).xProperty());
 		border.yProperty().bind(model.getPtAt(0).yProperty());
