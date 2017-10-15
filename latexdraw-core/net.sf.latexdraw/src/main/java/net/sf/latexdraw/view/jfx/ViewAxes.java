@@ -10,15 +10,11 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import com.sun.javafx.tk.FontLoader;
-import com.sun.javafx.tk.FontMetrics;
-import com.sun.javafx.tk.Toolkit;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
@@ -175,10 +171,10 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 	}
 
 
-	private void updatePathLabelsY(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapy, final Font font, final FontMetrics fontMetrics) {
+	private void updatePathLabelsY(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapy, final Text fontText) {
 		final int origy = (int) model.getOriginY();
 		final double gap;
-		final float height = fontMetrics.getAscent();
+		final double height = fontText.getBaselineOffset();
 		final boolean noArrowTopY = model.getArrowStyle(2) == ArrowStyle.NONE || model.getGridMaxY() == model.getOriginY();
 		final boolean noArrowBotY = model.getArrowStyle(0) == ArrowStyle.NONE || model.getGridMinY() == model.getOriginY();
 		final boolean showOrig = model.isShowOrigin();
@@ -192,11 +188,13 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 			gap = -(model.getThickness() / 2d + GAP_LABEL);
 		}
 
-		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = miny * incry; i <= maxy * incry; i += incry * distY) {
+		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = miny * incry; i <= maxy * incry;
+			i += incry * distY) {
 			int inti = (int) i;
 			if((inti != 0 || showOrig && xGE0) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				str = String.valueOf(inti + origy);
-				addTextLabel(str, gap - fontMetrics.computeStringWidth(str), height / 2d - inti * gapy, font);
+				fontText.setText(str);
+				addTextLabel(str, gap - fontText.getBoundsInLocal().getWidth(), height / 2d - inti * gapy, fontText.getFont());
 			}
 		}
 	}
@@ -205,11 +203,11 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 	/**
 	 * Updates the labels path by drawing the labels of the X-axis.
 	 */
-	private void updatePathLabelsX(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapx, final Font font, final FontMetrics fontMetrics) {
+	private void updatePathLabelsX(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapx, final Text fontText) {
 		// Painting the labels on the X-axis.
 		final int origx = (int) model.getOriginX();
 		final double gap = (ticksDisplay.isX() && ticksStyle.isBottom() ? model.getTicksSize() : 0d) + model.getThickness() / 2d + GAP_LABEL;
-		final double sep = model.getGridMaxY() <= -model.getOriginY() ? -gap - GAP_LABEL : gap + fontMetrics.getAscent();
+		final double sep = model.getGridMaxY() <= -model.getOriginY() ? -gap - GAP_LABEL : gap + fontText.getBaselineOffset();
 		final boolean noArrowLeftX = model.getArrowStyle(1) == ArrowStyle.NONE || model.getGridMinX() == model.getOriginX();
 		final boolean noArrowRightX = model.getArrowStyle(3) == ArrowStyle.NONE || model.getGridMaxX() == model.getOriginX();
 		final boolean showOrig = model.isShowOrigin();
@@ -221,26 +219,28 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 			int inti = (int) i;
 			if((inti != 0 || showOrig && yGE0) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
 				str = String.valueOf(inti + origx);
-				addTextLabel(str, inti * gapx - fontMetrics.computeStringWidth(str) / 2d, sep, font);
+				fontText.setText(str);
+				addTextLabel(str, inti * gapx - fontText.getBoundsInLocal().getWidth() / 2d, sep, fontText.getFont());
 			}
 		}
 	}
 
 
 	private void updatePathLabels(final double gapx, final double gapy) {
-		final FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
-		final Font font = fontLoader.font("cmr10", FontWeight.NORMAL, FontPosture.REGULAR, model.getLabelsSize());
-		final FontMetrics fontMetrics = fontLoader.getFontMetrics(font);
+		final Font font = new Font("cmr10", model.getLabelsSize());
 		final PlottingStyle labelsDisplay = model.getLabelsDisplayed();
 		final PlottingStyle ticksDisplay = model.getTicksDisplayed();
 		final TicksStyle ticksStyle = model.getTicksStyle();
+		// This fake text is used to compute widths and heights and other font metrics of a current text.
+		final Text fooText = new Text("foo");
+		fooText.setFont(font);
 
 		if(labelsDisplay.isX()) {
-			updatePathLabelsX(ticksDisplay, ticksStyle, gapx, font, fontMetrics);
+			updatePathLabelsX(ticksDisplay, ticksStyle, gapx, fooText);
 		}
 
 		if(labelsDisplay.isY()) {
-			updatePathLabelsY(ticksDisplay, ticksStyle, gapy, font, fontMetrics);
+			updatePathLabelsY(ticksDisplay, ticksStyle, gapy, fooText);
 		}
 	}
 
@@ -383,8 +383,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 	}
 
 	/**
-	 * The ticks path.
-	 * @return
+	 * @return The ticks path.
 	 */
 	public Path getPathTicks() {
 		return pathTicks;

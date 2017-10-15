@@ -10,16 +10,14 @@
  */
 package net.sf.latexdraw.ui;
 
-import com.sun.javafx.tk.FontLoader;
-import com.sun.javafx.tk.Toolkit;
 import java.util.Arrays;
 import javafx.beans.binding.Bindings;
+import javafx.geometry.Bounds;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.util.LSystem;
 
@@ -112,19 +110,22 @@ public class TextAreaAutoSize extends TextArea {
 	 * Updates the size of the widget according to its text.
 	 */
 	private void updateDimension(final String newText) {
-		if(newText==null) return;
+		if(newText == null) return;
 
 		final String[] lines = newText.split(LSystem.EOL);
 		final int countEOL = newText.length() - newText.replace(LSystem.EOL, "").length();
 		final String maxLine = Arrays.stream(lines).reduce((a, b) -> a.length() > b.length() ? a : b).orElse("");
-		final Font font = getFont();
-		final FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
-		final double width = fontLoader.computeStringWidth(maxLine + " ", font);
-		float height = fontLoader.getFontMetrics(font).getLineHeight() * (countEOL + 1) + 15;
+
+		final Text txt = new Text(newText + " ");
+		txt.setFont(getFont());
+		final Bounds bounds = txt.getBoundsInLocal();
+		final double width = bounds.getWidth() + 25;
+		final double height = bounds.getHeight() + 15;
+
 		setPrefRowCount(countEOL);
 		setPrefColumnCount(maxLine.length() + 1);
-		setPrefWidth(width + 25);
-		setMinWidth(width + 25);
+		setPrefWidth(width);
+		setMinWidth(width);
 		setPrefHeight(height);
 		setMinHeight(height);
 	}

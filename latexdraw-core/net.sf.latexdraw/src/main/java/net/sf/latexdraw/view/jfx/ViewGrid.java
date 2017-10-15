@@ -10,18 +10,14 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import com.sun.javafx.tk.FontLoader;
-import com.sun.javafx.tk.Toolkit;
-import java.awt.geom.Rectangle2D;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -200,10 +196,13 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		final int labelsSize = model.getLabelsSize();
 		if(labelsSize < 0) return;
 
-		final FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
-		final Font font = fontLoader.font("cmr10", FontWeight.NORMAL, FontPosture.REGULAR, model.getLabelsSize());
-		final float labelHeight = fontLoader.getFontMetrics(font).getLineHeight();
-		final float labelWidth = fontLoader.computeStringWidth(String.valueOf((int) maxX), font);
+		final Font font = new Font("cmr10", model.getLabelsSize());
+		final Text fooText = new Text(String.valueOf((int) maxX));
+		fooText.setFont(font);
+		// The max height of the font.
+		final double labelHeight = fooText.getLayoutBounds().getHeight();
+		final double labelWidth = fooText.getBoundsInLocal().getWidth();
+
 		final double origX = model.getOriginX();
 		final double origY = model.getOriginY();
 		final boolean isWest = model.isYLabelWest();
@@ -223,7 +222,8 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 
 		for(double i = tly + (isSouth ? -width - labelsSize / 4d : width + labelHeight), j = maxY; j >= minY; i += absStep, j--) {
 			label = String.valueOf((int) j);
-			double x = isWest ? xorig - fontLoader.computeStringWidth(label, font) - labelsSize / 4d - width : xGapNotWest;
+			fooText.setText(label);
+			double x = isWest ? xorig - fooText.getBoundsInLocal().getWidth() - labelsSize / 4d - width : xGapNotWest;
 			addTextLabel(label, x, i, font);
 		}
 	}
@@ -232,11 +232,9 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	@Override
 	protected Text addTextLabel(final String text, final double x, final double y, final Font font) {
 		final Text label = super.addTextLabel(text, x, y, font);
-		final FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
 
 		label.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getGridLabelsColour().toJFX(), model.gridLabelsColourProperty()));
-		label.fontProperty().bind(Bindings.createObjectBinding(() ->
-			fontLoader.font(font.getFamily(), FontWeight.NORMAL, FontPosture.REGULAR, model.getLabelsSize()), model.labelsSizeProperty()));
+		label.fontProperty().bind(Bindings.createObjectBinding(() -> new Font(font.getFamily(), model.getLabelsSize()), model.labelsSizeProperty()));
 
 		return label;
 	}
@@ -276,28 +274,17 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	}
 
 	private Rectangle2D getGridBounds(final double posX, final double posY) {
-		final Rectangle2D rec = new Rectangle2D.Double();
 		final double gridStartx = model.getGridStartX();
 		final double gridStarty = model.getGridStartY();
 		final double gridEndx = model.getGridEndX();
 		final double gridEndy = model.getGridEndY();
 		final double step = IShape.PPC * model.getUnit();
+		final double x = gridStartx < gridEndx ? posX : posX - step * Math.abs(gridEndx - gridStartx);
+		final double y = gridStarty < gridEndy ? posY - step * Math.abs(gridEndy - gridStarty) : posY;
+		final double width = step * Math.abs(gridEndx - gridStartx);
+		final double height = step * Math.abs(gridEndy - gridStarty);
 
-		if(gridStartx < gridEndx) {
-			if(gridStarty < gridEndy) {
-				rec.setFrameFromDiagonal(posX, posY - step * Math.abs(gridEndy - gridStarty), posX + step * Math.abs(gridEndx - gridStartx), posY);
-			}else {
-				rec.setFrameFromDiagonal(posX, posY, posX + step * Math.abs(gridEndx - gridStartx), posY + step * Math.abs(gridEndy - gridStarty));
-			}
-		}else {
-			if(gridStarty < gridEndy) {
-				rec.setFrameFromDiagonal(posX - step * Math.abs(gridEndx - gridStartx), posY - step * Math.abs(gridEndy - gridStarty), posX, posY);
-			}else {
-				rec.setFrameFromDiagonal(posX - step * Math.abs(gridEndx - gridStartx), posY, posX, posY + step * Math.abs(gridEndy - gridStarty));
-			}
-		}
-
-		return rec;
+		return new Rectangle2D(x, y, width, height);
 	}
 
 	@Override

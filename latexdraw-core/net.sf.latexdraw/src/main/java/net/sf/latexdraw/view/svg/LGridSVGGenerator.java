@@ -10,10 +10,10 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.geom.Point2D;
 import java.util.List;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -32,7 +32,6 @@ import net.sf.latexdraw.parsers.svg.SVGTextElement;
 import net.sf.latexdraw.parsers.svg.SVGTransform;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
-import sun.font.FontDesignMetrics;
 
 /**
  * An SVG generator for a grid.
@@ -410,21 +409,22 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 	/**
 	 * Creates the SVG element corresponding to the labels of the grid.
 	 */
-	private void createSVGGridLabels(final SVGDocument document, final SVGElement elt, final String prefix, final double minX,
-									 final double maxX, final double minY, final double maxY, final double tlx, final double tly,
-									 final double xStep, final double yStep, final double gridWidth, final double absStep) {
-		final int gridLabelsSize 	= shape.getLabelsSize();
+	private void createSVGGridLabels(final SVGDocument document, final SVGElement elt, final String prefix, final double minX, final double maxX,
+									 final double minY, final double maxY, final double tlx, final double tly, final double xStep, final double yStep,
+									 final double gridWidth, final double absStep) {
+		final int gridLabelsSize = shape.getLabelsSize();
 		final boolean isXLabelSouth = shape.isXLabelSouth();
-		final boolean isYLabelWest 	= shape.isYLabelWest();
-		final double originX 		= shape.getOriginX();
-		final double originY 		= shape.getOriginY();
+		final boolean isYLabelWest = shape.isYLabelWest();
+		final double originX = shape.getOriginX();
+		final double originY = shape.getOriginY();
 		final Color gridLabelsColor = shape.getGridLabelsColour();
-		final FontMetrics fontMetrics = FontDesignMetrics.getMetrics(new Font(null, Font.PLAIN, shape.getLabelsSize()));
-		final float labelHeight 	= fontMetrics.getAscent();
-		final float labelWidth 		= fontMetrics.stringWidth(String.valueOf((int)maxX));
-		final double xorigin = xStep*originX;
-		final double yorigin = isXLabelSouth  ? yStep*originY+labelHeight : yStep*originY-2;
-		final double width=gridWidth/2.;
+		final Text fooText = new Text(String.valueOf((int) maxX));
+		fooText.setFont(new Font(null, shape.getLabelsSize()));
+		final double labelHeight = fooText.getBaselineOffset();
+		final double labelWidth = fooText.getBoundsInLocal().getWidth();
+		final double xorigin = xStep * originX;
+		final double yorigin = isXLabelSouth ? yStep * originY + labelHeight : yStep * originY - 2d;
+		final double width = gridWidth / 2d;
 		final double tmp = isXLabelSouth ? width : -width;
 		final SVGElement texts = new SVGGElement(document);
 		SVGElement text;
@@ -434,34 +434,36 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 
 		texts.setAttribute(SVGAttributes.SVG_FONT_SIZE, String.valueOf(shape.getLabelsSize()));
 		texts.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(gridLabelsColor, true));
-		texts.setAttribute(prefix+LNamespace.XML_TYPE, LNamespace.XML_TYPE_TEXT);
+		texts.setAttribute(prefix + LNamespace.XML_TYPE, LNamespace.XML_TYPE_TEXT);
 
-		for(i=tlx + (isYLabelWest ? width+gridLabelsSize/4. : -width-labelWidth-gridLabelsSize/4.), j=minX; j<=maxX; i+=absStep, j++) {
+		for(i = tlx + (isYLabelWest ? width + gridLabelsSize / 4d : -width - labelWidth - gridLabelsSize / 4d), j = minX; j <= maxX; i += absStep, j++) {
 			text = new SVGTextElement(document);
-			text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int)i));
-			text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int)(yorigin+tmp)));
-			text.setTextContent(String.valueOf((int)j));
+			text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int) i));
+			text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int) (yorigin + tmp)));
+			text.setTextContent(String.valueOf((int) j));
 			texts.appendChild(text);
 		}
 
-		if(isYLabelWest)
-			for(i=tly + (isXLabelSouth ? -width-gridLabelsSize/4. : width+labelHeight), j=maxY ; j>=minY; i+=absStep, j--) {
-				label = String.valueOf((int)j);
+		if(isYLabelWest) {
+			for(i = tly + (isXLabelSouth ? -width - gridLabelsSize / 4d : width + labelHeight), j = maxY; j >= minY; i += absStep, j--) {
+				label = String.valueOf((int) j);
 				text = new SVGTextElement(document);
-				text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int)(xorigin-fontMetrics.stringWidth(label)-gridLabelsSize/4.-width)));
-				text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int)i));
+				fooText.setText(label);
+				text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int) (xorigin - fooText.getLayoutBounds().getWidth() - gridLabelsSize / 4d - width)));
+				text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int) i));
 				text.setTextContent(label);
 				texts.appendChild(text);
 			}
-		else
-			for(i=tly + (isXLabelSouth ? -width-gridLabelsSize/4. : width+labelHeight), j=maxY; j>=minY; i+=absStep, j--) {
-				label = String.valueOf((int)j);
+		}else {
+			for(i = tly + (isXLabelSouth ? -width - gridLabelsSize / 4d : width + labelHeight), j = maxY; j >= minY; i += absStep, j--) {
+				label = String.valueOf((int) j);
 				text = new SVGTextElement(document);
-				text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int)(xorigin+gridLabelsSize/4.+width)));
-				text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int)i));
+				text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int) (xorigin + gridLabelsSize / 4d + width)));
+				text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int) i));
 				text.setTextContent(label);
 				texts.appendChild(text);
 			}
+		}
 
 		elt.appendChild(texts);
 	}
