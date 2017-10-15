@@ -15,13 +15,8 @@ import com.sun.pdfview.PDFPage;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.RandomAccessFile;
-import java.io.StringWriter;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Optional;
@@ -93,7 +88,15 @@ public class ViewText extends ViewPositionShape<IText> {
 
 		getChildren().add(text);
 		getChildren().add(compiledText);
+		setImageTextEnable(false);
 		update();
+	}
+
+	private void setImageTextEnable(final boolean imageToEnable) {
+		compiledText.setVisible(imageToEnable);
+		compiledText.setDisable(!imageToEnable);
+		text.setVisible(!imageToEnable);
+		text.setDisable(imageToEnable);
 	}
 
 	private void update() {
@@ -108,48 +111,36 @@ public class ViewText extends ViewPositionShape<IText> {
 		return currentCompilation;
 	}
 
-	private void updateImageText(final Triple<Image, String, String> values) {
-		deleteImage();
-
+	private void updateImageText(final Tuple<Image, String> values) {
 		if(currentCompilation != null && currentCompilation.isDone()) {
 			currentCompilation = null;
 		}
 
-		compiledText.setUserData(new Tuple<>(values.b, values.c));
+		compiledText.setUserData(values.b);
 
 		// A text will be used to render the text shape.
 		if(values.a == null) {
-			compileTooltip.setText(LSystem.INSTANCE.getLatexErrorMessageFromLog(values.c));
+			compileTooltip.setText(LSystem.INSTANCE.getLatexErrorMessageFromLog(values.b));
 			Tooltip.install(text, compileTooltip);
-			compiledText.setVisible(false);
+			setImageTextEnable(false);
 			compiledText.setImage(null);
-			text.setVisible(true);
 		}else {
 			// An image will be used to render the text shape.
 			compileTooltip.setText(null);
 			Tooltip.uninstall(text, compileTooltip);
-			compiledText.setVisible(true);
-			text.setVisible(false);
 			compiledText.setImage(values.a);
+			setImageTextEnable(true);
 
 			getCanvasParent().ifPresent(canvas -> canvas.update());
 		}
 	}
 
-	public Optional<Tuple<String, String>> getCompilationData() {
-		if(compiledText.getUserData() instanceof Tuple) {
-			return Optional.of((Tuple<String, String>) compiledText.getUserData());
+	public Optional<String> getCompilationData() {
+		if(compiledText.getUserData() instanceof String) {
+			return Optional.of((String) compiledText.getUserData());
 		}
 		return Optional.empty();
 	}
-
-	/**
-	 * Deletes the image written on the disk.
-	 */
-	private void deleteImage() {
-		getCompilationData().ifPresent(data -> new File(data.a).delete());
-	}
-
 
 	private String getLaTeXDocument() {
 		final String code = model.getText();
@@ -208,90 +199,93 @@ public class ViewText extends ViewPositionShape<IText> {
 		return new Tuple<>(false, log);
 	}
 
+	/**
+	 * Reads and returns the first page of the given pdf document.
+	 * @param file The file of the pdf document.
+	 * @return The image of the first page or null.
+	 */
+	private BufferedImage readPDFFirstPage(final File file) {
+		BufferedImage bi = null;
+
+		try(final FileChannel fc = new RandomAccessFile(file, "r").getChannel()) { //$NON-NLS-1$
+			final MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+			final PDFFile pdfFile = new PDFFile(mbb);
+			mbb.clear();
+
+			if(pdfFile.getNumPages() == 1) {
+				final PDFPage page = pdfFile.getPage(0);
+				final Rectangle2D bound = page.getBBox();
+				final java.awt.Image img = page.getImage((int) bound.getWidth(), (int) bound.getHeight(), bound, null, false, true);
+
+				if(img instanceof BufferedImage) {
+					bi = ImageCropper.INSTANCE.cropImage((BufferedImage) img);
+				}
+
+				if(img != null) {
+					img.flush();
+				}
+			}else {
+				BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages())); //$NON-NLS-1$
+			}
+		}catch(final IOException | IllegalArgumentException | SecurityException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+		}
+
+		return bi;
+	}
 
 	/**
 	 * @return The LaTeX compiled picture of the text with its file path and its log.
 	 */
-	private Triple<Image, String, String> createImage() {
-		BufferedImage bi = null;
-		String log = ""; //$NON-NLS-1$
-		final File tmpDir = LFileUtils.INSTANCE.createTempDir();
-		final String doc = getLaTeXDocument();
-		final String pathPic = tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
-		final String pathTex = pathPic + ExportFormat.TEX.getFileExtension();
-		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
+	private Tuple<Image, String> createImage() {
+		final Optional<File> optDir = LFileUtils.INSTANCE.createTempDir();
 
-		try(final OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(pathTex))) {
-			osw.append(doc);
-
-			Tuple<Boolean, String> res = execute(new String[]{os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //$NON-NLS-1$ //$NON-NLS-2$
-				"--output-directory=" + tmpDir.getAbsolutePath(), LFileUtils.INSTANCE.normalizeForLaTeX(pathTex)}); //$NON-NLS-1$
-			boolean ok = res.a;
-			log = res.b;
-
-			new File(pathTex).delete();
-			new File(pathPic + ".aux").delete(); //$NON-NLS-1$
-			new File(pathPic + ".log").delete(); //$NON-NLS-1$
-			final String psExt = ".eps"; //$NON-NLS-1$
-
-			if(ok) {
-				res = execute(new String[]{os.getDvipsBinPath(), pathPic + ".dvi", "-o", pathPic + psExt}); //$NON-NLS-1$ //$NON-NLS-2$
-				ok = res.a;
-				log = log + res.b;
-				new File(pathPic + ".dvi").delete(); //$NON-NLS-1$
-			}
-			if(ok) {
-				res = execute(new String[]{os.getPs2pdfBinPath(), pathPic + psExt, pathPic + ExportFormat.PDF.getFileExtension()}); //$NON-NLS-1$
-				new File(pathPic + psExt).delete(); //$NON-NLS-1$
-				ok = res.a;
-				log = log + res.b;
-			}
-
-			if(ok) {
-				final File file = new File(pathPic + ExportFormat.PDF.getFileExtension());
-				try(final RandomAccessFile raf = new RandomAccessFile(file, "r");
-					final FileChannel fc = raf.getChannel()) {
-					final MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-					final PDFFile pdfFile = new PDFFile(mbb);
-					mbb.clear();
-
-					if(pdfFile.getNumPages() == 1) {
-						final PDFPage page = pdfFile.getPage(0);
-						final Rectangle2D bound = page.getBBox();
-						final java.awt.Image img = page.getImage((int) bound.getWidth(), (int) bound.getHeight(), bound, null, false, true);
-
-						if(img instanceof BufferedImage) {
-							bi = ImageCropper.INSTANCE.cropImage((BufferedImage) img);
-						}
-
-						if(img != null) {
-							img.flush();
-						}
-					}else {
-						BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
-					}
-					file.delete();
-				}catch(final IOException | IllegalArgumentException | SecurityException ex) {
-					BadaboomCollector.INSTANCE.add(ex);
-				}
-			}
-		}catch(final IOException | IllegalArgumentException | SecurityException ex) {
-			try(final StringWriter sw = new StringWriter();
-				final PrintWriter pw = new PrintWriter(sw)) {
-				ex.printStackTrace(pw);
-				new File(pathPic + ExportFormat.TEX.getFileExtension()).delete();
-				new File(pathPic + ExportFormat.PDF.getFileExtension()).delete();
-				new File(pathPic + ".ps").delete(); //$NON-NLS-1$
-				new File(pathPic + ".dvi").delete(); //$NON-NLS-1$
-				new File(pathPic + ".aux").delete(); //$NON-NLS-1$
-				new File(pathPic + ".log").delete(); //$NON-NLS-1$
-				BadaboomCollector.INSTANCE.add(new FileNotFoundException("Log:\n" + log + "\nException:\n" + sw));
-			}catch(final IOException ex2) {
-				BadaboomCollector.INSTANCE.add(ex2);
-			}
+		if(!optDir.isPresent()) {
+			return new Tuple<>(null, "A temporary file cannot be created.");
 		}
 
-		Image fxImage;
+		BufferedImage bi = null;
+		String log = ""; //$NON-NLS-1$
+		final File tmpDir = optDir.get();
+		final String doc = getLaTeXDocument();
+		final String basePathPic = tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
+		final String pathTex = basePathPic + ExportFormat.TEX.getFileExtension();
+		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
+
+		// Saving the LaTeX document into a file to be compiled.
+		if(!LFileUtils.INSTANCE.saveFile(pathTex, doc).isPresent()) {
+			return new Triple<>(null, basePathPic, log);
+		}
+
+		// Compiling the LaTeX document.
+		Tuple<Boolean, String> res = execute(new String[]{os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //$NON-NLS-1$ //$NON-NLS-2$
+			"--output-directory=" + tmpDir.getAbsolutePath(), LFileUtils.INSTANCE.normalizeForLaTeX(pathTex)}); //$NON-NLS-1$
+		boolean ok = res.a;
+		log = res.b;
+
+		// Compiling the DVI document.
+		if(ok) {
+			res = execute(new String[]{os.getDvipsBinPath(), basePathPic + ".dvi", "-o", basePathPic + ExportFormat.EPS_LATEX.getFileExtension()}); //$NON-NLS-1$ //$NON-NLS-2$
+			ok = res.a;
+			log = log + res.b;
+		}
+
+		// Converting the PS document as a PDF one.
+		if(ok) {
+			res = execute(new String[]{os.getPs2pdfBinPath(), basePathPic + ExportFormat.EPS_LATEX.getFileExtension(), basePathPic + ExportFormat.PDF.getFileExtension()});
+			ok = res.a;
+			log = log + res.b;
+		}
+
+		// Getting the image of the first page of the PDF document.
+		if(ok) {
+			final String pdfpath = basePathPic + ExportFormat.PDF.getFileExtension();
+			final File pdfFile = new File(pdfpath);
+			bi = readPDFFirstPage(pdfFile);
+		}
+
+		// Converting the image as a JFX one.
+		final Image fxImage;
 
 		if(bi == null) {
 			fxImage = null;
@@ -300,13 +294,15 @@ public class ViewText extends ViewPositionShape<IText> {
 			bi.flush();
 		}
 
-		return new Triple<>(fxImage, pathPic, log);
+		// Deleting the temporary folder and its content.
+		LFileUtils.INSTANCE.removeDirWithContent(tmpDir.getPath());
+
+		return new Tuple<>(fxImage, log);
 	}
 
 	@Override
 	public void flush() {
 		model.textProperty().removeListener(textUpdate);
-		deleteImage();
 		super.flush();
 	}
 }

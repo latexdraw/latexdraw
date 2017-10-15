@@ -13,9 +13,6 @@ package net.sf.latexdraw.view.latex;
 import com.google.inject.Inject;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.Optional;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -52,7 +49,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @since 3.0
 	 */
 	public static void setPackages(final String packages) {
-		if(packages != null && !packages.equals(getPackages())) PACKAGES.setValue(packages);
+		if(packages != null && !packages.equals(getPackages())) {
+			PACKAGES.setValue(packages);
+		}
 	}
 
 
@@ -128,7 +127,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @since 3.0
 	 */
 	public void setScale(final double sc) {
-		if(sc >= 0.1) scale = sc;
+		if(sc >= 0.1) {
+			scale = sc;
+		}
 	}
 
 	/**
@@ -156,7 +157,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 				i += LGTH_START_LINE_COMMENT;
 				eol = false;
 			}else {
-				if(comment.charAt(i) == '\n') eol = true;
+				if(comment.charAt(i) == '\n') {
+					eol = true;
+				}
 
 				buffer[j++] = comment.charAt(i);
 				i++;
@@ -199,7 +202,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 					eol = false;
 				}
 
-				if(newComments.charAt(i) == '\n') eol = true;
+				if(newComments.charAt(i) == '\n') {
+					eol = true;
+				}
 
 				buffer[j++] = newComments.charAt(i);
 			}
@@ -308,27 +313,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 */
 	public abstract String getDocumentCode();
 
-
-	/**
-	 * Creates a latex file that contains the pstricks code of the given canvas.
-	 * @param pathExportTex The location where the file must be created.
-	 * @return The latex file or nothing.
-	 * @since 3.0
-	 */
-	public Optional<File> createLatexFile(final String pathExportTex) {
-		boolean ok = true;
-
-		try(FileOutputStream fos = new FileOutputStream(pathExportTex); OutputStreamWriter osw = new OutputStreamWriter(fos)) {
-			osw.append(getDocumentCode());
-		}catch(final IOException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-			ok = false;
-		}
-
-		return ok ? Optional.of(new File(pathExportTex)) : Optional.empty();
-	}
-
-
 	/**
 	 * Create a .ps file that corresponds to the compiled latex document containing
 	 * the pstricks drawing.
@@ -348,13 +332,14 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @since 3.0
 	 */
 	public Optional<File> createEPSFile(final String pathExportEPS) {
-		final File tmpDir = LFileUtils.INSTANCE.createTempDir();
+		final Optional<File> optDir = LFileUtils.INSTANCE.createTempDir();
 
-		if(tmpDir == null) {
+		if(!optDir.isPresent()) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a tmp dir"));
 			return Optional.empty();
 		}
 
+		final File tmpDir = optDir.get();
 		Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "tmpPSFile.ps", tmpDir);//$NON-NLS-1$
 		File psFile;
 
@@ -375,13 +360,14 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		LFileUtils.INSTANCE.copy(fileEPS, finalFile);
-		psFile.delete();
-		fileEPS.delete();
 
 		if(!finalFile.exists()) {
 			BadaboomCollector.INSTANCE.add(new IllegalAccessException("Cannot create the EPS file at this location: " + finalFile.getAbsolutePath())); //$NON-NLS-1$
 			return Optional.empty();
 		}
+
+		LFileUtils.INSTANCE.removeDirWithContent(tmpDir.getPath());
+
 		return Optional.of(finalFile);
 	}
 
@@ -394,12 +380,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @return The create file or nothing.
 	 * @since 3.0
 	 */
-	public Optional<File> createPSFile(final String pathExportPs, final File tmpDir) {
+	private Optional<File> createPSFile(final String pathExportPs, final File tmpDir) {
 		if(pathExportPs == null) return Optional.empty();
 
 		final int lastSep = pathExportPs.lastIndexOf(LSystem.FILE_SEP) + 1;
 		final String name = pathExportPs.substring(lastSep == -1 ? 0 : lastSep, pathExportPs.lastIndexOf(".ps")); //$NON-NLS-1$
-		final File tmpDir2 = tmpDir == null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
+		final File tmpDir2 = tmpDir == null ? LFileUtils.INSTANCE.createTempDir().orElse(null) : tmpDir;
 
 		if(tmpDir2 == null) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
@@ -407,7 +393,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final String path = tmpDir2.getAbsolutePath() + LSystem.FILE_SEP;
-		Optional<File> optFile = createLatexFile(path + name + ExportFormat.TEX.getFileExtension());
+		Optional<File> optFile = LFileUtils.INSTANCE.saveFile(path + name + ExportFormat.TEX.getFileExtension(), getDocumentCode());
 		File texFile;
 
 		if(optFile.isPresent()) {
@@ -429,18 +415,11 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final String[] paramsLatex = {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$
 			LFileUtils.INSTANCE.normalizeForLaTeX(texFile.getAbsolutePath())};//$NON-NLS-1$
 		log = LSystem.INSTANCE.execute(paramsLatex, tmpDir2);
-		final File dviFile = new File(tmpDir2.getAbsolutePath() + LSystem.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
-		final boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LSystem.FILE_SEP + name));
 
 		final String[] paramsDvi = {os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
 			(tr.getX() - bl.getX()) / ppc * scale + dec + "cm," + ((bl.getY() - tr.getY()) / ppc * scale + dec) + "cm", //$NON-NLS-1$ //$NON-NLS-2$
 			name, "-o", pathExportPs}; //$NON-NLS-1$
 		log += LSystem.INSTANCE.execute(paramsDvi, tmpDir2);
-
-		texFile.delete();
-		new File(path + name + (dviRenamed ? "" : ".div")).delete();    //$NON-NLS-1$ //$NON-NLS-2$
-		new File(path + name + ".log").delete();                        //$NON-NLS-1$
-		new File(path + name + ".aux").delete();                        //$NON-NLS-1$
 
 		finalPS = new File(pathExportPs);
 
@@ -449,7 +428,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 			finalPS = null;
 		}
 
-		if(tmpDir == null) tmpDir2.delete();
+		if(tmpDir == null) {
+			LFileUtils.INSTANCE.removeDirWithContent(tmpDir2.getPath());
+		}
 
 		return Optional.ofNullable(finalPS);
 	}
@@ -466,13 +447,14 @@ public abstract class LaTeXGenerator implements Modifiable {
 	public Optional<File> createPDFFile(final String pathExportPdf, final boolean crop) {
 		if(pathExportPdf == null) return Optional.empty();
 
-		final File tmpDir = LFileUtils.INSTANCE.createTempDir();
+		final Optional<File> optDir = LFileUtils.INSTANCE.createTempDir();
 
-		if(tmpDir == null) {
+		if(!optDir.isPresent()) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
 			return Optional.empty();
 		}
 
+		final File tmpDir = optDir.get();
 		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LSystem.FILE_SEP) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
 		final File psFile;
 		Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + name + ".ps");//$NON-NLS-1$
@@ -498,20 +480,19 @@ public abstract class LaTeXGenerator implements Modifiable {
 			log = LSystem.INSTANCE.execute(new String[]{os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir);
 			// JAVA7: test pdfFile.toPath().move(pathExportPdf)
 			// the renameto method is weak and fails sometimes.
-			if(!pdfFile.renameTo(new File(pathExportPdf)) && !LFileUtils.INSTANCE.copy(pdfFile, new File(pathExportPdf)))
+			if(!pdfFile.renameTo(new File(pathExportPdf)) && !LFileUtils.INSTANCE.copy(pdfFile, new File(pathExportPdf))) {
 				log += " The final pdf document cannot be moved to its final destination. If you use Windows, you must have a Perl interpretor installed, such as strawberryPerl (http://strawberryperl.com/)"; //$NON-NLS-1$
-			pdfFile.delete();
+			}
 		}
 
 		pdfFile = new File(pathExportPdf);
-		psFile.delete();
 
 		if(!pdfFile.exists()) {
 			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + LSystem.EOL + log));
 			pdfFile = null;
 		}
 
-		tmpDir.delete();
+		LFileUtils.INSTANCE.removeDirWithContent(tmpDir.getPath());
 
 		return Optional.ofNullable(pdfFile);
 	}

@@ -118,7 +118,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 			// Updating the log field.
 			Platform.runLater(() -> shape.getShapes().stream().filter(sh -> sh instanceof IText &&
 				canvas.getViewFromShape(sh).orElse(null) instanceof ViewText &&
-				((ViewText)canvas.getViewFromShape(sh).get()).getCompilationData().isPresent()).findFirst().ifPresent(txt -> {
+				((ViewText) canvas.getViewFromShape(sh).get()).getCompilationData().isPresent()).findFirst().ifPresent(txt -> {
 					final ViewText view = (ViewText) canvas.getViewFromShape(txt).get();
 					final Future<?> currentCompil = view.getCurrentCompilation();
 
@@ -130,7 +130,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 						}
 					}
 
-					logField.setText(view.getCompilationData().map(data -> data.b).orElse(""));
+					logField.setText(view.getCompilationData().orElse(""));
 				}));
 		}else {
 			setActivated(false);

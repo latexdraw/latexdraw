@@ -19,7 +19,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.Random;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
@@ -62,6 +69,52 @@ public final class LFileUtils {
         if (pos == -1) return fileNameExt;
         return fileNameExt.substring(0, pos);
 	}
+
+	public void removeDirWithContent(final String dir) {
+		if(dir == null) return;
+
+		final Path path = Paths.get(dir);
+		if(!Files.isDirectory(path)) return;
+
+		try {
+			Files.walk(path).sorted(Comparator.reverseOrder()).forEach(file -> removeFilePath(file));
+		}catch(final IOException | SecurityException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+		}
+	}
+
+	/**
+	 * Removes the file corresponding to the given path.
+	 * @param path The path of the file to remove. Nothing is done if null.
+	 */
+	public void removeFilePath(final Path path) {
+		if(path == null) return;
+
+		try {
+			Files.delete(path);
+		}catch(final NoSuchFileException fnEx) {
+			// Ignoring the exception.
+		}
+		catch(final IOException | SecurityException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+		}
+	}
+
+	/**
+	 * Writes the given text into a file at the given path.
+	 * @param path The location where the file must be created.
+	 * @return The created file or nothing.
+	 */
+	public Optional<File> saveFile(final String path, final String text) {
+		boolean ok = true;
+		try(final OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(path))) {
+			osw.append(text);
+		}catch(final IOException | SecurityException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+			ok = false;
+		}
+		return ok ? Optional.of(new File(path)) : Optional.empty();
+	}
 	
 
 	/**
@@ -84,29 +137,32 @@ public final class LFileUtils {
 		}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 		return txt.toString();
 	}
-	
-	
+
+
 	/**
-	 * Creates a temporary directory that will be used to contains temporary latex files.
+	 * Creates a temporary directory that will be used to contains temporary files.
 	 * The created folder will have restricted access: only the user can access the folder.
-	 * @return The created folder or null.
+	 * @return The created folder or null (if the folder cannot be created or the rights cannot be restricted to the current user).
 	 */
-	public File createTempDir() {
-		final String pathTmp  = System.getProperty("java.io.tmpdir");	//$NON-NLS-1$
-		final String path		= pathTmp + (pathTmp.endsWith(LSystem.FILE_SEP) ? "" : LSystem.FILE_SEP) + "latexdraw" + LSystem.FILE_SEP + //$NON-NLS-1$ //$NON-NLS-2$
-									"latexdrawTmp" + System.currentTimeMillis() + new Random().nextInt(100000); //$NON-NLS-1$
-		final File tmpDir		= new File(path);
-		final boolean ok		= tmpDir.mkdirs();
+	public Optional<File> createTempDir() {
+		final String pathTmp = System.getProperty("java.io.tmpdir"); //$NON-NLS-1$
+		final String path = pathTmp + (pathTmp.endsWith(LSystem.FILE_SEP) ? "" : LSystem.FILE_SEP) + "latexdraw" + LSystem.FILE_SEP + //$NON-NLS-1$ //$NON-NLS-2$
+			"latexdrawTmp" + System.currentTimeMillis() + new Random().nextInt(100000); //$NON-NLS-1$
+		final File tmpDir = new File(path);
+		boolean ok = tmpDir.mkdirs();
 
 		if(ok) {
-			tmpDir.setReadable(false, false);	// Rights are removed for everybody.
-			tmpDir.setReadable(true, true); 	// They are added to the owner only.
-			tmpDir.setWritable(false, false);	// same thing here.
-			tmpDir.setWritable(true, true);
+			// Rights are removed for everybody.
+			ok = tmpDir.setReadable(false, false);
+			// They are added to the owner only.
+			ok = ok && tmpDir.setReadable(true, true);
+			// same thing here.
+			ok = ok && tmpDir.setWritable(false, false);
+			ok = ok && tmpDir.setWritable(true, true);
 			tmpDir.deleteOnExit();
 		}
 
-		return ok ? tmpDir : null;
+		return ok ? Optional.of(tmpDir) : Optional.empty();
 	}
 
 
