@@ -157,9 +157,9 @@
             <version>1.0.5</version>
         </dependency>
         <dependency>
-            <groupId>org.malai</groupId>
-            <artifactId>malai.core</artifactId>
-            <version>${malai.version}</version>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
@@ -193,11 +193,6 @@
             <artifactId>openjfx-monocle</artifactId>
             <version>1.8.0_20</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>4.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>

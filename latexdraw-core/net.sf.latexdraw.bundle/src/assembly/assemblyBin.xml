@@ -7,16 +7,9 @@
   </formats>
     <dependencySets>
         <dependencySet>
-           <includes>
-               <include>org.malai:malai.core</include>
-               <include>org.malai:malai.javafx</include>
-               <include>org.scala-lang:scala-library</include>
-               <include>net.sf.jlibeps:jlibeps</include>
-               <include>org.swinglabs:pdf-renderer</include>
-               <include>org.scala-lang.modules:scala-parser-combinators_2.12</include>
-           </includes>
            <unpack>false</unpack>
            <outputDirectory>data/lib/</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
     </dependencySets>
   <files>
