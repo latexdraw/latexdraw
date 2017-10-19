@@ -19,11 +19,13 @@ import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
  * @author Arnaud Blouin
  */
 public class ViewCircleArc extends ViewSingleShape<ICircleArc, Arc> {
+	protected final ViewArrowableTraitArc viewArrows = new ViewArrowableTraitArc(this);
+
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewCircleArc(final  ICircleArc sh) {
+	ViewCircleArc(final ICircleArc sh) {
 		super(sh);
 
 		// Code duplicated from ViewCircle and ViewEllipseBased, but Arc and Ellipse share no common interface and no structural typing in Java.
@@ -50,12 +52,17 @@ public class ViewCircleArc extends ViewSingleShape<ICircleArc, Arc> {
 		border.radiusXProperty().bind(Bindings.createDoubleBinding(model::getRadius, model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
 		border.radiusYProperty().bind(Bindings.createDoubleBinding(model::getRadius, model.getPtAt(1).yProperty(), model.getPtAt(2).yProperty()));
 		bindArcProperties(border);
+
+		getChildren().add(viewArrows);
+		viewArrows.updateAllArrows();
 	}
 
 	private void bindArcProperties(final Arc arc) {
 		arc.startAngleProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getAngleStart()), model.angleStartProperty()));
 		arc.lengthProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getAngleEnd() - model.getAngleStart()),
 			model.angleStartProperty(), model.angleEndProperty()));
+		model.angleStartProperty().addListener(viewArrows.updateArrow);
+		model.angleEndProperty().addListener(viewArrows.updateArrow);
 		arc.typeProperty().bind(Bindings.createObjectBinding(() -> model.getArcStyle().getJFXStyle(), model.arcStyleProperty()));
 	}
 

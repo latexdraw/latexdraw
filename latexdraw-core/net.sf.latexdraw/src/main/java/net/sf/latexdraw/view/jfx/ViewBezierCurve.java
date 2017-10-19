@@ -26,7 +26,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  * @author Arnaud Blouin
  */
 public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
-	protected final ViewArrowableTrait viewArrows = new ViewArrowableTrait(this);
+	protected final ViewArrowableTraitPath<IBezierCurve> viewArrows = new ViewArrowableTraitPath<>(this);
 
 	final MoveTo moveTo;
 	final List<CubicCurveTo> curvesTo;

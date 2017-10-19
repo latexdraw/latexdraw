@@ -16,7 +16,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPolyline;
  * @author Arnaud Blouin
  */
 public class ViewPolyline extends ViewPolyPoint<IPolyline> {
-	protected final ViewArrowableTrait viewArrows = new ViewArrowableTrait(this);
+	protected final ViewArrowableTraitPath<IPolyline> viewArrows = new ViewArrowableTraitPath<>(this);
 
 	/**
 	 * Creates the view.

@@ -15,10 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import javafx.beans.value.ChangeListener;
-import javafx.scene.shape.CubicCurveTo;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.Shape;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
@@ -27,15 +24,17 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
  * A (sort of) trait for grouping all the JFX code related to painting arrows of arrowable shape.
+ * @param <S> The type of the shape to view.
+ * @param <T> The type of the JFX view.
  * @author Arnaud Blouin
  */
-class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
+abstract class ViewArrowableTrait<T extends Shape, S extends IArrowableSingleShape> extends ViewShape<S> {
 	protected final List<ViewArrow> arrows;
-	private final ChangeListener<Object> updateArrow = (observable, oldValue, newValue) -> updateAllArrows();
-	private final ChangeListener<Object> updateClip = (observable, oldValue, newValue) -> updateClip();
-	private final ViewSingleShape<? extends IArrowableSingleShape, Path> mainView;
+	protected final ViewSingleShape<? extends IArrowableSingleShape, T> mainView;
+	protected final ChangeListener<Object> updateArrow = (observable, oldValue, newValue) -> updateAllArrows();
+	protected final ChangeListener<Object> updateClip = (observable, oldValue, newValue) -> updateClip();
 
-	ViewArrowableTrait(final ViewSingleShape<? extends IArrowableSingleShape, Path> view) {
+	ViewArrowableTrait(final ViewSingleShape<S, T> view) {
 		super(view.model);
 		arrows = new ArrayList<>();
 		mainView = view;
@@ -101,7 +100,7 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 
 		if(index < 0 || index >= arrows.size()) {
 			arrows.forEach(v -> v.updatePath());
-		} else {
+		}else {
 			arrows.get(index).updatePath();
 		}
 	}
@@ -112,47 +111,7 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 	 * @param path The path to clip. Cannot be null.
 	 * @throws NullPointerException if the given path is null.
 	 */
-	private void clipPath(final Path path) {
-		final Path clip = ViewFactory.INSTANCE.clonePath(path);
-		clip.setFill(path.getFill());
-		clip.setStrokeWidth(path.getStrokeWidth());
-
-		if(!clip.getElements().isEmpty()) { // Defensive programming
-			final Optional<IPoint> pt1 = getArrowReducedPoint(arrows.get(0).arrow);
-			final Optional<IPoint> pt2 = getArrowReducedPoint(arrows.get(arrows.size() - 1).arrow);
-
-			if(pt1.isPresent() && clip.getElements().get(0) instanceof MoveTo) { // Defensive programming
-				// Changing the first point to the one at the beginning of the arrow.
-				final MoveTo moveTo = (MoveTo) clip.getElements().get(0);
-				moveTo.setX(pt1.get().getX());
-				moveTo.setY(pt1.get().getY());
-			}
-
-			if(pt2.isPresent()) {
-				if(clip.getElements().get(clip.getElements().size() - 1) instanceof LineTo) {
-					final LineTo lineTo = (LineTo) clip.getElements().get(clip.getElements().size() - 1);
-					lineTo.setX(pt2.get().getX());
-					lineTo.setY(pt2.get().getY());
-				}else if(clip.getElements().get(clip.getElements().size() - 1) instanceof CubicCurveTo) {
-					final CubicCurveTo ccTo = (CubicCurveTo) clip.getElements().get(clip.getElements().size() - 1);
-					ccTo.setX(pt2.get().getX());
-					ccTo.setY(pt2.get().getY());
-				}
-			}
-		}
-
-		clip.setStrokeWidth(path.getStrokeWidth());
-		clip.setStrokeLineCap(path.getStrokeLineCap());
-		path.setClip(clip);
-	}
-
-	private static Optional<IPoint> getArrowReducedPoint(final IArrow arrow) {
-		final ILine l = arrow.getArrowLine();
-		if(l == null) return Optional.empty();
-		final IPoint[] points = l.findPoints(l.getX1(), l.getY1(), arrow.getArrowShapeLength());
-		if(points == null) return Optional.empty();
-		return Arrays.stream(points).reduce((p1, p2) -> p1.distance(l.getPoint2()) < p2.distance(l.getPoint2()) ? p1 : p2);
-	}
+	protected abstract void clipPath(final T path);
 
 	@Override
 	public void flush() {
@@ -187,5 +146,13 @@ class ViewArrowableTrait extends ViewShape<IArrowableSingleShape> {
 		}
 
 		super.flush();
+	}
+
+	protected static Optional<IPoint> getArrowReducedPoint(final IArrow arrow) {
+		final ILine l = arrow.getArrowLine();
+		if(l == null) return Optional.empty();
+		final IPoint[] points = l.findPoints(l.getX1(), l.getY1(), arrow.getArrowShapeLength());
+		if(points == null) return Optional.empty();
+		return Arrays.stream(points).reduce((p1, p2) -> p1.distance(l.getPoint2()) < p2.distance(l.getPoint2()) ? p1 : p2);
 	}
 }
