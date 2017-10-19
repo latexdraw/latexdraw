@@ -4,11 +4,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Function;
 import javafx.scene.shape.Arc;
+import javafx.scene.shape.Line;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
@@ -128,6 +130,15 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		model.setArrowStyle(ArrowStyle.RIGHT_DBLE_ARROW, -1);
 		final Arc clip = (Arc) view.border.getClip();
 		assertNotEquals(clip.getLength(), 0d);
+	}
+
+	@Test
+	public void testRadiusArcConsidersThickness() {
+		model.setWidth(10d);
+		model.setPosition(0d, 10d);
+		model.setThickness(2d);
+		Line line = new Line(11d, 0d, 11d, 10d);
+		assertTrue(view.border.intersects(line.getBoundsInLocal()));
 	}
 
 	@Override
