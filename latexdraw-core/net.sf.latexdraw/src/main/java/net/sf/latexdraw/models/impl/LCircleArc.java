@@ -72,11 +72,16 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 
 	@Override
 	public ILine getArrowLine(final IArrow arrow) {
+		final double gap = 0.05;
 		if(getArrowAt(0) == arrow) {
-			return MathUtils.INST.getTangenteAt(getTopLeftPoint(), getBottomRightPoint(), getGravityCentre(), getAngleStart(), getAngleStart() < Math.PI);
+			final IPoint sp = getStartPoint();
+			final IPoint ep = getPointOnArc(getAngleStart() < Math.PI ? getAngleStart() + gap : getAngleStart() - gap);
+			return ShapeFactory.INST.createLine(sp, ep);
 		}
 		if(getArrowAt(1) == arrow) {
-			return MathUtils.INST.getTangenteAt(getTopLeftPoint(), getBottomRightPoint(), getGravityCentre(), getAngleEnd(), getAngleEnd() >= Math.PI);
+			final IPoint sp = getEndPoint();
+			final IPoint ep = getPointOnArc(getAngleEnd() < Math.PI ? getAngleEnd() + gap : getAngleEnd() - gap);
+			return ShapeFactory.INST.createLine(sp, ep);
 		}
 		return null;
 	}
@@ -98,14 +103,17 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 
 	@Override
 	public IPoint getEndPoint() {
-		final IPoint grav = getGravityCentre();
-		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(getAngleEnd()) * getRadius(), grav.getY() - Math.sin(getAngleEnd()) * getRadius());
+		return getPointOnArc(getAngleEnd());
 	}
 
 	@Override
 	public IPoint getStartPoint() {
+		return getPointOnArc(getAngleStart());
+	}
+
+	private IPoint getPointOnArc(final double angle) {
 		final IPoint grav = getGravityCentre();
-		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(getAngleStart()) * getRadius(), grav.getY() - Math.sin(getAngleStart()) * getRadius());
+		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(angle) * getRadius(), grav.getY() - Math.sin(angle) * getRadius());
 	}
 
 	@Override

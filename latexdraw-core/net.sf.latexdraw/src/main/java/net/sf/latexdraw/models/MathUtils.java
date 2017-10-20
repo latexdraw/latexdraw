@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.models;
 
-import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
@@ -89,45 +88,6 @@ public final class MathUtils {
 		if(!isValidPt(a) || !isValidPt(b) || !isValidPt(c)) return 0d;
 		final double altitude = getAltitude(a, b, c);
 		return equalsDouble(altitude, 0d) ? 0d : gap / altitude * a.distance(b);
-	}
-
-	/**
-	 * Creates the tangent to the ellipse at the given angle.
-	 * @param angle The position of the tangent point in radian
-	 * @param orientation Change the orientation of the tangent
-	 * @return The tangent.
-	 */
-	public ILine getTangenteAt(final IPoint tl, final IPoint br, final IPoint gc, final double angle, final boolean orientation) {
-		final IPoint pt = ShapeFactory.INST.createPoint(br.getX(), (br.getY() + tl.getY()) / 2d).rotatePoint(gc, -angle);
-		final double dec = 100d;
-		final ILine tgt = ShapeFactory.INST.createLine(pt.getX(), pt.getY(), 0d, 0d);
-		final float fAngle = MathUtils.INST.getCutNumber((float) angle);
-		final float fPI = MathUtils.INST.getCutNumber((float) Math.PI);
-
-		if(fPI != 0f && fAngle % fPI <= 0.01f) {
-			tgt.setX2(pt.getX());
-			if(orientation) {
-				tgt.setY2(pt.getY() - dec);
-			}else {
-				tgt.setY2(pt.getY() + dec);
-			}
-		}else {
-			if(orientation) {
-				tgt.setX2(pt.getX() - dec);
-			}else {
-				tgt.setX2(pt.getX() + dec);
-			}
-
-			if(fPI != 0f && fAngle % (fPI / 2f) <= 0.01f) {
-				tgt.setY2(pt.getY());
-			}else {
-				final double a = Math.abs(tl.getX() - gc.getX());
-				final double b = Math.abs(tl.getY() - gc.getY());
-				tgt.setY2(-(b * (pt.getX() - gc.getX()) * (tgt.getX2() - pt.getX())) / (a * (pt.getY() - gc.getY())) + pt.getY());
-			}
-		}
-		tgt.updateAandB();
-		return tgt;
 	}
 
 	/**
