@@ -92,19 +92,31 @@ class ColorImpl implements Color {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if(obj == this) return true;
-		if(obj instanceof Color) return hashCode() == obj.hashCode();
-		return false;
+	public boolean equals(final Object obj) {
+		if(this == obj) return true;
+		if(obj == null || getClass() != obj.getClass()) return false;
+
+		final ColorImpl color = (ColorImpl) obj;
+
+		return MathUtils.INST.equalsDouble(color.getR(), getR(), 0.00001) &&
+			MathUtils.INST.equalsDouble(color.getG(), getG(), 0.00001) &&
+			MathUtils.INST.equalsDouble(color.getB(), getB(), 0.00001) &&
+			MathUtils.INST.equalsDouble(color.getO(), getO(), 0.00001);
 	}
 
 	@Override
 	public int hashCode() {
-		int hash = (int) Math.round(r * 255.0);
-		hash = ((hash << 8) | (int) Math.round(g * 255.0));
-		hash = ((hash << 8) | (int) Math.round(b * 255.0));
-		hash = ((hash << 8) | (int) Math.round(o * 255.0));
-		return hash;
+		int result;
+		long temp;
+		temp = Double.doubleToLongBits(getR());
+		result = (int) (temp ^ temp >>> 32);
+		temp = Double.doubleToLongBits(getG());
+		result = 31 * result + (int) (temp ^ temp >>> 32);
+		temp = Double.doubleToLongBits(getB());
+		result = 31 * result + (int) (temp ^ temp >>> 32);
+		temp = Double.doubleToLongBits(getO());
+		result = 31 * result + (int) (temp ^ temp >>> 32);
+		return result;
 	}
 
 	@Override

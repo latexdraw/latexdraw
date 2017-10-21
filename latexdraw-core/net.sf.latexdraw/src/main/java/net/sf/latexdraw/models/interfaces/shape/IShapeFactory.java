@@ -32,7 +32,7 @@ public interface IShapeFactory {
 	 * @param col The colour to convert.
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColorFX(final javafx.scene.paint.Color col);//FIXME add  when sbt will not crash anymore...
+	Color createColorFX(final javafx.scene.paint.Color col);
 
 	/**
 	 * Creates a color from an AWT color.

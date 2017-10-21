@@ -176,7 +176,7 @@ public final class ViewFactory {
 	private static class EqClosePath extends ClosePath {
 		@Override
 		public boolean equals(final Object obj) {
-			return obj != null && (obj == this || obj instanceof ClosePath);
+			return obj != null && (obj == this || getClass() == obj.getClass());
 		}
 	}
 
@@ -199,9 +199,8 @@ public final class ViewFactory {
 
 		@Override
 		public boolean equals(final Object obj) {
-			if(obj == null) return false;
 			if(obj == this) return true;
-			if(!(obj instanceof LineTo)) return false;
+			if(obj == null || getClass() != obj.getClass()) return false;
 			final LineTo lt = (LineTo) obj;
 			return MathUtils.INST.equalsDouble(lt.getX(), getX()) && MathUtils.INST.equalsDouble(lt.getY(), getY()) && lt.isAbsolute() == isAbsolute();
 		}
@@ -226,9 +225,8 @@ public final class ViewFactory {
 
 		@Override
 		public boolean equals(final Object obj) {
-			if(obj == null) return false;
 			if(obj == this) return true;
-			if(!(obj instanceof MoveTo)) return false;
+			if(obj == null || getClass() != obj.getClass()) return false;
 			final MoveTo mt = (MoveTo) obj;
 			return MathUtils.INST.equalsDouble(mt.getX(), getX()) && MathUtils.INST.equalsDouble(mt.getY(), getY()) && mt.isAbsolute() == isAbsolute();
 		}

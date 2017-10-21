@@ -243,7 +243,7 @@ class LPoint implements IPoint {
 	@Override
 	public boolean equals(final Object obj) {
 		if(this == obj) return true;
-		if(!(obj instanceof IPoint)) return false;
+		if(obj == null || getClass() != obj.getClass()) return false;
 		return equals((IPoint) obj, 0.0000001);
 	}
 

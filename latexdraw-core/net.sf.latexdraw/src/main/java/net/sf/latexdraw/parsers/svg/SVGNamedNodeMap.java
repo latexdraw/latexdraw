@@ -162,7 +162,8 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 
 	@Override
 	public boolean equals(final Object obj) {
-		if(!(obj instanceof SVGNamedNodeMap)) return false;
+		if(this == obj) return true;
+		if(obj == null || getClass() != obj.getClass()) return false;
 
 		final SVGNamedNodeMap map = (SVGNamedNodeMap) obj;
 		boolean ok = true;
