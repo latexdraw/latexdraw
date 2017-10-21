@@ -25,6 +25,9 @@ public class ModifyPencilStyle extends ActionImpl {
 	/** The new editing choice to set. */
 	protected EditionChoice editingChoice;
 
+	public ModifyPencilStyle() {
+		super();
+	}
 
 	@Override
 	protected void doActionBody() {

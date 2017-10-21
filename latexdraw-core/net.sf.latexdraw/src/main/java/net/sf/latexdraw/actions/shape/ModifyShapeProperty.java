@@ -37,6 +37,9 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 	/** The old value of the property. */
 	private List<?> oldValue;
 
+	public ModifyShapeProperty() {
+		super();
+	}
 
 	@Override
 	public void flush() {

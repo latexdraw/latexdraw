@@ -36,11 +36,14 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 	/** The pencil to modify. */
 	private Pencil pencil;
 
+	public ModifyPencilParameter() {
+		super();
+	}
 
 	@Override
 	public void flush() {
-		super.flush();
 		pencil = null;
+		super.flush();
 	}
 
 

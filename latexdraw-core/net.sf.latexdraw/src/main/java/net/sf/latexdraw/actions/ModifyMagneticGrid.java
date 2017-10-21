@@ -30,8 +30,11 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 	/** A back-up of the former value of the modified property. */
 	protected Object oldValue;
 
+	public ModifyMagneticGrid() {
+		super();
+	}
 
-    @Override
+	@Override
 	public void flush() {
 		super.flush();
 		grid 		= null;

@@ -23,6 +23,10 @@ public class UpdateTemplates extends ActionImpl implements TemplateAction {
 	private boolean updateThumbnails;
 	private Pane templatesPane;
 
+	public UpdateTemplates() {
+		super();
+		updateThumbnails = false;
+	}
 
 	@Override
 	public void doActionBody() {

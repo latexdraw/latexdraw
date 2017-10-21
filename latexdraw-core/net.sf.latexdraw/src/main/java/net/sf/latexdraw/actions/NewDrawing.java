@@ -28,12 +28,13 @@ import org.malai.undo.UndoCollector;
 public class NewDrawing extends IOAction<Label> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	private FileChooser fileChooser;
-
 	/** The instrument used that manage the preferences. */
 	private PreferencesSetter prefSetter;
-
 	private File currentFolder;
 
+	public NewDrawing() {
+		super();
+	}
 
 	@Override
 	protected void doActionBody() {

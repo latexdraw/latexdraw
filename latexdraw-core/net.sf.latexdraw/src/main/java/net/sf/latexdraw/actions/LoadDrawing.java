@@ -26,6 +26,9 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 	private FileChooser fileChooser;
 	private File currentFolder;
 
+	public LoadDrawing() {
+		super();
+	}
 
 	@Override
 	protected void doActionBody() {

@@ -31,6 +31,10 @@ public class CopyShapes extends ActionImpl {
 	/** The number of times that the shapes have been copied. Use to compute the gap while pasting. */
 	protected int nbTimeCopied;
 
+	public CopyShapes() {
+		super();
+		nbTimeCopied = 0;
+	}
 
 	@Override
 	protected void doActionBody() {

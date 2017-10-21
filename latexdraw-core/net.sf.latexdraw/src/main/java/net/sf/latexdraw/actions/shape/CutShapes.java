@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.actions.shape;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,6 +27,9 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 	/** The index of the cut shapes. */
 	private List<Integer> positionShapes;
 
+	public CutShapes() {
+		super();
+	}
 
 	@Override
 	public void doActionBody() {
@@ -33,7 +37,7 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 		selection.getDrawing().ifPresent(dr -> {
 			final List<IShape> drawingSh = dr.getShapes();
 
-			copiedShapes = selection.getShapes().stream().map(sh -> sh).collect(Collectors.toList());
+			copiedShapes = new ArrayList<>(selection.getShapes());
 			positionShapes = selection.getShapes().stream().map(drawingSh::indexOf).collect(Collectors.toList());
 
 			deleteShapes();
