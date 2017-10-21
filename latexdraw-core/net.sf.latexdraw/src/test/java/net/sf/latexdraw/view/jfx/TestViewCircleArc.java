@@ -8,7 +8,6 @@ import javafx.scene.shape.Line;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
@@ -86,15 +85,6 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		model.setArcStyle(style);
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
 		assertEquals(((Arc) view.border.getClip()).getType(), style.getJFXStyle());
-	}
-
-	@Theory
-	public void testClipArrowSameFill(final ArcStyle style) {
-		assumeTrue(style.supportArrow());
-		model.setArcStyle(style);
-		model.setFillingStyle(FillingStyle.PLAIN);
-		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
-		assertEquals(((Arc) view.border.getClip()).getFill(), view.border.getFill());
 	}
 
 	@Theory

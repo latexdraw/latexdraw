@@ -48,7 +48,6 @@ class ViewArrowableTraitArc extends ViewArrowableTrait<Arc, ICircleArc> {
 
 		final Arc clip = new Arc(arc.getCenterX(), arc.getCenterY(), arc.getRadiusX(), arc.getRadiusY(), sAngle, eAngle - sAngle);
 		clip.setType(arc.getType());
-		clip.setFill(arc.getFill());
 		clip.setStrokeWidth(arc.getStrokeWidth());
 		arc.setClip(clip);
 	}

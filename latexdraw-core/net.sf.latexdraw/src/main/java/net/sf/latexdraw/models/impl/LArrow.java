@@ -131,7 +131,7 @@ class LArrow implements IArrow {
 			case RIGHT_DBLE_ARROW:
 				return getArrowShapedWidth() * arrowLength;
 			case ROUND_IN:
-				return (getDotSizeDim() + getDotSizeNum() * getLineThickness()) / 2.0;
+				return (getDotSizeDim() + getDotSizeNum() * getLineThickness()) / 2d;
 			case LEFT_SQUARE_BRACKET:
 			case RIGHT_SQUARE_BRACKET:
 				return bracketNum * getBarShapedArrowWidth();
@@ -139,7 +139,7 @@ class LArrow implements IArrow {
 			case DISK_IN:
 				return getRoundShapedArrowRadius();
 			default:
-				return 0.0;//TODO
+				return 0d;
 		}
 	}
 
