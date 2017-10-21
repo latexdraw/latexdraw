@@ -26,13 +26,13 @@ import org.w3c.dom.UserDataHandler;
  * @author Arnaud BLOUIN
  */
 public class SVGAttr implements Attr, Cloneable {
-	/** The name of the attribute. @since 0.1 */
+	/** The name of the attribute. */
 	protected String name;
 
-	/** The owner of the attribute. @since 0.1 */
+	/** The owner of the attribute. */
 	protected Element owner;
 
-	/** The value of the attribute. @since 0.1 */
+	/** The value of the attribute. */
 	protected String value;
 
 
@@ -44,12 +44,11 @@ public class SVGAttr implements Attr, Cloneable {
 	 * @throws NullPointerException If one of the given parameters is null.
 	 */
 	public SVGAttr(final String n, final String val, final Element parent) {
-        super();
-        name = Objects.requireNonNull(n);
-        owner = Objects.requireNonNull(parent);
-        value = Objects.requireNonNull(val);
-    }
-
+		super();
+		name = Objects.requireNonNull(n);
+		owner = Objects.requireNonNull(parent);
+		value = Objects.requireNonNull(val);
+	}
 
 
 	@Override
@@ -58,12 +57,10 @@ public class SVGAttr implements Attr, Cloneable {
 	}
 
 
-
 	@Override
 	public Element getOwnerElement() {
 		return owner;
 	}
-
 
 
 	@Override
@@ -72,31 +69,28 @@ public class SVGAttr implements Attr, Cloneable {
 	}
 
 
-
 	@Override
 	public boolean isId() {
 		return name.equals(SVGAttributes.SVG_ID);
 	}
 
 
-
 	@Override
-	public void setValue(final String value) {
-		if(value==null)
-			throw new DOMException(DOMException.SYNTAX_ERR, "A value cannot be null");//$NON-NLS-1$
-
-		this.value = value;
+	public void setValue(final String val) {
+		if(val == null) throw new DOMException(DOMException.SYNTAX_ERR, "A value cannot be null");//$NON-NLS-1$
+		value = val;
 	}
-
 
 
 	/** No deep allow. */
 	@Override
 	public Node cloneNode(final boolean deep) {
-		try { return (SVGAttr) clone(); }
-		catch(final CloneNotSupportedException e) { return null; }
+		try {
+			return (SVGAttr) clone();
+		}catch(final CloneNotSupportedException ex) {
+			return null;
+		}
 	}
-
 
 
 	@Override
@@ -105,19 +99,16 @@ public class SVGAttr implements Attr, Cloneable {
 	}
 
 
-
 	@Override
 	public short getNodeType() {
 		return Node.ATTRIBUTE_NODE;
 	}
 
 
-
 	@Override
 	public String getNodeValue() {
 		return value;
 	}
-
 
 
 	@Override
@@ -138,20 +129,16 @@ public class SVGAttr implements Attr, Cloneable {
 	}
 
 
-
 	@Override
 	public boolean isEqualNode(final Node node) {
-		return node!=null && node.getNodeName().equals(name) && node.getNodeValue().equals(value) &&
-			   node.getNodeType()==getNodeType();
+		return node != null && node.getNodeName().equals(name) && node.getNodeValue().equals(value) && node.getNodeType() == getNodeType();
 	}
-
 
 
 	@Override
 	public boolean isSameNode(final Node other) {
-		return other!=null && other==this;
+		return other != null && other == this;
 	}
-
 
 
 	@Override
@@ -160,22 +147,19 @@ public class SVGAttr implements Attr, Cloneable {
 	}
 
 
-
 	@Override
 	public String toString() {
-        return "[" + name + ", " + value + ']'; //$NON-NLS-1$ //$NON-NLS-2$
+		return "[" + name + ", " + value + ']'; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 
 	@Override
 	public String getPrefix() {
-		if(getNodeName()==null)
-			return null;
+		if(getNodeName() == null) return null;
 
 		final int index = getName().indexOf(':');
 
-		if(index!=-1)
-			return getName().substring(0, index);
+		if(index != -1) return getName().substring(0, index);
 
 		return null;
 	}
@@ -206,100 +190,123 @@ public class SVGAttr implements Attr, Cloneable {
 
 
 	@Override
-	public TypeInfo getSchemaTypeInfo()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public TypeInfo getSchemaTypeInfo() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public short compareDocumentPosition(final Node other)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public short compareDocumentPosition(final Node other) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String getBaseURI()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public String getBaseURI() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Object getFeature(final String feature, final String version)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public Object getFeature(final String feature, final String version) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Node getNextSibling()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public Node getNextSibling() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Document getOwnerDocument()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public Document getOwnerDocument() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Node getPreviousSibling()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public Node getPreviousSibling() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String getTextContent()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public String getTextContent() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Object getUserData(final String key)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public Object getUserData(final String key) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public boolean isDefaultNamespace(final String namespaceURI)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public boolean isDefaultNamespace(final String namespaceURI) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public boolean isSupported(final String feature, final String version)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public boolean isSupported(final String feature, final String version) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String lookupPrefix(final String namespaceURI)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public String lookupPrefix(final String namespaceURI) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public void normalize()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public void normalize() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Node replaceChild(final Node newChild, final Node oldChild)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public Node replaceChild(final Node newChild, final Node oldChild) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public void setPrefix(final String prefix)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public void setPrefix(final String prefix) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public void setTextContent(final String textContent)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public void setTextContent(final String textContent) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Object setUserData(final String key, final Object data, final UserDataHandler handler)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
-
+	public Object setUserData(final String key, final Object data, final UserDataHandler handler) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 
 	@Override
-	public Node removeChild(final Node oldChild)
-	{ return null; }
+	public Node removeChild(final Node oldChild) {
+		return null;
+	}
 
 	@Override
-	public Node insertBefore(final Node newChild, final Node refChild)
-	{ return null; }
+	public Node insertBefore(final Node newChild, final Node refChild) {
+		return null;
+	}
 
 	@Override
-	public NamedNodeMap getAttributes()
-	{ return null; }
+	public NamedNodeMap getAttributes() {
+		return null;
+	}
 
 	@Override
-	public NodeList getChildNodes()
-	{ return new SVGNodeList(); }
+	public NodeList getChildNodes() {
+		return new SVGNodeList();
+	}
 
 	@Override
-	public Node getFirstChild()
-	{ return null; }
+	public Node getFirstChild() {
+		return null;
+	}
 
 	@Override
-	public Node getLastChild()
-	{ return null; }
+	public Node getLastChild() {
+		return null;
+	}
 
 	@Override
-	public Node appendChild(final Node newChild)
-	{ return null; }
+	public Node appendChild(final Node newChild) {
+		return null;
+	}
 }

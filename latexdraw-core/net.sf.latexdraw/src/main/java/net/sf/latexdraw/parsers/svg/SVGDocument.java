@@ -51,26 +51,19 @@ import org.xml.sax.SAXException;
  * @author Arnaud BLOUIN
  */
 public class SVGDocument implements Document {
-	/** The root of the SVG drawing. @since 0.1 */
+	public static final String ACTION_NOT_IMPLEMENTED = "Action not implemented."; //$NON-NLS-1$
+	public static final String SVG_NAMESPACE = "http://www.w3.org/2000/svg"; //$NON-NLS-1$
+
+	/** The root of the SVG drawing. */
 	protected SVGSVGElement root;
-
-    /** Defines if the document is standalone. @since 0.1 */
-    protected boolean xmlStandalone;
-
-    /** The document URI. @since 0.1 */
-    protected String documentURI;
-
-    /** The version of XML. @since 0.1 */
-    protected String xmlVersion;
-
-    /** The encoding of the document. @since 0.1 */
-    protected String xmlEncoding;
-
-
-    public static final String ACTION_NOT_IMPLEMENTED = "Action not implemented.";//$NON-NLS-1$
-
-
-    public static final String SVG_NAMESPACE = "http://www.w3.org/2000/svg";//$NON-NLS-1$
+	/** Defines if the document is standalone. */
+	protected boolean xmlStandalone;
+	/** The document URI. */
+	protected String documentURI;
+	/** The version of XML. */
+	protected String xmlVersion;
+	/** The encoding of the document. */
+	protected String xmlEncoding;
 
 
 	/**
@@ -82,79 +75,72 @@ public class SVGDocument implements Document {
 	 * @throws IllegalArgumentException If a n argument is not valid.
 	 */
 	public SVGDocument(final URI uri) throws MalformedSVGDocument, IOException {
-        super();
-        if (uri == null)
-            throw new IllegalArgumentException();
+		super();
+		if(uri == null) throw new IllegalArgumentException();
 
-        try {
-            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            final DocumentBuilder builder = factory.newDocumentBuilder();
+		try {
+			final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			final DocumentBuilder builder = factory.newDocumentBuilder();
 
-            builder.setEntityResolver(new SVGEntityResolver());
-            Document doc;
-            try {
-                doc = builder.parse(uri.getPath());
-            } catch (final MalformedURLException ex) {
-                doc = builder.parse("file:" + uri.getPath()); //$NON-NLS-1$
-            }
-            final NodeList nl;
+			builder.setEntityResolver(new SVGEntityResolver());
+			Document doc;
+			try {
+				doc = builder.parse(uri.getPath());
+			}catch(final MalformedURLException ex) {
+				doc = builder.parse("file:" + uri.getPath()); //$NON-NLS-1$
+			}
+			final NodeList nl;
 
-            setDocumentURI(getDocumentURI());
-            setXmlStandalone(doc.getXmlStandalone());
-            setXmlVersion(doc.getXmlVersion());
-            xmlEncoding = doc.getXmlEncoding();
-            root = null;
-            nl = doc.getChildNodes();
-            Node n;
+			setDocumentURI(getDocumentURI());
+			setXmlStandalone(doc.getXmlStandalone());
+			setXmlVersion(doc.getXmlVersion());
+			xmlEncoding = doc.getXmlEncoding();
+			root = null;
+			nl = doc.getChildNodes();
+			Node n;
 
-            for (int i = 0, size = nl.getLength(); i < size && root == null; i++) {
-                n = nl.item(i);
+			for(int i = 0, size = nl.getLength(); i < size && root == null; i++) {
+				n = nl.item(i);
 
-                if (n instanceof Element && n.getNodeName().endsWith(SVGElements.SVG_SVG))
-                    root = new SVGSVGElement(this, nl.item(i));
-            }
-        } catch (final SAXException | ParserConfigurationException e) {
-            BadaboomCollector.INSTANCE.add(e);
-            throw new MalformedSVGDocument();
-        }
-    }
-
+				if(n instanceof Element && n.getNodeName().endsWith(SVGElements.SVG_SVG)) {
+					root = new SVGSVGElement(this, nl.item(i));
+				}
+			}
+		}catch(final SAXException | ParserConfigurationException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+			throw new MalformedSVGDocument();
+		}
+	}
 
 
 	/**
 	 * Creates an SVG document with an empty SVG element.
 	 */
 	public SVGDocument() {
-        super();
-        setDocumentURI(null);
-        setXmlVersion("1.1");//$NON-NLS-1$
-        setXmlStandalone(false);
+		super();
+		setDocumentURI(null);
+		setXmlVersion("1.1"); //$NON-NLS-1$
+		setXmlStandalone(false);
 
-        root = new SVGSVGElement(this);
-    }
-
-
+		root = new SVGSVGElement(this);
+	}
 
 
 	@Override
 	public String toString() {
-        return "SVG Document:" + root; //$NON-NLS-1$
+		return "SVG Document:" + root; //$NON-NLS-1$
 	}
-
-
 
 
 	@Override
 	public SVGSVGElement adoptNode(final Node source) {
-		if(!(source instanceof SVGSVGElement))
-			throw new DOMException(DOMException.TYPE_MISMATCH_ERR, "SVGSVGElement expected here.");//$NON-NLS-1$
+		if(!(source instanceof SVGSVGElement)) throw new DOMException(DOMException.TYPE_MISMATCH_ERR, "SVGSVGElement expected here.");//$NON-NLS-1$
 
-		root = (SVGSVGElement)source;
+		root = (SVGSVGElement) source;
 		root.setOwnerDocument(this);
 
 		return root;
 	}
-
 
 
 	@Override
@@ -205,7 +191,6 @@ public class SVGDocument implements Document {
 	}
 
 
-
 	@Override
 	public NamedNodeMap getAttributes() {
 		return null;
@@ -230,7 +215,6 @@ public class SVGDocument implements Document {
 	}
 
 
-
 	@Override
 	public Node getNextSibling() {
 		return null;
@@ -239,7 +223,7 @@ public class SVGDocument implements Document {
 
 	@Override
 	public String getNodeName() {
-		return "#document";//$NON-NLS-1$
+		return "#document"; //$NON-NLS-1$
 	}
 
 
@@ -267,12 +251,10 @@ public class SVGDocument implements Document {
 	}
 
 
-
 	@Override
 	public Node getPreviousSibling() {
 		return null;
 	}
-
 
 
 	@Override
@@ -283,9 +265,8 @@ public class SVGDocument implements Document {
 
 	@Override
 	public boolean hasChildNodes() {
-		return root!=null;
+		return root != null;
 	}
-
 
 
 	@Override
@@ -293,13 +274,14 @@ public class SVGDocument implements Document {
 		final boolean equal;
 
 		if(node instanceof SVGDocument) {
-			final SVGDocument doc = (SVGDocument)node;
-			final boolean encod = xmlEncoding==null ? doc.xmlEncoding==null : xmlEncoding.equals(doc.xmlEncoding);
-			final boolean uri   = documentURI==null ? doc.documentURI==null : documentURI.equals(doc.documentURI);
+			final SVGDocument doc = (SVGDocument) node;
+			final boolean encod = xmlEncoding == null ? doc.xmlEncoding == null : xmlEncoding.equals(doc.xmlEncoding);
+			final boolean uri = documentURI == null ? doc.documentURI == null : documentURI.equals(doc.documentURI);
 
-			equal = xmlStandalone==doc.xmlStandalone && encod && root.isEqualNode(doc.root) && uri;
+			equal = xmlStandalone == doc.xmlStandalone && encod && root.isEqualNode(doc.root) && uri;
+		}else {
+			equal = false;
 		}
-		else equal = false;
 
 		return equal;
 	}
@@ -307,7 +289,7 @@ public class SVGDocument implements Document {
 
 	@Override
 	public boolean isSameNode(final Node other) {
-		return other!=null && other==this;
+		return other != null && other == this;
 	}
 
 
@@ -317,11 +299,9 @@ public class SVGDocument implements Document {
 	}
 
 
-
 	@Override
 	public Element createElement(final String tagName) {
-		if(tagName==null)
-			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid tagName.");//$NON-NLS-1$
+		if(tagName == null) throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid tagName.");//$NON-NLS-1$
 
 		final OtherNSElement elt = new OtherNSElement(this);
 		elt.setNodeName(tagName);
@@ -332,8 +312,7 @@ public class SVGDocument implements Document {
 
 	@Override
 	public Text createTextNode(final String data) {
-		if(data==null)
-			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid data.");//$NON-NLS-1$
+		if(data == null) throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid data.");//$NON-NLS-1$
 
 		return new SVGText(data, this);
 	}
@@ -341,175 +320,212 @@ public class SVGDocument implements Document {
 
 	@Override
 	public Comment createComment(final String data) {
-		if(data==null)
-			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid data.");//$NON-NLS-1$
+		if(data == null) throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid data.");//$NON-NLS-1$
 
 		return new SVGComment(data, this);
 	}
 
 
 	@Override
-	public CDATASection createCDATASection(final String data)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public CDATASection createCDATASection(final String data) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public DOMConfiguration getDomConfig()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public DOMConfiguration getDomConfig() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public DOMImplementation getImplementation()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public DOMImplementation getImplementation() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String getInputEncoding()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public String getInputEncoding() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public boolean getStrictErrorChecking()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public boolean getStrictErrorChecking() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Node importNode(final Node importedNode, final boolean deep)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public Node importNode(final Node importedNode, final boolean deep) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public void normalizeDocument()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public void normalizeDocument() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Node renameNode(final Node n, final String namespaceURI, final String qualifiedName)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public Node renameNode(final Node n, final String namespaceURI, final String qualifiedName) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public void setStrictErrorChecking(final boolean strictErrorChecking)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public void setStrictErrorChecking(final boolean strictErrorChecking) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Node appendChild(final Node newChild)
-	{ return null; }
+	public Node appendChild(final Node newChild) {
+		return null;
+	}
 
 	@Override
-	public Node cloneNode(final boolean deep)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public Node cloneNode(final boolean deep) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public short compareDocumentPosition(final Node other)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public short compareDocumentPosition(final Node other) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String getBaseURI()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public String getBaseURI() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Object getFeature(final String feature, final String version)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public Object getFeature(final String feature, final String version) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String getLocalName()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public String getLocalName() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String getNamespaceURI()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public String getNamespaceURI() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String getPrefix()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public String getPrefix() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String getTextContent()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public String getTextContent() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Object getUserData(final String key)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public Object getUserData(final String key) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public boolean isDefaultNamespace(final String namespaceURI)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public boolean isDefaultNamespace(final String namespaceURI) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Attr createAttribute(final String name)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public Attr createAttribute(final String name) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Attr createAttributeNS(final String namespaceURI, final String qualifiedName)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public Attr createAttributeNS(final String namespaceURI, final String qualifiedName) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public DocumentFragment createDocumentFragment()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public DocumentFragment createDocumentFragment() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Element createElementNS(final String namespaceURI, final String qualifiedName)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public Element createElementNS(final String namespaceURI, final String qualifiedName) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public EntityReference createEntityReference(final String name)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public EntityReference createEntityReference(final String name) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public ProcessingInstruction createProcessingInstruction(final String target, final String data)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public ProcessingInstruction createProcessingInstruction(final String target, final String data) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public boolean isSupported(final String feature, final String version)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public boolean isSupported(final String feature, final String version) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String lookupNamespaceURI(final String prefix)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public String lookupNamespaceURI(final String prefix) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String lookupPrefix(final String namespaceURI)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public String lookupPrefix(final String namespaceURI) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public void normalize()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public void normalize() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Object setUserData(final String key, final Object data, final UserDataHandler handler)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
-
+	public Object setUserData(final String key, final Object data, final UserDataHandler handler) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED);
+	}
 
 
 	@Override
-	public Node insertBefore(final Node newChild, final Node refChild)
-	{ return null; }
+	public Node insertBefore(final Node newChild, final Node refChild) {
+		return null;
+	}
 
 	@Override
-	public void setPrefix(final String prefix)
-	{ /* Nothing to do. */ }
+	public void setPrefix(final String prefix) {
+		/* Nothing to do. */
+	}
 
 	@Override
-	public void setTextContent(final String textContent)
-	{ /* Nothing to do. */ }
+	public void setTextContent(final String textContent) {
+		/* Nothing to do. */
+	}
 
 	@Override
-	public Node removeChild(final Node oldChild)
-	{ return null; }
+	public Node removeChild(final Node oldChild) {
+		return null;
+	}
 
 	@Override
-	public Node replaceChild(final Node newChild, final Node oldChild)
-	{ return null; }
+	public Node replaceChild(final Node newChild, final Node oldChild) {
+		return null;
+	}
 
 	@Override
-	public void setNodeValue(final String nodeValue)
-	{ /* Nothing to do. */ }
+	public void setNodeValue(final String nodeValue) {
+		/* Nothing to do. */
+	}
 
 	@Override
-	public Element getElementById(final String elementId)
-	{ return null; }
+	public Element getElementById(final String elementId) {
+		return null;
+	}
 
 	@Override
-	public NodeList getElementsByTagName(final String tagname)
-	{ return null; }
+	public NodeList getElementsByTagName(final String tagname) {
+		return null;
+	}
 
 	@Override
-	public NodeList getElementsByTagNameNS(final String namespaceURI, final String localName)
-	{ return null; }
-
+	public NodeList getElementsByTagNameNS(final String namespaceURI, final String localName) {
+		return null;
+	}
 
 
 	/**
@@ -519,22 +535,21 @@ public class SVGDocument implements Document {
 	 * @since 2.0
 	 */
 	public boolean saveSVGDocument(final String path) {
-		if(path==null)
-			return false;
+		if(path == null) return false;
 
 		boolean ok = true;
-		try{
-	        DOMImplementationLS impl = (DOMImplementationLS) DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0 LS 3.0"); //$NON-NLS-1$
-	        LSSerializer serializer = impl.createLSSerializer();
-	        serializer.getDomConfig().setParameter("format-pretty-print", true); //$NON-NLS-1$
-	        serializer.getDomConfig().setParameter("namespaces", false); //$NON-NLS-1$
-	        LSOutput output = impl.createLSOutput();
-	        final Charset charset = Charset.defaultCharset();
-	        try(OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(path), charset.newEncoder())){
-	        	output.setEncoding(charset.name());
-	        	output.setCharacterStream(fw);
-	        	serializer.write(getDocumentElement(), output);
-	        }
+		try {
+			DOMImplementationLS impl = (DOMImplementationLS) DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0 LS 3.0"); //$NON-NLS-1$
+			LSSerializer serializer = impl.createLSSerializer();
+			serializer.getDomConfig().setParameter("format-pretty-print", true); //$NON-NLS-1$
+			serializer.getDomConfig().setParameter("namespaces", false); //$NON-NLS-1$
+			LSOutput output = impl.createLSOutput();
+			final Charset charset = Charset.defaultCharset();
+			try(OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(path), charset.newEncoder())) {
+				output.setEncoding(charset.name());
+				output.setCharacterStream(fw);
+				serializer.write(getDocumentElement(), output);
+			}
 		}catch(final ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IOException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			ok = false;

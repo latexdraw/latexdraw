@@ -21,24 +21,6 @@ import java.util.List;
  * @since 2.0.3
  */
 public class SVGPointsParser extends AbstractSVGParser {
-	/** The parsed points. */
-	protected List<Point2D> points;
-
-
-	/**
-	 * Creates and initialises the parser.
-	 * @param code The code to parse.
-	 * @since 2.0.3
-	 * @throws IllegalArgumentException If the given code is null.
-	 */
-	public SVGPointsParser(final String code) {
-		super(code);
-
-		points = new ArrayList<>();
-	}
-
-
-
 	/**
 	 * Parses the given code and return the parsed points or null.
 	 * @param code The code to parse.
@@ -50,17 +32,33 @@ public class SVGPointsParser extends AbstractSVGParser {
 			final SVGPointsParser pp = new SVGPointsParser(code);
 			pp.parse();
 			return pp.getPoints();
+		}catch(final Exception ex) {
+			return null;
 		}
-		catch(final Exception e) { return null; }
 	}
 
+	/** The parsed points. */
+	protected List<Point2D> points;
+
+
+	/**
+	 * Creates and initialises the parser.
+	 * @param code The code to parse.
+	 * @throws IllegalArgumentException If the given code is null.
+	 * @since 2.0.3
+	 */
+	public SVGPointsParser(final String code) {
+		super(code);
+
+		points = new ArrayList<>();
+	}
 
 	@Override
 	public void parse() throws ParseException {
 		double c1;
-        double c2;
+		double c2;
 
-        skipWSP();
+		skipWSP();
 
 		while(!isEOC()) {
 			c1 = readNumber();
@@ -70,7 +68,6 @@ public class SVGPointsParser extends AbstractSVGParser {
 			skipWSPComma();
 		}
 	}
-
 
 
 	/**
@@ -83,58 +80,64 @@ public class SVGPointsParser extends AbstractSVGParser {
 		final double n;
 		final boolean isNegative;
 		boolean isFractional = false;
-		boolean isFloating   = false;
-		final StringBuilder strn   = new StringBuilder();
+		boolean isFloating = false;
+		final StringBuilder strn = new StringBuilder();
 
 		skipWSP();
 
-		if(getChar()=='-' || getChar()=='+') {
-			isNegative = getChar()=='-';
+		if(getChar() == '-' || getChar() == '+') {
+			isNegative = getChar() == '-';
 			nextChar();
+		}else {
+			isNegative = false;
 		}
-		else isNegative = false;
 
-		while(!isWSP() && getChar()!=',' && !isEOC()) {
+		while(!isWSP() && getChar() != ',' && !isEOC()) {
 			switch(getChar()) {
-				case '0': case '1': case '2': case '3': case '4':
-				case '5': case '6': case '7': case '8': case '9':
+				case '0':
+				case '1':
+				case '2':
+				case '3':
+				case '4':
+				case '5':
+				case '6':
+				case '7':
+				case '8':
+				case '9':
 					break;
 
 				case '.':
-					if(isFractional)
-						throw new ParseException("An unexpected dot was read: "+getCode(), getPosition()); //$NON-NLS-1$
-
+					if(isFractional) throw new ParseException("An unexpected dot was read: " + getCode(), getPosition()); //$NON-NLS-1$
 					isFractional = true;
 					break;
 
-				case 'e': case 'E':
-					if(isFloating)
-						throw new ParseException("An unexpected exponantial token was read: "+getCode(), getPosition()); //$NON-NLS-1$
-
+				case 'e':
+				case 'E':
+					if(isFloating) throw new ParseException("An unexpected exponantial token was read: " + getCode(), getPosition()); //$NON-NLS-1$
 					isFloating = true;
 					break;
 
-				case '-': case '+':
-					if(!isFloating)
-						throw new ParseException("An unexpected sign was read: "+getCode(), getPosition()); //$NON-NLS-1$
-
+				case '-':
+				case '+':
+					if(!isFloating) throw new ParseException("An unexpected sign was read: " + getCode(), getPosition()); //$NON-NLS-1$
 					break;
 
 				default:
-					throw new ParseException("The following character is not authorised:" + (char)getChar(), getPosition()); //$NON-NLS-1$
+					throw new ParseException("The following character is not authorised:" + (char) getChar(), getPosition()); //$NON-NLS-1$
 			}
 
-			strn.append((char)getChar());
+			strn.append((char) getChar());
 			nextChar();
 		}
 
-		try { n = Double.parseDouble(strn.toString()); }
-		catch(final Exception e)
-		{ throw new ParseException("Not able to parse to given number:" + strn, getPosition()); } //$NON-NLS-1$
+		try {
+			n = Double.parseDouble(strn.toString());
+		}catch(final Exception ex) {
+			throw new ParseException("Not able to parse to given number:" + strn, getPosition()); //$NON-NLS-1$
+		}
 
-		return isNegative ? n*-1 : n;
+		return isNegative ? n * -1 : n;
 	}
-
 
 
 	/**

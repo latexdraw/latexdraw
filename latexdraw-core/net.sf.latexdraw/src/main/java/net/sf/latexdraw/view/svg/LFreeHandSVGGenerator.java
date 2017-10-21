@@ -73,8 +73,7 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		try {
 			FreeHandStyle type = FreeHandStyle.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE));
 			if(type == null) {
-				final int val = Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE))
-					.intValue();
+				final int val = Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE)).intValue();
 				type = val == 0 ? FreeHandStyle.LINES : FreeHandStyle.CURVES;
 			}
 
@@ -98,53 +97,53 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		double prevy = shape.getPtAt(-1).getY();
 		double curx = shape.getPtAt(0).getX();
 		double cury = shape.getPtAt(0).getY();
-		double midx = (curx + prevx) / 2.;
-		double midy = (cury + prevy) / 2.;
+		double midx = (curx + prevx) / 2d;
+		double midy = (cury + prevy) / 2d;
 		int i;
 		final int size = shape.getNbPoints();
 		final int interval = shape.getInterval();
 
-    	path.add(new SVGPathSegMoveto(curx, cury, false));
+		path.add(new SVGPathSegMoveto(curx, cury, false));
 
-        if(size>interval) {
-           prevx = curx;
-           prevy = cury;
-           curx = shape.getPtAt(interval).getX();
-           cury = shape.getPtAt(interval).getY();
-           midx = (curx + prevx) / 2.;
-           midy = (cury + prevy) / 2.;
-           path.add(new SVGPathSegLineto(midx, midy, false));
-        }
+		if(size > interval) {
+			prevx = curx;
+			prevy = cury;
+			curx = shape.getPtAt(interval).getX();
+			cury = shape.getPtAt(interval).getY();
+			midx = (curx + prevx) / 2d;
+			midy = (cury + prevy) / 2d;
+			path.add(new SVGPathSegLineto(midx, midy, false));
+		}
 
-        for(i=interval*2; i<size; i+=interval)  {
-        	final double x1 = (midx + curx) / 2.;
-        	final double y1 = (midy + cury) / 2.;
-        	prevx = curx;
-        	prevy = cury;
-            curx = shape.getPtAt(i).getX();
-            cury = shape.getPtAt(i).getY();
-            midx = (curx + prevx) / 2.;
-            midy = (cury + prevy) / 2.;
-            final double x2 = (prevx + midx) / 2.;
-            final double y2 = (prevy + midy) / 2.;
+		for(i = interval * 2; i < size; i += interval) {
+			final double x1 = (midx + curx) / 2d;
+			final double y1 = (midy + cury) / 2d;
+			prevx = curx;
+			prevy = cury;
+			curx = shape.getPtAt(i).getX();
+			cury = shape.getPtAt(i).getY();
+			midx = (curx + prevx) / 2d;
+			midy = (cury + prevy) / 2d;
+			final double x2 = (prevx + midx) / 2d;
+			final double y2 = (prevy + midy) / 2d;
 
-            path.add(new SVGPathSegCurvetoCubic(midx, midy, x1, y1, x2, y2, false));
-        }
+			path.add(new SVGPathSegCurvetoCubic(midx, midy, x1, y1, x2, y2, false));
+		}
 
-        if(i-interval+1<size) {
-        	final double x1 = (midx + curx) / 2.;
-        	final double y1 = (midy + cury) / 2.;
-            prevx = curx;
-            prevy = cury;
-            curx = shape.getPtAt(-1).getX();
-            cury = shape.getPtAt(-1).getY();
-            midx = (curx + prevx) / 2.;
-            midy = (cury + prevy) / 2.;
-            final double x2 = (prevx + midx) / 2.;
-            final double y2 = (prevy + midy) / 2.;
+		if(i - interval + 1 < size) {
+			final double x1 = (midx + curx) / 2d;
+			final double y1 = (midy + cury) / 2d;
+			prevx = curx;
+			prevy = cury;
+			curx = shape.getPtAt(-1).getX();
+			cury = shape.getPtAt(-1).getY();
+			midx = (curx + prevx) / 2d;
+			midy = (cury + prevy) / 2d;
+			final double x2 = (prevx + midx) / 2d;
+			final double y2 = (prevy + midy) / 2d;
 
-            path.add(new SVGPathSegCurvetoCubic(shape.getPtAt(-1).getX(), shape.getPtAt(-1).getY(), x1, y1, x2, y2, false));
-        }
+			path.add(new SVGPathSegCurvetoCubic(shape.getPtAt(-1).getX(), shape.getPtAt(-1).getY(), x1, y1, x2, y2, false));
+		}
 	}
 
 
@@ -160,13 +159,14 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 		path.add(new SVGPathSegMoveto(p.getX(), p.getY(), false));
 
-		for(i=interval; i<size; i+=interval)
+		for(i = interval; i < size; i += interval) {
 			path.add(new SVGPathSegLineto(shape.getPtAt(i).getX(), shape.getPtAt(i).getY(), false));
+		}
 
-		if(i-interval<size)
+		if(i - interval < size) {
 			path.add(new SVGPathSegLineto(shape.getPtAt(-1).getX(), shape.getPtAt(-1).getY(), false));
+		}
 	}
-
 
 
 	/**
@@ -185,18 +185,17 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 				break;
 		}
 
-		if(!shape.isOpen())
+		if(!shape.isOpen()) {
 			path.add(new SVGPathSegClosePath());
+		}
 
 		return path;
 	}
 
 
-
 	@Override
 	public SVGElement toSVG(final SVGDocument doc) {
-		if(doc==null)
-			return null;
+		if(doc == null) return null;
 
 		final SVGElement root = new SVGGElement(doc);
 		SVGElement elt;
@@ -208,8 +207,9 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		final String path = getPath().toString();
 		final StringBuilder pts = new StringBuilder();
 
-		for(int i = 0, size = shape.getNbPoints(); i < size; i++)
-				pts.append(shape.getPtAt(i).getX()).append(' ').append(shape.getPtAt(i).getY()).append(' ');
+		for(int i = 0, size = shape.getNbPoints(); i < size; i++) {
+			pts.append(shape.getPtAt(i).getX()).append(' ').append(shape.getPtAt(i).getY()).append(' ');
+		}
 
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS, pts.toString());
 
@@ -220,12 +220,12 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 			root.appendChild(shad);
 		}
 
-        if(shape.hasShadow() && shape.isFilled())// && shape.getLineStyle()!=LineStyle.NONE )
-        {// The background of the borders must be filled is there is a shadow.
-    		elt = new SVGPathElement(doc);
-    		elt.setAttribute(SVGAttributes.SVG_D, path);
-    		setSVGBorderBackground(elt, root);
-        }
+		// The background of the borders must be filled is there is a shadow.
+		if(shape.hasShadow() && shape.isFilled()) {
+			elt = new SVGPathElement(doc);
+			elt.setAttribute(SVGAttributes.SVG_D, path);
+			setSVGBorderBackground(elt, root);
+		}
 
 		elt = new SVGPathElement(doc);
 		elt.setAttribute(SVGAttributes.SVG_D, path);
