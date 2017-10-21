@@ -33,6 +33,12 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		return ShapeFactory.INST.createCircleArc(ShapeFactory.INST.createPoint(), 10d);
 	}
 
+	private Arc cloneArc(final Arc arc) {
+		final Arc clone = new Arc(arc.getCenterX(), arc.getCenterY(), arc.getRadiusX(), arc.getRadiusY(), arc.getStartAngle(), arc.getLength());
+		clone.setType(arc.getType());
+		return clone;
+	}
+
 	@Theory
 	public void testSetAngleStartMainBorder(final Function<ViewCircleArc, Arc> fct) {
 		final Arc arc = fct.apply(view);
@@ -129,6 +135,31 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		model.setThickness(2d);
 		Line line = new Line(11d, 0d, 11d, 10d);
 		assertTrue(view.border.intersects(line.getBoundsInLocal()));
+	}
+
+	@Test
+	public void testThicknessChangeRadius() {
+		final Arc arc = cloneArc(view.border);
+		model.setThickness(model.getThickness() * 2d);
+		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX(), 0.00001);
+		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY(), 0.00001);
+	}
+
+	@Test
+	public void testTicknessChangeHasDblBord() {
+		final Arc arc = cloneArc(view.border);
+		model.setHasDbleBord(true);
+		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX(), 0.00001);
+		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY(), 0.00001);
+	}
+
+	@Test
+	public void testTicknessChangeDbleSep() {
+		final Arc arc = cloneArc(view.border);
+		model.setHasDbleBord(true);
+		model.setDbleBordSep(model.getDbleBordSep() * 2d);
+		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX(), 0.00001);
+		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY(), 0.00001);
 	}
 
 	@Override
