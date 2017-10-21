@@ -307,8 +307,8 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		 * @param sharedTemplates True: the templates are shared templates (in the shared directory).
 		 */
 		private void fillTemplatePane(final String pathTemplate, final String pathCache, final boolean sharedTemplates) {
-			try(final DirectoryStream<Path> paths = Files.newDirectoryStream(Paths.get(pathTemplate), elt -> Files.isRegularFile(elt) && elt.toString()
-				.endsWith(".svg"))) {
+			try(final DirectoryStream<Path> paths =
+					Files.newDirectoryStream(Paths.get(pathTemplate), elt -> elt.toFile().isFile() && elt.toString().endsWith(".svg"))) {
 				paths.forEach(entry -> createTemplateItem(entry.toFile().getPath(), entry.getFileName() + ExportFormat.PNG.getFileExtension(), pathCache).
 					ifPresent(item -> templatesPane.getChildren().add(item)));
 			}catch(final IOException ex) {
@@ -326,22 +326,32 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 
 			if(!templateDir.isDirectory()) return;
 
-			try(final DirectoryStream<Path> paths = Files.newDirectoryStream(Paths.get(pathTemplate), elt -> Files.isRegularFile(elt) && elt.toString().endsWith(".svg"))) {
-				paths.forEach(file -> Platform.runLater(() -> {
-						try {
-							final Group template = new Group();
-							final List<IShape> shapes = toLatexdraw(new SVGDocument(file.toUri()), 0);
-							template.getChildren().setAll(shapes.stream().map(sh -> ViewFactory.INSTANCE.createView(sh)).
-								filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList()));
-							final File thumb = new File(pathCache + File.separator + file.getFileName() + ExportFormat.PNG.getFileExtension());
-							createTemplateThumbnail(thumb, template);
-						}catch(final Exception ex) {
-							BadaboomCollector.INSTANCE.add(ex);
-						}
-					}));
+			try(final DirectoryStream<Path> paths =
+					Files.newDirectoryStream(Paths.get(pathTemplate), elt -> elt.toFile().isFile() && elt.toString().endsWith(".svg"))) {
+				paths.forEach(file -> updateTemplate(file, pathCache));
 			}catch(final IOException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 			}
+		}
+
+		/**
+		 * Update the thumbnail of a template contained in the given file.
+		 * @param file The template to update the thumbnail.
+		 * @param pathCache The path where the thumbnails are stored.
+		 */
+		private void updateTemplate(final Path file, final String pathCache) {
+			Platform.runLater(() -> {
+				try {
+					final Group template = new Group();
+					final List<IShape> shapes = toLatexdraw(new SVGDocument(file.toUri()), 0);
+					template.getChildren().setAll(shapes.stream().map(sh -> ViewFactory.INSTANCE.createView(sh)).
+						filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList()));
+					final File thumb = new File(pathCache + File.separator + file.getFileName() + ExportFormat.PNG.getFileExtension());
+					createTemplateThumbnail(thumb, template);
+				}catch(final Exception ex) {
+					BadaboomCollector.INSTANCE.add(ex);
+				}
+			});
 		}
 
 		/**
