@@ -13,65 +13,87 @@ package net.sf.latexdraw.util;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * The different localizations of LaTeXDraw.
  * @author Arnaud BLOUIN
  */
 public final class LangTool {
+	/**
+	 * The singleton.
+	 */
 	public static final LangTool INSTANCE = new LangTool();
 
 	private final ResourceBundle bundle;
 
 	private LangTool() {
 		super();
-		bundle = readLang();
+		bundle = readLang().orElseThrow(() -> new IllegalArgumentException("Cannot read any resource bundle."));
 	}
 
-
+	/**
+	 * @return The lang bundle of the app.
+	 */
 	public ResourceBundle getBundle() {
 		return bundle;
 	}
 
 
 	/**
-	 * Allows to get the language of the program.
-	 * @return The read language, or the default language.
+	 * Gets the language of the program.
+	 * @return The read language, the default language, or nothing.
 	 */
-	private ResourceBundle readLang() {
+	private Optional<ResourceBundle> readLang() {
+		Optional<ResourceBundle> res = Optional.empty();
+
 		try {
 			final Path xml = Paths.get(LPath.PATH_PREFERENCES_XML_FILE);
 
-			if(Files.exists(xml)) {
+			if(xml.toFile().exists()) {
 				final Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(Files.newInputStream(xml)).getFirstChild();
 
-				if(node != null && node.getNodeName().equals(LNamespace.XML_ROOT_PREFERENCES)) {
-					final NodeList nl = node.getChildNodes();
-
-					for(int i = 0, size = nl.getLength(); i < size; i++)
-						if(nl.item(i).getNodeName().equals(LNamespace.XML_LANG)) {
-							ResourceBundle bu = loadResourceBundle(Locale.forLanguageTag(nl.item(i).getTextContent()));
-							if(bu == null) return getDefaultLanguage();
-							return bu;
-						}
+				if(node != null && LNamespace.XML_ROOT_PREFERENCES.equals(node.getNodeName())) {
+					res = getLangNode(node.getChildNodes()).map(lang ->
+						loadResourceBundle(Locale.forLanguageTag(lang.getTextContent())).orElseGet(() -> getDefaultLanguage().orElse(null)));
 				}
 			}
-		}catch(final Exception ex) {
+		}catch(final InvalidPathException | SAXException | ParserConfigurationException | IOException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
-		return getDefaultLanguage();
+
+		return Optional.ofNullable(res.orElseGet(() -> getDefaultLanguage().orElseGet(() -> loadResourceBundle(Locale.US).orElse(null))));
+	}
+
+
+	/**
+	 * Gets the lang node in a node list.
+	 * @param nl The node list to parse.
+	 * @return The node lang or nothing.
+	 */
+	private Optional<Node> getLangNode(final NodeList nl) {
+		for(int i = 0, size = nl.getLength(); i < size; i++) {
+			if(nl.item(i).getNodeName().equals(LNamespace.XML_LANG)) {
+				return Optional.ofNullable(nl.item(i));
+			}
+		}
+		return Optional.empty();
 	}
 
 
@@ -79,30 +101,34 @@ public final class LangTool {
 		return Locale.forLanguageTag(LFileUtils.INSTANCE.getFileNameNoExtension(fileName).replaceAll("bundle_", "").replaceAll("_", "-"));
 	}
 
-
+	/**
+	 * @return The list of locales supported by the app.
+	 */
 	public List<Locale> getSupportedLocales() {
 		try(final Stream<Path> list = Files.list(Paths.get(getClass().getResource("/lang").toURI()))) {
-			return list.filter(f -> !Files.isDirectory(f) && Files.isReadable(f)).
+			return list.filter(f -> !f.toFile().isDirectory() && Files.isReadable(f)).
 				map(f -> getLocaleFromFileName(f.getFileName().toString())).collect(Collectors.toList());
-		}catch(final IOException | URISyntaxException e) {
-			BadaboomCollector.INSTANCE.add(e);
+		}catch(final IOException | URISyntaxException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 		}
 		return Collections.emptyList();
 	}
 
 
-	/** @return The language used by default. */
-	private ResourceBundle getDefaultLanguage() {
+	/**
+	 * @return The language used by default, or nothing.
+	 */
+	private Optional<ResourceBundle> getDefaultLanguage() {
 		return loadResourceBundle(Locale.getDefault());
 	}
 
 
-	private ResourceBundle loadResourceBundle(Locale locale) {
+	private Optional<ResourceBundle> loadResourceBundle(final Locale locale) {
 		try {
-			return ResourceBundle.getBundle("lang.bundle", locale);
-		}catch(final Exception ex) {
+			return Optional.ofNullable(ResourceBundle.getBundle("lang.bundle", locale));
+		}catch(final MissingResourceException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
-			return null;
+			return Optional.empty();
 		}
 	}
 }
