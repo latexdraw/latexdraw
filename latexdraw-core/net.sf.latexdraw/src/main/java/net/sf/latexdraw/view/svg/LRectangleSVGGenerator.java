@@ -27,7 +27,7 @@ import static java.lang.Math.min;
  * An SVG generator for a rectangle.
  * @author Arnaud BLOUIN
  */
-class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
+class LRectangleSVGGenerator extends RectangularSVGGenerator<IRectangle> {
 	/**
 	 * Creates a generator of SVG rectangle.
 	 * @param rect The rectangle shape used for the generation.
@@ -37,7 +37,6 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	protected LRectangleSVGGenerator(final IRectangle rect) {
 		super(rect);
 	}
-
 
 
 	/**
@@ -66,117 +65,57 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	}
 
 
-
-	/**
-	 * Initialises the rectangle using an SVGGElement provided by a latexdraw SVG document.
-	 * @param elt The source element.
-	 * @throws IllegalArgumentException If the given element is null or not valid.
-	 * @since 3.0
-	 */
-	protected void initRectangle(final SVGGElement elt, final boolean withTransformation) {
-		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
-
-		if(elt==null || !(elt2 instanceof SVGRectElement))
-			throw new IllegalArgumentException();
-
-		setSVGLatexdrawParameters(elt);
-		setSVGRectParameters((SVGRectElement)elt2);
-		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
-		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
-
-		if(withTransformation)
-			applyTransformations(elt);
-	}
-
-
-
-	/**
-	 * Sets the parameters of the latexdraw rectangle using the given SVG rectangle.
-	 * @param elt The SVG rectangle used to set the latexdraw rectangle.
-	 * @since 2.0
-	 */
+	@Override
 	protected void setSVGRectParameters(final SVGRectElement elt) {
-		if(elt==null)
-			return ;
+		if(elt == null) return;
 
 		setSVGParameters(elt);
 
-		final double rx	= elt.getRx();
-		final double gap= getPositionGap();
+		final double rx = elt.getRx();
+		final double gap = getPositionGap();
 
-		shape.setPosition(elt.getX()+gap/2., elt.getY()+elt.getHeight()-gap/2.);
-		shape.setWidth(elt.getWidth()-gap);
-		shape.setHeight(elt.getHeight()-gap);
-		shape.setLineArc(2.*rx/(min(shape.getHeight(), shape.getWidth())- (shape.hasDbleBord() ? shape.getDbleBordSep()+shape.getThickness() : 0.)));
+		shape.setPosition(elt.getX() + gap / 2d, elt.getY() + elt.getHeight() - gap / 2d);
+		shape.setWidth(elt.getWidth() - gap);
+		shape.setHeight(elt.getHeight() - gap);
+		shape.setLineArc(2d * rx / (min(shape.getHeight(), shape.getWidth()) - (shape.hasDbleBord() ? shape.getDbleBordSep() + shape.getThickness() : 0d)));
 	}
-
 
 
 	@Override
 	public SVGElement toSVG(final SVGDocument document) {
-		if(document==null || document.getFirstChild().getDefs()==null)
+		if(document == null || document.getFirstChild().getDefs() == null) {
 			throw new IllegalArgumentException();
+		}
 
 		final double gap = getPositionGap();
-		final IPoint tl  = shape.getTopLeftPoint();
-		final IPoint br  = shape.getBottomRightPoint();
+		final IPoint tl = shape.getTopLeftPoint();
+		final IPoint br = shape.getBottomRightPoint();
 		SVGElement elt;
-        final SVGElement root = new SVGGElement(document);
-        final double width  = Math.max(1, br.getX()-tl.getX()+gap);
-        final double height = Math.max(1., br.getY()-tl.getY()+gap);
-        final double x		= tl.getX()-gap/2.;
-        final double y		= tl.getY()-gap/2.;
+		final SVGElement root = new SVGGElement(document);
+		final double width = Math.max(1d, br.getX() - tl.getX() + gap);
+		final double height = Math.max(1d, br.getY() - tl.getY() + gap);
+		final double x = tl.getX() - gap / 2d;
+		final double y = tl.getY() - gap / 2d;
 
-        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_RECT);
-        root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_RECT);
+		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-        if(shape.hasShadow()) {
-        	elt = new SVGRectElement(x, y, width, height, document);
-        	setSVGShadowAttributes(elt, true);
-        	root.appendChild(elt);
-        	setSVGRoundCorner(elt);
-        }
+		setShadowSVGRect(root, x, y, width, height, document);
 
-        if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
-        	// The background of the borders must be filled is there is a shadow.
-	        elt = new SVGRectElement(x, y, width, height, document);
-	        setSVGBorderBackground(elt, root);
-	        setSVGRoundCorner(elt);
-        }
+		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
+			// The background of the borders must be filled is there is a shadow.
+			elt = new SVGRectElement(x, y, width, height, document);
+			setSVGBorderBackground(elt, root);
+			setSVGRoundCorner(elt);
+		}
 
-        elt = new SVGRectElement(x, y, width, height, document);
-        root.appendChild(elt);
-        setSVGAttributes(document, elt, true);
-        setSVGRoundCorner(elt);
-
-        if(shape.hasDbleBord()) {
-        	elt = new SVGRectElement(x, y, width, height, document);
-        	setSVGDoubleBordersAttributes(elt);
-        	setSVGRoundCorner(elt);
-        	root.appendChild(elt);
-        }
-
-        setSVGRotationAttribute(root);
+		elt = new SVGRectElement(x, y, width, height, document);
+		root.appendChild(elt);
+		setSVGAttributes(document, elt, true);
+		setSVGRoundCorner(elt);
+		setDbleBordSVGRect(root, x, y, width, height, document);
+		setSVGRotationAttribute(root);
 
 		return root;
-	}
-
-
-
-	/**
-	 * Sets the roundness of the SVG shape.
-	 * @param elt The SVG element into which the roundness must be set.
-	 * @since 2.0.0
-	 */
-	protected void setSVGRoundCorner(final SVGElement elt) {
-		if(elt==null)
-			return ;
-
-		if(shape.isRoundCorner()) {
-			final double add = shape.isDbleBorderable() ? shape.getDbleBordSep() + shape.getThickness() : 0.;
-			final double value = 0.5*(min(shape.getWidth(), shape.getHeight())-add)*shape.getLineArc();
-
-			elt.setAttribute(SVGAttributes.SVG_RX, String.valueOf(value));
-		}
 	}
 }

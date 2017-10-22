@@ -13,6 +13,10 @@ package net.sf.latexdraw.view.latex;
 import com.google.inject.Inject;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -329,6 +333,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * Create an .eps file that corresponds to the compiled latex document containing the pstricks drawing.
 	 * @param pathExportEPS The path of the .eps file to create (MUST ends with .eps).
 	 * @return The create file or nothing.
+	 * @throws SecurityException In case of problem while accessing files.
 	 * @since 3.0
 	 */
 	public Optional<File> createEPSFile(final String pathExportEPS) {
@@ -359,10 +364,10 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return Optional.empty();
 		}
 
-		LFileUtils.INSTANCE.copy(fileEPS, finalFile);
-
-		if(!finalFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException("Cannot create the EPS file at this location: " + finalFile.getAbsolutePath())); //$NON-NLS-1$
+		try {
+			Files.copy(fileEPS.toPath(), finalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		}catch(final IOException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 			return Optional.empty();
 		}
 
@@ -442,6 +447,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param pathExportPdf The path of the .pdf file to create (MUST ends with .pdf).
 	 * @param crop if true, the output document will be cropped.
 	 * @return The create file or null.
+	 * @throws SecurityException In case of problem while accessing files.
 	 * @since 3.0
 	 */
 	public Optional<File> createPDFFile(final String pathExportPdf, final boolean crop) {
@@ -478,9 +484,10 @@ public abstract class LaTeXGenerator implements Modifiable {
 		if(crop) {
 			pdfFile = new File(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + name + ExportFormat.PDF.getFileExtension());
 			log = LSystem.INSTANCE.execute(new String[]{os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir);
-			// JAVA7: test pdfFile.toPath().move(pathExportPdf)
-			// the renameto method is weak and fails sometimes.
-			if(!pdfFile.renameTo(new File(pathExportPdf)) && !LFileUtils.INSTANCE.copy(pdfFile, new File(pathExportPdf))) {
+			try {
+				Files.move(pdfFile.toPath(), Paths.get(pathExportPdf), StandardCopyOption.REPLACE_EXISTING);
+			}catch(final IOException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
 				log += " The final pdf document cannot be moved to its final destination. If you use Windows, you must have a Perl interpretor installed, such as strawberryPerl (http://strawberryperl.com/)"; //$NON-NLS-1$
 			}
 		}

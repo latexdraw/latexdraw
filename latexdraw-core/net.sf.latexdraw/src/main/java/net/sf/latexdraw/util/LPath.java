@@ -11,8 +11,6 @@
 package net.sf.latexdraw.util;
 
 import java.io.File;
-import java.net.URL;
-import java.net.URLDecoder;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
@@ -22,23 +20,19 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 public final class LPath {
 	/** The singleton. */
 	public static final LPath INSTANCE = new LPath();
-
 	/** The name of the cache directory */
-	public static final String CACHE_DIR 		= ".cache";//$NON-NLS-1$
-
+	public static final String CACHE_DIR = ".cache"; //$NON-NLS-1$
 	/** The name of the cache directory for shared templates */
-	public static final String CACHE_SHARED_DIR = ".cacheShared";//$NON-NLS-1$
-
+	public static final String CACHE_SHARED_DIR = ".cacheShared"; //$NON-NLS-1$
 	/** The name of the templates directory */
-	public static final String TEMPLATE_DIR 	= "templates";//$NON-NLS-1$
-
-	public static final String PATH_LOCAL_USER 				= INSTANCE.getPathLocalUser();
-	public static final String PATH_TEMPLATES_DIR_USER 		= PATH_LOCAL_USER + File.separator + TEMPLATE_DIR;
-	public static final String PATH_PREFERENCES_XML_FILE   	= PATH_LOCAL_USER + File.separator + ".preferences.xml";//$NON-NLS-1$
-	public static final String PATH_CACHE_DIR      	   		= PATH_LOCAL_USER + File.separator + CACHE_DIR;
-	public static final String PATH_CACHE_SHARE_DIR	   		= PATH_LOCAL_USER + File.separator + CACHE_SHARED_DIR;
-	public static final String PATH_TEMPLATES_SHARED   		= INSTANCE.getPathTemplatesShared();
-	public static final String PATH_SHARED 			  		= INSTANCE.getPathShared();
+	public static final String TEMPLATE_DIR = "templates"; //$NON-NLS-1$
+	public static final String PATH_LOCAL_USER = INSTANCE.getPathLocalUser();
+	public static final String PATH_TEMPLATES_DIR_USER = PATH_LOCAL_USER + File.separator + TEMPLATE_DIR;
+	public static final String PATH_PREFERENCES_XML_FILE = PATH_LOCAL_USER + File.separator + ".preferences.xml"; //$NON-NLS-1$
+	public static final String PATH_CACHE_DIR = PATH_LOCAL_USER + File.separator + CACHE_DIR;
+	public static final String PATH_CACHE_SHARE_DIR = PATH_LOCAL_USER + File.separator + CACHE_SHARED_DIR;
+	public static final String PATH_TEMPLATES_SHARED = INSTANCE.getPathTemplatesShared();
+	public static final String PATH_SHARED = INSTANCE.getPathShared();
 
 
 	private LPath() {
@@ -53,7 +47,7 @@ public final class LPath {
 	 * @since 3.0
 	 */
 	public String getNormaliseNamespaceURI(final String nsURI) {
-		return nsURI==null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
+		return nsURI == null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
 	}
 
 
@@ -62,18 +56,18 @@ public final class LPath {
 	 * @since 3.0
 	 */
 	private String getPathLocalUser() {
-		final String home = System.getProperty("user.home");//$NON-NLS-1$
-		final String path;
+		final String home = System.getProperty("user.home"); //$NON-NLS-1$
 
-		if(LSystem.INSTANCE.isVista() || LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8() || LSystem.INSTANCE.is10())
-			path = home + "\\AppData\\Local\\latexdraw";//$NON-NLS-1$
-		else if(LSystem.INSTANCE.isXP())
-				path = home + "\\Application Data\\latexdraw";//$NON-NLS-1$
-		else if(LSystem.INSTANCE.isMacOSX())
-				path = home + "/Library/Preferences/latexdraw";//$NON-NLS-1$
-		else path = home + "/.latexdraw";//$NON-NLS-1$
-
-		return path;
+		if(LSystem.INSTANCE.isVista() || LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8() || LSystem.INSTANCE.is10()) {
+			return home + "\\AppData\\Local\\latexdraw"; //$NON-NLS-1$
+		}
+		if(LSystem.INSTANCE.isXP()) {
+			return home + "\\Application Data\\latexdraw"; //$NON-NLS-1$
+		}
+		if(LSystem.INSTANCE.isMacOSX()) {
+			return home + "/Library/Preferences/latexdraw"; //$NON-NLS-1$
+		}
+		return home + "/.latexdraw"; //$NON-NLS-1$
 	}
 
 
@@ -82,7 +76,7 @@ public final class LPath {
 	 * @since 3.0
 	 */
 	private String getPathTemplatesShared() {
-		return getPathShared()+File.separator+TEMPLATE_DIR;
+		return getPathShared() + File.separator + TEMPLATE_DIR;
 	}
 
 
@@ -91,34 +85,38 @@ public final class LPath {
 	 * @since 3.0
 	 */
 	private String getPathShared() {
-		final String home = System.getProperty("user.home");//$NON-NLS-1$
+		final String home = System.getProperty("user.home"); //$NON-NLS-1$
 
-		if(LSystem.INSTANCE.isMacOSX())
-			return "/Users/Shared/latexdraw";//$NON-NLS-1$
+		if(LSystem.INSTANCE.isMacOSX()) {
+			return "/Users/Shared/latexdraw"; //$NON-NLS-1$
+		}
 
 		if(LSystem.INSTANCE.isVista()) {
-			File dir = new File("C:\\ProgramData");//$NON-NLS-1$
+			File dir = new File("C:\\ProgramData"); //$NON-NLS-1$
 			int cpt = 0;
 			final int max = 10;
 
-			while(!dir.exists() && cpt<max)
-				dir = new File((char)('C'+cpt++)+":\\ProgramData");//$NON-NLS-1$
+			while(!dir.exists() && cpt < max) {
+				dir = new File((char) ('C' + cpt++) + ":\\ProgramData"); //$NON-NLS-1$
+			}
 
-			if(dir.exists())
-				return dir.getPath()+"\\latexdraw";//$NON-NLS-1$
+			if(dir.exists()) {
+				return dir.getPath() + "\\latexdraw"; //$NON-NLS-1$
+			}
 
-			return home.substring(0, 1+home.lastIndexOf('\\'))+"All Users\\Application Data\\latexdraw";//$NON-NLS-1$
+			return home.substring(0, 1 + home.lastIndexOf('\\')) + "All Users\\Application Data\\latexdraw"; //$NON-NLS-1$
 		}
 
-		if(LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8() || LSystem.INSTANCE.is10())
-			return home.substring(0, 1+home.lastIndexOf('\\'))+"Default\\AppData\\Local\\latexdraw";//$NON-NLS-1$
+		if(LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8() || LSystem.INSTANCE.is10()) {
+			return home.substring(0, 1 + home.lastIndexOf('\\')) + "Default\\AppData\\Local\\latexdraw"; //$NON-NLS-1$
+		}
 
-		if(LSystem.INSTANCE.isXP())
-			return home.substring(0, 1+home.lastIndexOf('\\'))+"All Users\\Application Data\\latexdraw";//$NON-NLS-1$
+		if(LSystem.INSTANCE.isXP()) {
+			return home.substring(0, 1 + home.lastIndexOf('\\')) + "All Users\\Application Data\\latexdraw"; //$NON-NLS-1$
+		}
 
-		return "/usr/share/latexdraw";//$NON-NLS-1$
+		return "/usr/share/latexdraw"; //$NON-NLS-1$
 	}
-
 
 
 	/**
@@ -129,8 +127,9 @@ public final class LPath {
 		try {
 			new File(PATH_SHARED).mkdirs();
 			new File(PATH_TEMPLATES_SHARED).mkdirs();
+		}catch(final SecurityException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 		}
-		catch(final SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -144,48 +143,8 @@ public final class LPath {
 			new File(PATH_TEMPLATES_DIR_USER).mkdirs();
 			new File(PATH_CACHE_DIR).mkdirs();
 			new File(PATH_CACHE_SHARE_DIR).mkdirs();
-		}
-		catch(final SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
-	}
-
-
-
-	/**
-	 * Allows to get the path of the project where the class LaTeXDrawPath is located.
-	 * @return The path or null.
-	 * @since 1.9.2
-	 */
-	public String getPathJar() {
-		try {
-			String path = LPath.class.getSimpleName() + ".class";//$NON-NLS-1$
-		    final URL url = LPath.class.getResource(path);
-		    path = URLDecoder.decode(url.toString(), "UTF-8");//$NON-NLS-1$
-		    int index = path.lastIndexOf('/');
-		    path = path.substring(0, index);
-		    final String jar = "jar:file:";//$NON-NLS-1$
-            final String file = "file:"; //$NON-NLS-1$
-
-            if(path.startsWith(jar))  {
-		    	index = path.lastIndexOf('!');
-		    	path = path.substring(jar.length(), path.substring(0, index).lastIndexOf('/'));
-		    }
-		    else {
-		    	path = path.substring(file.length(), path.length());
-		    	final Package pack = LPath.class.getPackage();
-
-		    	if(pack != null) {
-		    		final String packPath = pack.getName().replace('.', '/');
-
-		    		if(path.endsWith(packPath))
-		    			path = path.substring(0, path.length() - packPath.length());
-		      }
-		    }
-
-		    return path;
-
-		}catch(final Exception e) {
-			BadaboomCollector.INSTANCE.add(e);
-			return null;
+		}catch(final SecurityException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 		}
 	}
 }

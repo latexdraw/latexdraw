@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.view.svg;
 
+import java.util.Optional;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
@@ -44,13 +45,15 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 	protected LTextSVGGenerator(final SVGTextElement elt) {
 		this(ShapeFactory.INST.createText());
 
-		if(elt==null)
+		if(elt == null) {
 			throw new IllegalArgumentException();
+		}
 
 		final String txt = elt.getText();
 
-		if(txt==null || txt.isEmpty())
+		if(txt == null || txt.isEmpty()) {
 			throw new IllegalArgumentException("This text is empty."); //$NON-NLS-1$
+		}
 
 		shape.setText(txt);
 		shape.setPosition(elt.getX(), elt.getY());
@@ -66,48 +69,59 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 	protected LTextSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createText());
 
-		if(elt==null)
+		if(elt == null) {
 			throw new IllegalArgumentException();
+		}
 
 		final NodeList nl = elt.getElementsByTagNameNS(SVGDocument.SVG_NAMESPACE, SVGElements.SVG_TEXT);
 
-		if(nl.getLength()>0) {
-			final SVGTextElement text = (SVGTextElement)nl.item(0);
+		if(nl.getLength() > 0) {
+			final SVGTextElement text = (SVGTextElement) nl.item(0);
 			shape.setText(text.getText());
 			shape.setPosition(text.getX(), text.getY());
-		}
-		else
+		}else {
 			throw new IllegalArgumentException();
+		}
 
-		TextSize textSize;
-		try { textSize = TextSize.getTextSizeFromSize(Double.valueOf(elt.getSVGAttribute(SVGAttributes.SVG_FONT_SIZE, null)).intValue()); }
-		catch(final Exception e) { textSize = null; }
+		TextSize textSize = Optional.ofNullable(elt.getSVGAttribute(SVGAttributes.SVG_FONT_SIZE, null)).
+			map(attr -> {
+				try {
+					return TextSize.getTextSizeFromSize(Double.valueOf(attr).intValue());
+				}catch(final NumberFormatException ex) {
+					return null;
+				}
+			}).orElse(null);
 
-		if(textSize!=null)
+		if(textSize != null) {
 			shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		}
 
-		if(SVGAttributes.SVG_FONT_WEIGHT_BOLD.equals(elt.getSVGAttribute(SVGAttributes.SVG_FONT_WEIGHT, null)))
+		if(SVGAttributes.SVG_FONT_WEIGHT_BOLD.equals(elt.getSVGAttribute(SVGAttributes.SVG_FONT_WEIGHT, null))) {
 			shape.setText("\\textbf{" + shape.getText() + '}'); //$NON-NLS-1$
+		}
 
-		if(SVGAttributes.SVG_FONT_STYLE_ITALIC.equals(elt.getSVGAttribute(SVGAttributes.SVG_FONT_STYLE, null)))
+		if(SVGAttributes.SVG_FONT_STYLE_ITALIC.equals(elt.getSVGAttribute(SVGAttributes.SVG_FONT_STYLE, null))) {
 			shape.setText("\\emph{" + shape.getText() + '}'); //$NON-NLS-1$
+		}
 
 		shape.setLineColour(CSSColors.INSTANCE.getRGBColour(elt.getFill()));
 		shape.setTextPosition(TextPosition.getTextPosition(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POSITION)));
 
-		if(withTransformation)
+		if(withTransformation) {
 			applyTransformations(elt);
+		}
 	}
 
 
 	@Override
 	public SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null)
+		if(doc == null) {
 			return null;
+		}
 
 		final SVGElement root = new SVGGElement(doc);
-		final String ltdPref  = LNamespace.LATEXDRAW_NAMESPACE + ':';
-		final Element txt 	  = new SVGTextElement(doc);
+		final String ltdPref = LNamespace.LATEXDRAW_NAMESPACE + ':';
+		final Element txt = new SVGTextElement(doc);
 
 		root.setAttribute(ltdPref + LNamespace.XML_TYPE, LNamespace.XML_TYPE_TEXT);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());

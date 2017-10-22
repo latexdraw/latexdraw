@@ -32,7 +32,7 @@ public class SVGPointsParser extends AbstractSVGParser {
 			final SVGPointsParser pp = new SVGPointsParser(code);
 			pp.parse();
 			return pp.getPoints();
-		}catch(final Exception ex) {
+		}catch(final IllegalArgumentException | ParseException ex) {
 			return null;
 		}
 	}
@@ -132,7 +132,7 @@ public class SVGPointsParser extends AbstractSVGParser {
 
 		try {
 			n = Double.parseDouble(strn.toString());
-		}catch(final Exception ex) {
+		}catch(final NumberFormatException ex) {
 			throw new ParseException("Not able to parse to given number:" + strn, getPosition()); //$NON-NLS-1$
 		}
 

@@ -151,8 +151,8 @@ public class Export extends ActionImpl {
 		try {
 			ImageIO.write(rendImage, format, file);
 			success = true;
-		}catch(final IOException e) {
-			BadaboomCollector.INSTANCE.add(e);
+		}catch(final IOException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 		}
 		rendImage.flush();
 		return success;
@@ -170,8 +170,8 @@ public class Export extends ActionImpl {
 
 		try {
 			psFile = pstGen.createEPSFile(file.getAbsolutePath()).orElse(null);
-		}catch(final Exception e) {
-			BadaboomCollector.INSTANCE.add(e);
+		}catch(final SecurityException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 			psFile = null;
 		}
 
@@ -190,8 +190,8 @@ public class Export extends ActionImpl {
 
 		try {
 			pdfFile = pstGen.createPDFFile(file.getAbsolutePath(), format == ExportFormat.PDF_CROP).orElse(null);
-		}catch(final Exception e) {
-			BadaboomCollector.INSTANCE.add(e);
+		}catch(final SecurityException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 			pdfFile = null;
 		}
 

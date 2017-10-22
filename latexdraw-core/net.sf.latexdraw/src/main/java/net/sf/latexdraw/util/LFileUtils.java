@@ -10,11 +10,8 @@
  */
 package net.sf.latexdraw.util;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,6 +68,10 @@ public final class LFileUtils {
         return fileNameExt.substring(0, pos);
 	}
 
+	/**
+	 * Removes the given dir with its content.
+	 * @param dir The directory to remove.
+	 */
 	public void removeDirWithContent(final String dir) {
 		if(dir == null) return;
 
@@ -135,7 +136,9 @@ public final class LFileUtils {
 	        	txt.append(line).append(LSystem.EOL);
 	            line = br.readLine();
 	        }
-		}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+		}catch(final IOException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+		}
 		return txt.toString();
 	}
 
@@ -150,56 +153,25 @@ public final class LFileUtils {
 		final String path = pathTmp + (pathTmp.endsWith(LSystem.FILE_SEP) ? "" : LSystem.FILE_SEP) + "latexdraw" + LSystem.FILE_SEP + //$NON-NLS-1$ //$NON-NLS-2$
 			"latexdrawTmp" + System.currentTimeMillis() + new Random().nextInt(100000); //$NON-NLS-1$
 		final File tmpDir = new File(path);
-		boolean ok = tmpDir.mkdirs();
-
-		if(ok) {
-			// Rights are removed for everybody.
-			ok = tmpDir.setReadable(false, false);
-			// They are added to the owner only.
-			ok = ok && tmpDir.setReadable(true, true);
-			// same thing here.
-			ok = ok && tmpDir.setWritable(false, false);
-			ok = ok && tmpDir.setWritable(true, true);
-			tmpDir.deleteOnExit();
-		}
-
-		return ok ? Optional.of(tmpDir) : Optional.empty();
-	}
-
-
-	/**
-	 * Copies a file.
-	 * The renameTo method does not allow action across NFS mounted filesystems
-	 * this method is the workaround
-	 * @param fromFile The existing File
-	 * @param toFile The new File
-	 * @return  <code>true</code> if and only if the renaming succeeded;
-	 *          <code>false</code> otherwise
-	 */
-	public boolean copy(final File fromFile, final File toFile) {
-		boolean ok = true;
 
 		try {
-	    	try(FileInputStream in 	= new FileInputStream(fromFile);
-    			FileOutputStream out = new FileOutputStream(toFile);
-    			BufferedInputStream inBuffer = new BufferedInputStream(in);
-    			BufferedOutputStream outBuffer= new BufferedOutputStream(out)){
+			boolean ok = tmpDir.mkdirs();
 
-		    	int theByte = inBuffer.read();
+			if(ok) {
+				// Rights are removed for everybody.
+				ok = tmpDir.setReadable(false, false);
+				// They are added to the owner only.
+				ok = ok && tmpDir.setReadable(true, true);
+				// same thing here.
+				ok = ok && tmpDir.setWritable(false, false);
+				ok = ok && tmpDir.setWritable(true, true);
+				tmpDir.deleteOnExit();
+			}
 
-		    	while(theByte > -1){
-		    		outBuffer.write(theByte);
-		    		theByte = inBuffer.read();
-		    	}
-	    	}
-		}catch(final Exception ex) { ok = false; }
-
-    	// cleanup if files are not the same length
-    	if(fromFile.length() != toFile.length()) {
-    		toFile.delete();
-    		ok = false;
-    	}
-
-    	return ok;
+			return ok ? Optional.of(tmpDir) : Optional.empty();
+		}catch(final SecurityException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+			return Optional.empty();
+		}
 	}
 }

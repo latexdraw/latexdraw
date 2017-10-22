@@ -47,6 +47,7 @@ import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -125,8 +126,8 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			if(worker.get()) {
 				return worker.getInsertedShapes();
 			}
-		}catch(final InterruptedException | ExecutionException e) {
-			BadaboomCollector.INSTANCE.add(e);
+		}catch(final InterruptedException | ExecutionException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 		}
 		return null;
 	}
@@ -240,8 +241,8 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 					//				ui.updatePresentations();
 				});
 				return true;
-			}catch(final Exception e) {
-				BadaboomCollector.INSTANCE.add(e);
+			}catch(final IOException | MalformedSVGDocument ex) {
+				BadaboomCollector.INSTANCE.add(ex);
 				return false;
 			}
 		}

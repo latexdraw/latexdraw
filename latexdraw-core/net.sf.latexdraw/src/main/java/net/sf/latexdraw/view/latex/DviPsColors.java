@@ -518,14 +518,14 @@ public final class DviPsColors  {
 	 * @param y The y level between 0 and 1.
 	 * @param k The k level between 0 and 1.
 	 * @return The corresponding rgb colour.
+	 * @throws IllegalArgumentException On an invalid parameter.
 	 * @since 2.0.0
 	 */
 	public Color convertcmyk2rgb(final double c, final double m, final double y, final double k) {
-		if(c < 0 || c > 1) throw new IllegalArgumentException(String.valueOf(c));
-		if(m < 0 || m > 1) throw new IllegalArgumentException(String.valueOf(m));
-		if(y < 0 || y > 1) throw new IllegalArgumentException(String.valueOf(y));
-		if(k < 0 || k > 1) throw new IllegalArgumentException(String.valueOf(k));
-		return ShapeFactory.INST.createColor(1.0-(c*(1.0-k)+k), 1.0-(m*(1.0-k)+k), 1.0-(y*(1.0-k)+k));
+		if(c < 0d || c > 1d | m < 0d || m > 1d | y < 0d || y > 1d | k < 0d || k > 1d) {
+			throw new IllegalArgumentException(String.valueOf(c));
+		}
+		return ShapeFactory.INST.createColor((1d - c) * (1d - k), (1d - m) * (1d - k), (1d - y) * (1d - k));
 	}
 
 
@@ -536,7 +536,9 @@ public final class DviPsColors  {
 	 * @since 2.0.0
 	 */
     public Color convertgray2rgb(final double g) {
-		if(g < 0 || g > 1) throw new IllegalArgumentException(String.valueOf(g));
+		if(g < 0d || g > 1d) {
+			throw new IllegalArgumentException(String.valueOf(g));
+		}
 		return ShapeFactory.INST.createColor(g, g, g);
 	}
 }

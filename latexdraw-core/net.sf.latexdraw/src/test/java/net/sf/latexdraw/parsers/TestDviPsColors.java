@@ -46,7 +46,7 @@ public class TestDviPsColors {
 
 	@Test
 	public void testConvertcmyk2rgbsuccess() {
-		assertEquals(ShapeFactory.INST.createColor(1d, 0d, 100d / 255d, 1d), DviPsColors.INSTANCE.convertcmyk2rgb(0d, 1d, 0.608, 0d));
+		assertEquals(ShapeFactory.INST.createColor(1d, 0d, 99.96 / 255d, 1d), DviPsColors.INSTANCE.convertcmyk2rgb(0d, 1d, 0.608, 0d));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -241,7 +241,8 @@ public class TestDviPsColors {
 
 	@Test
 	public void testCMYK2RGBOK() {
-		assertEquals(ShapeFactory.INST.createColor(51d / 255d, 92d / 255d, 71d / 255d, 1d), DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 0.1, 0.3, 0.6));
+		assertEquals(ShapeFactory.INST.createColor(51d / 255d, 91.8 / 255d, 71.4 / 255d, 1d),
+			DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 0.1, 0.3, 0.6));
 	}
 
 	@Test

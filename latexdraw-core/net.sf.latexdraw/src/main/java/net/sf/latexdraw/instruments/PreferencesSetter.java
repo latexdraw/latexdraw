@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.fxml.FXML;
@@ -189,103 +190,84 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	private void processXMLDataPreference(final File xml) {
 		final Map<String, Node> prefMap = Preference.readXMLPreferencesFromFile(xml);
-		final Stage frame = (Stage) pathExportField.getScene().getWindow();
-		Node n2;
-		Node node;
+		final Stage stage = (Stage) pathExportField.getScene().getWindow();
 
-		node = prefMap.get(LNamespace.XML_LATEX_INCLUDES);
-		if(node != null) latexIncludes.setText(node.getTextContent());
+		Optional.ofNullable(prefMap.get(LNamespace.XML_LATEX_INCLUDES)).ifPresent(node -> latexIncludes.setText(node.getTextContent()));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_OPENGL)).ifPresent(node -> openGL.setSelected(Boolean.parseBoolean(node.getTextContent())));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_CHECK_VERSION)).ifPresent(node -> checkNewVersion.setSelected(Boolean.parseBoolean(node.getTextContent())));
 
-		node = prefMap.get(LNamespace.XML_OPENGL);
-		if(node != null) openGL.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_CHECK_VERSION);
-		if(node != null) checkNewVersion.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_CLASSIC_GRID);
-		if(node != null) if(Boolean.parseBoolean(node.getTextContent())) styleList.getSelectionModel().select(GridStyle.STANDARD);
-		else styleList.getSelectionModel().select(GridStyle.CUSTOMISED);
-
-		node = prefMap.get(LNamespace.XML_DISPLAY_GRID);
-		if(node != null) if(!Boolean.parseBoolean(node.getTextContent())) styleList.getSelectionModel().select(GridStyle.NONE);
-
-		node = prefMap.get(LNamespace.XML_GRID_GAP);
-		if(node != null) persoGridGapField.getValueFactory().setValue(Integer.valueOf(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_LANG);
-		if(node != null) langList.getSelectionModel().select(node.getTextContent());
-
-		node = prefMap.get(LNamespace.XML_MAGNETIC_GRID);
-		if(node != null) magneticCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_PATH_EXPORT);
-		if(node != null) pathExportField.setText(node.getTextContent());
-
-		node = prefMap.get(LNamespace.XML_PATH_OPEN);
-		if(node != null) pathOpenField.setText(node.getTextContent());
-
-		node = prefMap.get(LNamespace.XML_UNIT);
-		if(node != null) unitChoice.getSelectionModel().select(node.getTextContent());
-
-		node = prefMap.get(LNamespace.XML_RECENT_FILES);
-		if(node != null) {
-			final NodeList nl2 = node.getChildNodes();
-			final NamedNodeMap nnm = node.getAttributes();
-			recentFileNames.clear();
-
-			if(nnm != null && nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES) != null) {
-				final Node attr = nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES);
-
-				if(attr != null) {
-					nbRecentFilesField.getValueFactory().setValue(Integer.valueOf(attr.getTextContent()));
-				}
+		Optional.ofNullable(prefMap.get(LNamespace.XML_CLASSIC_GRID)).ifPresent(node -> {
+			if(Boolean.parseBoolean(node.getTextContent())) {
+				styleList.getSelectionModel().select(GridStyle.STANDARD);
+			}else {
+				styleList.getSelectionModel().select(GridStyle.CUSTOMISED);
 			}
+		});
 
-			for(int j = 0, size2 = nl2.getLength(); j < size2; j++) {
-				n2 = nl2.item(j);
+		Optional.ofNullable(prefMap.get(LNamespace.XML_DISPLAY_GRID)).map(node -> !Boolean.parseBoolean(node.getTextContent())).
+			ifPresent(node -> styleList.getSelectionModel().select(GridStyle.NONE));
 
-				if(n2.getNodeName().equals(LNamespace.XML_RECENT_FILE) && n2.getTextContent() != null) {
-					recentFileNames.add(n2.getTextContent());
-				}
-			}
+		Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_GAP)).ifPresent(node -> persoGridGapField.getValueFactory().setValue(Integer.valueOf(node.getTextContent())));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_LANG)).ifPresent(node -> langList.getSelectionModel().select(node.getTextContent()));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_MAGNETIC_GRID)).ifPresent(node -> magneticCB.setSelected(Boolean.parseBoolean(node.getTextContent())));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_EXPORT)).ifPresent(node -> pathExportField.setText(node.getTextContent()));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_OPEN)).ifPresent(node -> pathOpenField.setText(node.getTextContent()));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_UNIT)).ifPresent(node -> unitChoice.getSelectionModel().select(node.getTextContent()));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_RECENT_FILES)).ifPresent(node -> setRecentFiles(node));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_MAXIMISED)).ifPresent(node -> stage.setFullScreen(Boolean.parseBoolean(node.getTextContent())));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_SIZE)).ifPresent(node -> setStageSize(node, stage));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_POSITION)).ifPresent(node -> setStagePosition(node, stage));
+	}
+
+	private void setRecentFiles(final Node node) {
+		final NodeList nl = node.getChildNodes();
+		final NamedNodeMap nnm = node.getAttributes();
+		recentFileNames.clear();
+
+		if(nnm != null && nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES) != null) {
+			Optional.ofNullable(nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES)).
+				ifPresent(attr -> nbRecentFilesField.getValueFactory().setValue(Integer.valueOf(attr.getTextContent())));
 		}
 
-		node = prefMap.get(LNamespace.XML_MAXIMISED);
-		if(node != null) {
-			frame.setFullScreen(Boolean.parseBoolean(node.getTextContent()));
-		}
+		for(int i = 0, size = nl.getLength(); i < size; i++) {
+			final Node n2 = nl.item(i);
 
-		node = prefMap.get(LNamespace.XML_SIZE);
-		if(node != null) {
-			final NodeList nl2 = node.getChildNodes();
-
-			for(int j = 0, size2 = nl2.getLength(); j < size2; j++) {
-				n2 = nl2.item(j);
-
-				if(n2.getNodeName().equals(LNamespace.XML_WIDTH)) {
-					frame.setWidth(Double.valueOf(n2.getTextContent()));
-				}else {
-					if(n2.getNodeName().equals(LNamespace.XML_HEIGHT)) {
-						frame.setHeight(Double.valueOf(n2.getTextContent()));
-					}
-				}
+			if(n2.getNodeName().equals(LNamespace.XML_RECENT_FILE) && n2.getTextContent() != null) {
+				recentFileNames.add(n2.getTextContent());
 			}
 		}
+	}
 
-		node = prefMap.get(LNamespace.XML_POSITION);
-		if(node != null) {
-			final NodeList nl2 = node.getChildNodes();
+	private void setStageSize(final Node node, final Stage stage) {
+		final NodeList nl = node.getChildNodes();
 
-			for(int j = 0, size2 = nl2.getLength(); j < size2; j++) {
-				n2 = nl2.item(j);
+		for(int i = 0, size = nl.getLength(); i < size; i++) {
+			final Node n2 = nl.item(i);
 
-				if(n2.getNodeName().equals(LNamespace.XML_POSITION_X)) {
-					frame.setX(Math.max(0, Double.valueOf(n2.getTextContent())));
-				}else {
-					if(n2.getNodeName().equals(LNamespace.XML_POSITION_Y)) {
-						frame.setY(Math.max(0, Double.valueOf(n2.getTextContent())));
-					}
-				}
+			switch(n2.getNodeName()) {
+				case LNamespace.XML_WIDTH:
+					stage.setWidth(Double.valueOf(n2.getTextContent()));
+					break;
+				case LNamespace.XML_HEIGHT:
+					stage.setHeight(Double.valueOf(n2.getTextContent()));
+					break;
+			}
+		}
+	}
+
+	private void setStagePosition(final Node node, final Stage stage) {
+		final NodeList nl = node.getChildNodes();
+
+		for(int i = 0, size = nl.getLength(); i < size; i++) {
+			final Node n2 = nl.item(i);
+
+			switch(n2.getNodeName()) {
+				case LNamespace.XML_POSITION_X:
+					stage.setX(Math.max(0d, Double.valueOf(n2.getTextContent())));
+					break;
+				case LNamespace.XML_POSITION_Y:
+					stage.setY(Math.max(0d, Double.valueOf(n2.getTextContent())));
+					break;
 			}
 		}
 	}
@@ -424,8 +406,8 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); //$NON-NLS-1$ //$NON-NLS-2$
 				transformer.transform(new DOMSource(document), new StreamResult(fos));
 			}
-		}catch(final Exception e) {
-			BadaboomCollector.INSTANCE.add(e);
+		}catch(final Exception ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 		}
 	}
 
@@ -437,10 +419,13 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	public void readXMLPreferences() {
 		final File xml = new File(LPath.PATH_PREFERENCES_XML_FILE);
 
-		if(xml.canRead()) {
-			processXMLDataPreference(xml);
+		try {
+			if(xml.canRead()) {
+				processXMLDataPreference(xml);
+			}
+			applyValues();
+		}catch(final SecurityException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 		}
-
-		applyValues();
 	}
 }

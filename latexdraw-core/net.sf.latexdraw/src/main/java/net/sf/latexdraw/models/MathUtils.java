@@ -91,11 +91,11 @@ public final class MathUtils {
 	}
 
 	/**
-	 * Compares two double values to know if they are approximately equal.
+	 * Compares two double values to know whether they are approximately equal.
 	 * @param a The first double value.
 	 * @param b The second double value.
 	 * @param threshold The threshold used to compare the given values.
-	 * @return True if both values are approximatively equal using a threshold approximation value.
+	 * @return True if both values are approximately equal using a threshold approximation value.
 	 * @since 3.0
 	 */
 	public boolean equalsDouble(final double a, final double b, final double threshold) {

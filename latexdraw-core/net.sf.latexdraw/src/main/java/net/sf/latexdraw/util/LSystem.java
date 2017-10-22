@@ -11,6 +11,7 @@
 package net.sf.latexdraw.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -226,22 +227,27 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String execute(final String[] cmd, final File tmpdir) {
-		if(cmd == null || cmd.length == 0)
+		if(cmd == null || cmd.length == 0) {
 			return null;
+		}
 
 		try {
-			final Process process 	 = Runtime.getRuntime().exec(cmd, null, tmpdir);  // Command launched
-			final StreamExecReader err = new StreamExecReader(process.getErrorStream());// Catch the error log
-			final StreamExecReader inp = new StreamExecReader(process.getInputStream());// Catch the log
+			// Command launched
+			final Process process = Runtime.getRuntime().exec(cmd, null, tmpdir);
+			// Catch the error log
+			final StreamExecReader err = new StreamExecReader(process.getErrorStream());
+			// Catch the log
+			final StreamExecReader inp = new StreamExecReader(process.getInputStream());
 
 			err.start();
 			inp.start();
 
-			process.waitFor();// Waiting for the end of the process.
+			// Waiting for the end of the process.
+			process.waitFor();
 
 			return err.getLog() + EOL + inp.getLog();
-		}catch(final Exception e) {
-			return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + e.getMessage(); //$NON-NLS-1$ //$NON-NLS-2$
+		}catch(final IOException | SecurityException | InterruptedException ex) {
+			return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + ex.getMessage(); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

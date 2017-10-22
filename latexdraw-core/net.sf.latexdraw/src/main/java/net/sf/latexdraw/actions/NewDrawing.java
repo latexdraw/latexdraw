@@ -66,11 +66,7 @@ public class NewDrawing extends IOAction<Label> implements Modifying {
 		ui.reinit();
 		UndoCollector.INSTANCE.clear();
 		ActionsRegistry.INSTANCE.clear();
-		try {
-			prefSetter.readXMLPreferences();
-		}catch(final Exception exc) {
-			BadaboomCollector.INSTANCE.add(exc);
-		}
+		prefSetter.readXMLPreferences();
 	}
 
 

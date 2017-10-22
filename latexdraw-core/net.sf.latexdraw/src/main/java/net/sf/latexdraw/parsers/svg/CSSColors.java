@@ -22,18 +22,9 @@ import net.sf.latexdraw.models.interfaces.shape.Color;
  * @author Arnaud BLOUIN
  */
 public final class CSSColors {
-//	/** The colours defined by the user. */
-//	private List<Color> userColours = new ArrayList<Color>();
-//
-//	/** The name of the colours defined by the user. */
-//	private List<String> usernameColours = new ArrayList<String>();
-
 	private final Map<String, Color> userColours;
-
 	private final Map<String, Color> colourHashtable;
-
 	private final Map<Color, String> nameColourHashtable;
-
 
 	public static final String CSS_LINEN_NAME	 		= "linen";//$NON-NLS-1$
     public static final String CSS_ALICEBLUE_NAME 		= "aliceblue";//$NON-NLS-1$
@@ -692,7 +683,6 @@ public final class CSSColors {
 	}
 
 
-
 	/**
 	 * Converts an hexadecimal colour to an RBG one.
 	 * @param hex The colour in hexadecimal.
@@ -700,97 +690,81 @@ public final class CSSColors {
 	 * @since 2.0.0
 	 */
 	public Color hexToRBG(final String hex) {
-		if(hex==null || !hex.startsWith("#")) //$NON-NLS-1$
+		if(hex == null || !hex.startsWith("#") || hex.length() != 7 && hex.length() != 4) { //$NON-NLS-1$
 			return null;
-
-		try {
-			final String col = hex.substring(1);
-			String r;
-            String g;
-            String b;
-
-            switch(col.length()) {
-				case 6:// #112233 for instance.
-					r = col.substring(0, 2);
-					g = col.substring(2, 4);
-					b = col.substring(4, 6);
-					break;
-
-				case 3: // #123 for instance.
-					r = String.valueOf(col.charAt(0));
-					g = String.valueOf(col.charAt(1));
-					b = String.valueOf(col.charAt(2));
-
-					r+=r;
-					g+=g;
-					b+=b;
-					break;
-
-				default:
-					throw new IllegalArgumentException();
-			}
-
-			return ShapeFactory.INST.createColorInt(Integer.parseInt(r, 16), Integer.parseInt(g, 16), Integer.parseInt(b, 16));
 		}
-		catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
-		return null;
+
+		final String col = hex.substring(1);
+
+		// #112233 for instance.
+		if(col.length() == 6) {
+			return ShapeFactory.INST.createColorInt(Integer.parseInt(col.substring(0, 2), 16),
+				Integer.parseInt(col.substring(2, 4), 16), Integer.parseInt(col.substring(4, 6), 16));
+		}
+
+		final String r = String.valueOf(col.charAt(0));
+		final String g = String.valueOf(col.charAt(1));
+		final String b = String.valueOf(col.charAt(2));
+
+		// #123 for instance.
+		return ShapeFactory.INST.createColorInt(Integer.parseInt(r + r, 16), Integer.parseInt(g + g, 16), Integer.parseInt(b + b, 16));
 	}
 
 
-
-
 	/**
-	 * Creates the corresponding hexadecimal colour given a RGB one.
-	 * @param c The given RBG colour.
-	 * @return The corresponding hexadecimal colour.
+	 * Creates the corresponding hexadecimal colour from an RGB one.
+	 * @param c The RBG colour to convert.
+	 * @return The corresponding hexadecimal colour or null if there is a problem.
 	 * @since 2.0.0
 	 */
 	public String rgbToHex(final Color c) {
-		if(c==null)
-			return ""; //$NON-NLS-1$
+		if(c == null) {
+			return null;
+		}
 
-		String r = Integer.toHexString((int) (255.0*c.getR()));
-		String g = Integer.toHexString((int) (255.0*c.getG()));
-		String b = Integer.toHexString((int) (255.0*c.getB()));
+		String r = Integer.toHexString((int) (255d * c.getR()));
+		String g = Integer.toHexString((int) (255d * c.getG()));
+		String b = Integer.toHexString((int) (255d * c.getB()));
 
-		if(r.length()==1)
+		if(r.length() == 1) {
 			r = '0' + r;
+		}
 
-		if(g.length()==1)
+		if(g.length() == 1) {
 			g = '0' + g;
+		}
 
-		if(b.length()==1)
+		if(b.length() == 1) {
 			b = '0' + b;
+		}
 
 		return '#' + r + g + b;
 	}
 
 
-
-
 	/**
-	 * Allows to get a RGB colour from a string which can be either an hexadecimal colour (CSS) or an explicit colour name (blue,...)
+	 * Gets an RGB colour from a string that can be either an hexadecimal colour (CSS) ,or an explicit colour name (blue,...),
 	 * or an RGB colour in this format: rgb(r,g,b).
-	 * If <code>str</code> is null, null is returned.
-	 * @param str The colour to read.
+	 * @param str The colour to parse.
 	 * @return The found colour or null.
 	 * @since 2.0.0
 	 */
 	public Color getRGBColour(final String str) {
-		Color c = null;
+		if(str == null) {
+			return null;
+		}
 
-		if(str!=null)
-			if(str.startsWith("#"))//$NON-NLS-1$
-				c = hexToRBG(str);
-			else
-				if(str.startsWith("rgb("))//$NON-NLS-1$
-					c = svgRgbtoRgb(str);
-				else
-					c = getColor(str);
+		if(str.startsWith("#")) { //$NON-NLS-1$
+			return hexToRBG(str);
+		}
 
-		return c;
+		if(str.startsWith("rgb(")) { //$NON-NLS-1$
+			return svgRgbtoRgb(str);
+
+		}
+
+		return getColor(str);
 	}
-
 
 
 	/**
@@ -800,30 +774,32 @@ public final class CSSColors {
 	 * @since 2.0.0
 	 */
 	public Color svgRgbtoRgb(final String str) {
-		if(str==null || !str.startsWith("rgb(") || !str.endsWith(")"))//$NON-NLS-1$//$NON-NLS-2$
+		if(str == null || !str.startsWith("rgb(") || !str.endsWith(")")) { //$NON-NLS-1$//$NON-NLS-2$
 			return null;
+		}
 
-		Color c = null;
-		final String s = str.substring(4, str.length()-1);
-		final String[] rgbs = s.split(",");//$NON-NLS-1$
+		final String s = str.substring(4, str.length() - 1);
+		final String[] rgbs = s.split(","); //$NON-NLS-1$
+
+		if(rgbs.length != 3) {
+			return null;
+		}
+
+		rgbs[0] = rgbs[0].replaceAll("[\t ]", ""); //$NON-NLS-1$//$NON-NLS-2$
+		rgbs[1] = rgbs[1].replaceAll("[\t ]", ""); //$NON-NLS-1$//$NON-NLS-2$
+		rgbs[2] = rgbs[2].replaceAll("[\t ]", ""); //$NON-NLS-1$//$NON-NLS-2$
 
 		try {
-			if(rgbs.length==3){
-				rgbs[0] = rgbs[0].replaceAll("[\t ]", "");//$NON-NLS-1$//$NON-NLS-2$
-				rgbs[1] = rgbs[1].replaceAll("[\t ]", "");//$NON-NLS-1$//$NON-NLS-2$
-				rgbs[2] = rgbs[2].replaceAll("[\t ]", "");//$NON-NLS-1$//$NON-NLS-2$
-
-				if(rgbs[0].contains("%")) {//$NON-NLS-1$
-					if(rgbs[0].endsWith("%") && rgbs[1].endsWith("%") && rgbs[2].endsWith("%"))//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-						c = ShapeFactory.INST.createColor(Double.parseDouble(rgbs[0].substring(0, rgbs[0].length()-1))/100.,
-								Double.parseDouble(rgbs[1].substring(0, rgbs[1].length()-1))/100.,
-								Double.parseDouble(rgbs[2].substring(0, rgbs[2].length()-1))/100.);
-				}
-				else
-					c = ShapeFactory.INST.createColorInt(Integer.parseInt(rgbs[0]), Integer.parseInt(rgbs[1]), Integer.parseInt(rgbs[2]));
+			if(rgbs[0].endsWith("%") && rgbs[1].endsWith("%") && rgbs[2].endsWith("%")) { //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+				return ShapeFactory.INST.createColor(
+					Double.parseDouble(rgbs[0].substring(0, rgbs[0].length() - 1)) / 100d,
+					Double.parseDouble(rgbs[1].substring(0, rgbs[1].length() - 1)) / 100d,
+					Double.parseDouble(rgbs[2].substring(0, rgbs[2].length() - 1)) / 100d);
 			}
+			return ShapeFactory.INST.createColorInt(Integer.parseInt(rgbs[0]), Integer.parseInt(rgbs[1]), Integer.parseInt(rgbs[2]));
+		}catch(final NumberFormatException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+			return null;
 		}
-		catch(final IllegalArgumentException e) { return null; }
-		return c;
 	}
 }
