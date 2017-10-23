@@ -33,17 +33,17 @@ public enum Unit {
 	};
 
 	/**
-	 * @return The label of the unit.
-	 * @since 3.0
-	 */
-	public abstract String getLabel();
-
-	/**
 	 * @param label The label to test.
 	 * @return The unit corresponding to the given label, or CM.
 	 * @since 3.0
 	 */
-	public static  Unit getUnit(final String label) {
+	public static Unit getUnit(final String label) {
 		return Arrays.stream(values()).filter(it -> it.getLabel().equals(label)).findFirst().orElse(CM);
 	}
+
+	/**
+	 * @return The label of the unit.
+	 * @since 3.0
+	 */
+	public abstract String getLabel();
 }
