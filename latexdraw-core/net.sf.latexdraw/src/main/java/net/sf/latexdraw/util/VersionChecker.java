@@ -13,20 +13,19 @@ package net.sf.latexdraw.util;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import javafx.application.Platform;
 import net.sf.latexdraw.instruments.StatusBarController;
 
 /**
- * To check whether a new version of LaTeXDraw is out. This class is a child of Thread to avoid a freeze when the application starts.
+ * To check whether a new version of LaTeXDraw is out.
  * @author Arnaud BLOUIN
  * @since 1.8
  */
-public final class VersionChecker extends Thread {
+public final class VersionChecker implements Runnable {
 	/** The version of the application */
-    public static final String VERSION   = "4.0.0"; //$NON-NLS-1$
+	public static final String VERSION = "4.0.0"; //$NON-NLS-1$
 
 	/** The stability of the build. */
 	public static final String VERSION_STABILITY = "-snapshot"; //$NON-NLS-1$
@@ -36,9 +35,6 @@ public final class VersionChecker extends Thread {
 
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;
-
-	/** The path of the file containing the news */
-	public static final String PATH_MSG = "http://latexdraw.sourceforge.net/news.txt"; //$NON-NLS-1$
 
 	private final StatusBarController statusBar;
 
@@ -54,23 +50,18 @@ public final class VersionChecker extends Thread {
 
 	@Override
 	public void run() {
-		try {
-			try(final InputStream is  = new URL(PATH_MSG).openStream();
-				final DataInputStream dis = new DataInputStream(is);
-				final InputStreamReader isr = new InputStreamReader(dis);
-				final BufferedReader br = new BufferedReader(isr)) {
-				final String line = br.readLine();
-				final String[] div = line == null ? null : line.split("_"); //$NON-NLS-1$
+		try(final BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(
+				new URL("http://latexdraw.sourceforge.net/news.txt").openStream())))) {
+			final String line = br.readLine();
+			final String[] div = line == null ? null : line.split("_"); //$NON-NLS-1$
 
-				if(div != null && div.length > 3 && div[3].compareTo(VERSION) > 0) {
-					Platform.runLater(() -> {
-						statusBar.getLabel().setVisible(true);
-						statusBar.getLabel().setText(LangTool.INSTANCE.getBundle().getString("Version.1") + ' ' + div[3] + ". "
-							+ "See the release note:");
-						statusBar.getLink().setVisible(true);
-						statusBar.getLink().setText("http://latexdraw.sourceforge.net/");
-					});
-				}
+			if(div != null && div.length > 3 && div[3].compareTo(VERSION) > 0) {
+				Platform.runLater(() -> {
+					statusBar.getLabel().setVisible(true);
+					statusBar.getLabel().setText(LangTool.INSTANCE.getBundle().getString("Version.1") + ' ' + div[3] + ". See the release note:");
+					statusBar.getLink().setVisible(true);
+					statusBar.getLink().setText("http://latexdraw.sourceforge.net/");
+				});
 			}
 		}catch(final IOException ex) {
 			/* Nothing to do. */

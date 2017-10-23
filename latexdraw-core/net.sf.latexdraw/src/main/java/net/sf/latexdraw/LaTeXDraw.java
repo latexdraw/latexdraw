@@ -173,7 +173,7 @@ public class LaTeXDraw extends JfxUI {
 					injector.getInstance(Canvas.class).requestFocus();
 					// Checking a new version if required.
 					if(VersionChecker.WITH_UPDATE && injector.getInstance(PreferencesSetter.class).isVersionCheckEnable()) {
-						new VersionChecker(injector.getInstance(StatusBarController.class)).start();
+						new Thread(new VersionChecker(injector.getInstance(StatusBarController.class))).start();
 					}
 					setModified(false);
 				});
