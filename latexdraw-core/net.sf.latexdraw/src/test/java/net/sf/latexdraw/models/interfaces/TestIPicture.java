@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javafx.stage.Stage;
+import java.util.concurrent.TimeoutException;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -15,21 +15,27 @@ import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class TestIPicture extends ApplicationTest implements HelperTest {
+public class TestIPicture implements HelperTest {
 	IPicture shape;
 	Path path;
 
 	@Rule public TemporaryFolder folder;
+
+	@BeforeClass
+	public static void beforeClass() throws TimeoutException {
+		FxToolkit.registerPrimaryStage();
+	}
 
 	@Before
 	public void setUp() throws IOException, URISyntaxException {
@@ -121,10 +127,5 @@ public class TestIPicture extends ApplicationTest implements HelperTest {
 		assertTrue(shape.isTypeOf(IPositionShape.class));
 		assertTrue(shape.isTypeOf(IPicture.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
-	}
-
-	@Override
-	public void start(final Stage stage) throws Exception {
-		// Nothing to do. Just used to initialised JFX to load images.
 	}
 }
