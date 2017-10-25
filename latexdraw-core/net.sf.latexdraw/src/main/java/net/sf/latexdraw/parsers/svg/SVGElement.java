@@ -19,7 +19,6 @@ import net.sf.latexdraw.parsers.svg.parsers.CSSStyleParser;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
-import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -30,7 +29,7 @@ import org.w3c.dom.UserDataHandler;
  * Defines an SVG element.
  * @author Arnaud BLOUIN
  */
-public abstract class SVGElement implements Element, Cloneable {
+public abstract class SVGElement implements LElement, Cloneable {
 	/** The attributes of the element. */
 	protected final SVGNamedNodeMap attributes;
 
@@ -526,9 +525,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	}
 
 
-	/**
-	 * @return The prefix followed by Character ':'. This method aims at simplifying the use of the prefix.
-	 */
+	@Override
 	public String getUsablePrefix() {
 		final String prefix = getPrefix();
 

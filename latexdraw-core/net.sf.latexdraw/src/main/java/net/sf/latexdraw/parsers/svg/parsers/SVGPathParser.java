@@ -26,10 +26,9 @@ import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
 /**
  * Defines an SVGPath parser.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public class SVGPathParser extends SVGNumberParser {
-	/** The handler of the SVGPath. @since 0.1 */
+	/** The handler of the SVGPath. */
 	protected SVGPathHandler handler;
 
 
@@ -40,10 +39,8 @@ public class SVGPathParser extends SVGNumberParser {
 	 */
 	public SVGPathParser(final String code, final SVGPathHandler handler) {
 		super(code);
-
 		this.handler = handler;
 	}
-
 
 
 	@Override
@@ -51,10 +48,10 @@ public class SVGPathParser extends SVGNumberParser {
 		setPosition(0);
 		skipWSP();
 
-		if(getChar()!='m' && getChar()!='M')// The first command must be a moveto command.
-			throw new ParseException("moveto command (m|M) expected.", getPosition());//$NON-NLS-1$
+		if(getChar() != 'm' && getChar() != 'M') // The first command must be a moveto command.
+			throw new ParseException("moveto command (m|M) expected.", getPosition()); //$NON-NLS-1$
 
-		parseMoveto(getChar()=='m');
+		parseMoveto(getChar() == 'm');
 
 		while(!isEOC()) {
 			skipWSP();
@@ -141,7 +138,7 @@ public class SVGPathParser extends SVGNumberParser {
 					break;
 
 				default:
-					throw new ParseException("Invalid token:" + getChar(), getPosition());//$NON-NLS-1$
+					throw new ParseException("Invalid token:" + getChar(), getPosition()); //$NON-NLS-1$
 			}
 		}
 	}
@@ -151,15 +148,14 @@ public class SVGPathParser extends SVGNumberParser {
 	 * Parses an SVGPath smooth curveto.
 	 * @param isRelative True if segment is relative.
 	 * @throws ParseException If a problem occurs.
-	 * @since 0.1
 	 */
 	protected void parseShorthandCurveto(final boolean isRelative) throws ParseException {
 		double x;
-        double y;
-        double x2;
-        double y2;
+		double y;
+		double x2;
+		double y2;
 
-        nextChar();
+		nextChar();
 		skipWSP();
 		x2 = parseNumber(false);
 		skipWSPComma();
@@ -183,7 +179,6 @@ public class SVGPathParser extends SVGNumberParser {
 			handler.onPathSeg(new SVGPathSegCurvetoCubicSmooth(x, y, x2, y2, isRelative));
 		}
 	}
-
 
 
 	/**
@@ -246,14 +241,14 @@ public class SVGPathParser extends SVGNumberParser {
 	 */
 	protected void parseEllipticalArcto(final boolean isRelative) throws ParseException {
 		double x;
-        double y;
-        double rx;
-        double ry;
-        double angle;
-        boolean laf;
-        boolean sf;
+		double y;
+		double rx;
+		double ry;
+		double angle;
+		boolean laf;
+		boolean sf;
 
-        nextChar();
+		nextChar();
 		skipWSP();
 		rx = parseNumber(true);
 		skipWSPComma();
@@ -298,13 +293,13 @@ public class SVGPathParser extends SVGNumberParser {
 	 */
 	protected void parseCurveto(final boolean isRelative) throws ParseException {
 		double x;
-        double y;
-        double x1;
-        double x2;
-        double y1;
-        double y2;
+		double y;
+		double x1;
+		double x2;
+		double y1;
+		double y2;
 
-        nextChar();
+		nextChar();
 		skipWSP();
 		x1 = parseNumber(false);
 		skipWSPComma();
@@ -345,11 +340,11 @@ public class SVGPathParser extends SVGNumberParser {
 	 */
 	protected void parseQuadraticBezierCurveto(final boolean isRelative) throws ParseException {
 		double x;
-        double y;
-        double x1;
-        double y1;
+		double y;
+		double x1;
+		double y1;
 
-        nextChar();
+		nextChar();
 		skipWSP();
 		x1 = parseNumber(false);
 		skipWSPComma();
@@ -382,15 +377,22 @@ public class SVGPathParser extends SVGNumberParser {
 	 */
 	protected void parseShorthandQuadraticBezierCurveto(final boolean isRelative) throws ParseException {
 		double x;
-        double y;
+		double y;
 
-        nextChar();
+		nextChar();
 		skipWSP();
 		x = parseNumber(false);
 		skipWSPComma();
 		y = parseNumber(false);
 		skipWSPComma();
 		handler.onPathSeg(new SVGPathSegCurvetoQuadraticSmooth(x, y, isRelative));
+		parserPathSeg(isRelative);
+	}
+
+
+	private void parserPathSeg(final boolean isRelative) throws ParseException {
+		double x;
+		double y;
 
 		while(!isEOC() && isNumber(false)) {
 			x = parseNumber(false);
@@ -408,26 +410,15 @@ public class SVGPathParser extends SVGNumberParser {
 	 * @throws ParseException If a problem occurs.
 	 */
 	protected void parseLineto(final boolean isRelative) throws ParseException {
-		double x;
-        double y;
-
-        nextChar();
+		nextChar();
 		skipWSP();
-		x = parseNumber(false);
+		double x = parseNumber(false);
 		skipWSPComma();
-		y = parseNumber(false);
+		double y = parseNumber(false);
 		skipWSPComma();
 		handler.onPathSeg(new SVGPathSegLineto(x, y, isRelative));
-
-		while(!isEOC() && isNumber(false)) {
-			x = parseNumber(false);
-			skipWSPComma();
-			y = parseNumber(false);
-			skipWSPComma();
-			handler.onPathSeg(new SVGPathSegLineto(x, y, isRelative));
-		}
+		parserPathSeg(isRelative);
 	}
-
 
 
 	/**
@@ -436,23 +427,13 @@ public class SVGPathParser extends SVGNumberParser {
 	 * @throws ParseException If a problem occurs.
 	 */
 	protected void parseMoveto(final boolean isRelative) throws ParseException {
-		double x;
-        double y;
-
-        nextChar();
+		nextChar();
 		skipWSP();
-		x = parseNumber(false);
+		double x = parseNumber(false);
 		skipWSPComma();
-		y = parseNumber(false);
+		double y = parseNumber(false);
 		skipWSPComma();
 		handler.onPathSeg(new SVGPathSegMoveto(x, y, isRelative));
-
-		while(!isEOC() && isNumber(false)) {
-			x = parseNumber(false);
-			skipWSPComma();
-			y = parseNumber(false);
-			skipWSPComma();
-			handler.onPathSeg(new SVGPathSegLineto(x, y, isRelative));
-		}
+		parserPathSeg(isRelative);
 	}
 }

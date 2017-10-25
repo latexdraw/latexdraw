@@ -20,7 +20,7 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  * @since 0.1
  */
-public class SVGTextElement extends SVGElement {
+public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 	/**
 	 * {@link SVGElement#SVGElement(Node, SVGElement)}
 	 * @param owner The owner document.
@@ -38,21 +38,20 @@ public class SVGTextElement extends SVGElement {
 	}
 
 
-
 	/**
 	 * @return The text of the SVG text element.
-	 * @since 0.1
 	 */
 	public String getText() {
 		final NodeList nl = getChildNodes();
 		int i;
-        final int size = nl.getLength();
-        final StringBuilder buf = new StringBuilder();
+		final int size = nl.getLength();
+		final StringBuilder buf = new StringBuilder();
 
-
-		for(i=0; i<size; i++)
-			if(nl.item(i) instanceof SVGText)
-				buf.append(((SVGText)nl.item(i)).getData());
+		for(i = 0; i < size; i++) {
+			if(nl.item(i) instanceof SVGText) {
+				buf.append(((SVGText) nl.item(i)).getData());
+			}
+		}
 
 		return buf.toString();
 	}
@@ -70,53 +69,22 @@ public class SVGTextElement extends SVGElement {
 	}
 
 
-
-	/**
-	 * @return The value of the X attribute (0 if there it does not exist or it is not a length).
-	 * @since 0.1
-	 */
-	public double getX() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
-		double x;
-
-		try { x = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { x = 0; }
-
-		return x;
-	}
-
-
-
-	/**
-	 * @return The value of the Y attribute (0 if there it does not exist or it is not a length).
-	 * @since 0.1
-	 */
-	public double getY() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
-		double y;
-
-		try { y = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { y = 0; }
-
-		return y;
-	}
-
-
-
 	/**
 	 * @return The value of the dx attribute (0 if there it does not exist or it is not a length).
 	 * @since 0.1
 	 */
 	public double getDX() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_DX);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_DX);
 		double dx;
 
-		try { dx = v==null ? 0 : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { dx = 0; }
+		try {
+			dx = v == null ? 0d : new SVGLengthParser(v).parseLength().getValue();
+		}catch(final ParseException ex) {
+			dx = 0d;
+		}
 
 		return dx;
 	}
-
 
 
 	/**
@@ -124,11 +92,14 @@ public class SVGTextElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getDY() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_DY);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_DY);
 		double dy;
 
-		try { dy = v==null ? 0 : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { dy = 0; }
+		try {
+			dy = v == null ? 0d : new SVGLengthParser(v).parseLength().getValue();
+		}catch(final ParseException ex) {
+			dy = 0d;
+		}
 
 		return dy;
 	}

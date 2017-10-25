@@ -10,18 +10,16 @@
  */
 package net.sf.latexdraw.parsers.svg;
 
-import java.text.ParseException;
 import java.util.List;
 import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
+import net.sf.latexdraw.util.LSystem;
 import org.w3c.dom.Node;
 
 /**
  * Defines the SVG tag <code>SVG</code>.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
-public class SVGSVGElement extends SVGElement {
+public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 	/**
 	 * See {@link SVGElement#SVGElement()}
 	 * @param n The node.
@@ -30,34 +28,23 @@ public class SVGSVGElement extends SVGElement {
 	 */
 	public SVGSVGElement(final SVGDocument owner, final Node n) throws MalformedSVGDocument {
 		super(n);
-
-		if(n==null || !n.getNodeName().endsWith(SVGElements.SVG_SVG) || owner==null)
-			throw new IllegalArgumentException();
-
-		if(!checkAttributes())
-			throw new MalformedSVGDocument();
+		if(n == null || !n.getNodeName().endsWith(SVGElements.SVG_SVG) || owner == null) throw new IllegalArgumentException();
+		if(!checkAttributes()) throw new MalformedSVGDocument();
 
 		ownerDocument = owner;
 	}
 
 
-
 	/**
-	 *
 	 * @param n The source node.
 	 * @param e Will not be used.
 	 * @throws MalformedSVGDocument If the document is not valid.
 	 */
 	public SVGSVGElement(final Node n, final SVGElement e) throws MalformedSVGDocument {
 		super(n, e);
-
-		if(n==null || !n.getNodeName().endsWith(SVGElements.SVG_SVG))
-			throw new IllegalArgumentException();
-
-		if(!checkAttributes())
-			throw new MalformedSVGDocument();
+		if(n == null || !n.getNodeName().endsWith(SVGElements.SVG_SVG)) throw new IllegalArgumentException();
+		if(!checkAttributes()) throw new MalformedSVGDocument();
 	}
-
 
 
 	/**
@@ -68,78 +55,64 @@ public class SVGSVGElement extends SVGElement {
 	public SVGSVGElement(final SVGDocument owner) {
 		super();
 
-		if(owner==null)
-			throw new IllegalArgumentException();
+		if(owner == null) throw new IllegalArgumentException();
 
-		setAttribute("xmlns", SVGDocument.SVG_NAMESPACE);//$NON-NLS-1$
+		setAttribute("xmlns", SVGDocument.SVG_NAMESPACE); //$NON-NLS-1$
 		ownerDocument = owner;
 
 		setNodeName(SVGElements.SVG_SVG);
 	}
 
 
-
 	/**
 	 * @return the meta element or null.
-	 * @since 0.1
 	 */
 	public SVGMetadataElement getMeta() {
-		SVGMetadataElement meta = null;
-
-		for(int i=0, size=children.getLength(); i<size && meta==null; i++)
-			if(children.item(i) instanceof SVGMetadataElement)
-				meta = (SVGMetadataElement)children.item(i);
-
-		return meta;
+		return children.getNodes().stream().filter(ch -> ch instanceof SVGMetadataElement).map(ch -> (SVGMetadataElement) ch).findAny().orElse(null);
 	}
-
 
 
 	/**
 	 * @return the defs element or null.
-	 * @since 0.1
 	 */
 	public SVGDefsElement getDefs() {
-		SVGDefsElement defs = null;
-
-		for(int i=0, size=children.getLength(); i<size && defs==null; i++)
-			if(children.item(i) instanceof SVGDefsElement)
-				defs = (SVGDefsElement)children.item(i);
-
-		return defs;
+		return children.getNodes().stream().filter(ch -> ch instanceof SVGDefsElement).map(ch -> (SVGDefsElement) ch).findAny().orElse(null);
 	}
-
 
 
 	@Override
 	public String toString() {
-		final SVGMetadataElement meta	= getMeta();
-		final SVGDefsElement defs		= getDefs();
-		final StringBuilder str = new StringBuilder().append('[').append("attributes=");//$NON-NLS-1$
+		final SVGMetadataElement meta = getMeta();
+		final SVGDefsElement defs = getDefs();
+		final StringBuilder str = new StringBuilder().append('[').append("attributes="); //$NON-NLS-1$
 
-		if(attributes!=null)
-			str.append(attributes).append('\n');
+		if(attributes != null) {
+			str.append(attributes).append(LSystem.EOL);
+		}
 
-		if(meta!=null)
-			str.append(", meta=").append(meta).append('\n');//$NON-NLS-1$
+		if(meta != null) {
+			str.append(", meta=").append(meta).append(LSystem.EOL); //$NON-NLS-1$
+		}
 
-		if(defs!=null)
-			str.append(", defs=").append(defs).append('\n');//$NON-NLS-1$
+		if(defs != null) {
+			str.append(", defs=").append(defs).append(LSystem.EOL); //$NON-NLS-1$
+		}
 
-		str.append(", children={");//$NON-NLS-1$
+		str.append(", children={"); //$NON-NLS-1$
 
 		final List<SVGElement> chiNodes = children.getNodes();
 		final int size = chiNodes.size();
 
-		for(int i=0; i<size-1; i++)
+		for(int i = 0; i < size - 1; i++) {
 			str.append(chiNodes.get(i)).append(',');
+		}
 
-		if(size>0)
-			str.append(chiNodes.get(chiNodes.size()-1));
+		if(size > 0) {
+			str.append(chiNodes.get(chiNodes.size() - 1));
+		}
 
 		return str.append('}').append(']').toString();
 	}
-
 
 
 	@Override
@@ -148,72 +121,9 @@ public class SVGSVGElement extends SVGElement {
 	}
 
 
-
 	@Override
 	public boolean enableRendering() {
-		return !MathUtils.INST.equalsDouble(getWidth(), 0.) && !MathUtils.INST.equalsDouble(getHeight(), 0.);
-	}
-
-
-
-	/**
-	 * @return The value of the X attribute (0 if there it does not exist or it is not a length).
-	 * @since 0.1
-	 */
-	public double getX() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
-		double x;
-
-		try { x = v==null ? 0. : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { x = 0.; }
-
-		return x;
-	}
-
-
-	/**
-	 * @return The value of the X attribute (0 if there it does not exist or it is not a length).
-	 * @since 0.1
-	 */
-	public double getY() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
-		double y;
-
-		try { y = v==null ? 0. : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { y = 0.; }
-
-		return y;
-	}
-
-
-
-	/**
-	 * @return The value of the <code>width</code> attribute (0 if there it does not exist or it is not a length).
-	 * @since 0.1
-	 */
-	public double getWidth() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_WIDTH);
-		double width;
-
-		try { width = v==null ? 1. : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { width = 1.; }
-
-		return width;//FIXME: doit retourner 100%
-	}
-
-
-	/**
-	 * @return The value of the <code>height</code> attribute (0 if there it does not exist or it is not a length).
-	 * @since 0.1
-	 */
-	public double getHeight() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_HEIGHT);
-		double height;
-
-		try { height = v==null ? 1. : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { height = 1.; }
-
-		return height; //FIXME: doit retourner 100%
+		return !MathUtils.INST.equalsDouble(getWidth(), 0d) && !MathUtils.INST.equalsDouble(getHeight(), 0d);
 	}
 
 
@@ -222,6 +132,6 @@ public class SVGSVGElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public String getVersion() {
-		return getAttribute(getUsablePrefix()+SVGAttributes.SVG_VERSION);
+		return getAttribute(getUsablePrefix() + SVGAttributes.SVG_VERSION);
 	}
 }

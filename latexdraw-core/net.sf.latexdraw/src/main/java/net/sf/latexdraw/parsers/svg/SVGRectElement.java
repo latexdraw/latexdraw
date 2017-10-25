@@ -17,9 +17,8 @@ import org.w3c.dom.Node;
 /**
  * Defines the SVG tag <code>rect</code>.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
-public class SVGRectElement extends SVGElement {
+public class SVGRectElement extends SVGElement implements SVGRectParseTrait {
 	/**
 	 * See {@link SVGElement#SVGElement(Node, SVGElement)}.
 	 * @throws MalformedSVGDocument If the element is not well formed.
@@ -27,7 +26,6 @@ public class SVGRectElement extends SVGElement {
 	public SVGRectElement(final Node node, final SVGElement elt) throws MalformedSVGDocument {
 		super(node, elt);
 	}
-
 
 
 	/**
@@ -38,7 +36,6 @@ public class SVGRectElement extends SVGElement {
 	 * @param h The height of the rectangle.
 	 * @param owner The document owner.
 	 * @throws IllegalArgumentException If owner is null or if a given value is not valid.
-	 * @since 0.1
 	 */
 	public SVGRectElement(final double x, final double y, final double w, final double h, final SVGDocument owner) {
 		super(owner);
@@ -50,122 +47,57 @@ public class SVGRectElement extends SVGElement {
 		setNodeName(SVGElements.SVG_RECT);
 		ownerDocument = owner;
 
-		if(!checkAttributes())
+		if(!checkAttributes()) {
 			throw new IllegalArgumentException();
+		}
 	}
-
 
 
 	/**
 	 * Creates an SVG rectangle with width=height=0.
 	 * @param doc The owner document.
-	 * @since 0.1
 	 */
 	public SVGRectElement(final SVGDocument doc) {
 		super(doc);
 
 		setNodeName(SVGElements.SVG_RECT);
-		setAttribute(SVGAttributes.SVG_WIDTH, "0");//$NON-NLS-1$
-		setAttribute(SVGAttributes.SVG_HEIGHT, "0");//$NON-NLS-1$
+		setAttribute(SVGAttributes.SVG_WIDTH, "0"); //$NON-NLS-1$
+		setAttribute(SVGAttributes.SVG_HEIGHT, "0"); //$NON-NLS-1$
 	}
-
 
 
 	@Override
 	public boolean checkAttributes() {
-		final double vWidth	= getWidth();
-		final double vHeight	= getHeight();
-		final double vrx		= getRx();
-		final double vry		= getRy();
+		final double vWidth = getWidth();
+		final double vHeight = getHeight();
+		final double vrx = getRx();
+		final double vry = getRy();
 
-        return !(Double.isNaN(vWidth) || Double.isNaN(vHeight) || vWidth < 0 || vHeight < 0 || vrx < 0 || vry < 0);
+		return !(Double.isNaN(vWidth) || Double.isNaN(vHeight) || vWidth < 0d || vHeight < 0d || vrx < 0d || vry < 0d);
 
-    }
-
-
+	}
 
 
 	@Override
 	public boolean enableRendering() {
-        return !(getWidth() == 0 || getHeight() == 0);
+		return !(Double.compare(getWidth(), 0d) == 0 || Double.compare(getHeight(), 0d) == 0);
 
-    }
-
-
-	/**
-	 * @return The value of the X attribute (0 if there it does not exist or it is not a length).
-	 * The x-axis coordinate of the side of the rectangle which has the smaller x-axis coordinate value in the current user coordinate system.
-	 * @since 0.1
-	 */
-	public double getX() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
-		double x;
-
-		try { x = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { x = 0; }
-
-		return x;
-	}
-
-
-	/**
-	 * @return The value of the Y attribute (0 if there it does not exist or it is not a length).
-	 * The y-axis coordinate of the side of the rectangle which has the smaller y-axis coordinate value in the current user coordinate system.
-	 * @since 0.1
-	 */
-	public double getY() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
-		double y;
-
-		try { y = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { y = 0; }
-
-		return y;
-	}
-
-
-
-	/**
-	 * @return The value of the <code>width</code> attribute. The width of the rectangle.
-	 * @since 0.1
-	 */
-	public double getWidth() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_WIDTH);
-		double width;
-
-		try { width = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { width = Double.NaN; }
-
-		return width;
-	}
-
-
-	/**
-	 * @return The value of the <code>height</code> attribute. The height of the rectangle.
-	 * @since 0.1
-	 */
-	public double getHeight() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_HEIGHT);
-		double height;
-
-		try { height = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { height = Double.NaN; }
-
-		return height;
 	}
 
 
 	/**
 	 * @return The value of the rx attribute (0 if there it does not exist or it is not a length).
 	 * For rounded rectangles, the x-axis radius of the ellipse used to round off the corners of the rectangle.
-	 * @since 0.1
 	 */
 	public double getRx() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RX);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX);
 		double rx;
 
-		try { rx = v==null ? 0 : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { rx = 0; }
+		try {
+			rx = v == null ? 0d : new SVGLengthParser(v).parseLength().getValue();
+		}catch(final ParseException ex) {
+			rx = 0d;
+		}
 
 		return rx;
 	}
@@ -174,14 +106,16 @@ public class SVGRectElement extends SVGElement {
 	/**
 	 * @return The value of the ry attribute (0 if there it does not exist or it is not a length).
 	 * For rounded rectangles, the y-axis radius of the ellipse used to round off the corners of the rectangle.
-	 * @since 0.1
 	 */
 	public double getRy() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RY);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY);
 		double ry;
 
-		try { ry = v==null ? 0 : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { ry = 0; }
+		try {
+			ry = v == null ? 0d : new SVGLengthParser(v).parseLength().getValue();
+		}catch(final ParseException ex) {
+			ry = 0d;
+		}
 
 		return ry;
 	}
