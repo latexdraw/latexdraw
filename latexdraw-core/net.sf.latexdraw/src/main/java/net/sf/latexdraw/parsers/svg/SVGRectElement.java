@@ -119,4 +119,9 @@ public class SVGRectElement extends SVGElement implements SVGRectParseTrait {
 
 		return ry;
 	}
+
+	@Override
+	public boolean isDimensionsRequired() {
+		return true;
+	}
 }

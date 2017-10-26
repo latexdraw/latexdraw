@@ -11,7 +11,6 @@
 package net.sf.latexdraw.parsers.svg;
 
 import java.util.List;
-import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.util.LSystem;
 import org.w3c.dom.Node;
 
@@ -123,7 +122,7 @@ public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 
 	@Override
 	public boolean enableRendering() {
-		return !MathUtils.INST.equalsDouble(getWidth(), 0d) && !MathUtils.INST.equalsDouble(getHeight(), 0d);
+		return getWidth() >= 0d && getHeight() >= 0d;
 	}
 
 
@@ -133,5 +132,10 @@ public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 	 */
 	public String getVersion() {
 		return getAttribute(getUsablePrefix() + SVGAttributes.SVG_VERSION);
+	}
+
+	@Override
+	public boolean isDimensionsRequired() {
+		return false;
 	}
 }

@@ -103,4 +103,9 @@ public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 
 		return dy;
 	}
+
+	@Override
+	public boolean isDimensionsRequired() {
+		return false;
+	}
 }

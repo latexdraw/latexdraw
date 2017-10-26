@@ -80,4 +80,9 @@ public class SVGImageElement extends SVGElement implements SVGRectParseTrait {
 			return false;
 		}
 	}
+
+	@Override
+	public boolean isDimensionsRequired() {
+		return true;
+	}
 }

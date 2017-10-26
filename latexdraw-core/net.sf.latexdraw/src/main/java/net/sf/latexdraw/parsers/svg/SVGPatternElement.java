@@ -168,4 +168,9 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 			return Double.NaN;
 		}
 	}
+
+	@Override
+	public boolean isDimensionsRequired() {
+		return false;
+	}
 }

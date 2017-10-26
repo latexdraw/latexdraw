@@ -91,7 +91,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testEnableRenderingKO0() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_WIDTH, "0");
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "-1");
 		e = new SVGSVGElement(node, null);
 		assertFalse(e.enableRendering());
 	}
@@ -99,7 +99,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	@Test
 	public void testEnableRenderingKO00() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
-		node.setAttribute(SVGAttributes.SVG_HEIGHT, "0");
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "-1");
 		e = new SVGSVGElement(node, null);
 		assertFalse(e.enableRendering());
 	}

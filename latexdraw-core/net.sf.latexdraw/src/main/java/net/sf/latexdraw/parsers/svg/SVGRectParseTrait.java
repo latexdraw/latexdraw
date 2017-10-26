@@ -18,6 +18,8 @@ import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
  * @author Arnaud Blouin
  */
 interface SVGRectParseTrait extends LElement {
+	boolean isDimensionsRequired();
+
 	/**
 	 * @return The value of the X attribute (0 if there it does not exist or it is not a length).
 	 */
@@ -27,7 +29,7 @@ interface SVGRectParseTrait extends LElement {
 
 		try {
 			x = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
-		}catch(final ParseException e) {
+		}catch(final ParseException ex) {
 			x = 0d;
 		}
 
@@ -57,12 +59,13 @@ interface SVGRectParseTrait extends LElement {
 	 */
 	default double getWidth() {
 		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_WIDTH);
+		final double defVal = isDimensionsRequired() ? Double.NaN : 0d;
 		double width;
 
 		try {
-			width = v == null ? 1d : new SVGLengthParser(v).parseLength().getValue();
+			width = v == null ? defVal : new SVGLengthParser(v).parseLength().getValue();
 		}catch(final ParseException ex) {
-			width = 1d;
+			width = defVal;
 		}
 
 		return width;
@@ -74,12 +77,13 @@ interface SVGRectParseTrait extends LElement {
 	 */
 	default double getHeight() {
 		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_HEIGHT);
+		final double defVal = isDimensionsRequired() ? Double.NaN : 0d;
 		double height;
 
 		try {
-			height = v == null ? 1d : new SVGLengthParser(v).parseLength().getValue();
+			height = v == null ? defVal : new SVGLengthParser(v).parseLength().getValue();
 		}catch(final ParseException ex) {
-			height = 1d;
+			height = defVal;
 		}
 
 		return height;
