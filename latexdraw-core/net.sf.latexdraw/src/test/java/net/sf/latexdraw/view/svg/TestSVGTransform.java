@@ -22,7 +22,7 @@ public class TestSVGTransform {
 
 	@Test
 	public void testConstructors() {
-		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_UNKNOWN);
+		assertEquals(SVGTransform.SVG_TRANSFORM_UNKNOWN, t.getType());
 		assertNotNull(t.getMatrix());
 	}
 
@@ -229,7 +229,7 @@ public class TestSVGTransform {
 	@Test
 	public void testSetTransformation6() {
 		t.setTransformation("\n \t scale (		2\n \n\t )   \n");
-		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SCALE);
+		assertEquals(SVGTransform.SVG_TRANSFORM_SCALE, t.getType());
 		assertTrue(t.isScale());
 		assertEquals(2d, t.getXScaleFactor(), 0.0001);
 		assertEquals(2d, t.getYScaleFactor(), 0.0001);
@@ -272,7 +272,7 @@ public class TestSVGTransform {
 	@Test
 	public void testSetTransformation10() {
 		t.setTransformation("\n \t skewY (		3\n \n\t  )   \n");
-		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SKEWY);
+		assertEquals(SVGTransform.SVG_TRANSFORM_SKEWY, t.getType());
 		assertTrue(t.isYSkew());
 		assertEquals(3d, t.getYSkewAngle(), 0.0001);
 	}
