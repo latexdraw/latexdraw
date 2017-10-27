@@ -26,6 +26,11 @@ import net.sf.latexdraw.models.interfaces.shape.Position;
  * @author Arnaud Blouin
  */
 abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements IControlPointShape {
+	static List<IPoint> computeDefaultFirstCtrlPoints(final List<IPoint> pts) {
+		return pts == null ? Collections.emptyList() : pts.stream().
+			map(pt -> ShapeFactory.INST.createPoint(pt.getX(), pt.getY() + DEFAULT_POSITION_CTRL)).collect(Collectors.toList());
+	}
+	
 	/** The default balance gap used to balance all the points of the bézier curve. */
 	protected int DEFAULT_BALANCE_GAP = 50;
 	/** This vector contains the points which allows to change the angles of the curves */
@@ -33,17 +38,11 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	/** Contains the second control points of each points; useful for closed curve. */
 	protected final List<IPoint> secondCtrlPts;
 
-
 	LAbstractCtrlPointShape(final List<IPoint> pts, final List<IPoint> ctrlPts) {
 		super(pts);
 		firstCtrlPts = Collections.unmodifiableList(ctrlPts.stream().map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList()));
 		secondCtrlPts = Collections.unmodifiableList(pts.stream().map(pt -> ShapeFactory.INST.createPoint()).collect(Collectors.toList()));
 		updateSecondControlPoints();
-	}
-
-	static List<IPoint> computeDefaultFirstCtrlPoints(final List<IPoint> pts) {
-		return pts == null ? Collections.emptyList() :
-		pts.stream().map(pt -> ShapeFactory.INST.createPoint(pt.getX(), pt.getY() + DEFAULT_POSITION_CTRL)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -67,10 +66,10 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		final ILine line = ShapeFactory.INST.createLine(prevPt, nextPt);
 
 		if(line.isHorizontalLine()) {
-			line.setLine(pt.getX(), pt.getY(), pt.getX() + 10.0, pt.getY());
+			line.setLine(pt.getX(), pt.getY(), pt.getX() + 10d, pt.getY());
 		}else {
 			final double b = pt.getY() - line.getA() * pt.getX();
-			line.setLine(pt.getX(), pt.getY(), pt.getX() + 10.0, line.getA() * (pt.getX() + 10.0) + b);
+			line.setLine(pt.getX(), pt.getY(), pt.getX() + 10d, line.getA() * (pt.getX() + 10d) + b);
 		}
 
 		return line.findPoints(pt, DEFAULT_BALANCE_GAP);
@@ -81,13 +80,24 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	 * Method used by the balance method. Just sets the given control points at the given position.
 	 */
 	private void setControlPoints(final int position, final IPoint[] ctrlPts) {
-		if(ctrlPts == null || ctrlPts.length != 2) return;
+		if(ctrlPts == null || ctrlPts.length != 2) {
+			return;
+		}
 
 		// If there exists an intersection point between the two lines created using control points and points,
 		// where is a loop that must be removed by inverting the control points.
 		// For the first point, the lines are created differently.
-		final int posPrev = position == 0 ? 1 : position - 1;
-		final int posNext = position == 0 ? points.size() - 1 : position == points.size() - 1 ? 0 : position + 1;
+		final int posPrev;
+		final int posNext;
+
+		if(position == 0) {
+			posNext = points.size() - 1;
+			posPrev = 1;
+		}else {
+			posNext = position == points.size() - 1 ? 0 : position + 1;
+			posPrev = position - 1;
+		}
+
 		final ILine line1 = ShapeFactory.INST.createLine(getPtAt(posPrev), ctrlPts[0]);
 		final ILine line2 = ShapeFactory.INST.createLine(getPtAt(posNext), ctrlPts[1]);
 
@@ -105,7 +115,10 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	public void balance() {
 		final int size = getNbPoints();
 
-		if(size < 3) return;//Works only with more than 2 points.
+		//Works only with more than 2 points.
+		if(size < 3) {
+			return;
+		}
 
 		IPoint ptPrev;
 		IPoint ptNext;
