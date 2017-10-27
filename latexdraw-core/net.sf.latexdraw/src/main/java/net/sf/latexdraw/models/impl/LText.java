@@ -95,4 +95,24 @@ class LText extends LPositionShape implements IText {
 			this.textPosition = textPosition;
 		}
 	}
+
+	@Override
+	public boolean isThicknessable() {
+		return false;
+	}
+
+	@Override
+	public boolean isShadowable() {
+		return false;
+	}
+
+	@Override
+	public boolean isFillable() {
+		return false;
+	}
+
+	@Override
+	public boolean isInteriorStylable() {
+		return false;
+	}
 }

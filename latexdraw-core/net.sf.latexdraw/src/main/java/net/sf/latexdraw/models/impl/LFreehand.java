@@ -119,42 +119,7 @@ class LFreehand extends LShape implements IFreehand {
 	}
 
 	@Override
-	public boolean isBordersMovable() {
-		return false;
-	}
-
-	@Override
-	public boolean isDbleBorderable() {
-		return false;
-	}
-
-	@Override
-	public boolean isFillable() {
-		return true;
-	}
-
-	@Override
-	public boolean isInteriorStylable() {
-		return true;
-	}
-
-	@Override
 	public boolean isLineStylable() {
-		return true;
-	}
-
-	@Override
-	public boolean isShadowable() {
-		return true;
-	}
-
-	@Override
-	public boolean isShowPtsable() {
-		return false;
-	}
-
-	@Override
-	public boolean isThicknessable() {
 		return true;
 	}
 }

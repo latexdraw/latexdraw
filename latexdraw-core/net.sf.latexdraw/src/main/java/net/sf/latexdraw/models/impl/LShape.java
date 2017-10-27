@@ -769,12 +769,12 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public boolean isFillable() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isInteriorStylable() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -784,7 +784,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public boolean isShadowable() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -794,7 +794,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public boolean isThicknessable() {
-		return false;
+		return true;
 	}
 
 	@Override

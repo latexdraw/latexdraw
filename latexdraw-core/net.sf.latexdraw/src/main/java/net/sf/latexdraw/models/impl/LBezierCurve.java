@@ -74,16 +74,6 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArr
 	}
 
 	@Override
-	public boolean isFillable() {
-		return true;
-	}
-
-	@Override
-	public boolean isInteriorStylable() {
-		return true;
-	}
-
-	@Override
 	public void copy(final IShape sh) {
 		super.copy(sh);
 		LArrowableShape.super.copy(sh);
@@ -101,16 +91,6 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArr
 
 	@Override
 	public boolean isLineStylable() {
-		return true;
-	}
-
-	@Override
-	public boolean isShadowable() {
-		return true;
-	}
-
-	@Override
-	public boolean isThicknessable() {
 		return true;
 	}
 

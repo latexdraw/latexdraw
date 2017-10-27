@@ -224,4 +224,24 @@ class LPicture extends LPositionShape implements IPicture {
 	public boolean isColourable() {
 		return false;
 	}
+
+	@Override
+	public boolean isFillable() {
+		return false;
+	}
+
+	@Override
+	public boolean isInteriorStylable() {
+		return false;
+	}
+
+	@Override
+	public boolean isShadowable() {
+		return false;
+	}
+
+	@Override
+	public boolean isThicknessable() {
+		return false;
+	}
 }

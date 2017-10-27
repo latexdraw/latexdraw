@@ -304,4 +304,24 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	public DoubleProperty originYProperty() {
 		return originy;
 	}
+
+	@Override
+	public boolean isInteriorStylable() {
+		return false;
+	}
+
+	@Override
+	public boolean isFillable() {
+		return false;
+	}
+
+	@Override
+	public boolean isShadowable() {
+		return false;
+	}
+
+	@Override
+	public boolean isThicknessable() {
+		return false;
+	}
 }

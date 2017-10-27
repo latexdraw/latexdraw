@@ -342,4 +342,19 @@ class LDot extends LPositionShape implements IDot {
 	public DoubleProperty diametreProperty() {
 		return diametre;
 	}
+
+	@Override
+	public boolean isThicknessable() {
+		return false;
+	}
+
+	@Override
+	public boolean isShadowable() {
+		return false;
+	}
+
+	@Override
+	public boolean isInteriorStylable() {
+		return false;
+	}
 }
