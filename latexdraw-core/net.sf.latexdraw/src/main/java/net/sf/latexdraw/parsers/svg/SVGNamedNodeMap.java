@@ -22,7 +22,7 @@ import org.w3c.dom.Node;
  */
 public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 	/** The set of nodes. */
-	protected List<SVGAttr> nnm;
+	private List<SVGAttr> nnm;
 
 	/**
 	 * The constructor by default.

@@ -21,10 +21,10 @@ import org.w3c.dom.Text;
  * @author Arnaud BLOUIN
  */
 public class SVGText extends SVGElement implements Text {
-	/** The content of the text node. @since 0.1 */
-	protected String data;
+	public static final String TEXT_NODE_NAME = "#text"; //$NON-NLS-1$
 
-	public static final String TEXT_NODE_NAME = "#text";//$NON-NLS-1$
+	/** The content of the text node. */
+	private String data;
 
 
 	/**
@@ -49,8 +49,9 @@ public class SVGText extends SVGElement implements Text {
 
 	@Override
 	public void appendData(final String da) {
-		if(da!=null)
-			setData(getData()+da);
+		if(da != null) {
+			setData(getData() + da);
+		}
 	}
 
 
@@ -85,41 +86,50 @@ public class SVGText extends SVGElement implements Text {
 
 
 	@Override
-	public void setData(final String data) {
-		if(data!=null)
-			this.data = data;
+	public void setData(final String newData) {
+		if(newData != null) {
+			data = newData;
+		}
 	}
 
 
 	@Override
-	public String getWholeText()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public String getWholeText() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public boolean isElementContentWhitespace()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public boolean isElementContentWhitespace() {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Text replaceWholeText(final String content)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public Text replaceWholeText(final String content) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public Text splitText(final int offset)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public Text splitText(final int offset) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public void deleteData(final int offset, final int count)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public void deleteData(final int offset, final int count) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public void insertData(final int offset, final String arg)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public void insertData(final int offset, final String arg) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public void replaceData(final int offset, final int count, final String arg)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public void replaceData(final int offset, final int count, final String arg) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
-	public String substringData(final int offset, final int count)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public String substringData(final int offset, final int count) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 }

@@ -55,15 +55,15 @@ public class SVGDocument implements Document {
 	public static final String SVG_NAMESPACE = "http://www.w3.org/2000/svg"; //$NON-NLS-1$
 
 	/** The root of the SVG drawing. */
-	protected SVGSVGElement root;
+	private SVGSVGElement root;
 	/** Defines if the document is standalone. */
-	protected boolean xmlStandalone;
+	private boolean xmlStandalone;
 	/** The document URI. */
-	protected String documentURI;
+	private String documentURI;
 	/** The version of XML. */
-	protected String xmlVersion;
+	private String xmlVersion;
 	/** The encoding of the document. */
-	protected String xmlEncoding;
+	private String xmlEncoding;
 
 
 	/**

@@ -20,7 +20,7 @@ import org.w3c.dom.NodeList;
  */
 public class SVGNodeList implements NodeList {
 	/** The nodes of the list. @since 0.1 */
-	protected List<SVGElement> nodes;
+	private List<SVGElement> nodes;
 
 
 	/**
