@@ -71,19 +71,27 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 	}
 
 	@Override
-	public ILine getArrowLine(final IArrow arrow) {
-		final double gap = 0.05;
-		if(getArrowAt(0) == arrow) {
+	public ILine getArrowLine(final int index) {
+		final IArrow arrow = getArrowAt(index);
+
+		if(arrow == null) {
+			return null;
+		}
+
+		// Computing the angle to use for the second point of the line:
+		// the length of the arrow and the radius are used to compute the angle that separates the two points of the line.
+		final double gap = Math.asin(arrow.getArrowShapeLength() / getRadius());
+
+		if(index == 0) {
 			final IPoint sp = getStartPoint();
-			final IPoint ep = getPointOnArc(getAngleStart() < Math.PI ? getAngleStart() + gap : getAngleStart() - gap);
+			final IPoint ep = getPointOnArc(getAngleStart() + gap < Math.PI ? getAngleStart() + gap : getAngleStart() - gap);
 			return ShapeFactory.INST.createLine(sp, ep);
 		}
-		if(getArrowAt(1) == arrow) {
-			final IPoint sp = getEndPoint();
-			final IPoint ep = getPointOnArc(getAngleEnd() < Math.PI ? getAngleEnd() + gap : getAngleEnd() - gap);
-			return ShapeFactory.INST.createLine(sp, ep);
-		}
-		return null;
+
+		// For sure index == 1 here.
+		final IPoint sp = getEndPoint();
+		final IPoint ep = getPointOnArc(getAngleEnd() + gap < Math.PI ? getAngleEnd() + gap : getAngleEnd() - gap);
+		return ShapeFactory.INST.createLine(sp, ep);
 	}
 
 	@Override

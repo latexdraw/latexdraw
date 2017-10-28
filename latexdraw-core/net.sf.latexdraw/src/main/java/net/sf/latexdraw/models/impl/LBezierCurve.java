@@ -44,11 +44,11 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArr
 	}
 
 	@Override
-	public ILine getArrowLine(final IArrow arrow) {
+	public ILine getArrowLine(final int index) {
 		if(getNbPoints() < 2) {
 			return null;
 		}
-		switch(arrows.indexOf(arrow)) {
+		switch(index) {
 			case 0:
 				return ShapeFactory.INST.createLine(points.get(0), firstCtrlPts.get(0));
 			case 1:

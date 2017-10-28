@@ -49,11 +49,11 @@ class LPolyline extends LPolygon implements IPolyline, LArrowableShape {
 	}
 
 	@Override
-	public ILine getArrowLine(final IArrow arrow) {
+	public ILine getArrowLine(final int index) {
 		if(getNbPoints() < 2) {
 			return null;
 		}
-		switch(arrows.indexOf(arrow)) {
+		switch(index) {
 			case 0:
 				return ShapeFactory.INST.createLine(points.get(0), points.get(1));
 			case 1:

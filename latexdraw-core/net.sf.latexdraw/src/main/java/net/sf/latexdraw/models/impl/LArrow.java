@@ -156,7 +156,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public ILine getArrowLine() {
-		return owner.getArrowLine(this);
+		return owner.getArrowLine(owner.getArrowIndex(this));
 	}
 
 	@Override

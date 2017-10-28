@@ -16,9 +16,9 @@ package net.sf.latexdraw.models.interfaces.shape;
  */
 public interface IArrowableSingleShape extends ISingleShape, IArrowableShape {
 	/**
-	 * @param arrow The arrow to analyse.
-	 * @return The line that will be used to place the arrow.
+	 * @param index The index of the arrow to use.
+	 * @return The line that will be used to place the arrow or null.
 	 * @since 3.0
 	 */
-	ILine getArrowLine(final IArrow arrow);
+	ILine getArrowLine(final int index);
 }

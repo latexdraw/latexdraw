@@ -127,14 +127,14 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	}
 
 	@Override
-	public ILine getArrowLine(final IArrow arrow) {
+	public ILine getArrowLine(final int index) {
 		// For the X-axis
-		if(arrow == arrows.get(1) || arrow == arrows.get(3)) {
-			return getArrowLineX(arrow == arrows.get(1));
+		if(index == 1 || index == 3) {
+			return getArrowLineX(index == 1);
 		}
 		// For the Y-axis.
-		if(arrow == arrows.get(0) || arrow == arrows.get(2)) {
-			return getArrowLineY(arrow == arrows.get(2));
+		if(index == 0 || index == 2) {
+			return getArrowLineY(index == 2);
 		}
 		return null;
 	}
