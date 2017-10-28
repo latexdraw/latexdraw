@@ -26,25 +26,22 @@ public class SVGNumberParser extends AbstractSVGParser {
 	}
 
 
-
 	/**
 	 * Parses a flag (a boolean).
 	 * @return True or false.
 	 * @throws ParseException If an error occurs.
-	 * @since 0.1
 	 */
 	public boolean parseFlag() throws ParseException {
 		skipWSP();
 		final int c = getChar();
 
-		if(c=='0' || c=='1') {
-				nextChar();
-				return c == '1';
+		if(c == '0' || c == '1') {
+			nextChar();
+			return c == '1';
 		}
 
-		throw new ParseException("Flag expected.", getPosition());		//$NON-NLS-1$
+		throw new ParseException("Flag expected.", getPosition()); //$NON-NLS-1$
 	}
-
 
 
 	/**
@@ -56,56 +53,68 @@ public class SVGNumberParser extends AbstractSVGParser {
 	public String parseNumberAsString(final boolean unsigned) throws ParseException {
 		boolean again = true;
 		int c;
-        final int start;
+		final int start;
 
-        skipWSP();
+		skipWSP();
 		start = getPosition();
 		c = getChar();
 
-		if(c=='-' || c=='+') {// Reading the sign
-			if(unsigned)
-				throw new ParseException("Unsigned number expected.", getPosition());//$NON-NLS-1$
+		// Reading the sign
+		if(c == '-' || c == '+') {
+			if(unsigned) throw new ParseException("Unsigned number expected.", getPosition()); //$NON-NLS-1$
 
 			c = nextChar();
 		}
 
 		while(again && !isEOC()) // Reading the first part of the number.
-			if(c<48 || c>58)
+			if(c < 48 || c > 58) {
 				again = false;
-			else
+			}else {
 				c = nextChar();
+			}
 
-		if(c=='.') {
+		if(c == '.') {
 			c = nextChar();
 			again = true;
 
-			while(again && !isEOC()) // Reading the second part of the number.
-				if(c<48 || c>58)
+			// Reading the second part of the number.
+			while(again && !isEOC()) {
+				if(c < 48 || c > 58) {
 					again = false;
-				else
+				}else {
 					c = nextChar();
+				}
+			}
 		}
 
-		if(c=='E' || c=='e') { // Reading the exponent.
+		// Reading the exponent.
+		if(c == 'E' || c == 'e') {
 			c = nextChar();
 			again = true;
 
-			if(c=='-' || c=='+')// Reading the sign
+			// Reading the sign
+			if(c == '-' || c == '+') {
 				c = nextChar();
+			}
 
-			while(again && !isEOC()) // Reading the exponent.
-				if(c<48 || c>58)
+			// Reading the exponent.
+			while(again && !isEOC()) {
+				if(c < 48 || c > 58) {
 					again = false;
-				else
+				}else {
 					c = nextChar();
+				}
+			}
 		}
 
-		try {  Double.parseDouble(getCode().substring(start, getPosition())); }
-		catch(final NumberFormatException e) { throw new ParseException("Invalid number.", getPosition()); }//$NON-NLS-1$
+		try {
+			Double.parseDouble(getCode().substring(start, getPosition()));
+		}catch(final NumberFormatException ex) {
+			throw new ParseException("Invalid number.", getPosition()); //$NON-NLS-1$
+		}
 
 		return getCode().substring(start, getPosition());
 	}
-
 
 
 	/**
@@ -117,25 +126,27 @@ public class SVGNumberParser extends AbstractSVGParser {
 	public double parseNumber(final boolean unsigned) throws ParseException {
 		final String number = parseNumberAsString(unsigned);
 
-		try {  return Double.parseDouble(number); }
-		catch(final NumberFormatException e) { throw new ParseException("Invalid number.", getPosition()); }//$NON-NLS-1$
+		try {
+			return Double.parseDouble(number);
+		}catch(final NumberFormatException e) {
+			throw new ParseException("Invalid number.", getPosition()); //$NON-NLS-1$
+		}
 	}
 
 
-
 	/**
-	 * @return True if the current character is the beginning of a number.
 	 * @param unsigned True: the next number must not have a sign.
+	 * @return True if the current character is the beginning of a number.
 	 */
 	protected boolean isNumber(final boolean unsigned) {
 		final int c = getChar();
 
-		if(unsigned)
-			return c=='.' || c>=48 && c<=57;
+		if(unsigned) {
+			return c == '.' || c >= 48 && c <= 57;
+		}
 
-		return c=='-' || c=='+' || c=='.' || c>=48 && c<=57;
+		return c == '-' || c == '+' || c == '.' || c >= 48 && c <= 57;
 	}
-
 
 
 	@Override
