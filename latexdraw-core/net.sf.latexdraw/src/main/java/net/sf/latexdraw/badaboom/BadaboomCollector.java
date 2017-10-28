@@ -26,8 +26,6 @@ import org.malai.error.ErrorNotifier;
  * @since 3.0
  */
 public final class BadaboomCollector extends ArrayList<Throwable> implements UncaughtExceptionHandler, ErrorNotifier, EventHandler<WorkerStateEvent> {
-	private static final long serialVersionUID = 1L;
-
 	/** The logger that will stores the errors. */
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
@@ -80,7 +78,9 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	@Override
 	public boolean add(final Throwable ex) {
 		synchronized(INSTANCE) {
-			if(ex == null || !super.add(ex)) return false;
+			if(ex == null || !super.add(ex)) {
+				return false;
+			}
 		}
 		LOGGER.log(Level.SEVERE, "An Exception occured.", ex);
 		notifyHandlers(ex);
@@ -91,7 +91,9 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	@Override
 	public Throwable set(final int pos, final Throwable ex) {
 		synchronized(INSTANCE) {
-			if(ex == null || super.set(pos, ex) == null) return null;
+			if(ex == null || super.set(pos, ex) == null) {
+				return null;
+			}
 		}
 		LOGGER.log(Level.SEVERE, "An Exception occured.", ex);
 		notifyHandlers(ex);

@@ -33,7 +33,7 @@ import javafx.scene.control.TextArea;
 public class BadaboomController implements Initializable {
 	@FXML private TableView<Throwable> table;
 	@FXML private TextArea stack;
-	
+
 	/**
 	 * Creates the controller.
 	 */
@@ -45,21 +45,21 @@ public class BadaboomController implements Initializable {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		final ObservableList<TableColumn<Throwable, ?>> cols = table.getColumns();
-		((TableColumn<Throwable, String>)cols.get(0)).setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().toString()));
-		((TableColumn<Throwable, String>)cols.get(1)).setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getMessage()));
-		((TableColumn<Throwable, String>)cols.get(2)).setCellValueFactory(cell -> {
+		((TableColumn<Throwable, String>) cols.get(0)).setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().toString()));
+		((TableColumn<Throwable, String>) cols.get(1)).setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getMessage()));
+		((TableColumn<Throwable, String>) cols.get(2)).setCellValueFactory(cell -> {
 			final StackTraceElement[] stackTrace = cell.getValue().getStackTrace();
-			final String msg = stackTrace!=null && stackTrace.length>0 ? stackTrace[0].toString() : "";
+			final String msg = stackTrace != null && stackTrace.length > 0 ? stackTrace[0].toString() : "";
 			return new ReadOnlyStringWrapper(msg);
 		});
 		cols.forEach(col -> col.prefWidthProperty().bind(table.widthProperty().divide(3)));
 		table.setItems(FXCollections.observableArrayList(BadaboomCollector.INSTANCE));
 		table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-		
+
 		final Callable<String> converter = () -> {
-			final Throwable ex =  table.getSelectionModel().getSelectedItem();
-			if(ex==null) return "";
-			return Arrays.stream(ex.getStackTrace()).map(Object::toString).collect(Collectors.joining("\n\tat ", ex.toString()+"\n\tat ", ""));
+			final Throwable ex = table.getSelectionModel().getSelectedItem();
+			if(ex == null) return "";
+			return Arrays.stream(ex.getStackTrace()).map(Object::toString).collect(Collectors.joining("\n\tat ", ex.toString() + "\n\tat ", ""));
 		};
 		stack.textProperty().bind(Bindings.createStringBinding(converter, table.getSelectionModel().selectedItemProperty()));
 	}
