@@ -25,20 +25,34 @@ class ViewArrowableTraitArc extends ViewArrowableTrait<Arc, ICircleArc> {
 
 	@Override
 	protected void clipPath(final Arc arc) {
+		if(!model.getArcStyle().supportArrow()) {
+			arc.setClip(null);
+			return;
+		}
+
 		final double width = Math.max(arc.getRadiusX() * 2d, 1d);
 		double sAngle = model.getAngleStart();
 		double eAngle = model.getAngleEnd();
+		IArrow arr = model.getArrowAt(1);
+		final double gap = Math.atan(arr.getArrowShapeLength() / width);
 
-		if(model.getArcStyle().supportArrow()) {
-			IArrow arr = model.getArrowAt(-1);
-			if(arr.getArrowStyle().isReducingShape()) {
-				eAngle -= Math.atan(arr.getArrowShapeLength() / width);
-			}
-			arr = model.getArrowAt(0);
-			if(arr.getArrowStyle().isReducingShape()) {
-				sAngle += Math.atan(arr.getArrowShapeLength() / width);
+		if(arr.getArrowStyle().isReducingShape()) {
+			if(eAngle > sAngle) {
+				eAngle -= gap;
+			}else {
+				eAngle += gap;
 			}
 		}
+
+		arr = model.getArrowAt(0);
+		if(arr.getArrowStyle().isReducingShape()) {
+			if(eAngle > sAngle) {
+				sAngle += gap;
+			}else {
+				sAngle -= gap;
+			}
+		}
+
 		sAngle = Math.toDegrees(sAngle % (2d * Math.PI));
 		eAngle = Math.toDegrees(eAngle % (2d * Math.PI));
 
