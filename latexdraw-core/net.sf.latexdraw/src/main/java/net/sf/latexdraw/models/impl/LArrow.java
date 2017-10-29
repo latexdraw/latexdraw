@@ -53,13 +53,14 @@ class LArrow implements IArrow {
 
 	/**
 	 * Creates an arrow.
-	 * @param owner The shape that contains the arrow.
+	 * @param arrowOwner The shape that contains the arrow.
+	 * @throws NullPointerException If the given arrowable shape is null.
 	 */
-	LArrow(final IArrowableSingleShape owner) {
+	LArrow(final IArrowableSingleShape arrowOwner) {
 		super();
-		this.owner = Objects.requireNonNull(owner);
+		owner = Objects.requireNonNull(arrowOwner);
 		style = ArrowStyle.NONE;
-		arrowInset = 0.0;
+		arrowInset = 0d;
 		arrowLength = PSTricksConstants.DEFAULT_ARROW_LENGTH;
 		arrowSizeDim = PSTricksConstants.DEFAULT_ARROW_SIZE_DIM * IShape.PPC;
 		arrowSizeNum = PSTricksConstants.DEFAULT_ARROW_SIZE_NUM;
@@ -75,7 +76,7 @@ class LArrow implements IArrow {
 	/**
 	 * Creates an arrow from an other arrow.
 	 * @param arrow The arrow to copy.
-	 * @throws IllegalArgumentException If the given arrow is null.
+	 * @throws NullPointerException If the given arrow is null.
 	 */
 	LArrow(final IArrow arrow, final IArrowableSingleShape owner) {
 		this(owner);
@@ -101,12 +102,12 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getLineThickness() {
-		return owner.isDbleBorderable() && owner.hasDbleBord() ? owner.getThickness() * 2.0 + owner.getDbleBordSep() : owner.getThickness();
+		return owner.getFullThickness();
 	}
 
 	@Override
 	public double getRoundShapedArrowRadius() {
-		return (dotSizeDim + dotSizeNum * getLineThickness()) / 2.0;
+		return (dotSizeDim + dotSizeNum * getLineThickness()) / 2d;
 	}
 
 
@@ -127,9 +128,10 @@ class LArrow implements IArrow {
 		switch(style) {
 			case LEFT_ARROW:
 			case RIGHT_ARROW:
+				return getArrowShapedWidth() * arrowLength;
 			case LEFT_DBLE_ARROW:
 			case RIGHT_DBLE_ARROW:
-				return getArrowShapedWidth() * arrowLength;
+				return getArrowShapedWidth() * arrowLength * 2d;
 			case ROUND_IN:
 				return (getDotSizeDim() + getDotSizeNum() * getLineThickness()) / 2d;
 			case LEFT_SQUARE_BRACKET:
@@ -236,7 +238,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setArrowInset(final double inset) {
-		if(inset >= 0.0) {
+		if(inset >= 0d) {
 			arrowInset = inset;
 			notifyOnChanged();
 		}
@@ -244,7 +246,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setArrowLength(final double lgth) {
-		if(lgth >= 0.0) {
+		if(lgth >= 0d) {
 			arrowLength = lgth;
 			notifyOnChanged();
 		}
@@ -252,7 +254,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setArrowSizeDim(final double size) {
-		if(size > 0.0) {
+		if(size > 0d) {
 			arrowSizeDim = size;
 			notifyOnChanged();
 		}
@@ -260,7 +262,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setArrowSizeNum(final double size) {
-		if(size >= 0.0) {
+		if(size >= 0d) {
 			arrowSizeNum = size;
 			notifyOnChanged();
 		}
@@ -277,7 +279,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setBracketNum(final double brack) {
-		if(brack >= 0.0) {
+		if(brack >= 0d) {
 			bracketNum = brack;
 			notifyOnChanged();
 		}
@@ -285,7 +287,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setDotSizeDim(final double dot) {
-		if(dot > 0.0) {
+		if(dot > 0d) {
 			dotSizeDim = dot;
 			notifyOnChanged();
 		}
@@ -301,7 +303,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setRBracketNum(final double brack) {
-		if(brack >= 0.) {
+		if(brack >= 0d) {
 			rBracketNum = brack;
 			notifyOnChanged();
 		}
@@ -309,7 +311,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setTBarSizeDim(final double tbarSizeDim) {
-		if(tbarSizeDim > 0.0) {
+		if(tbarSizeDim > 0d) {
 			tBarSizeDim = tbarSizeDim;
 			notifyOnChanged();
 		}
@@ -317,7 +319,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setTBarSizeNum(final double tBarSizeNum) {
-		if(tBarSizeNum >= 0.0) {
+		if(tBarSizeNum >= 0d) {
 			this.tBarSizeNum = tBarSizeNum;
 			notifyOnChanged();
 		}
