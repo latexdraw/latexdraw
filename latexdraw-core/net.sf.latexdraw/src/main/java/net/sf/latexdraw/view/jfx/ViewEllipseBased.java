@@ -23,7 +23,7 @@ public abstract class ViewEllipseBased<T extends ISingleShape> extends ViewSingl
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewEllipseBased(final  T sh) {
+	ViewEllipseBased(final T sh) {
 		super(sh);
 
 		if(dblBorder != null) {
@@ -43,7 +43,7 @@ public abstract class ViewEllipseBased<T extends ISingleShape> extends ViewSingl
 		}
 	}
 
-	private static void unbindEll(Ellipse sh) {
+	private static void unbindEll(final Ellipse sh) {
 		if(sh != null) {
 			sh.centerXProperty().unbind();
 			sh.centerYProperty().unbind();
