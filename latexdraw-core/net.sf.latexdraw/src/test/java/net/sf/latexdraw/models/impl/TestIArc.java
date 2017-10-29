@@ -23,8 +23,7 @@ public class TestIArc implements HelperTest {
 	@Theory
 	public void testSetGetAngleStart(@ArcData final ICircleArc shape, @DoubleData final double angle) {
 		shape.setAngleStart(angle);
-		final double angleToTest = Double.compare(angle, 0d) < 0 ? Math.PI * 2d + angle % (Math.PI * 2d) : angle % (Math.PI * 2d);
-		assertEqualsDouble(angleToTest, shape.getAngleStart());
+		assertEqualsDouble(angle, shape.getAngleStart());
 	}
 
 	@Theory
