@@ -3,3 +3,4 @@ Version 3.3.7
 
 fixed: crash at start-up using Java 9
 fixed: pictures not correctly mirrored
+fixed: control points not mirrored
