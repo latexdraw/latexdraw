@@ -1,6 +1,5 @@
 package net.sf.latexdraw.gui;
 
-import com.google.inject.AbstractModule;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
@@ -17,6 +16,7 @@ import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.PageView;
@@ -105,14 +105,14 @@ public class TestCanvas extends TestLatexdrawGUI {
 	}
 
 	@Override
-	protected AbstractModule createModule() {
-		return new ShapePropModule() {
+	protected Injector createInjector() {
+		return new ShapePropInjector() {
 			@Override
-			protected void configure() {
+			protected void configure() throws IllegalAccessException, InstantiationException {
 				super.configure();
 				pencil = mock(Pencil.class);
-				bind(Hand.class).asEagerSingleton();
-				bind(Pencil.class).toInstance(pencil);
+				bindAsEagerSingleton(Hand.class);
+				bindToInstance(Pencil.class, pencil);
 			}
 		};
 	}
@@ -121,9 +121,9 @@ public class TestCanvas extends TestLatexdrawGUI {
 	@Before
 	public void setUp() {
 		super.setUp();
-		pencil = (Pencil) guiceFactory.call(Pencil.class);
-		hand = (Hand) guiceFactory.call(Hand.class);
-		canvas = (Canvas) guiceFactory.call(Canvas.class);
+		pencil = (Pencil) injectorFactory.call(Pencil.class);
+		hand = (Hand) injectorFactory.call(Hand.class);
+		canvas = (Canvas) injectorFactory.call(Canvas.class);
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
 

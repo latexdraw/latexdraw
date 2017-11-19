@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
@@ -26,6 +25,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
+import javax.inject.Inject;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.actions.LoadDrawing;
 import net.sf.latexdraw.actions.NewDrawing;
@@ -82,7 +82,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	/**
 	 * Creates the file loader/saver.
 	 */
-	FileLoaderSaver() {
+	public FileLoaderSaver() {
 		super();
 	}
 

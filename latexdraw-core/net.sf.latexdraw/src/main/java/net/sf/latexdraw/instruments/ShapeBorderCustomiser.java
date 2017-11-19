@@ -54,7 +54,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 	/**
 	 * Creates the instrument.
 	 */
-	ShapeBorderCustomiser() {
+	public ShapeBorderCustomiser() {
 		super();
 	}
 

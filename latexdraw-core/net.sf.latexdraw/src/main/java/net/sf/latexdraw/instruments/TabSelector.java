@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
@@ -52,7 +52,7 @@ public class TabSelector extends JfxInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	TabSelector() {
+	public TabSelector() {
 		super();
 	}
 

@@ -27,7 +27,7 @@ public abstract class TestDoubleLineStyleGUI extends TestShapePropGUI<ShapeDoubl
 		dbleBoundCB = find("#dbleBoundCB");
 		dbleBoundColB = find("#dbleBoundColB");
 		dbleSepField = find("#dbleSepField");
-		ins = (ShapeDoubleBorderCustomiser) guiceFactory.call(ShapeDoubleBorderCustomiser.class);
+		ins = (ShapeDoubleBorderCustomiser) injectorFactory.call(ShapeDoubleBorderCustomiser.class);
 		ins.setActivated(true);
 	}
 }

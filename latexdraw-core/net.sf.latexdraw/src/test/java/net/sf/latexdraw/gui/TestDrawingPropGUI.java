@@ -1,7 +1,5 @@
 package net.sf.latexdraw.gui;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -12,6 +10,7 @@ import net.sf.latexdraw.instruments.DrawingPropertiesCustomiser;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
@@ -43,19 +42,15 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 	}
 
 	@Override
-	protected AbstractModule createModule() {
-		return new ShapePropModule() {
+	protected Injector createInjector() {
+		return new ShapePropInjector() {
 			@Override
-			protected void configure() {
+			protected void configure() throws IllegalAccessException, InstantiationException {
 				super.configure();
 				hand = mock(Hand.class);
-				bind(PSTCodeGenerator.class).asEagerSingleton();
-				bind(DrawingPropertiesCustomiser.class).asEagerSingleton();
-			}
-
-			@Provides
-			LaTeXGenerator provideLaTeXGenerator(final PSTCodeGenerator gen) {
-				return gen;
+				bindAsEagerSingleton(PSTCodeGenerator.class);
+				bindAsEagerSingleton(DrawingPropertiesCustomiser.class);
+				bindWithCommand(LaTeXGenerator.class, PSTCodeGenerator.class, gen -> gen);
 			}
 		};
 	}
@@ -69,9 +64,9 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 		middleHorizPosCB = find("#middleHorizPosCB");
 		positionCB = find("#positionCB");
 		scaleField = find("#scaleField");
-		((IDrawing) guiceFactory.call(IDrawing.class)).addShape(ShapeFactory.INST.createCircle());
-		ins = (DrawingPropertiesCustomiser) guiceFactory.call(DrawingPropertiesCustomiser.class);
-		gen = (LaTeXGenerator) guiceFactory.call(LaTeXGenerator.class);
+		((IDrawing) injectorFactory.call(IDrawing.class)).addShape(ShapeFactory.INST.createCircle());
+		ins = (DrawingPropertiesCustomiser) injectorFactory.call(DrawingPropertiesCustomiser.class);
+		gen = (LaTeXGenerator) injectorFactory.call(LaTeXGenerator.class);
 		ins.setActivated(true);
 	}
 

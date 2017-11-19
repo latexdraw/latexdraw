@@ -1,16 +1,18 @@
 package net.sf.latexdraw.gui.pencil;
 
-import com.google.inject.AbstractModule;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
-import net.sf.latexdraw.gui.ShapePropModule;
+import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestAxesStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
+import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
+import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -24,15 +26,17 @@ import static org.mockito.Mockito.mock;
 @RunWith(MockitoJUnitRunner.class)
 public class TestPencilAxesStyle extends TestAxesStyleGUI {
 	@Override
-	protected AbstractModule createModule() {
-		return new ShapePropModule() {
+	protected Injector createInjector() {
+		return new ShapePropInjector() {
 			@Override
-			protected void configure() {
+			protected void configure() throws IllegalAccessException, InstantiationException {
 				super.configure();
 				hand = mock(Hand.class);
-				bind(ShapeAxesCustomiser.class).asEagerSingleton();
-				bind(Pencil.class).asEagerSingleton();
-				bind(Hand.class).toInstance(hand);
+				bindAsEagerSingleton(ShapeAxesCustomiser.class);
+				bindAsEagerSingleton(Pencil.class);
+				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
+				bindToInstance(Hand.class, hand);
 			}
 		};
 	}

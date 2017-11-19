@@ -39,7 +39,7 @@ public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCusto
 		bordersPosCB = find("#bordersPosCB");
 		frameArcField = find("#frameArcField");
 		showPoints = find("#showPoints");
-		ins = (ShapeBorderCustomiser) guiceFactory.call(ShapeBorderCustomiser.class);
+		ins = (ShapeBorderCustomiser) injectorFactory.call(ShapeBorderCustomiser.class);
 		ins.setActivated(true);
 	}
 }

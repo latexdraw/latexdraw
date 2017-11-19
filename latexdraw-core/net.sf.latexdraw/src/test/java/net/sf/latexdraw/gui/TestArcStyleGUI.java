@@ -32,7 +32,7 @@ public abstract class TestArcStyleGUI extends TestShapePropGUI<ShapeArcCustomise
 		chordB = find("#chordB");
 		endAngleS = find("#endAngleS");
 		startAngleS = find("#startAngleS");
-		ins = (ShapeArcCustomiser) guiceFactory.call(ShapeArcCustomiser.class);
+		ins = (ShapeArcCustomiser) injectorFactory.call(ShapeArcCustomiser.class);
 		ins.setActivated(true);
 	}
 }

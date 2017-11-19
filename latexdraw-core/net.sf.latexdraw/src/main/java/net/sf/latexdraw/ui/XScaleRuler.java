@@ -10,11 +10,10 @@
  */
 package net.sf.latexdraw.ui;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
-import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * An X-scale ruler.
@@ -26,13 +25,11 @@ public class XScaleRuler extends ScaleRuler {
 
 	/**
 	 * Defines a x-scale ruler.
-	 * @param canvas The canvas to supervises.
 	 * @throws IllegalArgumentException if the given canvas is null.
 	 * @since 3.0
 	 */
-	@Inject
-	public XScaleRuler(final Canvas canvas) {
-		super(canvas);
+	public XScaleRuler() {
+		super();
 		setPreferredSize(new Dimension(500, SIZE));
 	}
 

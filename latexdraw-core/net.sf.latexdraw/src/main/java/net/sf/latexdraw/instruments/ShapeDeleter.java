@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ListChangeListener;
@@ -40,7 +40,7 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Act
 	/**
 	 * Creates the instrument.
 	 */
-	ShapeDeleter() {
+	public ShapeDeleter() {
 		super();
 	}
 

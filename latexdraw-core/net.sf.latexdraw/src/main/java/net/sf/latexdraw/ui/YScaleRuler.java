@@ -10,11 +10,9 @@
  */
 package net.sf.latexdraw.ui;
 
-import com.google.inject.Inject;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
-import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * An Y-scale ruler.
@@ -24,13 +22,11 @@ public class YScaleRuler extends ScaleRuler {
 
 	/**
 	 * Defines a y-scale ruler.
-	 * @param canvas The canvas to supervises.
 	 * @throws IllegalArgumentException if the given canvas is null.
 	 * @since 3.0
 	 */
-	@Inject
-	public YScaleRuler(final Canvas canvas) {
-		super(canvas);
+	public YScaleRuler() {
+		super();
 		setPreferredSize(new Dimension(SIZE, 500));
 	}
 

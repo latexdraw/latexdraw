@@ -36,7 +36,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 	/**
 	 * Creates the instrument.
 	 */
-	 ShapeGrouper() {
+	public ShapeGrouper() {
 		super();
 	}
 

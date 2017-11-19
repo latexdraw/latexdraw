@@ -1,12 +1,14 @@
 package net.sf.latexdraw.gui.hand;
 
-import com.google.inject.AbstractModule;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
-import net.sf.latexdraw.gui.ShapePropModule;
+import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestCoordDimShapeGUI;
 import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
+import net.sf.latexdraw.instruments.TextSetter;
+import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -19,15 +21,17 @@ import static org.mockito.Mockito.mock;
 @RunWith(MockitoJUnitRunner.class)
 public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 	@Override
-	protected AbstractModule createModule() {
-		return new ShapePropModule() {
+	protected Injector createInjector() {
+		return new ShapePropInjector() {
 			@Override
-			protected void configure() {
+			protected void configure() throws IllegalAccessException, InstantiationException {
 				super.configure();
 				pencil = mock(Pencil.class);
-				bind(ShapeCoordDimCustomiser.class).asEagerSingleton();
-				bind(Hand.class).asEagerSingleton();
-				bind(Pencil.class).toInstance(pencil);
+				bindAsEagerSingleton(ShapeCoordDimCustomiser.class);
+				bindAsEagerSingleton(Hand.class);
+				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
+				bindToInstance(Pencil.class, pencil);
 			}
 		};
 	}

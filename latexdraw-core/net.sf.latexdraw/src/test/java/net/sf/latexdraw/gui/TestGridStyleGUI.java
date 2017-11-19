@@ -48,7 +48,7 @@ public abstract class TestGridStyleGUI extends TestShapePropGUI<ShapeGridCustomi
 		labelsYInvertedCB = find("#labelsYInvertedCB");
 		labelsXInvertedCB = find("#labelsXInvertedCB");
 		mainPane = find("#mainPane");
-		ins = (ShapeGridCustomiser)guiceFactory.call(ShapeGridCustomiser.class);
+		ins = (ShapeGridCustomiser) injectorFactory.call(ShapeGridCustomiser.class);
 		ins.setActivated(true);
 	}
 }

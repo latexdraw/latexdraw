@@ -72,7 +72,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	/**
 	 * Creates the instrument.
 	 */
-	ShapeTextCustomiser() {
+	public ShapeTextCustomiser() {
 		super();
 		map = new HashMap<>();
 	}

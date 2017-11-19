@@ -53,7 +53,7 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 		centreButton = find("#centreButton");
 		packagesField = find("#packagesField");
 		logField = find("#logField");
-		ins = (ShapeTextCustomiser)guiceFactory.call(ShapeTextCustomiser.class);
+		ins = (ShapeTextCustomiser) injectorFactory.call(ShapeTextCustomiser.class);
 		ins.setActivated(true);
 	}
 

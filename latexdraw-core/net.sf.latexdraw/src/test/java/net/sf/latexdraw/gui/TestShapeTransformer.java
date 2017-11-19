@@ -1,6 +1,5 @@
 package net.sf.latexdraw.gui;
 
-import com.google.inject.AbstractModule;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.scene.control.Button;
@@ -9,6 +8,7 @@ import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeTransformer;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -80,22 +80,22 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 		distribHorizRight = find("#distribHorizRight");
 		distribHorizLeft = find("#distribHorizLeft");
 		mainPane = find("#mainPane");
-		ins = (ShapeTransformer) guiceFactory.call(ShapeTransformer.class);
+		ins = (ShapeTransformer) injectorFactory.call(ShapeTransformer.class);
 		ins.setActivated(true);
 		ins.update();
 	}
 
 	@Override
-	protected AbstractModule createModule() {
-		return new ShapePropModule() {
+	protected Injector createInjector() {
+		return new ShapePropInjector() {
 			@Override
-			protected void configure() {
+			protected void configure() throws IllegalAccessException, InstantiationException {
 				super.configure();
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);
-				bind(ShapeTransformer.class).asEagerSingleton();
-				bind(Hand.class).toInstance(hand);
-				bind(Pencil.class).toInstance(pencil);
+				bindAsEagerSingleton(ShapeTransformer.class);
+				bindToInstance(Hand.class, hand);
+				bindToInstance(Pencil.class, pencil);
 			}
 		};
 	}

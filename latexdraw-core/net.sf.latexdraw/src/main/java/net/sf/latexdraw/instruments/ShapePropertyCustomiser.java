@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -51,7 +51,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	/**
 	 * Creates the instrument.
 	 */
-	ShapePropertyCustomiser() {
+	public ShapePropertyCustomiser() {
 		super();
 	}
 

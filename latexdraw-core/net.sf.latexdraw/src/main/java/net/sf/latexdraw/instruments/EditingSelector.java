@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -122,7 +122,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	 * Creates the instrument.
 	 * @since 4.0
 	 */
-	EditingSelector() {
+	public EditingSelector() {
 		super();
 		button2EditingChoiceMap = new HashMap<>();
 	}

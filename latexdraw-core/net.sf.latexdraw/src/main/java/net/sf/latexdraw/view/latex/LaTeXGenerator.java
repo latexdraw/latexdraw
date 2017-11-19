@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.view.latex;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

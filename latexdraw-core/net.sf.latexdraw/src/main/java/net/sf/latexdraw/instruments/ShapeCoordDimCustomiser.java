@@ -35,7 +35,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	/**
 	 * Creates the instrument.
 	 */
-	ShapeCoordDimCustomiser() {
+	public ShapeCoordDimCustomiser() {
 		super();
 	}
 

@@ -35,7 +35,7 @@ public class StatusBarController implements Initializable {
 	/**
 	 * Creates the controller.
 	 */
-	StatusBarController() {
+	public StatusBarController() {
 		super();
 	}
 

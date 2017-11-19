@@ -1,8 +1,5 @@
 package net.sf.latexdraw.gui;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -20,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangTool;
 import org.junit.After;
 import org.junit.Before;
@@ -32,7 +30,7 @@ import org.testfx.util.WaitForAsyncUtils;
 import static org.junit.Assert.assertTrue;
 
 public abstract class TestLatexdrawGUI extends ApplicationTest {
-	protected Callback<Class<?>, Object> guiceFactory;
+	protected Callback<Class<?>, Object> injectorFactory;
 
 	protected final GUIVoidCommand waitFXEvents = WaitForAsyncUtils::waitForFxEvents;
 	protected final GUIVoidCommand waitFX1Second = () -> WaitForAsyncUtils.sleep(1, TimeUnit.SECONDS);
@@ -60,10 +58,10 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 		stage = aStage;
 
 		try {
-			final Injector injector = Guice.createInjector(createModule());
-			guiceFactory = injector::getInstance;
+			final Injector injector = createInjector();
+			injectorFactory = injector::getInstance;
 			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), LangTool.INSTANCE.getBundle(),
-				new LatexdrawBuilderFactory(injector), guiceFactory);
+				new LatexdrawBuilderFactory(injector), injectorFactory);
 
 			Parent parent = root;
 
@@ -107,10 +105,10 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 
 	protected abstract String getFXMLPathFromLatexdraw();
 
-	protected AbstractModule createModule() {
-		return new AbstractModule() {
+	protected Injector createInjector() {
+		return new Injector() {
 			@Override
-			protected void configure() {
+			protected void configure() throws IllegalAccessException, InstantiationException {
 				//
 			}
 		};

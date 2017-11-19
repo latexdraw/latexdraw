@@ -51,7 +51,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	/**
 	 * Creates the instrument.
 	 */
-	CopierCutterPaster() {
+	public CopierCutterPaster() {
 		super();
 		ActionsRegistry.INSTANCE.addHandler(this);
 	}

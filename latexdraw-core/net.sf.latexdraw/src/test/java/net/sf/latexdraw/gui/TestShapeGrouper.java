@@ -1,6 +1,5 @@
 package net.sf.latexdraw.gui;
 
-import com.google.inject.AbstractModule;
 import java.util.Collections;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -10,6 +9,7 @@ import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
 import org.junit.Test;
 import org.malai.action.ActionsRegistry;
@@ -52,22 +52,22 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 		groupB = find("#groupB");
 		sepB = find("#sepB");
 		mainPane = find("#mainPane");
-		ins = (ShapeGrouper) guiceFactory.call(ShapeGrouper.class);
+		ins = (ShapeGrouper) injectorFactory.call(ShapeGrouper.class);
 		ins.setActivated(true);
 		ins.update();
 	}
 
 	@Override
-	protected AbstractModule createModule() {
-		return new ShapePropModule() {
+	protected Injector createInjector() {
+		return new ShapePropInjector() {
 			@Override
-			protected void configure() {
+			protected void configure() throws IllegalAccessException, InstantiationException {
 				super.configure();
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);
-				bind(ShapeGrouper.class).asEagerSingleton();
-				bind(Hand.class).toInstance(hand);
-				bind(Pencil.class).toInstance(pencil);
+				bindAsEagerSingleton(ShapeGrouper.class);
+				bindToInstance(Hand.class, hand);
+				bindToInstance(Pencil.class, pencil);
 			}
 		};
 	}

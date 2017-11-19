@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ListChangeListener;
@@ -79,7 +79,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser implements Init
 	/**
 	 * Creates the instrument.
 	 */
-	MetaShapeCustomiser() {
+	public MetaShapeCustomiser() {
 		super();
 	}
 

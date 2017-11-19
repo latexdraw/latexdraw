@@ -1,9 +1,9 @@
 package net.sf.latexdraw.gui;
 
-import com.google.inject.Injector;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.util.Builder;
 import javafx.util.BuilderFactory;
+import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.jfx.Canvas;
 
 class LatexdrawBuilderFactory implements BuilderFactory {

@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 import net.sf.latexdraw.instruments.AboutController;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.instruments.CodeInserter;
@@ -56,6 +54,7 @@ import net.sf.latexdraw.instruments.Zoomer;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.ui.XScaleRuler;
 import net.sf.latexdraw.ui.YScaleRuler;
+import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -65,73 +64,57 @@ import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 /**
  * @author Arnaud Blouin
  */
-public class LatexdrawModule extends AbstractModule {
+public class LatexdrawInjector extends Injector {
 	@Override
-	protected void configure() {
-		bind(Canvas.class).asEagerSingleton();
-		bind(StatusBarController.class).asEagerSingleton();
-		bind(PSTCodeGenerator.class).asEagerSingleton();
-		bind(AboutController.class).asEagerSingleton();
-		bind(Border.class).asEagerSingleton();
-		bind(CodeInserter.class).asEagerSingleton();
-		bind(CopierCutterPaster.class).asEagerSingleton();
-		bind(CodePanelController.class).asEagerSingleton();
-		bind(DrawingPropertiesCustomiser.class).asEagerSingleton();
-		bind(EditingSelector.class).asEagerSingleton();
-		bind(ExceptionsManager.class).asEagerSingleton();
-		bind(Exporter.class).asEagerSingleton();
-		bind(FileLoaderSaver.class).asEagerSingleton();
-		bind(Hand.class).asEagerSingleton();
-		bind(Helper.class).asEagerSingleton();
-		bind(MetaShapeCustomiser.class).asEagerSingleton();
-		bind(Pencil.class).asEagerSingleton();
-		bind(PreferencesSetter.class).asEagerSingleton();
-		bind(ShapeArcCustomiser.class).asEagerSingleton();
-		bind(ShapeArrowCustomiser.class).asEagerSingleton();
-		bind(ShapeAxesCustomiser.class).asEagerSingleton();
-		bind(ShapeBorderCustomiser.class).asEagerSingleton();
-		bind(ShapeCoordDimCustomiser.class).asEagerSingleton();
-		bind(ShapeDeleter.class).asEagerSingleton();
-		bind(ShapeDotCustomiser.class).asEagerSingleton();
-		bind(ShapeDoubleBorderCustomiser.class).asEagerSingleton();
-		bind(ShapeFillingCustomiser.class).asEagerSingleton();
-		bind(ShapeFreeHandCustomiser.class).asEagerSingleton();
-		bind(ShapeGridCustomiser.class).asEagerSingleton();
-		bind(ShapeGrouper.class).asEagerSingleton();
-		bind(ShapePlotCustomiser.class).asEagerSingleton();
-		bind(ShapePositioner.class).asEagerSingleton();
-		bind(ShapeRotationCustomiser.class).asEagerSingleton();
-		bind(ShapeShadowCustomiser.class).asEagerSingleton();
-		bind(ShapeStdGridCustomiser.class).asEagerSingleton();
-		bind(ShapeTextCustomiser.class).asEagerSingleton();
-		bind(ShapeTransformer.class).asEagerSingleton();
-		bind(ShortcutsController.class).asEagerSingleton();
-		bind(TabSelector.class).asEagerSingleton();
-		bind(TemplateManager.class).asEagerSingleton();
-		bind(TextSetter.class).asEagerSingleton();
-		bind(XScaleRuler.class).asEagerSingleton();
-		bind(YScaleRuler.class).asEagerSingleton();
-		bind(UndoRedoManager.class).asEagerSingleton();
-		bind(Zoomer.class).asEagerSingleton();
-	}
-
-	@Provides
-	IDrawing provideDrawing(final Canvas canvas) {
-		return canvas.getDrawing();
-	}
-
-	@Provides
-	ViewsSynchroniserHandler provideViewsSynchroniserHandler(final Canvas canvas) {
-		return canvas;
-	}
-
-	@Provides
-	LaTeXGenerator provideLaTeXGenerator(final PSTCodeGenerator gen) {
-		return gen;
-	}
-
-	@Provides
-	MagneticGrid provideMagneticGrid(final Canvas canvas) {
-		return canvas.getMagneticGrid();
+	protected void configure() throws InstantiationException, IllegalAccessException {
+		bindAsEagerSingleton(ExceptionsManager.class);
+		bindAsEagerSingleton(ShortcutsController.class);
+		bindAsEagerSingleton(StatusBarController.class);
+		bindAsEagerSingleton(AboutController.class);
+		bindAsEagerSingleton(Canvas.class);
+		bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());
+		bindWithCommand(MagneticGrid.class, Canvas.class, canvas -> canvas.getMagneticGrid());
+		bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);
+		bindAsEagerSingleton(Zoomer.class);
+		bindAsEagerSingleton(UndoRedoManager.class);
+		bindAsEagerSingleton(PSTCodeGenerator.class);
+		bindWithCommand(LaTeXGenerator.class, PSTCodeGenerator.class, gen -> gen);
+		bindAsEagerSingleton(CodePanelController.class);
+		bindAsEagerSingleton(DrawingPropertiesCustomiser.class);
+		bindAsEagerSingleton(YScaleRuler.class);
+		bindAsEagerSingleton(XScaleRuler.class);
+		bindAsEagerSingleton(TemplateManager.class);
+		bindAsEagerSingleton(CodeInserter.class);
+		bindAsEagerSingleton(CopierCutterPaster.class);
+		bindAsEagerSingleton(MetaShapeCustomiser.class);
+		bindAsEagerSingleton(Border.class);
+		bindAsEagerSingleton(PreferencesSetter.class);
+		bindAsEagerSingleton(FileLoaderSaver.class);
+		bindAsEagerSingleton(Exporter.class);
+		bindAsEagerSingleton(EditingSelector.class);
+		bindAsEagerSingleton(TextSetter.class);
+		bindAsEagerSingleton(Hand.class);
+		bindAsEagerSingleton(Helper.class);
+		bindAsEagerSingleton(Pencil.class);
+		bindAsEagerSingleton(ShapeArcCustomiser.class);
+		bindAsEagerSingleton(ShapeArrowCustomiser.class);
+		bindAsEagerSingleton(ShapeAxesCustomiser.class);
+		bindAsEagerSingleton(ShapeBorderCustomiser.class);
+		bindAsEagerSingleton(ShapeCoordDimCustomiser.class);
+		bindAsEagerSingleton(ShapeDeleter.class);
+		bindAsEagerSingleton(ShapeDotCustomiser.class);
+		bindAsEagerSingleton(ShapeDoubleBorderCustomiser.class);
+		bindAsEagerSingleton(ShapeFillingCustomiser.class);
+		bindAsEagerSingleton(ShapeFreeHandCustomiser.class);
+		bindAsEagerSingleton(ShapeGridCustomiser.class);
+		bindAsEagerSingleton(ShapeGrouper.class);
+		bindAsEagerSingleton(ShapePlotCustomiser.class);
+		bindAsEagerSingleton(ShapePositioner.class);
+		bindAsEagerSingleton(ShapeRotationCustomiser.class);
+		bindAsEagerSingleton(ShapeShadowCustomiser.class);
+		bindAsEagerSingleton(ShapeStdGridCustomiser.class);
+		bindAsEagerSingleton(ShapeTextCustomiser.class);
+		bindAsEagerSingleton(ShapeTransformer.class);
+		bindAsEagerSingleton(TabSelector.class);
 	}
 }

@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -55,7 +55,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	TextSetter() {
+	public TextSetter() {
 		super();
 		textField = new TextAreaAutoSize();
 	}

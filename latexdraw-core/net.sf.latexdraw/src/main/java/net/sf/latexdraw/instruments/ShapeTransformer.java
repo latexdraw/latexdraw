@@ -64,7 +64,7 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 	/**
 	 * Creates the instrument.
 	 */
-	ShapeTransformer() {
+	public ShapeTransformer() {
 		super();
 	}
 

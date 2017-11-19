@@ -43,7 +43,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 	/**
 	 * Creates the instrument.
 	 */
-	ShapeFreeHandCustomiser() {
+	public ShapeFreeHandCustomiser() {
 		super();
 	}
 

@@ -40,7 +40,7 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	 * Creates the instrument.
 	 * @since 3.0
 	 */
-	ExceptionsManager() {
+	public ExceptionsManager() {
 		super();
 		BadaboomCollector.INSTANCE.addHandler(this);
 	}

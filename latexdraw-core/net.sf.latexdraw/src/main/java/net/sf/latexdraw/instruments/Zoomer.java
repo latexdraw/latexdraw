@@ -10,12 +10,12 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
+import javax.inject.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.library.Zoom;
 import org.malai.javafx.instrument.BasicZoomer;
@@ -28,7 +28,7 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	@FXML private Spinner<Double> zoom;
 	@Inject private Canvas canvas;
 
-	Zoomer() {
+	public Zoomer() {
 		super();
 	}
 

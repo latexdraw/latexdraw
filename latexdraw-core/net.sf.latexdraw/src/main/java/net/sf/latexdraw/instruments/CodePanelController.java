@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -29,7 +29,7 @@ public class CodePanelController extends CanvasInstrument implements Initializab
 	/** The PSTricks generator. */
 	@Inject private LaTeXGenerator pstGenerator;
 
-	CodePanelController() {
+	public CodePanelController() {
 		super();
 	}
 

@@ -50,7 +50,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Init
 	/**
 	 * Creates the instrument.
 	 */
-	ShapeGridCustomiser() {
+	public ShapeGridCustomiser() {
 		super();
 	}
 

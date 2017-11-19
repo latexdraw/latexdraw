@@ -22,7 +22,7 @@ public abstract class TestCoordDimShapeGUI extends TestShapePropGUI<ShapeCoordDi
 		super.setUp();
 		tlxS = find("#tlxS");
 		tlyS = find("#tlyS");
-		ins = (ShapeCoordDimCustomiser)guiceFactory.call(ShapeCoordDimCustomiser.class);
+		ins = (ShapeCoordDimCustomiser) injectorFactory.call(ShapeCoordDimCustomiser.class);
 		ins.setActivated(true);
 	}
 }

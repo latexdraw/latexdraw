@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -53,7 +53,7 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	/**
 	 * Creates the instrument.
 	 */
-	DrawingPropertiesCustomiser() {
+	public DrawingPropertiesCustomiser() {
 		super();
 	}
 

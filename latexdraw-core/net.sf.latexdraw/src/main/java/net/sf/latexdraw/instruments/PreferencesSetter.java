@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
@@ -101,7 +101,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	PreferencesSetter() {
+	public PreferencesSetter() {
 		super();
 		recentFileNames = new ArrayList<>();
 	}

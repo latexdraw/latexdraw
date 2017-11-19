@@ -54,7 +54,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 	/**
 	 * Creates the instrument.
 	 */
-	ShapeAxesCustomiser() {
+	public ShapeAxesCustomiser() {
 		super();
 	}
 

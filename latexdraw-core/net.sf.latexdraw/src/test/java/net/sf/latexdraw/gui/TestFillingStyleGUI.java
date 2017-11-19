@@ -52,7 +52,7 @@ public abstract class TestFillingStyleGUI extends TestShapePropGUI<ShapeFillingC
 		hatchSepField = find("#hatchSepField");
 		hatchAngleField = find("#hatchAngleField");
 		hatchWidthField = find("#hatchWidthField");
-		ins = (ShapeFillingCustomiser) guiceFactory.call(ShapeFillingCustomiser.class);
+		ins = (ShapeFillingCustomiser) injectorFactory.call(ShapeFillingCustomiser.class);
 		ins.setActivated(true);
 	}
 }

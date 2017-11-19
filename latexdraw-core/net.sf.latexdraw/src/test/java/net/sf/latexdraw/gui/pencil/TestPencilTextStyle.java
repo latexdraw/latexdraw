@@ -1,14 +1,16 @@
 package net.sf.latexdraw.gui.pencil;
 
-import com.google.inject.AbstractModule;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
-import net.sf.latexdraw.gui.ShapePropModule;
+import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestTextStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeTextCustomiser;
+import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -22,15 +24,17 @@ import static org.mockito.Mockito.mock;
 public class TestPencilTextStyle extends TestTextStyleGUI {
 
 	@Override
-	protected AbstractModule createModule() {
-		return new ShapePropModule() {
+	protected Injector createInjector() {
+		return new ShapePropInjector() {
 			@Override
-			protected void configure() {
+			protected void configure() throws IllegalAccessException, InstantiationException {
 				super.configure();
 				hand = mock(Hand.class);
-				bind(ShapeTextCustomiser.class).asEagerSingleton();
-				bind(Pencil.class).asEagerSingleton();
-				bind(Hand.class).toInstance(hand);
+				bindAsEagerSingleton(ShapeTextCustomiser.class);
+				bindAsEagerSingleton(Pencil.class);
+				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
+				bindToInstance(Hand.class, hand);
 			}
 		};
 	}

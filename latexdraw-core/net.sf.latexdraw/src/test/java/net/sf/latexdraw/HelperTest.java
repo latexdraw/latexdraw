@@ -1,7 +1,5 @@
 package net.sf.latexdraw;
 
-import java.awt.GraphicsEnvironment;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -23,20 +21,10 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
 public interface HelperTest {
-	default Field getField(final Class<?> clazz, final String name) throws SecurityException, NoSuchFieldException {
-		final Field field = clazz.getDeclaredField(name);
-		field.setAccessible(true);
-		return field;
-	}
-
 	default <T> List<T> cloneList(final List<T> list, final Function<T, T> cloner) {
 		final List<T> clone = new ArrayList<>(list.size());
 		list.forEach(elt -> clone.add(cloner.apply(elt)));
 		return clone;
-	}
-
-	default boolean isX11Set() {
-		return !GraphicsEnvironment.getLocalGraphicsEnvironment().isHeadlessInstance();
 	}
 
 	default void assertEqualsDouble(final double v1, final double v2) {

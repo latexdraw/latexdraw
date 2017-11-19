@@ -10,17 +10,16 @@
  */
 package net.sf.latexdraw.ui;
 
-import com.google.inject.Inject;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.util.Objects;
 import javax.accessibility.Accessible;
 import javax.accessibility.AccessibleContext;
 import javax.accessibility.AccessibleRole;
+import javax.inject.Inject;
 import javax.swing.JComponent;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -45,7 +44,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Accessi
 	protected static final double MIN_PCC_SUBLINES = 20.;
 
 	/** The canvas that the ruler manages. */
-	protected final Canvas canvas;
+	@Inject protected Canvas canvas;
 
 //	/** The event manager that listens events produced by the panel. */
 //	protected final SwingEventManager eventManager;
@@ -56,13 +55,10 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Accessi
 
 	/**
 	 * Creates the ruler.
-	 * @param canvas The canvas that the ruler manages.
 	 * @throws IllegalArgumentException If the given canvas is null.
 	 */
-	@Inject
-    protected ScaleRuler(final Canvas canvas) {
+    protected ScaleRuler() {
 		super();
-		this.canvas  = Objects.requireNonNull(canvas);
 //		eventManager = new SwingEventManager();
 //		eventManager.attachTo(this);
 		setDoubleBuffered(true);

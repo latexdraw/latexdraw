@@ -1,11 +1,8 @@
 package net.sf.latexdraw.view.pst;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Provides;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.VerticalPosition;
@@ -22,21 +19,15 @@ public class TestDrawingProperties {
 
 	@Before
 	public void setUp() throws Exception {
-		Injector injector = Guice.createInjector(new AbstractModule() {
+		final Injector injector = new Injector() {
 			@Override
-			protected void configure() {
-				bind(Canvas.class).asEagerSingleton();
-				bind(PSTCodeGenerator.class).asEagerSingleton();
+			protected void configure() throws IllegalAccessException, InstantiationException {
+				bindAsEagerSingleton(Canvas.class);
+				bindAsEagerSingleton(PSTCodeGenerator.class);
+				bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());
+				bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);
 			}
-			@Provides
-			IDrawing provideDrawing(final Canvas canvas) {
-				return canvas.getDrawing();
-			}
-			@Provides
-			ViewsSynchroniserHandler provideViewsSynchroniserHandler(final Canvas canvas) {
-				return canvas;
-			}
-		});
+		};
 		gen = injector.getInstance(PSTCodeGenerator.class);
 		drawing = injector.getInstance(IDrawing.class);
 		drawing.addShape(ShapeFactory.INST.createCircle());

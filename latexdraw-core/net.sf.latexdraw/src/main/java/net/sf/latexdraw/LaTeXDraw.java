@@ -10,9 +10,6 @@
  */
 package net.sf.latexdraw;
 
-import com.google.common.collect.Sets;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,6 +36,7 @@ import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.instruments.StatusBarController;
 import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.VersionChecker;
@@ -91,7 +89,7 @@ public class LaTeXDraw extends JfxUI {
 		super();
 		instance = this;
 		instruments = new HashSet<>();
-		injector = Guice.createInjector(com.google.inject.Stage.PRODUCTION, new LatexdrawModule());
+		injector = new LatexdrawInjector();
 		// This callback gathers all the JFX instruments.
 		instanceCallBack = cl -> {
 			final Object inst = injector.getInstance(cl);
@@ -200,7 +198,10 @@ public class LaTeXDraw extends JfxUI {
 
 	@Override
 	protected <T extends Modifiable & Reinitialisable> Set<T> getAdditionalComponents() {
-		return Sets.newHashSet((T) injector.getInstance(Canvas.class), (T) injector.getInstance(IDrawing.class));
+		final Set<T> set = new HashSet<>();
+		set.add((T) injector.getInstance(Canvas.class));
+		set.add((T) injector.getInstance(IDrawing.class));
+		return set;
 	}
 
 	@Override

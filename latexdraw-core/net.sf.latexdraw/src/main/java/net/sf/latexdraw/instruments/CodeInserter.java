@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -64,7 +64,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	CodeInserter() {
+	public CodeInserter() {
 		super();
 	}
 

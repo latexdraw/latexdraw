@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +57,7 @@ public class Hand extends CanvasInstrument {
 	@Inject private MetaShapeCustomiser metaCustomiser;
 	@Inject private TextSetter textSetter;
 
-	Hand() {
+	public Hand() {
 		super();
 	}
 

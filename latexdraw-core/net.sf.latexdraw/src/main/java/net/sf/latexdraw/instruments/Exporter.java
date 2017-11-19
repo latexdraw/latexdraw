@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
@@ -86,7 +86,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	/**
 	 * Creates the instrument.
 	 */
-	Exporter() {
+	public Exporter() {
 		super();
 		defaultPackages = ""; //$NON-NLS-1$
 		reinit();

@@ -69,7 +69,7 @@ public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCusto
 		arrowPane = find("#arrowPane");
 		barPane = find("#barPane");
 		bracketPane = find("#bracketPane");
-		ins = (ShapeArrowCustomiser) guiceFactory.call(ShapeArrowCustomiser.class);
+		ins = (ShapeArrowCustomiser) injectorFactory.call(ShapeArrowCustomiser.class);
 		ins.setActivated(true);
 	}
 }

@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -52,7 +52,7 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 	@Inject private StatusBarController statusController;
 
 
-	TemplateManager() {
+	public TemplateManager() {
 		super();
 	}
 

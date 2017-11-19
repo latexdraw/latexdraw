@@ -26,7 +26,7 @@ public class ShapeTransformationController implements Initializable {
 	@FXML private TitledPane pane;
 	@FXML private VBox layout;
 
-	ShapeTransformationController() {
+	public ShapeTransformationController() {
 		super();
 	}
 

@@ -60,7 +60,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 	/**
 	 * Creates the instrument.
 	 */
-	ShapeFillingCustomiser() {
+	public ShapeFillingCustomiser() {
 		super();
 	}
 
