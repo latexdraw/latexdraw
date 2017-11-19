@@ -1,4 +1,11 @@
 ************************************************************
+Version 3.3.7 -- 19/11/2017
+
+fixed: crash at start-up using Java 9
+fixed: pictures not correctly mirrored
+fixed: control points not mirrored
+
+************************************************************
 Version 3.3.6 -- 2017/07/12
 
 - fixed: the tooltip that shows LaTeX compilation errors while putting the cursor over a text shape may freeze the application.
