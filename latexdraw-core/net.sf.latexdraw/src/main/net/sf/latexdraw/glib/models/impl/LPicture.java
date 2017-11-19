@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.EPSFilter;
+import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -86,6 +87,23 @@ class LPicture extends LPositionShape implements IPicture {
 		if(sh instanceof IPicture)
 			try{ setPathSource(((IPicture)sh).getPathSource()); }
 			catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+	}
+
+
+	@Override
+	public void mirrorVertical(final IPoint origin) {
+		final IPoint gc = getGravityCentre();
+		if(GLibUtilities.isValidPoint(origin) && !origin.equals(gc, 0.0001)) {
+			translate(0d, gc.verticalSymmetry(origin).getY() - gc.getY());
+		}
+	}
+
+	@Override
+	public void mirrorHorizontal(final IPoint origin) {
+		final IPoint gc = getGravityCentre();
+		if(GLibUtilities.isValidPoint(origin) && !origin.equals(gc, 0.0001)) {
+			translate(gc.horizontalSymmetry(origin).getX() - gc.getX(), 0d);
+		}
 	}
 
 
