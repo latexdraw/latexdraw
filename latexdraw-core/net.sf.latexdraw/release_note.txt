@@ -1,5 +1,5 @@
 ************************************************************
-Version 3.3.7
+Version 3.3.7 -- 19/11/2017
 
 fixed: crash at start-up using Java 9
 fixed: pictures not correctly mirrored
