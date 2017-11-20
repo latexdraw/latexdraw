@@ -10,10 +10,10 @@
  */
 package net.sf.latexdraw.ui;
 
-import javax.inject.Inject;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+import net.sf.latexdraw.util.Inject;
 
 /**
  * An X-scale ruler.

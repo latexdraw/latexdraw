@@ -10,13 +10,13 @@
  */
 package net.sf.latexdraw.instruments;
 
-import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 
 /**

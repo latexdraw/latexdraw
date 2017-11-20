@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import javax.inject.Inject;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +31,7 @@ import net.sf.latexdraw.actions.LoadTemplate;
 import net.sf.latexdraw.actions.UpdateTemplates;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.javafx.binding.JfXWidgetBinding;

@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -21,6 +20,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import net.sf.latexdraw.actions.LatexProperties;
 import net.sf.latexdraw.actions.ModifyLatexProperties;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;

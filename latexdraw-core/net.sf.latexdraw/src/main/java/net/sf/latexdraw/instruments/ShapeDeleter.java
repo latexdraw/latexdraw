@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ListChangeListener;
@@ -22,6 +21,7 @@ import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.actions.shape.DeleteShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.Inject;
 import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.JfxInteraction;
 import org.malai.javafx.interaction.library.ButtonPressed;

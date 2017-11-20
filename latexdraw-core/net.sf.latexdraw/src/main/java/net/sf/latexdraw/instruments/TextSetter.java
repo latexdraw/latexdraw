@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import javax.inject.Inject;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -27,6 +26,7 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
+import net.sf.latexdraw.util.Inject;
 import org.malai.action.Action;
 import org.malai.javafx.action.ActivateInactivateInstruments;
 import org.malai.javafx.binding.JfXWidgetBinding;

@@ -1,7 +1,6 @@
 package net.sf.latexdraw.util;
 
 import java.util.logging.Handler;
-import javax.inject.Inject;
 import net.sf.latexdraw.HelperTest;
 import org.junit.Before;
 import org.junit.Test;

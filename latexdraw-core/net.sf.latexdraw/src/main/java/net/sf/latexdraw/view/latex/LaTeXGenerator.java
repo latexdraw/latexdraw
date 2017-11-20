@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.view.latex;
 
-import javax.inject.Inject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,6 +23,7 @@ import net.sf.latexdraw.actions.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.OperatingSystem;

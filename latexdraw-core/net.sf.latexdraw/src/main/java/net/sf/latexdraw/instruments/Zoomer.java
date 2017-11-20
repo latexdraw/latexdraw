@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
-import javax.inject.Inject;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.library.Zoom;
 import org.malai.javafx.instrument.BasicZoomer;

@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import javax.inject.Inject;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
@@ -27,6 +26,7 @@ import net.sf.latexdraw.actions.Export;
 import net.sf.latexdraw.actions.ExportFormat;
 import net.sf.latexdraw.actions.ExportTemplate;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LSystem;

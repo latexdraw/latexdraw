@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import javax.inject.Inject;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -35,6 +34,7 @@ import net.sf.latexdraw.parsers.pst.PSTContext;
 import net.sf.latexdraw.parsers.pst.PSTLatexdrawListener;
 import net.sf.latexdraw.parsers.pst.PSTLexer;
 import net.sf.latexdraw.parsers.pst.PSTParser;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.LangTool;
 import org.antlr.v4.runtime.ANTLRErrorListener;

@@ -10,10 +10,10 @@
  */
 package net.sf.latexdraw.instruments;
 
-import javax.inject.Inject;
 import javafx.geometry.Point3D;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.javafx.instrument.JfxInstrument;

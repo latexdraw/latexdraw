@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import javax.inject.Inject;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +22,7 @@ import javafx.scene.control.ToggleGroup;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.Action;
 import org.malai.javafx.action.ActivateInactivateInstruments;
