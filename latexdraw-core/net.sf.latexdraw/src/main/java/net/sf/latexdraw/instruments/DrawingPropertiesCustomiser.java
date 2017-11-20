@@ -121,11 +121,21 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 
 		final String name = root.getNodeName();
 
-		if(name.endsWith(LNamespace.XML_CAPTION)) latexGen.setCaption(root.getTextContent());
-		else if(name.endsWith(LNamespace.XML_LABEL)) latexGen.setLabel(root.getTextContent());
-		else if(name.endsWith(LNamespace.XML_POSITION_HORIZ)) latexGen.setPositionHoriCentre(Boolean.parseBoolean(root.getTextContent()));
-		else if(name.endsWith(LNamespace.XML_POSITION_VERT))
+		if(name.endsWith(LNamespace.XML_CAPTION)) {
+			latexGen.setCaption(root.getTextContent());
+			return;
+		}
+		if(name.endsWith(LNamespace.XML_LABEL)) {
+			latexGen.setLabel(root.getTextContent());
+			return;
+		}
+		if(name.endsWith(LNamespace.XML_POSITION_HORIZ)) {
+			latexGen.setPositionHoriCentre(Boolean.parseBoolean(root.getTextContent()));
+			return;
+		}
+		if(name.endsWith(LNamespace.XML_POSITION_VERT)) {
 			latexGen.setPositionVertToken(VerticalPosition.getPosition(root.getTextContent()));
+		}
 	}
 
 	protected void updateWidgets() {
