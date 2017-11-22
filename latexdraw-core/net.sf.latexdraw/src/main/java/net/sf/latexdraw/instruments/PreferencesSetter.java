@@ -158,22 +158,25 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		bindComboBox(ModifyMagneticGrid.class, action -> {
+		comboboxBinder(ModifyMagneticGrid.class).on(styleList).init(action -> {
 			action.setValue(styleList.getSelectionModel().getSelectedItem());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.STYLE);
-		}, styleList);
-		bindCheckbox(ModifyMagneticGrid.class, action -> {
+		}).bind();
+
+		checkboxBinder(ModifyMagneticGrid.class).on(magneticCB).init(action -> {
 			action.setValue(magneticCB.isSelected());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.MAGNETIC);
-		}, magneticCB);
-		bindSpinner(ModifyMagneticGrid.class, action -> {
+		}).bind();
+
+		spinnerBinder(ModifyMagneticGrid.class).on(persoGridGapField).exec(true).init(action -> {
 			action.setValue(persoGridGapField.getValue());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.GRID_SPACING);
-		}, action -> action.setValue(persoGridGapField.getValue()), true, persoGridGapField);
-		bindComboBox(SetUnit.class, action -> action.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem())), unitChoice);
+		}).update(action -> action.setValue(persoGridGapField.getValue())).bind();
+
+		comboboxBinder(SetUnit.class).on(unitChoice).init(action -> action.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()))).bind();
 	}
 
 	/**

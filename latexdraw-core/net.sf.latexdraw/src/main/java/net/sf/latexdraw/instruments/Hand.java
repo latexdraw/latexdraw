@@ -46,7 +46,6 @@ import org.malai.javafx.action.MoveCamera;
 import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.DoubleClick;
-import org.malai.javafx.interaction.library.KeysPressure;
 import org.malai.javafx.interaction.library.Press;
 
 /**
@@ -87,8 +86,16 @@ public class Hand extends CanvasInstrument {
 		addBinding(new DnD2Translate(this));
 		addBinding(new DnD2MoveViewport(this));
 		addBinding(new DoubleClick2InitTextSetter(this));
-		addBinding(new CtrlA2SelectAllShapes(this));
-		addBinding(new CtrlU2UpdateShapes(this));
+
+		keyNodeBinder(SelectShapes.class).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).init(action -> {
+			canvas.getDrawing().getShapes().forEach(sh -> action.addShape(sh));
+			action.setDrawing(canvas.getDrawing());
+		}).bind();
+
+		keyNodeBinder(UpdateToGrid.class).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).init(action -> {
+			action.setShape(canvas.getDrawing().getSelection().duplicateDeep(false));
+			action.setGrid(canvas.getMagneticGrid());
+		}).check(i -> canvas.getMagneticGrid().isMagnetic()).bind();
 	}
 
 	@Override
@@ -177,44 +184,6 @@ public class Hand extends CanvasInstrument {
 		@Override
 		public boolean isConditionRespected() {
 			return getViewShape(interaction.getSrcObject()).isPresent();
-		}
-	}
-
-
-	private static class CtrlA2SelectAllShapes extends JfXWidgetBinding<SelectShapes, KeysPressure, Hand> {
-		CtrlA2SelectAllShapes(final Hand hand) throws InstantiationException, IllegalAccessException {
-			super(hand, false, SelectShapes.class, KeysPressure.class, hand.canvas);
-		}
-
-		@Override
-		public void initAction() {
-			instrument.canvas.getDrawing().getShapes().forEach(sh -> action.addShape(sh));
-			action.setDrawing(instrument.canvas.getDrawing());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getKeyCodes().size() == 2 && interaction.getKeyCodes().contains(KeyCode.A) &&
-				interaction.getKeyCodes().contains(LSystem.INSTANCE.getControlKey());
-		}
-	}
-
-
-	private static class CtrlU2UpdateShapes extends JfXWidgetBinding<UpdateToGrid, KeysPressure, Hand> {
-		CtrlU2UpdateShapes(final Hand ins) throws IllegalAccessException, InstantiationException {
-			super(ins, false, UpdateToGrid.class, KeysPressure.class, ins.canvas);
-		}
-
-		@Override
-		public void initAction() {
-			action.setShape(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
-			action.setGrid(instrument.canvas.getMagneticGrid());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.canvas.getMagneticGrid().isMagnetic() && interaction.getKeys().size() == 2 &&
-				interaction.getKeyCodes().contains(KeyCode.U) && interaction.getKeyCodes().contains(KeyCode.CONTROL);
 		}
 	}
 

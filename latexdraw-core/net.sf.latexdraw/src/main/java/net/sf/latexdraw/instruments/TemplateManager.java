@@ -89,10 +89,10 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		 bindButton(UpdateTemplates.class, action -> {
+		 buttonBinder(UpdateTemplates.class).on(updateTemplates).init(action -> {
 			 action.setTemplatesPane(templatePane);
 			 action.updateThumbnails(true);
-		 }, updateTemplates);
+		 }).bind();
 		 addBinding(new DnD2AddTemplate(this));
 	}
 

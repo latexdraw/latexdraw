@@ -12,7 +12,7 @@ package net.sf.latexdraw.instruments;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
@@ -174,47 +174,48 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		};
 
 		// Close window
-		bindWindow(SaveDrawing.class, action -> {
+		windowBinder(SaveDrawing.class, WindowClosed.class).on(LaTeXDraw.getInstance().getMainStage()).init(action -> {
 			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(true);
-		}, WindowClosed.class, LaTeXDraw.getInstance().getMainStage());
+		}).bind();
 
 		// Quit shortcut
-		bindKeyShortcut(Arrays.asList(KeyCode.W, LSystem.INSTANCE.getControlKey()), SaveDrawing.class, action -> {
-			initSaveAction.accept(action, FileLoaderSaver.this);
-			action.setSaveAs(true);
-			action.setSaveOnClose(true);
-		}, LaTeXDraw.getInstance().getMainStage());
+		keyWindowBinder(SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.W, LSystem.INSTANCE.getControlKey()).
+			init(action -> {
+				initSaveAction.accept(action, FileLoaderSaver.this);
+				action.setSaveAs(true);
+				action.setSaveOnClose(true);
+		}).bind();
 
 		// Save menu
-		bindMenu(SaveDrawing.class, saveAction, saveMenu);
+		menuItemBinder(SaveDrawing.class).on(saveMenu).init(saveAction).bind();
 
 		// Save shortcut
-		bindKeyShortcut(Arrays.asList(KeyCode.S, LSystem.INSTANCE.getControlKey()), SaveDrawing.class, saveAction, LaTeXDraw
-			.getInstance().getMainStage());
+		keyWindowBinder(SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.S, LSystem.INSTANCE.getControlKey()).
+			init(saveAction).bind();
 
 		// Save as menu
-		bindMenu(SaveDrawing.class, action -> {
+		menuItemBinder(SaveDrawing.class).on(saveAsMenu).init(action -> {
 			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(false);
 			action.setFile(null);
-		}, saveAsMenu);
+		}).bind();
 
 		// Load menu
-		bindMenu(LoadDrawing.class, loadAction, loadMenu);
+		menuItemBinder(LoadDrawing.class).on(loadMenu).init(loadAction).bind();
 
 		// Load shortcut
-		bindKeyShortcut(Arrays.asList(KeyCode.O, LSystem.INSTANCE.getControlKey()), LoadDrawing.class, loadAction, LaTeXDraw
-			.getInstance().getMainStage());
+		keyWindowBinder(LoadDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.O, LSystem.INSTANCE.getControlKey()).
+			init(loadAction).bind();
 
 		// New menu
-		bindMenu(NewDrawing.class, newAction, newMenu);
+		menuItemBinder(NewDrawing.class).on(newMenu).init(newAction).bind();
 
 		// New shortcut
-		bindKeyShortcut(Arrays.asList(KeyCode.N, LSystem.INSTANCE.getControlKey()), NewDrawing.class, newAction, LaTeXDraw
-			.getInstance().getMainStage());
+		keyWindowBinder(NewDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.N, LSystem.INSTANCE.getControlKey()).
+			init(newAction).bind();
 
 		// Recent files menus
 		recentInterator = new RecentMenuItem2LoadInteractor(this);
@@ -312,7 +313,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 	private static final class RecentMenuItem2LoadInteractor extends JfxMenuItemBinding<LoadDrawing, MenuItemPressed, FileLoaderSaver> {
 		private RecentMenuItem2LoadInteractor(final FileLoaderSaver ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, LoadDrawing.class, MenuItemPressed.class);
+			super(ins, false, LoadDrawing.class, MenuItemPressed.class, Collections.emptyList());
 		}
 
 		@Override

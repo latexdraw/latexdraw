@@ -11,7 +11,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,9 +20,6 @@ import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.util.LSystem;
 import org.malai.action.library.Redo;
 import org.malai.action.library.Undo;
-import org.malai.javafx.binding.JfXWidgetBinding;
-import org.malai.javafx.interaction.library.ButtonPressed;
-import org.malai.javafx.interaction.library.KeysPressure;
 import org.malai.undo.UndoCollector;
 import org.malai.undo.Undoable;
 
@@ -53,10 +49,10 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		addBinding(new ButtonPressed2Undo());
-		addBinding(new ButtonPressed2Redo());
-		addBinding(new Keys2Undo());
-		addBinding(new Keys2Redo());
+		buttonBinder(Undo.class).on(undoB).check(i -> UndoCollector.INSTANCE.getLastUndo() != null).bind();
+		buttonBinder(Redo.class).on(redoB).check(i -> UndoCollector.INSTANCE.getLastRedo() != null).bind();
+		keyNodeBinder(Undo.class).on(canvas).with(KeyCode.Z, LSystem.INSTANCE.getControlKey()).check(i -> UndoCollector.INSTANCE.getLastUndo() != null).bind();
+		keyNodeBinder(Redo.class).on(canvas).with(KeyCode.Y, LSystem.INSTANCE.getControlKey()).check(i -> UndoCollector.INSTANCE.getLastRedo() != null).bind();
 	}
 
 	/**
@@ -106,71 +102,5 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	@Override
 	public void onUndoableRedo(final Undoable undoable) {
 		updateWidgets();
-	}
-
-	class ButtonPressed2Redo extends JfXWidgetBinding<Redo, ButtonPressed, UndoRedoManager> {
-		ButtonPressed2Redo() throws InstantiationException, IllegalAccessException {
-			super(UndoRedoManager.this, false, Redo.class, ButtonPressed.class, redoB);
-		}
-
-		@Override
-		public void initAction() {
-			// Nothing to do.
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return UndoCollector.INSTANCE.getLastRedo() != null;
-		}
-	}
-
-	class ButtonPressed2Undo extends JfXWidgetBinding<Undo, ButtonPressed, UndoRedoManager> {
-		ButtonPressed2Undo() throws InstantiationException, IllegalAccessException {
-			super(UndoRedoManager.this, false, Undo.class, ButtonPressed.class, undoB);
-		}
-
-		@Override
-		public void initAction() {
-			// Nothing to do.
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return UndoCollector.INSTANCE.getLastUndo() != null;
-		}
-	}
-
-	class Keys2Redo extends JfXWidgetBinding<Redo, KeysPressure, UndoRedoManager> {
-		Keys2Redo() throws InstantiationException, IllegalAccessException {
-			super(UndoRedoManager.this, false, Redo.class, KeysPressure.class, canvas);
-		}
-
-		@Override
-		public void initAction() {
-			// Nothing to do.
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final List<KeyCode> keys = getInteraction().getKeyCodes();
-			return UndoCollector.INSTANCE.getLastRedo() != null && keys.size() == 2 && keys.contains(KeyCode.Y) && keys.contains(LSystem.INSTANCE.getControlKey());
-		}
-	}
-
-	class Keys2Undo extends JfXWidgetBinding<Undo, KeysPressure, UndoRedoManager> {
-		Keys2Undo() throws InstantiationException, IllegalAccessException {
-			super(UndoRedoManager.this, false, Undo.class, KeysPressure.class, canvas);
-		}
-
-		@Override
-		public void initAction() {
-			// Nothing to do.
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final List<KeyCode> keys = getInteraction().getKeyCodes();
-			return UndoCollector.INSTANCE.getLastRedo() != null && keys.size() == 2 && keys.contains(KeyCode.Z) && keys.contains(LSystem.INSTANCE.getControlKey());
-		}
 	}
 }

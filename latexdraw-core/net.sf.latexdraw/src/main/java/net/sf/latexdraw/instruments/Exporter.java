@@ -147,7 +147,8 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		bindMenu(Export.class, (action, interaction) -> {
+		menuItemBinder(Export.class).on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST).
+			init((action, interaction) -> {
 			if(interaction.getWidget().getUserData() instanceof ExportFormat) {
 				final ExportFormat format = (ExportFormat) interaction.getWidget().getUserData();
 				action.setDialogueBox(getExportDialog(format));
@@ -155,15 +156,15 @@ public class Exporter extends JfxInstrument implements Initializable {
 				action.setFormat(format);
 				action.setPstGen(pstGen);
 			}
-		}, menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST);
+		}).bind();
 
-		bindMenu(ExportTemplate.class, action -> {
+		menuItemBinder(ExportTemplate.class).on(exportTemplateMenu).init(action -> {
 			action.setTemplatesPane(templateManager.templatePane);
 			action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 			action.setUi(LaTeXDraw.getInstance());
 			action.setProgressBar(statusBar.getProgressBar());
 			action.setStatusWidget(statusBar.getLabel());
-		}, exportTemplateMenu);
+		}).bind();
 	}
 
 	/**

@@ -118,7 +118,7 @@ public class TabSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		bindTab(ActivateInactivateInstruments.class, action -> {
+		tabBinder(ActivateInactivateInstruments.class).on(tabPane).init(action -> {
 			if(tabPane.getSelectionModel().getSelectedIndex() == 0) {
 				action.addInstrumentToActivate(selector);
 				action.addInstrumentToActivate(paster);
@@ -144,6 +144,6 @@ public class TabSelector extends JfxInstrument implements Initializable {
 					action.addInstrumentToActivate(prefSetter);
 				}
 			}
-		}, tabPane);
+		}).bind();
 	}
 }

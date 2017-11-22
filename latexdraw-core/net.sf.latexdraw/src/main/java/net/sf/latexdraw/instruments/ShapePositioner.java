@@ -46,8 +46,8 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 			action.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		};
 
-		bindButton(MoveBackForegroundShapes.class, action -> init.accept(true, action), foregroundB);
-		bindButton(MoveBackForegroundShapes.class, action -> init.accept(false, action), backgroundB);
+		buttonBinder(MoveBackForegroundShapes.class).on(foregroundB).init(action -> init.accept(true, action)).bind();
+		buttonBinder(MoveBackForegroundShapes.class).on(backgroundB).init(action -> init.accept(false, action)).bind();
 	}
 
 	@Override

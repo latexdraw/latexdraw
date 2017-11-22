@@ -102,11 +102,56 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 		pencil = pen;
 	}
 
+	/*
+private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapeProperty, KeyTyped, TextSetter> {
+		Enter2SetEquation(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+			super(ins, false, ModifyShapeProperty.class, KeyTyped.class, ins.textField);
+		}
+
+		@Override
+		public void initAction() {
+			action.setGroup(ShapeFactory.INST.createGroup(instrument.plot));
+			action.setProperty(ShapeProperties.PLOT_EQ);
+			action.setValue(instrument.textField.getText());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.plot != null && !instrument.textField.getText().isEmpty() && interaction.getKeyCode().orElse(null) == KeyCode.ENTER;
+		}
+	}
+	 */
+
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		addBinding(new Enter2SetText(this));
-		addBinding(new Enter2SetEquation(this));
-		addBinding(new Enter2AddText(this));
+		// Key Enter to validate the text.
+		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).init(action -> {
+			action.setGroup(ShapeFactory.INST.createGroup(text));
+			action.setProperty(ShapeProperties.TEXT);
+			action.setValue(textField.getText());
+		}).check(i -> text != null && !textField.getText().isEmpty()).bind();
+
+		// Key Enter to validate the equation of a plot shape.
+		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).init(action -> {
+			action.setGroup(ShapeFactory.INST.createGroup(plot));
+			action.setProperty(ShapeProperties.PLOT_EQ);
+			action.setValue(textField.getText());
+		}).check(i -> plot != null && !textField.getText().isEmpty()).bind();
+
+		// Key Enter to add a text shape.
+		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).init(action -> {
+			final IPoint textPosition = ShapeFactory.INST.createPoint(position.getX(), position.getY());
+			final IShape sh = pencil == null ? null : pencil.createShapeInstance();
+
+			if(sh instanceof IText) {
+				final IText text = (IText) sh;
+				text.setPosition(textPosition.getX(), textPosition.getY());
+				text.setText(textField.getText());
+				action.setShape(text);
+				action.setDrawing(pencil.canvas.getDrawing());
+			}
+		}).check(i -> pencil.getCurrentChoice() == EditionChoice.TEXT && text == null && !textField.getText().isEmpty()).bind();
+
 		addBinding(new Enter2CheckPlot(this));
 		addBinding(new KeyPress2Desactivate(this));
 	}
@@ -191,70 +236,6 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 		}
 	}
 
-
-	private static class Enter2SetText extends JfXWidgetBinding<ModifyShapeProperty, KeyTyped, TextSetter> {
-		Enter2SetText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, ModifyShapeProperty.class, KeyTyped.class, ins.textField);
-		}
-
-		@Override
-		public void initAction() {
-			action.setGroup(ShapeFactory.INST.createGroup(instrument.text));
-			action.setProperty(ShapeProperties.TEXT);
-			action.setValue(instrument.textField.getText());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.text != null && !instrument.textField.getText().isEmpty() && interaction.getKeyCode().orElse(null) == KeyCode.ENTER;
-		}
-	}
-
-
-	private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapeProperty, KeyTyped, TextSetter> {
-		Enter2SetEquation(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, ModifyShapeProperty.class, KeyTyped.class, ins.textField);
-		}
-
-		@Override
-		public void initAction() {
-			action.setGroup(ShapeFactory.INST.createGroup(instrument.plot));
-			action.setProperty(ShapeProperties.PLOT_EQ);
-			action.setValue(instrument.textField.getText());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.plot != null && !instrument.textField.getText().isEmpty() && interaction.getKeyCode().orElse(null) == KeyCode.ENTER;
-		}
-	}
-
-
-	private static class Enter2AddText extends JfXWidgetBinding<AddShape, KeyTyped, TextSetter> {
-		Enter2AddText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, AddShape.class, KeyTyped.class, ins.textField);
-		}
-
-		@Override
-		public void initAction() {
-			final IPoint textPosition = ShapeFactory.INST.createPoint(instrument.position.getX(), instrument.position.getY());
-			final IShape sh = instrument.pencil == null ? null : instrument.pencil.createShapeInstance();
-
-			if(sh instanceof IText) {
-				final IText text = (IText) sh;
-				text.setPosition(textPosition.getX(), textPosition.getY());
-				text.setText(instrument.textField.getText());
-				action.setShape(text);
-				action.setDrawing(instrument.pencil.canvas.getDrawing());
-			}
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.getCurrentChoice() == EditionChoice.TEXT && instrument.text == null &&
-				!instrument.textField.getText().isEmpty() && interaction.getKeyCode().orElse(null) == KeyCode.ENTER;
-		}
-	}
 
 	private static class Enter2CheckPlot extends JfXWidgetBinding<AddShape, KeyTyped, TextSetter> {
 		Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {

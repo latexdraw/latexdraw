@@ -11,7 +11,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.function.Supplier;
 import javafx.fxml.FXML;
@@ -25,9 +24,6 @@ import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.util.LSystem;
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
-import org.malai.javafx.binding.JfxMenuItemBinding;
-import org.malai.javafx.binding.KeysShortcutBinding;
-import org.malai.javafx.interaction.library.MenuItemPressed;
 
 /**
  * This instrument permits to copy, cut and paste the selected shapes.
@@ -80,65 +76,46 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		addBinding(new MenuItem2PasteShapes());
+		// menu to paste shapes.
+		menuItemBinder(PasteShapes.class).on(pasteMenu).
+			init(action -> {
+				action.setCopy(getCopyCutAction().orElse(null));
+				action.setDrawing(canvas.getDrawing());
+				action.setGrid(grid);
+			}).check(i -> getCopyCutAction().isPresent()).bind();
 
-		addBinding(new KeysShortcutBinding<>(this, PasteShapes.class, action -> {
-			action.setCopy(getCopyCutAction().orElse(null));
-			action.setDrawing(canvas.getDrawing());
-			action.setGrid(grid);
-		}, interaction -> getCopyCutAction().isPresent(), Arrays.asList(KeyCode.V, LSystem.INSTANCE.getControlKey()), canvas));
+		// Key shortcut ctrl+V to paste shapes.
+		keyNodeBinder(PasteShapes.class).on(canvas).with(KeyCode.V, LSystem.INSTANCE.getControlKey()).
+			init(action -> {
+				action.setCopy(getCopyCutAction().orElse(null));
+				action.setDrawing(canvas.getDrawing());
+				action.setGrid(grid);
+			}).check(interaction -> getCopyCutAction().isPresent()).bind();
 
-		addBinding(new MenuItem2CopyShapes<>(CopyShapes.class, copyMenu));
+		// menu to copy shapes.
+		menuItemBinder(CopyShapes.class).on(copyMenu).
+			init(a -> a.setSelection(getSelectAction().orElse(null))).
+			check(i -> isShapeSelected.get()).bind();
 
-		addBinding(new KeysShortcutBinding<>(this, CopyShapes.class,
-			action -> action.setSelection(getSelectAction().orElse(null)),
-			interaction -> isShapeSelected.get(), Arrays.asList(KeyCode.C, LSystem.INSTANCE.getControlKey()), canvas));
+		// Key shortcut ctrl+C to copy shapes.
+		keyNodeBinder(CopyShapes.class).on(canvas).with(KeyCode.C, LSystem.INSTANCE.getControlKey()).
+			init(action -> action.setSelection(getSelectAction().orElse(null))).
+			check(interaction -> isShapeSelected.get()).bind();
 
-		addBinding(new MenuItem2CopyShapes<>(CutShapes.class, cutMenu));
+		// menu to cut shapes.
+		menuItemBinder(CutShapes.class).on(cutMenu).
+			init(a -> a.setSelection(getSelectAction().orElse(null))).
+			check(i -> isShapeSelected.get()).bind();
 
-		addBinding(new KeysShortcutBinding<>(this, CutShapes.class,
-			action -> action.setSelection(getSelectAction().orElse(null)),
-			interaction -> isShapeSelected.get(), Arrays.asList(KeyCode.X, LSystem.INSTANCE.getControlKey()), canvas));
+		// Key shortcut ctrl+X to cut shapes.
+		keyNodeBinder(CutShapes.class).on(canvas).with(KeyCode.X, LSystem.INSTANCE.getControlKey()).
+			init(action -> action.setSelection(getSelectAction().orElse(null))).
+			check(interaction -> isShapeSelected.get()).bind();
 	}
 
 	@Override
 	public void onActionAdded(final Action action) {
 		updateWidgets(action);
-	}
-
-
-	private class MenuItem2CopyShapes<T extends CopyShapes> extends JfxMenuItemBinding<T, MenuItemPressed, CopierCutterPaster> {
-		MenuItem2CopyShapes(final Class<T> clazz, final MenuItem item) throws InstantiationException, IllegalAccessException {
-			super(CopierCutterPaster.this, false, clazz, MenuItemPressed.class, item);
-		}
-
-		@Override
-		public void initAction() {
-			action.setSelection(getSelectAction().orElse(null));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return isShapeSelected.get();
-		}
-	}
-
-	private class MenuItem2PasteShapes extends JfxMenuItemBinding<PasteShapes, MenuItemPressed, CopierCutterPaster> {
-		MenuItem2PasteShapes() throws InstantiationException, IllegalAccessException {
-			super(CopierCutterPaster.this, false, PasteShapes.class, MenuItemPressed.class, pasteMenu);
-		}
-
-		@Override
-		public void initAction() {
-			action.setCopy(getCopyCutAction().orElse(null));
-			action.setDrawing(canvas.getDrawing());
-			action.setGrid(grid);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return getCopyCutAction().isPresent();
-		}
 	}
 }
 
