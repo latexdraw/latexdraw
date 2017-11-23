@@ -203,10 +203,12 @@ public class Hand extends CanvasInstrument {
 					final IText text = (IText) sh;
 					action.setTextShape(text);
 					pos = Optional.of(text.getPosition());
-				}else if(sh instanceof IPlot) {
-					final IPlot plot = (IPlot) sh;
-					action.setPlotShape(plot);
-					pos = Optional.of(plot.getPosition());
+				}else {
+					if(sh instanceof IPlot) {
+						final IPlot plot = (IPlot) sh;
+						action.setPlotShape(plot);
+						pos = Optional.of(plot.getPosition());
+					}
 				}
 
 				pos.ifPresent(position -> {
