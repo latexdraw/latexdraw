@@ -82,7 +82,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 				action.setCopy(getCopyCutAction().orElse(null));
 				action.setDrawing(canvas.getDrawing());
 				action.setGrid(grid);
-			}).check(i -> getCopyCutAction().isPresent()).bind();
+			}).when(i -> getCopyCutAction().isPresent()).bind();
 
 		// Key shortcut ctrl+V to paste shapes.
 		keyNodeBinder(PasteShapes.class).on(canvas).with(KeyCode.V, LSystem.INSTANCE.getControlKey()).
@@ -90,27 +90,27 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 				action.setCopy(getCopyCutAction().orElse(null));
 				action.setDrawing(canvas.getDrawing());
 				action.setGrid(grid);
-			}).check(interaction -> getCopyCutAction().isPresent()).bind();
+			}).when(interaction -> getCopyCutAction().isPresent()).bind();
 
 		// menu to copy shapes.
 		menuItemBinder(CopyShapes.class).on(copyMenu).
 			init(a -> a.setSelection(getSelectAction().orElse(null))).
-			check(i -> isShapeSelected.get()).bind();
+			when(i -> isShapeSelected.get()).bind();
 
 		// Key shortcut ctrl+C to copy shapes.
 		keyNodeBinder(CopyShapes.class).on(canvas).with(KeyCode.C, LSystem.INSTANCE.getControlKey()).
 			init(action -> action.setSelection(getSelectAction().orElse(null))).
-			check(interaction -> isShapeSelected.get()).bind();
+			when(interaction -> isShapeSelected.get()).bind();
 
 		// menu to cut shapes.
 		menuItemBinder(CutShapes.class).on(cutMenu).
 			init(a -> a.setSelection(getSelectAction().orElse(null))).
-			check(i -> isShapeSelected.get()).bind();
+			when(i -> isShapeSelected.get()).bind();
 
 		// Key shortcut ctrl+X to cut shapes.
 		keyNodeBinder(CutShapes.class).on(canvas).with(KeyCode.X, LSystem.INSTANCE.getControlKey()).
 			init(action -> action.setSelection(getSelectAction().orElse(null))).
-			check(interaction -> isShapeSelected.get()).bind();
+			when(interaction -> isShapeSelected.get()).bind();
 	}
 
 	@Override

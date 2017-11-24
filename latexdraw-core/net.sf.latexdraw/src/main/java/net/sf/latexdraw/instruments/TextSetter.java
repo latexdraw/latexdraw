@@ -129,14 +129,14 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 			action.setGroup(ShapeFactory.INST.createGroup(text));
 			action.setProperty(ShapeProperties.TEXT);
 			action.setValue(textField.getText());
-		}).check(i -> text != null && !textField.getText().isEmpty()).bind();
+		}).when(i -> text != null && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to validate the equation of a plot shape.
 		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).init(action -> {
 			action.setGroup(ShapeFactory.INST.createGroup(plot));
 			action.setProperty(ShapeProperties.PLOT_EQ);
 			action.setValue(textField.getText());
-		}).check(i -> plot != null && !textField.getText().isEmpty()).bind();
+		}).when(i -> plot != null && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to add a text shape.
 		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).init(action -> {
@@ -150,7 +150,7 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 				action.setShape(text);
 				action.setDrawing(pencil.canvas.getDrawing());
 			}
-		}).check(i -> pencil.getCurrentChoice() == EditionChoice.TEXT && text == null && !textField.getText().isEmpty()).bind();
+		}).when(i -> pencil.getCurrentChoice() == EditionChoice.TEXT && text == null && !textField.getText().isEmpty()).bind();
 
 		addBinding(new Enter2CheckPlot(this));
 		addBinding(new KeyPress2Desactivate(this));

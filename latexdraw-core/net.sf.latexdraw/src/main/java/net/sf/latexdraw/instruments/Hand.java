@@ -95,7 +95,7 @@ public class Hand extends CanvasInstrument {
 		keyNodeBinder(UpdateToGrid.class).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).init(action -> {
 			action.setShape(canvas.getDrawing().getSelection().duplicateDeep(false));
 			action.setGrid(canvas.getMagneticGrid());
-		}).check(i -> canvas.getMagneticGrid().isMagnetic()).bind();
+		}).when(i -> canvas.getMagneticGrid().isMagnetic()).bind();
 	}
 
 	@Override
