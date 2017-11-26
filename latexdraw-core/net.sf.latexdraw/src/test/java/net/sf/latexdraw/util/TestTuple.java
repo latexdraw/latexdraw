@@ -3,7 +3,8 @@ package net.sf.latexdraw.util;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static net.bytebuddy.matcher.ElementMatchers.is;
+import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -28,6 +29,6 @@ public class TestTuple {
 
 	@Test
 	public void testToString() {
-		assertThat(tuple.toString(), not(isEmptyOrNullString()));
+		assertThat(tuple.toString(), not(is(emptyOrNullString())));
 	}
 }

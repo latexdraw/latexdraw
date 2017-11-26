@@ -5,7 +5,8 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static net.bytebuddy.matcher.ElementMatchers.is;
+import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -19,7 +20,7 @@ public class TestUnit {
 
 	@Theory
 	public void testgetLabel(final Unit unit) {
-		assertThat(unit.getLabel(), not(isEmptyOrNullString()));
+		assertThat(unit.getLabel(), not(is(emptyOrNullString())));
 	}
 
 	@Test
