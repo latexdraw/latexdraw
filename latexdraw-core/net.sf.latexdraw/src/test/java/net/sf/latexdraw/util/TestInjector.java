@@ -219,6 +219,29 @@ public class TestInjector implements HelperTest {
 		Mockito.verify(handler, Mockito.atLeastOnce()).publish(Mockito.any());
 	}
 
+	@Test
+	public void testGetInstanceNotNull() {
+		injector = new Injector() {
+			@Override
+			protected void configure() throws InstantiationException, IllegalAccessException {
+			}
+		};
+
+		assertNotNull(injector.getInstances());
+	}
+
+	@Test
+	public void testGetInstanceOK() {
+		injector = new Injector() {
+			@Override
+			protected void configure() throws InstantiationException, IllegalAccessException {
+				bindAsEagerSingleton(D.class);
+			}
+		};
+		final D obj = injector.getInstance(D.class);
+		assertEquals(obj, injector.getInstances().iterator().next());
+	}
+
 	static class A {
 		@Inject B b;
 	}

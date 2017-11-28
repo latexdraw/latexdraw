@@ -13,6 +13,7 @@ package net.sf.latexdraw;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -82,22 +83,13 @@ public class LaTeXDraw extends JfxUI {
 	private Stage mainStage;
 	private final Callback<Class<?>, Object> instanceCallBack;
 	private final Injector injector;
-	private final Set<JfxInstrument> instruments;
-
 
 	public LaTeXDraw() {
 		super();
 		instance = this;
-		instruments = new HashSet<>();
 		injector = new LatexdrawInjector();
 		// This callback gathers all the JFX instruments.
-		instanceCallBack = cl -> {
-			final Object inst = injector.getInstance(cl);
-			if(inst instanceof JfxInstrument) {
-				instruments.add((JfxInstrument) inst);
-			}
-			return inst;
-		};
+		instanceCallBack = cl -> injector.getInstance(cl);
 	}
 
 	private void showSplash(final Stage initStage, Task<Void> task) {
@@ -160,6 +152,7 @@ public class LaTeXDraw extends JfxUI {
 					mainStage.setScene(scene);
 					updateProgress(0.9, 1d);
 					mainStage.show();
+					registerScene(scene);
 					final PreferencesSetter prefSetter = injector.getInstance(PreferencesSetter.class);
 					prefSetter.readXMLPreferences();
 					// Preventing the stage to close automatically.
@@ -193,7 +186,7 @@ public class LaTeXDraw extends JfxUI {
 
 	@Override
 	public Set<JfxInstrument> getInstruments() {
-		return instruments;
+		return injector.getInstances().stream().filter(ins -> ins instanceof JfxInstrument).map(obj -> (JfxInstrument) obj).collect(Collectors.toSet());
 	}
 
 	@Override

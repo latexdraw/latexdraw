@@ -12,6 +12,8 @@ package net.sf.latexdraw.util;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -231,5 +233,12 @@ public abstract class Injector {
 		}
 
 		return fields.stream().filter(field -> field.isAnnotationPresent(Inject.class)).collect(Collectors.toSet());
+	}
+
+	/**
+	 * @return The instances stored by the injector. Cannot be null.
+	 */
+	public Collection<Object> getInstances() {
+		return Collections.unmodifiableCollection(instances.values());
 	}
 }
