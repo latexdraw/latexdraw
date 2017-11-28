@@ -362,8 +362,9 @@ public class SVGDocument implements Document {
 	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
 
 	@Override
-	public DOMImplementation getImplementation()
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
+	public DOMImplementation getImplementation() {
+		return new SVGDOMImplementation();
+	}
 
 	@Override
 	public String getInputEncoding()
@@ -570,6 +571,70 @@ public class SVGDocument implements Document {
 		@Override
 		public InputSource resolveEntity(final String publicId, final String systemId) {
 			return new InputSource(new ByteArrayInputStream("<?xml version='1.0' encoding='UTF-8'?>".getBytes(Charset.defaultCharset()))); //$NON-NLS-1$
+		}
+	}
+
+	static class SVGDOMImplementation implements DOMImplementation {
+		@Override
+		public boolean hasFeature(final String feature, final String version) {
+			return false;
+		}
+
+		@Override
+		public DocumentType createDocumentType(final String qualifiedName, final String publicId, final String systemId) throws DOMException {
+			return new SVGDocumentType();
+		}
+
+		@Override
+		public Document createDocument(final String namespaceURI, final String qualifiedName, final DocumentType doctype) throws DOMException {
+			return new SVGDocument();
+		}
+
+		@Override
+		public Object getFeature(final String feature, final String version) {
+			return new Object();
+		}
+	}
+
+	static class SVGDocumentType extends SVGElement implements DocumentType {
+		@Override
+		public boolean checkAttributes() {
+			return false;
+		}
+
+		@Override
+		public boolean enableRendering() {
+			return false;
+		}
+
+		@Override
+		public String getName() {
+			return "";
+		}
+
+		@Override
+		public NamedNodeMap getEntities() {
+			return new SVGNamedNodeMap();
+		}
+
+		@Override
+		public NamedNodeMap getNotations() {
+			return new SVGNamedNodeMap();
+		}
+
+		@Override
+		public String getPublicId() {
+			return "";
+		}
+
+		@Override
+		public String getSystemId() {
+			return "";
+		}
+
+		@Override
+		public String getInternalSubset() {
+			return "";
 		}
 	}
 }
