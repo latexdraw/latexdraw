@@ -26,6 +26,17 @@ public abstract class TestUndoableAction<T extends Action & Undoable, S> extends
 		checkDo();
 	}
 
+	@Test
+	public void testDoubleUndoThenRedo() {
+		configCorrectAction();
+		action.doIt();
+		action.undo();
+		action.redo();
+		action.undo();
+		action.redo();
+		checkDo();
+	}
+
 	protected abstract void checkUndo();
 
 	@Test
