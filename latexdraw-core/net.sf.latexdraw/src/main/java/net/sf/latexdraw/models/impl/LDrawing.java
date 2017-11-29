@@ -17,7 +17,6 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.malai.mapping.MappingRegistry;
 
 /**
  * Implements the concept of drawing.
@@ -86,9 +85,9 @@ class LDrawing implements IDrawing, LSetShapes {
 
 	@Override
 	public void setModified(final boolean modified) {
-		if(modified) MappingRegistry.REGISTRY.onObjectModified(this);
-		else shapes.forEach(sh -> sh.setModified(false));
-
+		if(!modified) {
+			shapes.forEach(sh -> sh.setModified(false));
+		}
 		this.modified = modified;
 	}
 

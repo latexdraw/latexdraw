@@ -155,7 +155,7 @@ public class Hand extends CanvasInstrument {
 
 	private static class Press2Select extends JfXWidgetBinding<SelectShapes, Press, Hand> {
 		Press2Select(final Hand hand) throws InstantiationException, IllegalAccessException {
-			super(hand, false, SelectShapes.class, Press.class, hand.canvas);
+			super(hand, false, SelectShapes.class, new Press(), hand.canvas);
 		}
 
 		@Override
@@ -190,7 +190,7 @@ public class Hand extends CanvasInstrument {
 
 	private static class DoubleClick2InitTextSetter extends JfXWidgetBinding<InitTextSetter, DoubleClick, Hand> {
 		DoubleClick2InitTextSetter(final Hand ins) throws IllegalAccessException, InstantiationException {
-			super(ins, false, InitTextSetter.class, DoubleClick.class, ins.canvas);
+			super(ins, false, InitTextSetter.class, new DoubleClick(), ins.canvas);
 		}
 
 		@Override
@@ -231,7 +231,7 @@ public class Hand extends CanvasInstrument {
 
 	private static class DnD2Translate extends JfXWidgetBinding<TranslateShapes, DnD, Hand> {
 		DnD2Translate(final Hand hand) throws IllegalAccessException, InstantiationException {
-			super(hand, true, TranslateShapes.class, DnD.class, hand.canvas);
+			super(hand, true, TranslateShapes.class, new DnD(), hand.canvas);
 		}
 
 		@Override
@@ -277,7 +277,7 @@ public class Hand extends CanvasInstrument {
 		private List<ViewShape<?>> selectedViews;
 
 		DnD2Select(final Hand hand) throws IllegalAccessException, InstantiationException {
-			super(hand, true, SelectShapes.class, DnD.class, hand.canvas);
+			super(hand, true, SelectShapes.class, new DnD(), hand.canvas);
 		}
 
 		@Override
@@ -351,7 +351,7 @@ public class Hand extends CanvasInstrument {
 		private IPoint pt;
 
 		DnD2MoveViewport(final CanvasInstrument ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, MoveCamera.class, DnD.class, ins.canvas);
+			super(ins, true, MoveCamera.class, new DnD(), ins.canvas);
 			pt = ShapeFactory.INST.createPoint();
 		}
 

@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
+import java.util.Collections;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -302,7 +303,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 		ToggleButton4Pencil(final ShapePropertyCustomiser ins, final ToggleButton widget, final ShapeProperties property, final boolean inverted)
 			throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, widget);
+			super(ins, ModifyPencilParameter.class, Collections.singletonList(widget));
 			prop = property;
 			invert = inverted;
 		}
@@ -326,7 +327,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 		ToggleButton4Selection(final ShapePropertyCustomiser ins, final ToggleButton widget, final ShapeProperties property, final boolean inverted)
 			throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, widget);
+			super(ins, ModifyShapeProperty.class, Collections.singletonList(widget));
 			prop = property;
 			invert = inverted;
 		}

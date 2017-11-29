@@ -76,8 +76,8 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Act
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new DeleteShapesInteractor<>(this, ButtonPressed.class, deleteB));
-		addBinding(new DeleteShapesInteractor<KeyPressure>(this, KeyPressure.class, canvas) {
+		addBinding(new DeleteShapesInteractor<>(this, new ButtonPressed(), deleteB));
+		addBinding(new DeleteShapesInteractor<KeyPressure>(this, new KeyPressure(), canvas) {
 			@Override
 			public boolean isConditionRespected() {
 				return interaction.getKeyCode().isPresent() && interaction.getKeyCode().get() == KeyCode.DELETE && super.isConditionRespected();
@@ -88,8 +88,8 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Act
 
 	/** This abstract link maps an interaction to an action that delete shapes. */
 	private static class DeleteShapesInteractor<I extends JfxInteraction> extends JfXWidgetBinding<DeleteShapes, I, ShapeDeleter> {
-		DeleteShapesInteractor(final ShapeDeleter ins, final Class<I> clazzInteraction, Node widget) throws InstantiationException, IllegalAccessException {
-			super(ins, false, DeleteShapes.class, clazzInteraction, widget);
+		DeleteShapesInteractor(final ShapeDeleter ins, final I interaction, Node widget) throws InstantiationException, IllegalAccessException {
+			super(ins, false, DeleteShapes.class, interaction, widget);
 		}
 
 		@Override

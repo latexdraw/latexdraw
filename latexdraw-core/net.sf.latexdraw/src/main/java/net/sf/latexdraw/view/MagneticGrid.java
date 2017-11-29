@@ -12,8 +12,8 @@ package net.sf.latexdraw.view;
 
 import javafx.geometry.Point3D;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import org.malai.preferences.Preferenciable;
 import org.malai.properties.Modifiable;
+import org.malai.properties.Preferenciable;
 
 /**
  * The API that defines a magnetic grid.

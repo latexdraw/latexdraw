@@ -12,13 +12,14 @@ package net.sf.latexdraw.models.interfaces.shape;
 
 import java.util.List;
 import net.sf.latexdraw.models.interfaces.prop.ISetShapesProp;
-import org.malai.presentation.AbstractPresentation;
+import org.malai.properties.Modifiable;
+import org.malai.properties.Reinitialisable;
 
 /**
  * The API for drawings that contains a set of shapes and a set of selected shapes.
  * @author Arnaud BLOUIN
  */
-public interface IDrawing extends ISetShapesProp, AbstractPresentation {
+public interface IDrawing extends ISetShapesProp, Modifiable, Reinitialisable {
 	/**
 	 * @return The group that contains the selected shape. Cannot be null.
 	 * @since 3.0

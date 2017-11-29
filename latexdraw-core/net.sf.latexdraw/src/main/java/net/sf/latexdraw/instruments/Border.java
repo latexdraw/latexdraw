@@ -208,7 +208,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 	private static class DnD2MovePoint extends JfXWidgetBinding<MovePointShape, DnD, Border> {
 		DnD2MovePoint(final Border ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, MovePointShape.class, DnD.class);
+			super(ins, true, MovePointShape.class, new DnD());
 		}
 
 		@Override
@@ -244,7 +244,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 	private static class DnD2MoveCtrlPoint extends JfXWidgetBinding<MoveCtrlPoint, DnD, Border> {
 		DnD2MoveCtrlPoint(final Border ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, MoveCtrlPoint.class, DnD.class);
+			super(ins, true, MoveCtrlPoint.class, new DnD());
 		}
 
 		@Override
@@ -288,7 +288,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		private IPoint gap;
 
 		DnD2ArcAngle(final Border ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, ModifyShapeProperty.class, DnD.class, ins.arcHandlerStart, ins.arcHandlerEnd);
+			super(ins, true, ModifyShapeProperty.class, new DnD(), ins.arcHandlerStart, ins.arcHandlerEnd);
 			gap = ShapeFactory.INST.createPoint();
 			isRotated = false;
 		}
@@ -361,7 +361,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		private double yGap;
 
 		DnD2Scale(final Border ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, ScaleShapes.class, DnD.class, ins.scaleHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()));
+			super(ins, true, ScaleShapes.class, new DnD(), ins.scaleHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()));
 		}
 
 		private void setXGap(final Position refPosition, final IPoint tl, final IPoint br) {
@@ -484,7 +484,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		private IPoint gc;
 
 		DnD2Rotate(final Border ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, RotateShapes.class, DnD.class, ins.rotHandler);
+			super(ins, true, RotateShapes.class, new DnD(), ins.rotHandler);
 		}
 
 		@Override

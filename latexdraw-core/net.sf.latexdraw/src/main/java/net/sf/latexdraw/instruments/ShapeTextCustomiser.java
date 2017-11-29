@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -146,9 +147,9 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 
 	class ButtonPressed2ChangeTextPosPencil extends ToggleButtonBinding<ModifyPencilParameter, ShapeTextCustomiser> {
 		ButtonPressed2ChangeTextPosPencil() throws InstantiationException, IllegalAccessException {
-			super(ShapeTextCustomiser.this, ModifyPencilParameter.class, ShapeTextCustomiser.this.bButton, ShapeTextCustomiser.this.blButton, ShapeTextCustomiser.this.brButton,
+			super(ShapeTextCustomiser.this, ModifyPencilParameter.class, Arrays.asList(ShapeTextCustomiser.this.bButton, ShapeTextCustomiser.this.blButton, ShapeTextCustomiser.this.brButton,
 					ShapeTextCustomiser.this.centreButton, ShapeTextCustomiser.this.lButton, ShapeTextCustomiser.this.rButton, ShapeTextCustomiser.this.tButton, ShapeTextCustomiser.this.tlButton,
-					ShapeTextCustomiser.this.trButton);
+					ShapeTextCustomiser.this.trButton));
 		}
 
 		@Override
@@ -166,9 +167,9 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 
 	class ButtonPressed2ChangeTextPosSelection extends ToggleButtonBinding<ModifyShapeProperty, ShapeTextCustomiser> {
 		ButtonPressed2ChangeTextPosSelection() throws InstantiationException, IllegalAccessException {
-			super(ShapeTextCustomiser.this, ModifyShapeProperty.class, ShapeTextCustomiser.this.bButton, ShapeTextCustomiser.this.blButton, ShapeTextCustomiser.this.brButton,
+			super(ShapeTextCustomiser.this, ModifyShapeProperty.class, Arrays.asList(ShapeTextCustomiser.this.bButton, ShapeTextCustomiser.this.blButton, ShapeTextCustomiser.this.brButton,
 					ShapeTextCustomiser.this.centreButton, ShapeTextCustomiser.this.lButton, ShapeTextCustomiser.this.rButton, ShapeTextCustomiser.this.tButton, ShapeTextCustomiser.this.tlButton,
-					ShapeTextCustomiser.this.trButton);
+					ShapeTextCustomiser.this.trButton));
 		}
 
 		@Override
@@ -186,7 +187,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 
 	class KeysTyped2ChangePackages extends JfXWidgetBinding<ModifyLatexProperties, KeysTyped, ShapeTextCustomiser> {
 		KeysTyped2ChangePackages() throws InstantiationException, IllegalAccessException {
-			super(ShapeTextCustomiser.this, false, ModifyLatexProperties.class, KeysTyped.class, ShapeTextCustomiser.this.packagesField);
+			super(ShapeTextCustomiser.this, false, ModifyLatexProperties.class, new KeysTyped(), ShapeTextCustomiser.this.packagesField);
 		}
 
 		@Override

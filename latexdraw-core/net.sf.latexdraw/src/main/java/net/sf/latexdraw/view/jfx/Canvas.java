@@ -56,7 +56,9 @@ import org.malai.action.ActionsRegistry;
 import org.malai.action.library.Redo;
 import org.malai.action.library.Undo;
 import org.malai.javafx.action.IOAction;
-import org.malai.presentation.ConcretePresentation;
+import org.malai.properties.Modifiable;
+import org.malai.properties.Preferenciable;
+import org.malai.properties.Reinitialisable;
 import org.malai.properties.Zoomable;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
@@ -68,7 +70,7 @@ import org.w3c.dom.NodeList;
  * The JFX canvas where shapes are painted.
  * @author Arnaud Blouin
  */
-public class Canvas extends Pane implements ConcretePresentation, ActionHandler, Zoomable, ViewsSynchroniserHandler {
+public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitialisable, ActionHandler, Zoomable, ViewsSynchroniserHandler {
 	/** The margin used to surround the drawing. */
 	public static final int MARGINS = 1500;
 
@@ -264,7 +266,6 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		return page;
 	}
 
-	@Override
 	public void update() {
 		updateSelectionBorders();
 	}

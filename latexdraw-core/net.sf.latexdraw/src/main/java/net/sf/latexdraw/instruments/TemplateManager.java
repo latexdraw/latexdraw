@@ -99,7 +99,7 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 
 	private static class DnD2AddTemplate extends JfXWidgetBinding<LoadTemplate, DnD, TemplateManager> {
 		DnD2AddTemplate(final TemplateManager ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, LoadTemplate.class, DnD.class, ins.templatePane);
+			super(ins, false, LoadTemplate.class, new DnD(), ins.templatePane);
 		}
 
 		@Override

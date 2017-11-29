@@ -16,6 +16,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javax.accessibility.Accessible;
 import javax.accessibility.AccessibleContext;
 import javax.accessibility.AccessibleRole;
@@ -24,18 +26,14 @@ import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.malai.mapping.ActiveUnary;
-import org.malai.mapping.IUnary;
-import org.malai.picking.Pickable;
-import org.malai.picking.Picker;
 
 /**
  * An abstract scale ruler.
  * @author Arnaud BLOUIN
  */
-public abstract class ScaleRuler extends JComponent implements Pickable, Accessible, AdjustmentListener {
+public abstract class ScaleRuler extends JComponent implements Accessible, AdjustmentListener {
 	/** The current unit of the rulers. */
-    protected static final IUnary<Unit> UNIT = new ActiveUnary<>(Unit.CM);
+    protected static final ObjectProperty<Unit> UNIT = new SimpleObjectProperty<>(Unit.CM);
 
 	/** The stroke of the ruler. */
 	protected static final BasicStroke STROKE = new BasicStroke(0, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER);
@@ -158,18 +156,6 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Accessi
     }
 
 
-	@Override
-	public boolean contains(final double x, final double y) {
-		return contains((int)x, (int)y);
-	}
-
-
-	@Override
-	public Picker getPicker() {
-		return null;// SwingWidgetUtilities.INSTANCE.getPicker(this);
-	}
-
-
 	/**
 	 * @return the current unit used by the rulers.
 	 * @since 3.0
@@ -193,7 +179,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Accessi
 	 * @return The singleton that contains the unit value.
 	 * @since 3.0
 	 */
-	public static IUnary<Unit> getUnitSingleton() {
+	public static ObjectProperty<Unit> getUnitSingleton() {
 		return ScaleRuler.UNIT;
 	}
 

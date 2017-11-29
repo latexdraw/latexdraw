@@ -155,8 +155,8 @@ public class Pencil extends CanvasInstrument {
 
 
 	private abstract static class PencilInteractor<I extends JfxInteraction> extends JfXWidgetBinding<AddShape, I, Pencil> {
-		PencilInteractor(final Class<I> clazzInteraction, final Pencil pencil) throws InstantiationException, IllegalAccessException {
-			super(pencil, false, AddShape.class, clazzInteraction, pencil.canvas);
+		PencilInteractor(final I interaction, final Pencil pencil) throws InstantiationException, IllegalAccessException {
+			super(pencil, false, AddShape.class, interaction, pencil.canvas);
 		}
 
 		ViewShape<?> tmpShape;
@@ -192,7 +192,7 @@ public class Pencil extends CanvasInstrument {
 
 	private static class DnD2AddShape extends PencilInteractor<AbortableDnD> {
 		DnD2AddShape(final Pencil pencil) throws InstantiationException, IllegalAccessException {
-			super(AbortableDnD.class, pencil);
+			super(new AbortableDnD(), pencil);
 		}
 
 		@Override
@@ -312,7 +312,7 @@ public class Pencil extends CanvasInstrument {
 
 	private static class MultiClic2AddShape extends PencilInteractor<MultiClick> {
 		MultiClic2AddShape(final Pencil pencil) throws InstantiationException, IllegalAccessException {
-			super(MultiClick.class, pencil);
+			super(new MultiClick(), pencil);
 		}
 
 		// To avoid the overlapping with the DnD2AddShape, the starting interaction must be
@@ -380,7 +380,7 @@ public class Pencil extends CanvasInstrument {
 
 	private static class Press2InsertPicture extends JfXWidgetBinding<InsertPicture, Press, Pencil> {
 		Press2InsertPicture(final Pencil pencil) throws InstantiationException, IllegalAccessException {
-			super(pencil, false, InsertPicture.class, Press.class, pencil.canvas);
+			super(pencil, false, InsertPicture.class, new Press(), pencil.canvas);
 		}
 
 		@Override
@@ -401,7 +401,7 @@ public class Pencil extends CanvasInstrument {
 
 	private static class Press2AddShape extends PencilInteractor<Press> {
 		Press2AddShape(final Pencil pencil) throws InstantiationException, IllegalAccessException {
-			super(Press.class, pencil);
+			super(new Press(), pencil);
 		}
 
 		@Override
@@ -429,7 +429,7 @@ public class Pencil extends CanvasInstrument {
 	 */
 	 private class Press2AddText extends PencilInteractor<Press> {
 		 Press2AddText(final Pencil pencil) throws InstantiationException, IllegalAccessException {
-			 super(Press.class, pencil);
+			 super(new Press(), pencil);
 		 }
 
 		 @Override
@@ -450,7 +450,7 @@ public class Pencil extends CanvasInstrument {
 
 	 private static class Press2InitTextSetter extends JfXWidgetBinding<InitTextSetter, Press, Pencil> {
 		 Press2InitTextSetter(final Pencil pencil) throws IllegalAccessException, InstantiationException {
-			 super(pencil, false, InitTextSetter.class, Press.class, pencil.canvas);
+			 super(pencil, false, InitTextSetter.class, new Press(), pencil.canvas);
 		 }
 
 		 @Override

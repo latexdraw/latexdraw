@@ -174,7 +174,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		};
 
 		// Close window
-		windowBinder(SaveDrawing.class, WindowClosed.class).on(LaTeXDraw.getInstance().getMainStage()).init(action -> {
+		windowBinder(SaveDrawing.class, new WindowClosed()).on(LaTeXDraw.getInstance().getMainStage()).init(action -> {
 			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(true);
@@ -313,7 +313,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 	private static final class RecentMenuItem2LoadInteractor extends JfxMenuItemBinding<LoadDrawing, MenuItemPressed, FileLoaderSaver> {
 		private RecentMenuItem2LoadInteractor(final FileLoaderSaver ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, LoadDrawing.class, MenuItemPressed.class, Collections.emptyList());
+			super(ins, false, LoadDrawing.class, new MenuItemPressed(), Collections.emptyList());
 		}
 
 		@Override

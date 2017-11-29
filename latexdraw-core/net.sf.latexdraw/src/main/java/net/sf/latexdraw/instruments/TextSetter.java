@@ -220,7 +220,7 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 
 	private static class KeyPress2Desactivate extends JfXWidgetBinding<ActivateInactivateInstruments, KeyTyped, TextSetter> {
 		KeyPress2Desactivate(TextSetter setter) throws InstantiationException, IllegalAccessException {
-			super(setter, false, ActivateInactivateInstruments.class, KeyTyped.class, setter.textField);
+			super(setter, false, ActivateInactivateInstruments.class, new KeyTyped(), setter.textField);
 		}
 
 		@Override
@@ -239,7 +239,7 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 
 	private static class Enter2CheckPlot extends JfXWidgetBinding<AddShape, KeyTyped, TextSetter> {
 		Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, AddShape.class, KeyTyped.class, ins.textField);
+			super(ins, false, AddShape.class, new KeyTyped(), ins.textField);
 		}
 
 		@Override

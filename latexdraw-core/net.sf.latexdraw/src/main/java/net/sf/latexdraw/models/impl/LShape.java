@@ -31,7 +31,6 @@ import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.models.interfaces.shape.Position;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.malai.mapping.MappingRegistry;
 
 /**
  * The base shape model.
@@ -733,10 +732,6 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setModified(final boolean changed) {
-		if(changed) {
-			MappingRegistry.REGISTRY.onObjectModified(this);
-		}
-
 		modified = changed;
 	}
 
