@@ -78,7 +78,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
 		// menu to paste shapes.
 		menuItemBinder(PasteShapes.class).on(pasteMenu).
-			init(action -> {
+			first(action -> {
 				action.setCopy(getCopyCutAction().orElse(null));
 				action.setDrawing(canvas.getDrawing());
 				action.setGrid(grid);
@@ -86,7 +86,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 		// Key shortcut ctrl+V to paste shapes.
 		keyNodeBinder(PasteShapes.class).on(canvas).with(KeyCode.V, LSystem.INSTANCE.getControlKey()).
-			init(action -> {
+			first(action -> {
 				action.setCopy(getCopyCutAction().orElse(null));
 				action.setDrawing(canvas.getDrawing());
 				action.setGrid(grid);
@@ -94,22 +94,22 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 		// menu to copy shapes.
 		menuItemBinder(CopyShapes.class).on(copyMenu).
-			init(a -> a.setSelection(getSelectAction().orElse(null))).
+			first(a -> a.setSelection(getSelectAction().orElse(null))).
 			when(i -> isShapeSelected.get()).bind();
 
 		// Key shortcut ctrl+C to copy shapes.
 		keyNodeBinder(CopyShapes.class).on(canvas).with(KeyCode.C, LSystem.INSTANCE.getControlKey()).
-			init(action -> action.setSelection(getSelectAction().orElse(null))).
+			first(action -> action.setSelection(getSelectAction().orElse(null))).
 			when(interaction -> isShapeSelected.get()).bind();
 
 		// menu to cut shapes.
 		menuItemBinder(CutShapes.class).on(cutMenu).
-			init(a -> a.setSelection(getSelectAction().orElse(null))).
+			first(a -> a.setSelection(getSelectAction().orElse(null))).
 			when(i -> isShapeSelected.get()).bind();
 
 		// Key shortcut ctrl+X to cut shapes.
 		keyNodeBinder(CutShapes.class).on(canvas).with(KeyCode.X, LSystem.INSTANCE.getControlKey()).
-			init(action -> action.setSelection(getSelectAction().orElse(null))).
+			first(action -> action.setSelection(getSelectAction().orElse(null))).
 			when(interaction -> isShapeSelected.get()).bind();
 	}
 

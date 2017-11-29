@@ -158,25 +158,25 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		comboboxBinder(ModifyMagneticGrid.class).on(styleList).init(action -> {
+		comboboxBinder(ModifyMagneticGrid.class).on(styleList).first(action -> {
 			action.setValue(styleList.getSelectionModel().getSelectedItem());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.STYLE);
 		}).bind();
 
-		checkboxBinder(ModifyMagneticGrid.class).on(magneticCB).init(action -> {
+		checkboxBinder(ModifyMagneticGrid.class).on(magneticCB).first(action -> {
 			action.setValue(magneticCB.isSelected());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.MAGNETIC);
 		}).bind();
 
-		spinnerBinder(ModifyMagneticGrid.class).on(persoGridGapField).exec(true).init(action -> {
+		spinnerBinder(ModifyMagneticGrid.class).on(persoGridGapField).exec(true).first(action -> {
 			action.setValue(persoGridGapField.getValue());
 			action.setGrid(grid);
 			action.setProperty(GridProperties.GRID_SPACING);
-		}).update(action -> action.setValue(persoGridGapField.getValue())).bind();
+		}).then(action -> action.setValue(persoGridGapField.getValue())).bind();
 
-		comboboxBinder(SetUnit.class).on(unitChoice).init(action -> action.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()))).bind();
+		comboboxBinder(SetUnit.class).on(unitChoice).first(action -> action.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()))).bind();
 	}
 
 	/**

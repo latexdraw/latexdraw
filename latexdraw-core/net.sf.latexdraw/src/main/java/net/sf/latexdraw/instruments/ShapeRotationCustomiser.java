@@ -72,12 +72,12 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 		};
 
 		spinnerBinder(RotateShapes.class).on(rotationField).exec(true).
-			init(action -> init.accept(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle(), action)).
-			update(action -> action.setRotationAngle(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle())).
+			first(action -> init.accept(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle(), action)).
+			then(action -> action.setRotationAngle(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle())).
 			bind();
 
-		buttonBinder(RotateShapes.class).on(rotate90Button).init(action -> init.accept(Math.PI / 2d, action)).bind();
-		buttonBinder(RotateShapes.class).on(rotate180Button).init(action -> init.accept(Math.PI, action)).bind();
-		buttonBinder(RotateShapes.class).on(rotate270Button).init(action -> init.accept(-Math.PI / 2d, action)).bind();
+		buttonBinder(RotateShapes.class).on(rotate90Button).first(action -> init.accept(Math.PI / 2d, action)).bind();
+		buttonBinder(RotateShapes.class).on(rotate180Button).first(action -> init.accept(Math.PI, action)).bind();
+		buttonBinder(RotateShapes.class).on(rotate270Button).first(action -> init.accept(-Math.PI / 2d, action)).bind();
 	}
 }

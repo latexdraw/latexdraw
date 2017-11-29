@@ -154,32 +154,32 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		textfieldBinder(ModifyLatexProperties.class).on(labelField).init(action -> {
+		textfieldBinder(ModifyLatexProperties.class).on(labelField).first(action -> {
 			action.setProperty(LatexProperties.LABEL);
 			action.setGenerator(latexGen);
-		}).update(action -> action.setValue(labelField.getText())).bind();
+		}).then(action -> action.setValue(labelField.getText())).bind();
 
-		textfieldBinder(ModifyLatexProperties.class).on(titleField).init(action -> {
+		textfieldBinder(ModifyLatexProperties.class).on(titleField).first(action -> {
 			action.setProperty(LatexProperties.CAPTION);
 			action.setGenerator(latexGen);
-		}).update(action -> action.setValue(titleField.getText())).bind();
+		}).then(action -> action.setValue(titleField.getText())).bind();
 
-		checkboxBinder(ModifyLatexProperties.class).on(middleHorizPosCB).init(action -> {
+		checkboxBinder(ModifyLatexProperties.class).on(middleHorizPosCB).first(action -> {
 			action.setProperty(LatexProperties.POSITION_HORIZONTAL);
 			action.setGenerator(latexGen);
 			action.setValue(middleHorizPosCB.isSelected());
 		}).bind();
 
-		comboboxBinder(ModifyLatexProperties.class).on(positionCB).init(action -> {
+		comboboxBinder(ModifyLatexProperties.class).on(positionCB).first(action -> {
 			action.setProperty(LatexProperties.POSITION_VERTICAL);
 			action.setGenerator(latexGen);
 			action.setValue(positionCB.getSelectionModel().getSelectedItem());
 		}).bind();
 
-		spinnerBinder(ModifyLatexProperties.class).on(scaleField).exec(true).init(action -> {
+		spinnerBinder(ModifyLatexProperties.class).on(scaleField).exec(true).first(action -> {
 			action.setValue(scaleField.getValue());
 			action.setProperty(LatexProperties.SCALE);
 			action.setGenerator(latexGen);
-		}).update(action -> action.setValue(scaleField.getValue())).bind();
+		}).then(action -> action.setValue(scaleField.getValue())).bind();
 	}
 }

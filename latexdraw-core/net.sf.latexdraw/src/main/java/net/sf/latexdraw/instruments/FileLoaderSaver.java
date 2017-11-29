@@ -174,7 +174,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		};
 
 		// Close window
-		windowBinder(SaveDrawing.class, new WindowClosed()).on(LaTeXDraw.getInstance().getMainStage()).init(action -> {
+		windowBinder(SaveDrawing.class, new WindowClosed()).on(LaTeXDraw.getInstance().getMainStage()).first(action -> {
 			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(true);
@@ -182,21 +182,20 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 		// Quit shortcut
 		keyWindowBinder(SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.W, LSystem.INSTANCE.getControlKey()).
-			init(action -> {
+			first(action -> {
 				initSaveAction.accept(action, FileLoaderSaver.this);
 				action.setSaveAs(true);
 				action.setSaveOnClose(true);
 		}).bind();
 
 		// Save menu
-		menuItemBinder(SaveDrawing.class).on(saveMenu).init(saveAction).bind();
+		menuItemBinder(SaveDrawing.class).on(saveMenu).first(saveAction).bind();
 
 		// Save shortcut
-		keyWindowBinder(SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.S, LSystem.INSTANCE.getControlKey()).
-			init(saveAction).bind();
+		keyWindowBinder(SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.S, LSystem.INSTANCE.getControlKey()).first(saveAction).bind();
 
 		// Save as menu
-		menuItemBinder(SaveDrawing.class).on(saveAsMenu).init(action -> {
+		menuItemBinder(SaveDrawing.class).on(saveAsMenu).first(action -> {
 			initSaveAction.accept(action, FileLoaderSaver.this);
 			action.setSaveAs(true);
 			action.setSaveOnClose(false);
@@ -204,18 +203,16 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		}).bind();
 
 		// Load menu
-		menuItemBinder(LoadDrawing.class).on(loadMenu).init(loadAction).bind();
+		menuItemBinder(LoadDrawing.class).on(loadMenu).first(loadAction).bind();
 
 		// Load shortcut
-		keyWindowBinder(LoadDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.O, LSystem.INSTANCE.getControlKey()).
-			init(loadAction).bind();
+		keyWindowBinder(LoadDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.O, LSystem.INSTANCE.getControlKey()).first(loadAction).bind();
 
 		// New menu
-		menuItemBinder(NewDrawing.class).on(newMenu).init(newAction).bind();
+		menuItemBinder(NewDrawing.class).on(newMenu).first(newAction).bind();
 
 		// New shortcut
-		keyWindowBinder(NewDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.N, LSystem.INSTANCE.getControlKey()).
-			init(newAction).bind();
+		keyWindowBinder(NewDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.N, LSystem.INSTANCE.getControlKey()).first(newAction).bind();
 
 		// Recent files menus
 		recentInterator = new RecentMenuItem2LoadInteractor(this);

@@ -51,8 +51,8 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		super.configureBindings();
 		spinnerBinder(Zoom.class).on(zoom).exec(true).
-			init(action -> action.setZoomable(zoomable)).
-			update(action -> action.setZoomLevel(zoom.getValue() / 100d)).bind();
+			first(action -> action.setZoomable(zoomable)).
+			then(action -> action.setZoomLevel(zoom.getValue() / 100d)).bind();
 	}
 
 	@Override

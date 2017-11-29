@@ -98,19 +98,19 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		buttonBinder(AlignShapes.class).on(alignBot, alignLeft, alignMidHoriz, alignMidVert, alignRight, alignTop).init((a, i) -> {
+		buttonBinder(AlignShapes.class).on(alignBot, alignLeft, alignMidHoriz, alignMidVert, alignRight, alignTop).first((a, i) -> {
 			a.setAlignment((AlignShapes.Alignment) i.getWidget().getUserData());
 			a.setCanvas(canvas);
 			a.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		}).bind();
 
-		buttonBinder(MirrorShapes.class).on(mirrorH, mirrorV).init((a, i) -> {
+		buttonBinder(MirrorShapes.class).on(mirrorH, mirrorV).first((a, i) -> {
 			a.setHorizontally(i.getWidget() == mirrorH);
 			a.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		}).bind();
 
 		buttonBinder(DistributeShapes.class).on(distribHorizEq, distribHorizLeft, distribHorizMid, distribHorizRight,distribVertBot,
-			distribVertEq, distribVertMid, distribVertTop).init((a, i) -> {
+			distribVertEq, distribVertMid, distribVertTop).first((a, i) -> {
 			a.setDistribution((DistributeShapes.Distribution) i.getWidget().getUserData());
 			a.setCanvas(canvas);
 			a.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));

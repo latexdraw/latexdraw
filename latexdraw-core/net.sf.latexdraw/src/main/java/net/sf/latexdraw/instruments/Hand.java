@@ -87,12 +87,12 @@ public class Hand extends CanvasInstrument {
 		addBinding(new DnD2MoveViewport(this));
 		addBinding(new DoubleClick2InitTextSetter(this));
 
-		keyNodeBinder(SelectShapes.class).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).init(action -> {
+		keyNodeBinder(SelectShapes.class).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).first(action -> {
 			canvas.getDrawing().getShapes().forEach(sh -> action.addShape(sh));
 			action.setDrawing(canvas.getDrawing());
 		}).bind();
 
-		keyNodeBinder(UpdateToGrid.class).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).init(action -> {
+		keyNodeBinder(UpdateToGrid.class).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).first(action -> {
 			action.setShape(canvas.getDrawing().getSelection().duplicateDeep(false));
 			action.setGrid(canvas.getMagneticGrid());
 		}).when(i -> canvas.getMagneticGrid().isMagnetic()).bind();

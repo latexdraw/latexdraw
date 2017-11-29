@@ -125,21 +125,21 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
 		// Key Enter to validate the text.
-		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).init(action -> {
+		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).first(action -> {
 			action.setGroup(ShapeFactory.INST.createGroup(text));
 			action.setProperty(ShapeProperties.TEXT);
 			action.setValue(textField.getText());
 		}).when(i -> text != null && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to validate the equation of a plot shape.
-		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).init(action -> {
+		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).first(action -> {
 			action.setGroup(ShapeFactory.INST.createGroup(plot));
 			action.setProperty(ShapeProperties.PLOT_EQ);
 			action.setValue(textField.getText());
 		}).when(i -> plot != null && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to add a text shape.
-		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).init(action -> {
+		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).first(action -> {
 			final IPoint textPosition = ShapeFactory.INST.createPoint(position.getX(), position.getY());
 			final IShape sh = pencil == null ? null : pencil.createShapeInstance();
 

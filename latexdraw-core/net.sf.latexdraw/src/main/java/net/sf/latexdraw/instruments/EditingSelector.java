@@ -167,18 +167,18 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[button2EditingChoiceMap.size()+1]);
 		nodes[nodes.length-1] = handB;
 
-		toggleButtonBinder(AddShape.class).on(textB).init(action -> {
+		toggleButtonBinder(AddShape.class).on(textB).first(action -> {
 			action.setDrawing(canvas.getDrawing());
 			action.setShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(pencil.textSetter.getPosition()),
 				pencil.textSetter.getTextField().getText()));
 		}).when(i -> pencil.textSetter.isActivated() && !pencil.textSetter.getTextField().getText().isEmpty()).bind();
 
-		toggleButtonBinder(ModifyPencilStyle.class).on(nodes).init((action, interaction) -> {
+		toggleButtonBinder(ModifyPencilStyle.class).on(nodes).first((action, interaction) -> {
 			action.setEditingChoice(button2EditingChoiceMap.get(interaction.getWidget()));
 			action.setPencil(pencil);
 		}).bind();
 
-		toggleButtonBinder(ActivateInactivateInstruments.class).on(nodes).init((action, interaction) -> {
+		toggleButtonBinder(ActivateInactivateInstruments.class).on(nodes).first((action, interaction) -> {
 			final ToggleButton button = interaction.getWidget();
 
 			action.setActivateFirst(false);
@@ -212,7 +212,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 			}
 		}).bind();
 
-		buttonBinder(ActivateInactivateInstruments.class).on(codeB).init(action -> action.addInstrumentToActivate(codeInserter)).bind();
+		buttonBinder(ActivateInactivateInstruments.class).on(codeB).first(action -> action.addInstrumentToActivate(codeInserter)).bind();
 	}
 
 	@Override
