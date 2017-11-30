@@ -72,13 +72,31 @@ public class TestDrawingProperties {
 	@Test
 	public void testCommentGetSet() throws Exception {
 		gen.setComment("Foo");
-		assertEquals("% Foo", gen.getComment());
+		assertEquals("Foo", gen.getComment());
+	}
+
+	@Test
+	public void testCommentGetSetWithTag() throws Exception {
+		gen.setComment("Foo");
+		assertEquals("% Foo", gen.getCommentWithTag());
+	}
+
+	@Test
+	public void testCommentGetSetWithTagMultiLines() throws Exception {
+		gen.setComment("Foo\nbar");
+		assertEquals("% Foo\n% bar", gen.getCommentWithTag());
 	}
 
 	@Test
 	public void testSetCommentNULL() throws Exception {
 		gen.setComment(null);
 		assertEquals("", gen.getComment());
+	}
+
+	@Test
+	public void testSetCommentNULLWithTag() throws Exception {
+		gen.setComment(null);
+		assertEquals("% ", gen.getCommentWithTag());
 	}
 
 	@Test

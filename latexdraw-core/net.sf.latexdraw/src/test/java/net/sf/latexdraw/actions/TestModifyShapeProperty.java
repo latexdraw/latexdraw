@@ -56,11 +56,9 @@ import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.malai.action.Action;
 
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -727,10 +725,5 @@ public class TestModifyShapeProperty extends TestUndoableAction<ModifyShapePrope
 	@Override
 	protected void checkDo() {
 		assertThat(valueToCheckCmd.apply(group), equalTo(value));
-	}
-
-	@Override
-	public void testIsRegisterable() {
-		assertThat(action.getRegistrationPolicy(), is(Action.RegistrationPolicy.LIMITED));
 	}
 }

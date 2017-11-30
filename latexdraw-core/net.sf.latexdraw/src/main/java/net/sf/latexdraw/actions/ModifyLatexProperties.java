@@ -23,13 +23,10 @@ import org.malai.undo.Undoable;
 public class ModifyLatexProperties extends ActionImpl implements Undoable, Modifying {
 	/** The new value to set. */
 	protected Object value;
-
 	/** The saved value used for undo/redo. */
 	protected Object oldValue;
-
 	/** The property to modify. */
 	protected LatexProperties property;
-
 	/** The LaTeX generator to modify. */
 	protected LaTeXGenerator generator;
 
@@ -43,82 +40,98 @@ public class ModifyLatexProperties extends ActionImpl implements Undoable, Modif
 		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 
-
 	@Override
 	protected void doActionBody() {
 		switch(property) {
-			case SCALE	 			: oldValue = generator.getScale(); break;
-			case CAPTION 			: oldValue = generator.getCaption(); break;
-			case COMMENT 			: oldValue = generator.getComment(); break;
-			case LABEL 				: oldValue = generator.getLabel(); break;
-			case PACKAGES 			: oldValue = LaTeXGenerator.getPackages(); break;
-			case POSITION_HORIZONTAL: oldValue = generator.isPositionHoriCentre(); break;
-			case POSITION_VERTICAL 	: oldValue = generator.getPositionVertToken(); break;
+			case SCALE:
+				oldValue = generator.getScale();
+				break;
+			case CAPTION:
+				oldValue = generator.getCaption();
+				break;
+			case COMMENT:
+				oldValue = generator.getComment();
+				break;
+			case LABEL:
+				oldValue = generator.getLabel();
+				break;
+			case PACKAGES:
+				oldValue = LaTeXGenerator.getPackages();
+				break;
+			case POSITION_HORIZONTAL:
+				oldValue = generator.isPositionHoriCentre();
+				break;
+			case POSITION_VERTICAL:
+				oldValue = generator.getPositionVertToken();
+				break;
 		}
 
 		applyValue(value);
 	}
 
-
 	private void applyValue(final Object object) {
 		switch(property) {
-			case SCALE	 			: generator.setScale((Double)object); break;
-			case CAPTION 			: generator.setCaption((String)object); break;
-			case COMMENT 			: generator.setComment((String)object); break;
-			case LABEL 				: generator.setLabel((String)object); break;
-			case PACKAGES 			: LaTeXGenerator.setPackages((String)object); break;
-			case POSITION_HORIZONTAL: generator.setPositionHoriCentre((Boolean)object); break;
-			case POSITION_VERTICAL  : generator.setPositionVertToken((VerticalPosition)object); break;
+			case SCALE:
+				generator.setScale((Double) object);
+				break;
+			case CAPTION:
+				generator.setCaption((String) object);
+				break;
+			case COMMENT:
+				generator.setComment((String) object);
+				break;
+			case LABEL:
+				generator.setLabel((String) object);
+				break;
+			case PACKAGES:
+				LaTeXGenerator.setPackages((String) object);
+				break;
+			case POSITION_HORIZONTAL:
+				generator.setPositionHoriCentre((Boolean) object);
+				break;
+			case POSITION_VERTICAL:
+				generator.setPositionVertToken((VerticalPosition) object);
+				break;
 		}
 	}
-
 
 	@Override
 	public boolean canDo() {
 		// PACKAGES does not require the generator since it is a static attribute.
-		return property!=null && property.isValueSupported(value) && (generator!=null || property==LatexProperties.PACKAGES);
+		return property != null && property.isValueSupported(value) && (generator != null || property == LatexProperties.PACKAGES);
 	}
-
 
 	@Override
 	public void undo() {
 		applyValue(oldValue);
 	}
 
-
 	@Override
 	public void redo() {
 		applyValue(value);
 	}
-
 
 	@Override
 	public String getUndoName() {
 		return LangTool.INSTANCE.getBundle().getString("Actions.0"); //$NON-NLS-1$
 	}
 
-
 	/**
 	 * @param val The new val to set.
-	 * @since 3.0
 	 */
 	public void setValue(final Object val) {
 		value = val;
 	}
 
-
 	/**
 	 * @param prop The prop to modify.
-	 * @since 3.0
 	 */
 	public void setProperty(final LatexProperties prop) {
 		property = prop;
 	}
 
-
 	/**
 	 * @param gen The LaTeX generator to modify.
-	 * @since 3.0
 	 */
 	public void setGenerator(final LaTeXGenerator gen) {
 		generator = gen;

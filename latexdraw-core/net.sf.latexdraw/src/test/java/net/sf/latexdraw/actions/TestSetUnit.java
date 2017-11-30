@@ -1,6 +1,9 @@
 package net.sf.latexdraw.actions;
 
+import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Unit;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestSetUnit extends TestUndoableAction<SetUnit, Unit> {
 	@Override
@@ -10,21 +13,17 @@ public class TestSetUnit extends TestUndoableAction<SetUnit, Unit> {
 
 	@Override
 	protected void configCorrectAction() {
-
+		memento = ScaleRuler.getUnit();
+		action.setUnit(Unit.INCH);
 	}
 
 	@Override
 	protected void checkDo() {
-
-	}
-
-	@Override
-	public void testIsRegisterable() throws Exception {
-
+		assertEquals(Unit.INCH, ScaleRuler.getUnit());
 	}
 
 	@Override
 	protected void checkUndo() {
-
+		assertEquals(memento, ScaleRuler.getUnit());
 	}
 }

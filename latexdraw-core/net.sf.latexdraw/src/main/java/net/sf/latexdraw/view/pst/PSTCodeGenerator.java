@@ -82,7 +82,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		final StringBuilder shapeCode = new StringBuilder();
 		final boolean hasBeginFigure;
 
-		if(withComments && comment != null && !comment.isEmpty()) cache.append(comment);
+		if(withComments && comment != null && !comment.isEmpty()) cache.append(getCommentWithTag());
 
 		cache.append(PACKAGE_PSTRICKS).append("% ").append(PACKAGE_FOR_SPACE_PICTURE.replaceAll(LSystem.EOL, LSystem.EOL + "% "));
 

@@ -1,9 +1,63 @@
 package net.sf.latexdraw.actions;
 
-public class TestModifyMagneticGrid extends TestUndoableAction<ModifyMagneticGrid, Object> {
-	@Override
-	protected void checkUndo() {
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import net.sf.latexdraw.view.GridStyle;
+import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGridImpl;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.malai.action.ActionsRegistry;
 
+import static org.junit.Assert.assertEquals;
+
+@RunWith(Parameterized.class)
+public class TestModifyMagneticGrid extends TestUndoableAction<ModifyMagneticGrid, Object> {
+	@Parameterized.Parameters(name = "{0}")
+	public static Collection<Object> data() {
+		return Arrays.stream(GridProperties.values()).collect(Collectors.toList());
+	}
+
+	@Parameterized.Parameter
+	public GridProperties property;
+
+	MagneticGrid grid;
+
+	// The function that provides the memento, ie the values before setting the new value
+	private Supplier<Object> mementoCmd;
+	// The value to set
+	private Object value;
+
+
+	@Override
+	@Before
+	public void setUp() {
+		super.setUp();
+
+		grid = new MagneticGridImpl(new Canvas());
+		// Cannot have two runners so cannot use mock to mock Canvas:
+		ActionsRegistry.INSTANCE.removeAllHandlers();
+
+		switch(property) {
+			case STYLE:
+				mementoCmd = () -> grid.getGridStyle();
+				value = GridStyle.STANDARD;
+				break;
+			case MAGNETIC:
+				mementoCmd = () -> grid.isMagnetic();
+				value = true;
+				break;
+			case GRID_SPACING:
+				mementoCmd = () -> grid.getGridSpacing();
+				value = 11;
+				break;
+		}
+
+		memento = mementoCmd.get();
 	}
 
 	@Override
@@ -13,16 +67,18 @@ public class TestModifyMagneticGrid extends TestUndoableAction<ModifyMagneticGri
 
 	@Override
 	protected void configCorrectAction() {
-
+		action.setGrid(grid);
+		action.setProperty(property);
+		action.setValue(value);
 	}
 
 	@Override
 	protected void checkDo() {
-
+		assertEquals(value, mementoCmd.get());
 	}
 
 	@Override
-	public void testIsRegisterable() throws Exception {
-
+	protected void checkUndo() {
+		assertEquals(memento, mementoCmd.get());
 	}
 }

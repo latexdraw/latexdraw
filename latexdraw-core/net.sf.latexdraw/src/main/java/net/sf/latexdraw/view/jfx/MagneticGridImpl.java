@@ -35,9 +35,9 @@ import org.w3c.dom.NodeList;
  * Implementation of a magnetic grid.
  * @author Arnaud Blouin
  */
-class MagneticGridImpl extends Path implements MagneticGrid {
+public class MagneticGridImpl extends Path implements MagneticGrid {
 	/** The canvas that paints the grid. */
-	private final  Canvas canvas;
+	private final Canvas canvas;
 	/** Allows to know if the grid is magnetic or not. */
 	private boolean isMagnetic;
 	/** defines the spacing between the lines of the grid. */
@@ -53,7 +53,7 @@ class MagneticGridImpl extends Path implements MagneticGrid {
 	 * @param canv The canvas in which the grid will work.
 	 * @throws NullPointerException if the given parameters are not valid.
 	 */
-	protected MagneticGridImpl(final  Canvas canv) {
+	public MagneticGridImpl(final Canvas canv) {
 		super();
 		modified = false;
 		canvas = canv;

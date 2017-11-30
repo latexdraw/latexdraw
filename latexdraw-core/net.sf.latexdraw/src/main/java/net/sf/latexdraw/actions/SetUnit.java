@@ -58,7 +58,7 @@ public class SetUnit extends ActionImpl implements Undoable {
 
 	@Override
 	public RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 
 	/**

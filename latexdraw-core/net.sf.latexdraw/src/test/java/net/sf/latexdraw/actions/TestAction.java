@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.malai.action.Action;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -49,7 +50,16 @@ public abstract class TestAction<T extends Action> {
 	}
 
 	@Test
-	public abstract void testIsRegisterable() throws Exception;
+	public void testGetRegisterablePolicy() throws Exception {
+		assertEquals(Action.RegistrationPolicy.NONE, action.getRegistrationPolicy());
+	}
+
+	@Test
+	public void testGetRegisterablePolicyOK() throws Exception {
+		action.doIt();
+		action.done();
+		assertEquals(Action.RegistrationPolicy.LIMITED, action.getRegistrationPolicy());
+	}
 
 	@Test
 	public void testHadEffect() {

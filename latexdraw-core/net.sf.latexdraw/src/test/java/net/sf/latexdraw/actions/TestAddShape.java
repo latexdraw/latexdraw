@@ -3,7 +3,6 @@ package net.sf.latexdraw.actions;
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import org.malai.action.Action;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -32,10 +31,5 @@ public class TestAddShape extends TestUndoableAction<AddShape, IShape> {
 	protected void checkDo() {
 		assertTrue(drawing.contains(memento));
 		assertEquals(1, drawing.size());
-	}
-
-	@Override
-	public void testIsRegisterable() throws Exception {
-		assertEquals(Action.RegistrationPolicy.LIMITED, action.getRegistrationPolicy());
 	}
 }

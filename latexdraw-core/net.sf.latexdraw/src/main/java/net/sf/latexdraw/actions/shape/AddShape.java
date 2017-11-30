@@ -43,7 +43,7 @@ public class AddShape extends ShapeActionImpl<IShape> implements DrawingAction, 
 
 	@Override
 	public RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 
 	@Override

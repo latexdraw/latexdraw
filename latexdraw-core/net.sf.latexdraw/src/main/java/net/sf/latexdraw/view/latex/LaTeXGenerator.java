@@ -17,6 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.actions.ExportFormat;
@@ -145,37 +147,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	}
 
 
-	/**
-	 * @return The comments without any characters like "%"
-	 * at the start of each lines. (these characters are used like comment symbol by LaTeX).
-	 */
-	public String getCommentsWithoutTag() {
-		int i = 0;
-		int j = 0;
-		final int lgth = comment.length();
-		final char[] buffer = new char[lgth];
-		boolean eol = true;
-
-		while(i < lgth) {
-			if(eol && comment.charAt(i) == '%') {
-				i += LGTH_START_LINE_COMMENT;
-				eol = false;
-			}else {
-				if(comment.charAt(i) == '\n') {
-					eol = true;
-				}
-
-				buffer[j++] = comment.charAt(i);
-				i++;
-			}
-		}
-
-		final String str = String.valueOf(buffer, 0, j);
-
-		return str.length() > 1 ? str.substring(0, str.length() - LSystem.EOL.length()) : str;
-	}
-
-
 	@Override
 	public boolean isModified() {
 		return modified;
@@ -186,42 +157,26 @@ public abstract class LaTeXGenerator implements Modifiable {
 		modified = modif;
 	}
 
-
 	/**
-	 * @param newComments the comment to set.
-	 * @since 3.0
+	 * @param newComments the comment to set. Nothing done if null.
 	 */
 	public void setComment(final String newComments) {
-		if(newComments != null && !newComments.isEmpty()) {
-			int i;
-			int j = 0;
-			final int lgth = newComments.length();
-			final char[] buffer = new char[lgth * 3];
-			boolean eol = true;
-
-			for(i = 0; i < newComments.length(); i++) {
-				if(eol) {
-					buffer[j++] = '%';
-					buffer[j++] = ' ';
-					eol = false;
-				}
-
-				if(newComments.charAt(i) == '\n') {
-					eol = true;
-				}
-
-				buffer[j++] = newComments.charAt(i);
-			}
-
-			comment = String.valueOf(buffer, 0, j);
+		if(newComments != null && !comment.equals(newComments)) {
+			comment = newComments;
 			setModified(true);
 		}
+	}
+
+	/**
+	 * @return The comments with the '%' tag at the beginning of each line. Cannot be null.
+	 */
+	public String getCommentWithTag() {
+		return Stream.of(comment.split(LSystem.EOL)).map(commentLine -> "% " + commentLine).collect(Collectors.joining(LSystem.EOL));
 	}
 
 
 	/**
 	 * @return The latex token corresponding to the specified vertical position.
-	 * @since 3.0
 	 */
 	public VerticalPosition getPositionVertToken() {
 		return positionVertToken;
@@ -230,7 +185,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @param positionVert The new vertical position token. Must not be null.
-	 * @since 3.0
 	 */
 	public void setPositionVertToken(final VerticalPosition positionVert) {
 		if(positionVert != null) {
@@ -242,7 +196,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @return True: the latex drawing will be horizontally centred.
-	 * @since 3.0
 	 */
 	public boolean isPositionHoriCentre() {
 		return positionHoriCentre;
@@ -251,7 +204,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @return the label of the latex drawing.
-	 * @since 3.0
 	 */
 	public String getLabel() {
 		return label;
@@ -260,7 +212,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @param lab the new lab of the drawing. Must not be null.
-	 * @since 3.0
 	 */
 	public void setLabel(final String lab) {
 		if(lab != null) {
@@ -272,7 +223,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @return the caption of the drawing.
-	 * @since 3.0
 	 */
 	public String getCaption() {
 		return caption;
@@ -281,7 +231,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @param theCaption the new caption of the drawing. Must not be null.
-	 * @since 3.0
 	 */
 	public void setCaption(final String theCaption) {
 		if(theCaption != null) {
@@ -293,7 +242,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @param position True: the latex drawing will be horizontally centred.
-	 * @since 3.0
 	 */
 	public void setPositionHoriCentre(final boolean position) {
 		if(positionHoriCentre != position) {
@@ -313,7 +261,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	/**
 	 * Generates a latex document that contains the pstricks code of the given canvas.
 	 * @return The latex document or an empty string.
-	 * @since 3.0
 	 */
 	public abstract String getDocumentCode();
 
@@ -322,7 +269,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * the pstricks drawing.
 	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
 	 * @return The create file or nothing.
-	 * @since 3.0
 	 */
 	public Optional<File> createPSFile(final String pathExportPs) {
 		return createPSFile(pathExportPs, null);
@@ -334,7 +280,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param pathExportEPS The path of the .eps file to create (MUST ends with .eps).
 	 * @return The create file or nothing.
 	 * @throws SecurityException In case of problem while accessing files.
-	 * @since 3.0
 	 */
 	public Optional<File> createEPSFile(final String pathExportEPS) {
 		final Optional<File> optDir = LFileUtils.INSTANCE.createTempDir();
@@ -383,7 +328,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
 	 * @param tmpDir The temporary directory used for the compilation.
 	 * @return The create file or nothing.
-	 * @since 3.0
 	 */
 	private Optional<File> createPSFile(final String pathExportPs, final File tmpDir) {
 		if(pathExportPs == null) return Optional.empty();
@@ -448,7 +392,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param crop if true, the output document will be cropped.
 	 * @return The create file or null.
 	 * @throws SecurityException In case of problem while accessing files.
-	 * @since 3.0
 	 */
 	public Optional<File> createPDFFile(final String pathExportPdf, final boolean crop) {
 		if(pathExportPdf == null) return Optional.empty();
@@ -507,7 +450,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @return True: The latex parameters must be used by the generated code.
-	 * @since 3.0
 	 */
 	public boolean isWithLatexParams() {
 		return withLatexParams;
@@ -517,7 +459,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	/**
 	 * Defines if the latex parameters must be used by the generated code.
 	 * @param latexParams True: The latex parameters must be used by the generated code.
-	 * @since 3.0
 	 */
 	public void setWithLatexParams(final boolean latexParams) {
 		this.withLatexParams = latexParams;
@@ -526,7 +467,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @return True: comments will be included.
-	 * @since 3.0
 	 */
 	public boolean isWithComments() {
 		return withComments;
@@ -536,7 +476,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 	/**
 	 * Defines if the code must contains comments.
 	 * @param comments True: comments will be included.
-	 * @since 3.0
 	 */
 	public void setWithComments(final boolean comments) {
 		this.withComments = comments;
