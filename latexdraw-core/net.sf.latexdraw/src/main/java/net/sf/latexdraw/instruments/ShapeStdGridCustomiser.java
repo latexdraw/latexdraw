@@ -86,8 +86,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new Spinner4Pencil(this, labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false));
-		addBinding(new Spinner4Selection(this, labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false));
+		addSpinnerPropBinding(labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false);
 		addBinding(new Spinner4StdGridPencil(xEndS, ShapeProperties.GRID_END));
 		addBinding(new Spinner4StdGridPencil(yEndS, ShapeProperties.GRID_END));
 		addBinding(new Spinner4StdGridHand(xEndS, ShapeProperties.GRID_END));

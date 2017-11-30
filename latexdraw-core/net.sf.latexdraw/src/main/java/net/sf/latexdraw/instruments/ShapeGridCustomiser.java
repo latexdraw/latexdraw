@@ -84,23 +84,16 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new ColourPicker4Pencil(this, colourLabels, ShapeProperties.GRID_LABELS_COLOUR));
-		addBinding(new ColourPicker4Selection(this, colourLabels, ShapeProperties.GRID_LABELS_COLOUR));
-		addBinding(new ColourPicker4Pencil(this, colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR));
-		addBinding(new ColourPicker4Selection(this, colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR));
-		addBinding(new Spinner4Pencil(this, gridWidth, ShapeProperties.GRID_WIDTH, false));
-		addBinding(new Spinner4Selection(this, gridWidth, ShapeProperties.GRID_WIDTH, false));
-		addBinding(new Spinner4Pencil(this, subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false));
-		addBinding(new Spinner4Selection(this, subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false));
-		addBinding(new Spinner4Pencil(this, subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false));
-		addBinding(new Spinner4Selection(this, subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false));
-		addBinding(new Spinner4Pencil(this, gridDots, ShapeProperties.GRID_DOTS, false));
-		addBinding(new Spinner4Selection(this, gridDots, ShapeProperties.GRID_DOTS, false));
-		addBinding(new Spinner4Pencil(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
-		addBinding(new Spinner4Selection(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
-		addBinding(new ToggleButton4Pencil(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y, true));
-		addBinding(new ToggleButton4Selection(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y, true));
-		addBinding(new ToggleButton4Pencil(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X, true));
-		addBinding(new ToggleButton4Selection(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X, true));
+		addColorPropBinding(colourLabels, ShapeProperties.GRID_LABELS_COLOUR);
+		addColorPropBinding(colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR);
+
+		addSpinnerPropBinding(gridWidth, ShapeProperties.GRID_WIDTH, false);
+		addSpinnerPropBinding(subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false);
+		addSpinnerPropBinding(subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false);
+		addSpinnerPropBinding(gridDots, ShapeProperties.GRID_DOTS, false);
+		addSpinnerPropBinding(subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false);
+
+		addTogglePropBinding(labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y, true);
+		addTogglePropBinding(labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X, true);
 	}
 }

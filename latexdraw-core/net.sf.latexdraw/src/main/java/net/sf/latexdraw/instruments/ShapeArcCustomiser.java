@@ -11,7 +11,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,11 +20,9 @@ import javafx.scene.control.ToggleButton;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import org.malai.javafx.binding.ToggleButtonBinding;
 
 /**
  * This instrument modifies arc parameters.
@@ -78,72 +75,43 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initi
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new Spinner4Selection(this, startAngleS, ShapeProperties.ARC_START_ANGLE, true));
-		addBinding(new Spinner4Selection(this, endAngleS, ShapeProperties.ARC_END_ANGLE, true));
-		addBinding(new Spinner4Pencil(this, startAngleS, ShapeProperties.ARC_START_ANGLE, true));
-		addBinding(new Spinner4Pencil(this, endAngleS, ShapeProperties.ARC_END_ANGLE, true));
-		addBinding(new Button2SelectionArcStyle(this));
-		addBinding(new Button2PencilArcStyle(this));
-	}
+		addSpinnerPropBinding(startAngleS, ShapeProperties.ARC_START_ANGLE, true);
+		addSpinnerPropBinding(endAngleS, ShapeProperties.ARC_END_ANGLE, true);
 
-	private abstract static class Button2ArcStyle<T extends ShapePropertyAction> extends ToggleButtonBinding<T, ShapeArcCustomiser> {
-		Button2ArcStyle(final ShapeArcCustomiser ins, final Class<T> act) throws InstantiationException, IllegalAccessException {
-			super(ins, act, Arrays.asList(ins.arcB, ins.chordB, ins.wedgeB));
-		}
+		toggleButtonBinder(ModifyShapeProperty.class).on(arcB).first(a -> {
+			a.setProperty(ShapeProperties.ARC_STYLE);
+			a.setValue(ArcStyle.ARC);
+			a.setGroup(drawing.getSelection().duplicateDeep(false));
+		}).when(handActiv).bind();
 
-		@Override
-		public void initAction() {
-			final ToggleButton button = interaction.getWidget();
-			final ArcStyle style;
+		toggleButtonBinder(ModifyShapeProperty.class).on(chordB).first(a -> {
+			a.setProperty(ShapeProperties.ARC_STYLE);
+			a.setValue(ArcStyle.CHORD);
+			a.setGroup(drawing.getSelection().duplicateDeep(false));
+		}).when(handActiv).bind();
 
-			if(button == instrument.arcB) {
-				style = ArcStyle.ARC;
-			}
-			else {
-				if(button == instrument.chordB) {
-					style = ArcStyle.CHORD;
-				}
-				else {
-					style = ArcStyle.WEDGE;
-				}
-			}
+		toggleButtonBinder(ModifyShapeProperty.class).on(wedgeB).first(a -> {
+			a.setProperty(ShapeProperties.ARC_STYLE);
+			a.setValue(ArcStyle.WEDGE);
+			a.setGroup(drawing.getSelection().duplicateDeep(false));
+		}).when(handActiv).bind();
 
-			action.setProperty(ShapeProperties.ARC_STYLE);
-			action.setValue(style);
-		}
-	}
+		toggleButtonBinder(ModifyPencilParameter.class).on(arcB).first(a -> {
+			a.setProperty(ShapeProperties.ARC_STYLE);
+			a.setValue(ArcStyle.ARC);
+			a.setPencil(pencil);
+		}).when(pencilActiv).bind();
 
-	private static class Button2PencilArcStyle extends Button2ArcStyle<ModifyPencilParameter> {
-		Button2PencilArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class);
-		}
+		toggleButtonBinder(ModifyPencilParameter.class).on(chordB).first(a -> {
+			a.setProperty(ShapeProperties.ARC_STYLE);
+			a.setValue(ArcStyle.CHORD);
+			a.setPencil(pencil);
+		}).when(pencilActiv).bind();
 
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setPencil(instrument.pencil);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class Button2SelectionArcStyle extends Button2ArcStyle<ModifyShapeProperty> {
-		Button2SelectionArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setGroup(instrument.drawing.getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
+		toggleButtonBinder(ModifyPencilParameter.class).on(wedgeB).first(a -> {
+			a.setProperty(ShapeProperties.ARC_STYLE);
+			a.setValue(ArcStyle.WEDGE);
+			a.setPencil(pencil);
+		}).when(pencilActiv).bind();
 	}
 }

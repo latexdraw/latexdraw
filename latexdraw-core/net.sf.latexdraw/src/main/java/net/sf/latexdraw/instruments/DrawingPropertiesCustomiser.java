@@ -154,12 +154,12 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		textfieldBinder(ModifyLatexProperties.class).on(labelField).first(action -> {
+		textInputBinder(ModifyLatexProperties.class).on(labelField).first(action -> {
 			action.setProperty(LatexProperties.LABEL);
 			action.setGenerator(latexGen);
 		}).then(action -> action.setValue(labelField.getText())).bind();
 
-		textfieldBinder(ModifyLatexProperties.class).on(titleField).first(action -> {
+		textInputBinder(ModifyLatexProperties.class).on(titleField).first(action -> {
 			action.setProperty(LatexProperties.CAPTION);
 			action.setGenerator(latexGen);
 		}).then(action -> action.setValue(titleField.getText())).bind();

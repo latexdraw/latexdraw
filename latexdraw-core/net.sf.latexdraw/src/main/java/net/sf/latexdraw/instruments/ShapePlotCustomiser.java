@@ -76,19 +76,12 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new List4Pencil(this, plotStyleCB, ShapeProperties.PLOT_STYLE));
-		addBinding(new List4Selection(this, plotStyleCB, ShapeProperties.PLOT_STYLE));
-		addBinding(new Spinner4Pencil(this, nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false));
-		addBinding(new Spinner4Selection(this, nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false));
-		addBinding(new Spinner4Pencil(this, minXSpinner, ShapeProperties.PLOT_MIN_X, false));
-		addBinding(new Spinner4Selection(this, minXSpinner, ShapeProperties.PLOT_MIN_X, false));
-		addBinding(new Spinner4Pencil(this, maxXSpinner, ShapeProperties.PLOT_MAX_X, false));
-		addBinding(new Spinner4Selection(this, maxXSpinner, ShapeProperties.PLOT_MAX_X, false));
-		addBinding(new Spinner4Pencil(this, xScaleSpinner, ShapeProperties.X_SCALE, false));
-		addBinding(new Spinner4Selection(this, xScaleSpinner, ShapeProperties.X_SCALE, false));
-		addBinding(new Spinner4Pencil(this, yScaleSpinner, ShapeProperties.Y_SCALE, false));
-		addBinding(new Spinner4Selection(this, yScaleSpinner, ShapeProperties.Y_SCALE, false));
-		addBinding(new Checkbox4Pencil(this, polarCB, ShapeProperties.PLOT_POLAR));
-		addBinding(new Checkbox4Selection(this, polarCB, ShapeProperties.PLOT_POLAR));
+		addComboPropBinding(plotStyleCB, ShapeProperties.PLOT_STYLE);
+		addSpinnerPropBinding(nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false);
+		addSpinnerPropBinding(minXSpinner, ShapeProperties.PLOT_MIN_X, false);
+		addSpinnerPropBinding(maxXSpinner, ShapeProperties.PLOT_MAX_X, false);
+		addSpinnerPropBinding(xScaleSpinner, ShapeProperties.X_SCALE, false);
+		addSpinnerPropBinding(yScaleSpinner, ShapeProperties.Y_SCALE, false);
+		addCheckboxPropBinding(polarCB, ShapeProperties.PLOT_POLAR);
 	}
 }

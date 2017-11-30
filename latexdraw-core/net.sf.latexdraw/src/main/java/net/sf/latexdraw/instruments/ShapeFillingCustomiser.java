@@ -125,25 +125,15 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new List4Pencil(this, fillStyleCB, ShapeProperties.FILLING_STYLE));
-		addBinding(new List4Selection(this, fillStyleCB, ShapeProperties.FILLING_STYLE));
-		addBinding(new ColourPicker4Selection(this, fillColButton, ShapeProperties.COLOUR_FILLING));
-		addBinding(new ColourPicker4Selection(this, gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START));
-		addBinding(new ColourPicker4Selection(this, gradEndColButton, ShapeProperties.COLOUR_GRADIENT_END));
-		addBinding(new ColourPicker4Selection(this, hatchColButton, ShapeProperties.COLOUR_HATCHINGS));
-		addBinding(new ColourPicker4Pencil(this, fillColButton, ShapeProperties.COLOUR_FILLING));
-		addBinding(new ColourPicker4Pencil(this, gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START));
-		addBinding(new ColourPicker4Pencil(this, gradEndColButton, ShapeProperties.COLOUR_GRADIENT_END));
-		addBinding(new ColourPicker4Pencil(this, hatchColButton, ShapeProperties.COLOUR_HATCHINGS));
-		addBinding(new Spinner4Pencil(this, gradMidPtField, ShapeProperties.GRAD_MID_POINT, false));
-		addBinding(new Spinner4Pencil(this, gradAngleField, ShapeProperties.GRAD_ANGLE, true));
-		addBinding(new Spinner4Pencil(this, hatchAngleField, ShapeProperties.HATCHINGS_ANGLE, true));
-		addBinding(new Spinner4Pencil(this, hatchWidthField, ShapeProperties.HATCHINGS_WIDTH, false));
-		addBinding(new Spinner4Pencil(this, hatchSepField, ShapeProperties.HATCHINGS_SEP, false));
-		addBinding(new Spinner4Selection(this, gradMidPtField, ShapeProperties.GRAD_MID_POINT, false));
-		addBinding(new Spinner4Selection(this, gradAngleField, ShapeProperties.GRAD_ANGLE, true));
-		addBinding(new Spinner4Selection(this, hatchAngleField, ShapeProperties.HATCHINGS_ANGLE, true));
-		addBinding(new Spinner4Selection(this, hatchWidthField, ShapeProperties.HATCHINGS_WIDTH, false));
-		addBinding(new Spinner4Selection(this, hatchSepField, ShapeProperties.HATCHINGS_SEP, false));
+		addComboPropBinding(fillStyleCB, ShapeProperties.FILLING_STYLE);
+		addColorPropBinding(fillColButton, ShapeProperties.COLOUR_FILLING);
+		addColorPropBinding(gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START);
+		addColorPropBinding(gradEndColButton, ShapeProperties.COLOUR_GRADIENT_END);
+		addColorPropBinding(hatchColButton, ShapeProperties.COLOUR_HATCHINGS);
+		addSpinnerPropBinding(gradMidPtField, ShapeProperties.GRAD_MID_POINT, false);
+		addSpinnerPropBinding(gradAngleField, ShapeProperties.GRAD_ANGLE, true);
+		addSpinnerPropBinding(hatchAngleField, ShapeProperties.HATCHINGS_ANGLE, true);
+		addSpinnerPropBinding(hatchWidthField, ShapeProperties.HATCHINGS_WIDTH, false);
+		addSpinnerPropBinding(hatchSepField, ShapeProperties.HATCHINGS_SEP, false);
 	}
 }

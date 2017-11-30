@@ -11,7 +11,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.actions.shape.JoinShapes;
 import net.sf.latexdraw.actions.shape.SeparateShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
  * This instrument groups and separates shapes.
@@ -63,17 +61,16 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		buttonBinder(SeparateShapes.class).on(sepB).first(action -> {
-			final List<IShape> shapes = getSelectAction().get().getShapes();
+		buttonBinder(SeparateShapes.class).on(sepB).first(action -> getSelectAction().map(sel -> sel.getShapes()).ifPresent(shapes -> {
 			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {
 				action.setShape((IGroup)shapes.get(0));
 			}
 			action.setDrawing(pencil.canvas.getDrawing());
-		}).bind();
+		})).bind();
 
-		buttonBinder(JoinShapes.class).on(groupB).first(action -> {
-			getSelectAction().get().getShapes().forEach(sh -> action.addShape(sh));
+		buttonBinder(JoinShapes.class).on(groupB).first(action -> getSelectAction().ifPresent(sel -> {
+			sel.getShapes().forEach(sh -> action.addShape(sh));
 			action.setDrawing(pencil.canvas.getDrawing());
-		}).bind();
+		})).bind();
 	}
 }

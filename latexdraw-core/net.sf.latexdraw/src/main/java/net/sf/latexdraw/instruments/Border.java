@@ -224,7 +224,6 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void updateAction() {
-			super.updateAction();
 			final Node node = interaction.getSrcObject().get();
 			final Point3D startPt = node.localToParent(interaction.getSrcPoint().get());
 			final Point3D endPt = node.localToParent(interaction.getEndPt().get());
@@ -261,7 +260,6 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void updateAction() {
-			super.updateAction();
 			final Node node = interaction.getSrcObject().get();
 			final Point3D startPt = node.localToParent(interaction.getSrcPoint().get());
 			final Point3D endPt = node.localToParent(interaction.getEndPt().get());
@@ -418,21 +416,23 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void updateAction() {
-			super.updateAction();
-
 			final IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndPt().get()));
 			final Position refPosition = action.getRefPosition().get();
 
 			if(refPosition.isSouth()) {
 				action.setNewY(pt.getY() + yGap);
-			}else if(refPosition.isNorth()) {
-				action.setNewY(pt.getY() - yGap);
+			}else {
+				if(refPosition.isNorth()) {
+					action.setNewY(pt.getY() - yGap);
+				}
 			}
 
 			if(refPosition.isWest()) {
 				action.setNewX(pt.getX() - xGap);
-			}else if(refPosition.isEast()) {
-				action.setNewX(pt.getX() + xGap);
+			}else {
+				if(refPosition.isEast()) {
+					action.setNewX(pt.getX() + xGap);
+				}
 			}
 		}
 

@@ -11,7 +11,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -36,9 +35,6 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.view.jfx.ViewText;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
-import org.malai.javafx.binding.JfXWidgetBinding;
-import org.malai.javafx.binding.ToggleButtonBinding;
-import org.malai.javafx.interaction.library.KeysTyped;
 
 /**
  * This instrument modifies texts.
@@ -140,64 +136,14 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new ButtonPressed2ChangeTextPosPencil());
-		addBinding(new ButtonPressed2ChangeTextPosSelection());
-		addBinding(new KeysTyped2ChangePackages());
-	}
+		toggleButtonBinder(ModifyPencilParameter.class).on(bButton, blButton, brButton, centreButton, lButton, rButton, tButton, tlButton, trButton).
+			first((a, i) -> firstPropPen(a, map.get(i.getWidget()), ShapeProperties.TEXT_POSITION)).when(pencilActiv).bind();
 
-	class ButtonPressed2ChangeTextPosPencil extends ToggleButtonBinding<ModifyPencilParameter, ShapeTextCustomiser> {
-		ButtonPressed2ChangeTextPosPencil() throws InstantiationException, IllegalAccessException {
-			super(ShapeTextCustomiser.this, ModifyPencilParameter.class, Arrays.asList(ShapeTextCustomiser.this.bButton, ShapeTextCustomiser.this.blButton, ShapeTextCustomiser.this.brButton,
-					ShapeTextCustomiser.this.centreButton, ShapeTextCustomiser.this.lButton, ShapeTextCustomiser.this.rButton, ShapeTextCustomiser.this.tButton, ShapeTextCustomiser.this.tlButton,
-					ShapeTextCustomiser.this.trButton));
-		}
+		toggleButtonBinder(ModifyShapeProperty.class).on(bButton, blButton, brButton, centreButton, lButton, rButton, tButton, tlButton, trButton).
+			first((a, i) -> firstPropHand(a, map.get(i.getWidget()), ShapeProperties.TEXT_POSITION)).when(handActiv).bind();
 
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.TEXT_POSITION);
-			action.setPencil(instrument.pencil);
-			action.setValue(map.get(interaction.getWidget()));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	class ButtonPressed2ChangeTextPosSelection extends ToggleButtonBinding<ModifyShapeProperty, ShapeTextCustomiser> {
-		ButtonPressed2ChangeTextPosSelection() throws InstantiationException, IllegalAccessException {
-			super(ShapeTextCustomiser.this, ModifyShapeProperty.class, Arrays.asList(ShapeTextCustomiser.this.bButton, ShapeTextCustomiser.this.blButton, ShapeTextCustomiser.this.brButton,
-					ShapeTextCustomiser.this.centreButton, ShapeTextCustomiser.this.lButton, ShapeTextCustomiser.this.rButton, ShapeTextCustomiser.this.tButton, ShapeTextCustomiser.this.tlButton,
-					ShapeTextCustomiser.this.trButton));
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.TEXT_POSITION);
-			action.setGroup(instrument.drawing.getSelection().duplicateDeep(false));
-			action.setValue(map.get(interaction.getWidget()));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-	}
-
-	class KeysTyped2ChangePackages extends JfXWidgetBinding<ModifyLatexProperties, KeysTyped, ShapeTextCustomiser> {
-		KeysTyped2ChangePackages() throws InstantiationException, IllegalAccessException {
-			super(ShapeTextCustomiser.this, false, ModifyLatexProperties.class, new KeysTyped(), ShapeTextCustomiser.this.packagesField);
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(LatexProperties.PACKAGES);
-		}
-
-		@Override
-		public void updateAction() {
-			action.setValue(instrument.packagesField.getText());
-		}
+		textInputBinder(ModifyLatexProperties.class).on(packagesField).
+			first(a -> a.setProperty(LatexProperties.PACKAGES)).
+			then((a, i) -> a.setValue(packagesField.getText())).bind();
 	}
 }

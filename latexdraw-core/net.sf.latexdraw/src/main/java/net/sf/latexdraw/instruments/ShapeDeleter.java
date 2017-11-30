@@ -12,20 +12,15 @@ package net.sf.latexdraw.instruments;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.actions.shape.DeleteShapes;
-import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Inject;
-import org.malai.javafx.binding.JfXWidgetBinding;
-import org.malai.javafx.interaction.JfxInteraction;
-import org.malai.javafx.interaction.library.ButtonPressed;
-import org.malai.javafx.interaction.library.KeyPressure;
 
 /**
  * This instrument deletes the selected shapes.
@@ -76,34 +71,13 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Act
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new DeleteShapesInteractor<>(this, new ButtonPressed(), deleteB));
-		addBinding(new DeleteShapesInteractor<KeyPressure>(this, new KeyPressure(), canvas) {
-			@Override
-			public boolean isConditionRespected() {
-				return interaction.getKeyCode().isPresent() && interaction.getKeyCode().get() == KeyCode.DELETE && super.isConditionRespected();
-			}
+		final Consumer<DeleteShapes> first = a -> getSelectAction().ifPresent(sel -> {
+			sel.getShapes().forEach(sh -> a.addShape(sh));
+			a.setDrawing(sel.getDrawing().orElse(null));
 		});
-	}
 
-
-	/** This abstract link maps an interaction to an action that delete shapes. */
-	private static class DeleteShapesInteractor<I extends JfxInteraction> extends JfXWidgetBinding<DeleteShapes, I, ShapeDeleter> {
-		DeleteShapesInteractor(final ShapeDeleter ins, final I interaction, Node widget) throws InstantiationException, IllegalAccessException {
-			super(ins, false, DeleteShapes.class, interaction, widget);
-		}
-
-		@Override
-		public void initAction() {
-			final SelectShapes selection = instrument.getSelectAction().get();
-			selection.getShapes().forEach(sh -> action.addShape(sh));
-			action.setDrawing(selection.getDrawing().get());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final SelectShapes selection = instrument.getSelectAction().orElse(null);
-			return selection != null && !selection.getShapes().isEmpty();
-		}
+		buttonBinder(DeleteShapes.class).on(deleteB).first(first).bind();
+		keyNodeBinder(DeleteShapes.class).on(canvas).with(KeyCode.DELETE).first(first).bind();
 	}
 }
 

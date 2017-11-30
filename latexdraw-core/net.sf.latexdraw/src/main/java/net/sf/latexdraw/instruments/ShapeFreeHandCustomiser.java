@@ -76,11 +76,8 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new List4Pencil(this, freeHandType, ShapeProperties.FREEHAND_STYLE));
-		addBinding(new List4Selection(this, freeHandType, ShapeProperties.FREEHAND_STYLE));
-		addBinding(new Spinner4Pencil(this, gapPoints, ShapeProperties.FREEHAND_INTERVAL, false));
-		addBinding(new Spinner4Selection(this, gapPoints, ShapeProperties.FREEHAND_INTERVAL, false));
-		addBinding(new Checkbox4Pencil(this, open, ShapeProperties.FREEHAND_OPEN));
-		addBinding(new Checkbox4Selection(this, open, ShapeProperties.FREEHAND_OPEN));
+		addComboPropBinding(freeHandType, ShapeProperties.FREEHAND_STYLE);
+		addSpinnerPropBinding(gapPoints, ShapeProperties.FREEHAND_INTERVAL, false);
+		addCheckboxPropBinding(open, ShapeProperties.FREEHAND_OPEN);
 	}
 }

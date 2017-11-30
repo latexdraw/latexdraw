@@ -72,7 +72,7 @@ public class Hand extends CanvasInstrument {
 							}
 						});
 						v.setOnMouseExited(mouseEvt -> {
-							if(activated) {
+							if(isActivated()) {
 								canvas.setCursor(Cursor.DEFAULT);
 							}
 						});
@@ -81,7 +81,23 @@ public class Hand extends CanvasInstrument {
 			}
 		});
 
-		addBinding(new Press2Select(this));
+		// Pressure to select shapes
+		nodeBinder(SelectShapes.class, new Press()).on(canvas).first((a, i) -> {
+			a.setDrawing(canvas.getDrawing());
+			getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
+				if(i.isShiftPressed()) {
+					canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> a.addShape(sh));
+					return;
+				}
+				if(i.isCtrlPressed()) {
+					canvas.getDrawing().getSelection().getShapes().forEach(sh -> a.addShape(sh));
+					a.addShape(targetSh);
+					return;
+				}
+				a.setShape(targetSh);
+			});
+		}).when(i -> getViewShape(i.getSrcObject()).isPresent()).bind();
+
 		addBinding(new DnD2Select(this));
 		addBinding(new DnD2Translate(this));
 		addBinding(new DnD2MoveViewport(this));
@@ -150,41 +166,6 @@ public class Hand extends CanvasInstrument {
 			return Optional.ofNullable(getRealViewShape((ViewShape<?>) parent));
 		}
 		return Optional.empty();
-	}
-
-
-	private static class Press2Select extends JfXWidgetBinding<SelectShapes, Press, Hand> {
-		Press2Select(final Hand hand) throws InstantiationException, IllegalAccessException {
-			super(hand, false, SelectShapes.class, new Press(), hand.canvas);
-		}
-
-		@Override
-		public void initAction() {
-			action.setDrawing(instrument.canvas.getDrawing());
-		}
-
-		@Override
-		public void updateAction() {
-			getViewShape(interaction.getSrcObject()).ifPresent(view -> {
-				final IShape targetSh = view.getModel();
-
-				if(interaction.isShiftPressed()) {
-					instrument.canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> action.addShape(sh));
-				}else {
-					if(interaction.isCtrlPressed()) {
-						instrument.canvas.getDrawing().getSelection().getShapes().forEach(sh -> action.addShape(sh));
-						action.addShape(targetSh);
-					}else {
-						action.setShape(targetSh);
-					}
-				}
-			});
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return getViewShape(interaction.getSrcObject()).isPresent();
-		}
 	}
 
 
@@ -348,7 +329,7 @@ public class Hand extends CanvasInstrument {
 	}
 
 	static class DnD2MoveViewport extends JfXWidgetBinding<MoveCamera, DnD, CanvasInstrument> {
-		private IPoint pt;
+		private final IPoint pt;
 
 		DnD2MoveViewport(final CanvasInstrument ins) throws IllegalAccessException, InstantiationException {
 			super(ins, true, MoveCamera.class, new DnD(), ins.canvas);
@@ -367,7 +348,7 @@ public class Hand extends CanvasInstrument {
 				final ScrollPane pane = instrument.canvas.getScrollPane();
 				action.setPx(pane.getHvalue() - (end.getX() - pt.getX()) / instrument.canvas.getWidth());
 				action.setPy(pane.getVvalue() - (end.getY() - pt.getY()) / instrument.canvas.getHeight());
-				pt = pt.centralSymmetry(ShapeFactory.INST.createPoint(start));
+				pt.setPoint(pt.centralSymmetry(ShapeFactory.INST.createPoint(start)));
 			}));
 		}
 

@@ -124,17 +124,14 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new Spinner4Pencil(this, thicknessField, ShapeProperties.LINE_THICKNESS, false));
-		addBinding(new Spinner4Selection(this, thicknessField, ShapeProperties.LINE_THICKNESS, false));
-		addBinding(new Spinner4Pencil(this, frameArcField, ShapeProperties.ROUND_CORNER_VALUE, false));
-		addBinding(new Spinner4Selection(this, frameArcField, ShapeProperties.ROUND_CORNER_VALUE, false));
-		addBinding(new List4Pencil(this, bordersPosCB, ShapeProperties.BORDER_POS));
-		addBinding(new List4Pencil(this, lineCB, ShapeProperties.LINE_STYLE));
-		addBinding(new List4Selection(this, bordersPosCB, ShapeProperties.BORDER_POS));
-		addBinding(new List4Selection(this, lineCB, ShapeProperties.LINE_STYLE));
-		addBinding(new ColourPicker4Selection(this, lineColButton, ShapeProperties.COLOUR_LINE));
-		addBinding(new ColourPicker4Pencil(this, lineColButton, ShapeProperties.COLOUR_LINE));
-		addBinding(new Checkbox4Pencil(this, showPoints, ShapeProperties.SHOW_POINTS));
-		addBinding(new Checkbox4Selection(this, showPoints, ShapeProperties.SHOW_POINTS));
+		addSpinnerPropBinding(thicknessField, ShapeProperties.LINE_THICKNESS, false);
+		addSpinnerPropBinding(frameArcField, ShapeProperties.ROUND_CORNER_VALUE, false);
+
+		addComboPropBinding(bordersPosCB, ShapeProperties.BORDER_POS);
+		addComboPropBinding(lineCB, ShapeProperties.LINE_STYLE);
+
+		addColorPropBinding(lineColButton, ShapeProperties.COLOUR_LINE);
+
+		addCheckboxPropBinding(showPoints, ShapeProperties.SHOW_POINTS);
 	}
 }

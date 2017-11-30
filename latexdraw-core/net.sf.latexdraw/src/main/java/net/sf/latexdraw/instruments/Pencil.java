@@ -112,10 +112,23 @@ public class Pencil extends CanvasInstrument {
 		addBinding(new Hand.DnD2MoveViewport(this));
 		addBinding(new Press2AddShape(this));
 		addBinding(new Press2AddText(this));
-		addBinding(new Press2InsertPicture(this));
+
+		nodeBinder(InsertPicture.class, new Press()).on(canvas).first((a, i) -> i.getSrcPoint().ifPresent(srcPt -> {
+			a.setDrawing(canvas.getDrawing());
+			a.setShape(ShapeFactory.INST.createPicture(getAdaptedPoint(srcPt)));
+			a.setFileChooser(getPictureFileChooser());
+		})).when(i -> currentChoice == EditionChoice.PICTURE && i.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY).bind();
+
 		addBinding(new DnD2AddShape(this));
 		addBinding(new MultiClic2AddShape(this));
-		addBinding(new Press2InitTextSetter(this));
+
+		nodeBinder(InitTextSetter.class, new Press()).on(canvas).first((a, i) -> i.getSrcPoint().ifPresent(srcPt -> {
+			a.setText("");
+			a.setTextShape(null);
+			a.setInstrument(textSetter);
+			a.setTextSetter(textSetter);
+			a.setPosition(getAdaptedPoint(srcPt));
+		})).when(i -> (currentChoice == EditionChoice.TEXT || currentChoice == EditionChoice.PLOT) && i.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY).bind();
 	}
 
 	/**
@@ -147,7 +160,6 @@ public class Pencil extends CanvasInstrument {
 	/**
 	 * Sets the current editing choice.
 	 * @param choice The new editing choice to set.
-	 * @since 3.0
 	 */
 	public void setCurrentChoice(EditionChoice choice) {
 		currentChoice = choice;
@@ -378,27 +390,6 @@ public class Pencil extends CanvasInstrument {
 	}
 
 
-	private static class Press2InsertPicture extends JfXWidgetBinding<InsertPicture, Press, Pencil> {
-		Press2InsertPicture(final Pencil pencil) throws InstantiationException, IllegalAccessException {
-			super(pencil, false, InsertPicture.class, new Press(), pencil.canvas);
-		}
-
-		@Override
-		public void initAction() {
-			interaction.getSrcPoint().ifPresent(srcPt -> {
-				action.setDrawing(instrument.canvas.getDrawing());
-				action.setShape(ShapeFactory.INST.createPicture(instrument.getAdaptedPoint(srcPt)));
-				action.setFileChooser(instrument.getPictureFileChooser());
-			});
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.currentChoice == EditionChoice.PICTURE && interaction.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY;
-		}
-	}
-
-
 	private static class Press2AddShape extends PencilInteractor<Press> {
 		Press2AddShape(final Pencil pencil) throws InstantiationException, IllegalAccessException {
 			super(new Press(), pencil);
@@ -444,30 +435,6 @@ public class Pencil extends CanvasInstrument {
 		 public boolean isConditionRespected() {
 			 return instrument.currentChoice == EditionChoice.TEXT && instrument.textSetter.isActivated() &&
 				 !instrument.textSetter.getTextField().getText().isEmpty();
-		 }
-	 }
-
-
-	 private static class Press2InitTextSetter extends JfXWidgetBinding<InitTextSetter, Press, Pencil> {
-		 Press2InitTextSetter(final Pencil pencil) throws IllegalAccessException, InstantiationException {
-			 super(pencil, false, InitTextSetter.class, new Press(), pencil.canvas);
-		 }
-
-		 @Override
-		 public void initAction() {
-			 interaction.getSrcPoint().ifPresent(srcPt -> {
-				 action.setText("");
-				 action.setTextShape(null);
-				 action.setInstrument(instrument.textSetter);
-				 action.setTextSetter(instrument.textSetter);
-				 action.setPosition(instrument.getAdaptedPoint(srcPt));
-			 });
-		 }
-
-		 @Override
-		 public boolean isConditionRespected() {
-			 return (instrument.currentChoice == EditionChoice.TEXT || instrument.currentChoice == EditionChoice.PLOT) &&
-				 	interaction.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY;
 		 }
 	 }
 }

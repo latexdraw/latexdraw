@@ -161,6 +161,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 			action.setCode(text.getText());
 			action.setStatusBar(statusBar.getLabel());
 		}).bind();
+
 		buttonBinder(InactivateInstrument.class).on(cancel, ok).first(action -> action.setInstrument(this)).bind();
 	}
 

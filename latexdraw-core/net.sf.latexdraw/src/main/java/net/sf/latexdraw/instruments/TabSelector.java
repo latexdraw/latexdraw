@@ -118,30 +118,30 @@ public class TabSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		tabBinder(ActivateInactivateInstruments.class).on(tabPane).first(action -> {
-			if(tabPane.getSelectionModel().getSelectedIndex() == 0) {
-				action.addInstrumentToActivate(selector);
-				action.addInstrumentToActivate(paster);
-				action.addInstrumentToActivate(undo);
-				action.addInstrumentToActivate(zoomer);
-				action.addInstrumentToInactivate(prefSetter);
+		tabBinder(ActivateInactivateInstruments.class).on(tabPane).first((a, i) -> {
+			if(i.getWidget().getSelectionModel().getSelectedIndex() == 0) {
+				a.addInstrumentToActivate(selector);
+				a.addInstrumentToActivate(paster);
+				a.addInstrumentToActivate(undo);
+				a.addInstrumentToActivate(zoomer);
+				a.addInstrumentToInactivate(prefSetter);
 				if(canvas.getDrawing().getSelection().getShapes().isEmpty()) {
-					action.addInstrumentToInactivate(deleter);
+					a.addInstrumentToInactivate(deleter);
 				}else {
-					action.addInstrumentToActivate(deleter);
+					a.addInstrumentToActivate(deleter);
 				}
 			}else {
-				action.setHideWidgets(true);
-				action.addInstrumentToInactivate(selector);
-				action.addInstrumentToInactivate(paster);
-				action.addInstrumentToInactivate(undo);
-				action.addInstrumentToInactivate(zoomer);
+				a.setHideWidgets(true);
+				a.addInstrumentToInactivate(selector);
+				a.addInstrumentToInactivate(paster);
+				a.addInstrumentToInactivate(undo);
+				a.addInstrumentToInactivate(zoomer);
 				// The deleter must be added to use the hideWidgets parameter of the
-				action.addInstrumentToInactivate(deleter);
-				if(tabPane.getSelectionModel().getSelectedIndex() == 1) {
-					action.addInstrumentToInactivate(prefSetter);
+				a.addInstrumentToInactivate(deleter);
+				if(i.getWidget().getSelectionModel().getSelectedIndex() == 1) {
+					a.addInstrumentToInactivate(prefSetter);
 				}else {
-					action.addInstrumentToActivate(prefSetter);
+					a.addInstrumentToActivate(prefSetter);
 				}
 			}
 		}).bind();

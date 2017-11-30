@@ -18,6 +18,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.Pane;
+import net.sf.latexdraw.actions.ModifyPencilParameter;
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
@@ -93,71 +95,29 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new List4Selection(this, shapeAxes, ShapeProperties.AXES_STYLE));
-		addBinding(new List4Selection(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
-		addBinding(new List4Selection(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
-		addBinding(new List4Selection(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
-		addBinding(new List4Pencil(this, shapeAxes, ShapeProperties.AXES_STYLE));
-		addBinding(new List4Pencil(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
-		addBinding(new List4Pencil(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
-		addBinding(new List4Pencil(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
+		addComboPropBinding(shapeAxes, ShapeProperties.AXES_STYLE);
+		addComboPropBinding(showTicks, ShapeProperties.AXES_TICKS_SHOW);
+		addComboPropBinding(showLabels, ShapeProperties.AXES_LABELS_SHOW);
+		addComboPropBinding(shapeTicks, ShapeProperties.AXES_TICKS_STYLE);
 
-		addBinding(new Spinner2IncrementLabelsPencil(incrLabelX));
-		addBinding(new Spinner2IncrementLabelsPencil(incrLabelY));
-		addBinding(new Spinner2DistLabelsPencil(distLabelsX));
-		addBinding(new Spinner2DistLabelsPencil(distLabelsY));
+		addSpinnerAxesPropBinding(incrLabelX, incrLabelY, ShapeProperties.AXES_LABELS_INCR);
+		addSpinnerAxesPropBinding(distLabelsX, distLabelsY, ShapeProperties.AXES_LABELS_DIST);
 
-		addBinding(new Spinner2IncrementLabelsSelection(incrLabelX));
-		addBinding(new Spinner2IncrementLabelsSelection(incrLabelY));
-		addBinding(new Spinner2DistLabelsSelection(distLabelsX));
-		addBinding(new Spinner2DistLabelsSelection(distLabelsY));
-
-
-		addBinding(new Checkbox4Pencil(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
-		addBinding(new Checkbox4Selection(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
+		addCheckboxPropBinding(showOrigin, ShapeProperties.AXES_SHOW_ORIGIN);
 	}
 
-	private class Spinner2IncrementLabelsPencil extends Spinner4Pencil {
-		Spinner2IncrementLabelsPencil(final Spinner<?> widget) throws InstantiationException, IllegalAccessException {
-			super(ShapeAxesCustomiser.this, widget, ShapeProperties.AXES_LABELS_INCR, false);
-		}
+	private void addSpinnerAxesPropBinding(final Spinner<Double> spinnerX, final Spinner<Double> spinnerY, final ShapeProperties property)
+											throws InstantiationException, IllegalAccessException {
+		spinnerBinder(ModifyShapeProperty.class).on(spinnerX, spinnerY).first(a -> {
+			a.setGroup(canvas.getDrawing().getSelection().duplicateDeep(false));
+			a.setProperty(property);
+		}).then(a -> a.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).
+			when(handActiv).bind();
 
-		@Override
-		public void updateAction() {
-			action.setValue(ShapeFactory.INST.createPoint(incrLabelX.getValue(), incrLabelY.getValue()));
-		}
-	}
-
-	private class Spinner2DistLabelsPencil extends Spinner4Pencil {
-		Spinner2DistLabelsPencil(final Spinner<?> widget) throws InstantiationException, IllegalAccessException {
-			super(ShapeAxesCustomiser.this, widget, ShapeProperties.AXES_LABELS_DIST, false);
-		}
-
-		@Override
-		public void updateAction() {
-			action.setValue(ShapeFactory.INST.createPoint(distLabelsX.getValue(), distLabelsY.getValue()));
-		}
-	}
-
-	private class Spinner2IncrementLabelsSelection extends Spinner4Selection {
-		Spinner2IncrementLabelsSelection(final Spinner<?> widget) throws InstantiationException, IllegalAccessException {
-			super(ShapeAxesCustomiser.this, widget, ShapeProperties.AXES_LABELS_INCR, false);
-		}
-
-		@Override
-		public void updateAction() {
-			action.setValue(ShapeFactory.INST.createPoint(incrLabelX.getValue(), incrLabelY.getValue()));
-		}
-	}
-
-	private class Spinner2DistLabelsSelection extends Spinner4Selection {
-		Spinner2DistLabelsSelection(final Spinner<?> widget) throws InstantiationException, IllegalAccessException {
-			super(ShapeAxesCustomiser.this, widget, ShapeProperties.AXES_LABELS_DIST, false);
-		}
-
-		@Override
-		public void updateAction() {
-			action.setValue(ShapeFactory.INST.createPoint(distLabelsX.getValue(), distLabelsY.getValue()));
-		}
+		spinnerBinder(ModifyPencilParameter.class).on(spinnerX, spinnerY).first(a -> {
+			a.setPencil(pencil);
+			a.setProperty(property);
+		}).then(a -> a.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).
+			when(pencilActiv).bind();
 	}
 }

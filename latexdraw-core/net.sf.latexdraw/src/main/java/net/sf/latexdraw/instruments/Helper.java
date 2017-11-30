@@ -71,7 +71,7 @@ public class Helper extends JfxInstrument implements Initializable {
 			addBinding(new MenuItem2OpenWebPage(this, forumItem, new URI("https://sourceforge.net/p/latexdraw/discussion/")));
 			addBinding(new MenuItem2OpenWebPage(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
 			addBinding(new MenuItem2OpenWebPage(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual")));
-		}catch(URISyntaxException ex) {
+		}catch(final URISyntaxException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 	}

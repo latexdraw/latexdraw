@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import java.util.Collections;
+import java.util.function.BooleanSupplier;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -25,11 +25,6 @@ import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.action.Action;
-import org.malai.javafx.binding.CheckboxBinding;
-import org.malai.javafx.binding.ColorPickerBinding;
-import org.malai.javafx.binding.ComboBoxBinding;
-import org.malai.javafx.binding.SpinnerBinding;
-import org.malai.javafx.binding.ToggleButtonBinding;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.undo.Undoable;
 
@@ -40,13 +35,12 @@ import org.malai.undo.Undoable;
 public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	/** The Hand instrument. */
 	@Inject protected Hand hand;
-
 	/** The Pencil instrument. */
 	@Inject protected Pencil pencil;
-
 	@Inject protected Canvas canvas;
-
 	@Inject protected IDrawing drawing;
+	protected final BooleanSupplier handActiv = () -> hand.isActivated();
+	protected final BooleanSupplier pencilActiv = () -> pencil.isActivated();
 
 
 	/**
@@ -104,244 +98,48 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		setWidgetsVisible(act);
 	}
 
-	static class List4Pencil extends ComboBoxBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
-		ShapeProperties prop;
-
-		List4Pencil(final ShapePropertyCustomiser ins, final ComboBox<?> combo, ShapeProperties property) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, combo);
-			prop = property;
-		}
-
-		@Override
-		public void initAction() {
-			action.setPencil(instrument.pencil);
-			action.setProperty(prop);
-			action.setValue(interaction.getWidget().getSelectionModel().getSelectedItem());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
+	protected final void firstPropHand(final ModifyShapeProperty a, final Object o, final ShapeProperties p) {
+		a.setGroup(canvas.getDrawing().getSelection().duplicateDeep(false));
+		a.setProperty(p);
+		a.setValue(o);
 	}
 
-	static class List4Selection extends ComboBoxBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
-		ShapeProperties prop;
-
-		List4Selection(final ShapePropertyCustomiser ins, final ComboBox<?> combo, ShapeProperties property) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, combo);
-			prop = property;
-		}
-
-		@Override
-		public void initAction() {
-			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
-			action.setProperty(prop);
-			action.setValue(interaction.getWidget().getSelectionModel().getSelectedItem());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
+	protected final void firstPropPen(final ModifyPencilParameter a, final Object o, final ShapeProperties p) {
+		a.setPencil(pencil);
+		a.setProperty(p);
+		a.setValue(o);
 	}
 
-	static class Spinner4Pencil extends SpinnerBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
-		ShapeProperties prop;
-		boolean angle;
-
-		Spinner4Pencil(final ShapePropertyCustomiser ins, final Spinner<?> widget, ShapeProperties property, boolean isAngle) throws InstantiationException, IllegalAccessException {
-			super(ins, true, ModifyPencilParameter.class, widget);
-			prop = property;
-			angle = isAngle;
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(prop);
-			action.setPencil(instrument.pencil);
-			updateAction();
-		}
-
-		@Override
-		public void updateAction() {
-			if(angle) {
-				action.setValue(Math.toRadians(((Number) interaction.getWidget().getValue()).doubleValue()));
-			}else {
-				action.setValue(interaction.getWidget().getValue());
-			}
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
+	protected void addComboPropBinding(final ComboBox<?> combo, final ShapeProperties prop) throws InstantiationException, IllegalAccessException {
+		comboboxBinder(ModifyShapeProperty.class).on(combo).first((a, i) -> firstPropHand(a, i.getWidget().getSelectionModel().getSelectedItem(), prop)).when(handActiv).bind();
+		comboboxBinder(ModifyPencilParameter.class).on(combo).first((a, i) -> firstPropPen(a, i.getWidget().getSelectionModel().getSelectedItem(), prop)).when(pencilActiv).bind();
 	}
 
-	static class Spinner4Selection extends SpinnerBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
-		ShapeProperties prop;
-		boolean angle;
+	protected void addSpinnerPropBinding(final Spinner<?> spinner, final ShapeProperties prop, final boolean angle) throws InstantiationException, IllegalAccessException {
+		spinnerBinder(ModifyShapeProperty.class).on(spinner).first((a, i) -> firstPropHand(a, null, prop)).
+			then((a, i) -> a.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
+			when(handActiv).bind();
 
-		Spinner4Selection(final ShapePropertyCustomiser ins, final Spinner<?> widget, ShapeProperties property, boolean isAngle) throws InstantiationException, IllegalAccessException {
-			super(ins, true, ModifyShapeProperty.class, widget);
-			prop = property;
-			angle = isAngle;
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(prop);
-			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
-			updateAction();
-		}
-
-		@Override
-		public void updateAction() {
-			if(angle) {
-				action.setValue(Math.toRadians(((Number) interaction.getWidget().getValue()).doubleValue()));
-			}
-			else {
-				action.setValue(interaction.getWidget().getValue());
-			}
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
+		spinnerBinder(ModifyPencilParameter.class).on(spinner).first((a, i) -> firstPropPen(a, null, prop)).
+			then((a, i) -> a.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
+			when(pencilActiv).bind();
 	}
 
-	static class ColourPicker4Pencil extends ColorPickerBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
-		ShapeProperties prop;
+	protected void addColorPropBinding(final ColorPicker picker, final ShapeProperties prop) throws InstantiationException, IllegalAccessException {
+		colorPickerBinder(ModifyShapeProperty.class).on(picker).first((a, i) ->
+			firstPropHand(a, ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop)).when(handActiv).bind();
 
-		ColourPicker4Pencil(final ShapePropertyCustomiser ins, ColorPicker picker, ShapeProperties property) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, picker);
-			prop = property;
-		}
-
-		@Override
-		public void initAction() {
-			action.setValue(ShapeFactory.INST.createColorFX(interaction.getWidget().getValue()));
-			action.setPencil(instrument.pencil);
-			action.setProperty(prop);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
+		colorPickerBinder(ModifyPencilParameter.class).on(picker).first((a, i) ->
+			firstPropPen(a, ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop)).when(pencilActiv).bind();
 	}
 
-	static class ColourPicker4Selection extends ColorPickerBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
-		ShapeProperties prop;
-
-		ColourPicker4Selection(final ShapePropertyCustomiser ins, ColorPicker picker, ShapeProperties property) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, picker);
-			prop = property;
-		}
-
-		@Override
-		public void initAction() {
-			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
-			action.setValue(ShapeFactory.INST.createColorFX(interaction.getWidget().getValue()));
-			action.setProperty(prop);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
+	protected void addCheckboxPropBinding(final CheckBox cb, final ShapeProperties prop) throws InstantiationException, IllegalAccessException {
+		checkboxBinder(ModifyShapeProperty.class).on(cb).first((a, i) -> firstPropHand(a, i.getWidget().isSelected(), prop)).when(handActiv).bind();
+		checkboxBinder(ModifyPencilParameter.class).on(cb).first((a, i) -> firstPropPen(a, i.getWidget().isSelected(), prop)).when(pencilActiv).bind();
 	}
 
-	static class Checkbox4Pencil extends CheckboxBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
-		ShapeProperties prop;
-
-		Checkbox4Pencil(final ShapePropertyCustomiser ins, final CheckBox widget, final ShapeProperties property)
-			throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, widget);
-			prop = property;
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(prop);
-			action.setPencil(instrument.pencil);
-			action.setValue(interaction.getWidget().isSelected());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	static class Checkbox4Selection extends CheckboxBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
-		ShapeProperties prop;
-
-		Checkbox4Selection(final ShapePropertyCustomiser ins, final CheckBox widget, final ShapeProperties property)
-			throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, widget);
-			prop = property;
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(prop);
-			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
-			action.setValue(interaction.getWidget().isSelected());
-		}
-	}
-
-	static class ToggleButton4Pencil extends ToggleButtonBinding<ModifyPencilParameter, ShapePropertyCustomiser> {
-		ShapeProperties prop;
-		boolean invert;
-
-		ToggleButton4Pencil(final ShapePropertyCustomiser ins, final ToggleButton widget, final ShapeProperties property, final boolean inverted)
-			throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, Collections.singletonList(widget));
-			prop = property;
-			invert = inverted;
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(prop);
-			action.setPencil(instrument.pencil);
-			action.setValue(interaction.getWidget().isSelected() ^ invert);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	static class ToggleButton4Selection extends ToggleButtonBinding<ModifyShapeProperty, ShapePropertyCustomiser> {
-		ShapeProperties prop;
-		boolean invert;
-
-		ToggleButton4Selection(final ShapePropertyCustomiser ins, final ToggleButton widget, final ShapeProperties property, final boolean inverted)
-			throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, Collections.singletonList(widget));
-			prop = property;
-			invert = inverted;
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(prop);
-			action.setGroup(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
-			action.setValue(interaction.getWidget().isSelected() ^ invert);
-		}
+	protected void addTogglePropBinding(final ToggleButton button, final ShapeProperties prop, final boolean invert) throws InstantiationException, IllegalAccessException {
+		toggleButtonBinder(ModifyShapeProperty.class).on(button).first((a, i) -> firstPropHand(a, i.getWidget().isSelected() ^ invert, prop)).when(handActiv).bind();
+		toggleButtonBinder(ModifyPencilParameter.class).on(button).first((a, i) -> firstPropPen(a, i.getWidget().isSelected() ^ invert, prop)).when(pencilActiv).bind();
 	}
 }
