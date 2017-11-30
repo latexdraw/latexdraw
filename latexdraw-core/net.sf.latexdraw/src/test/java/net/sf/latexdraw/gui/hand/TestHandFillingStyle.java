@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -136,51 +137,41 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testIncrementGradMidHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectGradStyle).execute();
-		double val = gradMidPtField.getValue();
-		incrementgradMidPt.execute();
-		assertEquals(gradMidPtField.getValue(), drawing.getSelection().getShapeAt(1).getGradMidPt(), 0.0001);
-		assertEquals(gradMidPtField.getValue(), drawing.getSelection().getShapeAt(2).getGradMidPt(), 0.0001);
-		assertNotEquals(val, gradMidPtField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectGradStyle), gradMidPtField,
+			incrementgradMidPt, Arrays.asList(
+			() ->  drawing.getSelection().getShapeAt(1).getGradMidPt(),
+			() ->  drawing.getSelection().getShapeAt(2).getGradMidPt()));
 	}
 
 	@Test
 	public void testIncrementGradAngleHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectGradStyle).execute();
-		double val = gradAngleField.getValue();
-		incrementgradAngle.execute();
-		assertEquals(gradAngleField.getValue(), Math.toDegrees(drawing.getSelection().getShapeAt(1).getGradAngle()), 0.0001);
-		assertEquals(gradAngleField.getValue(), Math.toDegrees(drawing.getSelection().getShapeAt(2).getGradAngle()), 0.0001);
-		assertNotEquals(val, gradAngleField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectGradStyle), gradAngleField,
+			incrementgradAngle, Arrays.asList(
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).getGradAngle()),
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).getGradAngle())));
 	}
 
 	@Test
 	public void testIncrementHatchAngleHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle).execute();
-		double val = hatchAngleField.getValue();
-		incrementhatchAngle.execute();
-		assertEquals(hatchAngleField.getValue(), Math.toDegrees(drawing.getSelection().getShapeAt(1).getHatchingsAngle()), 0.0001);
-		assertEquals(hatchAngleField.getValue(), Math.toDegrees(drawing.getSelection().getShapeAt(2).getHatchingsAngle()), 0.0001);
-		assertNotEquals(val, hatchAngleField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchAngleField,
+			incrementhatchAngle, Arrays.asList(
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).getHatchingsAngle()),
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).getHatchingsAngle())));
 	}
 
 	@Test
 	public void testIncrementHatchWidthHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle).execute();
-		double val = hatchWidthField.getValue();
-		incrementhatchWidth.execute();
-		assertEquals(hatchWidthField.getValue(), drawing.getSelection().getShapeAt(1).getHatchingsWidth(), 0.0001);
-		assertEquals(hatchWidthField.getValue(), drawing.getSelection().getShapeAt(2).getHatchingsWidth(), 0.0001);
-		assertNotEquals(val, hatchWidthField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchWidthField,
+			incrementhatchWidth, Arrays.asList(
+			() ->  drawing.getSelection().getShapeAt(1).getHatchingsWidth(),
+			() ->  drawing.getSelection().getShapeAt(2).getHatchingsWidth()));
 	}
 
 	@Test
 	public void testIncrementHatchSepHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle).execute();
-		double val = hatchSepField.getValue();
-		incrementhatchSep.execute();
-		assertEquals(hatchSepField.getValue(), drawing.getSelection().getShapeAt(1).getHatchingsSep(), 0.0001);
-		assertEquals(hatchSepField.getValue(), drawing.getSelection().getShapeAt(2).getHatchingsSep(), 0.0001);
-		assertNotEquals(val, hatchSepField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchSepField,
+			incrementhatchSep, Arrays.asList(
+			() ->  drawing.getSelection().getShapeAt(1).getHatchingsSep(),
+			() ->  drawing.getSelection().getShapeAt(2).getHatchingsSep()));
 	}
 }

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestArrowStyleGUI;
@@ -91,101 +92,81 @@ public class TestHandArrowStyle extends TestArrowStyleGUI {
 
 	@Test
 	public void testIncrementtbarsizeNumHand() {
-		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleRBrack).execute();
-		double val = tbarsizeNum.getValue();
-		incrementtbarsizeNum.execute();
-		assertEquals(tbarsizeNum.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getTBarSizeNum(), 0.001);
-		assertEquals(tbarsizeNum.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getTBarSizeNum(), 0.001);
-		assertNotEquals(val, tbarsizeNum.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleRBrack), tbarsizeNum,
+			incrementtbarsizeNum, Arrays.asList(
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getTBarSizeNum(),
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getTBarSizeNum()));
 	}
 
 	@Test
 	public void testIncrementtbarsizeDimHand() {
-		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleRBrack).execute();
-		double val = tbarsizeDim.getValue();
-		incrementtbarsizeDim.execute();
-		assertEquals(tbarsizeDim.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getTBarSizeDim(), 0.001);
-		assertEquals(tbarsizeDim.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getTBarSizeDim(), 0.001);
-		assertNotEquals(val, tbarsizeDim.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleRBrack), tbarsizeDim,
+			incrementtbarsizeDim, Arrays.asList(
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getTBarSizeDim(),
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getTBarSizeDim()));
 	}
 
 	@Test
 	public void testIncrementdotSizeNumHand() {
-		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleDot).execute();
-		double val = dotSizeNum.getValue();
-		incrementdotSizeNum.execute();
-		assertEquals(dotSizeNum.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getDotSizeNum(), 0.001);
-		assertEquals(dotSizeNum.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getDotSizeNum(), 0.001);
-		assertNotEquals(val, dotSizeNum.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleDot), dotSizeNum,
+			incrementdotSizeNum, Arrays.asList(
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getDotSizeNum(),
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getDotSizeNum()));
 	}
 
 	@Test
 	public void testIncrementdotSizeDimHand() {
-		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleDot).execute();
-		double val = dotSizeDim.getValue();
-		incrementdotSizeDim.execute();
-		assertEquals(dotSizeDim.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getDotSizeDim(), 0.001);
-		assertEquals(dotSizeDim.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getDotSizeDim(), 0.001);
-		assertNotEquals(val, dotSizeDim.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleDot), dotSizeDim,
+			incrementdotSizeDim, Arrays.asList(
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getDotSizeDim(),
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getDotSizeDim()));
 	}
 
 	@Test
 	public void testIncrementrbracketNumHand() {
-		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleRBrack).execute();
-		double val = rbracketNum.getValue();
-		incrementrbracketNum.execute();
-		assertEquals(rbracketNum.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getRBracketNum(), 0.001);
-		assertEquals(rbracketNum.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getRBracketNum(), 0.001);
-		assertNotEquals(val, rbracketNum.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleRBrack), rbracketNum,
+			incrementrbracketNum, Arrays.asList(
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getRBracketNum(),
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getRBracketNum()));
 	}
 
 	@Test
 	public void testIncrementbracketNumHand() {
-		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleSBrack).execute();
-		double val = bracketNum.getValue();
-		incrementbracketNum.execute();
-		assertEquals(bracketNum.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getBracketNum(), 0.001);
-		assertEquals(bracketNum.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getBracketNum(), 0.001);
-		assertNotEquals(val, bracketNum.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleSBrack), bracketNum,
+			incrementbracketNum, Arrays.asList(
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getBracketNum(),
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getBracketNum()));
 	}
 
 	@Test
 	public void testIncrementarrowLengthHand() {
-		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow).execute();
-		double val = arrowLength.getValue();
-		incrementarrowLength.execute();
-		assertEquals(arrowLength.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getArrowLength(), 0.001);
-		assertEquals(arrowLength.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getArrowLength(), 0.001);
-		assertNotEquals(val, arrowLength.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow), arrowLength,
+			incrementarrowLength, Arrays.asList(
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowLength(),
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowLength()));
 	}
 
 	@Test
 	public void testIncrementarrowInsetHand() {
-		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow).execute();
-		double val = arrowInset.getValue();
-		incrementarrowInset.execute();
-		assertEquals(arrowInset.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getArrowInset(), 0.001);
-		assertEquals(arrowInset.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getArrowInset(), 0.001);
-		assertNotEquals(val, arrowInset.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow), arrowInset,
+			incrementarrowInset, Arrays.asList(
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowInset(),
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowInset()));
 	}
 
 	@Test
 	public void testIncrementarrowSizeNumHand() {
-		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow).execute();
-		double val = arrowSizeNum.getValue();
-		incrementarrowSizeNum.execute();
-		assertEquals(arrowSizeNum.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getArrowSizeNum(), 0.001);
-		assertEquals(arrowSizeNum.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getArrowSizeNum(), 0.001);
-		assertNotEquals(val, arrowSizeNum.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow), arrowSizeNum,
+			incrementarrowSizeNum, Arrays.asList(
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowSizeNum(),
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowSizeNum()));
 	}
 
 	@Test
 	public void testIncrementarrowSizeDimHand() {
-		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow).execute();
-		double val = arrowSizeDim.getValue();
-		incrementarrowSizeDim.execute();
-		assertEquals(arrowSizeDim.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getArrowSizeDim(), 0.001);
-		assertEquals(arrowSizeDim.getValue(), ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getArrowSizeDim(), 0.001);
-		assertNotEquals(val, arrowSizeDim.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow), arrowSizeDim,
+			incrementarrowSizeDim, Arrays.asList(
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowSizeDim(),
+			() ->  ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowSizeDim()));
 	}
 }

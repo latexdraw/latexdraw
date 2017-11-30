@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestFreeHandStyleGUI;
@@ -67,12 +68,10 @@ public class TestHandFreeHandStyle extends TestFreeHandStyleGUI {
 
 	@Test
 	public void testIncrementgapPointsSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddFreehand, selectionAddFreehand, updateIns).execute();
-		double val = gapPoints.getValue();
-		incrementgapPoints.execute();
-		assertEquals((int)gapPoints.getValue(), ((IFreehand)drawing.getSelection().getShapeAt(1)).getInterval());
-		assertEquals((int)gapPoints.getValue(), ((IFreehand)drawing.getSelection().getShapeAt(2)).getInterval());
-		assertNotEquals(val, gapPoints.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddFreehand, selectionAddFreehand, updateIns), gapPoints,
+			incrementgapPoints, Arrays.asList(
+			() ->  ((IFreehand) drawing.getSelection().getShapeAt(1)).getInterval(),
+			() ->  ((IFreehand) drawing.getSelection().getShapeAt(2)).getInterval()));
 	}
 
 	@Test

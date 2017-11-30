@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestArcStyleGUI;
@@ -17,7 +18,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
@@ -88,21 +88,17 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testArcEndAngleSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns).execute();
-		double angle = endAngleS.getValue();
-		incrementEndAngle.execute();
-		assertEquals(endAngleS.getValue(), Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(0)).getAngleEnd()), 0.0001);
-		assertEquals(endAngleS.getValue(), Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(2)).getAngleEnd()), 0.0001);
-		assertNotEquals(angle, endAngleS.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns), endAngleS,
+			incrementEndAngle, Arrays.asList(
+			() ->  Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(0)).getAngleEnd()),
+			() ->  Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(2)).getAngleEnd())));
 	}
 
 	@Test
 	public void testArcStartAngleSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns).execute();
-		double angle = startAngleS.getValue();
-		incrementStartAngle.execute();
-		assertEquals(startAngleS.getValue(), Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(0)).getAngleStart()), 0.0001);
-		assertEquals(startAngleS.getValue(), Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(2)).getAngleStart()), 0.0001);
-		assertNotEquals(angle, startAngleS.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns), startAngleS,
+			incrementStartAngle, Arrays.asList(
+			() ->  Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(0)).getAngleStart()),
+			() ->  Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(2)).getAngleStart())));
 	}
 }

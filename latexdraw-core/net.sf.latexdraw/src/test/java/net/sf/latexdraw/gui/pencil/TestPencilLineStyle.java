@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -48,20 +49,14 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 
 	@Test
 	public void testIncrementFrameArcPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		double val = frameArcField.getValue();
-		incrementFrameArc.execute();
-		assertEquals(frameArcField.getValue(), ((IRectangle)pencil.createShapeInstance()).getLineArc(), 0.0001);
-		assertNotEquals(val, frameArcField.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns), frameArcField,
+			incrementFrameArc, Collections.singletonList(() ->  ((IRectangle)pencil.createShapeInstance()).getLineArc()));
 	}
 
 	@Test
 	public void testIncrementThicknessPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		double val = thicknessField.getValue();
-		incrementThickness.execute();
-		assertEquals(thicknessField.getValue(), pencil.createShapeInstance().getThickness(), 0.0001);
-		assertNotEquals(val, thicknessField.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns), thicknessField,
+			incrementThickness, Collections.singletonList(() ->  pencil.createShapeInstance().getThickness()));
 	}
 
 	@Test

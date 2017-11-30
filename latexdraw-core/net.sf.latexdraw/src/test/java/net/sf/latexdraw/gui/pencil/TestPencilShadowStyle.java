@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -80,19 +81,14 @@ public class TestPencilShadowStyle extends TestShadowStyleGUI {
 
 	@Test
 	public void testIncrementShadowSizePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, checkShadow, updateIns).execute();
-		double val = shadowSizeField.getValue();
-		incrementshadowSizeField.execute();
-		assertEquals(shadowSizeField.getValue(), pencil.createShapeInstance().getShadowSize(), 0.0001);
-		assertNotEquals(val, shadowSizeField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, checkShadow, updateIns), shadowSizeField,
+			incrementshadowSizeField, Collections.singletonList(() -> pencil.createShapeInstance().getShadowSize()));
 	}
 
 	@Test
 	public void testIncrementShadowAnglePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, checkShadow, updateIns).execute();
-		double val = shadowAngleField.getValue();
-		incrementshadowAngleField.execute();
-		assertEquals(Math.toRadians(shadowAngleField.getValue()), pencil.createShapeInstance().getShadowAngle(), 0.0001);
-		assertNotEquals(val, shadowAngleField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, checkShadow, updateIns),
+			shadowAngleField, incrementshadowAngleField,
+			Collections.singletonList(() -> Math.toDegrees(pencil.createShapeInstance().getShadowAngle())));
 	}
 }

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestAxesStyleGUI;
@@ -78,42 +79,34 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementDistYSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		double val = distLabelsY.getValue();
-		incrementDistLabelY.execute();
-		assertEquals(distLabelsY.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(0)).getDistLabelsY(), 0.0001);
-		assertEquals(distLabelsY.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(2)).getDistLabelsY(), 0.0001);
-		assertNotEquals(val, distLabelsY.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns), distLabelsY,
+			incrementDistLabelY, Arrays.asList(
+			() ->  ((IAxesProp) drawing.getSelection().getShapeAt(0)).getDistLabelsY(),
+			() ->  ((IAxesProp) drawing.getSelection().getShapeAt(2)).getDistLabelsY()));
 	}
 
 	@Test
 	public void testIncrementDistXSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		double val = distLabelsX.getValue();
-		incrementDistLabelX.execute();
-		assertEquals(distLabelsX.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(0)).getDistLabelsX(), 0.0001);
-		assertEquals(distLabelsX.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(2)).getDistLabelsX(), 0.0001);
-		assertNotEquals(val, distLabelsX.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns), distLabelsX,
+			incrementDistLabelX, Arrays.asList(
+			() ->  ((IAxesProp) drawing.getSelection().getShapeAt(0)).getDistLabelsX(),
+			() ->  ((IAxesProp) drawing.getSelection().getShapeAt(2)).getDistLabelsX()));
 	}
 
 	@Test
 	public void testIncrementLabelYSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		double val = incrLabelY.getValue();
-		incrementLabelY.execute();
-		assertEquals(incrLabelY.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(0)).getIncrementY(), 0.0001);
-		assertEquals(incrLabelY.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(2)).getIncrementY(), 0.0001);
-		assertNotEquals(val, incrLabelY.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns), incrLabelY,
+			incrementLabelY, Arrays.asList(
+			() ->  ((IAxesProp) drawing.getSelection().getShapeAt(0)).getIncrementY(),
+			() ->  ((IAxesProp) drawing.getSelection().getShapeAt(2)).getIncrementY()));
 	}
 
 	@Test
 	public void testIncrementLabelXSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		double val = incrLabelX.getValue();
-		incrementLabelX.execute();
-		assertEquals(incrLabelX.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(0)).getIncrementX(), 0.0001);
-		assertEquals(incrLabelX.getValue(), ((IAxesProp)drawing.getSelection().getShapeAt(2)).getIncrementX(), 0.0001);
-		assertNotEquals(val, incrLabelX.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns), incrLabelX,
+			incrementLabelX, Arrays.asList(
+			() ->  ((IAxesProp) drawing.getSelection().getShapeAt(0)).getIncrementX(),
+			() ->  ((IAxesProp) drawing.getSelection().getShapeAt(2)).getIncrementX()));
 	}
 
 	@Test

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -87,11 +88,8 @@ public class TestPencilDoubleLineStyle extends TestDoubleLineStyleGUI {
 
 	@Test
 	public void testIncrementDbleSpacingPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectdbleLine, updateIns).execute();
-		double val = dbleSepField.getValue();
-		incrementDbleSep.execute();
-		assertEquals(dbleSepField.getValue(), pencil.createShapeInstance().getDbleBordSep(), 0.0001);
-		assertNotEquals(val, dbleSepField.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectdbleLine, updateIns), dbleSepField,
+			incrementDbleSep, Collections.singletonList(() ->  pencil.createShapeInstance().getDbleBordSep()));
 	}
 
 	@Test

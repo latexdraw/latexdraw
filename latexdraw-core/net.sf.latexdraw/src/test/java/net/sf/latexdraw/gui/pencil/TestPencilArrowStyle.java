@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestArrowStyleGUI;
@@ -595,91 +596,61 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 
 	@Test
 	public void testIncrementtbarsizeNumPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleRBrack).execute();
-		double val = tbarsizeNum.getValue();
-		incrementtbarsizeNum.execute();
-		assertEquals(tbarsizeNum.getValue(), ((IArrowableSingleShape)pencil.createShapeInstance()).getTBarSizeNum(), 0.0001);
-		assertNotEquals(val, tbarsizeNum.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleRBrack), tbarsizeNum,
+			incrementtbarsizeNum, Collections.singletonList(() -> ((IArrowableSingleShape) pencil.createShapeInstance()).getTBarSizeNum()));
 	}
 
 	@Test
 	public void testIncrementtbarsizeDimPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleRBrack).execute();
-		double val = tbarsizeDim.getValue();
-		incrementtbarsizeDim.execute();
-		assertEquals(tbarsizeDim.getValue(), ((IArrowableSingleShape)pencil.createShapeInstance()).getTBarSizeDim(), 0.0001);
-		assertNotEquals(val, tbarsizeDim.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleRBrack), tbarsizeDim,
+			incrementtbarsizeDim, Collections.singletonList(() -> ((IArrowableSingleShape) pencil.createShapeInstance()).getTBarSizeDim()));
 	}
 
 	@Test
 	public void testIncrementdotSizeNumPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleDot).execute();
-		double val = dotSizeNum.getValue();
-		incrementdotSizeNum.execute();
-		assertEquals(dotSizeNum.getValue(), ((IArrowableSingleShape)pencil.createShapeInstance()).getDotSizeNum(), 0.0001);
-		assertNotEquals(val, dotSizeNum.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleDot), dotSizeNum,
+			incrementdotSizeNum, Collections.singletonList(() -> ((IArrowableSingleShape) pencil.createShapeInstance()).getDotSizeNum()));
 	}
 
 	@Test
 	public void testIncrementdotSizeDimPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleDot).execute();
-		double val = dotSizeDim.getValue();
-		incrementdotSizeDim.execute();
-		assertEquals(dotSizeDim.getValue(), ((IArrowableSingleShape)pencil.createShapeInstance()).getDotSizeDim(), 0.0001);
-		assertNotEquals(val, dotSizeDim.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleDot), dotSizeDim,
+			incrementdotSizeDim, Collections.singletonList(() -> ((IArrowableSingleShape) pencil.createShapeInstance()).getDotSizeDim()));
 	}
 
 	@Test
 	public void testIncrementrbracketNumPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleRBrack).execute();
-		double val = rbracketNum.getValue();
-		incrementrbracketNum.execute();
-		assertEquals(rbracketNum.getValue(), ((IArrowableSingleShape)pencil.createShapeInstance()).getRBracketNum(), 0.0001);
-		assertNotEquals(val, rbracketNum.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleRBrack), rbracketNum, incrementrbracketNum,
+			Collections.singletonList(() -> ((IArrowableSingleShape) pencil.createShapeInstance()).getRBracketNum()));
 	}
 
 	@Test
 	public void testIncrementbracketNumPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleSBrack).execute();
-		double val = bracketNum.getValue();
-		incrementbracketNum.execute();
-		assertEquals(bracketNum.getValue(), ((IArrowableSingleShape)pencil.createShapeInstance()).getBracketNum(), 0.0001);
-		assertNotEquals(val, bracketNum.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleSBrack), bracketNum,
+			incrementbracketNum, Collections.singletonList(() ->  ((IArrowableSingleShape)pencil.createShapeInstance()).getBracketNum()));
 	}
 
 	@Test
 	public void testIncrementarrowLengthPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow).execute();
-		double val = arrowLength.getValue();
-		incrementarrowLength.execute();
-		assertEquals(arrowLength.getValue(), ((IArrowableSingleShape)pencil.createShapeInstance()).getArrowLength(), 0.0001);
-		assertNotEquals(val, arrowLength.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow), arrowLength,
+			incrementarrowLength, Collections.singletonList(() ->  ((IArrowableSingleShape)pencil.createShapeInstance()).getArrowLength()));
 	}
 
 	@Test
 	public void testIncrementarrowInsetPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow).execute();
-		double val = arrowInset.getValue();
-		incrementarrowInset.execute();
-		assertEquals(arrowInset.getValue(), ((IArrowableSingleShape)pencil.createShapeInstance()).getArrowInset(), 0.0001);
-		assertNotEquals(val, arrowInset.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow), arrowInset,
+			incrementarrowInset, Collections.singletonList(() ->  ((IArrowableSingleShape)pencil.createShapeInstance()).getArrowInset()));
 	}
 
 	@Test
 	public void testIncrementarrowSizeNumPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow).execute();
-		double val = arrowSizeNum.getValue();
-		incrementarrowSizeNum.execute();
-		assertEquals(arrowSizeNum.getValue(), ((IArrowableSingleShape)pencil.createShapeInstance()).getArrowSizeNum(), 0.0001);
-		assertNotEquals(val, arrowSizeNum.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow), arrowSizeNum,
+			incrementarrowSizeNum, Collections.singletonList(() ->  ((IArrowableSingleShape)pencil.createShapeInstance()).getArrowSizeNum()));
 	}
 
 	@Test
 	public void testIncrementarrowSizeDimPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow).execute();
-		double val = arrowSizeDim.getValue();
-		incrementarrowSizeDim.execute();
-		assertEquals(arrowSizeDim.getValue(), ((IArrowableSingleShape)pencil.createShapeInstance()).getArrowSizeDim(), 0.0001);
-		assertNotEquals(val, arrowSizeDim.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow), arrowSizeDim,
+			incrementarrowSizeDim, Collections.singletonList(() ->  ((IArrowableSingleShape)pencil.createShapeInstance()).getArrowSizeDim()));
 	}
 }

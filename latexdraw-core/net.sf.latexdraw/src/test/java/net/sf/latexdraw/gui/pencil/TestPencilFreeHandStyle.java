@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestFreeHandStyleGUI;
@@ -63,11 +64,8 @@ public class TestPencilFreeHandStyle extends TestFreeHandStyleGUI {
 
 	@Test
 	public void testIncrementgapPointsPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns).execute();
-		double val = gapPoints.getValue();
-		incrementgapPoints.execute();
-		assertEquals((int)gapPoints.getValue(), ((IFreehand)pencil.createShapeInstance()).getInterval());
-		assertNotEquals(val, gapPoints.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns), gapPoints,
+			incrementgapPoints, Collections.singletonList(() ->  ((IFreehand)pencil.createShapeInstance()).getInterval()));
 	}
 
 	@Test

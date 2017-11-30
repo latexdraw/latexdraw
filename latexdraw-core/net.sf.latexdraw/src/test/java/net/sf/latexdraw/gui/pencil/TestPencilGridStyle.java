@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -81,47 +82,32 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testIncrementgridWidthPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
-		double val = gridWidth.getValue();
-		incrementgridWidth.execute();
-		assertEquals(gridWidth.getValue(), ((IGrid)pencil.createShapeInstance()).getGridWidth(), 0.0001);
-		assertNotEquals(val, gridWidth.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), gridWidth,
+			incrementgridWidth, Collections.singletonList(() ->  ((IGrid) pencil.createShapeInstance()).getGridWidth()));
 	}
 
 	@Test
 	public void testIncrementsubGridWidthPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
-		double val = subGridWidth.getValue();
-		incrementsubGridWidth.execute();
-		assertEquals(subGridWidth.getValue(), ((IGrid)pencil.createShapeInstance()).getSubGridWidth(), 0.0001);
-		assertNotEquals(val, subGridWidth.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridWidth,
+			incrementsubGridWidth, Collections.singletonList(() ->  ((IGrid) pencil.createShapeInstance()).getSubGridWidth()));
 	}
 
 	@Test
 	public void testIncrementgridDotsPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
-		double val = gridDots.getValue();
-		incrementgridDots.execute();
-		assertEquals((int)gridDots.getValue(), ((IGrid)pencil.createShapeInstance()).getGridDots());
-		assertNotEquals(val, gridDots.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), gridDots,
+			incrementgridDots, Collections.singletonList(() ->  ((IGrid) pencil.createShapeInstance()).getGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDotsPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
-		double val = subGridDots.getValue();
-		incrementsubGridDots.execute();
-		assertEquals((int)subGridDots.getValue(), ((IGrid)pencil.createShapeInstance()).getSubGridDots());
-		assertNotEquals(val, subGridDots.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridDots,
+			incrementsubGridDots, Collections.singletonList(() ->  ((IGrid) pencil.createShapeInstance()).getSubGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDivPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
-		double val = subGridDiv.getValue();
-		incrementsubGridDiv.execute();
-		assertEquals((int)subGridDiv.getValue(), ((IGrid)pencil.createShapeInstance()).getSubGridDiv());
-		assertNotEquals(val, subGridDiv.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridDiv,
+			incrementsubGridDiv, Collections.singletonList(() ->  ((IGrid) pencil.createShapeInstance()).getSubGridDiv()));
 	}
 
 	@Test

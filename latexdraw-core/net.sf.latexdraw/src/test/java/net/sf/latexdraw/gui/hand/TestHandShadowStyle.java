@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -86,21 +87,17 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 
 	@Test
 	public void testIncrementShadowSizeHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns).execute();
-		double val = shadowSizeField.getValue();
-		incrementshadowSizeField.execute();
-		assertEquals(shadowSizeField.getValue(), drawing.getSelection().getShapeAt(1).getShadowSize(), 0.0001);
-		assertEquals(shadowSizeField.getValue(), drawing.getSelection().getShapeAt(2).getShadowSize(), 0.0001);
-		assertNotEquals(val, shadowSizeField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns), shadowSizeField,
+			incrementshadowSizeField, Arrays.asList(
+			() ->  drawing.getSelection().getShapeAt(1).getShadowSize(),
+			() ->  drawing.getSelection().getShapeAt(2).getShadowSize()));
 	}
 
 	@Test
 	public void testIncrementShadowAngleHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns).execute();
-		double val = shadowAngleField.getValue();
-		incrementshadowAngleField.execute();
-		assertEquals(Math.toRadians(shadowAngleField.getValue()), drawing.getSelection().getShapeAt(1).getShadowAngle(), 0.0001);
-		assertEquals(Math.toRadians(shadowAngleField.getValue()), drawing.getSelection().getShapeAt(2).getShadowAngle(), 0.0001);
-		assertNotEquals(val, shadowAngleField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns), shadowAngleField,
+			incrementshadowAngleField, Arrays.asList(
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).getShadowAngle()),
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).getShadowAngle())));
 	}
 }

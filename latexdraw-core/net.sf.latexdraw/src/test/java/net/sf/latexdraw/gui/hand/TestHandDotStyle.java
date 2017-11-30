@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -68,12 +69,10 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 
 	@Test
 	public void testDotSizeSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns).execute();
-		double angle = dotSizeField.getValue();
-		incrementDotSize.execute();
-		assertEquals(dotSizeField.getValue(), ((IDot)drawing.getSelection().getShapeAt(0)).getDiametre(), 0.0001);
-		assertEquals(dotSizeField.getValue(), ((IDot)drawing.getSelection().getShapeAt(2)).getDiametre(), 0.0001);
-		assertNotEquals(angle, dotSizeField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns), dotSizeField,
+			incrementDotSize, Arrays.asList(
+			() ->  ((IDot) drawing.getSelection().getShapeAt(0)).getDiametre(),
+			() ->  ((IDot) drawing.getSelection().getShapeAt(2)).getDiametre()));
 	}
 
 	@Test

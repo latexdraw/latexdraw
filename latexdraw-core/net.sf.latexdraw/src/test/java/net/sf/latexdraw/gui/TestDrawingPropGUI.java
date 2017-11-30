@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui;
 
+import java.util.Collections;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -84,8 +85,7 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 
 	@Test
 	public void testSetScale() throws Exception {
-		changeScale.execute();
-		assertEquals(scaleField.getValueFactory().getValue(), gen.getScale(), 0.0000001);
+		doTestSpinner(new CompositeGUIVoidCommand(), scaleField, changeScale, Collections.singletonList(() -> gen.getScale()));
 	}
 
 	@Test

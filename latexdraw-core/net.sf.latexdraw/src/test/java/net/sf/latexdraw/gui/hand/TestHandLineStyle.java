@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -65,24 +66,18 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 
 	@Test
 	public void testChangeFrameArcSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
-		double val = frameArcField.getValue();
-		incrementFrameArc.execute();
-		double newVal = frameArcField.getValue();
-		assertEquals(newVal, ((IRectangle)drawing.getSelection().getShapeAt(0)).getLineArc(), 0.001);
-		assertEquals(newVal, ((IRectangle)drawing.getSelection().getShapeAt(1)).getLineArc(), 0.001);
-		assertNotEquals(val, newVal);
+		doTestSpinner(new CompositeGUIVoidCommand(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns)), frameArcField,
+			incrementFrameArc, Arrays.asList(
+				() -> ((IRectangle) drawing.getSelection().getShapeAt(0)).getLineArc(),
+				() -> ((IRectangle) drawing.getSelection().getShapeAt(1)).getLineArc()));
 	}
 
 	@Test
 	public void testChangeThicknessSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
-		double val = thicknessField.getValue();
-		incrementThickness.execute();
-		double newVal = thicknessField.getValue();
-		assertEquals(newVal, drawing.getSelection().getShapeAt(0).getThickness(), 0.001);
-		assertEquals(newVal, drawing.getSelection().getShapeAt(1).getThickness(), 0.001);
-		assertNotEquals(val, newVal);
+		doTestSpinner(new CompositeGUIVoidCommand(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns)), thicknessField,
+			incrementThickness, Arrays.asList(
+				() -> drawing.getSelection().getShapeAt(0).getThickness(),
+				() -> drawing.getSelection().getShapeAt(1).getThickness()));
 	}
 
 	@Test

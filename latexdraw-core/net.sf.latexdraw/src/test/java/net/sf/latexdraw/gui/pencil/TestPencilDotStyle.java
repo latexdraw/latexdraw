@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -64,11 +65,8 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 
 	@Test
 	public void testIncrementDotSizePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
-		double val = dotSizeField.getValue();
-		incrementDotSize.execute();
-		assertEquals(dotSizeField.getValue(), ((IDot)pencil.createShapeInstance()).getDiametre(), 0.0001);
-		assertNotEquals(val, dotSizeField.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns), dotSizeField,
+			incrementDotSize, Collections.singletonList(() ->  ((IDot)pencil.createShapeInstance()).getDiametre()));
 	}
 
 	@Test

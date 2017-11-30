@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestPlotStyleGUI;
@@ -134,52 +135,43 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 
 	@Test
 	public void testIncrementnbPtsSpinnerHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		int val = nbPtsSpinner.getValue();
-		incrementnbPtsSpinner.execute();
-		assertEquals((int)nbPtsSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(1)).getNbPlottedPoints());
-		assertEquals((int)nbPtsSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(2)).getNbPlottedPoints());
-		assertNotEquals(val, (int)nbPtsSpinner.getValue());
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns), nbPtsSpinner,
+			incrementnbPtsSpinner, Arrays.asList(
+				() -> ((IPlot)drawing.getSelection().getShapeAt(1)).getNbPlottedPoints(),
+				() -> ((IPlot)drawing.getSelection().getShapeAt(2)).getNbPlottedPoints()
+			));
 	}
 
 	@Test
 	public void testIncrementminXSpinnerHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		double val = minXSpinner.getValue();
-		incrementminXSpinner.execute();
-		assertEquals(minXSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotMinX(), 0.0001);
-		assertEquals(minXSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotMinX(), 0.0001);
-		assertNotEquals(val, minXSpinner.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns), minXSpinner,
+			incrementminXSpinner, Arrays.asList(
+			() ->  ((IPlot) drawing.getSelection().getShapeAt(1)).getPlotMinX(),
+			() ->  ((IPlot) drawing.getSelection().getShapeAt(2)).getPlotMinX()));
 	}
 
 	@Test
 	public void testIncrementmaxXSpinnerHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		double val = maxXSpinner.getValue();
-		incrementmaxXSpinner.execute();
-		assertEquals(maxXSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotMaxX(), 0.0001);
-		assertEquals(maxXSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotMaxX(), 0.0001);
-		assertNotEquals(val, maxXSpinner.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns), maxXSpinner,
+			incrementmaxXSpinner, Arrays.asList(
+			() ->  ((IPlot) drawing.getSelection().getShapeAt(1)).getPlotMaxX(),
+			() ->  ((IPlot) drawing.getSelection().getShapeAt(2)).getPlotMaxX()));
 	}
 
 	@Test
 	public void testIncrementxScaleSpinnerHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		double val = xScaleSpinner.getValue();
-		incrementxScaleSpinner.execute();
-		assertEquals(xScaleSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(1)).getXScale(), 0.0001);
-		assertEquals(xScaleSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(2)).getXScale(), 0.0001);
-		assertNotEquals(val, xScaleSpinner.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns), xScaleSpinner,
+			incrementxScaleSpinner, Arrays.asList(
+			() ->  ((IPlot) drawing.getSelection().getShapeAt(1)).getXScale(),
+			() ->  ((IPlot) drawing.getSelection().getShapeAt(2)).getXScale()));
 	}
 
 	@Test
 	public void testIncrementyScaleSpinnerHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		double val = yScaleSpinner.getValue();
-		incrementyScaleSpinner.execute();
-		assertEquals(yScaleSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(1)).getYScale(), 0.0001);
-		assertEquals(yScaleSpinner.getValue(), ((IPlot)drawing.getSelection().getShapeAt(2)).getYScale(), 0.0001);
-		assertNotEquals(val, yScaleSpinner.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns), yScaleSpinner,
+			incrementyScaleSpinner, Arrays.asList(
+			() ->  ((IPlot) drawing.getSelection().getShapeAt(1)).getYScale(),
+			() ->  ((IPlot) drawing.getSelection().getShapeAt(2)).getYScale()));
 	}
 
 	@Test

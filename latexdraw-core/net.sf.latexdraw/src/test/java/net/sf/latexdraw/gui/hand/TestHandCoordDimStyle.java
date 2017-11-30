@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestCoordDimShapeGUI;
@@ -13,8 +14,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
@@ -51,21 +50,17 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 
 	@Test
 	public void testSetYSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
-		double angle = tlyS.getValue();
-		incrementY.execute();
-		assertEquals(tlyS.getValue(), drawing.getSelection().getShapeAt(0).getTopLeftPoint().getY(), 0.0001);
-		assertEquals(tlyS.getValue(), drawing.getSelection().getShapeAt(1).getTopLeftPoint().getY(), 0.0001);
-		assertNotEquals(angle, tlyS.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns), tlyS,
+			incrementY, Arrays.asList(
+			() ->  drawing.getSelection().getShapeAt(0).getTopLeftPoint().getY(),
+			() ->  drawing.getSelection().getShapeAt(1).getTopLeftPoint().getY()));
 	}
 
 	@Test
 	public void testSetXSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
-		double angle = tlxS.getValue();
-		incrementX.execute();
-		assertEquals(tlxS.getValue(), drawing.getSelection().getShapeAt(0).getTopLeftPoint().getX(), 0.0001);
-		assertEquals(tlxS.getValue(), drawing.getSelection().getShapeAt(1).getTopLeftPoint().getX(), 0.0001);
-		assertNotEquals(angle, tlxS.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns), tlxS,
+			incrementX, Arrays.asList(
+			() ->  drawing.getSelection().getShapeAt(0).getTopLeftPoint().getX(),
+			() ->  drawing.getSelection().getShapeAt(1).getTopLeftPoint().getX()));
 	}
 }

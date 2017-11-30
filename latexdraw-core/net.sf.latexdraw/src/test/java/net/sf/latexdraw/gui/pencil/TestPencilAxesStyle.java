@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestAxesStyleGUI;
@@ -73,38 +74,26 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementDistYPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
-		double val = distLabelsY.getValue();
-		incrementDistLabelY.execute();
-		assertEquals(distLabelsY.getValue(), ((IAxesProp)pencil.createShapeInstance()).getDistLabelsY(), 0.0001);
-		assertNotEquals(val, distLabelsY.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), distLabelsY,
+			incrementDistLabelY, Collections.singletonList(() ->  ((IAxesProp)pencil.createShapeInstance()).getDistLabelsY()));
 	}
 
 	@Test
 	public void testIncrementDistXPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
-		double val = distLabelsX.getValue();
-		incrementDistLabelX.execute();
-		assertEquals(distLabelsX.getValue(), ((IAxesProp)pencil.createShapeInstance()).getDistLabelsX(), 0.0001);
-		assertNotEquals(val, distLabelsX.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), distLabelsX,
+			incrementDistLabelX, Collections.singletonList(() ->  ((IAxesProp)pencil.createShapeInstance()).getDistLabelsX()));
 	}
 
 	@Test
 	public void testIncrementLabelYPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
-		double val = incrLabelY.getValue();
-		incrementLabelY.execute();
-		assertEquals(incrLabelY.getValue(), ((IAxesProp)pencil.createShapeInstance()).getIncrementY(), 0.0001);
-		assertNotEquals(val, incrLabelY.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), incrLabelY,
+			incrementLabelY, Collections.singletonList(() ->  ((IAxesProp)pencil.createShapeInstance()).getIncrementY()));
 	}
 
 	@Test
 	public void testIncrementLabelXPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
-		double val = incrLabelX.getValue();
-		incrementLabelX.execute();
-		assertEquals(incrLabelX.getValue(), ((IAxesProp)pencil.createShapeInstance()).getIncrementX(), 0.0001);
-		assertNotEquals(val, incrLabelX.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), incrLabelX,
+			incrementLabelX, Collections.singletonList(() ->  ((IAxesProp)pencil.createShapeInstance()).getIncrementX()));
 	}
 
 	@Test

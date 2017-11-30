@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -109,46 +110,31 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testIncrementGradMidPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectGradStyle).execute();
-		double val = gradMidPtField.getValue();
-		incrementgradMidPt.execute();
-		assertEquals(gradMidPtField.getValue(), pencil.createShapeInstance().getGradMidPt(), 0.0001);
-		assertNotEquals(val, gradMidPtField.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectGradStyle), gradMidPtField,
+			incrementgradMidPt, Collections.singletonList(() ->  pencil.createShapeInstance().getGradMidPt()));
 	}
 
 	@Test
 	public void testIncrementGradAnglePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectGradStyle).execute();
-		double val = gradAngleField.getValue();
-		incrementgradAngle.execute();
-		assertEquals(gradAngleField.getValue(), Math.toDegrees(pencil.createShapeInstance().getGradAngle()), 0.0001);
-		assertNotEquals(val, gradAngleField.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectGradStyle), gradAngleField,
+			incrementgradAngle, Collections.singletonList(() ->  Math.toDegrees(pencil.createShapeInstance().getGradAngle())));
 	}
 
 	@Test
 	public void testIncrementHatchAnglePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle).execute();
-		double val = hatchAngleField.getValue();
-		incrementhatchAngle.execute();
-		assertEquals(hatchAngleField.getValue(), Math.toDegrees(pencil.createShapeInstance().getHatchingsAngle()), 0.0001);
-		assertNotEquals(val, hatchAngleField.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchAngleField,
+			incrementhatchAngle, Collections.singletonList(() ->  Math.toDegrees(pencil.createShapeInstance().getHatchingsAngle())));
 	}
 
 	@Test
 	public void testIncrementHatchWidthPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle).execute();
-		double val = hatchWidthField.getValue();
-		incrementhatchWidth.execute();
-		assertEquals(hatchWidthField.getValue(), pencil.createShapeInstance().getHatchingsWidth(), 0.0001);
-		assertNotEquals(val, hatchWidthField.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchWidthField,
+			incrementhatchWidth, Collections.singletonList(() ->  pencil.createShapeInstance().getHatchingsWidth()));
 	}
 
 	@Test
 	public void testIncrementHatchSepPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle).execute();
-		double val = hatchSepField.getValue();
-		incrementhatchSep.execute();
-		assertEquals(hatchSepField.getValue(), pencil.createShapeInstance().getHatchingsSep(), 0.0001);
-		assertNotEquals(val, hatchSepField.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchSepField,
+			incrementhatchSep, Collections.singletonList(() ->  pencil.createShapeInstance().getHatchingsSep()));
 	}
 }

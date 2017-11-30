@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -92,12 +93,10 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 
 	@Test
 	public void testIncrementDbleSpacingSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddAxes, selectionAddRec, selectdbleLine, updateIns).execute();
-		final double value = dbleSepField.getValue();
-		incrementDbleSep.execute();
-		assertEquals(dbleSepField.getValue(), drawing.getSelection().getShapeAt(0).getDbleBordSep(), 0.0001);
-		assertEquals(dbleSepField.getValue(), drawing.getSelection().getShapeAt(2).getDbleBordSep(), 0.0001);
-		assertNotEquals(value, dbleSepField.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddAxes, selectionAddRec, selectdbleLine, updateIns), dbleSepField,
+			incrementDbleSep, Arrays.asList(
+			() ->  drawing.getSelection().getShapeAt(0).getDbleBordSep(),
+			() ->  drawing.getSelection().getShapeAt(2).getDbleBordSep()));
 	}
 
 	@Test

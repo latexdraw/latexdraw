@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestArcStyleGUI;
@@ -17,7 +18,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
@@ -87,20 +87,14 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testArcEndAnglePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns).execute();
-		double angle = ((IArc)pencil.createShapeInstance()).getAngleEnd();
-		incrementEndAngle.execute();
-		assertEquals(endAngleS.getValue(), Math.toDegrees(((IArc)pencil.createShapeInstance()).getAngleEnd()), 0.0001);
-		assertNotEquals(angle, ((IArc)pencil.createShapeInstance()).getAngleEnd(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns), endAngleS, incrementEndAngle,
+			Collections.singletonList(() -> Math.toDegrees(((IArc) pencil.createShapeInstance()).getAngleEnd())));
 	}
 
 	@Test
 	public void testArcStartAnglePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns).execute();
-		double angle = ((IArc)pencil.createShapeInstance()).getAngleStart();
-		incrementStartAngle.execute();
-		assertEquals(startAngleS.getValue(), Math.toDegrees(((IArc)pencil.createShapeInstance()).getAngleStart()), 0.0001);
-		assertNotEquals(angle, ((IArc)pencil.createShapeInstance()).getAngleStart(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns), startAngleS, incrementStartAngle,
+			Collections.singletonList(() -> Math.toDegrees(((IArc) pencil.createShapeInstance()).getAngleStart())));
 	}
 
 	@Test

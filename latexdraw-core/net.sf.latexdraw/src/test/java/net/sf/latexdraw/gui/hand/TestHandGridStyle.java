@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.hand;
 
+import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
@@ -87,52 +88,42 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testIncrementgridWidthHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
-		double val = gridWidth.getValue();
-		incrementgridWidth.execute();
-		assertEquals(gridWidth.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getGridWidth(), 0.0001);
-		assertEquals(gridWidth.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getGridWidth(), 0.0001);
-		assertNotEquals(val, gridWidth.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), gridWidth,
+			incrementgridWidth, Arrays.asList(
+			() ->  ((IGrid) drawing.getSelection().getShapeAt(1)).getGridWidth(),
+			() ->  ((IGrid) drawing.getSelection().getShapeAt(2)).getGridWidth()));
 	}
 
 	@Test
 	public void testIncrementsubGridWidthHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
-		double val = subGridWidth.getValue();
-		incrementsubGridWidth.execute();
-		assertEquals(subGridWidth.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getSubGridWidth(), 0.0001);
-		assertEquals(subGridWidth.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getSubGridWidth(), 0.0001);
-		assertNotEquals(val, subGridWidth.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridWidth,
+			incrementsubGridWidth, Arrays.asList(
+			() ->  ((IGrid) drawing.getSelection().getShapeAt(1)).getSubGridWidth(),
+			() ->  ((IGrid) drawing.getSelection().getShapeAt(2)).getSubGridWidth()));
 	}
 
 	@Test
 	public void testIncrementgridDotsHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
-		double val = gridDots.getValue();
-		incrementgridDots.execute();
-		assertEquals((int)gridDots.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getGridDots());
-		assertEquals((int)gridDots.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getGridDots());
-		assertNotEquals(val, gridDots.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), gridDots,
+			incrementgridDots, Arrays.asList(
+			() ->  ((IGrid) drawing.getSelection().getShapeAt(1)).getGridDots(),
+			() ->  ((IGrid) drawing.getSelection().getShapeAt(2)).getGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDotsHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
-		double val = subGridDots.getValue();
-		incrementsubGridDots.execute();
-		assertEquals((int)subGridDots.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getSubGridDots());
-		assertEquals((int)subGridDots.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getSubGridDots());
-		assertNotEquals(val, subGridDots.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridDots,
+			incrementsubGridDots, Arrays.asList(
+			() ->  ((IGrid) drawing.getSelection().getShapeAt(1)).getSubGridDots(),
+			() ->  ((IGrid) drawing.getSelection().getShapeAt(2)).getSubGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDivHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
-		double val = subGridDiv.getValue();
-		incrementsubGridDiv.execute();
-		assertEquals((int)subGridDiv.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getSubGridDiv());
-		assertEquals((int)subGridDiv.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getSubGridDiv());
-		assertNotEquals(val, subGridDiv.getValue(), 0.0001);
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridDiv,
+			incrementsubGridDiv, Arrays.asList(
+			() ->  ((IGrid) drawing.getSelection().getShapeAt(1)).getSubGridDiv(),
+			() ->  ((IGrid) drawing.getSelection().getShapeAt(2)).getSubGridDiv()));
 	}
 
 	@Test

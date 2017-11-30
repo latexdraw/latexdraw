@@ -1,5 +1,6 @@
 package net.sf.latexdraw.gui.pencil;
 
+import java.util.Collections;
 import net.sf.latexdraw.gui.CompositeGUIVoidCommand;
 import net.sf.latexdraw.gui.ShapePropInjector;
 import net.sf.latexdraw.gui.TestPlotStyleGUI;
@@ -124,47 +125,32 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 
 	@Test
 	public void testIncrementnbPtsSpinnerPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		int val = nbPtsSpinner.getValue();
-		incrementnbPtsSpinner.execute();
-		assertEquals((int)nbPtsSpinner.getValue(), ((IPlot)pencil.createShapeInstance()).getNbPlottedPoints());
-		assertNotEquals(val, nbPtsSpinner.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns), nbPtsSpinner,
+			incrementnbPtsSpinner, Collections.singletonList(() ->  ((IPlot) pencil.createShapeInstance()).getNbPlottedPoints()));
 	}
 
 	@Test
 	public void testIncrementminXSpinnerPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		double val = minXSpinner.getValue();
-		incrementminXSpinner.execute();
-		assertEquals(minXSpinner.getValue(), ((IPlot)pencil.createShapeInstance()).getPlotMinX(), 0.0001);
-		assertNotEquals(val, minXSpinner.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns), minXSpinner,
+			incrementminXSpinner, Collections.singletonList(() ->  ((IPlot) pencil.createShapeInstance()).getPlotMinX()));
 	}
 
 	@Test
 	public void testIncrementmaxXSpinnerPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		double val = maxXSpinner.getValue();
-		incrementmaxXSpinner.execute();
-		assertEquals(maxXSpinner.getValue(), ((IPlot)pencil.createShapeInstance()).getPlotMaxX(), 0.0001);
-		assertNotEquals(val, maxXSpinner.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns), maxXSpinner,
+			incrementmaxXSpinner, Collections.singletonList(() ->  ((IPlot) pencil.createShapeInstance()).getPlotMaxX()));
 	}
 
 	@Test
 	public void testIncrementxScaleSpinnerPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		double val = xScaleSpinner.getValue();
-		incrementxScaleSpinner.execute();
-		assertEquals(xScaleSpinner.getValue(), ((IPlot)pencil.createShapeInstance()).getXScale(), 0.0001);
-		assertNotEquals(val, xScaleSpinner.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns), xScaleSpinner,
+			incrementxScaleSpinner, Collections.singletonList(() ->  ((IPlot) pencil.createShapeInstance()).getXScale()));
 	}
 
 	@Test
 	public void testIncrementyScaleSpinnerPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		double val = yScaleSpinner.getValue();
-		incrementyScaleSpinner.execute();
-		assertEquals(yScaleSpinner.getValue(), ((IPlot)pencil.createShapeInstance()).getYScale(), 0.0001);
-		assertNotEquals(val, yScaleSpinner.getValue(), 0.0001);
+		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns), yScaleSpinner,
+			incrementyScaleSpinner, Collections.singletonList(() ->  ((IPlot) pencil.createShapeInstance()).getYScale()));
 	}
 
 	@Test
@@ -172,7 +158,7 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
 		boolean sel = polarCB.isSelected();
 		clickpolarCB.execute();
-		assertEquals(!sel, ((IPlot)pencil.createShapeInstance()).isPolar());
+		assertEquals(!sel, ((IPlot) pencil.createShapeInstance()).isPolar());
 		assertNotEquals(sel, polarCB.isSelected());
 	}
 }
