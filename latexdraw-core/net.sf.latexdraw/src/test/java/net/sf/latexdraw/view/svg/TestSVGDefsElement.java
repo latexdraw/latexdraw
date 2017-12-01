@@ -23,27 +23,27 @@ public class TestSVGDefsElement extends AbstractTestSVGElement {
 	}
 
 	@Test
-	public void testEnableRendering() throws MalformedSVGDocument {
+	public void testEnableRendering() {
 		assertFalse(defs.enableRendering());
 	}
 
 	@Test
-	public void testGetDefNULL() throws MalformedSVGDocument {
+	public void testGetDefNULL() {
 		assertNull(defs.getDef(null));
 	}
 
 	@Test
-	public void testGetDefEmpty() throws MalformedSVGDocument {
+	public void testGetDefEmpty() {
 		assertNull(defs.getDef(""));
 	}
 
 	@Test
-	public void testGetDefInvalid() throws MalformedSVGDocument {
+	public void testGetDefInvalid() {
 		assertNull(defs.getDef("dsqd"));
 	}
 
 	@Test
-	public void testGetDefOK() throws MalformedSVGDocument {
+	public void testGetDefOK() {
 		final SVGMarkerElement mark = new SVGMarkerElement(node.getOwnerDocument());
 		mark.setAttribute(SVGAttributes.SVG_ID, SVGAttributes.SVG_ID);
 		defs.appendChild(mark);

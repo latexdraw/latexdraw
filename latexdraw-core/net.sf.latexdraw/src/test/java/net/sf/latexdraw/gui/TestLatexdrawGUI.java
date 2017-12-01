@@ -108,7 +108,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	protected Injector createInjector() {
 		return new Injector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() {
 				//
 			}
 		};

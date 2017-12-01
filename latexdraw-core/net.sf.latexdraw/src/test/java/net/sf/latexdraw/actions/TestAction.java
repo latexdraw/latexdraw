@@ -32,7 +32,7 @@ public abstract class TestAction<T extends Action> {
 	protected abstract void checkDo();
 
 	@Test
-	public void testDo() throws Exception {
+	public void testDo() {
 		configCorrectAction();
 		action.doIt();
 		checkDo();
@@ -44,18 +44,18 @@ public abstract class TestAction<T extends Action> {
 	}
 
 	@Test
-	public void testCanDo() throws Exception {
+	public void testCanDo() {
 		configCorrectAction();
 		assertTrue(action.canDo());
 	}
 
 	@Test
-	public void testGetRegisterablePolicy() throws Exception {
+	public void testGetRegisterablePolicy() {
 		assertEquals(Action.RegistrationPolicy.NONE, action.getRegistrationPolicy());
 	}
 
 	@Test
-	public void testGetRegisterablePolicyOK() throws Exception {
+	public void testGetRegisterablePolicyOK() {
 		action.doIt();
 		action.done();
 		assertEquals(Action.RegistrationPolicy.LIMITED, action.getRegistrationPolicy());

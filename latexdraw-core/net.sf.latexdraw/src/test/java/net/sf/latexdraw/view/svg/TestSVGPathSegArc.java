@@ -16,7 +16,7 @@ public class TestSVGPathSegArc {
 	int cpt;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		seg = new SVGPathSegArc(1, 2, 3, 4, 5, true, false, true);
 		cpt = 0;
 	}

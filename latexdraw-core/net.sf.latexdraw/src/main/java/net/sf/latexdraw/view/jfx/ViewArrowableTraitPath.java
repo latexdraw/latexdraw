@@ -43,17 +43,17 @@ class ViewArrowableTraitPath<T extends IArrowableSingleShape> extends ViewArrowa
 				moveTo.setY(pt1.get().getY());
 			}
 
-			if(pt2.isPresent()) {
+			pt2.ifPresent(pt -> {
 				if(clip.getElements().get(clip.getElements().size() - 1) instanceof LineTo) {
 					final LineTo lineTo = (LineTo) clip.getElements().get(clip.getElements().size() - 1);
-					lineTo.setX(pt2.get().getX());
-					lineTo.setY(pt2.get().getY());
+					lineTo.setX(pt.getX());
+					lineTo.setY(pt.getY());
 				}else if(clip.getElements().get(clip.getElements().size() - 1) instanceof CubicCurveTo) {
 					final CubicCurveTo ccTo = (CubicCurveTo) clip.getElements().get(clip.getElements().size() - 1);
-					ccTo.setX(pt2.get().getX());
-					ccTo.setY(pt2.get().getY());
+					ccTo.setX(pt.getX());
+					ccTo.setY(pt.getY());
 				}
-			}
+			});
 		}
 
 		clip.setStrokeWidth(path.getStrokeWidth());

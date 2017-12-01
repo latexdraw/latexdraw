@@ -129,10 +129,10 @@ public class LaTeXDraw extends JfxUI {
 	}
 
 	@Override
-	public void start(final Stage stage) throws IOException {
+	public void start(final Stage stage) {
 		final Task<Void> task = new Task<Void>() {
 			@Override
-			protected Void call() throws InterruptedException, IOException {
+			protected Void call() throws IOException {
 				updateProgress(0.1, 1d);
 				Platform.runLater(() -> {
 					mainStage = new Stage(StageStyle.DECORATED);

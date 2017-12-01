@@ -15,7 +15,7 @@ public class TestSVGPathSegCurvetoQuadratic {
 	int cpt;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		cpt = 0;
 		seg = new SVGPathSegCurvetoQuadratic(3e1, 4e-1, -5e1, 6.5, true);
 	}

@@ -32,7 +32,7 @@ public class TestIAxes implements HelperTest {
 	IAxes shape2;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		shape = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 		shape2 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 	}

@@ -25,7 +25,7 @@ public class TestIArrow {
 	@Mock private IArrowableSingleShape arrowable;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		arrow = new LArrow(arrowable);
 		when(arrowable.getFullThickness()).thenReturn(2d);
 	}

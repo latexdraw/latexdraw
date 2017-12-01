@@ -101,35 +101,35 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	}
 
 	@Test
-	public void testDeactivatedEmpty() throws Exception {
+	public void testDeactivatedEmpty() {
 		assertFalse(ins.isActivated());
 	}
 
 	@Test
-	public void testNotVisibleEmpty() throws Exception {
+	public void testNotVisibleEmpty() {
 		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
-	public void testActivateOnTwoShapesSelected() throws Exception {
+	public void testActivateOnTwoShapesSelected() {
 		selectTwoShapes.execute();
 		assertTrue(ins.isActivated());
 	}
 
 	@Test
-	public void testNotActivateOnOneShapeSelected() throws Exception {
+	public void testNotActivateOnOneShapeSelected() {
 		selectOneShape.execute();
 		assertFalse(ins.isActivated());
 	}
 
 	@Test
-	public void testNotVisibleOnOneShapeSelected() throws Exception {
+	public void testNotVisibleOnOneShapeSelected() {
 		selectOneShape.execute();
 		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
-	public void testNotVisiblePencil() throws Exception {
+	public void testNotVisiblePencil() {
 		when(pencil.isActivated()).thenReturn(true);
 		when(hand.isActivated()).thenReturn(false);
 		selectTwoShapes.execute();
@@ -137,7 +137,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	}
 
 	@Test
-	public void testNotActivatedPencil() throws Exception {
+	public void testNotActivatedPencil() {
 		when(pencil.isActivated()).thenReturn(true);
 		when(hand.isActivated()).thenReturn(false);
 		selectTwoShapes.execute();

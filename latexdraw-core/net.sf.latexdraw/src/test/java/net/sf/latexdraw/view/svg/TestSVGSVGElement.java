@@ -30,7 +30,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testContructorFail() throws MalformedSVGDocument {
+	public void testContructorFail() {
 		new SVGSVGElement(null);
 	}
 
@@ -40,7 +40,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	}
 
 	@Test
-	public void testGetDefsNULL() throws MalformedSVGDocument, ParserConfigurationException {
+	public void testGetDefsNULL() {
 		assertNull(e.getDefs());
 	}
 
@@ -59,7 +59,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	}
 
 	@Test
-	public void testGetMetaNULL() throws MalformedSVGDocument, ParserConfigurationException {
+	public void testGetMetaNULL() {
 		assertNull(e.getMeta());
 	}
 
@@ -85,7 +85,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	}
 
 	@Test
-	public void testEnableRenderingOK() throws MalformedSVGDocument {
+	public void testEnableRenderingOK() {
 		assertTrue(e.enableRendering());
 	}
 
@@ -113,7 +113,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	}
 
 	@Test
-	public void testGetY0() throws MalformedSVGDocument {
+	public void testGetY0() {
 		assertEquals(0d, e.getY(), 0.0001);
 	}
 
@@ -125,7 +125,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	}
 
 	@Test
-	public void testGetX0() throws MalformedSVGDocument {
+	public void testGetX0() {
 		assertEquals(0d, e.getX(), 0.0001);
 	}
 

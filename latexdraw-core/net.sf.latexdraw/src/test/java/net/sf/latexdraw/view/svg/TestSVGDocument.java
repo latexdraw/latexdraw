@@ -32,7 +32,7 @@ public class TestSVGDocument {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testSVGDocumentNULL() throws MalformedSVGDocument, URISyntaxException, IOException {
+	public void testSVGDocumentNULL() throws MalformedSVGDocument, IOException {
 		new SVGDocument(null);
 	}
 
@@ -159,7 +159,7 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testIsEqualNode() throws MalformedSVGDocument, URISyntaxException, IOException {
+	public void testIsEqualNode() {
 		SVGDocument doc = new SVGDocument();
 		assertTrue(doc1.isEqualNode(doc));
 		assertFalse(doc1.isEqualNode(null));

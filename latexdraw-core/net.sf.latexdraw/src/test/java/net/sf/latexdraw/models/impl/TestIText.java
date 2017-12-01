@@ -25,7 +25,7 @@ public class TestIText implements HelperTest {
 	IText shape;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		shape = ShapeFactory.INST.createText();
 	}
 

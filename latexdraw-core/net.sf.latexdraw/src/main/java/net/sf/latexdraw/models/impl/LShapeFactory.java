@@ -60,7 +60,6 @@ public class LShapeFactory implements IShapeFactory {
 	public LShapeFactory() {
 		super();
 		factoryMap = new HashMap<>();
-		factoryMap.put(IPlot.class, () -> createPlot(createPoint(), 1.0, 10.0, "x", false));
 		factoryMap.put(ICircleArc.class, () -> createCircleArc());
 		factoryMap.put(LCircleArc.class, () -> createCircleArc());
 		factoryMap.put(ICircle.class, () -> createCircle());

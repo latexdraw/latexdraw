@@ -18,7 +18,7 @@ public class TestDrawingProperties {
 	PSTCodeGenerator gen;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		final Injector injector = new Injector() {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException {
@@ -34,163 +34,163 @@ public class TestDrawingProperties {
 	}
 
 	@Test
-	public void testLabelGetSet() throws Exception {
+	public void testLabelGetSet() {
 		gen.setLabel("Foo");
 		assertEquals("Foo", gen.getLabel());
 	}
 
 	@Test
-	public void testSetLabelNULL() throws Exception {
+	public void testSetLabelNULL() {
 		gen.setLabel(null);
 		assertEquals("", gen.getLabel());
 	}
 
 	@Test
-	public void testLabelInGenCode() throws Exception {
+	public void testLabelInGenCode() {
 		gen.setLabel("thisisalabel");
 		assertTrue(gen.getDocumentCode().contains("\\label{thisisalabel}"));
 	}
 
 	@Test
-	public void testCaptionGetSet() throws Exception {
+	public void testCaptionGetSet() {
 		gen.setCaption("Foo");
 		assertEquals("Foo", gen.getCaption());
 	}
 
 	@Test
-	public void testSetCaptionNULL() throws Exception {
+	public void testSetCaptionNULL() {
 		gen.setCaption(null);
 		assertEquals("", gen.getCaption());
 	}
 
 	@Test
-	public void testCaptionInGenCode() throws Exception {
+	public void testCaptionInGenCode() {
 		gen.setCaption("thisisacaption");
 		assertTrue(gen.getDocumentCode().contains("\\caption{thisisacaption}"));
 	}
 
 	@Test
-	public void testCommentGetSet() throws Exception {
+	public void testCommentGetSet() {
 		gen.setComment("Foo");
 		assertEquals("Foo", gen.getComment());
 	}
 
 	@Test
-	public void testCommentGetSetWithTag() throws Exception {
+	public void testCommentGetSetWithTag() {
 		gen.setComment("Foo");
 		assertEquals("% Foo", gen.getCommentWithTag());
 	}
 
 	@Test
-	public void testCommentGetSetWithTagMultiLines() throws Exception {
+	public void testCommentGetSetWithTagMultiLines() {
 		gen.setComment("Foo\nbar");
 		assertEquals("% Foo\n% bar", gen.getCommentWithTag());
 	}
 
 	@Test
-	public void testSetCommentNULL() throws Exception {
+	public void testSetCommentNULL() {
 		gen.setComment(null);
 		assertEquals("", gen.getComment());
 	}
 
 	@Test
-	public void testSetCommentNULLWithTag() throws Exception {
+	public void testSetCommentNULLWithTag() {
 		gen.setComment(null);
 		assertEquals("% ", gen.getCommentWithTag());
 	}
 
 	@Test
-	public void testCommentInGenCode() throws Exception {
+	public void testCommentInGenCode() {
 		gen.setComment("thisisacomment");
 		assertTrue(gen.getDocumentCode().contains("% thisisacomment"));
 	}
 
 	@Test
-	public void testGetSetCenter() throws Exception {
+	public void testGetSetCenter() {
 		gen.setPositionHoriCentre(true);
 		assertTrue(gen.isPositionHoriCentre());
 	}
 
 	@Test
-	public void testCenterInGenCode() throws Exception {
+	public void testCenterInGenCode() {
 		gen.setPositionHoriCentre(true);
 		assertTrue(gen.getDocumentCode().contains("\\begin{center}"));
 	}
 
 	@Test
-	public void testCenterInGenCodeButNotCommented() throws Exception {
+	public void testCenterInGenCodeButNotCommented() {
 		gen.setPositionHoriCentre(true);
 		assertFalse(gen.getDocumentCode().contains("% \\begin{center}"));
 	}
 
 	@Test
-	public void testGetSetVertTokenBottom() throws Exception {
+	public void testGetSetVertTokenBottom() {
 		gen.setPositionVertToken(VerticalPosition.BOTTOM);
 		assertEquals(VerticalPosition.BOTTOM, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenFLOATSPAGE() throws Exception {
+	public void testGetSetVertTokenFLOATSPAGE() {
 		gen.setPositionVertToken(VerticalPosition.FLOATS_PAGE);
 		assertEquals(VerticalPosition.FLOATS_PAGE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenHERE() throws Exception {
+	public void testGetSetVertTokenHERE() {
 		gen.setPositionVertToken(VerticalPosition.HERE);
 		assertEquals(VerticalPosition.HERE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenHEREHERE() throws Exception {
+	public void testGetSetVertTokenHEREHERE() {
 		gen.setPositionVertToken(VerticalPosition.HERE_HERE);
 		assertEquals(VerticalPosition.HERE_HERE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenNONE() throws Exception {
+	public void testGetSetVertTokenNONE() {
 		gen.setPositionVertToken(VerticalPosition.NONE);
 		assertEquals(VerticalPosition.NONE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenTOP() throws Exception {
+	public void testGetSetVertTokenTOP() {
 		gen.setPositionVertToken(VerticalPosition.TOP);
 		assertEquals(VerticalPosition.TOP, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenBottomInGenCode() throws Exception {
+	public void testGetSetVertTokenBottomInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.BOTTOM);
 		assertTrue(gen.getDocumentCode(), gen.getDocumentCode().contains("\\begin{figure}[b]"));
 	}
 
 	@Test
-	public void testGetSetVertTokenFLOATSPAGEInGenCode() throws Exception {
+	public void testGetSetVertTokenFLOATSPAGEInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.FLOATS_PAGE);
 		assertTrue(gen.getDocumentCode(), gen.getDocumentCode().contains("\\begin{figure}[p]"));
 	}
 
 	@Test
-	public void testGetSetVertTokenHEREInGenCode() throws Exception {
+	public void testGetSetVertTokenHEREInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.HERE);
 		assertTrue(gen.getDocumentCode().contains("\\begin{figure}[h]"));
 	}
 
 	@Test
-	public void testGetSetVertTokenHEREHEREInGenCode() throws Exception {
+	public void testGetSetVertTokenHEREHEREInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.HERE_HERE);
 		assertTrue(gen.getDocumentCode().contains("\\begin{figure}[H]"));
 	}
 
 	@Test
-	public void testGetSetVertTokenNONEInGenCode() throws Exception {
+	public void testGetSetVertTokenNONEInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.NONE);
 		assertFalse(gen.getDocumentCode(), gen.getDocumentCode().contains("\\begin{figure}"));
 	}
 
 	@Test
-	public void testGetSetVertTokenTOPInGenCode() throws Exception {
+	public void testGetSetVertTokenTOPInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.TOP);
 		assertTrue(gen.getDocumentCode().contains("\\begin{figure}[t]"));
 	}

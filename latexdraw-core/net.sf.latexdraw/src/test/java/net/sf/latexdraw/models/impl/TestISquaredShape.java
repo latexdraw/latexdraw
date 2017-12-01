@@ -177,7 +177,7 @@ public class TestISquaredShape implements HelperTest {
 
 	public static class SquaredSupplier extends ParameterSupplier {
 		@Override
-		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) {
 			return Stream.of(ShapeFactory.INST.createSquare(), ShapeFactory.INST.createCircle(), ShapeFactory.INST.createCircleArc()).map
 				(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
 		}

@@ -16,7 +16,6 @@ import java.util.Set;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -347,13 +346,20 @@ public abstract class PSTShapeView<S extends IShape> {
 	private StringBuilder getFillingHatchings(final float ppc) {
 		final Color hatchingsCol = shape.getHatchingsCol();
 		final StringBuilder code = new StringBuilder();
-		final FillingStyle fillingStyle = shape.getFillingStyle();
 
-		if(fillingStyle == FillingStyle.CLINES || fillingStyle == FillingStyle.CLINES_PLAIN)
-			code.append("fillstyle=crosshatch"); //$NON-NLS-1$
-		else if(fillingStyle == FillingStyle.HLINES || fillingStyle == FillingStyle.HLINES_PLAIN)
-			code.append("fillstyle=hlines"); //$NON-NLS-1$
-		else code.append("fillstyle=vlines"); //$NON-NLS-1$
+		switch(shape.getFillingStyle()) {
+			case CLINES:
+			case CLINES_PLAIN:
+				code.append("fillstyle=crosshatch"); //$NON-NLS-1$
+				break;
+			case HLINES:
+			case HLINES_PLAIN:
+				code.append("fillstyle=hlines"); //$NON-NLS-1$
+				break;
+			default:
+				code.append("fillstyle=vlines"); //$NON-NLS-1$
+				break;
+		}
 
 		if(shape.isFilled()) code.append('*');
 

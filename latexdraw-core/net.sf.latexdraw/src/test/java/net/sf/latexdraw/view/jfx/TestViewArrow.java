@@ -12,7 +12,7 @@ public class TestViewArrow {
 	ViewArrow varrow;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		view = (ViewPolyline) ViewFactory.INSTANCE.createView(ShapeFactory.INST.createPolyline(
 			Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10d, 20d), ShapeFactory.INST.createPoint(30d, 40d)))).
 			orElseThrow(() -> new IllegalArgumentException());

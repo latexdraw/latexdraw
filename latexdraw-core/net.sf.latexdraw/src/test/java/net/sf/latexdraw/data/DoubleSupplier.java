@@ -10,7 +10,7 @@ import org.junit.experimental.theories.PotentialAssignment;
 
 public class DoubleSupplier extends ParameterSupplier {
 	@Override
-	public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+	public List<PotentialAssignment> getValueSources(final ParameterSignature sig) {
 		final DoubleData doubledata = sig.getAnnotation(DoubleData.class);
 		DoubleStream stream = Arrays.stream(doubledata.vals());
 

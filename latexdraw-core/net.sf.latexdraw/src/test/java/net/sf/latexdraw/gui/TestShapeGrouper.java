@@ -73,41 +73,41 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	}
 
 	@Test
-	public void testDeactivatedEmpty() throws Exception {
+	public void testDeactivatedEmpty() {
 		assertFalse(ins.isActivated());
 	}
 
 	@Test
-	public void testNotVisibleEmpty() throws Exception {
+	public void testNotVisibleEmpty() {
 		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
-	public void testActivateOnGroupSelected() throws Exception {
+	public void testActivateOnGroupSelected() {
 		selectOneGroup.execute();
 		assertTrue(ins.isActivated());
 	}
 
 	@Test
-	public void testActivateOnTwoShapesSelected() throws Exception {
+	public void testActivateOnTwoShapesSelected() {
 		selectTwoShapes.execute();
 		assertTrue(ins.isActivated());
 	}
 
 	@Test
-	public void testNotActivateOnOneShapeNotGroupSelected() throws Exception {
+	public void testNotActivateOnOneShapeNotGroupSelected() {
 		selectOneShape.execute();
 		assertFalse(ins.isActivated());
 	}
 
 	@Test
-	public void testNotVisibleOnOneShapeNotGroupSelected() throws Exception {
+	public void testNotVisibleOnOneShapeNotGroupSelected() {
 		selectOneShape.execute();
 		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
-	public void testNotVisiblePencil() throws Exception {
+	public void testNotVisiblePencil() {
 		when(pencil.isActivated()).thenReturn(true);
 		when(hand.isActivated()).thenReturn(false);
 		selectTwoShapes.execute();
@@ -115,7 +115,7 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	}
 
 	@Test
-	public void testNotActivatedPencil() throws Exception {
+	public void testNotActivatedPencil() {
 		when(pencil.isActivated()).thenReturn(true);
 		when(hand.isActivated()).thenReturn(false);
 		selectTwoShapes.execute();
@@ -123,14 +123,14 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	}
 
 	@Test
-	public void testGroupTwoShapes() throws Exception {
+	public void testGroupTwoShapes() {
 		new CompositeGUIVoidCommand(selectTwoShapes, clickGroup).execute();
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IGroup);
 	}
 
 	@Test
-	public void testUnGroup() throws Exception {
+	public void testUnGroup() {
 		selectOneGroup.execute();
 		IGroup group = (IGroup) drawing.getShapeAt(0);
 		clickSep.execute();

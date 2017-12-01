@@ -56,16 +56,9 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 
 	@Override
 	public String getCode(final IPoint position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
-
-		final StringBuilder points = getPointsCode(position, ppc);
-		final StringBuilder code = new StringBuilder();
-
-		code.append("\\pspolygon["); //$NON-NLS-1$
-		code.append(getPropertiesCode(ppc));
-		code.append(']');
-		code.append(points);
-
-		return code.toString();
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
+			return "";
+		}
+		return "\\pspolygon[" + getPropertiesCode(ppc) + ']' + getPointsCode(position, ppc); //$NON-NLS-1$
 	}
 }

@@ -38,7 +38,7 @@ public class TestIPicture implements HelperTest {
 	}
 
 	@Before
-	public void setUp() throws IOException, URISyntaxException {
+	public void setUp() throws IOException {
 		shape = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		folder = new TemporaryFolder();
 		folder.create();

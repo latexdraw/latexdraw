@@ -10,7 +10,7 @@ public class TestSVGMatrix {
 	SVGMatrix m;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		m = new SVGMatrix();
 	}
 

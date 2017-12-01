@@ -57,7 +57,7 @@ public class URIReferenceParser extends AbstractSVGParser {
 
 
 	@Override
-	public void parse() throws ParseException {
+	public void parse() {
 		uri = getURI();
 	}
 

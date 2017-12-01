@@ -35,7 +35,7 @@ abstract class TestViewShape<T extends ViewShape<S>, S extends ISingleShape> imp
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() {
 		view.flush();
 	}
 

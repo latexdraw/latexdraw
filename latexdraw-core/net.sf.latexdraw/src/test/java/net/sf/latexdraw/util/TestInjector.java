@@ -28,7 +28,7 @@ public class TestInjector implements HelperTest {
 	public void testConstructor() {
 		new Injector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() {
 			}
 		};
 	}
@@ -62,7 +62,7 @@ public class TestInjector implements HelperTest {
 	public void testFailOnNullClass() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() {
 			}
 		};
 		assertNull(injector.getInstance(null));
@@ -96,7 +96,7 @@ public class TestInjector implements HelperTest {
 	}
 
 	@Test
-	public void testInjectOnDeclaredField() throws NoSuchFieldException, IllegalAccessException {
+	public void testInjectOnDeclaredField() {
 		injector = new Injector() {
 			@Override
 			protected void configure() throws InstantiationException, IllegalAccessException {
@@ -112,7 +112,7 @@ public class TestInjector implements HelperTest {
 	}
 
 	@Test
-	public void testInjectOnInheritedField() throws NoSuchFieldException, IllegalAccessException {
+	public void testInjectOnInheritedField() {
 		injector = new Injector() {
 			@Override
 			protected void configure() throws InstantiationException, IllegalAccessException {
@@ -128,7 +128,7 @@ public class TestInjector implements HelperTest {
 	}
 
 	@Test
-	public void testInjectOnBindCmd() throws NoSuchFieldException, IllegalAccessException {
+	public void testInjectOnBindCmd() {
 		injector = new Injector() {
 			@Override
 			protected void configure() throws InstantiationException, IllegalAccessException {
@@ -146,7 +146,7 @@ public class TestInjector implements HelperTest {
 	}
 
 	@Test
-	public void testInjectOnCyclicDependency() throws NoSuchFieldException, IllegalAccessException {
+	public void testInjectOnCyclicDependency() {
 		injector = new Injector() {
 			@Override
 			protected void configure() throws InstantiationException, IllegalAccessException {
@@ -211,7 +211,7 @@ public class TestInjector implements HelperTest {
 	public void testFailBindingOnSrcClassNotReg() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() {
 				bindWithCommand(C.class, E.class, obj -> obj);
 			}
 		};
@@ -223,7 +223,7 @@ public class TestInjector implements HelperTest {
 	public void testGetInstanceNotNull() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() {
 			}
 		};
 

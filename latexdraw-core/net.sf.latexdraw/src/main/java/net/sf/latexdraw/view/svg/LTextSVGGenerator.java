@@ -83,18 +83,14 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 			throw new IllegalArgumentException();
 		}
 
-		TextSize textSize = Optional.ofNullable(elt.getSVGAttribute(SVGAttributes.SVG_FONT_SIZE, null)).
+		Optional.ofNullable(elt.getSVGAttribute(SVGAttributes.SVG_FONT_SIZE, null)).
 			map(attr -> {
 				try {
 					return TextSize.getTextSizeFromSize(Double.valueOf(attr).intValue());
 				}catch(final NumberFormatException ex) {
 					return null;
 				}
-			}).orElse(null);
-
-		if(textSize != null) {
-			shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		}
+			}).ifPresent(textSize -> shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}'));
 
 		if(SVGAttributes.SVG_FONT_WEIGHT_BOLD.equals(elt.getSVGAttribute(SVGAttributes.SVG_FONT_WEIGHT, null))) {
 			shape.setText("\\textbf{" + shape.getText() + '}'); //$NON-NLS-1$

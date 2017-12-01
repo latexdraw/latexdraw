@@ -10,7 +10,7 @@ public abstract class TestPSCommand<T extends PSArithemticCommand> {
 	Deque<Double> dequeue = new ArrayDeque<>();
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		cmd = createCmd();
 		dequeue = new ArrayDeque<>();
 	}

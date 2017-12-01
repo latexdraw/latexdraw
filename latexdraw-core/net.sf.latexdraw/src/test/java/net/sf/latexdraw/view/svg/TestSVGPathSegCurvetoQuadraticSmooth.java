@@ -16,7 +16,7 @@ public class TestSVGPathSegCurvetoQuadraticSmooth {
 	int cpt;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		seg = new SVGPathSegCurvetoQuadraticSmooth(-5.23e-10, 6.5, false);
 		cpt = 0;
 	}

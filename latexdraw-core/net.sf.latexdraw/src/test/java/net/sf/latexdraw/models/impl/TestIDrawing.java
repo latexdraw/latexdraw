@@ -38,7 +38,6 @@ public class TestIDrawing {
 		List<IShape> list = new ArrayList<>();
 		IGroup selection = drawing.getSelection();
 		IShape sh = ShapeFactory.INST.createRectangle();
-		IShape sh2;
 
 		list.add(sh);
 		drawing.setSelection(list);
@@ -64,7 +63,7 @@ public class TestIDrawing {
 
 	@Test
 	public void testSetSelectionListEmpty() {
-		drawing.setSelection(Collections.<IShape> emptyList());
+		drawing.setSelection(Collections.emptyList());
 		assertNotNull(drawing.getSelection());
 		assertEquals(0, drawing.getSelection().size());
 	}

@@ -36,7 +36,7 @@ public class TestIPlot implements HelperTest {
 	IPlot shape;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		shape = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0d, 10d, "x", false);
 	}
 

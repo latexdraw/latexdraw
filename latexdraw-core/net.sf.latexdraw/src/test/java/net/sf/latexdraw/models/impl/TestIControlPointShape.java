@@ -167,7 +167,7 @@ public class TestIControlPointShape implements HelperTest {
 
 	public static class CtrlPtShapeSupplier extends ParameterSupplier {
 		@Override
-		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) {
 			return Stream.of(ShapeFactory.INST.createBezierCurve(Arrays.asList(
 				ShapeFactory.INST.createPoint(10d, 20d),
 				ShapeFactory.INST.createPoint(30d, 40d)))).

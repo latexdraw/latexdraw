@@ -25,7 +25,7 @@ public class TestIBezierCurve implements HelperTest {
 	IBezierCurve shape;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		shape = ShapeFactory.INST.createBezierCurve(Collections.emptyList());
 	}
 

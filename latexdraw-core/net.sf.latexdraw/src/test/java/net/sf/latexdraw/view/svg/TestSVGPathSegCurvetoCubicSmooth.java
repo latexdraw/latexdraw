@@ -16,7 +16,7 @@ public class TestSVGPathSegCurvetoCubicSmooth {
 	int cpt;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		seg = new SVGPathSegCurvetoCubicSmooth(0.8E2, -2d, -5.e-1, .5, false);
 		cpt = 0;
 	}

@@ -14,7 +14,7 @@ public class TestURIReferenceParser {
 	URIReferenceParser p;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		p = new URIReferenceParser("url(#id)");
 	}
 

@@ -101,7 +101,7 @@ public abstract class ViewShape<S extends IShape> extends Group {
 		if(Platform.isFxApplicationThread()) {
 			cmd.run();
 		}else {
-			Platform.runLater(() -> cmd.run());
+			Platform.runLater(cmd);
 		}
 	}
 }

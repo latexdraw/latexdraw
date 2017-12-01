@@ -14,7 +14,7 @@ public class TestTriple {
 	Triple<Double, String, Boolean> triple;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		triple = new Triple<>(1.2, "bar", true);
 	}
 

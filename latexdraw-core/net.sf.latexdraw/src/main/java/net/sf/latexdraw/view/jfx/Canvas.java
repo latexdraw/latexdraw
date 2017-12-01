@@ -502,8 +502,10 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		}
 	}
 
-	public boolean removeFromWidgetLayer(final javafx.scene.Node node) {
-		return node != null && widgetsPane.getChildren().remove(node);
+	public void removeFromWidgetLayer(final javafx.scene.Node node) {
+		if(node != null) {
+			widgetsPane.getChildren().remove(node);
+		}
 	}
 
 	/**

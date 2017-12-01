@@ -10,7 +10,7 @@ import org.junit.experimental.theories.PotentialAssignment;
 
 public class ArcSupplier extends ParameterSupplier {
 	@Override
-	public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+	public List<PotentialAssignment> getValueSources(final ParameterSignature sig) {
 		return Stream.of(ShapeFactory.INST.createCircleArc()).map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
 	}
 }

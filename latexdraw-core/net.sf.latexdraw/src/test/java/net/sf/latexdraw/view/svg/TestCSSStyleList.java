@@ -11,7 +11,7 @@ public class TestCSSStyleList {
 	CSSStyleList list;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		list = new CSSStyleList();
 	}
 

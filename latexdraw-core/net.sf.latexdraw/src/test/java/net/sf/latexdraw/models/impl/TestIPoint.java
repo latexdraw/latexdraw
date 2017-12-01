@@ -20,7 +20,7 @@ public class TestIPoint implements HelperTest {
 	IPoint pt;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		pt = ShapeFactory.INST.createPoint();
 	}
 

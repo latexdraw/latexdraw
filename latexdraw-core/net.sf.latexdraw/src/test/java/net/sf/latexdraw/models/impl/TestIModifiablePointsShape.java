@@ -132,7 +132,7 @@ public class TestIModifiablePointsShape implements HelperTest {
 
 	public static class ModifPtShapeSupplier extends ParameterSupplier {
 		@Override
-		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) {
 			final ModifPtShapeData data = sig.getAnnotation(ModifPtShapeData.class);
 			final List<IPoint> pts = Arrays.stream(data.x()).mapToObj(x -> ShapeFactory.INST.createPoint(x, 0d)).collect(Collectors.toList());
 			for(int i = 0, size = pts.size(); i < size; i++) {

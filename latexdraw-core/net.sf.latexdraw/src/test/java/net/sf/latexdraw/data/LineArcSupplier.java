@@ -10,7 +10,7 @@ import org.junit.experimental.theories.PotentialAssignment;
 
 public class LineArcSupplier extends ParameterSupplier {
 	@Override
-	public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+	public List<PotentialAssignment> getValueSources(final ParameterSignature sig) {
 		return Stream.of(ShapeFactory.INST.createRectangle(), ShapeFactory.INST.createSquare()).
 			map(sh -> PotentialAssignment.forValue("", sh)).collect(Collectors.toList());
 	}

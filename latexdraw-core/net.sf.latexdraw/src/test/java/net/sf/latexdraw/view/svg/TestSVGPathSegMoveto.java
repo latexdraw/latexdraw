@@ -14,7 +14,7 @@ public class TestSVGPathSegMoveto {
 	SVGPathSegMoveto seg;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		seg = new SVGPathSegMoveto(-1d, -2d, false);
 	}
 

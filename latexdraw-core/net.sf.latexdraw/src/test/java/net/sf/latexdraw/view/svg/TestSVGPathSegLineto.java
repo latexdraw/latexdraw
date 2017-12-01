@@ -15,7 +15,7 @@ public class TestSVGPathSegLineto {
 	int cpt;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		cpt = 0;
 		seg = new SVGPathSegLineto(-1d, -2d, true);
 	}

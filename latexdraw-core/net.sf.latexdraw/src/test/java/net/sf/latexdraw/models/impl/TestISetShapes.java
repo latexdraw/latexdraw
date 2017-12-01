@@ -200,7 +200,7 @@ public class TestISetShapes {
 
 	public static class SetShapesSupplier extends ParameterSupplier {
 		@Override
-		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) {
 			return Stream.of(ShapeFactory.INST.createDrawing(),
 				ShapeFactory.INST.createGroup()).map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
 		}

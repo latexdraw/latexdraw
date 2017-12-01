@@ -20,7 +20,7 @@ public class TestSVGTransformList {
 	SVGTransformList t;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		t = new SVGTransformList();
 	}
 

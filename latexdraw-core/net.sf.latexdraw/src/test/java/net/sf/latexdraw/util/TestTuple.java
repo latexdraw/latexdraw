@@ -13,7 +13,7 @@ public class TestTuple {
 	Tuple<Double, String> tuple;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		tuple = new Tuple<>(2.2, "foo");
 	}
 

@@ -216,7 +216,7 @@ public class TestIStandardGrid implements HelperTest {
 
 	public static class StdGridSupplier extends ParameterSupplier {
 		@Override
-		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws Throwable {
+		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) {
 			return Stream.of(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()),
 				ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint())).
 				map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());

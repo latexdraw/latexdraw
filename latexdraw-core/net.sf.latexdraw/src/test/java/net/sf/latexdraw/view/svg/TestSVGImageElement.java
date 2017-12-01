@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNull;
 
 public class TestSVGImageElement extends AbstractTestSVGElement {
 	@Test(expected = NullPointerException.class)
-	public void testContructorNULLEmpty() throws MalformedSVGDocument {
+	public void testContructorNULLEmpty() {
 		new SVGImageElement(null, "");
 	}
 

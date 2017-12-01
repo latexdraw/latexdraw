@@ -214,7 +214,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		}
 
 		@Override
-		protected Boolean call() throws Exception {
+		protected Boolean call() {
 			try {
 				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
 				final IDrawing drawing = LaTeXDraw.getInstance().getInjector().getInstance(IDrawing.class);
@@ -265,7 +265,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		}
 
 		@Override
-		protected Boolean call() throws Exception {
+		protected Boolean call() {
 			if(updateThumbnails) {
 				updateTemplates(LPath.PATH_TEMPLATES_DIR_USER, LPath.PATH_CACHE_DIR);
 				updateTemplates(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR);

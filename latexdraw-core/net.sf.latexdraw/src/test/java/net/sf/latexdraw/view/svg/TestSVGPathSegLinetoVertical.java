@@ -16,7 +16,7 @@ public class TestSVGPathSegLinetoVertical {
 	int cpt;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		seg = new SVGPathSegLinetoVertical(-1d, false);
 		cpt = 0;
 	}

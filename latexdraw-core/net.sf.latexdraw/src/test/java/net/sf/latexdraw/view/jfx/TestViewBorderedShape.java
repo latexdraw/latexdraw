@@ -390,7 +390,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsVLINESPLAIN() throws TimeoutException {
+	public void testFillHatchingsVLINESPLAIN() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.VLINES_PLAIN);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -398,7 +398,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsHLINES() throws TimeoutException {
+	public void testFillHatchingsHLINES() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.HLINES);
 		WaitForAsyncUtils.waitForFxEvents();
