@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -68,6 +69,11 @@ public class TestModifyLatexProperties extends TestUndoableAction<ModifyLatexPro
 		}
 
 		memento = mementoCmd.get();
+	}
+
+	@After
+	public void tearDown() {
+		LaTeXGenerator.setPackages("");
 	}
 
 	@Override

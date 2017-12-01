@@ -34,7 +34,7 @@ public interface FxRobotSpinner extends FxRobotInterface {
 		cmdsConfig.execute();
 		final T val = spinner.getValue();
 		cmdSpinner.execute();
-		WaitForAsyncUtils.sleep(600, TimeUnit.MILLISECONDS);
+		WaitForAsyncUtils.sleep(700, TimeUnit.MILLISECONDS);
 		oracles.forEach(oracle -> assertEquals(spinner.getValue().doubleValue(), oracle.get().doubleValue(), 0.0001));
 		assertNotEquals(val.doubleValue(), spinner.getValue().doubleValue(), 0.0001);
 	}

@@ -72,60 +72,60 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 	}
 
 	@Test
-	public void testSetCaption() throws Exception {
+	public void testSetCaption() {
 		new CompositeGUIVoidCommand(typeTitle, waitFX1Second).execute();
 		assertEquals("new Title", gen.getCaption());
 	}
 
 	@Test
-	public void testSetLabel() throws Exception {
+	public void testSetLabel() {
 		new CompositeGUIVoidCommand(typeLabel, waitFX1Second).execute();
 		assertEquals("newLabel", gen.getLabel());
 	}
 
 	@Test
-	public void testSetScale() throws Exception {
+	public void testSetScale() {
 		doTestSpinner(new CompositeGUIVoidCommand(), scaleField, changeScale, Collections.singletonList(() -> gen.getScale()));
 	}
 
 	@Test
-	public void testSetMiddleHoriz() throws Exception {
+	public void testSetMiddleHoriz() {
 		checkMiddleHoriz.execute();
 		assertEquals(middleHorizPosCB.isSelected(), gen.isPositionHoriCentre());
 	}
 
 	@Test
-	public void testSePositionBOTTOM() throws Exception {
+	public void testSePositionBOTTOM() {
 		changePosition.execute(VerticalPosition.BOTTOM);
 		assertEquals(VerticalPosition.BOTTOM, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testSePositionFLOAT() throws Exception {
+	public void testSePositionFLOAT() {
 		changePosition.execute(VerticalPosition.FLOATS_PAGE);
 		assertEquals(VerticalPosition.FLOATS_PAGE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testSePositionHERE() throws Exception {
+	public void testSePositionHERE() {
 		changePosition.execute(VerticalPosition.HERE);
 		assertEquals(VerticalPosition.HERE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testSePositionHEREHERE() throws Exception {
+	public void testSePositionHEREHERE() {
 		changePosition.execute(VerticalPosition.HERE_HERE);
 		assertEquals(VerticalPosition.HERE_HERE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testSePositionTOP() throws Exception {
+	public void testSePositionTOP() {
 		changePosition.execute(VerticalPosition.TOP);
 		assertEquals(VerticalPosition.TOP, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testSePositionNONE() throws Exception {
+	public void testSePositionNONE() {
 		changePosition.execute(VerticalPosition.NONE);
 		assertEquals(VerticalPosition.NONE, gen.getPositionVertToken());
 	}
