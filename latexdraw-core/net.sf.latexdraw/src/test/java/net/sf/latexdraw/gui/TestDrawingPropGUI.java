@@ -73,13 +73,13 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 
 	@Test
 	public void testSetCaption() {
-		new CompositeGUIVoidCommand(typeTitle, waitFX1Second).execute();
+		new CompositeGUIVoidCommand(typeTitle, () -> sleep(1200L)).execute();
 		assertEquals("new Title", gen.getCaption());
 	}
 
 	@Test
 	public void testSetLabel() {
-		new CompositeGUIVoidCommand(typeLabel, waitFX1Second).execute();
+		new CompositeGUIVoidCommand(typeLabel, () -> sleep(1200L)).execute();
 		assertEquals("newLabel", gen.getLabel());
 	}
 

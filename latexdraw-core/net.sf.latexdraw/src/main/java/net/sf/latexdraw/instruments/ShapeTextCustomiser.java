@@ -144,6 +144,6 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 
 		textInputBinder(ModifyLatexProperties.class).on(packagesField).
 			first(a -> a.setProperty(LatexProperties.PACKAGES)).
-			then((a, i) -> a.setValue(packagesField.getText())).bind();
+			then((a, i) -> a.setValue(i.getWidget().getText())).bind();
 	}
 }
