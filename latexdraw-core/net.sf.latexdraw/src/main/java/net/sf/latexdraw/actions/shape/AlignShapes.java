@@ -13,25 +13,17 @@ package net.sf.latexdraw.actions.shape;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import net.sf.latexdraw.actions.Modifying;
-import net.sf.latexdraw.actions.ShapeActionImpl;
 import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
-import org.malai.undo.Undoable;
-
 
 /**
  * This action aligns the provided shapes.
  * @author Arnaud Blouin
  */
-public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Modifying {
+public class AlignShapes extends AlignDistribAction {
 	/**
 	 * This enumeration describes the different possible alignment types.
 	 */
@@ -43,8 +35,6 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 	private List<ViewShape<?>> views;
 	/** The alignment to perform. */
 	private Alignment alignment;
-	/** The former positions of the shapes to align. Used for undoing. */
-	private List<IPoint> oldPositions;
 	private Canvas canvas;
 
 
@@ -70,8 +60,12 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 		for(final ViewShape<?> view : views) {
 			final double maxY = view.getBoundsInLocal().getMaxY();
 			final double minY = view.getBoundsInLocal().getMinY();
-			if(maxY > theMaxY) theMaxY = maxY;
-			if(minY < theMinY) theMinY = minY;
+			if(maxY > theMaxY) {
+				theMaxY = maxY;
+			}
+			if(minY < theMinY) {
+				theMinY = minY;
+			}
 			middles.add((minY + maxY) / 2d);
 		}
 
@@ -89,8 +83,12 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 		for(final ViewShape<?> view : views) {
 			final double maxX = view.getBoundsInLocal().getMaxX();
 			final double minX = view.getBoundsInLocal().getMinX();
-			if(maxX > theMaxX) theMaxX = maxX;
-			if(minX < theMinX) theMinX = minX;
+			if(maxX > theMaxX) {
+				theMaxX = maxX;
+			}
+			if(minX < theMinX) {
+				theMinX = minX;
+			}
 			middles.add((minX + maxX) / 2d);
 		}
 
@@ -130,7 +128,9 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 
 		for(final ViewShape<?> view : views) {
 			final double maxY = view.getBoundsInLocal().getMaxY();
-			if(maxY > theMaxY) theMaxY = maxY;
+			if(maxY > theMaxY) {
+				theMaxY = maxY;
+			}
 			ys.add(maxY);
 		}
 
@@ -146,7 +146,9 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 
 		for(final ViewShape<?> view : views) {
 			final double minY = view.getBoundsInLocal().getMinY();
-			if(minY < theMinY) theMinY = minY;
+			if(minY < theMinY) {
+				theMinY = minY;
+			}
 			ys.add(minY);
 		}
 
@@ -162,7 +164,9 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 
 		for(final ViewShape<?> view : views) {
 			final double maxX = view.getBoundsInLocal().getMaxX();
-			if(maxX > theMaxX) theMaxX = maxX;
+			if(maxX > theMaxX) {
+				theMaxX = maxX;
+			}
 			xs.add(maxX);
 		}
 
@@ -178,7 +182,9 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 
 		for(final ViewShape<?> view : views) {
 			final double minX = view.getBoundsInLocal().getMinX();
-			if(minX < theMinX) theMinX = minX;
+			if(minX < theMinX) {
+				theMinX = minX;
+			}
 			xs.add(minX);
 		}
 
@@ -188,24 +194,6 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 	@Override
 	public boolean canDo() {
 		return shape.isPresent() && !shape.get().isEmpty() && canvas != null && alignment != null;
-	}
-
-	@Override
-	public void undo() {
-		final IntegerProperty pos = new SimpleIntegerProperty(0);
-
-		shape.ifPresent(gp -> {
-			gp.getShapes().forEach(sh -> {
-				// Reusing the old position.
-				final IPoint pt = sh.getTopLeftPoint();
-				final IPoint oldPt = oldPositions.get(pos.get());
-				if(!pt.equals(oldPt)) {
-					sh.translate(oldPt.getX() - pt.getX(), oldPt.getY() - pt.getY());
-				}
-				pos.set(pos.get() + 1);
-			});
-			gp.setModified(true);
-		});
 	}
 
 	@Override
@@ -252,6 +240,6 @@ public class AlignShapes extends ShapeActionImpl<IGroup> implements Undoable, Mo
 
 	@Override
 	public RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 }

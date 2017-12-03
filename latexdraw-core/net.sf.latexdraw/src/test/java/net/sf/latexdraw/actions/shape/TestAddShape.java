@@ -1,8 +1,9 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions.shape;
 
-import net.sf.latexdraw.actions.shape.AddShape;
+import net.sf.latexdraw.actions.TestUndoableAction;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,6 +26,18 @@ public class TestAddShape extends TestUndoableAction<AddShape, IShape> {
 		memento = ShapeFactory.INST.createRectangle();
 		action.setDrawing(drawing);
 		action.setShape(memento);
+	}
+
+	@Test
+	public void testGetDrawingOK() {
+		configCorrectAction();
+		assertTrue(action.getDrawing().isPresent());
+		assertEquals(drawing, action.getDrawing().get());
+	}
+
+	@Test
+	public void testGetDrawingKO() {
+		assertFalse(action.getDrawing().isPresent());
 	}
 
 	@Override

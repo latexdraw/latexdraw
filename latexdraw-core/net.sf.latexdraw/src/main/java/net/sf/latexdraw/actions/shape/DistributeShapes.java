@@ -15,23 +15,16 @@ import java.util.List;
 import java.util.OptionalInt;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import net.sf.latexdraw.actions.Modifying;
-import net.sf.latexdraw.actions.ShapeActionImpl;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
-import org.malai.undo.Undoable;
 
 /**
  * This action distributes the provided shapes.
  * @author Arnaud Blouin
  */
-public class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoable, Modifying {
+public class DistributeShapes extends AlignDistribAction {
 	/**
 	 * This enumeration describes the different possible alignment types.
 	 */
@@ -47,8 +40,6 @@ public class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoabl
 	private List<ViewShape<?>> views;
 	/** The alignment to perform. */
 	private Distribution distribution;
-	/** The former positions of the shapes to align. Used for undoing. */
-	private List<IPoint> oldPositions;
 	private Canvas canvas;
 
 	public DistributeShapes() {
@@ -65,24 +56,6 @@ public class DistributeShapes extends ShapeActionImpl<IGroup> implements Undoabl
 	@Override
 	public boolean canDo() {
 		return shape.isPresent() && !shape.get().isEmpty() && canvas != null && distribution != null;
-	}
-
-	@Override
-	public void undo() {
-		final IntegerProperty pos = new SimpleIntegerProperty(0);
-
-		shape.ifPresent(gp -> {
-			gp.getShapes().forEach(sh -> {
-				// Reusing the old position.
-				final IPoint pt = sh.getTopLeftPoint();
-				final IPoint oldPt = oldPositions.get(pos.get());
-				if(!pt.equals(oldPt)) {
-					sh.translate(oldPt.getX() - pt.getX(), oldPt.getY() - pt.getY());
-				}
-				pos.set(pos.get() + 1);
-			});
-			gp.setModified(true);
-		});
 	}
 
 	/**
