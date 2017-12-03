@@ -1,4 +1,9 @@
 ************************************************************
+Version 3.3.8 -- 2017-12-03
+
+fixed: crash while saving an SVG document and running the app with Java 9
+
+************************************************************
 Version 3.3.7 -- 2017-11-19
 
 fixed: crash at start-up using Java 9
