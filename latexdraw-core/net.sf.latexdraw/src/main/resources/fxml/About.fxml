@@ -6,7 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.Label?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="440.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/8"
             fx:controller="net.sf.latexdraw.instruments.AboutController">
     <center>
@@ -14,12 +14,12 @@
             <Tab closable="false" text="%PreferencesFrame.general">
                 <BorderPane>
                     <center>
-                        <ImageView layoutX="0.0" layoutY="0.0">
+                        <ImageView>
                             <Image url="@/res/LaTeXDrawSmall.png"/>
                         </ImageView>
                     </center>
                     <bottom>
-                        <WebView fx:id="aboutText"/>
+                        <Label fx:id="aboutText" wrapText="true" style="-fx-text-alignment:center" />
                     </bottom>
                 </BorderPane>
             </Tab>

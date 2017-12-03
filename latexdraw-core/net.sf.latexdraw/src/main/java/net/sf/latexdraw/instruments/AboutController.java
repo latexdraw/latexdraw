@@ -14,8 +14,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.web.WebView;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LSystem;
@@ -27,7 +27,7 @@ import net.sf.latexdraw.util.VersionChecker;
  * @author Arnaud BLOUIN
  */
 public class AboutController implements Initializable {
-	@FXML private WebView aboutText;
+	@FXML private Label aboutText;
 	@FXML private TextArea noteText;
 	@FXML private TextArea contribText;
 	@FXML private TextArea sysText;
@@ -42,13 +42,11 @@ public class AboutController implements Initializable {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		aboutText.getEngine().loadContent("<html><body><div style=\"text-align: center; \"><font size=\"-1\"><br>" + //$NON-NLS-1$
-			LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.219") + " " + //$NON-NLS-1$ //$NON-NLS-2$
-			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + //$NON-NLS-1$ //$NON-NLS-2$
-			LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.220") + " " + VersionChecker.ID_BUILD + "<br><br>" + //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
-			LaTeXDraw.LABEL_APP + LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.221") + "<br>" + //$NON-NLS-1$//$NON-NLS-2$
-			"Copyright(c) 2005-2017 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>" + //$NON-NLS-1$
-			"http://latexdraw.sourceforge.net/<br></div></body></html>");//$NON-NLS-1$
+		aboutText.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.219") + ' ' + //$NON-NLS-1$
+			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + ", build " + VersionChecker.ID_BUILD + LSystem.EOL + //$NON-NLS-1$
+			LaTeXDraw.LABEL_APP + LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.221") + LSystem.EOL + //$NON-NLS-1$
+			"Copyright(c) 2005-2017 - Arnaud BLOUIN" + LSystem.EOL + //$NON-NLS-1$
+			"http://latexdraw.sourceforge.net/");//$NON-NLS-1$
 		noteText.setText(LFileUtils.INSTANCE.readTextFile("/res/release_note.txt"));//$NON-NLS-1$
 		contribText.setText(LFileUtils.INSTANCE.readTextFile("/res/contributors.txt"));//$NON-NLS-1$
 		licenseText.setText(LFileUtils.INSTANCE.readTextFile("/res/license.txt"));//$NON-NLS-1$
