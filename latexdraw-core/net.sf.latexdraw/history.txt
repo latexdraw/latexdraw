@@ -1,4 +1,11 @@
 ************************************************************
+Version 3.3.7 -- 2017-11-19
+
+fixed: crash at start-up using Java 9
+fixed: pictures not correctly mirrored
+fixed: control points not mirrored
+
+************************************************************
 Version 3.3.6 -- 2017-07-12
 
 - fixed: the tooltip that shows LaTeX compilation errors while putting the cursor over a text shape may freeze the application.
@@ -10,7 +17,6 @@ Version 3.3.6 -- 2017-07-12
 - fixed: the generated PSTricks may be incorrectly commented preventing the compilation
 - fixed (usability): no message was displayed in the status bar to explain how to draw shapes.
 - fixed (usability): better feedback on compilation errors during exports as PDF/PS documents.
-
 
 ************************************************************
 Version 3.3.5 -- 2016-12-30
@@ -65,7 +71,7 @@ Bugs fixed:
    https://bugs.launchpad.net/latexdraw/+bug/1605718
  - CSS style not considered on some SVG attributes
    https://bugs.launchpad.net/latexdraw/+bug/1606545
-- Some icons of the toolbar did not have the same size
+ - Some icons of the toolbar did not have the same size
 
 
 ************************************************************
@@ -251,7 +257,7 @@ Version 3.1.0 -- 2014-01-27
 
 
 *******************************************************************
-Version 3.0.0 -- 23/12/2013
+Version 3.0.0 -- 2013-12-23
 
 Added:
 - Native support/rendering of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
@@ -328,7 +334,7 @@ Fixed:
 
 
 *******************************************************************
-Version 2.0.8 -- 15/03/2010
+Version 2.0.8 -- 2010-03-15
 
 - fixed #535631: cannot export as pdf using pdfcrop if the path of latex binaries is defined
 - fixed #483517: when importing a picture into a drawing, the created eps picture is not located at the right place
@@ -336,13 +342,13 @@ Version 2.0.8 -- 15/03/2010
 
 
 *******************************************************************
-Version 2.0.7 -- 07/03/2010
+Version 2.0.7 -- 2010-03-07
 
 - fixed #531658: pdf export broken on Windows
 
 
 *******************************************************************
-Version 2.0.6 -- 18/01/2010
+Version 2.0.6 -- 2010-01-10
 
 - added: Turkish localisation
 
@@ -359,7 +365,7 @@ Version 2.0.6 -- 18/01/2010
 
 
 *******************************************************************
-Version 2.0.5 -- 06/10/2009
+Version 2.0.5 -- 2009-10-06
 
 - added: can export a drawing as a pdf document using latex AND pdfcrop
 
@@ -374,7 +380,7 @@ Version 2.0.5 -- 06/10/2009
 
 
 *******************************************************************
-Version 2.0.4 -- 20/09/2009
+Version 2.0.4 -- 2009-09-20
 
 - added: new localisation, Polish
 
@@ -385,7 +391,7 @@ Version 2.0.4 -- 20/09/2009
 
 
 *******************************************************************
-Version 2.0.3 -- 03/07/2009
+Version 2.0.3 -- 2009-07-03
 
 - added: latex EPS and PDF export (need a latex distribution to work)
 - added: new localisation, Italian
@@ -426,7 +432,7 @@ Version 2.0.2
 
 
 *******************************************************************
-Version 2.0.1 -- 31/10/2008
+Version 2.0.1 -- 2008-10-31
 
 - added: hatchings angle is now managed
 
@@ -438,7 +444,7 @@ Version 2.0.1 -- 31/10/2008
 - fixed #268973: borders cannot be selected when in auto adjustment
 
 *******************************************************************
-Version 2.0 -- 25/07/2008
+Version 2.0 -- 2008-08-25
 
 - added: SVG import/export
 - added: can align (left, right, top,...) figures
@@ -486,7 +492,7 @@ PSTricks parser 0.5:
 - fixed: \} not well parsed
 
 ***************************************************************
-Version 1.9.5 -- 20/10/2007
+Version 1.9.5 -- 2007-10-20
 
 - fixed: transparency not always managed in imported pictures;
 - fixed: problem when trying to select a figure to put behind/in front of the selected figure;
@@ -499,7 +505,7 @@ Version 1.9.5 -- 20/10/2007
 
 
 ***************************************************************
-Version 1.9.4 -- 01/09/2007
+Version 1.9.4 -- 2007-09-01
 
 - fixed: an error occurred when using alt-right/left/... and no figure was selected;
 - fixed: saving a drawing froze the program under gtk theme under Linux;
@@ -528,7 +534,7 @@ PSTricks parser 0.4.2:
 
 
 ***************************************************************
-Version 1.9.3 -- 20/06/2007
+Version 1.9.3 -- 2007-06-20
 
 - fixed: wrong colour definition for carnationPink;
 - fixed: undo/redo manager not always well updated;
@@ -548,7 +554,7 @@ PSTricks parser 0.4.1:
 
 
 ****************************************************************
-Version 1.9.2 -- 31/05/2007
+Version 1.9.2 -- 2007-05-31
 
 - added: a button in the frame of errors to copy the log;
 
@@ -587,7 +593,7 @@ PSTricks parser 0.4:
 
 
 ****************************************************************************
-Version 1.9.1 -- 04/04/2007
+Version 1.9.1 -- 2007-04-04
 
 - added: more shortcuts:
            - "space" selects the first or the next figure (in selection mode);
@@ -616,7 +622,7 @@ Version 1.9.1 -- 04/04/2007
 
 
 ****************************************************************************
-Version 1.9 -- 08/02/2007
+Version 1.9 -- 2007-02-08
 
 - added: a splash screen;
 - added: recent files manager;
@@ -678,7 +684,7 @@ PSTricks parser 0.3:
 
 
 ***********************************************************************************
-Version 1.8.2 -- 15/11/2006
+Version 1.8.2 -- 2006-11-15
 
 - fixed #1580023: the printed code doesn't take care about the width of the page;
 - fixed #1538675: Bézier curve/polygons/joined lines still rotate badly;
@@ -698,7 +704,7 @@ PSTricks parser 0.2.3:
 
 
 ***********************************************************************************
-Version 1.8.1 -- 17/10/2006
+Version 1.8.1 -- 2006-10-17
 
 - fixed #1554750: problem with round corner (frame and square);
 - fixed #1561789: "code autoupdate" field (in the preferences frame) had not effect;
@@ -716,7 +722,7 @@ PSTricks parser 0.2.2:
 
 
 ***********************************************************************************
-Version 1.8 -- 13/09/2006
+Version 1.8 -- 2006-09-13
 
 - added: new localisation, Spanish;
 - added: new shape, axes;
@@ -763,7 +769,7 @@ PSTricks parser 0.2.1:
 
 
 **************************************************************************************
-Version 1.7 -- 23/07/2006
+Version 1.7 -- 2006-08-23
 
 - added: shadow management;
 - added: colour shifting management;
@@ -775,30 +781,25 @@ Version 1.7 -- 23/07/2006
 - improvement: can change the size of the rounds corners for rectangles and squares;
 - improvement: the frames of parameters have a better interface;
 - improvement: gif can be included or converted;
-- improvement: batch conversion: a check box define if the pictures must be converted
-               in their directory or not;
+- improvement: batch conversion: a check box define if the pictures must be converted in their directory or not;
 - improvement: new icons;
 
 - fixed #1404791: when refreshing the templates, there thumbnails were not updated;
 - fixed #1487192: when a frame of parameters is opened, the figure can be deleted or modified;
-- fixed #1481272: the colour of the interior of the arrows with the circle shape must be as the 
-                  interior of the figure;
+- fixed #1481272: the colour of the interior of the arrows with the circle shape must be as the interior of the figure;
 - fixed #1487185: scrollbars are not updated when changing the font or the size of a text;
 - fixed #1489350: the size of a text change when zooming in and zooming out;
 - fixed #1489644: scrollbars of the parameters frame of grids are not always updated.
-- fixed #1489551: labels of grids and texts are not resized when you change the number 
-                  of pixels per cm/inch of the draw;
+- fixed #1489551: labels of grids and texts are not resized when you change the number of pixels per cm/inch of the draw;
 - fixed #1502040: when subgriddiv=1, borders must not be drawn;
 - fixed #1502043: some defaults values of lines' parameters were false;
-- fixed #1502048: for arcs, the start angle can be greater than the end angle to avoid problems
-                  during the drawing and the parsing (\pswedge(2,1){1.5}{300}{200});
+- fixed #1502048: for arcs, the start angle can be greater than the end angle to avoid problems during the drawing and the parsing (\pswedge(2,1){1.5}{300}{200});
 - fixed #1502046: for Bézier curves, the controls points had a wrong size;
 - fixed #1502049: we must be able to fill the dot shape 'o';
 - fixed #1512530: LaTeXDraw files containing picture cannot be loaded;
 - fixed #1512533: undo/redo: bad undo management when creating and cancelling a text/grid;
 - fixed #1512537: undo/redo: toolbar still active when redo a 'delete' action ;
-- fixed #1512538: undo/redo: the redo was never cleared when an action, different than 
-                  redo, occurred;
+- fixed #1512538: undo/redo: the redo was never cleared when an action, different than redo, occurred;
 - fixed #1515149: bug in the method Line.getPerpendicularLine(): when the x-coordinate of a 
                   point of a triangle/rhombus is 0 a problem in the display occurred;
 - fixed #1516288: % not always replaced by \% during the code generation;
@@ -826,21 +827,18 @@ PSTricks parser 0.2:
 - fixed #1502711: when parsing a polygon with only two points, the third point was not created;
 - fixed #1502712: parsing the command \psset{origin={1,1}} launched an exception;
 - fixed #1502713: coordinate like (1pt, 2in) and size like {1cm} must be parsed;
-- fixed #1502714: when insert PSTricks code with \begin{pspicture} in comment, this commented
-                  command was understood like an uncommented command;
+- fixed #1502714: when insert PSTricks code with \begin{pspicture} in comment, this commented command was understood like an uncommented command;
 - fixed #1502715: the format \pswedge{3}{0}{70} was not supported;
-- fixed #1515871: when you insert pstricks code like \begin{center}\begin{pspicture} the
-                  \begin{pspicture} was ignored;
+- fixed #1515871: when you insert pstricks code like \begin{center}\begin{pspicture} the \begin{pspicture} was ignored;
 - fixed #1516165:  the \% command was ignored;
 - fixed #1519847: pink colour not managed;
 - fixed #1519934: text not always parsed;
 - fixed #1520384: \bf and \it have no effect;
-- fixed #1523726: error during the parsing of the command \psgrid; for instance \rput(0,0){\psgrid}
-                  didn't work.
+- fixed #1523726: error during the parsing of the command \psgrid; for instance \rput(0,0){\psgrid} didn't work.
 
 
 **************************************************************************************
-Version 1.6 -- 02/05/2006
+Version 1.6 -- 2006-05-02
 
 WARNING: YOU MUST REPLACE THE FORMER 'Classic grid.ldp' OF THE TEMPLATES DIRECTORY BY THE NEW
          'Classic grid.ldp' OF THE LaTeXDraw1.6_bin.zip.
@@ -868,15 +866,12 @@ WARNING: YOU MUST REPLACE THE FORMER 'Classic grid.ldp' OF THE TEMPLATES DIRECTO
 - fixed: when load a file with comments, the comments are too much '%';
 - fixed: the borders of the selection was not updated when pasted several texts;
 - fixed: not able to have French translation;
-- fixed: the borders of the texts and of the grids were not always updated -> bad
-          position of texts;
+- fixed: the borders of the texts and of the grids were not always updated -> bad position of texts;
 - fixed: if a text was empty, you could not select it but it existed in the code panel;
 - fixed: problem in the management of the position of grids;
 - fixed: grids had not read/write stream methods (2);
-- fixed: when change a coordinate in a parameters frame and close the frame, the modified
-          figure is not updated whereas;
-- fixed: glimpse figures (rectangle, square, ..) were not updated when change their width, ...
-          in their parameters frame;
+- fixed: when change a coordinate in a parameters frame and close the frame, the modified figure is not updated whereas;
+- fixed: glimpse figures (rectangle, square, ..) were not updated when change their width, ... in their parameters frame;
 - fixed: the grid was exported when exporting in eps;
 - fixed: in several cases, a figure does not rotate when the angle is 180°;
 - fixed: figures can move during the resizement of several polygons ;
@@ -906,8 +901,7 @@ WARNING: YOU MUST REPLACE THE FORMER 'Classic grid.ldp' OF THE TEMPLATES DIRECTO
 - added: export as PPM;
 - added: can insert pictures;
 - added: new figure, joined lines;
-- added: LaTeXDraw can be used to convert jpeg|png|wmf|bmp|ppm pictures in 
-          eps|jpeg|png|ppm pictures with a batch processing;
+- added: LaTeXDraw can be used to convert jpeg|png|wmf|bmp|ppm pictures in eps|jpeg|png|ppm pictures with a batch processing;
 - added: the LaTeXDraw manual;
 - added: import PSTricks code (PSTricks parser version 0.1);
 - added: can insert PSTricks code in a draw (use the PSTricks parser).
@@ -923,13 +917,12 @@ WARNING: YOU MUST REPLACE THE FORMER 'Classic grid.ldp' OF THE TEMPLATES DIRECTO
 
 
 **************************************************************************************
-Version 1.5.1.1 -- 28/01/2006
+Version 1.5.1.1 -- 2006-01-28
 
 - fixed: minor bug with the isModified attribute;
 - fixed: ellipse didn't rotate very well;
 - fixed: error during the read of templates: templates could not be loaded;
-- fixed: when put '%' in comments or in a text, it was considered as a start of a 
-          comment by the TeX parser;
+- fixed: when put '%' in comments or in a text, it was considered as a start of a comment by the TeX parser;
 - fixed: when a '\' was in a text, the label, ... it was considered as a command;
 - fixed: an exception appeared during the selection of figures when the draw was empty;
 - fixed: display->grid was not updated when change the unit of length (always in cm);
@@ -944,14 +937,12 @@ Version 1.5.1.1 -- 28/01/2006
 
 
 **************************************************************************************
-Version 1.5.1 -- 20/01/2006
+Version 1.5.1 -- 2006-01-20
 
 - fixed: figure id could be as big as 12982109 for example;
 - fixed: params button was active when several figures were selected;
-- fixed: the rotation of several selected or joined figures didn't
-          rotated the gravity centre of these figures;
-- fixed: error when shifting a triangle or a rhombus (shift method
-          not overridden);
+- fixed: the rotation of several selected or joined figures didn't rotated the gravity centre of these figures;
+- fixed: error when shifting a triangle or a rhombus (shift method not overridden);
 - fixed: a dotted line began before the first point;
 - fixed: the delimiters of a square could not be selected (pb in isIn);
 - fixed: isModified was activated when we confirmed preferences frame;
@@ -974,12 +965,11 @@ Version 1.5.1 -- 20/01/2006
 
 
 **************************************************************************************
-Version 1.5 -- 13/01/2006
+Version 1.5 -- 2006-01-13
 
 - fixed: bug in intersect method;
 - fixed: bug with the default button in the parameters frames;
-- fixed: when we click the button default during the creation of a text or a
-          grid, the figure wasn't deleted;
+- fixed: when we click the button default during the creation of a text or a grid, the figure wasn't deleted;
 - fixed: bug when saving parameters of a line in the parameters frame;
 - fixed: problem with the rescale methods;
 - fixed: minor bug in the code generation methods with the interior colour;
@@ -987,21 +977,16 @@ Version 1.5 -- 13/01/2006
 - fixed: in the draw method of ArrowHead; round bracket used wrong attribute;
 - fixed: bugs in the ArrowHead code generator method;
 - fixed: bug in the arc code generator method;
-- fixed: problem when resize several figures containing at least a non-resizable
-          figure like grid or text;
+- fixed: problem when resize several figures containing at least a non-resizable figure like grid or text;
 - fixed: problem during the first selection akin points: the borders were wrong;
 - fixed: problem when resize several figures after a rotation;
 - fixed: wrong management of the bounds of the figures;
 - fixed: North-East-South-West rectangle's delimiters where managed with squares;
-- fixed: problem of approximations in the code generator methods: values 
-          like 10E-4 could appeared;
+- fixed: problem of approximations in the code generator methods: values like 10E-4 could appeared;
 - fixed: problem when drawing a line, in the setLastPoint method;
-- fixed: a bug in the method line.findPoints(Point p, double distance) with 
-          horizontal line; 
-- fixed: in the method Figure.getBordersPoint(int), if id=-1, the function didn't 
-          return the good point;
-- fixed: It was possible to create a polygon with 2 points; it's not the goal of 
-          a polygon but a line;
+- fixed: a bug in the method line.findPoints(Point p, double distance) with horizontal line;
+- fixed: in the method Figure.getBordersPoint(int), if id=-1, the function didn't return the good point;
+- fixed: It was possible to create a polygon with 2 points; it's not the goal of a polygon but a line;
 - fixed: with wedge and pie, the interiors line were not managed in the isIn method;
 - fixed: the borders of a text were too small;
 - fixed: when launch a new project, the name of the former project still remain;
@@ -1024,10 +1009,8 @@ Version 1.5 -- 13/01/2006
 - improvement: a lots of more parameters for figures;
 - improvement: "showpoints" function is now enable for arc;
 - improvement: arrowheads for arc;
-- improvement: the PSTricks code is updated only on the mouse released (speed 
-                optimisation);
-- added: a panel is into the parameters frames in order to have a glimpse
-          of the modified figure;
+- improvement: the PSTricks code is updated only on the mouse released (speed optimisation);
+- added: a panel is into the parameters frames in order to have a glimpse of the modified figure;
 - added: new figure, grid;
 - added: hatching management;
 - added: can join/separate several figures;
@@ -1041,7 +1024,7 @@ Version 1.5 -- 13/01/2006
 
 
 **************************************************************************************
-Version 1.0.2 -- 22/10/2005
+Version 1.0.2 -- 2005-10-22
 
 - TeXDraw is now LaTeXDraw
 - fixed: bug in the polygon code generation method
@@ -1049,9 +1032,8 @@ Version 1.0.2 -- 22/10/2005
 - fixed: bug in the ellipse, circle, arc code generation methods
 
 
-
 **************************************************************************************
-Version 1.0.1 -- 10/10/2005
+Version 1.0.1 -- 2005-10-10
 
 - fixed: bug with isModified attribute
 - fixed: a possible bug with open/save actions
