@@ -177,7 +177,7 @@ public interface ILine {
 	 * @param x The x-coordinate of the point of reference.
 	 * @param y The y-coordinate of the point of reference.
 	 * @param distance The distance between p and the points we must find.
-	 * @return The found points or null if a problem occurs.
+	 * @return The found points or an empty array if a problem occurs.
 	 */
 	IPoint[] findPoints(final double x, final double y, final double distance);
 
@@ -186,7 +186,7 @@ public interface ILine {
 	 * "distance" of the point "p" of the line.
 	 * @param p The point of reference.
 	 * @param distance The distance between p and the points we must find.
-	 * @return The found points or null if a problem occurs.
+	 * @return The found points or an empty array if a problem occurs.
 	 */
 	IPoint[] findPoints(final IPoint p, final double distance);
 

@@ -1083,7 +1083,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				l.setP1(pt1);
 				final IPoint[] pts = l.findPoints(pt1, 2d * distance * (ignoreMidPt ? 1d : gradMidPt));
 
-				if(pts != null) {
+				if(pts.length > 0) {
 					pt2 = pts[0];
 				}
 

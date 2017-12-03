@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.number.IsCloseTo.closeTo;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -453,38 +454,37 @@ public class TestILine implements HelperTest {
 	public void testFindPointsKO1(@DoubleData(bads = true, vals = {}) final double value) {
 		line.setLine(1, 1, 3, 1);
 		line.updateAandB();
-		assertNull(line.findPoints(value, 0, 10));
+		assertEquals(0, line.findPoints(value, 0, 10).length);
 	}
 
 	@Theory
 	public void testFindPointsKO2(@DoubleData(bads = true, vals = {}) final double value) {
 		line.setLine(1, 1, 3, 1);
 		line.updateAandB();
-		assertNull(line.findPoints(0, value, 10));
+		assertEquals(0, line.findPoints(0, value, 10).length);
 	}
 
 	@Theory
 	public void testFindPointsKO3(@DoubleData(bads = true, vals = {}) final double value) {
 		line.setLine(1, 1, 3, 1);
 		line.updateAandB();
-		assertNull(line.findPoints(0, 0, value));
+		assertEquals(0, line.findPoints(0, 0, value).length);
 	}
 
 	@Test
 	public void testFindPointsNULL() {
-		assertNull(line.findPoints(null, 10d));
+		assertEquals(0, line.findPoints(null, 10d).length);
 	}
 
 	@Theory
 	public void testFindPointsKO4(@DoubleData(bads = true, vals = {}) final double value) {
-		assertNull(line.findPoints(ShapeFactory.INST.createPoint(value, value), 10));
+		assertEquals(0, line.findPoints(ShapeFactory.INST.createPoint(value, value), 10).length);
 	}
 
 	@Test
 	public void testFindPoints() {
 		line.setLine(1, 1, 3, 1);
 		IPoint[] pts = line.findPoints(1, 1, 2);
-		assertNotNull(pts);
 		assertEqualsDouble(2, pts.length);
 		assertEqualsDouble(1d, pts[0].getY());
 		assertEqualsDouble(1d, pts[1].getY());

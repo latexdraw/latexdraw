@@ -150,9 +150,13 @@ abstract class ViewArrowableTrait<T extends Shape, S extends IArrowableSingleSha
 
 	protected static Optional<IPoint> getArrowReducedPoint(final IArrow arrow) {
 		final ILine l = arrow.getArrowLine();
-		if(l == null) return Optional.empty();
+		if(l == null) {
+			return Optional.empty();
+		}
 		final IPoint[] points = l.findPoints(l.getX1(), l.getY1(), arrow.getArrowShapeLength());
-		if(points == null) return Optional.empty();
+		if(points.length == 0) {
+			return Optional.empty();
+		}
 		return Arrays.stream(points).reduce((p1, p2) -> p1.distance(l.getPoint2()) < p2.distance(l.getPoint2()) ? p1 : p2);
 	}
 }

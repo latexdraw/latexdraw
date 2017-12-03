@@ -107,63 +107,45 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public IPoint[] findPoints(final IPoint p, final double distance) {
-		return p == null ? null : findPoints(p.getX(), p.getY(), distance);
+		return p == null ? new IPoint[0] : findPoints(p.getX(), p.getY(), distance);
 	}
 
 
 	@Override
 	public IPoint[] findPoints(final double x, final double y, final double distance) {
-		if(!MathUtils.INST.isValidPt(x, y) || !MathUtils.INST.isValidCoord(distance)) return null;
+		if(!MathUtils.INST.isValidPt(x, y) || !MathUtils.INST.isValidCoord(distance)) {
+			return new IPoint[0];
+		}
 
-		if(MathUtils.INST.equalsDouble(distance, 0.)) {
-			final IPoint[] sol = new LPoint[1];
-			sol[0] = ShapeFactory.INST.createPoint(x, y);
-
-			return sol;
+		if(MathUtils.INST.equalsDouble(distance, 0d)) {
+			return new IPoint[]{ShapeFactory.INST.createPoint(x, y)};
 		}
 
 		if(isVerticalLine()) {
-			if(isHorizontalLine())// The line is a point. So no position can be computed.
-				return null;
+			// The line is a point. So no position can be computed.
+			if(isHorizontalLine()) {
+				return new IPoint[0];
+			}
 
-			final IPoint[] sol = new LPoint[2];
-			sol[0] = ShapeFactory.INST.createPoint(x, y - distance);
-			sol[1] = ShapeFactory.INST.createPoint(x, y + distance);
-
-			return sol;
+			return new IPoint[]{ShapeFactory.INST.createPoint(x, y - distance), ShapeFactory.INST.createPoint(x, y + distance)};
 		}
 
-		final double aLine = a * a + 1.0;
-		final double bLine = -2.0 * (x + y * a - a * b);
-		final double cLine = b * b - 2.0 * y * b + y * y + x * x - distance * distance;
-		final double delta = bLine * bLine - 4.0 * aLine * cLine;
+		final double aLine = a * a + 1d;
+		final double bLine = -2d * (x + y * a - a * b);
+		final double cLine = b * b - 2d * y * b + y * y + x * x - distance * distance;
+		final double delta = bLine * bLine - 4d * aLine * cLine;
 
-		if(delta > 0.0) {
-			final double x1b;
-			final double x2b;
-			final double y1b;
-			final double y2b;
-			final IPoint[] sol = new LPoint[2];
+		if(delta > 0d) {
+			final double x1b = (-bLine + Math.sqrt(delta)) / (2d * aLine);
+			final double x2b = (-bLine - Math.sqrt(delta)) / (2d * aLine);
+			return new IPoint[]{ShapeFactory.INST.createPoint(x1b, a * x1b + b), ShapeFactory.INST.createPoint(x2b, a * x2b + b)};
+		}
 
-			x1b = (-bLine + Math.sqrt(delta)) / (2 * aLine);
-			x2b = (-bLine - Math.sqrt(delta)) / (2 * aLine);
-			y1b = a * x1b + b;
-			y2b = a * x2b + b;
-			sol[0] = ShapeFactory.INST.createPoint(x1b, y1b);
-			sol[1] = ShapeFactory.INST.createPoint(x2b, y2b);
-
-			return sol;
-		}else if(MathUtils.INST.equalsDouble(delta, 0.0)) {
-			final double x2b;
-			final double y2b;
-			final IPoint[] sol = new LPoint[1];
-
-			x2b = -bLine / 2 * aLine;
-			y2b = a * x2b + b;
-			sol[0] = ShapeFactory.INST.createPoint(x2b, y2b);
-
-			return sol;
-		}else return null;
+		if(MathUtils.INST.equalsDouble(delta, 0d)) {
+			final double x2b = -bLine / 2d * aLine;
+			return new IPoint[] {ShapeFactory.INST.createPoint(x2b, a * x2b + b)};
+		}
+		return new IPoint[0];
 	}
 
 
