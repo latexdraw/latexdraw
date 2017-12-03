@@ -16,6 +16,15 @@
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
   <item>
+    <title>LaTeXDraw 3.3.8 -- Bugs fixed</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Sun, 03 dec 2017 02:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS58</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS58</link>
+    <description>This bugfix release fixes an annoying crash while running the application using Java 9.</description>
+  </item>
+
+  <item>
     <title>LaTeXDraw 3.3.7 -- Bugs fixed</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Sun, 19 nov 2017 02:00:00 GMT</pubDate>
