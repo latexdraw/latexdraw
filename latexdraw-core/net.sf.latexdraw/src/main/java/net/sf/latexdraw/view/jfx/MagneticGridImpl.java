@@ -58,8 +58,8 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 		modified = false;
 		canvas = canv;
 		reinitGrid();
-		setStroke(Color.BLACK);
-		setStrokeWidth(0.3);
+		setStroke(new Color(0d, 0d, 1d, 0.3d));
+		setStrokeWidth(1);
 		canvas.zoomProperty().addListener((observable, oldValue, newValue) -> update());
 	}
 
