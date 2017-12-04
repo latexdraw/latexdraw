@@ -98,48 +98,61 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		setWidgetsVisible(act);
 	}
 
-	protected final void firstPropHand(final ModifyShapeProperty a, final Object o, final ShapeProperties p) {
-		a.setGroup(canvas.getDrawing().getSelection().duplicateDeep(false));
-		a.setProperty(p);
-		a.setValue(o);
+	protected final ModifyShapeProperty mapModShProp(final Object o, final ShapeProperties p) {
+		return new ModifyShapeProperty(p, canvas.getDrawing().getSelection().duplicateDeep(false), o);
 	}
 
-	protected final void firstPropPen(final ModifyPencilParameter a, final Object o, final ShapeProperties p) {
-		a.setPencil(pencil);
-		a.setProperty(p);
-		a.setValue(o);
+	protected final ModifyPencilParameter firstPropPen(final Object o, final ShapeProperties p) {
+		return new ModifyPencilParameter(p, pencil, o);
 	}
 
 	protected void addComboPropBinding(final ComboBox<?> combo, final ShapeProperties prop) throws InstantiationException, IllegalAccessException {
-		comboboxBinder(ModifyShapeProperty.class).on(combo).first((a, i) -> firstPropHand(a, i.getWidget().getSelectionModel().getSelectedItem(), prop)).when(handActiv).bind();
-		comboboxBinder(ModifyPencilParameter.class).on(combo).first((a, i) -> firstPropPen(a, i.getWidget().getSelectionModel().getSelectedItem(), prop)).when(pencilActiv).bind();
+		comboboxBinder(ModifyShapeProperty.class).on(combo).map(i -> mapModShProp(i.getWidget().getSelectionModel().getSelectedItem(), prop)).when(handActiv).bind();
+		comboboxBinder(ModifyPencilParameter.class).on(combo).map(i -> firstPropPen(i.getWidget().getSelectionModel().getSelectedItem(), prop)).when(pencilActiv).bind();
 	}
 
 	protected void addSpinnerPropBinding(final Spinner<?> spinner, final ShapeProperties prop, final boolean angle) throws InstantiationException, IllegalAccessException {
-		spinnerBinder(ModifyShapeProperty.class).on(spinner).first((a, i) -> firstPropHand(a, null, prop)).
+		spinnerBinder(ModifyShapeProperty.class).on(spinner).map(i -> mapModShProp(null, prop)).
 			then((a, i) -> a.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
 			when(handActiv).bind();
 
-		spinnerBinder(ModifyPencilParameter.class).on(spinner).first((a, i) -> firstPropPen(a, null, prop)).
+		spinnerBinder(ModifyPencilParameter.class).on(spinner).map(i -> firstPropPen(null, prop)).
 			then((a, i) -> a.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
 			when(pencilActiv).bind();
 	}
 
 	protected void addColorPropBinding(final ColorPicker picker, final ShapeProperties prop) throws InstantiationException, IllegalAccessException {
-		colorPickerBinder(ModifyShapeProperty.class).on(picker).first((a, i) ->
-			firstPropHand(a, ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop)).when(handActiv).bind();
+		colorPickerBinder(ModifyShapeProperty.class).on(picker).map(i -> mapModShProp(ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop)).
+			when(handActiv).bind();
 
-		colorPickerBinder(ModifyPencilParameter.class).on(picker).first((a, i) ->
-			firstPropPen(a, ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop)).when(pencilActiv).bind();
+		colorPickerBinder(ModifyPencilParameter.class).on(picker).map(i -> firstPropPen(ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop)).
+			when(pencilActiv).bind();
 	}
 
 	protected void addCheckboxPropBinding(final CheckBox cb, final ShapeProperties prop) throws InstantiationException, IllegalAccessException {
-		checkboxBinder(ModifyShapeProperty.class).on(cb).first((a, i) -> firstPropHand(a, i.getWidget().isSelected(), prop)).when(handActiv).bind();
-		checkboxBinder(ModifyPencilParameter.class).on(cb).first((a, i) -> firstPropPen(a, i.getWidget().isSelected(), prop)).when(pencilActiv).bind();
+		checkboxBinder(ModifyShapeProperty.class).on(cb).map(i -> mapModShProp(i.getWidget().isSelected(), prop)).when(handActiv).bind();
+		checkboxBinder(ModifyPencilParameter.class).on(cb).map(i -> firstPropPen(i.getWidget().isSelected(), prop)).when(pencilActiv).bind();
 	}
 
 	protected void addTogglePropBinding(final ToggleButton button, final ShapeProperties prop, final boolean invert) throws InstantiationException, IllegalAccessException {
-		toggleButtonBinder(ModifyShapeProperty.class).on(button).first((a, i) -> firstPropHand(a, i.getWidget().isSelected() ^ invert, prop)).when(handActiv).bind();
-		toggleButtonBinder(ModifyPencilParameter.class).on(button).first((a, i) -> firstPropPen(a, i.getWidget().isSelected() ^ invert, prop)).when(pencilActiv).bind();
+		toggleButtonBinder(ModifyShapeProperty.class).on(button).map(i -> mapModShProp(i.getWidget().isSelected() ^ invert, prop)).when(handActiv).bind();
+		toggleButtonBinder(ModifyPencilParameter.class).on(button).map(i -> firstPropPen(i.getWidget().isSelected() ^ invert, prop)).when(pencilActiv).bind();
+	}
+
+	protected void addTogglePropBinding(final ToggleButton button, final ShapeProperties prop, final Object value) throws InstantiationException, IllegalAccessException {
+		toggleButtonBinder(ModifyShapeProperty.class).on(button).map(i -> mapModShProp(value, prop)).when(handActiv).bind();
+		toggleButtonBinder(ModifyPencilParameter.class).on(button).map(i -> firstPropPen(value, prop)).when(pencilActiv).bind();
+	}
+
+	protected void addSpinnerXYPropBinding(final Spinner<Double> spinnerX, final Spinner<Double> spinnerY, final ShapeProperties property)
+		throws InstantiationException, IllegalAccessException {
+		spinnerBinder(ModifyShapeProperty.class).on(spinnerX, spinnerY).
+			map(i -> new ModifyShapeProperty(property, canvas.getDrawing().getSelection().duplicateDeep(false), null)).
+			then(a -> a.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).when(handActiv).bind();
+
+		spinnerBinder(ModifyPencilParameter.class).on(spinnerX, spinnerY).
+			map(i -> new ModifyPencilParameter(property, pencil, null)).
+			then(a -> a.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).
+			when(pencilActiv).bind();
 	}
 }

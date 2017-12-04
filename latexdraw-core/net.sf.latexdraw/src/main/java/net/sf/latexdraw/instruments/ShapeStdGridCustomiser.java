@@ -17,14 +17,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.TitledPane;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import org.malai.javafx.binding.SpinnerBinding;
 
 /**
  * This instrument modifies the parameters of grids and axes.
@@ -87,83 +82,9 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		addSpinnerPropBinding(labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false);
-		addBinding(new Spinner4StdGridPencil(xEndS, ShapeProperties.GRID_END));
-		addBinding(new Spinner4StdGridPencil(yEndS, ShapeProperties.GRID_END));
-		addBinding(new Spinner4StdGridHand(xEndS, ShapeProperties.GRID_END));
-		addBinding(new Spinner4StdGridHand(yEndS, ShapeProperties.GRID_END));
-		addBinding(new Spinner4StdGridPencil(xStartS, ShapeProperties.GRID_START));
-		addBinding(new Spinner4StdGridPencil(yStartS, ShapeProperties.GRID_START));
-		addBinding(new Spinner4StdGridHand(xStartS, ShapeProperties.GRID_START));
-		addBinding(new Spinner4StdGridHand(yStartS, ShapeProperties.GRID_START));
-		addBinding(new Spinner4StdGridPencil(xOriginS, ShapeProperties.GRID_ORIGIN));
-		addBinding(new Spinner4StdGridPencil(yOriginS, ShapeProperties.GRID_ORIGIN));
-		addBinding(new Spinner4StdGridHand(xOriginS, ShapeProperties.GRID_ORIGIN));
-		addBinding(new Spinner4StdGridHand(yOriginS, ShapeProperties.GRID_ORIGIN));
-	}
 
-
-	private abstract class Spinner4StdGrid<A extends ShapePropertyAction> extends SpinnerBinding<A, ShapeStdGridCustomiser> {
-		protected final ShapeProperties prop;
-
-		Spinner4StdGrid(final Spinner<?> widget, final ShapeProperties property, final Class<A> classAction) throws InstantiationException, IllegalAccessException {
-			super(ShapeStdGridCustomiser.this, false, classAction, widget);
-			prop = property;
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(prop);
-			updateAction();
-		}
-
-		@Override
-		public void updateAction() {
-			if(prop == ShapeProperties.GRID_END) {
-				action.setValue(ShapeFactory.INST.createPoint(xEndS.getValue(), yEndS.getValue()));
-			}
-			else {
-				if(prop == ShapeProperties.GRID_START) {
-					action.setValue(ShapeFactory.INST.createPoint(xStartS.getValue(), yStartS.getValue()));
-				}
-				else {
-					action.setValue(ShapeFactory.INST.createPoint(xOriginS.getValue(), yOriginS.getValue()));
-				}
-			}
-		}
-	}
-
-
-	class Spinner4StdGridPencil extends Spinner4StdGrid<ModifyPencilParameter> {
-		Spinner4StdGridPencil(final Spinner<?> widget, final ShapeProperties property) throws InstantiationException, IllegalAccessException {
-			super(widget, property, ModifyPencilParameter.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setPencil(instrument.pencil);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	class Spinner4StdGridHand extends Spinner4StdGrid<ModifyShapeProperty> {
-		Spinner4StdGridHand(final Spinner<?> widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
-			super(widget, property, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setGroup(instrument.drawing.getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
+		addSpinnerXYPropBinding(xEndS, yEndS, ShapeProperties.GRID_END);
+		addSpinnerXYPropBinding(xStartS, yStartS, ShapeProperties.GRID_START);
+		addSpinnerXYPropBinding(xOriginS, yOriginS, ShapeProperties.GRID_ORIGIN);
 	}
 }

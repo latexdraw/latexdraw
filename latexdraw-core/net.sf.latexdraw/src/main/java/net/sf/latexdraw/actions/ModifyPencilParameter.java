@@ -36,8 +36,9 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 	/** The pencil to modify. */
 	private Pencil pencil;
 
-	public ModifyPencilParameter() {
-		super();
+	public ModifyPencilParameter(final ShapeProperties property, final Pencil pencil, final Object value) {
+		super(property, value);
+		this.pencil = pencil;
 	}
 
 	@Override

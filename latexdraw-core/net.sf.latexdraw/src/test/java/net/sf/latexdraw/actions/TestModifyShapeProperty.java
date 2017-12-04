@@ -87,7 +87,6 @@ public class TestModifyShapeProperty extends TestUndoableAction<ModifyShapePrope
 	@Override
 	@Before
 	public void setUp() {
-		super.setUp();
 		group = ShapeFactory.INST.createGroup();
 
 		switch(property) {
@@ -581,6 +580,8 @@ public class TestModifyShapeProperty extends TestUndoableAction<ModifyShapePrope
 				value = 11.123;
 				break;
 		}
+
+		super.setUp();
 	}
 
 	@Override
@@ -610,7 +611,7 @@ public class TestModifyShapeProperty extends TestUndoableAction<ModifyShapePrope
 
 	@Override
 	protected ModifyShapeProperty createAction() {
-		return new ModifyShapeProperty();
+		return new ModifyShapeProperty(property, group, value);
 	}
 
 
@@ -717,9 +718,6 @@ public class TestModifyShapeProperty extends TestUndoableAction<ModifyShapePrope
 	protected void configCorrectAction() {
 		configureShapes();
 		memento = mementoCmd.get();
-		action.setGroup(group);
-		action.setProperty(property);
-		action.setValue(value);
 	}
 
 	@Override

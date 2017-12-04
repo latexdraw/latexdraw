@@ -17,8 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
@@ -78,40 +76,8 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initi
 		addSpinnerPropBinding(startAngleS, ShapeProperties.ARC_START_ANGLE, true);
 		addSpinnerPropBinding(endAngleS, ShapeProperties.ARC_END_ANGLE, true);
 
-		toggleButtonBinder(ModifyShapeProperty.class).on(arcB).first(a -> {
-			a.setProperty(ShapeProperties.ARC_STYLE);
-			a.setValue(ArcStyle.ARC);
-			a.setGroup(drawing.getSelection().duplicateDeep(false));
-		}).when(handActiv).bind();
-
-		toggleButtonBinder(ModifyShapeProperty.class).on(chordB).first(a -> {
-			a.setProperty(ShapeProperties.ARC_STYLE);
-			a.setValue(ArcStyle.CHORD);
-			a.setGroup(drawing.getSelection().duplicateDeep(false));
-		}).when(handActiv).bind();
-
-		toggleButtonBinder(ModifyShapeProperty.class).on(wedgeB).first(a -> {
-			a.setProperty(ShapeProperties.ARC_STYLE);
-			a.setValue(ArcStyle.WEDGE);
-			a.setGroup(drawing.getSelection().duplicateDeep(false));
-		}).when(handActiv).bind();
-
-		toggleButtonBinder(ModifyPencilParameter.class).on(arcB).first(a -> {
-			a.setProperty(ShapeProperties.ARC_STYLE);
-			a.setValue(ArcStyle.ARC);
-			a.setPencil(pencil);
-		}).when(pencilActiv).bind();
-
-		toggleButtonBinder(ModifyPencilParameter.class).on(chordB).first(a -> {
-			a.setProperty(ShapeProperties.ARC_STYLE);
-			a.setValue(ArcStyle.CHORD);
-			a.setPencil(pencil);
-		}).when(pencilActiv).bind();
-
-		toggleButtonBinder(ModifyPencilParameter.class).on(wedgeB).first(a -> {
-			a.setProperty(ShapeProperties.ARC_STYLE);
-			a.setValue(ArcStyle.WEDGE);
-			a.setPencil(pencil);
-		}).when(pencilActiv).bind();
+		addTogglePropBinding(arcB, ShapeProperties.ARC_STYLE, ArcStyle.ARC);
+		addTogglePropBinding(chordB, ShapeProperties.ARC_STYLE, ArcStyle.CHORD);
+		addTogglePropBinding(wedgeB, ShapeProperties.ARC_STYLE, ArcStyle.WEDGE);
 	}
 }

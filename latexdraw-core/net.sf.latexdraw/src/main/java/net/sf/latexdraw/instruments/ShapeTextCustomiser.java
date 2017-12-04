@@ -11,22 +11,17 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import net.sf.latexdraw.actions.LatexProperties;
 import net.sf.latexdraw.actions.ModifyLatexProperties;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.prop.ITextProp;
@@ -64,14 +59,12 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	/** The error log field. */
 	@FXML private TextArea logField;
 	@FXML private TitledPane mainPane;
-	private final Map<ButtonBase, TextPosition> map;
 
 	/**
 	 * Creates the instrument.
 	 */
 	public ShapeTextCustomiser() {
 		super();
-		map = new HashMap<>();
 	}
 
 	@Override
@@ -82,15 +75,6 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	@Override
 	public void initialize(URL url, ResourceBundle bundle) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
-		map.put(bButton, TextPosition.BOT);
-		map.put(blButton, TextPosition.BOT_LEFT);
-		map.put(brButton, TextPosition.BOT_RIGHT);
-		map.put(tButton, TextPosition.TOP);
-		map.put(tlButton, TextPosition.TOP_LEFT);
-		map.put(centreButton, TextPosition.CENTER);
-		map.put(lButton, TextPosition.LEFT);
-		map.put(rButton, TextPosition.RIGHT);
-		map.put(trButton, TextPosition.TOP_RIGHT);
 	}
 
 	@Override
@@ -108,7 +92,9 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 			centreButton.setSelected(tp == TextPosition.CENTER);
 			lButton.setSelected(tp == TextPosition.LEFT);
 			rButton.setSelected(tp == TextPosition.RIGHT);
-			if(!packagesField.isFocused()){ // Otherwise it means that this field is currently being edited and must not be updated.
+
+			// Otherwise it means that this field is currently being edited and must not be updated.
+			if(!packagesField.isFocused()) {
 				packagesField.setText(LaTeXGenerator.getPackages());
 			}
 
@@ -136,11 +122,15 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		toggleButtonBinder(ModifyPencilParameter.class).on(bButton, blButton, brButton, centreButton, lButton, rButton, tButton, tlButton, trButton).
-			first((a, i) -> firstPropPen(a, map.get(i.getWidget()), ShapeProperties.TEXT_POSITION)).when(pencilActiv).bind();
-
-		toggleButtonBinder(ModifyShapeProperty.class).on(bButton, blButton, brButton, centreButton, lButton, rButton, tButton, tlButton, trButton).
-			first((a, i) -> firstPropHand(a, map.get(i.getWidget()), ShapeProperties.TEXT_POSITION)).when(handActiv).bind();
+		addTogglePropBinding(bButton, ShapeProperties.TEXT_POSITION, TextPosition.BOT);
+		addTogglePropBinding(blButton, ShapeProperties.TEXT_POSITION, TextPosition.BOT_LEFT);
+		addTogglePropBinding(brButton, ShapeProperties.TEXT_POSITION, TextPosition.BOT_RIGHT);
+		addTogglePropBinding(tButton, ShapeProperties.TEXT_POSITION, TextPosition.TOP);
+		addTogglePropBinding(tlButton, ShapeProperties.TEXT_POSITION, TextPosition.TOP_LEFT);
+		addTogglePropBinding(centreButton, ShapeProperties.TEXT_POSITION, TextPosition.CENTER);
+		addTogglePropBinding(lButton, ShapeProperties.TEXT_POSITION, TextPosition.LEFT);
+		addTogglePropBinding(rButton, ShapeProperties.TEXT_POSITION, TextPosition.RIGHT);
+		addTogglePropBinding(trButton, ShapeProperties.TEXT_POSITION, TextPosition.TOP_RIGHT);
 
 		textInputBinder(ModifyLatexProperties.class).on(packagesField).
 			first(a -> a.setProperty(LatexProperties.PACKAGES)).

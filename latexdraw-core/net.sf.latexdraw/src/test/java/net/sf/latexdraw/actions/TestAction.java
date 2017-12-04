@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.malai.action.Action;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public abstract class TestAction<T extends Action> {
@@ -36,11 +35,6 @@ public abstract class TestAction<T extends Action> {
 		configCorrectAction();
 		action.doIt();
 		checkDo();
-	}
-
-	@Test
-	public void testCanDoItDefault() {
-		assertFalse(action.canDo());
 	}
 
 	@Test

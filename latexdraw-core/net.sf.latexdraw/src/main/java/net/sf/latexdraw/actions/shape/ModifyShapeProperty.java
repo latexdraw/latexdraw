@@ -37,8 +37,9 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 	/** The old value of the property. */
 	private List<?> oldValue;
 
-	public ModifyShapeProperty() {
-		super();
+	public ModifyShapeProperty(final ShapeProperties property, final IGroup shapes, final Object value) {
+		super(property, value);
+		this.shapes = shapes;
 	}
 
 	@Override
@@ -101,15 +102,6 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 			oldValue = property.getPropertyValues(shapes);
 		}
 		applyValue(value);
-	}
-
-
-	/**
-	 * Sets the group of shapes to modify.
-	 * @param gp The group of shapes to modify.
-	 */
-	public void setGroup(final IGroup gp) {
-		shapes = gp;
 	}
 
 
@@ -181,7 +173,6 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 			case COLOUR_LINE:
 				return true;
 			case AXES_TICKS_STYLE:
-				//				case AXES_TICKS_SIZE:
 			case AXES_TICKS_SHOW:
 			case AXES_LABELS_INCR:
 			case AXES_LABELS_SHOW:

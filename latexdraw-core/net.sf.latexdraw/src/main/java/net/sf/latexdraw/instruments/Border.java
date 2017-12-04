@@ -292,8 +292,9 @@ public class Border extends CanvasInstrument implements Initializable {
 		}
 
 		@Override
-		public void initAction() {
+		protected ModifyShapeProperty createAction() {
 			final IDrawing drawing = instrument.canvas.getDrawing();
+			ShapeProperties prop = null;
 
 			if(drawing.getSelection().size() == 1) {
 				shape = (IArc) drawing.getSelection().getShapeAt(0);
@@ -303,10 +304,10 @@ public class Border extends CanvasInstrument implements Initializable {
 				IPoint pCentre;
 
 				if(interaction.getSrcObject().get() == instrument.arcHandlerStart) {
-					action.setProperty(ShapeProperties.ARC_START_ANGLE);
+					prop = ShapeProperties.ARC_START_ANGLE;
 					pCentre = shape.getStartPoint();
 				}else {
-					action.setProperty(ShapeProperties.ARC_END_ANGLE);
+					prop = ShapeProperties.ARC_END_ANGLE;
 					pCentre = shape.getEndPoint();
 				}
 
@@ -319,10 +320,15 @@ public class Border extends CanvasInstrument implements Initializable {
 				}
 
 				gap.setPoint(pt.getX() - pCentre.getX(), pt.getY() - pCentre.getY());
-				action.setGroup(drawing.getSelection().duplicateDeep(false));
 			}
+
+			return new ModifyShapeProperty(prop, drawing.getSelection().duplicateDeep(false), null);
 		}
 
+		@Override
+		public void initAction() {
+			// Nothing to do.
+		}
 
 		@Override
 		public void updateAction() {

@@ -20,15 +20,13 @@ public abstract class ShapePropertyAction extends ModifyValue {
 	/** The property to set. */
 	protected ShapeProperties property;
 
-
 	/**
 	 * Creates and initialises the action.
-	 * @since 3.0
 	 */
-	protected ShapePropertyAction() {
-		super();
+	protected ShapePropertyAction(final ShapeProperties property, final Object value) {
+		super(value);
+		this.property = property;
 	}
-
 
 	@Override
 	public void flush() {
@@ -36,28 +34,15 @@ public abstract class ShapePropertyAction extends ModifyValue {
 		property = null;
 	}
 
-
 	@Override
 	protected boolean isValueMatchesProperty() {
 		return isPropertySupported() && property.isValueValid(value);
 	}
 
-
 	/**
 	 * @return True if the property to modify is supported.
-	 * @since 3.0
 	 */
 	protected boolean isPropertySupported() {
 		return property != null;
-	}
-
-
-	/**
-	 * Defines the property to modify
-	 * @param prop The property to modify.
-	 * @since 3.0
-	 */
-	public void setProperty(final ShapeProperties prop) {
-		property = prop;
 	}
 }

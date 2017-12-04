@@ -18,10 +18,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.Pane;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -100,24 +97,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 		addComboPropBinding(showLabels, ShapeProperties.AXES_LABELS_SHOW);
 		addComboPropBinding(shapeTicks, ShapeProperties.AXES_TICKS_STYLE);
 
-		addSpinnerAxesPropBinding(incrLabelX, incrLabelY, ShapeProperties.AXES_LABELS_INCR);
-		addSpinnerAxesPropBinding(distLabelsX, distLabelsY, ShapeProperties.AXES_LABELS_DIST);
+		addSpinnerXYPropBinding(incrLabelX, incrLabelY, ShapeProperties.AXES_LABELS_INCR);
+		addSpinnerXYPropBinding(distLabelsX, distLabelsY, ShapeProperties.AXES_LABELS_DIST);
 
 		addCheckboxPropBinding(showOrigin, ShapeProperties.AXES_SHOW_ORIGIN);
-	}
-
-	private void addSpinnerAxesPropBinding(final Spinner<Double> spinnerX, final Spinner<Double> spinnerY, final ShapeProperties property)
-											throws InstantiationException, IllegalAccessException {
-		spinnerBinder(ModifyShapeProperty.class).on(spinnerX, spinnerY).first(a -> {
-			a.setGroup(canvas.getDrawing().getSelection().duplicateDeep(false));
-			a.setProperty(property);
-		}).then(a -> a.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).
-			when(handActiv).bind();
-
-		spinnerBinder(ModifyPencilParameter.class).on(spinnerX, spinnerY).first(a -> {
-			a.setPencil(pencil);
-			a.setProperty(property);
-		}).then(a -> a.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).
-			when(pencilActiv).bind();
 	}
 }
