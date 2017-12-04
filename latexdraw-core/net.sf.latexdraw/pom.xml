@@ -75,6 +75,7 @@
                     <threadCount>1</threadCount>
                     <skipTests>false</skipTests>
                     <testFailureIgnore>false</testFailureIgnore>
+                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
                 </configuration>
             </plugin>
 
