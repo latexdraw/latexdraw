@@ -224,18 +224,16 @@ public class Hand extends CanvasInstrument {
 
 		@Override
 		public void updateAction() {
-			interaction.getSrcPoint().ifPresent(start -> interaction.getEndPt().ifPresent(end -> {
-				final IPoint startPt = instrument.grid.getTransformedPointToGrid(start);
-				final IPoint endPt = instrument.grid.getTransformedPointToGrid(end);
-				action.setTx(endPt.getX() - startPt.getX());
-				action.setTy(endPt.getY() - startPt.getY());
-			}));
+			final IPoint startPt = instrument.grid.getTransformedPointToGrid(interaction.getSrcPoint());
+			final IPoint endPt = instrument.grid.getTransformedPointToGrid(interaction.getEndPt());
+			action.setTx(endPt.getX() - startPt.getX());
+			action.setTy(endPt.getY() - startPt.getY());
 		}
 
 		@Override
 		public boolean isConditionRespected() {
 			final Optional<Node> startObject = interaction.getSrcObject();
-			final MouseButton button = interaction.getButton().orElse(MouseButton.NONE);
+			final MouseButton button = interaction.getButton();
 
 			return startObject.isPresent() && !instrument.canvas.getDrawing().getSelection().isEmpty() &&
 				(startObject.get() == instrument.canvas && button == MouseButton.SECONDARY ||
@@ -271,54 +269,52 @@ public class Hand extends CanvasInstrument {
 
 		@Override
 		public void updateAction() {
-			interaction.getEndPt().ifPresent(endPt -> interaction.getSrcPoint().ifPresent(startPt -> {
-				final IPoint start = instrument.getAdaptedOriginPoint(startPt);
-				final IPoint end = instrument.getAdaptedOriginPoint(endPt);
-				final double minX = Math.min(start.getX(), end.getX());
-				final double maxX = Math.max(start.getX(), end.getX());
-				final double minY = Math.min(start.getY(), end.getY());
-				final double maxY = Math.max(start.getY(), end.getY());
+			final IPoint start = instrument.getAdaptedOriginPoint(interaction.getSrcPoint());
+			final IPoint end = instrument.getAdaptedOriginPoint(interaction.getEndPt());
+			final double minX = Math.min(start.getX(), end.getX());
+			final double maxX = Math.max(start.getX(), end.getX());
+			final double minY = Math.min(start.getY(), end.getY());
+			final double maxY = Math.max(start.getY(), end.getY());
 
-				// Updating the rectangle used for the interim feedback and for the selection of shapes.
-				selectionBorder = new BoundingBox(minX, minY, Math.max(maxX - minX, 1d), Math.max(maxY - minY, 1d));
-				final Rectangle selectionRec = new Rectangle(selectionBorder.getMinX() + Canvas.ORIGIN.getX(),
-					selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
-				// Transforming the selection rectangle to match the transformation of the canvas.
-				selectionRec.getTransforms().setAll(getInstrument().canvas.getLocalToSceneTransform());
-				// Cleaning the selected shapes in the action.
-				action.setShape(null);
+			// Updating the rectangle used for the interim feedback and for the selection of shapes.
+			selectionBorder = new BoundingBox(minX, minY, Math.max(maxX - minX, 1d), Math.max(maxY - minY, 1d));
+			final Rectangle selectionRec = new Rectangle(selectionBorder.getMinX() + Canvas.ORIGIN.getX(),
+				selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
+			// Transforming the selection rectangle to match the transformation of the canvas.
+			selectionRec.getTransforms().setAll(getInstrument().canvas.getLocalToSceneTransform());
+			// Cleaning the selected shapes in the action.
+			action.setShape(null);
 
-				if(interaction.isShiftPressed()) {
-					selectedViews.stream().filter(view -> !view.intersects(selectionBorder)).forEach(view -> action.addShape(view.getModel()));
-				}else {
-					if(interaction.isCtrlPressed()) {
-						selectedShapes.forEach(sh -> action.addShape(sh));
-					}
-					if(!selectionBorder.isEmpty()) {
-						instrument.canvas.getViews().getChildren().stream().filter(view -> {
-							Bounds bounds;
-							final Transform transform = view.getLocalToParentTransform();
-							if(transform.isIdentity()) {
-								bounds = selectionBorder;
-							}else {
-								try {
-									bounds = transform.createInverse().transform(selectionBorder);
-								}catch(final NonInvertibleTransformException ex) {
-									bounds = selectionBorder;
-									//TODO log
-								}
-							}
-							return view.intersects(bounds) &&
-								((ViewShape<?>) view).getActivatedShapes().stream().anyMatch(sh -> !Shape.intersect(sh, selectionRec).getLayoutBounds().isEmpty());
-						}).forEach(view -> action.addShape((IShape) view.getUserData()));
-					}
+			if(interaction.isShiftPressed()) {
+				selectedViews.stream().filter(view -> !view.intersects(selectionBorder)).forEach(view -> action.addShape(view.getModel()));
+			}else {
+				if(interaction.isCtrlPressed()) {
+					selectedShapes.forEach(sh -> action.addShape(sh));
 				}
-			}));
+				if(!selectionBorder.isEmpty()) {
+					instrument.canvas.getViews().getChildren().stream().filter(view -> {
+						Bounds bounds;
+						final Transform transform = view.getLocalToParentTransform();
+						if(transform.isIdentity()) {
+							bounds = selectionBorder;
+						}else {
+							try {
+								bounds = transform.createInverse().transform(selectionBorder);
+							}catch(final NonInvertibleTransformException ex) {
+								bounds = selectionBorder;
+								//TODO log
+							}
+						}
+						return view.intersects(bounds) &&
+							((ViewShape<?>) view).getActivatedShapes().stream().anyMatch(sh -> !Shape.intersect(sh, selectionRec).getLayoutBounds().isEmpty());
+					}).forEach(view -> action.addShape((IShape) view.getUserData()));
+				}
+			}
 		}
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY && interaction.getSrcObject().orElse(null) == instrument.canvas;
+			return interaction.getButton() == MouseButton.PRIMARY && interaction.getSrcObject().orElse(null) == instrument.canvas;
 		}
 
 		@Override
@@ -339,22 +335,20 @@ public class Hand extends CanvasInstrument {
 		@Override
 		public void initAction() {
 			action.setScrollPane(instrument.canvas.getScrollPane());
-			interaction.getSrcPoint().ifPresent(start -> pt.setPoint(start.getX(), start.getY()));
+			pt.setPoint(interaction.getSrcPoint().getX(), interaction.getSrcPoint().getY());
 		}
 
 		@Override
 		public void updateAction() {
-			interaction.getSrcPoint().ifPresent(start -> interaction.getEndPt().ifPresent(end -> {
-				final ScrollPane pane = instrument.canvas.getScrollPane();
-				action.setPx(pane.getHvalue() - (end.getX() - pt.getX()) / instrument.canvas.getWidth());
-				action.setPy(pane.getVvalue() - (end.getY() - pt.getY()) / instrument.canvas.getHeight());
-				pt.setPoint(pt.centralSymmetry(ShapeFactory.INST.createPoint(start)));
-			}));
+			final ScrollPane pane = instrument.canvas.getScrollPane();
+			action.setPx(pane.getHvalue() - (interaction.getEndPt().getX() - pt.getX()) / instrument.canvas.getWidth());
+			action.setPy(pane.getVvalue() - (interaction.getEndPt().getY() - pt.getY()) / instrument.canvas.getHeight());
+			pt.setPoint(pt.centralSymmetry(ShapeFactory.INST.createPoint(interaction.getSrcPoint())));
 		}
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getButton().orElse(MouseButton.NONE) == MouseButton.MIDDLE;
+			return interaction.getButton() == MouseButton.MIDDLE;
 		}
 
 		@Override

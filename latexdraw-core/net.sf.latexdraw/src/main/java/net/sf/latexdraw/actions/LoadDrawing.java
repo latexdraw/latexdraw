@@ -13,9 +13,12 @@ package net.sf.latexdraw.actions;
 import java.io.File;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.LaTeXDraw;
 import org.malai.javafx.action.Load;
+import org.malai.javafx.ui.JfxUI;
+import org.malai.javafx.ui.OpenSaver;
 
 /**
  * This action loads an SVG document into the app.
@@ -26,8 +29,11 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 	private FileChooser fileChooser;
 	private File currentFolder;
 
-	public LoadDrawing() {
-		super();
+	public LoadDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
+					   final FileChooser fileChooser, final File currentFolder) {
+		super(file, openSaveManager, progressBar, statusWidget, ui);
+		this.fileChooser = fileChooser;
+		this.currentFolder = currentFolder;
 	}
 
 	@Override
@@ -79,16 +85,5 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 		}else {
 			ok = false;
 		}
-	}
-
-	/**
-	 * @param chooser The file chooser that will be used to select the location to save.
-	 */
-	public void setFileChooser(final FileChooser chooser) {
-		this.fileChooser = chooser;
-	}
-
-	public void setCurrentFolder(final File currFolder) {
-		currentFolder = currFolder;
 	}
 }

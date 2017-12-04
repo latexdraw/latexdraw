@@ -14,11 +14,14 @@ import java.io.File;
 import java.util.concurrent.ExecutionException;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import org.malai.action.ActionsRegistry;
 import org.malai.javafx.action.IOAction;
+import org.malai.javafx.ui.JfxUI;
+import org.malai.javafx.ui.OpenSaver;
 import org.malai.undo.UndoCollector;
 
 /**
@@ -32,8 +35,12 @@ public class NewDrawing extends IOAction<Label> implements Modifying {
 	private PreferencesSetter prefSetter;
 	private File currentFolder;
 
-	public NewDrawing() {
-		super();
+	public NewDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
+					  final FileChooser fileChooser, final PreferencesSetter prefSetter, final File currentFolder) {
+		super(file, openSaveManager, progressBar, statusWidget, ui);
+		this.fileChooser = fileChooser;
+		this.prefSetter = prefSetter;
+		this.currentFolder = currentFolder;
 	}
 
 	@Override
@@ -80,23 +87,5 @@ public class NewDrawing extends IOAction<Label> implements Modifying {
 	public void flush() {
 		super.flush();
 		fileChooser = null;
-	}
-
-	/**
-	 * @param chooser The file chooser that will be used to select the location to save.
-	 */
-	public void setFileChooser(final FileChooser chooser) {
-		fileChooser = chooser;
-	}
-
-	/**
-	 * @param setter The instrument used that manage the preferences.
-	 */
-	public void setPrefSetter(final PreferencesSetter setter) {
-		prefSetter = setter;
-	}
-
-	public void setCurrentFolder(final File currFolder) {
-		currentFolder = currFolder;
 	}
 }

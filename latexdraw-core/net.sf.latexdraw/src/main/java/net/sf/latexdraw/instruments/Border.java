@@ -225,8 +225,8 @@ public class Border extends CanvasInstrument implements Initializable {
 		@Override
 		public void updateAction() {
 			final Node node = interaction.getSrcObject().get();
-			final Point3D startPt = node.localToParent(interaction.getSrcPoint().get());
-			final Point3D endPt = node.localToParent(interaction.getEndPt().get());
+			final Point3D startPt = node.localToParent(interaction.getSrcPoint());
+			final Point3D endPt = node.localToParent(interaction.getEndPt());
 			final IPoint ptToMove = ((MovePtHandler) node).getPoint();
 			final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
 			final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
@@ -235,7 +235,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent() && interaction.getSrcObject().isPresent() &&
+			return interaction.getSrcPoint() != null && interaction.getEndPt() != null && interaction.getSrcObject().isPresent() &&
 				interaction.getSrcObject().get() instanceof MovePtHandler;
 		}
 	}
@@ -261,8 +261,8 @@ public class Border extends CanvasInstrument implements Initializable {
 		@Override
 		public void updateAction() {
 			final Node node = interaction.getSrcObject().get();
-			final Point3D startPt = node.localToParent(interaction.getSrcPoint().get());
-			final Point3D endPt = node.localToParent(interaction.getEndPt().get());
+			final Point3D startPt = node.localToParent(interaction.getSrcPoint());
+			final Point3D endPt = node.localToParent(interaction.getEndPt());
 			final IPoint ptToMove = ((CtrlPointHandler) node).getPoint();
 			final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
 			final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
@@ -271,7 +271,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent() && interaction.getSrcObject().isPresent()
+			return interaction.getSrcPoint() != null && interaction.getEndPt() != null && interaction.getSrcObject().isPresent()
 				&& interaction.getSrcObject().get() instanceof CtrlPointHandler;
 		}
 	}
@@ -298,7 +298,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			if(drawing.getSelection().size() == 1) {
 				shape = (IArc) drawing.getSelection().getShapeAt(0);
 				final double rotAngle = shape.getRotationAngle();
-				IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcPoint().get()));
+				IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcPoint()));
 				gc = shape.getGravityCentre();
 				IPoint pCentre;
 
@@ -326,7 +326,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void updateAction() {
-			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndPt().get()));
+			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndPt()));
 
 			if(isRotated) {
 				pt = pt.rotatePoint(gc, -shape.getRotationAngle());
@@ -346,7 +346,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getSrcObject().isPresent() && interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent();
+			return interaction.getSrcObject().isPresent() && interaction.getSrcPoint() != null && interaction.getEndPt() != null;
 		}
 	}
 
@@ -404,7 +404,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			final IPoint br = drawing.getSelection().getBottomRightPoint();
 			final IPoint tl = drawing.getSelection().getTopLeftPoint();
 
-			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcPoint().get()));
+			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcPoint()));
 
 			setXGap(refPosition, tl, br);
 			setYGap(refPosition, tl, br);
@@ -416,7 +416,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void updateAction() {
-			final IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndPt().get()));
+			final IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndPt()));
 			final Position refPosition = action.getRefPosition().get();
 
 			if(refPosition.isSouth()) {
@@ -439,7 +439,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getSrcObject().isPresent() && interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent();
+			return interaction.getSrcObject().isPresent() && interaction.getSrcPoint() != null && interaction.getEndPt() != null;
 		}
 
 
@@ -490,7 +490,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		@Override
 		public void initAction() {
 			final IDrawing drawing = instrument.canvas.getDrawing();
-			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcPoint().get()));
+			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcPoint()));
 			gc = drawing.getSelection().getGravityCentre();
 			action.setGravityCentre(gc);
 			action.setShape(drawing.getSelection().duplicateDeep(false));
@@ -500,13 +500,13 @@ public class Border extends CanvasInstrument implements Initializable {
 		@Override
 		public void updateAction() {
 			action.setRotationAngle(gc.computeRotationAngle(p1,
-				ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndPt().get()))));
+				ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndPt()))));
 
 		}
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getSrcObject().isPresent() && interaction.getSrcPoint().isPresent() && interaction.getEndPt().isPresent();
+			return interaction.getSrcObject().isPresent() && interaction.getSrcPoint() != null && interaction.getEndPt() != null;
 		}
 	}
 }

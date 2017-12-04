@@ -114,12 +114,10 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 
 		@Override
 		public void updateAction() {
-			interaction.getEndPt().ifPresent(pt -> {
-				final Node srcObj = interaction.getSrcObject().get();
-				final Point3D pt3d = interaction.getEndObjet().get().sceneToLocal(srcObj.localToScene(pt)).
-					subtract(Canvas.ORIGIN.getX() + srcObj.getLayoutX(), Canvas.ORIGIN.getY() + srcObj.getLayoutY(), 0d);
-				action.setPosition(ShapeFactory.INST.createPoint(pt3d));
-			});
+			final Node srcObj = interaction.getSrcObject().get();
+			final Point3D pt3d = interaction.getEndObjet().get().sceneToLocal(srcObj.localToScene(interaction.getEndPt())).
+				subtract(Canvas.ORIGIN.getX() + srcObj.getLayoutX(), Canvas.ORIGIN.getY() + srcObj.getLayoutY(), 0d);
+			action.setPosition(ShapeFactory.INST.createPoint(pt3d));
 		}
 
 		@Override

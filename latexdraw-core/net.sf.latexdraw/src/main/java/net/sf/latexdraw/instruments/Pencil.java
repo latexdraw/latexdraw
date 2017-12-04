@@ -113,22 +113,22 @@ public class Pencil extends CanvasInstrument {
 		addBinding(new Press2AddShape(this));
 		addBinding(new Press2AddText(this));
 
-		nodeBinder(InsertPicture.class, new Press()).on(canvas).first((a, i) -> i.getSrcPoint().ifPresent(srcPt -> {
+		nodeBinder(InsertPicture.class, new Press()).on(canvas).first((a, i) -> {
 			a.setDrawing(canvas.getDrawing());
-			a.setShape(ShapeFactory.INST.createPicture(getAdaptedPoint(srcPt)));
+			a.setShape(ShapeFactory.INST.createPicture(getAdaptedPoint(i.getSrcPoint())));
 			a.setFileChooser(getPictureFileChooser());
-		})).when(i -> currentChoice == EditionChoice.PICTURE && i.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY).bind();
+		}).when(i -> currentChoice == EditionChoice.PICTURE && i.getButton() == MouseButton.PRIMARY).bind();
 
 		addBinding(new DnD2AddShape(this));
 		addBinding(new MultiClic2AddShape(this));
 
-		nodeBinder(InitTextSetter.class, new Press()).on(canvas).first((a, i) -> i.getSrcPoint().ifPresent(srcPt -> {
+		nodeBinder(InitTextSetter.class, new Press()).on(canvas).first((a, i) -> {
 			a.setText("");
 			a.setTextShape(null);
 			a.setInstrument(textSetter);
 			a.setTextSetter(textSetter);
-			a.setPosition(getAdaptedPoint(srcPt));
-		})).when(i -> (currentChoice == EditionChoice.TEXT || currentChoice == EditionChoice.PLOT) && i.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY).bind();
+			a.setPosition(getAdaptedPoint(i.getSrcPoint()));
+		}).when(i -> (currentChoice == EditionChoice.TEXT || currentChoice == EditionChoice.PLOT) && i.getButton() == MouseButton.PRIMARY).bind();
 	}
 
 	/**
@@ -210,8 +210,8 @@ public class Pencil extends CanvasInstrument {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.getShape().ifPresent(sh -> interaction.getSrcPoint().ifPresent(startPt -> {
-				final IPoint pt = instrument.getAdaptedPoint(startPt);
+			action.getShape().ifPresent(sh -> {
+				final IPoint pt = instrument.getAdaptedPoint(interaction.getSrcPoint());
 
 				// For squares and circles, the centre of the shape is the reference point during the creation.
 				if(sh instanceof ISquaredShape) {
@@ -223,15 +223,15 @@ public class Pencil extends CanvasInstrument {
 				}else {
 					sh.translate(pt.getX(), pt.getY());
 				}
-			}));
+			});
 		}
 
 		@Override
 		public void updateAction() {
-			action.getShape().ifPresent(sh -> interaction.getSrcPoint().ifPresent(srcPt -> interaction.getEndPt().ifPresent(finalPt -> {
+			action.getShape().ifPresent(sh -> {
 				// Getting the points depending on the current zoom.
-				final IPoint startPt = instrument.getAdaptedPoint(srcPt);
-				final IPoint endPt = instrument.getAdaptedPoint(finalPt);
+				final IPoint startPt = instrument.getAdaptedPoint(interaction.getSrcPoint());
+				final IPoint endPt = instrument.getAdaptedPoint(interaction.getEndPt());
 
 				if(sh instanceof ISquaredShape) {
 					updateShapeFromCentre((ISquaredShape) sh, startPt, endPt.getX());
@@ -248,7 +248,7 @@ public class Pencil extends CanvasInstrument {
 					sh.setModified(true);
 					action.getDrawing().ifPresent(drawing -> drawing.setModified(true));
 				}
-			})));
+			});
 		}
 
 		/**
@@ -314,7 +314,7 @@ public class Pencil extends CanvasInstrument {
 		@Override
 		public boolean isConditionRespected() {
 			final EditionChoice ec = instrument.currentChoice;
-			return interaction.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY &&
+			return interaction.getButton() == MouseButton.PRIMARY &&
 				(ec == EditionChoice.RECT || ec == EditionChoice.ELLIPSE || ec == EditionChoice.SQUARE ||
 				ec == EditionChoice.CIRCLE || ec == EditionChoice.RHOMBUS ||
 				ec == EditionChoice.TRIANGLE || ec == EditionChoice.CIRCLE_ARC || ec == EditionChoice.FREE_HAND);
@@ -398,18 +398,18 @@ public class Pencil extends CanvasInstrument {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.getShape().ifPresent(sh -> interaction.getSrcPoint().ifPresent(srcPt -> {
+			action.getShape().ifPresent(sh -> {
 				if(sh instanceof IPositionShape) {
-					((IPositionShape) sh).setPosition(instrument.getAdaptedPoint(srcPt));
+					((IPositionShape) sh).setPosition(instrument.getAdaptedPoint(interaction.getSrcPoint()));
 					sh.setModified(true);
 				}
-			}));
+			});
 		}
 
 		@Override
 		public boolean isConditionRespected() {
 			return (instrument.currentChoice == EditionChoice.GRID || instrument.currentChoice == EditionChoice.DOT ||
-				instrument.currentChoice == EditionChoice.AXES) && interaction.getButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY;
+				instrument.currentChoice == EditionChoice.AXES) && interaction.getButton() == MouseButton.PRIMARY;
 		}
 	}
 

@@ -15,11 +15,8 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -48,13 +45,6 @@ import org.w3c.dom.Element;
  * @author Arnaud Blouin
  */
 public class FileLoaderSaver extends JfxInstrument implements Initializable {
-	private static final BiConsumer<IOAction<Label>, FileLoaderSaver> initIOAction = (action, instrument) -> {
-		action.setStatusWidget(instrument.statusBar.getLabel());
-		action.setProgressBar(instrument.statusBar.getProgressBar());
-		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
-		action.setUi(LaTeXDraw.getInstance());
-	};
-
 	/** The menu used to save documents. */
 	@FXML private MenuItem saveMenu;
 	/** The menu used to load documents. */
@@ -146,73 +136,49 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		final BiConsumer<SaveDrawing, FileLoaderSaver> initSaveAction = (action, instrument) -> {
-			initIOAction.accept(action, instrument);
-			action.setFileChooser(instrument.getDialog(true));
-			action.setFile(instrument.currentFile);
-			action.setCurrentFolder(instrument.currentFolder);
-			action.setPrefSetter(prefSetter);
-		};
-
-		final Consumer<SaveDrawing> saveAction = action -> {
-			initSaveAction.accept(action, FileLoaderSaver.this);
-			action.setSaveAs(false);
-			action.setSaveOnClose(false);
-		};
-
-		final Consumer<LoadDrawing> loadAction = action -> {
-			initIOAction.accept(action, this);
-			action.setFileChooser(getDialog(false));
-			action.setCurrentFolder(currentFolder);
-		};
-
-		final Consumer<NewDrawing> newAction = action -> {
-			initIOAction.accept(action, this);
-			action.setPrefSetter(prefSetter);
-			action.setFileChooser(getDialog(false));
-			action.setCurrentFolder(currentFolder);
-		};
-
 		// Close window
-		windowBinder(SaveDrawing.class, new WindowClosed()).on(LaTeXDraw.getInstance().getMainStage()).first(action -> {
-			initSaveAction.accept(action, FileLoaderSaver.this);
-			action.setSaveAs(true);
-			action.setSaveOnClose(true);
-		}).bind();
+		windowBinder(SaveDrawing.class, new WindowClosed()).on(LaTeXDraw.getInstance().getMainStage()).
+			map(i -> new SaveDrawing(true, true, currentFolder, getDialog(true), prefSetter, currentFile,
+				SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
 
 		// Quit shortcut
 		keyWindowBinder(SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.W, LSystem.INSTANCE.getControlKey()).
-			first(action -> {
-				initSaveAction.accept(action, FileLoaderSaver.this);
-				action.setSaveAs(true);
-				action.setSaveOnClose(true);
-		}).bind();
+			map(i -> new SaveDrawing(true, true, currentFolder, getDialog(true), prefSetter, currentFile,
+				SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
 
 		// Save menu
-		menuItemBinder(SaveDrawing.class).on(saveMenu).first(saveAction).bind();
+		menuItemBinder(SaveDrawing.class).on(saveMenu).map(i -> new SaveDrawing(false, false, currentFolder, getDialog(true),
+			prefSetter, currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
 
 		// Save shortcut
-		keyWindowBinder(SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.S, LSystem.INSTANCE.getControlKey()).first(saveAction).bind();
+		keyWindowBinder(SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.S, LSystem.INSTANCE.getControlKey()).
+			map(i -> new SaveDrawing(false, false, currentFolder, getDialog(true), prefSetter, currentFile,
+				SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
 
 		// Save as menu
-		menuItemBinder(SaveDrawing.class).on(saveAsMenu).first(action -> {
-			initSaveAction.accept(action, FileLoaderSaver.this);
-			action.setSaveAs(true);
-			action.setSaveOnClose(false);
-			action.setFile(null);
-		}).bind();
+		menuItemBinder(SaveDrawing.class).on(saveAsMenu).
+			map(i -> new SaveDrawing(true, false, currentFolder, getDialog(true), prefSetter, null,
+				SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
 
 		// Load menu
-		menuItemBinder(LoadDrawing.class).on(loadMenu).first(loadAction).bind();
+		menuItemBinder(LoadDrawing.class).on(loadMenu).
+			map(i -> new LoadDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
+				getDialog(false), currentFolder)).bind();
 
 		// Load shortcut
-		keyWindowBinder(LoadDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.O, LSystem.INSTANCE.getControlKey()).first(loadAction).bind();
+		keyWindowBinder(LoadDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.O, LSystem.INSTANCE.getControlKey()).
+			map(i -> new LoadDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
+				getDialog(false), currentFolder)).bind();
 
 		// New menu
-		menuItemBinder(NewDrawing.class).on(newMenu).first(newAction).bind();
+		menuItemBinder(NewDrawing.class).on(newMenu).
+			map(i -> new NewDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
+				getDialog(false), prefSetter, currentFolder)).bind();
 
 		// New shortcut
-		keyWindowBinder(NewDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.N, LSystem.INSTANCE.getControlKey()).first(newAction).bind();
+		keyWindowBinder(NewDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.N, LSystem.INSTANCE.getControlKey()).
+			map(i -> new NewDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
+				getDialog(false), prefSetter, currentFolder)).bind();
 
 		// Recent files menus
 		recentInterator = new RecentMenuItem2LoadInteractor(this);
@@ -314,11 +280,15 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		}
 
 		@Override
+		protected LoadDrawing createAction() {
+			return new LoadDrawing(new File((String) interaction.getWidget().getUserData()), SVGDocumentGenerator.INSTANCE,
+				instrument.statusBar.getProgressBar(), instrument.statusBar.getLabel(), LaTeXDraw.getInstance(), instrument.getDialog(false),
+				instrument.currentFolder);
+		}
+
+		@Override
 		public void initAction() {
-			initIOAction.accept(action, instrument);
-			action.setFileChooser(instrument.getDialog(false));
-			action.setCurrentFolder(instrument.currentFolder);
-			action.setFile(new File((String) interaction.getWidget().getUserData()));
+			// Nothing to do here.
 		}
 	}
 }

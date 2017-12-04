@@ -15,12 +15,14 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.javafx.action.Save;
 import org.malai.javafx.ui.JfxUI;
+import org.malai.javafx.ui.OpenSaver;
 
 /**
  * An action for saveing a drawing as an SVG document.
@@ -65,14 +67,15 @@ public class SaveDrawing extends Save<Label> {
 	private FileChooser fileChooser;
 	private PreferencesSetter prefSetter;
 
-	/**
-	 * Creates the action.
-	 * @since 3.0
-	 */
-	public SaveDrawing() {
-		super();
-		saveAs = false;
-		saveOnClose = false;
+	public SaveDrawing(final boolean saveAs, final boolean saveOnClose, final File currentFolder, final FileChooser fileChooser,
+					   final PreferencesSetter prefSetter, final File file, final OpenSaver<Label> openSaveManager, final ProgressBar bar, final JfxUI ui,
+					   final Label statusWidget) {
+		super(file, openSaveManager, bar, statusWidget, ui);
+		this.saveAs = saveAs;
+		this.saveOnClose = saveOnClose;
+		this.currentFolder = currentFolder;
+		this.fileChooser = fileChooser;
+		this.prefSetter = prefSetter;
 	}
 
 	@Override
@@ -131,37 +134,5 @@ public class SaveDrawing extends Save<Label> {
 	public void flush() {
 		super.flush();
 		fileChooser = null;
-	}
-
-	/**
-	 * @param chooser The file chooser that will be used to select the location to save.
-	 */
-	public void setFileChooser(final FileChooser chooser) {
-		fileChooser = chooser;
-	}
-
-	/**
-	 * @param pref True: A dialog bow will be always shown to ask the location to save.
-	 */
-	public void setSaveAs(final boolean pref) {
-		saveAs = pref;
-	}
-
-	/**
-	 * @param saveOn True: the app will be closed after the drawing saved.
-	 */
-	public void setSaveOnClose(final boolean saveOn) {
-		saveOnClose = saveOn;
-	}
-
-	public void setCurrentFolder(final File currFolder) {
-		currentFolder = currFolder;
-	}
-
-	/**
-	 * @param setter The instrument used that manage the preferences.
-	 */
-	public void setPrefSetter(final PreferencesSetter setter) {
-		prefSetter = setter;
 	}
 }
