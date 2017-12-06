@@ -37,6 +37,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 
 	protected TitledPane titledPane;
 	protected Stage stage;
+	Injector injector;
 
 	@Before
 	public void setUp() {
