@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.malai.action.ActionsRegistry;
 
 abstract class BaseTestCanvas extends TestLatexdrawGUI {
+	static final long SLEEP = 400L;
+
 	Pencil pencil;
 	Hand hand;
 	Canvas canvas;
