@@ -156,11 +156,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void configureBindings() throws IllegalAccessException, InstantiationException {
-		buttonBinder(InsertPSTCode.class).on(ok).first(action -> {
-			action.setDrawing(drawing);
-			action.setCode(text.getText());
-			action.setStatusBar(statusBar.getLabel());
-		}).bind();
+		buttonBinder(InsertPSTCode.class).on(ok).map(i -> new InsertPSTCode(text.getText(), statusBar.getLabel(), drawing)).bind();
 
 		buttonBinder(InactivateInstrument.class).on(cancel, ok).first(action -> action.setInstrument(this)).bind();
 	}

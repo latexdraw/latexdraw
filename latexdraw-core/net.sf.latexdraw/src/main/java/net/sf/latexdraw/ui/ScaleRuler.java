@@ -10,200 +10,154 @@
  */
 package net.sf.latexdraw.ui;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import javafx.beans.NamedArg;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javax.accessibility.Accessible;
-import javax.accessibility.AccessibleContext;
-import javax.accessibility.AccessibleRole;
-import javax.swing.JComponent;
-import net.sf.latexdraw.util.Inject;
+import javafx.scene.Group;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.jfx.Canvas;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
  * An abstract scale ruler.
  * @author Arnaud BLOUIN
  */
-public abstract class ScaleRuler extends JComponent implements Accessible, AdjustmentListener {
+public class ScaleRuler extends Pane {
 	/** The current unit of the rulers. */
-    protected static final ObjectProperty<Unit> UNIT = new SimpleObjectProperty<>(Unit.CM);
-
-	/** The stroke of the ruler. */
-	protected static final BasicStroke STROKE = new BasicStroke(0, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER);
+	protected static final ObjectProperty<Unit> UNIT = new SimpleObjectProperty<>(Unit.CM);
 
 	/** This value defines the threshold under which sub-lines of the rule will be not drawn. */
-	protected static final double MIN_PCC_SUBLINES = 20.;
-
-	/** The canvas that the ruler manages. */
-	@Inject protected Canvas canvas;
-
-//	/** The event manager that listens events produced by the panel. */
-//	protected final SwingEventManager eventManager;
+	protected static final double MIN_PCC_SUBLINES = 20d;
 
 	/** The size of the lines in axes */
 	public static final int SIZE = 10;
 
-
-	/**
-	 * Creates the ruler.
-	 * @throws IllegalArgumentException If the given canvas is null.
-	 */
-    protected ScaleRuler() {
-		super();
-//		eventManager = new SwingEventManager();
-//		eventManager.attachTo(this);
-		setDoubleBuffered(true);
-
-//		canvas.getScrollpane().getVerticalScrollBar().addAdjustmentListener(this);
-//		canvas.getScrollpane().getHorizontalScrollBar().addAdjustmentListener(this);
-	}
-
-
-	@Override
-	public void adjustmentValueChanged(final AdjustmentEvent e) {
-		repaint();
-	}
-
-
-	/**
-	 * @return The starting position where the ruler must be drawn.
-	 * @since 3.0
-	 */
-	protected abstract double getStart();
-
-
-	/**
-	 * @return The length of the ruler.
-	 * @since 3.0
-	 */
-	protected abstract double getLength();
-
-
-	/**
-	 * Draws a line of the ruler.
-	 * @param g2 The graphics where the line will be drawn. Must not be null.
-	 * @param positionA The static position of the vertical or horizontal line.
-	 * @param positionB1 The starting point of the line.
-	 * @param positionB2 The ending point of the line.
-	 * @throws NullPointerException if the given graphics is null.
-	 * @since 3.0
-	 */
-	protected abstract void drawLine(final Graphics2D g2, final double positionA, final double positionB1, final double positionB2);
-
-	/**
-	 * Adapts the given graphics to the current position of the grid.
-	 * @param g The graphics of the ruler.
-	 * @since 3.1
-	 */
-	protected abstract void adaptGraphicsToViewpoint(final Graphics2D g);
-
-	/**
-	 * @return The gap between the origin (0) and the current position of the painted view.
-	 * @since 3.1
-	 */
-	protected abstract double getClippingGap();
-
-	@Override
-    public void paintComponent(final Graphics g) {
-		super.paintComponent(g);
-		if(!(g instanceof Graphics2D)) return;
-
-    	final double zoom 		= canvas.getZoom();
-    	final double lgth 		= getLength()/zoom;
-    	final double start 		= getStart()/zoom;
-    	double ppc 				= canvas.getPPCDrawing();
-    	final Graphics2D g2 	= (Graphics2D)g;
-    	final double sizeZoomed = SIZE/zoom;
-    	double i;
-        double j;
-        double cpt;
-
-        // adjusting the ppc value according to the current unit.
-		if(getUnit()==Unit.INCH)
-			ppc*=PSTricksConstants.INCH_VAL_CM;
-
-    	// Optimisation for limitating the painting to the visible part only.
-    	final double clipStart = (int)(getClippingGap()/zoom/ppc)*ppc;
-
-    	// Settings the parameters of the graphics.
-    	adaptGraphicsToViewpoint(g2);
-    	g2.scale(zoom, zoom);
-    	g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		g2.setStroke(STROKE);
-    	g2.setColor(java.awt.Color.BLACK);
-
-		// If the ppc is not to small sub-lines are drawn.
-    	if(ppc>MIN_PCC_SUBLINES/zoom) {
-    		final double ppc10 			= ppc/10.;
-    		final double halfSizeZoomed = sizeZoomed/2.;
-
-    		for(i=start+ppc10+clipStart; i<lgth; i+=ppc)
-    			for(j=i, cpt=1; cpt<10; j+=ppc10, cpt++)
-    				drawLine(g2, j, halfSizeZoomed, sizeZoomed);
-    	}
-
-    	// Major lines of the ruler are drawn.
-    	for(i=start+clipStart; i<lgth;i+=ppc)
-    		drawLine(g2, i, 0., sizeZoomed);
-    }
-
-
 	/**
 	 * @return the current unit used by the rulers.
-	 * @since 3.0
 	 */
 	public static Unit getUnit() {
 		return UNIT.getValue();
 	}
 
-
 	/**
 	 * @param unit The unit that the rulers must use. Must not be null.
-	 * @since 3.0
 	 */
 	public static void setUnit(final Unit unit) {
-		if(unit!=null)
+		if(unit != null) {
 			ScaleRuler.UNIT.setValue(unit);
+		}
 	}
-
 
 	/**
 	 * @return The singleton that contains the unit value.
-	 * @since 3.0
 	 */
 	public static ObjectProperty<Unit> getUnitSingleton() {
 		return ScaleRuler.UNIT;
 	}
 
+	/** The canvas that the ruler manages. */
+	private Canvas canvas;
 
-    @Override
-	public AccessibleContext getAccessibleContext() {
-        if(accessibleContext==null)
-            accessibleContext = new AccessibleScaleRuler();
-
-        return accessibleContext;
-    }
-
+	private final Group group;
+	private final boolean vertical;
 
 	/**
-	 * This class implements accessibility support for the
-     * <code>ScaleRuler</code> class. It provides an implementation of the
-     * Java Accessibility API appropriate to panel user-interface elements.
+	 * Creates the ruler.
 	 */
-    protected class AccessibleScaleRuler extends AccessibleJComponent {
-		private static final long serialVersionUID = 1L;
+	public ScaleRuler(@NamedArg("vertical") boolean verticalRuler) {
+		super();
+		vertical = verticalRuler;
+		group = new Group();
+		getChildren().add(group);
+		setFocusTraversable(false);
+	}
 
-        @Override
-		public AccessibleRole getAccessibleRole() {
-            return AccessibleRole.RULER;
-        }
-    }
+	public void setCanvas(final Canvas canvas) {
+		this.canvas = canvas;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void update(final double width, final double height) {
+		if(canvas == null) return;
+
+		group.getChildren().clear();
+
+		if(vertical) {
+
+		}else {
+			updateHorizontal(width);
+		}
+	}
+
+	private double getMainStep() {
+		double step = 1d;
+		final double zoomedPPC = canvas.getPPCDrawing() * canvas.getZoom();
+
+		while(zoomedPPC * step < 80d) {
+			step *= 2d;
+		}
+
+		return step;
+	}
+
+	private double getSubStep() {
+		double step = getMainStep() / 10d;
+		final double zoomedPPC = canvas.getPPCDrawing() * canvas.getZoom();
+
+		while(zoomedPPC * step < 5d) {
+			step *= 2d;
+		}
+
+		return step * zoomedPPC;
+	}
+
+	private void updateHorizontal(final double width) {
+		int min = 0;
+		double zoomedPPC = canvas.getPPCDrawing() * canvas.getZoom();
+		final double step = getMainStep() * zoomedPPC;
+
+		group.getChildren().addAll(IntStream.range(min, (int) (width / step) + 1).parallel().
+				mapToObj(i -> new Line(i * step, 0d, i * step, 10d)).collect(Collectors.toList()));
+	}
+
+	//	public void paintComponent(final Graphics g) {
+//		final double zoom = canvas.getZoom();
+//		final double lgth = getLength() / zoom;
+//		final double start = getStart() / zoom;
+//		double ppc = canvas.getPPCDrawing();
+//		final double sizeZoomed = SIZE / zoom;
+//		double i;
+//		double j;
+//		double cpt;
+//
+//		// adjusting the ppc value according to the current unit.
+//		if(getUnit() == Unit.INCH) ppc *= PSTricksConstants.INCH_VAL_CM;
+//
+//		// Optimisation for limitating the painting to the visible part only.
+//		final double clipStart = (int) (getClippingGap() / zoom / ppc) * ppc;
+//
+//		// Settings the parameters of the graphics.
+//		adaptGraphicsToViewpoint(g2);
+//		g2.scale(zoom, zoom);
+//
+//		// If the ppc is not to small sub-lines are drawn.
+//		if(ppc > MIN_PCC_SUBLINES / zoom) {
+//			final double ppc10 = ppc / 10.;
+//			final double halfSizeZoomed = sizeZoomed / 2.;
+//
+//			for(i = start + ppc10 + clipStart; i < lgth; i += ppc)
+//				for(j = i, cpt = 1; cpt < 10; j += ppc10, cpt++)
+//					drawLine(g2, j, halfSizeZoomed, sizeZoomed);
+//		}
+//
+//		// Major lines of the ruler are drawn.
+//		for(i = start + clipStart; i < lgth; i += ppc)
+//			drawLine(g2, i, 0., sizeZoomed);
+//	}
 }

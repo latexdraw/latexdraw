@@ -19,23 +19,27 @@ import org.malai.action.ActionImpl;
  */
 public abstract class DrawingActionImpl extends ActionImpl {
 	/** The drawing that will be handled by the action. */
-	protected Optional<IDrawing> drawing;
+	protected IDrawing drawing;
+
+	protected DrawingActionImpl(final IDrawing theDrawing) {
+		super();
+		drawing = theDrawing;
+	}
 
 	protected DrawingActionImpl() {
-		super();
-		drawing = Optional.empty();
+		this(null);
 	}
 
 	public void setDrawing(final IDrawing dr) {
-		drawing = Optional.ofNullable(dr);
+		drawing = dr;
 	}
 
 	public Optional<IDrawing> getDrawing() {
-		return drawing;
+		return Optional.ofNullable(drawing);
 	}
 
 	@Override
 	public boolean canDo() {
-		return drawing.isPresent();
+		return drawing != null;
 	}
 }

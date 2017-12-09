@@ -16,6 +16,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import org.malai.action.library.ActivateInstrument;
+import org.malai.instrument.Instrument;
 
 /**
  * This action activates and moves the text setter to a given position.
@@ -36,53 +37,14 @@ public class InitTextSetter extends ActivateInstrument {
 
 	private IPlot plotShape;
 
-
-	public InitTextSetter() {
-		super();
-	}
-
-	/**
-	 * Sets the text shape to modify.
-	 * @param val The text (shape) to modify throw the setter. Can be null.
-	 * @since 3.0
-	 */
-	public void setTextShape(final IText val) {
-		textShape = val;
-	}
-
-	/**
-	 * Sets the text to display into the text setter.
-	 * @param val The text to set.
-	 * @since 3.0
-	 */
-	public void setText(final String val) {
-		text = val;
-	}
-
-	/**
-	 * Sets the plot to display into the text setter.
-	 * @param shape The plot to set.
-	 * @since 3.1
-	 */
-	public void setPlotShape(final IPlot shape) {
-		plotShape = shape;
-	}
-
-	/**
-	 * @param textSetter the textSetter to set.
-	 * @since 3.0
-	 */
-	public void setTextSetter(final TextSetter textSetter) {
-		setter = textSetter;
-	}
-
-
-	/**
-	 * @param pt The position that takes account of the zoom.
-	 * @since 3.0
-	 */
-	public void setPosition(final IPoint pt) {
-		position = pt;
+	public InitTextSetter(final Instrument<?> instrument, final TextSetter setter, final String text, final IPoint position, final IText textShape,
+						  final IPlot plotShape) {
+		super(instrument);
+		this.setter = setter;
+		this.text = text;
+		this.position = position;
+		this.textShape = textShape;
+		this.plotShape = plotShape;
 	}
 
 	@Override

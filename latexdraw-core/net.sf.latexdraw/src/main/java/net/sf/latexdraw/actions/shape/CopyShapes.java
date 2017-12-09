@@ -24,15 +24,14 @@ import org.malai.action.ActionImpl;
 public class CopyShapes extends ActionImpl {
 	/** The selection action. */
 	protected SelectShapes selection;
-
 	/** The copied shapes from the selection. */
 	protected List<IShape> copiedShapes;
-
 	/** The number of times that the shapes have been copied. Use to compute the gap while pasting. */
 	protected int nbTimeCopied;
 
-	public CopyShapes() {
+	public CopyShapes(final SelectShapes selection) {
 		super();
+		this.selection = selection;
 		nbTimeCopied = 0;
 	}
 
@@ -54,13 +53,6 @@ public class CopyShapes extends ActionImpl {
 	@Override
 	public boolean canDo() {
 		return selection != null && !selection.getShapes().isEmpty();
-	}
-
-	/**
-	 * @param sel The selected shapes to copy or cut.
-	 */
-	public void setSelection(final SelectShapes sel) {
-		selection = sel;
 	}
 
 	public SelectShapes getSelection() {

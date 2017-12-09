@@ -16,6 +16,7 @@ import java.util.List;
 import net.sf.latexdraw.actions.DrawingActionImpl;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.MagneticGrid;
@@ -29,15 +30,14 @@ import org.malai.undo.Undoable;
 public class PasteShapes extends DrawingActionImpl implements Undoable, Modifying {
 	/** The cut or copy action. */
 	private CopyShapes copy;
-
 	/** The magnetic grid to use. */
 	private MagneticGrid grid;
-
 	private final List<IShape> pastedShapes;
 
-
-	public PasteShapes() {
-		super();
+	public PasteShapes(final CopyShapes copyAction, final MagneticGrid magnetGrid, final IDrawing drawing) {
+		super(drawing);
+		copy = copyAction;
+		grid = magnetGrid;
 		pastedShapes = new ArrayList<>();
 	}
 
@@ -53,62 +53,56 @@ public class PasteShapes extends DrawingActionImpl implements Undoable, Modifyin
 
 	@Override
 	public void doActionBody() {
-		drawing.ifPresent(dr -> {
-			// While pasting cut shapes, the first paste must be at the same position that the original shapes.
-			// But for pasting after just copying, a initial gap must be used.
-			if(!(copy instanceof CutShapes)) {
-				copy.nbTimeCopied++;
-			}
+		// While pasting cut shapes, the first paste must be at the same position that the original shapes.
+		// But for pasting after just copying, a initial gap must be used.
+		if(!(copy instanceof CutShapes)) {
+			copy.nbTimeCopied++;
+		}
 
-			final int gapPaste = grid.isMagnetic() ? grid.getGridSpacing() : 10;
-			final int gap = copy.nbTimeCopied * gapPaste;
+		final int gapPaste = grid.isMagnetic() ? grid.getGridSpacing() : 10;
+		final int gap = copy.nbTimeCopied * gapPaste;
 
-			copy.copiedShapes.forEach(shape -> {
-				final IShape sh = ShapeFactory.INST.duplicate(shape);
-				pastedShapes.add(sh);
-				sh.translate(gap, gap);
-				dr.addShape(sh);
-			});
-
-			if(copy instanceof CutShapes) {
-				copy.nbTimeCopied++;
-			}
-
-			dr.setModified(true);
+		copy.copiedShapes.forEach(shape -> {
+			final IShape sh = ShapeFactory.INST.duplicate(shape);
+			pastedShapes.add(sh);
+			sh.translate(gap, gap);
+			drawing.addShape(sh);
 		});
+
+		if(copy instanceof CutShapes) {
+			copy.nbTimeCopied++;
+		}
+
+		drawing.setModified(true);
 	}
 
 	@Override
 	public void undo() {
-		drawing.ifPresent(dr -> {
-			int i = 0;
-			final int nbShapes = copy.copiedShapes.size();
+		int i = 0;
+		final int nbShapes = copy.copiedShapes.size();
 
-			while(i < nbShapes && !dr.isEmpty()) {
-				dr.removeShape(dr.size() - 1);
-				i++;
-			}
+		while(i < nbShapes && !drawing.isEmpty()) {
+			drawing.removeShape(drawing.size() - 1);
+			i++;
+		}
 
-			copy.nbTimeCopied--;
-			dr.setModified(true);
-		});
+		copy.nbTimeCopied--;
+		drawing.setModified(true);
 	}
 
 	@Override
 	public void redo() {
-		drawing.ifPresent(dr -> {
-			if(!(copy instanceof CutShapes)) {
-				copy.nbTimeCopied++;
-			}
+		if(!(copy instanceof CutShapes)) {
+			copy.nbTimeCopied++;
+		}
 
-			pastedShapes.forEach(dr::addShape);
+		pastedShapes.forEach(drawing::addShape);
 
-			if(copy instanceof CutShapes) {
-				copy.nbTimeCopied++;
-			}
+		if(copy instanceof CutShapes) {
+			copy.nbTimeCopied++;
+		}
 
-			dr.setModified(true);
-		});
+		drawing.setModified(true);
 	}
 
 	@Override
@@ -118,26 +112,19 @@ public class PasteShapes extends DrawingActionImpl implements Undoable, Modifyin
 
 	@Override
 	public List<Action> followingActions() {
-		if(!drawing.isPresent()) return Collections.emptyList();
+		if(drawing == null) {
+			return Collections.emptyList();
+		}
 
 		final List<Action> list = new ArrayList<>();
 		final SelectShapes selectAction = new SelectShapes();
-		selectAction.setDrawing(drawing.get());
+		selectAction.setDrawing(drawing);
 		pastedShapes.forEach(selectAction::addShape);
 		list.add(selectAction);
 		return list;
 	}
 
-	public void setCopy(final CopyShapes copysh) {
-		copy = copysh;
-	}
-
 	public CopyShapes getCopy() {
 		return copy;
-	}
-
-	/** Sets the magnetic grid to use. */
-	public void setGrid(final MagneticGrid gr) {
-		grid = gr;
 	}
 }

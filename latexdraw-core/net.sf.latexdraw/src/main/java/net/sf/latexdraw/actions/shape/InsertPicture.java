@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.util.Optional;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
  * This action asks the user to select a picture and, if valid, adds it to a drawing.
@@ -23,14 +25,20 @@ import net.sf.latexdraw.models.interfaces.shape.IPicture;
  */
 public class InsertPicture extends AddShape {
 	/** The file chooser used to select the picture to add. */
-	Optional<FileChooser> fileChooser;
+	private Optional<FileChooser> fileChooser;
 
 	/** Defines if the picture has been successfully loaded. */
-	boolean loaded;
+	private boolean loaded;
 
-	public InsertPicture() {
-		super();
-		loaded = false;
+	/**
+	 * Creates the action.
+	 * @param sh The picture to add.
+	 * @param dr The drawing that will be handled by the action.
+	 * @param chooser The file chooser used to select the picture to load.
+	 */
+	public InsertPicture(final IShape sh, final IDrawing dr, final FileChooser chooser) {
+		super(sh, dr);
+		fileChooser = Optional.ofNullable(chooser);
 	}
 
 	@Override
@@ -39,7 +47,7 @@ public class InsertPicture extends AddShape {
 		fileChooser.ifPresent(ch -> shape.ifPresent(sh -> {
 			final File file = ch.showOpenDialog(null);
 
-			if(file!=null) {
+			if(file != null && file.canRead()) {
 				try {
 					((IPicture) sh).setPathSource(file.getAbsolutePath());
 					loaded = true;
@@ -49,7 +57,9 @@ public class InsertPicture extends AddShape {
 			}
 		}));
 
-		if(loaded) redo();
+		if(loaded) {
+			redo();
+		}
 	}
 
 	@Override
@@ -62,19 +72,11 @@ public class InsertPicture extends AddShape {
 
 	@Override
 	public boolean hadEffect() {
-		return super.hadEffect() && loaded;
+		return loaded && super.hadEffect();
 	}
 
 	@Override
 	public boolean canDo() {
 		return super.canDo() && fileChooser.isPresent() && shape.orElse(null) instanceof IPicture;
-	}
-
-	/**
-	 * @param chooser The file chooser used to select the picture to load.
-	 * @since 3.0
-	 */
-	public void setFileChooser(final FileChooser chooser) {
-		fileChooser = Optional.ofNullable(chooser);
 	}
 }

@@ -44,30 +44,26 @@ public class DeleteShapes extends DrawingActionImpl implements ShapesAction, Und
 
 	@Override
 	protected void doActionBody() {
-		drawing.ifPresent(dr -> {
-			final List<IShape> drawingSh = dr.getShapes();
-			positionShapes = shapes.stream().mapToInt(sh -> {
-				int pos = drawingSh.indexOf(sh);
-				dr.removeShape(sh);
-				return pos;
-			}).boxed().collect(Collectors.toList());
-			dr.setModified(true);
-		});
+		final List<IShape> drawingSh = drawing.getShapes();
+		positionShapes = shapes.stream().mapToInt(sh -> {
+			int pos = drawingSh.indexOf(sh);
+			drawing.removeShape(sh);
+			return pos;
+		}).boxed().collect(Collectors.toList());
+		drawing.setModified(true);
 	}
 
 	@Override
 	public boolean canDo() {
-		return drawing.isPresent() && !shapes.isEmpty();
+		return super.canDo() && !shapes.isEmpty();
 	}
 
 	@Override
 	public void undo() {
-		drawing.ifPresent(dr -> {
-			for(int i = positionShapes.size() - 1; i >= 0; i--) {
-				dr.addShape(shapes.get(i), positionShapes.get(i));
-			}
-			dr.setModified(true);
-		});
+		for(int i = positionShapes.size() - 1; i >= 0; i--) {
+			drawing.addShape(shapes.get(i), positionShapes.get(i));
+		}
+		drawing.setModified(true);
 	}
 
 	@Override

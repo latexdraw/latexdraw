@@ -22,9 +22,13 @@ public abstract class ShapeActionImpl<T extends IShape> extends ActionImpl imple
 	/** The shape to add. */
 	protected Optional<T> shape;
 
-	protected ShapeActionImpl() {
+	protected ShapeActionImpl(final T sh) {
 		super();
-		shape = Optional.empty();
+		shape = Optional.ofNullable(sh);
+	}
+
+	protected ShapeActionImpl() {
+		this(null);
 	}
 
 	@Override

@@ -11,7 +11,6 @@
 package net.sf.latexdraw.actions.shape;
 
 import java.util.Optional;
-import net.sf.latexdraw.actions.DrawingAction;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
@@ -23,15 +22,14 @@ import org.malai.undo.Undoable;
  * This action adds a shape to a drawing.
  * @author Arnaud Blouin
  */
-public class AddShape extends ShapeActionImpl<IShape> implements DrawingAction, Undoable, Modifying {
+public class AddShape extends ShapeActionImpl<IShape> implements Undoable, Modifying {
 	/** The drawing that will be handled by the action. */
-	protected Optional<IDrawing> drawing;
+	protected final Optional<IDrawing> drawing;
 
-	public AddShape() {
-		super();
-		drawing = Optional.empty();
+	public AddShape(final IShape sh, final IDrawing dr) {
+		super(sh);
+		drawing = Optional.ofNullable(dr);
 	}
-
 
 	@Override
 	protected void doActionBody() {
@@ -62,16 +60,6 @@ public class AddShape extends ShapeActionImpl<IShape> implements DrawingAction, 
 			dr.removeShape(sh);
 			dr.setModified(true);
 		}));
-	}
-
-	@Override
-	public void setDrawing(final IDrawing dr) {
-		drawing = Optional.ofNullable(dr);
-	}
-
-	@Override
-	public Optional<IDrawing> getDrawing() {
-		return drawing;
 	}
 
 	@Override

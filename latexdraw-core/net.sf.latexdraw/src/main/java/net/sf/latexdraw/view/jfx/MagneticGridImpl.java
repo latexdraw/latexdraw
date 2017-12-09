@@ -103,61 +103,31 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 		}
 
 		if(Double.compare(pixPerCm10, 4d) > 0d) {
-//			final double xMinclip = Math.floor(clip.getMinX() / pixPerCm10) * pixPerCm10 - clip.getMinX();
-//			final double yMinclip = Math.floor(clip.getMinY() / pixPerCm10) * pixPerCm10 - clip.getMinY();
-//			final double xMaxclip = clip.getMaxX();
-//			final double yMaxclip = clip.getMaxY();
-//			final double minX = clip.getMinX();
-//			final double minY = clip.getMinY();
-
-//			for(double i = pixPerCm10 - 1d + xMinclip + minX + canvas.getOrigin().getX() % pixPerCm10; i < xMaxclip; i += pixPerCm10) {
-//				createLine(i, minY, i, yMaxclip);
-//			}
-//
-//			for(double i = pixPerCm10 - 1d + yMinclip + minY + canvas.getOrigin().getY() % pixPerCm10; i < yMaxclip; i += pixPerCm10) {
-//				createLine(minX, i, xMaxclip, i);
-//			}
-
 			final double height = canvas.getPrefHeight();
 			final double width = canvas.getPrefWidth();
 
-			for(double i = 0; i<width; i+=pixPerCm10) {
-				createLine(elts, i, 0, i, height);
+			for(double i = 0d; i < width; i += pixPerCm10) {
+				createLine(elts, i, 0d, i, height);
 			}
 
-			for(double j = 0; j<height; j+=pixPerCm10) {
-				createLine(elts, 0, j, width, j);
+			for(double j = 0d; j < height; j += pixPerCm10) {
+				createLine(elts, 0d, j, width, j);
 			}
 		}
 	}
 
 
 	private void paintMainLines(final List<PathElement> elts, final double gap) {
-//		final double zoom = canvas.getZoom();
-//		final double widthGap = clip.getWidth() - clip.getWidth() / zoom;
-//		final double minX = -1d * clip.getMinX() + widthGap / 2d;// - (clip.getWidth() - clip.getWidth()*zoom);
-//		final double maxX = minX + clip.getWidth() + widthGap + widthGap / 2d;
-//		final double minY = -1d * clip.getMinY();
-//		final double maxY = minY + clip.getHeight();
-
 		final double height = canvas.getPrefHeight();
 		final double width = canvas.getPrefWidth();
 
-		for(double i = 0; i<width; i+=gap) {
-			createLine(elts, i, 0, i, height);
+		for(double i = 0d; i < width; i += gap) {
+			createLine(elts, i, 0d, i, height);
 		}
 
-		for(double j = 0; j<height; j+=gap) {
-			createLine(elts, 0, j, width, j);
+		for(double j = 0d; j < height; j += gap) {
+			createLine(elts, 0d, j, width, j);
 		}
-
-//		for(double i = minX - minX % gap, endX = maxX - maxX % gap + gap; i<endX; i+=gap) {
-//			createLine(elts, i, minY, i, maxY);
-//		}
-//
-//		for(double j = minY - minY % gap, endY = maxY - maxY % gap + gap; j<endY; j+=gap) {
-//			createLine(elts, minX, j, maxX, j);
-//		}
 	}
 
 
@@ -208,8 +178,9 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 	public double getMagneticGridGap() {
 		double gap;
 
-		if(isPersonalGrid()) gap = getGridSpacing();
-		else {
+		if(isPersonalGrid()) {
+			gap = getGridSpacing();
+		}else {
 			final double ppc = canvas.getPPCDrawing();
 			gap = ScaleRuler.getUnit() == Unit.CM ? ppc / 10d : ppc * PSTricksConstants.INCH_VAL_CM / 10d;
 			gap = gap - (int) gap > 0.5 ? (int) gap + 1d : (int) gap;

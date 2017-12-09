@@ -44,6 +44,7 @@ import net.sf.latexdraw.view.jfx.ViewText;
 import org.malai.action.Action;
 import org.malai.javafx.action.MoveCamera;
 import org.malai.javafx.binding.JfXWidgetBinding;
+import org.malai.javafx.interaction.library.AbortableDnD;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.DoubleClick;
 import org.malai.javafx.interaction.library.Press;
@@ -81,7 +82,56 @@ public class Hand extends CanvasInstrument {
 			}
 		});
 
-		// Pressure to select shapes
+		addBinding(new DnD2Select(this));
+
+		bindPressureToAddShape();
+		bindDnDTranslate();
+
+		addBinding(new DnD2MoveViewport(this));
+		dbleClickToInitTextSetter();
+
+		keyNodeBinder(SelectShapes.class).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).first(action -> {
+			canvas.getDrawing().getShapes().forEach(sh -> action.addShape(sh));
+			action.setDrawing(canvas.getDrawing());
+		}).bind();
+
+		keyNodeBinder(UpdateToGrid.class).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).first(action -> {
+			action.setShape(canvas.getDrawing().getSelection().duplicateDeep(false));
+			action.setGrid(canvas.getMagneticGrid());
+		}).when(i -> canvas.getMagneticGrid().isMagnetic()).bind();
+	}
+
+	/**
+	 * Double click to initialise the text setter to edit plot and text shapes.
+	 */
+	private void dbleClickToInitTextSetter() throws InstantiationException, IllegalAccessException {
+		// For text shapes.
+		nodeBinder(InitTextSetter.class, new DoubleClick()).
+			on(canvas.getViews().getChildren()).
+			map(i -> {
+				final IText text = ((ViewText) i.getSrcObject().get().getParent()).getModel();
+				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(text.getPosition().getX() * canvas.getZoom(),
+					text.getPosition().getY() * canvas.getZoom()), text, null);
+			}).
+			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() instanceof ViewText).
+			bind();
+
+		// For plot shapes.
+		nodeBinder(InitTextSetter.class, new DoubleClick()).
+			on(canvas.getViews().getChildren()).
+			map(i -> {
+				final IPlot plot = getViewShape(i.getSrcObject()).map(view -> ((ViewPlot) view).getModel()).get();
+				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(plot.getPosition().getX() * canvas.getZoom(),
+					plot.getPosition().getY() * canvas.getZoom()), null, plot);
+			}).
+			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() != null && getViewShape(i.getSrcObject()).orElse(null) instanceof ViewPlot).
+			bind();
+	}
+
+	/**
+	 * Pressure to select shapes
+	 */
+	private void bindPressureToAddShape() throws InstantiationException, IllegalAccessException {
 		nodeBinder(SelectShapes.class, new Press()).on(canvas).first((a, i) -> {
 			a.setDrawing(canvas.getDrawing());
 			getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
@@ -97,21 +147,24 @@ public class Hand extends CanvasInstrument {
 				a.setShape(targetSh);
 			});
 		}).when(i -> getViewShape(i.getSrcObject()).isPresent()).bind();
+	}
 
-		addBinding(new DnD2Select(this));
-		addBinding(new DnD2Translate(this));
-		addBinding(new DnD2MoveViewport(this));
-		addBinding(new DoubleClick2InitTextSetter(this));
-
-		keyNodeBinder(SelectShapes.class).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).first(action -> {
-			canvas.getDrawing().getShapes().forEach(sh -> action.addShape(sh));
-			action.setDrawing(canvas.getDrawing());
-		}).bind();
-
-		keyNodeBinder(UpdateToGrid.class).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).first(action -> {
-			action.setShape(canvas.getDrawing().getSelection().duplicateDeep(false));
-			action.setGrid(canvas.getMagneticGrid());
-		}).when(i -> canvas.getMagneticGrid().isMagnetic()).bind();
+	/**
+	 * A DnD on a shape view allows to translate the underlying shape.
+	 */
+	private void bindDnDTranslate() throws InstantiationException, IllegalAccessException {
+		nodeBinder(TranslateShapes.class, new AbortableDnD(true)).
+			on(canvas.getViews().getChildren()).
+			map(i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false))).
+			then((a, i) -> {
+				final IPoint startPt = grid.getTransformedPointToGrid(i.getSrcPoint());
+				final IPoint endPt = grid.getTransformedPointToGrid(i.getEndPt());
+				a.setT(endPt.getX() - startPt.getX(), endPt.getY() - startPt.getY());
+			}).
+			when(i -> (i.getButton() == MouseButton.PRIMARY || i.getButton() == MouseButton.SECONDARY) && !canvas.getDrawing().getSelection().isEmpty()).
+			exec(true).
+			feedback(() -> canvas.setCursor(Cursor.MOVE)).
+			bind();
 	}
 
 	@Override
@@ -166,86 +219,6 @@ public class Hand extends CanvasInstrument {
 			return Optional.ofNullable(getRealViewShape((ViewShape<?>) parent));
 		}
 		return Optional.empty();
-	}
-
-
-	private static class DoubleClick2InitTextSetter extends JfXWidgetBinding<InitTextSetter, DoubleClick, Hand> {
-		DoubleClick2InitTextSetter(final Hand ins) throws IllegalAccessException, InstantiationException {
-			super(ins, false, InitTextSetter.class, new DoubleClick(), ins.canvas);
-		}
-
-		@Override
-		public void initAction() {
-			interaction.getSrcObject().ifPresent(srcObj -> {
-				Optional<IPoint> pos = Optional.empty();
-				final IShape sh = getRealViewShape((ViewShape<?>) srcObj.getParent()).getModel();
-
-				if(sh instanceof IText) {
-					final IText text = (IText) sh;
-					action.setTextShape(text);
-					pos = Optional.of(text.getPosition());
-				}else {
-					if(sh instanceof IPlot) {
-						final IPlot plot = (IPlot) sh;
-						action.setPlotShape(plot);
-						pos = Optional.of(plot.getPosition());
-					}
-				}
-
-				pos.ifPresent(position -> {
-					final double zoom = instrument.canvas.getZoom();
-					action.setInstrument(instrument.textSetter);
-					action.setTextSetter(instrument.textSetter);
-					action.setPosition(ShapeFactory.INST.createPoint(position.getX() * zoom, position.getY() * zoom));
-				});
-			});
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final Optional<Node> src = interaction.getSrcObject();
-			return src.isPresent() && src.get().getParent() != null &&
-				(src.get().getParent() instanceof ViewText || src.get().getParent().getUserData() instanceof ViewPlot);
-		}
-	}
-
-
-	private static class DnD2Translate extends JfXWidgetBinding<TranslateShapes, DnD, Hand> {
-		DnD2Translate(final Hand hand) throws IllegalAccessException, InstantiationException {
-			super(hand, true, TranslateShapes.class, new DnD(), hand.canvas);
-		}
-
-		@Override
-		public void initAction() {
-			action.setDrawing(instrument.canvas.getDrawing());
-			action.setShape(instrument.canvas.getDrawing().getSelection().duplicateDeep(false));
-		}
-
-
-		@Override
-		public void updateAction() {
-			final IPoint startPt = instrument.grid.getTransformedPointToGrid(interaction.getSrcPoint());
-			final IPoint endPt = instrument.grid.getTransformedPointToGrid(interaction.getEndPt());
-			action.setTx(endPt.getX() - startPt.getX());
-			action.setTy(endPt.getY() - startPt.getY());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final Optional<Node> startObject = interaction.getSrcObject();
-			final MouseButton button = interaction.getButton();
-
-			return startObject.isPresent() && !instrument.canvas.getDrawing().getSelection().isEmpty() &&
-				(startObject.get() == instrument.canvas && button == MouseButton.SECONDARY ||
-				getViewShape(startObject).isPresent() && (button == MouseButton.PRIMARY || button == MouseButton.SECONDARY));
-		}
-
-
-		@Override
-		public void interimFeedback() {
-			super.interimFeedback();
-			instrument.canvas.setCursor(Cursor.MOVE);
-		}
 	}
 
 

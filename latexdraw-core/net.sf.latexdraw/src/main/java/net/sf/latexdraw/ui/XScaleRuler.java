@@ -10,56 +10,42 @@
  */
 package net.sf.latexdraw.ui;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
-import net.sf.latexdraw.util.Inject;
-
 /**
  * An X-scale ruler.
  * @author Arnaud BLOUIN
  */
-public class XScaleRuler extends ScaleRuler {
-	/** The y rule. used to get information about where the x-scale must be displayed. */
-	@Inject protected YScaleRuler yruler;
-
-	/**
-	 * Defines a x-scale ruler.
-	 * @throws IllegalArgumentException if the given canvas is null.
-	 * @since 3.0
-	 */
-	public XScaleRuler() {
-		super();
-		setPreferredSize(new Dimension(500, SIZE));
-	}
+public class XScaleRuler {
+//	/** The y rule. used to get information about where the x-scale must be displayed. */
+//	@Inject protected YScaleRuler yruler;
 
 
-	@Override
-	protected void drawLine(final Graphics2D g2, final double positionA, final double positionB1, final double positionB2) {
-		g2.draw(new Line2D.Double(positionA, positionB1, positionA, positionB2));
-	}
 
-
-	@Override
-	protected double getLength() {
-		return getSize().getWidth()+getClippingGap();
-	}
-
-
-	@Override
-	protected double getStart() {
-		return yruler==null || !yruler.isVisible() ? 0. : SIZE;
-	}
-
-
-	@Override
-	protected void adaptGraphicsToViewpoint(final Graphics2D g) {
-		g.translate((int)-getClippingGap(), 0);
-	}
-
-
-	@Override
-	protected double getClippingGap() {
-		return 0.0; // canvas.getVisibleBound().getMinX();
-	}
+//	@Override
+//	protected void drawLine(final Graphics2D g2, final double positionA, final double positionB1, final double positionB2) {
+//		g2.draw(new Line2D.Double(positionA, positionB1, positionA, positionB2));
+//	}
+//
+//
+//	@Override
+//	protected double getLength() {
+//		return 0; // getSize().getWidth()+getClippingGap();
+//	}
+//
+//
+//	@Override
+//	protected double getStart() {
+//		return yruler==null || !yruler.isVisible() ? 0. : SIZE;
+//	}
+//
+//
+//	@Override
+//	protected void adaptGraphicsToViewpoint(final Graphics2D g) {
+//		g.translate((int)-getClippingGap(), 0);
+//	}
+//
+//
+//	@Override
+//	protected double getClippingGap() {
+//		return 0.0; // canvas.getVisibleBound().getMinX();
+//	}
 }

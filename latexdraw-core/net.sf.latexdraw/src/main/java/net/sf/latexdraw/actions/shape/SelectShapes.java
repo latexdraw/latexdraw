@@ -34,19 +34,17 @@ public class SelectShapes extends DrawingActionImpl implements ShapesAction, Mod
 
 	@Override
 	public void doActionBody() {
-		drawing.ifPresent(dr -> {
-			final IGroup selection = dr.getSelection();
+		final IGroup selection = drawing.getSelection();
 
-			if(shapes.isEmpty()) selection.clear();
-			else {
-				for(int i = selection.size() - 1; i >= 0; i--) {
-					if(!shapes.contains(selection.getShapeAt(i))) selection.removeShape(i);
-				}
-				shapes.forEach(sh -> {
-					if(!selection.contains(sh)) selection.addShape(sh);
-				});
+		if(shapes.isEmpty()) selection.clear();
+		else {
+			for(int i = selection.size() - 1; i >= 0; i--) {
+				if(!shapes.contains(selection.getShapeAt(i))) selection.removeShape(i);
 			}
-		});
+			shapes.forEach(sh -> {
+				if(!selection.contains(sh)) selection.addShape(sh);
+			});
+		}
 	}
 
 	@Override

@@ -78,38 +78,32 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
 		// menu to paste shapes.
 		menuItemBinder(PasteShapes.class).on(pasteMenu).
-			first(action -> {
-				action.setCopy(getCopyCutAction().orElse(null));
-				action.setDrawing(canvas.getDrawing());
-				action.setGrid(grid);
-			}).when(i -> getCopyCutAction().isPresent()).bind();
+			map(i -> new PasteShapes(getCopyCutAction().orElse(null), grid, canvas.getDrawing())).
+			when(i -> getCopyCutAction().isPresent()).bind();
 
 		// Key shortcut ctrl+V to paste shapes.
 		keyNodeBinder(PasteShapes.class).on(canvas).with(KeyCode.V, LSystem.INSTANCE.getControlKey()).
-			first(action -> {
-				action.setCopy(getCopyCutAction().orElse(null));
-				action.setDrawing(canvas.getDrawing());
-				action.setGrid(grid);
-			}).when(interaction -> getCopyCutAction().isPresent()).bind();
+			map(i -> new PasteShapes(getCopyCutAction().orElse(null), grid, canvas.getDrawing())).
+			when(interaction -> getCopyCutAction().isPresent()).bind();
 
 		// menu to copy shapes.
 		menuItemBinder(CopyShapes.class).on(copyMenu).
-			first(a -> a.setSelection(getSelectAction().orElse(null))).
+			map(i -> new CopyShapes(getSelectAction().orElse(null))).
 			when(i -> isShapeSelected.get()).bind();
 
 		// Key shortcut ctrl+C to copy shapes.
 		keyNodeBinder(CopyShapes.class).on(canvas).with(KeyCode.C, LSystem.INSTANCE.getControlKey()).
-			first(action -> action.setSelection(getSelectAction().orElse(null))).
+			map(i -> new CopyShapes(getSelectAction().orElse(null))).
 			when(interaction -> isShapeSelected.get()).bind();
 
 		// menu to cut shapes.
 		menuItemBinder(CutShapes.class).on(cutMenu).
-			first(a -> a.setSelection(getSelectAction().orElse(null))).
+			map(i -> new CutShapes(getSelectAction().orElse(null))).
 			when(i -> isShapeSelected.get()).bind();
 
 		// Key shortcut ctrl+X to cut shapes.
 		keyNodeBinder(CutShapes.class).on(canvas).with(KeyCode.X, LSystem.INSTANCE.getControlKey()).
-			first(action -> action.setSelection(getSelectAction().orElse(null))).
+			map(i -> new CutShapes(getSelectAction().orElse(null))).
 			when(interaction -> isShapeSelected.get()).bind();
 	}
 

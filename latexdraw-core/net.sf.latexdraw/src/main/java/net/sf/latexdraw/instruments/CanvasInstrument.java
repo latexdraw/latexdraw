@@ -21,7 +21,6 @@ import org.malai.javafx.instrument.JfxInstrument;
 /**
  * This abstract instrument encapsulates common operations dealing with a canvas.
  * @author Arnaud Blouin
- * @since 3.1
  */
 abstract class CanvasInstrument extends JfxInstrument {
 	@Inject protected Canvas canvas;
@@ -35,7 +34,6 @@ abstract class CanvasInstrument extends JfxInstrument {
 	 * Computes the point depending on the the zoom level and the origin of the canvas.
 	 * @param pt The point to adapted.
 	 * @return The computed point.
-	 * @since 3.0
 	 */
 	public IPoint getAdaptedOriginPoint(final IPoint pt) {
 		return canvas.convertToOrigin(pt);
@@ -54,7 +52,6 @@ abstract class CanvasInstrument extends JfxInstrument {
 	 * Computes the point depending on the the zoom level and the magnetic grid.
 	 * @param pt The point to adapted.
 	 * @return The computed point.
-	 * @since 3.0
 	 */
 	public IPoint getAdaptedPoint(final Point3D pt) {
 		return canvas.convertToOrigin(grid.getTransformedPointToGrid(pt));

@@ -31,7 +31,9 @@ class LatexdrawBuilderFactory implements BuilderFactory {
 
 	@Override
 	public Builder<?> getBuilder(final Class<?> type) {
-		if(type == Canvas.class) return () -> injector.getInstance(type);
+		if(type == Canvas.class) {
+			return () -> injector.getInstance(type);
+		}
 		return defaultFactory.getBuilder(type);
 	}
 }

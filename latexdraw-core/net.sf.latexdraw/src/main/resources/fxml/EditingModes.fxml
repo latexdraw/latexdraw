@@ -142,16 +142,6 @@
             </ImageView>
         </graphic>
     </ToggleButton>
-    <ToggleButton fx:id="bezierClosedB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
-        <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.11"/>
-        </tooltip>
-        <graphic>
-            <ImageView>
-                <Image url="@/res/closedBezier.png"/>
-            </ImageView>
-        </graphic>
-    </ToggleButton>
     <ToggleButton fx:id="bezierB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
             <Tooltip text="%LaTeXDrawFrame.132"/>

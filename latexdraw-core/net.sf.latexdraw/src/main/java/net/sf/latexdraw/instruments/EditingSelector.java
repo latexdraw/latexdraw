@@ -66,9 +66,6 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	/** The button that allows to select the instrument Pencil to add bezier curves. */
 	@FXML ToggleButton bezierB;
 
-	/** The button that allows to select the instrument Pencil to add closed bezier curves. */
-	@FXML ToggleButton bezierClosedB;
-
 	/** The button that allows to select the instrument Pencil to add grids. */
 	@FXML ToggleButton gridB;
 
@@ -134,7 +131,6 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		button2EditingChoiceMap.put(arcB, EditionChoice.CIRCLE_ARC);
 		button2EditingChoiceMap.put(axesB, EditionChoice.AXES);
 		button2EditingChoiceMap.put(bezierB, EditionChoice.BEZIER_CURVE);
-		button2EditingChoiceMap.put(bezierClosedB, EditionChoice.BEZIER_CURVE_CLOSED);
 		button2EditingChoiceMap.put(circleB, EditionChoice.CIRCLE);
 		button2EditingChoiceMap.put(ellipseB, EditionChoice.ELLIPSE);
 		button2EditingChoiceMap.put(gridB, EditionChoice.GRID);
@@ -167,11 +163,10 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[button2EditingChoiceMap.size()+1]);
 		nodes[nodes.length-1] = handB;
 
-		toggleButtonBinder(AddShape.class).on(textB).first(action -> {
-			action.setDrawing(canvas.getDrawing());
-			action.setShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(pencil.textSetter.getPosition()),
-				pencil.textSetter.getTextField().getText()));
-		}).when(i -> pencil.textSetter.isActivated() && !pencil.textSetter.getTextField().getText().isEmpty()).bind();
+		toggleButtonBinder(AddShape.class).on(textB).
+			map(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(pencil.textSetter.getPosition()),
+				pencil.textSetter.getTextField().getText()), canvas.getDrawing())).
+			when(i -> pencil.textSetter.isActivated() && !pencil.textSetter.getTextField().getText().isEmpty()).bind();
 
 		toggleButtonBinder(ModifyPencilStyle.class).on(nodes).first((action, interaction) -> {
 			action.setEditingChoice(button2EditingChoiceMap.get(interaction.getWidget()));
@@ -187,7 +182,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 				action.addInstrumentToInactivate(pencil.textSetter);
 			}
 
-			/* Selection of the instruments to activate/desactivate. */
+			/* Selection of the instruments to activate/deactivate. */
 			if(button == handB) {
 				final boolean noSelection = hand.canvas.getDrawing().getSelection().isEmpty();
 				action.addInstrumentToActivate(hand);

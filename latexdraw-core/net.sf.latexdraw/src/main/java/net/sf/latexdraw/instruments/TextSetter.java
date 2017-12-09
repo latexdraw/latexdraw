@@ -11,7 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.Optional;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
@@ -22,15 +22,12 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Inject;
 import org.malai.action.Action;
 import org.malai.javafx.action.ActivateInactivateInstruments;
-import org.malai.javafx.binding.JfXWidgetBinding;
-import org.malai.javafx.interaction.library.KeyTyped;
 
 /**
  * An instrument for adding and modifying texts of the drawing.
@@ -135,21 +132,39 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 			when(i -> plot != null && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to add a text shape.
-		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).first(action -> {
-			final IPoint textPosition = ShapeFactory.INST.createPoint(position.getX(), position.getY());
-			final IShape sh = pencil == null ? null : pencil.createShapeInstance();
-
-			if(sh instanceof IText) {
-				final IText text = (IText) sh;
-				text.setPosition(textPosition.getX(), textPosition.getY());
+		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).
+			map(i -> {
+				final IText sh = (IText) pencil.createShapeInstance();
+				text.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY()));
 				text.setText(textField.getText());
-				action.setShape(text);
-				action.setDrawing(pencil.canvas.getDrawing());
-			}
-		}).when(i -> pencil.getCurrentChoice() == EditionChoice.TEXT && text == null && !textField.getText().isEmpty()).bind();
+				return new AddShape(sh, canvas.getDrawing());
+			}).
+			when(i -> pencil.getCurrentChoice() == EditionChoice.TEXT && text == null && !textField.getText().isEmpty()).bind();
 
-		addBinding(new Enter2CheckPlot(this));
-		addBinding(new KeyPress2Desactivate(this));
+		// Key Enter to add a text shape.
+		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).
+			map(i -> {
+				textField.setValid(true);
+				plot = (IPlot) pencil.createShapeInstance();
+				plot.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY() + textField.getHeight()));
+				plot.setPlotEquation(textField.getText());
+				return new AddShape(plot, canvas.getDrawing());
+			}).
+			when(i -> pencil.getCurrentChoice() == EditionChoice.PLOT && plot == null && !textField.getText().isEmpty() && isValidPlotFct()).bind();
+
+		keyNodeBinder(ActivateInactivateInstruments.class).
+			map(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
+			with(KeyCode.ENTER).when(i -> textField.isValidText() && !textField.getText().isEmpty()).bind();
+		keyNodeBinder(ActivateInactivateInstruments.class).
+			map(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
+			with(KeyCode.ESCAPE).bind();
+	}
+
+	private boolean isValidPlotFct() {
+		return PSFunctionParser.isValidPostFixEquation(textField.getText(),
+			Double.valueOf(plotCustom.minXSpinner.getValue().toString()),
+			Double.valueOf(plotCustom.maxXSpinner.getValue().toString()),
+			Double.valueOf(plotCustom.nbPtsSpinner.getValue().toString()));
 	}
 
 	private void setTextMessage() {
@@ -189,7 +204,6 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 
 	/**
 	 * @return The text field used to set texts.
-	 * @since 3.0
 	 */
 	public TextAreaAutoSize getTextField() {
 		return textField;
@@ -211,62 +225,5 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 		setActivated(false);
 		canvas.addToWidgetLayer(textField);
 		canvas.addToWidgetLayer(textField.getMessageField());
-	}
-
-
-	private static class KeyPress2Desactivate extends JfXWidgetBinding<ActivateInactivateInstruments, KeyTyped, TextSetter> {
-		KeyPress2Desactivate(TextSetter setter) throws InstantiationException, IllegalAccessException {
-			super(setter, false, ActivateInactivateInstruments.class, new KeyTyped(), setter.textField);
-		}
-
-		@Override
-		public void initAction() {
-			action.addInstrumentToInactivate(instrument);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final Optional<KeyCode> key = interaction.getKeyCode();
-			return key.isPresent() && (key.get() == KeyCode.ENTER && instrument.textField.isValidText() &&
-				!instrument.textField.getText().isEmpty() || key.get() == KeyCode.ESCAPE);
-		}
-	}
-
-
-	private static class Enter2CheckPlot extends JfXWidgetBinding<AddShape, KeyTyped, TextSetter> {
-		Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, AddShape.class, new KeyTyped(), ins.textField);
-		}
-
-		@Override
-		public void initAction() {
-			instrument.textField.setValid(true);
-			final IPoint textPosition = ShapeFactory.INST.createPoint(instrument.position.getX(), instrument.position.getY() + instrument.textField.getHeight());
-			final IShape sh = instrument.pencil == null ? null : instrument.pencil.createShapeInstance();
-
-			if(sh instanceof IPlot) {
-				final IPlot plot = (IPlot) sh;
-				plot.setPosition(textPosition.getX(), textPosition.getY());
-				plot.setPlotEquation(instrument.textField.getText());
-				action.setShape(plot);
-				action.setDrawing(instrument.pencil.canvas.getDrawing());
-			}
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			boolean ok = instrument.pencil.getCurrentChoice() == EditionChoice.PLOT && instrument.plot == null && !
-				instrument.textField.getText().isEmpty() && interaction.getKeyCode().orElse(null) == KeyCode.ENTER;
-
-			if(ok)
-				if(!PSFunctionParser.isValidPostFixEquation(instrument.textField.getText(),
-					Double.valueOf(instrument.plotCustom.minXSpinner.getValue().toString()),
-					Double.valueOf(instrument.plotCustom.maxXSpinner.getValue().toString()),
-					Double.valueOf(instrument.plotCustom.nbPtsSpinner.getValue().toString()))) {
-					instrument.textField.setValid(false);
-					ok = false;
-				}
-			return ok;
-		}
 	}
 }

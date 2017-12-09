@@ -131,8 +131,7 @@ public class TestResources {
 			"/res/axes.png",
 			"/res/texEditor.png",
 			"/res/freehand/curve.png",
-			"/res/freehand/line.png",
-			"/res/closedBezier.png");
+			"/res/freehand/line.png");
 	}
 
 	@Test

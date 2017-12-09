@@ -87,7 +87,9 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
 		super.save(generalPreferences, nsURI, document, root);
 
-		if(document == null || root == null || generalPreferences) return;
+		if(document == null || root == null || generalPreferences) {
+			return;
+		}
 
 		final String ns = LPath.INSTANCE.getNormaliseNamespaceURI(nsURI);
 

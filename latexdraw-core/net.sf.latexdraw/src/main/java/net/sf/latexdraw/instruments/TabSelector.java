@@ -18,11 +18,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -43,7 +44,10 @@ public class TabSelector extends JfxInstrument implements Initializable {
 	@Inject private ShapeDeleter deleter;
 	@FXML private TabPane tabPane;
 	@FXML private ScrollPane scrollPane;
-	@FXML private StackPane canvasPane;
+	@FXML private Pane canvasPane;
+	@FXML private ScaleRuler xruler;
+	@FXML private ScaleRuler yruler;
+	@FXML private Pane rulersScrollerPane;
 	@Inject private TextSetter textSetter;
 	@Inject private MetaShapeCustomiser meta;
 	@Inject private Canvas canvas;
@@ -88,7 +92,31 @@ public class TabSelector extends JfxInstrument implements Initializable {
 			return new Rectangle(x, y, vpWidth, vpHeight);
 		}, scrollPane.vvalueProperty(), scrollPane.hvalueProperty(), scrollPane.viewportBoundsProperty()));
 
+		initScaleRulers();
+
 		setActivated(true);
+	}
+
+	private void initScaleRulers() {
+		xruler.setCanvas(canvas);
+		yruler.setCanvas(canvas);
+
+		canvas.zoomProperty().addListener((observable, oldValue, newValue) -> xruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
+
+		rulersScrollerPane.widthProperty().addListener((observable, oldValue, newValue) -> xruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
+		rulersScrollerPane.heightProperty().addListener((observable, oldValue, newValue) -> yruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
+
+//		scrollPane.hvalueProperty().addListener((observable, oldValue, newValue) -> xruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
+//		scrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> yruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
+
+		xruler.getGroup().translateXProperty().bind(Bindings.createDoubleBinding(() -> {
+			int val = (int) (canvas.getWidth() * scrollPane.getHvalue() - Canvas.MARGINS);
+			while(val < 0) {
+				val += canvas.getPPCDrawing();
+			}
+			val %= canvas.getPPCDrawing();
+			return (double) val;
+		}, scrollPane.hvalueProperty()));
 	}
 
 	@Override

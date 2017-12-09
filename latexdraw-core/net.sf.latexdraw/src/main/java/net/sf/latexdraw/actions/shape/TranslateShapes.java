@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.actions.shape;
 
-import java.util.Optional;
-import net.sf.latexdraw.actions.DrawingAction;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
 import net.sf.latexdraw.models.MathUtils;
@@ -24,32 +22,30 @@ import org.malai.undo.Undoable;
  * This action translates shapes.
  * @author Arnaud Blouin
  */
-public class TranslateShapes extends ShapeActionImpl<IGroup> implements DrawingAction, Undoable, Modifying {
+public class TranslateShapes extends ShapeActionImpl<IGroup> implements Undoable, Modifying {
 	/** The x vector translation. */
-	double tx;
-
+	private double tx;
 	/** The y vector translation. */
-	double ty;
-
+	private double ty;
 	/**
 	 * The x vector translation that has been already performed. This attribute is needed since
 	 * this action can be executed several times.
 	 */
-	double performedTx;
-
+	private double performedTx;
 	/**
 	 * The y vector translation that has been already performed. This attribute is needed since
 	 * this action can be executed several times.
 	 */
-	double performedTy;
-
+	private double performedTy;
 	/** The drawing that will be handled by the action. */
-	protected Optional<IDrawing> drawing;
+	private IDrawing drawing;
 
 
-	public TranslateShapes() {
-		super();
-		drawing = Optional.empty();
+	public TranslateShapes(final IDrawing dr, final IGroup sh) {
+		super(sh);
+		drawing = dr;
+		performedTx = 0d;
+		performedTy = 0d;
 	}
 
 	@Override
@@ -59,44 +55,42 @@ public class TranslateShapes extends ShapeActionImpl<IGroup> implements DrawingA
 
 	@Override
 	public boolean hadEffect() {
-		return !MathUtils.INST.equalsDouble(performedTx, 0.0) || !MathUtils.INST.equalsDouble(performedTy, 0.0);
+		return !MathUtils.INST.equalsDouble(performedTx, 0d) || !MathUtils.INST.equalsDouble(performedTy, 0d);
 	}
 
 	@Override
 	protected void doActionBody() {
-		shape.ifPresent(sh -> drawing.ifPresent(dr -> {
-			if(!MathUtils.INST.equalsDouble(tx - performedTx, 0.0) || !MathUtils.INST.equalsDouble(ty - performedTy, 0.0)) {
-				sh.translate(tx - performedTx, ty - performedTy);
-				sh.setModified(true);
-				dr.setModified(true);
-				performedTx = tx;
-				performedTy = ty;
-			}
-		}));
+		shape.ifPresent(sh ->  {
+			sh.translate(tx, ty);
+			sh.setModified(true);
+			drawing.setModified(true);
+			performedTx += tx;
+			performedTy += ty;
+		});
 	}
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && drawing.isPresent() && shape.isPresent() && !shape.get().isEmpty() && MathUtils.INST.isValidPt(tx, ty) &&
+		return super.canDo() && drawing != null && shape.isPresent() && !shape.get().isEmpty() && MathUtils.INST.isValidPt(tx, ty) &&
 			(!MathUtils.INST.equalsDouble(tx, 0d) || !MathUtils.INST.equalsDouble(ty, 0d));
 	}
 
 	@Override
 	public void undo() {
-		shape.ifPresent(sh -> drawing.ifPresent(dr -> {
-			sh.translate(-tx, -ty);
+		shape.ifPresent(sh -> {
+			sh.translate(-performedTx, -performedTy);
 			sh.setModified(true);
-			dr.setModified(true);
-		}));
+			drawing.setModified(true);
+		});
 	}
 
 	@Override
 	public void redo() {
-		shape.ifPresent(sh -> drawing.ifPresent(dr -> {
-			sh.translate(tx, ty);
+		shape.ifPresent(sh -> {
+			sh.translate(performedTx, performedTy);
 			sh.setModified(true);
-			dr.setModified(true);
-		}));
+			drawing.setModified(true);
+		});
 	}
 
 	@Override
@@ -106,25 +100,10 @@ public class TranslateShapes extends ShapeActionImpl<IGroup> implements DrawingA
 
 	/**
 	 * @param theTx The x vector translation.
-	 */
-	public void setTx(final double theTx) {
-		tx = theTx;
-	}
-
-	/**
 	 * @param theTy The y vector translation.
 	 */
-	public void setTy(final double theTy) {
+	public void setT(final double theTx, final double theTy) {
+		tx = theTx;
 		ty = theTy;
-	}
-
-	@Override
-	public void setDrawing(final IDrawing dr) {
-		drawing = Optional.ofNullable(dr);
-	}
-
-	@Override
-	public Optional<IDrawing> getDrawing() {
-		return drawing;
 	}
 }

@@ -51,29 +51,25 @@ public class JoinShapes extends DrawingActionImpl implements ShapesAction, Undoa
 	}
 
 	private void joinShapes() {
-		drawing.ifPresent(dr -> {
-			final List<IShape> drawingSh = dr.getShapes();
-			shapes.stream().sorted((s1, s2) -> drawingSh.indexOf(s1) < drawingSh.indexOf(s2) ? -1 : 1).forEach(sh -> {
-				dr.removeShape(sh);
-				addedGroup.addShape(sh);
-			});
-
-			dr.addShape(addedGroup);
-			dr.setModified(true);
+		final List<IShape> drawingSh = drawing.getShapes();
+		shapes.stream().sorted((s1, s2) -> drawingSh.indexOf(s1) < drawingSh.indexOf(s2) ? -1 : 1).forEach(sh -> {
+			drawing.removeShape(sh);
+			addedGroup.addShape(sh);
 		});
+
+		drawing.addShape(addedGroup);
+		drawing.setModified(true);
 	}
 
 	@Override
 	public void undo() {
-		drawing.ifPresent(dr -> {
-			final List<IShape> drawingSh = dr.getShapes();
-			final Map<IShape, Integer> map = shapes.stream().collect(Collectors.toMap(sh -> sh, drawingSh::indexOf));
+		final List<IShape> drawingSh = drawing.getShapes();
+		final Map<IShape, Integer> map = shapes.stream().collect(Collectors.toMap(sh -> sh, drawingSh::indexOf));
 
-			dr.removeShape(addedGroup);
-			addedGroup.getShapes().forEach(sh -> dr.addShape(sh, map.get(sh)));
-			addedGroup.clear();
-			dr.setModified(true);
-		});
+		drawing.removeShape(addedGroup);
+		addedGroup.getShapes().forEach(sh -> drawing.addShape(sh, map.get(sh)));
+		addedGroup.clear();
+		drawing.setModified(true);
 	}
 
 	@Override

@@ -1,15 +1,33 @@
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import net.sf.latexdraw.ui.ScaleRuler?>
 <TabPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" tabClosingPolicy="UNAVAILABLE" fx:id="tabPane"
          fx:controller="net.sf.latexdraw.instruments.TabSelector">
     <Tab closable="false" text="%UIBuilder.1">
         <SplitPane dividerPositions="0.85">
-            <ScrollPane fx:id="scrollPane">
-                <fx:include fx:id="canvasPane" source="Canvas.fxml"/>
-            </ScrollPane>
+            <BorderPane fx:id="rulersScrollerPane">
+                <top>
+                    <VBox minHeight="10" maxHeight="10">
+                        <padding>
+                            <Insets left="10"/>
+                        </padding>
+                        <ScaleRuler fx:id="xruler" vertical="false" minHeight="10" maxHeight="10"/>
+                    </VBox>
+                </top>
+                <center>
+                    <ScrollPane fx:id="scrollPane">
+                        <fx:include fx:id="canvasPane" source="Canvas.fxml"/>
+                    </ScrollPane>
+                </center>
+                <left>
+                    <ScaleRuler fx:id="yruler" vertical="true" minWidth="10" maxWidth="10"/>
+                </left>
+            </BorderPane>
             <ScrollPane maxWidth="310" minWidth="310" prefWidth="310">
                 <VBox maxWidth="310" minWidth="310" prefWidth="310">
                     <fx:include source="LineStyle.fxml"/>

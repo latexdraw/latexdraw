@@ -15,6 +15,7 @@ import java.util.Optional;
 import javafx.scene.control.Label;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -34,75 +35,70 @@ import org.malai.undo.Undoable;
  */
 public class InsertPSTCode extends DrawingActionImpl implements Undoable {
 	/** The code to parse. */
-	Optional<String> code;
-
+	private String code;
 	/** The status bar. */
-	Optional<Label> statusBar;
-
+	private Label statusBar;
 	/** The added shapes. */
-	Optional<IShape> shapes;
+	private Optional<IShape> shapes;
 
-	public InsertPSTCode() {
-		super();
-		code = Optional.empty();
-		statusBar = Optional.empty();
+
+	public InsertPSTCode(final String codeToInsert, final Label status, final IDrawing drawingToFill) {
+		super(drawingToFill);
+		code = codeToInsert;
+		statusBar = status;
 		shapes = Optional.empty();
+
 	}
 
 	@Override
 	protected void doActionBody() {
-		code.ifPresent(co -> {
-			try {
-				PSTLatexdrawListener listener = new PSTLatexdrawListener();
-				final PSTParser parser = new PSTParser(new CommonTokenStream(new PSTLexer(CharStreams.fromString(co))));
-				parser.addParseListener(listener);
-				parser.pstCode(new PSTContext());
+		try {
+			final PSTLatexdrawListener listener = new PSTLatexdrawListener();
+			final PSTParser parser = new PSTParser(new CommonTokenStream(new PSTLexer(CharStreams.fromString(code))));
+			parser.addParseListener(listener);
+			parser.pstCode(new PSTContext());
 
-				final IGroup group = ShapeFactory.INST.createGroup();
-				group.getShapes().addAll(listener.getShapes());
+			final IGroup group = ShapeFactory.INST.createGroup();
+			group.getShapes().addAll(listener.getShapes());
 
-				if(!group.isEmpty()) {
-					final IShape sh = group.size() > 1 ? group : group.getShapeAt(0);
-					final IPoint tl = sh.getTopLeftPoint();
-					final double tx = tl.getX() < 0d ? -tl.getX() + 50d : 0d;
-					final double ty = tl.getY() < 0d ? -tl.getY() + 50d : 0d;
+			if(!group.isEmpty()) {
+				final IShape sh = group.size() > 1 ? group : group.getShapeAt(0);
+				final IPoint tl = sh.getTopLeftPoint();
+				final double tx = tl.getX() < 0d ? -tl.getX() + 50d : 0d;
+				final double ty = tl.getY() < 0d ? -tl.getY() + 50d : 0d;
 
-					shapes = Optional.of(sh);
-					sh.translate(tx, ty);
-					redo();
-					statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.36")));
+				shapes = Optional.of(sh);
+				sh.translate(tx, ty);
+				redo();
+
+				if(statusBar != null) {
+					statusBar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.36"));
 				}
-			}catch(final RecognitionException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-				statusBar.ifPresent(bar -> bar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.34")));
 			}
-		});
+		}catch(final RecognitionException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+			if(statusBar != null) {
+				statusBar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.34"));
+			}
+		}
 
 		done();
 	}
 
 	@Override
 	public void undo() {
-		shapes.ifPresent(sh -> drawing.ifPresent(dr -> {
-			dr.removeShape(sh);
-			dr.setModified(true);
-		}));
+		shapes.ifPresent(sh -> {
+			drawing.removeShape(sh);
+			drawing.setModified(true);
+		});
 	}
 
 	@Override
 	public void redo() {
-		shapes.ifPresent(sh -> drawing.ifPresent(dr -> {
-			dr.addShape(sh);
-			dr.setModified(true);
-		}));
-	}
-
-	public void setStatusBar(final Label value) {
-		statusBar = Optional.ofNullable(value);
-	}
-
-	public void setCode(final String value) {
-		code = Optional.ofNullable(value);
+		shapes.ifPresent(sh -> {
+			drawing.addShape(sh);
+			drawing.setModified(true);
+		});
 	}
 
 	@Override
@@ -112,7 +108,7 @@ public class InsertPSTCode extends DrawingActionImpl implements Undoable {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && code.isPresent();
+		return super.canDo() && code != null;
 	}
 
 	@Override

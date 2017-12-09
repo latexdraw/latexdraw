@@ -27,8 +27,9 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 	/** The index of the cut shapes. */
 	private List<Integer> positionShapes;
 
-	public CutShapes() {
-		super();
+
+	public CutShapes(final SelectShapes selection) {
+		super(selection);
 	}
 
 	@Override
@@ -48,7 +49,6 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 
 	/**
 	 * Delete the shapes from the drawing.
-	 * @since 3.0
 	 */
 	private void deleteShapes() {
 		selection.getDrawing().ifPresent(dr -> {
