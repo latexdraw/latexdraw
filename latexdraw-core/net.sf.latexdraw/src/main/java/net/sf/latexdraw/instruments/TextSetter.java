@@ -36,10 +36,8 @@ import org.malai.javafx.action.ActivateInactivateInstruments;
 public class TextSetter extends CanvasInstrument implements Initializable {
 	/** The text field. */
 	private final TextAreaAutoSize textField;
-	/**
-	 * The position where texts are added. It may not corresponds with the location
-	 * of the text field since the text field position is absolute (does not consider the zoom level).
-	 */
+	/** The position where texts are added. It may not corresponds with the location of the text field since the text field position is absolute
+	 * (does not consider the zoom level). */
 	private IPoint position;
 	/** The text to modify throw this instrument. If it is not set, a new text will be created. */
 	private IText text;
@@ -67,7 +65,6 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	/**
 	 * Sets the text to modify throw this instrument.
 	 * @param sh The plot to modify.
-	 * @since 3.1
 	 */
 	public void setPlot(final IPlot sh) {
 		plot = sh;
@@ -81,7 +78,6 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	/**
 	 * Sets the text to modify throw this instrument.
 	 * @param sh The text to modify.
-	 * @since 3.0
 	 */
 	public void setText(final IText sh) {
 		text = sh;
@@ -134,37 +130,39 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 		// Key Enter to add a text shape.
 		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).
 			map(i -> {
-				final IText sh = (IText) pencil.createShapeInstance();
+				text = (IText) pencil.createShapeInstance();
 				text.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY()));
 				text.setText(textField.getText());
-				return new AddShape(sh, canvas.getDrawing());
-			}).
-			when(i -> pencil.getCurrentChoice() == EditionChoice.TEXT && text == null && !textField.getText().isEmpty()).bind();
+				return new AddShape(text, canvas.getDrawing());
+			}).when(i -> pencil.getCurrentChoice() == EditionChoice.TEXT && !textField.getText().isEmpty()).bind();
 
-		// Key Enter to add a text shape.
+		// Key Enter to add a plot shape.
 		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).
 			map(i -> {
-				textField.setValid(true);
 				plot = (IPlot) pencil.createShapeInstance();
 				plot.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY() + textField.getHeight()));
 				plot.setPlotEquation(textField.getText());
 				return new AddShape(plot, canvas.getDrawing());
-			}).
-			when(i -> pencil.getCurrentChoice() == EditionChoice.PLOT && plot == null && !textField.getText().isEmpty() && isValidPlotFct()).bind();
+			}).when(i -> pencil.getCurrentChoice() == EditionChoice.PLOT && checkValidPlotFct()).bind();
 
-		keyNodeBinder(ActivateInactivateInstruments.class).
+		keyNodeBinder(ActivateInactivateInstruments.class).on(textField).
 			map(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
 			with(KeyCode.ENTER).when(i -> textField.isValidText() && !textField.getText().isEmpty()).bind();
-		keyNodeBinder(ActivateInactivateInstruments.class).
+		keyNodeBinder(ActivateInactivateInstruments.class).on(textField).
 			map(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
 			with(KeyCode.ESCAPE).bind();
 	}
 
-	private boolean isValidPlotFct() {
-		return PSFunctionParser.isValidPostFixEquation(textField.getText(),
-			Double.valueOf(plotCustom.minXSpinner.getValue().toString()),
-			Double.valueOf(plotCustom.maxXSpinner.getValue().toString()),
-			Double.valueOf(plotCustom.nbPtsSpinner.getValue().toString()));
+	private boolean checkValidPlotFct() {
+		boolean valid;
+		try {
+			valid = PSFunctionParser.isValidPostFixEquation(textField.getText(), Double.valueOf(plotCustom.minXSpinner.getValue().toString()),
+				Double.valueOf(plotCustom.maxXSpinner.getValue().toString()), Double.valueOf(plotCustom.nbPtsSpinner.getValue().toString()));
+		}catch(IllegalArgumentException ex) {
+			valid = false;
+		}
+		textField.setValid(valid);
+		return valid;
 	}
 
 	private void setTextMessage() {

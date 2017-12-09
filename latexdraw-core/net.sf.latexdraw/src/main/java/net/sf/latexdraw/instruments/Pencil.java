@@ -154,7 +154,6 @@ public class Pencil extends CanvasInstrument {
 				sh.getPoints().get(0).setPoint(pt.getX(), pt.getY());
 				return new AddShape(sh, canvas.getDrawing());
 			}).
-//			first(a -> canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null))).
 			then((a, i) -> {
 				final IPoint last = a.getShape().get().getPtAt(-1);
 				final IPoint endPt = getAdaptedPoint(i.getEndPt());
