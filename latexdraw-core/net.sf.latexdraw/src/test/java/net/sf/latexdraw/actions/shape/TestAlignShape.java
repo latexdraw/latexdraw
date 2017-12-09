@@ -1,6 +1,5 @@
 package net.sf.latexdraw.actions.shape;
 
-import com.google.common.collect.Streams;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -12,6 +11,7 @@ import net.sf.latexdraw.actions.TestUndoableAction;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IShapeFactory;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -67,10 +67,12 @@ public class TestAlignShape extends TestUndoableAction<AlignShapes, List<Tuple<I
 
 	@Override
 	protected void checkUndo() {
-		Streams.zip(shapes.getShapes().stream(), memento.stream(), (sh, mem) -> new Tuple<>(sh, mem)).forEach(elt -> {
-			assertEquals(elt.a.getTopLeftPoint(), elt.b.a);
-			assertEquals(elt.a.getBottomRightPoint(), elt.b.b);
-		});
+		int i=0;
+		for(IShape shape : shapes.getShapes()) {
+			assertEquals(shape.getTopLeftPoint(), memento.get(i).a);
+			assertEquals(shape.getBottomRightPoint(), memento.get(i).b);
+			i++;
+		}
 	}
 
 	@Override
