@@ -8,6 +8,7 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -93,6 +94,8 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 				bindAsEagerSingleton(ShapeTransformer.class);
 				bindToInstance(Hand.class, hand);
 				bindToInstance(Pencil.class, pencil);
+				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
+				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 			}
 		};
 	}

@@ -10,6 +10,7 @@ import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
 import org.junit.Test;
 import org.malai.action.ActionsRegistry;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -65,6 +66,8 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 				bindAsEagerSingleton(ShapeGrouper.class);
 				bindToInstance(Hand.class, hand);
 				bindToInstance(Pencil.class, pencil);
+				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
+				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 			}
 		};
 	}
