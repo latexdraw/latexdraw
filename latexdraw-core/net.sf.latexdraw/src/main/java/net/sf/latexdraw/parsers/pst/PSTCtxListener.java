@@ -18,11 +18,11 @@ import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.latex.DviPsColors;
 
 public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBaseListener {
-	public final Logger LOG = Logger.getAnonymousLogger();
+	public final Logger log = Logger.getAnonymousLogger();
 
 	public PSTCtxListener() {
 		super();
-		LOG.setLevel(Level.SEVERE);
+		log.setLevel(Level.SEVERE);
 	}
 
 	@Override
@@ -374,7 +374,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 
 	@Override
 	public void exitUnknownParamSetting(final net.sf.latexdraw.parsers.pst.PSTParser.UnknownParamSettingContext ctx) {
-		LOG.severe("Unkown parameter");
+		log.severe("Unkown parameter");
 	}
 
 	/**
@@ -386,7 +386,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 		final Optional<Color> colour = DviPsColors.INSTANCE.getColour(txtColor);
 
 		if(!colour.isPresent()) {
-			LOG.severe("The following colour is unknown: " + txtColor);
+			log.severe("The following colour is unknown: " + txtColor);
 		}
 
 		return colour;

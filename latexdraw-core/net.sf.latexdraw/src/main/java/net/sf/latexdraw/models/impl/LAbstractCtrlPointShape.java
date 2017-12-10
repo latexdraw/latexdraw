@@ -32,7 +32,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	}
 	
 	/** The default balance gap used to balance all the points of the bézier curve. */
-	protected int DEFAULT_BALANCE_GAP = 50;
+	protected int defaultBalanceGap = 50;
 	/** This vector contains the points which allows to change the angles of the curves */
 	protected final List<IPoint> firstCtrlPts;
 	/** Contains the second control points of each points; useful for closed curve. */
@@ -72,7 +72,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 			line.setLine(pt.getX(), pt.getY(), pt.getX() + 10d, line.getA() * (pt.getX() + 10d) + b);
 		}
 
-		return line.findPoints(pt, DEFAULT_BALANCE_GAP);
+		return line.findPoints(pt, defaultBalanceGap);
 	}
 
 

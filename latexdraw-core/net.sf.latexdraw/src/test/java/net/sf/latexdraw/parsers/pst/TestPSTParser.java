@@ -33,7 +33,7 @@ public abstract class TestPSTParser {
 				fail(ctx.name.getText());
 			}
 		};
-		listener.LOG.addHandler(new Handler() {
+		listener.log.addHandler(new Handler() {
 			@Override
 			public void publish(final LogRecord record) {
 				fail(record.getMessage());

@@ -106,7 +106,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 			}
 		};
 
-		listener.LOG.addHandler(new Handler() {
+		listener.log.addHandler(new Handler() {
 			@Override
 			public void publish(final LogRecord record) {
 				errorLog.setText(errorLog.getText() + record.getMessage() + LSystem.EOL);
