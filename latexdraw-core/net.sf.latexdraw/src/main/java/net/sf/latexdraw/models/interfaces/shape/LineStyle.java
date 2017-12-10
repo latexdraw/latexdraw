@@ -18,23 +18,17 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * @author Arnaud Blouin
  */
 public enum LineStyle {
-	// NONE{
-	// @Override
-	// public String getLatexToken() { return PSTricksConstants.LINE_NONE_STYLE; }
-	// },
 	SOLID {
 		@Override
 		public String getLatexToken() {
 			return PSTricksConstants.LINE_SOLID_STYLE;
 		}
-	},
-	DASHED {
+	}, DASHED {
 		@Override
 		public String getLatexToken() {
 			return PSTricksConstants.LINE_DASHED_STYLE;
 		}
-	},
-	DOTTED {
+	}, DOTTED {
 		@Override
 		public String getLatexToken() {
 			return PSTricksConstants.LINE_DOTTED_STYLE;
@@ -44,15 +38,13 @@ public enum LineStyle {
 	/**
 	 * @param style The style to get.
 	 * @return The style which name is the given name style.
-	 * @since 3.0
 	 */
-	public static  LineStyle getStyle(final String style) {
+	public static LineStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getLatexToken().equals(style)).findFirst().orElse(SOLID);
 	}
 
 	/**
 	 * @return The latex token corresponding to the line style.
-	 * @since 3.0
 	 */
 	public abstract String getLatexToken();
 }

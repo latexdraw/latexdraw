@@ -229,7 +229,6 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case AXES_TICKS_STYLE:
 				pencil.getGroupParams().setTicksStyle((TicksStyle) value);
 				break;
-			//			case AXES_TICKS_SIZE: pencil.getGroupParams().setTicksSize((Double)value); break;
 			case AXES_TICKS_SHOW:
 				pencil.getGroupParams().setTicksDisplayed((PlottingStyle) value);
 				break;
