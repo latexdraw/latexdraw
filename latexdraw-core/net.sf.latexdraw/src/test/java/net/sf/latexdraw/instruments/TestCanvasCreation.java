@@ -280,4 +280,11 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
 		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
+
+	@Test
+	public void testNotCrashDeactivate() {
+		setter.setActivated(true);
+		setter.setActivated(false);
+		setter.setActivated(true);
+	}
 }

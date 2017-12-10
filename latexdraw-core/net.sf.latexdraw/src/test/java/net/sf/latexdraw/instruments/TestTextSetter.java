@@ -176,4 +176,10 @@ public class TestTextSetter extends BaseTestCanvas {
 		assertTrue(canvas.getDrawing().isEmpty());
 		assertFalse(setter.isActivated());
 	}
+
+	@Test
+	public void testNotCrashDeactivate() {
+		setter.setActivated(true);
+		setter.setActivated(false);
+	}
 }

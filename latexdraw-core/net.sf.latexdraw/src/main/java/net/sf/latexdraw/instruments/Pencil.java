@@ -184,8 +184,8 @@ public class Pencil extends CanvasInstrument {
 			then((a, i) -> updateShapeFromCentre((ISquaredShape) a.getShape().get(), getAdaptedPoint(i.getSrcPoint()), getAdaptedPoint(i.getEndPt()).getX())).
 			end((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
-			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.SQUARE).or(currentChoice.isEqualTo(EditionChoice.CIRCLE).
-				or(currentChoice.isEqualTo(EditionChoice.CIRCLE_ARC))));
+			bind().activationProperty().bind(activatedProp.and(currentChoice.isEqualTo(EditionChoice.SQUARE).or(currentChoice.isEqualTo(EditionChoice.CIRCLE).
+				or(currentChoice.isEqualTo(EditionChoice.CIRCLE_ARC)))));
 	}
 
 	/**
@@ -198,8 +198,8 @@ public class Pencil extends CanvasInstrument {
 			then((a, i) -> updateShapeFromDiag((IRectangularShape) a.getShape().get(), getAdaptedPoint(i.getSrcPoint()), getAdaptedPoint(i.getEndPt()))).
 			end((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
-			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.RECT).or(currentChoice.isEqualTo(EditionChoice.ELLIPSE).
-				or(currentChoice.isEqualTo(EditionChoice.RHOMBUS).or(currentChoice.isEqualTo(EditionChoice.TRIANGLE)))));
+			bind().activationProperty().bind(activatedProp.and(currentChoice.isEqualTo(EditionChoice.RECT).or(currentChoice.isEqualTo(EditionChoice.ELLIPSE).
+				or(currentChoice.isEqualTo(EditionChoice.RHOMBUS).or(currentChoice.isEqualTo(EditionChoice.TRIANGLE))))));
 	}
 
 	/**
@@ -220,7 +220,7 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
 			}).
 			end((a, i) -> canvas.setTempView(null)).
-			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.POLYGON));
+			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.POLYGON).and(activatedProp));
 
 		// Binding for polyline
 		nodeBinder(AddShape.class, new MultiClick()).on(canvas).map(creation).
@@ -234,7 +234,7 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
 			}).
 			end((a, i) -> canvas.setTempView(null)).
-			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.LINES));
+			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.LINES).and(activatedProp));
 
 		// Binding for bézier curves
 		nodeBinder(AddShape.class, new MultiClick()).on(canvas).map(creation).
@@ -249,7 +249,7 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
 			}).
 			end((a, i) -> canvas.setTempView(null)).
-			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.BEZIER_CURVE));
+			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.BEZIER_CURVE).and(activatedProp));
 	}
 
 	/**
@@ -264,8 +264,8 @@ public class Pencil extends CanvasInstrument {
 				return new AddShape(sh, canvas.getDrawing());
 			}).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
-			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.GRID).or(currentChoice.isEqualTo(EditionChoice.DOT)).
-				or(currentChoice.isEqualTo(EditionChoice.AXES)));
+			bind().activationProperty().bind(activatedProp.and(currentChoice.isEqualTo(EditionChoice.GRID).or(currentChoice.isEqualTo(EditionChoice.DOT)).
+				or(currentChoice.isEqualTo(EditionChoice.AXES))));
 
 		// When a user starts to type a text using the text setter and then he clicks somewhere else in the canvas,
 		// the text typed must be added (if possible to the canvas) before starting typing a new text.
@@ -273,7 +273,7 @@ public class Pencil extends CanvasInstrument {
 			map(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(textSetter.getPosition()), textSetter.getTextField().getText()),
 				canvas.getDrawing())).
 			when(i -> textSetter.isActivated() && !textSetter.getTextField().getText().isEmpty()).
-			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.TEXT));
+			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.TEXT).and(activatedProp));
 	}
 
 	/**

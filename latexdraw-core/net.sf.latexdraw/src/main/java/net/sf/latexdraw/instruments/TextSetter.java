@@ -193,9 +193,12 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 
 		if(act) {
 			Platform.runLater(() -> {
-				textField.setLayoutX(position.getX());
-				textField.setLayoutY(position.getY() - textField.getPrefHeight());
+				if(position != null) {
+					textField.setLayoutX(position.getX());
+					textField.setLayoutY(position.getY() - textField.getPrefHeight());
+				}
 				textField.requestFocus();
+
 			});
 		}
 	}
