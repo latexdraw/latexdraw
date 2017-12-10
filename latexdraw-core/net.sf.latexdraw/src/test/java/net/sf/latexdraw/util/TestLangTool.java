@@ -38,12 +38,12 @@ public class TestLangTool {
 	}
 
 	@Test
-	public void testgetBundle() {
+	public void testGetBundle() {
 		assertNotNull(lang.getBundle());
 	}
 
 	@Test
-	public void getSupportedLocales() {
+	public void testGetSupportedLocales() {
 		assertNotNull(lang.getSupportedLocales());
 		assertFalse(lang.getSupportedLocales().isEmpty());
 	}

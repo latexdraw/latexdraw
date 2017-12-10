@@ -21,7 +21,7 @@ public class TestVersionChecker {
 	}
 
 	@Test
-	public void testcheckVersionNoNewVersion() throws InterruptedException {
+	public void testCheckVersionNoNewVersion() throws InterruptedException {
 		StatusBarController controller = mock(StatusBarController.class);
 		FutureTask<Void> future = new FutureTask<>(new VersionChecker(controller), null);
 		ExecutorService taskExecutor = Executors.newFixedThreadPool(1);
