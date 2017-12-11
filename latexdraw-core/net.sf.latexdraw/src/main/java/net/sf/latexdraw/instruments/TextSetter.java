@@ -95,26 +95,6 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 		pencil = pen;
 	}
 
-	/*
-private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapeProperty, KeyTyped, TextSetter> {
-		Enter2SetEquation(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, ModifyShapeProperty.class, KeyTyped.class, ins.textField);
-		}
-
-		@Override
-		public void initAction() {
-			action.setGroup(ShapeFactory.INST.createGroup(instrument.plot));
-			action.setProperty(ShapeProperties.PLOT_EQ);
-			action.setValue(instrument.textField.getText());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.plot != null && !instrument.textField.getText().isEmpty() && interaction.getKeyCode().orElse(null) == KeyCode.ENTER;
-		}
-	}
-	 */
-
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
 		// Key Enter to validate the text.
@@ -134,7 +114,7 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 				text.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY()));
 				text.setText(textField.getText());
 				return new AddShape(text, canvas.getDrawing());
-			}).when(i -> pencil.getCurrentChoice() == EditionChoice.TEXT && !textField.getText().isEmpty()).bind();
+			}).when(i -> pencil.isActivated() && pencil.getCurrentChoice() == EditionChoice.TEXT && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to add a plot shape.
 		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).
@@ -143,7 +123,7 @@ private static class Enter2SetEquation extends JfXWidgetBinding<ModifyShapePrope
 				plot.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY() + textField.getHeight()));
 				plot.setPlotEquation(textField.getText());
 				return new AddShape(plot, canvas.getDrawing());
-			}).when(i -> pencil.getCurrentChoice() == EditionChoice.PLOT && checkValidPlotFct()).bind();
+			}).when(i -> pencil.isActivated() && pencil.getCurrentChoice() == EditionChoice.PLOT && checkValidPlotFct()).bind();
 
 		keyNodeBinder(ActivateInactivateInstruments.class).on(textField).
 			map(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).

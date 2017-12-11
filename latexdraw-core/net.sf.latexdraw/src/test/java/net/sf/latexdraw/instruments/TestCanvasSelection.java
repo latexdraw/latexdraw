@@ -3,6 +3,7 @@ package net.sf.latexdraw.instruments;
 import java.util.Arrays;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
+import javafx.scene.control.Spinner;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
@@ -17,6 +18,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewArrow;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewPolyline;
+import net.sf.latexdraw.view.jfx.ViewText;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -34,6 +36,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	IPolyline addedPolyline;
 	IPlot addedPlot;
 	IGroup addedGroup;
+	TextSetter setter;
 
 	final GUIVoidCommand addGroup = () -> Platform.runLater(() -> {
 		IRectangle r1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+50), 200, 100);
@@ -73,6 +76,10 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		canvas.getDrawing().addShape(rec);
 	});
 
+	final GUIVoidCommand addText = () -> Platform.runLater(() -> {
+		canvas.getDrawing().addShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300,-Canvas.ORIGIN.getY()+300), "$foo bar"));
+	});
+
 	final GUIVoidCommand clickOnAddedRec = () -> rightClickOn(getPane().getChildren().get(0));
 
 	final GUIVoidCommand ctrlClickOnAddedRec2 = () -> press(KeyCode.CONTROL).rightClickOn(getPane().getChildren().get(1)).release(KeyCode.CONTROL);
@@ -88,7 +95,9 @@ public class TestCanvasSelection extends BaseTestCanvas {
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
+				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
+				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
+				bindAsEagerSingleton(TextSetter.class);
 			}
 		};
 	}
@@ -97,6 +106,8 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	@Before
 	public void setUp() {
 		super.setUp();
+		setter = (TextSetter) injectorFactory.call(TextSetter.class);
+		Platform.runLater(() -> setter.initialize(null, null));
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
 	}
@@ -282,5 +293,35 @@ public class TestCanvasSelection extends BaseTestCanvas {
 			() -> drag(x + 60, y + 20), waitFXEvents).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
+	}
+
+	@Test
+	public void testEditTextDoesNotCreateANewOne() {
+		when(pencil.getCurrentChoice()).thenReturn(EditionChoice.TEXT);
+		when(pencil.createShapeInstance()).thenReturn(ShapeFactory.INST.createText());
+		new CompositeGUIVoidCommand(addText, waitFXEvents).execute();
+		final ViewText v = (ViewText) canvas.getViews().getChildren().get(0);
+		doubleClickOn(v).sleep(10).write("@bar bar").sleep(10).type(KeyCode.ENTER).sleep(SLEEP);
+		assertEquals(1, canvas.getDrawing().size());
+		assertEquals(1, canvas.getViews().getChildren().size());
+	}
+
+	@Test
+	public void testEditPlotDoesNotCreateANewOne() {
+		when(pencil.getCurrentChoice()).thenReturn(EditionChoice.PLOT);
+		when(pencil.createShapeInstance()).thenReturn(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0, 5, "x", false));
+		ShapePlotCustomiser plot = (ShapePlotCustomiser) injectorFactory.call(ShapePlotCustomiser.class);
+		plot.maxXSpinner = Mockito.mock(Spinner.class);
+		plot.minXSpinner = Mockito.mock(Spinner.class);
+		plot.nbPtsSpinner = Mockito.mock(Spinner.class);
+		when(plot.maxXSpinner.getValue()).thenReturn(10d);
+		when(plot.minXSpinner.getValue()).thenReturn(0d);
+		when(plot.nbPtsSpinner.getValue()).thenReturn(10);
+
+		new CompositeGUIVoidCommand(addPlot, waitFXEvents).execute();
+		final ViewPlot v = (ViewPlot) canvas.getViews().getChildren().get(0);
+		doubleClickOn(v).sleep(10).type(KeyCode.DELETE).write("x 2 mul").sleep(10).type(KeyCode.ENTER).sleep(SLEEP);
+		assertEquals(1, canvas.getDrawing().size());
+		assertEquals(1, canvas.getViews().getChildren().size());
 	}
 }
