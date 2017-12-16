@@ -129,7 +129,7 @@ public class Pencil extends CanvasInstrument {
 
 		// Binds a pressure to insert a picture
 		nodeBinder(InsertPicture.class, new Press()).on(canvas).
-			map(i -> new InsertPicture(ShapeFactory.INST.createPicture(getAdaptedPoint(i.getSrcPoint())), canvas.getDrawing(), getPictureFileChooser())).
+			map(i -> new InsertPicture(ShapeFactory.INST.createPicture(getAdaptedPoint(i.getSrcLocalPoint())), canvas.getDrawing(), getPictureFileChooser())).
 			when(i -> currentChoice.get() == EditionChoice.PICTURE && i.getButton() == MouseButton.PRIMARY).bind();
 
 		bindDnDToDrawRectangularShape();
@@ -139,7 +139,7 @@ public class Pencil extends CanvasInstrument {
 
 		// Binds a pressure to show the text setter
 		nodeBinder(InitTextSetter.class, new Press()).on(canvas).
-			map(i -> new InitTextSetter(textSetter, textSetter, "", getAdaptedPoint(i.getSrcPoint()), null, null)).
+			map(i -> new InitTextSetter(textSetter, textSetter, "", getAdaptedPoint(i.getSrcLocalPoint()), null, null)).
 			when(i -> (currentChoice.get() == EditionChoice.TEXT || currentChoice.get() == EditionChoice.PLOT) && i.getButton() == MouseButton.PRIMARY).bind();
 	}
 
@@ -150,13 +150,13 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(AddShape.class, new AbortableDnD()).on(canvas).
 			map(i -> {
 				final IShape sh = createShapeInstance();
-				final IPoint pt = getAdaptedPoint(i.getSrcPoint());
+				final IPoint pt = getAdaptedPoint(i.getSrcLocalPoint());
 				sh.getPoints().get(0).setPoint(pt.getX(), pt.getY());
 				return new AddShape(sh, canvas.getDrawing());
 			}).
 			then((a, i) -> {
 				final IPoint last = a.getShape().get().getPtAt(-1);
-				final IPoint endPt = getAdaptedPoint(i.getEndPt());
+				final IPoint endPt = getAdaptedPoint(i.getEndLocalPt());
 				if(!MathUtils.INST.equalsDouble(last.getX(), endPt.getX(), 0.0001) &&
 					!MathUtils.INST.equalsDouble(last.getY(), endPt.getY(), 0.0001)) {
 					a.setShape(ShapeFactory.INST.createFreeHandFrom((IFreehand) a.getShape().get(), endPt));
@@ -175,13 +175,13 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(AddShape.class, new AbortableDnD()).on(canvas).
 			map(i -> {
 				final ISquaredShape sq = (ISquaredShape) createShapeInstance();
-				final IPoint pt = getAdaptedPoint(i.getSrcPoint());
+				final IPoint pt = getAdaptedPoint(i.getSrcLocalPoint());
 				sq.setPosition(pt.getX() - 1d, pt.getY() - 1d);
 				sq.setWidth(2d);
 				return new AddShape(sq, canvas.getDrawing());
 			}).
 			first(a -> canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null))).
-			then((a, i) -> updateShapeFromCentre((ISquaredShape) a.getShape().get(), getAdaptedPoint(i.getSrcPoint()), getAdaptedPoint(i.getEndPt()).getX())).
+			then((a, i) -> updateShapeFromCentre((ISquaredShape) a.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getEndLocalPt()).getX())).
 			end((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
 			bind().activationProperty().bind(activatedProp.and(currentChoice.isEqualTo(EditionChoice.SQUARE).or(currentChoice.isEqualTo(EditionChoice.CIRCLE).
@@ -195,7 +195,7 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(AddShape.class, new AbortableDnD()).on(canvas).
 			map(i -> new AddShape(createShapeInstance(), canvas.getDrawing())).
 			first(a -> canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null))).
-			then((a, i) -> updateShapeFromDiag((IRectangularShape) a.getShape().get(), getAdaptedPoint(i.getSrcPoint()), getAdaptedPoint(i.getEndPt()))).
+			then((a, i) -> updateShapeFromDiag((IRectangularShape) a.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getEndLocalPt()))).
 			end((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
 			bind().activationProperty().bind(activatedProp.and(currentChoice.isEqualTo(EditionChoice.RECT).or(currentChoice.isEqualTo(EditionChoice.ELLIPSE).
@@ -260,7 +260,7 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(AddShape.class, new Press()).on(canvas).
 			map(i -> {
 				final IPositionShape sh = (IPositionShape) createShapeInstance();
-				sh.setPosition(getAdaptedPoint(i.getSrcPoint()));
+				sh.setPosition(getAdaptedPoint(i.getSrcLocalPoint()));
 				return new AddShape(sh, canvas.getDrawing());
 			}).
 			when(i -> i.getButton() == MouseButton.PRIMARY).

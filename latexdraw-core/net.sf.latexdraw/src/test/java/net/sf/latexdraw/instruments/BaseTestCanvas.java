@@ -27,6 +27,14 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 		canvas.getDrawing().addShape(addedRec);
 	});
 
+	final GUIVoidCommand addRec2 = () -> Platform.runLater(() -> {
+		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300,
+			-Canvas.ORIGIN.getY()+300), 100, 100);
+		rec.setFilled(true);
+		rec.setFillingCol(DviPsColors.APRICOT);
+		canvas.getDrawing().addShape(rec);
+	});
+
 	@Override
 	public String getFXMLPathFromLatexdraw() {
 		return "/fxml/Canvas.fxml";

@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.NonInvertibleTransformException;
@@ -82,9 +83,12 @@ public class Hand extends CanvasInstrument {
 			}
 		});
 
+		canvas.getSelectionBorder().addEventHandler(MouseEvent.MOUSE_ENTERED, evt -> canvas.setCursor(Cursor.HAND));
+		canvas.getSelectionBorder().addEventHandler(MouseEvent.MOUSE_EXITED, evt -> canvas.setCursor(Cursor.DEFAULT));
+
 		addBinding(new DnD2Select(this));
 
-		bindPressureToAddShape();
+		bindPressureToSelectShape();
 		bindDnDTranslate();
 
 		addBinding(new DnD2MoveViewport(this));
@@ -131,8 +135,8 @@ public class Hand extends CanvasInstrument {
 	/**
 	 * Pressure to select shapes
 	 */
-	private void bindPressureToAddShape() throws InstantiationException, IllegalAccessException {
-		nodeBinder(SelectShapes.class, new Press()).on(canvas).first((a, i) -> {
+	private void bindPressureToSelectShape() throws InstantiationException, IllegalAccessException {
+		nodeBinder(SelectShapes.class, new Press()).on(canvas.getViews().getChildren()).first((a, i) -> {
 			a.setDrawing(canvas.getDrawing());
 			getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
 				if(i.isShiftPressed()) {
@@ -146,7 +150,7 @@ public class Hand extends CanvasInstrument {
 				}
 				a.setShape(targetSh);
 			});
-		}).when(i -> getViewShape(i.getSrcObject()).isPresent()).bind();
+		}).bind();
 	}
 
 	/**
@@ -154,14 +158,14 @@ public class Hand extends CanvasInstrument {
 	 */
 	private void bindDnDTranslate() throws InstantiationException, IllegalAccessException {
 		nodeBinder(TranslateShapes.class, new AbortableDnD(true)).
-			on(canvas.getViews().getChildren()).
+			on(canvas.getViews().getChildren()).on(canvas.getSelectionBorder()).
 			map(i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false))).
 			then((a, i) -> {
-				final IPoint startPt = grid.getTransformedPointToGrid(i.getSrcPoint());
-				final IPoint endPt = grid.getTransformedPointToGrid(i.getEndPt());
+				final IPoint startPt = grid.getTransformedPointToGrid(i.getSrcScenePoint());
+				final IPoint endPt = grid.getTransformedPointToGrid(i.getEndScenePt());
 				a.setT(endPt.getX() - startPt.getX(), endPt.getY() - startPt.getY());
 			}).
-			when(i -> (i.getButton() == MouseButton.PRIMARY || i.getButton() == MouseButton.SECONDARY) && !canvas.getDrawing().getSelection().isEmpty()).
+			when(i -> i.getButton() == MouseButton.PRIMARY && !canvas.getDrawing().getSelection().isEmpty()).
 			exec(true).
 			feedback(() -> canvas.setCursor(Cursor.MOVE)).
 			bind();
@@ -242,8 +246,8 @@ public class Hand extends CanvasInstrument {
 
 		@Override
 		public void updateAction() {
-			final IPoint start = instrument.getAdaptedOriginPoint(interaction.getSrcPoint());
-			final IPoint end = instrument.getAdaptedOriginPoint(interaction.getEndPt());
+			final IPoint start = instrument.getAdaptedOriginPoint(interaction.getSrcLocalPoint());
+			final IPoint end = instrument.getAdaptedOriginPoint(interaction.getEndLocalPt());
 			final double minX = Math.min(start.getX(), end.getX());
 			final double maxX = Math.max(start.getX(), end.getX());
 			final double minY = Math.min(start.getY(), end.getY());
@@ -308,15 +312,15 @@ public class Hand extends CanvasInstrument {
 		@Override
 		public void initAction() {
 			action.setScrollPane(instrument.canvas.getScrollPane());
-			pt.setPoint(interaction.getSrcPoint().getX(), interaction.getSrcPoint().getY());
+			pt.setPoint(interaction.getSrcLocalPoint().getX(), interaction.getSrcLocalPoint().getY());
 		}
 
 		@Override
 		public void updateAction() {
 			final ScrollPane pane = instrument.canvas.getScrollPane();
-			action.setPx(pane.getHvalue() - (interaction.getEndPt().getX() - pt.getX()) / instrument.canvas.getWidth());
-			action.setPy(pane.getVvalue() - (interaction.getEndPt().getY() - pt.getY()) / instrument.canvas.getHeight());
-			pt.setPoint(pt.centralSymmetry(ShapeFactory.INST.createPoint(interaction.getSrcPoint())));
+			action.setPx(pane.getHvalue() - (interaction.getEndLocalPt().getX() - pt.getX()) / instrument.canvas.getWidth());
+			action.setPy(pane.getVvalue() - (interaction.getEndLocalPt().getY() - pt.getY()) / instrument.canvas.getHeight());
+			pt.setPoint(pt.centralSymmetry(ShapeFactory.INST.createPoint(interaction.getSrcLocalPoint())));
 		}
 
 		@Override

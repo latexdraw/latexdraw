@@ -40,12 +40,6 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 	}
 
 	@Override
-	public void setPosition(final IPoint pt) {
-		if(MathUtils.INST.isValidPt(pt)) setPosition(pt.getX(), pt.getY());
-	}
-
-
-	@Override
 	public void setPosition(final double x, final double y) {
 		if(MathUtils.INST.isValidPt(x, y)) {
 			final IPoint pos = getPosition();
@@ -53,33 +47,39 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 		}
 	}
 
-
-	@Override
-	public void setX(final double x) {
-		if(MathUtils.INST.isValidCoord(x)) translate(x - getPosition().getX(), 0);
-	}
-
-
-	@Override
-	public void setY(final double y) {
-		if(MathUtils.INST.isValidCoord(y)) translate(0, y - getPosition().getY());
-	}
-
-
 	@Override
 	public IPoint getPosition() {
-		return getBottomLeftPoint();
+		return getPtAt(0);
 	}
 
+	@Override
+	public void setPosition(final IPoint pt) {
+		if(MathUtils.INST.isValidPt(pt)) {
+			setPosition(pt.getX(), pt.getY());
+		}
+	}
 
 	@Override
 	public double getX() {
 		return getPosition().getX();
 	}
 
+	@Override
+	public void setX(final double x) {
+		if(MathUtils.INST.isValidCoord(x)) {
+			translate(x - getPosition().getX(), 0);
+		}
+	}
 
 	@Override
 	public double getY() {
 		return getPosition().getY();
+	}
+
+	@Override
+	public void setY(final double y) {
+		if(MathUtils.INST.isValidCoord(y)) {
+			translate(0, y - getPosition().getY());
+		}
 	}
 }

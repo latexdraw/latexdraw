@@ -19,7 +19,6 @@ import net.sf.latexdraw.view.jfx.ViewArrow;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewPolyline;
 import net.sf.latexdraw.view.jfx.ViewText;
-import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -66,14 +65,6 @@ public class TestCanvasSelection extends BaseTestCanvas {
 			0d, 5d, "x", false);
 		addedPlot.setThickness(10d);
 		canvas.getDrawing().addShape(addedPlot);
-	});
-
-	final GUIVoidCommand addRec2 = () -> Platform.runLater(() -> {
-		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300,
-			-Canvas.ORIGIN.getY()+300), 100, 100);
-		rec.setFilled(true);
-		rec.setFillingCol(DviPsColors.APRICOT);
-		canvas.getDrawing().addShape(rec);
 	});
 
 	final GUIVoidCommand addText = () -> Platform.runLater(() -> {

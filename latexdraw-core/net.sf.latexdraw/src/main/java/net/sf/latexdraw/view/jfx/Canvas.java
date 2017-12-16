@@ -131,8 +131,6 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		ongoingSelectionBorder = new Rectangle();
 
 		widgetsPane.setFocusTraversable(false);
-		selectionBorder.setFocusTraversable(false);
-		selectionBorder.setMouseTransparent(true);
 		ongoingSelectionBorder.setFocusTraversable(false);
 		ongoingSelectionBorder.setMouseTransparent(true);
 		ongoingSelectionBorder.setFill(null);
@@ -163,7 +161,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	private void configureSelection() {
-		selectionBorder.setMouseTransparent(true);
+		selectionBorder.setFocusTraversable(false);
 		selectionBorder.setVisible(false);
 		selectionBorder.setFill(null);
 		selectionBorder.setStroke(Color.GRAY);

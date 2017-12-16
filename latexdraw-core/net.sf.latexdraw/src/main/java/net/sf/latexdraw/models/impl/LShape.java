@@ -704,22 +704,26 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public IPoint getBottomRightPoint() {
-		return points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
+		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
+			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
 	}
 
 	@Override
 	public IPoint getBottomLeftPoint() {
-		return points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
+		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
+			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
 	}
 
 	@Override
 	public IPoint getTopLeftPoint() {
-		return points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
+		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
+			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
 	}
 
 	@Override
 	public IPoint getTopRightPoint() {
-		return points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
+		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
+			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
 	}
 
 	@Override
