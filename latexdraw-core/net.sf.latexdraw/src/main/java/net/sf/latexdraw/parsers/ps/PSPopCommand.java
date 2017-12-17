@@ -19,7 +19,7 @@ import java.util.Deque;
 public class PSPopCommand implements PSArithemticCommand {
 	@Override
 	public void execute(final Deque<Double> stack, final double x) {
-		if(!stack.isEmpty()) {
+		if(stack.isEmpty()) {
 			throw new InvalidFormatPSFunctionException();
 		}
 
