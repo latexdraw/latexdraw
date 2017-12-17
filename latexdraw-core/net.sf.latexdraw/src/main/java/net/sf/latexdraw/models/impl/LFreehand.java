@@ -11,6 +11,7 @@
 package net.sf.latexdraw.models.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -52,7 +53,8 @@ class LFreehand extends LShape implements IFreehand {
 
 	@Override
 	public IFreehand duplicate() {
-		final IFreehand dup = ShapeFactory.INST.createFreeHand(points);
+		final IFreehand dup = ShapeFactory.INST.createFreeHand(points.stream().
+			map(pt -> ShapeFactory.INST.createPoint(pt.getX(), pt.getY())).collect(Collectors.toList()));
 		dup.copy(this);
 		return dup;
 	}
