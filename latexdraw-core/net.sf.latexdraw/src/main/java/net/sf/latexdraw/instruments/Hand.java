@@ -95,7 +95,7 @@ public class Hand extends CanvasInstrument {
 		dbleClickToInitTextSetter();
 
 		keyNodeBinder(SelectShapes.class).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).first(action -> {
-			canvas.getDrawing().getShapes().forEach(sh -> action.addShape(sh));
+			action.getShapes().addAll(canvas.getDrawing().getShapes());
 			action.setDrawing(canvas.getDrawing());
 		}).bind();
 

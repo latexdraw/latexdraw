@@ -1,10 +1,12 @@
 package net.sf.latexdraw.instruments;
 
+import java.io.IOException;
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.data.ShapeData;
+import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Injector;
@@ -67,7 +69,12 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 	}
 
 	@Theory
-	public void testShapeTranslationOK(@ShapeData final IShape sh) {
+	public void testShapeTranslationOK(@ShapeData final IShape sh) throws IOException {
+		if(sh instanceof IPicture) {
+			((IPicture) sh).setPathSource(getClass().getResource("/Arc.png").getFile());
+		}
+
+		canvas.getSelectionBorder().setFill(new Color(1d,1d, 1d, 0.1d));
 		sh.setFilled(true);
 		sh.translate(-canvas.getOrigin().getX(), -canvas.getOrigin().getY());
 		Platform.runLater(() -> {
@@ -76,12 +83,11 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 		});
 		WaitForAsyncUtils.waitForFxEvents();
 		final IPoint tl = sh.getTopLeftPoint();
-		clickOn(canvas);
-		canvas.getSelectionBorder().setFill(new Color(1d,1d, 1d, 0.1d));
-		press(KeyCode.CONTROL, KeyCode.A).sleep(10).release(KeyCode.CONTROL, KeyCode.A).sleep(10).drag(canvas.getSelectionBorder()).dropBy(101, 163).sleep(SLEEP);
+		clickOn(canvas).press(KeyCode.CONTROL, KeyCode.A).sleep(10).release(KeyCode.CONTROL, KeyCode.A).sleep(10).
+			drag(canvas.getSelectionBorder()).dropBy(101, 163).sleep(SLEEP);
 
-		assertEquals(tl.getX() + 101d, sh.getTopLeftPoint().getX(), 2d);
-		assertEquals(tl.getY() + 163d, sh.getTopLeftPoint().getY(), 2d);
+		assertEquals(tl.getX() + 101d, sh.getTopLeftPoint().getX(), 5d);
+		assertEquals(tl.getY() + 163d, sh.getTopLeftPoint().getY(), 5d);
 	}
 
 	@Test

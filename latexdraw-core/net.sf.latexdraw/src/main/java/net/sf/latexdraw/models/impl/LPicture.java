@@ -138,12 +138,6 @@ class LPicture extends LPositionShape implements IPicture {
 
 	@Override
 	public IPoint getPosition() {
-		return getTopLeftPoint();
-	}
-
-
-	@Override
-	public IPoint getTopLeftPoint() {
 		return getPtAt(0);
 	}
 

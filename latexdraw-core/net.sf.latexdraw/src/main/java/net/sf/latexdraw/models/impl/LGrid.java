@@ -106,6 +106,11 @@ class LGrid extends LAbstractGrid implements IGrid {
 	}
 
 	@Override
+	public IPoint getPosition() {
+		return getPtAt(0);
+	}
+
+	@Override
 	public boolean isXLabelSouth() {
 		return xLabelSouth.get();
 	}

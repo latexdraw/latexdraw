@@ -49,7 +49,7 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 
 	@Override
 	public IPoint getPosition() {
-		return getPtAt(0);
+		return getBottomLeftPoint();
 	}
 
 	@Override

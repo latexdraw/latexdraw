@@ -51,6 +51,10 @@ class LText extends LPositionShape implements IText {
 		textPosition = TextPosition.BOT_LEFT;
 	}
 
+	@Override
+	public IPoint getPosition() {
+		return getPtAt(0);
+	}
 
 	@Override
 	public String getText() {

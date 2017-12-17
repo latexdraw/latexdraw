@@ -127,6 +127,11 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	}
 
 	@Override
+	public IPoint getPosition() {
+		return getPtAt(0);
+	}
+
+	@Override
 	public ILine getArrowLine(final int index) {
 		// For the X-axis
 		if(index == 1 || index == 3) {
