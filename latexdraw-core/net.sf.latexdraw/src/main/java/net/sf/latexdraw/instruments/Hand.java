@@ -167,7 +167,10 @@ public class Hand extends CanvasInstrument {
 			}).
 			when(i -> i.getButton() == MouseButton.PRIMARY && !canvas.getDrawing().getSelection().isEmpty()).
 			exec(true).
-			feedback(() -> canvas.setCursor(Cursor.MOVE)).
+			first((a, i) -> {
+				i.getSrcObject().ifPresent(node -> Platform.runLater(() -> node.requestFocus()));
+				canvas.setCursor(Cursor.MOVE);
+			}).
 			bind();
 	}
 

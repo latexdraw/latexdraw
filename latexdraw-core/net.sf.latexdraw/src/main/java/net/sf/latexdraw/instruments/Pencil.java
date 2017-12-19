@@ -13,6 +13,7 @@ package net.sf.latexdraw.instruments;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.Function;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point3D;
@@ -154,6 +155,7 @@ public class Pencil extends CanvasInstrument {
 				sh.getPoints().get(0).setPoint(pt.getX(), pt.getY());
 				return new AddShape(sh, canvas.getDrawing());
 			}).
+			first((a, i) -> Platform.runLater(() -> canvas.requestFocus())).
 			then((a, i) -> {
 				final IPoint last = a.getShape().get().getPtAt(-1);
 				final IPoint endPt = getAdaptedPoint(i.getEndLocalPt());
@@ -180,7 +182,10 @@ public class Pencil extends CanvasInstrument {
 				sq.setWidth(2d);
 				return new AddShape(sq, canvas.getDrawing());
 			}).
-			first(a -> canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null))).
+			first((a, i) -> {
+				Platform.runLater(() -> canvas.requestFocus());
+				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
+			}).
 			then((a, i) -> updateShapeFromCentre((ISquaredShape) a.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getEndLocalPt()).getX())).
 			end((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
@@ -194,7 +199,10 @@ public class Pencil extends CanvasInstrument {
 	private void bindDnDToDrawRectangularShape() throws InstantiationException, IllegalAccessException {
 		nodeBinder(AddShape.class, new AbortableDnD()).on(canvas).
 			map(i -> new AddShape(createShapeInstance(), canvas.getDrawing())).
-			first(a -> canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null))).
+			first((a, i) -> {
+				Platform.runLater(() -> canvas.requestFocus());
+				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
+			}).
 			then((a, i) -> updateShapeFromDiag((IRectangularShape) a.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getEndLocalPt()))).
 			end((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
