@@ -170,7 +170,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 			action.setProperty(GridProperties.MAGNETIC);
 		}).bind();
 
-		spinnerBinder(ModifyMagneticGrid.class).on(persoGridGapField).exec(true).first(action -> {
+		spinnerBinder(ModifyMagneticGrid.class).on(persoGridGapField).exec().first(action -> {
 			action.setGrid(grid);
 			action.setProperty(GridProperties.GRID_SPACING);
 		}).then(action -> action.setValue(persoGridGapField.getValue())).bind();

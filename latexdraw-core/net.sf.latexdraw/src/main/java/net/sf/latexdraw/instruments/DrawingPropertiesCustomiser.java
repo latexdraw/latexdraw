@@ -178,7 +178,7 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 			action.setValue(positionCB.getSelectionModel().getSelectedItem());
 		}).bind();
 
-		spinnerBinder(ModifyLatexProperties.class).on(scaleField).exec(true).first(action -> {
+		spinnerBinder(ModifyLatexProperties.class).on(scaleField).exec().first(action -> {
 			action.setValue(scaleField.getValue());
 			action.setProperty(LatexProperties.SCALE);
 			action.setGenerator(latexGen);
