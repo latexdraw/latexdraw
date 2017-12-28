@@ -310,17 +310,12 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	@Override
-	public void onActionAborted(final Action a) {
+	public void onActionCancelled(final Action a) {
 		/* Nothing to do. */
 	}
 
 	@Override
 	public void onActionAdded(final Action a) {
-		/* Nothing to do. */
-	}
-
-	@Override
-	public void onActionCancelled(final Action a) {
 		/* Nothing to do. */
 	}
 
