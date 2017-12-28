@@ -45,7 +45,7 @@ import net.sf.latexdraw.view.jfx.ViewText;
 import org.malai.action.Action;
 import org.malai.javafx.action.MoveCamera;
 import org.malai.javafx.binding.JfXWidgetBinding;
-import org.malai.javafx.interaction.library.AbortableDnD;
+import org.malai.javafx.interaction.library.CancellableDnD;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.DoubleClick;
 import org.malai.javafx.interaction.library.Press;
@@ -157,7 +157,7 @@ public class Hand extends CanvasInstrument {
 	 * A DnD on a shape view allows to translate the underlying shape.
 	 */
 	private void bindDnDTranslate() throws InstantiationException, IllegalAccessException {
-		nodeBinder(TranslateShapes.class, new AbortableDnD(true)).
+		nodeBinder(TranslateShapes.class, new CancellableDnD(true)).
 			on(canvas.getViews().getChildren()).on(canvas.getSelectionBorder()).
 			map(i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false))).
 			then((a, i) -> {

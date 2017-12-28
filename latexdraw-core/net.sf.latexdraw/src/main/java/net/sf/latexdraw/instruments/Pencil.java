@@ -41,7 +41,7 @@ import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.ViewFactory;
-import org.malai.javafx.interaction.library.AbortableDnD;
+import org.malai.javafx.interaction.library.CancellableDnD;
 import org.malai.javafx.interaction.library.MultiClick;
 import org.malai.javafx.interaction.library.Press;
 
@@ -148,7 +148,7 @@ public class Pencil extends CanvasInstrument {
 	 * Binds a DnD interaction to create shape.
 	 */
 	private void bindDnDToDrawFreeHandShape() throws InstantiationException, IllegalAccessException {
-		nodeBinder(AddShape.class, new AbortableDnD()).on(canvas).
+		nodeBinder(AddShape.class, new CancellableDnD()).on(canvas).
 			map(i -> {
 				final IShape sh = createShapeInstance();
 				final IPoint pt = getAdaptedPoint(i.getSrcLocalPoint());
@@ -174,7 +174,7 @@ public class Pencil extends CanvasInstrument {
 	 * Binds a DnD interaction to draw squared shapes.
 	 */
 	private void bindDnDToDrawSquaredShape() throws InstantiationException, IllegalAccessException {
-		nodeBinder(AddShape.class, new AbortableDnD()).on(canvas).
+		nodeBinder(AddShape.class, new CancellableDnD()).on(canvas).
 			map(i -> {
 				final ISquaredShape sq = (ISquaredShape) createShapeInstance();
 				final IPoint pt = getAdaptedPoint(i.getSrcLocalPoint());
@@ -197,7 +197,7 @@ public class Pencil extends CanvasInstrument {
 	 * Binds a DnD interaction to draw rectangular shapes.
 	 */
 	private void bindDnDToDrawRectangularShape() throws InstantiationException, IllegalAccessException {
-		nodeBinder(AddShape.class, new AbortableDnD()).on(canvas).
+		nodeBinder(AddShape.class, new CancellableDnD()).on(canvas).
 			map(i -> new AddShape(createShapeInstance(), canvas.getDrawing())).
 			first((a, i) -> {
 				Platform.runLater(() -> canvas.requestFocus());
