@@ -118,6 +118,7 @@ public class Hand extends CanvasInstrument {
 					text.getPosition().getY() * canvas.getZoom()), text, null);
 			}).
 			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() instanceof ViewText).
+			strictStart().
 			bind();
 
 		// For plot shapes.
@@ -129,6 +130,7 @@ public class Hand extends CanvasInstrument {
 					plot.getPosition().getY() * canvas.getZoom()), null, plot);
 			}).
 			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() != null && getViewShape(i.getSrcObject()).orElse(null) instanceof ViewPlot).
+			strictStart().
 			bind();
 	}
 
@@ -171,6 +173,7 @@ public class Hand extends CanvasInstrument {
 				i.getSrcObject().ifPresent(node -> Platform.runLater(() -> node.requestFocus()));
 				canvas.setCursor(Cursor.MOVE);
 			}).
+			strictStart().
 			bind();
 	}
 

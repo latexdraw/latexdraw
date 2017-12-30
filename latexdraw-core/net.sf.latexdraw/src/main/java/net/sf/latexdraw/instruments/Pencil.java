@@ -167,6 +167,7 @@ public class Pencil extends CanvasInstrument {
 			}).
 			end((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY && currentChoice.get() == EditionChoice.FREE_HAND).
+			strictStart().
 			bind();
 	}
 
@@ -189,6 +190,7 @@ public class Pencil extends CanvasInstrument {
 			then((a, i) -> updateShapeFromCentre((ISquaredShape) a.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getEndLocalPt()).getX())).
 			end((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
+			strictStart().
 			bind().activationProperty().bind(activatedProp.and(currentChoice.isEqualTo(EditionChoice.SQUARE).or(currentChoice.isEqualTo(EditionChoice.CIRCLE).
 				or(currentChoice.isEqualTo(EditionChoice.CIRCLE_ARC)))));
 	}
@@ -206,6 +208,7 @@ public class Pencil extends CanvasInstrument {
 			then((a, i) -> updateShapeFromDiag((IRectangularShape) a.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getEndLocalPt()))).
 			end((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
+			strictStart().
 			bind().activationProperty().bind(activatedProp.and(currentChoice.isEqualTo(EditionChoice.RECT).or(currentChoice.isEqualTo(EditionChoice.ELLIPSE).
 				or(currentChoice.isEqualTo(EditionChoice.RHOMBUS).or(currentChoice.isEqualTo(EditionChoice.TRIANGLE))))));
 	}
