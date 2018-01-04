@@ -104,6 +104,9 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 		applyValue(value);
 	}
 
+	public IGroup getShapes() {
+		return shapes;
+	}
 
 	@Override
 	protected boolean isPropertySupported() {

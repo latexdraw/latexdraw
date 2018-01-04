@@ -12,6 +12,7 @@ package net.sf.latexdraw.instruments;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -99,7 +100,7 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 
 	private static class DnD2AddTemplate extends JfXWidgetBinding<LoadTemplate, DnD, TemplateManager> {
 		DnD2AddTemplate(final TemplateManager ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, LoadTemplate.class, new DnD(), ins.templatePane);
+			super(ins, false, LoadTemplate.class, new DnD(), Collections.singletonList(ins.templatePane), false, null);
 		}
 
 		@Override

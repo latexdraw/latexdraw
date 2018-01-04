@@ -11,13 +11,14 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.Cursor;
@@ -56,31 +57,30 @@ import org.malai.javafx.interaction.library.DnD;
  */
 public class Border extends CanvasInstrument implements Initializable {
 	/** The handlers that scale shapes. */
-	private final List<ScaleHandler> scaleHandlers;
+	private final ObservableList<ScaleHandler> scaleHandlers;
 	/** The handlers that move points. */
-	private final List<MovePtHandler> mvPtHandlers;
+	private final ObservableList<MovePtHandler> mvPtHandlers;
 	/** The handlers that move first control points. */
-	private final List<CtrlPointHandler> ctrlPt1Handlers;
+	private final ObservableList<CtrlPointHandler> ctrlPt1Handlers;
 	/** The handlers that move second control points. */
-	private final List<CtrlPointHandler> ctrlPt2Handlers;
+	private final ObservableList<CtrlPointHandler> ctrlPt2Handlers;
 	/** The handler that sets the start angle of an arc. */
 	private final ArcAngleHandler arcHandlerStart;
 	/** The handler that sets the end angle of an arc. */
 	private final ArcAngleHandler arcHandlerEnd;
 	/** The handler that rotates shapes. */
 	private RotationHandler rotHandler;
-	private DnD2MovePoint movePointInteractor;
-	private DnD2MoveCtrlPoint moveCtrlPtInteractor;
+
 	@Inject private MetaShapeCustomiser metaCustomiser;
 
 	public Border() {
 		super();
-		mvPtHandlers = new ArrayList<>();
-		ctrlPt1Handlers = new ArrayList<>();
-		ctrlPt2Handlers = new ArrayList<>();
+		mvPtHandlers = FXCollections.observableArrayList();
+		ctrlPt1Handlers = FXCollections.observableArrayList();
+		ctrlPt2Handlers = FXCollections.observableArrayList();
 		arcHandlerStart = new ArcAngleHandler(true);
 		arcHandlerEnd = new ArcAngleHandler(false);
-		scaleHandlers = new ArrayList<>(8);
+		scaleHandlers = FXCollections.observableArrayList();
 	}
 
 
@@ -96,7 +96,6 @@ public class Border extends CanvasInstrument implements Initializable {
 		scaleHandlers.add(new ScaleHandler(Position.SE, canvas.getSelectionBorder()));
 
 		rotHandler = new RotationHandler(canvas.getSelectionBorder());
-
 
 		scaleHandlers.forEach(handler -> canvas.addToWidgetLayer(handler));
 		canvas.addToWidgetLayer(rotHandler);
@@ -166,7 +165,6 @@ public class Border extends CanvasInstrument implements Initializable {
 	private void updateMvPtHandlers(final IShape selectedShape) {
 		if(selectedShape instanceof IModifiablePointsShape) {
 			initialisePointHandler(mvPtHandlers, pt -> new MovePtHandler(pt), selectedShape.getPoints());
-			movePointInteractor.getInteraction().registerToNodes(mvPtHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()));
 		}
 	}
 
@@ -175,8 +173,6 @@ public class Border extends CanvasInstrument implements Initializable {
 			final IBezierCurve pts = (IBezierCurve) selectedShape;
 			initialisePointHandler(ctrlPt1Handlers, pt -> new CtrlPointHandler(pt), pts.getFirstCtrlPts());
 			initialisePointHandler(ctrlPt2Handlers, pt -> new CtrlPointHandler(pt), pts.getSecondCtrlPts());
-			moveCtrlPtInteractor.getInteraction().registerToNodes(
-				Stream.concat(ctrlPt1Handlers.stream(), ctrlPt2Handlers.stream()).map(h -> (Node)h).collect(Collectors.toList()));
 		}
 	}
 
@@ -196,84 +192,67 @@ public class Border extends CanvasInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		movePointInteractor = new DnD2MovePoint(this);
-		moveCtrlPtInteractor = new DnD2MoveCtrlPoint(this);
 		addBinding(new DnD2Scale(this));
-		addBinding(movePointInteractor);
-		addBinding(moveCtrlPtInteractor);
-		addBinding(new DnD2Rotate(this));
+
+		nodeBinder(MovePointShape.class, new DnD()).
+			on(mvPtHandlers).
+			first((a, i) -> {
+				final IGroup group = canvas.getDrawing().getSelection();
+				if(group.size() == 1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
+					final MovePtHandler handler = (MovePtHandler) i.getSrcObject().get();
+					a.setPoint(handler.getPoint());
+					a.setShape((IModifiablePointsShape) group.getShapeAt(0));
+				}
+			}).
+			then((a, i) -> {
+				final Node node = i.getSrcObject().get();
+				final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
+				final Point3D endPt = node.localToParent(i.getEndLocalPt());
+				final IPoint ptToMove = ((MovePtHandler) node).getPoint();
+				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
+				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
+				a.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
+			}).
+			exec().
+			when(i -> i.getSrcLocalPoint() != null && i.getEndLocalPt() != null).
+			bind();
+
+		nodeBinder(MoveCtrlPoint.class, new DnD()).
+			on(ctrlPt1Handlers).
+			on(ctrlPt2Handlers).
+			first((a, i) -> {
+				final IGroup group = canvas.getDrawing().getSelection();
+				if(group.size() == 1 && group.getShapeAt(0) instanceof IControlPointShape) {
+					final CtrlPointHandler handler = (CtrlPointHandler) i.getSrcObject().get();
+					a.setPoint(handler.getPoint());
+					a.setShape((IControlPointShape) group.getShapeAt(0));
+					a.setIsFirstCtrlPt(ctrlPt1Handlers.contains(i.getSrcObject().get()));
+				}
+			}).
+			then((a, i) -> {
+				final Node node = i.getSrcObject().get();
+				final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
+				final Point3D endPt = node.localToParent(i.getEndLocalPt());
+				final IPoint ptToMove = ((CtrlPointHandler) node).getPoint();
+				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
+				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
+				a.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
+			}).
+			exec().bind();
+
+		nodeBinder(RotateShapes.class, new DnD()).
+			on(rotHandler).
+			first((a, i) -> {
+				final IDrawing drawing = canvas.getDrawing();
+				a.setGravityCentre(drawing.getSelection().getGravityCentre());
+				a.setShape(drawing.getSelection().duplicateDeep(false));
+			}).
+			then((a, i) -> a.setRotationAngle(a.getGc().computeRotationAngle(
+				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getSrcScenePoint())),
+				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getEndScenePt()))))).
+			exec().bind();
+
 		addBinding(new DnD2ArcAngle(this));
-	}
-
-
-	private static class DnD2MovePoint extends JfXWidgetBinding<MovePointShape, DnD, Border> {
-		DnD2MovePoint(final Border ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, MovePointShape.class, new DnD());
-		}
-
-		@Override
-		public void initAction() {
-			final IGroup group = instrument.canvas.getDrawing().getSelection();
-
-			if(group.size() == 1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
-				final MovePtHandler handler = (MovePtHandler) interaction.getSrcObject().get();
-				action.setPoint(handler.getPoint());
-				action.setShape((IModifiablePointsShape) group.getShapeAt(0));
-			}
-		}
-
-		@Override
-		public void updateAction() {
-			final Node node = interaction.getSrcObject().get();
-			final Point3D startPt = node.localToParent(interaction.getSrcLocalPoint());
-			final Point3D endPt = node.localToParent(interaction.getEndLocalPt());
-			final IPoint ptToMove = ((MovePtHandler) node).getPoint();
-			final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
-			final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
-			action.setNewCoord(instrument.grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getSrcLocalPoint() != null && interaction.getEndLocalPt() != null && interaction.getSrcObject().isPresent() &&
-				interaction.getSrcObject().get() instanceof MovePtHandler;
-		}
-	}
-
-
-	private static class DnD2MoveCtrlPoint extends JfXWidgetBinding<MoveCtrlPoint, DnD, Border> {
-		DnD2MoveCtrlPoint(final Border ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, MoveCtrlPoint.class, new DnD());
-		}
-
-		@Override
-		public void initAction() {
-			final IGroup group = instrument.canvas.getDrawing().getSelection();
-
-			if(group.size() == 1 && group.getShapeAt(0) instanceof IControlPointShape) {
-				final CtrlPointHandler handler = (CtrlPointHandler) interaction.getSrcObject().get();
-				action.setPoint(handler.getPoint());
-				action.setShape((IControlPointShape) group.getShapeAt(0));
-				action.setIsFirstCtrlPt(instrument.ctrlPt1Handlers.contains(interaction.getSrcObject().get()));
-			}
-		}
-
-		@Override
-		public void updateAction() {
-			final Node node = interaction.getSrcObject().get();
-			final Point3D startPt = node.localToParent(interaction.getSrcLocalPoint());
-			final Point3D endPt = node.localToParent(interaction.getEndLocalPt());
-			final IPoint ptToMove = ((CtrlPointHandler) node).getPoint();
-			final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
-			final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
-			action.setNewCoord(instrument.grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getSrcLocalPoint() != null && interaction.getEndLocalPt() != null && interaction.getSrcObject().isPresent()
-				&& interaction.getSrcObject().get() instanceof CtrlPointHandler;
-		}
 	}
 
 	private static class DnD2ArcAngle extends JfXWidgetBinding<ModifyShapeProperty, DnD, Border> {
@@ -282,11 +261,10 @@ public class Border extends CanvasInstrument implements Initializable {
 		/** Defines whether the current handled shape is rotated. */
 		private boolean isRotated;
 		/** The current handled shape. */
-		private IArc shape;
 		private IPoint gap;
 
 		DnD2ArcAngle(final Border ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, ModifyShapeProperty.class, new DnD(), ins.arcHandlerStart, ins.arcHandlerEnd);
+			super(ins, true, ModifyShapeProperty.class, new DnD(), Arrays.asList(ins.arcHandlerStart, ins.arcHandlerEnd), false, null);
 			gap = ShapeFactory.INST.createPoint();
 			isRotated = false;
 		}
@@ -297,7 +275,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			ShapeProperties prop = null;
 
 			if(drawing.getSelection().size() == 1) {
-				shape = (IArc) drawing.getSelection().getShapeAt(0);
+				final IArc shape = (IArc) drawing.getSelection().getShapeAt(0);
 				final double rotAngle = shape.getRotationAngle();
 				IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcLocalPoint()));
 				gc = shape.getGravityCentre();
@@ -335,7 +313,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndLocalPt()));
 
 			if(isRotated) {
-				pt = pt.rotatePoint(gc, -shape.getRotationAngle());
+				pt = pt.rotatePoint(gc, -action.getShapes().getRotationAngle());
 			}
 
 			gap = ShapeFactory.INST.createPoint();
@@ -365,7 +343,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		private double yGap;
 
 		DnD2Scale(final Border ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, ScaleShapes.class, new DnD(), ins.scaleHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()));
+			super(ins, true, ScaleShapes.class, new DnD(), ins.scaleHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()), false, null);
 		}
 
 		private void setXGap(final Position refPosition, final IPoint tl, final IPoint br) {
@@ -442,12 +420,10 @@ public class Border extends CanvasInstrument implements Initializable {
 			}
 		}
 
-
 		@Override
 		public boolean isConditionRespected() {
 			return interaction.getSrcObject().isPresent() && interaction.getSrcLocalPoint() != null && interaction.getEndLocalPt() != null;
 		}
-
 
 		@Override
 		public void interimFeedback() {
@@ -480,39 +456,6 @@ public class Border extends CanvasInstrument implements Initializable {
 						break;
 				}
 			});
-		}
-	}
-
-	private static class DnD2Rotate extends JfXWidgetBinding<RotateShapes, DnD, Border> {
-		/** The point corresponding to the 'press' position. */
-		private IPoint p1;
-		/** The gravity centre used for the rotation. */
-		private IPoint gc;
-
-		DnD2Rotate(final Border ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, RotateShapes.class, new DnD(), ins.rotHandler);
-		}
-
-		@Override
-		public void initAction() {
-			final IDrawing drawing = instrument.canvas.getDrawing();
-			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcLocalPoint()));
-			gc = drawing.getSelection().getGravityCentre();
-			action.setGravityCentre(gc);
-			action.setShape(drawing.getSelection().duplicateDeep(false));
-		}
-
-
-		@Override
-		public void updateAction() {
-			action.setRotationAngle(gc.computeRotationAngle(p1,
-				ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndLocalPt()))));
-
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getSrcObject().isPresent() && interaction.getSrcLocalPoint() != null && interaction.getEndLocalPt() != null;
 		}
 	}
 }

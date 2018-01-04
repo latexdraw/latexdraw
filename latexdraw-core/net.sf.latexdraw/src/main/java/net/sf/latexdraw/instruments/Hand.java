@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javafx.application.Platform;
@@ -239,7 +240,7 @@ public class Hand extends CanvasInstrument {
 		private List<ViewShape<?>> selectedViews;
 
 		DnD2Select(final Hand hand) throws IllegalAccessException, InstantiationException {
-			super(hand, true, SelectShapes.class, new DnD(), hand.canvas);
+			super(hand, true, SelectShapes.class, new DnD(), Collections.singletonList(hand.canvas), false, null);
 		}
 
 		@Override
@@ -311,7 +312,7 @@ public class Hand extends CanvasInstrument {
 		private final IPoint pt;
 
 		DnD2MoveViewport(final CanvasInstrument ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, MoveCamera.class, new DnD(), ins.canvas);
+			super(ins, true, MoveCamera.class, new DnD(), Collections.singletonList(ins.canvas), false, null);
 			pt = ShapeFactory.INST.createPoint();
 		}
 

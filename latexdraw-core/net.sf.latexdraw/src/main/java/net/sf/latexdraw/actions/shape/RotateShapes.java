@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.actions.shape;
 
-import java.util.Optional;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.actions.ShapeActionImpl;
 import net.sf.latexdraw.models.MathUtils;
@@ -27,20 +26,20 @@ public class RotateShapes extends ShapeActionImpl<IShape> implements Undoable, M
 	/** The rotation angle to apply. */
 	private double rotationAngle;
 	/** The gravity centre used for the rotation. */
-	private Optional<IPoint> gc;
+	private IPoint gc;
 	/** The last increment performed on shapes. Used to execute several times the action. */
 	private double lastRotationAngle;
 
 
 	public RotateShapes() {
 		super();
-		gc = Optional.empty();
+		gc = null;
 		lastRotationAngle = 0d;
 	}
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && gc.isPresent() && MathUtils.INST.isValidCoord(rotationAngle) && MathUtils.INST.isValidPt(gc.get());
+		return super.canDo() && MathUtils.INST.isValidCoord(rotationAngle) && MathUtils.INST.isValidPt(gc);
 	}
 
 	@Override
@@ -59,10 +58,10 @@ public class RotateShapes extends ShapeActionImpl<IShape> implements Undoable, M
 	 * @param angleIncrement The increment to add to the rotation angle of the shape.
 	 */
 	private void rotateShapes(final double angleIncrement) {
-		shape.ifPresent(sh -> gc.ifPresent(centre -> {
-			sh.addToRotationAngle(centre, angleIncrement);
+		shape.ifPresent(sh -> {
+			sh.addToRotationAngle(gc, angleIncrement);
 			sh.setModified(true);
-		}));
+		});
 	}
 
 	@Override
@@ -89,10 +88,10 @@ public class RotateShapes extends ShapeActionImpl<IShape> implements Undoable, M
 	}
 
 	public void setGravityCentre(final IPoint gcpt) {
-		gc = Optional.ofNullable(gcpt);
+		gc = gcpt;
 	}
 
-	public Optional<IPoint> getGc() {
+	public IPoint getGc() {
 		return gc;
 	}
 }
