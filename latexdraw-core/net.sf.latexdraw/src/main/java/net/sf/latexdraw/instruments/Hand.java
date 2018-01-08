@@ -20,7 +20,6 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.shape.Rectangle;
@@ -43,7 +42,6 @@ import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewText;
 import org.malai.action.Action;
-import org.malai.javafx.action.MoveCamera;
 import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.CancellableDnD;
 import org.malai.javafx.interaction.library.DnD;
@@ -88,7 +86,6 @@ public class Hand extends CanvasInstrument {
 		bindPressureToSelectShape();
 		bindDnDTranslate();
 
-		addBinding(new DnD2MoveViewport(this));
 		dbleClickToInitTextSetter();
 
 		keyNodeBinder(SelectShapes.class).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).first(action -> {
@@ -301,39 +298,6 @@ public class Hand extends CanvasInstrument {
 		public void interimFeedback() {
 			instrument.canvas.setOngoingSelectionBorder(selectionBorder);
 			selectionBorder = null;
-		}
-	}
-
-	static class DnD2MoveViewport extends JfXWidgetBinding<MoveCamera, DnD, CanvasInstrument> {
-		private final IPoint pt;
-
-		DnD2MoveViewport(final CanvasInstrument ins) throws IllegalAccessException, InstantiationException {
-			super(ins, true, MoveCamera.class, new DnD(), Collections.singletonList(ins.canvas), false, null);
-			pt = ShapeFactory.INST.createPoint();
-		}
-
-		@Override
-		public void initAction() {
-			action.setScrollPane(instrument.canvas.getScrollPane());
-			pt.setPoint(interaction.getSrcLocalPoint().getX(), interaction.getSrcLocalPoint().getY());
-		}
-
-		@Override
-		public void updateAction() {
-			final ScrollPane pane = instrument.canvas.getScrollPane();
-			action.setPx(pane.getHvalue() - (interaction.getEndLocalPt().getX() - pt.getX()) / instrument.canvas.getWidth());
-			action.setPy(pane.getVvalue() - (interaction.getEndLocalPt().getY() - pt.getY()) / instrument.canvas.getHeight());
-			pt.setPoint(pt.centralSymmetry(ShapeFactory.INST.createPoint(interaction.getSrcLocalPoint())));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getButton() == MouseButton.MIDDLE;
-		}
-
-		@Override
-		public void interimFeedback() {
-			instrument.canvas.setCursor(Cursor.MOVE);
 		}
 	}
 }

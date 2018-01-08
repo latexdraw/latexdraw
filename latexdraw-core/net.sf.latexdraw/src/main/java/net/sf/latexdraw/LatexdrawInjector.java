@@ -12,6 +12,7 @@ package net.sf.latexdraw;
 
 import net.sf.latexdraw.instruments.AboutController;
 import net.sf.latexdraw.instruments.Border;
+import net.sf.latexdraw.instruments.CanvasController;
 import net.sf.latexdraw.instruments.CodeInserter;
 import net.sf.latexdraw.instruments.CodePanelController;
 import net.sf.latexdraw.instruments.CopierCutterPaster;
@@ -19,6 +20,7 @@ import net.sf.latexdraw.instruments.DrawingPropertiesCustomiser;
 import net.sf.latexdraw.instruments.EditingSelector;
 import net.sf.latexdraw.instruments.ExceptionsManager;
 import net.sf.latexdraw.instruments.Exporter;
+import net.sf.latexdraw.instruments.FacadeCanvasController;
 import net.sf.latexdraw.instruments.FileLoaderSaver;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Helper;
@@ -72,6 +74,8 @@ public class LatexdrawInjector extends Injector {
 		bindAsEagerSingleton(StatusBarController.class);
 		bindAsEagerSingleton(AboutController.class);
 		bindAsEagerSingleton(Canvas.class);
+		bindAsEagerSingleton(FacadeCanvasController.class);
+		bindAsEagerSingleton(CanvasController.class);
 		bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());
 		bindWithCommand(MagneticGrid.class, Canvas.class, canvas -> canvas.getMagneticGrid());
 		bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);

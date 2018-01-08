@@ -125,7 +125,6 @@ public class Pencil extends CanvasInstrument {
 
 	@Override
 	protected void configureBindings() throws IllegalAccessException, InstantiationException {
-		addBinding(new Hand.DnD2MoveViewport(this));
 		bindPressToAddShape();
 
 		// Binds a pressure to insert a picture
