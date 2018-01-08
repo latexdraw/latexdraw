@@ -64,7 +64,6 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	private File currentFolder;
 	/** The fileChooser used to save drawings. */
 	private FileChooser fileChooser;
-	private RecentMenuItem2LoadInteractor recentInterator;
 	/** The instrument used to manage preferences. */
 	@Inject private PreferencesSetter prefSetter;
 	@Inject private StatusBarController statusBar;
@@ -181,8 +180,11 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 				getDialog(false), prefSetter, currentFolder)).bind();
 
 		// Recent files menus
-		recentInterator = new RecentMenuItem2LoadInteractor(this);
-		addBinding(recentInterator);
+		menuItemBinder(LoadDrawing.class).
+			onMenu(recentFilesMenu.getItems()).
+			map(i -> new LoadDrawing(new File((String) i.getWidget().getUserData()), SVGDocumentGenerator.INSTANCE,
+					statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(), getDialog(false), currentFolder)).
+			bind();
 	}
 
 	/**
@@ -233,9 +235,6 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 				item.setUserData(fileName);
 				recentFilesMenu.getItems().add(item);
 			});
-			if(recentInterator != null) {
-				recentInterator.getInteraction().registerToMenuItems(recentFilesMenu.getItems());
-			}
 		}
 
 		recentFilesMenu.setDisable(recentFilesMenu.getItems().isEmpty());
