@@ -23,7 +23,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.NonInvertibleTransformException;
@@ -83,9 +82,6 @@ public class Hand extends CanvasInstrument {
 				}
 			}
 		});
-
-		canvas.getSelectionBorder().addEventHandler(MouseEvent.MOUSE_ENTERED, evt -> canvas.setCursor(Cursor.HAND));
-		canvas.getSelectionBorder().addEventHandler(MouseEvent.MOUSE_EXITED, evt -> canvas.setCursor(Cursor.DEFAULT));
 
 		addBinding(new DnD2Select(this));
 

@@ -28,9 +28,11 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -167,6 +169,8 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		selectionBorder.setStroke(Color.GRAY);
 		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
 		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
+		selectionBorder.addEventHandler(MouseEvent.MOUSE_ENTERED, evt -> setCursor(Cursor.HAND));
+		selectionBorder.addEventHandler(MouseEvent.MOUSE_EXITED, evt -> setCursor(Cursor.DEFAULT));
 
 		drawing.getSelection().getShapes().addListener((Change<? extends IShape> evt) -> updateSelectionBorders());
 	}
