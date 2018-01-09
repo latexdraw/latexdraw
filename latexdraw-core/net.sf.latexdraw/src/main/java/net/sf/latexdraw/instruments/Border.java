@@ -270,7 +270,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		}
 
 		@Override
-		protected ModifyShapeProperty createAction() {
+		protected ModifyShapeProperty map() {
 			final IDrawing drawing = instrument.canvas.getDrawing();
 			ShapeProperties prop = null;
 
@@ -304,12 +304,12 @@ public class Border extends CanvasInstrument implements Initializable {
 		}
 
 		@Override
-		public void initAction() {
+		public void first() {
 			// Nothing to do.
 		}
 
 		@Override
-		public void updateAction() {
+		public void then() {
 			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndLocalPt()));
 
 			if(isRotated) {
@@ -329,7 +329,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 
 		@Override
-		public boolean isConditionRespected() {
+		public boolean when() {
 			return interaction.getSrcObject().isPresent() && interaction.getSrcLocalPoint() != null && interaction.getEndLocalPt() != null;
 		}
 	}
@@ -381,7 +381,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		}
 
 		@Override
-		public void initAction() {
+		public void first() {
 			final IDrawing drawing = instrument.canvas.getDrawing();
 			final ScaleHandler handler = (ScaleHandler) getInteraction().getSrcObject().get();
 			final Position refPosition = handler.getPosition().getOpposite();
@@ -399,7 +399,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 
 		@Override
-		public void updateAction() {
+		public void then() {
 			final IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndLocalPt()));
 			final Position refPosition = action.getRefPosition().get();
 
@@ -421,13 +421,13 @@ public class Border extends CanvasInstrument implements Initializable {
 		}
 
 		@Override
-		public boolean isConditionRespected() {
+		public boolean when() {
 			return interaction.getSrcObject().isPresent() && interaction.getSrcLocalPoint() != null && interaction.getEndLocalPt() != null;
 		}
 
 		@Override
-		public void interimFeedback() {
-			super.interimFeedback();
+		public void feedback() {
+			super.feedback();
 			action.getRefPosition().ifPresent(pos -> {
 				switch(pos) {
 					case EAST:

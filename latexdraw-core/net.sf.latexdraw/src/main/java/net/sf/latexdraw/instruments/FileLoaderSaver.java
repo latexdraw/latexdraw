@@ -12,7 +12,6 @@ package net.sf.latexdraw.instruments;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -33,9 +32,7 @@ import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.action.Action;
 import org.malai.javafx.action.IOAction;
-import org.malai.javafx.binding.JfxMenuItemBinding;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.interaction.library.MenuItemPressed;
 import org.malai.javafx.interaction.library.WindowClosed;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -271,23 +268,5 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		setActivated(true);
-	}
-
-	private static final class RecentMenuItem2LoadInteractor extends JfxMenuItemBinding<LoadDrawing, MenuItemPressed, FileLoaderSaver> {
-		private RecentMenuItem2LoadInteractor(final FileLoaderSaver ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, LoadDrawing.class, new MenuItemPressed(), Collections.emptyList());
-		}
-
-		@Override
-		protected LoadDrawing createAction() {
-			return new LoadDrawing(new File((String) interaction.getWidget().getUserData()), SVGDocumentGenerator.INSTANCE,
-				instrument.statusBar.getProgressBar(), instrument.statusBar.getLabel(), LaTeXDraw.getInstance(), instrument.getDialog(false),
-				instrument.currentFolder);
-		}
-
-		@Override
-		public void initAction() {
-			// Nothing to do here.
-		}
 	}
 }

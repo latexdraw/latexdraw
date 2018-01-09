@@ -237,7 +237,7 @@ public class Hand extends CanvasInstrument {
 		}
 
 		@Override
-		public void initAction() {
+		public void first() {
 			action.setDrawing(instrument.canvas.getDrawing());
 			selectedShapes = new ArrayList<>(instrument.canvas.getDrawing().getSelection().getShapes());
 			selectedViews = instrument.canvas.getSelectedViews();
@@ -245,7 +245,7 @@ public class Hand extends CanvasInstrument {
 		}
 
 		@Override
-		public void updateAction() {
+		public void then() {
 			final IPoint start = instrument.getAdaptedOriginPoint(interaction.getSrcLocalPoint());
 			final IPoint end = instrument.getAdaptedOriginPoint(interaction.getEndLocalPt());
 			final double minX = Math.min(start.getX(), end.getX());
@@ -290,12 +290,12 @@ public class Hand extends CanvasInstrument {
 		}
 
 		@Override
-		public boolean isConditionRespected() {
+		public boolean when() {
 			return interaction.getButton() == MouseButton.PRIMARY && interaction.getSrcObject().orElse(null) == instrument.canvas;
 		}
 
 		@Override
-		public void interimFeedback() {
+		public void feedback() {
 			instrument.canvas.setOngoingSelectionBorder(selectionBorder);
 			selectionBorder = null;
 		}
