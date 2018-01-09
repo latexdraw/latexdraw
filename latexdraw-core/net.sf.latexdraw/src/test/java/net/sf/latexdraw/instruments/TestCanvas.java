@@ -21,6 +21,9 @@ public class TestCanvas extends BaseTestCanvas {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException {
 				super.configure();
+				bindToInstance(Border.class, Mockito.mock(Border.class));
+				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
+				bindAsEagerSingleton(FacadeCanvasController.class);
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
 				bindToInstance(Hand.class, Mockito.mock(Hand.class));
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
