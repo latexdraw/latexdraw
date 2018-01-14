@@ -167,6 +167,7 @@ public class Hand extends CanvasInstrument {
 				i.getSrcObject().ifPresent(node -> Platform.runLater(() -> node.requestFocus()));
 				canvas.setCursor(Cursor.MOVE);
 			}).
+			cancel((a, i) -> canvas.update()).
 			strictStart().
 			bind();
 	}
