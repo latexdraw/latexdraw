@@ -54,8 +54,6 @@ import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.instruments.UndoRedoManager;
 import net.sf.latexdraw.instruments.Zoomer;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.ui.XScaleRuler;
-import net.sf.latexdraw.ui.YScaleRuler;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
@@ -85,8 +83,6 @@ public class LatexdrawInjector extends Injector {
 		bindWithCommand(LaTeXGenerator.class, PSTCodeGenerator.class, gen -> gen);
 		bindAsEagerSingleton(CodePanelController.class);
 		bindAsEagerSingleton(DrawingPropertiesCustomiser.class);
-		bindAsEagerSingleton(YScaleRuler.class);
-		bindAsEagerSingleton(XScaleRuler.class);
 		bindAsEagerSingleton(TemplateManager.class);
 		bindAsEagerSingleton(CodeInserter.class);
 		bindAsEagerSingleton(CopierCutterPaster.class);

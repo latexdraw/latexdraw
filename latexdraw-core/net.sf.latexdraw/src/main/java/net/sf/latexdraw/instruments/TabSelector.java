@@ -106,17 +106,26 @@ public class TabSelector extends JfxInstrument implements Initializable {
 		rulersScrollerPane.widthProperty().addListener((observable, oldValue, newValue) -> xruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
 		rulersScrollerPane.heightProperty().addListener((observable, oldValue, newValue) -> yruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
 
-//		scrollPane.hvalueProperty().addListener((observable, oldValue, newValue) -> xruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
-//		scrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> yruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
-
 		xruler.getGroup().translateXProperty().bind(Bindings.createDoubleBinding(() -> {
+			final double gap = 100d; // 100mm = 1cm
 			int val = (int) (canvas.getWidth() * scrollPane.getHvalue() - Canvas.MARGINS);
 			while(val < 0) {
-				val += canvas.getPPCDrawing();
+				val += gap;
 			}
-			val %= canvas.getPPCDrawing();
+			val %= gap;
+			System.out.println(val);
 			return (double) val;
 		}, scrollPane.hvalueProperty()));
+
+		yruler.getGroup().translateYProperty().bind(Bindings.createDoubleBinding(() -> {
+			final double gap = 100d; // 100mm = 1cm
+			int val = (int) (canvas.getHeight() * scrollPane.getVvalue() - Canvas.MARGINS);
+			while(val < 0) {
+				val += gap;
+			}
+			val %= gap;
+			return (double) val;
+		}, scrollPane.vvalueProperty()));
 	}
 
 	@Override
