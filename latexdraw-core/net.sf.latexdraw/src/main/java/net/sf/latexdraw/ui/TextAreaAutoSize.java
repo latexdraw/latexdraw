@@ -20,6 +20,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.util.LSystem;
+import net.sf.latexdraw.util.Tuple;
 
 /**
  * This widgets is a text area that automatically resizes its width and height according to its text.
@@ -55,7 +56,7 @@ public class TextAreaAutoSize extends TextArea {
 		textProperty().addListener((observable, oldValue, newValue) -> updateDimension(newValue));
 
 		msg.setFocusTraversable(false);
-		msg.visibleProperty().bind(Bindings.createBooleanBinding(() -> isVisible() && !msg.getText().isEmpty(), visibleProperty()));
+		msg.visibleProperty().bind(Bindings.createBooleanBinding(() -> isVisible() && !msg.getText().isEmpty(), visibleProperty(), msg.textProperty()));
 		msg.setFill(Color.GRAY);
 
 		visibleProperty().addListener((observable, oldValue, newValue) -> {
@@ -83,11 +84,12 @@ public class TextAreaAutoSize extends TextArea {
 	/**
 	 * Defines whether the text typed in the filed is valid. If not, the background of the filed is painted in red.
 	 * That feature can be used when the text typed needed to be validated.
-	 * @param ok Valid or not.
+	 * @param ok Valid or not and the message (that cannot be null).
 	 * @since 3.2
 	 */
-	public void setValid(final boolean ok) {
-		valid = ok;
+	public void setValid(final Tuple<Boolean, String> ok) {
+		valid = ok.a;
+		msg.setText(ok.b);
 		updateBackground();
 	}
 

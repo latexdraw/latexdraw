@@ -12,6 +12,7 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.view.PlotViewHelper;
@@ -25,7 +26,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 	private ViewPolygon polygonView;
 	private ViewBezierCurve curveView;
 	private List<ViewDot> dotsView;
-	private final ChangeListener<Object> updatePath = (observable, oldValue, newValue) -> updatePath();
+	private final ChangeListener<Object> updatePath = (observable, oldValue, newValue) -> Platform.runLater(() -> updatePath());
 
 	/**
 	 * Creates the view.

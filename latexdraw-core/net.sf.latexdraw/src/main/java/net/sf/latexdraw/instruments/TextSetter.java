@@ -26,6 +26,7 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.Tuple;
 import org.malai.action.Action;
 import org.malai.javafx.action.ActivateInactivateInstruments;
 
@@ -100,12 +101,13 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 		// Key Enter to validate the text.
 		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).
 			map(i -> new ModifyShapeProperty(ShapeProperties.TEXT, ShapeFactory.INST.createGroup(text), textField.getText())).
-			when(i -> text != null && !textField.getText().isEmpty()).bind();
+			when(i -> !pencil.isActivated() && text != null && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to validate the equation of a plot shape.
 		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).
-			map(i -> new ModifyShapeProperty(ShapeProperties.PLOT_EQ, ShapeFactory.INST.createGroup(plot), ShapeProperties.PLOT_EQ)).
-			when(i -> plot != null && !textField.getText().isEmpty()).bind();
+			map(i -> new ModifyShapeProperty(ShapeProperties.PLOT_EQ, ShapeFactory.INST.createGroup(plot), textField.getText())).
+			when(i -> !pencil.isActivated() && plot != null && checkValidPlotFct()).
+			bind();
 
 		// Key Enter to add a text shape.
 		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).
@@ -128,21 +130,22 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 		keyNodeBinder(ActivateInactivateInstruments.class).on(textField).
 			map(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
 			with(KeyCode.ENTER).when(i -> textField.isValidText() && !textField.getText().isEmpty()).bind();
+
 		keyNodeBinder(ActivateInactivateInstruments.class).on(textField).
 			map(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
 			with(KeyCode.ESCAPE).bind();
 	}
 
 	private boolean checkValidPlotFct() {
-		boolean valid;
+		Tuple<Boolean, String> valid;
 		try {
 			valid = PSFunctionParser.isValidPostFixEquation(textField.getText(), Double.valueOf(plotCustom.minXSpinner.getValue().toString()),
 				Double.valueOf(plotCustom.maxXSpinner.getValue().toString()), Double.valueOf(plotCustom.nbPtsSpinner.getValue().toString()));
-		}catch(IllegalArgumentException ex) {
-			valid = false;
+		}catch(final IllegalArgumentException ex) {
+			valid = new Tuple<>(false, "Invalid function.");
 		}
 		textField.setValid(valid);
-		return valid;
+		return valid.a;
 	}
 
 	private void setTextMessage() {
@@ -168,7 +171,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 			}
 		}
 
-		textField.setValid(true);
+		textField.setValid(new Tuple<>(true, ""));
 		textField.setVisible(act);
 
 		if(act) {

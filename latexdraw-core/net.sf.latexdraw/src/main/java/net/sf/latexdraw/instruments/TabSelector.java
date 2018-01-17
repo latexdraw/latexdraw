@@ -113,7 +113,6 @@ public class TabSelector extends JfxInstrument implements Initializable {
 				val += gap;
 			}
 			val %= gap;
-			System.out.println(val);
 			return (double) val;
 		}, scrollPane.hvalueProperty()));
 

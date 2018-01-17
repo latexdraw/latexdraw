@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments.hand;
 
 import java.util.Arrays;
+import javafx.application.Platform;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
 import net.sf.latexdraw.instruments.ShapePropInjector;
 import net.sf.latexdraw.instruments.TestPlotStyleGUI;
@@ -15,6 +16,7 @@ import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -182,5 +184,41 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		assertEquals(polarCB.isSelected(), ((IPlot)drawing.getSelection().getShapeAt(1)).isPolar());
 		assertEquals(polarCB.isSelected(), ((IPlot)drawing.getSelection().getShapeAt(2)).isPolar());
 		assertNotEquals(sel, polarCB.isSelected());
+	}
+
+	@Test
+	public void testCrashInvalidFunctionValueMinX() {
+		new CompositeGUIVoidCommand(activateHand, selectionAddPlot, updateIns).execute();
+		Platform.runLater(() -> ((IPlot) drawing.getSelection().getShapeAt(0)).setPlotEquation("x log"));
+		WaitForAsyncUtils.waitForFxEvents();
+		decrementSpinner(minXSpinner);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertEquals(0d, minXSpinner.getValue(), 0.00001);
+	}
+
+	@Test
+	public void testCrashInvalidFunctionValueMaxX() {
+		new CompositeGUIVoidCommand(activateHand, selectionAddPlot, updateIns).execute();
+		Platform.runLater(() -> ((IPlot) drawing.getSelection().getShapeAt(0)).setPlotEquation("2 x div"));
+		WaitForAsyncUtils.waitForFxEvents();
+		scrollOnSpinner(minXSpinner, 2);
+		WaitForAsyncUtils.waitForFxEvents();
+		scrollOnSpinner(maxXSpinner, 10);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertEquals(-1d, minXSpinner.getValue(), 0.00001);
+		assertEquals(0d, maxXSpinner.getValue(), 0.00001);
+	}
+
+	@Test
+	public void testCrashInvalidFunctionPolarToCart() {
+		new CompositeGUIVoidCommand(activateHand, selectionAddPlot, clickpolarCB, updateIns).execute();
+		Platform.runLater(() -> ((IPlot) drawing.getSelection().getShapeAt(0)).setPlotEquation("2 x div"));
+		WaitForAsyncUtils.waitForFxEvents();
+		scrollOnSpinner(minXSpinner, 2);
+		WaitForAsyncUtils.waitForFxEvents();
+		scrollOnSpinner(maxXSpinner, 10);
+		WaitForAsyncUtils.waitForFxEvents();
+		clickpolarCB.execute();
+		WaitForAsyncUtils.waitForFxEvents();
 	}
 }

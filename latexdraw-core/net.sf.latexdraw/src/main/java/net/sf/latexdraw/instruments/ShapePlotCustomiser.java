@@ -19,10 +19,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.TitledPane;
+import net.sf.latexdraw.actions.ModifyPencilParameter;
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.parsers.ps.PSFunctionParser;
+import net.sf.latexdraw.util.Tuple;
 
 /**
  * This instrument modifies plot parameters.
@@ -74,12 +78,39 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 		mainPane.setVisible(visible);
 	}
 
+	private boolean checkValidPlotFct() {
+		Tuple<Boolean, String> valid;
+		try {
+			valid = PSFunctionParser.isValidPostFixEquation(canvas.getDrawing().getSelection().getPlotEquation(),
+				Double.valueOf(minXSpinner.getValue().toString()), Double.valueOf(maxXSpinner.getValue().toString()),
+				Double.valueOf(nbPtsSpinner.getValue().toString()));
+		}catch(final IllegalArgumentException ex) {
+			valid = new Tuple<>(false, "Invalid function.");
+		}
+		return valid.a;
+	}
+
 	@Override
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		addComboPropBinding(plotStyleCB, ShapeProperties.PLOT_STYLE);
 		addSpinnerPropBinding(nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false);
-		addSpinnerPropBinding(minXSpinner, ShapeProperties.PLOT_MIN_X, false);
-		addSpinnerPropBinding(maxXSpinner, ShapeProperties.PLOT_MAX_X, false);
+
+		spinnerBinder(ModifyShapeProperty.class).on(minXSpinner).map(i -> mapModShProp(null, ShapeProperties.PLOT_MIN_X)).
+			then((a, i) -> a.setValue(i.getWidget().getValue())).
+			when(i -> hand.isActivated() && checkValidPlotFct()).bind();
+
+		spinnerBinder(ModifyPencilParameter.class).on(minXSpinner).map(i -> firstPropPen(null, ShapeProperties.PLOT_MIN_X)).
+			then((a, i) -> a.setValue(i.getWidget().getValue())).
+			when(pencilActiv).bind();
+
+		spinnerBinder(ModifyShapeProperty.class).on(maxXSpinner).map(i -> mapModShProp(null, ShapeProperties.PLOT_MAX_X)).
+			then((a, i) -> a.setValue(i.getWidget().getValue())).
+			when(i -> hand.isActivated() && checkValidPlotFct()).bind();
+
+		spinnerBinder(ModifyPencilParameter.class).on(maxXSpinner).map(i -> firstPropPen(null, ShapeProperties.PLOT_MAX_X)).
+			then((a, i) -> a.setValue(i.getWidget().getValue())).
+			when(pencilActiv).bind();
+
 		addSpinnerPropBinding(xScaleSpinner, ShapeProperties.X_SCALE, false);
 		addSpinnerPropBinding(yScaleSpinner, ShapeProperties.Y_SCALE, false);
 		addCheckboxPropBinding(polarCB, ShapeProperties.PLOT_POLAR);

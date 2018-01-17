@@ -57,8 +57,9 @@ class LPlot extends LPositionShape implements IPlot {
 	LPlot(final IPoint pt, final double xMin, final double xMax, final String equationPlot, final boolean polarCoord) {
 		super(pt);
 
-		if(!(MathUtils.INST.isValidPt(pt) && xMin < xMax && MathUtils.INST.isValidCoord(xMin) && MathUtils.INST.isValidCoord(xMax)))
+		if(!(MathUtils.INST.isValidPt(pt) && xMin < xMax && MathUtils.INST.isValidCoord(xMin) && MathUtils.INST.isValidCoord(xMax))) {
 			throw new IllegalArgumentException("Parameter not valid: " + xMin + " " + xMax + " " + MathUtils.INST.isValidPt(pt));
+		}
 
 		nbPoints = new SimpleIntegerProperty(50);
 		style = new SimpleObjectProperty<>(PlotStyle.CURVE);
@@ -90,10 +91,12 @@ class LPlot extends LPositionShape implements IPlot {
 			xscale.set(plot.getXScale());
 			yscale.set(plot.getYScale());
 			setPlotEquation(plot.getPlotEquation());
-		}else if(sh instanceof IDotProp) {
-			final IDotProp dot = (IDotProp) sh;
-			dotStyle.set(dot.getDotStyle());
-			dotDiametre.set(dot.getDiametre());
+		}else {
+			if(sh instanceof IDotProp) {
+				final IDotProp dot = (IDotProp) sh;
+				dotStyle.set(dot.getDotStyle());
+				dotDiametre.set(dot.getDiametre());
+			}
 		}
 
 		parser = new PSFunctionParser(equation.get());

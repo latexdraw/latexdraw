@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import net.sf.latexdraw.util.Tuple;
 
 /**
  * A postscript function parser.
@@ -76,21 +77,32 @@ public class PSFunctionParser {
 	 * @param min The X-min of the plotting.
 	 * @param max The X-max of the plotting.
 	 * @param nbPts The number of points to plot.
-	 * @return True if the given equation is a valid post-fixed PS equation.
+	 * @return True if the given equation is a valid post-fixed PS equation. The second parameter is
+	 * the possible error message (never null but can be empty).
 	 * @since 3.3
 	 */
-	public static boolean isValidPostFixEquation(final String eq, final double min, final double max, final double nbPts) {
+	public static Tuple<Boolean, String> isValidPostFixEquation(final String eq, final double min, final double max, final double nbPts) {
 		try {
 			final PSFunctionParser fct = new PSFunctionParser(eq);
 			final double gap = (max - min) / (nbPts - 1);
 
 			for(double x = min; x < max; x += gap) {
-				fct.getY(x);
+				final double y = fct.getY(x);
+				if(Double.isNaN(y) || Double.isInfinite(y)) {
+					return new Tuple<>(false, "f(x)=" + eq + " produces an invalid value with x=" + x);
+				}
 			}
 
-			return true;
-		}catch(final NumberFormatException | ArithmeticException ex) {
-			return false;
+			final double y = fct.getY(max);
+			if(Double.isNaN(y) || Double.isInfinite(y)) {
+				return new Tuple<>(false, "f(x)=" + eq + " produces an invalid value with x=" + max);
+			}
+
+			return new Tuple<>(true, "");
+		}catch(final NumberFormatException ex) {
+			return new Tuple<>(false, "Error while computing the curve's points: " + ex.getMessage());
+		}catch(final ArithmeticException ex) {
+			return new Tuple<>(false, "Error while computing the curve's points: arithmetical error.");
 		}
 	}
 
