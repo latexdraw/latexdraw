@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.Matchers.equalTo;
@@ -48,6 +49,7 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnChangePlotXMin() {
 		final List<PathElement> before = duplicatePath(getCurvePath());
 		model.setPlotMinX(model.getPlotMinX() - 2d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(before, getCurvePath());
 	}
 
@@ -55,6 +57,7 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnChangePlotXMax() {
 		final List<PathElement> before = duplicatePath(getCurvePath());
 		model.setPlotMaxX(model.getPlotMaxX() + 3d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(before, getCurvePath());
 	}
 
@@ -62,6 +65,7 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnChangePlotXScale() {
 		final List<PathElement> before = duplicatePath(getCurvePath());
 		model.setXScale(model.getXScale() * 1.33);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(before, getCurvePath());
 	}
 
@@ -69,6 +73,7 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnChangePlotYScale() {
 		final List<PathElement> before = duplicatePath(getCurvePath());
 		model.setYScale(model.getYScale() * 0.87);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(before, getCurvePath());
 	}
 
@@ -76,6 +81,7 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnChangeNbPlotPoints() {
 		final List<PathElement> before = duplicatePath(getCurvePath());
 		model.setNbPlottedPoints(model.getNbPlottedPoints() + 41);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(before, getCurvePath());
 	}
 
@@ -83,6 +89,7 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnChangePolar() {
 		final List<PathElement> before = duplicatePath(getCurvePath());
 		model.setPolar(!model.isPolar());
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(before, getCurvePath());
 	}
 
@@ -90,12 +97,14 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnChangeEquation() {
 		final List<PathElement> before = duplicatePath(getCurvePath());
 		model.setPlotEquation("x 2 mul");
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(before, getCurvePath());
 	}
 
 	@Test
 	public void testOnChangeStyleLINE() {
 		model.setPlotStyle(PlotStyle.LINE);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.getChildren().get(0) instanceof ViewPolyline);
 	}
 
@@ -103,12 +112,14 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnChangeStyleCCURVE() {
 		model.setPlotStyle(PlotStyle.LINE);
 		model.setPlotStyle(PlotStyle.CCURVE);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.getChildren().get(0) instanceof ViewBezierCurve);
 	}
 
 	@Test
 	public void testOnChangeStyleDOTS() {
 		model.setPlotStyle(PlotStyle.DOTS);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.getChildren().get(0) instanceof ViewDot);
 	}
 
@@ -116,12 +127,14 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnChangeStyleECURVE() {
 		model.setPlotStyle(PlotStyle.LINE);
 		model.setPlotStyle(PlotStyle.ECURVE);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.getChildren().get(0) instanceof ViewBezierCurve);
 	}
 
 	@Test
 	public void testOnChangeStylePOLYGON() {
 		model.setPlotStyle(PlotStyle.POLYGON);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.getChildren().get(0) instanceof ViewPolygon);
 	}
 
@@ -129,22 +142,27 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnChangeStyleCURVE() {
 		model.setPlotStyle(PlotStyle.LINE);
 		model.setPlotStyle(PlotStyle.CURVE);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.getChildren().get(0) instanceof ViewBezierCurve);
 	}
 
 	@Test
 	public void testOnChangeDotDiametre() {
 		model.setPlotStyle(PlotStyle.DOTS);
+		WaitForAsyncUtils.waitForFxEvents();
 		final double before = ((Ellipse) ((ViewDot) view.getChildren().get(0)).getChildren().get(0)).getRadiusX();
 		model.setDiametre(model.getDiametre() * 1.577);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(before, ((Ellipse) ((ViewDot) view.getChildren().get(0)).getChildren().get(0)).getRadiusX());
 	}
 
 	@Test
 	public void testOnChangeDotStyle() {
 		model.setPlotStyle(PlotStyle.DOTS);
+		WaitForAsyncUtils.waitForFxEvents();
 		final List<PathElement> before = ((Path) ((ViewDot) view.getChildren().get(0)).getChildren().get(1)).getElements();
 		model.setDotStyle(DotStyle.FDIAMOND);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(before, ((Path) ((ViewDot) view.getChildren().get(0)).getChildren().get(1)).getElements());
 	}
 
@@ -152,17 +170,20 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	@Test
 	public void testOnDotNotSamePoints() {
 		model.setPlotStyle(PlotStyle.DOTS);
+		WaitForAsyncUtils.waitForFxEvents();
 		// Computing the number of different x
 		final int nbXDiff = (int) view.getChildren().stream().map(node -> ((ViewDot)node).dot.centerXProperty().get()).distinct().count();
 		// Computing the number of different y
 		final int nbYDiff = (int) view.getChildren().stream().map(node -> ((ViewDot)node).dot.centerYProperty().get()).distinct().count();
 		// The points of the plot must all differ
+		WaitForAsyncUtils.waitForFxEvents();
 		assertThat(view.getChildren().size(), anyOf(equalTo(nbXDiff), equalTo(nbYDiff)));
 	}
 
 	@Test
 	public void testOnDotNbPoints() {
 		model.setPlotStyle(PlotStyle.DOTS);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(model.getNbPlottedPoints(), view.getChildren().size());
 	}
 
@@ -172,6 +193,7 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnTranslateX() {
 		final double x = view.getTranslateX();
 		model.translate(11d, 0d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(x + 11d, view.getTranslateX(), 0.0000001);
 	}
 
@@ -180,6 +202,7 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	public void testOnTranslateY() {
 		final double y = view.getTranslateY();
 		model.translate(0d, 13d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(y + 13d, view.getTranslateY(), 0.0000001);
 	}
 }

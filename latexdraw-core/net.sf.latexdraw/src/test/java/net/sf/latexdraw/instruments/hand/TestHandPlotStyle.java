@@ -191,9 +191,10 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddPlot, updateIns).execute();
 		Platform.runLater(() -> ((IPlot) drawing.getSelection().getShapeAt(0)).setPlotEquation("x log"));
 		WaitForAsyncUtils.waitForFxEvents();
-		decrementSpinner(minXSpinner);
+		minXSpinner.getEditor().setText("0");
+		minXSpinner.getEditor().commitValue();
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(0d, minXSpinner.getValue(), 0.00001);
+		assertNotEquals(0d, minXSpinner.getValue(), 0.00001);
 	}
 
 	@Test
@@ -201,12 +202,14 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddPlot, updateIns).execute();
 		Platform.runLater(() -> ((IPlot) drawing.getSelection().getShapeAt(0)).setPlotEquation("2 x div"));
 		WaitForAsyncUtils.waitForFxEvents();
-		scrollOnSpinner(minXSpinner, 2);
+		minXSpinner.getEditor().setText("-1");
+		minXSpinner.getEditor().commitValue();
 		WaitForAsyncUtils.waitForFxEvents();
-		scrollOnSpinner(maxXSpinner, 10);
+		maxXSpinner.getEditor().setText("0");
+		maxXSpinner.getEditor().commitValue();
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(-1d, minXSpinner.getValue(), 0.00001);
-		assertEquals(0d, maxXSpinner.getValue(), 0.00001);
+		assertNotEquals(-1d, minXSpinner.getValue(), 0.00001);
+		assertNotEquals(0d, maxXSpinner.getValue(), 0.00001);
 	}
 
 	@Test
@@ -214,9 +217,11 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddPlot, clickpolarCB, updateIns).execute();
 		Platform.runLater(() -> ((IPlot) drawing.getSelection().getShapeAt(0)).setPlotEquation("2 x div"));
 		WaitForAsyncUtils.waitForFxEvents();
-		scrollOnSpinner(minXSpinner, 2);
+		minXSpinner.getEditor().setText("-1");
+		minXSpinner.getEditor().commitValue();
 		WaitForAsyncUtils.waitForFxEvents();
-		scrollOnSpinner(maxXSpinner, 10);
+		maxXSpinner.getEditor().setText("0");
+		maxXSpinner.getEditor().commitValue();
 		WaitForAsyncUtils.waitForFxEvents();
 		clickpolarCB.execute();
 		WaitForAsyncUtils.waitForFxEvents();
