@@ -23,3 +23,6 @@ http://sourceforge.net/donate/index.php?group_id=156523
 
 **Continuous Integration:** [![Build Status](https://ci.inria.fr/malai/job/latexdraw/badge/icon)](https://ci.inria.fr/malai/job/latexdraw/)<br/>
 
+**Linux packaging:** 
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/latexdraw.svg)](https://repology.org/metapackage/latexdraw)
