@@ -209,12 +209,12 @@ public class LShapeFactory implements IShapeFactory {
 
 	@Override
 	public IBezierCurve createBezierCurve(final List<IPoint> pts) {
-		return new LBezierCurve(pts, true);
+		return new LBezierCurve(pts);
 	}
 
 	@Override
 	public IBezierCurve createBezierCurve(final List<IPoint> pts, final List<IPoint> ctrlpts) {
-		return new LBezierCurve(pts, ctrlpts, true);
+		return new LBezierCurve(pts, ctrlpts);
 	}
 
 	@Override
@@ -225,7 +225,7 @@ public class LShapeFactory implements IShapeFactory {
 		pts.add(pointToAdd);
 		ptsCtrl.add(createPoint(pointToAdd.getX(), pointToAdd.getY() + IBezierCurve.DEFAULT_POSITION_CTRL));
 
-		final IBezierCurve copy = new LBezierCurve(pts, ptsCtrl, true);
+		final IBezierCurve copy = new LBezierCurve(pts, ptsCtrl);
 		copy.copy(bc);
 		return copy;
 	}

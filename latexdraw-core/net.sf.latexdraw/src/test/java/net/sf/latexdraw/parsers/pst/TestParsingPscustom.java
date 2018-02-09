@@ -48,7 +48,7 @@ public class TestParsingPscustom extends TestPSTParser {
 		assertEquals(-2.77 * IShape.PPC, fh.getPtAt(3).getY(), 0.001);
 		assertEquals(8.1 * IShape.PPC, fh.getPtAt(4).getX(), 0.001);
 		assertEquals(-0.37 * IShape.PPC, fh.getPtAt(4).getY(), 0.001);
-		assertTrue(fh.isOpen());
+		assertTrue(fh.isOpened());
 		assertEquals(FreeHandStyle.CURVES, fh.getType());
 	}
 

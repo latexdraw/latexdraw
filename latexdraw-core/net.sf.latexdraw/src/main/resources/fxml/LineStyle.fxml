@@ -60,6 +60,11 @@
                 <Tooltip text="%ShapeBord.3"/>
             </tooltip>
         </CheckBox>
+        <CheckBox fx:id="opened" text="%curve.0">
+            <tooltip>
+                <Tooltip text="%curve.1"/>
+            </tooltip>
+        </CheckBox>
     </VBox>
 </TitledPane>
 

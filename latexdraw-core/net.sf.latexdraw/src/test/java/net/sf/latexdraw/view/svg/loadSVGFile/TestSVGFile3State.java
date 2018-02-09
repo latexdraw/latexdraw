@@ -55,7 +55,7 @@ public class TestSVGFile3State extends TestLoadSVGFile {
 		assertFalse(bez.hasDbleBord());
 		assertEquals(2., bez.getThickness(), 0.0001);
 		assertEquals(LineStyle.SOLID, bez.getLineStyle());
-		assertFalse(bez.isClosed());
+		assertTrue(bez.isOpened());
 		assertEquals(BorderPos.INTO, bez.getBordersPosition());
 		assertEquals(FillingStyle.NONE, bez.getFillingStyle());
 		assertEquals(ArrowStyle.NONE, bez.getArrowStyle(0));

@@ -45,8 +45,8 @@ public class TestIFreehand implements HelperTest {
 
 	@Theory
 	public void testSetIsOpen(final boolean open) {
-		shape.setOpen(open);
-		assertEquals(open, shape.isOpen());
+		shape.setOpened(open);
+		assertEquals(open, shape.isOpened());
 	}
 
 	@Theory
@@ -64,26 +64,26 @@ public class TestIFreehand implements HelperTest {
 
 	@Test
 	public void testCopy() {
-		shape2.setOpen(!shape2.isOpen());
+		shape2.setOpened(!shape2.isOpened());
 		shape.setInterval(shape.getInterval() * 2);
 		shape2.setType(FreeHandStyle.LINES);
 
 		shape.copy(shape2);
 
-		assertEquals(shape2.isOpen(), shape.isOpen());
+		assertEquals(shape2.isOpened(), shape.isOpened());
 		assertEquals(shape2.getInterval(), shape.getInterval());
 		assertEquals(FreeHandStyle.LINES, shape.getType());
 	}
 
 	@Test
 	public void testDuplicate() {
-		shape.setOpen(!shape.isOpen());
+		shape.setOpened(!shape.isOpened());
 		shape.setInterval(shape.getInterval() * 2);
 		shape.setType(FreeHandStyle.LINES);
 
 		final IFreehand dup = shape.duplicate();
 
-		assertEquals(shape.isOpen(), dup.isOpen());
+		assertEquals(shape.isOpened(), dup.isOpened());
 		assertEquals(shape.getInterval(), dup.getInterval());
 		assertEquals(FreeHandStyle.LINES, dup.getType());
 	}

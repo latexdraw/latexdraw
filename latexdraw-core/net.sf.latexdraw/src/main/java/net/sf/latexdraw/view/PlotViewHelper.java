@@ -92,15 +92,15 @@ public final class PlotViewHelper {
 	public IBezierCurve updateCurve(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		// The algorithm follows this definition:
 		// https://stackoverflow.com/questions/15864441/how-to-make-a-line-curve-through-points
-		final double scale = 0.33;
+		final double scale = 0.33d;
 		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve(fillPoints(shape, posX, posY, minX, maxX, step));
 
-		bc.setIsClosed(shape.getPlotStyle() == PlotStyle.CCURVE);
+		bc.setOpened(shape.getPlotStyle() != PlotStyle.CCURVE);
 		bc.copy(shape);
 		int i = 0;
 		final int last = bc.getPoints().size() - 1;
 
-		for(IPoint pt : bc.getPoints()) {
+		for(final IPoint pt : bc.getPoints()) {
 			if(i == 0) {
 				final IPoint p2 = bc.getPtAt(i + 1);
 				final IPoint tangent = p2.substract(pt);

@@ -77,7 +77,7 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 			coord.append(MathUtils.INST.getCutNumberFloat((originy - pt.getY()) / ppc)).append(')');
 		}
 
-		if(shape.isClosed()) {
+		if(!shape.isOpened()) {
 			ctrlPt1 = sCtrlPts.get(0);
 			ctrlPt2 = sCtrlPts.get(sCtrlPts.size() - 1);
 

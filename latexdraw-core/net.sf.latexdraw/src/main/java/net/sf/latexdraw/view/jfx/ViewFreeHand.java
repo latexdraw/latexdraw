@@ -38,7 +38,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 
 		model.intervalProperty().addListener(update);
 		model.typeProperty().addListener(update);
-		model.openProperty().addListener(update);
+		model.openedProperty().addListener(update);
 
 		setPath();
 	}
@@ -58,7 +58,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 					break;
 			}
 
-			if(!model.isOpen()) {
+			if(!model.isOpened()) {
 				border.getElements().add(ViewFactory.INSTANCE.createClosePath());
 			}
 
@@ -165,7 +165,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 
 		model.intervalProperty().removeListener(update);
 		model.typeProperty().removeListener(update);
-		model.openProperty().removeListener(update);
+		model.openedProperty().removeListener(update);
 
 		super.flush();
 	}

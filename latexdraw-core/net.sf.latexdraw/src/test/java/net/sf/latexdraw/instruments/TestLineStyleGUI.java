@@ -15,9 +15,11 @@ public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCusto
 	protected ComboBox<BorderPos> bordersPosCB;
 	protected Spinner<Double> frameArcField;
 	protected CheckBox showPoints;
+	protected CheckBox opened;
 
 	protected final GUIVoidCommand pickLineCol = () -> pickColour(lineColButton);
 	protected final GUIVoidCommand checkShowPts = () -> clickOn(showPoints);
+	protected final GUIVoidCommand checkOpened = () -> clickOn(opened);
 	protected final GUIVoidCommand selectLineStyle = () -> selectNextComboBoxItem(lineCB);
 	protected final GUIVoidCommand selectBorderPos = () -> selectNextComboBoxItem(bordersPosCB);
 	protected final GUIVoidCommand incrementThickness = () -> incrementSpinner(thicknessField);
@@ -38,6 +40,7 @@ public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCusto
 		bordersPosCB = find("#bordersPosCB");
 		frameArcField = find("#frameArcField");
 		showPoints = find("#showPoints");
+		opened = find("#opened");
 		ins = (ShapeBorderCustomiser) injectorFactory.call(ShapeBorderCustomiser.class);
 		ins.setActivated(true);
 	}

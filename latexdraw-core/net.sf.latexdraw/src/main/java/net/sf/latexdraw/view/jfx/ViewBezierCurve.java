@@ -13,11 +13,10 @@ package net.sf.latexdraw.view.jfx;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
-import javafx.collections.ObservableList;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Group;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
@@ -31,32 +30,48 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	final MoveTo moveTo;
 	final List<CubicCurveTo> curvesTo;
 	final Group showPoint;
+	final CubicCurveTo closingCurve;
+	final ChangeListener<Boolean> openUpdate;
 
 	/**
 	 * Creates the view.
-	 * @param sh The model.
+	 * @param shape The model.
 	 */
-	ViewBezierCurve(final IBezierCurve sh) {
-		super(sh);
-		ObservableList<PathElement> elts = border.getElements();
+	ViewBezierCurve(final IBezierCurve shape) {
+		super(shape);
 		showPoint = new Group();
 		moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
-		moveTo.xProperty().bind(sh.getPtAt(0).xProperty());
-		moveTo.yProperty().bind(sh.getPtAt(0).yProperty());
-		elts.add(moveTo);
+		moveTo.xProperty().bind(shape.getPtAt(0).xProperty());
+		moveTo.yProperty().bind(shape.getPtAt(0).yProperty());
+		border.getElements().add(moveTo);
 
 		curvesTo = new ArrayList<>();
-		addCurveTo(sh.getPtAt(1), model.getFirstCtrlPtAt(0), model.getFirstCtrlPtAt(1));
+		addCurveTo(shape.getPtAt(1), model.getFirstCtrlPtAt(0), model.getFirstCtrlPtAt(1));
 
-		IntStream.range(2, sh.getNbPoints()).forEach(index -> addCurveTo(sh.getPtAt(index), model.getSecondCtrlPtAt(index - 1),
+		IntStream.range(2, shape.getNbPoints()).forEach(index -> addCurveTo(shape.getPtAt(index), model.getSecondCtrlPtAt(index - 1),
 			model.getFirstCtrlPtAt(index)));
 
+		closingCurve = addCurveTo(shape.getPtAt(0), model.getSecondCtrlPtAt(-1), model.getSecondCtrlPtAt(0));
+
+		openUpdate = (observable, oldValue, newValue) -> updateOpen(newValue);
+		shape.openedProperty().addListener(openUpdate);
+		updateOpen(model.isOpened());
 		getChildren().add(viewArrows);
 		viewArrows.updateAllArrows();
 	}
 
-	private void addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {
-		CubicCurveTo curveto = ViewFactory.INSTANCE.createCubicCurveTo(0d, 0d, 0d, 0d, 0d, 0d);
+	private void updateOpen(final boolean open) {
+		if(open) {
+			border.getElements().remove(closingCurve);
+		}else {
+			if(!border.getElements().contains(closingCurve)) {
+				border.getElements().add(closingCurve);
+			}
+		}
+	}
+
+	private CubicCurveTo addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {
+		final CubicCurveTo curveto = ViewFactory.INSTANCE.createCubicCurveTo(0d, 0d, 0d, 0d, 0d, 0d);
 		curveto.xProperty().bind(pt.xProperty());
 		curveto.yProperty().bind(pt.yProperty());
 		curveto.controlX1Property().bind(ctrl1.xProperty());
@@ -65,6 +80,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 		curveto.controlY2Property().bind(ctrl2.yProperty());
 		curvesTo.add(curveto);
 		border.getElements().add(curveto);
+		return curveto;
 	}
 
 
@@ -81,6 +97,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 			to.controlY2Property().unbind();
 		});
 		curvesTo.clear();
+		model.openedProperty().removeListener(openUpdate);
 		super.flush();
 	}
 

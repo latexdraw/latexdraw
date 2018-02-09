@@ -499,11 +499,11 @@ public enum ShapeProperties {
 					group.setSubGridWidthList((List<Double>) values);
 				}
 			}
-		}, /** Defines if the free hand shapes are open. */
-	FREEHAND_OPEN {
+		}, /** Defines whether bezier curves and co are closed. */
+	CLOSABLE_CLOSE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.15"); //$NON-NLS-1$
+				return "Shape closed/opened";
 			}
 
 			@Override
@@ -513,13 +513,13 @@ public enum ShapeProperties {
 
 			@Override
 			public List<Boolean> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getFreeHandOpenList();
+				return group == null ? Collections.emptyList() : group.getOpenList();
 			}
 
 			@Override
 			public void setPropertyValue(final IGroup group, final Object value) {
 				if(group != null && isValueValid(value)) {
-					group.setOpen((Boolean) value);
+					group.setOpened((Boolean) value);
 				}
 			}
 
@@ -527,7 +527,7 @@ public enum ShapeProperties {
 			@Override
 			public void setPropertyValueList(final IGroup group, final List<?> values) {
 				if(group != null) {
-					group.setFreeHandOpenList((List<Boolean>) values);
+					group.setOpenList((List<Boolean>) values);
 				}
 			}
 		}, /** The interval between the points of free hand shapes. */

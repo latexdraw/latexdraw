@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.models.interfaces.prop.IClosableProp;
 import net.sf.latexdraw.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.models.interfaces.prop.IGridProp;
@@ -50,7 +51,7 @@ import net.sf.latexdraw.view.latex.DviPsColors;
  * @author Arnaud Blouin
  */
 class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGroupFreeHand, LGroupLineArc, LGroupGrid,
-	LGroupShape, LGroupStdGrid, LGroupText, LSetShapes, LPlotGroup {
+	LGroupShape, LGroupStdGrid, LGroupText, LSetShapes, LPlotGroup, LGroupClosable {
 	/** The set of shapes. */
 	private final ObservableList<IShape> shapes;
 
@@ -251,12 +252,12 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 
 
 	@Override
-	public void setFreeHandOpenList(final List<Boolean> values) {
+	public void setOpenList(final List<Boolean> values) {
 		if(values != null && values.size() == shapes.size()) {
 			IntStream.range(0, values.size()).forEach(i -> {
 				final IShape sh = shapes.get(i);
-				if(sh instanceof IFreeHandProp) {
-					((IFreeHandProp) sh).setOpen(values.get(i));
+				if(sh instanceof IClosableProp) {
+					((IClosableProp) sh).setOpened(values.get(i));
 				}
 			});
 		}
@@ -264,8 +265,8 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 
 
 	@Override
-	public final List<Boolean> getFreeHandOpenList() {
-		return getShapes().stream().map(sh -> sh instanceof IFreeHandProp ? ((IFreeHandProp) sh).isOpen() : null).collect(Collectors.toList());
+	public final List<Boolean> getOpenList() {
+		return getShapes().stream().map(sh -> sh instanceof IClosableProp ? ((IClosableProp) sh).isOpened() : null).collect(Collectors.toList());
 	}
 
 

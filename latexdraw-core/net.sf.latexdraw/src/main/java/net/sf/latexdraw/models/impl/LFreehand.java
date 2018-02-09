@@ -65,7 +65,7 @@ class LFreehand extends LShape implements IFreehand {
 
 		if(sh instanceof IFreeHandProp) {
 			final IFreeHandProp fh = (IFreeHandProp) sh;
-			open.set(fh.isOpen());
+			open.set(fh.isOpened());
 			interval.set(fh.getInterval());
 			type.set(fh.getType());
 		}
@@ -96,23 +96,18 @@ class LFreehand extends LShape implements IFreehand {
 	}
 
 	@Override
-	public boolean isOpen() {
+	public boolean isOpened() {
 		return open.get();
 	}
 
 	@Override
-	public void setOpen(final boolean isOpen) {
+	public void setOpened(final boolean isOpen) {
 		open.set(isOpen);
 	}
 
 	@Override
 	public ObjectProperty<FreeHandStyle> typeProperty() {
 		return type;
-	}
-
-	@Override
-	public BooleanProperty openProperty() {
-		return open;
 	}
 
 	@Override
@@ -123,5 +118,10 @@ class LFreehand extends LShape implements IFreehand {
 	@Override
 	public boolean isLineStylable() {
 		return true;
+	}
+
+	@Override
+	public BooleanProperty openedProperty() {
+		return open;
 	}
 }

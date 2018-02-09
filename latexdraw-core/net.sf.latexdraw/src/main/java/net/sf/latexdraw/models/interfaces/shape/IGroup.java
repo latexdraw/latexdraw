@@ -1093,21 +1093,21 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	void setFreeHandIntervalList(final List<Integer> values);
 
 	/**
-	 * @return The boolean value defining if the freehand shapes contained in the group are open.
+	 * @return The boolean value defining whether the shapes contained in the group are opened.
 	 * If a shape of the group is not an axe, null is added.
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Boolean> getFreeHandOpenList();
+	List<Boolean> getOpenList();
 
 	/**
-	 * Defines if the freehand shapes contained in the group are open.
+	 * Defines whether the shapes contained in the group are opened.
 	 * @param values The list of values to use. Its must must equals the number of
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setFreeHandOpenList(final List<Boolean> values);
+	void setOpenList(final List<Boolean> values);
 
 	/**
 	 * @return The boolean value defining if the shapes contained in the group must show their points.

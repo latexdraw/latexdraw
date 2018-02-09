@@ -31,7 +31,6 @@ import org.mockito.Mockito;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -202,7 +201,7 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		final IBezierCurve sh = (IBezierCurve) drawing.getShapeAt(0);
 		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
 		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
-		assertFalse(sh.isClosed());
+		assertTrue(sh.isOpened());
 	}
 
 	@Test

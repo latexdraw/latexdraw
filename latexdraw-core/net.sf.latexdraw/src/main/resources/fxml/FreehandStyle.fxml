@@ -16,7 +16,6 @@
                 <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000" initialValue="5" amountToStepBy="1"/>
             </valueFactory>
         </LSpinner>
-        <CheckBox fx:id="open" layoutX="4.0" layoutY="70.0" text="%ParametersAkinPointsFrame.1"/>
     </AnchorPane>
 </TitledPane>
 

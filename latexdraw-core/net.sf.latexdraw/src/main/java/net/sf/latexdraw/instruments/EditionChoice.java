@@ -109,7 +109,7 @@ public enum EditionChoice {
 		@Override
 		public IBezierCurve createShapeInstance() {
 			final IBezierCurve shape = ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint()));
-			shape.setIsClosed(false);
+			shape.setOpened(true);
 			return shape;
 		}
 	}, TEXT {

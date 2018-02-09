@@ -60,7 +60,7 @@ public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreeh
 
 	@Test
 	public void testChangeOpen() {
-		model.setOpen(!model.isOpen());
+		model.setOpened(!model.isOpened());
 		assertNotEquals(border.getElements(), before);
 	}
 

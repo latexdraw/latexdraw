@@ -65,26 +65,26 @@ public class TestIBezierCurve implements HelperTest {
 	}
 
 	@Theory
-	public void testSetIsClosed(final boolean value) {
-		shape.setIsClosed(value);
-		assertEquals(value, shape.isClosed());
+	public void testSetIsOpened(final boolean value) {
+		shape.setOpened(value);
+		assertEquals(value, shape.isOpened());
 	}
 
 	@Test
 	public void testCopy() {
 		final IBezierCurve sh2 = ShapeFactory.INST.createBezierCurve(Collections.emptyList());
-		shape.setIsClosed(sh2.isClosed());
-		sh2.setIsClosed(!sh2.isClosed());
+		shape.setOpened(sh2.isOpened());
+		sh2.setOpened(!sh2.isOpened());
 		shape.copy(sh2);
 
-		assertEquals(shape.isClosed(), sh2.isClosed());
+		assertEquals(shape.isOpened(), sh2.isOpened());
 	}
 
 	@Test
 	public void testDuplicate() {
-		shape.setIsClosed(!shape.isClosed());
+		shape.setOpened(!shape.isOpened());
 		final IBezierCurve dup = shape.duplicate();
-		assertEquals(shape.isClosed(), dup.isClosed());
+		assertEquals(shape.isOpened(), dup.isOpened());
 	}
 
 }

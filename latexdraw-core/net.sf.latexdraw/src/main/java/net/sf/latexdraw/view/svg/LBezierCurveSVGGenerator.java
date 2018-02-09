@@ -126,7 +126,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		}
 
 		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve(pts, ctrlpts);
-		bc.setIsClosed(closed);
+		bc.setOpened(!closed);
 		return bc;
 	}
 
@@ -152,7 +152,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 												shape.getSecondCtrlPtAt(i-1).getX(), shape.getSecondCtrlPtAt(i-1).getY(),
 												shape.getFirstCtrlPtAt(i).getX(), shape.getFirstCtrlPtAt(i).getY(), false));
 
-		if(shape.isClosed()) {
+		if(!shape.isOpened()) {
             final IPoint ctrl1b = shape.getFirstCtrlPtAt(0).centralSymmetry(shape.getPtAt(0));
             final IPoint ctrl2b = shape.getFirstCtrlPtAt(-1).centralSymmetry(shape.getPtAt(-1));
 
@@ -186,7 +186,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 			setSVGShadowAttributes(shad, false);
 			root.appendChild(shad);
 
-			if(!shape.isClosed()) {
+			if(shape.isOpened()) {
 				setSVGArrow(shape, shad, 0, true, doc, defs);
 				setSVGArrow(shape, shad, 1, true, doc, defs);
 			}
@@ -213,7 +213,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		setSVGAttributes(doc, elt, false);
 		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE +':'+ LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
-		if(!shape.isClosed()) {
+		if(shape.isOpened()) {
 			setSVGArrow(shape, elt, 0, false, doc, defs);
 			setSVGArrow(shape, elt, 1, false, doc, defs);
 		}
@@ -240,7 +240,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		final double whiteDash  	= shape.getDashSepWhite();
 		final boolean hasDble   	= shape.hasDbleBord();
 		final Color col         	= shape.getLineColour();
-		final boolean isClosed  	= shape.isClosed();
+		final boolean isClosed  	= !shape.isOpened();
 		final SVGGElement showPts = new SVGGElement(doc);
 		final IArrow arrow1 		= shape.getArrowAt(0);
 		final IArrow arrow2 		= shape.getArrowAt(-1);

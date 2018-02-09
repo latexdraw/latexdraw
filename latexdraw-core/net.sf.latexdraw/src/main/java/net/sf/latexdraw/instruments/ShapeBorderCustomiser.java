@@ -24,6 +24,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.models.interfaces.prop.IClosableProp;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -50,6 +51,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 	/** For setting whether the points of the shape must be painted. */
 	@FXML private CheckBox showPoints;
 	@FXML private TitledPane linePane;
+	@FXML private CheckBox opened;
 
 	/**
 	 * Creates the instrument.
@@ -68,16 +70,17 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		frameArcField.managedProperty().bind(frameArcField.visibleProperty());
 		frameArcPic.managedProperty().bind(frameArcPic.visibleProperty());
 		showPoints.managedProperty().bind(showPoints.visibleProperty());
+		opened.managedProperty().bind(opened.visibleProperty());
 
 		linePane.managedProperty().bind(linePane.visibleProperty());
 
-		Map<BorderPos, Image> cachePos = new EnumMap<>(BorderPos.class);
+		final Map<BorderPos, Image> cachePos = new EnumMap<>(BorderPos.class);
 		cachePos.put(BorderPos.INTO, new Image("/res/doubleBoundary/double.boundary.into.png"));
 		cachePos.put(BorderPos.MID, new Image("/res/doubleBoundary/double.boundary.middle.png"));
 		cachePos.put(BorderPos.OUT, new Image("/res/doubleBoundary/double.boundary.out.png"));
 		initComboBox(bordersPosCB, cachePos, BorderPos.values());
 
-		Map<LineStyle, Image> cacheStyle = new EnumMap<>(LineStyle.class);
+		final Map<LineStyle, Image> cacheStyle = new EnumMap<>(LineStyle.class);
 		cacheStyle.put(LineStyle.SOLID, new Image("/res/lineStyles/lineStyle.none.png"));
 		cacheStyle.put(LineStyle.DASHED, new Image("/res/lineStyles/lineStyle.dashed.png"));
 		cacheStyle.put(LineStyle.DOTTED, new Image("/res/lineStyles/lineStyle.dotted.png"));
@@ -88,8 +91,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 	protected void update(final IGroup shape) {
 		if(shape.isEmpty()) {
 			setActivated(false);
-		}
-		else {
+		}else {
 			setActivated(true);
 			final boolean isTh = shape.isThicknessable();
 			final boolean isStylable = shape.isLineStylable();
@@ -97,6 +99,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			final boolean isColor = shape.isColourable();
 			final boolean supportRound = shape.isTypeOf(ILineArcProp.class);
 			final boolean showPts = shape.isShowPtsable();
+			final boolean curve = shape.isTypeOf(IClosableProp.class);
 
 			thicknessField.setVisible(isTh);
 			thicknessPic.setVisible(isTh);
@@ -107,13 +110,29 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			frameArcPic.setVisible(supportRound);
 			showPoints.setVisible(showPts);
 			linePane.setVisible(isTh || isStylable || isColor || isMvble || supportRound || showPts);
+			opened.setVisible(curve);
 
-			if(isColor) lineColButton.setValue(shape.getLineColour().toJFX());
-			if(isTh) thicknessField.getValueFactory().setValue(shape.getThickness());
-			if(isStylable) lineCB.getSelectionModel().select(shape.getLineStyle());
-			if(isMvble) bordersPosCB.getSelectionModel().select(shape.getBordersPosition());
-			if(supportRound) frameArcField.getValueFactory().setValue(shape.getLineArc());
-			if(showPts) showPoints.setSelected(shape.isShowPts());
+			if(isColor) {
+				lineColButton.setValue(shape.getLineColour().toJFX());
+			}
+			if(isTh) {
+				thicknessField.getValueFactory().setValue(shape.getThickness());
+			}
+			if(isStylable) {
+				lineCB.getSelectionModel().select(shape.getLineStyle());
+			}
+			if(isMvble) {
+				bordersPosCB.getSelectionModel().select(shape.getBordersPosition());
+			}
+			if(supportRound) {
+				frameArcField.getValueFactory().setValue(shape.getLineArc());
+			}
+			if(showPts) {
+				showPoints.setSelected(shape.isShowPts());
+			}
+			if(curve) {
+				opened.setSelected(shape.isOpened());
+			}
 		}
 	}
 
@@ -133,5 +152,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		addColorPropBinding(lineColButton, ShapeProperties.COLOUR_LINE);
 
 		addCheckboxPropBinding(showPoints, ShapeProperties.SHOW_POINTS);
+
+		addCheckboxPropBinding(opened, ShapeProperties.CLOSABLE_CLOSE);
 	}
 }

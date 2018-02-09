@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
@@ -36,8 +35,6 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 	@FXML private ComboBox<FreeHandStyle> freeHandType;
 	/** The gap to consider between the points. */
 	@FXML private Spinner<Integer> gapPoints;
-	/** Defines if the shape is open. */
-	@FXML private CheckBox open;
 	@FXML private TitledPane mainPane;
 
 	/**
@@ -63,7 +60,6 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 			setActivated(true);
 			freeHandType.getSelectionModel().select(shape.getType());
 			gapPoints.getValueFactory().setValue(shape.getInterval());
-			open.setSelected(shape.isOpen());
 		}else {
 			setActivated(false);
 		}
@@ -78,6 +74,5 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 	protected void configureBindings() throws InstantiationException, IllegalAccessException {
 		addComboPropBinding(freeHandType, ShapeProperties.FREEHAND_STYLE);
 		addSpinnerPropBinding(gapPoints, ShapeProperties.FREEHAND_INTERVAL, false);
-		addCheckboxPropBinding(open, ShapeProperties.FREEHAND_OPEN);
 	}
 }

@@ -304,7 +304,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		}
 
 		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve(pts);
-		bc.setIsClosed(closed);
+		bc.setOpened(!closed);
 		setShapeParameters(bc, ctx.pstctx);
 		setArrows(bc, ctx.pstctx);
 
@@ -435,7 +435,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	@Override
 	public void exitClosepath(final net.sf.latexdraw.parsers.pst.PSTParser.ClosepathContext ctx) {
 		final IFreehand fh = ShapeFactory.INST.createFreeHand(Collections.emptyList());
-		fh.setOpen(false);
+		fh.setOpened(false);
 		shapes.peek().addShape(fh);
 	}
 
@@ -480,7 +480,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 				}else {
 					if(ifh.getNbPoints() == 0) {
 						// If the shape has a single point, it means it is a closepath command
-						fh.setOpen(ifh.isOpen());
+						fh.setOpened(ifh.isOpened());
 					}else {
 						// Otherwise, the shape has two points. So, we take the last one and add it to the first shape.
 						final IFreehand fh2 = ShapeFactory.INST.createFreeHandFrom(fh, ifh.getPtAt(ifh.getNbPoints() - 1));

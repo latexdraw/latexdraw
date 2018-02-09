@@ -12,7 +12,10 @@ package net.sf.latexdraw.models.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.prop.IClosableProp;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
@@ -25,22 +28,23 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
  */
 class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArrowableShape {
 	private final List<IArrow> arrows;
-	private boolean isClosed;
+	/** Defines if the drawing is opened of closed. */
+	private final BooleanProperty open;
 
 	/**
 	 * Creates a bezier curve with a set of points.
 	 * @param pts The list of points.
 	 */
-	LBezierCurve(final List<IPoint> pts, final boolean closed) {
-		this(pts, computeDefaultFirstCtrlPoints(pts), closed);
+	LBezierCurve(final List<IPoint> pts) {
+		this(pts, computeDefaultFirstCtrlPoints(pts));
 	}
 
-	LBezierCurve(final List<IPoint> pts, final List<IPoint> ptsCtrl, final boolean closed) {
+	LBezierCurve(final List<IPoint> pts, final List<IPoint> ptsCtrl) {
 		super(pts, ptsCtrl);
 		arrows = new ArrayList<>();
 		arrows.add(ShapeFactory.INST.createArrow(this));
 		arrows.add(ShapeFactory.INST.createArrow(this));
-		isClosed = closed;
+		open = new SimpleBooleanProperty(true);
 	}
 
 	@Override
@@ -59,13 +63,13 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArr
 	}
 
 	@Override
-	public boolean isClosed() {
-		return isClosed;
+	public boolean isOpened() {
+		return open.get();
 	}
 
 	@Override
-	public void setIsClosed(final boolean closed) {
-		isClosed = closed;
+	public void setOpened(final boolean isOpen) {
+		open.set(isOpen);
 	}
 
 	@Override
@@ -77,8 +81,8 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArr
 	public void copy(final IShape sh) {
 		super.copy(sh);
 		LArrowableShape.super.copy(sh);
-		if(sh instanceof IBezierCurve) {
-			setIsClosed(((IBezierCurve) sh).isClosed());
+		if(sh instanceof IClosableProp) {
+			setOpened(((IClosableProp) sh).isOpened());
 		}
 	}
 
@@ -107,5 +111,10 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve, LArr
 	@Override
 	public List<IArrow> getArrows() {
 		return arrows;
+	}
+
+	@Override
+	public BooleanProperty openedProperty() {
+		return open;
 	}
 }

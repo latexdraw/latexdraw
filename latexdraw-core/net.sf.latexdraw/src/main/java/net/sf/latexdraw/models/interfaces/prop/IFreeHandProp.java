@@ -16,7 +16,7 @@ import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
  * Properties of freehand shapes.
  * @author Arnaud Blouin
  */
-public interface IFreeHandProp {
+public interface IFreeHandProp extends IClosableProp {
 	/**
 	 * @return the type.
 	 * @since 3.0
@@ -28,18 +28,6 @@ public interface IFreeHandProp {
 	 * @since 3.0
 	 */
 	void setType(final FreeHandStyle type);
-
-	/**
-	 * @return the open.
-	 * @since 3.0
-	 */
-	boolean isOpen();
-
-	/**
-	 * @param open the open to set.
-	 * @since 3.0
-	 */
-	void setOpen(final boolean open);
 
 	/**
 	 * @return the interval.

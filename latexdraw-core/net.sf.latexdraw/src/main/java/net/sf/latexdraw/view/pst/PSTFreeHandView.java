@@ -153,7 +153,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 		code.append(getPropertiesCode(ppc));
 		code.append("]\n{\n\\newpath\n");//$NON-NLS-1$
 		code.append(coord);
-		code.append(shape.isOpen() ? "" : "\\closepath");//$NON-NLS-1$//$NON-NLS-2$
+		code.append(shape.isOpened() ? "" : "\\closepath");//$NON-NLS-1$//$NON-NLS-2$
 		code.append(shape.hasShadow() ? "\\openshadow\n" : "");//$NON-NLS-1$//$NON-NLS-2$
 		code.append('}');
 

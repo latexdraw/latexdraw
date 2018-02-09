@@ -185,7 +185,7 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 				break;
 		}
 
-		if(!shape.isOpen()) {
+		if(!shape.isOpened()) {
 			path.add(new SVGPathSegClosePath());
 		}
 

@@ -3,13 +3,14 @@ package net.sf.latexdraw.instruments.hand;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestLineStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestLineStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
+import net.sf.latexdraw.models.interfaces.prop.IClosableProp;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
@@ -62,6 +63,13 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		assertTrue(frameArcField.isVisible());
 		assertFalse(frameArcField.isDisabled());
 		assertFalse(showPoints.isVisible());
+		assertFalse(opened.isVisible());
+	}
+
+	@Test
+	public void testOpenVisibleIfBezierAndActivated() {
+		new CompositeGUIVoidCommand(selectionAddBezier, activateHand, updateIns).execute();
+		assertTrue(opened.isVisible());
 	}
 
 	@Test
@@ -83,9 +91,9 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testSelectBorderPosSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
-		BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
+		final BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
 		selectBorderPos.execute();
-		BorderPos newStyle = bordersPosCB.getSelectionModel().getSelectedItem();
+		final BorderPos newStyle = bordersPosCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(0).getBordersPosition());
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).getBordersPosition());
 		assertNotEquals(style, newStyle);
@@ -94,9 +102,9 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testSelectLineStyleSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
-		LineStyle style = lineCB.getSelectionModel().getSelectedItem();
+		final LineStyle style = lineCB.getSelectionModel().getSelectedItem();
 		selectLineStyle.execute();
-		LineStyle newStyle = lineCB.getSelectionModel().getSelectedItem();
+		final LineStyle newStyle = lineCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(0).getLineStyle());
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).getLineStyle());
 		assertNotEquals(style, newStyle);
@@ -105,16 +113,31 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testCheckShowPointSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddBezier, updateIns).execute();
-		boolean sel = showPoints.isSelected();
+		final boolean sel = showPoints.isSelected();
 		checkShowPts.execute();
 		assertEquals(!sel, drawing.getSelection().getShapeAt(0).isShowPts());
 		assertEquals(!sel, drawing.getSelection().getShapeAt(1).isShowPts());
 	}
 
 	@Test
+	public void testCheckCloseOKSelection() {
+		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddFreehand, updateIns).execute();
+		assertEquals(((IClosableProp) drawing.getSelection().getShapeAt(0)).isOpened(), opened.isSelected());
+	}
+
+	@Test
+	public void testCheckCloseSelection() {
+		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddFreehand, updateIns).execute();
+		final boolean isOpen = opened.isSelected();
+		checkOpened.execute();
+		assertEquals(!isOpen, ((IClosableProp) drawing.getSelection().getShapeAt(0)).isOpened());
+		assertEquals(!isOpen, ((IClosableProp) drawing.getSelection().getShapeAt(1)).isOpened());
+	}
+
+	@Test
 	public void testPickLineColourSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddBezier, updateIns).execute();
-		Color col = lineColButton.getValue();
+		final Color col = lineColButton.getValue();
 		pickLineCol.execute();
 		assertEquals(lineColButton.getValue(), drawing.getSelection().getShapeAt(0).getLineColour().toJFX());
 		assertEquals(lineColButton.getValue(), drawing.getSelection().getShapeAt(1).getLineColour().toJFX());

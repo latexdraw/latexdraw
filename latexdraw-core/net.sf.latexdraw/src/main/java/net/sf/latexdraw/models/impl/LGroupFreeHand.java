@@ -43,16 +43,6 @@ interface LGroupFreeHand extends IGroup {
 	}
 
 	@Override
-	default boolean isOpen() {
-		return firstIFreeHand().map(sh -> sh.isOpen()).orElse(false);
-	}
-
-	@Override
-	default void setOpen(final boolean open) {
-		fhShapes().forEach(sh -> sh.setOpen(open));
-	}
-
-	@Override
 	default int getInterval() {
 		return firstIFreeHand().map(sh -> sh.getInterval()).orElse(0);
 	}

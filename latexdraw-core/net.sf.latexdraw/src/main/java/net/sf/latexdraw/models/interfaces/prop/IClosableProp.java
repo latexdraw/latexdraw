@@ -8,24 +8,20 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  */
-package net.sf.latexdraw.models.interfaces.shape;
-
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
+package net.sf.latexdraw.models.interfaces.prop;
 
 /**
- * The API for freehand shapes.
- * @author Arnaud BLOUIN
+ * For shapes that can be closed.
+ * @author Arnaud Blouin
  */
-public interface IFreehand extends IFreeHandProp, ISingleShape, IClosable {
+public interface IClosableProp {
 	/**
-	 * @return The property of the freehand type.
+	 * @return Whether the shape is opened.
 	 */
-	ObjectProperty<FreeHandStyle> typeProperty();
+	boolean isOpened();
 
 	/**
-	 * @return The property of the interval parameter.
+	 * @param open Sets whether the shape is opened.
 	 */
-	IntegerProperty intervalProperty();
+	void setOpened(final boolean open);
 }

@@ -2,12 +2,12 @@ package net.sf.latexdraw.instruments.pencil;
 
 import java.util.Collections;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestFreeHandStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestFreeHandStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
@@ -18,7 +18,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
@@ -82,14 +81,5 @@ public class TestPencilFreeHandStyle extends TestFreeHandStyleGUI {
 		selectCurveStyle.execute();
 		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)pencil.createShapeInstance()).getType());
 		assertEquals(FreeHandStyle.CURVES, ((IFreehand)pencil.createShapeInstance()).getType());
-	}
-
-	@Test
-	public void testSelectOpenPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns).execute();
-		boolean isopen = open.isSelected();
-		selectOpen.execute();
-		assertEquals(open.isSelected(), ((IFreehand)pencil.createShapeInstance()).isOpen());
-		assertNotEquals(isopen, open.isSelected());
 	}
 }

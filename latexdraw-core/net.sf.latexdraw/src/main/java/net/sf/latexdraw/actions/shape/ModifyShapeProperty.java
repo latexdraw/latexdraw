@@ -14,6 +14,7 @@ import java.util.List;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.models.interfaces.prop.IClosableProp;
 import net.sf.latexdraw.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.models.interfaces.prop.IGridProp;
@@ -191,8 +192,9 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 			case GRID_SUBGRID_DIV:
 			case GRID_LABELS_COLOUR:
 				return shapes.isTypeOf(IGridProp.class);
+			case CLOSABLE_CLOSE:
+				return shapes.isTypeOf(IClosableProp.class);
 			case FREEHAND_INTERVAL:
-			case FREEHAND_OPEN:
 			case FREEHAND_STYLE:
 				return shapes.isTypeOf(IFreeHandProp.class);
 			case PLOT_EQ:

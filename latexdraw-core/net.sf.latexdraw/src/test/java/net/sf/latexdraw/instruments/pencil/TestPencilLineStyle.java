@@ -3,14 +3,16 @@ package net.sf.latexdraw.instruments.pencil;
 import java.util.Collections;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestLineStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestLineStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.util.Injector;
@@ -62,7 +64,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testSelectBorderPosPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
+		final BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
 		selectBorderPos.execute();
 		assertEquals(bordersPosCB.getSelectionModel().getSelectedItem(), pencil.createShapeInstance().getBordersPosition());
 		assertNotEquals(style, bordersPosCB.getSelectionModel().getSelectedItem());
@@ -71,7 +73,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testSelectLineStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		LineStyle style = lineCB.getSelectionModel().getSelectedItem();
+		final LineStyle style = lineCB.getSelectionModel().getSelectedItem();
 		selectLineStyle.execute();
 		assertEquals(lineCB.getSelectionModel().getSelectedItem(), pencil.createShapeInstance().getLineStyle());
 		assertNotEquals(style, lineCB.getSelectionModel().getSelectedItem());
@@ -80,7 +82,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testPickLineColourPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		Color col = lineColButton.getValue();
+		final Color col = lineColButton.getValue();
 		pickLineCol.execute();
 		assertEquals(lineColButton.getValue(), pencil.createShapeInstance().getLineColour().toJFX());
 		assertNotEquals(col, lineColButton.getValue());
@@ -89,7 +91,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testCheckShowPointPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		boolean sel = showPoints.isSelected();
+		final boolean sel = showPoints.isSelected();
 		checkShowPts.execute();
 		assertEquals(!sel, pencil.createShapeInstance().isShowPts());
 	}
@@ -161,5 +163,23 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		assertFalse(bordersPosCB.isVisible());
 		assertFalse(frameArcField.isVisible());
 		assertFalse(showPoints.isVisible());
+	}
+
+	@Test
+	public void testSelectOpenFreehandPencil() {
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns).execute();
+		final boolean isopen = opened.isSelected();
+		checkOpened.execute();
+		assertEquals(opened.isSelected(), ((IFreehand)pencil.createShapeInstance()).isOpened());
+		assertNotEquals(isopen, opened.isSelected());
+	}
+
+	@Test
+	public void testSelectOpenBezierPencil() {
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
+		final boolean isopen = opened.isSelected();
+		checkOpened.execute();
+		assertEquals(opened.isSelected(), ((IBezierCurve)pencil.createShapeInstance()).isOpened());
+		assertNotEquals(isopen, opened.isSelected());
 	}
 }

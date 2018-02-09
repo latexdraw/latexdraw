@@ -180,9 +180,9 @@ public class TestModifyShapeProperty extends TestUndoableAction<ModifyShapePrope
 				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
 				value = 21d;
 				break;
-			case FREEHAND_OPEN:
-				mementoCmd = () -> group.getFreeHandOpenList();
-				valueToCheckCmd = sh -> ((IFreeHandProp)sh).isOpen();
+			case CLOSABLE_CLOSE:
+				mementoCmd = () -> group.getOpenList();
+				valueToCheckCmd = sh -> ((IFreeHandProp)sh).isOpened();
 				supportsPropCmd = sh -> sh.isTypeOf(IFreeHandProp.class);
 				value = false;
 				break;
