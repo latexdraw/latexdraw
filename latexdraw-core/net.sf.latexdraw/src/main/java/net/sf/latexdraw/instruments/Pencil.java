@@ -41,7 +41,7 @@ import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.ViewFactory;
-import org.malai.javafx.interaction.library.CancellableDnD;
+import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.MultiClick;
 import org.malai.javafx.interaction.library.Press;
 
@@ -147,7 +147,7 @@ public class Pencil extends CanvasInstrument {
 	 * Binds a DnD interaction to create shape.
 	 */
 	private void bindDnDToDrawFreeHandShape() throws InstantiationException, IllegalAccessException {
-		nodeBinder(AddShape.class, new CancellableDnD()).on(canvas).
+		nodeBinder(AddShape.class, new DnD(false, true)).on(canvas).
 			map(i -> {
 				final IShape sh = createShapeInstance();
 				final IPoint pt = getAdaptedPoint(i.getSrcLocalPoint());
@@ -164,7 +164,7 @@ public class Pencil extends CanvasInstrument {
 				}
 				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
 			}).
-			end((a, i) -> canvas.setTempView(null)).
+			endOrCancel((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY && currentChoice.get() == EditionChoice.FREE_HAND).
 			strictStart().
 			bind();
@@ -174,7 +174,7 @@ public class Pencil extends CanvasInstrument {
 	 * Binds a DnD interaction to draw squared shapes.
 	 */
 	private void bindDnDToDrawSquaredShape() throws InstantiationException, IllegalAccessException {
-		nodeBinder(AddShape.class, new CancellableDnD()).on(canvas).
+		nodeBinder(AddShape.class, new DnD(false, true)).on(canvas).
 			map(i -> {
 				final ISquaredShape sq = (ISquaredShape) createShapeInstance();
 				final IPoint pt = getAdaptedPoint(i.getSrcLocalPoint());
@@ -187,7 +187,7 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
 			}).
 			then((a, i) -> updateShapeFromCentre((ISquaredShape) a.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getEndLocalPt()).getX())).
-			end((a, i) -> canvas.setTempView(null)).
+			endOrCancel((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
 			strictStart().
 			bind().activationProperty().bind(activatedProp.and(currentChoice.isEqualTo(EditionChoice.SQUARE).or(currentChoice.isEqualTo(EditionChoice.CIRCLE).
@@ -198,14 +198,14 @@ public class Pencil extends CanvasInstrument {
 	 * Binds a DnD interaction to draw rectangular shapes.
 	 */
 	private void bindDnDToDrawRectangularShape() throws InstantiationException, IllegalAccessException {
-		nodeBinder(AddShape.class, new CancellableDnD()).on(canvas).
+		nodeBinder(AddShape.class, new DnD(false, true)).on(canvas).
 			map(i -> new AddShape(createShapeInstance(), canvas.getDrawing())).
 			first((a, i) -> {
 				Platform.runLater(() -> canvas.requestFocus());
 				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
 			}).
 			then((a, i) -> updateShapeFromDiag((IRectangularShape) a.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getEndLocalPt()))).
-			end((a, i) -> canvas.setTempView(null)).
+			endOrCancel((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
 			strictStart().
 			bind().activationProperty().bind(activatedProp.and(currentChoice.isEqualTo(EditionChoice.RECT).or(currentChoice.isEqualTo(EditionChoice.ELLIPSE).
@@ -229,7 +229,7 @@ public class Pencil extends CanvasInstrument {
 				}
 				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
 			}).
-			end((a, i) -> canvas.setTempView(null)).
+			endOrCancel((a, i) -> canvas.setTempView(null)).
 			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.POLYGON).and(activatedProp));
 
 		// Binding for polyline
@@ -243,7 +243,7 @@ public class Pencil extends CanvasInstrument {
 				}
 				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
 			}).
-			end((a, i) -> canvas.setTempView(null)).
+			endOrCancel((a, i) -> canvas.setTempView(null)).
 			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.LINES).and(activatedProp));
 
 		// Binding for bézier curves
@@ -258,7 +258,7 @@ public class Pencil extends CanvasInstrument {
 				((IControlPointShape) a.getShape().get()).balance();
 				canvas.setTempView(ViewFactory.INSTANCE.createView(a.getShape().orElse(null)).orElse(null));
 			}).
-			end((a, i) -> canvas.setTempView(null)).
+			endOrCancel((a, i) -> canvas.setTempView(null)).
 			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.BEZIER_CURVE).and(activatedProp));
 	}
 

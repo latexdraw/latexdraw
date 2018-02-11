@@ -43,7 +43,6 @@ import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewText;
 import org.malai.action.Action;
 import org.malai.javafx.binding.JfXWidgetBinding;
-import org.malai.javafx.interaction.library.CancellableDnD;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.DoubleClick;
 import org.malai.javafx.interaction.library.Press;
@@ -107,11 +106,11 @@ public class Hand extends CanvasInstrument {
 		nodeBinder(InitTextSetter.class, new DoubleClick()).
 			on(canvas.getViews().getChildren()).
 			map(i -> {
-				final IText text = ((ViewText) i.getSrcObject().get().getParent()).getModel();
+				final IText text = ((ViewText) i.getClickData().getSrcObject().get().getParent()).getModel();
 				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(text.getPosition().getX() * canvas.getZoom(),
 					text.getPosition().getY() * canvas.getZoom()), text, null);
 			}).
-			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() instanceof ViewText).
+			when(i -> i.getClickData().getSrcObject().isPresent() && i.getClickData().getSrcObject().get().getParent() instanceof ViewText).
 			strictStart().
 			bind();
 
@@ -119,11 +118,12 @@ public class Hand extends CanvasInstrument {
 		nodeBinder(InitTextSetter.class, new DoubleClick()).
 			on(canvas.getViews().getChildren()).
 			map(i -> {
-				final IPlot plot = getViewShape(i.getSrcObject()).map(view -> ((ViewPlot) view).getModel()).get();
+				final IPlot plot = getViewShape(i.getClickData().getSrcObject()).map(view -> ((ViewPlot) view).getModel()).get();
 				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(plot.getPosition().getX() * canvas.getZoom(),
 					plot.getPosition().getY() * canvas.getZoom()), null, plot);
 			}).
-			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() != null && getViewShape(i.getSrcObject()).orElse(null) instanceof ViewPlot).
+			when(i -> i.getClickData().getSrcObject().isPresent() && i.getClickData().getSrcObject().get().getParent() != null &&
+				getViewShape(i.getClickData().getSrcObject()).orElse(null) instanceof ViewPlot).
 			strictStart().
 			bind();
 	}
@@ -153,7 +153,7 @@ public class Hand extends CanvasInstrument {
 	 * A DnD on a shape view allows to translate the underlying shape.
 	 */
 	private void bindDnDTranslate() throws InstantiationException, IllegalAccessException {
-		nodeBinder(TranslateShapes.class, new CancellableDnD(true)).
+		nodeBinder(TranslateShapes.class, new DnD(true, true)).
 			on(canvas.getViews().getChildren()).on(canvas.getSelectionBorder()).
 			map(i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false))).
 			then((a, i) -> {
