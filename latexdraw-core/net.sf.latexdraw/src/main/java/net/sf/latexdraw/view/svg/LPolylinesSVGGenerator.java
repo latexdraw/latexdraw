@@ -49,7 +49,9 @@ class LPolylinesSVGGenerator extends LShapeSVGGenerator<IPolyline> {
 	 */
 	protected LPolylinesSVGGenerator(final SVGPathElement elt) {
 		super(ShapeFactory.INST.createPolyline(LPolygonSVGGenerator.initModifiablePointsShape(elt)));
-		if(elt==null || !elt.isLines() && !elt.isLine()) throw new IllegalArgumentException();
+		if(elt == null || (!elt.isLines() && !elt.isLine())) {
+			throw new IllegalArgumentException();
+		}
 		setSVGParameters(elt);
 		applyTransformations(elt);
 	}

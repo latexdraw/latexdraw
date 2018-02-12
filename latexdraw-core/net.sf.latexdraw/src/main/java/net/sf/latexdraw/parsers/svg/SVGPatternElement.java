@@ -57,7 +57,7 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 	 */
 	public String getPatternContentUnits() {
 		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_PATTERN_CONTENTS_UNITS);
-		return v == null || !SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v) ? SVGAttributes.SVG_UNITS_VALUE_USR : v;
+		return (v == null || (!SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v))) ? SVGAttributes.SVG_UNITS_VALUE_USR : v;
 	}
 
 
@@ -66,7 +66,7 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 	 */
 	public String getPatternUnits() {
 		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_PATTERN_UNITS);
-		return v == null || !SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
+		return (v == null || (!SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v))) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
 	}
 
 

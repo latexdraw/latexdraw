@@ -206,7 +206,7 @@ public class ViewArrow extends Group {
 
 
 	private boolean isArrowInPositiveDirection(final IPoint pt1, final IPoint pt2) {
-		return pt1.getX() < pt2.getX() || MathUtils.INST.equalsDouble(pt1.getX(), pt2.getX()) && pt1.getY() < pt2.getY();
+		return pt1.getX() < pt2.getX() || (MathUtils.INST.equalsDouble(pt1.getX(), pt2.getX()) && pt1.getY() < pt2.getY());
 	}
 
 
@@ -288,7 +288,9 @@ public class ViewArrow extends Group {
 
 		final ILine arrowLine = arrow.getArrowLine();
 
-		if(arrow.getArrowStyle() == ArrowStyle.NONE || arrowLine == null || !arrow.hasStyle()) return;
+		if(arrow.getArrowStyle() == ArrowStyle.NONE || arrowLine == null || !arrow.hasStyle()) {
+			return;
+		}
 
 		final double lineAngle = arrowLine.getLineAngle();
 		final IPoint pt1 = arrowLine.getPoint1();

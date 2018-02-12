@@ -33,6 +33,9 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 */
 	IGroup duplicateDeep(final boolean duplicateShapes);
 
+	@Override
+	IGroup duplicate();
+
 	/**
 	 * @return The list of polar/cartesian coordinates of the plots contained by the group.
 	 * If a shape of the group does not support this property, null is added

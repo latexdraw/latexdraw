@@ -78,6 +78,12 @@ class LPicture extends LPositionShape implements IPicture {
 		}
 	}
 
+	@Override
+	public IPicture duplicate() {
+		final IPicture pic = ShapeFactory.INST.createPicture(getPosition());
+		pic.copy(this);
+		return pic;
+	}
 
 	@Override
 	public void mirrorVertical(final double y) {

@@ -405,6 +405,13 @@ public class LShapeFactory implements IShapeFactory {
 
 	@Override
 	public <T extends IShape> T duplicate(final T shape) {
-		return shape == null ? null : shape.duplicate();
+		if(shape == null) {
+			return null;
+		}
+		final IShape dup = shape.duplicate();
+		if(dup != null && dup.getClass().isAssignableFrom(shape.getClass())) {
+			return (T) dup;
+		}
+		return null;
 	}
 }

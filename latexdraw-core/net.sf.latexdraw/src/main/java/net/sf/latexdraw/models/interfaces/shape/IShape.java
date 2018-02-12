@@ -522,7 +522,7 @@ public interface IShape extends Modifiable {
 	 * @return The duplicata.
 	 * @since 3.0
 	 */
-	<T extends IShape> T duplicate();
+	IShape duplicate();
 
 	/**
 	 * Rotates the shape.

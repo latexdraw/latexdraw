@@ -102,6 +102,12 @@ class LPlot extends LPositionShape implements IPlot {
 		parser = new PSFunctionParser(equation.get());
 	}
 
+	@Override
+	public IPlot duplicate() {
+		final IPlot plot = ShapeFactory.INST.createPlot(getPosition(), getPlotMinX(), getPlotMaxX(), getPlotEquation(), isPolar());
+		plot.copy(this);
+		return plot;
+	}
 
 	@Override
 	public void mirrorVertical(final double y) {

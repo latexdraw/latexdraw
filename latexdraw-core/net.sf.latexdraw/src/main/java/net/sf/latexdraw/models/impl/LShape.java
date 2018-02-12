@@ -727,10 +727,11 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public <T extends IShape> T duplicate() {
-		final T shape = ShapeFactory.INST.newShape((Class<T>) getClass()).orElse(null);
-		if(shape == null) return null;
-		shape.copy(this);
+	public IShape duplicate() {
+		final IShape shape = ShapeFactory.INST.newShape(getClass()).orElse(null);
+		if(shape != null) {
+			shape.copy(this);
+		}
 		return shape;
 	}
 

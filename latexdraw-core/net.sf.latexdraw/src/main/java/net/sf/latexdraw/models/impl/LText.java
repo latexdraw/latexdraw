@@ -52,6 +52,13 @@ class LText extends LPositionShape implements IText {
 	}
 
 	@Override
+	public IText duplicate() {
+		final IText text = ShapeFactory.INST.createText();
+		text.copy(this);
+		return text;
+	}
+
+	@Override
 	public IPoint getPosition() {
 		return getPtAt(0);
 	}

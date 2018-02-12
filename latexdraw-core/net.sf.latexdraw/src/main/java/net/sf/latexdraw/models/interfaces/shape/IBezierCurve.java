@@ -15,4 +15,6 @@ package net.sf.latexdraw.models.interfaces.shape;
  * @author Arnaud BLOUIN
  */
 public interface IBezierCurve extends IControlPointShape, IArrowableSingleShape, IClosable {
+	@Override
+	IBezierCurve duplicate();
 }

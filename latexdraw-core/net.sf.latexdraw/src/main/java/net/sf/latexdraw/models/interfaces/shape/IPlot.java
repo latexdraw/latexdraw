@@ -47,4 +47,7 @@ public interface IPlot extends IPositionShape, IPlotProp {
 	DoubleProperty xScaleProperty();
 
 	DoubleProperty yScaleProperty();
+
+	@Override
+	IPlot duplicate();
 }

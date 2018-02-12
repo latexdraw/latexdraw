@@ -106,6 +106,13 @@ class LGrid extends LAbstractGrid implements IGrid {
 	}
 
 	@Override
+	public IGrid duplicate() {
+		final IGrid grid = ShapeFactory.INST.createGrid(getPosition());
+		grid.copy(this);
+		return grid;
+	}
+
+	@Override
 	public IPoint getPosition() {
 		return getPtAt(0);
 	}

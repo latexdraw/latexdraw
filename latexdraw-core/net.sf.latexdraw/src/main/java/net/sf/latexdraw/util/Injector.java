@@ -11,6 +11,7 @@
 package net.sf.latexdraw.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -51,7 +52,7 @@ public abstract class Injector {
 		try {
 			configure();
 			singletons.forEach(cl -> injectFieldsOf(instances.get(cl)));
-		}catch(final InstantiationException | IllegalAccessException ex) {
+		}catch(final NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ex) {
 			LOGGER.log(Level.SEVERE, "Cannot create an instance of a class. Make sure this class has a public default constructor.", ex);
 		}
 	}
@@ -62,7 +63,7 @@ public abstract class Injector {
 	 * @throws InstantiationException On instantiation issue.
 	 * @throws IllegalAccessException On instantiation issue.
 	 */
-	protected abstract void configure() throws InstantiationException, IllegalAccessException;
+	protected abstract void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException;
 
 	/**
 	 * Returns an instance of the given cl or null.
@@ -87,12 +88,12 @@ public abstract class Injector {
 			T instance = (T) instances.get(cl);
 
 			if(instance == null) {
-				instance = cl.newInstance();
+				instance = cl.getDeclaredConstructor().newInstance();
 			}
 
 			injectFieldsOf(instance);
 			return instance;
-		}catch(final InstantiationException | IllegalAccessException ex) {
+		}catch(final NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ex) {
 			LOGGER.log(Level.SEVERE, "Cannot create an instance of " + cl.getTypeName() + ". Make sure this class has a public default constructor.", ex);
 			return null;
 		}
@@ -106,7 +107,7 @@ public abstract class Injector {
 	private boolean isConfigured(final Class<?> cl) {
 		synchronized(instances) {
 			synchronized(bindingsBetweenTypes) {
-				return cl != null && instances.containsKey(cl) || bindingsBetweenTypes.containsKey(cl);
+				return cl != null && (instances.containsKey(cl) || bindingsBetweenTypes.containsKey(cl));
 			}
 		}
 	}
@@ -161,9 +162,10 @@ public abstract class Injector {
 	 * @throws IllegalAccessException On instantiation issues.
 	 * @throws InstantiationException On instantiation issues.
 	 */
-	public <T> void bindAsEagerSingleton(final Class<T> cl) throws IllegalAccessException, InstantiationException {
+	public <T> void bindAsEagerSingleton(final Class<T> cl) throws IllegalAccessException, InstantiationException, NoSuchMethodException,
+		InvocationTargetException {
 		if(cl != null) {
-			final T instance = cl.newInstance();
+			final T instance = cl.getDeclaredConstructor().newInstance();
 			synchronized(instances) {
 				instances.put(cl, instance);
 			}

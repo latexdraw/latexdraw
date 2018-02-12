@@ -104,6 +104,13 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	}
 
 	@Override
+	public IAxes duplicate() {
+		final IAxes axes = ShapeFactory.INST.createAxes(getPosition());
+		axes.copy(this);
+		return axes;
+	}
+
+	@Override
 	public void setArrowStyle(final ArrowStyle style, final int position) {
 		final int pos = position == -1 ? arrows.size() - 1 : position;
 

@@ -128,6 +128,8 @@ public class DistributeShapes extends AlignDistribAction {
 				case VERT_TOP:
 					x = view.getBoundsInLocal().getMinY();
 					break;
+				default:
+					// Nothing to do for the other ones.
 			}
 
 			final double finalX = x;

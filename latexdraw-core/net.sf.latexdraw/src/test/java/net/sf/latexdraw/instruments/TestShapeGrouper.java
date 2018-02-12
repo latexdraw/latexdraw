@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -59,7 +60,7 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);

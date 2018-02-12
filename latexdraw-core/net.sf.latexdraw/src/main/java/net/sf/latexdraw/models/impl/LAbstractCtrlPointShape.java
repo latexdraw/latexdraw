@@ -267,4 +267,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 			super.translate(tx, ty);
 		}
 	}
+
+	@Override
+	public abstract IControlPointShape duplicate();
 }

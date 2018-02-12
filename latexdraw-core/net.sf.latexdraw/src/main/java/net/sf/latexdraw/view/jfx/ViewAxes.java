@@ -190,8 +190,8 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = miny * incry; i <= maxy * incry;
 			i += incry * distY) {
-			int inti = (int) i;
-			if((inti != 0 || showOrig && xGE0) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
+			final int inti = (int) i;
+			if((inti != 0 || (showOrig && xGE0)) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				str = String.valueOf(inti + origy);
 				fontText.setText(str);
 				addTextLabel(str, gap - fontText.getBoundsInLocal().getWidth(), height / 2d - inti * gapy, fontText.getFont());
@@ -217,7 +217,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> {
 
 		for(double incrx = model.getIncrementX(), maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = minx * incrx; i <= maxx * incrx; i += incrx * distX) {
 			int inti = (int) i;
-			if((inti != 0 || showOrig && yGE0) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
+			if((inti != 0 || (showOrig && yGE0)) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
 				str = String.valueOf(inti + origx);
 				fontText.setText(str);
 				addTextLabel(str, inti * gapx - fontText.getBoundsInLocal().getWidth() / 2d, sep, fontText.getFont());

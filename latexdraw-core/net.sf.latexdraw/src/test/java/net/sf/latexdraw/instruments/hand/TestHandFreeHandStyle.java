@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments.hand;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
 import net.sf.latexdraw.instruments.Hand;
@@ -27,7 +28,7 @@ public class TestHandFreeHandStyle extends TestFreeHandStyleGUI {
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeFreeHandCustomiser.class);

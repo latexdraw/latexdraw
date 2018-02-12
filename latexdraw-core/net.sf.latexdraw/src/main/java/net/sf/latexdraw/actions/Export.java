@@ -214,8 +214,8 @@ public class Export extends ActionImpl {
 				out.println(pstGen.getDrawingCode());
 				ok = true;
 			}
-		}catch(final IOException e) {
-			BadaboomCollector.INSTANCE.add(e);
+		}catch(final IOException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
 			ok = false;
 		}
 		return ok;

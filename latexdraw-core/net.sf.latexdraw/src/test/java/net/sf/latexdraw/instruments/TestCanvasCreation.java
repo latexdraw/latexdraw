@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
@@ -43,7 +44,7 @@ public class TestCanvasCreation extends BaseTestCanvas {
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));

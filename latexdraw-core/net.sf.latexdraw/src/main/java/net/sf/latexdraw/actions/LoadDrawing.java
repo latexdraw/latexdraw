@@ -11,6 +11,8 @@
 package net.sf.latexdraw.actions;
 
 import java.io.File;
+import java.util.concurrent.ExecutionException;
+import javafx.concurrent.Task;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -43,21 +45,33 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 
 			if(type == ButtonType.NO) {
 				load();
-			}else {
-				if(type == ButtonType.YES) {
-					SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui).ifPresent(f -> {
-						openSaveManager.save(f.getPath(), progressBar, statusWidget);
-						ui.setModified(false);
-						load();
-					});
-				}
+				done();
+				return;
+			}
+			if(type == ButtonType.YES && saveAndLoad()) {
+				done();
 			}
 		}else {
 			load();
+			done();
 		}
-		done();
 	}
 
+	private boolean saveAndLoad() {
+		return SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui).map(f -> {
+			final Task<Boolean> saveTask = openSaveManager.save(f.getPath(), progressBar, statusWidget);
+			try {
+				if(saveTask.get()) {
+					ui.setModified(false);
+					load();
+					return true;
+				}
+			}catch(InterruptedException | ExecutionException ex) {
+				// ignored.
+			}
+			return false;
+		}).orElse(false);
+	}
 
 	@Override
 	public void flush() {

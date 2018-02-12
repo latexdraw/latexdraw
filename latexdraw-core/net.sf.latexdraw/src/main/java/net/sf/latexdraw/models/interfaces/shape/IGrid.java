@@ -40,4 +40,7 @@ public interface IGrid extends IStandardGrid, IGridProp {
 	BooleanProperty yLabelWestProperty();
 
 	BooleanProperty xLabelSouthProperty();
+
+	@Override
+	IGrid duplicate();
 }

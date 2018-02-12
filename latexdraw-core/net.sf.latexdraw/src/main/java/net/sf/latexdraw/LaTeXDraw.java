@@ -72,7 +72,7 @@ public class LaTeXDraw extends JfxUI {
 	 * The entry point of the program.
 	 * @param args The parameters.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 
@@ -92,7 +92,7 @@ public class LaTeXDraw extends JfxUI {
 		instanceCallBack = cl -> injector.getInstance(cl);
 	}
 
-	private void showSplash(final Stage initStage, Task<Void> task) {
+	private void showSplash(final Stage initStage, final Task<Void> task) {
 		final ProgressBar loadProgress = new ProgressBar();
 		loadProgress.progressProperty().bind(task.progressProperty());
 
@@ -107,7 +107,7 @@ public class LaTeXDraw extends JfxUI {
 			if(newState == Worker.State.SUCCEEDED) {
 				loadProgress.progressProperty().unbind();
 				loadProgress.setProgress(1d);
-				FadeTransition fadeSplash = new FadeTransition(Duration.seconds(0.8), splashLayout);
+				final FadeTransition fadeSplash = new FadeTransition(Duration.seconds(0.8), splashLayout);
 				fadeSplash.setFromValue(1d);
 				fadeSplash.setToValue(0d);
 				fadeSplash.setOnFinished(evt -> {

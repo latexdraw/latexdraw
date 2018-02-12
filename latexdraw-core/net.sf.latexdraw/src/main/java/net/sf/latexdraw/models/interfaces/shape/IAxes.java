@@ -39,4 +39,7 @@ public interface IAxes extends IStandardGrid, IAxesProp, IArrowableSingleShape {
 	DoubleProperty ticksSizeProperty();
 
 	ObjectProperty<AxesStyle> axesStyleProperty();
+
+	@Override
+	IAxes duplicate();
 }

@@ -17,5 +17,6 @@ import net.sf.latexdraw.models.interfaces.prop.ITextProp;
  * @author Arnaud BLOUIN
  */
 public interface IText extends IPositionShape, ITextProp {
-	//
+	@Override
+	IText duplicate();
 }

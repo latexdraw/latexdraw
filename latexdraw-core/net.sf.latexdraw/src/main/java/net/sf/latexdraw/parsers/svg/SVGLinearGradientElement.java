@@ -57,7 +57,7 @@ public class SVGLinearGradientElement extends SVGElement implements SVGLineParse
 	 */
 	public String getGradientUnits() {
 		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_GRADIENT_UNITS);
-		return v == null || !SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
+		return (v == null || (!SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v))) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
 	}
 
 

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import java.lang.reflect.InvocationTargetException;
 import javafx.scene.Group;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.MagneticGrid;
@@ -19,7 +20,7 @@ public class TestCanvas extends BaseTestCanvas {
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments.pencil;
 
+import java.lang.reflect.InvocationTargetException;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
 import net.sf.latexdraw.instruments.ShapePropInjector;
 import net.sf.latexdraw.instruments.TestTextStyleGUI;
@@ -27,7 +28,7 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeTextCustomiser.class);

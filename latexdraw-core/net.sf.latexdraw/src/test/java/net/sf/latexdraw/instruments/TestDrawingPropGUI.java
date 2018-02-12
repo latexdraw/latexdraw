@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -44,7 +45,7 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(PSTCodeGenerator.class);

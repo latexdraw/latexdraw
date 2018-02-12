@@ -142,10 +142,10 @@ public class SVGNumberParser extends AbstractSVGParser {
 		final int c = getChar();
 
 		if(unsigned) {
-			return c == '.' || c >= 48 && c <= 57;
+			return c == '.' || (c >= 48 && c <= 57);
 		}
 
-		return c == '-' || c == '+' || c == '.' || c >= 48 && c <= 57;
+		return c == '-' || c == '+' || c == '.' || (c >= 48 && c <= 57);
 	}
 
 

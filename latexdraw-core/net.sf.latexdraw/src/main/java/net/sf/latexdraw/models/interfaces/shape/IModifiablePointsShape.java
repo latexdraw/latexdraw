@@ -24,4 +24,7 @@ public interface IModifiablePointsShape extends ISingleShape {
 	 * @since 3.0
 	 */
 	boolean setPoint(final double x, final double y, final int position);
+
+	@Override
+	IModifiablePointsShape duplicate();
 }

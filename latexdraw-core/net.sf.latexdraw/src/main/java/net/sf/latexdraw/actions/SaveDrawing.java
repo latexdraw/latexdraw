@@ -36,7 +36,7 @@ public class SaveDrawing extends Save<Label> {
 	protected static Optional<File> showDialog(final FileChooser fc, final boolean saveAs, final File file, final File currFolder, final JfxUI ui) {
 		File f;
 
-		if(saveAs || file == null && ui.isModified()) {
+		if(saveAs || (file == null && ui.isModified())) {
 			fc.setInitialDirectory(currFolder);
 			f = fc.showSaveDialog(LaTeXDraw.getInstance().getMainStage());
 		}else {

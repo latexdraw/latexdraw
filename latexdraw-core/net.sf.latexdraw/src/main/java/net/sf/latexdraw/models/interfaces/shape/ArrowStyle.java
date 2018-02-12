@@ -283,18 +283,17 @@ public enum ArrowStyle {
 
 	/**
 	 * @param style The style to test.
-	 * @return True if the given style and the calling style are of the same kind (e.g. both are
-	 * circles or disks).
+	 * @return True if the given style and the calling style are of the same kind (e.g. both are circles or disks).
 	 * @since 3.0
 	 */
 	public boolean isSameKind(final ArrowStyle style) {
-		return style != null && (isArrow() && style.isArrow() || isBar() && style.isBar() || isCircleDisk() && style.isCircleDisk() || isRoundBracket() && style.isRoundBracket() || isSquareBracket() && style.isSquareBracket());
+		return style != null && ((isArrow() && style.isArrow()) || (isBar() && style.isBar()) || (isCircleDisk() && style.isCircleDisk()) ||
+			(isRoundBracket() && style.isRoundBracket()) || (isSquareBracket() && style.isSquareBracket()));
 	}
 
 	/**
 	 * @return True if the current arrow style need its line to be reduced. For instance the arrow
-	 * style requires its line to be smaller. The width of the arrow can be used in
-	 * complement to reduce the line.
+	 * style requires its line to be smaller. The width of the arrow can be used in complement to reduce the line.
 	 * @since 3.0
 	 */
 	public boolean needsLineReduction() {

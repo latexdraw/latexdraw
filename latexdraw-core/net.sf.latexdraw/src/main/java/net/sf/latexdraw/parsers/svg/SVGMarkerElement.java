@@ -17,7 +17,6 @@ import org.w3c.dom.Node;
 /**
  * Defines the SVG tag <code>marker</code>.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public class SVGMarkerElement extends SVGElement {
 	/**
@@ -41,30 +40,33 @@ public class SVGMarkerElement extends SVGElement {
 
 	/**
 	 * @return The x-axis coordinate of the reference point which is to be aligned exactly at the marker position.
-	 * @since 0.1
 	 */
 	public double getRefX() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_REF_X);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_REF_X);
 		double refx;
 
-		try { refx = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { refx = 0; }
+		try {
+			refx = v == null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue();
+		}catch(final ParseException e) {
+			refx = 0;
+		}
 
 		return refx;
 	}
 
 
-
 	/**
 	 * @return The y-axis coordinate of the reference point which is to be aligned exactly at the marker position.
-	 * @since 0.1
 	 */
 	public double getRefY() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_REF_Y);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_REF_Y);
 		double refy;
 
-		try { refy = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { refy = 0; }
+		try {
+			refy = v == null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue();
+		}catch(final ParseException e) {
+			refy = 0;
+		}
 
 		return refy;
 	}
@@ -72,58 +74,57 @@ public class SVGMarkerElement extends SVGElement {
 
 	/**
 	 * @return Represents the width of the viewport into which the marker is to be fitted when it is rendered.
-	 * @since 0.1
 	 */
 	public double getMarkerWidth() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_MARKER_WIDTH);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_MARKER_WIDTH);
 		double markerW;
 
-		try { markerW = v==null ? 3 : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { markerW = 3; }
+		try {
+			markerW = v == null ? 3 : new SVGLengthParser(v).parseLength().getValue();
+		}catch(final ParseException e) {
+			markerW = 3;
+		}
 
 		return markerW;
 	}
 
 
-
 	/**
 	 * @return Represents the height of the viewport into which the marker is to be fitted when it is rendered.
-	 * @since 0.1
 	 */
 	public double getMarkerHeight() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_MARKER_HEIGHT);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_MARKER_HEIGHT);
 		double markerH;
 
-		try { markerH = v==null ? 3 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { markerH = 3; }
+		try {
+			markerH = v == null ? 3 : new SVGLengthParser(v).parseCoordinate().getValue();
+		}catch(final ParseException e) {
+			markerH = 3;
+		}
 
 		return markerH;
 	}
 
 
-
 	/**
 	 * @return The coordinate system for attributes markerWidth, markerHeight and the contents of the 'marker'.
-	 * @since 0.1
 	 */
 	public String getMarkerUnits() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_MARKER_UNITS);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_MARKER_UNITS);
 
-		return v==null || !SVGAttributes.SVG_UNITS_VALUE_STROKE.equals(v) &&
-						!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v) ? SVGAttributes.SVG_UNITS_VALUE_STROKE : v;
+		return (v == null || (!SVGAttributes.SVG_UNITS_VALUE_STROKE.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v))) ?
+			SVGAttributes.SVG_UNITS_VALUE_STROKE : v;
 	}
-
 
 
 	@Override
 	public boolean checkAttributes() {
-		return getMarkerWidth()>=0 && getMarkerHeight()>=0;
+		return getMarkerWidth() >= 0 && getMarkerHeight() >= 0;
 	}
-
 
 
 	@Override
 	public boolean enableRendering() {
-		return getMarkerWidth()>0 && getMarkerHeight()>0;
+		return getMarkerWidth() > 0 && getMarkerHeight() > 0;
 	}
 }

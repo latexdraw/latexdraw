@@ -107,7 +107,7 @@ public class TabSelector extends JfxInstrument implements Initializable {
 		rulersScrollerPane.heightProperty().addListener((observable, oldValue, newValue) -> yruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
 
 		xruler.getGroup().translateXProperty().bind(Bindings.createDoubleBinding(() -> {
-			final double gap = 100d; // 100mm = 1cm
+			final int gap = 100; // 100mm = 1cm
 			int val = (int) (canvas.getWidth() * scrollPane.getHvalue() - Canvas.MARGINS);
 			while(val < 0) {
 				val += gap;
@@ -117,7 +117,7 @@ public class TabSelector extends JfxInstrument implements Initializable {
 		}, scrollPane.hvalueProperty()));
 
 		yruler.getGroup().translateYProperty().bind(Bindings.createDoubleBinding(() -> {
-			final double gap = 100d; // 100mm = 1cm
+			final int gap = 100; // 100mm = 1cm
 			int val = (int) (canvas.getHeight() * scrollPane.getVvalue() - Canvas.MARGINS);
 			while(val < 0) {
 				val += gap;

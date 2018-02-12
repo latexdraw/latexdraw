@@ -161,13 +161,12 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	public void setActivated(final boolean act) {
 		super.setActivated(act);
 		if(act && pencil.isActivated()) {
-			switch(pencil.getCurrentChoice()) {
-				case TEXT:
-					setTextMessage();
-					break;
-				case PLOT:
+			if(pencil.getCurrentChoice() == EditionChoice.TEXT) {
+				setTextMessage();
+			}else {
+				if(pencil.getCurrentChoice() == EditionChoice.PLOT) {
 					setPlotMessage();
-					break;
+				}
 			}
 		}
 

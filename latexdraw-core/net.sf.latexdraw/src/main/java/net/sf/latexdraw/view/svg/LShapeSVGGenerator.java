@@ -788,7 +788,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		// Setting the filling properties.
 		if(shape.isFillable()) {
-			if((shape.isFilled() || shape.hasShadow() && shadowFills) && !shape.hasHatchings() && !shape.hasGradient()) {
+			if((shape.isFilled() || (shape.hasShadow() && shadowFills)) && !shape.hasHatchings() && !shape.hasGradient()) {
 				root.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
 				if(shape.getFillingCol().getO() < 1d) {
 					root.setAttribute(SVGAttributes.SVG_FILL_OPACITY, String.valueOf((float) MathUtils.INST.getCutNumber(shape.getFillingCol().getO())));
@@ -803,8 +803,8 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 						final SVGElement grad = new SVGLinearGradientElement(doc);
 						SVGStopElement stop;
 						final String id = SVGElements.SVG_LINEAR_GRADIENT + shape.hashCode();
-						final double gradMidPt = shape.getGradAngle() > PI || shape.getGradMidPt() < 0d && shape.getGradMidPt() > -PI ? 1d - shape
-							.getGradMidPt() : shape.getGradMidPt();
+						final double gradMidPt = shape.getGradAngle() > PI ||
+							(shape.getGradMidPt() < 0d && shape.getGradMidPt() > -PI) ? 1d - shape.getGradMidPt() : shape.getGradMidPt();
 
 						grad.setAttribute(SVGAttributes.SVG_ID, id);
 
@@ -870,7 +870,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 							gPath.appendChild(path);
 
 							// Several shapes having hatching must have their shadow filled.
-							if(shape.isFilled() || shape.hasShadow() && shadowFills) {
+							if(shape.isFilled() || (shape.hasShadow() && shadowFills)) {
 								final SVGRectElement fill = new SVGRectElement(doc);
 								fill.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
 								fill.setAttribute(SVGAttributes.SVG_STROKE, SVGAttributes.SVG_VALUE_NONE);

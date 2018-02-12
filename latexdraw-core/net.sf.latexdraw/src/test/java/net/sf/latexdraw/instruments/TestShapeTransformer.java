@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.scene.control.Button;
@@ -87,7 +88,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import java.lang.reflect.InvocationTargetException;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.MagneticGrid;
@@ -11,7 +12,7 @@ public class ShapePropInjector extends Injector {
 	protected Hand hand;
 
 	@Override
-	protected void configure() throws InstantiationException, IllegalAccessException {
+	protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		bindAsEagerSingleton(Canvas.class);
 		bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());
 		bindWithCommand(MagneticGrid.class, Canvas.class, canvas -> canvas.getMagneticGrid());

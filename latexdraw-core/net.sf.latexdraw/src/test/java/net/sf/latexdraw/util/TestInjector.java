@@ -1,5 +1,6 @@
 package net.sf.latexdraw.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Handler;
 import net.sf.latexdraw.HelperTest;
 import org.junit.Before;
@@ -37,7 +38,7 @@ public class TestInjector implements HelperTest {
 	public void testCreateRegisteredObject() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(D.class);
 			}
 		};
@@ -50,7 +51,7 @@ public class TestInjector implements HelperTest {
 	public void testFailClassWithNoDefaultConst() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(K.class);
 			}
 		};
@@ -73,7 +74,7 @@ public class TestInjector implements HelperTest {
 	public void testSingletonRegisteredObject() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(D.class);
 			}
 		};
@@ -86,7 +87,7 @@ public class TestInjector implements HelperTest {
 	public void testFailOnNonConfigParam() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(A.class);
 			}
 		};
@@ -99,7 +100,7 @@ public class TestInjector implements HelperTest {
 	public void testInjectOnDeclaredField() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(D.class);
 				bindAsEagerSingleton(C.class);
 			}
@@ -115,7 +116,7 @@ public class TestInjector implements HelperTest {
 	public void testInjectOnInheritedField() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(D.class);
 				bindAsEagerSingleton(E.class);
 			}
@@ -131,7 +132,7 @@ public class TestInjector implements HelperTest {
 	public void testInjectOnBindCmd() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(G.class);
 				bindWithCommand(F.class, G.class, g -> g);
 				bindAsEagerSingleton(H.class);
@@ -149,7 +150,7 @@ public class TestInjector implements HelperTest {
 	public void testInjectOnCyclicDependency() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(A.class);
 				bindAsEagerSingleton(B.class);
 			}
@@ -166,7 +167,7 @@ public class TestInjector implements HelperTest {
 	public void testDoNotCreateSingletonSeveralTimes() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(I.class);
 			}
 		};
@@ -181,7 +182,7 @@ public class TestInjector implements HelperTest {
 	public void testCanInjectItself() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(J.class);
 			}
 		};
@@ -195,7 +196,7 @@ public class TestInjector implements HelperTest {
 	public void testFailBindingOnOutClassAlreadyReg() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(C.class);
 				bindAsEagerSingleton(E.class);
 				bindWithCommand(C.class, E.class, obj -> obj);
@@ -234,7 +235,7 @@ public class TestInjector implements HelperTest {
 	public void testGetInstanceOK() {
 		injector = new Injector() {
 			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException {
+			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(D.class);
 			}
 		};

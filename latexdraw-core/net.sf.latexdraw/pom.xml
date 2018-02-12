@@ -9,9 +9,10 @@
     <packaging>jar</packaging>
 
     <properties>
-        <argLine>-Dheadless.geometry=1920x1080-32 -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k</argLine>
+        <argLine>-Dheadless.geometry=1920x1080-32 -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k
+        </argLine>
         <malai.version>3.0-SNAPSHOT</malai.version>
-        <antlr.version>4.7</antlr.version>
+        <antlr.version>4.7.1</antlr.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -62,9 +63,33 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <compilerId>javac-with-errorprone</compilerId>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <executable>javac</executable>
+                    <source>8</source>
+                    <target>8</target>
+                    <showWarnings>true</showWarnings>
+                    <compilerArgs>
+                        <arg>-XepExcludedPaths:.*/generated-sources/.*</arg>
+                        <arg>-Xep:StringSplitter:OFF</arg>
+                        <arg>-Xep:DefaultCharset:OFF</arg>
+                        <arg>-Xlint</arg>
+                        <arg>-Xlint:-unchecked</arg>
+                        <arg>-Xlint:-serial</arg>
+                    </compilerArgs>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-compiler-javac-errorprone</artifactId>
+                        <version>2.8</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.google.errorprone</groupId>
+                        <artifactId>error_prone_core</artifactId>
+                        <version>2.2.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
@@ -148,7 +173,7 @@
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <version>2.12.0</version>
+            <version>2.15.0</version>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
@@ -175,13 +200,13 @@
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
-            <version>4.0.10-alpha</version>
+            <version>4.0.11-alpha</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit</artifactId>
-            <version>4.0.10-alpha</version>
+            <version>4.0.11-alpha</version>
             <scope>test</scope>
         </dependency>
         <dependency>

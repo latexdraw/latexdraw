@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
@@ -81,7 +82,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));

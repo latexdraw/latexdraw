@@ -86,4 +86,7 @@ public interface IControlPointShape extends IModifiablePointsShape {
 	 * @return the secondCtrlPts.
 	 */
 	List<IPoint> getSecondCtrlPts();
+
+	@Override
+	IControlPointShape duplicate();
 }

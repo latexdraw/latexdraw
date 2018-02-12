@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw;
 
+import java.lang.reflect.InvocationTargetException;
 import net.sf.latexdraw.instruments.AboutController;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.instruments.CanvasController;
@@ -66,7 +67,7 @@ import net.sf.latexdraw.view.pst.PSTCodeGenerator;
  */
 public class LatexdrawInjector extends Injector {
 	@Override
-	protected void configure() throws InstantiationException, IllegalAccessException {
+	protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		bindAsEagerSingleton(ExceptionsManager.class);
 		bindAsEagerSingleton(ShortcutsController.class);
 		bindAsEagerSingleton(StatusBarController.class);

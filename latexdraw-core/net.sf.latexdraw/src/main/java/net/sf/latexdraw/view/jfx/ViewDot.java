@@ -106,6 +106,8 @@ public class ViewDot extends ViewShape<IDot> {
 			case X:
 				setPathX();
 				break;
+			default:
+				// Nothing to do for the other ones.
 		}
 	}
 
@@ -319,6 +321,8 @@ public class ViewDot extends ViewShape<IDot> {
 			case FTRIANGLE:
 				path.setFill(model.getLineColour().toJFX());
 				break;
+			default:
+				// Nothing to do for the other ones.
 		}
 	}
 

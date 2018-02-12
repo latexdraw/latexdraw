@@ -53,4 +53,7 @@ public interface IStandardGrid extends IPositionShape, IStdGridProp {
 	 * @return The property of the Y-origin parameter.
 	 */
 	DoubleProperty originYProperty();
+
+	@Override
+	IStandardGrid duplicate();
 }

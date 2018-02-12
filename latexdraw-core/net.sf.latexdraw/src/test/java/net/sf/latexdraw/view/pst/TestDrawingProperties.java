@@ -1,5 +1,6 @@
 package net.sf.latexdraw.view.pst;
 
+import java.lang.reflect.InvocationTargetException;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.Injector;
@@ -21,7 +22,7 @@ public class TestDrawingProperties {
 	public void setUp() {
 		final Injector injector = new Injector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				bindAsEagerSingleton(Canvas.class);
 				bindAsEagerSingleton(PSTCodeGenerator.class);
 				bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());

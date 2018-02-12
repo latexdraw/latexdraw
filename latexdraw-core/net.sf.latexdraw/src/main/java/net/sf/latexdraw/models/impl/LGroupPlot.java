@@ -21,7 +21,7 @@ import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 /**
  * @author Arnaud Blouin
  */
-interface LPlotGroup extends IGroup {
+interface LGroupPlot extends IGroup {
 	default <T extends IShape & IPlotProp> Optional<T> firstPlot() {
 		return (Optional<T>) plotShapes().stream().filter(sh -> sh.isTypeOf(IPlotProp.class)).findFirst();
 	}

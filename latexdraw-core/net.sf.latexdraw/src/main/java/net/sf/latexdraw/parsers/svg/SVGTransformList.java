@@ -17,26 +17,20 @@ import java.util.regex.PatternSyntaxException;
 /**
  * Defines a list containing SVG transformations.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public class SVGTransformList extends ArrayList<SVGTransform> {
 	private static final long serialVersionUID = 1L;
 
-
 	/**
 	 * The constructor by default.
-	 * @since 0.1
 	 */
 	public SVGTransformList() {
 		super();
 	}
 
-
-
 	/**
 	 * The constructor using a string containing the transformations.
 	 * @param transformations The set of SVG transformations.
-	 * @since 0.1
 	 */
 	public SVGTransformList(final String transformations) {
 		this();
@@ -44,28 +38,25 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 		addTransformations(transformations);
 	}
 
-
-
 	@Override
 	public String toString() {
 		final StringBuilder builder = new StringBuilder();
 
-		for(final SVGTransform transform : this)
+		for(final SVGTransform transform : this) {
 			builder.append(transform).append(' ');
+		}
 
 		return builder.toString();
 	}
 
-
-
 	/**
 	 * Add some transformations using a string containing the transformations.
 	 * @param transformations The set of SVG transformations.
-	 * @since 0.1
 	 */
 	public void addTransformations(final String transformations) {
-		if(transformations==null)
-			return ;
+		if(transformations == null) {
+			return;
+		}
 
 		try {
 			String code = transformations.replaceAll("[ \t\n\r\f]+", " ");//$NON-NLS-1$//$NON-NLS-2$
@@ -78,33 +69,32 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 
 			final String[] trans = code.split("_");//$NON-NLS-1$
 
-            for(final String tran : trans)
-                try { add(new SVGTransform(tran)); }
-                catch (final IllegalArgumentException e) { /* */ }
-		}
-		catch(final PatternSyntaxException e){ /* */ }
+			for(final String tran : trans) {
+				try {
+					add(new SVGTransform(tran));
+				}catch(final IllegalArgumentException ex) { /* */ }
+			}
+		}catch(final PatternSyntaxException ex) { /* */ }
 	}
-
-
 
 
 	/**
 	 * @return The global transformation which is the multiplication of all the transformation matrix of the list. Or
 	 * null is the list has no transformation.
-	 * @since 0.1
 	 */
 	public SVGMatrix getGlobalTransformationMatrix() {
-		if(isEmpty())
+		if(isEmpty()) {
 			return null;
+		}
 
 		SVGMatrix out = get(0).getMatrix();
 
-		for(int i=1, size=size(); i<size; i++)
+		for(int i = 1, size = size(); i < size; i++) {
 			out = out.multiply(get(i).getMatrix());
+		}
 
 		return out;
 	}
-
 
 
 	/**
@@ -113,13 +103,15 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 	 * @return The transformed point.
 	 */
 	public Point2D transformPoint(final Point2D pt) {
-		if(pt==null)
+		if(pt == null) {
 			return null;
+		}
 
 		final SVGMatrix m = getGlobalTransformationMatrix();
 
-		if(m==null)
+		if(m == null) {
 			return new Point2D.Double(pt.getX(), pt.getY());
+		}
 
 		final SVGMatrix ptM = new SVGMatrix();
 		final SVGMatrix out;
@@ -128,8 +120,9 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 		ptM.f = pt.getY();
 		out = m.multiply(ptM);
 
-		if(out==null)
+		if(out == null) {
 			return new Point2D.Double(pt.getX(), pt.getY());
+		}
 
 		return new Point2D.Double(out.e, out.f);
 	}

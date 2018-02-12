@@ -121,7 +121,7 @@ class LArrowSVGGenerator {
 		arrow.setTBarSizeNum(tbarNum);
 		arrow.setTBarSizeDim(y * lineWidth * 2d - tbarNum * lineWidth);
 
-		if(seg instanceof SVGPathSegLineto && MathUtils.INST.equalsDouble(((SVGPathSegLineto) seg).getX(), m.getX()) || seg instanceof SVGPathSegLinetoVertical) {
+		if((seg instanceof SVGPathSegLineto && MathUtils.INST.equalsDouble(((SVGPathSegLineto) seg).getX(), m.getX())) || seg instanceof SVGPathSegLinetoVertical) {
 			arrow.setArrowStyle(MathUtils.INST.equalsDouble(m.getX(), 0d) ? ArrowStyle.BAR_IN : ArrowStyle.BAR_END);
 			return;
 		}

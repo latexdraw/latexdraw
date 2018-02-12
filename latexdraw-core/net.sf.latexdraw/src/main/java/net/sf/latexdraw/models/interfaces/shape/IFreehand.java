@@ -28,4 +28,7 @@ public interface IFreehand extends IFreeHandProp, ISingleShape, IClosable {
 	 * @return The property of the interval parameter.
 	 */
 	IntegerProperty intervalProperty();
+
+	@Override
+	IFreehand duplicate();
 }

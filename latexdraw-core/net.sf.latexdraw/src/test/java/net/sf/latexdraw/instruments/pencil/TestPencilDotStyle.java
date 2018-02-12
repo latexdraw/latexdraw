@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments.pencil;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
@@ -29,7 +30,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
 			@Override
-			protected void configure() throws IllegalAccessException, InstantiationException {
+			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeDotCustomiser.class);

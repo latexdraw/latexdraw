@@ -324,4 +324,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	public boolean isThicknessable() {
 		return false;
 	}
+
+	@Override
+	public abstract IStandardGrid duplicate();
 }

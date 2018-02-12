@@ -51,7 +51,7 @@ import net.sf.latexdraw.view.latex.DviPsColors;
  * @author Arnaud Blouin
  */
 class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGroupFreeHand, LGroupLineArc, LGroupGrid,
-	LGroupShape, LGroupStdGrid, LGroupText, LSetShapes, LPlotGroup, LGroupClosable {
+	LGroupShape, LGroupStdGrid, LGroupText, LSetShapes, LGroupPlot, LGroupClosable {
 	/** The set of shapes. */
 	private final ObservableList<IShape> shapes;
 

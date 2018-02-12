@@ -178,6 +178,11 @@ public final class ViewFactory {
 		public boolean equals(final Object obj) {
 			return obj != null && (obj == this || getClass() == obj.getClass());
 		}
+
+		@Override
+		public int hashCode() {
+			return super.hashCode();
+		}
 	}
 
 

@@ -39,4 +39,7 @@ public interface IPicture extends IPositionShape {
 	 * @return the image.
 	 */
 	Image getImage();
+
+	@Override
+	IPicture duplicate();
 }

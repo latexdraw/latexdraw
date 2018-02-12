@@ -690,7 +690,7 @@ public final class CSSColors {
 	 * @since 2.0.0
 	 */
 	public Color hexToRBG(final String hex) {
-		if(hex == null || !hex.startsWith("#") || hex.length() != 7 && hex.length() != 4) { //$NON-NLS-1$
+		if(hex == null || !hex.startsWith("#") || ((hex.length() != 7) && (hex.length() != 4))) { //$NON-NLS-1$
 			return null;
 		}
 

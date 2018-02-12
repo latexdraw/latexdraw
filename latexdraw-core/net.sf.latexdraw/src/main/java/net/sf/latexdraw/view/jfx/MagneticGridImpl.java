@@ -138,7 +138,7 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 			final double modulo = getMagneticGridGap();
 			double x = point.getX();
 			double y = point.getY();
-			int base = (int) ((int) (x / modulo) * modulo);
+			int base = (int) ((x / modulo) * modulo);
 
 			if(x > modulo) {
 				x %= (int) modulo;
@@ -152,7 +152,7 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 			}
 
 			point.setX((int) x);
-			base = (int) ((int) (point.getY() / modulo) * modulo);
+			base = (int) ((point.getY() / modulo) * modulo);
 
 			if(y > modulo) {
 				y %= (int) modulo;
