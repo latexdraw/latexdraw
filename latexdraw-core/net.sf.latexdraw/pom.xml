@@ -73,6 +73,7 @@
                         <arg>-XepExcludedPaths:.*/generated-sources/.*</arg>
                         <arg>-Xep:StringSplitter:OFF</arg>
                         <arg>-Xep:DefaultCharset:OFF</arg>
+                        <arg>-Xep:JUnit4TestNotRun:OFF</arg>
                         <arg>-Xlint</arg>
                         <arg>-Xlint:-unchecked</arg>
                         <arg>-Xlint:-serial</arg>
