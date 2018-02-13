@@ -70,7 +70,7 @@
                     <target>8</target>
                     <showWarnings>true</showWarnings>
                     <compilerArgs>
-                        <arg>-XepExcludedPaths:.*/generated-sources/.*</arg>
+                        <arg>-XepExcludedPaths:.*/(generated-sources|test)/.*</arg>
                         <arg>-Xep:StringSplitter:OFF</arg>
                         <arg>-Xep:DefaultCharset:OFF</arg>
                         <arg>-Xep:JUnit4TestNotRun:OFF</arg>
