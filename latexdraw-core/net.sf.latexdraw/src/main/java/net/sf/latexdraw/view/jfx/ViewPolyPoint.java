@@ -42,7 +42,7 @@ public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends Vi
 		elts.add(moveTo);
 
 		IntStream.range(1, model.getNbPoints()).forEach(i -> {
-			LineTo lineto = ViewFactory.INSTANCE.createLineTo(0d, 0d);
+			final LineTo lineto = ViewFactory.INSTANCE.createLineTo(0d, 0d);
 			lineto.xProperty().bind(model.getPtAt(i).xProperty());
 			lineto.yProperty().bind(model.getPtAt(i).yProperty());
 			elts.add(lineto);
@@ -51,25 +51,9 @@ public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends Vi
 
 	@Override
 	public void flush() {
-		flushPath(border);
-		flushPath(shadow);
-		flushPath(dblBorder);
+		border.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+		shadow.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+		dblBorder.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
 		super.flush();
-	}
-
-	private static void flushPath(final Path path) {
-		path.getElements().forEach(elt -> {
-			if(elt instanceof LineTo) {
-				LineTo lineTo = (LineTo) elt;
-				lineTo.xProperty().unbind();
-				lineTo.yProperty().unbind();
-			}else {
-				if(elt instanceof MoveTo) {
-					MoveTo moveTo = (MoveTo) elt;
-					moveTo.xProperty().unbind();
-					moveTo.yProperty().unbind();
-				}
-			}
-		});
 	}
 }

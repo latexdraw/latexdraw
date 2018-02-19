@@ -10,13 +10,18 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Group;
 import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.StrokeLineCap;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
@@ -25,13 +30,11 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  * @author Arnaud Blouin
  */
 public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
-	protected final ViewArrowableTraitPath<IBezierCurve> viewArrows = new ViewArrowableTraitPath<>(this);
-
-	final MoveTo moveTo;
-	final List<CubicCurveTo> curvesTo;
-	final Group showPoint;
-	final CubicCurveTo closingCurve;
-	final ChangeListener<Boolean> openUpdate;
+	protected final ViewArrowableTraitPath<IBezierCurve> viewArrows;
+	protected final Group showPoint;
+	protected final CubicCurveTo closingCurve;
+	protected final Line lastShPtsline;
+	protected final ChangeListener<Boolean> openUpdate;
 
 	/**
 	 * Creates the view.
@@ -39,13 +42,14 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	 */
 	ViewBezierCurve(final IBezierCurve shape) {
 		super(shape);
+		viewArrows = new ViewArrowableTraitPath<>(this);
 		showPoint = new Group();
-		moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
+
+		final MoveTo moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
 		moveTo.xProperty().bind(shape.getPtAt(0).xProperty());
 		moveTo.yProperty().bind(shape.getPtAt(0).yProperty());
 		border.getElements().add(moveTo);
 
-		curvesTo = new ArrayList<>();
 		addCurveTo(shape.getPtAt(1), model.getFirstCtrlPtAt(0), model.getFirstCtrlPtAt(1));
 
 		IntStream.range(2, shape.getNbPoints()).forEach(index -> addCurveTo(shape.getPtAt(index), model.getSecondCtrlPtAt(index - 1),
@@ -56,18 +60,84 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 		openUpdate = (observable, oldValue, newValue) -> updateOpen(newValue);
 		shape.openedProperty().addListener(openUpdate);
 		updateOpen(model.isOpened());
+		getChildren().add(showPoint);
 		getChildren().add(viewArrows);
 		viewArrows.updateAllArrows();
+		showPoint.visibleProperty().bind(shape.showPointProperty());
+
+		lastShPtsline = createLine(model.getSecondCtrlPtAt(model.getSecondCtrlPts().size() - 1), model.getSecondCtrlPtAt(0));
+		showPoint.getChildren().addAll(lastShPtsline);
+		lastShPtsline.visibleProperty().bind(shape.openedProperty().not().and(shape.showPointProperty()));
+		bindShowPoints();
+
+		// Building the shadow
+		shadow.getElements().addAll(border.getElements());
+		// Building the double borders
+		dblBorder.getElements().addAll(border.getElements());
+	}
+
+	/**
+	 * Sub routine that creates and binds show points.
+	 */
+	private void bindShowPoints() {
+		showPoint.getChildren().addAll(Stream.concat(Stream.concat(model.getPoints().stream(), model.getFirstCtrlPts().stream()), model.getSecondCtrlPts()
+			.stream()).map(pt -> {
+			final Ellipse dot = new Ellipse();
+			dot.fillProperty().bind(Bindings.createObjectBinding(() -> model.getLineColour().toJFX(), model.lineColourProperty()));
+			dot.centerXProperty().bind(pt.xProperty());
+			dot.centerYProperty().bind(pt.yProperty());
+			dot.radiusXProperty().bind(Bindings.createDoubleBinding(() -> (model.getArrowAt(0).getDotSizeDim() +
+				model.getArrowAt(0).getDotSizeNum() * model.getFullThickness()) / 2d, model.thicknessProperty(), model.dbleBordProperty(),
+				model.dbleBordSepProperty(), model.getArrowAt(0).dotSizeDimProperty(), model.getArrowAt(0).dotSizeNumProperty()));
+			dot.radiusYProperty().bind(dot.radiusXProperty());
+			return dot;
+		}).collect(Collectors.toList()));
+
+		showPoint.getChildren().addAll(IntStream.range(0, model.getFirstCtrlPts().size()).
+			mapToObj(i -> createLine(model.getFirstCtrlPtAt(i), model.getSecondCtrlPtAt(i))).collect(Collectors.toList()));
+
+		showPoint.getChildren().addAll(IntStream.range(1, model.getFirstCtrlPts().size() - 1).
+			mapToObj(i -> createLine(model.getSecondCtrlPtAt(i), model.getFirstCtrlPtAt(i + 1))).collect(Collectors.toList()));
+
+		showPoint.getChildren().addAll(createLine(model.getFirstCtrlPtAt(0), model.getFirstCtrlPtAt(1)));
+
+		// Hiding points on arrows
+		showPoint.getChildren().stream().filter(node -> node instanceof Ellipse && ((Ellipse) node).getCenterX() == model.getPtAt(0).getX() &&
+			((Ellipse) node).getCenterY() == model.getPtAt(0).getY()).findAny().
+			ifPresent(ell -> ell.visibleProperty().bind(model.getArrowAt(0).styleProperty().isEqualTo(ArrowStyle.NONE)));
+
+		showPoint.getChildren().stream().filter(node -> node instanceof Ellipse && ((Ellipse) node).getCenterX() == model.getPtAt(-1).getX() &&
+			((Ellipse) node).getCenterY() == model.getPtAt(-1).getY()).findAny().
+			ifPresent(ell -> ell.visibleProperty().bind(model.getArrowAt(-1).styleProperty().isEqualTo(ArrowStyle.NONE)));
 	}
 
 	private void updateOpen(final boolean open) {
 		if(open) {
 			border.getElements().remove(closingCurve);
+			shadow.getElements().remove(closingCurve);
+			dblBorder.getElements().remove(closingCurve);
 		}else {
 			if(!border.getElements().contains(closingCurve)) {
 				border.getElements().add(closingCurve);
+				shadow.getElements().add(closingCurve);
+				dblBorder.getElements().add(closingCurve);
 			}
 		}
+	}
+
+	private Line createLine(final IPoint p1, final IPoint p2) {
+		final Line line = new Line();
+		line.startXProperty().bind(p1.xProperty());
+		line.startYProperty().bind(p1.yProperty());
+		line.endXProperty().bind(p2.xProperty());
+		line.endYProperty().bind(p2.yProperty());
+		line.strokeWidthProperty().bind(Bindings.createDoubleBinding(() -> model.getFullThickness() / 2d, model.thicknessProperty(),
+			model.dbleBordSepProperty(), model.dbleBordProperty()));
+		line.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getLineColour().toJFX(), model.lineColourProperty()));
+		line.setStrokeLineCap(StrokeLineCap.BUTT);
+		line.getStrokeDashArray().clear();
+		line.getStrokeDashArray().addAll(model.getDashSepBlack(), model.getDashSepWhite());
+		return line;
 	}
 
 	private CubicCurveTo addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {
@@ -78,7 +148,6 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 		curveto.controlY1Property().bind(ctrl1.yProperty());
 		curveto.controlX2Property().bind(ctrl2.xProperty());
 		curveto.controlY2Property().bind(ctrl2.yProperty());
-		curvesTo.add(curveto);
 		border.getElements().add(curveto);
 		return curveto;
 	}
@@ -86,105 +155,33 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 
 	@Override
 	public void flush() {
-		moveTo.xProperty().unbind();
-		moveTo.yProperty().unbind();
-		curvesTo.forEach(to -> {
-			to.xProperty().unbind();
-			to.yProperty().unbind();
-			to.controlX1Property().unbind();
-			to.controlX2Property().unbind();
-			to.controlY1Property().unbind();
-			to.controlY2Property().unbind();
-		});
-		curvesTo.clear();
+		unbindShowPoints();
+		border.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+		shadow.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+		dblBorder.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
 		model.openedProperty().removeListener(openUpdate);
+		model.openedProperty().unbind();
+		lastShPtsline.visibleProperty().unbind();
 		super.flush();
 	}
 
-//	public void paintShowPointsDots(final Graphics2D g) {
-//		final boolean isClosed		= shape.isClosed();
-//		final IArrow arr1			= shape.getArrowAt(0);
-//		final boolean arrow1Drawable 		= arr1.hasStyle() && shape.getNbPoints()>1;
-//		final boolean arrow2Drawable 		= shape.getArrowAt(-1).hasStyle() && shape.getNbPoints()>1 && !isClosed;
-//		final int size 				= shape.getNbPoints();
-//		final List<IPoint> pts 		= shape.getPoints();
-//		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
-//		final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
-//		final double width 			= arr1.getDotSizeDim() + arr1.getDotSizeNum()*shape.getThickness();
-//		final Ellipse2D.Double d 			= new Ellipse2D.Double(0, 0, width, width);
-//		int i;
-//
-//		g.setColor(shape.getLineColour());
-//
-//		if(!arrow1Drawable || isClosed)
-//			fillCircle(d, pts.get(0), width, g);
-//
-//		if(!arrow2Drawable || isClosed)
-//			fillCircle(d, pts.get(size-1), width, g);
-//
-//		for(i=1; i<size-1; i++) {
-//			fillCircle(d, pts.get(i), width, g);
-//			fillCircle(d, ctrlPts2.get(i), width, g);
-//		}
-//
-//		for(i=0; i<size; i++)
-//			fillCircle(d, ctrlPts1.get(i), width, g);
-//
-//		if(shape.isClosed()) {
-//			fillCircle(d, ctrlPts2.get(ctrlPts2.size()-1), width, g);
-//			fillCircle(d, ctrlPts2.get(0), width, g);
-//		}
-//	}
-//
-//
-//
-//	private void fillCircle(final Ellipse2D ell, final IPoint pt, final double width, final Graphics2D g) {
-//		ell.setFrame(pt.getX()-width/2., pt.getY()-width/2., width, width);
-//		g.fill(ell);
-//	}
-//
-//
-//
-//	private void paintLine(final Line2D line, final IPoint pt1, final IPoint pt2, final Graphics2D g) {
-//		line.setLine(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY());
-//		g.draw(line);
-//	}
-//
-//
-//	@Override
-//	public void paintShowPointsLines(final Graphics2D g) {
-//		final int size 				= shape.getNbPoints();
-//		final List<IPoint> pts 		= shape.getPoints();
-//		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
-//		final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
-//		final float thick 			= (float)(shape.hasDbleBord()? shape.getDbleBordSep()+shape.getThickness()*2. : shape.getThickness());
-//		final Line2D.Double line 			= new Line2D.Double();
-//		int i;
-//
-//		g.setStroke(new BasicStroke(thick/2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
-//			1.f, new float[]{(float)shape.getDashSepBlack(), (float)shape.getDashSepWhite()}, 0));
-//		g.setColor(shape.getLineColour());
-//
-//		for(i=3; i<size; i+=2) {
-//			paintLine(line, pts.get(i-1), ctrlPts2.get(i-1), g);
-//			paintLine(line, ctrlPts2.get(i-1), ctrlPts1.get(i), g);
-//			paintLine(line, ctrlPts1.get(i), pts.get(i), g);
-//		}
-//
-//		for(i=2; i<size; i+=2) {
-//			paintLine(line, pts.get(i-1), ctrlPts2.get(i-1), g);
-//			paintLine(line, ctrlPts2.get(i-1), ctrlPts1.get(i), g);
-//			paintLine(line, ctrlPts1.get(i), pts.get(i), g);
-//		}
-//
-//		if(shape.isClosed()) {
-//			paintLine(line, pts.get(size-1), ctrlPts2.get(size-1), g);
-//			paintLine(line, ctrlPts2.get(size-1), ctrlPts2.get(0), g);
-//			paintLine(line, ctrlPts2.get(0), pts.get(0), g);
-//		}
-//
-//		paintLine(line, pts.get(0), ctrlPts1.get(0), g);
-//		paintLine(line, ctrlPts1.get(0), ctrlPts1.get(1), g);
-//		paintLine(line, ctrlPts1.get(1), pts.get(1), g);
-//	}
+	private void unbindShowPoints() {
+		showPoint.getChildren().stream().filter(node -> node instanceof Ellipse).map(node -> (Ellipse) node).forEach(ell -> {
+			ell.fillProperty().unbind();
+			ell.centerXProperty().unbind();
+			ell.centerYProperty().unbind();
+			ell.radiusXProperty().unbind();
+			ell.radiusYProperty().unbind();
+			ell.visibleProperty().unbind();
+		});
+
+		showPoint.getChildren().stream().filter(node -> node instanceof Line).map(node -> (Line) node).forEach(line -> {
+			line.startXProperty().unbind();
+			line.startYProperty().unbind();
+			line.endXProperty().unbind();
+			line.endYProperty().unbind();
+			line.strokeWidthProperty().unbind();
+			line.strokeProperty().unbind();
+		});
+	}
 }

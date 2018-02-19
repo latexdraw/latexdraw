@@ -112,11 +112,9 @@ public class TestViewCircle extends TestViewBorderedShape<ViewCircle, ICircle, E
 	@Override
 	@Test
 	public void testShadowPositionSameThanBorder() {
-		if(model.isShadowable()) {
-			model.setHasShadow(true);
-			assertEquals(border.getCenterX(), view.getShadow().get().getCenterX(), 0.01);
-			assertEquals(border.getCenterY(), view.getShadow().get().getCenterY(), 0.01);
-		}
+		model.setHasShadow(true);
+		assertEquals(border.getCenterX(), view.getShadow().get().getCenterX(), 0.01);
+		assertEquals(border.getCenterY(), view.getShadow().get().getCenterY(), 0.01);
 	}
 
 	@Override

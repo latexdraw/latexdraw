@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.models.interfaces.prop.IArrowable;
 
 /**
@@ -104,4 +106,26 @@ public interface IArrow extends IArrowable {
 	 * @since 3.0
 	 */
 	double getArrowShapedWidth();
+
+	ObjectProperty<ArrowStyle> styleProperty();
+
+	DoubleProperty arrowSizeDimProperty();
+
+	DoubleProperty arrowSizeNumProperty();
+
+	DoubleProperty arrowLengthProperty();
+
+	DoubleProperty arrowInsetProperty();
+
+	DoubleProperty dotSizeDimProperty();
+
+	DoubleProperty dotSizeNumProperty();
+
+	DoubleProperty tBarSizeDimProperty();
+
+	DoubleProperty tBarSizeNumProperty();
+
+	DoubleProperty bracketNumProperty();
+
+	DoubleProperty rBracketNumProperty();
 }

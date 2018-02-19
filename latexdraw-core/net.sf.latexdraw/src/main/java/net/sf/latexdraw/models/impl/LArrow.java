@@ -11,6 +11,10 @@
 package net.sf.latexdraw.models.impl;
 
 import java.util.Objects;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
@@ -24,29 +28,29 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  */
 class LArrow implements IArrow {
 	/** The style of the arrow. */
-	private ArrowStyle style;
+	private final ObjectProperty<ArrowStyle> style;
 	/** The latex parameter arrowSize num. */
-	private double arrowSizeDim;
+	private final DoubleProperty arrowSizeDim;
 	/** The latex parameter arrowSize num. */
-	private double arrowSizeNum;
+	private final DoubleProperty arrowSizeNum;
 	/** The length of the arrow. */
-	private double arrowLength;
+	private final DoubleProperty arrowLength;
 	/** The inset of the arrow. */
-	private double arrowInset;
+	private final DoubleProperty arrowInset;
 	/** The latex parameter dotsize dim. */
-	private double dotSizeDim;
+	private final DoubleProperty dotSizeDim;
 	/** The latex parameter dotsize num. */
-	private double dotSizeNum;
+	private final DoubleProperty dotSizeNum;
 	/** The latex parameter tbarsize num. */
-	private double tBarSizeDim;
+	private final DoubleProperty tBarSizeDim;
 	/** The latex parameter tbarsize num. */
-	private double tBarSizeNum;
+	private final DoubleProperty tBarSizeNum;
 	/** The latex parameter bracket num. */
-	private double bracketNum;
+	private final DoubleProperty bracketNum;
 	/** The latex parameter rbracket num. */
-	private double rBracketNum;
+	private final DoubleProperty rBracketNum;
 	/** The owner of the arrow. */
-	private IArrowableSingleShape owner;
+	private final IArrowableSingleShape owner;
 
 	private Runnable onChanged;
 
@@ -59,17 +63,17 @@ class LArrow implements IArrow {
 	LArrow(final IArrowableSingleShape arrowOwner) {
 		super();
 		owner = Objects.requireNonNull(arrowOwner);
-		style = ArrowStyle.NONE;
-		arrowInset = 0d;
-		arrowLength = PSTricksConstants.DEFAULT_ARROW_LENGTH;
-		arrowSizeDim = PSTricksConstants.DEFAULT_ARROW_SIZE_DIM * IShape.PPC;
-		arrowSizeNum = PSTricksConstants.DEFAULT_ARROW_SIZE_NUM;
-		dotSizeDim = PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM * IShape.PPC;
-		dotSizeNum = PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM;
-		tBarSizeDim = PSTricksConstants.DEFAULT_ARROW_TBARSIZE_DIM * IShape.PPC;
-		tBarSizeNum = PSTricksConstants.DEFAULT_ARROW_TBARSIZE_NUM;
-		bracketNum = PSTricksConstants.DEFAULT_ARROW_BRACKET_LGTH;
-		rBracketNum = PSTricksConstants.DEFAULT_ARROW_RBRACKET_LGTH;
+		style = new SimpleObjectProperty<>(ArrowStyle.NONE);
+		arrowInset = new SimpleDoubleProperty(0d);
+		arrowLength = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_ARROW_LENGTH);
+		arrowSizeDim = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_ARROW_SIZE_DIM * IShape.PPC);
+		arrowSizeNum = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_ARROW_SIZE_NUM);
+		dotSizeDim = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM * IShape.PPC);
+		dotSizeNum = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM);
+		tBarSizeDim = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_ARROW_TBARSIZE_DIM * IShape.PPC);
+		tBarSizeNum = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_ARROW_TBARSIZE_NUM);
+		bracketNum = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_ARROW_BRACKET_LGTH);
+		rBracketNum = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_ARROW_RBRACKET_LGTH);
 	}
 
 
@@ -87,17 +91,17 @@ class LArrow implements IArrow {
 	@Override
 	public void copy(final IArrow model) {
 		if(model == null) return;
-		arrowInset = model.getArrowInset();
-		arrowLength = model.getArrowLength();
-		arrowSizeDim = model.getArrowSizeDim();
-		arrowSizeNum = model.getArrowSizeNum();
-		bracketNum = model.getBracketNum();
-		dotSizeDim = model.getDotSizeDim();
-		dotSizeNum = model.getDotSizeNum();
-		rBracketNum = model.getRBracketNum();
-		style = model.getArrowStyle();
-		tBarSizeDim = model.getTBarSizeDim();
-		tBarSizeNum = model.getTBarSizeNum();
+		arrowInset.set(model.getArrowInset());
+		arrowLength.set(model.getArrowLength());
+		arrowSizeDim.set(model.getArrowSizeDim());
+		arrowSizeNum.set(model.getArrowSizeNum());
+		bracketNum.set(model.getBracketNum());
+		dotSizeDim.set(model.getDotSizeDim());
+		dotSizeNum.set(model.getDotSizeNum());
+		rBracketNum.set(model.getRBracketNum());
+		style.set(model.getArrowStyle());
+		tBarSizeDim.set(model.getTBarSizeDim());
+		tBarSizeNum.set(model.getTBarSizeNum());
 	}
 
 	@Override
@@ -107,36 +111,36 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getRoundShapedArrowRadius() {
-		return (dotSizeDim + dotSizeNum * getLineThickness()) / 2d;
+		return (dotSizeDim.get() + dotSizeNum.get() * getLineThickness()) / 2d;
 	}
 
 
 	@Override
 	public double getBarShapedArrowWidth() {
-		return tBarSizeDim + tBarSizeNum * getLineThickness();
+		return tBarSizeDim.get() + tBarSizeNum.get() * getLineThickness();
 	}
 
 
 	@Override
 	public double getBracketShapedArrowLength() {
-		return bracketNum * getBarShapedArrowWidth();
+		return bracketNum.get() * getBarShapedArrowWidth();
 	}
 
 
 	@Override
 	public double getArrowShapeLength() {
-		switch(style) {
+		switch(style.get()) {
 			case LEFT_ARROW:
 			case RIGHT_ARROW:
-				return getArrowShapedWidth() * arrowLength;
+				return getArrowShapedWidth() * arrowLength.get();
 			case LEFT_DBLE_ARROW:
 			case RIGHT_DBLE_ARROW:
-				return getArrowShapedWidth() * arrowLength * 2d;
+				return getArrowShapedWidth() * arrowLength.get() * 2d;
 			case ROUND_IN:
 				return (getDotSizeDim() + getDotSizeNum() * getLineThickness()) / 2d;
 			case LEFT_SQUARE_BRACKET:
 			case RIGHT_SQUARE_BRACKET:
-				return bracketNum * getBarShapedArrowWidth();
+				return bracketNum.get() * getBarShapedArrowWidth();
 			case CIRCLE_IN:
 			case DISK_IN:
 				return getRoundShapedArrowRadius();
@@ -148,7 +152,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getArrowShapedWidth() {
-		return arrowSizeNum * getLineThickness() + arrowSizeDim;
+		return arrowSizeNum.get() * getLineThickness() + arrowSizeDim.get();
 	}
 
 	@Override
@@ -163,47 +167,47 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getArrowInset() {
-		return arrowInset;
+		return arrowInset.get();
 	}
 
 	@Override
 	public double getArrowLength() {
-		return arrowLength;
+		return arrowLength.get();
 	}
 
 	@Override
 	public double getArrowSizeDim() {
-		return arrowSizeDim;
+		return arrowSizeDim.get();
 	}
 
 	@Override
 	public double getArrowSizeNum() {
-		return arrowSizeNum;
+		return arrowSizeNum.get();
 	}
 
 	@Override
 	public ArrowStyle getArrowStyle() {
-		return style;
+		return style.get();
 	}
 
 	@Override
 	public double getBracketNum() {
-		return bracketNum;
+		return bracketNum.get();
 	}
 
 	@Override
 	public double getDotSizeDim() {
-		return dotSizeDim;
+		return dotSizeDim.get();
 	}
 
 	@Override
 	public double getDotSizeNum() {
-		return dotSizeNum;
+		return dotSizeNum.get();
 	}
 
 	@Override
 	public double getRBracketNum() {
-		return rBracketNum;
+		return rBracketNum.get();
 	}
 
 	@Override
@@ -213,17 +217,17 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getTBarSizeDim() {
-		return tBarSizeDim;
+		return tBarSizeDim.get();
 	}
 
 	@Override
 	public double getTBarSizeNum() {
-		return tBarSizeNum;
+		return tBarSizeNum.get();
 	}
 
 	@Override
 	public boolean isInverted() {
-		return isLeftArrow() == style.isRightStyle();
+		return isLeftArrow() == style.get().isRightStyle();
 	}
 
 	@Override
@@ -233,13 +237,13 @@ class LArrow implements IArrow {
 
 	@Override
 	public boolean hasStyle() {
-		return style != ArrowStyle.NONE;
+		return style.get() != ArrowStyle.NONE;
 	}
 
 	@Override
 	public void setArrowInset(final double inset) {
 		if(inset >= 0d) {
-			arrowInset = inset;
+			arrowInset.set(inset);
 			notifyOnChanged();
 		}
 	}
@@ -247,7 +251,7 @@ class LArrow implements IArrow {
 	@Override
 	public void setArrowLength(final double lgth) {
 		if(lgth >= 0d) {
-			arrowLength = lgth;
+			arrowLength.set(lgth);
 			notifyOnChanged();
 		}
 	}
@@ -255,7 +259,7 @@ class LArrow implements IArrow {
 	@Override
 	public void setArrowSizeDim(final double size) {
 		if(size > 0d) {
-			arrowSizeDim = size;
+			arrowSizeDim.set(size);
 			notifyOnChanged();
 		}
 	}
@@ -263,7 +267,7 @@ class LArrow implements IArrow {
 	@Override
 	public void setArrowSizeNum(final double size) {
 		if(size >= 0d) {
-			arrowSizeNum = size;
+			arrowSizeNum.set(size);
 			notifyOnChanged();
 		}
 	}
@@ -272,7 +276,7 @@ class LArrow implements IArrow {
 	@Override
 	public void setArrowStyle(final ArrowStyle arrowStyle) {
 		if(arrowStyle != null) {
-			style = arrowStyle;
+			style.set(arrowStyle);
 			notifyOnChanged();
 		}
 	}
@@ -280,7 +284,7 @@ class LArrow implements IArrow {
 	@Override
 	public void setBracketNum(final double brack) {
 		if(brack >= 0d) {
-			bracketNum = brack;
+			bracketNum.set(brack);
 			notifyOnChanged();
 		}
 	}
@@ -288,7 +292,7 @@ class LArrow implements IArrow {
 	@Override
 	public void setDotSizeDim(final double dot) {
 		if(dot > 0d) {
-			dotSizeDim = dot;
+			dotSizeDim.set(dot);
 			notifyOnChanged();
 		}
 	}
@@ -296,7 +300,7 @@ class LArrow implements IArrow {
 	@Override
 	public void setDotSizeNum(final double dot) {
 		if(dot >= 0.1) {
-			dotSizeNum = dot;
+			dotSizeNum.set(dot);
 			notifyOnChanged();
 		}
 	}
@@ -304,7 +308,7 @@ class LArrow implements IArrow {
 	@Override
 	public void setRBracketNum(final double brack) {
 		if(brack >= 0d) {
-			rBracketNum = brack;
+			rBracketNum.set(brack);
 			notifyOnChanged();
 		}
 	}
@@ -312,7 +316,7 @@ class LArrow implements IArrow {
 	@Override
 	public void setTBarSizeDim(final double tbarSizeDim) {
 		if(tbarSizeDim > 0d) {
-			tBarSizeDim = tbarSizeDim;
+			tBarSizeDim.set(tbarSizeDim);
 			notifyOnChanged();
 		}
 	}
@@ -320,11 +324,67 @@ class LArrow implements IArrow {
 	@Override
 	public void setTBarSizeNum(final double tBarSizeNum) {
 		if(tBarSizeNum >= 0d) {
-			this.tBarSizeNum = tBarSizeNum;
+			this.tBarSizeNum.set(tBarSizeNum);
 			notifyOnChanged();
 		}
 	}
 
+	@Override
+	public ObjectProperty<ArrowStyle> styleProperty() {
+		return style;
+	}
+
+	@Override
+	public DoubleProperty arrowSizeDimProperty() {
+		return arrowSizeDim;
+	}
+
+	@Override
+	public DoubleProperty arrowSizeNumProperty() {
+		return arrowSizeNum;
+	}
+
+	@Override
+	public DoubleProperty arrowLengthProperty() {
+		return arrowLength;
+	}
+
+	@Override
+	public DoubleProperty arrowInsetProperty() {
+		return arrowInset;
+	}
+
+	@Override
+	public DoubleProperty dotSizeDimProperty() {
+		return dotSizeDim;
+	}
+
+	@Override
+	public DoubleProperty dotSizeNumProperty() {
+		return dotSizeNum;
+	}
+
+	@Override
+	public DoubleProperty tBarSizeDimProperty() {
+		return tBarSizeDim;
+	}
+
+	@Override
+	public DoubleProperty tBarSizeNumProperty() {
+		return tBarSizeNum;
+	}
+
+	@Override
+	public DoubleProperty bracketNumProperty() {
+		return bracketNum;
+	}
+
+	@Override
+	public DoubleProperty rBracketNumProperty() {
+		return rBracketNum;
+	}
+
+	//TODO remove
 	private void notifyOnChanged() {
 		if(onChanged != null) {
 			onChanged.run();

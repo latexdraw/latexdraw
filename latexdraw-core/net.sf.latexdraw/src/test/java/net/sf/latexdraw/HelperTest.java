@@ -35,7 +35,7 @@ public interface HelperTest {
 		return BadaboomCollector.INSTANCE.stream().map(ex -> ex.getMessage()).collect(Collectors.joining(LSystem.EOL));
 	}
 
-	default <T extends Node> void assertNotEqualsSnapshot(T node, Runnable toExecBetweenSnap) {
+	default <T extends Node> void assertNotEqualsSnapshot(final T node, final Runnable toExecBetweenSnap) {
 		Bounds bounds = node.getBoundsInLocal();
 		final SnapshotParameters params = new SnapshotParameters();
 
