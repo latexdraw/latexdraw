@@ -11,7 +11,12 @@
 package net.sf.latexdraw.util;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -21,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.Optional;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -98,14 +104,14 @@ public final class LangTool {
 
 
 	private Locale getLocaleFromFileName(final String fileName) {
-		return Locale.forLanguageTag(LFileUtils.INSTANCE.getFileNameNoExtension(fileName).replaceAll("bundle_", "").replaceAll("_", "-"));
+		return Locale.forLanguageTag(LFileUtils.INSTANCE.getFileNameNoExtension(fileName).replaceAll("bundle_", "").replaceAll("_", "-")); //NON-NLS
 	}
 
 	/**
 	 * @return The list of locales supported by the app.
 	 */
 	public List<Locale> getSupportedLocales() {
-		try(final Stream<Path> list = Files.list(Paths.get(getClass().getResource("/lang").toURI()))) {
+		try(final Stream<Path> list = Files.list(Paths.get(getClass().getResource("/lang").toURI()))) { //NON-NLS
 			return list.filter(f -> !f.toFile().isDirectory() && Files.isReadable(f)).
 				map(f -> getLocaleFromFileName(f.getFileName().toString())).collect(Collectors.toList());
 		}catch(final IOException | URISyntaxException ex) {
@@ -125,10 +131,40 @@ public final class LangTool {
 
 	private Optional<ResourceBundle> loadResourceBundle(final Locale locale) {
 		try {
-			return Optional.ofNullable(ResourceBundle.getBundle("lang.bundle", locale));
+			return Optional.ofNullable(ResourceBundle.getBundle("lang.bundle", locale, new UTF8Control())); //NON-NLS
 		}catch(final MissingResourceException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			return Optional.empty();
+		}
+	}
+
+	private static class UTF8Control extends ResourceBundle.Control {
+		@Override
+		public ResourceBundle newBundle(final String base, final Locale loc, final String fmt, final ClassLoader load, final boolean reload) throws IOException {
+			final String bundleName = toBundleName(base, loc);
+			final String resourceName = toResourceName(bundleName, "properties"); //NON-NLS
+			ResourceBundle bundle = null;
+			InputStream stream = null;
+			if(reload) {
+				final URL url = load.getResource(resourceName);
+				if(url != null) {
+					final URLConnection connection = url.openConnection();
+					if(connection != null) {
+						connection.setUseCaches(false);
+						stream = connection.getInputStream();
+					}
+				}
+			}else {
+				stream = load.getResourceAsStream(resourceName);
+			}
+			if(stream != null) {
+				try {
+					bundle = new PropertyResourceBundle(new InputStreamReader(stream, Charset.forName("UTF-8")));
+				}finally {
+					stream.close();
+				}
+			}
+			return bundle;
 		}
 	}
 }
