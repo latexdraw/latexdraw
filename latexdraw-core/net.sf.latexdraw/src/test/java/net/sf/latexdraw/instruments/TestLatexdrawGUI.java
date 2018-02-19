@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -33,7 +32,6 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	protected Callback<Class<?>, Object> injectorFactory;
 
 	protected final GUIVoidCommand waitFXEvents = WaitForAsyncUtils::waitForFxEvents;
-	protected final GUIVoidCommand waitFX1Second = () -> WaitForAsyncUtils.sleep(1, TimeUnit.SECONDS);
 
 	protected TitledPane titledPane;
 	protected Stage stage;
@@ -55,7 +53,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	}
 
 	@Override
-	public void start(Stage aStage) {
+	public void start(final Stage aStage) {
 		stage = aStage;
 
 		try {
@@ -100,7 +98,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 		}
 	}
 
-	public <T extends Node> T find(String query) {
+	public <T extends Node> T find(final String query) {
 		return lookup(query).query();
 	}
 
@@ -110,7 +108,6 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 		return new Injector() {
 			@Override
 			protected void configure() {
-				//
 			}
 		};
 	}
