@@ -26,6 +26,7 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.Tuple;
 import org.malai.action.Action;
 import org.malai.javafx.action.ActivateInactivateInstruments;
@@ -142,19 +143,19 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 			valid = PSFunctionParser.isValidPostFixEquation(textField.getText(), Double.valueOf(plotCustom.minXSpinner.getValue().toString()),
 				Double.valueOf(plotCustom.maxXSpinner.getValue().toString()), Double.valueOf(plotCustom.nbPtsSpinner.getValue().toString()));
 		}catch(final IllegalArgumentException ex) {
-			valid = new Tuple<>(false, "Invalid function.");
+			valid = new Tuple<>(false, LangTool.INSTANCE.getBundle().getString("invalid.function"));
 		}
 		textField.setValid(valid);
 		return valid.a;
 	}
 
 	private void setTextMessage() {
-		textField.getMessageField().setText("Write LaTeX text.");
+		textField.getMessageField().setText(LangTool.INSTANCE.getBundle().getString("write.latex.text"));
 	}
 
 	private void setPlotMessage() {
 		final String eqEx = " 2 x add sin"; //$NON-NLS-1$
-		textField.getMessageField().setText("Write the equation, e.g.: " + eqEx);
+		textField.getMessageField().setText(LangTool.INSTANCE.getBundle().getString("write.the.equation") + ' ' + eqEx);
 	}
 
 	@Override

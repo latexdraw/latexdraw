@@ -38,7 +38,7 @@ public class TranslateShapes extends ShapeActionImpl<IGroup> implements Undoable
 	 */
 	private double performedTy;
 	/** The drawing that will be handled by the action. */
-	private IDrawing drawing;
+	private final IDrawing drawing;
 
 
 	public TranslateShapes(final IDrawing dr, final IGroup sh) {

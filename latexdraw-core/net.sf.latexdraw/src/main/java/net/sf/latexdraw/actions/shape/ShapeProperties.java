@@ -503,7 +503,7 @@ public enum ShapeProperties {
 	CLOSABLE_CLOSE {
 			@Override
 			public String getMessage() {
-				return "Shape closed/opened";
+				return LangTool.INSTANCE.getBundle().getString("shape.closed.opened");
 			}
 
 			@Override

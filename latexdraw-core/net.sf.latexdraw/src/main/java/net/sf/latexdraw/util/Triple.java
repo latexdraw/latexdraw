@@ -27,6 +27,6 @@ public class Triple<A, B, C> extends Tuple<A, B> {
 
 	@Override
 	public String toString() {
-		return "Triple{" + "a=" + a + ", b=" + b + ", c=" + c + '}';
+		return "Triple{" + "a=" + a + ", b=" + b + ", c=" + c + '}'; //NON-NLS
 	}
 }

@@ -29,53 +29,53 @@ public enum OperatingSystem {
 	MAC_OS_X_CAPITAN {
 		@Override
 		public String getPS2EPSBinPath() {
-			return "/usr/local/bin/ps2epsi"; //$NON-NLS-1$
+			return "/usr/local/bin/ps2epsi"; //NON-NLS
 		}
 
 		@Override
 		public String getLatexBinPath() {
-			return "/Library/TeX/texbin/latex"; //$NON-NLS-1$
+			return "/Library/TeX/texbin/latex"; //NON-NLS
 		}
 
 		@Override
 		public String getDvipsBinPath() {
-			return "/Library/TeX/texbin/dvips"; //$NON-NLS-1$
+			return "/Library/TeX/texbin/dvips"; //NON-NLS
 		}
 
 		@Override
 		public String getPs2pdfBinPath() {
-			return "/usr/local/bin/ps2pdf"; //$NON-NLS-1$
+			return "/usr/local/bin/ps2pdf"; //NON-NLS
 		}
 
 		@Override
 		public String getPdfcropBinPath() {
-			return "/Library/TeX/texbin/pdfcrop"; //$NON-NLS-1$
+			return "/Library/TeX/texbin/pdfcrop"; //NON-NLS
 		}
 	},
 	MAC_OS_X {
 		@Override
 		public String getPS2EPSBinPath() {
-			return "/usr/local/bin/ps2epsi"; //$NON-NLS-1$
+			return "/usr/local/bin/ps2epsi"; //NON-NLS
 		}
 
 		@Override
 		public String getLatexBinPath() {
-			return "/usr/texbin/latex"; //$NON-NLS-1$
+			return "/usr/texbin/latex"; //NON-NLS
 		}
 
 		@Override
 		public String getDvipsBinPath() {
-			return "/usr/texbin/dvips"; //$NON-NLS-1$
+			return "/usr/texbin/dvips"; //NON-NLS
 		}
 
 		@Override
 		public String getPs2pdfBinPath() {
-			return "/usr/local/bin/ps2pdf"; //$NON-NLS-1$
+			return "/usr/local/bin/ps2pdf"; //NON-NLS
 		}
 
 		@Override
 		public String getPdfcropBinPath() {
-			return "pdfcrop"; //$NON-NLS-1$
+			return "pdfcrop"; //NON-NLS
 		}
 	},
 	/** Linux */
@@ -86,7 +86,7 @@ public enum OperatingSystem {
 	 * @since 3.1
 	 */
 	public String getPS2EPSBinPath() {
-		return "ps2epsi"; //$NON-NLS-1$
+		return "ps2epsi"; //NON-NLS
 	}
 
 	/**
@@ -94,7 +94,7 @@ public enum OperatingSystem {
 	 * @since 3.0
 	 */
 	public String getLatexBinPath() {
-		return "latex"; //$NON-NLS-1$
+		return "latex"; //NON-NLS
 	}
 
 	/**
@@ -102,7 +102,7 @@ public enum OperatingSystem {
 	 * @since 3.0
 	 */
 	public String getDvipsBinPath() {
-		return "dvips"; //$NON-NLS-1$
+		return "dvips"; //NON-NLS
 	}
 
 	/**
@@ -110,7 +110,7 @@ public enum OperatingSystem {
 	 * @since 3.0
 	 */
 	public String getPs2pdfBinPath() {
-		return "ps2pdf"; //$NON-NLS-1$
+		return "ps2pdf"; //NON-NLS
 	}
 
 	/**
@@ -118,6 +118,6 @@ public enum OperatingSystem {
 	 * @since 3.0
 	 */
 	public String getPdfcropBinPath() {
-		return "pdfcrop"; //$NON-NLS-1$
+		return "pdfcrop"; //NON-NLS
 	}
 }

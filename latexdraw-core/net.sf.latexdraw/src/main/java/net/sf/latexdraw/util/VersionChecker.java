@@ -25,13 +25,13 @@ import net.sf.latexdraw.instruments.StatusBarController;
  */
 public final class VersionChecker implements Runnable {
 	/** The version of the application */
-	public static final String VERSION = "4.0.0"; //$NON-NLS-1$
+	public static final String VERSION = "4.0.0"; //NON-NLS
 
 	/** The stability of the build. */
-	public static final String VERSION_STABILITY = "-snapshot"; //$NON-NLS-1$
+	public static final String VERSION_STABILITY = "-snapshot"; //NON-NLS
 
 	/** The identifier of the build */
-	public static final String ID_BUILD = "20170419"; //$NON-NLS-1$
+	public static final String ID_BUILD = "20170419"; //NON-NLS
 
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;
@@ -53,14 +53,14 @@ public final class VersionChecker implements Runnable {
 		try(final BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(
 				new URL("http://latexdraw.sourceforge.net/news.txt").openStream())))) {
 			final String line = br.readLine();
-			final String[] div = line == null ? null : line.split("_"); //$NON-NLS-1$
+			final String[] div = line == null ? null : line.split("_"); //NON-NLS
 
 			if(div != null && div.length > 3 && div[3].compareTo(VERSION) > 0) {
 				Platform.runLater(() -> {
 					statusBar.getLabel().setVisible(true);
-					statusBar.getLabel().setText(LangTool.INSTANCE.getBundle().getString("Version.1") + ' ' + div[3] + ". See the release note:");
+					statusBar.getLabel().setText(LangTool.INSTANCE.getBundle().getString("Version.1") + ' ' + div[3] + ". See the release note:"); //NON-NLS
 					statusBar.getLink().setVisible(true);
-					statusBar.getLink().setText("http://latexdraw.sourceforge.net/");
+					statusBar.getLink().setText("http://latexdraw.sourceforge.net/"); //NON-NLS
 				});
 			}
 		}catch(final IOException ex) {

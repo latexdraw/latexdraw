@@ -43,7 +43,7 @@ public class UpdateToGrid extends ShapeActionImpl<IGroup> implements Undoable, M
 	protected void doActionBody() {
 		shape.ifPresent(gp -> {
 			gp.getShapes().forEach(sh -> {
-				List<IPoint> list = new ArrayList<>();
+				final List<IPoint> list = new ArrayList<>();
 				listPts.add(list);
 				sh.getPoints().forEach(pt -> list.add(ShapeFactory.INST.createPoint(pt)));
 			});

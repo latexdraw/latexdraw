@@ -27,6 +27,6 @@ public class Tuple<A, B> {
 
 	@Override
 	public String toString() {
-		return "Tuple{" + "a=" + a + ", b=" + b + '}';
+		return "Tuple{" + "a=" + a + ", b=" + b + '}'; //NON-NLS
 	}
 }

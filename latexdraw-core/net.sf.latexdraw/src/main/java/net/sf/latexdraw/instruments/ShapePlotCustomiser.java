@@ -26,6 +26,7 @@ import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.parsers.ps.PSFunctionParser;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.Tuple;
 
 /**
@@ -85,7 +86,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 				Double.valueOf(minXSpinner.getValue().toString()), Double.valueOf(maxXSpinner.getValue().toString()),
 				Double.valueOf(nbPtsSpinner.getValue().toString()));
 		}catch(final IllegalArgumentException ex) {
-			valid = new Tuple<>(false, "Invalid function.");
+			valid = new Tuple<>(false, LangTool.INSTANCE.getBundle().getString("invalid.function"));
 		}
 		return valid.a;
 	}

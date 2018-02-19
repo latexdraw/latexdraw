@@ -21,14 +21,14 @@ public enum Unit {
 	CM {
 		@Override
 		public String getLabel() {
-			return LangTool.INSTANCE.getBundle().getString("XScale.cm"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("XScale.cm"); //NON-NLS
 		}
 	},
 	/** Inch */
 	INCH {
 		@Override
 		public String getLabel() {
-			return LangTool.INSTANCE.getBundle().getString("XScale.inch"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("XScale.inch"); //NON-NLS
 		}
 	};
 

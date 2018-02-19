@@ -25,7 +25,7 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
  */
 public class InsertPicture extends AddShape {
 	/** The file chooser used to select the picture to add. */
-	private Optional<FileChooser> fileChooser;
+	private final Optional<FileChooser> fileChooser;
 
 	/** Defines if the picture has been successfully loaded. */
 	private boolean loaded;

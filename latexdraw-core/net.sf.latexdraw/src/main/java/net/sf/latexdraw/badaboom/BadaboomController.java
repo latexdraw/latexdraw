@@ -59,7 +59,7 @@ public class BadaboomController implements Initializable {
 		final Callable<String> converter = () -> {
 			final Throwable ex = table.getSelectionModel().getSelectedItem();
 			if(ex == null) return "";
-			return Arrays.stream(ex.getStackTrace()).map(Object::toString).collect(Collectors.joining("\n\tat ", ex.toString() + "\n\tat ", ""));
+			return Arrays.stream(ex.getStackTrace()).map(Object::toString).collect(Collectors.joining("\n\tat ", ex.toString() + "\n\tat ", "")); //NON-NLS
 		};
 		stack.textProperty().bind(Bindings.createStringBinding(converter, table.getSelectionModel().selectedItemProperty()));
 	}

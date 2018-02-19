@@ -85,7 +85,7 @@ public class Pencil extends CanvasInstrument {
 		if(pictureFileChooser == null) {
 			pictureFileChooser = new FileChooser();
 			pictureFileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter(
-				LangTool.INSTANCE.getBundle().getString("Filter.1"), Arrays.asList("*.png", "*.bmp", "*.gif", "*.jpeg", "*.jpg")));
+				LangTool.INSTANCE.getBundle().getString("Filter.1"), Arrays.asList("*.png", "*.bmp", "*.gif", "*.jpeg", "*.jpg"))); //NON-NLS
 		}
 		return pictureFileChooser;
 	}
@@ -105,7 +105,7 @@ public class Pencil extends CanvasInstrument {
 			groupParams.addShape(ShapeFactory.INST.createPolyline(Collections.emptyList()));
 			groupParams.addShape(ShapeFactory.INST.createBezierCurve(Collections.emptyList()));
 			groupParams.addShape(ShapeFactory.INST.createFreeHand(Collections.emptyList()));
-			groupParams.addShape(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 10, "x", false));
+			groupParams.addShape(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 10, "x", false)); //NON-NLS
 		}
 		return groupParams;
 	}

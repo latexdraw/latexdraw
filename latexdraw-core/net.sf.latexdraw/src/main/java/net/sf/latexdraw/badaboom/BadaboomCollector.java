@@ -82,7 +82,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 				return false;
 			}
 		}
-		LOGGER.log(Level.SEVERE, "An Exception occured.", ex);
+		LOGGER.log(Level.SEVERE, "An Exception occured.", ex); //NON-NLS
 		notifyHandlers(ex);
 		return true;
 	}
@@ -95,7 +95,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 				return null;
 			}
 		}
-		LOGGER.log(Level.SEVERE, "An Exception occured.", ex);
+		LOGGER.log(Level.SEVERE, "An Exception occured.", ex); //NON-NLS
 		notifyHandlers(ex);
 		return ex;
 	}
@@ -105,7 +105,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 		synchronized(INSTANCE) {
 			if(ex != null) {
 				super.add(index, ex);
-				LOGGER.log(Level.SEVERE, "An Exception occured.", ex);
+				LOGGER.log(Level.SEVERE, "An Exception occured.", ex); //NON-NLS
 				notifyHandlers(ex);
 			}
 		}

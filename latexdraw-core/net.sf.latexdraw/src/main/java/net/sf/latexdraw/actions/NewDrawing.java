@@ -32,8 +32,8 @@ public class NewDrawing extends IOAction<Label> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	private FileChooser fileChooser;
 	/** The instrument used that manage the preferences. */
-	private PreferencesSetter prefSetter;
-	private File currentFolder;
+	private final PreferencesSetter prefSetter;
+	private final File currentFolder;
 
 	public NewDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
 					  final FileChooser fileChooser, final PreferencesSetter prefSetter, final File currentFolder) {

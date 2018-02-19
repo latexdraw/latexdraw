@@ -31,12 +31,16 @@ public final class ImageCropper {
 	 * @since 3.0
 	 */
 	public BufferedImage cropImage(final BufferedImage img) {
-		if(img == null) return null;
+		if(img == null) {
+			return null;
+		}
 
 		final int width = img.getWidth();
 		final int height = img.getHeight();
 
-		if(width == 0 && height == 0) return null;
+		if(width == 0 && height == 0) {
+			return null;
+		}
 
 		final int left = getLeft(img, width, height);
 		final int right = getRight(img, width, height);
@@ -45,10 +49,10 @@ public final class ImageCropper {
 		final int newWidth = img.getWidth(null) - left - right;
 		final int newHeight = img.getHeight(null) - top - bottom;
 		final BufferedImage cropped = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB_PRE);
-		Graphics g = cropped.getGraphics();
+		final Graphics graph = cropped.getGraphics();
 
-		g.drawImage(img, 0, 0, newWidth, newHeight, left, top, newWidth + left, newHeight + top, null);
-		g.dispose();
+		graph.drawImage(img, 0, 0, newWidth, newHeight, left, top, newWidth + left, newHeight + top, null);
+		graph.dispose();
 
 		return cropped;
 	}

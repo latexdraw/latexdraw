@@ -51,7 +51,7 @@ public abstract class CodeParser implements Parser {
 
 	/** The core level of the parser that contains the code to parse,...
 	 * It can be shared with others code parsers. */
-	private Code codeCore;
+	private final Code codeCore;
 
 
 	/**

@@ -99,17 +99,17 @@ public class Export extends ActionImpl {
 	private boolean export(final File file) {
 		switch(format) {
 			case BMP:
-				return exportAsPicture(file, "bmp", false);
+				return exportAsPicture(file, "bmp", false); //NON-NLS
 			case EPS_LATEX:
 				return exportAsEPS(file);
 			case JPG:
-				return exportAsPicture(file, "jpg", false);
+				return exportAsPicture(file, "jpg", false); //NON-NLS
 			case PDF:
 				return exportAsPDF(file);
 			case PDF_CROP:
 				return exportAsPDF(file);
 			case PNG:
-				return exportAsPicture(file, "png", true);
+				return exportAsPicture(file, "png", true); //NON-NLS
 			case TEX:
 				return exportAsPST(file);
 		}
@@ -141,7 +141,7 @@ public class Export extends ActionImpl {
 
 		if(!alpha) {
 			final BufferedImage copy = new BufferedImage(rendImage.getWidth(), rendImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-			Graphics2D g2d = copy.createGraphics();
+			final Graphics2D g2d = copy.createGraphics();
 			g2d.drawImage(rendImage, 0, 0, null);
 			g2d.dispose();
 			rendImage.flush();

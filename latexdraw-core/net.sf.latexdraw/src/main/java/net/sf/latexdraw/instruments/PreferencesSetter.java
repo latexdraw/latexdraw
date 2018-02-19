@@ -118,14 +118,14 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		styleList.getItems().addAll(GridStyle.values());
 
 		buttonOpen.setOnAction(evt -> {
-			File file = getFileChooser().showDialog(null);
+			final File file = getFileChooser().showDialog(null);
 			if(file != null) {
 				pathOpenField.setText(file.getPath());
 			}
 		});
 
 		buttonExport.setOnAction(evt -> {
-			File file = getFileChooser().showDialog(null);
+			final File file = getFileChooser().showDialog(null);
 			if(file != null) {
 				pathExportField.setText(file.getPath());
 				exporter.setPathExport(file.getPath());

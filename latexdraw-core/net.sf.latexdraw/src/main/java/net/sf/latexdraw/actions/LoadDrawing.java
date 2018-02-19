@@ -29,7 +29,7 @@ import org.malai.javafx.ui.OpenSaver;
 public class LoadDrawing extends Load<Label> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	private FileChooser fileChooser;
-	private File currentFolder;
+	private final File currentFolder;
 
 	public LoadDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
 					   final FileChooser fileChooser, final File currentFolder) {

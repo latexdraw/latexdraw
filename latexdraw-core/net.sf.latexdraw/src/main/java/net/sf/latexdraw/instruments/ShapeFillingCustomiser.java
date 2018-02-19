@@ -72,15 +72,15 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 		gradientPane.managedProperty().bind(gradientPane.visibleProperty());
 
 		final Map<FillingStyle, Image> cache = new EnumMap<>(FillingStyle.class);
-		cache.put(FillingStyle.NONE, new Image("/res/hatch/hatch.none.png"));
-		cache.put(FillingStyle.PLAIN, new Image("/res/hatch/hatch.solid.png"));
-		cache.put(FillingStyle.CLINES, new Image("/res/hatch/hatch.cross.png"));
-		cache.put(FillingStyle.CLINES_PLAIN, new Image("/res/hatch/hatchf.cross.png"));
-		cache.put(FillingStyle.HLINES, new Image("/res/hatch/hatch.horiz.png"));
-		cache.put(FillingStyle.HLINES_PLAIN, new Image("/res/hatch/hatchf.horiz.png"));
-		cache.put(FillingStyle.VLINES, new Image("/res/hatch/hatch.vert.png"));
-		cache.put(FillingStyle.VLINES_PLAIN, new Image("/res/hatch/hatchf.vert.png"));
-		cache.put(FillingStyle.GRAD, new Image("/res/hatch/gradient.png"));
+		cache.put(FillingStyle.NONE, new Image("/res/hatch/hatch.none.png")); //NON-NLS
+		cache.put(FillingStyle.PLAIN, new Image("/res/hatch/hatch.solid.png")); //NON-NLS
+		cache.put(FillingStyle.CLINES, new Image("/res/hatch/hatch.cross.png")); //NON-NLS
+		cache.put(FillingStyle.CLINES_PLAIN, new Image("/res/hatch/hatchf.cross.png")); //NON-NLS
+		cache.put(FillingStyle.HLINES, new Image("/res/hatch/hatch.horiz.png")); //NON-NLS
+		cache.put(FillingStyle.HLINES_PLAIN, new Image("/res/hatch/hatchf.horiz.png")); //NON-NLS
+		cache.put(FillingStyle.VLINES, new Image("/res/hatch/hatch.vert.png")); //NON-NLS
+		cache.put(FillingStyle.VLINES_PLAIN, new Image("/res/hatch/hatchf.vert.png")); //NON-NLS
+		cache.put(FillingStyle.GRAD, new Image("/res/hatch/gradient.png")); //NON-NLS
 		initComboBox(fillStyleCB, cache, FillingStyle.values());
 	}
 

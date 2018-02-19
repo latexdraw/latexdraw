@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.javafx.action.IOAction;
 import org.malai.undo.Undoable;
@@ -50,7 +51,7 @@ public class LoadTemplate extends IOAction<Label> implements DrawingAction, Undo
 
 	@Override
 	public String getUndoName() {
-		return "template added";
+		return LangTool.INSTANCE.getBundle().getString("template.added");
 	}
 
 	@Override

@@ -42,22 +42,22 @@ public class AboutController implements Initializable {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		aboutText.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.219") + ' ' + //$NON-NLS-1$
-			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + ", build " + VersionChecker.ID_BUILD + LSystem.EOL + //$NON-NLS-1$
-			LaTeXDraw.LABEL_APP + LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.221") + LSystem.EOL + //$NON-NLS-1$
-			"Copyright(c) 2005-2017 - Arnaud BLOUIN" + LSystem.EOL + //$NON-NLS-1$
-			"http://latexdraw.sourceforge.net/");//$NON-NLS-1$
-		noteText.setText(LFileUtils.INSTANCE.readTextFile("/res/release_note.txt"));//$NON-NLS-1$
-		contribText.setText(LFileUtils.INSTANCE.readTextFile("/res/contributors.txt"));//$NON-NLS-1$
-		licenseText.setText(LFileUtils.INSTANCE.readTextFile("/res/license.txt"));//$NON-NLS-1$
+		aboutText.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.219") + ' ' +  //NON-NLS
+			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + ", build " + VersionChecker.ID_BUILD + LSystem.EOL +  //NON-NLS
+			LaTeXDraw.LABEL_APP + LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.221") + LSystem.EOL + //NON-NLS
+			"Copyright(c) 2005-2017 - Arnaud BLOUIN" + LSystem.EOL + //NON-NLS
+			"http://latexdraw.sourceforge.net/"); //NON-NLS
+		noteText.setText(LFileUtils.INSTANCE.readTextFile("/res/release_note.txt")); //NON-NLS
+		contribText.setText(LFileUtils.INSTANCE.readTextFile("/res/contributors.txt")); //NON-NLS
+		licenseText.setText(LFileUtils.INSTANCE.readTextFile("/res/license.txt")); //NON-NLS
 
 		final StringBuilder builder = new StringBuilder();
-		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LSystem.EOL); //$NON-NLS-1$
-		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LSystem.EOL); //$NON-NLS-1$
-		builder.append("PS2PDF version:").append(LSystem.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LSystem.EOL); //$NON-NLS-1$
-		builder.append("PS2EPSI version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LSystem.EOL); //$NON-NLS-1$
-		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LSystem.EOL); //$NON-NLS-1$
-		builder.append("Java properties:").append(LSystem.EOL); //$NON-NLS-1$
+		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LSystem.EOL); //NON-NLS
+		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LSystem.EOL); //NON-NLS
+		builder.append("PS2PDF version:").append(LSystem.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LSystem.EOL); //NON-NLS
+		builder.append("PS2EPSI version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LSystem.EOL); //NON-NLS
+		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LSystem.EOL); //NON-NLS
+		builder.append("Java properties:").append(LSystem.EOL); //NON-NLS
 		System.getProperties().forEach((key, value) -> builder.append(key).append(':').append(' ').append(value).append(LSystem.EOL));
 		sysText.setText(builder.toString());
 	}

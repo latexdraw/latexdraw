@@ -49,8 +49,8 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 
 		final Map<FreeHandStyle, Image> cache = new EnumMap<>(FreeHandStyle.class);
-		cache.put(FreeHandStyle.LINES, new Image("/res/freehand/line.png"));
-		cache.put(FreeHandStyle.CURVES, new Image("/res/freehand/curve.png"));
+		cache.put(FreeHandStyle.LINES, new Image("/res/freehand/line.png")); //NON-NLS
+		cache.put(FreeHandStyle.CURVES, new Image("/res/freehand/curve.png")); //NON-NLS
 		initComboBox(freeHandType, cache, FreeHandStyle.values());
 	}
 

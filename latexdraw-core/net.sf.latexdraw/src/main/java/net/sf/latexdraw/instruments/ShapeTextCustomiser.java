@@ -73,7 +73,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	public void initialize(URL url, ResourceBundle bundle) {
+	public void initialize(final URL url, final ResourceBundle bundle) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 

@@ -39,7 +39,7 @@ public class ShortcutsController implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(final URL location, final ResourceBundle resources) {
 		final String ctrl = KeyEvent.getKeyModifiersText(InputEvent.CTRL_MASK);
 		final String shift = KeyEvent.getKeyModifiersText(InputEvent.SHIFT_MASK);
 		final String leftClick = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.8"); //$NON-NLS-1$
@@ -51,7 +51,7 @@ public class ShortcutsController implements Initializable {
 
 		for(int i = 0, size = table.getColumns().size(); i < size; i++) {
 			final int colIndex = i;
-			TableColumn<ObservableList<String>, String> col = (TableColumn<ObservableList<String>, String>) table.getColumns().get(i);
+			final TableColumn<ObservableList<String>, String> col = (TableColumn<ObservableList<String>, String>) table.getColumns().get(i);
 			col.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().get(colIndex)));
 		}
 

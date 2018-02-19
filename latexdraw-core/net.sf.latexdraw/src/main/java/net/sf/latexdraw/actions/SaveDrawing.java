@@ -43,8 +43,8 @@ public class SaveDrawing extends Save<Label> {
 			f = file;
 		}
 
-		if(f != null && !f.getPath().toLowerCase().endsWith(".svg")) {
-			f = new File(f.getPath() + ".svg");
+		if(f != null && !f.getPath().toLowerCase().endsWith(".svg")) { //NON-NLS
+			f = new File(f.getPath() + ".svg"); //NON-NLS
 		}
 
 		return Optional.ofNullable(f);
@@ -61,11 +61,11 @@ public class SaveDrawing extends Save<Label> {
 	/** True: A dialog bow will be always shown to ask the location to save. */
 	private boolean saveAs;
 	/** True: the app will be closed after the drawing saved. */
-	private boolean saveOnClose;
-	private File currentFolder;
+	private final boolean saveOnClose;
+	private final File currentFolder;
 	/** The file chooser that will be used to select the location to save. */
 	private FileChooser fileChooser;
-	private PreferencesSetter prefSetter;
+	private final PreferencesSetter prefSetter;
 
 	public SaveDrawing(final boolean saveAs, final boolean saveOnClose, final File currentFolder, final FileChooser fileChooser,
 					   final PreferencesSetter prefSetter, final File file, final OpenSaver<Label> openSaveManager, final ProgressBar bar, final JfxUI ui,

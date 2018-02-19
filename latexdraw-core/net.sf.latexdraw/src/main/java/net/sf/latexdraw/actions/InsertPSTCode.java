@@ -35,9 +35,9 @@ import org.malai.undo.Undoable;
  */
 public class InsertPSTCode extends DrawingActionImpl implements Undoable {
 	/** The code to parse. */
-	private String code;
+	private final String code;
 	/** The status bar. */
-	private Label statusBar;
+	private final Label statusBar;
 	/** The added shapes. */
 	private Optional<IShape> shapes;
 

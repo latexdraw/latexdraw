@@ -23,12 +23,12 @@ public enum ExportFormat {
 	TEX {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("TeX", "*."+getFileExtension());
+			return new FileChooser.ExtensionFilter("TeX", "*."+getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
-			return ".tex";
+			return ".tex"; //NON-NLS
 		}
 	},
 	/**
@@ -37,12 +37,12 @@ public enum ExportFormat {
 	PDF {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("PDF", "*"+getFileExtension());
+			return new FileChooser.ExtensionFilter("PDF", "*"+getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
-			return ".pdf";
+			return ".pdf"; //NON-NLS
 		}
 	},
 	/**
@@ -51,12 +51,12 @@ public enum ExportFormat {
 	EPS_LATEX {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("EPS", "*"+getFileExtension());
+			return new FileChooser.ExtensionFilter("EPS", "*"+getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
-			return ".eps";
+			return ".eps"; //NON-NLS
 		}
 	},
 	/**
@@ -65,12 +65,12 @@ public enum ExportFormat {
 	PDF_CROP {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("PDF", "*"+getFileExtension());
+			return new FileChooser.ExtensionFilter("PDF", "*"+getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
-			return ".pdf";
+			return ".pdf"; //NON-NLS
 		}
 	},
 	/**
@@ -79,12 +79,12 @@ public enum ExportFormat {
 	BMP {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("BMP", "*"+getFileExtension());
+			return new FileChooser.ExtensionFilter("BMP", "*"+getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
-			return ".bmp";
+			return ".bmp"; //NON-NLS
 		}
 	},
 	/**
@@ -93,12 +93,12 @@ public enum ExportFormat {
 	PNG {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("PNG", "*"+getFileExtension());
+			return new FileChooser.ExtensionFilter("PNG", "*"+getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
-			return ".png";
+			return ".png"; //NON-NLS
 		}
 	},
 	/**
@@ -107,12 +107,12 @@ public enum ExportFormat {
 	JPG {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("JPG", "*"+getFileExtension());
+			return new FileChooser.ExtensionFilter("JPG", "*"+getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
-			return ".jpg";
+			return ".jpg"; //NON-NLS
 		}
 	};
 

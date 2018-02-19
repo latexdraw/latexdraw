@@ -62,6 +62,6 @@ public class StreamExecReader extends Thread {
 	 * @return The read log.
 	 */
 	public String getLog() {
-		return log == null ? "" : log.toString(); //$NON-NLS-1$
+		return log == null ? "" : log.toString(); //NON-NLS
 	}
 }

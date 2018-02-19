@@ -17,6 +17,7 @@ import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -89,7 +90,7 @@ abstract class LShape implements ISingleShape {
 	protected final DoubleProperty rotationAngle;
 
 	/** Defines if the points of the shape must be considered. */
-	protected boolean showPts;
+	protected final BooleanProperty showPts;
 
 	/** Defines if the shape has double borders. */
 	protected final BooleanProperty hasDbleBord;
@@ -152,7 +153,7 @@ abstract class LShape implements ISingleShape {
 		gradColStart = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_GRADIENT_START_COLOR);
 		gradColEnd = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_GRADIENT_END_COLOR);
 		gradMidPt = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_GRADIENT_MID_POINT);
-		showPts = false;
+		showPts = new SimpleBooleanProperty(false);
 		points = new ArrayList<>();
 	}
 
@@ -406,7 +407,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public boolean isShowPts() {
-		return showPts;
+		return showPts.get();
 	}
 
 	@Override
@@ -661,19 +662,21 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setShadowSize(final double size) {
-		if(isShadowable() && size > 0 && MathUtils.INST.isValidCoord(size)) {
+		if(isShadowable() && size > 0d && MathUtils.INST.isValidCoord(size)) {
 			shadowSize.set(size);
 		}
 	}
 
 	@Override
 	public void setShowPts(final boolean pts) {
-		if(isShowPtsable()) showPts = pts;
+		if(isShowPtsable()) {
+			showPts.set(pts);
+		}
 	}
 
 	@Override
 	public void setThickness(final double thick) {
-		if(thick > 0 && isThicknessable() && MathUtils.INST.isValidCoord(thick)) {
+		if(thick > 0d && isThicknessable() && MathUtils.INST.isValidCoord(thick)) {
 			thickness.setValue(thick);
 		}
 	}
@@ -935,5 +938,10 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public DoubleProperty rotationAngleProperty() {
 		return rotationAngle;
+	}
+
+	@Override
+	public ReadOnlyBooleanProperty showPointProperty() {
+		return showPts;
 	}
 }

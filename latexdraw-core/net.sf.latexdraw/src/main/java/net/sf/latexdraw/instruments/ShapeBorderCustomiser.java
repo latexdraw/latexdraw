@@ -75,15 +75,15 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		linePane.managedProperty().bind(linePane.visibleProperty());
 
 		final Map<BorderPos, Image> cachePos = new EnumMap<>(BorderPos.class);
-		cachePos.put(BorderPos.INTO, new Image("/res/doubleBoundary/double.boundary.into.png"));
-		cachePos.put(BorderPos.MID, new Image("/res/doubleBoundary/double.boundary.middle.png"));
-		cachePos.put(BorderPos.OUT, new Image("/res/doubleBoundary/double.boundary.out.png"));
+		cachePos.put(BorderPos.INTO, new Image("/res/doubleBoundary/double.boundary.into.png")); //NON-NLS
+		cachePos.put(BorderPos.MID, new Image("/res/doubleBoundary/double.boundary.middle.png")); //NON-NLS
+		cachePos.put(BorderPos.OUT, new Image("/res/doubleBoundary/double.boundary.out.png")); //NON-NLS
 		initComboBox(bordersPosCB, cachePos, BorderPos.values());
 
 		final Map<LineStyle, Image> cacheStyle = new EnumMap<>(LineStyle.class);
-		cacheStyle.put(LineStyle.SOLID, new Image("/res/lineStyles/lineStyle.none.png"));
-		cacheStyle.put(LineStyle.DASHED, new Image("/res/lineStyles/lineStyle.dashed.png"));
-		cacheStyle.put(LineStyle.DOTTED, new Image("/res/lineStyles/lineStyle.dotted.png"));
+		cacheStyle.put(LineStyle.SOLID, new Image("/res/lineStyles/lineStyle.none.png")); //NON-NLS
+		cacheStyle.put(LineStyle.DASHED, new Image("/res/lineStyles/lineStyle.dashed.png")); //NON-NLS
+		cacheStyle.put(LineStyle.DOTTED, new Image("/res/lineStyles/lineStyle.dotted.png")); //NON-NLS
 		initComboBox(lineCB, cacheStyle, LineStyle.values());
 	}
 

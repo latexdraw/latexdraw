@@ -80,46 +80,46 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 		bracketPane.managedProperty().bind(bracketPane.visibleProperty());
 		rbracketPane.managedProperty().bind(rbracketPane.visibleProperty());
 
-		Map<ArrowStyle, Image> cacheLeft = new EnumMap<>(ArrowStyle.class);
-		cacheLeft.put(ArrowStyle.NONE, new Image("/res/arrowStyles/line.none.left.png"));
-		cacheLeft.put(ArrowStyle.BAR_END, new Image("/res/arrowStyles/line.barEnd.left.png"));
-		cacheLeft.put(ArrowStyle.BAR_IN, new Image("/res/arrowStyles/line.barIn.left.png"));
-		cacheLeft.put(ArrowStyle.CIRCLE_END, new Image("/res/arrowStyles/line.circle.end.left.png"));
-		cacheLeft.put(ArrowStyle.CIRCLE_IN, new Image("/res/arrowStyles/line.circle.in.left.png"));
-		cacheLeft.put(ArrowStyle.DISK_END, new Image("/res/arrowStyles/line.disk.end.left.png"));
-		cacheLeft.put(ArrowStyle.DISK_IN, new Image("/res/arrowStyles/line.disk.in.left.png"));
-		cacheLeft.put(ArrowStyle.LEFT_ARROW, new Image("/res/arrowStyles/line.arrow.left.png"));
-		cacheLeft.put(ArrowStyle.RIGHT_ARROW, new Image("/res/arrowStyles/line.rarrow.left.png"));
-		cacheLeft.put(ArrowStyle.LEFT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.left.png"));
-		cacheLeft.put(ArrowStyle.RIGHT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.r.left.png"));
-		cacheLeft.put(ArrowStyle.LEFT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.left.png"));
-		cacheLeft.put(ArrowStyle.RIGHT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.r.left.png"));
-		cacheLeft.put(ArrowStyle.LEFT_DBLE_ARROW, new Image("/res/arrowStyles/line.dbleArrow.left.png"));
-		cacheLeft.put(ArrowStyle.RIGHT_DBLE_ARROW, new Image("/res/arrowStyles/line.rdbleArrow.left.png"));
-		cacheLeft.put(ArrowStyle.ROUND_IN, new Image("/res/arrowStyles/line.roundIn.left.png"));
-		cacheLeft.put(ArrowStyle.ROUND_END, new Image("/res/arrowStyles/line.roundEnd.left.png"));
-		cacheLeft.put(ArrowStyle.SQUARE_END, new Image("/res/arrowStyles/lineEnd.left.png"));
+		final Map<ArrowStyle, Image> cacheLeft = new EnumMap<>(ArrowStyle.class);
+		cacheLeft.put(ArrowStyle.NONE, new Image("/res/arrowStyles/line.none.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.BAR_END, new Image("/res/arrowStyles/line.barEnd.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.BAR_IN, new Image("/res/arrowStyles/line.barIn.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.CIRCLE_END, new Image("/res/arrowStyles/line.circle.end.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.CIRCLE_IN, new Image("/res/arrowStyles/line.circle.in.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.DISK_END, new Image("/res/arrowStyles/line.disk.end.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.DISK_IN, new Image("/res/arrowStyles/line.disk.in.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.LEFT_ARROW, new Image("/res/arrowStyles/line.arrow.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.RIGHT_ARROW, new Image("/res/arrowStyles/line.rarrow.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.LEFT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.RIGHT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.r.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.LEFT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.RIGHT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.r.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.LEFT_DBLE_ARROW, new Image("/res/arrowStyles/line.dbleArrow.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.RIGHT_DBLE_ARROW, new Image("/res/arrowStyles/line.rdbleArrow.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.ROUND_IN, new Image("/res/arrowStyles/line.roundIn.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.ROUND_END, new Image("/res/arrowStyles/line.roundEnd.left.png")); //NON-NLS
+		cacheLeft.put(ArrowStyle.SQUARE_END, new Image("/res/arrowStyles/lineEnd.left.png")); //NON-NLS
 		initComboBox(arrowLeftCB, cacheLeft, ArrowStyle.values());
 
-		Map<ArrowStyle, Image> cacheRight = new EnumMap<>(ArrowStyle.class);
-		cacheRight.put(ArrowStyle.NONE, new Image("/res/arrowStyles/line.none.right.png"));
-		cacheRight.put(ArrowStyle.BAR_END, new Image("/res/arrowStyles/line.barEnd.right.png"));
-		cacheRight.put(ArrowStyle.BAR_IN, new Image("/res/arrowStyles/line.barIn.right.png"));
-		cacheRight.put(ArrowStyle.CIRCLE_END, new Image("/res/arrowStyles/line.circle.end.right.png"));
-		cacheRight.put(ArrowStyle.CIRCLE_IN, new Image("/res/arrowStyles/line.circle.in.right.png"));
-		cacheRight.put(ArrowStyle.DISK_END, new Image("/res/arrowStyles/line.disk.end.right.png"));
-		cacheRight.put(ArrowStyle.DISK_IN, new Image("/res/arrowStyles/line.disk.in.right.png"));
-		cacheRight.put(ArrowStyle.RIGHT_ARROW, new Image("/res/arrowStyles/line.arrow.right.png"));
-		cacheRight.put(ArrowStyle.LEFT_ARROW, new Image("/res/arrowStyles/line.rarrow.right.png"));
-		cacheRight.put(ArrowStyle.RIGHT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.right.png"));
-		cacheRight.put(ArrowStyle.LEFT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.r.right.png"));
-		cacheRight.put(ArrowStyle.RIGHT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.right.png"));
-		cacheRight.put(ArrowStyle.LEFT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.r.right.png"));
-		cacheRight.put(ArrowStyle.RIGHT_DBLE_ARROW, new Image("/res/arrowStyles/line.dbleArrow.right.png"));
-		cacheRight.put(ArrowStyle.LEFT_DBLE_ARROW, new Image("/res/arrowStyles/line.rdbleArrow.right.png"));
-		cacheRight.put(ArrowStyle.ROUND_IN, new Image("/res/arrowStyles/line.roundIn.right.png"));
-		cacheRight.put(ArrowStyle.ROUND_END, new Image("/res/arrowStyles/line.roundEnd.right.png"));
-		cacheRight.put(ArrowStyle.SQUARE_END, new Image("/res/arrowStyles/lineEnd.right.png"));
+		final Map<ArrowStyle, Image> cacheRight = new EnumMap<>(ArrowStyle.class);
+		cacheRight.put(ArrowStyle.NONE, new Image("/res/arrowStyles/line.none.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.BAR_END, new Image("/res/arrowStyles/line.barEnd.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.BAR_IN, new Image("/res/arrowStyles/line.barIn.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.CIRCLE_END, new Image("/res/arrowStyles/line.circle.end.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.CIRCLE_IN, new Image("/res/arrowStyles/line.circle.in.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.DISK_END, new Image("/res/arrowStyles/line.disk.end.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.DISK_IN, new Image("/res/arrowStyles/line.disk.in.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.RIGHT_ARROW, new Image("/res/arrowStyles/line.arrow.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.LEFT_ARROW, new Image("/res/arrowStyles/line.rarrow.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.RIGHT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.LEFT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.r.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.RIGHT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.LEFT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.r.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.RIGHT_DBLE_ARROW, new Image("/res/arrowStyles/line.dbleArrow.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.LEFT_DBLE_ARROW, new Image("/res/arrowStyles/line.rdbleArrow.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.ROUND_IN, new Image("/res/arrowStyles/line.roundIn.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.ROUND_END, new Image("/res/arrowStyles/line.roundEnd.right.png")); //NON-NLS
+		cacheRight.put(ArrowStyle.SQUARE_END, new Image("/res/arrowStyles/lineEnd.right.png")); //NON-NLS
 		initComboBox(arrowRightCB, cacheRight, ArrowStyle.values());
 	}
 

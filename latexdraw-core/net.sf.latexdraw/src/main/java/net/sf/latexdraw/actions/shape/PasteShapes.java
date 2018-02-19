@@ -29,9 +29,9 @@ import org.malai.undo.Undoable;
  */
 public class PasteShapes extends DrawingActionImpl implements Undoable, Modifying {
 	/** The cut or copy action. */
-	private CopyShapes copy;
+	private final CopyShapes copy;
 	/** The magnetic grid to use. */
-	private MagneticGrid grid;
+	private final MagneticGrid grid;
 	private final List<IShape> pastedShapes;
 
 	public PasteShapes(final CopyShapes copyAction, final MagneticGrid magnetGrid, final IDrawing drawing) {

@@ -55,7 +55,7 @@ import org.malai.undo.UndoCollector;
  * @author Arnaud Blouin
  */
 public class LaTeXDraw extends JfxUI {
-	public static final String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
+	public static final String LABEL_APP = "LaTeXDraw"; //NON-NLS
 
 	private static LaTeXDraw instance;
 
@@ -97,7 +97,7 @@ public class LaTeXDraw extends JfxUI {
 		loadProgress.progressProperty().bind(task.progressProperty());
 
 		final Pane splashLayout = new VBox();
-		final Image img = new Image("res/LaTeXDrawSmall.png");
+		final Image img = new Image("res/LaTeXDrawSmall.png"); //NON-NLS
 		final ImageView splash = new ImageView(img);
 		splashLayout.getChildren().addAll(splash, loadProgress);
 		splashLayout.setEffect(new DropShadow());
@@ -122,7 +122,7 @@ public class LaTeXDraw extends JfxUI {
 		final Scene splashScene = new Scene(splashLayout);
 		initStage.initStyle(StageStyle.UNDECORATED);
 		initStage.setScene(splashScene);
-		initStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png"));
+		initStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png")); //NON-NLS
 		initStage.centerOnScreen();
 		initStage.toFront();
 		initStage.show();
@@ -140,12 +140,12 @@ public class LaTeXDraw extends JfxUI {
 					mainStage.setTitle(LABEL_APP);
 				});
 
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), LangTool.INSTANCE.getBundle(),
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), LangTool.INSTANCE.getBundle(), //NON-NLS
 					new LatexdrawBuilderFactory(injector), instanceCallBack);
 				updateProgress(0.6, 1d);
 				final Scene scene = new Scene(root);
 				updateProgress(0.7, 1d);
-				scene.getStylesheets().add("css/style.css");
+				scene.getStylesheets().add("css/style.css"); //NON-NLS
 				updateProgress(0.8, 1d);
 
 				Platform.runLater(() -> {
@@ -157,7 +157,7 @@ public class LaTeXDraw extends JfxUI {
 					prefSetter.readXMLPreferences();
 					// Preventing the stage to close automatically.
 					mainStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, WindowEvent::consume);
-					mainStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png"));
+					mainStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png")); //NON-NLS
 					mainStage.centerOnScreen();
 					injector.getInstance(MagneticGrid.class).update();
 					injector.getInstance(TabSelector.class).centreViewport();

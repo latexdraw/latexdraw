@@ -13,6 +13,7 @@ package net.sf.latexdraw.models.interfaces.shape;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 
 /**
  * The API for shapes not composed of several shapes.
@@ -83,4 +84,6 @@ public interface ISingleShape extends IShape {
 	 ObjectProperty<Color> hatchingsColProperty();
 
 	 DoubleProperty rotationAngleProperty();
+
+	 ReadOnlyBooleanProperty showPointProperty();
 }

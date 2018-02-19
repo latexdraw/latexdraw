@@ -52,22 +52,22 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 
 		final Map<DotStyle, Image> cache = new EnumMap<>(DotStyle.class);
-		cache.put(DotStyle.DOT, new Image("/res/dotStyles/dot.none.png"));
-		cache.put(DotStyle.ASTERISK, new Image("/res/dotStyles/dot.asterisk.png"));
-		cache.put(DotStyle.BAR, new Image("/res/dotStyles/dot.bar.png"));
-		cache.put(DotStyle.DIAMOND, new Image("/res/dotStyles/dot.diamond.png"));
-		cache.put(DotStyle.FDIAMOND, new Image("/res/dotStyles/dot.diamondF.png"));
-		cache.put(DotStyle.O, new Image("/res/dotStyles/dot.o.png"));
-		cache.put(DotStyle.OPLUS, new Image("/res/dotStyles/dot.oplus.png"));
-		cache.put(DotStyle.OTIMES, new Image("/res/dotStyles/dot.ocross.png"));
-		cache.put(DotStyle.PLUS, new Image("/res/dotStyles/dot.plus.png"));
-		cache.put(DotStyle.X, new Image("/res/dotStyles/dot.cross.png"));
-		cache.put(DotStyle.TRIANGLE, new Image("/res/dotStyles/dot.triangle.png"));
-		cache.put(DotStyle.FTRIANGLE, new Image("/res/dotStyles/dot.triangleF.png"));
-		cache.put(DotStyle.PENTAGON, new Image("/res/dotStyles/dot.pentagon.png"));
-		cache.put(DotStyle.FPENTAGON, new Image("/res/dotStyles/dot.pentagonF.png"));
-		cache.put(DotStyle.SQUARE, new Image("/res/dotStyles/dot.square.png"));
-		cache.put(DotStyle.FSQUARE, new Image("/res/dotStyles/dot.squareF.png"));
+		cache.put(DotStyle.DOT, new Image("/res/dotStyles/dot.none.png")); //NON-NLS
+		cache.put(DotStyle.ASTERISK, new Image("/res/dotStyles/dot.asterisk.png")); //NON-NLS
+		cache.put(DotStyle.BAR, new Image("/res/dotStyles/dot.bar.png")); //NON-NLS
+		cache.put(DotStyle.DIAMOND, new Image("/res/dotStyles/dot.diamond.png")); //NON-NLS
+		cache.put(DotStyle.FDIAMOND, new Image("/res/dotStyles/dot.diamondF.png")); //NON-NLS
+		cache.put(DotStyle.O, new Image("/res/dotStyles/dot.o.png")); //NON-NLS
+		cache.put(DotStyle.OPLUS, new Image("/res/dotStyles/dot.oplus.png")); //NON-NLS
+		cache.put(DotStyle.OTIMES, new Image("/res/dotStyles/dot.ocross.png")); //NON-NLS
+		cache.put(DotStyle.PLUS, new Image("/res/dotStyles/dot.plus.png")); //NON-NLS
+		cache.put(DotStyle.X, new Image("/res/dotStyles/dot.cross.png")); //NON-NLS
+		cache.put(DotStyle.TRIANGLE, new Image("/res/dotStyles/dot.triangle.png")); //NON-NLS
+		cache.put(DotStyle.FTRIANGLE, new Image("/res/dotStyles/dot.triangleF.png")); //NON-NLS
+		cache.put(DotStyle.PENTAGON, new Image("/res/dotStyles/dot.pentagon.png")); //NON-NLS
+		cache.put(DotStyle.FPENTAGON, new Image("/res/dotStyles/dot.pentagonF.png")); //NON-NLS
+		cache.put(DotStyle.SQUARE, new Image("/res/dotStyles/dot.square.png")); //NON-NLS
+		cache.put(DotStyle.FSQUARE, new Image("/res/dotStyles/dot.squareF.png")); //NON-NLS
 		initComboBox(dotCB, cache, DotStyle.values());
 	}
 

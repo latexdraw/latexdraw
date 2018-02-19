@@ -27,9 +27,9 @@ public final class LSystem {
 	/** The singleton. */
 	public static final LSystem INSTANCE = new LSystem();
 	/** The line separator of the current system. */
-	public static final String EOL = System.getProperty("line.separator"); //$NON-NLS-1$
+	public static final String EOL = System.getProperty("line.separator"); //NON-NLS
 	/** The file separator of the current system. */
-	public static final String FILE_SEP = System.getProperty("file.separator"); //$NON-NLS-1$
+	public static final String FILE_SEP = System.getProperty("file.separator"); //NON-NLS
 
 	/**
 	 * Creates the singleton.
@@ -141,7 +141,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public Optional<OperatingSystem> getSystem() {
-		final String os = System.getProperty("os.name"); //$NON-NLS-1$
+		final String os = System.getProperty("os.name"); //NON-NLS
 
 		if("linux".equalsIgnoreCase(os)) //$NON-NLS-1$
 			return Optional.of(OperatingSystem.LINUX);
@@ -156,7 +156,7 @@ public final class LSystem {
 			return Optional.of(OperatingSystem.XP);
 
 		if("mac os x".equalsIgnoreCase(os)) { //$NON-NLS-1$
-			final String[] v = System.getProperty("os.version").split("\\."); //$NON-NLS-1$ //$NON-NLS-2$
+			final String[] v = System.getProperty("os.version").split("\\."); //NON-NLS //$NON-NLS-2$
 			final double[] d = new double[v.length];
 
 			for(int i = 0; i < v.length; i++)
@@ -174,7 +174,7 @@ public final class LSystem {
 		if(os.toLowerCase().contains("windows 10")) //$NON-NLS-1$
 			return Optional.of(OperatingSystem.TEN);
 
-		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os)); //$NON-NLS-1$
+		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os)); //NON-NLS
 
 		return Optional.empty();
 	}
@@ -184,7 +184,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getLaTeXVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getLatexBinPath(), "--version" }, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getLatexBinPath(), "--version" }, null); //NON-NLS
 	}
 
 	/**
@@ -192,7 +192,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getDVIPSVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getDvipsBinPath(), "--version" }, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getDvipsBinPath(), "--version" }, null); //NON-NLS
 	}
 
 	/**
@@ -208,7 +208,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPS2EPSVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPS2EPSBinPath(), "--version" }, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPS2EPSBinPath(), "--version" }, null); //NON-NLS
 	}
 
 	/**
@@ -216,7 +216,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPDFCROPVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPdfcropBinPath(), "--version" }, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPdfcropBinPath(), "--version" }, null); //NON-NLS
 	}
 
 	/**
@@ -247,7 +247,7 @@ public final class LSystem {
 
 			return err.getLog() + EOL + inp.getLog();
 		}catch(final IOException | SecurityException | InterruptedException ex) {
-			return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + ex.getMessage(); //$NON-NLS-1$ //$NON-NLS-2$
+			return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + ex.getMessage(); //NON-NLS //$NON-NLS-2$
 		}
 	}
 
@@ -258,7 +258,7 @@ public final class LSystem {
 	 */
 	public String getLatexErrorMessageFromLog(final String log) {
 		if(log == null) return "";
-		final Matcher matcher = Pattern.compile(".*\r?\n").matcher(log); //$NON-NLS-1$
+		final Matcher matcher = Pattern.compile(".*\r?\n").matcher(log); //NON-NLS
 		final StringBuilder errors = new StringBuilder();
 
 		while(matcher.find()) {

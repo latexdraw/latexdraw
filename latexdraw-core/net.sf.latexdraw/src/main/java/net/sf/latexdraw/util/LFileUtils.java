@@ -51,8 +51,8 @@ public final class LFileUtils {
 	public String normalizeForLaTeX(final String str) {
 		if(str==null) return null;
 		if(LSystem.INSTANCE.isWindows())
-			return str.replaceAll("\\\\", "/").replaceAll("~", "\\\\string~");
-		return str.replaceAll("~", "\\\\string~");
+			return str.replaceAll("\\\\", "/").replaceAll("~", "\\\\string~"); //NON-NLS
+		return str.replaceAll("~", "\\\\string~"); //NON-NLS
 	}
 
 	

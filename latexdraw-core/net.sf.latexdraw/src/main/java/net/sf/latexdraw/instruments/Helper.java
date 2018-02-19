@@ -67,10 +67,10 @@ public class Helper extends JfxInstrument implements Initializable {
 		addBinding(new MenuItem2ShowLazyStage(this, aboutItem, this::getAboutFrame, true));
 		addBinding(new MenuItem2ShowLazyStage(this, shortcutItem, this::getShortcutsFrame, true));
 		try {
-			addBinding(new MenuItem2OpenWebPage(this, reportBugItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug")));
-			addBinding(new MenuItem2OpenWebPage(this, forumItem, new URI("https://sourceforge.net/p/latexdraw/discussion/")));
-			addBinding(new MenuItem2OpenWebPage(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
-			addBinding(new MenuItem2OpenWebPage(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual")));
+			addBinding(new MenuItem2OpenWebPage(this, reportBugItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug"))); //NON-NLS
+			addBinding(new MenuItem2OpenWebPage(this, forumItem, new URI("https://sourceforge.net/p/latexdraw/discussion/"))); //NON-NLS
+			addBinding(new MenuItem2OpenWebPage(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523"))); //NON-NLS
+			addBinding(new MenuItem2OpenWebPage(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual"))); //NON-NLS
 		}catch(final URISyntaxException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
@@ -80,7 +80,7 @@ public class Helper extends JfxInstrument implements Initializable {
 	protected Stage getAboutFrame() {
 		if(aboutFrame == null) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("/fxml/About.fxml"), LangTool.INSTANCE.getBundle());
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/About.fxml"), LangTool.INSTANCE.getBundle()); //NON-NLS
 				final Scene scene = new Scene(root);
 				aboutFrame = new Stage(StageStyle.UTILITY);
 				aboutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("Res.1"));
@@ -97,7 +97,7 @@ public class Helper extends JfxInstrument implements Initializable {
 	protected Stage getShortcutsFrame() {
 		if(shortcutFrame == null) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("/fxml/Shortcuts.fxml"), LangTool.INSTANCE.getBundle());
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/Shortcuts.fxml"), LangTool.INSTANCE.getBundle()); //NON-NLS
 				final Scene scene = new Scene(root);
 				shortcutFrame = new Stage(StageStyle.UTILITY);
 				shortcutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.3c"));

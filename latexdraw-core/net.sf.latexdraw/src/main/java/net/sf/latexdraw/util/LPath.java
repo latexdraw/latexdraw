@@ -21,14 +21,14 @@ public final class LPath {
 	/** The singleton. */
 	public static final LPath INSTANCE = new LPath();
 	/** The name of the cache directory */
-	public static final String CACHE_DIR = ".cache"; //$NON-NLS-1$
+	public static final String CACHE_DIR = ".cache"; //NON-NLS
 	/** The name of the cache directory for shared templates */
-	public static final String CACHE_SHARED_DIR = ".cacheShared"; //$NON-NLS-1$
+	public static final String CACHE_SHARED_DIR = ".cacheShared"; //NON-NLS
 	/** The name of the templates directory */
-	public static final String TEMPLATE_DIR = "templates"; //$NON-NLS-1$
+	public static final String TEMPLATE_DIR = "templates"; //NON-NLS
 	public static final String PATH_LOCAL_USER = INSTANCE.getPathLocalUser();
 	public static final String PATH_TEMPLATES_DIR_USER = PATH_LOCAL_USER + File.separator + TEMPLATE_DIR;
-	public static final String PATH_PREFERENCES_XML_FILE = PATH_LOCAL_USER + File.separator + ".preferences.xml"; //$NON-NLS-1$
+	public static final String PATH_PREFERENCES_XML_FILE = PATH_LOCAL_USER + File.separator + ".preferences.xml"; //NON-NLS
 	public static final String PATH_CACHE_DIR = PATH_LOCAL_USER + File.separator + CACHE_DIR;
 	public static final String PATH_CACHE_SHARE_DIR = PATH_LOCAL_USER + File.separator + CACHE_SHARED_DIR;
 	public static final String PATH_TEMPLATES_SHARED = INSTANCE.getPathTemplatesShared();
@@ -47,7 +47,7 @@ public final class LPath {
 	 * @since 3.0
 	 */
 	public String getNormaliseNamespaceURI(final String nsURI) {
-		return nsURI == null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
+		return nsURI == null || nsURI.isEmpty() ? "" : nsURI + ':'; //NON-NLS
 	}
 
 
@@ -56,18 +56,18 @@ public final class LPath {
 	 * @since 3.0
 	 */
 	private String getPathLocalUser() {
-		final String home = System.getProperty("user.home"); //$NON-NLS-1$
+		final String home = System.getProperty("user.home"); //NON-NLS
 
 		if(LSystem.INSTANCE.isVista() || LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8() || LSystem.INSTANCE.is10()) {
-			return home + "\\AppData\\Local\\latexdraw"; //$NON-NLS-1$
+			return home + "\\AppData\\Local\\latexdraw"; //NON-NLS
 		}
 		if(LSystem.INSTANCE.isXP()) {
-			return home + "\\Application Data\\latexdraw"; //$NON-NLS-1$
+			return home + "\\Application Data\\latexdraw"; //NON-NLS
 		}
 		if(LSystem.INSTANCE.isMacOSX()) {
-			return home + "/Library/Preferences/latexdraw"; //$NON-NLS-1$
+			return home + "/Library/Preferences/latexdraw"; //NON-NLS
 		}
-		return home + "/.latexdraw"; //$NON-NLS-1$
+		return home + "/.latexdraw"; //NON-NLS
 	}
 
 
@@ -85,37 +85,37 @@ public final class LPath {
 	 * @since 3.0
 	 */
 	private String getPathShared() {
-		final String home = System.getProperty("user.home"); //$NON-NLS-1$
+		final String home = System.getProperty("user.home"); //NON-NLS
 
 		if(LSystem.INSTANCE.isMacOSX()) {
-			return "/Users/Shared/latexdraw"; //$NON-NLS-1$
+			return "/Users/Shared/latexdraw"; //NON-NLS
 		}
 
 		if(LSystem.INSTANCE.isVista()) {
-			File dir = new File("C:\\ProgramData"); //$NON-NLS-1$
+			File dir = new File("C:\\ProgramData"); //NON-NLS
 			int cpt = 0;
 			final int max = 10;
 
 			while(!dir.exists() && cpt < max) {
-				dir = new File((char) ('C' + cpt++) + ":\\ProgramData"); //$NON-NLS-1$
+				dir = new File((char) ('C' + cpt++) + ":\\ProgramData"); //NON-NLS
 			}
 
 			if(dir.exists()) {
-				return dir.getPath() + "\\latexdraw"; //$NON-NLS-1$
+				return dir.getPath() + "\\latexdraw"; //NON-NLS
 			}
 
-			return home.substring(0, 1 + home.lastIndexOf('\\')) + "All Users\\Application Data\\latexdraw"; //$NON-NLS-1$
+			return home.substring(0, 1 + home.lastIndexOf('\\')) + "All Users\\Application Data\\latexdraw"; //NON-NLS
 		}
 
 		if(LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8() || LSystem.INSTANCE.is10()) {
-			return home.substring(0, 1 + home.lastIndexOf('\\')) + "Default\\AppData\\Local\\latexdraw"; //$NON-NLS-1$
+			return home.substring(0, 1 + home.lastIndexOf('\\')) + "Default\\AppData\\Local\\latexdraw"; //NON-NLS
 		}
 
 		if(LSystem.INSTANCE.isXP()) {
-			return home.substring(0, 1 + home.lastIndexOf('\\')) + "All Users\\Application Data\\latexdraw"; //$NON-NLS-1$
+			return home.substring(0, 1 + home.lastIndexOf('\\')) + "All Users\\Application Data\\latexdraw"; //NON-NLS
 		}
 
-		return "/usr/share/latexdraw"; //$NON-NLS-1$
+		return "/usr/share/latexdraw"; //NON-NLS
 	}
 
 

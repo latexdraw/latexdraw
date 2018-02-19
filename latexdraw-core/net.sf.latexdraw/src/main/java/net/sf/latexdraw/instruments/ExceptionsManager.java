@@ -51,7 +51,7 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	public Stage getStageEx() {
 		if(stageEx == null) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("/fxml/Badaboom.fxml"), LangTool.INSTANCE.getBundle());
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/Badaboom.fxml"), LangTool.INSTANCE.getBundle()); //NON-NLS
 				final Scene scene = new Scene(root);
 				stageEx = new Stage(StageStyle.UTILITY);
 				stageEx.setScene(scene);

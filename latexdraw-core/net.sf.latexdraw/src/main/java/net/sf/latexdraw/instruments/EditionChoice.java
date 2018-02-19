@@ -125,7 +125,7 @@ public enum EditionChoice {
 	}, PLOT {
 		@Override
 		public IPlot createShapeInstance() {
-			return ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 5, "x", false);
+			return ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 5, "x", false); //NON-NLS
 		}
 	};
 

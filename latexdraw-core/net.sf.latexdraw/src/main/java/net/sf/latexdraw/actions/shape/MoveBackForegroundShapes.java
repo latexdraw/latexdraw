@@ -64,7 +64,7 @@ public class MoveBackForegroundShapes extends ShapeActionImpl<IGroup> implements
 				sortedSh = gp.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
 
 				for(int i = 0; i < size; i++) {
-					IShape sh = sortedSh.get(i);
+					final IShape sh = sortedSh.get(i);
 					formerId[i] = drshapes.indexOf(sh);
 					dr.removeShape(sh);
 					dr.addShape(sh);
@@ -85,7 +85,7 @@ public class MoveBackForegroundShapes extends ShapeActionImpl<IGroup> implements
 				sortedSh = gp.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
 
 				for(int i = size - 1; i >= 0; i--) {
-					IShape sh = sortedSh.get(i);
+					final IShape sh = sortedSh.get(i);
 					formerId[i] = drshapes.indexOf(sh);
 					dr.removeShape(sh);
 					dr.addShape(sh, 0);

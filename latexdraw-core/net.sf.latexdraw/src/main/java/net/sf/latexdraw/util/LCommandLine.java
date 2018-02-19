@@ -29,7 +29,7 @@ public class LCommandLine {
 	}
 
 	/** The option for show the help. */
-	public static final String OPTION_HELP = "-h"; //$NON-NLS-1$
+	public static final String OPTION_HELP = "-h"; //NON-NLS
 
 
 	/** The file name given in argument. */
@@ -95,10 +95,10 @@ public class LCommandLine {
 	 */
 	public void displayHelp() {
 		System.out.println(LaTeXDraw.LABEL_APP + ' ' + VersionChecker.VERSION + VersionChecker.VERSION_STABILITY);
-		System.out.println("Options:"); //$NON-NLS-1$
-		System.out.println("\t"+OPTION_HELP+"\t\t\t\tDisplay the different options"); //$NON-NLS-1$ //$NON-NLS-2$
-		System.out.println("\t<filename>\t\t\tOpens the given file <filename> into latexdraw."); //$NON-NLS-1$
-		System.out.println("If no argument is given, latexdraw will started with a new drawing."); //$NON-NLS-1$
+		System.out.println("Options:"); //NON-NLS
+		System.out.println("\t"+OPTION_HELP+"\t\t\t\tDisplay the different options"); //NON-NLS
+		System.out.println("\t<filename>\t\t\tOpens the given file <filename> into latexdraw."); //NON-NLS
+		System.out.println("If no argument is given, latexdraw will started with a new drawing."); //NON-NLS
 	}
 
 

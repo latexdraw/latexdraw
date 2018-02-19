@@ -77,31 +77,31 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 			@Override
 			public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol, final int line, final int charPositionInLine,
 									final String msg, final RecognitionException e) {
-				errorLog.setText(errorLog.getText() + "Syntax error: " + msg + LSystem.EOL);
+				errorLog.setText(errorLog.getText() + "Syntax error: " + msg + LSystem.EOL); //NON-NLS
 			}
 		};
 
 		final PSTLatexdrawListener listener = new PSTLatexdrawListener() {
 			@Override
 			public void exitUnknowncmds(final PSTParser.UnknowncmdsContext ctx) {
-				errorLog.setText(errorLog.getText() + "Unknown command: " + ctx.LATEXCMD().getSymbol().getText() + LSystem.EOL);
+				errorLog.setText(errorLog.getText() + "Unknown command: " + ctx.LATEXCMD().getSymbol().getText() + LSystem.EOL); //NON-NLS
 			}
 
 			@Override
 			public void enterUnknownParamSetting(final PSTParser.UnknownParamSettingContext ctx) {
-				errorLog.setText(errorLog.getText() + "Unknown parameter: " + ctx.name.getText() + LSystem.EOL);
+				errorLog.setText(errorLog.getText() + "Unknown parameter: " + ctx.name.getText() + LSystem.EOL); //NON-NLS
 			}
 
 			@Override
 			public void visitErrorNode(final ErrorNode node) {
-				errorLog.setText(errorLog.getText() + "Error: " + node.getText() + LSystem.EOL);
+				errorLog.setText(errorLog.getText() + "Error: " + node.getText() + LSystem.EOL); //NON-NLS
 			}
 
 			@Override
 			public void exitText(final PSTParser.TextContext ctx) {
 				super.exitText(ctx);
 				if(ctx.getText().startsWith("\\")) {
-					errorLog.setText(errorLog.getText() + "Bad command: '" + ctx.getText() + "'?" + LSystem.EOL);
+					errorLog.setText(errorLog.getText() + "Bad command: '" + ctx.getText() + "'?" + LSystem.EOL); //NON-NLS
 				}
 			}
 		};
@@ -140,7 +140,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 			try {
 				// The FXML file only loaded only when this method is called: this JFX controller is created by
 				// Guice and lives as a singleton. A call to this function loads the FXML.
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/InsertCode.fxml"), LangTool.INSTANCE.getBundle(),
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/InsertCode.fxml"), LangTool.INSTANCE.getBundle(), //NON-NLS
 					new JavaFXBuilderFactory(), LaTeXDraw.getInstance().getInstanceCallBack());
 				final Scene scene = new Scene(root);
 				codeInserterDialogue = new Stage(StageStyle.UTILITY);

@@ -53,7 +53,7 @@ public abstract class Injector {
 			configure();
 			singletons.forEach(cl -> injectFieldsOf(instances.get(cl)));
 		}catch(final NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ex) {
-			LOGGER.log(Level.SEVERE, "Cannot create an instance of a class. Make sure this class has a public default constructor.", ex);
+			LOGGER.log(Level.SEVERE, "Cannot create an instance of a class. Make sure this class has a public default constructor.", ex); //NON-NLS
 		}
 	}
 
@@ -76,7 +76,7 @@ public abstract class Injector {
 			return null;
 		}
 
-		LOGGER.info(() -> "Getting an instance of " + cl.getTypeName());
+		LOGGER.info(() -> "Getting an instance of " + cl.getTypeName()); //NON-NLS
 
 		final Supplier<?> supplier = bindingsBetweenTypes.get(cl);
 
@@ -94,7 +94,7 @@ public abstract class Injector {
 			injectFieldsOf(instance);
 			return instance;
 		}catch(final NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ex) {
-			LOGGER.log(Level.SEVERE, "Cannot create an instance of " + cl.getTypeName() + ". Make sure this class has a public default constructor.", ex);
+			LOGGER.log(Level.SEVERE, "Cannot create an instance of " + cl.getTypeName() + ". Make sure this class has a public default constructor.", ex); //NON-NLS
 			return null;
 		}
 	}
@@ -121,8 +121,8 @@ public abstract class Injector {
 		getAllFieldsToInject(instance.getClass()).stream().filter(field -> {
 			// The field must be configured
 			if(!isConfigured(field.getType())) {
-				LOGGER.log(Level.SEVERE, "The field " + field.getName() + " in " + instance.getClass().getTypeName() +
-					" has not been configured for injection yet. Aborting its injection.");
+				LOGGER.log(Level.SEVERE, "The field " + field.getName() + " in " + instance.getClass().getTypeName() + //NON-NLS
+					" has not been configured for injection yet. Aborting its injection."); //NON-NLS
 				return false;
 			}
 			return true;
@@ -143,13 +143,13 @@ public abstract class Injector {
 
 				// Injecting the value.
 				final Object val = value;
-				LOGGER.info(() -> "Injecting the field: " + field.getName() + " of " + instance.getClass().getTypeName() + " with: " + val);
+				LOGGER.info(() -> "Injecting the field: " + field.getName() + " of " + instance.getClass().getTypeName() + " with: " + val); //NON-NLS
 				final boolean oldAccess = field.isAccessible();
 				field.setAccessible(true);
 				field.set(instance, value);
 				field.setAccessible(oldAccess);
 			}catch(final IllegalAccessException ex) {
-				LOGGER.log(Level.SEVERE, "Cannot access a field to inject.", ex);
+				LOGGER.log(Level.SEVERE, "Cannot access a field to inject.", ex); //NON-NLS
 			}
 		});
 	}
@@ -199,16 +199,16 @@ public abstract class Injector {
 	 * @param <T> The output type.
 	 * @param <S> The source type.
 	 */
-	public <T, S> void bindWithCommand(final Class<T> out, final Class<S> src, Function<S, T> cmd) {
+	public <T, S> void bindWithCommand(final Class<T> out, final Class<S> src, final Function<S, T> cmd) {
 		if(out != null && src != null && cmd != null) {
 			synchronized(instances) {
 				if(instances.containsKey(out)) {
-					LOGGER.severe("The type " + out.getTypeName() + " is already registered. Ignoring the binding.");
+					LOGGER.severe("The type " + out.getTypeName() + " is already registered. Ignoring the binding."); //NON-NLS
 					return;
 				}
 
 				if(!instances.containsKey(src)) {
-					LOGGER.severe("The type " + src.getTypeName() + " is not registered yet. Ignoring the binding.");
+					LOGGER.severe("The type " + src.getTypeName() + " is not registered yet. Ignoring the binding."); //NON-NLS
 					return;
 				}
 			}
@@ -229,7 +229,7 @@ public abstract class Injector {
 		final Set<Field> fields = new HashSet<>(Arrays.asList(cl.getDeclaredFields()));
 		Class<?> currentClass = cl.getSuperclass();
 
-		while(currentClass != null && currentClass.getTypeName().startsWith("net.sf.latexdraw")) {
+		while(currentClass != null && currentClass.getTypeName().startsWith("net.sf.latexdraw")) { //NON-NLS
 			fields.addAll(Arrays.asList(currentClass.getDeclaredFields()));
 			currentClass = currentClass.getSuperclass();
 		}

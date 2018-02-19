@@ -35,11 +35,11 @@ public class ExportTemplate extends IOAction<Label> implements TemplateAction {
 
 	@Override
 	protected void doActionBody() {
-		final TextInputDialog dialog = new TextInputDialog("templateFileName");
+		final TextInputDialog dialog = new TextInputDialog("templateFileName"); //NON-NLS
 		dialog.setHeaderText(LangTool.INSTANCE.getBundle().getString("DrawContainer.nameTemplate"));
 
 		dialog.showAndWait().ifPresent(name -> {
-			String path = LPath.PATH_TEMPLATES_DIR_USER + File.separator + name + ".svg";
+			final String path = LPath.PATH_TEMPLATES_DIR_USER + File.separator + name + ".svg"; //NON-NLS
 
 			if(Paths.get(path).toFile().exists()) {
 				final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
