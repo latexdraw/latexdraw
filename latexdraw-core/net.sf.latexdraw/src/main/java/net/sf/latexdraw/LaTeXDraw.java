@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,8 +39,10 @@ import net.sf.latexdraw.instruments.StatusBarController;
 import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.Preference;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -49,6 +52,7 @@ import org.malai.javafx.ui.JfxUI;
 import org.malai.properties.Modifiable;
 import org.malai.properties.Reinitialisable;
 import org.malai.undo.UndoCollector;
+import org.w3c.dom.Node;
 
 /**
  * The main class of the project.
@@ -60,7 +64,14 @@ public class LaTeXDraw extends JfxUI {
 	private static LaTeXDraw instance;
 
 	static {
-		System.setProperty("sun.java2d.opengl", "true");
+		final Node node = Preference.readXMLPreferencesFromFile(new File(LPath.PATH_PREFERENCES_XML_FILE)).get(LNamespace.XML_OPENGL);
+
+		if(node == null || java.lang.Boolean.parseBoolean(node.getTextContent())) {
+			System.setProperty("sun.java2d.opengl", "true");
+		}else {
+			System.setProperty("sun.java2d.opengl", "false");
+		}
+
 		Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE);
 		UndoCollector.INSTANCE.setSizeMax(30);
 		ActionsRegistry.INSTANCE.setSizeMax(30);
