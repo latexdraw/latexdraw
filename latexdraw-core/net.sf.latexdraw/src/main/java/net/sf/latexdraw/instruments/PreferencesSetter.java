@@ -27,6 +27,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -83,7 +84,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	/** Allows to set the unit of length by default. */
 	@FXML private ComboBox<String> unitChoice;
 	/** The list that contains the supported languages. */
-	@FXML private ComboBox<String> langList;
+	@FXML private ComboBox<Locale> langList;
 	/** The field used to modifies the gap of the customised grid. */
 	@FXML private Spinner<Integer> persoGridGapField;
 	/** The widget used to defines the number of recent file to keep in memory. */
@@ -113,7 +114,10 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 			"<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>"//$NON-NLS-1$
 		));
 
-		langList.getItems().addAll(LangTool.INSTANCE.getSupportedLocales().stream().map(Locale::getDisplayLanguage).collect(Collectors.toList()));
+		langList.setCellFactory(l -> new LocaleCell());
+		langList.setButtonCell(new LocaleCell());
+		langList.getItems().addAll(LangTool.INSTANCE.getSupportedLocales());
+
 		unitChoice.getItems().addAll(Arrays.stream(Unit.values()).map(Unit::getLabel).collect(Collectors.toList()));
 		styleList.getItems().addAll(GridStyle.values());
 
@@ -210,7 +214,14 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 			ifPresent(node -> styleList.getSelectionModel().select(GridStyle.NONE));
 
 		Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_GAP)).ifPresent(node -> persoGridGapField.getValueFactory().setValue(Integer.valueOf(node.getTextContent())));
-		Optional.ofNullable(prefMap.get(LNamespace.XML_LANG)).ifPresent(node -> langList.getSelectionModel().select(node.getTextContent()));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_LANG)).ifPresent(node -> {
+			final Locale locale = Locale.forLanguageTag(node.getTextContent());
+			if(langList.getItems().contains(locale)) {
+				langList.getSelectionModel().select(locale);
+			}else {
+				//TODO select default lang from LangTool.INSTANCE
+			}
+		});
 		Optional.ofNullable(prefMap.get(LNamespace.XML_MAGNETIC_GRID)).ifPresent(node -> magneticCB.setSelected(Boolean.parseBoolean(node.getTextContent())));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_EXPORT)).ifPresent(node -> pathExportField.setText(node.getTextContent()));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_OPEN)).ifPresent(node -> pathOpenField.setText(node.getTextContent()));
@@ -348,7 +359,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				root.appendChild(elt);
 
 				elt = document.createElement(LNamespace.XML_LANG);
-				elt.setTextContent(langList.getSelectionModel().getSelectedItem());
+				elt.setTextContent(langList.getSelectionModel().getSelectedItem().toLanguageTag());
 				root.appendChild(elt);
 
 				elt = document.createElement(LNamespace.XML_MAGNETIC_GRID);
@@ -428,6 +439,25 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 			applyValues();
 		}catch(final SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
+		}
+	}
+
+	/**
+	 * Internal class to display locales correctly in combo boxes.
+	 */
+	static class LocaleCell extends ListCell<Locale> {
+		LocaleCell() {
+			super();
+		}
+
+		@Override
+		protected void updateItem(final Locale item, final boolean empty) {
+			super.updateItem(item, empty);
+			if(item == null || empty) {
+				setGraphic(null);
+			}else {
+				setText(item.getDisplayLanguage());
+			}
 		}
 	}
 }
