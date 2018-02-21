@@ -7,15 +7,23 @@ import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestCutShapes extends TestUndoableAction<CutShapes, Object> {
+public class TestDeleteShapes extends TestUndoableAction<DeleteShapes, Object> {
 	IRectangle shape1;
 	IRectangle shape2;
 	IRectangle shape3;
 	IDrawing drawing;
 
 	@Override
-	protected CutShapes createAction() {
-		return new CutShapes(new SelectShapes());
+	protected void checkUndo() {
+		assertEquals(3, drawing.size());
+		assertEquals(shape1, drawing.getShapeAt(0));
+		assertEquals(shape2, drawing.getShapeAt(1));
+		assertEquals(shape3, drawing.getShapeAt(2));
+	}
+
+	@Override
+	protected DeleteShapes createAction() {
+		return new DeleteShapes();
 	}
 
 	@Override
@@ -27,22 +35,14 @@ public class TestCutShapes extends TestUndoableAction<CutShapes, Object> {
 		drawing.addShape(shape1);
 		drawing.addShape(shape2);
 		drawing.addShape(shape3);
-		action.selection.setDrawing(drawing);
-		action.selection.addShape(shape1);
-		action.selection.addShape(shape3);
+		action.setDrawing(drawing);
+		action.setShape(shape1);
+		action.addShape(shape3);
 	}
 
 	@Override
 	protected void checkDo() {
 		assertEquals(1, drawing.size());
 		assertEquals(shape2, drawing.getShapeAt(0));
-	}
-
-	@Override
-	protected void checkUndo() {
-		assertEquals(3, drawing.size());
-		assertEquals(shape1, drawing.getShapeAt(0));
-		assertEquals(shape2, drawing.getShapeAt(1));
-		assertEquals(shape3, drawing.getShapeAt(2));
 	}
 }

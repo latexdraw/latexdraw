@@ -46,11 +46,6 @@ public class CopyShapes extends ActionImpl {
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
-	}
-
-	@Override
 	public boolean canDo() {
 		return selection != null && !selection.getShapes().isEmpty();
 	}

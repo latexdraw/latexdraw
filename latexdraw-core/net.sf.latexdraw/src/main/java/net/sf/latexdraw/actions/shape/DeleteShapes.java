@@ -38,11 +38,6 @@ public class DeleteShapes extends DrawingActionImpl implements ShapesAction, Und
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
-	}
-
-	@Override
 	protected void doActionBody() {
 		final List<IShape> drawingSh = drawing.getShapes();
 		positionShapes = shapes.stream().mapToInt(sh -> {
