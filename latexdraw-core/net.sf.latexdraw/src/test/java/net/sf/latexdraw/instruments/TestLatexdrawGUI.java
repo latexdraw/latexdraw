@@ -57,7 +57,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 		stage = aStage;
 
 		try {
-			final Injector injector = createInjector();
+			injector = createInjector();
 			injectorFactory = injector::getInstance;
 			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), LangTool.INSTANCE.getBundle(),
 				new LatexdrawBuilderFactory(injector), injectorFactory);

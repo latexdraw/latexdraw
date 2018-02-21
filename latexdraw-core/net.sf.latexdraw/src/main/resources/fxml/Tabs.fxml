@@ -8,7 +8,7 @@
 <?import net.sf.latexdraw.ui.ScaleRuler?>
 <TabPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" tabClosingPolicy="UNAVAILABLE" fx:id="tabPane"
          fx:controller="net.sf.latexdraw.instruments.TabSelector">
-    <Tab closable="false" text="%UIBuilder.1">
+    <Tab closable="false" text="%UIBuilder.1" fx:id="canvasTab">
         <SplitPane dividerPositions="0.85">
             <BorderPane fx:id="rulersScrollerPane">
                 <top>
@@ -50,7 +50,7 @@
         </SplitPane>
     </Tab>
     <fx:include source="CodePanel.fxml"/>
-    <Tab closable="false" text="%PreferencesFrame.Pref2">
+    <Tab closable="false" text="%PreferencesFrame.Pref2" fx:id="prefTab">
         <fx:include source="Preferences.fxml"/>
     </Tab>
 </TabPane>

@@ -167,7 +167,7 @@ public class TabSelector extends JfxInstrument implements Initializable {
 					a.addInstrumentToActivate(deleter);
 				}
 			}else {
-				a.setHideWidgets(true);
+				a.setHideWidgets(false);
 				a.addInstrumentToInactivate(selector);
 				a.addInstrumentToInactivate(paster);
 				a.addInstrumentToInactivate(undo);

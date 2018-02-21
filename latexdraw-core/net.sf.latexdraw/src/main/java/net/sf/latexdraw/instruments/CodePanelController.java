@@ -25,7 +25,7 @@ import net.sf.latexdraw.view.latex.LaTeXGenerator;
  */
 public class CodePanelController extends CanvasInstrument implements Initializable {
 	@FXML private TextArea codeArea;
-	@FXML private Tab tab;
+	@FXML private Tab tabPST;
 	/** The PSTricks generator. */
 	@Inject private LaTeXGenerator pstGenerator;
 
@@ -35,7 +35,7 @@ public class CodePanelController extends CanvasInstrument implements Initializab
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		tab.selectedProperty().addListener(evt -> codeArea.setText(pstGenerator.getDrawingCode()));
+		tabPST.selectedProperty().addListener(evt -> codeArea.setText(pstGenerator.getDrawingCode()));
 	}
 
 	@Override
