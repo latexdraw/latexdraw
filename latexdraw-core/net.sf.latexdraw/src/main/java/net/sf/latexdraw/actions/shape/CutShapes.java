@@ -46,7 +46,6 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 		});
 	}
 
-
 	/**
 	 * Delete the shapes from the drawing.
 	 */
@@ -57,12 +56,10 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 		});
 	}
 
-
 	@Override
 	public void redo() {
 		deleteShapes();
 	}
-
 
 	@Override
 	public void undo() {
@@ -71,7 +68,6 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 			dr.setModified(true);
 		});
 	}
-
 
 	@Override
 	public String getUndoName() {
