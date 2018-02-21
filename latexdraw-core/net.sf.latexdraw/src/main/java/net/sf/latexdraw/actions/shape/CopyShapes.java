@@ -47,7 +47,7 @@ public class CopyShapes extends ActionImpl {
 
 	@Override
 	public RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.UNLIMITED;
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 
 	@Override
@@ -59,11 +59,12 @@ public class CopyShapes extends ActionImpl {
 		return selection;
 	}
 
-
 	@Override
 	public void flush() {
 		super.flush();
-		copiedShapes.clear();
+		if(copiedShapes != null) {
+			copiedShapes.clear();
+		}
 		selection = null;
 	}
 }

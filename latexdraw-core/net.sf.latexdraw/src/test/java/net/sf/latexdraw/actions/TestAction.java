@@ -38,6 +38,13 @@ public abstract class TestAction<T extends Action> {
 	}
 
 	@Test
+	public void testFlushAfterExecution() {
+		configCorrectAction();
+		action.doIt();
+		action.flush();
+	}
+
+	@Test
 	public void testCanDo() {
 		configCorrectAction();
 		assertTrue(action.canDo());
