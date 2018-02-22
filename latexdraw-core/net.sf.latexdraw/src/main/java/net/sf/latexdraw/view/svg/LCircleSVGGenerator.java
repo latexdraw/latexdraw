@@ -30,7 +30,6 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 	 * Creates a generator of SVG circle.
 	 * @param circle The circle shape used for the generation.
 	 * @throws IllegalArgumentException If circle is null.
-	 * @since 2.0
 	 */
 	protected LCircleSVGGenerator(final ICircle circle) {
 		super(circle);
@@ -40,12 +39,11 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 	/**
 	 * Creates a circle from an SVG circle element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	protected LCircleSVGGenerator(final SVGCircleElement elt) {
 		this(ShapeFactory.INST.createCircle());
 		setSVGParameters(elt);
-		setCircleParameters(elt, 0.);
+		setCircleParameters(elt, 0d);
 		applyTransformations(elt);
 	}
 
@@ -53,46 +51,45 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 	/**
 	 * Creates a circle from a latexdraw-SVG element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	protected LCircleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createCircle());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
-		if(elt==null || !(elt2 instanceof SVGCircleElement))
+		if(elt == null || !(elt2 instanceof SVGCircleElement)) {
 			throw new IllegalArgumentException();
+		}
 
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(elt2);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
-		setCircleParameters((SVGCircleElement)elt2, getPositionGap());
+		setCircleParameters((SVGCircleElement) elt2, getPositionGap());
 
-		if(withTransformation)
+		if(withTransformation) {
 			applyTransformations(elt);
+		}
 	}
-
 
 
 	/**
 	 * Sets the circle parameters.
 	 * @param circleElt The source SVG circle element.
 	 * @param gap The gap used to define the latexdraw circle.
-	 * @since 3.0
 	 */
 	protected void setCircleParameters(final SVGCircleElement circleElt, final double gap) {
-		final double radius  = circleElt.getR()-gap/2.;
-		shape.setWidth(radius*2.);
-		shape.setPosition(circleElt.getCx()-radius, circleElt.getCy()+radius);
+		final double radius = circleElt.getR() - gap / 2d;
+		shape.setWidth(radius * 2d);
+		shape.setPosition(circleElt.getCx() - radius, circleElt.getCy() + radius);
 	}
-
 
 
 	@Override
 	public SVGElement toSVG(final SVGDocument doc) {
-		if(doc==null || doc.getFirstChild().getDefs()==null)
+		if(doc == null || doc.getFirstChild().getDefs() == null) {
 			return null;
+		}
 
 		final IPoint tl = shape.getTopLeftPoint();
 		final IPoint br = shape.getBottomRightPoint();
@@ -101,36 +98,36 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 		final double brx = br.getX();
 		final double bry = br.getY();
 		SVGElement elt;
-        final SVGElement shad;
-        final SVGElement dblBord;
-        final SVGElement root = new SVGGElement(doc);
-        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_CIRCLE);
-        root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
-        final double gap = getPositionGap();
+		final SVGElement shad;
+		final SVGElement dblBord;
+		final SVGElement root = new SVGGElement(doc);
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_CIRCLE);
+		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
+		final double gap = getPositionGap();
 
-        if(shape.hasShadow()) {
-        	shad = new SVGCircleElement((brx+tlx)/2., (bry+tly)/2., (brx-tlx+gap)/2., doc);
-        	setSVGShadowAttributes(shad, true);
-        	root.appendChild(shad);
-        }
+		if(shape.hasShadow()) {
+			shad = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, Math.abs((brx - tlx + gap) / 2d), doc);
+			setSVGShadowAttributes(shad, true);
+			root.appendChild(shad);
+		}
 
-        if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)){
-        	// The background of the borders must be filled is there is a shadow.
-	        elt = new SVGCircleElement((brx+tlx)/2., (bry+tly)/2., (brx-tlx+gap)/2., doc);
-	        setSVGBorderBackground(elt, root);
-        }
+		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
+			// The background of the borders must be filled is there is a shadow.
+			elt = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, Math.abs((brx - tlx + gap) / 2d), doc);
+			setSVGBorderBackground(elt, root);
+		}
 
-        elt = new SVGCircleElement((brx+tlx)/2., (bry+tly)/2., (brx-tlx+gap)/2., doc);// FIXME Should use prototype design pattern to reduce re-creation.
-        root.appendChild(elt);
+		elt = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, Math.abs((brx - tlx + gap) / 2d), doc);
+		root.appendChild(elt);
 
-        if(shape.hasDbleBord()) {
-        	dblBord = new SVGCircleElement((brx+tlx)/2., (bry+tly)/2., (brx-tlx+gap)/2., doc);
-        	setSVGDoubleBordersAttributes(dblBord);
-        	root.appendChild(dblBord);
-        }
+		if(shape.hasDbleBord()) {
+			dblBord = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, Math.abs((brx - tlx + gap) / 2d), doc);
+			setSVGDoubleBordersAttributes(dblBord);
+			root.appendChild(dblBord);
+		}
 
-        setSVGAttributes(doc, elt, true);
-        setSVGRotationAttribute(root);
+		setSVGAttributes(doc, elt, true);
+		setSVGRotationAttribute(root);
 
 		return root;
 	}
