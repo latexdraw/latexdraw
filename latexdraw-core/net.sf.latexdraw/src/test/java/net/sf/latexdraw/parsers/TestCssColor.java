@@ -363,32 +363,22 @@ public class TestCssColor {
 	}
 
 	@Test
-	public void testSVGRGBtoRGBKO() {
-		assertNull(CSSColors.INSTANCE.svgRgbtoRgb(null));
-	}
-
-	@Test
-	public void testSVGRGBtoRGBKO1() {
-		assertNull(CSSColors.INSTANCE.svgRgbtoRgb("dsfdgdui"));
-	}
-
-	@Test
 	public void testSVGRGBtoRGBKO2() {
-		assertNull(CSSColors.INSTANCE.svgRgbtoRgb("rgb(a, b, c)"));
+		assertNull(CSSColors.INSTANCE.getRGBColour("rgb(a, b, c)"));
 	}
 
 	@Test
 	public void testSVGRGBtoRGBOK1() {
-		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.svgRgbtoRgb("rgb(0,0,255)"));
+		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(0,0,255)"));
 	}
 
 	@Test
 	public void testSVGRGBtoRGBOK2() {
-		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.svgRgbtoRgb("rgb(	  0 ,	0    ,  255  )"));
+		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(	  0 ,	0    ,  255  )"));
 	}
 
 	@Test
 	public void testSVGRGBtoRGBOK3() {
-		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.svgRgbtoRgb("rgb(	  0% ,	0%    ,  100%  )"));
+		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(	  0% ,	0%    ,  100%  )"));
 	}
 }
