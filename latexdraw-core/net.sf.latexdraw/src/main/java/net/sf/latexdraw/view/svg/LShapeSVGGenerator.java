@@ -83,7 +83,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param elt The source <code>g</code> element.
 	 * @param type The type of the latexdraw element (double borders, shadow, main), if null, the main element is returned.
 	 * @return The Researched element.
-	 * @since 2.0.0
 	 */
 	protected static SVGElement getLaTeXDrawElement(final SVGGElement elt, final String type) {
 		if(elt == null) return null;
@@ -121,11 +120,10 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	}
 
 	/**
-	 * Sets the thickness of the given figure with the given SVG stroke-width.
-	 * @param shape The figure to set.
+	 * Sets the thickness of the given shape with the given SVG stroke-width.
+	 * @param shape The shape to set.
 	 * @param strokeWidth The SVG stroke-width to convert.
 	 * @param stroke The stroke.
-	 * @since 2.0.0
 	 */
 	public static void setThickness(final IShape shape, final String strokeWidth, final String stroke) {
 		if(shape != null && strokeWidth != null && !SVGAttributes.SVG_VALUE_NONE.equals(stroke)) {
@@ -142,7 +140,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param shape The shape to set.
 	 * @param stoke The stroke of the shape.
 	 * @param opacity The possible stroke-opacity of the colour. May be null.
-	 * @since 2.0.0
 	 */
 	public static void setLineColour(final IShape shape, final String stoke, final String opacity) {
 		if(shape != null && stoke != null) {
@@ -165,7 +162,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param fill The fill properties
 	 * @param defs The definition that may be useful to the the fill properties (url), may be null.
 	 * @param opacity The possible fill-opacity of the colour. May be null.
-	 * @since 2.0.0
 	 */
 	public static void setFill(final IShape shape, final String fill, final String opacity, final SVGDefsElement defs) {
 		if(fill == null || shape == null || fill.equals(SVGAttributes.SVG_VALUE_NONE)) {
@@ -261,7 +257,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param shape The figure to set.
 	 * @param dashArray The dash array SVG property.
 	 * @param linecap The line cap SVG property.
-	 * @since 2.0.0
 	 */
 	public static void setDashedDotted(final IShape shape, final String dashArray, final String linecap) {
 		if(shape != null && dashArray != null && !dashArray.equals(SVGAttributes.SVG_VALUE_NONE)) {
@@ -279,7 +274,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param thickness The thickness to set.
 	 * @param hasDoubleBorders True: the shape has double borders and it must be considered during the computation of the thickness.
 	 * @param doubleSep The size of the double borders.
-	 * @since 3.0
 	 */
 	public static void setThickness(final SVGElement elt, final double thickness, final boolean hasDoubleBorders, final double doubleSep) {
 		if(elt != null) {
@@ -297,7 +291,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param hasDoubleBorders True: the shape has double borders.
 	 * @param thickness The thickness to set to the element.
 	 * @param doubleSep The size of the double borders.
-	 * @since 3.0
 	 */
 	public static void setDashedDotted(final Element elt, final double blackDash, final double whiteDash, final double dotSep, final String lineStyle,
 									   final boolean hasDoubleBorders, final double thickness, final double doubleSep) {
@@ -326,7 +319,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param hasDble Defines if the shape had double borders.
 	 * @param dotSep The dot interval.
 	 * @return The created SVG line or null.
-	 * @since 2.0.0
 	 */
 	protected static SVGLineElement getShowPointsLine(final SVGDocument doc, final double thickness, final Color col, final IPoint p1, final IPoint p2,
 													  final double blackDash, final double whiteDash, final boolean hasDble, final double dotSep,
@@ -361,7 +353,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param pt The position of the point.
 	 * @param col The colour of the dot.
 	 * @return The created dot or null.
-	 * @since 2.0.0
 	 */
 	protected static SVGCircleElement getShowPointsDot(final SVGDocument doc, final double rad, final IPoint pt, final Color col) {
 		if(doc == null) {
@@ -390,7 +381,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * Creates the SVG generator.
 	 * @param sh The shape used for the generation.
 	 * @throws IllegalArgumentException If the given shape is null.
-	 * @since 2.0
 	 */
 	protected LShapeSVGGenerator(final S sh) {
 		super();
@@ -402,7 +392,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 	/**
 	 * @return The SVG ID of the shape (starting with the token "id" followed by the number of the shape).
-	 * @since 2.0.0
 	 */
 	public String getSVGID() {
 		return "id" + shape.hashCode(); //$NON-NLS-1$
@@ -411,7 +400,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	/**
 	 * Applies the set of transformations that concerned the given SVG element to the shape.
 	 * @param elt The element that contains the SVG transformation list.
-	 * @since 2.0.0
 	 */
 	public void applyTransformations(final SVGElement elt) {
 		if(elt == null) {
@@ -429,7 +417,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	/**
 	 * Applies an SVG transformation on the shape.
 	 * @param t The SVG transformation to apply.
-	 * @since 2.0.0
 	 */
 	public void applyTransformation(final SVGTransform t) {
 		if(t != null) {
@@ -457,7 +444,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * parameters. This method carries out this job.
 	 * @param ah1 The first arrow.
 	 * @param ah2 The second arrow.
-	 * @since 2.0.0
 	 */
 	public void homogeniseArrows(final IArrow ah1, final IArrow ah2) {
 		if(ah1 == null || ah2 == null) return;
@@ -471,8 +457,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * the parameters of the current style are copied).
 	 * @param source The arrow that will be copied.
 	 * @param target The arrow that will be set.
-	 * @see #homogeniseArrows(IArrow, IArrow)
-	 * @since 2.0.0
 	 */
 	protected void homogeniseArrowFrom(final IArrow source, final IArrow target) {
 		if(source == null || target == null) return;
@@ -512,7 +496,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	/**
 	 * Sets the shadow parameters of the figure by using an SVG element having "type:shadow".
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	protected void setSVGShadowParameters(final SVGElement elt) {
 		if(elt == null || !shape.isShadowable()) return;
@@ -587,7 +570,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	/**
 	 * Sets the double borders parameters of the figure by using an SVG element.
 	 * @param elt The SVG element.
-	 * @since 2.0.0
 	 */
 	protected void setSVGDbleBordersParameters(final SVGElement elt) {
 		if(elt == null) return;
@@ -615,7 +597,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	/**
 	 * Sets the global parameters of the figure by using an SVG element.
 	 * @param elt The SVG element.
-	 * @since 2.0.0
 	 */
 	protected void setSVGParameters(final SVGElement elt) {
 		if(elt == null) {
@@ -662,7 +643,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param ah The arrow head to set.
 	 * @param arrowID The SVG ID of the SVG arrow head.
 	 * @param elt An element of the SVG document (useful to get the defs of the document).
-	 * @since 2.0.0
 	 */
 	protected void setSVGArrow(final IArrow ah, final String arrowID, final SVGElement elt, final String svgMarker) {
 		if(ah != null && arrowID != null && elt != null) {
@@ -675,14 +655,12 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * Creates an SVG element from the current latexdraw shape.
 	 * @param doc The SVG document.
 	 * @return The created SVGElement or null.
-	 * @since 2.0.0
 	 */
 	public abstract SVGElement toSVG(final SVGDocument doc);
 
 	/**
 	 * @param elt Rotates the SVG element.
 	 * @throws IllegalArgumentException If elt is null.
-	 * @since 2.0.0
 	 */
 	protected void setSVGRotationAttribute(final Element elt) {
 		if(elt == null) {
@@ -714,7 +692,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * Sets the double borders parameters to the given SVG element if the current figure has double borders.
 	 * @param elt The element to set.
 	 * @throws IllegalArgumentException If elt is null.
-	 * @since 2.0.0
 	 */
 	protected void setSVGDoubleBordersAttributes(final Element elt) {
 		if(elt == null) {
@@ -733,7 +710,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param elt The element to set if the current figure has a shadow.
 	 * @param shadowFills True if a shadow must fill the figure.
 	 * @throws IllegalArgumentException If elt is null.
-	 * @since 2.0.0
 	 */
 	protected void setSVGShadowAttributes(final Element elt, final boolean shadowFills) {
 		if(elt == null) {
@@ -763,7 +739,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param root The root element of the document.
 	 * @param shadowFills True if a shadow must fill the figure.
 	 * @throws IllegalArgumentException If the root or the "defs" part of the document is null.
-	 * @since 2.0.0
 	 */
 	protected void setSVGAttributes(final SVGDocument doc, final SVGElement root, final boolean shadowFills) {
 		if(root == null || doc.getFirstChild().getDefs() == null) throw new IllegalArgumentException();
@@ -894,7 +869,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 	/**
 	 * @return The path of the hatchings of the shape.
-	 * @since 2.0.0
 	 */
 	public SVGPathSegList getSVGHatchingsPath() {
 		final SVGPathSegList path = new SVGPathSegList();
@@ -926,9 +900,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		return path;
 	}
 
-	/**
-	 * @see LShapeSVGGenerator#getSVGHatchingsPath()
-	 */
 	private void getSVGHatchingsPath2(final SVGPathSegList path, final double hAngle, final IRectangle bound) {
 		if(path == null || bound == null) return;
 
@@ -1017,7 +988,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param p2 The second point to set.
 	 * @param ignoreMidPt True, gradientMidPt will be ignored.
 	 * @throws IllegalArgumentException If p1 or p2 is null.
-	 * @since 2.0.0
 	 */
 	protected void getGradientPoints(final Point2D.Float p1, final Point2D.Float p2, final boolean ignoreMidPt) {
 		if(p1 == null || p2 == null) {
@@ -1101,7 +1071,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * If a figure can move its border, we have to compute the difference between the PSTricks shape and the SVG shape.
 	 * @return The gap computed with the border position, the thickness and the double boundary. Or NaN if the shape cannot move
 	 * its border.
-	 * @since 2.0.0
 	 */
 	protected double getPositionGap() {
 		final double gap;
@@ -1125,7 +1094,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * SVG element which carries out that.
 	 * @param elt The element that will be set to define the background of the borders.
 	 * @param root The root element to which 'elt' will be appended.
-	 * @since 2.0.0
 	 */
 	protected void setSVGBorderBackground(final SVGElement elt, final SVGElement root) {
 		if(elt == null || root == null) {
@@ -1141,7 +1109,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 	/**
 	 * @return the shape.
-	 * @since 2.0.0
 	 */
 	public S getShape() {
 		return shape;

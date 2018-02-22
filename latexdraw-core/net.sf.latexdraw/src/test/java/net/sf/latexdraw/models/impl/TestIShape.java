@@ -4,6 +4,7 @@ import java.util.List;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.data.ShapeData;
+import net.sf.latexdraw.models.CompareShapeMatcher;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
@@ -51,8 +52,7 @@ public class TestIShape implements HelperTest {
 
 		shape2.setBordersPosition(BorderPos.MID);
 		shape.copy(shape2);
-		assertEquals(shape.getBordersPosition(), shape2.getBordersPosition());
-		assertEquals(BorderPos.MID, shape2.getBordersPosition());
+		CompareShapeMatcher.INST.assertEqualShapeBorderMov(shape, shape2);
 	}
 
 	@Theory
@@ -67,12 +67,7 @@ public class TestIShape implements HelperTest {
 		shape2.setLineColour(DviPsColors.GREEN);
 		shape2.setThickness(13);
 		shape.copy(shape2);
-		assertEqualsDouble(shape.getDashSepBlack(), shape2.getDashSepBlack());
-		assertEqualsDouble(shape.getDashSepWhite(), shape2.getDashSepWhite());
-		assertEqualsDouble(shape.getDotSep(), shape2.getDotSep());
-		assertEquals(shape.getLineStyle(), shape2.getLineStyle());
-		assertEquals(shape.getLineColour(), shape2.getLineColour());
-		assertEqualsDouble(shape.getThickness(), shape2.getThickness());
+		CompareShapeMatcher.INST.assertEqualShapeLineStyle(shape, shape2);
 	}
 
 	@Theory
@@ -83,9 +78,7 @@ public class TestIShape implements HelperTest {
 		shape2.setDbleBordSep(20.);
 		shape2.setHasDbleBord(true);
 		shape.copy(shape2);
-		assertEquals(shape.getDbleBordCol(), shape2.getDbleBordCol());
-		assertEqualsDouble(shape.getDbleBordSep(), shape2.getDbleBordSep());
-		assertEquals(shape.hasDbleBord(), shape2.hasDbleBord());
+		CompareShapeMatcher.INST.assertEqualShapeDbleBorder(shape, shape2);
 	}
 
 	@Theory
@@ -97,9 +90,7 @@ public class TestIShape implements HelperTest {
 		shape2.setFillingCol(DviPsColors.BLUE);
 		shape2.setFillingStyle(FillingStyle.GRAD);
 		shape.copy(shape2);
-		assertEquals(shape.isFilled(), shape2.isFilled());
-		assertEquals(shape.getFillingCol(), shape2.getFillingCol());
-		assertEquals(shape.getFillingStyle(), shape2.getFillingStyle());
+		CompareShapeMatcher.INST.assertEqualShapeFill(shape, shape2);
 	}
 
 	@Theory
@@ -116,14 +107,7 @@ public class TestIShape implements HelperTest {
 		shape2.setHatchingsSep(30);
 		shape2.setHatchingsWidth(100);
 		shape.copy(shape2);
-		assertEqualsDouble(shape.getGradAngle(), shape2.getGradAngle());
-		assertEquals(shape.getGradColEnd(), shape2.getGradColEnd());
-		assertEquals(shape.getGradColStart(), shape2.getGradColStart());
-		assertEqualsDouble(shape.getGradMidPt(), shape2.getGradMidPt());
-		assertEqualsDouble(shape.getHatchingsAngle(), shape2.getHatchingsAngle());
-		assertEquals(shape.getHatchingsCol(), shape2.getHatchingsCol());
-		assertEqualsDouble(shape.getHatchingsSep(), shape2.getHatchingsSep());
-		assertEqualsDouble(shape.getHatchingsWidth(), shape2.getHatchingsWidth());
+		CompareShapeMatcher.INST.assertEqualShapeFillStyle(shape, shape2);
 	}
 
 	@Theory
@@ -136,10 +120,7 @@ public class TestIShape implements HelperTest {
 		shape2.setShadowCol(DviPsColors.ORANGE);
 		shape2.setShadowSize(17);
 		shape.copy(shape2);
-		assertEquals(shape.hasShadow(), shape2.hasShadow());
-		assertEqualsDouble(shape.getShadowAngle(), shape2.getShadowAngle());
-		assertEqualsDouble(shape.getShadowSize(), shape2.getShadowSize());
-		assertEquals(shape.getShadowCol(), shape2.getShadowCol());
+		CompareShapeMatcher.INST.assertEqualShapeShadow(shape, shape2);
 	}
 
 	@Theory
@@ -148,14 +129,14 @@ public class TestIShape implements HelperTest {
 		assumeTrue(shape2.isShowPtsable());
 		shape2.setShowPts(true);
 		shape.copy(shape2);
-		assertEquals(shape.isShowPts(), shape2.isShowPts());
+		CompareShapeMatcher.INST.assertEqualShapeShowPts(shape, shape2);
 	}
 
 	@Theory
 	public void testCopy(@ShapeData final IShape shape, @ShapeData final IShape shape2) {
 		shape2.setRotationAngle(-30);
 		shape.copy(shape2);
-		assertEqualsDouble(shape.getRotationAngle(), shape2.getRotationAngle());
+		CompareShapeMatcher.INST.assertEqualShapeRotationAngle(shape, shape2);
 	}
 
 	@Theory

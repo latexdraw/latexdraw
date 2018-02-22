@@ -3,6 +3,7 @@ package net.sf.latexdraw.models.impl;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.ArcData;
 import net.sf.latexdraw.data.DoubleData;
+import net.sf.latexdraw.models.CompareShapeMatcher;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
 import org.junit.experimental.theories.Theories;
@@ -53,10 +54,7 @@ public class TestIArc implements HelperTest {
 		shape2.setArcStyle(ArcStyle.WEDGE);
 
 		shape.copy(shape2);
-
-		assertEqualsDouble(-4d * Math.PI, shape.getAngleEnd());
-		assertEqualsDouble(-2d * Math.PI, shape.getAngleStart());
-		assertEquals(ArcStyle.WEDGE, shape.getArcStyle());
+		CompareShapeMatcher.INST.assertEqualArcParams(shape, shape2);
 	}
 
 	@Theory

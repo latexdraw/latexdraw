@@ -11,4 +11,5 @@ import static java.lang.annotation.ElementType.PARAMETER;
 @ParametersSuppliedBy(ShapeSupplier.class)
 @Target(PARAMETER)
 public @interface ShapeData {
+	boolean withParamVariants() default false;
 }
