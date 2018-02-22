@@ -93,15 +93,19 @@ class ColorImpl implements Color {
 
 	@Override
 	public boolean equals(final Object obj) {
-		if(this == obj) return true;
-		if(obj == null || getClass() != obj.getClass()) return false;
+		if(this == obj) {
+			return true;
+		}
+		if(obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
 
 		final ColorImpl color = (ColorImpl) obj;
 
-		return MathUtils.INST.equalsDouble(color.getR(), getR(), 0.00001) &&
-			MathUtils.INST.equalsDouble(color.getG(), getG(), 0.00001) &&
-			MathUtils.INST.equalsDouble(color.getB(), getB(), 0.00001) &&
-			MathUtils.INST.equalsDouble(color.getO(), getO(), 0.00001);
+		return MathUtils.INST.equalsDouble(color.getR(), getR(), 0.01) &&
+			MathUtils.INST.equalsDouble(color.getG(), getG(), 0.01) &&
+			MathUtils.INST.equalsDouble(color.getB(), getB(), 0.01) &&
+			MathUtils.INST.equalsDouble(color.getO(), getO(), 0.01);
 	}
 
 	@Override
