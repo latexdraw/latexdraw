@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -17,7 +18,6 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -40,13 +40,25 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 	@Mock PreferencesSetter prefSetter;
 
 	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
+	public void start(final Stage aStage) {
+		super.start(aStage);
+
 		tabPane = find("#tabPane");
-		tabPane.getSelectionModel().select(0);
-		tabPane.requestLayout();
-		WaitForAsyncUtils.waitForFxEvents();
+		final int width = 800;
+		final int height = 600;
+		stage.minHeightProperty().unbind();
+		stage.minWidthProperty().unbind();
+		final Canvas canvas = injector.getInstance(Canvas.class);
+		canvas.setMaxWidth(width);
+		canvas.setMaxHeight(height);
+		canvas.getScene().getWindow().setWidth(width);
+		canvas.getScene().getWindow().setHeight(height);
+		stage.setMaxWidth(width);
+		stage.setMaxHeight(height);
+		stage.setMinWidth(width);
+		stage.setMinHeight(height);
+		stage.centerOnScreen();
+		stage.toFront();
 	}
 
 	@Override
