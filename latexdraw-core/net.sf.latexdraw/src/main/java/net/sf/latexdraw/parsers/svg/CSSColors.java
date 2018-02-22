@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 
@@ -613,18 +612,16 @@ public final class CSSColors {
 	}
 
 
-
 	private CSSColors() {
 		super();
 
-		colourHashtable 	= new HashMap<>();
+		colourHashtable = new HashMap<>();
 		nameColourHashtable = new HashMap<>();
-		userColours			= new HashMap<>();
+		userColours = new HashMap<>();
 
 		createColourHashTable();
 		createNameColourHashTable();
 	}
-
 
 
 	/**
@@ -632,11 +629,11 @@ public final class CSSColors {
 	 * @return The colour.
 	 */
 	public Color getColor(final String name) {
-		if(name==null || name.isEmpty()) return null;
+		if(name == null || name.isEmpty()) {
+			return null;
+		}
 		return colourHashtable.getOrDefault(name, userColours.get(name));
 	}
-
-
 
 
 	/**
@@ -645,13 +642,12 @@ public final class CSSColors {
 	 * @param name The name of this colour.
 	 */
 	public void addUserColor(final Color col, final String name) {
-		if(name==null || col==null || name.isEmpty())
-			return ;
+		if(name == null || col == null || name.isEmpty()) {
+			return;
+		}
 
 		userColours.put(name, col);
 	}
-
-
 
 
 	/**
@@ -661,18 +657,21 @@ public final class CSSColors {
 	 * @return The name of the colour or null.
 	 */
 	public String getColorName(final Color col, final boolean create) {
-		if(col==null)
+		if(col == null) {
 			return null;
+		}
 
 		final String name = nameColourHashtable.get(col);
 
-		if(name!=null)
+		if(name != null) {
 			return name;
+		}
 
-		Optional<Entry<String, Color>> opt = userColours.entrySet().stream().filter(v -> v.getValue().equals(col)).findFirst();
+		final Optional<Entry<String, Color>> opt = userColours.entrySet().stream().filter(v -> v.getValue().equals(col)).findFirst();
 
-		if(opt.isPresent())
+		if(opt.isPresent()) {
 			return opt.get().getKey();
+		}
 
 		if(create) {
 			addUserColor(col, rgbToHex(col));
@@ -684,61 +683,17 @@ public final class CSSColors {
 
 
 	/**
-	 * Converts an hexadecimal colour to an RBG one.
-	 * @param hex The colour in hexadecimal.
-	 * @return The corresponding colour or null if there is a problem.
-	 * @since 2.0.0
-	 */
-	public Color hexToRBG(final String hex) {
-		if(hex == null || !hex.startsWith("#") || ((hex.length() != 7) && (hex.length() != 4))) { //$NON-NLS-1$
-			return null;
-		}
-
-		final String col = hex.substring(1);
-
-		// #112233 for instance.
-		if(col.length() == 6) {
-			return ShapeFactory.INST.createColorInt(Integer.parseInt(col.substring(0, 2), 16),
-				Integer.parseInt(col.substring(2, 4), 16), Integer.parseInt(col.substring(4, 6), 16));
-		}
-
-		final String r = String.valueOf(col.charAt(0));
-		final String g = String.valueOf(col.charAt(1));
-		final String b = String.valueOf(col.charAt(2));
-
-		// #123 for instance.
-		return ShapeFactory.INST.createColorInt(Integer.parseInt(r + r, 16), Integer.parseInt(g + g, 16), Integer.parseInt(b + b, 16));
-	}
-
-
-	/**
 	 * Creates the corresponding hexadecimal colour from an RGB one.
-	 * @param c The RBG colour to convert.
+	 * @param col The RBG colour to convert.
 	 * @return The corresponding hexadecimal colour or null if there is a problem.
-	 * @since 2.0.0
 	 */
-	public String rgbToHex(final Color c) {
-		if(c == null) {
+	public String rgbToHex(final Color col) {
+		if(col == null) {
 			return null;
 		}
 
-		String r = Integer.toHexString((int) (255d * c.getR()));
-		String g = Integer.toHexString((int) (255d * c.getG()));
-		String b = Integer.toHexString((int) (255d * c.getB()));
-
-		if(r.length() == 1) {
-			r = '0' + r;
-		}
-
-		if(g.length() == 1) {
-			g = '0' + g;
-		}
-
-		if(b.length() == 1) {
-			b = '0' + b;
-		}
-
-		return '#' + r + g + b;
+		return String.format("#%02x%02x%02x%02x", (int) Math.round(col.getR() * 255), (int) Math.round(col.getG() * 255), //NON-NLS
+			(int) Math.round(col.getB() * 255), (int) Math.round(col.getO() * 255));
 	}
 
 
@@ -747,59 +702,20 @@ public final class CSSColors {
 	 * or an RGB colour in this format: rgb(r,g,b).
 	 * @param str The colour to parse.
 	 * @return The found colour or null.
-	 * @since 2.0.0
 	 */
 	public Color getRGBColour(final String str) {
 		if(str == null) {
 			return null;
 		}
 
-		if(str.startsWith("#")) { //$NON-NLS-1$
-			return hexToRBG(str);
-		}
-
-		if(str.startsWith("rgb(")) { //$NON-NLS-1$
-			return svgRgbtoRgb(str);
-
+		if(str.startsWith("#") || str.startsWith("rgb(")) { //NON-NLS
+			try {
+				return ShapeFactory.INST.createColorFX(javafx.scene.paint.Color.valueOf(str));
+			}catch(final IllegalArgumentException ignore) {
+				return null;
+			}
 		}
 
 		return getColor(str);
-	}
-
-
-	/**
-	 * Converts an SVG RGB colour: "rgb(int,int,int)" or "rgb(pc,pc,pc)" in an AWT colour.
-	 * @param str The string to parse.
-	 * @return The extracted colour or null.
-	 * @since 2.0.0
-	 */
-	public Color svgRgbtoRgb(final String str) {
-		if(str == null || !str.startsWith("rgb(") || !str.endsWith(")")) { //$NON-NLS-1$//$NON-NLS-2$
-			return null;
-		}
-
-		final String s = str.substring(4, str.length() - 1);
-		final String[] rgbs = s.split(","); //$NON-NLS-1$
-
-		if(rgbs.length != 3) {
-			return null;
-		}
-
-		rgbs[0] = rgbs[0].replaceAll("[\t ]", ""); //$NON-NLS-1$//$NON-NLS-2$
-		rgbs[1] = rgbs[1].replaceAll("[\t ]", ""); //$NON-NLS-1$//$NON-NLS-2$
-		rgbs[2] = rgbs[2].replaceAll("[\t ]", ""); //$NON-NLS-1$//$NON-NLS-2$
-
-		try {
-			if(rgbs[0].endsWith("%") && rgbs[1].endsWith("%") && rgbs[2].endsWith("%")) { //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-				return ShapeFactory.INST.createColor(
-					Double.parseDouble(rgbs[0].substring(0, rgbs[0].length() - 1)) / 100d,
-					Double.parseDouble(rgbs[1].substring(0, rgbs[1].length() - 1)) / 100d,
-					Double.parseDouble(rgbs[2].substring(0, rgbs[2].length() - 1)) / 100d);
-			}
-			return ShapeFactory.INST.createColorInt(Integer.parseInt(rgbs[0]), Integer.parseInt(rgbs[1]), Integer.parseInt(rgbs[2]));
-		}catch(final NumberFormatException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-			return null;
-		}
 	}
 }
