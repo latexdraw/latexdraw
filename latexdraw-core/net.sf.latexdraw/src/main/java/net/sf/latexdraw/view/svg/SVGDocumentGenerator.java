@@ -42,6 +42,7 @@ import javax.imageio.ImageIO;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.actions.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -429,6 +430,17 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			final SVGDocument doc = new SVGDocument();
 			final SVGSVGElement root = doc.getFirstChild();
 			final SVGGElement g = new SVGGElement(doc);
+			final int padding = 20;
+			final Optional<IPoint> opttl = drawing.getShapes().parallelStream().map(sh -> sh.getTopLeftPoint()).
+				reduce((p1, p2) -> ShapeFactory.INST.createPoint(p1.getX() < p2.getX() ? p1.getX() : p2.getX(), p1.getY() < p2.getY() ? p1.getY() : p2.getY()));
+			final Optional<IPoint> optbr = drawing.getShapes().parallelStream().map(sh -> sh.getBottomRightPoint()).
+				reduce((p1, p2) -> ShapeFactory.INST.createPoint(p1.getX() > p2.getX() ? p1.getX() : p2.getX(), p1.getY() > p2.getY() ? p1.getY() : p2.getY()));
+
+			opttl.ifPresent(tl -> optbr.ifPresent(br ->
+				root.setAttribute("viewBox", MathUtils.INST.format.format(tl.getX() - padding) + " " + //NON-NLS
+					MathUtils.INST.format.format(tl.getY() - padding) + " " +
+					MathUtils.INST.format.format(br.getX() - tl.getX() + padding * 2) + " " +
+					MathUtils.INST.format.format(br.getY() - tl.getY() + padding * 2))));
 
 			root.appendChild(g);
 			root.setAttribute("xmlns:" + LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);//$NON-NLS-1$
