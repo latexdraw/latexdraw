@@ -43,6 +43,6 @@ final class CSSStylesGenerator {
 		LShapeSVGGenerator.setThickness(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE_WIDTH), styles.getCSSValue(SVGAttributes.SVG_STROKE));
 		LShapeSVGGenerator.setLineColour(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE), styles.getCSSValue(SVGAttributes.SVG_STROKE_OPACITY));
 		LShapeSVGGenerator.setDashedDotted(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE_DASHARRAY), styles.getCSSValue(SVGAttributes.SVG_STROKE_LINECAP));
-		LShapeSVGGenerator.setFill(shape, styles.getCSSValue(SVGAttributes.SVG_FILL), styles.getCSSValue(SVGAttributes.SVG_FILL_OPACITY), defs);
+		LShapeSVGGenerator.setFillFromSVG(shape, styles.getCSSValue(SVGAttributes.SVG_FILL), styles.getCSSValue(SVGAttributes.SVG_FILL_OPACITY), defs);
 	}
 }

@@ -142,7 +142,7 @@ public class SVGTransform {
 		int k = getv1orv2(k1, k2);
 
 		if(i >= lgth || code.charAt(i) != '(' || j == -1) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(code);
 		}
 
 		if(k == -1) {

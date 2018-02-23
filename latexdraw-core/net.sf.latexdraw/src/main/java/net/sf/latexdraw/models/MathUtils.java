@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.models;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.Locale;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
@@ -22,8 +25,21 @@ public final class MathUtils {
 	/** The threshold used to compare double values. */
 	public static final double THRESHOLD = 0.001;
 
+	public final DecimalFormat format;
+
 	private MathUtils() {
 		super();
+		format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
+		format.setMaximumFractionDigits(3);
+		format.setRoundingMode(RoundingMode.HALF_EVEN);
+		format.getDecimalFormatSymbols().setDecimalSeparator('.');
+		format.setDecimalSeparatorAlwaysShown(false);
+		format.setGroupingSize(0);
+
+	}
+
+	public double mod2pi(final double angle) {
+		return angle % (2d * Math.PI);
 	}
 
 	/**

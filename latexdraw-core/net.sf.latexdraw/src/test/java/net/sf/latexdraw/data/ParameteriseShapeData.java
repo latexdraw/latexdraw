@@ -75,7 +75,7 @@ public final class ParameteriseShapeData {
 
 
 	/**
-	 * fill = HLINES_PLAIN
+	 * fill = VLINES
 	 * hatch color = Color.BLUE
 	 * hatch angle = -1.14
 	 * hatch sep = 0.8
@@ -91,7 +91,7 @@ public final class ParameteriseShapeData {
 	 */
 	public IShape setShapeData2(final IShape sh) {
 		if(sh.isInteriorStylable()) {
-			sh.setFillingStyle(FillingStyle.HLINES_PLAIN);
+			sh.setFillingStyle(FillingStyle.VLINES);
 			sh.setHatchingsCol(ShapeFactory.INST.createColorFX(Color.BLUE));
 			sh.setHatchingsAngle(-1.14);
 			sh.setHatchingsSep(0.8);
@@ -173,10 +173,11 @@ public final class ParameteriseShapeData {
 
 
 	/**
-	 * fill = default
+	 * fill = hline plain
 	 * border po = default
 	 * dble bord = default
 	 * shadow = true
+	 * fill col = green
 	 * shad col = default
 	 * shad angle = default
 	 * shad size = default
@@ -191,6 +192,12 @@ public final class ParameteriseShapeData {
 	public IShape setShapeData4(final IShape sh) {
 		if(sh.isShadowable()) {
 			sh.setHasShadow(true);
+		}
+
+		if(sh.isInteriorStylable()) {
+			sh.setFillingStyle(FillingStyle.HLINES_PLAIN);
+			sh.setHatchingsCol(ShapeFactory.INST.createColorFX(Color.BLUE));
+			sh.setFillingCol(ShapeFactory.INST.createColorFX(Color.GREEN));
 		}
 
 		if(sh.isLineStylable()) {

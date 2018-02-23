@@ -692,8 +692,7 @@ public final class CSSColors {
 			return null;
 		}
 
-		return String.format("#%02x%02x%02x%02x", (int) Math.round(col.getR() * 255), (int) Math.round(col.getG() * 255), //NON-NLS
-			(int) Math.round(col.getB() * 255), (int) Math.round(col.getO() * 255));
+		return String.format("#%02x%02x%02x", (int) Math.round(col.getR() * 255), (int) Math.round(col.getG() * 255), (int) Math.round(col.getB() * 255));//NON-NLS
 	}
 
 

@@ -87,7 +87,6 @@ public class TestLShapeSVGGenerator extends TestCompareShapeIO<IShape> {
 		CompareShapeMatcher.INST.assertEqualShapeDbleBorder(sh, s2);
 	}
 
-	@Ignore
 	@Theory
 	public void testLoadFillParams(@ShapeData(withParamVariants = true) final IShape sh) {
 		assumeTrue(sh.isFillable());
@@ -95,7 +94,6 @@ public class TestLShapeSVGGenerator extends TestCompareShapeIO<IShape> {
 		CompareShapeMatcher.INST.assertEqualShapeFill(sh, s2);
 	}
 
-	@Ignore
 	@Theory
 	public void testLoadFillStyleParams(@ShapeData(withParamVariants = true) final IShape sh) {
 		assumeTrue(sh.isInteriorStylable());

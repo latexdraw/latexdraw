@@ -20,6 +20,7 @@ public final class SVGAttributes {
 		super();
 	}
 
+	public static final String SVG_GRADIENT_TRANSFORM = "gradientTransform"; //NON-NLS
 	public static final String SVG_X 						= "x";								//$NON-NLS-1$
 	public static final String SVG_Y 						= "y";								//$NON-NLS-1$
 	public static final String SVG_X1 						= "x1";								//$NON-NLS-1$
@@ -37,7 +38,6 @@ public final class SVGAttributes {
 	public static final String SVG_TRANSFORM				= "transform";						//$NON-NLS-1$
 	public static final String SVG_OFFSET					= "offset";							//$NON-NLS-1$
 	public static final String SVG_STOP_COLOR				= "stop-color";						//$NON-NLS-1$
-	public static final String SVG_GRADIENT_UNITS			= "gradientUnits";					//$NON-NLS-1$
 	public static final String SVG_PATTERN_UNITS			= "patternUnits";					//$NON-NLS-1$
 	public static final String SVG_D						= "d";								//$NON-NLS-1$
 	public static final String SVG_STROKE_DASHARRAY			= "stroke-dasharray";				//$NON-NLS-1$
@@ -60,7 +60,6 @@ public final class SVGAttributes {
 	public static final String SVG_FONT_FAMILY				= "font-family";					//$NON-NLS-1$
 	public static final String SVG_VERSION					= "version";						//$NON-NLS-1$
 	public static final String SVG_PATTERN_CONTENTS_UNITS	= "patternContentUnits";			//$NON-NLS-1$
-	public static final String SVG_SPREAD_METHOD			= "spreadMethod";					//$NON-NLS-1$
 	public static final String SVG_STYLE					= "style";							//$NON-NLS-1$
 	public static final String SVG_MARKER_UNITS				= "markerUnits";					//$NON-NLS-1$
 	public static final String SVG_MARKER_HEIGHT			= "markerHeight";					//$NON-NLS-1$
@@ -78,9 +77,6 @@ public final class SVGAttributes {
 	public static final String SVG_LINEJOIN_VALUE_ROUND		= "round";							//$NON-NLS-1$
 	public static final String SVG_LINEJOIN_VALUE_BEVEL		= "bevel";							//$NON-NLS-1$
 	public static final String SVG_VALUE_AUTO				= "auto";							//$NON-NLS-1$
-	public static final String SVG_PAD						= "pad";							//$NON-NLS-1$
-	public static final String SVG_REFLECT					= "reflect";						//$NON-NLS-1$
-	public static final String SVG_REPEAT					= "repeat";							//$NON-NLS-1$
 	public static final String SVG_UNITS_VALUE_STROKE		= "strokeWidth";					//$NON-NLS-1$
 	public static final String SVG_VALUE_VISIBLE			= "visible";						//$NON-NLS-1$
 	public static final String SVG_TRANSFORM_ROTATE			= "rotate";							//$NON-NLS-1$
@@ -95,5 +91,6 @@ public final class SVGAttributes {
 	public static final String SVG_FONT_WEIGHT_NORMAL		= "normal";							//$NON-NLS-1$
 	public static final String SVG_FILL_OPACITY				= "fill-opacity";					//$NON-NLS-1$
 	public static final String SVG_STROKE_OPACITY			= "stroke-opacity";					//$NON-NLS-1$
+	public static final String SVG_STOP_OPACITY = "stop-opacity"; //NON-NLS
 	public static final String SVG_BASE_PROFILE				= "baseProfile";					//$NON-NLS-1$
 }

@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -84,5 +85,17 @@ public class TestMathUtils {
 	public void testGetCutNumberCutFloat(final float value, final double threshold) {
 		assumeThat(Math.abs((double) value), greaterThan(Math.abs(threshold)));
 		assertThat(MathUtils.INST.getCutNumber(value, threshold), is(value));
+	}
+
+	@Theory
+	public void testMod2pi(@DoubleData(vals = {0d, 1.1, 2.3, 3.1}) final double value,
+						   @DoubleData(vals = {Math.PI * 2d, Math.PI * 4d}) final double piVals) {
+		assertEquals(value, MathUtils.INST.mod2pi(value + piVals), 0.0001);
+	}
+
+	@Theory
+	public void testMod2piNegVal(@DoubleData(vals = {-0d, -1.1, -2.3, -3.1}) final double value,
+						   @DoubleData(vals = {Math.PI * -2d, Math.PI * -4d}) final double piVals) {
+		assertEquals(value, MathUtils.INST.mod2pi(value + piVals), 0.0001);
 	}
 }

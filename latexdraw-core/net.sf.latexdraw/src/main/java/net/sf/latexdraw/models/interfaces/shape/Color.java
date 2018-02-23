@@ -69,4 +69,6 @@ public interface Color {
 	 * @param opacity the opacity to set
 	 */
 	void setO(final double opacity);
+
+	Color newColorWithOpacity(final double opacity);
 }

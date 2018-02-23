@@ -62,7 +62,7 @@ class ColorImpl implements Color {
 	}
 
 	private void checkChannel(final double val) {
-		if(val < 0.0 || val > 1.0 || !MathUtils.INST.isValidCoord(val)) {
+		if(val < 0d || val > 1d || !MathUtils.INST.isValidCoord(val)) {
 			throw new IllegalArgumentException();
 		}
 	}
@@ -89,6 +89,11 @@ class ColorImpl implements Color {
 	public void setO(final double opacity) {
 		checkChannel(opacity);
 		o = opacity;
+	}
+
+	@Override
+	public Color newColorWithOpacity(final double opacity) {
+		return new ColorImpl(getR(), getG(), getB(), opacity);
 	}
 
 	@Override
@@ -125,7 +130,7 @@ class ColorImpl implements Color {
 
 	@Override
 	public String toString() {
-		return String.format("[%d,%d,%d,%d]", (int) Math.round(r * 255.0), (int) Math.round(g * 255.0),
-			(int) Math.round(b * 255.0), (int) Math.round(o * 255.0));
+		return String.format("[%d,%d,%d,%d]", (int) Math.round(r * 255d), (int) Math.round(g * 255d), //NON-NLS
+			(int) Math.round(b * 255d), (int) Math.round(o * 255d));
 	}
 }
