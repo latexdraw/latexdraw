@@ -527,7 +527,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			final List<IShape> shapes = IntStream.range(0, elts.getLength()).mapToObj(i -> {
 				updateProgress(getProgress() + incrProgressBar, 100d);
 				return elts.item(i);
-			}).filter(node -> node instanceof SVGElement).map(node -> IShapeSVGFactory.INSTANCE.createShape((SVGElement) node)).
+			}).filter(node -> node instanceof SVGElement).map(node -> SVGShapesFactory.INSTANCE.createShape((SVGElement) node)).
 				filter(sh -> sh != null).collect(Collectors.toList());
 
 			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {

@@ -38,7 +38,7 @@ import net.sf.latexdraw.util.LNamespace;
  * An SVG generator for arrows.
  * @author Arnaud BLOUIN
  */
-class LArrowSVGGenerator {
+class SVGArrow {
 	/** The arrowhead generated or used to generate the SVG-arrowd */
 	IArrow arrow;
 
@@ -46,7 +46,7 @@ class LArrowSVGGenerator {
 	 * Creates an SVG arrow generator.
 	 * @param arr The arrow. Must not be null.
 	 */
-	LArrowSVGGenerator(final IArrow arr) {
+	SVGArrow(final IArrow arr) {
 		super();
 		arrow = Objects.requireNonNull(arr);
 	}

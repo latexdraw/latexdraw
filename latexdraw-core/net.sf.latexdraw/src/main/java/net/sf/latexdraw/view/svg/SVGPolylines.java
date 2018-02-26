@@ -33,12 +33,12 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * An SVG generator for some joined lines.
  * @author Arnaud BLOUIN
  */
-class LPolylinesSVGGenerator extends SVGModifiablePointsShape<IPolyline> {
+class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 	/**
 	 * Creates a generator for IPolyline.
 	 * @param polyline The source polyline used to generate the SVG element.
 	 */
-	protected LPolylinesSVGGenerator(final IPolyline polyline) {
+	protected SVGPolylines(final IPolyline polyline) {
 		super(polyline);
 	}
 
@@ -47,7 +47,7 @@ class LPolylinesSVGGenerator extends SVGModifiablePointsShape<IPolyline> {
 	 * Creates some lines using a SVG path.
 	 * @param elt The SVG path.
 	 */
-	protected LPolylinesSVGGenerator(final SVGPathElement elt) {
+	protected SVGPolylines(final SVGPathElement elt) {
 		super(ShapeFactory.INST.createPolyline(getLinePointsFromSVGPathElement(elt)));
 		if(elt == null || (!elt.isLines() && !elt.isLine())) {
 			throw new IllegalArgumentException();
@@ -61,7 +61,7 @@ class LPolylinesSVGGenerator extends SVGModifiablePointsShape<IPolyline> {
 	 * Creates some joined-lines from an SVG polyline element.
 	 * @param elt The source element.
 	 */
-	protected LPolylinesSVGGenerator(final SVGPolyLineElement elt) {
+	protected SVGPolylines(final SVGPolyLineElement elt) {
 		this(ShapeFactory.INST.createPolyline(getPointsFromSVGElement(elt)));
 		setSVGParameters(elt);
 		applyTransformations(elt);
@@ -72,7 +72,7 @@ class LPolylinesSVGGenerator extends SVGModifiablePointsShape<IPolyline> {
 	 * Creates a line from an SVG line element.
 	 * @param elt The source element.
 	 */
-	protected LPolylinesSVGGenerator(final SVGLineElement elt) {
+	protected SVGPolylines(final SVGLineElement elt) {
 		this(ShapeFactory.INST.createPolyline(Collections.emptyList()));
 
 		setSVGParameters(elt);
@@ -84,8 +84,8 @@ class LPolylinesSVGGenerator extends SVGModifiablePointsShape<IPolyline> {
 	 * Creates lines from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected LPolylinesSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.INST.createPolyline(LPolygonSVGGenerator.getPointsFromSVGElement(getLaTeXDrawElement(elt, null))));
+	protected SVGPolylines(final SVGGElement elt, final boolean withTransformation) {
+		this(ShapeFactory.INST.createPolyline(SVGPolygon.getPointsFromSVGElement(getLaTeXDrawElement(elt, null))));
 
 		final SVGElement shapeElt = getLaTeXDrawElement(elt, null);
 		setSVGParameters(shapeElt);

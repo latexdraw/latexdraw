@@ -33,14 +33,14 @@ import net.sf.latexdraw.util.LNamespace;
  * An SVG generator for a free hand drawing.
  * @author Arnaud BLOUIN
  */
-class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
+class SVGFreeHand extends SVGShape<IFreehand> {
 
-	protected LFreeHandSVGGenerator(final IFreehand fh) {
+	protected SVGFreeHand(final IFreehand fh) {
 		super(fh);
 	}
 
 
-	protected LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGFreeHand(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createFreeHand(
 			SVGPointsParser.getPoints(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS)).stream().
 			map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList())));

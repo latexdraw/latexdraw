@@ -30,7 +30,7 @@ import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
 import net.sf.latexdraw.util.LNamespace;
 
-abstract class SVGModifiablePointsShape<S extends IModifiablePointsShape> extends LShapeSVGGenerator<S> {
+abstract class SVGModifiablePointsShape<S extends IModifiablePointsShape> extends SVGShape<S> {
 	/**
 	 * Creates the SVG generator.
 	 * @param sh The shape used for the generation.

@@ -30,9 +30,9 @@ import org.w3c.dom.NodeList;
  * An SVG generator for a text.
  * @author Arnaud BLOUIN
  */
-class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
+class SVGText extends SVGShape<IText> {
 
-	protected LTextSVGGenerator(final IText f) {
+	protected SVGText(final IText f) {
 		super(f);
 	}
 
@@ -42,7 +42,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected LTextSVGGenerator(final SVGTextElement elt) {
+	protected SVGText(final SVGTextElement elt) {
 		this(ShapeFactory.INST.createText());
 
 		if(elt == null) {
@@ -66,7 +66,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected LTextSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGText(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createText());
 
 		if(elt == null) {

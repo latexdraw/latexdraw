@@ -23,13 +23,13 @@ import net.sf.latexdraw.util.LNamespace;
  * A class to factorise code between Rectangle and Square SVG generators.
  * @param <T> The type of the shape.
  */
-abstract class RectangularSVGGenerator<T extends IShape & ILineArcProp> extends LShapeSVGGenerator<T> {
+abstract class SVGRectangular<T extends IShape & ILineArcProp> extends SVGShape<T> {
 	/**
 	 * Creates the SVG generator.
 	 * @param sh The shape used for the generation.
 	 * @throws IllegalArgumentException If the given shape is null.
 	 */
-	protected RectangularSVGGenerator(final T sh) {
+	protected SVGRectangular(final T sh) {
 		super(sh);
 	}
 

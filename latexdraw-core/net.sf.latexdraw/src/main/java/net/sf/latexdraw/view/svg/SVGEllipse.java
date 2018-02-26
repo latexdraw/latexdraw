@@ -15,14 +15,14 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * An SVG generator for an ellipse.
  * @author Arnaud BLOUIN
  */
-class LEllipseSVGGenerator extends LShapeSVGGenerator<IEllipse> {
+class SVGEllipse extends SVGShape<IEllipse> {
 	/**
 	 * Creates a generator of SVG ellipse.
 	 * @param ellipse The ellipse shape used for the generation.
 	 * @throws IllegalArgumentException If ellipse is null.
 	 * @since 2.0
 	 */
-	protected LEllipseSVGGenerator(final IEllipse ellipse) {
+	protected SVGEllipse(final IEllipse ellipse) {
 		super(ellipse);
 	}
 
@@ -33,7 +33,7 @@ class LEllipseSVGGenerator extends LShapeSVGGenerator<IEllipse> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected LEllipseSVGGenerator(final SVGEllipseElement elt) {
+	protected SVGEllipse(final SVGEllipseElement elt) {
 		this(ShapeFactory.INST.createEllipse());
 
 		setSVGParameters(elt);
@@ -47,7 +47,7 @@ class LEllipseSVGGenerator extends LShapeSVGGenerator<IEllipse> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected LEllipseSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGEllipse(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createEllipse());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);

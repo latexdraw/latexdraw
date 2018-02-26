@@ -8,7 +8,7 @@ import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.view.svg.IShapeSVGFactory;
+import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Node;
@@ -34,7 +34,7 @@ public abstract class TestLoadSVGFile {
 			node = elts.item(i);
 
 			if(node instanceof SVGElement)
-				shapes.addShape(IShapeSVGFactory.INSTANCE.createShape((SVGElement)node));
+				shapes.addShape(SVGShapesFactory.INSTANCE.createShape((SVGElement)node));
 		}
 
 		if(shapes.size() == 1 && shapes.getShapeAt(0) instanceof IGroup)

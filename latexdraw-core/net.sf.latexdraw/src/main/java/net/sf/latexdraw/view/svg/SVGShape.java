@@ -58,7 +58,7 @@ import static java.lang.Math.toDegrees;
  * The generation or the importation of SVG parameters to a general LaTeXDraw shape.
  * @author Arnaud BLOUIN
  */
-abstract class LShapeSVGGenerator<S extends IShape> {
+abstract class SVGShape<S extends IShape> {
 	/** The beginning of the token used to declare a URL in an SVG document. */
 	protected static final String SVG_URL_TOKEN_BEGIN = "url(#"; //$NON-NLS-1$
 
@@ -68,7 +68,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		if(arrow.getArrowStyle() != ArrowStyle.NONE) {
 			final String arrowName = "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.hashCode(); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			final SVGElement arrowSVG = new LArrowSVGGenerator(arrow).toSVG(doc, isShadow);
+			final SVGElement arrowSVG = new SVGArrow(arrow).toSVG(doc, isShadow);
 
 			arrowSVG.setAttribute(SVGAttributes.SVG_ID, arrowName);
 			defs.appendChild(arrowSVG);
@@ -347,7 +347,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		line.setStrokeWidth(thickness);
 		line.setStroke(col);
-		LShapeSVGGenerator.setDashedDotted(line, blackDash, whiteDash, dotSep, PSTricksConstants.LINE_DASHED_STYLE, hasDble, thickness, doubleSep);
+		SVGShape.setDashedDotted(line, blackDash, whiteDash, dotSep, PSTricksConstants.LINE_DASHED_STYLE, hasDble, thickness, doubleSep);
 
 		return line;
 	}
@@ -388,7 +388,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param sh The shape used for the generation.
 	 * @throws IllegalArgumentException If the given shape is null.
 	 */
-	protected LShapeSVGGenerator(final S sh) {
+	protected SVGShape(final S sh) {
 		super();
 		if(sh == null) {
 			throw new IllegalArgumentException();
@@ -634,11 +634,11 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		}
 
 		if(shape.isLineStylable()) {
-			LShapeSVGGenerator.setDashedDotted(shape, elt.getStrokeDasharray(), elt.getStrokeLinecap());
+			SVGShape.setDashedDotted(shape, elt.getStrokeDasharray(), elt.getStrokeLinecap());
 		}
 
 		if(shape.isFillable()) {
-			LShapeSVGGenerator.setFillFromSVG(shape, elt.getFill(), elt.getSVGAttribute(SVGAttributes.SVG_FILL_OPACITY, null), elt.getSVGRoot().getDefs());
+			SVGShape.setFillFromSVG(shape, elt.getFill(), elt.getSVGAttribute(SVGAttributes.SVG_FILL_OPACITY, null), elt.getSVGRoot().getDefs());
 		}
 
 		CSSStylesGenerator.INSTANCE.setCSSStyles(shape, elt.getStylesCSS(), elt.getSVGRoot().getDefs());
@@ -652,7 +652,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 */
 	protected void setSVGArrow(final IArrow ah, final String arrowID, final SVGElement elt, final String svgMarker) {
 		if(ah != null && arrowID != null && elt != null) {
-			final LArrowSVGGenerator arrGen = new LArrowSVGGenerator(ah);
+			final SVGArrow arrGen = new SVGArrow(ah);
 			arrGen.setArrow((SVGMarkerElement) elt.getDef(new URIReferenceParser(arrowID).getURI()), getShape(), svgMarker);
 		}
 	}
@@ -751,7 +751,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	private void setSVGThickness(final SVGElement root) {
 		// Setting the thickness of the borders.
 		if(shape.isThicknessable()) {
-			LShapeSVGGenerator.setThickness(root, shape.getThickness(), shape.hasDbleBord(), shape.getDbleBordSep());
+			SVGShape.setThickness(root, shape.getThickness(), shape.hasDbleBord(), shape.getDbleBordSep());
 			if(shape.getLineColour().getO() < 1d) {
 				root.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, MathUtils.INST.format.format(shape.getLineColour().getO()));
 			}
@@ -889,7 +889,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		setSVGFillStyle(doc, root, shadowFills);
 
 		if(shape.isLineStylable()) {
-			LShapeSVGGenerator.setDashedDotted(root, shape.getDashSepBlack(), shape.getDashSepWhite(), shape.getDotSep(),
+			SVGShape.setDashedDotted(root, shape.getDashSepBlack(), shape.getDashSepWhite(), shape.getDotSep(),
 				shape.getLineStyle().getLatexToken(), shape.hasDbleBord(), shape.getThickness(), shape.getDbleBordSep());
 		}
 	}

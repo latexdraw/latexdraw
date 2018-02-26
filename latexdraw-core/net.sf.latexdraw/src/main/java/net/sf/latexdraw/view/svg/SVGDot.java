@@ -30,13 +30,13 @@ import net.sf.latexdraw.view.jfx.ViewFactory;
  * An SVG generator for a dot.
  * @author Arnaud BLOUIN
  */
-class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
+class SVGDot extends SVGShape<IDot> {
 	/**
 	 * Creates a generator of SVG dot.
 	 * @param dot The dot used for the generation.
 	 * @throws IllegalArgumentException If dot is null.
 	 */
-	protected LDotSVGGenerator(final IDot dot) {
+	protected SVGDot(final IDot dot) {
 		super(dot);
 	}
 
@@ -46,7 +46,7 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected LDotSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGDot(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
 
 		if(elt==null)

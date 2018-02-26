@@ -27,7 +27,7 @@ import net.sf.latexdraw.view.PlotViewHelper;
  * An SVG generator for a plotted functions.
  * @author Arnaud BLOUIN
  */
-class LPlotSVGGenerator extends LShapeSVGGenerator<IPlot> {
+class SVGPlot extends SVGShape<IPlot> {
 	static final String XML_TYPE_PLOT 	= "plot"; //$NON-NLS-1$
 	static final String XML_NB_POINTS 	= "nbpts"; //$NON-NLS-1$
 	static final String XML_EQ 			= "eq"; //$NON-NLS-1$
@@ -39,7 +39,7 @@ class LPlotSVGGenerator extends LShapeSVGGenerator<IPlot> {
 	static final String XML_STYLE 		= "plotstyle"; //$NON-NLS-1$
 
 	
-	protected LPlotSVGGenerator(final IPlot plot){
+	protected SVGPlot(final IPlot plot){
 		super(plot);
 	}
 
@@ -48,7 +48,7 @@ class LPlotSVGGenerator extends LShapeSVGGenerator<IPlot> {
 	 * Creates a Bézier curve from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected LPlotSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGPlot(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 5, "x", false));
 
 		setSVGParameters(elt);
@@ -88,9 +88,9 @@ class LPlotSVGGenerator extends LShapeSVGGenerator<IPlot> {
 		catch(NumberFormatException | NullPointerException ex) { BadaboomCollector.INSTANCE.add(ex); }
 		
 		if(elt.getChildNodes().getLength()>0 && elt.getChildNodes().item(0) instanceof SVGElement) {
-			IShape sh = IShapeSVGFactory.INSTANCE.createShape((SVGElement)elt.getChildNodes().item(0));
+			final IShape sh = SVGShapesFactory.INSTANCE.createShape((SVGElement)elt.getChildNodes().item(0));
 			if(sh instanceof IDot) {
-				IDot dot = (IDot)sh;
+				final IDot dot = (IDot)sh;
 				shape.setDiametre(dot.getDiametre());
 				shape.setDotStyle(dot.getDotStyle());
 				shape.setLineColour(dot.getLineColour());

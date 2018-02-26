@@ -37,13 +37,13 @@ import net.sf.latexdraw.util.LNamespace;
  * An SVG generator for a grid.
  * @author Arnaud BLOUIN
  */
-class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
+class SVGGrid extends SVGShape<IGrid> {
 	/**
 	 * Creates a generator of SVG grids.
 	 * @param grid The grid used for the generation.
 	 * @throws IllegalArgumentException If grid is null.
 	 */
-	protected LGridSVGGenerator(final IGrid grid) {
+	protected SVGGrid(final IGrid grid) {
 		super(grid);
 	}
 
@@ -53,7 +53,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected LGridSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGGrid(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
 
 		if(elt==null)

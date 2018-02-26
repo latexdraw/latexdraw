@@ -12,7 +12,7 @@ package net.sf.latexdraw.view.svg;
 
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
@@ -21,46 +21,28 @@ import net.sf.latexdraw.parsers.svg.SVGRectElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
-import static java.lang.Math.min;
-
 /**
- * An SVG generator for a rectangle.
+ * An SVG generator for a square.
  * @author Arnaud BLOUIN
  */
-class LRectangleSVGGenerator extends RectangularSVGGenerator<IRectangle> {
+class SVGSquare extends SVGRectangular<ISquare> {
 	/**
-	 * Creates a generator of SVG rectangle.
-	 * @param rect The rectangle shape used for the generation.
-	 * @throws IllegalArgumentException If rect is null.
-	 * @since 2.0
+	 * Creates an SVG generator for squares.
+	 * @param square The source square to convert in SVG.
+	 * @since 3.0
 	 */
-	protected LRectangleSVGGenerator(final IRectangle rect) {
-		super(rect);
+	protected SVGSquare(final ISquare square) {
+		super(square);
 	}
 
 
 	/**
-	 * Creates a rectangle from an SVG rect element.
+	 * Creates a square from a latexdraw-SVG element.
 	 * @param elt The source element.
-	 * @throws IllegalArgumentException If the given element is null.
 	 * @since 2.0.0
 	 */
-	protected LRectangleSVGGenerator(final SVGRectElement elt) {
-		this(ShapeFactory.INST.createRectangle());
-
-		setSVGRectParameters(elt);
-		applyTransformations(elt);
-	}
-
-
-	/**
-	 * Creates a rectangle from a latexdraw-SVG element.
-	 * @param elt The source element.
-	 * @throws IllegalArgumentException If the given element is null or not valid.
-	 * @since 2.0.0
-	 */
-	protected LRectangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.INST.createRectangle());
+	protected SVGSquare(final SVGGElement elt, final boolean withTransformation) {
+		this(ShapeFactory.INST.createSquare());
 		initRectangle(elt, withTransformation);
 	}
 
@@ -76,8 +58,7 @@ class LRectangleSVGGenerator extends RectangularSVGGenerator<IRectangle> {
 
 		shape.setPosition(elt.getX() + gap / 2d, elt.getY() + elt.getHeight() - gap / 2d);
 		shape.setWidth(elt.getWidth() - gap);
-		shape.setHeight(elt.getHeight() - gap);
-		shape.setLineArc(2d * rx / (min(shape.getHeight(), shape.getWidth()) - (shape.hasDbleBord() ? shape.getDbleBordSep() + shape.getThickness() : 0d)));
+		shape.setLineArc(2d * rx / (shape.getWidth() - (shape.hasDbleBord() ? shape.getDbleBordSep() + shape.getThickness() : 0d)));
 	}
 
 
@@ -93,27 +74,26 @@ class LRectangleSVGGenerator extends RectangularSVGGenerator<IRectangle> {
 		SVGElement elt;
 		final SVGElement root = new SVGGElement(document);
 		final double width = Math.max(1d, br.getX() - tl.getX() + gap);
-		final double height = Math.max(1d, br.getY() - tl.getY() + gap);
 		final double x = tl.getX() - gap / 2d;
 		final double y = tl.getY() - gap / 2d;
 
-		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_RECT);
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SQUARE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-		setShadowSVGRect(root, x, y, width, height, document);
+		setShadowSVGRect(root, x, y, width, width, document);
 
 		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
 			// The background of the borders must be filled is there is a shadow.
-			elt = new SVGRectElement(x, y, width, height, document);
+			elt = new SVGRectElement(x, y, width, width, document);
 			setSVGBorderBackground(elt, root);
 			setSVGRoundCorner(elt);
 		}
 
-		elt = new SVGRectElement(x, y, width, height, document);
+		elt = new SVGRectElement(x, y, width, width, document);
 		root.appendChild(elt);
 		setSVGAttributes(document, elt, true);
 		setSVGRoundCorner(elt);
-		setDbleBordSVGRect(root, x, y, width, height, document);
+		setDbleBordSVGRect(root, x, y, width, width, document);
 		setSVGRotationAttribute(root);
 
 		return root;

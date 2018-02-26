@@ -38,9 +38,9 @@ import net.sf.latexdraw.util.LNamespace;
  * An SVG generator for an shape.
  * @author Arnaud BLOUIN
  */
-class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
+class SVGAxes extends SVGShape<IAxes> {
 
-	protected LAxeSVGGenerator(final IAxes shape) {
+	protected SVGAxes(final IAxes shape) {
 		super(shape);
 	}
 
@@ -50,7 +50,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 	 * @param elt The source element.
 	 * @param withTransformation If true, the SVG transformations will be applied.
 	 */
-	protected LAxeSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGAxes(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
 
 		if(elt == null) {
@@ -135,8 +135,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
 		if(l1 != null && l2 != null) {
 			try {
-				final IPolyline la = new LPolylinesSVGGenerator(l1, false).shape;
-				final IPolyline lb = new LPolylinesSVGGenerator(l2, false).shape;
+				final IPolyline la = new SVGPolylines(l1, false).shape;
+				final IPolyline lb = new SVGPolylines(l2, false).shape;
 
 				shape.setPosition(ShapeFactory.INST.createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
 				shape.setLineStyle(la.getLineStyle());
@@ -205,8 +205,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 			xLine.getArrowAt(1).copy(arr1);
 			yLine.getArrowAt(0).copy(shape.getArrowAt(0));
 			yLine.getArrowAt(1).copy(shape.getArrowAt(2));
-			final SVGElement eltX = new LPolylinesSVGGenerator(xLine).toSVG(document);
-			final SVGElement eltY = new LPolylinesSVGGenerator(yLine).toSVG(document);
+			final SVGElement eltX = new SVGPolylines(xLine).toSVG(document);
+			final SVGElement eltY = new SVGPolylines(yLine).toSVG(document);
 
 			elt.appendChild(eltX);
 			elt.appendChild(eltY);
@@ -230,7 +230,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 			r.setLineColour(shape.getLineColour());
 			r.setLineStyle(shape.getLineStyle());
 			r.setThickness(shape.getThickness());
-			elt.appendChild(new LRectangleSVGGenerator(r).toSVG(document));
+			elt.appendChild(new SVGRectangle(r).toSVG(document));
 		}
 	}
 

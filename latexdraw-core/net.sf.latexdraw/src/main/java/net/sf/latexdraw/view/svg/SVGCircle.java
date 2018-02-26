@@ -25,13 +25,13 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * An SVG generator for a circle.
  * @author Arnaud BLOUIN
  */
-class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
+class SVGCircle extends SVGShape<ICircle> {
 	/**
 	 * Creates a generator of SVG circle.
 	 * @param circle The circle shape used for the generation.
 	 * @throws IllegalArgumentException If circle is null.
 	 */
-	protected LCircleSVGGenerator(final ICircle circle) {
+	protected SVGCircle(final ICircle circle) {
 		super(circle);
 	}
 
@@ -40,7 +40,7 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 	 * Creates a circle from an SVG circle element.
 	 * @param elt The source element.
 	 */
-	protected LCircleSVGGenerator(final SVGCircleElement elt) {
+	protected SVGCircle(final SVGCircleElement elt) {
 		this(ShapeFactory.INST.createCircle());
 		setSVGParameters(elt);
 		setCircleParameters(elt, 0d);
@@ -52,7 +52,7 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 	 * Creates a circle from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected LCircleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGCircle(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createCircle());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);

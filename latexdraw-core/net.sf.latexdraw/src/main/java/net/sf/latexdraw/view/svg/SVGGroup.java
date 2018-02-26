@@ -25,13 +25,13 @@ import org.w3c.dom.NodeList;
  * An SVG generator for a group of shapes.
  * @author Arnaud BLOUIN
  */
-class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
+class SVGGroup extends SVGShape<IGroup> {
 	/**
 	 * Creates an SVG generator from IGroup instance.
 	 * @param group The group of shapes that will be converted.
 	 * @since 3.0
 	 */
-	protected LGroupSVGGenerator(final IGroup group) {
+	protected SVGGroup(final IGroup group) {
 		super(group);
 	}
 
@@ -45,7 +45,7 @@ class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
 	 * @throws IllegalArgumentException If the given SVGGElement is null or not valid.
 	 * @since 3.0
 	 */
-	LGroupSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	SVGGroup(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createGroup());
 
 		if(elt==null)
@@ -58,7 +58,7 @@ class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
 			throw new IllegalArgumentException();
 
 		for(int i=0, size=nodeList.getLength(); i<size; i++) {
-			sh = IShapeSVGFactory.INSTANCE.createShape((SVGElement)nodeList.item(i), withTransformation);
+			sh = SVGShapesFactory.INSTANCE.createShape((SVGElement)nodeList.item(i), withTransformation);
 
 			if(sh!=null)
 				shape.addShape(sh);

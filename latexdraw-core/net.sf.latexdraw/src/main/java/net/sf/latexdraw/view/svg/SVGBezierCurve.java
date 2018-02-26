@@ -37,7 +37,7 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * An SVG generator for a Bézier curve.
  * @author Arnaud BLOUIN
  */
-class LBezierCurveSVGGenerator extends SVGModifiablePointsShape<IBezierCurve> {
+class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 	/**
 	 * Creates a bezier curve and initialises its path from an SVG element.
 	 */
@@ -97,7 +97,7 @@ class LBezierCurveSVGGenerator extends SVGModifiablePointsShape<IBezierCurve> {
 	 * @param bc The bezier curve used for the generation.
 	 * @throws IllegalArgumentException If bc is null.
 	 */
-	protected LBezierCurveSVGGenerator(final IBezierCurve bc) {
+	protected SVGBezierCurve(final IBezierCurve bc) {
 		super(bc);
 	}
 
@@ -106,7 +106,7 @@ class LBezierCurveSVGGenerator extends SVGModifiablePointsShape<IBezierCurve> {
 	 * Creates a Bézier curve from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected LBezierCurveSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGBezierCurve(final SVGGElement elt, final boolean withTransformation) {
 		this(pathToBezierCurve(getLaTeXDrawElement(elt, null)));
 
 		final SVGElement main = getLaTeXDrawElement(elt, null);
@@ -128,7 +128,7 @@ class LBezierCurveSVGGenerator extends SVGModifiablePointsShape<IBezierCurve> {
 		}
 	}
 
-	protected LBezierCurveSVGGenerator(final SVGPathElement path) {
+	protected SVGBezierCurve(final SVGPathElement path) {
 		this(pathToBezierCurve(path));
 		setSVGParameters(path);
 		applyTransformations(path);
@@ -292,25 +292,25 @@ class LBezierCurveSVGGenerator extends SVGModifiablePointsShape<IBezierCurve> {
 
 		// Plotting the dots.
 		if(!arrow1.hasStyle() || isClosed) {
-			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getPtAt(0), col));
+			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getPtAt(0), col));
 		}
 
 		if(!arrow2.hasStyle() || isClosed) {
-			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getPtAt(-1), col));
+			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getPtAt(-1), col));
 		}
 
 		for(i = 1; i < size - 1; i++) {
-			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getPtAt(i), col));
-			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(i), col));
+			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getPtAt(i), col));
+			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(i), col));
 		}
 
 		for(i = 0; i < size; i++) {
-			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getFirstCtrlPtAt(i), col));
+			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getFirstCtrlPtAt(i), col));
 		}
 
 		if(isClosed) {
-			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(-1), col));
-			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(0), col));
+			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(-1), col));
+			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(0), col));
 		}
 
 		return showPts;

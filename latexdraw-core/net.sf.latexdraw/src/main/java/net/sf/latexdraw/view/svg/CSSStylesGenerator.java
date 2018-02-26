@@ -40,9 +40,9 @@ final class CSSStylesGenerator {
 		if(shape==null || styles==null)
 			return ;
 
-		LShapeSVGGenerator.setThickness(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE_WIDTH), styles.getCSSValue(SVGAttributes.SVG_STROKE));
-		LShapeSVGGenerator.setLineColour(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE), styles.getCSSValue(SVGAttributes.SVG_STROKE_OPACITY));
-		LShapeSVGGenerator.setDashedDotted(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE_DASHARRAY), styles.getCSSValue(SVGAttributes.SVG_STROKE_LINECAP));
-		LShapeSVGGenerator.setFillFromSVG(shape, styles.getCSSValue(SVGAttributes.SVG_FILL), styles.getCSSValue(SVGAttributes.SVG_FILL_OPACITY), defs);
+		SVGShape.setThickness(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE_WIDTH), styles.getCSSValue(SVGAttributes.SVG_STROKE));
+		SVGShape.setLineColour(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE), styles.getCSSValue(SVGAttributes.SVG_STROKE_OPACITY));
+		SVGShape.setDashedDotted(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE_DASHARRAY), styles.getCSSValue(SVGAttributes.SVG_STROKE_LINECAP));
+		SVGShape.setFillFromSVG(shape, styles.getCSSValue(SVGAttributes.SVG_FILL), styles.getCSSValue(SVGAttributes.SVG_FILL_OPACITY), defs);
 	}
 }

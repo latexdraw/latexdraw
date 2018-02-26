@@ -33,13 +33,13 @@ import net.sf.latexdraw.util.LNamespace;
  * An SVG generator for an arc.
  * @author Arnaud BLOUIN
  */
-class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
+class SVGCircleArc extends SVGShape<ICircleArc> {
 	/**
 	 * Creates a generator of SVG arc.
 	 * @param shape The arc shape used for the generation.
 	 * @throws IllegalArgumentException If arc is null.
 	 */
-	protected LCircleArcSVGGenerator(final ICircleArc shape) {
+	protected SVGCircleArc(final ICircleArc shape) {
 		super(shape);
 	}
 
@@ -49,7 +49,7 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
 	 * @param elt The source element.
 	 * @param withTransformation If true, the SVG transformations will be applied.
 	 */
-	protected LCircleArcSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGCircleArc(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createCircleArc());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);

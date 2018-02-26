@@ -28,12 +28,12 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * A SVG generator for a polygon.
  * @author Arnaud BLOUIN
  */
-class LPolygonSVGGenerator extends SVGModifiablePointsShape<IPolygon> {
+class SVGPolygon extends SVGModifiablePointsShape<IPolygon> {
 	/**
 	 * Creates a generator for IPolygon.
 	 * @param polygon The source polygon used to generate the SVG element.
 	 */
-	protected LPolygonSVGGenerator(final IPolygon polygon) {
+	protected SVGPolygon(final IPolygon polygon) {
 		super(polygon);
 	}
 
@@ -43,7 +43,7 @@ class LPolygonSVGGenerator extends SVGModifiablePointsShape<IPolygon> {
 	 * @param elt The source SVG element.
 	 * @throws IllegalArgumentException If the given SVG element is null.
 	 */
-	protected LPolygonSVGGenerator(final SVGPathElement elt) {
+	protected SVGPolygon(final SVGPathElement elt) {
 		super(ShapeFactory.INST.createPolygon(getLinePointsFromSVGPathElement(elt)));
 		if(elt == null) {
 			throw new IllegalArgumentException();
@@ -57,7 +57,7 @@ class LPolygonSVGGenerator extends SVGModifiablePointsShape<IPolygon> {
 	 * Creates a polygon from an SVG polygon element.
 	 * @param elt The source element.
 	 */
-	protected LPolygonSVGGenerator(final SVGPolygonElement elt) {
+	protected SVGPolygon(final SVGPolygonElement elt) {
 		this(ShapeFactory.INST.createPolygon(getPointsFromSVGElement(elt)));
 		setSVGParameters(elt);
 		applyTransformations(elt);
@@ -67,7 +67,7 @@ class LPolygonSVGGenerator extends SVGModifiablePointsShape<IPolygon> {
 	 * Creates a polygon from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected LPolygonSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected SVGPolygon(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createPolygon(getPointsFromSVGElement(getLaTeXDrawElement(elt, null))));
 
 		final SVGElement shapeElt = getLaTeXDrawElement(elt, null);

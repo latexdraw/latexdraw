@@ -43,13 +43,13 @@ public class TestLShapeSVGGenerator extends TestCompareShapeIO<IShape> {
 	protected IShape produceOutputShapeFrom() {
 		final SVGElement elt = SVGShapesFactory.INSTANCE.createSVGElement(srcShape, doc);
 		doc.getFirstChild().appendChild(elt);
-		return IShapeSVGFactory.INSTANCE.createShape(elt);
+		return SVGShapesFactory.INSTANCE.createShape(elt);
 	}
 
 	protected IShape produceOutputShapeFrom(final IShape sh) {
 		final SVGElement elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
 		doc.getFirstChild().appendChild(elt);
-		return IShapeSVGFactory.INSTANCE.createShape(elt);
+		return SVGShapesFactory.INSTANCE.createShape(elt);
 	}
 
 	@Theory

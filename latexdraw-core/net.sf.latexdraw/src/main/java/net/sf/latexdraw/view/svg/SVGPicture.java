@@ -24,8 +24,8 @@ import net.sf.latexdraw.util.LNamespace;
  * An SVG generator for an picture.
  * @author Arnaud BLOUIN
  */
-class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
-	protected LPictureSVGGenerator(final IPicture shape) {
+class SVGPicture extends SVGShape<IPicture> {
+	protected SVGPicture(final IPicture shape) {
 		super(shape);
 	}
 
@@ -36,7 +36,7 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 	 * @throws IOException If a problem while reading/writing pictures occurs.
 	 * @since 2.0.0
 	 */
-	protected LPictureSVGGenerator(final SVGImageElement elt) throws IOException {
+	protected SVGPicture(final SVGImageElement elt) throws IOException {
 		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 
 		shape.setPathSource(elt.getURI());
@@ -51,7 +51,7 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 	 * @throws IOException If a problem while reading/writing pictures occurs.
 	 * @since 2.0.0
 	 */
-	protected LPictureSVGGenerator(final SVGGElement elt, final boolean withTransformation) throws IOException {
+	protected SVGPicture(final SVGGElement elt, final boolean withTransformation) throws IOException {
 		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);

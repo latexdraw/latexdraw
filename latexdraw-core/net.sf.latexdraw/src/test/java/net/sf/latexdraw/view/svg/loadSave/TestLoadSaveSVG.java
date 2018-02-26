@@ -15,7 +15,6 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import net.sf.latexdraw.view.svg.IShapeSVGFactory;
 import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import org.junit.Test;
 import org.w3c.dom.Node;
@@ -45,7 +44,7 @@ public abstract class TestLoadSaveSVG<T extends IShape> {
 			node = elts.item(i);
 
 			if(node instanceof SVGElement) {
-				shapes.addShape(IShapeSVGFactory.INSTANCE.createShape((SVGElement) node));
+				shapes.addShape(SVGShapesFactory.INSTANCE.createShape((SVGElement) node));
 			}
 		}
 
