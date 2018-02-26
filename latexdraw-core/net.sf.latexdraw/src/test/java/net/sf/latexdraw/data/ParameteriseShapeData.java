@@ -1,17 +1,38 @@
 package net.sf.latexdraw.data;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
 import javafx.scene.paint.Color;
+import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import org.junit.rules.TemporaryFolder;
 
-public final class ParameteriseShapeData {
+public final class ParameteriseShapeData implements HelperTest {
 	public static ParameteriseShapeData INST = new ParameteriseShapeData();
+	private final Set<TemporaryFolder> tempFolders = new HashSet<>();
 
 	private ParameteriseShapeData() {
 		super();
+	}
+
+	public Path getTestPNG(final TemporaryFolder folder) throws IOException {
+		final Path path = Paths.get(folder.getRoot().toPath().toString(), "LaTeXDrawSmall.png");
+		Files.copy(Paths.get("src/test/resources/LaTeXDrawSmall.png"), path);
+		return path;
+	}
+
+	public void clearTempFolders() {
+		tempFolders.forEach(folder -> folder.delete());
+		tempFolders.clear();
 	}
 
 	/**
@@ -207,5 +228,13 @@ public final class ParameteriseShapeData {
 		sh.setLineColour(ShapeFactory.INST.createColor(0.1, 0.2, 0.3, 0.6));
 
 		return sh;
+	}
+
+	public IPicture setPictureData1(final IPicture pic) throws IOException {
+		final TemporaryFolder folder = new TemporaryFolder();
+		folder.create();
+		tempFolders.add(folder);
+		pic.setPathSource(getTestPNG(folder).toString());
+		return pic;
 	}
 }

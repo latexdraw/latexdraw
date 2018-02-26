@@ -1,31 +1,41 @@
 package net.sf.latexdraw.view.svg;
 
+import java.util.concurrent.TimeoutException;
+import net.sf.latexdraw.HelperTest;
+import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.data.ShapeData;
 import net.sf.latexdraw.models.CompareShapeMatcher;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.TestCompareShapeIO;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
+import org.testfx.api.FxToolkit;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
-public class TestLShapeSVGGenerator extends TestCompareShapeIO<IShape> {
+public class TestSVGShape extends TestCompareShapeIO<IShape> implements HelperTest {
 	SVGDocument doc;
-	SVGGElement g;
+
+	@BeforeClass
+	public static void beforeClass() throws TimeoutException {
+		FxToolkit.registerPrimaryStage();
+	}
+
+	@AfterClass
+	public static void tearDownAll() {
+		ParameteriseShapeData.INST.clearTempFolders();
+	}
 
 	@Before
 	public void setUp() {
@@ -73,7 +83,6 @@ public class TestLShapeSVGGenerator extends TestCompareShapeIO<IShape> {
 
 	@Theory
 	public void testLoadRotationAngleParams(@ShapeData(withParamVariants = true) final IShape sh) {
-		assumeThat(sh, not(instanceOf(IPicture.class)));
 		final IShape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeRotationAngle(sh, s2);
 	}

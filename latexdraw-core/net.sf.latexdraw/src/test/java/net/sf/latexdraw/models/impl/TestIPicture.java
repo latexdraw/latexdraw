@@ -1,12 +1,10 @@
 package net.sf.latexdraw.models.impl;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 import net.sf.latexdraw.HelperTest;
+import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
@@ -42,8 +40,7 @@ public class TestIPicture implements HelperTest {
 		shape = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		folder = new TemporaryFolder();
 		folder.create();
-		path = Paths.get(folder.getRoot().toPath().toString(), "LaTeXDrawSmall.png");
-		Files.copy(Paths.get("src/test/resources/LaTeXDrawSmall.png"), path);
+		path = ParameteriseShapeData.INST.getTestPNG(folder);
 		shape.setPathSource(path.toString());
 	}
 
