@@ -24,19 +24,19 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.PlotViewHelper;
 
 /**
- * An SVG generator for a plotted functions.
+ * An SVG generator for plotted functions.
  * @author Arnaud BLOUIN
  */
 class SVGPlot extends SVGShape<IPlot> {
-	static final String XML_TYPE_PLOT 	= "plot"; //$NON-NLS-1$
-	static final String XML_NB_POINTS 	= "nbpts"; //$NON-NLS-1$
-	static final String XML_EQ 			= "eq"; //$NON-NLS-1$
-	static final String XML_MIN 		= "min"; //$NON-NLS-1$
-	static final String XML_MAX 		= "max"; //$NON-NLS-1$
-	static final String XML_XSCALE 		= "xscale"; //$NON-NLS-1$
-	static final String XML_YSCALE 		= "yscale"; //$NON-NLS-1$
-	static final String XML_POLAR 		= "polar"; //$NON-NLS-1$
-	static final String XML_STYLE 		= "plotstyle"; //$NON-NLS-1$
+	static final String XML_TYPE_PLOT 	= "plot"; //NON-NLS
+	static final String XML_NB_POINTS 	= "nbpts"; //NON-NLS
+	static final String XML_EQ 			= "eq"; //NON-NLS
+	static final String XML_MIN 		= "min"; //NON-NLS
+	static final String XML_MAX 		= "max"; //NON-NLS
+	static final String XML_XSCALE 		= "xscale"; //NON-NLS
+	static final String XML_YSCALE 		= "yscale"; //NON-NLS
+	static final String XML_POLAR 		= "polar"; //NON-NLS
+	static final String XML_STYLE 		= "plotstyle"; //NON-NLS
 
 	
 	protected SVGPlot(final IPlot plot){
@@ -49,7 +49,7 @@ class SVGPlot extends SVGShape<IPlot> {
 	 * @param elt The source element.
 	 */
 	protected SVGPlot(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 5, "x", false));
+		this(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 5, "x", false)); //NON-NLS
 
 		setSVGParameters(elt);
 		
@@ -169,6 +169,7 @@ class SVGPlot extends SVGShape<IPlot> {
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POSITION_Y, Double.toString(shape.getY()));
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 		setSVGAttributes(doc, root, true);
+		setSVGRotationAttribute(root);
 		
 		return root;
 	}
