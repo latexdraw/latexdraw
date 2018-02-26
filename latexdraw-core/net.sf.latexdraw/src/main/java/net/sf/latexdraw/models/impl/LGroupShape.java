@@ -436,12 +436,14 @@ interface LGroupShape extends IGroup {
 
 	@Override
 	default void addToRotationAngle(final IPoint gravCentre, final double angle) {
+		rotationAngleProperty().setValue(rotationAngleProperty().get() + angle);
 		final IPoint gc = getGravityCentre();
 		getShapes().forEach(sh -> sh.addToRotationAngle(gc, angle));
 	}
 
 	@Override
 	default void setRotationAngle(final double rotationAngle) {
+		rotationAngleProperty().setValue(rotationAngle);
 		getShapes().forEach(sh -> sh.setRotationAngle(rotationAngle));
 	}
 
@@ -452,7 +454,7 @@ interface LGroupShape extends IGroup {
 
 	@Override
 	default double getRotationAngle() {
-		return isEmpty() ? 0d : getShapes().get(0).getRotationAngle();
+		return size() == 1 ? getShapeAt(0).getRotationAngle() : rotationAngleProperty().doubleValue();
 	}
 
 	@Override

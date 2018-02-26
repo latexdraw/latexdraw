@@ -17,6 +17,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
  * The JFX shape view for multipoints shapes.
@@ -32,6 +33,22 @@ public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends Vi
 		initPath(border);
 		initPath(shadow);
 		initPath(dblBorder);
+	}
+
+	@Override
+	public void fixRotationPivot(final IPoint pivot) {
+	}
+
+	@Override
+	public void releaseRotationPivot() {
+	}
+
+	@Override
+	protected void unbindRotationAngle() {
+	}
+
+	@Override
+	protected void bindRotationAngle() {
 	}
 
 	private void initPath(final Path path) {

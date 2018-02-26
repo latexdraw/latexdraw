@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public interface CollectionMatcher {
 	default <E, F> void assertAllEquals(final Stream<E> coll, final Function<E, F> matcher, final F expected) {
@@ -22,5 +23,9 @@ public interface CollectionMatcher {
 
 	default <E> void assertAllFalse(final Stream<E> coll, final Function<E, Boolean> matcher) {
 		coll.forEach(elt -> assertFalse(matcher.apply(elt)));
+	}
+
+	default <E> void assertAllTrue(final Stream<E> coll, final Function<E, Boolean> matcher) {
+		coll.forEach(elt -> assertTrue(matcher.apply(elt)));
 	}
 }

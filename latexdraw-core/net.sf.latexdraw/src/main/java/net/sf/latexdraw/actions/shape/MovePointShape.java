@@ -33,29 +33,29 @@ public class MovePointShape extends MovePoint implements Undoable {
 		redo();
 	}
 
-
 	@Override
 	public boolean canDo() {
 		return super.canDo() && shape != null && shape.getPoints().indexOf(point) != -1;
 	}
 
-
 	@Override
 	public void undo() {
 		final int index = shape.getPoints().indexOf(point);
-		// Must use setPoint since other attributes of the shape may depend on the point (e.g. control points).
-		shape.setPoint(point.getX() - tx, point.getY() - ty, index);
-		shape.setModified(true);
+		if(index != -1) {
+			// Must use setPoint since other attributes of the shape may depend on the point (e.g. control points).
+			shape.setPoint(point.getX() - tx, point.getY() - ty, index);
+			shape.setModified(true);
+		}
 	}
-
 
 	@Override
 	public void redo() {
 		final int index = shape.getPoints().indexOf(point);
-		shape.setPoint(newCoord.getX(), newCoord.getY(), index);
-		shape.setModified(true);
+		if(index != -1) {
+			shape.setPoint(newCoord.getX(), newCoord.getY(), index);
+			shape.setModified(true);
+		}
 	}
-
 
 	@Override
 	public void flush() {
@@ -63,18 +63,19 @@ public class MovePointShape extends MovePoint implements Undoable {
 		shape = null;
 	}
 
-
 	@Override
 	public String getUndoName() {
 		return LangTool.INSTANCE.getBundle().getString("Actions.10"); //$NON-NLS-1$
 	}
 
-
 	/**
 	 * @param sh The shape to modify.
-	 * @since 3.0
 	 */
 	public void setShape(final IModifiablePointsShape sh) {
 		shape = sh;
+	}
+
+	public IModifiablePointsShape getShape() {
+		return shape;
 	}
 }

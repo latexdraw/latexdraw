@@ -12,6 +12,7 @@ package net.sf.latexdraw.models.interfaces.shape;
 
 import java.awt.geom.Rectangle2D;
 import java.util.List;
+import javafx.beans.property.DoubleProperty;
 import org.malai.properties.Modifiable;
 
 /**
@@ -554,4 +555,6 @@ public interface IShape extends Modifiable {
 	 * @since 3.0
 	 */
 	double getHeight();
+
+	DoubleProperty rotationAngleProperty();
 }

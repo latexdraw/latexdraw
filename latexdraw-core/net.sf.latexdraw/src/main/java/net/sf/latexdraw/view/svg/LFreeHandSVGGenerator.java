@@ -41,12 +41,12 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 
 	protected LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.INST.createFreeHand(SVGPointsParser.getPoints(
-			elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS)).stream().
+		this(ShapeFactory.INST.createFreeHand(
+			SVGPointsParser.getPoints(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS)).stream().
 			map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList())));
 
 		final SVGElement main = getLaTeXDrawElement(elt, null);
-		String v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_INTERVAL);
+		final String v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_INTERVAL);
 
 		if(v != null) {
 			try {
@@ -59,16 +59,6 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
-
-		v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION);
-
-		if(v != null) {
-			try {
-				shape.setRotationAngle(Double.valueOf(v));
-			}catch(final NumberFormatException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
-		}
 
 		try {
 			FreeHandStyle type = FreeHandStyle.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE));
@@ -195,7 +185,9 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 	@Override
 	public SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null) return null;
+		if(doc == null) {
+			return null;
+		}
 
 		final SVGElement root = new SVGGElement(doc);
 		SVGElement elt;
@@ -207,8 +199,8 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		final String path = getPath().toString();
 		final StringBuilder pts = new StringBuilder();
 
-		for(int i = 0, size = shape.getNbPoints(); i < size; i++) {
-			pts.append(shape.getPtAt(i).getX()).append(' ').append(shape.getPtAt(i).getY()).append(' ');
+		for(final IPoint pt : shape.getPoints()) {
+			pts.append(pt.getX()).append(' ').append(pt.getY()).append(' ');
 		}
 
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS, pts.toString());
@@ -232,7 +224,7 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		root.appendChild(elt);
 
 		setSVGAttributes(doc, elt, false);
-		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
+		setSVGRotationAttribute(root);
 
 		return root;
 	}

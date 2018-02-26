@@ -33,6 +33,11 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 	public abstract IModifiablePointsShape duplicate();
 
 	@Override
+	public void setRotationAngleOnly(final double rotationAngle) {
+		super.setRotationAngle(rotationAngle);
+	}
+
+	@Override
 	public void rotate(final IPoint point, final double angle) {
 		setRotationAngle(point, angle);
 	}

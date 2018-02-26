@@ -1,19 +1,12 @@
 package net.sf.latexdraw.instruments;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Spinner;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewArrow;
@@ -32,47 +25,9 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 public class TestCanvasSelection extends BaseTestCanvas {
-	IGrid addedGrid;
-	IPolyline addedPolyline;
-	IPlot addedPlot;
-	IGroup addedGroup;
 	TextSetter setter;
 
-	final GUIVoidCommand addGroup = () -> Platform.runLater(() -> {
-		IRectangle r1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+50), 200, 100);
-		IRectangle r2 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300, -Canvas.ORIGIN.getY()+300), 100, 100);
-		addedGroup = ShapeFactory.INST.createGroup();
-		addedGroup.addShape(r1);
-		addedGroup.addShape(r2);
-		canvas.getDrawing().addShape(addedGroup);
-	});
-
-	final GUIVoidCommand addGrid = () -> Platform.runLater(() -> {
-		addedGrid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+200, -Canvas.ORIGIN.getY()+200));
-		canvas.getDrawing().addShape(addedGrid);
-	});
-
-	final GUIVoidCommand addLines = () -> Platform.runLater(() -> {
-		addedPolyline = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+250),
-			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300, -Canvas.ORIGIN.getY()+350),
-			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+120, -Canvas.ORIGIN.getY()+500)));
-		addedPolyline.setArrowStyle(ArrowStyle.LEFT_ARROW, 0);
-		addedPolyline.setThickness(20d);
-		canvas.getDrawing().addShape(addedPolyline);
-	});
-
-	final GUIVoidCommand addPlot = () -> Platform.runLater(() -> {
-		addedPlot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+400),
-			0d, 5d, "x", false);
-		addedPlot.setThickness(10d);
-		canvas.getDrawing().addShape(addedPlot);
-	});
-
-	final GUIVoidCommand addText = () -> Platform.runLater(() -> {
-		canvas.getDrawing().addShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300,-Canvas.ORIGIN.getY()+300), "$foo bar"));
-	});
-
-	final GUIVoidCommand clickOnAddedRec = () -> rightClickOn(getPane().getChildren().get(0));
+	final GUIVoidCommand clickOnAddedFirstShape = () -> rightClickOn(getPane().getChildren().get(0));
 
 	final GUIVoidCommand ctrlClickOnAddedRec2 = () -> press(KeyCode.CONTROL).rightClickOn(getPane().getChildren().get(1)).release(KeyCode.CONTROL);
 
@@ -109,28 +64,28 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 	@Test
 	public void testOneClickOnShapeSelectsIt() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents, clickOnAddedRec, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, waitFXEvents, clickOnAddedFirstShape, waitFXEvents).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
 	}
 
 	@Test
 	public void testTwoClicksOnShapeSelectsItOneTime() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents, clickOnAddedRec, waitFXEvents, clickOnAddedRec, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, waitFXEvents, clickOnAddedFirstShape, waitFXEvents, clickOnAddedFirstShape, waitFXEvents).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 	}
 
 	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testShiftClickOnShapeDeselectsIt() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents, clickOnAddedRec, waitFXEvents, shiftClickOnAddedRec, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, waitFXEvents, clickOnAddedFirstShape, waitFXEvents, shiftClickOnAddedRec, waitFXEvents).execute();
 		assertTrue(canvas.getDrawing().getSelection().isEmpty());
 	}
 
 	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testCtrlClickOnShapeAddsSelection() {
-		new CompositeGUIVoidCommand(addRec, addRec2, waitFXEvents, clickOnAddedRec, waitFXEvents, ctrlClickOnAddedRec2, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, addRec2, waitFXEvents, clickOnAddedFirstShape, waitFXEvents, ctrlClickOnAddedRec2, waitFXEvents).execute();
 		assertEquals(2, canvas.getDrawing().getSelection().size());
 		assertNotSame(canvas.getDrawing().getSelection().getShapeAt(0), canvas.getDrawing().getSelection().getShapeAt(1));
 	}
@@ -138,7 +93,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testTwoAddsAndShiftClickSelectsOneShape() {
-		new CompositeGUIVoidCommand(addRec, addRec2, waitFXEvents, clickOnAddedRec, waitFXEvents, ctrlClickOnAddedRec2, waitFXEvents,
+		new CompositeGUIVoidCommand(addRec, addRec2, waitFXEvents, clickOnAddedFirstShape, waitFXEvents, ctrlClickOnAddedRec2, waitFXEvents,
 			shiftClickOnAddedRec, waitFXEvents).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertNotSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));

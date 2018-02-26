@@ -21,10 +21,16 @@ public interface IModifiablePointsShape extends ISingleShape {
 	 * @param y The new Y-coordinate.
 	 * @param position The position of the point to move in the points list (-1 corresponds to the last point).
 	 * @return true if the operation is successful.
-	 * @since 3.0
 	 */
 	boolean setPoint(final double x, final double y, final int position);
 
 	@Override
 	IModifiablePointsShape duplicate();
+
+	/**
+	 * Sets the rotation angle of the shape. The points of the shape are never transformed (rotated)
+	 * when this method is called.
+	 * @param rotationAngle The new rotation angle
+	 */
+	void setRotationAngleOnly(final double rotationAngle);
 }

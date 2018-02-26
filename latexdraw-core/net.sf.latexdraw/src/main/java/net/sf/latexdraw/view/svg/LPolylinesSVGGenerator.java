@@ -33,7 +33,7 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * An SVG generator for some joined lines.
  * @author Arnaud BLOUIN
  */
-class LPolylinesSVGGenerator extends LShapeSVGGenerator<IPolyline> {
+class LPolylinesSVGGenerator extends SVGModifiablePointsShape<IPolyline> {
 	/**
 	 * Creates a generator for IPolyline.
 	 * @param polyline The source polyline used to generate the SVG element.
@@ -48,7 +48,7 @@ class LPolylinesSVGGenerator extends LShapeSVGGenerator<IPolyline> {
 	 * @param elt The SVG path.
 	 */
 	protected LPolylinesSVGGenerator(final SVGPathElement elt) {
-		super(ShapeFactory.INST.createPolyline(LPolygonSVGGenerator.initModifiablePointsShape(elt)));
+		super(ShapeFactory.INST.createPolyline(getLinePointsFromSVGPathElement(elt)));
 		if(elt == null || (!elt.isLines() && !elt.isLine())) {
 			throw new IllegalArgumentException();
 		}
@@ -57,14 +57,12 @@ class LPolylinesSVGGenerator extends LShapeSVGGenerator<IPolyline> {
 	}
 
 
-
 	/**
 	 * Creates some joined-lines from an SVG polyline element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGPolyLineElement elt) {
-		this(ShapeFactory.INST.createPolyline(LPolygonSVGGenerator.getPointsFromSVGElement(elt)));
+		this(ShapeFactory.INST.createPolyline(getPointsFromSVGElement(elt)));
 		setSVGParameters(elt);
 		applyTransformations(elt);
 	}
@@ -73,7 +71,6 @@ class LPolylinesSVGGenerator extends LShapeSVGGenerator<IPolyline> {
 	/**
 	 * Creates a line from an SVG line element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGLineElement elt) {
 		this(ShapeFactory.INST.createPolyline(Collections.emptyList()));
@@ -84,23 +81,23 @@ class LPolylinesSVGGenerator extends LShapeSVGGenerator<IPolyline> {
 
 
 	/**
-	 * Creates some joined-lines from a latexdraw-SVG element.
+	 * Creates lines from a latexdraw-SVG element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createPolyline(LPolygonSVGGenerator.getPointsFromSVGElement(getLaTeXDrawElement(elt, null))));
 
-		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
-		setSVGParameters(elt2);
+		final SVGElement shapeElt = getLaTeXDrawElement(elt, null);
+		setSVGParameters(shapeElt);
 		setSVGLatexdrawParameters(elt);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 		final IArrow arrow1 = shape.getArrowAt(0);
 		final IArrow arrow2 = shape.getArrowAt(-1);
-		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix() + SVGAttributes.SVG_MARKER_START), elt2, SVGAttributes.SVG_MARKER_START);
-		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix() + SVGAttributes.SVG_MARKER_END), elt2, SVGAttributes.SVG_MARKER_END);
+		setSVGArrow(arrow1, shapeElt.getAttribute(shapeElt.getUsablePrefix() + SVGAttributes.SVG_MARKER_START), shapeElt, SVGAttributes.SVG_MARKER_START);
+		setSVGArrow(arrow2, shapeElt.getAttribute(shapeElt.getUsablePrefix() + SVGAttributes.SVG_MARKER_END), shapeElt, SVGAttributes.SVG_MARKER_END);
 		homogeniseArrows(arrow1, arrow2);
+		setRotationAngle(shapeElt);
 
 		if(withTransformation) {
 			applyTransformations(elt);
@@ -110,46 +107,64 @@ class LPolylinesSVGGenerator extends LShapeSVGGenerator<IPolyline> {
 
 	@Override
 	public SVGElement toSVG(final SVGDocument doc) {
-		if(doc==null)
+		if(doc == null) {
 			return null;
+		}
 
-        final SVGElement root 		= new SVGGElement(doc);
-		final SVGDefsElement defs 	= doc.getFirstChild().getDefs();
-		final StringBuilder points 	= new StringBuilder();
-		final List<IPoint> pts		= shape.getPoints();
+		final SVGElement root = new SVGGElement(doc);
+		final SVGDefsElement defs = doc.getFirstChild().getDefs();
+		final StringBuilder points = new StringBuilder();
+		final List<IPoint> pts = shape.getPoints();
 		SVGPolyLineElement elt;
 
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_JOINED_LINES);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-		for(final IPoint pt : pts)
+		for(final IPoint pt : pts) {
 			points.append(pt.getX()).append(',').append(pt.getY()).append(' ');
+		}
 
 		final String pointsStr = points.toString();
 
 		if(shape.hasShadow()) {
 			final SVGPolyLineElement shad = new SVGPolyLineElement(doc);
-			try { shad.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
+			try {
+				shad.setPoints(pointsStr);
+			}catch(final ParseException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
+			}
 			setSVGShadowAttributes(shad, false);
 			root.appendChild(shad);
 			setSVGArrow(shape, shad, 0, true, doc, defs);
 			setSVGArrow(shape, shad, 1, true, doc, defs);
 		}
 
-        if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE) && shape.isFilled()) {
-        	// The background of the borders must be filled is there is a shadow.
-    		elt = new SVGPolyLineElement(doc);
-    		try { elt.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
-    		setSVGBorderBackground(elt, root);
-        }
+		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE) && shape.isFilled()) {
+			// The background of the borders must be filled is there is a shadow.
+			elt = new SVGPolyLineElement(doc);
+			try {
+				elt.setPoints(pointsStr);
+			}catch(final ParseException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
+			}
+			setSVGBorderBackground(elt, root);
+		}
 
 		elt = new SVGPolyLineElement(doc);
-		try { elt.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
+		try {
+			elt.setPoints(pointsStr);
+		}catch(final ParseException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+		}
 		root.appendChild(elt);
 
 		if(shape.hasDbleBord()) {
 			final SVGPolyLineElement dblBord = new SVGPolyLineElement(doc);
-			try { dblBord.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
+			try {
+				dblBord.setPoints(pointsStr);
+			}catch(final ParseException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
+			}
 			setSVGDoubleBordersAttributes(dblBord);
 			root.appendChild(dblBord);
 		}
@@ -158,7 +173,7 @@ class LPolylinesSVGGenerator extends LShapeSVGGenerator<IPolyline> {
 		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
 		setSVGArrow(shape, elt, 0, false, doc, defs);
-		setSVGArrow(shape, elt, shape.getNbArrows()-1, false, doc, defs);
+		setSVGArrow(shape, elt, shape.getNbArrows() - 1, false, doc, defs);
 
 		return root;
 	}

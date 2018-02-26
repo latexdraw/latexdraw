@@ -57,19 +57,19 @@ import org.malai.javafx.interaction.library.DnD;
  */
 public class Border extends CanvasInstrument implements Initializable {
 	/** The handlers that scale shapes. */
-	private final ObservableList<ScaleHandler> scaleHandlers;
+	final ObservableList<ScaleHandler> scaleHandlers;
 	/** The handlers that move points. */
-	private final ObservableList<MovePtHandler> mvPtHandlers;
+	final ObservableList<MovePtHandler> mvPtHandlers;
 	/** The handlers that move first control points. */
-	private final ObservableList<CtrlPointHandler> ctrlPt1Handlers;
+	final ObservableList<CtrlPointHandler> ctrlPt1Handlers;
 	/** The handlers that move second control points. */
-	private final ObservableList<CtrlPointHandler> ctrlPt2Handlers;
+	final ObservableList<CtrlPointHandler> ctrlPt2Handlers;
 	/** The handler that sets the start angle of an arc. */
-	private final ArcAngleHandler arcHandlerStart;
+	final ArcAngleHandler arcHandlerStart;
 	/** The handler that sets the end angle of an arc. */
-	private final ArcAngleHandler arcHandlerEnd;
+	final ArcAngleHandler arcHandlerEnd;
 	/** The handler that rotates shapes. */
-	private RotationHandler rotHandler;
+	RotationHandler rotHandler;
 
 	@Inject private MetaShapeCustomiser metaCustomiser;
 
@@ -164,7 +164,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 	private void updateMvPtHandlers(final IShape selectedShape) {
 		if(selectedShape instanceof IModifiablePointsShape) {
-			initialisePointHandler(mvPtHandlers, pt -> new MovePtHandler(pt), selectedShape.getPoints());
+			initialisePointHandler(mvPtHandlers, pt -> new MovePtHandler(pt, selectedShape), selectedShape.getPoints());
 		}
 	}
 
@@ -190,33 +190,64 @@ public class Border extends CanvasInstrument implements Initializable {
 		});
 	}
 
-	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
-		addBinding(new DnD2Scale(this));
-
+	private void configureMovePointBinding() throws InstantiationException, IllegalAccessException {
 		nodeBinder(MovePointShape.class, new DnD()).
 			on(mvPtHandlers).
-			first((a, i) -> {
+			first((a, i) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
 				final IGroup group = canvas.getDrawing().getSelection();
 				if(group.size() == 1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
-					final MovePtHandler handler = (MovePtHandler) i.getSrcObject().get();
 					a.setPoint(handler.getPoint());
 					a.setShape((IModifiablePointsShape) group.getShapeAt(0));
 				}
-			}).
-			then((a, i) -> {
-				final Node node = i.getSrcObject().get();
+			})).
+			then((a, i) -> i.getSrcObject().ifPresent(node -> {
 				final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
 				final Point3D endPt = node.localToParent(i.getEndLocalPt());
 				final IPoint ptToMove = ((MovePtHandler) node).getPoint();
 				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
 				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
 				a.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
-			}).
+			})).
 			exec().
-			when(i -> i.getSrcLocalPoint() != null && i.getEndLocalPt() != null).
+			when(i -> i.getSrcLocalPoint() != null && i.getEndLocalPt() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler).
 			bind();
+//		nodeBinder(MovePointShape.class, new DnD()).
+//			on(mvPtHandlers).
+//			first((a, i) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
+//				final IGroup group = canvas.getDrawing().getSelection();
+//				if(group.size() == 1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
+//					currentgc.setPoint(group.getShapeAt(0).getGravityCentre());
+//					handler.setRotationPivot(() -> currentgc);
+//					a.setPoint(handler.getPoint());
+//					a.setShape((IModifiablePointsShape) group.getShapeAt(0));
+//					canvas.getViewFromShape(group.getShapeAt(0)).
+//						ifPresent(view -> ((ViewSingleShape) view).fixRotationPivot(group.getShapeAt(0).getGravityCentre()));
+//				}
+//			})).
+//			then((a, i) -> i.getSrcObject().ifPresent(node -> {
+//				final IPoint startPt = ShapeFactory.INST.createPoint(node.localToParent(i.getSrcLocalPoint())).rotatePoint(currentgc, -a.getShape().getRotationAngle());
+//				final IPoint endPt = ShapeFactory.INST.createPoint(node.localToParent(i.getEndLocalPt())).rotatePoint(currentgc, -a.getShape().getRotationAngle());
+//				final IPoint ptToMove = ((MovePtHandler) node).getPoint();
+//				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
+//				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
+////				a.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
+//				a.setNewCoord(ShapeFactory.INST.createPoint(x, y));
+//			})).
+//			endOrCancel((a, i) -> {
+//				((ViewSingleShape) canvas.getViewFromShape(a.getShape()).get()).releaseRotationPivot();
+//				i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
+//					handler.setRotationPivot(() -> a.getShape().getGravityCentre());
+//				});
+//			}).
+//			exec().
+//			when(i -> i.getSrcLocalPoint() != null && i.getEndLocalPt() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler).
+//			bind();
+	}
 
+	@Override
+	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+		addBinding(new DnD2Scale(this));
+		configureMovePointBinding();
 		nodeBinder(MoveCtrlPoint.class, new DnD()).
 			on(ctrlPt1Handlers).
 			on(ctrlPt2Handlers).

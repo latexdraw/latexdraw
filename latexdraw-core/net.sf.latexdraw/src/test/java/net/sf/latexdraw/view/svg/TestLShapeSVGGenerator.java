@@ -2,7 +2,9 @@ package net.sf.latexdraw.view.svg;
 
 import net.sf.latexdraw.data.ShapeData;
 import net.sf.latexdraw.models.CompareShapeMatcher;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
@@ -13,7 +15,6 @@ import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.TestCompareShapeIO;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
@@ -32,10 +33,10 @@ public class TestLShapeSVGGenerator extends TestCompareShapeIO<IShape> {
 	public void setUp() {
 		doc = new SVGDocument();
 		final SVGSVGElement root = doc.getFirstChild();
-		root.setAttribute("xmlns:" + LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);//$NON-NLS-1$
+		root.setAttribute("xmlns:" + LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);
 		root.appendChild(new SVGDefsElement(doc));
-		root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");//$NON-NLS-1$
-		root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");//$NON-NLS-1$
+		root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");
+		root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");
 	}
 
 	@Override
@@ -72,10 +73,11 @@ public class TestLShapeSVGGenerator extends TestCompareShapeIO<IShape> {
 		CompareShapeMatcher.INST.assertEqualShapeShowPts(sh, s2);
 	}
 
-	@Ignore
 	@Theory
 	public void testLoadRotationAngleParams(@ShapeData(withParamVariants = true) final IShape sh) {
 		assumeThat(sh, not(instanceOf(IPicture.class)));
+		assumeThat(sh, not(instanceOf(IDot.class)));
+		assumeThat(sh, not(instanceOf(IPlot.class)));
 		final IShape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeRotationAngle(sh, s2);
 	}

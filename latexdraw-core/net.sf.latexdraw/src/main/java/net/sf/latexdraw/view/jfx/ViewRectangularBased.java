@@ -36,8 +36,6 @@ public abstract class ViewRectangularBased<T extends ISingleShape> extends ViewS
 			dblBorder.setArcHeight(lineArc * height);
 			dblBorder.setArcWidth(lineArc * width);
 		}
-
-		bindRotationAngle();
 	};
 
 	/**

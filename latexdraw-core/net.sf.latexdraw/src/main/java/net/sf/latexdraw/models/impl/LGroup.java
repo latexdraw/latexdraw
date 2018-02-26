@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -54,10 +56,12 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 	LGroupShape, LGroupStdGrid, LGroupText, LSetShapes, LGroupPlot, LGroupClosable {
 	/** The set of shapes. */
 	private final ObservableList<IShape> shapes;
+	private final DoubleProperty rotationAngle;
 
 	LGroup() {
 		super();
 		shapes = FXCollections.observableArrayList();
+		rotationAngle = new SimpleDoubleProperty();
 	}
 
 	@Override
@@ -94,6 +98,11 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 		if(clazz == null) return false;
 		if(clazz.equals(getClass()) || clazz.equals(IShape.class) || clazz.equals(LShape.class) || clazz.equals(IGroup.class)) return true;
 		return shapes.parallelStream().anyMatch(sh -> sh.isTypeOf(clazz));
+	}
+
+	@Override
+	public DoubleProperty rotationAngleProperty() {
+		return rotationAngle;
 	}
 
 	@Override

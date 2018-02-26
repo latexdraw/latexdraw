@@ -83,7 +83,5 @@ public interface ISingleShape extends IShape {
 
 	 ObjectProperty<Color> hatchingsColProperty();
 
-	 DoubleProperty rotationAngleProperty();
-
 	 ReadOnlyBooleanProperty showPointProperty();
 }
