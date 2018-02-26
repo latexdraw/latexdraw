@@ -65,8 +65,8 @@ class SVGRhombus extends SVGShape<IRhombus> {
 
 		shape.getPtAt(0).setPoint2D(ptsPol.get(0));
 		shape.getPtAt(1).setPoint2D(ptsPol.get(1));
-		shape.getPtAt(2).setPoint2D(ptsPol.get(2));
-		shape.getPtAt(3).setPoint2D(ptsPol.get(3));
+		shape.getPtAt(2).setPoint2D(ptsPol.get(3));
+		shape.getPtAt(3).setPoint2D(ptsPol.get(2));
 
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));

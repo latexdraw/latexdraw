@@ -9,8 +9,8 @@ public interface ValuesGenerator {
 	float[] floatValues = {-10.23f, -0.001f, 0f, 0.00001f, 1.34f, 83.12f};
 
 	IRectangle[] rectangles = {ShapeFactory.INST.createRectangle(),
-//		ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(20d, 26d), ShapeFactory.INST.createPoint(30d, 35d)),
-//		ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-30d, -35d), ShapeFactory.INST.createPoint(20d, 26d)),
-//		ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-30d, -35d), ShapeFactory.INST.createPoint(-20d, -26d)),
+//		ShapeFactory.INST.createEllipse(ShapeFactory.INST.createPoint(20d, 26d), ShapeFactory.INST.createPoint(30d, 35d)),
+//		ShapeFactory.INST.createEllipse(ShapeFactory.INST.createPoint(-30d, -35d), ShapeFactory.INST.createPoint(20d, 26d)),
+//		ShapeFactory.INST.createEllipse(ShapeFactory.INST.createPoint(-30d, -35d), ShapeFactory.INST.createPoint(-20d, -26d)),
 		ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(0d, 0d), ShapeFactory.INST.createPoint(20d, 26d))};
 }

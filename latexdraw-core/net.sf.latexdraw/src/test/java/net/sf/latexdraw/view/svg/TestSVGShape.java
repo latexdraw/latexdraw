@@ -1,31 +1,26 @@
 package net.sf.latexdraw.view.svg;
 
 import java.util.concurrent.TimeoutException;
+import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.data.ShapeData;
 import net.sf.latexdraw.models.CompareShapeMatcher;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDefsElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGSVGElement;
-import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 import org.testfx.api.FxToolkit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
-public class TestSVGShape implements HelperTest {
-	SVGDocument doc;
-
+public class TestSVGShape extends TestSVGBase<IShape> implements HelperTest, CollectionMatcher {
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
@@ -34,22 +29,6 @@ public class TestSVGShape implements HelperTest {
 	@AfterClass
 	public static void tearDownAll() {
 		ParameteriseShapeData.INST.clearTempFolders();
-	}
-
-	@Before
-	public void setUp() {
-		doc = new SVGDocument();
-		final SVGSVGElement root = doc.getFirstChild();
-		root.setAttribute("xmlns:" + LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);
-		root.appendChild(new SVGDefsElement(doc));
-		root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");
-		root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");
-	}
-
-	protected IShape produceOutputShapeFrom(final IShape sh) {
-		final SVGElement elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
-		doc.getFirstChild().appendChild(elt);
-		return SVGShapesFactory.INSTANCE.createShape(elt);
 	}
 
 	@Theory
@@ -105,5 +84,16 @@ public class TestSVGShape implements HelperTest {
 		assumeTrue(sh.isShadowable());
 		final IShape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeShadow(sh, s2);
+	}
+
+	@Theory
+	public void testPointsEquals(@ShapeData(withParamVariants = true) final IShape sh) {
+		assumeFalse(sh instanceof ITriangle);
+
+		final IShape s2 = produceOutputShapeFrom(sh);
+		assertListEquals(sh.getPoints(), s2.getPoints(), (p1, p2) -> {
+			assertEquals(p1.getX(), p2.getX(), 0.0001);
+			assertEquals(p1.getY(), p2.getY(), 0.0001);
+		});
 	}
 }

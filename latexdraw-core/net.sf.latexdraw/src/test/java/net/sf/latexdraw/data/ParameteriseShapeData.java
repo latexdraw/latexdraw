@@ -12,6 +12,7 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import org.junit.rules.TemporaryFolder;
@@ -236,5 +237,10 @@ public final class ParameteriseShapeData implements HelperTest {
 		tempFolders.add(folder);
 		pic.setPathSource(getTestPNG(folder).toString());
 		return pic;
+	}
+
+	public IRectangle setRectangleData1(final IRectangle rec) {
+		rec.setLineArc(0.55);
+		return rec;
 	}
 }

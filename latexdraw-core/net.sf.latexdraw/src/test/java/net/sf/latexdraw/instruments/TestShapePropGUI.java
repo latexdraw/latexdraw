@@ -56,7 +56,7 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 
 	// protected final GUICommand pencilGroupParams = () -> {
 	// IGroup g = ShapeFactory.INST.createGroup();
-	// g.addShape(ShapeFactory.INST.createRectangle());
+	// g.addShape(ShapeFactory.INST.createEllipse());
 	// g.addShape(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
 	// g.addShape(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
 	// g.addShape(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));

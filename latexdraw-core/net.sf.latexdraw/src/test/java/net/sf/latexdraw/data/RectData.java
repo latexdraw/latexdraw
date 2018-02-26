@@ -11,4 +11,5 @@ import static java.lang.annotation.ElementType.PARAMETER;
 @ParametersSuppliedBy(RectSupplier.class)
 @Target(PARAMETER)
 public @interface RectData {
+	boolean withParamVariants() default false;
 }
