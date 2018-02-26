@@ -12,7 +12,6 @@ import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.view.TestCompareShapeIO;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -24,7 +23,7 @@ import org.testfx.api.FxToolkit;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
-public class TestSVGShape extends TestCompareShapeIO<IShape> implements HelperTest {
+public class TestSVGShape implements HelperTest {
 	SVGDocument doc;
 
 	@BeforeClass
@@ -45,13 +44,6 @@ public class TestSVGShape extends TestCompareShapeIO<IShape> implements HelperTe
 		root.appendChild(new SVGDefsElement(doc));
 		root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");
 		root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");
-	}
-
-	@Override
-	protected IShape produceOutputShapeFrom() {
-		final SVGElement elt = SVGShapesFactory.INSTANCE.createSVGElement(srcShape, doc);
-		doc.getFirstChild().appendChild(elt);
-		return SVGShapesFactory.INSTANCE.createShape(elt);
 	}
 
 	protected IShape produceOutputShapeFrom(final IShape sh) {
