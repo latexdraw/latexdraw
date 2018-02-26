@@ -2,7 +2,6 @@ package net.sf.latexdraw.view.svg;
 
 import net.sf.latexdraw.data.ShapeData;
 import net.sf.latexdraw.models.CompareShapeMatcher;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -76,7 +75,6 @@ public class TestLShapeSVGGenerator extends TestCompareShapeIO<IShape> {
 	@Theory
 	public void testLoadRotationAngleParams(@ShapeData(withParamVariants = true) final IShape sh) {
 		assumeThat(sh, not(instanceOf(IPicture.class)));
-		assumeThat(sh, not(instanceOf(IDot.class)));
 		assumeThat(sh, not(instanceOf(IPlot.class)));
 		final IShape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeRotationAngle(sh, s2);
