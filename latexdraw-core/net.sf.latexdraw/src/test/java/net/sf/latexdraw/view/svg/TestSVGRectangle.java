@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
-public class testSVGRectangle extends TestSVGBase<IRectangle> implements HelperTest {
+public class TestSVGRectangle extends TestSVGBase<IRectangle> implements HelperTest {
 	@Ignore
 	@Theory
 	public void testLoadSaveShapeParams(@RectData(withParamVariants = true) final IRectangle sh) {
