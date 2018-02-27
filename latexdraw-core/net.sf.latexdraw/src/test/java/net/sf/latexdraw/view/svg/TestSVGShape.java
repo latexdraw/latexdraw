@@ -87,9 +87,6 @@ public class TestSVGShape extends TestSVGBase<IShape> implements HelperTest, Col
 	@Theory
 	public void testPointsEquals(@ShapeData(withParamVariants = true) final IShape sh) {
 		final IShape s2 = produceOutputShapeFrom(sh);
-		assertListEquals(sh.getPoints(), s2.getPoints(), (p1, p2) -> {
-			assertEquals(p1.getX(), p2.getX(), 0.0001);
-			assertEquals(p1.getY(), p2.getY(), 0.0001);
-		});
+		assertEquals(sh.getPoints(), s2.getPoints());
 	}
 }

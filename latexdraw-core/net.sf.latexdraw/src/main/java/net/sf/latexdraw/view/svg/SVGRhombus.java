@@ -23,45 +23,44 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
- * An SVG generator for a polygon.
+ * SVG/latexdraw rhombus import export.
  * @author Arnaud BLOUIN
  */
-class SVGRhombus extends SVGShape<IRhombus> {
+class SVGRhombus extends SVGPolygonBased<IRhombus> {
 	/**
-	 * Creates a generator of SVG rhombus.
+	 * Creates a latexdraw->svg generator.
 	 * @param rhombus The rhombus used for the generation.
 	 * @throws IllegalArgumentException If the given rhombus is null.
-	 * @since 2.0
 	 */
 	protected SVGRhombus(final IRhombus rhombus) {
 		super(rhombus);
 	}
 
 	/**
-	 * Creates a rhombus from a latexdraw-SVG element.
+	 * Creates an SVG-latexdraw->latexdraw generator.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	protected SVGRhombus(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createRhombus());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
-		if(elt==null || !(elt2 instanceof SVGPolygonElement))
+		if(elt == null || !(elt2 instanceof SVGPolygonElement)) {
 			throw new IllegalArgumentException();
+		}
 
-		final SVGPolygonElement main = (SVGPolygonElement)elt2;
+		final SVGPolygonElement main = (SVGPolygonElement) elt2;
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
 
-		final List<Point2D> ptsPol = SVGPointsParser.getPoints(elt.getAttribute(
-								 elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_POINTS));
+		final List<Point2D> ptsPol = SVGPointsParser.getPoints(
+								elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POINTS));
 
-		if(ptsPol==null || ptsPol.size()!=4)
+		if(ptsPol == null || ptsPol.size() != 4) {
 			throw new IllegalArgumentException();
+		}
 
 		shape.getPtAt(0).setPoint2D(ptsPol.get(0));
 		shape.getPtAt(1).setPoint2D(ptsPol.get(1));
@@ -71,63 +70,48 @@ class SVGRhombus extends SVGShape<IRhombus> {
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 
-		if(withTransformation)
+		if(withTransformation) {
 			applyTransformations(elt);
+		}
 	}
-
 
 
 	@Override
 	public SVGElement toSVG(final SVGDocument doc) {
-		if(doc==null)
+		if(doc == null) {
 			return null;
+		}
 
-		final IPoint tl  = shape.getTopLeftPoint();
-		final IPoint br  = shape.getBottomRightPoint();
+		final IPoint tl = shape.getTopLeftPoint();
+		final IPoint br = shape.getBottomRightPoint();
 		final IPoint gc = shape.getGravityCentre();
-		final IPoint p1 = ShapeFactory.INST.createPoint((tl.getX()+br.getX())/2., tl.getY());
-		final IPoint p2 = ShapeFactory.INST.createPoint(br.getX(), (tl.getY()+br.getY())/2.);
-		final IPoint p3 = ShapeFactory.INST.createPoint((tl.getX()+br.getX())/2., br.getY());
+		final IPoint p1 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, tl.getY());
+		final IPoint p2 = ShapeFactory.INST.createPoint(br.getX(), (tl.getY() + br.getY()) / 2d);
+		final IPoint p3 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, br.getY());
 		final SVGElement root = new SVGGElement(doc);
-		SVGElement elt;
-	    final double gap = getPositionGap()/2.;
-	    final double cornerGap1 = MathUtils.INST.getCornerGap(gc, p1, p2, gap);
-	    double cornerGap2 = MathUtils.INST.getCornerGap(gc, p2, p3, gap);
+		final double gap = getPositionGap() / 2d;
+		final double cornerGap1 = MathUtils.INST.getCornerGap(gc, p1, p2, gap);
+		double cornerGap2 = MathUtils.INST.getCornerGap(gc, p2, p3, gap);
 
-	    if(p2.getX()<p3.getX())
-	    	cornerGap2*=-1;
+		if(p2.getX() < p3.getX()) {
+			cornerGap2 *= -1d;
+		}
 
-        final String points = String.valueOf(p1.getX()) + ',' + (p1.getY() - cornerGap1) + ' ' + (p2.getX() + cornerGap2) + ',' + p2.getY() + ' ' + p3.getX() + ',' + (p3.getY() + cornerGap1) + ' ' + (tl.getX() - cornerGap2) + ',' + p2.getY();
+		final String points = String.valueOf(p1.getX()) + ',' + (p1.getY() - cornerGap1) + ' ' + (p2.getX() + cornerGap2) + ',' + p2.getY() + ' ' +
+								p3.getX() + ',' + (p3.getY() + cornerGap1) + ' ' + (tl.getX() - cornerGap2) + ',' + p2.getY();
 
-        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_RHOMBUS);
-        root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_RHOMBUS);
+		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-        if(shape.hasShadow()) {
-        	elt = new SVGPolygonElement(doc);
-        	elt.setAttribute(SVGAttributes.SVG_POINTS, points);
-        	setSVGShadowAttributes(elt, true);
-        	root.appendChild(elt);
-        }
+		setShadowPolygon(doc, root, points);
 
-        if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
-        	// The background of the borders must be filled is there is a shadow.
-    		elt = new SVGPolygonElement(doc);
-    		elt.setAttribute(SVGAttributes.SVG_POINTS, points);
-    		setSVGBorderBackground(elt, root);
-        }
-
-		elt = new SVGPolygonElement(doc);
+		final SVGElement elt = new SVGPolygonElement(doc);
 		elt.setAttribute(SVGAttributes.SVG_POINTS, points);
 		root.appendChild(elt);
-		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POINTS, String.valueOf(tl.getX()) + ' ' +
-                tl.getY() + ' ' + br.getX() + ' ' + tl.getY() + ' ' + tl.getX() + ' ' + br.getY() + ' ' + br.getX() + ' ' + br.getY());
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS, String.valueOf(tl.getX()) + ' ' + tl.getY() + ' ' +
+			br.getX() + ' ' + tl.getY() + ' ' + tl.getX() + ' ' + br.getY() + ' ' + br.getX() + ' ' + br.getY());
 
-		if(shape.hasDbleBord()) {
-			final SVGElement dblBord = new SVGPolygonElement(doc);
-			dblBord.setAttribute(SVGAttributes.SVG_POINTS, points);
-			setSVGDoubleBordersAttributes(dblBord);
-			root.appendChild(dblBord);
-		}
+		setDbleBorderPolygon(doc, root, points);
 
 		setSVGAttributes(doc, elt, true);
 		setSVGRotationAttribute(root);
