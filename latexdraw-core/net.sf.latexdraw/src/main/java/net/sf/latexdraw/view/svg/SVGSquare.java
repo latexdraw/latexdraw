@@ -22,14 +22,13 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
- * An SVG generator for a square.
+ * SVG/latexdraw square import export.
  * @author Arnaud BLOUIN
  */
 class SVGSquare extends SVGRectangular<ISquare> {
 	/**
 	 * Creates an SVG generator for squares.
 	 * @param square The source square to convert in SVG.
-	 * @since 3.0
 	 */
 	protected SVGSquare(final ISquare square) {
 		super(square);
@@ -39,7 +38,6 @@ class SVGSquare extends SVGRectangular<ISquare> {
 	/**
 	 * Creates a square from a latexdraw-SVG element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	protected SVGSquare(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createSquare());
@@ -49,7 +47,9 @@ class SVGSquare extends SVGRectangular<ISquare> {
 
 	@Override
 	protected void setSVGRectParameters(final SVGRectElement elt) {
-		if(elt == null) return;
+		if(elt == null) {
+			return;
+		}
 
 		setSVGParameters(elt);
 

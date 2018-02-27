@@ -22,7 +22,7 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
- * An SVG generator for a rectangle.
+ * SVG/latexdraw rectangle import export.
  * @author Arnaud BLOUIN
  */
 class SVGRectangle extends SVGRectangular<IRectangle> {
@@ -30,7 +30,6 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 	 * Creates a generator of SVG rectangle.
 	 * @param rect The rectangle shape used for the generation.
 	 * @throws IllegalArgumentException If rect is null.
-	 * @since 2.0
 	 */
 	protected SVGRectangle(final IRectangle rect) {
 		super(rect);
@@ -41,7 +40,6 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 	 * Creates a rectangle from an SVG rect element.
 	 * @param elt The source element.
 	 * @throws IllegalArgumentException If the given element is null.
-	 * @since 2.0.0
 	 */
 	protected SVGRectangle(final SVGRectElement elt) {
 		this(ShapeFactory.INST.createRectangle());
@@ -55,7 +53,6 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 	 * Creates a rectangle from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 * @throws IllegalArgumentException If the given element is null or not valid.
-	 * @since 2.0.0
 	 */
 	protected SVGRectangle(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createRectangle());
@@ -65,7 +62,9 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 
 	@Override
 	protected void setSVGRectParameters(final SVGRectElement elt) {
-		if(elt == null) return;
+		if(elt == null) {
+			return;
+		}
 
 		setSVGParameters(elt);
 
