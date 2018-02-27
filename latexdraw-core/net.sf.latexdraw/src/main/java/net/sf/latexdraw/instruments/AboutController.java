@@ -1,6 +1,6 @@
 /*
  * This file is part of LaTeXDraw.
- * Copyright (c) 2005-2017 Arnaud BLOUIN
+ * Copyright (c) 2005-2018 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option) any later version.
@@ -45,7 +45,7 @@ public class AboutController implements Initializable {
 		aboutText.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.219") + ' ' +  //NON-NLS
 			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + ", build " + VersionChecker.ID_BUILD + LSystem.EOL +  //NON-NLS
 			LaTeXDraw.LABEL_APP + LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.221") + LSystem.EOL + //NON-NLS
-			"Copyright(c) 2005-2017 - Arnaud BLOUIN" + LSystem.EOL + //NON-NLS
+			"Copyright(c) 2005-2018 - Arnaud BLOUIN" + LSystem.EOL + //NON-NLS
 			"http://latexdraw.sourceforge.net/"); //NON-NLS
 		noteText.setText(LFileUtils.INSTANCE.readTextFile("/res/release_note.txt")); //NON-NLS
 		contribText.setText(LFileUtils.INSTANCE.readTextFile("/res/contributors.txt")); //NON-NLS
