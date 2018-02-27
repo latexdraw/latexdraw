@@ -12,6 +12,8 @@ package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Point2D;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -112,11 +114,11 @@ class SVGTriangle extends SVGShape<ITriangle> {
 	    if(p1y>p2y)
 	    	cornerGap1*=-1;
 
-		final String points = p1x + "," + (p1y - cornerGap1) + " " + //$NON-NLS-1$//$NON-NLS-2$
-						(p2x - cornerGap2) + "," + (p2y + (p1y<p2y ? gap : -gap)) + " " + //$NON-NLS-1$//$NON-NLS-2$
-						(p3x + cornerGap2) + "," + (p2y + (p1y<p2y ? gap : -gap));//$NON-NLS-1$
-	    final String ltdPoints = pt1.getX() + " " + pt1.getY() + " " + shape.getPtAt(1).getX() + " " + shape.getPtAt(1).getY() +//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-	    					" " + shape.getPtAt(2).getX() + " " + shape.getPtAt(2).getY() + " " + pt2.getX() + " " + pt2.getY();//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$
+		final String points = p1x + "," + (p1y - cornerGap1) + " " + (p2x - cornerGap2) + "," + (p2y + (p1y<p2y ? gap : -gap)) + " " +
+						(p3x + cornerGap2) + "," + (p2y + (p1y<p2y ? gap : -gap));
+
+		final String ltdPoints = shape.getPoints().stream().map(pt -> Stream.of(String.valueOf(pt.getX()), String.valueOf(pt.getY()))).
+			flatMap(s -> s).collect(Collectors.joining( " "));
 
 		if(shape.hasShadow()){
 			final SVGElement shad = new SVGPolygonElement(doc);

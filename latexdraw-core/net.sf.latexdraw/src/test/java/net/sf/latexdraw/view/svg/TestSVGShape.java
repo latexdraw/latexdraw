@@ -7,7 +7,6 @@ import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.data.ShapeData;
 import net.sf.latexdraw.models.CompareShapeMatcher;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.experimental.theories.Theories;
@@ -16,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
@@ -88,8 +86,6 @@ public class TestSVGShape extends TestSVGBase<IShape> implements HelperTest, Col
 
 	@Theory
 	public void testPointsEquals(@ShapeData(withParamVariants = true) final IShape sh) {
-		assumeFalse(sh instanceof ITriangle);
-
 		final IShape s2 = produceOutputShapeFrom(sh);
 		assertListEquals(sh.getPoints(), s2.getPoints(), (p1, p2) -> {
 			assertEquals(p1.getX(), p2.getX(), 0.0001);
