@@ -2,7 +2,7 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.concurrent.TimeoutException;
 import javafx.scene.shape.Rectangle;
-import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import org.junit.BeforeClass;
@@ -19,11 +19,7 @@ public class TestViewSquare extends TestViewBorderedShape<ViewSquare, ISquare, R
 
 	@Override
 	protected ISquare createModel() {
-		final ISquare sh = ShapeFactory.INST.createSquare();
-		sh.setWidth(10d);
-		sh.setX(100d);
-		sh.setY(200d);
-		return sh;
+		return ShapeSupplier.createSquare();
 	}
 
 	@Test

@@ -2,7 +2,7 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.concurrent.TimeoutException;
 import javafx.scene.shape.Rectangle;
-import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.data.RectSupplier;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import org.junit.BeforeClass;
@@ -19,12 +19,7 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 
 	@Override
 	protected IRectangle createModel() {
-		final IRectangle rec = ShapeFactory.INST.createRectangle();
-		rec.setWidth(10d);
-		rec.setHeight(20d);
-		rec.setX(100d);
-		rec.setY(200d);
-		return rec;
+		return RectSupplier.createRectangle();
 	}
 
 	@Test

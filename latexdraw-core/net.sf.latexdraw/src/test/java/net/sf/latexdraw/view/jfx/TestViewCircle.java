@@ -2,7 +2,7 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.concurrent.TimeoutException;
 import javafx.scene.shape.Ellipse;
-import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.data.CircleSupplier;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
 import org.junit.BeforeClass;
@@ -19,11 +19,7 @@ public class TestViewCircle extends TestViewBorderedShape<ViewCircle, ICircle, E
 
 	@Override
 	protected ICircle createModel() {
-		final ICircle rec = ShapeFactory.INST.createCircle();
-		rec.setWidth(10d);
-		rec.setX(100d);
-		rec.setY(200d);
-		return rec;
+		return CircleSupplier.createCircle();
 	}
 
 	@Test

@@ -3,7 +3,7 @@ package net.sf.latexdraw.view.jfx;
 import java.util.concurrent.TimeoutException;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Path;
-import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,12 +19,7 @@ public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus
 
 	@Override
 	protected IRhombus createModel() {
-		final IRhombus rec = ShapeFactory.INST.createRhombus();
-		rec.setWidth(11d);
-		rec.setHeight(21d);
-		rec.setX(103d);
-		rec.setY(207d);
-		return rec;
+		return ShapeSupplier.createRhombus();
 	}
 
 	@Test

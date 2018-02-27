@@ -2,7 +2,7 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.concurrent.TimeoutException;
 import javafx.geometry.Bounds;
-import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -28,7 +28,7 @@ public class TestViewPicture extends TestViewShape<ViewPicture, IPicture> {
 
 	@Override
 	protected IPicture createModel() {
-		return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(101, 67));
+		return ShapeSupplier.createPicture();
 	}
 
 	@Test
