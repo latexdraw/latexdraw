@@ -4,6 +4,7 @@ import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.IText;
 
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.closeTo;
@@ -77,5 +78,10 @@ public final class CompareShapeMatcher implements HelperTest {
 
 	public void assertEqualsLineArc(final ILineArcProp la1, final ILineArcProp la2) {
 		assertEqualsDouble(la1.getLineArc(), la2.getLineArc());
+	}
+
+	public void assertEqualsText(final IText sh1, final IText sh2) {
+		assertEquals(sh1.getText(), sh2.getText());
+		assertEquals(sh1.getTextPosition(), sh2.getTextPosition());
 	}
 }

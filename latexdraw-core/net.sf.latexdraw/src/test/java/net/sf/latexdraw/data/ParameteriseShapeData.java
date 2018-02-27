@@ -15,7 +15,9 @@ import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import org.junit.rules.TemporaryFolder;
 
 public final class ParameteriseShapeData implements HelperTest {
@@ -248,5 +250,10 @@ public final class ParameteriseShapeData implements HelperTest {
 	public ISquare setSquareData1(final ISquare sq) {
 		sq.setLineArc(0.33);
 		return sq;
+	}
+
+	public IText setTextData1(final IText text) {
+		text.setTextPosition(TextPosition.CENTER);
+		return text;
 	}
 }
