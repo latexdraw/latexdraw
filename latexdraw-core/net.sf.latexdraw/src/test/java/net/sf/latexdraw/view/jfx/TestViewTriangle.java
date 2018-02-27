@@ -3,13 +3,14 @@ package net.sf.latexdraw.view.jfx;
 import java.util.concurrent.TimeoutException;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Path;
-import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class TestViewTriangle extends TestViewBorderedShape<ViewTriangle, ITriangle, Path> {
 	@BeforeClass
@@ -19,12 +20,17 @@ public class TestViewTriangle extends TestViewBorderedShape<ViewTriangle, ITrian
 
 	@Override
 	protected ITriangle createModel() {
-		final ITriangle sh = ShapeFactory.INST.createTriangle();
-		sh.setWidth(11d);
-		sh.setHeight(21d);
-		sh.setX(103d);
-		sh.setY(207d);
-		return sh;
+		return ShapeSupplier.createTriangle();
+	}
+
+	@Test
+	public void testDbleBorderNotEmpty() {
+		assertFalse(view.dblBorder.getElements().isEmpty());
+	}
+
+	@Test
+	public void testShadowNotEmpty() {
+		assertFalse(view.shadow.getElements().isEmpty());
 	}
 
 	@Test

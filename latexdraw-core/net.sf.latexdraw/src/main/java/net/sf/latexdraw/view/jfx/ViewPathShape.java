@@ -17,7 +17,6 @@ import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
  * The JFX view for shapes that can be painted as a path.
  * @param <S> The type of the model.
  * @author Arnaud BLOUIN
- * @since 4.0
  */
 public abstract class ViewPathShape<S extends ISingleShape> extends ViewSingleShape<S, Path> {
 	/**
@@ -35,7 +34,13 @@ public abstract class ViewPathShape<S extends ISingleShape> extends ViewSingleSh
 
 	@Override
 	public void flush() {
-		border.getElements().clear();
+		border.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+		if(shadow != null) {
+			shadow.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+		}
+		if(dblBorder != null) {
+			dblBorder.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+		}
 		super.flush();
 	}
 }

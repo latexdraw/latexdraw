@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus, Path> {
 	@BeforeClass
@@ -20,6 +21,16 @@ public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus
 	@Override
 	protected IRhombus createModel() {
 		return ShapeSupplier.createRhombus();
+	}
+
+	@Test
+	public void testShadowNotEmpty() {
+		assertFalse(view.shadow.getElements().isEmpty());
+	}
+
+	@Test
+	public void testDbleBorderNotEmpty() {
+		assertFalse(view.dblBorder.getElements().isEmpty());
 	}
 
 	@Test

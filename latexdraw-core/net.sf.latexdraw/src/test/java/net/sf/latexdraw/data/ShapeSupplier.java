@@ -10,6 +10,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import org.junit.experimental.theories.ParameterSignature;
 import org.junit.experimental.theories.ParameterSupplier;
 import org.junit.experimental.theories.PotentialAssignment;
@@ -29,6 +30,10 @@ public class ShapeSupplier extends ParameterSupplier {
 
 	public static IRhombus createRhombus() {
 		return ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(251d, 33d), 220, 376);
+	}
+
+	public static ITriangle createTriangle() {
+		return ShapeFactory.INST.createTriangle(ShapeFactory.INST.createPoint(251d, 33d), 76, 12);
 	}
 
 	public static Stream<IShape> getDiversifiedShapes() throws IOException {
@@ -51,8 +56,7 @@ public class ShapeSupplier extends ParameterSupplier {
 			ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
 			ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(23, 300), 1d, 10d, "x log", false),
-			createRhombus(),
-			ShapeFactory.INST.createTriangle(ShapeFactory.INST.createPoint(251d, 33d), 76, 12),
+			createRhombus(), createTriangle(),
 			ParameteriseShapeData.INST.setPictureData1(createPicture()))).
 			map(sh -> Arrays.asList(ParameteriseShapeData.INST.setShapeData1(sh.duplicate()),
 				ParameteriseShapeData.INST.setShapeData2(sh.duplicate()),
@@ -79,9 +83,7 @@ public class ShapeSupplier extends ParameterSupplier {
 			ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
 			ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(23, 300), 1d, 10d, "x log", false),
-			createRhombus(),
-			ShapeFactory.INST.createTriangle(ShapeFactory.INST.createPoint(251d, 33d), 76, 12),
-			createPicture());
+			createRhombus(), createTriangle(), createPicture());
 	}
 
 	@Override

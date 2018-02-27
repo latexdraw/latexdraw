@@ -28,6 +28,7 @@ public class ViewRhombus extends ViewPathShape<IRhombus> {
 		super(sh);
 		setupPath(border);
 		setupPath(shadow);
+		setupPath(dblBorder);
 		rotateProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getRotationAngle()), model.rotationAngleProperty()));
 	}
 
@@ -58,13 +59,5 @@ public class ViewRhombus extends ViewPathShape<IRhombus> {
 		path.getElements().add(lineTo);
 
 		path.getElements().add(ViewFactory.INSTANCE.createClosePath());
-	}
-
-
-	@Override
-	public void flush() {
-		border.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
-		shadow.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
-		super.flush();
 	}
 }
