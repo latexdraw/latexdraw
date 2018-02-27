@@ -14,6 +14,7 @@ import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import org.junit.rules.TemporaryFolder;
 
@@ -242,5 +243,10 @@ public final class ParameteriseShapeData implements HelperTest {
 	public IRectangle setRectangleData1(final IRectangle rec) {
 		rec.setLineArc(0.55);
 		return rec;
+	}
+
+	public ISquare setSquareData1(final ISquare sq) {
+		sq.setLineArc(0.33);
+		return sq;
 	}
 }

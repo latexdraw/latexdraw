@@ -23,6 +23,10 @@ public class ShapeSupplier extends ParameterSupplier {
 		return ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(13d, 84d), 233);
 	}
 
+	public static Stream<ISquare> createDiversifiedSquare() {
+		return Stream.of(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(13d, 84d), 233), ParameteriseShapeData.INST.setSquareData1(createSquare()));
+	}
+
 	public static IRhombus createRhombus() {
 		return ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(251d, 33d), 220, 376);
 	}

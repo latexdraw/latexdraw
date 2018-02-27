@@ -19,6 +19,8 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGRectElement;
 import net.sf.latexdraw.util.LNamespace;
 
+import static java.lang.Math.min;
+
 /**
  * A class to factorise code between Rectangle and Square SVG generators.
  * @param <T> The type of the shape.
@@ -92,5 +94,9 @@ abstract class SVGRectangular<T extends IShape & ILineArcProp> extends SVGShape<
 
 	protected double getRoundCornerGap() {
 		return shape.isDbleBorderable() ? shape.getDbleBordSep() + shape.getThickness() : 0d;
+	}
+
+	protected void setLineArc(final double rx) {
+		shape.setLineArc(rx / (0.5 * (min(shape.getHeight(), shape.getWidth()) - getRoundCornerGap())));
 	}
 }

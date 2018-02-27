@@ -1,8 +1,8 @@
 package net.sf.latexdraw.models;
 
 import net.sf.latexdraw.HelperTest;
+import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 import static org.hamcrest.Matchers.anyOf;
@@ -75,7 +75,7 @@ public final class CompareShapeMatcher implements HelperTest {
 		assertEquals(a2.getArcStyle(), a1.getArcStyle());
 	}
 
-	public void assertEqualsRectangleArc(final IRectangle r1, final IRectangle r2) {
-		assertEqualsDouble(r1.getLineArc(), r2.getLineArc());
+	public void assertEqualsLineArc(final ILineArcProp la1, final ILineArcProp la2) {
+		assertEqualsDouble(la1.getLineArc(), la2.getLineArc());
 	}
 }

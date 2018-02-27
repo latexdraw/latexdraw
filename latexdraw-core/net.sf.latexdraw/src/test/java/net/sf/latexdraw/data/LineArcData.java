@@ -11,4 +11,5 @@ import static java.lang.annotation.ElementType.PARAMETER;
 @ParametersSuppliedBy(LineArcSupplier.class)
 @Target(PARAMETER)
 public @interface LineArcData {
+	boolean withParamVariants() default false;
 }

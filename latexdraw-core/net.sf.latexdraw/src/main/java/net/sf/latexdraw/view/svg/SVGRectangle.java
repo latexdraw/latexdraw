@@ -21,8 +21,6 @@ import net.sf.latexdraw.parsers.svg.SVGRectElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
-import static java.lang.Math.min;
-
 /**
  * An SVG generator for a rectangle.
  * @author Arnaud BLOUIN
@@ -71,13 +69,12 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 
 		setSVGParameters(elt);
 
-		final double rx = elt.getRx();
 		final double gap = getPositionGap();
 
 		shape.setPosition(elt.getX() + gap / 2d, elt.getY() + elt.getHeight() - gap / 2d);
 		shape.setWidth(elt.getWidth() - gap);
 		shape.setHeight(elt.getHeight() - gap);
-		shape.setLineArc(rx / (0.5 * (min(shape.getHeight(), shape.getWidth()) - getRoundCornerGap())));
+		setLineArc(elt.getRx());
 	}
 
 

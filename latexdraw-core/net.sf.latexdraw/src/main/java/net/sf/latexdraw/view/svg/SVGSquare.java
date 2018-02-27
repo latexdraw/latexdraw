@@ -53,12 +53,11 @@ class SVGSquare extends SVGRectangular<ISquare> {
 
 		setSVGParameters(elt);
 
-		final double rx = elt.getRx();
 		final double gap = getPositionGap();
 
 		shape.setPosition(elt.getX() + gap / 2d, elt.getY() + elt.getHeight() - gap / 2d);
 		shape.setWidth(elt.getWidth() - gap);
-		shape.setLineArc(2d * rx / (shape.getWidth() - (shape.hasDbleBord() ? shape.getDbleBordSep() + shape.getThickness() : 0d)));
+		setLineArc(elt.getRx());
 	}
 
 
