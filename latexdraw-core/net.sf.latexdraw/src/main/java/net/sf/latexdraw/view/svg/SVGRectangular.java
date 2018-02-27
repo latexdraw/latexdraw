@@ -85,9 +85,12 @@ abstract class SVGRectangular<T extends IShape & ILineArcProp> extends SVGShape<
 	 */
 	protected void setSVGRoundCorner(final SVGElement elt) {
 		if(elt != null && shape.isRoundCorner()) {
-			final double add = shape.isDbleBorderable() ? shape.getDbleBordSep() + shape.getThickness() : 0d;
-			final double value = 0.5 * (Math.min(shape.getWidth(), shape.getHeight()) - add) * shape.getLineArc();
+			final double value = 0.5 * (Math.min(shape.getWidth(), shape.getHeight()) - getRoundCornerGap()) * shape.getLineArc();
 			elt.setAttribute(SVGAttributes.SVG_RX, String.valueOf(value));
 		}
+	}
+
+	protected double getRoundCornerGap() {
+		return shape.isDbleBorderable() ? shape.getDbleBordSep() + shape.getThickness() : 0d;
 	}
 }

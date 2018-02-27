@@ -77,7 +77,7 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 		shape.setPosition(elt.getX() + gap / 2d, elt.getY() + elt.getHeight() - gap / 2d);
 		shape.setWidth(elt.getWidth() - gap);
 		shape.setHeight(elt.getHeight() - gap);
-		shape.setLineArc(2d * rx / (min(shape.getHeight(), shape.getWidth()) - (shape.hasDbleBord() ? shape.getDbleBordSep() + shape.getThickness() : 0d)));
+		shape.setLineArc(rx / (0.5 * (min(shape.getHeight(), shape.getWidth()) - getRoundCornerGap())));
 	}
 
 
