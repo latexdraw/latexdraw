@@ -110,10 +110,8 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 		addedPolyline.setRotationAngle(Math.PI);
 		waitFXEvents.execute();
 		for(int i=0, size = addedPolyline.getNbPoints(); i<size; i++) {
-			assertEquals(addedPolyline.getPtAt(i).rotatePoint(addedPolyline.getGravityCentre(),
-				addedPolyline.getRotationAngle()).getX() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateX(), 0.00001);
-			assertEquals(addedPolyline.getPtAt(i).rotatePoint(addedPolyline.getGravityCentre(),
-				addedPolyline.getRotationAngle()).getY() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateY(), 0.00001);
+			assertEquals(addedPolyline.getPtAt(i).getX()  - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateX(), 0.00001);
+			assertEquals(addedPolyline.getPtAt(i).getY() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateY(), 0.00001);
 			assertEquals(0d, border.mvPtHandlers.get(i).getX(), 0.00001);
 			assertEquals(0d, border.mvPtHandlers.get(i).getY(), 0.00001);
 		}
@@ -122,10 +120,10 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 	@Test
 	public void testMovePtHandlerMovePtWithRotation() {
 		new CompositeGUIVoidCommand(addLines, waitFXEvents, selectAllShapes, waitFXEvents).execute();
-		final IPoint point = ShapeFactory.INST.createPoint(addedPolyline.getPtAt(1));
 		addedPolyline.setRotationAngle(Math.PI);
 		waitFXEvents.execute();
-		point.translate(-100d, -20d);
+		final IPoint point = ShapeFactory.INST.createPoint(addedPolyline.getPtAt(1));
+		point.translate(100d, 20d);
 		drag(border.mvPtHandlers.get(1)).dropBy(100d, 20d);
 		waitFXEvents.execute();
 		assertEquals(point.getX(), addedPolyline.getPtAt(1).getX(), 1d);
