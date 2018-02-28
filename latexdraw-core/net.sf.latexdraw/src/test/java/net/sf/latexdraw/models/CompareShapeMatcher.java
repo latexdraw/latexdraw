@@ -4,6 +4,7 @@ import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 
@@ -97,5 +98,13 @@ public final class CompareShapeMatcher implements HelperTest {
 	public void assertEqualsDot(final IDot sh1, final IDot sh2) {
 		assertEquals(sh1.getDotStyle(), sh2.getDotStyle());
 		assertEqualsDouble(sh1.getDiametre(), sh2.getDiametre());
+	}
+
+	public void assertEqualsPlot(final IPlot sh1, final IPlot sh2) {
+		assertEquals(sh1.getPlotStyle(), sh2.getPlotStyle());
+		assertEqualsDouble(sh1.getPlotMinX(), sh2.getPlotMinX());
+		assertEqualsDouble(sh1.getPlotMaxX(), sh2.getPlotMaxX());
+		assertEquals(sh1.getNbPlottedPoints(), sh2.getNbPlottedPoints());
+		assertEquals(sh1.getPlotEquation(), sh2.getPlotEquation());
 	}
 }

@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 @RunWith(Theories.class)
 public class TestSVGLineArc extends TestSVGBase<IShape> implements HelperTest {
 	@Theory
-	public void testLoadSaveShapeParams(@LineArcData(withParamVariants = true) final IShape sh) {
+	public void testLoadSaveLineArcParams(@LineArcData(withParamVariants = true) final IShape sh) {
 		final ILineArcProp s2 = (ILineArcProp) produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsLineArc((ILineArcProp) sh, s2);
 	}

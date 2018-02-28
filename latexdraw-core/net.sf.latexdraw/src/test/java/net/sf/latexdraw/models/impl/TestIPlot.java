@@ -2,6 +2,7 @@ package net.sf.latexdraw.models.impl;
 
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
+import net.sf.latexdraw.data.PlotSupplier;
 import net.sf.latexdraw.data.StringData;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -37,7 +38,7 @@ public class TestIPlot implements HelperTest {
 
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0d, 10d, "x", false);
+		shape = PlotSupplier.createPlot();
 	}
 
 	@Test
@@ -68,8 +69,9 @@ public class TestIPlot implements HelperTest {
 
 	@Theory
 	public void testNotValidEquation(@StringData(vals = {""}, withNull = true) final String value) {
+		final String eq = shape.getPlotEquation();
 		shape.setPlotEquation(value);
-		assertEquals("x", shape.getPlotEquation());
+		assertEquals(eq, shape.getPlotEquation());
 	}
 
 	@Test(expected = InvalidFormatPSFunctionException.class)
@@ -91,8 +93,7 @@ public class TestIPlot implements HelperTest {
 
 	@Theory
 	public void testValidPlotXMax(@DoubleData final double value) {
-		assumeThat(value, greaterThan(0d));
-
+		assumeThat(value, greaterThan(shape.getPlotMinX()));
 		shape.setPlotMaxX(value);
 		assertEqualsDouble(value, shape.getPlotMaxX());
 	}
@@ -113,8 +114,9 @@ public class TestIPlot implements HelperTest {
 
 	@Theory
 	public void testValidPlotXMinKO(@DoubleData(bads = true, vals = {10d, 11d}) final double value) {
+		final double oldval = shape.getPlotMinX();
 		shape.setPlotMinX(value);
-		assertEqualsDouble(0d, shape.getPlotMinX());
+		assertEqualsDouble(oldval, shape.getPlotMinX());
 	}
 
 	@Theory

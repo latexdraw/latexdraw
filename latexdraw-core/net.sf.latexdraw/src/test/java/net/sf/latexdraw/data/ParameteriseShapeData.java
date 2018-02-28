@@ -16,11 +16,13 @@ import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import org.junit.rules.TemporaryFolder;
 
@@ -294,5 +296,37 @@ public final class ParameteriseShapeData implements HelperTest {
 	public IDot setDotData3(final IDot dot) {
 		dot.setDotStyle(DotStyle.PENTAGON);
 		return dot;
+	}
+
+	public IPlot setPlotData1(final IPlot plot) {
+		plot.setPlotMaxX(100d);
+		plot.setPlotMinX(85d);
+		plot.setNbPlottedPoints(10);
+		return plot;
+	}
+
+	public IPlot setPlotData2(final IPlot plot) {
+		plot.setPlotMaxX(100d);
+		plot.setPlotMinX(1d);
+		plot.setPlotEquation("x log");
+		plot.setNbPlottedPoints(50);
+		plot.setPlotStyle(PlotStyle.POLYGON);
+		plot.setPolar(true);
+		return plot;
+	}
+
+	public IPlot setPlotData3(final IPlot plot) {
+		plot.setPlotMaxX(1d);
+		plot.setPlotMinX(-100d);
+		plot.setNbPlottedPoints(10);
+		plot.setPlotStyle(PlotStyle.DOTS);
+		return plot;
+	}
+
+	public IPlot setPlotData4(final IPlot plot) {
+		plot.setPlotStyle(PlotStyle.LINE);
+		plot.setPlotEquation("x sin");
+		plot.setPolar(true);
+		return plot;
 	}
 }

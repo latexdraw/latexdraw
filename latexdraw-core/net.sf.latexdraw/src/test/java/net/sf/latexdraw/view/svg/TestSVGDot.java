@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 @RunWith(Theories.class)
 public class TestSVGDot extends TestSVGBase<IDot> {
 	@Theory
-	public void testTextPosition(@DotData(withParamVariants = true) final IDot sh) {
+	public void testDotParams(@DotData(withParamVariants = true) final IDot sh) {
 		final IDot s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsDot(sh, s2);
 	}
