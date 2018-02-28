@@ -14,7 +14,6 @@ import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
  * A handler that moves a point of a shape.
@@ -23,36 +22,21 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 public class MovePtHandler extends Rectangle implements Handler {
 	/** The point moved by the handler. */
 	private final IPoint point;
-//	private Supplier<IPoint> pivotSupplier;
 
 	/**
 	 * The constructor by default.
 	 * @throws NullPointerException If the given point is null.
 	 */
-	public MovePtHandler(final IPoint pt, final IShape sh) {
+	public MovePtHandler(final IPoint pt) {
 		super();
-//		pivotSupplier = () -> sh.getGravityCentre();
 		point = Objects.requireNonNull(pt);
 		setWidth(DEFAULT_SIZE);
 		setHeight(DEFAULT_SIZE);
 		translateXProperty().bind(Bindings.createDoubleBinding(() -> pt.getX() - DEFAULT_SIZE / 2d, pt.xProperty()));
 		translateYProperty().bind(Bindings.createDoubleBinding(() -> pt.getY() - DEFAULT_SIZE / 2d, pt.yProperty()));
-
-//		// Must consider the rotation angle
-//		translateXProperty().bind(Bindings.createDoubleBinding(() -> pt.rotatePoint(pivotSupplier.get(),
-//			sh.getRotationAngle()).getX()  - DEFAULT_SIZE / 2d, pt.xProperty(), sh.rotationAngleProperty()));
-//		translateYProperty().bind(Bindings.createDoubleBinding(() -> pt.rotatePoint(pivotSupplier.get(),
-//			sh.getRotationAngle()).getY() - DEFAULT_SIZE / 2d, pt.yProperty(), sh.rotationAngleProperty()));
-
 		setStroke(null);
 		setFill(DEFAULT_COLOR);
 	}
-
-//	public void setRotationPivot(final Supplier<IPoint> pivot) {
-//		if(pivot != null) {
-//			pivotSupplier = pivot;
-//		}
-//	}
 
 	@Override
 	public void flush() {

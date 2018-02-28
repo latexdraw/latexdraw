@@ -164,7 +164,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 	private void updateMvPtHandlers(final IShape selectedShape) {
 		if(selectedShape instanceof IModifiablePointsShape) {
-			initialisePointHandler(mvPtHandlers, pt -> new MovePtHandler(pt, selectedShape), selectedShape.getPoints());
+			initialisePointHandler(mvPtHandlers, pt -> new MovePtHandler(pt), selectedShape.getPoints());
 		}
 	}
 
@@ -211,37 +211,6 @@ public class Border extends CanvasInstrument implements Initializable {
 			exec().
 			when(i -> i.getSrcLocalPoint() != null && i.getEndLocalPt() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler).
 			bind();
-//		nodeBinder(MovePointShape.class, new DnD()).
-//			on(mvPtHandlers).
-//			first((a, i) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
-//				final IGroup group = canvas.getDrawing().getSelection();
-//				if(group.size() == 1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
-//					currentgc.setPoint(group.getShapeAt(0).getGravityCentre());
-//					handler.setRotationPivot(() -> currentgc);
-//					a.setPoint(handler.getPoint());
-//					a.setShape((IModifiablePointsShape) group.getShapeAt(0));
-//					canvas.getViewFromShape(group.getShapeAt(0)).
-//						ifPresent(view -> ((ViewSingleShape) view).fixRotationPivot(group.getShapeAt(0).getGravityCentre()));
-//				}
-//			})).
-//			then((a, i) -> i.getSrcObject().ifPresent(node -> {
-//				final IPoint startPt = ShapeFactory.INST.createPoint(node.localToParent(i.getSrcLocalPoint())).rotatePoint(currentgc, -a.getShape().getRotationAngle());
-//				final IPoint endPt = ShapeFactory.INST.createPoint(node.localToParent(i.getEndLocalPt())).rotatePoint(currentgc, -a.getShape().getRotationAngle());
-//				final IPoint ptToMove = ((MovePtHandler) node).getPoint();
-//				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
-//				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
-////				a.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
-//				a.setNewCoord(ShapeFactory.INST.createPoint(x, y));
-//			})).
-//			endOrCancel((a, i) -> {
-//				((ViewSingleShape) canvas.getViewFromShape(a.getShape()).get()).releaseRotationPivot();
-//				i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
-//					handler.setRotationPivot(() -> a.getShape().getGravityCentre());
-//				});
-//			}).
-//			exec().
-//			when(i -> i.getSrcLocalPoint() != null && i.getEndLocalPt() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler).
-//			bind();
 	}
 
 	@Override
