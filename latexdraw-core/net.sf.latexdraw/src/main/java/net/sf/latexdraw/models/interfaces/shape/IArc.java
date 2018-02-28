@@ -21,13 +21,11 @@ import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 public interface IArc extends IPositionShape, IArcProp, IArrowableSingleShape {
 	/**
 	 * @return The coordinate of the start point of the arc.
-	 * @since 1.9
 	 */
 	IPoint getStartPoint();
 
 	/**
 	 * @return The coordinate of the end point of the arc.
-	 * @since 1.9
 	 */
 	IPoint getEndPoint();
 

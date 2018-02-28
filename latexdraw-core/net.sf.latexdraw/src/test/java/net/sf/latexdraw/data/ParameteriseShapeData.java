@@ -9,8 +9,10 @@ import java.util.Set;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -255,5 +257,25 @@ public final class ParameteriseShapeData implements HelperTest {
 	public IText setTextData1(final IText text) {
 		text.setTextPosition(TextPosition.CENTER);
 		return text;
+	}
+
+	public IArc setArcData1(final IArc arc) {
+		arc.setAngleStart(1.23);
+		arc.setAngleEnd(2.23);
+		arc.setArcStyle(ArcStyle.CHORD);
+		return arc;
+	}
+
+	public IArc setArcData2(final IArc arc) {
+		arc.setAngleStart(-1.23);
+		arc.setAngleEnd(2.23);
+		return arc;
+	}
+
+	public IArc setArcData3(final IArc arc) {
+		arc.setAngleStart(2.23);
+		arc.setAngleEnd(1.23);
+		arc.setArcStyle(ArcStyle.WEDGE);
+		return arc;
 	}
 }

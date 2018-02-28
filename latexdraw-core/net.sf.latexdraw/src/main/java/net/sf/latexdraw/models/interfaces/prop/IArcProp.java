@@ -19,37 +19,31 @@ import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 public interface IArcProp {
 	/**
 	 * @return the style of the arc.
-	 * @since 3.0.0
 	 */
 	ArcStyle getArcStyle();
 
 	/**
 	 * @param style the arc style to set.
-	 * @since 3.0.0
 	 */
 	void setArcStyle(final ArcStyle style);
 
 	/**
 	 * @return the angleStart.
-	 * @since 3.0.0
 	 */
 	double getAngleStart();
 
 	/**
 	 * @param angleStart the angleStart to set.
-	 * @since 3.0.0
 	 */
 	void setAngleStart(final double angleStart);
 
 	/**
 	 * @return the angleEnd.
-	 * @since 3.0.0
 	 */
 	double getAngleEnd();
 
 	/**
 	 * @param angleEnd the angleEnd to set.
-	 * @since 3.0.0
 	 */
 	void setAngleEnd(final double angleEnd);
 }

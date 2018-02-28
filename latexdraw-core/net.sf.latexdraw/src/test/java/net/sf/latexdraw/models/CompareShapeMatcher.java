@@ -84,4 +84,10 @@ public final class CompareShapeMatcher implements HelperTest {
 		assertEquals(sh1.getText(), sh2.getText());
 		assertEquals(sh1.getTextPosition(), sh2.getTextPosition());
 	}
+
+	public void assertEqualsArc(final IArc sh1, final IArc sh2) {
+		assertEqualsDouble(sh1.getAngleStart(), sh2.getAngleStart());
+		assertEqualsDouble(sh1.getAngleEnd(), sh2.getAngleEnd());
+		assertEquals(sh1.getArcStyle(), sh2.getArcStyle());
+	}
 }

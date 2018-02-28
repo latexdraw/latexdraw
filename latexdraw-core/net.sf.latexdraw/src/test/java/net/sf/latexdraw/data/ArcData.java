@@ -11,4 +11,5 @@ import static java.lang.annotation.ElementType.PARAMETER;
 @ParametersSuppliedBy(ArcSupplier.class)
 @Target(PARAMETER)
 public @interface ArcData {
+	boolean withParamVariants() default false;
 }

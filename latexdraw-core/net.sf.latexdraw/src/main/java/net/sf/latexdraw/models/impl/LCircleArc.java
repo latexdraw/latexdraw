@@ -144,7 +144,7 @@ class LCircleArc extends LSquaredShape implements ICircleArc, LArrowableShape {
 	}
 
 	@Override
-	public void setArcStyle(ArcStyle arcStyle) {
+	public void setArcStyle(final ArcStyle arcStyle) {
 		if(arcStyle != null) {
 			style.set(arcStyle);
 		}
