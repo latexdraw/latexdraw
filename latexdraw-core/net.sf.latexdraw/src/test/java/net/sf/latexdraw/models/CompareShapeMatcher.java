@@ -3,6 +3,7 @@ package net.sf.latexdraw.models;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 
@@ -40,7 +41,9 @@ public final class CompareShapeMatcher implements HelperTest {
 	public void assertEqualShapeFill(final IShape s1, final IShape s2) {
 		assertEquals(s2.isFilled(), s1.isFilled());
 		assertEquals(s2.getFillingCol(), s1.getFillingCol());
-		assertEquals(s2.getFillingStyle(), s1.getFillingStyle());
+		if(s1.isInteriorStylable()) {
+			assertEquals(s2.getFillingStyle(), s1.getFillingStyle());
+		}
 	}
 
 	public void assertEqualShapeFillStyle(final IShape s1, final IShape s2) {
@@ -89,5 +92,10 @@ public final class CompareShapeMatcher implements HelperTest {
 		assertEqualsDouble(sh1.getAngleStart(), sh2.getAngleStart());
 		assertEqualsDouble(sh1.getAngleEnd(), sh2.getAngleEnd());
 		assertEquals(sh1.getArcStyle(), sh2.getArcStyle());
+	}
+
+	public void assertEqualsDot(final IDot sh1, final IDot sh2) {
+		assertEquals(sh1.getDotStyle(), sh2.getDotStyle());
+		assertEqualsDouble(sh1.getDiametre(), sh2.getDiametre());
 	}
 }

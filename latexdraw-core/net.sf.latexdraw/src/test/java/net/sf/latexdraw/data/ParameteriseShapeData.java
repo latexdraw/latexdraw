@@ -11,8 +11,10 @@ import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
+import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -277,5 +279,20 @@ public final class ParameteriseShapeData implements HelperTest {
 		arc.setAngleEnd(1.23);
 		arc.setArcStyle(ArcStyle.WEDGE);
 		return arc;
+	}
+
+	public IDot setDotData1(final IDot dot) {
+		dot.setDotStyle(DotStyle.ASTERISK);
+		return dot;
+	}
+
+	public IDot setDotData2(final IDot dot) {
+		dot.setDotStyle(DotStyle.FDIAMOND);
+		return dot;
+	}
+
+	public IDot setDotData3(final IDot dot) {
+		dot.setDotStyle(DotStyle.PENTAGON);
+		return dot;
 	}
 }

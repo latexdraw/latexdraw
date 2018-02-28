@@ -39,13 +39,13 @@ public class ShapeSupplier extends ParameterSupplier {
 	public static Stream<IShape> getDiversifiedShapes() throws IOException {
 		return
 			Stream.concat(RectSupplier.createDiversifiedRectangle(), Stream.concat(ArcSupplier.createDiversifiedArc(),
+				Stream.concat(DotSupplier.createDiversifiedDot(),
 				Stream.of(EllSupplier.createEllipse(),
 			ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint(130d, 284d)),
 			CircleSupplier.createCircle(),
 			ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d))),
 			TextSupplier.createText(),
-			ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint(120, 234)),
 			ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d))),
 			ShapeFactory.INST.createPolygon(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
@@ -56,7 +56,7 @@ public class ShapeSupplier extends ParameterSupplier {
 				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
 			ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(23, 300), 1d, 10d, "x log", false),
 			createRhombus(), createTriangle(),
-			ParameteriseShapeData.INST.setPictureData1(createPicture())))).
+			ParameteriseShapeData.INST.setPictureData1(createPicture()))))).
 			map(sh -> Arrays.asList(ParameteriseShapeData.INST.setShapeData1(sh.duplicate()),
 				ParameteriseShapeData.INST.setShapeData2(sh.duplicate()),
 				ParameteriseShapeData.INST.setShapeData3(sh.duplicate()),
@@ -69,8 +69,7 @@ public class ShapeSupplier extends ParameterSupplier {
 			CircleSupplier.createCircle(), RectSupplier.createRectangle(),
 			ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d))),
-			TextSupplier.createText(),
-			ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint(120, 234)),
+			TextSupplier.createText(), DotSupplier.createDot(),
 			ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d))),
 			ShapeFactory.INST.createPolygon(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
