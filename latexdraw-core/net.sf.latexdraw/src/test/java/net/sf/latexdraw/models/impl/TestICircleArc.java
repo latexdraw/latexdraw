@@ -63,6 +63,8 @@ public class TestICircleArc implements HelperTest {
 
 	@Theory
 	public void testGetArrowLineArrow0StartLesserEnd(@ArcData final ICircleArc shape) {
+		shape.setPosition(0d, 0d);
+		shape.setWidth(10d);
 		shape.setAngleStart(Math.PI * 1.3);
 		shape.setAngleEnd(Math.PI * 1.5);
 		shape.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
@@ -73,6 +75,8 @@ public class TestICircleArc implements HelperTest {
 
 	@Theory
 	public void testGetArrowLineArrow0StartGreaterEnd(@ArcData final ICircleArc shape) {
+		shape.setPosition(0d, 0d);
+		shape.setWidth(10d);
 		shape.setAngleStart(Math.PI * 1.22);
 		shape.setAngleEnd(Math.PI * 0.98);
 		shape.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
@@ -83,6 +87,8 @@ public class TestICircleArc implements HelperTest {
 
 	@Theory
 	public void testGetArrowLineArrow1StartGreaterEnd(@ArcData final ICircleArc shape) {
+		shape.setPosition(0d, 0d);
+		shape.setWidth(10d);
 		shape.setAngleStart(Math.PI * 1.22);
 		shape.setAngleEnd(Math.PI * 0.98);
 		shape.setArrowStyle(ArrowStyle.RIGHT_ARROW, 1);
@@ -93,6 +99,8 @@ public class TestICircleArc implements HelperTest {
 
 	@Theory
 	public void testGetArrowLineArrow1StartLesserEnd(@ArcData final ICircleArc shape) {
+		shape.setPosition(0d, 0d);
+		shape.setWidth(10d);
 		shape.setAngleStart(Math.PI * 1.22);
 		shape.setAngleEnd(Math.PI * 1.56);
 		shape.setArrowStyle(ArrowStyle.RIGHT_ARROW, 1);

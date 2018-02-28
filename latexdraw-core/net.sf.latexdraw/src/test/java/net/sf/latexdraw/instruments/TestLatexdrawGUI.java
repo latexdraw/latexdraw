@@ -22,6 +22,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.malai.action.ActionsRegistry;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -45,8 +46,8 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 
 	@After
 	public void tearDown() throws TimeoutException {
-//		FxToolkit.hideStage();
-//		FxToolkit.cleanupStages();
+		FxToolkit.hideStage();
+		FxToolkit.cleanupStages();
 		release(new KeyCode[] {});
 		release(new MouseButton[] {});
 	}
