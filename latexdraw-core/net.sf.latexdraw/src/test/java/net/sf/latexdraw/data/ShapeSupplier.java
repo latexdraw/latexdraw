@@ -40,7 +40,8 @@ public class ShapeSupplier extends ParameterSupplier {
 		return
 			Stream.concat(RectSupplier.createDiversifiedRectangle(), Stream.concat(ArcSupplier.createDiversifiedArc(),
 				Stream.concat(DotSupplier.createDiversifiedDot(), Stream.concat(PlotSupplier.createDiversifiedPlot(),
-				Stream.concat(GridSupplier.createDiversifiedGrid(), Stream.of(EllSupplier.createEllipse(),
+				Stream.concat(GridSupplier.createDiversifiedGrid(), Stream.concat(AxesSupplier.createDiversifiedAxes(),
+					Stream.of(EllSupplier.createEllipse(),
 			CircleSupplier.createCircle(),
 			ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d))),
@@ -49,12 +50,11 @@ public class ShapeSupplier extends ParameterSupplier {
 				ShapeFactory.INST.createPoint(251d, 33d))),
 			ShapeFactory.INST.createPolygon(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d))),
-			ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(133, 146)),
 			createSquare(),
 			ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
 			createRhombus(), createTriangle(),
-			ParameteriseShapeData.INST.setPictureData1(createPicture()))))))).
+			ParameteriseShapeData.INST.setPictureData1(createPicture())))))))).
 			map(sh -> Arrays.asList(ParameteriseShapeData.INST.setShapeData1(sh.duplicate()),
 				ParameteriseShapeData.INST.setShapeData2(sh.duplicate()),
 				ParameteriseShapeData.INST.setShapeData3(sh.duplicate()),
@@ -71,8 +71,7 @@ public class ShapeSupplier extends ParameterSupplier {
 				ShapeFactory.INST.createPoint(251d, 33d))),
 			ShapeFactory.INST.createPolygon(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d))),
-			ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(133, 146)),
-			createSquare(),
+			AxesSupplier.createAxes(), createSquare(),
 			ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
 			PlotSupplier.createPlot(), createRhombus(), createTriangle(), createPicture());

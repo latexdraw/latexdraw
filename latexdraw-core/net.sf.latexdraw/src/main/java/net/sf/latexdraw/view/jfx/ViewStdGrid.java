@@ -33,7 +33,7 @@ public abstract class ViewStdGrid<T extends IStandardGrid> extends ViewPositionS
 	}
 
 
-	protected Text addTextLabel(final String text, final double x, final double y, final Font font) {
+	public Text createTextLabel(final String text, final double x, final double y, final Font font) {
 		final Text label = new Text(x, y, text);
 		label.setFont(font);
 		labels.getChildren().add(label);

@@ -215,7 +215,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		final double yPos = yorig + tmp;
 
 		for(double i = tlx + (isWest ? width + labelsSize / 4d : -width - labelWidth - labelsSize / 4d), j = minX; j <= maxX; i += absStep, j++) {
-			addTextLabel(String.valueOf((int) j), i, yPos, font);
+			createTextLabel(String.valueOf((int) j), i, yPos, font);
 		}
 
 		final double xGapNotWest = xorig + labelsSize / 4d + width;
@@ -224,14 +224,14 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 			label = String.valueOf((int) j);
 			fooText.setText(label);
 			double x = isWest ? xorig - fooText.getBoundsInLocal().getWidth() - labelsSize / 4d - width : xGapNotWest;
-			addTextLabel(label, x, i, font);
+			createTextLabel(label, x, i, font);
 		}
 	}
 
 
 	@Override
-	protected Text addTextLabel(final String text, final double x, final double y, final Font font) {
-		final Text label = super.addTextLabel(text, x, y, font);
+	public Text createTextLabel(final String text, final double x, final double y, final Font font) {
+		final Text label = super.createTextLabel(text, x, y, font);
 
 		label.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getGridLabelsColour().toJFX(), model.gridLabelsColourProperty()));
 		label.fontProperty().bind(Bindings.createObjectBinding(() -> new Font(font.getFamily(), model.getLabelsSize()), model.labelsSizeProperty()));

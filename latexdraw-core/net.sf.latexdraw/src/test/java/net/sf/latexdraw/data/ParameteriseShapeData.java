@@ -10,10 +10,12 @@ import javafx.scene.paint.Color;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
+import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
+import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
@@ -24,7 +26,9 @@ import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import org.junit.rules.TemporaryFolder;
 
 public final class ParameteriseShapeData implements HelperTest {
@@ -354,6 +358,30 @@ public final class ParameteriseShapeData implements HelperTest {
 		sh.setSubGridDots(6);
 		sh.setUnit(0.4);
 		sh.setYLabelWest(false);
+		return sh;
+	}
+
+	public IAxes setAxesData1(final IAxes sh) {
+		sh.setIncrementX(1.2);
+		sh.setDistLabelsY(0.85);
+		sh.setLabelsDisplayed(PlottingStyle.ALL);
+		sh.setShowOrigin(true);
+		sh.setTicksDisplayed(PlottingStyle.X);
+		sh.setTicksStyle(TicksStyle.BOTTOM);
+		sh.setTicksSize(2.35);
+		sh.setAxesStyle(AxesStyle.FRAME);
+		return sh;
+	}
+
+	public IAxes setAxesData2(final IAxes sh) {
+		sh.setIncrementY(0.8);
+		sh.setDistLabelsX(1.35);
+		sh.setLabelsDisplayed(PlottingStyle.NONE);
+		sh.setShowOrigin(false);
+		sh.setTicksDisplayed(PlottingStyle.Y);
+		sh.setTicksStyle(TicksStyle.TOP);
+		sh.setTicksSize(0.22);
+		sh.setAxesStyle(AxesStyle.NONE);
 		return sh;
 	}
 }

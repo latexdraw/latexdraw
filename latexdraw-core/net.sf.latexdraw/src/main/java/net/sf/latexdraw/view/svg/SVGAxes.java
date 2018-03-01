@@ -13,7 +13,10 @@ package net.sf.latexdraw.view.svg;
 import java.awt.geom.Point2D;
 import java.util.Arrays;
 import java.util.List;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
@@ -31,14 +34,23 @@ import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGNodeList;
+import net.sf.latexdraw.parsers.svg.SVGPathElement;
+import net.sf.latexdraw.parsers.svg.SVGTextElement;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.view.GenericAxes;
 
 /**
- * An SVG generator for an shape.
+ * SVG/latexdraw axes import export.
  * @author Arnaud BLOUIN
  */
-class SVGAxes extends SVGShape<IAxes> {
+class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
+	private SVGDocument currentDoc;
+	private SVGPathSegList currentPath;
+	private SVGGElement currentTicks;
 
 	protected SVGAxes(final IAxes shape) {
 		super(shape);
@@ -73,7 +85,8 @@ class SVGAxes extends SVGShape<IAxes> {
 		if(str != null) {
 			try {
 				shape.setTicksSize(Double.parseDouble(str));
-			}catch(final NumberFormatException e) { /* */ }
+			}catch(final NumberFormatException ignored) {
+			}
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_GRID_END));
@@ -111,6 +124,30 @@ class SVGAxes extends SVGShape<IAxes> {
 			shape.setDistLabelsY(values.get(0).getY());
 		}
 
+		setParametersFromSVG(elt);
+
+		homogeniseArrows(shape.getArrowAt(0), shape.getArrowAt(1));
+		homogeniseArrows(shape.getArrowAt(1), shape.getArrowAt(2));
+		homogeniseArrows(shape.getArrowAt(2), shape.getArrowAt(3));
+
+		if(withTransformation) {
+			applyTransformations(elt);
+		}
+	}
+
+	private void setParametersFromSVG(final SVGGElement elt) {
+		switch(shape.getAxesStyle()) {
+			case AXES:
+				setAxesStyleFromSVG(elt);
+				break;
+			case FRAME:
+				break;
+			case NONE:
+				break;
+		}
+	}
+
+	private void setAxesStyleFromSVG(final SVGGElement elt) {
 		/* Looking for the two axe in order to get the position of the axes. */
 		final SVGNodeList nl = elt.getChildren(SVGElements.SVG_G);
 		int i = 0;
@@ -138,7 +175,13 @@ class SVGAxes extends SVGShape<IAxes> {
 				final IPolyline la = new SVGPolylines(l1, false).shape;
 				final IPolyline lb = new SVGPolylines(l2, false).shape;
 
-				shape.setPosition(ShapeFactory.INST.createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
+				// Legacy code: in older versions the position was computed from the lines
+				// now, a translation is used.
+				if(elt.getTransform().stream().noneMatch(tr -> tr.isTranslation())) {
+					shape.setPosition(ShapeFactory.INST.createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
+				}
+				//End of legacy
+
 				shape.setLineStyle(la.getLineStyle());
 				shape.getArrowAt(1).setArrowStyle(la.getArrowAt(0).getArrowStyle());
 				shape.getArrowAt(3).setArrowStyle(la.getArrowAt(1).getArrowStyle());
@@ -148,11 +191,6 @@ class SVGAxes extends SVGShape<IAxes> {
 				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}
-
-		homogeniseArrows(shape.getArrowAt(0), shape.getArrowAt(1));
-		homogeniseArrows(shape.getArrowAt(1), shape.getArrowAt(2));
-		homogeniseArrows(shape.getArrowAt(2), shape.getArrowAt(3));
-		applyTransformations(elt);
 	}
 
 
@@ -162,17 +200,23 @@ class SVGAxes extends SVGShape<IAxes> {
 			return null;
 		}
 
+		currentDoc = doc;
+		currentPath = new SVGPathSegList();
+		currentTicks = new SVGGElement(doc);
 		final SVGElement root = new SVGGElement(doc);
 		final String pref = LNamespace.LATEXDRAW_NAMESPACE + ':';
+		final SVGPathElement path = new SVGPathElement(doc);
 
 		setSVGAttributes(doc, root, false);
 
+		root.setAttribute(SVGAttributes.SVG_TRANSFORM,
+			"translate(" + MathUtils.INST.format.format(shape.getPosition().getX()) + ',' + MathUtils.INST.format.format(shape.getPosition().getY()) + ')');
 		root.setAttribute(pref + LNamespace.XML_STYLE, shape.getAxesStyle().toString());
-		root.setAttribute(pref + LNamespace.XML_GRID_START, shape.getGridStartX() + " " + shape.getGridStartY()); //$NON-NLS-1$
-		root.setAttribute(pref + LNamespace.XML_GRID_END, shape.getGridEndX() + " " + shape.getGridEndY()); //$NON-NLS-1$
-		root.setAttribute(pref + LNamespace.XML_GRID_ORIGIN, shape.getOriginX() + " " + shape.getOriginY()); //$NON-NLS-1$
-		root.setAttribute(pref + LNamespace.XML_AXE_INCREMENT, shape.getIncrementX() + " " + shape.getIncrementY()); //$NON-NLS-1$
-		root.setAttribute(pref + LNamespace.XML_AXE_DIST_LABELS, shape.getDistLabelsX() + " " + shape.getDistLabelsY()); //$NON-NLS-1$
+		root.setAttribute(pref + LNamespace.XML_GRID_START, shape.getGridStartX() + " " + shape.getGridStartY());
+		root.setAttribute(pref + LNamespace.XML_GRID_END, shape.getGridEndX() + " " + shape.getGridEndY());
+		root.setAttribute(pref + LNamespace.XML_GRID_ORIGIN, shape.getOriginX() + " " + shape.getOriginY());
+		root.setAttribute(pref + LNamespace.XML_AXE_INCREMENT, shape.getIncrementX() + " " + shape.getIncrementY());
+		root.setAttribute(pref + LNamespace.XML_AXE_DIST_LABELS, shape.getDistLabelsX() + " " + shape.getDistLabelsY());
 		root.setAttribute(pref + LNamespace.XML_AXE_TICKS_SIZE, String.valueOf(shape.getTicksSize()));
 		root.setAttribute(pref + LNamespace.XML_AXE_SHOW_ORIGIN, String.valueOf(shape.isShowOrigin()));
 		root.setAttribute(pref + LNamespace.XML_AXE_SHOW_TICKS, shape.getTicksDisplayed().toString());
@@ -182,6 +226,12 @@ class SVGAxes extends SVGShape<IAxes> {
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 		createSVGAxe(root, doc);
 		setSVGRotationAttribute(root);
+
+		updatePathTicks();
+		updatePathLabels();
+		root.appendChild(currentTicks);
+		path.setPathData(currentPath);
+		root.appendChild(path);
 
 		return root;
 	}
@@ -207,7 +257,11 @@ class SVGAxes extends SVGShape<IAxes> {
 			yLine.getArrowAt(1).copy(shape.getArrowAt(2));
 			final SVGElement eltX = new SVGPolylines(xLine).toSVG(document);
 			final SVGElement eltY = new SVGPolylines(yLine).toSVG(document);
+			final String transform = "translate(" + MathUtils.INST.format.format(-shape.getPosition().getX()) + ',' +
+				MathUtils.INST.format.format(-shape.getPosition().getY()) + ')';
 
+			eltX.setAttribute(SVGAttributes.SVG_TRANSFORM, transform);
+			eltY.setAttribute(SVGAttributes.SVG_TRANSFORM, transform);
 			elt.appendChild(eltX);
 			elt.appendChild(eltY);
 		}
@@ -224,13 +278,18 @@ class SVGAxes extends SVGShape<IAxes> {
 			final double xMax = positionx + gridEndx * IShape.PPC;
 			final double yMax = positiony - gridEndy * IShape.PPC;
 			final IPoint pos = ShapeFactory.INST.createPoint(positionx, gridEndy > 0 ? yMax : positiony);
-			final IRectangle r = ShapeFactory.INST.createRectangle(pos, Math.abs(pos.getX() - (gridEndx > 0 ? xMax : positionx)), Math.abs(pos.getY() - positiony));
+			final IRectangle r = ShapeFactory.INST.createRectangle(pos, Math.abs(pos.getX() - (gridEndx > 0 ? xMax : positionx)),
+				Math.abs(pos.getY() - positiony));
 
 			r.setBordersPosition(BorderPos.MID);
 			r.setLineColour(shape.getLineColour());
 			r.setLineStyle(shape.getLineStyle());
 			r.setThickness(shape.getThickness());
-			elt.appendChild(new SVGRectangle(r).toSVG(document));
+
+			final SVGElement frame = new SVGRectangle(r).toSVG(document);
+			frame.setAttribute(SVGAttributes.SVG_TRANSFORM, "translate(" + MathUtils.INST.format.format(-shape.getPosition().getX()) + ',' +
+				MathUtils.INST.format.format(-shape.getPosition().getY()) + ')');
+			elt.appendChild(frame);
 		}
 	}
 
@@ -245,6 +304,49 @@ class SVGAxes extends SVGShape<IAxes> {
 				break;
 			case NONE:
 				break;
+		}
+	}
+
+	@Override
+	public IAxes getModel() {
+		return getShape();
+	}
+
+	@Override
+	public SVGTextElement createTextLabel(final String text, final double x, final double y, final Font font) {
+		if(currentTicks != null && currentDoc != null) {
+			final SVGTextElement textElt = new SVGTextElement(currentDoc);
+			textElt.setAttribute(SVGAttributes.SVG_X, MathUtils.INST.format.format(x));
+			textElt.setAttribute(SVGAttributes.SVG_Y, MathUtils.INST.format.format(y));
+			textElt.setTextContent(text);
+			currentTicks.appendChild(textElt);
+			return textElt;
+		}
+		return null;
+	}
+
+	@Override
+	public void createPathTicksMoveTo(final double x, final double y) {
+		if(currentPath != null) {
+			currentPath.add(new SVGPathSegMoveto(x, y, false));
+		}
+	}
+
+	@Override
+	public void createPathTicksLineTo(final double x, final double y) {
+		if(currentPath != null) {
+			currentPath.add(new SVGPathSegLineto(x, y, false));
+		}
+	}
+
+	@Override
+	public void disablePathTicks(final boolean disable) {
+	}
+
+	@Override
+	public void setPathTicksFill(final Color color) {
+		if(currentTicks != null) {
+			currentTicks.setFill(ShapeFactory.INST.createColorFX(color));
 		}
 	}
 }

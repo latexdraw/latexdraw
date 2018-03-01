@@ -3,6 +3,7 @@ package net.sf.latexdraw.models;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
+import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
@@ -120,5 +121,18 @@ public final class CompareShapeMatcher implements HelperTest {
 		assertEqualsDouble(sh1.getUnit(), sh2.getUnit());
 		assertEqualsDouble(sh1.getSubGridWidth(), sh2.getSubGridWidth());
 		assertEqualsDouble(sh1.getGridWidth(), sh2.getGridWidth());
+	}
+
+	public void assertEqualsAxes(final IAxes sh1, final IAxes sh2) {
+		assertEquals(sh1.getLabelsDisplayed(), sh2.getLabelsDisplayed());
+		assertEquals(sh1.getTicksDisplayed(), sh2.getTicksDisplayed());
+		assertEquals(sh1.isShowOrigin(), sh2.isShowOrigin());
+		assertEquals(sh1.getTicksStyle(), sh2.getTicksStyle());
+		assertEquals(sh1.getAxesStyle(), sh2.getAxesStyle());
+		assertEqualsDouble(sh1.getIncrementX(), sh2.getIncrementX());
+		assertEqualsDouble(sh1.getIncrementY(), sh2.getIncrementY());
+		assertEqualsDouble(sh1.getDistLabelsX(), sh2.getDistLabelsX());
+		assertEqualsDouble(sh1.getDistLabelsY(), sh2.getDistLabelsY());
+		assertEqualsDouble(sh1.getTicksSize(), sh2.getTicksSize());
 	}
 }
