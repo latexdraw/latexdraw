@@ -237,7 +237,7 @@ class SVGGrid extends SVGShape<IGrid> {
 		subgridDots.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(subGridColour, true));
 		subgridDots.setAttribute(prefix+LNamespace.XML_TYPE, LNamespace.XML_TYPE_GRID_SUB);
 		subgridDots.setAttribute(prefix+LNamespace.XML_GRID_DOTS, String.valueOf(subGridDots));
-		subgridDots.setAttribute(prefix+LNamespace.XML_GRID_SUB_DIV, String.valueOf(subGridDots));
+		subgridDots.setAttribute(prefix+LNamespace.XML_GRID_SUB_DIV, String.valueOf(subGridDiv));
 		subgridDots.setAttribute(prefix+LNamespace.XML_GRID_WIDTH, String.valueOf(subGridWidth));
 
 		if(subGridColour.getO() < 1d) {

@@ -4,6 +4,7 @@ import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
@@ -106,5 +107,18 @@ public final class CompareShapeMatcher implements HelperTest {
 		assertEqualsDouble(sh1.getPlotMaxX(), sh2.getPlotMaxX());
 		assertEquals(sh1.getNbPlottedPoints(), sh2.getNbPlottedPoints());
 		assertEquals(sh1.getPlotEquation(), sh2.getPlotEquation());
+	}
+
+	public void assertEqualsGrid(final IGrid sh1, final IGrid sh2) {
+		assertEquals(sh1.getGridLabelsColour(), sh2.getGridLabelsColour());
+		assertEquals(sh1.getGridDots(), sh2.getGridDots());
+		assertEquals(sh1.getSubGridColour(), sh2.getSubGridColour());
+		assertEquals(sh1.getSubGridDots(), sh2.getSubGridDots());
+		assertEquals(sh1.getSubGridDiv(), sh2.getSubGridDiv());
+		assertEquals(sh1.isXLabelSouth(), sh2.isXLabelSouth());
+		assertEquals(sh1.isYLabelWest(), sh2.isYLabelWest());
+		assertEqualsDouble(sh1.getUnit(), sh2.getUnit());
+		assertEqualsDouble(sh1.getSubGridWidth(), sh2.getSubGridWidth());
+		assertEqualsDouble(sh1.getGridWidth(), sh2.getGridWidth());
 	}
 }

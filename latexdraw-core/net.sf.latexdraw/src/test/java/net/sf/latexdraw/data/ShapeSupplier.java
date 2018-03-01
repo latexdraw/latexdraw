@@ -40,8 +40,7 @@ public class ShapeSupplier extends ParameterSupplier {
 		return
 			Stream.concat(RectSupplier.createDiversifiedRectangle(), Stream.concat(ArcSupplier.createDiversifiedArc(),
 				Stream.concat(DotSupplier.createDiversifiedDot(), Stream.concat(PlotSupplier.createDiversifiedPlot(),
-				Stream.of(EllSupplier.createEllipse(),
-			ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint(130d, 284d)),
+				Stream.concat(GridSupplier.createDiversifiedGrid(), Stream.of(EllSupplier.createEllipse(),
 			CircleSupplier.createCircle(),
 			ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d))),
@@ -55,7 +54,7 @@ public class ShapeSupplier extends ParameterSupplier {
 			ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
 			createRhombus(), createTriangle(),
-			ParameteriseShapeData.INST.setPictureData1(createPicture())))))).
+			ParameteriseShapeData.INST.setPictureData1(createPicture()))))))).
 			map(sh -> Arrays.asList(ParameteriseShapeData.INST.setShapeData1(sh.duplicate()),
 				ParameteriseShapeData.INST.setShapeData2(sh.duplicate()),
 				ParameteriseShapeData.INST.setShapeData3(sh.duplicate()),
@@ -63,9 +62,8 @@ public class ShapeSupplier extends ParameterSupplier {
 	}
 
 	public static Stream<IShape> getStdShapesStream() {
-		return Stream.of(EllSupplier.createEllipse(), ArcSupplier.createArc(),
-			ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint(130d, 284d)),
-			CircleSupplier.createCircle(), RectSupplier.createRectangle(),
+		return Stream.of(EllSupplier.createEllipse(), ArcSupplier.createArc(), GridSupplier.createGrid(), CircleSupplier.createCircle(),
+			RectSupplier.createRectangle(),
 			ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d))),
 			TextSupplier.createText(), DotSupplier.createDot(),
