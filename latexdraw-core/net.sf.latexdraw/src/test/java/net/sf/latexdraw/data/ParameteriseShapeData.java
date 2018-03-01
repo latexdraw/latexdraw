@@ -15,6 +15,7 @@ import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
@@ -47,13 +48,13 @@ public final class ParameteriseShapeData implements HelperTest {
 
 	/**
 	 * Filled = true
-	 * fill color = Color.RED
+	 * fill color = 0.3, 0.85, 0.15, 0.65
 	 * border po = into
 	 * dble bord = true
 	 * dble sep = 13
-	 * dble col = Color.GREEN
+	 * dble col = 0.6, 0.8, 0.45, 0.24
 	 * shadow = true
-	 * shad col = Color.AQUAMARINE
+	 * shad col = 0.1, 0.3, 0.6, 0.4
 	 * shad angle = 2.23
 	 * shad size = 65
 	 * line style = DOTTED
@@ -65,7 +66,7 @@ public final class ParameteriseShapeData implements HelperTest {
 	public IShape setShapeData1(final IShape sh) {
 		if(sh.isFillable()) {
 			sh.setFilled(true);
-			sh.setFillingCol(ShapeFactory.INST.createColorFX(Color.RED));
+			sh.setFillingCol(ShapeFactory.INST.createColor(0.3, 0.85, 0.15, 0.65));
 		}
 
 		if(sh.isBordersMovable()) {
@@ -75,12 +76,12 @@ public final class ParameteriseShapeData implements HelperTest {
 		if(sh.isDbleBorderable()) {
 			sh.setHasDbleBord(true);
 			sh.setDbleBordSep(13);
-			sh.setDbleBordCol(ShapeFactory.INST.createColorFX(Color.GREEN));
+			sh.setDbleBordCol(ShapeFactory.INST.createColor(0.6, 0.8, 0.45, 0.24));
 		}
 
 		if(sh.isShadowable()) {
 			sh.setHasShadow(true);
-			sh.setShadowCol(ShapeFactory.INST.createColorFX(Color.AQUAMARINE));
+			sh.setShadowCol(ShapeFactory.INST.createColor(0.1, 0.3, 0.6, 0.4));
 			sh.setShadowAngle(2.23);
 			sh.setShadowSize(65);
 		}
@@ -107,7 +108,7 @@ public final class ParameteriseShapeData implements HelperTest {
 
 	/**
 	 * fill = VLINES
-	 * hatch color = Color.BLUE
+	 * hatch color = 0.1, 0.3, 0.2, 0.6
 	 * hatch angle = -1.14
 	 * hatch sep = 0.8
 	 * hatch width = 11
@@ -123,7 +124,7 @@ public final class ParameteriseShapeData implements HelperTest {
 	public IShape setShapeData2(final IShape sh) {
 		if(sh.isInteriorStylable()) {
 			sh.setFillingStyle(FillingStyle.VLINES);
-			sh.setHatchingsCol(ShapeFactory.INST.createColorFX(Color.BLUE));
+			sh.setHatchingsCol(ShapeFactory.INST.createColor(0.1, 0.3, 0.2, 0.6));
 			sh.setHatchingsAngle(-1.14);
 			sh.setHatchingsSep(0.8);
 			sh.setHatchingsWidth(11);
@@ -328,5 +329,31 @@ public final class ParameteriseShapeData implements HelperTest {
 		plot.setPlotEquation("x sin");
 		plot.setPolar(true);
 		return plot;
+	}
+
+	public IGrid setGridData1(final IGrid sh) {
+		sh.setGridLabelsColour(ShapeFactory.INST.createColorFX(Color.AQUA));
+		sh.setGridDots(3);
+		sh.setUnit(1.1);
+		sh.setGridWidth(5.1d);
+		sh.setXLabelSouth(true);
+		return sh;
+	}
+
+	public IGrid setGridData2(final IGrid sh) {
+		sh.setSubGridWidth(2.13);
+		sh.setSubGridDiv(11);
+		sh.setSubGridColour(ShapeFactory.INST.createColor(0.15, 0.2, 0.3, 0.6));
+		sh.setXLabelSouth(false);
+		sh.setYLabelWest(true);
+		return sh;
+	}
+
+	public IGrid setGridData3(final IGrid sh) {
+		sh.setGridLabelsColour(ShapeFactory.INST.createColor(0.1, 0.2, 0.3, 0.4));
+		sh.setSubGridDots(6);
+		sh.setUnit(0.4);
+		sh.setYLabelWest(false);
+		return sh;
 	}
 }

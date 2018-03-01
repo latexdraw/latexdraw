@@ -13,6 +13,7 @@ package net.sf.latexdraw.parsers.svg;
 import java.text.ParseException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.parsers.svg.parsers.CSSStyleParser;
@@ -201,6 +202,16 @@ public abstract class SVGElement implements LElement, Cloneable {
 		return attributes;
 	}
 
+	public double getOpacity(final String... opacityAttrs) {
+		final String opStr = Stream.of(opacityAttrs).map(attr -> getAttribute(getUsablePrefix() + attr)).
+			filter(attr -> attr != null).findAny().orElse("1");
+
+		try {
+			return Math.max(0d, Math.min(1d, Double.valueOf(opStr)));
+		}catch(final NumberFormatException ignored) {
+			return 1d;
+		}
+	}
 
 	@Override
 	public String toString() {
@@ -1102,8 +1113,13 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * @return The fill content of the element (if it is possible) or null.
 	 */
 	public Color getStroke() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_STROKE, getUsablePrefix())).map(attr -> CSSColors.INSTANCE.getRGBColour(attr)).
+		final Color stroke = Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_STROKE, getUsablePrefix())).map(attr -> CSSColors.INSTANCE.getRGBColour(attr)).
 			orElse(parent == null ? null : parent.getStroke());
+
+		if(stroke != null) {
+			return stroke.newColorWithOpacity(getOpacity(SVGAttributes.SVG_OPACITY, SVGAttributes.SVG_STROKE_OPACITY));
+		}
+		return null;
 	}
 
 

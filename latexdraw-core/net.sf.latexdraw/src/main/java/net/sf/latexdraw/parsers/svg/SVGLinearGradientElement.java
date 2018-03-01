@@ -58,24 +58,10 @@ public class SVGLinearGradientElement extends SVGElement implements SVGLineParse
 		if(nl.getLength() == 2) {
 			final SVGStopElement stop = ((SVGStopElement) nl.item(0)).getOffset() < ((SVGStopElement) nl.item(1)).getOffset() ?
 				(SVGStopElement) nl.item(0) : (SVGStopElement) nl.item(1);
-			return stop.getStopColor().newColorWithOpacity(getStopOpacity(stop));
+			return stop.getStopColor().newColorWithOpacity(stop.getOpacity(SVGAttributes.SVG_STOP_OPACITY));
 		}
 
 		return null;
-	}
-
-
-	private double getStopOpacity(final SVGStopElement stop) {
-		final String strOpacity = stop.getAttribute(getUsablePrefix() + SVGAttributes.SVG_STOP_OPACITY);
-		if(strOpacity == null) {
-			return 1d;
-		}
-
-		try {
-			return Math.max(0d, Math.min(1d, Double.valueOf(strOpacity)));
-		}catch(final NumberFormatException ignored) {
-			return 1d;
-		}
 	}
 
 
@@ -88,7 +74,7 @@ public class SVGLinearGradientElement extends SVGElement implements SVGLineParse
 		if(nl.getLength() == 2) {
 			final SVGStopElement stop = ((SVGStopElement) nl.item(0)).getOffset() > ((SVGStopElement) nl.item(1)).getOffset() ?
 				(SVGStopElement) nl.item(0) : (SVGStopElement) nl.item(1);
-			return stop.getStopColor().newColorWithOpacity(getStopOpacity(stop));
+			return stop.getStopColor().newColorWithOpacity(stop.getOpacity(SVGAttributes.SVG_STOP_OPACITY));
 		}
 
 		return null;

@@ -204,16 +204,15 @@ abstract class SVGShape<S extends IShape> {
 
 	private static void setPlainFillFromSVG(final IShape shape, final String fill, final String opacity) {
 		// Just getting the filling colour.
-		final Color c = CSSColors.INSTANCE.getRGBColour(fill);
+		final Color fillCol = CSSColors.INSTANCE.getRGBColour(fill);
 
-		if(c != null) {
-			shape.setFillingCol(c);
+		if(fillCol != null) {
+			shape.setFillingCol(fillCol);
 			shape.setFilled(true);
 			if(opacity != null) {
 				try {
-					shape.setFillingCol(ShapeFactory.INST.createColor(c.getR(), c.getG(), c.getB(), Double.valueOf(opacity)));
-				}catch(final NumberFormatException ex) {
-					BadaboomCollector.INSTANCE.add(ex);
+					shape.setFillingCol(fillCol.newColorWithOpacity(Double.valueOf(opacity)));
+				}catch(final NumberFormatException ignored) {
 				}
 			}
 		}
@@ -634,11 +633,11 @@ abstract class SVGShape<S extends IShape> {
 		}
 
 		if(shape.isLineStylable()) {
-			SVGShape.setDashedDotted(shape, elt.getStrokeDasharray(), elt.getStrokeLinecap());
+			setDashedDotted(shape, elt.getStrokeDasharray(), elt.getStrokeLinecap());
 		}
 
 		if(shape.isFillable()) {
-			SVGShape.setFillFromSVG(shape, elt.getFill(), elt.getSVGAttribute(SVGAttributes.SVG_FILL_OPACITY, null), elt.getSVGRoot().getDefs());
+			setFillFromSVG(shape, elt.getFill(), elt.getSVGAttribute(SVGAttributes.SVG_FILL_OPACITY, null), elt.getSVGRoot().getDefs());
 		}
 
 		CSSStylesGenerator.INSTANCE.setCSSStyles(shape, elt.getStylesCSS(), elt.getSVGRoot().getDefs());
@@ -709,6 +708,10 @@ abstract class SVGShape<S extends IShape> {
 			elt.setAttribute(SVGAttributes.SVG_STROKE_WIDTH, MathUtils.INST.format.format(shape.getDbleBordSep()));
 			elt.setAttribute(SVGAttributes.SVG_FILL, SVGAttributes.SVG_VALUE_NONE);
 			elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_DBLE_BORDERS);
+
+			if(shape.getDbleBordCol().getO() < 1d) {
+				elt.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, MathUtils.INST.format.format(shape.getDbleBordCol().getO()));
+			}
 		}
 	}
 
@@ -727,15 +730,23 @@ abstract class SVGShape<S extends IShape> {
 			final double gcx = gravityCenter.getX();
 			final double gcy = gravityCenter.getY();
 			final IPoint pt = ShapeFactory.INST.createPoint(gcx + shape.getShadowSize(), gcy).rotatePoint(shape.getGravityCentre(), -shape.getShadowAngle());
+			final boolean filledShadow = shadowFills || shape.isFilled();
 
 			elt.setAttribute(SVGAttributes.SVG_TRANSFORM, SVGTransform.createTranslation(shape.getShadowSize(), 0.) + " " +
 				SVGTransform.createTranslation(pt.getX() - gcx - shape.getShadowSize(), pt.getY() - gcy));
 			elt.setAttribute(SVGAttributes.SVG_STROKE_WIDTH,
 				MathUtils.INST.format.format(shape.hasDbleBord() ? shape.getThickness() * 2d + shape.getDbleBordSep() : shape.getThickness()));
 			elt.setAttribute(SVGAttributes.SVG_FILL,
-				shadowFills || shape.isFilled() ? CSSColors.INSTANCE.getColorName(shape.getShadowCol(), true) : SVGAttributes.SVG_VALUE_NONE);
+				filledShadow ? CSSColors.INSTANCE.getColorName(shape.getShadowCol(), true) : SVGAttributes.SVG_VALUE_NONE);
 			elt.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(shape.getShadowCol(), true));
 			elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SHADOW);
+
+			if(shape.getShadowCol().getO() < 1d) {
+				elt.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, MathUtils.INST.format.format(shape.getShadowCol().getO()));
+				if(filledShadow) {
+					elt.setAttribute(SVGAttributes.SVG_FILL_OPACITY, MathUtils.INST.format.format(shape.getShadowCol().getO()));
+				}
+			}
 		}
 	}
 
@@ -743,7 +754,7 @@ abstract class SVGShape<S extends IShape> {
 	private void setSVGFill(final SVGElement root) {
 		root.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
 		if(shape.getFillingCol().getO() < 1d) {
-			root.setAttribute(SVGAttributes.SVG_FILL_OPACITY, MathUtils.INST.format.format(shape.getLineColour().getO()));
+			root.setAttribute(SVGAttributes.SVG_FILL_OPACITY, MathUtils.INST.format.format(shape.getFillingCol().getO()));
 		}
 	}
 
@@ -818,6 +829,10 @@ abstract class SVGShape<S extends IShape> {
 		gPath.setAttribute(SVGAttributes.SVG_STROKE_WIDTH, String.valueOf(shape.getHatchingsWidth()));
 		gPath.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, SVGAttributes.SVG_VALUE_NONE);
 
+		if(shape.getHatchingsCol().getO() < 1d) {
+			gPath.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, MathUtils.INST.format.format(shape.getHatchingsCol().getO()));
+		}
+
 		path.setAttribute(SVGAttributes.SVG_D, getSVGHatchingsPath().toString());
 		gPath.appendChild(path);
 
@@ -825,6 +840,11 @@ abstract class SVGShape<S extends IShape> {
 		if(shape.isFilled() || (shape.hasShadow() && shadowFills)) {
 			final SVGRectElement fill = new SVGRectElement(doc);
 			fill.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
+
+			if(shape.getFillingCol().getO() < 1d) {
+				fill.setAttribute(SVGAttributes.SVG_FILL_OPACITY, MathUtils.INST.format.format(shape.getFillingCol().getO()));
+			}
+
 			fill.setAttribute(SVGAttributes.SVG_STROKE, SVGAttributes.SVG_VALUE_NONE);
 			fill.setAttribute(SVGAttributes.SVG_WIDTH, String.valueOf((int) max.getX()));
 			fill.setAttribute(SVGAttributes.SVG_HEIGHT, String.valueOf((int) max.getY()));

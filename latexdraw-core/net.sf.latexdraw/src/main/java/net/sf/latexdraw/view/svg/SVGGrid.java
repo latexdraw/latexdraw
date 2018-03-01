@@ -139,7 +139,7 @@ class SVGGrid extends SVGShape<IGrid> {
 
 			if(val!=null)
 				try { shape.setLabelsSize((int)Double.parseDouble(val)); }
-				catch(final NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
+				catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 			shape.setGridLabelsColour(labelElt.getStroke());
 		}
@@ -240,6 +240,10 @@ class SVGGrid extends SVGShape<IGrid> {
 		subgridDots.setAttribute(prefix+LNamespace.XML_GRID_SUB_DIV, String.valueOf(subGridDots));
 		subgridDots.setAttribute(prefix+LNamespace.XML_GRID_WIDTH, String.valueOf(subGridWidth));
 
+		if(subGridColour.getO() < 1d) {
+			subgridDots.setAttribute(SVGAttributes.SVG_FILL_OPACITY, MathUtils.INST.format.format(subGridColour.getO()));
+		}
+
 		for(double i=0, n=tlx; i<nbX; i++, n+=xSubStep)
 			for(double j=0, m=tly; j<=nbY; j++, m+=ySubStep)
 				for(double k=0; k<subGridDots; k++) {
@@ -291,6 +295,10 @@ class SVGGrid extends SVGShape<IGrid> {
 		subgrids.setAttribute(prefix+LNamespace.XML_GRID_DOTS, String.valueOf(subGridDots));
 		subgrids.setAttribute(prefix+LNamespace.XML_GRID_SUB_DIV, String.valueOf(subGridDiv));
 
+		if(subGridColour.getO() < 1d) {
+			subgrids.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, MathUtils.INST.format.format(subGridColour.getO()));
+		}
+
 		for(k=minX, i=posX; k<maxX; i+=xStep, k++)
 			for(j=0; j<=subGridDiv; j++) {
 				line = new SVGLineElement(document);
@@ -338,6 +346,10 @@ class SVGGrid extends SVGShape<IGrid> {
 		gridDotsElt.setAttribute(prefix+LNamespace.XML_GRID_DOTS, String.valueOf(gridDots));
 		gridDotsElt.setAttribute(prefix+LNamespace.XML_GRID_WIDTH, String.valueOf(gridWidth));
 
+		if(linesColour.getO() < 1d) {
+			gridDotsElt.setAttribute(SVGAttributes.SVG_FILL_OPACITY, MathUtils.INST.format.format(linesColour.getO()));
+		}
+
 		for(k=minX, i=posX; k<=maxX; i+=xStep, k++)
 			for(m=tly, n=minY; n<maxY; n++, m+=absStep)
 				for(l=0, j=m; l<gridDots; l++, j+=dotStep) {
@@ -383,6 +395,10 @@ class SVGGrid extends SVGShape<IGrid> {
 		grids.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(linesColour, true));
 		grids.setAttribute(SVGAttributes.SVG_STROKE_LINECAP, SVGAttributes.SVG_LINECAP_VALUE_SQUARE);
 		grids.setAttribute(prefix+LNamespace.XML_TYPE, LNamespace.XML_TYPE_GRID);
+
+		if(linesColour.getO() < 1d) {
+			grids.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, MathUtils.INST.format.format(linesColour.getO()));
+		}
 
 		for(k=minX, i=posX; k<=maxX; i+=xStep, k++) {
 			line = new SVGLineElement(document);
@@ -435,6 +451,10 @@ class SVGGrid extends SVGShape<IGrid> {
 		texts.setAttribute(SVGAttributes.SVG_FONT_SIZE, String.valueOf(shape.getLabelsSize()));
 		texts.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(gridLabelsColor, true));
 		texts.setAttribute(prefix + LNamespace.XML_TYPE, LNamespace.XML_TYPE_TEXT);
+
+		if(gridLabelsColor.getO() < 1d) {
+			texts.setAttribute(SVGAttributes.SVG_OPACITY, MathUtils.INST.format.format(gridLabelsColor.getO()));
+		}
 
 		for(i = tlx + (isYLabelWest ? width + gridLabelsSize / 4d : -width - labelWidth - gridLabelsSize / 4d), j = minX; j <= maxX; i += absStep, j++) {
 			text = new SVGTextElement(document);

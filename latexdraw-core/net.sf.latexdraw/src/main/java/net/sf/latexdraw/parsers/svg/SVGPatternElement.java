@@ -150,8 +150,7 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 	 */
 	public Color getHatchingColor() {
 		final SVGGElement g = getGElement();
-
-		return g == null ? null : CSSColors.INSTANCE.getRGBColour(g.getAttribute(getUsablePrefix() + SVGAttributes.SVG_STROKE));
+		return g == null ? null : g.getStroke();
 	}
 
 

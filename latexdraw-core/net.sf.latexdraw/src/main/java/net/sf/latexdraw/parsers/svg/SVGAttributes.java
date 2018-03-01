@@ -92,5 +92,6 @@ public final class SVGAttributes {
 	public static final String SVG_FILL_OPACITY				= "fill-opacity";					//$NON-NLS-1$
 	public static final String SVG_STROKE_OPACITY			= "stroke-opacity";					//$NON-NLS-1$
 	public static final String SVG_STOP_OPACITY = "stop-opacity"; //NON-NLS
+	public static final String SVG_OPACITY = "opacity"; //NON-NLS
 	public static final String SVG_BASE_PROFILE				= "baseProfile";					//$NON-NLS-1$
 }

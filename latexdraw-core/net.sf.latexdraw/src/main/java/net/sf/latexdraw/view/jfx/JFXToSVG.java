@@ -78,9 +78,27 @@ public final class JFXToSVG {
 
 	private void copyPropertiesToSVG(final SVGElement elt, final Shape shape) {
 		elt.setStrokeWidth(shape.getStrokeWidth());
-		elt.setStroke(shape.getStroke() instanceof Color ? ShapeFactory.INST.createColorFX((Color)shape.getStroke()) : null);
-		elt.setFill(shape.getFill() instanceof Color ? ShapeFactory.INST.createColorFX((Color)shape.getFill()) : null);
 		elt.setStrokeLineCap(strokeLineCapToSVGLineCap(shape.getStrokeLineCap()));
+
+		if(shape.getStroke() instanceof Color) {
+			final Color col = (Color) shape.getStroke();
+			elt.setStroke(ShapeFactory.INST.createColorFX(col));
+			if(col.getOpacity() < 1d) {
+				elt.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, String.valueOf(col.getOpacity()));
+			}
+		}else {
+			elt.setStroke(null);
+		}
+
+		if(shape.getFill() instanceof Color) {
+			final Color col = (Color) shape.getFill();
+			elt.setFill(ShapeFactory.INST.createColorFX(col));
+			if(col.getOpacity() < 1d) {
+				elt.setAttribute(SVGAttributes.SVG_FILL_OPACITY, String.valueOf(col.getOpacity()));
+			}
+		}else {
+			elt.setFill(null);
+		}
 	}
 
 	private String strokeLineCapToSVGLineCap(final StrokeLineCap cap) {

@@ -14,6 +14,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.parsers.svg.CSSColors;
@@ -84,11 +85,17 @@ class SVGDot extends SVGShape<IDot> {
 			applyTransformations(elt);
 		}
 
-		if(!shape.isFillable() && shape.isFilled()) {
-			shape.setLineColour(CSSColors.INSTANCE.getRGBColour(main.getFill()));
-		}
+		setFillLineColor(main);
 	}
 
+	protected void setFillLineColor(final SVGElement elt) {
+		if(!shape.isFillable() && shape.isFilled()) {
+			final Color fillCol = CSSColors.INSTANCE.getRGBColour(elt.getFill());
+			if(fillCol != null) {
+				shape.setLineColour(fillCol.newColorWithOpacity(elt.getOpacity(SVGAttributes.SVG_OPACITY, SVGAttributes.SVG_FILL_OPACITY)));
+			}
+		}
+	}
 
 	@Override
 	public SVGElement toSVG(final SVGDocument doc) {
