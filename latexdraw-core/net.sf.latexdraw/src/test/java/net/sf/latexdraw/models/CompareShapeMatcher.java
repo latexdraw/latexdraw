@@ -8,6 +8,7 @@ import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 
 import static org.hamcrest.Matchers.anyOf;
@@ -134,5 +135,15 @@ public final class CompareShapeMatcher implements HelperTest {
 		assertEqualsDouble(sh1.getDistLabelsX(), sh2.getDistLabelsX());
 		assertEqualsDouble(sh1.getDistLabelsY(), sh2.getDistLabelsY());
 		assertEqualsDouble(sh1.getTicksSize(), sh2.getTicksSize());
+	}
+
+	public void assertEqualsStdGrid(final IStandardGrid sh1, final IStandardGrid sh2) {
+		assertEqualsDouble(sh1.getGridEndX(), sh2.getGridEndX());
+		assertEqualsDouble(sh1.getGridEndY(), sh2.getGridEndY());
+		assertEqualsDouble(sh1.getGridStartX(), sh2.getGridStartX());
+		assertEqualsDouble(sh1.getGridStartY(), sh2.getGridStartY());
+		assertEqualsDouble(sh1.getOriginX(), sh2.getOriginX());
+		assertEqualsDouble(sh1.getOriginY(), sh2.getOriginY());
+		assertEquals(sh1.getLabelsSize(), sh2.getLabelsSize());
 	}
 }

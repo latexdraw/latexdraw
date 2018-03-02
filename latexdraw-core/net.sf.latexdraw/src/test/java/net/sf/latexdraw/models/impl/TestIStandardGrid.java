@@ -1,25 +1,14 @@
 package net.sf.latexdraw.models.impl;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
-import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.data.StdGridData;
 import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
-import org.junit.experimental.theories.ParameterSignature;
-import org.junit.experimental.theories.ParameterSupplier;
-import org.junit.experimental.theories.ParametersSuppliedBy;
-import org.junit.experimental.theories.PotentialAssignment;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 
-import static java.lang.annotation.ElementType.PARAMETER;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
@@ -206,20 +195,5 @@ public class TestIStandardGrid implements HelperTest {
 		assertEqualsDouble(shape2.getGridStartX(), shape.getGridStartX());
 		assertEqualsDouble(shape2.getGridStartY(), shape.getGridStartY());
 		assertEquals(shape2.getLabelsSize(), shape.getLabelsSize());
-	}
-
-	@Retention(RetentionPolicy.RUNTIME)
-	@ParametersSuppliedBy(StdGridSupplier.class)
-	@Target(PARAMETER)
-	public @interface StdGridData {
-	}
-
-	public static class StdGridSupplier extends ParameterSupplier {
-		@Override
-		public List<PotentialAssignment> getValueSources(final ParameterSignature sig) {
-			return Stream.of(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()),
-				ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint())).
-				map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
-		}
 	}
 }
