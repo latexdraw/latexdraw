@@ -21,7 +21,7 @@ public enum ArrowStyle {
 	NONE {
 		@Override
 		public String getPSTToken() {
-			return ""; //$NON-NLS-1$
+			return "";
 		}
 
 		@Override
@@ -190,10 +190,14 @@ public enum ArrowStyle {
 		}
 	}, ROUND_END {
 		@Override
-		public String getPSTToken() { return PSTricksConstants.ROUNDEND_STYLE; }
+		public String getPSTToken() {
+			return PSTricksConstants.ROUNDEND_STYLE;
+		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() { return ROUND_END; }
+		public ArrowStyle getOppositeArrowStyle() {
+			return ROUND_END;
+		}
 	}, ROUND_IN {
 		@Override
 		public String getPSTToken() {

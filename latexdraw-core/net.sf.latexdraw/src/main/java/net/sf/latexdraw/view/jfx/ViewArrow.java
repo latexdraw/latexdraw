@@ -58,7 +58,6 @@ public class ViewArrow extends Group {
 		enableShape(false, false, false);
 		arc.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 		arc.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
-		ellipse.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 		path.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 	}
 
@@ -96,6 +95,7 @@ public class ViewArrow extends Group {
 		ellipse.setCenterY(pt1.getY());
 		ellipse.setRadiusX(arrowRadius - lineWidth / 2d);
 		ellipse.setRadiusY(arrowRadius - lineWidth / 2d);
+		ellipse.setStrokeWidth(lineWidth);
 		setStrokeFillDiskCircle();
 		enableShape(false, false, true);
 	}
@@ -103,6 +103,13 @@ public class ViewArrow extends Group {
 
 	private void setStrokeFillDiskCircle() {
 		ellipse.fillProperty().unbind();
+		ellipse.strokeProperty().unbind();
+
+		if(arrow.getArrowStyle() == ArrowStyle.ROUND_END || arrow.getArrowStyle() == ArrowStyle.ROUND_IN) {
+			ellipse.setStroke(null);
+		}else {
+			ellipse.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
+		}
 
 		if(arrow.getArrowStyle() == ArrowStyle.CIRCLE_IN || arrow.getArrowStyle() == ArrowStyle.CIRCLE_END) {
 			if(arrow.getShape().isFillable()) {
@@ -258,23 +265,36 @@ public class ViewArrow extends Group {
 	}
 
 
-	private void updatePathSquareRoundEnd(final IPoint pt1, final IPoint pt2) {
+	private void updatePathSquareEnd(final IPoint pt1, final IPoint pt2) {
 		final double x = pt1.getX();
 		final double y = pt1.getY();
 		path.getElements().add(new MoveTo(x, y));
 		path.getElements().add(new LineTo(x < pt2.getX() ? x + 1d : x - 1d, y));
+		path.strokeWidthProperty().bind(Bindings.createDoubleBinding(() -> arrow.getShape().getFullThickness(), arrow.getShape().thicknessProperty(),
+			arrow.getShape().dbleBordSepProperty(), arrow.getShape().dbleBordProperty()));
 		enableShape(true, false, false);
+	}
+
+	private void updatePathRoundEnd(final IPoint pt1) {
+		final double lineWidth = arrow.getShape().getFullThickness() / 2d;
+		ellipse.setCenterX(pt1.getX());
+		ellipse.setCenterY(pt1.getY());
+		ellipse.setRadiusX(lineWidth);
+		ellipse.setRadiusY(lineWidth);
+		setStrokeFillDiskCircle();
+		enableShape(false, false, true);
 	}
 
 
 	private void updatePathRoundIn(final IPoint pt1, final IPoint pt2) {
-		final double lineWidth = isArrowInPositiveDirection(pt1, pt2) ? arrow.getShape().getFullThickness() : -arrow.getShape().getFullThickness();
-		final double x = pt1.getX() + lineWidth / 2d;
-		final double y = pt1.getY();
-
-		path.getElements().add(new MoveTo(x, y));
-		path.getElements().add(new LineTo(x, y));
-		enableShape(true, false, false);
+		final double lineWidth = arrow.getShape().getFullThickness() / 2d;
+		final double arrowRadius = arrow.getRoundShapedArrowRadius();
+		ellipse.setCenterX(pt1.getX() + (isArrowInPositiveDirection(pt1, pt2) ? lineWidth : -lineWidth));
+		ellipse.setCenterY(pt1.getY());
+		ellipse.setRadiusX(arrowRadius - lineWidth);
+		ellipse.setRadiusY(arrowRadius - lineWidth);
+		setStrokeFillDiskCircle();
+		enableShape(false, false, true);
 	}
 
 
@@ -328,8 +348,10 @@ public class ViewArrow extends Group {
 				updatePathRightLeftSquaredBracket(pt1, pt2);
 				break;
 			case SQUARE_END:
+				updatePathSquareEnd(pt1, pt2);
+				break;
 			case ROUND_END:
-				updatePathSquareRoundEnd(pt1, pt2);
+				updatePathRoundEnd(pt1);
 				break;
 			case ROUND_IN:
 				updatePathRoundIn(pt1, pt2);
