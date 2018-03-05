@@ -39,7 +39,7 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  */
 class SVGArrow {
-	/** The arrowhead generated or used to generate the SVG-arrowd */
+	/** The arrowhead generated or used to generate the SVG-arrowed */
 	IArrow arrow;
 
 	/**
@@ -122,7 +122,7 @@ class SVGArrow {
 		arrow.setTBarSizeDim(y * lineWidth * 2d - tbarNum * lineWidth);
 
 		if((seg instanceof SVGPathSegLineto && MathUtils.INST.equalsDouble(((SVGPathSegLineto) seg).getX(), m.getX())) || seg instanceof SVGPathSegLinetoVertical) {
-			arrow.setArrowStyle(MathUtils.INST.equalsDouble(m.getX(), 0d) ? ArrowStyle.BAR_IN : ArrowStyle.BAR_END);
+			arrow.setArrowStyle(MathUtils.INST.equalsDouble(m.getX(), 0d) ? ArrowStyle.BAR_END : ArrowStyle.BAR_IN);
 			return;
 		}
 		if(seg instanceof SVGPathSegCurvetoCubic) {
@@ -143,7 +143,7 @@ class SVGArrow {
 			y += m.getY() > 0d ? -0.5 : 0.5;
 			arrow.setTBarSizeDim(y * lineWidth * 2d - tbarNum * lineWidth);
 			arrow.setBracketNum((lgth - 0.5) * lineWidth / (arrow.getTBarSizeDim() / IShape.PPC + arrow.getTBarSizeNum() * lineWidth));
-			arrow.setArrowStyle(elt.getRefX() > 0d ? ArrowStyle.RIGHT_SQUARE_BRACKET : ArrowStyle.LEFT_SQUARE_BRACKET);
+			arrow.setArrowStyle(MathUtils.INST.equalsDouble(0.5, m.getX()) ? ArrowStyle.LEFT_SQUARE_BRACKET : ArrowStyle.RIGHT_SQUARE_BRACKET);
 		}
 	}
 
@@ -382,7 +382,7 @@ class SVGArrow {
 	private void toSVGRoundIn(final SVGDocument doc, final boolean isShadow, final SVGElement marker) {
 		final IShape shape = arrow.getShape();
 		final SVGElement circle = new SVGCircleElement(doc);
-		circle.setAttribute(SVGAttributes.SVG_R, "0.5"); //$NON-NLS-1$
+		circle.setAttribute(SVGAttributes.SVG_R, "0.5");
 		circle.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(isShadow ? shape.getShadowCol() : shape.getLineColour(), true));
 		marker.appendChild(circle);
 	}
