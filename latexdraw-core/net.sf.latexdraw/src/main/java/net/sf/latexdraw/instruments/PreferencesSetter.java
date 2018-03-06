@@ -214,14 +214,14 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 			ifPresent(node -> styleList.getSelectionModel().select(GridStyle.NONE));
 
 		Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_GAP)).ifPresent(node -> persoGridGapField.getValueFactory().setValue(Integer.valueOf(node.getTextContent())));
-		Optional.ofNullable(prefMap.get(LNamespace.XML_LANG)).ifPresent(node -> {
-			final Locale locale = Locale.forLanguageTag(node.getTextContent());
-			if(langList.getItems().contains(locale)) {
-				langList.getSelectionModel().select(locale);
-			}else {
-				//TODO select default lang from LangTool.INSTANCE
-			}
-		});
+
+		final Node langNode = prefMap.get(LNamespace.XML_LANG);
+		final Locale locale = langNode == null ? Locale.US : Locale.forLanguageTag(langNode.getTextContent());
+		if(langList.getItems().contains(locale)) {
+			langList.getSelectionModel().select(locale);
+		}else {
+			langList.getSelectionModel().select(Locale.US);
+		}
 		Optional.ofNullable(prefMap.get(LNamespace.XML_MAGNETIC_GRID)).ifPresent(node -> magneticCB.setSelected(Boolean.parseBoolean(node.getTextContent())));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_EXPORT)).ifPresent(node -> pathExportField.setText(node.getTextContent()));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_OPEN)).ifPresent(node -> pathOpenField.setText(node.getTextContent()));
@@ -456,7 +456,11 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 			if(item == null || empty) {
 				setGraphic(null);
 			}else {
-				setText(item.getDisplayLanguage());
+				String country = item.getDisplayCountry();
+				if(!country.isEmpty()) {
+					country = " (" + country + ')';
+				}
+				setText(item.getDisplayLanguage() + country);
 			}
 		}
 	}
