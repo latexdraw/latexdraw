@@ -147,6 +147,9 @@ public class Hand extends CanvasInstrument {
 				a.setShape(targetSh);
 			});
 		}).bind();
+
+		// A simple pressure on the canvas deselects the shapes
+		nodeBinder(SelectShapes.class, new Press()).on(canvas).first((a, i) -> a.setDrawing(canvas.getDrawing())).bind();
 	}
 
 	/**
