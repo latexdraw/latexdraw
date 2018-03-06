@@ -13,6 +13,7 @@ package net.sf.latexdraw.models;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Locale;
+import java.util.Optional;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
@@ -35,8 +36,25 @@ public final class MathUtils {
 		format.getDecimalFormatSymbols().setDecimalSeparator('.');
 		format.setDecimalSeparatorAlwaysShown(false);
 		format.setGroupingSize(0);
-
 	}
+
+
+	/**
+	 * Tries to parse the given string and convert it as a double value.
+	 * @param str The string to parse.
+	 * @return Empty if the string is not a double. The value otherwise.
+	 */
+	public Optional<Double> parserDouble(final String str) {
+		if(str == null) {
+			return Optional.empty();
+		}
+		try {
+			return Optional.of(Double.parseDouble(str));
+		}catch(final NumberFormatException ex) {
+			return Optional.empty();
+		}
+	}
+
 
 	public double mod2pi(final double angle) {
 		return angle % (2d * Math.PI);

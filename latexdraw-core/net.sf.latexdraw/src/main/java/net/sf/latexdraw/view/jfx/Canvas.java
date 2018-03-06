@@ -330,12 +330,21 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 
 	@Override
 	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
-		if(document == null || root == null) return;
+		if(document == null || root == null) {
+			return;
+		}
 
 		if(!generalPreferences) {
-			final String ns = nsURI == null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
-			final Element elt = document.createElement(ns + LNamespace.XML_ZOOM);
+			final String ns = nsURI == null || nsURI.isEmpty() ? "" : nsURI + ':';
+			Element elt = document.createElement(ns + LNamespace.XML_ZOOM);
 			elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
+			root.appendChild(elt);
+			System.out.println(getScrollPane().getHvalue() + " " + getScrollPane().getVvalue());
+			elt = document.createElement(ns + LNamespace.XML_VIEWPORT_X);
+			elt.appendChild(document.createTextNode(MathUtils.INST.format.format(getScrollPane().getHvalue())));
+			root.appendChild(elt);
+			elt = document.createElement(ns + LNamespace.XML_VIEWPORT_Y);
+			elt.appendChild(document.createTextNode(MathUtils.INST.format.format(getScrollPane().getVvalue())));
 			root.appendChild(elt);
 		}
 
@@ -344,21 +353,30 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 
 	@Override
 	public void load(final boolean generalPreferences, final String nsURI, final Element meta) {
-		if(meta == null) return;
+		if(meta == null) {
+			return;
+		}
 		// Getting the list of meta information tags.
 		final NodeList nl = meta.getChildNodes();
-		final String uri = nsURI == null ? "" : nsURI; //$NON-NLS-1$
+		final String uri = nsURI == null ? "" : nsURI;
 
 		// For each meta information tag.
 		for(int i = 0, size = nl.getLength(); i < size; i++) {
 			final Node node = nl.item(i);
 
 			// Must be a latexdraw tag.
-			if(node != null && uri.equals(node.getNamespaceURI()) && !generalPreferences && node.getNodeName().endsWith(LNamespace.XML_ZOOM)) {
-				setZoom(Double.NaN, Double.NaN, Double.parseDouble(node.getTextContent()));
+			if(node != null && uri.equals(node.getNamespaceURI()) && !generalPreferences) {
+				if(node.getNodeName().endsWith(LNamespace.XML_ZOOM)) {
+					setZoom(Double.NaN, Double.NaN, MathUtils.INST.parserDouble(node.getTextContent()).orElse(1d));
+				}
+				if(node.getNodeName().endsWith(LNamespace.XML_VIEWPORT_X)) {
+					getScrollPane().setHvalue(MathUtils.INST.parserDouble(node.getTextContent()).orElse(0.5));
+				}
+				if(node.getNodeName().endsWith(LNamespace.XML_VIEWPORT_Y)) {
+					getScrollPane().setVvalue(MathUtils.INST.parserDouble(node.getTextContent()).orElse(0.45));
+				}
 			}
 		}
-
 		magneticGrid.load(generalPreferences, nsURI, meta);
 	}
 

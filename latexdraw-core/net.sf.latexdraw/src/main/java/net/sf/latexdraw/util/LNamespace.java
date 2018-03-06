@@ -62,6 +62,8 @@ public final class LNamespace {
 	public static final String XML_POSITION 			= "position"; //NON-NLS
 	public static final String XML_POSITION_X 			= "x"; //NON-NLS
 	public static final String XML_POSITION_Y 			= "y"; //NON-NLS
+	public static final String XML_VIEWPORT_X 			= "vpx"; //NON-NLS
+	public static final String XML_VIEWPORT_Y 			= "vpy"; //NON-NLS
 	public static final String XML_SIZE 				= "size"; //NON-NLS
 	public static final String XML_HEIGHT 				= "height"; //NON-NLS
 	public static final String XML_WIDTH 				= "width"; //NON-NLS

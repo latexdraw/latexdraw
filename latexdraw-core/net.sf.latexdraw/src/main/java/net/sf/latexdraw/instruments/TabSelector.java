@@ -12,7 +12,6 @@ package net.sf.latexdraw.instruments;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.PauseTransition;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,15 +19,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.javafx.action.ActivateInactivateInstruments;
-import org.malai.javafx.action.MoveCamera;
 import org.malai.javafx.instrument.JfxInstrument;
 
 /**
@@ -129,27 +123,12 @@ public class TabSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	public void reinit() {
-		// Needs to do a pause before doing the centering. The canvas is also reinitialised so that we have to wait for all the refresh of the canvas
-		// before the reinit of the scroll pane. Otherwise the centering will fail.
-		final PauseTransition pause = new PauseTransition(Duration.millis(200));
-		pause.setOnFinished(evt -> centreViewport());
-		pause.play();
+		centreViewport();
 	}
 
 	public void centreViewport() {
-		final MoveCamera action = new MoveCamera();
-		final Page page = canvas.getPage().getPage();
-		final IPoint origin = canvas.getOrigin();
-
-		action.setScrollPane(scrollPane);
-		action.setPx((origin.getX() + page.getWidth() * IShape.PPC / 2d) / canvas.getWidth());
-		action.setPy((origin.getY() + page.getHeight() * IShape.PPC / 5d) / canvas.getHeight());
-
-		if(action.canDo()) {
-			action.doIt();
-		}
-
-		action.flush();
+		scrollPane.setHvalue(0.5);
+		scrollPane.setVvalue(0.4);
 	}
 
 	@Override
