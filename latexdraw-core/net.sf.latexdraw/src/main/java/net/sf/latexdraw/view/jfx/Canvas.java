@@ -339,7 +339,6 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 			Element elt = document.createElement(ns + LNamespace.XML_ZOOM);
 			elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
 			root.appendChild(elt);
-			System.out.println(getScrollPane().getHvalue() + " " + getScrollPane().getVvalue());
 			elt = document.createElement(ns + LNamespace.XML_VIEWPORT_X);
 			elt.appendChild(document.createTextNode(MathUtils.INST.format.format(getScrollPane().getHvalue())));
 			root.appendChild(elt);
