@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -67,6 +68,14 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(addRec, waitFXEvents, clickOnAddedFirstShape, waitFXEvents).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
+	}
+
+	@Test
+	public void testClickOnCanvasUnselects() {
+		new CompositeGUIVoidCommand(addRec, waitFXEvents, clickOnAddedFirstShape, waitFXEvents).execute();
+		clickOn(canvas);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertTrue(canvas.getDrawing().getSelection().isEmpty());
 	}
 
 	@Test
