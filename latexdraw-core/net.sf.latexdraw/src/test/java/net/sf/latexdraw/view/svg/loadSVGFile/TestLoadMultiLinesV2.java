@@ -74,11 +74,6 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 		final IPolyline line = getLine();
 		assertEquals(ArrowStyle.LEFT_SQUARE_BRACKET, line.getArrowStyle(0));
 		assertEquals(ArrowStyle.CIRCLE_END, line.getArrowStyle(-1));
-		assertEquals(2.2, line.getDotSizeNum(), 0.0001);
-		assertEquals(5.0, line.getDotSizeDim(), 0.0001);
-		assertEquals(0.25, line.getBracketNum(), 0.0001);
-		assertEquals(4.0, line.getTBarSizeDim(), 0.0001);
-		assertEquals(10.0, line.getTBarSizeNum(), 0.0001);
 	}
 
 	@Test
