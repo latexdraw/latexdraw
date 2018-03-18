@@ -222,7 +222,7 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(AddShape.class, new MultiClick(3)).on(canvas).map(creation).
 			then((a, i) -> {
 				final IPoint currPoint = getAdaptedPoint(i.getCurrentPosition());
-				if(a.getShape().get().getNbPoints() == i.getPoints().size() && !i.isLastPointFinalPoint()) {
+				if(a.getShape().get().getNbPoints() == i.getPoints().size() && i.getCurrentButton() == MouseButton.PRIMARY) {
 					a.setShape(ShapeFactory.INST.createPolygonFrom((IPolygon) a.getShape().get(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
 				}else {
 					((IModifiablePointsShape) a.getShape().get()).setPoint(currPoint.getX(), currPoint.getY(), -1);
@@ -236,7 +236,7 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(AddShape.class, new MultiClick()).on(canvas).map(creation).
 			then((a, i) -> {
 				final IPoint currPoint = getAdaptedPoint(i.getCurrentPosition());
-				if(a.getShape().get().getNbPoints() == i.getPoints().size() && !i.isLastPointFinalPoint()) {
+				if(a.getShape().get().getNbPoints() == i.getPoints().size() && i.getCurrentButton() == MouseButton.PRIMARY) {
 					a.setShape(ShapeFactory.INST.createPolylineFrom((IPolyline) a.getShape().get(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
 				}else {
 					((IModifiablePointsShape) a.getShape().get()).setPoint(currPoint.getX(), currPoint.getY(), -1);
@@ -250,7 +250,7 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(AddShape.class, new MultiClick()).on(canvas).map(creation).
 			then((a, i) -> {
 				final IPoint currPoint = getAdaptedPoint(i.getCurrentPosition());
-				if(a.getShape().get().getNbPoints() == i.getPoints().size() && !i.isLastPointFinalPoint()) {
+				if(a.getShape().get().getNbPoints() == i.getPoints().size() && i.getCurrentButton() == MouseButton.PRIMARY) {
 					a.setShape(ShapeFactory.INST.createBezierCurveFrom((IBezierCurve) a.getShape().get(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
 				}else {
 					((IModifiablePointsShape) a.getShape().get()).setPoint(currPoint.getX(), currPoint.getY(), -1);

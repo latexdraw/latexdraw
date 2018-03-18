@@ -176,6 +176,7 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		final IPolygon sh = (IPolygon) drawing.getShapeAt(0);
 		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
 		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
+		assertEquals(3, sh.getNbPoints());
 	}
 
 	@Test
@@ -189,6 +190,7 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		final IPolyline sh = (IPolyline) drawing.getShapeAt(0);
 		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
 		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
+		assertEquals(3, sh.getNbPoints());
 	}
 
 	@Test
@@ -203,6 +205,7 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
 		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
 		assertTrue(sh.isOpened());
+		assertEquals(3, sh.getNbPoints());
 	}
 
 	@Test
