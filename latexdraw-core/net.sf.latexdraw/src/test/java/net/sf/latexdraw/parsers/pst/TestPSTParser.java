@@ -20,19 +20,7 @@ public abstract class TestPSTParser {
 	public void setUp() throws Exception {
 		DviPsColors.INSTANCE.clearUserColours();
 
-		listener = new PSTLatexdrawListener() {
-			@Override
-			public void enterUnknowncmds(final net.sf.latexdraw.parsers.pst.PSTParser.UnknowncmdsContext ctx) {
-				super.enterUnknowncmds(ctx);
-				fail(ctx.LATEXCMD().getText());
-			}
-
-			@Override
-			public void enterUnknownParamSetting(final net.sf.latexdraw.parsers.pst.PSTParser.UnknownParamSettingContext ctx) {
-				super.enterUnknownParamSetting(ctx);
-				fail(ctx.name.getText());
-			}
-		};
+		listener = new ErrorPSTLatexdrawListener();
 		listener.log.addHandler(new Handler() {
 			@Override
 			public void publish(final LogRecord record) {
@@ -61,11 +49,25 @@ public abstract class TestPSTParser {
 		parser.pstCode(new PSTContext());
 	}
 
-	static class ErrorListener extends BaseErrorListener {
+	public static class ErrorListener extends BaseErrorListener {
 		@Override
 		public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol, final int line, final int charPositionInLine, final
 		String msg, final RecognitionException e) {
 			fail(msg);
+		}
+	}
+
+	public static class ErrorPSTLatexdrawListener extends PSTLatexdrawListener {
+		@Override
+		public void enterUnknowncmds(final net.sf.latexdraw.parsers.pst.PSTParser.UnknowncmdsContext ctx) {
+			super.enterUnknowncmds(ctx);
+			fail(ctx.LATEXCMD().getText());
+		}
+
+		@Override
+		public void enterUnknownParamSetting(final net.sf.latexdraw.parsers.pst.PSTParser.UnknownParamSettingContext ctx) {
+			super.enterUnknownParamSetting(ctx);
+			fail(ctx.name.getText());
 		}
 	}
 }

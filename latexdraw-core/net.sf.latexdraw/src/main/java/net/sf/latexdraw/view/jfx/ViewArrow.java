@@ -11,7 +11,8 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Objects;
-import javafx.beans.binding.Bindings;
+import javafx.beans.value.ObservableDoubleValue;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
@@ -22,18 +23,19 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.ILine;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.view.GenericViewArrow;
 
 /**
  * The JFX view of an arrow.
  * @author Arnaud Blouin
  */
-public class ViewArrow extends Group {
-	public static final String ID = "arrow";
+public class ViewArrow extends Group implements GenericViewArrow {
+	public static final String ID = "arrow"; //NON-NLS
 
 	final IArrow arrow;
 	final Path path;
@@ -56,9 +58,6 @@ public class ViewArrow extends Group {
 		getChildren().add(ellipse);
 		getChildren().add(arc);
 		enableShape(false, false, false);
-		arc.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
-		arc.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
-		path.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
 	}
 
 
@@ -75,230 +74,14 @@ public class ViewArrow extends Group {
 	}
 
 
-	private void updatePathDiskCircleEnd(final double x, final double y) {
-		final double lineWidth = arrow.getShape().getFullThickness();
-		final double arrowRadius = arrow.getRoundShapedArrowRadius();
-		ellipse.setCenterX(x);
-		ellipse.setCenterY(y);
-		ellipse.setRadiusX(arrowRadius - lineWidth / 2d);
-		ellipse.setRadiusY(arrowRadius - lineWidth / 2d);
-		ellipse.setStrokeWidth(lineWidth);
-		setStrokeFillDiskCircle();
-		enableShape(false, false, true);
+	@Override
+	public IArrow getArrow() {
+		return arrow;
 	}
 
-
-	private void updatePathDiskCircleIn(final IPoint pt1, final IPoint pt2) {
-		final double arrowRadius = arrow.getRoundShapedArrowRadius();
-		final double lineWidth = arrow.getShape().getFullThickness();
-		ellipse.setCenterX(pt1.getX() + (isArrowInPositiveDirection(pt1, pt2) ? arrowRadius : -arrowRadius));
-		ellipse.setCenterY(pt1.getY());
-		ellipse.setRadiusX(arrowRadius - lineWidth / 2d);
-		ellipse.setRadiusY(arrowRadius - lineWidth / 2d);
-		ellipse.setStrokeWidth(lineWidth);
-		setStrokeFillDiskCircle();
-		enableShape(false, false, true);
-	}
-
-
-	private void setStrokeFillDiskCircle() {
-		ellipse.fillProperty().unbind();
-		ellipse.strokeProperty().unbind();
-
-		if(arrow.getArrowStyle() == ArrowStyle.ROUND_END || arrow.getArrowStyle() == ArrowStyle.ROUND_IN) {
-			ellipse.setStroke(null);
-		}else {
-			ellipse.strokeProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
-		}
-
-		if(arrow.getArrowStyle() == ArrowStyle.CIRCLE_IN || arrow.getArrowStyle() == ArrowStyle.CIRCLE_END) {
-			if(arrow.getShape().isFillable()) {
-				ellipse.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getFillingCol().toJFX(), arrow.getShape().fillingColProperty()));
-			}else {
-				ellipse.setFill(Color.WHITE);
-			}
-		}else {
-			ellipse.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
-		}
-	}
-
-
-	private boolean shouldInvertArrow(final IPoint pt1, final IPoint pt2) {
-		return arrow.isInverted() == isArrowInPositiveDirection(pt1, pt2);
-	}
-
-
-	private void updatePathRightLeftSquaredBracket(final IPoint pt1, final IPoint pt2) {
-		final double[] xs = new double[2];
-		final double[] ys = new double[2];
-		final double lineWidth = arrow.getShape().getFullThickness();
-		double lgth = arrow.getBracketShapedArrowLength() + arrow.getShape().getFullThickness() / 2d;
-
-		if(shouldInvertArrow(pt1, pt2)) {
-			lgth *= -1d;
-		}
-
-		updatePathBarIn(pt1, pt2, xs, ys);
-
-		final double x3 = xs[0] + lgth;
-		final double x4 = xs[1] + lgth;
-
+	@Override
+	public void updatePath(final boolean isShadow) {
 		path.setStrokeLineCap(StrokeLineCap.BUTT);
-		path.getElements().add(new MoveTo(xs[0], ys[0] + lineWidth / 2d));
-		path.getElements().add(new LineTo(x3, ys[0] + lineWidth / 2d));
-		path.getElements().add(new MoveTo(xs[1], ys[1] - lineWidth / 2d));
-		path.getElements().add(new LineTo(x4, ys[1] - lineWidth / 2d));
-		enableShape(true, false, false);
-	}
-
-
-	private void updatePathBarIn(final IPoint pt1, final IPoint pt2, final double[] xs, final double[] ys) {
-		final double width = arrow.getBarShapedArrowWidth();
-		final double lineWidth = arrow.getShape().getThickness();
-		final double dec = isArrowInPositiveDirection(pt1, pt2) ? lineWidth / 2d : -lineWidth / 2d;
-		final double x = pt1.getX();
-		final double y = pt1.getY();
-		xs[0] = x + dec;
-		xs[1] = x + dec;
-		ys[0] = y - width / 2d;
-		ys[1] = y + width / 2d;
-
-		path.getElements().add(new MoveTo(xs[0], ys[0]));
-		path.getElements().add(new LineTo(xs[1], ys[1]));
-		path.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
-		enableShape(true, false, false);
-	}
-
-
-	private void updatePathBarEnd(final double x, final double y) {
-		final double width = arrow.getBarShapedArrowWidth();
-
-		path.getElements().add(new MoveTo(x, y - width / 2d));
-		path.getElements().add(new LineTo(x, y + width / 2d));
-		path.strokeWidthProperty().bind(arrow.getShape().thicknessProperty());
-		enableShape(true, false, false);
-	}
-
-
-	private void updatePathArrow(final double x1, final double y1, final double x2, final double y2, final double x3, final double y3,
-								 final double x4, final double y4) {
-		path.getElements().add(new MoveTo(x1, y1));
-		path.getElements().add(new LineTo(x2, y2));
-		path.getElements().add(new LineTo(x3, y3));
-		path.getElements().add(new LineTo(x4, y4));
-		path.getElements().add(new ClosePath());
-		enableShape(true, false, false);
-	}
-
-
-	private void updatePathRightLeftArrow(final IPoint pt1, final IPoint pt2) {
-		final double width = arrow.getArrowShapedWidth();
-		double length = arrow.getArrowLength() * width;
-		double inset = arrow.getArrowInset() * length;
-		double x = pt1.getX();
-		final double y = pt1.getY();
-
-		if(arrow.isInverted()) {
-			x += isArrowInPositiveDirection(pt1, pt2) ? length : -length;
-		}
-
-		if(shouldInvertArrow(pt1, pt2)) {
-			length *= -1d;
-			inset *= -1d;
-		}
-
-		updatePathArrow(x, y, x + length, y - width / 2d, x + length - inset, y, x + length, y + width / 2d);
-		path.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
-	}
-
-
-	private boolean isArrowInPositiveDirection(final IPoint pt1, final IPoint pt2) {
-		return pt1.getX() < pt2.getX() || (MathUtils.INST.equalsDouble(pt1.getX(), pt2.getX()) && pt1.getY() < pt2.getY());
-	}
-
-
-	private void updatePathRoundLeftRightBracket(final IPoint pt1, final IPoint pt2) {
-		final boolean invert = arrow.isInverted();
-		final double width = arrow.getBarShapedArrowWidth();
-		final double lgth = arrow.getRBracketNum() * width;
-		final double x = pt1.getX();
-		final double y = pt1.getY();
-		final double widtharc = lgth * 2d + (invert ? arrow.getShape().getThickness() / 2d : 0d);
-		final double xarc = shouldInvertArrow(pt1, pt2) ? x - widtharc / 2d : x + widtharc / 2d;
-		final double angle = shouldInvertArrow(pt1, pt2) ? -50d : 130d;
-
-		arc.setCenterX(xarc);
-		arc.setCenterY(y);
-		arc.setRadiusX(widtharc / 2d);
-		arc.setRadiusY(width / 2d);
-		arc.setStartAngle(angle);
-		arc.setLength(100d);
-		arc.setFill(null);
-		enableShape(false, true, false);
-	}
-
-
-	private void updatePathDoubleLeftRightArrow(final IPoint pt1, final IPoint pt2) {
-		final double width = arrow.getArrowShapedWidth();
-		double length = arrow.getArrowLength() * width;
-		double inset = arrow.getArrowInset() * length;
-		double x = pt1.getX();
-		final double y = pt1.getY();
-
-		if(arrow.isInverted() != arrow.isLeftArrow()) {
-			x += isArrowInPositiveDirection(pt1, pt2) ? 2d * length : -2d * length;
-		}
-
-		if(shouldInvertArrow(pt1, pt2)) {
-			length *= -1d;
-			inset *= -1d;
-		}
-
-		updatePathArrow(x, y, x + length, y - width / 2d, x + length - inset, y, x + length, y + width / 2d);
-		updatePathArrow(x + length, y, x + 2d * length, y - width / 2d, x + 2d * length - inset, y, x + 2d * length, y + width / 2d);
-		final double x2 = x + length - inset;
-		final double x2bis = x + 2d * length - inset;
-
-		path.getElements().add(new LineTo(x2, y));
-		path.getElements().add(new MoveTo(x2bis, y));
-		path.fillProperty().bind(Bindings.createObjectBinding(() -> arrow.getShape().getLineColour().toJFX(), arrow.getShape().lineColourProperty()));
-	}
-
-
-	private void updatePathSquareEnd(final IPoint pt1, final IPoint pt2) {
-		final double x = pt1.getX();
-		final double y = pt1.getY();
-		path.getElements().add(new MoveTo(x, y));
-		path.getElements().add(new LineTo(x < pt2.getX() ? x + 1d : x - 1d, y));
-		path.strokeWidthProperty().bind(Bindings.createDoubleBinding(() -> arrow.getShape().getFullThickness(), arrow.getShape().thicknessProperty(),
-			arrow.getShape().dbleBordSepProperty(), arrow.getShape().dbleBordProperty()));
-		enableShape(true, false, false);
-	}
-
-	private void updatePathRoundEnd(final IPoint pt1) {
-		final double lineWidth = arrow.getShape().getFullThickness() / 2d;
-		ellipse.setCenterX(pt1.getX());
-		ellipse.setCenterY(pt1.getY());
-		ellipse.setRadiusX(lineWidth);
-		ellipse.setRadiusY(lineWidth);
-		setStrokeFillDiskCircle();
-		enableShape(false, false, true);
-	}
-
-
-	private void updatePathRoundIn(final IPoint pt1, final IPoint pt2) {
-		final double lineWidth = arrow.getShape().getFullThickness() / 2d;
-		final double arrowRadius = arrow.getRoundShapedArrowRadius();
-		ellipse.setCenterX(pt1.getX() + (isArrowInPositiveDirection(pt1, pt2) ? lineWidth : -lineWidth));
-		ellipse.setCenterY(pt1.getY());
-		ellipse.setRadiusX(arrowRadius - lineWidth);
-		ellipse.setRadiusY(arrowRadius - lineWidth);
-		setStrokeFillDiskCircle();
-		enableShape(false, false, true);
-	}
-
-
-	public void updatePath() {
 		path.getElements().clear();
 		path.fillProperty().unbind();
 		path.strokeWidthProperty().unbind();
@@ -306,68 +89,128 @@ public class ViewArrow extends Group {
 		ellipse.getTransforms().clear();
 		arc.getTransforms().clear();
 
-		final ILine arrowLine = arrow.getArrowLine();
+		GenericViewArrow.super.updatePath(isShadow);
 
-		if(arrow.getArrowStyle() == ArrowStyle.NONE || arrowLine == null || !arrow.hasStyle()) {
-			return;
-		}
+		final ILine line = arrow.getArrowLine();
+		final double lineAngle = (-line.getLineAngle() + Math.PI * 2d) % (Math.PI * 2d);
 
-		final double lineAngle = arrowLine.getLineAngle();
-		final IPoint pt1 = arrowLine.getPoint1();
-		final IPoint pt2 = arrowLine.getPoint2();
-
-		switch(arrow.getArrowStyle()) {
-			case BAR_END:
-				updatePathBarEnd(pt1.getX(), pt1.getY());
-				break;
-			case BAR_IN:
-				updatePathBarIn(pt1, pt2, new double[2], new double[2]);
-				break;
-			case CIRCLE_END:
-			case DISK_END:
-				updatePathDiskCircleEnd(pt1.getX(), pt1.getY());
-				break;
-			case CIRCLE_IN:
-			case DISK_IN:
-				updatePathDiskCircleIn(pt1, pt2);
-				break;
-			case RIGHT_ARROW:
-			case LEFT_ARROW:
-				updatePathRightLeftArrow(pt1, pt2);
-				break;
-			case RIGHT_DBLE_ARROW:
-			case LEFT_DBLE_ARROW:
-				updatePathDoubleLeftRightArrow(pt1, pt2);
-				break;
-			case RIGHT_ROUND_BRACKET:
-			case LEFT_ROUND_BRACKET:
-				updatePathRoundLeftRightBracket(pt1, pt2);
-				break;
-			case LEFT_SQUARE_BRACKET:
-			case RIGHT_SQUARE_BRACKET:
-				updatePathRightLeftSquaredBracket(pt1, pt2);
-				break;
-			case SQUARE_END:
-				updatePathSquareEnd(pt1, pt2);
-				break;
-			case ROUND_END:
-				updatePathRoundEnd(pt1);
-				break;
-			case ROUND_IN:
-				updatePathRoundIn(pt1, pt2);
-				break;
-			case NONE:
-				break;
-		}
-
-		if(!MathUtils.INST.equalsDouble(lineAngle % (Math.PI * 2d), 0d)) {
-			final Rotate rotate = new Rotate(Math.toDegrees(lineAngle), pt1.getX(), pt1.getY());
+		if(arrow.getArrowStyle() != ArrowStyle.NONE && !MathUtils.INST.equalsDouble(lineAngle, 0d)) {
+			final Rotate rotate = new Rotate(Math.toDegrees(lineAngle), 0d, 0d);
 			path.getTransforms().add(rotate);
 			ellipse.getTransforms().add(rotate);
 			arc.getTransforms().add(rotate);
 		}
 	}
 
+	@Override
+	public void setTranslation(final double tx, final double ty) {
+		final Translate translate = new Translate(tx, ty);
+		ellipse.getTransforms().add(0, translate);
+		path.getTransforms().add(0, translate);
+		arc.getTransforms().add(0, translate);
+	}
+
+	@Override
+	public void createMoveTo(final double x, final double y) {
+		path.getElements().add(new MoveTo(x, y));
+		enableShape(true, false, false);
+	}
+
+	@Override
+	public void createLineTo(final double x, final double y) {
+		path.getElements().add(new LineTo(x, y));
+	}
+
+	@Override
+	public void createClosePath() {
+		path.getElements().add(new ClosePath());
+	}
+
+	@Override
+	public void createArc(final double cx, final double cy, final double rx, final double ry, final double angle, final double length,
+						  final ObservableValue<Color> strokeProp, final ObservableDoubleValue strokeWidthProp) {
+		arc.setCenterX(cx);
+		arc.setCenterY(cy);
+		arc.setRadiusX(rx);
+		arc.setRadiusY(ry);
+		arc.setStartAngle(angle);
+		arc.setLength(length);
+		arc.strokeProperty().unbind();
+		arc.strokeProperty().bind(strokeProp);
+		arc.strokeWidthProperty().unbind();
+		arc.strokeWidthProperty().bind(strokeWidthProp);
+		arc.setFill(null);
+		enableShape(false, true, false);
+	}
+
+	@Override
+	public void createCircle(final double cx, final double cy, final double r) {
+		ellipse.setCenterX(cx);
+		ellipse.setCenterY(cy);
+		ellipse.setRadiusX(r);
+		ellipse.setRadiusY(r);
+		enableShape(false, false, true);
+	}
+
+	@Override
+	public void setPathStrokeWidth(final ObservableDoubleValue widthProp) {
+		path.strokeWidthProperty().unbind();
+		path.strokeWidthProperty().bind(widthProp);
+	}
+
+	@Override
+	public void setPathFill(final ObservableValue<Color> fill) {
+		path.fillProperty().unbind();
+		if(fill == null) {
+			path.setFill(null);
+		}else {
+			path.fillProperty().bind(fill);
+		}
+	}
+
+	@Override
+	public void setCircleStrokeBinding(final ObservableValue<Color> stroke) {
+		ellipse.strokeProperty().unbind();
+		ellipse.strokeProperty().bind(stroke);
+	}
+
+	@Override
+	public void setCircleFillBinding(final ObservableValue<Color> fill) {
+		ellipse.fillProperty().unbind();
+		ellipse.fillProperty().bind(fill);
+	}
+
+	@Override
+	public void setCircleFill(final Color fill) {
+		ellipse.fillProperty().unbind();
+		ellipse.setFill(fill);
+	}
+
+	@Override
+	public void setCircleStroke(final Color stroke) {
+		ellipse.strokeProperty().unbind();
+		ellipse.setStroke(stroke);
+	}
+
+	@Override
+	public void setCircleStrokeWidth(final double width) {
+		ellipse.strokeWidthProperty().unbind();
+		ellipse.setStrokeWidth(width);
+	}
+
+	@Override
+	public void setPathStroke(final ObservableValue<Color> stroke) {
+		path.strokeProperty().unbind();
+		path.strokeProperty().bind(stroke);
+	}
+
+	@Override
+	public void setRotation180() {
+		final Rotate rotate = new Rotate(180d, 0d, 0d);
+		path.getTransforms().add(rotate);
+		ellipse.getTransforms().add(rotate);
+		arc.getTransforms().add(rotate);
+	}
 
 	public void flush() {
 		path.strokeProperty().unbind();

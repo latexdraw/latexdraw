@@ -60,14 +60,14 @@ import static java.lang.Math.toDegrees;
  */
 abstract class SVGShape<S extends IShape> {
 	/** The beginning of the token used to declare a URL in an SVG document. */
-	protected static final String SVG_URL_TOKEN_BEGIN = "url(#"; //$NON-NLS-1$
+	protected static final String SVG_URL_TOKEN_BEGIN = "url(#"; //NON-NLS
 
 	protected static void setSVGArrow(final IArrowableSingleShape shape, final SVGElement parent, final int arrowPos, final boolean isShadow,
 									  final SVGDocument doc, final SVGDefsElement defs) {
 		final IArrow arrow = shape.getArrowAt(arrowPos);
 
 		if(arrow.getArrowStyle() != ArrowStyle.NONE) {
-			final String arrowName = "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.hashCode(); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			final String arrowName = "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.hashCode(); //NON-NLS
 			final SVGElement arrowSVG = new SVGArrow(arrow).toSVG(doc, isShadow);
 
 			arrowSVG.setAttribute(SVGAttributes.SVG_ID, arrowName);

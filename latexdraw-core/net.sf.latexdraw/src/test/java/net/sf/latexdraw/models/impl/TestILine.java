@@ -13,6 +13,8 @@ import org.junit.experimental.theories.Theory;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.assertEquals;
@@ -87,11 +89,19 @@ public class TestILine implements HelperTest {
 	}
 
 	@Theory
-	public void testLineAngleHoriz(@DoubleData final double x1, @DoubleData final double x2) {
-		assumeThat(x1, not(closeTo(x2, 0.0001)));
+	public void testLineAngleHoriz1(@DoubleData final double x1, @DoubleData final double x2) {
+		assumeThat(x1, greaterThan(x2));
 		line.setLine(x1, 100d, x2, 100d);
 		line.updateAandB();
 		assertEqualsDouble(0d, line.getLineAngle());
+	}
+
+	@Theory
+	public void testLineAngleHoriz2(@DoubleData final double x1, @DoubleData final double x2) {
+		assumeThat(x1, lessThan(x2));
+		line.setLine(x1, 100d, x2, 100d);
+		line.updateAandB();
+		assertEqualsDouble(Math.PI, line.getLineAngle());
 	}
 
 	@Theory
@@ -99,7 +109,7 @@ public class TestILine implements HelperTest {
 		assumeThat(y1, not(closeTo(y2, 0.0001)));
 		line.setLine(-100d, y1, -100d, y2);
 		line.updateAandB();
-		assertEqualsDouble(Math.PI / 2d, line.getLineAngle());
+		assertEqualsDouble(Math.PI / 2d, line.getLineAngle() % Math.PI);
 	}
 
 	@Theory

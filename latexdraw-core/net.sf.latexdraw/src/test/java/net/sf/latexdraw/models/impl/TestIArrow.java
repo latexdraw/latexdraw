@@ -289,19 +289,19 @@ public class TestIArrow {
 	@Test
 	public void testGetArrowShapeLengthRoundIn() {
 		arrow.setArrowStyle(ArrowStyle.ROUND_IN);
-		assertEquals((arrow.getDotSizeDim() + arrow.getDotSizeNum() * arrow.getLineThickness()) / 2d, arrow.getArrowShapeLength(), 0.001);
+		assertEquals(arrow.getLineThickness() / 2d, arrow.getArrowShapeLength(), 0.001);
 	}
 
 	@Test
 	public void testGetArrowShapeLengthLeftSquareBracket() {
 		arrow.setArrowStyle(ArrowStyle.LEFT_SQUARE_BRACKET);
-		assertEquals(arrow.getBracketNum() * arrow.getBarShapedArrowWidth(), arrow.getArrowShapeLength(), 0.001);
+		assertEquals(arrow.getLineThickness() / 2d, arrow.getArrowShapeLength(), 0.001);
 	}
 
 	@Test
 	public void testGetArrowShapeLengthRightSquareBracket() {
 		arrow.setArrowStyle(ArrowStyle.LEFT_SQUARE_BRACKET);
-		assertEquals(arrow.getBracketNum() * arrow.getBarShapedArrowWidth(), arrow.getArrowShapeLength(), 0.001);
+		assertEquals(arrow.getLineThickness() / 2d, arrow.getArrowShapeLength(), 0.001);
 	}
 
 	@Test

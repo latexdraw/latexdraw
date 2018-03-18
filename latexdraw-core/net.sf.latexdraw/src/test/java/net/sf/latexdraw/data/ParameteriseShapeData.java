@@ -10,11 +10,13 @@ import javafx.scene.paint.Color;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
+import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
@@ -382,6 +384,60 @@ public final class ParameteriseShapeData implements HelperTest {
 		sh.setTicksStyle(TicksStyle.TOP);
 		sh.setTicksSize(0.22);
 		sh.setAxesStyle(AxesStyle.NONE);
+		return sh;
+	}
+
+	public IArrowableSingleShape setArrowableData1(final IArrowableSingleShape sh) {
+		sh.setArrowStyle(ArrowStyle.LEFT_ARROW, 0);
+		sh.setArrowStyle(ArrowStyle.BAR_IN, -1);
+		sh.setArrowInset(1.1);
+		sh.setArrowLength(2.1);
+		sh.setArrowSizeDim(0.7);
+		sh.setArrowSizeNum(3.8);
+		sh.setTBarSizeDim(4.5);
+		sh.setTBarSizeNum(6.2);
+		return sh;
+	}
+
+	public IArrowableSingleShape setArrowableData2(final IArrowableSingleShape sh) {
+		sh.setArrowStyle(ArrowStyle.BAR_END, 0);
+		sh.setArrowStyle(ArrowStyle.ROUND_IN, -1);
+		sh.setTBarSizeDim(2.5);
+		sh.setTBarSizeNum(3.2);
+		sh.setDotSizeDim(1.1);
+		sh.setDotSizeNum(3.3);
+		return sh;
+	}
+
+	public IArrowableSingleShape setArrowableData3(final IArrowableSingleShape sh) {
+		sh.setArrowStyle(ArrowStyle.RIGHT_ROUND_BRACKET, 0);
+		sh.setArrowStyle(ArrowStyle.RIGHT_DBLE_ARROW, -1);
+		sh.setArrowInset(2.1);
+		sh.setArrowLength(3.1);
+		sh.setArrowSizeDim(2.7);
+		sh.setArrowSizeNum(1.8);
+		sh.setRBracketNum(1.2);
+		sh.setTBarSizeNum(2d);
+		sh.setTBarSizeDim(3d);
+		return sh;
+	}
+
+	public IArrowableSingleShape setArrowableData4(final IArrowableSingleShape sh) {
+		sh.setArrowStyle(ArrowStyle.NONE, 0);
+		sh.setArrowStyle(ArrowStyle.LEFT_DBLE_ARROW, -1);
+		sh.setArrowInset(0.2);
+		sh.setArrowLength(3.6);
+		sh.setArrowSizeDim(2.7);
+		sh.setArrowSizeNum(0.1);
+		return sh;
+	}
+
+	public IArrowableSingleShape setArrowableData5(final IArrowableSingleShape sh) {
+		sh.setArrowStyle(ArrowStyle.LEFT_SQUARE_BRACKET, 0);
+		sh.setArrowStyle(ArrowStyle.NONE, -1);
+		sh.setBracketNum(0.1);
+		sh.setTBarSizeNum(2.5);
+		sh.setTBarSizeDim(0.5);
 		return sh;
 	}
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 import javafx.scene.Node;
 import javafx.scene.shape.PathElement;
-import javafx.scene.transform.Rotate;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
@@ -53,19 +52,6 @@ public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline>
 	}
 
 	@Theory
-	public void testMovePointUpdateTransformArrow0(@TestedOn(ints = {0, 1}) final int index) {
-		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
-		WaitForAsyncUtils.waitForFxEvents();
-		final Rotate rotation = (Rotate) view.viewArrows.arrows.get(0).path.getTransforms().get(0);
-		model.getPtAt(index).translate(10d, 11d);
-		WaitForAsyncUtils.waitForFxEvents();
-		final Rotate rotation2 = (Rotate) view.viewArrows.arrows.get(0).path.getTransforms().get(0);
-		assertNotEquals(rotation.getAngle(), rotation2.getAngle());
-		assertNotEquals(rotation.getTx(), rotation2.getTx());
-		assertNotEquals(rotation.getTy(), rotation2.getTy());
-	}
-
-	@Theory
 	public void testMovePointUpdatePathArrow1() {
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 1);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -73,19 +59,6 @@ public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline>
 		model.getPtAt(9).translate(10d, 11d);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathArrow, view.viewArrows.arrows.get(1).path.getElements());
-	}
-
-	@Theory
-	public void testMovePointUpdateTransformArrow1(@TestedOn(ints = {8, 9}) final int index) {
-		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 1);
-		WaitForAsyncUtils.waitForFxEvents();
-		final Rotate rotation = (Rotate) view.viewArrows.arrows.get(1).path.getTransforms().get(0);
-		model.getPtAt(index).translate(10d, 11d);
-		WaitForAsyncUtils.waitForFxEvents();
-		final Rotate rotation2 = (Rotate) view.viewArrows.arrows.get(1).path.getTransforms().get(0);
-		assertNotEquals(rotation.getAngle(), rotation2.getAngle());
-		assertNotEquals(rotation.getTx(), rotation2.getTx());
-		assertNotEquals(rotation.getTy(), rotation2.getTy());
 	}
 
 	@Theory

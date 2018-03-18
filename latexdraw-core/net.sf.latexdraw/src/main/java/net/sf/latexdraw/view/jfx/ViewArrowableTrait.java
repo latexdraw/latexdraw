@@ -99,9 +99,9 @@ abstract class ViewArrowableTrait<T extends Shape, S extends IArrowableSingleSha
 		setDisable(false);
 
 		if(index < 0 || index >= arrows.size()) {
-			arrows.forEach(v -> v.updatePath());
+			arrows.forEach(v -> v.updatePath(false));
 		}else {
-			arrows.get(index).updatePath();
+			arrows.get(index).updatePath(false);
 		}
 	}
 

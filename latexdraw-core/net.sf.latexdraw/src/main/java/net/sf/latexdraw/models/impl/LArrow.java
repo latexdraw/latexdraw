@@ -140,7 +140,7 @@ class LArrow implements IArrow {
 				return getShape().getFullThickness() / 2d;
 			case LEFT_SQUARE_BRACKET:
 			case RIGHT_SQUARE_BRACKET:
-				return bracketNum.get() * getBarShapedArrowWidth();
+				return getShape().getFullThickness() / 2d;
 			case CIRCLE_IN:
 			case DISK_IN:
 				return getRoundShapedArrowRadius();

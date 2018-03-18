@@ -28,7 +28,11 @@ public interface HelperTest {
 	}
 
 	default void assertEqualsDouble(final double v1, final double v2) {
-		assertThat(v1, closeTo(v2, 0.0000001));
+		assertThat(v2, closeTo(v1, 0.0000001));
+	}
+
+	default void assertEqualsDouble(final String msg, final double v1, final double v2) {
+		assertThat(msg, v2, closeTo(v1, 0.0000001));
 	}
 
 	static String getBadaboomMessages() {

@@ -6,6 +6,12 @@ Version 4.0.0
     - Better performances.
     - To ease the selection, the cursor changes when moving the mouse over a shape with the hand.
 
+- Fixed
+    - Multiple fixes in the SVG save/load
+
 Improvements:
 - can scroll on a spinner to change its value.
 - A better zoom animation.
+
+Change:
+- Some SVG arrow parameters, produced using a 3.x or older version, may not be loaded as expected

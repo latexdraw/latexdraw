@@ -11,4 +11,5 @@ import static java.lang.annotation.ElementType.PARAMETER;
 @ParametersSuppliedBy(ArrowableSupplier.class)
 @Target(PARAMETER)
 public @interface ArrowableData {
+	boolean withParamVariants() default false;
 }
