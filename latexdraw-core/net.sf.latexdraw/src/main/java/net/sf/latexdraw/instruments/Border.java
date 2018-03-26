@@ -245,6 +245,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			first((a, i) -> {
 				final IDrawing drawing = canvas.getDrawing();
 				a.setGravityCentre(drawing.getSelection().getGravityCentre());
+				a.getGc().translate(canvas.getOrigin().getX(), canvas.getOrigin().getY());
 				a.setShape(drawing.getSelection().duplicateDeep(false));
 			}).
 			then((a, i) -> a.setRotationAngle(a.getGc().computeRotationAngle(
