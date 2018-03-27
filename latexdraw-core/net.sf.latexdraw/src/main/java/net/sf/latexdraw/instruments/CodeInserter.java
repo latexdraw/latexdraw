@@ -23,7 +23,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.sf.latexdraw.LaTeXDraw;
@@ -52,11 +51,11 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  */
 public class CodeInserter extends JfxInstrument implements Initializable {
-	@FXML private TextArea label;
-	@FXML private Button ok;
-	@FXML private Button cancel;
-	@FXML private TextArea text;
-	@FXML private TextArea errorLog;
+	@FXML protected TextArea label;
+	@FXML protected Button ok;
+	@FXML protected Button cancel;
+	@FXML protected TextArea text;
+	@FXML protected TextArea errorLog;
 	private Stage codeInserterDialogue;
 	@Inject private IDrawing drawing;
 	@Inject private StatusBarController statusBar;
@@ -121,10 +120,10 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 			}
 		});
 
-		// Each time a key is pressed, the code is parsed and errors reported.
-		text.addEventHandler(KeyEvent.KEY_PRESSED, evt -> {
+		// On each text change, the code is parsed and errors reported.
+		text.textProperty().addListener((observable, oldValue, newValue) -> {
 			errorLog.setText("");
-			final PSTLexer lexer = new PSTLexer(CharStreams.fromString(text.getText()));
+			final PSTLexer lexer = new PSTLexer(CharStreams.fromString(newValue));
 			lexer.addErrorListener(errorListener);
 			final PSTParser parser = new PSTParser(new CommonTokenStream(lexer));
 			parser.addParseListener(listener);
@@ -135,13 +134,14 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 
 
 	/** @return The created latexdraw dialogue box. */
-	private Optional<Stage> getInsertCodeDialogue() {
+	protected Optional<Stage> getInsertCodeDialogue() {
 		if(codeInserterDialogue == null) {
 			try {
 				// The FXML file only loaded only when this method is called: this JFX controller is created by
-				// Guice and lives as a singleton. A call to this function loads the FXML.
+				// the app injector and lives as a singleton. A call to this function loads the FXML.
 				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/InsertCode.fxml"), LangTool.INSTANCE.getBundle(), //NON-NLS
-					new JavaFXBuilderFactory(), LaTeXDraw.getInstance().getInstanceCallBack());
+					new JavaFXBuilderFactory(),
+					LaTeXDraw.getInstance().getInstanceCallBack());
 				final Scene scene = new Scene(root);
 				codeInserterDialogue = new Stage(StageStyle.UTILITY);
 				codeInserterDialogue.setTitle(LangTool.INSTANCE.getBundle().getString("InsertPSTricksCodeFrame.0"));
