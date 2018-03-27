@@ -31,11 +31,11 @@ import org.malai.action.ActionsRegistry;
  */
 public class CopierCutterPaster extends CanvasInstrument implements Initializable, ActionRegistrySearcher {
 	/** The menu item to copy the shapes. */
-	@FXML private MenuItem copyMenu;
+	@FXML protected MenuItem copyMenu;
 	/** The menu item to paste the shapes. */
-	@FXML private MenuItem pasteMenu;
+	@FXML protected MenuItem pasteMenu;
 	/** The menu item to cut the shapes. */
-	@FXML private MenuItem cutMenu;
+	@FXML protected MenuItem cutMenu;
 
 	private final Supplier<Boolean> isShapeSelected = () -> {
 		final SelectShapes act = (SelectShapes) ActionsRegistry.INSTANCE.getActions().parallelStream().

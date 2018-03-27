@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import javafx.scene.Group;
+import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
@@ -77,7 +78,13 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	});
 
 	final GUIVoidCommand selectAllShapes = () -> {
-		Platform.runLater(() -> canvas.getDrawing().getShapes().forEach(sh -> canvas.getDrawing().getSelection().addShape(sh)));
+		final SelectShapes cmd = new SelectShapes();
+		cmd.setDrawing(canvas.getDrawing());
+		canvas.getDrawing().getShapes().forEach(sh -> cmd.addShape(sh));
+		Platform.runLater(() -> {
+			cmd.doIt();
+			ActionsRegistry.INSTANCE.addAction(cmd, null);
+		});
 		WaitForAsyncUtils.waitForFxEvents();
 	};
 
