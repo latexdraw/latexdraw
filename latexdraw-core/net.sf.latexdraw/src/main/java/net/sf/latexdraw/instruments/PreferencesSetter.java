@@ -71,9 +71,9 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	/** The recent files. */
 	private final List<String> recentFileNames;
 	/** Sets if the grid is magnetic. */
-	@FXML private CheckBox magneticCB;
+	@FXML protected CheckBox magneticCB;
 	/** Allows the set if the program must check new version on start up. */
-	@FXML private CheckBox checkNewVersion;
+	@FXML protected CheckBox checkNewVersion;
 	/** This textField allows to set the default directories for open/save actions. */
 	@FXML private TextField pathOpenField;
 	@FXML private CheckBox openGL;
@@ -86,11 +86,11 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	/** The list that contains the supported languages. */
 	@FXML private ComboBox<Locale> langList;
 	/** The field used to modifies the gap of the customised grid. */
-	@FXML private Spinner<Integer> persoGridGapField;
+	@FXML protected Spinner<Integer> persoGridGapField;
 	/** The widget used to defines the number of recent file to keep in memory. */
 	@FXML private Spinner<Integer> nbRecentFilesField;
 	/** Contains the different possible kind of grids. */
-	@FXML private ComboBox<GridStyle> styleList;
+	@FXML protected ComboBox<GridStyle> styleList;
 	@FXML private Button buttonOpen;
 	@FXML private Button buttonExport;
 	@Inject private Exporter exporter;
