@@ -46,7 +46,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 		float midx = 0f;
 		float midy = 0f;
 
-		coord.append("\\moveto(").append(MathUtils.INST.getCutNumberFloat(((curx - originx) / ppc)));//$NON-NLS-1$
+		coord.append("\\moveto(").append(MathUtils.INST.getCutNumberFloat((curx - originx) / ppc));//$NON-NLS-1$
 		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - cury) / ppc)).append(')').append('\n');
 
 		if(pts.size() > interval) {
@@ -57,7 +57,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 			midx = (curx + prevx) / 2.0f;
 			midy = (cury + prevy) / 2.0f;
 
-			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat(((midx - originx) / ppc)));//$NON-NLS-1$
+			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat((midx - originx) / ppc));//$NON-NLS-1$
 			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - midy) / ppc)).append(')').append('\n');
 		}
 

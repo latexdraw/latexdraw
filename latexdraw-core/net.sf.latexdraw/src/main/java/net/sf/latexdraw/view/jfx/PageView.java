@@ -41,7 +41,7 @@ public class PageView extends Group {
 	private final  IPoint origin;
 
 	/** The current page format. */
-	private  Page format;
+	private final Page format;
 
 	/**
 	 * Creates a view of a page.

@@ -26,32 +26,32 @@ public class LSpinner<T> extends Spinner<T> {
 		configureSpinner();
 	}
 
-	public LSpinner(@NamedArg("min") int min,
-				   @NamedArg("max") int max,
-				   @NamedArg("initialValue") int initialValue) {
+	public LSpinner(@NamedArg("min") final int min,
+				   @NamedArg("max") final int max,
+				   @NamedArg("initialValue") final int initialValue) {
 		super(min, max, initialValue);
 		configureSpinner();
 	}
 
-	public LSpinner(@NamedArg("min") int min,
-					@NamedArg("max") int max,
-					@NamedArg("initialValue") int initialValue,
-					@NamedArg("amountToStepBy") int amountToStepBy) {
+	public LSpinner(@NamedArg("min") final int min,
+					@NamedArg("max") final int max,
+					@NamedArg("initialValue") final int initialValue,
+					@NamedArg("amountToStepBy") final int amountToStepBy) {
 		super(min, max, initialValue, amountToStepBy);
 		configureSpinner();
 	}
 
-	public LSpinner(@NamedArg("min") double min,
-					@NamedArg("max") double max,
-					@NamedArg("initialValue") double initialValue) {
+	public LSpinner(@NamedArg("min") final double min,
+					@NamedArg("max") final double max,
+					@NamedArg("initialValue") final double initialValue) {
 		super(min, max, initialValue);
 		configureSpinner();
 	}
 
-	public LSpinner(@NamedArg("min") double min,
-					@NamedArg("max") double max,
-					@NamedArg("initialValue") double initialValue,
-					@NamedArg("amountToStepBy") double amountToStepBy) {
+	public LSpinner(@NamedArg("min") final double min,
+					@NamedArg("max") final double max,
+					@NamedArg("initialValue") final double initialValue,
+					@NamedArg("amountToStepBy") final double amountToStepBy) {
 		super(min, max, initialValue, amountToStepBy);
 		configureSpinner();
 	}

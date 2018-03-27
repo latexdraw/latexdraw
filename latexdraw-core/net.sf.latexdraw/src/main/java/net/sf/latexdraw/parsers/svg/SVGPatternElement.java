@@ -103,7 +103,7 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 		}
 
 		final String path = p.getPathData();
-		int i = path.indexOf('L');
+		final int i = path.indexOf('L');
 		int j = -1;
 
 		if(i != -1) {

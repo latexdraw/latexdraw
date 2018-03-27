@@ -142,7 +142,7 @@ public final class ViewFactory {
 			if(this == o) return true;
 			if(o == null || getClass() != o.getClass()) return false;
 
-			EqCubicCurveTo that = (EqCubicCurveTo) o;
+			final EqCubicCurveTo that = (EqCubicCurveTo) o;
 
 			if(Double.compare(that.getControlX1(), getControlX1()) != 0) return false;
 			if(Double.compare(that.getControlY1(), getControlY1()) != 0) return false;

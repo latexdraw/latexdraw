@@ -126,7 +126,7 @@ public class LShapeFactory implements IShapeFactory {
 	}
 
 	@Override
-	public Color createColorAWT(java.awt.Color col) {
+	public Color createColorAWT(final java.awt.Color col) {
 		if(col == null) throw new IllegalArgumentException();
 		return createColorInt(col.getRed(), col.getGreen(), col.getBlue(), col.getAlpha());
 	}

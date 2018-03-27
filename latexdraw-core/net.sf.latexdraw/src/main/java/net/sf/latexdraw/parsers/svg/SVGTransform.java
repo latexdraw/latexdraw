@@ -53,7 +53,7 @@ public class SVGTransform {
 	/** The type of the transformation. */
 	private int type;
 	/** The matrix of the transformation. */
-	private SVGMatrix matrix;
+	private final SVGMatrix matrix;
 	/** The angle of a possible rotation or skew. */
 	private double angle;
 	/** The possible rotation X-position. */
@@ -103,8 +103,8 @@ public class SVGTransform {
 	private void setTranslateTransformation(final String code) {
 		final int lgth = code.length();
 		int k = code.indexOf(',');
-		int i = SVGAttributes.SVG_TRANSFORM_TRANSLATE.length();
-		int j = code.indexOf(')');
+		final int i = SVGAttributes.SVG_TRANSFORM_TRANSLATE.length();
+		final int j = code.indexOf(')');
 		final double tx;
 		final double ty;
 
@@ -173,8 +173,8 @@ public class SVGTransform {
 	public void setScaleTransformation(final String code) {
 		final int lgth = code.length();
 		int k = code.indexOf(',');
-		int i = SVGAttributes.SVG_TRANSFORM_SCALE.length();
-		int j = code.indexOf(')');
+		final int i = SVGAttributes.SVG_TRANSFORM_SCALE.length();
+		final int j = code.indexOf(')');
 		final double sx;
 		final double sy;
 
@@ -225,7 +225,7 @@ public class SVGTransform {
 		final int lgth = code.length();
 		final int nbPts = 6;
 		int i = SVGAttributes.SVG_TRANSFORM_MATRIX.length();
-		int j = code.indexOf(')');
+		final int j = code.indexOf(')');
 		final double[] coords = new double[nbPts];
 
 		if(i >= lgth || code.charAt(i) != '(' || j == -1) {

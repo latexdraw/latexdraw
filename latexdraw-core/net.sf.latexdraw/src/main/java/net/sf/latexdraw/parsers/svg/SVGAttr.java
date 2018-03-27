@@ -27,10 +27,10 @@ import org.w3c.dom.UserDataHandler;
  */
 public class SVGAttr implements Attr, Cloneable {
 	/** The name of the attribute. */
-	private String name;
+	private final String name;
 
 	/** The owner of the attribute. */
-	private Element owner;
+	private final Element owner;
 
 	/** The value of the attribute. */
 	private String value;

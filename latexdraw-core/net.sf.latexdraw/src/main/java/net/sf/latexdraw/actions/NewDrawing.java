@@ -55,7 +55,7 @@ public class NewDrawing extends IOAction<Label> implements Modifying {
 					SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui).ifPresent(f -> {
 						try {
 							openSaveManager.save(f.getPath(), progressBar, statusWidget).get();
-						}catch(InterruptedException | ExecutionException ex) {
+						}catch(final InterruptedException | ExecutionException ex) {
 							BadaboomCollector.INSTANCE.add(ex);
 						}
 						ui.setModified(false);

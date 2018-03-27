@@ -205,7 +205,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 	/** This worker inserts the given set of shapes into the drawing. */
 	private static class InsertWorker extends LoadShapesWorker {
 		private IShape insertedShapes;
-		private IPoint position;
+		private final IPoint position;
 
 		InsertWorker(final String path, final IPoint positionTemplate) {
 			super(path, null, null);
@@ -449,7 +449,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			try {
 				shapes.forEach(sh -> {
 					// For each shape an SVG element is created.
-					SVGElement elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
+					final SVGElement elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
 					if(elt != null) {
 						g.appendChild(elt);
 					}

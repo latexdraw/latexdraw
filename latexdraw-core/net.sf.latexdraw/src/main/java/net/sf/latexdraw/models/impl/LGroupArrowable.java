@@ -358,7 +358,7 @@ interface LGroupArrowable extends IGroup {
 	}
 
 	@Override
-	default void setOnArrowChanged(Runnable run) {
+	default void setOnArrowChanged(final Runnable run) {
 		//TODO
 	}
 }

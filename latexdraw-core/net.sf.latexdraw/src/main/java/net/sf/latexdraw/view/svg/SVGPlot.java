@@ -81,62 +81,62 @@ class SVGPlot extends SVGShape<IPlot> {
 
 		try {
 			shape.setPlotMinX(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MIN)));
-		}catch(NumberFormatException | NullPointerException ex) {
+		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
 			shape.setPlotMaxX(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MAX)));
-		}catch(NumberFormatException | NullPointerException ex) {
+		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		// Repetition just to assure the setting of these values because of the minX<MaxX constraint.
 		try {
 			shape.setPlotMinX(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MIN)));
-		}catch(NumberFormatException | NullPointerException ex) {
+		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
 			shape.setPlotMaxX(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MAX)));
-		}catch(NumberFormatException | NullPointerException ex) {
+		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
 			shape.setNbPlottedPoints(Integer.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_NB_POINTS)));
-		}catch(NumberFormatException | NullPointerException ex) {
+		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
 			shape.setPolar(Boolean.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_POLAR)));
-		}catch(NumberFormatException | NullPointerException ex) {
+		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
 			shape.setX(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POSITION_X)));
-		}catch(NumberFormatException | NullPointerException ex) {
+		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
 			shape.setY(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POSITION_Y)));
-		}catch(NumberFormatException | NullPointerException ex) {
+		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
 			shape.setXScale(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_XSCALE)));
-		}catch(NumberFormatException | NullPointerException ex) {
+		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
 			shape.setYScale(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_YSCALE)));
-		}catch(NumberFormatException | NullPointerException ex) {
+		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 	}

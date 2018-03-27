@@ -33,7 +33,7 @@ public class ViewTriangle extends ViewPathShape<ITriangle> {
 	}
 
 	private void setupPath(final Path path) {
-		MoveTo moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
+		final MoveTo moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
 
 		moveTo.xProperty().bind(Bindings.createDoubleBinding(() -> model.getPtAt(0).getX() + model.getWidth() / 2d,
 			model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));

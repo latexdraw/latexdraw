@@ -25,7 +25,7 @@ public class PSTSquareView extends PSTClassicalView<ISquare> {
 	}
 
 	@Override
-	public String getCode(IPoint position, float ppc) {
+	public String getCode(final IPoint position, final float ppc) {
 		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
 
 		final StringBuilder params = getPropertiesCode(ppc);

@@ -292,9 +292,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 			throw new DOMException(DOMException.TYPE_MISMATCH_ERR, "SVGElement excepted here."); //$NON-NLS-1$
 		}
 
-		if(children.getNodes().contains(newChild)) {
-			children.getNodes().remove(newChild);
-		}
+		children.getNodes().remove(newChild);
 
 		children.getNodes().add((SVGElement) newChild);
 		((SVGElement) newChild).setParent(this);

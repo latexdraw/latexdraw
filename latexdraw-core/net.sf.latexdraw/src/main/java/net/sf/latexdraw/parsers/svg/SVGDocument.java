@@ -539,13 +539,13 @@ public class SVGDocument implements Document {
 
 		boolean ok = true;
 		try {
-			DOMImplementationLS impl = (DOMImplementationLS) DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0 LS 3.0"); //$NON-NLS-1$
-			LSSerializer serializer = impl.createLSSerializer();
+			final DOMImplementationLS impl = (DOMImplementationLS) DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0 LS 3.0"); //$NON-NLS-1$
+			final LSSerializer serializer = impl.createLSSerializer();
 			serializer.getDomConfig().setParameter("format-pretty-print", true); //$NON-NLS-1$
 			serializer.getDomConfig().setParameter("namespaces", false); //$NON-NLS-1$
-			LSOutput output = impl.createLSOutput();
+			final LSOutput output = impl.createLSOutput();
 			final Charset charset = Charset.defaultCharset();
-			try(OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(path), charset.newEncoder())) {
+			try(final OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(path), charset.newEncoder())) {
 				output.setEncoding(charset.name());
 				output.setCharacterStream(fw);
 				serializer.write(getDocumentElement(), output);

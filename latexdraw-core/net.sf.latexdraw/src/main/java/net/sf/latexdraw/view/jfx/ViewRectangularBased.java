@@ -65,7 +65,7 @@ public abstract class ViewRectangularBased<T extends ISingleShape> extends ViewS
 	}
 
 
-	private static void unbindRect(Rectangle rec) {
+	private static void unbindRect(final Rectangle rec) {
 		if(rec != null) {
 			rec.xProperty().unbind();
 			rec.yProperty().unbind();

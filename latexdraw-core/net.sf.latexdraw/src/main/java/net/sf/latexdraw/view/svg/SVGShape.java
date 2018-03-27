@@ -265,7 +265,7 @@ abstract class SVGShape<S extends IShape> {
 	 */
 	public static void setDashedDotted(final IShape shape, final String dashArray, final String linecap) {
 		if(shape != null && dashArray != null && !dashArray.equals(SVGAttributes.SVG_VALUE_NONE)) {
-			if(linecap != null && SVGAttributes.SVG_LINECAP_VALUE_ROUND.equals(linecap)) {
+			if(SVGAttributes.SVG_LINECAP_VALUE_ROUND.equals(linecap)) {
 				shape.setLineStyle(LineStyle.DOTTED);
 			}else {
 				shape.setLineStyle(LineStyle.DASHED);

@@ -43,7 +43,7 @@ public abstract class ViewStdGrid<T extends IStandardGrid> extends ViewPositionS
 
 	protected void cleanLabels() {
 		labels.getChildren().parallelStream().forEach(node -> {
-			Text txt = (Text) node;
+			final Text txt = (Text) node;
 			txt.strokeProperty().unbind();
 			txt.fontProperty().unbind();
 		});

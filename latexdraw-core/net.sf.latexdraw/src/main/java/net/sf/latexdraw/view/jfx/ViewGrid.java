@@ -223,7 +223,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		for(double i = tly + (isSouth ? -width - labelsSize / 4d : width + labelHeight), j = maxY; j >= minY; i += absStep, j--) {
 			label = String.valueOf((int) j);
 			fooText.setText(label);
-			double x = isWest ? xorig - fooText.getBoundsInLocal().getWidth() - labelsSize / 4d - width : xGapNotWest;
+			final double x = isWest ? xorig - fooText.getBoundsInLocal().getWidth() - labelsSize / 4d - width : xGapNotWest;
 			createTextLabel(label, x, i, font);
 		}
 	}

@@ -99,7 +99,7 @@ interface LGroupShape extends IGroup {
 	}
 
 	@Override
-	default void scaleWithRatio(final double x, final double x2, Position x3, Rectangle2D x4) {
+	default void scaleWithRatio(final double x, final double x2, final Position x3, final Rectangle2D x4) {
 		//TODO ?
 	}
 

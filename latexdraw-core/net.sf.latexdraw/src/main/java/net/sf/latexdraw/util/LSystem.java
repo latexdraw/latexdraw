@@ -265,7 +265,7 @@ public final class LSystem {
 			final String line = matcher.group();
 
 			if(line.startsWith("!") && !line.equals("! Emergency stop.\n")) { //$NON-NLS-1$ //$NON-NLS-2$
-				errors.append(line.substring(2, line.length()));
+				errors.append(line, 2, line.length());
 			}
 		}
 		return errors.toString();

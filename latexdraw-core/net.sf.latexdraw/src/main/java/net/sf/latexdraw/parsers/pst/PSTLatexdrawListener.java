@@ -106,7 +106,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	private void addParsedText(final PSTContext ctx) {
 		if(!ctx.textParsed.isEmpty()) {
-			String txt = ctx.textParsed.stream().collect(Collectors.joining(" "));
+			final String txt = ctx.textParsed.stream().collect(Collectors.joining(" "));
 			final IText text = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), txt);
 			setShapeParameters(text, ctx);
 			text.setLineColour(ctx.textColor);
@@ -755,7 +755,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	/**
 	 * Creates and initialises a polyline shape.
 	 */
-	private IPolyline createLine(final boolean hasStar, List<IPoint> points, final PSTContext ctx, final boolean qObject) {
+	private IPolyline createLine(final boolean hasStar, final List<IPoint> points, final PSTContext ctx, final boolean qObject) {
 		final IPolyline line = ShapeFactory.INST.createPolyline(points);
 
 		setShapeParameters(line, ctx);

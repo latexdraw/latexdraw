@@ -290,7 +290,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final File tmpDir = optDir.get();
-		Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "tmpPSFile.ps", tmpDir);//$NON-NLS-1$
+		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "tmpPSFile.ps", tmpDir);//$NON-NLS-1$
 		File psFile;
 
 		if(optFile.isPresent()) {

@@ -111,7 +111,7 @@ public final class JFXToSVG {
 	}
 
 	public SVGEllipseElement ellipseToSVGEllipse(final Ellipse ell, final SVGDocument doc) {
-		SVGEllipseElement elt = new SVGEllipseElement(ell.getCenterX(), ell.getCenterY(), ell.getRadiusX(), ell.getRadiusY(), doc);
+		final SVGEllipseElement elt = new SVGEllipseElement(ell.getCenterX(), ell.getCenterY(), ell.getRadiusX(), ell.getRadiusY(), doc);
 		copyPropertiesToSVG(elt, ell);
 		return elt;
 	}

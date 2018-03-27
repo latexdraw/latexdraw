@@ -19,7 +19,7 @@ public class SVGPathSegMoveto extends SVGPathSegLineto {
 	 * The main constructor.
 	 * @param x The X-coordinate of the point to go.
 	 * @param y The Y-coordinate of the point to go.
-	 * @param isRelative
+	 * @param isRelative Whether the seg is relative or absolute.
 	 */
 	public SVGPathSegMoveto(final double x, final double y, final boolean isRelative) {
 		super(x, y, isRelative);

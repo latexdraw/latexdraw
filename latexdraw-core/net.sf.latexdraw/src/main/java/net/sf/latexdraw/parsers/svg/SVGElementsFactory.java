@@ -103,7 +103,7 @@ public final class SVGElementsFactory {
 			else
 				return new OtherNSElement(src, parent);
 		}
-		catch(MalformedSVGDocument | ParseException ex) { BadaboomCollector.INSTANCE.add(ex); return null; }
+		catch(final MalformedSVGDocument | ParseException ex) { BadaboomCollector.INSTANCE.add(ex); return null; }
 
 		return null;
 	}

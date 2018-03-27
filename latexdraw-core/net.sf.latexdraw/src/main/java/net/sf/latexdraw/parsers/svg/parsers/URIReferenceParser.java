@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.parsers.svg.parsers;
 
-import java.text.ParseException;
-
 /**
  * Defines a parser that parses URI references.
  * @author Arnaud BLOUIN

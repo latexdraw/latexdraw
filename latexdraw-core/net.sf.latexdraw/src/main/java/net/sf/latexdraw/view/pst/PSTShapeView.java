@@ -67,7 +67,7 @@ public abstract class PSTShapeView<S extends IShape> {
 	protected void addColour(final String name) {
 		if(name != null) {
 			if(coloursName == null) coloursName = new HashSet<>();
-			if(!coloursName.contains(name)) coloursName.add(name);
+			coloursName.add(name);
 		}
 	}
 
