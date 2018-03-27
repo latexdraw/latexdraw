@@ -46,7 +46,7 @@ import org.w3c.dom.Element;
  */
 public class Exporter extends JfxInstrument implements Initializable {
 	/** The export menu that contains all the export menu item. */
-	@FXML private MenuButton exportMenu;
+	@FXML protected MenuButton exportMenu;
 	/** The menu item that export as PST code. */
 	@FXML private MenuItem menuItemPST;
 	/** The menu item that export as JPG picture. */
@@ -65,7 +65,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	/** The PST generator. */
 	@Inject private PSTCodeGenerator pstGen;
 	@Inject private StatusBarController statusBar;
-	@Inject TemplateManager templateManager;
+	@Inject private TemplateManager templateManager;
 	/** The default location of the exports. */
 	private String pathExport;
 	/**
@@ -88,7 +88,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	 */
 	public Exporter() {
 		super();
-		defaultPackages = ""; //$NON-NLS-1$
+		defaultPackages = "";
 		reinit();
 	}
 

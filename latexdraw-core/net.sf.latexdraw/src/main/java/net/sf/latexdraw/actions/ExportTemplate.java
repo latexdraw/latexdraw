@@ -48,9 +48,11 @@ public class ExportTemplate extends IOAction<Label> implements TemplateAction {
 
 				if(alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
 					SVGDocumentGenerator.INSTANCE.saveTemplate(path, progressBar, statusWidget, templatesPane);
+					ok = true;
 				}
 			}else {
 				SVGDocumentGenerator.INSTANCE.saveTemplate(path, progressBar, statusWidget, templatesPane);
+				ok = true;
 			}
 		});
 	}
