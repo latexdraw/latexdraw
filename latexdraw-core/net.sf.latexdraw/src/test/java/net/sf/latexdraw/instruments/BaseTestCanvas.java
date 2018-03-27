@@ -4,9 +4,10 @@ import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import javafx.scene.Group;
-import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.models.interfaces.shape.IArc;
+import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
@@ -28,17 +29,18 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 
 	IRectangle addedRec;
 	IGrid addedGrid;
+	IArc addedArc;
 	IPolyline addedPolyline;
 	IPlot addedPlot;
+	IBezierCurve addedBezier;
 	IGroup addedGroup;
 
-	final GUIVoidCommand addText = () -> Platform.runLater(() -> {
-		canvas.getDrawing().addShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300,-Canvas.ORIGIN.getY()+300), "$foo bar"));
-	});
+	final GUIVoidCommand addText = () -> Platform.runLater(() ->
+		canvas.getDrawing().addShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300,-Canvas.ORIGIN.getY()+300), "$foo bar")));
 
 	final GUIVoidCommand addGroup = () -> Platform.runLater(() -> {
-		IRectangle r1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+50), 200, 100);
-		IRectangle r2 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300, -Canvas.ORIGIN.getY()+300), 100, 100);
+		IRectangle r1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
+		IRectangle r2 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), 100, 100);
 		addedGroup = ShapeFactory.INST.createGroup();
 		addedGroup.addShape(r1);
 		addedGroup.addShape(r2);
@@ -46,45 +48,65 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	});
 
 	final GUIVoidCommand addGrid = () -> Platform.runLater(() -> {
-		addedGrid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+200, -Canvas.ORIGIN.getY()+200));
+		addedGrid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 200, -Canvas.ORIGIN.getY() + 200));
 		canvas.getDrawing().addShape(addedGrid);
 	});
 
 	final GUIVoidCommand addLines = () -> Platform.runLater(() -> {
-		addedPolyline = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+250),
-			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300, -Canvas.ORIGIN.getY()+350),
-			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+120, -Canvas.ORIGIN.getY()+500)));
+		addedPolyline = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 250),
+			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 350),
+			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 120, -Canvas.ORIGIN.getY() + 500)));
 		addedPolyline.setArrowStyle(ArrowStyle.LEFT_ARROW, 0);
 		addedPolyline.setThickness(20d);
 		canvas.getDrawing().addShape(addedPolyline);
 	});
 
 	final GUIVoidCommand addPlot = () -> Platform.runLater(() -> {
-		addedPlot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+400),
-			0d, 5d, "x", false);
+		addedPlot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 400), 0d, 5d, "x", false);
 		addedPlot.setThickness(10d);
 		canvas.getDrawing().addShape(addedPlot);
 	});
 
+	final GUIVoidCommand addBezier = () -> Platform.runLater(() -> {
+		addedBezier = ShapeFactory.INST.createBezierCurve(
+			Arrays.asList(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 250),
+			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 350),
+			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 120, -Canvas.ORIGIN.getY() + 500)));
+		addedBezier.setThickness(5d);
+		canvas.getDrawing().addShape(addedBezier);
+	});
+
 	final GUIVoidCommand selectAllShapes = () -> {
-		Platform.runLater(() -> canvas.requestFocus());
+		Platform.runLater(() -> canvas.getDrawing().getShapes().forEach(sh -> canvas.getDrawing().getSelection().addShape(sh)));
 		WaitForAsyncUtils.waitForFxEvents();
-		press(KeyCode.CONTROL, KeyCode.A).release(KeyCode.A, KeyCode.CONTROL);
+	};
+
+	final GUICommand<Integer> selectShape = index -> {
+		Platform.runLater(() -> {
+			canvas.getDrawing().getSelection().clear();
+			canvas.getDrawing().getSelection().addShape(canvas.getDrawing().getShapeAt(index));
+		});
+		WaitForAsyncUtils.waitForFxEvents();
 	};
 
 	final GUIVoidCommand addRec = () -> Platform.runLater(() -> {
-		addedRec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+50, -Canvas.ORIGIN.getY()+50), 200, 100);
+		addedRec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
 		addedRec.setFilled(true);
 		addedRec.setFillingCol(DviPsColors.APRICOT);
 		canvas.getDrawing().addShape(addedRec);
 	});
 
 	final GUIVoidCommand addRec2 = () -> Platform.runLater(() -> {
-		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300,
-			-Canvas.ORIGIN.getY()+300), 100, 100);
+		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), 100, 100);
 		rec.setFilled(true);
 		rec.setFillingCol(DviPsColors.APRICOT);
 		canvas.getDrawing().addShape(rec);
+	});
+
+	final GUIVoidCommand addArc = () -> Platform.runLater(() -> {
+		addedArc = ShapeFactory.INST.createCircleArc(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 200, -Canvas.ORIGIN.getY() + 500), 450);
+		addedArc.setFilled(true);
+		canvas.getDrawing().addShape(addedArc);
 	});
 
 	@Override

@@ -104,7 +104,7 @@ class LPoint implements IPoint {
 			return null;
 		}
 
-		final double[] coords = new double[]{getX(), getY()};
+		final double[] coords = {getX(), getY()};
 		AffineTransform.getRotateInstance(theta, gravityC.getX(), gravityC.getY()).transform(coords, 0, coords, 0, 1);
 		return ShapeFactory.INST.createPoint(coords[0], coords[1]);
 	}
@@ -225,7 +225,7 @@ class LPoint implements IPoint {
 	}
 
 	@Override
-	public double distance(double xCoord, double yCoord) {
+	public double distance(final double xCoord, final double yCoord) {
 		return Math.sqrt(Math.pow(xCoord - x.get(), 2) + Math.pow(yCoord - y.get(), 2));
 	}
 
@@ -249,6 +249,6 @@ class LPoint implements IPoint {
 
 	@Override
 	public String toString() {
-		return "LPoint [x=" + x.doubleValue() + ", y=" + y.doubleValue() + "]";
+		return "LPoint [x=" + x.doubleValue() + ", y=" + y.doubleValue() + "]"; //NON-NLS
 	}
 }
