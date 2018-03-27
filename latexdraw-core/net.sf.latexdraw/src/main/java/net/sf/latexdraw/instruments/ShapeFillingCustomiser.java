@@ -124,7 +124,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addComboPropBinding(fillStyleCB, ShapeProperties.FILLING_STYLE);
 		addColorPropBinding(fillColButton, ShapeProperties.COLOUR_FILLING);
 		addColorPropBinding(gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START);

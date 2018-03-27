@@ -161,7 +161,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() {
 		comboboxBinder(ModifyMagneticGrid.class).on(styleList).first(action -> {
 			action.setValue(styleList.getSelectionModel().getSelectedItem());
 			action.setGrid(grid);

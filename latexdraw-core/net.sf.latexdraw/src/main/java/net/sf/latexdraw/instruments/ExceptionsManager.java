@@ -70,7 +70,7 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		buttonBinder(ShowStage.class).on(exceptionB).first(action -> {
 			action.setWidget(getStageEx());
 			action.setVisible(true);

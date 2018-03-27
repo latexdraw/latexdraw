@@ -87,7 +87,7 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		buttonBinder(UpdateTemplates.class).on(updateTemplates).first(action -> {
 			action.setTemplatesPane(templatePane);
 			action.updateThumbnails(true);

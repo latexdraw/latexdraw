@@ -129,7 +129,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addComboPropBinding(arrowLeftCB, ShapeProperties.ARROW1_STYLE);
 		addComboPropBinding(arrowRightCB, ShapeProperties.ARROW2_STYLE);
 

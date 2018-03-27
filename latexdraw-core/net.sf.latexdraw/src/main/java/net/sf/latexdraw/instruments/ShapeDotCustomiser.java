@@ -93,7 +93,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addSpinnerPropBinding(dotSizeField, ShapeProperties.DOT_SIZE, false);
 		addComboPropBinding(dotCB, ShapeProperties.DOT_STYLE);
 		addColorPropBinding(fillingB, ShapeProperties.DOT_FILLING_COL);

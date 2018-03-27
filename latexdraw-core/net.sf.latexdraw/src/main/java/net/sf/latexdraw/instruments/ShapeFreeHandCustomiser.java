@@ -71,7 +71,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addComboPropBinding(freeHandType, ShapeProperties.FREEHAND_STYLE);
 		addSpinnerPropBinding(gapPoints, ShapeProperties.FREEHAND_INTERVAL, false);
 	}

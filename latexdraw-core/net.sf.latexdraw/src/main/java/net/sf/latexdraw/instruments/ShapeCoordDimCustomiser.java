@@ -57,7 +57,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		spinnerBinder(TranslateShapes.class).on(tlxS).
 			map(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false))).
 			then((a, i) -> a.setT((Double) i.getWidget().getValue() - a.getShape().get().getTopLeftPoint().getX(), 0d)).

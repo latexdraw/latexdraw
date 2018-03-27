@@ -98,7 +98,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	}
 
 	@Override
-	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() {
 		// Key Enter to validate the text.
 		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).
 			map(i -> new ModifyShapeProperty(ShapeProperties.TEXT, ShapeFactory.INST.createGroup(text), textField.getText())).

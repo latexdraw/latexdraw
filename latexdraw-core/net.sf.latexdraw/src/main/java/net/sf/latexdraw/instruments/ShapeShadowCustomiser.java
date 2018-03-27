@@ -76,7 +76,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser implements In
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addCheckboxPropBinding(shadowCB, ShapeProperties.SHADOW);
 
 		addColorPropBinding(shadowColB, ShapeProperties.SHADOW_COLOUR);

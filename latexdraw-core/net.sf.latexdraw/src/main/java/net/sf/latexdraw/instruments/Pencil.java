@@ -124,7 +124,7 @@ public class Pencil extends CanvasInstrument {
 	}
 
 	@Override
-	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() {
 		bindPressToAddShape();
 
 		// Binds a pressure to insert a picture
@@ -146,7 +146,7 @@ public class Pencil extends CanvasInstrument {
 	/**
 	 * Binds a DnD interaction to create shape.
 	 */
-	private void bindDnDToDrawFreeHandShape() throws InstantiationException, IllegalAccessException {
+	private void bindDnDToDrawFreeHandShape() {
 		nodeBinder(AddShape.class, new DnD(false, true)).on(canvas).
 			map(i -> {
 				final IShape sh = createShapeInstance();
@@ -173,7 +173,7 @@ public class Pencil extends CanvasInstrument {
 	/**
 	 * Binds a DnD interaction to draw squared shapes.
 	 */
-	private void bindDnDToDrawSquaredShape() throws InstantiationException, IllegalAccessException {
+	private void bindDnDToDrawSquaredShape() {
 		nodeBinder(AddShape.class, new DnD(false, true)).on(canvas).
 			map(i -> {
 				final ISquaredShape sq = (ISquaredShape) createShapeInstance();
@@ -197,7 +197,7 @@ public class Pencil extends CanvasInstrument {
 	/**
 	 * Binds a DnD interaction to draw rectangular shapes.
 	 */
-	private void bindDnDToDrawRectangularShape() throws InstantiationException, IllegalAccessException {
+	private void bindDnDToDrawRectangularShape() {
 		nodeBinder(AddShape.class, new DnD(false, true)).on(canvas).
 			map(i -> new AddShape(createShapeInstance(), canvas.getDrawing())).
 			first((a, i) -> {
@@ -215,7 +215,7 @@ public class Pencil extends CanvasInstrument {
 	/**
 	 * Binds a multi-click interaction to creates multi-point shapes.
 	 */
-	private void bindMultiClic2AddShape() throws InstantiationException, IllegalAccessException {
+	private void bindMultiClic2AddShape() {
 		final Function<MultiClick, AddShape> creation = i -> new AddShape(setInitialPtsShape(createShapeInstance(), i.getPoints().get(0)), canvas.getDrawing());
 
 		// Binding for polygons
@@ -265,7 +265,7 @@ public class Pencil extends CanvasInstrument {
 	/**
 	 * Binds a press interaction to add a shape.
 	 */
-	private void bindPressToAddShape() throws InstantiationException, IllegalAccessException {
+	private void bindPressToAddShape() {
 		// Add axes, grids, or dots
 		nodeBinder(AddShape.class, new Press()).on(canvas).
 			map(i -> {

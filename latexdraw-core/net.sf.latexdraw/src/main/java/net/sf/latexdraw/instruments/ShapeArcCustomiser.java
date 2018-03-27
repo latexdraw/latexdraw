@@ -72,7 +72,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initi
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addSpinnerPropBinding(startAngleS, ShapeProperties.ARC_START_ANGLE, true);
 		addSpinnerPropBinding(endAngleS, ShapeProperties.ARC_END_ANGLE, true);
 

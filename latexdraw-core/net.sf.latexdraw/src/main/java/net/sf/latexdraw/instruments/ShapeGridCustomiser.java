@@ -83,7 +83,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addColorPropBinding(colourLabels, ShapeProperties.GRID_LABELS_COLOUR);
 		addColorPropBinding(colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR);
 

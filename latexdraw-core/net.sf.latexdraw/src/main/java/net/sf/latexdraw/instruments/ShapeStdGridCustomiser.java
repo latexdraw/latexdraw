@@ -80,7 +80,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addSpinnerPropBinding(labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false);
 
 		addSpinnerXYPropBinding(xEndS, yEndS, ShapeProperties.GRID_END);

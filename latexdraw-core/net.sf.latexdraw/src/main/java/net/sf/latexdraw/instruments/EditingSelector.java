@@ -159,7 +159,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[button2EditingChoiceMap.size()+1]);
 		nodes[nodes.length-1] = handB;
 

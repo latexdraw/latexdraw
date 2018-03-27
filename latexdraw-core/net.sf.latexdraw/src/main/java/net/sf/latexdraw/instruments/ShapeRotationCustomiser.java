@@ -64,7 +64,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		final BiConsumer<Double, RotateShapes> init = (angle, action) -> {
 			action.setGravityCentre(pencil.canvas.getDrawing().getSelection().getGravityCentre());
 			action.setRotationAngle(angle);

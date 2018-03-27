@@ -63,7 +63,7 @@ public class Helper extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() {
 		addBinding(new MenuItem2ShowLazyStage(this, aboutItem, this::getAboutFrame, true));
 		addBinding(new MenuItem2ShowLazyStage(this, shortcutItem, this::getShortcutsFrame, true));
 		try {

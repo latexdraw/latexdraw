@@ -29,7 +29,7 @@ public class CanvasController extends CanvasInstrument implements Initializable 
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		nodeBinder(MoveCamera.class, new DnD()).on(canvas).
 			first((a, i) -> a.setScrollPane(canvas.getScrollPane())).
 			then((a, i) -> {

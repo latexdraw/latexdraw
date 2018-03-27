@@ -60,7 +60,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 	}
 
 	@Override
-	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() {
 		buttonBinder(SeparateShapes.class).on(sepB).first(action -> getSelectAction().map(sel -> sel.getShapes()).ifPresent(shapes -> {
 			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {
 				action.setShape((IGroup)shapes.get(0));

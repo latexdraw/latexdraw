@@ -39,7 +39,7 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		final BiConsumer<Boolean, MoveBackForegroundShapes> init = (isForeground, action) -> {
 			action.setIsForeground(isForeground);
 			action.setDrawing(pencil.canvas.getDrawing());

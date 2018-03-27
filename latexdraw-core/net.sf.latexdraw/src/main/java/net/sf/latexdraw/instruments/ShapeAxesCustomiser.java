@@ -91,7 +91,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addComboPropBinding(shapeAxes, ShapeProperties.AXES_STYLE);
 		addComboPropBinding(showTicks, ShapeProperties.AXES_TICKS_SHOW);
 		addComboPropBinding(showLabels, ShapeProperties.AXES_LABELS_SHOW);

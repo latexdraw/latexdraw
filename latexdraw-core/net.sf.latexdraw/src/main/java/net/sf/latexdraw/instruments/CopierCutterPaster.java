@@ -75,7 +75,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	}
 
 	@Override
-	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() {
 		// menu to paste shapes.
 		menuItemBinder(PasteShapes.class).on(pasteMenu).
 			map(i -> new PasteShapes(getCopyCutAction().orElse(null), grid, canvas.getDrawing())).

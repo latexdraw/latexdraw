@@ -70,7 +70,7 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Act
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		final Consumer<DeleteShapes> first = a -> getSelectAction().ifPresent(sel -> {
 			sel.getShapes().forEach(sh -> a.addShape(sh));
 			a.setDrawing(sel.getDrawing().orElse(null));

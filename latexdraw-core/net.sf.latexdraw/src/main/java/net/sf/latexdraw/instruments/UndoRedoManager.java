@@ -56,7 +56,7 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	}
 
 	@Override
-	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() {
 		buttonBinder(Undo.class).on(undoB).bind();
 		buttonBinder(Redo.class).on(redoB).bind();
 		keyNodeBinder(Undo.class).on(canvas).with(KeyCode.Z, LSystem.INSTANCE.getControlKey()).bind();

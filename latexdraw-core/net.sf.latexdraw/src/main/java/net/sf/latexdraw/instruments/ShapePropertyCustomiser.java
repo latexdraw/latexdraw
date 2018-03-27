@@ -106,12 +106,12 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		return new ModifyPencilParameter(p, pencil, o);
 	}
 
-	protected void addComboPropBinding(final ComboBox<?> combo, final ShapeProperties prop) throws InstantiationException, IllegalAccessException {
+	protected void addComboPropBinding(final ComboBox<?> combo, final ShapeProperties prop) {
 		comboboxBinder(ModifyShapeProperty.class).on(combo).map(i -> mapModShProp(i.getWidget().getSelectionModel().getSelectedItem(), prop)).when(handActiv).bind();
 		comboboxBinder(ModifyPencilParameter.class).on(combo).map(i -> firstPropPen(i.getWidget().getSelectionModel().getSelectedItem(), prop)).when(pencilActiv).bind();
 	}
 
-	protected void addSpinnerPropBinding(final Spinner<?> spinner, final ShapeProperties prop, final boolean angle) throws InstantiationException, IllegalAccessException {
+	protected void addSpinnerPropBinding(final Spinner<?> spinner, final ShapeProperties prop, final boolean angle) {
 		spinnerBinder(ModifyShapeProperty.class).on(spinner).map(i -> mapModShProp(null, prop)).
 			then((a, i) -> a.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
 			when(handActiv).bind();
@@ -121,7 +121,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			when(pencilActiv).bind();
 	}
 
-	protected void addColorPropBinding(final ColorPicker picker, final ShapeProperties prop) throws InstantiationException, IllegalAccessException {
+	protected void addColorPropBinding(final ColorPicker picker, final ShapeProperties prop) {
 		colorPickerBinder(ModifyShapeProperty.class).on(picker).map(i -> mapModShProp(ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop)).
 			when(handActiv).bind();
 
@@ -129,23 +129,23 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			when(pencilActiv).bind();
 	}
 
-	protected void addCheckboxPropBinding(final CheckBox cb, final ShapeProperties prop) throws InstantiationException, IllegalAccessException {
+	protected void addCheckboxPropBinding(final CheckBox cb, final ShapeProperties prop) {
 		checkboxBinder(ModifyShapeProperty.class).on(cb).map(i -> mapModShProp(i.getWidget().isSelected(), prop)).when(handActiv).bind();
 		checkboxBinder(ModifyPencilParameter.class).on(cb).map(i -> firstPropPen(i.getWidget().isSelected(), prop)).when(pencilActiv).bind();
 	}
 
-	protected void addTogglePropBinding(final ToggleButton button, final ShapeProperties prop, final boolean invert) throws InstantiationException, IllegalAccessException {
+	protected void addTogglePropBinding(final ToggleButton button, final ShapeProperties prop, final boolean invert) {
 		toggleButtonBinder(ModifyShapeProperty.class).on(button).map(i -> mapModShProp(i.getWidget().isSelected() ^ invert, prop)).when(handActiv).bind();
 		toggleButtonBinder(ModifyPencilParameter.class).on(button).map(i -> firstPropPen(i.getWidget().isSelected() ^ invert, prop)).when(pencilActiv).bind();
 	}
 
-	protected void addTogglePropBinding(final ToggleButton button, final ShapeProperties prop, final Object value) throws InstantiationException, IllegalAccessException {
+	protected void addTogglePropBinding(final ToggleButton button, final ShapeProperties prop, final Object value) {
 		toggleButtonBinder(ModifyShapeProperty.class).on(button).map(i -> mapModShProp(value, prop)).when(handActiv).bind();
 		toggleButtonBinder(ModifyPencilParameter.class).on(button).map(i -> firstPropPen(value, prop)).when(pencilActiv).bind();
 	}
 
 	protected void addSpinnerXYPropBinding(final Spinner<Double> spinnerX, final Spinner<Double> spinnerY, final ShapeProperties property)
-		throws InstantiationException, IllegalAccessException {
+		{
 		spinnerBinder(ModifyShapeProperty.class).on(spinnerX, spinnerY).
 			map(i -> new ModifyShapeProperty(property, canvas.getDrawing().getSelection().duplicateDeep(false), null)).
 			then(a -> a.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).when(handActiv).bind();

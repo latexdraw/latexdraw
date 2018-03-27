@@ -131,7 +131,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() {
 		// Close window
 		windowBinder(SaveDrawing.class, new WindowClosed()).on(LaTeXDraw.getInstance().getMainStage()).
 			map(i -> new SaveDrawing(true, true, currentFolder, getDialog(true), prefSetter, currentFile,

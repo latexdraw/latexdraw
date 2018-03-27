@@ -60,7 +60,7 @@ public class Hand extends CanvasInstrument {
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		canvas.getViews().getChildren().addListener((ListChangeListener<Node>) evt -> {
 			while(evt.next()) {
 				if(evt.wasAdded()) {
@@ -101,7 +101,7 @@ public class Hand extends CanvasInstrument {
 	/**
 	 * Double click to initialise the text setter to edit plot and text shapes.
 	 */
-	private void dbleClickToInitTextSetter() throws InstantiationException, IllegalAccessException {
+	private void dbleClickToInitTextSetter() {
 		// For text shapes.
 		nodeBinder(InitTextSetter.class, new DoubleClick()).
 			on(canvas.getViews().getChildren()).
@@ -131,7 +131,7 @@ public class Hand extends CanvasInstrument {
 	/**
 	 * Pressure to select shapes
 	 */
-	private void bindPressureToSelectShape() throws InstantiationException, IllegalAccessException {
+	private void bindPressureToSelectShape() {
 		nodeBinder(SelectShapes.class, new Press()).on(canvas.getViews().getChildren()).first((a, i) -> {
 			a.setDrawing(canvas.getDrawing());
 			getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
@@ -158,7 +158,7 @@ public class Hand extends CanvasInstrument {
 	/**
 	 * A DnD on a shape view allows to translate the underlying shape.
 	 */
-	private void bindDnDTranslate() throws InstantiationException, IllegalAccessException {
+	private void bindDnDTranslate() {
 		nodeBinder(TranslateShapes.class, new DnD(true, true)).
 			on(canvas.getViews().getChildren()).on(canvas.getSelectionBorder()).
 			map(i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false))).
@@ -239,7 +239,7 @@ public class Hand extends CanvasInstrument {
 		private List<IShape> selectedShapes;
 		private List<ViewShape<?>> selectedViews;
 
-		DnD2Select(final Hand hand) throws IllegalAccessException, InstantiationException {
+		DnD2Select(final Hand hand) {
 			super(hand, true, SelectShapes.class, new DnD(), Collections.singletonList(hand.canvas), false, null);
 		}
 

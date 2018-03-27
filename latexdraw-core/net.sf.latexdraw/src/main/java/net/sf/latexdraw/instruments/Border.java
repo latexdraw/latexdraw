@@ -190,7 +190,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		});
 	}
 
-	private void configureMovePointBinding() throws InstantiationException, IllegalAccessException {
+	private void configureMovePointBinding() {
 		nodeBinder(MovePointShape.class, new DnD()).
 			on(mvPtHandlers).
 			first((a, i) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
@@ -214,7 +214,7 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addBinding(new DnD2Scale(this));
 		configureMovePointBinding();
 		nodeBinder(MoveCtrlPoint.class, new DnD()).
@@ -264,7 +264,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		/** The current handled shape. */
 		private IPoint gap;
 
-		DnD2ArcAngle(final Border ins) throws IllegalAccessException, InstantiationException {
+		DnD2ArcAngle(final Border ins) {
 			super(ins, true, ModifyShapeProperty.class, new DnD(), Arrays.asList(ins.arcHandlerStart, ins.arcHandlerEnd), false, null);
 			gap = ShapeFactory.INST.createPoint();
 			isRotated = false;
@@ -343,7 +343,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		/** The y gap (gap between the pressed position and the targeted position) of the Y-scaling. */
 		private double yGap;
 
-		DnD2Scale(final Border ins) throws IllegalAccessException, InstantiationException {
+		DnD2Scale(final Border ins) {
 			super(ins, true, ScaleShapes.class, new DnD(), ins.scaleHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()), false, null);
 		}
 

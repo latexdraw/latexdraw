@@ -97,7 +97,7 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 	}
 
 	@Override
-	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() {
 		buttonBinder(AlignShapes.class).on(alignBot, alignLeft, alignMidHoriz, alignMidVert, alignRight, alignTop).first((a, i) -> {
 			a.setAlignment((AlignShapes.Alignment) i.getWidget().getUserData());
 			a.setCanvas(canvas);

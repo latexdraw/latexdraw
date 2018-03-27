@@ -71,7 +71,7 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser impleme
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addCheckboxPropBinding(dbleBoundCB, ShapeProperties.DBLE_BORDERS);
 		addColorPropBinding(dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD);
 		addSpinnerPropBinding(dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false);

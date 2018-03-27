@@ -146,7 +146,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	protected void configureBindings() throws IllegalAccessException, InstantiationException {
+	protected void configureBindings() {
 		menuItemBinder(Export.class).on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST).
 			first((action, interaction) -> {
 			if(interaction.getWidget().getUserData() instanceof ExportFormat) {

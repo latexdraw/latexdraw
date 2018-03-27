@@ -121,7 +121,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addTogglePropBinding(bButton, ShapeProperties.TEXT_POSITION, TextPosition.BOT);
 		addTogglePropBinding(blButton, ShapeProperties.TEXT_POSITION, TextPosition.BOT_LEFT);
 		addTogglePropBinding(brButton, ShapeProperties.TEXT_POSITION, TextPosition.BOT_RIGHT);

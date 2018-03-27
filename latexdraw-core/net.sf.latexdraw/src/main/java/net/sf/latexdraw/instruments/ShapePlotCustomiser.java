@@ -92,7 +92,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void configureBindings() throws InstantiationException, IllegalAccessException {
+	protected void configureBindings() {
 		addComboPropBinding(plotStyleCB, ShapeProperties.PLOT_STYLE);
 		addSpinnerPropBinding(nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false);
 
