@@ -223,17 +223,15 @@ public class Border extends CanvasInstrument implements Initializable {
 			first((a, i) -> {
 				final IGroup group = canvas.getDrawing().getSelection();
 				if(group.size() == 1 && group.getShapeAt(0) instanceof IControlPointShape) {
-					final CtrlPointHandler handler = (CtrlPointHandler) i.getSrcObject().get();
-					a.setPoint(handler.getPoint());
+					a.setPoint(i.getSrcObject().map(h -> ((CtrlPointHandler) h).getPoint()).orElse(null));
 					a.setShape((IControlPointShape) group.getShapeAt(0));
-					a.setIsFirstCtrlPt(ctrlPt1Handlers.contains(i.getSrcObject().get()));
+					a.setIsFirstCtrlPt(ctrlPt1Handlers.contains(i.getSrcObject().orElse(null)));
 				}
 			}).
 			then((a, i) -> {
-				final Node node = i.getSrcObject().get();
-				final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
-				final Point3D endPt = node.localToParent(i.getEndLocalPt());
-				final IPoint ptToMove = ((CtrlPointHandler) node).getPoint();
+				final Point3D startPt = i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(new Point3D(0d, 0d, 0d));
+				final Point3D endPt = i.getSrcObject().map(n -> n.localToParent(i.getEndLocalPt())).orElse(new Point3D(0d, 0d, 0d));
+				final IPoint ptToMove = i.getSrcObject().map(n -> ((CtrlPointHandler) n).getPoint()).orElse(ShapeFactory.INST.createPoint());
 				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
 				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
 				a.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
@@ -278,11 +276,11 @@ public class Border extends CanvasInstrument implements Initializable {
 			if(drawing.getSelection().size() == 1) {
 				final IArc shape = (IArc) drawing.getSelection().getShapeAt(0);
 				final double rotAngle = shape.getRotationAngle();
-				IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcLocalPoint()));
+				IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getSrcLocalPoint())).orElse(null));
 				gc = shape.getGravityCentre();
 				IPoint pCentre;
 
-				if(interaction.getSrcObject().get() == instrument.arcHandlerStart) {
+				if(interaction.getSrcObject().orElse(null) == instrument.arcHandlerStart) {
 					prop = ShapeProperties.ARC_START_ANGLE;
 					pCentre = shape.getStartPoint();
 				}else {
@@ -311,7 +309,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void then() {
-			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndLocalPt()));
+			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getEndLocalPt())).orElse(null));
 
 			if(isRotated) {
 				pt = pt.rotatePoint(gc, -action.getShapes().getRotationAngle());
@@ -384,12 +382,11 @@ public class Border extends CanvasInstrument implements Initializable {
 		@Override
 		public void first() {
 			final IDrawing drawing = instrument.canvas.getDrawing();
-			final ScaleHandler handler = (ScaleHandler) getInteraction().getSrcObject().get();
-			final Position refPosition = handler.getPosition().getOpposite();
+			final Position refPosition = interaction.getSrcObject().map(h -> ((ScaleHandler) h).getPosition().getOpposite()).orElse(Position.NE);
 			final IPoint br = drawing.getSelection().getBottomRightPoint();
 			final IPoint tl = drawing.getSelection().getTopLeftPoint();
 
-			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getSrcLocalPoint()));
+			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getSrcLocalPoint())).orElse(null));
 
 			setXGap(refPosition, tl, br);
 			setYGap(refPosition, tl, br);
@@ -401,8 +398,8 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void then() {
-			final IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().get().localToParent(interaction.getEndLocalPt()));
-			final Position refPosition = action.getRefPosition().get();
+			final IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getEndLocalPt())).orElse(null));
+			final Position refPosition = action.getRefPosition().orElse(Position.NE);
 
 			if(refPosition.isSouth()) {
 				action.setNewY(pt.getY() + yGap);
