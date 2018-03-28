@@ -65,6 +65,16 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	}
 
 	/**
+	 * Removes the given handler.
+	 * @param handler The handler to remove.
+	 */
+	public void removeHandler(final BadaboomHandler handler) {
+		synchronized(handlers) {
+			handlers.remove(handler);
+		}
+	}
+
+	/**
 	 * Notifies the handlers that an event occurred.
 	 * @since 3.0
 	 */
