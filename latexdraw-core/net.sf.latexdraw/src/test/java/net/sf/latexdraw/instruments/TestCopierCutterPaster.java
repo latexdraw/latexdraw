@@ -2,8 +2,10 @@ package net.sf.latexdraw.instruments;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.util.Injector;
@@ -60,8 +62,8 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 		super.setUp();
 
 		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/CopyPaste.fxml"), LangTool.INSTANCE.getBundle(), new
-				LatexdrawBuilderFactory(injector), injectorFactory);
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/CopyPaste.fxml"), LangTool.INSTANCE.getBundle(),
+				new LatexdrawBuilderFactory(injector), injectorFactory);
 			final BorderPane pane = new BorderPane();
 			pane.setTop(root);
 			pane.setCenter(stage.getScene().getRoot());
@@ -103,6 +105,26 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 	public void testCopyPasteOKNbShapes() {
 		new CompositeGUIVoidCommand(addRec, addLines, waitFXEvents, selectAllShapes, waitFXEvents, clickCopy, clickPaste).execute();
 		assertEquals(4, canvas.getDrawing().size());
+	}
+
+	@Test
+	public void testCopyPasteKeyOKNbShapes() {
+		new CompositeGUIVoidCommand(addRec, addLines, waitFXEvents, selectAllShapes, waitFXEvents).execute();
+		Platform.runLater(() -> canvas.requestFocus());
+		waitFXEvents.execute();
+		press(KeyCode.CONTROL).type(KeyCode.C).sleep(5).type(KeyCode.V).release(KeyCode.CONTROL);
+		waitFXEvents.execute();
+		assertEquals(4, canvas.getDrawing().size());
+	}
+
+	@Test
+	public void testCutKeyOKNbShapes() {
+		new CompositeGUIVoidCommand(addRec, addLines, waitFXEvents, selectAllShapes, waitFXEvents).execute();
+		Platform.runLater(() -> canvas.requestFocus());
+		waitFXEvents.execute();
+		press(KeyCode.CONTROL).type(KeyCode.X).release(KeyCode.CONTROL);
+		waitFXEvents.execute();
+		assertTrue(canvas.getDrawing().isEmpty());
 	}
 
 	@Test
