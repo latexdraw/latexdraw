@@ -16,9 +16,9 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
-import net.sf.latexdraw.actions.shape.AddShape;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.commands.shape.AddShape;
+import net.sf.latexdraw.commands.shape.ModifyShapeProperty;
+import net.sf.latexdraw.commands.shape.ShapeProperties;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -28,8 +28,8 @@ import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.Tuple;
-import org.malai.action.Action;
-import org.malai.javafx.action.ActivateInactivateInstruments;
+import org.malai.command.Command;
+import org.malai.javafx.command.ActivateInactivateInstruments;
 
 /**
  * An instrument for adding and modifying texts of the drawing.
@@ -58,8 +58,8 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	}
 
 	@Override
-	public void onActionDone(final Action action) {
-		super.onActionDone(action);
+	public void onCmdDone(final Command cmd) {
+		super.onCmdDone(cmd);
 		custom.update();
 		Platform.runLater(() -> canvas.requestFocus());
 	}

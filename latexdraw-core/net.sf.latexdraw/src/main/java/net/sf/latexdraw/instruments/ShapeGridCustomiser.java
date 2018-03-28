@@ -18,7 +18,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.commands.shape.ShapeProperties;
 import net.sf.latexdraw.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 

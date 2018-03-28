@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import javafx.scene.Group;
-import net.sf.latexdraw.actions.shape.SelectShapes;
+import net.sf.latexdraw.commands.shape.SelectShapes;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
@@ -18,7 +18,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
 import org.junit.Before;
-import org.malai.action.ActionsRegistry;
+import org.malai.command.CommandsRegistry;
 import org.testfx.util.WaitForAsyncUtils;
 
 abstract class BaseTestCanvas extends TestLatexdrawGUI {
@@ -83,7 +83,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 		canvas.getDrawing().getShapes().forEach(sh -> cmd.addShape(sh));
 		Platform.runLater(() -> {
 			cmd.doIt();
-			ActionsRegistry.INSTANCE.addAction(cmd, null);
+			CommandsRegistry.INSTANCE.addCommand(cmd, null);
 		});
 		WaitForAsyncUtils.waitForFxEvents();
 	};
@@ -151,7 +151,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	@After
 	public void tearDown() throws TimeoutException {
 		super.tearDown();
-		ActionsRegistry.INSTANCE.removeHandler(canvas);
+		CommandsRegistry.INSTANCE.removeHandler(canvas);
 	}
 
 	Group getPane() {

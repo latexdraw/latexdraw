@@ -17,7 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import net.sf.latexdraw.actions.shape.MoveBackForegroundShapes;
+import net.sf.latexdraw.commands.shape.MoveBackForegroundShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 /**
@@ -40,14 +40,14 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 
 	@Override
 	protected void configureBindings() {
-		final BiConsumer<Boolean, MoveBackForegroundShapes> init = (isForeground, action) -> {
-			action.setIsForeground(isForeground);
-			action.setDrawing(pencil.canvas.getDrawing());
-			action.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
+		final BiConsumer<Boolean, MoveBackForegroundShapes> init = (isForeground, c) -> {
+			c.setIsForeground(isForeground);
+			c.setDrawing(pencil.canvas.getDrawing());
+			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		};
 
-		buttonBinder(MoveBackForegroundShapes.class).on(foregroundB).first(action -> init.accept(true, action)).bind();
-		buttonBinder(MoveBackForegroundShapes.class).on(backgroundB).first(action -> init.accept(false, action)).bind();
+		buttonBinder(MoveBackForegroundShapes.class).on(foregroundB).first(c -> init.accept(true, c)).bind();
+		buttonBinder(MoveBackForegroundShapes.class).on(backgroundB).first(c -> init.accept(false, c)).bind();
 	}
 
 	@Override

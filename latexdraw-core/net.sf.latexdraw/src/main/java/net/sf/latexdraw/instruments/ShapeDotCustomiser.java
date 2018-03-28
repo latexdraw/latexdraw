@@ -21,7 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.commands.shape.ShapeProperties;
 import net.sf.latexdraw.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;

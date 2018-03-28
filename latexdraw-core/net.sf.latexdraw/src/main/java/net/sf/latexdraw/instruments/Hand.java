@@ -26,10 +26,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
-import net.sf.latexdraw.actions.shape.InitTextSetter;
-import net.sf.latexdraw.actions.shape.SelectShapes;
-import net.sf.latexdraw.actions.shape.TranslateShapes;
-import net.sf.latexdraw.actions.shape.UpdateToGrid;
+import net.sf.latexdraw.commands.shape.InitTextSetter;
+import net.sf.latexdraw.commands.shape.SelectShapes;
+import net.sf.latexdraw.commands.shape.TranslateShapes;
+import net.sf.latexdraw.commands.shape.UpdateToGrid;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -41,7 +41,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewText;
-import org.malai.action.Action;
+import org.malai.command.Command;
 import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.DoubleClick;
@@ -87,14 +87,14 @@ public class Hand extends CanvasInstrument {
 
 		dbleClickToInitTextSetter();
 
-		keyNodeBinder(SelectShapes.class).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).first(action -> {
-			action.getShapes().addAll(canvas.getDrawing().getShapes());
-			action.setDrawing(canvas.getDrawing());
+		keyNodeBinder(SelectShapes.class).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).first(c -> {
+			c.getShapes().addAll(canvas.getDrawing().getShapes());
+			c.setDrawing(canvas.getDrawing());
 		}).bind();
 
-		keyNodeBinder(UpdateToGrid.class).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).first(action -> {
-			action.setShape(canvas.getDrawing().getSelection().duplicateDeep(false));
-			action.setGrid(canvas.getMagneticGrid());
+		keyNodeBinder(UpdateToGrid.class).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).first(c -> {
+			c.setShape(canvas.getDrawing().getSelection().duplicateDeep(false));
+			c.setGrid(canvas.getMagneticGrid());
 		}).when(i -> canvas.getMagneticGrid().isMagnetic()).bind();
 	}
 
@@ -132,25 +132,25 @@ public class Hand extends CanvasInstrument {
 	 * Pressure to select shapes
 	 */
 	private void bindPressureToSelectShape() {
-		nodeBinder(SelectShapes.class, new Press()).on(canvas.getViews().getChildren()).first((a, i) -> {
-			a.setDrawing(canvas.getDrawing());
+		nodeBinder(SelectShapes.class, new Press()).on(canvas.getViews().getChildren()).first((c, i) -> {
+			c.setDrawing(canvas.getDrawing());
 			getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
 				if(i.isShiftPressed()) {
-					canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> a.addShape(sh));
+					canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> c.addShape(sh));
 					return;
 				}
 				if(i.isCtrlPressed()) {
-					canvas.getDrawing().getSelection().getShapes().forEach(sh -> a.addShape(sh));
-					a.addShape(targetSh);
+					canvas.getDrawing().getSelection().getShapes().forEach(sh -> c.addShape(sh));
+					c.addShape(targetSh);
 					return;
 				}
-				a.setShape(targetSh);
+				c.setShape(targetSh);
 			});
 		}).bind();
 
 		// A simple pressure on the canvas deselects the shapes
 		nodeBinder(SelectShapes.class, new Press()).on(canvas).
-			first((a, i) -> a.setDrawing(canvas.getDrawing())).
+			first((c, i) -> c.setDrawing(canvas.getDrawing())).
 			when(i -> i.getSrcObject().orElse(null) instanceof Canvas).
 			bind();
 	}
@@ -162,18 +162,18 @@ public class Hand extends CanvasInstrument {
 		nodeBinder(TranslateShapes.class, new DnD(true, true)).
 			on(canvas.getViews().getChildren()).on(canvas.getSelectionBorder()).
 			map(i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false))).
-			then((a, i) -> {
+			then((c, i) -> {
 				final IPoint startPt = grid.getTransformedPointToGrid(i.getSrcScenePoint());
 				final IPoint endPt = grid.getTransformedPointToGrid(i.getEndScenePt());
-				a.setT(endPt.getX() - startPt.getX(), endPt.getY() - startPt.getY());
+				c.setT(endPt.getX() - startPt.getX(), endPt.getY() - startPt.getY());
 			}).
 			when(i -> i.getButton() == MouseButton.PRIMARY && !canvas.getDrawing().getSelection().isEmpty()).
 			exec().
-			first((a, i) -> {
+			first((c, i) -> {
 				i.getSrcObject().ifPresent(node -> Platform.runLater(() -> node.requestFocus()));
 				canvas.setCursor(Cursor.MOVE);
 			}).
-			cancel((a, i) -> canvas.update()).
+			cancel((c, i) -> canvas.update()).
 			strictStart().
 			bind();
 	}
@@ -198,8 +198,8 @@ public class Hand extends CanvasInstrument {
 	}
 
 	@Override
-	public void onActionDone(final Action action) {
-		if(action instanceof TranslateShapes) {
+	public void onCmdDone(final Command cmd) {
+		if(cmd instanceof TranslateShapes) {
 			metaCustomiser.dimPosCustomiser.update();
 		}
 	}
@@ -245,7 +245,7 @@ public class Hand extends CanvasInstrument {
 
 		@Override
 		public void first() {
-			action.setDrawing(instrument.canvas.getDrawing());
+			cmd.setDrawing(instrument.canvas.getDrawing());
 			selectedShapes = new ArrayList<>(instrument.canvas.getDrawing().getSelection().getShapes());
 			selectedViews = instrument.canvas.getSelectedViews();
 			Platform.runLater(() -> instrument.canvas.requestFocus());
@@ -266,14 +266,14 @@ public class Hand extends CanvasInstrument {
 				selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
 			// Transforming the selection rectangle to match the transformation of the canvas.
 			selectionRec.getTransforms().setAll(getInstrument().canvas.getLocalToSceneTransform());
-			// Cleaning the selected shapes in the action.
-			action.setShape(null);
+			// Cleaning the selected shapes in the command.
+			cmd.setShape(null);
 
 			if(interaction.isShiftPressed()) {
-				selectedViews.stream().filter(view -> !view.intersects(selectionBorder)).forEach(view -> action.addShape(view.getModel()));
+				selectedViews.stream().filter(view -> !view.intersects(selectionBorder)).forEach(view -> cmd.addShape(view.getModel()));
 			}else {
 				if(interaction.isCtrlPressed()) {
-					selectedShapes.forEach(sh -> action.addShape(sh));
+					selectedShapes.forEach(sh -> cmd.addShape(sh));
 				}
 				if(!selectionBorder.isEmpty()) {
 					instrument.canvas.getViews().getChildren().stream().filter(view -> {
@@ -291,7 +291,7 @@ public class Hand extends CanvasInstrument {
 						}
 						return view.intersects(bounds) &&
 							((ViewShape<?>) view).getActivatedShapes().stream().anyMatch(sh -> !Shape.intersect(sh, selectionRec).getLayoutBounds().isEmpty());
-					}).forEach(view -> action.addShape((IShape) view.getUserData()));
+					}).forEach(view -> cmd.addShape((IShape) view.getUserData()));
 				}
 			}
 		}

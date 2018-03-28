@@ -18,7 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.Pane;
-import net.sf.latexdraw.actions.shape.RotateShapes;
+import net.sf.latexdraw.commands.shape.RotateShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 /**
@@ -65,19 +65,19 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	protected void configureBindings() {
-		final BiConsumer<Double, RotateShapes> init = (angle, action) -> {
-			action.setGravityCentre(pencil.canvas.getDrawing().getSelection().getGravityCentre());
-			action.setRotationAngle(angle);
-			action.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
+		final BiConsumer<Double, RotateShapes> init = (angle, c) -> {
+			c.setGravityCentre(pencil.canvas.getDrawing().getSelection().getGravityCentre());
+			c.setRotationAngle(angle);
+			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		};
 
 		spinnerBinder(RotateShapes.class).on(rotationField).exec().
-			first(action -> init.accept(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle(), action)).
-			then(action -> action.setRotationAngle(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle())).
+			first(c -> init.accept(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle(), c)).
+			then(c -> c.setRotationAngle(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle())).
 			bind();
 
-		buttonBinder(RotateShapes.class).on(rotate90Button).first(action -> init.accept(Math.PI / 2d, action)).bind();
-		buttonBinder(RotateShapes.class).on(rotate180Button).first(action -> init.accept(Math.PI, action)).bind();
-		buttonBinder(RotateShapes.class).on(rotate270Button).first(action -> init.accept(-Math.PI / 2d, action)).bind();
+		buttonBinder(RotateShapes.class).on(rotate90Button).first(c -> init.accept(Math.PI / 2d, c)).bind();
+		buttonBinder(RotateShapes.class).on(rotate180Button).first(c -> init.accept(Math.PI, c)).bind();
+		buttonBinder(RotateShapes.class).on(rotate270Button).first(c -> init.accept(-Math.PI / 2d, c)).bind();
 	}
 }

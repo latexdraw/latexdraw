@@ -18,8 +18,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
-import net.sf.latexdraw.actions.LatexProperties;
-import net.sf.latexdraw.actions.ModifyLatexProperties;
+import net.sf.latexdraw.commands.LatexProperties;
+import net.sf.latexdraw.commands.ModifyLatexProperties;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
@@ -76,8 +76,8 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	@Override
 	public void reinit() {
 		super.reinit();
-		latexGen.setCaption(""); //$NON-NLS-1$
-		latexGen.setLabel(""); //$NON-NLS-1$
+		latexGen.setCaption("");
+		latexGen.setLabel("");
 		latexGen.setPositionHoriCentre(false);
 		latexGen.setPositionVertToken(VerticalPosition.NONE);
 		updateWidgets();
@@ -156,32 +156,32 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 
 	@Override
 	protected void configureBindings() {
-		textInputBinder(ModifyLatexProperties.class).on(labelField).first(action -> {
-			action.setProperty(LatexProperties.LABEL);
-			action.setGenerator(latexGen);
-		}).then((a, i) -> a.setValue(i.getWidget().getText())).bind();
+		textInputBinder(ModifyLatexProperties.class).on(labelField).first(c -> {
+			c.setProperty(LatexProperties.LABEL);
+			c.setGenerator(latexGen);
+		}).then((c, i) -> c.setValue(i.getWidget().getText())).bind();
 
-		textInputBinder(ModifyLatexProperties.class).on(titleField).first(action -> {
-			action.setProperty(LatexProperties.CAPTION);
-			action.setGenerator(latexGen);
-		}).then((a, i) -> a.setValue(i.getWidget().getText())).bind();
+		textInputBinder(ModifyLatexProperties.class).on(titleField).first(c -> {
+			c.setProperty(LatexProperties.CAPTION);
+			c.setGenerator(latexGen);
+		}).then((c, i) -> c.setValue(i.getWidget().getText())).bind();
 
-		checkboxBinder(ModifyLatexProperties.class).on(middleHorizPosCB).first(action -> {
-			action.setProperty(LatexProperties.POSITION_HORIZONTAL);
-			action.setGenerator(latexGen);
-			action.setValue(middleHorizPosCB.isSelected());
+		checkboxBinder(ModifyLatexProperties.class).on(middleHorizPosCB).first(c -> {
+			c.setProperty(LatexProperties.POSITION_HORIZONTAL);
+			c.setGenerator(latexGen);
+			c.setValue(middleHorizPosCB.isSelected());
 		}).bind();
 
-		comboboxBinder(ModifyLatexProperties.class).on(positionCB).first(action -> {
-			action.setProperty(LatexProperties.POSITION_VERTICAL);
-			action.setGenerator(latexGen);
-			action.setValue(positionCB.getSelectionModel().getSelectedItem());
+		comboboxBinder(ModifyLatexProperties.class).on(positionCB).first(c -> {
+			c.setProperty(LatexProperties.POSITION_VERTICAL);
+			c.setGenerator(latexGen);
+			c.setValue(positionCB.getSelectionModel().getSelectedItem());
 		}).bind();
 
-		spinnerBinder(ModifyLatexProperties.class).on(scaleField).exec().first(action -> {
-			action.setValue(scaleField.getValue());
-			action.setProperty(LatexProperties.SCALE);
-			action.setGenerator(latexGen);
-		}).then(action -> action.setValue(scaleField.getValue())).bind();
+		spinnerBinder(ModifyLatexProperties.class).on(scaleField).exec().first(c -> {
+			c.setValue(scaleField.getValue());
+			c.setProperty(LatexProperties.SCALE);
+			c.setGenerator(latexGen);
+		}).then(c -> c.setValue(scaleField.getValue())).bind();
 	}
 }

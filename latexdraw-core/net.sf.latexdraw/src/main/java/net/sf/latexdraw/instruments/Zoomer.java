@@ -17,7 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
-import org.malai.action.library.Zoom;
+import org.malai.command.library.Zoom;
 import org.malai.javafx.instrument.BasicZoomer;
 
 /**
@@ -51,8 +51,8 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	protected void configureBindings() {
 		super.configureBindings();
 		spinnerBinder(Zoom.class).on(zoom).exec().
-			first(action -> action.setZoomable(zoomable)).
-			then((a, i) -> a.setZoomLevel(Double.valueOf(i.getWidget().getValue().toString()) / 100d)).bind();
+			first(c -> c.setZoomable(zoomable)).
+			then((c, i) -> c.setZoomLevel(Double.valueOf(i.getWidget().getValue().toString()) / 100d)).bind();
 	}
 
 	@Override

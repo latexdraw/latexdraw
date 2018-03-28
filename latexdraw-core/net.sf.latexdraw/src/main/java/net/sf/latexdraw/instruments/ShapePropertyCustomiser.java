@@ -16,15 +16,15 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.commands.ModifyPencilParameter;
+import net.sf.latexdraw.commands.shape.ModifyShapeProperty;
+import net.sf.latexdraw.commands.shape.ShapeProperties;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
-import org.malai.action.Action;
+import org.malai.command.Command;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.undo.Undoable;
 
@@ -51,7 +51,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	}
 
 	@Override
-	public void onActionDone(final Action action) {
+	public void onCmdDone(final Command cmd) {
 		update();
 	}
 
@@ -113,11 +113,11 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 	protected void addSpinnerPropBinding(final Spinner<?> spinner, final ShapeProperties prop, final boolean angle) {
 		spinnerBinder(ModifyShapeProperty.class).on(spinner).map(i -> mapModShProp(null, prop)).
-			then((a, i) -> a.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
+			then((c, i) -> c.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
 			when(handActiv).bind();
 
 		spinnerBinder(ModifyPencilParameter.class).on(spinner).map(i -> firstPropPen(null, prop)).
-			then((a, i) -> a.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
+			then((c, i) -> c.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
 			when(pencilActiv).bind();
 	}
 
@@ -148,11 +148,11 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		{
 		spinnerBinder(ModifyShapeProperty.class).on(spinnerX, spinnerY).
 			map(i -> new ModifyShapeProperty(property, canvas.getDrawing().getSelection().duplicateDeep(false), null)).
-			then(a -> a.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).when(handActiv).bind();
+			then(c -> c.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).when(handActiv).bind();
 
 		spinnerBinder(ModifyPencilParameter.class).on(spinnerX, spinnerY).
 			map(i -> new ModifyPencilParameter(property, pencil, null)).
-			then(a -> a.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).
+			then(c -> c.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue()))).
 			when(pencilActiv).bind();
 	}
 }

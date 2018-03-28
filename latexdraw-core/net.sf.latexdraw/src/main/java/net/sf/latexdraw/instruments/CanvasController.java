@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
-import org.malai.javafx.action.MoveCamera;
+import org.malai.javafx.command.MoveCamera;
 import org.malai.javafx.interaction.library.DnD;
 
 /**
@@ -31,11 +31,11 @@ public class CanvasController extends CanvasInstrument implements Initializable 
 	@Override
 	protected void configureBindings() {
 		nodeBinder(MoveCamera.class, new DnD()).on(canvas).
-			first((a, i) -> a.setScrollPane(canvas.getScrollPane())).
-			then((a, i) -> {
+			first((c, i) -> c.setScrollPane(canvas.getScrollPane())).
+			then((c, i) -> {
 				final ScrollPane pane = canvas.getScrollPane();
-				a.setPx(pane.getHvalue() - (i.getEndLocalPt().getX() - i.getSrcLocalPoint().getX()) / canvas.getWidth());
-				a.setPy(pane.getVvalue() - (i.getEndLocalPt().getY() - i.getSrcLocalPoint().getY()) / canvas.getHeight());
+				c.setPx(pane.getHvalue() - (i.getEndLocalPt().getX() - i.getSrcLocalPoint().getX()) / canvas.getWidth());
+				c.setPy(pane.getVvalue() - (i.getEndLocalPt().getY() - i.getSrcLocalPoint().getY()) / canvas.getHeight());
 			}).
 			when(i -> i.getButton() == MouseButton.MIDDLE).
 			feedback(() -> canvas.setCursor(Cursor.MOVE)).

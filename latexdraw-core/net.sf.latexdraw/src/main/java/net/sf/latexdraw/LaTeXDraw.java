@@ -46,7 +46,7 @@ import net.sf.latexdraw.util.Preference;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
-import org.malai.action.ActionsRegistry;
+import org.malai.command.CommandsRegistry;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.ui.JfxUI;
 import org.malai.properties.Modifiable;
@@ -74,7 +74,7 @@ public class LaTeXDraw extends JfxUI {
 
 		Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE);
 		UndoCollector.INSTANCE.setSizeMax(30);
-		ActionsRegistry.INSTANCE.setSizeMax(30);
+		CommandsRegistry.INSTANCE.setSizeMax(30);
 		// Creating the required directories.
 		LPath.INSTANCE.checkDirectories();
 	}

@@ -23,12 +23,12 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
-import net.sf.latexdraw.actions.shape.MoveCtrlPoint;
-import net.sf.latexdraw.actions.shape.MovePointShape;
-import net.sf.latexdraw.actions.shape.RotateShapes;
-import net.sf.latexdraw.actions.shape.ScaleShapes;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.commands.shape.ModifyShapeProperty;
+import net.sf.latexdraw.commands.shape.MoveCtrlPoint;
+import net.sf.latexdraw.commands.shape.MovePointShape;
+import net.sf.latexdraw.commands.shape.RotateShapes;
+import net.sf.latexdraw.commands.shape.ScaleShapes;
+import net.sf.latexdraw.commands.shape.ShapeProperties;
 import net.sf.latexdraw.handlers.ArcAngleHandler;
 import net.sf.latexdraw.handlers.CtrlPointHandler;
 import net.sf.latexdraw.handlers.Handler;
@@ -47,7 +47,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.Position;
 import net.sf.latexdraw.util.Inject;
-import org.malai.action.Action;
+import org.malai.command.Command;
 import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.DnD;
 
@@ -132,8 +132,8 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 	@Override
-	public void onActionDone(final Action action) {
-		if(action instanceof MoveCtrlPoint || action instanceof MovePointShape || action instanceof ScaleShapes) {
+	public void onCmdDone(final Command cmd) {
+		if(cmd instanceof MoveCtrlPoint || cmd instanceof MovePointShape || cmd instanceof ScaleShapes) {
 			metaCustomiser.dimPosCustomiser.update();
 		}
 	}
@@ -193,20 +193,20 @@ public class Border extends CanvasInstrument implements Initializable {
 	private void configureMovePointBinding() {
 		nodeBinder(MovePointShape.class, new DnD()).
 			on(mvPtHandlers).
-			first((a, i) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
+			first((c, i) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
 				final IGroup group = canvas.getDrawing().getSelection();
 				if(group.size() == 1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
-					a.setPoint(handler.getPoint());
-					a.setShape((IModifiablePointsShape) group.getShapeAt(0));
+					c.setPoint(handler.getPoint());
+					c.setShape((IModifiablePointsShape) group.getShapeAt(0));
 				}
 			})).
-			then((a, i) -> i.getSrcObject().ifPresent(node -> {
+			then((c, i) -> i.getSrcObject().ifPresent(node -> {
 				final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
 				final Point3D endPt = node.localToParent(i.getEndLocalPt());
 				final IPoint ptToMove = ((MovePtHandler) node).getPoint();
 				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
 				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
-				a.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
+				c.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
 			})).
 			exec().
 			when(i -> i.getSrcLocalPoint() != null && i.getEndLocalPt() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler).
@@ -220,33 +220,33 @@ public class Border extends CanvasInstrument implements Initializable {
 		nodeBinder(MoveCtrlPoint.class, new DnD()).
 			on(ctrlPt1Handlers).
 			on(ctrlPt2Handlers).
-			first((a, i) -> {
+			first((c, i) -> {
 				final IGroup group = canvas.getDrawing().getSelection();
 				if(group.size() == 1 && group.getShapeAt(0) instanceof IControlPointShape) {
-					a.setPoint(i.getSrcObject().map(h -> ((CtrlPointHandler) h).getPoint()).orElse(null));
-					a.setShape((IControlPointShape) group.getShapeAt(0));
-					a.setIsFirstCtrlPt(ctrlPt1Handlers.contains(i.getSrcObject().orElse(null)));
+					c.setPoint(i.getSrcObject().map(h -> ((CtrlPointHandler) h).getPoint()).orElse(null));
+					c.setShape((IControlPointShape) group.getShapeAt(0));
+					c.setIsFirstCtrlPt(ctrlPt1Handlers.contains(i.getSrcObject().orElse(null)));
 				}
 			}).
-			then((a, i) -> {
+			then((c, i) -> {
 				final Point3D startPt = i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(new Point3D(0d, 0d, 0d));
 				final Point3D endPt = i.getSrcObject().map(n -> n.localToParent(i.getEndLocalPt())).orElse(new Point3D(0d, 0d, 0d));
 				final IPoint ptToMove = i.getSrcObject().map(n -> ((CtrlPointHandler) n).getPoint()).orElse(ShapeFactory.INST.createPoint());
 				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
 				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
-				a.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
+				c.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
 			}).
 			exec().bind();
 
 		nodeBinder(RotateShapes.class, new DnD()).
 			on(rotHandler).
-			first((a, i) -> {
+			first((c, i) -> {
 				final IDrawing drawing = canvas.getDrawing();
-				a.setGravityCentre(drawing.getSelection().getGravityCentre());
-				a.getGc().translate(canvas.getOrigin().getX(), canvas.getOrigin().getY());
-				a.setShape(drawing.getSelection().duplicateDeep(false));
+				c.setGravityCentre(drawing.getSelection().getGravityCentre());
+				c.getGc().translate(canvas.getOrigin().getX(), canvas.getOrigin().getY());
+				c.setShape(drawing.getSelection().duplicateDeep(false));
 			}).
-			then((a, i) -> a.setRotationAngle(a.getGc().computeRotationAngle(
+			then((c, i) -> c.setRotationAngle(c.getGc().computeRotationAngle(
 				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getSrcScenePoint())),
 				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getEndScenePt()))))).
 			exec().bind();
@@ -312,11 +312,11 @@ public class Border extends CanvasInstrument implements Initializable {
 			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getEndLocalPt())).orElse(null));
 
 			if(isRotated) {
-				pt = pt.rotatePoint(gc, -action.getShapes().getRotationAngle());
+				pt = pt.rotatePoint(gc, -cmd.getShapes().getRotationAngle());
 			}
 
 			gap = ShapeFactory.INST.createPoint();
-			action.setValue(computeAngle(ShapeFactory.INST.createPoint(pt.getX() - gap.getX(), pt.getY() - gap.getY())));
+			cmd.setValue(computeAngle(ShapeFactory.INST.createPoint(pt.getX() - gap.getX(), pt.getY() - gap.getY())));
 		}
 
 
@@ -390,30 +390,30 @@ public class Border extends CanvasInstrument implements Initializable {
 
 			setXGap(refPosition, tl, br);
 			setYGap(refPosition, tl, br);
-			action.setDrawing(drawing);
-			action.setShape(drawing.getSelection().duplicateDeep(false));
-			action.setRefPosition(refPosition);
+			cmd.setDrawing(drawing);
+			cmd.setShape(drawing.getSelection().duplicateDeep(false));
+			cmd.setRefPosition(refPosition);
 		}
 
 
 		@Override
 		public void then() {
 			final IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getEndLocalPt())).orElse(null));
-			final Position refPosition = action.getRefPosition().orElse(Position.NE);
+			final Position refPosition = cmd.getRefPosition().orElse(Position.NE);
 
 			if(refPosition.isSouth()) {
-				action.setNewY(pt.getY() + yGap);
+				cmd.setNewY(pt.getY() + yGap);
 			}else {
 				if(refPosition.isNorth()) {
-					action.setNewY(pt.getY() - yGap);
+					cmd.setNewY(pt.getY() - yGap);
 				}
 			}
 
 			if(refPosition.isWest()) {
-				action.setNewX(pt.getX() - xGap);
+				cmd.setNewX(pt.getX() - xGap);
 			}else {
 				if(refPosition.isEast()) {
-					action.setNewX(pt.getX() + xGap);
+					cmd.setNewX(pt.getX() + xGap);
 				}
 			}
 		}
@@ -426,7 +426,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		@Override
 		public void feedback() {
 			super.feedback();
-			action.getRefPosition().ifPresent(pos -> {
+			cmd.getRefPosition().ifPresent(pos -> {
 				switch(pos) {
 					case EAST:
 						instrument.canvas.setCursor(Cursor.W_RESIZE);

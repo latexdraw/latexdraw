@@ -3,7 +3,7 @@ package net.sf.latexdraw.instruments;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import javafx.application.Platform;
-import net.sf.latexdraw.actions.ModifyMagneticGrid;
+import net.sf.latexdraw.commands.ModifyMagneticGrid;
 import net.sf.latexdraw.instruments.robot.FxRobotListSelection;
 import net.sf.latexdraw.instruments.robot.FxRobotSpinner;
 import net.sf.latexdraw.util.Injector;
@@ -12,7 +12,7 @@ import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.action.ActionsRegistry;
+import org.malai.command.CommandsRegistry;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
@@ -74,7 +74,7 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 		final boolean value = setter.magneticCB.isSelected();
 		writeReadPrefs();
 		assertEquals(value, setter.magneticCB.isSelected());
-		assertTrue(ActionsRegistry.INSTANCE.getActions().get(0) instanceof ModifyMagneticGrid);
+		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof ModifyMagneticGrid);
 	}
 
 	@Test
@@ -97,7 +97,7 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 		final GridStyle value = setter.styleList.getValue();
 		writeReadPrefs();
 		assertEquals(value, setter.styleList.getValue());
-		assertTrue(ActionsRegistry.INSTANCE.getActions().get(0) instanceof ModifyMagneticGrid);
+		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof ModifyMagneticGrid);
 	}
 
 	@Test
@@ -109,6 +109,6 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 		final int value = setter.persoGridGapField.getValue();
 		writeReadPrefs();
 		assertEquals(value, setter.persoGridGapField.getValue().intValue());
-		assertTrue(ActionsRegistry.INSTANCE.getActions().get(0) instanceof ModifyMagneticGrid);
+		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof ModifyMagneticGrid);
 	}
 }

@@ -4,7 +4,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.malai.action.ActionsRegistry;
+import org.malai.command.CommandsRegistry;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -22,7 +22,7 @@ public class TestLaTeXDraw extends ApplicationTest {
 
 	@Before
 	public void setUp() {
-		ActionsRegistry.INSTANCE.clear();
+		CommandsRegistry.INSTANCE.clear();
 		BadaboomCollector.INSTANCE.clear();
 		app = LaTeXDraw.getInstance();
 		while(!app.getMainStage().isShowing()) {

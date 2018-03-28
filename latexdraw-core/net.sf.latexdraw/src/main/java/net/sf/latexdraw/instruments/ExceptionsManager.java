@@ -23,7 +23,7 @@ import javafx.stage.StageStyle;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
 import net.sf.latexdraw.util.LangTool;
-import org.malai.javafx.action.ShowStage;
+import org.malai.javafx.command.ShowStage;
 import org.malai.javafx.instrument.JfxInstrument;
 
 /**
@@ -71,9 +71,9 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(ShowStage.class).on(exceptionB).first(action -> {
-			action.setWidget(getStageEx());
-			action.setVisible(true);
+		buttonBinder(ShowStage.class).on(exceptionB).first(c -> {
+			c.setWidget(getStageEx());
+			c.setVisible(true);
 		}).bind();
 	}
 

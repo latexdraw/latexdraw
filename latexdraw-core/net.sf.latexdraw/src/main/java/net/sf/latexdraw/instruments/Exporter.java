@@ -22,9 +22,9 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.LaTeXDraw;
-import net.sf.latexdraw.actions.Export;
-import net.sf.latexdraw.actions.ExportFormat;
-import net.sf.latexdraw.actions.ExportTemplate;
+import net.sf.latexdraw.commands.Export;
+import net.sf.latexdraw.commands.ExportFormat;
+import net.sf.latexdraw.commands.ExportTemplate;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
@@ -35,7 +35,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
-import org.malai.action.Action;
+import org.malai.command.Command;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -148,22 +148,22 @@ public class Exporter extends JfxInstrument implements Initializable {
 	@Override
 	protected void configureBindings() {
 		menuItemBinder(Export.class).on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST).
-			first((action, interaction) -> {
-			if(interaction.getWidget().getUserData() instanceof ExportFormat) {
-				final ExportFormat format = (ExportFormat) interaction.getWidget().getUserData();
-				action.setDialogueBox(getExportDialog(format));
-				action.setCanvas(canvas);
-				action.setFormat(format);
-				action.setPstGen(pstGen);
+			first((c, i) -> {
+			if(i.getWidget().getUserData() instanceof ExportFormat) {
+				final ExportFormat format = (ExportFormat) i.getWidget().getUserData();
+				c.setDialogueBox(getExportDialog(format));
+				c.setCanvas(canvas);
+				c.setFormat(format);
+				c.setPstGen(pstGen);
 			}
 		}).bind();
 
-		menuItemBinder(ExportTemplate.class).on(exportTemplateMenu).first(action -> {
-			action.setTemplatesPane(templateManager.templatePane);
-			action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
-			action.setUi(LaTeXDraw.getInstance());
-			action.setProgressBar(statusBar.getProgressBar());
-			action.setStatusWidget(statusBar.getLabel());
+		menuItemBinder(ExportTemplate.class).on(exportTemplateMenu).first(c -> {
+			c.setTemplatesPane(templateManager.templatePane);
+			c.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
+			c.setUi(LaTeXDraw.getInstance());
+			c.setProgressBar(statusBar.getProgressBar());
+			c.setStatusWidget(statusBar.getLabel());
 		}).bind();
 	}
 
@@ -194,11 +194,11 @@ public class Exporter extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	public void onActionExecuted(final Action action) {
-		statusBar.getLabel().setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.184")); //$NON-NLS-1$
+	public void onCmdExecuted(final Command cmd) {
+		statusBar.getLabel().setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.184"));
 
-		if(action instanceof Export) {
-			final File outputFile = ((Export) action).getOutputFile();
+		if(cmd instanceof Export) {
+			final File outputFile = ((Export) cmd).getOutputFile();
 			if(outputFile != null) {
 				pathExport = outputFile.getParentFile().getPath();
 			}

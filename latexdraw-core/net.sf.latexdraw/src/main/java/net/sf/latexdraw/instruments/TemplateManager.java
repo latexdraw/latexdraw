@@ -27,8 +27,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import net.sf.latexdraw.LaTeXDraw;
-import net.sf.latexdraw.actions.LoadTemplate;
-import net.sf.latexdraw.actions.UpdateTemplates;
+import net.sf.latexdraw.commands.LoadTemplate;
+import net.sf.latexdraw.commands.UpdateTemplates;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.Inject;
@@ -63,14 +63,14 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 		emptyLabel.visibleProperty().bind(Bindings.createBooleanBinding(() -> templatePane.getChildren().isEmpty(), templatePane.getChildren()));
 		emptyLabel.setFont(Font.font(emptyLabel.getFont().getFamily(), FontPosture.ITALIC, emptyLabel.getFont().getSize()));
 
-		final UpdateTemplates action = new UpdateTemplates();
-		action.setTemplatesPane(templatePane);
-		action.updateThumbnails(false);
+		final UpdateTemplates cmd = new UpdateTemplates();
+		cmd.setTemplatesPane(templatePane);
+		cmd.updateThumbnails(false);
 
-		if(action.canDo()) {
-			action.doIt();
+		if(cmd.canDo()) {
+			cmd.doIt();
 		}
-		action.flush();
+		cmd.flush();
 		setActivated(true);
 	}
 
@@ -88,26 +88,26 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(UpdateTemplates.class).on(updateTemplates).first(action -> {
-			action.setTemplatesPane(templatePane);
-			action.updateThumbnails(true);
+		buttonBinder(UpdateTemplates.class).on(updateTemplates).first(c -> {
+			c.setTemplatesPane(templatePane);
+			c.updateThumbnails(true);
 		}).bind();
 
 		nodeBinder(LoadTemplate.class, new DnD()).
 			on(templatePane).
-			first((a, i) -> {
-				a.setDrawing(drawing);
-				a.setFile(new File((String) i.getSrcObject().get().getUserData()));
-				a.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
-				a.setProgressBar(statusController.getProgressBar());
-				a.setStatusWidget(statusController.getLabel());
-				a.setUi(LaTeXDraw.getInstance());
+			first((c, i) -> {
+				c.setDrawing(drawing);
+				c.setFile(new File((String) i.getSrcObject().get().getUserData()));
+				c.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
+				c.setProgressBar(statusController.getProgressBar());
+				c.setStatusWidget(statusController.getLabel());
+				c.setUi(LaTeXDraw.getInstance());
 			}).
-			then((a, i) -> {
+			then((c, i) -> {
 				final Node srcObj = i.getSrcObject().get();
 				final Point3D pt3d = i.getEndObjet().get().sceneToLocal(srcObj.localToScene(i.getEndLocalPt())).
 					subtract(Canvas.ORIGIN.getX() + srcObj.getLayoutX(), Canvas.ORIGIN.getY() + srcObj.getLayoutY(), 0d);
-				a.setPosition(ShapeFactory.INST.createPoint(pt3d));
+				c.setPosition(ShapeFactory.INST.createPoint(pt3d));
 			}).
 			feedback(() -> templatePane.setCursor(Cursor.CLOSED_HAND)).
 			when(i -> i.getSrcObject().orElse(null) instanceof ImageView &&

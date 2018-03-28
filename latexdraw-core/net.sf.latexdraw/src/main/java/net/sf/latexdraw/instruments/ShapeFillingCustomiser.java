@@ -22,7 +22,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.commands.shape.ShapeProperties;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;

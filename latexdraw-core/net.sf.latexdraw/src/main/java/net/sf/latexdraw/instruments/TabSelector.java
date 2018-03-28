@@ -22,7 +22,7 @@ import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
-import org.malai.javafx.action.ActivateInactivateInstruments;
+import org.malai.javafx.command.ActivateInactivateInstruments;
 import org.malai.javafx.instrument.JfxInstrument;
 
 /**
@@ -133,30 +133,30 @@ public class TabSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		tabBinder(ActivateInactivateInstruments.class).on(tabPane).first((a, i) -> {
+		tabBinder(ActivateInactivateInstruments.class).on(tabPane).first((c, i) -> {
 			if(i.getWidget().getSelectionModel().getSelectedIndex() == 0) {
-				a.addInstrumentToActivate(selector);
-				a.addInstrumentToActivate(paster);
-				a.addInstrumentToActivate(undo);
-				a.addInstrumentToActivate(zoomer);
-				a.addInstrumentToInactivate(prefSetter);
+				c.addInstrumentToActivate(selector);
+				c.addInstrumentToActivate(paster);
+				c.addInstrumentToActivate(undo);
+				c.addInstrumentToActivate(zoomer);
+				c.addInstrumentToInactivate(prefSetter);
 				if(canvas.getDrawing().getSelection().getShapes().isEmpty()) {
-					a.addInstrumentToInactivate(deleter);
+					c.addInstrumentToInactivate(deleter);
 				}else {
-					a.addInstrumentToActivate(deleter);
+					c.addInstrumentToActivate(deleter);
 				}
 			}else {
-				a.setHideWidgets(false);
-				a.addInstrumentToInactivate(selector);
-				a.addInstrumentToInactivate(paster);
-				a.addInstrumentToInactivate(undo);
-				a.addInstrumentToInactivate(zoomer);
+				c.setHideWidgets(false);
+				c.addInstrumentToInactivate(selector);
+				c.addInstrumentToInactivate(paster);
+				c.addInstrumentToInactivate(undo);
+				c.addInstrumentToInactivate(zoomer);
 				// The deleter must be added to use the hideWidgets parameter of the
-				a.addInstrumentToInactivate(deleter);
+				c.addInstrumentToInactivate(deleter);
 				if(i.getWidget().getSelectionModel().getSelectedIndex() == 1) {
-					a.addInstrumentToInactivate(prefSetter);
+					c.addInstrumentToInactivate(prefSetter);
 				}else {
-					a.addInstrumentToActivate(prefSetter);
+					c.addInstrumentToActivate(prefSetter);
 				}
 			}
 		}).bind();

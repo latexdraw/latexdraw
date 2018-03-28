@@ -799,7 +799,7 @@ Version 1.7 -- 2006-08-23
 - fixed #1512530: LaTeXDraw files containing picture cannot be loaded;
 - fixed #1512533: undo/redo: bad undo management when creating and cancelling a text/grid;
 - fixed #1512537: undo/redo: toolbar still active when redo a 'delete' action ;
-- fixed #1512538: undo/redo: the redo was never cleared when an action, different than redo, occurred;
+- fixed #1512538: undo/redo: the redo was never cleared when a command, different than redo, occurred;
 - fixed #1515149: bug in the method Line.getPerpendicularLine(): when the x-coordinate of a 
                   point of a triangle/rhombus is 0 a problem in the display occurred;
 - fixed #1516288: % not always replaced by \% during the code generation;

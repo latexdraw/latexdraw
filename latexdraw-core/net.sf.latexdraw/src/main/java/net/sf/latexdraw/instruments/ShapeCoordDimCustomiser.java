@@ -16,7 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
-import net.sf.latexdraw.actions.shape.TranslateShapes;
+import net.sf.latexdraw.commands.shape.TranslateShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
@@ -60,12 +60,12 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	protected void configureBindings() {
 		spinnerBinder(TranslateShapes.class).on(tlxS).
 			map(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false))).
-			then((a, i) -> a.setT((Double) i.getWidget().getValue() - a.getShape().get().getTopLeftPoint().getX(), 0d)).
+			then((c, i) -> c.setT((Double) i.getWidget().getValue() - c.getShape().get().getTopLeftPoint().getX(), 0d)).
 			exec().bind();
 
 		spinnerBinder(TranslateShapes.class).on(tlyS).
 			map(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false))).
-			then((a, i) -> a.setT(0d, (Double) i.getWidget().getValue() - a.getShape().get().getTopLeftPoint().getY())).
+			then((c, i) -> c.setT(0d, (Double) i.getWidget().getValue() - c.getShape().get().getTopLeftPoint().getY())).
 			exec().bind();
 	}
 

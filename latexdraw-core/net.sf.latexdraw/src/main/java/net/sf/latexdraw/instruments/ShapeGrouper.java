@@ -16,15 +16,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import net.sf.latexdraw.actions.shape.JoinShapes;
-import net.sf.latexdraw.actions.shape.SeparateShapes;
+import net.sf.latexdraw.commands.shape.JoinShapes;
+import net.sf.latexdraw.commands.shape.SeparateShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 /**
  * This instrument groups and separates shapes.
  * @author Arnaud Blouin
  */
-public class ShapeGrouper extends ShapePropertyCustomiser implements Initializable, ActionRegistrySearcher {
+public class ShapeGrouper extends ShapePropertyCustomiser implements Initializable, CmdRegistrySearcher {
 	/** The widget to group shapes. */
 	@FXML private Button groupB;
 	/** The widget to separate shapes. */
@@ -61,16 +61,16 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(SeparateShapes.class).on(sepB).first(action -> getSelectAction().map(sel -> sel.getShapes()).ifPresent(shapes -> {
+		buttonBinder(SeparateShapes.class).on(sepB).first(c -> getSelectCmd().map(sel -> sel.getShapes()).ifPresent(shapes -> {
 			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {
-				action.setShape((IGroup)shapes.get(0));
+				c.setShape((IGroup)shapes.get(0));
 			}
-			action.setDrawing(pencil.canvas.getDrawing());
+			c.setDrawing(pencil.canvas.getDrawing());
 		})).bind();
 
-		buttonBinder(JoinShapes.class).on(groupB).first(action -> getSelectAction().ifPresent(sel -> {
-			sel.getShapes().forEach(sh -> action.addShape(sh));
-			action.setDrawing(pencil.canvas.getDrawing());
+		buttonBinder(JoinShapes.class).on(groupB).first(c -> getSelectCmd().ifPresent(sel -> {
+			sel.getShapes().forEach(sh -> c.addShape(sh));
+			c.setDrawing(pencil.canvas.getDrawing());
 		})).bind();
 	}
 }

@@ -19,13 +19,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import net.sf.latexdraw.actions.ModifyPencilStyle;
-import net.sf.latexdraw.actions.shape.AddShape;
+import net.sf.latexdraw.commands.ModifyPencilStyle;
+import net.sf.latexdraw.commands.shape.AddShape;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
-import org.malai.action.Action;
-import org.malai.javafx.action.ActivateInactivateInstruments;
+import org.malai.command.Command;
+import org.malai.javafx.command.ActivateInactivateInstruments;
 import org.malai.javafx.instrument.JfxInstrument;
 
 /**
@@ -168,46 +168,46 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 				pencil.textSetter.getTextField().getText()), canvas.getDrawing())).
 			when(i -> pencil.textSetter.isActivated() && !pencil.textSetter.getTextField().getText().isEmpty()).bind();
 
-		toggleButtonBinder(ModifyPencilStyle.class).on(nodes).first((action, interaction) -> {
-			action.setEditingChoice(button2EditingChoiceMap.get(interaction.getWidget()));
-			action.setPencil(pencil);
+		toggleButtonBinder(ModifyPencilStyle.class).on(nodes).first((c, i) -> {
+			c.setEditingChoice(button2EditingChoiceMap.get(i.getWidget()));
+			c.setPencil(pencil);
 		}).bind();
 
-		toggleButtonBinder(ActivateInactivateInstruments.class).on(nodes).first((action, interaction) -> {
-			final ToggleButton button = interaction.getWidget();
+		toggleButtonBinder(ActivateInactivateInstruments.class).on(nodes).first((c, i) -> {
+			final ToggleButton button = i.getWidget();
 
-			action.setActivateFirst(false);
+			c.setActivateFirst(false);
 
 			if(button != textB) {
-				action.addInstrumentToInactivate(pencil.textSetter);
+				c.addInstrumentToInactivate(pencil.textSetter);
 			}
 
 			/* Selection of the instruments to activate/deactivate. */
 			if(button == handB) {
 				final boolean noSelection = hand.canvas.getDrawing().getSelection().isEmpty();
-				action.addInstrumentToActivate(hand);
+				c.addInstrumentToActivate(hand);
 
-				if(!noSelection) action.addInstrumentToActivate(deleter);
+				if(!noSelection) c.addInstrumentToActivate(deleter);
 
-				action.addInstrumentToInactivate(pencil);
+				c.addInstrumentToInactivate(pencil);
 
 				if(noSelection) {
-					action.addInstrumentToInactivate(metaShapeCustomiser);
-					action.addInstrumentToInactivate(border);
+					c.addInstrumentToInactivate(metaShapeCustomiser);
+					c.addInstrumentToInactivate(border);
 				}else {
-					action.addInstrumentToActivate(metaShapeCustomiser);
-					action.addInstrumentToActivate(border);
+					c.addInstrumentToActivate(metaShapeCustomiser);
+					c.addInstrumentToActivate(border);
 				}
 			}else {
-				action.addInstrumentToInactivate(hand);
-				action.addInstrumentToInactivate(border);
-				action.addInstrumentToInactivate(deleter);
-				action.addInstrumentToActivate(pencil);
-				action.addInstrumentToActivate(metaShapeCustomiser);
+				c.addInstrumentToInactivate(hand);
+				c.addInstrumentToInactivate(border);
+				c.addInstrumentToInactivate(deleter);
+				c.addInstrumentToActivate(pencil);
+				c.addInstrumentToActivate(metaShapeCustomiser);
 			}
 		}).bind();
 
-		buttonBinder(ActivateInactivateInstruments.class).on(codeB).first(action -> action.addInstrumentToActivate(codeInserter)).bind();
+		buttonBinder(ActivateInactivateInstruments.class).on(codeB).first(cmd -> cmd.addInstrumentToActivate(codeInserter)).bind();
 	}
 
 	@Override
@@ -220,8 +220,8 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 
 	@Override
-	public void onActionDone(final Action action) {
-		super.onActionDone(action);
+	public void onCmdDone(final Command cmd) {
+		super.onCmdDone(cmd);
 		canvas.requestFocus();
 	}
 }

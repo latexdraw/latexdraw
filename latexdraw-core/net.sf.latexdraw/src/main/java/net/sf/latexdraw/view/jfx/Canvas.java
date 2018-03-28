@@ -38,11 +38,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Duration;
-import net.sf.latexdraw.actions.DrawingAction;
-import net.sf.latexdraw.actions.ShapeAction;
-import net.sf.latexdraw.actions.ShapesAction;
-import net.sf.latexdraw.actions.shape.MovePoint;
-import net.sf.latexdraw.actions.shape.ShapePropertyAction;
+import net.sf.latexdraw.commands.DrawingCmd;
+import net.sf.latexdraw.commands.ShapeCmd;
+import net.sf.latexdraw.commands.ShapesCmd;
+import net.sf.latexdraw.commands.shape.MovePoint;
+import net.sf.latexdraw.commands.shape.ShapePropertyCmd;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
@@ -52,12 +52,12 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
-import org.malai.action.Action;
-import org.malai.action.ActionHandler;
-import org.malai.action.ActionsRegistry;
-import org.malai.action.library.Redo;
-import org.malai.action.library.Undo;
-import org.malai.javafx.action.IOAction;
+import org.malai.command.CmdHandler;
+import org.malai.command.Command;
+import org.malai.command.CommandsRegistry;
+import org.malai.command.library.Redo;
+import org.malai.command.library.Undo;
+import org.malai.javafx.command.IOCommand;
 import org.malai.properties.Modifiable;
 import org.malai.properties.Preferenciable;
 import org.malai.properties.Reinitialisable;
@@ -72,7 +72,7 @@ import org.w3c.dom.NodeList;
  * The JFX canvas where shapes are painted.
  * @author Arnaud Blouin
  */
-public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitialisable, ActionHandler, Zoomable, ViewsSynchroniserHandler {
+public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitialisable, CmdHandler, Zoomable, ViewsSynchroniserHandler {
 	/** The margin used to surround the drawing. */
 	public static final int MARGINS = 1500;
 
@@ -152,7 +152,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		defineShapeListToViewBinding();
 		configureSelection();
 
-		ActionsRegistry.INSTANCE.addHandler(this);
+		CommandsRegistry.INSTANCE.addHandler(this);
 
 		shapesPane.setFocusTraversable(false);
 	}
@@ -286,9 +286,9 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	@Override
-	public void onActionExecuted(final Action act) {
-		if(act instanceof ShapesAction || act instanceof DrawingAction || act instanceof IOAction || act instanceof ShapePropertyAction ||
-			act instanceof ShapeAction || act instanceof Undo || act instanceof Redo || act instanceof MovePoint) {
+	public void onCmdExecuted(final Command cmd) {
+		if(cmd instanceof ShapesCmd || cmd instanceof DrawingCmd || cmd instanceof IOCommand || cmd instanceof ShapePropertyCmd ||
+			cmd instanceof ShapeCmd || cmd instanceof Undo || cmd instanceof Redo || cmd instanceof MovePoint) {
 			update();
 		}
 	}
@@ -314,17 +314,17 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	@Override
-	public void onActionCancelled(final Action a) {
+	public void onCmdCancelled(final Command a) {
 		/* Nothing to do. */
 	}
 
 	@Override
-	public void onActionAdded(final Action a) {
+	public void onCmdAdded(final Command a) {
 		/* Nothing to do. */
 	}
 
 	@Override
-	public void onActionDone(final Action a) {
+	public void onCmdDone(final Command a) {
 		/* Nothing to do. */
 	}
 

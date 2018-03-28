@@ -16,9 +16,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import net.sf.latexdraw.actions.shape.AlignShapes;
-import net.sf.latexdraw.actions.shape.DistributeShapes;
-import net.sf.latexdraw.actions.shape.MirrorShapes;
+import net.sf.latexdraw.commands.shape.AlignShapes;
+import net.sf.latexdraw.commands.shape.DistributeShapes;
+import net.sf.latexdraw.commands.shape.MirrorShapes;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 
 /**
@@ -98,22 +98,22 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(AlignShapes.class).on(alignBot, alignLeft, alignMidHoriz, alignMidVert, alignRight, alignTop).first((a, i) -> {
-			a.setAlignment((AlignShapes.Alignment) i.getWidget().getUserData());
-			a.setCanvas(canvas);
-			a.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
+		buttonBinder(AlignShapes.class).on(alignBot, alignLeft, alignMidHoriz, alignMidVert, alignRight, alignTop).first((c, i) -> {
+			c.setAlignment((AlignShapes.Alignment) i.getWidget().getUserData());
+			c.setCanvas(canvas);
+			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		}).bind();
 
-		buttonBinder(MirrorShapes.class).on(mirrorH, mirrorV).first((a, i) -> {
-			a.setHorizontally(i.getWidget() == mirrorH);
-			a.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
+		buttonBinder(MirrorShapes.class).on(mirrorH, mirrorV).first((c, i) -> {
+			c.setHorizontally(i.getWidget() == mirrorH);
+			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		}).bind();
 
 		buttonBinder(DistributeShapes.class).on(distribHorizEq, distribHorizLeft, distribHorizMid, distribHorizRight,distribVertBot,
-			distribVertEq, distribVertMid, distribVertTop).first((a, i) -> {
-			a.setDistribution((DistributeShapes.Distribution) i.getWidget().getUserData());
-			a.setCanvas(canvas);
-			a.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
+			distribVertEq, distribVertMid, distribVertTop).first((c, i) -> {
+			c.setDistribution((DistributeShapes.Distribution) i.getWidget().getUserData());
+			c.setCanvas(canvas);
+			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		}).bind();
 	}
 }

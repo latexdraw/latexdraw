@@ -40,7 +40,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javax.imageio.ImageIO;
 import net.sf.latexdraw.LaTeXDraw;
-import net.sf.latexdraw.actions.ExportFormat;
+import net.sf.latexdraw.commands.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;

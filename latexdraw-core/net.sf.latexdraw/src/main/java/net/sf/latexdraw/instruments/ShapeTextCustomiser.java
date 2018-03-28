@@ -20,9 +20,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
-import net.sf.latexdraw.actions.LatexProperties;
-import net.sf.latexdraw.actions.ModifyLatexProperties;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.commands.LatexProperties;
+import net.sf.latexdraw.commands.ModifyLatexProperties;
+import net.sf.latexdraw.commands.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -133,7 +133,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 		addTogglePropBinding(trButton, ShapeProperties.TEXT_POSITION, TextPosition.TOP_RIGHT);
 
 		textInputBinder(ModifyLatexProperties.class).on(packagesField).
-			first(a -> a.setProperty(LatexProperties.PACKAGES)).
-			then((a, i) -> a.setValue(i.getWidget().getText())).bind();
+			first(c -> c.setProperty(LatexProperties.PACKAGES)).
+			then((c, i) -> c.setValue(i.getWidget().getText())).bind();
 	}
 }

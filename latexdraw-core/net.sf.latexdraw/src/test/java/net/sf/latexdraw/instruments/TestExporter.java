@@ -13,8 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.LaTeXDraw;
-import net.sf.latexdraw.actions.Export;
-import net.sf.latexdraw.actions.ExportTemplate;
+import net.sf.latexdraw.commands.Export;
+import net.sf.latexdraw.commands.ExportTemplate;
 import net.sf.latexdraw.data.StringData;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangTool;
@@ -26,7 +26,7 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
-import org.malai.action.ActionsRegistry;
+import org.malai.command.CommandsRegistry;
 import org.mockito.Mockito;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -130,8 +130,8 @@ public class TestExporter extends BaseTestCanvas {
 		waitFXEvents.execute();
 		clickOn(widgetID);
 		waitFXEvents.execute();
-		assertEquals(1, ActionsRegistry.INSTANCE.getActions().size());
-		assertTrue(ActionsRegistry.INSTANCE.getActions().get(0) instanceof Export);
+		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
+		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof Export);
 	}
 
 	@Test
@@ -143,7 +143,7 @@ public class TestExporter extends BaseTestCanvas {
 		waitFXEvents.execute();
 		write("fooo").type(KeyCode.ENTER);
 		waitFXEvents.execute();
-		assertEquals(1, ActionsRegistry.INSTANCE.getActions().size());
-		assertTrue(ActionsRegistry.INSTANCE.getActions().get(0) instanceof ExportTemplate);
+		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
+		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof ExportTemplate);
 	}
 }

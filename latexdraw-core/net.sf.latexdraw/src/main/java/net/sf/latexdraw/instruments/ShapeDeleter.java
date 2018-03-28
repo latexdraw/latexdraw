@@ -18,7 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
-import net.sf.latexdraw.actions.shape.DeleteShapes;
+import net.sf.latexdraw.commands.shape.DeleteShapes;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Inject;
 
@@ -26,7 +26,7 @@ import net.sf.latexdraw.util.Inject;
  * This instrument deletes the selected shapes.
  * @author Arnaud BLOUIN
  */
-public class ShapeDeleter extends CanvasInstrument implements Initializable, ActionRegistrySearcher {
+public class ShapeDeleter extends CanvasInstrument implements Initializable, CmdRegistrySearcher {
 	/** The button used to remove the selected shapes. */
 	@FXML private Button deleteB;
 	@Inject private Hand hand;
@@ -71,9 +71,9 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Act
 
 	@Override
 	protected void configureBindings() {
-		final Consumer<DeleteShapes> first = a -> getSelectAction().ifPresent(sel -> {
-			sel.getShapes().forEach(sh -> a.addShape(sh));
-			a.setDrawing(sel.getDrawing().orElse(null));
+		final Consumer<DeleteShapes> first = c -> getSelectCmd().ifPresent(sel -> {
+			sel.getShapes().forEach(sh -> c.addShape(sh));
+			c.setDrawing(sel.getDrawing().orElse(null));
 		});
 
 		buttonBinder(DeleteShapes.class).on(deleteB).first(first).bind();

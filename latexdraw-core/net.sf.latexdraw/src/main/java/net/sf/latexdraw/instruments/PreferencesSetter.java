@@ -41,9 +41,9 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import net.sf.latexdraw.actions.GridProperties;
-import net.sf.latexdraw.actions.ModifyMagneticGrid;
-import net.sf.latexdraw.actions.SetUnit;
+import net.sf.latexdraw.commands.GridProperties;
+import net.sf.latexdraw.commands.ModifyMagneticGrid;
+import net.sf.latexdraw.commands.SetUnit;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
@@ -74,10 +74,10 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	@FXML protected CheckBox magneticCB;
 	/** Allows the set if the program must check new version on start up. */
 	@FXML protected CheckBox checkNewVersion;
-	/** This textField allows to set the default directories for open/save actions. */
+	/** This textField allows to set the default directories for open/save commands. */
 	@FXML private TextField pathOpenField;
 	@FXML private CheckBox openGL;
-	/** This textField allows to set the default directories for exporting actions. */
+	/** This textField allows to set the default directories for exporting commands. */
 	@FXML private TextField pathExportField;
 	/** The text field used to defines the latex packages to use. */
 	@FXML private TextArea latexIncludes;
@@ -162,24 +162,24 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		comboboxBinder(ModifyMagneticGrid.class).on(styleList).first(action -> {
-			action.setValue(styleList.getSelectionModel().getSelectedItem());
-			action.setGrid(grid);
-			action.setProperty(GridProperties.STYLE);
+		comboboxBinder(ModifyMagneticGrid.class).on(styleList).first(c -> {
+			c.setValue(styleList.getSelectionModel().getSelectedItem());
+			c.setGrid(grid);
+			c.setProperty(GridProperties.STYLE);
 		}).bind();
 
-		checkboxBinder(ModifyMagneticGrid.class).on(magneticCB).first(action -> {
-			action.setValue(magneticCB.isSelected());
-			action.setGrid(grid);
-			action.setProperty(GridProperties.MAGNETIC);
+		checkboxBinder(ModifyMagneticGrid.class).on(magneticCB).first(c -> {
+			c.setValue(magneticCB.isSelected());
+			c.setGrid(grid);
+			c.setProperty(GridProperties.MAGNETIC);
 		}).bind();
 
-		spinnerBinder(ModifyMagneticGrid.class).on(persoGridGapField).exec().first(action -> {
-			action.setGrid(grid);
-			action.setProperty(GridProperties.GRID_SPACING);
-		}).then(action -> action.setValue(persoGridGapField.getValue())).bind();
+		spinnerBinder(ModifyMagneticGrid.class).on(persoGridGapField).exec().first(c -> {
+			c.setGrid(grid);
+			c.setProperty(GridProperties.GRID_SPACING);
+		}).then(c -> c.setValue(persoGridGapField.getValue())).bind();
 
-		comboboxBinder(SetUnit.class).on(unitChoice).first(action -> action.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()))).bind();
+		comboboxBinder(SetUnit.class).on(unitChoice).first(c -> c.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()))).bind();
 	}
 
 	/**

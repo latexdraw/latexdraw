@@ -19,20 +19,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.util.LSystem;
-import org.malai.action.library.Redo;
-import org.malai.action.library.Undo;
+import org.malai.command.library.Redo;
+import org.malai.command.library.Undo;
 import org.malai.javafx.undo.FXUndoCollector;
 import org.malai.undo.UndoCollector;
 
 /**
- * This instrument allows to undo and redo saved actions.
+ * This instrument allows to undo and redo saved commands.
  * This instrument provides two buttons to interact with and two shortcuts (ctrl/apple-Z, ctrl-apple-Y).
  * @author Arnaud Blouin
  */
 public class UndoRedoManager extends CanvasInstrument implements Initializable {
-	/** The button used to undo actions. */
+	/** The button used to undo commands. */
 	@FXML private Button undoB;
-	/** The button used to redo actions. */
+	/** The button used to redo commands. */
 	@FXML private Button redoB;
 
 	/**

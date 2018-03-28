@@ -22,16 +22,16 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.LaTeXDraw;
-import net.sf.latexdraw.actions.LoadDrawing;
-import net.sf.latexdraw.actions.NewDrawing;
-import net.sf.latexdraw.actions.SaveDrawing;
+import net.sf.latexdraw.commands.LoadDrawing;
+import net.sf.latexdraw.commands.NewDrawing;
+import net.sf.latexdraw.commands.SaveDrawing;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
-import org.malai.action.Action;
-import org.malai.javafx.action.IOAction;
+import org.malai.command.Command;
+import org.malai.javafx.command.IOCommand;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.interaction.library.WindowClosed;
 import org.w3c.dom.Document;
@@ -79,20 +79,20 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	public void onActionDone(final Action action) {
-		super.onActionDone(action);
+	public void onCmdDone(final Command cmd) {
+		super.onCmdDone(cmd);
 
 		fileMenu.hide();
 
-		// Updating the recent files on I/O actions.
-		if(action instanceof IOAction && action.hadEffect()) {
-			final IOAction<?> ioAction = (IOAction<?>) action;
-			currentFile = ioAction.getFile();
+		// Updating the recent files on I/O commands.
+		if(cmd instanceof IOCommand && cmd.hadEffect()) {
+			final IOCommand<?> ioCmd = (IOCommand<?>) cmd;
+			currentFile = ioCmd.getFile();
 			currentFolder = currentFile.getParentFile();
 			if(!currentFile.getPath().endsWith(".svg")) {//$NON-NLS-1$
 				currentFile = new File(currentFile.getPath() + ".svg");//$NON-NLS-1$
 			}
-			prefSetter.addRecentFile(((IOAction<?>) action).getFile().getPath());
+			prefSetter.addRecentFile(((IOCommand<?>) cmd).getFile().getPath());
 			updateRecentMenuItems(prefSetter.getRecentFileNames());
 		}
 	}
@@ -121,9 +121,9 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	public void onActionExecuted(final Action action) {
-		if(action instanceof LoadDrawing) {
-			currentFile = ((LoadDrawing) action).getFile();
+	public void onCmdExecuted(final Command cmd) {
+		if(cmd instanceof LoadDrawing) {
+			currentFile = ((LoadDrawing) cmd).getFile();
 			if(currentFile != null) {
 				currentFolder = currentFile.getParentFile();
 			}

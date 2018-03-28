@@ -4,13 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import net.sf.latexdraw.actions.shape.SelectShapes;
+import net.sf.latexdraw.commands.shape.SelectShapes;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.action.ActionsRegistry;
+import org.malai.command.CommandsRegistry;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
@@ -33,9 +33,9 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 		group.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(20, 30), 10));
 		drawing.addShape(group);
 		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(0)));
-		SelectShapes action = new SelectShapes();
-		action.addShape(drawing.getShapeAt(0));
-		ActionsRegistry.INSTANCE.addAction(action, handler);
+		SelectShapes cmd = new SelectShapes();
+		cmd.addShape(drawing.getShapeAt(0));
+		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
 		ins.update();
 	};
 

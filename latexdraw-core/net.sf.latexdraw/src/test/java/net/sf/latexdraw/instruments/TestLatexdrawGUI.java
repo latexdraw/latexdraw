@@ -21,7 +21,7 @@ import net.sf.latexdraw.util.LangTool;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.action.ActionsRegistry;
+import org.malai.command.CommandsRegistry;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
@@ -39,7 +39,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 
 	@Before
 	public void setUp() {
-		ActionsRegistry.INSTANCE.clear();
+		CommandsRegistry.INSTANCE.clear();
 		BadaboomCollector.INSTANCE.clear();
 		WaitForAsyncUtils.waitForFxEvents();
 	}

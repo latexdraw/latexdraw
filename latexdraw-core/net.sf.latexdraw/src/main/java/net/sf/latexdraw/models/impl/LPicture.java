@@ -16,7 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import net.sf.latexdraw.actions.ExportFormat;
+import net.sf.latexdraw.commands.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;

@@ -29,7 +29,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.actions.ExportFormat;
+import net.sf.latexdraw.commands.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.Color;
