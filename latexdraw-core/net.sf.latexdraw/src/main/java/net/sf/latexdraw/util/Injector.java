@@ -243,4 +243,10 @@ public abstract class Injector {
 	public Collection<Object> getInstances() {
 		return Collections.unmodifiableCollection(instances.values());
 	}
+
+	public void clear() {
+		singletons.clear();
+		instances.clear();
+		bindingsBetweenTypes.clear();
+	}
 }
