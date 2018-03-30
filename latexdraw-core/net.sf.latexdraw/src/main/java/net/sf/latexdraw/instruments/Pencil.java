@@ -71,6 +71,14 @@ public class Pencil extends CanvasInstrument {
 		currentChoice = new SimpleObjectProperty<>(EditionChoice.RECT);
 	}
 
+	@Override
+	public void uninstallBindings() {
+		currentChoice.unbind();
+		pictureFileChooser = null;
+		groupParams = null;
+		super.uninstallBindings();
+	}
+
 	/**
 	 * Entry point for a testing purpose only.
 	 */

@@ -59,26 +59,35 @@ public class Hand extends CanvasInstrument {
 		super();
 	}
 
+	private final ListChangeListener<Node> viewHandler = evt -> {
+		while(evt.next()) {
+			if(evt.wasAdded()) {
+				evt.getAddedSubList().forEach(v -> {
+					v.setOnMouseEntered(mouseEvt -> {
+						if(isActivated()) {
+							canvas.setCursor(Cursor.HAND);
+						}
+					});
+					v.setOnMouseExited(mouseEvt -> {
+						if(isActivated()) {
+							canvas.setCursor(Cursor.DEFAULT);
+						}
+					});
+				});
+			}
+		}
+	};
+
+	@Override
+	public void uninstallBindings() {
+		canvas.getViews().getChildren().removeListener(viewHandler);
+		super.uninstallBindings();
+
+	}
+
 	@Override
 	protected void configureBindings() {
-		canvas.getViews().getChildren().addListener((ListChangeListener<Node>) evt -> {
-			while(evt.next()) {
-				if(evt.wasAdded()) {
-					evt.getAddedSubList().forEach(v -> {
-						v.setOnMouseEntered(mouseEvt -> {
-							if(isActivated()) {
-								canvas.setCursor(Cursor.HAND);
-							}
-						});
-						v.setOnMouseExited(mouseEvt -> {
-							if(isActivated()) {
-								canvas.setCursor(Cursor.DEFAULT);
-							}
-						});
-					});
-				}
-			}
-		});
+		canvas.getViews().getChildren().addListener(viewHandler);
 
 		addBinding(new DnD2Select(this));
 
