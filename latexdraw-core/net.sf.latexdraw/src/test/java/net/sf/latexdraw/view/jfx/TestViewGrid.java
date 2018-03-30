@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,6 +29,11 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
+	}
+
+	@AfterClass
+	public static void afterClass() throws TimeoutException {
+		FxToolkit.cleanupStages();
 	}
 
 	@Override

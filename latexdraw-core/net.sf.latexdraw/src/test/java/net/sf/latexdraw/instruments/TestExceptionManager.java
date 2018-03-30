@@ -37,10 +37,8 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 		return "/fxml/Error.fxml";
 	}
 
-	@Override
 	@Before
 	public void setUp() {
-		super.setUp();
 		manager = injector.getInstance(ExceptionsManager.class);
 		try {
 			final Field field = ExceptionsManager.class.getDeclaredField("stageEx");

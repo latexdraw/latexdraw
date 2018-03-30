@@ -5,6 +5,7 @@ import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.data.CircleSupplier;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
@@ -15,6 +16,11 @@ public class TestViewCircle extends TestViewBorderedShape<ViewCircle, ICircle, E
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
+	}
+
+	@AfterClass
+	public static void afterClass() throws TimeoutException {
+		FxToolkit.cleanupStages();
 	}
 
 	@Override

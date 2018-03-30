@@ -55,10 +55,8 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 		};
 	}
 
-	@Override
 	@Before
 	public void setUp() {
-		super.setUp();
 		titleField = find("#titleField");
 		labelField = find("#labelField");
 		middleHorizPosCB = find("#middleHorizPosCB");

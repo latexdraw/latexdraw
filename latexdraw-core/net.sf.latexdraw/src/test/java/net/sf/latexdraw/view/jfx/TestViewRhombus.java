@@ -5,6 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.shape.Path;
 import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
@@ -16,6 +17,11 @@ public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
+	}
+
+	@AfterClass
+	public static void afterClass() throws TimeoutException {
+		FxToolkit.cleanupStages();
 	}
 
 	@Override

@@ -121,10 +121,8 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 		return "/fxml/Canvas.fxml";
 	}
 
-	@Override
 	@Before
 	public void setUp() {
-		super.setUp();
 		pencil = (Pencil) injectorFactory.call(Pencil.class);
 		hand = (Hand) injectorFactory.call(Hand.class);
 		canvas = (Canvas) injectorFactory.call(Canvas.class);
@@ -150,6 +148,12 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	@Override
 	@After
 	public void tearDown() throws TimeoutException {
+		Platform.runLater(() -> {
+			canvas.getDrawing().getSelection().clear();
+			canvas.getDrawing().getShapes().clear();
+			canvas.getChildren().clear();
+		});
+		WaitForAsyncUtils.waitForFxEvents();
 		super.tearDown();
 		CommandsRegistry.INSTANCE.removeHandler(canvas);
 	}

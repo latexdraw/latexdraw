@@ -11,6 +11,7 @@ import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,6 +29,11 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
+	}
+
+	@AfterClass
+	public static void afterClass() throws TimeoutException {
+		FxToolkit.cleanupStages();
 	}
 
 	@Override

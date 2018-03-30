@@ -2,6 +2,7 @@ package net.sf.latexdraw.parsers.pst;
 
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.antlr.v4.runtime.BaseErrorListener;
@@ -9,7 +10,10 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+import org.junit.After;
 import org.junit.Before;
+import org.malai.command.CommandsRegistry;
+import org.malai.undo.UndoCollector;
 
 import static org.junit.Assert.fail;
 
@@ -35,6 +39,14 @@ public abstract class TestPSTParser {
 			public void close() throws SecurityException {
 			}
 		});
+	}
+
+	@After
+	public void tearDown() {
+		CommandsRegistry.INSTANCE.clear();
+		CommandsRegistry.INSTANCE.removeAllHandlers();
+		BadaboomCollector.INSTANCE.clear();
+		UndoCollector.INSTANCE.clear();
 	}
 
 	<T extends IShape> T getShapeAt(final int i) {

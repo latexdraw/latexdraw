@@ -71,6 +71,7 @@ public class TestModifyLatexProperties extends TestUndoableCommand<ModifyLatexPr
 		memento = mementoCmd.get();
 	}
 
+	@Override
 	@After
 	public void tearDown() {
 		LaTeXGenerator.setPackages("");

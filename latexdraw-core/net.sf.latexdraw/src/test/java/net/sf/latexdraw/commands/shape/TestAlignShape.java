@@ -17,12 +17,11 @@ import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.jfx.ViewShape;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Every.everyItem;
@@ -39,7 +38,7 @@ public class TestAlignShape extends TestUndoableCommand<AlignShapes, List<Tuple<
 	@Parameterized.Parameter
 	public AlignShapes.Alignment alignment;
 	IGroup shapes;
-	@Mock Canvas canvas;
+	Canvas canvas;
 	Group views;
 
 	@Override
@@ -51,7 +50,7 @@ public class TestAlignShape extends TestUndoableCommand<AlignShapes, List<Tuple<
 	@Before
 	public void setUp() {
 		super.setUp();
-		MockitoAnnotations.initMocks(this);
+		canvas = Mockito.mock(Canvas.class);
 		final IShapeFactory fac = ShapeFactory.INST;
 		shapes = fac.createGroup();
 		shapes.addShape(fac.createRectangle(fac.createPoint(10d, -2d), 6d, 6d));
@@ -63,6 +62,15 @@ public class TestAlignShape extends TestUndoableCommand<AlignShapes, List<Tuple<
 			views.getChildren().add(ViewFactory.INSTANCE.createView(shapes.getShapeAt(i)).get());
 			Mockito.when(canvas.getViewFromShape(shapes.getShapeAt(i))).thenReturn(Optional.of((ViewShape<?>) views.getChildren().get(i)));
 		});
+	}
+
+	@Override
+	@After
+	public void tearDown() {
+		super.tearDown();
+		views.getChildren().stream().filter(v -> v instanceof ViewShape).forEach(v -> ((ViewShape<?>) v).flush());
+		views.getChildren().clear();
+		shapes.clear();
 	}
 
 	@Override

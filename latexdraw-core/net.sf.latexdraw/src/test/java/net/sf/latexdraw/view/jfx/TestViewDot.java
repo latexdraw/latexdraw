@@ -10,6 +10,7 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,6 +28,11 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
+	}
+
+	@AfterClass
+	public static void afterClass() throws TimeoutException {
+		FxToolkit.cleanupStages();
 	}
 
 	@Override

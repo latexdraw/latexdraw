@@ -1,10 +1,14 @@
 package net.sf.latexdraw.commands;
 
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.malai.command.Command;
+import org.malai.command.CommandsRegistry;
+import org.malai.undo.UndoCollector;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -17,6 +21,14 @@ public abstract class TestCommand<T extends Command> {
 	public void setUp() {
 		drawing = ShapeFactory.INST.createDrawing();
 		cmd = createCmd();
+	}
+
+	@After
+	public void tearDown() {
+		CommandsRegistry.INSTANCE.clear();
+		CommandsRegistry.INSTANCE.removeAllHandlers();
+		BadaboomCollector.INSTANCE.clear();
+		UndoCollector.INSTANCE.clear();
 	}
 
 	protected abstract T createCmd();

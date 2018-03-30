@@ -14,6 +14,7 @@ import net.sf.latexdraw.data.TextSupplier;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,6 +30,11 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
 		LaTeXGenerator.setPackages("");
+	}
+
+	@AfterClass
+	public static void afterClass() throws TimeoutException {
+		FxToolkit.cleanupStages();
 	}
 
 	@Override

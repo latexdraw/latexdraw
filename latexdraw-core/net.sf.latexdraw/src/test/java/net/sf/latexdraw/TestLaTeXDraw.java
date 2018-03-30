@@ -6,7 +6,6 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.malai.command.CommandsRegistry;
 import org.testfx.framework.junit.ApplicationTest;
@@ -17,7 +16,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-@Ignore
 public class TestLaTeXDraw extends ApplicationTest {
 	LaTeXDraw app;
 

@@ -12,6 +12,8 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import org.junit.After;
 import org.junit.Before;
+import org.malai.command.CommandsRegistry;
+import org.malai.undo.UndoCollector;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -37,6 +39,10 @@ abstract class TestViewShape<T extends ViewShape<S>, S extends ISingleShape> imp
 	@After
 	public void tearDown() {
 		view.flush();
+		CommandsRegistry.INSTANCE.clear();
+		CommandsRegistry.INSTANCE.removeAllHandlers();
+		BadaboomCollector.INSTANCE.clear();
+		UndoCollector.INSTANCE.clear();
 	}
 
 	@Override

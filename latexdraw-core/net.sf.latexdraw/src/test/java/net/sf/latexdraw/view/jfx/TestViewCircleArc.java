@@ -2,6 +2,7 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Line;
@@ -9,11 +10,15 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
+import org.testfx.api.FxToolkit;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -26,6 +31,16 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 	@DataPoints
 	public static Collection<Function<ViewCircleArc, Arc>> getArcsToTest() {
 		return Arrays.asList(v -> v.border, v -> v.shadow, v -> v.dblBorder);
+	}
+
+	@BeforeClass
+	public static void beforeClass() throws TimeoutException {
+		FxToolkit.registerPrimaryStage();
+	}
+
+	@AfterClass
+	public static void afterClass() throws TimeoutException {
+		FxToolkit.cleanupStages();
 	}
 
 	@Override
@@ -45,6 +60,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		final double startAngle = arc.getStartAngle();
 		final double angle = model.getAngleStart() + Math.PI / 4d;
 		model.setAngleStart(angle);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(arc.getStartAngle(), startAngle);
 		assertEquals(Math.toDegrees(angle), arc.getStartAngle(), 0.00001);
 	}
@@ -55,6 +71,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		final double length = arc.getLength();
 		final double angle = model.getAngleStart() + Math.PI / 4d;
 		model.setAngleStart(angle);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(arc.getLength(), length);
 		assertEquals(Math.toDegrees(model.getAngleEnd() - model.getAngleStart()), arc.getLength(), 0.0001);
 	}
@@ -65,6 +82,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		final double length = arc.getLength();
 		final double angle = model.getAngleEnd() + Math.PI / 4d;
 		model.setAngleEnd(angle);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(arc.getLength(), length);
 		assertEquals(Math.toDegrees(model.getAngleEnd() - model.getAngleStart()), arc.getLength(), 0.0001);
 	}
@@ -72,6 +90,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 	@Theory
 	public void testTypeArc(final ArcStyle style, final Function<ViewCircleArc, Arc> fct) {
 		model.setArcStyle(style);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(style.getJFXStyle(), fct.apply(view).getType());
 	}
 
@@ -80,7 +99,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		assumeTrue(style.supportArrow());
 		model.setArcStyle(style);
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
-//		assertNotNull(fct.apply(view).getClip());
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.border.getClip() instanceof Arc);
 	}
 
@@ -90,6 +109,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		assumeTrue(style.supportArrow());
 		model.setArcStyle(style);
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(((Arc) view.border.getClip()).getType(), style.getJFXStyle());
 	}
 
@@ -99,6 +119,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		model.setArcStyle(style);
 		model.setThickness(model.getThickness() * 2d);
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(((Arc) view.border.getClip()).getStrokeWidth(), view.border.getStrokeWidth(), 0.0001);
 	}
 
@@ -108,6 +129,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		model.setArcStyle(style);
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
 		model.setArrowStyle(ArrowStyle.RIGHT_DBLE_ARROW, -1);
+		WaitForAsyncUtils.waitForFxEvents();
 		final Arc clip = (Arc) view.border.getClip();
 		assertEquals(clip.getCenterX(), view.border.getCenterX(), 0.0001);
 		assertEquals(clip.getCenterY(), view.border.getCenterY(), 0.0001);
@@ -124,6 +146,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		model.setArrowLength(0d);
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
 		model.setArrowStyle(ArrowStyle.RIGHT_DBLE_ARROW, -1);
+		WaitForAsyncUtils.waitForFxEvents();
 		final Arc clip = (Arc) view.border.getClip();
 		assertNotEquals(clip.getLength(), 0d);
 	}
@@ -133,7 +156,8 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		model.setWidth(10d);
 		model.setPosition(0d, 10d);
 		model.setThickness(2d);
-		Line line = new Line(11d, 0d, 11d, 10d);
+		final Line line = new Line(11d, 0d, 11d, 10d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.border.intersects(line.getBoundsInLocal()));
 	}
 
@@ -141,6 +165,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 	public void testThicknessChangeRadius() {
 		final Arc arc = cloneArc(view.border);
 		model.setThickness(model.getThickness() * 2d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX(), 0.00001);
 		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY(), 0.00001);
 	}
@@ -149,6 +174,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 	public void testTicknessChangeHasDblBord() {
 		final Arc arc = cloneArc(view.border);
 		model.setHasDbleBord(true);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX(), 0.00001);
 		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY(), 0.00001);
 	}
@@ -158,6 +184,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		final Arc arc = cloneArc(view.border);
 		model.setHasDbleBord(true);
 		model.setDbleBordSep(model.getDbleBordSep() * 2d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX(), 0.00001);
 		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY(), 0.00001);
 	}

@@ -1,21 +1,13 @@
 package net.sf.latexdraw.view.jfx;
 
-import java.util.concurrent.TimeoutException;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.testfx.api.FxToolkit;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertNotEquals;
 
 abstract class TestViewStdGrid<S extends ViewStdGrid<T>, T extends IStandardGrid> extends TestViewShape<S, T> {
-	@BeforeClass
-	public static void beforeClass() throws TimeoutException {
-		FxToolkit.registerPrimaryStage();
-	}
-
 	@Test
 	public abstract void testChangeGridEndX();
 

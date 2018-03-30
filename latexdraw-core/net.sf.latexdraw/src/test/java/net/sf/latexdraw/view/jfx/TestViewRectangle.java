@@ -5,6 +5,7 @@ import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.data.RectSupplier;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
@@ -15,6 +16,11 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 	@BeforeClass
 	public static void beforeClass() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
+	}
+
+	@AfterClass
+	public static void afterClass() throws TimeoutException {
+		FxToolkit.cleanupStages();
 	}
 
 	@Override

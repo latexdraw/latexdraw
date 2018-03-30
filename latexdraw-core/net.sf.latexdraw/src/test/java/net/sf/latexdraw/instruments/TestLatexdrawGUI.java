@@ -7,8 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TitledPane;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -19,10 +17,10 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangTool;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.malai.command.CommandsRegistry;
-import org.testfx.api.FxToolkit;
+import org.malai.instrument.Instrument;
+import org.malai.undo.UndoCollector;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -37,19 +35,19 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	protected Stage stage;
 	Injector injector;
 
-	@Before
-	public void setUp() {
-		CommandsRegistry.INSTANCE.clear();
-		BadaboomCollector.INSTANCE.clear();
-		WaitForAsyncUtils.waitForFxEvents();
-	}
-
 	@After
 	public void tearDown() throws TimeoutException {
-		FxToolkit.hideStage();
-		FxToolkit.cleanupStages();
-		release(new KeyCode[] {});
-		release(new MouseButton[] {});
+		stage.minHeightProperty().unbind();
+		stage.minWidthProperty().unbind();
+
+		injector.getInstances().stream().filter(obj -> obj instanceof Instrument<?>).forEach(ins -> ((Instrument<?>) ins).uninstallBindings());
+		injector.clear();
+		stage = null;
+
+		CommandsRegistry.INSTANCE.clear();
+		CommandsRegistry.INSTANCE.removeAllHandlers();
+		BadaboomCollector.INSTANCE.clear();
+		UndoCollector.INSTANCE.clear();
 	}
 
 	@Override

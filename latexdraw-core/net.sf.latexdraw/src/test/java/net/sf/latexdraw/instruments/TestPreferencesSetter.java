@@ -41,7 +41,6 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 		};
 	}
 
-	@Override
 	@Before
 	public void setUp() {
 		try {
@@ -51,7 +50,6 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 		}catch(final NoSuchFieldException | IllegalAccessException ex) {
 			fail(ex.getMessage());
 		}
-		super.setUp();
 		setter = (PreferencesSetter) injectorFactory.call(PreferencesSetter.class);
 		setter.setActivated(true);
 	}

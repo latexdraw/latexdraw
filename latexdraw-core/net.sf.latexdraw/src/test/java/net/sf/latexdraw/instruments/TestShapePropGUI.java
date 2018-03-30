@@ -125,10 +125,8 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 		drawing.getSelection().addShape(sh);
 	};
 
-	@Override
 	@Before
 	public void setUp() {
-		super.setUp();
 		pencil = (Pencil) injectorFactory.call(Pencil.class);
 		hand = (Hand) injectorFactory.call(Hand.class);
 		drawing = (IDrawing) injectorFactory.call(IDrawing.class);
