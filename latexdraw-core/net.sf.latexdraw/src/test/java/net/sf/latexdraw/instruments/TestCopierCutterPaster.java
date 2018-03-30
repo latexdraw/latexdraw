@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangTool;
@@ -55,22 +56,25 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 		};
 	}
 
-
 	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-
+	public void start(final Stage aStage) {
+		super.start(aStage);
 		try {
 			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/CopyPaste.fxml"), LangTool.INSTANCE.getBundle(),
 				new LatexdrawBuilderFactory(injector), injectorFactory);
 			final BorderPane pane = new BorderPane();
 			pane.setTop(root);
-			pane.setCenter(stage.getScene().getRoot());
-			stage.getScene().setRoot(pane);
+			pane.setCenter(aStage.getScene().getRoot());
+			aStage.getScene().setRoot(pane);
 		}catch(final IOException ex) {
 			fail(ex.getMessage());
 		}
+	}
+
+	@Override
+	@Before
+	public void setUp() {
+		super.setUp();
 		copier = (CopierCutterPaster) injectorFactory.call(CopierCutterPaster.class);
 		hand.setActivated(true);
 		copier.setActivated(true);
