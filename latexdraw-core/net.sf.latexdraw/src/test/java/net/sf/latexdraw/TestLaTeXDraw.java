@@ -1,8 +1,12 @@
 package net.sf.latexdraw;
 
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.malai.command.CommandsRegistry;
 import org.testfx.framework.junit.ApplicationTest;
@@ -10,8 +14,10 @@ import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+@Ignore
 public class TestLaTeXDraw extends ApplicationTest {
 	LaTeXDraw app;
 
@@ -77,14 +83,14 @@ public class TestLaTeXDraw extends ApplicationTest {
 		assertTrue(BadaboomCollector.INSTANCE.isEmpty());
 	}
 
-//	@Test
-//	public void testMoveViewPort() {
-//		final ScrollPane pane = lookup("#scrollPane").query();
-//		final double hvalue = pane.getHvalue();
-//		final double vvalue = pane.getVvalue();
-//		drag("#canvas", MouseButton.MIDDLE).dropBy(100d, 200d);
-//		WaitForAsyncUtils.waitForFxEvents();
-//		assertThat(hvalue, Matchers.greaterThan(pane.getHvalue()));
-//		assertThat(vvalue, Matchers.greaterThan(pane.getVvalue()));
-//	}
+	@Test
+	public void testMoveViewPort() {
+		final ScrollPane pane = lookup("#scrollPane").query();
+		final double hvalue = pane.getHvalue();
+		final double vvalue = pane.getVvalue();
+		drag("#canvas", MouseButton.MIDDLE).dropBy(100d, 200d);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertThat(hvalue, Matchers.greaterThan(pane.getHvalue()));
+		assertThat(vvalue, Matchers.greaterThan(pane.getVvalue()));
+	}
 }
