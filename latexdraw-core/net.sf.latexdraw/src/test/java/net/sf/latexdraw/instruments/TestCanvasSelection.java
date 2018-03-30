@@ -25,6 +25,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
+@Ignore
 public class TestCanvasSelection extends BaseTestCanvas {
 	TextSetter setter;
 
