@@ -16,6 +16,8 @@ import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.Page;
+import net.sf.latexdraw.view.jfx.Canvas;
 import org.junit.After;
 import org.junit.Test;
 import org.malai.command.CommandsRegistry;
@@ -52,6 +54,8 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 
 	@Override
 	public void start(final Stage aStage) {
+		Canvas.setMargins(20);
+		Canvas.setDefaultPage(Page.HORIZONTAL);
 		stage = aStage;
 
 		try {

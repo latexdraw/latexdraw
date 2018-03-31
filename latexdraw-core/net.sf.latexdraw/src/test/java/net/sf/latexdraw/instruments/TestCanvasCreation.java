@@ -86,8 +86,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(100d, drawing.getShapeAt(0).getWidth(), 0.00001d);
 		assertEquals(200d, drawing.getShapeAt(0).getHeight(), 0.00001d);
 
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), ((IRectangle) drawing.getShapeAt(0)).getPosition().getX(), 0.00001d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), ((IRectangle) drawing.getShapeAt(0)).getPosition().getX(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
 	}
 
 	@Test
@@ -101,8 +101,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(100d, drawing.getShapeAt(0).getWidth(), 0.00001d);
 		assertEquals(200d, drawing.getShapeAt(0).getHeight(), 0.00001d);
 
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
 	}
 
 	@Test
@@ -116,8 +116,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(202d, drawing.getShapeAt(0).getWidth(), 0.00001d);
 		assertEquals(202d, drawing.getShapeAt(0).getHeight(), 0.00001d);
 
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
 	}
 
 	@Test
@@ -130,8 +130,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertTrue(drawing.getShapeAt(0) instanceof ICircle);
 		assertEquals(202d, drawing.getShapeAt(0).getWidth(), 0.00001d);
 		assertEquals(202d, drawing.getShapeAt(0).getHeight(), 0.00001d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
 	}
 
 	@Test
@@ -144,8 +144,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertTrue(drawing.getShapeAt(0) instanceof ICircleArc);
 		assertEquals(202d, drawing.getShapeAt(0).getWidth(), 0.00001d);
 		assertEquals(202d, drawing.getShapeAt(0).getHeight(), 0.00001d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
 		assertEquals(ArcStyle.ARC, ((ICircleArc) drawing.getShapeAt(0)).getArcStyle());
 	}
 
@@ -161,8 +161,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(100d, drawing.getShapeAt(0).getWidth(), 1d);
 		assertEquals(200d, drawing.getShapeAt(0).getHeight(), 1d);
 
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), drawing.getShapeAt(0).getTopLeftPoint().getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).getTopLeftPoint().getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), drawing.getShapeAt(0).getTopLeftPoint().getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).getTopLeftPoint().getY(), 1d);
 	}
 
 	@Test
@@ -174,8 +174,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IPolygon);
 		final IPolygon sh = (IPolygon) drawing.getShapeAt(0);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
 		assertEquals(3, sh.getNbPoints());
 	}
 
@@ -188,8 +188,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IPolyline);
 		final IPolyline sh = (IPolyline) drawing.getShapeAt(0);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
 		assertEquals(3, sh.getNbPoints());
 	}
 
@@ -202,8 +202,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IBezierCurve);
 		final IBezierCurve sh = (IBezierCurve) drawing.getShapeAt(0);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
 		assertTrue(sh.isOpened());
 		assertEquals(3, sh.getNbPoints());
 	}
@@ -217,8 +217,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IDot);
 		final IDot sh = (IDot) drawing.getShapeAt(0);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
 
 	@Test
@@ -230,8 +230,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IGrid);
 		final IGrid sh = (IGrid) drawing.getShapeAt(0);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
 
 	@Test
@@ -243,8 +243,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IAxes);
 		final IAxes sh = (IAxes) drawing.getShapeAt(0);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
 
 	@Test
@@ -254,15 +254,15 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		textAutoSize.setText("foo");
 		final Point2D pos = point(canvas).query();
 		when(setter.getPosition()).thenReturn(
-			ShapeFactory.INST.createPoint(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(),-Canvas.MARGINS + canvas.screenToLocal(pos).getY()));
+			ShapeFactory.INST.createPoint(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(),-Canvas.getMargins() + canvas.screenToLocal(pos).getY()));
 		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(SLEEP);
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IText);
 		final IText sh = (IText) drawing.getShapeAt(0);
 		assertEquals("foo", sh.getText());
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
 
 	@Test
@@ -276,15 +276,15 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		when(setter.isActivated()).thenReturn(true);
 		textAutoSize.setText("foo");
 		final Point2D pos = point(canvas).query();
-		when(setter.getPosition()).thenReturn(ShapeFactory.INST.createPoint(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(),
-			-Canvas.MARGINS + canvas.screenToLocal(pos).getY()));
+		when(setter.getPosition()).thenReturn(ShapeFactory.INST.createPoint(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(),
+			-Canvas.getMargins() + canvas.screenToLocal(pos).getY()));
 		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(SLEEP);
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IPicture);
 		final IPicture sh = (IPicture) drawing.getShapeAt(0);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
 
 	@Test

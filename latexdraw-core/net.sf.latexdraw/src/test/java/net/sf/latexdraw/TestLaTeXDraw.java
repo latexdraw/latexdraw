@@ -3,6 +3,8 @@ package net.sf.latexdraw;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.Page;
+import net.sf.latexdraw.view.jfx.Canvas;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -21,6 +23,8 @@ public class TestLaTeXDraw extends ApplicationTest {
 
 	@BeforeClass
 	public static void beforeAll() throws Exception {
+		Canvas.setMargins(20);
+		Canvas.setDefaultPage(Page.HORIZONTAL);
 		launch(LaTeXDraw.class);
 	}
 

@@ -74,10 +74,29 @@ import org.w3c.dom.NodeList;
  */
 public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitialisable, CmdHandler, Zoomable, ViewsSynchroniserHandler {
 	/** The margin used to surround the drawing. */
-	public static final int MARGINS = 1500;
+	protected static int margins = 1500;
+
+	protected static Page defaultPage = Page.USLETTER;
 
 	/** The origin of the drawing in the whole drawing area. */
-	public static final IPoint ORIGIN = ShapeFactory.INST.createPoint(MARGINS, MARGINS);
+	public static final IPoint ORIGIN = ShapeFactory.INST.createPoint(margins, margins);
+
+	public static void setDefaultPage(final Page newPage) {
+		if(newPage != null) {
+			defaultPage = newPage;
+		}
+	}
+
+	public static int getMargins() {
+		return margins;
+	}
+
+	public static void setMargins(final int newMargins) {
+		if(newMargins >= 0) {
+			margins = newMargins;
+			ORIGIN.setPoint(margins, margins);
+		}
+	}
 
 	/** The model of the view. */
 	private final IDrawing drawing;
@@ -119,10 +138,9 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		drawing = ShapeFactory.INST.createDrawing();
 		zoom = new SimpleDoubleProperty(1d);
 		tempView = Optional.empty();
-		page = new PageView(Page.USLETTER, getOrigin());
-
-		setPrefWidth(MARGINS * 2d + page.getPage().getWidth() * IShape.PPC);
-		setPrefHeight(MARGINS * 2d + page.getPage().getHeight() * IShape.PPC);
+		page = new PageView(defaultPage, getOrigin());
+		setPrefWidth(margins * 2d + page.getPage().getWidth() * IShape.PPC);
+		setPrefHeight(margins * 2d + page.getPage().getHeight() * IShape.PPC);
 
 		magneticGrid = new MagneticGridImpl(this);
 

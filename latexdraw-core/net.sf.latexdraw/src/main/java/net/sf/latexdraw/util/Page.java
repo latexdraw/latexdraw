@@ -15,27 +15,31 @@ package net.sf.latexdraw.util;
  */
 public enum Page {
 	/** The US letter format. */
-	USLETTER {
-		@Override
-		public double getWidth() {
-			return 21.6;
-		}
+	USLETTER(21.6, 27.9),
+	/** horizontal format */
+	HORIZONTAL(16, 12);
 
-		@Override
-		public double getHeight() {
-			return 27.9;
-		}
-	};
+	final double width;
+	final double height;
+
+	Page(final double w, final double h) {
+		width = w;
+		height = h;
+	}
 
 	/**
 	 * @return The width of the page in CM.
 	 * @since 3.1
 	 */
-	public abstract double getWidth();
+	public double getWidth() {
+		return width;
+	}
 
 	/**
 	 * @return The height of the page in CM.
 	 * @since 3.1
 	 */
-	public abstract double getHeight();
+	public double getHeight() {
+		return height;
+	}
 }

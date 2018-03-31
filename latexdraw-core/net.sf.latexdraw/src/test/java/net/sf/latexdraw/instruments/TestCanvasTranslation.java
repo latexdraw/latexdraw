@@ -114,8 +114,8 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 		final IPoint tl = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
 
 		clickOn(canvas.getViews().getChildren().get(0)).sleep(SLEEP);
-		final Point2D bounds = canvas.localToScreen(canvas.getSelectionBorder().getLayoutX() + Canvas.MARGINS,
-			canvas.getSelectionBorder().getLayoutY() + Canvas.MARGINS);
+		final Point2D bounds = canvas.localToScreen(canvas.getSelectionBorder().getLayoutX() + Canvas.getMargins(),
+			canvas.getSelectionBorder().getLayoutY() + Canvas.getMargins());
 		drag(bounds.getX() + 150, bounds.getY()).sleep(10).dropBy(100d, 200d).sleep(SLEEP);
 		assertEquals(tl.getX() + 100d, canvas.getDrawing().getShapeAt(0).getTopLeftPoint().getX(), 1d);
 		assertEquals(tl.getY() + 200d, canvas.getDrawing().getShapeAt(0).getTopLeftPoint().getY(), 1d);

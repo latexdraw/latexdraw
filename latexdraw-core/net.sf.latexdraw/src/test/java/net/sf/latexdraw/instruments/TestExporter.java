@@ -12,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.commands.Export;
 import net.sf.latexdraw.commands.ExportTemplate;
@@ -65,10 +66,8 @@ public class TestExporter extends BaseTestCanvas {
 	}
 
 	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-
+	public void start(final Stage aStage) {
+		super.start(aStage);
 		try {
 			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Export.fxml"), LangTool.INSTANCE.getBundle(),
 				new LatexdrawBuilderFactory(injector), injectorFactory);
@@ -79,6 +78,12 @@ public class TestExporter extends BaseTestCanvas {
 		}catch(final IOException ex) {
 			fail(ex.getMessage());
 		}
+	}
+
+	@Override
+	@Before
+	public void setUp() {
+		super.setUp();
 		exporter = (Exporter) injectorFactory.call(Exporter.class);
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);

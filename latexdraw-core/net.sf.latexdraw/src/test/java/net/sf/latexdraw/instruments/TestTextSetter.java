@@ -77,8 +77,8 @@ public class TestTextSetter extends BaseTestCanvas {
 		moveTo(pos).sleep(SLEEP).clickOn(MouseButton.PRIMARY).sleep(SLEEP);
 		assertTrue(setter.isActivated());
 		assertTrue(setter.getTextField().isVisible());
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), setter.getTextField().getLayoutX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY() -setter.getTextField().getPrefHeight(), setter.getTextField().getLayoutY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), setter.getTextField().getLayoutX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() -setter.getTextField().getPrefHeight(), setter.getTextField().getLayoutY(), 1d);
 		assertTrue(setter.getTextField().isFocused());
 	}
 
@@ -89,8 +89,8 @@ public class TestTextSetter extends BaseTestCanvas {
 		moveTo(pos).sleep(SLEEP).clickOn(MouseButton.PRIMARY).sleep(SLEEP);
 		assertTrue(setter.isActivated());
 		assertTrue(setter.getTextField().isVisible());
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), setter.getTextField().getLayoutX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY() - setter.getTextField().getPrefHeight(), setter.getTextField().getLayoutY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), setter.getTextField().getLayoutX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - setter.getTextField().getPrefHeight(), setter.getTextField().getLayoutY(), 1d);
 		assertTrue(setter.getTextField().isFocused());
 	}
 
@@ -104,8 +104,8 @@ public class TestTextSetter extends BaseTestCanvas {
 		assertTrue(canvas.getDrawing().getShapeAt(0) instanceof IText);
 		final IText sh = (IText) canvas.getDrawing().getShapeAt(0);
 		assertEquals("foo bar", sh.getText());
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
 
 	@Test
@@ -118,8 +118,8 @@ public class TestTextSetter extends BaseTestCanvas {
 		assertTrue(canvas.getDrawing().getShapeAt(0) instanceof IPlot);
 		final IPlot sh = (IPlot) canvas.getDrawing().getShapeAt(0);
 		assertEquals("x 2 mul", sh.getPlotEquation());
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
-		assertEquals(-Canvas.MARGINS + canvas.screenToLocal(pos).getY() + setter.getTextField().getPrefHeight(), sh.getPosition().getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() + setter.getTextField().getPrefHeight(), sh.getPosition().getY(), 1d);
 	}
 
 	@Test
