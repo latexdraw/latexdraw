@@ -163,7 +163,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[button2EditingChoiceMap.size()+1]);
 		nodes[nodes.length-1] = handB;
 
-		toggleButtonBinder(AddShape.class).on(textB).
+		toggleButtonBinder(AddShape.class).on(handB).
 			map(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(pencil.textSetter.getPosition()),
 				pencil.textSetter.getTextField().getText()), canvas.getDrawing())).
 			when(i -> pencil.textSetter.isActivated() && !pencil.textSetter.getTextField().getText().isEmpty()).bind();
@@ -184,10 +184,12 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 			/* Selection of the instruments to activate/deactivate. */
 			if(button == handB) {
-				final boolean noSelection = hand.canvas.getDrawing().getSelection().isEmpty();
+				final boolean noSelection = canvas.getDrawing().getSelection().isEmpty();
 				c.addInstrumentToActivate(hand);
 
-				if(!noSelection) c.addInstrumentToActivate(deleter);
+				if(!noSelection) {
+					c.addInstrumentToActivate(deleter);
+				}
 
 				c.addInstrumentToInactivate(pencil);
 
