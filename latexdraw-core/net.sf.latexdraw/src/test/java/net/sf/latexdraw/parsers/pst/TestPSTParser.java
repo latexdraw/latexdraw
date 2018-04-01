@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.atn.ATNDeserializer;
 import org.junit.After;
 import org.junit.Before;
 import org.malai.command.CommandsRegistry;
@@ -57,8 +58,13 @@ public abstract class TestPSTParser {
 		final net.sf.latexdraw.parsers.pst.PSTParser parser =
 			new net.sf.latexdraw.parsers.pst.PSTParser(new CommonTokenStream(new net.sf.latexdraw.parsers.pst.PSTLexer(CharStreams.fromString(code))));
 		parser.addParseListener(listener);
-		parser.addErrorListener(new ErrorListener());
+		final ErrorListener errList = new ErrorListener();
+		parser.addErrorListener(errList);
 		parser.pstCode(new PSTContext());
+//		// Trying to flush the parser
+		parser.removeParseListener(listener);
+		parser.removeErrorListener(errList);
+		new ATNDeserializer().deserialize(net.sf.latexdraw.parsers.pst.PSTLexer._serializedATN.toCharArray());
 	}
 
 	public static class ErrorListener extends BaseErrorListener {
