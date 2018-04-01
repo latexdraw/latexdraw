@@ -51,6 +51,22 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 				bindToInstance(ShapeDeleter.class, Mockito.mock(ShapeDeleter.class));
 				bindToInstance(CodeInserter.class, Mockito.mock(CodeInserter.class));
 				bindToInstance(MagneticGrid.class, Mockito.mock(MagneticGrid.class));
+				bindToInstance(ShapeAxesCustomiser.class, Mockito.mock(ShapeAxesCustomiser.class));
+				bindToInstance(ShapeDoubleBorderCustomiser.class, Mockito.mock(ShapeDoubleBorderCustomiser.class));
+				bindToInstance(ShapeFreeHandCustomiser.class, Mockito.mock(ShapeFreeHandCustomiser.class));
+				bindToInstance(ShapeCoordDimCustomiser.class, Mockito.mock(ShapeCoordDimCustomiser.class));
+				bindToInstance(ShapeShadowCustomiser.class, Mockito.mock(ShapeShadowCustomiser.class));
+				bindToInstance(ShapeTransformer.class, Mockito.mock(ShapeTransformer.class));
+				bindToInstance(ShapeGrouper.class, Mockito.mock(ShapeGrouper.class));
+				bindToInstance(ShapePositioner.class, Mockito.mock(ShapePositioner.class));
+				bindToInstance(ShapeRotationCustomiser.class, Mockito.mock(ShapeRotationCustomiser.class));
+				bindToInstance(ShapeDotCustomiser.class, Mockito.mock(ShapeDotCustomiser.class));
+				bindToInstance(ShapeBorderCustomiser.class, Mockito.mock(ShapeBorderCustomiser.class));
+				bindToInstance(ShapeArcCustomiser.class, Mockito.mock(ShapeArcCustomiser.class));
+				bindToInstance(ShapeFillingCustomiser.class, Mockito.mock(ShapeFillingCustomiser.class));
+				bindToInstance(ShapeGridCustomiser.class, Mockito.mock(ShapeGridCustomiser.class));
+				bindToInstance(ShapeArrowCustomiser.class, Mockito.mock(ShapeArrowCustomiser.class));
+				bindToInstance(ShapeStdGridCustomiser.class, Mockito.mock(ShapeStdGridCustomiser.class));
 			}
 		};
 	}

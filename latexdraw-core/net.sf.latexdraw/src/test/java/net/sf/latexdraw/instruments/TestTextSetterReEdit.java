@@ -5,7 +5,6 @@ import javafx.application.Platform;
 import javafx.scene.control.Spinner;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import net.sf.latexdraw.data.StringData;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IText;
@@ -14,9 +13,6 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -24,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-@RunWith(Theories.class)
 public class TestTextSetterReEdit extends BaseTestCanvas {
 	TextSetter setter;
 	ShapePlotCustomiser plot;
@@ -80,7 +75,8 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 	@Test
 	public void testEditPlot() {
 		final IPlot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 300),
-			0, 5, "x 2.5 div", false);
+			0, 2, "x 2.5 div", false);
+		plot.setNbPlottedPoints(5);
 		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
 		WaitForAsyncUtils.waitForFxEvents();
 		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
@@ -89,14 +85,45 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 		assertEquals("x x mul", plot.getPlotEquation());
 	}
 
-	@Theory
-	public void testEditBadPlot(@StringData(vals={"y", "x log", "x 0 div"}) final String badEq) {
+	@Test
+	public void testEditBadPlot1() {
 		final IPlot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 300),
-			0, 5, "x 2.5 div", false);
+			0, 3, "x 2.5 div", false);
+		plot.setNbPlottedPoints(5);
 		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
 		WaitForAsyncUtils.waitForFxEvents();
 		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
-		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.END).eraseText(10).write(badEq).type(KeyCode.ENTER);
+		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.END).eraseText(10).write("y").type(KeyCode.ENTER);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertTrue(setter.getTextField().isVisible());
+		assertTrue(setter.getTextField().getMessageField().isVisible());
+		assertEquals("x 2.5 div", plot.getPlotEquation());
+	}
+
+	@Test
+	public void testEditBadPlotLog() {
+		final IPlot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 300),
+			0, 3, "x 2.5 div", false);
+		plot.setNbPlottedPoints(5);
+		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
+		WaitForAsyncUtils.waitForFxEvents();
+		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
+		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.END).eraseText(10).write("x log").type(KeyCode.ENTER);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertTrue(setter.getTextField().isVisible());
+		assertTrue(setter.getTextField().getMessageField().isVisible());
+		assertEquals("x 2.5 div", plot.getPlotEquation());
+	}
+
+	@Test
+	public void testEditBadPlotDiv0() {
+		final IPlot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 300),
+			0, 3, "x 2.5 div", false);
+		plot.setNbPlottedPoints(5);
+		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
+		WaitForAsyncUtils.waitForFxEvents();
+		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
+		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.END).eraseText(10).write("x 0 div").type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(setter.getTextField().isVisible());
 		assertTrue(setter.getTextField().getMessageField().isVisible());
