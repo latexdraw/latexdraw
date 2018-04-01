@@ -54,7 +54,8 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable {
 	protected void doCmdBody() {
 		try {
 			final PSTLatexdrawListener listener = new PSTLatexdrawListener();
-			final PSTParser parser = new PSTParser(new CommonTokenStream(new PSTLexer(CharStreams.fromString(code))));
+			final PSTLexer lexer = new PSTLexer(CharStreams.fromString(code));
+			final PSTParser parser = new PSTParser(new CommonTokenStream(lexer));
 			parser.addParseListener(listener);
 			parser.pstCode(new PSTContext());
 
@@ -75,6 +76,8 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable {
 					statusBar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.36"));
 				}
 			}
+			parser.getInterpreter().clearDFA();
+			lexer.getInterpreter().clearDFA();
 		}catch(final RecognitionException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			if(statusBar != null) {

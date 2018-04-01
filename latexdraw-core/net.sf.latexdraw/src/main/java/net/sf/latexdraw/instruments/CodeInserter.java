@@ -129,6 +129,8 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 			parser.addParseListener(listener);
 			parser.addErrorListener(errorListener);
 			parser.pstCode(new PSTContext());
+			parser.getInterpreter().clearDFA();
+			lexer.getInterpreter().clearDFA();
 		});
 	}
 
