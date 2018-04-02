@@ -36,7 +36,7 @@ public class TestShapeDeleter extends BaseTestCanvas {
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
 				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
-				bindAsEagerSingleton(TextSetter.class);
+				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 			}
 		};
 	}
