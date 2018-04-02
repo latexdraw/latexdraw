@@ -13,6 +13,7 @@ import net.sf.latexdraw.instruments.robot.FxRobotSpinner;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangTool;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -75,6 +76,7 @@ public class TestZoomer extends BaseTestCanvas implements FxRobotSpinner {
 		assertEquals(zoom + canvas.getZoomIncrement(), canvas.getZoom(), 0.00001);
 	}
 
+	@Ignore("Monocle does not manage num padd correctly https://bugs.openjdk.java.net/browse/JDK-8182572")
 	@Test
 	public void testIncrZoomKey() {
 		requestFocusCanvas.execute();
@@ -91,6 +93,7 @@ public class TestZoomer extends BaseTestCanvas implements FxRobotSpinner {
 		assertEquals(zoom - canvas.getZoomIncrement(), canvas.getZoom(), 0.00001);
 	}
 
+	@Ignore("Monocle does not support modifier yet")
 	@Test
 	public void testScrollZoom() {
 		requestFocusCanvas.execute();
