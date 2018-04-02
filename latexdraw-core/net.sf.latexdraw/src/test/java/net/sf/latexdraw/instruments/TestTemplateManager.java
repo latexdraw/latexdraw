@@ -2,8 +2,11 @@ package net.sf.latexdraw.instruments;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
@@ -75,7 +78,11 @@ public class TestTemplateManager extends BaseTestCanvas {
 
 	@Test
 	public void testDnDInsertTemplate() {
+		final ImageView view = new ImageView(new Image(getClass().getResourceAsStream("/Condenser.svg.png"))); //NON-NLS
+		view.setUserData(getClass().getResource("/Condenser.svg").getPath());
 		final FlowPane pane = find("#templatePane");
+		Platform.runLater(() -> pane.getChildren().add(0, view));
+		waitFXEvents.execute();
 		drag(pane.getChildren().get(0)).dropTo(canvas);
 		waitFXEvents.execute();
 		assertEquals(1, canvas.getDrawing().size());
