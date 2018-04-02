@@ -65,7 +65,6 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 	public void setUp() {
 		super.setUp();
 		hand.setActivated(true);
-		canvas.getMagneticGrid().setMagnetic(false);
 		when(pencil.isActivated()).thenReturn(false);
 		final MetaShapeCustomiser meta = (MetaShapeCustomiser) injectorFactory.call(MetaShapeCustomiser.class);
 		meta.dimPosCustomiser = (ShapeCoordDimCustomiser) injectorFactory.call(ShapeCoordDimCustomiser.class);

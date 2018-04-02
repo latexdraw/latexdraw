@@ -126,6 +126,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 		pencil = (Pencil) injectorFactory.call(Pencil.class);
 		hand = (Hand) injectorFactory.call(Hand.class);
 		canvas = (Canvas) injectorFactory.call(Canvas.class);
+		canvas.getMagneticGrid().setMagnetic(false);
 
 		Platform.runLater(() -> {
 			final int width = 800;
