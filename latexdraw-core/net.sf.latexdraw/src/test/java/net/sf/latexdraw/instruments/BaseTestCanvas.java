@@ -36,6 +36,11 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	IBezierCurve addedBezier;
 	IGroup addedGroup;
 
+	final GUIVoidCommand requestFocusCanvas = () -> {
+		Platform.runLater(() -> canvas.requestFocus());
+		waitFXEvents.execute();
+	};
+
 	final GUIVoidCommand addText = () -> Platform.runLater(() ->
 		canvas.getDrawing().addShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300,-Canvas.ORIGIN.getY()+300), "$foo bar")));
 
