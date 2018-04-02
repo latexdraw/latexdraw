@@ -2,8 +2,11 @@ package net.sf.latexdraw.instruments;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import net.sf.latexdraw.commands.shape.SelectShapes;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.malai.command.CmdHandler;
@@ -43,9 +46,18 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 
 	final GUIVoidCommand selectOneShape = () -> {
 		drawing.addShape(ShapeFactory.INST.createCircle());
-		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(0)));
+		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(-1)));
 		SelectShapes cmd = new SelectShapes();
-		cmd.addShape(drawing.getShapeAt(0));
+		cmd.addShape(drawing.getShapeAt(-1));
+		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
+		ins.update();
+	};
+
+	final GUICommand<List<Integer>> selectShapeAt = indexes -> {
+		final List<IShape> selectedShapes = indexes.stream().map(i -> drawing.getShapeAt(i)).collect(Collectors.toList());
+		drawing.setSelection(selectedShapes);
+		SelectShapes cmd = new SelectShapes();
+		selectedShapes.forEach(sh -> cmd.addShape(sh));
 		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
 		ins.update();
 	};

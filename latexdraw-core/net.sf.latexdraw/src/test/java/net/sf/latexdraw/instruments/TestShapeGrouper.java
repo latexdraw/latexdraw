@@ -51,7 +51,7 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 		groupB = find("#groupB");
 		sepB = find("#sepB");
 		mainPane = find("#mainPane");
-		ins = (ShapeGrouper) injectorFactory.call(ShapeGrouper.class);
+		ins = injector.getInstance(ShapeGrouper.class);
 		ins.setActivated(true);
 		ins.update();
 	}
@@ -76,10 +76,6 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	@Test
 	public void testDeactivatedEmpty() {
 		assertFalse(ins.isActivated());
-	}
-
-	@Test
-	public void testNotVisibleEmpty() {
 		assertFalse(mainPane.isVisible());
 	}
 
@@ -133,7 +129,7 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	@Test
 	public void testUnGroup() {
 		selectOneGroup.execute();
-		IGroup group = (IGroup) drawing.getShapeAt(0);
+		final IGroup group = (IGroup) drawing.getShapeAt(0);
 		clickSep.execute();
 		assertEquals(2, drawing.size());
 		assertEquals(group.getShapeAt(0), drawing.getShapeAt(0));
