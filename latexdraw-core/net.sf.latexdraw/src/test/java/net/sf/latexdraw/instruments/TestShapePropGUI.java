@@ -43,31 +43,14 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	protected final GUIVoidCommand checkInsDeactivated = () -> assertFalse(ins.isActivated());
 
 	protected final GUIVoidCommand activatePencil = () -> {
-		// when(pencil.isActivated()).thenReturn(true);
 		pencil.setActivated(true);
 		when(hand.isActivated()).thenReturn(false);
 	};
 
 	protected final GUIVoidCommand activateHand = () -> {
 		when(pencil.isActivated()).thenReturn(false);
-		// when(hand.isActivated()).thenReturn(true);
 		hand.setActivated(true);
 	};
-
-	// protected final GUICommand pencilGroupParams = () -> {
-	// IGroup g = ShapeFactory.INST.createGroup();
-	// g.addShape(ShapeFactory.INST.createEllipse());
-	// g.addShape(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
-	// g.addShape(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
-	// g.addShape(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
-	// g.addShape(ShapeFactory.INST.createText());
-	// g.addShape(ShapeFactory.INST.createCircleArc());
-	// g.addShape(ShapeFactory.INST.createPolyline());
-	// g.addShape(ShapeFactory.INST.createBezierCurve());
-	// g.addShape(ShapeFactory.INST.createFreeHand());
-	// g.addShape(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 10, "x", false));
-	// when(pencil.getGroupParams()).thenReturn(g);
-	// };
 
 	protected final GUIVoidCommand selectionAddRec = () -> {
 		IShape sh = ShapeFactory.INST.createRectangle();

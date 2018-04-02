@@ -3,7 +3,6 @@ package net.sf.latexdraw.instruments;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collections;
-import javafx.scene.Node;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
@@ -57,7 +56,7 @@ public class TestShapePositioner extends SelectionBasedTesting<ShapePositioner> 
 		new CompositeGUIVoidCommand(selectOneShape, selectOneShape).execute();
 		final IShape s1 = hand.canvas.getDrawing().getShapeAt(0);
 		final IShape s2 = hand.canvas.getDrawing().getShapeAt(1);
-		clickOn((Node) find("#backgroundB"));
+		clickOn("#backgroundB");
 		waitFXEvents.execute();
 		assertEquals(s2, hand.canvas.getDrawing().getShapeAt(0));
 		assertEquals(s1, hand.canvas.getDrawing().getShapeAt(1));
@@ -69,7 +68,7 @@ public class TestShapePositioner extends SelectionBasedTesting<ShapePositioner> 
 		selectShapeAt.execute(Collections.singletonList(0));
 		final IShape s1 = hand.canvas.getDrawing().getShapeAt(0);
 		final IShape s2 = hand.canvas.getDrawing().getShapeAt(1);
-		clickOn((Node) find("#foregroundB"));
+		clickOn("#foregroundB");
 		waitFXEvents.execute();
 		assertEquals(s2, hand.canvas.getDrawing().getShapeAt(0));
 		assertEquals(s1, hand.canvas.getDrawing().getShapeAt(1));
@@ -81,7 +80,7 @@ public class TestShapePositioner extends SelectionBasedTesting<ShapePositioner> 
 		selectShapeAt.execute(Arrays.asList(1, 2));
 		final IShape s2 = hand.canvas.getDrawing().getShapeAt(1);
 		final IShape s3 = hand.canvas.getDrawing().getShapeAt(2);
-		clickOn((Node) find("#backgroundB"));
+		clickOn("#backgroundB");
 		waitFXEvents.execute();
 		assertEquals(s2, hand.canvas.getDrawing().getShapeAt(0));
 		assertEquals(s3, hand.canvas.getDrawing().getShapeAt(1));
@@ -93,7 +92,7 @@ public class TestShapePositioner extends SelectionBasedTesting<ShapePositioner> 
 		selectShapeAt.execute(Arrays.asList(1, 2));
 		final IShape s2 = hand.canvas.getDrawing().getShapeAt(1);
 		final IShape s3 = hand.canvas.getDrawing().getShapeAt(2);
-		clickOn((Node) find("#foregroundB"));
+		clickOn("#foregroundB");
 		waitFXEvents.execute();
 		assertEquals(s2, hand.canvas.getDrawing().getShapeAt(hand.canvas.getDrawing().size() - 2));
 		assertEquals(s3, hand.canvas.getDrawing().getShapeAt(-1));

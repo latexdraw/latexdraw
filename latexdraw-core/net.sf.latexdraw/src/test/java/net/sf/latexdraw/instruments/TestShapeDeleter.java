@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
@@ -78,7 +77,7 @@ public class TestShapeDeleter extends BaseTestCanvas {
 	public void testClickDelRemoveShape() {
 		Platform.runLater(() -> canvas.requestFocus());
 		new CompositeGUIVoidCommand(addRec, waitFXEvents, selectAllShapes, waitFXEvents).execute();
-		clickOn((Node) find("#deleteB"));
+		clickOn("#deleteB");
 		waitFXEvents.execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 		assertTrue(find("#deleteB").isDisabled());
