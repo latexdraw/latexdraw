@@ -172,7 +172,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 				name = ""; //$NON-NLS-1$
 			}else {
 				name = new File(path).getName();
-				final int indexSVG = name.lastIndexOf(".svg");
+				final int indexSVG = name.lastIndexOf(".svg"); //NON-NLS
 
 				if(indexSVG != -1) {
 					name = name.substring(0, indexSVG);
@@ -197,7 +197,9 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 				progressBar.progressProperty().unbind();
 				progressBar.setVisible(false);
 			}
-			LaTeXDraw.getInstance().setModified(setModified);
+			if(setModified) {
+				LaTeXDraw.getInstance().setModified(true);
+			}
 		}
 	}
 
@@ -239,7 +241,6 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 					drawing.addShape(insertedShapes);
 					// Updating the possible widgets of the instruments.
 					LaTeXDraw.getInstance().getInstruments().forEach(ins -> ins.interimFeedback());
-					//				ui.updatePresentations();
 				});
 				return true;
 			}catch(final IOException | MalformedSVGDocument ex) {
@@ -289,10 +290,10 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		 */
 		private Optional<ImageView> createTemplateItem(final String svgPath, final String nameThumb, final String pathPic) {
 			try {
-				final ImageView view = new ImageView(new Image("file:"+pathPic + File.separator + nameThumb));
+				final ImageView view = new ImageView(new Image("file:"+pathPic + File.separator + nameThumb)); //NON-NLS
 				view.setUserData(svgPath);
 
-				final int id = nameThumb.lastIndexOf(".svg" + ExportFormat.PNG.getFileExtension());
+				final int id = nameThumb.lastIndexOf(".svg" + ExportFormat.PNG.getFileExtension()); //NON-NLS
 				if(id != -1) {
 					Tooltip.install(view, new Tooltip(nameThumb.substring(0, id)));
 				}
@@ -310,7 +311,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		 */
 		private void fillTemplatePane(final String pathTemplate, final String pathCache, final boolean sharedTemplates) {
 			try(final DirectoryStream<Path> paths =
-					Files.newDirectoryStream(Paths.get(pathTemplate), elt -> elt.toFile().isFile() && elt.toString().endsWith(".svg"))) {
+					Files.newDirectoryStream(Paths.get(pathTemplate), elt -> elt.toFile().isFile() && elt.toString().endsWith(".svg"))) { //NON-NLS
 				paths.forEach(entry -> createTemplateItem(entry.toFile().getPath(), entry.getFileName() + ExportFormat.PNG.getFileExtension(), pathCache).
 					ifPresent(item -> templatesPane.getChildren().add(item)));
 			}catch(final IOException ex) {
@@ -329,7 +330,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			if(!templateDir.isDirectory()) return;
 
 			try(final DirectoryStream<Path> paths =
-					Files.newDirectoryStream(Paths.get(pathTemplate), elt -> elt.toFile().isFile() && elt.toString().endsWith(".svg"))) {
+					Files.newDirectoryStream(Paths.get(pathTemplate), elt -> elt.toFile().isFile() && elt.toString().endsWith(".svg"))) { //NON-NLS
 				paths.forEach(file -> updateTemplate(file, pathCache));
 			}catch(final IOException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
