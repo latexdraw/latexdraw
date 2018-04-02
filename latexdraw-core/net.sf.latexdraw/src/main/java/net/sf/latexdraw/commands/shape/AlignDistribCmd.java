@@ -10,13 +10,17 @@
  */
 package net.sf.latexdraw.commands.shape;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.commands.ShapeCmdImpl;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.ViewShape;
 import org.malai.undo.Undoable;
 
 /**
@@ -25,7 +29,10 @@ import org.malai.undo.Undoable;
  */
 abstract class AlignDistribCmd extends ShapeCmdImpl<IGroup> implements Undoable, Modifying {
 	/** The former positions of the shapes to align. Used for undoing. */
-	List<IPoint> oldPositions;
+	protected List<IPoint> oldPositions;
+	/** The views corresponding to the shapes to align. */
+	protected List<ViewShape<?>> views;
+	protected Canvas canvas;
 
 	@Override
 	public void undo() {
@@ -43,5 +50,22 @@ abstract class AlignDistribCmd extends ShapeCmdImpl<IGroup> implements Undoable,
 			});
 			gp.setModified(true);
 		});
+	}
+
+	@Override
+	protected void doCmdBody() {
+		views = shape.map(gp -> gp.getShapes().stream().map(sh -> canvas.getViewFromShape(sh)).filter(opt -> opt.isPresent()).
+			map(opt -> opt.get()).collect(Collectors.<ViewShape<?>>toList())).orElse(Collections.emptyList());
+		oldPositions = shape.map(gp -> gp.getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList())).orElse(Collections.emptyList());
+		redo();
+	}
+
+	public void setCanvas(final Canvas theCanvas) {
+		canvas = theCanvas;
+	}
+
+	@Override
+	public RegistrationPolicy getRegistrationPolicy() {
+		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 }

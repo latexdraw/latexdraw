@@ -11,12 +11,12 @@
 package net.sf.latexdraw.commands.shape;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
-import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
 
 /**
@@ -31,11 +31,8 @@ public class AlignShapes extends AlignDistribCmd {
 		LEFT, RIGHT, TOP, BOTTOM, MID_HORIZ, MID_VERT
 	}
 
-	/** The views corresponding to the shapes to align. */
-	private List<ViewShape<?>> views;
 	/** The alignment to perform. */
 	private Alignment alignment;
-	private Canvas canvas;
 
 
 	public AlignShapes() {
@@ -44,8 +41,10 @@ public class AlignShapes extends AlignDistribCmd {
 
 	@Override
 	protected void doCmdBody() {
-		views = shape.get().getShapes().stream().map(sh -> canvas.getViewFromShape(sh).get()).collect(Collectors.toList());
-		oldPositions = shape.get().getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList());
+		views = shape.map(gp -> gp.getShapes().stream().map(sh -> canvas.getViewFromShape(sh)).filter(opt -> opt.isPresent()).
+			map(opt -> opt.get()).collect(Collectors.<ViewShape<?>>toList())).orElse(Collections.emptyList());
+
+		oldPositions = shape.map(gp -> gp.getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList())).orElse(Collections.emptyList());
 		redo();
 	}
 
@@ -98,7 +97,7 @@ public class AlignShapes extends AlignDistribCmd {
 	private void translateX(final List<Double> vals, final double ref) {
 		int i = 0;
 
-		for(final IShape sh : shape.get().getShapes()) {
+		for(final IShape sh : shape.map(gp -> (List<IShape>) gp.getShapes()).orElse(Collections.emptyList())) {
 			final double middle2 = vals.get(i);
 			if(!MathUtils.INST.equalsDouble(middle2, ref)) {
 				sh.translate(ref - middle2, 0d);
@@ -110,7 +109,7 @@ public class AlignShapes extends AlignDistribCmd {
 	private void translateY(final List<Double> vals, final double ref) {
 		int i = 0;
 
-		for(final IShape sh : shape.get().getShapes()) {
+		for(final IShape sh : shape.map(gp -> (List<IShape>) gp.getShapes()).orElse(Collections.emptyList())) {
 			final double y = vals.get(i);
 			if(!MathUtils.INST.equalsDouble(y, ref)) {
 				sh.translate(0d, ref - y);
@@ -229,17 +228,8 @@ public class AlignShapes extends AlignDistribCmd {
 		alignment = align;
 	}
 
-	public void setCanvas(final Canvas theCanvas) {
-		canvas = theCanvas;
-	}
-
 	@Override
 	public String getUndoName() {
 		return LangTool.INSTANCE.getBundle().getString("Actions.30");
-	}
-
-	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 }

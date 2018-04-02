@@ -13,11 +13,9 @@ package net.sf.latexdraw.commands.shape;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalInt;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LangTool;
-import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
 
 /**
@@ -36,21 +34,11 @@ public class DistributeShapes extends AlignDistribCmd {
 		}
 	}
 
-	/** The views corresponding to the shapes to align. */
-	private List<ViewShape<?>> views;
 	/** The alignment to perform. */
 	private Distribution distribution;
-	private Canvas canvas;
 
 	public DistributeShapes() {
 		super();
-	}
-
-	@Override
-	protected void doCmdBody() {
-		views = shape.get().getShapes().stream().map(sh -> canvas.getViewFromShape(sh).get()).collect(Collectors.toList());
-		oldPositions = shape.get().getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList());
-		redo();
 	}
 
 	@Override
@@ -173,17 +161,8 @@ public class DistributeShapes extends AlignDistribCmd {
 		distribution = distrib;
 	}
 
-	public void setCanvas(final Canvas theCanvas) {
-		canvas = theCanvas;
-	}
-
 	@Override
 	public String getUndoName() {
 		return LangTool.INSTANCE.getBundle().getString("Actions.6");
-	}
-
-	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
 	}
 }
