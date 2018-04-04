@@ -84,7 +84,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 		// Key shortcut ctrl+V to paste shapes.
 		keyNodeBinder(PasteShapes.class).on(canvas).with(KeyCode.V, LSystem.INSTANCE.getControlKey()).
 			map(i -> new PasteShapes(getCopyCutCmd().orElse(null), grid, canvas.getDrawing())).
-			when(interaction -> getCopyCutCmd().isPresent()).bind();
+			when(i -> getCopyCutCmd().isPresent()).bind();
 
 		// menu to copy shapes.
 		menuItemBinder(CopyShapes.class).on(copyMenu).
@@ -94,7 +94,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 		// Key shortcut ctrl+C to copy shapes.
 		keyNodeBinder(CopyShapes.class).on(canvas).with(KeyCode.C, LSystem.INSTANCE.getControlKey()).
 			map(i -> new CopyShapes(getSelectCmd().orElse(null))).
-			when(interaction -> isShapeSelected.get()).bind();
+			when(i -> isShapeSelected.get()).bind();
 
 		// menu to cut shapes.
 		menuItemBinder(CutShapes.class).on(cutMenu).
@@ -104,7 +104,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 		// Key shortcut ctrl+X to cut shapes.
 		keyNodeBinder(CutShapes.class).on(canvas).with(KeyCode.X, LSystem.INSTANCE.getControlKey()).
 			map(i -> new CutShapes(getSelectCmd().orElse(null))).
-			when(interaction -> isShapeSelected.get()).bind();
+			when(i -> isShapeSelected.get()).bind();
 	}
 
 	@Override
