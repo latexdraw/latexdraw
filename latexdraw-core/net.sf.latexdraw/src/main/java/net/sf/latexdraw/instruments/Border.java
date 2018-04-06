@@ -50,6 +50,7 @@ import net.sf.latexdraw.util.Inject;
 import org.malai.command.Command;
 import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.DnD;
+import org.malai.javafx.interaction.library.SrcTgtPointsData;
 
 /**
  * This instrument manages the selected views.
@@ -202,14 +203,14 @@ public class Border extends CanvasInstrument implements Initializable {
 			})).
 			then((c, i) -> i.getSrcObject().ifPresent(node -> {
 				final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
-				final Point3D endPt = node.localToParent(i.getEndLocalPt());
+				final Point3D endPt = node.localToParent(i.getTgtLocalPoint());
 				final IPoint ptToMove = ((MovePtHandler) node).getPoint();
 				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
 				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
 				c.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
 			})).
 			exec().
-			when(i -> i.getSrcLocalPoint() != null && i.getEndLocalPt() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler).
+			when(i -> i.getSrcLocalPoint() != null && i.getTgtLocalPoint() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler).
 			bind();
 	}
 
@@ -230,7 +231,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			}).
 			then((c, i) -> {
 				final Point3D startPt = i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(new Point3D(0d, 0d, 0d));
-				final Point3D endPt = i.getSrcObject().map(n -> n.localToParent(i.getEndLocalPt())).orElse(new Point3D(0d, 0d, 0d));
+				final Point3D endPt = i.getSrcObject().map(n -> n.localToParent(i.getTgtLocalPoint())).orElse(new Point3D(0d, 0d, 0d));
 				final IPoint ptToMove = i.getSrcObject().map(n -> ((CtrlPointHandler) n).getPoint()).orElse(ShapeFactory.INST.createPoint());
 				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
 				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
@@ -248,13 +249,13 @@ public class Border extends CanvasInstrument implements Initializable {
 			}).
 			then((c, i) -> c.setRotationAngle(c.getGc().computeRotationAngle(
 				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getSrcScenePoint())),
-				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getEndScenePt()))))).
+				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getTgtScenePoint()))))).
 			exec().bind();
 
 		addBinding(new DnD2ArcAngle(this));
 	}
 
-	private static class DnD2ArcAngle extends JfXWidgetBinding<ModifyShapeProperty, DnD, Border> {
+	private static class DnD2ArcAngle extends JfXWidgetBinding<ModifyShapeProperty, DnD, Border, SrcTgtPointsData> {
 		/** The gravity centre used for the rotation. */
 		private IPoint gc;
 		/** Defines whether the current handled shape is rotated. */
@@ -309,7 +310,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void then() {
-			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getEndLocalPt())).orElse(null));
+			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getTgtLocalPoint())).orElse(null));
 
 			if(isRotated) {
 				pt = pt.rotatePoint(gc, -cmd.getShapes().getRotationAngle());
@@ -329,11 +330,11 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public boolean when() {
-			return interaction.getSrcObject().isPresent() && interaction.getSrcLocalPoint() != null && interaction.getEndLocalPt() != null;
+			return interaction.getSrcObject().isPresent() && interaction.getSrcLocalPoint() != null && interaction.getTgtLocalPoint() != null;
 		}
 	}
 
-	private static class DnD2Scale extends JfXWidgetBinding<ScaleShapes, DnD, Border> {
+	private static class DnD2Scale extends JfXWidgetBinding<ScaleShapes, DnD, Border, SrcTgtPointsData> {
 		/** The point corresponding to the 'press' position. */
 		private IPoint p1;
 		/** The x gap (gap between the pressed position and the targeted position) of the X-scaling. */
@@ -398,7 +399,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public void then() {
-			final IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getEndLocalPt())).orElse(null));
+			final IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getTgtLocalPoint())).orElse(null));
 			final Position refPosition = cmd.getRefPosition().orElse(Position.NE);
 
 			if(refPosition.isSouth()) {
@@ -420,7 +421,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 		@Override
 		public boolean when() {
-			return interaction.getSrcObject().isPresent() && interaction.getSrcLocalPoint() != null && interaction.getEndLocalPt() != null;
+			return interaction.getSrcObject().isPresent() && interaction.getSrcLocalPoint() != null && interaction.getTgtLocalPoint() != null;
 		}
 
 		@Override

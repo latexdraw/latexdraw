@@ -46,6 +46,7 @@ import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.DoubleClick;
 import org.malai.javafx.interaction.library.Press;
+import org.malai.javafx.interaction.library.SrcTgtPointsData;
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.
@@ -115,11 +116,11 @@ public class Hand extends CanvasInstrument {
 		nodeBinder(InitTextSetter.class, new DoubleClick()).
 			on(canvas.getViews().getChildren()).
 			map(i -> {
-				final IText text = ((ViewText) i.getClickData().getSrcObject().get().getParent()).getModel();
+				final IText text = ((ViewText) i.getSrcObject().get().getParent()).getModel();
 				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(text.getPosition().getX() * canvas.getZoom(),
 					text.getPosition().getY() * canvas.getZoom()), text, null);
 			}).
-			when(i -> i.getClickData().getSrcObject().isPresent() && i.getClickData().getSrcObject().get().getParent() instanceof ViewText).
+			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() instanceof ViewText).
 			strictStart().
 			bind();
 
@@ -127,12 +128,12 @@ public class Hand extends CanvasInstrument {
 		nodeBinder(InitTextSetter.class, new DoubleClick()).
 			on(canvas.getViews().getChildren()).
 			map(i -> {
-				final IPlot plot = getViewShape(i.getClickData().getSrcObject()).map(view -> ((ViewPlot) view).getModel()).get();
+				final IPlot plot = getViewShape(i.getSrcObject()).map(view -> ((ViewPlot) view).getModel()).get();
 				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(plot.getPosition().getX() * canvas.getZoom(),
 					plot.getPosition().getY() * canvas.getZoom()), null, plot);
 			}).
-			when(i -> i.getClickData().getSrcObject().isPresent() && i.getClickData().getSrcObject().get().getParent() != null &&
-				getViewShape(i.getClickData().getSrcObject()).orElse(null) instanceof ViewPlot).
+			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() != null &&
+				getViewShape(i.getSrcObject()).orElse(null) instanceof ViewPlot).
 			strictStart().
 			bind();
 	}
@@ -173,7 +174,7 @@ public class Hand extends CanvasInstrument {
 			map(i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false))).
 			then((c, i) -> {
 				final IPoint startPt = grid.getTransformedPointToGrid(i.getSrcScenePoint());
-				final IPoint endPt = grid.getTransformedPointToGrid(i.getEndScenePt());
+				final IPoint endPt = grid.getTransformedPointToGrid(i.getTgtScenePoint());
 				c.setT(endPt.getX() - startPt.getX(), endPt.getY() - startPt.getY());
 			}).
 			when(i -> i.getButton() == MouseButton.PRIMARY && !canvas.getDrawing().getSelection().isEmpty()).
@@ -242,7 +243,7 @@ public class Hand extends CanvasInstrument {
 	}
 
 
-	private static class DnD2Select extends JfXWidgetBinding<SelectShapes, DnD, Hand> {
+	private static class DnD2Select extends JfXWidgetBinding<SelectShapes, DnD, Hand, SrcTgtPointsData> {
 		/** The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
 		private Bounds selectionBorder;
 		private List<IShape> selectedShapes;
@@ -263,7 +264,7 @@ public class Hand extends CanvasInstrument {
 		@Override
 		public void then() {
 			final IPoint start = instrument.getAdaptedOriginPoint(interaction.getSrcLocalPoint());
-			final IPoint end = instrument.getAdaptedOriginPoint(interaction.getEndLocalPt());
+			final IPoint end = instrument.getAdaptedOriginPoint(interaction.getTgtLocalPoint());
 			final double minX = Math.min(start.getX(), end.getX());
 			final double maxX = Math.max(start.getX(), end.getX());
 			final double minY = Math.min(start.getY(), end.getY());

@@ -34,8 +34,8 @@ public class CanvasController extends CanvasInstrument implements Initializable 
 			first((c, i) -> c.setScrollPane(canvas.getScrollPane())).
 			then((c, i) -> {
 				final ScrollPane pane = canvas.getScrollPane();
-				c.setPx(pane.getHvalue() - (i.getEndLocalPt().getX() - i.getSrcLocalPoint().getX()) / canvas.getWidth());
-				c.setPy(pane.getVvalue() - (i.getEndLocalPt().getY() - i.getSrcLocalPoint().getY()) / canvas.getHeight());
+				c.setPx(pane.getHvalue() - (i.getTgtLocalPoint().getX() - i.getSrcLocalPoint().getX()) / canvas.getWidth());
+				c.setPy(pane.getVvalue() - (i.getTgtLocalPoint().getY() - i.getSrcLocalPoint().getY()) / canvas.getHeight());
 			}).
 			when(i -> i.getButton() == MouseButton.MIDDLE).
 			feedback(() -> canvas.setCursor(Cursor.MOVE)).

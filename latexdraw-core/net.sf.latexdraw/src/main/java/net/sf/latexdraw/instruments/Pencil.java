@@ -43,6 +43,7 @@ import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.MultiClick;
+import org.malai.javafx.interaction.library.PointsData;
 import org.malai.javafx.interaction.library.Press;
 
 /**
@@ -165,7 +166,7 @@ public class Pencil extends CanvasInstrument {
 			first((c, i) -> Platform.runLater(() -> canvas.requestFocus())).
 			then((c, i) -> {
 				final IPoint last = c.getShape().get().getPtAt(-1);
-				final IPoint endPt = getAdaptedPoint(i.getEndLocalPt());
+				final IPoint endPt = getAdaptedPoint(i.getTgtLocalPoint());
 				if(!MathUtils.INST.equalsDouble(last.getX(), endPt.getX(), 0.0001) &&
 					!MathUtils.INST.equalsDouble(last.getY(), endPt.getY(), 0.0001)) {
 					c.setShape(ShapeFactory.INST.createFreeHandFrom((IFreehand) c.getShape().get(), endPt));
@@ -194,7 +195,7 @@ public class Pencil extends CanvasInstrument {
 				Platform.runLater(() -> canvas.requestFocus());
 				canvas.setTempView(ViewFactory.INSTANCE.createView(c.getShape().orElse(null)).orElse(null));
 			}).
-			then((c, i) -> updateShapeFromCentre((ISquaredShape) c.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getEndLocalPt()).getX())).
+			then((c, i) -> updateShapeFromCentre((ISquaredShape) c.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()).getX())).
 			endOrCancel((c, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
 			strictStart().
@@ -212,7 +213,7 @@ public class Pencil extends CanvasInstrument {
 				Platform.runLater(() -> canvas.requestFocus());
 				canvas.setTempView(ViewFactory.INSTANCE.createView(c.getShape().orElse(null)).orElse(null));
 			}).
-			then((c, i) -> updateShapeFromDiag((IRectangularShape) c.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getEndLocalPt()))).
+			then((c, i) -> updateShapeFromDiag((IRectangularShape) c.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()))).
 			endOrCancel((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
 			strictStart().
@@ -224,13 +225,14 @@ public class Pencil extends CanvasInstrument {
 	 * Binds a multi-click interaction to creates multi-point shapes.
 	 */
 	private void bindMultiClic2AddShape() {
-		final Function<MultiClick, AddShape> creation = i -> new AddShape(setInitialPtsShape(createShapeInstance(), i.getPoints().get(0)), canvas.getDrawing());
+		final Function<PointsData, AddShape> creation = i -> new AddShape(setInitialPtsShape(createShapeInstance(),
+			i.getPointsData().get(0).getSrcLocalPoint()), canvas.getDrawing());
 
 		// Binding for polygons
 		nodeBinder(AddShape.class, new MultiClick(3)).on(canvas).map(creation).
 			then((c, i) -> {
 				final IPoint currPoint = getAdaptedPoint(i.getCurrentPosition());
-				if(c.getShape().get().getNbPoints() == i.getPoints().size() && i.getCurrentButton() == MouseButton.PRIMARY) {
+				if(c.getShape().get().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
 					c.setShape(ShapeFactory.INST.createPolygonFrom((IPolygon) c.getShape().get(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
 				}else {
 					((IModifiablePointsShape) c.getShape().get()).setPoint(currPoint.getX(), currPoint.getY(), -1);
@@ -244,7 +246,7 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(AddShape.class, new MultiClick()).on(canvas).map(creation).
 			then((c, i) -> {
 				final IPoint currPoint = getAdaptedPoint(i.getCurrentPosition());
-				if(c.getShape().get().getNbPoints() == i.getPoints().size() && i.getCurrentButton() == MouseButton.PRIMARY) {
+				if(c.getShape().get().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
 					c.setShape(ShapeFactory.INST.createPolylineFrom((IPolyline) c.getShape().get(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
 				}else {
 					((IModifiablePointsShape) c.getShape().get()).setPoint(currPoint.getX(), currPoint.getY(), -1);
@@ -258,7 +260,7 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(AddShape.class, new MultiClick()).on(canvas).map(creation).
 			then((c, i) -> {
 				final IPoint currPoint = getAdaptedPoint(i.getCurrentPosition());
-				if(c.getShape().get().getNbPoints() == i.getPoints().size() && i.getCurrentButton() == MouseButton.PRIMARY) {
+				if(c.getShape().get().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
 					c.setShape(ShapeFactory.INST.createBezierCurveFrom((IBezierCurve) c.getShape().get(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
 				}else {
 					((IModifiablePointsShape) c.getShape().get()).setPoint(currPoint.getX(), currPoint.getY(), -1);

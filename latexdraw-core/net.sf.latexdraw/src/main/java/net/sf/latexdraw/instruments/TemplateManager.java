@@ -105,14 +105,14 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 			}).
 			then((c, i) -> {
 				final Node srcObj = i.getSrcObject().get();
-				final Point3D pt3d = i.getEndObjet().get().sceneToLocal(srcObj.localToScene(i.getEndLocalPt())).
+				final Point3D pt3d = i.getTgtObject().get().sceneToLocal(srcObj.localToScene(i.getTgtLocalPoint())).
 					subtract(Canvas.ORIGIN.getX() + srcObj.getLayoutX(), Canvas.ORIGIN.getY() + srcObj.getLayoutY(), 0d);
 				c.setPosition(ShapeFactory.INST.createPoint(pt3d));
 			}).
 			feedback(() -> templatePane.setCursor(Cursor.CLOSED_HAND)).
 			when(i -> i.getSrcObject().orElse(null) instanceof ImageView &&
 				i.getSrcObject().get().getUserData() instanceof String &&
-				i.getEndObjet().orElse(null) instanceof Canvas).
+				i.getTgtObject().orElse(null) instanceof Canvas).
 			bind();
 	}
 }
