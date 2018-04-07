@@ -1,9 +1,9 @@
 package net.sf.latexdraw.instruments;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
+import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
@@ -41,10 +41,7 @@ public class TestCodeInserter extends ApplicationTest {
 	@Before
 	public void setUp() throws NoSuchFieldException, IllegalAccessException {
 		final Injector injector = createInjector();
-		final LaTeXDraw ld = Mockito.mock(LaTeXDraw.class);
-		final Field field = LaTeXDraw.class.getDeclaredField("instance");
-		field.setAccessible(true);
-		field.set(null, ld);
+		HelperTest.setFinalStaticFieldValue(LaTeXDraw.class.getDeclaredField("instance"), Mockito.mock(LaTeXDraw.class));
 		Mockito.when(LaTeXDraw.getInstance().getInjector()).thenReturn(injector);
 		Mockito.when(LaTeXDraw.getInstance().getInstanceCallBack()).thenReturn(cl -> injector.getInstance(cl));
 
