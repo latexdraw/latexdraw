@@ -12,6 +12,7 @@ package net.sf.latexdraw.instruments;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,8 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.javafx.binding.MenuItem2OpenWebPage;
 import org.malai.javafx.binding.MenuItem2ShowLazyStage;
@@ -47,6 +48,7 @@ public class Helper extends JfxInstrument implements Initializable {
 	/** The shortcut dialogue box. */
 	private Stage shortcutFrame;
 	@FXML private MenuItem manuelItem;
+	@Inject HostServices services;
 
 	/**
 	 * Creates the instrument.
@@ -65,10 +67,10 @@ public class Helper extends JfxInstrument implements Initializable {
 	protected void configureBindings() {
 		addBinding(new MenuItem2ShowLazyStage(this, aboutItem, this::getAboutFrame, true));
 		addBinding(new MenuItem2ShowLazyStage(this, shortcutItem, this::getShortcutsFrame, true));
-		addBinding(new MenuItem2OpenWebPage(this, reportBugItem, "https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug", LaTeXDraw.getInstance())); //NON-NLS
-		addBinding(new MenuItem2OpenWebPage(this, forumItem, "https://sourceforge.net/p/latexdraw/discussion/", LaTeXDraw.getInstance())); //NON-NLS
-		addBinding(new MenuItem2OpenWebPage(this, donateItem, "http://sourceforge.net/project/project_donations.php?group_id=156523", LaTeXDraw.getInstance())); //NON-NLS
-		addBinding(new MenuItem2OpenWebPage(this, manuelItem, "https://github.com/arnobl/latexdraw/wiki/Manual", LaTeXDraw.getInstance())); //NON-NLS
+		addBinding(new MenuItem2OpenWebPage(this, reportBugItem, "https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug", services)); //NON-NLS
+		addBinding(new MenuItem2OpenWebPage(this, forumItem, "https://sourceforge.net/p/latexdraw/discussion/", services)); //NON-NLS
+		addBinding(new MenuItem2OpenWebPage(this, donateItem, "http://sourceforge.net/project/project_donations.php?group_id=156523", services)); //NON-NLS
+		addBinding(new MenuItem2OpenWebPage(this, manuelItem, "https://github.com/arnobl/latexdraw/wiki/Manual", services)); //NON-NLS
 	}
 
 	/** @return The created latexdraw dialogue box. */
@@ -81,8 +83,8 @@ public class Helper extends JfxInstrument implements Initializable {
 				aboutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("Res.1"));
 				aboutFrame.setScene(scene);
 				aboutFrame.centerOnScreen();
-			}catch(final Exception e) {
-				BadaboomCollector.INSTANCE.add(e);
+			}catch(final Exception ex) {
+				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}
 		return aboutFrame;
@@ -98,8 +100,8 @@ public class Helper extends JfxInstrument implements Initializable {
 				shortcutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.3c"));
 				shortcutFrame.setScene(scene);
 				shortcutFrame.centerOnScreen();
-			}catch(final Exception e) {
-				BadaboomCollector.INSTANCE.add(e);
+			}catch(final Exception ex) {
+				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}
 		return shortcutFrame;

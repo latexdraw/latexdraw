@@ -11,6 +11,8 @@
 package net.sf.latexdraw;
 
 import java.lang.reflect.InvocationTargetException;
+import javafx.application.Application;
+import javafx.application.HostServices;
 import net.sf.latexdraw.instruments.AboutController;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.instruments.CanvasController;
@@ -69,6 +71,7 @@ public class LatexdrawInjector extends Injector {
 	@Override
 	protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		bindAsEagerSingleton(ExceptionsManager.class);
+		bindToInstance(Application.class, LaTeXDraw.getInstance());
 		bindAsEagerSingleton(ShortcutsController.class);
 		bindAsEagerSingleton(StatusBarController.class);
 		bindAsEagerSingleton(AboutController.class);
@@ -78,6 +81,7 @@ public class LatexdrawInjector extends Injector {
 		bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());
 		bindWithCommand(MagneticGrid.class, Canvas.class, canvas -> canvas.getMagneticGrid());
 		bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);
+		bindWithCommand(HostServices.class, Application.class, app -> app.getHostServices());
 		bindAsEagerSingleton(Zoomer.class);
 		bindAsEagerSingleton(UndoRedoManager.class);
 		bindAsEagerSingleton(PSTCodeGenerator.class);
