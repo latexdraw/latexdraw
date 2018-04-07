@@ -60,11 +60,13 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 						}
 						ui.setModified(false);
 						newDrawing();
+						ok = true;
 					});
 				}
 			}
 		}else {
 			newDrawing();
+			ok = true;
 		}
 	}
 

@@ -230,6 +230,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			recentDocs.forEach(fileName -> {
 				final MenuItem item = new MenuItem(new File(fileName).getName());
 				item.setUserData(fileName);
+				item.setId("recent" + recentDocs.indexOf(fileName));
 				recentFilesMenu.getItems().add(item);
 			});
 		}

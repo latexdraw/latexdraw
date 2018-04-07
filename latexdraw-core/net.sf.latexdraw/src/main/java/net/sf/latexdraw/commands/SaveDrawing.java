@@ -97,7 +97,6 @@ public class SaveDrawing extends Save<Label> {
 				super.doCmdBody();
 			}
 		}
-		done();
 	}
 
 	/**
