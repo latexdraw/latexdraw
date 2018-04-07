@@ -1,8 +1,11 @@
 package net.sf.latexdraw.instruments;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import javafx.application.Platform;
+import javafx.scene.control.TextInputControl;
+import javafx.stage.DirectoryChooser;
 import net.sf.latexdraw.commands.ModifyMagneticGrid;
 import net.sf.latexdraw.instruments.robot.FxRobotListSelection;
 import net.sf.latexdraw.instruments.robot.FxRobotSpinner;
@@ -108,5 +111,29 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 		writeReadPrefs();
 		assertEquals(value, setter.persoGridGapField.getValue().intValue());
 		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof ModifyMagneticGrid);
+	}
+
+	@Test
+	public void testClickChooseLoadFolder() throws NoSuchFieldException, IllegalAccessException {
+		final DirectoryChooser chooser = Mockito.mock(DirectoryChooser.class);
+			Mockito.when(chooser.showDialog(Mockito.any())).thenReturn(new File("foo"));
+		final Field field = PreferencesSetter.class.getDeclaredField("fileChooser");
+		field.setAccessible(true);
+		field.set(setter, chooser);
+		clickOn("#buttonOpen");
+		waitFXEvents.execute();
+		assertEquals("foo", ((TextInputControl) find("#pathOpenField")).getText());
+	}
+
+	@Test
+	public void testClickChooseExportFolder() throws NoSuchFieldException, IllegalAccessException {
+		final DirectoryChooser chooser = Mockito.mock(DirectoryChooser.class);
+			Mockito.when(chooser.showDialog(Mockito.any())).thenReturn(new File("bar"));
+		final Field field = PreferencesSetter.class.getDeclaredField("fileChooser");
+		field.setAccessible(true);
+		field.set(setter, chooser);
+		clickOn("#buttonExport");
+		waitFXEvents.execute();
+		assertEquals("bar", ((TextInputControl) find("#pathExportField")).getText());
 	}
 }
