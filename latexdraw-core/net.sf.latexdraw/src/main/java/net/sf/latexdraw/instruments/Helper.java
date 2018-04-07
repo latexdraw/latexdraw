@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -22,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.LangTool;
 import org.malai.javafx.binding.MenuItem2OpenWebPage;
@@ -66,14 +65,10 @@ public class Helper extends JfxInstrument implements Initializable {
 	protected void configureBindings() {
 		addBinding(new MenuItem2ShowLazyStage(this, aboutItem, this::getAboutFrame, true));
 		addBinding(new MenuItem2ShowLazyStage(this, shortcutItem, this::getShortcutsFrame, true));
-		try {
-			addBinding(new MenuItem2OpenWebPage(this, reportBugItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug"))); //NON-NLS
-			addBinding(new MenuItem2OpenWebPage(this, forumItem, new URI("https://sourceforge.net/p/latexdraw/discussion/"))); //NON-NLS
-			addBinding(new MenuItem2OpenWebPage(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523"))); //NON-NLS
-			addBinding(new MenuItem2OpenWebPage(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual"))); //NON-NLS
-		}catch(final URISyntaxException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-		}
+		addBinding(new MenuItem2OpenWebPage(this, reportBugItem, "https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug", LaTeXDraw.getInstance())); //NON-NLS
+		addBinding(new MenuItem2OpenWebPage(this, forumItem, "https://sourceforge.net/p/latexdraw/discussion/", LaTeXDraw.getInstance())); //NON-NLS
+		addBinding(new MenuItem2OpenWebPage(this, donateItem, "http://sourceforge.net/project/project_donations.php?group_id=156523", LaTeXDraw.getInstance())); //NON-NLS
+		addBinding(new MenuItem2OpenWebPage(this, manuelItem, "https://github.com/arnobl/latexdraw/wiki/Manual", LaTeXDraw.getInstance())); //NON-NLS
 	}
 
 	/** @return The created latexdraw dialogue box. */
