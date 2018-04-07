@@ -10,27 +10,27 @@
  */
 package net.sf.latexdraw.instruments;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.Inject;
+import org.malai.javafx.instrument.JfxInstrument;
+import org.malai.javafx.interaction.library.HyperlinkClicked;
 
 /**
  * The controller for the status bar.
  * @author Arnaud Blouin
  */
-public class StatusBarController implements Initializable {
+public class StatusBarController extends JfxInstrument implements Initializable {
 	@FXML private Label label;
 	@FXML private ProgressBar progressBar;
 	@FXML private Hyperlink link;
+	@Inject private HostServices services;
 
 	/**
 	 * Creates the controller.
@@ -64,19 +64,11 @@ public class StatusBarController implements Initializable {
 	public void initialize(final URL location, final ResourceBundle resources) {
 		progressBar.managedProperty().bind(progressBar.visibleProperty());
 		link.setVisible(false);
-		link.setOnAction(evt -> {
-			if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-				new Thread(() -> {
-					try {
-						Desktop.getDesktop().browse(new URI(link.getText()));
-						link.setVisible(false);
-						label.setVisible(false);
-					}catch(IOException | URISyntaxException ex) {
-						BadaboomCollector.INSTANCE.add(ex);
-					}
-				}).start();
-			}
-		});
+		setActivated(true);
+	}
 
+	@Override
+	protected void configureBindings() {
+		anonCmdBinder(() -> services.showDocument(link.getText()), new HyperlinkClicked()).on(link).bind();
 	}
 }

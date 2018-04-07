@@ -41,10 +41,10 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.commands.GridProperties;
 import net.sf.latexdraw.commands.ModifyMagneticGrid;
 import net.sf.latexdraw.commands.SetUnit;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
@@ -56,6 +56,7 @@ import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
 import org.malai.javafx.instrument.JfxInstrument;
+import org.malai.javafx.interaction.library.ButtonPressed;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -120,21 +121,6 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 		unitChoice.getItems().addAll(Arrays.stream(Unit.values()).map(Unit::getLabel).collect(Collectors.toList()));
 		styleList.getItems().addAll(GridStyle.values());
-
-		buttonOpen.setOnAction(evt -> {
-			final File file = getFileChooser().showDialog(null);
-			if(file != null) {
-				pathOpenField.setText(file.getPath());
-			}
-		});
-
-		buttonExport.setOnAction(evt -> {
-			final File file = getFileChooser().showDialog(null);
-			if(file != null) {
-				pathExportField.setText(file.getPath());
-				exporter.setPathExport(file.getPath());
-			}
-		});
 	}
 
 	/**
@@ -180,6 +166,21 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		}).then(c -> c.setValue(persoGridGapField.getValue())).bind();
 
 		comboboxBinder(SetUnit.class).on(unitChoice).first(c -> c.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()))).bind();
+
+		anonCmdBinder(() -> {
+			final File file = getFileChooser().showDialog(null);
+			if(file != null) {
+				pathOpenField.setText(file.getPath());
+			}
+		}, new ButtonPressed()).on(buttonOpen).bind();
+
+		anonCmdBinder(() -> {
+			final File file = getFileChooser().showDialog(null);
+			if(file != null) {
+				pathExportField.setText(file.getPath());
+				exporter.setPathExport(file.getPath());
+			}
+		}, new ButtonPressed()).on(buttonExport).bind();
 	}
 
 	/**
