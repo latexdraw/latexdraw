@@ -261,7 +261,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		/** Defines whether the current handled shape is rotated. */
 		private boolean isRotated;
 		/** The current handled shape. */
-		private IPoint gap;
+		private final IPoint gap;
 
 		DnD2ArcAngle(final Border ins) {
 			super(ins, true, ModifyShapeProperty.class, new DnD(), Arrays.asList(ins.arcHandlerStart, ins.arcHandlerEnd), false, null);
@@ -316,7 +316,6 @@ public class Border extends CanvasInstrument implements Initializable {
 				pt = pt.rotatePoint(gc, -cmd.getShapes().getRotationAngle());
 			}
 
-			gap = ShapeFactory.INST.createPoint();
 			cmd.setValue(computeAngle(ShapeFactory.INST.createPoint(pt.getX() - gap.getX(), pt.getY() - gap.getY())));
 		}
 
