@@ -145,6 +145,27 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>sh.tak.appbundler</groupId>
+                <artifactId>appbundle-maven-plugin</artifactId>
+                <version>1.1.1</version>
+                <configuration>
+                    <buildDirectory>${project.build.directory}</buildDirectory>
+                    <mainClass>net.sf.latexdraw.LaTeXDraw</mainClass>
+                    <iconFile>../svg/latexdraw.icns</iconFile>
+                    <bundleName>LaTeXDraw</bundleName>
+                    <version>${project.version}</version>
+                    <jvmVersion>1.8+</jvmVersion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!--             <plugin> -->
             <!--                 <groupId>org.codehaus.mojo</groupId> -->
             <!--                 <artifactId>osxappbundle-maven-plugin</artifactId> -->
