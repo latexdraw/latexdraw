@@ -11,7 +11,7 @@
     <properties>
         <argLine>-Dheadless.geometry=1280x1024-32 -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k
         </argLine>
-        <malai.version>3.0-SNAPSHOT</malai.version>
+        <malai.version>3.0</malai.version>
         <antlr.version>4.7.1</antlr.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
