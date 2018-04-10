@@ -5,7 +5,7 @@
   <groupId>net.sf.latexdraw</groupId>
   <artifactId>latexdraw.installer</artifactId>
   <name>LaTeXDraw installer</name>
-  <version>4.0.0-beta1</version>
+  <version>4.0.0-SNAPSHOT</version>
   <build>
         <sourceDirectory>src/main/</sourceDirectory>
 		<resources>
