@@ -55,6 +55,7 @@
                         <include>res/</include>
                         <include>net/</include>
                         <include>fxml/</include>
+                        <include>css/</include>
                     </includes>
                 </configuration>
             </plugin>
