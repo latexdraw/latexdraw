@@ -5,11 +5,11 @@
     <groupId>net.sf.latexdraw</groupId>
     <artifactId>latexdraw.bundle</artifactId>
     <name>LaTeXDraw bundle</name>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0-beta1</version>
     <packaging>pom</packaging>
 
     <properties>
-        <malai.version>3.0-SNAPSHOT</malai.version>
+        <malai.version>3.0</malai.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -75,7 +75,7 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
-            <version>4.7</version>
+            <version>4.7.1</version>
         </dependency>
     </dependencies>
 </project>
