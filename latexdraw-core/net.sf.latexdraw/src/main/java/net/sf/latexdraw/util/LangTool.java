@@ -13,7 +13,6 @@ package net.sf.latexdraw.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -21,7 +20,6 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -103,21 +101,12 @@ public final class LangTool {
 	}
 
 
-	private Locale getLocaleFromFileName(final String fileName) {
-		return Locale.forLanguageTag(LFileUtils.INSTANCE.getFileNameNoExtension(fileName).replaceAll("bundle_", "").replaceAll("_", "-")); //NON-NLS
-	}
-
 	/**
 	 * @return The list of locales supported by the app.
 	 */
 	public List<Locale> getSupportedLocales() {
-		try(final Stream<Path> list = Files.list(Paths.get(getClass().getResource("/lang").toURI()))) { //NON-NLS
-			return list.filter(f -> !f.toFile().isDirectory() && Files.isReadable(f)).
-				map(f -> getLocaleFromFileName(f.getFileName().toString())).collect(Collectors.toList());
-		}catch(final IOException | URISyntaxException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-		}
-		return Collections.emptyList();
+		return Stream.of("ar", "de", "es", "hu", "ja", "pl", "ru", "sv", "uk", "ca", "en-GB", "fr", "it", "nl", "pt-BR", "si", "ta", "vi", "cs", //NON-NLS
+			"en-US", "gl", "iw", "oc", "pt", "sr", "tr", "zh-CN").map(id -> Locale.forLanguageTag(id)).collect(Collectors.toList()); //NON-NLS
 	}
 
 
