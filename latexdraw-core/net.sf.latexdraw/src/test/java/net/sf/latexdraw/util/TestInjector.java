@@ -3,6 +3,7 @@ package net.sf.latexdraw.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Handler;
 import net.sf.latexdraw.HelperTest;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +23,16 @@ public class TestInjector implements HelperTest {
 
 	@Before
 	public void setUp() {
+		I.cpt = 0;
 		Injector.LOGGER.addHandler(handler);
+	}
+
+	@After
+	public void tearDown() {
+		Injector.LOGGER.removeHandler(handler);
+		if(injector != null) {
+			injector.clear();
+		}
 	}
 
 	@Test
