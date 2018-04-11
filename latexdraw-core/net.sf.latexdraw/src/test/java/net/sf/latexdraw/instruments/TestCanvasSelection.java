@@ -260,7 +260,8 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		when(pencil.createShapeInstance()).thenReturn(ShapeFactory.INST.createText());
 		new CompositeGUIVoidCommand(addText, waitFXEvents).execute();
 		final ViewText v = (ViewText) canvas.getViews().getChildren().get(0);
-		doubleClickOn(v).sleep(10).write("@bar bar").sleep(10).type(KeyCode.ENTER).sleep(SLEEP);
+		doubleClickOn(v).sleep(10).write("@bar bar").sleep(10).type(KeyCode.ENTER);
+		waitFXEvents.execute();
 		assertEquals(1, canvas.getDrawing().size());
 		assertEquals(1, canvas.getViews().getChildren().size());
 	}
@@ -279,7 +280,8 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 		new CompositeGUIVoidCommand(addPlot, waitFXEvents).execute();
 		final ViewPlot v = (ViewPlot) canvas.getViews().getChildren().get(0);
-		doubleClickOn(v).sleep(10).type(KeyCode.DELETE).write("x 2 mul").sleep(10).type(KeyCode.ENTER).sleep(SLEEP);
+		doubleClickOn(v).sleep(10).type(KeyCode.DELETE).write("x 2 mul").sleep(10).type(KeyCode.ENTER);
+		waitFXEvents.execute();
 		assertEquals(1, canvas.getDrawing().size());
 		assertEquals(1, canvas.getViews().getChildren().size());
 	}

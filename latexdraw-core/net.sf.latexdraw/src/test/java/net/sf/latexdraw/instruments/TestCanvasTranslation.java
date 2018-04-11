@@ -87,7 +87,8 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 		WaitForAsyncUtils.waitForFxEvents();
 		final IPoint tl = sh.getTopLeftPoint();
 		clickOn(canvas).press(KeyCode.CONTROL, KeyCode.A).sleep(10).release(KeyCode.CONTROL, KeyCode.A).sleep(10).
-			drag(canvas.getSelectionBorder()).dropBy(101, 163).sleep(SLEEP);
+			drag(canvas.getSelectionBorder()).dropBy(101, 163);
+		waitFXEvents.execute();
 
 		assertEquals(tl.getX() + 101d, sh.getTopLeftPoint().getX(), 5d);
 		assertEquals(tl.getY() + 163d, sh.getTopLeftPoint().getY(), 5d);
@@ -100,7 +101,8 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 		final IPoint tl1 = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
 		final IPoint tl2 = canvas.getDrawing().getShapeAt(1).getTopLeftPoint();
 		clickOn(canvas.getViews().getChildren().get(0)).sleep(10).drag(canvas.getViews().getChildren().get(1)).sleep(10).
-			dropBy(100d, 200d).sleep(SLEEP);
+			dropBy(100d, 200d);
+		waitFXEvents.execute();
 
 		assertEquals(tl1, canvas.getDrawing().getShapeAt(0).getTopLeftPoint());
 		assertEquals(tl2.getX() + 100d, canvas.getDrawing().getShapeAt(1).getTopLeftPoint().getX(), 1d);
@@ -112,10 +114,12 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
 		final IPoint tl = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
 
-		clickOn(canvas.getViews().getChildren().get(0)).sleep(SLEEP);
+		clickOn(canvas.getViews().getChildren().get(0));
+		waitFXEvents.execute();
 		final Point2D bounds = canvas.localToScreen(canvas.getSelectionBorder().getLayoutX() + Canvas.getMargins(),
 			canvas.getSelectionBorder().getLayoutY() + Canvas.getMargins());
-		drag(bounds.getX() + 150, bounds.getY()).sleep(10).dropBy(100d, 200d).sleep(SLEEP);
+		drag(bounds.getX() + 150, bounds.getY()).sleep(10).dropBy(100d, 200d);
+		waitFXEvents.execute();
 		assertEquals(tl.getX() + 100d, canvas.getDrawing().getShapeAt(0).getTopLeftPoint().getX(), 1d);
 		assertEquals(tl.getY() + 200d, canvas.getDrawing().getShapeAt(0).getTopLeftPoint().getY(), 1d);
 	}
@@ -124,7 +128,8 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 	public void testTranslateAbortOK() {
 		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
 		final IPoint tl = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
-		drag(canvas.getViews().getChildren().get(0)).sleep(10).moveBy(100d, 200d).type(KeyCode.ESCAPE).sleep(SLEEP);
+		drag(canvas.getViews().getChildren().get(0)).sleep(10).moveBy(100d, 200d).type(KeyCode.ESCAPE);
+		waitFXEvents.execute();
 		assertEquals(tl, canvas.getDrawing().getShapeAt(0).getTopLeftPoint());
 	}
 }

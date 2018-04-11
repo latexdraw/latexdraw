@@ -22,8 +22,6 @@ import org.malai.command.CommandsRegistry;
 import org.testfx.util.WaitForAsyncUtils;
 
 abstract class BaseTestCanvas extends TestLatexdrawGUI {
-	static final long SLEEP = 400L;
-
 	Pencil pencil;
 	Hand hand;
 	Canvas canvas;
@@ -42,7 +40,8 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	};
 
 	final GUIVoidCommand addText = () -> Platform.runLater(() ->
-		canvas.getDrawing().addShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+300,-Canvas.ORIGIN.getY()+300), "$foo bar")));
+		canvas.getDrawing().addShape(ShapeFactory.INST.createText(
+			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), "$foo bar")));
 
 	final GUIVoidCommand addGroup = () -> Platform.runLater(() -> {
 		IRectangle r1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
@@ -68,7 +67,8 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	});
 
 	final GUIVoidCommand addPlot = () -> Platform.runLater(() -> {
-		addedPlot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 400), 0d, 5d, "x", false);
+		addedPlot = ShapeFactory.INST.createPlot(
+			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 400), 0d, 5d, "x", false);
 		addedPlot.setThickness(10d);
 		canvas.getDrawing().addShape(addedPlot);
 	});
