@@ -21,8 +21,6 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  * @author Arnaud Blouin
  */
 class LLine extends Line2D.Double implements ILine {
-	private static final long serialVersionUID = 1L;
-
 	/** The director coefficient of the line (y=ax+b). */
 	private double a;
 	/** y=ax+b. */

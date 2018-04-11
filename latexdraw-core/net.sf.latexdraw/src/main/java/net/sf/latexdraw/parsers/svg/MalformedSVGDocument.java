@@ -15,8 +15,6 @@ package net.sf.latexdraw.parsers.svg;
  * @author Arnaud BLOUIN
  */
 public class MalformedSVGDocument extends Exception {
-	private static final long	serialVersionUID	= 1L;
-
 	@Override
 	public String toString() {
 		return "The SVG document is malformed.";//$NON-NLS-1$

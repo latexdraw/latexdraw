@@ -17,9 +17,6 @@ import java.util.ArrayList;
  * @author Arnaud BLOUIN
  */
 public class SVGPathSegList extends ArrayList<SVGPathSeg> implements SVGPathHandler {
-	private static final long	serialVersionUID	= 1L;
-
-
     @Override
 	public String toString() {
 		final StringBuilder path = new StringBuilder();

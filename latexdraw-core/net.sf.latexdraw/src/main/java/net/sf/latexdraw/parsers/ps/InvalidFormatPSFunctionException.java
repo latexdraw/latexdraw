@@ -15,8 +15,6 @@ package net.sf.latexdraw.parsers.ps;
  * @author Arnaud BLOUIN
  */
 public class InvalidFormatPSFunctionException extends NumberFormatException {
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Creates the exception.
 	 */

@@ -19,8 +19,6 @@ import java.util.regex.PatternSyntaxException;
  * @author Arnaud BLOUIN
  */
 public class SVGTransformList extends ArrayList<SVGTransform> {
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * The constructor by default.
 	 */
