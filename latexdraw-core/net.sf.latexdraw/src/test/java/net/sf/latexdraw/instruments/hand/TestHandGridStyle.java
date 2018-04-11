@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestGridStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeGridCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestGridStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.util.Injector;
@@ -70,20 +70,22 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 	@Test
 	public void testPickcolourLabelsColourHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
-		Color col = colourLabels.getValue();
+		final Color col = colourLabels.getValue();
 		pickcolourLabels.execute();
-		assertEquals(colourLabels.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getGridLabelsColour().toJFX());
-		assertEquals(colourLabels.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getGridLabelsColour().toJFX());
+		waitFXEvents.execute();
+		assertEquals(colourLabels.getValue(), ((IGrid) drawing.getSelection().getShapeAt(1)).getGridLabelsColour().toJFX());
+		assertEquals(colourLabels.getValue(), ((IGrid) drawing.getSelection().getShapeAt(2)).getGridLabelsColour().toJFX());
 		assertNotEquals(col, colourLabels.getValue());
 	}
 
 	@Test
 	public void testPickLineColourHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
-		Color col = colourSubGrid.getValue();
+		final Color col = colourSubGrid.getValue();
 		pickcolourSubGrid.execute();
-		assertEquals(colourSubGrid.getValue(), ((IGrid)drawing.getSelection().getShapeAt(1)).getSubGridColour().toJFX());
-		assertEquals(colourSubGrid.getValue(), ((IGrid)drawing.getSelection().getShapeAt(2)).getSubGridColour().toJFX());
+		waitFXEvents.execute();
+		assertEquals(colourSubGrid.getValue(), ((IGrid) drawing.getSelection().getShapeAt(1)).getSubGridColour().toJFX());
+		assertEquals(colourSubGrid.getValue(), ((IGrid) drawing.getSelection().getShapeAt(2)).getSubGridColour().toJFX());
 		assertNotEquals(col, colourSubGrid.getValue());
 	}
 
@@ -132,6 +134,7 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		final boolean sel = labelsYInvertedCB.isSelected();
 		clicklabelsYInvertedCB.execute();
+		waitFXEvents.execute();
 		assertEquals(sel, ((IGrid) drawing.getSelection().getShapeAt(1)).isXLabelSouth());
 		assertEquals(sel, ((IGrid) drawing.getSelection().getShapeAt(2)).isXLabelSouth());
 		assertNotEquals(sel, labelsYInvertedCB.isSelected());
@@ -142,6 +145,7 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		final boolean sel = labelsXInvertedCB.isSelected();
 		clicklabelsXInvertedCB.execute();
+		waitFXEvents.execute();
 		assertEquals(sel, ((IGrid) drawing.getSelection().getShapeAt(1)).isYLabelWest());
 		assertEquals(sel, ((IGrid) drawing.getSelection().getShapeAt(2)).isYLabelWest());
 		assertNotEquals(sel, labelsXInvertedCB.isSelected());

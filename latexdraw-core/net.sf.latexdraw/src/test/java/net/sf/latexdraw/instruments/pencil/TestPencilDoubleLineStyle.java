@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestDoubleLineStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestDoubleLineStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
@@ -81,8 +81,9 @@ public class TestPencilDoubleLineStyle extends TestDoubleLineStyleGUI {
 	@Test
 	public void testSelectDbleLinePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		boolean sel = dbleBoundCB.isSelected();
+		final boolean sel = dbleBoundCB.isSelected();
 		selectdbleLine.execute();
+		waitFXEvents.execute();
 		assertEquals(!sel, pencil.createShapeInstance().hasDbleBord());
 		assertNotEquals(sel, dbleBoundCB.isSelected());
 	}
@@ -96,8 +97,9 @@ public class TestPencilDoubleLineStyle extends TestDoubleLineStyleGUI {
 	@Test
 	public void testPickDbleColourPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectdbleLine, updateIns).execute();
-		Color col = dbleBoundColB.getValue();
+		final Color col = dbleBoundColB.getValue();
 		pickDbleColour.execute();
+		waitFXEvents.execute();
 		assertEquals(dbleBoundColB.getValue(), pencil.createShapeInstance().getDbleBordCol().toJFX());
 		assertNotEquals(col, dbleBoundColB.getValue());
 	}

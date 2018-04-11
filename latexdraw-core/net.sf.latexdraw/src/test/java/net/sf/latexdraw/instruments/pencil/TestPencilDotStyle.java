@@ -74,6 +74,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 	public void testSelectBARStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
 		setDotStyle.execute(DotStyle.BAR);
+		waitFXEvents.execute();
 		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((IDot)pencil.createShapeInstance()).getDotStyle());
 	}
 
@@ -81,6 +82,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 	public void testSelectASTERISKStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
 		setDotStyle.execute(DotStyle.ASTERISK);
+		waitFXEvents.execute();
 		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((IDot)pencil.createShapeInstance()).getDotStyle());
 	}
 
@@ -88,6 +90,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 	public void testSelectDOTStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
 		setDotStyle.execute(DotStyle.DOT);
+		waitFXEvents.execute();
 		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((IDot)pencil.createShapeInstance()).getDotStyle());
 	}
 
@@ -95,6 +98,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 	public void testSelectFillingNotEnabledWhenNonFillableStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
 		setDotStyle.execute(DotStyle.ASTERISK);
+		waitFXEvents.execute();
 		assertTrue(fillingB.isDisabled());
 	}
 
@@ -107,8 +111,9 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 	@Test
 	public void testPickLineColourPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, setDotStyleFillable, updateIns).execute();
-		Color col = fillingB.getValue();
+		final Color col = fillingB.getValue();
 		pickFillingColour.execute();
+		waitFXEvents.execute();
 		assertEquals(fillingB.getValue(), ((IDot)pencil.createShapeInstance()).getDotFillingCol().toJFX());
 		assertNotEquals(col, fillingB.getValue());
 	}

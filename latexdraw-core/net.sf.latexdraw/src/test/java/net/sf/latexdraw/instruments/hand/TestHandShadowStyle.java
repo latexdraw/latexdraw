@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestShadowStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.ShapePropInjector;
 import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
+import net.sf.latexdraw.instruments.TestShadowStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
@@ -69,8 +69,9 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 	@Test
 	public void testSelectShadowCBHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, updateIns).execute();
-		boolean sel = shadowCB.isSelected();
+		final boolean sel = shadowCB.isSelected();
 		checkShadow.execute();
+		waitFXEvents.execute();
 		assertEquals(shadowCB.isSelected(), drawing.getSelection().getShapeAt(1).hasShadow());
 		assertEquals(shadowCB.isSelected(), drawing.getSelection().getShapeAt(2).hasShadow());
 		assertNotEquals(sel, shadowCB.isSelected());
@@ -79,8 +80,9 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 	@Test
 	public void testPickShadowColourHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns).execute();
-		Color col = shadowColB.getValue();
+		final Color col = shadowColB.getValue();
 		pickShadCol.execute();
+		waitFXEvents.execute();
 		assertEquals(shadowColB.getValue(), drawing.getSelection().getShapeAt(1).getShadowCol().toJFX());
 		assertEquals(shadowColB.getValue(), drawing.getSelection().getShapeAt(2).getShadowCol().toJFX());
 		assertNotEquals(col, shadowColB.getValue());

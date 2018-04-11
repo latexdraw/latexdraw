@@ -2,12 +2,12 @@ package net.sf.latexdraw.instruments.pencil;
 
 import java.lang.reflect.InvocationTargetException;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestCoordDimShapeGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestCoordDimShapeGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;

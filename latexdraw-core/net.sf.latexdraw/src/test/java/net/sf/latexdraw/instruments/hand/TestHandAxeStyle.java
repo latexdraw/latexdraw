@@ -3,12 +3,12 @@ package net.sf.latexdraw.instruments.hand;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestAxesStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestAxesStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
@@ -72,7 +72,7 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 	@Test
 	public void testCheckShowOriginSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		boolean sel = showOrigin.isSelected();
+		final boolean sel = showOrigin.isSelected();
 		selectShowOrigin.execute();
 		assertEquals(!sel, ((IAxesProp)drawing.getSelection().getShapeAt(0)).isShowOrigin());
 		assertEquals(!sel, ((IAxesProp)drawing.getSelection().getShapeAt(2)).isShowOrigin());
@@ -113,44 +113,48 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 	@Test
 	public void testSelectShowLabelsSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		PlottingStyle style = showLabels.getSelectionModel().getSelectedItem();
+		final PlottingStyle style = showLabels.getSelectionModel().getSelectedItem();
 		selectPlotLabel.execute();
-		PlottingStyle newStyle = showLabels.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(0)).getLabelsDisplayed());
-		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(2)).getLabelsDisplayed());
+		waitFXEvents.execute();
+		final PlottingStyle newStyle = showLabels.getSelectionModel().getSelectedItem();
+		assertEquals(newStyle, ((IAxesProp) drawing.getSelection().getShapeAt(0)).getLabelsDisplayed());
+		assertEquals(newStyle, ((IAxesProp) drawing.getSelection().getShapeAt(2)).getLabelsDisplayed());
 		assertNotEquals(style, newStyle);
 	}
 
 	@Test
 	public void testSelectShowTicksSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		PlottingStyle style = showTicks.getSelectionModel().getSelectedItem();
+		final PlottingStyle style = showTicks.getSelectionModel().getSelectedItem();
 		selectPlotTicks.execute();
-		PlottingStyle newStyle = showTicks.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(0)).getTicksDisplayed());
-		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(2)).getTicksDisplayed());
+		waitFXEvents.execute();
+		final PlottingStyle newStyle = showTicks.getSelectionModel().getSelectedItem();
+		assertEquals(newStyle, ((IAxesProp) drawing.getSelection().getShapeAt(0)).getTicksDisplayed());
+		assertEquals(newStyle, ((IAxesProp) drawing.getSelection().getShapeAt(2)).getTicksDisplayed());
 		assertNotEquals(style, newStyle);
 	}
 
 	@Test
 	public void testSelectTicksStyleSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		TicksStyle style = shapeTicks.getSelectionModel().getSelectedItem();
+		final TicksStyle style = shapeTicks.getSelectionModel().getSelectedItem();
 		selectTicksStyle.execute();
-		TicksStyle newStyle = shapeTicks.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(0)).getTicksStyle());
-		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(2)).getTicksStyle());
+		waitFXEvents.execute();
+		final TicksStyle newStyle = shapeTicks.getSelectionModel().getSelectedItem();
+		assertEquals(newStyle, ((IAxesProp) drawing.getSelection().getShapeAt(0)).getTicksStyle());
+		assertEquals(newStyle, ((IAxesProp) drawing.getSelection().getShapeAt(2)).getTicksStyle());
 		assertNotEquals(style, newStyle);
 	}
 
 	@Test
 	public void testSelectLineStyleSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		AxesStyle style = shapeAxes.getSelectionModel().getSelectedItem();
+		final AxesStyle style = shapeAxes.getSelectionModel().getSelectedItem();
 		selectAxeStyle.execute();
-		AxesStyle newStyle = shapeAxes.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(0)).getAxesStyle());
-		assertEquals(newStyle, ((IAxesProp)drawing.getSelection().getShapeAt(2)).getAxesStyle());
+		waitFXEvents.execute();
+		final AxesStyle newStyle = shapeAxes.getSelectionModel().getSelectedItem();
+		assertEquals(newStyle, ((IAxesProp) drawing.getSelection().getShapeAt(0)).getAxesStyle());
+		assertEquals(newStyle, ((IAxesProp) drawing.getSelection().getShapeAt(2)).getAxesStyle());
 		assertNotEquals(style, newStyle);
 	}
 }

@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestDotStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestDotStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
@@ -79,11 +79,12 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 	@Test
 	public void testSelectDotStyleSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns).execute();
-		DotStyle style = dotCB.getSelectionModel().getSelectedItem();
+		final DotStyle style = dotCB.getSelectionModel().getSelectedItem();
 		selectNextDotStyle.execute();
-		DotStyle newStyle = dotCB.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((IDot)drawing.getSelection().getShapeAt(0)).getDotStyle());
-		assertEquals(newStyle, ((IDot)drawing.getSelection().getShapeAt(2)).getDotStyle());
+		waitFXEvents.execute();
+		final DotStyle newStyle = dotCB.getSelectionModel().getSelectedItem();
+		assertEquals(newStyle, ((IDot) drawing.getSelection().getShapeAt(0)).getDotStyle());
+		assertEquals(newStyle, ((IDot) drawing.getSelection().getShapeAt(2)).getDotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -91,22 +92,24 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 	public void testSelectFillingNotEnabledWhenNonFillableStyleSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, updateIns).execute();
 		setDotStyle.execute(DotStyle.ASTERISK);
+		waitFXEvents.execute();
 		assertTrue(fillingB.isDisabled());
 	}
 
 	@Test
 	public void testSelectFillingEnabledWhenFillableStyleSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns, setDotStyleFillable).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns, setDotStyleFillable, waitFXEvents).execute();
 		assertFalse(fillingB.isDisabled());
 	}
 
 	@Test
 	public void testPickLineColourSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddBezier, selectionAddDot, setDotStyleFillable, updateIns).execute();
-		Color col = fillingB.getValue();
+		final Color col = fillingB.getValue();
 		pickFillingColour.execute();
-		assertEquals(fillingB.getValue(), ((IDot)drawing.getSelection().getShapeAt(0)).getDotFillingCol().toJFX());
-		assertEquals(fillingB.getValue(), ((IDot)drawing.getSelection().getShapeAt(2)).getDotFillingCol().toJFX());
+		waitFXEvents.execute();
+		assertEquals(fillingB.getValue(), ((IDot) drawing.getSelection().getShapeAt(0)).getDotFillingCol().toJFX());
+		assertEquals(fillingB.getValue(), ((IDot) drawing.getSelection().getShapeAt(2)).getDotFillingCol().toJFX());
 		assertNotEquals(col, fillingB.getValue());
 	}
 }

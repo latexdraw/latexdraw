@@ -66,9 +66,10 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testSelectFillingPlainPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		FillingStyle style = fillStyleCB.getSelectionModel().getSelectedItem();
+		final FillingStyle style = fillStyleCB.getSelectionModel().getSelectedItem();
 		selectStyle.execute(FillingStyle.PLAIN);
-		FillingStyle newStyle = fillStyleCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final FillingStyle newStyle = fillStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, pencil.createShapeInstance().getFillingStyle());
 		assertNotEquals(style, newStyle);
 	}
@@ -76,8 +77,9 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testPickFillingColourPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectPlainStyle, updateIns).execute();
-		Color col = fillColButton.getValue();
+		final Color col = fillColButton.getValue();
 		pickfillCol.execute();
+		waitFXEvents.execute();
 		assertEquals(fillColButton.getValue(), pencil.createShapeInstance().getFillingCol().toJFX());
 		assertNotEquals(col, fillColButton.getValue());
 	}
@@ -85,8 +87,9 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testPickHatchingsColourPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectHatchingsStyle, updateIns).execute();
-		Color col = hatchColButton.getValue();
+		final Color col = hatchColButton.getValue();
 		pickhatchCol.execute();
+		waitFXEvents.execute();
 		assertEquals(hatchColButton.getValue(), pencil.createShapeInstance().getHatchingsCol().toJFX());
 		assertNotEquals(col, hatchColButton.getValue());
 	}
@@ -94,8 +97,9 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testPickGradStartColourPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectGradStyle, updateIns).execute();
-		Color col = gradStartColButton.getValue();
+		final Color col = gradStartColButton.getValue();
 		pickgradStartCol.execute();
+		waitFXEvents.execute();
 		assertEquals(gradStartColButton.getValue(), pencil.createShapeInstance().getGradColStart().toJFX());
 		assertNotEquals(col, gradStartColButton.getValue());
 	}
@@ -103,8 +107,9 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testPickGradEndColourPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectGradStyle, updateIns).execute();
-		Color col = gradEndColButton.getValue();
+		final Color col = gradEndColButton.getValue();
 		pickgradEndCol.execute();
+		waitFXEvents.execute();
 		assertEquals(gradEndColButton.getValue(), pencil.createShapeInstance().getGradColEnd().toJFX());
 		assertNotEquals(col, gradEndColButton.getValue());
 	}

@@ -3,12 +3,12 @@ package net.sf.latexdraw.instruments.pencil;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestPlotStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapePlotCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestPlotStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
@@ -66,9 +66,10 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	@Test
 	public void testSelectDOTSStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.DOTS);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((IPlot)pencil.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
@@ -76,9 +77,10 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	@Test
 	public void testSelectCCURVEStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.CCURVE);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((IPlot)pencil.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
@@ -86,9 +88,10 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	@Test
 	public void testSelectPOLYGONStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.POLYGON);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((IPlot)pencil.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
@@ -96,9 +99,10 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	@Test
 	public void testSelectECURVEStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.ECURVE);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((IPlot)pencil.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
@@ -107,9 +111,11 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	public void testSelectCURVEStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
 		selectplotStyleCB.execute(PlotStyle.ECURVE);
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.CURVE);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((IPlot)pencil.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
@@ -117,9 +123,10 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	@Test
 	public void testSelectLINEStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.LINE);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((IPlot)pencil.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
@@ -157,8 +164,9 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 	@Test
 	public void testSelectpolarCBPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		boolean sel = polarCB.isSelected();
+		final boolean sel = polarCB.isSelected();
 		clickpolarCB.execute();
+		waitFXEvents.execute();
 		assertEquals(!sel, ((IPlot) pencil.createShapeInstance()).isPolar());
 		assertNotEquals(sel, polarCB.isSelected());
 	}

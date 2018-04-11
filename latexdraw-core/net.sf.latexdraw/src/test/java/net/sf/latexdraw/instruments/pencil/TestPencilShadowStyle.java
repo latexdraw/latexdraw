@@ -65,8 +65,9 @@ public class TestPencilShadowStyle extends TestShadowStyleGUI {
 	@Test
 	public void testSelectShadowCBPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		boolean sel = shadowCB.isSelected();
+		final boolean sel = shadowCB.isSelected();
 		checkShadow.execute();
+		waitFXEvents.execute();
 		assertEquals(!sel, pencil.createShapeInstance().hasShadow());
 		assertNotEquals(sel, shadowCB.isSelected());
 	}
@@ -74,8 +75,9 @@ public class TestPencilShadowStyle extends TestShadowStyleGUI {
 	@Test
 	public void testPickShadowColourPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, checkShadow, updateIns).execute();
-		Color col = shadowColB.getValue();
+		final Color col = shadowColB.getValue();
 		pickShadCol.execute();
+		waitFXEvents.execute();
 		assertEquals(shadowColB.getValue(), pencil.createShapeInstance().getShadowCol().toJFX());
 		assertNotEquals(col, shadowColB.getValue());
 	}

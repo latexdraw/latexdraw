@@ -82,24 +82,28 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	@Test
 	public void testActivateOnGroupSelected() {
 		selectOneGroup.execute();
+		waitFXEvents.execute();
 		assertTrue(ins.isActivated());
 	}
 
 	@Test
 	public void testActivateOnTwoShapesSelected() {
 		selectTwoShapes.execute();
+		waitFXEvents.execute();
 		assertTrue(ins.isActivated());
 	}
 
 	@Test
 	public void testNotActivateOnOneShapeNotGroupSelected() {
 		selectOneShape.execute();
+		waitFXEvents.execute();
 		assertFalse(ins.isActivated());
 	}
 
 	@Test
 	public void testNotVisibleOnOneShapeNotGroupSelected() {
 		selectOneShape.execute();
+		waitFXEvents.execute();
 		assertFalse(mainPane.isVisible());
 	}
 
@@ -108,6 +112,7 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 		when(pencil.isActivated()).thenReturn(true);
 		when(hand.isActivated()).thenReturn(false);
 		selectTwoShapes.execute();
+		waitFXEvents.execute();
 		assertFalse(mainPane.isVisible());
 	}
 
@@ -116,6 +121,7 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 		when(pencil.isActivated()).thenReturn(true);
 		when(hand.isActivated()).thenReturn(false);
 		selectTwoShapes.execute();
+		waitFXEvents.execute();
 		assertFalse(ins.isActivated());
 	}
 
@@ -123,6 +129,7 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	public void testGroupTwoShapes() {
 		new CompositeGUIVoidCommand(selectTwoShapes, clickGroup).execute();
 		assertEquals(1, drawing.size());
+		waitFXEvents.execute();
 		assertTrue(drawing.getShapeAt(0) instanceof IGroup);
 	}
 
@@ -131,6 +138,7 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 		selectOneGroup.execute();
 		final IGroup group = (IGroup) drawing.getShapeAt(0);
 		clickSep.execute();
+		waitFXEvents.execute();
 		assertEquals(2, drawing.size());
 		assertEquals(group.getShapeAt(0), drawing.getShapeAt(0));
 		assertEquals(group.getShapeAt(1), drawing.getShapeAt(1));

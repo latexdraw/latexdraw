@@ -94,6 +94,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		final BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
 		selectBorderPos.execute();
+		waitFXEvents.execute();
 		final BorderPos newStyle = bordersPosCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(0).getBordersPosition());
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).getBordersPosition());
@@ -105,6 +106,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		final LineStyle style = lineCB.getSelectionModel().getSelectedItem();
 		selectLineStyle.execute();
+		waitFXEvents.execute();
 		final LineStyle newStyle = lineCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(0).getLineStyle());
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).getLineStyle());
@@ -116,6 +118,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddBezier, updateIns).execute();
 		final boolean sel = showPoints.isSelected();
 		checkShowPts.execute();
+		waitFXEvents.execute();
 		assertEquals(!sel, drawing.getSelection().getShapeAt(0).isShowPts());
 		assertEquals(!sel, drawing.getSelection().getShapeAt(1).isShowPts());
 	}
@@ -131,6 +134,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddFreehand, updateIns).execute();
 		final boolean isOpen = opened.isSelected();
 		checkOpened.execute();
+		waitFXEvents.execute();
 		assertEquals(!isOpen, ((IClosableProp) drawing.getSelection().getShapeAt(0)).isOpened());
 		assertEquals(!isOpen, ((IClosableProp) drawing.getSelection().getShapeAt(1)).isOpened());
 	}
@@ -140,6 +144,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddBezier, updateIns).execute();
 		final Color col = lineColButton.getValue();
 		pickLineCol.execute();
+		waitFXEvents.execute();
 		assertEquals(lineColButton.getValue(), drawing.getSelection().getShapeAt(0).getLineColour().toJFX());
 		assertEquals(lineColButton.getValue(), drawing.getSelection().getShapeAt(1).getLineColour().toJFX());
 		assertNotEquals(col, lineColButton.getValue());

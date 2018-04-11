@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestDoubleLineStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestDoubleLineStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
@@ -85,8 +85,9 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 	@Test
 	public void testSelectDoubleLineSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddAxes, selectionAddRec, updateIns).execute();
-		boolean sel = dbleBoundCB.isSelected();
+		final boolean sel = dbleBoundCB.isSelected();
 		selectdbleLine.execute();
+		waitFXEvents.execute();
 		assertEquals(!sel, drawing.getSelection().getShapeAt(0).hasDbleBord());
 		assertEquals(!sel, drawing.getSelection().getShapeAt(2).hasDbleBord());
 		assertNotEquals(sel, dbleBoundCB.isSelected());
@@ -103,8 +104,9 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 	@Test
 	public void testPickDbleColourSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddBezier, selectionAddRec, selectdbleLine, updateIns).execute();
-		Color col = dbleBoundColB.getValue();
+		final Color col = dbleBoundColB.getValue();
 		pickDbleColour.execute();
+		waitFXEvents.execute();
 		assertEquals(dbleBoundColB.getValue(), drawing.getSelection().getShapeAt(0).getDbleBordCol().toJFX());
 		assertEquals(dbleBoundColB.getValue(), drawing.getSelection().getShapeAt(1).getDbleBordCol().toJFX());
 		assertNotEquals(col, dbleBoundColB.getValue());

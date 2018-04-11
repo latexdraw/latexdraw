@@ -3,12 +3,12 @@ package net.sf.latexdraw.instruments.hand;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestArrowStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestArrowStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
@@ -70,24 +70,26 @@ public class TestHandArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleHand() {
 		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns).execute();
-		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		final ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
 		selectArrowLeftCB.execute(ArrowStyle.BAR_IN);
-		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.BAR_IN, newStyle);
-		assertEquals(newStyle, ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getArrowAt(0).getArrowStyle());
-		assertEquals(newStyle, ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 	}
 
 	@Test
 	public void testSelectRightArrowStyleHand() {
 		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns).execute();
-		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		final ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
 		selectArrowRightCB.execute(ArrowStyle.ROUND_IN);
-		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.ROUND_IN, newStyle);
-		assertEquals(newStyle, ((IArrowableSingleShape)drawing.getSelection().getShapeAt(0)).getArrowAt(-1).getArrowStyle());
-		assertEquals(newStyle, ((IArrowableSingleShape)drawing.getSelection().getShapeAt(1)).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((IArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((IArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 	}
 

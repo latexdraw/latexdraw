@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestGridStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeGridCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestGridStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.util.Injector;
@@ -66,18 +66,20 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 	@Test
 	public void testPickcolourLabelsColourPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
-		Color col = colourLabels.getValue();
+		final Color col = colourLabels.getValue();
 		pickcolourLabels.execute();
-		assertEquals(colourLabels.getValue(), ((IGrid)pencil.createShapeInstance()).getGridLabelsColour().toJFX());
+		waitFXEvents.execute();
+		assertEquals(colourLabels.getValue(), ((IGrid) pencil.createShapeInstance()).getGridLabelsColour().toJFX());
 		assertNotEquals(col, colourLabels.getValue());
 	}
 
 	@Test
 	public void testPickLineColourPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
-		Color col = colourSubGrid.getValue();
+		final Color col = colourSubGrid.getValue();
 		pickcolourSubGrid.execute();
-		assertEquals(colourSubGrid.getValue(), ((IGrid)pencil.createShapeInstance()).getSubGridColour().toJFX());
+		waitFXEvents.execute();
+		assertEquals(colourSubGrid.getValue(), ((IGrid) pencil.createShapeInstance()).getSubGridColour().toJFX());
 		assertNotEquals(col, colourSubGrid.getValue());
 	}
 
@@ -114,8 +116,9 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 	@Test
 	public void testSelectlabelsYInvertedCBPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
-		boolean sel = labelsYInvertedCB.isSelected();
+		final boolean sel = labelsYInvertedCB.isSelected();
 		clicklabelsYInvertedCB.execute();
+		waitFXEvents.execute();
 		assertEquals(sel, ((IGrid) pencil.createShapeInstance()).isXLabelSouth());
 		assertNotEquals(sel, labelsYInvertedCB.isSelected());
 	}
@@ -123,8 +126,9 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 	@Test
 	public void testSelectlabelsXInvertedCBPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
-		boolean sel = labelsXInvertedCB.isSelected();
+		final boolean sel = labelsXInvertedCB.isSelected();
 		clicklabelsXInvertedCB.execute();
+		waitFXEvents.execute();
 		assertEquals(sel, ((IGrid) pencil.createShapeInstance()).isYLabelWest());
 		assertNotEquals(sel, labelsXInvertedCB.isSelected());
 	}

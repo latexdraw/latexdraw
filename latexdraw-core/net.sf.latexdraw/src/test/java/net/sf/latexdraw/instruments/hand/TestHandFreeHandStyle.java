@@ -78,8 +78,9 @@ public class TestHandFreeHandStyle extends TestFreeHandStyleGUI {
 	public void testSelectLineStyleSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddFreehand, selectionAddFreehand, updateIns).execute();
 		selectLineStyle.execute();
-		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)drawing.getSelection().getShapeAt(1)).getType());
-		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)drawing.getSelection().getShapeAt(2)).getType());
+		waitFXEvents.execute();
+		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand) drawing.getSelection().getShapeAt(1)).getType());
+		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand) drawing.getSelection().getShapeAt(2)).getType());
 		assertEquals(FreeHandStyle.LINES, freeHandType.getSelectionModel().getSelectedItem());
 	}
 
@@ -87,8 +88,9 @@ public class TestHandFreeHandStyle extends TestFreeHandStyleGUI {
 	public void testSelectCurveStyleSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddFreehand, selectionAddFreehand, updateIns).execute();
 		selectCurveStyle.execute();
-		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)drawing.getSelection().getShapeAt(1)).getType());
-		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)drawing.getSelection().getShapeAt(2)).getType());
+		waitFXEvents.execute();
+		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand) drawing.getSelection().getShapeAt(1)).getType());
+		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand) drawing.getSelection().getShapeAt(2)).getType());
 		assertEquals(FreeHandStyle.CURVES, freeHandType.getSelectionModel().getSelectedItem());
 	}
 }

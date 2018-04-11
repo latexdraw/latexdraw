@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.application.Platform;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestPlotStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapePlotCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestPlotStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
@@ -72,44 +72,48 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 	@Test
 	public void testSelectDOTSStyleHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.DOTS);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
 	@Test
 	public void testSelectCCURVEStyleHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.CCURVE);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
 	@Test
 	public void testSelectPOLYGONStyleHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.POLYGON);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
 	@Test
 	public void testSelectECURVEStyleHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.ECURVE);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -117,22 +121,25 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 	public void testSelectCURVEStyleHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
 		selectplotStyleCB.execute(PlotStyle.ECURVE);
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.CURVE);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
 	@Test
 	public void testSelectLINEStyleHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
+		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
 		selectplotStyleCB.execute(PlotStyle.LINE);
-		PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(1)).getPlotStyle());
-		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot)drawing.getSelection().getShapeAt(2)).getPlotStyle());
+		waitFXEvents.execute();
+		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(1)).getPlotStyle());
+		assertEquals(plotStyleCB.getSelectionModel().getSelectedItem(), ((IPlot) drawing.getSelection().getShapeAt(2)).getPlotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -180,10 +187,11 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 	@Test
 	public void testSelectpolarCBHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns).execute();
-		boolean sel = polarCB.isSelected();
+		final boolean sel = polarCB.isSelected();
 		clickpolarCB.execute();
-		assertEquals(polarCB.isSelected(), ((IPlot)drawing.getSelection().getShapeAt(1)).isPolar());
-		assertEquals(polarCB.isSelected(), ((IPlot)drawing.getSelection().getShapeAt(2)).isPolar());
+		waitFXEvents.execute();
+		assertEquals(polarCB.isSelected(), ((IPlot) drawing.getSelection().getShapeAt(1)).isPolar());
+		assertEquals(polarCB.isSelected(), ((IPlot) drawing.getSelection().getShapeAt(2)).isPolar());
 		assertNotEquals(sel, polarCB.isSelected());
 	}
 

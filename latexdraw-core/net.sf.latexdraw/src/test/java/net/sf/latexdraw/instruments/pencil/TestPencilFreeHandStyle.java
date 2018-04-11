@@ -72,15 +72,17 @@ public class TestPencilFreeHandStyle extends TestFreeHandStyleGUI {
 	public void testSelectLineStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns).execute();
 		selectLineStyle.execute();
-		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)pencil.createShapeInstance()).getType());
-		assertEquals(FreeHandStyle.LINES, ((IFreehand)pencil.createShapeInstance()).getType());
+		waitFXEvents.execute();
+		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand) pencil.createShapeInstance()).getType());
+		assertEquals(FreeHandStyle.LINES, ((IFreehand) pencil.createShapeInstance()).getType());
 	}
 
 	@Test
 	public void testSelectCurveStylePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns).execute();
 		selectCurveStyle.execute();
-		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)pencil.createShapeInstance()).getType());
-		assertEquals(FreeHandStyle.CURVES, ((IFreehand)pencil.createShapeInstance()).getType());
+		waitFXEvents.execute();
+		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand) pencil.createShapeInstance()).getType());
+		assertEquals(FreeHandStyle.CURVES, ((IFreehand) pencil.createShapeInstance()).getType());
 	}
 }

@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestFillingStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestFillingStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.util.Injector;
@@ -88,9 +88,10 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testSelectFillingPlainHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns).execute();
-		FillingStyle style = fillStyleCB.getSelectionModel().getSelectedItem();
+		final FillingStyle style = fillStyleCB.getSelectionModel().getSelectedItem();
 		selectStyle.execute(FillingStyle.PLAIN);
-		FillingStyle newStyle = fillStyleCB.getSelectionModel().getSelectedItem();
+		waitFXEvents.execute();
+		final FillingStyle newStyle = fillStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).getFillingStyle());
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(2).getFillingStyle());
 		assertNotEquals(style, newStyle);
@@ -99,8 +100,9 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testPickFillingColourHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectPlainStyle, updateIns).execute();
-		Color col = fillColButton.getValue();
+		final Color col = fillColButton.getValue();
 		pickfillCol.execute();
+		waitFXEvents.execute();
 		assertEquals(fillColButton.getValue(), drawing.getSelection().getShapeAt(1).getFillingCol().toJFX());
 		assertEquals(fillColButton.getValue(), drawing.getSelection().getShapeAt(2).getFillingCol().toJFX());
 		assertNotEquals(col, fillColButton.getValue());
@@ -109,8 +111,9 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testPickHatchingsColourHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectHatchingsStyle, updateIns).execute();
-		Color col = hatchColButton.getValue();
+		final Color col = hatchColButton.getValue();
 		pickhatchCol.execute();
+		waitFXEvents.execute();
 		assertEquals(hatchColButton.getValue(), drawing.getSelection().getShapeAt(1).getHatchingsCol().toJFX());
 		assertEquals(hatchColButton.getValue(), drawing.getSelection().getShapeAt(2).getHatchingsCol().toJFX());
 		assertNotEquals(col, hatchColButton.getValue());
@@ -119,8 +122,9 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testPickGradStartColourHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectGradStyle, updateIns).execute();
-		Color col = gradStartColButton.getValue();
+		final Color col = gradStartColButton.getValue();
 		pickgradStartCol.execute();
+		waitFXEvents.execute();
 		assertEquals(gradStartColButton.getValue(), drawing.getSelection().getShapeAt(1).getGradColStart().toJFX());
 		assertEquals(gradStartColButton.getValue(), drawing.getSelection().getShapeAt(2).getGradColStart().toJFX());
 		assertNotEquals(col, gradStartColButton.getValue());
@@ -129,8 +133,9 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testPickGradEndColourHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectGradStyle, updateIns).execute();
-		Color col = gradEndColButton.getValue();
+		final Color col = gradEndColButton.getValue();
 		pickgradEndCol.execute();
+		waitFXEvents.execute();
 		assertEquals(gradEndColButton.getValue(), drawing.getSelection().getShapeAt(1).getGradColEnd().toJFX());
 		assertEquals(gradEndColButton.getValue(), drawing.getSelection().getShapeAt(2).getGradColEnd().toJFX());
 		assertNotEquals(col, gradEndColButton.getValue());
