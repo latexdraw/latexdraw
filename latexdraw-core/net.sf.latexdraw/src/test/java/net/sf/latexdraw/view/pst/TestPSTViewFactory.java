@@ -20,112 +20,119 @@ import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.view.latex.DviPsColors;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
 public class TestPSTViewFactory {
+	@After
+	public void tearDown() {
+		DviPsColors.INSTANCE.clearUserColours();
+	}
+
 	@Test
 	public void testCreateGroupViewPST() {
-		IGroup gp = ShapeFactory.INST.createGroup();
+		final IGroup gp = ShapeFactory.INST.createGroup();
 		gp.addShape(ShapeFactory.INST.createText());
-		Optional<PSTShapeView<IGroup>> view = PSTViewsFactory.INSTANCE.createView(gp);
+		final Optional<PSTShapeView<IGroup>> view = PSTViewsFactory.INSTANCE.createView(gp);
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateTextViewPST() {
-		Optional<PSTShapeView<IText>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createText());
+		final Optional<PSTShapeView<IText>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createText());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateArcCircleViewPST() {
-		Optional<PSTShapeView<ICircleArc>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createCircleArc());
+		final Optional<PSTShapeView<ICircleArc>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createCircleArc());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateRectangleViewPST() {
-		Optional<PSTShapeView<IRectangle>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createRectangle());
+		final Optional<PSTShapeView<IRectangle>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createRectangle());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateSquareViewPST() {
-		Optional<PSTShapeView<ISquare>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createSquare());
+		final Optional<PSTShapeView<ISquare>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createSquare());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateEllipseViewPST() {
-		Optional<PSTShapeView<IEllipse>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createEllipse());
+		final Optional<PSTShapeView<IEllipse>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createEllipse());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateCircleViewPST() {
-		Optional<PSTShapeView<ICircle>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createCircle());
+		final Optional<PSTShapeView<ICircle>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createCircle());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateGridViewPST() {
-		Optional<PSTShapeView<IGrid>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
+		final Optional<PSTShapeView<IGrid>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateAxesViewPST() {
-		Optional<PSTShapeView<IAxes>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
+		final Optional<PSTShapeView<IAxes>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreatePolygonViewPST() {
-		Optional<PSTShapeView<IPolygon>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolygon(Collections.emptyList()));
+		final Optional<PSTShapeView<IPolygon>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolygon(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreatePolylineViewPST() {
-		Optional<PSTShapeView<IPolyline>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolyline(Collections.emptyList()));
+		final Optional<PSTShapeView<IPolyline>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPolyline(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateTriangleViewPST() {
-		Optional<PSTShapeView<ITriangle>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createTriangle());
+		final Optional<PSTShapeView<ITriangle>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createTriangle());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateRhombusViewPST() {
-		Optional<PSTShapeView<IRhombus>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createRhombus());
+		final Optional<PSTShapeView<IRhombus>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createRhombus());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateFreehandViewPST() {
-		Optional<PSTShapeView<IFreehand>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createFreeHand(Collections.emptyList()));
+		final Optional<PSTShapeView<IFreehand>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createFreeHand(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreatePictureViewPST() {
-		Optional<PSTShapeView<IPicture>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
+		final Optional<PSTShapeView<IPicture>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateDotViewPST() {
-		Optional<PSTShapeView<IDot>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
+		final Optional<PSTShapeView<IDot>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	public void testCreateBezierCurveViewPST() {
-		Optional<PSTShapeView<IBezierCurve>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createBezierCurve(Collections.emptyList()));
+		final Optional<PSTShapeView<IBezierCurve>> view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.INST.createBezierCurve(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 }

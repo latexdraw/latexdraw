@@ -18,6 +18,7 @@ import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
 import org.junit.Test;
 import org.malai.command.CommandsRegistry;
@@ -50,6 +51,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 		CommandsRegistry.INSTANCE.removeAllHandlers();
 		BadaboomCollector.INSTANCE.clear();
 		UndoCollector.INSTANCE.clear();
+		DviPsColors.INSTANCE.clearUserColours();
 	}
 
 	@Override

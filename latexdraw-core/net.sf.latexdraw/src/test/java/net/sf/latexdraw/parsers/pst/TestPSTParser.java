@@ -48,6 +48,7 @@ public abstract class TestPSTParser {
 		CommandsRegistry.INSTANCE.removeAllHandlers();
 		BadaboomCollector.INSTANCE.clear();
 		UndoCollector.INSTANCE.clear();
+		DviPsColors.INSTANCE.clearUserColours();
 	}
 
 	<T extends IShape> T getShapeAt(final int i) {

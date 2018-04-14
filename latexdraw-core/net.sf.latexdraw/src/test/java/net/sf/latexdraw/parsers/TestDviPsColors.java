@@ -5,6 +5,7 @@ import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
@@ -18,6 +19,11 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(Theories.class)
 public class TestDviPsColors {
 	@Rule public ExpectedException exceptionGrabber = ExpectedException.none();
+
+	@After
+	public void tearDown() {
+		DviPsColors.INSTANCE.clearUserColours();
+	}
 
 	@Test
 	public void testConvertHTML2rgbsuccess() {

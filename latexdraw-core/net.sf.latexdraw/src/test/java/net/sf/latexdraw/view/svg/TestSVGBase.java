@@ -8,6 +8,7 @@ import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
 import org.junit.Before;
 import org.malai.command.CommandsRegistry;
@@ -28,6 +29,7 @@ abstract class TestSVGBase<T extends IShape> {
 
 	@After
 	public void tearDown() {
+		DviPsColors.INSTANCE.clearUserColours();
 		CommandsRegistry.INSTANCE.clear();
 		CommandsRegistry.INSTANCE.removeAllHandlers();
 		BadaboomCollector.INSTANCE.clear();

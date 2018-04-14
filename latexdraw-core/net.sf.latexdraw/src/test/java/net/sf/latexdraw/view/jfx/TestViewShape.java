@@ -10,6 +10,7 @@ import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
+import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
 import org.junit.Before;
 import org.malai.command.CommandsRegistry;
@@ -43,6 +44,7 @@ abstract class TestViewShape<T extends ViewShape<S>, S extends ISingleShape> imp
 		CommandsRegistry.INSTANCE.removeAllHandlers();
 		BadaboomCollector.INSTANCE.clear();
 		UndoCollector.INSTANCE.clear();
+		DviPsColors.INSTANCE.clearUserColours();
 	}
 
 	@Override
