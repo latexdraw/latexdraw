@@ -216,11 +216,6 @@
             <version>${malai.version}</version>
         </dependency>
         <dependency>
-            <groupId>net.sf.jlibeps</groupId>
-            <artifactId>jlibeps</artifactId>
-            <version>0.1</version>
-        </dependency>
-        <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
             <version>4.0.11-alpha</version>

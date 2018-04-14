@@ -1,8 +1,7 @@
 package net.sf.latexdraw.models.impl;
 
-import java.io.IOException;
+import com.sun.javafx.application.PlatformImpl;
 import java.nio.file.Path;
-import java.util.concurrent.TimeoutException;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -17,7 +16,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.testfx.api.FxToolkit;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -31,12 +30,14 @@ public class TestIPicture implements HelperTest {
 	@Rule public TemporaryFolder folder;
 
 	@BeforeClass
-	public static void beforeClass() throws TimeoutException {
-		FxToolkit.registerPrimaryStage();
+	public static void beforeClass() {
+		PlatformImpl.startup(() -> {});
 	}
 
 	@Before
-	public void setUp() throws IOException {
+	public void setUp() throws Exception {
+
+		WaitForAsyncUtils.waitForFxEvents();
 		shape = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		folder = new TemporaryFolder();
 		folder.create();

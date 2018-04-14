@@ -10,22 +10,15 @@
  */
 package net.sf.latexdraw.models.impl;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import net.sf.latexdraw.commands.ExportFormat;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.sourceforge.jlibeps.epsgraphics.EpsGraphics2D;
+import net.sf.latexdraw.util.LSystem;
 
 /**
  * A model of a picture.
@@ -52,10 +45,9 @@ class LPicture extends LPositionShape implements IPicture {
 
 	/**
 	 * Loads the image using the source path and creates the eps picture.
-	 * @throws IOException If the picture cannot be loaded.
 	 * @since 3.0
 	 */
-	private void loadImage() throws IOException {
+	private void loadImage() {
 		if(image != null) {
 			new File(pathTarget).delete();
 		}
@@ -70,11 +62,7 @@ class LPicture extends LPositionShape implements IPicture {
 		super.copy(sh);
 
 		if(sh instanceof IPicture) {
-			try {
-				setPathSource(((IPicture) sh).getPathSource());
-			}catch(final IOException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
+			setPathSource(((IPicture) sh).getPathSource());
 		}
 	}
 
@@ -104,41 +92,17 @@ class LPicture extends LPositionShape implements IPicture {
 
 	/**
 	 * Creates an EPS image from the source one.
-	 * @throws IOException If a problem while reading/writing files occurs.
 	 * @since 2.0.0
 	 */
-	private void createEPSImage() throws IOException {
+	private void createEPSImage() {
 		if(pathSource == null || image == null) return;
 
 		final int indexName = pathSource.lastIndexOf(File.separator) + 1;
 		final String name = pathSource.substring(indexName, pathSource.lastIndexOf('.')) + ExportFormat.EPS_LATEX.getFileExtension();
 		final String dirPath = pathSource.substring(0, indexName);
 		pathTarget = dirPath + name;
-		File file = new File(pathTarget);
-		boolean created;
 
-		try {// We create the output file that will contains the eps picture.
-			created = file.createNewFile();
-		}catch(final IOException ex) { created = false; }
-
-		// If created is false, it may mean that the file already exist.
-		if(!created && !file.canWrite()) {
-			pathTarget = LPath.PATH_CACHE_DIR + File.separator + name;
-			file = new File(pathTarget);
-		}
-
-		// Within jlibeps, graphics are defined using 72 DPI (72/2.54=28,3465 PPC), but latexdraw uses 50 PPC.
-		// That's why, we need the scale the graphics to have a 50 PPC eps picture.
-		final double scale = 72.0 / PSTricksConstants.INCH_VAL_CM / IShape.PPC;// 72 DPI / 2.54 / 50 PPC
-		try(final FileOutputStream finalImage = new FileOutputStream(file)) {
-			final EpsGraphics2D g = new EpsGraphics2D("LaTeXDrawPicture", finalImage, 0, 0, (int) (getWidth() * scale), (int) (getHeight() * scale));//$NON-NLS-1$
-			g.scale(scale, scale);
-			final BufferedImage buff = SwingFXUtils.fromFXImage(image, null);
-			g.drawImage(buff, 0, 0, null);
-			g.flush();
-			g.close();
-			buff.flush();
-		}
+		LSystem.INSTANCE.execute(new String[]{"convert", pathSource, name}, null); //NON-NLS
 	}
 
 
@@ -212,7 +176,7 @@ class LPicture extends LPositionShape implements IPicture {
 
 
 	@Override
-	public void setPathSource(final String path) throws IOException {
+	public void setPathSource(final String path) {
 		pathSource = path;
 		image = null;
 		if(pathSource != null) {
