@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
+import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
@@ -52,6 +53,7 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				bindToInstance(PreferencesSetter.class, Mockito.mock(PreferencesSetter.class));
 				bindToInstance(StatusBarController.class, Mockito.mock(StatusBarController.class));
+				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindToInstance(IDrawing.class, ShapeFactory.INST.createDrawing());
 				bindToInstance(Canvas.class, Mockito.mock(Canvas.class));
 				bindAsEagerSingleton(FileLoaderSaver.class);

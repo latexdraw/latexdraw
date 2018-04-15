@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.lang.reflect.InvocationTargetException;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
@@ -85,6 +86,7 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 				bindAsEagerSingleton(Canvas.class);
 				bindAsEagerSingleton(FacadeCanvasController.class);
 				bindAsEagerSingleton(CanvasController.class);
+				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());
 				bindWithCommand(MagneticGrid.class, Canvas.class, canvas -> canvas.getMagneticGrid());
 				bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);

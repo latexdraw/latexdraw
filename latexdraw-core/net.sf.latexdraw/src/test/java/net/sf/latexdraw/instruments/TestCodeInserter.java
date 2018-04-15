@@ -2,6 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeoutException;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.LaTeXDraw;
@@ -30,6 +31,7 @@ public class TestCodeInserter extends ApplicationTest {
 		return new Injector() {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindToInstance(CopierCutterPaster.class, Mockito.mock(CopierCutterPaster.class));
 				bindAsEagerSingleton(StatusBarController.class);
 				bindToInstance(IDrawing.class, ShapeFactory.INST.createDrawing());
