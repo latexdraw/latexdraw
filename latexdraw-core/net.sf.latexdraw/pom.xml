@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <argLine>-Dheadless.geometry=1280x1024-32 -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k
+        <argLine>-Xmx4000m -Dheadless.geometry=1280x1024-32 -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k
         </argLine>
         <malai.version>3.0</malai.version>
         <antlr.version>4.7.1</antlr.version>
