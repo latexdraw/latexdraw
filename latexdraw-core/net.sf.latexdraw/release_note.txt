@@ -5,6 +5,7 @@ Version 4.0.0
     - The user interface has been completely redesigned.
     - Better performances.
     - To ease the selection, the cursor changes when moving the mouse over a shape with the hand.
+- Can insert eps and pdf pictures ('convert' provided by ImageMagick is required).
 
 - Fixed
     - Multiple fixes in the SVG save/load

@@ -18,14 +18,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.net.URI;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.Random;
@@ -46,14 +42,10 @@ public final class LFileUtils {
 		super();
 	}
 
-	public FileSystem initFileSystem(final URI uri) throws IOException {
-		try {
-			return FileSystems.newFileSystem(uri, Collections.emptyMap());
-		}catch(final IllegalArgumentException ignore) {
-			return FileSystems.getDefault();
-		}
+	public String getFileWithoutExtension(final String file) {
+		return file == null ? "" : file.substring(0, file.lastIndexOf('.'));
 	}
-	
+
 	/**
 	 * Replaces ~ characters by \string~.
 	 * @param str The string to process.

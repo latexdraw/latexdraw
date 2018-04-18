@@ -11,6 +11,7 @@
 package net.sf.latexdraw.models.impl;
 
 import java.io.File;
+import java.util.stream.Stream;
 import javafx.scene.image.Image;
 import net.sf.latexdraw.commands.ExportFormat;
 import net.sf.latexdraw.models.MathUtils;
@@ -18,6 +19,7 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LSystem;
 
 /**
@@ -52,8 +54,29 @@ class LPicture extends LPositionShape implements IPicture {
 			new File(pathTarget).delete();
 		}
 
+		if(pathSource.endsWith(".eps") || pathSource.endsWith(".pdf")) {
+			pathTarget = pathSource;
+			searchOrCreateImg();
+		}
+
 		image = new Image(new File(pathSource).toURI().toString());
 		createEPSImage();
+	}
+
+
+	/**
+	 * If the loaded file is a PDF or and EPS picture, a readable picture is first searched.
+	 * If not found, a jpg picture is created (to be
+	 */
+	private void searchOrCreateImg() {
+		final String path = LFileUtils.INSTANCE.getFileWithoutExtension(pathSource);
+		System.out.println(path);
+		pathSource = Stream.of(".jpg", ".png", ".gif", ".jpeg").map(ext -> new File(path + ext)).
+			filter(f -> f.exists()).map(f -> f.getPath()).findFirst().
+			orElseGet(() -> {
+				LSystem.INSTANCE.execute(new String[]{"convert", pathSource, path + ".jpg"}, null); //NON-NLS
+				return path + ".jpg";
+			});
 	}
 
 
@@ -99,10 +122,7 @@ class LPicture extends LPositionShape implements IPicture {
 			return;
 		}
 
-		final int indexName = pathSource.lastIndexOf(File.separator) + 1;
-		final String name = pathSource.substring(indexName, pathSource.lastIndexOf('.')) + ExportFormat.EPS_LATEX.getFileExtension();
-		final String dirPath = pathSource.substring(0, indexName);
-		pathTarget = dirPath + name;
+		pathTarget = LFileUtils.INSTANCE.getFileWithoutExtension(pathSource) + ExportFormat.EPS_LATEX.getFileExtension();
 
 		if(!new File(pathTarget).exists()) {
 			LSystem.INSTANCE.execute(new String[]{"convert", pathSource, pathTarget}, null); //NON-NLS

@@ -93,7 +93,7 @@ public class Pencil extends CanvasInstrument {
 		if(pictureFileChooser == null) {
 			pictureFileChooser = new FileChooser();
 			pictureFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(
-				"png/bmp/gif/jpg", Arrays.asList("*.png", "*.bmp", "*.gif", "*.jpeg", "*.jpg"))); //NON-NLS
+				"png/bmp/gif/jpg/eps/pdf", Arrays.asList("*.png", "*.bmp", "*.gif", "*.jpeg", "*.jpg", "*.eps", "*.pdf"))); //NON-NLS
 		}
 		return pictureFileChooser;
 	}
