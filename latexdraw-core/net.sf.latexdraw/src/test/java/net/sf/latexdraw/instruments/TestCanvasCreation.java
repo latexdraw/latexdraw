@@ -32,6 +32,7 @@ import org.mockito.Mockito;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -299,6 +300,11 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		final IPicture sh = (IPicture) drawing.getShapeAt(0);
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
+	}
+
+	@Test
+	public void testPictureDialogueOK() {
+		assertFalse(pencil.getPictureFileChooser().getExtensionFilters().isEmpty());
 	}
 
 	@Test

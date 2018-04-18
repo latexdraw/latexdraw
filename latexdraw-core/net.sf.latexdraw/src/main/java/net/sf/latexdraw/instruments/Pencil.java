@@ -39,7 +39,6 @@ import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.MultiClick;
@@ -93,8 +92,8 @@ public class Pencil extends CanvasInstrument {
 	protected FileChooser getPictureFileChooser() {
 		if(pictureFileChooser == null) {
 			pictureFileChooser = new FileChooser();
-			pictureFileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter(
-				LangTool.INSTANCE.getBundle().getString("Filter.1"), Arrays.asList("*.png", "*.bmp", "*.gif", "*.jpeg", "*.jpg"))); //NON-NLS
+			pictureFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(
+				"png/bmp/gif/jpg", Arrays.asList("*.png", "*.bmp", "*.gif", "*.jpeg", "*.jpg"))); //NON-NLS
 		}
 		return pictureFileChooser;
 	}
