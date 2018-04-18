@@ -95,14 +95,16 @@ class LPicture extends LPositionShape implements IPicture {
 	 * @since 2.0.0
 	 */
 	private void createEPSImage() {
-		if(pathSource == null || image == null) return;
+		if(pathSource == null || image == null) {
+			return;
+		}
 
 		final int indexName = pathSource.lastIndexOf(File.separator) + 1;
 		final String name = pathSource.substring(indexName, pathSource.lastIndexOf('.')) + ExportFormat.EPS_LATEX.getFileExtension();
 		final String dirPath = pathSource.substring(0, indexName);
 		pathTarget = dirPath + name;
 
-		LSystem.INSTANCE.execute(new String[]{"convert", pathSource, name}, null); //NON-NLS
+		LSystem.INSTANCE.execute(new String[]{"convert", pathSource, pathTarget}, null); //NON-NLS
 	}
 
 
@@ -162,19 +164,6 @@ class LPicture extends LPositionShape implements IPicture {
 		return pathSource;
 	}
 
-
-	@Override
-	public String getPathTarget() {
-		return pathTarget;
-	}
-
-
-	@Override
-	public double getWidth() {
-		return image == null ? 0d : image.getWidth();
-	}
-
-
 	@Override
 	public void setPathSource(final String path) {
 		pathSource = path;
@@ -182,6 +171,16 @@ class LPicture extends LPositionShape implements IPicture {
 		if(pathSource != null) {
 			loadImage();
 		}
+	}
+
+	@Override
+	public String getPathTarget() {
+		return pathTarget;
+	}
+
+	@Override
+	public double getWidth() {
+		return image == null ? 0d : image.getWidth();
 	}
 
 	@Override
