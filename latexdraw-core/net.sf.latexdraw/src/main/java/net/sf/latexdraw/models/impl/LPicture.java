@@ -104,7 +104,9 @@ class LPicture extends LPositionShape implements IPicture {
 		final String dirPath = pathSource.substring(0, indexName);
 		pathTarget = dirPath + name;
 
-		LSystem.INSTANCE.execute(new String[]{"convert", pathSource, pathTarget}, null); //NON-NLS
+		if(!new File(pathTarget).exists()) {
+			LSystem.INSTANCE.execute(new String[]{"convert", pathSource, pathTarget}, null); //NON-NLS
+		}
 	}
 
 
