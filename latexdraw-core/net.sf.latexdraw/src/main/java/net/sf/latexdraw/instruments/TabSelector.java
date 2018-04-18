@@ -133,7 +133,7 @@ public class TabSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		tabBinder(ActivateInactivateInstruments.class).on(tabPane).first((c, i) -> {
+		tabBinder(ActivateInactivateInstruments.class).on(tabPane).first((i, c) -> {
 			if(i.getWidget().getSelectionModel().getSelectedIndex() == 0) {
 				c.addInstrumentToActivate(selector);
 				c.addInstrumentToActivate(paster);

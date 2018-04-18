@@ -30,9 +30,9 @@ public class CanvasController extends CanvasInstrument implements Initializable 
 
 	@Override
 	protected void configureBindings() {
-		nodeBinder(MoveCamera.class, new DnD()).on(canvas).
-			first((c, i) -> c.setScrollPane(canvas.getScrollPane())).
-			then((c, i) -> {
+		nodeBinder(new DnD(), MoveCamera.class).on(canvas).
+			first((i, c) -> c.setScrollPane(canvas.getScrollPane())).
+			then((i, c) -> {
 				final ScrollPane pane = canvas.getScrollPane();
 				c.setPx(pane.getHvalue() - (i.getTgtLocalPoint().getX() - i.getSrcLocalPoint().getX()) / canvas.getWidth());
 				c.setPy(pane.getVvalue() - (i.getTgtLocalPoint().getY() - i.getSrcLocalPoint().getY()) / canvas.getHeight());

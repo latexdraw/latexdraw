@@ -168,12 +168,12 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 				pencil.textSetter.getTextField().getText()), canvas.getDrawing())).
 			when(i -> pencil.textSetter.isActivated() && !pencil.textSetter.getTextField().getText().isEmpty()).bind();
 
-		toggleButtonBinder(ModifyPencilStyle.class).on(nodes).first((c, i) -> {
+		toggleButtonBinder(ModifyPencilStyle.class).on(nodes).first((i, c) -> {
 			c.setEditingChoice(button2EditingChoiceMap.get(i.getWidget()));
 			c.setPencil(pencil);
 		}).bind();
 
-		toggleButtonBinder(ActivateInactivateInstruments.class).on(nodes).first((c, i) -> {
+		toggleButtonBinder(ActivateInactivateInstruments.class).on(nodes).first((i, c) -> {
 			final ToggleButton button = i.getWidget();
 
 			c.setActivateFirst(false);

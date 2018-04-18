@@ -192,16 +192,16 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 	private void configureMovePointBinding() {
-		nodeBinder(MovePointShape.class, new DnD()).
+		nodeBinder(new DnD(), MovePointShape.class).
 			on(mvPtHandlers).
-			first((c, i) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
+			first((i, c) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
 				final IGroup group = canvas.getDrawing().getSelection();
 				if(group.size() == 1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
 					c.setPoint(handler.getPoint());
 					c.setShape((IModifiablePointsShape) group.getShapeAt(0));
 				}
 			})).
-			then((c, i) -> i.getSrcObject().ifPresent(node -> {
+			then((i, c) -> i.getSrcObject().ifPresent(node -> {
 				final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
 				final Point3D endPt = node.localToParent(i.getTgtLocalPoint());
 				final IPoint ptToMove = ((MovePtHandler) node).getPoint();
@@ -218,10 +218,10 @@ public class Border extends CanvasInstrument implements Initializable {
 	protected void configureBindings() {
 		addBinding(new DnD2Scale(this));
 		configureMovePointBinding();
-		nodeBinder(MoveCtrlPoint.class, new DnD()).
+		nodeBinder(new DnD(), MoveCtrlPoint.class).
 			on(ctrlPt1Handlers).
 			on(ctrlPt2Handlers).
-			first((c, i) -> {
+			first((i, c) -> {
 				final IGroup group = canvas.getDrawing().getSelection();
 				if(group.size() == 1 && group.getShapeAt(0) instanceof IControlPointShape) {
 					c.setPoint(i.getSrcObject().map(h -> ((CtrlPointHandler) h).getPoint()).orElse(null));
@@ -229,7 +229,7 @@ public class Border extends CanvasInstrument implements Initializable {
 					c.setIsFirstCtrlPt(ctrlPt1Handlers.contains(i.getSrcObject().orElse(null)));
 				}
 			}).
-			then((c, i) -> {
+			then((i, c) -> {
 				final Point3D startPt = i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(new Point3D(0d, 0d, 0d));
 				final Point3D endPt = i.getSrcObject().map(n -> n.localToParent(i.getTgtLocalPoint())).orElse(new Point3D(0d, 0d, 0d));
 				final IPoint ptToMove = i.getSrcObject().map(n -> ((CtrlPointHandler) n).getPoint()).orElse(ShapeFactory.INST.createPoint());
@@ -239,15 +239,15 @@ public class Border extends CanvasInstrument implements Initializable {
 			}).
 			exec().bind();
 
-		nodeBinder(RotateShapes.class, new DnD()).
+		nodeBinder(new DnD(), RotateShapes.class).
 			on(rotHandler).
-			first((c, i) -> {
+			first((i, c) -> {
 				final IDrawing drawing = canvas.getDrawing();
 				c.setGravityCentre(drawing.getSelection().getGravityCentre());
 				c.getGc().translate(canvas.getOrigin().getX(), canvas.getOrigin().getY());
 				c.setShape(drawing.getSelection().duplicateDeep(false));
 			}).
-			then((c, i) -> c.setRotationAngle(c.getGc().computeRotationAngle(
+			then((i, c) -> c.setRotationAngle(c.getGc().computeRotationAngle(
 				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getSrcScenePoint())),
 				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getTgtScenePoint()))))).
 			exec().bind();
@@ -264,7 +264,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		private final IPoint gap;
 
 		DnD2ArcAngle(final Border ins) {
-			super(ins, true, ModifyShapeProperty.class, new DnD(), Arrays.asList(ins.arcHandlerStart, ins.arcHandlerEnd), false, null);
+			super(ins, true, new DnD(), ModifyShapeProperty.class, Arrays.asList(ins.arcHandlerStart, ins.arcHandlerEnd), false, null);
 			gap = ShapeFactory.INST.createPoint();
 			isRotated = false;
 		}
@@ -342,7 +342,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		private double yGap;
 
 		DnD2Scale(final Border ins) {
-			super(ins, true, ScaleShapes.class, new DnD(), ins.scaleHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()), false, null);
+			super(ins, true, new DnD(), ScaleShapes.class, ins.scaleHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()), false, null);
 		}
 
 		private void setXGap(final Position refPosition, final IPoint tl, final IPoint br) {

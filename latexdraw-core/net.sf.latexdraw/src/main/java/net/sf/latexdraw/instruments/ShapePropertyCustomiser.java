@@ -113,11 +113,11 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 	protected void addSpinnerPropBinding(final Spinner<?> spinner, final ShapeProperties prop, final boolean angle) {
 		spinnerBinder(ModifyShapeProperty.class).on(spinner).map(i -> mapModShProp(null, prop)).
-			then((c, i) -> c.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
+			then((i, c) -> c.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
 			when(handActiv).bind();
 
 		spinnerBinder(ModifyPencilParameter.class).on(spinner).map(i -> firstPropPen(null, prop)).
-			then((c, i) -> c.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
+			then((i, c) -> c.setValue(angle ? Math.toRadians(((Number) i.getWidget().getValue()).doubleValue()) : i.getWidget().getValue())).
 			when(pencilActiv).bind();
 	}
 

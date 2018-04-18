@@ -93,9 +93,9 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 			c.updateThumbnails(true);
 		}).bind();
 
-		nodeBinder(LoadTemplate.class, new DnD()).
+		nodeBinder(new DnD(), LoadTemplate.class).
 			on(templatePane).
-			first((c, i) -> {
+			first((i, c) -> {
 				c.setDrawing(drawing);
 				c.setFile(new File((String) i.getSrcObject().get().getUserData()));
 				c.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
@@ -103,7 +103,7 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 				c.setStatusWidget(statusController.getLabel());
 				c.setUi(LaTeXDraw.getInstance());
 			}).
-			then((c, i) -> {
+			then((i, c) -> {
 				final Node srcObj = i.getSrcObject().get();
 				final Point3D pt3d = i.getTgtObject().get().sceneToLocal(srcObj.localToScene(i.getTgtLocalPoint())).
 					subtract(Canvas.ORIGIN.getX() + srcObj.getLayoutX(), Canvas.ORIGIN.getY() + srcObj.getLayoutY(), 0d);

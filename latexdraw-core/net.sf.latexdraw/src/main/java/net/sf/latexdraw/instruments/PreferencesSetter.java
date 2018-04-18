@@ -167,20 +167,20 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 		comboboxBinder(SetUnit.class).on(unitChoice).first(c -> c.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()))).bind();
 
-		anonCmdBinder(() -> {
+		anonCmdBinder(new ButtonPressed(), () -> {
 			final File file = getFileChooser().showDialog(null);
 			if(file != null) {
 				pathOpenField.setText(file.getPath());
 			}
-		}, new ButtonPressed()).on(buttonOpen).bind();
+		}).on(buttonOpen).bind();
 
-		anonCmdBinder(() -> {
+		anonCmdBinder(new ButtonPressed(), () -> {
 			final File file = getFileChooser().showDialog(null);
 			if(file != null) {
 				pathExportField.setText(file.getPath());
 				exporter.setPathExport(file.getPath());
 			}
-		}, new ButtonPressed()).on(buttonExport).bind();
+		}).on(buttonExport).bind();
 	}
 
 	/**

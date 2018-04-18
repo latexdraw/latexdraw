@@ -60,12 +60,12 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	protected void configureBindings() {
 		spinnerBinder(TranslateShapes.class).on(tlxS).
 			map(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false))).
-			then((c, i) -> c.setT((Double) i.getWidget().getValue() - c.getShape().get().getTopLeftPoint().getX(), 0d)).
+			then((i, c) -> c.setT((Double) i.getWidget().getValue() - c.getShape().get().getTopLeftPoint().getX(), 0d)).
 			exec().bind();
 
 		spinnerBinder(TranslateShapes.class).on(tlyS).
 			map(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false))).
-			then((c, i) -> c.setT(0d, (Double) i.getWidget().getValue() - c.getShape().get().getTopLeftPoint().getY())).
+			then((i, c) -> c.setT(0d, (Double) i.getWidget().getValue() - c.getShape().get().getTopLeftPoint().getY())).
 			exec().bind();
 	}
 

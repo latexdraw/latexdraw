@@ -133,7 +133,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	@Override
 	protected void configureBindings() {
 		// Close window
-		windowBinder(SaveDrawing.class, new WindowClosed()).on(LaTeXDraw.getInstance().getMainStage()).
+		windowBinder(new WindowClosed(), SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).
 			map(i -> new SaveDrawing(true, true, currentFolder, getDialog(true), prefSetter, currentFile,
 				SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
 

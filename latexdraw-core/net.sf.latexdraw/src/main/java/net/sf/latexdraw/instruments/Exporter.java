@@ -148,7 +148,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	@Override
 	protected void configureBindings() {
 		menuItemBinder(Export.class).on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST).
-			first((c, i) -> {
+			first((i, c) -> {
 			if(i.getWidget().getUserData() instanceof ExportFormat) {
 				final ExportFormat format = (ExportFormat) i.getWidget().getUserData();
 				c.setDialogueBox(getExportDialog(format));

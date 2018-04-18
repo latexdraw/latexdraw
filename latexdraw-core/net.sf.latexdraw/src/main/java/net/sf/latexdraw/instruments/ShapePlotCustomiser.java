@@ -97,19 +97,19 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 		addSpinnerPropBinding(nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false);
 
 		spinnerBinder(ModifyShapeProperty.class).on(minXSpinner).map(i -> mapModShProp(null, ShapeProperties.PLOT_MIN_X)).
-			then((c, i) -> c.setValue(i.getWidget().getValue())).
+			then((i, c) -> c.setValue(i.getWidget().getValue())).
 			when(i -> hand.isActivated() && checkValidPlotFct()).bind();
 
 		spinnerBinder(ModifyPencilParameter.class).on(minXSpinner).map(i -> firstPropPen(null, ShapeProperties.PLOT_MIN_X)).
-			then((c, i) -> c.setValue(i.getWidget().getValue())).
+			then((i, c) -> c.setValue(i.getWidget().getValue())).
 			when(pencilActiv).bind();
 
 		spinnerBinder(ModifyShapeProperty.class).on(maxXSpinner).map(i -> mapModShProp(null, ShapeProperties.PLOT_MAX_X)).
-			then((c, i) -> c.setValue(i.getWidget().getValue())).
+			then((i, c) -> c.setValue(i.getWidget().getValue())).
 			when(i -> hand.isActivated() && checkValidPlotFct()).bind();
 
 		spinnerBinder(ModifyPencilParameter.class).on(maxXSpinner).map(i -> firstPropPen(null, ShapeProperties.PLOT_MAX_X)).
-			then((c, i) -> c.setValue(i.getWidget().getValue())).
+			then((i, c) -> c.setValue(i.getWidget().getValue())).
 			when(pencilActiv).bind();
 
 		addSpinnerPropBinding(xScaleSpinner, ShapeProperties.X_SCALE, false);

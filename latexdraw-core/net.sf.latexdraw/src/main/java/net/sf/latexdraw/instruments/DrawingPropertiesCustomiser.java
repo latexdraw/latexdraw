@@ -159,12 +159,12 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 		textInputBinder(ModifyLatexProperties.class).on(labelField).first(c -> {
 			c.setProperty(LatexProperties.LABEL);
 			c.setGenerator(latexGen);
-		}).then((c, i) -> c.setValue(i.getWidget().getText())).bind();
+		}).then((i, c) -> c.setValue(i.getWidget().getText())).bind();
 
 		textInputBinder(ModifyLatexProperties.class).on(titleField).first(c -> {
 			c.setProperty(LatexProperties.CAPTION);
 			c.setGenerator(latexGen);
-		}).then((c, i) -> c.setValue(i.getWidget().getText())).bind();
+		}).then((i, c) -> c.setValue(i.getWidget().getText())).bind();
 
 		checkboxBinder(ModifyLatexProperties.class).on(middleHorizPosCB).first(c -> {
 			c.setProperty(LatexProperties.POSITION_HORIZONTAL);
