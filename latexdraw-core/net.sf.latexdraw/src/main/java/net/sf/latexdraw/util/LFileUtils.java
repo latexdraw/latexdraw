@@ -29,8 +29,7 @@ import java.util.stream.Stream;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
- * Defines some workarounds to deal with the problem of the renameto function.
- * The renameto function cannot rename a file from one filesystem to one other.
+ * Routines related to files manipulation.
  * @author Arnaud BLOUIN
  */
 public final class LFileUtils {
