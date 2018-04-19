@@ -724,7 +724,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	}
 
 	private Tuple<IPoint, IPoint> getRectangularPoints(final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext c1,
-													   final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext c2, final PSTContext ctx) {
+												final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext c2, final PSTContext ctx) {
 		final IPoint pt1;
 		final IPoint pt2;
 
@@ -740,7 +740,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	}
 
 	private void setRectangularShape(final IRectangularShape sh, final double x, final double y, final double width, final double height,
-									 final PSTContext ctx, final Token cmd) {
+									final PSTContext ctx, final Token cmd) {
 		sh.setPosition(x, y);
 		sh.setWidth(Math.max(0.1, width));
 		sh.setHeight(Math.max(0.1, height));

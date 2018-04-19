@@ -52,7 +52,7 @@ class SVGText extends SVGShape<IText> {
 		final String txt = elt.getText();
 
 		if(txt == null || txt.isEmpty()) {
-			throw new IllegalArgumentException("This text is empty."); //$NON-NLS-1$
+			throw new IllegalArgumentException("This text is empty."); //NON-NLS
 		}
 
 		shape.setText(txt);
@@ -93,11 +93,11 @@ class SVGText extends SVGShape<IText> {
 			}).ifPresent(textSize -> shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}'));
 
 		if(SVGAttributes.SVG_FONT_WEIGHT_BOLD.equals(elt.getSVGAttribute(SVGAttributes.SVG_FONT_WEIGHT, null))) {
-			shape.setText("\\textbf{" + shape.getText() + '}'); //$NON-NLS-1$
+			shape.setText("\\textbf{" + shape.getText() + '}'); //NON-NLS
 		}
 
 		if(SVGAttributes.SVG_FONT_STYLE_ITALIC.equals(elt.getSVGAttribute(SVGAttributes.SVG_FONT_STYLE, null))) {
-			shape.setText("\\emph{" + shape.getText() + '}'); //$NON-NLS-1$
+			shape.setText("\\emph{" + shape.getText() + '}'); //NON-NLS
 		}
 
 		shape.setLineColour(CSSColors.INSTANCE.getRGBColour(elt.getFill()));

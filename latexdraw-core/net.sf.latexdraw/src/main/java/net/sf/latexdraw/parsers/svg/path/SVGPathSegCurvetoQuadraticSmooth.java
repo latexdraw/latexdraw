@@ -28,6 +28,6 @@ public class SVGPathSegCurvetoQuadraticSmooth extends SVGPathPointSeg {
 
 	@Override
 	public String toString() {
-        return String.valueOf(isRelative() ? 't' : 'T') + ' ' + x + ' ' + y;
+		return String.valueOf(isRelative() ? 't' : 'T') + ' ' + x + ' ' + y;
 	}
 }

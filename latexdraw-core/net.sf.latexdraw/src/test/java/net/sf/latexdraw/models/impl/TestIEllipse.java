@@ -25,7 +25,7 @@ import static org.junit.Assume.assumeThat;
 public class TestIEllipse implements HelperTest {
 	@Theory
 	public void testGetAB(@EllData final IEllipse shape, @DoubleData final double w, @DoubleData final double h,
-						  @DoubleData final double x, @DoubleData final double y) {
+						@DoubleData final double x, @DoubleData final double y) {
 		assumeThat(w, greaterThan(0d));
 		assumeThat(h, greaterThan(0d));
 

@@ -15,42 +15,35 @@ package net.sf.latexdraw.parsers.svg.parsers;
  * @author Arnaud BLOUIN
  */
 public class SVGLength {
-	public enum LengthType { UNKNOWN, NUMBER, PERCENTAGE, EM,
-									EX, PX, CM, MM, IN, PT, PC }
+	/** The value of the length in the user space. */
+	protected double value;
+	/** The type of the length. */
+	protected LengthType lengthType;
+	/** The original parsed length value (without the length token). */
+	protected String valueAsString;
 
-    /** The value of the length in the user space. @since 0.1 */
-    protected double value;
+	/**
+	 * Builds an SVGLength.
+	 * @param value The value of the length in the user space.
+	 * @param lengthType The type of the length.
+	 * @param valueAsString The original parsed length value (without the length token).
+	 */
+	public SVGLength(final double value, final LengthType lengthType, final String valueAsString) {
+		super();
+		if(lengthType == null || valueAsString == null) {
+			throw new IllegalArgumentException();
+		}
 
-    /** The type of the length. @since 0.1 */
-    protected LengthType lengthType;
+		try {
+			Double.valueOf(valueAsString);
+		}catch(final NumberFormatException e) {
+			throw new IllegalArgumentException();
+		}
 
-    /** The original parsed length value (without the length token). @since 0.1 */
-    protected String valueAsString;
-
-
-
-    /**
-     * Builds an SVGLength.
-     * @param value The value of the length in the user space.
-     * @param lengthType The type of the length.
-     * @param valueAsString The original parsed length value (without the length token).
-     */
-    public SVGLength(final double value, final LengthType lengthType, final String valueAsString) {
-        super();
-        if (lengthType == null || valueAsString == null)
-            throw new IllegalArgumentException();
-
-        try {
-            Double.valueOf(valueAsString);
-        } catch (final NumberFormatException e) {
-            throw new IllegalArgumentException();
-        }
-
-        this.value = value;
-        this.lengthType = lengthType;
-        this.valueAsString = valueAsString;
-    }
-
+		this.value = value;
+		this.lengthType = lengthType;
+		this.valueAsString = valueAsString;
+	}
 
 	/**
 	 * @return the value
@@ -59,7 +52,6 @@ public class SVGLength {
 		return value;
 	}
 
-
 	/**
 	 * @return the lengthType
 	 */
@@ -67,11 +59,13 @@ public class SVGLength {
 		return lengthType;
 	}
 
-
 	/**
 	 * @return the valueAsString
 	 */
 	public String getValueAsString() {
 		return valueAsString;
 	}
+
+
+	public enum LengthType {UNKNOWN, NUMBER, PERCENTAGE, EM, EX, PX, CM, MM, IN, PT, PC}
 }

@@ -20,7 +20,6 @@ import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotListSelection, FxRobotSpinner {
 	PreferencesSetter setter;
@@ -46,13 +45,7 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 
 	@Before
 	public void setUp() {
-		try {
-			final Field field = Preference.class.getDeclaredField("preferences");
-			field.setAccessible(true);
-			field.set(null, null);
-		}catch(final NoSuchFieldException | IllegalAccessException ex) {
-			fail(ex.getMessage());
-		}
+		Preference.INSTANCE.flushPreferencesCache();
 		setter = (PreferencesSetter) injectorFactory.call(PreferencesSetter.class);
 		setter.setActivated(true);
 	}

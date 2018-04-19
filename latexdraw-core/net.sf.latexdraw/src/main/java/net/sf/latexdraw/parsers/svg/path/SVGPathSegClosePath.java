@@ -26,6 +26,6 @@ public class SVGPathSegClosePath extends SVGPathSeg {
 
 	@Override
 	public String toString() {
-		return "z";//$NON-NLS-1$
+		return "z"; //NON-NLS
 	}
 }

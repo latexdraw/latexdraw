@@ -15,25 +15,25 @@ package net.sf.latexdraw.parsers.svg;
  * @author Arnaud BLOUIN
  */
 public final class SVGElements {
+	public static final String SVG_CIRCLE = "circle"; //NON-NLS
+	public static final String SVG_DEFS = "defs"; //NON-NLS
+	public static final String SVG_ELLIPSE = "ellipse"; //NON-NLS
+	public static final String SVG_G = "g"; //NON-NLS
+	public static final String SVG_METADATA = "metadata"; //NON-NLS
+	public static final String SVG_POLYGON = "polygon"; //NON-NLS
+	public static final String SVG_POLY_LINE = "polyline"; //NON-NLS
+	public static final String SVG_LINEAR_GRADIENT = "linearGradient"; //NON-NLS
+	public static final String SVG_RECT = "rect"; //NON-NLS
+	public static final String SVG_TEXT = "text"; //NON-NLS
+	public static final String SVG_SVG = "svg"; //NON-NLS
+	public static final String SVG_STOP = "stop"; //NON-NLS
+	public static final String SVG_PATTERN = "pattern"; //NON-NLS
+	public static final String SVG_PATH = "path"; //NON-NLS
+	public static final String SVG_MARKER = "marker"; //NON-NLS
+	public static final String SVG_LINE = "line"; //NON-NLS
+	public static final String SVG_IMAGE = "image"; //NON-NLS
+
 	private SVGElements() {
 		super();
 	}
-	
-	public static final String SVG_CIRCLE				= "circle";					//$NON-NLS-1$
-	public static final String SVG_DEFS					= "defs";					//$NON-NLS-1$
-	public static final String SVG_ELLIPSE	   			= "ellipse";				//$NON-NLS-1$
-	public static final String SVG_G					= "g";						//$NON-NLS-1$
-	public static final String SVG_METADATA				= "metadata";				//$NON-NLS-1$
-	public static final String SVG_POLYGON				= "polygon";				//$NON-NLS-1$
-	public static final String SVG_POLY_LINE			= "polyline";				//$NON-NLS-1$
-	public static final String SVG_LINEAR_GRADIENT		= "linearGradient";			//$NON-NLS-1$
-	public static final String SVG_RECT					= "rect";					//$NON-NLS-1$
-	public static final String SVG_TEXT					= "text";					//$NON-NLS-1$
-	public static final String SVG_SVG					= "svg";					//$NON-NLS-1$
-	public static final String SVG_STOP					= "stop";					//$NON-NLS-1$
-	public static final String SVG_PATTERN				= "pattern";				//$NON-NLS-1$
-	public static final String SVG_PATH					= "path";					//$NON-NLS-1$
-	public static final String SVG_MARKER				= "marker";					//$NON-NLS-1$
-	public static final String SVG_LINE					= "line";					//$NON-NLS-1$
-	public static final String SVG_IMAGE				= "image";					//$NON-NLS-1$
 }

@@ -26,7 +26,7 @@ public class PSTDotView extends PSTClassicalView<IDot> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTDotView(final  IDot model) {
+	protected PSTDotView(final IDot model) {
 		super(model);
 	}
 
@@ -40,24 +40,28 @@ public class PSTDotView extends PSTClassicalView<IDot> {
 		final StringBuilder rotation= getRotationHeaderCode(ppc, origin);
 		final StringBuilder code = new StringBuilder();
 
-		if(style!=DotStyle.DOT)
-			params.append(", dotstyle=").append(style.getPSTToken()); //$NON-NLS-1$
+		if(style!=DotStyle.DOT) {
+			params.append(", dotstyle=").append(style.getPSTToken()); //NON-NLS
+		}
 
-		params.append(", dotsize=").append((float) MathUtils.INST.getCutNumber(shape.getDiametre()/ppc)); //$NON-NLS-1$
+		params.append(", dotsize=").append((float) MathUtils.INST.getCutNumber(shape.getDiametre()/ppc)); //NON-NLS
 
-		if(rotation!=null)
+		if(rotation!=null) {
 			code.append(rotation);
+		}
 
-		code.append("\\psdots["); //$NON-NLS-1$
+		code.append("\\psdots["); //NON-NLS
 		code.append(params);
-		if(shape.isFillable())
+		if(shape.isFillable()) {
 			code.append(", fillcolor=").append(getColourName(shape.getFillingCol()));
+		}
 		code.append(']').append('(');
 		code.append(MathUtils.INST.getCutNumberFloat(x/ppc)).append(',');
 		code.append(MathUtils.INST.getCutNumberFloat(y/ppc)).append(')');
 
-		if(rotation!=null)
+		if(rotation!=null) {
 			code.append('}');
+		}
 
 		return code.toString();
 	}

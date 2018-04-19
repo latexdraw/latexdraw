@@ -32,10 +32,9 @@ public enum AxesStyle {
 
 		@Override
 		public String toString() {
-			return LangTool.INSTANCE.getBundle().getString("Axe.1"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Axe.1"); //NON-NLS
 		}
-	},
-	FRAME {
+	}, FRAME {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.TOKEN_AXES_STYLE_FRAME;
@@ -48,10 +47,9 @@ public enum AxesStyle {
 
 		@Override
 		public String toString() {
-			return LangTool.INSTANCE.getBundle().getString("Axe.2"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Axe.2"); //NON-NLS
 		}
-	},
-	NONE {
+	}, NONE {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.TOKEN_AXES_STYLE_NONE;
@@ -64,9 +62,19 @@ public enum AxesStyle {
 
 		@Override
 		public String toString() {
-			return "None"; //$NON-NLS-1$
+			return "None"; //NON-NLS
 		}
 	};
+
+	/**
+	 * @param style The PST token or the name of the style (e.g. AXES.toString()) corresponding to
+	 * the style to get.
+	 * @return The corresponding style or AXES.
+	 * @since 3.0
+	 */
+	public static AxesStyle getStyle(final String style) {
+		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(AXES);
+	}
 
 	/**
 	 * @return True if the axe style supports arrows.
@@ -79,14 +87,4 @@ public enum AxesStyle {
 	 * @since 3.0
 	 */
 	public abstract String getPSTToken();
-
-	/**
-	 * @param style The PST token or the name of the style (e.g. AXES.toString()) corresponding to
-	 *        the style to get.
-	 * @return The corresponding style or AXES.
-	 * @since 3.0
-	 */
-	public static  AxesStyle getStyle(final String style) {
-		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(AXES);
-	}
 }

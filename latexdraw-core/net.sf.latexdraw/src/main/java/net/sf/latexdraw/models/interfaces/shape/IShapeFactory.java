@@ -379,7 +379,7 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If pt is not valid.
 	 * @since 3.0
 	 */
-	IText createText(IPoint pt,  String text);
+	IText createText(IPoint pt, String text);
 
 	/**
 	 * Creates a square at position (0,0) which width equals 10.

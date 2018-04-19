@@ -37,73 +37,99 @@ public final class SVGElementsFactory {
 	 * @since 0.1
 	 */
 	public SVGElement createSVGElement(final Node src, final SVGElement parent) {
-		if(src==null || parent==null)
+		if(src == null || parent == null) {
 			return null;
+		}
 
 		try {
 			final String name = src.getNodeName();
 
-			if(name==null)
+			if(name == null) {
 				return null;
+			}
 
-			final String pref = src.getNodeName().contains(":") ? src.getNodeName().substring(0, src.getNodeName().indexOf(':')) : null;//$NON-NLS-1$
+			final String pref = src.getNodeName().contains(":") ? src.getNodeName().substring(0, src.getNodeName().indexOf(':')) : null;
 			final NamedNodeMap nnm = src.getAttributes();
 			final String ns;
 
-			if(nnm==null)
+			if(nnm == null) {
 				ns = parent.lookupNamespaceURI(pref);
-			else {
-				final Node xmlnsNode = nnm.getNamedItem(pref==null ? "xmlns" : "xmlns:"+pref);//$NON-NLS-1$//$NON-NLS-2$
+			}else {
+				final Node xmlnsNode = nnm.getNamedItem(pref == null ? "xmlns" : "xmlns:" + pref); //NON-NLS
 
-				if(xmlnsNode==null)
+				if(xmlnsNode == null) {
 					ns = parent.lookupNamespaceURI(pref);
-				else
+				}else {
 					ns = xmlnsNode.getNodeValue();
+				}
 			}
 
-			if(ns==null || name.endsWith("#text") || name.endsWith("#comment"))//$NON-NLS-1$//$NON-NLS-2$
+			if(ns == null || name.endsWith("#text") || name.endsWith("#comment")) { //NON-NLS
 				return null;
+			}
 
 			if(SVGDocument.SVG_NAMESPACE.equals(ns)) {
-				if(name.endsWith(SVGElements.SVG_SVG))
-					return new SVGSVGElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_G))
-					return new SVGGElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_RECT))
-					return new SVGRectElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_ELLIPSE))
-					return new SVGEllipseElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_CIRCLE))
-					return new SVGCircleElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_POLY_LINE))
-					return new SVGPolyLineElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_LINE))
-					return new SVGLineElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_POLYGON))
-					return new SVGPolygonElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_METADATA))
-					return new SVGMetadataElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_DEFS))
-					return new SVGDefsElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_PATTERN))
-					return new SVGPatternElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_LINEAR_GRADIENT))
-					return new SVGLinearGradientElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_STOP))
-					return new SVGStopElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_PATH))
-					return new SVGPathElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_MARKER))
-					return new SVGMarkerElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_TEXT))
-					return new SVGTextElement(src, parent);
-				else if(name.endsWith(SVGElements.SVG_IMAGE))
-					return new SVGImageElement(src, parent);
+				return createElement(name, src, parent);
 			}
-			else
-				return new OtherNSElement(src, parent);
+			return new OtherNSElement(src, parent);
+		}catch(final MalformedSVGDocument | ParseException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+			return null;
 		}
-		catch(final MalformedSVGDocument | ParseException ex) { BadaboomCollector.INSTANCE.add(ex); return null; }
+	}
+
+	private SVGElement createElement(final String name, final Node src, final SVGElement parent) throws MalformedSVGDocument, ParseException {
+		if(name.endsWith(SVGElements.SVG_SVG)) {
+			return new SVGSVGElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_G)) {
+			return new SVGGElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_RECT)) {
+			return new SVGRectElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_ELLIPSE)) {
+			return new SVGEllipseElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_CIRCLE)) {
+			return new SVGCircleElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_POLY_LINE)) {
+			return new SVGPolyLineElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_LINE)) {
+			return new SVGLineElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_POLYGON)) {
+			return new SVGPolygonElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_METADATA)) {
+			return new SVGMetadataElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_DEFS)) {
+			return new SVGDefsElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_PATTERN)) {
+			return new SVGPatternElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_LINEAR_GRADIENT)) {
+			return new SVGLinearGradientElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_STOP)) {
+			return new SVGStopElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_PATH)) {
+			return new SVGPathElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_MARKER)) {
+			return new SVGMarkerElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_TEXT)) {
+			return new SVGTextElement(src, parent);
+		}
+		if(name.endsWith(SVGElements.SVG_IMAGE)) {
+			return new SVGImageElement(src, parent);
+		}
 
 		return null;
 	}

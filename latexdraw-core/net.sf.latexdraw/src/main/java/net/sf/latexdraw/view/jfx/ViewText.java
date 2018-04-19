@@ -151,16 +151,16 @@ public class ViewText extends ViewPositionShape<IText> {
 		// We must scale the text to fit its latex size: latexdrawDPI/latexDPI is the ratio to scale the created png picture.
 		final double scale = IShape.PPC * PSTricksConstants.INCH_VAL_CM / PSTricksConstants.INCH_VAL_PT * SCALE_COMPILE;
 
-		doc.append("\\documentclass{standalone}\n\\usepackage[usenames,dvipsnames]{pstricks}"); //$NON-NLS-1$
+		doc.append("\\documentclass{standalone}\n\\usepackage[usenames,dvipsnames]{pstricks}"); //NON-NLS
 		doc.append(LaTeXGenerator.getPackages()).append('\n');
-		doc.append("\\begin{document}\n\\psscalebox{"); //$NON-NLS-1$
+		doc.append("\\begin{document}\n\\psscalebox{"); //NON-NLS
 		doc.append((float) MathUtils.INST.getCutNumber(scale)).append(' ');
 		doc.append((float) MathUtils.INST.getCutNumber(scale)).append('}').append('{');
 
 		if(!textColour.equals(PSTricksConstants.DEFAULT_LINE_COLOR)) {
 			final String name = DviPsColors.INSTANCE.getColourName(textColour).orElse(DviPsColors.INSTANCE.addUserColour(textColour).orElse(""));
 			coloured = true;
-			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append("\\textcolor{").append(name).append('}').append('{'); //$NON-NLS-1$
+			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append("\\textcolor{").append(name).append('}').append('{'); //NON-NLS
 		}
 
 		doc.append(code);
@@ -169,7 +169,7 @@ public class ViewText extends ViewPositionShape<IText> {
 			doc.append('}');
 		}
 
-		doc.append("}\n\\end{document}");//$NON-NLS-1$
+		doc.append("}\n\\end{document}"); //NON-NLS
 		return doc.toString();
 	}
 
@@ -207,7 +207,7 @@ public class ViewText extends ViewPositionShape<IText> {
 	private BufferedImage readPDFFirstPage(final File file) {
 		BufferedImage bi = null;
 
-		try(final FileChannel fc = new RandomAccessFile(file, "r").getChannel()) { //$NON-NLS-1$
+		try(final FileChannel fc = new RandomAccessFile(file, "r").getChannel()) { //NON-NLS
 			final MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
 			final PDFFile pdfFile = new PDFFile(mbb);
 			mbb.clear();
@@ -225,7 +225,7 @@ public class ViewText extends ViewPositionShape<IText> {
 					img.flush();
 				}
 			}else {
-				BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages())); //$NON-NLS-1$
+				BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages())); //NON-NLS
 			}
 		}catch(final IOException | IllegalArgumentException | SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
@@ -245,10 +245,10 @@ public class ViewText extends ViewPositionShape<IText> {
 		}
 
 		BufferedImage bi = null;
-		String log = ""; //$NON-NLS-1$
+		String log = ""; //NON-NLS
 		final File tmpDir = optDir.get();
 		final String doc = getLaTeXDocument();
-		final String basePathPic = tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
+		final String basePathPic = tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
 		final String pathTex = basePathPic + ExportFormat.TEX.getFileExtension();
 		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
 
@@ -258,14 +258,14 @@ public class ViewText extends ViewPositionShape<IText> {
 		}
 
 		// Compiling the LaTeX document.
-		Tuple<Boolean, String> res = execute(new String[]{os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //$NON-NLS-1$ //$NON-NLS-2$
-			"--output-directory=" + tmpDir.getAbsolutePath(), LFileUtils.INSTANCE.normalizeForLaTeX(pathTex)}); //$NON-NLS-1$
+		Tuple<Boolean, String> res = execute(new String[]{os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //NON-NLS
+			"--output-directory=" + tmpDir.getAbsolutePath(), LFileUtils.INSTANCE.normalizeForLaTeX(pathTex)}); //NON-NLS
 		boolean ok = res.a;
 		log = res.b;
 
 		// Compiling the DVI document.
 		if(ok) {
-			res = execute(new String[]{os.getDvipsBinPath(), basePathPic + ".dvi", "-o", basePathPic + ExportFormat.EPS_LATEX.getFileExtension()}); //$NON-NLS-1$ //$NON-NLS-2$
+			res = execute(new String[]{os.getDvipsBinPath(), basePathPic + ".dvi", "-o", basePathPic + ExportFormat.EPS_LATEX.getFileExtension()}); //NON-NLS
 			ok = res.a;
 			log = log + res.b;
 		}

@@ -162,7 +162,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 			final IPoint ctrl2b = shape.getFirstCtrlPtAt(-1).centralSymmetry(shape.getPtAt(-1));
 
 			path.add(new SVGPathSegCurvetoCubic(shape.getPtAt(0).getX(), shape.getPtAt(0).getY(), ctrl2b.getX(), ctrl2b.getY(),
-				ctrl1b.getX(), ctrl1b.getY(),false));
+				ctrl1b.getX(), ctrl1b.getY(), false));
 
 			path.add(new SVGPathSegClosePath());
 		}

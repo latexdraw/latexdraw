@@ -82,8 +82,8 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 		final double endy = model.getGridEndY();
 
 		if(endx > 0d || endy > 0d) {
-			final double y1 = endy > 0d ? - endy * IShape.PPC : 0d;
-			final double x2 = endx > 0d ? + endx * IShape.PPC : 0d;
+			final double y1 = endy > 0d ? -endy * IShape.PPC : 0d;
+			final double x2 = endx > 0d ? +endx * IShape.PPC : 0d;
 
 			mainAxes.getElements().add(ViewFactory.INSTANCE.createMoveTo(0d, y1));
 			mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(x2, y1));

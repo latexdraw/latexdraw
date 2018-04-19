@@ -42,12 +42,12 @@ public class ShortcutsController implements Initializable {
 	public void initialize(final URL location, final ResourceBundle resources) {
 		final String ctrl = KeyEvent.getKeyModifiersText(InputEvent.CTRL_MASK);
 		final String shift = KeyEvent.getKeyModifiersText(InputEvent.SHIFT_MASK);
-		final String leftClick = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.8"); //$NON-NLS-1$
-		final String catEdit = LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.89"); //$NON-NLS-1$
-		final String catNav = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.4"); //$NON-NLS-1$
-		final String catTran = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.5"); //$NON-NLS-1$
-		final String catDraw = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.6"); //$NON-NLS-1$
-		final String catFile = LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.88"); //$NON-NLS-1$
+		final String leftClick = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.8");
+		final String catEdit = LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.89");
+		final String catNav = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.4");
+		final String catTran = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.5");
+		final String catDraw = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.6");
+		final String catFile = LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.88");
 
 		for(int i = 0, size = table.getColumns().size(); i < size; i++) {
 			final int colIndex = i;
@@ -57,22 +57,28 @@ public class ShortcutsController implements Initializable {
 
 		table.getColumns().forEach(col -> col.prefWidthProperty().bind(table.widthProperty().divide(3)));
 
-		table.getItems().addAll(FXCollections.observableArrayList(ctrl + "+C", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.40"), catEdit), FXCollections.observableArrayList(ctrl + "+V", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.43"), catEdit),//$NON-NLS-1$
-			FXCollections.observableArrayList(ctrl + "+X", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.44"), catEdit),//$NON-NLS-1$
-			FXCollections.observableArrayList(ctrl + "+Z", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.23"), catEdit),//$NON-NLS-1$ //$NON-NLS-2$
-			FXCollections.observableArrayList(ctrl + "+Y", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.22"), catEdit),//$NON-NLS-1$ //$NON-NLS-2$
-			FXCollections.observableArrayList(ctrl + "+N", LangTool.INSTANCE.getBundle().getString("Res.2"), catFile),//$NON-NLS-1$
-			FXCollections.observableArrayList(ctrl + "+O", LangTool.INSTANCE.getBundle().getString("FileLoaderSaver.3"), catFile),//$NON-NLS-1$
-			FXCollections.observableArrayList(ctrl + "+S", LangTool.INSTANCE.getBundle().getString("FileLoaderSaver.1"), catFile),//$NON-NLS-1$
-			FXCollections.observableArrayList(ctrl + "+W", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.18"), catFile),//$NON-NLS-1$ //$NON-NLS-2$
-			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_ADD), LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.57"), catNav), //$NON-NLS-1$
-			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_SUBTRACT), LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.58"), catNav), //$NON-NLS-1$
-			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_DELETE), LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.17"), catDraw), //$NON-NLS-1$
-			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_RIGHT), LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.9"), catNav), FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_LEFT), LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.10"), catNav), FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_UP), LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.11"), catNav), FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_DOWN), LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.12"), catNav), FXCollections.observableArrayList(ctrl + "+U", LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.23"), catTran), //$NON-NLS-1$ //$NON-NLS-2$
-			FXCollections.observableArrayList(ctrl + "+A", LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.25"), catDraw), //$NON-NLS-1$ //$NON-NLS-2$
-			FXCollections.observableArrayList(ctrl + '+' + leftClick, LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.26"), catDraw), //$NON-NLS-1$
-			FXCollections.observableArrayList(shift + '+' + leftClick, LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.27"), catDraw), //$NON-NLS-1$
-			FXCollections.observableArrayList(ctrl + '+' + LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.29"), LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.30"), catDraw) //$NON-NLS-1$ //$NON-NLS-2$
+		table.getItems().addAll(FXCollections.observableArrayList(ctrl + "+C", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.40"), catEdit), //NON-NLS
+			FXCollections.observableArrayList(ctrl + "+V", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.43"), catEdit), //NON-NLS
+			FXCollections.observableArrayList(ctrl + "+X", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.44"), catEdit), //NON-NLS
+			FXCollections.observableArrayList(ctrl + "+Z", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.23"), catEdit),  //NON-NLS
+			FXCollections.observableArrayList(ctrl + "+Y", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.22"), catEdit),  //NON-NLS
+			FXCollections.observableArrayList(ctrl + "+N", LangTool.INSTANCE.getBundle().getString("Res.2"), catFile), //NON-NLS
+			FXCollections.observableArrayList(ctrl + "+O", LangTool.INSTANCE.getBundle().getString("FileLoaderSaver.3"), catFile), //NON-NLS
+			FXCollections.observableArrayList(ctrl + "+S", LangTool.INSTANCE.getBundle().getString("FileLoaderSaver.1"), catFile), //NON-NLS
+			FXCollections.observableArrayList(ctrl + "+W", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.18"), catFile),  //NON-NLS
+			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_ADD), LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.57"), catNav),
+			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_SUBTRACT), LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.58"), catNav),
+			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_DELETE), LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.17"), catDraw),
+			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_RIGHT), LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.9"), catNav),
+			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_LEFT), LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.10"), catNav),
+			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_UP), LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.11"), catNav),
+			FXCollections.observableArrayList(KeyEvent.getKeyText(KeyEvent.VK_DOWN), LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.12"), catNav),
+			FXCollections.observableArrayList(ctrl + "+U", LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.23"), catTran), //NON-NLS
+			FXCollections.observableArrayList(ctrl + "+A", LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.25"), catDraw), //NON-NLS
+			FXCollections.observableArrayList(ctrl + '+' + leftClick, LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.26"), catDraw),
+			FXCollections.observableArrayList(shift + '+' + leftClick, LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.27"), catDraw),
+			FXCollections.observableArrayList(ctrl + '+' + LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.29"),
+				LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.30"), catDraw)
 		);
 	}
 }

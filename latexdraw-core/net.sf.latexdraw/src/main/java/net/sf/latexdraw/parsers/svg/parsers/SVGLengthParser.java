@@ -19,129 +19,15 @@ import net.sf.latexdraw.parsers.svg.parsers.SVGLength.LengthType;
  */
 public class SVGLengthParser extends SVGNumberParser {
 	/**
-	 * Describes textual value for the font-size attribute.
-	 */
-	public enum FontSize {
-		XXSMALL {
-			@Override
-			public float getPointValue() {
-				return XSMALL.getPointValue()/SCALING_FACTOR;
-			}
-
-			@Override
-			public String getToken() {
-				return "xx-small"; //$NON-NLS-1$
-			}
-		}, XSMALL {
-			@Override
-			public float getPointValue() {
-				return SMALL.getPointValue()/SCALING_FACTOR;
-			}
-
-			@Override
-			public String getToken() {
-				return "x-small"; //$NON-NLS-1$
-			}
-		}, SMALL {
-			@Override
-			public float getPointValue() {
-				return MEDIUM.getPointValue()/SCALING_FACTOR;
-			}
-
-			@Override
-			public String getToken() {
-				return "small"; //$NON-NLS-1$
-			}
-		}, MEDIUM {
-			@Override
-			public float getPointValue() {
-				return 12f;
-			}
-
-			@Override
-			public String getToken() {
-				return "medium"; //$NON-NLS-1$
-			}
-		}, LARGE {
-			@Override
-			public float getPointValue() {
-				return MEDIUM.getPointValue()*SCALING_FACTOR;
-			}
-
-			@Override
-			public String getToken() {
-				return "large"; //$NON-NLS-1$
-			}
-		}, XLARGE {
-			@Override
-			public float getPointValue() {
-				return LARGE.getPointValue()*SCALING_FACTOR;
-			}
-
-			@Override
-			public String getToken() {
-				return "x-large"; //$NON-NLS-1$
-			}
-		}, XXLARGE {
-			@Override
-			public float getPointValue() {
-				return XLARGE.getPointValue()*SCALING_FACTOR;
-			}
-
-			@Override
-			public String getToken() {
-				return "xx-large"; //$NON-NLS-1$
-			}
-		};
-
-		/**
-		 * @return The value in point of the token.
-		 */
-		public abstract float getPointValue();
-
-		/**
-		 * @return The token of the current font-size used in SVG documents.
-		 */
-		public abstract String getToken();
-
-		/**
-		 * @param token The token to test.
-		 * @return The value in point of the font-size given as argument, or -1
-		 * if 'token' is not valid.
-		 */
-		public static float getFontSize(final String token) {
-			if(token==null)
-				return -1f;
-			if(token.equals(XXSMALL.getToken()))
-				return XXSMALL.getPointValue();
-			if(token.equals(XSMALL.getToken()))
-				return XSMALL.getPointValue();
-			if(token.equals(SMALL.getToken()))
-				return SMALL.getPointValue();
-			if(token.equals(MEDIUM.getToken()))
-				return MEDIUM.getPointValue();
-			if(token.equals(LARGE.getToken()))
-				return LARGE.getPointValue();
-			if(token.equals(XLARGE.getToken()))
-				return XLARGE.getPointValue();
-			if(token.equals(XXLARGE.getToken()))
-				return XXLARGE.getPointValue();
-			return -1f;
-		}
-
-		public static final float SCALING_FACTOR=1.2f;
-	}
-
-
-	/**
 	 * Converts the font-size string value in point value.
 	 * @param fontSize The font-size value to convert.
 	 * @return the font-size value in point, or -1 if a
 	 * problem occurs.
 	 */
 	public static float fontSizetoPoint(final String fontSize) {
-		if(fontSize==null)
+		if(fontSize == null) {
 			return -1f;
+		}
 
 		float value;
 
@@ -149,17 +35,15 @@ public class SVGLengthParser extends SVGNumberParser {
 			value = Double.valueOf(fontSize).floatValue();
 		}catch(final NumberFormatException e) {
 			try {
-				final SVGLength lgth  = new SVGLengthParser(fontSize).parseLength();
-				value 			= (float)UnitProcessor.INSTANCE.toPoint(lgth.getValue(), lgth.getLengthType());
-			}
-			catch(final ParseException ex) {
+				final SVGLength lgth = new SVGLengthParser(fontSize).parseLength();
+				value = (float) UnitProcessor.INSTANCE.toPoint(lgth.getValue(), lgth.getLengthType());
+			}catch(final ParseException ex) {
 				value = FontSize.getFontSize(fontSize);
 			}
 		}
 
 		return value;
 	}
-
 
 
 	/**
@@ -170,8 +54,6 @@ public class SVGLengthParser extends SVGNumberParser {
 		super(code);
 	}
 
-
-
 	/**
 	 * Parses an SVG length.
 	 * @return An SVGLength. The length is always converted in PX.
@@ -180,10 +62,10 @@ public class SVGLengthParser extends SVGNumberParser {
 	public SVGLength parseLength() throws ParseException {
 		final double value = parseNumber(false);
 		final LengthType lgthType;
-		final String errorUnit = "Invalid unit";//$NON-NLS-1$
-        final String valueAsStr;
+		final String errorUnit = "Invalid unit"; //NON-NLS
+		final String valueAsStr;
 
-        setPosition(0);
+		setPosition(0);
 		valueAsStr = parseNumberAsString(false);
 		skipWSP();
 
@@ -214,38 +96,41 @@ public class SVGLengthParser extends SVGNumberParser {
 				break;
 
 			case '%':
-				throw new ParseException("Not yet managed: %", getPosition());//$NON-NLS-1$
+				throw new ParseException("Not yet managed: %", getPosition()); //NON-NLS
 
 			case 'c':
-				if(nextChar()=='m')
+				if(nextChar() == 'm') {
 					lgthType = LengthType.CM;
-				else
+				}else {
 					throw new ParseException(errorUnit, getPosition());
+				}
 
 				break;
 
 			case 'm':
-				if(nextChar()=='m')
+				if(nextChar() == 'm') {
 					lgthType = LengthType.MM;
-				else
+				}else {
 					throw new ParseException(errorUnit, getPosition());
+				}
 				break;
 
 			case 'i':
-				if(nextChar()=='n')
+				if(nextChar() == 'n') {
 					lgthType = LengthType.IN;
-				else
+				}else {
 					throw new ParseException(errorUnit, getPosition());
+				}
 				break;
 
 			case 'e':
 				switch(nextChar()) {
 					case EOC:
 					case 'm':
-						throw new ParseException("Not yet managed: em", getPosition());//$NON-NLS-1$
+						throw new ParseException("Not yet managed: em", getPosition()); //NON-NLS
 
 					case 'x':
-						throw new ParseException("Not yet managed: ex", getPosition());//$NON-NLS-1$
+						throw new ParseException("Not yet managed: ex", getPosition()); //NON-NLS
 
 					default:
 						throw new ParseException(errorUnit, getPosition());
@@ -258,8 +143,6 @@ public class SVGLengthParser extends SVGNumberParser {
 		return new SVGLength(UnitProcessor.INSTANCE.toUserUnit(value, lgthType), LengthType.PX, valueAsStr);
 	}
 
-
-
 	/**
 	 * Parses an SVG coordinate.
 	 * @return An SVGLength.
@@ -268,8 +151,6 @@ public class SVGLengthParser extends SVGNumberParser {
 	public SVGLength parseCoordinate() throws ParseException {
 		return parseLength();
 	}
-
-
 
 	/**
 	 * Parses a number or a percentage (not yet managed).
@@ -287,7 +168,7 @@ public class SVGLengthParser extends SVGNumberParser {
 
 		switch(getChar()) {
 			case '%':
-				throw new ParseException("Not yet managed: %", getPosition());//$NON-NLS-1$
+				throw new ParseException("Not yet managed: %", getPosition()); //NON-NLS
 
 			case EOC:
 			default:
@@ -296,5 +177,128 @@ public class SVGLengthParser extends SVGNumberParser {
 		}
 
 		return new SVGLength(UnitProcessor.INSTANCE.toUserUnit(value, type), type, valueAsStr);
+	}
+
+
+	/**
+	 * Describes textual value for the font-size attribute.
+	 */
+	public enum FontSize {
+		XXSMALL {
+			@Override
+			public float getPointValue() {
+				return XSMALL.getPointValue() / SCALING_FACTOR;
+			}
+
+			@Override
+			public String getToken() {
+				return "xx-small"; //NON-NLS
+			}
+		}, XSMALL {
+			@Override
+			public float getPointValue() {
+				return SMALL.getPointValue() / SCALING_FACTOR;
+			}
+
+			@Override
+			public String getToken() {
+				return "x-small"; //NON-NLS
+			}
+		}, SMALL {
+			@Override
+			public float getPointValue() {
+				return MEDIUM.getPointValue() / SCALING_FACTOR;
+			}
+
+			@Override
+			public String getToken() {
+				return "small"; //NON-NLS
+			}
+		}, MEDIUM {
+			@Override
+			public float getPointValue() {
+				return 12f;
+			}
+
+			@Override
+			public String getToken() {
+				return "medium"; //NON-NLS
+			}
+		}, LARGE {
+			@Override
+			public float getPointValue() {
+				return MEDIUM.getPointValue() * SCALING_FACTOR;
+			}
+
+			@Override
+			public String getToken() {
+				return "large"; //NON-NLS
+			}
+		}, XLARGE {
+			@Override
+			public float getPointValue() {
+				return LARGE.getPointValue() * SCALING_FACTOR;
+			}
+
+			@Override
+			public String getToken() {
+				return "x-large"; //NON-NLS
+			}
+		}, XXLARGE {
+			@Override
+			public float getPointValue() {
+				return XLARGE.getPointValue() * SCALING_FACTOR;
+			}
+
+			@Override
+			public String getToken() {
+				return "xx-large"; //NON-NLS
+			}
+		};
+
+		public static final float SCALING_FACTOR = 1.2f;
+
+		/**
+		 * @param token The token to test.
+		 * @return The value in point of the font-size given as argument, or -1
+		 * if 'token' is not valid.
+		 */
+		public static float getFontSize(final String token) {
+			if(token == null) {
+				return -1f;
+			}
+			if(token.equals(XXSMALL.getToken())) {
+				return XXSMALL.getPointValue();
+			}
+			if(token.equals(XSMALL.getToken())) {
+				return XSMALL.getPointValue();
+			}
+			if(token.equals(SMALL.getToken())) {
+				return SMALL.getPointValue();
+			}
+			if(token.equals(MEDIUM.getToken())) {
+				return MEDIUM.getPointValue();
+			}
+			if(token.equals(LARGE.getToken())) {
+				return LARGE.getPointValue();
+			}
+			if(token.equals(XLARGE.getToken())) {
+				return XLARGE.getPointValue();
+			}
+			if(token.equals(XXLARGE.getToken())) {
+				return XXLARGE.getPointValue();
+			}
+			return -1f;
+		}
+
+		/**
+		 * @return The value in point of the token.
+		 */
+		public abstract float getPointValue();
+
+		/**
+		 * @return The token of the current font-size used in SVG documents.
+		 */
+		public abstract String getToken();
 	}
 }

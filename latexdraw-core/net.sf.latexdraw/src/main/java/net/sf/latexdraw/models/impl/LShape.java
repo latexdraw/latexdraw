@@ -164,7 +164,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void copy(final IShape sh) {
-		if(sh == null) return;
+		if(sh == null) {
+			return;
+		}
 
 		setThickness(sh.getThickness());
 		setRotationAngle(sh.getRotationAngle());
@@ -349,8 +351,11 @@ abstract class LShape implements ISingleShape {
 	public IPoint getPtAt(final int position) {
 		final IPoint point;
 
-		if(points.isEmpty() || position < -1 || position >= points.size()) point = null;
-		else point = position == -1 ? points.get(points.size() - 1) : points.get(position);
+		if(points.isEmpty() || position < -1 || position >= points.size()) {
+			point = null;
+		}else {
+			point = position == -1 ? points.get(points.size() - 1) : points.get(position);
+		}
 
 		return point;
 	}
@@ -418,7 +423,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setBordersPosition(final BorderPos position) {
-		if(position != null && isBordersMovable()) bordersPosition.set(position);
+		if(position != null && isBordersMovable()) {
+			bordersPosition.set(position);
+		}
 	}
 
 	@Override
@@ -458,49 +465,54 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setFilled(final boolean isFilled) {
-		if(!isFillable()) return;
-
-		if(isFilled) switch(fillingStyle.get()) {
-			case CLINES:
-				fillingStyle.set(FillingStyle.CLINES_PLAIN);
-				break;
-			case VLINES:
-				fillingStyle.set(FillingStyle.VLINES_PLAIN);
-				break;
-			case HLINES:
-				fillingStyle.set(FillingStyle.HLINES_PLAIN);
-				break;
-			case NONE:
-				fillingStyle.set(FillingStyle.PLAIN);
-				break;
-			case PLAIN:
-			case GRAD:
-			case CLINES_PLAIN:
-			case HLINES_PLAIN:
-			case VLINES_PLAIN:
-					/* Nothing to do. */
-				break;
+		if(!isFillable()) {
+			return;
 		}
-		else switch(fillingStyle.get()) {
-			case CLINES_PLAIN:
-				fillingStyle.set(FillingStyle.CLINES);
-				break;
-			case VLINES_PLAIN:
-				fillingStyle.set(FillingStyle.VLINES);
-				break;
-			case HLINES_PLAIN:
-				fillingStyle.set(FillingStyle.HLINES);
-				break;
-			case PLAIN:
-				fillingStyle.set(FillingStyle.NONE);
-				break;
-			case NONE:
-			case GRAD:
-			case CLINES:
-			case HLINES:
-			case VLINES:
-					/* Nothing to do. */
-				break;
+
+		if(isFilled) {
+			switch(fillingStyle.get()) {
+				case CLINES:
+					fillingStyle.set(FillingStyle.CLINES_PLAIN);
+					break;
+				case VLINES:
+					fillingStyle.set(FillingStyle.VLINES_PLAIN);
+					break;
+				case HLINES:
+					fillingStyle.set(FillingStyle.HLINES_PLAIN);
+					break;
+				case NONE:
+					fillingStyle.set(FillingStyle.PLAIN);
+					break;
+				case PLAIN:
+				case GRAD:
+				case CLINES_PLAIN:
+				case HLINES_PLAIN:
+				case VLINES_PLAIN:
+						/* Nothing to do. */
+					break;
+			}
+		}else {
+			switch(fillingStyle.get()) {
+				case CLINES_PLAIN:
+					fillingStyle.set(FillingStyle.CLINES);
+					break;
+				case VLINES_PLAIN:
+					fillingStyle.set(FillingStyle.VLINES);
+					break;
+				case HLINES_PLAIN:
+					fillingStyle.set(FillingStyle.HLINES);
+					break;
+				case PLAIN:
+					fillingStyle.set(FillingStyle.NONE);
+					break;
+				case NONE:
+				case GRAD:
+				case CLINES:
+				case HLINES:
+				case VLINES:
+						/* Nothing to do. */
+					break;
+			}
 		}
 	}
 
@@ -513,7 +525,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setFillingStyle(final FillingStyle style) {
-		if(style != null && isFillable()) fillingStyle.set(style);
+		if(style != null && isFillable()) {
+			fillingStyle.set(style);
+		}
 	}
 
 	@Override
@@ -602,13 +616,17 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
-		if(bound == null || pos == null) return;
+		if(bound == null || pos == null) {
+			return;
+		}
 		scaleSetPoints(points, prevWidth, prevHeight, pos, bound);
 	}
 
 	@Override
 	public void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
-		if(bound == null || pos == null) return;
+		if(bound == null || pos == null) {
+			return;
+		}
 		scaleSetPointsWithRatio(points, prevWidth, prevHeight, pos, bound);
 	}
 
@@ -619,8 +637,12 @@ abstract class LShape implements ISingleShape {
 		final double refY = refPt.getY();
 
 		for(final IPoint pt : pts) {
-			if(!MathUtils.INST.equalsDouble(pt.getX(), refX)) pt.setX(refX + (pt.getX() - refX) * s);
-			if(!MathUtils.INST.equalsDouble(pt.getY(), refY)) pt.setY(refY + (pt.getY() - refY) * s);
+			if(!MathUtils.INST.equalsDouble(pt.getX(), refX)) {
+				pt.setX(refX + (pt.getX() - refX) * s);
+			}
+			if(!MathUtils.INST.equalsDouble(pt.getY(), refY)) {
+				pt.setY(refY + (pt.getY() - refY) * s);
+			}
 		}
 	}
 
@@ -634,8 +656,12 @@ abstract class LShape implements ISingleShape {
 		final double refY = refPt.getY();
 
 		pts.forEach(pt -> {
-			if(xScale && !MathUtils.INST.equalsDouble(pt.getX(), refX)) pt.setX(refX + (pt.getX() - refX) * sx);
-			if(yScale && !MathUtils.INST.equalsDouble(pt.getY(), refY)) pt.setY(refY + (pt.getY() - refY) * sy);
+			if(xScale && !MathUtils.INST.equalsDouble(pt.getX(), refX)) {
+				pt.setX(refX + (pt.getX() - refX) * sx);
+			}
+			if(yScale && !MathUtils.INST.equalsDouble(pt.getY(), refY)) {
+				pt.setY(refY + (pt.getY() - refY) * sy);
+			}
 		});
 	}
 
@@ -688,7 +714,9 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void translate(final double tx, final double ty) {
-		if(MathUtils.INST.isValidPt(tx, ty)) points.forEach(pt -> pt.translate(tx, ty));
+		if(MathUtils.INST.isValidPt(tx, ty)) {
+			points.forEach(pt -> pt.translate(tx, ty));
+		}
 	}
 
 	@Override

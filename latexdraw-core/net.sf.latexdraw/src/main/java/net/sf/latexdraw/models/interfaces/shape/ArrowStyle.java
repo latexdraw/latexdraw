@@ -215,11 +215,24 @@ public enum ArrowStyle {
 		}
 	}, SQUARE_END {
 		@Override
-		public String getPSTToken() { return PSTricksConstants.SQUAREEND_STYLE; }
+		public String getPSTToken() {
+			return PSTricksConstants.SQUAREEND_STYLE;
+		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() { return SQUARE_END; }
+		public ArrowStyle getOppositeArrowStyle() {
+			return SQUARE_END;
+		}
 	};
+
+	/**
+	 * @param token The PST token or the name of the style to get (e.g. NONE.toString()).
+	 * @return The arrow style corresponding to the given PST token or the style name (or null).
+	 * @since 3.0
+	 */
+	public static ArrowStyle getArrowStyle(final String token) {
+		return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findAny().orElse(ArrowStyle.NONE);
+	}
 
 	/**
 	 * @return The opposite arrow of the current one.
@@ -242,7 +255,8 @@ public enum ArrowStyle {
 	}
 
 	public boolean isReducingShape() {
-		return this == LEFT_ARROW || this == RIGHT_ARROW || this == LEFT_DBLE_ARROW || this == RIGHT_DBLE_ARROW || this == ROUND_IN || this == CIRCLE_IN || this == DISK_IN;
+		return this == LEFT_ARROW || this == RIGHT_ARROW || this == LEFT_DBLE_ARROW || this == RIGHT_DBLE_ARROW || this == ROUND_IN || this == CIRCLE_IN ||
+			this == DISK_IN;
 	}
 
 	/**
@@ -291,8 +305,8 @@ public enum ArrowStyle {
 	 * @since 3.0
 	 */
 	public boolean isSameKind(final ArrowStyle style) {
-		return style != null && ((isArrow() && style.isArrow()) || (isBar() && style.isBar()) || (isCircleDisk() && style.isCircleDisk()) ||
-			(isRoundBracket() && style.isRoundBracket()) || (isSquareBracket() && style.isSquareBracket()));
+		return style != null && ((isArrow() && style.isArrow()) || (isBar() && style.isBar()) || (isCircleDisk() && style.isCircleDisk()) || (isRoundBracket()
+			&& style.isRoundBracket()) || (isSquareBracket() && style.isSquareBracket()));
 	}
 
 	/**
@@ -302,14 +316,5 @@ public enum ArrowStyle {
 	 */
 	public boolean needsLineReduction() {
 		return false;
-	}
-
-	/**
-	 * @param token The PST token or the name of the style to get (e.g. NONE.toString()).
-	 * @return The arrow style corresponding to the given PST token or the style name (or null).
-	 * @since 3.0
-	 */
-	public static  ArrowStyle getArrowStyle(final String token) {
-		return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findAny().orElse(ArrowStyle.NONE);
 	}
 }

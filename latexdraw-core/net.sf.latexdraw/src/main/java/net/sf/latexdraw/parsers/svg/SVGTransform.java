@@ -261,12 +261,12 @@ public class SVGTransform {
 			throw new IllegalArgumentException();
 		}
 
-		String code = transformation.replaceAll("[ \t\n\r\f]+", " "); //$NON-NLS-1$//$NON-NLS-2$
-		code = code.replaceAll("^[ ]", ""); //$NON-NLS-1$//$NON-NLS-2$
-		code = code.replaceAll("[ ]$", ""); //$NON-NLS-1$//$NON-NLS-2$
-		code = code.replaceAll("[ ]?[(][ ]?", "("); //$NON-NLS-1$//$NON-NLS-2$
-		code = code.replaceAll("[ ]?[)]", ")"); //$NON-NLS-1$//$NON-NLS-2$
-		code = code.replaceAll("[ ]?,[ ]?", ","); //$NON-NLS-1$//$NON-NLS-2$
+		String code = transformation.replaceAll("[ \t\n\r\f]+", " "); //NON-NLS
+		code = code.replaceAll("^[ ]", ""); //NON-NLS
+		code = code.replaceAll("[ ]$", ""); //NON-NLS
+		code = code.replaceAll("[ ]?[(][ ]?", "("); //NON-NLS
+		code = code.replaceAll("[ ]?[)]", ")"); //NON-NLS
+		code = code.replaceAll("[ ]?,[ ]?", ","); //NON-NLS
 
 		if(code.startsWith(SVGAttributes.SVG_TRANSFORM_ROTATE)) {
 			setRotateTransformation(code);
@@ -506,8 +506,9 @@ public class SVGTransform {
 			case SVG_TRANSFORM_ROTATE:
 				code.append(SVGAttributes.SVG_TRANSFORM_ROTATE).append('(').append(getRotationAngle());
 
-				if(!MathUtils.INST.equalsDouble(m.getE(), 0d) || !MathUtils.INST.equalsDouble(m.getF(), 0d))
+				if(!MathUtils.INST.equalsDouble(m.getE(), 0d) || !MathUtils.INST.equalsDouble(m.getF(), 0d)) {
 					code.append(' ').append(m.getE()).append(' ').append(m.getF());
+				}
 
 				code.append(')');
 				break;

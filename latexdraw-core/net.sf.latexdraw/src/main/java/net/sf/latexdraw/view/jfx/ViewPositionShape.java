@@ -23,7 +23,7 @@ public abstract class ViewPositionShape<T extends IPositionShape> extends ViewSh
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPositionShape(final  T sh) {
+	ViewPositionShape(final T sh) {
 		super(sh);
 		translateXProperty().bind(model.getPosition().xProperty());
 		translateYProperty().bind(model.getPosition().yProperty());

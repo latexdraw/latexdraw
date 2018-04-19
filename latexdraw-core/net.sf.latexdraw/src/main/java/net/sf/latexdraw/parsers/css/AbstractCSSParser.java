@@ -35,8 +35,9 @@ public abstract class AbstractCSSParser extends CodeParser {
 
 	@Override
 	public String skipComment() {
-		if(!isComment())
+		if(!isComment()) {
 			return null;
+		}
 
 		final StringBuilder comment = new StringBuilder();
 		boolean again = true;
@@ -48,8 +49,9 @@ public abstract class AbstractCSSParser extends CodeParser {
 			if(getChar() == '*' && getCharAt(getPosition() + 1) == '/') {
 				again = false;
 				nextChar();
-			}else
-				comment.append((char)getChar());
+			}else {
+				comment.append((char) getChar());
+			}
 
 			nextChar();
 		}
@@ -65,7 +67,8 @@ public abstract class AbstractCSSParser extends CodeParser {
 
 	@Override
 	public void skipWSP() {
-		while(isWSP() && !isEOC())
+		while(isWSP() && !isEOC()) {
 			nextChar();
+		}
 	}
 }

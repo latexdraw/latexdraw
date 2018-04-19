@@ -18,7 +18,6 @@ import org.w3c.dom.Node;
 /**
  * Defines the SVG tag <code>circle</code>.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public class SVGCircleElement extends SVGElement {
 	/**
@@ -32,15 +31,13 @@ public class SVGCircleElement extends SVGElement {
 	/**
 	 * Creates a circle with a radius equal to 0.
 	 * @param doc The owner document.
-	 * @since 0.1
 	 */
 	public SVGCircleElement(final SVGDocument doc) {
 		super(doc);
 
 		setNodeName(SVGElements.SVG_CIRCLE);
-		setAttribute(SVGAttributes.SVG_R, "0");//$NON-NLS-1$
+		setAttribute(SVGAttributes.SVG_R, "0");
 	}
-
 
 
 	/**
@@ -50,7 +47,6 @@ public class SVGCircleElement extends SVGElement {
 	 * @param r The radius of the circle.
 	 * @param owner The document owner.
 	 * @throws IllegalArgumentException If owner is null or if a given value is not valid.
-	 * @since 0.1
 	 */
 	public SVGCircleElement(final double cx, final double cy, final double r, final SVGDocument owner) {
 		super(owner);
@@ -61,8 +57,9 @@ public class SVGCircleElement extends SVGElement {
 		setNodeName(SVGElements.SVG_CIRCLE);
 		ownerDocument = owner;
 
-		if(!checkAttributes())
+		if(!checkAttributes()) {
 			throw new IllegalArgumentException();
+		}
 	}
 
 
@@ -71,48 +68,17 @@ public class SVGCircleElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getCx() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CX);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX);
 		double cx;
 
-		try { cx = v==null ? 0. : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { cx = 0.; }
+		try {
+			cx = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
+		}catch(final ParseException e) {
+			cx = 0d;
+		}
 
 		return cx;
 	}
-
-
-
-	/**
-	 * @return The y-axis coordinate of the centre of the circle (0 if there it does not exist or it is not a coordinate).
-	 * @since 0.1
-	 */
-	public double getCy() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CY);
-		double cy;
-
-		try { cy = v==null ? 0. : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { cy = 0.; }
-
-		return cy;
-	}
-
-
-
-	/**
-	 * @return The radius of the circle (NaN if there it does not exist or it is not a length).
-	 * @since 0.1
-	 */
-	public double getR() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_R);
-		double r;
-
-		try { r = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { r = Double.NaN; }
-
-		return r;
-	}
-
-
 
 	/**
 	 * Sets the X-coordinate of the circle.
@@ -120,45 +86,69 @@ public class SVGCircleElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public void setCx(final double cx) {
-		setAttribute(getUsablePrefix()+SVGAttributes.SVG_CX, String.valueOf(cx));
+		setAttribute(getUsablePrefix() + SVGAttributes.SVG_CX, String.valueOf(cx));
 	}
 
+	/**
+	 * @return The y-axis coordinate of the centre of the circle (0 if there it does not exist or it is not a coordinate).
+	 */
+	public double getCy() {
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY);
+		double cy;
 
+		try {
+			cy = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
+		}catch(final ParseException e) {
+			cy = 0d;
+		}
 
+		return cy;
+	}
 
 	/**
 	 * Sets the Y-coordinate of the circle.
 	 * @param cy The new Y-coordinate of the circle.
-	 * @since 0.1
 	 */
 	public void setCy(final double cy) {
-		setAttribute(getUsablePrefix()+SVGAttributes.SVG_CY, String.valueOf(cy));
+		setAttribute(getUsablePrefix() + SVGAttributes.SVG_CY, String.valueOf(cy));
 	}
 
+	/**
+	 * @return The radius of the circle (NaN if there it does not exist or it is not a length).
+	 */
+	public double getR() {
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_R);
+		double r;
 
+		try {
+			r = v == null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue();
+		}catch(final ParseException e) {
+			r = Double.NaN;
+		}
+
+		return r;
+	}
 
 	/**
 	 * Sets the radius of the circle.
 	 * @param width The new radius of the circle.
-	 * @since 0.1
 	 */
 	public void setR(final double width) {
-		if(width>=0.)
-			setAttribute(getUsablePrefix()+SVGAttributes.SVG_R, String.valueOf(width));
+		if(width >= 0d) {
+			setAttribute(getUsablePrefix() + SVGAttributes.SVG_R, String.valueOf(width));
+		}
 	}
 
 
 	@Override
 	public boolean checkAttributes() {
 		final double r = getR();
-
-		return !Double.isNaN(r) && r>=0.;
+		return !Double.isNaN(r) && r >= 0d;
 	}
-
 
 
 	@Override
 	public boolean enableRendering() {
-		return !MathUtils.INST.equalsDouble(getR(), 0.0);
+		return !MathUtils.INST.equalsDouble(getR(), 0d);
 	}
 }

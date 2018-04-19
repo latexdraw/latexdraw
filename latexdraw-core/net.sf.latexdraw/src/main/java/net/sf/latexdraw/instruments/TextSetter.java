@@ -154,7 +154,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	}
 
 	private void setPlotMessage() {
-		final String eqEx = " 2 x add sin"; //$NON-NLS-1$
+		final String eqEx = " 2 x add sin"; //NON-NLS
 		textField.getMessageField().setText(LangTool.INSTANCE.getBundle().getString("write.the.equation") + ' ' + eqEx);
 	}
 

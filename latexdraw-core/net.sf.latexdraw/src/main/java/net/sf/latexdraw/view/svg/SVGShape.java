@@ -62,8 +62,8 @@ abstract class SVGShape<S extends IShape> {
 	/** The beginning of the token used to declare a URL in an SVG document. */
 	protected static final String SVG_URL_TOKEN_BEGIN = "url(#"; //NON-NLS
 
-	protected static void setSVGArrow(final IArrowableSingleShape shape, final SVGElement parent, final int arrowPos, final boolean isShadow,
-									  final SVGDocument doc, final SVGDefsElement defs) {
+	protected static void setSVGArrow(final IArrowableSingleShape shape, final SVGElement parent, final int arrowPos, final boolean isShadow, final
+	SVGDocument doc, final SVGDefsElement defs) {
 		final IArrow arrow = shape.getArrowAt(arrowPos);
 
 		if(arrow.getArrowStyle() != ArrowStyle.NONE) {
@@ -82,7 +82,9 @@ abstract class SVGShape<S extends IShape> {
 	 * @return The Researched element.
 	 */
 	protected static SVGElement getLaTeXDrawElement(final SVGGElement elt, final String type) {
-		if(elt == null) return null;
+		if(elt == null) {
+			return null;
+		}
 
 		final NodeList nl = elt.getChildNodes();
 		int i = 0;
@@ -297,17 +299,18 @@ abstract class SVGShape<S extends IShape> {
 	 * @param thickness The thickness to set to the element.
 	 * @param doubleSep The size of the double borders.
 	 */
-	public static void setDashedDotted(final Element elt, final double blackDash, final double whiteDash, final double dotSep, final String lineStyle,
-									   final boolean hasDoubleBorders, final double thickness, final double doubleSep) {
+	public static void setDashedDotted(final Element elt, final double blackDash, final double whiteDash, final double dotSep, final String lineStyle, final
+	boolean hasDoubleBorders, final double thickness, final double doubleSep) {
 		if(elt == null) {
 			return;
 		}
 		if(lineStyle.equals(PSTricksConstants.LINE_DASHED_STYLE)) {
-			elt.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, blackDash + ", " + whiteDash);//$NON-NLS-1$
+			elt.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, blackDash + ", " + whiteDash); //NON-NLS
 		}else {
 			if(lineStyle.equals(PSTricksConstants.LINE_DOTTED_STYLE)) {
 				elt.setAttribute(SVGAttributes.SVG_STROKE_LINECAP, SVGAttributes.SVG_LINECAP_VALUE_ROUND);
-				elt.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, 1 + ", " + (dotSep + (hasDoubleBorders ? thickness * 2f + doubleSep : thickness))); //$NON-NLS-1$
+				elt.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, 1 + ", " + (dotSep + (hasDoubleBorders ? thickness * 2f + doubleSep : thickness)));
+				//NON-NLS
 			}
 		}
 	}
@@ -325,9 +328,8 @@ abstract class SVGShape<S extends IShape> {
 	 * @param dotSep The dot interval.
 	 * @return The created SVG line or null.
 	 */
-	protected static SVGLineElement getShowPointsLine(final SVGDocument doc, final double thickness, final Color col, final IPoint p1, final IPoint p2,
-													  final double blackDash, final double whiteDash, final boolean hasDble, final double dotSep,
-													  final double doubleSep) {
+	protected static SVGLineElement getShowPointsLine(final SVGDocument doc, final double thickness, final Color col, final IPoint p1, final IPoint p2, final
+	double blackDash, final double whiteDash, final boolean hasDble, final double dotSep, final double doubleSep) {
 		if(doc == null) {
 			return null;
 		}
@@ -399,7 +401,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @return The SVG ID of the shape (starting with the token "id" followed by the number of the shape).
 	 */
 	public String getSVGID() {
-		return "id" + shape.hashCode(); //$NON-NLS-1$
+		return "id" + shape.hashCode(); //NON-NLS
 	}
 
 	/**
@@ -438,7 +440,7 @@ abstract class SVGShape<S extends IShape> {
 					break;
 
 				default:
-					BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Bad transformation type: " + t.getType())); //$NON-NLS-1$
+					BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Bad transformation type: " + t.getType())); //NON-NLS
 			}
 		}
 	}
@@ -451,7 +453,9 @@ abstract class SVGShape<S extends IShape> {
 	 * @param ah2 The second arrow.
 	 */
 	public void homogeniseArrows(final IArrow ah1, final IArrow ah2) {
-		if(ah1 == null || ah2 == null) return;
+		if(ah1 == null || ah2 == null) {
+			return;
+		}
 
 		homogeniseArrowFrom(ah1, ah2);
 		homogeniseArrowFrom(ah2, ah1);
@@ -464,7 +468,9 @@ abstract class SVGShape<S extends IShape> {
 	 * @param target The arrow that will be set.
 	 */
 	protected void homogeniseArrowFrom(final IArrow source, final IArrow target) {
-		if(source == null || target == null) return;
+		if(source == null || target == null) {
+			return;
+		}
 
 		final ArrowStyle style = source.getArrowStyle();
 
@@ -498,12 +504,63 @@ abstract class SVGShape<S extends IShape> {
 		}
 	}
 
+	private void applyShadowTransformations(final SVGElement elt) {
+		final SVGTransformList tl = elt.getTransform();
+		boolean sSize = false;
+		boolean sAngle = false;
+
+		for(int i = 0, size = tl.size(); i < size && (!sSize || !sAngle); i++) {
+			final SVGTransform transformation = tl.get(i);
+
+			if(transformation.isTranslation()) {
+				// It is shadowSize.
+				if(MathUtils.INST.equalsDouble(transformation.getTY(), 0d) && !sSize) {
+					shape.setShadowSize(transformation.getTX());
+					sSize = true;
+				}else {
+					shape.setShadowAngle(applyShadowTransformationsComputeAngle(transformation.getTX(), transformation.getTY()));
+					sAngle = true;
+				}
+			}
+		}
+	}
+
+	private double applyShadowTransformationsComputeAngle(final double tx, final double ty) {
+		final IPoint gravityCenter = shape.getGravityCentre();
+		final double shSize = shape.getShadowSize();
+
+		if(MathUtils.INST.equalsDouble(ty, 0d)) {
+			return tx < 0d ? Math.PI : 0d;
+		}
+
+		if(MathUtils.INST.equalsDouble(shSize, Math.abs(tx))) {
+			return ty > 0d ? -Math.PI / 2d : Math.PI / 2d;
+		}
+		final double angle = Math.acos(gravityCenter.distance(gravityCenter.getX() + tx + shSize,
+			gravityCenter.getY()) / gravityCenter.distance(gravityCenter.getX() + tx + shSize, gravityCenter.getY() + ty));
+
+		if(tx + shSize < 0d) {
+			if(ty < 0d) {
+				return Math.PI - angle;
+			}
+			return angle + Math.PI;
+		}
+		if(ty > 0d) {
+			return -angle;
+		}
+		return angle;
+	}
+
+
+
 	/**
 	 * Sets the shadow parameters of the figure by using an SVG element having "type:shadow".
 	 * @param elt The source element.
 	 */
 	protected void setSVGShadowParameters(final SVGElement elt) {
-		if(elt == null || !shape.isShadowable()) return;
+		if(elt == null || !shape.isShadowable()) {
+			return;
+		}
 
 		if(shape.isFillable()) {
 			final String fill = elt.getFill();
@@ -518,57 +575,7 @@ abstract class SVGShape<S extends IShape> {
 			shape.setShadowCol(strok);
 		}
 
-		final SVGTransformList tl = elt.getTransform();
-		SVGTransform t;
-		double tx;
-		double ty;
-		boolean sSize = false;
-		boolean sAngle = false;
-
-		for(int i = 0, size = tl.size(); i < size && (!sSize || !sAngle); i++) {
-			t = tl.get(i);
-
-			if(t.isTranslation()) {
-				tx = t.getTX();
-				ty = t.getTY();
-
-				if(MathUtils.INST.equalsDouble(ty, 0.) && !sSize) { // It is shadowSize.
-					shape.setShadowSize(tx);
-					sSize = true;
-				}else {
-					final IPoint gravityCenter = shape.getGravityCentre();
-					double angle;
-					final double shSize = shape.getShadowSize();
-
-					if(MathUtils.INST.equalsDouble(ty, 0.)) {
-						angle = tx < 0. ? Math.PI : 0.;
-					}else {
-						if(MathUtils.INST.equalsDouble(shSize, Math.abs(tx))) {
-							angle = ty > 0. ? -Math.PI / 2. : Math.PI / 2.;
-						}else {
-							angle = Math.acos(gravityCenter.distance(gravityCenter.getX() + tx + shSize, gravityCenter.getY()) / gravityCenter.distance
-								(gravityCenter.getX() + tx + shSize, gravityCenter.getY() + ty));
-
-							if(tx + shSize < 0) {
-								if(ty < 0.) {
-									angle = Math.PI - angle;
-								}else {
-									angle += Math.PI;
-								}
-							}else {
-								if(ty > 0.) {
-									angle *= -1;
-								}
-							}
-						}
-					}
-
-					shape.setShadowAngle(angle);
-					sAngle = true;
-				}
-			}
-		}
-
+		applyShadowTransformations(elt);
 		shape.setHasShadow(true);
 	}
 
@@ -577,7 +584,9 @@ abstract class SVGShape<S extends IShape> {
 	 * @param elt The SVG element.
 	 */
 	protected void setSVGDbleBordersParameters(final SVGElement elt) {
-		if(elt == null) return;
+		if(elt == null) {
+			return;
+		}
 
 		shape.setDbleBordSep(elt.getStrokeWidth());
 		shape.setDbleBordCol(elt.getStroke());
@@ -732,12 +741,12 @@ abstract class SVGShape<S extends IShape> {
 			final IPoint pt = ShapeFactory.INST.createPoint(gcx + shape.getShadowSize(), gcy).rotatePoint(shape.getGravityCentre(), -shape.getShadowAngle());
 			final boolean filledShadow = shadowFills || shape.isFilled();
 
-			elt.setAttribute(SVGAttributes.SVG_TRANSFORM, SVGTransform.createTranslation(shape.getShadowSize(), 0.) + " " +
-				SVGTransform.createTranslation(pt.getX() - gcx - shape.getShadowSize(), pt.getY() - gcy));
-			elt.setAttribute(SVGAttributes.SVG_STROKE_WIDTH,
-				MathUtils.INST.format.format(shape.hasDbleBord() ? shape.getThickness() * 2d + shape.getDbleBordSep() : shape.getThickness()));
-			elt.setAttribute(SVGAttributes.SVG_FILL,
-				filledShadow ? CSSColors.INSTANCE.getColorName(shape.getShadowCol(), true) : SVGAttributes.SVG_VALUE_NONE);
+			elt.setAttribute(SVGAttributes.SVG_TRANSFORM, SVGTransform.createTranslation(shape.getShadowSize(), 0.) + " " + SVGTransform.createTranslation(pt
+				.getX() - gcx - shape.getShadowSize(), pt.getY() - gcy));
+			elt.setAttribute(SVGAttributes.SVG_STROKE_WIDTH, MathUtils.INST.format.format(shape.hasDbleBord() ? shape.getThickness() * 2d + shape
+				.getDbleBordSep() : shape.getThickness()));
+			elt.setAttribute(SVGAttributes.SVG_FILL, filledShadow ? CSSColors.INSTANCE.getColorName(shape.getShadowCol(), true) : SVGAttributes
+				.SVG_VALUE_NONE);
 			elt.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(shape.getShadowCol(), true));
 			elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SHADOW);
 
@@ -896,7 +905,9 @@ abstract class SVGShape<S extends IShape> {
 	 * @throws IllegalArgumentException If the root or the "defs" part of the document is null.
 	 */
 	protected void setSVGAttributes(final SVGDocument doc, final SVGElement root, final boolean shadowFills) {
-		if(root == null || doc.getFirstChild().getDefs() == null) throw new IllegalArgumentException();
+		if(root == null || doc.getFirstChild().getDefs() == null) {
+			throw new IllegalArgumentException();
+		}
 
 		// Setting the position of the borders.
 		if(shape.isBordersMovable()) {
@@ -909,8 +920,8 @@ abstract class SVGShape<S extends IShape> {
 		setSVGFillStyle(doc, root, shadowFills);
 
 		if(shape.isLineStylable()) {
-			SVGShape.setDashedDotted(root, shape.getDashSepBlack(), shape.getDashSepWhite(), shape.getDotSep(),
-				shape.getLineStyle().getLatexToken(), shape.hasDbleBord(), shape.getThickness(), shape.getDbleBordSep());
+			SVGShape.setDashedDotted(root, shape.getDashSepBlack(), shape.getDashSepWhite(), shape.getDotSep(), shape.getLineStyle().getLatexToken(), shape
+				.hasDbleBord(), shape.getThickness(), shape.getDbleBordSep());
 		}
 	}
 
@@ -948,7 +959,9 @@ abstract class SVGShape<S extends IShape> {
 	}
 
 	private void getSVGHatchingsPath2(final SVGPathSegList path, final double hAngle, final IRectangle bound) {
-		if(path == null || bound == null) return;
+		if(path == null || bound == null) {
+			return;
+		}
 
 		double angle2 = hAngle % (Math.PI * 2.);
 		final double halphPI = Math.PI / 2.;
@@ -982,19 +995,18 @@ abstract class SVGShape<S extends IShape> {
 
 		final double val = hatchingWidth + hatchingSep;
 
-		if(MathUtils.INST.equalsDouble(angle2, 0.))
-			// Drawing the hatchings vertically.
+		if(MathUtils.INST.equalsDouble(angle2, 0.)) { // Drawing the hatchings vertically.
 			for(double x = nwx; x < sex; x += val) {
 				path.add(new SVGPathSegMoveto(x, nwy, false));
 				path.add(new SVGPathSegLineto(x, sey, false));
 			}
-		else
-			// Drawing the hatchings horizontally.
-			if(MathUtils.INST.equalsDouble(angle2, halphPI) || MathUtils.INST.equalsDouble(angle2, -halphPI)) for(double y = nwy; y < sey; y += val) {
-				path.add(new SVGPathSegMoveto(nwx, y, false));
-				path.add(new SVGPathSegLineto(sex, y, false));
-			}
-			else {
+		}else { // Drawing the hatchings horizontally.
+			if(MathUtils.INST.equalsDouble(angle2, halphPI) || MathUtils.INST.equalsDouble(angle2, -halphPI)) {
+				for(double y = nwy; y < sey; y += val) {
+					path.add(new SVGPathSegMoveto(nwx, y, false));
+					path.add(new SVGPathSegLineto(sex, y, false));
+				}
+			}else {
 				// Drawing the hatchings by rotation.
 				final double incX = val / Math.cos(angle2);
 				final double incY = val / Math.sin(angle2);
@@ -1027,6 +1039,7 @@ abstract class SVGShape<S extends IShape> {
 					path.add(new SVGPathSegLineto(x2, y2, false));
 				}
 			}
+		}
 	}
 
 

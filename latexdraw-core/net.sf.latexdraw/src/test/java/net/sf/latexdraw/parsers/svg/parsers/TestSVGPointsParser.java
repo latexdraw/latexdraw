@@ -83,7 +83,7 @@ public class TestSVGPointsParser extends TestCodeParser {
 
 	@Theory
 	public void testReadNumber(@StringData(vals = {"10", "+10", "-10", "-10.", "-.1", "10e2", "10e-2", "10e+2", "10E2", "10E-2", "10E+2", "0.E+2"})
-								   final String data) throws ParseException {
+								final String data) throws ParseException {
 		final SVGPointsParser p = (SVGPointsParser) parser;
 		p.setCode(data);
 		assertEquals(Double.valueOf(data), p.readNumber(), 0.0001);

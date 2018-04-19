@@ -89,8 +89,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser implements Init
 
 		if(act) {
 			update();
-		}
-		else {
+		}else {
 			borderCustomiser.setActivated(false);
 			doubleBorderCustomiser.setActivated(false);
 			shadowCustomiser.setActivated(false);

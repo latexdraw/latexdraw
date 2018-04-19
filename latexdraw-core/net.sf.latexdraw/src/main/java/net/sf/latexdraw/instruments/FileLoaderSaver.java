@@ -89,8 +89,8 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			final IOCommand<?> ioCmd = (IOCommand<?>) cmd;
 			currentFile = ioCmd.getFile();
 			currentFolder = currentFile.getParentFile();
-			if(!currentFile.getPath().endsWith(".svg")) {//$NON-NLS-1$
-				currentFile = new File(currentFile.getPath() + ".svg");//$NON-NLS-1$
+			if(!currentFile.getPath().endsWith(".svg")) { //NON-NLS
+				currentFile = new File(currentFile.getPath() + ".svg"); //NON-NLS
 			}
 			prefSetter.addRecentFile(((IOCommand<?>) cmd).getFile().getPath());
 			updateRecentMenuItems(prefSetter.getRecentFileNames());
@@ -246,11 +246,11 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		if(fileChooser == null) {
 			fileChooser = new FileChooser();
 			fileChooser.getExtensionFilters().clear();
-			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG", "*.svg")); //$NON-NLS-1$ //$NON-NLS-2$
+			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG", "*.svg")); //NON-NLS
 		}
 
-		fileChooser.setTitle(save ? LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.188") : //$NON-NLS-1$
-			LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.200")); //$NON-NLS-1$
+		fileChooser.setTitle(save ? LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.188") : //NON-NLS
+			LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.200")); //NON-NLS
 
 		return fileChooser;
 	}

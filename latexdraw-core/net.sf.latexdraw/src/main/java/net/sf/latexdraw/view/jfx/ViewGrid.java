@@ -138,8 +138,8 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 
 
 	private void updatePathSubGrid(final double unit, final double minX, final double maxX, final double minY, final double maxY,
-								   final double posX, final double posY, final double xStep, final double yStep, final double tlx,
-								   final double tly, final double brx, final double bry) {
+							final double posX, final double posY, final double xStep, final double yStep, final double tlx,
+							final double tly, final double brx, final double bry) {
 		final double subGridDiv = model.getSubGridDiv();
 		final double subGridDots = model.getSubGridDots();
 		final double xSubStep = xStep / subGridDiv;
@@ -192,9 +192,11 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 
 
 	private void updatePathLabels(final double minX, final double maxX, final double minY, final double maxY, final double posX,
-								  final double posY, final double xStep, final double yStep, final double tlx, final double tly, final double absStep) {
+								final double posY, final double xStep, final double yStep, final double tlx, final double tly, final double absStep) {
 		final int labelsSize = model.getLabelsSize();
-		if(labelsSize < 0) return;
+		if(labelsSize < 0) {
+			return;
+		}
 
 		final Font font = new Font("cmr10", model.getLabelsSize());
 		final Text fooText = new Text(String.valueOf((int) maxX));
@@ -251,7 +253,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		xStep *= model.getGridEndX() < model.getGridStartX() ? -1d : 1d;
 		yStep *= model.getGridEndY() < model.getGridStartY() ? -1d : 1d;
 		final double posX = Math.min(model.getGridStartX(), model.getGridEndX()) * IShape.PPC * unit;
-		final double posY = - Math.min(model.getGridStartY(), model.getGridEndY()) * IShape.PPC * unit;
+		final double posY = -Math.min(model.getGridStartY(), model.getGridEndY()) * IShape.PPC * unit;
 		final double absStep = Math.abs(xStep);
 		final Rectangle2D bounds = getGridBounds(posX, posY);
 		final double tlx = bounds.getMinX();

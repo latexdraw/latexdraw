@@ -28,8 +28,7 @@ public enum Position {
 		public IPoint getReferencePoint(final Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getCenterX(), bound.getMinY());
 		}
-	},
-	SOUTH {
+	}, SOUTH {
 		@Override
 		public Position getOpposite() {
 			return NORTH;
@@ -39,8 +38,7 @@ public enum Position {
 		public IPoint getReferencePoint(final Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getCenterX(), bound.getMaxY());
 		}
-	},
-	EAST {
+	}, EAST {
 		@Override
 		public Position getOpposite() {
 			return WEST;
@@ -50,8 +48,7 @@ public enum Position {
 		public IPoint getReferencePoint(final Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMaxX(), bound.getCenterY());
 		}
-	},
-	WEST {
+	}, WEST {
 		@Override
 		public Position getOpposite() {
 			return EAST;
@@ -61,8 +58,7 @@ public enum Position {
 		public IPoint getReferencePoint(final Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMinX(), bound.getCenterY());
 		}
-	},
-	NE {
+	}, NE {
 		@Override
 		public Position getOpposite() {
 			return SW;
@@ -72,8 +68,7 @@ public enum Position {
 		public IPoint getReferencePoint(final Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMaxX(), bound.getMinY());
 		}
-	},
-	NW {
+	}, NW {
 		@Override
 		public Position getOpposite() {
 			return SE;
@@ -83,8 +78,7 @@ public enum Position {
 		public IPoint getReferencePoint(final Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMinX(), bound.getMinY());
 		}
-	},
-	SE {
+	}, SE {
 		@Override
 		public Position getOpposite() {
 			return NW;
@@ -94,8 +88,7 @@ public enum Position {
 		public IPoint getReferencePoint(final Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMaxX(), bound.getMaxY());
 		}
-	},
-	SW {
+	}, SW {
 		@Override
 		public Position getOpposite() {
 			return NE;

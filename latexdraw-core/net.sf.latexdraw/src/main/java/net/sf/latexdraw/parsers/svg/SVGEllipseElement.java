@@ -36,7 +36,6 @@ public class SVGEllipseElement extends SVGElement {
 	 * @param ry The Y-radius of the ellipse.
 	 * @param owner The document owner.
 	 * @throws IllegalArgumentException If owner is null or if a given value is not valid.
-	 * @since 0.1
 	 */
 	public SVGEllipseElement(final double cx, final double cy, final double rx, final double ry, final SVGDocument owner) {
 		super(owner);
@@ -48,24 +47,23 @@ public class SVGEllipseElement extends SVGElement {
 		setNodeName(SVGElements.SVG_ELLIPSE);
 		ownerDocument = owner;
 
-		if(!checkAttributes())
+		if(!checkAttributes()) {
 			throw new IllegalArgumentException();
+		}
 	}
 
 
 	/**
 	 * Creates an empty ellipse.
 	 * @param doc The owner document.
-	 * @since 0.1
 	 */
 	public SVGEllipseElement(final SVGDocument doc) {
 		super(doc);
 
 		setNodeName(SVGElements.SVG_ELLIPSE);
-		setAttribute(SVGAttributes.SVG_RX, "0");//$NON-NLS-1$
-		setAttribute(SVGAttributes.SVG_RY, "0");//$NON-NLS-1$
+		setAttribute(SVGAttributes.SVG_RX, "0");
+		setAttribute(SVGAttributes.SVG_RY, "0");
 	}
-
 
 
 	/**
@@ -73,11 +71,14 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getCx() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CX);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX);
 		double cx;
 
-		try { cx = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { cx = 0; }
+		try {
+			cx = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
+		}catch(final ParseException e) {
+			cx = 0d;
+		}
 
 		return cx;
 	}
@@ -88,15 +89,17 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getCy() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CY);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY);
 		double cy;
 
-		try { cy = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(final ParseException e) { cy = 0; }
+		try {
+			cy = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
+		}catch(final ParseException e) {
+			cy = 0d;
+		}
 
 		return cy;
 	}
-
 
 
 	/**
@@ -104,15 +107,17 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getRx() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RX);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX);
 		double rx;
 
-		try { rx = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { rx = Double.NaN; }
+		try {
+			rx = v == null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue();
+		}catch(final ParseException e) {
+			rx = Double.NaN;
+		}
 
 		return rx;
 	}
-
 
 
 	/**
@@ -120,29 +125,30 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getRy() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RY);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY);
 		double ry;
 
-		try { ry = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(final ParseException e) { ry = Double.NaN; }
+		try {
+			ry = v == null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue();
+		}catch(final ParseException e) {
+			ry = Double.NaN;
+		}
 
 		return ry;
 	}
 
 
-
 	@Override
 	public boolean checkAttributes() {
 		final double rx = getRx();
-        final double ry = getRy();
+		final double ry = getRy();
 
-        return !Double.isNaN(rx) && !Double.isNaN(ry) && rx>=0 && ry>=0;
+		return !Double.isNaN(rx) && !Double.isNaN(ry) && rx >= 0d && ry >= 0d;
 	}
-
 
 
 	@Override
 	public boolean enableRendering() {
-		return getRx()!=0 && getRy()!=0 ;
+		return Double.compare(getRx(), 0d) != 0 && Double.compare(getRy(), 0d) != 0;
 	}
 }

@@ -42,7 +42,7 @@ public class SVGPathSegCurvetoCubicSmooth extends SVGPathPointSeg implements Ctr
 
 	@Override
 	public String toString() {
-        return String.valueOf(isRelative() ? 's' : 'S') + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y;
+		return String.valueOf(isRelative() ? 's' : 'S') + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y;
 	}
 
 

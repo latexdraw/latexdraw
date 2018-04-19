@@ -36,13 +36,18 @@ public class SelectShapes extends DrawingCmdImpl implements ShapesCmd, Modifying
 	public void doCmdBody() {
 		final IGroup selection = drawing.getSelection();
 
-		if(shapes.isEmpty()) selection.clear();
-		else {
+		if(shapes.isEmpty()) {
+			selection.clear();
+		}else {
 			for(int i = selection.size() - 1; i >= 0; i--) {
-				if(!shapes.contains(selection.getShapeAt(i))) selection.removeShape(i);
+				if(!shapes.contains(selection.getShapeAt(i))) {
+					selection.removeShape(i);
+				}
 			}
 			shapes.forEach(sh -> {
-				if(!selection.contains(sh)) selection.addShape(sh);
+				if(!selection.contains(sh)) {
+					selection.addShape(sh);
+				}
 			});
 		}
 	}

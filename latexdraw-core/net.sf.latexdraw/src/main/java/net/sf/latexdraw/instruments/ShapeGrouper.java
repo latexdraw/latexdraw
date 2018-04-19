@@ -41,7 +41,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 	@Override
 	protected void update(final IGroup shape) {
 		if(hand.isActivated()) {
-			groupB.setDisable(shape.size()<2 || !hand.isActivated());
+			groupB.setDisable(shape.size() < 2 || !hand.isActivated());
 			sepB.setDisable(shape.size() != 1 || !(shape.getShapeAt(0) instanceof IGroup));
 			setActivated(!groupB.isDisable() || !sepB.isDisable());
 		}else {
@@ -63,7 +63,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 	protected void configureBindings() {
 		buttonBinder(SeparateShapes.class).on(sepB).first(c -> getSelectCmd().map(sel -> sel.getShapes()).ifPresent(shapes -> {
 			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {
-				c.setShape((IGroup)shapes.get(0));
+				c.setShape((IGroup) shapes.get(0));
 			}
 			c.setDrawing(pencil.canvas.getDrawing());
 		})).bind();

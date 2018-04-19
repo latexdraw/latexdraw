@@ -30,7 +30,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		return pts == null ? Collections.emptyList() : pts.stream().
 			map(pt -> ShapeFactory.INST.createPoint(pt.getX(), pt.getY() + DEFAULT_POSITION_CTRL)).collect(Collectors.toList());
 	}
-	
+
 	/** The default balance gap used to balance all the points of the bézier curve. */
 	protected int defaultBalanceGap = 50;
 	/** This vector contains the points which allows to change the angles of the curves */

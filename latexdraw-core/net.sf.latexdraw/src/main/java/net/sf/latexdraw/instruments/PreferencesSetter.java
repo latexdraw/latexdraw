@@ -110,9 +110,9 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		latexIncludes.setTooltip(new Tooltip("<html>" + //$NON-NLS-1$
-			LangTool.INSTANCE.getBundle().getString("PreferencesSetter.1") + //$NON-NLS-1$
-			"<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>"//$NON-NLS-1$
+		latexIncludes.setTooltip(new Tooltip("<html>" + //NON-NLS
+			LangTool.INSTANCE.getBundle().getString("PreferencesSetter.1") + //NON-NLS
+			"<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>"//NON-NLS
 		));
 
 		langList.setCellFactory(l -> new LocaleCell());
@@ -190,13 +190,13 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	private DirectoryChooser getFileChooser() {
 		if(fileChooser == null) {
 			fileChooser = new DirectoryChooser();
-			fileChooser.setTitle(LangTool.INSTANCE.getBundle().getString("PreferencesFrame.selectFolder")); //$NON-NLS-1$
+			fileChooser.setTitle(LangTool.INSTANCE.getBundle().getString("PreferencesFrame.selectFolder")); //NON-NLS
 		}
 		return fileChooser;
 	}
 
 	private void processXMLDataPreference(final File xml) {
-		final Map<String, Node> prefMap = Preference.readXMLPreferencesFromFile(xml);
+		final Map<String, Node> prefMap = Preference.INSTANCE.readXMLPreferencesFromFile(xml);
 		final Stage stage = (Stage) pathExportField.getScene().getWindow();
 
 		Optional.ofNullable(prefMap.get(LNamespace.XML_LATEX_INCLUDES)).ifPresent(node -> latexIncludes.setText(node.getTextContent()));
@@ -327,7 +327,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				Element elt;
 				Element elt2;
 
-				document.setXmlVersion("1.0");//$NON-NLS-1$
+				document.setXmlVersion("1.0"); //NON-NLS
 				document.setXmlStandalone(true);
 				document.appendChild(root);
 
@@ -416,8 +416,8 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				elt.appendChild(elt2);
 
 				final Transformer transformer = TransformerFactory.newInstance().newTransformer();
-				transformer.setOutputProperty(OutputKeys.INDENT, "yes"); //$NON-NLS-1$
-				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); //$NON-NLS-1$ //$NON-NLS-2$
+				transformer.setOutputProperty(OutputKeys.INDENT, "yes"); //NON-NLS
+				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); //NON-NLS
 				transformer.transform(new DOMSource(document), new StreamResult(fos));
 			}
 		}catch(final Exception ex) {

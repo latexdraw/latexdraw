@@ -51,8 +51,8 @@ import org.xml.sax.SAXException;
  * @author Arnaud BLOUIN
  */
 public class SVGDocument implements Document {
-	public static final String ACTION_NOT_IMPLEMENTED = "Action not implemented."; //$NON-NLS-1$
-	public static final String SVG_NAMESPACE = "http://www.w3.org/2000/svg"; //$NON-NLS-1$
+	public static final String ACTION_NOT_IMPLEMENTED = "Action not implemented."; //NON-NLS
+	public static final String SVG_NAMESPACE = "http://www.w3.org/2000/svg"; //NON-NLS
 
 	/** The root of the SVG drawing. */
 	private SVGSVGElement root;
@@ -76,7 +76,9 @@ public class SVGDocument implements Document {
 	 */
 	public SVGDocument(final URI uri) throws MalformedSVGDocument, IOException {
 		super();
-		if(uri == null) throw new IllegalArgumentException();
+		if(uri == null) {
+			throw new IllegalArgumentException();
+		}
 
 		try {
 			final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -87,7 +89,7 @@ public class SVGDocument implements Document {
 			try {
 				doc = builder.parse(uri.getPath());
 			}catch(final MalformedURLException ex) {
-				doc = builder.parse("file:" + uri.getPath()); //$NON-NLS-1$
+				doc = builder.parse("file:" + uri.getPath()); //NON-NLS
 			}
 			final NodeList nl;
 
@@ -119,7 +121,7 @@ public class SVGDocument implements Document {
 	public SVGDocument() {
 		super();
 		setDocumentURI(null);
-		setXmlVersion("1.1"); //$NON-NLS-1$
+		setXmlVersion("1.1"); //NON-NLS
 		setXmlStandalone(false);
 
 		root = new SVGSVGElement(this);
@@ -128,13 +130,15 @@ public class SVGDocument implements Document {
 
 	@Override
 	public String toString() {
-		return "SVG Document:" + root; //$NON-NLS-1$
+		return "SVG Document:" + root; //NON-NLS
 	}
 
 
 	@Override
 	public SVGSVGElement adoptNode(final Node source) {
-		if(!(source instanceof SVGSVGElement)) throw new DOMException(DOMException.TYPE_MISMATCH_ERR, "SVGSVGElement expected here.");//$NON-NLS-1$
+		if(!(source instanceof SVGSVGElement)) {
+			throw new DOMException(DOMException.TYPE_MISMATCH_ERR, "SVGSVGElement expected here.");
+		}
 
 		root = (SVGSVGElement) source;
 		root.setOwnerDocument(this);
@@ -223,7 +227,7 @@ public class SVGDocument implements Document {
 
 	@Override
 	public String getNodeName() {
-		return "#document"; //$NON-NLS-1$
+		return "#document"; //NON-NLS
 	}
 
 
@@ -301,7 +305,9 @@ public class SVGDocument implements Document {
 
 	@Override
 	public Element createElement(final String tagName) {
-		if(tagName == null) throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid tagName.");//$NON-NLS-1$
+		if(tagName == null) {
+			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid tagName.");
+		}
 
 		final OtherNSElement elt = new OtherNSElement(this);
 		elt.setNodeName(tagName);
@@ -312,7 +318,9 @@ public class SVGDocument implements Document {
 
 	@Override
 	public Text createTextNode(final String data) {
-		if(data == null) throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid data.");//$NON-NLS-1$
+		if(data == null) {
+			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid data.");
+		}
 
 		return new SVGText(data, this);
 	}
@@ -320,7 +328,9 @@ public class SVGDocument implements Document {
 
 	@Override
 	public Comment createComment(final String data) {
-		if(data == null) throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid data.");//$NON-NLS-1$
+		if(data == null) {
+			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid data.");
+		}
 
 		return new SVGComment(data, this);
 	}
@@ -535,14 +545,16 @@ public class SVGDocument implements Document {
 	 * @since 2.0
 	 */
 	public boolean saveSVGDocument(final String path) {
-		if(path == null) return false;
+		if(path == null) {
+			return false;
+		}
 
 		boolean ok = true;
 		try {
-			final DOMImplementationLS impl = (DOMImplementationLS) DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0 LS 3.0"); //$NON-NLS-1$
+			final DOMImplementationLS impl = (DOMImplementationLS) DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0 LS 3.0"); //NON-NLS
 			final LSSerializer serializer = impl.createLSSerializer();
-			serializer.getDomConfig().setParameter("format-pretty-print", true); //$NON-NLS-1$
-			serializer.getDomConfig().setParameter("namespaces", false); //$NON-NLS-1$
+			serializer.getDomConfig().setParameter("format-pretty-print", true); //NON-NLS
+			serializer.getDomConfig().setParameter("namespaces", false); //NON-NLS
 			final LSOutput output = impl.createLSOutput();
 			final Charset charset = Charset.defaultCharset();
 			try(final OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(path), charset.newEncoder())) {
@@ -564,7 +576,7 @@ public class SVGDocument implements Document {
 	static class SVGEntityResolver implements EntityResolver {
 		@Override
 		public InputSource resolveEntity(final String publicId, final String systemId) {
-			return new InputSource(new ByteArrayInputStream("<?xml version='1.0' encoding='UTF-8'?>".getBytes(Charset.defaultCharset()))); //$NON-NLS-1$
+			return new InputSource(new ByteArrayInputStream("<?xml version='1.0' encoding='UTF-8'?>".getBytes(Charset.defaultCharset()))); //NON-NLS
 		}
 	}
 

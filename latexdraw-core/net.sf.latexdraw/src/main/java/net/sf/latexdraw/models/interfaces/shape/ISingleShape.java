@@ -23,65 +23,65 @@ public interface ISingleShape extends IShape {
 	/**
 	 * @return The property of the thickness.
 	 */
-	 DoubleProperty thicknessProperty();
+	DoubleProperty thicknessProperty();
 
 	/**
 	 * @return The property of the line style.
 	 */
-	 ObjectProperty<LineStyle> linestyleProperty();
+	ObjectProperty<LineStyle> linestyleProperty();
 
 	/**
 	 * @return The property of the border position.
 	 */
-	 ObjectProperty<BorderPos> borderPosProperty();
+	ObjectProperty<BorderPos> borderPosProperty();
 
 	/**
 	 * @return The property of the line colour.
 	 */
-	 ObjectProperty<Color> lineColourProperty();
+	ObjectProperty<Color> lineColourProperty();
 
 	/**
 	 * @return The property of the filling.
 	 */
-	 ObjectProperty<FillingStyle> fillingProperty();
+	ObjectProperty<FillingStyle> fillingProperty();
 
-	 DoubleProperty dashSepWhiteProperty();
+	DoubleProperty dashSepWhiteProperty();
 
-	 DoubleProperty dashSepBlackProperty();
+	DoubleProperty dashSepBlackProperty();
 
-	 DoubleProperty dotSepProperty();
+	DoubleProperty dotSepProperty();
 
-	 BooleanProperty dbleBordProperty();
+	BooleanProperty dbleBordProperty();
 
-	 DoubleProperty dbleBordSepProperty();
+	DoubleProperty dbleBordSepProperty();
 
-	 ObjectProperty<Color> dbleBordColProperty();
+	ObjectProperty<Color> dbleBordColProperty();
 
-	 ObjectProperty<Color> gradColStartProperty();
+	ObjectProperty<Color> gradColStartProperty();
 
-	 ObjectProperty<Color> gradColEndProperty();
+	ObjectProperty<Color> gradColEndProperty();
 
-	 ObjectProperty<Color> fillingColProperty();
+	ObjectProperty<Color> fillingColProperty();
 
-	 DoubleProperty gradAngleProperty();
+	DoubleProperty gradAngleProperty();
 
-	 DoubleProperty gradMidPtProperty();
+	DoubleProperty gradMidPtProperty();
 
-	 BooleanProperty shadowProperty();
+	BooleanProperty shadowProperty();
 
-	 ObjectProperty<Color> shadowColProperty();
+	ObjectProperty<Color> shadowColProperty();
 
-	 DoubleProperty shadowAngleProperty();
+	DoubleProperty shadowAngleProperty();
 
-	 DoubleProperty shadowSizeProperty();
+	DoubleProperty shadowSizeProperty();
 
-	 DoubleProperty hatchingsAngleProperty();
+	DoubleProperty hatchingsAngleProperty();
 
-	 DoubleProperty hatchingsSepProperty();
+	DoubleProperty hatchingsSepProperty();
 
-	 DoubleProperty hatchingsWidthProperty();
+	DoubleProperty hatchingsWidthProperty();
 
-	 ObjectProperty<Color> hatchingsColProperty();
+	ObjectProperty<Color> hatchingsColProperty();
 
-	 ReadOnlyBooleanProperty showPointProperty();
+	ReadOnlyBooleanProperty showPointProperty();
 }

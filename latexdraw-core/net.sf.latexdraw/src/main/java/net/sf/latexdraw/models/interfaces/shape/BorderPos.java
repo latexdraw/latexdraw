@@ -23,14 +23,12 @@ public enum BorderPos {
 		public String getLatexToken() {
 			return PSTricksConstants.BORDERS_INSIDE;
 		}
-	},
-	MID {
+	}, MID {
 		@Override
 		public String getLatexToken() {
 			return PSTricksConstants.BORDERS_MIDDLE;
 		}
-	},
-	OUT {
+	}, OUT {
 		@Override
 		public String getLatexToken() {
 			return PSTricksConstants.BORDERS_OUTSIDE;

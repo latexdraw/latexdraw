@@ -57,15 +57,15 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 		}
 
 		try {
-			String code = transformations.replaceAll("[ \t\n\r\f]+", " ");//$NON-NLS-1$//$NON-NLS-2$
-			code = code.replaceAll("^[ ]", "");//$NON-NLS-1$//$NON-NLS-2$
-			code = code.replaceAll("[ ]$", "");//$NON-NLS-1$//$NON-NLS-2$
-			code = code.replaceAll("[ ]?[(][ ]?", "(");//$NON-NLS-1$//$NON-NLS-2$
-			code = code.replaceAll("[ ]?[)]", ")");//$NON-NLS-1$//$NON-NLS-2$
-			code = code.replaceAll("[ ]?,[ ]?", ",");//$NON-NLS-1$//$NON-NLS-2$
-			code = code.replaceAll("[)][, ]?", ")_");//$NON-NLS-1$//$NON-NLS-2$
+			String code = transformations.replaceAll("[ \t\n\r\f]+", " ");
+			code = code.replaceAll("^[ ]", "");
+			code = code.replaceAll("[ ]$", "");
+			code = code.replaceAll("[ ]?[(][ ]?", "(");
+			code = code.replaceAll("[ ]?[)]", ")");
+			code = code.replaceAll("[ ]?,[ ]?", ",");
+			code = code.replaceAll("[)][, ]?", ")_");
 
-			final String[] trans = code.split("_");//$NON-NLS-1$
+			final String[] trans = code.split("_");
 
 			for(final String tran : trans) {
 				try {

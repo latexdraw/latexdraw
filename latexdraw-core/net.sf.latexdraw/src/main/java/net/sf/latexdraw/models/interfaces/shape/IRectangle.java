@@ -18,5 +18,5 @@ import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
  * @author Arnaud BLOUIN
  */
 public interface IRectangle extends IRectangularShape, ILineArcProp {
-	 DoubleProperty frameArcProperty();
+	DoubleProperty frameArcProperty();
 }

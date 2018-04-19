@@ -64,7 +64,7 @@ public class LaTeXDraw extends JfxUI {
 	private static LaTeXDraw instance;
 
 	static {
-		final Node node = Preference.readXMLPreferencesFromFile(new File(LPath.PATH_PREFERENCES_XML_FILE)).get(LNamespace.XML_OPENGL);
+		final Node node = Preference.INSTANCE.readXMLPreferencesFromFile(new File(LPath.PATH_PREFERENCES_XML_FILE)).get(LNamespace.XML_OPENGL);
 
 		if(node == null || java.lang.Boolean.parseBoolean(node.getTextContent())) {
 			System.setProperty("sun.java2d.opengl", "true");

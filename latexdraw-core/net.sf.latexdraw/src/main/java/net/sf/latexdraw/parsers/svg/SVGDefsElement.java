@@ -33,7 +33,6 @@ public class SVGDefsElement extends SVGElement {
 	 * Creates a meta data element.
 	 * @param owner The owner document.
 	 * @throws IllegalArgumentException If owner is null.
-	 * @since 0.1
 	 */
 	public SVGDefsElement(final SVGDocument owner) {
 		super();
@@ -42,12 +41,10 @@ public class SVGDefsElement extends SVGElement {
 	}
 
 
-
 	@Override
 	public boolean checkAttributes() {
 		return true;
 	}
-
 
 
 	@Override
@@ -56,21 +53,22 @@ public class SVGDefsElement extends SVGElement {
 	}
 
 
-
 	@Override
 	public SVGElement getDef(final String id) {
-		if(id==null)
+		if(id == null) {
 			return null;
+		}
 
 		final NodeList nl = getChildNodes();
 		SVGElement e = null;
 		Node n;
 
-		for(int i=0, size = nl.getLength(); i<size && e==null; i++) {
+		for(int i = 0, size = nl.getLength(); i < size && e == null; i++) {
 			n = nl.item(i);
 
-			if(n instanceof SVGElement && id.equals(((SVGElement)n).getId()))
-				e = (SVGElement)n;
+			if(n instanceof SVGElement && id.equals(((SVGElement) n).getId())) {
+				e = (SVGElement) n;
+			}
 		}
 
 		return e;

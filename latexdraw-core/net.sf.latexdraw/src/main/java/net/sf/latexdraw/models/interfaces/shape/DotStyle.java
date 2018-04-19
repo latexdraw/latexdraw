@@ -23,62 +23,52 @@ public enum DotStyle {
 		public String getPSTToken() {
 			return PSTricksConstants.ASTERISK_STYLE;
 		}
-	},
-	BAR {
+	}, BAR {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.BAR_STYLE;
 		}
-	},
-	OPLUS {
+	}, OPLUS {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.OPLUS_STYLE;
 		}
-	},
-	OTIMES {
+	}, OTIMES {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.OTIMES_STYLE;
 		}
-	},
-	PLUS {
+	}, PLUS {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.PLUS_STYLE;
 		}
-	},
-	DOT {
+	}, DOT {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.DOT_STYLE;
 		}
-	},
-	X {
+	}, X {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.X_STYLE;
 		}
-	},
-	FDIAMOND {
+	}, FDIAMOND {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.FDIAMOND_STYLE;
 		}
-	},
-	FTRIANGLE {
+	}, FTRIANGLE {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.FTRIANGLE_STYLE;
 		}
-	},
-	FPENTAGON {
+	}, FPENTAGON {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.FPENTAGON_STYLE;
 		}
-	},
-	DIAMOND {
+	}, DIAMOND {
 		@Override
 		public boolean isFillable() {
 			return true;
@@ -88,8 +78,7 @@ public enum DotStyle {
 		public String getPSTToken() {
 			return PSTricksConstants.DIAMOND_STYLE;
 		}
-	},
-	O {
+	}, O {
 		@Override
 		public boolean isFillable() {
 			return true;
@@ -99,8 +88,7 @@ public enum DotStyle {
 		public String getPSTToken() {
 			return PSTricksConstants.O_STYLE;
 		}
-	},
-	TRIANGLE {
+	}, TRIANGLE {
 		@Override
 		public boolean isFillable() {
 			return true;
@@ -110,8 +98,7 @@ public enum DotStyle {
 		public String getPSTToken() {
 			return PSTricksConstants.TRIANGLE_STYLE;
 		}
-	},
-	PENTAGON {
+	}, PENTAGON {
 		@Override
 		public boolean isFillable() {
 			return true;
@@ -121,8 +108,7 @@ public enum DotStyle {
 		public String getPSTToken() {
 			return PSTricksConstants.PENTAGON_STYLE;
 		}
-	},
-	SQUARE {
+	}, SQUARE {
 		@Override
 		public boolean isFillable() {
 			return true;
@@ -132,13 +118,21 @@ public enum DotStyle {
 		public String getPSTToken() {
 			return PSTricksConstants.SQUARE_STYLE;
 		}
-	},
-	FSQUARE {
+	}, FSQUARE {
 		@Override
 		public String getPSTToken() {
 			return PSTricksConstants.FSQUARE_STYLE;
 		}
 	};
+
+	/**
+	 * @param styleName The style to get (in PST or the name of the style, e.g. FSQUARE.toString())
+	 * @return The style which name is the given name style or DOT.
+	 * @since 3.0
+	 */
+	public static DotStyle getStyle(final String styleName) {
+		return Arrays.stream(values()).filter(style -> style.name().equals(styleName) || style.getPSTToken().equals(styleName)).findFirst().orElse(DOT);
+	}
 
 	/**
 	 * Allows to know if the dot shape can be filled.
@@ -153,13 +147,4 @@ public enum DotStyle {
 	 * @since 3.0
 	 */
 	public abstract String getPSTToken();
-
-	/**
-	 * @param styleName The style to get (in PST or the name of the style, e.g. FSQUARE.toString())
-	 * @return The style which name is the given name style or DOT.
-	 * @since 3.0
-	 */
-	public static  DotStyle getStyle(final String styleName) {
-		return Arrays.stream(values()).filter(style -> style.name().equals(styleName) || style.getPSTToken().equals(styleName)).findFirst().orElse(DOT);
-	}
 }

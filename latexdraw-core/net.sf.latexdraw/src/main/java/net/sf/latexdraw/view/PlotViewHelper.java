@@ -43,7 +43,7 @@ public final class PlotViewHelper {
 	}
 
 	public List<IPoint> fillPoints(final IPlot shape, final double posX, final double posY, final double minX,
-						   final double maxX, final double step) {
+								final double maxX, final double step) {
 		final double xs = shape.getXScale();
 		final double ys = shape.getYScale();
 		double x = minX;

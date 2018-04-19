@@ -58,7 +58,9 @@ class LLine extends Line2D.Double implements ILine {
 	LLine(final IPoint p1, final IPoint p2) {
 		super();
 
-		if(!MathUtils.INST.isValidPt(p1) || !MathUtils.INST.isValidPt(p2)) throw new IllegalArgumentException();
+		if(!MathUtils.INST.isValidPt(p1) || !MathUtils.INST.isValidPt(p2)) {
+			throw new IllegalArgumentException();
+		}
 
 		setP1(p1);
 		setP2(p2);
@@ -76,7 +78,9 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public boolean isInSegment(final IPoint pt) {
-		if(pt == null) return false;
+		if(pt == null) {
+			return false;
+		}
 
 		final double minX = Math.min(x1, x2);
 		final double maxX = Math.max(x1, x2);
@@ -85,8 +89,12 @@ class LLine extends Line2D.Double implements ILine {
 		final double x = pt.getX();
 		final double y = pt.getY();
 
-		if(isHorizontalLine()) return MathUtils.INST.equalsDouble(y, minY) && x >= minX && x <= maxX;
-		if(isVerticalLine()) return MathUtils.INST.equalsDouble(x, minX) && y >= minY && y <= maxY;
+		if(isHorizontalLine()) {
+			return MathUtils.INST.equalsDouble(y, minY) && x >= minX && x <= maxX;
+		}
+		if(isVerticalLine()) {
+			return MathUtils.INST.equalsDouble(x, minX) && y >= minY && y <= maxY;
+		}
 		return y >= minY && y <= maxY && x >= minX && x <= maxX && MathUtils.INST.equalsDouble(y, getA() * x + getB());
 	}
 
@@ -141,7 +149,7 @@ class LLine extends Line2D.Double implements ILine {
 
 		if(MathUtils.INST.equalsDouble(delta, 0d)) {
 			final double x2b = -bLine / 2d * aLine;
-			return new IPoint[] {ShapeFactory.INST.createPoint(x2b, a * x2b + b)};
+			return new IPoint[]{ShapeFactory.INST.createPoint(x2b, a * x2b + b)};
 		}
 		return new IPoint[0];
 	}
@@ -149,22 +157,13 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public ILine getPerpendicularLine(final IPoint pt) {
-		/*//TODO
-		if(isVerticalLine())
-			return new Line(new Point2D.Double(-10000, y), new Point2D.Double(10000, y));
+		if(!MathUtils.INST.isValidPt(pt)) {
+			return null;
+		}
 
-		if(isHorizontalLine())
-			return new Line(new Point2D.Double(x, -10000), new Point2D.Double(x, 10000));
-
-		final double a2 = -1./getA();
-		final double b2 = y-a2*x;
-
-		return new Line(new Point2D.Double(x, y), new Point2D.Double(-b2/a2, 0.));
-		 */
-		if(!MathUtils.INST.isValidPt(pt)) return null;
-
-		if(isVerticalLine())//FIXME must always create a perpendicular line + add test
+		if(isVerticalLine()) {
 			return MathUtils.INST.equalsDouble(pt.getX(), x1) ? ShapeFactory.INST.createLine(pt.getY(), ShapeFactory.INST.createPoint(pt)) : null;
+		}
 
 		if(MathUtils.INST.equalsDouble(pt.getX(), 0.0)) {
 			final IPoint pt3 = ShapeFactory.INST.createPoint(getPoint2());
@@ -173,7 +172,9 @@ class LLine extends Line2D.Double implements ILine {
 			return ShapeFactory.INST.createLine(pt2, pt);
 		}
 
-		if(MathUtils.INST.equalsDouble(a, 0.0)) return ShapeFactory.INST.createLine(pt.getX(), pt.getY(), pt.getX(), pt.getY() - 10.0);
+		if(MathUtils.INST.equalsDouble(a, 0.0)) {
+			return ShapeFactory.INST.createLine(pt.getX(), pt.getY(), pt.getX(), pt.getY() - 10.0);
+		}
 
 		final double a2 = -1.0 / a;
 
@@ -195,8 +196,12 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public IPoint getIntersection(final ILine l) {
-		if(l == null) return null;
-		if(MathUtils.INST.equalsDouble(a, l.getA(), 0.00000000001)) return null;
+		if(l == null) {
+			return null;
+		}
+		if(MathUtils.INST.equalsDouble(a, l.getA(), 0.00000000001)) {
+			return null;
+		}
 
 		final boolean verticalLine1 = isVerticalLine();
 		final boolean verticalLine2 = l.isVerticalLine();
@@ -204,11 +209,13 @@ class LLine extends Line2D.Double implements ILine {
 		final double y;
 
 		if(verticalLine2) {
-			if(verticalLine1)// The two lines a parallels
+			if(verticalLine1) { // The two lines a parallels
 				return null;
+			}
 
-			if(l.isHorizontalLine())// Points of the line l are equal.
+			if(l.isHorizontalLine()) { // Points of the line l are equal.
 				return null;
+			}
 
 			if(isHorizontalLine()) {
 				x = l.getX1();
@@ -243,7 +250,9 @@ class LLine extends Line2D.Double implements ILine {
 	public IPoint getIntersectionSegment(final ILine l) {
 		final IPoint p = getIntersection(l);
 
-		if(p == null) return null;
+		if(p == null) {
+			return null;
+		}
 
 		final double px = p.getX();
 		final double py = p.getY();
@@ -252,8 +261,10 @@ class LLine extends Line2D.Double implements ILine {
 		final IPoint tl2 = l.getTopLeftPoint();
 		final IPoint br2 = l.getBottomRightPoint();
 
-		if(px >= tl.getX() && px <= br.getX() && py >= tl.getY() && py <= br.getY() && px >= tl2.getX() && px <= br2.getX() && py >= tl2.getY() && py <= br2.getY())
+		if(px >= tl.getX() && px <= br.getX() && py >= tl.getY() && py <= br.getY() && px >= tl2.getX() && px <= br2.getX() && py >= tl2.getY() && py <=
+			br2.getY()) {
 			return p;
+		}
 
 		return null;
 	}
@@ -321,25 +332,33 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public void setX1(final double x1) {
-		if(MathUtils.INST.isValidCoord(x1)) this.x1 = x1;
+		if(MathUtils.INST.isValidCoord(x1)) {
+			this.x1 = x1;
+		}
 	}
 
 
 	@Override
 	public void setX2(final double x2) {
-		if(MathUtils.INST.isValidCoord(x2)) this.x2 = x2;
+		if(MathUtils.INST.isValidCoord(x2)) {
+			this.x2 = x2;
+		}
 	}
 
 
 	@Override
 	public void setY1(final double y1) {
-		if(MathUtils.INST.isValidCoord(y1)) this.y1 = y1;
+		if(MathUtils.INST.isValidCoord(y1)) {
+			this.y1 = y1;
+		}
 	}
 
 
 	@Override
 	public void setY2(final double y2) {
-		if(MathUtils.INST.isValidCoord(y2)) this.y2 = y2;
+		if(MathUtils.INST.isValidCoord(y2)) {
+			this.y2 = y2;
+		}
 	}
 
 
@@ -355,6 +374,6 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public String toString() {
-		return "LLine [a=" + a + ", b=" + b + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + "]"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+		return "LLine [a=" + a + ", b=" + b + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + "]"; //NON-NLS
 	}
 }

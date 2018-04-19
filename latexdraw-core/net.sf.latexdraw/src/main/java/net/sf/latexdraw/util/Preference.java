@@ -26,10 +26,16 @@ import org.xml.sax.SAXException;
 /**
  * @author Arnaud Blouin
  */
-public class Preference {
-	private static Map<String, Node> preferences = null;
+public final class Preference {
+	public static final Preference INSTANCE = new Preference();
 
-	public static Map<String, Node> readXMLPreferencesFromFile(final File xmlFile) {
+	private Preference() {
+		super();
+	}
+
+	private Map<String, Node> preferences = null;
+
+	public Map<String, Node> readXMLPreferencesFromFile(final File xmlFile) {
 		if(xmlFile == null || !xmlFile.canRead()) {
 			return Collections.emptyMap();
 		}
@@ -66,7 +72,7 @@ public class Preference {
 		return Collections.emptyMap();
 	}
 
-	public static void flushPreferencesCache() {
+	public void flushPreferencesCache() {
 		preferences = null;
 	}
 }

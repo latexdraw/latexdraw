@@ -245,9 +245,9 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 			final IArrow arr1 = shape.getArrowAt(3);
 			final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0.;
 			final double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0.;
-			final IPolyline xLine = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(posX + shape.getGridStartX() * 
+			final IPolyline xLine = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(posX + shape.getGridStartX() *
 				IShape.PPC + arr0Reduction, posY), ShapeFactory.INST.createPoint(posX + shape.getGridEndX() * IShape.PPC - arr1Reduction, posY)));
-			final IPolyline yLine = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(posX, posY - shape.getGridStartY() * 
+			final IPolyline yLine = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(posX, posY - shape.getGridStartY() *
 				IShape.PPC - arr0Reduction), ShapeFactory.INST.createPoint(posX, posY - shape.getGridEndY() * IShape.PPC + arr1Reduction)));
 
 

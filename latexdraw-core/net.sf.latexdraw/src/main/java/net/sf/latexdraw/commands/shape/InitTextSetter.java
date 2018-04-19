@@ -38,7 +38,7 @@ public class InitTextSetter extends ActivateInstrument {
 	private IPlot plotShape;
 
 	public InitTextSetter(final Instrument<?> instrument, final TextSetter setter, final String text, final IPoint position, final IText textShape,
-						  final IPlot plotShape) {
+					final IPlot plotShape) {
 		super(instrument);
 		this.setter = setter;
 		this.text = text;

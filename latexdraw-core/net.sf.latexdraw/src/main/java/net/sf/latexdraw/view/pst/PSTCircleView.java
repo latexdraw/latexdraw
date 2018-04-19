@@ -24,14 +24,16 @@ public class PSTCircleView extends PSTClassicalView<ICircle> {
 	 * @param circle The circle used for the conversion in SVG.
 	 * @since 3.0
 	 */
-	protected PSTCircleView(final  ICircle circle) {
+	protected PSTCircleView(final ICircle circle) {
 		super(circle);
 	}
 
 
 	@Override
 	public String getCode(final IPoint position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
+			return "";
+		}
 
 		final double radius = shape.getWidth() / 2.0;
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
@@ -39,16 +41,20 @@ public class PSTCircleView extends PSTClassicalView<ICircle> {
 		final double y = position.getY() + radius - shape.getY();
 		final StringBuilder cache = new StringBuilder();
 
-		if(rotation != null) cache.append(rotation);
+		if(rotation != null) {
+			cache.append(rotation);
+		}
 
-		cache.append("\\pscircle["); //$NON-NLS-1$
+		cache.append("\\pscircle["); //NON-NLS
 		cache.append(getPropertiesCode(ppc));
 		cache.append(']').append('(');
 		cache.append(MathUtils.INST.getCutNumberFloat(x / ppc)).append(',');
 		cache.append(MathUtils.INST.getCutNumberFloat(y / ppc)).append(')').append('{');
 		cache.append(MathUtils.INST.getCutNumberFloat(radius / ppc)).append('}');
 
-		if(rotation != null) cache.append('}');
+		if(rotation != null) {
+			cache.append('}');
+		}
 
 		return cache.toString();
 	}

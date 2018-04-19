@@ -30,7 +30,7 @@ public interface FxRobotSpinner extends FxRobotInterface {
 	}
 
 	default <T extends Number> void doTestSpinner(final GUIVoidCommand cmdsConfig, final Spinner<T> spinner,
-												   final GUIVoidCommand cmdSpinner, final List<Supplier<T>> oracles) {
+												final GUIVoidCommand cmdSpinner, final List<Supplier<T>> oracles) {
 		cmdsConfig.execute();
 		final T val = spinner.getValue();
 		cmdSpinner.execute();

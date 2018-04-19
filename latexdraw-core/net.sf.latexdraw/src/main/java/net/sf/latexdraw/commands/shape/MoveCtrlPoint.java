@@ -86,7 +86,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.9"); //$NON-NLS-1$
+		return LangTool.INSTANCE.getBundle().getString("Actions.9"); //NON-NLS
 	}
 
 	/**

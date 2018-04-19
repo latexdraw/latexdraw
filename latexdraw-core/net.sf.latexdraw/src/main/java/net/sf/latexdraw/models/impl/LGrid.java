@@ -157,7 +157,9 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 	@Override
 	public void scaleWithRatio(final double x, final double y, final Position pos, final Rectangle2D bound) {
-		if(pos == null || bound == null) return;
+		if(pos == null || bound == null) {
+			return;
+		}
 
 		final double sx = x / bound.getWidth();
 		final double sy = y / bound.getHeight();

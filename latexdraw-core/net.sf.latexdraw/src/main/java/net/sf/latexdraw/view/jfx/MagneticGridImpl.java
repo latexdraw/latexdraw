@@ -66,7 +66,9 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 
 	@Override
 	public void update() {
-		if(isDisable()) return;
+		if(isDisable()) {
+			return;
+		}
 
 		getElements().clear();
 
@@ -266,9 +268,11 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 
 	@Override
 	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
-		if(document == null || root == null) return;
+		if(document == null || root == null) {
+			return;
+		}
 
-		final String ns = generalPreferences ? "" : LPath.INSTANCE.getNormaliseNamespaceURI(nsURI); //$NON-NLS-1$
+		final String ns = generalPreferences ? "" : LPath.INSTANCE.getNormaliseNamespaceURI(nsURI); //NON-NLS
 		Element elt = document.createElement(ns + LNamespace.XML_MAGNETIC_GRID_STYLE);
 		elt.setTextContent(getGridStyle().toString());
 		root.appendChild(elt);
@@ -284,7 +288,7 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 	@Override
 	public void load(final boolean generalPreferences, final String nsURI, final Element meta) {
 		final NodeList nl = meta.getChildNodes();
-		final String uri = nsURI == null ? "" : nsURI; //$NON-NLS-1$
+		final String uri = nsURI == null ? "" : nsURI; //NON-NLS
 		Node node;
 		String name;
 

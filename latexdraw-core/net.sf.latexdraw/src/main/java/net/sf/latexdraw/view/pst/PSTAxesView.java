@@ -25,14 +25,16 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTAxesView(final  IAxes model) {
+	protected PSTAxesView(final IAxes model) {
 		super(model);
 	}
 
 
 	@Override
 	public String getCode(final IPoint origDrawing, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origDrawing) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origDrawing) || ppc < 1) {
+			return "";
+		}
 
 		final StringBuilder start = new StringBuilder();
 		final StringBuilder end = new StringBuilder();
@@ -49,7 +51,7 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 
 		if(!MathUtils.INST.equalsDouble(positionx, 0.0) || !MathUtils.INST.equalsDouble(positiony, 0.0)) {
 			end.append('}');
-			start.append("\\rput(").append(MathUtils.INST.getCutNumberFloat((positionx - origDrawing.getX()) / ppc)).append(','); //$NON-NLS-1$
+			start.append("\\rput(").append(MathUtils.INST.getCutNumberFloat((positionx - origDrawing.getX()) / ppc)).append(','); //NON-NLS
 			start.append(MathUtils.INST.getCutNumberFloat((origDrawing.getY() - positiony) / ppc)).append(')').append('{');
 		}
 
@@ -64,10 +66,12 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 		coord.append((int) gridEndx).append(',').append((int) gridEndy).append(')');
 
 		cache.append(start);
-		cache.append("\\psaxes[");//$NON-NLS-1$
+		cache.append("\\psaxes["); //NON-NLS
 		cache.append(updateParams(ppc));
 		cache.append(']');
-		if(arrowsStyle != null) cache.append(arrowsStyle);
+		if(arrowsStyle != null) {
+			cache.append(arrowsStyle);
+		}
 		cache.append(coord);
 		cache.append(end);
 
@@ -85,31 +89,41 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 		final double distLabelsY = shape.getDistLabelsY();
 		final boolean showOrigin = shape.isShowOrigin();
 
-		params.append(", tickstyle=").append(shape.getTicksStyle().getPSTToken());//$NON-NLS-1$
-		params.append(", axesstyle=").append(shape.getAxesStyle().getPSTToken());//$NON-NLS-1$
-		params.append(", labels=").append(shape.getLabelsDisplayed().getPSTToken());//$NON-NLS-1$
-		params.append(", ticks=").append(shape.getTicksDisplayed().getPSTToken());//$NON-NLS-1$
-		//		params.append(", ticksize=").append((float)LNumber.getCutNumber(shape.getTicksSize()/ppc)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
+		params.append(", tickstyle=").append(shape.getTicksStyle().getPSTToken()); //NON-NLS
+		params.append(", axesstyle=").append(shape.getAxesStyle().getPSTToken()); //NON-NLS
+		params.append(", labels=").append(shape.getLabelsDisplayed().getPSTToken()); //NON-NLS
+		params.append(", ticks=").append(shape.getTicksDisplayed().getPSTToken()); //NON-NLS
+		//		params.append(", ticksize=").append((float)LNumber.getCutNumber(shape.getTicksSize()/ppc)).append(PSTricksConstants.TOKEN_CM); //NON-NLS
 
-		if(!MathUtils.INST.equalsDouble(distLabelsX, 0.))
-			params.append(", dx=").append(MathUtils.INST.getCutNumberFloat(distLabelsX)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(distLabelsX, 0.)) {
+			params.append(", dx=").append(MathUtils.INST.getCutNumberFloat(distLabelsX)).append(PSTricksConstants.TOKEN_CM); //NON-NLS
+		}
 
-		if(!MathUtils.INST.equalsDouble(distLabelsY, 0.))
-			params.append(", dy=").append(MathUtils.INST.getCutNumberFloat(distLabelsY)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(distLabelsY, 0.)) {
+			params.append(", dy=").append(MathUtils.INST.getCutNumberFloat(distLabelsY)).append(PSTricksConstants.TOKEN_CM); //NON-NLS
+		}
 
-		if(!MathUtils.INST.equalsDouble(incrementx, PSTricksConstants.DEFAULT_DX))
-			params.append(", Dx=").append(MathUtils.INST.equalsDouble(incrementx, incrementx) ? String.valueOf((int) incrementx) : //$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(incrementx, PSTricksConstants.DEFAULT_DX)) {
+			params.append(", Dx=").append(MathUtils.INST.equalsDouble(incrementx, incrementx) ? String.valueOf((int) incrementx) : //NON-NLS
 				String.valueOf(MathUtils.INST.getCutNumberFloat(incrementx)));
+		}
 
-		if(!MathUtils.INST.equalsDouble(incrementy, PSTricksConstants.DEFAULT_DY))
-			params.append(", Dy=").append(MathUtils.INST.equalsDouble(incrementy, incrementy) ? String.valueOf((int) incrementy) : //$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(incrementy, PSTricksConstants.DEFAULT_DY)) {
+			params.append(", Dy=").append(MathUtils.INST.equalsDouble(incrementy, incrementy) ? String.valueOf((int) incrementy) : //NON-NLS
 				String.valueOf(MathUtils.INST.getCutNumberFloat(incrementy)));
+		}
 
-		if(!MathUtils.INST.equalsDouble(originx, PSTricksConstants.DEFAULT_OX)) params.append(", Ox=").append((int) originx);//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(originx, PSTricksConstants.DEFAULT_OX)) {
+			params.append(", Ox=").append((int) originx); //NON-NLS
+		}
 
-		if(!MathUtils.INST.equalsDouble(originy, PSTricksConstants.DEFAULT_OY)) params.append(", Oy=").append((int) originy);//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(originy, PSTricksConstants.DEFAULT_OY)) {
+			params.append(", Oy=").append((int) originy); //NON-NLS
+		}
 
-		if(showOrigin != PSTricksConstants.DEFAULT_SHOW_ORIGIN) params.append(", showorigin=").append(showOrigin);//$NON-NLS-1$
+		if(showOrigin != PSTricksConstants.DEFAULT_SHOW_ORIGIN) {
+			params.append(", showorigin=").append(showOrigin); //NON-NLS
+		}
 
 		return params;
 	}

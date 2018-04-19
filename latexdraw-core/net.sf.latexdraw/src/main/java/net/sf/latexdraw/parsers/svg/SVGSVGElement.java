@@ -27,8 +27,12 @@ public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 	 */
 	public SVGSVGElement(final SVGDocument owner, final Node n) throws MalformedSVGDocument {
 		super(n);
-		if(n == null || !n.getNodeName().endsWith(SVGElements.SVG_SVG) || owner == null) throw new IllegalArgumentException();
-		if(!checkAttributes()) throw new MalformedSVGDocument();
+		if(n == null || !n.getNodeName().endsWith(SVGElements.SVG_SVG) || owner == null) {
+			throw new IllegalArgumentException();
+		}
+		if(!checkAttributes()) {
+			throw new MalformedSVGDocument();
+		}
 
 		ownerDocument = owner;
 	}
@@ -41,8 +45,12 @@ public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 	 */
 	public SVGSVGElement(final Node n, final SVGElement e) throws MalformedSVGDocument {
 		super(n, e);
-		if(n == null || !n.getNodeName().endsWith(SVGElements.SVG_SVG)) throw new IllegalArgumentException();
-		if(!checkAttributes()) throw new MalformedSVGDocument();
+		if(n == null || !n.getNodeName().endsWith(SVGElements.SVG_SVG)) {
+			throw new IllegalArgumentException();
+		}
+		if(!checkAttributes()) {
+			throw new MalformedSVGDocument();
+		}
 	}
 
 
@@ -54,9 +62,11 @@ public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 	public SVGSVGElement(final SVGDocument owner) {
 		super();
 
-		if(owner == null) throw new IllegalArgumentException();
+		if(owner == null) {
+			throw new IllegalArgumentException();
+		}
 
-		setAttribute("xmlns", SVGDocument.SVG_NAMESPACE); //$NON-NLS-1$
+		setAttribute("xmlns", SVGDocument.SVG_NAMESPACE); //NON-NLS
 		ownerDocument = owner;
 
 		setNodeName(SVGElements.SVG_SVG);
@@ -83,21 +93,21 @@ public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 	public String toString() {
 		final SVGMetadataElement meta = getMeta();
 		final SVGDefsElement defs = getDefs();
-		final StringBuilder str = new StringBuilder().append('[').append("attributes="); //$NON-NLS-1$
+		final StringBuilder str = new StringBuilder().append('[').append("attributes="); //NON-NLS
 
 		if(attributes != null) {
 			str.append(attributes).append(LSystem.EOL);
 		}
 
 		if(meta != null) {
-			str.append(", meta=").append(meta).append(LSystem.EOL); //$NON-NLS-1$
+			str.append(", meta=").append(meta).append(LSystem.EOL); //NON-NLS
 		}
 
 		if(defs != null) {
-			str.append(", defs=").append(defs).append(LSystem.EOL); //$NON-NLS-1$
+			str.append(", defs=").append(defs).append(LSystem.EOL); //NON-NLS
 		}
 
-		str.append(", children={"); //$NON-NLS-1$
+		str.append(", children={"); //NON-NLS
 
 		final List<SVGElement> chiNodes = children.getNodes();
 		final int size = chiNodes.size();

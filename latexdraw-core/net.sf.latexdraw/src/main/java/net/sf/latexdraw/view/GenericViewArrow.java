@@ -70,14 +70,14 @@ public interface GenericViewArrow {
 	default void updatePathBarEnd(final boolean isShadow) {
 		final IArrow arrow = getArrow();
 		final double width = arrow.getBarShapedArrowWidth();
-		createMoveTo(0d, - width / 2d);
+		createMoveTo(0d, -width / 2d);
 		createLineTo(0d, width / 2d);
 		setPathStrokeWidth(createFullThickBinding());
 		setPathStroke(createLineOrShadColBinding(isShadow));
 	}
 
 	default void updatePathArrow(final double x1, final double y1, final double x2, final double y2, final double x3, final double y3,
-								 final double x4, final double y4) {
+							final double x4, final double y4) {
 		createMoveTo(x1, y1);
 		createLineTo(x2, y2);
 		createLineTo(x3, y3);
@@ -134,7 +134,7 @@ public interface GenericViewArrow {
 			x = 0d;
 		}
 
-		updatePathArrow(x, 0d, x - length, - width / 2d, x - length - inset, 0d, x - length, width / 2d);
+		updatePathArrow(x, 0d, x - length, -width / 2d, x - length - inset, 0d, x - length, width / 2d);
 		updatePathArrow(x - length, 0d, x - 2d * length, -width / 2d, x - 2d * length - inset, 0d, x - 2d * length, width / 2d);
 		final double x2 = x - length - inset;
 		final double x2bis = x - 2d * length - inset;
@@ -293,7 +293,7 @@ public interface GenericViewArrow {
 	void createClosePath();
 
 	void createArc(final double cx, final double cy, final double rx, final double ry, final double angle, final double length,
-				   ObservableValue<Color> strokeProp, ObservableDoubleValue strokeWidthProp);
+			ObservableValue<Color> strokeProp, ObservableDoubleValue strokeWidthProp);
 
 	void createCircle(final double cx, final double cy, final double r);
 

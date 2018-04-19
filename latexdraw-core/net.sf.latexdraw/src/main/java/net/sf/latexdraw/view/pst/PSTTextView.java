@@ -26,44 +26,58 @@ public class PSTTextView extends PSTShapeView<IText> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTTextView(final  IText model) {
+	protected PSTTextView(final IText model) {
 		super(model);
 	}
 
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
+			return "";
+		}
 
 		final StringBuilder rot = getRotationHeaderCode(ppc, origin);
 		final StringBuilder code = new StringBuilder();
 
-		if(rot != null) code.append(rot);
+		if(rot != null) {
+			code.append(rot);
+		}
 
 		final String colorName;
 		final Color lineCol = shape.getLineColour();
 
-		if(lineCol.equals(PSTricksConstants.DEFAULT_LINE_COLOR)) colorName = null;
-		else {
+		if(lineCol.equals(PSTricksConstants.DEFAULT_LINE_COLOR)) {
+			colorName = null;
+		}else {
 			colorName = getColourName(shape.getLineColour());
 			addColour(colorName);
 		}
 
 		final String tokenPosition = shape.getTextPosition().getLatexToken();
 
-		if(tokenPosition == null || tokenPosition.isEmpty()) code.append("\\rput("); //$NON-NLS-1$
-		else code.append("\\rput[").append(shape.getTextPosition().getLatexToken()).append(']').append('('); //$NON-NLS-1$
+		if(tokenPosition == null || tokenPosition.isEmpty()) {
+			code.append("\\rput("); //NON-NLS
+		}else {
+			code.append("\\rput[").append(shape.getTextPosition().getLatexToken()).append(']').append('('); //NON-NLS
+		}
 
 		code.append(MathUtils.INST.getCutNumberFloat((shape.getX() - origin.getX()) / ppc)).append(',');
 		code.append(MathUtils.INST.getCutNumberFloat((origin.getY() - shape.getY()) / ppc)).append(')').append('{');
 
-		if(colorName != null) code.append("\\textcolor{").append(colorName).append('}').append('{'); //$NON-NLS-1$
+		if(colorName != null) {
+			code.append("\\textcolor{").append(colorName).append('}').append('{'); //NON-NLS
+		}
 
 		code.append(shape.getText()).append('}');
 
-		if(colorName != null) code.append('}');
+		if(colorName != null) {
+			code.append('}');
+		}
 
-		if(rot != null) code.append('}');
+		if(rot != null) {
+			code.append('}');
+		}
 
 		return code.toString();
 	}

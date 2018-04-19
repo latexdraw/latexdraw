@@ -1,5 +1,4 @@
 /*
-/*
  * This file is part of LaTeXDraw.
  * Copyright (c) 2005-2018 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under

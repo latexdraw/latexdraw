@@ -58,8 +58,8 @@ class SVGTriangle extends SVGPolygonBased<ITriangle> {
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
 
-		final List<Point2D> ptsPol = SVGPointsParser.getPoints(elt.getAttribute(
-								 elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POINTS));
+		final List<Point2D> ptsPol = SVGPointsParser.getPoints(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace
+			.XML_POINTS));
 
 		if(ptsPol == null || ptsPol.size() != 4) {
 			throw new IllegalArgumentException();
@@ -115,8 +115,8 @@ class SVGTriangle extends SVGPolygonBased<ITriangle> {
 			cornerGap1 *= -1d;
 		}
 
-		final String points = p1x + "," + (p1y - cornerGap1) + " " + (p2x - cornerGap2) + "," + (p2y + (p1y < p2y ? gap : -gap)) + " " +
-								(p3x + cornerGap2) + "," + (p2y + (p1y < p2y ? gap : -gap));
+		final String points = p1x + "," + (p1y - cornerGap1) + " " + (p2x - cornerGap2) + "," + (p2y + (p1y < p2y ? gap : -gap)) + " " + (p3x + cornerGap2) +
+			"," + (p2y + (p1y < p2y ? gap : -gap));
 
 		final String ltdPoints = shape.getPoints().stream().map(pt -> Stream.of(String.valueOf(pt.getX()), String.valueOf(pt.getY()))).
 			flatMap(s -> s).collect(Collectors.joining(" "));

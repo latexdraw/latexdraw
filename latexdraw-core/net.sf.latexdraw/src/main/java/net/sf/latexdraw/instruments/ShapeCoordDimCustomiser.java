@@ -42,8 +42,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	protected void update(final IGroup shape) {
 		if(shape.isEmpty() || !hand.isActivated()) {
 			setActivated(false);
-		}
-		else {
+		}else {
 			setActivated(true);
 			final IPoint tl = shape.getTopLeftPoint();
 			tlxS.getValueFactory().setValue(tl.getX());

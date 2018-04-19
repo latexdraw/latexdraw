@@ -77,7 +77,9 @@ public class SVGAttr implements Attr, Cloneable {
 
 	@Override
 	public void setValue(final String val) {
-		if(val == null) throw new DOMException(DOMException.SYNTAX_ERR, "A value cannot be null");//$NON-NLS-1$
+		if(val == null) {
+			throw new DOMException(DOMException.SYNTAX_ERR, "A value cannot be null");
+		}
 		value = val;
 	}
 
@@ -149,17 +151,21 @@ public class SVGAttr implements Attr, Cloneable {
 
 	@Override
 	public String toString() {
-		return "[" + name + ", " + value + ']'; //$NON-NLS-1$ //$NON-NLS-2$
+		return "[" + name + ", " + value + ']'; //NON-NLS
 	}
 
 
 	@Override
 	public String getPrefix() {
-		if(getNodeName() == null) return null;
+		if(getNodeName() == null) {
+			return null;
+		}
 
 		final int index = getName().indexOf(':');
 
-		if(index != -1) return getName().substring(0, index);
+		if(index != -1) {
+			return getName().substring(0, index);
+		}
 
 		return null;
 	}

@@ -27,7 +27,7 @@ public class SVGPathSegLinetoHorizontal extends SVGPathSegLineto {
 
 	@Override
 	public String toString() {
-        return String.valueOf(isRelative() ? 'h' : 'H') + ' ' + x;
+		return String.valueOf(isRelative() ? 'h' : 'H') + ' ' + x;
 	}
 
 

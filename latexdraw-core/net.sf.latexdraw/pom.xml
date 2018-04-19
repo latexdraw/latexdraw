@@ -166,6 +166,30 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <sourceDirectories>
+                        <sourceDirectory>src/main/java</sourceDirectory>
+                    </sourceDirectories>
+                    <failsOnError>true</failsOnError>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!--             <plugin> -->
             <!--                 <groupId>org.codehaus.mojo</groupId> -->
             <!--                 <artifactId>osxappbundle-maven-plugin</artifactId> -->

@@ -22,10 +22,9 @@ public abstract class AbstractSVGParser extends CodeParser {
 	 * The constructor.
 	 * @param code The path to parse.
 	 */
-    protected AbstractSVGParser(final String code) {
+	protected AbstractSVGParser(final String code) {
 		super(code);
 	}
-
 
 
 	@Override
@@ -36,29 +35,29 @@ public abstract class AbstractSVGParser extends CodeParser {
 
 	@Override
 	public boolean isWSP() {
-    	final int c = getChar();
-    	return c==0x20 || c==0x9 || c==0xD || c==0xA;
+		final int c = getChar();
+		return c == 0x20 || c == 0x9 || c == 0xD || c == 0xA;
 	}
-
 
 
 	@Override
 	public void skipWSP() {
-    	while(!isEOC() && isWSP())
-    		nextChar();
+		while(!isEOC() && isWSP()) {
+			nextChar();
+		}
 	}
 
 
 	/**
 	 * Skips the useless characters and a possible comma.
 	 */
-    public void skipWSPComma() {
-    	skipWSP();
+	public void skipWSPComma() {
+		skipWSP();
 
-    	if(getChar()==',') {
-    		nextChar();
-    		skipWSP();
-    	}
+		if(getChar() == ',') {
+			nextChar();
+			skipWSP();
+		}
 	}
 
 

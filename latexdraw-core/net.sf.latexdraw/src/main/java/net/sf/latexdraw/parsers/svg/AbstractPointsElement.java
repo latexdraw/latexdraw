@@ -33,7 +33,7 @@ public abstract class AbstractPointsElement extends SVGElement {
 	 * @throws ParseException If the points string is not well formed.
 	 * @since 2.0.3
 	 */
-    protected AbstractPointsElement(final Node node, final SVGElement parentNode) throws MalformedSVGDocument, ParseException {
+	protected AbstractPointsElement(final Node node, final SVGElement parentNode) throws MalformedSVGDocument, ParseException {
 		super(node, parentNode);
 
 		parsePoints();
@@ -43,11 +43,14 @@ public abstract class AbstractPointsElement extends SVGElement {
 	/**
 	 * {@link SVGElement#SVGElement(SVGDocument)}
 	 */
-    protected AbstractPointsElement(final SVGDocument doc) {
+	protected AbstractPointsElement(final SVGDocument doc) {
 		super(doc);
 
-		try { setPoints("0,0 1,1"); }//$NON-NLS-1$
-		catch(final ParseException e) { BadaboomCollector.INSTANCE.add(e); }
+		try {
+			setPoints("0,0 1,1");
+		}catch(final ParseException e) {
+			BadaboomCollector.INSTANCE.add(e);
+		}
 	}
 
 
@@ -63,12 +66,18 @@ public abstract class AbstractPointsElement extends SVGElement {
 	}
 
 
-
 	@Override
 	public boolean checkAttributes() {
-		return getPoints()!=null;
+		return getPoints() != null;
 	}
 
+	/**
+	 * @return The points that make up the shape.
+	 * @since 0.1
+	 */
+	public String getPoints() {
+		return getAttribute(getUsablePrefix() + SVGAttributes.SVG_POINTS);
+	}
 
 	/**
 	 * Parses and sets the pts to the element.
@@ -77,27 +86,14 @@ public abstract class AbstractPointsElement extends SVGElement {
 	 * @since 2.0.3
 	 */
 	public void setPoints(final String pts) throws ParseException {
-		if(pts!=null) {
+		if(pts != null) {
 			setAttribute(SVGAttributes.SVG_POINTS, pts);
 			parsePoints();
 		}
 	}
 
-
-
-	/**
-	 * @return The points that make up the shape.
-	 * @since 0.1
-	 */
-	public String getPoints() {
-		return getAttribute(getUsablePrefix()+SVGAttributes.SVG_POINTS);
-	}
-
-
-
 	/**
 	 * @return The set of points in the Point2D format or null if the format of <code>points</code> is not valid.
-	 * @since 0.1
 	 */
 	public List<Point2D> getPoints2D() {
 		return points;

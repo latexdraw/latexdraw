@@ -27,6 +27,6 @@ public class SVGPathSegMoveto extends SVGPathSegLineto {
 
 	@Override
 	public String toString() {
-        return String.valueOf(isRelative() ? 'm' : 'M') + ' ' + x + ' ' + y;
+		return String.valueOf(isRelative() ? 'm' : 'M') + ' ' + x + ' ' + y;
 	}
 }

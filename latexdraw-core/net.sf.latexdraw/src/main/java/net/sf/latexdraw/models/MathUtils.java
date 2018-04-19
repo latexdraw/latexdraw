@@ -97,12 +97,16 @@ public final class MathUtils {
 	 * @since 2.0.0
 	 */
 	public double getAltitude(final IPoint a, final IPoint b, final IPoint c) {
-		if(!isValidPt(a) || !isValidPt(b) || !isValidPt(c)) return 0d;
+		if(!isValidPt(a) || !isValidPt(b) || !isValidPt(c)) {
+			return 0d;
+		}
 
 		final double ac = a.distance(c);
 		final double ab = a.distance(b);
 
-		if(MathUtils.INST.equalsDouble(ab, ac)) return a.distance((b.getX() + c.getX()) / 2d, (b.getY() + c.getY()) / 2d);
+		if(MathUtils.INST.equalsDouble(ab, ac)) {
+			return a.distance((b.getX() + c.getX()) / 2d, (b.getY() + c.getY()) / 2d);
+		}
 
 		final double distance = b.distance(c);
 		return equalsDouble(distance, 0d) ? 0d : ab * ac / b.distance(c);
@@ -119,7 +123,9 @@ public final class MathUtils {
 	 * @since 2.0.0
 	 */
 	public double getCornerGap(final IPoint a, final IPoint b, final IPoint c, final double gap) {
-		if(!isValidPt(a) || !isValidPt(b) || !isValidPt(c)) return 0d;
+		if(!isValidPt(a) || !isValidPt(b) || !isValidPt(c)) {
+			return 0d;
+		}
 		final double altitude = getAltitude(a, b, c);
 		return equalsDouble(altitude, 0d) ? 0d : gap / altitude * a.distance(b);
 	}

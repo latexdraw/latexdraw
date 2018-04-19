@@ -37,8 +37,9 @@ final class CSSStylesGenerator {
 	 * @since 2.0.0
 	 */
 	public void setCSSStyles(final IShape shape, final CSSStyleList styles, final SVGDefsElement defs) {
-		if(shape==null || styles==null)
-			return ;
+		if(shape == null || styles == null) {
+			return;
+		}
 
 		SVGShape.setThickness(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE_WIDTH), styles.getCSSValue(SVGAttributes.SVG_STROKE));
 		SVGShape.setLineColour(shape, styles.getCSSValue(SVGAttributes.SVG_STROKE), styles.getCSSValue(SVGAttributes.SVG_STROKE_OPACITY));

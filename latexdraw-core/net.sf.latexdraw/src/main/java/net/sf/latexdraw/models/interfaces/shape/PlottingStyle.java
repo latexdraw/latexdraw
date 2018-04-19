@@ -15,7 +15,6 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
  * Defines the different style of labels.
- *
  * @author Arnaud Blouin
  */
 public enum PlottingStyle {
@@ -34,8 +33,7 @@ public enum PlottingStyle {
 		public String getPSTToken() {
 			return PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL;
 		}
-	},
-	X {
+	}, X {
 		@Override
 		public boolean isX() {
 			return true;
@@ -50,8 +48,7 @@ public enum PlottingStyle {
 		public String getPSTToken() {
 			return PSTricksConstants.TOKEN_LABELS_DISPLAYED_X;
 		}
-	},
-	Y {
+	}, Y {
 		@Override
 		public boolean isX() {
 			return false;
@@ -66,8 +63,7 @@ public enum PlottingStyle {
 		public String getPSTToken() {
 			return PSTricksConstants.TOKEN_LABELS_DISPLAYED_Y;
 		}
-	},
-	NONE {
+	}, NONE {
 		@Override
 		public boolean isX() {
 			return false;
@@ -83,6 +79,16 @@ public enum PlottingStyle {
 			return PSTricksConstants.TOKEN_LABELS_DISPLAYED_NONE;
 		}
 	};
+
+	/**
+	 * The style that corresponds to the given string.
+	 * @param style The style to check.
+	 * @return The corresponding style or ALL.
+	 * @since 3.0
+	 */
+	public static PlottingStyle getStyle(final String style) {
+		return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(ALL);
+	}
 
 	@Override
 	public String toString() {
@@ -106,14 +112,4 @@ public enum PlottingStyle {
 	 * @since 3.0
 	 */
 	public abstract boolean isY();
-
-	/**
-	 * The style that corresponds to the given string.
-	 * @param style The style to check.
-	 * @return The corresponding style or ALL.
-	 * @since 3.0
-	 */
-	public static  PlottingStyle getStyle(final String style) {
-		return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(ALL);
-	}
 }

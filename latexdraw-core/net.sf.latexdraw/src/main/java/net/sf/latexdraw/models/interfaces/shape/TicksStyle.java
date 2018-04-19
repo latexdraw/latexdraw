@@ -37,10 +37,9 @@ public enum TicksStyle {
 
 		@Override
 		public String toString() {
-			return LangTool.INSTANCE.getBundle().getString("Axe.3"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Axe.3"); //NON-NLS
 		}
-	},
-	TOP {
+	}, TOP {
 		@Override
 		public boolean isTop() {
 			return true;
@@ -58,10 +57,9 @@ public enum TicksStyle {
 
 		@Override
 		public String toString() {
-			return LangTool.INSTANCE.getBundle().getString("Axe.4"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Axe.4"); //NON-NLS
 		}
-	},
-	BOTTOM {
+	}, BOTTOM {
 		@Override
 		public boolean isTop() {
 			return false;
@@ -79,9 +77,19 @@ public enum TicksStyle {
 
 		@Override
 		public String toString() {
-			return LangTool.INSTANCE.getBundle().getString("Axe.5"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Axe.5"); //NON-NLS
 		}
 	};
+
+	/**
+	 * @param style The style to check. Can be the PST token or the name of the style (e.g.
+	 * FULL.toString()).
+	 * @return The corresponding style or FULL.
+	 * @since 3.0
+	 */
+	public static TicksStyle getStyle(final String style) {
+		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(FULL);
+	}
 
 	/**
 	 * @return The PST token corresponding to the tick style.
@@ -100,14 +108,4 @@ public enum TicksStyle {
 	 * @since 3.0
 	 */
 	public abstract boolean isBottom();
-
-	/**
-	 * @param style The style to check. Can be the PST token or the name of the style (e.g.
-	 *        FULL.toString()).
-	 * @return The corresponding style or FULL.
-	 * @since 3.0
-	 */
-	public static  TicksStyle getStyle(final String style) {
-		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(FULL);
-	}
 }

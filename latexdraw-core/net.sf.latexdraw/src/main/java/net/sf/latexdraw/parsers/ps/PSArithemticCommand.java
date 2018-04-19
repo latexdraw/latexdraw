@@ -26,5 +26,5 @@ public interface PSArithemticCommand {
 	 * @throws ArithmeticException When a division by 0 occurs for instance.
 	 * @since 3.0
 	 */
-	void execute(final  Deque<Double> stack, final double x);
+	void execute(final Deque<Double> stack, final double x);
 }

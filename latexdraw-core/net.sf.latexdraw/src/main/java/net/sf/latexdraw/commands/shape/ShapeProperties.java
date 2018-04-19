@@ -286,7 +286,7 @@ public enum ShapeProperties {
 	SHOW_POINTS {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.12"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.12"); //NON-NLS
 			}
 
 			@Override
@@ -317,7 +317,7 @@ public enum ShapeProperties {
 	AXES_SHOW_ORIGIN {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
 			}
 
 			@Override
@@ -348,7 +348,7 @@ public enum ShapeProperties {
 	AXES_LABELS_DIST {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
 			}
 
 			@Override
@@ -379,7 +379,7 @@ public enum ShapeProperties {
 	AXES_LABELS_INCR {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
 			}
 
 			@Override
@@ -410,7 +410,7 @@ public enum ShapeProperties {
 	AXES_LABELS_SHOW {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
 			}
 
 			@Override
@@ -441,7 +441,7 @@ public enum ShapeProperties {
 	AXES_TICKS_SHOW {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
 			}
 
 			@Override
@@ -472,7 +472,7 @@ public enum ShapeProperties {
 	GRID_SUBGRID_WIDTH {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -534,7 +534,7 @@ public enum ShapeProperties {
 	FREEHAND_INTERVAL {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.15"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.15"); //NON-NLS
 			}
 
 			@Override
@@ -565,7 +565,7 @@ public enum ShapeProperties {
 	GRID_SUBGRID_DIV {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -596,7 +596,7 @@ public enum ShapeProperties {
 	GRID_SUBGRID_DOTS {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -627,7 +627,7 @@ public enum ShapeProperties {
 	GRID_DOTS {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -658,7 +658,7 @@ public enum ShapeProperties {
 	GRID_WIDTH {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -689,7 +689,7 @@ public enum ShapeProperties {
 	AXES_TICKS_STYLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
 			}
 
 			@Override
@@ -720,7 +720,7 @@ public enum ShapeProperties {
 	FREEHAND_STYLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.15"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.15"); //NON-NLS
 			}
 
 			@Override
@@ -751,7 +751,7 @@ public enum ShapeProperties {
 	AXES_STYLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
 			}
 
 			@Override
@@ -782,7 +782,7 @@ public enum ShapeProperties {
 	GRID_LABEL_POSITION_X {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -813,7 +813,7 @@ public enum ShapeProperties {
 	GRID_LABEL_POSITION_Y {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -844,7 +844,7 @@ public enum ShapeProperties {
 	GRID_SIZE_LABEL {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -895,7 +895,7 @@ public enum ShapeProperties {
 
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -926,7 +926,7 @@ public enum ShapeProperties {
 
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -957,7 +957,7 @@ public enum ShapeProperties {
 
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -988,7 +988,7 @@ public enum ShapeProperties {
 
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -1019,7 +1019,7 @@ public enum ShapeProperties {
 
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -1050,7 +1050,7 @@ public enum ShapeProperties {
 
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -1081,7 +1081,7 @@ public enum ShapeProperties {
 
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -1112,7 +1112,7 @@ public enum ShapeProperties {
 
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -1142,7 +1142,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 		}
 
 		@Override
@@ -1173,7 +1173,7 @@ public enum ShapeProperties {
 
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -1184,7 +1184,7 @@ public enum ShapeProperties {
 	GRID_END {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -1216,7 +1216,7 @@ public enum ShapeProperties {
 	GRID_ORIGIN {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -1248,7 +1248,7 @@ public enum ShapeProperties {
 	GRID_START {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -1280,7 +1280,7 @@ public enum ShapeProperties {
 	ARC_START_ANGLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.17"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.17"); //NON-NLS
 			}
 
 			@Override
@@ -1311,7 +1311,7 @@ public enum ShapeProperties {
 	ARC_END_ANGLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.17"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.17"); //NON-NLS
 			}
 
 			@Override
@@ -1342,7 +1342,7 @@ public enum ShapeProperties {
 	ARC_STYLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.17"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.17"); //NON-NLS
 			}
 
 			@Override
@@ -1373,7 +1373,7 @@ public enum ShapeProperties {
 	ARROW2_STYLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -1404,7 +1404,7 @@ public enum ShapeProperties {
 	ARROW1_STYLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
 			}
 
 			@Override
@@ -1435,7 +1435,7 @@ public enum ShapeProperties {
 	TEXT_POSITION {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.18"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.18"); //NON-NLS
 			}
 
 			@Override
@@ -1466,7 +1466,7 @@ public enum ShapeProperties {
 	TEXT {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.18"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.18"); //NON-NLS
 			}
 
 			@Override
@@ -1497,7 +1497,7 @@ public enum ShapeProperties {
 	HATCHINGS_ANGLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //NON-NLS
 			}
 
 			@Override
@@ -1528,7 +1528,7 @@ public enum ShapeProperties {
 	HATCHINGS_WIDTH {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //NON-NLS
 			}
 
 			@Override
@@ -1559,7 +1559,7 @@ public enum ShapeProperties {
 	HATCHINGS_SEP {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //NON-NLS
 			}
 
 			@Override
@@ -1590,7 +1590,7 @@ public enum ShapeProperties {
 	GRAD_ANGLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //NON-NLS
 			}
 
 			@Override
@@ -1621,7 +1621,7 @@ public enum ShapeProperties {
 	GRAD_MID_POINT {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //NON-NLS
 			}
 
 			@Override
@@ -1652,7 +1652,7 @@ public enum ShapeProperties {
 	ROUND_CORNER_VALUE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.21"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.21"); //NON-NLS
 			}
 
 			@Override
@@ -1683,7 +1683,7 @@ public enum ShapeProperties {
 	GRID_SUBGRID_COLOUR {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -1714,7 +1714,7 @@ public enum ShapeProperties {
 	GRID_LABELS_COLOUR {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
 			}
 
 			@Override
@@ -1745,7 +1745,7 @@ public enum ShapeProperties {
 	COLOUR_FILLING {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.21"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.21"); //NON-NLS
 			}
 
 			@Override
@@ -1776,7 +1776,7 @@ public enum ShapeProperties {
 	COLOUR_LINE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.23"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.23"); //NON-NLS
 			}
 
 			@Override
@@ -1807,7 +1807,7 @@ public enum ShapeProperties {
 	COLOUR_HATCHINGS {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //NON-NLS
 			}
 
 			@Override
@@ -1838,7 +1838,7 @@ public enum ShapeProperties {
 	DBLE_BORDERS {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.24"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.24"); //NON-NLS
 			}
 
 			@Override
@@ -1869,7 +1869,7 @@ public enum ShapeProperties {
 	DBLE_BORDERS_SIZE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.24"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.24"); //NON-NLS
 			}
 
 			@Override
@@ -1900,7 +1900,7 @@ public enum ShapeProperties {
 	COLOUR_DBLE_BORD {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.24"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.24"); //NON-NLS
 			}
 
 			@Override
@@ -1931,7 +1931,7 @@ public enum ShapeProperties {
 	SHADOW {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //NON-NLS
 			}
 
 			@Override
@@ -1962,7 +1962,7 @@ public enum ShapeProperties {
 	SHADOW_SIZE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //NON-NLS
 			}
 
 			@Override
@@ -1993,7 +1993,7 @@ public enum ShapeProperties {
 	SHADOW_ANGLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //NON-NLS
 			}
 
 			@Override
@@ -2024,7 +2024,7 @@ public enum ShapeProperties {
 	SHADOW_COLOUR {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //NON-NLS
 			}
 
 			@Override
@@ -2055,7 +2055,7 @@ public enum ShapeProperties {
 	COLOUR_GRADIENT_START {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //NON-NLS
 			}
 
 			@Override
@@ -2086,7 +2086,7 @@ public enum ShapeProperties {
 	COLOUR_GRADIENT_END {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //NON-NLS
 			}
 
 			@Override
@@ -2117,7 +2117,7 @@ public enum ShapeProperties {
 	LINE_THICKNESS {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.26"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.26"); //NON-NLS
 			}
 
 			@Override
@@ -2148,7 +2148,7 @@ public enum ShapeProperties {
 	FILLING_STYLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.22"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.22"); //NON-NLS
 			}
 
 			@Override
@@ -2179,7 +2179,7 @@ public enum ShapeProperties {
 	BORDER_POS {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.27"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.27"); //NON-NLS
 			}
 
 			@Override
@@ -2210,7 +2210,7 @@ public enum ShapeProperties {
 	LINE_STYLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.28"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.28"); //NON-NLS
 			}
 
 			@Override
@@ -2241,7 +2241,7 @@ public enum ShapeProperties {
 	DOT_FILLING_COL {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.29"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.29"); //NON-NLS
 			}
 
 			@Override
@@ -2272,7 +2272,7 @@ public enum ShapeProperties {
 	DOT_STYLE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.29"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.29"); //NON-NLS
 			}
 
 			@Override
@@ -2303,7 +2303,7 @@ public enum ShapeProperties {
 	DOT_SIZE {
 			@Override
 			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.29"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getBundle().getString("Actions.29"); //NON-NLS
 			}
 
 			@Override

@@ -68,8 +68,8 @@ public class SaveDrawing extends Save<Label> {
 	private final PreferencesSetter prefSetter;
 
 	public SaveDrawing(final boolean saveAs, final boolean saveOnClose, final File currentFolder, final FileChooser fileChooser,
-					   final PreferencesSetter prefSetter, final File file, final OpenSaver<Label> openSaveManager, final ProgressBar bar, final JfxUI ui,
-					   final Label statusWidget) {
+				final PreferencesSetter prefSetter, final File file, final OpenSaver<Label> openSaveManager, final ProgressBar bar, final JfxUI ui,
+				final Label statusWidget) {
 		super(file, openSaveManager, bar, statusWidget, ui);
 		this.saveAs = saveAs;
 		this.saveOnClose = saveOnClose;

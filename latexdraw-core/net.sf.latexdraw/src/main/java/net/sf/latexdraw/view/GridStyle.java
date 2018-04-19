@@ -20,17 +20,24 @@ import net.sf.latexdraw.util.LangTool;
  */
 public enum GridStyle {
 	/** A grid customised by users. */
-	CUSTOMISED {@Override public String getLabel() {return LangTool.INSTANCE.getBundle().getString("Res.3");}},
-	/** The standard grid. */
-	STANDARD {@Override public String getLabel() {return LangTool.INSTANCE.getBundle().getString("PreferencesFrame.4");}},
-	/** No grid. */
-	NONE {@Override public String getLabel() { return "None";}}; //$NON-NLS-1$
-
-	/**
-	 * @return The label of the style.
-	 * @since 3.0
-	 */
-	public abstract String getLabel();
+	CUSTOMISED {
+		@Override
+		public String getLabel() {
+			return LangTool.INSTANCE.getBundle().getString("Res.3");
+		}
+	}, /** The standard grid. */
+	STANDARD {
+			@Override
+			public String getLabel() {
+				return LangTool.INSTANCE.getBundle().getString("PreferencesFrame.4");
+			}
+		}, /** No grid. */
+	NONE {
+			@Override
+			public String getLabel() {
+				return "None";
+			}
+		}; //NON-NLS
 
 	/**
 	 * Searches the style which label matches the given name.
@@ -39,7 +46,7 @@ public enum GridStyle {
 	 * @since 4.0
 	 */
 	public static Optional<GridStyle> getStylefromName(final String name) {
-		 return Arrays.stream(values()).filter(v -> v.name().equals(name)).findFirst();
+		return Arrays.stream(values()).filter(v -> v.name().equals(name)).findFirst();
 	}
 
 	/**
@@ -52,7 +59,13 @@ public enum GridStyle {
 	public static Optional<GridStyle> getStyleFromLabel(final String label) {
 		return Arrays.stream(values()).filter(v -> v.getLabel().equals(label)).findFirst();
 	}
-	
+
+	/**
+	 * @return The label of the style.
+	 * @since 3.0
+	 */
+	public abstract String getLabel();
+
 	@Override
 	public String toString() {
 		return getLabel();

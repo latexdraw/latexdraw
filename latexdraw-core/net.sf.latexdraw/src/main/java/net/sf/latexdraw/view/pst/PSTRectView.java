@@ -25,14 +25,16 @@ public class PSTRectView extends PSTClassicalView<IRectangle> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTRectView(final  IRectangle model) {
+	protected PSTRectView(final IRectangle model) {
 		super(model);
 	}
 
 
 	@Override
 	public String getCode(final IPoint position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
+			return "";
+		}
 
 		final StringBuilder params = getPropertiesCode(ppc);
 		final IPoint tl = shape.getTopLeftPoint();
@@ -43,13 +45,17 @@ public class PSTRectView extends PSTClassicalView<IRectangle> {
 		final double y2 = position.getY() - br.getY();
 		final StringBuilder code = new StringBuilder();
 
-		if(shape.isRoundCorner()) params.append(", framearc=").append(MathUtils.INST.getCutNumberFloat(shape.getLineArc())); //$NON-NLS-1$
+		if(shape.isRoundCorner()) {
+			params.append(", framearc=").append(MathUtils.INST.getCutNumberFloat(shape.getLineArc())); //NON-NLS
+		}
 
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
 
-		if(rotation != null) code.append(rotation);
+		if(rotation != null) {
+			code.append(rotation);
+		}
 
-		code.append("\\psframe[");    //$NON-NLS-1$
+		code.append("\\psframe[");    //NON-NLS
 		code.append(params);
 		code.append(']').append('(');
 		code.append(MathUtils.INST.getCutNumberFloat(x2 / ppc)).append(',');
@@ -57,7 +63,9 @@ public class PSTRectView extends PSTClassicalView<IRectangle> {
 		code.append(MathUtils.INST.getCutNumberFloat(x1 / ppc)).append(',');
 		code.append(MathUtils.INST.getCutNumberFloat(y2 / ppc)).append(')');
 
-		if(rotation != null) code.append('}');
+		if(rotation != null) {
+			code.append('}');
+		}
 
 		return code.toString();
 	}

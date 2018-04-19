@@ -101,7 +101,9 @@ public class LShapeFactory implements IShapeFactory {
 
 	@Override
 	public <T extends IShape> Optional<T> newShape(final Class<T> shapeClass) {
-		if(shapeClass == null) return Optional.empty();
+		if(shapeClass == null) {
+			return Optional.empty();
+		}
 		try {
 			return Optional.ofNullable(shapeClass.cast(factoryMap.get(shapeClass).get()));
 		}catch(final ClassCastException ex) {
@@ -121,13 +123,17 @@ public class LShapeFactory implements IShapeFactory {
 
 	@Override
 	public Color createColorFX(final javafx.scene.paint.Color col) {
-		if(col == null) throw new IllegalArgumentException();
+		if(col == null) {
+			throw new IllegalArgumentException();
+		}
 		return createColor(col.getRed(), col.getGreen(), col.getBlue(), col.getOpacity());
 	}
 
 	@Override
 	public Color createColorAWT(final java.awt.Color col) {
-		if(col == null) throw new IllegalArgumentException();
+		if(col == null) {
+			throw new IllegalArgumentException();
+		}
 		return createColorInt(col.getRed(), col.getGreen(), col.getBlue(), col.getAlpha());
 	}
 
@@ -219,7 +225,9 @@ public class LShapeFactory implements IShapeFactory {
 
 	@Override
 	public IBezierCurve createBezierCurveFrom(final IBezierCurve bc, final IPoint pointToAdd) {
-		if(bc == null || !MathUtils.INST.isValidPt(pointToAdd)) return null;
+		if(bc == null || !MathUtils.INST.isValidPt(pointToAdd)) {
+			return null;
+		}
 		final List<IPoint> pts = new ArrayList<>(bc.getPoints());
 		final List<IPoint> ptsCtrl = new ArrayList<>(bc.getFirstCtrlPts());
 		pts.add(pointToAdd);
@@ -277,7 +285,9 @@ public class LShapeFactory implements IShapeFactory {
 
 	@Override
 	public IFreehand createFreeHandFrom(final IFreehand sh, final IPoint pointToAdd) {
-		if(sh == null || !MathUtils.INST.isValidPt(pointToAdd)) return null;
+		if(sh == null || !MathUtils.INST.isValidPt(pointToAdd)) {
+			return null;
+		}
 		final List<IPoint> pts = new ArrayList<>(sh.getPoints());
 		pts.add(pointToAdd);
 		final IFreehand copy = createFreeHand(pts);
@@ -316,7 +326,9 @@ public class LShapeFactory implements IShapeFactory {
 	}
 
 	@Override
-	public IPoint createPoint() { return new LPoint();}
+	public IPoint createPoint() {
+		return new LPoint();
+	}
 
 	@Override
 	public IPoint createPoint(final double x, final double y) {
@@ -335,7 +347,9 @@ public class LShapeFactory implements IShapeFactory {
 
 	@Override
 	public IPolyline createPolylineFrom(final IPolyline sh, final IPoint pointToAdd) {
-		if(sh == null || !MathUtils.INST.isValidPt(pointToAdd)) return null;
+		if(sh == null || !MathUtils.INST.isValidPt(pointToAdd)) {
+			return null;
+		}
 		final List<IPoint> pts = new ArrayList<>(sh.getPoints());
 		pts.add(pointToAdd);
 		final IPolyline copy = createPolyline(pts);
@@ -350,7 +364,9 @@ public class LShapeFactory implements IShapeFactory {
 
 	@Override
 	public IPolygon createPolygonFrom(final IPolygon sh, final IPoint pointToAdd) {
-		if(sh == null || !MathUtils.INST.isValidPt(pointToAdd)) return null;
+		if(sh == null || !MathUtils.INST.isValidPt(pointToAdd)) {
+			return null;
+		}
 		final List<IPoint> pts = new ArrayList<>(sh.getPoints());
 		pts.add(pointToAdd);
 		final IPolygon copy = createPolygon(pts);

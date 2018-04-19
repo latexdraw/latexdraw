@@ -125,49 +125,61 @@ class SVGArrow implements GenericViewArrow {
 			MathUtils.INST.equalsDouble(transform.get(0).getRotationAngle(), 180d);
 	}
 
+	private void setArrowBarBracketLegacy(final SVGPathSegMoveto m, final double lineWidth, final String svgMarker) {
+		final boolean isStartArrow = SVGAttributes.SVG_MARKER_START.equals(svgMarker);
+		final double width = (arrow.getTBarSizeDim() + arrow.getTBarSizeNum() * lineWidth) / lineWidth;
+		final double rBrack = (Math.abs(m.getX()) - 0.5) / width;
+
+		arrow.setArrowStyle(MathUtils.INST.equalsDouble(Math.abs(m.getX()), 0.5) ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
+		if(!isStartArrow) {
+			arrow.setArrowStyle(arrow.getArrowStyle().getOppositeArrowStyle());
+		}
+		arrow.setRBracketNum(rBrack);
+	}
+
+	private void setArrowBarBracketRoundBracket(final SVGPathElement path, final SVGPathSeg seg, final double lineWidth, final double tbarNum) {
+		arrow.setTBarSizeDim(((SVGPathSegArc) seg).getRY() * 2d - tbarNum * lineWidth);
+		arrow.setRBracketNum(((SVGPathSegArc) seg).getRX() / arrow.getBarShapedArrowWidth());
+
+		if(is180Rotation(path)) {
+			arrow.setArrowStyle(arrow.isLeftArrow() ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
+		}else {
+			arrow.setArrowStyle(arrow.isLeftArrow() ? ArrowStyle.LEFT_ROUND_BRACKET : ArrowStyle.RIGHT_ROUND_BRACKET);
+		}
+	}
+
+	private void setArrowBarBracketSquareBracket(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final double tbarNum) {
+		arrow.setTBarSizeDim(lineWidth - tbarNum * lineWidth - 2d * m.getY());
+		arrow.setBracketNum((-m.getX()-lineWidth / 2d) / (arrow.getTBarSizeDim() + arrow.getTBarSizeNum() * lineWidth));
+
+		if(is180Rotation(path)) {
+			arrow.setArrowStyle(arrow.isLeftArrow() ? ArrowStyle.RIGHT_SQUARE_BRACKET : ArrowStyle.LEFT_SQUARE_BRACKET);
+		}else {
+			arrow.setArrowStyle(arrow.isLeftArrow() ? ArrowStyle.LEFT_SQUARE_BRACKET : ArrowStyle.RIGHT_SQUARE_BRACKET);
+		}
+	}
+
 	private void setArrowBarBracket(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final SVGPathSeg seg,
 									final SVGPathSegList list, final String svgMarker) {
 		final double tbarNum = MathUtils.INST.parserDouble(
 			path.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_TBAR_SIZE_NUM)).orElse(1d);
-		final boolean isStartArrow = SVGAttributes.SVG_MARKER_START.equals(svgMarker);
 		arrow.setTBarSizeNum(tbarNum);
 		arrow.setTBarSizeDim(-m.getY() * 2d - tbarNum * lineWidth);
 
 		// legacy code
 		if(seg instanceof SVGPathSegCurvetoCubic) {
-			final double width = (arrow.getTBarSizeDim() + arrow.getTBarSizeNum() * lineWidth) / lineWidth;
-			final double rBrack = (Math.abs(m.getX()) - 0.5) / width;
-
-			arrow.setArrowStyle(MathUtils.INST.equalsDouble(Math.abs(m.getX()), 0.5) ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
-			if(!isStartArrow) {
-				arrow.setArrowStyle(arrow.getArrowStyle().getOppositeArrowStyle());
-			}
-			arrow.setRBracketNum(rBrack);
+			setArrowBarBracketLegacy(m, lineWidth, svgMarker);
 			return;
 		}
 
 		if(seg instanceof SVGPathSegArc) {
-			arrow.setTBarSizeDim(((SVGPathSegArc) seg).getRY() * 2d - tbarNum * lineWidth);
-			arrow.setRBracketNum(((SVGPathSegArc) seg).getRX() / arrow.getBarShapedArrowWidth());
-
-			if(is180Rotation(path)) {
-				arrow.setArrowStyle(arrow.isLeftArrow() ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
-			}else {
-				arrow.setArrowStyle(arrow.isLeftArrow() ? ArrowStyle.LEFT_ROUND_BRACKET : ArrowStyle.RIGHT_ROUND_BRACKET);
-			}
+			setArrowBarBracketRoundBracket(path, seg, lineWidth, tbarNum);
 			return;
 		}
 
 		// It may be a bracket.
 		if(list.size() == 4 && seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto) {
-			arrow.setTBarSizeDim(lineWidth - tbarNum * lineWidth - 2d * m.getY());
-			arrow.setBracketNum((-m.getX()-lineWidth / 2d) / (arrow.getTBarSizeDim() + arrow.getTBarSizeNum() * lineWidth));
-
-			if(is180Rotation(path)) {
-				arrow.setArrowStyle(arrow.isLeftArrow() ? ArrowStyle.RIGHT_SQUARE_BRACKET : ArrowStyle.LEFT_SQUARE_BRACKET);
-			}else {
-				arrow.setArrowStyle(arrow.isLeftArrow() ? ArrowStyle.LEFT_SQUARE_BRACKET : ArrowStyle.RIGHT_SQUARE_BRACKET);
-			}
+			setArrowBarBracketSquareBracket(path, m, lineWidth, tbarNum);
 			return;
 		}
 
@@ -185,8 +197,8 @@ class SVGArrow implements GenericViewArrow {
 	}
 
 
-	private void setArrowArrow(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final SVGPathSeg seg, final SVGPathSegList list, 
-							   final String svgMarker) {
+	private void setArrowArrow(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final SVGPathSeg seg, final SVGPathSegList list,
+							final String svgMarker) {
 		if(!(seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto &&
 			list.get(4) instanceof SVGPathSegClosePath)) {
 			return;
@@ -331,8 +343,8 @@ class SVGArrow implements GenericViewArrow {
 	}
 
 	@Override
-	public void createArc(final double cx, final double cy, final double rx, final double ry, final double angle, final double length,
-						  final ObservableValue <Color> strokeProp, final ObservableDoubleValue strokeWidthProp) {
+	public void createArc(final double cx, final double cy, final double rx, final double ry, final double angle, final double length, final
+							ObservableValue<Color> strokeProp, final ObservableDoubleValue strokeWidthProp) {
 		final boolean sweepFlag = angle < 0d ^ arrow.isInverted() ^ !arrow.isLeftArrow();
 		createPath();
 		currentPath.add(new SVGPathSegMoveto(cx + rx * Math.cos(Math.toRadians(angle)), cy - ry * Math.sin(Math.toRadians(angle)), false));

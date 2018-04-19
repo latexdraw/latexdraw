@@ -51,7 +51,7 @@ public class SVGPathParser extends SVGNumberParser {
 
 		// The first command must be a moveto command.
 		if(getChar() != 'm' && getChar() != 'M') {
-			throw new ParseException("moveto command (m|M) expected.", getPosition()); //$NON-NLS-1$
+			throw new ParseException("moveto command (m|M) expected.", getPosition()); //NON-NLS
 		}
 
 		parseMoveto(getChar() == 'm');
@@ -120,7 +120,7 @@ public class SVGPathParser extends SVGNumberParser {
 					parseShorthandCurveto(false);
 					break;
 				default:
-					throw new ParseException("Invalid token:" + getChar(), getPosition()); //$NON-NLS-1$
+					throw new ParseException("Invalid token:" + getChar(), getPosition()); //NON-NLS
 			}
 		}
 	}

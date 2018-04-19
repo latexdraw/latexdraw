@@ -18,7 +18,7 @@ public interface ICircle extends ISquaredShape {
 	/**
 	 * @return The centre of the circle.
 	 */
-	 IPoint getCenter();
+	IPoint getCenter();
 
 	/**
 	 * @return The radius of the circle.

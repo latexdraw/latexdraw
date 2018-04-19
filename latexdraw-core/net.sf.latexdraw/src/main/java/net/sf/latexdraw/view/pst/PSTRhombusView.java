@@ -25,14 +25,16 @@ public class PSTRhombusView extends PSTClassicalView<IRhombus> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTRhombusView(final  IRhombus model) {
+	protected PSTRhombusView(final IRhombus model) {
 		super(model);
 	}
 
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
+			return "";
+		}
 
 		final IPoint tl = shape.getTopLeftPoint();
 		final IPoint br = shape.getBottomRightPoint();
@@ -46,10 +48,11 @@ public class PSTRhombusView extends PSTClassicalView<IRhombus> {
 		final double rotationAngle = Math.toDegrees(shape.getRotationAngle()) % 360;
 		final StringBuilder code = new StringBuilder();
 
-		if(!MathUtils.INST.equalsDouble(rotationAngle, 0.0))
-			params.append(", gangle=").append(MathUtils.INST.getCutNumberFloat(-rotationAngle));//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(rotationAngle, 0.0)) {
+			params.append(", gangle=").append(MathUtils.INST.getCutNumberFloat(-rotationAngle)); //NON-NLS
+		}
 
-		code.append("\\psdiamond[");//$NON-NLS-1$
+		code.append("\\psdiamond["); //NON-NLS
 		code.append(params);
 		code.append(']').append('(');
 		code.append(MathUtils.INST.getCutNumberFloat(xCenter / ppc)).append(',');

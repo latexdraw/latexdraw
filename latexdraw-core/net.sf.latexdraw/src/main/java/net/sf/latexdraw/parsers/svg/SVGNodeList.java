@@ -19,7 +19,7 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  */
 public class SVGNodeList implements NodeList {
-	/** The nodes of the list. @since 0.1 */
+	/** The nodes of the list. */
 	private final List<SVGElement> nodes;
 
 
@@ -27,41 +27,37 @@ public class SVGNodeList implements NodeList {
 	 * The constructor by default.
 	 */
 	public SVGNodeList() {
-        super();
-        nodes = new ArrayList<>();
-    }
-
+		super();
+		nodes = new ArrayList<>();
+	}
 
 
 	@Override
 	public int getLength() {
-		return nodes==null ? 0 : nodes.size();
+		return nodes == null ? 0 : nodes.size();
 	}
-
 
 
 	@Override
 	public SVGElement item(final int index) {
-		return nodes==null || index<0 || index>=nodes.size() ? null : nodes.get(index);
+		return nodes == null || index < 0 || index >= nodes.size() ? null : nodes.get(index);
 	}
-
 
 
 	@Override
 	public String toString() {
 		final StringBuilder str = new StringBuilder().append('{');
 
-		for(final SVGElement e : nodes)
-			str.append(e).append(", ");//$NON-NLS-1$
+		for(final SVGElement e : nodes) {
+			str.append(e).append(", ");
+		}
 
 		return str.append('}').toString();
 	}
 
 
-
 	/**
 	 * @return the nodes.
-	 * @since 0.1
 	 */
 	public List<SVGElement> getNodes() {
 		return nodes;

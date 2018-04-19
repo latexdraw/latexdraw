@@ -32,10 +32,10 @@ public class SVGLineElement extends SVGElement implements SVGLineParseTrait {
 	public SVGLineElement(final SVGDocument doc) {
 		super(doc);
 		setNodeName(SVGElements.SVG_LINE);
-		setAttribute(SVGAttributes.SVG_X1, "0"); //$NON-NLS-1$
-		setAttribute(SVGAttributes.SVG_X2, "0"); //$NON-NLS-1$
-		setAttribute(SVGAttributes.SVG_Y1, "0"); //$NON-NLS-1$
-		setAttribute(SVGAttributes.SVG_Y2, "0"); //$NON-NLS-1$
+		setAttribute(SVGAttributes.SVG_X1, "0"); //NON-NLS
+		setAttribute(SVGAttributes.SVG_X2, "0"); //NON-NLS
+		setAttribute(SVGAttributes.SVG_Y1, "0"); //NON-NLS
+		setAttribute(SVGAttributes.SVG_Y2, "0"); //NON-NLS
 	}
 
 

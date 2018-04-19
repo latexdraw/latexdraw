@@ -13,7 +13,6 @@ package net.sf.latexdraw.parsers.svg;
 /**
  * Defines a matrix according to the SVG specifications.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public class SVGMatrix {
 	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
@@ -35,10 +34,8 @@ public class SVGMatrix {
 	protected double f;
 
 
-
 	/**
 	 * Creates a matrix by initialising it as the identity.
-	 * @since 0.1
 	 */
 	public SVGMatrix() {
 		super();
@@ -48,7 +45,6 @@ public class SVGMatrix {
 
 	/**
 	 * Initialises the matrix as the identity.
-	 * @since 0.1
 	 */
 	public void initMatrix() {
 		a = 1.;
@@ -63,7 +59,6 @@ public class SVGMatrix {
 	/**
 	 * Rotates the matrix (without reinitialisation).
 	 * @param angle The angle of rotation (in radian).
-	 * @since 0.1
 	 */
 	public void rotate(final double angle) {
 		a = Math.cos(angle);
@@ -73,12 +68,10 @@ public class SVGMatrix {
 	}
 
 
-
 	/**
 	 * Translates the matrix (without reinitialisation).
 	 * @param x The x translation.
 	 * @param y The y translation.
-	 * @since 0.1
 	 */
 	public void translate(final double x, final double y) {
 		e = x;
@@ -86,23 +79,19 @@ public class SVGMatrix {
 	}
 
 
-
 	/**
 	 * Scales the matrix (without reinitialisation).
 	 * @param scaleFactor The scale factor.
-	 * @since 0.1
 	 */
 	public void scale(final double scaleFactor) {
 		scaleNonUniform(scaleFactor, scaleFactor);
 	}
 
 
-
 	/**
 	 * Scales the matrix (without reinitialisation).
 	 * @param scaleFactorX The x scale factor.
 	 * @param scaleFactorY The y scale factor.
-	 * @since 0.1
 	 */
 	public void scaleNonUniform(final double scaleFactorX, final double scaleFactorY) {
 		a = scaleFactorX;
@@ -110,28 +99,22 @@ public class SVGMatrix {
 	}
 
 
-
 	/**
 	 * Skews the matrix (without reinitialisation).
 	 * @param angle The X angle.
-	 * @since 0.1
 	 */
 	public void skewX(final double angle) {
 		c = Math.tan(angle);
 	}
 
 
-
 	/**
 	 * Skews the matrix (without reinitialisation).
 	 * @param angle The Y angle.
-	 * @since 0.1
 	 */
 	public void skewY(final double angle) {
 		b = Math.tan(angle);
 	}
-
-
 
 
 	/**
@@ -139,21 +122,21 @@ public class SVGMatrix {
 	 * @return Creates a SVGMatrix  from the multiplication of the two given matrixes.
 	 */
 	public SVGMatrix multiply(final SVGMatrix m) {
-		if(m==null)
+		if(m == null) {
 			return null;
+		}
 
 		final SVGMatrix out = new SVGMatrix();
 
-		out.a = a*m.a + c*m.b;
-		out.b = b*m.a + d*m.b;
-		out.c = a*m.c + c*m.d;
-		out.d = b*m.c + d*m.d;
-		out.e = a*m.e + c*m.f + e;
-		out.f = b*m.e + d*m.f + f;
+		out.a = a * m.a + c * m.b;
+		out.b = b * m.a + d * m.b;
+		out.c = a * m.c + c * m.d;
+		out.d = b * m.c + d * m.d;
+		out.e = a * m.e + c * m.f + e;
+		out.f = b * m.e + d * m.f + f;
 
 		return out;
 	}
-
 
 
 	/**
@@ -164,7 +147,6 @@ public class SVGMatrix {
 	 * @param d The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
 	 * @param e The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
 	 * @param f The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
-	 * @since 0.1
 	 */
 	public void setMatrix(final double a, final double b, final double c, final double d, final double e, final double f) {
 		this.a = a;
@@ -176,10 +158,8 @@ public class SVGMatrix {
 	}
 
 
-
 	/**
 	 * @return The (0,0) element of the matrix.
-	 * @since 0.1
 	 */
 	public double getA() {
 		return a;
@@ -188,7 +168,6 @@ public class SVGMatrix {
 
 	/**
 	 * @return The (1,0) element of the matrix.
-	 * @since 0.1
 	 */
 	public double getB() {
 		return b;
@@ -197,7 +176,6 @@ public class SVGMatrix {
 
 	/**
 	 * @return The (2,0) element of the matrix.
-	 * @since 0.1
 	 */
 	public double getC() {
 		return c;
@@ -206,7 +184,6 @@ public class SVGMatrix {
 
 	/**
 	 * @return The (0,1) element of the matrix.
-	 * @since 0.1
 	 */
 	public double getD() {
 		return d;
@@ -215,7 +192,6 @@ public class SVGMatrix {
 
 	/**
 	 * @return The (1,1) element of the matrix.
-	 * @since 0.1
 	 */
 	public double getE() {
 		return e;
@@ -224,16 +200,14 @@ public class SVGMatrix {
 
 	/**
 	 * @return The (2,1) element of the matrix.
-	 * @since 0.1
 	 */
 	public double getF() {
 		return f;
 	}
 
 
-
 	@Override
 	public String toString() {
-        return String.valueOf(a) + ' ' + c + ' ' + e + ' ' + b + ' ' + d + ' ' + f;
+		return String.valueOf(a) + ' ' + c + ' ' + e + ' ' + b + ' ' + d + ' ' + f;
 	}
 }

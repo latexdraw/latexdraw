@@ -71,7 +71,9 @@ public class ScaleRuler extends Pane {
 	}
 
 	public void update(final double width, final double height) {
-		if(canvas == null) return;
+		if(canvas == null) {
+			return;
+		}
 
 		group.getChildren().clear();
 			updateVertical(height);

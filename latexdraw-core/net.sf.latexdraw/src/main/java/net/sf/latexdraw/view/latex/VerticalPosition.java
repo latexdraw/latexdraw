@@ -19,42 +19,42 @@ public enum VerticalPosition {
 	TOP {
 		@Override
 		public String getToken() {
-			return "t"; //$NON-NLS-1$
+			return "t"; //NON-NLS
 		}
 	},
 	/** The LaTeX b position. */
 	BOTTOM {
 		@Override
 		public String getToken() {
-			return "b"; //$NON-NLS-1$
+			return "b"; //NON-NLS
 		}
 	},
 	/** The LaTeX f position. */
 	FLOATS_PAGE {
 		@Override
 		public String getToken() {
-			return "p"; //$NON-NLS-1$
+			return "p"; //NON-NLS
 		}
 	},
 	/** The LaTeX h position. */
 	HERE {
 		@Override
 		public String getToken() {
-			return "h"; //$NON-NLS-1$
+			return "h"; //NON-NLS
 		}
 	},
 	/** The LaTeX H position. */
 	HERE_HERE {
 		@Override
 		public String getToken() {
-			return "H"; //$NON-NLS-1$
+			return "H"; //NON-NLS
 		}
 	},
 	/** No position specified. */
 	NONE {
 		@Override
 		public String getToken() {
-			return ""; //$NON-NLS-1$
+			return ""; //NON-NLS
 		}
 	};
 
@@ -75,26 +75,33 @@ public enum VerticalPosition {
 	 * @since 3.0
 	 */
 	public static VerticalPosition getPosition(final String pos) {
-		if(pos == null)
+		if(pos == null) {
 			return null;
+		}
 
-		if(pos.equals(TOP.getToken()))
+		if(pos.equals(TOP.getToken())) {
 			return TOP;
+		}
 
-		if(pos.equals(BOTTOM.getToken()))
+		if(pos.equals(BOTTOM.getToken())) {
 			return BOTTOM;
+		}
 
-		if(pos.equals(FLOATS_PAGE.getToken()))
+		if(pos.equals(FLOATS_PAGE.getToken())) {
 			return FLOATS_PAGE;
+		}
 
-		if(pos.equals(HERE.getToken()))
+		if(pos.equals(HERE.getToken())) {
 			return HERE;
+		}
 
-		if(pos.equals(HERE_HERE.getToken()))
+		if(pos.equals(HERE_HERE.getToken())) {
 			return HERE_HERE;
+		}
 
-		if(pos.equals(NONE.getToken()))
+		if(pos.equals(NONE.getToken())) {
 			return NONE;
+		}
 
 		return null;
 	}

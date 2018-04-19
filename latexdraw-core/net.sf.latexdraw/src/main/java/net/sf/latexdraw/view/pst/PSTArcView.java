@@ -26,14 +26,16 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTArcView(final  IArc model) {
+	protected PSTArcView(final IArc model) {
 		super(model);
 	}
 
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
+			return "";
+		}
 
 		final double radiusX = shape.getWidth() / 2.0;
 		final double radiusY = shape.getHeight() / 2.0;
@@ -55,38 +57,44 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 			endAngle = tmp;
 		}
 
-		if(rotation != null) end.append('}');
-
-		if(!MathUtils.INST.equalsDouble(yunit, 1.0)) {
-			start.append("\\psscalebox{1 ").append(MathUtils.INST.getCutNumberFloat(yunit)).append('}').append('{'); //$NON-NLS-1$
+		if(rotation != null) {
 			end.append('}');
 		}
 
-		if(rotation != null) start.append(rotation);
+		if(!MathUtils.INST.equalsDouble(yunit, 1.0)) {
+			start.append("\\psscalebox{1 ").append(MathUtils.INST.getCutNumberFloat(yunit)).append('}').append('{'); //NON-NLS
+			end.append('}');
+		}
+
+		if(rotation != null) {
+			start.append(rotation);
+		}
 
 		switch(shape.getArcStyle()) {
 			case ARC:
-				start.append("\\psarc"); //$NON-NLS-1$
+				start.append("\\psarc"); //NON-NLS
 				break;
 			case CHORD:
 				final IPoint startPt = shape.getStartPoint();
 				final IPoint endPt = shape.getEndPoint();
 
-				start.append("\\psarc"); //$NON-NLS-1$
-				end.append(LSystem.EOL).append("\\psline[").append(params).append(']').append('('); //$NON-NLS-1$
+				start.append("\\psarc"); //NON-NLS
+				end.append(LSystem.EOL).append("\\psline[").append(params).append(']').append('('); //NON-NLS
 				end.append(MathUtils.INST.getCutNumberFloat(startPt.getX() / ppc)).append(',');
 				end.append(MathUtils.INST.getCutNumberFloat(startPt.getY() / ppc)).append(')').append('(');
 				end.append(MathUtils.INST.getCutNumberFloat(endPt.getX() / ppc)).append(',');
 				end.append(MathUtils.INST.getCutNumberFloat(endPt.getY() / ppc)).append(')');
 				break;
 			case WEDGE:
-				start.append("\\pswedge"); //$NON-NLS-1$
+				start.append("\\pswedge"); //NON-NLS
 				break;
 		}
 
 		cache.append(start);
 		cache.append('[').append(params).append(']');
-		if(arrowsStyle != null) cache.append(arrowsStyle);
+		if(arrowsStyle != null) {
+			cache.append(arrowsStyle);
+		}
 		cache.append('(');
 		cache.append(MathUtils.INST.getCutNumberFloat(x / ppc)).append(',');
 		cache.append(MathUtils.INST.getCutNumberFloat(y / ppc)).append(')').append('{');

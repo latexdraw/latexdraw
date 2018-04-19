@@ -19,13 +19,13 @@ import net.sf.latexdraw.parsers.svg.parsers.SVGLength.LengthType;
 public final class UnitProcessor {
 	/** The singleton. */
 	public static final UnitProcessor INSTANCE = new UnitProcessor();
-	
+
 
 	private UnitProcessor() {
 		super();
 	}
-	
-	
+
+
 	/**
 	 * Transforms a value in point according to the given unit (%, em and ex are not managed).
 	 * @param value The value to transform.
@@ -34,13 +34,15 @@ public final class UnitProcessor {
 	 * @throws IllegalArgumentException If the given length type is not valid or not managed.
 	 */
 	public double toPoint(final double value, final LengthType lgthType) {
-		if(lgthType==null)
+		if(lgthType == null) {
 			throw new IllegalArgumentException();
+		}
 
-		if(lgthType==LengthType.PT)
+		if(lgthType == LengthType.PT) {
 			return value;
+		}
 
-		return toUserUnit(value, lgthType)/1.25;
+		return toUserUnit(value, lgthType) / 1.25;
 	}
 
 
@@ -52,8 +54,9 @@ public final class UnitProcessor {
 	 * @throws IllegalArgumentException If the given length type is not valid or not managed.
 	 */
 	public double toUserUnit(final double value, final LengthType lgthType) {
-		if(lgthType==null)
+		if(lgthType == null) {
 			throw new IllegalArgumentException();
+		}
 
 		final double userValue;
 
@@ -81,16 +84,16 @@ public final class UnitProcessor {
 			case EM:
 			case EX:
 			case PERCENTAGE:
-				throw new IllegalArgumentException("Not yet managed.");//$NON-NLS-1$
+				throw new IllegalArgumentException("Not yet managed."); //NON-NLS
 
 			case NUMBER:
 			case PX:
 			case UNKNOWN:
-				userValue = value ;
+				userValue = value;
 				break;
 
 			default:
-				throw new IllegalArgumentException("Invalid length type.");//$NON-NLS-1$
+				throw new IllegalArgumentException("Invalid length type."); //NON-NLS
 		}
 
 		return userValue;

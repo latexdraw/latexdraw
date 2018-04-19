@@ -11,6 +11,7 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
 import java.text.ParseException;
+import java.util.Optional;
 
 /**
  * Defines a SVG number parser.
@@ -40,9 +41,20 @@ public class SVGNumberParser extends AbstractSVGParser {
 			return c == '1';
 		}
 
-		throw new ParseException("Flag expected.", getPosition()); //$NON-NLS-1$
+		throw new ParseException("Flag expected.", getPosition()); //NON-NLS
 	}
 
+
+	private Optional<Integer> readSign(final int c, final boolean unsigned) throws ParseException {
+		if(c == '-' || c == '+') {
+			if(unsigned) {
+				throw new ParseException("Unsigned number expected.", getPosition());
+			}
+
+			return Optional.of(nextChar());
+		}
+		return Optional.empty();
+	}
 
 	/**
 	 * Parses a number (a double).
@@ -60,18 +72,15 @@ public class SVGNumberParser extends AbstractSVGParser {
 		c = getChar();
 
 		// Reading the sign
-		if(c == '-' || c == '+') {
-			if(unsigned) throw new ParseException("Unsigned number expected.", getPosition()); //$NON-NLS-1$
+		c = readSign(c, unsigned).orElse(c);
 
-			c = nextChar();
-		}
-
-		while(again && !isEOC()) // Reading the first part of the number.
+		while(again && !isEOC()) { // Reading the first part of the number.
 			if(c < 48 || c > 58) {
 				again = false;
 			}else {
 				c = nextChar();
 			}
+		}
 
 		if(c == '.') {
 			c = nextChar();
@@ -93,9 +102,7 @@ public class SVGNumberParser extends AbstractSVGParser {
 			again = true;
 
 			// Reading the sign
-			if(c == '-' || c == '+') {
-				c = nextChar();
-			}
+			c = readSign(c, false).orElse(c);
 
 			// Reading the exponent.
 			while(again && !isEOC()) {
@@ -110,7 +117,7 @@ public class SVGNumberParser extends AbstractSVGParser {
 		try {
 			Double.parseDouble(getCode().substring(start, getPosition()));
 		}catch(final NumberFormatException ex) {
-			throw new ParseException("Invalid number.", getPosition()); //$NON-NLS-1$
+			throw new ParseException("Invalid number.", getPosition()); //NON-NLS
 		}
 
 		return getCode().substring(start, getPosition());
@@ -129,7 +136,7 @@ public class SVGNumberParser extends AbstractSVGParser {
 		try {
 			return Double.parseDouble(number);
 		}catch(final NumberFormatException e) {
-			throw new ParseException("Invalid number.", getPosition()); //$NON-NLS-1$
+			throw new ParseException("Invalid number.", getPosition()); //NON-NLS
 		}
 	}
 

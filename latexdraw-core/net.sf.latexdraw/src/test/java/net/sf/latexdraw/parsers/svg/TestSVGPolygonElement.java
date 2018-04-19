@@ -52,7 +52,7 @@ public class TestSVGPolygonElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testGetPoints2D() throws MalformedSVGDocument, ParseException {
-		String path = "	  10\t ,\n	10 	\t 	20 \t\n\t\r,	\n20 	\r30,30	\n";
+		String path = "	10\t ,\n	10 	\t 	20 \t\n\t\r,	\n20 	\r30,30	\n";
 		node.setAttribute(SVGAttributes.SVG_POINTS, path);
 		SVGPolygonElement pl = new SVGPolygonElement(node, null);
 		List<Point2D> pts;

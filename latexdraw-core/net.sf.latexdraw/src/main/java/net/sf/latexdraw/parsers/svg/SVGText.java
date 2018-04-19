@@ -21,7 +21,7 @@ import org.w3c.dom.Text;
  * @author Arnaud BLOUIN
  */
 public class SVGText extends SVGElement implements Text {
-	public static final String TEXT_NODE_NAME = "#text"; //$NON-NLS-1$
+	public static final String TEXT_NODE_NAME = "#text"; //NON-NLS
 
 	/** The content of the text node. */
 	private String data;

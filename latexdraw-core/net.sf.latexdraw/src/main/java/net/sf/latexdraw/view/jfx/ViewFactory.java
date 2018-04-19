@@ -57,25 +57,61 @@ public final class ViewFactory {
 	 * @return The created view or empty.
 	 * @since 3.0
 	 */
-	public <T extends IShape, S extends ViewShape<T>> Optional<S> createView(final  T shape) {
-		if(shape instanceof IGroup) return Optional.of((S) new ViewGroup((IGroup) shape));
-		if(shape instanceof IPlot) return Optional.of((S) new ViewPlot((IPlot) shape));
-		if(shape instanceof ISquare) return Optional.of((S) new ViewSquare((ISquare) shape));
-		if(shape instanceof IRectangle) return Optional.of((S) new ViewRectangle((IRectangle) shape));
-		if(shape instanceof IText) return Optional.of((S) new ViewText((IText) shape));
-		if(shape instanceof ICircleArc) return Optional.of((S) new ViewCircleArc((ICircleArc) shape));
-		if(shape instanceof ICircle) return Optional.of((S) new ViewCircle((ICircle) shape));
-		if(shape instanceof IEllipse) return Optional.of((S) new ViewEllipse((IEllipse) shape));
-		if(shape instanceof ITriangle) return Optional.of((S) new ViewTriangle((ITriangle) shape));
-		if(shape instanceof IRhombus) return Optional.of((S) new ViewRhombus((IRhombus) shape));
-		if(shape instanceof IPolyline) return Optional.of((S) new ViewPolyline((IPolyline) shape));
-		if(shape instanceof IPolygon) return Optional.of((S) new ViewPolygon((IPolygon) shape));
-		if(shape instanceof IBezierCurve) return Optional.of((S) new ViewBezierCurve((IBezierCurve) shape));
-		if(shape instanceof IAxes) return Optional.of((S) new ViewAxes((IAxes) shape));
-		if(shape instanceof IGrid) return Optional.of((S) new ViewGrid((IGrid) shape));
-		if(shape instanceof IDot) return Optional.of((S) new ViewDot((IDot) shape));
-		if(shape instanceof IPicture) return Optional.of((S) new ViewPicture((IPicture) shape));
-		if(shape instanceof IFreehand) return Optional.of((S) new ViewFreeHand((IFreehand) shape));
+	public <T extends IShape, S extends ViewShape<T>> Optional<S> createView(final T shape) {
+		if(shape instanceof IGroup) {
+			return Optional.of((S) new ViewGroup((IGroup) shape));
+		}
+		if(shape instanceof IPlot) {
+			return Optional.of((S) new ViewPlot((IPlot) shape));
+		}
+		if(shape instanceof ISquare) {
+			return Optional.of((S) new ViewSquare((ISquare) shape));
+		}
+		if(shape instanceof IRectangle) {
+			return Optional.of((S) new ViewRectangle((IRectangle) shape));
+		}
+		if(shape instanceof IText) {
+			return Optional.of((S) new ViewText((IText) shape));
+		}
+		if(shape instanceof ICircleArc) {
+			return Optional.of((S) new ViewCircleArc((ICircleArc) shape));
+		}
+		if(shape instanceof ICircle) {
+			return Optional.of((S) new ViewCircle((ICircle) shape));
+		}
+		if(shape instanceof IEllipse) {
+			return Optional.of((S) new ViewEllipse((IEllipse) shape));
+		}
+		if(shape instanceof ITriangle) {
+			return Optional.of((S) new ViewTriangle((ITriangle) shape));
+		}
+		if(shape instanceof IRhombus) {
+			return Optional.of((S) new ViewRhombus((IRhombus) shape));
+		}
+		if(shape instanceof IPolyline) {
+			return Optional.of((S) new ViewPolyline((IPolyline) shape));
+		}
+		if(shape instanceof IPolygon) {
+			return Optional.of((S) new ViewPolygon((IPolygon) shape));
+		}
+		if(shape instanceof IBezierCurve) {
+			return Optional.of((S) new ViewBezierCurve((IBezierCurve) shape));
+		}
+		if(shape instanceof IAxes) {
+			return Optional.of((S) new ViewAxes((IAxes) shape));
+		}
+		if(shape instanceof IGrid) {
+			return Optional.of((S) new ViewGrid((IGrid) shape));
+		}
+		if(shape instanceof IDot) {
+			return Optional.of((S) new ViewDot((IDot) shape));
+		}
+		if(shape instanceof IPicture) {
+			return Optional.of((S) new ViewPicture((IPicture) shape));
+		}
+		if(shape instanceof IFreehand) {
+			return Optional.of((S) new ViewFreeHand((IFreehand) shape));
+		}
 		return Optional.empty();
 	}
 
@@ -84,25 +120,35 @@ public final class ViewFactory {
 			final LineTo lineTo = (LineTo) elt;
 			lineTo.xProperty().unbind();
 			lineTo.yProperty().unbind();
-		}else if(elt instanceof MoveTo) {
-			final MoveTo moveTo = (MoveTo) elt;
-			moveTo.xProperty().unbind();
-			moveTo.yProperty().unbind();
-		}else if(elt instanceof CubicCurveTo) {
-			final CubicCurveTo cct = (CubicCurveTo) elt;
-			cct.xProperty().unbind();
-			cct.yProperty().unbind();
-			cct.controlX1Property().unbind();
-			cct.controlX2Property().unbind();
-			cct.controlY1Property().unbind();
-			cct.controlY2Property().unbind();
+		}else {
+			if(elt instanceof MoveTo) {
+				final MoveTo moveTo = (MoveTo) elt;
+				moveTo.xProperty().unbind();
+				moveTo.yProperty().unbind();
+			}else {
+				if(elt instanceof CubicCurveTo) {
+					final CubicCurveTo cct = (CubicCurveTo) elt;
+					cct.xProperty().unbind();
+					cct.yProperty().unbind();
+					cct.controlX1Property().unbind();
+					cct.controlX2Property().unbind();
+					cct.controlY1Property().unbind();
+					cct.controlY2Property().unbind();
+				}
+			}
 		}
 	}
 
 	Optional<PathElement> createPathElement(final PathElement elt) {
-		if(elt instanceof LineTo) return Optional.of(createLineTo(((LineTo)elt).getX(), ((LineTo)elt).getY()));
-		if(elt instanceof MoveTo) return Optional.of(createMoveTo(((MoveTo)elt).getX(), ((MoveTo)elt).getY()));
-		if(elt instanceof ClosePath) return Optional.of(createClosePath());
+		if(elt instanceof LineTo) {
+			return Optional.of(createLineTo(((LineTo) elt).getX(), ((LineTo) elt).getY()));
+		}
+		if(elt instanceof MoveTo) {
+			return Optional.of(createMoveTo(((MoveTo) elt).getX(), ((MoveTo) elt).getY()));
+		}
+		if(elt instanceof ClosePath) {
+			return Optional.of(createClosePath());
+		}
 		if(elt instanceof CubicCurveTo) {
 			final CubicCurveTo curve = (CubicCurveTo) elt;
 			return Optional.of(createCubicCurveTo(curve.getControlX1(), curve.getControlY1(), curve.getControlX2(), curve.getControlY2(), curve.getX(), curve.getY()));
@@ -139,16 +185,30 @@ public final class ViewFactory {
 
 		@Override
 		public boolean equals(final Object o) {
-			if(this == o) return true;
-			if(o == null || getClass() != o.getClass()) return false;
+			if(this == o) {
+				return true;
+			}
+			if(o == null || getClass() != o.getClass()) {
+				return false;
+			}
 
 			final EqCubicCurveTo that = (EqCubicCurveTo) o;
 
-			if(Double.compare(that.getControlX1(), getControlX1()) != 0) return false;
-			if(Double.compare(that.getControlY1(), getControlY1()) != 0) return false;
-			if(Double.compare(that.getControlX2(), getControlX2()) != 0) return false;
-			if(Double.compare(that.getControlY2(), getControlY2()) != 0) return false;
-			if(Double.compare(that.getX(), getX()) != 0) return false;
+			if(Double.compare(that.getControlX1(), getControlX1()) != 0) {
+				return false;
+			}
+			if(Double.compare(that.getControlY1(), getControlY1()) != 0) {
+				return false;
+			}
+			if(Double.compare(that.getControlX2(), getControlX2()) != 0) {
+				return false;
+			}
+			if(Double.compare(that.getControlY2(), getControlY2()) != 0) {
+				return false;
+			}
+			if(Double.compare(that.getX(), getX()) != 0) {
+				return false;
+			}
 			return Double.compare(that.getY(), getY()) == 0;
 		}
 
@@ -204,8 +264,12 @@ public final class ViewFactory {
 
 		@Override
 		public boolean equals(final Object obj) {
-			if(obj == this) return true;
-			if(obj == null || getClass() != obj.getClass()) return false;
+			if(obj == this) {
+				return true;
+			}
+			if(obj == null || getClass() != obj.getClass()) {
+				return false;
+			}
 			final LineTo lt = (LineTo) obj;
 			return MathUtils.INST.equalsDouble(lt.getX(), getX()) && MathUtils.INST.equalsDouble(lt.getY(), getY()) && lt.isAbsolute() == isAbsolute();
 		}
@@ -230,8 +294,12 @@ public final class ViewFactory {
 
 		@Override
 		public boolean equals(final Object obj) {
-			if(obj == this) return true;
-			if(obj == null || getClass() != obj.getClass()) return false;
+			if(obj == this) {
+				return true;
+			}
+			if(obj == null || getClass() != obj.getClass()) {
+				return false;
+			}
 			final MoveTo mt = (MoveTo) obj;
 			return MathUtils.INST.equalsDouble(mt.getX(), getX()) && MathUtils.INST.equalsDouble(mt.getY(), getY()) && mt.isAbsolute() == isAbsolute();
 		}

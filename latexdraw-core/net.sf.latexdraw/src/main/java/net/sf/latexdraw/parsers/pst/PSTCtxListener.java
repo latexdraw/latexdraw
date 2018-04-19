@@ -173,7 +173,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 
 	@Override
 	public void exitParamplotpoints(final net.sf.latexdraw.parsers.pst.PSTParser.ParamplotpointsContext ctx) {
-		ctx.pstctx.plotPoints = (int)ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
+		ctx.pstctx.plotPoints = (int) ctx.pstctx.numberToDouble(ctx.NUMBER().getSymbol());
 	}
 
 	@Override

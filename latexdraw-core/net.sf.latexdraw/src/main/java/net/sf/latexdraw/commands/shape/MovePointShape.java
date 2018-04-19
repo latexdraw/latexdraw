@@ -65,7 +65,7 @@ public class MovePointShape extends MovePoint implements Undoable {
 
 	@Override
 	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.10"); //$NON-NLS-1$
+		return LangTool.INSTANCE.getBundle().getString("Actions.10"); //NON-NLS
 	}
 
 	/**

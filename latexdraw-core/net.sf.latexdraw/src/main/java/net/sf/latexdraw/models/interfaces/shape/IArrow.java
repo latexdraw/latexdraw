@@ -40,13 +40,6 @@ public interface IArrow extends IArrowable {
 	boolean hasStyle();
 
 	/**
-	 * Defines the style of the arrow.
-	 * @param arrowStyle The new style of the arrow.
-	 * @since 3.0
-	 */
-	void setArrowStyle(final ArrowStyle arrowStyle);
-
-	/**
 	 * @return The length of the arrow computed from the provided formula:
 	 * length = arrowlength x (num x linewidth + dim)
 	 * @since 3.0
@@ -58,6 +51,13 @@ public interface IArrow extends IArrowable {
 	 * @since 3.0
 	 */
 	ArrowStyle getArrowStyle();
+
+	/**
+	 * Defines the style of the arrow.
+	 * @param arrowStyle The new style of the arrow.
+	 * @since 3.0
+	 */
+	void setArrowStyle(final ArrowStyle arrowStyle);
 
 	/**
 	 * @return True if the arrow is the left arrow of its shape.

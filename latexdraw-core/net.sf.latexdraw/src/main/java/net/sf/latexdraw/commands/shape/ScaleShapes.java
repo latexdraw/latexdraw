@@ -76,7 +76,9 @@ public class ScaleShapes extends ShapeCmdImpl<IGroup> implements DrawingCmd, Und
 	}
 
 	private boolean isValidScales() {
-		if(!refPosition.isPresent()) return false;
+		if(!refPosition.isPresent()) {
+			return false;
+		}
 		switch(refPosition.get()) {
 			case EAST:
 				return MathUtils.INST.isValidCoord(newX) && scaledWidth(newX) > 1.0;
@@ -129,16 +131,28 @@ public class ScaleShapes extends ShapeCmdImpl<IGroup> implements DrawingCmd, Und
 	}
 
 	private double scaledHeight(final double y) {
-		if(!refPosition.isPresent()) return 0.0;
-		if(refPosition.get().isSouth()) return bound.getHeight() + bound.getY() - y;
-		if(refPosition.get().isNorth()) return bound.getHeight() + y - bound.getMaxY();
+		if(!refPosition.isPresent()) {
+			return 0.0;
+		}
+		if(refPosition.get().isSouth()) {
+			return bound.getHeight() + bound.getY() - y;
+		}
+		if(refPosition.get().isNorth()) {
+			return bound.getHeight() + y - bound.getMaxY();
+		}
 		return 0.0;
 	}
 
 	private double scaledWidth(final double x) {
-		if(!refPosition.isPresent()) return 0.0;
-		if(refPosition.get().isWest()) return bound.getWidth() + x - bound.getMaxX();
-		if(refPosition.get().isEast()) return bound.getWidth() + bound.getX() - x;
+		if(!refPosition.isPresent()) {
+			return 0.0;
+		}
+		if(refPosition.get().isWest()) {
+			return bound.getWidth() + x - bound.getMaxX();
+		}
+		if(refPosition.get().isEast()) {
+			return bound.getWidth() + bound.getX() - x;
+		}
 		return 0.0;
 	}
 

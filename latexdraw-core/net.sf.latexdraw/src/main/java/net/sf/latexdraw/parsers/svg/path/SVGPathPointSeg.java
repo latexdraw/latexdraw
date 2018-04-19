@@ -62,8 +62,9 @@ public abstract class SVGPathPointSeg extends SVGPathSeg implements PointSeg {
 	 */
 	public static Point2D getPoint(final double x, final double y, final Point2D prevPt, final boolean isRelative) {
 		if(isRelative) {
-			if(prevPt==null)
+			if(prevPt==null) {
 				throw new IllegalArgumentException("The path is relative but the given previous point is null.");
+			}
 			return new Point2D.Double(prevPt.getX()+x, prevPt.getY()+y);
 		}
 		return new Point2D.Double(x, y);

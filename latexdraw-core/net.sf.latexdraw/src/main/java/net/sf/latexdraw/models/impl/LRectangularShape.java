@@ -24,8 +24,9 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 	LRectangularShape(final IPoint tl, final IPoint br) {
 		super(tl);
 
-		if(!(MathUtils.INST.isValidPt(tl) && MathUtils.INST.isValidPt(br) && tl.getX() < br.getX() && tl.getY() < br.getY()))
+		if(!(MathUtils.INST.isValidPt(tl) && MathUtils.INST.isValidPt(br) && tl.getX() < br.getX() && tl.getY() < br.getY())) {
 			throw new IllegalArgumentException();
+		}
 
 		points.add(ShapeFactory.INST.createPoint(br.getX(), tl.getY()));
 		points.add(ShapeFactory.INST.createPoint(br));

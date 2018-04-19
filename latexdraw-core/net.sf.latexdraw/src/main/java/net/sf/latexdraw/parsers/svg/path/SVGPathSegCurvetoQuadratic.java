@@ -38,10 +38,9 @@ public class SVGPathSegCurvetoQuadratic extends SVGPathPointSeg {
 	}
 
 
-
 	@Override
 	public String toString() {
-        return String.valueOf(isRelative() ? 'q' : 'Q') + ' ' + x1 + ' ' + y1 + ' ' + x + ' ' + y;
+		return String.valueOf(isRelative() ? 'q' : 'Q') + ' ' + x1 + ' ' + y1 + ' ' + x + ' ' + y;
 	}
 
 

@@ -149,5 +149,5 @@ public interface IArrowable {
 	 * Sets the command to execute when one of the properties of the arrow changes.
 	 * @param run The command to execute.
 	 */
-	void setOnArrowChanged(final  Runnable run);
+	void setOnArrowChanged(final Runnable run);
 }

@@ -56,29 +56,31 @@ class SVGPicture extends SVGShape<IPicture> {
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
-		if(elt==null || !(elt2 instanceof SVGImageElement))
+		if(elt == null || !(elt2 instanceof SVGImageElement)) {
 			throw new IllegalArgumentException();
+		}
 
-		final SVGImageElement main = (SVGImageElement)elt2;
+		final SVGImageElement main = (SVGImageElement) elt2;
 
 		shape.setPathSource(main.getURI());
 		shape.setPosition(main.getX(), main.getY());
 
-		if(withTransformation)
+		if(withTransformation) {
 			applyTransformations(elt);
+		}
 	}
-
 
 
 	@Override
 	public SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null)
+		if(doc == null) {
 			return null;
+		}
 
 		final SVGElement root = new SVGGElement(doc);
-        final SVGElement img;
+		final SVGElement img;
 
-        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_PICTURE);
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_PICTURE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
 		img = new SVGImageElement(doc, shape.getPathSource());

@@ -107,23 +107,29 @@ public class SVGPointsParser extends AbstractSVGParser {
 					break;
 
 				case '.':
-					if(isFractional) throw new ParseException("An unexpected dot was read: " + getCode(), getPosition()); //$NON-NLS-1$
+					if(isFractional) {
+						throw new ParseException("An unexpected dot was read: " + getCode(), getPosition()); //NON-NLS
+					}
 					isFractional = true;
 					break;
 
 				case 'e':
 				case 'E':
-					if(isFloating) throw new ParseException("An unexpected exponantial token was read: " + getCode(), getPosition()); //$NON-NLS-1$
+					if(isFloating) {
+						throw new ParseException("An unexpected exponantial token was read: " + getCode(), getPosition()); //NON-NLS
+					}
 					isFloating = true;
 					break;
 
 				case '-':
 				case '+':
-					if(!isFloating) throw new ParseException("An unexpected sign was read: " + getCode(), getPosition()); //$NON-NLS-1$
+					if(!isFloating) {
+						throw new ParseException("An unexpected sign was read: " + getCode(), getPosition()); //NON-NLS
+					}
 					break;
 
 				default:
-					throw new ParseException("The following character is not authorised:" + (char) getChar(), getPosition()); //$NON-NLS-1$
+					throw new ParseException("The following character is not authorised:" + (char) getChar(), getPosition()); //NON-NLS
 			}
 
 			strn.append((char) getChar());
@@ -133,7 +139,7 @@ public class SVGPointsParser extends AbstractSVGParser {
 		try {
 			n = Double.parseDouble(strn.toString());
 		}catch(final NumberFormatException ex) {
-			throw new ParseException("Not able to parse to given number:" + strn, getPosition()); //$NON-NLS-1$
+			throw new ParseException("Not able to parse to given number:" + strn, getPosition()); //NON-NLS
 		}
 
 		return isNegative ? n * -1 : n;

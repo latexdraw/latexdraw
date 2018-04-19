@@ -26,7 +26,7 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTGridView(final  IGrid model) {
+	protected PSTGridView(final IGrid model) {
 		super(model);
 	}
 
@@ -40,29 +40,35 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 		final Color linesColor = shape.getLineColour();
 		final StringBuilder params = new StringBuilder();
 
-		params.append("gridwidth=").append(MathUtils.INST.getCutNumberFloat(shape.getGridWidth() / ppc)); //$NON-NLS-1$
-		params.append(", subgridwidth=").append(MathUtils.INST.getCutNumberFloat(shape.getSubGridWidth() / ppc)); //$NON-NLS-1$
-		params.append(", gridlabels=").append(MathUtils.INST.getCutNumber(shape.getLabelsSize() * 0.6f)).append("pt"); //$NON-NLS-1$ //$NON-NLS-2$
+		params.append("gridwidth=").append(MathUtils.INST.getCutNumberFloat(shape.getGridWidth() / ppc)); //NON-NLS
+		params.append(", subgridwidth=").append(MathUtils.INST.getCutNumberFloat(shape.getSubGridWidth() / ppc)); //NON-NLS
+		params.append(", gridlabels=").append(MathUtils.INST.getCutNumber(shape.getLabelsSize() * 0.6f)).append("pt"); //NON-NLS
 
-		if(shape.getSubGridDiv() != PSTricksConstants.DEFAULT_SUBGRIDDIV)
-			params.append(", subgriddiv=").append(shape.getSubGridDiv()); //$NON-NLS-1$
+		if(shape.getSubGridDiv() != PSTricksConstants.DEFAULT_SUBGRIDDIV) {
+			params.append(", subgriddiv=").append(shape.getSubGridDiv()); //NON-NLS
+		}
 
-		if(shape.getGridDots() != PSTricksConstants.DEFAULT_GRIDDOTS)
-			params.append(", griddots=").append(shape.getGridDots()); //$NON-NLS-1$
+		if(shape.getGridDots() != PSTricksConstants.DEFAULT_GRIDDOTS) {
+			params.append(", griddots=").append(shape.getGridDots()); //NON-NLS
+		}
 
-		if(shape.getSubGridDots() != PSTricksConstants.DEFAULT_SUBGRIDDOTS)
-			params.append(", subgriddots=").append(shape.getSubGridDots()); //$NON-NLS-1$
+		if(shape.getSubGridDots() != PSTricksConstants.DEFAULT_SUBGRIDDOTS) {
+			params.append(", subgriddots=").append(shape.getSubGridDots()); //NON-NLS
+		}
 
-		if(!gridLabelsColor.equals(PSTricksConstants.DEFAULT_LABELGRIDCOLOR))
-			params.append(", gridlabelcolor=").append(getColourName(gridLabelsColor)); //$NON-NLS-1$
+		if(!gridLabelsColor.equals(PSTricksConstants.DEFAULT_LABELGRIDCOLOR)) {
+			params.append(", gridlabelcolor=").append(getColourName(gridLabelsColor)); //NON-NLS
+		}
 
-		if(!MathUtils.INST.equalsDouble(unit, PSTricksConstants.DEFAULT_UNIT))
-			params.append(", unit=").append(MathUtils.INST.getCutNumberFloat(unit)).append(PSTricksConstants.TOKEN_CM); //$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(unit, PSTricksConstants.DEFAULT_UNIT)) {
+			params.append(", unit=").append(MathUtils.INST.getCutNumberFloat(unit)).append(PSTricksConstants.TOKEN_CM); //NON-NLS
+		}
 
-		if(!linesColor.equals(PSTricksConstants.DEFAULT_GRIDCOLOR))
-			params.append(", gridcolor=").append(getColourName(linesColor)); //$NON-NLS-1$
+		if(!linesColor.equals(PSTricksConstants.DEFAULT_GRIDCOLOR)) {
+			params.append(", gridcolor=").append(getColourName(linesColor)); //NON-NLS
+		}
 
-		params.append(", subgridcolor=").append(getColourName(subGridColor)); //$NON-NLS-1$
+		params.append(", subgridcolor=").append(getColourName(subGridColor)); //NON-NLS
 
 		return params;
 	}
@@ -70,7 +76,9 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 
 	@Override
 	public String getCode(final IPoint pt, final float ppc) {
-		if(!MathUtils.INST.isValidPt(pt) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(pt) || ppc < 1) {
+			return "";
+		}
 
 		final int startX;
 		final int startY;
@@ -110,15 +118,16 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 		coord.append('(').append(startX).append(',').append(startY).append(')');
 		coord.append('(').append(endX).append(',').append(endY).append(')');
 
-		if(!MathUtils.INST.equalsDouble(unit, PSTricksConstants.DEFAULT_UNIT))
-			end.append("\n\\psset{unit=").append(PSTricksConstants.DEFAULT_UNIT).append(PSTricksConstants.TOKEN_CM).append('}');//$NON-NLS-1$
+		if(!MathUtils.INST.equalsDouble(unit, PSTricksConstants.DEFAULT_UNIT)) {
+			end.append("\n\\psset{unit=").append(PSTricksConstants.DEFAULT_UNIT).append(PSTricksConstants.TOKEN_CM).append('}'); //NON-NLS
+		}
 
 		if(!MathUtils.INST.equalsDouble(position.getX(), 0.0) || !MathUtils.INST.equalsDouble(position.getY(), 0.0)) {
 			final float posX = MathUtils.INST.getCutNumberFloat((position.getX() - pt.getX()) / ppc);
 			final float posY = MathUtils.INST.getCutNumberFloat((pt.getY() - position.getY()) / ppc);
 
 			end.append('}');
-			start.append("\\rput(").append(posX).append(',').append(posY).append(')').append('{');//$NON-NLS-1$
+			start.append("\\rput(").append(posX).append(',').append(posY).append(')').append('{'); //NON-NLS
 		}
 
 		if(rot != null) {
@@ -127,7 +136,7 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 		}
 
 		code.append(start);
-		code.append("\\psgrid[");//$NON-NLS-1$
+		code.append("\\psgrid["); //NON-NLS
 		code.append(getParamsCode(ppc, unit));
 		code.append(']');
 		code.append(coord);

@@ -61,8 +61,8 @@ public class SVGRectElement extends SVGElement implements SVGRectParseTrait {
 		super(doc);
 
 		setNodeName(SVGElements.SVG_RECT);
-		setAttribute(SVGAttributes.SVG_WIDTH, "0"); //$NON-NLS-1$
-		setAttribute(SVGAttributes.SVG_HEIGHT, "0"); //$NON-NLS-1$
+		setAttribute(SVGAttributes.SVG_WIDTH, "0"); //NON-NLS
+		setAttribute(SVGAttributes.SVG_HEIGHT, "0"); //NON-NLS
 	}
 
 

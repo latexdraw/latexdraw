@@ -22,21 +22,20 @@ public class SVGComment extends SVGText implements Comment {
 	 * Creates a comment element.
 	 * @param comment The text of the comment.
 	 * @param owner The parent of the element.
-	 * @since 0.1
 	 */
 	public SVGComment(final String comment, final SVGDocument owner) {
 		super(comment, owner);
 	}
 
 
-    @Override
+	@Override
 	public short getNodeType() {
-        return Node.COMMENT_NODE;
-    }
+		return Node.COMMENT_NODE;
+	}
 
 
-    @Override
+	@Override
 	public String getNodeName() {
-        return "#comment";//$NON-NLS-1$
-    }
+		return "#comment"; //NON-NLS
+	}
 }

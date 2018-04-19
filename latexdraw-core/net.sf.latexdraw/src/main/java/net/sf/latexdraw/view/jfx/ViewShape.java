@@ -55,7 +55,7 @@ public abstract class ViewShape<S extends IShape> extends Group {
 
 		// Adding all the view shape children
 		shapes.addAll(gp.getChildren().stream().filter(node -> node instanceof ViewShape<?> && node.isVisible() && !node.isDisable()).
-			map(vs -> ((ViewShape<?>)vs).getActivatedShapes()).flatMap(st -> st.stream()).collect(Collectors.toList()));
+			map(vs -> ((ViewShape<?>) vs).getActivatedShapes()).flatMap(st -> st.stream()).collect(Collectors.toList()));
 
 		// Adding the shapes contained in groups that are not view shapes
 		shapes.addAll(gp.getChildren().stream().filter(node -> node instanceof Group && !(node instanceof ViewShape<?>)).
@@ -65,7 +65,7 @@ public abstract class ViewShape<S extends IShape> extends Group {
 		shapes.addAll(gp.getChildren().stream().filter(node -> node instanceof ImageView && node.isVisible() && !node.isDisable()).
 			map(node -> {
 				final Bounds bounds = node.getBoundsInParent();
-				Rectangle rec = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+				final Rectangle rec = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
 				rec.setFill(Color.WHITE);
 				rec.getTransforms().setAll(gp.getLocalToSceneTransform());
 				return rec;
@@ -93,7 +93,9 @@ public abstract class ViewShape<S extends IShape> extends Group {
 			parent = parent.getParent();
 		}
 
-		if(parent != null) return Optional.of((Canvas) parent);
+		if(parent != null) {
+			return Optional.of((Canvas) parent);
+		}
 		return Optional.empty();
 	}
 

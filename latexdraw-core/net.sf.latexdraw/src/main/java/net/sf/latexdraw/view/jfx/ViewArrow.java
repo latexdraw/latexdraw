@@ -128,7 +128,7 @@ public class ViewArrow extends Group implements GenericViewArrow {
 
 	@Override
 	public void createArc(final double cx, final double cy, final double rx, final double ry, final double angle, final double length,
-						  final ObservableValue<Color> strokeProp, final ObservableDoubleValue strokeWidthProp) {
+						final ObservableValue<Color> strokeProp, final ObservableDoubleValue strokeWidthProp) {
 		arc.setCenterX(cx);
 		arc.setCenterY(cy);
 		arc.setRadiusX(rx);

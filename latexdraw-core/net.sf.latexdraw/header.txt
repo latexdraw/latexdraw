@@ -8,21 +8,3 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  */
-package net.sf.latexdraw.parsers.ps;
-
-import java.util.Deque;
-
-/**
- * The Postscript ceiling command.
- * @author Arnaud Blouin
- */
-public class PSCeilingCommand implements PSArithemticCommand {
-	@Override
-	public void execute(final Deque<Double> stack, final double x) {
-		if(stack.isEmpty()) {
-			throw new InvalidFormatPSFunctionException();
-		}
-
-		stack.push(Math.ceil(stack.pop()));
-	}
-}

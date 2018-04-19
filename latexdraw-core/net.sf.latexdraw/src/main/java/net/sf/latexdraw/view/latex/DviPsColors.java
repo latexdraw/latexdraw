@@ -97,94 +97,94 @@ public final class DviPsColors {
 	public static final Color OLIVE = ShapeFactory.INST.createColor(0.5, 0.5, 0);
 
 
-	public static final String N_LIME = "lime"; //$NON-NLS-1$
-	public static final String N_TEAL = "teal"; //$NON-NLS-1$
-	public static final String N_GREEN_YELLOW = "GreenYellow"; //$NON-NLS-1$
-	public static final String N_YELLOW = "Yellow"; //$NON-NLS-1$
-	public static final String N_GOLDEN_ROD = "Goldenrod"; //$NON-NLS-1$
-	public static final String N_DANDELION = "Dandelion"; //$NON-NLS-1$
-	public static final String N_APRICOT = "Apricot"; //$NON-NLS-1$
-	public static final String N_PEACH = "Peach"; //$NON-NLS-1$
-	public static final String N_MELON = "Melon"; //$NON-NLS-1$
-	public static final String N_YELLOW_ORANGE = "YellowOrange"; //$NON-NLS-1$
-	public static final String N_ORANGE = "Orange"; //$NON-NLS-1$
-	public static final String N_BURNT_ORANGE = "BurntOrange"; //$NON-NLS-1$
-	public static final String N_BITTERSWEET = "Bittersweet"; //$NON-NLS-1$
-	public static final String N_RED_ORANGE = "RedOrange"; //$NON-NLS-1$
-	public static final String N_MAHOGANY = "Mahogany"; //$NON-NLS-1$
-	public static final String N_MAROON = "Maroon"; //$NON-NLS-1$
-	public static final String N_BRICKRED = "BrickRed"; //$NON-NLS-1$
-	public static final String N_RED = "Red"; //$NON-NLS-1$
-	public static final String N_ORANGERED = "OrangeRed"; //$NON-NLS-1$
-	public static final String N_RUBINERED = "RubineRed"; //$NON-NLS-1$
-	public static final String N_WILDSTRAWBERRY = "WildStrawberry"; //$NON-NLS-1$
-	public static final String N_SALMON = "Salmon"; //$NON-NLS-1$
-	public static final String N_CARNATIONPINK = "CarnationPink"; //$NON-NLS-1$
-	public static final String N_MAGENTA = "Magenta"; //$NON-NLS-1$
-	public static final String N_VIOLETRED = "VioletRed"; //$NON-NLS-1$
-	public static final String N_RHODAMINE = "Rhodamine"; //$NON-NLS-1$
-	public static final String N_MULBERRY = "Mulberry"; //$NON-NLS-1$
-	public static final String N_REDVIOLET = "RedViolet"; //$NON-NLS-1$
-	public static final String N_FUSHIA = "Fuchsia"; //$NON-NLS-1$
-	public static final String N_LAVENDER = "Lavender"; //$NON-NLS-1$
-	public static final String N_THISTLE = "Thistle"; //$NON-NLS-1$
-	public static final String N_ORCHID = "Orchid"; //$NON-NLS-1$
-	public static final String N_DARKORCHID = "DarkOrchid"; //$NON-NLS-1$
-	public static final String N_PURPLE = "Purple"; //$NON-NLS-1$
-	public static final String N_PLUM = "Plum"; //$NON-NLS-1$
-	public static final String N_VIOLET = "Violet"; //$NON-NLS-1$
-	public static final String N_ROYALPURPLE = "RoyalPurple"; //$NON-NLS-1$
-	public static final String N_BLUEVIOLET = "BlueViolet"; //$NON-NLS-1$
-	public static final String N_PERIWINKLE = "Periwinkle"; //$NON-NLS-1$
-	public static final String N_CADETBLUE = "CadetBlue"; //$NON-NLS-1$
-	public static final String N_CORNFLOWERBLUE = "CornflowerBlue"; //$NON-NLS-1$
-	public static final String N_MIDNIGHTBLUE = "MidnightBlue"; //$NON-NLS-1$
-	public static final String N_NAVYBLUE = "NavyBlue"; //$NON-NLS-1$
-	public static final String N_ROYALBLUE = "RoyalBlue"; //$NON-NLS-1$
-	public static final String N_BLUE = "Blue"; //$NON-NLS-1$
-	public static final String N_CERULEAN = "Cerulean"; //$NON-NLS-1$
-	public static final String N_CYAN = "Cyan"; //$NON-NLS-1$
-	public static final String N_PROCESSBLUE = "ProcessBlue"; //$NON-NLS-1$
-	public static final String N_SKYBLUE = "SkyBlue"; //$NON-NLS-1$
-	public static final String N_TURQUOISE = "Turquoise"; //$NON-NLS-1$
-	public static final String N_TEALBLUE = "TealBlue"; //$NON-NLS-1$
-	public static final String N_AQUAMARINE = "Aquamarine"; //$NON-NLS-1$
-	public static final String N_BLUEGREEN = "BlueGreen"; //$NON-NLS-1$
-	public static final String N_EMERALD = "Emerald"; //$NON-NLS-1$
-	public static final String N_JUNGLEGREEN = "JungleGreen"; //$NON-NLS-1$
-	public static final String N_SEAGREEN = "SeaGreen"; //$NON-NLS-1$
-	public static final String N_GREEN = "Green"; //$NON-NLS-1$
-	public static final String N_FORESTGREEN = "ForestGreen"; //$NON-NLS-1$
-	public static final String N_PINEGREEN = "PineGreen"; //$NON-NLS-1$
-	public static final String N_LIMEGREEN = "LimeGreen"; //$NON-NLS-1$
-	public static final String N_YELLOWGREEN = "YellowGreen"; //$NON-NLS-1$
-	public static final String N_SPRINGGREEN = "SpringGreen"; //$NON-NLS-1$
-	public static final String N_OLIVEGREEN = "OliveGreen"; //$NON-NLS-1$
-	public static final String N_RAWSIENNA = "RawSienna"; //$NON-NLS-1$
-	public static final String N_SEPIA = "Sepia"; //$NON-NLS-1$
-	public static final String N_BROWN = "Brown"; //$NON-NLS-1$
-	public static final String N_TAN = "Tan"; //$NON-NLS-1$
-	public static final String N_GRAY = "Gray"; //$NON-NLS-1$
-	public static final String N_BLACK = "Black"; //$NON-NLS-1$
-	public static final String N_WHITE = "White"; //$NON-NLS-1$
+	public static final String N_LIME = "lime"; //NON-NLS
+	public static final String N_TEAL = "teal"; //NON-NLS
+	public static final String N_GREEN_YELLOW = "GreenYellow"; //NON-NLS
+	public static final String N_YELLOW = "Yellow"; //NON-NLS
+	public static final String N_GOLDEN_ROD = "Goldenrod"; //NON-NLS
+	public static final String N_DANDELION = "Dandelion"; //NON-NLS
+	public static final String N_APRICOT = "Apricot"; //NON-NLS
+	public static final String N_PEACH = "Peach"; //NON-NLS
+	public static final String N_MELON = "Melon"; //NON-NLS
+	public static final String N_YELLOW_ORANGE = "YellowOrange"; //NON-NLS
+	public static final String N_ORANGE = "Orange"; //NON-NLS
+	public static final String N_BURNT_ORANGE = "BurntOrange"; //NON-NLS
+	public static final String N_BITTERSWEET = "Bittersweet"; //NON-NLS
+	public static final String N_RED_ORANGE = "RedOrange"; //NON-NLS
+	public static final String N_MAHOGANY = "Mahogany"; //NON-NLS
+	public static final String N_MAROON = "Maroon"; //NON-NLS
+	public static final String N_BRICKRED = "BrickRed"; //NON-NLS
+	public static final String N_RED = "Red"; //NON-NLS
+	public static final String N_ORANGERED = "OrangeRed"; //NON-NLS
+	public static final String N_RUBINERED = "RubineRed"; //NON-NLS
+	public static final String N_WILDSTRAWBERRY = "WildStrawberry"; //NON-NLS
+	public static final String N_SALMON = "Salmon"; //NON-NLS
+	public static final String N_CARNATIONPINK = "CarnationPink"; //NON-NLS
+	public static final String N_MAGENTA = "Magenta"; //NON-NLS
+	public static final String N_VIOLETRED = "VioletRed"; //NON-NLS
+	public static final String N_RHODAMINE = "Rhodamine"; //NON-NLS
+	public static final String N_MULBERRY = "Mulberry"; //NON-NLS
+	public static final String N_REDVIOLET = "RedViolet"; //NON-NLS
+	public static final String N_FUSHIA = "Fuchsia"; //NON-NLS
+	public static final String N_LAVENDER = "Lavender"; //NON-NLS
+	public static final String N_THISTLE = "Thistle"; //NON-NLS
+	public static final String N_ORCHID = "Orchid"; //NON-NLS
+	public static final String N_DARKORCHID = "DarkOrchid"; //NON-NLS
+	public static final String N_PURPLE = "Purple"; //NON-NLS
+	public static final String N_PLUM = "Plum"; //NON-NLS
+	public static final String N_VIOLET = "Violet"; //NON-NLS
+	public static final String N_ROYALPURPLE = "RoyalPurple"; //NON-NLS
+	public static final String N_BLUEVIOLET = "BlueViolet"; //NON-NLS
+	public static final String N_PERIWINKLE = "Periwinkle"; //NON-NLS
+	public static final String N_CADETBLUE = "CadetBlue"; //NON-NLS
+	public static final String N_CORNFLOWERBLUE = "CornflowerBlue"; //NON-NLS
+	public static final String N_MIDNIGHTBLUE = "MidnightBlue"; //NON-NLS
+	public static final String N_NAVYBLUE = "NavyBlue"; //NON-NLS
+	public static final String N_ROYALBLUE = "RoyalBlue"; //NON-NLS
+	public static final String N_BLUE = "Blue"; //NON-NLS
+	public static final String N_CERULEAN = "Cerulean"; //NON-NLS
+	public static final String N_CYAN = "Cyan"; //NON-NLS
+	public static final String N_PROCESSBLUE = "ProcessBlue"; //NON-NLS
+	public static final String N_SKYBLUE = "SkyBlue"; //NON-NLS
+	public static final String N_TURQUOISE = "Turquoise"; //NON-NLS
+	public static final String N_TEALBLUE = "TealBlue"; //NON-NLS
+	public static final String N_AQUAMARINE = "Aquamarine"; //NON-NLS
+	public static final String N_BLUEGREEN = "BlueGreen"; //NON-NLS
+	public static final String N_EMERALD = "Emerald"; //NON-NLS
+	public static final String N_JUNGLEGREEN = "JungleGreen"; //NON-NLS
+	public static final String N_SEAGREEN = "SeaGreen"; //NON-NLS
+	public static final String N_GREEN = "Green"; //NON-NLS
+	public static final String N_FORESTGREEN = "ForestGreen"; //NON-NLS
+	public static final String N_PINEGREEN = "PineGreen"; //NON-NLS
+	public static final String N_LIMEGREEN = "LimeGreen"; //NON-NLS
+	public static final String N_YELLOWGREEN = "YellowGreen"; //NON-NLS
+	public static final String N_SPRINGGREEN = "SpringGreen"; //NON-NLS
+	public static final String N_OLIVEGREEN = "OliveGreen"; //NON-NLS
+	public static final String N_RAWSIENNA = "RawSienna"; //NON-NLS
+	public static final String N_SEPIA = "Sepia"; //NON-NLS
+	public static final String N_BROWN = "Brown"; //NON-NLS
+	public static final String N_TAN = "Tan"; //NON-NLS
+	public static final String N_GRAY = "Gray"; //NON-NLS
+	public static final String N_BLACK = "Black"; //NON-NLS
+	public static final String N_WHITE = "White"; //NON-NLS
 
-	public static final String N_CYAN_2 = "cyan"; //$NON-NLS-1$
-	public static final String N_GRAY_2 = "gray"; //$NON-NLS-1$
-	public static final String N_BLACK_2 = "black"; //$NON-NLS-1$
-	public static final String N_WHITE_2 = "white"; //$NON-NLS-1$
-	public static final String N_YELLOW_2 = "yellow"; //$NON-NLS-1$
-	public static final String N_VIOLET_2 = "violet"; //$NON-NLS-1$
-	public static final String N_BLUE_2 = "blue"; //$NON-NLS-1$
-	public static final String N_PURPLE_2 = "purple"; //$NON-NLS-1$
-	public static final String N_RED_2 = "red"; //$NON-NLS-1$
-	public static final String N_ORANGE_2 = "orange"; //$NON-NLS-1$
-	public static final String N_GREEN_2 = "green"; //$NON-NLS-1$
-	public static final String N_MAGENTA_2 = "magenta"; //$NON-NLS-1$
-	public static final String N_BROWN_2 = "brown"; //$NON-NLS-1$
-	public static final String N_DARK_GRAY = "darkgray"; //$NON-NLS-1$
-	public static final String N_LIGHT_GRAY = "lightgray"; //$NON-NLS-1$
-	public static final String N_PINK = "pink"; //$NON-NLS-1$
-	public static final String N_OLIVE = "olive"; //$NON-NLS-1$
+	public static final String N_CYAN_2 = "cyan"; //NON-NLS
+	public static final String N_GRAY_2 = "gray"; //NON-NLS
+	public static final String N_BLACK_2 = "black"; //NON-NLS
+	public static final String N_WHITE_2 = "white"; //NON-NLS
+	public static final String N_YELLOW_2 = "yellow"; //NON-NLS
+	public static final String N_VIOLET_2 = "violet"; //NON-NLS
+	public static final String N_BLUE_2 = "blue"; //NON-NLS
+	public static final String N_PURPLE_2 = "purple"; //NON-NLS
+	public static final String N_RED_2 = "red"; //NON-NLS
+	public static final String N_ORANGE_2 = "orange"; //NON-NLS
+	public static final String N_GREEN_2 = "green"; //NON-NLS
+	public static final String N_MAGENTA_2 = "magenta"; //NON-NLS
+	public static final String N_BROWN_2 = "brown"; //NON-NLS
+	public static final String N_DARK_GRAY = "darkgray"; //NON-NLS
+	public static final String N_LIGHT_GRAY = "lightgray"; //NON-NLS
+	public static final String N_PINK = "pink"; //NON-NLS
+	public static final String N_OLIVE = "olive"; //NON-NLS
 
 	public static final DviPsColors INSTANCE = new DviPsColors();
 
@@ -471,7 +471,7 @@ public final class DviPsColors {
 	 * @since 3.0
 	 */
 	private String generateColourName() {
-		return "colour" + ctColours++; //$NON-NLS-1$
+		return "colour" + ctColours++; //NON-NLS
 	}
 
 
@@ -485,7 +485,7 @@ public final class DviPsColors {
 
 		if(colour.isPresent()) {
 			final Color col = colour.get();
-			return "\\definecolor{" + colourName + "}{rgb}{" + //$NON-NLS-1$ //$NON-NLS-2$
+			return "\\definecolor{" + colourName + "}{rgb}{" + //NON-NLS
 				(float) (col.getR() / 255.) + ',' + (float) (col.getG() / 255.) + ',' + (float) (col.getB() / 255.) + "}\n";
 		}
 		return "";
@@ -519,7 +519,7 @@ public final class DviPsColors {
 	 */
 	public Color convertRGB2rgb(final double r, final double g, final double b) {
 		if(r < 0 || g < 0 || b < 0) {
-			throw new IllegalArgumentException(r + " " + g + " " + b); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException(r + " " + g + " " + b); //NON-NLS
 		}
 		return ShapeFactory.INST.createColor(r / 255.0, g / 255.0, b / 255.0);
 	}

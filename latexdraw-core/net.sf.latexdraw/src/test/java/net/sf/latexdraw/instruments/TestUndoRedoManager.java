@@ -33,7 +33,7 @@ public class TestUndoRedoManager extends BaseTestCanvas {
 		addedRec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
 		addedRec.setFilled(true);
 		addedRec.setFillingCol(DviPsColors.APRICOT);
-		AddShape cmd = new AddShape(addedRec, canvas.getDrawing());
+		final AddShape cmd = new AddShape(addedRec, canvas.getDrawing());
 		cmd.doIt();
 		CommandsRegistry.INSTANCE.addCommand(cmd, null);
 	});

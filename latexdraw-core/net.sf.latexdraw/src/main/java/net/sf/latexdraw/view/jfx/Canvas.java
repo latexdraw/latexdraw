@@ -195,7 +195,9 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 
 
 	private void updateSelectionBorders() {
-		if(selectionBorder.isDisable()) return;
+		if(selectionBorder.isDisable()) {
+			return;
+		}
 
 		Platform.runLater(() -> {
 			final ObservableList<IShape> selection = drawing.getSelection().getShapes();
@@ -552,7 +554,9 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	 * @return The view corresponding to the given shape or nothing.
 	 */
 	public Optional<ViewShape<?>> getViewFromShape(final IShape sh) {
-		if(sh == null) return Optional.empty();
+		if(sh == null) {
+			return Optional.empty();
+		}
 		return Optional.ofNullable(shapesToViewMap.get(sh));
 	}
 }

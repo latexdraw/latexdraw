@@ -24,8 +24,9 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 abstract class LModifiablePointsShape extends LShape implements IModifiablePointsShape {
 	protected LModifiablePointsShape(final List<IPoint> pts) {
 		super();
-		if(pts == null || pts.stream().anyMatch(pt -> !MathUtils.INST.isValidPt(pt)))
+		if(pts == null || pts.stream().anyMatch(pt -> !MathUtils.INST.isValidPt(pt))) {
 			throw new IllegalArgumentException();
+		}
 		points.addAll(pts.stream().map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList()));
 	}
 
@@ -62,7 +63,9 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public boolean setPoint(final double x, final double y, final int position) {
-		if(!MathUtils.INST.isValidPt(x, y) || position < -1 || position > points.size() || points.isEmpty()) return false;
+		if(!MathUtils.INST.isValidPt(x, y) || position < -1 || position > points.size() || points.isEmpty()) {
+			return false;
+		}
 
 		final IPoint p = position == -1 ? points.get(points.size() - 1) : points.get(position);
 		p.setPoint(x, y);

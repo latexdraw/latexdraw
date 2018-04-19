@@ -43,12 +43,12 @@ abstract class SVGRectangular<T extends IShape & ILineArcProp> extends SVGShape<
 	protected void initRectangle(final SVGGElement elt, final boolean withTransformation) {
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
-		if(elt==null || !(elt2 instanceof SVGRectElement)) {
+		if(elt == null || !(elt2 instanceof SVGRectElement)) {
 			throw new IllegalArgumentException();
 		}
 
 		setSVGLatexdrawParameters(elt);
-		setSVGRectParameters((SVGRectElement)elt2);
+		setSVGRectParameters((SVGRectElement) elt2);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 

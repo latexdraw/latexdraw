@@ -63,7 +63,9 @@ public class PSFunctionParser {
 	 */
 	public PSFunctionParser(final String fct) {
 		super();
-		if(fct == null || fct.isEmpty()) throw new IllegalArgumentException();
+		if(fct == null || fct.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
 
 		commands = new ArrayList<>();
 		function = fct;
@@ -118,7 +120,9 @@ public class PSFunctionParser {
 
 		commands.forEach(cmd -> cmd.execute(stack, x));
 
-		if(stack.isEmpty()) throw new InvalidFormatPSFunctionException();
+		if(stack.isEmpty()) {
+			throw new InvalidFormatPSFunctionException();
+		}
 
 		return stack.pop();
 	}
@@ -158,12 +162,14 @@ public class PSFunctionParser {
 	 * @since 3.0
 	 */
 	protected PSArithemticCommand identifyCommand(final String cmd) {
-		if(cmd == null || cmd.isEmpty()) throw new InvalidFormatPSFunctionException();
+		if(cmd == null || cmd.isEmpty()) {
+			throw new InvalidFormatPSFunctionException();
+		}
 
 		try {
 			return factoryMap.getOrDefault(cmd, () -> new PSValue(Double.parseDouble(cmd))).get();
 		}catch(final NumberFormatException ex) {
-			throw new InvalidFormatPSFunctionException("Cannot parse: " + cmd); //$NON-NLS-1$
+			throw new InvalidFormatPSFunctionException("Cannot parse: " + cmd); //NON-NLS
 		}
 	}
 }

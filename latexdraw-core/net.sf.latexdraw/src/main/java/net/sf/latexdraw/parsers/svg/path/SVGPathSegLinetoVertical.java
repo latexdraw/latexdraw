@@ -27,9 +27,8 @@ public class SVGPathSegLinetoVertical extends SVGPathSegLineto {
 
 	@Override
 	public String toString() {
-        return String.valueOf(isRelative() ? 'v' : 'V') + ' ' + y;
+		return String.valueOf(isRelative() ? 'v' : 'V') + ' ' + y;
 	}
-
 
 
 	@Override

@@ -20,77 +20,77 @@ public enum TextPosition {
 	BOT_LEFT {
 		@Override
 		public String getLatexToken() {
-			return "bl"; //$NON-NLS-1$
+			return "bl"; //NON-NLS
 		}
 	}, BOT {
 		@Override
 		public String getLatexToken() {
-			return "b"; //$NON-NLS-1$
+			return "b"; //NON-NLS
 		}
 	}, BOT_RIGHT {
 		@Override
 		public String getLatexToken() {
-			return "br"; //$NON-NLS-1$
+			return "br"; //NON-NLS
 		}
 	}, TOP_LEFT {
 		@Override
 		public String getLatexToken() {
-			return "tl"; //$NON-NLS-1$
+			return "tl"; //NON-NLS
 		}
 	}, TOP {
 		@Override
 		public String getLatexToken() {
-			return "t"; //$NON-NLS-1$
+			return "t"; //NON-NLS
 		}
 	}, TOP_RIGHT {
 		@Override
 		public String getLatexToken() {
-			return "tr"; //$NON-NLS-1$
+			return "tr"; //NON-NLS
 		}
 	}, BASE {
 		@Override
 		public String getLatexToken() {
-			return "B"; //$NON-NLS-1$
+			return "B"; //NON-NLS
 		}
 	}, BASE_LEFT {
 		@Override
 		public String getLatexToken() {
-			return "Bl"; //$NON-NLS-1$
+			return "Bl"; //NON-NLS
 		}
 	}, BASE_RIGHT {
 		@Override
 		public String getLatexToken() {
-			return "Br"; //$NON-NLS-1$
+			return "Br"; //NON-NLS
 		}
 	}, LEFT {
 		@Override
 		public String getLatexToken() {
-			return "l"; //$NON-NLS-1$
+			return "l"; //NON-NLS
 		}
 	}, RIGHT {
 		@Override
 		public String getLatexToken() {
-			return "r"; //$NON-NLS-1$
+			return "r"; //NON-NLS
 		}
 	}, CENTER {
 		@Override
 		public String getLatexToken() {
-			return ""; //$NON-NLS-1$
+			return ""; //NON-NLS
 		}
 	};
-
-	/**
-	 * @return The latex token corresponding to the text position.
-	 * @since 3.0
-	 */
-	public abstract String getLatexToken();
 
 	/**
 	 * @param latexToken The latex token to test.
 	 * @return The TextPosition enumeration item corresponding to the given latex token.
 	 * @since 3.0
 	 */
-	public static  TextPosition getTextPosition(final String latexToken) {
+	public static TextPosition getTextPosition(final String latexToken) {
 		return Arrays.stream(values()).filter(it -> it.getLatexToken().equals(latexToken)).findFirst().orElse(BOT_LEFT);
 	}
+
+	/**
+	 * @return The latex token corresponding to the text position.
+	 * @since 3.0
+	 */
+	public abstract String getLatexToken();
 }

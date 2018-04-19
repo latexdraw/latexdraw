@@ -115,7 +115,9 @@ public class Exporter extends JfxInstrument implements Initializable {
 	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
 		super.save(generalPreferences, nsURI, document, root);
 
-		if(document == null || root == null) return;
+		if(document == null || root == null) {
+			return;
+		}
 
 		if(generalPreferences) {
 			Element elt = document.createElement(LNamespace.XML_PATH_EXPORT);

@@ -28,15 +28,16 @@ public class PSTGroupView extends PSTShapeView<IGroup> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTGroupView(final  IGroup model) {
+	protected PSTGroupView(final IGroup model) {
 		super(model);
 	}
 
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc<1)
+		if(!MathUtils.INST.isValidPt(origin) || ppc<1) {
 			return "";
+		}
 
 		final List<PSTShapeView<?>> pstViews = shape.getShapes().stream().map(PSTViewsFactory.INSTANCE::createView).
 			filter(Optional::isPresent).map(opt -> opt.get()).collect(Collectors.toList());

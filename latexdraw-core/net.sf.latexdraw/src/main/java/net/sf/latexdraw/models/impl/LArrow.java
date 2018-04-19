@@ -90,7 +90,9 @@ class LArrow implements IArrow {
 
 	@Override
 	public void copy(final IArrow model) {
-		if(model == null) return;
+		if(model == null) {
+			return;
+		}
 		arrowInset.set(model.getArrowInset());
 		arrowLength.set(model.getArrowLength());
 		arrowSizeDim.set(model.getArrowSizeDim());

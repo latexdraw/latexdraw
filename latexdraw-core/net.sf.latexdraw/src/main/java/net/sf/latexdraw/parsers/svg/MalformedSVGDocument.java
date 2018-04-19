@@ -17,6 +17,6 @@ package net.sf.latexdraw.parsers.svg;
 public class MalformedSVGDocument extends Exception {
 	@Override
 	public String toString() {
-		return "The SVG document is malformed.";//$NON-NLS-1$
+		return "The SVG document is malformed."; //NON-NLS
 	}
 }

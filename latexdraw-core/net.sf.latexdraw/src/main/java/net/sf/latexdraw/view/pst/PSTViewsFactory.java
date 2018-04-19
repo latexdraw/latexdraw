@@ -50,25 +50,61 @@ public final class PSTViewsFactory {
 	 * @return The created view or null.
 	 * @since 3.0
 	 */
-	public <T extends IShape>  Optional<PSTShapeView<T>> createView(final T shape) {
-		if(shape instanceof IGroup) return Optional.of((PSTShapeView<T>) new PSTGroupView((IGroup) shape));
-		if(shape instanceof IPlot) return Optional.of((PSTShapeView<T>) new PSTPlotView((IPlot) shape));
-		if(shape instanceof ISquare) return Optional.of((PSTShapeView<T>) new PSTSquareView((ISquare) shape));
-		if(shape instanceof IRectangle) return Optional.of((PSTShapeView<T>) new PSTRectView((IRectangle) shape));
-		if(shape instanceof IText) return Optional.of((PSTShapeView<T>) new PSTTextView((IText) shape));
-		if(shape instanceof ICircleArc) return Optional.of((PSTShapeView<T>) new PSTArcView((IArc) shape));
-		if(shape instanceof ICircle) return Optional.of((PSTShapeView<T>) new PSTCircleView((ICircle) shape));
-		if(shape instanceof IEllipse) return Optional.of((PSTShapeView<T>) new PSTEllipseView((IEllipse) shape));
-		if(shape instanceof ITriangle) return Optional.of((PSTShapeView<T>) new PSTTriangleView((ITriangle) shape));
-		if(shape instanceof IRhombus) return Optional.of((PSTShapeView<T>) new PSTRhombusView((IRhombus) shape));
-		if(shape instanceof IPolyline) return Optional.of((PSTShapeView<T>) new PSTLinesView((IPolyline) shape));
-		if(shape instanceof IPolygon) return Optional.of((PSTShapeView<T>) new PSTPolygonView((IPolygon) shape));
-		if(shape instanceof IBezierCurve) return Optional.of((PSTShapeView<T>) new PSTBezierCurveView((IBezierCurve) shape));
-		if(shape instanceof IAxes) return Optional.of((PSTShapeView<T>) new PSTAxesView((IAxes) shape));
-		if(shape instanceof IGrid) return Optional.of((PSTShapeView<T>) new PSTGridView((IGrid) shape));
-		if(shape instanceof IDot) return Optional.of((PSTShapeView<T>) new PSTDotView((IDot) shape));
-		if(shape instanceof IPicture) return Optional.of((PSTShapeView<T>) new PSTPictureView((IPicture) shape));
-		if(shape instanceof IFreehand) return Optional.of((PSTShapeView<T>) new PSTFreeHandView((IFreehand) shape));
+	public <T extends IShape> Optional<PSTShapeView<T>> createView(final T shape) {
+		if(shape instanceof IGroup) {
+			return Optional.of((PSTShapeView<T>) new PSTGroupView((IGroup) shape));
+		}
+		if(shape instanceof IPlot) {
+			return Optional.of((PSTShapeView<T>) new PSTPlotView((IPlot) shape));
+		}
+		if(shape instanceof ISquare) {
+			return Optional.of((PSTShapeView<T>) new PSTSquareView((ISquare) shape));
+		}
+		if(shape instanceof IRectangle) {
+			return Optional.of((PSTShapeView<T>) new PSTRectView((IRectangle) shape));
+		}
+		if(shape instanceof IText) {
+			return Optional.of((PSTShapeView<T>) new PSTTextView((IText) shape));
+		}
+		if(shape instanceof ICircleArc) {
+			return Optional.of((PSTShapeView<T>) new PSTArcView((IArc) shape));
+		}
+		if(shape instanceof ICircle) {
+			return Optional.of((PSTShapeView<T>) new PSTCircleView((ICircle) shape));
+		}
+		if(shape instanceof IEllipse) {
+			return Optional.of((PSTShapeView<T>) new PSTEllipseView((IEllipse) shape));
+		}
+		if(shape instanceof ITriangle) {
+			return Optional.of((PSTShapeView<T>) new PSTTriangleView((ITriangle) shape));
+		}
+		if(shape instanceof IRhombus) {
+			return Optional.of((PSTShapeView<T>) new PSTRhombusView((IRhombus) shape));
+		}
+		if(shape instanceof IPolyline) {
+			return Optional.of((PSTShapeView<T>) new PSTLinesView((IPolyline) shape));
+		}
+		if(shape instanceof IPolygon) {
+			return Optional.of((PSTShapeView<T>) new PSTPolygonView((IPolygon) shape));
+		}
+		if(shape instanceof IBezierCurve) {
+			return Optional.of((PSTShapeView<T>) new PSTBezierCurveView((IBezierCurve) shape));
+		}
+		if(shape instanceof IAxes) {
+			return Optional.of((PSTShapeView<T>) new PSTAxesView((IAxes) shape));
+		}
+		if(shape instanceof IGrid) {
+			return Optional.of((PSTShapeView<T>) new PSTGridView((IGrid) shape));
+		}
+		if(shape instanceof IDot) {
+			return Optional.of((PSTShapeView<T>) new PSTDotView((IDot) shape));
+		}
+		if(shape instanceof IPicture) {
+			return Optional.of((PSTShapeView<T>) new PSTPictureView((IPicture) shape));
+		}
+		if(shape instanceof IFreehand) {
+			return Optional.of((PSTShapeView<T>) new PSTFreeHandView((IFreehand) shape));
+		}
 		return Optional.empty();
 	}
 }

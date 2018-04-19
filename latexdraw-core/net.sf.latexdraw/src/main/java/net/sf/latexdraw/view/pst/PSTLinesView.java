@@ -25,23 +25,27 @@ public class PSTLinesView extends PSTPolygonView {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTLinesView(final  IPolyline model) {
+	protected PSTLinesView(final IPolyline model) {
 		super(model);
 	}
 
 
 	@Override
 	public String getCode(final IPoint position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
+			return "";
+		}
 
 		final StringBuilder points = getPointsCode(position, ppc);
 		final StringBuilder arrowsStyle = getArrowsStyleCode();
 		final StringBuilder code = new StringBuilder();
 
-		code.append("\\psline["); //$NON-NLS-1$
+		code.append("\\psline["); //NON-NLS
 		code.append(getPropertiesCode(ppc));
 		code.append(']');
-		if(arrowsStyle != null) code.append(arrowsStyle);
+		if(arrowsStyle != null) {
+			code.append(arrowsStyle);
+		}
 		code.append(points);
 
 		return code.toString();

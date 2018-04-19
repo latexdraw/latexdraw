@@ -342,7 +342,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		private double yGap;
 
 		DnD2Scale(final Border ins) {
-			super(ins, true, new DnD(), ScaleShapes.class, ins.scaleHandlers.stream().map(h -> (Node)h).collect(Collectors.toList()), false, null);
+			super(ins, true, new DnD(), ScaleShapes.class, ins.scaleHandlers.stream().map(h -> (Node) h).collect(Collectors.toList()), false, null);
 		}
 
 		private void setXGap(final Position refPosition, final IPoint tl, final IPoint br) {

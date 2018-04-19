@@ -114,8 +114,8 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 			return Double.NaN;
 		}
 
-		final String[] coord1 = path.substring(i, j).split(" "); //$NON-NLS-1$
-		final String[] coord2 = path.substring(j).split(" "); //$NON-NLS-1$
+		final String[] coord1 = path.substring(i, j).split(" "); //NON-NLS
+		final String[] coord2 = path.substring(j).split(" "); //NON-NLS
 
 		if(coord1.length < 3 || coord2.length < 3) {
 			return Double.NaN;

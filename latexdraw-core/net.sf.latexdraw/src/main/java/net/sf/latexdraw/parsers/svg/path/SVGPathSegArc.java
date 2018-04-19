@@ -44,8 +44,8 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 	 * @param largeArcFlag The value of the large-arc-flag parameter.
 	 * @param sweepFlag The value of the sweep-flag parameter.
 	 */
-	public SVGPathSegArc(final double x, final double y, final double rx, final double ry, final double angle,
-						final boolean largeArcFlag, final boolean sweepFlag, final boolean isRelative) {
+	public SVGPathSegArc(final double x, final double y, final double rx, final double ry, final double angle, final boolean largeArcFlag,
+						final boolean sweepFlag, final boolean isRelative) {
 		super(isRelative, x, y);
 
 		this.rx = rx;
@@ -56,7 +56,6 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 	}
 
 
-
 	/**
 	 * Creates a Java Arc2D corresponding to the position and the angles of the arc segment (computations based on the SVG
 	 * specification instructions concerning the build of an arc, p. 643-649).
@@ -65,33 +64,33 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 	 * @return An Java Arc2D with double values.
 	 * @since 2.0
 	 */
-	 public Arc2D getArc2D(final double x0, final double y0) {
-    	double a 	= getAngle();
-    	double rx2 	= getRX();
-    	double ry2 	= getRY();
-    	final double x2 	= getX();
-    	final double y2	= getY();
-    	final boolean laf	= isLargeArcFlag();
-    	final boolean sf	= isSweepFlag();
+	public Arc2D getArc2D(final double x0, final double y0) {
+		double a = getAngle();
+		double rx2 = getRX();
+		double ry2 = getRY();
+		final double x2 = getX();
+		final double y2 = getY();
+		final boolean laf = isLargeArcFlag();
+		final boolean sf = isSweepFlag();
 
-		final double dx2 = (x0-x2)/2.;
-		final double dy2 = (y0-y2)/2.;
-		a = Math.toRadians(a%360.);
+		final double dx2 = (x0 - x2) / 2.;
+		final double dy2 = (y0 - y2) / 2.;
+		a = Math.toRadians(a % 360.);
 
 		// Step 1: Compute (x1', y1')
-		final double x1 = Math.cos(a)*dx2 + Math.sin(a)*dy2;
-		final double y1 = -Math.sin(a)*dx2 + Math.cos(a)*dy2;
+		final double x1 = Math.cos(a) * dx2 + Math.sin(a) * dy2;
+		final double y1 = -Math.sin(a) * dx2 + Math.cos(a) * dy2;
 
 		// Ensure radii are large enough
 		rx2 = Math.abs(rx2);
 		ry2 = Math.abs(ry2);
-		double prx = rx2*rx2;
-		double pry = ry2*ry2;
-		final double px1 = x1*x1;
-		final double py1 = y1*y1;
-		final double radiiCheck = px1/prx + py1/pry;
+		double prx = rx2 * rx2;
+		double pry = ry2 * ry2;
+		final double px1 = x1 * x1;
+		final double py1 = y1 * y1;
+		final double radiiCheck = px1 / prx + py1 / pry;
 
-		if(radiiCheck>1) {
+		if(radiiCheck > 1) {
 			rx2 = Math.sqrt(radiiCheck) * rx2;
 			ry2 = Math.sqrt(radiiCheck) * ry2;
 			prx = rx2 * rx2;
@@ -107,8 +106,8 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 		final double cy1 = coef * -(ry2 * x1 / rx2);
 
 		// Step 3: Compute (cx, cy) from (cx1, cy1)
-		final double sx2 = (x0+x2)/2.;
-		final double sy2 = (y0+y2)/2.;
+		final double sx2 = (x0 + x2) / 2.;
+		final double sy2 = (y0 + y2) / 2.;
 		final double cx = sx2 + (Math.cos(a) * cx1 - Math.sin(a) * cy1);
 		final double cy = sy2 + (Math.sin(a) * cx1 + Math.cos(a) * cy1);
 
@@ -118,9 +117,9 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 		final double vx = (-x1 - cx1) / rx2;
 		final double vy = (-y1 - cy1) / ry2;
 		double p = ux;
-        double n = Math.sqrt(ux * ux + uy * uy);
+		double n = Math.sqrt(ux * ux + uy * uy);
 
-        sign = uy < 0 ? -1. : 1.;
+		sign = uy < 0 ? -1. : 1.;
 		final double angleStart = Math.toDegrees(sign * Math.acos(p / n));
 
 		// Compute the angle extent
@@ -130,13 +129,15 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 
 		double angleExtent = Math.toDegrees(sign * Math.acos(p / n));
 
-		if(!sf && angleExtent > 0)
+		if(!sf && angleExtent > 0) {
 			angleExtent -= 360.;
-		else
-			if(sf && angleExtent < 0)
+		}else {
+			if(sf && angleExtent < 0) {
 				angleExtent += 360.;
+			}
+		}
 
-		return new Arc2D.Double(cx-rx2, cy-ry2, rx2*2., ry2*2., -angleStart%360., -angleExtent%360., Arc2D.OPEN);
+		return new Arc2D.Double(cx - rx2, cy - ry2, rx2 * 2., ry2 * 2., -angleStart % 360., -angleExtent % 360., Arc2D.OPEN);
 	}
 
 	/**
@@ -181,7 +182,7 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 
 	@Override
 	public String toString() {
-        return String.valueOf(isRelative() ? 'a' : 'A') + ' ' + rx + ' ' + ry + ' ' + angle + ' ' +
-                (largeArcFlag ? '1' : '0') + ' ' + (sweepFlag ? '1' : '0') + ' ' + x + ' ' + y;
+		return String.valueOf(isRelative() ? 'a' : 'A') + ' ' + rx + ' ' + ry + ' ' + angle + ' ' + (largeArcFlag ? '1' : '0') + ' ' +
+			(sweepFlag ? '1' : '0') + ' ' + x + ' ' + y;
 	}
 }

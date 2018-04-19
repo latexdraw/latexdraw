@@ -48,41 +48,45 @@ class SVGGroup extends SVGShape<IGroup> {
 	SVGGroup(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createGroup());
 
-		if(elt==null)
+		if(elt == null) {
 			throw new IllegalArgumentException();
+		}
 
-		final NodeList nodeList	= elt.getChildNodes();
+		final NodeList nodeList = elt.getChildNodes();
 		IShape sh;
 
-		if(nodeList.getLength()<2)
+		if(nodeList.getLength() < 2) {
 			throw new IllegalArgumentException();
+		}
 
-		for(int i=0, size=nodeList.getLength(); i<size; i++) {
-			sh = SVGShapesFactory.INSTANCE.createShape((SVGElement)nodeList.item(i), withTransformation);
+		for(int i = 0, size = nodeList.getLength(); i < size; i++) {
+			sh = SVGShapesFactory.INSTANCE.createShape((SVGElement) nodeList.item(i), withTransformation);
 
-			if(sh!=null)
+			if(sh != null) {
 				shape.addShape(sh);
+			}
 		}
 	}
 
 
-
 	@Override
 	public SVGElement toSVG(final SVGDocument doc) {
-		if(doc==null)
+		if(doc == null) {
 			return null;
+		}
 
 		if(!shape.isEmpty()) {
-			 final SVGElement root 		= new SVGGElement(doc);
-			 final List<IShape> shapes 	= shape.getShapes();
+			final SVGElement root = new SVGGElement(doc);
+			final List<IShape> shapes = shape.getShapes();
 
-			 root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_GROUP);
-			 root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
+			root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_GROUP);
+			root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-			 for(final IShape f : shapes)
-				 root.appendChild(SVGShapesFactory.INSTANCE.createSVGElement(f, doc));
+			for(final IShape f : shapes) {
+				root.appendChild(SVGShapesFactory.INSTANCE.createSVGElement(f, doc));
+			}
 
-			 return root;
+			return root;
 		}
 
 		return null;

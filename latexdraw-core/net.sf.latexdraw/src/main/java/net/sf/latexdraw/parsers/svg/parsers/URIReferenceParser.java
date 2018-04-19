@@ -37,16 +37,18 @@ public class URIReferenceParser extends AbstractSVGParser {
 		final StringBuilder buf = new StringBuilder();
 
 
-		if(getChar()=='u' && nextChar()=='r' && nextChar()=='l' && nextChar()=='(') {
+		if(getChar() == 'u' && nextChar() == 'r' && nextChar() == 'l' && nextChar() == '(') {
 			nextChar();
 			skipWSP();
 
-			if(getChar()=='#') {
-				while(nextChar()!=')' && !isEOC())
-					buf.append((char)getChar());
+			if(getChar() == '#') {
+				while(nextChar() != ')' && !isEOC()) {
+					buf.append((char) getChar());
+				}
 
-				if(getChar()!=')' && buf.length()>0)
+				if(getChar() != ')' && buf.length() > 0) {
 					buf.delete(0, buf.length());
+				}
 			}
 		}
 

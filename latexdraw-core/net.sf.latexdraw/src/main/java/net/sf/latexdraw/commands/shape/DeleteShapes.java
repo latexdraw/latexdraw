@@ -41,7 +41,7 @@ public class DeleteShapes extends DrawingCmdImpl implements ShapesCmd, Undoable,
 	protected void doCmdBody() {
 		final List<IShape> drawingSh = drawing.getShapes();
 		positionShapes = shapes.stream().mapToInt(sh -> {
-			int pos = drawingSh.indexOf(sh);
+			final int pos = drawingSh.indexOf(sh);
 			drawing.removeShape(sh);
 			return pos;
 		}).boxed().collect(Collectors.toList());

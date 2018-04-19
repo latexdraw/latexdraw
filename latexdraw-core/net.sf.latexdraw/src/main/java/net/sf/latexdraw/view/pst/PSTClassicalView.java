@@ -23,7 +23,7 @@ abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTClassicalView(final  S model) {
+	protected PSTClassicalView(final S model) {
 		super(model);
 	}
 
@@ -50,8 +50,9 @@ abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
 
 	private void addCode(final StringBuilder mainCodeBuilder, final StringBuilder codeToAdd) {
 		if(codeToAdd!=null) {
-			if(mainCodeBuilder.length()>0)
-				mainCodeBuilder.append(", "); //$NON-NLS-1$
+			if(mainCodeBuilder.length()>0) {
+				mainCodeBuilder.append(", "); //NON-NLS
+			}
 			mainCodeBuilder.append(codeToAdd);
 		}
 	}

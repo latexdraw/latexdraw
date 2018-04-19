@@ -26,7 +26,7 @@ public enum ArcStyle {
 
 		@Override
 		public String getLabel() {
-			return LangTool.INSTANCE.getBundle().getString("Arc.arc"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Arc.arc"); //NON-NLS
 		}
 
 		@Override
@@ -41,7 +41,7 @@ public enum ArcStyle {
 
 		@Override
 		public String getLabel() {
-			return LangTool.INSTANCE.getBundle().getString("Arc.wedge"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Arc.wedge"); //NON-NLS
 		}
 
 		@Override
@@ -56,7 +56,7 @@ public enum ArcStyle {
 
 		@Override
 		public String getLabel() {
-			return LangTool.INSTANCE.getBundle().getString("Arc.chord"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getBundle().getString("Arc.chord"); //NON-NLS
 		}
 
 		@Override

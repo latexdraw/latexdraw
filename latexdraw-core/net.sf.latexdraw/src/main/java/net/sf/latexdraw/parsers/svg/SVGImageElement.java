@@ -46,7 +46,7 @@ public class SVGImageElement extends SVGElement implements SVGRectParseTrait {
 		}
 
 		setNodeName(SVGElements.SVG_IMAGE);
-		setAttribute("xlink:href", pathSource); //$NON-NLS-1$
+		setAttribute("xlink:href", pathSource); //NON-NLS
 	}
 
 
@@ -54,7 +54,7 @@ public class SVGImageElement extends SVGElement implements SVGRectParseTrait {
 	 * @return The URI reference.
 	 */
 	public String getURI() {
-		return getAttribute("xlink:href"); //$NON-NLS-1$
+		return getAttribute("xlink:href"); //NON-NLS
 	}
 
 

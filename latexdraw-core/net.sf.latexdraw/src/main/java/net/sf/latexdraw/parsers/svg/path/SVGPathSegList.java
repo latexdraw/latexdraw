@@ -17,19 +17,19 @@ import java.util.ArrayList;
  * @author Arnaud BLOUIN
  */
 public class SVGPathSegList extends ArrayList<SVGPathSeg> implements SVGPathHandler {
-    @Override
+	@Override
 	public String toString() {
 		final StringBuilder path = new StringBuilder();
 
-		for(final SVGPathSeg seg : this)
-			if(seg!=null) {
+		for(final SVGPathSeg seg : this) {
+			if(seg != null) {
 				path.append(seg);
 				path.append(' ');
 			}
+		}
 
 		return path.toString();
 	}
-
 
 
 	@Override

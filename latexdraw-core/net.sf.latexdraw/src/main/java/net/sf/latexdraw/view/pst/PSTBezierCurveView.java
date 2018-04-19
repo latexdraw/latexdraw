@@ -26,14 +26,16 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTBezierCurveView(final  IBezierCurve model) {
+	protected PSTBezierCurveView(final IBezierCurve model) {
 		super(model);
 	}
 
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
+			return "";
+		}
 
 		int i;
 		final int size = shape.getNbPoints();
@@ -50,7 +52,9 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 		final double originy = origin.getY();
 		final StringBuilder cache = new StringBuilder();
 
-		if(size < 2) return "";
+		if(size < 2) {
+			return "";
+		}
 
 		coord.append('(').append(MathUtils.INST.getCutNumberFloat((pts.get(0).getX() - originx) / ppc));
 		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - pts.get(0).getY()) / ppc));
@@ -92,10 +96,12 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 			coord.append(MathUtils.INST.getCutNumberFloat((originy - pt.getY()) / ppc)).append(')');
 		}
 
-		cache.append("\\psbezier["); //$NON-NLS-1$
+		cache.append("\\psbezier["); //NON-NLS
 		cache.append(params);
 		cache.append(']');
-		if(arrowsStyle != null) cache.append(arrowsStyle);
+		if(arrowsStyle != null) {
+			cache.append(arrowsStyle);
+		}
 		cache.append(coord);
 
 		return cache.toString();

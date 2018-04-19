@@ -25,7 +25,7 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTPolygonView(final  IPolygon model) {
+	protected PSTPolygonView(final IPolygon model) {
 		super(model);
 	}
 
@@ -37,7 +37,9 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	 * @since 3.0
 	 */
 	protected StringBuilder getPointsCode(final IPoint position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return null;
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
+			return null;
+		}
 
 		IPoint p;
 		int i;
@@ -59,6 +61,6 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
 			return "";
 		}
-		return "\\pspolygon[" + getPropertiesCode(ppc) + ']' + getPointsCode(position, ppc); //$NON-NLS-1$
+		return "\\pspolygon[" + getPropertiesCode(ppc) + ']' + getPointsCode(position, ppc); //NON-NLS
 	}
 }

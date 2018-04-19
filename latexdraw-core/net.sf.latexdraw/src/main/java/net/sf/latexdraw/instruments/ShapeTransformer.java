@@ -109,8 +109,8 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
 		}).bind();
 
-		buttonBinder(DistributeShapes.class).on(distribHorizEq, distribHorizLeft, distribHorizMid, distribHorizRight,distribVertBot,
-			distribVertEq, distribVertMid, distribVertTop).first((i, c) -> {
+		buttonBinder(DistributeShapes.class).on(distribHorizEq, distribHorizLeft, distribHorizMid, distribHorizRight, distribVertBot, distribVertEq,
+			distribVertMid, distribVertTop).first((i, c) -> {
 			c.setDistribution((DistributeShapes.Distribution) i.getWidget().getUserData());
 			c.setCanvas(canvas);
 			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));

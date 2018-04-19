@@ -25,23 +25,27 @@ public class PSTEllipseView extends PSTClassicalView<IEllipse> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTEllipseView(final  IEllipse model) {
+	protected PSTEllipseView(final IEllipse model) {
 		super(model);
 	}
 
 
 	@Override
 	public String getCode(final IPoint position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) return "";
+		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
+			return "";
+		}
 
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
 		final float x = MathUtils.INST.getCutNumberFloat(shape.getX() + shape.getWidth() / 2.0 - position.getX());
 		final float y = MathUtils.INST.getCutNumberFloat(position.getY() + shape.getHeight() / 2.0 - shape.getY());
 		final StringBuilder code = new StringBuilder();
 
-		if(rotation != null) code.append(rotation);
+		if(rotation != null) {
+			code.append(rotation);
+		}
 
-		code.append("\\psellipse[");            //$NON-NLS-1$
+		code.append("\\psellipse[");            //NON-NLS
 		code.append(getPropertiesCode(ppc));
 		code.append(']').append('(');
 		code.append(MathUtils.INST.getCutNumber(x / ppc)).append(',');
@@ -49,7 +53,9 @@ public class PSTEllipseView extends PSTClassicalView<IEllipse> {
 		code.append(MathUtils.INST.getCutNumberFloat(shape.getWidth() / 2.0 / ppc)).append(',');
 		code.append(MathUtils.INST.getCutNumberFloat(shape.getHeight() / 2.0 / ppc)).append(')');
 
-		if(rotation != null) code.append('}');
+		if(rotation != null) {
+			code.append('}');
+		}
 
 		return code.toString();
 	}

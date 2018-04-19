@@ -169,7 +169,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			String name;
 
 			if(path == null) {
-				name = ""; //$NON-NLS-1$
+				name = ""; //NON-NLS
 			}else {
 				name = new File(path).getName();
 				final int indexSVG = name.lastIndexOf(".svg"); //NON-NLS
@@ -327,7 +327,9 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		private void updateTemplates(final String pathTemplate, final String pathCache) {
 			final File templateDir = new File(pathTemplate);
 
-			if(!templateDir.isDirectory()) return;
+			if(!templateDir.isDirectory()) {
+				return;
+			}
 
 			try(final DirectoryStream<Path> paths =
 					Files.newDirectoryStream(Paths.get(pathTemplate), elt -> elt.toFile().isFile() && elt.toString().endsWith(".svg"))) { //NON-NLS
@@ -379,7 +381,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			final BufferedImage bufferedImage = SwingFXUtils.fromFXImage(img, null);
 
 			try {
-				ImageIO.write(bufferedImage, "png", templateFile);  //$NON-NLS-1$
+				ImageIO.write(bufferedImage, "png", templateFile);  //NON-NLS
 			}catch(final IOException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 			}
@@ -401,7 +403,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			super.done();
 			INSTANCE.updateTemplates(templatePane, true);
 			if(statusBar != null) {
-				Platform.runLater(() -> statusBar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.169"))); //$NON-NLS-1$
+				Platform.runLater(() -> statusBar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.169"))); //NON-NLS
 			}
 		}
 	}
@@ -444,7 +446,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 					MathUtils.INST.format.format(br.getY() - tl.getY() + padding * 2))));
 
 			root.appendChild(g);
-			root.setAttribute("xmlns:" + LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);//$NON-NLS-1$
+			root.setAttribute("xmlns:" + LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI); //NON-NLS
 			root.appendChild(new SVGDefsElement(doc));
 
 			try {
@@ -461,8 +463,8 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			}
 
 			// Setting SVG attributes to the created document.
-			root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");//$NON-NLS-1$
-			root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");//$NON-NLS-1$
+			root.setAttribute(SVGAttributes.SVG_VERSION, "1.1"); //NON-NLS
+			root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full"); //NON-NLS
 
 			return doc;
 		}
@@ -506,7 +508,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			super.done();
 			// Showing a message in the status bar.
 			if(statusBar != null) {
-				Platform.runLater(() -> statusBar.setText(LangTool.INSTANCE.getBundle().getString("SVG.1"))); //$NON-NLS-1$
+				Platform.runLater(() -> statusBar.setText(LangTool.INSTANCE.getBundle().getString("SVG.1"))); //NON-NLS
 			}
 		}
 	}

@@ -351,7 +351,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		}
 
 		if(MathUtils.INST.equalsDouble(angle, 0d)) {
-			if(gradMidPt < 0.5) pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (tl.getX() + br.getX()) / 2d, br.getY()));
+			if(gradMidPt < 0.5) {
+				pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (tl.getX() + br.getX()) / 2d, br.getY()));
+			}
 
 			pt2.setY(tl.getY() + (br.getY() - tl.getY()) * gradMidPt);
 		}else {
@@ -359,8 +361,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 				pt1 = ShapeFactory.INST.createPoint(tl.getX(), (tl.getY() + br.getY()) / 2d);
 				pt2 = ShapeFactory.INST.createPoint(br.getX(), (tl.getY() + br.getY()) / 2d);
 
-				if(gradMidPt < 0.5)
+				if(gradMidPt < 0.5) {
 					pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), br.getX(), (tl.getY() + br.getY()) / 2d));
+				}
 
 				pt2.setX(tl.getX() + (br.getX() - tl.getX()) * gradMidPt);
 			}else {

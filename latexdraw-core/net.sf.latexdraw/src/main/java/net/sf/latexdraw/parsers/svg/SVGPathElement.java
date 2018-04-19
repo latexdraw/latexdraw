@@ -23,7 +23,6 @@ import org.w3c.dom.Node;
 /**
  * Defines the SVG tag <code>path</code>.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public class SVGPathElement extends SVGElement {
 	/**
@@ -35,19 +34,16 @@ public class SVGPathElement extends SVGElement {
 	}
 
 
-
 	/**
 	 * Creates an empty SVG path element.
 	 * @param owner The owner document.
-	 * @since 0.1
 	 */
 	public SVGPathElement(final SVGDocument owner) {
 		super(owner);
 
-		setAttribute(SVGAttributes.SVG_D, "");//$NON-NLS-1$
+		setAttribute(SVGAttributes.SVG_D, "");
 		setNodeName(SVGElements.SVG_PATH);
 	}
-
 
 
 	/**
@@ -57,11 +53,8 @@ public class SVGPathElement extends SVGElement {
 	public boolean isLine() {
 		final SVGPathSegList segList = getSegList();
 
-		return segList.size()==2 && segList.get(0) instanceof SVGPathSegMoveto &&
-				segList.get(1) instanceof SVGPathSegLineto ;
+		return segList.size() == 2 && segList.get(0) instanceof SVGPathSegMoveto && segList.get(1) instanceof SVGPathSegLineto;
 	}
-
-
 
 
 	/**
@@ -71,16 +64,19 @@ public class SVGPathElement extends SVGElement {
 	public boolean isLines() {
 		final SVGPathSegList segList = getSegList();
 
-		if(segList.size()<3 || !(segList.get(0) instanceof SVGPathSegMoveto))
+		if(segList.size() < 3 || !(segList.get(0) instanceof SVGPathSegMoveto)) {
 			return false;
+		}
 
 		boolean ok = true;
 		int i;
-        final int size;
+		final int size;
 
-        for(i=1, size=segList.size()-1; i<size && ok; i++)
-			if(!(segList.get(i) instanceof SVGPathSegLineto))
+		for(i = 1, size = segList.size() - 1; i < size && ok; i++) {
+			if(!(segList.get(i) instanceof SVGPathSegLineto)) {
 				ok = false;
+			}
+		}
 
 		return ok;
 	}
@@ -89,19 +85,22 @@ public class SVGPathElement extends SVGElement {
 	public boolean isBezierCurve() {
 		final SVGPathSegList segList = getSegList();
 
-		if(segList.isEmpty() || !(segList.get(0) instanceof SVGPathSegMoveto))
+		if(segList.isEmpty() || !(segList.get(0) instanceof SVGPathSegMoveto)) {
 			return false;
+		}
 
-		final int size = segList.size()-1;
+		final int size = segList.size() - 1;
 		boolean ok = true;
 		int i;
 
-		for(i=1; i<size && ok; i++)
-			if(!(segList.get(i) instanceof SVGPathSegCurvetoCubic) && !(segList.get(i) instanceof SVGPathSegCurvetoCubicSmooth))
+		for(i = 1; i < size && ok; i++) {
+			if(!(segList.get(i) instanceof SVGPathSegCurvetoCubic) && !(segList.get(i) instanceof SVGPathSegCurvetoCubicSmooth)) {
 				ok = false;
+			}
+		}
 
-		return ok && (segList.get(size) instanceof SVGPathSegClosePath || segList.get(size) instanceof SVGPathSegCurvetoCubic
-			|| segList.get(size) instanceof SVGPathSegCurvetoCubicSmooth);
+		return ok && (segList.get(size) instanceof SVGPathSegClosePath || segList.get(size) instanceof SVGPathSegCurvetoCubic ||
+			segList.get(size) instanceof SVGPathSegCurvetoCubicSmooth);
 	}
 
 	/**
@@ -111,23 +110,26 @@ public class SVGPathElement extends SVGElement {
 	public boolean isPolygon() {
 		final SVGPathSegList segList = getSegList();
 
-		if(segList.isEmpty() || !(segList.get(0) instanceof SVGPathSegMoveto))
+		if(segList.isEmpty() || !(segList.get(0) instanceof SVGPathSegMoveto)) {
 			return false;
+		}
 
 		boolean ok = true;
 		int i;
-        final int size;
+		final int size;
 
-        for(i=1, size=segList.size()-1; i<size && ok; i++)
-			if(!(segList.get(i) instanceof SVGPathSegLineto))
+		for(i = 1, size = segList.size() - 1; i < size && ok; i++) {
+			if(!(segList.get(i) instanceof SVGPathSegLineto)) {
 				ok = false;
+			}
+		}
 
-		if(!(segList.get(segList.size()-1) instanceof SVGPathSegClosePath))
+		if(!(segList.get(segList.size() - 1) instanceof SVGPathSegClosePath)) {
 			ok = false;
+		}
 
 		return ok;
 	}
-
 
 
 	/**
@@ -136,39 +138,8 @@ public class SVGPathElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public String getPathData() {
-		return getAttribute(getUsablePrefix()+SVGAttributes.SVG_D);
+		return getAttribute(getUsablePrefix() + SVGAttributes.SVG_D);
 	}
-
-
-	@Override
-	public boolean checkAttributes() {
-		return getPathData()!=null;
-	}
-
-
-
-	@Override
-	public boolean enableRendering() {
-		return !getPathData().isEmpty();
-	}
-
-
-	/**
-	 * @return the segList.
-	 * @since 0.1
-	 */
-	public SVGPathSegList getSegList() {
-		final String path			 = getPathData();
-		final SVGPathSegList segList = new SVGPathSegList();
-		final SVGPathParser pp 		 = new SVGPathParser(path, segList);
-		
-		try{ pp.parse(); }
-		catch(final ParseException e) { throw new IllegalArgumentException(e + " But : \"" + path + "\" found."); } //$NON-NLS-1$ //$NON-NLS-2$
-		
-		return segList;
-	}
-
-
 
 	/**
 	 * Sets the path data.
@@ -176,7 +147,35 @@ public class SVGPathElement extends SVGElement {
 	 * @since 2.0.0
 	 */
 	public void setPathData(final SVGPathSegList path) {
-		if(path!=null)
+		if(path != null) {
 			setAttribute(SVGAttributes.SVG_D, path.toString());
+		}
+	}
+
+	@Override
+	public boolean checkAttributes() {
+		return getPathData() != null;
+	}
+
+	@Override
+	public boolean enableRendering() {
+		return !getPathData().isEmpty();
+	}
+
+	/**
+	 * @return the segList.
+	 */
+	public SVGPathSegList getSegList() {
+		final String path = getPathData();
+		final SVGPathSegList segList = new SVGPathSegList();
+		final SVGPathParser pp = new SVGPathParser(path, segList);
+
+		try {
+			pp.parse();
+		}catch(final ParseException e) {
+			throw new IllegalArgumentException(e + " But : \"" + path + "\" found.");
+		} //NON-NLS
+
+		return segList;
 	}
 }

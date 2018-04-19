@@ -42,7 +42,7 @@ import org.malai.javafx.interaction.library.DnD;
  * @author Arnaud BLOUIN
  */
 public class TemplateManager extends JfxInstrument implements Initializable {
-	 /** The menu item that permits to update the templates. */
+	/** The menu item that permits to update the templates. */
 	@FXML private Button updateTemplates;
 	@FXML FlowPane templatePane;
 	@FXML private TitledPane mainPane;

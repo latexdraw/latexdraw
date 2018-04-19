@@ -52,7 +52,9 @@ public final class JFXToSVG {
 	}
 
 	public List<SVGElement> shapesToElements(final List<Node> nodes, final SVGDocument doc) {
-		if(nodes == null) return Collections.emptyList();
+		if(nodes == null) {
+			return Collections.emptyList();
+		}
 		return nodes.stream().filter(node -> !node.isDisable() && node.isVisible()).map(shape -> {
 			if(shape instanceof Shape) {
 				return shapeToElement((Shape) shape, doc);
@@ -71,8 +73,12 @@ public final class JFXToSVG {
 	}
 
 	public SVGElement shapeToElement(final Shape shape, final SVGDocument doc) {
-		if(shape instanceof Path) return pathToSVGPath((Path) shape, doc);
-		if(shape instanceof Ellipse) return ellipseToSVGEllipse((Ellipse) shape, doc);
+		if(shape instanceof Path) {
+			return pathToSVGPath((Path) shape, doc);
+		}
+		if(shape instanceof Ellipse) {
+			return ellipseToSVGEllipse((Ellipse) shape, doc);
+		}
 		return null;
 	}
 
@@ -133,10 +139,18 @@ public final class JFXToSVG {
 	}
 
 	private SVGPathSeg createSVGPathSeg(final PathElement elt) {
-		if(elt instanceof LineTo) return createSVGPathSegLineto((LineTo) elt);
-		if(elt instanceof MoveTo) return createSVGPathSegMoveto((MoveTo) elt);
-		if(elt instanceof ClosePath) return new SVGPathSegClosePath();
-		if(elt instanceof CubicCurveTo) return createSVGPathSegCurvetoCubic((CubicCurveTo) elt);
+		if(elt instanceof LineTo) {
+			return createSVGPathSegLineto((LineTo) elt);
+		}
+		if(elt instanceof MoveTo) {
+			return createSVGPathSegMoveto((MoveTo) elt);
+		}
+		if(elt instanceof ClosePath) {
+			return new SVGPathSegClosePath();
+		}
+		if(elt instanceof CubicCurveTo) {
+			return createSVGPathSegCurvetoCubic((CubicCurveTo) elt);
+		}
 		return null;
 	}
 

@@ -26,8 +26,8 @@ import static java.lang.Math.atan;
  * @author Arnaud Blouin
  */
 class LPoint implements IPoint {
-	private final  DoubleProperty x;
-	private final  DoubleProperty y;
+	private final DoubleProperty x;
+	private final DoubleProperty y;
 
 	/**
 	 * Creates a Point2D with coordinates (0, 0).
@@ -57,7 +57,9 @@ class LPoint implements IPoint {
 
 	@Override
 	public double computeAngle(final IPoint pt) {
-		if(!MathUtils.INST.isValidPt(pt)) return java.lang.Double.NaN;
+		if(!MathUtils.INST.isValidPt(pt)) {
+			return Double.NaN;
+		}
 
 		double angle;
 		final double x2 = pt.getX() - getX();
@@ -122,19 +124,25 @@ class LPoint implements IPoint {
 
 	@Override
 	public void translate(final double tx, final double ty) {
-		if(MathUtils.INST.isValidPt(tx, ty)) setPoint(getX() + tx, getY() + ty);
+		if(MathUtils.INST.isValidPt(tx, ty)) {
+			setPoint(getX() + tx, getY() + ty);
+		}
 	}
 
 	@Override
 	public IPoint horizontalSymmetry(final double x) {
-		if(!MathUtils.INST.isValidCoord(x)) return null;
+		if(!MathUtils.INST.isValidCoord(x)) {
+			return null;
+		}
 
 		return ShapeFactory.INST.createPoint(2d * x - getX(), getY());
 	}
 
 	@Override
 	public IPoint verticalSymmetry(final double y) {
-		if(!MathUtils.INST.isValidCoord(y)) return null;
+		if(!MathUtils.INST.isValidCoord(y)) {
+			return null;
+		}
 
 		return ShapeFactory.INST.createPoint(getX(), 2d * y - getY());
 	}
@@ -147,17 +155,23 @@ class LPoint implements IPoint {
 
 	@Override
 	public void setX(final double newX) {
-		if(MathUtils.INST.isValidCoord(newX)) x.set(newX);
+		if(MathUtils.INST.isValidCoord(newX)) {
+			x.set(newX);
+		}
 	}
 
 	@Override
 	public void setY(final double newY) {
-		if(MathUtils.INST.isValidCoord(newY)) y.set(newY);
+		if(MathUtils.INST.isValidCoord(newY)) {
+			y.set(newY);
+		}
 	}
 
 	@Override
 	public void setPoint(final IPoint pt) {
-		if(pt != null) setPoint(pt.getX(), pt.getY());
+		if(pt != null) {
+			setPoint(pt.getX(), pt.getY());
+		}
 	}
 
 	@Override
@@ -177,12 +191,16 @@ class LPoint implements IPoint {
 
 	@Override
 	public void setPoint2D(final Point2D pt) {
-		if(pt != null) setPoint(pt.getX(), pt.getY());
+		if(pt != null) {
+			setPoint(pt.getX(), pt.getY());
+		}
 	}
 
 	@Override
 	public IPoint substract(final IPoint pt) {
-		if(pt == null) return null;
+		if(pt == null) {
+			return null;
+		}
 		return ShapeFactory.INST.createPoint(getX() - pt.getX(), getY() - pt.getY());
 	}
 
@@ -200,7 +218,9 @@ class LPoint implements IPoint {
 	@Override
 	public IPoint add(final IPoint pt) {
 		final IPoint added = ShapeFactory.INST.createPoint(this);
-		if(pt != null) added.translate(pt.getX(), pt.getY());
+		if(pt != null) {
+			added.translate(pt.getX(), pt.getY());
+		}
 		return added;
 	}
 
@@ -242,8 +262,12 @@ class LPoint implements IPoint {
 
 	@Override
 	public boolean equals(final Object obj) {
-		if(this == obj) return true;
-		if(obj == null || getClass() != obj.getClass()) return false;
+		if(this == obj) {
+			return true;
+		}
+		if(obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
 		return equals((IPoint) obj, 0.0000001);
 	}
 

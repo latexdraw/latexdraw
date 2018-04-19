@@ -35,7 +35,7 @@ class LText extends LPositionShape implements IText {
 	 * @since 3.0
 	 */
 	LText() {
-		this(ShapeFactory.INST.createPoint(), "text"); //$NON-NLS-1$
+		this(ShapeFactory.INST.createPoint(), "text"); //NON-NLS
 	}
 
 	/**
@@ -47,7 +47,7 @@ class LText extends LPositionShape implements IText {
 	LText(final IPoint pt, final String text) {
 		super(pt);
 
-		this.text = new SimpleStringProperty(text == null || text.isEmpty() ? "text" : text); //$NON-NLS-1$
+		this.text = new SimpleStringProperty(text == null || text.isEmpty() ? "text" : text); //NON-NLS
 		textPosition = TextPosition.BOT_LEFT;
 	}
 

@@ -90,7 +90,7 @@ abstract class SVGModifiablePointsShape<S extends IModifiablePointsShape> extend
 			final SVGPathSeg seg = segs.get(i);
 
 			if(!(seg instanceof SVGPathSegLineto)) {
-				throw new IllegalArgumentException("The given SVG path element is not a set of lines."); //$NON-NLS-1$
+				throw new IllegalArgumentException("The given SVG path element is not a set of lines."); //NON-NLS
 			}
 
 			pt = ((SVGPathSegLineto) seg).getPoint(pt);

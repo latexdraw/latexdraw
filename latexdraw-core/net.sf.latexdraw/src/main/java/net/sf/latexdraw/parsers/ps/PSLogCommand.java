@@ -19,7 +19,9 @@ import java.util.Deque;
 public class PSLogCommand implements PSArithemticCommand {
 	@Override
 	public void execute(final Deque<Double> stack, final double x) {
-		if(stack.isEmpty()) throw new InvalidFormatPSFunctionException();
+		if(stack.isEmpty()) {
+			throw new InvalidFormatPSFunctionException();
+		}
 
 		stack.push(Math.log10(stack.pop()));
 	}

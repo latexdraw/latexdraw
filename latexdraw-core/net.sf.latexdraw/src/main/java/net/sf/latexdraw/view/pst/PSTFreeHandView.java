@@ -26,7 +26,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTFreeHandView(final  IFreehand model) {
+	protected PSTFreeHandView(final IFreehand model) {
 		super(model);
 	}
 
@@ -46,7 +46,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 		float midx = 0f;
 		float midy = 0f;
 
-		coord.append("\\moveto(").append(MathUtils.INST.getCutNumberFloat((curx - originx) / ppc));//$NON-NLS-1$
+		coord.append("\\moveto(").append(MathUtils.INST.getCutNumberFloat((curx - originx) / ppc)); //NON-NLS
 		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - cury) / ppc)).append(')').append('\n');
 
 		if(pts.size() > interval) {
@@ -57,7 +57,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 			midx = (curx + prevx) / 2.0f;
 			midy = (cury + prevy) / 2.0f;
 
-			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat((midx - originx) / ppc));//$NON-NLS-1$
+			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat((midx - originx) / ppc)); //NON-NLS
 			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - midy) / ppc)).append(')').append('\n');
 		}
 
@@ -73,7 +73,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 			final float x2 = (prevx + midx) / 2.0f;
 			final float y2 = (prevy + midy) / 2.0f;
 
-			coord.append("\\curveto(").append(MathUtils.INST.getCutNumberFloat((x1 - originx) / ppc));//$NON-NLS-1$
+			coord.append("\\curveto(").append(MathUtils.INST.getCutNumberFloat((x1 - originx) / ppc)); //NON-NLS
 			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - y1) / ppc)).append(')').append('(');
 			coord.append(MathUtils.INST.getCutNumberFloat((x2 - originx) / ppc)).append(',');
 			coord.append(MathUtils.INST.getCutNumberFloat((originy - y2) / ppc)).append(')').append('(');
@@ -93,7 +93,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 			final float x2 = (prevx + midx) / 2.0f;
 			final float y2 = (prevy + midy) / 2.0f;
 
-			coord.append("\\curveto("); //$NON-NLS-1$
+			coord.append("\\curveto("); //NON-NLS
 			coord.append(MathUtils.INST.getCutNumberFloat((x1 - originx) / ppc)).append(',');
 			coord.append(MathUtils.INST.getCutNumberFloat((originy - y1) / ppc)).append(')').append('(');
 			coord.append(MathUtils.INST.getCutNumberFloat((x2 - originx) / ppc)).append(',');
@@ -114,25 +114,28 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 		final int size = shape.getNbPoints();
 		final int interval = shape.getInterval();
 
-		coord.append("\\moveto(").append(MathUtils.INST.getCutNumberFloat((p.getX() - originx) / ppc));//$NON-NLS-1$
+		coord.append("\\moveto(").append(MathUtils.INST.getCutNumberFloat((p.getX() - originx) / ppc)); //NON-NLS
 		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - p.getY()) / ppc)).append(')').append('\n');
 
 		for(i = interval; i < size; i += interval) {
 			p = pts.get(i);
-			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat((p.getX() - originx) / ppc));//$NON-NLS-1$
+			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat((p.getX() - originx) / ppc)); //NON-NLS
 			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - p.getY()) / ppc)).append(')').append('\n');
 		}
 
-		if(i - interval < size)
-			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat((pts.get(pts.size() - 1).getX() - originx) / ppc)).append(//$NON-NLS-1$
+		if(i - interval < size) {
+			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat((pts.get(pts.size() - 1).getX() - originx) / ppc)).append(//NON-NLS
 				',').append(MathUtils.INST.getCutNumberFloat((originy - pts.get(pts.size() - 1).getY()) / ppc)).append(')').append('\n');
+		}
 
 	}
 
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1 || shape.getNbPoints() < 2) return "";
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1 || shape.getNbPoints() < 2) {
+			return "";
+		}
 
 		final StringBuilder coord = new StringBuilder();
 		final StringBuilder rot = getRotationHeaderCode(ppc, origin);
@@ -147,17 +150,21 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 				break;
 		}
 
-		if(rot != null) code.append(rot);
+		if(rot != null) {
+			code.append(rot);
+		}
 
-		code.append("\\pscustom[");//$NON-NLS-1$
+		code.append("\\pscustom["); //NON-NLS
 		code.append(getPropertiesCode(ppc));
-		code.append("]\n{\n\\newpath\n");//$NON-NLS-1$
+		code.append("]\n{\n\\newpath\n"); //NON-NLS
 		code.append(coord);
-		code.append(shape.isOpened() ? "" : "\\closepath");//$NON-NLS-1$//$NON-NLS-2$
-		code.append(shape.hasShadow() ? "\\openshadow\n" : "");//$NON-NLS-1$//$NON-NLS-2$
+		code.append(shape.isOpened() ? "" : "\\closepath"); //NON-NLS
+		code.append(shape.hasShadow() ? "\\openshadow\n" : ""); //NON-NLS
 		code.append('}');
 
-		if(rot != null) code.append('}');
+		if(rot != null) {
+			code.append('}');
+		}
 
 		return code.toString();
 	}

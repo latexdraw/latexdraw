@@ -51,7 +51,7 @@ public class SVGPathSegCurvetoCubic extends SVGPathPointSeg implements CtrlPoint
 
 	@Override
 	public String toString() {
-        return String.valueOf(isRelative() ? 'c' : 'C') + ' ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y;
+		return String.valueOf(isRelative() ? 'c' : 'C') + ' ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y;
 	}
 
 	@Override

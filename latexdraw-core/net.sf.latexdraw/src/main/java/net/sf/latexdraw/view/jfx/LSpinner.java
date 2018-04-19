@@ -26,31 +26,23 @@ public class LSpinner<T> extends Spinner<T> {
 		configureSpinner();
 	}
 
-	public LSpinner(@NamedArg("min") final int min,
-				   @NamedArg("max") final int max,
-				   @NamedArg("initialValue") final int initialValue) {
+	public LSpinner(@NamedArg("min") final int min, @NamedArg("max") final int max, @NamedArg("initialValue") final int initialValue) {
 		super(min, max, initialValue);
 		configureSpinner();
 	}
 
-	public LSpinner(@NamedArg("min") final int min,
-					@NamedArg("max") final int max,
-					@NamedArg("initialValue") final int initialValue,
-					@NamedArg("amountToStepBy") final int amountToStepBy) {
+	public LSpinner(@NamedArg("min") final int min, @NamedArg("max") final int max, @NamedArg("initialValue") final int initialValue, @NamedArg
+		("amountToStepBy") final int amountToStepBy) {
 		super(min, max, initialValue, amountToStepBy);
 		configureSpinner();
 	}
 
-	public LSpinner(@NamedArg("min") final double min,
-					@NamedArg("max") final double max,
-					@NamedArg("initialValue") final double initialValue) {
+	public LSpinner(@NamedArg("min") final double min, @NamedArg("max") final double max, @NamedArg("initialValue") final double initialValue) {
 		super(min, max, initialValue);
 		configureSpinner();
 	}
 
-	public LSpinner(@NamedArg("min") final double min,
-					@NamedArg("max") final double max,
-					@NamedArg("initialValue") final double initialValue,
+	public LSpinner(@NamedArg("min") final double min, @NamedArg("max") final double max, @NamedArg("initialValue") final double initialValue,
 					@NamedArg("amountToStepBy") final double amountToStepBy) {
 		super(min, max, initialValue, amountToStepBy);
 		configureSpinner();
@@ -60,8 +52,10 @@ public class LSpinner<T> extends Spinner<T> {
 		setOnScroll(event -> {
 			if(event.getDeltaY() < 0d) {
 				decrement();
-			}else if(event.getDeltaY() > 0d) {
-				increment();
+			}else {
+				if(event.getDeltaY() > 0d) {
+					increment();
+				}
 			}
 		});
 

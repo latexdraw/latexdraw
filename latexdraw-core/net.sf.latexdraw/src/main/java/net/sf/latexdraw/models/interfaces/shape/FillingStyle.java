@@ -28,8 +28,7 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_NONE;
 		}
-	},
-	GRAD {
+	}, GRAD {
 		@Override
 		public boolean isFilled() {
 			return false;
@@ -39,8 +38,7 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_GRADIENT;
 		}
-	},
-	HLINES {
+	}, HLINES {
 		@Override
 		public boolean isFilled() {
 			return false;
@@ -50,8 +48,7 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_HLINES;
 		}
-	},
-	VLINES {
+	}, VLINES {
 		@Override
 		public boolean isFilled() {
 			return false;
@@ -61,8 +58,7 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_VLINES;
 		}
-	},
-	CLINES {
+	}, CLINES {
 		@Override
 		public boolean isFilled() {
 			return false;
@@ -72,8 +68,7 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_CROSSHATCH;
 		}
-	},
-	PLAIN {
+	}, PLAIN {
 		@Override
 		public boolean isFilled() {
 			return true;
@@ -83,8 +78,7 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_SOLID;
 		}
-	},
-	HLINES_PLAIN {
+	}, HLINES_PLAIN {
 		@Override
 		public boolean isFilled() {
 			return true;
@@ -94,8 +88,7 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_HLINES_F;
 		}
-	},
-	VLINES_PLAIN {
+	}, VLINES_PLAIN {
 		@Override
 		public boolean isFilled() {
 			return true;
@@ -105,8 +98,7 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_VLINES_F;
 		}
-	},
-	CLINES_PLAIN {
+	}, CLINES_PLAIN {
 		@Override
 		public boolean isFilled() {
 			return true;
@@ -119,6 +111,24 @@ public enum FillingStyle {
 	};
 
 	/**
+	 * @param token The style to get.
+	 * @return The style which name is the given name style (or null).
+	 * @since 3.0
+	 */
+	public static FillingStyle getStyleFromLatex(final String token) {
+		return Arrays.stream(values()).filter(style -> style.getLatexToken().equals(token)).findFirst().orElse(NONE);
+	}
+
+	/**
+	 * @param style The text version of the filling style.
+	 * @return The filling style that corresponds to the given text (or null).
+	 * @since 3.0
+	 */
+	public static FillingStyle getStyle(final String style) {
+		return Arrays.stream(values()).filter(item -> item.toString().equals(style)).findFirst().orElse(NONE);
+	}
+
+	/**
 	 * Allows to know if the style is filled.
 	 * @return True if the shape is filled.
 	 */
@@ -129,24 +139,6 @@ public enum FillingStyle {
 	 * @since 3.0
 	 */
 	public abstract String getLatexToken();
-
-	/**
-	 * @param token The style to get.
-	 * @return The style which name is the given name style (or null).
-	 * @since 3.0
-	 */
-	public static  FillingStyle getStyleFromLatex(final String token) {
-		return Arrays.stream(values()).filter(style -> style.getLatexToken().equals(token)).findFirst().orElse(NONE);
-	}
-
-	/**
-	 * @param style The text version of the filling style.
-	 * @return The filling style that corresponds to the given text (or null).
-	 * @since 3.0
-	 */
-	public static  FillingStyle getStyle(final String style) {
-		return Arrays.stream(values()).filter(item -> item.toString().equals(style)).findFirst().orElse(NONE);
-	}
 
 	/**
 	 * @return True if the style is a kind of hatchings.

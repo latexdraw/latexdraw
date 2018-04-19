@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import net.sf.latexdraw.commands.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.commands.ExportFormat;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.Inject;
@@ -47,7 +47,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * The latex packages used when exporting using latex.
 	 * These packages are defined for the current document but not for all documents.
 	 */
-	public static final ObjectProperty<String> PACKAGES = new SimpleObjectProperty<>(""); //$NON-NLS-1$
+	public static final ObjectProperty<String> PACKAGES = new SimpleObjectProperty<>(""); //NON-NLS
 
 
 	/**
@@ -109,9 +109,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 		super();
 
 		modified = false;
-		comment = ""; //$NON-NLS-1$
-		label = ""; //$NON-NLS-1$
-		caption = ""; //$NON-NLS-1$
+		comment = ""; //NON-NLS
+		label = ""; //NON-NLS
+		caption = ""; //NON-NLS
 		positionHoriCentre = false;
 		positionVertToken = VerticalPosition.NONE;
 		scale = 1.0;
@@ -290,17 +290,16 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final File tmpDir = optDir.get();
-		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "tmpPSFile.ps", tmpDir);//$NON-NLS-1$
-		File psFile;
+		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "tmpPSFile.ps", tmpDir); //NON-NLS
 
-		if(optFile.isPresent()) {
-			psFile = optFile.get();
-		}else {
+		if(!optFile.isPresent()) {
 			return Optional.empty();
 		}
+
+		final File psFile = optFile.get();
 		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
 		final File finalFile = new File(pathExportEPS);
-		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", ExportFormat.EPS_LATEX.getFileExtension())); //$NON-NLS-1$
+		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", ExportFormat.EPS_LATEX.getFileExtension())); //NON-NLS
 		final String[] paramsLatex = {os.getPS2EPSBinPath(), psFile.getAbsolutePath(), fileEPS.getAbsolutePath()};
 		final String log = LSystem.INSTANCE.execute(paramsLatex, tmpDir);
 
@@ -330,27 +329,27 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @return The create file or nothing.
 	 */
 	private Optional<File> createPSFile(final String pathExportPs, final File tmpDir) {
-		if(pathExportPs == null) return Optional.empty();
+		if(pathExportPs == null) {
+			return Optional.empty();
+		}
 
 		final int lastSep = pathExportPs.lastIndexOf(LSystem.FILE_SEP) + 1;
-		final String name = pathExportPs.substring(lastSep == -1 ? 0 : lastSep, pathExportPs.lastIndexOf(".ps")); //$NON-NLS-1$
+		final String name = pathExportPs.substring(lastSep == -1 ? 0 : lastSep, pathExportPs.lastIndexOf(".ps")); //NON-NLS
 		final File tmpDir2 = tmpDir == null ? LFileUtils.INSTANCE.createTempDir().orElse(null) : tmpDir;
 
 		if(tmpDir2 == null) {
-			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
+			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //NON-NLS
 			return Optional.empty();
 		}
 
 		final String path = tmpDir2.getAbsolutePath() + LSystem.FILE_SEP;
-		Optional<File> optFile = LFileUtils.INSTANCE.saveFile(path + name + ExportFormat.TEX.getFileExtension(), getDocumentCode());
-		File texFile;
+		final Optional<File> optFile = LFileUtils.INSTANCE.saveFile(path + name + ExportFormat.TEX.getFileExtension(), getDocumentCode());
 
-		if(optFile.isPresent()) {
-			texFile = optFile.get();
-		}else {
+		if(!optFile.isPresent()) {
 			return Optional.empty();
 		}
 
+		final File texFile = optFile.get();
 		String log;
 		File finalPS;
 		final IPoint tr = handler.getTopRightDrawingPoint();
@@ -359,15 +358,17 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final float dec = 0.2f;
 		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
 
-		if(!texFile.exists()) return Optional.empty();
+		if(!texFile.exists()) {
+			return Optional.empty();
+		}
 
-		final String[] paramsLatex = {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$
-			LFileUtils.INSTANCE.normalizeForLaTeX(texFile.getAbsolutePath())};//$NON-NLS-1$
+		final String[] paramsLatex = {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(), //NON-NLS
+			LFileUtils.INSTANCE.normalizeForLaTeX(texFile.getAbsolutePath())}; //NON-NLS
 		log = LSystem.INSTANCE.execute(paramsLatex, tmpDir2);
 
-		final String[] paramsDvi = {os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
-			(tr.getX() - bl.getX()) / ppc * scale + dec + "cm," + ((bl.getY() - tr.getY()) / ppc * scale + dec) + "cm", //$NON-NLS-1$ //$NON-NLS-2$
-			name, "-o", pathExportPs}; //$NON-NLS-1$
+		final String[] paramsDvi = {os.getDvipsBinPath(), "-Pdownload35", "-T", //NON-NLS
+			(tr.getX() - bl.getX()) / ppc * scale + dec + "cm," + ((bl.getY() - tr.getY()) / ppc * scale + dec) + "cm", //NON-NLS
+			name, "-o", pathExportPs}; //NON-NLS
 		log += LSystem.INSTANCE.execute(paramsDvi, tmpDir2);
 
 		finalPS = new File(pathExportPs);
@@ -394,19 +395,21 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @throws SecurityException In case of problem while accessing files.
 	 */
 	public Optional<File> createPDFFile(final String pathExportPdf, final boolean crop) {
-		if(pathExportPdf == null) return Optional.empty();
+		if(pathExportPdf == null) {
+			return Optional.empty();
+		}
 
 		final Optional<File> optDir = LFileUtils.INSTANCE.createTempDir();
 
 		if(!optDir.isPresent()) {
-			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
+			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //NON-NLS
 			return Optional.empty();
 		}
 
 		final File tmpDir = optDir.get();
 		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LSystem.FILE_SEP) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
 		final File psFile;
-		Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + name + ".ps");//$NON-NLS-1$
+		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + name + ".ps"); //NON-NLS
 
 		if(optFile.isPresent()) {
 			psFile = optFile.get();
@@ -420,7 +423,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		// On windows, an option must be defined using this format:
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
-		final String optionEmbed = "-dEmbedAllFonts" + (LSystem.INSTANCE.isWindows() ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		final String optionEmbed = "-dEmbedAllFonts" + (LSystem.INSTANCE.isWindows() ? "#" : "=") + "true"; //NON-NLS
 
 		log = LSystem.INSTANCE.execute(new String[]{os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), crop ? name + ExportFormat.PDF.getFileExtension() : pathExportPdf}, tmpDir);
 
@@ -431,7 +434,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 				Files.move(pdfFile.toPath(), Paths.get(pathExportPdf), StandardCopyOption.REPLACE_EXISTING);
 			}catch(final IOException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
-				log += " The final pdf document cannot be moved to its final destination. If you use Windows, you must have a Perl interpretor installed, such as strawberryPerl (http://strawberryperl.com/)"; //$NON-NLS-1$
+				log += " The final pdf document cannot be moved to its final destination. If you use Windows, you must have a Perl interpretor installed, such as strawberryPerl (http://strawberryperl.com/)"; //NON-NLS
 			}
 		}
 

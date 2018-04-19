@@ -98,7 +98,9 @@ public abstract class SVGElement implements LElement, Cloneable {
 	protected SVGElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
 		this();
 
-		if(n == null) throw new IllegalArgumentException();
+		if(n == null) {
+			throw new IllegalArgumentException();
+		}
 
 		if(p != null) {
 			ownerDocument = p.getOwnerDocument();
@@ -127,13 +129,15 @@ public abstract class SVGElement implements LElement, Cloneable {
 			}
 		}
 
-		if(!checkAttributes()) throw new MalformedSVGDocument();
+		if(!checkAttributes()) {
+			throw new MalformedSVGDocument();
+		}
 
 		final NodeList nl = n.getChildNodes();
 		int i;
 		final int size = nl.getLength();
 
-		if(size == 1 && ("#text".equals(nl.item(0).getNodeName()) || "#cdata-section".equals(nl.item(0).getNodeName()))) { //$NON-NLS-1$ //$NON-NLS-2$
+		if(size == 1 && ("#text".equals(nl.item(0).getNodeName()) || "#cdata-section".equals(nl.item(0).getNodeName()))) { //NON-NLS
 			setTextContent(n.getTextContent());
 		}
 
@@ -219,19 +223,19 @@ public abstract class SVGElement implements LElement, Cloneable {
 		int i;
 		final int size = children.getLength();
 
-		str.append("name=").append(name).append(','); //$NON-NLS-1$
+		str.append("name=").append(name).append(','); //NON-NLS
 
 		if(!hasChildNodes()) {
-			str.append("textContent=").append(getTextContent()).append(','); //$NON-NLS-1$
+			str.append("textContent=").append(getTextContent()).append(','); //NON-NLS
 		}
 
-		str.append("attributes="); //$NON-NLS-1$
+		str.append("attributes="); //NON-NLS
 
 		if(attributes != null) {
 			str.append(attributes);
 		}
 
-		str.append(", children={"); //$NON-NLS-1$
+		str.append(", children={"); //NON-NLS
 
 		for(i = 0; i < size - 1; i++) {
 			str.append(children.item(i)).append(',');
@@ -289,7 +293,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	@Override
 	public Node appendChild(final Node newChild) {
 		if(!(newChild instanceof SVGElement)) {
-			throw new DOMException(DOMException.TYPE_MISMATCH_ERR, "SVGElement excepted here."); //$NON-NLS-1$
+			throw new DOMException(DOMException.TYPE_MISMATCH_ERR, "SVGElement excepted here."); //NON-NLS
 		}
 
 		children.getNodes().remove(newChild);
@@ -404,7 +408,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	@Override
 	public void setTextContent(final String textContent) {
 		if(textContent == null) {
-			throw new DOMException(DOMException.DOMSTRING_SIZE_ERR, "textContent is null."); //$NON-NLS-1$
+			throw new DOMException(DOMException.DOMSTRING_SIZE_ERR, "textContent is null."); //NON-NLS
 		}
 
 		appendChild(new SVGText(textContent, getOwnerDocument()));
@@ -418,7 +422,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 		}
 
 		String pref = null;
-		final String xmlns = "xmlns"; //$NON-NLS-1$
+		final String xmlns = "xmlns"; //NON-NLS
 
 		if(attributes != null) {
 			int i = 0;
@@ -432,7 +436,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 				if(attrName != null && attrName.startsWith(xmlns) && namespaceURI.equals(attr.getValue())) {
 					final int index = attrName.indexOf(':');
 
-					pref = index == -1 ? "" : attrName.substring(index + 1); //$NON-NLS-1$
+					pref = index == -1 ? "" : attrName.substring(index + 1); //NON-NLS
 					again = false;
 				}else {
 					i++;
@@ -473,7 +477,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 				int i = 0;
 				final int size = attributes.getLength();
 				boolean again = true;
-				final String xmlns = "xmlns"; //$NON-NLS-1$
+				final String xmlns = "xmlns"; //NON-NLS
 
 				while(i < size && again) {
 					final SVGAttr attr = attributes.getAttributes().get(i);
@@ -490,7 +494,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 				int i = 0;
 				final int size = attributes.getLength();
 				boolean again = true;
-				final String xmlns = "xmlns:"; //$NON-NLS-1$
+				final String xmlns = "xmlns:"; //NON-NLS
 
 				while(i < size && again) {
 					final SVGAttr attr = attributes.getAttributes().get(i);
@@ -538,7 +542,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	public String getUsablePrefix() {
 		final String prefix = getPrefix();
 
-		return prefix == null || prefix.isEmpty() ? "" : prefix + ':'; //$NON-NLS-1$
+		return prefix == null || prefix.isEmpty() ? "" : prefix + ':'; //NON-NLS
 	}
 
 
@@ -562,7 +566,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	@Override
 	public void setAttribute(final String name, final String value) {
 		if(value == null || name == null) {
-			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid name or/and value"); //$NON-NLS-1$
+			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid name or/and value"); //NON-NLS
 		}
 
 		attributes.setNamedItem(new SVGAttr(name, value, this));
@@ -610,7 +614,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public NodeList getElementsByTagName(final String nameElt) {
-		if("*".equals(nameElt)) { //$NON-NLS-1$
+		if("*".equals(nameElt)) { //NON-NLS
 			return getChildNodes();
 		}
 
@@ -634,7 +638,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public NodeList getElementsByTagNameNS(final String namespaceURI, final String localName) {
-		final String all = "*"; //$NON-NLS-1$
+		final String all = "*"; //NON-NLS
 
 		if(all.equals(namespaceURI)) {
 			return getElementsByTagName(localName);
@@ -677,7 +681,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public String getLocalName() {
-		return name.replaceAll(getUsablePrefix(), ""); //$NON-NLS-1$
+		return name.replaceAll(getUsablePrefix(), ""); //NON-NLS
 	}
 
 
@@ -699,7 +703,9 @@ public abstract class SVGElement implements LElement, Cloneable {
 	}
 
 	@Override
-	public Attr removeAttributeNode(final Attr oldAttr) { throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	public Attr removeAttributeNode(final Attr oldAttr) {
+		throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED);
+	}
 
 	@Override
 	public void setAttributeNS(final String namespaceURI, final String qualifiedName, final String value) {
@@ -743,7 +749,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public String getBaseURI() {
-		return ""; //$NON-NLS-1$
+		return ""; //NON-NLS
 	}
 
 	@Override
@@ -813,9 +819,9 @@ public abstract class SVGElement implements LElement, Cloneable {
 		String pref = lookupPrefix(namespaceURI);
 
 		if(pref == null) {
-			pref = ""; //$NON-NLS-1$
+			pref = ""; //NON-NLS
 		}else {
-			pref += ":"; //$NON-NLS-1$
+			pref += ":"; //NON-NLS
 		}
 
 		return pref;
@@ -1058,7 +1064,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 */
 	public String getFontFamily() {
 		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_FONT_FAMILY, getUsablePrefix())).
-			orElse(parent == null ? "" : parent.getFontFamily()); //$NON-NLS-1$
+			orElse(parent == null ? "" : parent.getFontFamily()); //NON-NLS
 	}
 
 
@@ -1128,7 +1134,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	public String getUsablePrefix(final String uri) {
 		final String pref = lookupPrefix(uri);
 
-		return pref == null || pref.isEmpty() ? "" : pref + ':'; //$NON-NLS-1$
+		return pref == null || pref.isEmpty() ? "" : pref + ':'; //NON-NLS
 	}
 
 
@@ -1206,7 +1212,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 			return null;
 		}
 
-		String value = getAttribute((prefix == null ? "" : prefix) + attrName); //$NON-NLS-1$
+		String value = getAttribute((prefix == null ? "" : prefix) + attrName); //NON-NLS
 
 		if(value == null && stylesCSS != null) {
 			value = stylesCSS.get(attrName);

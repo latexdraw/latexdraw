@@ -40,7 +40,9 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 
 	@Override
 	public Node getNamedItem(final String name) {
-		if(nnm == null || name == null) return null;
+		if(nnm == null || name == null) {
+			return null;
+		}
 
 		int i = 0;
 		final int size = getLength();
@@ -54,7 +56,9 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 			}
 		}
 
-		if(found) return nnm.get(i);
+		if(found) {
+			return nnm.get(i);
+		}
 
 		return null;
 	}
@@ -68,7 +72,9 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 
 	@Override
 	public Node removeNamedItem(final String name) {
-		if(name == null) throw new DOMException(DOMException.NOT_FOUND_ERR, "name is null"); //$NON-NLS-1$
+		if(name == null) {
+			throw new DOMException(DOMException.NOT_FOUND_ERR, "name is null");
+		}
 
 		int i = 0;
 		final int size = getLength();
@@ -82,7 +88,9 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 			}
 		}
 
-		if(found) return nnm.remove(i);
+		if(found) {
+			return nnm.remove(i);
+		}
 
 		throw new DOMException(DOMException.NOT_FOUND_ERR, name);
 	}
@@ -90,14 +98,18 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 
 	@Override
 	public Node setNamedItem(final Node node) {
-		if(!(node instanceof SVGAttr)) return null;
+		if(!(node instanceof SVGAttr)) {
+			return null;
+		}
 
 		final Node attr = getNamedItem(node.getNodeName());
 
 		if(attr == null) {
 			nnm.add((SVGAttr) node);
 		}else {
-			if(attr == node) return null;
+			if(attr == node) {
+				return null;
+			}
 
 			final int index = nnm.indexOf(attr);
 			nnm.remove(attr);
@@ -162,15 +174,21 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 
 	@Override
 	public boolean equals(final Object obj) {
-		if(this == obj) return true;
-		if(obj == null || getClass() != obj.getClass()) return false;
+		if(this == obj) {
+			return true;
+		}
+		if(obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
 
 		final SVGNamedNodeMap map = (SVGNamedNodeMap) obj;
 		boolean ok = true;
 		int i;
 		final int size = getLength();
 
-		if(size != map.getLength()) return false;
+		if(size != map.getLength()) {
+			return false;
+		}
 
 		for(i = 0; i < size && ok; i++) {
 			ok = item(i).isEqualNode(map.item(i));

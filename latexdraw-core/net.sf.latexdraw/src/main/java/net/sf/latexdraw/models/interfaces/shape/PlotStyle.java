@@ -20,42 +20,34 @@ public enum PlotStyle {
 	CURVE {
 		@Override
 		public String getPSTToken() {
-			return "curve"; //$NON-NLS-1$
+			return "curve"; //NON-NLS
 		}
-	},
-	LINE {
+	}, LINE {
 		@Override
 		public String getPSTToken() {
-			return "line"; //$NON-NLS-1$
+			return "line"; //NON-NLS
 		}
-	},
-	DOTS {
+	}, DOTS {
 		@Override
 		public String getPSTToken() {
-			return "dots"; //$NON-NLS-1$
+			return "dots"; //NON-NLS
 		}
-	},
-	POLYGON {
+	}, POLYGON {
 		@Override
 		public String getPSTToken() {
-			return "polygon"; //$NON-NLS-1$
+			return "polygon"; //NON-NLS
 		}
-	},
-	ECURVE {
+	}, ECURVE {
 		@Override
 		public String getPSTToken() {
-			return "ecurve"; //$NON-NLS-1$
+			return "ecurve"; //NON-NLS
 		}
-	},
-	CCURVE {
+	}, CCURVE {
 		@Override
 		public String getPSTToken() {
-			return "ccurve"; //$NON-NLS-1$
+			return "ccurve"; //NON-NLS
 		}
 	};
-
-	/** @return The PST token corresponding to the plot style. */
-	public abstract String getPSTToken();
 
 	/**
 	 * @param latexToken The latex token to check.
@@ -65,4 +57,7 @@ public enum PlotStyle {
 	public static PlotStyle getPlotStyle(final String latexToken) {
 		return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(latexToken)).findFirst().orElse(CURVE);
 	}
+
+	/** @return The PST token corresponding to the plot style. */
+	public abstract String getPSTToken();
 }

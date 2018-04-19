@@ -95,8 +95,12 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 
 	@Override
 	public boolean isTypeOf(final Class<?> clazz) {
-		if(clazz == null) return false;
-		if(clazz.equals(getClass()) || clazz.equals(IShape.class) || clazz.equals(LShape.class) || clazz.equals(IGroup.class)) return true;
+		if(clazz == null) {
+			return false;
+		}
+		if(clazz.equals(getClass()) || clazz.equals(IShape.class) || clazz.equals(LShape.class) || clazz.equals(IGroup.class)) {
+			return true;
+		}
 		return shapes.parallelStream().anyMatch(sh -> sh.isTypeOf(clazz));
 	}
 

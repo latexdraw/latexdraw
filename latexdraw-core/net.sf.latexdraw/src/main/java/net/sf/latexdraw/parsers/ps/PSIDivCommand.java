@@ -20,12 +20,16 @@ import net.sf.latexdraw.models.MathUtils;
 public class PSIDivCommand implements PSArithemticCommand {
 	@Override
 	public void execute(final Deque<Double> stack, final double x) {
-		if(stack.size() < 2) throw new InvalidFormatPSFunctionException();
+		if(stack.size() < 2) {
+			throw new InvalidFormatPSFunctionException();
+		}
 
 		final double a = stack.pop();
 		final double b = stack.pop();
 
-		if(MathUtils.INST.equalsDouble(a, 0.0)) throw new ArithmeticException();
+		if(MathUtils.INST.equalsDouble(a, 0.0)) {
+			throw new ArithmeticException();
+		}
 
 		stack.push(Math.floor(b / a));
 	}

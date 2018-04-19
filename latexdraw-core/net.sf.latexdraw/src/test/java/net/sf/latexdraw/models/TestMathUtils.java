@@ -89,13 +89,13 @@ public class TestMathUtils {
 
 	@Theory
 	public void testMod2pi(@DoubleData(vals = {0d, 1.1, 2.3, 3.1}) final double value,
-						   @DoubleData(vals = {Math.PI * 2d, Math.PI * 4d}) final double piVals) {
+						@DoubleData(vals = {Math.PI * 2d, Math.PI * 4d}) final double piVals) {
 		assertEquals(value, MathUtils.INST.mod2pi(value + piVals), 0.0001);
 	}
 
 	@Theory
 	public void testMod2piNegVal(@DoubleData(vals = {-0d, -1.1, -2.3, -3.1}) final double value,
-						   @DoubleData(vals = {Math.PI * -2d, Math.PI * -4d}) final double piVals) {
+						@DoubleData(vals = {Math.PI * -2d, Math.PI * -4d}) final double piVals) {
 		assertEquals(value, MathUtils.INST.mod2pi(value + piVals), 0.0001);
 	}
 }

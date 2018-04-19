@@ -20,7 +20,7 @@ import net.sf.latexdraw.parsers.css.AbstractCSSParser;
  */
 public class CSSStyleParser extends AbstractCSSParser {
 	/** The handler which will manage actions to do when a CSS style is parsed. @since 0.1 */
-	protected CSSStyleHandler handler ;
+	protected CSSStyleHandler handler;
 
 
 	/**
@@ -35,36 +35,39 @@ public class CSSStyleParser extends AbstractCSSParser {
 	}
 
 
-
 	@Override
 	public void parse() throws ParseException {
-		final StringBuilder name  = new StringBuilder();
+		final StringBuilder name = new StringBuilder();
 		final StringBuilder value = new StringBuilder();
 
 		skipWSPComments();
 
 		while(!isEOC()) {
-			while(getChar()!=':' && !isWSP() && !isEOC() && !isComment()) {
-				name.append((char)getChar());
+			while(getChar() != ':' && !isWSP() && !isEOC() && !isComment()) {
+				name.append((char) getChar());
 				nextChar();
 			}
 
 			skipWSPComments();
 
-			if(name.length()==0 || isEOC() || getChar()!=':')
-				throw new ParseException("Invalid CSS style definition.", getPosition());//$NON-NLS-1$
+			if(name.length() == 0 || isEOC() || getChar() != ':') {
+				throw new ParseException("Invalid CSS style definition.", getPosition()); //NON-NLS
+			}
 
 			nextChar();
 			skipWSPComments();
 
-			while(getChar()!=';' && !isEOC() && !isComment()) {
-				if(!isWSP())
-					value.append((char)getChar());
+			while(getChar() != ';' && !isEOC() && !isComment()) {
+				if(!isWSP()) {
+					value.append((char) getChar());
+				}
 
 				nextChar();
 			}
 
-			if(value.length()==0) throw new ParseException("value expected but not found.", getPosition());//$NON-NLS-1$
+			if(value.length() == 0) {
+				throw new ParseException("value expected but not found.", getPosition()); //NON-NLS
+			}
 
 			handler.onCSSStyle(name.toString(), value.toString());
 			name.delete(0, name.length());
@@ -72,10 +75,12 @@ public class CSSStyleParser extends AbstractCSSParser {
 
 			skipWSPComments();
 
-			if(!isEOC() && getChar()!=';') throw new ParseException("token ';' expected but not found.", getPosition());//$NON-NLS-1$
+			if(!isEOC() && getChar() != ';') {
+				throw new ParseException("token ';' expected but not found.", getPosition()); //NON-NLS
+			}
 
 			nextChar();
 			skipWSPComments();
-		}//while
+		}
 	}
 }

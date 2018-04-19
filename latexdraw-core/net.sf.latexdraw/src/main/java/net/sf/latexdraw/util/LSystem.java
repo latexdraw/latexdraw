@@ -27,9 +27,9 @@ public final class LSystem {
 	/** The singleton. */
 	public static final LSystem INSTANCE = new LSystem();
 	/** The line separator of the current system. */
-	public static final String EOL = System.getProperty("line.separator"); //NON-NLS
+	public static final String EOL = System.getProperty("line.separator");
 	/** The file separator of the current system. */
-	public static final String FILE_SEP = System.getProperty("file.separator"); //NON-NLS
+	public static final String FILE_SEP = System.getProperty("file.separator");
 
 	/**
 	 * Creates the singleton.
@@ -122,8 +122,9 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public KeyCode getControlKey() {
-		if(LSystem.INSTANCE.IsMac())
+		if(LSystem.INSTANCE.IsMac()) {
 			return KeyCode.META;
+		}
 		return KeyCode.CONTROL;
 	}
 
@@ -143,36 +144,44 @@ public final class LSystem {
 	public Optional<OperatingSystem> getSystem() {
 		final String os = System.getProperty("os.name"); //NON-NLS
 
-		if("linux".equalsIgnoreCase(os)) //$NON-NLS-1$
+		if("linux".equalsIgnoreCase(os)) { //NON-NLS
 			return Optional.of(OperatingSystem.LINUX);
+		}
 
-		if("windows 7".equalsIgnoreCase(os)) //$NON-NLS-1$
+		if("windows 7".equalsIgnoreCase(os)) { //NON-NLS
 			return Optional.of(OperatingSystem.SEVEN);
+		}
 
-		if("windows vista".equalsIgnoreCase(os)) //$NON-NLS-1$
+		if("windows vista".equalsIgnoreCase(os)) { //NON-NLS
 			return Optional.of(OperatingSystem.VISTA);
+		}
 
-		if("windows xp".equalsIgnoreCase(os)) //$NON-NLS-1$
+		if("windows xp".equalsIgnoreCase(os)) { //NON-NLS
 			return Optional.of(OperatingSystem.XP);
+		}
 
-		if("mac os x".equalsIgnoreCase(os)) { //$NON-NLS-1$
-			final String[] v = System.getProperty("os.version").split("\\."); //NON-NLS //$NON-NLS-2$
+		if("mac os x".equalsIgnoreCase(os)) { //NON-NLS
+			final String[] v = System.getProperty("os.version").split("\\."); //NON-NLS
 			final double[] d = new double[v.length];
 
-			for(int i = 0; i < v.length; i++)
+			for(int i = 0; i < v.length; i++) {
 				d[i] = Double.valueOf(v[i]);
+			}
 
 			// A change since El Capitan
-			if((d.length >= 1 && d[0] > 10) || (d.length >= 2 && d[0] == 10 && d[1] >= 11))
+			if((d.length >= 1 && d[0] > 10) || (d.length >= 2 && d[0] == 10 && d[1] >= 11)) {
 				return Optional.of(OperatingSystem.MAC_OS_X_CAPITAN);
+			}
 			return Optional.of(OperatingSystem.MAC_OS_X);
 		}
 
-		if(os.toLowerCase().contains("windows 8")) //$NON-NLS-1$
+		if(os.toLowerCase().contains("windows 8")) { //NON-NLS
 			return Optional.of(OperatingSystem.EIGHT);
+		}
 
-		if(os.toLowerCase().contains("windows 10")) //$NON-NLS-1$
+		if(os.toLowerCase().contains("windows 10")) { //NON-NLS
 			return Optional.of(OperatingSystem.TEN);
+		}
 
 		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os)); //NON-NLS
 
@@ -247,7 +256,7 @@ public final class LSystem {
 
 			return err.getLog() + EOL + inp.getLog();
 		}catch(final IOException | SecurityException | InterruptedException ex) {
-			return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + ex.getMessage(); //NON-NLS //$NON-NLS-2$
+			return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + ex.getMessage(); //NON-NLS
 		}
 	}
 
@@ -257,14 +266,16 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public String getLatexErrorMessageFromLog(final String log) {
-		if(log == null) return "";
+		if(log == null) {
+			return "";
+		}
 		final Matcher matcher = Pattern.compile(".*\r?\n").matcher(log); //NON-NLS
 		final StringBuilder errors = new StringBuilder();
 
 		while(matcher.find()) {
 			final String line = matcher.group();
 
-			if(line.startsWith("!") && !line.equals("! Emergency stop.\n")) { //$NON-NLS-1$ //$NON-NLS-2$
+			if(line.startsWith("!") && !"! Emergency stop.\n".equals(line)) { //NON-NLS
 				errors.append(line, 2, line.length());
 			}
 		}

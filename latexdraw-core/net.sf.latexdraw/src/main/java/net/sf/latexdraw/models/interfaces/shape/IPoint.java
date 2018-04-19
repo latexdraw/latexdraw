@@ -102,7 +102,7 @@ public interface IPoint {
 	 * @return The vector normalization.
 	 * @since 3.2
 	 */
-	 IPoint normalise();
+	IPoint normalise();
 
 	/**
 	 * The magnitude (length) of the point considered here as a vector.
@@ -158,7 +158,7 @@ public interface IPoint {
 	 * @return The zoomed point.
 	 * @since 3.0
 	 */
-	 IPoint zoom(final double zoomLevel);
+	IPoint zoom(final double zoomLevel);
 
 	/**
 	 * Translates the point. If one of the given coordinate is not valid (NaN, infinite,...), then
@@ -204,10 +204,10 @@ public interface IPoint {
 	/**
 	 * @return The X property of the point.
 	 */
-	 DoubleProperty xProperty();
+	DoubleProperty xProperty();
 
 	/**
 	 * @return The Y property of the point.
 	 */
-	 DoubleProperty yProperty();
+	DoubleProperty yProperty();
 }

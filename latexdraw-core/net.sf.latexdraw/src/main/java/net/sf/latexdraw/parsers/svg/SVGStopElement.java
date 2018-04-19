@@ -48,12 +48,10 @@ public class SVGStopElement extends SVGElement {
 	}
 
 
-
 	@Override
 	public boolean enableRendering() {
 		return true;
 	}
-
 
 
 	/**
@@ -62,15 +60,17 @@ public class SVGStopElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getOffset() {
-		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_OFFSET);
+		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_OFFSET);
 		double offset;
 
-		try { offset = v==null ? Double.NaN : new SVGLengthParser(v).parseNumberOrPercent().getValue(); }
-		catch(final ParseException e) { offset = Double.NaN; }
+		try {
+			offset = v == null ? Double.NaN : new SVGLengthParser(v).parseNumberOrPercent().getValue();
+		}catch(final ParseException e) {
+			offset = Double.NaN;
+		}
 
 		return offset;
 	}
-
 
 
 	/**
@@ -79,8 +79,8 @@ public class SVGStopElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public Color getStopColor() {
-		final Color c = CSSColors.INSTANCE.getRGBColour(getAttribute(getUsablePrefix()+SVGAttributes.SVG_STOP_COLOR));
+		final Color c = CSSColors.INSTANCE.getRGBColour(getAttribute(getUsablePrefix() + SVGAttributes.SVG_STOP_COLOR));
 
-		return c==null ? DviPsColors.BLACK : c;
+		return c == null ? DviPsColors.BLACK : c;
 	}
 }
