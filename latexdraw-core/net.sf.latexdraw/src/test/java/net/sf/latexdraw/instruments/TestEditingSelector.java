@@ -39,6 +39,7 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
+				bindToInstance(StatusBarController.class, Mockito.mock(StatusBarController.class));
 				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
 				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
 				bindToInstance(IDrawing.class, ShapeFactory.INST.createDrawing());

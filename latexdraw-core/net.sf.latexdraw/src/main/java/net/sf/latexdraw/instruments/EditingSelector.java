@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import net.sf.latexdraw.commands.CheckConvertExists;
 import net.sf.latexdraw.commands.ModifyPencilStyle;
 import net.sf.latexdraw.commands.shape.AddShape;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -110,6 +111,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	@Inject Canvas canvas;
 
 	@Inject CodeInserter codeInserter;
+	@Inject StatusBarController status;
 
 	final Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
 
@@ -162,6 +164,9 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	protected void configureBindings() {
 		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[button2EditingChoiceMap.size()+1]);
 		nodes[nodes.length-1] = handB;
+
+		// Checking that converting pictures can be done.
+		toggleButtonBinder(CheckConvertExists.class).map(i -> new CheckConvertExists(status.getLabel(), status.getLink())).on(picB).bind();
 
 		toggleButtonBinder(AddShape.class).on(handB).
 			map(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(pencil.textSetter.getPosition()),

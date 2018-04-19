@@ -54,7 +54,7 @@ class LPicture extends LPositionShape implements IPicture {
 			new File(pathTarget).delete();
 		}
 
-		if(pathSource.endsWith(".eps") || pathSource.endsWith(".pdf")) {
+		if(pathSource.endsWith(".eps") || pathSource.endsWith(".pdf")) { //NON-NLS
 			pathTarget = pathSource;
 			searchOrCreateImg();
 		}
@@ -71,11 +71,11 @@ class LPicture extends LPositionShape implements IPicture {
 	private void searchOrCreateImg() {
 		final String path = LFileUtils.INSTANCE.getFileWithoutExtension(pathSource);
 		System.out.println(path);
-		pathSource = Stream.of(".jpg", ".png", ".gif", ".jpeg").map(ext -> new File(path + ext)).
+		pathSource = Stream.of(".jpg", ".png", ".gif", ".jpeg").map(ext -> new File(path + ext)). //NON-NLS
 			filter(f -> f.exists()).map(f -> f.getPath()).findFirst().
 			orElseGet(() -> {
 				LSystem.INSTANCE.execute(new String[]{"convert", pathSource, path + ".jpg"}, null); //NON-NLS
-				return path + ".jpg";
+				return path + ".jpg"; //NON-NLS
 			});
 	}
 
@@ -125,7 +125,7 @@ class LPicture extends LPositionShape implements IPicture {
 		pathTarget = LFileUtils.INSTANCE.getFileWithoutExtension(pathSource) + ExportFormat.EPS_LATEX.getFileExtension();
 
 		if(!new File(pathTarget).exists()) {
-			LSystem.INSTANCE.execute(new String[]{"convert", pathSource, pathTarget}, null); //NON-NLS
+			LSystem.INSTANCE.execute(new String[]{"convsert", pathSource, pathTarget}, null); //NON-NLS
 		}
 	}
 
