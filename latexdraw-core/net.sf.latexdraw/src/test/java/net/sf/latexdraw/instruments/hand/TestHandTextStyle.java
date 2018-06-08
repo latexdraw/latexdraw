@@ -69,90 +69,90 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 	@Test
 	public void testSelectBLPencil() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
-		clickOnblButton.execute();
+		selectPosition.execute(TextPosition.BOT_LEFT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.BOT_LEFT, ((IText) drawing.getSelection().getShapeAt(0)).getTextPosition());
 		assertEquals(TextPosition.BOT_LEFT, ((IText) drawing.getSelection().getShapeAt(2)).getTextPosition());
-		assertTrue(blButton.isSelected());
+		assertEquals(TextPosition.BOT_LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectBRPencil() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
-		clickOnbrButton.execute();
+		selectPosition.execute(TextPosition.BOT_RIGHT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.BOT_RIGHT, ((IText) drawing.getSelection().getShapeAt(0)).getTextPosition());
 		assertEquals(TextPosition.BOT_RIGHT, ((IText) drawing.getSelection().getShapeAt(2)).getTextPosition());
-		assertTrue(brButton.isSelected());
+		assertEquals(TextPosition.BOT_RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectBPencil() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
-		clickOnbButton.execute();
+		selectPosition.execute(TextPosition.BOT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.BOT, ((IText) drawing.getSelection().getShapeAt(0)).getTextPosition());
 		assertEquals(TextPosition.BOT, ((IText) drawing.getSelection().getShapeAt(2)).getTextPosition());
-		assertTrue(bButton.isSelected());
+		assertEquals(TextPosition.BOT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectTPencil() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
-		clickOntButton.execute();
+		selectPosition.execute(TextPosition.TOP);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.TOP, ((IText) drawing.getSelection().getShapeAt(0)).getTextPosition());
 		assertEquals(TextPosition.TOP, ((IText) drawing.getSelection().getShapeAt(2)).getTextPosition());
-		assertTrue(tButton.isSelected());
+		assertEquals(TextPosition.TOP, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectTLPencil() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
-		clickOntlButton.execute();
+		selectPosition.execute(TextPosition.TOP_LEFT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.TOP_LEFT, ((IText) drawing.getSelection().getShapeAt(0)).getTextPosition());
 		assertEquals(TextPosition.TOP_LEFT, ((IText) drawing.getSelection().getShapeAt(2)).getTextPosition());
-		assertTrue(tlButton.isSelected());
+		assertEquals(TextPosition.TOP_LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectTRPencil() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
-		clickOntrButton.execute();
+		selectPosition.execute(TextPosition.TOP_RIGHT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.TOP_RIGHT, ((IText) drawing.getSelection().getShapeAt(0)).getTextPosition());
 		assertEquals(TextPosition.TOP_RIGHT, ((IText) drawing.getSelection().getShapeAt(2)).getTextPosition());
-		assertTrue(trButton.isSelected());
+		assertEquals(TextPosition.TOP_RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectRPencil() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
-		clickOnrButton.execute();
+		selectPosition.execute(TextPosition.RIGHT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.RIGHT, ((IText) drawing.getSelection().getShapeAt(0)).getTextPosition());
 		assertEquals(TextPosition.RIGHT, ((IText) drawing.getSelection().getShapeAt(2)).getTextPosition());
-		assertTrue(rButton.isSelected());
+		assertEquals(TextPosition.RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectLPencil() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
-		clickOnlButton.execute();
+		selectPosition.execute(TextPosition.LEFT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.LEFT, ((IText) drawing.getSelection().getShapeAt(0)).getTextPosition());
 		assertEquals(TextPosition.LEFT, ((IText) drawing.getSelection().getShapeAt(2)).getTextPosition());
-		assertTrue(lButton.isSelected());
+		assertEquals(TextPosition.LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectCentrePencil() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
-		clickOncentreButton.execute();
+		selectPosition.execute(TextPosition.CENTER);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.CENTER, ((IText) drawing.getSelection().getShapeAt(0)).getTextPosition());
 		assertEquals(TextPosition.CENTER, ((IText) drawing.getSelection().getShapeAt(2)).getTextPosition());
-		assertTrue(centreButton.isSelected());
+		assertEquals(TextPosition.CENTER, textPos.getSelectionModel().getSelectedItem());
 	}
 }

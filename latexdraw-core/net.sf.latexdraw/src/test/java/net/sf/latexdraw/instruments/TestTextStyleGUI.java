@@ -1,9 +1,10 @@
 package net.sf.latexdraw.instruments;
 
 import java.util.concurrent.TimeoutException;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
+import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import org.junit.After;
 import org.junit.Before;
@@ -12,27 +13,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomiser> {
-	protected ToggleButton blButton;
-	protected ToggleButton bButton;
-	protected ToggleButton brButton;
-	protected ToggleButton tlButton;
-	protected ToggleButton tButton;
-	protected ToggleButton trButton;
-	protected ToggleButton lButton;
-	protected ToggleButton rButton;
-	protected ToggleButton centreButton;
+	protected ComboBox<TextPosition> textPos;
 	protected TextArea packagesField;
 	protected TextArea logField;
 
-	protected final GUIVoidCommand clickOnblButton = () -> clickOn(blButton);
-	protected final GUIVoidCommand clickOnbButton = () -> clickOn(bButton);
-	protected final GUIVoidCommand clickOnbrButton = () -> clickOn(brButton);
-	protected final GUIVoidCommand clickOntlButton = () -> clickOn(tlButton);
-	protected final GUIVoidCommand clickOntButton = () -> clickOn(tButton);
-	protected final GUIVoidCommand clickOntrButton = () -> clickOn(trButton);
-	protected final GUIVoidCommand clickOnlButton = () -> clickOn(lButton);
-	protected final GUIVoidCommand clickOnrButton = () -> clickOn(rButton);
-	protected final GUIVoidCommand clickOncentreButton = () -> clickOn(centreButton);
+	protected final GUICommand<TextPosition> selectPosition = item -> selectGivenComboBoxItem(textPos, item);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
@@ -43,15 +28,7 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 	@Before
 	public void setUp() {
 		super.setUp();
-		blButton = find("#blButton");
-		bButton = find("#bButton");
-		brButton = find("#brButton");
-		tlButton = find("#tlButton");
-		tButton = find("#tButton");
-		trButton = find("#trButton");
-		lButton = find("#lButton");
-		rButton = find("#rButton");
-		centreButton = find("#centreButton");
+		textPos = find("#textPos");
 		packagesField = find("#packagesField");
 		logField = find("#logField");
 		ins = (ShapeTextCustomiser) injectorFactory.call(ShapeTextCustomiser.class);

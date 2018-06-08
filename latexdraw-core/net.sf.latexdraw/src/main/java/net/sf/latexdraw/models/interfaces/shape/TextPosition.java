@@ -47,21 +47,6 @@ public enum TextPosition {
 		public String getLatexToken() {
 			return "tr"; //NON-NLS
 		}
-	}, BASE {
-		@Override
-		public String getLatexToken() {
-			return "B"; //NON-NLS
-		}
-	}, BASE_LEFT {
-		@Override
-		public String getLatexToken() {
-			return "Bl"; //NON-NLS
-		}
-	}, BASE_RIGHT {
-		@Override
-		public String getLatexToken() {
-			return "Br"; //NON-NLS
-		}
 	}, LEFT {
 		@Override
 		public String getLatexToken() {
