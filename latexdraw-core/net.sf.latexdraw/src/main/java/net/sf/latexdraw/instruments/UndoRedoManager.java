@@ -57,10 +57,10 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(Undo.class).on(undoB).bind();
-		buttonBinder(Redo.class).on(redoB).bind();
-		keyNodeBinder(Undo.class).on(canvas).with(KeyCode.Z, LSystem.INSTANCE.getControlKey()).bind();
-		keyNodeBinder(Redo.class).on(canvas).with(KeyCode.Y, LSystem.INSTANCE.getControlKey()).bind();
+		buttonBinder(Undo::new).on(undoB).bind();
+		buttonBinder(Redo::new).on(redoB).bind();
+		keyNodeBinder(Undo::new).on(canvas).with(KeyCode.Z, LSystem.INSTANCE.getControlKey()).bind();
+		keyNodeBinder(Redo::new).on(canvas).with(KeyCode.Y, LSystem.INSTANCE.getControlKey()).bind();
 	}
 
 	@Override

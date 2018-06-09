@@ -192,7 +192,7 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 	private void configureMovePointBinding() {
-		nodeBinder(new DnD(), MovePointShape.class).
+		nodeBinder(new DnD(), MovePointShape::new).
 			on(mvPtHandlers).
 			first((i, c) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
 				final IGroup group = canvas.getDrawing().getSelection();
@@ -218,7 +218,7 @@ public class Border extends CanvasInstrument implements Initializable {
 	protected void configureBindings() {
 		addBinding(new DnD2Scale(this));
 		configureMovePointBinding();
-		nodeBinder(new DnD(), MoveCtrlPoint.class).
+		nodeBinder(new DnD(), MoveCtrlPoint::new).
 			on(ctrlPt1Handlers).
 			on(ctrlPt2Handlers).
 			first((i, c) -> {
@@ -239,7 +239,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			}).
 			exec().bind();
 
-		nodeBinder(new DnD(), RotateShapes.class).
+		nodeBinder(new DnD(), RotateShapes::new).
 			on(rotHandler).
 			first((i, c) -> {
 				final IDrawing drawing = canvas.getDrawing();
@@ -264,7 +264,8 @@ public class Border extends CanvasInstrument implements Initializable {
 		private final IPoint gap;
 
 		DnD2ArcAngle(final Border ins) {
-			super(ins, true, new DnD(), ModifyShapeProperty.class, Arrays.asList(ins.arcHandlerStart, ins.arcHandlerEnd), false, null);
+			super(ins, true, new DnD(), i -> new ModifyShapeProperty(null, null, null),
+				Arrays.asList(ins.arcHandlerStart, ins.arcHandlerEnd), false, null);
 			gap = ShapeFactory.INST.createPoint();
 			isRotated = false;
 		}
@@ -342,7 +343,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		private double yGap;
 
 		DnD2Scale(final Border ins) {
-			super(ins, true, new DnD(), ScaleShapes.class, ins.scaleHandlers.stream().map(h -> (Node) h).collect(Collectors.toList()), false, null);
+			super(ins, true, new DnD(), i -> new ScaleShapes(), ins.scaleHandlers.stream().map(h -> (Node) h).collect(Collectors.toList()), false, null);
 		}
 
 		private void setXGap(final Position refPosition, final IPoint tl, final IPoint br) {

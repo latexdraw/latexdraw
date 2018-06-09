@@ -149,7 +149,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		menuItemBinder(Export.class).on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST).
+		menuItemBinder(Export::new).on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST).
 			first((i, c) -> {
 			if(i.getWidget().getUserData() instanceof ExportFormat) {
 				final ExportFormat format = (ExportFormat) i.getWidget().getUserData();
@@ -160,7 +160,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 			}
 		}).bind();
 
-		menuItemBinder(ExportTemplate.class).on(exportTemplateMenu).first(c -> {
+		menuItemBinder(ExportTemplate::new).on(exportTemplateMenu).first(c -> {
 			c.setTemplatesPane(templateManager.templatePane);
 			c.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 			c.setUi(LaTeXDraw.getInstance());

@@ -148,24 +148,24 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		comboboxBinder(ModifyMagneticGrid.class).on(styleList).first(c -> {
+		comboboxBinder(ModifyMagneticGrid::new).on(styleList).first(c -> {
 			c.setValue(styleList.getSelectionModel().getSelectedItem());
 			c.setGrid(grid);
 			c.setProperty(GridProperties.STYLE);
 		}).bind();
 
-		checkboxBinder(ModifyMagneticGrid.class).on(magneticCB).first(c -> {
+		checkboxBinder(ModifyMagneticGrid::new).on(magneticCB).first(c -> {
 			c.setValue(magneticCB.isSelected());
 			c.setGrid(grid);
 			c.setProperty(GridProperties.MAGNETIC);
 		}).bind();
 
-		spinnerBinder(ModifyMagneticGrid.class).on(persoGridGapField).exec().first(c -> {
+		spinnerBinder(ModifyMagneticGrid::new).on(persoGridGapField).exec().first(c -> {
 			c.setGrid(grid);
 			c.setProperty(GridProperties.GRID_SPACING);
 		}).then(c -> c.setValue(persoGridGapField.getValue())).bind();
 
-		comboboxBinder(SetUnit.class).on(unitChoice).first(c -> c.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()))).bind();
+		comboboxBinder(SetUnit::new).on(unitChoice).first(c -> c.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()))).bind();
 
 		anonCmdBinder(new ButtonPressed(), () -> {
 			final File file = getFileChooser().showDialog(null);

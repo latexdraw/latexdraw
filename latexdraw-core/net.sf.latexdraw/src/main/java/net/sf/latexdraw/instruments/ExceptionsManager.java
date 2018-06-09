@@ -71,7 +71,7 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(ShowStage.class).on(exceptionB).first(c -> {
+		buttonBinder(ShowStage::new).on(exceptionB).first(c -> {
 			c.setWidget(getStageEx());
 			c.setVisible(true);
 		}).bind();

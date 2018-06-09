@@ -97,12 +97,12 @@ public class Hand extends CanvasInstrument {
 
 		dbleClickToInitTextSetter();
 
-		keyNodeBinder(SelectShapes.class).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).first(c -> {
+		keyNodeBinder(SelectShapes::new).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).first(c -> {
 			c.getShapes().addAll(canvas.getDrawing().getShapes());
 			c.setDrawing(canvas.getDrawing());
 		}).bind();
 
-		keyNodeBinder(UpdateToGrid.class).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).first(c -> {
+		keyNodeBinder(UpdateToGrid::new).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).first(c -> {
 			c.setShape(canvas.getDrawing().getSelection().duplicateDeep(false));
 			c.setGrid(canvas.getMagneticGrid());
 		}).when(i -> canvas.getMagneticGrid().isMagnetic()).bind();
@@ -113,27 +113,22 @@ public class Hand extends CanvasInstrument {
 	 */
 	private void dbleClickToInitTextSetter() {
 		// For text shapes.
-		nodeBinder(new DoubleClick(), InitTextSetter.class).
-			on(canvas.getViews().getChildren()).
-			map(i -> {
-				final IText text = ((ViewText) i.getSrcObject().get().getParent()).getModel();
-				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(text.getPosition().getX() * canvas.getZoom(),
-					text.getPosition().getY() * canvas.getZoom()), text, null);
-			}).
+		nodeBinder(new DoubleClick(), i -> {
+			final IText text = ((ViewText) i.getSrcObject().get().getParent()).getModel();
+			return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(text.getPosition().getX() * canvas.getZoom(),
+				text.getPosition().getY() * canvas.getZoom()), text, null);
+		}).on(canvas.getViews().getChildren()).
 			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() instanceof ViewText).
 			strictStart().
 			bind();
 
 		// For plot shapes.
-		nodeBinder(new DoubleClick(), InitTextSetter.class).
-			on(canvas.getViews().getChildren()).
-			map(i -> {
+		nodeBinder(new DoubleClick(), i -> {
 				final IPlot plot = getViewShape(i.getSrcObject()).map(view -> ((ViewPlot) view).getModel()).get();
 				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(plot.getPosition().getX() * canvas.getZoom(),
 					plot.getPosition().getY() * canvas.getZoom()), null, plot);
-			}).
-			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() != null &&
-				getViewShape(i.getSrcObject()).orElse(null) instanceof ViewPlot).
+		}).on(canvas.getViews().getChildren()).
+			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() != null && getViewShape(i.getSrcObject()).orElse(null) instanceof ViewPlot).
 			strictStart().
 			bind();
 	}
@@ -142,7 +137,7 @@ public class Hand extends CanvasInstrument {
 	 * Pressure to select shapes
 	 */
 	private void bindPressureToSelectShape() {
-		nodeBinder(new Press(), SelectShapes.class).on(canvas.getViews().getChildren()).first((i, c) -> {
+		nodeBinder(new Press(), SelectShapes::new).on(canvas.getViews().getChildren()).first((i, c) -> {
 			c.setDrawing(canvas.getDrawing());
 			getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
 				if(i.isShiftPressed()) {
@@ -159,7 +154,7 @@ public class Hand extends CanvasInstrument {
 		}).bind();
 
 		// A simple pressure on the canvas deselects the shapes
-		nodeBinder(new Press(), SelectShapes.class).on(canvas).
+		nodeBinder(new Press(), SelectShapes::new).on(canvas).
 			first((i, c) -> c.setDrawing(canvas.getDrawing())).
 			when(i -> i.getSrcObject().orElse(null) instanceof Canvas).
 			bind();
@@ -169,9 +164,8 @@ public class Hand extends CanvasInstrument {
 	 * A DnD on a shape view allows to translate the underlying shape.
 	 */
 	private void bindDnDTranslate() {
-		nodeBinder(new DnD(true, true), TranslateShapes.class).
+		nodeBinder(new DnD(true, true), i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false))).
 			on(canvas.getViews().getChildren()).on(canvas.getSelectionBorder()).
-			map(i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false))).
 			then((i, c) -> {
 				final IPoint startPt = grid.getTransformedPointToGrid(i.getSrcScenePoint());
 				final IPoint endPt = grid.getTransformedPointToGrid(i.getTgtScenePoint());
@@ -250,7 +244,7 @@ public class Hand extends CanvasInstrument {
 		private List<ViewShape<?>> selectedViews;
 
 		DnD2Select(final Hand hand) {
-			super(hand, true, new DnD(), SelectShapes.class, Collections.singletonList(hand.canvas), false, null);
+			super(hand, true, new DnD(), i -> new SelectShapes(), Collections.singletonList(hand.canvas), false, null);
 		}
 
 		@Override

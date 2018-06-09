@@ -50,7 +50,7 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	@Override
 	protected void configureBindings() {
 		super.configureBindings();
-		spinnerBinder(Zoom.class).on(zoom).exec().
+		spinnerBinder(Zoom::new).on(zoom).exec().
 			first(c -> c.setZoomable(zoomable)).
 			then((i, c) -> c.setZoomLevel(Double.valueOf(i.getWidget().getValue().toString()) / 100d)).bind();
 	}

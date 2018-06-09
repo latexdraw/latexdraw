@@ -133,55 +133,49 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	@Override
 	protected void configureBindings() {
 		// Close window
-		windowBinder(new WindowClosed(), SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).
-			map(i -> new SaveDrawing(true, true, currentFolder, getDialog(true), prefSetter, currentFile,
-				SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
+		windowBinder(new WindowClosed(), i -> new SaveDrawing(true, true, currentFolder, getDialog(true), prefSetter, currentFile,
+			SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).
+			on(LaTeXDraw.getInstance().getMainStage()).bind();
 
 		// Quit shortcut
-		keyWindowBinder(SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.W, LSystem.INSTANCE.getControlKey()).
-			map(i -> new SaveDrawing(true, true, currentFolder, getDialog(true), prefSetter, currentFile,
-				SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
+		keyWindowBinder(i -> new SaveDrawing(true, true, currentFolder, getDialog(true), prefSetter, currentFile,
+			SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).
+			on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.W, LSystem.INSTANCE.getControlKey()).bind();
 
 		// Save menu
-		menuItemBinder(SaveDrawing.class).on(saveMenu).map(i -> new SaveDrawing(false, false, currentFolder, getDialog(true),
-			prefSetter, currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
+		menuItemBinder(i -> new SaveDrawing(false, false, currentFolder, getDialog(true),
+			prefSetter, currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).
+			on(saveMenu).bind();
 
 		// Save shortcut
-		keyWindowBinder(SaveDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.S, LSystem.INSTANCE.getControlKey()).
-			map(i -> new SaveDrawing(false, false, currentFolder, getDialog(true), prefSetter, currentFile,
-				SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
+		keyWindowBinder(i -> new SaveDrawing(false, false, currentFolder, getDialog(true), prefSetter, currentFile,
+			SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).
+			on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.S, LSystem.INSTANCE.getControlKey()).bind();
 
 		// Save as menu
-		menuItemBinder(SaveDrawing.class).on(saveAsMenu).
-			map(i -> new SaveDrawing(true, false, currentFolder, getDialog(true), prefSetter, null,
-				SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).bind();
+		menuItemBinder(i -> new SaveDrawing(true, false, currentFolder, getDialog(true), prefSetter, null,
+			SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).on(saveAsMenu).bind();
 
 		// Load menu
-		menuItemBinder(LoadDrawing.class).on(loadMenu).
-			map(i -> new LoadDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
-				getDialog(false), currentFolder)).bind();
+		menuItemBinder(i -> new LoadDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
+			getDialog(false), currentFolder)).on(loadMenu).bind();
 
 		// Load shortcut
-		keyWindowBinder(LoadDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.O, LSystem.INSTANCE.getControlKey()).
-			map(i -> new LoadDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
-				getDialog(false), currentFolder)).bind();
+		keyWindowBinder(i -> new LoadDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
+			getDialog(false), currentFolder)).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.O, LSystem.INSTANCE.getControlKey()).bind();
 
 		// New menu
-		menuItemBinder(NewDrawing.class).on(newMenu).
-			map(i -> new NewDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
-				getDialog(false), prefSetter, currentFolder)).bind();
+		menuItemBinder(i -> new NewDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
+			getDialog(false), prefSetter, currentFolder)).on(newMenu).bind();
 
 		// New shortcut
-		keyWindowBinder(NewDrawing.class).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.N, LSystem.INSTANCE.getControlKey()).
-			map(i -> new NewDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
-				getDialog(false), prefSetter, currentFolder)).bind();
+		keyWindowBinder(i -> new NewDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
+			getDialog(false), prefSetter, currentFolder)).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.N, LSystem.INSTANCE.getControlKey()).bind();
 
 		// Recent files menus
-		menuItemBinder(LoadDrawing.class).
-			onMenu(recentFilesMenu.getItems()).
-			map(i -> new LoadDrawing(new File((String) i.getWidget().getUserData()), SVGDocumentGenerator.INSTANCE,
-					statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(), getDialog(false), currentFolder)).
-			bind();
+		menuItemBinder(i -> new LoadDrawing(new File((String) i.getWidget().getUserData()), SVGDocumentGenerator.INSTANCE,
+			statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(), getDialog(false), currentFolder)).
+			onMenu(recentFilesMenu.getItems()).bind();
 	}
 
 	/**

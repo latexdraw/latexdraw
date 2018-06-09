@@ -166,19 +166,18 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		nodes[nodes.length-1] = handB;
 
 		// Checking that converting pictures can be done.
-		toggleButtonBinder(CheckConvertExists.class).map(i -> new CheckConvertExists(status.getLabel(), status.getLink())).on(picB).bind();
+		toggleButtonBinder(i -> new CheckConvertExists(status.getLabel(), status.getLink())).on(picB).bind();
 
-		toggleButtonBinder(AddShape.class).on(handB).
-			map(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(pencil.textSetter.getPosition()),
-				pencil.textSetter.getTextField().getText()), canvas.getDrawing())).
-			when(i -> pencil.textSetter.isActivated() && !pencil.textSetter.getTextField().getText().isEmpty()).bind();
+		toggleButtonBinder(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(pencil.textSetter.getPosition()),
+								pencil.textSetter.getTextField().getText()), canvas.getDrawing())).
+			on(handB).when(i -> pencil.textSetter.isActivated() && !pencil.textSetter.getTextField().getText().isEmpty()).bind();
 
-		toggleButtonBinder(ModifyPencilStyle.class).on(nodes).first((i, c) -> {
+		toggleButtonBinder(ModifyPencilStyle::new).on(nodes).first((i, c) -> {
 			c.setEditingChoice(button2EditingChoiceMap.get(i.getWidget()));
 			c.setPencil(pencil);
 		}).bind();
 
-		toggleButtonBinder(ActivateInactivateInstruments.class).on(nodes).first((i, c) -> {
+		toggleButtonBinder(ActivateInactivateInstruments::new).on(nodes).first((i, c) -> {
 			final ToggleButton button = i.getWidget();
 
 			c.setActivateFirst(false);
@@ -214,7 +213,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 			}
 		}).bind();
 
-		buttonBinder(ActivateInactivateInstruments.class).on(codeB).first(cmd -> cmd.addInstrumentToActivate(codeInserter)).bind();
+		buttonBinder(ActivateInactivateInstruments::new).on(codeB).first(cmd -> cmd.addInstrumentToActivate(codeInserter)).bind();
 	}
 
 	@Override

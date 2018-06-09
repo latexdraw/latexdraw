@@ -156,29 +156,29 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 
 	@Override
 	protected void configureBindings() {
-		textInputBinder(ModifyLatexProperties.class).on(labelField).first(c -> {
+		textInputBinder(ModifyLatexProperties::new).on(labelField).first(c -> {
 			c.setProperty(LatexProperties.LABEL);
 			c.setGenerator(latexGen);
 		}).then((i, c) -> c.setValue(i.getWidget().getText())).bind();
 
-		textInputBinder(ModifyLatexProperties.class).on(titleField).first(c -> {
+		textInputBinder(ModifyLatexProperties::new).on(titleField).first(c -> {
 			c.setProperty(LatexProperties.CAPTION);
 			c.setGenerator(latexGen);
 		}).then((i, c) -> c.setValue(i.getWidget().getText())).bind();
 
-		checkboxBinder(ModifyLatexProperties.class).on(middleHorizPosCB).first(c -> {
+		checkboxBinder(ModifyLatexProperties::new).on(middleHorizPosCB).first(c -> {
 			c.setProperty(LatexProperties.POSITION_HORIZONTAL);
 			c.setGenerator(latexGen);
 			c.setValue(middleHorizPosCB.isSelected());
 		}).bind();
 
-		comboboxBinder(ModifyLatexProperties.class).on(positionCB).first(c -> {
+		comboboxBinder(ModifyLatexProperties::new).on(positionCB).first(c -> {
 			c.setProperty(LatexProperties.POSITION_VERTICAL);
 			c.setGenerator(latexGen);
 			c.setValue(positionCB.getSelectionModel().getSelectedItem());
 		}).bind();
 
-		spinnerBinder(ModifyLatexProperties.class).on(scaleField).exec().first(c -> {
+		spinnerBinder(ModifyLatexProperties::new).on(scaleField).exec().first(c -> {
 			c.setValue(scaleField.getValue());
 			c.setProperty(LatexProperties.SCALE);
 			c.setGenerator(latexGen);

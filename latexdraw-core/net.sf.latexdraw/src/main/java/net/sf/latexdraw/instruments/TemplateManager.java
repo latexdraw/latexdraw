@@ -88,13 +88,12 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(UpdateTemplates.class).on(updateTemplates).first(c -> {
+		buttonBinder(UpdateTemplates::new).on(updateTemplates).first(c -> {
 			c.setTemplatesPane(templatePane);
 			c.updateThumbnails(true);
 		}).bind();
 
-		nodeBinder(new DnD(), LoadTemplate.class).
-			on(templatePane).
+		nodeBinder(new DnD(), LoadTemplate::new).on(templatePane).
 			first((i, c) -> {
 				c.setDrawing(drawing);
 				c.setFile(new File((String) i.getSrcObject().get().getUserData()));

@@ -77,33 +77,25 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	@Override
 	protected void configureBindings() {
 		// menu to paste shapes.
-		menuItemBinder(PasteShapes.class).on(pasteMenu).
-			map(i -> new PasteShapes(getCopyCutCmd().orElse(null), grid, canvas.getDrawing())).
+		menuItemBinder(i -> new PasteShapes(getCopyCutCmd().orElse(null), grid, canvas.getDrawing())).on(pasteMenu).
 			when(i -> getCopyCutCmd().isPresent()).bind();
 
 		// Key shortcut ctrl+V to paste shapes.
-		keyNodeBinder(PasteShapes.class).on(canvas).with(KeyCode.V, LSystem.INSTANCE.getControlKey()).
-			map(i -> new PasteShapes(getCopyCutCmd().orElse(null), grid, canvas.getDrawing())).
-			when(i -> getCopyCutCmd().isPresent()).bind();
+		keyNodeBinder(i -> new PasteShapes(getCopyCutCmd().orElse(null), grid, canvas.getDrawing())).
+			on(canvas).with(KeyCode.V, LSystem.INSTANCE.getControlKey()).when(i -> getCopyCutCmd().isPresent()).bind();
 
 		// menu to copy shapes.
-		menuItemBinder(CopyShapes.class).on(copyMenu).
-			map(i -> new CopyShapes(getSelectCmd().orElse(null))).
-			when(i -> isShapeSelected.get()).bind();
+		menuItemBinder(i -> new CopyShapes(getSelectCmd().orElse(null))).on(copyMenu).when(i -> isShapeSelected.get()).bind();
 
 		// Key shortcut ctrl+C to copy shapes.
-		keyNodeBinder(CopyShapes.class).on(canvas).with(KeyCode.C, LSystem.INSTANCE.getControlKey()).
-			map(i -> new CopyShapes(getSelectCmd().orElse(null))).
+		keyNodeBinder(i -> new CopyShapes(getSelectCmd().orElse(null))).on(canvas).with(KeyCode.C, LSystem.INSTANCE.getControlKey()).
 			when(i -> isShapeSelected.get()).bind();
 
 		// menu to cut shapes.
-		menuItemBinder(CutShapes.class).on(cutMenu).
-			map(i -> new CutShapes(getSelectCmd().orElse(null))).
-			when(i -> isShapeSelected.get()).bind();
+		menuItemBinder(i -> new CutShapes(getSelectCmd().orElse(null))).on(cutMenu).when(i -> isShapeSelected.get()).bind();
 
 		// Key shortcut ctrl+X to cut shapes.
-		keyNodeBinder(CutShapes.class).on(canvas).with(KeyCode.X, LSystem.INSTANCE.getControlKey()).
-			map(i -> new CutShapes(getSelectCmd().orElse(null))).
+		keyNodeBinder(i -> new CutShapes(getSelectCmd().orElse(null))).on(canvas).with(KeyCode.X, LSystem.INSTANCE.getControlKey()).
 			when(i -> isShapeSelected.get()).bind();
 	}
 

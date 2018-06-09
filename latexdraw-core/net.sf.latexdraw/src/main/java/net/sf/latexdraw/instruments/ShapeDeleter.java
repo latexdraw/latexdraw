@@ -76,8 +76,8 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Cmd
 			c.setDrawing(sel.getDrawing().orElse(null));
 		});
 
-		buttonBinder(DeleteShapes.class).on(deleteB).first(first).bind();
-		keyNodeBinder(DeleteShapes.class).on(canvas).with(KeyCode.DELETE).first(first).bind();
+		buttonBinder(DeleteShapes::new).on(deleteB).first(first).bind();
+		keyNodeBinder(DeleteShapes::new).on(canvas).with(KeyCode.DELETE).first(first).bind();
 	}
 }
 

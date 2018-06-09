@@ -100,41 +100,35 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	@Override
 	protected void configureBindings() {
 		// Key Enter to validate the text.
-		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).
-			map(i -> new ModifyShapeProperty(ShapeProperties.TEXT, ShapeFactory.INST.createGroup(text), textField.getText())).
-			when(i -> !pencil.isActivated() && text != null && !textField.getText().isEmpty()).bind();
+		keyNodeBinder(i -> new ModifyShapeProperty(ShapeProperties.TEXT, ShapeFactory.INST.createGroup(text), textField.getText())).
+			on(textField).with(KeyCode.ENTER).when(i -> !pencil.isActivated() && text != null && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to validate the equation of a plot shape.
-		keyNodeBinder(ModifyShapeProperty.class).on(textField).with(KeyCode.ENTER).
-			map(i -> new ModifyShapeProperty(ShapeProperties.PLOT_EQ, ShapeFactory.INST.createGroup(plot), textField.getText())).
-			when(i -> !pencil.isActivated() && plot != null && checkValidPlotFct()).
-			bind();
+		keyNodeBinder(i -> new ModifyShapeProperty(ShapeProperties.PLOT_EQ, ShapeFactory.INST.createGroup(plot), textField.getText())).
+			on(textField).with(KeyCode.ENTER).when(i -> !pencil.isActivated() && plot != null && checkValidPlotFct()).bind();
 
 		// Key Enter to add a text shape.
-		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).
-			map(i -> {
-				text = (IText) pencil.createShapeInstance();
-				text.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY()));
-				text.setText(textField.getText());
-				return new AddShape(text, canvas.getDrawing());
-			}).when(i -> pencil.isActivated() && pencil.getCurrentChoice() == EditionChoice.TEXT && !textField.getText().isEmpty()).bind();
+		keyNodeBinder(i -> {
+			text = (IText) pencil.createShapeInstance();
+			text.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY()));
+			text.setText(textField.getText());
+			return new AddShape(text, canvas.getDrawing());
+		}).on(textField).with(KeyCode.ENTER).
+			when(i -> pencil.isActivated() && pencil.getCurrentChoice() == EditionChoice.TEXT && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to add a plot shape.
-		keyNodeBinder(AddShape.class).on(textField).with(KeyCode.ENTER).
-			map(i -> {
-				plot = (IPlot) pencil.createShapeInstance();
-				plot.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY() + textField.getHeight()));
-				plot.setPlotEquation(textField.getText());
-				return new AddShape(plot, canvas.getDrawing());
-			}).when(i -> pencil.isActivated() && pencil.getCurrentChoice() == EditionChoice.PLOT && checkValidPlotFct()).bind();
+		keyNodeBinder(i -> {
+			plot = (IPlot) pencil.createShapeInstance();
+			plot.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY() + textField.getHeight()));
+			plot.setPlotEquation(textField.getText());
+			return new AddShape(plot, canvas.getDrawing());
+		}).on(textField).with(KeyCode.ENTER).when(i -> pencil.isActivated() && pencil.getCurrentChoice() == EditionChoice.PLOT && checkValidPlotFct()).bind();
 
-		keyNodeBinder(ActivateInactivateInstruments.class).on(textField).
-			map(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
-			with(KeyCode.ENTER).when(i -> textField.isValidText() && !textField.getText().isEmpty()).bind();
+		keyNodeBinder(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
+			on(textField).with(KeyCode.ENTER).when(i -> textField.isValidText() && !textField.getText().isEmpty()).bind();
 
-		keyNodeBinder(ActivateInactivateInstruments.class).on(textField).
-			map(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
-			with(KeyCode.ESCAPE).bind();
+		keyNodeBinder(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
+			on(textField).with(KeyCode.ESCAPE).bind();
 	}
 
 	private boolean checkValidPlotFct() {

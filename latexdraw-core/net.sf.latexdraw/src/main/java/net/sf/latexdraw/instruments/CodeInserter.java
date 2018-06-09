@@ -26,8 +26,8 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.sf.latexdraw.LaTeXDraw;
-import net.sf.latexdraw.commands.InsertPSTCode;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.commands.InsertPSTCode;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.parsers.pst.PSTContext;
 import net.sf.latexdraw.parsers.pst.PSTLatexdrawListener;
@@ -158,9 +158,9 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void configureBindings() {
-		buttonBinder(InsertPSTCode.class).on(ok).map(i -> new InsertPSTCode(text.getText(), statusBar.getLabel(), drawing)).bind();
+		buttonBinder(i -> new InsertPSTCode(text.getText(), statusBar.getLabel(), drawing)).on(ok).bind();
 
-		buttonBinder(InactivateInstrument.class).on(cancel, ok).first(cmd -> cmd.setInstrument(this)).bind();
+		buttonBinder(() -> new InactivateInstrument()).on(cancel, ok).first(cmd -> cmd.setInstrument(this)).bind();
 	}
 
 	@Override

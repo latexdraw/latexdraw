@@ -19,8 +19,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.TitledPane;
-import net.sf.latexdraw.commands.ModifyPencilParameter;
-import net.sf.latexdraw.commands.shape.ModifyShapeProperty;
 import net.sf.latexdraw.commands.shape.ShapeProperties;
 import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -96,19 +94,19 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 		addComboPropBinding(plotStyleCB, ShapeProperties.PLOT_STYLE);
 		addSpinnerPropBinding(nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false);
 
-		spinnerBinder(ModifyShapeProperty.class).on(minXSpinner).map(i -> mapModShProp(null, ShapeProperties.PLOT_MIN_X)).
+		spinnerBinder(i -> mapModShProp(null, ShapeProperties.PLOT_MIN_X)).on(minXSpinner).
 			then((i, c) -> c.setValue(i.getWidget().getValue())).
 			when(i -> hand.isActivated() && checkValidPlotFct()).bind();
 
-		spinnerBinder(ModifyPencilParameter.class).on(minXSpinner).map(i -> firstPropPen(null, ShapeProperties.PLOT_MIN_X)).
+		spinnerBinder(i -> firstPropPen(null, ShapeProperties.PLOT_MIN_X)).on(minXSpinner).
 			then((i, c) -> c.setValue(i.getWidget().getValue())).
 			when(pencilActiv).bind();
 
-		spinnerBinder(ModifyShapeProperty.class).on(maxXSpinner).map(i -> mapModShProp(null, ShapeProperties.PLOT_MAX_X)).
+		spinnerBinder(i -> mapModShProp(null, ShapeProperties.PLOT_MAX_X)).on(maxXSpinner).
 			then((i, c) -> c.setValue(i.getWidget().getValue())).
 			when(i -> hand.isActivated() && checkValidPlotFct()).bind();
 
-		spinnerBinder(ModifyPencilParameter.class).on(maxXSpinner).map(i -> firstPropPen(null, ShapeProperties.PLOT_MAX_X)).
+		spinnerBinder(i -> firstPropPen(null, ShapeProperties.PLOT_MAX_X)).on(maxXSpinner).
 			then((i, c) -> c.setValue(i.getWidget().getValue())).
 			when(pencilActiv).bind();
 

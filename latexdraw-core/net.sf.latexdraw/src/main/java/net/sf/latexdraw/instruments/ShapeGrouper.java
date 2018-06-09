@@ -61,14 +61,14 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(SeparateShapes.class).on(sepB).first(c -> getSelectCmd().map(sel -> sel.getShapes()).ifPresent(shapes -> {
+		buttonBinder(SeparateShapes::new).on(sepB).first(c -> getSelectCmd().map(sel -> sel.getShapes()).ifPresent(shapes -> {
 			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {
 				c.setShape((IGroup) shapes.get(0));
 			}
 			c.setDrawing(pencil.canvas.getDrawing());
 		})).bind();
 
-		buttonBinder(JoinShapes.class).on(groupB).first(c -> getSelectCmd().ifPresent(sel -> {
+		buttonBinder(JoinShapes::new).on(groupB).first(c -> getSelectCmd().ifPresent(sel -> {
 			sel.getShapes().forEach(sh -> c.addShape(sh));
 			c.setDrawing(pencil.canvas.getDrawing());
 		})).bind();
