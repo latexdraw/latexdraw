@@ -316,17 +316,17 @@ class LArrow implements IArrow {
 	}
 
 	@Override
-	public void setTBarSizeDim(final double tbarSizeDim) {
-		if(tbarSizeDim > 0d) {
-			tBarSizeDim.set(tbarSizeDim);
+	public void setTBarSizeDim(final double newtbarSizeDim) {
+		if(newtbarSizeDim > 0d) {
+			tBarSizeDim.set(newtbarSizeDim);
 			notifyOnChanged();
 		}
 	}
 
 	@Override
-	public void setTBarSizeNum(final double tBarSizeNum) {
-		if(tBarSizeNum >= 0d) {
-			this.tBarSizeNum.set(tBarSizeNum);
+	public void setTBarSizeNum(final double newtBarSizeNum) {
+		if(newtBarSizeNum >= 0d) {
+			tBarSizeNum.set(newtBarSizeNum);
 			notifyOnChanged();
 		}
 	}

@@ -27,7 +27,7 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
  * @author Arnaud Blouin
  */
 public class ViewGrid extends ViewStdGrid<IGrid> {
-	private final Path subgrid;
+	private Path subgrid;
 	private final Path maingrid;
 	private final ChangeListener<Number> mainGridLineCapUpdate;
 	private final ChangeListener<Number> subGridLineCapUpdate;
@@ -242,7 +242,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	}
 
 
-	private void updatePath(final boolean mainGrid, final boolean subGrid, final boolean labels) {
+	private void updatePath(final boolean withMainGrid, final boolean withSubGrid, final boolean withLabels) {
 		final double minY = model.getGridMinY();
 		final double maxY = model.getGridMaxY();
 		final double minX = model.getGridMinX();
@@ -259,17 +259,17 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		final double tlx = bounds.getMinX();
 		final double tly = bounds.getMinY();
 
-		if(subGrid) {
+		if(withSubGrid) {
 			subgrid.getElements().clear();
 			updatePathSubGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, bounds.getMaxX(), bounds.getMaxY());
 		}
 
-		if(mainGrid) {
+		if(withMainGrid) {
 			maingrid.getElements().clear();
 			updatePathMainGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, bounds.getMaxX(), bounds.getMaxY(), absStep);
 		}
 
-		if(labels) {
+		if(withLabels) {
 			cleanLabels();
 			updatePathLabels(minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, absStep);
 		}
