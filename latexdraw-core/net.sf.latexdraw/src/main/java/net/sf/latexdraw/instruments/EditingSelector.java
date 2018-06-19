@@ -162,8 +162,8 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[button2EditingChoiceMap.size()+1]);
-		nodes[nodes.length-1] = handB;
+		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[button2EditingChoiceMap.size() + 1]);
+		nodes[nodes.length - 1] = handB;
 
 		// Checking that converting pictures can be done.
 		toggleButtonBinder(i -> new CheckConvertExists(status.getLabel(), status.getLink())).on(picB).bind();

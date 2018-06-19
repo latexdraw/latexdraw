@@ -33,33 +33,33 @@ public class PSTDotView extends PSTClassicalView<IDot> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		final double x 				= shape.getX() - origin.getX();
-		final double y 				= origin.getY() - shape.getY();
-		final DotStyle style 		= shape.getDotStyle();
-		final StringBuilder params  = getPropertiesCode(ppc);
-		final StringBuilder rotation= getRotationHeaderCode(ppc, origin);
+		final double x = shape.getX() - origin.getX();
+		final double y = origin.getY() - shape.getY();
+		final DotStyle style = shape.getDotStyle();
+		final StringBuilder params = getPropertiesCode(ppc);
+		final StringBuilder rotation = getRotationHeaderCode(ppc, origin);
 		final StringBuilder code = new StringBuilder();
 
-		if(style!=DotStyle.DOT) {
+		if(style != DotStyle.DOT) {
 			params.append(", dotstyle=").append(style.getPSTToken()); //NON-NLS
 		}
 
-		params.append(", dotsize=").append((float) MathUtils.INST.getCutNumber(shape.getDiametre()/ppc)); //NON-NLS
+		params.append(", dotsize=").append((float) MathUtils.INST.getCutNumber(shape.getDiametre() / ppc)); //NON-NLS
 
-		if(rotation!=null) {
+		if(rotation != null) {
 			code.append(rotation);
 		}
 
 		code.append("\\psdots["); //NON-NLS
 		code.append(params);
 		if(shape.isFillable()) {
-			code.append(", fillcolor=").append(getColourName(shape.getFillingCol()));
+			code.append(", fillcolor=").append(getColourName(shape.getFillingCol())); //NON-NLS
 		}
 		code.append(']').append('(');
-		code.append(MathUtils.INST.getCutNumberFloat(x/ppc)).append(',');
-		code.append(MathUtils.INST.getCutNumberFloat(y/ppc)).append(')');
+		code.append(MathUtils.INST.getCutNumberFloat(x / ppc)).append(',');
+		code.append(MathUtils.INST.getCutNumberFloat(y / ppc)).append(')');
 
-		if(rotation!=null) {
+		if(rotation != null) {
 			code.append('}');
 		}
 

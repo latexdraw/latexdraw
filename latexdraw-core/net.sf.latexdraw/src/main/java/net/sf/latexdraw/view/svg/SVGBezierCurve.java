@@ -64,7 +64,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 		pt = m.getPoint(pt);
 		pts.add(ShapeFactory.INST.createPoint(pt));
 
-		if(list.get(1) instanceof CtrlPointsSeg) {// We set the control point of the first point.
+		if(list.get(1) instanceof CtrlPointsSeg) { // We set the control point of the first point.
 			c = (CtrlPointsSeg) list.get(1);
 			ctrlpts.add(ShapeFactory.INST.createPoint(c.getCtrl1(pt)));
 		}

@@ -258,21 +258,21 @@ public class ViewText extends ViewPositionShape<IText> {
 		}
 
 		// Compiling the LaTeX document.
-		Tuple<Boolean, String> res = execute(new String[]{os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //NON-NLS
+		Tuple<Boolean, String> res = execute(new String[] {os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //NON-NLS
 			"--output-directory=" + tmpDir.getAbsolutePath(), LFileUtils.INSTANCE.normalizeForLaTeX(pathTex)}); //NON-NLS
 		boolean ok = res.a;
 		log = res.b;
 
 		// Compiling the DVI document.
 		if(ok) {
-			res = execute(new String[]{os.getDvipsBinPath(), basePathPic + ".dvi", "-o", basePathPic + ExportFormat.EPS_LATEX.getFileExtension()}); //NON-NLS
+			res = execute(new String[] {os.getDvipsBinPath(), basePathPic + ".dvi", "-o", basePathPic + ExportFormat.EPS_LATEX.getFileExtension()}); //NON-NLS
 			ok = res.a;
 			log = log + res.b;
 		}
 
 		// Converting the PS document as a PDF one.
 		if(ok) {
-			res = execute(new String[]{os.getPs2pdfBinPath(), basePathPic + ExportFormat.EPS_LATEX.getFileExtension(), basePathPic + ExportFormat.PDF.getFileExtension()});
+			res = execute(new String[] {os.getPs2pdfBinPath(), basePathPic + ExportFormat.EPS_LATEX.getFileExtension(), basePathPic + ExportFormat.PDF.getFileExtension()});
 			ok = res.a;
 			log = log + res.b;
 		}

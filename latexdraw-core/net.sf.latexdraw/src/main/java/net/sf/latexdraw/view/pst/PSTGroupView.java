@@ -35,14 +35,14 @@ public class PSTGroupView extends PSTShapeView<IGroup> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc<1) {
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
 			return "";
 		}
 
 		final List<PSTShapeView<?>> pstViews = shape.getShapes().stream().map(PSTViewsFactory.INSTANCE::createView).
 			filter(Optional::isPresent).map(opt -> opt.get()).collect(Collectors.toList());
 
-		coloursName = pstViews.stream().map(view -> view.coloursName).filter(col -> col!=null).flatMap(s -> s.stream()).collect(Collectors.toSet());
+		coloursName = pstViews.stream().map(view -> view.coloursName).filter(col -> col != null).flatMap(s -> s.stream()).collect(Collectors.toSet());
 
 		return pstViews.stream().map(v -> v.getCode(origin, ppc)).collect(Collectors.joining("\n"));
 	}

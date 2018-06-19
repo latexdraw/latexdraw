@@ -74,7 +74,7 @@ class LPicture extends LPositionShape implements IPicture {
 		pathSource = Stream.of(".jpg", ".png", ".gif", ".jpeg").map(ext -> new File(path + ext)). //NON-NLS
 			filter(f -> f.exists()).map(f -> f.getPath()).findFirst().
 			orElseGet(() -> {
-				LSystem.INSTANCE.execute(new String[]{"convert", pathSource, path + ".jpg"}, null); //NON-NLS
+				LSystem.INSTANCE.execute(new String[] {"convert", pathSource, path + ".jpg"}, null); //NON-NLS
 				return path + ".jpg"; //NON-NLS
 			});
 	}
@@ -125,7 +125,7 @@ class LPicture extends LPositionShape implements IPicture {
 		pathTarget = LFileUtils.INSTANCE.getFileWithoutExtension(pathSource) + ExportFormat.EPS_LATEX.getFileExtension();
 
 		if(!new File(pathTarget).exists()) {
-			LSystem.INSTANCE.execute(new String[]{"convsert", pathSource, pathTarget}, null); //NON-NLS
+			LSystem.INSTANCE.execute(new String[] {"convsert", pathSource, pathTarget}, null); //NON-NLS
 		}
 	}
 

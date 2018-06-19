@@ -150,7 +150,7 @@ class SVGArrow implements GenericViewArrow {
 
 	private void setArrowBarBracketSquareBracket(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final double tbarNum) {
 		arrow.setTBarSizeDim(lineWidth - tbarNum * lineWidth - 2d * m.getY());
-		arrow.setBracketNum((-m.getX()-lineWidth / 2d) / (arrow.getTBarSizeDim() + arrow.getTBarSizeNum() * lineWidth));
+		arrow.setBracketNum((-m.getX() - lineWidth / 2d) / (arrow.getTBarSizeDim() + arrow.getTBarSizeNum() * lineWidth));
 
 		if(is180Rotation(path)) {
 			arrow.setArrowStyle(arrow.isLeftArrow() ? ArrowStyle.RIGHT_SQUARE_BRACKET : ArrowStyle.LEFT_SQUARE_BRACKET);

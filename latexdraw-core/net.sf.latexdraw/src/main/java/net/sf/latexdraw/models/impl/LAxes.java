@@ -114,7 +114,7 @@ class LAxes extends LAbstractGrid implements IAxes, LArrowableShape {
 	public void setArrowStyle(final ArrowStyle style, final int position) {
 		final int pos = position == -1 ? arrows.size() - 1 : position;
 
-		if(style != null && pos < 4 && pos >=0) {
+		if(style != null && pos < 4 && pos >= 0) {
 			LArrowableShape.super.setArrowStyle(style, position);
 			switch(pos) {
 				case 0:

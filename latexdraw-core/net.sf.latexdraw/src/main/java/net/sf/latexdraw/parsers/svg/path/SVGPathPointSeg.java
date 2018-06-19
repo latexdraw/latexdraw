@@ -17,9 +17,25 @@ import java.awt.geom.Point2D;
  * @author Arnaud BLOUIN
  */
 public abstract class SVGPathPointSeg extends SVGPathSeg implements PointSeg {
+	/**
+	 * Creates a point from the SVG information.
+	 * @param x The X-coordinate of the point.
+	 * @param y The Y-coordinate of the point.
+	 * @param prevPt The previous point of the path. May be null is the point is not relative.
+	 * @param isRelative Defines whether the point is relative.
+	 * @return The point converted or not according to isRelative.
+	 */
+	public static Point2D getPoint(final double x, final double y, final Point2D prevPt, final boolean isRelative) {
+		if(isRelative) {
+			if(prevPt == null) {
+				throw new IllegalArgumentException("The path is relative but the given previous point is null.");
+			}
+			return new Point2D.Double(prevPt.getX() + x, prevPt.getY() + y);
+		}
+		return new Point2D.Double(x, y);
+	}
 	/** The X-coordinate of the segment. */
 	protected double x;
-
 	/** The Y-coordinate of the segment. */
 	protected double y;
 
@@ -50,23 +66,5 @@ public abstract class SVGPathPointSeg extends SVGPathSeg implements PointSeg {
 	@Override
 	public Point2D getPoint(final Point2D prevPoint) {
 		return getPoint(x, y, prevPoint, isRelative);
-	}
-
-	/**
-	 * Creates a point from the SVG information.
-	 * @param x The X-coordinate of the point.
-	 * @param y The Y-coordinate of the point.
-	 * @param prevPt The previous point of the path. May be null is the point is not relative.
-	 * @param isRelative Defines whether the point is relative.
-	 * @return The point converted or not according to isRelative.
-	 */
-	public static Point2D getPoint(final double x, final double y, final Point2D prevPt, final boolean isRelative) {
-		if(isRelative) {
-			if(prevPt==null) {
-				throw new IllegalArgumentException("The path is relative but the given previous point is null.");
-			}
-			return new Point2D.Double(prevPt.getX()+x, prevPt.getY()+y);
-		}
-		return new Point2D.Double(x, y);
 	}
 }

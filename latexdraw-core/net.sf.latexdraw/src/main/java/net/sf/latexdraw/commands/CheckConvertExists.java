@@ -31,7 +31,7 @@ public class CheckConvertExists extends CommandImpl {
 
 	@Override
 	protected void doCmdBody() {
-		if(!LSystem.INSTANCE.execute(new String[]{"convdert", "-version"}, null).contains("ImageMagick")) { //NON-NLS
+		if(!LSystem.INSTANCE.execute(new String[] {"convdert", "-version"}, null).contains("ImageMagick")) { //NON-NLS
 			statusLabel.setText("ImageMagick is not installed but is required for converting images. See: ");
 			link.setVisible(true);
 			link.setText("https://github.com/arnobl/latexdraw/wiki/Manual#inserting--converting-pictures"); //NON-NLS

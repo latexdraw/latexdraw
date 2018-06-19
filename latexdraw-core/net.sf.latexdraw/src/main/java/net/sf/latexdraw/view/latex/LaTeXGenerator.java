@@ -425,11 +425,11 @@ public abstract class LaTeXGenerator implements Modifiable {
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
 		final String optionEmbed = "-dEmbedAllFonts" + (LSystem.INSTANCE.isWindows() ? "#" : "=") + "true"; //NON-NLS
 
-		log = LSystem.INSTANCE.execute(new String[]{os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), crop ? name + ExportFormat.PDF.getFileExtension() : pathExportPdf}, tmpDir);
+		log = LSystem.INSTANCE.execute(new String[] {os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), crop ? name + ExportFormat.PDF.getFileExtension() : pathExportPdf}, tmpDir);
 
 		if(crop) {
 			pdfFile = new File(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + name + ExportFormat.PDF.getFileExtension());
-			log = LSystem.INSTANCE.execute(new String[]{os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir);
+			log = LSystem.INSTANCE.execute(new String[] {os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir);
 			try {
 				Files.move(pdfFile.toPath(), Paths.get(pathExportPdf), StandardCopyOption.REPLACE_EXISTING);
 			}catch(final IOException ex) {

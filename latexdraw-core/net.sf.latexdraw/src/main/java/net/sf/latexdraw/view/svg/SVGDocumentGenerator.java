@@ -40,8 +40,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javax.imageio.ImageIO;
 import net.sf.latexdraw.LaTeXDraw;
-import net.sf.latexdraw.commands.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.commands.ExportFormat;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
@@ -184,7 +184,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 
 		@Override
 		protected Boolean call() throws Exception {
-			if(progressBar!=null) {
+			if(progressBar != null) {
 				progressBar.setVisible(true);
 			}
 			return true;
@@ -290,7 +290,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		 */
 		private Optional<ImageView> createTemplateItem(final String svgPath, final String nameThumb, final String pathPic) {
 			try {
-				final ImageView view = new ImageView(new Image("file:"+pathPic + File.separator + nameThumb)); //NON-NLS
+				final ImageView view = new ImageView(new Image("file:" + pathPic + File.separator + nameThumb)); //NON-NLS
 				view.setUserData(svgPath);
 
 				final int id = nameThumb.lastIndexOf(".svg" + ExportFormat.PNG.getFileExtension()); //NON-NLS

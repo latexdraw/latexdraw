@@ -35,9 +35,18 @@
         <module name="ModifiedControlVariable"/>
         <module name="NoWhitespaceBefore"/>
         <module name="ParenPad"/>
-        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAfter">
+            <property name="tokens" value="COMMA, SEMI, TYPECAST, LITERAL_ELSE, LITERAL_DO"/>
+        </module>
         <module name="ModifierOrder"/>
-        <module name="RedundantModifier"/>
+        <module name="RedundantModifier">
+            <property name="tokens" value="VARIABLE_DEF, ANNOTATION_FIELD_DEF, INTERFACE_DEF, CTOR_DEF, CLASS_DEF, ENUM_DEF"/>
+        </module>
+        <module name="WhitespaceAround" >
+            <property name="tokens" value="ASSIGN, ARRAY_INIT, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV,
+            DIV_ASSIGN, EQUAL, GE, GT, LAMBDA, LAND, LCURLY, LE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION,
+            SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, LITERAL_ASSERT, TYPE_EXTENSION_AND"/>
+        </module>
         <module name="LeftCurly"/>
         <module name="RightCurly"/>
         <module name="NeedBraces"/>
@@ -56,7 +65,6 @@
         <!--<module name="NoClone"/>-->
         <module name="NoFinalizer"/>
         <module name="ParameterAssignment"/>
-        <module name="RedundantModifier"/>
         <module name="CyclomaticComplexity">
             <property name="max" value="19"/>
             <property name="switchBlockAsSingleDecisionPoint" value="true"/>

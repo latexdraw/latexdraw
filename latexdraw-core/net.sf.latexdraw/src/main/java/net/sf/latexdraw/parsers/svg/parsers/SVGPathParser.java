@@ -152,7 +152,7 @@ public class SVGPathParser extends SVGNumberParser {
 			final Tuple<Double, Double> p1 = parsePoint();
 			skipWSPComma();
 			handler.onPathSeg(new SVGPathSegCurvetoCubicSmooth(p1.a, p1.b, p2.a, p2.b, isRelative));
-		}while(!isEOC() && isNumber(false));
+		} while(!isEOC() && isNumber(false));
 	}
 
 
@@ -178,7 +178,7 @@ public class SVGPathParser extends SVGNumberParser {
 			final double h = parseNumber(false);
 			skipWSPComma();
 			handler.onPathSeg(new SVGPathSegLinetoHorizontal(h, isRelative));
-		}while(!isEOC() && isNumber(false));
+		} while(!isEOC() && isNumber(false));
 	}
 
 
@@ -195,7 +195,7 @@ public class SVGPathParser extends SVGNumberParser {
 			final double v = parseNumber(false);
 			skipWSPComma();
 			handler.onPathSeg(new SVGPathSegLinetoVertical(v, isRelative));
-		}while(!isEOC() && isNumber(false));
+		} while(!isEOC() && isNumber(false));
 	}
 
 
@@ -220,7 +220,7 @@ public class SVGPathParser extends SVGNumberParser {
 			final Tuple<Double, Double> pt = parsePoint();
 			skipWSPComma();
 			handler.onPathSeg(new SVGPathSegArc(pt.a, pt.b, pr.a, pr.b, angle, laf, sf, isRelative));
-		}while(!isEOC() && isNumber(true));
+		} while(!isEOC() && isNumber(true));
 	}
 
 
@@ -241,7 +241,7 @@ public class SVGPathParser extends SVGNumberParser {
 			final Tuple<Double, Double> p0 = parsePoint();
 			skipWSPComma();
 			handler.onPathSeg(new SVGPathSegCurvetoCubic(p0.a, p0.b, p1.a, p1.b, p2.a, p2.b, isRelative));
-		}while(!isEOC() && isNumber(false));
+		} while(!isEOC() && isNumber(false));
 	}
 
 
@@ -260,7 +260,7 @@ public class SVGPathParser extends SVGNumberParser {
 			final Tuple<Double, Double> p0 = parsePoint();
 			skipWSPComma();
 			handler.onPathSeg(new SVGPathSegCurvetoQuadratic(p0.a, p0.b, p1.a, p1.b, isRelative));
-		}while(!isEOC() && isNumber(false));
+		} while(!isEOC() && isNumber(false));
 	}
 
 

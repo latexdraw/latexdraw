@@ -124,7 +124,7 @@ class LLine extends Line2D.Double implements ILine {
 		}
 
 		if(MathUtils.INST.equalsDouble(distance, 0d)) {
-			return new IPoint[]{ShapeFactory.INST.createPoint(x, y)};
+			return new IPoint[] {ShapeFactory.INST.createPoint(x, y)};
 		}
 
 		if(isVerticalLine()) {
@@ -133,7 +133,7 @@ class LLine extends Line2D.Double implements ILine {
 				return new IPoint[0];
 			}
 
-			return new IPoint[]{ShapeFactory.INST.createPoint(x, y - distance), ShapeFactory.INST.createPoint(x, y + distance)};
+			return new IPoint[] {ShapeFactory.INST.createPoint(x, y - distance), ShapeFactory.INST.createPoint(x, y + distance)};
 		}
 
 		final double aLine = a * a + 1d;
@@ -144,12 +144,12 @@ class LLine extends Line2D.Double implements ILine {
 		if(delta > 0d) {
 			final double x1b = (-bLine + Math.sqrt(delta)) / (2d * aLine);
 			final double x2b = (-bLine - Math.sqrt(delta)) / (2d * aLine);
-			return new IPoint[]{ShapeFactory.INST.createPoint(x1b, a * x1b + b), ShapeFactory.INST.createPoint(x2b, a * x2b + b)};
+			return new IPoint[] {ShapeFactory.INST.createPoint(x1b, a * x1b + b), ShapeFactory.INST.createPoint(x2b, a * x2b + b)};
 		}
 
 		if(MathUtils.INST.equalsDouble(delta, 0d)) {
 			final double x2b = -bLine / 2d * aLine;
-			return new IPoint[]{ShapeFactory.INST.createPoint(x2b, a * x2b + b)};
+			return new IPoint[] {ShapeFactory.INST.createPoint(x2b, a * x2b + b)};
 		}
 		return new IPoint[0];
 	}

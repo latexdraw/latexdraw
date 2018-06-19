@@ -67,5 +67,5 @@ public class SVGLength {
 	}
 
 
-	public enum LengthType {UNKNOWN, NUMBER, PERCENTAGE, EM, EX, PX, CM, MM, IN, PT, PC}
+	public enum LengthType { UNKNOWN, NUMBER, PERCENTAGE, EM, EX, PX, CM, MM, IN, PT, PC }
 }

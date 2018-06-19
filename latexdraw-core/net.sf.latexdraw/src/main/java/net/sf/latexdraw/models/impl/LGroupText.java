@@ -53,7 +53,7 @@ interface LGroupText extends IGroup {
 	}
 
 	@Override
-	default StringProperty textProperty() {//FIXME create a TextProp
+	default StringProperty textProperty() { //FIXME create a TextProp
 		return null;
 	}
 }

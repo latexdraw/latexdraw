@@ -23,91 +23,67 @@ public enum ExportFormat {
 	TEX {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("TeX", "*."+getFileExtension()); //NON-NLS
+			return new FileChooser.ExtensionFilter("TeX", "*." + getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
 			return ".tex"; //NON-NLS
 		}
-	},
-	/**
-	 * The PDF format.
-	 */
-	PDF {
+	}, PDF {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("PDF", "*"+getFileExtension()); //NON-NLS
+			return new FileChooser.ExtensionFilter("PDF", "*" + getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
 			return ".pdf"; //NON-NLS
 		}
-	},
-	/**
-	 * The latex format (using latex).
-	 */
-	EPS_LATEX {
+	}, EPS_LATEX {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("EPS", "*"+getFileExtension()); //NON-NLS
+			return new FileChooser.ExtensionFilter("EPS", "*" + getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
 			return ".eps"; //NON-NLS
 		}
-	},
-	/**
-	 * The PDF format (using pdfcrop).
-	 */
-	PDF_CROP {
+	}, PDF_CROP {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("PDF", "*"+getFileExtension()); //NON-NLS
+			return new FileChooser.ExtensionFilter("PDF", "*" + getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
 			return ".pdf"; //NON-NLS
 		}
-	},
-	/**
-	 * The BMP format.
-	 */
-	BMP {
+	}, BMP {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("BMP", "*"+getFileExtension()); //NON-NLS
+			return new FileChooser.ExtensionFilter("BMP", "*" + getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
 			return ".bmp"; //NON-NLS
 		}
-	},
-	/**
-	 * The PNG format.
-	 */
-	PNG {
+	}, PNG {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("PNG", "*"+getFileExtension()); //NON-NLS
+			return new FileChooser.ExtensionFilter("PNG", "*" + getFileExtension()); //NON-NLS
 		}
 
 		@Override
 		public String getFileExtension() {
 			return ".png"; //NON-NLS
 		}
-	},
-	/**
-	 * The JPG format.
-	 */
-	JPG {
+	}, JPG {
 		@Override
 		public FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("JPG", "*"+getFileExtension()); //NON-NLS
+			return new FileChooser.ExtensionFilter("JPG", "*" + getFileExtension()); //NON-NLS
 		}
 
 		@Override

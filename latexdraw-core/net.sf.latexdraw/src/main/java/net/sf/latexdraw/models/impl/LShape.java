@@ -780,7 +780,7 @@ abstract class LShape implements ISingleShape {
 	public void rotate(final IPoint point, final double angle) {
 		final IPoint gc = getGravityCentre();
 
-		if(point != null && !gc.equals(point)) {// The position of the shape must be rotated.
+		if(point != null && !gc.equals(point)) { // The position of the shape must be rotated.
 			final IPoint rotGC = gc.rotatePoint(point, angle);
 			translate(rotGC.getX() - gc.getX(), rotGC.getY() - gc.getY());
 		}
