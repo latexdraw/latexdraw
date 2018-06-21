@@ -1,7 +1,11 @@
 package net.sf.latexdraw.models.impl;
 
 import com.sun.javafx.application.PlatformImpl;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -36,7 +40,6 @@ public class TestIPicture implements HelperTest {
 
 	@Before
 	public void setUp() throws Exception {
-
 		WaitForAsyncUtils.waitForFxEvents();
 		shape = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		folder = new TemporaryFolder();
@@ -46,9 +49,48 @@ public class TestIPicture implements HelperTest {
 	}
 
 	@Test
+	public void testPathTarget() {
+		assertEquals(path.toString().replace(".png", ".eps"), shape.getPathTarget());
+	}
+
+	@Test
+	public void testDelete() throws IOException {
+		shape.setPathSource(path.toString());
+		assertNotNull(shape.getImage());
+	}
+
+	@Test
+	public void testLoadEPSAlreadyExists() throws IOException {
+		shape.setPathSource(path.toString().replace(".png", ".eps"));
+		assertNotNull(shape.getImage());
+	}
+
+	@Test
+	public void testLoadEPSNotExists() throws IOException {
+		path = Paths.get(folder.getRoot().toPath().toString(), "epsPic.eps");
+		Files.copy(Paths.get("src/test/resources/epsPic.eps"), path);
+
+		shape.setPathSource(path.toString());
+		assertNotNull(shape.getImage());
+	}
+
+	@Test
+	public void testLoadPDFNotExists() throws IOException {
+		path = Paths.get(folder.getRoot().toPath().toString(), "pdfPic.pdf");
+		Files.copy(Paths.get("src/test/resources/pdfPic.pdf"), path);
+
+		shape.setPathSource(path.toString());
+		assertNotNull(shape.getImage());
+	}
+
+	@Test
+	public void testLoadPNGCreateEPS() {
+		assertTrue(new File(shape.getPathTarget()).exists());
+	}
+
+	@Test
 	public void testDuplicate() {
 		final IPicture dup = shape.duplicate();
-
 		assertEquals(shape.getPathSource(), dup.getPathSource());
 	}
 
@@ -111,7 +153,7 @@ public class TestIPicture implements HelperTest {
 
 	@Test
 	public void testCopy() {
-		IPicture pic2 = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
+		final IPicture pic2 = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		pic2.copy(shape);
 		assertEquals(shape.getPathSource(), pic2.getPathSource());
 	}
