@@ -168,4 +168,36 @@ public class TestColor {
 	public void testToString() {
 		assertNotNull(color.toString());
 	}
+
+	@Test
+	public void testEqualsKO() {
+		assertNotEquals(color, new Object());
+	}
+
+	@Test
+	public void testEqualsOK() {
+		assertEquals(color, color);
+	}
+
+	@Test
+	public void testHashCodeDiff() {
+		assertNotEquals(color.hashCode(), ShapeFactory.INST.createColor(0.2d, 0.33d, 0.44d).hashCode());
+	}
+
+	@Test
+	public void testHashCodeSame() {
+		assertEquals(ShapeFactory.INST.createColor(0.2d, 0.33d, 0.44d).hashCode(), ShapeFactory.INST.createColor(0.2d, 0.33d, 0.44d).hashCode());
+	}
+
+	@Test
+	public void testNewColorWithOpacity() {
+		color = ShapeFactory.INST.createColor(0.2d, 0.33d, 0.44d);
+		assertEquals(color.getR(), color.newColorWithOpacity(0.4d).getR(), 0.0001);
+		assertEquals(0.2d, color.getR(), 0.0001);
+		assertEquals(color.getG(), color.newColorWithOpacity(0.4d).getG(), 0.0001);
+		assertEquals(0.33d, color.getG(), 0.0001);
+		assertEquals(color.getB(), color.newColorWithOpacity(0.4d).getB(), 0.0001);
+		assertEquals(0.44d, color.getB(), 0.0001);
+		assertEquals(0.4d, color.newColorWithOpacity(0.4d).getO(), 0.0001);
+	}
 }

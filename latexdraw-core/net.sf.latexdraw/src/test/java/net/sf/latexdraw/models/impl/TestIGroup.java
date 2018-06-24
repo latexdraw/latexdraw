@@ -87,8 +87,8 @@ public class TestIGroup implements HelperTest {
 
 	@Test
 	public void testGetDotStyleOK() {
-		IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		final IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		final IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		d1.setDotStyle(DotStyle.BAR);
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(d1);
@@ -104,8 +104,8 @@ public class TestIGroup implements HelperTest {
 
 	@Test
 	public void testSetDotStyle() {
-		IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
-		IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		final IDot d1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		final IDot d2 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(d1);
 		shape.getShapes().add(d2);
@@ -124,7 +124,7 @@ public class TestIGroup implements HelperTest {
 		shape.addShape(ShapeFactory.INST.createPolyline(Collections.emptyList()));
 		shape.setArrowStyle(ArrowStyle.BAR_END, 0);
 		shape.setArrowStyle(ArrowStyle.CIRCLE_END, 1);
-		IGroup shape2 = shape.duplicate();
+		final IGroup shape2 = shape.duplicate();
 		assertEquals(ArrowStyle.BAR_END, shape2.getArrowStyle(0));
 		assertEquals(ArrowStyle.CIRCLE_END, shape2.getArrowStyle(1));
 	}
@@ -285,9 +285,9 @@ public class TestIGroup implements HelperTest {
 
 
 	private IAxes init4getAxes() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IAxes sh2 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
-		IAxes sh3 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
+		final IShape sh1 = ShapeFactory.INST.createRectangle();
+		final IAxes sh2 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
+		final IAxes sh3 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(sh2);
 		shape.getShapes().add(sh3);
@@ -356,7 +356,7 @@ public class TestIGroup implements HelperTest {
 
 	@Test
 	public void testGetAxesIncrementOk() {
-		IPoint pt = ShapeFactory.INST.createPoint(10d, 11d);
+		final IPoint pt = ShapeFactory.INST.createPoint(10d, 11d);
 		init4getAxes().setIncrement(pt);
 		assertEquals(pt, shape.getIncrement());
 	}
@@ -369,7 +369,7 @@ public class TestIGroup implements HelperTest {
 
 	@Test
 	public void testGetAxesDistLabelsOk() {
-		IPoint pt = ShapeFactory.INST.createPoint(10d, 11d);
+		final IPoint pt = ShapeFactory.INST.createPoint(10d, 11d);
 		init4getAxes().setDistLabels(pt);
 		assertEquals(pt, shape.getDistLabels());
 	}
@@ -441,10 +441,10 @@ public class TestIGroup implements HelperTest {
 	}
 
 	private void init4setAxes() {
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IAxes sh2 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
-		IShape sh1b = ShapeFactory.INST.createRectangle();
-		IAxes sh3 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
+		final IShape sh1 = ShapeFactory.INST.createRectangle();
+		final IAxes sh2 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
+		final IShape sh1b = ShapeFactory.INST.createRectangle();
+		final IAxes sh3 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(sh2);
 		shape.getShapes().add(sh1b);
@@ -533,7 +533,7 @@ public class TestIGroup implements HelperTest {
 	@Test
 	public void testSetAxesIncrement() {
 		init4setAxes();
-		IPoint pt = ShapeFactory.INST.createPoint(13d, 14d);
+		final IPoint pt = ShapeFactory.INST.createPoint(13d, 14d);
 		shape.setIncrement(pt);
 		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
 			forEach(sh -> assertEquals(pt, sh.getIncrement()));
@@ -542,16 +542,16 @@ public class TestIGroup implements HelperTest {
 	@Test
 	public void testSetAxesdistLabels() {
 		init4setAxes();
-		IPoint pt = ShapeFactory.INST.createPoint(13d, 14d);
+		final IPoint pt = ShapeFactory.INST.createPoint(13d, 14d);
 		shape.setDistLabels(pt);
 		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).
 			forEach(sh -> assertEquals(pt, sh.getDistLabels()));
 	}
 
 	private void init4setFill() {
-		IAxes sh2 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
-		IShape sh1 = ShapeFactory.INST.createRectangle();
-		IShape sh1b = ShapeFactory.INST.createRectangle();
+		final IAxes sh2 = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
+		final IShape sh1 = ShapeFactory.INST.createRectangle();
+		final IShape sh1b = ShapeFactory.INST.createRectangle();
 		shape.getShapes().add(sh2);
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(sh1b);

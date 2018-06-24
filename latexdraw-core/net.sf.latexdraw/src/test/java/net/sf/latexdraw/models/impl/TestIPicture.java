@@ -89,9 +89,42 @@ public class TestIPicture implements HelperTest {
 	}
 
 	@Test
+	public void testMirroH() {
+		shape.setPosition(10d, 20d);
+		final IPoint gc = shape.getGravityCentre();
+		shape.mirrorHorizontal(5d);
+		assertEquals(gc.horizontalSymmetry(5d), shape.getGravityCentre());
+	}
+
+	@Test
+	public void testMirroV() {
+		shape.setPosition(10d, 20d);
+		final IPoint gc = shape.getGravityCentre();
+		shape.mirrorVertical(5d);
+		assertEquals(gc.verticalSymmetry(5d), shape.getGravityCentre());
+	}
+
+	@Test
+	public void testGetFullBottomRightPoint() {
+		shape.setPosition(11d, -20d);
+		assertEquals(shape.getBottomRightPoint(), shape.getFullBottomRightPoint());
+	}
+
+	@Test
+	public void testGetFullTopLeftPoint() {
+		shape.setPosition(11d, -20d);
+		assertEquals(shape.getTopLeftPoint(), shape.getFullTopLeftPoint());
+	}
+
+	@Test
 	public void testDuplicate() {
 		final IPicture dup = shape.duplicate();
 		assertEquals(shape.getPathSource(), dup.getPathSource());
+	}
+
+	@Test
+	public void testisColourable() {
+		assertFalse(shape.isColourable());
 	}
 
 	@Test

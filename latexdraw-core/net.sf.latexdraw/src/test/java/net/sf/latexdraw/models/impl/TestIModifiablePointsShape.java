@@ -22,11 +22,20 @@ import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 
 import static java.lang.annotation.ElementType.PARAMETER;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Theories.class)
 public class TestIModifiablePointsShape implements HelperTest {
+	@Theory
+	public void testSetRotationAngleOnly(@ModifPtShapeData final IModifiablePointsShape shape) {
+		final List<IPoint> pts = cloneList(shape.getPoints(), pt -> ShapeFactory.INST.createPoint(pt));
+		shape.setRotationAngleOnly(0.33d);
+		assertEquals(0.33d, shape.getRotationAngle(), 0.0001);
+		assertEquals(pts, shape.getPoints());
+	}
+
 	@Theory
 	public void testDuplicate(@ModifPtShapeData(x = {1.1d, 3d}, y = {-21d, 1d}) final IModifiablePointsShape shape) {
 		final IModifiablePointsShape dup = shape.duplicate();

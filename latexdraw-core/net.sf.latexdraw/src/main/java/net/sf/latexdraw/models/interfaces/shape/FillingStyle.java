@@ -28,6 +28,11 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_NONE;
 		}
+
+		@Override
+		public FillingStyle getFilledStyle() {
+			return PLAIN;
+		}
 	}, GRAD {
 		@Override
 		public boolean isFilled() {
@@ -48,6 +53,11 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_HLINES;
 		}
+
+		@Override
+		public FillingStyle getFilledStyle() {
+			return HLINES_PLAIN;
+		}
 	}, VLINES {
 		@Override
 		public boolean isFilled() {
@@ -57,6 +67,11 @@ public enum FillingStyle {
 		@Override
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_VLINES;
+		}
+
+		@Override
+		public FillingStyle getFilledStyle() {
+			return VLINES_PLAIN;
 		}
 	}, CLINES {
 		@Override
@@ -68,6 +83,11 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_CROSSHATCH;
 		}
+
+		@Override
+		public FillingStyle getFilledStyle() {
+			return CLINES_PLAIN;
+		}
 	}, PLAIN {
 		@Override
 		public boolean isFilled() {
@@ -77,6 +97,11 @@ public enum FillingStyle {
 		@Override
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_SOLID;
+		}
+
+		@Override
+		public FillingStyle getUnfilledStyle() {
+			return NONE;
 		}
 	}, HLINES_PLAIN {
 		@Override
@@ -88,6 +113,11 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_HLINES_F;
 		}
+
+		@Override
+		public FillingStyle getUnfilledStyle() {
+			return HLINES;
+		}
 	}, VLINES_PLAIN {
 		@Override
 		public boolean isFilled() {
@@ -98,6 +128,11 @@ public enum FillingStyle {
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_VLINES_F;
 		}
+
+		@Override
+		public FillingStyle getUnfilledStyle() {
+			return VLINES;
+		}
 	}, CLINES_PLAIN {
 		@Override
 		public boolean isFilled() {
@@ -107,6 +142,11 @@ public enum FillingStyle {
 		@Override
 		public String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_CROSSHATCH_F;
+		}
+
+		@Override
+		public FillingStyle getUnfilledStyle() {
+			return CLINES;
 		}
 	};
 
@@ -139,6 +179,20 @@ public enum FillingStyle {
 	 * @since 3.0
 	 */
 	public abstract String getLatexToken();
+
+	/**
+	 * @return The filling style that corresponds to the given style but filled. Cannot be null.
+	 */
+	public FillingStyle getFilledStyle() {
+		return this;
+	}
+
+	/**
+	 * @return The filling style that corresponds to the given style but not filled. Cannot be null.
+	 */
+	public FillingStyle getUnfilledStyle() {
+		return this;
+	}
 
 	/**
 	 * @return True if the style is a kind of hatchings.

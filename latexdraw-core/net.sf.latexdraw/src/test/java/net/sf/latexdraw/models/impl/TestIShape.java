@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 
@@ -438,6 +439,14 @@ public class TestIShape implements HelperTest {
 		assumeTrue(shape.isFillable());
 		shape.setFilled(value);
 		assertEquals(value, shape.isFilled());
+	}
+
+	@Theory
+	public void testSetFilledFillingStyleFilled(@ShapeData final IShape shape, final FillingStyle style) {
+		assumeTrue(shape.isFillable());
+		assumeFalse(style.isFilled());
+//		shape.setFilled(value);
+//		assertEquals(value, shape.isFilled());
 	}
 
 	@Theory

@@ -27,7 +27,7 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
  * @author Arnaud Blouin
  */
 public class ViewGrid extends ViewStdGrid<IGrid> {
-	private Path subgrid;
+	private final Path subgrid;
 	private final Path maingrid;
 	private final ChangeListener<Number> mainGridLineCapUpdate;
 	private final ChangeListener<Number> subGridLineCapUpdate;

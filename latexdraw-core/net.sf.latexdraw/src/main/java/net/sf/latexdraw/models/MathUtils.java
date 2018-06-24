@@ -94,9 +94,8 @@ public final class MathUtils {
 	 * @param b The point B.
 	 * @param c The point C.
 	 * @return The altitude ha or 0.
-	 * @since 2.0.0
 	 */
-	public double getAltitude(final IPoint a, final IPoint b, final IPoint c) {
+	private double getAltitude(final IPoint a, final IPoint b, final IPoint c) {
 		if(!isValidPt(a) || !isValidPt(b) || !isValidPt(c)) {
 			return 0d;
 		}

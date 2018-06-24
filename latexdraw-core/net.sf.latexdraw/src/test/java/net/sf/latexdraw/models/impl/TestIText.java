@@ -106,28 +106,33 @@ public class TestIText implements HelperTest {
 
 	@Test
 	public void testConstructorsOK1() {
-		IText txt = ShapeFactory.INST.createText();
+		final IText txt = ShapeFactory.INST.createText();
 		assertNotNull(txt.getText());
 		assertFalse(txt.getText().isEmpty());
 	}
 
 	@Test
 	public void testConstructorsOK2() {
-		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), "coucou");
+		final IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), "coucou");
 		assertNotNull(txt.getText());
 		assertFalse(txt.getText().isEmpty());
 	}
 
 	@Test
 	public void testConstructorsOK3() {
-		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), "");
+		final IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(), "");
 		assertNotNull(txt.getText());
 		assertFalse(txt.getText().isEmpty());
 	}
 
 	@Test
 	public void testConstructorsOK4() {
-		IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(0, Double.NEGATIVE_INFINITY), "aa");
+		final IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(0, Double.NEGATIVE_INFINITY), "aa");
 		assertEquals(ShapeFactory.INST.createPoint(), txt.getPosition());
+	}
+
+	@Test
+	public void testTextPropNotNull() {
+		assertNotNull(shape.textProperty());
 	}
 }

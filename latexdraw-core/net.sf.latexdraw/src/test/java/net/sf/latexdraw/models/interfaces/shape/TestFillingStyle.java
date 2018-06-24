@@ -1,18 +1,60 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
+import static org.hamcrest.junit.MatcherAssume.assumeThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class TestFillingStyle {
+	@Theory
+	public void testGetFilledStyle(final FillingStyle style) {
+		assumeTrue(style.isFilled());
+		assertEquals(style, style.getFilledStyle());
+	}
+
+	@Theory
+	public void testGetUnfilledStyle(final FillingStyle style) {
+		assumeFalse(style.isFilled());
+		assertEquals(style, style.getUnfilledStyle());
+	}
+
+	@Test
+	public void testGetFilledStyleSpecificCases() {
+		assertEquals(FillingStyle.HLINES_PLAIN, FillingStyle.HLINES.getFilledStyle());
+		assertEquals(FillingStyle.CLINES_PLAIN, FillingStyle.CLINES.getFilledStyle());
+		assertEquals(FillingStyle.VLINES_PLAIN, FillingStyle.VLINES.getFilledStyle());
+		assertEquals(FillingStyle.PLAIN, FillingStyle.NONE.getFilledStyle());
+	}
+
+	@Test
+	public void testGetUnfilledStyleSpecificCases() {
+		assertEquals(FillingStyle.HLINES, FillingStyle.HLINES_PLAIN.getUnfilledStyle());
+		assertEquals(FillingStyle.CLINES, FillingStyle.CLINES_PLAIN.getUnfilledStyle());
+		assertEquals(FillingStyle.VLINES, FillingStyle.VLINES_PLAIN.getUnfilledStyle());
+		assertEquals(FillingStyle.NONE, FillingStyle.PLAIN.getUnfilledStyle());
+	}
+
+	@Test
+	public void testIsGradientOK() {
+		assertTrue(FillingStyle.GRAD.isGradient());
+	}
+
+	@Theory
+	public void testIsGradientKO(final FillingStyle style) {
+		assumeThat(style, Matchers.not(Matchers.equalTo(FillingStyle.GRAD)));
+		assertFalse(style.isGradient());
+	}
+
 	@Test
 	public void testIsFillable() {
 		assertFalse(FillingStyle.GRAD.isFilled());

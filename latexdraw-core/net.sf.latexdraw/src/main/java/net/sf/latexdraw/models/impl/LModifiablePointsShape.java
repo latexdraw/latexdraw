@@ -39,12 +39,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 	}
 
 	@Override
-	public void rotate(final IPoint point, final double angle) {
-		setRotationAngle(point, angle);
-	}
-
-
-	public void setRotationAngle(final IPoint gc, final double angle) {
+	public void rotate(final IPoint gc, final double angle) {
 		if(MathUtils.INST.isValidCoord(angle)) {
 			final double diff = angle - getRotationAngle();
 			final IPoint gc2 = gc == null ? getGravityCentre() : gc;
@@ -54,10 +49,9 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 		}
 	}
 
-
 	@Override
 	public void setRotationAngle(final double angle) {
-		setRotationAngle(null, angle);
+		rotate(null, angle);
 	}
 
 

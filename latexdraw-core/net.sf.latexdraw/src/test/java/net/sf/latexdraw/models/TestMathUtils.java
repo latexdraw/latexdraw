@@ -98,4 +98,24 @@ public class TestMathUtils {
 						@DoubleData(vals = {Math.PI * -2d, Math.PI * -4d}) final double piVals) {
 		assertEquals(value, MathUtils.INST.mod2pi(value + piVals), 0.0001);
 	}
+
+	@Test
+	public void testParserDoubleKO() {
+		assertFalse(MathUtils.INST.parserDouble("foo").isPresent());
+	}
+
+	@Test
+	public void testParserDoubleKONull() {
+		assertFalse(MathUtils.INST.parserDouble(null).isPresent());
+	}
+
+	@Test
+	public void testParserDoubleKOInt() {
+		assertEquals(1d, MathUtils.INST.parserDouble("1").get(), 0.000001);
+	}
+
+	@Test
+	public void testParserDoubleKODouble() {
+		assertEquals(-1.2, MathUtils.INST.parserDouble("-1.2").get(), 0.000001);
+	}
 }

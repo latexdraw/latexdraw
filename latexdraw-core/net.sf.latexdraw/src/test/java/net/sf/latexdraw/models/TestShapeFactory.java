@@ -89,4 +89,39 @@ public class TestShapeFactory implements HelperTest {
 		assertEqualsDouble(1d, bc.getFirstCtrlPtAt(1).getX());
 		assertEqualsDouble(2d + IBezierCurve.DEFAULT_POSITION_CTRL, bc.getFirstCtrlPtAt(1).getY());
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testNullPointsPolygonCrash() {
+		ShapeFactory.INST.createPolygon(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testNullPointsPolylineCrash() {
+		ShapeFactory.INST.createPolyline(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testNullPointsBCCrash() {
+		ShapeFactory.INST.createBezierCurve(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testBadEquationPlot() {
+		ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 3, "y", false);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testBadMinMaxPlot() {
+		ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 3, 1, "x", false);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testBadMinPlot() {
+		ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), Double.NaN, 1, "x", false);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testBadMaxPlot() {
+		ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, Double.NaN, "x", false);
+	}
 }

@@ -470,49 +470,9 @@ abstract class LShape implements ISingleShape {
 		}
 
 		if(isFilled) {
-			switch(fillingStyle.get()) {
-				case CLINES:
-					fillingStyle.set(FillingStyle.CLINES_PLAIN);
-					break;
-				case VLINES:
-					fillingStyle.set(FillingStyle.VLINES_PLAIN);
-					break;
-				case HLINES:
-					fillingStyle.set(FillingStyle.HLINES_PLAIN);
-					break;
-				case NONE:
-					fillingStyle.set(FillingStyle.PLAIN);
-					break;
-				case PLAIN:
-				case GRAD:
-				case CLINES_PLAIN:
-				case HLINES_PLAIN:
-				case VLINES_PLAIN:
-						/* Nothing to do. */
-					break;
-			}
+			fillingStyle.set(fillingStyle.get().getFilledStyle());
 		}else {
-			switch(fillingStyle.get()) {
-				case CLINES_PLAIN:
-					fillingStyle.set(FillingStyle.CLINES);
-					break;
-				case VLINES_PLAIN:
-					fillingStyle.set(FillingStyle.VLINES);
-					break;
-				case HLINES_PLAIN:
-					fillingStyle.set(FillingStyle.HLINES);
-					break;
-				case PLAIN:
-					fillingStyle.set(FillingStyle.NONE);
-					break;
-				case NONE:
-				case GRAD:
-				case CLINES:
-				case HLINES:
-				case VLINES:
-						/* Nothing to do. */
-					break;
-			}
+			fillingStyle.set(fillingStyle.get().getUnfilledStyle());
 		}
 	}
 

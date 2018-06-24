@@ -29,6 +29,7 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeThat;
 
@@ -207,7 +208,7 @@ public class TestIPlot implements HelperTest {
 		shape.setNbPlottedPoints(30);
 		shape.setPosition(10.0, 20.0);
 
-		IPoint pt = shape.getBottomLeftPoint();
+		final IPoint pt = shape.getBottomLeftPoint();
 		assertTrue(MathUtils.INST.isValidPt(pt));
 		assertEquals(10.0 + 10.0 * IShape.PPC, pt.getX(), 0.0001);
 		assertEquals(20.0 - 10.0 * IShape.PPC, pt.getY(), 0.0001);
@@ -223,7 +224,7 @@ public class TestIPlot implements HelperTest {
 		shape.setNbPlottedPoints(30);
 		shape.setPosition(10.0, 20.0);
 
-		IPoint pt = shape.getBottomRightPoint();
+		final IPoint pt = shape.getBottomRightPoint();
 		assertTrue(MathUtils.INST.isValidPt(pt));
 		assertEquals(10.0 + 20.0 * IShape.PPC, pt.getX(), 0.0001);
 		assertEquals(20.0 - 10.0 * IShape.PPC, pt.getY(), 0.0001);
@@ -239,7 +240,7 @@ public class TestIPlot implements HelperTest {
 		shape.setNbPlottedPoints(30);
 		shape.setPosition(10.0, 20.0);
 
-		IPoint pt = shape.getTopLeftPoint();
+		final IPoint pt = shape.getTopLeftPoint();
 		assertTrue(MathUtils.INST.isValidPt(pt));
 		assertEquals(10.0 + 10.0 * IShape.PPC, pt.getX(), 0.0001);
 		assertEquals(20.0 - 20.0 * IShape.PPC, pt.getY(), 0.0001);
@@ -255,7 +256,7 @@ public class TestIPlot implements HelperTest {
 		shape.setNbPlottedPoints(30);
 		shape.setPosition(10.0, 20.0);
 
-		IPoint pt = shape.getTopRightPoint();
+		final IPoint pt = shape.getTopRightPoint();
 		assertTrue(MathUtils.INST.isValidPt(pt));
 		assertEquals(10.0 + 20.0 * IShape.PPC, pt.getX(), 0.0001);
 		assertEquals(20.0 - 20.0 * IShape.PPC, pt.getY(), 0.0001);
@@ -295,7 +296,7 @@ public class TestIPlot implements HelperTest {
 
 	@Test
 	public void testCopyFromOther() {
-		IRectangle rec = ShapeFactory.INST.createRectangle();
+		final IRectangle rec = ShapeFactory.INST.createRectangle();
 		rec.setFillingCol(DviPsColors.BLUE);
 
 		shape.copy(rec);
@@ -305,7 +306,7 @@ public class TestIPlot implements HelperTest {
 
 	@Test
 	public void testCopyFromDot() {
-		IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		final IDot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		dot.setDotStyle(DotStyle.DIAMOND);
 		dot.setDotFillingCol(DviPsColors.BLUE);
 		dot.setDiametre(3.0);
@@ -355,5 +356,55 @@ public class TestIPlot implements HelperTest {
 		assertTrue(shape.isTypeOf(IPlot.class));
 		assertTrue(shape.isTypeOf(IPlotProp.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
+	}
+
+	@Test
+	public void testPolarPropertyNotNull() {
+		assertNotNull(shape.polarProperty());
+	}
+
+	@Test
+	public void testPlotEquationPropertyNotNull() {
+		assertNotNull(shape.plotEquationProperty());
+	}
+
+	@Test
+	public void testPlotMinXPropertyNotNull() {
+		assertNotNull(shape.plotMinXProperty());
+	}
+
+	@Test
+	public void testPlotMaxXPropertyNotNull() {
+		assertNotNull(shape.plotMaxXProperty());
+	}
+
+	@Test
+	public void testNbPlottedPointsPropertyNotNull() {
+		assertNotNull(shape.nbPlottedPointsProperty());
+	}
+
+	@Test
+	public void testPlotStylePropertyNotNull() {
+		assertNotNull(shape.plotStyleProperty());
+	}
+
+	@Test
+	public void testDotStylePropertyNotNull() {
+		assertNotNull(shape.dotStyleProperty());
+	}
+
+	@Test
+	public void testDotDiametrePropertyNotNull() {
+		assertNotNull(shape.dotDiametreProperty());
+	}
+
+	@Test
+	public void testXScalePropertyNotNull() {
+		assertNotNull(shape.xScaleProperty());
+	}
+
+	@Test
+	public void testYScalePropertyNotNull() {
+		assertNotNull(shape.yScaleProperty());
 	}
 }
