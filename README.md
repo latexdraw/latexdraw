@@ -21,7 +21,9 @@ http://sourceforge.net/donate/index.php?group_id=156523
 
 [![Flattr LaTeXDraw](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/profile/latexdraw)
 
-**Continuous Integration:** [![Build Status](https://ci.inria.fr/malai/job/latexdraw/badge/icon)](https://ci.inria.fr/malai/job/latexdraw/)<br/>
+[![Build Status](https://ci.inria.fr/malai/job/latexdraw/badge/icon)](https://ci.inria.fr/malai/job/latexdraw/)<br/>
+[![Code Coverage](https://sonarcloud.io/api/project_badges/measure?project=net.sf.latexdraw%3Alatexdraw.core&metric=coverage)](https://sonarcloud.io/dashboard?id=net.sf.latexdraw%3Alatexdraw.core)<br/>
+[![ncloc](https://sonarcloud.io/api/project_badges/measure?project=net.sf.latexdraw%3Alatexdraw.core&metric=ncloc)](https://sonarcloud.io/dashboard?id=net.sf.latexdraw%3Alatexdraw.core)<br/>
 
 **Linux packaging:** 
 
