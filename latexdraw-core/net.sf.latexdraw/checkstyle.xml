@@ -6,6 +6,10 @@
         <!--<property name="fileExtensions" value="java"/>-->
     <!--</module>-->
 
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="module\-info\.java$"/>
+    </module>
+
     <module name="NewlineAtEndOfFile">
         <property name="lineSeparator" value="lf"/>
         <property name="fileExtensions" value="java, xml"/>
