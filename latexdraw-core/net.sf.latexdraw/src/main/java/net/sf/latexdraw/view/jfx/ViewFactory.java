@@ -188,11 +188,11 @@ public final class ViewFactory {
 			if(this == o) {
 				return true;
 			}
-			if(o == null || getClass() != o.getClass()) {
+			if(!(o instanceof CubicCurveTo)) {
 				return false;
 			}
 
-			final EqCubicCurveTo that = (EqCubicCurveTo) o;
+			final CubicCurveTo that = (CubicCurveTo) o;
 
 			if(Double.compare(that.getControlX1(), getControlX1()) != 0) {
 				return false;
@@ -236,7 +236,7 @@ public final class ViewFactory {
 	private static class EqClosePath extends ClosePath {
 		@Override
 		public boolean equals(final Object obj) {
-			return obj != null && (obj == this || getClass() == obj.getClass());
+			return obj != null && (obj == this || obj instanceof ClosePath);
 		}
 
 		@Override
@@ -267,7 +267,7 @@ public final class ViewFactory {
 			if(obj == this) {
 				return true;
 			}
-			if(obj == null || getClass() != obj.getClass()) {
+			if(!(obj instanceof LineTo)) {
 				return false;
 			}
 			final LineTo lt = (LineTo) obj;
@@ -297,7 +297,7 @@ public final class ViewFactory {
 			if(obj == this) {
 				return true;
 			}
-			if(obj == null || getClass() != obj.getClass()) {
+			if(!(obj instanceof MoveTo)) {
 				return false;
 			}
 			final MoveTo mt = (MoveTo) obj;

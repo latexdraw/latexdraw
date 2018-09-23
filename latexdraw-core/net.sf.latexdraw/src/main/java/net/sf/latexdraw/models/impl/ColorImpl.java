@@ -101,7 +101,7 @@ class ColorImpl implements Color {
 		if(this == obj) {
 			return true;
 		}
-		if(obj == null || getClass() != obj.getClass()) {
+		if(!(obj instanceof ColorImpl)) {
 			return false;
 		}
 

@@ -265,7 +265,7 @@ class LPoint implements IPoint {
 		if(this == obj) {
 			return true;
 		}
-		if(obj == null || getClass() != obj.getClass()) {
+		if(!(obj instanceof IPoint)) {
 			return false;
 		}
 		return equals((IPoint) obj, 0.0000001);
