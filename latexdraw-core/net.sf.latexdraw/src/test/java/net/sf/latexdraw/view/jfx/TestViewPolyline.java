@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 import javafx.scene.Node;
 import javafx.scene.shape.PathElement;
+import javafx.scene.transform.Translate;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
@@ -18,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.testfx.api.FxToolkit;
 import org.testfx.util.WaitForAsyncUtils;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 @RunWith(Theories.class)
@@ -51,20 +53,28 @@ public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline>
 	public void testMovePointUpdatePathArrow0() {
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
 		WaitForAsyncUtils.waitForFxEvents();
+		final double tx = ((Translate) view.viewArrows.arrows.get(0).path.getTransforms().get(0)).getX();
+		final double ty = ((Translate) view.viewArrows.arrows.get(0).path.getTransforms().get(0)).getY();
 		final List<PathElement> pathArrow = duplicatePath(view.viewArrows.arrows.get(0).path.getElements());
 		model.getPtAt(0).translate(10d, 11d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertNotEquals(pathArrow, view.viewArrows.arrows.get(0).path.getElements());
+		assertEquals(pathArrow, view.viewArrows.arrows.get(0).path.getElements());
+		assertNotEquals(tx, ((Translate) view.viewArrows.arrows.get(0).path.getTransforms().get(0)).getX());
+		assertNotEquals(ty, ((Translate) view.viewArrows.arrows.get(0).path.getTransforms().get(0)).getY());
 	}
 
 	@Theory
 	public void testMovePointUpdatePathArrow1() {
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 1);
 		WaitForAsyncUtils.waitForFxEvents();
+		final double tx = ((Translate) view.viewArrows.arrows.get(1).path.getTransforms().get(0)).getX();
+		final double ty = ((Translate) view.viewArrows.arrows.get(1).path.getTransforms().get(0)).getY();
 		final List<PathElement> pathArrow = duplicatePath(view.viewArrows.arrows.get(1).path.getElements());
 		model.getPtAt(9).translate(10d, 11d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertNotEquals(pathArrow, view.viewArrows.arrows.get(1).path.getElements());
+		assertEquals(pathArrow, view.viewArrows.arrows.get(1).path.getElements());
+		assertNotEquals(tx, ((Translate) view.viewArrows.arrows.get(1).path.getTransforms().get(0)).getX());
+		assertNotEquals(ty, ((Translate) view.viewArrows.arrows.get(1).path.getTransforms().get(0)).getY());
 	}
 
 	@Theory
