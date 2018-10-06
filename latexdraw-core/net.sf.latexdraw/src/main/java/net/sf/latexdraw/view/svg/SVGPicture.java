@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import java.io.IOException;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
@@ -33,10 +32,9 @@ class SVGPicture extends SVGShape<IPicture> {
 	/**
 	 * Creates a picture from a SVGImage element.
 	 * @param elt The source element.
-	 * @throws IOException If a problem while reading/writing pictures occurs.
 	 * @since 2.0.0
 	 */
-	protected SVGPicture(final SVGImageElement elt) throws IOException {
+	protected SVGPicture(final SVGImageElement elt) {
 		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 
 		shape.setPathSource(elt.getURI());
@@ -48,10 +46,9 @@ class SVGPicture extends SVGShape<IPicture> {
 	/**
 	 * Creates a picture from a latexdraw-SVG element.
 	 * @param elt The source element.
-	 * @throws IOException If a problem while reading/writing pictures occurs.
 	 * @since 2.0.0
 	 */
-	protected SVGPicture(final SVGGElement elt, final boolean withTransformation) throws IOException {
+	protected SVGPicture(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);

@@ -1,11 +1,11 @@
 package net.sf.latexdraw.models.impl;
 
-import com.sun.javafx.application.PlatformImpl;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javafx.application.Platform;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -35,7 +35,7 @@ public class TestIPicture implements HelperTest {
 
 	@BeforeClass
 	public static void beforeClass() {
-		PlatformImpl.startup(() -> {});
+		Platform.startup(() -> {});
 	}
 
 	@Before
@@ -54,13 +54,13 @@ public class TestIPicture implements HelperTest {
 	}
 
 	@Test
-	public void testDelete() throws IOException {
+	public void testDelete() {
 		shape.setPathSource(path.toString());
 		assertNotNull(shape.getImage());
 	}
 
 	@Test
-	public void testLoadEPSAlreadyExists() throws IOException {
+	public void testLoadEPSAlreadyExists() {
 		shape.setPathSource(path.toString().replace(".png", ".eps"));
 		assertNotNull(shape.getImage());
 	}

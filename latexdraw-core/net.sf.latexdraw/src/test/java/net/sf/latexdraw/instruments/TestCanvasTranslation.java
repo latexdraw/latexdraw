@@ -1,6 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
@@ -72,7 +71,7 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 	}
 
 	@Theory
-	public void testShapeTranslationOK(@ShapeData final IShape sh) throws IOException {
+	public void testShapeTranslationOK(@ShapeData final IShape sh) {
 		if(sh instanceof IPicture) {
 			((IPicture) sh).setPathSource(getClass().getResource("/Arc.png").getFile());
 		}

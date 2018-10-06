@@ -120,7 +120,12 @@ public final class LangTool {
 
 	private Optional<ResourceBundle> loadResourceBundle(final Locale locale) {
 		try {
-			return Optional.ofNullable(ResourceBundle.getBundle("lang.bundle", locale, new UTF8Control())); //NON-NLS
+			try {
+				return Optional.ofNullable(ResourceBundle.getBundle("lang.bundle", locale, new UTF8Control())); //NON-NLS
+			}catch(final UnsupportedOperationException ex) {
+				// Java 9+ do not support 'control' anymore
+				return Optional.ofNullable(ResourceBundle.getBundle("lang.bundle", locale)); //NON-NLS
+			}
 		}catch(final MissingResourceException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			return Optional.empty();

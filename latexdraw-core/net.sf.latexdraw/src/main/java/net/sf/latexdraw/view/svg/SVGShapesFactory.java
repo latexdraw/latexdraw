@@ -10,11 +10,9 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
@@ -84,14 +82,7 @@ public final class SVGShapesFactory {
 		creationMap.put(LNamespace.XML_TYPE_GROUP, (elt, withTransformations) -> new SVGGroup(elt, withTransformations).getShape());
 		creationMap.put(LNamespace.XML_TYPE_DOT, (elt, withTransformations) -> new SVGDot(elt, withTransformations).getShape());
 		creationMap.put(LNamespace.XML_TYPE_ARC, (elt, withTransformations) -> new SVGCircleArc(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_PICTURE, (elt, withTransformations) -> {
-			try {
-				return new SVGPicture(elt, withTransformations).getShape();
-			}catch(final IOException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-				return null;
-			}
-		});
+		creationMap.put(LNamespace.XML_TYPE_PICTURE, (elt, withTransformations) -> new SVGPicture(elt, withTransformations).getShape());
 	}
 
 	/**
@@ -232,12 +223,7 @@ public final class SVGShapesFactory {
 			return new SVGPolylines((SVGPolyLineElement) elt).getShape();
 		}
 		if(elt instanceof SVGImageElement) {
-			try {
-				return new SVGPicture((SVGImageElement) elt).getShape();
-			}catch(final IOException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-				return null;
-			}
+			return new SVGPicture((SVGImageElement) elt).getShape();
 		}
 		if(elt instanceof SVGLineElement) {
 			return new SVGPolylines((SVGLineElement) elt).getShape();

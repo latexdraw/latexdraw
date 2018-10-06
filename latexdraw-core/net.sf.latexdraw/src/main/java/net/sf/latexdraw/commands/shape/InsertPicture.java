@@ -11,10 +11,8 @@
 package net.sf.latexdraw.commands.shape;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
 import javafx.stage.FileChooser;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -48,12 +46,8 @@ public class InsertPicture extends AddShape {
 			final File file = ch.showOpenDialog(null);
 
 			if(file != null && file.canRead()) {
-				try {
-					((IPicture) sh).setPathSource(file.getAbsolutePath());
-					loaded = true;
-				}catch(final IOException ex) {
-					BadaboomCollector.INSTANCE.add(ex);
-				}
+				((IPicture) sh).setPathSource(file.getAbsolutePath());
+				loaded = true;
 			}
 		}));
 

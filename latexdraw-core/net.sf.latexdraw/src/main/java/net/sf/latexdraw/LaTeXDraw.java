@@ -141,7 +141,7 @@ public class LaTeXDraw extends JfxUI {
 
 	@Override
 	public void start(final Stage stage) {
-		final Task<Void> task = new Task<Void>() {
+		final Task<Void> task = new Task<>() {
 			@Override
 			protected Void call() throws IOException {
 				updateProgress(0.1, 1d);

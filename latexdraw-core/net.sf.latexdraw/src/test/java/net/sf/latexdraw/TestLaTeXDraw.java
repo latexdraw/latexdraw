@@ -1,5 +1,6 @@
 package net.sf.latexdraw;
 
+import javafx.application.Platform;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -33,11 +34,7 @@ public class TestLaTeXDraw extends ApplicationTest {
 		CommandsRegistry.INSTANCE.clear();
 		BadaboomCollector.INSTANCE.clear();
 		app = LaTeXDraw.getInstance();
-		while(!app.getMainStage().isShowing()) {
-			sleep(500L);
-		}
 		WaitForAsyncUtils.waitForFxEvents();
-		sleep(1000L);
 	}
 
 	@Test
@@ -87,6 +84,8 @@ public class TestLaTeXDraw extends ApplicationTest {
 
 	@Test
 	public void testMoveViewPort() {
+		Platform.runLater(() -> app.getMainStage().showAndWait());
+		WaitForAsyncUtils.waitForFxEvents();
 		final ScrollPane pane = lookup("#scrollPane").query();
 		final double hvalue = pane.getHvalue();
 		final double vvalue = pane.getVvalue();

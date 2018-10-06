@@ -40,8 +40,8 @@ public class ShortcutsController implements Initializable {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		final String ctrl = KeyEvent.getKeyModifiersText(InputEvent.CTRL_MASK);
-		final String shift = KeyEvent.getKeyModifiersText(InputEvent.SHIFT_MASK);
+		final String ctrl = InputEvent.getModifiersExText(InputEvent.CTRL_DOWN_MASK);
+		final String shift = InputEvent.getModifiersExText(InputEvent.SHIFT_DOWN_MASK);
 		final String leftClick = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.8");
 		final String catEdit = LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.89");
 		final String catNav = LangTool.INSTANCE.getBundle().getString("ShortcutsFrame.4");

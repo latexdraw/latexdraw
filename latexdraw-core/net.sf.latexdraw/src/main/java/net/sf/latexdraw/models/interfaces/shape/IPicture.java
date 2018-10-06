@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
-import java.io.IOException;
 import javafx.scene.image.Image;
 
 /**
@@ -26,9 +25,8 @@ public interface IPicture extends IPositionShape {
 	/**
 	 * Sets the new picture.
 	 * @param pathSource the pathSource to set.
-	 * @throws IOException If a problem while reading/writing pictures occurs.
 	 */
-	void setPathSource(final String pathSource) throws IOException;
+	void setPathSource(final String pathSource);
 
 	/**
 	 * @return the pathTarget.

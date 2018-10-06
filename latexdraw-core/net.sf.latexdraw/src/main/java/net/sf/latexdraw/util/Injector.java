@@ -144,7 +144,7 @@ public abstract class Injector {
 				// Injecting the value.
 				final Object val = value;
 				LOGGER.info(() -> "Injecting the field: " + field.getName() + " of " + instance.getClass().getTypeName() + " with: " + val); //NON-NLS
-				final boolean oldAccess = field.isAccessible();
+				final boolean oldAccess = field.canAccess(instance);
 				field.setAccessible(true);
 				field.set(instance, value);
 				field.setAccessible(oldAccess);

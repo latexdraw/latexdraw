@@ -43,7 +43,7 @@ public interface JFXWidgetCreator {
 
 		@Override
 		public ListCell<T> call(final ListView<T> p) {
-			return new ListCell<T>() {
+			return new ListCell<>() {
 				@Override
 				protected void updateItem(final T item, final boolean empty) {
 					super.updateItem(item, empty);
