@@ -1,6 +1,6 @@
 package net.sf.latexdraw.view.svg;
 
-import java.util.concurrent.TimeoutException;
+import javafx.application.Platform;
 import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.ParameteriseShapeData;
@@ -12,7 +12,6 @@ import org.junit.BeforeClass;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
-import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
@@ -20,8 +19,8 @@ import static org.junit.Assume.assumeTrue;
 @RunWith(Theories.class)
 public class TestSVGShape extends TestSVGBase<IShape> implements HelperTest, CollectionMatcher {
 	@BeforeClass
-	public static void beforeClass() throws TimeoutException {
-		FxToolkit.registerPrimaryStage();
+	public static void beforeClass() {
+		Platform.startup(() -> {});
 	}
 
 	@AfterClass
