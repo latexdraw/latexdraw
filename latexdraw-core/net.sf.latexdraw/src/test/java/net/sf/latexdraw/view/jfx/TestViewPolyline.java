@@ -2,21 +2,19 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.shape.PathElement;
 import javafx.scene.transform.Translate;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
-import org.testfx.api.FxToolkit;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
@@ -25,13 +23,8 @@ import static org.junit.Assert.assertNotEquals;
 @RunWith(Theories.class)
 public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline> {
 	@BeforeClass
-	public static void beforeClass() throws TimeoutException {
-		FxToolkit.registerPrimaryStage();
-	}
-
-	@AfterClass
-	public static void afterClass() throws TimeoutException {
-		FxToolkit.cleanupStages();
+	public static void beforeClass() {
+		Platform.startup(() -> {});
 	}
 
 	@Override

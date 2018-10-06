@@ -2,22 +2,20 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
+import javafx.application.Platform;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Line;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
-import org.testfx.api.FxToolkit;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
@@ -34,13 +32,8 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 	}
 
 	@BeforeClass
-	public static void beforeClass() throws TimeoutException {
-		FxToolkit.registerPrimaryStage();
-	}
-
-	@AfterClass
-	public static void afterClass() throws TimeoutException {
-		FxToolkit.cleanupStages();
+	public static void beforeClass() {
+		Platform.startup(() -> {});
 	}
 
 	@Override

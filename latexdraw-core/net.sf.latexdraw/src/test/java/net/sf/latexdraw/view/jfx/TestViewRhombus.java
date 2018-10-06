@@ -1,27 +1,20 @@
 package net.sf.latexdraw.view.jfx;
 
-import java.util.concurrent.TimeoutException;
+import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Path;
 import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus, Path> {
 	@BeforeClass
-	public static void beforeClass() throws TimeoutException {
-		FxToolkit.registerPrimaryStage();
-	}
-
-	@AfterClass
-	public static void afterClass() throws TimeoutException {
-		FxToolkit.cleanupStages();
+	public static void beforeClass() {
+		Platform.startup(() -> {});
 	}
 
 	@Override

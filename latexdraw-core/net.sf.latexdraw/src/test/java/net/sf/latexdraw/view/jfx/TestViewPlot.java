@@ -1,7 +1,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
-import java.util.concurrent.TimeoutException;
+import javafx.application.Platform;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
@@ -9,11 +9,9 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.testfx.api.FxToolkit;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.hamcrest.CoreMatchers.anyOf;
@@ -25,13 +23,8 @@ import static org.junit.Assert.assertTrue;
 
 public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	@BeforeClass
-	public static void beforeClass() throws TimeoutException {
-		FxToolkit.registerPrimaryStage();
-	}
-
-	@AfterClass
-	public static void afterClass() throws TimeoutException {
-		FxToolkit.cleanupStages();
+	public static void beforeClass() {
+		Platform.startup(() -> {});
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package net.sf.latexdraw.view.jfx;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -14,11 +15,9 @@ import net.sf.latexdraw.data.TextSupplier;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.testfx.api.FxToolkit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -27,14 +26,9 @@ import static org.junit.Assert.assertTrue;
 
 public class TestViewText extends TestViewShape<ViewText, IText> {
 	@BeforeClass
-	public static void beforeClass() throws TimeoutException {
-		FxToolkit.registerPrimaryStage();
+	public static void beforeClass() {
+		Platform.startup(() -> {});
 		LaTeXGenerator.setPackages("");
-	}
-
-	@AfterClass
-	public static void afterClass() throws TimeoutException {
-		FxToolkit.cleanupStages();
 	}
 
 	@Override

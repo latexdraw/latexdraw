@@ -2,8 +2,8 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
+import javafx.application.Platform;
 import javafx.scene.shape.PathElement;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -11,11 +11,9 @@ import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.testfx.api.FxToolkit;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
@@ -27,13 +25,8 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	List<PathElement> pathTicksBefore;
 
 	@BeforeClass
-	public static void beforeClass() throws TimeoutException {
-		FxToolkit.registerPrimaryStage();
-	}
-
-	@AfterClass
-	public static void afterClass() throws TimeoutException {
-		FxToolkit.cleanupStages();
+	public static void beforeClass() {
+		Platform.startup(() -> {});
 	}
 
 	@Override

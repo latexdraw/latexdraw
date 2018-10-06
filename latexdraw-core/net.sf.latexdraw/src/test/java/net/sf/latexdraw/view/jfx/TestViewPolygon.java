@@ -1,22 +1,15 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeoutException;
+import javafx.application.Platform;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.testfx.api.FxToolkit;
 
 public class TestViewPolygon extends TestViewPolyPoint<ViewPolygon, IPolygon> {
 	@BeforeClass
-	public static void beforeClass() throws TimeoutException {
-		FxToolkit.registerPrimaryStage();
-	}
-
-	@AfterClass
-	public static void afterClass() throws TimeoutException {
-		FxToolkit.cleanupStages();
+	public static void beforeClass() {
+		Platform.startup(() -> {});
 	}
 
 	@Override
