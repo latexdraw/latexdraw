@@ -13,7 +13,11 @@ import static org.junit.Assert.assertEquals;
 public class TestViewSquare extends TestViewBorderedShape<ViewSquare, ISquare, Rectangle> {
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

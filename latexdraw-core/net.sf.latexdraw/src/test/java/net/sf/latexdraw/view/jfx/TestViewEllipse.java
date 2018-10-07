@@ -13,7 +13,11 @@ import static org.junit.Assert.assertEquals;
 public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, IEllipse, Ellipse> {
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

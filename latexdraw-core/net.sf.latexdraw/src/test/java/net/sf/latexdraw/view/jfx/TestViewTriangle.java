@@ -14,7 +14,11 @@ import static org.junit.Assert.assertFalse;
 public class TestViewTriangle extends TestViewBorderedShape<ViewTriangle, ITriangle, Path> {
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

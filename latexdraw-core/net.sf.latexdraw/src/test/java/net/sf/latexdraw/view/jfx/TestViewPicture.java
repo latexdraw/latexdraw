@@ -16,7 +16,11 @@ import static org.junit.Assert.assertEquals;
 public class TestViewPicture extends TestViewShape<ViewPicture, IPicture> {
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

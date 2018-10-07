@@ -26,7 +26,11 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

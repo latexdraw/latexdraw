@@ -24,7 +24,11 @@ import static org.junit.Assert.assertNotEquals;
 public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline> {
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

@@ -24,7 +24,11 @@ import static org.junit.Assert.assertTrue;
 public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

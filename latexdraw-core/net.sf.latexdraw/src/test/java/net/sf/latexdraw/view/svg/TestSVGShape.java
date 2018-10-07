@@ -20,7 +20,11 @@ import static org.junit.Assume.assumeTrue;
 public class TestSVGShape extends TestSVGBase<IShape> implements HelperTest, CollectionMatcher {
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@AfterClass

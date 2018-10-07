@@ -14,7 +14,11 @@ import static org.junit.Assert.assertFalse;
 public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus, Path> {
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

@@ -25,7 +25,11 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

@@ -9,7 +9,11 @@ import org.junit.BeforeClass;
 public class TestViewPolygon extends TestViewPolyPoint<ViewPolygon, IPolygon> {
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

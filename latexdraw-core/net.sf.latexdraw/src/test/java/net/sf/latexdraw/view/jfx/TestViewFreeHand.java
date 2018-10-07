@@ -27,7 +27,11 @@ public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreeh
 
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 	}
 
 	@Override

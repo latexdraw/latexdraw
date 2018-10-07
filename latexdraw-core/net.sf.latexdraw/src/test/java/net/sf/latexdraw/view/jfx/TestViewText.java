@@ -27,7 +27,11 @@ import static org.junit.Assert.assertTrue;
 public class TestViewText extends TestViewShape<ViewText, IText> {
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// Ok
+		}
 		LaTeXGenerator.setPackages("");
 	}
 
