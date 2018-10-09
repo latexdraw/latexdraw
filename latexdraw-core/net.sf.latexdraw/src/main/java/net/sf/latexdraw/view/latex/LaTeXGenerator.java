@@ -334,7 +334,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final int lastSep = pathExportPs.lastIndexOf(LSystem.FILE_SEP) + 1;
-		final String name = pathExportPs.substring(lastSep == -1 ? 0 : lastSep, pathExportPs.lastIndexOf(".ps")); //NON-NLS
+		final String name = pathExportPs.substring(lastSep, pathExportPs.lastIndexOf(".ps")); //NON-NLS
 		final File tmpDir2 = tmpDir == null ? LFileUtils.INSTANCE.createTempDir().orElse(null) : tmpDir;
 
 		if(tmpDir2 == null) {
