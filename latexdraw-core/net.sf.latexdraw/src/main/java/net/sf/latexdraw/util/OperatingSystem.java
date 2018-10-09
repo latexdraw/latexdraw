@@ -72,11 +72,6 @@ public enum OperatingSystem {
 		public String getPs2pdfBinPath() {
 			return "/usr/local/bin/ps2pdf"; //NON-NLS
 		}
-
-		@Override
-		public String getPdfcropBinPath() {
-			return "pdfcrop"; //NON-NLS
-		}
 	},
 	/** Linux */
 	LINUX;
