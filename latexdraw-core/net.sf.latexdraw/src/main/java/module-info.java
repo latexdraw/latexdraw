@@ -8,7 +8,6 @@ module latexdraw {
 	requires malai.core;
 	requires malai.javafx;
 	requires antlr4.runtime;
-	requires pdf.renderer;
 
 	exports net.sf.latexdraw to javafx.graphics;
 	exports net.sf.latexdraw.ui to javafx.fxml;

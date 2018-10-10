@@ -10,32 +10,22 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import com.sun.pdfview.PDFFile;
-import com.sun.pdfview.PDFPage;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import javafx.beans.value.ChangeListener;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.commands.ExportFormat;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.util.ImageCropper;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.OperatingSystem;
@@ -199,40 +189,6 @@ public class ViewText extends ViewPositionShape<IText> {
 		return new Tuple<>(false, log);
 	}
 
-	/**
-	 * Reads and returns the first page of the given pdf document.
-	 * @param file The file of the pdf document.
-	 * @return The image of the first page or null.
-	 */
-	private BufferedImage readPDFFirstPage(final File file) {
-		BufferedImage bi = null;
-
-		try(final FileChannel fc = new RandomAccessFile(file, "r").getChannel()) { //NON-NLS
-			final MappedByteBuffer mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-			final PDFFile pdfFile = new PDFFile(mbb);
-			mbb.clear();
-
-			if(pdfFile.getNumPages() == 1) {
-				final PDFPage page = pdfFile.getPage(0);
-				final Rectangle2D bound = page.getBBox();
-				final java.awt.Image img = page.getImage((int) bound.getWidth(), (int) bound.getHeight(), bound, null, false, true);
-
-				if(img instanceof BufferedImage) {
-					bi = ImageCropper.INSTANCE.cropImage((BufferedImage) img);
-				}
-
-				if(img != null) {
-					img.flush();
-				}
-			}else {
-				BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages())); //NON-NLS
-			}
-		}catch(final IOException | IllegalArgumentException | SecurityException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-		}
-
-		return bi;
-	}
 
 	/**
 	 * @return The LaTeX compiled picture of the text with its file path and its log.
@@ -244,7 +200,7 @@ public class ViewText extends ViewPositionShape<IText> {
 			return new Tuple<>(null, "A temporary file cannot be created.");
 		}
 
-		BufferedImage bi = null;
+		Image img = null;
 		String log = ""; //NON-NLS
 		final File tmpDir = optDir.get();
 		final String doc = getLaTeXDocument();
@@ -280,24 +236,15 @@ public class ViewText extends ViewPositionShape<IText> {
 		// Getting the image of the first page of the PDF document.
 		if(ok) {
 			final String pdfpath = basePathPic + ExportFormat.PDF.getFileExtension();
-			final File pdfFile = new File(pdfpath);
-			bi = readPDFFirstPage(pdfFile);
-		}
-
-		// Converting the image as a JFX one.
-		final Image fxImage;
-
-		if(bi == null) {
-			fxImage = null;
-		}else {
-			fxImage = SwingFXUtils.toFXImage(bi, null);
-			bi.flush();
+			final String picPath = basePathPic + ".png"; //NON-NLS
+			LSystem.INSTANCE.execute(new String[] {"convert", pdfpath, picPath}, null); //NON-NLS
+			img = new Image(new File(picPath).toURI().toString());
 		}
 
 		// Deleting the temporary folder and its content.
 		LFileUtils.INSTANCE.removeDirWithContent(tmpDir.getPath());
 
-		return new Tuple<>(fxImage, log);
+		return new Tuple<>(img, log);
 	}
 
 	@Override
