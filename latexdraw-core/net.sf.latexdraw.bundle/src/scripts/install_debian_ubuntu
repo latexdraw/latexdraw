@@ -1,3 +1,0 @@
-#!/bin/sh
-
-gksu 'java -jar installer.jar'
