@@ -277,11 +277,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.swinglabs</groupId>
-            <artifactId>pdf-renderer</artifactId>
-            <version>1.0.5</version>
-        </dependency>
-        <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
             <version>${antlr.version}</version>
