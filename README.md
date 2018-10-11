@@ -1,8 +1,8 @@
 
 [![Build Status](https://ci.inria.fr/malai/job/latexdraw/badge/icon)](https://ci.inria.fr/malai/job/latexdraw/)
 [![Code Coverage](https://sonarcloud.io/api/project_badges/measure?project=net.sf.latexdraw%3Alatexdraw.core&metric=coverage)](https://sonarcloud.io/dashboard?id=net.sf.latexdraw%3Alatexdraw.core)
-[![ncloc](https://sonarcloud.io/api/project_badges/measure?project=net.sf.latexdraw%3Alatexdraw.core&metric=ncloc)](https://sonarcloud.io/dashboard?id=net.sf.latexdraw%3Alatexdraw.core)<br/>
-[![java](https://img.shields.io/badge/java-11-blue.svg)](https://www.oracle.com/technetwork/java/javase/overview/index.html)<br/>
+[![ncloc](https://sonarcloud.io/api/project_badges/measure?project=net.sf.latexdraw%3Alatexdraw.core&metric=ncloc)](https://sonarcloud.io/dashboard?id=net.sf.latexdraw%3Alatexdraw.core)
+[![java](https://img.shields.io/badge/java-11-blue.svg)](https://www.oracle.com/technetwork/java/javase/overview/index.html)
 [![java](https://img.shields.io/badge/license-GPL2-green.svg)](https://github.com/arnobl/latexdraw/blob/master/latexdraw-core/net.sf.latexdraw/license.txt)<br/>
 
 latexdraw
