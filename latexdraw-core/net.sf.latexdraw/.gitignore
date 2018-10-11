@@ -1,9 +1,0 @@
-/bin
-/test
-/target
-*~
-/.cache
-/.idea/
-/latexdraw.core.iml
-/.tmpBin/
-sonar.sh
