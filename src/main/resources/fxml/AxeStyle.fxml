@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" xmlns="http://javafx.com/javafx/8" spacing="10"
+      fx:controller="net.sf.latexdraw.instruments.ShapeAxesCustomiser">
+    <HBox minWidth="270" maxWidth="270" spacing="4" alignment="CENTER_LEFT"
+          style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+        <ComboBox fx:id="shapeAxes" editable="false" prefHeight="25.0" prefWidth="90.0"/>
+        <CheckBox fx:id="showOrigin" text="%ParametersAxeFrame.1"/>
+    </HBox>
+    <GridPane minWidth="270" maxWidth="270" hgap="5" vgap="3"
+              style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="%ParametersAxeFrame.0"/>
+        <ComboBox fx:id="shapeTicks" editable="false" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%AxesCust.1"/>
+        <ComboBox fx:id="showTicks" editable="false" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    </GridPane>
+    <GridPane minWidth="270" maxWidth="270" hgap="5" vgap="3"
+              style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="%AxesCust.1"/>
+        <ComboBox fx:id="showLabels" editable="false" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%ParametersAxeFrame.8"/>
+        <LSpinner fx:id="incrLabelX" GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="25.0" prefWidth="70.0" editable="true"
+                  min="0.0001" max="1000.0" initialValue="1.0" amountToStepBy="1.0"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="%ParametersAxeFrame.9"/>
+        <LSpinner fx:id="incrLabelY" GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="25.0" prefWidth="70.0" editable="true"
+                 min="0.0001" max="1000.0" initialValue="1.0" amountToStepBy="1.0"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="%ParametersAxeFrame.6"/>
+        <LSpinner fx:id="distLabelsX" GridPane.columnIndex="1" GridPane.rowIndex="3" prefHeight="25.0" prefWidth="70.0" editable="true"
+                 min="0.01" max="1000.0" initialValue="1.0" amountToStepBy="0.05"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="4" text="%ParametersAxeFrame.7"/>
+        <LSpinner fx:id="distLabelsY" GridPane.columnIndex="1" GridPane.rowIndex="4" prefHeight="25.0" prefWidth="70.0" editable="true"
+                 min="0.01" max="1000.0" initialValue="1.0" amountToStepBy="0.05"/>
+    </GridPane>
+</VBox>

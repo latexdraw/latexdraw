@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<MenuButton xmlns:fx="http://javafx.com/fxml/1" mnemonicParsing="false"
+            style="-fx-padding: 0 0 0 0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.FileLoaderSaver" fx:id="fileMenu">
+    <tooltip>
+        <Tooltip text="%LaTeXDrawFrame.91"/>
+    </tooltip>
+    <graphic>
+        <ImageView>
+            <Image url="@/res/New.png"/>
+        </ImageView>
+    </graphic>
+    <items>
+        <MenuItem fx:id="newMenu" mnemonicParsing="false" text="%Res.2">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/New.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem fx:id="loadMenu" mnemonicParsing="false" text="%FileLoaderSaver.3">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/document-open.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem fx:id="saveMenu" mnemonicParsing="false" text="%FileLoaderSaver.1">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/document-save.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem fx:id="saveAsMenu" mnemonicParsing="false" text="%FileLoaderSaver.2">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/document-save-as.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <Menu fx:id="recentFilesMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.0b"/>
+    </items>
+</MenuButton>

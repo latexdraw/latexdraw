@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Dot" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeDotCustomiser" alignment="TOP_LEFT" expanded="false">
+    <tooltip>
+        <Tooltip text="%PropBuilder.10"/>
+    </tooltip>
+    <AnchorPane>
+        <ImageView layoutX="13.0" layoutY="4.0">
+            <Image url="@/res/dotStyles/dot.none.png"/>
+        </ImageView>
+        <LSpinner fx:id="dotSizeField" layoutX="40.0" layoutY="3.0" prefHeight="25.0" prefWidth="75.0" editable="true"
+                  min="0.1" max="1000.0" initialValue="40.0" amountToStepBy="1.0">
+            <tooltip>
+                <Tooltip text="%ShapeDot.1"/>
+            </tooltip>
+        </LSpinner>
+        <ComboBox fx:id="dotCB" prefHeight="40.0" prefWidth="90.0" layoutX="13.0" layoutY="34.0">
+            <tooltip>
+                <Tooltip text="%ShapeDot.2"/>
+            </tooltip>
+        </ComboBox>
+        <ColorPicker fx:id="fillingB" layoutX="13.0" layoutY="82.0" prefHeight="25.0" prefWidth="112.0">
+            <tooltip>
+                <Tooltip text="%LaTeXDrawFrame.68"/>
+            </tooltip>
+        </ColorPicker>
+    </AnchorPane>
+</TitledPane>

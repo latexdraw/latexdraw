@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<MenuButton xmlns:fx="http://javafx.com/fxml/1" mnemonicParsing="false" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.CopierCutterPaster" fx:id="copierMenu">
+    <graphic>
+        <ImageView>
+            <Image url="@/res/Cut.png"/>
+        </ImageView>
+    </graphic>
+    <tooltip>
+        <Tooltip text="%LaTeXDrawFrame.89"/>
+    </tooltip>
+    <items>
+        <MenuItem fx:id="copyMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.40">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/Copy.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem fx:id="cutMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.44">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/Cut.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem fx:id="pasteMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.43">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/Paste.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+    </items>
+</MenuButton>

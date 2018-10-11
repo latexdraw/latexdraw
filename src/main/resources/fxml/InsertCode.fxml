@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="net.sf.latexdraw.instruments.CodeInserter">
+    <top>
+        <TextArea fx:id="label" prefHeight="70.0" prefWidth="800.0" wrapText="true" BorderPane.alignment="CENTER"/>
+    </top>
+    <center>
+        <TextArea fx:id="text" prefHeight="430.0" prefWidth="800.0" BorderPane.alignment="CENTER"/>
+    </center>
+    <bottom>
+        <BorderPane>
+            <top>
+                <TextArea fx:id="errorLog" prefWidth="800.0" wrapText="true" editable="false"/>
+            </top>
+            <bottom>
+                <ButtonBar>
+                    <buttons>
+                        <Button fx:id="ok" BorderPane.alignment="CENTER" text="%AbstractParametersFrame.4b" ButtonBar.buttonData="OK_DONE"/>
+                        <Button fx:id="cancel" BorderPane.alignment="CENTER" text="%AbstractParametersFrame.6" cancelButton="true"
+                                ButtonBar.buttonData="CANCEL_CLOSE"/>
+                    </buttons>
+                </ButtonBar>
+            </bottom>
+        </BorderPane>
+    </bottom>
+</BorderPane>

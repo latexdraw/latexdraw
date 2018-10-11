@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" text="Drawing properties" xmlns="http://javafx.com/javafx/8" expanded="false"
+            fx:controller="net.sf.latexdraw.instruments.DrawingPropertiesCustomiser" alignment="TOP_LEFT">
+    <tooltip>
+        <Tooltip text="%ToolbarBuilder.1"/>
+    </tooltip>
+    <AnchorPane>
+        <Label layoutX="2.0" layoutY="4.0" text="%Instruments.3"/>
+        <LSpinner fx:id="scaleField" layoutX="60.0" layoutY="4.0" prefHeight="25.0" prefWidth="70.0" editable="true"
+                  min="0.1" max="100" initialValue="1" amountToStepBy="0.1"/>
+        <Label layoutX="2.0" layoutY="35.0" text="%ToolbarBuilder.2"/>
+        <TextField fx:id="titleField" layoutY="34.0" layoutX="80.0"/>
+        <Label layoutX="2.0" layoutY="65.0" text="%ToolbarBuilder.3"/>
+        <TextField fx:id="labelField" layoutX="80.0" layoutY="64.0"/>
+        <CheckBox fx:id="middleHorizPosCB" layoutX="2.0" layoutY="95.0" text="%Instruments.1"/>
+        <Label layoutX="2.0" layoutY="124.0" text="%Instruments.2"/>
+        <ComboBox fx:id="positionCB" layoutX="60.0" layoutY="120.0" prefHeight="25.0" prefWidth="60.0"/>
+    </AnchorPane>
+</TitledPane>
+

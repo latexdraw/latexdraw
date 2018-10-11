@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs/>
+    <g>
+        <g latexdraw:type="rectangle" id="id242">
+            <rect x="241.0" y="81.0" width="158.0" height="198.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id243"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="265.125">
+            <text x="265.125" y="104.0"><![CDATA[GlisserDéposer]]></text>
+        </g>
+        <g latexdraw:type="text" id="id246"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="248.890625">
+            <text x="248.890625" y="140.0"><![CDATA[sélection]]></text>
+        </g>
+        <g latexdraw:type="line" id="id249">
+            <line x1="240.0" x2="400.0" y1="120.0" y2="120.0"
+                stroke-width="2.0" stroke="#7c7c7c" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id250"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="248.890625">
+            <text x="248.890625" y="160.0"><![CDATA[source]]></text>
+        </g>
+        <g latexdraw:type="text" id="id253"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="248.890625">
+            <text x="248.890625" y="180.0"><![CDATA[cible]]></text>
+        </g>
+        <g latexdraw:type="text" id="id256"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="248.890625">
+            <text x="248.890625" y="220.0"><![CDATA[presser()]]></text>
+        </g>
+        <g latexdraw:type="text" id="id259"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="248.890625">
+            <text x="248.890625" y="240.0"><![CDATA[glisser()]]></text>
+        </g>
+        <g latexdraw:type="text" id="id262"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="248.890625">
+            <text x="248.890625" y="260.0"><![CDATA[déposer()]]></text>
+        </g>
+        <g latexdraw:type="line" id="id265">
+            <line x1="240.0" x2="400.0" y1="200.0" y2="200.0"
+                stroke-width="2.0" stroke="#7c7c7c" latexdraw:rotationAngle="0.0"/>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.0</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>true</latexdraw:magneticGrid>
+            <latexdraw:autoUpdate>true</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.1</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1107</latexdraw:width>
+                <latexdraw:height>821</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>0</latexdraw:x>
+                <latexdraw:y>24</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>130</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

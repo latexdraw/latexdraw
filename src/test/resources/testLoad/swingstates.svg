@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs>
+        <marker overflow="visible" orient="auto" id="arrow2-5813">
+            <path
+                d="M 0.0 0.0 L 6.755 2.4125 L 6.755 0.0 L 6.755 -2.4125 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-5816">
+            <path
+                d="M 0.0 0.0 L 6.755 2.4125 L 6.755 0.0 L 6.755 -2.4125 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-5819">
+            <path
+                d="M 0.0 0.0 L 6.755 2.4125 L 6.755 0.0 L 6.755 -2.4125 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-5822">
+            <path
+                d="M 0.0 0.0 L 6.755 2.4125 L 6.755 0.0 L 6.755 -2.4125 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+    </defs>
+    <g>
+        <g latexdraw:type="rectangle" id="id5756">
+            <rect x="541.0" y="61.0" width="313.0" height="349.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="#dcdcf3" rx="31.3"/>
+        </g>
+        <g latexdraw:type="text" id="id5757"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="560.0">
+            <text x="560.0" y="80.0"><![CDATA[StateMachine \{]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5760"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="572.0">
+            <text x="572.0" y="100.0"><![CDATA[Shape dragged;]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5763"
+            font-family="Times New Roman" fill="#5376da" font-size="18" latexdraw:x="572.0">
+            <text x="572.0" y="132.0"><![CDATA[\definecolor{color5763}{rgb}{0.3254901960784314,0.4627450980392157,0.8549019607843137}\color{color5763}State start \{]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5766"
+            font-family="Times New Roman" fill="black" font-size="18"
+            latexdraw:x="584.0" font-style="italic" font-weight="bold">
+            <text x="584.0" y="152.0"><![CDATA[PressOnShape]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5769"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="694.0">
+            <text x="694.0" y="152.0"><![CDATA[-> drag \{]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5772"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="598.0">
+            <text x="598.0" y="172.0"><![CDATA[action()\{dragged=getShape();\}]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5775"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="585.0">
+            <text x="585.0" y="192.0"><![CDATA[\}]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5778"
+            font-family="Times New Roman" fill="#5376da" font-size="18" latexdraw:x="572.0">
+            <text x="572.0" y="244.0"><![CDATA[\definecolor{color5778}{rgb}{0.3254901960784314,0.4627450980392157,0.8549019607843137}\color{color5778}State drag \{]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5781"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="584.0">
+            <text x="584.0" y="264.0"><![CDATA[enter()\{dragged.hilite();\}]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5784"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="588.0">
+            <text x="588.0" y="324.0"><![CDATA[\}]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5787"
+            font-family="Times New Roman" fill="black" font-size="18"
+            latexdraw:x="585.0" font-style="italic" font-weight="bold">
+            <text x="585.0" y="284.0"><![CDATA[Drag]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5790"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="628.0">
+            <text x="628.0" y="284.0"><![CDATA[-> drag \{]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5793"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="596.0">
+            <text x="596.0" y="304.0"><![CDATA[action()\{dragged.move();\}]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5796"
+            font-family="Times New Roman" fill="black" font-size="18"
+            latexdraw:x="587.0" font-style="italic" font-weight="bold">
+            <text x="587.0" y="344.0"><![CDATA[Release]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5799"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="651.0">
+            <text x="651.0" y="344.0"><![CDATA[-> start \{\}]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5802"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="589.0">
+            <text x="589.0" y="364.0"><![CDATA[leave()\{dragged.unhilite();\}]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5805"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="113.0">
+            <text x="113.0" y="195.0"><![CDATA[\definecolor{color5807b}{rgb}{0.39215686274509803,0.4588235294117647,0.9803921568627451}\psovalbox[linewidth=0.02,fillstyle=solid,fillcolor=color5807b,framesep=0.18]{start}]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5809"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="273.0">
+            <text x="273.0" y="195.0"><![CDATA[\definecolor{color5807b}{rgb}{0.39215686274509803,0.4588235294117647,0.9803921568627451}\psovalbox[linewidth=0.02,fillstyle=solid,fillcolor=color5807b,framesep=0.18]{drag}]]></text>
+        </g>
+        <g latexdraw:type="joinedLines" id="id5813">
+            <polyline points="50.0,173.0 50.0,189.0 90.0,189.0 "
+                stroke-width="2.0" stroke="black" fill="none"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-5813)"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id5816">
+            <path
+                d="M 131.0 212.0 C 171.0 252.0 251.0 252.0 291.0 212.0 "
+                stroke-width="2.0" stroke="black" fill="none"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-5816)"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id5819">
+            <path
+                d="M 131.09375 171.0 C 171.09375 131.0 251.09375 131.0 291.09375 171.0 "
+                stroke-width="2.0" stroke="black" fill="none"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-5819)"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id5822">
+            <path
+                d="M 296.23261324691765 213.24796975343565 C 354.2614422188756 253.57675425531949 372.0 218.00280167268585 323.76738675308235 192.0 "
+                stroke-width="2.0" stroke="black" fill="none"
+                latexdraw:rotationAngle="-0.8115577511648161" marker-end="url(#arrow2-5822)"/>
+        </g>
+        <g latexdraw:type="text" id="id5825"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="70.0">
+            <text x="70.0" y="130.0"><![CDATA[pressOnShape() / dragged = getShape()]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5828"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="182.0">
+            <text x="182.0" y="264.0"><![CDATA[release()]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5831"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="288.0">
+            <text x="288.0" y="253.0"><![CDATA[Drag() / dragged.move()]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5834"
+            font-family="Times New Roman" fill="#5376da" font-size="18" latexdraw:x="366.0">
+            <text x="366.0" y="181.0"><![CDATA[\definecolor{color5834}{rgb}{0.3254901960784314,0.4627450980392157,0.8549019607843137}\color{color5834}dragged.hilite()]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5837"
+            font-family="Times New Roman" fill="#5376da" font-size="18" latexdraw:x="367.0">
+            <text x="367.0" y="214.0"><![CDATA[\definecolor{color5834}{rgb}{0.3254901960784314,0.4627450980392157,0.8549019607843137}\color{color5834}dragged.unhilite()]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5840"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="565.0">
+            <text x="565.0" y="403.0"><![CDATA[\}]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5843"
+            font-family="Times New Roman" fill="#5376da" font-size="18" latexdraw:x="572.0">
+            <text x="572.0" y="212.0"><![CDATA[\definecolor{color5843}{rgb}{0.3254901960784314,0.4627450980392157,0.8549019607843137}\color{color5843}\}]]></text>
+        </g>
+        <g latexdraw:type="text" id="id5846"
+            font-family="Times New Roman" fill="#5376da" font-size="18" latexdraw:x="572.0">
+            <text x="572.0" y="382.0"><![CDATA[\definecolor{color5843}{rgb}{0.3254901960784314,0.4627450980392157,0.8549019607843137}\color{color5843}\}]]></text>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.0</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>false</latexdraw:magneticGrid>
+            <latexdraw:autoUpdate>true</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.3</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1122</latexdraw:width>
+                <latexdraw:height>767</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>0</latexdraw:x>
+                <latexdraw:y>24</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>130</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

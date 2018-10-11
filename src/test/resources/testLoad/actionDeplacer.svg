@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs/>
+    <g>
+        <g latexdraw:type="rectangle" id="id19">
+            <rect x="302.0" y="61.0" width="158.0" height="138.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id20" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="325.375">
+            <text x="325.375" y="84.0"><![CDATA[ActionDéplacer]]></text>
+        </g>
+        <g latexdraw:type="line" id="id22">
+            <line x1="301.0" x2="461.0" y1="100.0" y2="100.0"
+                stroke-width="2.0" stroke="#7c7c7c" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id23" font-family="Times New Roman"
+            fill="black" font-size="16" latexdraw:x="309.890625">
+            <text x="309.890625" y="120.0"><![CDATA[debPt]]></text>
+        </g>
+        <g latexdraw:type="text" id="id25" font-family="Times New Roman"
+            fill="black" font-size="16" latexdraw:x="309.890625">
+            <text x="309.890625" y="140.0"><![CDATA[finPt]]></text>
+        </g>
+        <g latexdraw:type="text" id="id27" font-family="Times New Roman"
+            fill="black" font-size="16" latexdraw:x="309.890625">
+            <text x="309.890625" y="160.0"><![CDATA[courantPt]]></text>
+        </g>
+        <g latexdraw:type="text" id="id29" font-family="Times New Roman"
+            fill="black" font-size="16" latexdraw:x="309.890625">
+            <text x="309.890625" y="180.0"><![CDATA[sélection]]></text>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.0</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>true</latexdraw:magneticGrid>
+            <latexdraw:caption><![CDATA[dffdsf]]></latexdraw:caption>
+            <latexdraw:label><![CDATA[dsfdsf]]></latexdraw:label>
+            <latexdraw:positionHoriz>\begin{center}
+</latexdraw:positionHoriz>
+            <latexdraw:positionVert>H</latexdraw:positionVert>
+            <latexdraw:autoUpdate>true</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.2</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1290</latexdraw:width>
+                <latexdraw:height>780</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>-5</latexdraw:x>
+                <latexdraw:y>24</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>130</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

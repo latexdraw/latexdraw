@@ -1,0 +1,10 @@
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.HBox?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+      fx:controller="net.sf.latexdraw.instruments.StatusBarController" alignment="CENTER_LEFT">
+    <ProgressBar fx:id="progressBar" visible="false"/>
+    <Label fx:id="label"/>
+    <Hyperlink fx:id="link" />
+</HBox>

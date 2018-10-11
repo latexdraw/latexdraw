@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Grid/Axe" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeStdGridCustomiser" alignment="TOP_LEFT" expanded="false">
+    <VBox spacing="10">
+        <GridPane minWidth="270" maxWidth="270" hgap="5" vgap="3"
+                  style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="%ParametersGridFrame.12"/>
+            <LSpinner fx:id="xStartS" GridPane.columnIndex="1" GridPane.rowIndex="0" prefHeight="25.0" prefWidth="55.0" editable="true"
+                     min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
+                <tooltip>
+                    <Tooltip text="%ShapeStdGrid.1"/>
+                </tooltip>
+            </LSpinner>
+            <Label GridPane.columnIndex="2" GridPane.rowIndex="0" text="%ParametersGridFrame.14"/>
+            <LSpinner fx:id="yStartS" GridPane.columnIndex="3" GridPane.rowIndex="0" prefHeight="25.0" prefWidth="55.0" editable="true"
+                      min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
+                <tooltip>
+                    <Tooltip text="%ShapeStdGrid.2"/>
+                </tooltip>
+            </LSpinner>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%ParametersGridFrame.11"/>
+            <LSpinner fx:id="xEndS" GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="25.0" prefWidth="55.0" editable="true"
+                     min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
+                <tooltip>
+                    <Tooltip text="%ShapeStdGrid.3"/>
+                </tooltip>
+            </LSpinner>
+            <Label GridPane.columnIndex="2" GridPane.rowIndex="1" text="%ParametersGridFrame.13"/>
+            <LSpinner fx:id="yEndS" GridPane.columnIndex="3" GridPane.rowIndex="1" prefHeight="25.0" prefWidth="55.0" editable="true"
+                     min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
+                <tooltip>
+                    <Tooltip text="%ShapeStdGrid.4"/>
+                </tooltip>
+            </LSpinner>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="%ParametersGridFrame.1"/>
+            <LSpinner fx:id="xOriginS" GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="25.0" prefWidth="55.0" editable="true"
+                     min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
+                <tooltip>
+                    <Tooltip text="%ShapeStdGrid.6"/>
+                </tooltip>
+            </LSpinner>
+            <Label GridPane.columnIndex="2" GridPane.rowIndex="2" text="%ParametersGridFrame.0"/>
+            <LSpinner fx:id="yOriginS" GridPane.columnIndex="3" GridPane.rowIndex="2" prefHeight="25.0" prefWidth="55.0" editable="true"
+                     min="-10000.0" max="10000.0" initialValue="0.0" amountToStepBy="1.0">
+                <tooltip>
+                    <Tooltip text="%ShapeStdGrid.7"/>
+                </tooltip>
+            </LSpinner>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" text="%ParametersGridFrame.9"/>
+            <LSpinner fx:id="labelsSizeS" GridPane.columnIndex="2" GridPane.rowIndex="3" prefHeight="25.0" prefWidth="65.0" editable="true">
+                <tooltip>
+                    <Tooltip text="%ShapeStdGrid.5"/>
+                </tooltip>
+                <valueFactory>
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="100" initialValue="10" amountToStepBy="1"/>
+                </valueFactory>
+            </LSpinner>
+        </GridPane>
+        <fx:include source="GridStyle.fxml"/>
+        <fx:include source="AxeStyle.fxml"/>
+    </VBox>
+</TitledPane>

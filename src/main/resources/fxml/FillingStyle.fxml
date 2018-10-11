@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Filling" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeFillingCustomiser" alignment="TOP_LEFT" expanded="false">
+    <tooltip>
+        <Tooltip text="%PropBuilder.12"/>
+    </tooltip>
+    <VBox spacing="5">
+        <ComboBox fx:id="fillStyleCB" prefHeight="25.0" prefWidth="90.0">
+            <tooltip>
+                <Tooltip text="Set how the shape is filled."/>
+            </tooltip>
+        </ComboBox>
+        <AnchorPane fx:id="fillPane">
+            <ColorPicker fx:id="fillColButton" layoutX="87.0" layoutY="0.0" prefHeight="25.0" prefWidth="100.0">
+                <tooltip>
+                    <Tooltip text="%LaTeXDrawFrame.68"/>
+                </tooltip>
+            </ColorPicker>
+            <Label layoutX="0.0" layoutY="5.0" text="%LaTeXDrawFrame.48"/>
+        </AnchorPane>
+        <AnchorPane fx:id="hatchingsPane">
+            <ColorPicker fx:id="hatchColButton" layoutX="87.0" layoutY="0.0" prefHeight="25.0" prefWidth="100.0">
+                <tooltip>
+                    <Tooltip text="%LaTeXDrawFrame.69"/>
+                </tooltip>
+            </ColorPicker>
+            <Label layoutX="0.0" layoutY="5.0" text="%LaTeXDrawFrame.49"/>
+            <LSpinner fx:id="hatchSepField" layoutX="85.0" layoutY="65.0" prefHeight="25.0" prefWidth="75.0" editable="true"
+                     min="0.01" max="1000.0" initialValue="2.0" amountToStepBy="1.0">
+                <tooltip>
+                    <Tooltip text="Set the gap between the hatchings."/>
+                </tooltip>
+            </LSpinner>
+            <Label layoutX="0.0" layoutY="70.0" text="%AbstractParametersFrame.0"/>
+            <LSpinner fx:id="hatchAngleField" layoutX="85.0" layoutY="33.0" prefHeight="25.0" prefWidth="75.0" editable="true"
+                     min="-1000.0" max="1000.0" initialValue="0.0" amountToStepBy="1.0">
+                <tooltip>
+                    <Tooltip text="Set the angle of the hatchings."/>
+                </tooltip>
+            </LSpinner>
+            <Label layoutX="0.0" layoutY="38.0" text="%ShapeFill.1"/>
+            <LSpinner fx:id="hatchWidthField" layoutX="85.0" layoutY="98.0" prefHeight="25.0" prefWidth="75.0" editable="true"
+                     min="0.1" max="100.0" initialValue="5.0" amountToStepBy="0.1">
+                <tooltip>
+                    <Tooltip text="Set the size of the hatchings."/>
+                </tooltip>
+            </LSpinner>
+            <Label layoutX="0.0" layoutY="103.0" text="Width:"/>
+        </AnchorPane>
+        <AnchorPane fx:id="gradientPane">
+            <ColorPicker fx:id="gradStartColButton" layoutX="87.0" layoutY="0.0" prefHeight="25.0" prefWidth="100.0">
+                <tooltip>
+                    <Tooltip text="%LaTeXDrawFrame.grad1"/>
+                </tooltip>
+            </ColorPicker>
+            <Label layoutX="0.0" layoutY="5.0" text="%LaTeXDrawFrame.1b"/>
+            <ColorPicker fx:id="gradEndColButton" layoutX="87.0" layoutY="30.0" prefHeight="25.0" prefWidth="100.0">
+                <tooltip>
+                    <Tooltip text="%LaTeXDrawFrame.8b"/>
+                </tooltip>
+            </ColorPicker>
+            <Label layoutX="0.0" layoutY="35.0" text="%LaTeXDrawFrame.2"/>
+            <LSpinner fx:id="gradMidPtField" layoutX="87.0" layoutY="60.0" prefHeight="25.0" prefWidth="75.0" editable="true"
+                     min="0.0" max="1.0" initialValue="0.5" amountToStepBy="0.1">
+                <tooltip>
+                    <Tooltip text="Set the middle point of the gradient."/>
+                </tooltip>
+            </LSpinner>
+            <Label layoutX="0.0" layoutY="65.0" text="%AbstractParametersFrame.4"/>
+            <LSpinner fx:id="gradAngleField" layoutX="87.0" layoutY="90.0" prefHeight="25.0" prefWidth="75.0" editable="true"
+                     min="-360.0" max="360.0" initialValue="0.0" amountToStepBy="1.0">
+                <tooltip>
+                    <Tooltip text="Set the angle of the gradient."/>
+                </tooltip>
+            </LSpinner>
+            <Label layoutX="0.0" layoutY="95.0" text="%ShapeFill.1"/>
+        </AnchorPane>
+    </VBox>
+</TitledPane>

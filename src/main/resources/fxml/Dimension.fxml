@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Position / Dimensions"
+            xmlns="http://javafx.com/javafx/8" alignment="TOP_LEFT" expanded="false"
+            fx:controller="net.sf.latexdraw.instruments.ShapeCoordDimCustomiser">
+    <AnchorPane layoutX="10.0" layoutY="5.0"
+                style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+        <Label layoutX="0.0" layoutY="9.0" text="x"/>
+        <LSpinner fx:id="tlxS" prefHeight="25.0" prefWidth="85.0" layoutX="40.0" layoutY="6.0" initialValue="0.0" amountToStepBy="1.0"
+                  min="-100000" max="100000" editable="true">
+            <tooltip>
+                <Tooltip text="ShapeCoord.1"/>
+            </tooltip>
+        </LSpinner>
+        <Label layoutX="0.0" layoutY="39.0" text="y"/>
+        <LSpinner fx:id="tlyS" prefHeight="25.0" prefWidth="85.0" layoutX="40.0" layoutY="36.0" initialValue="0.0" amountToStepBy="1.0"
+                 min="-100000" max="100000" editable="true">
+            <tooltip>
+                <Tooltip text="ShapeCoord.2"/>
+            </tooltip>
+        </LSpinner>
+    </AnchorPane>
+</TitledPane>

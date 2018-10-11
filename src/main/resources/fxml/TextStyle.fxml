@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Text" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeTextCustomiser" alignment="TOP_LEFT" expanded="false">
+    <tooltip>
+        <Tooltip text="%PropBuilder.8"/>
+    </tooltip>
+    <AnchorPane>
+        <ComboBox fx:id="textPos" prefHeight="25.0" prefWidth="90.0">
+            <tooltip>
+                <Tooltip text="The position of the text."/>
+            </tooltip>
+        </ComboBox>
+        <Label layoutX="5.0" layoutY="84.0" text="%TextCust.1"/>
+        <TextArea fx:id="packagesField" layoutX="5.0" layoutY="104.0" prefHeight="100.0" prefWidth="290.0"/>
+        <Label layoutX="5.0" layoutY="209.0" text="Compilation log:"/>
+        <TextArea fx:id="logField" layoutX="5.0" layoutY="230.0" prefHeight="130.0" prefWidth="290.0" editable="false">
+            <tooltip>
+                <Tooltip text="%TextCust.2"/>
+            </tooltip>
+        </TextArea>
+    </AnchorPane>
+</TitledPane>

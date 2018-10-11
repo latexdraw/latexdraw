@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+<module name="Checker">
+    <!--<module name="Header">-->
+        <!--<property name="headerFile" value="header.txt"/>-->
+        <!--<property name="fileExtensions" value="java"/>-->
+    <!--</module>-->
+
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="module\-info\.java$"/>
+    </module>
+
+    <module name="NewlineAtEndOfFile">
+        <property name="lineSeparator" value="lf"/>
+        <property name="fileExtensions" value="java, xml"/>
+    </module>
+    <module name="RegexpSingleline">
+        <property name="format" value="\s+$"/>
+        <property name="message" value="Line has trailing spaces."/>
+    </module>
+
+    <module name="RegexpMultiline">
+        <property name="format" value="\r\n"/>
+        <property name="message" value="Do not use Windows line endings"/>
+    </module>
+
+    <module name="TreeWalker">
+        <module name="EqualsAvoidNull"/>
+        <module name="FinalClass"/>
+        <module name="FinalLocalVariable"/>
+        <module name="FinalParameters"/>
+        <!--<module name="IllegalCatch"/>-->
+        <module name="IllegalThrows"/>
+        <module name="IllegalToken" />
+        <module name="IllegalTokenText" />
+        <module name="IllegalType" />
+        <module name="InnerAssignment"/>
+        <module name="MissingOverride"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="ParenPad"/>
+        <module name="WhitespaceAfter">
+            <property name="tokens" value="COMMA, SEMI, TYPECAST, LITERAL_ELSE, LITERAL_DO"/>
+        </module>
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier">
+            <property name="tokens" value="VARIABLE_DEF, ANNOTATION_FIELD_DEF, INTERFACE_DEF, CTOR_DEF, CLASS_DEF, ENUM_DEF"/>
+        </module>
+        <module name="WhitespaceAround" >
+            <property name="tokens" value="ASSIGN, ARRAY_INIT, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV,
+            DIV_ASSIGN, EQUAL, GE, GT, LAMBDA, LAND, LCURLY, LE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION,
+            SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, LITERAL_ASSERT, TYPE_EXTENSION_AND"/>
+        </module>
+        <module name="LeftCurly"/>
+        <module name="RightCurly"/>
+        <module name="NeedBraces"/>
+        <module name="InterfaceIsType"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="NestedForDepth">
+            <!-- put to 1 -->
+            <property name="max" value="2"/>
+        </module>
+        <module name="NestedIfDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NestedTryDepth">
+            <property name="max" value="1"/>
+        </module>
+        <!--<module name="NoClone"/>-->
+        <module name="NoFinalizer"/>
+        <module name="ParameterAssignment"/>
+        <module name="CyclomaticComplexity">
+            <property name="max" value="19"/>
+            <property name="switchBlockAsSingleDecisionPoint" value="true"/>
+        </module>
+
+        <module name="AnnotationLocation">
+            <property name="allowSamelineMultipleAnnotations" value="true"/>
+            <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
+            <property name="allowSamelineParameterizedAnnotation" value="false"/>
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="^\t* "/>
+            <property name="message" value="Indent must use tab characters"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+
+        <module name="AvoidStarImport"/>
+        <module name="IllegalImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports">
+            <property name="processJavadoc" value="true"/>
+        </module>
+
+        <module name="GenericWhitespace"/>
+        <module name="EmptyForIteratorPad"/>
+        <module name="MethodParamPad"/>
+        <module name="NoWhitespaceAfter">
+            <property name="tokens" value="BNOT, DEC, INC, LNOT, UNARY_MINUS, UNARY_PLUS"/>
+        </module>
+    </module>
+</module>

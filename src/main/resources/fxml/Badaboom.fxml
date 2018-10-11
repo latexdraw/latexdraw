@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.badaboom.BadaboomController">
+    <center>
+        <TextArea fx:id="stack" editable="false" minWidth="800" minHeight="250" prefHeight="250"/>
+    </center>
+    <bottom>
+        <TableView fx:id="table" editable="false" minWidth="800" minHeight="150" prefHeight="150">
+            <columns>
+                <TableColumn text="Name"/>
+                <TableColumn text="Message"/>
+                <TableColumn text="Location"/>
+            </columns>
+        </TableView>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs/>
+    <g>
+        <g latexdraw:type="rectangle" id="id32">
+            <rect x="70.0" y="121.0" width="398.0" height="258.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="#b1b1b1"/>
+        </g>
+        <g latexdraw:type="rectangle" id="id33">
+            <rect x="82.0" y="154.0" width="373.0" height="210.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="#e2e2e2"/>
+        </g>
+        <g latexdraw:type="drawing" id="id34">
+            <g latexdraw:type="rectangle" id="id35">
+                <rect x="174.0" y="331.72222900390625" width="161.0"
+                    height="19.0" latexdraw:borderPos="outer"
+                    stroke-width="3.0" stroke="black" fill="white"/>
+            </g>
+            <g latexdraw:type="rectangle" id="id36">
+                <rect x="178.5" y="333.27777099609375" width="157.0"
+                    height="19.0" latexdraw:borderPos="outer"
+                    stroke-width="3.0" stroke="#fefefe" fill="#fefefe"/>
+            </g>
+            <g latexdraw:type="rectangle" id="id37">
+                <rect x="176.5" y="333.03333333333336" width="157.0"
+                    height="17.444444444444514"
+                    latexdraw:borderPos="outer" stroke-width="3.0"
+                    stroke="#868686" fill="#8a8a8a"/>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id39">
+            <g latexdraw:type="rectangle" id="id40">
+                <rect x="350.0" y="181.0" width="78.0" height="38.0"
+                    transform="translate(2.0 0.0) translate(-0.5857864618301392 1.4142135381698608)"
+                    stroke-width="2.0" fill="#404040" stroke="#404040" latexdraw:type="shadow"/>
+                <rect x="350.0" y="181.0" width="78.0" height="38.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="white"/>
+            </g>
+            <g latexdraw:type="text" id="id41"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="375.6015625">
+                <text x="375.6015625" y="205.9609375"><![CDATA[OK]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="text" id="id44" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="222.65625">
+            <text x="222.65625" y="140.0"><![CDATA[Choose Font]]></text>
+        </g>
+        <g latexdraw:type="text" id="id46" font-family="Times New Roman"
+            fill="black" font-size="30" latexdraw:x="97.0" font-weight="bold">
+            <text x="97.0" y="183.0"><![CDATA[Font Properties:]]></text>
+        </g>
+        <g latexdraw:type="drawing" id="id48">
+            <g latexdraw:type="rectangle" id="id49">
+                <rect x="350.0" y="241.0" width="78.0" height="38.0"
+                    transform="translate(2.0 0.0) translate(-0.5857864618301392 1.4142135381698608)"
+                    stroke-width="2.0" fill="#404040" stroke="#404040" latexdraw:type="shadow"/>
+                <rect x="350.0" y="241.0" width="78.0" height="38.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="white"/>
+            </g>
+            <g latexdraw:type="text" id="id50"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="367.484375">
+                <text x="367.484375" y="264.3046875"><![CDATA[Apply]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id53">
+            <g latexdraw:type="rectangle" id="id54">
+                <rect x="350.0" y="301.0" width="78.0" height="38.0"
+                    transform="translate(2.0 0.0) translate(-0.5857864618301392 1.4142135381698608)"
+                    stroke-width="2.0" fill="#404040" stroke="#404040" latexdraw:type="shadow"/>
+                <rect x="350.0" y="301.0" width="78.0" height="38.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="white"/>
+            </g>
+            <g latexdraw:type="text" id="id55"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="363.859375">
+                <text x="363.859375" y="326.1171875"><![CDATA[Cancel]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="text" id="id58" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="129.0">
+            <text x="129.0" y="220.0"><![CDATA[Bold]]></text>
+        </g>
+        <g latexdraw:type="text" id="id60" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="129.0">
+            <text x="129.0" y="260.0"><![CDATA[Italic]]></text>
+        </g>
+        <g latexdraw:type="text" id="id62" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="129.0">
+            <text x="129.0" y="300.0"><![CDATA[Underline]]></text>
+        </g>
+        <g latexdraw:type="text" id="id64" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="269.0">
+            <text x="269.0" y="300.0"><![CDATA[Green]]></text>
+        </g>
+        <g latexdraw:type="text" id="id66" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="269.0">
+            <text x="269.0" y="260.0"><![CDATA[Red]]></text>
+        </g>
+        <g latexdraw:type="text" id="id68" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="269.0">
+            <text x="269.0" y="220.0"><![CDATA[Black]]></text>
+        </g>
+        <g latexdraw:type="drawing" id="id70">
+            <g latexdraw:type="square" id="id71">
+                <rect x="89.0" y="201.0" width="18.0" height="18.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#fefefe" fill="white"/>
+            </g>
+            <g latexdraw:type="square" id="id72">
+                <rect x="90.0" y="202.0" width="18.0" height="18.0"
+                    transform="translate(2.799999952316284 0.0) translate(-0.8201010227203369 1.9798989295959473)"
+                    stroke-width="2.0" fill="#404040" stroke="#404040" latexdraw:type="shadow"/>
+                <rect x="90.0" y="202.0" width="18.0" height="18.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#e2e2e2" fill="#e2e2e2"/>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id74">
+            <g latexdraw:type="square" id="id75">
+                <rect x="89.0" y="241.0" width="18.0" height="18.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#fefefe" fill="white"/>
+            </g>
+            <g latexdraw:type="square" id="id76">
+                <rect x="90.0" y="242.0" width="18.0" height="18.0"
+                    transform="translate(2.799999952316284 0.0) translate(-0.8201010227203369 1.9798989295959473)"
+                    stroke-width="2.0" fill="#404040" stroke="#404040" latexdraw:type="shadow"/>
+                <rect x="90.0" y="242.0" width="18.0" height="18.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#e2e2e2" fill="#e2e2e2"/>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id78">
+            <g latexdraw:type="square" id="id79">
+                <rect x="89.0" y="281.0" width="18.0" height="18.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#fefefe" fill="white"/>
+            </g>
+            <g latexdraw:type="square" id="id80">
+                <rect x="90.0" y="282.0" width="18.0" height="18.0"
+                    transform="translate(2.799999952316284 0.0) translate(-0.8201010227203369 1.9798989295959473)"
+                    stroke-width="2.0" fill="#404040" stroke="#404040" latexdraw:type="shadow"/>
+                <rect x="90.0" y="282.0" width="18.0" height="18.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#e2e2e2" fill="#e2e2e2"/>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id82">
+            <g latexdraw:type="square" id="id83" transform="rotate(44.81757839455086) translate(77.76272477027294 -237.41560363183487)">
+                <rect x="240.0" y="204.00000000000003" width="18.0"
+                    height="18.0" latexdraw:borderPos="outer"
+                    stroke-width="2.0" stroke="#fefefe" fill="white"/>
+            </g>
+            <g latexdraw:type="square" id="id84" transform="rotate(44.81757839455086) translate(79.17242851769572 -237.9968945903108)">
+                <rect x="240.0" y="205.99999999999994" width="18.0"
+                    height="18.0"
+                    transform="translate(2.799999952316284 0.0) translate(-0.8201010227203369 1.9798989295959473)"
+                    stroke-width="2.0" fill="#404040" stroke="#404040" latexdraw:type="shadow"/>
+                <rect x="240.0" y="205.99999999999994" width="18.0"
+                    height="18.0" latexdraw:borderPos="outer"
+                    stroke-width="2.0" stroke="#e2e2e2" fill="#e2e2e2"/>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id86">
+            <g latexdraw:type="square" id="id87" transform="rotate(44.81757839455086) translate(105.25194784501821 -248.75077732211642)">
+                <rect x="240.0" y="242.99999999999994" width="18.0"
+                    height="18.000000000000057"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#fefefe" fill="white"/>
+            </g>
+            <g latexdraw:type="square" id="id88" transform="rotate(44.81757839455086) translate(106.6616515924411 -249.3320682805924)">
+                <rect x="239.99999999999997" y="245.00000000000006"
+                    width="18.00000000000003"
+                    height="17.999999999999943"
+                    transform="translate(2.799999952316284 0.0) translate(-0.8201010227203369 1.9798989295959473)"
+                    stroke-width="2.0" fill="#404040" stroke="#404040" latexdraw:type="shadow"/>
+                <rect x="239.99999999999997" y="245.00000000000006"
+                    width="18.00000000000003"
+                    height="17.999999999999943"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#e2e2e2" fill="#e2e2e2"/>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id90">
+            <g latexdraw:type="square" id="id91" transform="rotate(44.81757839455086) translate(134.85572654089782 -260.9578874501119)">
+                <rect x="239.99999999999994" y="284.99999999999994"
+                    width="18.0" height="18.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#fefefe" fill="white"/>
+            </g>
+            <g latexdraw:type="square" id="id92" transform="rotate(44.81757839455086) translate(136.26543028832066 -261.53917840858793)">
+                <rect x="240.0" y="287.0" width="18.0" height="18.0"
+                    transform="translate(2.799999952316284 0.0) translate(-0.8201010227203369 1.9798989295959473)"
+                    stroke-width="2.0" fill="#404040" stroke="#404040" latexdraw:type="shadow"/>
+                <rect x="240.0" y="287.0" width="18.0" height="18.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#e2e2e2" fill="#e2e2e2"/>
+            </g>
+        </g>
+        <g latexdraw:type="text" id="id94" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="92.0">
+            <text x="92.0" y="346.0"><![CDATA[Font Size:]]></text>
+        </g>
+        <g latexdraw:type="text" id="id96" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="178.0">
+            <text x="178.0" y="347.0"><![CDATA[24]]></text>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.0</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>false</latexdraw:magneticGrid>
+            <latexdraw:autoUpdate>false</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.3</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1268</latexdraw:width>
+                <latexdraw:height>776</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>1</latexdraw:x>
+                <latexdraw:y>24</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>130</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

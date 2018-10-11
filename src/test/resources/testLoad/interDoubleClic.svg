@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs>
+        <marker overflow="visible" orient="auto" id="arrow2-489">
+            <path
+                d="M 0.0 0.0 L -3.417361111111111 1.2204861111111112 L -3.417361111111111 0.0 L -3.417361111111111 -1.2204861111111112 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-495">
+            <path
+                d="M 0.0 0.0 L -3.417361111111111 1.2204861111111112 L -3.417361111111111 0.0 L -3.417361111111111 -1.2204861111111112 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-502">
+            <path
+                d="M 0.0 0.0 L -3.417361111111111 1.2204861111111112 L -3.417361111111111 0.0 L -3.417361111111111 -1.2204861111111112 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-503">
+            <path
+                d="M 0.0 0.0 L -3.417361111111111 1.2204861111111112 L -3.417361111111111 0.0 L -3.417361111111111 -1.2204861111111112 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-517">
+            <path
+                d="M 0.0 0.0 L -3.417361111111111 1.2204861111111112 L -3.417361111111111 0.0 L -3.417361111111111 -1.2204861111111112 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-521">
+            <path
+                d="M 0.0 0.0 L -3.417361111111111 1.2204861111111112 L -3.417361111111111 0.0 L -3.417361111111111 -1.2204861111111112 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-525">
+            <path
+                d="M 0.0 0.0 L -3.417361111111111 1.2204861111111112 L -3.417361111111111 0.0 L -3.417361111111111 -1.2204861111111112 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+    </defs>
+    <g>
+        <g latexdraw:type="drawing" id="id473">
+            <g latexdraw:type="circle" id="id474">
+                <circle cx="472.0" cy="388.0" r="40.0"
+                    latexdraw:borderPos="outer" stroke-width="10.0"
+                    stroke="black" fill="white"/>
+                <circle cx="472.0" cy="388.0" r="40.0" stroke="white"
+                    stroke-width="6.0" fill="none" latexdraw:type="dbleborders"/>
+            </g>
+            <g latexdraw:type="text" id="id476"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="442.3203125">
+                <text x="442.3203125" y="394.125"><![CDATA[relâché2]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id479">
+            <g latexdraw:type="circle" id="id480">
+                <circle cx="273.0" cy="265.0" r="40.0"
+                    latexdraw:borderPos="outer" stroke-width="10.0"
+                    stroke="black" fill="white"/>
+                <circle cx="273.0" cy="265.0" r="40.0" stroke="white"
+                    stroke-width="6.0" fill="none" latexdraw:type="dbleborders"/>
+            </g>
+            <g latexdraw:type="text" id="id482"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="250.4375">
+                <text x="250.4375" y="270.890625"><![CDATA[avorté]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="circle" id="id485">
+            <circle cx="310.0" cy="131.0" r="44.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id487"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="284.1328125">
+            <text x="284.1328125" y="135.1640625"><![CDATA[pressé1]]></text>
+        </g>
+        <g latexdraw:type="line" id="id489">
+            <line x1="435.0" x2="314.0" y1="156.0" y2="237.0"
+                stroke-width="6.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-489)"/>
+        </g>
+        <g latexdraw:type="text" id="id490"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="200.0">
+            <text x="200.0" y="117.609375"><![CDATA[pression]]></text>
+        </g>
+        <g latexdraw:type="text" id="id492"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="357.0">
+            <text x="357.0" y="117.609375"><![CDATA[relâchement]]></text>
+        </g>
+        <g latexdraw:type="dot" id="id494" latexdraw:size="40.0"
+            latexdraw:dotShape="dot" latexdraw:position="175.0 131.0">
+            <circle r="20.0" fill="black" cx="175.0" cy="131.0"/>
+        </g>
+        <g latexdraw:type="line" id="id495">
+            <line x1="190.0" x2="265.0" y1="131.0" y2="131.0"
+                stroke-width="6.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-495)"/>
+        </g>
+        <g latexdraw:type="drawing" id="id496">
+            <g latexdraw:type="circle" id="id497">
+                <circle cx="475.0" cy="131.0" r="44.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="white"/>
+            </g>
+            <g latexdraw:type="text" id="id499"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="446.046875">
+                <text x="446.046875" y="137.125"><![CDATA[relâché1]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="line" id="id502">
+            <line x1="355.0" x2="430.0" y1="131.0" y2="131.0"
+                stroke-width="6.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-502)"/>
+        </g>
+        <g latexdraw:type="line" id="id503">
+            <line x1="474.0" x2="474.0" y1="178.0" y2="221.0"
+                stroke-width="6.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-503)"/>
+        </g>
+        <g latexdraw:type="text" id="id504"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="413.640625">
+            <text x="413.640625" y="216.0"><![CDATA[pression]]></text>
+        </g>
+        <g latexdraw:type="drawing" id="id506">
+            <g latexdraw:type="circle" id="id507">
+                <circle cx="473.0" cy="267.0" r="44.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="white"/>
+            </g>
+            <g latexdraw:type="text" id="id509"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="447.1328125">
+                <text x="447.1328125" y="271.1640625"><![CDATA[pressé2]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="text" id="id512"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="389.46875">
+            <text x="389.46875" y="340.4453125"><![CDATA[relâchement]]></text>
+        </g>
+        <g latexdraw:type="text" id="id514"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="356.0">
+            <text x="356.0" y="169.0"><![CDATA[délai > 2]]></text>
+        </g>
+        <g latexdraw:type="line" id="id517">
+            <line x1="306.0" x2="276.0" y1="177.0" y2="217.0"
+                stroke-width="6.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-517)"/>
+        </g>
+        <g latexdraw:type="text" id="id518"
+            font-family="Times New Roman" fill="black" font-size="14" latexdraw:x="173.953125">
+            <text x="173.953125" y="195.0"><![CDATA[pressionTouche |]]></text>
+        </g>
+        <g latexdraw:type="line" id="id521">
+            <line x1="423.0" x2="317.0" y1="266.0" y2="265.0"
+                stroke-width="6.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-521)"/>
+        </g>
+        <g latexdraw:type="text" id="id522"
+            font-family="Times New Roman" fill="black" font-size="14" latexdraw:x="175.0">
+            <text x="175.0" y="180.0"><![CDATA[déplacement ou]]></text>
+        </g>
+        <g latexdraw:type="line" id="id525">
+            <line x1="473.0" x2="473.0" y1="314.0" y2="345.0"
+                stroke-width="6.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-525)"/>
+        </g>
+        <g latexdraw:type="text" id="id526"
+            font-family="Times New Roman" fill="black" font-size="14" latexdraw:x="173.953125">
+            <text x="173.953125" y="212.0"><![CDATA[touche=='Echap.']]></text>
+        </g>
+        <g latexdraw:type="text" id="id529"
+            font-family="Times New Roman" fill="black" font-size="14" latexdraw:x="320.953125">
+            <text x="320.953125" y="300.0"><![CDATA[pressionTouche |]]></text>
+        </g>
+        <g latexdraw:type="text" id="id532"
+            font-family="Times New Roman" fill="black" font-size="14" latexdraw:x="322.0">
+            <text x="322.0" y="285.0"><![CDATA[déplacement ou]]></text>
+        </g>
+        <g latexdraw:type="text" id="id535"
+            font-family="Times New Roman" fill="black" font-size="14" latexdraw:x="320.953125">
+            <text x="320.953125" y="317.0"><![CDATA[touche=='Echap.']]></text>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.25</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>15</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>false</latexdraw:magneticGrid>
+            <latexdraw:latexIncludes><![CDATA[\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}]]></latexdraw:latexIncludes>
+            <latexdraw:autoUpdate>true</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.5</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1280</latexdraw:width>
+                <latexdraw:height>776</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>0</latexdraw:x>
+                <latexdraw:y>24</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>130</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

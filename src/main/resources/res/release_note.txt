@@ -1,0 +1,20 @@
+************************************************************
+Version 3.3.3
+
+Bugs fixed:
+- Performance issue (lag) when the background grid is painted
+  https://bugs.launchpad.net/latexdraw/+bug/1576964
+- The last working folder used to load/save documents is now considered in the open/save dialogue box
+  https://bugs.launchpad.net/latexdraw/+bug/1574741
+- Grids' size not saved in SVG
+  https://bugs.launchpad.net/latexdraw/+bug/1574739
+- Text cropped when exported as png
+  https://bugs.launchpad.net/latexdraw/+bug/1533256
+- Template insertion is not undoable
+  https://bugs.launchpad.net/latexdraw/+bug/1533254
+- The links to the forums and the bug tracker system have been fixed
+  https://bugs.launchpad.net/latexdraw/+bug/1533253
+- Wrong error message when the /opt dir does not exist
+  https://bugs.launchpad.net/latexdraw/+bug/1577169
+- Confusion in file naming after several save/save as/export operations
+  https://bugs.launchpad.net/latexdraw/+bug/1577176

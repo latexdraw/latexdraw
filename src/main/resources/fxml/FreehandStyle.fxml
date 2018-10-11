@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Free hand" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeFreeHandCustomiser" alignment="TOP_LEFT" expanded="false">
+    <tooltip>
+        <Tooltip text="%PropBuilder.1"/>
+    </tooltip>
+    <AnchorPane>
+        <ComboBox fx:id="freeHandType" prefHeight="25.0" prefWidth="90.0" layoutX="4.0" layoutY="4.0"/>
+        <Label layoutX="4.0" layoutY="39.0" text="%ParametersAkinPointsFrame.0"/>
+        <LSpinner fx:id="gapPoints" layoutX="120.0" layoutY="36.0" prefHeight="25.0" prefWidth="75.0" editable="true">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000" initialValue="5" amountToStepBy="1"/>
+            </valueFactory>
+        </LSpinner>
+    </AnchorPane>
+</TitledPane>
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs/>
+    <g>
+        <g latexdraw:type="rectangle" id="id385">
+            <rect x="240.5" y="105.5" width="284.0" height="134.0"
+                latexdraw:borderPos="outer" stroke-width="1.0"
+                stroke="#9c9c9c" fill="#c1dab4"/>
+        </g>
+        <g latexdraw:type="rectangle" id="id386">
+            <rect x="525.5" y="105.5" width="284.0" height="134.0"
+                latexdraw:borderPos="outer" stroke-width="1.0"
+                stroke="#9c9c9c" fill="#d99c9c"/>
+        </g>
+        <g latexdraw:type="text" id="id387"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="293.40625">
+            <text x="293.40625" y="135.0"><![CDATA[Modeling HCI variability]]></text>
+        </g>
+        <g latexdraw:type="text" id="id390"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="270.65625">
+            <text x="270.65625" y="180.0"><![CDATA[Reasoning to select adaptations]]></text>
+        </g>
+        <g latexdraw:type="text" id="id393"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="277.7421875">
+            <text x="277.7421875" y="225.0"><![CDATA[Adapting Interactive Systems]]></text>
+        </g>
+        <g latexdraw:type="text" id="id396"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="611.9921875">
+            <text x="611.9921875" y="165.0"><![CDATA[UI composition]]></text>
+        </g>
+        <g latexdraw:type="text" id="id399"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="618.9921875">
+            <text x="618.9921875" y="195.0"><![CDATA[UI evaluation]]></text>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.25</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>15</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>true</latexdraw:magneticGrid>
+            <latexdraw:autoUpdate>true</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.8</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1510</latexdraw:width>
+                <latexdraw:height>750</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>236</latexdraw:x>
+                <latexdraw:y>210</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>130</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

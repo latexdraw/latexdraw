@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" xmlns="http://javafx.com/javafx/8" spacing="10"
+      fx:controller="net.sf.latexdraw.instruments.ShapeTransformer" layoutX="10.0">
+    <AnchorPane style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+        <Button fx:id="mirrorH" layoutX="0.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/mirrorH.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LaTeXDrawFrame.7"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="mirrorV" layoutX="40.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/mirrorV.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LaTeXDrawFrame.8"/>
+            </tooltip>
+        </Button>
+    </AnchorPane>
+
+    <AnchorPane minWidth="250" maxWidth="250"
+                style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+        <Button fx:id="alignBot" layoutX="0.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/align/alignBottom.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.5"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="alignTop" layoutX="40.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/align/alignTop.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.4"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="alignLeft" layoutX="80.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/align/alignLeft.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.2"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="alignRight" layoutX="120.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/align/alignRight.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.3"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="alignMidHoriz" layoutX="160.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/align/alignMiddleHoriz.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.6"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="alignMidVert" layoutX="200.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/align/alignMiddleVert.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.7"/>
+            </tooltip>
+        </Button>
+    </AnchorPane>
+
+    <AnchorPane minWidth="250" maxWidth="250"
+                style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+        <Button fx:id="distribVertBot" layoutX="0.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/distrib/distVertBottom.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.9"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="distribVertTop" layoutX="40.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/distrib/distVertTop.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.12"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="distribHorizLeft" layoutX="80.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/distrib/distHorizLeft.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.13"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="distribHorizRight" layoutX="120.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/distrib/distHorizRight.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.16"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="distribVertMid" layoutX="160.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/distrib/distVertMiddle.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.11"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="distribHorizMid" layoutX="200.0" layoutY="0.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/distrib/distHorizMiddle.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.15"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="distribVertEq" layoutX="0.0" layoutY="33.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/distrib/distVertEqual.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.10"/>
+            </tooltip>
+        </Button>
+        <Button fx:id="distribHorizEq" layoutX="40.0" layoutY="33.0">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/distrib/distHorizEqual.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LFrame2.14"/>
+            </tooltip>
+        </Button>
+    </AnchorPane>
+</VBox>

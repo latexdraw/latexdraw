@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
+<LSpinner xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+          min="10.0" max="450.0" initialValue="100.0" amountToStepBy="5.0" prefHeight="25.0" prefWidth="75.0" editable="true"
+          fx:id="zoom" fx:controller="net.sf.latexdraw.instruments.Zoomer"/>

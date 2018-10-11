@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" layoutX="10.0"
+            fx:id="mainPane" xmlns="http://javafx.com/javafx/8"
+            style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;"
+            fx:controller="net.sf.latexdraw.instruments.ShapeGrouper">
+    <Button fx:id="groupB" layoutX="0.0" layoutY="0.0">
+        <graphic>
+            <ImageView>
+                <Image url="@/res/join.png"/>
+            </ImageView>
+        </graphic>
+        <tooltip>
+            <Tooltip text="%LaTeXDrawFrame.75"/>
+        </tooltip>
+    </Button>
+    <Button fx:id="sepB" layoutX="40.0" layoutY="0.0">
+        <graphic>
+            <ImageView>
+                <Image url="@/res/separate.png"/>
+            </ImageView>
+        </graphic>
+        <tooltip>
+            <Tooltip text="%LaTeXDrawFrame.76"/>
+        </tooltip>
+    </Button>
+</AnchorPane>

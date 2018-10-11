@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Plot" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapePlotCustomiser" alignment="TOP_LEFT" expanded="false">
+    <tooltip>
+        <Tooltip text="Customizes plots' properties."/>
+    </tooltip>
+    <VBox spacing="5">
+        <HBox spacing="4" alignment="CENTER_LEFT">
+            <Label text="Plotted points:"/>
+            <LSpinner fx:id="nbPtsSpinner" prefHeight="25.0" prefWidth="70.0" editable="true">
+                <valueFactory>
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="10000" initialValue="50" amountToStepBy="10"/>
+                </valueFactory>
+            </LSpinner>
+        </HBox>
+        <HBox spacing="4" alignment="CENTER_LEFT">
+            <Label text="X-min:"/>
+            <LSpinner fx:id="minXSpinner" prefHeight="25.0" prefWidth="75.0" editable="true"
+                     min="-100000.0" max="100000.0" initialValue="0.0" amountToStepBy="1.0"/>
+            <Label text="X-max:"/>
+            <LSpinner fx:id="maxXSpinner" prefHeight="25.0" prefWidth="75.0" editable="true"
+                     min="-100000.0" max="100000.0" initialValue="0.0" amountToStepBy="1.0"/>
+        </HBox>
+        <HBox spacing="4" alignment="CENTER_LEFT">
+            <Label text="X-scale:"/>
+            <LSpinner fx:id="xScaleSpinner" prefHeight="25.0" prefWidth="75.0" editable="true"
+                     min="0.0001" max="10000.0" initialValue="1.0" amountToStepBy="0.1"/>
+            <Label text="Y-scale:"/>
+            <LSpinner fx:id="yScaleSpinner" prefHeight="25.0" prefWidth="75.0" editable="true"
+                     min="0.0001" max="10000.0" initialValue="1.0" amountToStepBy="0.1"/>
+        </HBox>
+        <CheckBox fx:id="polarCB" text="Polar"/>
+        <ComboBox fx:id="plotStyleCB" prefHeight="25.0" prefWidth="115.0"/>
+    </VBox>
+</TitledPane>

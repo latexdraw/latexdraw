@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import net.sf.latexdraw.view.jfx.LSpinner?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" xmlns="http://javafx.com/javafx/8" spacing="10"
+      fx:controller="net.sf.latexdraw.instruments.ShapeGridCustomiser">
+    <HBox minWidth="270" maxWidth="270" spacing="4" alignment="CENTER_LEFT"
+          style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+        <ColorPicker fx:id="colourLabels" prefHeight="25.0" prefWidth="110.0">
+            <tooltip>
+                <Tooltip text="%ShapeGrid.1"/>
+            </tooltip>
+        </ColorPicker>
+        <ToggleButton fx:id="labelsYInvertedCB" mnemonicParsing="false">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/yGridLabel.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%ShapeGrid.3"/>
+            </tooltip>
+        </ToggleButton>
+        <ToggleButton fx:id="labelsXInvertedCB" mnemonicParsing="false">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/xGridLabel.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%ShapeGrid.4"/>
+            </tooltip>
+        </ToggleButton>
+    </HBox>
+    <GridPane minWidth="270" maxWidth="270" hgap="5" vgap="3"
+              style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+        <ColorPicker fx:id="colourSubGrid" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" prefHeight="25.0"
+                     prefWidth="110.0">
+            <tooltip>
+                <Tooltip text="%ShapeGrid.2"/>
+            </tooltip>
+        </ColorPicker>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%ParametersGridFrame.8"/>
+        <LSpinner fx:id="subGridDiv" GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="25.0" prefWidth="75.0" editable="true">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="100" initialValue="1" amountToStepBy="1"/>
+            </valueFactory>
+        </LSpinner>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="%ParametersGridFrame.7"/>
+        <LSpinner fx:id="subGridWidth" GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="25.0" prefWidth="75.0"
+                 min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5" editable="true"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="%ParametersGridFrame.4"/>
+        <LSpinner fx:id="subGridDots" GridPane.columnIndex="1" GridPane.rowIndex="3" prefHeight="25.0" prefWidth="75.0" editable="true">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10000" initialValue="0" amountToStepBy="1"/>
+            </valueFactory>
+        </LSpinner>
+    </GridPane>
+    <GridPane minWidth="270" maxWidth="270" hgap="5" vgap="3"
+              style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="%ParametersGridFrame.6"/>
+        <LSpinner fx:id="gridWidth" GridPane.columnIndex="1" GridPane.rowIndex="0" prefHeight="25.0" prefWidth="75.0"
+                 min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5" editable="true"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%ParametersGridFrame.5"/>
+        <LSpinner fx:id="gridDots" GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="25.0" prefWidth="75.0" editable="true">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10000" initialValue="0" amountToStepBy="1"/>
+            </valueFactory>
+        </LSpinner>
+    </GridPane>
+</VBox>

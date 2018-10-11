@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8">
+    <center>
+        <fx:include source="Tabs.fxml"/>
+    </center>
+    <top>
+        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <fx:include source="OpenSave.fxml"/>
+            <fx:include source="CopyPaste.fxml"/>
+            <fx:include source="Undo.fxml"/>
+            <fx:include source="Export.fxml"/>
+            <fx:include source="Zoom.fxml"/>
+            <fx:include source="Deleter.fxml"/>
+            <HBox spacing="10"/>
+            <fx:include source="EditingModes.fxml"/>
+            <fx:include source="Error.fxml"/>
+            <fx:include source="Help.fxml"/>
+        </ToolBar>
+    </top>
+    <bottom>
+        <fx:include source="StatusBar.fxml" />
+    </bottom>
+</BorderPane>

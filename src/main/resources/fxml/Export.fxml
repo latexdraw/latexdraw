@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<MenuButton xmlns:fx="http://javafx.com/fxml/1" fx:id="exportMenu" mnemonicParsing="false" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.Exporter">
+    <tooltip>
+        <Tooltip text="%LaTeXDrawFrame.16b"/>
+    </tooltip>
+    <graphic>
+        <ImageView>
+            <Image url="@/res/pdf.png"/>
+        </ImageView>
+    </graphic>
+    <items>
+        <MenuItem fx:id="menuItemPDF" mnemonicParsing="false" text="%Exporter.3"/>
+        <MenuItem fx:id="menuItemPDFcrop" mnemonicParsing="false" text="%Exporter.4"/>
+        <MenuItem fx:id="menuItemEPSLatex" mnemonicParsing="false" text="%Exporter.2"/>
+        <MenuItem fx:id="menuItemPST" mnemonicParsing="false" text="%LaTeXDrawFrame.19"/>
+        <MenuItem fx:id="menuItemJPG" mnemonicParsing="false" text="%LaTeXDrawFrame.20"/>
+        <MenuItem fx:id="menuItemPNG" mnemonicParsing="false" text="%LaTeXDrawFrame.7"/>
+        <MenuItem fx:id="menuItemBMP" mnemonicParsing="false" text="%LaTeXDrawFrame.6"/>
+        <MenuItem fx:id="exportTemplateMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.42"/>
+    </items>
+</MenuButton>

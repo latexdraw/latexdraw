@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<MenuButton xmlns:fx="http://javafx.com/fxml/1" mnemonicParsing="false" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.Helper" fx:id="helpMenu">
+    <graphic>
+        <ImageView>
+            <Image url="@/res/emblem-important.png"/>
+        </ImageView>
+    </graphic>
+    <items>
+        <MenuItem fx:id="shortcutItem" mnemonicParsing="false" text="%LaTeXDrawFrame.3c">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/emblem-important.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem fx:id="donateItem" mnemonicParsing="false" text="%Helper.1">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/emblem-important.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem fx:id="manuelItem" mnemonicParsing="false" text="%Helper.4">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/emblem-important.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem fx:id="reportBugItem" mnemonicParsing="false" text="%Helper.2">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/emblem-unreadable.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem fx:id="forumItem" mnemonicParsing="false" text="%Helper.3">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/emblem-important.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <SeparatorMenuItem mnemonicParsing="false"/>
+        <MenuItem fx:id="aboutItem" mnemonicParsing="false" text="%Res.1">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/emblem-important.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+    </items>
+</MenuButton>
+

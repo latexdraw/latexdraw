@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<Button xmlns:fx="http://javafx.com/fxml/1" fx:id="exceptionB" mnemonicParsing="false"
+        style="-fx-padding: 5 5 5 5" xmlns="http://javafx.com/javafx/8"
+        fx:controller="net.sf.latexdraw.instruments.ExceptionsManager">
+    <tooltip>
+        <Tooltip text="%LaTeXDrawFrame.117"/>
+    </tooltip>
+    <graphic>
+        <ImageView>
+            <Image url="@/res/emblem-unreadable.png"/>
+        </ImageView>
+    </graphic>
+</Button>

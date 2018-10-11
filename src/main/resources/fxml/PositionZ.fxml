@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<HBox xmlns:fx="http://javafx.com/fxml/1"
+      layoutX="10.0" xmlns="http://javafx.com/javafx/8"
+      fx:controller="net.sf.latexdraw.instruments.ShapePositioner" fx:id="mainPane" spacing="5"
+      style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+    <Button fx:id="foregroundB">
+        <graphic>
+            <ImageView>
+                <Image url="@/res/foreground.png"/>
+            </ImageView>
+        </graphic>
+        <tooltip>
+            <Tooltip text="%LaTeXDrawFrame.70"/>
+        </tooltip>
+    </Button>
+    <Button fx:id="backgroundB">
+        <graphic>
+            <ImageView>
+                <Image url="@/res/background.png"/>
+            </ImageView>
+        </graphic>
+        <tooltip>
+            <Tooltip text="%LaTeXDrawFrame.71"/>
+        </tooltip>
+    </Button>
+</HBox>

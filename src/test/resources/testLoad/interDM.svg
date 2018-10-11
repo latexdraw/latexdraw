@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs>
+        <marker overflow="visible" orient="auto" id="arrow2-2229">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2230">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2236">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2256">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2257">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2263">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2293">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2294">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2295">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2296">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2310">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2325">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2326">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2327">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow2-2334">
+            <path
+                d="M 0.0 0.0 L -3.540833333333333 1.2645833333333334 L -2.1245 0.0 L -3.540833333333333 -1.2645833333333334 z "
+                latexdraw:arrSizeNum="2.0" fill="#909090"/>
+        </marker>
+    </defs>
+    <g>
+        <g latexdraw:type="ellipse" id="id2215">
+            <ellipse cx="976.65625" cy="110.0" rx="84.0" ry="29.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id2217"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="903.046875">
+            <text x="903.046875" y="116.125"><![CDATA[Modèle d'interaction]]></text>
+        </g>
+        <g latexdraw:type="drawing" id="id2219">
+            <g latexdraw:type="ellipse" id="id2220">
+                <ellipse cx="535.0" cy="110.0" rx="84.0" ry="29.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#909090" fill="white"/>
+            </g>
+            <g latexdraw:type="text" id="id2222"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="466.8359375">
+                <text x="466.8359375" y="116.125"><![CDATA[Modèle UI concret]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="ellipse" id="id2225">
+            <ellipse cx="755.828125" cy="70.0" rx="84.0" ry="29.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id2227"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="697.390625">
+            <text x="697.390625" y="76.125"><![CDATA[Modèle d'action]]></text>
+        </g>
+        <g latexdraw:type="line" id="id2229">
+            <line x1="886.2421875" x2="846.2421875" y1="110.0"
+                y2="110.0" stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-2229)"/>
+        </g>
+        <g latexdraw:type="line" id="id2230">
+            <line x1="665.4140625" x2="625.4140625" y1="110.0"
+                y2="110.0" stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-2230)"/>
+        </g>
+        <g latexdraw:type="ellipse" id="id2231">
+            <ellipse cx="316.51953125" cy="110.0" rx="84.0" ry="29.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id2233"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="267.06640625">
+            <text x="267.06640625" y="116.125"><![CDATA[Modèle UML]]></text>
+        </g>
+        <g latexdraw:type="line" id="id2236">
+            <line x1="405.759765625" x2="445.759765625" y1="110.0"
+                y2="110.0" stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-2236)"/>
+        </g>
+        <g latexdraw:type="ellipse" id="id2237">
+            <ellipse cx="755.828125" cy="150.0" rx="84.0" ry="29.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id2239"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="680.3984375">
+            <text x="680.3984375" y="156.125"><![CDATA[Modèle d'action UIC]]></text>
+        </g>
+        <g latexdraw:type="ellipse" id="id2242">
+            <ellipse cx="976.65625" cy="250.0" rx="84.0" ry="29.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="ellipse" id="id2244">
+            <ellipse cx="535.0" cy="250.0" rx="84.0" ry="29.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="drawing" id="id2246">
+            <g latexdraw:type="text" id="id2247"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="500.984375">
+                <text x="500.984375" y="266.1171875"><![CDATA[& classes]]></text>
+            </g>
+            <g latexdraw:type="text" id="id2250"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="468.6640625">
+                <text x="468.6640625" y="246.1171875"><![CDATA[Package Java UIC]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="ellipse" id="id2254">
+            <ellipse cx="755.828125" cy="250.0" rx="84.0" ry="29.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="line" id="id2256">
+            <line x1="886.2421875" x2="846.2421875" y1="250.0"
+                y2="250.0" stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-2256)"/>
+        </g>
+        <g latexdraw:type="line" id="id2257">
+            <line x1="665.4140625" x2="625.4140625" y1="250.0"
+                y2="250.0" stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-2257)"/>
+        </g>
+        <g latexdraw:type="ellipse" id="id2258">
+            <ellipse cx="316.51953125" cy="250.0" rx="84.0" ry="29.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id2260"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="256.55859375">
+            <text x="256.55859375" y="256.125"><![CDATA[Document XML]]></text>
+        </g>
+        <g latexdraw:type="line" id="id2263">
+            <line x1="405.759765625" x2="445.759765625" y1="250.0"
+                y2="250.0" stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-2263)"/>
+        </g>
+        <g latexdraw:type="drawing" id="id2264">
+            <g latexdraw:type="text" id="id2265"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="679.9921875">
+                <text x="679.9921875" y="250.1171875"><![CDATA[Package Java actions]]></text>
+            </g>
+            <g latexdraw:type="text" id="id2268"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="721.8125">
+                <text x="721.8125" y="270.1171875"><![CDATA[& classes]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id2272">
+            <g latexdraw:type="text" id="id2273"
+                font-family="Times New Roman" fill="black"
+                font-size="14" latexdraw:x="949.421875">
+                <text x="949.421875" y="264.75"><![CDATA[& classes]]></text>
+            </g>
+            <g latexdraw:type="text" id="id2276"
+                font-family="Times New Roman" fill="black"
+                font-size="14" latexdraw:x="904.5625">
+                <text x="904.5625" y="244.75"><![CDATA[Package Java interactions]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="line" id="id2280">
+            <line x1="240.0" x2="1060.0" y1="200.0" y2="200.0"
+                stroke-width="5.0" stroke="#909090"
+                stroke-dasharray="8.0, 8.0" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id2281"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="200.0">
+            <text x="200.0" y="40.0"><![CDATA[UIC abstrait]]></text>
+        </g>
+        <g latexdraw:type="text" id="id2284"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="200.0">
+            <text x="200.0" y="320.0"><![CDATA[UIC concret]]></text>
+        </g>
+        <g latexdraw:type="joinedLines" id="id2287">
+            <polyline
+                points="220.0,20.0 180.0,20.0 180.0,340.0 220.0,340.0 "
+                stroke-width="5.0" stroke="#909090" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id2290"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="140.0">
+            <text x="140.0" y="200.0"><![CDATA[UIC]]></text>
+        </g>
+        <g latexdraw:type="line" id="id2293">
+            <line x1="320.0" x2="320.0" y1="180.0" y2="220.0"
+                stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="1.5707963267948966" marker-end="url(#arrow2-2293)"/>
+        </g>
+        <g latexdraw:type="line" id="id2294">
+            <line x1="540.0" x2="540.0" y1="180.0" y2="220.0"
+                stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="1.5707963267948966" marker-end="url(#arrow2-2294)"/>
+        </g>
+        <g latexdraw:type="line" id="id2295">
+            <line x1="760.0" x2="760.0" y1="180.0" y2="220.0"
+                stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="1.5707963267948966" marker-end="url(#arrow2-2295)"/>
+        </g>
+        <g latexdraw:type="line" id="id2296">
+            <line x1="980.0" x2="980.0" y1="180.0" y2="220.0"
+                stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="1.5707963267948966" marker-end="url(#arrow2-2296)"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id2297">
+            <polyline
+                points="220.0,340.0 180.0,340.0 180.0,520.0 220.0,520.0 "
+                stroke-width="5.0" stroke="#909090" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id2300"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="140.0">
+            <text x="140.0" y="440.0"><![CDATA[UIF]]></text>
+        </g>
+        <g latexdraw:type="drawing" id="id2303">
+            <g latexdraw:type="ellipse" id="id2304">
+                <ellipse cx="316.51953125" cy="390.0" rx="84.0"
+                    ry="29.0" latexdraw:borderPos="outer"
+                    stroke-width="2.0" stroke="#909090" fill="white"/>
+            </g>
+            <g latexdraw:type="text" id="id2306"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="256.55859375">
+                <text x="256.55859375" y="396.125"><![CDATA[Document XML]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="line" id="id2310">
+            <line x1="405.759765625" x2="485.8" y1="390.0" y2="390.0"
+                stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-2310)"/>
+        </g>
+        <g latexdraw:type="drawing" id="id2311">
+            <g latexdraw:type="ellipse" id="id2312">
+                <ellipse cx="575.0" cy="390.0" rx="84.0" ry="29.0"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="#909090" fill="white"/>
+            </g>
+            <g latexdraw:type="text" id="id2314"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="534.796875">
+                <text x="534.796875" y="394.3046875"><![CDATA[Fichiers jar]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="drawing" id="id2318">
+            <g latexdraw:type="ellipse" id="id2319">
+                <ellipse cx="445.759765625" cy="470.0" rx="84.0"
+                    ry="29.0" latexdraw:borderPos="outer"
+                    stroke-width="2.0" stroke="#909090" fill="white"/>
+            </g>
+            <g latexdraw:type="text" id="id2321"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="390.619140625">
+                <text x="390.619140625" y="476.125"><![CDATA[Librairie Malan]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="line" id="id2325">
+            <line x1="540.0" x2="560.0" y1="280.0" y2="360.0"
+                stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="1.5707963267948966" marker-end="url(#arrow2-2325)"/>
+        </g>
+        <g latexdraw:type="line" id="id2326">
+            <line x1="780.0" x2="580.0" y1="280.0" y2="360.0"
+                stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="1.5707963267948966" marker-end="url(#arrow2-2326)"/>
+        </g>
+        <g latexdraw:type="line" id="id2327">
+            <line x1="980.0" x2="600.0" y1="280.0" y2="360.0"
+                stroke-width="5.0" stroke="#909090"
+                latexdraw:rotationAngle="1.5707963267948966" marker-end="url(#arrow2-2327)"/>
+        </g>
+        <g latexdraw:type="line" id="id2328">
+            <line x1="445.759765625" x2="445.759765625" y1="400.0"
+                y2="440.0" stroke-width="5.0" stroke="#909090"
+                stroke-dasharray="8.0, 8.0" latexdraw:rotationAngle="1.5707963267948966"/>
+        </g>
+        <g latexdraw:type="ellipse" id="id2329">
+            <ellipse cx="835.0" cy="390.0" rx="84.0" ry="29.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id2331"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="759.1328125">
+            <text x="759.1328125" y="394.3046875"><![CDATA[Librairie SwingStates]]></text>
+        </g>
+        <g latexdraw:type="line" id="id2334">
+            <line x1="745.7999999999998" x2="665.7597656250001"
+                y1="390.0" y2="390.0" stroke-width="5.0"
+                stroke="#909090" latexdraw:rotationAngle="0.0" marker-end="url(#arrow2-2334)"/>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.0</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>true</latexdraw:magneticGrid>
+            <latexdraw:autoUpdate>true</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.2</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1215</latexdraw:width>
+                <latexdraw:height>704</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>33</latexdraw:x>
+                <latexdraw:y>78</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>129</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>
