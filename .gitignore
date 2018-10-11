@@ -4,6 +4,6 @@
 *~
 /.cache
 /.idea/
-/latexdraw.core.iml
+*.iml
 /.tmpBin/
 sonar.sh

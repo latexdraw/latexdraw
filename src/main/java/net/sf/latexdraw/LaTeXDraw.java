@@ -131,8 +131,8 @@ public class LaTeXDraw extends JfxUI {
 		});
 
 		final Scene splashScene = new Scene(splashLayout);
-		initStage.initStyle(StageStyle.UNDECORATED);
 		initStage.setScene(splashScene);
+		initStage.initStyle(StageStyle.UNDECORATED);
 		initStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png")); //NON-NLS
 		initStage.centerOnScreen();
 		initStage.toFront();
@@ -162,6 +162,7 @@ public class LaTeXDraw extends JfxUI {
 				Platform.runLater(() -> {
 					mainStage.setScene(scene);
 					updateProgress(0.9, 1d);
+					setModified(false);
 					mainStage.show();
 					registerScene(scene);
 					final PreferencesSetter prefSetter = injector.getInstance(PreferencesSetter.class);
