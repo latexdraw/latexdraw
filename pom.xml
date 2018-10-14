@@ -134,7 +134,8 @@
                     <rerunFailingTestsCount>2</rerunFailingTestsCount>
                     <!--<skipTests>true</skipTests>-->
                     <!--<reuseForks>false</reuseForks>-->
-                    <argLine>-Xmx4000m
+                    <argLine>@{argLine}
+                         -Xmx4000m
                          -Dglass.platform=Monocle
                          -Dheadless.geometry=1280x1024-32
                          -Djava.awt.headless=true
