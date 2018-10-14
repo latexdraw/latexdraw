@@ -13,7 +13,9 @@
         <antlr.version>4.7.1</antlr.version>
         <jfx.version>11</jfx.version>
         <java.version>11</java.version>
-        <junit.version>5.2.0</junit.version>
+        <junit.version>5.3.1</junit.version>
+        <testfx.version>4.0.15-alpha</testfx.version>
+        <mockito.version>2.23.0</mockito.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -126,25 +128,54 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>2.22.1</version>
                 <configuration>
                     <testFailureIgnore>false</testFailureIgnore>
                     <rerunFailingTestsCount>2</rerunFailingTestsCount>
-                    <skipTests>true</skipTests>
-                    <!-- required to make junit working with java 11 (!?) -->
-                    <forkCount>0</forkCount>
-                    <!--Provokes a ClassNotFoundException: org.apache.maven.plugin.surefire.StartupReportConfiguration ... :s-->
+                    <!--<skipTests>true</skipTests>-->
                     <!--<reuseForks>false</reuseForks>-->
-                    <argLine>-Xmx4000m -Dglass.platform=Monocle -Dheadless.geometry=1280x1024-32 -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k</argLine>
+                    <argLine>-Xmx4000m
+                         -Dglass.platform=Monocle
+                         -Dheadless.geometry=1280x1024-32
+                         -Djava.awt.headless=true
+                         -Dtestfx.robot=glass
+                         -Dtestfx.headless=true
+                         -Dprism.order=sw
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.lang.reflect=latexdraw
+                        --add-opens javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
+                        --add-opens javafx.graphics/com.sun.glass.ui.delegate=ALL-UNNAMED
+                        --add-opens javafx.graphics/com.sun.glass.utils=ALL-UNNAMED
+                        --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.data=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.models=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.util=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.badaboom=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.badaboom=javafx.fxml
+                        --add-opens latexdraw/net.sf.latexdraw.handlers=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.parsers=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.parsers.svg=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.parsers.pst=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.parsers.ps=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.parsers.css=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.ui=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.instruments=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.instruments.hand=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.instruments.pencil=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.instruments.robot=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.commands=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.commands.shape=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.view=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.view.jfx=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.view.latex=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.view.pst=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.view.svg=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.models.interfaces=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.models.interfaces.shape=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.models.interfaces.prop=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.models.impl=ALL-UNNAMED</argLine>
                 </configuration>
-                <!-- workaround Java 11 code does not compile without for the moment-->
-                <dependencies>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm</artifactId>
-                        <version>6.2</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
             <plugin>
@@ -285,13 +316,13 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.23.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>2.23.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -307,19 +338,19 @@
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
-            <version>4.0.14-alpha</version>
+            <version>${testfx.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit</artifactId>
-            <version>4.0.14-alpha</version>
+            <version>${testfx.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-junit5</artifactId>
-            <version>4.0.14-alpha</version>
+            <version>${testfx.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
