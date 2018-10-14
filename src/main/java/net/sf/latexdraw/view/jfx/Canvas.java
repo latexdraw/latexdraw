@@ -13,6 +13,7 @@ package net.sf.latexdraw.view.jfx;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,6 @@ import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener.Change;
-import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -200,7 +200,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		}
 
 		Platform.runLater(() -> {
-			final ObservableList<IShape> selection = drawing.getSelection().getShapes();
+			final List<IShape> selection = new ArrayList<>(drawing.getSelection().getShapes());
 			if(selection.isEmpty()) {
 				selectionBorder.setVisible(false);
 			}else {
