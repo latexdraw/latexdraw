@@ -15,6 +15,7 @@ import javafx.beans.binding.Bindings;
 import javafx.geometry.Bounds;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
@@ -41,7 +42,7 @@ public class TextAreaAutoSize extends TextArea {
 		super();
 		valid = true;
 
-		setOnKeyPressed(evt -> {
+		addEventHandler(KeyEvent.KEY_PRESSED, evt -> {
 			if(evt.getCode() == KeyCode.ENTER) {
 				if(evt.isShiftDown()) {
 					final int caretPosition = getCaretPosition();
