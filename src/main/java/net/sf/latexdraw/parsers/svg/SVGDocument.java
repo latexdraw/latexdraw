@@ -82,6 +82,12 @@ public class SVGDocument implements Document {
 
 		try {
 			final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true); //NON-NLS
+			factory.setFeature("http://xml.org/sax/features/external-general-entities", false); //NON-NLS
+			factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false); //NON-NLS
+			factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false); //NON-NLS
+			factory.setXIncludeAware(false);
+			factory.setExpandEntityReferences(false);
 			final DocumentBuilder builder = factory.newDocumentBuilder();
 
 			builder.setEntityResolver(new SVGEntityResolver());
