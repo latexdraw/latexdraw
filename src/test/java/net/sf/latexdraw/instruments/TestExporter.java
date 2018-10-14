@@ -3,6 +3,7 @@ package net.sf.latexdraw.instruments;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -54,6 +55,7 @@ public class TestExporter extends BaseTestCanvas {
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
+				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindToInstance(StatusBarController.class, Mockito.mock(StatusBarController.class));
 				bindToInstance(TemplateManager.class, Mockito.mock(TemplateManager.class));
 				bindAsEagerSingleton(PSTCodeGenerator.class);

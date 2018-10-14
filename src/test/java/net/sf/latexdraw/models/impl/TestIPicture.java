@@ -35,7 +35,11 @@ public class TestIPicture implements HelperTest {
 
 	@BeforeClass
 	public static void beforeClass() {
-		Platform.startup(() -> {});
+		try {
+			Platform.startup(() -> {});
+		}catch(final IllegalStateException ex) {
+			// OK
+		}
 	}
 
 	@Before
