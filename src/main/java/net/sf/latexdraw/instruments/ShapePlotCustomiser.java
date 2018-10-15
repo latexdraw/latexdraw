@@ -81,8 +81,8 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 		Tuple<Boolean, String> valid;
 		try {
 			valid = PSFunctionParser.isValidPostFixEquation(canvas.getDrawing().getSelection().getPlotEquation(),
-				Double.valueOf(minXSpinner.getValue().toString()), Double.valueOf(maxXSpinner.getValue().toString()),
-				Double.valueOf(nbPtsSpinner.getValue().toString()));
+				Double.parseDouble(minXSpinner.getValue().toString()), Double.parseDouble(maxXSpinner.getValue().toString()),
+				Double.parseDouble(nbPtsSpinner.getValue().toString()));
 		}catch(final IllegalArgumentException ex) {
 			valid = new Tuple<>(false, LangTool.INSTANCE.getBundle().getString("invalid.function"));
 		}

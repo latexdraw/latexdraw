@@ -21,6 +21,7 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.StrokeLineCap;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -102,12 +103,14 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 		showPoint.getChildren().addAll(createLine(model.getFirstCtrlPtAt(0), model.getFirstCtrlPtAt(1)));
 
 		// Hiding points on arrows
-		showPoint.getChildren().stream().filter(node -> node instanceof Ellipse && ((Ellipse) node).getCenterX() == model.getPtAt(0).getX() &&
-			((Ellipse) node).getCenterY() == model.getPtAt(0).getY()).findAny().
+		showPoint.getChildren().stream().filter(node -> node instanceof Ellipse &&
+			MathUtils.INST.equalsDouble(((Ellipse) node).getCenterX(), model.getPtAt(0).getX(), 0.00001) &&
+			MathUtils.INST.equalsDouble(((Ellipse) node).getCenterY(), model.getPtAt(0).getY(), 0.00001)).findAny().
 			ifPresent(ell -> ell.visibleProperty().bind(model.getArrowAt(0).styleProperty().isEqualTo(ArrowStyle.NONE)));
 
-		showPoint.getChildren().stream().filter(node -> node instanceof Ellipse && ((Ellipse) node).getCenterX() == model.getPtAt(-1).getX() &&
-			((Ellipse) node).getCenterY() == model.getPtAt(-1).getY()).findAny().
+		showPoint.getChildren().stream().filter(node -> node instanceof Ellipse &&
+			MathUtils.INST.equalsDouble(((Ellipse) node).getCenterX(), model.getPtAt(-1).getX(), 0.00001) &&
+			MathUtils.INST.equalsDouble(((Ellipse) node).getCenterY(), model.getPtAt(-1).getY(), 0.00001)).findAny().
 			ifPresent(ell -> ell.visibleProperty().bind(model.getArrowAt(-1).styleProperty().isEqualTo(ArrowStyle.NONE)));
 	}
 

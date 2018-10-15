@@ -113,7 +113,7 @@ public final class LSystem {
 	 * @return True: the operating system currently used is Mac OS.
 	 * @since 3.3
 	 */
-	public boolean IsMac() {
+	public boolean isMac() {
 		return isMacOSX() || isMacOSXElCapitan();
 	}
 
@@ -122,7 +122,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public KeyCode getControlKey() {
-		if(LSystem.INSTANCE.IsMac()) {
+		if(LSystem.INSTANCE.isMac()) {
 			return KeyCode.META;
 		}
 		return KeyCode.CONTROL;
@@ -165,7 +165,7 @@ public final class LSystem {
 			final double[] d = new double[v.length];
 
 			for(int i = 0; i < v.length; i++) {
-				d[i] = Double.valueOf(v[i]);
+				d[i] = Double.parseDouble(v[i]);
 			}
 
 			// A change since El Capitan

@@ -32,7 +32,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * This instrument manages help features.
  * @author Arnaud BLOUIN
  */
-public class Helper extends JfxInstrument implements Initializable {
+public final class Helper extends JfxInstrument implements Initializable {
 	/** This menu item shows the shortcut panel. */
 	@FXML private MenuItem shortcutItem;
 	/** This menu item shows the "About latexdraw" panel. */

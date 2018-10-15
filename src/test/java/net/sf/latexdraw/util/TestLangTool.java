@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(Theories.class)
 public class TestLangTool {
 	@DataPoints
-	public static Locale[] locales = new Locale[] {Locale.TAIWAN, new Locale("foo", "Bar")};
+	public static Locale[] locales = {Locale.TAIWAN, new Locale("foo", "Bar")};
 
 	Constructor<LangTool> constructor;
 	LangTool lang;

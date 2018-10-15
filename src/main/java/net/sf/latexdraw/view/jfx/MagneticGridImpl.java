@@ -97,26 +97,26 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 	}
 
 
-	private void paintSubLines(final List<PathElement> elts) {
-		double pixPerCm10 = canvas.getPPCDrawing() / 10d;
-
-		if(ScaleRuler.getUnit() == Unit.INCH) {
-			pixPerCm10 *= PSTricksConstants.INCH_VAL_CM;
-		}
-
-		if(Double.compare(pixPerCm10, 4d) > 0d) {
-			final double height = canvas.getPrefHeight();
-			final double width = canvas.getPrefWidth();
-
-			for(double i = 0d; i < width; i += pixPerCm10) {
-				createLine(elts, i, 0d, i, height);
-			}
-
-			for(double j = 0d; j < height; j += pixPerCm10) {
-				createLine(elts, 0d, j, width, j);
-			}
-		}
-	}
+//	private void paintSubLines(final List<PathElement> elts) {
+//		double pixPerCm10 = canvas.getPPCDrawing() / 10d;
+//
+//		if(ScaleRuler.getUnit() == Unit.INCH) {
+//			pixPerCm10 *= PSTricksConstants.INCH_VAL_CM;
+//		}
+//
+//		if(Double.compare(pixPerCm10, 4d) > 0d) {
+//			final double height = canvas.getPrefHeight();
+//			final double width = canvas.getPrefWidth();
+//
+//			for(double i = 0d; i < width; i += pixPerCm10) {
+//				createLine(elts, i, 0d, i, height);
+//			}
+//
+//			for(double j = 0d; j < height; j += pixPerCm10) {
+//				createLine(elts, 0d, j, width, j);
+//			}
+//		}
+//	}
 
 
 	private void paintMainLines(final List<PathElement> elts, final double gap) {

@@ -49,7 +49,7 @@ public class BadaboomController implements Initializable {
 		((TableColumn<Throwable, String>) cols.get(1)).setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getMessage()));
 		((TableColumn<Throwable, String>) cols.get(2)).setCellValueFactory(cell -> {
 			final StackTraceElement[] stackTrace = cell.getValue().getStackTrace();
-			final String msg = stackTrace != null && stackTrace.length > 0 ? stackTrace[0].toString() : "";
+			final String msg = stackTrace.length > 0 ? stackTrace[0].toString() : "";
 			return new ReadOnlyStringWrapper(msg);
 		});
 		cols.forEach(col -> col.prefWidthProperty().bind(table.widthProperty().divide(3)));

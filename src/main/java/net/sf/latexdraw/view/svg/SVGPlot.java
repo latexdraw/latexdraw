@@ -80,62 +80,62 @@ class SVGPlot extends SVGShape<IPlot> {
 		shape.setPlotStyle(PlotStyle.getPlotStyle(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_STYLE)));
 
 		try {
-			shape.setPlotMinX(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MIN)));
+			shape.setPlotMinX(Double.parseDouble(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MIN)));
 		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
-			shape.setPlotMaxX(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MAX)));
+			shape.setPlotMaxX(Double.parseDouble(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MAX)));
 		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		// Repetition just to assure the setting of these values because of the minX<MaxX constraint.
 		try {
-			shape.setPlotMinX(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MIN)));
+			shape.setPlotMinX(Double.parseDouble(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MIN)));
 		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
-			shape.setPlotMaxX(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MAX)));
+			shape.setPlotMaxX(Double.parseDouble(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_MAX)));
 		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
-			shape.setNbPlottedPoints(Integer.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_NB_POINTS)));
+			shape.setNbPlottedPoints(Integer.parseInt(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_NB_POINTS)));
 		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
-			shape.setPolar(Boolean.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_POLAR)));
+			shape.setPolar(Boolean.parseBoolean(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_POLAR)));
 		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
-			shape.setX(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POSITION_X)));
+			shape.setX(Double.parseDouble(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POSITION_X)));
 		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
-			shape.setY(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POSITION_Y)));
+			shape.setY(Double.parseDouble(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POSITION_Y)));
 		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
-			shape.setXScale(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_XSCALE)));
+			shape.setXScale(Double.parseDouble(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_XSCALE)));
 		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
 		try {
-			shape.setYScale(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_YSCALE)));
+			shape.setYScale(Double.parseDouble(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_YSCALE)));
 		}catch(final NumberFormatException | NullPointerException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}

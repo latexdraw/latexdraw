@@ -147,7 +147,7 @@ abstract class SVGShape<S extends IShape> {
 
 			if(opacity != null) {
 				try {
-					shape.setLineColour(ShapeFactory.INST.createColor(col.getR(), col.getG(), col.getB(), Double.valueOf(opacity)));
+					shape.setLineColour(ShapeFactory.INST.createColor(col.getR(), col.getG(), col.getB(), Double.parseDouble(opacity)));
 				}catch(final NumberFormatException ex) {
 					BadaboomCollector.INSTANCE.add(ex);
 				}
@@ -213,7 +213,7 @@ abstract class SVGShape<S extends IShape> {
 			shape.setFilled(true);
 			if(opacity != null) {
 				try {
-					shape.setFillingCol(fillCol.newColorWithOpacity(Double.valueOf(opacity)));
+					shape.setFillingCol(fillCol.newColorWithOpacity(Double.parseDouble(opacity)));
 				}catch(final NumberFormatException ignored) {
 				}
 			}
@@ -635,7 +635,7 @@ abstract class SVGShape<S extends IShape> {
 		final Color lineCol = shape.getLineColour();
 		if(opacityStr != null) {
 			try {
-				shape.setLineColour(ShapeFactory.INST.createColor(lineCol.getR(), lineCol.getG(), lineCol.getB(), Double.valueOf(opacityStr)));
+				shape.setLineColour(ShapeFactory.INST.createColor(lineCol.getR(), lineCol.getG(), lineCol.getB(), Double.parseDouble(opacityStr)));
 			}catch(final NumberFormatException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 			}

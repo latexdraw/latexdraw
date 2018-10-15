@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public final class CompareShapeMatcher implements HelperTest {
-	public static CompareShapeMatcher INST = new CompareShapeMatcher();
+	public static final CompareShapeMatcher INST = new CompareShapeMatcher();
 
 	private CompareShapeMatcher() {
 		super();

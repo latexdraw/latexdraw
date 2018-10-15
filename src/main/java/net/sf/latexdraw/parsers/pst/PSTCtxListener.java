@@ -123,7 +123,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 
 	@Override
 	public void exitParampolarplot(final net.sf.latexdraw.parsers.pst.PSTParser.ParampolarplotContext ctx) {
-		ctx.pstctx.polarPlot = Boolean.valueOf(ctx.booleanvalue().getText());
+		ctx.pstctx.polarPlot = Boolean.parseBoolean(ctx.booleanvalue().getText());
 	}
 
 	@Override
@@ -238,7 +238,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 
 	@Override
 	public void exitParamshadow(final net.sf.latexdraw.parsers.pst.PSTParser.ParamshadowContext ctx) {
-		ctx.pstctx.shadow = Boolean.valueOf(ctx.booleanvalue().getText());
+		ctx.pstctx.shadow = Boolean.parseBoolean(ctx.booleanvalue().getText());
 	}
 
 	@Override
@@ -268,7 +268,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 
 	@Override
 	public void exitParamdoubleline(final net.sf.latexdraw.parsers.pst.PSTParser.ParamdoublelineContext ctx) {
-		ctx.pstctx.dbleLine = Boolean.valueOf(ctx.booleanvalue().getText());
+		ctx.pstctx.dbleLine = Boolean.parseBoolean(ctx.booleanvalue().getText());
 	}
 
 	@Override
@@ -318,7 +318,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 
 	@Override
 	public void exitParamshoworigin(final net.sf.latexdraw.parsers.pst.PSTParser.ParamshoworiginContext ctx) {
-		ctx.pstctx.showOrigin = Boolean.valueOf(ctx.booleanvalue().getText());
+		ctx.pstctx.showOrigin = Boolean.parseBoolean(ctx.booleanvalue().getText());
 	}
 
 	@Override
@@ -328,7 +328,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parsers.pst.PSTBas
 
 	@Override
 	public void exitParamshowpoints(final net.sf.latexdraw.parsers.pst.PSTParser.ParamshowpointsContext ctx) {
-		ctx.pstctx.showPoints = Boolean.valueOf(ctx.booleanvalue().getText());
+		ctx.pstctx.showPoints = Boolean.parseBoolean(ctx.booleanvalue().getText());
 	}
 
 	@Override

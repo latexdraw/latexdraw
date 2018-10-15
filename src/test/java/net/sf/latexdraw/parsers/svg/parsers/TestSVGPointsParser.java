@@ -86,7 +86,7 @@ public class TestSVGPointsParser extends TestCodeParser {
 								final String data) throws ParseException {
 		final SVGPointsParser p = (SVGPointsParser) parser;
 		p.setCode(data);
-		assertEquals(Double.valueOf(data), p.readNumber(), 0.0001);
+		assertEquals(Double.parseDouble(data), p.readNumber(), 0.0001);
 	}
 
 	@Theory

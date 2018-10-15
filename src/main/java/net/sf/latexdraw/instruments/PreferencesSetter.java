@@ -35,6 +35,7 @@ import javafx.scene.control.Tooltip;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -197,7 +198,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	private void processXMLDataPreference(final File xml) {
 		final Map<String, Node> prefMap = Preference.INSTANCE.readXMLPreferencesFromFile(xml);
-		final Stage stage = (Stage) pathExportField.getScene().getWindow();
+		final Window win = pathExportField.getScene().getWindow();
 
 		Optional.ofNullable(prefMap.get(LNamespace.XML_LATEX_INCLUDES)).ifPresent(node -> latexIncludes.setText(node.getTextContent()));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_OPENGL)).ifPresent(node -> openGL.setSelected(Boolean.parseBoolean(node.getTextContent())));
@@ -214,7 +215,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		Optional.ofNullable(prefMap.get(LNamespace.XML_DISPLAY_GRID)).map(node -> !Boolean.parseBoolean(node.getTextContent())).
 			ifPresent(node -> styleList.getSelectionModel().select(GridStyle.NONE));
 
-		Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_GAP)).ifPresent(node -> persoGridGapField.getValueFactory().setValue(Integer.valueOf(node.getTextContent())));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_GAP)).ifPresent(node -> persoGridGapField.getValueFactory().setValue(Integer.parseInt(node.getTextContent())));
 
 		final Node langNode = prefMap.get(LNamespace.XML_LANG);
 		final Locale locale = langNode == null ? Locale.US : Locale.forLanguageTag(langNode.getTextContent());
@@ -228,9 +229,11 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_OPEN)).ifPresent(node -> pathOpenField.setText(node.getTextContent()));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_UNIT)).ifPresent(node -> unitChoice.getSelectionModel().select(node.getTextContent()));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_RECENT_FILES)).ifPresent(node -> setRecentFiles(node));
-		Optional.ofNullable(prefMap.get(LNamespace.XML_MAXIMISED)).ifPresent(node -> stage.setFullScreen(Boolean.parseBoolean(node.getTextContent())));
-		Optional.ofNullable(prefMap.get(LNamespace.XML_SIZE)).ifPresent(node -> setStageSize(node, stage));
-		Optional.ofNullable(prefMap.get(LNamespace.XML_POSITION)).ifPresent(node -> setStagePosition(node, stage));
+		if(win instanceof Stage) {
+			Optional.ofNullable(prefMap.get(LNamespace.XML_MAXIMISED)).ifPresent(node -> ((Stage) win).setFullScreen(Boolean.parseBoolean(node.getTextContent())));
+		}
+		Optional.ofNullable(prefMap.get(LNamespace.XML_SIZE)).ifPresent(node -> setWindowSize(node, win));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_POSITION)).ifPresent(node -> setWindowPosition(node, win));
 	}
 
 	private void setRecentFiles(final Node node) {
@@ -240,7 +243,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 		if(nnm != null && nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES) != null) {
 			Optional.ofNullable(nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES)).
-				ifPresent(attr -> nbRecentFilesField.getValueFactory().setValue(Integer.valueOf(attr.getTextContent())));
+				ifPresent(attr -> nbRecentFilesField.getValueFactory().setValue(Integer.parseInt(attr.getTextContent())));
 		}
 
 		for(int i = 0, size = nl.getLength(); i < size; i++) {
@@ -252,7 +255,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		}
 	}
 
-	private void setStageSize(final Node node, final Stage stage) {
+	private void setWindowSize(final Node node, final Window win) {
 		final NodeList nl = node.getChildNodes();
 
 		for(int i = 0, size = nl.getLength(); i < size; i++) {
@@ -260,16 +263,16 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 			switch(n2.getNodeName()) {
 				case LNamespace.XML_WIDTH:
-					stage.setWidth(Double.valueOf(n2.getTextContent()));
+					win.setWidth(Double.parseDouble(n2.getTextContent()));
 					break;
 				case LNamespace.XML_HEIGHT:
-					stage.setHeight(Double.valueOf(n2.getTextContent()));
+					win.setHeight(Double.parseDouble(n2.getTextContent()));
 					break;
 			}
 		}
 	}
 
-	private void setStagePosition(final Node node, final Stage stage) {
+	private void setWindowPosition(final Node node, final Window win) {
 		final NodeList nl = node.getChildNodes();
 
 		for(int i = 0, size = nl.getLength(); i < size; i++) {
@@ -277,10 +280,10 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 			switch(n2.getNodeName()) {
 				case LNamespace.XML_POSITION_X:
-					stage.setX(Math.max(0d, Double.valueOf(n2.getTextContent())));
+					win.setX(Math.max(0d, Double.parseDouble(n2.getTextContent())));
 					break;
 				case LNamespace.XML_POSITION_Y:
-					stage.setY(Math.max(0d, Double.valueOf(n2.getTextContent())));
+					win.setY(Math.max(0d, Double.parseDouble(n2.getTextContent())));
 					break;
 			}
 		}
@@ -321,7 +324,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		try {
 			try(final FileOutputStream fos = new FileOutputStream(LPath.PATH_PREFERENCES_XML_FILE)) {
 				final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-				final Stage frame = (Stage) pathExportField.getScene().getWindow();
+				final Window win = pathExportField.getScene().getWindow();
 				final Rectangle2D rec = Screen.getPrimary().getBounds();
 				final Element root = document.createElement(LNamespace.XML_ROOT_PREFERENCES);
 				Element elt;
@@ -389,30 +392,32 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 					elt.appendChild(elt2);
 				}
 
-				elt = document.createElement(LNamespace.XML_MAXIMISED);
-				elt.setTextContent(String.valueOf(frame.isMaximized()));
-				root.appendChild(elt);
+				if(win instanceof Stage) {
+					elt = document.createElement(LNamespace.XML_MAXIMISED);
+					elt.setTextContent(String.valueOf(((Stage) win).isMaximized()));
+					root.appendChild(elt);
+				}
 
 				elt = document.createElement(LNamespace.XML_SIZE);
 				root.appendChild(elt);
 
 				elt2 = document.createElement(LNamespace.XML_WIDTH);
-				elt2.setTextContent(String.valueOf((int) frame.getWidth()));
+				elt2.setTextContent(String.valueOf((int) win.getWidth()));
 				elt.appendChild(elt2);
 
 				elt2 = document.createElement(LNamespace.XML_HEIGHT);
-				elt2.setTextContent(String.valueOf((int) frame.getHeight()));
+				elt2.setTextContent(String.valueOf((int) win.getHeight()));
 				elt.appendChild(elt2);
 
 				elt = document.createElement(LNamespace.XML_POSITION);
 				root.appendChild(elt);
 
 				elt2 = document.createElement(LNamespace.XML_POSITION_X);
-				elt2.setTextContent(String.valueOf((int) (frame.getX() - rec.getMinX())));
+				elt2.setTextContent(String.valueOf((int) (win.getX() - rec.getMinX())));
 				elt.appendChild(elt2);
 
 				elt2 = document.createElement(LNamespace.XML_POSITION_Y);
-				elt2.setTextContent(String.valueOf((int) (frame.getY() - rec.getMinY())));
+				elt2.setTextContent(String.valueOf((int) (win.getY() - rec.getMinY())));
 				elt.appendChild(elt2);
 
 				final Transformer transformer = TransformerFactory.newInstance().newTransformer();

@@ -44,7 +44,7 @@ abstract class SVGModifiablePointsShape<S extends IModifiablePointsShape> extend
 		final String rotString = shapeElt.getAttribute(shapeElt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_ROTATION);
 		if(rotString != null) {
 			try {
-				final double angle = Double.valueOf(rotString);
+				final double angle = Double.parseDouble(rotString);
 				if(MathUtils.INST.isValidCoord(angle) && angle != 0d) {
 					shape.setRotationAngleOnly(angle);
 				}

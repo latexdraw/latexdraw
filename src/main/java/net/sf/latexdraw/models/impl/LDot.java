@@ -129,7 +129,7 @@ class LDot extends LPositionShape implements IDot {
 	public void copy(final IShape sh) {
 		super.copy(sh);
 
-		if(sh != null && sh.isTypeOf(IDotProp.class)) {
+		if(sh instanceof IDotProp && sh.isTypeOf(IDotProp.class)) {
 			final IDotProp dot = (IDotProp) sh;
 
 			setDotStyle(dot.getDotStyle());

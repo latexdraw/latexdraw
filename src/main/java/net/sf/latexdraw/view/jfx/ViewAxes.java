@@ -110,9 +110,9 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 	public void updatePath(final boolean axes, final boolean ticks, final boolean texts, final boolean arrows) {
 		final AxesStyle axesStyle = model.getAxesStyle();
 
-		if(arrows || axes) {
+//		if(arrows || axes) {
 //			viewArrows.update(model.getAxesStyle().supportsArrows());
-		}
+//		}
 
 		if(axes) {
 			mainAxes.getElements().clear();

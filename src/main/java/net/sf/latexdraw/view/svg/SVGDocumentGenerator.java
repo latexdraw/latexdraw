@@ -65,6 +65,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.ui.OpenSaver;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -623,8 +624,8 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 				});
 
 				return true;
-			}catch(final Exception e) {
-				BadaboomCollector.INSTANCE.add(e);
+			}catch(final MalformedSVGDocument | IOException | DOMException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
 				return false;
 			}
 		}

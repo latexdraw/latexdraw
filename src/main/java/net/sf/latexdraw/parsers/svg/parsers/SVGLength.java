@@ -35,7 +35,7 @@ public class SVGLength {
 		}
 
 		try {
-			Double.valueOf(valueAsString);
+			Double.parseDouble(valueAsString);
 		}catch(final NumberFormatException e) {
 			throw new IllegalArgumentException();
 		}

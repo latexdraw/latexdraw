@@ -211,7 +211,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 			filter(attr -> attr != null).findAny().orElse("1");
 
 		try {
-			return Math.max(0d, Math.min(1d, Double.valueOf(opStr)));
+			return Math.max(0d, Math.min(1d, Double.parseDouble(opStr)));
 		}catch(final NumberFormatException ignored) {
 			return 1d;
 		}

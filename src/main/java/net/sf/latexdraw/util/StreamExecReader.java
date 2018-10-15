@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.Objects;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
@@ -42,7 +43,7 @@ public class StreamExecReader extends Thread {
 	@Override
 	public void run() {
 		try {
-			try(final InputStreamReader isr = new InputStreamReader(stream);
+			try(final InputStreamReader isr = new InputStreamReader(stream, Charset.defaultCharset());
 				final BufferedReader br = new BufferedReader(isr)) {
 				log = new StringBuilder();
 				String line = br.readLine();

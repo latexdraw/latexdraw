@@ -503,8 +503,8 @@ public final class DviPsColors {
 		if(hexaCode == null || hexaCode.length() < 7) {
 			throw new IllegalArgumentException(hexaCode);
 		}
-		return ShapeFactory.INST.createColor(Integer.valueOf(hexaCode.substring(1, 3), 16) / 255.0, Integer.valueOf(hexaCode.substring(3, 5), 16) / 255.0,
-			Integer.valueOf(hexaCode.substring(5), 16) / 255.0);
+		return ShapeFactory.INST.createColor(Integer.parseInt(hexaCode.substring(1, 3), 16) / 255.0, Integer.parseInt(hexaCode.substring(3, 5), 16) / 255.0,
+			Integer.parseInt(hexaCode.substring(5), 16) / 255.0);
 	}
 
 

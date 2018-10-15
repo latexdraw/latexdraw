@@ -74,9 +74,9 @@ import org.w3c.dom.NodeList;
  */
 public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitialisable, CmdHandler, Zoomable, ViewsSynchroniserHandler {
 	/** The margin used to surround the drawing. */
-	protected static int margins = 1500;
+	static int margins = 1500;
 
-	protected static Page defaultPage = Page.USLETTER;
+	static Page defaultPage = Page.USLETTER;
 
 	/** The origin of the drawing in the whole drawing area. */
 	public static final IPoint ORIGIN = ShapeFactory.INST.createPoint(margins, margins);

@@ -282,7 +282,7 @@ public class PSTContext {
 	 * Converts the given parsed coordinate into a valid Java value.
 	 */
 	double valToDouble(final String val) {
-		return Double.valueOf(val.replace("+", "").replace("--", ""));
+		return Double.parseDouble(val.replace("+", "").replace("--", ""));
 	}
 
 	double numberToDouble(final Token node) {
