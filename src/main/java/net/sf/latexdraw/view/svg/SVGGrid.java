@@ -76,14 +76,9 @@ class SVGGrid extends SVGShape<IGrid> {
 			setMainGridElement(gridElt, prefix);
 		}
 
-		final String unit = elt.getAttribute(prefix + LNamespace.XML_GRID_UNIT);
-
-		if(unit != null) {
-			try {
-				shape.setUnit(Double.parseDouble(unit));
-			}catch(final NumberFormatException e) {
-				BadaboomCollector.INSTANCE.add(e);
-			}
+		try {
+			shape.setUnit(Double.parseDouble(elt.getAttribute(prefix + LNamespace.XML_GRID_UNIT)));
+		}catch(final NumberFormatException ignore) {
 		}
 
 		setLabelGridElement(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_TEXT));
@@ -103,36 +98,27 @@ class SVGGrid extends SVGShape<IGrid> {
 		shape.setLineColour(elt.getStroke());
 		values = SVGPointsParser.getPoints(elt.getAttribute(prefix + LNamespace.XML_GRID_END));
 
-		if(values != null && !values.isEmpty()) {
+		if(!values.isEmpty()) {
 			shape.setGridEndX(values.get(0).getX());
 			shape.setGridEndY(values.get(0).getY());
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(prefix + LNamespace.XML_GRID_START));
 
-		if(values != null && !values.isEmpty()) {
+		if(!values.isEmpty()) {
 			shape.setGridStartX(values.get(0).getX());
 			shape.setGridStartY(values.get(0).getY());
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(prefix + LNamespace.XML_GRID_ORIGIN));
 
-		if(values != null && !values.isEmpty()) {
+		if(!values.isEmpty()) {
 			shape.setOriginX(values.get(0).getX());
 			shape.setOriginY(values.get(0).getY());
 		}
 
-		String v = elt.getAttribute(prefix + LNamespace.XML_GRID_X_SOUTH);
-
-		if(v != null) {
-			shape.setXLabelSouth(Boolean.parseBoolean(v));
-		}
-
-		v = elt.getAttribute(prefix + LNamespace.XML_GRID_Y_WEST);
-
-		if(v != null) {
-			shape.setYLabelWest(Boolean.parseBoolean(v));
-		}
+		shape.setXLabelSouth(Boolean.parseBoolean(elt.getAttribute(prefix + LNamespace.XML_GRID_X_SOUTH)));
+		shape.setYLabelWest(Boolean.parseBoolean(elt.getAttribute(prefix + LNamespace.XML_GRID_Y_WEST)));
 	}
 
 
@@ -143,14 +129,9 @@ class SVGGrid extends SVGShape<IGrid> {
 		if(labelElt == null) {
 			shape.setLabelsSize(0);
 		}else {
-			final String val = labelElt.getAttribute(labelElt.getUsablePrefix() + SVGAttributes.SVG_FONT_SIZE);
-
-			if(val != null) {
-				try {
-					shape.setLabelsSize((int) Double.parseDouble(val));
-				}catch(final NumberFormatException ex) {
-					BadaboomCollector.INSTANCE.add(ex);
-				}
+			try {
+				shape.setLabelsSize((int) Double.parseDouble(labelElt.getAttribute(labelElt.getUsablePrefix() + SVGAttributes.SVG_FONT_SIZE)));
+			}catch(final NumberFormatException ignore) {
 			}
 
 			shape.setGridLabelsColour(labelElt.getStroke());
@@ -163,18 +144,12 @@ class SVGGrid extends SVGShape<IGrid> {
 	 */
 	private void setMainGridElement(final SVGElement mainGridElt, final String prefix) {
 		boolean isGridDotted = false;
-		String val = mainGridElt.getAttribute(prefix + LNamespace.XML_GRID_DOTS);
 
-		if(val != null) {
-			try {
-				shape.setGridDots((int) Double.parseDouble(val));
-				isGridDotted = shape.getGridDots() > 0;
-			}catch(final NumberFormatException e) {
-				BadaboomCollector.INSTANCE.add(e);
-			}
+		try {
+			shape.setGridDots((int) Double.parseDouble(mainGridElt.getAttribute(prefix + LNamespace.XML_GRID_DOTS)));
+			isGridDotted = shape.getGridDots() > 0;
+		}catch(final NumberFormatException ignore) {
 		}
-
-		val = mainGridElt.getAttribute(prefix + LNamespace.XML_GRID_WIDTH);
 
 		if(isGridDotted) {
 			shape.setLineColour(CSSColors.INSTANCE.getRGBColour(mainGridElt.getFill()));
@@ -182,7 +157,9 @@ class SVGGrid extends SVGShape<IGrid> {
 			shape.setLineColour(mainGridElt.getStroke());
 		}
 
-		if(val == null) {
+		final String val = mainGridElt.getAttribute(prefix + LNamespace.XML_GRID_WIDTH);
+
+		if(val.isEmpty()) {
 			final double st = mainGridElt.getStrokeWidth();
 
 			if(!Double.isNaN(st)) {
@@ -191,8 +168,8 @@ class SVGGrid extends SVGShape<IGrid> {
 		}else {
 			try {
 				shape.setGridWidth(Double.parseDouble(val));
-			}catch(final NumberFormatException e) {
-				BadaboomCollector.INSTANCE.add(e);
+			}catch(final NumberFormatException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}
 	}
@@ -203,28 +180,17 @@ class SVGGrid extends SVGShape<IGrid> {
 	 */
 	private void setSubGridElement(final SVGElement subGridElt, final String prefix) {
 		boolean isGridDotted = false;
-		String val = subGridElt.getAttribute(prefix + LNamespace.XML_GRID_DOTS);
 
-		if(val != null) {
-			try {
-				shape.setSubGridDots((int) Double.parseDouble(val));
-				isGridDotted = shape.getSubGridDots() > 0;
-			}catch(final NumberFormatException e) {
-				BadaboomCollector.INSTANCE.add(e);
-			}
+		try {
+			shape.setSubGridDots((int) Double.parseDouble(subGridElt.getAttribute(prefix + LNamespace.XML_GRID_DOTS)));
+			isGridDotted = shape.getSubGridDots() > 0;
+		}catch(final NumberFormatException ignore) {
 		}
 
-		val = subGridElt.getAttribute(prefix + LNamespace.XML_GRID_SUB_DIV);
-
-		if(val != null) {
-			try {
-				shape.setSubGridDiv((int) Double.parseDouble(val));
-			}catch(final NumberFormatException e) {
-				BadaboomCollector.INSTANCE.add(e);
-			}
+		try {
+			shape.setSubGridDiv((int) Double.parseDouble(subGridElt.getAttribute(prefix + LNamespace.XML_GRID_SUB_DIV)));
+		}catch(final NumberFormatException ignore) {
 		}
-
-		val = subGridElt.getAttribute(prefix + LNamespace.XML_GRID_WIDTH);
 
 		if(isGridDotted) {
 			shape.setSubGridColour(CSSColors.INSTANCE.getRGBColour(subGridElt.getFill()));
@@ -232,7 +198,9 @@ class SVGGrid extends SVGShape<IGrid> {
 			shape.setSubGridColour(subGridElt.getStroke());
 		}
 
-		if(val == null) {
+		final String val = subGridElt.getAttribute(prefix + LNamespace.XML_GRID_WIDTH);
+
+		if(val.isEmpty()) {
 			final double st = subGridElt.getStrokeWidth();
 
 			if(!Double.isNaN(st)) {
@@ -241,8 +209,8 @@ class SVGGrid extends SVGShape<IGrid> {
 		}else {
 			try {
 				shape.setSubGridWidth(Double.parseDouble(val));
-			}catch(final NumberFormatException e) {
-				BadaboomCollector.INSTANCE.add(e);
+			}catch(final NumberFormatException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}
 	}

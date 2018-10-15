@@ -24,16 +24,11 @@ interface SVGRectParseTrait extends LElement {
 	 * @return The value of the X attribute (0 if there it does not exist or it is not a length).
 	 */
 	default double getX() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_X);
-		double x;
-
 		try {
-			x = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_X)).parseCoordinate().getValue();
 		}catch(final ParseException ex) {
-			x = 0d;
+			return 0d;
 		}
-
-		return x;
 	}
 
 
@@ -41,16 +36,11 @@ interface SVGRectParseTrait extends LElement {
 	 * @return The value of the X attribute (0 if there it does not exist or it is not a length).
 	 */
 	default double getY() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y);
-		double y;
-
 		try {
-			y = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y)).parseCoordinate().getValue();
 		}catch(final ParseException ex) {
-			y = 0d;
+			return 0d;
 		}
-
-		return y;
 	}
 
 
@@ -58,17 +48,14 @@ interface SVGRectParseTrait extends LElement {
 	 * @return The value of the <code>width</code> attribute (0 if there it does not exist or it is not a length).
 	 */
 	default double getWidth() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_WIDTH);
+		final String value = getAttribute(getUsablePrefix() + SVGAttributes.SVG_WIDTH);
 		final double defVal = isDimensionsRequired() ? Double.NaN : 0d;
-		double width;
 
 		try {
-			width = v == null ? defVal : new SVGLengthParser(v).parseLength().getValue();
+			return value.isEmpty() ? defVal : new SVGLengthParser(value).parseLength().getValue();
 		}catch(final ParseException ex) {
-			width = defVal;
+			return defVal;
 		}
-
-		return width;
 	}
 
 
@@ -76,16 +63,13 @@ interface SVGRectParseTrait extends LElement {
 	 * @return The value of the <code>height</code> attribute (0 if there it does not exist or it is not a length).
 	 */
 	default double getHeight() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_HEIGHT);
+		final String value = getAttribute(getUsablePrefix() + SVGAttributes.SVG_HEIGHT);
 		final double defVal = isDimensionsRequired() ? Double.NaN : 0d;
-		double height;
 
 		try {
-			height = v == null ? defVal : new SVGLengthParser(v).parseLength().getValue();
+			return value.isEmpty() ? defVal : new SVGLengthParser(value).parseLength().getValue();
 		}catch(final ParseException ex) {
-			height = defVal;
+			return defVal;
 		}
-
-		return height;
 	}
 }

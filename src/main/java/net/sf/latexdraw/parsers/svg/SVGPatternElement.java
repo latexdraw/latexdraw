@@ -57,7 +57,7 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 	 */
 	public String getPatternContentUnits() {
 		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_PATTERN_CONTENTS_UNITS);
-		return (v == null || (!SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v))) ? SVGAttributes.SVG_UNITS_VALUE_USR : v;
+		return (!SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v)) ? SVGAttributes.SVG_UNITS_VALUE_USR : v;
 	}
 
 
@@ -66,7 +66,7 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 	 */
 	public String getPatternUnits() {
 		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_PATTERN_UNITS);
-		return (v == null || (!SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v))) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
+		return (!SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v)) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
 	}
 
 
@@ -159,10 +159,13 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 	 */
 	public double getHatchingStrokeWidth() {
 		final SVGGElement g = getGElement();
-		final String code = g == null ? null : g.getAttribute(getUsablePrefix() + SVGAttributes.SVG_STROKE_WIDTH);
+
+		if(g == null) {
+			return Double.NaN;
+		}
 
 		try {
-			return code == null ? Double.NaN : new SVGLengthParser(code).parseLength().getValue();
+			return new SVGLengthParser(g.getAttribute(getUsablePrefix() + SVGAttributes.SVG_STROKE_WIDTH)).parseLength().getValue();
 		}catch(final ParseException ex) {
 			return Double.NaN;
 		}

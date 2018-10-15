@@ -42,16 +42,11 @@ public class SVGMarkerElement extends SVGElement {
 	 * @return The x-axis coordinate of the reference point which is to be aligned exactly at the marker position.
 	 */
 	public double getRefX() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_REF_X);
-		double refx;
-
 		try {
-			refx = v == null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue();
-		}catch(final ParseException e) {
-			refx = 0;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_REF_X)).parseCoordinate().getValue();
+		}catch(final ParseException ignore) {
+			return 0;
 		}
-
-		return refx;
 	}
 
 
@@ -59,16 +54,11 @@ public class SVGMarkerElement extends SVGElement {
 	 * @return The y-axis coordinate of the reference point which is to be aligned exactly at the marker position.
 	 */
 	public double getRefY() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_REF_Y);
-		double refy;
-
 		try {
-			refy = v == null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue();
-		}catch(final ParseException e) {
-			refy = 0;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_REF_Y)).parseCoordinate().getValue();
+		}catch(final ParseException ignore) {
+			return 0;
 		}
-
-		return refy;
 	}
 
 
@@ -76,16 +66,11 @@ public class SVGMarkerElement extends SVGElement {
 	 * @return Represents the width of the viewport into which the marker is to be fitted when it is rendered.
 	 */
 	public double getMarkerWidth() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_MARKER_WIDTH);
-		double markerW;
-
 		try {
-			markerW = v == null ? 3 : new SVGLengthParser(v).parseLength().getValue();
-		}catch(final ParseException e) {
-			markerW = 3;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_MARKER_WIDTH)).parseLength().getValue();
+		}catch(final ParseException ignore) {
+			return 3;
 		}
-
-		return markerW;
 	}
 
 
@@ -93,16 +78,11 @@ public class SVGMarkerElement extends SVGElement {
 	 * @return Represents the height of the viewport into which the marker is to be fitted when it is rendered.
 	 */
 	public double getMarkerHeight() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_MARKER_HEIGHT);
-		double markerH;
-
 		try {
-			markerH = v == null ? 3 : new SVGLengthParser(v).parseCoordinate().getValue();
-		}catch(final ParseException e) {
-			markerH = 3;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_MARKER_HEIGHT)).parseCoordinate().getValue();
+		}catch(final ParseException ignore) {
+			return 3;
 		}
-
-		return markerH;
 	}
 
 
@@ -111,9 +91,7 @@ public class SVGMarkerElement extends SVGElement {
 	 */
 	public String getMarkerUnits() {
 		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_MARKER_UNITS);
-
-		return (v == null || (!SVGAttributes.SVG_UNITS_VALUE_STROKE.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v))) ?
-			SVGAttributes.SVG_UNITS_VALUE_STROKE : v;
+		return (!SVGAttributes.SVG_UNITS_VALUE_STROKE.equals(v) && !SVGAttributes.SVG_UNITS_VALUE_USR.equals(v)) ? SVGAttributes.SVG_UNITS_VALUE_STROKE : v;
 	}
 
 

@@ -80,46 +80,42 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 		shape.setTicksDisplayed(PlottingStyle.getStyle(elt.getAttribute(pref + LNamespace.XML_AXE_SHOW_TICKS)));
 		shape.setTicksStyle(TicksStyle.getStyle(elt.getAttribute(pref + LNamespace.XML_AXE_TICKS_STYLE)));
 		shape.setLabelsDisplayed(PlottingStyle.getStyle(elt.getAttribute(pref + LNamespace.XML_AXE_LABELS_STYLE)));
-		str = elt.getAttribute(pref + LNamespace.XML_AXE_TICKS_SIZE);
-
-		if(str != null) {
-			try {
-				shape.setTicksSize(Double.parseDouble(str));
-			}catch(final NumberFormatException ignored) {
-			}
+		try {
+			shape.setTicksSize(Double.parseDouble(elt.getAttribute(pref + LNamespace.XML_AXE_TICKS_SIZE)));
+		}catch(final NumberFormatException ignored) {
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_GRID_END));
 
-		if(values != null && !values.isEmpty()) {
+		if(!values.isEmpty()) {
 			shape.setGridEndX((int) values.get(0).getX());
 			shape.setGridEndY((int) values.get(0).getY());
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_GRID_START));
 
-		if(values != null && !values.isEmpty()) {
+		if(!values.isEmpty()) {
 			shape.setGridStartX((int) values.get(0).getX());
 			shape.setGridStartY((int) values.get(0).getY());
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_GRID_ORIGIN));
 
-		if(values != null && !values.isEmpty()) {
+		if(!values.isEmpty()) {
 			shape.setOriginX((int) values.get(0).getX());
 			shape.setOriginY((int) values.get(0).getY());
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_AXE_INCREMENT));
 
-		if(values != null && !values.isEmpty()) {
+		if(!values.isEmpty()) {
 			shape.setIncrementX(values.get(0).getX());
 			shape.setIncrementY(values.get(0).getY());
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_AXE_DIST_LABELS));
 
-		if(values != null && !values.isEmpty()) {
+		if(!values.isEmpty()) {
 			shape.setDistLabelsX(values.get(0).getX());
 			shape.setDistLabelsY(values.get(0).getY());
 		}

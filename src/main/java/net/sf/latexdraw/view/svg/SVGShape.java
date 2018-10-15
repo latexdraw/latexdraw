@@ -97,7 +97,7 @@ abstract class SVGShape<S extends IShape> {
 			while(i < size && ltdElt == null) {
 				n = nl.item(i);
 
-				if(((SVGElement) n).getAttribute(bis + LNamespace.XML_TYPE) == null) {
+				if(((SVGElement) n).getAttribute(bis + LNamespace.XML_TYPE).isEmpty()) {
 					ltdElt = n;
 				}else {
 					i++;
@@ -236,7 +236,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param opacity The possible fill-opacity of the colour. May be null.
 	 */
 	public static void setFillFromSVG(final IShape shape, final String fill, final String opacity, final SVGDefsElement defs) {
-		if(fill == null || shape == null || fill.equals(SVGAttributes.SVG_VALUE_NONE)) {
+		if(shape == null || fill.equals(SVGAttributes.SVG_VALUE_NONE)) {
 			return;
 		}
 
@@ -599,12 +599,9 @@ abstract class SVGShape<S extends IShape> {
 			return;
 		}
 
-		if(shape.isBordersMovable()) {
-			final String bp = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_BORDERS_POS);
-
-			if(bp != null) {
-				shape.setBordersPosition(BorderPos.getStyle(bp));
-			}
+		final String pos = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_BORDERS_POS);
+		if(shape.isBordersMovable() && !pos.isEmpty()) {
+			shape.setBordersPosition(BorderPos.getStyle(pos));
 		}
 	}
 
@@ -621,24 +618,15 @@ abstract class SVGShape<S extends IShape> {
 			shape.setThickness(elt.getStrokeWidth());
 		}
 
-		if(shape.isBordersMovable()) {
-			final String bp = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_BORDERS_POS);
-
-			if(bp != null) {
-				shape.setBordersPosition(BorderPos.getStyle(bp));
-			}
-		}
+		setSVGLatexdrawParameters(elt);
 
 		shape.setLineColour(elt.getStroke());
 
-		final String opacityStr = elt.getSVGAttribute(SVGAttributes.SVG_STROKE_OPACITY, null);
 		final Color lineCol = shape.getLineColour();
-		if(opacityStr != null) {
-			try {
-				shape.setLineColour(ShapeFactory.INST.createColor(lineCol.getR(), lineCol.getG(), lineCol.getB(), Double.parseDouble(opacityStr)));
-			}catch(final NumberFormatException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
+		try {
+			shape.setLineColour(ShapeFactory.INST.createColor(lineCol.getR(), lineCol.getG(), lineCol.getB(),
+				Double.parseDouble(elt.getSVGAttribute(SVGAttributes.SVG_STROKE_OPACITY, null))));
+		}catch(final NumberFormatException ignore) {
 		}
 
 		if(shape.isLineStylable()) {
@@ -659,7 +647,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param elt An element of the SVG document (useful to get the defs of the document).
 	 */
 	protected void setSVGArrow(final IArrow ah, final String arrowID, final SVGElement elt, final String svgMarker) {
-		if(ah != null && arrowID != null && elt != null) {
+		if(ah != null && !arrowID.isEmpty() && elt != null) {
 			final SVGArrow arrGen = new SVGArrow(ah);
 			arrGen.setArrow((SVGMarkerElement) elt.getDef(new URIReferenceParser(arrowID).getURI()), getShape(), svgMarker);
 		}
@@ -692,10 +680,10 @@ abstract class SVGShape<S extends IShape> {
 			String transfo = elt.getAttribute(SVGAttributes.SVG_TRANSFORM);
 			final String rotation = SVGTransform.createRotation(toDegrees(rotationAngle), 0d, 0d) + " " + SVGTransform.createTranslation(-x, -y);
 
-			if(transfo != null && !transfo.isEmpty()) {
-				transfo = rotation + " " + transfo;
-			}else {
+			if(transfo.isEmpty()) {
 				transfo = rotation;
+			}else {
+				transfo = rotation + " " + transfo;
 			}
 
 			elt.setAttribute(SVGAttributes.SVG_TRANSFORM, transfo);

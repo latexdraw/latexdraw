@@ -90,16 +90,11 @@ public class SVGRectElement extends SVGElement implements SVGRectParseTrait {
 	 * For rounded rectangles, the x-axis radius of the ellipse used to round off the corners of the rectangle.
 	 */
 	public double getRx() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX);
-		double rx;
-
 		try {
-			rx = v == null ? 0d : new SVGLengthParser(v).parseLength().getValue();
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX)).parseLength().getValue();
 		}catch(final ParseException ex) {
-			rx = 0d;
+			return 0d;
 		}
-
-		return rx;
 	}
 
 
@@ -108,16 +103,11 @@ public class SVGRectElement extends SVGElement implements SVGRectParseTrait {
 	 * For rounded rectangles, the y-axis radius of the ellipse used to round off the corners of the rectangle.
 	 */
 	public double getRy() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY);
-		double ry;
-
 		try {
-			ry = v == null ? 0d : new SVGLengthParser(v).parseLength().getValue();
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY)).parseLength().getValue();
 		}catch(final ParseException ex) {
-			ry = 0d;
+			return 0d;
 		}
-
-		return ry;
 	}
 
 	@Override

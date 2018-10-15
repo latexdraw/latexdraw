@@ -12,7 +12,6 @@ package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Point2D;
 import java.util.List;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
@@ -53,28 +52,21 @@ class SVGDot extends SVGShape<IDot> {
 			throw new IllegalArgumentException();
 		}
 
-		String v = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_SIZE);
 		final SVGElement main = getLaTeXDrawElement(elt, null);
 
 		try {
 			shape.setDotStyle(DotStyle.getStyle(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_DOT_SHAPE)));
-		}catch(final IllegalArgumentException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
+		}catch(final IllegalArgumentException ignore) {
 		}
 
-		if(v != null) {
-			try {
-				shape.setDiametre(Double.parseDouble(v));
-			}catch(final NumberFormatException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
+		try {
+			shape.setDiametre(Double.parseDouble(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_SIZE)));
+		}catch(final NumberFormatException ignore) {
 		}
 
-		v = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POSITION);
+		final List<Point2D> pos = SVGPointsParser.getPoints(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POSITION));
 
-		final List<Point2D> pos = SVGPointsParser.getPoints(v);
-
-		if(pos != null && !pos.isEmpty()) {
+		if(!pos.isEmpty()) {
 			shape.setPosition(pos.get(0).getX(), pos.get(0).getY());
 		}
 

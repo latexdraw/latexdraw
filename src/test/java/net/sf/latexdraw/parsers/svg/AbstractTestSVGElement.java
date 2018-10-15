@@ -60,8 +60,8 @@ public abstract class AbstractTestSVGElement {
 
 	@Test
 	public void testGetAttribute() {
-		assertNull(node.getAttribute(null));
-		assertNull(node.getAttribute(""));
+		assertEquals("", node.getAttribute(null));
+		assertEquals("", node.getAttribute(""));
 		node.setAttribute("testAttr", "valAttr");
 		assertEquals("valAttr", node.getAttribute("testAttr"));
 	}

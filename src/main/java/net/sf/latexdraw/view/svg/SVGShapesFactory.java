@@ -181,7 +181,7 @@ public final class SVGShapesFactory {
 		final String type = elt.getAttribute(ltdPref + LNamespace.XML_TYPE);
 
 		// If we have a group of shapes.
-		if(type == null || type.isEmpty() || LNamespace.XML_TYPE_GROUP.equals(type)) {
+		if(type.isEmpty() || LNamespace.XML_TYPE_GROUP.equals(type)) {
 			switch(elt.getChildNodes().getLength()) {
 				case 0:
 					return null;

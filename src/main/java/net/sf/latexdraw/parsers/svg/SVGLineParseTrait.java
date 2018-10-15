@@ -22,16 +22,11 @@ interface SVGLineParseTrait extends LElement {
 	 * @return The x-axis coordinate of the start of the line (0 if there it does not exist or it is not a length).
 	 */
 	default double getX1() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_X1);
-		double x1;
-
 		try {
-			x1 = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
-		}catch(final ParseException ex) {
-			x1 = 0d;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_X1)).parseCoordinate().getValue();
+		}catch(final ParseException ignore) {
+			return 0d;
 		}
-
-		return x1;
 	}
 
 
@@ -39,16 +34,11 @@ interface SVGLineParseTrait extends LElement {
 	 * @return The y-axis coordinate of the start of the line (0 if there it does not exist or it is not a length).
 	 */
 	default double getY1() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y1);
-		double y1;
-
 		try {
-			y1 = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
-		}catch(final ParseException ex) {
-			y1 = 0d;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y1)).parseCoordinate().getValue();
+		}catch(final ParseException ignore) {
+			return 0d;
 		}
-
-		return y1;
 	}
 
 
@@ -56,16 +46,11 @@ interface SVGLineParseTrait extends LElement {
 	 * @return The x-axis coordinate of the end of the line (0 if there it does not exist or it is not a length).
 	 */
 	default double getX2() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_X2);
-		double x2;
-
 		try {
-			x2 = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
-		}catch(final ParseException ex) {
-			x2 = 0d;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_X2)).parseCoordinate().getValue();
+		}catch(final ParseException ignore) {
+			return 0d;
 		}
-
-		return x2;
 	}
 
 
@@ -73,15 +58,10 @@ interface SVGLineParseTrait extends LElement {
 	 * @return The y-axis coordinate of the end of the line (0 if there it does not exist or it is not a length).
 	 */
 	default double getY2() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y2);
-		double y2;
-
 		try {
-			y2 = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
-		}catch(final ParseException ex) {
-			y2 = 0d;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y2)).parseCoordinate().getValue();
+		}catch(final ParseException ignore) {
+			return 0d;
 		}
-
-		return y2;
 	}
 }

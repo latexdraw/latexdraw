@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import java.util.Optional;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
@@ -83,14 +82,14 @@ class SVGText extends SVGShape<IText> {
 			throw new IllegalArgumentException();
 		}
 
-		Optional.ofNullable(elt.getSVGAttribute(SVGAttributes.SVG_FONT_SIZE, null)).
-			map(attr -> {
-				try {
-					return TextSize.getTextSizeFromSize(Double.valueOf(attr).intValue());
-				}catch(final NumberFormatException ex) {
-					return null;
-				}
-			}).ifPresent(textSize -> shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}'));
+		try {
+			final TextSize txtSize = TextSize.getTextSizeFromSize(Double.valueOf(elt.getSVGAttribute(SVGAttributes.SVG_FONT_SIZE, null)).intValue());
+			if(txtSize != null) {
+				shape.setText("\\" + txtSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}');
+			}
+		}catch(final NumberFormatException ignored) {
+
+		}
 
 		if(SVGAttributes.SVG_FONT_WEIGHT_BOLD.equals(elt.getSVGAttribute(SVGAttributes.SVG_FONT_WEIGHT, null))) {
 			shape.setText("\\textbf{" + shape.getText() + '}'); //NON-NLS

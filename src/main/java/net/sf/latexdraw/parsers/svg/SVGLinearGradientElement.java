@@ -99,13 +99,8 @@ public class SVGLinearGradientElement extends SVGElement implements SVGLineParse
 	 * @return The angle of the gradient in radian or NaN.
 	 */
 	public double getAngle() {
-		final String transform = getAttribute(getUsablePrefix() + SVGAttributes.SVG_GRADIENT_TRANSFORM);
-
-		if(transform == null || transform.isEmpty()) {
-			return 0d;
-		}
-
-		return new SVGTransformList(transform).stream().filter(tr -> tr.isRotation()).findFirst().
+		return new SVGTransformList(getAttribute(getUsablePrefix() + SVGAttributes.SVG_GRADIENT_TRANSFORM)).
+			stream().filter(tr -> tr.isRotation()).findFirst().
 			map(svgTransform -> Math.toRadians(svgTransform.getRotationAngle())).orElse(0d);
 	}
 }

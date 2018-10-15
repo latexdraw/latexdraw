@@ -154,12 +154,12 @@ public class SVGPathElement extends SVGElement {
 
 	@Override
 	public boolean checkAttributes() {
-		return getPathData() != null;
+		return !getPathData().isEmpty();
 	}
 
 	@Override
 	public boolean enableRendering() {
-		return !getPathData().isEmpty();
+		return checkAttributes();
 	}
 
 	/**

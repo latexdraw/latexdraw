@@ -73,7 +73,7 @@ public class TestSVGPolygonElement extends AbstractTestSVGElement {
 		new SVGPolygonElement(node, null);
 	}
 
-	@Test
+	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorOK1() throws MalformedSVGDocument, ParseException {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "");
 		new SVGPolygonElement(node, null);

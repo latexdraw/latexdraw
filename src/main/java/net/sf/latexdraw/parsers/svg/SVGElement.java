@@ -111,19 +111,18 @@ public abstract class SVGElement implements LElement, Cloneable {
 		setNodeValue(n.getNodeValue());
 		setNodeName(n.getNodeName());
 
-		String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_TRANSFORM);
+		final String transfo = getAttribute(getUsablePrefix() + SVGAttributes.SVG_TRANSFORM);
 
-		if(v != null) {
-			transform = new SVGTransformList();
-			transform.addTransformations(getAttribute(getUsablePrefix() + SVGAttributes.SVG_TRANSFORM));
+		if(!transfo.isEmpty()) {
+			transform = new SVGTransformList(transfo);
 		}
 
-		v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_STYLE);
+		final String style = getAttribute(getUsablePrefix() + SVGAttributes.SVG_STYLE);
 
-		if(v != null) {
+		if(!style.isEmpty()) {
 			stylesCSS = new CSSStyleList();
 			try {
-				new CSSStyleParser(v, stylesCSS).parse();
+				new CSSStyleParser(style, stylesCSS).parse();
 			}catch(final ParseException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 			}
@@ -208,7 +207,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	public double getOpacity(final String... opacityAttrs) {
 		final String opStr = Stream.of(opacityAttrs).map(attr -> getAttribute(getUsablePrefix() + attr)).
-			filter(attr -> attr != null).findAny().orElse("1");
+			filter(attr -> !attr.isEmpty()).findAny().orElse("1");
 
 		try {
 			return Math.max(0d, Math.min(1d, Double.parseDouble(opStr)));
@@ -269,12 +268,12 @@ public abstract class SVGElement implements LElement, Cloneable {
 	@Override
 	public String getAttribute(final String nameAttr) {
 		if(attributes == null || nameAttr == null) {
-			return null;
+			return "";
 		}
 
 		final Node n = attributes.getNamedItem(nameAttr);
 
-		return n == null ? null : n.getNodeValue();
+		return n == null ? "" : n.getNodeValue();
 	}
 
 
@@ -559,7 +558,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 			transform.clear();
 		}
 
-		transform.addTransformations(getAttribute(getUsablePrefix() + SVGAttributes.SVG_TRANSFORM));
+		transform.addTransformations(transformation);
 	}
 
 
@@ -856,7 +855,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	@Override
 	public String getAttributeNS(final String namespaceURI, final String localName) {
 		if(localName == null) {
-			return null;
+			return "";
 		}
 
 		return getAttribute(lookupPrefixUsable(namespaceURI) + localName);
@@ -997,14 +996,11 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * @return The stroke width of the element (if it is possible) or 1.
 	 */
 	public double getStrokeWidth() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_STROKE_WIDTH, getUsablePrefix())).
-			map(attr -> {
-				try {
-					return new SVGLengthParser(attr).parseLength().getValue();
-				}catch(final ParseException ex) {
-					return 1d;
-				}
-			}).orElse(parent == null ? 1d : parent.getStrokeWidth());
+		try {
+			return new SVGLengthParser(getSVGAttribute(SVGAttributes.SVG_STROKE_WIDTH, getUsablePrefix())).parseLength().getValue();
+		}catch(final ParseException ex) {
+			return parent == null ? 1d : parent.getStrokeWidth();
+		}
 	}
 
 
@@ -1012,18 +1008,11 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * @return The dash array of the element (if it is possible) or null.
 	 */
 	public String getStrokeDasharray() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, getUsablePrefix())).
-			orElse(parent == null ? SVGAttributes.SVG_VALUE_NONE : parent.getStrokeDasharray());
-	}
-
-
-	/**
-	 * @return The line join of the element or its default value.
-	 * @since 3.0
-	 */
-	public String getStrokeLinejoin() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_STROKE_LINEJOIN, getUsablePrefix())).
-			orElse(parent == null ? SVGAttributes.SVG_LINEJOIN_VALUE_MITER : parent.getStrokeLinejoin());
+		final String dash = getSVGAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, getUsablePrefix());
+		if(dash.isEmpty()) {
+			return parent == null ? SVGAttributes.SVG_VALUE_NONE : parent.getStrokeDasharray();
+		}
+		return dash;
 	}
 
 
@@ -1031,58 +1020,11 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * @return The line cap of the element or its default value.
 	 */
 	public String getStrokeLinecap() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_STROKE_LINECAP, getUsablePrefix())).
-			orElse(parent == null ? SVGAttributes.SVG_LINECAP_VALUE_BUTT : parent.getStrokeLinecap());
-	}
-
-
-	/**
-	 * @return The miter limit of the element or its default value.
-	 */
-	public double getStrokeMiterlimit() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_STROKE_MITERLIMIT, getUsablePrefix())).map(attr -> {
-			try {
-				return Double.parseDouble(attr);
-			}catch(final NumberFormatException ex) {
-				return 4d;
-			}
-		}).orElse(parent == null ? 4d : parent.getStrokeMiterlimit());
-	}
-
-
-	/**
-	 * @return The font-size value in point of the element, or from one of its parents.
-	 */
-	public float getFontSize() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_FONT_SIZE, getUsablePrefix())).map(attr -> SVGLengthParser.fontSizetoPoint(attr)).
-			orElse(parent == null ? SVGLengthParser.FontSize.MEDIUM.getPointValue() : parent.getFontSize());
-	}
-
-
-	/**
-	 * @return The defined or inherited font family. Otherwise, an empty string.
-	 */
-	public String getFontFamily() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_FONT_FAMILY, getUsablePrefix())).
-			orElse(parent == null ? "" : parent.getFontFamily()); //NON-NLS
-	}
-
-
-	/**
-	 * @return The defined or inherited font style. Otherwise, the default value "normal" is returned.
-	 */
-	public String getFontStyle() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_FONT_STYLE, getUsablePrefix())).
-			orElse(parent == null ? SVGAttributes.SVG_FONT_STYLE_NORMAL : parent.getFontStyle());
-	}
-
-
-	/**
-	 * @return The defined or inherited font weight. Otherwise, the default value "normal" is returned.
-	 */
-	public String getFontWeight() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_FONT_WEIGHT, getUsablePrefix())).
-			orElse(parent == null ? SVGAttributes.SVG_FONT_WEIGHT_NORMAL : parent.getFontWeight());
+		final String cap = getSVGAttribute(SVGAttributes.SVG_STROKE_LINECAP, getUsablePrefix());
+		if(cap.isEmpty()) {
+			return parent == null ? SVGAttributes.SVG_LINECAP_VALUE_BUTT : parent.getStrokeLinecap();
+		}
+		return cap;
 	}
 
 
@@ -1099,8 +1041,11 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * @return The fill content of the element or its default value.
 	 */
 	public String getFill() {
-		return Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_FILL, getUsablePrefix())).
-			orElse(parent == null ? CSSColors.CSS_BLACK_NAME : parent.getFill());
+		final String fill = getSVGAttribute(SVGAttributes.SVG_FILL, getUsablePrefix());
+		if(fill.isEmpty()) {
+			return parent == null ? CSSColors.CSS_BLACK_NAME : parent.getFill();
+		}
+		return fill;
 	}
 
 
@@ -1117,13 +1062,12 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * @return The fill content of the element (if it is possible) or null.
 	 */
 	public Color getStroke() {
-		final Color stroke = Optional.ofNullable(getSVGAttribute(SVGAttributes.SVG_STROKE, getUsablePrefix())).map(attr -> CSSColors.INSTANCE.getRGBColour(attr)).
-			orElse(parent == null ? null : parent.getStroke());
+		final Color stroke = CSSColors.INSTANCE.getRGBColour(getSVGAttribute(SVGAttributes.SVG_STROKE, getUsablePrefix()));
 
-		if(stroke != null) {
-			return stroke.newColorWithOpacity(getOpacity(SVGAttributes.SVG_OPACITY, SVGAttributes.SVG_STROKE_OPACITY));
+		if(stroke == null) {
+			return parent == null ? null : parent.getStroke();
 		}
-		return null;
+		return stroke.newColorWithOpacity(getOpacity(SVGAttributes.SVG_OPACITY, SVGAttributes.SVG_STROKE_OPACITY));
 	}
 
 
@@ -1209,12 +1153,12 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 */
 	public String getSVGAttribute(final String attrName, final String prefix) {
 		if(attrName == null) {
-			return null;
+			return "";
 		}
 
 		String value = getAttribute((prefix == null ? "" : prefix) + attrName); //NON-NLS
 
-		if(value == null && stylesCSS != null) {
+		if(!value.isEmpty() && stylesCSS != null) {
 			value = stylesCSS.get(attrName);
 		}
 

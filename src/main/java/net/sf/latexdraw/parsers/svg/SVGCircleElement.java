@@ -68,16 +68,11 @@ public class SVGCircleElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getCx() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX);
-		double cx;
-
 		try {
-			cx = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
-		}catch(final ParseException e) {
-			cx = 0d;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX)).parseCoordinate().getValue();
+		}catch(final ParseException ignore) {
+			return 0d;
 		}
-
-		return cx;
 	}
 
 	/**
@@ -93,16 +88,11 @@ public class SVGCircleElement extends SVGElement {
 	 * @return The y-axis coordinate of the centre of the circle (0 if there it does not exist or it is not a coordinate).
 	 */
 	public double getCy() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY);
-		double cy;
-
 		try {
-			cy = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
-		}catch(final ParseException e) {
-			cy = 0d;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY)).parseCoordinate().getValue();
+		}catch(final ParseException ignore) {
+			return 0d;
 		}
-
-		return cy;
 	}
 
 	/**
@@ -117,16 +107,11 @@ public class SVGCircleElement extends SVGElement {
 	 * @return The radius of the circle (NaN if there it does not exist or it is not a length).
 	 */
 	public double getR() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_R);
-		double r;
-
 		try {
-			r = v == null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue();
-		}catch(final ParseException e) {
-			r = Double.NaN;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_R)).parseLength().getValue();
+		}catch(final ParseException ignore) {
+			return Double.NaN;
 		}
-
-		return r;
 	}
 
 	/**

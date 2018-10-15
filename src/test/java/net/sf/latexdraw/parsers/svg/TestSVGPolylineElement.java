@@ -13,7 +13,7 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testGetPoints() throws MalformedSVGDocument, ParseException {
-		String path = "10,10 20,20";
+		final String path = "10,10 20,20";
 		node.setAttribute(SVGAttributes.SVG_POINTS, path);
 		pl = new SVGPolyLineElement(node, null);
 		assertEquals(pl.getPoints(), path);
@@ -28,7 +28,7 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testSetPoints() throws MalformedSVGDocument, ParseException {
-		String path = "10,10 20,20";
+		final String path = "10,10 20,20";
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		pl = new SVGPolyLineElement(node, null);
 		assertEquals(pl.getPoints(), path);
@@ -52,10 +52,10 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testGetPoints2D() throws MalformedSVGDocument, ParseException {
-		String path = "	  10\t ,\n	10 	\t 	20 \t\n\t\r,	\n20 	\r30,30	\n";
+		final String path = "	  10\t ,\n	10 	\t 	20 \t\n\t\r,	\n20 	\r30,30	\n";
 		node.setAttribute(SVGAttributes.SVG_POINTS, path);
-		SVGPolyLineElement pl = new SVGPolyLineElement(node, null);
-		List<Point2D> pts;
+		final SVGPolyLineElement pl = new SVGPolyLineElement(node, null);
+		final List<Point2D> pts;
 		pts = pl.getPoints2D();
 		assertEquals(3, pts.size());
 		assertEquals(new Point2D.Double(10, 10), pts.get(0));
@@ -73,7 +73,7 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 		new SVGPolyLineElement(node, null);
 	}
 
-	@Test
+	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail3() throws MalformedSVGDocument, ParseException {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "");
 		new SVGPolyLineElement(node, null);

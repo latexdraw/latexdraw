@@ -60,16 +60,11 @@ public class SVGStopElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getOffset() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_OFFSET);
-		double offset;
-
 		try {
-			offset = v == null ? Double.NaN : new SVGLengthParser(v).parseNumberOrPercent().getValue();
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_OFFSET)).parseNumberOrPercent().getValue();
 		}catch(final ParseException e) {
-			offset = Double.NaN;
+			return Double.NaN;
 		}
-
-		return offset;
 	}
 
 

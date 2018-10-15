@@ -110,11 +110,7 @@ class SVGPlot extends SVGShape<IPlot> {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 
-		try {
-			shape.setPolar(Boolean.parseBoolean(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_POLAR)));
-		}catch(final NumberFormatException | NullPointerException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-		}
+		shape.setPolar(Boolean.parseBoolean(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_POLAR)));
 
 		try {
 			shape.setX(Double.parseDouble(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POSITION_X)));

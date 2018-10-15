@@ -60,7 +60,7 @@ public class ShapeSupplier extends ParameterSupplier {
 				Stream.concat(DotSupplier.createDiversifiedDot(), Stream.concat(PlotSupplier.createDiversifiedPlot(),
 				Stream.concat(GridSupplier.createDiversifiedGrid(), Stream.concat(AxesSupplier.createDiversifiedAxes(),
 				Stream.concat(TextSupplier.createDiversifiedText(),
-					Stream.of((IShape) EllSupplier.createEllipse(), (IShape) createBezierCurve(), CircleSupplier.createCircle(), createPolyline(), createPolygon(), createSquare(),
+					Stream.of((IShape) EllSupplier.createEllipse(), createBezierCurve(), CircleSupplier.createCircle(), createPolyline(), createPolygon(), createSquare(),
 			ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
 			createRhombus(), createTriangle(),

@@ -68,7 +68,7 @@ public abstract class AbstractPointsElement extends SVGElement {
 
 	@Override
 	public boolean checkAttributes() {
-		return getPoints() != null;
+		return !getPoints().isEmpty();
 	}
 
 	/**

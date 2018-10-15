@@ -74,16 +74,11 @@ public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 	 * @since 0.1
 	 */
 	public double getDX() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_DX);
-		double dx;
-
 		try {
-			dx = v == null ? 0d : new SVGLengthParser(v).parseLength().getValue();
-		}catch(final ParseException ex) {
-			dx = 0d;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_DX)).parseLength().getValue();
+		}catch(final ParseException ignore) {
+			return 0d;
 		}
-
-		return dx;
 	}
 
 
@@ -92,16 +87,11 @@ public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 	 * @since 0.1
 	 */
 	public double getDY() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_DY);
-		double dy;
-
 		try {
-			dy = v == null ? 0d : new SVGLengthParser(v).parseLength().getValue();
-		}catch(final ParseException ex) {
-			dy = 0d;
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_DY)).parseLength().getValue();
+		}catch(final ParseException ignore) {
+			return 0d;
 		}
-
-		return dy;
 	}
 
 	@Override

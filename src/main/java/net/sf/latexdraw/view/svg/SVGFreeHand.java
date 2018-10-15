@@ -46,14 +46,10 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 			map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList())));
 
 		final SVGElement main = getLaTeXDrawElement(elt, null);
-		final String v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_INTERVAL);
 
-		if(v != null) {
-			try {
-				shape.setInterval(Double.valueOf(v).intValue());
-			}catch(final NumberFormatException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
+		try {
+			shape.setInterval(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_INTERVAL)).intValue());
+		}catch(final NumberFormatException ignore) {
 		}
 
 		setSVGLatexdrawParameters(elt);

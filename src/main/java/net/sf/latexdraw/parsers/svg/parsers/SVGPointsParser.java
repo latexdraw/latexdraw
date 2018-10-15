@@ -13,6 +13,7 @@ package net.sf.latexdraw.parsers.svg.parsers;
 import java.awt.geom.Point2D;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class SVGPointsParser extends AbstractSVGParser {
 			pp.parse();
 			return pp.getPoints();
 		}catch(final IllegalArgumentException | ParseException ex) {
-			return null;
+			return Collections.emptyList();
 		}
 	}
 

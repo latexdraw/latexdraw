@@ -103,7 +103,7 @@ class SVGArrow implements GenericViewArrow {
 			return;
 		}
 
-		if(stroke != null && stroke.equals(circle.getFill())) {
+		if(stroke.equals(circle.getFill())) {
 			arrow.setArrowStyle(MathUtils.INST.equalsDouble(0d, circle.getCx()) ? ArrowStyle.DISK_END : ArrowStyle.DISK_IN);
 			dotSizeDim = 2d * radius + lineWidth - dotSizeNum * lineWidth;
 		}else {

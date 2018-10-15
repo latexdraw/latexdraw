@@ -71,16 +71,11 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getCx() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX);
-		double cx;
-
 		try {
-			cx = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX)).parseCoordinate().getValue();
 		}catch(final ParseException e) {
-			cx = 0d;
+			return 0d;
 		}
-
-		return cx;
 	}
 
 
@@ -89,16 +84,11 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getCy() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY);
-		double cy;
-
 		try {
-			cy = v == null ? 0d : new SVGLengthParser(v).parseCoordinate().getValue();
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY)).parseCoordinate().getValue();
 		}catch(final ParseException e) {
-			cy = 0d;
+			return 0d;
 		}
-
-		return cy;
 	}
 
 
@@ -107,16 +97,11 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getRx() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX);
-		double rx;
-
 		try {
-			rx = v == null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue();
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX)).parseLength().getValue();
 		}catch(final ParseException e) {
-			rx = Double.NaN;
+			return Double.NaN;
 		}
-
-		return rx;
 	}
 
 
@@ -125,16 +110,11 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getRy() {
-		final String v = getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY);
-		double ry;
-
 		try {
-			ry = v == null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue();
+			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY)).parseLength().getValue();
 		}catch(final ParseException e) {
-			ry = Double.NaN;
+			return Double.NaN;
 		}
-
-		return ry;
 	}
 
 
