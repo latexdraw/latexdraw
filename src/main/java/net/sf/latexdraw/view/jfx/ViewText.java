@@ -16,6 +16,9 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -41,6 +44,7 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * @author Arnaud Blouin
  */
 public class ViewText extends ViewPositionShape<IText> {
+	static final Logger LOGGER = Logger.getAnonymousLogger();
 	private static final ExecutorService COMPILATION_POOL = Executors.newFixedThreadPool(5);
 	private static final double SCALE_COMPILE = 2d;
 
@@ -50,6 +54,9 @@ public class ViewText extends ViewPositionShape<IText> {
 	private final ChangeListener<String> textUpdate;
 	private Future<?> currentCompilation;
 
+	static {
+		LOGGER.setLevel(Level.OFF);
+	}
 
 	/**
 	 * Creates the view.
@@ -82,16 +89,19 @@ public class ViewText extends ViewPositionShape<IText> {
 		update();
 	}
 
-	private void setImageTextEnable(final boolean imageToEnable) {
+	private final void setImageTextEnable(final boolean imageToEnable) {
 		compiledText.setVisible(imageToEnable);
 		compiledText.setDisable(!imageToEnable);
 		text.setVisible(!imageToEnable);
 		text.setDisable(imageToEnable);
 	}
 
-	private void update() {
+	private final void update() {
 		text.setText(model.getText());
-		currentCompilation = COMPILATION_POOL.submit(() -> updateImageText(createImage()));
+		currentCompilation = COMPILATION_POOL.submit(() -> {
+			final Tuple<Image, String> image = createImage();
+			Platform.runLater(() -> updateImageText(image));
+		});
 	}
 
 	/**
@@ -147,7 +157,7 @@ public class ViewText extends ViewPositionShape<IText> {
 		doc.append((float) MathUtils.INST.getCutNumber(scale)).append(' ');
 		doc.append((float) MathUtils.INST.getCutNumber(scale)).append('}').append('{');
 
-		if(!textColour.equals(PSTricksConstants.DEFAULT_LINE_COLOR)) {
+		if(!PSTricksConstants.DEFAULT_LINE_COLOR.equals(textColour)) {
 			final String name = DviPsColors.INSTANCE.getColourName(textColour).orElse(DviPsColors.INSTANCE.addUserColour(textColour).orElse(""));
 			coloured = true;
 			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append("\\textcolor{").append(name).append('}').append('{'); //NON-NLS
@@ -179,14 +189,14 @@ public class ViewText extends ViewPositionShape<IText> {
 			outReader.start();
 
 			if(process.waitFor() == 0) {
-				return new Tuple<>(true, log);
+				return new Tuple<>(Boolean.TRUE, log);
 			}
 
 			log = outReader.getLog() + LSystem.EOL + errReader.getLog();
 		}catch(final IOException | InterruptedException | IllegalThreadStateException ex) {
 			log += ex.getMessage();
 		}
-		return new Tuple<>(false, log);
+		return new Tuple<>(Boolean.FALSE, log);
 	}
 
 
@@ -197,7 +207,7 @@ public class ViewText extends ViewPositionShape<IText> {
 		final Optional<File> optDir = LFileUtils.INSTANCE.createTempDir();
 
 		if(!optDir.isPresent()) {
-			return new Tuple<>(null, "A temporary file cannot be created.");
+			return new Tuple<>(null, "A temporary file cannot be created."); //NON-NLS
 		}
 
 		Image img = null;
@@ -207,6 +217,8 @@ public class ViewText extends ViewPositionShape<IText> {
 		final String basePathPic = tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
 		final String pathTex = basePathPic + ExportFormat.TEX.getFileExtension();
 		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
+
+		LOGGER.log(Level.INFO, doc);
 
 		// Saving the LaTeX document into a file to be compiled.
 		if(!LFileUtils.INSTANCE.saveFile(pathTex, doc).isPresent()) {
@@ -243,6 +255,8 @@ public class ViewText extends ViewPositionShape<IText> {
 
 		// Deleting the temporary folder and its content.
 		LFileUtils.INSTANCE.removeDirWithContent(tmpDir.getPath());
+
+		LOGGER.log(Level.INFO, log);
 
 		return new Tuple<>(img, log);
 	}

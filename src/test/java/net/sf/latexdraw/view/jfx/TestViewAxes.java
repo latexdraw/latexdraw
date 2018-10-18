@@ -2,6 +2,8 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.scene.shape.PathElement;
@@ -35,7 +37,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
 		super.setUp();
 		mainAxesBefore = new ArrayList<>(view.getMainAxes().getElements());
 		pathTicksBefore = new ArrayList<>(view.getPathTicks().getElements());

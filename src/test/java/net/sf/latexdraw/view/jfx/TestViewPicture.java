@@ -1,5 +1,7 @@
 package net.sf.latexdraw.view.jfx;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import net.sf.latexdraw.data.ShapeSupplier;
@@ -25,7 +27,7 @@ public class TestViewPicture extends TestViewShape<ViewPicture, IPicture> {
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
 		super.setUp();
 	}
 

@@ -9,7 +9,6 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.util.WaitForAsyncUtils;
@@ -30,13 +29,6 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 			// Ok
 		}
 	}
-
-	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-	}
-
 
 	private List<PathElement> getCurvePath() {
 		return ((ViewBezierCurve) view.getChildren().get(0)).getBorder().getElements();

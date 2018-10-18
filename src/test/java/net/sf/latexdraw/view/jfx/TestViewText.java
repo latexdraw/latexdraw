@@ -3,6 +3,7 @@ package net.sf.latexdraw.view.jfx;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Tooltip;
@@ -15,9 +16,11 @@ import net.sf.latexdraw.data.TextSupplier;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -27,18 +30,27 @@ import static org.junit.Assert.assertTrue;
 public class TestViewText extends TestViewShape<ViewText, IText> {
 	@BeforeClass
 	public static void beforeClass() {
+		ViewText.LOGGER.setLevel(Level.ALL);
 		try {
 			Platform.startup(() -> {});
-		}catch(final IllegalStateException ex) {
+		}catch(final IllegalStateException ignored) {
 			// Ok
 		}
 		LaTeXGenerator.setPackages("");
 	}
 
+	@AfterClass
+	public static void afterClass() {
+		ViewText.LOGGER.setLevel(Level.OFF);
+	}
+
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
 		super.setUp();
+		// Have to wait for the compilation of the text used during the initialisation of the text shape
+		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
+		WaitForAsyncUtils.waitForFxEvents();
 	}
 
 	@Override
@@ -62,6 +74,7 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 	public void testTextProducesImage() throws InterruptedException, TimeoutException, ExecutionException {
 		model.setText("hello");
 		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertFalse(getImage().isDisable());
 		assertTrue(getText().isDisable());
 		assertTrue(getImage().isVisible());
@@ -72,6 +85,7 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 	public void testInvalidLaTeXTextProducesText() throws InterruptedException, TimeoutException, ExecutionException {
 		model.setText("$hello");
 		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(getImage().isDisable());
 		assertFalse(getText().isDisable());
 		assertFalse(getImage().isVisible());
@@ -82,6 +96,7 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 	public void testInvalidLaTeXTextProducesTooltip() throws InterruptedException, TimeoutException, ExecutionException {
 		model.setText("$hello");
 		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertFalse(getTooltip().getText().isEmpty());
 	}
 
@@ -89,6 +104,7 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 	public void testValidLaTeXTextProducesTooltip() throws InterruptedException, TimeoutException, ExecutionException {
 		model.setText("$hello$");
 		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(HelperTest.getBadaboomMessages(), BadaboomCollector.INSTANCE.isEmpty());
 		assertNull(getTooltip() == null ? "" : getTooltip().getText(), getTooltip());// Junit5 message
 	}
@@ -97,22 +113,18 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 	public void testCompilationDataDuringCompilation() throws InterruptedException, TimeoutException, ExecutionException {
 		model.setText("$hello$");
 		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(HelperTest.getBadaboomMessages(), BadaboomCollector.INSTANCE.isEmpty());
 		assertTrue(view.getCompilationData().isPresent());
 	}
 
 	@Test
-	public void testCompilationDataNullBeforeCompilation() throws InterruptedException, TimeoutException, ExecutionException {
-		model.setText("$hello$");
-		assertFalse(view.getCompilationData().isPresent());
-		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
-	}
-
-	@Test
 	public void testTextProducesImageWhenNotDefaultColour() throws InterruptedException, TimeoutException, ExecutionException {
 		model.setLineColour(ShapeFactory.INST.createColorFX(Color.AQUAMARINE));
+		WaitForAsyncUtils.waitForFxEvents();
 		model.setText("hello");
 		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(HelperTest.getBadaboomMessages(), BadaboomCollector.INSTANCE.isEmpty());
 		assertFalse(getImage().isDisable());
 		assertTrue(getImage().isVisible());
@@ -124,6 +136,7 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 		final Bounds before = view.getBoundsInParent();
 		model.translate(17d, 0d);
 		view.getChildren().get(0).setTranslateX(-17d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(before, view.getBoundsInParent());
 	}
 
@@ -133,6 +146,7 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 		final Bounds before = view.getBoundsInParent();
 		model.translate(0d, -19d);
 		view.getChildren().get(0).setTranslateY(19d);
+		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(before, view.getBoundsInParent());
 	}
 }

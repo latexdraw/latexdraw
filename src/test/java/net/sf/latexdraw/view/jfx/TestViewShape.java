@@ -1,6 +1,8 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.CubicCurveTo;
@@ -31,7 +33,7 @@ abstract class TestViewShape<T extends ViewShape<S>, S extends ISingleShape> imp
 	}
 
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
 		BadaboomCollector.INSTANCE.clear();
 		view = createView();
 		model = view.getModel();

@@ -1,6 +1,8 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
@@ -14,7 +16,7 @@ abstract class TestViewPolyPoint<R extends ViewPathShape<S>, S extends IModifiab
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
 		super.setUp();
 		before = duplicatePath(border.getElements());
 	}

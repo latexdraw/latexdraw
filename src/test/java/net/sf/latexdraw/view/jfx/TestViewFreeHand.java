@@ -2,6 +2,8 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
@@ -20,7 +22,7 @@ public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreeh
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
 		super.setUp();
 		before = duplicatePath(border.getElements());
 	}

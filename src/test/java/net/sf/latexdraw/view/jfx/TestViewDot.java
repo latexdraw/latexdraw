@@ -1,6 +1,8 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
@@ -34,7 +36,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
 		super.setUp();
 		pathBefore = duplicatePath(getPathView().getElements());
 		final Ellipse dotView = getDotView();

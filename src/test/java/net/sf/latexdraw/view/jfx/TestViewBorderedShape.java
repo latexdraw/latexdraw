@@ -1,6 +1,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -31,7 +32,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
 		super.setUp();
 		border = view.getBorder();
 	}

@@ -2,6 +2,8 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.scene.paint.Paint;
@@ -35,7 +37,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
 		super.setUp();
 		mainGridBefore = new ArrayList<>(view.getMaingrid().getElements());
 		subGridBefore = new ArrayList<>(view.getSubgrid().getElements());
