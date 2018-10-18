@@ -11,9 +11,11 @@
 package net.sf.latexdraw.instruments;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -327,7 +329,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	 */
 	public void writeXMLPreferences() {
 		try {
-			try(final FileOutputStream fos = new FileOutputStream(LPath.PATH_PREFERENCES_XML_FILE)) {
+			try(final OutputStream fos = Files.newOutputStream(Path.of(LPath.PATH_PREFERENCES_XML_FILE))) {
 				final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 				final Window win = pathExportField.getScene().getWindow();
 				final Rectangle2D rec = Screen.getPrimary().getBounds();

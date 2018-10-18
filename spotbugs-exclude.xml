@@ -107,6 +107,10 @@
     <Match>
         <Bug pattern="PL_PARALLEL_LISTS" />
     </Match>
+    <!-- has false positives -->
+    <Match>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
+    </Match>
 
     <!-- To fix -->
     <Match>
@@ -144,9 +148,6 @@
     </Match>
     <Match>
         <Bug pattern="MDM_RANDOM_SEED" />
-    </Match>
-    <Match>
-        <Bug pattern="IOI_USE_OF_FILE_STREAM_CONSTRUCTORS" />
     </Match>
     <Match>
         <Bug pattern="SCII_SPOILED_CHILD_INTERFACE_IMPLEMENTOR" />

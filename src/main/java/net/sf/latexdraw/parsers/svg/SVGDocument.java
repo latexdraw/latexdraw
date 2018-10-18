@@ -11,12 +11,13 @@
 package net.sf.latexdraw.parsers.svg;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -557,7 +558,7 @@ public class SVGDocument implements Document {
 			serializer.getDomConfig().setParameter("namespaces", false); //NON-NLS
 			final LSOutput output = impl.createLSOutput();
 			final Charset charset = Charset.defaultCharset();
-			try(final OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(path), charset.newEncoder())) {
+			try(final OutputStreamWriter fw = new OutputStreamWriter(Files.newOutputStream(Path.of(path)), charset.newEncoder())) {
 				output.setEncoding(charset.name());
 				output.setCharacterStream(fw);
 				serializer.write(getDocumentElement(), output);

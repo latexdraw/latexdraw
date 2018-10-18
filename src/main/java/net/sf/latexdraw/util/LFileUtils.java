@@ -12,7 +12,6 @@ package net.sf.latexdraw.util;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -108,7 +107,7 @@ public final class LFileUtils {
 	 */
 	public Optional<File> saveFile(final String path, final String text) {
 		boolean ok = true;
-		try(final OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(path))) {
+		try(final OutputStreamWriter osw = new OutputStreamWriter(Files.newOutputStream(Path.of(path)))) {
 			osw.append(text);
 		}catch(final IOException | SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
@@ -126,7 +125,8 @@ public final class LFileUtils {
 	public String readTextFile(final String path) {
 		final StringBuilder txt = new StringBuilder();
 
-		try(final InputStream is = getClass().getResourceAsStream(path); final Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8); //NON-NLS
+		try(final InputStream is = getClass().getResourceAsStream(path);
+			final Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
 			final BufferedReader br = new BufferedReader(reader)) {
 			String line = br.readLine();
 
