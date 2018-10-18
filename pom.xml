@@ -48,18 +48,27 @@
                     <target>${java.version}</target>
                     <release>${java.version}</release>
                     <showWarnings>true</showWarnings>
-                    <compilerArgs>
+                    <compilerArgs combine.children="append">
                         <arg>-XDcompilePolicy=simple</arg>
-                        <arg>-Xplugin:ErrorProne -XepExcludedPaths:.*/(generated-sources|test)/.* -Xep:StringSplitter:OFF -Xep:DefaultCharset:OFF -Xep:JUnit4TestNotRun:OFF</arg>
-                        <arg>-Xlint</arg>
-                        <arg>-Xlint:-unchecked</arg>
-                        <arg>-Xlint:-serial</arg>
+                        <arg>-Xplugin:ErrorProne
+                            -Xep:InvalidParam:ERROR
+                            -Xep:InvalidTag:ERROR
+                            -Xep:InvalidThrows:ERROR
+                            -Xep:TypeParameterNaming:ERROR
+                            -Xep:ClassNamedLikeTypeParameter:ERROR
+                            -Xep:EqualsBrokenForNull:ERROR
+                            -Xep:RedundantThrows:ERROR
+                            -Xep:WildcardImport:ERROR
+                            -Xep:LambdaFunctionalInterface:ERROR
+                            -Xep:StringSplitter:OFF
+                            -Xep:DefaultCharset:OFF
+                            -XepExcludedPaths:.*/(generated-sources|test)/.*</arg>
                     </compilerArgs>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>com.google.errorprone</groupId>
                             <artifactId>error_prone_core</artifactId>
-                            <version>2.3.2-SNAPSHOT</version>
+                            <version>2.3.2</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -197,26 +206,26 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.2</version>
-                <executions>
-                    <execution>
-                        <id>pre-unit-test</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>post-unit-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.jacoco</groupId>-->
+                <!--<artifactId>jacoco-maven-plugin</artifactId>-->
+                <!--<version>0.8.2</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>pre-unit-test</id>-->
+                        <!--<goals>-->
+                            <!--<goal>prepare-agent</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>post-unit-test</id>-->
+                        <!--<phase>test</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>report</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
 
             <!--<plugin>-->
                 <!--<groupId>sh.tak.appbundler</groupId>-->
@@ -253,14 +262,14 @@
                     <consoleOutput>true</consoleOutput>
                     <linkXRef>false</linkXRef>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>checkstyle</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>checkstyle</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
                 <dependencies>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
@@ -303,21 +312,21 @@
                     <threshold>Low</threshold>
                     <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>findbugs-test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>check</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>findbugs-test-compile</id>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>check</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
                 <dependencies>
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
