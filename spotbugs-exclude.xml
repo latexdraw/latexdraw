@@ -1,0 +1,65 @@
+<FindBugsFilter>
+    <Match>
+        <Class name="~.*\.Test.*"/>
+    </Match>
+    <Match>
+        <Package name="net.sf.latexdraw.data"/>
+    </Match>
+    <Match>
+        <Class name="net.sf.latexdraw.HelperTest"/>
+    </Match>
+    <Match>
+        <Class name="net.sf.latexdraw.parsers.pst.PSTLexer"/>
+    </Match>
+    <Match>
+        <Class name="net.sf.latexdraw.parsers.pst.PSTParser"/>
+    </Match>
+    <Match>
+        <Bug pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" />
+    </Match>
+    <Match>
+        <Bug pattern="SE_NO_SERIALVERSIONID" />
+    </Match>
+    <Match>
+        <Bug pattern="URF_UNREAD_FIELD" />
+    </Match>
+    <Match>
+        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+    </Match>
+    <Match>
+        <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON" />
+    </Match>
+    <Match>
+        <Bug pattern="SF_SWITCH_NO_DEFAULT" />
+    </Match>
+    <Match>
+        <Bug pattern="DB_DUPLICATE_SWITCH_CLAUSES" />
+    </Match>
+    <Match>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" />
+    </Match>
+    <Match>
+        <Bug pattern="SS_SHOULD_BE_STATIC" />
+    </Match>
+    <Match>
+        <Bug pattern="DM_CONVERT_CASE" />
+    </Match>
+    <Match>
+        <Bug pattern="DMI_HARDCODED_ABSOLUTE_FILENAME" />
+    </Match>
+    <Match>
+        <Bug pattern="DM_DEFAULT_ENCODING" />
+    </Match>
+    <Match>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE" />
+    </Match>
+    <Match>
+        <Bug pattern="NM_CONFUSING" />
+    </Match>
+    <Match>
+        <Bug pattern="EQ_DOESNT_OVERRIDE_EQUALS" />
+    </Match>
+    <Match>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE" />
+    </Match>
+</FindBugsFilter>
