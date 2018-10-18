@@ -140,7 +140,6 @@
                 <version>2.22.1</version>
                 <configuration>
                     <testFailureIgnore>false</testFailureIgnore>
-                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
                     <!--<skipTests>true</skipTests>-->
                     <!--<reuseForks>false</reuseForks>-->
                     <argLine>@{argLine}
@@ -307,10 +306,17 @@
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>3.1.6</version>
                 <configuration>
-                    <includeTests>true</includeTests>
+                    <includeTests>false</includeTests>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
                     <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.mebigfatguy.fb-contrib</groupId>
+                            <artifactId>fb-contrib</artifactId>
+                            <version>7.4.3.sb</version>
+                        </plugin>
+                    </plugins>
                 </configuration>
                 <executions>
                     <execution>
