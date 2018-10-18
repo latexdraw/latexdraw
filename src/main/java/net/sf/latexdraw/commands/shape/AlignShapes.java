@@ -192,7 +192,7 @@ public class AlignShapes extends AlignDistribCmd {
 
 	@Override
 	public boolean canDo() {
-		return shape.isPresent() && !shape.get().isEmpty() && canvas != null && alignment != null;
+		return canvas != null && alignment != null && shape.isPresent() && !shape.get().isEmpty();
 	}
 
 	@Override

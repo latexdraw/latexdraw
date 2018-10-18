@@ -43,7 +43,7 @@ public class DistributeShapes extends AlignDistribCmd {
 
 	@Override
 	public boolean canDo() {
-		return shape.isPresent() && !shape.get().isEmpty() && canvas != null && distribution != null;
+		return canvas != null && distribution != null && shape.isPresent() && !shape.get().isEmpty();
 	}
 
 	/**

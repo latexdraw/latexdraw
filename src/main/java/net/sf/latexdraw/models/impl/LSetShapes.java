@@ -80,7 +80,7 @@ interface LSetShapes extends ISetShapesProp {
 	@Override
 	default IShape removeShape(final int i) {
 		final List<IShape> shapes = getShapes();
-		if(shapes.isEmpty() || i < -1 || i >= shapes.size()) {
+		if(i < -1 || shapes.isEmpty() || i >= shapes.size()) {
 			return null;
 		}
 		if(i == -1) {

@@ -41,7 +41,7 @@ class LineArcProp implements ILineArcProp {
 
 	@Override
 	public void setLineArc(final double arc) {
-		if(MathUtils.INST.isValidCoord(arc) && arc >= 0d && arc <= 1d) {
+		if(arc >= 0d && arc <= 1d && MathUtils.INST.isValidCoord(arc)) {
 			frameArc.set(arc);
 		}
 	}

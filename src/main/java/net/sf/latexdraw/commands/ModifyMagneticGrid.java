@@ -106,7 +106,7 @@ public class ModifyMagneticGrid extends ModifyValue<Object> implements Undoable 
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && grid != null;
+		return grid != null && super.canDo();
 	}
 
 

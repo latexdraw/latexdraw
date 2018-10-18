@@ -137,9 +137,6 @@
         <Bug pattern="NSE_NON_SYMMETRIC_EQUALS" />
     </Match>
     <Match>
-        <Bug pattern="SEO_SUBOPTIMAL_EXPRESSION_ORDER" />
-    </Match>
-    <Match>
         <Bug pattern="CLI_CONSTANT_LIST_INDEX" />
     </Match>
     <Match>

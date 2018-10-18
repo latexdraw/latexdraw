@@ -351,7 +351,7 @@ abstract class LShape implements ISingleShape {
 	public IPoint getPtAt(final int position) {
 		final IPoint point;
 
-		if(points.isEmpty() || position < -1 || position >= points.size()) {
+		if(position < -1 || points.isEmpty() || position >= points.size()) {
 			point = null;
 		}else {
 			point = position == -1 ? points.get(points.size() - 1) : points.get(position);
@@ -548,14 +548,14 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setHatchingsSep(final double sep) {
-		if(MathUtils.INST.isValidCoord(sep) && sep >= 0d && isInteriorStylable()) {
+		if(sep >= 0d && MathUtils.INST.isValidCoord(sep) && isInteriorStylable()) {
 			hatchingsSep.set(sep);
 		}
 	}
 
 	@Override
 	public void setHatchingsWidth(final double width) {
-		if(MathUtils.INST.isValidCoord(width) && width > 0d && isInteriorStylable()) {
+		if(width > 0d && MathUtils.INST.isValidCoord(width) && isInteriorStylable()) {
 			hatchingsWidth.set(width);
 		}
 	}
@@ -648,7 +648,7 @@ abstract class LShape implements ISingleShape {
 
 	@Override
 	public void setShadowSize(final double size) {
-		if(isShadowable() && size > 0d && MathUtils.INST.isValidCoord(size)) {
+		if(size > 0d && isShadowable() && MathUtils.INST.isValidCoord(size)) {
 			shadowSize.set(size);
 		}
 	}

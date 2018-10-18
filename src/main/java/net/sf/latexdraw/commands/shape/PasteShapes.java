@@ -43,7 +43,7 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && copy != null && grid != null;
+		return copy != null && grid != null && super.canDo();
 	}
 
 	@Override

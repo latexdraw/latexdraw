@@ -72,7 +72,7 @@ class LDrawing implements IDrawing, LSetShapes {
 	@Override
 	public IShape removeShape(final int i) {
 		// Must be removed from the selection before removing from the main list (otherwise mapping selection2border will fail.
-		if(!shapes.isEmpty() && i >= -1 && i < shapes.size()) {
+		if(i >= -1 && !shapes.isEmpty() && i < shapes.size()) {
 			if(i == -1) {
 				selection.removeShape(shapes.get(shapes.size() - 1));
 			}else {

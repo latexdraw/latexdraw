@@ -126,7 +126,7 @@ public class Export extends CommandImpl {
 
 	@Override
 	public boolean hadEffect() {
-		return super.hadEffect() && exported;
+		return exported && super.hadEffect();
 	}
 
 

@@ -384,7 +384,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 			final Node node = nl.item(i);
 
 			// Must be a latexdraw tag.
-			if(node != null && uri.equals(node.getNamespaceURI()) && !generalPreferences) {
+			if(node != null  && !generalPreferences && uri.equals(node.getNamespaceURI())) {
 				if(node.getNodeName().endsWith(LNamespace.XML_ZOOM)) {
 					setZoom(Double.NaN, Double.NaN, MathUtils.INST.parserDouble(node.getTextContent()).orElse(1d));
 				}

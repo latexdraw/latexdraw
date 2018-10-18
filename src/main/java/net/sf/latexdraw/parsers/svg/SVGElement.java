@@ -382,7 +382,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 		final boolean uriEq = uri == null ? elt.lookupNamespaceURI(null) == null : uri.equals(elt.lookupNamespaceURI(null));
 		final boolean attrEq = attributes == null ? elt.attributes == null : attributes.equals(elt.attributes);
 
-		return name.equals(elt.name) && getUsablePrefix().equals(elt.getUsablePrefix()) && uriEq && valEq && attrEq;
+		return uriEq && valEq && attrEq && name.equals(elt.name) && getUsablePrefix().equals(elt.getUsablePrefix());
 	}
 
 
@@ -1158,7 +1158,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 		String value = getAttribute((prefix == null ? "" : prefix) + attrName); //NON-NLS
 
-		if(!value.isEmpty() && stylesCSS != null) {
+		if(stylesCSS != null && !value.isEmpty()) {
 			value = stylesCSS.get(attrName);
 		}
 

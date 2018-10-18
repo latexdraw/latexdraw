@@ -111,7 +111,7 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && code != null;
+		return code != null && super.canDo();
 	}
 
 	@Override

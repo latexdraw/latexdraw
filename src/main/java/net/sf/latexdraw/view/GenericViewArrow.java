@@ -230,7 +230,7 @@ public interface GenericViewArrow {
 		final IArrow arrow = getArrow();
 		final ILine arrowLine = arrow.getArrowLine();
 
-		if(arrow.getArrowStyle() == ArrowStyle.NONE || arrowLine == null || !arrow.hasStyle()) {
+		if(arrowLine == null || arrow.getArrowStyle() == ArrowStyle.NONE || !arrow.hasStyle()) {
 			return;
 		}
 

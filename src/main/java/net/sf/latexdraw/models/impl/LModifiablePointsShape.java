@@ -57,7 +57,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public boolean setPoint(final double x, final double y, final int position) {
-		if(!MathUtils.INST.isValidPt(x, y) || position < -1 || position > points.size() || points.isEmpty()) {
+		if(position < -1 || !MathUtils.INST.isValidPt(x, y) || position > points.size() || points.isEmpty()) {
 			return false;
 		}
 

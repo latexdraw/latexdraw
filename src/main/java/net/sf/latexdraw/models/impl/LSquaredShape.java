@@ -27,7 +27,7 @@ abstract class LSquaredShape extends LPositionShape implements ISquaredShape {
 	LSquaredShape(final IPoint tl, final double width) {
 		super(tl);
 
-		if(!(MathUtils.INST.isValidPt(tl) && width > 0 && MathUtils.INST.isValidCoord(width))) {
+		if(width <= 0 || !MathUtils.INST.isValidPt(tl) || !MathUtils.INST.isValidCoord(width)) {
 			throw new IllegalArgumentException();
 		}
 
@@ -54,7 +54,7 @@ abstract class LSquaredShape extends LPositionShape implements ISquaredShape {
 
 	@Override
 	public void setWidth(final double width) {
-		if(MathUtils.INST.isValidCoord(width) && width > 0) {
+		if(width > 0 && MathUtils.INST.isValidCoord(width)) {
 			final IPoint pt = points.get(points.size() - 1);
 			final double xPos = pt.getX() + width;
 			final double yPos = pt.getY() - width;

@@ -101,11 +101,11 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	protected void configureBindings() {
 		// Key Enter to validate the text.
 		keyNodeBinder(i -> new ModifyShapeProperty<>(ShapeProperties.TEXT, ShapeFactory.INST.createGroup(text), textField.getText())).
-			on(textField).with(KeyCode.ENTER).when(i -> !pencil.isActivated() && text != null && !textField.getText().isEmpty()).bind();
+			on(textField).with(KeyCode.ENTER).when(i -> text != null && !pencil.isActivated() && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to validate the equation of a plot shape.
 		keyNodeBinder(i -> new ModifyShapeProperty<>(ShapeProperties.PLOT_EQ, ShapeFactory.INST.createGroup(plot), textField.getText())).
-			on(textField).with(KeyCode.ENTER).when(i -> !pencil.isActivated() && plot != null && checkValidPlotFct()).bind();
+			on(textField).with(KeyCode.ENTER).when(i -> plot != null && !pencil.isActivated() && checkValidPlotFct()).bind();
 
 		// Key Enter to add a text shape.
 		keyNodeBinder(i -> {

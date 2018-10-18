@@ -73,7 +73,7 @@ public class SVGRectElement extends SVGElement implements SVGRectParseTrait {
 		final double vrx = getRx();
 		final double vry = getRy();
 
-		return !(Double.isNaN(vWidth) || Double.isNaN(vHeight) || vWidth < 0d || vHeight < 0d || vrx < 0d || vry < 0d);
+		return !(vWidth < 0d || vHeight < 0d || vrx < 0d || vry < 0d || Double.isNaN(vWidth) || Double.isNaN(vHeight));
 
 	}
 

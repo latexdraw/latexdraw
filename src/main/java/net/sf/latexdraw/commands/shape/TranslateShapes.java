@@ -71,8 +71,8 @@ public class TranslateShapes extends ShapeCmdImpl<IGroup> implements Undoable, M
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && drawing != null && shape.isPresent() && !shape.get().isEmpty() && MathUtils.INST.isValidPt(tx, ty) &&
-			(!MathUtils.INST.equalsDouble(tx, 0d) || !MathUtils.INST.equalsDouble(ty, 0d));
+		return drawing != null && shape.isPresent() && !shape.get().isEmpty() && MathUtils.INST.isValidPt(tx, ty) &&
+			(!MathUtils.INST.equalsDouble(tx, 0d) || !MathUtils.INST.equalsDouble(ty, 0d)) && super.canDo();
 	}
 
 	@Override

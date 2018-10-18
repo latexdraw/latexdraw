@@ -50,7 +50,7 @@ public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoa
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && shapes != null;
+		return shapes != null && super.canDo();
 	}
 
 

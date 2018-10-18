@@ -142,7 +142,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public IPoint getFirstCtrlPtAt(final int position) {
-		if(firstCtrlPts.isEmpty() || position < -1 || position >= firstCtrlPts.size()) {
+		if(position < -1 || firstCtrlPts.isEmpty() || position >= firstCtrlPts.size()) {
 			return null;
 		}
 		return position == -1 ? firstCtrlPts.get(firstCtrlPts.size() - 1) : firstCtrlPts.get(position);
@@ -174,7 +174,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public IPoint getSecondCtrlPtAt(final int position) {
-		if(secondCtrlPts.isEmpty() || position < -1 || position >= secondCtrlPts.size()) {
+		if(position < -1 || secondCtrlPts.isEmpty() || position >= secondCtrlPts.size()) {
 			return null;
 		}
 		return position == -1 ? secondCtrlPts.get(secondCtrlPts.size() - 1) : secondCtrlPts.get(position);
@@ -189,7 +189,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setXFirstCtrlPt(final double x, final int id) {
-		if(MathUtils.INST.isValidCoord(x) && id >= 0 && id < firstCtrlPts.size()) {
+		if(id >= 0 && MathUtils.INST.isValidCoord(x) && id < firstCtrlPts.size()) {
 			firstCtrlPts.get(id).setX(x);
 		}
 	}
@@ -197,7 +197,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setXSecondCtrlPt(final double x, final int id) {
-		if(MathUtils.INST.isValidCoord(x) && id >= 0 && id < secondCtrlPts.size()) {
+		if(id >= 0 && MathUtils.INST.isValidCoord(x) && id < secondCtrlPts.size()) {
 			secondCtrlPts.get(id).setX(x);
 		}
 	}
@@ -205,7 +205,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setYFirstCtrlPt(final double y, final int id) {
-		if(MathUtils.INST.isValidCoord(y) && id >= 0 && id < firstCtrlPts.size()) {
+		if(id >= 0 && MathUtils.INST.isValidCoord(y) && id < firstCtrlPts.size()) {
 			firstCtrlPts.get(id).setY(y);
 		}
 	}
@@ -213,7 +213,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setYSecondCtrlPt(final double y, final int id) {
-		if(MathUtils.INST.isValidCoord(y) && id >= 0 && id < secondCtrlPts.size()) {
+		if(id >= 0 && MathUtils.INST.isValidCoord(y) && id < secondCtrlPts.size()) {
 			secondCtrlPts.get(id).setY(y);
 		}
 	}

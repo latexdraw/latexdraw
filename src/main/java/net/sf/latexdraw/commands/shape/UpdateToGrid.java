@@ -53,7 +53,7 @@ public class UpdateToGrid extends ShapeCmdImpl<IGroup> implements Undoable, Modi
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && grid != null;
+		return grid != null && super.canDo();
 	}
 
 	@Override

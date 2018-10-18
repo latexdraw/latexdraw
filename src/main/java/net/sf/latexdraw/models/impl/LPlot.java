@@ -57,7 +57,7 @@ class LPlot extends LPositionShape implements IPlot {
 	LPlot(final IPoint pt, final double xMin, final double xMax, final String equationPlot, final boolean polarCoord) {
 		super(pt);
 
-		if(!(MathUtils.INST.isValidPt(pt) && xMin < xMax && MathUtils.INST.isValidCoord(xMin) && MathUtils.INST.isValidCoord(xMax))) {
+		if(xMin >= xMax || !MathUtils.INST.isValidPt(pt) || !MathUtils.INST.isValidCoord(xMin) || !MathUtils.INST.isValidCoord(xMax)) {
 			throw new IllegalArgumentException("Parameter not valid: " + xMin + " " + xMax + " " + MathUtils.INST.isValidPt(pt));
 		}
 

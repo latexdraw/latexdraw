@@ -281,19 +281,13 @@ public class SVGDocument implements Document {
 
 	@Override
 	public boolean isEqualNode(final Node node) {
-		final boolean equal;
-
 		if(node instanceof SVGDocument) {
 			final SVGDocument doc = (SVGDocument) node;
 			final boolean encod = xmlEncoding == null ? doc.xmlEncoding == null : xmlEncoding.equals(doc.xmlEncoding);
 			final boolean uri = documentURI == null ? doc.documentURI == null : documentURI.equals(doc.documentURI);
-
-			equal = xmlStandalone == doc.xmlStandalone && encod && root.isEqualNode(doc.root) && uri;
-		}else {
-			equal = false;
+			return uri && encod && xmlStandalone == doc.xmlStandalone && root.isEqualNode(doc.root);
 		}
-
-		return equal;
+		return false;
 	}
 
 

@@ -128,7 +128,7 @@ public class SVGCircleElement extends SVGElement {
 	@Override
 	public boolean checkAttributes() {
 		final double r = getR();
-		return !Double.isNaN(r) && r >= 0d;
+		return r >= 0d && !Double.isNaN(r);
 	}
 
 

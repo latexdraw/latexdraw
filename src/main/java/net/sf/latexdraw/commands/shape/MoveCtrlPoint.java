@@ -52,7 +52,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && shape != null && getIndexCtrlPt() != -1;
+		return shape != null && getIndexCtrlPt() != -1 && super.canDo();
 	}
 
 	private void move(final IPoint firstPt, final IPoint sndPt) {

@@ -62,7 +62,7 @@ public class SVGImageElement extends SVGElement implements SVGRectParseTrait {
 	public boolean checkAttributes() {
 		final double vWidth = getWidth();
 		final double vHeight = getHeight();
-		return !(Double.isNaN(vWidth) || Double.isNaN(vHeight) || vWidth < 0d || vHeight < 0d);
+		return !(vWidth < 0d || vHeight < 0d || Double.isNaN(vWidth) || Double.isNaN(vHeight));
 	}
 
 

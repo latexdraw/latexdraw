@@ -96,7 +96,7 @@ public final class LPath {
 			int cpt = 0;
 			final int max = 10;
 
-			while(!dir.exists() && cpt < max) {
+			while(cpt < max && !dir.exists()) {
 				dir = new File((char) ('C' + cpt++) + ":\\ProgramData"); //NON-NLS
 			}
 

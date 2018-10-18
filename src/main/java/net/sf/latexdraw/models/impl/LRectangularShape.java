@@ -80,7 +80,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 
 	@Override
 	public void setWidth(final double width) {
-		if(MathUtils.INST.isValidCoord(width) && width > 0) {
+		if(width > 0 && MathUtils.INST.isValidCoord(width)) {
 			final double xPos = points.get(points.size() - 1).getX() + width;
 			points.get(1).setX(xPos);
 			points.get(2).setX(xPos);
@@ -89,7 +89,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 
 	@Override
 	public void setHeight(final double height) {
-		if(MathUtils.INST.isValidCoord(height) && height > 0) {
+		if(height > 0 && MathUtils.INST.isValidCoord(height)) {
 			final double yPos = points.get(points.size() - 1).getY() - height;
 			points.get(0).setY(yPos);
 			points.get(1).setY(yPos);

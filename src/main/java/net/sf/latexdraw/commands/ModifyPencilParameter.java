@@ -36,13 +36,13 @@ public class ModifyPencilParameter<T> extends ShapePropertyCmd<T> {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && pencil != null;
+		return pencil != null && super.canDo();
 	}
 
 
 	@Override
 	protected boolean isPropertySupported() {
-		return super.isPropertySupported() && property != ShapeProperties.TEXT;
+		return property != ShapeProperties.TEXT && super.isPropertySupported();
 	}
 
 

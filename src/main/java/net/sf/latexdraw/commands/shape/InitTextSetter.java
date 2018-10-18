@@ -49,7 +49,7 @@ public class InitTextSetter extends ActivateInstrument {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && MathUtils.INST.isValidPt(position) && setter != null && (text != null || textShape != null || plotShape != null);
+		return setter != null && (text != null || textShape != null || plotShape != null) && MathUtils.INST.isValidPt(position) && super.canDo();
 	}
 
 	@Override
