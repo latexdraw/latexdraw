@@ -220,7 +220,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		Optional.ofNullable(prefMap.get(LNamespace.XML_DISPLAY_GRID)).map(node -> !Boolean.parseBoolean(node.getTextContent())).
 			ifPresent(node -> styleList.getSelectionModel().select(GridStyle.NONE));
 
-		Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_GAP)).ifPresent(node -> persoGridGapField.getValueFactory().setValue(Integer.parseInt(node.getTextContent())));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_GAP)).ifPresent(node -> persoGridGapField.getValueFactory().setValue(Integer.valueOf(node.getTextContent())));
 
 		final Node langNode = prefMap.get(LNamespace.XML_LANG);
 		final Locale locale = langNode == null ? Locale.US : Locale.forLanguageTag(langNode.getTextContent());
@@ -248,7 +248,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 		if(nnm != null && nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES) != null) {
 			Optional.ofNullable(nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES)).
-				ifPresent(attr -> nbRecentFilesField.getValueFactory().setValue(Integer.parseInt(attr.getTextContent())));
+				ifPresent(attr -> nbRecentFilesField.getValueFactory().setValue(Integer.valueOf(attr.getTextContent())));
 		}
 
 		for(int i = 0, size = nl.getLength(); i < size; i++) {

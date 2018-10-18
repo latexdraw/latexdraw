@@ -49,7 +49,7 @@ public final class MathUtils {
 			return Optional.empty();
 		}
 		try {
-			return Optional.of(Double.parseDouble(str));
+			return Optional.of(Double.valueOf(str));
 		}catch(final NumberFormatException ex) {
 			return Optional.empty();
 		}

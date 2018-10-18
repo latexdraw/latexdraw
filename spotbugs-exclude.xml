@@ -202,7 +202,4 @@
     <Match>
         <Bug pattern="PL_PARALLEL_LISTS" />
     </Match>
-    <Match>
-        <Bug pattern="NAB_NEEDLESS_BOXING_VALUEOF" />
-    </Match>
 </FindBugsFilter>
