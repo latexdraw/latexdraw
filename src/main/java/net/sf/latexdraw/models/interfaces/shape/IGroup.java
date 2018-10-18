@@ -11,6 +11,7 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.util.List;
+import java.util.Optional;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
@@ -41,7 +42,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
-	List<java.lang.Boolean> getPlotPolarList();
+	List<Optional<Boolean>> getPlotPolarList();
 
 	/**
 	 * Sets if polar coordinates for the plots of the group.
@@ -49,14 +50,14 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
 	 */
-	void setPlotPolarList(final List<java.lang.Boolean> values);
+	void setPlotPolarList(final List<Optional<Boolean>> values);
 
 	/**
 	 * @return The list of max X of the plots contained by the group.
 	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
-	List<java.lang.Double> getPlotMaxXList();
+	List<Optional<Double>> getPlotMaxXList();
 
 	/**
 	 * Sets the max X of the plots of the group.
@@ -64,14 +65,14 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
 	 */
-	void setPlotMaxXList(final List<java.lang.Double> values);
+	void setPlotMaxXList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of min X of the plots contained by the group.
 	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
-	List<java.lang.Double> getPlotMinXList();
+	List<Optional<Double>> getPlotMinXList();
 
 	/**
 	 * Sets the min X of the plots of the group.
@@ -79,14 +80,14 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
 	 */
-	void setPlotMinXList(final List<java.lang.Double> values);
+	void setPlotMinXList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of number of plotted points the shapes contained by the group.
 	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
-	List<java.lang.Integer> getNbPlottedPointsList();
+	List<Optional<Integer>> getNbPlottedPointsList();
 
 	/**
 	 * Sets the number of plotted points of the shapes of the group.
@@ -94,14 +95,14 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
 	 */
-	void setNbPlottedPointsList(final List<java.lang.Integer> values);
+	void setNbPlottedPointsList(final List<Optional<Integer>> values);
 
 	/**
 	 * @return The list of the plot style of the shapes contained by the group.
 	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
-	List<PlotStyle> getPlotStyleList();
+	List<Optional<PlotStyle>> getPlotStyleList();
 
 	/**
 	 * Sets the plot style of the shapes of the group.
@@ -109,14 +110,14 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
 	 */
-	void setPlotStyleList(final List<PlotStyle> values);
+	void setPlotStyleList(final List<Optional<PlotStyle>> values);
 
 	/**
 	 * @return The list of Y-scale of the shapes contained by the group.
 	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
-	List<Double> getYScaleList();
+	List<Optional<Double>> getYScaleList();
 
 	/**
 	 * Sets the Y-scale shapes of the group.
@@ -124,7 +125,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
 	 */
-	void setYScaleList(final List<Double> values);
+	void setYScaleList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of X scale of the shapes contained by the group.
@@ -132,7 +133,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getXScaleList();
+	List<Optional<Double>> getXScaleList();
 
 	/**
 	 * Sets the X-scale shapes of the group.
@@ -140,7 +141,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
 	 */
-	void setXScaleList(final List<Double> values);
+	void setXScaleList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of plot equations of the shapes contained by the group.
@@ -148,7 +149,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<String> getPlotEquationList();
+	List<Optional<String>> getPlotEquationList();
 
 	/**
 	 * Sets the equation of plot shapes of the group.
@@ -156,7 +157,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
 	 */
-	void setPlotEquationList(final List<String> values);
+	void setPlotEquationList(final List<Optional<String>> values);
 
 	/**
 	 * @return The list of the border positions of the shapes contained by the group.
@@ -164,7 +165,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<BorderPos> getBordersPositionList();
+	List<Optional<BorderPos>> getBordersPositionList();
 
 	/**
 	 * Sets the border position of the shapes of the group.
@@ -173,7 +174,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setBordersPositionList(final List<BorderPos> list);
+	void setBordersPositionList(final List<Optional<BorderPos>> list);
 
 	/**
 	 * @return The list of line colours of the shapes contained by the group.
@@ -181,7 +182,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Color> getLineColourList();
+	List<Optional<Color>> getLineColourList();
 
 	/**
 	 * Sets the line colour of the shapes of the group.
@@ -190,7 +191,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setLineColourList(final List<Color> list);
+	void setLineColourList(final List<Optional<Color>> list);
 
 	/**
 	 * @return The list of start angle of the arc shapes contained by the group.
@@ -198,7 +199,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getAngleStartList();
+	List<Optional<Double>> getAngleStartList();
 
 	/**
 	 * Sets the starting angle of the arcable shapes of the group.
@@ -207,7 +208,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setAngleStartList(final List<Double> values);
+	void setAngleStartList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of end angle of the arc shapes contained by the group.
@@ -215,7 +216,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getAngleEndList();
+	List<Optional<Double>> getAngleEndList();
 
 	/**
 	 * Sets the ending angle of the arcable shapes of the group.
@@ -224,7 +225,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setAngleEndList(final List<Double> values);
+	void setAngleEndList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of arc styles of the arc shapes contained by the group.
@@ -232,7 +233,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<ArcStyle> getArcStyleList();
+	List<Optional<ArcStyle>> getArcStyleList();
 
 	/**
 	 * Sets the arc style of the arcable shapes of the group.
@@ -241,7 +242,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setArcStyleList(final List<ArcStyle> values);
+	void setArcStyleList(final List<Optional<ArcStyle>> values);
 
 	/**
 	 * @param i The index of the arrows to get.
@@ -250,24 +251,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<ArrowStyle> getArrowStyleList(final int i);
-
-	/**
-	 * @return The list of the rotation angles of the shapes contained by the group.
-	 * If a shape of the group does not support the rotation angle property, null is added
-	 * to the list. The list cannot be null.
-	 * @since 3.0
-	 */
-	List<Double> getRotationAngleList();
-
-	/**
-	 * Sets the rotation angle of the shapes of the group.
-	 * @param values The list of values to use. Its must must equals the number of
-	 * shapes of the group. If an element of the list is null, its corresponding
-	 * shape will not be set.
-	 * @since 3.0
-	 */
-	void setRotationAngleList(final List<Double> values);
+	List<Optional<ArrowStyle>> getArrowStyleList(final int i);
 
 	/**
 	 * @return The list of the text positions the shapes contained by the group.
@@ -275,7 +259,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<TextPosition> getTextPositionList();
+	List<Optional<TextPosition>> getTextPositionList();
 
 	/**
 	 * Sets the text position of the text shapes of the group.
@@ -284,7 +268,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setTextPositionList(final List<TextPosition> values);
+	void setTextPositionList(final List<Optional<TextPosition>> values);
 
 	/**
 	 * @return The list of the text contents of the shapes contained by the group.
@@ -292,7 +276,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<String> getTextList();
+	List<Optional<String>> getTextList();
 
 	/**
 	 * Sets the text content of the text shapes of the group.
@@ -301,7 +285,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setTextList(final List<String> values);
+	void setTextList(final List<Optional<String>> values);
 
 	/**
 	 * @return The list of the hatchings angle of the shapes contained by the group.
@@ -309,7 +293,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getHatchingsAngleList();
+	List<Optional<Double>> getHatchingsAngleList();
 
 	/**
 	 * Sets the hatchings angle of the shapes of the group.
@@ -318,7 +302,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setHatchingsAngleList(final List<Double> values);
+	void setHatchingsAngleList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of the hatchings width of the shapes contained by the group.
@@ -326,7 +310,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getHatchingsWidthList();
+	List<Optional<Double>> getHatchingsWidthList();
 
 	/**
 	 * Sets the hatchings width of the shapes of the group.
@@ -335,7 +319,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setHatchingsWidthList(final List<Double> values);
+	void setHatchingsWidthList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of the hatchings size of the shapes contained by the group.
@@ -343,7 +327,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getHatchingsSepList();
+	List<Optional<Double>> getHatchingsSepList();
 
 	/**
 	 * Sets the hatchings gap of the shapes of the group.
@@ -352,7 +336,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setHatchingsSepList(final List<Double> values);
+	void setHatchingsSepList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of the gradient angle of the shapes contained by the group.
@@ -360,7 +344,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getGradAngleList();
+	List<Optional<Double>> getGradAngleList();
 
 	/**
 	 * Sets the starting angle of the gradient of the shapes of the group.
@@ -369,7 +353,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGradAngleList(final List<Double> values);
+	void setGradAngleList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of the gradient middle point of the shapes contained by the group.
@@ -377,7 +361,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getGradMidPtList();
+	List<Optional<Double>> getGradMidPtList();
 
 	/**
 	 * Sets the middle point reference of the gradient of the shapes of the group.
@@ -386,7 +370,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGradMidPtList(final List<Double> values);
+	void setGradMidPtList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of the line arc values of the shapes contained by the group.
@@ -394,7 +378,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getLineArcList();
+	List<Optional<Double>> getLineArcList();
 
 	/**
 	 * Sets the line arc value of the line-arcable shapes of the group.
@@ -403,7 +387,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setLineArcList(final List<Double> values);
+	void setLineArcList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of filling colours of the shapes contained by the group.
@@ -411,7 +395,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Color> getFillingColList();
+	List<Optional<Color>> getFillingColList();
 
 	/**
 	 * Sets the filling colour of the shapes of the group.
@@ -420,7 +404,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setFillingColList(final List<Color> values);
+	void setFillingColList(final List<Optional<Color>> values);
 
 	/**
 	 * @return The list of hatchings colours of the shapes contained by the group.
@@ -428,7 +412,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Color> getHatchingsColList();
+	List<Optional<Color>> getHatchingsColList();
 
 	/**
 	 * Sets the hatchings colour of the shapes of the group.
@@ -437,7 +421,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setHatchingsColList(final List<Color> values);
+	void setHatchingsColList(final List<Optional<Color>> values);
 
 	/**
 	 * @return The list of boolean defining if the shapes contained by the group have double borders.
@@ -445,7 +429,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Boolean> hasDbleBordList();
+	List<Optional<Boolean>> hasDbleBordList();
 
 	/**
 	 * @return The list of double border width of the shapes contained by the group.
@@ -453,7 +437,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getDbleBordSepList();
+	List<Optional<Double>> getDbleBordSepList();
 
 	/**
 	 * Sets the double border gap of the shapes of the group.
@@ -462,7 +446,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setDbleBordSepList(final List<Double> values);
+	void setDbleBordSepList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of double border colours of the shapes contained by the group.
@@ -470,7 +454,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Color> getDbleBordColList();
+	List<Optional<Color>> getDbleBordColList();
 
 	/**
 	 * Sets the double borders colour of the shapes of the group.
@@ -479,7 +463,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setDbleBordColList(final List<Color> values);
+	void setDbleBordColList(final List<Optional<Color>> values);
 
 	/**
 	 * @return The list of boolean defining if the shapes contained by the group have shadow.
@@ -487,7 +471,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Boolean> hasShadowList();
+	List<Optional<Boolean>> hasShadowList();
 
 	/**
 	 * @return The list of shadow size of the shapes contained by the group.
@@ -495,7 +479,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getShadowSizeList();
+	List<Optional<Double>> getShadowSizeList();
 
 	/**
 	 * Sets the shadow sizes of the shapes of the group.
@@ -504,7 +488,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setShadowSizeList(final List<Double> values);
+	void setShadowSizeList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of shadow angle of the shapes contained by the group.
@@ -512,7 +496,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getShadowAngleList();
+	List<Optional<Double>> getShadowAngleList();
 
 	/**
 	 * Sets the shadow angles of the shapes of the group.
@@ -521,7 +505,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setShadowAngleList(final List<Double> values);
+	void setShadowAngleList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of shadow colours of the shapes contained by the group.
@@ -529,7 +513,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Color> getShadowColList();
+	List<Optional<Color>> getShadowColList();
 
 	/**
 	 * Sets the shadow colour of the shapes of the group.
@@ -538,7 +522,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setShadowColList(final List<Color> values);
+	void setShadowColList(final List<Optional<Color>> values);
 
 	/**
 	 * @return The list of ending gradient colours of the shapes contained by the group.
@@ -546,7 +530,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Color> getGradColStartList();
+	List<Optional<Color>> getGradColStartList();
 
 	/**
 	 * Sets the first gradient colour of the shapes of the group.
@@ -555,7 +539,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGradColStartList(final List<Color> values);
+	void setGradColStartList(final List<Optional<Color>> values);
 
 	/**
 	 * @return The list of starting gradient colours of the shapes contained by the group.
@@ -563,7 +547,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Color> getGradColEndList();
+	List<Optional<Color>> getGradColEndList();
 
 	/**
 	 * Sets the last gradient colour of the shapes of the group.
@@ -572,7 +556,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGradColEndList(final List<Color> values);
+	void setGradColEndList(final List<Optional<Color>> values);
 
 	/**
 	 * @return The list of the thicknesses of the shapes contained by the group.
@@ -580,7 +564,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getThicknessList();
+	List<Optional<Double>> getThicknessList();
 
 	/**
 	 * Sets the thickness of the shapes of the group.
@@ -589,7 +573,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setThicknessList(final List<Double> values);
+	void setThicknessList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of the filling styles of the shapes contained by the group.
@@ -597,7 +581,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<FillingStyle> getFillingStyleList();
+	List<Optional<FillingStyle>> getFillingStyleList();
 
 	/**
 	 * Sets the style of the filling of the shapes of the group.
@@ -606,7 +590,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setFillingStyleList(final List<FillingStyle> values);
+	void setFillingStyleList(final List<Optional<FillingStyle>> values);
 
 	/**
 	 * @return The list of the line styles of the shapes contained by the group.
@@ -614,7 +598,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<LineStyle> getLineStyleList();
+	List<Optional<LineStyle>> getLineStyleList();
 
 	/**
 	 * Sets the line style colour of the shapes of the group.
@@ -623,7 +607,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setLineStyleList(final List<LineStyle> values);
+	void setLineStyleList(final List<Optional<LineStyle>> values);
 
 	/**
 	 * @return The list of filling colours of the dot shapes contained by the group.
@@ -631,7 +615,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Color> getDotFillingColList();
+	List<Optional<Color>> getDotFillingColList();
 
 	/**
 	 * Sets the filling colour of the dot shapes of the group.
@@ -640,7 +624,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setDotFillingColList(final List<Color> values);
+	void setDotFillingColList(final List<Optional<Color>> values);
 
 	/**
 	 * @return The list of the dot styles of the shapes contained by the group.
@@ -648,7 +632,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<DotStyle> getDotStyleList();
+	List<Optional<DotStyle>> getDotStyleList();
 
 	/**
 	 * Sets the dot style of the dottable shapes of the group.
@@ -657,7 +641,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setDotStyleList(final List<DotStyle> values);
+	void setDotStyleList(final List<Optional<DotStyle>> values);
 
 	/**
 	 * @return The list of the dot sizes of the shapes contained by the group.
@@ -665,7 +649,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getDotSizeList();
+	List<Optional<Double>> getDotSizeList();
 
 	/**
 	 * Sets the size of the dot shapes of the group.
@@ -674,7 +658,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setDotSizeList(final List<Double> values);
+	void setDotSizeList(final List<Optional<Double>> values);
 
 	/**
 	 * Sets the arrow style of the arrowable shapes of the group.
@@ -684,7 +668,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * @param i The index of the arrow to set.
 	 * @since 3.0
 	 */
-	void setArrowStyleList(final List<ArrowStyle> values, final int i);
+	void setArrowStyleList(final List<Optional<ArrowStyle>> values, final int i);
 
 	/**
 	 * Defines if the shapes of the group have double borders.
@@ -693,7 +677,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setHasDbleBordList(final List<Boolean> values);
+	void setHasDbleBordList(final List<Optional<Boolean>> values);
 
 	/**
 	 * Defines if the shapes of the group have a shadow.
@@ -702,7 +686,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setHasShadowList(final List<Boolean> values);
+	void setHasShadowList(final List<Optional<Boolean>> values);
 
 	/**
 	 * @return The list of the starting points of the grid shapes contained by the group.
@@ -710,7 +694,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<IPoint> getGridStartList();
+	List<Optional<IPoint>> getGridStartList();
 
 	/**
 	 * Sets the starting points of the grid shapes of the group.
@@ -719,7 +703,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGridStartList(final List<IPoint> values);
+	void setGridStartList(final List<Optional<IPoint>> values);
 
 	/**
 	 * @return The list of the ending points of the grid shapes contained by the group.
@@ -727,7 +711,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<IPoint> getGridEndList();
+	List<Optional<IPoint>> getGridEndList();
 
 	/**
 	 * Sets the ending points of the grid shapes of the group.
@@ -736,7 +720,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGridEndList(final List<IPoint> values);
+	void setGridEndList(final List<Optional<IPoint>> values);
 
 	/**
 	 * @return The list of the origin points of the grid shapes contained by the group.
@@ -744,7 +728,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<IPoint> getGridOriginList();
+	List<Optional<IPoint>> getGridOriginList();
 
 	/**
 	 * Sets the origin points of the grid shapes of the group.
@@ -753,7 +737,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGridOriginList(final List<IPoint> values);
+	void setGridOriginList(final List<Optional<IPoint>> values);
 
 	/**
 	 * @return The list of the sizes of the labels of the grid shapes contained by the group.
@@ -761,7 +745,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Integer> getGridLabelSizeList();
+	List<Optional<Integer>> getGridLabelSizeList();
 
 	/**
 	 * Sets the size of the labels of the grid shapes of the group.
@@ -770,7 +754,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGridLabelSizeList(final List<Integer> values);
+	void setGridLabelSizeList(final List<Optional<Integer>> values);
 
 	/**
 	 * @return The list of the Y-coordinate labels of the grid shapes contained by the group.
@@ -778,7 +762,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Boolean> getGridXLabelSouthList();
+	List<Optional<Boolean>> getGridXLabelSouthList();
 
 	/**
 	 * Sets the Y-coordinate of the labels of the grid contained by the group.
@@ -787,7 +771,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGridXLabelSouthList(final List<Boolean> values);
+	void setGridXLabelSouthList(final List<Optional<Boolean>> values);
 
 	/**
 	 * @return The list of the Y-coordinate labels of the grid shapes contained by the group.
@@ -795,7 +779,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Boolean> getGridYLabelWestList();
+	List<Optional<Boolean>> getGridYLabelWestList();
 
 	/**
 	 * Sets the X-coordinate of the labels of the grid contained by the group.
@@ -804,7 +788,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGridYLabelWestList(final List<Boolean> values);
+	void setGridYLabelWestList(final List<Optional<Boolean>> values);
 
 	/**
 	 * @return The list of the styles of the axes contained by the group.
@@ -812,7 +796,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<AxesStyle> getAxesStyleList();
+	List<Optional<AxesStyle>> getAxesStyleList();
 
 	/**
 	 * Sets the style of the axes contained by the group.
@@ -821,7 +805,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setAxesStyleList(final List<AxesStyle> values);
+	void setAxesStyleList(final List<Optional<AxesStyle>> values);
 
 	/**
 	 * @return The list of the styles of the axes' ticks contained by the group.
@@ -829,7 +813,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<TicksStyle> getAxesTicksStyleList();
+	List<Optional<TicksStyle>> getAxesTicksStyleList();
 
 	/**
 	 * Sets the style of the axes' ticks contained by the group.
@@ -838,7 +822,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setAxesTicksStyleList(final List<TicksStyle> values);
+	void setAxesTicksStyleList(final List<Optional<TicksStyle>> values);
 
 	/**
 	 * @return The list of the sizes of the axes' ticks contained by the group.
@@ -846,7 +830,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getAxesTicksSizeList();
+	List<Optional<Double>> getAxesTicksSizeList();
 
 	/**
 	 * Sets the size of the axes' ticks contained by the group.
@@ -855,7 +839,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setAxesTicksSizeList(final List<Double> values);
+	void setAxesTicksSizeList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The list of the plotting styles of the axes' ticks contained in the group.
@@ -863,7 +847,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<PlottingStyle> getAxesTicksDisplayedList();
+	List<Optional<PlottingStyle>> getAxesTicksDisplayedList();
 
 	/**
 	 * Sets how the ticks of the axes contained by the group are displayed.
@@ -872,7 +856,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setAxesTicksDisplayedList(final List<PlottingStyle> values);
+	void setAxesTicksDisplayedList(final List<Optional<PlottingStyle>> values);
 
 	/**
 	 * @return The list of the labels' increments of the axes' ticks contained in the group.
@@ -880,7 +864,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<IPoint> getAxesIncrementsList();
+	List<Optional<IPoint>> getAxesIncrementsList();
 
 	/**
 	 * Sets the labels' increments of the axes contained by the group are displayed.
@@ -889,7 +873,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setAxesIncrementsList(final List<IPoint> values);
+	void setAxesIncrementsList(final List<Optional<IPoint>> values);
 
 	/**
 	 * @return The list of the plotting styles of the axes' labels contained in the group.
@@ -897,7 +881,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<PlottingStyle> getAxesLabelsDisplayedList();
+	List<Optional<PlottingStyle>> getAxesLabelsDisplayedList();
 
 	/**
 	 * Sets how the labels of the axes contained by the group are displayed.
@@ -906,7 +890,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setAxesLabelsDisplayedList(final List<PlottingStyle> values);
+	void setAxesLabelsDisplayedList(final List<Optional<PlottingStyle>> values);
 
 	/**
 	 * @return The list of booleans defining if the origin of the axes contained in the group must be shown.
@@ -914,7 +898,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Boolean> getAxesShowOriginList();
+	List<Optional<Boolean>> getAxesShowOriginList();
 
 	/**
 	 * Defines if the origin of the axes contained by the group are displayed.
@@ -923,7 +907,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setAxesShowOriginList(final List<Boolean> values);
+	void setAxesShowOriginList(final List<Optional<Boolean>> values);
 
 	/**
 	 * @return The list of the distances between the labels of the axes contained in the group.
@@ -931,7 +915,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<IPoint> getAxesDistLabelsList();
+	List<Optional<IPoint>> getAxesDistLabelsList();
 
 	/**
 	 * Sets the distances between the labels of the axes contained by the group are displayed.
@@ -940,7 +924,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setAxesDistLabelsList(final List<IPoint> values);
+	void setAxesDistLabelsList(final List<Optional<IPoint>> values);
 
 	/**
 	 * @return The list of labels' colours of the grids contained by the group.
@@ -948,7 +932,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Color> getGridLabelsColourList();
+	List<Optional<Color>> getGridLabelsColourList();
 
 	/**
 	 * Sets the labels' colours of the grids contained by the group.
@@ -957,7 +941,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGridLabelsColourList(final List<Color> values);
+	void setGridLabelsColourList(final List<Optional<Color>> values);
 
 	/**
 	 * @return The list of labels' colours of the grids contained by the group.
@@ -965,7 +949,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Color> getSubGridColourList();
+	List<Optional<Color>> getSubGridColourList();
 
 	/**
 	 * Sets the labels' colours of the grids contained by the group.
@@ -974,7 +958,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setSubGridColourList(final List<Color> values);
+	void setSubGridColourList(final List<Optional<Color>> values);
 
 	/**
 	 * @return The width of the grids contained by the group.
@@ -982,7 +966,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getGridWidthList();
+	List<Optional<Double>> getGridWidthList();
 
 	/**
 	 * Sets the width of the grids contained by the group.
@@ -991,7 +975,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGridWidthList(final List<Double> values);
+	void setGridWidthList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The width of the sub-grids contained by the group.
@@ -999,7 +983,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Double> getSubGridWidthList();
+	List<Optional<Double>> getSubGridWidthList();
 
 	/**
 	 * Sets the width of the sub-grids contained by the group.
@@ -1008,7 +992,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setSubGridWidthList(final List<Double> values);
+	void setSubGridWidthList(final List<Optional<Double>> values);
 
 	/**
 	 * @return The number of dots composing the main lines of each grids contained by the group.
@@ -1016,7 +1000,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Integer> getGridDotsList();
+	List<Optional<Integer>> getGridDotsList();
 
 	/**
 	 * Sets the number of dots composing the main lines of each grids contained by the group.
@@ -1025,7 +1009,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setGridDotsList(final List<Integer> values);
+	void setGridDotsList(final List<Optional<Integer>> values);
 
 	/**
 	 * @return The number of dots composing the sub-lines of each grids contained by the group.
@@ -1033,7 +1017,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Integer> getSubGridDotsList();
+	List<Optional<Integer>> getSubGridDotsList();
 
 	/**
 	 * Sets the number of dots composing the sub-lines of each grids contained by the group.
@@ -1042,7 +1026,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setSubGridDotsList(final List<Integer> values);
+	void setSubGridDotsList(final List<Optional<Integer>> values);
 
 	/**
 	 * @return The division of the sub-lines of each grids contained by the group.
@@ -1050,7 +1034,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Integer> getSubGridDivList();
+	List<Optional<Integer>> getSubGridDivList();
 
 	/**
 	 * Sets the division of the sub-lines of each grids contained by the group.
@@ -1059,7 +1043,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setSubGridDivList(final List<Integer> values);
+	void setSubGridDivList(final List<Optional<Integer>> values);
 
 	/**
 	 * @return The types of the freehand shapes contained in the group.
@@ -1067,7 +1051,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<FreeHandStyle> getFreeHandTypeList();
+	List<Optional<FreeHandStyle>> getFreeHandTypeList();
 
 	/**
 	 * Sets the type of the freehand shapes contained in the group.
@@ -1076,7 +1060,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setFreeHandTypeList(final List<FreeHandStyle> values);
+	void setFreeHandTypeList(final List<Optional<FreeHandStyle>> values);
 
 	/**
 	 * @return The intervals of the freehand shapes contained in the group.
@@ -1084,7 +1068,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Integer> getFreeHandIntervalList();
+	List<Optional<Integer>> getFreeHandIntervalList();
 
 	/**
 	 * Sets the interval of the freehand shapes contained in the group.
@@ -1093,7 +1077,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setFreeHandIntervalList(final List<Integer> values);
+	void setFreeHandIntervalList(final List<Optional<Integer>> values);
 
 	/**
 	 * @return The boolean value defining whether the shapes contained in the group are opened.
@@ -1101,7 +1085,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Boolean> getOpenList();
+	List<Optional<Boolean>> getOpenList();
 
 	/**
 	 * Defines whether the shapes contained in the group are opened.
@@ -1110,7 +1094,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setOpenList(final List<Boolean> values);
+	void setOpenList(final List<Optional<Boolean>> values);
 
 	/**
 	 * @return The boolean value defining if the shapes contained in the group must show their points.
@@ -1118,7 +1102,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<Boolean> getShowPointsList();
+	List<Optional<Boolean>> getShowPointsList();
 
 	/**
 	 * Defines if the shapes contained in the group must show their points.
@@ -1127,135 +1111,135 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setShowPointsList(final List<Boolean> values);
+	void setShowPointsList(final List<Optional<Boolean>> values);
 
 	/**
 	 * @return The tbarsizedim values of the shapes of the group.
 	 * @since 3.1
 	 */
-	List<Double> getTBarSizeDimList();
+	List<Optional<Double>> getTBarSizeDimList();
 
 	/**
 	 * Sets the tbarsizedim parameters to the shapes of the group.
 	 * @param values The values to use.
 	 * @since 3.1
 	 */
-	void setTBarSizeDimList(List<Double> values);
+	void setTBarSizeDimList(List<Optional<Double>> values);
 
 	/**
 	 * @return The tbarsizenum values of the shapes of the group.
 	 * @since 3.1
 	 */
-	List<Double> getTBarSizeNumList();
+	List<Optional<Double>> getTBarSizeNumList();
 
 	/**
 	 * Sets the tbarsizenum parameters to the shapes of the group.
 	 * @param values The values to use.
 	 * @since 3.1
 	 */
-	void setTBarSizeNumList(List<Double> values);
+	void setTBarSizeNumList(List<Optional<Double>> values);
 
 	/**
 	 * @return The dotsizenum values of the shapes of the group.
 	 * @since 3.1
 	 */
-	List<Double> getDotSizeNumList();
+	List<Optional<Double>> getDotSizeNumList();
 
 	/**
 	 * Sets the dotsizenum parameters to the shapes of the group.
 	 * @param values The values to use.
 	 * @since 3.1
 	 */
-	void setDotSizeNumList(List<Double> values);
+	void setDotSizeNumList(List<Optional<Double>> values);
 
 	/**
 	 * @return The dotsizedim values of the shapes of the group.
 	 * @since 3.1
 	 */
-	List<Double> getDotSizeDimList();
+	List<Optional<Double>> getDotSizeDimList();
 
 	/**
 	 * Sets the dotsizedim parameters to the shapes of the group.
 	 * @param values The values to use.
 	 * @since 3.1
 	 */
-	void setDotSizeDimList(List<Double> values);
+	void setDotSizeDimList(List<Optional<Double>> values);
 
 	/**
 	 * @return The bracketNum values of the shapes of the group.
 	 * @since 3.1
 	 */
-	List<Double> getBracketNumList();
+	List<Optional<Double>> getBracketNumList();
 
 	/**
 	 * Sets the bracketNum parameters to the shapes of the group.
 	 * @param values The values to use.
 	 * @since 3.1
 	 */
-	void setBracketNumList(List<Double> values);
+	void setBracketNumList(List<Optional<Double>> values);
 
 	/**
 	 * @return The rbracketNum values of the shapes of the group.
 	 * @since 3.1
 	 */
-	List<Double> getRBracketNumList();
+	List<Optional<Double>> getRBracketNumList();
 
 	/**
 	 * Sets the rbracketNum parameters to the shapes of the group.
 	 * @param values The values to use.
 	 * @since 3.1
 	 */
-	void setRBracketNumList(List<Double> values);
+	void setRBracketNumList(List<Optional<Double>> values);
 
 	/**
 	 * @return The arrowsizenum values of the shapes of the group.
 	 * @since 3.1
 	 */
-	List<Double> getArrowSizeNumList();
+	List<Optional<Double>> getArrowSizeNumList();
 
 	/**
 	 * Sets the arrowsizenum parameters to the shapes of the group.
 	 * @param values The values to use.
 	 * @since 3.1
 	 */
-	void setArrowSizeNumList(List<Double> values);
+	void setArrowSizeNumList(List<Optional<Double>> values);
 
 	/**
 	 * @return The arrowsizedim values of the shapes of the group.
 	 * @since 3.1
 	 */
-	List<Double> getArrowSizeDimList();
+	List<Optional<Double>> getArrowSizeDimList();
 
 	/**
 	 * Sets the arrowsizedim parameters to the shapes of the group.
 	 * @param values The values to use.
 	 * @since 3.1
 	 */
-	void setArrowSizeDimList(List<Double> values);
+	void setArrowSizeDimList(List<Optional<Double>> values);
 
 	/**
 	 * @return The arrowLength values of the shapes of the group.
 	 * @since 3.1
 	 */
-	List<Double> getArrowLengthList();
+	List<Optional<Double>> getArrowLengthList();
 
 	/**
 	 * Sets the arrowLength parameters to the shapes of the group.
 	 * @param values The values to use.
 	 * @since 3.1
 	 */
-	void setArrowLengthList(List<Double> values);
+	void setArrowLengthList(List<Optional<Double>> values);
 
 	/**
 	 * @return The arrowInset values of the shapes of the group.
 	 * @since 3.1
 	 */
-	List<Double> getArrowInsetList();
+	List<Optional<Double>> getArrowInsetList();
 
 	/**
 	 * Sets the arrowInset parameters to the shapes of the group.
 	 * @param values The values to use.
 	 * @since 3.1
 	 */
-	void setArrowInsetList(List<Double> values);
+	void setArrowInsetList(List<Optional<Double>> values);
 }

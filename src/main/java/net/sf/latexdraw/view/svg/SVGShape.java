@@ -171,7 +171,7 @@ abstract class SVGShape<S extends IShape> {
 
 		attr = pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_SIZE);
 
-		if(attr == null) {
+		if(attr.isEmpty()) {
 			sep = pat.getHatchingSep();
 		}else {
 			try {

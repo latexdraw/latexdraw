@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -125,7 +126,7 @@ public final class LFileUtils {
 	public String readTextFile(final String path) {
 		final StringBuilder txt = new StringBuilder();
 
-		try(final InputStream is = getClass().getResourceAsStream(path); final Reader reader = new InputStreamReader(is, "UTF-8"); //NON-NLS
+		try(final InputStream is = getClass().getResourceAsStream(path); final Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8); //NON-NLS
 			final BufferedReader br = new BufferedReader(reader)) {
 			String line = br.readLine();
 
@@ -147,7 +148,7 @@ public final class LFileUtils {
 	 */
 	public Optional<File> createTempDir() {
 		final String pathTmp = System.getProperty("java.io.tmpdir");
-		final String path = pathTmp + (pathTmp.endsWith(LSystem.FILE_SEP) ? "" : LSystem.FILE_SEP) + "latexdraw" + LSystem.FILE_SEP + "latexdrawTmp" +
+		final String path = pathTmp + (pathTmp.endsWith(LSystem.FILE_SEP) ? "" : LSystem.FILE_SEP) + "latexdraw" + LSystem.FILE_SEP + "latexdrawTmp" + //NON-NLS
 			//NON-NLS
 			System.currentTimeMillis() + new Random().nextInt(100000);
 		final File tmpDir = new File(path);

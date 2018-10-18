@@ -1,18 +1,18 @@
 package net.sf.latexdraw.commands;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import net.sf.latexdraw.commands.shape.ModifyShapeProperty;
 import net.sf.latexdraw.commands.shape.ShapeProperties;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.models.interfaces.prop.IArrowable;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.models.interfaces.prop.IClosableProp;
 import net.sf.latexdraw.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.models.interfaces.prop.IGridProp;
@@ -25,6 +25,7 @@ import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
+import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
@@ -39,6 +40,7 @@ import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
@@ -57,561 +59,187 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.closeTo;
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 @RunWith(Parameterized.class)
-public class TestModifyShapeProperty extends TestUndoableCommand<ModifyShapeProperty, List<?>> {
-	@Parameterized.Parameters(name = "{0}")
-	public static Collection<Object> data() {
-		return Arrays.stream(ShapeProperties.values()).collect(Collectors.toList());
+public class TestModifyShapeProperty extends TestUndoableCommand<ModifyShapeProperty<Object>, List<Optional<Object>>> {
+
+	@Parameterized.Parameters(name = "{0} with {1}")
+	public static Iterable<Object[]> data() {
+		return Arrays.asList(new Object[][] {
+			{ShapeProperties.PLOT_STYLE, PlotStyle.DOTS, (Function<IGroup, List<Optional<PlotStyle>>>) g -> g.getPlotStyleList(), (Function<IShape, PlotStyle>) s -> ((IPlotProp) s).getPlotStyle()},
+			{ShapeProperties.PLOT_POLAR, true, (Function<IGroup, List<Optional<Boolean>>>) g -> g.getPlotPolarList(), (Function<IShape, Boolean>) s -> ((IPlotProp) s).isPolar()},
+			{ShapeProperties.PLOT_EQ, "x 2 mul", (Function<IGroup, List<Optional<String>>>) g -> g.getPlotEquationList(), (Function<IShape, String>) s -> ((IPlotProp) s).getPlotEquation()},
+			{ShapeProperties.Y_SCALE, 2d, (Function<IGroup, List<Optional<Double>>>) g -> g.getYScaleList(), (Function<IShape, Double>) s -> ((IScalable) s).getYScale()},
+			{ShapeProperties.X_SCALE, 2d, (Function<IGroup, List<Optional<Double>>>) g -> g.getXScaleList(), (Function<IShape, Double>) s -> ((IScalable) s).getXScale()},
+			{ShapeProperties.PLOT_MAX_X, 20d, (Function<IGroup, List<Optional<Double>>>) g -> g.getPlotMaxXList(), (Function<IShape, Double>) s -> ((IPlotProp) s).getPlotMaxX()},
+			{ShapeProperties.PLOT_MIN_X, -10d, (Function<IGroup, List<Optional<Double>>>) g -> g.getPlotMinXList(), (Function<IShape, Double>) s -> ((IPlotProp) s).getPlotMinX()},
+			{ShapeProperties.PLOT_NB_PTS, 123, (Function<IGroup, List<Optional<Integer>>>) g -> g.getNbPlottedPointsList(), (Function<IShape, Integer>) s -> ((IPlotProp) s).getNbPlottedPoints()},
+			{ShapeProperties.SHOW_POINTS, true, (Function<IGroup, List<Optional<Boolean>>>) g -> g.getShowPointsList(), (Function<IShape, Boolean>) s -> s.isShowPts()},
+			{ShapeProperties.AXES_SHOW_ORIGIN, false, (Function<IGroup, List<Optional<Boolean>>>) g -> g.getAxesShowOriginList(), (Function<IShape, Boolean>) s -> ((IAxesProp) s).isShowOrigin()},
+			{ShapeProperties.AXES_LABELS_DIST, ShapeFactory.INST.createPoint(1d, 2d), (Function<IGroup, List<Optional<IPoint>>>) g -> g.getAxesDistLabelsList(), (Function<IShape, IPoint>) s -> ((IAxesProp) s).getDistLabels()},
+			{ShapeProperties.AXES_LABELS_INCR, ShapeFactory.INST.createPoint(1d, 2d), (Function<IGroup, List<Optional<IPoint>>>) g -> g.getAxesIncrementsList(), (Function<IShape, IPoint>) s -> ((IAxesProp) s).getIncrement()},
+			{ShapeProperties.AXES_LABELS_SHOW, PlottingStyle.X, (Function<IGroup, List<Optional<PlottingStyle>>>) g -> g.getAxesLabelsDisplayedList(), (Function<IShape, PlottingStyle>) s -> ((IAxesProp) s).getLabelsDisplayed()},
+			{ShapeProperties.AXES_TICKS_SHOW, PlottingStyle.Y, (Function<IGroup, List<Optional<PlottingStyle>>>) g -> g.getAxesTicksDisplayedList(), (Function<IShape, PlottingStyle>) s -> ((IAxesProp) s).getTicksDisplayed()},
+			{ShapeProperties.GRID_SUBGRID_WIDTH, 21d, (Function<IGroup, List<Optional<Double>>>) g -> g.getSubGridWidthList(), (Function<IShape, Double>) s -> ((IGridProp) s).getSubGridWidth()},
+			{ShapeProperties.CLOSABLE_CLOSE, false, (Function<IGroup, List<Optional<Boolean>>>) g -> g.getOpenList(), (Function<IShape, Boolean>) s -> ((IClosableProp) s).isOpened()},
+			{ShapeProperties.FREEHAND_INTERVAL, 7, (Function<IGroup, List<Optional<Integer>>>) g -> g.getFreeHandIntervalList(), (Function<IShape, Integer>) s -> ((IFreeHandProp) s).getInterval()},
+			{ShapeProperties.GRID_SUBGRID_DIV, 5, (Function<IGroup, List<Optional<Integer>>>) g -> g.getSubGridDivList(), (Function<IShape, Integer>) s -> ((IGridProp) s).getSubGridDiv()},
+			{ShapeProperties.GRID_SUBGRID_DOTS, 3, (Function<IGroup, List<Optional<Integer>>>) g -> g.getSubGridDotsList(), (Function<IShape, Integer>) s -> ((IGridProp) s).getSubGridDots()},
+			{ShapeProperties.GRID_DOTS, 7, (Function<IGroup, List<Optional<Integer>>>) g -> g.getGridDotsList(), (Function<IShape, Integer>) s -> ((IGridProp) s).getGridDots()},
+			{ShapeProperties.GRID_WIDTH, 7d, (Function<IGroup, List<Optional<Double>>>) g -> g.getGridWidthList(), (Function<IShape, Double>) s -> ((IGridProp) s).getGridWidth()},
+			{ShapeProperties.AXES_TICKS_STYLE, TicksStyle.FULL, (Function<IGroup, List<Optional<TicksStyle>>>) g -> g.getAxesTicksStyleList(), (Function<IShape, TicksStyle>) s -> ((IAxesProp) s).getTicksStyle()},
+			{ShapeProperties.FREEHAND_STYLE, FreeHandStyle.LINES, (Function<IGroup, List<Optional<FreeHandStyle>>>) g -> g.getFreeHandTypeList(), (Function<IShape, FreeHandStyle>) s -> ((IFreeHandProp) s).getType()},
+			{ShapeProperties.AXES_STYLE, AxesStyle.FRAME, (Function<IGroup, List<Optional<AxesStyle>>>) g -> g.getAxesStyleList(), (Function<IShape, AxesStyle>) s -> ((IAxesProp) s).getAxesStyle()},
+			{ShapeProperties.GRID_LABEL_POSITION_X, false, (Function<IGroup, List<Optional<Boolean>>>) g -> g.getGridYLabelWestList(), (Function<IShape, Boolean>) s -> ((IGridProp) s).isYLabelWest()},
+			{ShapeProperties.GRID_LABEL_POSITION_Y, false, (Function<IGroup, List<Optional<Boolean>>>) g -> g.getGridXLabelSouthList(), (Function<IShape, Boolean>) s -> ((IGridProp) s).isXLabelSouth()},
+			{ShapeProperties.GRID_SIZE_LABEL, 11, (Function<IGroup, List<Optional<Integer>>>) g -> g.getGridLabelSizeList(), (Function<IShape, Integer>) s -> ((IStdGridProp) s).getLabelsSize()},
+			{ShapeProperties.ARROW_T_BAR_SIZE_DIM, 0.55, (Function<IGroup, List<Optional<Double>>>) g -> g.getTBarSizeDimList(), (Function<IShape, Double>) s -> ((IArrowable) s).getTBarSizeDim()},
+			{ShapeProperties.ARROW_T_BAR_SIZE_NUM, 0.55, (Function<IGroup, List<Optional<Double>>>) g -> g.getTBarSizeNumList(), (Function<IShape, Double>) s -> ((IArrowable) s).getTBarSizeNum()},
+			{ShapeProperties.ARROW_DOT_SIZE_NUM, 0.55, (Function<IGroup, List<Optional<Double>>>) g -> g.getDotSizeNumList(), (Function<IShape, Double>) s -> ((IArrowable) s).getDotSizeNum()},
+			{ShapeProperties.ARROW_DOT_SIZE_DIM, 0.55, (Function<IGroup, List<Optional<Double>>>) g -> g.getDotSizeDimList(), (Function<IShape, Double>) s -> ((IArrowable) s).getDotSizeDim()},
+			{ShapeProperties.ARROW_BRACKET_NUM, 0.55, (Function<IGroup, List<Optional<Double>>>) g -> g.getBracketNumList(), (Function<IShape, Double>) s -> ((IArrowable) s).getBracketNum()},
+			{ShapeProperties.ARROW_R_BRACKET_NUM, 0.55, (Function<IGroup, List<Optional<Double>>>) g -> g.getRBracketNumList(), (Function<IShape, Double>) s -> ((IArrowable) s).getRBracketNum()},
+			{ShapeProperties.ARROW_SIZE_NUM, 0.55, (Function<IGroup, List<Optional<Double>>>) g -> g.getArrowSizeNumList(), (Function<IShape, Double>) s -> ((IArrowable) s).getArrowSizeNum()},
+			{ShapeProperties.ARROW_SIZE_DIM, 0.55, (Function<IGroup, List<Optional<Double>>>) g -> g.getArrowSizeDimList(), (Function<IShape, Double>) s -> ((IArrowable) s).getArrowSizeDim()},
+			{ShapeProperties.ARROW_LENGTH, 0.55, (Function<IGroup, List<Optional<Double>>>) g -> g.getArrowLengthList(), (Function<IShape, Double>) s -> ((IArrowable) s).getArrowLength()},
+			{ShapeProperties.ARROW_INSET, 0.22, (Function<IGroup, List<Optional<Double>>>) g -> g.getArrowInsetList(), (Function<IShape, Double>) s -> ((IArrowable) s).getArrowInset()},
+			{ShapeProperties.GRID_END, ShapeFactory.INST.createPoint(10d, 20d), (Function<IGroup, List<Optional<IPoint>>>) g -> g.getGridEndList(), (Function<IShape, IPoint>) s -> ((IStdGridProp) s).getGridEnd()},
+			{ShapeProperties.GRID_ORIGIN, ShapeFactory.INST.createPoint(10d, 20d), (Function<IGroup, List<Optional<IPoint>>>) g -> g.getGridOriginList(), (Function<IShape, IPoint>) s ->ShapeFactory.INST.createPoint(((IStdGridProp) s).getOriginX(), ((IStdGridProp) s).getOriginY())},
+			{ShapeProperties.GRID_START, ShapeFactory.INST.createPoint(-10d, -20d), (Function<IGroup, List<Optional<IPoint>>>) g -> g.getGridStartList(), (Function<IShape, IPoint>) s -> ((IStdGridProp) s).getGridStart()},
+			{ShapeProperties.ARC_START_ANGLE, 11d, (Function<IGroup, List<Optional<Double>>>) g -> g.getAngleStartList(), (Function<IShape, Double>) s -> ((IArcProp) s).getAngleStart()},
+			{ShapeProperties.ARC_END_ANGLE, 11d, (Function<IGroup, List<Optional<Double>>>) g -> g.getAngleEndList(), (Function<IShape, Double>) s -> ((IArcProp) s).getAngleEnd()},
+			{ShapeProperties.ARC_STYLE, ArcStyle.WEDGE, (Function<IGroup, List<Optional<ArcStyle>>>) g -> g.getArcStyleList(), (Function<IShape, ArcStyle>) s -> ((IArcProp) s).getArcStyle()},
+			{ShapeProperties.ARROW2_STYLE, ArrowStyle.CIRCLE_END, (Function<IGroup, List<Optional<ArrowStyle>>>) g -> g.getArrowStyleList(1), (Function<IShape, ArrowStyle>) s -> ((IArrowableShape) s).getArrowStyle(1)},
+			{ShapeProperties.ARROW1_STYLE, ArrowStyle.CIRCLE_END, (Function<IGroup, List<Optional<ArrowStyle>>>) g -> g.getArrowStyleList(0), (Function<IShape, ArrowStyle>) s -> ((IArrowableShape) s).getArrowStyle(0)},
+			{ShapeProperties.TEXT_POSITION, TextPosition.TOP_RIGHT, (Function<IGroup, List<Optional<TextPosition>>>) g -> g.getTextPositionList(), (Function<IShape, TextPosition>) s -> ((ITextProp) s).getTextPosition()},
+			{ShapeProperties.TEXT, "foo", (Function<IGroup, List<Optional<String>>>) g -> g.getTextList(), (Function<IShape, String>) s -> ((ITextProp) s).getText()},
+			{ShapeProperties.HATCHINGS_ANGLE, 11.223, (Function<IGroup, List<Optional<Double>>>) g -> {
+				g.setFillingStyle(FillingStyle.CLINES);
+				return g.getHatchingsAngleList();
+			}, (Function<IShape, Double>) s -> s.getHatchingsAngle()},
+			{ShapeProperties.HATCHINGS_WIDTH, 11.323, (Function<IGroup, List<Optional<Double>>>) g -> {
+				g.setFillingStyle(FillingStyle.HLINES);
+				return g.getHatchingsWidthList();
+			}, (Function<IShape, Double>) s -> s.getHatchingsWidth()},
+			{ShapeProperties.HATCHINGS_SEP, 11.423, (Function<IGroup, List<Optional<Double>>>) g -> {
+				g.setFillingStyle(FillingStyle.HLINES);
+				return g.getHatchingsSepList();
+			}, (Function<IShape, Double>) s -> s.getHatchingsSep()},
+			{ShapeProperties.GRAD_ANGLE, 11.523, (Function<IGroup, List<Optional<Double>>>) g -> {
+				g.setFillingStyle(FillingStyle.GRAD);
+				return g.getGradAngleList();
+			}, (Function<IShape, Double>) s -> s.getGradAngle()},
+			{ShapeProperties.GRAD_MID_POINT, 0.35, (Function<IGroup, List<Optional<Double>>>) g -> {
+				g.setFillingStyle(FillingStyle.GRAD);
+				return g.getGradMidPtList();
+			}, (Function<IShape, Double>) s -> s.getGradMidPt()},
+			{ShapeProperties.ROUND_CORNER_VALUE, 0.13, (Function<IGroup, List<Optional<Double>>>) g -> g.getLineArcList(), (Function<IShape, Double>) s -> ((ILineArcProp) s).getLineArc()},
+			{ShapeProperties.GRID_SUBGRID_COLOUR, DviPsColors.BITTERSWEET, (Function<IGroup, List<Optional<Color>>>) g -> g.getSubGridColourList(), (Function<IShape, Color>) s -> ((IGridProp) s).getSubGridColour()},
+			{ShapeProperties.GRID_LABELS_COLOUR, DviPsColors.BITTERSWEET, (Function<IGroup, List<Optional<Color>>>) g -> g.getGridLabelsColourList(), (Function<IShape, Color>) s -> ((IGridProp) s).getGridLabelsColour()},
+			{ShapeProperties.COLOUR_FILLING, DviPsColors.GRAY, (Function<IGroup, List<Optional<Color>>>) g -> {
+				g.setFillingStyle(FillingStyle.PLAIN);
+				return g.getFillingColList();
+			}, (Function<IShape, Color>) s -> s.getFillingCol()},
+			{ShapeProperties.COLOUR_LINE, DviPsColors.GRAY, (Function<IGroup, List<Optional<Color>>>) g -> g.getLineColourList(), (Function<IShape, Color>) s -> s.getLineColour()},
+			{ShapeProperties.COLOUR_HATCHINGS, DviPsColors.GRAY, (Function<IGroup, List<Optional<Color>>>) g -> {
+				g.setFillingStyle(FillingStyle.CLINES);
+				return g.getHatchingsColList();
+			}, (Function<IShape, Color>) s -> s.getHatchingsCol()},
+			{ShapeProperties.DBLE_BORDERS, true, (Function<IGroup, List<Optional<Boolean>>>) g -> g.hasDbleBordList(), (Function<IShape, Boolean>) s -> s.hasDbleBord()},
+			{ShapeProperties.DBLE_BORDERS_SIZE, 98.2, (Function<IGroup, List<Optional<Double>>>) g -> {
+				g.setHasDbleBord(true);
+				return g.getDbleBordSepList();
+			}, (Function<IShape, Double>) s -> s.getDbleBordSep()},
+			{ShapeProperties.COLOUR_DBLE_BORD, DviPsColors.JUNGLEGREEN, (Function<IGroup, List<Optional<Color>>>) g -> {
+				g.setHasDbleBord(true);
+				return g.getDbleBordColList();
+			}, (Function<IShape, Color>) s -> s.getDbleBordCol()},
+			{ShapeProperties.SHADOW, true, (Function<IGroup, List<Optional<Boolean>>>) g -> g.hasShadowList(), (Function<IShape, Boolean>) s -> s.hasShadow()},
+			{ShapeProperties.SHADOW_SIZE, 123d, (Function<IGroup, List<Optional<Double>>>) g -> {
+				g.setHasShadow(true);
+				return g.getShadowSizeList();
+			}, (Function<IShape, Double>) s -> s.getShadowSize()},
+			{ShapeProperties.SHADOW_ANGLE, 122d, (Function<IGroup, List<Optional<Double>>>) g -> {
+				g.setHasShadow(true);
+				return g.getShadowAngleList();
+			}, (Function<IShape, Double>) s -> s.getShadowAngle()},
+			{ShapeProperties.SHADOW_COLOUR, DviPsColors.JUNGLEGREEN, (Function<IGroup, List<Optional<Color>>>) g -> {
+				g.setHasShadow(true);
+				return g.getShadowColList();
+			}, (Function<IShape, Color>) s -> s.getShadowCol()},
+			{ShapeProperties.COLOUR_GRADIENT_START, DviPsColors.GOLDEN_ROD, (Function<IGroup, List<Optional<Color>>>) g -> {
+				g.setFillingStyle(FillingStyle.GRAD);
+				return g.getGradColStartList();
+			}, (Function<IShape, Color>) s -> s.getGradColStart()},
+			{ShapeProperties.COLOUR_GRADIENT_END, DviPsColors.MULBERRY, (Function<IGroup, List<Optional<Color>>>) g -> {
+				g.setFillingStyle(FillingStyle.GRAD);
+				return g.getGradColEndList();
+			}, (Function<IShape, Color>) s -> s.getGradColEnd()},
+			{ShapeProperties.LINE_THICKNESS, 11.123, (Function<IGroup, List<Optional<Double>>>) g -> g.getThicknessList(), (Function<IShape, Double>) s -> s.getThickness()},
+			{ShapeProperties.FILLING_STYLE, FillingStyle.GRAD, (Function<IGroup, List<Optional<FillingStyle>>>) g -> g.getFillingStyleList(), (Function<IShape, FillingStyle>) s -> s.getFillingStyle()},
+			{ShapeProperties.BORDER_POS, BorderPos.OUT, (Function<IGroup, List<Optional<BorderPos>>>) g -> g.getBordersPositionList(), (Function<IShape, BorderPos>) s -> s.getBordersPosition()},
+			{ShapeProperties.LINE_STYLE, LineStyle.DOTTED, (Function<IGroup, List<Optional<LineStyle>>>) g -> g.getLineStyleList(), (Function<IShape, LineStyle>) s -> s.getLineStyle()},
+			{ShapeProperties.DOT_FILLING_COL, DviPsColors.BITTERSWEET, (Function<IGroup, List<Optional<Color>>>) g -> {
+				g.setDotStyle(DotStyle.DIAMOND);
+				return g.getDotFillingColList();
+			}, (Function<IShape, Color>) s -> ((IDotProp) s).getDotFillingCol()},
+			{ShapeProperties.DOT_STYLE, DotStyle.DIAMOND, (Function<IGroup, List<Optional<DotStyle>>>) g -> g.getDotStyleList(), (Function<IShape, DotStyle>) s -> ((IDotProp) s).getDotStyle()},
+			{ShapeProperties.DOT_SIZE, 11.123, (Function<IGroup, List<Optional<Double>>>) g -> g.getDotSizeList(), (Function<IShape, Double>) s -> ((IDotProp) s).getDiametre()}
+		});
 	}
 
 	// The property to test
 	@Parameterized.Parameter
-	public ShapeProperties property;
+	public ShapeProperties<Object> property;
 	// The value to set
-	private Object value;
+	@Parameterized.Parameter(1)
+	public Object value;
+	// The function that provides the memento, ie the values before setting the new value
+	@Parameterized.Parameter(2)
+	public Function<IGroup, List<Optional<Object>>> mementoCmd;
+	@Parameterized.Parameter(3)
+	// The function that provides the value to check after the setting of the new value
+	public Function<IShape, Object> valueToCheckCmd;
 	// The group of shapes
 	private IGroup group;
-	// The function that provides the memento, ie the values before setting the new value
-	private Supplier<List<?>> mementoCmd;
-	// The function that provides the value to check after the setting of the new value
-	private Function<IShape, Object> valueToCheckCmd;
-	// The function that returns a boolean to know whether the property is supported by the given shape.
-	private Function<IShape, Boolean> supportsPropCmd;
+
 
 	@Override
 	@Before
 	public void setUp() {
 		group = ShapeFactory.INST.createGroup();
-
-		switch(property) {
-			case PLOT_STYLE:
-				mementoCmd = () -> group.getPlotStyleList();
-				valueToCheckCmd = sh -> ((IPlotProp)sh).getPlotStyle();
-				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
-				value = PlotStyle.DOTS;
-				break;
-			case PLOT_POLAR:
-				mementoCmd = () -> group.getPlotPolarList();
-				valueToCheckCmd = sh -> ((IPlotProp)sh).isPolar();
-				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
-				value = true;
-				break;
-			case PLOT_EQ:
-				mementoCmd = () -> group.getPlotEquationList();
-				valueToCheckCmd = sh -> ((IPlotProp)sh).getPlotEquation();
-				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
-				value = "x 2 mul";
-				break;
-			case Y_SCALE:
-				mementoCmd = () -> group.getYScaleList();
-				valueToCheckCmd = sh -> ((IScalable)sh).getYScale();
-				supportsPropCmd = sh -> sh.isTypeOf(IScalable.class);
-				value = 2d;
-				break;
-			case X_SCALE:
-				mementoCmd = () -> group.getXScaleList();
-				valueToCheckCmd = sh -> ((IScalable)sh).getXScale();
-				supportsPropCmd = sh -> sh.isTypeOf(IScalable.class);
-				value = 2d;
-				break;
-			case PLOT_MAX_X:
-				mementoCmd = () -> group.getPlotMaxXList();
-				valueToCheckCmd = sh -> ((IPlotProp)sh).getPlotMaxX();
-				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
-				value = 20d;
-				break;
-			case PLOT_MIN_X:
-				mementoCmd = () -> group.getPlotMinXList();
-				valueToCheckCmd = sh -> ((IPlotProp)sh).getPlotMinX();
-				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
-				value = -10d;
-				break;
-			case PLOT_NB_PTS:
-				mementoCmd = () -> group.getNbPlottedPointsList();
-				valueToCheckCmd = sh -> ((IPlotProp)sh).getNbPlottedPoints();
-				supportsPropCmd = sh -> sh.isTypeOf(IPlotProp.class);
-				value = 123;
-				break;
-			case SHOW_POINTS:
-				mementoCmd = () -> group.getShowPointsList();
-				valueToCheckCmd = sh -> sh.isShowPts();
-				supportsPropCmd = sh -> sh.isShowPtsable();
-				value = true;
-				break;
-			case AXES_SHOW_ORIGIN:
-				mementoCmd = () -> group.getAxesShowOriginList();
-				valueToCheckCmd = sh -> ((IAxesProp)sh).isShowOrigin();
-				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
-				value = false;
-				break;
-			case AXES_LABELS_DIST:
-				mementoCmd = () -> group.getAxesDistLabelsList();
-				valueToCheckCmd = sh -> ((IAxesProp)sh).getDistLabels();
-				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
-				value = ShapeFactory.INST.createPoint(1d, 2d);
-				break;
-			case AXES_LABELS_INCR:
-				mementoCmd = () -> group.getAxesIncrementsList();
-				valueToCheckCmd = sh -> ((IAxesProp)sh).getIncrement();
-				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
-				value = ShapeFactory.INST.createPoint(1d, 2d);
-				break;
-			case AXES_LABELS_SHOW:
-				mementoCmd = () -> group.getAxesLabelsDisplayedList();
-				valueToCheckCmd = sh -> ((IAxesProp)sh).getLabelsDisplayed();
-				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
-				value = PlottingStyle.X;
-				break;
-			case AXES_TICKS_SHOW:
-				mementoCmd = () -> group.getAxesTicksDisplayedList();
-				valueToCheckCmd = sh -> ((IAxesProp)sh).getTicksDisplayed();
-				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
-				value = PlottingStyle.Y;
-				break;
-			case GRID_SUBGRID_WIDTH:
-				mementoCmd = () -> group.getSubGridWidthList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).getSubGridWidth();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = 21d;
-				break;
-			case CLOSABLE_CLOSE:
-				mementoCmd = () -> group.getOpenList();
-				valueToCheckCmd = sh -> ((IFreeHandProp)sh).isOpened();
-				supportsPropCmd = sh -> sh.isTypeOf(IFreeHandProp.class);
-				value = false;
-				break;
-			case FREEHAND_INTERVAL:
-				mementoCmd = () -> group.getFreeHandIntervalList();
-				valueToCheckCmd = sh -> ((IFreeHandProp)sh).getInterval();
-				supportsPropCmd = sh -> sh.isTypeOf(IFreeHandProp.class);
-				value = 7;
-				break;
-			case GRID_SUBGRID_DIV:
-				mementoCmd = () -> group.getSubGridDivList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).getSubGridDiv();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = 5;
-				break;
-			case GRID_SUBGRID_DOTS:
-				mementoCmd = () -> group.getSubGridDotsList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).getSubGridDots();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = 3;
-				break;
-			case GRID_DOTS:
-				mementoCmd = () -> group.getGridDotsList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).getGridDots();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = 7;
-				break;
-			case GRID_WIDTH:
-				mementoCmd = () -> group.getGridWidthList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).getGridWidth();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = 7d;
-				break;
-			case AXES_TICKS_STYLE:
-				mementoCmd = () -> group.getAxesTicksStyleList();
-				valueToCheckCmd = sh -> ((IAxesProp)sh).getTicksStyle();
-				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
-				value = TicksStyle.FULL;
-				break;
-			case FREEHAND_STYLE:
-				mementoCmd = () -> group.getFreeHandTypeList();
-				valueToCheckCmd = sh -> ((IFreeHandProp)sh).getType();
-				supportsPropCmd = sh -> sh.isTypeOf(IFreeHandProp.class);
-				value = FreeHandStyle.LINES;
-				break;
-			case AXES_STYLE:
-				mementoCmd = () -> group.getAxesStyleList();
-				valueToCheckCmd = sh -> ((IAxesProp)sh).getAxesStyle();
-				supportsPropCmd = sh -> sh.isTypeOf(IAxesProp.class);
-				value = AxesStyle.FRAME;
-				break;
-			case GRID_LABEL_POSITION_X:
-				mementoCmd = () -> group.getGridYLabelWestList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).isYLabelWest();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = false;
-				break;
-			case GRID_LABEL_POSITION_Y:
-				mementoCmd = () -> group.getGridXLabelSouthList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).isXLabelSouth();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = false;
-				break;
-			case GRID_SIZE_LABEL:
-				mementoCmd = () -> group.getGridLabelSizeList();
-				valueToCheckCmd = sh -> ((IStdGridProp)sh).getLabelsSize();
-				supportsPropCmd = sh -> sh.isTypeOf(IStdGridProp.class);
-				value = 11;
-				break;
-			case ARROW_T_BAR_SIZE_DIM:
-				mementoCmd = () -> group.getTBarSizeDimList();
-				valueToCheckCmd = sh -> ((IArrowable)sh).getTBarSizeDim();
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
-				value = 0.55;
-				break;
-			case ARROW_T_BAR_SIZE_NUM:
-				mementoCmd = () -> group.getTBarSizeNumList();
-				valueToCheckCmd = sh -> ((IArrowable)sh).getTBarSizeNum();
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
-				value = 0.55;
-				break;
-			case ARROW_DOT_SIZE_NUM:
-				mementoCmd = () -> group.getDotSizeNumList();
-				valueToCheckCmd = sh -> ((IArrowable)sh).getDotSizeNum();
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
-				value = 0.55;
-				break;
-			case ARROW_DOT_SIZE_DIM:
-				mementoCmd = () -> group.getDotSizeDimList();
-				valueToCheckCmd = sh -> ((IArrowable)sh).getDotSizeDim();
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
-				value = 0.55;
-				break;
-			case ARROW_BRACKET_NUM:
-				mementoCmd = () -> group.getBracketNumList();
-				valueToCheckCmd = sh -> ((IArrowable)sh).getBracketNum();
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
-				value = 0.55;
-				break;
-			case ARROW_R_BRACKET_NUM:
-				mementoCmd = () -> group.getRBracketNumList();
-				valueToCheckCmd = sh -> ((IArrowable)sh).getRBracketNum();
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
-				value = 0.55;
-				break;
-			case ARROW_SIZE_NUM:
-				mementoCmd = () -> group.getArrowSizeNumList();
-				valueToCheckCmd = sh -> ((IArrowable)sh).getArrowSizeNum();
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
-				value = 0.55;
-				break;
-			case ARROW_SIZE_DIM:
-				mementoCmd = () -> group.getArrowSizeDimList();
-				valueToCheckCmd = sh -> ((IArrowable)sh).getArrowSizeDim();
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
-				value = 0.55;
-				break;
-			case ARROW_LENGTH:
-				mementoCmd = () -> group.getArrowLengthList();
-				valueToCheckCmd = sh -> ((IArrowable)sh).getArrowLength();
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
-				value = 0.55;
-				break;
-			case ARROW_INSET:
-				mementoCmd = () -> group.getArrowInsetList();
-				valueToCheckCmd = sh -> ((IArrowable)sh).getArrowInset();
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowable.class);
-				value = 0.22;
-				break;
-			case GRID_END:
-				mementoCmd = () -> group.getGridEndList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).getGridEnd();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = ShapeFactory.INST.createPoint(10d, 20d);
-				break;
-			case GRID_ORIGIN:
-				mementoCmd = () -> group.getGridOriginList();
-				valueToCheckCmd = sh -> ShapeFactory.INST.createPoint(((IGridProp)sh).getOriginX(), ((IGridProp)sh).getOriginY());
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = ShapeFactory.INST.createPoint(10d, 20d);
-				break;
-			case GRID_START:
-				mementoCmd = () -> group.getGridStartList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).getGridStart();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = ShapeFactory.INST.createPoint(-10d, -20d);
-				break;
-			case ARC_START_ANGLE:
-				mementoCmd = () -> group.getAngleStartList();
-				valueToCheckCmd = sh -> ((IArcProp)sh).getAngleStart();
-				supportsPropCmd = sh -> sh.isTypeOf(IArcProp.class);
-				value = 11d;
-				break;
-			case ARC_END_ANGLE:
-				mementoCmd = () -> group.getAngleEndList();
-				valueToCheckCmd = sh -> ((IArcProp)sh).getAngleEnd();
-				supportsPropCmd = sh -> sh.isTypeOf(IArcProp.class);
-				value = 11d;
-				break;
-			case ARC_STYLE:
-				mementoCmd = () -> group.getArcStyleList();
-				valueToCheckCmd = sh -> ((IArcProp)sh).getArcStyle();
-				supportsPropCmd = sh -> sh.isTypeOf(IArcProp.class);
-				value = ArcStyle.CHORD;
-				break;
-			case ARROW2_STYLE:
-				mementoCmd = () -> group.getArrowStyleList(1);
-				valueToCheckCmd = sh -> ((IArrowableShape)sh).getArrowStyle(1);
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowableShape.class);
-				value = ArrowStyle.CIRCLE_END;
-				break;
-			case ARROW1_STYLE:
-				mementoCmd = () -> group.getArrowStyleList(0);
-				valueToCheckCmd = sh -> ((IArrowableShape)sh).getArrowStyle(0);
-				supportsPropCmd = sh -> sh.isTypeOf(IArrowableShape.class);
-				value = ArrowStyle.CIRCLE_END;
-				break;
-			case TEXT_POSITION:
-				mementoCmd = () -> group.getTextPositionList();
-				valueToCheckCmd = sh -> ((ITextProp)sh).getTextPosition();
-				supportsPropCmd = sh -> sh.isTypeOf(ITextProp.class);
-				value = TextPosition.TOP_RIGHT;
-				break;
-			case TEXT:
-				mementoCmd = () -> group.getTextList();
-				valueToCheckCmd = sh -> ((ITextProp)sh).getText();
-				supportsPropCmd = sh -> sh.isTypeOf(ITextProp.class);
-				value = "foo";
-				break;
-			case HATCHINGS_ANGLE:
-				mementoCmd = () -> {
-					group.setFillingStyle(FillingStyle.CLINES);
-					return group.getHatchingsAngleList();
-				};
-				valueToCheckCmd = sh -> sh.getHatchingsAngle();
-				supportsPropCmd = sh -> sh.isInteriorStylable();
-				value = 11.123;
-				break;
-			case HATCHINGS_WIDTH:
-				mementoCmd = () -> {
-					group.setFillingStyle(FillingStyle.CLINES);
-					return group.getHatchingsWidthList();
-				};
-				valueToCheckCmd = sh -> sh.getHatchingsWidth();
-				supportsPropCmd = sh -> sh.isInteriorStylable();
-				value = 11.123;
-				break;
-			case HATCHINGS_SEP:
-				mementoCmd = () -> {
-					group.setFillingStyle(FillingStyle.HLINES);
-					return group.getHatchingsSepList();
-				};
-				valueToCheckCmd = sh -> sh.getHatchingsSep();
-				supportsPropCmd = sh -> sh.isInteriorStylable();
-				value = 11.123;
-				break;
-			case GRAD_ANGLE:
-				mementoCmd = () -> {
-					group.setFillingStyle(FillingStyle.GRAD);
-					return group.getGradAngleList();
-				};
-				valueToCheckCmd = sh -> sh.getGradAngle();
-				supportsPropCmd = sh -> sh.isInteriorStylable();
-				value = 11.123;
-				break;
-			case GRAD_MID_POINT:
-				mementoCmd = () -> {
-					group.setFillingStyle(FillingStyle.GRAD);
-					return group.getGradMidPtList();
-				};
-				valueToCheckCmd = sh -> sh.getGradMidPt();
-				supportsPropCmd = sh -> sh.isInteriorStylable();
-				value = 0.35;
-				break;
-			case ROUND_CORNER_VALUE:
-				mementoCmd = () -> group.getLineArcList();
-				valueToCheckCmd = sh -> ((ILineArcProp)sh).getLineArc();
-				supportsPropCmd = sh -> sh.isTypeOf(ILineArcProp.class);
-				value = 0.13;
-				break;
-			case GRID_SUBGRID_COLOUR:
-				mementoCmd = () -> group.getSubGridColourList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).getSubGridColour();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = DviPsColors.BITTERSWEET;
-				break;
-			case GRID_LABELS_COLOUR:
-				mementoCmd = () -> group.getGridLabelsColourList();
-				valueToCheckCmd = sh -> ((IGridProp)sh).getGridLabelsColour();
-				supportsPropCmd = sh -> sh.isTypeOf(IGridProp.class);
-				value = DviPsColors.BITTERSWEET;
-				break;
-			case COLOUR_FILLING:
-				mementoCmd = () -> {
-					group.setFillingStyle(FillingStyle.PLAIN);
-					return group.getFillingColList();
-				};
-				valueToCheckCmd = sh -> sh.getFillingCol();
-				supportsPropCmd = sh -> sh.isInteriorStylable();
-				value = DviPsColors.GRAY;
-				break;
-			case COLOUR_LINE:
-				mementoCmd = () -> group.getLineColourList();
-				valueToCheckCmd = sh -> sh.getLineColour();
-				supportsPropCmd = sh -> true;
-				value = DviPsColors.GRAY;
-				break;
-			case COLOUR_HATCHINGS:
-				mementoCmd = () -> {
-					group.setFillingStyle(FillingStyle.CLINES);
-					return group.getHatchingsColList();
-				};
-				valueToCheckCmd = sh -> sh.getHatchingsCol();
-				supportsPropCmd = sh -> sh.isInteriorStylable();
-				value = DviPsColors.GRAY;
-				break;
-			case DBLE_BORDERS:
-				mementoCmd = () -> group.hasDbleBordList();
-				valueToCheckCmd = sh -> sh.hasDbleBord();
-				supportsPropCmd = sh -> sh.isDbleBorderable();
-				value = true;
-				break;
-			case DBLE_BORDERS_SIZE:
-				mementoCmd = () -> {
-					group.setHasDbleBord(true);
-					return group.getDbleBordSepList();
-				};
-				valueToCheckCmd = sh -> sh.getDbleBordSep();
-				supportsPropCmd = sh -> sh.isDbleBorderable();
-				value = 98.2;
-				break;
-			case COLOUR_DBLE_BORD:
-				mementoCmd = () -> {
-					group.setHasDbleBord(true);
-					return group.getDbleBordColList();
-				};
-				valueToCheckCmd = sh -> sh.getDbleBordCol();
-				supportsPropCmd = sh -> sh.isDbleBorderable();
-				value = DviPsColors.JUNGLEGREEN;
-				break;
-			case SHADOW:
-				mementoCmd = () -> group.hasShadowList();
-				valueToCheckCmd = sh -> sh.hasShadow();
-				supportsPropCmd = sh -> sh.isShadowable();
-				value = true;
-				break;
-			case SHADOW_SIZE:
-				mementoCmd = () -> {
-					group.setHasShadow(true);
-					return group.getShadowSizeList();
-				};
-				valueToCheckCmd = sh -> sh.getShadowSize();
-				supportsPropCmd = sh -> sh.isShadowable();
-				value = 123d;
-				break;
-			case SHADOW_ANGLE:
-				mementoCmd = () -> {
-					group.setHasShadow(true);
-					return group.getShadowAngleList();
-				};
-				valueToCheckCmd = sh -> sh.getShadowAngle();
-				supportsPropCmd = sh -> sh.isShadowable();
-				value = 122d;
-				break;
-			case SHADOW_COLOUR:
-				mementoCmd = () -> {
-					group.setHasShadow(true);
-					return group.getShadowColList();
-				};
-				valueToCheckCmd = sh -> sh.getShadowCol();
-				supportsPropCmd = sh -> sh.isShadowable();
-				value = DviPsColors.JUNGLEGREEN;
-				break;
-			case COLOUR_GRADIENT_START:
-				mementoCmd = () -> {
-					group.setFillingStyle(FillingStyle.GRAD);
-					return group.getGradColStartList();
-				};
-				valueToCheckCmd = sh -> sh.getGradColStart();
-				supportsPropCmd = sh -> sh.isInteriorStylable();
-				value = DviPsColors.GOLDEN_ROD;
-				break;
-			case COLOUR_GRADIENT_END:
-				mementoCmd = () -> {
-					group.setFillingStyle(FillingStyle.GRAD);
-					return group.getGradColEndList();
-				};
-				valueToCheckCmd = sh -> sh.getGradColEnd();
-				supportsPropCmd = sh -> sh.isInteriorStylable();
-				value = DviPsColors.MULBERRY;
-				break;
-			case LINE_THICKNESS:
-				mementoCmd = () -> group.getThicknessList();
-				valueToCheckCmd = sh -> sh.getThickness();
-				supportsPropCmd = sh -> sh.isThicknessable();
-				value = 11.123;
-				break;
-			case FILLING_STYLE:
-				mementoCmd = () -> group.getFillingStyleList();
-				valueToCheckCmd = sh -> sh.getFillingStyle();
-				supportsPropCmd = sh -> sh.isInteriorStylable();
-				value = FillingStyle.GRAD;
-				break;
-			case BORDER_POS:
-				mementoCmd = () -> group.getBordersPositionList();
-				supportsPropCmd = sh -> sh.isBordersMovable();
-				valueToCheckCmd = sh -> sh.getBordersPosition();
-				value = BorderPos.OUT;
-				break;
-			case LINE_STYLE:
-				mementoCmd = () -> group.getLineStyleList();
-				supportsPropCmd = sh -> sh.isLineStylable();
-				valueToCheckCmd = sh -> sh.getLineStyle();
-				value = LineStyle.DOTTED;
-				break;
-			case DOT_FILLING_COL:
-				mementoCmd = () -> {
-					group.setDotStyle(DotStyle.DIAMOND);
-					return group.getDotFillingColList();
-				};
-				valueToCheckCmd = sh -> ((IDotProp)sh).getDotFillingCol();
-				supportsPropCmd = sh -> sh.isTypeOf(IDotProp.class);
-				value = DviPsColors.BITTERSWEET;
-				break;
-			case DOT_STYLE:
-				mementoCmd = () -> group.getDotStyleList();
-				valueToCheckCmd = sh -> ((IDotProp)sh).getDotStyle();
-				supportsPropCmd = sh -> sh.isTypeOf(IDotProp.class);
-				value = DotStyle.DIAMOND;
-				break;
-			case DOT_SIZE:
-				mementoCmd = () -> group.getDotSizeList();
-				valueToCheckCmd = sh -> ((IDotProp)sh).getDiametre();
-				supportsPropCmd = sh -> sh.isTypeOf(IDotProp.class);
-				value = 11.123;
-				break;
-		}
-
 		super.setUp();
 	}
 
 	@Override
 	protected void checkUndo() {
-		int i = 0;
-		for(final Object mem : memento) {
-			if(mem instanceof Double) {
-				final double value = (Double) mem;
-				if(Double.isNaN(value)) {
-					assertFalse(supportsPropCmd.apply(group.getShapeAt(i)));
-				}else {
-					assertThat((Double) valueToCheckCmd.apply(group.getShapeAt(i)), closeTo(value, 0.0001));
-				}
-			}else {
-				if(mem == null) {
-					assertFalse(String.format("Shape %s supports %s but has null value", group.getShapeAt(i), property),
-						supportsPropCmd.apply(group.getShapeAt(i)));
-				}else {
-					if(supportsPropCmd.apply(group.getShapeAt(i))) {
-						assertEquals(String.format("Incorrect value for shape %s", group.getShapeAt(i)), mem, valueToCheckCmd.apply(group.getShapeAt(i)));
+		final AtomicInteger i = new AtomicInteger(0);
+		for(final Optional<Object> mem : memento) {
+			mem.ifPresent(obj -> {
+				if(obj instanceof Double) {
+					final double value = (Double) obj;
+					if(Double.isNaN(value)) {
+						fail();
+					}else {
+						assertThat((Double) valueToCheckCmd.apply(group.getShapeAt(i.get())), closeTo(value, 0.0001));
 					}
+				}else {
+					assertEquals(String.format("Incorrect value for shape %s", group.getShapeAt(i.get())), obj,
+						valueToCheckCmd.apply(group.getShapeAt(i.get())));
 				}
-			}
-			i++;
+			});
+			i.incrementAndGet();
 		}
 	}
 
 	@Override
-	protected ModifyShapeProperty createCmd() {
-		return new ModifyShapeProperty(property, group, value);
+	protected ModifyShapeProperty<Object> createCmd() {
+		return new ModifyShapeProperty<>(property, group, value);
 	}
 
 
@@ -717,7 +345,7 @@ public class TestModifyShapeProperty extends TestUndoableCommand<ModifyShapeProp
 	@Override
 	protected void configCorrectCmd() {
 		configureShapes();
-		memento = mementoCmd.get();
+		memento = mementoCmd.apply(group);
 	}
 
 	@Override

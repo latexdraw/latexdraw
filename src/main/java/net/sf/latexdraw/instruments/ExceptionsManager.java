@@ -30,7 +30,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * This instrument allows to see exceptions launched during the execution of the program.
  * @author Arnaud Blouin
  */
-public class ExceptionsManager extends JfxInstrument implements BadaboomHandler, Initializable {
+public final class ExceptionsManager extends JfxInstrument implements BadaboomHandler, Initializable {
 	/** The button used to shows the panel of exceptions. */
 	@FXML private Button exceptionB;
 	/** The frame to show when exceptions occur. */

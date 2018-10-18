@@ -133,16 +133,16 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 		addComboPropBinding(arrowLeftCB, ShapeProperties.ARROW1_STYLE);
 		addComboPropBinding(arrowRightCB, ShapeProperties.ARROW2_STYLE);
 
-		addSpinnerPropBinding(tbarsizeDim, ShapeProperties.ARROW_T_BAR_SIZE_DIM, false);
-		addSpinnerPropBinding(rbracketNum, ShapeProperties.ARROW_R_BRACKET_NUM, false);
-		addSpinnerPropBinding(dotSizeNum, ShapeProperties.ARROW_DOT_SIZE_NUM, false);
-		addSpinnerPropBinding(dotSizeDim, ShapeProperties.ARROW_DOT_SIZE_DIM, false);
-		addSpinnerPropBinding(bracketNum, ShapeProperties.ARROW_BRACKET_NUM, false);
-		addSpinnerPropBinding(arrowSizeNum, ShapeProperties.ARROW_SIZE_NUM, false);
-		addSpinnerPropBinding(arrowSizeDim, ShapeProperties.ARROW_SIZE_DIM, false);
-		addSpinnerPropBinding(arrowInset, ShapeProperties.ARROW_INSET, false);
-		addSpinnerPropBinding(arrowLength, ShapeProperties.ARROW_LENGTH, false);
-		addSpinnerPropBinding(tbarsizeNum, ShapeProperties.ARROW_T_BAR_SIZE_NUM, false);
+		addSpinnerPropBinding(tbarsizeDim, ShapeProperties.ARROW_T_BAR_SIZE_DIM);
+		addSpinnerPropBinding(rbracketNum, ShapeProperties.ARROW_R_BRACKET_NUM);
+		addSpinnerPropBinding(dotSizeNum, ShapeProperties.ARROW_DOT_SIZE_NUM);
+		addSpinnerPropBinding(dotSizeDim, ShapeProperties.ARROW_DOT_SIZE_DIM);
+		addSpinnerPropBinding(bracketNum, ShapeProperties.ARROW_BRACKET_NUM);
+		addSpinnerPropBinding(arrowSizeNum, ShapeProperties.ARROW_SIZE_NUM);
+		addSpinnerPropBinding(arrowSizeDim, ShapeProperties.ARROW_SIZE_DIM);
+		addSpinnerPropBinding(arrowInset, ShapeProperties.ARROW_INSET);
+		addSpinnerPropBinding(arrowLength, ShapeProperties.ARROW_LENGTH);
+		addSpinnerPropBinding(tbarsizeNum, ShapeProperties.ARROW_T_BAR_SIZE_NUM);
 	}
 
 	@Override

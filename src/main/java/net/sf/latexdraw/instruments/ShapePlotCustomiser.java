@@ -92,26 +92,26 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 	@Override
 	protected void configureBindings() {
 		addComboPropBinding(plotStyleCB, ShapeProperties.PLOT_STYLE);
-		addSpinnerPropBinding(nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false);
+		addSpinnerPropBinding(nbPtsSpinner, ShapeProperties.PLOT_NB_PTS);
 
 		spinnerBinder(i -> mapModShProp(null, ShapeProperties.PLOT_MIN_X)).on(minXSpinner).
-			then((i, c) -> c.setValue(i.getWidget().getValue())).
+			then((i, c) -> c.setValue((Double) i.getWidget().getValue())).
 			when(i -> hand.isActivated() && checkValidPlotFct()).bind();
 
 		spinnerBinder(i -> firstPropPen(null, ShapeProperties.PLOT_MIN_X)).on(minXSpinner).
-			then((i, c) -> c.setValue(i.getWidget().getValue())).
+			then((i, c) -> c.setValue((Double) i.getWidget().getValue())).
 			when(pencilActiv).bind();
 
 		spinnerBinder(i -> mapModShProp(null, ShapeProperties.PLOT_MAX_X)).on(maxXSpinner).
-			then((i, c) -> c.setValue(i.getWidget().getValue())).
+			then((i, c) -> c.setValue((Double) i.getWidget().getValue())).
 			when(i -> hand.isActivated() && checkValidPlotFct()).bind();
 
 		spinnerBinder(i -> firstPropPen(null, ShapeProperties.PLOT_MAX_X)).on(maxXSpinner).
-			then((i, c) -> c.setValue(i.getWidget().getValue())).
+			then((i, c) -> c.setValue((Double) i.getWidget().getValue())).
 			when(pencilActiv).bind();
 
-		addSpinnerPropBinding(xScaleSpinner, ShapeProperties.X_SCALE, false);
-		addSpinnerPropBinding(yScaleSpinner, ShapeProperties.Y_SCALE, false);
+		addSpinnerPropBinding(xScaleSpinner, ShapeProperties.X_SCALE);
+		addSpinnerPropBinding(yScaleSpinner, ShapeProperties.Y_SCALE);
 		addCheckboxPropBinding(polarCB, ShapeProperties.PLOT_POLAR);
 	}
 }

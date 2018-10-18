@@ -73,6 +73,6 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 	@Override
 	protected void configureBindings() {
 		addComboPropBinding(freeHandType, ShapeProperties.FREEHAND_STYLE);
-		addSpinnerPropBinding(gapPoints, ShapeProperties.FREEHAND_INTERVAL, false);
+		addSpinnerPropBinding(gapPoints, ShapeProperties.FREEHAND_INTERVAL);
 	}
 }

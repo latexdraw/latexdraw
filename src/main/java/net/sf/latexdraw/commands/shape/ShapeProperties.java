@@ -12,6 +12,21 @@ package net.sf.latexdraw.commands.shape;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import net.sf.latexdraw.models.interfaces.prop.IArcProp;
+import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.models.interfaces.prop.IClosableProp;
+import net.sf.latexdraw.models.interfaces.prop.IDotProp;
+import net.sf.latexdraw.models.interfaces.prop.IFreeHandProp;
+import net.sf.latexdraw.models.interfaces.prop.IGridProp;
+import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
+import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.models.interfaces.prop.IScalable;
+import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
+import net.sf.latexdraw.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
@@ -20,6 +35,7 @@ import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
+import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
@@ -33,2311 +49,317 @@ import net.sf.latexdraw.util.LangTool;
  * Defines shape properties.
  * @author Arnaud Blouin
  */
-public enum ShapeProperties {
+public final class ShapeProperties<T> {
 	/** Plot style. **/
-	PLOT_STYLE {
-		@Override
-		public void setPropertyValue(final IGroup group, final Object value) {
-			if(group != null && isValueValid(value)) {
-				group.setPlotStyle((PlotStyle) value);
-			}
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public void setPropertyValueList(final IGroup group, final List<?> values) {
-			if(group != null) {
-				group.setPlotStyleList((List<PlotStyle>) values);
-			}
-		}
-
-		@Override
-		public List<?> getPropertyValues(final IGroup group) {
-			return group == null ? Collections.emptyList() : group.getPlotStyleList();
-		}
-
-		@Override
-		public String getMessage() {
-			return LangTool.INSTANCE.getBundle().getString("plot.s.parameters");
-		}
-
-		@Override
-		public boolean isValueValid(final Object obj) {
-			return obj instanceof PlotStyle;
-		}
-	}, /** Polar or cartesian coordinates. **/
-	PLOT_POLAR {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setPolar((Boolean) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setPlotPolarList((List<Boolean>) values);
-				}
-			}
-
-			@Override
-			public List<?> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getPlotPolarList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("plot.s.parameters");
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Boolean;
-			}
-		}, /** The equation of plots. **/
-	PLOT_EQ {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setPlotEquation((String) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setPlotEquationList((List<String>) values);
-				}
-			}
-
-			@Override
-			public List<?> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getPlotEquationList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("plot.s.parameters");
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof String;
-			}
-		}, /** Y-scale. **/
-	Y_SCALE {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setYScale((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setYScaleList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<?> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getYScaleList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("shape.scale");
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** X-scale. **/
-	X_SCALE {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setXScale((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setXScaleList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<?> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getXScaleList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("shape.scale");
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** The max-x of a plot. **/
-	PLOT_MAX_X {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setPlotMaxX((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setPlotMaxXList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<?> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getPlotMaxXList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("plot.s.parameters");
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** The min-x of a plot. **/
-	PLOT_MIN_X {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setPlotMinX((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setPlotMinXList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<?> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getPlotMinXList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("plot.s.parameters");
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** The number of plotted points. **/
-	PLOT_NB_PTS {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setNbPlottedPoints((Integer) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setNbPlottedPointsList((List<Integer>) values);
-				}
-			}
-
-			@Override
-			public List<?> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getNbPlottedPointsList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("plot.s.parameters");
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Integer;
-			}
-		}, /** Show/Hide the origin of the axes. */
-	SHOW_POINTS {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.12"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Boolean;
-			}
-
-			@Override
-			public List<Boolean> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getShowPointsList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setShowPts((Boolean) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setShowPointsList((List<Boolean>) values);
-				}
-			}
-		}, /** Show/Hide the origin of the axes. */
-	AXES_SHOW_ORIGIN {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Boolean;
-			}
-
-			@Override
-			public List<Boolean> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getAxesShowOriginList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setShowOrigin((Boolean) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setAxesShowOriginList((List<Boolean>) values);
-				}
-			}
-		}, /** The increment of the axes' labels. */
-	AXES_LABELS_DIST {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof IPoint;
-			}
-
-			@Override
-			public List<IPoint> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getAxesDistLabelsList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setDistLabels((IPoint) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setAxesDistLabelsList((List<IPoint>) values);
-				}
-			}
-		}, /** The increment of the axes' labels. */
-	AXES_LABELS_INCR {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof IPoint;
-			}
-
-			@Override
-			public List<IPoint> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getAxesIncrementsList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setIncrement((IPoint) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setAxesIncrementsList((List<IPoint>) values);
-				}
-			}
-		}, /** How the labels of axes are displayed. */
-	AXES_LABELS_SHOW {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof PlottingStyle;
-			}
-
-			@Override
-			public List<PlottingStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getAxesLabelsDisplayedList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setLabelsDisplayed((PlottingStyle) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setAxesLabelsDisplayedList((List<PlottingStyle>) values);
-				}
-			}
-		}, /** How the ticks of axes are displayed. */
-	AXES_TICKS_SHOW {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof PlottingStyle;
-			}
-
-			@Override
-			public List<PlottingStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getAxesTicksDisplayedList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setTicksDisplayed((PlottingStyle) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setAxesTicksDisplayedList((List<PlottingStyle>) values);
-				}
-			}
-		}, /** The width of the sub-grids. */
-	GRID_SUBGRID_WIDTH {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getSubGridWidthList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setSubGridWidth((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setSubGridWidthList((List<Double>) values);
-				}
-			}
-		}, /** Defines whether bezier curves and co are closed. */
-	CLOSABLE_CLOSE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("shape.closed.opened");
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Boolean;
-			}
-
-			@Override
-			public List<Boolean> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getOpenList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setOpened((Boolean) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setOpenList((List<Boolean>) values);
-				}
-			}
-		}, /** The interval between the points of free hand shapes. */
-	FREEHAND_INTERVAL {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.15"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Integer;
-			}
-
-			@Override
-			public List<Integer> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getFreeHandIntervalList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setInterval((Integer) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setFreeHandIntervalList((List<Integer>) values);
-				}
-			}
-		}, /** The division the sub-lines of grids. */
-	GRID_SUBGRID_DIV {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Integer;
-			}
-
-			@Override
-			public List<Integer> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getSubGridDivList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setSubGridDiv((Integer) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setSubGridDivList((List<Integer>) values);
-				}
-			}
-		}, /** The number of dots composing the sub-lines of grids. */
-	GRID_SUBGRID_DOTS {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Integer;
-			}
-
-			@Override
-			public List<Integer> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getSubGridDotsList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setSubGridDots((Integer) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setSubGridDotsList((List<Integer>) values);
-				}
-			}
-		}, /** The number of dots composing the main lines of grids. */
-	GRID_DOTS {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Integer;
-			}
-
-			@Override
-			public List<Integer> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGridDotsList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setGridDots((Integer) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGridDotsList((List<Integer>) values);
-				}
-			}
-		}, /** The width of the grids. */
-	GRID_WIDTH {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGridWidthList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setGridWidth((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGridWidthList((List<Double>) values);
-				}
-			}
-		}, /** The style of the ticks of axes. */
-	AXES_TICKS_STYLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof TicksStyle;
-			}
-
-			@Override
-			public List<TicksStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getAxesTicksStyleList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setTicksStyle((TicksStyle) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setAxesTicksStyleList((List<TicksStyle>) values);
-				}
-			}
-		}, /** The style of axes. */
-	FREEHAND_STYLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.15"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof FreeHandStyle;
-			}
-
-			@Override
-			public List<FreeHandStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getFreeHandTypeList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setType((FreeHandStyle) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setFreeHandTypeList((List<FreeHandStyle>) values);
-				}
-			}
-		}, /** The style of axes. */
-	AXES_STYLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.13"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof AxesStyle;
-			}
-
-			@Override
-			public List<AxesStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getAxesStyleList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setAxesStyle((AxesStyle) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setAxesStyleList((List<AxesStyle>) values);
-				}
-			}
-		}, /** The X-coordinate of the grid's labels. */
-	GRID_LABEL_POSITION_X {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Boolean;
-			}
-
-			@Override
-			public List<Boolean> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGridYLabelWestList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setYLabelWest((Boolean) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGridYLabelWestList((List<Boolean>) values);
-				}
-			}
-		}, /** The Y-coordinate of the grid's labels. */
-	GRID_LABEL_POSITION_Y {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Boolean;
-			}
-
-			@Override
-			public List<Boolean> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGridXLabelSouthList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setXLabelSouth((Boolean) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGridXLabelSouthList((List<Boolean>) values);
-				}
-			}
-		}, /** The size of the labels of grids. */
-	GRID_SIZE_LABEL {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Integer;
-			}
-
-			@Override
-			public List<Integer> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGridLabelSizeList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setLabelsSize((Integer) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGridLabelSizeList((List<Integer>) values);
-				}
-			}
-		}, /** The t bar num of arrows. */
-	ARROW_T_BAR_SIZE_DIM {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null) {
-					group.setTBarSizeDim((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setTBarSizeDimList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getTBarSizeDimList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** The t bar num of arrows. */
-	ARROW_T_BAR_SIZE_NUM {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null) {
-					group.setTBarSizeNum((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setTBarSizeNumList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getTBarSizeNumList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** The dot size dim of arrows. */
-	ARROW_DOT_SIZE_NUM {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null) {
-					group.setDotSizeNum((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setDotSizeNumList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getDotSizeNumList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** The dot size dim of arrows. */
-	ARROW_DOT_SIZE_DIM {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null) {
-					group.setDotSizeDim((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setDotSizeDimList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getDotSizeDimList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** The bracket num of arrows. */
-	ARROW_BRACKET_NUM {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null) {
-					group.setBracketNum((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setBracketNumList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getBracketNumList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** The round bracket num of arrows. */
-	ARROW_R_BRACKET_NUM {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null) {
-					group.setRBracketNum((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setRBracketNumList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getRBracketNumList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** The size num of arrows. */
-	ARROW_SIZE_NUM {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null) {
-					group.setArrowSizeNum((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setArrowSizeNumList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getArrowSizeNumList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** The size dim of arrows. */
-	ARROW_SIZE_DIM {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null) {
-					group.setArrowSizeDim((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setArrowSizeDimList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getArrowSizeDimList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, ARROW_LENGTH {
-		@Override
-		public void setPropertyValue(final IGroup group, final Object value) {
-			if(group != null) {
-				group.setArrowLength((Double) value);
-			}
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public void setPropertyValueList(final IGroup group, final List<?> values) {
-			if(group != null) {
-				group.setArrowLengthList((List<Double>) values);
-			}
-		}
-
-		@Override
-		public List<Double> getPropertyValues(final IGroup group) {
-			return group == null ? Collections.emptyList() : group.getArrowLengthList();
-		}
-
-		@Override
-		public String getMessage() {
-			return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-		}
-
-		@Override
-		public boolean isValueValid(final Object obj) {
-			return obj instanceof Double;
-		}
-	}, /** The inset of arrows. */
-	ARROW_INSET {
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null) {
-					group.setArrowInset((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setArrowInsetList((List<Double>) values);
-				}
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getArrowInsetList();
-			}
-
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-		}, /** Modification of the starting position of grids. */
-	GRID_END {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof IPoint;
-			}
-
-			@Override
-			public List<IPoint> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGridEndList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					final IPoint pt = (IPoint) value;
-					group.setGridEnd(pt.getX(), pt.getY());
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGridEndList((List<IPoint>) values);
-				}
-			}
-		}, /** Modification of the starting position of grids. */
-	GRID_ORIGIN {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof IPoint;
-			}
-
-			@Override
-			public List<IPoint> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGridOriginList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					final IPoint pt = (IPoint) value;
-					group.setOrigin(pt.getX(), pt.getY());
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGridOriginList((List<IPoint>) values);
-				}
-			}
-		}, /** Modification of the starting position of grids. */
-	GRID_START {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof IPoint;
-			}
-
-			@Override
-			public List<IPoint> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGridStartList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					final IPoint pt = (IPoint) value;
-					group.setGridStart(pt.getX(), pt.getY());
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGridStartList((List<IPoint>) values);
-				}
-			}
-		}, /** Modification of the start angle of arcs. */
-	ARC_START_ANGLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.17"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getAngleStartList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setAngleStart((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setAngleStartList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the end angle of arcs. */
-	ARC_END_ANGLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.17"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getAngleEndList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setAngleEnd((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setAngleEndList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the style of arcs. */
-	ARC_STYLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.17"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof ArcStyle;
-			}
-
-			@Override
-			public List<ArcStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getArcStyleList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setArcStyle((ArcStyle) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setArcStyleList((List<ArcStyle>) values);
-				}
-			}
-		}, /** Defines if the shape has a second arrow. */
-	ARROW2_STYLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof ArrowStyle;
-			}
-
-			@Override
-			public List<ArrowStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getArrowStyleList(-1);
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setArrowStyle((ArrowStyle) value, -1);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setArrowStyleList((List<ArrowStyle>) values, -1);
-				}
-			}
-		}, /** Defines if the shape has a first arrow. */
-	ARROW1_STYLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.16"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof ArrowStyle;
-			}
-
-			@Override
-			public List<ArrowStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getArrowStyleList(0);
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setArrowStyle((ArrowStyle) value, 0);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setArrowStyleList((List<ArrowStyle>) values, 0);
-				}
-			}
-		}, /** Modification of the position of texts. */
-	TEXT_POSITION {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.18"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof TextPosition;
-			}
-
-			@Override
-			public List<TextPosition> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getTextPositionList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setTextPosition((TextPosition) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setTextPositionList((List<TextPosition>) values);
-				}
-			}
-		}, /** Modification of the text. */
-	TEXT {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.18"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof String;
-			}
-
-			@Override
-			public List<String> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getTextList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setText((String) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setTextList((List<String>) values);
-				}
-			}
-		}, /** Modification of the hatchings angle of shapes. */
-	HATCHINGS_ANGLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getHatchingsAngleList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setHatchingsAngle((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setHatchingsAngleList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the hatchings width a shape. */
-	HATCHINGS_WIDTH {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getHatchingsWidthList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setHatchingsWidth((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setHatchingsWidthList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the hatching spacing a shape. */
-	HATCHINGS_SEP {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getHatchingsSepList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setHatchingsSep((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setHatchingsSepList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the gradient angle a shape. */
-	GRAD_ANGLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGradAngleList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setGradAngle((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGradAngleList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the middle point of the gradient a shape. */
-	GRAD_MID_POINT {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGradMidPtList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setGradMidPt((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGradMidPtList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the round corner value of a shape. */
-	ROUND_CORNER_VALUE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.21"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getLineArcList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setLineArc((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setLineArcList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the colour of the labels of a grid. */
-	GRID_SUBGRID_COLOUR {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Color;
-			}
-
-			@Override
-			public List<Color> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getSubGridColourList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setSubGridColour((Color) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setSubGridColourList((List<Color>) values);
-				}
-			}
-		}, /** Modification of the colour of the labels of a grid. */
-	GRID_LABELS_COLOUR {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.14"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Color;
-			}
-
-			@Override
-			public List<Color> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGridLabelsColourList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setGridLabelsColour((Color) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGridLabelsColourList((List<Color>) values);
-				}
-			}
-		}, /** Modification of the colour of the filling of a shape. */
-	COLOUR_FILLING {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.21"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Color;
-			}
-
-			@Override
-			public List<Color> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getFillingColList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setFillingCol((Color) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setFillingColList((List<Color>) values);
-				}
-			}
-		}, /** Modification of the colour of the borders of a shape. */
-	COLOUR_LINE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.23"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Color;
-			}
-
-			@Override
-			public List<Color> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getLineColourList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setLineColour((Color) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setLineColourList((List<Color>) values);
-				}
-			}
-		}, /** Modification of the colour of the hatchings of a shape. */
-	COLOUR_HATCHINGS {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.19"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Color;
-			}
-
-			@Override
-			public List<Color> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getHatchingsColList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setHatchingsCol((Color) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setHatchingsColList((List<Color>) values);
-				}
-			}
-		}, /** Defines if a shape must have double borders. */
-	DBLE_BORDERS {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.24"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Boolean;
-			}
-
-			@Override
-			public List<Boolean> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.hasDbleBordList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setHasDbleBord((Boolean) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setHasDbleBordList((List<Boolean>) values);
-				}
-			}
-		}, /** Modification of the size of the double borders of a shape. */
-	DBLE_BORDERS_SIZE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.24"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getDbleBordSepList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setDbleBordSep((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setDbleBordSepList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the colour of the double borders of a shape. */
-	COLOUR_DBLE_BORD {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.24"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Color;
-			}
-
-			@Override
-			public List<Color> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getDbleBordColList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setDbleBordCol((Color) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setDbleBordColList((List<Color>) values);
-				}
-			}
-		}, /** Defines if a shape must have a shadow. */
-	SHADOW {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Boolean;
-			}
-
-			@Override
-			public List<Boolean> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.hasShadowList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setHasShadow((Boolean) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setHasShadowList((List<Boolean>) values);
-				}
-			}
-		}, /** Modification of the size of the shadow of a shape. */
-	SHADOW_SIZE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getShadowSizeList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setShadowSize((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setShadowSizeList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the angle of the shadow of a shape. */
-	SHADOW_ANGLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Double;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getShadowAngleList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setShadowAngle((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setShadowAngleList((List<Double>) values);
-				}
-			}
-		}, /** Modification of colour of the shadow of a shape. */
-	SHADOW_COLOUR {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.25"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Color;
-			}
-
-			@Override
-			public List<Color> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getShadowColList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setShadowCol((Color) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setShadowColList((List<Color>) values);
-				}
-			}
-		}, /** Modification of the colour of the start gradient of a shape. */
-	COLOUR_GRADIENT_START {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Color;
-			}
-
-			@Override
-			public List<Color> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGradColStartList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setGradColStart((Color) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGradColStartList((List<Color>) values);
-				}
-			}
-		}, /** Modification of the colour of the end gradient of a shape. */
-	COLOUR_GRADIENT_END {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.20"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Color;
-			}
-
-			@Override
-			public List<Color> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getGradColEndList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setGradColEnd((Color) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setGradColEndList((List<Color>) values);
-				}
-			}
-		}, /** Modification of the thickness of the borders of a shape. */
-	LINE_THICKNESS {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.26"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Integer || obj instanceof Double || obj instanceof Float;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getThicknessList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setThickness((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setThicknessList((List<Double>) values);
-				}
-			}
-		}, /** Modification of the filling style of a shape. */
-	FILLING_STYLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.22"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof FillingStyle;
-			}
-
-			@Override
-			public List<FillingStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getFillingStyleList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setFillingStyle((FillingStyle) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setFillingStyleList((List<FillingStyle>) values);
-				}
-			}
-		}, /** Modification of the border position of a shape. */
-	BORDER_POS {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.27"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof BorderPos;
-			}
-
-			@Override
-			public List<BorderPos> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getBordersPositionList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setBordersPosition((BorderPos) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setBordersPositionList((List<BorderPos>) values);
-				}
-			}
-		}, /** Modification of the line style of a shape. */
-	LINE_STYLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.28"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof LineStyle;
-			}
-
-			@Override
-			public List<LineStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getLineStyleList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setLineStyle((LineStyle) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setLineStyleList((List<LineStyle>) values);
-				}
-			}
-		}, /** Modification of the filling colour of a dot. */
-	DOT_FILLING_COL {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.29"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Color;
-			}
-
-			@Override
-			public List<Color> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getDotFillingColList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setDotFillingCol((Color) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setDotFillingColList((List<Color>) values);
-				}
-			}
-		}, /** Modification of the style of a dot. */
-	DOT_STYLE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.29"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof DotStyle;
-			}
-
-			@Override
-			public List<DotStyle> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getDotStyleList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setDotStyle((DotStyle) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setDotStyleList((List<DotStyle>) values);
-				}
-			}
-		}, /** Modification of the size of dots. */
-	DOT_SIZE {
-			@Override
-			public String getMessage() {
-				return LangTool.INSTANCE.getBundle().getString("Actions.29"); //NON-NLS
-			}
-
-			@Override
-			public boolean isValueValid(final Object obj) {
-				return obj instanceof Number;
-			}
-
-			@Override
-			public List<Double> getPropertyValues(final IGroup group) {
-				return group == null ? Collections.emptyList() : group.getDotSizeList();
-			}
-
-			@Override
-			public void setPropertyValue(final IGroup group, final Object value) {
-				if(group != null && isValueValid(value)) {
-					group.setDiametre((Double) value);
-				}
-			}
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public void setPropertyValueList(final IGroup group, final List<?> values) {
-				if(group != null) {
-					group.setDotSizeList((List<Double>) values);
-				}
-			}
-		};
-
-	/**
-	 * @param group The group to test.
-	 * @return True if the given group supports the calling property.
-	 */
-	public boolean isPropertySupported(final IGroup group) {
-		return group != null;
+	public static final ShapeProperties<PlotStyle> PLOT_STYLE = new ShapeProperties<>(
+		(v, g) -> g.setPlotStyle(v), (v, g) -> g.setPlotStyleList(v), g -> g.getPlotStyleList(), g -> g.isTypeOf(IPlotProp.class), "plot.s.parameters");
+
+	/** Polar or cartesian coordinates. **/
+	public static final ShapeProperties<Boolean> PLOT_POLAR = new ShapeProperties<>(
+		(v, g) -> g.setPolar(v), (v, g) -> g.setPlotPolarList(v), g -> g.getPlotPolarList(), g -> g.isTypeOf(IPlotProp.class), "plot.s.parameters");
+
+	/** The equation of plots. **/
+	public static final ShapeProperties<String> PLOT_EQ = new ShapeProperties<>(
+		(v, g) -> g.setPlotEquation(v), (v, g) -> g.setPlotEquationList(v), g -> g.getPlotEquationList(), g -> g.isTypeOf(IPlotProp.class), "plot.s.parameters");
+
+	/** Y-scale. **/
+	public static final ShapeProperties<Double> Y_SCALE = new ShapeProperties<>(
+		(v, g) -> g.setYScale(v), (v, g) -> g.setYScaleList(v), g -> g.getYScaleList(), g -> g.isTypeOf(IScalable.class), "shape.scale");
+
+	/** X-scale. **/
+	public static final ShapeProperties<Double> X_SCALE = new ShapeProperties<>(
+		(v, g) -> g.setXScale(v), (v, g) -> g.setXScaleList(v), g -> g.getXScaleList(), g -> g.isTypeOf(IScalable.class), "shape.scale");
+
+	/** The max-x of a plot. **/
+	public static final ShapeProperties<Double> PLOT_MAX_X = new ShapeProperties<>(
+		(v, g) -> g.setPlotMaxX(v), (v, g) -> g.setPlotMaxXList(v), g -> g.getPlotMaxXList(), g -> g.isTypeOf(IPlotProp.class), "plot.s.parameters");
+
+	/** The min-x of a plot. **/
+	public static final ShapeProperties<Double> PLOT_MIN_X = new ShapeProperties<>(
+		(v, g) -> g.setPlotMinX(v), (v, g) -> g.setPlotMinXList(v), g -> g.getPlotMinXList(), g -> g.isTypeOf(IPlotProp.class), "plot.s.parameters");
+
+	/** The number of plotted points. **/
+	public static final ShapeProperties<Integer> PLOT_NB_PTS = new ShapeProperties<>(
+		(v, g) -> g.setNbPlottedPoints(v), (v, g) -> g.setNbPlottedPointsList(v), g -> g.getNbPlottedPointsList(), g -> g.isTypeOf(IPlotProp.class), "plot.s.parameters");
+
+	/** Show/Hide the origin of the axes. */
+	public static final ShapeProperties<Boolean> SHOW_POINTS = new ShapeProperties<>(
+		(v, g) -> g.setShowPts(v), (v, g) -> g.setShowPointsList(v), g -> g.getShowPointsList(), g -> g.isShowPtsable(), "Actions.12"); //NON-NLS
+
+	/** Show/Hide the origin of the axes. */
+	public static final ShapeProperties<Boolean> AXES_SHOW_ORIGIN = new ShapeProperties<>(
+		(v, g) -> g.setShowOrigin(v), (v, g) -> g.setAxesShowOriginList(v), g -> g.getAxesShowOriginList(), g -> g.isTypeOf(IAxesProp.class), "Actions.13"); //NON-NLS
+
+	/** The increment of the axes' labels. */
+	public static final ShapeProperties<IPoint> AXES_LABELS_DIST = new ShapeProperties<>(
+		(v, g) -> g.setDistLabels(v), (v, g) -> g.setAxesDistLabelsList(v), g -> g.getAxesDistLabelsList(), g -> g.isTypeOf(IAxesProp.class), "Actions.13"); //NON-NLS
+
+	/** The increment of the axes' labels. */
+	public static final ShapeProperties<IPoint> AXES_LABELS_INCR = new ShapeProperties<>(
+		(v, g) -> g.setIncrement(v), (v, g) -> g.setAxesIncrementsList(v), g -> g.getAxesIncrementsList(), g -> g.isTypeOf(IAxesProp.class), "Actions.13"); //NON-NLS
+
+	/** How the labels of axes are displayed. */
+	public static final ShapeProperties<PlottingStyle> AXES_LABELS_SHOW = new ShapeProperties<>(
+		(v, g) -> g.setLabelsDisplayed(v), (v, g) -> g.setAxesLabelsDisplayedList(v), g -> g.getAxesLabelsDisplayedList(), g -> g.isTypeOf(IAxesProp.class), "Actions.13"); //NON-NLS
+
+	/** How the ticks of axes are displayed. */
+	public static final ShapeProperties<PlottingStyle> AXES_TICKS_SHOW = new ShapeProperties<>(
+		(v, g) -> g.setTicksDisplayed(v), (v, g) -> g.setAxesTicksDisplayedList(v), g -> g.getAxesTicksDisplayedList(), g -> g.isTypeOf(IAxesProp.class), "Actions.13"); //NON-NLS
+
+	/** The width of the sub-grids. */
+	public static final ShapeProperties<Double> GRID_SUBGRID_WIDTH = new ShapeProperties<>(
+		(v, g) -> g.setSubGridWidth(v), (v, g) -> g.setSubGridWidthList(v), g -> g.getSubGridWidthList(), g -> g.isTypeOf(IGridProp.class), "Actions.14"); //NON-NLS
+
+	/** Defines whether bezier curves and co are closed. */
+	public static final ShapeProperties<Boolean> CLOSABLE_CLOSE = new ShapeProperties<>(
+		(v, g) -> g.setOpened(v), (v, g) -> g.setOpenList(v), g -> g.getOpenList(), g -> g.isTypeOf(IClosableProp.class), "shape.closed.opened"); //NON-NLS
+
+	/** The interval between the points of free hand shapes. */
+	public static final ShapeProperties<Integer> FREEHAND_INTERVAL = new ShapeProperties<>(
+		(v, g) -> g.setInterval(v), (v, g) -> g.setFreeHandIntervalList(v), g -> g.getFreeHandIntervalList(), g -> g.isTypeOf(IFreeHandProp.class), "Actions.15"); //NON-NLS
+
+	/** The division the sub-lines of grids. */
+	public static final ShapeProperties<Integer> GRID_SUBGRID_DIV = new ShapeProperties<>(
+		(v, g) -> g.setSubGridDiv(v), (v, g) -> g.setSubGridDivList(v), g -> g.getSubGridDivList(), g -> g.isTypeOf(IGridProp.class), "Actions.14"); //NON-NLS
+
+	/** The number of dots composing the sub-lines of grids. */
+	public static final ShapeProperties<Integer> GRID_SUBGRID_DOTS = new ShapeProperties<>(
+		(v, g) -> g.setSubGridDots(v), (v, g) -> g.setSubGridDotsList(v), g -> g.getSubGridDotsList(), g -> g.isTypeOf(IGridProp.class), "Actions.14"); //NON-NLS
+
+	/** The number of dots composing the main lines of grids. */
+	public static final ShapeProperties<Integer> GRID_DOTS = new ShapeProperties<>(
+		(v, g) -> g.setGridDots(v), (v, g) -> g.setGridDotsList(v), g -> g.getGridDotsList(), g -> g.isTypeOf(IGridProp.class), "Actions.14"); //NON-NLS
+
+	/** The width of the grids. */
+	public static final ShapeProperties<Double> GRID_WIDTH = new ShapeProperties<>(
+		(v, g) -> g.setGridWidth(v), (v, g) -> g.setGridWidthList(v), g -> g.getGridWidthList(), g -> g.isTypeOf(IGridProp.class), "Actions.14"); //NON-NLS
+
+	/** The style of the ticks of axes. */
+	public static final ShapeProperties<TicksStyle> AXES_TICKS_STYLE = new ShapeProperties<>(
+		(v, g) -> g.setTicksStyle(v), (v, g) -> g.setAxesTicksStyleList(v), g -> g.getAxesTicksStyleList(), g -> g.isTypeOf(IAxesProp.class), "Actions.13"); //NON-NLS
+
+	/** The style of axes. */
+	public static final ShapeProperties<FreeHandStyle> FREEHAND_STYLE = new ShapeProperties<>(
+		(v, g) -> g.setType(v), (v, g) -> g.setFreeHandTypeList(v), g -> g.getFreeHandTypeList(), g -> g.isTypeOf(IFreeHandProp.class), "Actions.15"); //NON-NLS
+
+	/** The style of axes. */
+	public static final ShapeProperties<AxesStyle> AXES_STYLE = new ShapeProperties<>((v, g) -> g.setAxesStyle(v), (v, g) -> g.setAxesStyleList(v),
+		g -> g.getAxesStyleList(), g -> g.isTypeOf(IAxesProp.class), "Actions.13"); //NON-NLS
+	/** The X-coordinate of the grid's labels. */
+	public static final ShapeProperties<Boolean> GRID_LABEL_POSITION_X = new ShapeProperties<>(
+		(v, g) -> g.setYLabelWest(v), (v, g) -> g.setGridYLabelWestList(v), g -> g.getGridYLabelWestList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+
+	/** The Y-coordinate of the grid's labels. */
+	public static final ShapeProperties<Boolean> GRID_LABEL_POSITION_Y = new ShapeProperties<>(
+		(v, g) -> g.setXLabelSouth(v), (v, g) -> g.setGridXLabelSouthList(v), g -> g.getGridXLabelSouthList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+
+	/** The size of the labels of grids. */
+	public static final ShapeProperties<Integer> GRID_SIZE_LABEL = new ShapeProperties<>(
+		(v, g) -> g.setLabelsSize(v), (v, g) -> g.setGridLabelSizeList(v), g -> g.getGridLabelSizeList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+
+	/** The t bar num of arrows. */
+	public static final ShapeProperties<Double> ARROW_T_BAR_SIZE_DIM = new ShapeProperties<>(
+		(v, g) -> g.setTBarSizeDim(v), (v, g) -> g.setTBarSizeDimList(v), g -> g.getTBarSizeDimList(), g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	/** The t bar num of arrows. */
+	public static final ShapeProperties<Double> ARROW_T_BAR_SIZE_NUM = new ShapeProperties<>(
+		(v, g) -> g.setTBarSizeNum(v), (v, g) -> g.setTBarSizeNumList(v), g -> g.getTBarSizeNumList(), g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	/** The dot size dim of arrows. */
+	public static final ShapeProperties<Double> ARROW_DOT_SIZE_NUM = new ShapeProperties<>(
+		(v, g) -> g.setDotSizeNum(v), (v, g) -> g.setDotSizeNumList(v), g -> g.getDotSizeNumList(), g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	/** The dot size dim of arrows. */
+	public static final ShapeProperties<Double> ARROW_DOT_SIZE_DIM = new ShapeProperties<>(
+		(v, g) -> g.setDotSizeDim(v), (v, g) -> g.setDotSizeDimList(v), g -> g.getDotSizeDimList(), g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	/** The bracket num of arrows. */
+	public static final ShapeProperties<Double> ARROW_BRACKET_NUM = new ShapeProperties<>(
+		(v, g) -> g.setBracketNum(v), (v, g) -> g.setBracketNumList(v), g -> g.getBracketNumList(), g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	/** The round bracket num of arrows. */
+	public static final ShapeProperties<Double> ARROW_R_BRACKET_NUM = new ShapeProperties<>(
+		(v, g) -> g.setRBracketNum(v), (v, g) -> g.setRBracketNumList(v), g -> g.getRBracketNumList(), g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+	/** The size num of arrows. */
+	public static final ShapeProperties<Double> ARROW_SIZE_NUM = new ShapeProperties<>(
+		(v, g) -> g.setArrowSizeNum(v), (v, g) -> g.setArrowSizeNumList(v), g -> g.getArrowSizeNumList(), g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	/** The size dim of arrows. */
+	public static final ShapeProperties<Double> ARROW_SIZE_DIM = new ShapeProperties<>(
+		(v, g) -> g.setArrowSizeDim(v), (v, g) -> g.setArrowSizeDimList(v), g -> g.getArrowSizeDimList(), g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	public static final ShapeProperties<Double> ARROW_LENGTH = new ShapeProperties<>(
+		(v, g) -> g.setArrowLength(v), (v, g) -> g.setArrowLengthList(v), g -> g.getArrowLengthList(), g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	/** The inset of arrows. */
+	public static final ShapeProperties<Double> ARROW_INSET = new ShapeProperties<>(
+		(v, g) -> g.setArrowInset(v), (v, g) -> g.setArrowInsetList(v), g -> g.getArrowInsetList(), g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	/** Modification of the starting position of grids. */
+	public static final ShapeProperties<IPoint> GRID_END = new ShapeProperties<>(
+		(v, g) -> g.setGridEnd(v.getX(), v.getY()), (v, g) -> g.setGridEndList(v), g -> g.getGridEndList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+
+	/** Modification of the starting position of grids. */
+	public static final ShapeProperties<IPoint> GRID_ORIGIN = new ShapeProperties<>(
+		(v, g) -> g.setOrigin(v.getX(), v.getY()), (v, g) -> g.setGridOriginList(v), g -> g.getGridOriginList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+
+	/** Modification of the starting position of grids. */
+	public static final ShapeProperties<IPoint> GRID_START = new ShapeProperties<>(
+		(v, g) -> g.setGridStart(v.getX(), v.getY()), (v, g) -> g.setGridStartList(v), g -> g.getGridStartList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+
+	/** Modification of the start angle of arcs. */
+	public static final ShapeProperties<Double> ARC_START_ANGLE = new ShapeProperties<>(
+		(v, g) -> g.setAngleStart(v), (v, g) -> g.setAngleStartList(v), g -> g.getAngleStartList(), g -> g.isTypeOf(IArcProp.class), "Actions.17"); //NON-NLS
+	/** Modification of the end angle of arcs. */
+
+	public static final ShapeProperties<Double> ARC_END_ANGLE = new ShapeProperties<>(
+		(v, g) -> g.setAngleEnd(v), (v, g) -> g.setAngleEndList(v), g -> g.getAngleEndList(), g -> g.isTypeOf(IArcProp.class), "Actions.17"); //NON-NLS
+
+	/** Modification of the style of arcs. */
+	public static final ShapeProperties<ArcStyle> ARC_STYLE = new ShapeProperties<>(
+		(v, g) -> g.setArcStyle(v), (v, g) -> g.setArcStyleList(v), g -> g.getArcStyleList(), g -> g.isTypeOf(IArcProp.class), "Actions.17"); //NON-NLS
+
+	/** Defines if the shape has a second arrow. */
+	public static final ShapeProperties<ArrowStyle> ARROW2_STYLE = new ShapeProperties<>(
+		(v, g) -> g.setArrowStyle(v, -1), (v, g) -> g.setArrowStyleList(v, -1), g -> g.getArrowStyleList(-1),
+		g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	/** Defines if the shape has a first arrow. */
+	public static final ShapeProperties<ArrowStyle> ARROW1_STYLE = new ShapeProperties<>(
+		(v, g) -> g.setArrowStyle(v, 0), (v, g) -> g.setArrowStyleList(v, 0), g -> g.getArrowStyleList(0),
+		g -> g.isTypeOf(IArrowableSingleShape.class), "Actions.16"); //NON-NLS
+
+	/** Modification of the position of texts. */
+	public static final ShapeProperties<TextPosition> TEXT_POSITION = new ShapeProperties<>(
+		(v, g) -> g.setTextPosition(v), (v, g) -> g.setTextPositionList(v), g -> g.getTextPositionList(), g -> g.isTypeOf(ITextProp.class), "Actions.18"); //NON-NLS
+
+	/** Modification of the text. */
+	public static final ShapeProperties<String> TEXT = new ShapeProperties<>(
+		(v, g) -> g.setText(v), (v, g) -> g.setTextList(v), g -> g.getTextList(), g -> g.isTypeOf(ITextProp.class), "Actions.18"); //NON-NLS
+
+	/** Modification of the hatchings angle of shapes. */
+	public static final ShapeProperties<Double> HATCHINGS_ANGLE = new ShapeProperties<>(
+		(v, g) -> g.setHatchingsAngle(v), (v, g) -> g.setHatchingsAngleList(v), g -> g.getHatchingsAngleList(), g -> g.isInteriorStylable(), "Actions.19"); //NON-NLS
+
+	/** Modification of the hatchings width a shape. */
+	public static final ShapeProperties<Double> HATCHINGS_WIDTH = new ShapeProperties<>(
+		(v, g) -> g.setHatchingsWidth(v), (v, g) -> g.setHatchingsWidthList(v), g -> g.getHatchingsWidthList(), g -> g.isInteriorStylable(), "Actions.19"); //NON-NLS
+
+	/** Modification of the hatching spacing a shape. */
+	public static final ShapeProperties<Double> HATCHINGS_SEP = new ShapeProperties<>(
+		(v, g) -> g.setHatchingsSep(v), (v, g) -> g.setHatchingsSepList(v), g -> g.getHatchingsSepList(), g -> g.isInteriorStylable(), "Actions.19"); //NON-NLS
+
+	/** Modification of the gradient angle a shape. */
+	public static final ShapeProperties<Double> GRAD_ANGLE = new ShapeProperties<>(
+		(v, g) -> g.setGradAngle(v), (v, g) -> g.setGradAngleList(v), g -> g.getGradAngleList(), g -> g.isInteriorStylable(), "Actions.20"); //NON-NLS
+
+	/** Modification of the middle point of the gradient a shape. */
+	public static final ShapeProperties<Double> GRAD_MID_POINT = new ShapeProperties<>(
+		(v, g) -> g.setGradMidPt(v), (v, g) -> g.setGradMidPtList(v), g -> g.getGradMidPtList(), g -> g.isInteriorStylable(), "Actions.20"); //NON-NLS
+
+	/** Modification of the round corner value of a shape. */
+	public static final ShapeProperties<Double> ROUND_CORNER_VALUE = new ShapeProperties<>(
+		(v, g) -> g.setLineArc(v), (v, g) -> g.setLineArcList(v), g -> g.getLineArcList(), g -> g.isTypeOf(ILineArcProp.class), "Actions.21"); //NON-NLS
+
+	/** Modification of the colour of the labels of a grid. */
+	public static final ShapeProperties<Color> GRID_SUBGRID_COLOUR = new ShapeProperties<>(
+		(v, g) -> g.setSubGridColour(v), (v, g) -> g.setSubGridColourList(v), g -> g.getSubGridColourList(), g -> g.isTypeOf(IGridProp.class), "Actions.14"); //NON-NLS
+
+	/** Modification of the colour of the labels of a grid. */
+	public static final ShapeProperties<Color> GRID_LABELS_COLOUR = new ShapeProperties<>(
+		(v, g) -> g.setGridLabelsColour(v), (v, g) -> g.setGridLabelsColourList(v), g -> g.getGridLabelsColourList(), g -> g.isTypeOf(IGridProp.class), "Actions.14"); //NON-NLS
+
+	/** Modification of the colour of the filling of a shape. */
+	public static final ShapeProperties<Color> COLOUR_FILLING = new ShapeProperties<>(
+		(v, g) -> g.setFillingCol(v), (v, g) -> g.setFillingColList(v), g -> g.getFillingColList(), g -> g.isFillable(), "Actions.21"); //NON-NLS
+
+	/** Modification of the colour of the borders of a shape. */
+	public static final ShapeProperties<Color> COLOUR_LINE = new ShapeProperties<>(
+		(v, g) -> g.setLineColour(v), (v, g) -> g.setLineColourList(v), g -> g.getLineColourList(), g -> true, "Actions.23"); //NON-NLS
+
+	/** Modification of the colour of the hatchings of a shape. */
+	public static final ShapeProperties<Color> COLOUR_HATCHINGS = new ShapeProperties<>(
+		(v, g) -> g.setHatchingsCol(v), (v, g) -> g.setHatchingsColList(v), g -> g.getHatchingsColList(), g -> g.isInteriorStylable(), "Actions.19"); //NON-NLS
+
+	/** Defines if a shape must have double borders. */
+	public static final ShapeProperties<Boolean> DBLE_BORDERS = new ShapeProperties<>(
+		(v, g) -> g.setHasDbleBord(v), (v, g) -> g.setHasDbleBordList(v), g -> g.hasDbleBordList(), g -> g.isDbleBorderable(), "Actions.24"); //NON-NLS
+
+	/** Modification of the size of the double borders of a shape. */
+	public static final ShapeProperties<Double> DBLE_BORDERS_SIZE = new ShapeProperties<>(
+		(v, g) -> g.setDbleBordSep(v), (v, g) -> g.setDbleBordSepList(v), g -> g.getDbleBordSepList(), g -> g.isDbleBorderable(), "Actions.24"); //NON-NLS
+
+	/** Modification of the colour of the double borders of a shape. */
+	public static final ShapeProperties<Color> COLOUR_DBLE_BORD = new ShapeProperties<>(
+		(v, g) -> g.setDbleBordCol(v), (v, g) -> g.setDbleBordColList(v), g -> g.getDbleBordColList(), g -> g.isDbleBorderable(), "Actions.24"); //NON-NLS
+
+	/** Defines if a shape must have a shadow. */
+	public static final ShapeProperties<Boolean> SHADOW = new ShapeProperties<>(
+		(v, g) -> g.setHasShadow(v), (v, g) -> g.setHasShadowList(v), g -> g.hasShadowList(), g -> g.isShadowable(), "Actions.25"); //NON-NLS
+
+	/** Modification of the size of the shadow of a shape. */
+	public static final ShapeProperties<Double> SHADOW_SIZE = new ShapeProperties<>(
+		(v, g) -> g.setShadowSize(v), (v, g) -> g.setShadowSizeList(v), g -> g.getShadowSizeList(), g -> g.isShadowable(), "Actions.25"); //NON-NLS
+
+	/** Modification of the angle of the shadow of a shape. */
+	public static final ShapeProperties<Double> SHADOW_ANGLE = new ShapeProperties<>(
+		(v, g) -> g.setShadowAngle(v), (v, g) -> g.setShadowAngleList(v), g -> g.getShadowAngleList(), g -> g.isShadowable(), "Actions.25"); //NON-NLS
+
+	/** Modification of colour of the shadow of a shape. */
+	public static final ShapeProperties<Color> SHADOW_COLOUR = new ShapeProperties<>(
+		(v, g) -> g.setShadowCol(v), (v, g) -> g.setShadowColList(v), g -> g.getShadowColList(), g -> g.isShadowable(), "Actions.25"); //NON-NLS
+
+	/** Modification of the colour of the start gradient of a shape. */
+	public static final ShapeProperties<Color> COLOUR_GRADIENT_START = new ShapeProperties<>(
+		(v, g) -> g.setGradColStart(v), (v, g) -> g.setGradColStartList(v), g -> g.getGradColStartList(), g -> g.isLineStylable(), "Actions.20"); //NON-NLS
+
+	/** Modification of the colour of the end gradient of a shape. */
+	public static final ShapeProperties<Color> COLOUR_GRADIENT_END = new ShapeProperties<>(
+		(v, g) -> g.setGradColEnd(v), (v, g) -> g.setGradColEndList(v), g -> g.getGradColEndList(), g -> g.isLineStylable(), "Actions.20"); //NON-NLS
+
+	/** Modification of the thickness of the borders of a shape. */
+	public static final ShapeProperties<Double> LINE_THICKNESS = new ShapeProperties<>(
+		(v, g) -> g.setThickness(v), (v, g) -> g.setThicknessList(v), g -> g.getThicknessList(), g -> g.isThicknessable(), "Actions.26"); //NON-NLS
+
+	/** Modification of the filling style of a shape. */
+	public static final ShapeProperties<FillingStyle> FILLING_STYLE = new ShapeProperties<>(
+		(v, g) -> g.setFillingStyle(v), (v, g) -> g.setFillingStyleList(v), g -> g.getFillingStyleList(), g -> g.isInteriorStylable(), "Actions.22"); //NON-NLS
+
+	/** Modification of the border position of a shape. */
+	public static final ShapeProperties<BorderPos> BORDER_POS = new ShapeProperties<>(
+		(v, g) -> g.setBordersPosition(v), (v, g) -> g.setBordersPositionList(v), g -> g.getBordersPositionList(), g -> g.isBordersMovable(), "Actions.27"); //NON-NLS
+
+	/** Modification of the line style of a shape. */
+	public static final ShapeProperties<LineStyle> LINE_STYLE = new ShapeProperties<>(
+		(v, g) -> g.setLineStyle(v), (v, g) -> g.setLineStyleList(v), g -> g.getLineStyleList(), g -> g.isLineStylable(), "Actions.28"); //NON-NLS
+
+	/** Modification of the filling colour of a dot. */
+	public static final ShapeProperties<Color> DOT_FILLING_COL = new ShapeProperties<>(
+		(v, g) -> g.setDotFillingCol(v), (v, g) -> g.setDotFillingColList(v), g -> g.getDotFillingColList(), g -> g.isTypeOf(IDotProp.class), "Actions.29"); //NON-NLS
+
+	/** Modification of the style of a dot. */
+	public static final ShapeProperties<DotStyle> DOT_STYLE = new ShapeProperties<>(
+		(v, g) -> g.setDotStyle(v), (v, g) -> g.setDotStyleList(v), g -> g.getDotStyleList(), g -> g.isTypeOf(IDotProp.class), "Actions.29"); //NON-NLS
+
+	/** Modification of the size of dots. */
+	public static final ShapeProperties<Double> DOT_SIZE = new ShapeProperties<>(
+		(v, g) -> g.setDiametre(v), (v, g) -> g.setDotSizeList(v), g -> g.getDotSizeList(), g -> g.isTypeOf(IDotProp.class), "Actions.29"); //NON-NLS;
+
+	private final BiConsumer<T, IGroup> setValue;
+	private final BiConsumer<List<Optional<T>>, IGroup> setListValue;
+	private final Function<IGroup, List<Optional<T>>> getListValue;
+	private final Predicate<IGroup> acceptPred;
+	private final String labelName;
+
+
+	private ShapeProperties(final BiConsumer<T, IGroup> setValue, final BiConsumer<List<Optional<T>>, IGroup> setListValue, final Function<IGroup,
+		List<Optional<T>>> getListValue, final Predicate<IGroup> accept, final String labelName) {
+		super();
+		this.setListValue = setListValue;
+		this.setValue = setValue;
+		this.labelName = labelName;
+		this.getListValue = getListValue;
+		acceptPred = accept;
 	}
 
 	/**
@@ -2345,7 +367,11 @@ public enum ShapeProperties {
 	 * @param group The group to modify.
 	 * @param value The new value of the property to set.
 	 */
-	public abstract void setPropertyValue(final IGroup group, final Object value);
+	public void setPropertyValue(final IGroup group, final T value) {
+		if(group != null) {
+			setValue.accept(value, group);
+		}
+	}
 
 	/**
 	 * Sets the given values of the property to the given group. The size of the list
@@ -2354,24 +380,28 @@ public enum ShapeProperties {
 	 * @param group The group to modify.
 	 * @param values The set of new values of the property to set.
 	 */
-	public abstract void setPropertyValueList(final IGroup group, final List<?> values);
+	public void setPropertyValueList(final IGroup group, final List<Optional<T>> values) {
+		if(group != null) {
+			setListValue.accept(values, group);
+		}
+	}
 
 	/**
 	 * @param group The group to explore.
 	 * @return The list of property values of the shapes of the given group.
 	 */
-	public abstract List<?> getPropertyValues(final IGroup group);
-
+	public List<Optional<T>> getPropertyValues(final IGroup group) {
+		return group == null ? Collections.emptyList() : getListValue.apply(group);
+	}
 
 	/**
 	 * @return The title of the properties.
 	 */
-	public abstract String getMessage();
+	public String getMessage() {
+		return LangTool.INSTANCE.getBundle().getString(labelName);
+	}
 
-
-	/**
-	 * @param obj The new value to test.
-	 * @return True if the given value can be set to the shape property.
-	 */
-	public abstract boolean isValueValid(final Object obj);
+	public boolean accept(final IGroup g) {
+		return g != null && acceptPred.test(g);
+	}
 }

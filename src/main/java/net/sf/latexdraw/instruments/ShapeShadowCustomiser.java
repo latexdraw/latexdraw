@@ -81,7 +81,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser implements In
 
 		addColorPropBinding(shadowColB, ShapeProperties.SHADOW_COLOUR);
 
-		addSpinnerPropBinding(shadowSizeField, ShapeProperties.SHADOW_SIZE, false);
-		addSpinnerPropBinding(shadowAngleField, ShapeProperties.SHADOW_ANGLE, true);
+		addSpinnerPropBinding(shadowSizeField, ShapeProperties.SHADOW_SIZE);
+		addSpinnerAnglePropBinding(shadowAngleField, ShapeProperties.SHADOW_ANGLE);
 	}
 }

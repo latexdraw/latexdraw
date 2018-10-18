@@ -48,7 +48,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 
 		final SVGPathSegList list = ((SVGPathElement) elt).getSegList();
 
-		if(list == null || list.size() < 2 || !(list.get(0) instanceof SVGPathSegMoveto)) {
+		if(list.size() < 2 || !(list.get(0) instanceof SVGPathSegMoveto)) {
 			return null;
 		}
 

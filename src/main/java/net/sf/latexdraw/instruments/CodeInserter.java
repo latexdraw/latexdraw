@@ -50,12 +50,12 @@ import org.malai.javafx.instrument.JfxInstrument;
  * This instrument converts PST code into graphical shapes.
  * @author Arnaud BLOUIN
  */
-public class CodeInserter extends JfxInstrument implements Initializable {
-	@FXML protected TextArea label;
-	@FXML protected Button ok;
-	@FXML protected Button cancel;
-	@FXML protected TextArea text;
-	@FXML protected TextArea errorLog;
+public final class CodeInserter extends JfxInstrument implements Initializable {
+	@FXML TextArea label;
+	@FXML Button ok;
+	@FXML Button cancel;
+	@FXML TextArea text;
+	@FXML TextArea errorLog;
 	private Stage codeInserterDialogue;
 	@Inject private IDrawing drawing;
 	@Inject private StatusBarController statusBar;
@@ -136,7 +136,7 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 
 
 	/** @return The created latexdraw dialogue box. */
-	protected Optional<Stage> getInsertCodeDialogue() {
+	Optional<Stage> getInsertCodeDialogue() {
 		if(codeInserterDialogue == null) {
 			try {
 				// The FXML file only loaded only when this method is called: this JFX controller is created by

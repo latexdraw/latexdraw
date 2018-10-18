@@ -299,7 +299,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 					Tooltip.install(view, new Tooltip(nameThumb.substring(0, id)));
 				}
 				return Optional.of(view);
-			}catch(final Exception ex) {
+			}catch(final IllegalArgumentException ex) {
 				return Optional.empty();
 			}
 		}
@@ -354,7 +354,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 						filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList()));
 					final File thumb = new File(pathCache + File.separator + file.getFileName() + ExportFormat.PNG.getFileExtension());
 					createTemplateThumbnail(thumb, template);
-				}catch(final Exception ex) {
+				}catch(final MalformedSVGDocument | IOException | IllegalArgumentException ex) {
 					BadaboomCollector.INSTANCE.add(ex);
 				}
 			});

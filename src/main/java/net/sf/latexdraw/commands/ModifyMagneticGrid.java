@@ -20,7 +20,7 @@ import org.malai.undo.Undoable;
  * This command modifies a property of the magnetic grid.
  * @author Arnaud Blouin
  */
-public class ModifyMagneticGrid extends ModifyValue implements Undoable {
+public class ModifyMagneticGrid extends ModifyValue<Object> implements Undoable {
 	/** The magnetic grid to modify. */
 	protected MagneticGrid grid;
 

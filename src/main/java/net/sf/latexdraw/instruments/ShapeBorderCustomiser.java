@@ -143,8 +143,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	@Override
 	protected void configureBindings() {
-		addSpinnerPropBinding(thicknessField, ShapeProperties.LINE_THICKNESS, false);
-		addSpinnerPropBinding(frameArcField, ShapeProperties.ROUND_CORNER_VALUE, false);
+		addSpinnerPropBinding(thicknessField, ShapeProperties.LINE_THICKNESS);
+		addSpinnerPropBinding(frameArcField, ShapeProperties.ROUND_CORNER_VALUE);
 
 		addComboPropBinding(bordersPosCB, ShapeProperties.BORDER_POS);
 		addComboPropBinding(lineCB, ShapeProperties.LINE_STYLE);

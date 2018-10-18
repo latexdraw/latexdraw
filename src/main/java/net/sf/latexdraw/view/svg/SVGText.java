@@ -50,7 +50,7 @@ class SVGText extends SVGShape<IText> {
 
 		final String txt = elt.getText();
 
-		if(txt == null || txt.isEmpty()) {
+		if(txt.isEmpty()) {
 			throw new IllegalArgumentException("This text is empty."); //NON-NLS
 		}
 

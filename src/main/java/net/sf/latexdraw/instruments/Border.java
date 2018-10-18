@@ -255,7 +255,7 @@ public class Border extends CanvasInstrument implements Initializable {
 		addBinding(new DnD2ArcAngle(this));
 	}
 
-	private static class DnD2ArcAngle extends JfXWidgetBinding<ModifyShapeProperty, DnD, Border, SrcTgtPointsData> {
+	private static class DnD2ArcAngle extends JfXWidgetBinding<ModifyShapeProperty<Double>, DnD, Border, SrcTgtPointsData> {
 		/** The gravity centre used for the rotation. */
 		private IPoint gc;
 		/** Defines whether the current handled shape is rotated. */
@@ -264,16 +264,16 @@ public class Border extends CanvasInstrument implements Initializable {
 		private final IPoint gap;
 
 		DnD2ArcAngle(final Border ins) {
-			super(ins, true, new DnD(), i -> new ModifyShapeProperty(null, null, null),
+			super(ins, true, new DnD(), i -> new ModifyShapeProperty<>(null, null, null),
 				Arrays.asList(ins.arcHandlerStart, ins.arcHandlerEnd), false, null);
 			gap = ShapeFactory.INST.createPoint();
 			isRotated = false;
 		}
 
 		@Override
-		protected ModifyShapeProperty map() {
+		protected ModifyShapeProperty<Double> map() {
 			final IDrawing drawing = instrument.canvas.getDrawing();
-			ShapeProperties prop = null;
+			ShapeProperties<Double> prop = null;
 
 			if(drawing.getSelection().size() == 1) {
 				final IArc shape = (IArc) drawing.getSelection().getShapeAt(0);
@@ -301,7 +301,7 @@ public class Border extends CanvasInstrument implements Initializable {
 				gap.setPoint(pt.getX() - pCentre.getX(), pt.getY() - pCentre.getY());
 			}
 
-			return new ModifyShapeProperty(prop, drawing.getSelection().duplicateDeep(false), null);
+			return new ModifyShapeProperty<>(prop, drawing.getSelection().duplicateDeep(false), null);
 		}
 
 		@Override

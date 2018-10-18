@@ -68,7 +68,7 @@ public class SVGImageElement extends SVGElement implements SVGRectParseTrait {
 
 	@Override
 	public boolean enableRendering() {
-		if(getWidth() == 0d || getHeight() == 0d || getURI() == null) {
+		if(getWidth() == 0d || getHeight() == 0d) {
 			return false;
 		}
 

@@ -130,10 +130,10 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 		addColorPropBinding(gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START);
 		addColorPropBinding(gradEndColButton, ShapeProperties.COLOUR_GRADIENT_END);
 		addColorPropBinding(hatchColButton, ShapeProperties.COLOUR_HATCHINGS);
-		addSpinnerPropBinding(gradMidPtField, ShapeProperties.GRAD_MID_POINT, false);
-		addSpinnerPropBinding(gradAngleField, ShapeProperties.GRAD_ANGLE, true);
-		addSpinnerPropBinding(hatchAngleField, ShapeProperties.HATCHINGS_ANGLE, true);
-		addSpinnerPropBinding(hatchWidthField, ShapeProperties.HATCHINGS_WIDTH, false);
-		addSpinnerPropBinding(hatchSepField, ShapeProperties.HATCHINGS_SEP, false);
+		addSpinnerPropBinding(gradMidPtField, ShapeProperties.GRAD_MID_POINT);
+		addSpinnerAnglePropBinding(gradAngleField, ShapeProperties.GRAD_ANGLE);
+		addSpinnerAnglePropBinding(hatchAngleField, ShapeProperties.HATCHINGS_ANGLE);
+		addSpinnerPropBinding(hatchWidthField, ShapeProperties.HATCHINGS_WIDTH);
+		addSpinnerPropBinding(hatchSepField, ShapeProperties.HATCHINGS_SEP);
 	}
 }

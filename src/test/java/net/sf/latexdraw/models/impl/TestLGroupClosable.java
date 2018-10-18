@@ -1,7 +1,7 @@
 package net.sf.latexdraw.models.impl;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -62,25 +62,23 @@ public class TestLGroupClosable {
 	public void testSetOpenListKO() {
 		open1.setOpened(true);
 		open2.setOpened(true);
-		final List<Boolean> vals = Arrays.asList(open1.isOpened(), open2.isOpened());
 		group.setOpenList(null);
-		assertEquals(vals, Arrays.asList(open1.isOpened(), open2.isOpened()));
+		assertEquals(Arrays.asList(Optional.empty(), Optional.of(true), Optional.empty(), Optional.of(true)), group.getOpenList());
 	}
 
 	@Test
 	public void testSetOpenListKONotSameSize() {
 		open1.setOpened(true);
 		open2.setOpened(true);
-		final List<Boolean> vals = Arrays.asList(open1.isOpened(), open2.isOpened());
-		group.setOpenList(Arrays.asList(false, true));
-		assertEquals(vals, Arrays.asList(open1.isOpened(), open2.isOpened()));
+		group.setOpenList(Arrays.asList(Optional.of(false), Optional.of(true)));
+		assertEquals(Arrays.asList(Optional.empty(), Optional.of(true), Optional.empty(), Optional.of(true)), group.getOpenList());
 	}
 
 	@Test
 	public void testSetOpenListOK() {
 		open1.setOpened(false);
 		open2.setOpened(true);
-		group.setOpenList(Arrays.asList(false, true, false, false));
-		assertEquals(Arrays.asList(true, false), Arrays.asList(open1.isOpened(), open2.isOpened()));
+		group.setOpenList(Arrays.asList(Optional.of(false), Optional.of(true), Optional.of(false), Optional.of(false)));
+		assertEquals(Arrays.asList(Optional.empty(), Optional.of(true), Optional.empty(), Optional.of(false)), group.getOpenList());
 	}
 }

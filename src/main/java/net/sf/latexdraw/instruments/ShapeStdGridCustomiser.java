@@ -81,7 +81,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 
 	@Override
 	protected void configureBindings() {
-		addSpinnerPropBinding(labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false);
+		addSpinnerPropBinding(labelsSizeS, ShapeProperties.GRID_SIZE_LABEL);
 
 		addSpinnerXYPropBinding(xEndS, yEndS, ShapeProperties.GRID_END);
 		addSpinnerXYPropBinding(xStartS, yStartS, ShapeProperties.GRID_START);

@@ -74,6 +74,6 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser impleme
 	protected void configureBindings() {
 		addCheckboxPropBinding(dbleBoundCB, ShapeProperties.DBLE_BORDERS);
 		addColorPropBinding(dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD);
-		addSpinnerPropBinding(dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false);
+		addSpinnerPropBinding(dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE);
 	}
 }

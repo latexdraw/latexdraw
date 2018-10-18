@@ -12,6 +12,7 @@ package net.sf.latexdraw.instruments;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,8 +38,11 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -59,6 +63,7 @@ import net.sf.latexdraw.view.MagneticGrid;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.interaction.library.ButtonPressed;
 import org.w3c.dom.Attr;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -425,7 +430,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); //NON-NLS
 				transformer.transform(new DOMSource(document), new StreamResult(fos));
 			}
-		}catch(final Exception ex) {
+		}catch(final TransformerException | IllegalArgumentException | DOMException | IOException | ParserConfigurationException | FactoryConfigurationError ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 	}

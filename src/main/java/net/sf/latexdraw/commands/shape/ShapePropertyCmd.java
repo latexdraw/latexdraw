@@ -16,14 +16,14 @@ import org.malai.command.library.ModifyValue;
  * This command modifies a shape property of an object.
  * @author Arnaud Blouin
  */
-public abstract class ShapePropertyCmd extends ModifyValue {
+public abstract class ShapePropertyCmd<T> extends ModifyValue<T> {
 	/** The property to set. */
-	protected ShapeProperties property;
+	protected ShapeProperties<T> property;
 
 	/**
 	 * Creates and initialises the command.
 	 */
-	protected ShapePropertyCmd(final ShapeProperties property, final Object value) {
+	protected ShapePropertyCmd(final ShapeProperties<T> property, final T value) {
 		super(value);
 		this.property = property;
 	}
@@ -36,7 +36,7 @@ public abstract class ShapePropertyCmd extends ModifyValue {
 
 	@Override
 	protected boolean isValueMatchesProperty() {
-		return isPropertySupported() && property.isValueValid(value);
+		return isPropertySupported();
 	}
 
 	/**

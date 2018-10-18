@@ -1,5 +1,6 @@
 package net.sf.latexdraw.models.impl;
 
+import java.util.Optional;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
@@ -48,7 +49,7 @@ public class TestLGroupArc {
 
 	@Test
 	public void testGetArcStyleAll() {
-		assertThat(group.getArcStyleList(), contains(null, ArcStyle.CHORD, null, ArcStyle.WEDGE));
+		assertThat(group.getArcStyleList(), contains(Optional.empty(), Optional.of(ArcStyle.CHORD), Optional.empty(), Optional.of(ArcStyle.WEDGE)));
 	}
 
 	@Test
@@ -65,7 +66,7 @@ public class TestLGroupArc {
 
 	@Test
 	public void testGetAngleStartAll() {
-		assertThat(group.getAngleStartList(), contains(null, 1.1, null, 1.6));
+		assertThat(group.getAngleStartList(), contains(Optional.empty(), Optional.of(1.1), Optional.empty(), Optional.of(1.6)));
 	}
 
 	@Test
@@ -82,6 +83,6 @@ public class TestLGroupArc {
 
 	@Test
 	public void testGetAngleEndAll() {
-		assertThat(group.getAngleEndList(), contains(null, 2.6, null, 3.1));
+		assertThat(group.getAngleEndList(), contains(Optional.empty(), Optional.of(2.6), Optional.empty(), Optional.of(3.1)));
 	}
 }

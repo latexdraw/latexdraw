@@ -87,11 +87,11 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Init
 		addColorPropBinding(colourLabels, ShapeProperties.GRID_LABELS_COLOUR);
 		addColorPropBinding(colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR);
 
-		addSpinnerPropBinding(gridWidth, ShapeProperties.GRID_WIDTH, false);
-		addSpinnerPropBinding(subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false);
-		addSpinnerPropBinding(subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false);
-		addSpinnerPropBinding(gridDots, ShapeProperties.GRID_DOTS, false);
-		addSpinnerPropBinding(subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false);
+		addSpinnerPropBinding(gridWidth, ShapeProperties.GRID_WIDTH);
+		addSpinnerPropBinding(subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH);
+		addSpinnerPropBinding(subGridDots, ShapeProperties.GRID_SUBGRID_DOTS);
+		addSpinnerPropBinding(gridDots, ShapeProperties.GRID_DOTS);
+		addSpinnerPropBinding(subGridDiv, ShapeProperties.GRID_SUBGRID_DIV);
 
 		addTogglePropBinding(labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y, true);
 		addTogglePropBinding(labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X, true);

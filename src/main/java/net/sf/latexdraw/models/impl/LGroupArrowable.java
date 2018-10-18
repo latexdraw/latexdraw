@@ -18,10 +18,9 @@ import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
- * This trait encapsulates the code of the group related to the support of arrowable shapes.
+ * This trait encapsulates the code of the group related to the support of arrowable getShapes().
  * @author Arnaud Blouin
  */
 interface LGroupArrowable extends IGroup {
@@ -31,330 +30,334 @@ interface LGroupArrowable extends IGroup {
 	}
 
 	default List<IArrowableSingleShape> arrowShapes() {
-		return getShapes().stream().filter(sh -> sh instanceof IArrowableSingleShape).map(sh -> (IArrowableSingleShape) sh).collect(Collectors.toList());
+		return getShapes().stream().filter(sh -> sh instanceof IArrowableSingleShape).map(sh -> (IArrowableSingleShape) sh).
+			collect(Collectors.toList());
 	}
 
 	@Override
 	default int getArrowIndex(final IArrow arrow) {
-		return firstIArrowable().map(sh -> sh.getArrowIndex(arrow)).orElse(-1);
+		return firstIArrowable().
+			map(sh -> sh.getArrowIndex(arrow)).orElse(-1);
 	}
 
 	@Override
 	default int getNbArrows() {
-		return firstIArrowable().map(arc -> arc.getNbArrows()).orElse(0);
+		return firstIArrowable().
+			map(arc -> arc.getNbArrows()).orElse(0);
 	}
 
 	@Override
-	default void setTBarSizeDimList(final List<Double> values) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setTBarSizeDim(values.get(i));
-				}
-			});
+	default void setTBarSizeDimList(final List<Optional<Double>> values) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setTBarSizeDim(values.get(i).get()));
 		}
 	}
 
 	@Override
-	default List<Double> getTBarSizeDimList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getTBarSizeDim() : Double.NaN).collect(Collectors.toList());
+	default List<Optional<Double>> getTBarSizeDimList() {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getTBarSizeDim()) : Optional.<Double>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default void setTBarSizeNumList(final List<Double> values) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setTBarSizeNum(values.get(i));
-				}
-			});
+	default void setTBarSizeNumList(final List<Optional<Double>> values) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setTBarSizeNum(values.get(i).get()));
 		}
 	}
 
 	@Override
-	default List<Double> getTBarSizeNumList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getTBarSizeNum() : Double.NaN).collect(Collectors.toList());
+	default List<Optional<Double>> getTBarSizeNumList() {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getTBarSizeNum()) : Optional.<Double>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default void setDotSizeNumList(final List<Double> values) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setDotSizeNum(values.get(i));
-				}
-			});
+	default void setDotSizeNumList(final List<Optional<Double>> values) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setDotSizeNum(values.get(i).get()));
 		}
 	}
 
 	@Override
-	default List<Double> getDotSizeNumList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getDotSizeNum() : Double.NaN).collect(Collectors.toList());
+	default List<Optional<Double>> getDotSizeNumList() {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getDotSizeNum()) : Optional.<Double>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default void setDotSizeDimList(final List<Double> values) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setDotSizeDim(values.get(i));
-				}
-			});
+	default void setDotSizeDimList(final List<Optional<Double>> values) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setDotSizeDim(values.get(i).get()));
 		}
 	}
 
 	@Override
-	default List<Double> getDotSizeDimList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getDotSizeDim() : Double.NaN).collect(Collectors.toList());
+	default List<Optional<Double>> getDotSizeDimList() {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getDotSizeDim()) : Optional.<Double>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default void setBracketNumList(final List<Double> values) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setBracketNum(values.get(i));
-				}
-			});
+	default void setBracketNumList(final List<Optional<Double>> values) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setBracketNum(values.get(i).get()));
 		}
 	}
 
 	@Override
-	default List<Double> getBracketNumList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getBracketNum() : Double.NaN).collect(Collectors.toList());
+	default List<Optional<Double>> getBracketNumList() {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getBracketNum()) : Optional.<Double>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default void setRBracketNumList(final List<Double> values) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setRBracketNum(values.get(i));
-				}
-			});
+	default void setRBracketNumList(final List<Optional<Double>> values) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setRBracketNum(values.get(i).get()));
 		}
 	}
 
 	@Override
-	default List<Double> getRBracketNumList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getRBracketNum() : Double.NaN).collect(Collectors.toList());
+	default List<Optional<Double>> getRBracketNumList() {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getRBracketNum()) : Optional.<Double>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default void setArrowSizeNumList(final List<Double> values) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setArrowSizeNum(values.get(i));
-				}
-			});
+	default void setArrowSizeNumList(final List<Optional<Double>> values) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setArrowSizeNum(values.get(i).get()));
 		}
 	}
 
 	@Override
-	default List<Double> getArrowSizeNumList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getArrowSizeNum() : Double.NaN).collect(Collectors.toList());
+	default List<Optional<Double>> getArrowSizeNumList() {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getArrowSizeNum()) : Optional.<Double>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default void setArrowSizeDimList(final List<Double> values) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setArrowSizeDim(values.get(i));
-				}
-			});
+	default void setArrowSizeDimList(final List<Optional<Double>> values) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setArrowSizeDim(values.get(i).get()));
 		}
 	}
 
 	@Override
-	default List<Double> getArrowSizeDimList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getArrowSizeDim() : Double.NaN).collect(Collectors.toList());
+	default List<Optional<Double>> getArrowSizeDimList() {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getArrowSizeDim()) : Optional.<Double>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default void setArrowLengthList(final List<Double> values) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setArrowLength(values.get(i));
-				}
-			});
+	default void setArrowLengthList(final List<Optional<Double>> values) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setArrowLength(values.get(i).get()));
 		}
 	}
 
 	@Override
-	default List<Double> getArrowLengthList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getArrowLength() : Double.NaN).collect(Collectors.toList());
+	default List<Optional<Double>> getArrowLengthList() {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getArrowLength()) : Optional.<Double>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default void setArrowInsetList(final List<Double> values) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setArrowInset(values.get(i));
-				}
-			});
+	default void setArrowInsetList(final List<Optional<Double>> values) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setArrowInset(values.get(i).get()));
 		}
 	}
 
 	@Override
-	default List<Double> getArrowInsetList() {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getArrowInset() : Double.NaN).collect(Collectors.toList());
+	default List<Optional<Double>> getArrowInsetList() {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getArrowInset()) : Optional.<Double>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default List<ArrowStyle> getArrowStyleList(final int i) {
-		return getShapes().stream().map(sh -> sh instanceof IArrowableSingleShape ? ((IArrowableSingleShape) sh).getArrowStyle(i) : ArrowStyle.NONE).collect(Collectors.toList());
+	default List<Optional<ArrowStyle>> getArrowStyleList(final int i) {
+		return getShapes().stream().
+			map(sh -> sh instanceof IArrowableSingleShape ? Optional.of(((IArrowableSingleShape) sh).getArrowStyle(i)) : Optional.<ArrowStyle>empty()).
+			collect(Collectors.toList());
 	}
 
 	@Override
-	default void setArrowStyleList(final List<ArrowStyle> values, final int index) {
-		final List<IShape> shapes = getShapes();
-		if(values != null && values.size() == shapes.size()) {
-			IntStream.range(0, values.size()).forEach(i -> {
-				final IShape sh = shapes.get(i);
-				if(sh instanceof IArrowableSingleShape) {
-					((IArrowableSingleShape) sh).setArrowStyle(values.get(i), index);
-				}
-			});
+	default void setArrowStyleList(final List<Optional<ArrowStyle>> values, final int index) {
+		if(values != null && values.size() == getShapes().size()) {
+			IntStream.range(0, values.size()).
+				filter(i -> getShapes().get(i) instanceof IArrowableSingleShape).
+				forEach(i -> ((IArrowableSingleShape) getShapes().get(i)).setArrowStyle(values.get(i).get(), index));
 		}
 	}
 
 	@Override
 	default void setArrowStyle(final ArrowStyle style, final int position) {
-		arrowShapes().forEach(sh -> sh.setArrowStyle(style, position));
+		arrowShapes().
+				forEach(sh -> sh.setArrowStyle(style, position));
 	}
 
 	@Override
 	default ArrowStyle getArrowStyle(final int position) {
-		return firstIArrowable().map(sh -> sh.getArrowStyle(position)).orElse(ArrowStyle.NONE);
+		return firstIArrowable().
+			map(sh -> sh.getArrowStyle(position)).orElse(ArrowStyle.NONE);
 	}
 
 	@Override
 	default IArrow getArrowAt(final int position) {
-		return firstIArrowable().map(sh -> sh.getArrowAt(position)).orElse(null);
+		return firstIArrowable().
+			map(sh -> sh.getArrowAt(position)).orElse(null);
 	}
 
 	@Override
 	default void setDotSizeDim(final double dotSizeDim) {
-		arrowShapes().forEach(sh -> sh.setDotSizeDim(dotSizeDim));
+		arrowShapes().
+				forEach(sh -> sh.setDotSizeDim(dotSizeDim));
 	}
 
 	@Override
 	default void setDotSizeNum(final double dotSizeNum) {
-		arrowShapes().forEach(sh -> sh.setDotSizeNum(dotSizeNum));
+		arrowShapes().
+				forEach(sh -> sh.setDotSizeNum(dotSizeNum));
 	}
 
 	@Override
 	default void setTBarSizeNum(final double tbarSizeNum) {
-		arrowShapes().forEach(sh -> sh.setTBarSizeNum(tbarSizeNum));
+		arrowShapes().
+				forEach(sh -> sh.setTBarSizeNum(tbarSizeNum));
 	}
 
 	@Override
 	default void setTBarSizeDim(final double tbarSizeDim) {
-		arrowShapes().forEach(sh -> sh.setTBarSizeDim(tbarSizeDim));
+		arrowShapes().
+				forEach(sh -> sh.setTBarSizeDim(tbarSizeDim));
 	}
 
 	@Override
 	default double getTBarSizeDim() {
-		return firstIArrowable().map(sh -> sh.getTBarSizeDim()).orElse(Double.NaN);
+		return firstIArrowable().
+			map(sh -> sh.getTBarSizeDim()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getTBarSizeNum() {
-		return firstIArrowable().map(sh -> sh.getTBarSizeNum()).orElse(Double.NaN);
+		return firstIArrowable().
+			map(sh -> sh.getTBarSizeNum()).orElse(Double.NaN);
 	}
 
 	@Override
 	default void setRBracketNum(final double rBracketNum) {
-		arrowShapes().forEach(sh -> sh.setRBracketNum(rBracketNum));
+		arrowShapes().
+				forEach(sh -> sh.setRBracketNum(rBracketNum));
 	}
 
 	@Override
 	default void setBracketNum(final double bracketNum) {
-		arrowShapes().forEach(sh -> sh.setBracketNum(bracketNum));
+		arrowShapes().
+				forEach(sh -> sh.setBracketNum(bracketNum));
 	}
 
 	@Override
 	default void setArrowLength(final double lgth) {
-		arrowShapes().forEach(sh -> sh.setArrowLength(lgth));
+		arrowShapes().
+				forEach(sh -> sh.setArrowLength(lgth));
 	}
 
 	@Override
 	default void setArrowSizeDim(final double arrowSizeDim) {
-		arrowShapes().forEach(sh -> sh.setArrowSizeDim(arrowSizeDim));
+		arrowShapes().
+				forEach(sh -> sh.setArrowSizeDim(arrowSizeDim));
 	}
 
 	@Override
 	default void setArrowSizeNum(final double arrowSizeNum) {
-		arrowShapes().forEach(sh -> sh.setArrowSizeNum(arrowSizeNum));
+		arrowShapes().
+				forEach(sh -> sh.setArrowSizeNum(arrowSizeNum));
 	}
 
 	@Override
 	default void setArrowInset(final double inset) {
-		arrowShapes().forEach(sh -> sh.setArrowInset(inset));
+		arrowShapes().
+				forEach(sh -> sh.setArrowInset(inset));
 	}
 
 	@Override
 	default double getDotSizeDim() {
-		return firstIArrowable().map(sh -> sh.getDotSizeDim()).orElse(Double.NaN);
+		return firstIArrowable().
+			map(sh -> sh.getDotSizeDim()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getDotSizeNum() {
-		return firstIArrowable().map(sh -> sh.getDotSizeNum()).orElse(Double.NaN);
+		return firstIArrowable().
+			map(sh -> sh.getDotSizeNum()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getBracketNum() {
-		return firstIArrowable().map(sh -> sh.getBracketNum()).orElse(Double.NaN);
+		return firstIArrowable().
+			map(sh -> sh.getBracketNum()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getArrowSizeNum() {
-		return firstIArrowable().map(sh -> sh.getArrowSizeNum()).orElse(Double.NaN);
+		return firstIArrowable().
+			map(sh -> sh.getArrowSizeNum()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getArrowSizeDim() {
-		return firstIArrowable().map(sh -> sh.getArrowSizeDim()).orElse(Double.NaN);
+		return firstIArrowable().
+			map(sh -> sh.getArrowSizeDim()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getArrowInset() {
-		return firstIArrowable().map(sh -> sh.getArrowInset()).orElse(Double.NaN);
+		return firstIArrowable().
+			map(sh -> sh.getArrowInset()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getArrowLength() {
-		return firstIArrowable().map(sh -> sh.getArrowLength()).orElse(Double.NaN);
+		return firstIArrowable().
+			map(sh -> sh.getArrowLength()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getRBracketNum() {
-		return firstIArrowable().map(sh -> sh.getRBracketNum()).orElse(Double.NaN);
+		return firstIArrowable().
+			map(sh -> sh.getRBracketNum()).orElse(Double.NaN);
 	}
 
 	@Override
