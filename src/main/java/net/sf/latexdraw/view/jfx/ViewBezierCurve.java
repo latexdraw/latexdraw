@@ -80,7 +80,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	/**
 	 * Sub routine that creates and binds show points.
 	 */
-	private void bindShowPoints() {
+	private final void bindShowPoints() {
 		showPoint.getChildren().addAll(Stream.concat(Stream.concat(model.getPoints().stream(), model.getFirstCtrlPts().stream()), model.getSecondCtrlPts()
 			.stream()).map(pt -> {
 			final Ellipse dot = new Ellipse();
@@ -114,7 +114,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 			ifPresent(ell -> ell.visibleProperty().bind(model.getArrowAt(-1).styleProperty().isEqualTo(ArrowStyle.NONE)));
 	}
 
-	private void updateOpen(final boolean open) {
+	private final void updateOpen(final boolean open) {
 		if(open) {
 			border.getElements().remove(closingCurve);
 			shadow.getElements().remove(closingCurve);
@@ -143,7 +143,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 		return line;
 	}
 
-	private CubicCurveTo addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {
+	private final CubicCurveTo addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {
 		final CubicCurveTo curveto = ViewFactory.INSTANCE.createCubicCurveTo(0d, 0d, 0d, 0d, 0d, 0d);
 		curveto.xProperty().bind(pt.xProperty());
 		curveto.yProperty().bind(pt.yProperty());

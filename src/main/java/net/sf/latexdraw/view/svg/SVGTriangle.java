@@ -84,7 +84,7 @@ class SVGTriangle extends SVGPolygonBased<ITriangle> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null || doc.getFirstChild().getDefs() == null) {
 			return null;
 		}

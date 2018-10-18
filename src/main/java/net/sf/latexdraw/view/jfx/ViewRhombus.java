@@ -33,7 +33,7 @@ public class ViewRhombus extends ViewPathShape<IRhombus> {
 	}
 
 
-	private void setupPath(final Path path) {
+	private final void setupPath(final Path path) {
 		final MoveTo moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
 		moveTo.xProperty().bind(Bindings.createDoubleBinding(() -> model.getPtAt(0).getX() + model.getWidth() / 2d,
 			model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));

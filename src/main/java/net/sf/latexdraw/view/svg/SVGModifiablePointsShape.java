@@ -40,7 +40,7 @@ abstract class SVGModifiablePointsShape<S extends IModifiablePointsShape> extend
 		super(sh);
 	}
 
-	void setRotationAngle(final SVGElement shapeElt) {
+	final void setRotationAngle(final SVGElement shapeElt) {
 		try {
 			final double angle = Double.parseDouble(shapeElt.getAttribute(shapeElt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_ROTATION));
 			if(MathUtils.INST.isValidCoord(angle) && !MathUtils.INST.equalsDouble(angle, 0d, 0.000001)) {

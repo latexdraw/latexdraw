@@ -31,7 +31,7 @@ abstract class SVGRectangular<T extends IShape & ILineArcProp> extends SVGShape<
 	 * @param sh The shape used for the generation.
 	 * @throws IllegalArgumentException If the given shape is null.
 	 */
-	protected SVGRectangular(final T sh) {
+	SVGRectangular(final T sh) {
 		super(sh);
 	}
 
@@ -40,7 +40,7 @@ abstract class SVGRectangular<T extends IShape & ILineArcProp> extends SVGShape<
 	 * @param elt The source element.
 	 * @throws IllegalArgumentException If the given element is null or not valid.
 	 */
-	protected void initRectangle(final SVGGElement elt, final boolean withTransformation) {
+	void initRectangle(final SVGGElement elt, final boolean withTransformation) {
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt == null || !(elt2 instanceof SVGRectElement)) {
@@ -61,9 +61,9 @@ abstract class SVGRectangular<T extends IShape & ILineArcProp> extends SVGShape<
 	 * Sets the parameters of the latexdraw rectangle using the given SVG rectangle.
 	 * @param elt The SVG rectangle used to set the latexdraw rectangle.
 	 */
-	protected abstract void setSVGRectParameters(final SVGRectElement elt);
+	abstract void setSVGRectParameters(final SVGRectElement elt);
 
-	protected void setShadowSVGRect(final SVGElement root, final double x, final double y, final double width, final double height, final SVGDocument doc) {
+	final void setShadowSVGRect(final SVGElement root, final double x, final double y, final double width, final double height, final SVGDocument doc) {
 		if(shape.hasShadow()) {
 			final SVGRectElement elt = new SVGRectElement(x, y, width, height, doc);
 			setSVGShadowAttributes(elt, true);
@@ -72,7 +72,7 @@ abstract class SVGRectangular<T extends IShape & ILineArcProp> extends SVGShape<
 		}
 	}
 
-	protected void setDbleBordSVGRect(final SVGElement root, final double x, final double y, final double width, final double height, final SVGDocument doc) {
+	final void setDbleBordSVGRect(final SVGElement root, final double x, final double y, final double width, final double height, final SVGDocument doc) {
 		if(shape.hasDbleBord()) {
 			final SVGRectElement elt = new SVGRectElement(x, y, width, height, doc);
 			setSVGDoubleBordersAttributes(elt);
@@ -85,18 +85,18 @@ abstract class SVGRectangular<T extends IShape & ILineArcProp> extends SVGShape<
 	 * Sets the roundness of the SVG shape.
 	 * @param elt The SVG element into which the roundness must be set.
 	 */
-	protected void setSVGRoundCorner(final SVGElement elt) {
+	final void setSVGRoundCorner(final SVGElement elt) {
 		if(elt != null && shape.isRoundCorner()) {
 			final double value = 0.5 * (Math.min(shape.getWidth(), shape.getHeight()) - getRoundCornerGap()) * shape.getLineArc();
 			elt.setAttribute(SVGAttributes.SVG_RX, String.valueOf(value));
 		}
 	}
 
-	protected double getRoundCornerGap() {
+	double getRoundCornerGap() {
 		return shape.isDbleBorderable() ? shape.getDbleBordSep() + shape.getThickness() : 0d;
 	}
 
-	protected void setLineArc(final double rx) {
+	void setLineArc(final double rx) {
 		shape.setLineArc(rx / (0.5 * (min(shape.getHeight(), shape.getWidth()) - getRoundCornerGap())));
 	}
 }

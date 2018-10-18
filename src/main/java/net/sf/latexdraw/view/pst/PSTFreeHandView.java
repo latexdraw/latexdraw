@@ -133,7 +133,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1 || shape.getNbPoints() < 2) {
+		if(ppc < 1 || shape.getNbPoints() < 2 || !MathUtils.INST.isValidPt(origin)) {
 			return "";
 		}
 

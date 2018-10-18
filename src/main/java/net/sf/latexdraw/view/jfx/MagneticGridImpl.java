@@ -193,7 +193,7 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 
 
 	@Override
-	public void reinitGrid() {
+	public final void reinitGrid() {
 		setGridStyle(GridStyle.CUSTOMISED);
 		setGridSpacing(20);
 		setMagnetic(true);

@@ -60,9 +60,9 @@ import static java.lang.Math.toDegrees;
  */
 abstract class SVGShape<S extends IShape> {
 	/** The beginning of the token used to declare a URL in an SVG document. */
-	protected static final String SVG_URL_TOKEN_BEGIN = "url(#"; //NON-NLS
+	static final String SVG_URL_TOKEN_BEGIN = "url(#"; //NON-NLS
 
-	protected static void setSVGArrow(final IArrowableSingleShape shape, final SVGElement parent, final int arrowPos, final boolean isShadow, final
+	static void setSVGArrow(final IArrowableSingleShape shape, final SVGElement parent, final int arrowPos, final boolean isShadow, final
 	SVGDocument doc, final SVGDefsElement defs) {
 		final IArrow arrow = shape.getArrowAt(arrowPos);
 
@@ -81,7 +81,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param type The type of the latexdraw element (double borders, shadow, main), if null, the main element is returned.
 	 * @return The Researched element.
 	 */
-	protected static SVGElement getLaTeXDrawElement(final SVGGElement elt, final String type) {
+	static SVGElement getLaTeXDrawElement(final SVGGElement elt, final String type) {
 		if(elt == null) {
 			return null;
 		}
@@ -124,7 +124,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param strokeWidth The SVG stroke-width to convert.
 	 * @param stroke The stroke.
 	 */
-	public static void setThickness(final IShape shape, final String strokeWidth, final String stroke) {
+	static void setThickness(final IShape shape, final String strokeWidth, final String stroke) {
 		if(shape != null && strokeWidth != null && !SVGAttributes.SVG_VALUE_NONE.equals(stroke)) {
 			try {
 				shape.setThickness(new SVGLengthParser(strokeWidth).parseLength().getValue());
@@ -140,7 +140,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param stoke The stroke of the shape.
 	 * @param opacity The possible stroke-opacity of the colour. May be null.
 	 */
-	public static void setLineColour(final IShape shape, final String stoke, final String opacity) {
+	static void setLineColour(final IShape shape, final String stoke, final String opacity) {
 		if(shape != null && stoke != null) {
 			final Color col = CSSColors.INSTANCE.getRGBColour(stoke);
 			shape.setLineColour(col);
@@ -235,13 +235,13 @@ abstract class SVGShape<S extends IShape> {
 	 * @param defs The definition that may be useful to the the fill properties (url), may be null.
 	 * @param opacity The possible fill-opacity of the colour. May be null.
 	 */
-	public static void setFillFromSVG(final IShape shape, final String fill, final String opacity, final SVGDefsElement defs) {
-		if(shape == null || fill.equals(SVGAttributes.SVG_VALUE_NONE)) {
+	static void setFillFromSVG(final IShape shape, final String fill, final String opacity, final SVGDefsElement defs) {
+		if(shape == null || SVGAttributes.SVG_VALUE_NONE.equals(fill)) {
 			return;
 		}
 
 		// Getting the url to the SVG symbol of the filling.
-		if(fill.startsWith(SVG_URL_TOKEN_BEGIN) && fill.endsWith(")") && defs != null) {
+		if(defs != null && fill.startsWith(SVG_URL_TOKEN_BEGIN) && fill.endsWith(")")) {
 			final String uri = fill.substring(5, fill.length() - 1);
 			final SVGElement def = defs.getDef(uri);
 
@@ -265,8 +265,8 @@ abstract class SVGShape<S extends IShape> {
 	 * @param dashArray The dash array SVG property.
 	 * @param linecap The line cap SVG property.
 	 */
-	public static void setDashedDotted(final IShape shape, final String dashArray, final String linecap) {
-		if(shape != null && dashArray != null && !dashArray.equals(SVGAttributes.SVG_VALUE_NONE)) {
+	static void setDashedDotted(final IShape shape, final String dashArray, final String linecap) {
+		if(shape != null && dashArray != null && !SVGAttributes.SVG_VALUE_NONE.equals(dashArray)) {
 			if(SVGAttributes.SVG_LINECAP_VALUE_ROUND.equals(linecap)) {
 				shape.setLineStyle(LineStyle.DOTTED);
 			}else {
@@ -282,7 +282,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param hasDoubleBorders True: the shape has double borders and it must be considered during the computation of the thickness.
 	 * @param doubleSep The size of the double borders.
 	 */
-	public static void setThickness(final SVGElement elt, final double thickness, final boolean hasDoubleBorders, final double doubleSep) {
+	static void setThickness(final SVGElement elt, final double thickness, final boolean hasDoubleBorders, final double doubleSep) {
 		if(elt != null) {
 			elt.setStrokeWidth(hasDoubleBorders ? thickness * 2d + doubleSep : thickness);
 		}
@@ -299,18 +299,17 @@ abstract class SVGShape<S extends IShape> {
 	 * @param thickness The thickness to set to the element.
 	 * @param doubleSep The size of the double borders.
 	 */
-	public static void setDashedDotted(final Element elt, final double blackDash, final double whiteDash, final double dotSep, final String lineStyle, final
-	boolean hasDoubleBorders, final double thickness, final double doubleSep) {
+	static void setDashedDotted(final Element elt, final double blackDash, final double whiteDash, final double dotSep, final String lineStyle, final
+								boolean hasDoubleBorders, final double thickness, final double doubleSep) {
 		if(elt == null) {
 			return;
 		}
-		if(lineStyle.equals(PSTricksConstants.LINE_DASHED_STYLE)) {
+		if(PSTricksConstants.LINE_DASHED_STYLE.equals(lineStyle)) {
 			elt.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, blackDash + ", " + whiteDash); //NON-NLS
 		}else {
-			if(lineStyle.equals(PSTricksConstants.LINE_DOTTED_STYLE)) {
+			if(PSTricksConstants.LINE_DOTTED_STYLE.equals(lineStyle)) {
 				elt.setAttribute(SVGAttributes.SVG_STROKE_LINECAP, SVGAttributes.SVG_LINECAP_VALUE_ROUND);
-				elt.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, 1 + ", " + (dotSep + (hasDoubleBorders ? thickness * 2f + doubleSep : thickness)));
-				//NON-NLS
+				elt.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, 1 + ", " + (dotSep + (hasDoubleBorders ? thickness * 2f + doubleSep : thickness))); //NON-NLS
 			}
 		}
 	}
@@ -328,8 +327,8 @@ abstract class SVGShape<S extends IShape> {
 	 * @param dotSep The dot interval.
 	 * @return The created SVG line or null.
 	 */
-	protected static SVGLineElement getShowPointsLine(final SVGDocument doc, final double thickness, final Color col, final IPoint p1, final IPoint p2, final
-	double blackDash, final double whiteDash, final boolean hasDble, final double dotSep, final double doubleSep) {
+	static SVGLineElement getShowPointsLine(final SVGDocument doc, final double thickness, final Color col, final IPoint p1, final IPoint p2, final
+						double blackDash, final double whiteDash, final boolean hasDble, final double dotSep, final double doubleSep) {
 		if(doc == null) {
 			return null;
 		}
@@ -361,7 +360,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param col The colour of the dot.
 	 * @return The created dot or null.
 	 */
-	protected static SVGCircleElement getShowPointsDot(final SVGDocument doc, final double rad, final IPoint pt, final Color col) {
+	static SVGCircleElement getShowPointsDot(final SVGDocument doc, final double rad, final IPoint pt, final Color col) {
 		if(doc == null) {
 			return null;
 		}
@@ -381,7 +380,7 @@ abstract class SVGShape<S extends IShape> {
 	}
 
 	/** The shape model use for the generation. */
-	protected final S shape;
+	final S shape;
 
 
 	/**
@@ -389,7 +388,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param sh The shape used for the generation.
 	 * @throws IllegalArgumentException If the given shape is null.
 	 */
-	protected SVGShape(final S sh) {
+	SVGShape(final S sh) {
 		super();
 		if(sh == null) {
 			throw new IllegalArgumentException();
@@ -400,7 +399,7 @@ abstract class SVGShape<S extends IShape> {
 	/**
 	 * @return The SVG ID of the shape (starting with the token "id" followed by the number of the shape).
 	 */
-	public String getSVGID() {
+	final String getSVGID() {
 		return "id" + shape.hashCode(); //NON-NLS
 	}
 
@@ -408,7 +407,7 @@ abstract class SVGShape<S extends IShape> {
 	 * Applies the set of transformations that concerned the given SVG element to the shape.
 	 * @param elt The element that contains the SVG transformation list.
 	 */
-	public void applyTransformations(final SVGElement elt) {
+	final void applyTransformations(final SVGElement elt) {
 		if(elt == null) {
 			return;
 		}
@@ -425,7 +424,7 @@ abstract class SVGShape<S extends IShape> {
 	 * Applies an SVG transformation on the shape.
 	 * @param t The SVG transformation to apply.
 	 */
-	public void applyTransformation(final SVGTransform t) {
+	final void applyTransformation(final SVGTransform t) {
 		if(t != null) {
 			switch(t.getType()) {
 				case SVGTransform.SVG_TRANSFORM_ROTATE:
@@ -452,7 +451,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param ah1 The first arrow.
 	 * @param ah2 The second arrow.
 	 */
-	public void homogeniseArrows(final IArrow ah1, final IArrow ah2) {
+	final void homogeniseArrows(final IArrow ah1, final IArrow ah2) {
 		if(ah1 == null || ah2 == null) {
 			return;
 		}
@@ -467,7 +466,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param source The arrow that will be copied.
 	 * @param target The arrow that will be set.
 	 */
-	protected void homogeniseArrowFrom(final IArrow source, final IArrow target) {
+	final void homogeniseArrowFrom(final IArrow source, final IArrow target) {
 		if(source == null || target == null) {
 			return;
 		}
@@ -557,7 +556,7 @@ abstract class SVGShape<S extends IShape> {
 	 * Sets the shadow parameters of the figure by using an SVG element having "type:shadow".
 	 * @param elt The source element.
 	 */
-	protected void setSVGShadowParameters(final SVGElement elt) {
+	final void setSVGShadowParameters(final SVGElement elt) {
 		if(elt == null || !shape.isShadowable()) {
 			return;
 		}
@@ -565,7 +564,7 @@ abstract class SVGShape<S extends IShape> {
 		if(shape.isFillable()) {
 			final String fill = elt.getFill();
 
-			if(fill != null && !fill.equals(SVGAttributes.SVG_VALUE_NONE) && !fill.startsWith(SVG_URL_TOKEN_BEGIN)) {
+			if(fill != null && !SVGAttributes.SVG_VALUE_NONE.equals(fill) && !fill.startsWith(SVG_URL_TOKEN_BEGIN)) {
 				shape.setShadowCol(CSSColors.INSTANCE.getRGBColour(fill));
 			}
 		}
@@ -583,7 +582,7 @@ abstract class SVGShape<S extends IShape> {
 	 * Sets the double borders parameters of the figure by using an SVG element.
 	 * @param elt The SVG element.
 	 */
-	protected void setSVGDbleBordersParameters(final SVGElement elt) {
+	final void setSVGDbleBordersParameters(final SVGElement elt) {
 		if(elt == null) {
 			return;
 		}
@@ -594,7 +593,7 @@ abstract class SVGShape<S extends IShape> {
 		shape.setHasDbleBord(true);
 	}
 
-	protected void setSVGLatexdrawParameters(final SVGElement elt) {
+	final void setSVGLatexdrawParameters(final SVGElement elt) {
 		if(elt == null) {
 			return;
 		}
@@ -609,7 +608,7 @@ abstract class SVGShape<S extends IShape> {
 	 * Sets the global parameters of the figure by using an SVG element.
 	 * @param elt The SVG element.
 	 */
-	protected void setSVGParameters(final SVGElement elt) {
+	final void setSVGParameters(final SVGElement elt) {
 		if(elt == null) {
 			return;
 		}
@@ -646,8 +645,8 @@ abstract class SVGShape<S extends IShape> {
 	 * @param arrowID The SVG ID of the SVG arrow head.
 	 * @param elt An element of the SVG document (useful to get the defs of the document).
 	 */
-	protected void setSVGArrow(final IArrow ah, final String arrowID, final SVGElement elt, final String svgMarker) {
-		if(ah != null && !arrowID.isEmpty() && elt != null) {
+	final void setSVGArrow(final IArrow ah, final String arrowID, final SVGElement elt, final String svgMarker) {
+		if(ah != null && elt != null && !arrowID.isEmpty()) {
 			final SVGArrow arrGen = new SVGArrow(ah);
 			arrGen.setArrow((SVGMarkerElement) elt.getDef(new URIReferenceParser(arrowID).getURI()), getShape(), svgMarker);
 		}
@@ -658,13 +657,13 @@ abstract class SVGShape<S extends IShape> {
 	 * @param doc The SVG document.
 	 * @return The created SVGElement or null.
 	 */
-	public abstract SVGElement toSVG(final SVGDocument doc);
+	abstract SVGElement toSVG(final SVGDocument doc);
 
 	/**
 	 * @param elt Rotates the SVG element.
 	 * @throws IllegalArgumentException If elt is null.
 	 */
-	protected void setSVGRotationAttribute(final Element elt) {
+	final void setSVGRotationAttribute(final Element elt) {
 		if(elt == null) {
 			throw new IllegalArgumentException();
 		}
@@ -695,7 +694,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param elt The element to set.
 	 * @throws IllegalArgumentException If elt is null.
 	 */
-	protected void setSVGDoubleBordersAttributes(final Element elt) {
+	final void setSVGDoubleBordersAttributes(final Element elt) {
 		if(elt == null) {
 			throw new IllegalArgumentException();
 		}
@@ -717,7 +716,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param shadowFills True if a shadow must fill the figure.
 	 * @throws IllegalArgumentException If elt is null.
 	 */
-	protected void setSVGShadowAttributes(final Element elt, final boolean shadowFills) {
+	final void setSVGShadowAttributes(final Element elt, final boolean shadowFills) {
 		if(elt == null) {
 			throw new IllegalArgumentException();
 		}
@@ -892,7 +891,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param shadowFills True if a shadow must fill the figure.
 	 * @throws IllegalArgumentException If the root or the "defs" part of the document is null.
 	 */
-	protected void setSVGAttributes(final SVGDocument doc, final SVGElement root, final boolean shadowFills) {
+	final void setSVGAttributes(final SVGDocument doc, final SVGElement root, final boolean shadowFills) {
 		if(root == null || doc.getFirstChild().getDefs() == null) {
 			throw new IllegalArgumentException();
 		}
@@ -916,7 +915,7 @@ abstract class SVGShape<S extends IShape> {
 	/**
 	 * @return The path of the hatchings of the shape.
 	 */
-	public SVGPathSegList getSVGHatchingsPath() {
+	final SVGPathSegList getSVGHatchingsPath() {
 		final SVGPathSegList path = new SVGPathSegList();
 
 		if(!shape.hasHatchings()) {
@@ -1036,13 +1035,13 @@ abstract class SVGShape<S extends IShape> {
 	 * @return The gap computed with the border position, the thickness and the double boundary. Or NaN if the shape cannot move
 	 * its border.
 	 */
-	protected double getPositionGap() {
+	final double getPositionGap() {
 		final double gap;
 
-		if(!shape.isBordersMovable() || shape.getBordersPosition().getLatexToken().equals(PSTricksConstants.BORDERS_MIDDLE)) {
+		if(!shape.isBordersMovable() || PSTricksConstants.BORDERS_MIDDLE.equals(shape.getBordersPosition().getLatexToken())) {
 			gap = 0.;
 		}else {
-			if(shape.getBordersPosition().getLatexToken().equals(PSTricksConstants.BORDERS_INSIDE)) {
+			if(PSTricksConstants.BORDERS_INSIDE.equals(shape.getBordersPosition().getLatexToken())) {
 				gap = -shape.getThickness() - (shape.hasDbleBord() ? shape.getDbleBordSep() + shape.getThickness() : 0.);
 			}else {
 				gap = shape.getThickness() + (shape.hasDbleBord() ? shape.getDbleBordSep() + shape.getThickness() : 0.);
@@ -1059,7 +1058,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param elt The element that will be set to define the background of the borders.
 	 * @param root The root element to which 'elt' will be appended.
 	 */
-	protected void setSVGBorderBackground(final SVGElement elt, final SVGElement root) {
+	final void setSVGBorderBackground(final SVGElement elt, final SVGElement root) {
 		if(elt == null || root == null) {
 			return;
 		}
@@ -1074,7 +1073,7 @@ abstract class SVGShape<S extends IShape> {
 	/**
 	 * @return the shape.
 	 */
-	public S getShape() {
+	final S getShape() {
 		return shape;
 	}
 }

@@ -31,7 +31,7 @@ class SVGGroup extends SVGShape<IGroup> {
 	 * @param group The group of shapes that will be converted.
 	 * @since 3.0
 	 */
-	protected SVGGroup(final IGroup group) {
+	SVGGroup(final IGroup group) {
 		super(group);
 	}
 
@@ -70,7 +70,7 @@ class SVGGroup extends SVGShape<IGroup> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null) {
 			return null;
 		}

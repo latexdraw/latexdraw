@@ -32,7 +32,7 @@ class SVGEllipse extends SVGShape<IEllipse> {
 	 * @throws IllegalArgumentException If ellipse is null.
 	 * @since 2.0
 	 */
-	protected SVGEllipse(final IEllipse ellipse) {
+	SVGEllipse(final IEllipse ellipse) {
 		super(ellipse);
 	}
 
@@ -42,7 +42,7 @@ class SVGEllipse extends SVGShape<IEllipse> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected SVGEllipse(final SVGEllipseElement elt) {
+	SVGEllipse(final SVGEllipseElement elt) {
 		this(ShapeFactory.INST.createEllipse());
 
 		setSVGParameters(elt);
@@ -56,7 +56,7 @@ class SVGEllipse extends SVGShape<IEllipse> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected SVGEllipse(final SVGGElement elt, final boolean withTransformation) {
+	SVGEllipse(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createEllipse());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -84,7 +84,7 @@ class SVGEllipse extends SVGShape<IEllipse> {
 	 * @param gap The gap used to define the latexdraw ellipse.
 	 * @since 3.0
 	 */
-	protected void setEllipseParameters(final SVGEllipseElement ellipseElt, final double gap) {
+	final void setEllipseParameters(final SVGEllipseElement ellipseElt, final double gap) {
 		final double width = 2. * ellipseElt.getRx() - gap;
 		final double height = 2. * ellipseElt.getRy() - gap;
 
@@ -95,7 +95,7 @@ class SVGEllipse extends SVGShape<IEllipse> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null || doc.getFirstChild().getDefs() == null) {
 			throw new IllegalArgumentException();
 		}
@@ -122,7 +122,7 @@ class SVGEllipse extends SVGShape<IEllipse> {
 			root.appendChild(elt);
 		}
 
-		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
+		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken())) {
 			// The background of the borders must be filled is there is a shadow.
 			elt = new SVGEllipseElement(x, y, width, height, doc);
 			setSVGBorderBackground(elt, root);

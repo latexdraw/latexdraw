@@ -86,7 +86,7 @@ public class PageView extends Group {
 	 * Sets the current page format.
 	 * @param page The new page format to use. Cannot be null.
 	 */
-	public void setPage(final Page page) {
+	public final void setPage(final Page page) {
 		recPage.setX(origin.getX());
 		recPage.setY(origin.getY());
 		recPage.setWidth(page.getWidth() * IShape.PPC);

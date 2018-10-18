@@ -71,7 +71,7 @@ public class SVGAttr implements Attr, Cloneable {
 
 	@Override
 	public boolean isId() {
-		return name.equals(SVGAttributes.SVG_ID);
+		return SVGAttributes.SVG_ID.equals(name);
 	}
 
 

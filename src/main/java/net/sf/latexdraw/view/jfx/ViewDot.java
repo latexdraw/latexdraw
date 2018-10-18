@@ -55,7 +55,7 @@ public class ViewDot extends ViewShape<IDot> {
 		updateDot();
 	}
 
-	private void updateDot() {
+	private final void updateDot() {
 		final DotStyle dotStyle = model.getDotStyle();
 
 		path.setVisible(dotStyle != DotStyle.DOT && dotStyle != DotStyle.O);
@@ -297,7 +297,7 @@ public class ViewDot extends ViewShape<IDot> {
 	}
 
 
-	public void setFill() {
+	private final void setFill() {
 		switch(model.getDotStyle()) {
 			case O:
 				dot.setFill(model.getFillingCol().toJFX());
@@ -327,7 +327,7 @@ public class ViewDot extends ViewShape<IDot> {
 	}
 
 
-	private void setStroke() {
+	private final void setStroke() {
 		path.setStroke(model.getLineColour().toJFX());
 		dot.setStroke(model.getLineColour().toJFX());
 

@@ -240,7 +240,7 @@ public abstract class PSTShapeView<S extends IShape> {
 			code.append("doubleline=true, doublesep="); //NON-NLS
 			code.append(MathUtils.INST.getCutNumberFloat(shape.getDbleBordSep() / ppc));
 
-			if(!doubleColor.equals(PSTricksConstants.DEFAULT_DOUBLE_COLOR)) {
+			if(!PSTricksConstants.DEFAULT_DOUBLE_COLOR.equals(doubleColor)) {
 				code.append(", doublecolor=").append(getColourName(doubleColor)); //NON-NLS
 			}
 		}else {
@@ -331,7 +331,7 @@ public abstract class PSTShapeView<S extends IShape> {
 		final Color interiorColor = shape.getFillingCol();
 		final StringBuilder code = new StringBuilder("fillstyle=solid"); //NON-NLS
 
-		if(!interiorColor.equals(PSTricksConstants.DEFAULT_INTERIOR_COLOR)) {
+		if(!PSTricksConstants.DEFAULT_INTERIOR_COLOR.equals(interiorColor)) {
 			code.append(",fillcolor=").append(getColourName(interiorColor)); //NON-NLS
 		}
 
@@ -354,11 +354,11 @@ public abstract class PSTShapeView<S extends IShape> {
 		final float gradAngle = MathUtils.INST.getCutNumberFloat(shape.getGradAngle());
 		final StringBuilder code = new StringBuilder("fillstyle=gradient, gradlines=2000"); //NON-NLS
 
-		if(!gradStartCol.equals(PSTricksConstants.DEFAULT_GRADIENT_START_COLOR)) {
+		if(!PSTricksConstants.DEFAULT_GRADIENT_START_COLOR.equals(gradStartCol)) {
 			code.append(", gradbegin=").append(getColourName(gradStartCol)); //NON-NLS
 		}
 
-		if(!gradEndCol.equals(PSTricksConstants.DEFAULT_GRADIENT_END_COLOR)) {
+		if(!PSTricksConstants.DEFAULT_GRADIENT_END_COLOR.equals(gradEndCol)) {
 			code.append(", gradend=").append(getColourName(gradEndCol)); //NON-NLS
 		}
 
@@ -406,7 +406,7 @@ public abstract class PSTShapeView<S extends IShape> {
 		code.append(", hatchsep="); //NON-NLS
 		code.append(MathUtils.INST.getCutNumberFloat(shape.getHatchingsSep() / ppc));
 
-		if(!hatchingsCol.equals(PSTricksConstants.DEFAULT_HATCHING_COLOR)) {
+		if(!PSTricksConstants.DEFAULT_HATCHING_COLOR.equals(hatchingsCol)) {
 			code.append(", hatchcolor=").append(getColourName(hatchingsCol)); //NON-NLS
 		}
 
@@ -446,7 +446,7 @@ public abstract class PSTShapeView<S extends IShape> {
 				break;
 		}
 
-		if(!shape.isFilled() && shape.hasShadow() && shape.shadowFillsShape() && !interiorColor.equals(PSTricksConstants.DEFAULT_INTERIOR_COLOR)) {
+		if(!shape.isFilled() && shape.hasShadow() && shape.shadowFillsShape() && !PSTricksConstants.DEFAULT_INTERIOR_COLOR.equals(interiorColor)) {
 			if(code == null) {
 				code = new StringBuilder();
 			}else {
@@ -480,7 +480,7 @@ public abstract class PSTShapeView<S extends IShape> {
 
 			code.append(",shadowsize=").append(MathUtils.INST.getCutNumberFloat(shape.getShadowSize() / ppc)); //NON-NLS
 
-			if(!shadowColor.equals(PSTricksConstants.DEFAULT_SHADOW_COLOR)) {
+			if(!PSTricksConstants.DEFAULT_SHADOW_COLOR.equals(shadowColor)) {
 				code.append(",shadowcolor=").append(getColourName(shadowColor)); //NON-NLS
 			}
 		}else {

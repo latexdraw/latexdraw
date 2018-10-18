@@ -31,7 +31,7 @@ class SVGCircle extends SVGShape<ICircle> {
 	 * @param circle The circle shape used for the generation.
 	 * @throws IllegalArgumentException If circle is null.
 	 */
-	protected SVGCircle(final ICircle circle) {
+	SVGCircle(final ICircle circle) {
 		super(circle);
 	}
 
@@ -40,7 +40,7 @@ class SVGCircle extends SVGShape<ICircle> {
 	 * Creates a circle from an SVG circle element.
 	 * @param elt The source element.
 	 */
-	protected SVGCircle(final SVGCircleElement elt) {
+	SVGCircle(final SVGCircleElement elt) {
 		this(ShapeFactory.INST.createCircle());
 		setSVGParameters(elt);
 		setCircleParameters(elt, 0d);
@@ -52,7 +52,7 @@ class SVGCircle extends SVGShape<ICircle> {
 	 * Creates a circle from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected SVGCircle(final SVGGElement elt, final boolean withTransformation) {
+	SVGCircle(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createCircle());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -78,7 +78,7 @@ class SVGCircle extends SVGShape<ICircle> {
 	 * @param circleElt The source SVG circle element.
 	 * @param gap The gap used to define the latexdraw circle.
 	 */
-	protected void setCircleParameters(final SVGCircleElement circleElt, final double gap) {
+	final void setCircleParameters(final SVGCircleElement circleElt, final double gap) {
 		final double radius = circleElt.getR() - gap / 2d;
 		shape.setWidth(radius * 2d);
 		shape.setPosition(circleElt.getCx() - radius, circleElt.getCy() + radius);
@@ -86,7 +86,7 @@ class SVGCircle extends SVGShape<ICircle> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null || doc.getFirstChild().getDefs() == null) {
 			return null;
 		}
@@ -111,7 +111,7 @@ class SVGCircle extends SVGShape<ICircle> {
 			root.appendChild(shad);
 		}
 
-		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
+		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken())) {
 			// The background of the borders must be filled is there is a shadow.
 			elt = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, Math.abs((brx - tlx + gap) / 2d), doc);
 			setSVGBorderBackground(elt, root);

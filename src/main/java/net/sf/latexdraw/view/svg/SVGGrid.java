@@ -43,7 +43,7 @@ class SVGGrid extends SVGShape<IGrid> {
 	 * @param grid The grid used for the generation.
 	 * @throws IllegalArgumentException If grid is null.
 	 */
-	protected SVGGrid(final IGrid grid) {
+	SVGGrid(final IGrid grid) {
 		super(grid);
 	}
 
@@ -53,7 +53,7 @@ class SVGGrid extends SVGShape<IGrid> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected SVGGrid(final SVGGElement elt, final boolean withTransformation) {
+	SVGGrid(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
 
 		if(elt == null) {
@@ -92,7 +92,7 @@ class SVGGrid extends SVGShape<IGrid> {
 	/**
 	 * Sets the dimensions of a grid from an SVGGElement.
 	 */
-	private void setDimensionGridElement(final SVGGElement elt, final String prefix) {
+	private final void setDimensionGridElement(final SVGGElement elt, final String prefix) {
 		List<Point2D> values;
 
 		shape.setLineColour(elt.getStroke());
@@ -125,7 +125,7 @@ class SVGGrid extends SVGShape<IGrid> {
 	/**
 	 * Sets the label properties of a grid from an SVGElement.
 	 */
-	private void setLabelGridElement(final SVGElement labelElt) {
+	private final void setLabelGridElement(final SVGElement labelElt) {
 		if(labelElt == null) {
 			shape.setLabelsSize(0);
 		}else {
@@ -142,7 +142,7 @@ class SVGGrid extends SVGShape<IGrid> {
 	/**
 	 * Sets the main grid properties of a grid from an SVGElement.
 	 */
-	private void setMainGridElement(final SVGElement mainGridElt, final String prefix) {
+	private final void setMainGridElement(final SVGElement mainGridElt, final String prefix) {
 		boolean isGridDotted = false;
 
 		try {
@@ -178,7 +178,7 @@ class SVGGrid extends SVGShape<IGrid> {
 	/**
 	 * Sets the sub-grid properties of a grid from an SVGElement.
 	 */
-	private void setSubGridElement(final SVGElement subGridElt, final String prefix) {
+	private final void setSubGridElement(final SVGElement subGridElt, final String prefix) {
 		boolean isGridDotted = false;
 
 		try {
@@ -493,7 +493,7 @@ class SVGGrid extends SVGShape<IGrid> {
 	/**
 	 * Creates the SVG element corresponding to the grid.
 	 */
-	protected void createSVGGrid(final SVGElement elt, final SVGDocument document) {
+	void createSVGGrid(final SVGElement elt, final SVGDocument document) {
 		if(elt == null || document == null) {
 			return;
 		}
@@ -562,7 +562,7 @@ class SVGGrid extends SVGShape<IGrid> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null) {
 			return null;
 		}

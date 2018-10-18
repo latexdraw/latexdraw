@@ -48,7 +48,7 @@ public class LSpinner<T> extends Spinner<T> {
 		configureSpinner();
 	}
 
-	private void configureSpinner() {
+	private final void configureSpinner() {
 		setOnScroll(event -> {
 			if(event.getDeltaY() < 0d) {
 				decrement();

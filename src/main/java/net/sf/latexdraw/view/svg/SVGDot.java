@@ -36,7 +36,7 @@ class SVGDot extends SVGShape<IDot> {
 	 * @param dot The dot used for the generation.
 	 * @throws IllegalArgumentException If dot is null.
 	 */
-	protected SVGDot(final IDot dot) {
+	SVGDot(final IDot dot) {
 		super(dot);
 	}
 
@@ -45,7 +45,7 @@ class SVGDot extends SVGShape<IDot> {
 	 * Creates a dot from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected SVGDot(final SVGGElement elt, final boolean withTransformation) {
+	SVGDot(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
 
 		if(elt == null) {
@@ -80,7 +80,7 @@ class SVGDot extends SVGShape<IDot> {
 		setFillLineColor(main);
 	}
 
-	protected void setFillLineColor(final SVGElement elt) {
+	final void setFillLineColor(final SVGElement elt) {
 		if(!shape.isFillable() && shape.isFilled()) {
 			final Color fillCol = CSSColors.INSTANCE.getRGBColour(elt.getFill());
 			if(fillCol != null) {
@@ -90,7 +90,7 @@ class SVGDot extends SVGShape<IDot> {
 	}
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null) {
 			return null;
 		}

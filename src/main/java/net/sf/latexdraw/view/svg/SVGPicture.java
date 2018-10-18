@@ -24,7 +24,7 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  */
 class SVGPicture extends SVGShape<IPicture> {
-	protected SVGPicture(final IPicture shape) {
+	SVGPicture(final IPicture shape) {
 		super(shape);
 	}
 
@@ -34,7 +34,7 @@ class SVGPicture extends SVGShape<IPicture> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected SVGPicture(final SVGImageElement elt) {
+	SVGPicture(final SVGImageElement elt) {
 		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 
 		shape.setPathSource(elt.getURI());
@@ -48,7 +48,7 @@ class SVGPicture extends SVGShape<IPicture> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected SVGPicture(final SVGGElement elt, final boolean withTransformation) {
+	SVGPicture(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -69,7 +69,7 @@ class SVGPicture extends SVGShape<IPicture> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null) {
 			return null;
 		}

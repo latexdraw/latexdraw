@@ -61,7 +61,7 @@ public class ViewCircleArc extends ViewSingleShape<ICircleArc, Arc> {
 		viewArrows.updateAllArrows();
 	}
 
-	private void bindArcProperties(final Arc arc) {
+	private final void bindArcProperties(final Arc arc) {
 		arc.startAngleProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getAngleStart()), model.angleStartProperty()));
 		arc.lengthProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getAngleEnd() - model.getAngleStart()),
 			model.angleStartProperty(), model.angleEndProperty()));

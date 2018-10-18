@@ -34,7 +34,7 @@ class SVGRhombus extends SVGPolygonBased<IRhombus> {
 	 * @param rhombus The rhombus used for the generation.
 	 * @throws IllegalArgumentException If the given rhombus is null.
 	 */
-	protected SVGRhombus(final IRhombus rhombus) {
+	SVGRhombus(final IRhombus rhombus) {
 		super(rhombus);
 	}
 
@@ -42,7 +42,7 @@ class SVGRhombus extends SVGPolygonBased<IRhombus> {
 	 * Creates an SVG-latexdraw->latexdraw generator.
 	 * @param elt The source element.
 	 */
-	protected SVGRhombus(final SVGGElement elt, final boolean withTransformation) {
+	SVGRhombus(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createRhombus());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -77,7 +77,7 @@ class SVGRhombus extends SVGPolygonBased<IRhombus> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null) {
 			return null;
 		}

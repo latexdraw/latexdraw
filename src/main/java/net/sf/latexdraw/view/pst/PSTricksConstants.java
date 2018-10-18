@@ -95,9 +95,6 @@ public final class PSTricksConstants {
 	 */
 	public static final double DEFAULT_GRADIENT_MID_POINT = .9;
 
-	/** The number of lines. More lines means finer gradation. */
-	public static final int DEFAULT_GRADIENT_LINES = 500;
-
 	/** The angle of the gradient in degree. */
 	public static final double DEFAULT_GRADIENT_ANGLE = 0;
 
@@ -136,12 +133,6 @@ public final class PSTricksConstants {
 
 	/** The token of the parameters : fillstyle = crosshatch* */
 	public static final String TOKEN_FILL_CROSSHATCH_F = "crosshatch*"; //NON-NLS
-
-	/** The token of the parameters : cornersize = relative */
-	public static final String TOKEN_RELATIVE = "relative"; //NON-NLS
-
-	/** The token of the parameters : cornersize = absolute */
-	public static final String TOKEN_ABSOLUTE = "absolute"; //NON-NLS
 
 	/** The token of the postscript point unit of length */
 	public static final String TOKEN_PS_PT = "pt"; //NON-NLS
@@ -203,15 +194,6 @@ public final class PSTricksConstants {
 	/** The style which draw a full pentagon */
 	public static final String FPENTAGON_STYLE = "pentagon*"; //NON-NLS
 
-	/** Is the special coor activated by default */
-	public static final boolean DEFAULT_SPECIAL_COOR = false;
-
-	/** Is the unit of length is rad by default */
-	public static final boolean DEFAULT_ON_RADIANS = false;
-
-	/** The angle in degrees by default */
-	public static final double DEFAULT_DEGREES = 360;
-
 	/** The width of the line by default (in cm) */
 	public static final double DEFAULT_LINE_WIDTH = 0.8 / CM_VAL_PT;
 
@@ -228,15 +210,6 @@ public final class PSTricksConstants {
 	 **/
 	public static final double DEFAULT_FRAME_ARC = 0;
 
-	/**
-	 * Is the corner size relative by default (if not, it's absolute)
-	 * If cornersize is relative, then the framearc parameter determines
-	 * the radius of the rounded corners for \psframe. If
-	 * cornersize is absolute, then the linearc parameter determines the
-	 * radius of the rounded corners for \psframe.
-	 */
-	public static final boolean DEFAULT_CORNER_SIZE_RELATIVE = true;
-
 	/** The value of arcsepA by default (in pt) */
 	public static final double DEFAULT_ARC_SEP_A = 0;
 
@@ -244,15 +217,6 @@ public final class PSTricksConstants {
 	public static final double DEFAULT_ARC_SEP_B = 0;
 
 	public static final double DEFAULT_ARC_SEP = 0;
-
-	/** The curvature parameters control the curvature of a parabola */
-	public static final double DEFAULT_CURVATURE_NUM1 = 1;
-
-	/** The curvature parameters control the curvature of a parabola */
-	public static final double DEFAULT_CRUVATURE_NUM2 = 0.1;
-
-	/** The curvature parameters control the curvature of a parabola */
-	public static final double DEFAULT_CRUVATURE_NUM3 = 0;
 
 	/** The scale of the dot by default */
 	public static final double DEFAULT_DOT_SCALE1 = 1;
@@ -317,9 +281,6 @@ public final class PSTricksConstants {
 	/** The origin of the coordinate system by default */
 	public static final Point2D.Double DEFAULT_ORIGIN = new Point2D.Double(0, 0);
 
-	/** Is the axes swept by default */
-	public static final boolean DEFAULT_SWAP_AXES = false;
-
 	/** The line(s) of the figure are dotted */
 	public static final String LINE_DOTTED_STYLE = "dotted"; //NON-NLS
 
@@ -340,12 +301,6 @@ public final class PSTricksConstants {
 
 	/** The distance between dots in the dotted line style (in cm) */
 	public static final double DEFAULT_DOT_STEP = 3. / CM_VAL_PT;
-
-	/** A positive value draws a border of width DEFAULT_BORDER. */
-	public static final double DEFAULT_BORDER = 0.;
-
-	/** The colour by default of the border */
-	public static final Color DEFAULT_BORDER_COLOR = DviPsColors.WHITE;
 
 	/** Is a double line by default */
 	public static final boolean DEFAULT_DOUBLE_LINE = false;
@@ -431,15 +386,6 @@ public final class PSTricksConstants {
 	/** The scale of the arrowhead */
 	public static final double DEFAULT_ARROW_SCALE2 = 1;
 
-	/** Distance between each side of a frame and the enclosed box (in cm). */
-	public static final double DEFAULT_FRAME_SEP = 3 / CM_VAL_PT;
-
-	/**
-	 * When true, the box that is produced is the size of the frame or
-	 * whatever that is drawn around the object.
-	 */
-	public static final boolean DEFAULT_BOX_SEP = true;
-
 
 	/**
 	 * Allows to know if the kind of filling is valid or not.
@@ -447,9 +393,9 @@ public final class PSTricksConstants {
 	 * @return True is the style is valid.
 	 */
 	public static boolean isValidFillStyle(final String style) {
-		return style != null && (style.equals(TOKEN_FILL_NONE) || style.equals(TOKEN_FILL_HLINES) || style.equals(TOKEN_FILL_HLINES_F) ||
-			style.equals(TOKEN_FILL_CROSSHATCH) || style.equals(TOKEN_FILL_CROSSHATCH_F) || style.equals(TOKEN_FILL_VLINES) ||
-			style.equals(TOKEN_FILL_VLINES_F) || style.equals(TOKEN_FILL_GRADIENT) || style.equals(TOKEN_FILL_SOLID));
+		return TOKEN_FILL_NONE.equals(style) || TOKEN_FILL_HLINES.equals(style) || TOKEN_FILL_HLINES_F.equals(style) ||
+			TOKEN_FILL_CROSSHATCH.equals(style) || TOKEN_FILL_CROSSHATCH_F.equals(style) || TOKEN_FILL_VLINES.equals(style) ||
+			TOKEN_FILL_VLINES_F.equals(style) || TOKEN_FILL_GRADIENT.equals(style) || TOKEN_FILL_SOLID.equals(style);
 	}
 
 

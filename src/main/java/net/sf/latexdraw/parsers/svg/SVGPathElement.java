@@ -173,8 +173,8 @@ public class SVGPathElement extends SVGElement {
 		try {
 			pp.parse();
 		}catch(final ParseException e) {
-			throw new IllegalArgumentException(e + " But : \"" + path + "\" found.");
-		} //NON-NLS
+			throw new IllegalArgumentException(e + " But : \"" + path + "\" found."); //NON-NLS
+		}
 
 		return segList;
 	}

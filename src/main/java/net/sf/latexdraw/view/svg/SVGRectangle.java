@@ -31,7 +31,7 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 	 * @param rect The rectangle shape used for the generation.
 	 * @throws IllegalArgumentException If rect is null.
 	 */
-	protected SVGRectangle(final IRectangle rect) {
+	SVGRectangle(final IRectangle rect) {
 		super(rect);
 	}
 
@@ -41,7 +41,7 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 	 * @param elt The source element.
 	 * @throws IllegalArgumentException If the given element is null.
 	 */
-	protected SVGRectangle(final SVGRectElement elt) {
+	SVGRectangle(final SVGRectElement elt) {
 		this(ShapeFactory.INST.createRectangle());
 
 		setSVGRectParameters(elt);
@@ -54,14 +54,14 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 	 * @param elt The source element.
 	 * @throws IllegalArgumentException If the given element is null or not valid.
 	 */
-	protected SVGRectangle(final SVGGElement elt, final boolean withTransformation) {
+	SVGRectangle(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createRectangle());
 		initRectangle(elt, withTransformation);
 	}
 
 
 	@Override
-	protected void setSVGRectParameters(final SVGRectElement elt) {
+	final void setSVGRectParameters(final SVGRectElement elt) {
 		if(elt == null) {
 			return;
 		}
@@ -78,7 +78,7 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument document) {
+	SVGElement toSVG(final SVGDocument document) {
 		if(document == null || document.getFirstChild().getDefs() == null) {
 			throw new IllegalArgumentException();
 		}
@@ -98,7 +98,7 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 
 		setShadowSVGRect(root, x, y, width, height, document);
 
-		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
+		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken())) {
 			// The background of the borders must be filled is there is a shadow.
 			elt = new SVGRectElement(x, y, width, height, document);
 			setSVGBorderBackground(elt, root);

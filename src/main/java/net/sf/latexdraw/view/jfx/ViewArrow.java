@@ -64,7 +64,7 @@ public class ViewArrow extends Group implements GenericViewArrow {
 	/**
 	 * Method to enable some of the JFX shapes that represent arrows.
 	 */
-	private void enableShape(final boolean enablePath, final boolean enableArc, final boolean enableEll) {
+	private final void enableShape(final boolean enablePath, final boolean enableArc, final boolean enableEll) {
 		path.setVisible(enablePath);
 		path.setDisable(!enablePath);
 		ellipse.setVisible(enableEll);

@@ -52,7 +52,7 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 	private SVGPathSegList currentPath;
 	private SVGGElement currentTicks;
 
-	protected SVGAxes(final IAxes shape) {
+	SVGAxes(final IAxes shape) {
 		super(shape);
 	}
 
@@ -62,7 +62,7 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 	 * @param elt The source element.
 	 * @param withTransformation If true, the SVG transformations will be applied.
 	 */
-	protected SVGAxes(final SVGGElement elt, final boolean withTransformation) {
+	SVGAxes(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
 
 		if(elt == null) {
@@ -73,7 +73,6 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 
 		List<Point2D> values;
 		final String pref = LNamespace.LATEXDRAW_NAMESPACE + ':';
-		final String str;
 
 		shape.setShowOrigin(Boolean.parseBoolean(elt.getAttribute(pref + LNamespace.XML_AXE_SHOW_ORIGIN)));
 		shape.setAxesStyle(AxesStyle.getStyle(elt.getAttribute(pref + LNamespace.XML_STYLE)));
@@ -131,7 +130,7 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 		}
 	}
 
-	private void setParametersFromSVG(final SVGGElement elt) {
+	private final void setParametersFromSVG(final SVGGElement elt) {
 		switch(shape.getAxesStyle()) {
 			case AXES:
 				setAxesStyleFromSVG(elt);
@@ -191,7 +190,7 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null) {
 			return null;
 		}

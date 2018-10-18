@@ -180,7 +180,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		return magneticGrid;
 	}
 
-	private void configureSelection() {
+	private final void configureSelection() {
 		selectionBorder.setFocusTraversable(false);
 		selectionBorder.setVisible(false);
 		selectionBorder.setFill(null);
@@ -240,7 +240,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 
-	private void defineShapeListToViewBinding() {
+	private final void defineShapeListToViewBinding() {
 		drawing.getShapes().addListener((Change<? extends IShape> evt) -> {
 			while(evt.next()) {
 				if(evt.wasAdded()) {

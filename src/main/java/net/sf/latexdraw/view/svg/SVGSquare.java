@@ -30,7 +30,7 @@ class SVGSquare extends SVGRectangular<ISquare> {
 	 * Creates an SVG generator for squares.
 	 * @param square The source square to convert in SVG.
 	 */
-	protected SVGSquare(final ISquare square) {
+	SVGSquare(final ISquare square) {
 		super(square);
 	}
 
@@ -39,14 +39,14 @@ class SVGSquare extends SVGRectangular<ISquare> {
 	 * Creates a square from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected SVGSquare(final SVGGElement elt, final boolean withTransformation) {
+	SVGSquare(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createSquare());
 		initRectangle(elt, withTransformation);
 	}
 
 
 	@Override
-	protected void setSVGRectParameters(final SVGRectElement elt) {
+	final void setSVGRectParameters(final SVGRectElement elt) {
 		if(elt == null) {
 			return;
 		}
@@ -62,7 +62,7 @@ class SVGSquare extends SVGRectangular<ISquare> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument document) {
+	SVGElement toSVG(final SVGDocument document) {
 		if(document == null || document.getFirstChild().getDefs() == null) {
 			throw new IllegalArgumentException();
 		}
@@ -81,7 +81,7 @@ class SVGSquare extends SVGRectangular<ISquare> {
 
 		setShadowSVGRect(root, x, y, width, width, document);
 
-		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
+		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken())) {
 			// The background of the borders must be filled is there is a shadow.
 			elt = new SVGRectElement(x, y, width, width, document);
 			setSVGBorderBackground(elt, root);

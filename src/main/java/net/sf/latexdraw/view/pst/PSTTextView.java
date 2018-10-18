@@ -47,7 +47,7 @@ public class PSTTextView extends PSTShapeView<IText> {
 		final String colorName;
 		final Color lineCol = shape.getLineColour();
 
-		if(lineCol.equals(PSTricksConstants.DEFAULT_LINE_COLOR)) {
+		if(PSTricksConstants.DEFAULT_LINE_COLOR.equals(lineCol)) {
 			colorName = null;
 		}else {
 			colorName = getColourName(shape.getLineColour());

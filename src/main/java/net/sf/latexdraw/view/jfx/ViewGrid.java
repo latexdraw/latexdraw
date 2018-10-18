@@ -116,7 +116,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	}
 
 
-	private void updatePathMainGrid(final double unit, final double minX, final double maxX, final double minY, final double maxY,
+	private final void updatePathMainGrid(final double unit, final double minX, final double maxX, final double minY, final double maxY,
 									final double posX, final double posY, final double xStep, final double yStep, final double tlx,
 									final double tly, final double brx, final double bry, final double absStep) {
 		if(model.getGridDots() > 0) {
@@ -137,7 +137,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	}
 
 
-	private void updatePathSubGrid(final double unit, final double minX, final double maxX, final double minY, final double maxY,
+	private final void updatePathSubGrid(final double unit, final double minX, final double maxX, final double minY, final double maxY,
 							final double posX, final double posY, final double xStep, final double yStep, final double tlx,
 							final double tly, final double brx, final double bry) {
 		final double subGridDiv = model.getSubGridDiv();
@@ -191,7 +191,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	}
 
 
-	private void updatePathLabels(final double minX, final double maxX, final double minY, final double maxY, final double posX,
+	private final void updatePathLabels(final double minX, final double maxX, final double minY, final double maxY, final double posX,
 								final double posY, final double xStep, final double yStep, final double tlx, final double tly, final double absStep) {
 		final int labelsSize = model.getLabelsSize();
 		if(labelsSize < 0) {
@@ -242,7 +242,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	}
 
 
-	private void updatePath(final boolean withMainGrid, final boolean withSubGrid, final boolean withLabels) {
+	private final void updatePath(final boolean withMainGrid, final boolean withSubGrid, final boolean withLabels) {
 		final double minY = model.getGridMinY();
 		final double maxY = model.getGridMaxY();
 		final double minX = model.getGridMinX();

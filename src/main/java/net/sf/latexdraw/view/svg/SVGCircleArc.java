@@ -39,7 +39,7 @@ class SVGCircleArc extends SVGShape<ICircleArc> {
 	 * @param shape The arc shape used for the generation.
 	 * @throws IllegalArgumentException If arc is null.
 	 */
-	protected SVGCircleArc(final ICircleArc shape) {
+	SVGCircleArc(final ICircleArc shape) {
 		super(shape);
 	}
 
@@ -49,7 +49,7 @@ class SVGCircleArc extends SVGShape<ICircleArc> {
 	 * @param elt The source element.
 	 * @param withTransformation If true, the SVG transformations will be applied.
 	 */
-	protected SVGCircleArc(final SVGGElement elt, final boolean withTransformation) {
+	SVGCircleArc(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createCircleArc());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -106,7 +106,7 @@ class SVGCircleArc extends SVGShape<ICircleArc> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null || doc.getFirstChild().getDefs() == null) {
 			return null;
 		}
@@ -190,7 +190,7 @@ class SVGCircleArc extends SVGShape<ICircleArc> {
 	 * @return The created g element or null if the shape has not the 'show points' option activated.
 	 * @since 2.0.0
 	 */
-	protected SVGGElement getShowPointsElement(final SVGDocument doc) {
+	final SVGGElement getShowPointsElement(final SVGDocument doc) {
 		if(!shape.isShowPts() || doc == null) {
 			return null;
 		}

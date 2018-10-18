@@ -38,12 +38,6 @@ import org.malai.properties.Modifiable;
  */
 public abstract class LaTeXGenerator implements Modifiable {
 	/**
-	 * Defines the number of characters added at the beginning
-	 * of each lines of the comment (these characters are "% ").
-	 */
-	public static final int LGTH_START_LINE_COMMENT = 2;
-
-	/**
 	 * The latex packages used when exporting using latex.
 	 * These packages are defined for the current document but not for all documents.
 	 */

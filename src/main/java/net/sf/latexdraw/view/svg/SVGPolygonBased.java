@@ -27,7 +27,7 @@ abstract class SVGPolygonBased<T extends IShape> extends SVGShape<T> {
 		super(sh);
 	}
 
-	void setDbleBorderPolygon(final SVGDocument doc, final SVGElement root, final String points) {
+	final void setDbleBorderPolygon(final SVGDocument doc, final SVGElement root, final String points) {
 		if(shape.hasDbleBord()) {
 			final SVGElement dblBord = new SVGPolygonElement(doc);
 			dblBord.setAttribute(SVGAttributes.SVG_POINTS, points);
@@ -36,7 +36,7 @@ abstract class SVGPolygonBased<T extends IShape> extends SVGShape<T> {
 		}
 	}
 
-	void setShadowPolygon(final SVGDocument doc, final SVGElement root, final String points) {
+	final void setShadowPolygon(final SVGDocument doc, final SVGElement root, final String points) {
 		if(shape.hasShadow()) {
 			final SVGElement elt = new SVGPolygonElement(doc);
 			elt.setAttribute(SVGAttributes.SVG_POINTS, points);
@@ -44,7 +44,7 @@ abstract class SVGPolygonBased<T extends IShape> extends SVGShape<T> {
 			root.appendChild(elt);
 		}
 
-		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
+		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken())) {
 			// The background of the borders must be filled is there is a shadow.
 			final SVGElement elt = new SVGPolygonElement(doc);
 			elt.setAttribute(SVGAttributes.SVG_POINTS, points);

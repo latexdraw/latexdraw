@@ -241,7 +241,7 @@ class SVGArrow implements GenericViewArrow {
 	 * @param path The path element.
 	 * @param owner The shape that has the arrow.
 	 */
-	void setArrow(final SVGPathElement path, final IShape owner, final String svgMarker) {
+	final void setArrow(final SVGPathElement path, final IShape owner, final String svgMarker) {
 		final SVGPathSegList list = path.getSegList();
 		final SVGPathSegMoveto m = (SVGPathSegMoveto) list.get(0);
 		final double lineWidth = owner.hasDbleBord() ? owner.getDbleBordSep() + 2d * owner.getThickness() : owner.getThickness();
@@ -266,7 +266,7 @@ class SVGArrow implements GenericViewArrow {
 	 * @param isShadow True: this operation is call to create the SVG shadow of the shape.
 	 * @return The SVG tree of the arrowhead or null if the document is null.
 	 */
-	public SVGElement toSVG(final SVGDocument document, final boolean isShadow) {
+	SVGElement toSVG(final SVGDocument document, final boolean isShadow) {
 		if(document == null || !arrow.hasStyle()) {
 			return null;
 		}

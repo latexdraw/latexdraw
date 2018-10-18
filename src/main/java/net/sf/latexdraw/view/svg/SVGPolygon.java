@@ -33,7 +33,7 @@ class SVGPolygon extends SVGModifiablePointsShape<IPolygon> {
 	 * Creates a generator for IPolygon.
 	 * @param polygon The source polygon used to generate the SVG element.
 	 */
-	protected SVGPolygon(final IPolygon polygon) {
+	SVGPolygon(final IPolygon polygon) {
 		super(polygon);
 	}
 
@@ -43,7 +43,7 @@ class SVGPolygon extends SVGModifiablePointsShape<IPolygon> {
 	 * @param elt The source SVG element.
 	 * @throws IllegalArgumentException If the given SVG element is null.
 	 */
-	protected SVGPolygon(final SVGPathElement elt) {
+	SVGPolygon(final SVGPathElement elt) {
 		super(ShapeFactory.INST.createPolygon(getLinePointsFromSVGPathElement(elt)));
 		if(elt == null) {
 			throw new IllegalArgumentException();
@@ -57,7 +57,7 @@ class SVGPolygon extends SVGModifiablePointsShape<IPolygon> {
 	 * Creates a polygon from an SVG polygon element.
 	 * @param elt The source element.
 	 */
-	protected SVGPolygon(final SVGPolygonElement elt) {
+	SVGPolygon(final SVGPolygonElement elt) {
 		this(ShapeFactory.INST.createPolygon(getPointsFromSVGElement(elt)));
 		setSVGParameters(elt);
 		applyTransformations(elt);
@@ -67,7 +67,7 @@ class SVGPolygon extends SVGModifiablePointsShape<IPolygon> {
 	 * Creates a polygon from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected SVGPolygon(final SVGGElement elt, final boolean withTransformation) {
+	SVGPolygon(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createPolygon(getPointsFromSVGElement(getLaTeXDrawElement(elt, null))));
 
 		final SVGElement shapeElt = getLaTeXDrawElement(elt, null);
@@ -84,7 +84,7 @@ class SVGPolygon extends SVGModifiablePointsShape<IPolygon> {
 	}
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null) {
 			throw new IllegalArgumentException();
 		}
@@ -112,7 +112,7 @@ class SVGPolygon extends SVGModifiablePointsShape<IPolygon> {
 			root.appendChild(shad);
 		}
 
-		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
+		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken())) {
 			// The background of the borders must be filled is there is a shadow.
 			final SVGPolygonElement elt = new SVGPolygonElement(doc);
 			try {

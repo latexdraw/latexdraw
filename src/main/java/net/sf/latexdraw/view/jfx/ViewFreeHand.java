@@ -44,7 +44,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 	}
 
 
-	private void setPath() {
+	private final void setPath() {
 		border.getElements().clear();
 		shadow.getElements().clear();
 

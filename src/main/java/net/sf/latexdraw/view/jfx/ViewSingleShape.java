@@ -12,7 +12,6 @@ package net.sf.latexdraw.view.jfx;
 
 import java.awt.geom.Point2D;
 import java.util.Optional;
-import java.util.function.Supplier;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -31,7 +30,6 @@ import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
-import javafx.scene.transform.Rotate;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
@@ -51,7 +49,6 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	protected final T border;
 	protected final T dblBorder;
 	protected final T shadow;
-	protected Rotate shapeRotation;
 
 	private final ChangeListener<?> strokesUpdateCall = (obj, oldVal, newVal) -> updateStrokes();
 	private final ChangeListener<?> fillUpdateCall;
@@ -147,56 +144,10 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		bindBorderMovable();
 		updateStrokes();
 		updateShadowPosition();
-		bindRotationAngle();
 	}
 
-	public void fixRotationPivot(final IPoint pivot) {
-		if(pivot == null) {
-			return;
-		}
 
-		unbindRotationAngle();
-		bindRotationTransformation(() -> pivot.getX(), () -> pivot.getY());
-	}
-
-	/**
-	 * Removes any rotation binding to install the default one.
-	 */
-	public void releaseRotationPivot() {
-		unbindRotationAngle();
-		bindRotationAngle();
-	}
-
-	/**
-	 * Unbinds the current rotation binding if one is already installed.
-	 */
-	protected void unbindRotationAngle() {
-		if(shapeRotation != null) {
-			border.getTransforms().remove(shapeRotation);
-			shapeRotation.angleProperty().unbind();
-			shapeRotation.pivotXProperty().unbind();
-			shapeRotation.pivotYProperty().unbind();
-		}
-	}
-
-	private void bindRotationTransformation(final Supplier<Double> pivotX, final Supplier<Double> pivotY) {
-		shapeRotation = new Rotate();
-		border.getTransforms().add(shapeRotation);
-		shapeRotation.angleProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getRotationAngle()), model.rotationAngleProperty()));
-		shapeRotation.pivotXProperty().bind(Bindings.createDoubleBinding(() -> pivotX.get(), model.rotationAngleProperty(),
-			border.boundsInLocalProperty()));
-		shapeRotation.pivotYProperty().bind(Bindings.createDoubleBinding(() -> pivotY.get(), model.rotationAngleProperty(),
-			border.boundsInLocalProperty()));
-	}
-
-	/**
-	 * Installs the default rotation binding.
-	 */
-	protected void bindRotationAngle() {
-		bindRotationTransformation(() -> model.getGravityCentre().getX(), () -> model.getGravityCentre().getY());
-	}
-
-	protected void updateShadowPosition() {
+	private final void updateShadowPosition() {
 		if(shadow != null) {
 			final IPoint gc = model.getGravityCentre();
 			final IPoint shadowgc = ShapeFactory.INST.createPoint(gc.getX() + model.getShadowSize(), gc.getY());
@@ -398,7 +349,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			new Stop(0d, model.getGradColStart().toJFX()), new Stop(1d, model.getGradColEnd().toJFX()));
 	}
 
-	private void bindBorderMovable() {
+	private final void bindBorderMovable() {
 		if(model.isBordersMovable()) {
 			border.strokeTypeProperty().bind(Bindings.createObjectBinding(() -> {
 				switch(model.getBordersPosition()) {
@@ -429,7 +380,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		return 0d;
 	}
 
-	private void updateStrokes() {
+	private final void updateStrokes() {
 		if(model.isThicknessable()) {
 			border.setStrokeWidth(model.getFullThickness());
 			if(shadow != null) {

@@ -38,7 +38,7 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 	 * Creates a generator for IPolyline.
 	 * @param polyline The source polyline used to generate the SVG element.
 	 */
-	protected SVGPolylines(final IPolyline polyline) {
+	SVGPolylines(final IPolyline polyline) {
 		super(polyline);
 	}
 
@@ -47,7 +47,7 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 	 * Creates some lines using a SVG path.
 	 * @param elt The SVG path.
 	 */
-	protected SVGPolylines(final SVGPathElement elt) {
+	SVGPolylines(final SVGPathElement elt) {
 		super(ShapeFactory.INST.createPolyline(getLinePointsFromSVGPathElement(elt)));
 		if(elt == null || (!elt.isLines() && !elt.isLine())) {
 			throw new IllegalArgumentException();
@@ -61,7 +61,7 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 	 * Creates some joined-lines from an SVG polyline element.
 	 * @param elt The source element.
 	 */
-	protected SVGPolylines(final SVGPolyLineElement elt) {
+	SVGPolylines(final SVGPolyLineElement elt) {
 		this(ShapeFactory.INST.createPolyline(getPointsFromSVGElement(elt)));
 		setSVGParameters(elt);
 		applyTransformations(elt);
@@ -72,7 +72,7 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 	 * Creates a line from an SVG line element.
 	 * @param elt The source element.
 	 */
-	protected SVGPolylines(final SVGLineElement elt) {
+	SVGPolylines(final SVGLineElement elt) {
 		this(ShapeFactory.INST.createPolyline(Collections.emptyList()));
 
 		setSVGParameters(elt);
@@ -84,7 +84,7 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 	 * Creates lines from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected SVGPolylines(final SVGGElement elt, final boolean withTransformation) {
+	SVGPolylines(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createPolyline(SVGPolygon.getPointsFromSVGElement(getLaTeXDrawElement(elt, null))));
 
 		final SVGElement shapeElt = getLaTeXDrawElement(elt, null);
@@ -106,7 +106,7 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null) {
 			return null;
 		}
@@ -139,7 +139,7 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 			setSVGArrow(shape, shad, 1, true, doc, defs);
 		}
 
-		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE) && shape.isFilled()) {
+		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken()) && shape.isFilled()) {
 			// The background of the borders must be filled is there is a shadow.
 			elt = new SVGPolyLineElement(doc);
 			try {

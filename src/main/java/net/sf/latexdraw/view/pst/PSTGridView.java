@@ -56,7 +56,7 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 			params.append(", subgriddots=").append(shape.getSubGridDots()); //NON-NLS
 		}
 
-		if(!gridLabelsColor.equals(PSTricksConstants.DEFAULT_LABELGRIDCOLOR)) {
+		if(!PSTricksConstants.DEFAULT_LABELGRIDCOLOR.equals(gridLabelsColor)) {
 			params.append(", gridlabelcolor=").append(getColourName(gridLabelsColor)); //NON-NLS
 		}
 
@@ -64,7 +64,7 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 			params.append(", unit=").append(MathUtils.INST.getCutNumberFloat(unit)).append(PSTricksConstants.TOKEN_CM); //NON-NLS
 		}
 
-		if(!linesColor.equals(PSTricksConstants.DEFAULT_GRIDCOLOR)) {
+		if(!PSTricksConstants.DEFAULT_GRIDCOLOR.equals(linesColor)) {
 			params.append(", gridcolor=").append(getColourName(linesColor)); //NON-NLS
 		}
 

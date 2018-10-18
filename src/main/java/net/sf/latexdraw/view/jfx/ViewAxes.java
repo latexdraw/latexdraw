@@ -77,7 +77,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 	}
 
 
-	private void updatePathFrame() {
+	private final void updatePathFrame() {
 		final double endx = model.getGridEndX();
 		final double endy = model.getGridEndY();
 
@@ -94,7 +94,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 	}
 
 
-	private void updatePathAxes() {
+	private final void updatePathAxes() {
 		final IArrow arr0 = model.getArrowAt(1);
 		final IArrow arr1 = model.getArrowAt(3);
 		final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0d;
@@ -107,7 +107,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 	}
 
 
-	public void updatePath(final boolean axes, final boolean ticks, final boolean texts, final boolean arrows) {
+	private final void updatePath(final boolean axes, final boolean ticks, final boolean texts, final boolean arrows) {
 		final AxesStyle axesStyle = model.getAxesStyle();
 
 //		if(arrows || axes) {

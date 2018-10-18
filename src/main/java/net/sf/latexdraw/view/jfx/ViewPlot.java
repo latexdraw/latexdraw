@@ -49,7 +49,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 		updatePath();
 	}
 
-	private void updatePath() {
+	private final void updatePath() {
 		final double minX = model.getPlotMinX();
 		final double maxX = model.getPlotMaxX();
 		final double step = model.getPlottingStep();

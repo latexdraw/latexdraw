@@ -34,13 +34,11 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  */
 class SVGFreeHand extends SVGShape<IFreehand> {
-
-	protected SVGFreeHand(final IFreehand fh) {
+	SVGFreeHand(final IFreehand fh) {
 		super(fh);
 	}
 
-
-	protected SVGFreeHand(final SVGGElement elt, final boolean withTransformation) {
+	SVGFreeHand(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createFreeHand(
 			SVGPointsParser.getPoints(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS)).stream().
 			map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList())));
@@ -73,12 +71,11 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 		}
 	}
 
-
 	/**
 	 * Fills the given SVG path with elements corresponding to the Freehand curved path.
 	 * @since 3.0
 	 */
-	protected void getPathCurves(final SVGPathSegList path) {
+	final void getPathCurves(final SVGPathSegList path) {
 		double prevx = shape.getPtAt(-1).getX();
 		double prevy = shape.getPtAt(-1).getY();
 		double curx = shape.getPtAt(0).getX();
@@ -137,7 +134,7 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 	 * Fills the given SVG path with elements corresponding to the Freehand lined path.
 	 * @since 3.0
 	 */
-	protected void getPathLines(final SVGPathSegList path) {
+	final void getPathLines(final SVGPathSegList path) {
 		final IPoint p = shape.getPtAt(0);
 		int i;
 		final int size = shape.getNbPoints();
@@ -159,7 +156,7 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 	 * @return The path of the shape.
 	 * @since 2.0.0
 	 */
-	public SVGPathSegList getPath() {
+	final SVGPathSegList getPath() {
 		final SVGPathSegList path = new SVGPathSegList();
 
 		switch(shape.getType()) {
@@ -180,7 +177,7 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null) {
 			return null;
 		}

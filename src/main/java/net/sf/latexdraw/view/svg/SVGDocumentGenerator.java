@@ -188,7 +188,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			if(progressBar != null) {
 				progressBar.setVisible(true);
 			}
-			return true;
+			return Boolean.TRUE;
 		}
 
 		@Override
@@ -243,10 +243,10 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 					// Updating the possible widgets of the instruments.
 					LaTeXDraw.getInstance().getInstruments().forEach(ins -> ins.interimFeedback());
 				});
-				return true;
+				return Boolean.TRUE;
 			}catch(final IOException | MalformedSVGDocument ex) {
 				BadaboomCollector.INSTANCE.add(ex);
-				return false;
+				return Boolean.FALSE;
 			}
 		}
 
@@ -280,7 +280,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 				fillTemplatePane(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR, true);
 			});
 
-			return true;
+			return Boolean.TRUE;
 		}
 
 		/**
@@ -623,10 +623,10 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 					});
 				});
 
-				return true;
+				return Boolean.TRUE;
 			}catch(final MalformedSVGDocument | IOException | DOMException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
-				return false;
+				return Boolean.FALSE;
 			}
 		}
 	}

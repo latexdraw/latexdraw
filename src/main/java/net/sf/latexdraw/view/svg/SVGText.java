@@ -31,7 +31,7 @@ import org.w3c.dom.NodeList;
  */
 class SVGText extends SVGShape<IText> {
 
-	protected SVGText(final IText f) {
+	SVGText(final IText f) {
 		super(f);
 	}
 
@@ -41,7 +41,7 @@ class SVGText extends SVGShape<IText> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected SVGText(final SVGTextElement elt) {
+	SVGText(final SVGTextElement elt) {
 		this(ShapeFactory.INST.createText());
 
 		if(elt == null) {
@@ -65,7 +65,7 @@ class SVGText extends SVGShape<IText> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	protected SVGText(final SVGGElement elt, final boolean withTransformation) {
+	SVGText(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createText());
 
 		if(elt == null) {
@@ -109,7 +109,7 @@ class SVGText extends SVGShape<IText> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null) {
 			return null;
 		}

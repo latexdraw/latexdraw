@@ -97,7 +97,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 	 * @param bc The bezier curve used for the generation.
 	 * @throws IllegalArgumentException If bc is null.
 	 */
-	protected SVGBezierCurve(final IBezierCurve bc) {
+	SVGBezierCurve(final IBezierCurve bc) {
 		super(bc);
 	}
 
@@ -106,7 +106,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 	 * Creates a Bézier curve from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected SVGBezierCurve(final SVGGElement elt, final boolean withTransformation) {
+	SVGBezierCurve(final SVGGElement elt, final boolean withTransformation) {
 		this(pathToBezierCurve(getLaTeXDrawElement(elt, null)));
 
 		final SVGElement main = getLaTeXDrawElement(elt, null);
@@ -128,7 +128,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 		}
 	}
 
-	protected SVGBezierCurve(final SVGPathElement path) {
+	SVGBezierCurve(final SVGPathElement path) {
 		this(pathToBezierCurve(path));
 		setSVGParameters(path);
 		applyTransformations(path);
@@ -138,7 +138,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 	 * @return The SVG segment path list of the current Bézier curve.
 	 * @since 2.0.0
 	 */
-	protected SVGPathSegList getPathSegList() {
+	SVGPathSegList getPathSegList() {
 		if(shape.getNbPoints() < 2) {
 			return null;
 		}
@@ -172,7 +172,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null || doc.getFirstChild().getDefs() == null) {
 			return null;
 		}
@@ -198,7 +198,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 			}
 		}
 
-		if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE) && shape.isFilled()) {
+		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken()) && shape.isFilled()) {
 			// The background of the borders must be filled is there is a shadow.
 			elt = new SVGPathElement(doc);
 			elt.setAttribute(SVGAttributes.SVG_D, path);
@@ -238,7 +238,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 	 * @return The created g element or null if the shape has not the 'show points' option activated.
 	 * @since 2.0.0
 	 */
-	protected SVGGElement getShowPointsElement(final SVGDocument doc) {
+	SVGGElement getShowPointsElement(final SVGDocument doc) {
 		if(!shape.isShowPts() || doc == null) {
 			return null;
 		}

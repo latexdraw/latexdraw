@@ -39,7 +39,7 @@ class SVGPlot extends SVGShape<IPlot> {
 	static final String XML_STYLE = "plotstyle"; //NON-NLS
 
 
-	protected SVGPlot(final IPlot plot) {
+	SVGPlot(final IPlot plot) {
 		super(plot);
 	}
 
@@ -48,7 +48,7 @@ class SVGPlot extends SVGShape<IPlot> {
 	 * Creates a Bézier curve from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	protected SVGPlot(final SVGGElement elt, final boolean withTransformation) {
+	SVGPlot(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 5, "x", false)); //NON-NLS
 
 		setSVGParameters(elt);
@@ -75,7 +75,7 @@ class SVGPlot extends SVGShape<IPlot> {
 		}
 	}
 
-	private void setPlotParameters(final SVGGElement elt) {
+	private final void setPlotParameters(final SVGGElement elt) {
 		shape.setPlotEquation(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_EQ));
 		shape.setPlotStyle(PlotStyle.getPlotStyle(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + XML_STYLE)));
 
@@ -167,7 +167,7 @@ class SVGPlot extends SVGShape<IPlot> {
 	}
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc) {
+	SVGElement toSVG(final SVGDocument doc) {
 		if(doc == null || doc.getFirstChild().getDefs() == null) {
 			return null;
 		}
