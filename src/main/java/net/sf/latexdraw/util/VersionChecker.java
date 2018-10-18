@@ -56,7 +56,7 @@ public final class VersionChecker implements Runnable {
 			final String line = br.readLine();
 			final String[] div = line == null ? null : line.split("_"); //NON-NLS
 
-			if(div != null && div.length > 3 && div[3].compareTo(VERSION) > 0) {
+			if(div != null && div.length > 3 && VERSION.compareTo(div[3]) < 0) {
 				Platform.runLater(() -> {
 					statusBar.getLabel().setVisible(true);
 					statusBar.getLabel().setText(LangTool.INSTANCE.getBundle().getString("Version.1") + ' ' + div[3] + ". See the release note:"); //NON-NLS

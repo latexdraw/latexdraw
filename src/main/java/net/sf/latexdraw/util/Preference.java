@@ -47,7 +47,7 @@ public final class Preference {
 		try {
 			Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile).getFirstChild();
 
-			if(node == null || !node.getNodeName().equals(LNamespace.XML_ROOT_PREFERENCES)) {
+			if(node == null || !LNamespace.XML_ROOT_PREFERENCES.equals(node.getNodeName())) {
 				throw new IllegalArgumentException();
 			}
 

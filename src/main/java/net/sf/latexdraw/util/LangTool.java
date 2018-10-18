@@ -93,7 +93,7 @@ public final class LangTool {
 	 */
 	private Optional<Node> getLangNode(final NodeList nl) {
 		for(int i = 0, size = nl.getLength(); i < size; i++) {
-			if(nl.item(i).getNodeName().equals(LNamespace.XML_LANG)) {
+			if(LNamespace.XML_LANG.equals(nl.item(i).getNodeName())) {
 				return Optional.ofNullable(nl.item(i));
 			}
 		}

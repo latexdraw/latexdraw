@@ -254,7 +254,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		for(int i = 0, size = nl.getLength(); i < size; i++) {
 			final Node n2 = nl.item(i);
 
-			if(n2.getNodeName().equals(LNamespace.XML_RECENT_FILE) && n2.getTextContent() != null) {
+			if(LNamespace.XML_RECENT_FILE.equals(n2.getNodeName()) && n2.getTextContent() != null) {
 				recentFileNames.add(n2.getTextContent());
 			}
 		}

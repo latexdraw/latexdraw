@@ -68,7 +68,7 @@ public class LCommandLine {
 			return CmdLineState.APPLICATION;
 		}
 
-		if(args[0].equals(OPTION_HELP)) {
+		if(OPTION_HELP.equals(args[0])) {
 			displayHelp();
 			return CmdLineState.STOP;
 		}

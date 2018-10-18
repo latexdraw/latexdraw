@@ -104,6 +104,9 @@
     <Match>
         <Bug pattern="EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS" />
     </Match>
+    <Match>
+        <Bug pattern="PL_PARALLEL_LISTS" />
+    </Match>
 
     <!-- To fix -->
     <Match>
@@ -138,9 +141,6 @@
     </Match>
     <Match>
         <Bug pattern="CLI_CONSTANT_LIST_INDEX" />
-    </Match>
-    <Match>
-        <Bug pattern="LSC_LITERAL_STRING_COMPARISON" />
     </Match>
     <Match>
         <Bug pattern="AFBR_ABNORMAL_FINALLY_BLOCK_RETURN" />
@@ -198,8 +198,5 @@
     </Match>
     <Match>
         <Bug pattern="CBC_CONTAINS_BASED_CONDITIONAL" />
-    </Match>
-    <Match>
-        <Bug pattern="PL_PARALLEL_LISTS" />
     </Match>
 </FindBugsFilter>
