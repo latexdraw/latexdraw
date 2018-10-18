@@ -17,7 +17,6 @@ import org.w3c.dom.Node;
 /**
  * Defines the SVG tag <code>ellipse</code>.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public class SVGEllipseElement extends SVGElement {
 	/**
@@ -54,26 +53,12 @@ public class SVGEllipseElement extends SVGElement {
 
 
 	/**
-	 * Creates an empty ellipse.
-	 * @param doc The owner document.
-	 */
-	public SVGEllipseElement(final SVGDocument doc) {
-		super(doc);
-
-		setNodeName(SVGElements.SVG_ELLIPSE);
-		setAttribute(SVGAttributes.SVG_RX, "0");
-		setAttribute(SVGAttributes.SVG_RY, "0");
-	}
-
-
-	/**
 	 * @return The x-axis coordinate of the centre of the ellipse (0 if there it does not exist or it is not a coordinate).
-	 * @since 0.1
 	 */
 	public double getCx() {
 		try {
 			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX)).parseCoordinate().getValue();
-		}catch(final ParseException e) {
+		}catch(final ParseException ignored) {
 			return 0d;
 		}
 	}
@@ -81,12 +66,11 @@ public class SVGEllipseElement extends SVGElement {
 
 	/**
 	 * @return The y-axis coordinate of the centre of the ellipse (0 if there it does not exist or it is not a coordinate).
-	 * @since 0.1
 	 */
 	public double getCy() {
 		try {
 			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY)).parseCoordinate().getValue();
-		}catch(final ParseException e) {
+		}catch(final ParseException ignored) {
 			return 0d;
 		}
 	}
@@ -94,12 +78,11 @@ public class SVGEllipseElement extends SVGElement {
 
 	/**
 	 * @return The x-axis radius of the ellipse (NaN if there it does not exist or it is not a length).
-	 * @since 0.1
 	 */
 	public double getRx() {
 		try {
 			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX)).parseLength().getValue();
-		}catch(final ParseException e) {
+		}catch(final ParseException ignored) {
 			return Double.NaN;
 		}
 	}
@@ -107,12 +90,11 @@ public class SVGEllipseElement extends SVGElement {
 
 	/**
 	 * @return The y-axis radius of the ellipse (NaN if there it does not exist or it is not a length).
-	 * @since 0.1
 	 */
 	public double getRy() {
 		try {
 			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY)).parseLength().getValue();
-		}catch(final ParseException e) {
+		}catch(final ParseException ignored) {
 			return Double.NaN;
 		}
 	}
@@ -123,7 +105,7 @@ public class SVGEllipseElement extends SVGElement {
 		final double rx = getRx();
 		final double ry = getRy();
 
-		return !Double.isNaN(rx) && !Double.isNaN(ry) && rx >= 0d && ry >= 0d;
+		return rx >= 0d && ry >= 0d && !Double.isNaN(rx) && !Double.isNaN(ry);
 	}
 
 
