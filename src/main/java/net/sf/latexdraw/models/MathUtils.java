@@ -13,7 +13,7 @@ package net.sf.latexdraw.models;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Locale;
-import java.util.Optional;
+import java.util.OptionalDouble;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
@@ -44,14 +44,14 @@ public final class MathUtils {
 	 * @param str The string to parse.
 	 * @return Empty if the string is not a double. The value otherwise.
 	 */
-	public Optional<Double> parserDouble(final String str) {
+	public OptionalDouble parserDouble(final String str) {
 		if(str == null) {
-			return Optional.empty();
+			return OptionalDouble.empty();
 		}
 		try {
-			return Optional.of(Double.valueOf(str));
-		}catch(final NumberFormatException ex) {
-			return Optional.empty();
+			return OptionalDouble.of(Double.parseDouble(str));
+		}catch(final NumberFormatException ignored) {
+			return OptionalDouble.empty();
 		}
 	}
 

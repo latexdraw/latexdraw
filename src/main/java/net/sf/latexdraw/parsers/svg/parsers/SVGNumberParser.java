@@ -11,7 +11,7 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
 import java.text.ParseException;
-import java.util.Optional;
+import java.util.OptionalInt;
 
 /**
  * Defines a SVG number parser.
@@ -45,15 +45,15 @@ public class SVGNumberParser extends AbstractSVGParser {
 	}
 
 
-	private Optional<Integer> readSign(final int c, final boolean unsigned) throws ParseException {
+	private OptionalInt readSign(final int c, final boolean unsigned) throws ParseException {
 		if(c == '-' || c == '+') {
 			if(unsigned) {
 				throw new ParseException("Unsigned number expected.", getPosition());
 			}
 
-			return Optional.of(nextChar());
+			return OptionalInt.of(nextChar());
 		}
-		return Optional.empty();
+		return OptionalInt.empty();
 	}
 
 	/**

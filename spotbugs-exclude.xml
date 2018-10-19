@@ -111,6 +111,11 @@
     <Match>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
     </Match>
+    <!-- Has false positives on the model package -->
+    <Match>
+        <Bug pattern="OI_OPTIONAL_ISSUES_PRIMITIVE_VARIANT_PREFERRED" />
+        <Class name="~.*\.LGroup.*" />
+    </Match>
 
     <!-- To fix -->
     <Match>
@@ -187,9 +192,6 @@
     </Match>
     <Match>
         <Bug pattern="PME_POOR_MANS_ENUM" />
-    </Match>
-    <Match>
-        <Bug pattern="OI_OPTIONAL_ISSUES_PRIMITIVE_VARIANT_PREFERRED" />
     </Match>
     <Match>
         <Bug pattern="CBC_CONTAINS_BASED_CONDITIONAL" />

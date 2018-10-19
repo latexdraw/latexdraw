@@ -111,11 +111,11 @@ public class TestMathUtils {
 
 	@Test
 	public void testParserDoubleKOInt() {
-		assertEquals(1d, MathUtils.INST.parserDouble("1").get(), 0.000001);
+		assertEquals(1d, MathUtils.INST.parserDouble("1").getAsDouble(), 0.000001);
 	}
 
 	@Test
 	public void testParserDoubleKODouble() {
-		assertEquals(-1.2, MathUtils.INST.parserDouble("-1.2").get(), 0.000001);
+		assertEquals(-1.2, MathUtils.INST.parserDouble("-1.2").getAsDouble(), 0.000001);
 	}
 }
