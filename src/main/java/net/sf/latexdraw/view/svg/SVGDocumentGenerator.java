@@ -59,7 +59,6 @@ import net.sf.latexdraw.parsers.svg.SVGMetadataElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
@@ -374,10 +373,6 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			snapshotParameters.setFill(Color.WHITE);
 			snapshotParameters.setTransform(new Scale(scale, scale));
 			selection.snapshot(snapshotParameters, img);
-
-			while(img.isBackgroundLoading()) {
-				LSystem.INSTANCE.sleep(100L);
-			}
 
 			final BufferedImage bufferedImage = SwingFXUtils.fromFXImage(img, null);
 

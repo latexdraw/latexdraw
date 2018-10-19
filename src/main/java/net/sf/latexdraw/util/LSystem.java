@@ -128,15 +128,6 @@ public final class LSystem {
 		return KeyCode.CONTROL;
 	}
 
-	public void sleep(final long sleep) {
-		try {
-			Thread.sleep(sleep);
-		}catch(final InterruptedException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-			Thread.currentThread().interrupt();
-		}
-	}
-
 	/**
 	 * @return The name of the operating system currently used.
 	 * @since 3.0

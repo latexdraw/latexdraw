@@ -27,7 +27,6 @@ import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.malai.command.CommandImpl;
@@ -235,10 +234,6 @@ public class Export extends CommandImpl {
 		snapshotParameters.setFill(Color.WHITE);
 		snapshotParameters.setTransform(new Scale(scale, scale));
 		views.snapshot(snapshotParameters, img);
-
-		while(img.isBackgroundLoading()) {
-			LSystem.INSTANCE.sleep(100L);
-		}
 
 		return SwingFXUtils.fromFXImage(img, null);
 	}

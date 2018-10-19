@@ -157,9 +157,6 @@
         <Bug pattern="SCII_SPOILED_CHILD_INTERFACE_IMPLEMENTOR" />
     </Match>
     <Match>
-        <Bug pattern="MDM_THREAD_YIELD" />
-    </Match>
-    <Match>
         <Bug pattern="RFI_SET_ACCESSIBLE" />
     </Match>
     <Match>
