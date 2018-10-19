@@ -147,9 +147,6 @@
         <Bug pattern="AFBR_ABNORMAL_FINALLY_BLOCK_RETURN" />
     </Match>
     <Match>
-        <Bug pattern="MDM_RANDOM_SEED" />
-    </Match>
-    <Match>
         <Bug pattern="SCII_SPOILED_CHILD_INTERFACE_IMPLEMENTOR" />
     </Match>
     <Match>

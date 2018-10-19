@@ -24,7 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Optional;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
@@ -147,10 +147,9 @@ public final class LFileUtils {
 	 * @return The created folder or null (if the folder cannot be created or the rights cannot be restricted to the current user).
 	 */
 	public Optional<File> createTempDir() {
-		final String pathTmp = System.getProperty("java.io.tmpdir");
+		final String pathTmp = System.getProperty("java.io.tmpdir"); //NON-NLS
 		final String path = pathTmp + (pathTmp.endsWith(LSystem.FILE_SEP) ? "" : LSystem.FILE_SEP) + "latexdraw" + LSystem.FILE_SEP + "latexdrawTmp" + //NON-NLS
-			//NON-NLS
-			System.currentTimeMillis() + new Random().nextInt(100000);
+			System.currentTimeMillis() + ThreadLocalRandom.current().nextInt(100000);
 		final File tmpDir = new File(path);
 
 		try {
