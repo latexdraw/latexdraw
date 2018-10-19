@@ -696,25 +696,29 @@ abstract class LShape implements ISingleShape {
 	@Override
 	public IPoint getBottomRightPoint() {
 		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
-			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
+			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).
+				orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override
 	public IPoint getBottomLeftPoint() {
 		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
-			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
+			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).
+				orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override
 	public IPoint getTopLeftPoint() {
 		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
-			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
+			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).
+				orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override
 	public IPoint getTopRightPoint() {
 		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
-			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.INST.createPoint());
+			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).
+				orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override

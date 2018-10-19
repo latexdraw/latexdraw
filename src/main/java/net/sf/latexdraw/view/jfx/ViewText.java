@@ -158,7 +158,7 @@ public class ViewText extends ViewPositionShape<IText> {
 		doc.append((float) MathUtils.INST.getCutNumber(scale)).append('}').append('{');
 
 		if(!PSTricksConstants.DEFAULT_LINE_COLOR.equals(textColour)) {
-			final String name = DviPsColors.INSTANCE.getColourName(textColour).orElse(DviPsColors.INSTANCE.addUserColour(textColour).orElse(""));
+			final String name = DviPsColors.INSTANCE.getColourName(textColour).orElseGet(() -> DviPsColors.INSTANCE.addUserColour(textColour).orElse(""));
 			coloured = true;
 			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append("\\textcolor{").append(name).append('}').append('{'); //NON-NLS
 		}

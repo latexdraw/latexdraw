@@ -466,28 +466,28 @@ interface LGroupShape extends IGroup {
 	default IPoint getBottomRightPoint() {
 		return getShapes().parallelStream().map(sh -> sh.getBottomRightPoint()).
 			reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).
-			orElse(ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
+			orElseGet(() -> ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
 	}
 
 	@Override
 	default IPoint getBottomLeftPoint() {
 		return getShapes().parallelStream().map(sh -> sh.getBottomLeftPoint()).
 			reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).
-			orElse(ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
+			orElseGet(() -> ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
 	}
 
 	@Override
 	default IPoint getTopLeftPoint() {
 		return getShapes().parallelStream().map(sh -> sh.getTopLeftPoint()).
 			reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).
-			orElse(ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
+			orElseGet(() -> ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
 	}
 
 	@Override
 	default IPoint getTopRightPoint() {
 		return getShapes().parallelStream().map(sh -> sh.getTopRightPoint()).
 			reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).
-			orElse(ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
+			orElseGet(() -> ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
 	}
 
 	@Override

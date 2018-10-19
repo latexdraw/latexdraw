@@ -207,7 +207,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 				final Rectangle2D rec = selection.stream().map(sh -> shapesToViewMap.get(sh)).filter(vi -> vi != null).map(vi -> {
 					final Bounds b = vi.getBoundsInParent();
 					return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
-				}).reduce(Rectangle2D::createUnion).orElse(new Rectangle2D.Double());
+				}).reduce(Rectangle2D::createUnion).orElseGet(() -> new Rectangle2D.Double());
 
 				selectionBorder.setLayoutX(rec.getMinX());
 				selectionBorder.setLayoutY(rec.getMinY());

@@ -230,9 +230,9 @@ public class Border extends CanvasInstrument implements Initializable {
 				}
 			}).
 			then((i, c) -> {
-				final Point3D startPt = i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(new Point3D(0d, 0d, 0d));
-				final Point3D endPt = i.getSrcObject().map(n -> n.localToParent(i.getTgtLocalPoint())).orElse(new Point3D(0d, 0d, 0d));
-				final IPoint ptToMove = i.getSrcObject().map(n -> ((CtrlPointHandler) n).getPoint()).orElse(ShapeFactory.INST.createPoint());
+				final Point3D startPt = i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElseGet(() -> new Point3D(0d, 0d, 0d));
+				final Point3D endPt = i.getSrcObject().map(n -> n.localToParent(i.getTgtLocalPoint())).orElseGet(() -> new Point3D(0d, 0d, 0d));
+				final IPoint ptToMove = i.getSrcObject().map(n -> ((CtrlPointHandler) n).getPoint()).orElseGet(() -> ShapeFactory.INST.createPoint());
 				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
 				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
 				c.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));

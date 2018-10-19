@@ -111,10 +111,15 @@
     <Match>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
     </Match>
-    <!-- Has false positives on the model package -->
+    <!-- Has false positives in the model package -->
     <Match>
         <Bug pattern="OI_OPTIONAL_ISSUES_PRIMITIVE_VARIANT_PREFERRED" />
         <Class name="~.*\.LGroup.*" />
+    </Match>
+    <!-- Has false positives in the command package -->
+    <Match>
+        <Bug pattern="OI_OPTIONAL_ISSUES_USES_IMMEDIATE_EXECUTION" />
+        <Class name="~.*\.shape\.Align.*" />
     </Match>
 
     <!-- To fix -->
@@ -129,9 +134,6 @@
     </Match>
     <Match>
         <Bug pattern="UP_UNUSED_PARAMETER" />
-    </Match>
-    <Match>
-        <Bug pattern="OI_OPTIONAL_ISSUES_USES_IMMEDIATE_EXECUTION" />
     </Match>
     <Match>
         <Bug pattern="HES_EXECUTOR_NEVER_SHUTDOWN" />
