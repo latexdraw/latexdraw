@@ -553,8 +553,8 @@ public class SVGDocument implements Document {
 		try {
 			final DOMImplementationLS impl = (DOMImplementationLS) DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0 LS 3.0"); //NON-NLS
 			final LSSerializer serializer = impl.createLSSerializer();
-			serializer.getDomConfig().setParameter("format-pretty-print", true); //NON-NLS
-			serializer.getDomConfig().setParameter("namespaces", false); //NON-NLS
+			serializer.getDomConfig().setParameter("format-pretty-print", Boolean.TRUE); //NON-NLS
+			serializer.getDomConfig().setParameter("namespaces", Boolean.FALSE); //NON-NLS
 			final LSOutput output = impl.createLSOutput();
 			final Charset charset = Charset.defaultCharset();
 			try(final OutputStreamWriter fw = new OutputStreamWriter(Files.newOutputStream(Path.of(path)), charset.newEncoder())) {

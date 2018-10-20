@@ -137,7 +137,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 			valid = PSFunctionParser.isValidPostFixEquation(textField.getText(), Double.parseDouble(plotCustom.minXSpinner.getValue().toString()),
 				Double.parseDouble(plotCustom.maxXSpinner.getValue().toString()), Double.parseDouble(plotCustom.nbPtsSpinner.getValue().toString()));
 		}catch(final IllegalArgumentException ex) {
-			valid = new Tuple<>(false, LangTool.INSTANCE.getBundle().getString("invalid.function"));
+			valid = new Tuple<>(Boolean.FALSE, LangTool.INSTANCE.getBundle().getString("invalid.function"));
 		}
 		textField.setValid(valid);
 		return valid.a;
@@ -165,7 +165,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 			}
 		}
 
-		textField.setValid(new Tuple<>(true, ""));
+		textField.setValid(new Tuple<>(Boolean.TRUE, ""));
 		textField.setVisible(act);
 
 		if(act) {

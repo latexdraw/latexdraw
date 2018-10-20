@@ -57,7 +57,7 @@ interface LGroupPlot extends IGroup {
 
 	@Override
 	default boolean isPolar() {
-		return firstPlot().map(sh -> sh.isPolar()).orElse(false);
+		return firstPlot().map(sh -> sh.isPolar()).orElse(Boolean.FALSE);
 	}
 
 	@Override

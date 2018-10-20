@@ -43,6 +43,6 @@ interface LGroupLineArc extends IGroup {
 
 	@Override
 	default boolean isRoundCorner() {
-		return firstLineArc().map(sh -> sh.isRoundCorner()).orElse(false);
+		return firstLineArc().map(sh -> sh.isRoundCorner()).orElse(Boolean.FALSE);
 	}
 }

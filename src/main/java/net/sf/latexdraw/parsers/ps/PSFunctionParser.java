@@ -91,20 +91,20 @@ public class PSFunctionParser {
 			for(double x = min; x < max; x += gap) {
 				final double y = fct.getY(x);
 				if(Double.isNaN(y) || Double.isInfinite(y)) {
-					return new Tuple<>(false, "f(x)=" + eq + " produces an invalid value with x=" + x);
+					return new Tuple<>(Boolean.FALSE, "f(x)=" + eq + " produces an invalid value with x=" + x);
 				}
 			}
 
 			final double y = fct.getY(max);
 			if(Double.isNaN(y) || Double.isInfinite(y)) {
-				return new Tuple<>(false, "f(x)=" + eq + " produces an invalid value with x=" + max);
+				return new Tuple<>(Boolean.FALSE, "f(x)=" + eq + " produces an invalid value with x=" + max);
 			}
 
-			return new Tuple<>(true, "");
+			return new Tuple<>(Boolean.TRUE, "");
 		}catch(final NumberFormatException ex) {
-			return new Tuple<>(false, "Error while computing the curve's points: " + ex.getMessage());
+			return new Tuple<>(Boolean.FALSE, "Error while computing the curve's points: " + ex.getMessage());
 		}catch(final ArithmeticException ex) {
-			return new Tuple<>(false, "Error while computing the curve's points: arithmetical error.");
+			return new Tuple<>(Boolean.FALSE, "Error while computing the curve's points: arithmetical error.");
 		}
 	}
 

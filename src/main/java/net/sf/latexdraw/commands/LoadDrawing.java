@@ -64,13 +64,13 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 				if(saveTask.get()) {
 					ui.setModified(false);
 					load();
-					return true;
+					return Boolean.TRUE;
 				}
 			}catch(InterruptedException | ExecutionException ex) {
 				// ignored.
 			}
-			return false;
-		}).orElse(false);
+			return Boolean.FALSE;
+		}).orElse(Boolean.FALSE);
 	}
 
 	@Override

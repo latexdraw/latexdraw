@@ -107,6 +107,9 @@
     <Match>
         <Bug pattern="PL_PARALLEL_LISTS" />
     </Match>
+    <Match>
+        <Bug pattern="CFS_CONFUSING_FUNCTION_SEMANTICS" />
+    </Match>
     <!-- has false positives -->
     <Match>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
@@ -121,6 +124,11 @@
         <Bug pattern="OI_OPTIONAL_ISSUES_USES_IMMEDIATE_EXECUTION" />
         <Class name="~.*\.shape\.Align.*" />
     </Match>
+    <!-- False positive ViewText -->
+    <Match>
+        <Bug pattern="HES_EXECUTOR_NEVER_SHUTDOWN" />
+        <Class name="~.*\.jfx\.ViewText" />
+    </Match>
 
     <!-- To fix -->
     <Match>
@@ -134,9 +142,6 @@
     </Match>
     <Match>
         <Bug pattern="UP_UNUSED_PARAMETER" />
-    </Match>
-    <Match>
-        <Bug pattern="HES_EXECUTOR_NEVER_SHUTDOWN" />
     </Match>
     <Match>
         <Bug pattern="PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS" />
@@ -172,13 +177,7 @@
         <Bug pattern="BL_BURYING_LOGIC" />
     </Match>
     <Match>
-        <Bug pattern="CFS_CONFUSING_FUNCTION_SEMANTICS" />
-    </Match>
-    <Match>
         <Bug pattern="DRE_DECLARED_RUNTIME_EXCEPTION" />
-    </Match>
-    <Match>
-        <Bug pattern="NAB_NEEDLESS_BOOLEAN_CONSTANT_CONVERSION" />
     </Match>
     <Match>
         <Bug pattern="OCP_OVERLY_CONCRETE_PARAMETER" />

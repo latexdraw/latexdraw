@@ -84,7 +84,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 				Double.parseDouble(minXSpinner.getValue().toString()), Double.parseDouble(maxXSpinner.getValue().toString()),
 				Double.parseDouble(nbPtsSpinner.getValue().toString()));
 		}catch(final IllegalArgumentException ex) {
-			valid = new Tuple<>(false, LangTool.INSTANCE.getBundle().getString("invalid.function"));
+			valid = new Tuple<>(Boolean.FALSE, LangTool.INSTANCE.getBundle().getString("invalid.function"));
 		}
 		return valid.a;
 	}

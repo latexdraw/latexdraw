@@ -87,7 +87,7 @@ interface LGroupAxes extends IGroup {
 
 	@Override
 	default boolean isShowOrigin() {
-		return firstIAxes().map(sh -> sh.isShowOrigin()).orElse(false);
+		return firstIAxes().map(sh -> sh.isShowOrigin()).orElse(Boolean.FALSE);
 	}
 
 	@Override

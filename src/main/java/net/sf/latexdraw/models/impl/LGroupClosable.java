@@ -33,7 +33,7 @@ public interface LGroupClosable extends IGroup {
 
 	@Override
 	default boolean isOpened() {
-		return firstClosable().map(sh -> sh.isOpened()).orElse(false);
+		return firstClosable().map(sh -> sh.isOpened()).orElse(Boolean.FALSE);
 	}
 
 	@Override

@@ -35,7 +35,7 @@ interface LGroupGrid extends IGroup {
 
 	@Override
 	default boolean isXLabelSouth() {
-		return firstIGrid().map(sh -> sh.isXLabelSouth()).orElse(false);
+		return firstIGrid().map(sh -> sh.isXLabelSouth()).orElse(Boolean.FALSE);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ interface LGroupGrid extends IGroup {
 
 	@Override
 	default boolean isYLabelWest() {
-		return firstIGrid().map(sh -> sh.isYLabelWest()).orElse(false);
+		return firstIGrid().map(sh -> sh.isYLabelWest()).orElse(Boolean.FALSE);
 	}
 
 	@Override
