@@ -11,8 +11,9 @@
 package net.sf.latexdraw.models.impl;
 
 import java.util.List;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
@@ -24,7 +25,7 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
  */
 class LDrawing implements IDrawing, LSetShapes {
 	/** The set of shapes. */
-	private final ObservableList<IShape> shapes;
+	private final ListProperty<IShape> shapes;
 
 	/** The selected shapes of the drawing. */
 	private final IGroup selection;
@@ -35,7 +36,7 @@ class LDrawing implements IDrawing, LSetShapes {
 
 	LDrawing() {
 		super();
-		shapes = FXCollections.observableArrayList();
+		shapes = new SimpleListProperty<>(FXCollections.observableArrayList());
 		selection = ShapeFactory.INST.createGroup();
 		modified = false;
 	}
@@ -59,7 +60,7 @@ class LDrawing implements IDrawing, LSetShapes {
 	}
 
 	@Override
-	public ObservableList<IShape> getShapes() {
+	public ListProperty<IShape> getShapes() {
 		return shapes;
 	}
 

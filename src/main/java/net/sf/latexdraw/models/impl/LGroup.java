@@ -16,9 +16,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.models.interfaces.prop.IAxesProp;
@@ -55,12 +56,12 @@ import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGroupFreeHand, LGroupLineArc, LGroupGrid,
 	LGroupShape, LGroupStdGrid, LGroupText, LSetShapes, LGroupPlot, LGroupClosable {
 	/** The set of shapes. */
-	private final ObservableList<IShape> shapes;
+	private final ListProperty<IShape> shapes;
 	private final DoubleProperty rotationAngle;
 
 	LGroup() {
 		super();
-		shapes = FXCollections.observableArrayList();
+		shapes = new SimpleListProperty<>(FXCollections.observableArrayList());
 		rotationAngle = new SimpleDoubleProperty();
 	}
 
@@ -1185,7 +1186,7 @@ class LGroup implements LGroupArc, LGroupArrowable, LGroupAxes, LGroupDot, LGrou
 	}
 
 	@Override
-	public ObservableList<IShape> getShapes() {
+	public ListProperty<IShape> getShapes() {
 		return shapes;
 	}
 

@@ -167,6 +167,8 @@ public class Exporter extends JfxInstrument implements Initializable {
 			c.setProgressBar(statusBar.getProgressBar());
 			c.setStatusWidget(statusBar.getLabel());
 		}).bind();
+
+		exportTemplateMenu.disableProperty().bind(canvas.getDrawing().getSelection().getShapes().emptyProperty());
 	}
 
 	/**

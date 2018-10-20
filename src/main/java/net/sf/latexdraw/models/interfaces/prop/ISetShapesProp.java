@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.models.interfaces.prop;
 
-import javafx.collections.ObservableList;
+import javafx.beans.property.ListProperty;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 
 /**
@@ -80,5 +80,5 @@ public interface ISetShapesProp {
 	/**
 	 * @return The shapes of the drawing.
 	 */
-	ObservableList<IShape> getShapes();
+	ListProperty<IShape> getShapes();
 }

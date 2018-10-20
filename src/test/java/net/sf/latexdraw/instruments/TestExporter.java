@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import com.sun.javafx.scene.control.ContextMenuContent;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -124,33 +125,37 @@ public class TestExporter extends BaseTestCanvas {
 
 	@Test
 	public void testExportOnShapeAdded() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec).execute();
 		assertTrue(exporter.isActivated());
 		assertFalse(exporter.exportMenu.isDisabled());
+	}
+
+
+	@Test
+	public void testExportTemplateKOOnNoSelection() {
+		new CompositeGUIVoidCommand(addRec, () -> clickOn(exporter.exportMenu)).execute();
+		assertTrue(((ContextMenuContent.MenuItemContainer) find("#exportTemplateMenu")).getItem().isDisable());
+	}
+
+	@Test
+	public void testExportTemplateOKOnSelection() {
+		new CompositeGUIVoidCommand(addRec, selectAllShapes, () -> clickOn(exporter.exportMenu)).execute();
+		assertFalse(((ContextMenuContent.MenuItemContainer) find("#exportTemplateMenu")).getItem().isDisable());
 	}
 
 	@Theory
 	public void testExportPicture(@StringData(vals = {"#menuItemBMP", "#menuItemPST", "#menuItemPNG",
 		"#menuItemBMP", "#menuItemPDF", "#menuItemEPSLatex", "#menuItemPDFcrop"}) final String widgetID) {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
-		clickOn(exporter.exportMenu);
-		waitFXEvents.execute();
-		clickOn(widgetID);
-		waitFXEvents.execute();
+		new CompositeGUIVoidCommand(addRec, () -> clickOn(exporter.exportMenu), () -> clickOn(widgetID)).execute();
 		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
 		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof Export);
 	}
 
 	@Test
 	public void testExportTemplate() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
-		clickOn(exporter.exportMenu);
-		waitFXEvents.execute();
-		clickOn("#exportTemplateMenu");
-		waitFXEvents.execute();
-		write("fooo").type(KeyCode.ENTER);
-		waitFXEvents.execute();
-		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof ExportTemplate);
+		new CompositeGUIVoidCommand(addRec, selectAllShapes, () -> clickOn(exporter.exportMenu), () -> clickOn("#exportTemplateMenu"),
+			() -> write("fooo").type(KeyCode.ENTER)).execute();
+		assertEquals(2, CommandsRegistry.INSTANCE.getCommands().size());
+		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(1) instanceof ExportTemplate);
 	}
 }
