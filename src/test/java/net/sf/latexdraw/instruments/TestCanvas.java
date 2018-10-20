@@ -58,20 +58,20 @@ public class TestCanvas extends BaseTestCanvas {
 
 	@Test
 	public void testViewsPanePositionORIGIN() {
-		Group group = getPane();
+		final Group group = getPane();
 		assertEquals(Canvas.ORIGIN.getX(), group.getLayoutX(), 0.000001);
 		assertEquals(Canvas.ORIGIN.getY(), group.getLayoutY(), 0.000001);
 	}
 
 	@Test
 	public void testShapeAddedViewCreated() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec).execute();
 		assertEquals(1, getPane().getChildren().size());
 	}
 
 	@Test
 	public void testShapeAddedViewRecCreated() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec).execute();
 		assertTrue(getPane().getChildren().get(0) instanceof ViewRectangle);
 	}
 }

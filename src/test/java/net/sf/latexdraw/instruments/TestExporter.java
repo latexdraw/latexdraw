@@ -1,6 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import com.sun.javafx.scene.control.ContextMenuContent;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -133,14 +132,14 @@ public class TestExporter extends BaseTestCanvas {
 
 	@Test
 	public void testExportTemplateKOOnNoSelection() {
-		new CompositeGUIVoidCommand(addRec, () -> clickOn(exporter.exportMenu)).execute();
-		assertTrue(((ContextMenuContent.MenuItemContainer) find("#exportTemplateMenu")).getItem().isDisable());
+		new CompositeGUIVoidCommand(addRec).execute();
+		assertTrue(exporter.exportTemplateMenu.isDisable());
 	}
 
 	@Test
 	public void testExportTemplateOKOnSelection() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes, () -> clickOn(exporter.exportMenu)).execute();
-		assertFalse(((ContextMenuContent.MenuItemContainer) find("#exportTemplateMenu")).getItem().isDisable());
+		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		assertFalse(exporter.exportTemplateMenu.isDisable());
 	}
 
 	@Theory

@@ -91,7 +91,7 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 
 	@Test
 	public void testPasteCustMenuStatusOK() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents, selectAllShapes, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
 		assertFalse(copier.copyMenu.isDisable());
 		assertTrue(copier.pasteMenu.isDisable());
 		assertFalse(copier.cutMenu.isDisable());
@@ -99,7 +99,7 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 
 	@Test
 	public void testPasteCustMenuStatusOKAfterCopy() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents, selectAllShapes, waitFXEvents, clickCopy, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, selectAllShapes, clickCopy).execute();
 		assertFalse(copier.copyMenu.isDisable());
 		assertFalse(copier.pasteMenu.isDisable());
 		assertFalse(copier.cutMenu.isDisable());
@@ -107,13 +107,13 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 
 	@Test
 	public void testCopyPasteOKNbShapes() {
-		new CompositeGUIVoidCommand(addRec, addLines, waitFXEvents, selectAllShapes, waitFXEvents, clickCopy, clickPaste).execute();
+		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes, clickCopy, clickPaste).execute();
 		assertEquals(4, canvas.getDrawing().size());
 	}
 
 	@Test
 	public void testCopyPasteKeyOKNbShapes() {
-		new CompositeGUIVoidCommand(addRec, addLines, waitFXEvents, selectAllShapes, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes).execute();
 		Platform.runLater(() -> canvas.requestFocus());
 		waitFXEvents.execute();
 		press(KeyCode.CONTROL).type(KeyCode.C).sleep(5).type(KeyCode.V).release(KeyCode.CONTROL);
@@ -123,7 +123,7 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 
 	@Test
 	public void testCutKeyOKNbShapes() {
-		new CompositeGUIVoidCommand(addRec, addLines, waitFXEvents, selectAllShapes, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes).execute();
 		Platform.runLater(() -> canvas.requestFocus());
 		waitFXEvents.execute();
 		press(KeyCode.CONTROL).type(KeyCode.X).release(KeyCode.CONTROL);
@@ -133,13 +133,13 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 
 	@Test
 	public void testCutOKNbShapes() {
-		new CompositeGUIVoidCommand(addRec, addLines, waitFXEvents, selectAllShapes, waitFXEvents, clickCut).execute();
+		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes, clickCut).execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 	}
 
 	@Test
 	public void testCutPasteOKNbShapes() {
-		new CompositeGUIVoidCommand(addRec, addLines, waitFXEvents, selectAllShapes, waitFXEvents, clickCut, clickPaste).execute();
+		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes, clickCut, clickPaste).execute();
 		assertEquals(2, canvas.getDrawing().size());
 	}
 }

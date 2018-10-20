@@ -89,7 +89,7 @@ public class TestUndoRedoManager extends BaseTestCanvas {
 
 	@Test
 	public void testUndoButtonOK() {
-		new CompositeGUIVoidCommand(addRecCmd, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRecCmd).execute();
 		assertNotNull(((Button) find("#undoB")).getTooltip());
 		assertNull(((Button) find("#redoB")).getTooltip());
 		clickOn("#undoB");
@@ -99,7 +99,7 @@ public class TestUndoRedoManager extends BaseTestCanvas {
 
 	@Test
 	public void testRedoButtonOK() {
-		new CompositeGUIVoidCommand(addRecCmd, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRecCmd).execute();
 		clickOn("#undoB");
 		waitFXEvents.execute();
 		assertNull(((Button) find("#undoB")).getTooltip());
@@ -111,7 +111,7 @@ public class TestUndoRedoManager extends BaseTestCanvas {
 
 	@Test
 	public void testUndoKeyOK() {
-		new CompositeGUIVoidCommand(addRecCmd, waitFXEvents, requestFocusCanvas).execute();
+		new CompositeGUIVoidCommand(addRecCmd, requestFocusCanvas).execute();
 		press(KeyCode.CONTROL).type(KeyCode.Z).release(KeyCode.CONTROL);
 		waitFXEvents.execute();
 		assertTrue(canvas.getDrawing().isEmpty());
@@ -119,7 +119,7 @@ public class TestUndoRedoManager extends BaseTestCanvas {
 
 	@Test
 	public void testRedoKeyOK() {
-		new CompositeGUIVoidCommand(addRecCmd, waitFXEvents, requestFocusCanvas).execute();
+		new CompositeGUIVoidCommand(addRecCmd, requestFocusCanvas).execute();
 		press(KeyCode.CONTROL).type(KeyCode.Z).release(KeyCode.CONTROL);
 		waitFXEvents.execute();
 		press(KeyCode.CONTROL).type(KeyCode.Y).release(KeyCode.CONTROL);

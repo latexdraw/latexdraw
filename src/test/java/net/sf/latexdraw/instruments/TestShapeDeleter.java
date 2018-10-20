@@ -67,7 +67,7 @@ public class TestShapeDeleter extends BaseTestCanvas {
 	@Test
 	public void testKeyDelRemoveShape() {
 		Platform.runLater(() -> canvas.requestFocus());
-		new CompositeGUIVoidCommand(addRec, waitFXEvents, selectAllShapes, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
 		type(KeyCode.DELETE);
 		waitFXEvents.execute();
 		assertTrue(canvas.getDrawing().isEmpty());
@@ -76,7 +76,7 @@ public class TestShapeDeleter extends BaseTestCanvas {
 	@Test
 	public void testClickDelRemoveShape() {
 		Platform.runLater(() -> canvas.requestFocus());
-		new CompositeGUIVoidCommand(addRec, waitFXEvents, selectAllShapes, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
 		clickOn("#deleteB");
 		waitFXEvents.execute();
 		assertTrue(canvas.getDrawing().isEmpty());
@@ -86,7 +86,7 @@ public class TestShapeDeleter extends BaseTestCanvas {
 	@Test
 	public void testActivationShape() {
 		Platform.runLater(() -> canvas.requestFocus());
-		new CompositeGUIVoidCommand(addRec, waitFXEvents, selectAllShapes, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
 		assertFalse(find("#deleteB").isDisabled());
 		type(KeyCode.DELETE);
 		waitFXEvents.execute();

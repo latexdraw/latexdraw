@@ -98,7 +98,7 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 
 	@Test
 	public void testSelectFillingEnabledWhenFillableStyleSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns, setDotStyleFillable, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns, setDotStyleFillable).execute();
 		assertFalse(fillingB.isDisabled());
 	}
 

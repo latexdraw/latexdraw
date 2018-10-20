@@ -64,7 +64,7 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testClickChordUnselectOthersPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectWedge, selectChord, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectWedge, selectChord).execute();
 		assertFalse(arcB.isSelected());
 		assertFalse(wedgeB.isSelected());
 		assertTrue(chordB.isSelected());
@@ -72,7 +72,7 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testClickWedgeUnselectOthersPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectWedge, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectWedge).execute();
 		assertFalse(arcB.isSelected());
 		assertTrue(wedgeB.isSelected());
 		assertFalse(chordB.isSelected());
@@ -80,7 +80,7 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testClickArcUnselectOthersPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectArc, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectArc).execute();
 		assertTrue(arcB.isSelected());
 		assertFalse(wedgeB.isSelected());
 		assertFalse(chordB.isSelected());

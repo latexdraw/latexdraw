@@ -48,20 +48,20 @@ public class Exporter extends JfxInstrument implements Initializable {
 	/** The export menu that contains all the export menu item. */
 	@FXML protected MenuButton exportMenu;
 	/** The menu item that export as PST code. */
-	@FXML private MenuItem menuItemPST;
+	@FXML protected MenuItem menuItemPST;
 	/** The menu item that export as JPG picture. */
-	@FXML private MenuItem menuItemJPG;
+	@FXML protected MenuItem menuItemJPG;
 	/** The menu item that export as PNG picture. */
-	@FXML private MenuItem menuItemPNG;
+	@FXML protected MenuItem menuItemPNG;
 	/** The menu item that export as BMP picture. */
-	@FXML private MenuItem menuItemBMP;
+	@FXML protected MenuItem menuItemBMP;
 	/** The menu item that export as PDF document. */
-	@FXML private MenuItem menuItemPDF;
+	@FXML protected MenuItem menuItemPDF;
 	/** The menu item that export as PS (using latex) document. */
-	@FXML private MenuItem menuItemEPSLatex;
+	@FXML protected MenuItem menuItemEPSLatex;
 	/** The menu item that export as PDF (using pdfcrop) document. */
-	@FXML private MenuItem menuItemPDFcrop;
-	@FXML private MenuItem exportTemplateMenu;
+	@FXML protected MenuItem menuItemPDFcrop;
+	@FXML protected MenuItem exportTemplateMenu;
 	/** The PST generator. */
 	@Inject private PSTCodeGenerator pstGen;
 	@Inject private StatusBarController statusBar;

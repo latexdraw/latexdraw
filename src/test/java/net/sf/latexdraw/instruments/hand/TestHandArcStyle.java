@@ -68,21 +68,21 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testArcTypeChordSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectWedge, selectChord, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectWedge, selectChord).execute();
 		assertEquals(ArcStyle.CHORD, ((IArc) drawing.getSelection().getShapeAt(0)).getArcStyle());
 		assertEquals(ArcStyle.CHORD, ((IArc) drawing.getSelection().getShapeAt(2)).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeArcSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectArc, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectArc).execute();
 		assertEquals(ArcStyle.ARC, ((IArc) drawing.getSelection().getShapeAt(0)).getArcStyle());
 		assertEquals(ArcStyle.ARC, ((IArc) drawing.getSelection().getShapeAt(2)).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeWedgeSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectWedge, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectWedge).execute();
 		assertEquals(ArcStyle.WEDGE, ((IArc) drawing.getSelection().getShapeAt(0)).getArcStyle());
 		assertEquals(ArcStyle.WEDGE, ((IArc) drawing.getSelection().getShapeAt(2)).getArcStyle());
 	}
