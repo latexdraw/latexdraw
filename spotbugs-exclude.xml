@@ -178,9 +178,6 @@
         <Bug pattern="DRE_DECLARED_RUNTIME_EXCEPTION" />
     </Match>
     <Match>
-        <Bug pattern="SGSU_SUSPICIOUS_GETTER_SETTER_USE" />
-    </Match>
-    <Match>
         <Bug pattern="NAB_NEEDLESS_BOOLEAN_CONSTANT_CONVERSION" />
     </Match>
     <Match>

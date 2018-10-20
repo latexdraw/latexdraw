@@ -100,7 +100,6 @@ public class SVGDocument implements Document {
 			}
 			final NodeList nl;
 
-			setDocumentURI(getDocumentURI());
 			setXmlStandalone(doc.getXmlStandalone());
 			setXmlVersion(doc.getXmlVersion());
 			xmlEncoding = doc.getXmlEncoding();
