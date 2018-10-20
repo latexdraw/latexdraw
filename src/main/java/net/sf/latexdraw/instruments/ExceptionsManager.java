@@ -66,6 +66,7 @@ public final class ExceptionsManager extends JfxInstrument implements BadaboomHa
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		exceptionB.managedProperty().bind(exceptionB.visibleProperty());
+		exceptionB.visibleProperty().bind(activatedProp);
 		setActivated(false);
 	}
 
@@ -80,14 +81,6 @@ public final class ExceptionsManager extends JfxInstrument implements BadaboomHa
 	@Override
 	public void notifyEvent(final Throwable ex) {
 		setActivated(true);
-	}
-
-	@Override
-	public void setActivated(final boolean isActivated) {
-		super.setActivated(isActivated);
-		if(exceptionB != null) {
-			exceptionB.setVisible(isActivated);
-		}
 	}
 
 	@Override
