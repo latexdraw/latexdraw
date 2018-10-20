@@ -151,7 +151,7 @@ public class Hand extends CanvasInstrument {
 				}
 				c.setShape(targetSh);
 			});
-		}).bind();
+		}).when(i -> !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null))).bind();
 
 		// A simple pressure on the canvas deselects the shapes
 		nodeBinder(new Press(), SelectShapes::new).on(canvas).

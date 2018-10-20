@@ -94,8 +94,24 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 	}
 
 	@Test
+	public void testTranslateSeveralShapesUsingOne() {
+		new CompositeGUIVoidCommand(addRec, addRec2, selectAllShapes).execute();
+		canvas.getDrawing().getShapes().forEach(sh -> sh.setFilled(true));
+		final IPoint tl1 = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
+		final IPoint tl2 = canvas.getDrawing().getShapeAt(1).getTopLeftPoint();
+		drag(canvas.getViews().getChildren().get(1)).sleep(10).dropBy(100d, 200d);
+		waitFXEvents.execute();
+		assertEquals(2, canvas.getDrawing().getSelection().size());
+		assertEquals(tl1.getX() + 100d, canvas.getDrawing().getShapeAt(0).getTopLeftPoint().getX(), 1d);
+		assertEquals(tl1.getY() + 200d, canvas.getDrawing().getShapeAt(0).getTopLeftPoint().getY(), 1d);
+		assertEquals(tl2.getX() + 100d, canvas.getDrawing().getShapeAt(1).getTopLeftPoint().getX(), 1d);
+		assertEquals(tl2.getY() + 200d, canvas.getDrawing().getShapeAt(1).getTopLeftPoint().getY(), 1d);
+	}
+
+
+	@Test
 	public void testTranslateCorrectSelectedShape() {
-		new CompositeGUIVoidCommand(addRec, addRec2, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec, addRec2).execute();
 		canvas.getDrawing().getShapes().forEach(sh -> sh.setFilled(true));
 		final IPoint tl1 = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
 		final IPoint tl2 = canvas.getDrawing().getShapeAt(1).getTopLeftPoint();
@@ -110,7 +126,7 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 
 	@Test
 	public void testTranslateOnSelectionRectangle() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec).execute();
 		final IPoint tl = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
 
 		clickOn(canvas.getViews().getChildren().get(0));
@@ -125,7 +141,7 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 
 	@Test
 	public void testTranslateAbortOK() {
-		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
+		new CompositeGUIVoidCommand(addRec).execute();
 		final IPoint tl = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
 		drag(canvas.getViews().getChildren().get(0)).sleep(10).moveBy(100d, 200d).type(KeyCode.ESCAPE);
 		waitFXEvents.execute();
