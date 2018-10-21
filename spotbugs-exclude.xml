@@ -132,6 +132,13 @@
     <Match>
         <Bug pattern="CBC_CONTAINS_BASED_CONDITIONAL" />
     </Match>
+    <Match>
+        <Bug pattern="CLI_CONSTANT_LIST_INDEX" />
+    </Match>
+    <!-- too many false positive and errors (eg private methods) -->
+    <Match>
+        <Bug pattern="PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS" />
+    </Match>
 
     <!-- To fix -->
     <Match>
@@ -147,19 +154,10 @@
         <Bug pattern="UP_UNUSED_PARAMETER" />
     </Match>
     <Match>
-        <Bug pattern="PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS" />
-    </Match>
-    <Match>
         <Bug pattern="USBR_UNNECESSARY_STORE_BEFORE_RETURN" />
     </Match>
     <Match>
         <Bug pattern="NSE_NON_SYMMETRIC_EQUALS" />
-    </Match>
-    <Match>
-        <Bug pattern="CLI_CONSTANT_LIST_INDEX" />
-    </Match>
-    <Match>
-        <Bug pattern="AFBR_ABNORMAL_FINALLY_BLOCK_RETURN" />
     </Match>
     <Match>
         <Bug pattern="SCII_SPOILED_CHILD_INTERFACE_IMPLEMENTOR" />

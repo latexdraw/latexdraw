@@ -155,7 +155,11 @@ public final class LangTool {
 				try {
 					bundle = new PropertyResourceBundle(new InputStreamReader(stream, Charset.forName("UTF-8")));
 				}finally {
-					stream.close();
+					try {
+						stream.close();
+					}catch(final IOException ex) {
+						BadaboomCollector.INSTANCE.add(ex);
+					}
 				}
 			}
 			return bundle;
