@@ -129,6 +129,9 @@
         <Bug pattern="HES_EXECUTOR_NEVER_SHUTDOWN" />
         <Class name="~.*\.jfx\.ViewText" />
     </Match>
+    <Match>
+        <Bug pattern="CBC_CONTAINS_BASED_CONDITIONAL" />
+    </Match>
 
     <!-- To fix -->
     <Match>
@@ -174,15 +177,9 @@
         <Bug pattern="CU_CLONE_USABILITY_OBJECT_RETURN" />
     </Match>
     <Match>
-        <Bug pattern="BL_BURYING_LOGIC" />
-    </Match>
-    <Match>
         <Bug pattern="DRE_DECLARED_RUNTIME_EXCEPTION" />
     </Match>
     <Match>
         <Bug pattern="OCP_OVERLY_CONCRETE_PARAMETER" />
-    </Match>
-    <Match>
-        <Bug pattern="CBC_CONTAINS_BASED_CONDITIONAL" />
     </Match>
 </FindBugsFilter>
