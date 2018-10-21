@@ -179,7 +179,4 @@
     <Match>
         <Bug pattern="DRE_DECLARED_RUNTIME_EXCEPTION" />
     </Match>
-    <Match>
-        <Bug pattern="OCP_OVERLY_CONCRETE_PARAMETER" />
-    </Match>
 </FindBugsFilter>

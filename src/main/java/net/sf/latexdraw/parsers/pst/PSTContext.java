@@ -18,6 +18,7 @@ import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import static net.sf.latexdraw.view.pst.PSTricksConstants.DEFAULT_ORIGIN;
@@ -243,7 +244,7 @@ public class PSTContext {
 		}
 	}
 
-	void setRputAngle(final Token star, final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim, final net.sf.latexdraw.parsers.pst.PSTParser.PutContext put) {
+	void setRputAngle(final Token star, final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim, final ParseTree put) {
 		if(put != null) {
 			switch(put.getText()) {
 				case "L":
@@ -300,7 +301,7 @@ public class PSTContext {
 		return new Tuple<>(valDimtoDouble(valdim), numberOrZero(number));
 	}
 
-	String unitOrEmpty(final net.sf.latexdraw.parsers.pst.PSTParser.UnitContext unit) {
+	String unitOrEmpty(final ParseTree unit) {
 		return unit == null ? "" : unit.getText();
 	}
 
