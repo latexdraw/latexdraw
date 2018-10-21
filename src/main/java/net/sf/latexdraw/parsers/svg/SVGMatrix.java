@@ -10,145 +10,90 @@
  */
 package net.sf.latexdraw.parsers.svg;
 
+import java.util.Objects;
+
 /**
  * Defines a matrix according to the SVG specifications.
  * @author Arnaud BLOUIN
  */
 public class SVGMatrix {
-	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
-	protected double a;
-
-	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
-	protected double b;
-
-	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
-	protected double c;
-
-	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
-	protected double d;
-
-	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
-	protected double e;
-
-	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
-	protected double f;
-
-
 	/**
-	 * Creates a matrix by initialising it as the identity.
-	 */
-	public SVGMatrix() {
-		super();
-		initMatrix();
-	}
-
-
-	/**
-	 * Initialises the matrix as the identity.
-	 */
-	public void initMatrix() {
-		a = 1.;
-		d = 1.;
-		b = 0.;
-		c = 0.;
-		e = 0.;
-		f = 0.;
-	}
-
-
-	/**
-	 * Rotates the matrix (without reinitialisation).
+	 * Creates rotation matrix.
 	 * @param angle The angle of rotation (in radian).
 	 */
-	public void rotate(final double angle) {
-		a = Math.cos(angle);
-		b = Math.sin(angle);
-		c = -Math.sin(angle);
-		d = Math.cos(angle);
+	public static SVGMatrix createRotate(final double angle) {
+		return new SVGMatrix(Math.cos(angle), Math.sin(angle), -Math.sin(angle), Math.cos(angle), 0d, 0d);
 	}
 
+	/**
+	 * Creates a rotation matrix
+	 * @param angle The angle of rotation (in radian).
+	 * @param cx The X centre of the rotation.
+	 * @param cy The Y centre of the rotation.
+	 */
+	public static SVGMatrix createRotate(final double angle, final double cx, final double cy) {
+		return SVGMatrix.createTranslate(cx, cy).multiply(SVGMatrix.createRotate(angle));
+	}
 
 	/**
 	 * Translates the matrix (without reinitialisation).
 	 * @param x The x translation.
 	 * @param y The y translation.
 	 */
-	public void translate(final double x, final double y) {
-		e = x;
-		f = y;
+	public static SVGMatrix createTranslate(final double x, final double y) {
+		return new SVGMatrix(1d, 0d, 0d, 1d, x, y);
 	}
-
 
 	/**
 	 * Scales the matrix (without reinitialisation).
-	 * @param scaleFactor The scale factor.
+	 * @param scaleFactorX The x-scale factor.
+	 * @param scaleFactorY The y-scale factor.
 	 */
-	public void scale(final double scaleFactor) {
-		scaleNonUniform(scaleFactor, scaleFactor);
+	public static SVGMatrix createScale(final double scaleFactorX, final double scaleFactorY) {
+		return new SVGMatrix(scaleFactorX, 0d, 0d, scaleFactorY, 0d, 0d);
 	}
-
-
-	/**
-	 * Scales the matrix (without reinitialisation).
-	 * @param scaleFactorX The x scale factor.
-	 * @param scaleFactorY The y scale factor.
-	 */
-	public void scaleNonUniform(final double scaleFactorX, final double scaleFactorY) {
-		a = scaleFactorX;
-		d = scaleFactorY;
-	}
-
 
 	/**
 	 * Skews the matrix (without reinitialisation).
 	 * @param angle The X angle.
 	 */
-	public void skewX(final double angle) {
-		c = Math.tan(angle);
+	public static SVGMatrix createSkewX(final double angle) {
+		return new SVGMatrix(1d, 0d, Math.tan(angle), 1d, 0d, 0d);
 	}
-
 
 	/**
 	 * Skews the matrix (without reinitialisation).
 	 * @param angle The Y angle.
 	 */
-	public void skewY(final double angle) {
-		b = Math.tan(angle);
+	public static SVGMatrix createSkewY(final double angle) {
+		return new SVGMatrix(1d, Math.tan(angle), 0d, 1d, 0d, 0d);
 	}
 
 
-	/**
-	 * @param m The matrix to multiply to the called matrix: this * m = out. Or null if m is null.
-	 * @return Creates a SVGMatrix  from the multiplication of the two given matrixes.
-	 */
-	public SVGMatrix multiply(final SVGMatrix m) {
-		if(m == null) {
-			return null;
-		}
+	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
+	public final double a;
 
-		final SVGMatrix out = new SVGMatrix();
+	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
+	public final double b;
 
-		out.a = a * m.a + c * m.b;
-		out.b = b * m.a + d * m.b;
-		out.c = a * m.c + c * m.d;
-		out.d = b * m.c + d * m.d;
-		out.e = a * m.e + c * m.f + e;
-		out.f = b * m.e + d * m.f + f;
+	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
+	public final double c;
 
-		return out;
-	}
+	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
+	public final double d;
+
+	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
+	public final double e;
+
+	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
+	public final double f;
 
 
 	/**
-	 * Sets the matrix with the given values.
-	 * @param a The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
-	 * @param b The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
-	 * @param c The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
-	 * @param d The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
-	 * @param e The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
-	 * @param f The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
+	 * Creates a matrix by initialising it as the identity.
 	 */
-	public void setMatrix(final double a, final double b, final double c, final double d, final double e, final double f) {
+	public SVGMatrix(final double a, final double b, final double c, final double d, final double e, final double f) {
+		super();
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -157,57 +102,43 @@ public class SVGMatrix {
 		this.f = f;
 	}
 
-
 	/**
-	 * @return The (0,0) element of the matrix.
+	 * @param m The matrix to multiply to the called matrix: this * m = out. Or null if m is null.
+	 * @return Creates a SVGMatrix  from the multiplication of the two given matrixes.
 	 */
-	public double getA() {
-		return a;
+	public SVGMatrix multiply(final SVGMatrix m) {
+		return m == null ? null : new SVGMatrix(a * m.a + c * m.b,
+			b * m.a + d * m.b,
+			a * m.c + c * m.d,
+			b * m.c + d * m.d,
+			a * m.e + c * m.f + e,
+			b * m.e + d * m.f + f);
 	}
 
-
-	/**
-	 * @return The (1,0) element of the matrix.
-	 */
-	public double getB() {
-		return b;
+	public SVGMatrix translate(final double tx, final double ty) {
+		return new SVGMatrix(a, b, c, d, tx, ty);
 	}
-
-
-	/**
-	 * @return The (2,0) element of the matrix.
-	 */
-	public double getC() {
-		return c;
-	}
-
-
-	/**
-	 * @return The (0,1) element of the matrix.
-	 */
-	public double getD() {
-		return d;
-	}
-
-
-	/**
-	 * @return The (1,1) element of the matrix.
-	 */
-	public double getE() {
-		return e;
-	}
-
-
-	/**
-	 * @return The (2,1) element of the matrix.
-	 */
-	public double getF() {
-		return f;
-	}
-
 
 	@Override
 	public String toString() {
 		return String.valueOf(a) + ' ' + c + ' ' + e + ' ' + b + ' ' + d + ' ' + f;
+	}
+
+	@Override
+	public boolean equals(final Object o) {
+		if(this == o) {
+			return true;
+		}
+		if(!(o instanceof SVGMatrix)) {
+			return false;
+		}
+		final SVGMatrix svgMatrix = (SVGMatrix) o;
+		return Double.compare(svgMatrix.a, a) == 0 && Double.compare(svgMatrix.b, b) == 0 && Double.compare(svgMatrix.c, c) == 0 &&
+			Double.compare(svgMatrix.d, d) == 0 && Double.compare(svgMatrix.e, e) == 0 && Double.compare(svgMatrix.f, f) == 0;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(a, b, c, d, e, f);
 	}
 }

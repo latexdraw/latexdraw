@@ -422,25 +422,17 @@ abstract class SVGShape<S extends IShape> {
 
 	/**
 	 * Applies an SVG transformation on the shape.
-	 * @param t The SVG transformation to apply.
+	 * @param transfo The SVG transformation to apply.
 	 */
-	final void applyTransformation(final SVGTransform t) {
-		if(t != null) {
-			switch(t.getType()) {
-				case SVGTransform.SVG_TRANSFORM_ROTATE:
-					getShape().rotate(ShapeFactory.INST.createPoint(t.getMatrix().getE(), t.getMatrix().getF()), Math.toRadians(t.getRotationAngle()));
-					break;
+	final void applyTransformation(final SVGTransform transfo) {
+		if(transfo instanceof SVGTransform.SVGTranslateTransformation) {
+			final SVGTransform.SVGTranslateTransformation translate = (SVGTransform.SVGTranslateTransformation) transfo;
+			getShape().translate(translate.getTx(), translate.getTy());
+		}
 
-				case SVGTransform.SVG_TRANSFORM_SCALE:
-					break;
-
-				case SVGTransform.SVG_TRANSFORM_TRANSLATE:
-					getShape().translate(t.getTX(), t.getTY());
-					break;
-
-				default:
-					BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Bad transformation type: " + t.getType())); //NON-NLS
-			}
+		if(transfo instanceof SVGTransform.SVGRotateTransformation) {
+			final SVGTransform.SVGRotateTransformation rotation = (SVGTransform.SVGRotateTransformation) transfo;
+			getShape().rotate(ShapeFactory.INST.createPoint(rotation.getCx(), rotation.getCy()), Math.toRadians(rotation.getRotationAngle()));
 		}
 	}
 
@@ -511,13 +503,14 @@ abstract class SVGShape<S extends IShape> {
 		for(int i = 0, size = tl.size(); i < size && (!sSize || !sAngle); i++) {
 			final SVGTransform transformation = tl.get(i);
 
-			if(transformation.isTranslation()) {
+			if(transformation instanceof SVGTransform.SVGTranslateTransformation) {
+				final SVGTransform.SVGTranslateTransformation translation = (SVGTransform.SVGTranslateTransformation) transformation;
 				// It is shadowSize.
-				if(MathUtils.INST.equalsDouble(transformation.getTY(), 0d) && !sSize) {
-					shape.setShadowSize(transformation.getTX());
+				if(!sSize && MathUtils.INST.equalsDouble(translation.getTy(), 0d)) {
+					shape.setShadowSize(translation.getTx());
 					sSize = true;
 				}else {
-					shape.setShadowAngle(applyShadowTransformationsComputeAngle(transformation.getTX(), transformation.getTY()));
+					shape.setShadowAngle(applyShadowTransformationsComputeAngle(translation.getTx(), translation.getTy()));
 					sAngle = true;
 				}
 			}
@@ -677,7 +670,8 @@ abstract class SVGShape<S extends IShape> {
 			final double x = -Math.cos(-rotationAngle) * gcx + Math.sin(-rotationAngle) * gcy + gcx;
 			final double y = -Math.sin(-rotationAngle) * gcx - Math.cos(-rotationAngle) * gcy + gcy;
 			String transfo = elt.getAttribute(SVGAttributes.SVG_TRANSFORM);
-			final String rotation = SVGTransform.createRotation(toDegrees(rotationAngle), 0d, 0d) + " " + SVGTransform.createTranslation(-x, -y);
+			final String rotation = new SVGTransform.SVGRotateTransformation(toDegrees(rotationAngle), 0d, 0d) + " " +
+				new SVGTransform.SVGTranslateTransformation(-x, -y);
 
 			if(transfo.isEmpty()) {
 				transfo = rotation;
@@ -728,12 +722,11 @@ abstract class SVGShape<S extends IShape> {
 			final IPoint pt = ShapeFactory.INST.createPoint(gcx + shape.getShadowSize(), gcy).rotatePoint(shape.getGravityCentre(), -shape.getShadowAngle());
 			final boolean filledShadow = shadowFills || shape.isFilled();
 
-			elt.setAttribute(SVGAttributes.SVG_TRANSFORM, SVGTransform.createTranslation(shape.getShadowSize(), 0.) + " " + SVGTransform.createTranslation(pt
-				.getX() - gcx - shape.getShadowSize(), pt.getY() - gcy));
-			elt.setAttribute(SVGAttributes.SVG_STROKE_WIDTH, MathUtils.INST.format.format(shape.hasDbleBord() ? shape.getThickness() * 2d + shape
-				.getDbleBordSep() : shape.getThickness()));
-			elt.setAttribute(SVGAttributes.SVG_FILL, filledShadow ? CSSColors.INSTANCE.getColorName(shape.getShadowCol(), true) : SVGAttributes
-				.SVG_VALUE_NONE);
+			elt.setAttribute(SVGAttributes.SVG_TRANSFORM, new SVGTransform.SVGTranslateTransformation(shape.getShadowSize(), 0.) + " " +
+				new SVGTransform.SVGTranslateTransformation(pt.getX() - gcx - shape.getShadowSize(), pt.getY() - gcy));
+			elt.setAttribute(SVGAttributes.SVG_STROKE_WIDTH, MathUtils.INST.format.format(shape.hasDbleBord() ?
+				shape.getThickness() * 2d + shape.getDbleBordSep() : shape.getThickness()));
+			elt.setAttribute(SVGAttributes.SVG_FILL, filledShadow ? CSSColors.INSTANCE.getColorName(shape.getShadowCol(), true) : SVGAttributes.SVG_VALUE_NONE);
 			elt.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(shape.getShadowCol(), true));
 			elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SHADOW);
 
@@ -774,9 +767,7 @@ abstract class SVGShape<S extends IShape> {
 		grad.setAttribute(SVGAttributes.SVG_ID, id);
 
 		if(!MathUtils.INST.equalsDouble(MathUtils.INST.mod2pi(gradAngle + Math.PI / 2d), 0d)) {
-			final SVGTransform rotate = new SVGTransform();
-			rotate.setRotate(toDegrees(gradAngle) + 90d, 0.5, 0.5);
-			grad.setAttribute(SVGAttributes.SVG_GRADIENT_TRANSFORM, rotate.toString());
+			grad.setAttribute(SVGAttributes.SVG_GRADIENT_TRANSFORM, new SVGTransform.SVGRotateTransformation(toDegrees(gradAngle) + 90d, 0.5, 0.5).toString());
 		}
 
 		final SVGStopElement stop1 = new SVGStopElement(doc);

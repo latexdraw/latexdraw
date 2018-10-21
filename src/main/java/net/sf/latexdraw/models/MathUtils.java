@@ -28,6 +28,8 @@ public final class MathUtils {
 
 	public final DecimalFormat format;
 
+	public final String doubleRegex;
+
 	private MathUtils() {
 		super();
 		format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
@@ -36,6 +38,7 @@ public final class MathUtils {
 		format.getDecimalFormatSymbols().setDecimalSeparator('.');
 		format.setDecimalSeparatorAlwaysShown(false);
 		format.setGroupingSize(0);
+		doubleRegex = "[-]?[0-9]*\\.?[0-9]+";
 	}
 
 

@@ -183,9 +183,6 @@
         <Bug pattern="OCP_OVERLY_CONCRETE_PARAMETER" />
     </Match>
     <Match>
-        <Bug pattern="PME_POOR_MANS_ENUM" />
-    </Match>
-    <Match>
         <Bug pattern="CBC_CONTAINS_BASED_CONDITIONAL" />
     </Match>
 </FindBugsFilter>

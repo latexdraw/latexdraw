@@ -532,7 +532,7 @@ class SVGGrid extends SVGShape<IGrid> {
 		brx -= position.getX();
 		tly -= position.getY();
 		bry -= position.getY();
-		elt.setAttribute(SVGAttributes.SVG_TRANSFORM, SVGTransform.createTranslation(position.getX(), position.getY()).toString());
+		elt.setAttribute(SVGAttributes.SVG_TRANSFORM, new SVGTransform.SVGTranslateTransformation(position.getX(), position.getY()).toString());
 
 		// Creation of the sub-grid
 		if(subGridDots > 0) {

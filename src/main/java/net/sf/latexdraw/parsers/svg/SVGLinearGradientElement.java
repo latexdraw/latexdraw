@@ -100,7 +100,7 @@ public class SVGLinearGradientElement extends SVGElement implements SVGLineParse
 	 */
 	public double getAngle() {
 		return new SVGTransformList(getAttribute(getUsablePrefix() + SVGAttributes.SVG_GRADIENT_TRANSFORM)).
-			stream().filter(tr -> tr.isRotation()).findFirst().
-			map(svgTransform -> Math.toRadians(svgTransform.getRotationAngle())).orElse(0d);
+			stream().filter(tr -> tr instanceof SVGTransform.SVGRotateTransformation).findFirst().
+			map(svgTransform -> Math.toRadians(((SVGTransform.SVGRotateTransformation) svgTransform).getRotationAngle())).orElse(0d);
 	}
 }

@@ -29,6 +29,7 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGMarkerElement;
 import net.sf.latexdraw.parsers.svg.SVGNodeList;
 import net.sf.latexdraw.parsers.svg.SVGPathElement;
+import net.sf.latexdraw.parsers.svg.SVGTransform;
 import net.sf.latexdraw.parsers.svg.SVGTransformList;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegArc;
@@ -121,8 +122,8 @@ class SVGArrow implements GenericViewArrow {
 
 	private boolean is180Rotation(final SVGElement elt) {
 		final SVGTransformList transform = elt.getTransform();
-		return transform != null && transform.size() == 1 && transform.get(0).isRotation() &&
-			MathUtils.INST.equalsDouble(transform.get(0).getRotationAngle(), 180d);
+		return transform != null && transform.size() == 1 && transform.get(0) instanceof SVGTransform.SVGRotateTransformation &&
+			MathUtils.INST.equalsDouble(((SVGTransform.SVGRotateTransformation) transform.get(0)).getRotationAngle(), 180d);
 	}
 
 	private void setArrowBarBracketLegacy(final SVGPathSegMoveto m, final double lineWidth, final String svgMarker) {

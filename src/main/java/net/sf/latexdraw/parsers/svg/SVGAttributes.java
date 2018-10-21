@@ -57,7 +57,6 @@ public final class SVGAttributes {
 	public static final String SVG_DX						= "dx";								//NON-NLS
 	public static final String SVG_DY						= "dy";								//NON-NLS
 	public static final String SVG_FONT_SIZE				= "font-size";						//NON-NLS
-	public static final String SVG_FONT_FAMILY				= "font-family";					//NON-NLS
 	public static final String SVG_VERSION					= "version";						//NON-NLS
 	public static final String SVG_PATTERN_CONTENTS_UNITS	= "patternContentUnits";			//NON-NLS
 	public static final String SVG_STYLE					= "style";							//NON-NLS
@@ -85,10 +84,8 @@ public final class SVGAttributes {
 	public static final String SVG_TRANSFORM_SCALE			= "scale";							//NON-NLS
 	public static final String SVG_TRANSFORM_SKEW_X			= "skewX";							//NON-NLS
 	public static final String SVG_TRANSFORM_SKEW_Y			= "skewY";							//NON-NLS
-	public static final String SVG_FONT_STYLE_NORMAL		= "normal";							//NON-NLS
 	public static final String SVG_FONT_STYLE_ITALIC		= "italic";							//NON-NLS
 	public static final String SVG_FONT_WEIGHT_BOLD			= "bold";							//NON-NLS
-	public static final String SVG_FONT_WEIGHT_NORMAL		= "normal";							//NON-NLS
 	public static final String SVG_FILL_OPACITY				= "fill-opacity";					//NON-NLS
 	public static final String SVG_STROKE_OPACITY			= "stroke-opacity";					//NON-NLS
 	public static final String SVG_STOP_OPACITY = "stop-opacity"; //NON-NLS

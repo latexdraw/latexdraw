@@ -36,6 +36,7 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGNodeList;
 import net.sf.latexdraw.parsers.svg.SVGPathElement;
 import net.sf.latexdraw.parsers.svg.SVGTextElement;
+import net.sf.latexdraw.parsers.svg.SVGTransform;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
@@ -172,7 +173,7 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 
 				// Legacy code: in older versions the position was computed from the lines
 				// now, a translation is used.
-				if(elt.getTransform().stream().noneMatch(tr -> tr.isTranslation())) {
+				if(elt.getTransform().stream().noneMatch(tr -> tr instanceof SVGTransform.SVGTranslateTransformation)) {
 					shape.setPosition(ShapeFactory.INST.createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
 				}
 				//End of legacy

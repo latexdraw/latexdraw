@@ -12,6 +12,7 @@ package net.sf.latexdraw.parsers.svg;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.PatternSyntaxException;
 
 /**
@@ -65,14 +66,13 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 			code = code.replaceAll("[ ]?,[ ]?", ",");
 			code = code.replaceAll("[)][, ]?", ")_");
 
-			final String[] trans = code.split("_");
-
-			for(final String tran : trans) {
-				try {
-					add(new SVGTransform(tran));
-				}catch(final IllegalArgumentException ex) { /* */ }
-			}
-		}catch(final PatternSyntaxException ex) { /* */ }
+			Arrays.stream(code.split("_")).
+				map(tran -> SVGTransform.createTransformationFromCode(tran)).
+				filter(opt -> opt.isPresent()).
+				map(opt -> opt.get()).
+				forEach(tran -> add(tran));
+		}catch(final PatternSyntaxException ignored) {
+		}
 	}
 
 
@@ -85,10 +85,10 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 			return null;
 		}
 
-		SVGMatrix out = get(0).getMatrix();
+		SVGMatrix out = get(0).matrix;
 
 		for(int i = 1, size = size(); i < size; i++) {
-			out = out.multiply(get(i).getMatrix());
+			out = out.multiply(get(i).matrix);
 		}
 
 		return out;
@@ -111,16 +111,7 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 			return new Point2D.Double(pt.getX(), pt.getY());
 		}
 
-		final SVGMatrix ptM = new SVGMatrix();
-		final SVGMatrix out;
-
-		ptM.e = pt.getX();
-		ptM.f = pt.getY();
-		out = m.multiply(ptM);
-
-		if(out == null) {
-			return new Point2D.Double(pt.getX(), pt.getY());
-		}
+		final SVGMatrix out = m.multiply(SVGMatrix.createTranslate(pt.getX(), pt.getY()));
 
 		return new Point2D.Double(out.e, out.f);
 	}
