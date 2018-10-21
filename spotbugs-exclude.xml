@@ -183,9 +183,6 @@
         <Bug pattern="OCP_OVERLY_CONCRETE_PARAMETER" />
     </Match>
     <Match>
-        <Bug pattern="IMC_IMMATURE_CLASS_WRONG_FIELD_ORDER" />
-    </Match>
-    <Match>
         <Bug pattern="PME_POOR_MANS_ENUM" />
     </Match>
     <Match>

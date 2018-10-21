@@ -24,53 +24,32 @@ import net.sf.latexdraw.util.Tuple;
  * @author Arnaud Blouin
  */
 public class PSFunctionParser {
-	/** The postscript function. */
-	private final String function;
-	private final List<PSArithemticCommand> commands;
 	private static final Map<String, Supplier<PSArithemticCommand>> factoryMap;
 
 	static {
 		factoryMap = new HashMap<>();
-		factoryMap.put("add", () -> new PSAddCommand());
-		factoryMap.put("mul", () -> new PSMulCommand());
-		factoryMap.put("sub", () -> new PSSubCommand());
-		factoryMap.put("sin", () -> new PSSinCommand());
-		factoryMap.put("cos", () -> new PSCosCommand());
-		factoryMap.put("div", () -> new PSDivCommand());
-		factoryMap.put("idiv", () -> new PSIDivCommand());
-		factoryMap.put("mod", () -> new PSModCommand());
-		factoryMap.put("neg", () -> new PSNegCommand());
-		factoryMap.put("exch", () -> new PSExchCommand());
-		factoryMap.put("clear", () -> new PSClearCommand());
-		factoryMap.put("dup", () -> new PSDupCommand());
-		factoryMap.put("pop", () -> new PSPopCommand());
-		factoryMap.put("roll", () -> null);
-		factoryMap.put("sqrt", () -> null);
-		factoryMap.put("exp", () -> new PSExpCommand());
-		factoryMap.put("abs", () -> new PSAbsCommand());
-		factoryMap.put("floor", () -> new PSFloorCommand());
-		factoryMap.put("ceiling", () -> new PSCeilingCommand());
-		factoryMap.put("count", () -> new PSCountCommand());
-		factoryMap.put("x", () -> new PSPlotXVariable());
-		factoryMap.put("log", () -> new PSLogCommand());
-	}
-
-	/**
-	 * Creates and parser from postscript functions.
-	 * @param fct The function to parse.
-	 * @throws InvalidFormatPSFunctionException If the function format is not valid.
-	 * @since 3.0
-	 */
-	public PSFunctionParser(final String fct) {
-		super();
-		if(fct == null || fct.isEmpty()) {
-			throw new IllegalArgumentException();
-		}
-
-		commands = new ArrayList<>();
-		function = fct;
-
-		parseFunction();
+		factoryMap.put("add", () -> new PSAddCommand()); //NON-NLS
+		factoryMap.put("mul", () -> new PSMulCommand()); //NON-NLS
+		factoryMap.put("sub", () -> new PSSubCommand()); //NON-NLS
+		factoryMap.put("sin", () -> new PSSinCommand()); //NON-NLS
+		factoryMap.put("cos", () -> new PSCosCommand()); //NON-NLS
+		factoryMap.put("div", () -> new PSDivCommand()); //NON-NLS
+		factoryMap.put("idiv", () -> new PSIDivCommand()); //NON-NLS
+		factoryMap.put("mod", () -> new PSModCommand()); //NON-NLS
+		factoryMap.put("neg", () -> new PSNegCommand()); //NON-NLS
+		factoryMap.put("exch", () -> new PSExchCommand()); //NON-NLS
+		factoryMap.put("clear", () -> new PSClearCommand()); //NON-NLS
+		factoryMap.put("dup", () -> new PSDupCommand()); //NON-NLS
+		factoryMap.put("pop", () -> new PSPopCommand()); //NON-NLS
+		factoryMap.put("roll", () -> null); //NON-NLS
+		factoryMap.put("sqrt", () -> null); //NON-NLS
+		factoryMap.put("exp", () -> new PSExpCommand()); //NON-NLS
+		factoryMap.put("abs", () -> new PSAbsCommand()); //NON-NLS
+		factoryMap.put("floor", () -> new PSFloorCommand()); //NON-NLS
+		factoryMap.put("ceiling", () -> new PSCeilingCommand()); //NON-NLS
+		factoryMap.put("count", () -> new PSCountCommand()); //NON-NLS
+		factoryMap.put("x", () -> new PSPlotXVariable()); //NON-NLS
+		factoryMap.put("log", () -> new PSLogCommand()); //NON-NLS
 	}
 
 	/**
@@ -107,7 +86,27 @@ public class PSFunctionParser {
 			return new Tuple<>(Boolean.FALSE, "Error while computing the curve's points: arithmetical error.");
 		}
 	}
+	/** The postscript function. */
+	private final String function;
+	private final List<PSArithemticCommand> commands;
 
+	/**
+	 * Creates and parser from postscript functions.
+	 * @param fct The function to parse.
+	 * @throws InvalidFormatPSFunctionException If the function format is not valid.
+	 * @since 3.0
+	 */
+	public PSFunctionParser(final String fct) {
+		super();
+		if(fct == null || fct.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+
+		commands = new ArrayList<>();
+		function = fct;
+
+		parseFunction();
+	}
 
 	/**
 	 * @param x The X-coordinate used to compute the Y using the function.
