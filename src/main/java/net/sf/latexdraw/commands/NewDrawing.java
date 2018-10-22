@@ -34,7 +34,7 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 	private final File currentFolder;
 
 	public NewDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
-					 final FileChooser fileChooser, final File currentFolder) {
+					final FileChooser fileChooser, final File currentFolder) {
 		super(file, openSaveManager, progressBar, statusWidget, ui);
 		this.fileChooser = fileChooser;
 		this.currentFolder = currentFolder;
