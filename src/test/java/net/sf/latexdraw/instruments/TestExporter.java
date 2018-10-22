@@ -151,9 +151,9 @@ public class TestExporter extends BaseTestCanvas {
 	}
 
 	@Test
-	public void testExportTemplate() {
+	public void testExportTemplateNotExits() {
 		new CompositeGUIVoidCommand(addRec, selectAllShapes, () -> clickOn(exporter.exportMenu), () -> clickOn("#exportTemplateMenu"),
-			() -> write("fooo").type(KeyCode.ENTER)).execute();
+			() -> write("fooo2"), () -> type(KeyCode.ENTER), () -> type(KeyCode.ENTER)).execute();
 		assertEquals(2, CommandsRegistry.INSTANCE.getCommands().size());
 		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(1) instanceof ExportTemplate);
 	}
