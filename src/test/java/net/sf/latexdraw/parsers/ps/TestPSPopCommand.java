@@ -1,18 +1,19 @@
 package net.sf.latexdraw.parsers.ps;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestPSPopCommand extends TestPSCommand<PSPopCommand> {
 	@Override
-	protected PSPopCommand createCmd() {
+	PSPopCommand createCmd() {
 		return new PSPopCommand();
 	}
 
 	@Override
 	@Test
-	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
+	void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
 		assertEquals(0, dequeue.size());
@@ -20,7 +21,7 @@ public class TestPSPopCommand extends TestPSCommand<PSPopCommand> {
 
 	@Override
 	@Test
-	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
+	void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(-10.0);
 		dequeue.push(-20.0);
 		cmd.execute(dequeue, 0.0);
@@ -29,7 +30,7 @@ public class TestPSPopCommand extends TestPSCommand<PSPopCommand> {
 
 	@Override
 	@Test
-	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
+	void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(10.0);
 		dequeue.push(20.0);
 		dequeue.push(30.0);
@@ -39,8 +40,8 @@ public class TestPSPopCommand extends TestPSCommand<PSPopCommand> {
 	}
 
 	@Override
-	@Test(expected = InvalidFormatPSFunctionException.class)
-	public void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
-		cmd.execute(dequeue, 0.0);
+	@Test
+	void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
+		assertThrows(InvalidFormatPSFunctionException.class, () -> cmd.execute(dequeue, 0d));
 	}
 }

@@ -1,25 +1,25 @@
 package net.sf.latexdraw.parsers.ps;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPSCountCommand extends TestPSCommand<PSCountCommand> {
 	@Override
-	protected PSCountCommand createCmd() {
+	PSCountCommand createCmd() {
 		return new PSCountCommand();
 	}
 
 	@Override
 	@Test
-	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
+	void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		cmd.execute(dequeue, 0d);
 		assertEquals(0d, dequeue.peek(), 0.00001);
 	}
 
 	@Override
 	@Test
-	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
+	void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(-10d);
 		cmd.execute(dequeue, 0d);
 		assertEquals(1d, dequeue.peek(), 0.00001);
@@ -27,7 +27,7 @@ public class TestPSCountCommand extends TestPSCommand<PSCountCommand> {
 
 	@Override
 	@Test
-	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
+	void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(10d);
 		dequeue.push(10d);
 		cmd.execute(dequeue, 0d);
@@ -37,7 +37,7 @@ public class TestPSCountCommand extends TestPSCommand<PSCountCommand> {
 
 	@Override
 	@Test
-	public void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
+	void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
 		// Nothing to do.
 	}
 }

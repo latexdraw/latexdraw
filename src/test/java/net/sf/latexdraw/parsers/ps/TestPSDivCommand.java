@@ -1,33 +1,34 @@
 package net.sf.latexdraw.parsers.ps;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestPSDivCommand extends TestPSCommand<PSDivCommand> {
 	@Override
-	protected PSDivCommand createCmd() {
+	PSDivCommand createCmd() {
 		return new PSDivCommand();
 	}
 
 	@Override
-	@Test(expected = ArithmeticException.class)
-	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
+	@Test
+	void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(0d);
 		dequeue.push(0d);
-		cmd.execute(dequeue, 0d);
+		assertThrows(ArithmeticException.class, () -> cmd.execute(dequeue, 0d));
 	}
 
-	@Test(expected = ArithmeticException.class)
-	public void testExecuteVal01() throws InvalidFormatPSFunctionException {
+	@Test
+	void testExecuteVal01() throws InvalidFormatPSFunctionException {
 		dequeue.push(10d);
 		dequeue.push(0d);
-		cmd.execute(dequeue, 0d);
+		assertThrows(ArithmeticException.class, () -> cmd.execute(dequeue, 0d));
 	}
 
 	@Override
 	@Test
-	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
+	void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(-10d);
 		dequeue.push(-20d);
 		cmd.execute(dequeue, 0d);
@@ -35,7 +36,7 @@ public class TestPSDivCommand extends TestPSCommand<PSDivCommand> {
 	}
 
 	@Test
-	public void testExecuteValNegPos() throws InvalidFormatPSFunctionException {
+	void testExecuteValNegPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(-10d);
 		dequeue.push(20d);
 		cmd.execute(dequeue, 0d);
@@ -44,7 +45,7 @@ public class TestPSDivCommand extends TestPSCommand<PSDivCommand> {
 
 	@Override
 	@Test
-	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
+	void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(20d);
 		dequeue.push(10d);
 		cmd.execute(dequeue, 0d);
@@ -52,14 +53,14 @@ public class TestPSDivCommand extends TestPSCommand<PSDivCommand> {
 	}
 
 	@Override
-	@Test(expected = InvalidFormatPSFunctionException.class)
-	public void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
-		cmd.execute(dequeue, 0d);
+	@Test
+	void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
+		assertThrows(InvalidFormatPSFunctionException.class, () -> cmd.execute(dequeue, 0d));
 	}
 
-	@Test(expected = InvalidFormatPSFunctionException.class)
-	public void testExecuteInvalidDequeueSize1() throws InvalidFormatPSFunctionException {
+	@Test
+	void testExecuteInvalidDequeueSize1() throws InvalidFormatPSFunctionException {
 		dequeue.push(10d);
-		cmd.execute(dequeue, 0d);
+		assertThrows(InvalidFormatPSFunctionException.class, () -> cmd.execute(dequeue, 0d));
 	}
 }

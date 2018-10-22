@@ -1,18 +1,20 @@
 package net.sf.latexdraw.parsers.ps;
 
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestPSAddCommand extends TestPSCommand<PSAddCommand> {
 	@Override
-	protected PSAddCommand createCmd() {
+	PSAddCommand createCmd() {
 		return new PSAddCommand();
 	}
 
 	@Override
 	@Test
-	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
+	void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(12.1);
 		dequeue.push(0d);
 		cmd.execute(dequeue, 0d);
@@ -21,7 +23,7 @@ public class TestPSAddCommand extends TestPSCommand<PSAddCommand> {
 
 	@Override
 	@Test
-	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
+	void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(-12.1);
 		dequeue.push(-10d);
 		cmd.execute(dequeue, 0d);
@@ -30,7 +32,7 @@ public class TestPSAddCommand extends TestPSCommand<PSAddCommand> {
 
 	@Override
 	@Test
-	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
+	void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(12.1);
 		dequeue.push(10d);
 		cmd.execute(dequeue, 0d);
@@ -38,7 +40,7 @@ public class TestPSAddCommand extends TestPSCommand<PSAddCommand> {
 	}
 
 	@Test
-	public void testExecuteValPosNeg() throws InvalidFormatPSFunctionException {
+	void testExecuteValPosNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(12.1);
 		dequeue.push(-10d);
 		cmd.execute(dequeue, 0d);
@@ -47,14 +49,14 @@ public class TestPSAddCommand extends TestPSCommand<PSAddCommand> {
 	}
 
 	@Override
-	@Test(expected = InvalidFormatPSFunctionException.class)
-	public void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
-		cmd.execute(dequeue, 0d);
+	@Test
+	void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
+		assertThrows(InvalidFormatPSFunctionException.class, () -> cmd.execute(dequeue, 0d));
 	}
 
-	@Test(expected = InvalidFormatPSFunctionException.class)
-	public void testExecuteInvalidDequeueSize1() throws InvalidFormatPSFunctionException {
+	@Test
+	void testExecuteInvalidDequeueSize1() throws InvalidFormatPSFunctionException {
 		dequeue.push(12.1);
-		cmd.execute(dequeue, 0d);
+		assertThrows(InvalidFormatPSFunctionException.class, () -> cmd.execute(dequeue, 0d));
 	}
 }

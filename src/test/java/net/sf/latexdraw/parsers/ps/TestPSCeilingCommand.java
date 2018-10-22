@@ -1,18 +1,20 @@
 package net.sf.latexdraw.parsers.ps;
 
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestPSCeilingCommand extends TestPSCommand<PSCeilingCommand> {
 	@Override
-	protected PSCeilingCommand createCmd() {
+	PSCeilingCommand createCmd() {
 		return new PSCeilingCommand();
 	}
 
 	@Override
 	@Test
-	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
+	void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(0d);
 		cmd.execute(dequeue, 0d);
 		assertEquals(0.0, dequeue.peek(), 0.00001);
@@ -20,7 +22,7 @@ public class TestPSCeilingCommand extends TestPSCommand<PSCeilingCommand> {
 
 	@Override
 	@Test
-	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
+	void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(-11.2);
 		cmd.execute(dequeue, 0d);
 		assertEquals(Math.ceil(-11.2), dequeue.peek(), 0.00001);
@@ -28,15 +30,15 @@ public class TestPSCeilingCommand extends TestPSCommand<PSCeilingCommand> {
 
 	@Override
 	@Test
-	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
+	void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(11.2);
 		cmd.execute(dequeue, 0d);
 		assertEquals(Math.ceil(11.2), dequeue.peek(), 0.00001);
 	}
 
 	@Override
-	@Test(expected = InvalidFormatPSFunctionException.class)
-	public void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
-		cmd.execute(dequeue, 0d);
+	@Test
+	void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
+		assertThrows(InvalidFormatPSFunctionException.class, () -> cmd.execute(dequeue, 0d));
 	}
 }

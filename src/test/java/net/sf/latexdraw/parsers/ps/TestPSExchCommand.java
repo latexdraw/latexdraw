@@ -1,18 +1,19 @@
 package net.sf.latexdraw.parsers.ps;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestPSExchCommand extends TestPSCommand<PSExchCommand> {
 	@Override
-	protected PSExchCommand createCmd() {
+	PSExchCommand createCmd() {
 		return new PSExchCommand();
 	}
 
 	@Override
 	@Test
-	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
+	void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(0.0);
 		dequeue.push(10.0);
 		cmd.execute(dequeue, 0.0);
@@ -23,7 +24,7 @@ public class TestPSExchCommand extends TestPSCommand<PSExchCommand> {
 
 	@Override
 	@Test
-	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
+	void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(-20.0);
 		dequeue.push(-10.0);
 		cmd.execute(dequeue, 0.0);
@@ -33,7 +34,7 @@ public class TestPSExchCommand extends TestPSCommand<PSExchCommand> {
 
 	@Override
 	@Test
-	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
+	void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(20.0);
 		dequeue.push(10.0);
 		cmd.execute(dequeue, 0.0);
@@ -43,14 +44,14 @@ public class TestPSExchCommand extends TestPSCommand<PSExchCommand> {
 	}
 
 	@Override
-	@Test(expected = InvalidFormatPSFunctionException.class)
-	public void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
-		cmd.execute(dequeue, 0.0);
+	@Test
+	void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
+		assertThrows(InvalidFormatPSFunctionException.class, () -> cmd.execute(dequeue, 0d));
 	}
 
-	@Test(expected = InvalidFormatPSFunctionException.class)
-	public void testExecuteInvalidDequeueSize1() throws InvalidFormatPSFunctionException {
+	@Test
+	void testExecuteInvalidDequeueSize1() throws InvalidFormatPSFunctionException {
 		dequeue.push(20.0);
-		cmd.execute(dequeue, 0.0);
+		assertThrows(InvalidFormatPSFunctionException.class, () -> cmd.execute(dequeue, 0d));
 	}
 }
