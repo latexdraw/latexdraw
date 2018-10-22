@@ -26,7 +26,6 @@ import net.sf.latexdraw.commands.LoadDrawing;
 import net.sf.latexdraw.commands.NewDrawing;
 import net.sf.latexdraw.commands.SaveDrawing;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
@@ -34,8 +33,6 @@ import org.malai.command.Command;
 import org.malai.javafx.command.IOCommand;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.interaction.library.WindowClosed;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  * Saves and loads documents.
@@ -53,8 +50,6 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	/** The menu item used to save as a document. */
 	@FXML private MenuItem saveAsMenu;
 	@FXML private MenuButton fileMenu;
-	/** The path where documents are saved. */
-	private String pathSave;
 	/** The current file loaded or saved. */
 	private File currentFile;
 	/** The current working folder. */
@@ -178,20 +173,14 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			onMenu(recentFilesMenu.getItems()).bind();
 	}
 
-	/**
-	 * @return The path where documents are saved.
-	 */
-	public String getPathSave() {
-		return pathSave;
-	}
 
 	/**
 	 * Sets the path where documents are saved.
 	 * @param path The path where documents are saved.
 	 */
-	public void setPathSave(final String path) {
+	public void setCurrentFolder(final String path) {
 		if(path != null && new File(path).isDirectory()) {
-			pathSave = path;
+			currentFolder = new File(path);
 		}
 	}
 
@@ -224,7 +213,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			recentDocs.forEach(fileName -> {
 				final MenuItem item = new MenuItem(new File(fileName).getName());
 				item.setUserData(fileName);
-				item.setId("recent" + recentDocs.indexOf(fileName));
+				item.setId("recent" + recentDocs.indexOf(fileName)); //NON-NLS
 				recentFilesMenu.getItems().add(item);
 			});
 		}
@@ -247,17 +236,6 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.200")); //NON-NLS
 
 		return fileChooser;
-	}
-
-	@Override
-	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
-		super.save(generalPreferences, nsURI, document, root);
-
-		if(generalPreferences && document != null && root != null) {
-			final Element elt = document.createElement(LNamespace.XML_PATH_OPEN);
-			elt.setTextContent(pathSave);
-			root.appendChild(elt);
-		}
 	}
 
 	@Override

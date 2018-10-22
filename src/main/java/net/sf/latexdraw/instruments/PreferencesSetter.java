@@ -327,7 +327,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		exporter.setDefaultPackages(latexIncludes.getText());
 		exporter.setPathExport(pathExportField.getText());
 
-		saver.setPathSave(pathOpenField.getText());
+		saver.setCurrentFolder(pathOpenField.getText());
 		saver.updateRecentMenuItems(recentFileNames);
 
 		ScaleRuler.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()));
