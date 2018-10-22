@@ -10,12 +10,14 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.util.List;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
@@ -26,9 +28,10 @@ import net.sf.latexdraw.view.GenericAxes;
  * @author Arnaud Blouin
  */
 public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
-	private final Path mainAxes;
-	private final Path pathTicks;
-//	private final ViewArrowableTrait viewArrows;
+	protected final Path framePath;
+	protected final ViewPolyline axesHoriz;
+	protected final ViewPolyline axesVert;
+	protected final Path pathTicks;
 	private final ChangeListener<Object> labelUpdate;
 	private final ChangeListener<Object> labelTicksUpdate;
 	private final ChangeListener<Object> fullAxesUpdate;
@@ -41,19 +44,40 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 	 */
 	ViewAxes(final IAxes sh) {
 		super(sh);
-		labelUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, false, true, false));
-		labelTicksUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, true, true, false));
-		fullAxesUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(true, true, true, false));
-		ticksUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, true, false, false));
-		axesUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(true, false, false, false));
+		labelUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, false, true));
+		labelTicksUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, true, true));
+		fullAxesUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(true, true, true));
+		ticksUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, true, false));
+		axesUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(true, false, false));
 
-		mainAxes = new Path();
+		framePath = new Path();
 		pathTicks = new Path();
-//		viewArrows = new ViewArrowableTrait(this);
+		axesHoriz = new ViewPolyline(ShapeFactory.INST.createPolyline(List.of(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint())));
+		axesVert = new ViewPolyline(ShapeFactory.INST.createPolyline(List.of(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint())));
 
-		getChildren().add(mainAxes);
+		axesHoriz.getModel().getArrowAt(0).bindFrom(model.getArrowAt(0));
+		axesHoriz.getModel().getArrowAt(1).bindFrom(model.getArrowAt(2));
+		axesVert.getModel().getArrowAt(0).bindFrom(model.getArrowAt(1));
+		axesVert.getModel().getArrowAt(1).bindFrom(model.getArrowAt(3));
+		axesHoriz.getModel().getArrowAt(0).styleProperty().bind(model.getArrowAt(0).styleProperty());
+		axesHoriz.getModel().getArrowAt(1).styleProperty().
+			bind(Bindings.createObjectBinding(() -> model.getArrowAt(2).getArrowStyle().getOppositeArrowStyle(), model.getArrowAt(2).styleProperty()));
+		axesVert.getModel().getArrowAt(0).styleProperty().
+			bind(Bindings.createObjectBinding(() -> model.getArrowAt(1).getArrowStyle().getOppositeArrowStyle(), model.getArrowAt(1).styleProperty()));
+		axesVert.getModel().getArrowAt(1).styleProperty().bind(model.getArrowAt(3).styleProperty());
+
+		axesHoriz.getModel().getPtAt(0).xProperty().bind(model.gridStartXProperty().multiply(IShape.PPC));
+		axesHoriz.getModel().getPtAt(1).xProperty().bind(model.gridEndXProperty().multiply(IShape.PPC));
+		axesVert.getModel().getPtAt(0).yProperty().bind(model.gridStartYProperty().negate().multiply(IShape.PPC));
+		axesVert.getModel().getPtAt(1).yProperty().bind(model.gridEndYProperty().negate().multiply(IShape.PPC));
+
+		bindsAxesParametersToAxeLines(axesHoriz);
+		bindsAxesParametersToAxeLines(axesVert);
+
+		getChildren().add(framePath);
 		getChildren().add(pathTicks);
-//		getChildren().add(viewArrows);
+		getChildren().add(axesHoriz);
+		getChildren().add(axesVert);
 
 		model.labelsSizeProperty().addListener(labelUpdate);
 		model.gridEndXProperty().addListener(fullAxesUpdate);
@@ -73,7 +97,15 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 		model.ticksSizeProperty().addListener(ticksUpdate);
 		model.axesStyleProperty().addListener(axesUpdate);
 
-		updatePath(true, true, true, true);
+		updatePath(true, true, true);
+	}
+
+	private final void bindsAxesParametersToAxeLines(final ViewPolyline line) {
+		line.getModel().thicknessProperty().bind(model.thicknessProperty());
+		line.getModel().lineColourProperty().bind(model.lineColourProperty());
+		line.getModel().linestyleProperty().bind(model.linestyleProperty());
+		line.visibleProperty().bind(model.axesStyleProperty().isEqualTo(AxesStyle.AXES));
+		line.setUserData(this);
 	}
 
 
@@ -85,46 +117,20 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 			final double y1 = endy > 0d ? -endy * IShape.PPC : 0d;
 			final double x2 = endx > 0d ? +endx * IShape.PPC : 0d;
 
-			mainAxes.getElements().add(ViewFactory.INSTANCE.createMoveTo(0d, y1));
-			mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(x2, y1));
-			mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(x2, 0d));
-			mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(0d, 0d));
-			mainAxes.getElements().add(ViewFactory.INSTANCE.createClosePath());
+			framePath.getElements().add(ViewFactory.INSTANCE.createMoveTo(0d, y1));
+			framePath.getElements().add(ViewFactory.INSTANCE.createLineTo(x2, y1));
+			framePath.getElements().add(ViewFactory.INSTANCE.createLineTo(x2, 0d));
+			framePath.getElements().add(ViewFactory.INSTANCE.createLineTo(0d, 0d));
+			framePath.getElements().add(ViewFactory.INSTANCE.createClosePath());
 		}
 	}
 
 
-	private final void updatePathAxes() {
-		final IArrow arr0 = model.getArrowAt(1);
-		final IArrow arr1 = model.getArrowAt(3);
-		final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0d;
-		final double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0d;
-
-		mainAxes.getElements().add(ViewFactory.INSTANCE.createMoveTo(model.getGridStartX() * IShape.PPC + arr0Reduction, 0d));
-		mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(model.getGridEndX() * IShape.PPC - arr1Reduction, 0d));
-		mainAxes.getElements().add(ViewFactory.INSTANCE.createMoveTo(0d, -model.getGridStartY() * IShape.PPC - arr0Reduction));
-		mainAxes.getElements().add(ViewFactory.INSTANCE.createLineTo(0d, -model.getGridEndY() * IShape.PPC + arr1Reduction));
-	}
-
-
-	private final void updatePath(final boolean axes, final boolean ticks, final boolean texts, final boolean arrows) {
-		final AxesStyle axesStyle = model.getAxesStyle();
-
-//		if(arrows || axes) {
-//			viewArrows.update(model.getAxesStyle().supportsArrows());
-//		}
-
+	private final void updatePath(final boolean axes, final boolean ticks, final boolean texts) {
 		if(axes) {
-			mainAxes.getElements().clear();
-			switch(axesStyle) {
-				case AXES:
-					updatePathAxes();
-					break;
-				case FRAME:
+			framePath.getElements().clear();
+			if(model.getAxesStyle() == AxesStyle.FRAME) {
 					updatePathFrame();
-					break;
-				case NONE:
-					break;
 			}
 		}
 
@@ -147,7 +153,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 
 	@Override
 	public void flush() {
-		mainAxes.getElements().clear();
+		framePath.getElements().clear();
 		pathTicks.getElements().clear();
 		model.labelsSizeProperty().removeListener(labelUpdate);
 		model.gridEndXProperty().removeListener(fullAxesUpdate);
@@ -166,21 +172,8 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 		model.ticksStyleProperty().removeListener(ticksUpdate);
 		model.ticksSizeProperty().removeListener(ticksUpdate);
 		model.axesStyleProperty().removeListener(axesUpdate);
+		//TODO unbind arrows
 		super.flush();
-	}
-
-	/**
-	 * @return The main axes path.
-	 */
-	public Path getMainAxes() {
-		return mainAxes;
-	}
-
-	/**
-	 * @return The ticks path.
-	 */
-	public Path getPathTicks() {
-		return pathTicks;
 	}
 
 	@Override

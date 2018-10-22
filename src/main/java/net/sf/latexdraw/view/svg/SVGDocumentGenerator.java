@@ -275,8 +275,8 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 
 			Platform.runLater(() -> {
 				templatesPane.getChildren().clear();
-				fillTemplatePane(LPath.PATH_TEMPLATES_DIR_USER, LPath.PATH_CACHE_DIR, true);
-				fillTemplatePane(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR, true);
+				fillTemplatePane(LPath.PATH_TEMPLATES_DIR_USER, LPath.PATH_CACHE_DIR);
+				fillTemplatePane(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR);
 			});
 
 			return Boolean.TRUE;
@@ -307,15 +307,13 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		 * fills the template pane with image views gathered from the given directory of templates.
 		 * @param pathTemplate The path of the folder that contains the templates.
 		 * @param pathCache The path of the folder that contains the cache of the templates.
-		 * @param sharedTemplates True: the templates are shared templates (in the shared directory).
 		 */
-		private void fillTemplatePane(final String pathTemplate, final String pathCache, final boolean sharedTemplates) {
+		private void fillTemplatePane(final String pathTemplate, final String pathCache) {
 			try(final DirectoryStream<Path> paths =
 					Files.newDirectoryStream(Paths.get(pathTemplate), elt -> elt.toFile().isFile() && elt.toString().endsWith(".svg"))) { //NON-NLS
 				paths.forEach(entry -> createTemplateItem(entry.toFile().getPath(), entry.getFileName() + ExportFormat.PNG.getFileExtension(), pathCache).
 					ifPresent(item -> templatesPane.getChildren().add(item)));
-			}catch(final IOException ex) {
-				// No matter.
+			}catch(final IOException ignored) {
 			}
 		}
 

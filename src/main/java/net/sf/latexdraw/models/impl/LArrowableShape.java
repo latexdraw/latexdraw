@@ -186,7 +186,7 @@ interface LArrowableShape extends IArrowableSingleShape {
 	}
 
 	@Override
-	default void setOnArrowChanged(final Runnable run) {
+	default void onChanges(final Runnable run) {
 		//TODO
 	}
 }

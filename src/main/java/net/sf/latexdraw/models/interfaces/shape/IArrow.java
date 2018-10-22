@@ -128,4 +128,10 @@ public interface IArrow extends IArrowable {
 	DoubleProperty bracketNumProperty();
 
 	DoubleProperty rBracketNumProperty();
+
+	/**
+	 * Binds the parameters (but not the arrow style) of the calling arrow to the ones of the given arrows.
+	 * @param arrow The arrow used as the model to bind
+	 */
+	void bindFrom(final IArrow arrow);
 }

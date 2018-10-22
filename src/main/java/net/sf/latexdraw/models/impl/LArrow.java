@@ -15,6 +15,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
@@ -51,8 +52,6 @@ class LArrow implements IArrow {
 	private final DoubleProperty rBracketNum;
 	/** The owner of the arrow. */
 	private final IArrowableSingleShape owner;
-
-	private Runnable onChanged;
 
 
 	/**
@@ -158,8 +157,37 @@ class LArrow implements IArrow {
 	}
 
 	@Override
-	public void setOnArrowChanged(final Runnable changed) {
-		onChanged = changed;
+	public void bindFrom(final IArrow arrow) {
+		if(arrow == null || arrow == this) {
+			return;
+		}
+
+		arrowInset.bind(arrow.arrowInsetProperty());
+		arrowLength.bind(arrow.arrowLengthProperty());
+		arrowSizeDim.bind(arrow.arrowSizeDimProperty());
+		arrowSizeNum.bind(arrow.arrowSizeNumProperty());
+		bracketNum.bind(arrow.bracketNumProperty());
+		dotSizeDim.bind(arrow.dotSizeDimProperty());
+		dotSizeNum.bind(arrow.dotSizeNumProperty());
+		rBracketNum.bind(arrow.rBracketNumProperty());
+		tBarSizeDim.bind(arrow.tBarSizeDimProperty());
+		tBarSizeNum.bind(arrow.tBarSizeNumProperty());
+	}
+
+	@Override
+	public void onChanges(final Runnable onChange) {
+		final ChangeListener<Number> listener = (observable, oldValue, newValue) -> onChange.run();
+		arrowInset.addListener(listener);
+		arrowLength.addListener(listener);
+		arrowSizeDim.addListener(listener);
+		arrowSizeNum.addListener(listener);
+		bracketNum.addListener(listener);
+		dotSizeDim.addListener(listener);
+		dotSizeNum.addListener(listener);
+		rBracketNum.addListener(listener);
+		tBarSizeDim.addListener(listener);
+		tBarSizeNum.addListener(listener);
+		style.addListener((observable, oldValue, newValue) -> onChange.run());
 	}
 
 	@Override
@@ -246,7 +274,6 @@ class LArrow implements IArrow {
 	public void setArrowInset(final double inset) {
 		if(inset >= 0d) {
 			arrowInset.set(inset);
-			notifyOnChanged();
 		}
 	}
 
@@ -254,7 +281,6 @@ class LArrow implements IArrow {
 	public void setArrowLength(final double lgth) {
 		if(lgth >= 0d) {
 			arrowLength.set(lgth);
-			notifyOnChanged();
 		}
 	}
 
@@ -262,7 +288,6 @@ class LArrow implements IArrow {
 	public void setArrowSizeDim(final double size) {
 		if(size > 0d) {
 			arrowSizeDim.set(size);
-			notifyOnChanged();
 		}
 	}
 
@@ -270,7 +295,6 @@ class LArrow implements IArrow {
 	public void setArrowSizeNum(final double size) {
 		if(size >= 0d) {
 			arrowSizeNum.set(size);
-			notifyOnChanged();
 		}
 	}
 
@@ -279,7 +303,6 @@ class LArrow implements IArrow {
 	public void setArrowStyle(final ArrowStyle arrowStyle) {
 		if(arrowStyle != null) {
 			style.set(arrowStyle);
-			notifyOnChanged();
 		}
 	}
 
@@ -287,7 +310,6 @@ class LArrow implements IArrow {
 	public void setBracketNum(final double brack) {
 		if(brack >= 0d) {
 			bracketNum.set(brack);
-			notifyOnChanged();
 		}
 	}
 
@@ -295,7 +317,6 @@ class LArrow implements IArrow {
 	public void setDotSizeDim(final double dot) {
 		if(dot > 0d) {
 			dotSizeDim.set(dot);
-			notifyOnChanged();
 		}
 	}
 
@@ -303,7 +324,6 @@ class LArrow implements IArrow {
 	public void setDotSizeNum(final double dot) {
 		if(dot >= 0.1) {
 			dotSizeNum.set(dot);
-			notifyOnChanged();
 		}
 	}
 
@@ -311,7 +331,6 @@ class LArrow implements IArrow {
 	public void setRBracketNum(final double brack) {
 		if(brack >= 0d) {
 			rBracketNum.set(brack);
-			notifyOnChanged();
 		}
 	}
 
@@ -319,7 +338,6 @@ class LArrow implements IArrow {
 	public void setTBarSizeDim(final double newtbarSizeDim) {
 		if(newtbarSizeDim > 0d) {
 			tBarSizeDim.set(newtbarSizeDim);
-			notifyOnChanged();
 		}
 	}
 
@@ -327,7 +345,6 @@ class LArrow implements IArrow {
 	public void setTBarSizeNum(final double newtBarSizeNum) {
 		if(newtBarSizeNum >= 0d) {
 			tBarSizeNum.set(newtBarSizeNum);
-			notifyOnChanged();
 		}
 	}
 
@@ -384,12 +401,5 @@ class LArrow implements IArrow {
 	@Override
 	public DoubleProperty rBracketNumProperty() {
 		return rBracketNum;
-	}
-
-	//TODO remove
-	private void notifyOnChanged() {
-		if(onChanged != null) {
-			onChanged.run();
-		}
 	}
 }

@@ -43,7 +43,7 @@ abstract class ViewArrowableTrait<T extends Shape, S extends IArrowableSingleSha
 			final ViewArrow viewArrow = new ViewArrow(model.getArrowAt(i));
 			arrows.add(viewArrow);
 			getChildren().addAll(viewArrow);
-			model.getArrowAt(i).setOnArrowChanged(() -> updateArrows(arrows.indexOf(viewArrow)));
+			model.getArrowAt(i).onChanges(() -> updateArrows(arrows.indexOf(viewArrow)));
 		}
 
 		final int nbPts = model.getNbPoints();
@@ -75,6 +75,9 @@ abstract class ViewArrowableTrait<T extends Shape, S extends IArrowableSingleSha
 		model.fillingProperty().addListener(updateClip);
 		model.dbleBordProperty().addListener(updateArrow);
 		model.dbleBordSepProperty().addListener(updateArrow);
+
+		// The arrow trait is a component of the view
+		setUserData(view);
 	}
 
 	void updateAllArrows() {
@@ -133,7 +136,7 @@ abstract class ViewArrowableTrait<T extends Shape, S extends IArrowableSingleSha
 		model.fillingProperty().removeListener(updateClip);
 		model.dbleBordProperty().removeListener(updateArrow);
 		model.dbleBordSepProperty().removeListener(updateArrow);
-		model.getArrows().forEach(arr -> arr.setOnArrowChanged(null));
+		model.getArrows().forEach(arr -> arr.onChanges(null));
 		model.getPoints().forEach(pt -> {
 			pt.xProperty().removeListener(updateArrow);
 			pt.yProperty().removeListener(updateArrow);

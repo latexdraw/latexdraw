@@ -329,7 +329,7 @@ public class TestIArrow {
 
 	@Test
 	public void testSetOnChangedNULL() {
-		arrow.setOnArrowChanged(null);
+		arrow.onChanges(null);
 		// Must not crash if 'on-changed' is null.
 		setArrowParams();
 	}
@@ -337,9 +337,8 @@ public class TestIArrow {
 	@Test
 	public void testSetOnChanged() {
 		final Runnable onChanged = Mockito.mock(Runnable.class);
-		arrow.setOnArrowChanged(onChanged);
+		arrow.onChanges(onChanged);
 		setArrowParams();
-		// The arrow class has 11 arrow parameters.
 		verify(onChanged, times(11)).run();
 	}
 

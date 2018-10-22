@@ -139,6 +139,19 @@
     <Match>
         <Bug pattern="PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS" />
     </Match>
+    <Match>
+        <Bug pattern="SCII_SPOILED_CHILD_INTERFACE_IMPLEMENTOR" />
+    </Match>
+    <Match>
+        <Bug pattern="RFI_SET_ACCESSIBLE" />
+    </Match>
+    <!-- False positives -->
+    <Match>
+        <Bug pattern="DRE_DECLARED_RUNTIME_EXCEPTION" />
+    </Match>
+    <Match>
+        <Bug pattern="USBR_UNNECESSARY_STORE_BEFORE_RETURN" />
+    </Match>
 
     <!-- To fix -->
     <Match>
@@ -151,30 +164,12 @@
         <Bug pattern="CE_CLASS_ENVY" />
     </Match>
     <Match>
-        <Bug pattern="UP_UNUSED_PARAMETER" />
-    </Match>
-    <Match>
-        <Bug pattern="USBR_UNNECESSARY_STORE_BEFORE_RETURN" />
-    </Match>
-    <Match>
         <Bug pattern="NSE_NON_SYMMETRIC_EQUALS" />
-    </Match>
-    <Match>
-        <Bug pattern="SCII_SPOILED_CHILD_INTERFACE_IMPLEMENTOR" />
-    </Match>
-    <Match>
-        <Bug pattern="RFI_SET_ACCESSIBLE" />
     </Match>
     <Match>
         <Bug pattern="IMC_IMMATURE_CLASS_NO_EQUALS" />
     </Match>
     <Match>
         <Bug pattern="LEST_LOST_EXCEPTION_STACK_TRACE" />
-    </Match>
-    <Match>
-        <Bug pattern="CU_CLONE_USABILITY_OBJECT_RETURN" />
-    </Match>
-    <Match>
-        <Bug pattern="DRE_DECLARED_RUNTIME_EXCEPTION" />
     </Match>
 </FindBugsFilter>

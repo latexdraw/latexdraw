@@ -224,8 +224,7 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default void setArrowStyle(final ArrowStyle style, final int position) {
-		arrowShapes().
-				forEach(sh -> sh.setArrowStyle(style, position));
+		arrowShapes().forEach(sh -> sh.setArrowStyle(style, position));
 	}
 
 	@Override
@@ -242,125 +241,105 @@ interface LGroupArrowable extends IGroup {
 
 	@Override
 	default void setDotSizeDim(final double dotSizeDim) {
-		arrowShapes().
-				forEach(sh -> sh.setDotSizeDim(dotSizeDim));
+		arrowShapes().forEach(sh -> sh.setDotSizeDim(dotSizeDim));
 	}
 
 	@Override
 	default void setDotSizeNum(final double dotSizeNum) {
-		arrowShapes().
-				forEach(sh -> sh.setDotSizeNum(dotSizeNum));
+		arrowShapes().forEach(sh -> sh.setDotSizeNum(dotSizeNum));
 	}
 
 	@Override
 	default void setTBarSizeNum(final double tbarSizeNum) {
-		arrowShapes().
-				forEach(sh -> sh.setTBarSizeNum(tbarSizeNum));
+		arrowShapes().forEach(sh -> sh.setTBarSizeNum(tbarSizeNum));
 	}
 
 	@Override
 	default void setTBarSizeDim(final double tbarSizeDim) {
-		arrowShapes().
-				forEach(sh -> sh.setTBarSizeDim(tbarSizeDim));
+		arrowShapes().forEach(sh -> sh.setTBarSizeDim(tbarSizeDim));
 	}
 
 	@Override
 	default double getTBarSizeDim() {
-		return firstIArrowable().
-			map(sh -> sh.getTBarSizeDim()).orElse(Double.NaN);
+		return firstIArrowable().map(sh -> sh.getTBarSizeDim()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getTBarSizeNum() {
-		return firstIArrowable().
-			map(sh -> sh.getTBarSizeNum()).orElse(Double.NaN);
+		return firstIArrowable().map(sh -> sh.getTBarSizeNum()).orElse(Double.NaN);
 	}
 
 	@Override
 	default void setRBracketNum(final double rBracketNum) {
-		arrowShapes().
-				forEach(sh -> sh.setRBracketNum(rBracketNum));
+		arrowShapes().forEach(sh -> sh.setRBracketNum(rBracketNum));
 	}
 
 	@Override
 	default void setBracketNum(final double bracketNum) {
-		arrowShapes().
-				forEach(sh -> sh.setBracketNum(bracketNum));
+		arrowShapes().forEach(sh -> sh.setBracketNum(bracketNum));
 	}
 
 	@Override
 	default void setArrowLength(final double lgth) {
-		arrowShapes().
-				forEach(sh -> sh.setArrowLength(lgth));
+		arrowShapes().forEach(sh -> sh.setArrowLength(lgth));
 	}
 
 	@Override
 	default void setArrowSizeDim(final double arrowSizeDim) {
-		arrowShapes().
-				forEach(sh -> sh.setArrowSizeDim(arrowSizeDim));
+		arrowShapes().forEach(sh -> sh.setArrowSizeDim(arrowSizeDim));
 	}
 
 	@Override
 	default void setArrowSizeNum(final double arrowSizeNum) {
-		arrowShapes().
-				forEach(sh -> sh.setArrowSizeNum(arrowSizeNum));
+		arrowShapes().forEach(sh -> sh.setArrowSizeNum(arrowSizeNum));
 	}
 
 	@Override
 	default void setArrowInset(final double inset) {
-		arrowShapes().
-				forEach(sh -> sh.setArrowInset(inset));
+		arrowShapes().forEach(sh -> sh.setArrowInset(inset));
 	}
 
 	@Override
 	default double getDotSizeDim() {
-		return firstIArrowable().
-			map(sh -> sh.getDotSizeDim()).orElse(Double.NaN);
+		return firstIArrowable().map(sh -> sh.getDotSizeDim()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getDotSizeNum() {
-		return firstIArrowable().
-			map(sh -> sh.getDotSizeNum()).orElse(Double.NaN);
+		return firstIArrowable().map(sh -> sh.getDotSizeNum()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getBracketNum() {
-		return firstIArrowable().
-			map(sh -> sh.getBracketNum()).orElse(Double.NaN);
+		return firstIArrowable().map(sh -> sh.getBracketNum()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getArrowSizeNum() {
-		return firstIArrowable().
-			map(sh -> sh.getArrowSizeNum()).orElse(Double.NaN);
+		return firstIArrowable().map(sh -> sh.getArrowSizeNum()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getArrowSizeDim() {
-		return firstIArrowable().
-			map(sh -> sh.getArrowSizeDim()).orElse(Double.NaN);
+		return firstIArrowable().map(sh -> sh.getArrowSizeDim()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getArrowInset() {
-		return firstIArrowable().
-			map(sh -> sh.getArrowInset()).orElse(Double.NaN);
+		return firstIArrowable().map(sh -> sh.getArrowInset()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getArrowLength() {
-		return firstIArrowable().
-			map(sh -> sh.getArrowLength()).orElse(Double.NaN);
+		return firstIArrowable().map(sh -> sh.getArrowLength()).orElse(Double.NaN);
 	}
 
 	@Override
 	default double getRBracketNum() {
-		return firstIArrowable().
-			map(sh -> sh.getRBracketNum()).orElse(Double.NaN);
+		return firstIArrowable().map(sh -> sh.getRBracketNum()).orElse(Double.NaN);
 	}
 
 	@Override
-	default void setOnArrowChanged(final Runnable run) {
+	default void onChanges(final Runnable run) {
 	}
 }
