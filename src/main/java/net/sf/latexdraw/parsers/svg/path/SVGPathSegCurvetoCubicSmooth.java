@@ -48,7 +48,7 @@ public class SVGPathSegCurvetoCubicSmooth extends SVGPathPointSeg implements Ctr
 
 	@Override
 	public Point2D getCtrl2(final Point2D prevPoint) {
-		return getPoint(x2, y2, prevPoint, isRelative);
+		return createPoint(x2, y2, prevPoint, isRelative);
 	}
 
 	@Override

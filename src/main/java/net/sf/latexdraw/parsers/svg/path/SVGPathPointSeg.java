@@ -25,7 +25,7 @@ public abstract class SVGPathPointSeg extends SVGPathSeg implements PointSeg {
 	 * @param isRelative Defines whether the point is relative.
 	 * @return The point converted or not according to isRelative.
 	 */
-	public static Point2D getPoint(final double x, final double y, final Point2D prevPt, final boolean isRelative) {
+	public static Point2D createPoint(final double x, final double y, final Point2D prevPt, final boolean isRelative) {
 		if(isRelative) {
 			if(prevPt == null) {
 				throw new IllegalArgumentException("The path is relative but the given previous point is null.");
@@ -65,6 +65,6 @@ public abstract class SVGPathPointSeg extends SVGPathSeg implements PointSeg {
 
 	@Override
 	public Point2D getPoint(final Point2D prevPoint) {
-		return getPoint(x, y, prevPoint, isRelative);
+		return createPoint(x, y, prevPoint, isRelative);
 	}
 }

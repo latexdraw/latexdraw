@@ -147,8 +147,8 @@ class SVGCircleArc extends SVGShape<ICircleArc> {
 			shad.setAttribute(SVGAttributes.SVG_D, path.toString());
 			setSVGShadowAttributes(shad, true);
 			root.appendChild(shad);
-			setSVGArrow(shape, shad, 0, true, doc, defs);
-			setSVGArrow(shape, shad, 1, true, doc, defs);
+			parameteriseSVGArrow(shape, shad, 0, true, doc, defs);
+			parameteriseSVGArrow(shape, shad, 1, true, doc, defs);
 		}
 
 		// The background of the borders must be filled is there is a shadow.
@@ -173,8 +173,8 @@ class SVGCircleArc extends SVGShape<ICircleArc> {
 		setSVGAttributes(doc, elt, true);
 		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION, String.valueOf(rotationAngle));
 
-		setSVGArrow(shape, elt, 0, false, doc, defs);
-		setSVGArrow(shape, elt, 1, false, doc, defs);
+		parameteriseSVGArrow(shape, elt, 0, false, doc, defs);
+		parameteriseSVGArrow(shape, elt, 1, false, doc, defs);
 
 		if(shape.isShowPts()) {
 			root.appendChild(getShowPointsElement(doc));

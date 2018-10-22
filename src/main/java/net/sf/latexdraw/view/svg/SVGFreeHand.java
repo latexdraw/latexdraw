@@ -40,7 +40,7 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 
 	SVGFreeHand(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createFreeHand(
-			SVGPointsParser.getPoints(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS)).stream().
+			SVGPointsParser.parsePoints(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS)).stream().
 			map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList())));
 
 		final SVGElement main = getLaTeXDrawElement(elt, null);

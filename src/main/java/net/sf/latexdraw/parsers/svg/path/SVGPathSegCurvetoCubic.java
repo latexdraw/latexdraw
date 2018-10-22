@@ -56,11 +56,11 @@ public class SVGPathSegCurvetoCubic extends SVGPathPointSeg implements CtrlPoint
 
 	@Override
 	public Point2D getCtrl1(final Point2D prevPoint) {
-		return getPoint(x1, y1, prevPoint, isRelative);
+		return createPoint(x1, y1, prevPoint, isRelative);
 	}
 
 	@Override
 	public Point2D getCtrl2(final Point2D prevPoint) {
-		return getPoint(x2, y2, prevPoint, isRelative);
+		return createPoint(x2, y2, prevPoint, isRelative);
 	}
 }

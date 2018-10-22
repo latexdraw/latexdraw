@@ -135,8 +135,8 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 			}
 			setSVGShadowAttributes(shad, false);
 			root.appendChild(shad);
-			setSVGArrow(shape, shad, 0, true, doc, defs);
-			setSVGArrow(shape, shad, 1, true, doc, defs);
+			parameteriseSVGArrow(shape, shad, 0, true, doc, defs);
+			parameteriseSVGArrow(shape, shad, 1, true, doc, defs);
 		}
 
 		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken()) && shape.isFilled()) {
@@ -172,8 +172,8 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 		setSVGAttributes(doc, elt, false);
 		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
-		setSVGArrow(shape, elt, 0, false, doc, defs);
-		setSVGArrow(shape, elt, shape.getNbArrows() - 1, false, doc, defs);
+		parameteriseSVGArrow(shape, elt, 0, false, doc, defs);
+		parameteriseSVGArrow(shape, elt, shape.getNbArrows() - 1, false, doc, defs);
 
 		return root;
 	}

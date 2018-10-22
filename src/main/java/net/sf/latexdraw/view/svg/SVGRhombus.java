@@ -55,7 +55,7 @@ class SVGRhombus extends SVGPolygonBased<IRhombus> {
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
 
-		final List<Point2D> ptsPol = SVGPointsParser.getPoints(
+		final List<Point2D> ptsPol = SVGPointsParser.parsePoints(
 								elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POINTS));
 
 		if(ptsPol.size() != 4) {

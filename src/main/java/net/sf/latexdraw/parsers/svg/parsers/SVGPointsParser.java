@@ -19,21 +19,19 @@ import java.util.List;
 /**
  * Defines a parser that parses points from polygons and polylines.
  * @author Arnaud BLOUIN
- * @since 2.0.3
  */
 public class SVGPointsParser extends AbstractSVGParser {
 	/**
 	 * Parses the given code and return the parsed points or null.
 	 * @param code The code to parse.
 	 * @return The parsed points or null.
-	 * @since 2.0.3
 	 */
-	public static List<Point2D> getPoints(final String code) {
+	public static List<Point2D> parsePoints(final String code) {
 		try {
 			final SVGPointsParser pp = new SVGPointsParser(code);
 			pp.parse();
 			return pp.getPoints();
-		}catch(final IllegalArgumentException | ParseException ex) {
+		}catch(final IllegalArgumentException | ParseException ignored) {
 			return Collections.emptyList();
 		}
 	}
@@ -46,7 +44,6 @@ public class SVGPointsParser extends AbstractSVGParser {
 	 * Creates and initialises the parser.
 	 * @param code The code to parse.
 	 * @throws IllegalArgumentException If the given code is null.
-	 * @since 2.0.3
 	 */
 	public SVGPointsParser(final String code) {
 		super(code);
@@ -75,7 +72,6 @@ public class SVGPointsParser extends AbstractSVGParser {
 	 * Reads a number.
 	 * @return The read number.
 	 * @throws ParseException If the number is not valid.
-	 * @since 2.0.3
 	 */
 	public double readNumber() throws ParseException {
 		final double n;
@@ -149,7 +145,6 @@ public class SVGPointsParser extends AbstractSVGParser {
 
 	/**
 	 * @return The points.
-	 * @since 2.0.3
 	 */
 	public List<Point2D> getPoints() {
 		return points;

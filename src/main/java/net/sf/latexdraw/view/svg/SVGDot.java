@@ -64,7 +64,7 @@ class SVGDot extends SVGShape<IDot> {
 		}catch(final NumberFormatException ignore) {
 		}
 
-		final List<Point2D> pos = SVGPointsParser.getPoints(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POSITION));
+		final List<Point2D> pos = SVGPointsParser.parsePoints(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POSITION));
 
 		if(!pos.isEmpty()) {
 			shape.setPosition(pos.get(0).getX(), pos.get(0).getY());

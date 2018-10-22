@@ -96,21 +96,21 @@ class SVGGrid extends SVGShape<IGrid> {
 		List<Point2D> values;
 
 		shape.setLineColour(elt.getStroke());
-		values = SVGPointsParser.getPoints(elt.getAttribute(prefix + LNamespace.XML_GRID_END));
+		values = SVGPointsParser.parsePoints(elt.getAttribute(prefix + LNamespace.XML_GRID_END));
 
 		if(!values.isEmpty()) {
 			shape.setGridEndX(values.get(0).getX());
 			shape.setGridEndY(values.get(0).getY());
 		}
 
-		values = SVGPointsParser.getPoints(elt.getAttribute(prefix + LNamespace.XML_GRID_START));
+		values = SVGPointsParser.parsePoints(elt.getAttribute(prefix + LNamespace.XML_GRID_START));
 
 		if(!values.isEmpty()) {
 			shape.setGridStartX(values.get(0).getX());
 			shape.setGridStartY(values.get(0).getY());
 		}
 
-		values = SVGPointsParser.getPoints(elt.getAttribute(prefix + LNamespace.XML_GRID_ORIGIN));
+		values = SVGPointsParser.parsePoints(elt.getAttribute(prefix + LNamespace.XML_GRID_ORIGIN));
 
 		if(!values.isEmpty()) {
 			shape.setOriginX(values.get(0).getX());

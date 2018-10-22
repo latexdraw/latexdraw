@@ -85,35 +85,35 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 		}catch(final NumberFormatException ignored) {
 		}
 
-		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_GRID_END));
+		values = SVGPointsParser.parsePoints(elt.getAttribute(pref + LNamespace.XML_GRID_END));
 
 		if(!values.isEmpty()) {
 			shape.setGridEndX((int) values.get(0).getX());
 			shape.setGridEndY((int) values.get(0).getY());
 		}
 
-		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_GRID_START));
+		values = SVGPointsParser.parsePoints(elt.getAttribute(pref + LNamespace.XML_GRID_START));
 
 		if(!values.isEmpty()) {
 			shape.setGridStartX((int) values.get(0).getX());
 			shape.setGridStartY((int) values.get(0).getY());
 		}
 
-		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_GRID_ORIGIN));
+		values = SVGPointsParser.parsePoints(elt.getAttribute(pref + LNamespace.XML_GRID_ORIGIN));
 
 		if(!values.isEmpty()) {
 			shape.setOriginX((int) values.get(0).getX());
 			shape.setOriginY((int) values.get(0).getY());
 		}
 
-		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_AXE_INCREMENT));
+		values = SVGPointsParser.parsePoints(elt.getAttribute(pref + LNamespace.XML_AXE_INCREMENT));
 
 		if(!values.isEmpty()) {
 			shape.setIncrementX(values.get(0).getX());
 			shape.setIncrementY(values.get(0).getY());
 		}
 
-		values = SVGPointsParser.getPoints(elt.getAttribute(pref + LNamespace.XML_AXE_DIST_LABELS));
+		values = SVGPointsParser.parsePoints(elt.getAttribute(pref + LNamespace.XML_AXE_DIST_LABELS));
 
 		if(!values.isEmpty()) {
 			shape.setDistLabelsX(values.get(0).getX());

@@ -193,8 +193,8 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 			root.appendChild(shad);
 
 			if(shape.isOpened()) {
-				setSVGArrow(shape, shad, 0, true, doc, defs);
-				setSVGArrow(shape, shad, 1, true, doc, defs);
+				parameteriseSVGArrow(shape, shad, 0, true, doc, defs);
+				parameteriseSVGArrow(shape, shad, 1, true, doc, defs);
 			}
 		}
 
@@ -220,8 +220,8 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
 		if(shape.isOpened()) {
-			setSVGArrow(shape, elt, 0, false, doc, defs);
-			setSVGArrow(shape, elt, 1, false, doc, defs);
+			parameteriseSVGArrow(shape, elt, 0, false, doc, defs);
+			parameteriseSVGArrow(shape, elt, 1, false, doc, defs);
 		}
 
 		if(shape.isShowPts()) {
