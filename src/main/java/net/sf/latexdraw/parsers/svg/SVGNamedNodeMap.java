@@ -121,7 +121,7 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 
 
 	@Override
-	public Object clone() {
+	public SVGNamedNodeMap clone() {
 		try {
 			final SVGNamedNodeMap clone = (SVGNamedNodeMap) super.clone();
 			clone.nnm = new ArrayList<>();
