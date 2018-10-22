@@ -110,21 +110,21 @@
     <Match>
         <Bug pattern="CFS_CONFUSING_FUNCTION_SEMANTICS" />
     </Match>
-    <!-- has false positives -->
+    <!-- Has false positive instances -->
     <Match>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
     </Match>
-    <!-- Has false positives in the model package -->
+    <!-- Has false positive instances in the model package -->
     <Match>
         <Bug pattern="OI_OPTIONAL_ISSUES_PRIMITIVE_VARIANT_PREFERRED" />
         <Class name="~.*\.LGroup.*" />
     </Match>
-    <!-- Has false positives in the command package -->
+    <!-- Has false positive instances in the command package -->
     <Match>
         <Bug pattern="OI_OPTIONAL_ISSUES_USES_IMMEDIATE_EXECUTION" />
         <Class name="~.*\.shape\.Align.*" />
     </Match>
-    <!-- False positive ViewText -->
+    <!-- False positive instances in ViewText -->
     <Match>
         <Bug pattern="HES_EXECUTOR_NEVER_SHUTDOWN" />
         <Class name="~.*\.jfx\.ViewText" />
@@ -135,7 +135,7 @@
     <Match>
         <Bug pattern="CLI_CONSTANT_LIST_INDEX" />
     </Match>
-    <!-- too many false positive and errors (eg private methods) -->
+    <!-- Too many false positive instances and errors (eg private methods) -->
     <Match>
         <Bug pattern="PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS" />
     </Match>
@@ -145,25 +145,26 @@
     <Match>
         <Bug pattern="RFI_SET_ACCESSIBLE" />
     </Match>
-    <!-- False positives -->
+    <!-- False positive instances -->
     <Match>
         <Bug pattern="DRE_DECLARED_RUNTIME_EXCEPTION" />
     </Match>
     <Match>
         <Bug pattern="USBR_UNNECESSARY_STORE_BEFORE_RETURN" />
     </Match>
-
-    <!-- To fix -->
-    <Match>
-        <Bug pattern="FCCD_FIND_CLASS_CIRCULAR_DEPENDENCY" />
-    </Match>
-    <Match>
-        <Bug pattern="CE_CLASS_ENVY" />
-    </Match>
+    <!-- not relevant -->
     <Match>
         <Bug pattern="NSE_NON_SYMMETRIC_EQUALS" />
     </Match>
     <Match>
         <Bug pattern="IMC_IMMATURE_CLASS_NO_EQUALS" />
+    </Match>
+    <!-- Only false positive instances -->
+    <Match>
+        <Bug pattern="CE_CLASS_ENVY" />
+    </Match>
+    <!-- Hard to interpret. Should ignore dependencies in the same inner package, factories -->
+    <Match>
+        <Bug pattern="FCCD_FIND_CLASS_CIRCULAR_DEPENDENCY" />
     </Match>
 </FindBugsFilter>

@@ -17,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.instruments.PreferencesSetter;
 import org.malai.command.CommandsRegistry;
 import org.malai.javafx.command.IOCommand;
 import org.malai.javafx.ui.JfxUI;
@@ -32,14 +31,12 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	private FileChooser fileChooser;
 	/** The instrument used that manage the preferences. */
-	private final PreferencesSetter prefSetter;
 	private final File currentFolder;
 
 	public NewDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
-				final FileChooser fileChooser, final PreferencesSetter prefSetter, final File currentFolder) {
+					 final FileChooser fileChooser, final File currentFolder) {
 		super(file, openSaveManager, progressBar, statusWidget, ui);
 		this.fileChooser = fileChooser;
-		this.prefSetter = prefSetter;
 		this.currentFolder = currentFolder;
 	}
 
@@ -75,13 +72,12 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 		ui.reinit();
 		UndoCollector.INSTANCE.clear();
 		CommandsRegistry.INSTANCE.clear();
-		prefSetter.readXMLPreferences();
 	}
 
 
 	@Override
 	public boolean canDo() {
-		return fileChooser != null && ui != null && openSaveManager != null && prefSetter != null;
+		return fileChooser != null && ui != null && openSaveManager != null;
 	}
 
 

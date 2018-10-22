@@ -51,6 +51,7 @@ import javax.xml.transform.stream.StreamResult;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.commands.GridProperties;
 import net.sf.latexdraw.commands.ModifyMagneticGrid;
+import net.sf.latexdraw.commands.NewDrawing;
 import net.sf.latexdraw.commands.SetUnit;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
@@ -62,6 +63,7 @@ import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
+import org.malai.command.Command;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.interaction.library.ButtonPressed;
 import org.w3c.dom.Attr;
@@ -293,6 +295,14 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 					win.setY(Math.max(0d, Double.parseDouble(n2.getTextContent())));
 					break;
 			}
+		}
+	}
+
+	@Override
+	public void onCmdDone(final Command cmd) {
+		super.onCmdDone(cmd);
+		if(cmd instanceof NewDrawing) {
+			readXMLPreferences();
 		}
 	}
 

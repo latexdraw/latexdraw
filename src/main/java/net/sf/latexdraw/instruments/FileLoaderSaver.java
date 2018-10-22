@@ -166,11 +166,11 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 		// New menu
 		menuItemBinder(i -> new NewDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
-			getDialog(false), prefSetter, currentFolder)).on(newMenu).bind();
+			getDialog(false), currentFolder)).on(newMenu).bind();
 
 		// New shortcut
 		keyWindowBinder(i -> new NewDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
-			getDialog(false), prefSetter, currentFolder)).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.N, LSystem.INSTANCE.getControlKey()).bind();
+			getDialog(false), currentFolder)).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.N, LSystem.INSTANCE.getControlKey()).bind();
 
 		// Recent files menus
 		menuItemBinder(i -> new LoadDrawing(new File((String) i.getWidget().getUserData()), SVGDocumentGenerator.INSTANCE,
