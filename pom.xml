@@ -22,19 +22,25 @@
 
     <repositories>
         <repository>
+            <id>mavenTriskellRelease</id>
+            <name>http://maven.inria.fr-triskell-releases</name>
+            <url>http://maven.inria.fr/artifactory/triskell-public-release</url>
+            <snapshots><enabled>false</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
+        </repository>
+        <repository>
             <id>mavenInriaSnapshot</id>
             <name>http://maven.inria.fr-snapshots</name>
             <url>http://maven.inria.fr/artifactory/malai-public-snapshot</url>
+            <snapshots><enabled>true</enabled></snapshots>
+            <releases><enabled>false</enabled></releases>
         </repository>
         <repository>
             <id>mavenInriaRelease</id>
             <name>http://maven.inria.fr-releases</name>
             <url>http://maven.inria.fr/artifactory/malai-public-release</url>
-        </repository>
-        <repository>
-            <id>testfx</id>
-            <name>testfx</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots><enabled>false</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
         </repository>
     </repositories>
 
@@ -102,37 +108,50 @@
                 </executions>
             </plugin>
 
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>exec-maven-plugin</artifactId>-->
-                <!--<version>1.6.0</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>module-main-class</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>exec</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<executable>/opt/jdk-11/bin/jar</executable>-->
-                            <!--<arguments>-->
-                                <!--<argument>-->
-                                    <!--&#45;&#45;update-->
-                                <!--</argument>-->
-                                <!--<argument>-->
-                                    <!--&#45;&#45;file=${project.build.directory}/modules/${project.build.finalName}.jar-->
-                                <!--</argument>-->
-                                <!--<argument>-->
-                                    <!--&#45;&#45;main-class=net.sf.latexdraw.LaTeXDraw-->
-                                <!--</argument>-->
-                                <!--<argument>-->
-                                    <!--&#45;&#45;module-version=${project.version}-->
-                                <!--</argument>-->
-                            <!--</arguments>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>module-main-class</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${java.home}/bin/jar</executable>
+                            <arguments>
+                                <argument>--update</argument>
+                                <argument>--file=${project.build.directory}/modules/${project.build.finalName}.jar</argument>
+                                <argument>--main-class=net.sf.latexdraw.LaTeXDraw</argument>
+                                <argument>--module-version=${project.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>jlink</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${java.home}/bin/jlink</executable>
+                            <arguments>
+                                <argument>--module-path=${project.build.directory}/modules:${java.home}/jmods</argument>
+                                <argument>--add-modules=latexdraw</argument>
+                                <argument>--launcher=latexdraw-run=latexdraw/net.sf.latexdraw.LaTeXDraw</argument>
+                                <argument>--output=${project.build.directory}/dist</argument>
+                                <argument>--strip-debug</argument>
+                                <argument>--compress=2</argument>
+                                <argument>--no-man-pages</argument>
+                                <argument>--no-header-files</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -379,7 +398,7 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
-            <version>${antlr.version}</version>
+            <version>4.7.1-j11</version>
         </dependency>
         <dependency>
             <groupId>org.malai</groupId>
