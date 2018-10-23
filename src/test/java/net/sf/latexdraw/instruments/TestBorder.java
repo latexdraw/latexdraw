@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
+import javafx.scene.transform.Rotate;
 import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.handlers.Handler;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -11,6 +12,7 @@ import net.sf.latexdraw.models.interfaces.shape.ILine;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.view.jfx.ViewRectangle;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -196,7 +198,10 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 		new CompositeGUIVoidCommand(rotateDown).execute();
 		final double a1 = ShapeFactory.INST.createLine(pt1, gc).getLineAngle();
 		final double a2 = 2d * Math.PI - ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(pt1.getX() + txDown, pt1.getY() + tyDown), gc).getLineAngle();
-		assertEquals(a1 + a2, ((IShape) getPane().getChildren().get(0).getUserData()).getRotationAngle(), 1d);
+		assertFalse("No rotation", ((ViewRectangle) canvas.getSelectedViews().get(0)).getBorder().getTransforms().isEmpty());
+		assertEquals(a1 + a2, ((IShape) getPane().getChildren().get(0).getUserData()).getRotationAngle(), 0.01);
+		assertEquals(Math.toDegrees(a1 + a2),
+			((Rotate) ((ViewRectangle) canvas.getSelectedViews().get(0)).getBorder().getTransforms().get(0)).getAngle(), 0.01);
 	}
 
 	@Test
@@ -209,7 +214,13 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 		new CompositeGUIVoidCommand(rotateDown).execute();
 		final double a1 = ShapeFactory.INST.createLine(pt1, gc).getLineAngle();
 		final double a2 = 2d * Math.PI - ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(pt1.getX() + txDown, pt1.getY() + tyDown), gc).getLineAngle();
-		assertEquals(a1 + a2, ((IShape) getPane().getChildren().get(0).getUserData()).getRotationAngle(), 1d);
+		assertFalse("No rotation", ((ViewRectangle) canvas.getSelectedViews().get(0)).getBorder().getTransforms().isEmpty());
+		assertFalse("No rotation", ((ViewRectangle) canvas.getSelectedViews().get(1)).getBorder().getTransforms().isEmpty());
+		assertEquals(a1 + a2, ((IShape) getPane().getChildren().get(0).getUserData()).getRotationAngle(), 0.3);
+		assertEquals(Math.toDegrees(a1 + a2),
+			((Rotate) ((ViewRectangle) canvas.getSelectedViews().get(0)).getBorder().getTransforms().get(0)).getAngle(), 15d);
+		assertEquals(Math.toDegrees(a1 + a2),
+			((Rotate) ((ViewRectangle) canvas.getSelectedViews().get(1)).getBorder().getTransforms().get(0)).getAngle(), 15d);
 	}
 
 	@Test

@@ -29,6 +29,14 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
  * @author Arnaud Blouin
  */
 public abstract class ViewShape<S extends IShape> extends Group {
+	protected static void checkToExecuteOnUIThread(final Runnable cmd) {
+		if(Platform.isFxApplicationThread()) {
+			cmd.run();
+		}else {
+			Platform.runLater(cmd);
+		}
+	}
+
 	/** The model of the view. */
 	protected final S model;
 
@@ -97,13 +105,5 @@ public abstract class ViewShape<S extends IShape> extends Group {
 			return Optional.of((Canvas) parent);
 		}
 		return Optional.empty();
-	}
-
-	protected void checkToExecuteOnUIThread(final Runnable cmd) {
-		if(Platform.isFxApplicationThread()) {
-			cmd.run();
-		}else {
-			Platform.runLater(cmd);
-		}
 	}
 }
