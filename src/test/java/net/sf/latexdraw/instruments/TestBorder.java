@@ -201,7 +201,7 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 		assertFalse("No rotation", ((ViewRectangle) canvas.getSelectedViews().get(0)).getBorder().getTransforms().isEmpty());
 		assertEquals(a1 + a2, ((IShape) getPane().getChildren().get(0).getUserData()).getRotationAngle(), 0.01);
 		assertEquals(Math.toDegrees(a1 + a2),
-			((Rotate) ((ViewRectangle) canvas.getSelectedViews().get(0)).getBorder().getTransforms().get(0)).getAngle(), 0.01);
+			((Rotate) ((ViewRectangle) canvas.getSelectedViews().get(0)).getBorder().getTransforms().get(0)).getAngle(), 1d);
 	}
 
 	@Test
