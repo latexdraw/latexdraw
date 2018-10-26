@@ -22,13 +22,16 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  * An implementation of ViewArrowable for path-based views.
  */
 class ViewArrowableTraitPath<T extends IArrowableSingleShape> extends ViewArrowableTrait<Path, T> {
-	ViewArrowableTraitPath(final ViewSingleShape<T, Path> view) {
+	private final PathElementProducer pathProducer;
+
+	ViewArrowableTraitPath(final ViewSingleShape<T, Path> view, final PathElementProducer pathProducer) {
 		super(view);
+		this.pathProducer = pathProducer;
 	}
 
 	@Override
 	protected void clipPath(final Path path) {
-		final Path clip = ViewFactory.INSTANCE.clonePath(path);
+		final Path clip = pathProducer.clonePath(path);
 		clip.setFill(path.getFill());
 		clip.setStrokeWidth(path.getStrokeWidth());
 

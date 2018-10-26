@@ -2,8 +2,6 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.scene.shape.PathElement;
@@ -14,14 +12,14 @@ import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	List<PathElement> mainAxesBefore;
@@ -32,7 +30,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	IPoint ptV1;
 	IPoint ptV2;
 
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});
@@ -41,10 +39,8 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 		}
 	}
 
-	@Override
-	@Before
-	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
-		super.setUp();
+	@BeforeEach
+	void setUp() {
 		mainAxesBefore = new ArrayList<>(view.framePath.getElements());
 		pathTicksBefore = new ArrayList<>(view.pathTicks.getElements());
 		ptH1 = ShapeFactory.INST.createPoint(view.axesHoriz.getModel().getPtAt(0));
@@ -59,7 +55,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangeincrementXProperty() {
+	void testChangeincrementXProperty() {
 		final List<String> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList());
 		model.setIncrementX(model.getIncrementX() + 1d);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -67,7 +63,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangeincrementYProperty() {
+	void testChangeincrementYProperty() {
 		final List<String> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList());
 		model.setIncrementY(model.getIncrementY() + 1d);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -75,7 +71,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangedistLabelsXProperty() {
+	void testChangedistLabelsXProperty() {
 		final List<Double> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		model.setDistLabelsX(model.getDistLabelsX() + 0.53);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -84,7 +80,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangedistLabelsYProperty() {
+	void testChangedistLabelsYProperty() {
 		final List<Double> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		model.setDistLabelsY(model.getDistLabelsY() + 0.53);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -93,7 +89,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangelabelsDisplayedXProperty() {
+	void testChangelabelsDisplayedXProperty() {
 		final int sizeBefore = view.getLabels().getChildren().size();
 		model.setLabelsDisplayed(PlottingStyle.X);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -101,7 +97,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangelabelsDisplayedYProperty() {
+	void testChangelabelsDisplayedYProperty() {
 		final int sizeBefore = view.getLabels().getChildren().size();
 		model.setLabelsDisplayed(PlottingStyle.Y);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -109,7 +105,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangelabelsDisplayedNoneProperty() {
+	void testChangelabelsDisplayedNoneProperty() {
 		model.setLabelsDisplayed(PlottingStyle.NONE);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.getLabels().getChildren().isEmpty());
@@ -117,7 +113,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 
 
 	@Test
-	public void testChangelabelsDisplayedAllProperty() {
+	void testChangelabelsDisplayedAllProperty() {
 		model.setLabelsDisplayed(PlottingStyle.X);
 		WaitForAsyncUtils.waitForFxEvents();
 		final int sizeBefore = view.getLabels().getChildren().size();
@@ -127,7 +123,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangeshowOriginProperty() {
+	void testChangeshowOriginProperty() {
 		final int sizeBefore = view.getLabels().getChildren().size();
 		model.setShowOrigin(!model.isShowOrigin());
 		WaitForAsyncUtils.waitForFxEvents();
@@ -135,28 +131,28 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangeticksDisplayedXProperty() {
+	void testChangeticksDisplayedXProperty() {
 		model.setTicksDisplayed(PlottingStyle.X);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.pathTicks.getElements());
 	}
 
 	@Test
-	public void testChangeticksDisplayedYProperty() {
+	void testChangeticksDisplayedYProperty() {
 		model.setTicksDisplayed(PlottingStyle.Y);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.pathTicks.getElements());
 	}
 
 	@Test
-	public void testChangeticksDisplayedNoneProperty() {
+	void testChangeticksDisplayedNoneProperty() {
 		model.setTicksDisplayed(PlottingStyle.NONE);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.pathTicks.getElements().isEmpty());
 	}
 
 	@Test
-	public void testChangeticksDisplayedAllProperty() {
+	void testChangeticksDisplayedAllProperty() {
 		model.setTicksDisplayed(PlottingStyle.X);
 		WaitForAsyncUtils.waitForFxEvents();
 		pathTicksBefore = new ArrayList<>(view.pathTicks.getElements());
@@ -166,21 +162,21 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangeticksStyleBottomProperty() {
+	void testChangeticksStyleBottomProperty() {
 		model.setTicksStyle(TicksStyle.BOTTOM);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.pathTicks.getElements());
 	}
 
 	@Test
-	public void testChangeticksStyleTopProperty() {
+	void testChangeticksStyleTopProperty() {
 		model.setTicksStyle(TicksStyle.TOP);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.pathTicks.getElements());
 	}
 
 	@Test
-	public void testChangeticksStyleFullProperty() {
+	void testChangeticksStyleFullProperty() {
 		model.setTicksStyle(TicksStyle.TOP);
 		WaitForAsyncUtils.waitForFxEvents();
 		pathTicksBefore = new ArrayList<>(view.pathTicks.getElements());
@@ -190,28 +186,28 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Test
-	public void testChangeticksSizeProperty() {
+	void testChangeticksSizeProperty() {
 		model.setTicksSize(model.getTicksSize() + 2.34);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(pathTicksBefore, view.pathTicks.getElements());
 	}
 
 	@Test
-	public void testChangeaxesStyleFrameProperty() {
+	void testChangeaxesStyleFrameProperty() {
 		model.setAxesStyle(AxesStyle.FRAME);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainAxesBefore, view.framePath.getElements());
 	}
 
 	@Test
-	public void testChangeaxesStyleNoneProperty() {
+	void testChangeaxesStyleNoneProperty() {
 		model.setAxesStyle(AxesStyle.NONE);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(view.framePath.getElements().isEmpty());
 	}
 
 	@Test
-	public void testChangeaxesStyleAxesProperty() {
+	void testChangeaxesStyleAxesProperty() {
 		model.setAxesStyle(AxesStyle.NONE);
 		WaitForAsyncUtils.waitForFxEvents();
 		mainAxesBefore = new ArrayList<>(view.framePath.getElements());
@@ -222,7 +218,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 
 	@Override
 	@Test
-	public void testChangeGridEndX() {
+	void testChangeGridEndX() {
 		model.setGridEndX(model.getGridEndX() + 1d);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(ptH1, view.axesHoriz.getModel().getPtAt(0));
@@ -234,7 +230,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 
 	@Test
 	@Override
-	public void testChangeGridEndY() {
+	void testChangeGridEndY() {
 		model.setGridEndY(model.getGridEndY() + 1d);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(ptH1, view.axesHoriz.getModel().getPtAt(0));
@@ -246,7 +242,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 
 	@Test
 	@Override
-	public void testChangeGridStartX() {
+	void testChangeGridStartX() {
 		model.setGridStartX(model.getGridStartX() - 1d);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(ptH1, view.axesHoriz.getModel().getPtAt(0));
@@ -258,7 +254,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 
 	@Test
 	@Override
-	public void testChangeGridStartY() {
+	void testChangeGridStartY() {
 		model.setGridStartY(model.getGridStartY() - 1d);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(ptH1, view.axesHoriz.getModel().getPtAt(0));
@@ -271,7 +267,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 
 	@Override
 	@Test
-	public void testChangeOriginX() {
+	void testChangeOriginX() {
 		final List<String> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList());
 		model.setOriginX(model.getOriginX() + 1d);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -280,7 +276,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 
 	@Override
 	@Test
-	public void testChangeOriginY() {
+	void testChangeOriginY() {
 		final List<String> textBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getText()).collect(Collectors.toList());
 		model.setOriginX(model.getOriginY() + 1d);
 		WaitForAsyncUtils.waitForFxEvents();

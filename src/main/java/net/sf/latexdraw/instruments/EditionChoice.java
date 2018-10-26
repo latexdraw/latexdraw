@@ -32,6 +32,7 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.util.SystemService;
 
 /**
  * Defines the choices of edition of the canvas.
@@ -40,98 +41,97 @@ import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 public enum EditionChoice {
 	RECT {
 		@Override
-		public IRectangle createShapeInstance() {
+		public IRectangle createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createRectangle();
 		}
 	}, DOT {
 		@Override
-		public IDot createShapeInstance() {
+		public IDot createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		}
 	}, SQUARE {
 		@Override
-		public ISquare createShapeInstance() {
+		public ISquare createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createSquare();
 		}
 	}, RHOMBUS {
 		@Override
-		public IRhombus createShapeInstance() {
+		public IRhombus createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createRhombus();
 		}
 	}, FREE_HAND {
 		@Override
-		public IFreehand createShapeInstance() {
+		public IFreehand createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createFreeHand(Collections.singletonList(ShapeFactory.INST.createPoint()));
 		}
 	}, TRIANGLE {
 		@Override
-		public ITriangle createShapeInstance() {
+		public ITriangle createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createTriangle();
 		}
 	}, LINES {
 		@Override
-		public IPolyline createShapeInstance() {
+		public IPolyline createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint()));
 		}
 	}, CIRCLE {
 		@Override
-		public ICircle createShapeInstance() {
+		public ICircle createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createCircle();
 		}
 	}, GRID {
 		@Override
-		public IGrid createShapeInstance() {
+		public IGrid createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
 		}
 	}, AXES {
 		@Override
-		public IAxes createShapeInstance() {
+		public IAxes createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 		}
 	}, ELLIPSE {
 		@Override
-		public IEllipse createShapeInstance() {
+		public IEllipse createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createEllipse();
 		}
 	}, POLYGON {
 		@Override
-		public IPolygon createShapeInstance() {
+		public IPolygon createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createPolygon(Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint()));
 		}
 	}, CIRCLE_ARC {
 		@Override
-		public ICircleArc createShapeInstance() {
+		public ICircleArc createShapeInstance(final SystemService system) {
 			final ICircleArc shape = ShapeFactory.INST.createCircleArc();
 			shape.setArcStyle(ArcStyle.ARC);
 			return shape;
 		}
 	}, BEZIER_CURVE {
 		@Override
-		public IBezierCurve createShapeInstance() {
+		public IBezierCurve createShapeInstance(final SystemService system) {
 			final IBezierCurve shape = ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint()));
 			shape.setOpened(true);
 			return shape;
 		}
 	}, TEXT {
 		@Override
-		public IText createShapeInstance() {
+		public IText createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createText();
 		}
 	}, PICTURE {
 		@Override
-		public IPicture createShapeInstance() {
-			return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
+		public IPicture createShapeInstance(final SystemService system) {
+			return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), system);
 		}
 	}, PLOT {
 		@Override
-		public IPlot createShapeInstance() {
+		public IPlot createShapeInstance(final SystemService system) {
 			return ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 5, "x", false); //NON-NLS
 		}
 	};
 
 	/**
 	 * @return A new shape instance corresponding to the editing choice.
-	 * @since 3.0
 	 */
-	public abstract IShape createShapeInstance();
+	public abstract IShape createShapeInstance(final SystemService system);
 }

@@ -24,7 +24,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		drawing.addShape(ShapeFactory.INST.createCircle());
 		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(20, 30), 10));
 		drawing.setSelection(Arrays.asList(drawing.getShapeAt(0), drawing.getShapeAt(1)));
-		SelectShapes cmd = new SelectShapes();
+		SelectShapes cmd = new SelectShapes(drawing);
 		cmd.addShape(drawing.getShapeAt(0));
 		cmd.addShape(drawing.getShapeAt(1));
 		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
@@ -36,7 +36,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(270, 335), 13));
 		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(412, 711), 15));
 		drawing.setSelection(Arrays.asList(drawing.getShapeAt(0), drawing.getShapeAt(1), drawing.getShapeAt(2)));
-		SelectShapes cmd = new SelectShapes();
+		SelectShapes cmd = new SelectShapes(drawing);
 		cmd.addShape(drawing.getShapeAt(0));
 		cmd.addShape(drawing.getShapeAt(1));
 		cmd.addShape(drawing.getShapeAt(2));
@@ -47,7 +47,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 	final GUIVoidCommand selectOneShape = () -> {
 		drawing.addShape(ShapeFactory.INST.createCircle());
 		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(-1)));
-		SelectShapes cmd = new SelectShapes();
+		SelectShapes cmd = new SelectShapes(drawing);
 		cmd.addShape(drawing.getShapeAt(-1));
 		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
 		ins.update();
@@ -56,7 +56,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 	final GUICommand<List<Integer>> selectShapeAt = indexes -> {
 		final List<IShape> selectedShapes = indexes.stream().map(i -> drawing.getShapeAt(i)).collect(Collectors.toList());
 		drawing.setSelection(selectedShapes);
-		SelectShapes cmd = new SelectShapes();
+		SelectShapes cmd = new SelectShapes(drawing);
 		selectedShapes.forEach(sh -> cmd.addShape(sh));
 		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
 		ins.update();

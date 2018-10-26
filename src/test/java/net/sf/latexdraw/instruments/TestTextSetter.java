@@ -6,6 +6,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Spinner;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.util.Injector;
@@ -30,6 +31,7 @@ public class TestTextSetter extends BaseTestCanvas {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
@@ -47,8 +49,8 @@ public class TestTextSetter extends BaseTestCanvas {
 	@Before
 	public void setUp() {
 		super.setUp();
-		setter = (TextSetter) injectorFactory.call(TextSetter.class);
-		plot = (ShapePlotCustomiser) injectorFactory.call(ShapePlotCustomiser.class);
+		setter = injector.getInstance(TextSetter.class);
+		plot = injector.getInstance(ShapePlotCustomiser.class);
 		plot.maxXSpinner = Mockito.mock(Spinner.class);
 		plot.minXSpinner = Mockito.mock(Spinner.class);
 		plot.nbPtsSpinner = Mockito.mock(Spinner.class);

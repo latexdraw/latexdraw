@@ -13,7 +13,7 @@ public class ArrowableSupplier extends ParameterSupplier {
 		return Stream.of(ShapeSupplier.createPolyline(), AxesSupplier.createAxes(), ShapeSupplier.createBezierCurve(), ArcSupplier.createArc());
 	}
 
-	public static Stream<IArrowableSingleShape> createDivsersifiedArrowableShapes() {
+	public static Stream<IArrowableSingleShape> createDiversifiedArrowableShapes() {
 		return createArrowableShapes().map(sh -> Stream.of(ParameteriseShapeData.INST.setArrowableData1((IArrowableSingleShape) sh.duplicate()),
 			ParameteriseShapeData.INST.setArrowableData2((IArrowableSingleShape) sh.duplicate()),
 			ParameteriseShapeData.INST.setArrowableData3((IArrowableSingleShape) sh.duplicate()),
@@ -28,7 +28,7 @@ public class ArrowableSupplier extends ParameterSupplier {
 		final Stream<IArrowableSingleShape> instances;
 
 		if(shapeData.withParamVariants()) {
-			instances = createDivsersifiedArrowableShapes();
+			instances = createDiversifiedArrowableShapes();
 		}else {
 			instances = createArrowableShapes();
 		}

@@ -42,14 +42,8 @@ public class TestAlignShape extends TestUndoableCommand<AlignShapes, List<Tuple<
 	Group views;
 
 	@Override
-	protected AlignShapes createCmd() {
-		return new AlignShapes();
-	}
-
-	@Override
 	@Before
 	public void setUp() {
-		super.setUp();
 		canvas = Mockito.mock(Canvas.class);
 		final IShapeFactory fac = ShapeFactory.INST;
 		shapes = fac.createGroup();
@@ -58,10 +52,12 @@ public class TestAlignShape extends TestUndoableCommand<AlignShapes, List<Tuple<
 		shapes.addShape(fac.createRectangle(fac.createPoint(14d, 60d), 20d, 16d));
 		views = new Group();
 
+		final ViewFactory vfac = new ViewFactory();
 		IntStream.range(0, shapes.size()).forEach(i -> {
-			views.getChildren().add(ViewFactory.INSTANCE.createView(shapes.getShapeAt(i)).get());
+			views.getChildren().add(vfac.createView(shapes.getShapeAt(i)).get());
 			Mockito.when(canvas.getViewFromShape(shapes.getShapeAt(i))).thenReturn(Optional.of((ViewShape<?>) views.getChildren().get(i)));
 		});
+		super.setUp();
 	}
 
 	@Override
@@ -85,9 +81,7 @@ public class TestAlignShape extends TestUndoableCommand<AlignShapes, List<Tuple<
 
 	@Override
 	protected void configCorrectCmd() {
-		cmd.setCanvas(canvas);
-		cmd.setShape(shapes);
-		cmd.setAlignment(alignment);
+		cmd = new AlignShapes(canvas, alignment, shapes);
 		memento = shapes.getShapes().stream().map(sh -> new Tuple<>(sh.getTopLeftPoint(), sh.getBottomRightPoint())).collect(Collectors.toList());
 	}
 

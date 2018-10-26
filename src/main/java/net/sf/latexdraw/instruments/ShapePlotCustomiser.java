@@ -24,7 +24,8 @@ import net.sf.latexdraw.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.parsers.ps.PSFunctionParser;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.Tuple;
 
 /**
@@ -40,6 +41,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 	@FXML private CheckBox polarCB;
 	@FXML private ComboBox<PlotStyle> plotStyleCB;
 	@FXML private TitledPane mainPane;
+	@Inject private LangService langTool;
 
 	/**
 	 * Creates the instrument.
@@ -84,7 +86,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 				Double.parseDouble(minXSpinner.getValue().toString()), Double.parseDouble(maxXSpinner.getValue().toString()),
 				Double.parseDouble(nbPtsSpinner.getValue().toString()));
 		}catch(final IllegalArgumentException ex) {
-			valid = new Tuple<>(Boolean.FALSE, LangTool.INSTANCE.getBundle().getString("invalid.function"));
+			valid = new Tuple<>(Boolean.FALSE, langTool.getBundle().getString("invalid.function"));
 		}
 		return valid.a;
 	}

@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Spinner;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.util.Injector;
@@ -40,6 +41,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
@@ -57,7 +59,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	@Before
 	public void setUp() {
 		super.setUp();
-		setter = (TextSetter) injectorFactory.call(TextSetter.class);
+		setter = injector.getInstance(TextSetter.class);
 		Platform.runLater(() -> setter.initialize(null, null));
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
@@ -270,7 +272,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	public void testEditPlotDoesNotCreateANewOne() {
 		when(pencil.getCurrentChoice()).thenReturn(EditionChoice.PLOT);
 		when(pencil.createShapeInstance()).thenReturn(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0, 5, "x", false));
-		final ShapePlotCustomiser plot = (ShapePlotCustomiser) injectorFactory.call(ShapePlotCustomiser.class);
+		final ShapePlotCustomiser plot = injector.getInstance(ShapePlotCustomiser.class);
 		plot.maxXSpinner = Mockito.mock(Spinner.class);
 		plot.minXSpinner = Mockito.mock(Spinner.class);
 		plot.nbPtsSpinner = Mockito.mock(Spinner.class);

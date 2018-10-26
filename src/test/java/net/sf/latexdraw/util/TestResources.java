@@ -16,6 +16,7 @@ public class TestResources {
 	private String path;
 
 	public TestResources(final String pathToTest) {
+		super();
 		path = pathToTest;
 	}
 

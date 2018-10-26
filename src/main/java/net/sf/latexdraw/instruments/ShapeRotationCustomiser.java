@@ -12,7 +12,6 @@ package net.sf.latexdraw.instruments;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.BiConsumer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -65,19 +64,18 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	protected void configureBindings() {
-		final BiConsumer<Double, RotateShapes> init = (angle, c) -> {
-			c.setGravityCentre(pencil.canvas.getDrawing().getSelection().getGravityCentre());
-			c.setRotationAngle(angle);
-			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
-		};
-
-		spinnerBinder(RotateShapes::new).on(rotationField).exec().
-			first(c -> init.accept(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle(), c)).
+		spinnerBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(),
+			canvas.getDrawing().getSelection().duplicateDeep(false), Math.toRadians(rotationField.getValue()) -
+			pencil.canvas.getDrawing().getSelection().getRotationAngle())).
+			on(rotationField).
 			then(c -> c.setRotationAngle(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle())).
-			bind();
+			exec().bind();
 
-		buttonBinder(RotateShapes::new).on(rotate90Button).first(c -> init.accept(Math.PI / 2d, c)).bind();
-		buttonBinder(RotateShapes::new).on(rotate180Button).first(c -> init.accept(Math.PI, c)).bind();
-		buttonBinder(RotateShapes::new).on(rotate270Button).first(c -> init.accept(-Math.PI / 2d, c)).bind();
+		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI / 2d)).
+			on(rotate90Button).bind();
+		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI)).
+			on(rotate180Button).bind();
+		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), -Math.PI / 2d)).
+			on(rotate270Button).bind();
 	}
 }

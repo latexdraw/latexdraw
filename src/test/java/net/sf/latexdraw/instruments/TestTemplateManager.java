@@ -10,10 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-import net.sf.latexdraw.HelperTest;
+import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +30,7 @@ public class TestTemplateManager extends BaseTestCanvas {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
@@ -49,8 +50,8 @@ public class TestTemplateManager extends BaseTestCanvas {
 	public void start(final Stage aStage) {
 		super.start(aStage);
 		try {
-			final TitledPane root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Template.fxml"), LangTool.INSTANCE.getBundle(),
-				new LatexdrawBuilderFactory(injector), injectorFactory);
+			final TitledPane root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Template.fxml"), injector.getInstance(LangService.class).getBundle(),
+				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 			final BorderPane pane = new BorderPane();
 			pane.setTop(root.getContent());
 			pane.setCenter(stage.getScene().getRoot());
@@ -63,14 +64,6 @@ public class TestTemplateManager extends BaseTestCanvas {
 	@Override
 	@Before
 	public void setUp() {
-		final LaTeXDraw ld = Mockito.mock(LaTeXDraw.class);
-		try {
-			HelperTest.setFinalStaticFieldValue(LaTeXDraw.class.getDeclaredField("instance"), ld);
-		}catch(final NoSuchFieldException | IllegalAccessException ex) {
-			fail(ex.getMessage());
-		}
-		Mockito.when(LaTeXDraw.getInstance().getInjector()).thenReturn(injector);
-		Mockito.when(LaTeXDraw.getInstance().getInstanceCallBack()).thenReturn(cl -> injector.getInstance(cl));
 		super.setUp();
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
@@ -90,21 +83,10 @@ public class TestTemplateManager extends BaseTestCanvas {
 
 	@Test
 	public void testClickRefreshTemplates() {
-		final SVGDocumentGenerator gen = SVGDocumentGenerator.INSTANCE;
 		final SVGDocumentGenerator mockGen = Mockito.mock(SVGDocumentGenerator.class);
-		try {
-			HelperTest.setFinalStaticFieldValue(SVGDocumentGenerator.class.getDeclaredField("INSTANCE"), mockGen);
-		}catch(final NoSuchFieldException | IllegalAccessException ex) {
-			fail(ex.getMessage());
-		}
+		injector.getInstance(TemplateManager.class).svgGen = mockGen;
 		clickOn("#updateTemplates");
 		waitFXEvents.execute();
 		Mockito.verify(mockGen, Mockito.times(1)).updateTemplates(Mockito.any(), Mockito.anyBoolean());
-
-		try {
-			HelperTest.setFinalStaticFieldValue(SVGDocumentGenerator.class.getDeclaredField("INSTANCE"), gen);
-		}catch(final NoSuchFieldException | IllegalAccessException ex) {
-			fail(ex.getMessage());
-		}
 	}
 }

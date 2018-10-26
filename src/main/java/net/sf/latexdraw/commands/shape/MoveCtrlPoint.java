@@ -10,9 +10,9 @@
  */
 package net.sf.latexdraw.commands.shape;
 
+import java.util.ResourceBundle;
 import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
@@ -85,13 +85,12 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.9"); //NON-NLS
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.9"); //NON-NLS
 	}
 
 	/**
 	 * @param val True: it is a first control point which is moved.
-	 * @since 3.0
 	 */
 	public void setIsFirstCtrlPt(final boolean val) {
 		isFirstCtrlPt = val;
@@ -99,7 +98,6 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 	/**
 	 * @param sh The shape to modify.
-	 * @since 3.0
 	 */
 	public void setShape(final IControlPointShape sh) {
 		shape = sh;

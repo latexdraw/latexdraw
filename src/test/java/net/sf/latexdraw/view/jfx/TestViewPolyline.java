@@ -9,20 +9,17 @@ import javafx.scene.transform.Translate;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.experimental.theories.suppliers.TestedOn;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-@RunWith(Theories.class)
 public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline> {
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});
@@ -60,7 +57,7 @@ public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline>
 		assertNotEquals(ty, ((Translate) view.viewArrows.arrows.get(0).path.getTransforms().get(0)).getY());
 	}
 
-	@Theory
+	@Test
 	public void testMovePointUpdatePathArrow1() {
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 1);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -74,8 +71,9 @@ public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline>
 		assertNotEquals(ty, ((Translate) view.viewArrows.arrows.get(1).path.getTransforms().get(0)).getY());
 	}
 
-	@Theory
-	public void testMovePointUpdateClip(@TestedOn(ints = {0, 1, 8, 9}) final int index) {
+	@ParameterizedTest
+	@ValueSource(ints = {0, 1, 8, 9})
+	public void testMovePointUpdateClip(final int index) {
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 1);
 		WaitForAsyncUtils.waitForFxEvents();

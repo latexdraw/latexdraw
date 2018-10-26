@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.commands;
 
-import net.sf.latexdraw.util.LangTool;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
 import org.malai.command.library.ModifyValue;
@@ -22,32 +22,25 @@ import org.malai.undo.Undoable;
  */
 public class ModifyMagneticGrid extends ModifyValue<Object> implements Undoable {
 	/** The magnetic grid to modify. */
-	protected MagneticGrid grid;
+	private final MagneticGrid grid;
 
 	/** The property to modify. */
-	protected GridProperties property;
+	private final GridProperties property;
 
 	/** A back-up of the former value of the modified property. */
-	protected Object oldValue;
+	private Object oldValue;
 
-	public ModifyMagneticGrid() {
+	public ModifyMagneticGrid(final GridProperties property, final Object value, final MagneticGrid grid) {
 		super();
+		this.property = property;
+		this.grid = grid;
+		setValue(value);
 	}
-
-	@Override
-	public void flush() {
-		super.flush();
-		grid = null;
-		property = null;
-		oldValue = null;
-	}
-
 
 	@Override
 	public void undo() {
 		applyValue(oldValue);
 	}
-
 
 	@Override
 	public void redo() {
@@ -74,8 +67,8 @@ public class ModifyMagneticGrid extends ModifyValue<Object> implements Undoable 
 
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.1");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.1");
 	}
 
 
@@ -113,23 +106,5 @@ public class ModifyMagneticGrid extends ModifyValue<Object> implements Undoable 
 	@Override
 	protected boolean isValueMatchesProperty() {
 		return property != null && property.isValidValue(value);
-	}
-
-
-	/**
-	 * @param gr The group to modify.
-	 * @since 3.0
-	 */
-	public void setGrid(final MagneticGrid gr) {
-		grid = gr;
-	}
-
-
-	/**
-	 * @param prop The property to modify.
-	 * @since 3.0
-	 */
-	public void setProperty(final GridProperties prop) {
-		property = prop;
 	}
 }

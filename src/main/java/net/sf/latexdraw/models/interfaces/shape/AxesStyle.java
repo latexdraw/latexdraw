@@ -11,7 +11,7 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.util.Arrays;
-import net.sf.latexdraw.util.LangTool;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
@@ -31,8 +31,8 @@ public enum AxesStyle {
 		}
 
 		@Override
-		public String toString() {
-			return LangTool.INSTANCE.getBundle().getString("Axe.1"); //NON-NLS
+		public String getLabel(final ResourceBundle bundle) {
+			return bundle.getString("Axe.1"); //NON-NLS
 		}
 	}, FRAME {
 		@Override
@@ -46,8 +46,8 @@ public enum AxesStyle {
 		}
 
 		@Override
-		public String toString() {
-			return LangTool.INSTANCE.getBundle().getString("Axe.2"); //NON-NLS
+		public String getLabel(final ResourceBundle bundle) {
+			return bundle.getString("Axe.2"); //NON-NLS
 		}
 	}, NONE {
 		@Override
@@ -61,16 +61,14 @@ public enum AxesStyle {
 		}
 
 		@Override
-		public String toString() {
+		public String getLabel(final ResourceBundle bundle) {
 			return "None"; //NON-NLS
 		}
 	};
 
 	/**
-	 * @param style The PST token or the name of the style (e.g. AXES.toString()) corresponding to
-	 * the style to get.
+	 * @param style The PST token or the name of the style (e.g. AXES.toString()) corresponding to the style to get.
 	 * @return The corresponding style or AXES.
-	 * @since 3.0
 	 */
 	public static AxesStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(AXES);
@@ -78,13 +76,16 @@ public enum AxesStyle {
 
 	/**
 	 * @return True if the axe style supports arrows.
-	 * @since 3.0
 	 */
 	public abstract boolean supportsArrows();
 
 	/**
 	 * @return The PST token corresponding to the axe style.
-	 * @since 3.0
 	 */
 	public abstract String getPSTToken();
+
+	/**
+	 * @return The internationalised label of the axe style.
+	 */
+	public abstract String getLabel(final ResourceBundle bundle);
 }

@@ -11,8 +11,11 @@
 package net.sf.latexdraw;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.application.HostServices;
+import javafx.stage.Stage;
+import javafx.util.BuilderFactory;
 import net.sf.latexdraw.instruments.AboutController;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.instruments.CanvasController;
@@ -56,22 +59,50 @@ import net.sf.latexdraw.instruments.TemplateManager;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.instruments.UndoRedoManager;
 import net.sf.latexdraw.instruments.Zoomer;
+import net.sf.latexdraw.models.impl.LShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
+import net.sf.latexdraw.view.pst.PSTViewsFactory;
+import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import net.sf.latexdraw.view.svg.SVGShapesFactory;
+import org.malai.javafx.ui.JfxUI;
 
 /**
  * @author Arnaud Blouin
  */
 public class LatexdrawInjector extends Injector {
+	private final LaTeXDraw app;
+
+	public LatexdrawInjector(final LaTeXDraw app) {
+		super();
+		this.app = app;
+		initialise();
+	}
+
 	@Override
 	protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+		bindToInstance(Injector.class, this);
+		bindToInstance(BuilderFactory.class, new LatexdrawBuilderFactory(this));
+		bindAsEagerSingleton(SystemService.class);
+		bindAsEagerSingleton(LShapeFactory.class);
+		bindAsEagerSingleton(ViewFactory.class);
+		bindAsEagerSingleton(PSTViewsFactory.class);
+		bindAsEagerSingleton(SVGShapesFactory.class);
+		bindAsEagerSingleton(SVGDocumentGenerator.class);
+		bindAsEagerSingleton(LangService.class);
 		bindAsEagerSingleton(ExceptionsManager.class);
-		bindToInstance(Application.class, LaTeXDraw.getInstance());
+		bindToInstance(JfxUI.class, app);
+		bindToInstance(Application.class, app);
+		bindToInstance(LaTeXDraw.class, app);
+		bindWithCommand(Stage.class, LaTeXDraw.class, ld -> ld.getMainStage());
 		bindAsEagerSingleton(ShortcutsController.class);
 		bindAsEagerSingleton(StatusBarController.class);
 		bindAsEagerSingleton(AboutController.class);
@@ -121,5 +152,6 @@ public class LatexdrawInjector extends Injector {
 		bindAsEagerSingleton(ShapeTextCustomiser.class);
 		bindAsEagerSingleton(ShapeTransformer.class);
 		bindAsEagerSingleton(TabSelector.class);
+		bindWithCommand(ResourceBundle.class, LangService.class, lang -> lang.getBundle());
 	}
 }

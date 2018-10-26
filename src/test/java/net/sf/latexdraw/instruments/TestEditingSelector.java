@@ -8,8 +8,11 @@ import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
@@ -38,6 +41,10 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 		return new Injector() {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+				bindToInstance(Injector.class, this);
+				bindAsEagerSingleton(SystemService.class);
+				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(ViewFactory.class);
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(StatusBarController.class, Mockito.mock(StatusBarController.class));
 				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));

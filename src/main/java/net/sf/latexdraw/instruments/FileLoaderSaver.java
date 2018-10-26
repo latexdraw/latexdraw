@@ -21,18 +21,19 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
-import net.sf.latexdraw.LaTeXDraw;
+import javafx.stage.Stage;
 import net.sf.latexdraw.commands.LoadDrawing;
 import net.sf.latexdraw.commands.NewDrawing;
 import net.sf.latexdraw.commands.SaveDrawing;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.LSystem;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.command.Command;
 import org.malai.javafx.command.IOCommand;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.interaction.library.WindowClosed;
+import org.malai.javafx.ui.JfxUI;
 
 /**
  * Saves and loads documents.
@@ -59,6 +60,11 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	/** The instrument used to manage preferences. */
 	@Inject private PreferencesSetter prefSetter;
 	@Inject private StatusBarController statusBar;
+	@Inject private SystemService system;
+	@Inject private SVGDocumentGenerator svgGen;
+	@Inject private LangService lang;
+	@Inject private JfxUI app;
+	@Inject private Stage mainstage;
 
 	/**
 	 * Creates the file loader/saver.
@@ -129,47 +135,47 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	protected void configureBindings() {
 		// Close window
 		windowBinder(new WindowClosed(), i -> new SaveDrawing(true, true, currentFolder, getDialog(true), prefSetter, currentFile,
-			SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).
-			on(LaTeXDraw.getInstance().getMainStage()).bind();
+			svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), lang, mainstage)).
+			on(mainstage).bind();
 
 		// Quit shortcut
 		keyWindowBinder(i -> new SaveDrawing(true, true, currentFolder, getDialog(true), prefSetter, currentFile,
-			SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).
-			on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.W, LSystem.INSTANCE.getControlKey()).bind();
+			svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), lang, mainstage)).
+			on(mainstage).with(KeyCode.W, system.getControlKey()).bind();
 
 		// Save menu
 		menuItemBinder(i -> new SaveDrawing(false, false, currentFolder, getDialog(true),
-			prefSetter, currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).
+			prefSetter, currentFile, svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), lang, mainstage)).
 			on(saveMenu).bind();
 
 		// Save shortcut
 		keyWindowBinder(i -> new SaveDrawing(false, false, currentFolder, getDialog(true), prefSetter, currentFile,
-			SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).
-			on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.S, LSystem.INSTANCE.getControlKey()).bind();
+			svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), lang, mainstage)).
+			on(mainstage).with(KeyCode.S, system.getControlKey()).bind();
 
 		// Save as menu
 		menuItemBinder(i -> new SaveDrawing(true, false, currentFolder, getDialog(true), prefSetter, null,
-			SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), LaTeXDraw.getInstance(), statusBar.getLabel())).on(saveAsMenu).bind();
+			svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), lang, mainstage)).on(saveAsMenu).bind();
 
 		// Load menu
-		menuItemBinder(i -> new LoadDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
-			getDialog(false), currentFolder)).on(loadMenu).bind();
+		menuItemBinder(i -> new LoadDrawing(currentFile, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
+			getDialog(false), currentFolder, lang, mainstage)).on(loadMenu).bind();
 
 		// Load shortcut
-		keyWindowBinder(i -> new LoadDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
-			getDialog(false), currentFolder)).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.O, LSystem.INSTANCE.getControlKey()).bind();
+		keyWindowBinder(i -> new LoadDrawing(currentFile, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
+			getDialog(false), currentFolder, lang, mainstage)).on(mainstage).with(KeyCode.O, system.getControlKey()).bind();
 
 		// New menu
-		menuItemBinder(i -> new NewDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
-			getDialog(false), currentFolder)).on(newMenu).bind();
+		menuItemBinder(i -> new NewDrawing(currentFile, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
+			getDialog(false), currentFolder, lang, mainstage)).on(newMenu).bind();
 
 		// New shortcut
-		keyWindowBinder(i -> new NewDrawing(currentFile, SVGDocumentGenerator.INSTANCE, statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(),
-			getDialog(false), currentFolder)).on(LaTeXDraw.getInstance().getMainStage()).with(KeyCode.N, LSystem.INSTANCE.getControlKey()).bind();
+		keyWindowBinder(i -> new NewDrawing(currentFile, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
+			getDialog(false), currentFolder, lang, mainstage)).on(mainstage).with(KeyCode.N, system.getControlKey()).bind();
 
 		// Recent files menus
-		menuItemBinder(i -> new LoadDrawing(new File((String) i.getWidget().getUserData()), SVGDocumentGenerator.INSTANCE,
-			statusBar.getProgressBar(), statusBar.getLabel(), LaTeXDraw.getInstance(), getDialog(false), currentFolder)).
+		menuItemBinder(i -> new LoadDrawing(new File((String) i.getWidget().getUserData()), svgGen,
+			statusBar.getProgressBar(), statusBar.getLabel(), app, getDialog(false), currentFolder, lang, mainstage)).
 			onMenu(recentFilesMenu.getItems()).bind();
 	}
 
@@ -232,8 +238,8 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG", "*.svg")); //NON-NLS
 		}
 
-		fileChooser.setTitle(save ? LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.188") : //NON-NLS
-			LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.200")); //NON-NLS
+		fileChooser.setTitle(save ? lang.getBundle().getString("LaTeXDrawFrame.188") : //NON-NLS
+			lang.getBundle().getString("LaTeXDrawFrame.200")); //NON-NLS
 
 		return fileChooser;
 	}

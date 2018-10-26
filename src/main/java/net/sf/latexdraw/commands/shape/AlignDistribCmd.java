@@ -32,7 +32,12 @@ abstract class AlignDistribCmd extends ShapeCmdImpl<IGroup> implements Undoable,
 	protected List<IPoint> oldPositions;
 	/** The views corresponding to the shapes to align. */
 	protected List<ViewShape<?>> views;
-	protected Canvas canvas;
+	protected final Canvas canvas;
+
+	AlignDistribCmd(final Canvas canvas, final IGroup gp) {
+		super(gp);
+		this.canvas = canvas;
+	}
 
 	@Override
 	public void undo() {
@@ -58,10 +63,6 @@ abstract class AlignDistribCmd extends ShapeCmdImpl<IGroup> implements Undoable,
 			map(opt -> opt.get()).collect(Collectors.<ViewShape<?>>toList())).orElse(Collections.emptyList());
 		oldPositions = shape.map(gp -> gp.getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList())).orElse(Collections.emptyList());
 		redo();
-	}
-
-	public void setCanvas(final Canvas theCanvas) {
-		canvas = theCanvas;
 	}
 
 	@Override

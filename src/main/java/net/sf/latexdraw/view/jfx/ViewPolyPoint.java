@@ -27,8 +27,8 @@ public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends Vi
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPolyPoint(final T sh) {
-		super(sh);
+	ViewPolyPoint(final T sh, final PathElementProducer pathProducer) {
+		super(sh, pathProducer);
 		initPath(border);
 		initPath(shadow);
 		initPath(dblBorder);
@@ -36,13 +36,13 @@ public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends Vi
 
 	private void initPath(final Path path) {
 		final ObservableList<PathElement> elts = path.getElements();
-		final MoveTo moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
+		final MoveTo moveTo = pathProducer.createMoveTo(0d, 0d);
 		moveTo.xProperty().bind(model.getPtAt(0).xProperty());
 		moveTo.yProperty().bind(model.getPtAt(0).yProperty());
 		elts.add(moveTo);
 
 		IntStream.range(1, model.getNbPoints()).forEach(i -> {
-			final LineTo lineto = ViewFactory.INSTANCE.createLineTo(0d, 0d);
+			final LineTo lineto = pathProducer.createLineTo(0d, 0d);
 			lineto.xProperty().bind(model.getPtAt(i).xProperty());
 			lineto.yProperty().bind(model.getPtAt(i).yProperty());
 			elts.add(lineto);
@@ -51,9 +51,9 @@ public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends Vi
 
 	@Override
 	public void flush() {
-		border.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
-		shadow.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
-		dblBorder.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+		border.getElements().forEach(elt -> pathProducer.flushPathElement(elt));
+		shadow.getElements().forEach(elt -> pathProducer.flushPathElement(elt));
+		dblBorder.getElements().forEach(elt -> pathProducer.flushPathElement(elt));
 		super.flush();
 	}
 }

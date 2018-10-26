@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
@@ -79,7 +80,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 		distribHorizRight = find("#distribHorizRight");
 		distribHorizLeft = find("#distribHorizLeft");
 		mainPane = find("#mainPane");
-		ins = (ShapeTransformer) injectorFactory.call(ShapeTransformer.class);
+		ins = injector.getInstance(ShapeTransformer.class);
 		ins.setActivated(true);
 		ins.update();
 	}
@@ -90,6 +91,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeTransformer.class);

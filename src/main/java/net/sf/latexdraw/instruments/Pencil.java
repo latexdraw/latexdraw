@@ -39,6 +39,7 @@ import net.sf.latexdraw.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquaredShape;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.MultiClick;
@@ -55,6 +56,8 @@ public class Pencil extends CanvasInstrument {
 
 	/** The text setter used to create text shapes. */
 	@Inject protected TextSetter textSetter;
+	@Inject private ViewFactory viewFactory;
+	@Inject private SystemService system;
 
 	/** The file chooser used to select the picture to insert. Use its getter instead as it is lazy instantiated. */
 	private FileChooser pictureFileChooser;
@@ -137,7 +140,7 @@ public class Pencil extends CanvasInstrument {
 
 		// Binds a pressure to insert a picture
 		nodeBinder(new Press(),
-			i -> new InsertPicture(ShapeFactory.INST.createPicture(getAdaptedPoint(i.getSrcLocalPoint())), canvas.getDrawing(), getPictureFileChooser())).
+			i -> new InsertPicture(ShapeFactory.INST.createPicture(getAdaptedPoint(i.getSrcLocalPoint()), system), canvas.getDrawing(), getPictureFileChooser())).
 			on(canvas).when(i -> currentChoice.get() == EditionChoice.PICTURE && i.getButton() == MouseButton.PRIMARY).bind();
 
 		bindDnDToDrawRectangularShape();
@@ -162,13 +165,13 @@ public class Pencil extends CanvasInstrument {
 		}).on(canvas).
 			first((i, c) -> Platform.runLater(() -> canvas.requestFocus())).
 			then((i, c) -> {
-				final IPoint last = c.getShape().get().getPtAt(-1);
+				final IPoint last = c.getShape().orElseThrow().getPtAt(-1);
 				final IPoint endPt = getAdaptedPoint(i.getTgtLocalPoint());
 				if(!MathUtils.INST.equalsDouble(last.getX(), endPt.getX(), 0.0001) &&
 					!MathUtils.INST.equalsDouble(last.getY(), endPt.getY(), 0.0001)) {
 					c.setShape(ShapeFactory.INST.createFreeHandFrom((IFreehand) c.getShape().get(), endPt));
 				}
-				canvas.setTempView(ViewFactory.INSTANCE.createView(c.getShape().orElse(null)).orElse(null));
+				canvas.setTempView(viewFactory.createView(c.getShape().orElse(null)).orElse(null));
 			}).
 			endOrCancel((i, c) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY && currentChoice.get() == EditionChoice.FREE_HAND).
@@ -189,9 +192,9 @@ public class Pencil extends CanvasInstrument {
 		}).on(canvas).
 			first((i, c) -> {
 				Platform.runLater(() -> canvas.requestFocus());
-				canvas.setTempView(ViewFactory.INSTANCE.createView(c.getShape().orElse(null)).orElse(null));
+				canvas.setTempView(viewFactory.createView(c.getShape().orElse(null)).orElse(null));
 			}).
-			then((i, c) -> updateShapeFromCentre((ISquaredShape) c.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()).getX())).
+			then((i, c) -> updateShapeFromCentre((ISquaredShape) c.getShape().orElseThrow(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()).getX())).
 			endOrCancel((i, c) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
 			strictStart().
@@ -206,9 +209,9 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(new DnD(false, true), i -> new AddShape(createShapeInstance(), canvas.getDrawing())).on(canvas).
 			first((i, c) -> {
 				Platform.runLater(() -> canvas.requestFocus());
-				canvas.setTempView(ViewFactory.INSTANCE.createView(c.getShape().orElse(null)).orElse(null));
+				canvas.setTempView(viewFactory.createView(c.getShape().orElse(null)).orElse(null));
 			}).
-			then((i, c) -> updateShapeFromDiag((IRectangularShape) c.getShape().get(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()))).
+			then((i, c) -> updateShapeFromDiag((IRectangularShape) c.getShape().orElseThrow(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()))).
 			endOrCancel((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
 			strictStart().
@@ -227,12 +230,12 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(new MultiClick(3), creation).on(canvas).
 			then((i, c) -> {
 				final IPoint currPoint = getAdaptedPoint(i.getCurrentPosition());
-				if(c.getShape().get().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
+				if(c.getShape().orElseThrow().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
 					c.setShape(ShapeFactory.INST.createPolygonFrom((IPolygon) c.getShape().get(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
 				}else {
 					((IModifiablePointsShape) c.getShape().get()).setPoint(currPoint.getX(), currPoint.getY(), -1);
 				}
-				canvas.setTempView(ViewFactory.INSTANCE.createView(c.getShape().orElse(null)).orElse(null));
+				canvas.setTempView(viewFactory.createView(c.getShape().orElse(null)).orElse(null));
 			}).
 			endOrCancel((i, c) -> canvas.setTempView(null)).
 			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.POLYGON).and(activatedProp));
@@ -241,12 +244,12 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(new MultiClick(), creation).on(canvas).
 			then((i, c) -> {
 				final IPoint currPoint = getAdaptedPoint(i.getCurrentPosition());
-				if(c.getShape().get().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
+				if(c.getShape().orElseThrow().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
 					c.setShape(ShapeFactory.INST.createPolylineFrom((IPolyline) c.getShape().get(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
 				}else {
 					((IModifiablePointsShape) c.getShape().get()).setPoint(currPoint.getX(), currPoint.getY(), -1);
 				}
-				canvas.setTempView(ViewFactory.INSTANCE.createView(c.getShape().orElse(null)).orElse(null));
+				canvas.setTempView(viewFactory.createView(c.getShape().orElse(null)).orElse(null));
 			}).
 			endOrCancel((i, c) -> canvas.setTempView(null)).
 			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.LINES).and(activatedProp));
@@ -255,13 +258,13 @@ public class Pencil extends CanvasInstrument {
 		nodeBinder(new MultiClick(), creation).on(canvas).
 			then((i, c) -> {
 				final IPoint currPoint = getAdaptedPoint(i.getCurrentPosition());
-				if(c.getShape().get().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
+				if(c.getShape().orElseThrow().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
 					c.setShape(ShapeFactory.INST.createBezierCurveFrom((IBezierCurve) c.getShape().get(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
 				}else {
 					((IModifiablePointsShape) c.getShape().get()).setPoint(currPoint.getX(), currPoint.getY(), -1);
 				}
 				((IControlPointShape) c.getShape().get()).balance();
-				canvas.setTempView(ViewFactory.INSTANCE.createView(c.getShape().orElse(null)).orElse(null));
+				canvas.setTempView(viewFactory.createView(c.getShape().orElse(null)).orElse(null));
 			}).
 			endOrCancel((i, c) -> canvas.setTempView(null)).
 			bind().activationProperty().bind(currentChoice.isEqualTo(EditionChoice.BEZIER_CURVE).and(activatedProp));
@@ -378,7 +381,7 @@ public class Pencil extends CanvasInstrument {
 	 * @return An instance of a shape configured (thickness, colours, etc.) with the parameters of the pencil.
 	 */
 	public IShape createShapeInstance() {
-		return setShapeParameters(currentChoice.get().createShapeInstance());
+		return setShapeParameters(currentChoice.get().createShapeInstance(system));
 	}
 
 	/**

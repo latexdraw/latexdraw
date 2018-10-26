@@ -17,13 +17,11 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
@@ -56,9 +54,9 @@ import net.sf.latexdraw.commands.SetUnit;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.Preference;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.GridStyle;
@@ -93,7 +91,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	/** The text field used to defines the latex packages to use. */
 	@FXML private TextArea latexIncludes;
 	/** Allows to set the unit of length by default. */
-	@FXML private ComboBox<String> unitChoice;
+	@FXML private ComboBox<Unit> unitChoice;
 	/** The list that contains the supported languages. */
 	@FXML private ComboBox<Locale> langList;
 	/** The field used to modifies the gap of the customised grid. */
@@ -107,6 +105,8 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	@Inject private Exporter exporter;
 	@Inject private FileLoaderSaver saver;
 	@Inject private MagneticGrid grid;
+	@Inject private SystemService system;
+	@Inject private LangService lang;
 	/** The file chooser of paths selection. */
 	private DirectoryChooser fileChooser;
 
@@ -121,15 +121,15 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		latexIncludes.setTooltip(new Tooltip("<html>" + //NON-NLS
-			LangTool.INSTANCE.getBundle().getString("PreferencesSetter.1") + //NON-NLS
+			lang.getBundle().getString("PreferencesSetter.1") + //NON-NLS
 			"<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>"//NON-NLS
 		));
 
 		langList.setCellFactory(l -> new LocaleCell());
 		langList.setButtonCell(new LocaleCell());
-		langList.getItems().addAll(LangTool.INSTANCE.getSupportedLocales());
+		langList.getItems().addAll(lang.getSupportedLocales());
 
-		unitChoice.getItems().addAll(Arrays.stream(Unit.values()).map(Unit::getLabel).collect(Collectors.toList()));
+		unitChoice.getItems().addAll(Unit.values());
 		styleList.getItems().addAll(GridStyle.values());
 	}
 
@@ -158,24 +158,15 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		comboboxBinder(ModifyMagneticGrid::new).on(styleList).first(c -> {
-			c.setValue(styleList.getSelectionModel().getSelectedItem());
-			c.setGrid(grid);
-			c.setProperty(GridProperties.STYLE);
-		}).bind();
+		comboboxBinder(i -> new ModifyMagneticGrid(GridProperties.STYLE, i.getWidget().getSelectionModel().getSelectedItem(), grid)).on(styleList).bind();
 
-		checkboxBinder(ModifyMagneticGrid::new).on(magneticCB).first(c -> {
-			c.setValue(magneticCB.isSelected());
-			c.setGrid(grid);
-			c.setProperty(GridProperties.MAGNETIC);
-		}).bind();
+		checkboxBinder(i -> new ModifyMagneticGrid(GridProperties.MAGNETIC, i.getWidget().isSelected(), grid)).on(magneticCB).bind();
 
-		spinnerBinder(ModifyMagneticGrid::new).on(persoGridGapField).exec().first(c -> {
-			c.setGrid(grid);
-			c.setProperty(GridProperties.GRID_SPACING);
-		}).then(c -> c.setValue(persoGridGapField.getValue())).bind();
+		spinnerBinder(i -> new ModifyMagneticGrid(GridProperties.GRID_SPACING, i.getWidget().getValue(), grid)).on(persoGridGapField).exec().
+			then(c -> c.setValue(persoGridGapField.getValue())).bind();
 
-		comboboxBinder(SetUnit::new).on(unitChoice).first(c -> c.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()))).bind();
+		comboboxBinder(() -> new SetUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem().name()))).
+			on(unitChoice).bind();
 
 		anonCmdBinder(new ButtonPressed(), () -> {
 			final File file = getFileChooser().showDialog(null);
@@ -200,7 +191,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	private DirectoryChooser getFileChooser() {
 		if(fileChooser == null) {
 			fileChooser = new DirectoryChooser();
-			fileChooser.setTitle(LangTool.INSTANCE.getBundle().getString("PreferencesFrame.selectFolder")); //NON-NLS
+			fileChooser.setTitle(lang.getBundle().getString("PreferencesFrame.selectFolder")); //NON-NLS
 		}
 		return fileChooser;
 	}
@@ -236,7 +227,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		Optional.ofNullable(prefMap.get(LNamespace.XML_MAGNETIC_GRID)).ifPresent(node -> magneticCB.setSelected(Boolean.parseBoolean(node.getTextContent())));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_EXPORT)).ifPresent(node -> pathExportField.setText(node.getTextContent()));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_OPEN)).ifPresent(node -> pathOpenField.setText(node.getTextContent()));
-		Optional.ofNullable(prefMap.get(LNamespace.XML_UNIT)).ifPresent(node -> unitChoice.getSelectionModel().select(node.getTextContent()));
+		Optional.ofNullable(prefMap.get(LNamespace.XML_UNIT)).ifPresent(node -> unitChoice.getSelectionModel().select(Unit.getUnit(node.getTextContent())));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_RECENT_FILES)).ifPresent(node -> setRecentFiles(node));
 		if(win instanceof Stage) {
 			Optional.ofNullable(prefMap.get(LNamespace.XML_MAXIMISED)).ifPresent(node -> ((Stage) win).setFullScreen(Boolean.parseBoolean(node.getTextContent())));
@@ -330,7 +321,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		saver.setCurrentFolder(pathOpenField.getText());
 		saver.updateRecentMenuItems(recentFileNames);
 
-		ScaleRuler.setUnit(Unit.getUnit(unitChoice.getSelectionModel().getSelectedItem()));
+		ScaleRuler.setUnit(unitChoice.getSelectionModel().getSelectedItem());
 	}
 
 	/**
@@ -339,7 +330,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	 */
 	public void writeXMLPreferences() {
 		try {
-			try(final OutputStream fos = Files.newOutputStream(Path.of(LPath.PATH_PREFERENCES_XML_FILE))) {
+			try(final OutputStream fos = Files.newOutputStream(Path.of(system.PATH_PREFERENCES_XML_FILE))) {
 				final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 				final Window win = pathExportField.getScene().getWindow();
 				final Rectangle2D rec = Screen.getPrimary().getBounds();
@@ -372,7 +363,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				root.appendChild(elt);
 
 				elt = document.createElement(LNamespace.XML_UNIT);
-				elt.setTextContent(unitChoice.getSelectionModel().getSelectedItem());
+				elt.setTextContent(unitChoice.getSelectionModel().getSelectedItem().name());
 				root.appendChild(elt);
 
 				elt = document.createElement(LNamespace.XML_CHECK_VERSION);
@@ -453,7 +444,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	 * @since 3.0
 	 */
 	public void readXMLPreferences() {
-		final File xml = new File(LPath.PATH_PREFERENCES_XML_FILE);
+		final File xml = new File(system.PATH_PREFERENCES_XML_FILE);
 
 		try {
 			if(xml.canRead()) {

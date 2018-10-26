@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import javafx.application.Platform;
 import javafx.scene.control.TextInputControl;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import net.sf.latexdraw.commands.ModifyMagneticGrid;
 import net.sf.latexdraw.instruments.robot.FxRobotListSelection;
 import net.sf.latexdraw.instruments.robot.FxRobotSpinner;
@@ -35,6 +36,7 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				bindAsEagerSingleton(PreferencesSetter.class);
 				bindToInstance(FileLoaderSaver.class, Mockito.mock(FileLoaderSaver.class));
 				bindToInstance(MagneticGrid.class, Mockito.mock(MagneticGrid.class));
@@ -46,7 +48,7 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 	@Before
 	public void setUp() {
 		Preference.INSTANCE.flushPreferencesCache();
-		setter = (PreferencesSetter) injectorFactory.call(PreferencesSetter.class);
+		setter = injector.getInstance(PreferencesSetter.class);
 		setter.setActivated(true);
 	}
 

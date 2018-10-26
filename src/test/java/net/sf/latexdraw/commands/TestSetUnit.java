@@ -7,14 +7,9 @@ import static org.junit.Assert.assertEquals;
 
 public class TestSetUnit extends TestUndoableCommand<SetUnit, Unit> {
 	@Override
-	protected SetUnit createCmd() {
-		return new SetUnit();
-	}
-
-	@Override
 	protected void configCorrectCmd() {
+		cmd = new SetUnit(Unit.INCH);
 		memento = ScaleRuler.getUnit();
-		cmd.setUnit(Unit.INCH);
 	}
 
 	@Override

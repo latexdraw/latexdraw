@@ -237,11 +237,6 @@ public class TestModifyShapeProperty extends TestUndoableCommand<ModifyShapeProp
 		}
 	}
 
-	@Override
-	protected ModifyShapeProperty<Object> createCmd() {
-		return new ModifyShapeProperty<>(property, group, value);
-	}
-
 
 	private void configureShapes() {
 		final IGrid grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
@@ -344,6 +339,7 @@ public class TestModifyShapeProperty extends TestUndoableCommand<ModifyShapeProp
 
 	@Override
 	protected void configCorrectCmd() {
+		cmd = new ModifyShapeProperty<>(property, group, value);
 		configureShapes();
 		memento = mementoCmd.apply(group);
 	}

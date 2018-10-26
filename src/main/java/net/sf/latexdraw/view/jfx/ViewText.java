@@ -11,7 +11,6 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,10 +28,8 @@ import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.util.LFileUtils;
-import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.OperatingSystem;
-import net.sf.latexdraw.util.StreamExecReader;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.Triple;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.latex.DviPsColors;
@@ -53,6 +50,7 @@ public class ViewText extends ViewPositionShape<IText> {
 	private final Tooltip compileTooltip;
 	private final ChangeListener<String> textUpdate;
 	private Future<?> currentCompilation;
+	private final SystemService system;
 
 	static {
 		LOGGER.setLevel(Level.OFF);
@@ -62,11 +60,12 @@ public class ViewText extends ViewPositionShape<IText> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewText(final IText sh) {
+	ViewText(final IText sh, final SystemService system) {
 		super(sh);
 		text = new Text();
 		compiledText = new ImageView();
 		compileTooltip = new Tooltip(null);
+		this.system = system;
 
 		compiledText.setScaleX(1d / SCALE_COMPILE);
 		compiledText.setScaleY(compiledText.getScaleX());
@@ -120,7 +119,7 @@ public class ViewText extends ViewPositionShape<IText> {
 
 		// A text will be used to render the text shape.
 		if(values.a == null) {
-			compileTooltip.setText(LSystem.INSTANCE.getLatexErrorMessageFromLog(values.b));
+			compileTooltip.setText(system.getLatexErrorMessageFromLog(values.b));
 			Tooltip.install(text, compileTooltip);
 			setImageTextEnable(false);
 			compiledText.setImage(null);
@@ -173,38 +172,12 @@ public class ViewText extends ViewPositionShape<IText> {
 		return doc.toString();
 	}
 
-	/**
-	 * Executes a given command and returns the log.
-	 * @param cmd The command to execute.
-	 * @return True if the command exits normally plus the log.
-	 */
-	private Tuple<Boolean, String> execute(final String[] cmd) {
-		String log = "";
-		try {
-			final Process process = Runtime.getRuntime().exec(cmd);
-			final StreamExecReader errReader = new StreamExecReader(process.getErrorStream());
-			final StreamExecReader outReader = new StreamExecReader(process.getInputStream());
-
-			errReader.start();
-			outReader.start();
-
-			if(process.waitFor() == 0) {
-				return new Tuple<>(Boolean.TRUE, log);
-			}
-
-			log = outReader.getLog() + LSystem.EOL + errReader.getLog();
-		}catch(final IOException | InterruptedException | IllegalThreadStateException ex) {
-			log += ex.getMessage();
-		}
-		return new Tuple<>(Boolean.FALSE, log);
-	}
-
 
 	/**
 	 * @return The LaTeX compiled picture of the text with its file path and its log.
 	 */
 	private Tuple<Image, String> createImage() {
-		final Optional<File> optDir = LFileUtils.INSTANCE.createTempDir();
+		final Optional<File> optDir = system.createTempDir();
 
 		if(!optDir.isPresent()) {
 			return new Tuple<>(null, "A temporary file cannot be created."); //NON-NLS
@@ -214,33 +187,35 @@ public class ViewText extends ViewPositionShape<IText> {
 		String log = ""; //NON-NLS
 		final File tmpDir = optDir.get();
 		final String doc = getLaTeXDocument();
-		final String basePathPic = tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
+		final String basePathPic = tmpDir.getAbsolutePath() + system.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
 		final String pathTex = basePathPic + ExportFormat.TEX.getFileExtension();
-		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
+		final OperatingSystem os = system.getSystem().orElse(OperatingSystem.LINUX);
 
 		LOGGER.log(Level.INFO, doc);
 
 		// Saving the LaTeX document into a file to be compiled.
-		if(!LFileUtils.INSTANCE.saveFile(pathTex, doc).isPresent()) {
+		if(!system.saveFile(pathTex, doc).isPresent()) {
 			return new Triple<>(null, basePathPic, log);
 		}
 
 		// Compiling the LaTeX document.
-		Tuple<Boolean, String> res = execute(new String[] {os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //NON-NLS
-			"--output-directory=" + tmpDir.getAbsolutePath(), LFileUtils.INSTANCE.normalizeForLaTeX(pathTex)}); //NON-NLS
+		Tuple<Boolean, String> res = system.execute(new String[] {os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //NON-NLS
+			"--output-directory=" + tmpDir.getAbsolutePath(), system.normalizeForLaTeX(pathTex)}, null); //NON-NLS
 		boolean ok = res.a;
 		log = res.b;
 
 		// Compiling the DVI document.
 		if(ok) {
-			res = execute(new String[] {os.getDvipsBinPath(), basePathPic + ".dvi", "-o", basePathPic + ExportFormat.EPS_LATEX.getFileExtension()}); //NON-NLS
+			res = system.execute(new String[] {os.getDvipsBinPath(), basePathPic + ".dvi", "-o", //NON-NLS
+				basePathPic + ExportFormat.EPS_LATEX.getFileExtension()}, null); //NON-NLS
 			ok = res.a;
 			log = log + res.b;
 		}
 
 		// Converting the PS document as a PDF one.
 		if(ok) {
-			res = execute(new String[] {os.getPs2pdfBinPath(), basePathPic + ExportFormat.EPS_LATEX.getFileExtension(), basePathPic + ExportFormat.PDF.getFileExtension()});
+			res = system.execute(new String[] {os.getPs2pdfBinPath(), basePathPic + ExportFormat.EPS_LATEX.getFileExtension(),
+				basePathPic + ExportFormat.PDF.getFileExtension()}, null); //NON-NLS
 			ok = res.a;
 			log = log + res.b;
 		}
@@ -249,12 +224,12 @@ public class ViewText extends ViewPositionShape<IText> {
 		if(ok) {
 			final String pdfpath = basePathPic + ExportFormat.PDF.getFileExtension();
 			final String picPath = basePathPic + ".png"; //NON-NLS
-			LSystem.INSTANCE.execute(new String[] {"convert", pdfpath, picPath}, null); //NON-NLS
+			system.execute(new String[] {"convert", pdfpath, picPath}, null); //NON-NLS
 			img = new Image(new File(picPath).toURI().toString());
 		}
 
 		// Deleting the temporary folder and its content.
-		LFileUtils.INSTANCE.removeDirWithContent(tmpDir.getPath());
+		system.removeDirWithContent(tmpDir.getPath());
 
 		LOGGER.log(Level.INFO, log);
 

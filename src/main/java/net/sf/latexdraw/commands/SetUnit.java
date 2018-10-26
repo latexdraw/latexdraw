@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.commands;
 
+import java.util.ResourceBundle;
 import net.sf.latexdraw.ui.ScaleRuler;
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.Unit;
 import org.malai.command.CommandImpl;
 import org.malai.undo.Undoable;
@@ -22,12 +22,13 @@ import org.malai.undo.Undoable;
  */
 public class SetUnit extends CommandImpl implements Undoable {
 	/** The new unit to set. */
-	private Unit unit;
+	private final Unit unit;
 	/** The former unit. */
 	private Unit oldUnit;
 
-	public SetUnit() {
+	public SetUnit(final Unit unit) {
 		super();
+		this.unit = unit;
 	}
 
 	@Override
@@ -52,20 +53,12 @@ public class SetUnit extends CommandImpl implements Undoable {
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.3");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.3");
 	}
 
 	@Override
 	public RegistrationPolicy getRegistrationPolicy() {
 		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
-	}
-
-	/**
-	 * @param newUnit The new unit to set.
-	 * @since 3.0
-	 */
-	public void setUnit(final Unit newUnit) {
-		unit = newUnit;
 	}
 }

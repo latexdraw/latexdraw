@@ -19,12 +19,15 @@ import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
  * @author Arnaud BLOUIN
  */
 public abstract class ViewPathShape<S extends ISingleShape> extends ViewSingleShape<S, Path> {
+	protected final PathElementProducer pathProducer;
+
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPathShape(final S sh) {
+	ViewPathShape(final S sh, final PathElementProducer pathProducer) {
 		super(sh);
+		this.pathProducer = pathProducer;
 	}
 
 	@Override
@@ -34,12 +37,12 @@ public abstract class ViewPathShape<S extends ISingleShape> extends ViewSingleSh
 
 	@Override
 	public void flush() {
-		border.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+		border.getElements().forEach(elt -> pathProducer.flushPathElement(elt));
 		if(shadow != null) {
-			shadow.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+			shadow.getElements().forEach(elt -> pathProducer.flushPathElement(elt));
 		}
 		if(dblBorder != null) {
-			dblBorder.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+			dblBorder.getElements().forEach(elt -> pathProducer.flushPathElement(elt));
 		}
 		super.flush();
 	}

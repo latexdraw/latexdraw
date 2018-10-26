@@ -13,14 +13,15 @@ package net.sf.latexdraw.commands.shape;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.commands.DrawingCmdImpl;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.commands.ShapesCmd;
 import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
@@ -34,8 +35,8 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 	/** The shapes to handle. */
 	final List<IShape> shapes;
 
-	public JoinShapes() {
-		super();
+	public JoinShapes(final IDrawing theDrawing) {
+		super(theDrawing);
 		addedGroup = ShapeFactory.INST.createGroup();
 		shapes = new ArrayList<>();
 	}
@@ -78,8 +79,8 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("UndoRedoManager.join");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("UndoRedoManager.join");
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 		textPos = find("#textPos");
 		packagesField = find("#packagesField");
 		logField = find("#logField");
-		ins = (ShapeTextCustomiser) injectorFactory.call(ShapeTextCustomiser.class);
+		ins = injector.getInstance(ShapeTextCustomiser.class);
 		ins.setActivated(true);
 	}
 

@@ -14,12 +14,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.commands.Export;
 import net.sf.latexdraw.commands.ExportTemplate;
 import net.sf.latexdraw.data.StringData;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.junit.Before;
 import org.junit.Rule;
@@ -50,6 +51,7 @@ public class TestExporter extends BaseTestCanvas {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				bindAsEagerSingleton(Border.class);
 				bindAsEagerSingleton(Exporter.class);
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
@@ -71,8 +73,8 @@ public class TestExporter extends BaseTestCanvas {
 	public void start(final Stage aStage) {
 		super.start(aStage);
 		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Export.fxml"), LangTool.INSTANCE.getBundle(),
-				new LatexdrawBuilderFactory(injector), injectorFactory);
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Export.fxml"), injector.getInstance(LangService.class).getBundle(),
+				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 			final BorderPane pane = new BorderPane();
 			pane.setTop(root);
 			pane.setCenter(stage.getScene().getRoot());
@@ -86,15 +88,15 @@ public class TestExporter extends BaseTestCanvas {
 	@Before
 	public void setUp() {
 		super.setUp();
-		exporter = (Exporter) injectorFactory.call(Exporter.class);
+		exporter = injector.getInstance(Exporter.class);
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
 		WaitForAsyncUtils.waitForFxEvents();
 
-		final TemplateManager template = (TemplateManager) injectorFactory.call(TemplateManager.class);
+		final TemplateManager template = injector.getInstance(TemplateManager.class);
 		template.templatePane = new FlowPane();
 
-		final StatusBarController status = (StatusBarController) injectorFactory.call(StatusBarController.class);
+		final StatusBarController status = injector.getInstance(StatusBarController.class);
 		Mockito.when(status.getLabel()).thenReturn(new Label());
 		Mockito.when(status.getProgressBar()).thenReturn(new ProgressBar());
 
@@ -103,14 +105,9 @@ public class TestExporter extends BaseTestCanvas {
 		try {
 			Mockito.when(chooser.showOpenDialog(Mockito.any())).thenReturn(tmp.newFile());
 			Mockito.when(chooser.showSaveDialog(Mockito.any())).thenReturn(tmp.newFile());
-			Field field = Exporter.class.getDeclaredField("fileChooserExport");
+			final Field field = Exporter.class.getDeclaredField("fileChooserExport");
 			field.setAccessible(true);
 			field.set(exporter, chooser);
-
-			final LaTeXDraw ld = Mockito.mock(LaTeXDraw.class);
-			field = LaTeXDraw.class.getDeclaredField("instance");
-			field.setAccessible(true);
-			field.set(null, ld);
 		}catch(final IllegalAccessException | NoSuchFieldException | IOException ex) {
 			fail(ex.getMessage());
 		}

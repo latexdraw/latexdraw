@@ -18,35 +18,26 @@ import org.malai.command.CommandImpl;
  * This command updates the templates.
  * @author Arnaud Blouin
  */
-public class UpdateTemplates extends CommandImpl implements TemplateCmd {
+public class UpdateTemplates extends CommandImpl {
 	/** Defines if the thumbnails must be updated. */
-	private boolean updateThumbnails;
-	private Pane templatesPane;
+	private final boolean updateThumbnails;
+	private final Pane templatesPane;
+	private final SVGDocumentGenerator svgGen;
 
-	public UpdateTemplates() {
+	public UpdateTemplates(final Pane templatesPane, final SVGDocumentGenerator svgGen, final boolean updateThumbnails) {
 		super();
-		updateThumbnails = false;
+		this.templatesPane = templatesPane;
+		this.updateThumbnails = updateThumbnails;
+		this.svgGen = svgGen;
 	}
 
 	@Override
 	public void doCmdBody() {
-		SVGDocumentGenerator.INSTANCE.updateTemplates(templatesPane, updateThumbnails);
-	}
-
-	/**
-	 * @param update Defines if the thumbnails must be updated.
-	 */
-	public void updateThumbnails(final boolean update) {
-		updateThumbnails = update;
+		svgGen.updateTemplates(templatesPane, updateThumbnails);
 	}
 
 	@Override
-	public void setTemplatesPane(final Pane templatePanel) {
-		templatesPane = templatePanel;
-	}
-
-	@Override
-	public Pane getTemplatesPane() {
-		return templatesPane;
+	public boolean canDo() {
+		return templatesPane != null && svgGen != null;
 	}
 }

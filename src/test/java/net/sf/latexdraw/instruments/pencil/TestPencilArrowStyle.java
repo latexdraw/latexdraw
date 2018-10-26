@@ -2,19 +2,21 @@ package net.sf.latexdraw.instruments.pencil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
+import javafx.stage.Stage;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestArrowStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestArrowStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -31,6 +33,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeArrowCustomiser.class);
 				bindAsEagerSingleton(Pencil.class);

@@ -14,13 +14,14 @@ import net.sf.latexdraw.models.interfaces.shape.IRhombus;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.util.SystemService;
 import org.junit.experimental.theories.ParameterSignature;
 import org.junit.experimental.theories.ParameterSupplier;
 import org.junit.experimental.theories.PotentialAssignment;
 
 public class ShapeSupplier extends ParameterSupplier {
 	public static IPicture createPicture() {
-		return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(76, 45));
+		return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(76, 45), new SystemService());
 	}
 
 	public static ISquare createSquare() {

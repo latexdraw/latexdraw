@@ -34,7 +34,6 @@ public class TestModifyLatexProperties extends TestUndoableCommand<ModifyLatexPr
 	@Override
 	@Before
 	public void setUp() {
-		super.setUp();
 		gen = new PSTCodeGenerator();
 
 		switch(property) {
@@ -69,6 +68,7 @@ public class TestModifyLatexProperties extends TestUndoableCommand<ModifyLatexPr
 		}
 
 		memento = mementoCmd.get();
+		super.setUp();
 	}
 
 	@Override
@@ -83,12 +83,8 @@ public class TestModifyLatexProperties extends TestUndoableCommand<ModifyLatexPr
 	}
 
 	@Override
-	protected ModifyLatexProperties createCmd() {
-		return new ModifyLatexProperties();
-	}
-
-	@Override
 	protected void configCorrectCmd() {
+		cmd = new ModifyLatexProperties();
 		cmd.setGenerator(gen);
 		cmd.setProperty(property);
 		cmd.setValue(value);

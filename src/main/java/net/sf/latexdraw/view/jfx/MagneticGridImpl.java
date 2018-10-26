@@ -21,7 +21,7 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LPath;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
@@ -46,6 +46,7 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 	private GridStyle style;
 	/** Defined if the canvas has been modified. */
 	private boolean modified;
+	private final SystemService system;
 
 
 	/**
@@ -53,8 +54,9 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 	 * @param canv The canvas in which the grid will work.
 	 * @throws NullPointerException if the given parameters are not valid.
 	 */
-	public MagneticGridImpl(final Canvas canv) {
+	public MagneticGridImpl(final Canvas canv, final SystemService system) {
 		super();
+		this.system = system;
 		modified = false;
 		canvas = canv;
 		reinitGrid();
@@ -272,7 +274,7 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 			return;
 		}
 
-		final String ns = generalPreferences ? "" : LPath.INSTANCE.getNormaliseNamespaceURI(nsURI); //NON-NLS
+		final String ns = generalPreferences ? "" : system.getNormaliseNamespaceURI(nsURI); //NON-NLS
 		Element elt = document.createElement(ns + LNamespace.XML_MAGNETIC_GRID_STYLE);
 		elt.setTextContent(getGridStyle().toString());
 		root.appendChild(elt);

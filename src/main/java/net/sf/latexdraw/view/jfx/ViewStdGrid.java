@@ -21,13 +21,15 @@ import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
  */
 public abstract class ViewStdGrid<T extends IStandardGrid> extends ViewPositionShape<T> {
 	protected final Group labels;
+	protected final PathElementProducer pathProducer;
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewStdGrid(final T sh) {
+	ViewStdGrid(final T sh, final PathElementProducer pathProducer) {
 		super(sh);
+		this.pathProducer = pathProducer;
 		labels = new Group();
 		getChildren().add(labels);
 	}

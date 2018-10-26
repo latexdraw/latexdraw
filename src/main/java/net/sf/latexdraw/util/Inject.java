@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
  * The injection annotation (to remove the dependency to javax.inject).
  * @author Arnaud Blouin
  */
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Inject {
 }

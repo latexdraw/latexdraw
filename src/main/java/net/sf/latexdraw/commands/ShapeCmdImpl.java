@@ -27,10 +27,6 @@ public abstract class ShapeCmdImpl<T extends IShape> extends CommandImpl impleme
 		shape = Optional.ofNullable(sh);
 	}
 
-	protected ShapeCmdImpl() {
-		this(null);
-	}
-
 	@Override
 	public void setShape(final T sh) {
 		shape = Optional.ofNullable(sh);

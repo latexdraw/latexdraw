@@ -1,16 +1,14 @@
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.data.ArcData;
 import net.sf.latexdraw.models.CompareShapeMatcher;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Theories.class)
 public class TestSVGArc extends TestSVGBase<IArc> {
-	@Theory
-	public void testStartAngle(@ArcData(withParamVariants = true) final IArc sh) {
+	@ParameterizedTest
+	@MethodSource("net.sf.latexdraw.data.ArcSupplier#createDiversifiedArc")
+	void testStartAngle(final IArc sh) {
 		final IArc s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsArc(sh, s2);
 	}

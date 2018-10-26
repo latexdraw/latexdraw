@@ -12,11 +12,11 @@ package net.sf.latexdraw.commands.shape;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
@@ -70,7 +70,7 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.44");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("LaTeXDrawFrame.44");
 	}
 }

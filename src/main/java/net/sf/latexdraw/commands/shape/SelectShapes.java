@@ -15,6 +15,7 @@ import java.util.List;
 import net.sf.latexdraw.commands.DrawingCmdImpl;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.commands.ShapesCmd;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import org.malai.command.Command;
@@ -27,8 +28,8 @@ public class SelectShapes extends DrawingCmdImpl implements ShapesCmd, Modifying
 	/** The shapes to handle. */
 	final List<IShape> shapes;
 
-	public SelectShapes() {
-		super();
+	public SelectShapes(final IDrawing theDrawing) {
+		super(theDrawing);
 		shapes = new ArrayList<>();
 	}
 

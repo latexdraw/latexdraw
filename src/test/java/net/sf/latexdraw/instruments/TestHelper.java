@@ -5,6 +5,8 @@ import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -26,7 +28,12 @@ public class TestHelper extends TestLatexdrawGUI {
 		return new Injector() {
 			@Override
 			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+				bindToInstance(Injector.class, this);
+				bindAsEagerSingleton(SystemService.class);
+				bindAsEagerSingleton(LangService.class);
 				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
+				bindAsEagerSingleton(ShortcutsController.class);
+				bindAsEagerSingleton(AboutController.class);
 				bindAsEagerSingleton(Helper.class);
 			}
 		};

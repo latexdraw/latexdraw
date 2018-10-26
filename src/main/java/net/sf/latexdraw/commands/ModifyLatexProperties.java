@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.commands;
 
-import net.sf.latexdraw.util.LangTool;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import org.malai.command.CommandImpl;
@@ -112,8 +112,8 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.0");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.0");
 	}
 
 	/**

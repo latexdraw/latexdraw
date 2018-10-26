@@ -239,14 +239,9 @@ public class Border extends CanvasInstrument implements Initializable {
 			}).
 			exec().bind();
 
-		nodeBinder(new DnD(), RotateShapes::new).
+		nodeBinder(new DnD(), () -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre().add(canvas.getOrigin()),
+			canvas.getDrawing().getSelection().duplicateDeep(false), 0d)).
 			on(rotHandler).
-			first((i, c) -> {
-				final IDrawing drawing = canvas.getDrawing();
-				c.setGravityCentre(drawing.getSelection().getGravityCentre());
-				c.getGc().translate(canvas.getOrigin().getX(), canvas.getOrigin().getY());
-				c.setShape(drawing.getSelection().duplicateDeep(false));
-			}).
 			then((i, c) -> c.setRotationAngle(c.getGc().computeRotationAngle(
 				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getSrcScenePoint())),
 				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getTgtScenePoint()))))).
@@ -343,7 +338,12 @@ public class Border extends CanvasInstrument implements Initializable {
 		private double yGap;
 
 		DnD2Scale(final Border ins) {
-			super(ins, true, new DnD(), i -> new ScaleShapes(), ins.scaleHandlers.stream().map(h -> (Node) h).collect(Collectors.toList()), false, null);
+			super(ins, true, new DnD(), i -> {
+					System.out.println(i.getSrcObject().map(h -> ((ScaleHandler) h).getPosition().getOpposite()));
+					return new ScaleShapes(ins.canvas.getDrawing().getSelection().duplicateDeep(false), ins.canvas.getDrawing(),
+						i.getSrcObject().map(h -> ((ScaleHandler) h).getPosition().getOpposite()).orElse(Position.SW));
+				},
+				ins.scaleHandlers.stream().map(h -> (Node) h).collect(Collectors.toList()), false, null);
 		}
 
 		private void setXGap(final Position refPosition, final IPoint tl, final IPoint br) {
@@ -383,17 +383,13 @@ public class Border extends CanvasInstrument implements Initializable {
 		@Override
 		public void first() {
 			final IDrawing drawing = instrument.canvas.getDrawing();
-			final Position refPosition = interaction.getSrcObject().map(h -> ((ScaleHandler) h).getPosition().getOpposite()).orElse(Position.NE);
 			final IPoint br = drawing.getSelection().getBottomRightPoint();
 			final IPoint tl = drawing.getSelection().getTopLeftPoint();
 
 			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getSrcLocalPoint())).orElse(null));
 
-			setXGap(refPosition, tl, br);
-			setYGap(refPosition, tl, br);
-			cmd.setDrawing(drawing);
-			cmd.setShape(drawing.getSelection().duplicateDeep(false));
-			cmd.setRefPosition(refPosition);
+			setXGap(cmd.getRefPosition().orElseThrow(), tl, br);
+			setYGap(cmd.getRefPosition().orElseThrow(), tl, br);
 		}
 
 

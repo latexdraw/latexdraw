@@ -1,27 +1,44 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
-import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import java.lang.reflect.InvocationTargetException;
+import net.sf.latexdraw.data.ConfigureInjection;
+import net.sf.latexdraw.data.InjectionExtension;
+import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Theories.class)
+@ExtendWith(InjectionExtension.class)
 public class TestArcStyle {
+	@ConfigureInjection
+	Injector createInjector() {
+		return new Injector() {
+			@Override
+			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+				bindAsEagerSingleton(SystemService.class);
+				bindAsEagerSingleton(LangService.class);
+			}
+		};
+	}
+
 	@Test
-	public void testSupportArrow() {
+	void testSupportArrow() {
 		assertFalse(ArcStyle.CHORD.supportArrow());
 		assertFalse(ArcStyle.WEDGE.supportArrow());
 		assertTrue(ArcStyle.ARC.supportArrow());
 	}
 
-	@Theory
-	public void testGetLabel(final ArcStyle style) {
-		assertNotNull(style.getLabel());
-		assertFalse(style.getLabel().isEmpty());
+	@ParameterizedTest
+	@EnumSource(ArcStyle.class)
+	void testGetLabel(final ArcStyle style, final LangService lang) {
+		assertNotNull(style.getLabel(lang.getBundle()));
+		assertFalse(style.getLabel(lang.getBundle()).isEmpty());
 	}
 }

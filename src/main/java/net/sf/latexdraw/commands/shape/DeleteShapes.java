@@ -12,12 +12,13 @@ package net.sf.latexdraw.commands.shape;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.commands.DrawingCmdImpl;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.commands.ShapesCmd;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
@@ -32,8 +33,8 @@ public class DeleteShapes extends DrawingCmdImpl implements ShapesCmd, Undoable,
 	final List<IShape> shapes;
 
 
-	public DeleteShapes() {
-		super();
+	public DeleteShapes(final IDrawing drawing) {
+		super(drawing);
 		shapes = new ArrayList<>();
 	}
 
@@ -67,8 +68,8 @@ public class DeleteShapes extends DrawingCmdImpl implements ShapesCmd, Undoable,
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.5");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.5");
 	}
 
 	@Override

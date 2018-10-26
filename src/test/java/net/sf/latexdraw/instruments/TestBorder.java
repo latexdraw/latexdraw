@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.handlers.Handler;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -35,6 +36,7 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				bindAsEagerSingleton(Border.class);
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
@@ -70,7 +72,7 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 		super.setUp();
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
-		border = (Border) injectorFactory.call(Border.class);
+		border = injector.getInstance(Border.class);
 		WaitForAsyncUtils.waitForFxEvents();
 		((Arc) border.rotHandler.getChildren().get(0)).setFill(Color.WHITE);
 	}

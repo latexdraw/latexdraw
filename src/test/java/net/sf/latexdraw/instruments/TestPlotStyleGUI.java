@@ -39,7 +39,7 @@ public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomi
 		minXSpinner = find("#minXSpinner");
 		nbPtsSpinner = find("#nbPtsSpinner");
 		plotStyleCB = find("#plotStyleCB");
-		ins = (ShapePlotCustomiser) injectorFactory.call(ShapePlotCustomiser.class);
+		ins = injector.getInstance(ShapePlotCustomiser.class);
 		ins.setActivated(true);
 	}
 }

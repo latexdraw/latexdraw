@@ -13,9 +13,11 @@ package net.sf.latexdraw.commands.shape;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalInt;
+import java.util.ResourceBundle;
 import java.util.stream.IntStream;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
 
 /**
@@ -35,10 +37,11 @@ public class DistributeShapes extends AlignDistribCmd {
 	}
 
 	/** The alignment to perform. */
-	private Distribution distribution;
+	private final Distribution distribution;
 
-	public DistributeShapes() {
-		super();
+	public DistributeShapes(final Canvas canvas, final Distribution distribution, final IGroup gp) {
+		super(canvas, gp);
+		this.distribution = distribution;
 	}
 
 	@Override
@@ -154,15 +157,8 @@ public class DistributeShapes extends AlignDistribCmd {
 		shape.ifPresent(sh -> sh.setModified(true));
 	}
 
-	/**
-	 * Sets the alignment to perform.
-	 */
-	public void setDistribution(final Distribution distrib) {
-		distribution = distrib;
-	}
-
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.6");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.6");
 	}
 }

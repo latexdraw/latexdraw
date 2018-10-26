@@ -83,8 +83,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	});
 
 	final GUIVoidCommand selectAllShapes = () -> {
-		final SelectShapes cmd = new SelectShapes();
-		cmd.setDrawing(canvas.getDrawing());
+		final SelectShapes cmd = new SelectShapes(canvas.getDrawing());
 		canvas.getDrawing().getShapes().forEach(sh -> cmd.addShape(sh));
 		Platform.runLater(() -> {
 			cmd.doIt();
@@ -128,9 +127,9 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 
 	@Before
 	public void setUp() {
-		pencil = (Pencil) injectorFactory.call(Pencil.class);
-		hand = (Hand) injectorFactory.call(Hand.class);
-		canvas = (Canvas) injectorFactory.call(Canvas.class);
+		pencil = injector.getInstance(Pencil.class);
+		hand = injector.getInstance(Hand.class);
+		canvas = injector.getInstance(Canvas.class);
 		canvas.getMagneticGrid().setMagnetic(false);
 
 		Platform.runLater(() -> {

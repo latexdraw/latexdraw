@@ -11,6 +11,7 @@
 package net.sf.latexdraw.util;
 
 import java.util.Arrays;
+import java.util.ResourceBundle;
 
 /**
  * The different possible units used by the rulers.
@@ -20,30 +21,28 @@ public enum Unit {
 	/** Centimetre */
 	CM {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getBundle().getString("XScale.cm"); //NON-NLS
+		public String getLabel(final ResourceBundle bundle) {
+			return bundle.getString("XScale.cm"); //NON-NLS
 		}
 	},
 	/** Inch */
 	INCH {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getBundle().getString("XScale.inch"); //NON-NLS
+		public String getLabel(final ResourceBundle bundle) {
+			return bundle.getString("XScale.inch"); //NON-NLS
 		}
 	};
 
 	/**
-	 * @param label The label to test.
+	 * @param name The name to test.
 	 * @return The unit corresponding to the given label, or CM.
-	 * @since 3.0
 	 */
-	public static Unit getUnit(final String label) {
-		return Arrays.stream(values()).filter(it -> it.getLabel().equals(label)).findFirst().orElse(CM);
+	public static Unit getUnit(final String name) {
+		return Arrays.stream(values()).filter(it -> it.name().equals(name)).findFirst().orElse(CM);
 	}
 
 	/**
 	 * @return The label of the unit.
-	 * @since 3.0
 	 */
-	public abstract String getLabel();
+	public abstract String getLabel(final ResourceBundle bundle);
 }

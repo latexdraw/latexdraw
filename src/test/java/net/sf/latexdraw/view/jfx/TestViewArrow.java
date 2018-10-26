@@ -2,25 +2,25 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
 import net.sf.latexdraw.models.ShapeFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestViewArrow {
 	ViewPolyline view;
 	ViewArrow varrow;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
-		view = (ViewPolyline) ViewFactory.INSTANCE.createView(ShapeFactory.INST.createPolyline(
+		view = (ViewPolyline) new ViewFactory().createView(ShapeFactory.INST.createPolyline(
 			Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(10d, 20d), ShapeFactory.INST.createPoint(30d, 40d)))).
 			orElseThrow(() -> new IllegalArgumentException());
 		varrow = view.viewArrows.arrows.get(0);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		view.flush();
 		varrow.flush();

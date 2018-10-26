@@ -5,13 +5,13 @@ import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestViewSquare extends TestViewBorderedShape<ViewSquare, ISquare, Rectangle> {
-	@BeforeClass
+public class TestViewSquare extends TestViewBorderedShape<ViewSquare, ISquare, Rectangle> implements TestLineArcView<ViewSquare, ISquare> {
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});
@@ -26,139 +26,94 @@ public class TestViewSquare extends TestViewBorderedShape<ViewSquare, ISquare, R
 	}
 
 	@Test
-	public void testXPosition() {
+	void testXPosition() {
 		model.setX(123d);
 		assertEquals(123d, border.getX(), 0.001);
 	}
 
 	@Test
-	public void testXPositionDbleBordInside() {
+	void testXPositionDbleBordInside() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.INTO);
-		assertEquals(123d + model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
+		assertEquals(123d + model.getThickness(), view.getDbleBorder().orElseThrow().getX(), 0.001);
 	}
 
 	@Test
-	public void testXPositionDbleBordMiddle() {
+	void testXPositionDbleBordMiddle() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(123d, view.getDbleBorder().get().getX(), 0.001);
+		assertEquals(123d, view.getDbleBorder().orElseThrow().getX(), 0.001);
 	}
 
 	@Test
-	public void testXPositionDbleBordOutside() {
+	void testXPositionDbleBordOutside() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(123d - model.getThickness(), view.getDbleBorder().get().getX(), 0.001);
+		assertEquals(123d - model.getThickness(), view.getDbleBorder().orElseThrow().getX(), 0.001);
 	}
 
 
 	@Test
-	public void testYPosition() {
+	void testYPosition() {
 		model.setY(-123.4);
 		assertEquals(-123.4 - model.getHeight(), border.getY(), 0.001);
 	}
 
 	@Test
-	public void testYPositionDbleBordInside() {
+	void testYPositionDbleBordInside() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.INTO);
-		assertEquals(border.getY() + model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
+		assertEquals(border.getY() + model.getThickness(), view.getDbleBorder().orElseThrow().getY(), 0.001);
 	}
 
 	@Test
-	public void testYPositionDbleBordMiddle() {
+	void testYPositionDbleBordMiddle() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getY(), view.getDbleBorder().get().getY(), 0.001);
+		assertEquals(border.getY(), view.getDbleBorder().orElseThrow().getY(), 0.001);
 	}
 
 	@Test
-	public void testYPositionDbleBordOutside() {
+	void testYPositionDbleBordOutside() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getY() - model.getThickness(), view.getDbleBorder().get().getY(), 0.001);
+		assertEquals(border.getY() - model.getThickness(), view.getDbleBorder().orElseThrow().getY(), 0.001);
 	}
 
 	@Test
-	public void testWidth() {
+	void testWidth() {
 		model.setWidth(74.3);
 		assertEquals(74.3, border.getWidth(), 0.001d);
 	}
 
 	@Test
-	public void testWidthDbleBordInside() {
+	void testWidthDbleBordInside() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.INTO);
-		assertEquals(border.getWidth() - 2d * model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
+		assertEquals(border.getWidth() - 2d * model.getThickness(), view.getDbleBorder().orElseThrow().getWidth(), 0.001);
 	}
 
 	@Test
-	public void testWidthDbleBordMiddle() {
+	void testWidthDbleBordMiddle() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getWidth(), view.getDbleBorder().get().getWidth(), 0.001);
+		assertEquals(border.getWidth(), view.getDbleBorder().orElseThrow().getWidth(), 0.001);
 	}
 
 	@Test
-	public void testWidthDbleBordOutside() {
+	void testWidthDbleBordOutside() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getWidth() + 2d * model.getThickness(), view.getDbleBorder().get().getWidth(), 0.001);
+		assertEquals(border.getWidth() + 2d * model.getThickness(), view.getDbleBorder().orElseThrow().getWidth(), 0.001);
 	}
 
 	@Override
 	@Test
-	public void testShadowPositionSameThanBorder() {
+	void testShadowPositionSameThanBorder() {
 		if(model.isShadowable()) {
 			model.setHasShadow(true);
-			assertEquals(border.getX(), view.getShadow().get().getX(), 0.01);
-			assertEquals(border.getY(), view.getShadow().get().getY(), 0.01);
-		}
-	}
-
-
-	@Test
-	public void testBorderLineArcWidth() {
-		getModel().setLineArc(0.33);
-		assertEquals(0.33 * getModel().getWidth(), getBorder().getArcWidth(), 0.000001);
-	}
-
-	@Test
-	public void testBorderLineArcHeight() {
-		getModel().setLineArc(0.33);
-		assertEquals(0.33 * getModel().getHeight(), getBorder().getArcHeight(), 0.000001);
-	}
-
-	@Test
-	public void testShadowLineArcWidth() {
-		if(getModel().isShadowable()) {
-			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getWidth(), getView().getShadow().get().getArcWidth(), 0.000001);
-		}
-	}
-
-	@Test
-	public void testShadowLineArcHeight() {
-		if(getModel().isShadowable()) {
-			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getHeight(), getView().getShadow().get().getArcHeight(), 0.000001);
-		}
-	}
-
-	@Test
-	public void testDbleLineArcWidth() {
-		if(getModel().isDbleBorderable()) {
-			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getWidth(), getView().getDbleBorder().get().getArcWidth(), 0.000001);
-		}
-	}
-
-	@Test
-	public void testDbleLineArcHeight() {
-		if(getModel().isDbleBorderable()) {
-			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getHeight(), getView().getDbleBorder().get().getArcHeight(), 0.000001);
+			assertEquals(border.getX(), view.getShadow().orElseThrow().getX(), 0.01);
+			assertEquals(border.getY(), view.getShadow().orElseThrow().getY(), 0.01);
 		}
 	}
 

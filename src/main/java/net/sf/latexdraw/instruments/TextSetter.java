@@ -26,7 +26,8 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.Tuple;
 import org.malai.command.Command;
 import org.malai.javafx.command.ActivateInactivateInstruments;
@@ -48,13 +49,15 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	@Inject private Pencil pencil;
 	@Inject private ShapeTextCustomiser custom;
 	@Inject private ShapePlotCustomiser plotCustom;
+	@Inject private SystemService service;
+	@Inject private LangService langTool;
 
 	/**
 	 * Creates the instrument.
 	 */
 	public TextSetter() {
 		super();
-		textField = new TextAreaAutoSize();
+		textField = new TextAreaAutoSize(service);
 	}
 
 	@Override
@@ -137,19 +140,19 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 			valid = PSFunctionParser.isValidPostFixEquation(textField.getText(), Double.parseDouble(plotCustom.minXSpinner.getValue().toString()),
 				Double.parseDouble(plotCustom.maxXSpinner.getValue().toString()), Double.parseDouble(plotCustom.nbPtsSpinner.getValue().toString()));
 		}catch(final IllegalArgumentException ex) {
-			valid = new Tuple<>(Boolean.FALSE, LangTool.INSTANCE.getBundle().getString("invalid.function"));
+			valid = new Tuple<>(Boolean.FALSE, langTool.getBundle().getString("invalid.function"));
 		}
 		textField.setValid(valid);
 		return valid.a;
 	}
 
 	private void setTextMessage() {
-		textField.getMessageField().setText(LangTool.INSTANCE.getBundle().getString("write.latex.text"));
+		textField.getMessageField().setText(langTool.getBundle().getString("write.latex.text"));
 	}
 
 	private void setPlotMessage() {
 		final String eqEx = " 2 x add sin"; //NON-NLS
-		textField.getMessageField().setText(LangTool.INSTANCE.getBundle().getString("write.the.equation") + ' ' + eqEx);
+		textField.getMessageField().setText(langTool.getBundle().getString("write.the.equation") + ' ' + eqEx);
 	}
 
 	@Override

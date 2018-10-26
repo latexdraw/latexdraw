@@ -1,19 +1,16 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
-import net.sf.latexdraw.data.StringData;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(Theories.class)
 public class TestArrowStyle {
 	@Test
-	public void testGetPSTToken() {
+	void testGetPSTToken() {
 		assertEquals(PSTricksConstants.BAREND_STYLE, ArrowStyle.BAR_END.getPSTToken());
 		assertEquals(PSTricksConstants.BARIN_STYLE, ArrowStyle.BAR_IN.getPSTToken());
 		assertEquals(PSTricksConstants.CIRCLEEND_STYLE, ArrowStyle.CIRCLE_END.getPSTToken());
@@ -33,23 +30,26 @@ public class TestArrowStyle {
 		assertEquals(PSTricksConstants.ROUNDIN_STYLE, ArrowStyle.ROUND_IN.getPSTToken());
 	}
 
-	@Theory
-	public void testGetArrowStylePSTConst(final ArrowStyle style) {
+	@ParameterizedTest
+	@EnumSource(ArrowStyle.class)
+	void testGetArrowStylePSTConst(final ArrowStyle style) {
 		assertEquals(style, ArrowStyle.getArrowStyle(style.getPSTToken()));
 	}
 
 	@Test
-	public void testGetArrowStyleKONULL() {
+	void testGetArrowStyleKONULL() {
 		assertEquals(ArrowStyle.NONE, ArrowStyle.getArrowStyle(null));
 	}
 
-	@Theory
-	public void testGetArrowStyleKOSTR(@StringData(vals = {"", "diqdo "}) final String style) {
+	@ParameterizedTest
+	@ValueSource(strings = {"", "diqdo "})
+	void testGetArrowStyleKOSTR(final String style) {
 		assertEquals(ArrowStyle.NONE, ArrowStyle.getArrowStyle(style));
 	}
 
-	@Theory
-	public void testGetArrowStyleArrowStyle(final ArrowStyle style) {
+	@ParameterizedTest
+	@EnumSource(ArrowStyle.class)
+	void testGetArrowStyleArrowStyle(final ArrowStyle style) {
 		assertEquals(style, ArrowStyle.getArrowStyle(style.toString()));
 	}
 }

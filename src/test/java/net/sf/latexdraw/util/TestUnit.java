@@ -1,9 +1,7 @@
 package net.sf.latexdraw.util;
 
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -11,24 +9,27 @@ import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-@RunWith(Theories.class)
 public class TestUnit {
-	@Theory
+	@ParameterizedTest
+	@EnumSource(Unit.class)
 	public void testGetUnit(final Unit unit) {
-		assertEquals(unit, Unit.getUnit(unit.getLabel()));
+		assertEquals(unit, Unit.getUnit(unit.name()));
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource(Unit.class)
 	public void testgetLabel(final Unit unit) {
-		assertThat(unit.getLabel(), not(is(emptyOrNullString())));
+		assertThat(unit.getLabel(new LangService(new SystemService()).getBundle()), not(is(emptyOrNullString())));
 	}
 
-	@Test
+	@ParameterizedTest
+	@EnumSource(Unit.class)
 	public void testGetUnitNULL() {
 		assertEquals(Unit.CM, Unit.getUnit(null));
 	}
 
-	@Test
+	@ParameterizedTest
+	@EnumSource(Unit.class)
 	public void testGetUnitKO() {
 		assertEquals(Unit.CM, Unit.getUnit("bad"));
 	}

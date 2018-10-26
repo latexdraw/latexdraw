@@ -1,7 +1,5 @@
 package net.sf.latexdraw.util;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 import org.junit.After;
 import org.junit.Before;
@@ -19,21 +17,17 @@ public class TestLangTool {
 	@DataPoints
 	public static Locale[] locales = {Locale.TAIWAN, new Locale("foo", "Bar")};
 
-	Constructor<LangTool> constructor;
-	LangTool lang;
+	LangService lang;
 	Locale locale;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		locale = Locale.getDefault();
-		constructor = LangTool.class.getDeclaredConstructor();
-		constructor.setAccessible(true);
-		lang = constructor.newInstance();
+		lang = new LangService(new SystemService());
 	}
 
 	@After
 	public void tearDown() {
-		constructor.setAccessible(false);
 		Locale.setDefault(locale);
 	}
 
@@ -49,9 +43,9 @@ public class TestLangTool {
 	}
 
 	@Theory
-	public void testIncorrectLocale(final Locale badLocale) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+	public void testIncorrectLocale(final Locale badLocale) {
 		Locale.setDefault(badLocale);
-		lang = constructor.newInstance();
+		lang = new LangService(new SystemService());
 		assertNotNull(lang.getBundle());
 	}
 }

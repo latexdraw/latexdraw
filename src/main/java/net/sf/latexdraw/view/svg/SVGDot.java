@@ -31,13 +31,16 @@ import net.sf.latexdraw.view.jfx.ViewFactory;
  * @author Arnaud BLOUIN
  */
 class SVGDot extends SVGShape<IDot> {
+	private final ViewFactory viewFactory;
+
 	/**
 	 * Creates a generator of SVG dots.
 	 * @param dot The dot used for the generation.
 	 * @throws IllegalArgumentException If dot is null.
 	 */
-	SVGDot(final IDot dot) {
+	SVGDot(final IDot dot, final ViewFactory viewFactory) {
 		super(dot);
+		this.viewFactory = viewFactory;
 	}
 
 
@@ -45,8 +48,8 @@ class SVGDot extends SVGShape<IDot> {
 	 * Creates a dot from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	SVGDot(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
+	SVGDot(final SVGGElement elt, final boolean withTransformation, final ViewFactory viewFactory) {
+		this(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()), viewFactory);
 
 		if(elt == null) {
 			throw new IllegalArgumentException();
@@ -103,8 +106,7 @@ class SVGDot extends SVGShape<IDot> {
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_DOT_SHAPE, shape.getDotStyle().getPSTToken());
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POSITION, shape.getPosition().getX() + " " + shape.getPosition().getY());
 
-		ViewFactory.INSTANCE.createView(shape).ifPresent(vdot -> JFXToSVG.INSTANCE.shapesToElements(vdot.getChildren(), doc).
-			forEach(elt -> root.appendChild(elt)));
+		viewFactory.createView(shape).ifPresent(vdot -> JFXToSVG.INSTANCE.shapesToElements(vdot.getChildren(), doc).forEach(elt -> root.appendChild(elt)));
 
 		setSVGRotationAttribute(root);
 

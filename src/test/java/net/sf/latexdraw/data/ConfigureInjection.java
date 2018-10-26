@@ -8,25 +8,15 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  */
-package net.sf.latexdraw.commands;
+package net.sf.latexdraw.data;
 
-import java.util.Optional;
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-/**
- * This trait encapsulates a drawing attribute.
- * @author Arnaud Blouin
- */
-public interface DrawingCmd {
-	/**
-	 * @param dr The drawing that will be handled by the command
-	 * @since 3.0
-	 */
-	void setDrawing(final IDrawing dr);
+import static java.lang.annotation.ElementType.METHOD;
 
-	/**
-	 * @return The drawing that will be handled by the command
-	 * @since 3.0
-	 */
-	Optional<IDrawing> getDrawing();
+@Retention(RetentionPolicy.RUNTIME)
+@Target(METHOD)
+public @interface ConfigureInjection {
 }

@@ -14,6 +14,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.Optional;
 import javafx.geometry.Point3D;
+import net.sf.latexdraw.util.SystemService;
 
 /**
  * The API for shape factories.
@@ -200,7 +201,7 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 * @throws NullPointerException If the given point is null.
 	 */
-	IPicture createPicture(IPoint pt);
+	IPicture createPicture(IPoint pt, final SystemService system);
 
 	/**
 	 * Creates a grid with a predefined point.

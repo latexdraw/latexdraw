@@ -17,9 +17,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import net.sf.latexdraw.LaTeXDraw;
-import net.sf.latexdraw.util.LFileUtils;
-import net.sf.latexdraw.util.LSystem;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.VersionChecker;
 
 /**
@@ -33,6 +33,9 @@ public class AboutController implements Initializable {
 	@FXML private TextArea sysText;
 	@FXML private TextArea licenseText;
 
+	@Inject private SystemService system;
+	@Inject private LangService lang;
+
 	/**
 	 * Creates the controller.
 	 */
@@ -42,23 +45,23 @@ public class AboutController implements Initializable {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		aboutText.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.219") + ' ' +  //NON-NLS
-			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + ", build " + VersionChecker.ID_BUILD + LSystem.EOL +  //NON-NLS
-			LaTeXDraw.LABEL_APP + LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.221") + LSystem.EOL + //NON-NLS
-			"Copyright(c) 2005-2018 - Arnaud BLOUIN" + LSystem.EOL + //NON-NLS
+		aboutText.setText(lang.getBundle().getString("LaTeXDrawFrame.219") + ' ' +  //NON-NLS
+			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + ", build " + VersionChecker.ID_BUILD + system.EOL +  //NON-NLS
+			LaTeXDraw.LABEL_APP + lang.getBundle().getString("LaTeXDrawFrame.221") + system.EOL + //NON-NLS
+			"Copyright(c) 2005-2018 - Arnaud BLOUIN" + system.EOL + //NON-NLS
 			"http://latexdraw.sourceforge.net/"); //NON-NLS
-		noteText.setText(LFileUtils.INSTANCE.readTextFile("/res/release_note.txt")); //NON-NLS
-		contribText.setText(LFileUtils.INSTANCE.readTextFile("/res/contributors.txt")); //NON-NLS
-		licenseText.setText(LFileUtils.INSTANCE.readTextFile("/res/license.txt")); //NON-NLS
+		noteText.setText(system.readTextFile("/res/release_note.txt")); //NON-NLS
+		contribText.setText(system.readTextFile("/res/contributors.txt")); //NON-NLS
+		licenseText.setText(system.readTextFile("/res/license.txt")); //NON-NLS
 
 		final StringBuilder builder = new StringBuilder();
-		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LSystem.EOL); //NON-NLS
-		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LSystem.EOL); //NON-NLS
-		builder.append("PS2PDF version:").append(LSystem.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LSystem.EOL); //NON-NLS
-		builder.append("PS2EPSI version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LSystem.EOL); //NON-NLS
-		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LSystem.EOL); //NON-NLS
-		builder.append("Java properties:").append(LSystem.EOL); //NON-NLS
-		System.getProperties().forEach((key, value) -> builder.append(key).append(':').append(' ').append(value).append(LSystem.EOL));
+		builder.append("LaTeX version:").append(system.getLaTeXVersion()).append(system.EOL); //NON-NLS
+		builder.append("DviPS version:").append(system.getDVIPSVersion()).append(system.EOL); //NON-NLS
+		builder.append("PS2PDF version:").append(system.EOL).append(system.getPS2PDFVersion()).append(system.EOL); //NON-NLS
+		builder.append("PS2EPSI version:").append(system.getPS2EPSVersion()).append(system.EOL); //NON-NLS
+		builder.append("PDFcrop version:").append(system.getPDFCROPVersion()).append(system.EOL); //NON-NLS
+		builder.append("Java properties:").append(system.EOL); //NON-NLS
+		System.getProperties().forEach((key, value) -> builder.append(key).append(':').append(' ').append(value).append(system.EOL));
 		sysText.setText(builder.toString());
 	}
 }

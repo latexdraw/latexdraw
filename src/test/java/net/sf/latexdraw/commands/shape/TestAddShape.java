@@ -10,11 +10,6 @@ import static org.junit.Assert.assertTrue;
 
 public class TestAddShape extends TestUndoableCommand<AddShape, IShape> {
 	@Override
-	protected AddShape createCmd() {
-		return new AddShape(ShapeFactory.INST.createRectangle(), drawing);
-	}
-
-	@Override
 	protected void checkUndo() {
 		assertFalse(drawing.contains(memento));
 		assertTrue(drawing.isEmpty());
@@ -22,6 +17,7 @@ public class TestAddShape extends TestUndoableCommand<AddShape, IShape> {
 
 	@Override
 	protected void configCorrectCmd() {
+		cmd = new AddShape(ShapeFactory.INST.createRectangle(), drawing);
 		memento = cmd.getShape().orElse(null);
 	}
 

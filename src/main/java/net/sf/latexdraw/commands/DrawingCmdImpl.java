@@ -26,14 +26,6 @@ public abstract class DrawingCmdImpl extends CommandImpl {
 		drawing = theDrawing;
 	}
 
-	protected DrawingCmdImpl() {
-		this(null);
-	}
-
-	public void setDrawing(final IDrawing dr) {
-		drawing = dr;
-	}
-
 	public Optional<IDrawing> getDrawing() {
 		return Optional.ofNullable(drawing);
 	}

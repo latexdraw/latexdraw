@@ -20,9 +20,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.BuilderFactory;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.LangService;
 import org.malai.javafx.command.ShowStage;
 import org.malai.javafx.instrument.JfxInstrument;
 
@@ -31,6 +34,8 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud Blouin
  */
 public final class ExceptionsManager extends JfxInstrument implements BadaboomHandler, Initializable {
+	@Inject private LangService lang;
+	@Inject private Injector injector;
 	/** The button used to shows the panel of exceptions. */
 	@FXML private Button exceptionB;
 	/** The frame to show when exceptions occur. */
@@ -38,7 +43,6 @@ public final class ExceptionsManager extends JfxInstrument implements BadaboomHa
 
 	/**
 	 * Creates the instrument.
-	 * @since 3.0
 	 */
 	public ExceptionsManager() {
 		super();
@@ -51,7 +55,8 @@ public final class ExceptionsManager extends JfxInstrument implements BadaboomHa
 	public Stage getStageEx() {
 		if(stageEx == null) {
 			try {
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/Badaboom.fxml"), LangTool.INSTANCE.getBundle()); //NON-NLS
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/Badaboom.fxml"), lang.getBundle(), //NON-NLS
+					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				final Scene scene = new Scene(root);
 				stageEx = new Stage(StageStyle.UTILITY);
 				stageEx.setScene(scene);

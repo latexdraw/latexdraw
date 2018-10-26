@@ -2,6 +2,9 @@ package net.sf.latexdraw;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
@@ -28,28 +31,35 @@ import static org.junit.Assert.assertTrue;
 
 @ExtendWith(ApplicationExtension.class)
 public class TestLaTeXDraw {
-	LaTeXDraw app;
+	static LaTeXDraw app;
 
 	@BeforeAll
 	static void beforeAll() throws TimeoutException {
 		Canvas.setMargins(20);
 		Canvas.setDefaultPage(Page.HORIZONTAL);
 		FxToolkit.registerPrimaryStage();
-		FxToolkit.setupApplication(LaTeXDraw::new);
+		final AtomicReference<LaTeXDraw> ld = new AtomicReference<>();
+		final Supplier<Application> supplier = () -> {
+			final LaTeXDraw laTeXDraw = new LaTeXDraw();
+			ld.set(laTeXDraw);
+			return laTeXDraw;
+		};
+		FxToolkit.setupApplication(supplier);
 		WaitForAsyncUtils.waitForFxEvents();
-		WaitForAsyncUtils.waitFor(10L, TimeUnit.SECONDS, LaTeXDraw.getInstance().getMainStage().showingProperty());
+		app = ld.get();
+		WaitForAsyncUtils.waitFor(10L, TimeUnit.SECONDS, app.getMainStage().showingProperty());
 	}
 
 	@AfterAll
 	static void afterAll() throws TimeoutException {
-		FxToolkit.cleanupApplication(LaTeXDraw.getInstance());
+		FxToolkit.cleanupApplication(app);
+		app = null;
 	}
 
 	@BeforeEach
 	public void setUp() {
 		CommandsRegistry.INSTANCE.clear();
 		BadaboomCollector.INSTANCE.clear();
-		app = LaTeXDraw.getInstance();
 	}
 
 	@Test
@@ -72,16 +82,6 @@ public class TestLaTeXDraw {
 	public void testGetAdditionalComponents() {
 		assertNotNull(app.getAdditionalComponents());
 		assertFalse(app.getAdditionalComponents().isEmpty());
-	}
-
-	@Test
-	public void testGetInjector() {
-		assertNotNull(app.getInjector());
-	}
-
-	@Test
-	public void testGetInstanceCallBack() {
-		assertNotNull(app.getInstanceCallBack());
 	}
 
 	@Test

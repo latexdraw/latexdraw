@@ -2,38 +2,35 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 
 public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreehand, Path> {
-	List<PathElement> before;
-
-	@Override
-	@Before
-	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
-		super.setUp();
-		before = duplicatePath(border.getElements());
-	}
-
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});
 		}catch(final IllegalStateException ex) {
 			// Ok
 		}
+	}
+
+	List<PathElement> before;
+
+	@BeforeEach
+	void setUpFreeHand() {
+		before = duplicatePath(border.getElements());
 	}
 
 	@Override
@@ -52,27 +49,27 @@ public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreeh
 	}
 
 	@Test
-	public void testChangeInterval() {
+	void testChangeInterval() {
 		model.setInterval(model.getInterval() * 2);
 		assertNotEquals(border.getElements(), before);
 	}
 
 	@Test
-	public void testChangeType() {
+	void testChangeType() {
 		model.setType(model.getType() == FreeHandStyle.CURVES ? FreeHandStyle.LINES : FreeHandStyle.CURVES);
 		assertNotEquals(border.getElements(), before);
 	}
 
 	@Test
-	public void testChangeOpen() {
+	void testChangeOpen() {
 		model.setOpened(!model.isOpened());
 		assertNotEquals(border.getElements(), before);
 	}
 
 	@Override
 	@Test
-	public void testShadowPositionSameThanBorder() {
-		assertEquals(border.getElements(), view.getShadow().get().getElements());
+	void testShadowPositionSameThanBorder() {
+		assertEquals(border.getElements(), view.getShadow().orElseThrow().getElements());
 	}
 
 	@Override

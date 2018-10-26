@@ -24,8 +24,8 @@ public class ViewRhombus extends ViewPathShape<IRhombus> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewRhombus(final IRhombus sh) {
-		super(sh);
+	ViewRhombus(final IRhombus sh, final PathElementProducer pathProducer) {
+		super(sh, pathProducer);
 		setupPath(border);
 		setupPath(shadow);
 		setupPath(dblBorder);
@@ -34,30 +34,30 @@ public class ViewRhombus extends ViewPathShape<IRhombus> {
 
 
 	private final void setupPath(final Path path) {
-		final MoveTo moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
+		final MoveTo moveTo = pathProducer.createMoveTo(0d, 0d);
 		moveTo.xProperty().bind(Bindings.createDoubleBinding(() -> model.getPtAt(0).getX() + model.getWidth() / 2d,
 			model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
 		moveTo.yProperty().bind(model.getPtAt(0).yProperty());
 		path.getElements().add(moveTo);
 
-		LineTo lineTo = ViewFactory.INSTANCE.createLineTo(0d, 0d);
+		LineTo lineTo = pathProducer.createLineTo(0d, 0d);
 		lineTo.xProperty().bind(model.getPtAt(2).xProperty());
 		lineTo.yProperty().bind(Bindings.createDoubleBinding(() -> model.getPtAt(1).getY() + model.getHeight() / 2d,
 			model.getPtAt(1).yProperty(), model.getPtAt(2).yProperty()));
 		path.getElements().add(lineTo);
 
-		lineTo = ViewFactory.INSTANCE.createLineTo(0d, 0d);
+		lineTo = pathProducer.createLineTo(0d, 0d);
 		lineTo.xProperty().bind(Bindings.createDoubleBinding(() -> model.getPtAt(0).getX() + model.getWidth() / 2d,
 			model.getPtAt(0).xProperty(), model.getPtAt(1).xProperty()));
 		lineTo.yProperty().bind(model.getPtAt(2).yProperty());
 		path.getElements().add(lineTo);
 
-		lineTo = ViewFactory.INSTANCE.createLineTo(0d, 0d);
+		lineTo = pathProducer.createLineTo(0d, 0d);
 		lineTo.xProperty().bind(model.getPtAt(0).xProperty());
 		lineTo.yProperty().bind(Bindings.createDoubleBinding(() -> model.getPtAt(0).getY() + model.getHeight() / 2d,
 			model.getPtAt(0).yProperty(), model.getPtAt(2).yProperty()));
 		path.getElements().add(lineTo);
 
-		path.getElements().add(ViewFactory.INSTANCE.createClosePath());
+		path.getElements().add(pathProducer.createClosePath());
 	}
 }

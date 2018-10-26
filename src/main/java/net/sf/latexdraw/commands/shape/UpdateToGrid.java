@@ -12,6 +12,7 @@ package net.sf.latexdraw.commands.shape;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.commands.Modifying;
@@ -19,7 +20,6 @@ import net.sf.latexdraw.commands.ShapeCmdImpl;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.MagneticGrid;
 import org.malai.undo.Undoable;
 
@@ -29,14 +29,14 @@ import org.malai.undo.Undoable;
  */
 public class UpdateToGrid extends ShapeCmdImpl<IGroup> implements Undoable, Modifying {
 	/** The magnetic grid to use. */
-	MagneticGrid grid;
+	private final MagneticGrid grid;
+	private final List<List<IPoint>> listPts;
 
-	final List<List<IPoint>> listPts;
 
-
-	public UpdateToGrid() {
-		super();
+	public UpdateToGrid(final MagneticGrid grid, final IGroup gp) {
+		super(gp);
 		listPts = new ArrayList<>();
+		this.grid = grid;
 	}
 
 	@Override
@@ -94,17 +94,12 @@ public class UpdateToGrid extends ShapeCmdImpl<IGroup> implements Undoable, Modi
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.33");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.33");
 	}
 
 	@Override
 	public RegistrationPolicy getRegistrationPolicy() {
 		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
-	}
-
-	/** Sets the magnetic grid to use. */
-	public void setGrid(final MagneticGrid gr) {
-		grid = gr;
 	}
 }

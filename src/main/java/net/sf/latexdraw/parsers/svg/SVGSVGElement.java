@@ -11,7 +11,6 @@
 package net.sf.latexdraw.parsers.svg;
 
 import java.util.List;
-import net.sf.latexdraw.util.LSystem;
 import org.w3c.dom.Node;
 
 /**
@@ -94,17 +93,18 @@ public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 		final SVGMetadataElement meta = getMeta();
 		final SVGDefsElement defs = getDefs();
 		final StringBuilder str = new StringBuilder().append('[').append("attributes="); //NON-NLS
+		final String eol = System.getProperty("line.separator");
 
 		if(attributes != null) {
-			str.append(attributes).append(LSystem.EOL);
+			str.append(attributes).append(eol);
 		}
 
 		if(meta != null) {
-			str.append(", meta=").append(meta).append(LSystem.EOL); //NON-NLS
+			str.append(", meta=").append(meta).append(eol); //NON-NLS
 		}
 
 		if(defs != null) {
-			str.append(", defs=").append(defs).append(LSystem.EOL); //NON-NLS
+			str.append(", defs=").append(defs).append(eol); //NON-NLS
 		}
 
 		str.append(", children={"); //NON-NLS

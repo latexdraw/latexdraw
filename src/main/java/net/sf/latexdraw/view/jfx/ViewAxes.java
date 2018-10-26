@@ -42,8 +42,8 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewAxes(final IAxes sh) {
-		super(sh);
+	ViewAxes(final IAxes sh, final PathElementProducer pathProducer) {
+		super(sh, pathProducer);
 		labelUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, false, true));
 		labelTicksUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, true, true));
 		fullAxesUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(true, true, true));
@@ -52,8 +52,8 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 
 		framePath = new Path();
 		pathTicks = new Path();
-		axesHoriz = new ViewPolyline(ShapeFactory.INST.createPolyline(List.of(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint())));
-		axesVert = new ViewPolyline(ShapeFactory.INST.createPolyline(List.of(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint())));
+		axesHoriz = new ViewPolyline(ShapeFactory.INST.createPolyline(List.of(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint())), pathProducer);
+		axesVert = new ViewPolyline(ShapeFactory.INST.createPolyline(List.of(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint())), pathProducer);
 
 		axesHoriz.getModel().getArrowAt(0).bindFrom(model.getArrowAt(0));
 		axesHoriz.getModel().getArrowAt(1).bindFrom(model.getArrowAt(2));
@@ -117,11 +117,11 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 			final double y1 = endy > 0d ? -endy * IShape.PPC : 0d;
 			final double x2 = endx > 0d ? +endx * IShape.PPC : 0d;
 
-			framePath.getElements().add(ViewFactory.INSTANCE.createMoveTo(0d, y1));
-			framePath.getElements().add(ViewFactory.INSTANCE.createLineTo(x2, y1));
-			framePath.getElements().add(ViewFactory.INSTANCE.createLineTo(x2, 0d));
-			framePath.getElements().add(ViewFactory.INSTANCE.createLineTo(0d, 0d));
-			framePath.getElements().add(ViewFactory.INSTANCE.createClosePath());
+			framePath.getElements().add(pathProducer.createMoveTo(0d, y1));
+			framePath.getElements().add(pathProducer.createLineTo(x2, y1));
+			framePath.getElements().add(pathProducer.createLineTo(x2, 0d));
+			framePath.getElements().add(pathProducer.createLineTo(0d, 0d));
+			framePath.getElements().add(pathProducer.createClosePath());
 		}
 	}
 
@@ -178,12 +178,12 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 
 	@Override
 	public void createPathTicksMoveTo(final double x, final double y) {
-		pathTicks.getElements().add(ViewFactory.INSTANCE.createMoveTo(x, y));
+		pathTicks.getElements().add(pathProducer.createMoveTo(x, y));
 	}
 
 	@Override
 	public void createPathTicksLineTo(final double x, final double y) {
-		pathTicks.getElements().add(ViewFactory.INSTANCE.createLineTo(x, y));
+		pathTicks.getElements().add(pathProducer.createLineTo(x, y));
 	}
 
 	@Override

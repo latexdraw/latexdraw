@@ -110,8 +110,8 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 
 	@Before
 	public void setUp() {
-		pencil = (Pencil) injectorFactory.call(Pencil.class);
-		hand = (Hand) injectorFactory.call(Hand.class);
-		drawing = (IDrawing) injectorFactory.call(IDrawing.class);
+		pencil = injector.getInstance(Pencil.class);
+		hand = injector.getInstance(Hand.class);
+		drawing = injector.getInstance(IDrawing.class);
 	}
 }

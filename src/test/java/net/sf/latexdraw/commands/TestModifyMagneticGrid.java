@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -36,9 +37,7 @@ public class TestModifyMagneticGrid extends TestUndoableCommand<ModifyMagneticGr
 	@Override
 	@Before
 	public void setUp() {
-		super.setUp();
-
-		grid = new MagneticGridImpl(new Canvas());
+		grid = new MagneticGridImpl(new Canvas(), new SystemService());
 		// Cannot have two runners so cannot use mock to mock Canvas:
 		CommandsRegistry.INSTANCE.removeAllHandlers();
 
@@ -58,18 +57,12 @@ public class TestModifyMagneticGrid extends TestUndoableCommand<ModifyMagneticGr
 		}
 
 		memento = mementoCmd.get();
-	}
-
-	@Override
-	protected ModifyMagneticGrid createCmd() {
-		return new ModifyMagneticGrid();
+		super.setUp();
 	}
 
 	@Override
 	protected void configCorrectCmd() {
-		cmd.setGrid(grid);
-		cmd.setProperty(property);
-		cmd.setValue(value);
+		cmd = new ModifyMagneticGrid(property, value, grid);
 	}
 
 	@Override

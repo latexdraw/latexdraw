@@ -38,31 +38,28 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.SystemService;
 
 /**
  * The factory that creates views from given models.
  * @author Arnaud Blouin
  */
-public final class ViewFactory {
-	/** The singleton. */
-	public static final ViewFactory INSTANCE = new ViewFactory();
+public final class ViewFactory implements PathElementProducer, JfxViewProducer {
+	@Inject private SystemService system;
 
-	private ViewFactory() {
+	public ViewFactory() {
 		super();
 	}
 
-	/**
-	 * Creates a view from a shape.
-	 * @param shape The shape used to create the view.
-	 * @return The created view or empty.
-	 * @since 3.0
-	 */
+
+	@Override
 	public <T extends IShape, S extends ViewShape<T>> Optional<S> createView(final T shape) {
 		if(shape instanceof IGroup) {
-			return Optional.of((S) new ViewGroup((IGroup) shape));
+			return Optional.of((S) new ViewGroup((IGroup) shape, this));
 		}
 		if(shape instanceof IPlot) {
-			return Optional.of((S) new ViewPlot((IPlot) shape));
+			return Optional.of((S) new ViewPlot((IPlot) shape, this));
 		}
 		if(shape instanceof ISquare) {
 			return Optional.of((S) new ViewSquare((ISquare) shape));
@@ -71,7 +68,7 @@ public final class ViewFactory {
 			return Optional.of((S) new ViewRectangle((IRectangle) shape));
 		}
 		if(shape instanceof IText) {
-			return Optional.of((S) new ViewText((IText) shape));
+			return Optional.of((S) new ViewText((IText) shape, system));
 		}
 		if(shape instanceof ICircleArc) {
 			return Optional.of((S) new ViewCircleArc((ICircleArc) shape));
@@ -83,38 +80,39 @@ public final class ViewFactory {
 			return Optional.of((S) new ViewEllipse((IEllipse) shape));
 		}
 		if(shape instanceof ITriangle) {
-			return Optional.of((S) new ViewTriangle((ITriangle) shape));
+			return Optional.of((S) new ViewTriangle((ITriangle) shape, this));
 		}
 		if(shape instanceof IRhombus) {
-			return Optional.of((S) new ViewRhombus((IRhombus) shape));
+			return Optional.of((S) new ViewRhombus((IRhombus) shape, this));
 		}
 		if(shape instanceof IPolyline) {
-			return Optional.of((S) new ViewPolyline((IPolyline) shape));
+			return Optional.of((S) new ViewPolyline((IPolyline) shape, this));
 		}
 		if(shape instanceof IPolygon) {
-			return Optional.of((S) new ViewPolygon((IPolygon) shape));
+			return Optional.of((S) new ViewPolygon((IPolygon) shape, this));
 		}
 		if(shape instanceof IBezierCurve) {
-			return Optional.of((S) new ViewBezierCurve((IBezierCurve) shape));
+			return Optional.of((S) new ViewBezierCurve((IBezierCurve) shape, this));
 		}
 		if(shape instanceof IAxes) {
-			return Optional.of((S) new ViewAxes((IAxes) shape));
+			return Optional.of((S) new ViewAxes((IAxes) shape, this));
 		}
 		if(shape instanceof IGrid) {
-			return Optional.of((S) new ViewGrid((IGrid) shape));
+			return Optional.of((S) new ViewGrid((IGrid) shape, this));
 		}
 		if(shape instanceof IDot) {
-			return Optional.of((S) new ViewDot((IDot) shape));
+			return Optional.of((S) new ViewDot((IDot) shape, this));
 		}
 		if(shape instanceof IPicture) {
 			return Optional.of((S) new ViewPicture((IPicture) shape));
 		}
 		if(shape instanceof IFreehand) {
-			return Optional.of((S) new ViewFreeHand((IFreehand) shape));
+			return Optional.of((S) new ViewFreeHand((IFreehand) shape, this));
 		}
 		return Optional.empty();
 	}
 
+	@Override
 	public void flushPathElement(final PathElement elt) {
 		if(elt instanceof LineTo) {
 			final LineTo lineTo = (LineTo) elt;
@@ -139,7 +137,8 @@ public final class ViewFactory {
 		}
 	}
 
-	Optional<PathElement> createPathElement(final PathElement elt) {
+	@Override
+	public Optional<PathElement> createPathElement(final PathElement elt) {
 		if(elt instanceof LineTo) {
 			return Optional.of(createLineTo(((LineTo) elt).getX(), ((LineTo) elt).getY()));
 		}
@@ -156,23 +155,28 @@ public final class ViewFactory {
 		return Optional.empty();
 	}
 
-	Path clonePath(final Path path) {
-		return new Path(path.getElements().stream().map(elt -> ViewFactory.INSTANCE.createPathElement(elt).orElse(null)).
+	@Override
+	public Path clonePath(final Path path) {
+		return new Path(path.getElements().stream().map(elt -> createPathElement(elt).orElse(null)).
 			filter(elt -> elt != null).collect(Collectors.toList()));
 	}
 
+	@Override
 	public LineTo createLineTo(final double x, final double y) {
 		return new EqLineTo(x, y);
 	}
 
+	@Override
 	public MoveTo createMoveTo(final double x, final double y) {
 		return new EqMoveTo(x, y);
 	}
 
+	@Override
 	public ClosePath createClosePath() {
 		return new EqClosePath();
 	}
 
+	@Override
 	public CubicCurveTo createCubicCurveTo(final double controlX1, final double controlY1, final double controlX2, final double controlY2, final double x, final double y) {
 		return new EqCubicCurveTo(controlX1, controlY1, controlX2, controlY2, x, y);
 	}

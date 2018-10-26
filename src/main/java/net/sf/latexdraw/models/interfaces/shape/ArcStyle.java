@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.models.interfaces.shape;
 
+import java.util.ResourceBundle;
 import javafx.scene.shape.ArcType;
-import net.sf.latexdraw.util.LangTool;
 
 /**
  * The different styles of arc.
@@ -25,8 +25,8 @@ public enum ArcStyle {
 		}
 
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getBundle().getString("Arc.arc"); //NON-NLS
+		public String getLabel(final ResourceBundle bundle) {
+			return bundle.getString("Arc.arc"); //NON-NLS
 		}
 
 		@Override
@@ -40,8 +40,8 @@ public enum ArcStyle {
 		}
 
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getBundle().getString("Arc.wedge"); //NON-NLS
+		public String getLabel(final ResourceBundle bundle) {
+			return bundle.getString("Arc.wedge"); //NON-NLS
 		}
 
 		@Override
@@ -55,8 +55,8 @@ public enum ArcStyle {
 		}
 
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getBundle().getString("Arc.chord"); //NON-NLS
+		public String getLabel(final ResourceBundle bundle) {
+			return bundle.getString("Arc.chord"); //NON-NLS
 		}
 
 		@Override
@@ -67,15 +67,13 @@ public enum ArcStyle {
 
 	/**
 	 * @return True if the arc type can have arrows.
-	 * @since 3.0.0
 	 */
 	public abstract boolean supportArrow();
 
 	/**
 	 * @return The internationalised label of the arc type.
-	 * @since 3.0
 	 */
-	public abstract String getLabel();
+	public abstract String getLabel(final ResourceBundle bundle);
 
 	/**
 	 * @return The JFX arc style corresponding to the current arc style.

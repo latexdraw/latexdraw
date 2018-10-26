@@ -44,27 +44,31 @@ import net.sf.latexdraw.parsers.svg.SVGPolyLineElement;
 import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
 import net.sf.latexdraw.parsers.svg.SVGRectElement;
 import net.sf.latexdraw.parsers.svg.SVGTextElement;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.view.jfx.ViewFactory;
 
 /**
  * Creates SVG elements based on latexdraw.
  * @author Arnaud BLOUIN
  */
-public final class SVGShapesFactory {
-	/** The singleton. */
-	public static final SVGShapesFactory INSTANCE = new SVGShapesFactory();
+public class SVGShapesFactory implements SVGShapeProducer {
 	/** A map to reduce the CC during the creation of shapes. */
 	private final Map<String, BiFunction<SVGGElement, Boolean, IShape>> creationMap;
+
+	@Inject private ViewFactory viewFactory;
+	@Inject private SystemService system;
 
 
 	/**
 	 * Creates the factory.
 	 */
-	private SVGShapesFactory() {
+	public SVGShapesFactory() {
 		super();
 
 		creationMap = new HashMap<>();
-		creationMap.put(SVGPlot.XML_TYPE_PLOT, (elt, withTransformations) -> new SVGPlot(elt, withTransformations).getShape());
+		creationMap.put(SVGPlot.XML_TYPE_PLOT, (elt, withTransformations) -> new SVGPlot(elt, withTransformations, this).getShape());
 		creationMap.put(LNamespace.XML_TYPE_RECT, (elt, withTransformations) -> new SVGRectangle(elt, withTransformations).getShape());
 		creationMap.put(LNamespace.XML_TYPE_ELLIPSE, (elt, withTransformations) -> new SVGEllipse(elt, withTransformations).getShape());
 		creationMap.put(LNamespace.XML_TYPE_CIRCLE, (elt, withTransformations) -> new SVGCircle(elt, withTransformations).getShape());
@@ -79,24 +83,20 @@ public final class SVGShapesFactory {
 		creationMap.put(LNamespace.XML_TYPE_GRID, (elt, withTransformations) -> new SVGGrid(elt, withTransformations).getShape());
 		creationMap.put(LNamespace.XML_TYPE_AXE, (elt, withTransformations) -> new SVGAxes(elt, withTransformations).getShape());
 		creationMap.put(LNamespace.XML_TYPE_TEXT, (elt, withTransformations) -> new SVGText(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_GROUP, (elt, withTransformations) -> new SVGGroup(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_DOT, (elt, withTransformations) -> new SVGDot(elt, withTransformations).getShape());
+		creationMap.put(LNamespace.XML_TYPE_GROUP, (elt, withTransformations) -> new SVGGroup(elt, withTransformations, this).getShape());
+		creationMap.put(LNamespace.XML_TYPE_DOT, (elt, withTransformations) -> new SVGDot(elt, withTransformations, viewFactory).getShape());
 		creationMap.put(LNamespace.XML_TYPE_ARC, (elt, withTransformations) -> new SVGCircleArc(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_PICTURE, (elt, withTransformations) -> new SVGPicture(elt, withTransformations).getShape());
+		creationMap.put(LNamespace.XML_TYPE_PICTURE, (elt, withTransformations) -> new SVGPicture(elt, withTransformations, system).getShape());
 	}
 
-	/**
-	 * Creates an SVG Element corresponding to the given shape.
-	 * @param shape The shape used to determine which SVG element to create.
-	 * @param doc The SVG document used to instantiate to SVG element.
-	 * @return The created SVG element.
-	 */
+
+	@Override
 	public SVGElement createSVGElement(final IShape shape, final SVGDocument doc) {
 		if(shape instanceof IGroup) {
-			return new SVGGroup((IGroup) shape).toSVG(doc);
+			return new SVGGroup((IGroup) shape, this).toSVG(doc);
 		}
 		if(shape instanceof IPlot) {
-			return new SVGPlot((IPlot) shape).toSVG(doc);
+			return new SVGPlot((IPlot) shape, this).toSVG(doc);
 		}
 		if(shape instanceof ISquare) {
 			return new SVGSquare((ISquare) shape).toSVG(doc);
@@ -138,7 +138,7 @@ public final class SVGShapesFactory {
 			return new SVGGrid((IGrid) shape).toSVG(doc);
 		}
 		if(shape instanceof IDot) {
-			return new SVGDot((IDot) shape).toSVG(doc);
+			return new SVGDot((IDot) shape, viewFactory).toSVG(doc);
 		}
 		if(shape instanceof IPicture) {
 			return new SVGPicture((IPicture) shape).toSVG(doc);
@@ -149,12 +149,7 @@ public final class SVGShapesFactory {
 		return null;
 	}
 
-	/**
-	 * Creates a IShape instance using the given SVGElement.
-	 * @param elt The SVGElement to parse.
-	 * @return The created IShape instance or null.
-	 * @since 3.0
-	 */
+	@Override
 	public IShape createShape(final SVGElement elt) {
 		return createShape(elt, true);
 	}
@@ -188,7 +183,7 @@ public final class SVGShapesFactory {
 				case 1:
 					return createShape((SVGElement) elt.getChildNodes().item(0));
 				default:
-					return new SVGGroup(elt, withTransformations).getShape();
+					return new SVGGroup(elt, withTransformations, this).getShape();
 			}
 		}
 
@@ -196,13 +191,8 @@ public final class SVGShapesFactory {
 		return creationMap.getOrDefault(type, (a, b) -> null).apply(elt, withTransformations);
 	}
 
-	/**
-	 * Creates a IShape instance using the given SVGElement.
-	 * @param elt The SVGElement to parse.
-	 * @param withTransformations True: the set of transformations that concerned the given SVG element will be applied to the shape.
-	 * @return The created IShape instance or null.
-	 * @since 3.0
-	 */
+
+	@Override
 	public IShape createShape(final SVGElement elt, final boolean withTransformations) {
 		if(elt == null || !elt.enableRendering()) {
 			return null;
@@ -223,7 +213,7 @@ public final class SVGShapesFactory {
 			return new SVGPolylines((SVGPolyLineElement) elt).getShape();
 		}
 		if(elt instanceof SVGImageElement) {
-			return new SVGPicture((SVGImageElement) elt).getShape();
+			return new SVGPicture((SVGImageElement) elt, system).getShape();
 		}
 		if(elt instanceof SVGLineElement) {
 			return new SVGPolylines((SVGLineElement) elt).getShape();

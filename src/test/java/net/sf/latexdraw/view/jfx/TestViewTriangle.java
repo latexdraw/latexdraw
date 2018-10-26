@@ -1,26 +1,18 @@
 package net.sf.latexdraw.view.jfx;
 
-import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Path;
 import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.testfx.framework.junit5.ApplicationExtension;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
+@ExtendWith(ApplicationExtension.class)
 public class TestViewTriangle extends TestViewBorderedShape<ViewTriangle, ITriangle, Path> {
-	@BeforeClass
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {});
-		}catch(final IllegalStateException ex) {
-			// Ok
-		}
-	}
-
 	@Override
 	protected ITriangle createModel() {
 		return ShapeSupplier.createTriangle();
@@ -57,6 +49,6 @@ public class TestViewTriangle extends TestViewBorderedShape<ViewTriangle, ITrian
 	@Test
 	@Override
 	public void testShadowPositionSameThanBorder() {
-		assertEquals(view.getBorder().getElements(), view.getShadow().get().getElements());
+		assertEquals(view.getBorder().getElements(), view.getShadow().orElseThrow().getElements());
 	}
 }

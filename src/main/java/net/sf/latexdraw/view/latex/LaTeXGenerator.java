@@ -26,9 +26,8 @@ import net.sf.latexdraw.commands.ExportFormat;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.LFileUtils;
-import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.OperatingSystem;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import org.malai.properties.Modifiable;
 
@@ -42,6 +41,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * These packages are defined for the current document but not for all documents.
 	 */
 	public static final ObjectProperty<String> PACKAGES = new SimpleObjectProperty<>(""); //NON-NLS
+
+	@Inject protected SystemService system;
 
 
 	/**
@@ -165,7 +166,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @return The comments with the '%' tag at the beginning of each line. Cannot be null.
 	 */
 	public String getCommentWithTag() {
-		return Stream.of(comment.split(LSystem.EOL)).map(commentLine -> "% " + commentLine).collect(Collectors.joining(LSystem.EOL));
+		return Stream.of(comment.split(system.EOL)).map(commentLine -> "% " + commentLine).collect(Collectors.joining(system.EOL));
 	}
 
 
@@ -276,7 +277,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @throws SecurityException In case of problem while accessing files.
 	 */
 	public Optional<File> createEPSFile(final String pathExportEPS) {
-		final Optional<File> optDir = LFileUtils.INSTANCE.createTempDir();
+		final Optional<File> optDir = system.createTempDir();
 
 		if(!optDir.isPresent()) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a tmp dir"));
@@ -284,21 +285,21 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final File tmpDir = optDir.get();
-		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + "tmpPSFile.ps", tmpDir); //NON-NLS
+		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + system.FILE_SEP + "tmpPSFile.ps", tmpDir); //NON-NLS
 
 		if(!optFile.isPresent()) {
 			return Optional.empty();
 		}
 
 		final File psFile = optFile.get();
-		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
+		final OperatingSystem os = system.getSystem().orElse(OperatingSystem.LINUX);
 		final File finalFile = new File(pathExportEPS);
 		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", ExportFormat.EPS_LATEX.getFileExtension())); //NON-NLS
 		final String[] paramsLatex = {os.getPS2EPSBinPath(), psFile.getAbsolutePath(), fileEPS.getAbsolutePath()};
-		final String log = LSystem.INSTANCE.execute(paramsLatex, tmpDir);
+		final String log = system.execute(paramsLatex, tmpDir).b;
 
 		if(!fileEPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + LSystem.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + system.EOL + log));
 			return Optional.empty();
 		}
 
@@ -309,7 +310,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return Optional.empty();
 		}
 
-		LFileUtils.INSTANCE.removeDirWithContent(tmpDir.getPath());
+		system.removeDirWithContent(tmpDir.getPath());
 
 		return Optional.of(finalFile);
 	}
@@ -327,17 +328,17 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return Optional.empty();
 		}
 
-		final int lastSep = pathExportPs.lastIndexOf(LSystem.FILE_SEP) + 1;
+		final int lastSep = pathExportPs.lastIndexOf(system.FILE_SEP) + 1;
 		final String name = pathExportPs.substring(lastSep, pathExportPs.lastIndexOf(".ps")); //NON-NLS
-		final File tmpDir2 = tmpDir == null ? LFileUtils.INSTANCE.createTempDir().orElse(null) : tmpDir;
+		final File tmpDir2 = tmpDir == null ? system.createTempDir().orElse(null) : tmpDir;
 
 		if(tmpDir2 == null) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //NON-NLS
 			return Optional.empty();
 		}
 
-		final String path = tmpDir2.getAbsolutePath() + LSystem.FILE_SEP;
-		final Optional<File> optFile = LFileUtils.INSTANCE.saveFile(path + name + ExportFormat.TEX.getFileExtension(), getDocumentCode());
+		final String path = tmpDir2.getAbsolutePath() + system.FILE_SEP;
+		final Optional<File> optFile = system.saveFile(path + name + ExportFormat.TEX.getFileExtension(), getDocumentCode());
 
 		if(!optFile.isPresent()) {
 			return Optional.empty();
@@ -350,30 +351,30 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final IPoint bl = handler.getBottomLeftDrawingPoint();
 		final int ppc = handler.getPPCDrawing();
 		final float dec = 0.2f;
-		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
+		final OperatingSystem os = system.getSystem().orElse(OperatingSystem.LINUX);
 
 		if(!texFile.exists()) {
 			return Optional.empty();
 		}
 
 		final String[] paramsLatex = {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(), //NON-NLS
-			LFileUtils.INSTANCE.normalizeForLaTeX(texFile.getAbsolutePath())}; //NON-NLS
-		log = LSystem.INSTANCE.execute(paramsLatex, tmpDir2);
+			system.normalizeForLaTeX(texFile.getAbsolutePath())}; //NON-NLS
+		log = system.execute(paramsLatex, tmpDir2).b;
 
 		final String[] paramsDvi = {os.getDvipsBinPath(), "-Pdownload35", "-T", //NON-NLS
 			(tr.getX() - bl.getX()) / ppc * scale + dec + "cm," + ((bl.getY() - tr.getY()) / ppc * scale + dec) + "cm", //NON-NLS
 			name, "-o", pathExportPs}; //NON-NLS
-		log += LSystem.INSTANCE.execute(paramsDvi, tmpDir2);
+		log += system.execute(paramsDvi, tmpDir2);
 
 		finalPS = new File(pathExportPs);
 
 		if(!finalPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + LSystem.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + system.EOL + log));
 			finalPS = null;
 		}
 
 		if(tmpDir == null) {
-			LFileUtils.INSTANCE.removeDirWithContent(tmpDir2.getPath());
+			system.removeDirWithContent(tmpDir2.getPath());
 		}
 
 		return Optional.ofNullable(finalPS);
@@ -393,7 +394,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return Optional.empty();
 		}
 
-		final Optional<File> optDir = LFileUtils.INSTANCE.createTempDir();
+		final Optional<File> optDir = system.createTempDir();
 
 		if(!optDir.isPresent()) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //NON-NLS
@@ -401,9 +402,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final File tmpDir = optDir.get();
-		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LSystem.FILE_SEP) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
+		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(system.FILE_SEP) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
 		final File psFile;
-		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + name + ".ps"); //NON-NLS
+		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + system.FILE_SEP + name + ".ps"); //NON-NLS
 
 		if(optFile.isPresent()) {
 			psFile = optFile.get();
@@ -413,17 +414,18 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		String log;
 		File pdfFile;
-		final OperatingSystem os = LSystem.INSTANCE.getSystem().orElse(OperatingSystem.LINUX);
+		final OperatingSystem os = system.getSystem().orElse(OperatingSystem.LINUX);
 
 		// On windows, an option must be defined using this format:
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
-		final String optionEmbed = "-dEmbedAllFonts" + (LSystem.INSTANCE.isWindows() ? "#" : "=") + "true"; //NON-NLS
+		final String optionEmbed = "-dEmbedAllFonts" + (system.isWindows() ? "#" : "=") + "true"; //NON-NLS
 
-		log = LSystem.INSTANCE.execute(new String[] {os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), crop ? name + ExportFormat.PDF.getFileExtension() : pathExportPdf}, tmpDir);
+		log = system.execute(new String[] {os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(),
+			crop ? name + ExportFormat.PDF.getFileExtension() : pathExportPdf}, tmpDir).b;
 
 		if(crop) {
-			pdfFile = new File(tmpDir.getAbsolutePath() + LSystem.FILE_SEP + name + ExportFormat.PDF.getFileExtension());
-			log = LSystem.INSTANCE.execute(new String[] {os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir);
+			pdfFile = new File(tmpDir.getAbsolutePath() + system.FILE_SEP + name + ExportFormat.PDF.getFileExtension());
+			log = system.execute(new String[] {os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir).b;
 			try {
 				Files.move(pdfFile.toPath(), Paths.get(pathExportPdf), StandardCopyOption.REPLACE_EXISTING);
 			}catch(final IOException ex) {
@@ -435,11 +437,11 @@ public abstract class LaTeXGenerator implements Modifiable {
 		pdfFile = new File(pathExportPdf);
 
 		if(!pdfFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + LSystem.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + system.EOL + log));
 			pdfFile = null;
 		}
 
-		LFileUtils.INSTANCE.removeDirWithContent(tmpDir.getPath());
+		system.removeDirWithContent(tmpDir.getPath());
 
 		return Optional.ofNullable(pdfFile);
 	}

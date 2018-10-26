@@ -11,11 +11,11 @@
 package net.sf.latexdraw.commands.shape;
 
 import java.util.Optional;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.commands.ShapeCmdImpl;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
@@ -45,8 +45,8 @@ public class AddShape extends ShapeCmdImpl<IShape> implements Undoable, Modifyin
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("UndoRedoManager.create");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("UndoRedoManager.create");
 	}
 
 	@Override

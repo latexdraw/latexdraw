@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.commands.shape;
 
+import java.util.ResourceBundle;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
@@ -64,8 +64,8 @@ public class MovePointShape extends MovePoint implements Undoable {
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.10"); //NON-NLS
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.10"); //NON-NLS
 	}
 
 	/**

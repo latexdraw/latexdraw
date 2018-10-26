@@ -1,7 +1,7 @@
 package net.sf.latexdraw.util;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -12,23 +12,23 @@ import static org.junit.Assert.assertThat;
 public class TestTuple {
 	Tuple<Double, String> tuple;
 
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		tuple = new Tuple<>(2.2, "foo");
 	}
 
 	@Test
-	public void testA() {
+	void testA() {
 		assertEquals(2.2, tuple.a, 0.00001);
 	}
 
 	@Test
-	public void testB() {
+	void testB() {
 		assertEquals("foo", tuple.b);
 	}
 
 	@Test
-	public void testToString() {
+	void testToString() {
 		assertThat(tuple.toString(), not(is(emptyOrNullString())));
 	}
 }

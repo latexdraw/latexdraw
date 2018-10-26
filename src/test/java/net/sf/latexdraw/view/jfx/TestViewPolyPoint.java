@@ -1,30 +1,26 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 abstract class TestViewPolyPoint<R extends ViewPathShape<S>, S extends IModifiablePointsShape> extends TestViewBorderedShape<R, S, Path> {
 	protected List<PathElement> before;
 
-	@Override
-	@Before
-	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
-		super.setUp();
+	@BeforeEach
+	void setUpPolyPt() {
 		before = duplicatePath(border.getElements());
 	}
 
 	@Override
 	@Test
-	public void testShadowPositionSameThanBorder() {
-		assertEquals(border.getElements(), view.getShadow().get().getElements());
+	void testShadowPositionSameThanBorder() {
+		assertEquals(border.getElements(), view.getShadow().orElseThrow().getElements());
 	}
 
 	@Override

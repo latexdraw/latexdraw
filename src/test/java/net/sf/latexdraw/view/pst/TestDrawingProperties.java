@@ -1,197 +1,211 @@
 package net.sf.latexdraw.view.pst;
 
 import java.lang.reflect.InvocationTargetException;
+import net.sf.latexdraw.data.ConfigureInjection;
+import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.VerticalPosition;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(InjectionExtension.class)
 public class TestDrawingProperties {
 	IDrawing drawing;
 	PSTCodeGenerator gen;
 
-	@Before
-	public void setUp() {
-		final Injector injector = new Injector() {
+	@ConfigureInjection
+	Injector configureInjection() {
+		return new Injector() {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-				bindAsEagerSingleton(Canvas.class);
+				bindAsEagerSingleton(SystemService.class);
+				bindToInstance(PSTViewsFactory.class, Mockito.mock(PSTViewsFactory.class));
 				bindAsEagerSingleton(PSTCodeGenerator.class);
+				bindToInstance(ViewFactory.class, Mockito.mock(ViewFactory.class));
+				bindAsEagerSingleton(Canvas.class);
 				bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());
 				bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);
 			}
 		};
-		gen = injector.getInstance(PSTCodeGenerator.class);
-		drawing = injector.getInstance(IDrawing.class);
+	}
+
+	@BeforeEach
+	void setUp(final PSTCodeGenerator gen, final IDrawing drawing) {
+		this.drawing = drawing;
+		this.gen = gen;
 		drawing.addShape(ShapeFactory.INST.createCircle());
 	}
 
 	@Test
-	public void testLabelGetSet() {
+	void testLabelGetSet() {
 		gen.setLabel("Foo");
 		assertEquals("Foo", gen.getLabel());
 	}
 
 	@Test
-	public void testSetLabelNULL() {
+	void testSetLabelNULL() {
 		gen.setLabel(null);
 		assertEquals("", gen.getLabel());
 	}
 
 	@Test
-	public void testLabelInGenCode() {
+	void testLabelInGenCode() {
 		gen.setLabel("thisisalabel");
 		assertTrue(gen.getDocumentCode().contains("\\label{thisisalabel}"));
 	}
 
 	@Test
-	public void testCaptionGetSet() {
+	void testCaptionGetSet() {
 		gen.setCaption("Foo");
 		assertEquals("Foo", gen.getCaption());
 	}
 
 	@Test
-	public void testSetCaptionNULL() {
+	void testSetCaptionNULL() {
 		gen.setCaption(null);
 		assertEquals("", gen.getCaption());
 	}
 
 	@Test
-	public void testCaptionInGenCode() {
+	void testCaptionInGenCode() {
 		gen.setCaption("thisisacaption");
 		assertTrue(gen.getDocumentCode().contains("\\caption{thisisacaption}"));
 	}
 
 	@Test
-	public void testCommentGetSet() {
+	void testCommentGetSet() {
 		gen.setComment("Foo");
 		assertEquals("Foo", gen.getComment());
 	}
 
 	@Test
-	public void testCommentGetSetWithTag() {
+	void testCommentGetSetWithTag() {
 		gen.setComment("Foo");
 		assertEquals("% Foo", gen.getCommentWithTag());
 	}
 
 	@Test
-	public void testCommentGetSetWithTagMultiLines() {
+	void testCommentGetSetWithTagMultiLines() {
 		gen.setComment("Foo\nbar");
 		assertEquals("% Foo\n% bar", gen.getCommentWithTag());
 	}
 
 	@Test
-	public void testSetCommentNULL() {
+	void testSetCommentNULL() {
 		gen.setComment(null);
 		assertEquals("", gen.getComment());
 	}
 
 	@Test
-	public void testSetCommentNULLWithTag() {
+	void testSetCommentNULLWithTag() {
 		gen.setComment(null);
 		assertEquals("% ", gen.getCommentWithTag());
 	}
 
 	@Test
-	public void testCommentInGenCode() {
+	void testCommentInGenCode() {
 		gen.setComment("thisisacomment");
 		assertTrue(gen.getDocumentCode().contains("% thisisacomment"));
 	}
 
 	@Test
-	public void testGetSetCenter() {
+	void testGetSetCenter() {
 		gen.setPositionHoriCentre(true);
 		assertTrue(gen.isPositionHoriCentre());
 	}
 
 	@Test
-	public void testCenterInGenCode() {
+	void testCenterInGenCode() {
 		gen.setPositionHoriCentre(true);
 		assertTrue(gen.getDocumentCode().contains("\\begin{center}"));
 	}
 
 	@Test
-	public void testCenterInGenCodeButNotCommented() {
+	void testCenterInGenCodeButNotCommented() {
 		gen.setPositionHoriCentre(true);
 		assertFalse(gen.getDocumentCode().contains("% \\begin{center}"));
 	}
 
 	@Test
-	public void testGetSetVertTokenBottom() {
+	void testGetSetVertTokenBottom() {
 		gen.setPositionVertToken(VerticalPosition.BOTTOM);
 		assertEquals(VerticalPosition.BOTTOM, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenFLOATSPAGE() {
+	void testGetSetVertTokenFLOATSPAGE() {
 		gen.setPositionVertToken(VerticalPosition.FLOATS_PAGE);
 		assertEquals(VerticalPosition.FLOATS_PAGE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenHERE() {
+	void testGetSetVertTokenHERE() {
 		gen.setPositionVertToken(VerticalPosition.HERE);
 		assertEquals(VerticalPosition.HERE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenHEREHERE() {
+	void testGetSetVertTokenHEREHERE() {
 		gen.setPositionVertToken(VerticalPosition.HERE_HERE);
 		assertEquals(VerticalPosition.HERE_HERE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenNONE() {
+	void testGetSetVertTokenNONE() {
 		gen.setPositionVertToken(VerticalPosition.NONE);
 		assertEquals(VerticalPosition.NONE, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenTOP() {
+	void testGetSetVertTokenTOP() {
 		gen.setPositionVertToken(VerticalPosition.TOP);
 		assertEquals(VerticalPosition.TOP, gen.getPositionVertToken());
 	}
 
 	@Test
-	public void testGetSetVertTokenBottomInGenCode() {
+	void testGetSetVertTokenBottomInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.BOTTOM);
-		assertTrue(gen.getDocumentCode(), gen.getDocumentCode().contains("\\begin{figure}[b]"));
+		assertTrue(gen.getDocumentCode().contains("\\begin{figure}[b]"), () -> gen.getDocumentCode());
 	}
 
 	@Test
-	public void testGetSetVertTokenFLOATSPAGEInGenCode() {
+	void testGetSetVertTokenFLOATSPAGEInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.FLOATS_PAGE);
-		assertTrue(gen.getDocumentCode(), gen.getDocumentCode().contains("\\begin{figure}[p]"));
+		assertTrue(gen.getDocumentCode().contains("\\begin{figure}[p]"), () -> gen.getDocumentCode());
 	}
 
 	@Test
-	public void testGetSetVertTokenHEREInGenCode() {
+	void testGetSetVertTokenHEREInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.HERE);
 		assertTrue(gen.getDocumentCode().contains("\\begin{figure}[h]"));
 	}
 
 	@Test
-	public void testGetSetVertTokenHEREHEREInGenCode() {
+	void testGetSetVertTokenHEREHEREInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.HERE_HERE);
 		assertTrue(gen.getDocumentCode().contains("\\begin{figure}[H]"));
 	}
 
 	@Test
-	public void testGetSetVertTokenNONEInGenCode() {
+	void testGetSetVertTokenNONEInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.NONE);
-		assertFalse(gen.getDocumentCode(), gen.getDocumentCode().contains("\\begin{figure}"));
+		assertFalse(gen.getDocumentCode().contains("\\begin{figure}"), () -> gen.getDocumentCode());
 	}
 
 	@Test
-	public void testGetSetVertTokenTOPInGenCode() {
+	void testGetSetVertTokenTOPInGenCode() {
 		gen.setPositionVertToken(VerticalPosition.TOP);
 		assertTrue(gen.getDocumentCode().contains("\\begin{figure}[t]"));
 	}

@@ -21,7 +21,7 @@ public abstract class TestCoordDimShapeGUI extends TestShapePropGUI<ShapeCoordDi
 		super.setUp();
 		tlxS = find("#tlxS");
 		tlyS = find("#tlyS");
-		ins = (ShapeCoordDimCustomiser) injectorFactory.call(ShapeCoordDimCustomiser.class);
+		ins = injector.getInstance(ShapeCoordDimCustomiser.class);
 		ins.setActivated(true);
 	}
 }

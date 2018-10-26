@@ -18,18 +18,19 @@ import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.hamcrest.CoreMatchers;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.junit.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, IBezierCurve, Path> implements CollectionMatcher {
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});
@@ -45,12 +46,12 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testClosingCurveNotNull() {
+	void testClosingCurveNotNull() {
 		assertNotNull(view.closingCurve);
 	}
 
 	@Test
-	public void testOpen() {
+	void testOpen() {
 		model.setOpened(false);
 		model.setOpened(true);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -58,7 +59,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testNotOpen() {
+	void testNotOpen() {
 		model.setOpened(true);
 		model.setOpened(false);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -66,12 +67,12 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void showPointsContained() {
+	void showPointsContained() {
 		assertTrue(view.getChildren().contains(view.showPoint));
 	}
 
 	@Test
-	public void testShowPointVisible() {
+	void testShowPointVisible() {
 		model.setShowPts(false);
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -79,7 +80,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPointNotVisible() {
+	void testShowPointNotVisible() {
 		model.setShowPts(true);
 		model.setShowPts(false);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -87,21 +88,21 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPtsGoodNbOfDots() {
+	void testShowPtsGoodNbOfDots() {
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(model.getNbPoints() * 3L, view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).count());
 	}
 
 	@Test
-	public void testShowPtsGoodNbOfLines() {
+	void testShowPtsGoodNbOfLines() {
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(model.getNbPoints() * 2L, view.showPoint.getChildren().stream().filter(n -> n instanceof Line).count());
 	}
 
 	@Test
-	public void testShowPtsDotsOkColor() {
+	void testShowPtsDotsOkColor() {
 		model.setShowPts(true);
 		model.setLineColour(ShapeFactory.INST.createColorFX(Color.RED));
 		WaitForAsyncUtils.waitForFxEvents();
@@ -109,7 +110,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPtsLinesOkColor() {
+	void testShowPtsLinesOkColor() {
 		model.setShowPts(true);
 		model.setLineColour(ShapeFactory.INST.createColorFX(Color.RED));
 		WaitForAsyncUtils.waitForFxEvents();
@@ -117,7 +118,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPtsMainDotsOkPosition() {
+	void testShowPtsMainDotsOkPosition() {
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
 		final List<IPoint> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
@@ -126,7 +127,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPtsCtrl1DotsOkPosition() {
+	void testShowPtsCtrl1DotsOkPosition() {
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
 		final List<IPoint> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
@@ -135,7 +136,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPtsCtrl2DotsOkPosition() {
+	void testShowPtsCtrl2DotsOkPosition() {
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
 		final List<IPoint> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
@@ -144,7 +145,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPtsCtrlEllSize() {
+	void testShowPtsCtrlEllSize() {
 		model.setShowPts(true);
 		model.setThickness(10d);
 		model.setHasDbleBord(true);
@@ -155,7 +156,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPtsCtrlEllSizeDotParams() {
+	void testShowPtsCtrlEllSizeDotParams() {
 		model.setShowPts(true);
 		model.getArrowAt(0).setDotSizeDim(1.1);
 		model.getArrowAt(0).setDotSizeNum(3.3);
@@ -165,7 +166,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPtsCtrlLineSize() {
+	void testShowPtsCtrlLineSize() {
 		model.setShowPts(true);
 		model.setThickness(10d);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -173,7 +174,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPtsCtrlLineSizeDbleLine() {
+	void testShowPtsCtrlLineSizeDbleLine() {
 		model.setShowPts(true);
 		model.setHasDbleBord(true);
 		model.setDbleBordSep(12d);
@@ -183,7 +184,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPtsCtrlEllNoStroke() {
+	void testShowPtsCtrlEllNoStroke() {
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertAllNull(view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse), elt -> ((Shape) elt).getStroke());
@@ -191,12 +192,12 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 
 	@Test
 	@Override
-	public void testShadowPositionSameThanBorder() {
+	void testShadowPositionSameThanBorder() {
 		assertEquals(view.border.getElements(), view.shadow.getElements());
 	}
 
 	@Test
-	public void testDbleBorderElements() {
+	void testDbleBorderElements() {
 		model.setHasDbleBord(true);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(view.border.getElements(), view.dblBorder.getElements());
@@ -226,7 +227,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testNoShowPointDotOnArrow1() {
+	void testNoShowPointDotOnArrow1() {
 		model.setShowPts(true);
 		model.getArrowAt(0).setArrowStyle(ArrowStyle.LEFT_ARROW);
 		model.setHasDbleBord(true);
@@ -236,7 +237,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPointDotOnNoArrow1() {
+	void testShowPointDotOnNoArrow1() {
 		model.setShowPts(true);
 		model.getArrowAt(0).setArrowStyle(ArrowStyle.NONE);
 		model.setHasDbleBord(true);
@@ -246,7 +247,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testNoShowPointDotOnArrow2() {
+	void testNoShowPointDotOnArrow2() {
 		model.setShowPts(true);
 		model.getArrowAt(-1).setArrowStyle(ArrowStyle.LEFT_ARROW);
 		model.setHasDbleBord(true);
@@ -256,7 +257,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	public void testShowPointDotOnNoArrow2() {
+	void testShowPointDotOnNoArrow2() {
 		model.setShowPts(true);
 		model.getArrowAt(-1).setArrowStyle(ArrowStyle.NONE);
 		model.setHasDbleBord(true);

@@ -22,13 +22,11 @@ public interface ShapeCmd<T extends IShape> extends Command {
 	/**
 	 * Sets the shape to add.
 	 * @param sh The shape to add.
-	 * @since 3.0
 	 */
 	void setShape(final T sh);
 
 	/**
 	 * @return The shape to modify.
-	 * @since 3.0
 	 */
 	Optional<T> getShape();
 

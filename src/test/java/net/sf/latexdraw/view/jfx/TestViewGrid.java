@@ -2,8 +2,6 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.scene.paint.Paint;
@@ -14,19 +12,20 @@ import javafx.scene.text.Text;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 
 public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	List<PathElement> mainGridBefore;
 	List<PathElement> subGridBefore;
 
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});
@@ -35,10 +34,8 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 		}
 	}
 
-	@Override
-	@Before
-	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
-		super.setUp();
+	@BeforeEach
+	void setUpViewGrid() {
 		mainGridBefore = new ArrayList<>(view.getMaingrid().getElements());
 		subGridBefore = new ArrayList<>(view.getSubgrid().getElements());
 	}
@@ -49,7 +46,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	}
 
 	@Test
-	public void testChangeUnit() {
+	void testChangeUnit() {
 		final List<Double> xBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		final List<Double> yBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		model.setUnit(1.345);
@@ -61,7 +58,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	}
 
 	@Test
-	public void testChangeLabelsColour() {
+	void testChangeLabelsColour() {
 		final Paint strokeBefore = ((Shape) view.getLabels().getChildren().get(0)).getStroke();
 		model.setGridLabelsColour(DviPsColors.CARNATIONPINK);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -69,7 +66,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	}
 
 	@Test
-	public void testChangeGridDots() {
+	void testChangeGridDots() {
 		model.setGridDots(23);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
@@ -78,7 +75,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	}
 
 	@Test
-	public void testChangeSubGridDots() {
+	void testChangeSubGridDots() {
 		model.setSubGridDots(21);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(subGridBefore, view.getSubgrid().getElements());
@@ -87,7 +84,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	}
 
 	@Test
-	public void testChangeSubGridDiv() {
+	void testChangeSubGridDiv() {
 		model.setSubGridDiv(11);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(subGridBefore, view.getSubgrid().getElements());
@@ -95,7 +92,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	}
 
 	@Test
-	public void testChangeGridWidthImpactOnStrokeWidth() {
+	void testChangeGridWidthImpactOnStrokeWidth() {
 		final double strokeBefore = view.getMaingrid().getStrokeWidth();
 		model.setGridWidth(21d);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -103,7 +100,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	}
 
 	@Test
-	public void testChangeGridWidthImpactOnLabels() {
+	void testChangeGridWidthImpactOnLabels() {
 		final List<Double> xBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		final List<Double> yBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		model.setGridWidth(43d);
@@ -114,7 +111,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 
 
 	@Test
-	public void testChangeSubGridWidth() {
+	void testChangeSubGridWidth() {
 		final double strokeBefore = view.getSubgrid().getStrokeWidth();
 		model.setSubGridWidth(11d);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -122,7 +119,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	}
 
 	@Test
-	public void testChangeYLabelWest() {
+	void testChangeYLabelWest() {
 		final List<Double> xBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		model.setYLabelWest(!model.isYLabelWest());
 		WaitForAsyncUtils.waitForFxEvents();
@@ -130,7 +127,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	}
 
 	@Test
-	public void testChangeXLabelSouth() {
+	void testChangeXLabelSouth() {
 		final List<Double> yBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		model.setXLabelSouth(!model.isXLabelSouth());
 		WaitForAsyncUtils.waitForFxEvents();
@@ -139,7 +136,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 
 	@Override
 	@Test
-	public void testChangeGridEndX() {
+	void testChangeGridEndX() {
 		model.setGridEndX(model.getGridEndX() + 1d);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
@@ -148,7 +145,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 
 	@Override
 	@Test
-	public void testChangeGridEndY() {
+	void testChangeGridEndY() {
 		model.setGridEndY(model.getGridEndY() + 1d);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
@@ -157,7 +154,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 
 	@Override
 	@Test
-	public void testChangeGridStartX() {
+	void testChangeGridStartX() {
 		model.setGridStartX(model.getGridStartX() - 1d);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
@@ -166,7 +163,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 
 	@Override
 	@Test
-	public void testChangeGridStartY() {
+	void testChangeGridStartY() {
 		model.setGridStartY(model.getGridStartY() - 1d);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(mainGridBefore, view.getMaingrid().getElements());
@@ -175,7 +172,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 
 	@Override
 	@Test
-	public void testChangeOriginX() {
+	void testChangeOriginX() {
 		final List<Double> yBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		final List<Double> xBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		model.setOriginX(model.getOriginX() + 1d);
@@ -186,7 +183,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 
 	@Override
 	@Test
-	public void testChangeOriginY() {
+	void testChangeOriginY() {
 		final List<Double> yBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getY()).collect(Collectors.toList());
 		final List<Double> xBefore = view.getLabels().getChildren().stream().map(c -> ((Text) c).getX()).collect(Collectors.toList());
 		model.setOriginY(model.getOriginY() + 1d);

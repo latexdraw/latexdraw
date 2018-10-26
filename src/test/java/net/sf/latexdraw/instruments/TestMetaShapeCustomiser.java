@@ -7,6 +7,7 @@ import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.junit.Before;
@@ -25,6 +26,7 @@ public class TestMetaShapeCustomiser implements CollectionMatcher {
 		return new Injector() {
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+				bindAsEagerSingleton(SystemService.class);
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(MagneticGrid.class, Mockito.mock(MagneticGrid.class));
 				bindToInstance(ShapeArcCustomiser.class, Mockito.mock(ShapeArcCustomiser.class));
@@ -57,6 +59,7 @@ public class TestMetaShapeCustomiser implements CollectionMatcher {
 	@Before
 	public void setUp() {
 		injector = createInjector();
+		injector.initialise();
 		meta = injector.getInstance(MetaShapeCustomiser.class);
 	}
 

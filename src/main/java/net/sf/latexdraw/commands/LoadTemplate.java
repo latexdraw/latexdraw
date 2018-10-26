@@ -10,12 +10,11 @@
  */
 package net.sf.latexdraw.commands;
 
-import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.javafx.command.IOCommand;
 import org.malai.undo.Undoable;
@@ -24,18 +23,21 @@ import org.malai.undo.Undoable;
  * This command loads a given template.
  * @author Arnaud Blouin
  */
-public class LoadTemplate extends IOCommand<Label> implements DrawingCmd, Undoable, Modifying {
+public class LoadTemplate extends IOCommand<Label> implements Undoable, Modifying {
 	private IShape insertedShapes;
-	private IDrawing drawing;
+	private final IDrawing drawing;
 	private IPoint position;
+	private final SVGDocumentGenerator svgGen;
 
-	public LoadTemplate() {
+	public LoadTemplate(final SVGDocumentGenerator svgGen, final IDrawing drawing) {
 		super();
+		this.svgGen = svgGen;
+		this.drawing = drawing;
 	}
 
 	@Override
 	protected void doCmdBody() {
-		insertedShapes = SVGDocumentGenerator.INSTANCE.insert(file.getPath(), position);
+		insertedShapes = svgGen.insert(file.getPath(), position);
 		ok = insertedShapes != null;
 	}
 
@@ -50,8 +52,8 @@ public class LoadTemplate extends IOCommand<Label> implements DrawingCmd, Undoab
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("template.added");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("template.added");
 	}
 
 	@Override
@@ -68,16 +70,6 @@ public class LoadTemplate extends IOCommand<Label> implements DrawingCmd, Undoab
 	public void flush() {
 		super.flush();
 		insertedShapes = null;
-	}
-
-	@Override
-	public void setDrawing(final IDrawing dr) {
-		drawing = dr;
-	}
-
-	@Override
-	public Optional<IDrawing> getDrawing() {
-		return Optional.ofNullable(drawing);
 	}
 
 	public void setPosition(final IPoint templatePosition) {

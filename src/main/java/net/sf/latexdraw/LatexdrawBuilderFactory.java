@@ -19,11 +19,11 @@ import net.sf.latexdraw.view.jfx.Canvas;
 /**
  * @author Arnaud Blouin
  */
-class LatexdrawBuilderFactory implements BuilderFactory {
+public class LatexdrawBuilderFactory implements BuilderFactory {
 	private final Injector injector;
 	private final BuilderFactory defaultFactory;
 
-	LatexdrawBuilderFactory(final Injector inj) {
+	public LatexdrawBuilderFactory(final Injector inj) {
 		super();
 		injector = inj;
 		defaultFactory = new JavaFXBuilderFactory();

@@ -12,7 +12,7 @@ package net.sf.latexdraw.commands.shape;
 
 import java.awt.geom.Rectangle2D;
 import java.util.Optional;
-import net.sf.latexdraw.commands.DrawingCmd;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.commands.ShapeCmdImpl;
 import net.sf.latexdraw.models.MathUtils;
@@ -20,44 +20,41 @@ import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.Position;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
  * This command scales a shape.
  * @author Arnaud Blouin
  */
-public class ScaleShapes extends ShapeCmdImpl<IGroup> implements DrawingCmd, Undoable, Modifying {
+public class ScaleShapes extends ShapeCmdImpl<IGroup> implements Undoable, Modifying {
 	/** The direction of the scaling. */
-	Optional<Position> refPosition;
+	private final Position refPosition;
 
 	/** The new X position used to compute the scale factor. */
-	double newX;
+	private double newX;
 
 	/** The new Y position used to compute the scale factor. */
-	double newY;
+	private double newY;
 
 	/** The bound of the selected shapes used to perform the scaling. */
-	final Rectangle2D bound;
+	private final Rectangle2D bound;
 
 	/** The old width of the selection. */
-	double oldWidth;
+	private double oldWidth;
 
 	/** The old height of the selection. */
-	double oldHeight;
-
-	boolean doneOnce;
+	private double oldHeight;
 
 	/** The drawing that will be handled by the command. */
-	protected Optional<IDrawing> drawing;
+	private final IDrawing drawing;
 
 
-	public ScaleShapes() {
-		super();
-		drawing = Optional.empty();
-		refPosition = Optional.empty();
+	public ScaleShapes(final IGroup gp, final IDrawing drawing, final Position refPosition) {
+		super(gp);
+		this.drawing = drawing;
+		this.refPosition = refPosition;
 		bound = new Rectangle2D.Double();
-		doneOnce = false;
+		setShape(gp);
 	}
 
 	@Override
@@ -72,24 +69,25 @@ public class ScaleShapes extends ShapeCmdImpl<IGroup> implements DrawingCmd, Und
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && drawing.isPresent() && refPosition.isPresent() && isValidScales();
+		return drawing != null && refPosition != null && isValidScales() && super.canDo();
 	}
 
 	private boolean isValidScales() {
-		if(!refPosition.isPresent()) {
+		if(refPosition == null) {
 			return false;
 		}
-		switch(refPosition.get()) {
+
+		switch(refPosition) {
 			case EAST:
-				return MathUtils.INST.isValidCoord(newX) && scaledWidth(newX) > 1.0;
+				return MathUtils.INST.isValidCoord(newX) && scaledWidth(newX) > 1d;
 			case WEST:
-				return MathUtils.INST.isValidCoord(newX) && scaledWidth(newX) > 1.0;
+				return MathUtils.INST.isValidCoord(newX) && scaledWidth(newX) > 1d;
 			case NORTH:
-				return MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1.0;
+				return MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1d;
 			case SOUTH:
-				return MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1.0;
+				return MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1d;
 			default:
-				return MathUtils.INST.isValidCoord(newX) && MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1.0 && scaledWidth(newX) > 1.0;
+				return MathUtils.INST.isValidCoord(newX) && MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1d && scaledWidth(newX) > 1d;
 		}
 	}
 
@@ -113,12 +111,12 @@ public class ScaleShapes extends ShapeCmdImpl<IGroup> implements DrawingCmd, Und
 
 	@Override
 	public void undo() {
-		shape.ifPresent(sh -> refPosition.ifPresent(pos -> drawing.ifPresent(dr -> {
-			sh.scale(oldWidth, oldHeight, pos, bound);
+		shape.ifPresent(sh -> {
+			sh.scale(oldWidth, oldHeight, refPosition, bound);
 			sh.setModified(true);
-			dr.setModified(true);
+			drawing.setModified(true);
 			updateBound(sh.getTopLeftPoint(), sh.getBottomRightPoint());
-		})));
+		});
 	}
 
 	@Override
@@ -131,81 +129,59 @@ public class ScaleShapes extends ShapeCmdImpl<IGroup> implements DrawingCmd, Und
 	}
 
 	private double scaledHeight(final double y) {
-		if(!refPosition.isPresent()) {
-			return 0.0;
+		if(refPosition == null) {
+			return 0d;
 		}
-		if(refPosition.get().isSouth()) {
+		if(refPosition.isSouth()) {
 			return bound.getHeight() + bound.getY() - y;
 		}
-		if(refPosition.get().isNorth()) {
+		if(refPosition.isNorth()) {
 			return bound.getHeight() + y - bound.getMaxY();
 		}
-		return 0.0;
+		return 0d;
 	}
 
 	private double scaledWidth(final double x) {
-		if(!refPosition.isPresent()) {
-			return 0.0;
+		if(refPosition == null) {
+			return 0d;
 		}
-		if(refPosition.get().isWest()) {
+		if(refPosition.isWest()) {
 			return bound.getWidth() + x - bound.getMaxX();
 		}
-		if(refPosition.get().isEast()) {
+		if(refPosition.isEast()) {
 			return bound.getWidth() + bound.getX() - x;
 		}
-		return 0.0;
+		return 0d;
 	}
 
 	@Override
 	public void redo() {
-		shape.ifPresent(sh -> refPosition.ifPresent(pos -> drawing.ifPresent(dr -> {
-			sh.scale(scaledWidth(newX), scaledHeight(newY), pos, bound);
+		shape.ifPresent(sh -> {
+			sh.scale(scaledWidth(newX), scaledHeight(newY), refPosition, bound);
 			sh.setModified(true);
-			dr.setModified(true);
+			drawing.setModified(true);
 			updateBound(sh.getTopLeftPoint(), sh.getBottomRightPoint());
-		})));
+		});
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.11");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.11");
 	}
 
 	public Optional<Position> getRefPosition() {
-		return refPosition;
-	}
-
-	public void setRefPosition(final Position pos) {
-		refPosition = Optional.ofNullable(pos);
-	}
-
-	public double getNewX() {
-		return newX;
+		return Optional.ofNullable(refPosition);
 	}
 
 	public void setNewX(final double x) {
-		if(scaledWidth(x) > 1.0) {
+		if(scaledWidth(x) > 1d) {
 			newX = x;
 		}
 	}
 
-	public double getNewY() {
-		return newY;
-	}
-
 	public void setNewY(final double y) {
-		if(scaledHeight(y) > 1.0) {
+		if(scaledHeight(y) > 1d) {
 			newY = y;
 		}
-	}
-
-	@Override
-	public void setDrawing(final IDrawing dr) {
-		drawing = Optional.ofNullable(dr);
-	}
-
-	@Override
-	public Optional<IDrawing> getDrawing() {
-		return drawing;
 	}
 }

@@ -26,13 +26,16 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  */
 class SVGGroup extends SVGShape<IGroup> {
+	private final SVGShapeProducer shapeProducer;
+
 	/**
 	 * Creates an SVG generator from IGroup instance.
 	 * @param group The group of shapes that will be converted.
 	 * @since 3.0
 	 */
-	SVGGroup(final IGroup group) {
+	SVGGroup(final IGroup group, final SVGShapeProducer shapeProducer) {
 		super(group);
+		this.shapeProducer = shapeProducer;
 	}
 
 
@@ -45,8 +48,8 @@ class SVGGroup extends SVGShape<IGroup> {
 	 * @throws IllegalArgumentException If the given SVGGElement is null or not valid.
 	 * @since 3.0
 	 */
-	SVGGroup(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.INST.createGroup());
+	SVGGroup(final SVGGElement elt, final boolean withTransformation, final SVGShapeProducer shapeProducer) {
+		this(ShapeFactory.INST.createGroup(), shapeProducer);
 
 		if(elt == null) {
 			throw new IllegalArgumentException();
@@ -60,7 +63,7 @@ class SVGGroup extends SVGShape<IGroup> {
 		}
 
 		for(int i = 0, size = nodeList.getLength(); i < size; i++) {
-			sh = SVGShapesFactory.INSTANCE.createShape((SVGElement) nodeList.item(i), withTransformation);
+			sh = shapeProducer.createShape((SVGElement) nodeList.item(i), withTransformation);
 
 			if(sh != null) {
 				shape.addShape(sh);
@@ -83,7 +86,7 @@ class SVGGroup extends SVGShape<IGroup> {
 			root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
 			for(final IShape f : shapes) {
-				root.appendChild(SVGShapesFactory.INSTANCE.createSVGElement(f, doc));
+				root.appendChild(shapeProducer.createSVGElement(f, doc));
 			}
 
 			return root;

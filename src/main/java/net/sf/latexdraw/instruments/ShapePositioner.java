@@ -12,7 +12,6 @@ package net.sf.latexdraw.instruments;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.BiConsumer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -40,14 +39,10 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 
 	@Override
 	protected void configureBindings() {
-		final BiConsumer<Boolean, MoveBackForegroundShapes> init = (isForeground, c) -> {
-			c.setIsForeground(isForeground);
-			c.setDrawing(pencil.canvas.getDrawing());
-			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
-		};
-
-		buttonBinder(MoveBackForegroundShapes::new).on(foregroundB).first(c -> init.accept(Boolean.TRUE, c)).bind();
-		buttonBinder(MoveBackForegroundShapes::new).on(backgroundB).first(c -> init.accept(Boolean.FALSE, c)).bind();
+		buttonBinder(() -> new MoveBackForegroundShapes(canvas.getDrawing().getSelection().duplicateDeep(false), true, canvas.getDrawing())).
+			on(foregroundB).bind();
+		buttonBinder(() -> new MoveBackForegroundShapes(canvas.getDrawing().getSelection().duplicateDeep(false), false, canvas.getDrawing())).
+			on(backgroundB).bind();
 	}
 
 	@Override

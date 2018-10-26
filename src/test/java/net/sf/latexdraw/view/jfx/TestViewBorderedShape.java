@@ -1,8 +1,6 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.LinearGradient;
@@ -14,26 +12,25 @@ import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends ISingleShape, R extends Shape> extends TestViewShape<T, S> implements
-	ITestViewBorderedShape<T, S, R> {
+
+abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends ISingleShape, R extends Shape> extends TestViewShape<T, S>
+	implements ITestViewBorderedShape<T, S, R> {
 	protected R border;
 
-	@Override
-	@Before
-	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
-		super.setUp();
+	@BeforeEach
+	void setUp() {
 		border = view.getBorder();
 	}
 
@@ -43,14 +40,14 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testLineColor() {
+	void testLineColor() {
 		model.setLineColour(DviPsColors.BITTERSWEET);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(DviPsColors.BITTERSWEET, ShapeFactory.INST.createColorFX((javafx.scene.paint.Color) border.getStroke()));
 	}
 
 	@Test
-	public void testLineThickness() {
+	void testLineThickness() {
 		assumeTrue(model.isThicknessable());
 		model.setThickness(10d);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -58,17 +55,17 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testBorderAdded() {
+	void testBorderAdded() {
 		assertTrue(view.getChildren().stream().anyMatch(c -> c == border));
 	}
 
 	@Test
-	public void testBorderEnable() {
+	void testBorderEnable() {
 		assertFalse(view.getBorder().isDisable());
 	}
 
 	@Test
-	public void testDoubleLineThickness() {
+	void testDoubleLineThickness() {
 		assumeTrue(model.isDbleBorderable());
 		model.setHasDbleBord(true);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -76,7 +73,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testDoubleLineSepThickness() {
+	void testDoubleLineSepThickness() {
 		assumeTrue(model.isDbleBorderable());
 		model.setHasDbleBord(true);
 		model.setDbleBordSep(30d);
@@ -85,7 +82,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testDoubleLineCol() {
+	void testDoubleLineCol() {
 		assumeTrue(model.isDbleBorderable());
 		model.setHasDbleBord(true);
 		model.setDbleBordCol(DviPsColors.APRICOT);
@@ -94,75 +91,75 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testDoubleBorderAdded() {
+	void testDoubleBorderAdded() {
 		assumeTrue(model.isDbleBorderable());
-		assertTrue(view.getChildren().stream().anyMatch(c -> c == view.getDbleBorder().get()));
+		assertTrue(view.getChildren().stream().anyMatch(c -> c == view.getDbleBorder().orElseThrow()));
 	}
 
 	@Test
-	public void testDoubleBorderDefaultDisable() {
+	void testDoubleBorderDefaultDisable() {
 		assumeTrue(model.isDbleBorderable());
-		assertTrue(view.getDbleBorder().get().isDisable());
+		assertTrue(view.getDbleBorder().orElseThrow().isDisable());
 	}
 
 	@Test
-	public void testDoubleBorderEnable() {
-		assumeTrue(model.isDbleBorderable());
-		model.setHasDbleBord(true);
-		WaitForAsyncUtils.waitForFxEvents();
-		assertFalse(view.getDbleBorder().get().isDisable());
-	}
-
-	@Test
-	public void testDoubleBorderDisable() {
-		assumeTrue(model.isDbleBorderable());
-		model.setHasDbleBord(true);
-		model.setHasDbleBord(false);
-		WaitForAsyncUtils.waitForFxEvents();
-		assertTrue(view.getDbleBorder().get().isDisable());
-	}
-
-	@Test
-	public void testDoubleBorderDefaultVisible() {
-		assumeTrue(model.isDbleBorderable());
-		assertFalse(view.getDbleBorder().get().isVisible());
-	}
-
-	@Test
-	public void testDoubleBorderVisible() {
+	void testDoubleBorderEnable() {
 		assumeTrue(model.isDbleBorderable());
 		model.setHasDbleBord(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertTrue(view.getDbleBorder().get().isVisible());
+		assertFalse(view.getDbleBorder().orElseThrow().isDisable());
 	}
 
 	@Test
-	public void testDoubleBorderNotVisible() {
+	void testDoubleBorderDisable() {
 		assumeTrue(model.isDbleBorderable());
 		model.setHasDbleBord(true);
 		model.setHasDbleBord(false);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertFalse(view.getDbleBorder().get().isVisible());
+		assertTrue(view.getDbleBorder().orElseThrow().isDisable());
 	}
 
 	@Test
-	public void testDoubleBorderStrokeWidth() {
+	void testDoubleBorderDefaultVisible() {
+		assumeTrue(model.isDbleBorderable());
+		assertFalse(view.getDbleBorder().orElseThrow().isVisible());
+	}
+
+	@Test
+	void testDoubleBorderVisible() {
 		assumeTrue(model.isDbleBorderable());
 		model.setHasDbleBord(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(model.getDbleBordSep(), view.getDbleBorder().get().getStrokeWidth(), 0.001);
+		assertTrue(view.getDbleBorder().orElseThrow().isVisible());
 	}
 
 	@Test
-	public void testDoubleBorderNoFill() {
+	void testDoubleBorderNotVisible() {
+		assumeTrue(model.isDbleBorderable());
+		model.setHasDbleBord(true);
+		model.setHasDbleBord(false);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertFalse(view.getDbleBorder().orElseThrow().isVisible());
+	}
+
+	@Test
+	void testDoubleBorderStrokeWidth() {
 		assumeTrue(model.isDbleBorderable());
 		model.setHasDbleBord(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertNull(view.getDbleBorder().get().getFill());
+		assertEquals(model.getDbleBordSep(), view.getDbleBorder().orElseThrow().getStrokeWidth(), 0.001);
 	}
 
 	@Test
-	public void testLineStylePlainLineCap() {
+	void testDoubleBorderNoFill() {
+		assumeTrue(model.isDbleBorderable());
+		model.setHasDbleBord(true);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertNull(view.getDbleBorder().orElseThrow().getFill());
+	}
+
+	@Test
+	void testLineStylePlainLineCap() {
 		assumeTrue(model.isLineStylable());
 		model.setLineStyle(LineStyle.SOLID);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -170,7 +167,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testLineStyleDashedSep() {
+	void testLineStyleDashedSep() {
 		assumeTrue(model.isLineStylable());
 		model.setLineStyle(LineStyle.DASHED);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -178,7 +175,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testLineStyleDashedLineCap() {
+	void testLineStyleDashedLineCap() {
 		assumeTrue(model.isLineStylable());
 		model.setLineStyle(LineStyle.DASHED);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -186,7 +183,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testDashSepBlackBefore() {
+	void testDashSepBlackBefore() {
 		assumeTrue(model.isLineStylable());
 		model.setDashSepBlack(21d);
 		model.setLineStyle(LineStyle.DASHED);
@@ -195,7 +192,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testDashSepBlack() {
+	void testDashSepBlack() {
 		assumeTrue(model.isLineStylable());
 		model.setLineStyle(LineStyle.DASHED);
 		model.setDashSepBlack(21d);
@@ -204,7 +201,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testDashSepWhite() {
+	void testDashSepWhite() {
 		assumeTrue(model.isLineStylable());
 		model.setLineStyle(LineStyle.DASHED);
 		model.setDashSepWhite(2.451);
@@ -213,7 +210,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testDashSepWhiteBefore() {
+	void testDashSepWhiteBefore() {
 		assumeTrue(model.isLineStylable());
 		model.setDashSepWhite(2.451);
 		model.setLineStyle(LineStyle.DASHED);
@@ -222,7 +219,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testLineStyleDottedLineCap() {
+	void testLineStyleDottedLineCap() {
 		assumeTrue(model.isLineStylable());
 		model.setLineStyle(LineStyle.DOTTED);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -230,7 +227,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testLineStyleDottedSepSimpleLine() {
+	void testLineStyleDottedSepSimpleLine() {
 		assumeTrue(model.isLineStylable());
 		model.setLineStyle(LineStyle.DOTTED);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -238,7 +235,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testLineStyleDottedSepDoubleLine() {
+	void testLineStyleDottedSepDoubleLine() {
 		assumeTrue(model.isLineStylable());
 		if(model.isDbleBorderable()) {
 			model.setHasDbleBord(true);
@@ -249,7 +246,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testLineStyleDottedSepDoubleLineAfterLineStyle() {
+	void testLineStyleDottedSepDoubleLineAfterLineStyle() {
 		assumeTrue(model.isLineStylable());
 		model.setLineStyle(LineStyle.DOTTED);
 		if(model.isDbleBorderable()) {
@@ -260,7 +257,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testLineStyleDottedSepDoubleLineDoubleSep() {
+	void testLineStyleDottedSepDoubleLineDoubleSep() {
 		assumeTrue(model.isLineStylable());
 		model.setLineStyle(LineStyle.DOTTED);
 		if(model.isDbleBorderable()) {
@@ -273,7 +270,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 
 
 	@Test
-	public void testLineStyleDottedSepBefore() {
+	void testLineStyleDottedSepBefore() {
 		assumeTrue(model.isLineStylable());
 		model.setDotSep(23.23);
 		model.setLineStyle(LineStyle.DOTTED);
@@ -282,7 +279,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testLineStyleDottedSepAfter() {
+	void testLineStyleDottedSepAfter() {
 		assumeTrue(model.isLineStylable());
 		model.setLineStyle(LineStyle.DOTTED);
 		model.setDotSep(23.23);
@@ -291,7 +288,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillPlain() {
+	void testFillPlain() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.PLAIN);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -299,7 +296,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillPlainColor() {
+	void testFillPlainColor() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.PLAIN);
 		model.setFillingCol(DviPsColors.OLIVEGREEN);
@@ -308,7 +305,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillNone() {
+	void testFillNone() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.PLAIN);
 		model.setFillingStyle(FillingStyle.NONE);
@@ -317,7 +314,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillGradient() {
+	void testFillGradient() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.GRAD);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -325,49 +322,49 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillGradientColor1() {
+	void testFillGradientColor1() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.GRAD);
 		model.setGradColStart(DviPsColors.DANDELION);
 		WaitForAsyncUtils.waitForFxEvents();
-		LinearGradient grad = (LinearGradient) border.getFill();
+		final LinearGradient grad = (LinearGradient) border.getFill();
 		assertEquals(DviPsColors.DANDELION.toJFX(), grad.getStops().get(0).getColor());
 	}
 
 	@Test
-	public void testFillGradientColor2() {
+	void testFillGradientColor2() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.GRAD);
 		model.setGradColEnd(DviPsColors.BRICKRED);
 		WaitForAsyncUtils.waitForFxEvents();
-		LinearGradient grad = (LinearGradient) border.getFill();
+		final LinearGradient grad = (LinearGradient) border.getFill();
 		assertEquals(DviPsColors.BRICKRED.toJFX(), grad.getStops().get(1).getColor());
 	}
 
 	@Test
-	public void testFillGradientAngle() {
+	void testFillGradientAngle() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.GRAD);
 		WaitForAsyncUtils.waitForFxEvents();
-		LinearGradient grad1 = (LinearGradient) border.getFill();
+		final LinearGradient grad1 = (LinearGradient) border.getFill();
 		model.setGradAngle(Math.PI / 1.23);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(grad1, border.getFill());
 	}
 
 	@Test
-	public void testFillGradientMidPt() {
+	void testFillGradientMidPt() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.GRAD);
 		WaitForAsyncUtils.waitForFxEvents();
-		LinearGradient grad1 = (LinearGradient) border.getFill();
+		final LinearGradient grad1 = (LinearGradient) border.getFill();
 		model.setGradMidPt(0.6352);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotEquals(grad1, border.getFill());
 	}
 
 	@Test
-	public void testFillHatchingsCLINES() {
+	void testFillHatchingsCLINES() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.CLINES);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -375,7 +372,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsVLINES() {
+	void testFillHatchingsVLINES() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.VLINES);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -383,7 +380,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsCLINESPLAIN() {
+	void testFillHatchingsCLINESPLAIN() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.CLINES_PLAIN);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -391,7 +388,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsVLINESPLAIN() {
+	void testFillHatchingsVLINESPLAIN() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.VLINES_PLAIN);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -399,7 +396,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsHLINES() {
+	void testFillHatchingsHLINES() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.HLINES);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -407,7 +404,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsHLINESPLAIN() {
+	void testFillHatchingsHLINESPLAIN() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.HLINES_PLAIN);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -415,7 +412,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsWidth() {
+	void testFillHatchingsWidth() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.HLINES);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -423,7 +420,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsSep() {
+	void testFillHatchingsSep() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.HLINES);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -431,7 +428,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsAngle() {
+	void testFillHatchingsAngle() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.HLINES);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -439,7 +436,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsCol() {
+	void testFillHatchingsCol() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.HLINES);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -447,7 +444,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testFillHatchingsFillingCol() {
+	void testFillHatchingsFillingCol() {
 		assumeTrue(model.isFillable());
 		model.setFillingStyle(FillingStyle.HLINES);
 		WaitForAsyncUtils.waitForFxEvents();
@@ -458,67 +455,67 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	}
 
 	@Test
-	public void testShadowAdded() {
+	void testShadowAdded() {
 		assumeTrue(model.isShadowable());
-		assertTrue(view.getChildren().stream().anyMatch(c -> c == view.getShadow().get()));
+		assertTrue(view.getChildren().stream().anyMatch(c -> c == view.getShadow().orElseThrow()));
 	}
 
 	@Test
-	public void testShadowDefaultDisable() {
+	void testShadowDefaultDisable() {
 		assumeTrue(model.isShadowable());
-		assertTrue(view.getShadow().get().isDisable());
+		assertTrue(view.getShadow().orElseThrow().isDisable());
 	}
 
 	@Test
-	public void testShadowEnable() {
+	void testShadowEnable() {
 		assumeTrue(model.isShadowable());
 		model.setHasShadow(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertFalse(view.getShadow().get().isDisable());
+		assertFalse(view.getShadow().orElseThrow().isDisable());
 	}
 
 	@Test
-	public void testShadowDisable() {
+	void testShadowDisable() {
 		assumeTrue(model.isShadowable());
 		model.setHasShadow(true);
 		model.setHasShadow(false);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertTrue(view.getShadow().get().isDisable());
+		assertTrue(view.getShadow().orElseThrow().isDisable());
 	}
 
 	@Test
-	public void testShadowColorStroke() {
+	void testShadowColorStroke() {
 		assumeTrue(model.isShadowable());
 		model.setHasShadow(true);
 		model.setShadowCol(DviPsColors.NAVYBLUE);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(DviPsColors.NAVYBLUE.toJFX(), view.getShadow().get().getStroke());
+		assertEquals(DviPsColors.NAVYBLUE.toJFX(), view.getShadow().orElseThrow().getStroke());
 	}
 
 	@Test
-	public void testShadowColorFillWhenFilled() {
+	void testShadowColorFillWhenFilled() {
 		assumeTrue(model.isShadowable());
 		assumeTrue(model.isFillable());
 		model.setHasShadow(true);
 		model.setFillingStyle(FillingStyle.PLAIN);
 		model.setShadowCol(DviPsColors.APRICOT);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(DviPsColors.APRICOT.toJFX(), view.getShadow().get().getFill());
+		assertEquals(DviPsColors.APRICOT.toJFX(), view.getShadow().orElseThrow().getFill());
 	}
 
 	@Test
-	public void testShadowColorFillWhenNotFilled() {
+	void testShadowColorFillWhenNotFilled() {
 		assumeTrue(model.isShadowable());
 		assumeTrue(model.isFillable());
 		assumeFalse(model.shadowFillsShape());
 		model.setHasShadow(true);
 		model.setFillingStyle(FillingStyle.NONE);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertNull(view.getShadow().get().getFill());
+		assertNull(view.getShadow().orElseThrow().getFill());
 	}
 
 	@Test
-	public void testShadowColorFillWhenNotFilledButShadowFills() {
+	void testShadowColorFillWhenNotFilledButShadowFills() {
 		assumeTrue(model.isShadowable());
 		assumeTrue(model.isFillable());
 		assumeTrue(model.shadowFillsShape());
@@ -526,89 +523,89 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 		model.setFillingStyle(FillingStyle.NONE);
 		model.setShadowCol(DviPsColors.APRICOT);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(DviPsColors.APRICOT.toJFX(), view.getShadow().get().getFill());
+		assertEquals(DviPsColors.APRICOT.toJFX(), view.getShadow().orElseThrow().getFill());
 	}
 
 
 	@Test
-	public void testShadowBoundNotSamePositionThanBorder() {
+	void testShadowBoundNotSamePositionThanBorder() {
 		assumeTrue(model.isShadowable());
 		model.setHasShadow(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertNotEquals(border.getBoundsInParent().getMinX(), view.getShadow().get().getBoundsInParent().getMinX(), 0.001);
-		assertNotEquals(border.getBoundsInParent().getMinY(), view.getShadow().get().getBoundsInParent().getMinY(), 0.001);
+		assertNotEquals(border.getBoundsInParent().getMinX(), view.getShadow().orElseThrow().getBoundsInParent().getMinX());
+		assertNotEquals(border.getBoundsInParent().getMinY(), view.getShadow().orElseThrow().getBoundsInParent().getMinY());
 	}
 
 	@Test
-	public void testLineSizeShadowSameThanBorder() {
+	void testLineSizeShadowSameThanBorder() {
 		assumeTrue(model.isThicknessable());
 		model.setThickness(20d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(20d, view.getShadow().get().getStrokeWidth(), 0.001);
+		assertEquals(20d, view.getShadow().orElseThrow().getStrokeWidth(), 0.001);
 	}
 
 	@Test
-	public void testLinePositionShadowSameThanBorder() {
+	void testLinePositionShadowSameThanBorder() {
 		assumeTrue(model.isThicknessable());
 		model.setBordersPosition(BorderPos.INTO);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(border.getStrokeType(), view.getShadow().get().getStrokeType());
+		assertEquals(border.getStrokeType(), view.getShadow().orElseThrow().getStrokeType());
 	}
 
 	@Test
-	public void testShadowBoundSizeSameThanBorder() {
+	void testShadowBoundSizeSameThanBorder() {
 		assumeTrue(model.isShadowable());
 		model.setHasShadow(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(border.getBoundsInLocal().getWidth(), view.getShadow().get().getBoundsInLocal().getWidth(), 0.001);
-		assertEquals(border.getBoundsInLocal().getHeight(), view.getShadow().get().getBoundsInLocal().getHeight(), 0.001);
+		assertEquals(border.getBoundsInLocal().getWidth(), view.getShadow().orElseThrow().getBoundsInLocal().getWidth(), 0.001);
+		assertEquals(border.getBoundsInLocal().getHeight(), view.getShadow().orElseThrow().getBoundsInLocal().getHeight(), 0.001);
 	}
 
 
 	@Test
-	public void testShadowAngle0Translate() {
+	void testShadowAngle0Translate() {
 		assumeTrue(model.isShadowable());
 		model.setHasShadow(true);
 		model.setShadowAngle(0d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(model.getShadowSize(), view.getShadow().get().getTranslateX(), 0.01);
-		assertEquals(0d, view.getShadow().get().getTranslateY(), 0.01);
+		assertEquals(model.getShadowSize(), view.getShadow().orElseThrow().getTranslateX(), 0.01);
+		assertEquals(0d, view.getShadow().orElseThrow().getTranslateY(), 0.01);
 	}
 
 	@Test
-	public void testShadowSizeAngle0Translate() {
+	void testShadowSizeAngle0Translate() {
 		assumeTrue(model.isShadowable());
 		model.setHasShadow(true);
 		model.setShadowAngle(0d);
 		model.setShadowSize(100.21d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(100.21, view.getShadow().get().getTranslateX(), 0.01);
-		assertEquals(0d, view.getShadow().get().getTranslateY(), 0.01);
+		assertEquals(100.21, view.getShadow().orElseThrow().getTranslateX(), 0.01);
+		assertEquals(0d, view.getShadow().orElseThrow().getTranslateY(), 0.01);
 	}
 
 
 	@Test
-	public void testShadowAngle90Translate() {
+	void testShadowAngle90Translate() {
 		assumeTrue(model.isShadowable());
 		model.setHasShadow(true);
 		model.setShadowAngle(Math.PI / 2d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(0d, view.getShadow().get().getTranslateX(), 0.01);
-		assertEquals(-model.getShadowSize(), view.getShadow().get().getTranslateY(), 0.01);
+		assertEquals(0d, view.getShadow().orElseThrow().getTranslateX(), 0.01);
+		assertEquals(-model.getShadowSize(), view.getShadow().orElseThrow().getTranslateY(), 0.01);
 	}
 
 	@Test
-	public abstract void testShadowPositionSameThanBorder();
+	abstract void testShadowPositionSameThanBorder();
 
 	@Test
-	public void testShadowBeforeBorder() {
+	void testShadowBeforeBorder() {
 		assumeTrue(model.isShadowable());
-		assertTrue(view.getChildren().indexOf(border) > view.getChildren().indexOf(view.getShadow().get()));
+		assertTrue(view.getChildren().indexOf(border) > view.getChildren().indexOf(view.getShadow().orElseThrow()));
 	}
 
 	@Test
-	public void testDbleBorderAfterBorder() {
+	void testDbleBorderAfterBorder() {
 		assumeTrue(model.isDbleBorderable());
-		assertTrue(view.getChildren().indexOf(border) < view.getChildren().indexOf(view.getDbleBorder().get()));
+		assertTrue(view.getChildren().indexOf(border) < view.getChildren().indexOf(view.getDbleBorder().orElseThrow()));
 	}
 }

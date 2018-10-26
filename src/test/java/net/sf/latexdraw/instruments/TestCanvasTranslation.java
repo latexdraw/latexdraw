@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import net.sf.latexdraw.data.ShapeData;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
@@ -30,6 +31,7 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
@@ -65,8 +67,8 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 		super.setUp();
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
-		final MetaShapeCustomiser meta = (MetaShapeCustomiser) injectorFactory.call(MetaShapeCustomiser.class);
-		meta.dimPosCustomiser = (ShapeCoordDimCustomiser) injectorFactory.call(ShapeCoordDimCustomiser.class);
+		final MetaShapeCustomiser meta = injector.getInstance(MetaShapeCustomiser.class);
+		meta.dimPosCustomiser = injector.getInstance(ShapeCoordDimCustomiser.class);
 		WaitForAsyncUtils.waitForFxEvents();
 	}
 

@@ -24,6 +24,7 @@ import net.sf.latexdraw.commands.ModifyPencilStyle;
 import net.sf.latexdraw.commands.shape.AddShape;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.command.Command;
 import org.malai.javafx.command.ActivateInactivateInstruments;
@@ -112,6 +113,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 	@Inject CodeInserter codeInserter;
 	@Inject StatusBarController status;
+	@Inject private SystemService system;
 
 	final Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
 
@@ -166,7 +168,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		nodes[nodes.length - 1] = handB;
 
 		// Checking that converting pictures can be done.
-		toggleButtonBinder(i -> new CheckConvertExists(status.getLabel(), status.getLink())).on(picB).bind();
+		toggleButtonBinder(i -> new CheckConvertExists(status.getLabel(), status.getLink(), system)).on(picB).bind();
 
 		toggleButtonBinder(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(pencil.textSetter.getPosition()),
 								pencil.textSetter.getTextField().getText()), canvas.getDrawing())).

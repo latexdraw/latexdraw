@@ -12,37 +12,35 @@ package net.sf.latexdraw.commands.shape;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import net.sf.latexdraw.commands.DrawingCmd;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.commands.ShapeCmdImpl;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
  * This command puts in background / foreground shapes.
  * @author Arnaud Blouin
  */
-public class MoveBackForegroundShapes extends ShapeCmdImpl<IGroup> implements DrawingCmd, Undoable, Modifying {
+public class MoveBackForegroundShapes extends ShapeCmdImpl<IGroup> implements Undoable, Modifying {
 	/** Defines whether the shapes must be placed in the foreground. */
-	private boolean foreground;
+	private final boolean foreground;
+	/** The drawing that will be handled by the command. */
+	private final IDrawing drawing;
 	/** The former position of the shapes. */
 	private int[] formerId;
 	/** The shapes sorted by their position. */
 	private List<IShape> sortedSh;
-	/** The drawing that will be handled by the command. */
-	private Optional<IDrawing> drawing;
 
-	public MoveBackForegroundShapes() {
-		super();
-		drawing = Optional.empty();
-		foreground = false;
+	public MoveBackForegroundShapes(final IGroup gp, final boolean foreground, final IDrawing drawing) {
+		super(gp);
+		this.drawing = drawing;
+		this.foreground = foreground;
 	}
 
 	@Override
@@ -59,18 +57,16 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<IGroup> implements Dr
 		shape.ifPresent(gp -> {
 			final int size = gp.size();
 			formerId = new int[size];
-			drawing.ifPresent(dr -> {
-				final List<IShape> drshapes = dr.getShapes();
-				sortedSh = gp.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
+			final List<IShape> drshapes = drawing.getShapes();
+			sortedSh = gp.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
 
-				for(int i = 0; i < size; i++) {
-					final IShape sh = sortedSh.get(i);
-					formerId[i] = drshapes.indexOf(sh);
-					dr.removeShape(sh);
-					dr.addShape(sh);
-				}
-				dr.setModified(true);
-			});
+			for(int i = 0; i < size; i++) {
+				final IShape sh = sortedSh.get(i);
+				formerId[i] = drshapes.indexOf(sh);
+				drawing.removeShape(sh);
+				drawing.addShape(sh);
+			}
+			drawing.setModified(true);
 		});
 	}
 
@@ -80,47 +76,43 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<IGroup> implements Dr
 		shape.ifPresent(gp -> {
 			final int size = gp.size();
 			formerId = new int[size];
-			drawing.ifPresent(dr -> {
-				final List<IShape> drshapes = dr.getShapes();
-				sortedSh = gp.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
+			final List<IShape> drshapes = drawing.getShapes();
+			sortedSh = gp.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
 
-				for(int i = size - 1; i >= 0; i--) {
-					final IShape sh = sortedSh.get(i);
-					formerId[i] = drshapes.indexOf(sh);
-					dr.removeShape(sh);
-					dr.addShape(sh, 0);
-				}
-				dr.setModified(true);
-			});
+			for(int i = size - 1; i >= 0; i--) {
+				final IShape sh = sortedSh.get(i);
+				formerId[i] = drshapes.indexOf(sh);
+				drawing.removeShape(sh);
+				drawing.addShape(sh, 0);
+			}
+			drawing.setModified(true);
 		});
 	}
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && shape.isPresent() && !shape.get().isEmpty() && drawing.isPresent();
+		return drawing != null && shape.isPresent() && !shape.get().isEmpty() && super.canDo();
 	}
 
 	@Override
 	public void undo() {
-		drawing.ifPresent(dr -> {
-			if(foreground) {
-				final IntegerProperty i = new SimpleIntegerProperty(formerId.length - 1);
-				sortedSh.stream().sorted(Collections.reverseOrder()).forEach(sh -> {
-					dr.removeShape(sh);
-					dr.addShape(sh, formerId[i.get()]);
-					i.set(i.get() - 1);
-				});
-			}else {
-				final IntegerProperty i = new SimpleIntegerProperty(0);
-				sortedSh.forEach(sh -> {
-					dr.removeShape(sh);
-					dr.addShape(sh, formerId[i.get()]);
-					i.set(i.get() + 1);
-				});
-			}
+		if(foreground) {
+			final IntegerProperty i = new SimpleIntegerProperty(formerId.length - 1);
+			sortedSh.stream().sorted(Collections.reverseOrder()).forEach(sh -> {
+				drawing.removeShape(sh);
+				drawing.addShape(sh, formerId[i.get()]);
+				i.set(i.get() - 1);
+			});
+		}else {
+			final IntegerProperty i = new SimpleIntegerProperty(0);
+			sortedSh.forEach(sh -> {
+				drawing.removeShape(sh);
+				drawing.addShape(sh, formerId[i.get()]);
+				i.set(i.get() + 1);
+			});
+		}
 
-			dr.setModified(true);
-		});
+		drawing.setModified(true);
 	}
 
 	@Override
@@ -129,27 +121,12 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<IGroup> implements Dr
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.8");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.8");
 	}
 
 	@Override
 	public RegistrationPolicy getRegistrationPolicy() {
 		return RegistrationPolicy.LIMITED;
-	}
-
-	/** Defines whether the shapes must be placed in the foreground. */
-	public void setIsForeground(final boolean fore) {
-		foreground = fore;
-	}
-
-	@Override
-	public void setDrawing(final IDrawing dr) {
-		drawing = Optional.ofNullable(dr);
-	}
-
-	@Override
-	public Optional<IDrawing> getDrawing() {
-		return drawing;
 	}
 }

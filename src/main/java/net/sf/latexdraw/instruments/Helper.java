@@ -21,9 +21,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.BuilderFactory;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.LangService;
 import org.malai.javafx.binding.MenuItem2OpenWebPage;
 import org.malai.javafx.binding.MenuItem2ShowLazyStage;
 import org.malai.javafx.instrument.JfxInstrument;
@@ -48,7 +50,9 @@ public final class Helper extends JfxInstrument implements Initializable {
 	/** The shortcut dialogue box. */
 	private Stage shortcutFrame;
 	@FXML private MenuItem manuelItem;
-	@Inject HostServices services;
+	@Inject private HostServices services;
+	@Inject private LangService lang;
+	@Inject private Injector injector;
 
 	/**
 	 * Creates the instrument.
@@ -74,13 +78,14 @@ public final class Helper extends JfxInstrument implements Initializable {
 	}
 
 	/** @return The created latexdraw dialogue box. */
-	protected Stage getAboutFrame() {
+	Stage getAboutFrame() {
 		if(aboutFrame == null) {
 			try {
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/About.fxml"), LangTool.INSTANCE.getBundle()); //NON-NLS
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/About.fxml"), lang.getBundle(), //NON-NLS
+					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				final Scene scene = new Scene(root);
 				aboutFrame = new Stage(StageStyle.UTILITY);
-				aboutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("Res.1"));
+				aboutFrame.setTitle(lang.getBundle().getString("Res.1"));
 				aboutFrame.setScene(scene);
 				aboutFrame.centerOnScreen();
 			}catch(final Exception ex) {
@@ -91,13 +96,14 @@ public final class Helper extends JfxInstrument implements Initializable {
 	}
 
 	/** @return The created shortcut dialogue box. */
-	protected Stage getShortcutsFrame() {
+	Stage getShortcutsFrame() {
 		if(shortcutFrame == null) {
 			try {
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/Shortcuts.fxml"), LangTool.INSTANCE.getBundle()); //NON-NLS
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/Shortcuts.fxml"), lang.getBundle(), //NON-NLS
+					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				final Scene scene = new Scene(root);
 				shortcutFrame = new Stage(StageStyle.UTILITY);
-				shortcutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.3c"));
+				shortcutFrame.setTitle(lang.getBundle().getString("LaTeXDrawFrame.3c"));
 				shortcutFrame.setScene(scene);
 				shortcutFrame.centerOnScreen();
 			}catch(final Exception ex) {

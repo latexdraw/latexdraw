@@ -19,8 +19,7 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LFileUtils;
-import net.sf.latexdraw.util.LSystem;
+import net.sf.latexdraw.util.SystemService;
 
 /**
  * A model of a picture.
@@ -33,6 +32,7 @@ class LPicture extends LPositionShape implements IPicture {
 	private String pathTarget;
 	/** The path of the source image. */
 	private String pathSource;
+	final SystemService system;
 
 
 	/**
@@ -40,8 +40,9 @@ class LPicture extends LPositionShape implements IPicture {
 	 * @param pt The position of the top-left point of the picture.
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 */
-	LPicture(final IPoint pt) {
+	LPicture(final IPoint pt, final SystemService system) {
 		super(pt);
+		this.system = system;
 	}
 
 
@@ -69,11 +70,11 @@ class LPicture extends LPositionShape implements IPicture {
 	 * If not found, a jpg picture is created (to be
 	 */
 	private void searchOrCreateImg() {
-		final String path = LFileUtils.INSTANCE.getFileWithoutExtension(pathSource);
+		final String path = system.getFileWithoutExtension(pathSource);
 		pathSource = Stream.of(".jpg", ".png", ".gif", ".jpeg").map(ext -> new File(path + ext)). //NON-NLS
 			filter(f -> f.exists()).map(f -> f.getPath()).findFirst().
 			orElseGet(() -> {
-				LSystem.INSTANCE.execute(new String[] {"convert", pathSource, path + ".jpg"}, null); //NON-NLS
+				system.execute(new String[] {"convert", pathSource, path + ".jpg"}, null); //NON-NLS
 				return path + ".jpg"; //NON-NLS
 			});
 	}
@@ -90,7 +91,7 @@ class LPicture extends LPositionShape implements IPicture {
 
 	@Override
 	public IPicture duplicate() {
-		final IPicture pic = ShapeFactory.INST.createPicture(getPosition());
+		final IPicture pic = ShapeFactory.INST.createPicture(getPosition(), system);
 		pic.copy(this);
 		return pic;
 	}
@@ -117,10 +118,10 @@ class LPicture extends LPositionShape implements IPicture {
 	 * @since 2.0.0
 	 */
 	private void createEPSImage() {
-		pathTarget = LFileUtils.INSTANCE.getFileWithoutExtension(pathSource) + ExportFormat.EPS_LATEX.getFileExtension();
+		pathTarget = system.getFileWithoutExtension(pathSource) + ExportFormat.EPS_LATEX.getFileExtension();
 
 		if(!new File(pathTarget).exists()) {
-			LSystem.INSTANCE.execute(new String[] {"convert", pathSource, pathTarget}, null); //NON-NLS
+			system.execute(new String[] {"convert", pathSource, pathTarget}, null); //NON-NLS
 		}
 	}
 

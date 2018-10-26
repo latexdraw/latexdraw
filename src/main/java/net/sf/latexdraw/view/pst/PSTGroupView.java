@@ -22,14 +22,17 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  * @author Arnaud BLOUIN
  */
 public class PSTGroupView extends PSTShapeView<IGroup> {
+	private final PSTViewProducer producer;
+
 	/**
 	 * Creates and initialises a LDrawing PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTGroupView(final IGroup model) {
+	protected PSTGroupView(final IGroup model, final PSTViewProducer producer) {
 		super(model);
+		this.producer = producer;
 	}
 
 
@@ -39,7 +42,7 @@ public class PSTGroupView extends PSTShapeView<IGroup> {
 			return "";
 		}
 
-		final List<PSTShapeView<?>> pstViews = shape.getShapes().stream().map(PSTViewsFactory.INSTANCE::createView).
+		final List<PSTShapeView<?>> pstViews = shape.getShapes().stream().map(sh -> producer.createView(sh)).
 			filter(Optional::isPresent).map(opt -> opt.get()).collect(Collectors.toList());
 
 		coloursName = pstViews.stream().map(view -> view.coloursName).filter(col -> col != null).flatMap(s -> s.stream()).collect(Collectors.toSet());

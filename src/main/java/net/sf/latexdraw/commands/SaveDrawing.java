@@ -17,9 +17,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
-import net.sf.latexdraw.LaTeXDraw;
+import javafx.stage.Stage;
 import net.sf.latexdraw.instruments.PreferencesSetter;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
 import org.malai.javafx.command.Save;
 import org.malai.javafx.ui.JfxUI;
 import org.malai.javafx.ui.OpenSaver;
@@ -31,14 +31,14 @@ import org.malai.javafx.ui.OpenSaver;
 public class SaveDrawing extends Save<Label> {
 	/**
 	 * Show the export dialog to select a path.
-	 * @since 3.0
 	 */
-	protected static Optional<File> showDialog(final FileChooser fc, final boolean saveAs, final File file, final File currFolder, final JfxUI ui) {
+	protected static Optional<File> showDialog(final FileChooser fc, final boolean saveAs, final File file, final File currFolder,
+												final JfxUI ui, final Stage stage) {
 		File f;
 
 		if(saveAs || (file == null && ui.isModified())) {
 			fc.setInitialDirectory(currFolder);
-			f = fc.showSaveDialog(LaTeXDraw.getInstance().getMainStage());
+			f = fc.showSaveDialog(stage);
 		}else {
 			f = file;
 		}
@@ -50,10 +50,10 @@ public class SaveDrawing extends Save<Label> {
 		return Optional.ofNullable(f);
 	}
 
-	protected static ButtonType showAskModificationsDialog() {
+	protected static ButtonType showAskModificationsDialog(final LangService lang) {
 		final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle(LangTool.INSTANCE.getBundle().getString("Actions.2"));
-		alert.setHeaderText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.188"));
+		alert.setTitle(lang.getBundle().getString("Actions.2"));
+		alert.setHeaderText(lang.getBundle().getString("LaTeXDrawFrame.188"));
 		alert.getButtonTypes().setAll(ButtonType.NO, ButtonType.YES, ButtonType.CANCEL);
 		return alert.showAndWait().orElse(ButtonType.CANCEL);
 	}
@@ -66,16 +66,20 @@ public class SaveDrawing extends Save<Label> {
 	/** The file chooser that will be used to select the location to save. */
 	private FileChooser fileChooser;
 	private final PreferencesSetter prefSetter;
+	private final LangService lang;
+	private final Stage mainstage;
 
 	public SaveDrawing(final boolean saveAs, final boolean saveOnClose, final File currentFolder, final FileChooser fileChooser,
 				final PreferencesSetter prefSetter, final File file, final OpenSaver<Label> openSaveManager, final ProgressBar bar, final JfxUI ui,
-				final Label statusWidget) {
+				final Label statusWidget, final LangService lang, final Stage mainstage) {
 		super(file, openSaveManager, bar, statusWidget, ui);
 		this.saveAs = saveAs;
 		this.saveOnClose = saveOnClose;
 		this.currentFolder = currentFolder;
 		this.fileChooser = fileChooser;
 		this.prefSetter = prefSetter;
+		this.lang = lang;
+		this.mainstage = mainstage;
 	}
 
 	@Override
@@ -89,7 +93,7 @@ public class SaveDrawing extends Save<Label> {
 			saveOnClose();
 		}else {
 			if(file == null) {
-				file = showDialog(fileChooser, saveAs, null, currentFolder, ui).orElse(null);
+				file = showDialog(fileChooser, saveAs, null, currentFolder, ui, mainstage).orElse(null);
 			}
 			if(file == null) {
 				ok = false;
@@ -105,12 +109,12 @@ public class SaveDrawing extends Save<Label> {
 	private void saveOnClose() {
 		if(ui.isModified()) {
 			saveAs = true;
-			final ButtonType type = showAskModificationsDialog();
+			final ButtonType type = showAskModificationsDialog(lang);
 			if(type == ButtonType.NO) {
 				quit();
 			}else {
 				if(type == ButtonType.YES) {
-					showDialog(fileChooser, saveAs, file, currentFolder, ui).ifPresent(f -> {
+					showDialog(fileChooser, saveAs, file, currentFolder, ui, mainstage).ifPresent(f -> {
 						file = f;
 						super.doCmdBody();
 						quit();
@@ -126,7 +130,7 @@ public class SaveDrawing extends Save<Label> {
 
 	private void quit() {
 		prefSetter.writeXMLPreferences();
-		LaTeXDraw.getInstance().getMainStage().close();
+		mainstage.close();
 	}
 
 	@Override

@@ -3,11 +3,10 @@ package net.sf.latexdraw.view.jfx;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//TODO JUNIT 5: use this trait in Rectangle/Square view test class
 public interface TestLineArcView<T extends ViewSingleShape<S, Rectangle>, S extends ISingleShape & ILineArcProp> extends ITestViewBorderedShape<T, S, Rectangle> {
 	@Test
 	default void testBorderLineArcWidth() {
@@ -25,7 +24,7 @@ public interface TestLineArcView<T extends ViewSingleShape<S, Rectangle>, S exte
 	default void testShadowLineArcWidth() {
 		if(getModel().isShadowable()) {
 			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getWidth(), getView().getShadow().get().getArcWidth(), 0.000001);
+			assertEquals(0.33 * getModel().getWidth(), getView().getShadow().orElseThrow().getArcWidth(), 0.000001);
 		}
 	}
 
@@ -33,7 +32,7 @@ public interface TestLineArcView<T extends ViewSingleShape<S, Rectangle>, S exte
 	default void testShadowLineArcHeight() {
 		if(getModel().isShadowable()) {
 			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getHeight(), getView().getShadow().get().getArcHeight(), 0.000001);
+			assertEquals(0.33 * getModel().getHeight(), getView().getShadow().orElseThrow().getArcHeight(), 0.000001);
 		}
 	}
 
@@ -41,7 +40,7 @@ public interface TestLineArcView<T extends ViewSingleShape<S, Rectangle>, S exte
 	default void testDbleLineArcWidth() {
 		if(getModel().isDbleBorderable()) {
 			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getWidth(), getView().getDbleBorder().get().getArcWidth(), 0.000001);
+			assertEquals(0.33 * getModel().getWidth(), getView().getDbleBorder().orElseThrow().getArcWidth(), 0.000001);
 		}
 	}
 
@@ -49,7 +48,7 @@ public interface TestLineArcView<T extends ViewSingleShape<S, Rectangle>, S exte
 	default void testDbleLineArcHeight() {
 		if(getModel().isDbleBorderable()) {
 			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getHeight(), getView().getDbleBorder().get().getArcHeight(), 0.000001);
+			assertEquals(0.33 * getModel().getHeight(), getView().getDbleBorder().orElseThrow().getArcHeight(), 0.000001);
 		}
 	}
 }

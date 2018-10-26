@@ -29,7 +29,7 @@ public abstract class TestDotStyleGUI extends TestShapePropGUI<ShapeDotCustomise
 		fillingB = find("#fillingB");
 		dotCB = find("#dotCB");
 		dotSizeField = find("#dotSizeField");
-		ins = (ShapeDotCustomiser) injectorFactory.call(ShapeDotCustomiser.class);
+		ins = injector.getInstance(ShapeDotCustomiser.class);
 		ins.setActivated(true);
 	}
 }

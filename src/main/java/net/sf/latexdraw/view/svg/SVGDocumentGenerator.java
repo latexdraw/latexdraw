@@ -38,8 +38,8 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.commands.ExportFormat;
 import net.sf.latexdraw.models.MathUtils;
@@ -57,12 +57,14 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGMetadataElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.malai.javafx.instrument.JfxInstrument;
+import org.malai.javafx.ui.JfxUI;
 import org.malai.javafx.ui.OpenSaver;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
@@ -73,14 +75,15 @@ import org.w3c.dom.NodeList;
  * The SVG document generator of the app.
  * @author Arnaud BLOUIN
  */
-public final class SVGDocumentGenerator implements OpenSaver<Label> {
-	/** The singleton for saving and loading latexdraw SVG documents. */
-	public static final SVGDocumentGenerator INSTANCE = new SVGDocumentGenerator();
-
-	private SVGDocumentGenerator() {
-		super();
-	}
-
+public class SVGDocumentGenerator implements OpenSaver<Label> {
+	@Inject private ViewFactory viewFactory;
+	@Inject private SystemService system;
+	@Inject private SVGShapesFactory svgFactory;
+	@Inject private LangService lang;
+	@Inject private Canvas canvas;
+	@Inject private IDrawing drawing;
+	@Inject private JfxUI app;
+	@Inject private Stage mainstage;
 
 	@Override
 	public Task<Boolean> save(final String path, final ProgressBar progressBar, final Label statusBar) {
@@ -147,7 +150,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 	/**
 	 * The abstract worker that factorises the code of loading and saving workers.
 	 */
-	private abstract static class IOWorker extends Task<Boolean> {
+	private class IOWorker extends Task<Boolean> {
 		protected final Label statusBar;
 		protected final String path;
 		protected final ProgressBar progressBar;
@@ -198,14 +201,14 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 				progressBar.setVisible(false);
 			}
 			if(setModified) {
-				LaTeXDraw.getInstance().setModified(true);
+				app.setModified(true);
 			}
 		}
 	}
 
 
 	/** This worker inserts the given set of shapes into the drawing. */
-	private static class InsertWorker extends LoadShapesWorker {
+	private class InsertWorker extends LoadShapesWorker {
 		private IShape insertedShapes;
 		private final IPoint position;
 
@@ -220,7 +223,6 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		protected Boolean call() {
 			try {
 				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
-				final IDrawing drawing = LaTeXDraw.getInstance().getInjector().getInstance(IDrawing.class);
 
 				Platform.runLater(() -> {
 					final List<IShape> shapes = toLatexdraw(svgDoc, 0);
@@ -239,8 +241,6 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 					}
 
 					drawing.addShape(insertedShapes);
-					// Updating the possible widgets of the instruments.
-					LaTeXDraw.getInstance().getInstruments().forEach(ins -> ins.interimFeedback());
 				});
 				return Boolean.TRUE;
 			}catch(final IOException | MalformedSVGDocument ex) {
@@ -256,7 +256,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 
 
 	/** This worker updates the templates. */
-	private static class UpdateTemplatesWorker extends LoadShapesWorker {
+	private class UpdateTemplatesWorker extends LoadShapesWorker {
 		private final Pane templatesPane;
 		private final boolean updateThumbnails;
 
@@ -269,14 +269,14 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		@Override
 		protected Boolean call() {
 			if(updateThumbnails) {
-				updateTemplates(LPath.PATH_TEMPLATES_DIR_USER, LPath.PATH_CACHE_DIR);
-				updateTemplates(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR);
+				updateTemplates(system.PATH_TEMPLATES_DIR_USER, system.PATH_CACHE_DIR);
+				updateTemplates(system.PATH_TEMPLATES_SHARED, system.PATH_CACHE_SHARE_DIR);
 			}
 
 			Platform.runLater(() -> {
 				templatesPane.getChildren().clear();
-				fillTemplatePane(LPath.PATH_TEMPLATES_DIR_USER, LPath.PATH_CACHE_DIR);
-				fillTemplatePane(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR);
+				fillTemplatePane(system.PATH_TEMPLATES_DIR_USER, system.PATH_CACHE_DIR);
+				fillTemplatePane(system.PATH_TEMPLATES_SHARED, system.PATH_CACHE_SHARE_DIR);
 			});
 
 			return Boolean.TRUE;
@@ -347,7 +347,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 				try {
 					final Group template = new Group();
 					final List<IShape> shapes = toLatexdraw(new SVGDocument(file.toUri()), 0);
-					template.getChildren().setAll(shapes.stream().map(sh -> ViewFactory.INSTANCE.createView(sh)).
+					template.getChildren().setAll(shapes.stream().map(sh -> viewFactory.createView(sh)).
 						filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList()));
 					final File thumb = new File(pathCache + File.separator + file.getFileName() + ExportFormat.PNG.getFileExtension());
 					createTemplateThumbnail(thumb, template);
@@ -384,7 +384,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 	}
 
 
-	private static class SaveTemplateWorker extends SaveWorker {
+	private class SaveTemplateWorker extends SaveWorker {
 		private final Pane templatePane;
 
 		SaveTemplateWorker(final String path, final Label statusBar, final Pane templates, final ProgressBar bar) {
@@ -395,16 +395,16 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		@Override
 		protected void done() {
 			super.done();
-			INSTANCE.updateTemplates(templatePane, true);
+			updateTemplates(templatePane, true);
 			if(statusBar != null) {
-				Platform.runLater(() -> statusBar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.169"))); //NON-NLS
+				Platform.runLater(() -> statusBar.setText(lang.getBundle().getString("LaTeXDrawFrame.169"))); //NON-NLS
 			}
 		}
 	}
 
 
 	/** This worker saves the given document. */
-	private static class SaveWorker extends IOWorker {
+	private class SaveWorker extends IOWorker {
 		/** Defines if the parameters of the drawing (instruments, presentations, etc.) must be saved. */
 		private final boolean saveParameters;
 		/** Specifies if only the selected shapes must be saved. */
@@ -446,7 +446,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			try {
 				shapes.forEach(sh -> {
 					// For each shape an SVG element is created.
-					final SVGElement elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
+					final SVGElement elt = svgFactory.createSVGElement(sh, doc);
 					if(elt != null) {
 						g.appendChild(elt);
 					}
@@ -467,10 +467,8 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 		@Override
 		protected Boolean call() throws Exception {
 			super.call();
-			final IDrawing drawing = LaTeXDraw.getInstance().getInjector().getInstance(IDrawing.class);
-			final Canvas canvas = LaTeXDraw.getInstance().getInjector().getInstance(Canvas.class);
 			// Creation of the SVG document.
-			final Set<JfxInstrument> instruments = LaTeXDraw.getInstance().getInstruments();
+			final Set<JfxInstrument> instruments = app.getInstruments();
 			final double incr = 100d / (drawing.size() + instruments.size() + 1d);
 			final SVGDocument doc = toSVG(drawing, incr);
 			final SVGMetadataElement meta = new SVGMetadataElement(doc);
@@ -491,8 +489,8 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 				canvas.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
 				Platform.runLater(() -> updateProgress(getProgress() + incr, 100d));
 
-				LaTeXDraw.getInstance().save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-				Platform.runLater(() -> LaTeXDraw.getInstance().getMainStage().setTitle(getDocumentName()));
+				app.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
+				Platform.runLater(() -> mainstage.setTitle(getDocumentName()));
 			}
 			return doc.saveSVGDocument(path);
 		}
@@ -502,13 +500,13 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			super.done();
 			// Showing a message in the status bar.
 			if(statusBar != null) {
-				Platform.runLater(() -> statusBar.setText(LangTool.INSTANCE.getBundle().getString("SVG.1"))); //NON-NLS
+				Platform.runLater(() -> statusBar.setText(lang.getBundle().getString("SVG.1"))); //NON-NLS
 			}
 		}
 	}
 
 
-	private abstract static class LoadShapesWorker extends IOWorker {
+	private abstract class LoadShapesWorker extends IOWorker {
 		LoadShapesWorker(final String path, final Label statusBar, final ProgressBar bar) {
 			super(path, statusBar, bar);
 		}
@@ -524,7 +522,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			final List<IShape> shapes = IntStream.range(0, elts.getLength()).mapToObj(i -> {
 				updateProgress(getProgress() + incrProgressBar, 100d);
 				return elts.item(i);
-			}).filter(node -> node instanceof SVGElement).map(node -> SVGShapesFactory.INSTANCE.createShape((SVGElement) node)).
+			}).filter(node -> node instanceof SVGElement).map(node -> svgFactory.createShape((SVGElement) node)).
 				filter(sh -> sh != null).collect(Collectors.toList());
 
 			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {
@@ -539,7 +537,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 	/**
 	 * The worker that loads SVG documents.
 	 */
-	private static class LoadWorker extends LoadShapesWorker {
+	private class LoadWorker extends LoadShapesWorker {
 		LoadWorker(final String path, final Label statusBar, final ProgressBar bar) {
 			super(path, statusBar, bar);
 		}
@@ -575,9 +573,7 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 			try {
 				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
 				final Element meta = svgDoc.getDocumentElement().getMeta();
-				final Set<JfxInstrument> instruments = LaTeXDraw.getInstance().getInstruments();
-				final IDrawing drawing = LaTeXDraw.getInstance().getInjector().getInstance(IDrawing.class);
-				final Canvas canvas = LaTeXDraw.getInstance().getInjector().getInstance(Canvas.class);
+				final Set<JfxInstrument> instruments = app.getInstruments();
 				final Element ldMeta;
 
 				if(meta == null) {
@@ -609,10 +605,10 @@ public final class SVGDocumentGenerator implements OpenSaver<Label> {
 						ins.interimFeedback();
 
 						if(ldMeta != null) {
-							LaTeXDraw.getInstance().load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
+							app.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
 						}
 
-						LaTeXDraw.getInstance().getMainStage().setTitle(getDocumentName());
+						mainstage.setTitle(getDocumentName());
 					});
 				});
 

@@ -6,6 +6,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.sf.latexdraw.instruments.robot.FxRobotListSelection;
 import net.sf.latexdraw.instruments.robot.FxRobotSpinner;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -47,6 +48,7 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(PSTCodeGenerator.class);
 				bindAsEagerSingleton(DrawingPropertiesCustomiser.class);
@@ -62,9 +64,9 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 		middleHorizPosCB = find("#middleHorizPosCB");
 		positionCB = find("#positionCB");
 		scaleField = find("#scaleField");
-		((IDrawing) injectorFactory.call(IDrawing.class)).addShape(ShapeFactory.INST.createCircle());
-		ins = (DrawingPropertiesCustomiser) injectorFactory.call(DrawingPropertiesCustomiser.class);
-		gen = (LaTeXGenerator) injectorFactory.call(LaTeXGenerator.class);
+		injector.getInstance(IDrawing.class).addShape(ShapeFactory.INST.createCircle());
+		ins = injector.getInstance(DrawingPropertiesCustomiser.class);
+		gen = injector.getInstance(LaTeXGenerator.class);
 		ins.setActivated(true);
 	}
 

@@ -10,10 +10,10 @@
  */
 package net.sf.latexdraw.commands.shape;
 
+import java.util.ResourceBundle;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.commands.ShapeCmdImpl;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
@@ -22,12 +22,12 @@ import org.malai.undo.Undoable;
  */
 public class MirrorShapes extends ShapeCmdImpl<IShape> implements Undoable, Modifying {
 	/** If true, the mirroring is horizontal. */
-	boolean horizontally;
+	private final boolean horizontally;
 
 
-	public MirrorShapes() {
-		super();
-		horizontally = true;
+	public MirrorShapes(final boolean horizontally, final IShape sh) {
+		super(sh);
+		this.horizontally = horizontally;
 	}
 
 	@Override
@@ -59,19 +59,12 @@ public class MirrorShapes extends ShapeCmdImpl<IShape> implements Undoable, Modi
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.7");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.7");
 	}
 
 	@Override
 	public RegistrationPolicy getRegistrationPolicy() {
 		return RegistrationPolicy.LIMITED;
-	}
-
-	/**
-	 * If true, the mirroring is horizontal. Otherwise, vertical.
-	 */
-	public void setHorizontally(final boolean horiz) {
-		horizontally = horiz;
 	}
 }

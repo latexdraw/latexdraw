@@ -6,6 +6,7 @@ import java.net.URL;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
@@ -25,9 +26,11 @@ import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.junit.Before;
 import org.junit.Test;
+import org.malai.javafx.ui.JfxUI;
 import org.mockito.Mockito;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -47,6 +50,7 @@ public class TestCanvasCreation extends BaseTestCanvas {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
@@ -64,10 +68,10 @@ public class TestCanvasCreation extends BaseTestCanvas {
 	@Before
 	public void setUp() {
 		super.setUp();
-		setter = (TextSetter) injectorFactory.call(TextSetter.class);
+		setter = injector.getInstance(TextSetter.class);
 		when(hand.isActivated()).thenReturn(false);
 		when(setter.isActivated()).thenReturn(false);
-		textAutoSize = new TextAreaAutoSize();
+		textAutoSize = new TextAreaAutoSize(injector.getInstance(SystemService.class));
 		when(setter.getTextField()).thenReturn(textAutoSize);
 		pencil.setActivated(true);
 		drawing = canvas.getDrawing();

@@ -38,26 +38,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Duration;
-import net.sf.latexdraw.commands.DrawingCmd;
-import net.sf.latexdraw.commands.ShapeCmd;
-import net.sf.latexdraw.commands.ShapesCmd;
-import net.sf.latexdraw.commands.shape.MovePoint;
-import net.sf.latexdraw.commands.shape.ShapePropertyCmd;
+import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.Page;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import org.malai.command.CmdHandler;
 import org.malai.command.Command;
 import org.malai.command.CommandsRegistry;
-import org.malai.command.library.Redo;
-import org.malai.command.library.Undo;
-import org.malai.javafx.command.IOCommand;
 import org.malai.properties.Modifiable;
 import org.malai.properties.Preferenciable;
 import org.malai.properties.Reinitialisable;
@@ -128,6 +123,9 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/** The temporary view that the canvas may contain. */
 	private Optional<ViewShape<?>> tempView;
 
+	@Inject private ViewFactory viewFactory;
+	@Inject private SystemService system;
+
 	/**
 	 * Creates the canvas.
 	 */
@@ -142,7 +140,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		setPrefWidth(margins * 2d + page.getPage().getWidth() * IShape.PPC);
 		setPrefHeight(margins * 2d + page.getPage().getHeight() * IShape.PPC);
 
-		magneticGrid = new MagneticGridImpl(this);
+		magneticGrid = new MagneticGridImpl(this, system);
 
 		widgetsPane = new Group();
 		shapesPane = new Group();
@@ -244,7 +242,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		drawing.getShapes().addListener((Change<? extends IShape> evt) -> {
 			while(evt.next()) {
 				if(evt.wasAdded()) {
-					evt.getAddedSubList().forEach(sh -> ViewFactory.INSTANCE.createView(sh).ifPresent(v -> {
+					evt.getAddedSubList().forEach(sh -> viewFactory.createView(sh).ifPresent(v -> {
 						final int index = drawing.getShapes().indexOf(sh);
 						if(index != -1) {
 							shapesToViewMap.put(sh, v);
@@ -307,8 +305,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 
 	@Override
 	public void onCmdExecuted(final Command cmd) {
-		if(cmd instanceof ShapesCmd || cmd instanceof DrawingCmd || cmd instanceof IOCommand || cmd instanceof ShapePropertyCmd ||
-			cmd instanceof ShapeCmd || cmd instanceof Undo || cmd instanceof Redo || cmd instanceof MovePoint) {
+		if(cmd instanceof Modifying) {
 			update();
 		}
 	}

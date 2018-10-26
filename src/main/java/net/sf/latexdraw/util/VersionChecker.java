@@ -38,14 +38,16 @@ public final class VersionChecker implements Runnable {
 	public static final boolean WITH_UPDATE = true;
 
 	private final StatusBarController statusBar;
+	private final LangService lang;
 
 
 	/**
 	 * Creates the version checker.
 	 */
-	public VersionChecker(final StatusBarController statusBarCtrl) {
+	public VersionChecker(final StatusBarController statusBarCtrl, final LangService lang) {
 		super();
 		statusBar = statusBarCtrl;
+		this.lang = lang;
 	}
 
 
@@ -59,12 +61,12 @@ public final class VersionChecker implements Runnable {
 			if(div != null && div.length > 3 && VERSION.compareTo(div[3]) < 0) {
 				Platform.runLater(() -> {
 					statusBar.getLabel().setVisible(true);
-					statusBar.getLabel().setText(LangTool.INSTANCE.getBundle().getString("Version.1") + ' ' + div[3] + ". See the release note:"); //NON-NLS
+					statusBar.getLabel().setText(lang.getBundle().getString("Version.1") + ' ' + div[3] + ". See the release note:"); //NON-NLS
 					statusBar.getLink().setVisible(true);
 					statusBar.getLink().setText("http://latexdraw.sourceforge.net/"); //NON-NLS
 				});
 			}
-		}catch(final IOException ex) {
+		}catch(final IOException ignored) {
 			/* Nothing to do. */
 		}
 	}

@@ -41,7 +41,7 @@ public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCusto
 		frameArcField = find("#frameArcField");
 		showPoints = find("#showPoints");
 		opened = find("#opened");
-		ins = (ShapeBorderCustomiser) injectorFactory.call(ShapeBorderCustomiser.class);
+		ins = injector.getInstance(ShapeBorderCustomiser.class);
 		ins.setActivated(true);
 	}
 }

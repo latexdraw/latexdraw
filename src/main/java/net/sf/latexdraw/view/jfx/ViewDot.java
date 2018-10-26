@@ -33,20 +33,22 @@ public class ViewDot extends ViewShape<IDot> {
 		setFill();
 		setStroke();
 	};
+	protected final PathElementProducer pathProducer;
 
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewDot(final IDot sh) {
+	ViewDot(final IDot sh, final PathElementProducer pathProducer) {
 		super(sh);
+		this.pathProducer = pathProducer;
 		path = new Path();
 		dot = new Ellipse();
 		getChildren().addAll(dot, path);
 
 		model.styleProperty().addListener(updateDot);
-		model.getPosition().xProperty().addListener(updateDot); // FIXME to optimise by adding addListener in IPoint
+		model.getPosition().xProperty().addListener(updateDot);
 		model.getPosition().yProperty().addListener(updateDot);
 		model.diametreProperty().addListener(updateDot);
 		model.fillingColProperty().addListener(updateDot);
@@ -128,16 +130,16 @@ public class ViewDot extends ViewShape<IDot> {
 		p1 = p1.rotatePoint(centre, Math.PI / 4d);
 		p2 = p2.rotatePoint(centre, Math.PI / 4d);
 
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(p1.getX(), p1.getY()));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(p2.getX(), p2.getY()));
+		path.getElements().add(pathProducer.createMoveTo(p1.getX(), p1.getY()));
+		path.getElements().add(pathProducer.createLineTo(p2.getX(), p2.getY()));
 
 		p1.setPoint(tlx + dec * 2d, (tly + bry) / 2d);
 		p2.setPoint(brx - dec * 2d, (tly + bry) / 2d);
 		p1 = p1.rotatePoint(centre, Math.PI / 4d);
 		p2 = p2.rotatePoint(centre, Math.PI / 4d);
 
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(p1.getX(), p1.getY()));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(p2.getX(), p2.getY()));
+		path.getElements().add(pathProducer.createMoveTo(p1.getX(), p1.getY()));
+		path.getElements().add(pathProducer.createLineTo(p2.getX(), p2.getY()));
 	}
 
 
@@ -147,10 +149,10 @@ public class ViewDot extends ViewShape<IDot> {
 		final IPoint tl = model.getLazyTopLeftPoint();
 
 		setPathOLikeDot(model.getOGap());
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo((tl.getX() + br.getX()) / 2d, tl.getY() + dec * 2d));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo((tl.getX() + br.getX()) / 2d, br.getY() - dec * 2d));
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(tl.getX() + dec * 2d, (tl.getY() + br.getY()) / 2d));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(br.getX() - dec * 2d, (tl.getY() + br.getY()) / 2d));
+		path.getElements().add(pathProducer.createMoveTo((tl.getX() + br.getX()) / 2d, tl.getY() + dec * 2d));
+		path.getElements().add(pathProducer.createLineTo((tl.getX() + br.getX()) / 2d, br.getY() - dec * 2d));
+		path.getElements().add(pathProducer.createMoveTo(tl.getX() + dec * 2d, (tl.getY() + br.getY()) / 2d));
+		path.getElements().add(pathProducer.createLineTo(br.getX() - dec * 2d, (tl.getY() + br.getY()) / 2d));
 	}
 
 
@@ -173,8 +175,8 @@ public class ViewDot extends ViewShape<IDot> {
 		final IPoint br = model.getLazyBottomRightPoint();
 		final IPoint tl = model.getLazyTopLeftPoint();
 
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo((tl.getX() + br.getX()) / 2d, tl.getY() + model.getBarThickness() / 2d));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo((tl.getX() + br.getX()) / 2d, br.getY() + model.getBarGap()));
+		path.getElements().add(pathProducer.createMoveTo((tl.getX() + br.getX()) / 2d, tl.getY() + model.getBarThickness() / 2d));
+		path.getElements().add(pathProducer.createLineTo((tl.getX() + br.getX()) / 2d, br.getY() + model.getBarGap()));
 	}
 
 
@@ -183,10 +185,10 @@ public class ViewDot extends ViewShape<IDot> {
 		final IPoint br = model.getLazyBottomRightPoint();
 		final IPoint tl = model.getLazyTopLeftPoint();
 
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo((tl.getX() + br.getX()) / 2d, tl.getY() - plusGap));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo((tl.getX() + br.getX()) / 2d, br.getY() + plusGap));
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(tl.getX() - plusGap, (tl.getY() + br.getY()) / 2d));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(br.getX() + plusGap, (tl.getY() + br.getY()) / 2d));
+		path.getElements().add(pathProducer.createMoveTo((tl.getX() + br.getX()) / 2d, tl.getY() - plusGap));
+		path.getElements().add(pathProducer.createLineTo((tl.getX() + br.getX()) / 2d, br.getY() + plusGap));
+		path.getElements().add(pathProducer.createMoveTo(tl.getX() - plusGap, (tl.getY() + br.getY()) / 2d));
+		path.getElements().add(pathProducer.createLineTo(br.getX() + plusGap, (tl.getY() + br.getY()) / 2d));
 	}
 
 
@@ -197,11 +199,11 @@ public class ViewDot extends ViewShape<IDot> {
 		final double x = tl.getX() + dec + dec / 2d;
 		final double y = tl.getY() + dec + dec / 2d;
 
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(x, y));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(x + width, y));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(x + width, y + width));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(x, y + width));
-		path.getElements().add(ViewFactory.INSTANCE.createClosePath());
+		path.getElements().add(pathProducer.createMoveTo(x, y));
+		path.getElements().add(pathProducer.createLineTo(x + width, y));
+		path.getElements().add(pathProducer.createLineTo(x + width, y + width));
+		path.getElements().add(pathProducer.createLineTo(x, y + width));
+		path.getElements().add(pathProducer.createClosePath());
 	}
 
 
@@ -210,10 +212,10 @@ public class ViewDot extends ViewShape<IDot> {
 		final IPoint tl = model.getLazyTopLeftPoint();
 		final double crossGap = model.getCrossGap();
 
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(tl.getX() + crossGap, tl.getY() + crossGap));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(br.getX() - crossGap, br.getY() - crossGap));
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(br.getX() - crossGap, tl.getY() + crossGap));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(tl.getX() + crossGap, br.getY() - crossGap));
+		path.getElements().add(pathProducer.createMoveTo(tl.getX() + crossGap, tl.getY() + crossGap));
+		path.getElements().add(pathProducer.createLineTo(br.getX() - crossGap, br.getY() - crossGap));
+		path.getElements().add(pathProducer.createMoveTo(br.getX() - crossGap, tl.getY() + crossGap));
+		path.getElements().add(pathProducer.createLineTo(tl.getX() + crossGap, br.getY() - crossGap));
 	}
 
 
@@ -226,12 +228,12 @@ public class ViewDot extends ViewShape<IDot> {
 		final double yCenter = (tl.getY() + br.getY()) / 2d;
 		final double radius = Math.abs(tl.getY() + width / 10d - (br.getY() - width / 10d)) / 2d + dec;
 
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(xCenter, tl.getY() + width / 10d - dec));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(xCenter, br.getY() - width / 10d + dec));
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(Math.cos(Math.PI / 6d) * radius + xCenter, radius / 2d + yCenter));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(Math.cos(7d * Math.PI / 6d) * radius + xCenter, Math.sin(7d * Math.PI / 6d) * radius + yCenter));
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(Math.cos(5d * Math.PI / 6d) * radius + xCenter, Math.sin(5d * Math.PI / 6d) * radius + yCenter));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(Math.cos(11d * Math.PI / 6d) * radius + xCenter, Math.sin(11d * Math.PI / 6d) * radius + yCenter));
+		path.getElements().add(pathProducer.createMoveTo(xCenter, tl.getY() + width / 10d - dec));
+		path.getElements().add(pathProducer.createLineTo(xCenter, br.getY() - width / 10d + dec));
+		path.getElements().add(pathProducer.createMoveTo(Math.cos(Math.PI / 6d) * radius + xCenter, radius / 2d + yCenter));
+		path.getElements().add(pathProducer.createLineTo(Math.cos(7d * Math.PI / 6d) * radius + xCenter, Math.sin(7d * Math.PI / 6d) * radius + yCenter));
+		path.getElements().add(pathProducer.createMoveTo(Math.cos(5d * Math.PI / 6d) * radius + xCenter, Math.sin(5d * Math.PI / 6d) * radius + yCenter));
+		path.getElements().add(pathProducer.createLineTo(Math.cos(11d * Math.PI / 6d) * radius + xCenter, Math.sin(11d * Math.PI / 6d) * radius + yCenter));
 	}
 
 
@@ -250,11 +252,11 @@ public class ViewDot extends ViewShape<IDot> {
 		final double x1 = br.getX() - dec - 0.5 * dec;
 		final double x3 = tl.getX() + dec + 0.5 * dec;
 
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo((x1 + x3) / 2d, midY + p / 2d - dec - 0.5 * dec));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(x1, midY));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo((x1 + x3) / 2d, midY - p / 2d + dec + 0.5 * dec));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(x3, midY));
-		path.getElements().add(ViewFactory.INSTANCE.createClosePath());
+		path.getElements().add(pathProducer.createMoveTo((x1 + x3) / 2d, midY + p / 2d - dec - 0.5 * dec));
+		path.getElements().add(pathProducer.createLineTo(x1, midY));
+		path.getElements().add(pathProducer.createLineTo((x1 + x3) / 2d, midY - p / 2d + dec + 0.5 * dec));
+		path.getElements().add(pathProducer.createLineTo(x3, midY));
+		path.getElements().add(pathProducer.createClosePath());
 	}
 
 
@@ -273,12 +275,12 @@ public class ViewDot extends ViewShape<IDot> {
 		final double c2 = 0.25 * (Math.sqrt(5d) + 1d) * dist;
 		final double s2 = Math.sin(4 * Math.PI / 5d) * dist;
 
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo(xCenter, tl.getY() - dec));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(s1 + xCenter, -c1 + yCenter + dec));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(s2 + xCenter, c2 + yCenter + dec));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(-s2 + xCenter, c2 + yCenter + dec));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(-s1 + xCenter, -c1 + yCenter + dec));
-		path.getElements().add(ViewFactory.INSTANCE.createClosePath());
+		path.getElements().add(pathProducer.createMoveTo(xCenter, tl.getY() - dec));
+		path.getElements().add(pathProducer.createLineTo(s1 + xCenter, -c1 + yCenter + dec));
+		path.getElements().add(pathProducer.createLineTo(s2 + xCenter, c2 + yCenter + dec));
+		path.getElements().add(pathProducer.createLineTo(-s2 + xCenter, c2 + yCenter + dec));
+		path.getElements().add(pathProducer.createLineTo(-s1 + xCenter, -c1 + yCenter + dec));
+		path.getElements().add(pathProducer.createClosePath());
 	}
 
 
@@ -290,10 +292,10 @@ public class ViewDot extends ViewShape<IDot> {
 		final double dec = model.getDiametre() / IDot.THICKNESS_O_STYLE_FACTOR;
 		final IPoint br = model.getLazyBottomRightPoint();
 
-		path.getElements().add(ViewFactory.INSTANCE.createMoveTo((br.getX() + tl.getX()) / 2d, tl.getY() - 1.5 * dec));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(tl.getX() - 0.3 * dec, br.getY() - 3d * dec));
-		path.getElements().add(ViewFactory.INSTANCE.createLineTo(br.getX() + 0.3 * dec, br.getY() - 3d * dec));
-		path.getElements().add(ViewFactory.INSTANCE.createClosePath());
+		path.getElements().add(pathProducer.createMoveTo((br.getX() + tl.getX()) / 2d, tl.getY() - 1.5 * dec));
+		path.getElements().add(pathProducer.createLineTo(tl.getX() - 0.3 * dec, br.getY() - 3d * dec));
+		path.getElements().add(pathProducer.createLineTo(br.getX() + 0.3 * dec, br.getY() - 3d * dec));
+		path.getElements().add(pathProducer.createClosePath());
 	}
 
 

@@ -1,8 +1,8 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.function.Function;
+import java.util.stream.Stream;
 import javafx.application.Platform;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Line;
@@ -10,28 +10,30 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-@RunWith(Theories.class)
 public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> {
 	// Tricky way to factorise the code that concerns all the layers of the view.
-	@DataPoints
-	public static Collection<Function<ViewCircleArc, Arc>> getArcsToTest() {
-		return Arrays.asList(v -> v.border, v -> v.shadow, v -> v.dblBorder);
+	static Stream<Function<ViewCircleArc, Arc>> getArcsToTest() {
+		return Stream.of(v -> v.border, v -> v.shadow, v -> v.dblBorder);
+	}
+	static Stream<Arguments> styleFunction() {
+		return Arrays.stream(ArcStyle.values()).map(s -> getArcsToTest().map(i1 -> arguments(s, i1))).flatMap(s -> s);
 	}
 
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});
@@ -51,8 +53,9 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		return clone;
 	}
 
-	@Theory
-	public void testSetAngleStartMainBorder(final Function<ViewCircleArc, Arc> fct) {
+	@ParameterizedTest
+	@MethodSource("getArcsToTest")
+	void testSetAngleStartMainBorder(final Function<ViewCircleArc, Arc> fct) {
 		final Arc arc = fct.apply(view);
 		final double startAngle = arc.getStartAngle();
 		final double angle = model.getAngleStart() + Math.PI / 4d;
@@ -62,8 +65,9 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		assertEquals(Math.toDegrees(angle), arc.getStartAngle(), 0.00001);
 	}
 
-	@Theory
-	public void testSetAngleStartMainBorderLength(final Function<ViewCircleArc, Arc> fct) {
+	@ParameterizedTest
+	@MethodSource("getArcsToTest")
+	void testSetAngleStartMainBorderLength(final Function<ViewCircleArc, Arc> fct) {
 		final Arc arc = fct.apply(view);
 		final double length = arc.getLength();
 		final double angle = model.getAngleStart() + Math.PI / 4d;
@@ -73,8 +77,9 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		assertEquals(Math.toDegrees(model.getAngleEnd() - model.getAngleStart()), arc.getLength(), 0.0001);
 	}
 
-	@Theory
-	public void testSetAngleEndMainBorder(final Function<ViewCircleArc, Arc> fct) {
+	@ParameterizedTest
+	@MethodSource("getArcsToTest")
+	void testSetAngleEndMainBorder(final Function<ViewCircleArc, Arc> fct) {
 		final Arc arc = fct.apply(view);
 		final double length = arc.getLength();
 		final double angle = model.getAngleEnd() + Math.PI / 4d;
@@ -84,15 +89,17 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		assertEquals(Math.toDegrees(model.getAngleEnd() - model.getAngleStart()), arc.getLength(), 0.0001);
 	}
 
-	@Theory
-	public void testTypeArc(final ArcStyle style, final Function<ViewCircleArc, Arc> fct) {
+	@ParameterizedTest
+	@MethodSource("styleFunction")
+	void testTypeArc(final ArcStyle style, final Function<ViewCircleArc, Arc> fct) {
 		model.setArcStyle(style);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(style.getJFXStyle(), fct.apply(view).getType());
 	}
 
-	@Theory
-	public void testClipArrowExists(final ArcStyle style) {//, final Function<ViewCircleArc, Arc> fct) {
+	@ParameterizedTest
+	@EnumSource(ArcStyle.class)
+	void testClipArrowExists(final ArcStyle style) {
 		assumeTrue(style.supportArrow());
 		model.setArcStyle(style);
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
@@ -101,8 +108,9 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 	}
 
 
-	@Theory
-	public void testClipArrowSameType(final ArcStyle style) {
+	@ParameterizedTest
+	@EnumSource(ArcStyle.class)
+	void testClipArrowSameType(final ArcStyle style) {
 		assumeTrue(style.supportArrow());
 		model.setArcStyle(style);
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
@@ -110,8 +118,9 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		assertEquals(((Arc) view.border.getClip()).getType(), style.getJFXStyle());
 	}
 
-	@Theory
-	public void testClipArrowSameStrokeWidth(final ArcStyle style) {
+	@ParameterizedTest
+	@EnumSource(ArcStyle.class)
+	void testClipArrowSameStrokeWidth(final ArcStyle style) {
 		assumeTrue(style.supportArrow());
 		model.setArcStyle(style);
 		model.setThickness(model.getThickness() * 2d);
@@ -120,8 +129,9 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		assertEquals(((Arc) view.border.getClip()).getStrokeWidth(), view.border.getStrokeWidth(), 0.0001);
 	}
 
-	@Theory
-	public void testClipArrowSameDimensions(final ArcStyle style) {
+	@ParameterizedTest
+	@EnumSource(ArcStyle.class)
+	void testClipArrowSameDimensions(final ArcStyle style) {
 		assumeTrue(style.supportArrow());
 		model.setArcStyle(style);
 		model.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
@@ -134,8 +144,9 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 		assertEquals(clip.getRadiusY(), view.border.getRadiusY(), 0.0001);
 	}
 
-	@Theory
-	public void testClipArrowSameStartEndNotEmptyClip(final ArcStyle style) {
+	@ParameterizedTest
+	@EnumSource(ArcStyle.class)
+	void testClipArrowSameStartEndNotEmptyClip(final ArcStyle style) {
 		assumeTrue(style.supportArrow());
 		model.setArcStyle(style);
 		model.setAngleStart(0d);
@@ -149,7 +160,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 	}
 
 	@Test
-	public void testRadiusArcConsidersThickness() {
+	void testRadiusArcConsidersThickness() {
 		model.setWidth(10d);
 		model.setPosition(0d, 10d);
 		model.setThickness(2d);
@@ -159,31 +170,31 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 	}
 
 	@Test
-	public void testThicknessChangeRadius() {
+	void testThicknessChangeRadius() {
 		final Arc arc = cloneArc(view.border);
 		model.setThickness(model.getThickness() * 2d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX(), 0.00001);
-		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY(), 0.00001);
+		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX());
+		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY());
 	}
 
 	@Test
-	public void testTicknessChangeHasDblBord() {
+	void testTicknessChangeHasDblBord() {
 		final Arc arc = cloneArc(view.border);
 		model.setHasDbleBord(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX(), 0.00001);
-		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY(), 0.00001);
+		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX());
+		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY());
 	}
 
 	@Test
-	public void testTicknessChangeDbleSep() {
+	void testTicknessChangeDbleSep() {
 		final Arc arc = cloneArc(view.border);
 		model.setHasDbleBord(true);
 		model.setDbleBordSep(model.getDbleBordSep() * 2d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX(), 0.00001);
-		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY(), 0.00001);
+		assertNotEquals(arc.getRadiusX(), view.border.getRadiusX());
+		assertNotEquals(arc.getRadiusY(), view.border.getRadiusY());
 	}
 
 	@Override

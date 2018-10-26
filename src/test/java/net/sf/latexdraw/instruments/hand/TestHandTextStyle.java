@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments.hand;
 
 import java.lang.reflect.InvocationTargetException;
+import javafx.stage.Stage;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
@@ -14,6 +15,7 @@ import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -30,6 +32,7 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeTextCustomiser.class);
 				bindAsEagerSingleton(Hand.class);

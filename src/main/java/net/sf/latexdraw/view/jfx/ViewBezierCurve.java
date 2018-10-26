@@ -41,12 +41,12 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	 * Creates the view.
 	 * @param shape The model.
 	 */
-	ViewBezierCurve(final IBezierCurve shape) {
-		super(shape);
-		viewArrows = new ViewArrowableTraitPath<>(this);
+	ViewBezierCurve(final IBezierCurve shape, final PathElementProducer pathProducer) {
+		super(shape, pathProducer);
+		viewArrows = new ViewArrowableTraitPath<>(this, pathProducer);
 		showPoint = new Group();
 
-		final MoveTo moveTo = ViewFactory.INSTANCE.createMoveTo(0d, 0d);
+		final MoveTo moveTo = pathProducer.createMoveTo(0d, 0d);
 		moveTo.xProperty().bind(shape.getPtAt(0).xProperty());
 		moveTo.yProperty().bind(shape.getPtAt(0).yProperty());
 		border.getElements().add(moveTo);
@@ -144,7 +144,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	}
 
 	private final CubicCurveTo addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {
-		final CubicCurveTo curveto = ViewFactory.INSTANCE.createCubicCurveTo(0d, 0d, 0d, 0d, 0d, 0d);
+		final CubicCurveTo curveto = pathProducer.createCubicCurveTo(0d, 0d, 0d, 0d, 0d, 0d);
 		curveto.xProperty().bind(pt.xProperty());
 		curveto.yProperty().bind(pt.yProperty());
 		curveto.controlX1Property().bind(ctrl1.xProperty());
@@ -159,9 +159,9 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	@Override
 	public void flush() {
 		unbindShowPoints();
-		border.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
-		shadow.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
-		dblBorder.getElements().forEach(elt -> ViewFactory.INSTANCE.flushPathElement(elt));
+		border.getElements().forEach(elt -> pathProducer.flushPathElement(elt));
+		shadow.getElements().forEach(elt -> pathProducer.flushPathElement(elt));
+		dblBorder.getElements().forEach(elt -> pathProducer.flushPathElement(elt));
 		model.openedProperty().removeListener(openUpdate);
 		model.openedProperty().unbind();
 		lastShPtsline.visibleProperty().unbind();

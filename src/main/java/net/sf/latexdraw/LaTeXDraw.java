@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import javafx.util.Callback;
+import javafx.util.BuilderFactory;
 import javafx.util.Duration;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
@@ -39,10 +38,7 @@ import net.sf.latexdraw.instruments.StatusBarController;
 import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LangTool;
-import net.sf.latexdraw.util.Preference;
+import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -52,7 +48,6 @@ import org.malai.javafx.ui.JfxUI;
 import org.malai.properties.Modifiable;
 import org.malai.properties.Reinitialisable;
 import org.malai.undo.UndoCollector;
-import org.w3c.dom.Node;
 
 /**
  * The main class of the project.
@@ -61,22 +56,18 @@ import org.w3c.dom.Node;
 public class LaTeXDraw extends JfxUI {
 	public static final String LABEL_APP = "LaTeXDraw"; //NON-NLS
 
-	private static LaTeXDraw instance;
-
 	static {
-		final Node node = Preference.INSTANCE.readXMLPreferencesFromFile(new File(LPath.PATH_PREFERENCES_XML_FILE)).get(LNamespace.XML_OPENGL);
-
-		if(node == null || java.lang.Boolean.parseBoolean(node.getTextContent())) {
-			System.setProperty("sun.java2d.opengl", "true");
-		}else {
-			System.setProperty("sun.java2d.opengl", "false");
-		}
+//		final Node node = Preference.INSTANCE.readXMLPreferencesFromFile(new File(LPath.PATH_PREFERENCES_XML_FILE)).get(LNamespace.XML_OPENGL);
+//
+//		if(node == null || java.lang.Boolean.parseBoolean(node.getTextContent())) {
+//			System.setProperty("sun.java2d.opengl", "true");
+//		}else {
+//			System.setProperty("sun.java2d.opengl", "false");
+//		}
 
 		Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE);
 		UndoCollector.INSTANCE.setSizeMax(30);
 		CommandsRegistry.INSTANCE.setSizeMax(30);
-		// Creating the required directories.
-		LPath.INSTANCE.checkDirectories();
 	}
 
 	/**
@@ -87,20 +78,12 @@ public class LaTeXDraw extends JfxUI {
 		launch(args);
 	}
 
-	public static LaTeXDraw getInstance() {
-		return instance;
-	}
-
 	private Stage mainStage;
-	private final Callback<Class<?>, Object> instanceCallBack;
 	private final Injector injector;
 
 	public LaTeXDraw() {
 		super();
-		instance = this;
-		injector = new LatexdrawInjector();
-		// This callback gathers all the JFX instruments.
-		instanceCallBack = cl -> injector.getInstance(cl);
+		injector = new LatexdrawInjector(this);
 	}
 
 	private void showSplash(final Stage initStage, final Task<Void> task) {
@@ -151,8 +134,8 @@ public class LaTeXDraw extends JfxUI {
 					mainStage.setTitle(LABEL_APP);
 				});
 
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), LangTool.INSTANCE.getBundle(), //NON-NLS
-					new LatexdrawBuilderFactory(injector), instanceCallBack);
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), injector.getInstance(LangService.class).getBundle(), //NON-NLS
+					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				updateProgress(0.6, 1d);
 				final Scene scene = new Scene(root);
 				updateProgress(0.7, 1d);
@@ -176,7 +159,7 @@ public class LaTeXDraw extends JfxUI {
 					injector.getInstance(Canvas.class).requestFocus();
 					// Checking a new version if required.
 					if(VersionChecker.WITH_UPDATE && injector.getInstance(PreferencesSetter.class).isVersionCheckEnable()) {
-						new Thread(new VersionChecker(injector.getInstance(StatusBarController.class))).start();
+						new Thread(new VersionChecker(injector.getInstance(StatusBarController.class), injector.getInstance(LangService.class))).start();
 					}
 					setModified(false);
 				});
@@ -187,13 +170,6 @@ public class LaTeXDraw extends JfxUI {
 		task.setOnFailed(BadaboomCollector.INSTANCE);
 		showSplash(stage, task);
 		new Thread(task).start();
-	}
-
-	/**
-	 * @return The callback that creates controller instances.
-	 */
-	public Callback<Class<?>, Object> getInstanceCallBack() {
-		return instanceCallBack;
 	}
 
 	@Override
@@ -213,13 +189,6 @@ public class LaTeXDraw extends JfxUI {
 	public void reinit() {
 		super.reinit();
 		mainStage.setTitle(LABEL_APP);
-	}
-
-	/**
-	 * @return The instance injector of the app.
-	 */
-	public Injector getInjector() {
-		return injector;
 	}
 
 	/**

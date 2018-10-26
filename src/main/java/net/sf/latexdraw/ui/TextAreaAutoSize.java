@@ -20,7 +20,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.util.LSystem;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.Tuple;
 
 /**
@@ -32,21 +32,23 @@ public class TextAreaAutoSize extends TextArea {
 	 * States whether the text typed in the filed is valid. If not, the background of the filed is painted in red.
 	 * That feature can be used when the text typed needed to be validated.
 	 */
-	protected boolean valid;
-	protected final Text msg = new Text();
+	private boolean valid;
+	private final Text msg = new Text();
+	private final SystemService system;
 
 	/**
 	 * Creates the widget.
 	 */
-	public TextAreaAutoSize() {
+	public TextAreaAutoSize(final SystemService system) {
 		super();
 		valid = true;
+		this.system = system;
 
 		addEventHandler(KeyEvent.KEY_PRESSED, evt -> {
 			if(evt.getCode() == KeyCode.ENTER) {
 				if(evt.isShiftDown()) {
 					final int caretPosition = getCaretPosition();
-					setText(getText() + LSystem.EOL);
+					setText(getText() + system.EOL);
 					positionCaret(caretPosition + 1);
 				}else {
 					evt.consume();
@@ -117,8 +119,8 @@ public class TextAreaAutoSize extends TextArea {
 			return;
 		}
 
-		final String[] lines = newText.split(LSystem.EOL);
-		final int countEOL = newText.length() - newText.replace(LSystem.EOL, "").length();
+		final String[] lines = newText.split(system.EOL);
+		final int countEOL = newText.length() - newText.replace(system.EOL, "").length();
 		final String maxLine = Arrays.stream(lines).reduce((a, b) -> a.length() > b.length() ? a : b).orElse("");
 
 		final Text txt = new Text(newText + " ");

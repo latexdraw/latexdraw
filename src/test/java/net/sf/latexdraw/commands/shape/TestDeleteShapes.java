@@ -2,7 +2,6 @@ package net.sf.latexdraw.commands.shape;
 
 import net.sf.latexdraw.commands.TestUndoableCommand;
 import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 
 import static org.junit.Assert.assertEquals;
@@ -11,7 +10,6 @@ public class TestDeleteShapes extends TestUndoableCommand<DeleteShapes, Object> 
 	IRectangle shape1;
 	IRectangle shape2;
 	IRectangle shape3;
-	IDrawing drawing;
 
 	@Override
 	protected void checkUndo() {
@@ -22,20 +20,14 @@ public class TestDeleteShapes extends TestUndoableCommand<DeleteShapes, Object> 
 	}
 
 	@Override
-	protected DeleteShapes createCmd() {
-		return new DeleteShapes();
-	}
-
-	@Override
 	protected void configCorrectCmd() {
+		cmd = new DeleteShapes(drawing);
 		shape1 = ShapeFactory.INST.createRectangle();
 		shape2 = ShapeFactory.INST.createRectangle();
 		shape3 = ShapeFactory.INST.createRectangle();
-		drawing = ShapeFactory.INST.createDrawing();
 		drawing.addShape(shape1);
 		drawing.addShape(shape2);
 		drawing.addShape(shape3);
-		cmd.setDrawing(drawing);
 		cmd.setShape(shape1);
 		cmd.addShape(shape3);
 	}

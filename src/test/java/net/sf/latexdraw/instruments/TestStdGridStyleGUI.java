@@ -43,7 +43,7 @@ public abstract class TestStdGridStyleGUI extends TestShapePropGUI<ShapeStdGridC
 		labelsSizeS = find("#labelsSizeS");
 		xOriginS = find("#xOriginS");
 		yOriginS = find("#yOriginS");
-		ins = (ShapeStdGridCustomiser) injectorFactory.call(ShapeStdGridCustomiser.class);
+		ins = injector.getInstance(ShapeStdGridCustomiser.class);
 		ins.setActivated(true);
 	}
 }

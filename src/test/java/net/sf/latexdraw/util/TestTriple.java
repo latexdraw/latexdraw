@@ -1,7 +1,7 @@
 package net.sf.latexdraw.util;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -13,28 +13,28 @@ import static org.junit.Assert.assertTrue;
 public class TestTriple {
 	Triple<Double, String, Boolean> triple;
 
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		triple = new Triple<>(1.2, "bar", true);
 	}
 
 	@Test
-	public void testA() {
+	void testA() {
 		assertEquals(1.2, triple.a, 0.00001);
 	}
 
 	@Test
-	public void testB() {
+	void testB() {
 		assertEquals("bar", triple.b);
 	}
 
 	@Test
-	public void testC() {
+	void testC() {
 		assertTrue(triple.c);
 	}
 
 	@Test
-	public void testToString() {
+	void testToString() {
 		assertThat(triple.toString(), not(is(emptyOrNullString())));
 	}
 }

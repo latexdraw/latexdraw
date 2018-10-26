@@ -20,10 +20,10 @@ public class ViewPolygon extends ViewPolyPoint<IPolygon> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPolygon(final IPolygon sh) {
-		super(sh);
-		border.getElements().add(ViewFactory.INSTANCE.createClosePath());
-		shadow.getElements().add(ViewFactory.INSTANCE.createClosePath());
-		dblBorder.getElements().add(ViewFactory.INSTANCE.createClosePath());
+	ViewPolygon(final IPolygon sh, final PathElementProducer pathProducer) {
+		super(sh, pathProducer);
+		border.getElements().add(pathProducer.createClosePath());
+		shadow.getElements().add(pathProducer.createClosePath());
+		dblBorder.getElements().add(pathProducer.createClosePath());
 	}
 }

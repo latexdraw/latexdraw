@@ -15,26 +15,28 @@ import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.view.PlotViewHelper;
+import net.sf.latexdraw.view.PlotViewComputation;
 
 /**
  * The JFX view of a plot.
  * @author Arnaud Blouin
  */
-public class ViewPlot extends ViewPositionShape<IPlot> {
+public class ViewPlot extends ViewPositionShape<IPlot> implements PlotViewComputation {
 	private ViewPolyline lineView;
 	private ViewPolygon polygonView;
 	private ViewBezierCurve curveView;
 	private List<ViewDot> dotsView;
+	private final PathElementProducer pathProducer;
 	private final ChangeListener<Object> updatePath = (observable, oldValue, newValue) -> Platform.runLater(() -> updatePath());
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPlot(final IPlot sh) {
+	ViewPlot(final IPlot sh, final PathElementProducer pathProducer) {
 		super(sh);
 
+		this.pathProducer = pathProducer;
 		model.plotEquationProperty().addListener(updatePath);
 		model.dotDiametreProperty().addListener(updatePath);
 		model.dotStyleProperty().addListener(updatePath);
@@ -82,8 +84,8 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 
 	private void updatePoints(final double minX, final double maxX, final double step) {
 		flushDots();
-		dotsView = PlotViewHelper.INSTANCE.updatePoints(model, 0d, 0d, minX, maxX, step).parallelStream().map(dot -> {
-			final ViewDot viewDot = new ViewDot(dot);
+		dotsView = updatePoints(model, 0d, 0d, minX, maxX, step).parallelStream().map(dot -> {
+			final ViewDot viewDot = new ViewDot(dot, pathProducer);
 			viewDot.setUserData(this);
 			return viewDot;
 		}).collect(Collectors.toList());
@@ -92,7 +94,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 
 	private void updatePolygon(final double minX, final double maxX, final double step) {
 		flushPolygon();
-		polygonView = new ViewPolygon(PlotViewHelper.INSTANCE.updatePolygon(model, 0d, 0d, minX, maxX, step));
+		polygonView = new ViewPolygon(updatePolygon(model, 0d, 0d, minX, maxX, step), pathProducer);
 		polygonView.setUserData(this);
 		getChildren().add(polygonView);
 	}
@@ -100,7 +102,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 
 	private void updateLine(final double minX, final double maxX, final double step) {
 		flushLine();
-		lineView = new ViewPolyline(PlotViewHelper.INSTANCE.updateLine(model, 0d, 0d, minX, maxX, step));
+		lineView = new ViewPolyline(updateLine(model, 0d, 0d, minX, maxX, step), pathProducer);
 		lineView.setUserData(this);
 		getChildren().add(lineView);
 	}
@@ -108,7 +110,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> {
 
 	private void updateCurve(final double minX, final double maxX, final double step) {
 		flushCurve();
-		curveView = new ViewBezierCurve(PlotViewHelper.INSTANCE.updateCurve(model, 0d, 0d, minX, maxX, step));
+		curveView = new ViewBezierCurve(updateCurve(model, 0d, 0d, minX, maxX, step), pathProducer);
 		curveView.setUserData(this);
 		getChildren().add(curveView);
 	}

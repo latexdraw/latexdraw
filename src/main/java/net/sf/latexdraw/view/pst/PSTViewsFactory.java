@@ -31,28 +31,26 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 
 /**
  * A singleton factory that produces PSTricks views.
  * @author Arnaud Blouin
  */
-public final class PSTViewsFactory {
-	/** The singleton. */
-	public static final PSTViewsFactory INSTANCE = new PSTViewsFactory();
+public final class PSTViewsFactory implements PSTViewProducer {
+	@Inject private SystemService system;
+	@Inject private LangService lang;
 
-	private PSTViewsFactory() {
+	public PSTViewsFactory() {
 		super();
 	}
 
-	/**
-	 * Creates a view from a shape.
-	 * @param shape The shape used to create the view.
-	 * @return The created view or null.
-	 * @since 3.0
-	 */
+	@Override
 	public <T extends IShape> Optional<PSTShapeView<T>> createView(final T shape) {
 		if(shape instanceof IGroup) {
-			return Optional.of((PSTShapeView<T>) new PSTGroupView((IGroup) shape));
+			return Optional.of((PSTShapeView<T>) new PSTGroupView((IGroup) shape, this));
 		}
 		if(shape instanceof IPlot) {
 			return Optional.of((PSTShapeView<T>) new PSTPlotView((IPlot) shape));
@@ -100,7 +98,7 @@ public final class PSTViewsFactory {
 			return Optional.of((PSTShapeView<T>) new PSTDotView((IDot) shape));
 		}
 		if(shape instanceof IPicture) {
-			return Optional.of((PSTShapeView<T>) new PSTPictureView((IPicture) shape));
+			return Optional.of((PSTShapeView<T>) new PSTPictureView((IPicture) shape, system, lang.getBundle()));
 		}
 		if(shape instanceof IFreehand) {
 			return Optional.of((PSTShapeView<T>) new PSTFreeHandView((IFreehand) shape));

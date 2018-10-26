@@ -5,14 +5,14 @@ import javafx.geometry.Bounds;
 import javafx.scene.shape.Path;
 import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus, Path> {
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});
@@ -27,12 +27,12 @@ public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus
 	}
 
 	@Test
-	public void testShadowNotEmpty() {
+	void testShadowNotEmpty() {
 		assertFalse(view.shadow.getElements().isEmpty());
 	}
 
 	@Test
-	public void testDbleBorderNotEmpty() {
+	void testDbleBorderNotEmpty() {
 		assertFalse(view.dblBorder.getElements().isEmpty());
 	}
 
@@ -56,7 +56,7 @@ public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus
 
 	@Test
 	@Override
-	public void testShadowPositionSameThanBorder() {
-		assertEquals(view.getBorder().getElements(), view.getShadow().get().getElements());
+	void testShadowPositionSameThanBorder() {
+		assertEquals(view.getBorder().getElements(), view.getShadow().orElseThrow().getElements());
 	}
 }

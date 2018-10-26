@@ -13,7 +13,6 @@ package net.sf.latexdraw.view.pst;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.util.LSystem;
 
 /**
  * Defines a PSTricks view of the LArc model.
@@ -79,7 +78,7 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 				final IPoint endPt = shape.getEndPoint();
 
 				start.append("\\psarc"); //NON-NLS
-				end.append(LSystem.EOL).append("\\psline[").append(params).append(']').append('('); //NON-NLS
+				end.append(System.getProperty("line.separator")).append("\\psline[").append(params).append(']').append('('); //NON-NLS
 				end.append(MathUtils.INST.getCutNumberFloat(startPt.getX() / ppc)).append(',');
 				end.append(MathUtils.INST.getCutNumberFloat(startPt.getY() / ppc)).append(')').append('(');
 				end.append(MathUtils.INST.getCutNumberFloat(endPt.getX() / ppc)).append(',');

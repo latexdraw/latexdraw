@@ -10,12 +10,12 @@
  */
 package net.sf.latexdraw.commands.shape;
 
+import java.util.ResourceBundle;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.commands.ShapeCmdImpl;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
@@ -94,8 +94,8 @@ public class TranslateShapes extends ShapeCmdImpl<IGroup> implements Undoable, M
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.32");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.32");
 	}
 
 	/**

@@ -12,6 +12,7 @@ package net.sf.latexdraw.commands.shape;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import org.malai.undo.Undoable;
@@ -68,8 +69,8 @@ public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoa
 
 
 	@Override
-	public String getUndoName() {
-		return property == null ? "" : property.getMessage(); //NON-NLS
+	public String getUndoName(final ResourceBundle bundle) {
+		return property == null ? "" : property.getMessage(bundle); //NON-NLS
 	}
 
 

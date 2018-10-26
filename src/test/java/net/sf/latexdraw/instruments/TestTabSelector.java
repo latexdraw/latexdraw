@@ -8,19 +8,27 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import net.sf.latexdraw.CollectionMatcher;
+import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
+import net.sf.latexdraw.view.pst.PSTViewsFactory;
+import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.malai.javafx.ui.JfxUI;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -45,15 +53,13 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 		super.start(aStage);
 
 		tabPane = find("#tabPane");
-		final int width = 800;
-		final int height = 600;
+		final int width = 400;
+		final int height = 300;
 		stage.minHeightProperty().unbind();
 		stage.minWidthProperty().unbind();
 		final Canvas canvas = injector.getInstance(Canvas.class);
 		canvas.setMaxWidth(width);
 		canvas.setMaxHeight(height);
-		canvas.getScene().getWindow().setWidth(width);
-		canvas.getScene().getWindow().setHeight(height);
 		stage.setMaxWidth(width);
 		stage.setMaxHeight(height);
 		stage.setMinWidth(width);
@@ -79,11 +85,20 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 		return new Injector() {
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+				bindToInstance(Injector.class, this);
+				bindToInstance(JfxUI.class, Mockito.mock(LaTeXDraw.class));
+				bindToSupplier(Stage.class, () -> stage);
+				bindAsEagerSingleton(SystemService.class);
+				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(ViewFactory.class);
+				bindAsEagerSingleton(SVGShapesFactory.class);
+				bindAsEagerSingleton(PSTViewsFactory.class);
+				bindAsEagerSingleton(Canvas.class);
+				bindAsEagerSingleton(SVGDocumentGenerator.class);
 				bindAsEagerSingleton(ExceptionsManager.class);
 				bindAsEagerSingleton(ShortcutsController.class);
 				bindAsEagerSingleton(StatusBarController.class);
 				bindAsEagerSingleton(AboutController.class);
-				bindAsEagerSingleton(Canvas.class);
 				bindAsEagerSingleton(FacadeCanvasController.class);
 				bindAsEagerSingleton(CanvasController.class);
 				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));

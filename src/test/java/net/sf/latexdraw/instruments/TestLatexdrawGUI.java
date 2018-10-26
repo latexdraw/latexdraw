@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeoutException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,27 +12,31 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.Page;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import net.sf.latexdraw.view.pst.PSTViewsFactory;
+import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import org.junit.After;
 import org.junit.Test;
 import org.malai.command.CommandsRegistry;
 import org.malai.instrument.Instrument;
+import org.malai.javafx.ui.JfxUI;
 import org.malai.undo.UndoCollector;
+import org.mockito.Mockito;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertTrue;
 
 public abstract class TestLatexdrawGUI extends ApplicationTest {
-	protected Callback<Class<?>, Object> injectorFactory;
-
 	protected final GUIVoidCommand waitFXEvents = WaitForAsyncUtils::waitForFxEvents;
 
 	protected TitledPane titledPane;
@@ -62,9 +67,9 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 
 		try {
 			injector = createInjector();
-			injectorFactory = injector::getInstance;
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), LangTool.INSTANCE.getBundle(),
-				new LatexdrawBuilderFactory(injector), injectorFactory);
+			injector.initialise();
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()),injector.getInstance(LangService.class).getBundle(),
+				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 
 			Parent parent = root;
 
@@ -111,7 +116,15 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	protected Injector createInjector() {
 		return new Injector() {
 			@Override
-			protected void configure() {
+			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+				bindToInstance(Injector.class, this);
+				bindAsEagerSingleton(SystemService.class);
+				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(ViewFactory.class);
+				bindAsEagerSingleton(SVGShapesFactory.class);
+				bindAsEagerSingleton(PSTViewsFactory.class);
+				bindToInstance(JfxUI.class, Mockito.mock(LaTeXDraw.class));
+				bindToSupplier(Stage.class, () -> stage);
 			}
 		};
 	}

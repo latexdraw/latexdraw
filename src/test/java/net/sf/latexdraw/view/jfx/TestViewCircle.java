@@ -5,13 +5,13 @@ import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.data.CircleSupplier;
 import net.sf.latexdraw.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.models.interfaces.shape.ICircle;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestViewCircle extends TestViewBorderedShape<ViewCircle, ICircle, Ellipse> {
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});
@@ -26,94 +26,94 @@ public class TestViewCircle extends TestViewBorderedShape<ViewCircle, ICircle, E
 	}
 
 	@Test
-	public void testRadiusXPosition() {
+	void testRadiusXPosition() {
 		model.setWidth(20d);
 		assertEquals(10d, border.getRadiusX(), 0.001);
 	}
 
 
 	@Test
-	public void testCenterXPosition() {
+	void testCenterXPosition() {
 		model.setX(123d);
 		assertEquals(123d + border.getRadiusX(), border.getCenterX(), 0.001);
 	}
 
 	@Test
-	public void testXMaxPositionDbleBordInside() {
+	void testXMaxPositionDbleBordInside() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.INTO);
-		assertEquals(123d + model.getThickness(), view.getDbleBorder().get().getCenterX() - view.getDbleBorder().get().getRadiusX(), 0.001);
+		assertEquals(123d + model.getThickness(), view.getDbleBorder().orElseThrow().getCenterX() - view.getDbleBorder().orElseThrow().getRadiusX(), 0.001);
 	}
 
 	@Test
-	public void testXPositionDbleBordMiddle() {
+	void testXPositionDbleBordMiddle() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(123d, view.getDbleBorder().get().getCenterX() - view.getDbleBorder().get().getRadiusX(), 0.001);
+		assertEquals(123d, view.getDbleBorder().orElseThrow().getCenterX() - view.getDbleBorder().orElseThrow().getRadiusX(), 0.001);
 	}
 
 	@Test
-	public void testXPositionDbleBordOutside() {
+	void testXPositionDbleBordOutside() {
 		model.setX(123d);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(123d - model.getThickness(), view.getDbleBorder().get().getCenterX() - view.getDbleBorder().get().getRadiusX(), 0.001);
+		assertEquals(123d - model.getThickness(), view.getDbleBorder().orElseThrow().getCenterX() - view.getDbleBorder().orElseThrow().getRadiusX(), 0.001);
 	}
 
 
 	@Test
-	public void testYPosition() {
+	void testYPosition() {
 		model.setY(-123.4);
 		assertEquals(-123.4 - model.getHeight() / 2d, border.getCenterY(), 0.001);
 	}
 
 	@Test
-	public void testYPositionDbleBordInside() {
+	void testYPositionDbleBordInside() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.INTO);
-		assertEquals(border.getCenterY() - border.getRadiusY() + model.getThickness(), view.getDbleBorder().get().getCenterY() - view.getDbleBorder().get().getRadiusY(), 0.001);
+		assertEquals(border.getCenterY() - border.getRadiusY() + model.getThickness(), view.getDbleBorder().orElseThrow().getCenterY() - view.getDbleBorder().orElseThrow().getRadiusY(), 0.001);
 	}
 
 	@Test
-	public void testYPositionDbleBordMiddle() {
+	void testYPositionDbleBordMiddle() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getCenterY() - border.getRadiusY(), view.getDbleBorder().get().getCenterY() - view.getDbleBorder().get().getRadiusY(), 0.001);
+		assertEquals(border.getCenterY() - border.getRadiusY(), view.getDbleBorder().orElseThrow().getCenterY() - view.getDbleBorder().orElseThrow().getRadiusY(), 0.001);
 	}
 
 	@Test
-	public void testYPositionDbleBordOutside() {
+	void testYPositionDbleBordOutside() {
 		model.setY(-123.4);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getCenterY() - border.getRadiusY() - model.getThickness(), view.getDbleBorder().get().getCenterY() - view.getDbleBorder().get().getRadiusY(), 0.001);
+		assertEquals(border.getCenterY() - border.getRadiusY() - model.getThickness(), view.getDbleBorder().orElseThrow().getCenterY() - view.getDbleBorder().orElseThrow().getRadiusY(), 0.001);
 	}
 
 	@Test
-	public void testWidthDbleBordInside() {
+	void testWidthDbleBordInside() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.INTO);
-		assertEquals(border.getRadiusX() - model.getThickness(), view.getDbleBorder().get().getRadiusX(), 0.001);
+		assertEquals(border.getRadiusX() - model.getThickness(), view.getDbleBorder().orElseThrow().getRadiusX(), 0.001);
 	}
 
 	@Test
-	public void testWidthDbleBordMiddle() {
+	void testWidthDbleBordMiddle() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.MID);
-		assertEquals(border.getRadiusX(), view.getDbleBorder().get().getRadiusX(), 0.001);
+		assertEquals(border.getRadiusX(), view.getDbleBorder().orElseThrow().getRadiusX(), 0.001);
 	}
 
 	@Test
-	public void testWidthDbleBordOutside() {
+	void testWidthDbleBordOutside() {
 		model.setWidth(74.3);
 		model.setBordersPosition(BorderPos.OUT);
-		assertEquals(border.getRadiusX() + model.getThickness(), view.getDbleBorder().get().getRadiusX(), 0.001);
+		assertEquals(border.getRadiusX() + model.getThickness(), view.getDbleBorder().orElseThrow().getRadiusX(), 0.001);
 	}
 
 	@Override
 	@Test
-	public void testShadowPositionSameThanBorder() {
+	void testShadowPositionSameThanBorder() {
 		model.setHasShadow(true);
-		assertEquals(border.getCenterX(), view.getShadow().get().getCenterX(), 0.01);
-		assertEquals(border.getCenterY(), view.getShadow().get().getCenterY(), 0.01);
+		assertEquals(border.getCenterX(), view.getShadow().orElseThrow().getCenterX(), 0.01);
+		assertEquals(border.getCenterY(), view.getShadow().orElseThrow().getCenterY(), 0.01);
 	}
 
 	@Override

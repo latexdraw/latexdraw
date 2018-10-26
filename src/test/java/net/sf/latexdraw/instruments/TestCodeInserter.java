@@ -4,33 +4,44 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeoutException;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import net.sf.latexdraw.HelperTest;
-import net.sf.latexdraw.LaTeXDraw;
+import net.sf.latexdraw.data.ConfigureInjection;
+import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.util.Injector;
-import org.junit.Before;
-import org.junit.Test;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
-import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-public class TestCodeInserter extends ApplicationTest {
+
+@ExtendWith(InjectionExtension.class)
+@ExtendWith(ApplicationExtension.class)
+public class TestCodeInserter {
 	IDrawing drawing;
 	CodeInserter inserter;
 
+	@ConfigureInjection
 	Injector createInjector() {
 		return new Injector() {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+				bindToInstance(Injector.class, this);
+				bindAsEagerSingleton(SystemService.class);
+				bindAsEagerSingleton(LangService.class);
 				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindToInstance(CopierCutterPaster.class, Mockito.mock(CopierCutterPaster.class));
 				bindAsEagerSingleton(StatusBarController.class);
@@ -40,16 +51,11 @@ public class TestCodeInserter extends ApplicationTest {
 		};
 	}
 
-	@Before
-	public void setUp() throws NoSuchFieldException, IllegalAccessException {
-		final Injector injector = createInjector();
-		HelperTest.setFinalStaticFieldValue(LaTeXDraw.class.getDeclaredField("instance"), Mockito.mock(LaTeXDraw.class));
-		Mockito.when(LaTeXDraw.getInstance().getInjector()).thenReturn(injector);
-		Mockito.when(LaTeXDraw.getInstance().getInstanceCallBack()).thenReturn(cl -> injector.getInstance(cl));
-
-		drawing = LaTeXDraw.getInstance().getInjector().getInstance(IDrawing.class);
+	@BeforeEach
+	public void setUp(final IDrawing drawing, final CodeInserter codeInserter) {
+		this.drawing = drawing;
+		inserter = codeInserter;
 		Platform.runLater(() -> {
-			inserter = LaTeXDraw.getInstance().getInjector().getInstance(CodeInserter.class);
 			try {
 				FxToolkit.registerStage(() -> inserter.getInsertCodeDialogue().orElse(null));
 				WaitForAsyncUtils.waitForFxEvents();
@@ -67,23 +73,23 @@ public class TestCodeInserter extends ApplicationTest {
 	}
 
 	@Test
-	public void testCancelDeactivateHide() {
-		clickOn(inserter.cancel);
+	public void testCancelDeactivateHide(final FxRobot robot) {
+		robot.clickOn(inserter.cancel);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertFalse(inserter.isActivated());
 	}
 
 	@Test
-	public void testOkWithNoCode() {
-		clickOn(inserter.ok);
+	public void testOkWithNoCode(final FxRobot robot) {
+		robot.clickOn(inserter.ok);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertFalse(inserter.isActivated());
 		assertTrue(drawing.isEmpty());
 	}
 
 	@Test
-	public void testTypeBadCodeOK() {
-		clickOn(inserter.text).write("\\foo \\psframe[foo=10]");
+	public void testTypeBadCodeOK(final FxRobot robot) {
+		robot.clickOn(inserter.text).write("\\foo \\psframe[foo=10]");
 		WaitForAsyncUtils.waitForFxEvents();
 		assertFalse(inserter.errorLog.getText().isEmpty());
 	}
@@ -96,16 +102,16 @@ public class TestCodeInserter extends ApplicationTest {
 	}
 
 	@Test
-	public void testEnterCodeOKCreatesGoodShape() {
-		clickOn(inserter.text).write("\\psframe(0,0)(100,100)").clickOn(inserter.ok);
+	public void testEnterCodeOKCreatesGoodShape(final FxRobot robot) {
+		robot.clickOn(inserter.text).write("\\psframe(0,0)(100,100)").clickOn(inserter.ok);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IRectangle);
 	}
 
 	@Test
-	public void testEnterCodeKOCreatesText() {
-		clickOn(inserter.text).write("\\foobar").clickOn(inserter.ok);
+	public void testEnterCodeKOCreatesText(final FxRobot robot) {
+		robot.clickOn(inserter.text).write("\\foobar").clickOn(inserter.ok);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IText);

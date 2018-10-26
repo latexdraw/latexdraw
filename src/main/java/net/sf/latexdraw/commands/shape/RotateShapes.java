@@ -10,12 +10,12 @@
  */
 package net.sf.latexdraw.commands.shape;
 
+import java.util.ResourceBundle;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.commands.ShapeCmdImpl;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
 import org.malai.undo.Undoable;
 
 /**
@@ -26,15 +26,16 @@ public class RotateShapes extends ShapeCmdImpl<IShape> implements Undoable, Modi
 	/** The rotation angle to apply. */
 	private double rotationAngle;
 	/** The gravity centre used for the rotation. */
-	private IPoint gc;
+	private final IPoint gc;
 	/** The last increment performed on shapes. Used to execute several times the command. */
 	private double lastRotationAngle;
 
 
-	public RotateShapes() {
-		super();
-		gc = null;
+	public RotateShapes(final IPoint gc, final IShape sh, final double rotation) {
+		super(sh);
+		this.gc = gc;
 		lastRotationAngle = 0d;
+		rotationAngle = rotation;
 	}
 
 	@Override
@@ -75,8 +76,8 @@ public class RotateShapes extends ShapeCmdImpl<IShape> implements Undoable, Modi
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.31");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.31");
 	}
 
 	public void setRotationAngle(final double angle) {
@@ -85,10 +86,6 @@ public class RotateShapes extends ShapeCmdImpl<IShape> implements Undoable, Modi
 
 	public double getRotationAngle() {
 		return rotationAngle;
-	}
-
-	public void setGravityCentre(final IPoint gcpt) {
-		gc = gcpt;
 	}
 
 	public IPoint getGc() {

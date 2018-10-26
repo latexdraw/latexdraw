@@ -37,11 +37,12 @@ public class TestInjector implements HelperTest {
 
 	@Test
 	public void testConstructor() {
-		new Injector() {
+		final Injector injector = new Injector() {
 			@Override
 			protected void configure() {
 			}
 		};
+		injector.initialise();
 	}
 
 	@Test
@@ -52,6 +53,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(D.class);
 			}
 		};
+		injector.initialise();
 
 		assertNotNull(injector.getInstance(D.class));
 		Mockito.verify(handler, Mockito.never()).publish(Mockito.any());
@@ -65,6 +67,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(K.class);
 			}
 		};
+		injector.initialise();
 		assertNull(injector.getInstance(K.class));
 		Mockito.verify(handler, Mockito.atLeastOnce()).publish(Mockito.any());
 	}
@@ -76,6 +79,7 @@ public class TestInjector implements HelperTest {
 			protected void configure() {
 			}
 		};
+		injector.initialise();
 		assertNull(injector.getInstance(null));
 		Mockito.verify(handler, Mockito.never()).publish(Mockito.any());
 	}
@@ -88,7 +92,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(D.class);
 			}
 		};
-
+		injector.initialise();
 		assertSame(injector.getInstance(D.class), injector.getInstance(D.class));
 		Mockito.verify(handler, Mockito.never()).publish(Mockito.any());
 	}
@@ -101,6 +105,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(A.class);
 			}
 		};
+		injector.initialise();
 		assertNotNull(injector.getInstance(A.class));
 		assertNull(injector.getInstance(A.class).b);
 		Mockito.verify(handler, Mockito.atLeastOnce()).publish(Mockito.any());
@@ -115,7 +120,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(C.class);
 			}
 		};
-
+		injector.initialise();
 		assertNotNull(injector.getInstance(C.class));
 		assertNotNull(injector.getInstance(D.class));
 		assertSame(injector.getInstance(D.class), injector.getInstance(C.class).d);
@@ -131,7 +136,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(E.class);
 			}
 		};
-
+		injector.initialise();
 		assertNotNull(injector.getInstance(D.class));
 		assertNotNull(injector.getInstance(E.class));
 		assertSame(injector.getInstance(D.class), injector.getInstance(E.class).d);
@@ -148,7 +153,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(H.class);
 			}
 		};
-
+		injector.initialise();
 		assertNotNull(injector.getInstance(G.class));
 		assertNotNull(injector.getInstance(F.class));
 		assertNotNull(injector.getInstance(H.class));
@@ -165,7 +170,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(B.class);
 			}
 		};
-
+		injector.initialise();
 		assertNotNull(injector.getInstance(A.class));
 		assertNotNull(injector.getInstance(B.class));
 		assertSame(injector.getInstance(A.class), injector.getInstance(B.class).a);
@@ -181,7 +186,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(I.class);
 			}
 		};
-
+		injector.initialise();
 		injector.getInstance(I.class);
 		injector.getInstance(I.class);
 		assertEquals(1, I.cpt);
@@ -196,7 +201,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(J.class);
 			}
 		};
-
+		injector.initialise();
 		injector.getInstance(J.class);
 		assertEquals(injector.getInstance(J.class), injector.getInstance(J.class).j);
 		Mockito.verify(handler, Mockito.never()).publish(Mockito.any());
@@ -212,7 +217,7 @@ public class TestInjector implements HelperTest {
 				bindWithCommand(C.class, E.class, obj -> obj);
 			}
 		};
-
+		injector.initialise();
 		assertNotNull(injector.getInstance(C.class));
 		assertNotNull(injector.getInstance(E.class));
 		Mockito.verify(handler, Mockito.atLeastOnce()).publish(Mockito.any());
@@ -226,7 +231,7 @@ public class TestInjector implements HelperTest {
 				bindWithCommand(C.class, E.class, obj -> obj);
 			}
 		};
-
+		injector.initialise();
 		Mockito.verify(handler, Mockito.atLeastOnce()).publish(Mockito.any());
 	}
 
@@ -237,7 +242,7 @@ public class TestInjector implements HelperTest {
 			protected void configure() {
 			}
 		};
-
+		injector.initialise();
 		assertNotNull(injector.getInstances());
 	}
 
@@ -249,6 +254,7 @@ public class TestInjector implements HelperTest {
 				bindAsEagerSingleton(D.class);
 			}
 		};
+		injector.initialise();
 		final D obj = injector.getInstance(D.class);
 		assertEquals(obj, injector.getInstances().iterator().next());
 	}

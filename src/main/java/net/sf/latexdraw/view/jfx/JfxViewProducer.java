@@ -8,25 +8,17 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  */
-package net.sf.latexdraw.commands;
+package net.sf.latexdraw.view.jfx;
 
-import javafx.scene.layout.Pane;
-import org.malai.command.Command;
+import java.util.Optional;
+import net.sf.latexdraw.models.interfaces.shape.IShape;
 
-/**
- * This trait encapsulates the template menu.
- * @author Arnaud Blouin
- */
-public interface TemplateCmd extends Command {
+public interface JfxViewProducer {
 	/**
-	 * @param pane The pane that contains the templates.
+	 * Creates a view from a shape.
+	 * @param shape The shape used to create the view.
+	 * @return The created view or empty.
+	 * @since 3.0
 	 */
-	void setTemplatesPane(final Pane pane);
-
-	Pane getTemplatesPane();
-
-	@Override
-	default boolean canDo() {
-		return getTemplatesPane() != null;
-	}
+	<T extends IShape, S extends ViewShape<T>> Optional<S> createView(final T shape);
 }

@@ -16,14 +16,15 @@ import net.sf.latexdraw.models.interfaces.shape.IPolyline;
  * @author Arnaud Blouin
  */
 public class ViewPolyline extends ViewPolyPoint<IPolyline> {
-	protected final ViewArrowableTraitPath<IPolyline> viewArrows = new ViewArrowableTraitPath<>(this);
+	protected final ViewArrowableTraitPath<IPolyline> viewArrows;
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPolyline(final IPolyline sh) {
-		super(sh);
+	ViewPolyline(final IPolyline sh, final PathElementProducer pathProducer) {
+		super(sh, pathProducer);
+		viewArrows = new ViewArrowableTraitPath<>(this, pathProducer);
 		getChildren().add(viewArrows);
 		viewArrows.updateAllArrows();
 	}

@@ -16,7 +16,7 @@ public class TestVersionChecker {
 	@Test
 	public void testCheckVersionNoNewVersion() throws InterruptedException {
 		final StatusBarController controller = mock(StatusBarController.class);
-		final FutureTask<Void> future = new FutureTask<>(new VersionChecker(controller), null);
+		final FutureTask<Void> future = new FutureTask<>(new VersionChecker(controller, new LangService(new SystemService())), null);
 		final ExecutorService taskExecutor = Executors.newFixedThreadPool(1);
 		taskExecutor.execute(future);
 		taskExecutor.shutdown();

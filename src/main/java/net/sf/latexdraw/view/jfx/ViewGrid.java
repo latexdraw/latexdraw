@@ -40,8 +40,8 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewGrid(final IGrid sh) {
-		super(sh);
+	ViewGrid(final IGrid sh, final PathElementProducer pathProducer) {
+		super(sh, pathProducer);
 		maingrid = new Path();
 		subgrid = new Path();
 		mainGridLineCapUpdate = (o, formerv, newv) -> {
@@ -96,8 +96,8 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		for(double k = minX, i = posX; k <= maxX; i += xStep, k++) {
 			for(double m = tly, n = minY; n < maxY; n++, m += absStep) {
 				for(double l = 0d, j = m; l < gridDots; l++, j += dotStep) {
-					elements.add(ViewFactory.INSTANCE.createMoveTo(i, j));
-					elements.add(ViewFactory.INSTANCE.createLineTo(i, j));
+					elements.add(pathProducer.createMoveTo(i, j));
+					elements.add(pathProducer.createLineTo(i, j));
 				}
 			}
 		}
@@ -105,14 +105,14 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		for(double k = minY, i = posY; k <= maxY; i -= yStep, k++) {
 			for(double m = tlx, n = minX; n < maxX; n++, m += absStep) {
 				for(double l = 0d, j = m; l < gridDots; l++, j += dotStep) {
-					elements.add(ViewFactory.INSTANCE.createMoveTo(j, i));
-					elements.add(ViewFactory.INSTANCE.createLineTo(j, i));
+					elements.add(pathProducer.createMoveTo(j, i));
+					elements.add(pathProducer.createLineTo(j, i));
 				}
 			}
 		}
 
-		elements.add(ViewFactory.INSTANCE.createMoveTo(brx, bry));
-		elements.add(ViewFactory.INSTANCE.createLineTo(brx, bry));
+		elements.add(pathProducer.createMoveTo(brx, bry));
+		elements.add(pathProducer.createLineTo(brx, bry));
 	}
 
 
@@ -125,13 +125,13 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 			final ObservableList<PathElement> elements = maingrid.getElements();
 
 			for(double k = minX, i = posX; k <= maxX; i += xStep, k++) {
-				elements.add(ViewFactory.INSTANCE.createMoveTo(i, bry));
-				elements.add(ViewFactory.INSTANCE.createLineTo(i, tly));
+				elements.add(pathProducer.createMoveTo(i, bry));
+				elements.add(pathProducer.createLineTo(i, tly));
 			}
 
 			for(double k = minY, i = posY; k <= maxY; i -= yStep, k++) {
-				elements.add(ViewFactory.INSTANCE.createMoveTo(tlx, i));
-				elements.add(ViewFactory.INSTANCE.createLineTo(brx, i));
+				elements.add(pathProducer.createMoveTo(tlx, i));
+				elements.add(pathProducer.createLineTo(brx, i));
 			}
 		}
 	}
@@ -154,8 +154,8 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 			for(double i = 0d, n = tlx; i < nbX; i++, n += xSubStep) {
 				for(double j = 0d, m = tly; j <= nbY; j++, m += ySubStep) {
 					for(double k = 0d; k < subGridDots; k++) {
-						elements.add(ViewFactory.INSTANCE.createMoveTo(n + k * dotStep, m));
-						elements.add(ViewFactory.INSTANCE.createLineTo(n + k * dotStep, m));
+						elements.add(pathProducer.createMoveTo(n + k * dotStep, m));
+						elements.add(pathProducer.createLineTo(n + k * dotStep, m));
 					}
 				}
 			}
@@ -163,27 +163,27 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 			for(double j = 0d, n = tly; j < nbY; j++, n += ySubStep) {
 				for(double i = 0d, m = tlx; i <= nbX; i++, m += xSubStep) {
 					for(double k = 0d; k < subGridDots; k++) {
-						elements.add(ViewFactory.INSTANCE.createMoveTo(m, n + k * dotStep));
-						elements.add(ViewFactory.INSTANCE.createLineTo(m, n + k * dotStep));
+						elements.add(pathProducer.createMoveTo(m, n + k * dotStep));
+						elements.add(pathProducer.createLineTo(m, n + k * dotStep));
 					}
 				}
 			}
 
-			elements.add(ViewFactory.INSTANCE.createMoveTo(brx, bry));
-			elements.add(ViewFactory.INSTANCE.createLineTo(brx, bry));
+			elements.add(pathProducer.createMoveTo(brx, bry));
+			elements.add(pathProducer.createLineTo(brx, bry));
 		}else {
 			if(subGridDiv > 1d) {
 				for(double k = minX, i = posX; k < maxX; i += xStep, k++) {
 					for(double j = 0d; j <= subGridDiv; j++) {
-						elements.add(ViewFactory.INSTANCE.createMoveTo(i + xSubStep * j, bry));
-						elements.add(ViewFactory.INSTANCE.createLineTo(i + xSubStep * j, tly));
+						elements.add(pathProducer.createMoveTo(i + xSubStep * j, bry));
+						elements.add(pathProducer.createLineTo(i + xSubStep * j, tly));
 					}
 				}
 
 				for(double k = minY, i = posY; k < maxY; i -= yStep, k++) {
 					for(double j = 0d; j <= subGridDiv; j++) {
-						elements.add(ViewFactory.INSTANCE.createMoveTo(tlx, i - ySubStep * j));
-						elements.add(ViewFactory.INSTANCE.createLineTo(brx, i - ySubStep * j));
+						elements.add(pathProducer.createMoveTo(tlx, i - ySubStep * j));
+						elements.add(pathProducer.createLineTo(brx, i - ySubStep * j));
 					}
 				}
 			}

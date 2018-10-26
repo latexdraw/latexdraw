@@ -1,8 +1,6 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
@@ -12,20 +10,20 @@ import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	List<PathElement> pathBefore;
 	Ellipse dotBefore;
 
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});
@@ -34,10 +32,8 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 		}
 	}
 
-	@Override
-	@Before
-	public void setUp() throws InterruptedException, ExecutionException, TimeoutException {
-		super.setUp();
+	@BeforeEach
+	void setUp() {
 		pathBefore = duplicatePath(getPathView().getElements());
 		final Ellipse dotView = getDotView();
 		dotBefore = new Ellipse(dotView.getCenterX(), dotView.getCenterY(), dotView.getRadiusX(), dotView.getRadiusY());
@@ -57,14 +53,14 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleDot() {
+	void testOnDotStyleDot() {
 		checkDot();
 		assertTrue(getPathView().getElements().isEmpty());
 		assertFalse(getPathView().isVisible());
 	}
 
 	@Test
-	public void testOnDotStyleChangedO() {
+	void testOnDotStyleChangedO() {
 		model.setDotStyle(DotStyle.O);
 		assertTrue(getPathView().getElements().isEmpty());
 		assertFalse(getPathView().isVisible());
@@ -72,7 +68,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedOPLUS() {
+	void testOnDotStyleChangedOPLUS() {
 		model.setDotStyle(DotStyle.OPLUS);
 		checkDot();
 		assertFalse(getPathView().getElements().isEmpty());
@@ -80,7 +76,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedOTIMES() {
+	void testOnDotStyleChangedOTIMES() {
 		model.setDotStyle(DotStyle.OTIMES);
 		checkDot();
 		assertFalse(getPathView().getElements().isEmpty());
@@ -88,9 +84,9 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testUpdateOnLineColorChange() {
-		Paint fill = view.dot.getFill();
-		Paint stroke = view.dot.getStroke();
+	void testUpdateOnLineColorChange() {
+		final Paint fill = view.dot.getFill();
+		final Paint stroke = view.dot.getStroke();
 		model.setLineColour(DviPsColors.YELLOW);
 		assertNotEquals(fill, view.dot.getFill());
 		assertNotEquals(stroke, view.dot.getStroke());
@@ -106,7 +102,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 
 
 	@Test
-	public void testOnDotStyleChangedASTERISK() {
+	void testOnDotStyleChangedASTERISK() {
 		model.setDotStyle(DotStyle.ASTERISK);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -114,7 +110,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedBAR() {
+	void testOnDotStyleChangedBAR() {
 		model.setDotStyle(DotStyle.BAR);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -122,7 +118,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedDIAMOND() {
+	void testOnDotStyleChangedDIAMOND() {
 		model.setDotStyle(DotStyle.DIAMOND);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -130,7 +126,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedFDIAMOND() {
+	void testOnDotStyleChangedFDIAMOND() {
 		model.setDotStyle(DotStyle.FDIAMOND);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -138,7 +134,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedFPENTAGON() {
+	void testOnDotStyleChangedFPENTAGON() {
 		model.setDotStyle(DotStyle.FPENTAGON);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -146,7 +142,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedFSQUARE() {
+	void testOnDotStyleChangedFSQUARE() {
 		model.setDotStyle(DotStyle.FSQUARE);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -154,7 +150,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedFTRIANGLE() {
+	void testOnDotStyleChangedFTRIANGLE() {
 		model.setDotStyle(DotStyle.FTRIANGLE);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -162,7 +158,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedPENTAGON() {
+	void testOnDotStyleChangedPENTAGON() {
 		model.setDotStyle(DotStyle.PENTAGON);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -170,7 +166,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedPLUS() {
+	void testOnDotStyleChangedPLUS() {
 		model.setDotStyle(DotStyle.PLUS);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -178,7 +174,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedSQUARE() {
+	void testOnDotStyleChangedSQUARE() {
 		model.setDotStyle(DotStyle.SQUARE);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -186,7 +182,7 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnDotStyleChangedTRIANGLE() {
+	void testOnDotStyleChangedTRIANGLE() {
 		model.setDotStyle(DotStyle.TRIANGLE);
 		assertFalse(getDotView().isVisible());
 		assertTrue(getPathView().isVisible());
@@ -194,13 +190,13 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testChangeDiametreDot() {
+	void testChangeDiametreDot() {
 		model.setDiametre(model.getDiametre() * 1.33);
 		checkDot();
 	}
 
 	@Test
-	public void testChangeDiametreNotDot() {
+	void testChangeDiametreNotDot() {
 		model.setDotStyle(DotStyle.ASTERISK);
 		pathBefore = duplicatePath(getPathView().getElements());
 		model.setDiametre(model.getDiametre() * 1.33);
@@ -224,16 +220,16 @@ public class TestViewDot extends TestViewShape<ViewDot, IDot> {
 	}
 
 	@Test
-	public void testOnTranslateXDot() {
+	void testOnTranslateXDot() {
 		model.translate(17d, 0d);
-		assertNotEquals(dotBefore.getCenterX(), getDotView().getCenterX(), 0.0001);
+		assertNotEquals(dotBefore.getCenterX(), getDotView().getCenterX());
 		assertEquals(dotBefore.getCenterY(), getDotView().getCenterY(), 0.0001);
 	}
 
 	@Test
-	public void testOnTranslateYDot() {
+	void testOnTranslateYDot() {
 		model.translate(0d, 13d);
-		assertNotEquals(dotBefore.getCenterY(), getDotView().getCenterY(), 0.0001);
+		assertNotEquals(dotBefore.getCenterY(), getDotView().getCenterY());
 		assertEquals(dotBefore.getCenterX(), getDotView().getCenterX(), 0.0001);
 	}
 }

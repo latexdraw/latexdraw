@@ -24,7 +24,7 @@ public abstract class TestFreeHandStyleGUI extends TestShapePropGUI<ShapeFreeHan
 		super.setUp();
 		freeHandType = find("#freeHandType");
 		gapPoints = find("#gapPoints");
-		ins = (ShapeFreeHandCustomiser) injectorFactory.call(ShapeFreeHandCustomiser.class);
+		ins = injector.getInstance(ShapeFreeHandCustomiser.class);
 		ins.setActivated(true);
 	}
 }

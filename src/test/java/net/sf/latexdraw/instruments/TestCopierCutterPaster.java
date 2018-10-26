@@ -8,9 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -25,15 +26,15 @@ import static org.mockito.Mockito.when;
 public class TestCopierCutterPaster extends BaseTestCanvas {
 	CopierCutterPaster copier;
 
-	GUIVoidCommand clickCopy = () -> {
+	final GUIVoidCommand clickCopy = () -> {
 		clickOn("#copierMenu").clickOn("#copyMenu");
 		WaitForAsyncUtils.waitForFxEvents();
 	};
-	GUIVoidCommand clickCut = () -> {
+	final GUIVoidCommand clickCut = () -> {
 		clickOn("#copierMenu").clickOn("#cutMenu");
 		WaitForAsyncUtils.waitForFxEvents();
 	};
-	GUIVoidCommand clickPaste = () -> {
+	final GUIVoidCommand clickPaste = () -> {
 		clickOn("#copierMenu").clickOn("#pasteMenu");
 		WaitForAsyncUtils.waitForFxEvents();
 	};
@@ -44,6 +45,7 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				bindAsEagerSingleton(Border.class);
 				bindAsEagerSingleton(CopierCutterPaster.class);
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
@@ -60,8 +62,8 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 	public void start(final Stage aStage) {
 		super.start(aStage);
 		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/CopyPaste.fxml"), LangTool.INSTANCE.getBundle(),
-				new LatexdrawBuilderFactory(injector), injectorFactory);
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/CopyPaste.fxml"), injector.getInstance(LangService.class).getBundle(),
+				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 			final BorderPane pane = new BorderPane();
 			pane.setTop(root);
 			pane.setCenter(aStage.getScene().getRoot());
@@ -75,7 +77,7 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 	@Before
 	public void setUp() {
 		super.setUp();
-		copier = (CopierCutterPaster) injectorFactory.call(CopierCutterPaster.class);
+		copier = injector.getInstance(CopierCutterPaster.class);
 		hand.setActivated(true);
 		copier.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);

@@ -3,19 +3,21 @@ package net.sf.latexdraw.instruments.pencil;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import net.sf.latexdraw.instruments.CompositeGUIVoidCommand;
-import net.sf.latexdraw.instruments.ShapePropInjector;
-import net.sf.latexdraw.instruments.TestDotStyleGUI;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
+import net.sf.latexdraw.instruments.ShapePropInjector;
+import net.sf.latexdraw.instruments.TestDotStyleGUI;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -32,6 +34,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeDotCustomiser.class);
 				bindAsEagerSingleton(Pencil.class);

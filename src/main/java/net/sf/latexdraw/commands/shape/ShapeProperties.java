@@ -13,6 +13,7 @@ package net.sf.latexdraw.commands.shape;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -43,7 +44,6 @@ import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-import net.sf.latexdraw.util.LangTool;
 
 /**
  * Defines shape properties.
@@ -397,8 +397,8 @@ public final class ShapeProperties<T> {
 	/**
 	 * @return The title of the properties.
 	 */
-	public String getMessage() {
-		return LangTool.INSTANCE.getBundle().getString(labelName);
+	public String getMessage(final ResourceBundle bundle) {
+		return bundle.getString(labelName);
 	}
 
 	public boolean accept(final IGroup g) {

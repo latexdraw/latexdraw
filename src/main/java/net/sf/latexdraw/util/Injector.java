@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.util;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -38,6 +40,7 @@ public abstract class Injector {
 
 	private final Set<Class<?>> singletons;
 	private final Map<Class<?>, Object> instances;
+	private final Map<Class<?>, Supplier<Object>> instancesSuppliers;
 	private final Map<Class<?>, Supplier<?>> bindingsBetweenTypes;
 
 	/**
@@ -47,8 +50,15 @@ public abstract class Injector {
 	public Injector() {
 		super();
 		instances = new HashMap<>();
+		instancesSuppliers = new HashMap<>();
 		bindingsBetweenTypes = new HashMap<>();
 		singletons = new HashSet<>();
+	}
+
+	/**
+	 * To be called to configure the injector.
+	 */
+	public void initialise() {
 		try {
 			configure();
 			singletons.forEach(cl -> injectFieldsOf(instances.get(cl)));
@@ -72,7 +82,7 @@ public abstract class Injector {
 	 * @return The created instance of null when: the given class is or not registered.
 	 */
 	public <T> T getInstance(final Class<T> cl) {
-		if(cl == null || cl.isPrimitive()) {
+		if(cl == null || cl.isPrimitive() || cl.isArray() || cl.isEnum() || !isConfigured(cl)) {
 			return null;
 		}
 
@@ -107,7 +117,7 @@ public abstract class Injector {
 	private boolean isConfigured(final Class<?> cl) {
 		synchronized(instances) {
 			synchronized(bindingsBetweenTypes) {
-				return cl != null && (instances.containsKey(cl) || bindingsBetweenTypes.containsKey(cl));
+				return cl != null && (instances.containsKey(cl) || instancesSuppliers.containsKey(cl) || bindingsBetweenTypes.containsKey(cl));
 			}
 		}
 	}
@@ -141,6 +151,12 @@ public abstract class Injector {
 					}
 				}
 
+				if(value == null) {
+					synchronized(instancesSuppliers) {
+						value = instancesSuppliers.getOrDefault(field.getType(), () -> null).get();
+					}
+				}
+
 				// Injecting the value.
 				final Object val = value;
 				LOGGER.info(() -> "Injecting the field: " + field.getName() + " of " + instance.getClass().getTypeName() + " with: " + val); //NON-NLS
@@ -162,17 +178,49 @@ public abstract class Injector {
 	 * @throws IllegalAccessException On instantiation issues.
 	 * @throws InstantiationException On instantiation issues.
 	 */
-	public <T> void bindAsEagerSingleton(final Class<T> cl) throws IllegalAccessException, InstantiationException, NoSuchMethodException,
-		InvocationTargetException {
-		if(cl != null) {
-			final T instance = cl.getDeclaredConstructor().newInstance();
+	public <T> void bindAsEagerSingleton(final Class<T> cl) throws IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
+		if(cl == null) {
+			return;
+		}
+		// Getting all the constructors
+		final Constructor<T>[] cons = (Constructor<T>[]) cl.getDeclaredConstructors();
+
+		// Looking for the default constructor.
+		// Do not use the getDeclaredConstructor() method to do that as it raises an exception when no default constructor is defined.
+		final Optional<Constructor<T>> conDefault = Arrays.stream(cons).filter(con -> con.getParameterCount() == 0).findFirst();
+		final T instance;
+
+		if(conDefault.isPresent()) {
+			// Simply calling the default constructor
+			instance = conDefault.get().newInstance();
+		}else {
+			// Looking for a constructor that all its arguments are annotated with @Inject
+			final Constructor<T> conInjection = Arrays.stream(cons).filter(con -> Arrays.stream(con.getParameterAnnotations()).
+				flatMap(annots -> Arrays.stream(annots)).
+				allMatch(annot -> annot.annotationType() == Inject.class)).
+				findFirst().orElseThrow(NoSuchMethodException::new);
+
+			// Calling the found constructor with as argument instances managed by the injector.
+			instance = conInjection.newInstance(Arrays.stream(conInjection.getParameterTypes()).map(arg -> getInstance(arg)).toArray());
+		}
+
+		synchronized(singletons) {
+			singletons.add(cl);
+		}
+		bindToInstance(cl, instance);
+	}
+
+	/**
+	 * Binds the given class to the given instance. Nothing is done if one of the parameters is null.
+	 * @param cl The class to bind.
+	 * @param supplier The supplier that will return the instance.
+	 * @param <T> The type of the instance.
+	 */
+	public <T> void bindToSupplier(final Class<T> cl, final Supplier<T> supplier) {
+		if(cl != null && supplier != null) {
 			synchronized(instances) {
-				instances.put(cl, instance);
+				instancesSuppliers.put(cl, (Supplier<Object>) supplier);
 			}
-			synchronized(singletons) {
-				singletons.add(cl);
-			}
-			bindToInstance(cl, instance);
 		}
 	}
 

@@ -98,23 +98,14 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(AlignShapes::new).on(alignBot, alignLeft, alignMidHoriz, alignMidVert, alignRight, alignTop).first((i, c) -> {
-			c.setAlignment((AlignShapes.Alignment) i.getWidget().getUserData());
-			c.setCanvas(canvas);
-			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
-		}).bind();
+		buttonBinder(i -> new AlignShapes(canvas, (AlignShapes.Alignment) i.getWidget().getUserData(), pencil.canvas.getDrawing().getSelection().duplicateDeep(false))).
+			on(alignBot, alignLeft, alignMidHoriz, alignMidVert, alignRight, alignTop).bind();
 
-		buttonBinder(MirrorShapes::new).on(mirrorH, mirrorV).first((i, c) -> {
-			c.setHorizontally(i.getWidget() == mirrorH);
-			c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
-		}).bind();
+		buttonBinder(i -> new MirrorShapes(i.getWidget() == mirrorH, pencil.canvas.getDrawing().getSelection().duplicateDeep(false))).
+			on(mirrorH, mirrorV).bind();
 
-		buttonBinder(DistributeShapes::new).
-			on(distribHorizEq, distribHorizLeft, distribHorizMid, distribHorizRight, distribVertBot, distribVertEq, distribVertMid, distribVertTop).
-			first((i, c) -> {
-				c.setDistribution((DistributeShapes.Distribution) i.getWidget().getUserData());
-				c.setCanvas(canvas);
-				c.setShape(pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
-		}).bind();
+		buttonBinder(i -> new DistributeShapes(canvas, (DistributeShapes.Distribution) i.getWidget().getUserData(),
+			pencil.canvas.getDrawing().getSelection().duplicateDeep(false))).
+			on(distribHorizEq, distribHorizLeft, distribHorizMid, distribHorizRight, distribVertBot, distribVertEq, distribVertMid, distribVertTop).bind();
 	}
 }

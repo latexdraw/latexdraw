@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +29,9 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 		return new Injector() {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+				bindToInstance(Injector.class, this);
+				bindAsEagerSingleton(SystemService.class);
+				bindAsEagerSingleton(LangService.class);
 				bindAsEagerSingleton(ExceptionsManager.class);
 			}
 		};

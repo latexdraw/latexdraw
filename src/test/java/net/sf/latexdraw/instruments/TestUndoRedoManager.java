@@ -9,11 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.commands.shape.AddShape;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
@@ -44,6 +45,7 @@ public class TestUndoRedoManager extends BaseTestCanvas {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
@@ -62,8 +64,8 @@ public class TestUndoRedoManager extends BaseTestCanvas {
 	public void start(final Stage aStage) {
 		super.start(aStage);
 		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Undo.fxml"), LangTool.INSTANCE.getBundle(),
-				new LatexdrawBuilderFactory(injector), injectorFactory);
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Undo.fxml"), injector.getInstance(LangService.class).getBundle(),
+				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 			final BorderPane pane = new BorderPane();
 			pane.setTop(root);
 			pane.setCenter(stage.getScene().getRoot());

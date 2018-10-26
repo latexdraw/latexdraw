@@ -15,7 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.util.LSystem;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.hamcrest.number.IsCloseTo.closeTo;
@@ -46,7 +45,7 @@ public interface HelperTest {
 	}
 
 	static String getBadaboomMessages() {
-		return BadaboomCollector.INSTANCE.stream().map(ex -> ex.getMessage()).collect(Collectors.joining(LSystem.EOL));
+		return BadaboomCollector.INSTANCE.stream().map(ex -> ex.getMessage()).collect(Collectors.joining(System.getProperty("line.separator")));
 	}
 
 	default <T extends Node> void assertNotEqualsSnapshot(final T node, final Runnable toExecBetweenSnap) {

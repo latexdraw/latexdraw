@@ -13,12 +13,12 @@ package net.sf.latexdraw.commands.shape;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.commands.DrawingCmdImpl;
 import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.MagneticGrid;
 import org.malai.command.Command;
 import org.malai.undo.Undoable;
@@ -106,8 +106,8 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.43");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("LaTeXDrawFrame.43");
 	}
 
 	@Override
@@ -117,8 +117,7 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 		}
 
 		final List<Command> list = new ArrayList<>();
-		final SelectShapes selectCmd = new SelectShapes();
-		selectCmd.setDrawing(drawing);
+		final SelectShapes selectCmd = new SelectShapes(drawing);
 		pastedShapes.forEach(selectCmd::addShape);
 		list.add(selectCmd);
 		return list;

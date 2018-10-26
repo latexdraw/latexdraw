@@ -29,7 +29,7 @@ public abstract class TestShadowStyleGUI extends TestShapePropGUI<ShapeShadowCus
 		shadowColB = find("#shadowColB");
 		shadowSizeField = find("#shadowSizeField");
 		shadowAngleField = find("#shadowAngleField");
-		ins = (ShapeShadowCustomiser) injectorFactory.call(ShapeShadowCustomiser.class);
+		ins = injector.getInstance(ShapeShadowCustomiser.class);
 		ins.setActivated(true);
 	}
 }

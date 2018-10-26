@@ -12,6 +12,7 @@ package net.sf.latexdraw.commands;
 
 
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -23,7 +24,7 @@ import net.sf.latexdraw.parsers.pst.PSTContext;
 import net.sf.latexdraw.parsers.pst.PSTLatexdrawListener;
 import net.sf.latexdraw.parsers.pst.PSTLexer;
 import net.sf.latexdraw.parsers.pst.PSTParser;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.LangService;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
@@ -33,20 +34,22 @@ import org.malai.undo.Undoable;
  * This command converts PST code into shapes and add them to the drawing.
  * @author Arnaud Blouin
  */
-public class InsertPSTCode extends DrawingCmdImpl implements Undoable {
+public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying {
 	/** The code to parse. */
 	private final String code;
 	/** The status bar. */
 	private final Label statusBar;
 	/** The added shapes. */
 	private Optional<IShape> shapes;
+	private final LangService lang;
 
 
-	public InsertPSTCode(final String codeToInsert, final Label status, final IDrawing drawingToFill) {
+	public InsertPSTCode(final String codeToInsert, final Label status, final IDrawing drawingToFill, final LangService lang) {
 		super(drawingToFill);
 		code = codeToInsert;
 		statusBar = status;
 		shapes = Optional.empty();
+		this.lang = lang;
 
 	}
 
@@ -73,7 +76,7 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable {
 				redo();
 
 				if(statusBar != null) {
-					statusBar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.36"));
+					statusBar.setText(lang.getBundle().getString("LaTeXDrawFrame.36"));
 				}
 			}
 			parser.getInterpreter().clearDFA();
@@ -81,7 +84,7 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable {
 		}catch(final RecognitionException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			if(statusBar != null) {
-				statusBar.setText(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.34"));
+				statusBar.setText(lang.getBundle().getString("LaTeXDrawFrame.34"));
 			}
 		}
 
@@ -105,8 +108,8 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable {
 	}
 
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.4");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.4");
 	}
 
 	@Override

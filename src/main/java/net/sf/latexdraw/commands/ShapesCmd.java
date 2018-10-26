@@ -22,7 +22,6 @@ public interface ShapesCmd extends Command {
 	/**
 	 * Sets the shape to handle.
 	 * @param shape The shape to handle. Can be null.
-	 * @since 3.0
 	 */
 	default void setShape(final IShape shape) {
 		getShapes().clear();
@@ -35,7 +34,6 @@ public interface ShapesCmd extends Command {
 	/**
 	 * Add a shape to the list of shapes to handle.
 	 * @param shape The shape to handle.
-	 * @since 3.0
 	 */
 	default void addShape(final IShape shape) {
 		if(shape != null) {
@@ -45,7 +43,6 @@ public interface ShapesCmd extends Command {
 
 	/**
 	 * @return The shapes to handle.
-	 * @since 3.0
 	 */
 	List<IShape> getShapes();
 }

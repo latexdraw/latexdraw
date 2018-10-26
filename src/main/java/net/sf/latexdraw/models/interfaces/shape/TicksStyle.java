@@ -11,7 +11,7 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import java.util.Arrays;
-import net.sf.latexdraw.util.LangTool;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
@@ -36,8 +36,8 @@ public enum TicksStyle {
 		}
 
 		@Override
-		public String toString() {
-			return LangTool.INSTANCE.getBundle().getString("Axe.3"); //NON-NLS
+		public String getLabel(final ResourceBundle bundle) {
+			return bundle.getString("Axe.3"); //NON-NLS
 		}
 	}, TOP {
 		@Override
@@ -56,8 +56,8 @@ public enum TicksStyle {
 		}
 
 		@Override
-		public String toString() {
-			return LangTool.INSTANCE.getBundle().getString("Axe.4"); //NON-NLS
+		public String getLabel(final ResourceBundle bundle) {
+			return bundle.getString("Axe.4"); //NON-NLS
 		}
 	}, BOTTOM {
 		@Override
@@ -76,16 +76,14 @@ public enum TicksStyle {
 		}
 
 		@Override
-		public String toString() {
-			return LangTool.INSTANCE.getBundle().getString("Axe.5"); //NON-NLS
+		public String getLabel(final ResourceBundle bundle) {
+			return bundle.getString("Axe.5"); //NON-NLS
 		}
 	};
 
 	/**
-	 * @param style The style to check. Can be the PST token or the name of the style (e.g.
-	 * FULL.toString()).
+	 * @param style The style to check. Can be the PST token or the name of the style (e.g. FULL.toString()).
 	 * @return The corresponding style or FULL.
-	 * @since 3.0
 	 */
 	public static TicksStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(FULL);
@@ -93,19 +91,21 @@ public enum TicksStyle {
 
 	/**
 	 * @return The PST token corresponding to the tick style.
-	 * @since 3.0
 	 */
 	public abstract String getPSTToken();
 
 	/**
 	 * @return True if the current tick style considers the top ticks.
-	 * @since 3.0
 	 */
 	public abstract boolean isTop();
 
 	/**
 	 * @return True if the current tick style considers the bottom ticks.
-	 * @since 3.0
 	 */
 	public abstract boolean isBottom();
+
+	/**
+	 * @return The internationalised label of the ticks style.
+	 */
+	public abstract String getLabel(final ResourceBundle bundle);
 }

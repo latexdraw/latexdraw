@@ -26,15 +26,8 @@ import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 /**
  * @author Arnaud Blouin
  */
-public final class PlotViewHelper {
-	public static final PlotViewHelper INSTANCE = new PlotViewHelper();
-
-	private PlotViewHelper() {
-		super();
-	}
-
-
-	private IPoint getPolarPoint(final IPlot shape, final double x, final double xs, final double ys, final double posX, final double posY) {
+public interface PlotViewComputation {
+	default IPoint getPolarPoint(final IPlot shape, final double x, final double xs, final double ys, final double posX, final double posY) {
 		final double radius = shape.getY(x);
 		final double angle = Math.toRadians(x);
 		final double x1 = radius * Math.cos(angle);
@@ -42,7 +35,7 @@ public final class PlotViewHelper {
 		return ShapeFactory.INST.createPoint(x1 * IShape.PPC * xs + posX, y1 * IShape.PPC * ys + posY);
 	}
 
-	public List<IPoint> fillPoints(final IPlot shape, final double posX, final double posY, final double minX,
+	default List<IPoint> fillPoints(final IPlot shape, final double posX, final double posY, final double minX,
 								final double maxX, final double step) {
 		final double xs = shape.getXScale();
 		final double ys = shape.getYScale();
@@ -64,7 +57,7 @@ public final class PlotViewHelper {
 	}
 
 
-	public List<IDot> updatePoints(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
+	default List<IDot> updatePoints(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		return ShapeFactory.INST.createPolyline(fillPoints(shape, posX, posY, minX, maxX, step)).getPoints().stream().map(pt -> {
 			final IDot dot = ShapeFactory.INST.createDot(pt);
 			dot.copy(shape);
@@ -75,21 +68,21 @@ public final class PlotViewHelper {
 	}
 
 
-	public IPolygon updatePolygon(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
+	default IPolygon updatePolygon(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		final IPolygon pg = ShapeFactory.INST.createPolygon(fillPoints(shape, posX, posY, minX, maxX, step));
 		pg.copy(shape);
 		return pg;
 	}
 
 
-	public IPolyline updateLine(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
+	default IPolyline updateLine(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		final IPolyline pl = ShapeFactory.INST.createPolyline(fillPoints(shape, posX, posY, minX, maxX, step));
 		pl.copy(shape);
 		return pl;
 	}
 
 
-	public IBezierCurve updateCurve(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
+	default IBezierCurve updateCurve(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		// The algorithm follows this definition:
 		// https://stackoverflow.com/questions/15864441/how-to-make-a-line-curve-through-points
 		final double scale = 0.33d;

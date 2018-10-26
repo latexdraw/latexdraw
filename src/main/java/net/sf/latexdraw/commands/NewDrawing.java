@@ -16,7 +16,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.LangService;
 import org.malai.command.CommandsRegistry;
 import org.malai.javafx.command.IOCommand;
 import org.malai.javafx.ui.JfxUI;
@@ -32,24 +34,28 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 	private FileChooser fileChooser;
 	/** The instrument used that manage the preferences. */
 	private final File currentFolder;
+	private final LangService lang;
+	private final Stage mainstage;
 
 	public NewDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
-					final FileChooser fileChooser, final File currentFolder) {
+					final FileChooser fileChooser, final File currentFolder, final LangService lang, final Stage mainstage) {
 		super(file, openSaveManager, progressBar, statusWidget, ui);
 		this.fileChooser = fileChooser;
 		this.currentFolder = currentFolder;
+		this.lang = lang;
+		this.mainstage = mainstage;
 	}
 
 	@Override
 	protected void doCmdBody() {
 		if(ui.isModified()) {
-			final ButtonType type = SaveDrawing.showAskModificationsDialog();
+			final ButtonType type = SaveDrawing.showAskModificationsDialog(lang);
 
 			if(type == ButtonType.NO) {
 				newDrawing();
 			}else {
 				if(type == ButtonType.YES) {
-					SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui).ifPresent(f -> {
+					SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui, mainstage).ifPresent(f -> {
 						try {
 							openSaveManager.save(f.getPath(), progressBar, statusWidget).get();
 						}catch(final InterruptedException | ExecutionException ex) {

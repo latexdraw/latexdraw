@@ -18,7 +18,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
-import net.sf.latexdraw.util.LSystem;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import org.malai.command.library.Redo;
 import org.malai.command.library.Undo;
 import org.malai.javafx.undo.FXUndoCollector;
@@ -35,6 +37,10 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	/** The button used to redo commands. */
 	@FXML private Button redoB;
 
+	@Inject private SystemService system;
+	@Inject private LangService lang;
+
+
 	/**
 	 * Creates the instrument.
 	 */
@@ -49,18 +55,18 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 
 		undoB.disableProperty().bind(FXUndoCollector.INSTANCE.lastUndoProperty().isNull().or(activatedProp.not()));
 		redoB.disableProperty().bind(FXUndoCollector.INSTANCE.lastRedoProperty().isNull().or(activatedProp.not()));
-		undoB.tooltipProperty().bind(Bindings.createObjectBinding(() ->
-			UndoCollector.INSTANCE.getLastUndo().map(undo -> new Tooltip(undo.getUndoName())).orElse(null), FXUndoCollector.INSTANCE.lastUndoProperty()));
-		redoB.tooltipProperty().bind(Bindings.createObjectBinding(() ->
-			UndoCollector.INSTANCE.getLastRedo().map(redo -> new Tooltip(redo.getUndoName())).orElse(null), FXUndoCollector.INSTANCE.lastRedoProperty()));
+		undoB.tooltipProperty().bind(Bindings.createObjectBinding(() -> UndoCollector.INSTANCE.getLastUndo().
+			map(undo -> new Tooltip(undo.getUndoName(lang.getBundle()))).orElse(null), FXUndoCollector.INSTANCE.lastUndoProperty()));
+		redoB.tooltipProperty().bind(Bindings.createObjectBinding(() -> UndoCollector.INSTANCE.getLastRedo().
+			map(redo -> new Tooltip(redo.getUndoName(lang.getBundle()))).orElse(null), FXUndoCollector.INSTANCE.lastRedoProperty()));
 	}
 
 	@Override
 	protected void configureBindings() {
 		buttonBinder(Undo::new).on(undoB).bind();
 		buttonBinder(Redo::new).on(redoB).bind();
-		keyNodeBinder(Undo::new).on(canvas).with(KeyCode.Z, LSystem.INSTANCE.getControlKey()).bind();
-		keyNodeBinder(Redo::new).on(canvas).with(KeyCode.Y, LSystem.INSTANCE.getControlKey()).bind();
+		keyNodeBinder(Undo::new).on(canvas).with(KeyCode.Z, system.getControlKey()).bind();
+		keyNodeBinder(Redo::new).on(canvas).with(KeyCode.Y, system.getControlKey()).bind();
 	}
 
 	@Override

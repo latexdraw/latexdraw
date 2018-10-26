@@ -20,7 +20,7 @@ public abstract class TestCommand<T extends Command> {
 	@Before
 	public void setUp() {
 		drawing = ShapeFactory.INST.createDrawing();
-		cmd = createCmd();
+		configCorrectCmd();
 	}
 
 	@After
@@ -30,8 +30,6 @@ public abstract class TestCommand<T extends Command> {
 		BadaboomCollector.INSTANCE.clear();
 		UndoCollector.INSTANCE.clear();
 	}
-
-	protected abstract T createCmd();
 
 	@Test
 	public void testFlush() {
@@ -44,21 +42,18 @@ public abstract class TestCommand<T extends Command> {
 
 	@Test
 	public void testDo() {
-		configCorrectCmd();
 		cmd.doIt();
 		checkDo();
 	}
 
 	@Test
 	public void testFlushAfterExecution() {
-		configCorrectCmd();
 		cmd.doIt();
 		cmd.flush();
 	}
 
 	@Test
 	public void testCanDo() {
-		configCorrectCmd();
 		assertTrue(cmd.canDo());
 	}
 
@@ -76,7 +71,6 @@ public abstract class TestCommand<T extends Command> {
 
 	@Test
 	public void testHadEffect() {
-		configCorrectCmd();
 		cmd.doIt();
 		cmd.done();
 		assertTrue(cmd.hadEffect());

@@ -19,14 +19,9 @@ public class TestCopyShapes extends TestCommand<CopyShapes> {
 	IRectangle shape;
 
 	@Override
-	protected CopyShapes createCmd() {
-		return new CopyShapes(new SelectShapes());
-	}
-
-	@Override
 	protected void configCorrectCmd() {
+		cmd = new CopyShapes(new SelectShapes(Mockito.mock(IDrawing.class)));
 		shape = ShapeFactory.INST.createRectangle();
-		cmd.selection.setDrawing(Mockito.mock(IDrawing.class));
 		cmd.selection.setShape(shape);
 	}
 
@@ -44,7 +39,7 @@ public class TestCopyShapes extends TestCommand<CopyShapes> {
 
 	@Test
 	public void testUnregistered() {
-		assertTrue(cmd.unregisteredBy(createCmd()));
+		assertTrue(cmd.unregisteredBy(new CopyShapes(new SelectShapes(Mockito.mock(IDrawing.class)))));
 	}
 
 	@Test

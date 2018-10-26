@@ -2,12 +2,16 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
 import javafx.application.Platform;
+import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+// To remove with vintage will not be used anymore. Otherwise, junit thinks this class is junit4
+@ExtendWith(InjectionExtension.class)
 public class TestViewPolygon extends TestViewPolyPoint<ViewPolygon, IPolygon> {
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		try {
 			Platform.startup(() -> {});

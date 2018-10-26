@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.commands.shape;
 
+import net.sf.latexdraw.commands.Modifying;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import org.malai.command.CommandImpl;
@@ -18,7 +19,7 @@ import org.malai.command.CommandImpl;
  * This abstract command moves any kind of points.
  * @author Arnaud Blouin
  */
-public abstract class MovePoint extends CommandImpl {
+public abstract class MovePoint extends CommandImpl implements Modifying {
 	/** The point to move. */
 	protected IPoint point;
 
@@ -34,7 +35,6 @@ public abstract class MovePoint extends CommandImpl {
 
 	/**
 	 * Creates the command.
-	 * @since 3.0
 	 */
 	protected MovePoint() {
 		super();
@@ -68,7 +68,6 @@ public abstract class MovePoint extends CommandImpl {
 	/**
 	 * Sets the new coordinates of the point to move.
 	 * @param coord The new coordinates of the point to move.
-	 * @since 3.0
 	 */
 	public void setNewCoord(final IPoint coord) {
 		newCoord = coord;

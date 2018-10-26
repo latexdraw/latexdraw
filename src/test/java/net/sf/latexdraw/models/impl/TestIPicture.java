@@ -15,6 +15,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.SystemService;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -45,7 +46,7 @@ public class TestIPicture implements HelperTest {
 	@Before
 	public void setUp() throws Exception {
 		WaitForAsyncUtils.waitForFxEvents();
-		shape = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
+		shape = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), new SystemService());
 		folder = new TemporaryFolder();
 		folder.create();
 		path = ParameteriseShapeData.INST.getTestPNG(folder);
@@ -190,7 +191,7 @@ public class TestIPicture implements HelperTest {
 
 	@Test
 	public void testCopy() {
-		final IPicture pic2 = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
+		final IPicture pic2 = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), new SystemService());
 		pic2.copy(shape);
 		assertEquals(shape.getPathSource(), pic2.getPathSource());
 	}

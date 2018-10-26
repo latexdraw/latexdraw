@@ -1,11 +1,13 @@
 package net.sf.latexdraw.instruments;
 
 import java.lang.reflect.InvocationTargetException;
+import javafx.stage.Stage;
 import net.sf.latexdraw.instruments.robot.FxRobotSpinner;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
 import org.junit.Test;
+import org.malai.javafx.ui.JfxUI;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
@@ -35,6 +37,7 @@ public class TestShapeRotationCustomiser extends SelectionBasedTesting<ShapeRota
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
+				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeRotationCustomiser.class);

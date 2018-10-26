@@ -26,7 +26,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.commands.LoadTemplate;
 import net.sf.latexdraw.commands.UpdateTemplates;
 import net.sf.latexdraw.models.ShapeFactory;
@@ -36,6 +35,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.interaction.library.DnD;
+import org.malai.javafx.ui.JfxUI;
 
 /**
  * This instrument manages the templates.
@@ -49,7 +49,8 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 	@FXML private Label emptyLabel;
 	@Inject private IDrawing drawing;
 	@Inject private StatusBarController statusController;
-
+	@Inject protected SVGDocumentGenerator svgGen;
+	@Inject private JfxUI app;
 
 	public TemplateManager() {
 		super();
@@ -63,9 +64,7 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 		emptyLabel.visibleProperty().bind(Bindings.createBooleanBinding(() -> templatePane.getChildren().isEmpty(), templatePane.getChildren()));
 		emptyLabel.setFont(Font.font(emptyLabel.getFont().getFamily(), FontPosture.ITALIC, emptyLabel.getFont().getSize()));
 
-		final UpdateTemplates cmd = new UpdateTemplates();
-		cmd.setTemplatesPane(templatePane);
-		cmd.updateThumbnails(false);
+		final UpdateTemplates cmd = new UpdateTemplates(templatePane, svgGen, false);
 
 		if(cmd.canDo()) {
 			cmd.doIt();
@@ -88,23 +87,18 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(UpdateTemplates::new).on(updateTemplates).first(c -> {
-			c.setTemplatesPane(templatePane);
-			c.updateThumbnails(true);
-		}).bind();
+		buttonBinder(() -> new UpdateTemplates(templatePane, svgGen, true)).on(updateTemplates).bind();
 
-		nodeBinder(new DnD(), LoadTemplate::new).on(templatePane).
+		nodeBinder(new DnD(), () -> new LoadTemplate(svgGen, drawing)).on(templatePane).
 			first((i, c) -> {
-				c.setDrawing(drawing);
-				c.setFile(new File((String) i.getSrcObject().get().getUserData()));
-				c.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
+				c.setFile(new File((String) i.getSrcObject().orElseThrow().getUserData()));
 				c.setProgressBar(statusController.getProgressBar());
 				c.setStatusWidget(statusController.getLabel());
-				c.setUi(LaTeXDraw.getInstance());
+				c.setUi(app);
 			}).
 			then((i, c) -> {
-				final Node srcObj = i.getSrcObject().get();
-				final Point3D pt3d = i.getTgtObject().get().sceneToLocal(srcObj.localToScene(i.getTgtLocalPoint())).
+				final Node srcObj = i.getSrcObject().orElseThrow();
+				final Point3D pt3d = i.getTgtObject().orElseThrow().sceneToLocal(srcObj.localToScene(i.getTgtLocalPoint())).
 					subtract(Canvas.ORIGIN.getX() + srcObj.getLayoutX(), Canvas.ORIGIN.getY() + srcObj.getLayoutY(), 0d);
 				c.setPosition(ShapeFactory.INST.createPoint(pt3d));
 			}).

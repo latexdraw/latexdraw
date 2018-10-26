@@ -11,6 +11,7 @@ import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.util.SystemService;
 import org.junit.experimental.theories.ParameterSignature;
 import org.junit.experimental.theories.ParameterSupplier;
 import org.junit.experimental.theories.ParametersSuppliedBy;
@@ -79,7 +80,7 @@ public class TestIPositionShape implements HelperTest {
 
 	@Theory
 	public void testGetSetPosition(@PosShapeData final IPositionShape shape) {
-		IPoint pt = ShapeFactory.INST.createPoint(15d, 25d);
+		final IPoint pt = ShapeFactory.INST.createPoint(15d, 25d);
 		shape.setPosition(pt);
 		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		assertEqualsDouble(pt.getY(), shape.getPosition().getY());
@@ -89,7 +90,7 @@ public class TestIPositionShape implements HelperTest {
 
 	@Theory
 	public void testGetSetPositionKONULL(@PosShapeData final IPositionShape shape) {
-		IPoint pt = ShapeFactory.INST.createPoint(15d, 25d);
+		final IPoint pt = ShapeFactory.INST.createPoint(15d, 25d);
 		shape.setPosition(pt);
 		shape.setPosition(null);
 		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
@@ -98,7 +99,7 @@ public class TestIPositionShape implements HelperTest {
 
 	@Theory
 	public void testGetSetPositionKO(@PosShapeData final IPositionShape shape, @DoubleData(vals = {}, bads = true) final double value) {
-		IPoint pt = ShapeFactory.INST.createPoint(15d, 25d);
+		final IPoint pt = ShapeFactory.INST.createPoint(15d, 25d);
 		shape.setPosition(pt);
 		shape.setPosition(ShapeFactory.INST.createPoint(value, value));
 		assertEqualsDouble(pt.getX(), shape.getPosition().getX());
@@ -126,7 +127,7 @@ public class TestIPositionShape implements HelperTest {
 				ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0d, 10d, "x", false),
 				ShapeFactory.INST.createRhombus(),
 				ShapeFactory.INST.createTriangle(),
-				ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint())).
+				ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), new SystemService())).
 				map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
 		}
 	}

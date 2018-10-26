@@ -22,7 +22,7 @@ import net.sf.latexdraw.commands.LatexProperties;
 import net.sf.latexdraw.commands.ModifyLatexProperties;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LPath;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import org.malai.javafx.instrument.JfxInstrument;
@@ -47,6 +47,7 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	@FXML private Spinner<Double> scaleField;
 	/** The LaTeX code generator. */
 	@Inject private LaTeXGenerator latexGen;
+	@Inject private SystemService system;
 
 	/**
 	 * Creates the instrument.
@@ -91,7 +92,7 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 			return;
 		}
 
-		final String ns = LPath.INSTANCE.getNormaliseNamespaceURI(nsURI);
+		final String ns = system.getNormaliseNamespaceURI(nsURI);
 
 		if(!latexGen.getCaption().isEmpty()) {
 			final Element elt = document.createElement(ns + LNamespace.XML_CAPTION);

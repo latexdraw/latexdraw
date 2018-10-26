@@ -62,7 +62,6 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Cmd
 	/**
 	 * Updates the widgets of this instrument.
 	 * @param hideWidgets True: the widgets are hidden on deactivation.
-	 * @since 3.0
 	 */
 	protected void updateWidgets(final boolean hideWidgets) {
 		deleteB.setVisible(activated || !hideWidgets);
@@ -71,13 +70,10 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Cmd
 
 	@Override
 	protected void configureBindings() {
-		final Consumer<DeleteShapes> first = c -> getSelectCmd().ifPresent(sel -> {
-			sel.getShapes().forEach(sh -> c.addShape(sh));
-			c.setDrawing(sel.getDrawing().orElse(null));
-		});
+		final Consumer<DeleteShapes> first = c -> getSelectCmd().ifPresent(sel -> sel.getShapes().forEach(sh -> c.addShape(sh)));
 
-		buttonBinder(DeleteShapes::new).on(deleteB).first(first).bind();
-		keyNodeBinder(DeleteShapes::new).on(canvas).with(KeyCode.DELETE).first(first).bind();
+		buttonBinder(() -> new DeleteShapes(canvas.getDrawing())).on(deleteB).first(first).bind();
+		keyNodeBinder(() -> new DeleteShapes(canvas.getDrawing())).on(canvas).with(KeyCode.DELETE).first(first).bind();
 	}
 }
 

@@ -13,10 +13,12 @@ package net.sf.latexdraw.commands.shape;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.models.MathUtils;
+import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
 
 /**
@@ -32,11 +34,12 @@ public class AlignShapes extends AlignDistribCmd {
 	}
 
 	/** The alignment to perform. */
-	private Alignment alignment;
+	private final Alignment alignment;
 
 
-	public AlignShapes() {
-		super();
+	public AlignShapes(final Canvas canvas, final Alignment alignment, final IGroup sh) {
+		super(canvas, sh);
+		this.alignment = alignment;
 	}
 
 	@Override
@@ -221,15 +224,8 @@ public class AlignShapes extends AlignDistribCmd {
 		shape.ifPresent(sh -> sh.setModified(true));
 	}
 
-	/**
-	 * Sets the alignment to perform.
-	 */
-	public void setAlignment(final Alignment align) {
-		alignment = align;
-	}
-
 	@Override
-	public String getUndoName() {
-		return LangTool.INSTANCE.getBundle().getString("Actions.30");
+	public String getUndoName(final ResourceBundle bundle) {
+		return bundle.getString("Actions.30");
 	}
 }

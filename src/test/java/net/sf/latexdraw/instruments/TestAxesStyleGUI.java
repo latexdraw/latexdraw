@@ -50,7 +50,7 @@ public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomi
 		distLabelsX = find("#distLabelsX");
 		distLabelsY = find("#distLabelsY");
 		showOrigin = find("#showOrigin");
-		ins = (ShapeAxesCustomiser) injectorFactory.call(ShapeAxesCustomiser.class);
+		ins = injector.getInstance(ShapeAxesCustomiser.class);
 		ins.setActivated(true);
 	}
 }

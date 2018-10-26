@@ -39,9 +39,9 @@ public class TestIPolygon {
 
 	@Test
 	public void testConstructor() {
-		IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
-		IPoint pt2 = ShapeFactory.INST.createPoint(2, 2);
-		IPolygon pol = ShapeFactory.INST.createPolygon(Arrays.asList(pt1, pt2));
+		final IPoint pt1 = ShapeFactory.INST.createPoint(1, 1);
+		final IPoint pt2 = ShapeFactory.INST.createPoint(2, 2);
+		final IPolygon pol = ShapeFactory.INST.createPolygon(Arrays.asList(pt1, pt2));
 		assertEquals(pt1, pol.getPtAt(0));
 		assertEquals(pt2, pol.getPtAt(-1));
 	}

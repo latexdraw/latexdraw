@@ -48,6 +48,8 @@ import net.sf.latexdraw.models.interfaces.shape.IShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.SystemService;
 
 /**
  * An implementation of the abstract factory.
@@ -55,7 +57,8 @@ import net.sf.latexdraw.models.interfaces.shape.ITriangle;
  */
 public class LShapeFactory implements IShapeFactory {
 	/** The map that maps types to creation operations. */
-	final Map<Class<?>, Supplier<IShape>> factoryMap;
+	private final Map<Class<?>, Supplier<IShape>> factoryMap;
+	@Inject private SystemService system;
 
 	public LShapeFactory() {
 		super();
@@ -90,8 +93,8 @@ public class LShapeFactory implements IShapeFactory {
 		factoryMap.put(LFreehand.class, () -> createFreeHand(Collections.emptyList()));
 		factoryMap.put(IGroup.class, () -> createGroup());
 		factoryMap.put(LGroup.class, () -> createGroup());
-		factoryMap.put(IPicture.class, () -> createPicture(createPoint()));
-		factoryMap.put(LPicture.class, () -> createPicture(createPoint()));
+		factoryMap.put(IPicture.class, () -> createPicture(createPoint(), system));
+		factoryMap.put(LPicture.class, () -> createPicture(createPoint(), system));
 		factoryMap.put(IText.class, () -> createText());
 		factoryMap.put(LText.class, () -> createText());
 		factoryMap.put(IPlot.class, () -> createPlot(createPoint(), 1d, 10d, "x", false));
@@ -269,8 +272,8 @@ public class LShapeFactory implements IShapeFactory {
 	}
 
 	@Override
-	public IPicture createPicture(final IPoint pt) {
-		return new LPicture(pt);
+	public IPicture createPicture(final IPoint pt, final SystemService system) {
+		return new LPicture(pt, system);
 	}
 
 	@Override

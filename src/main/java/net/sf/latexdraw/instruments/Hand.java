@@ -36,7 +36,7 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.LSystem;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
@@ -55,6 +55,7 @@ import org.malai.javafx.interaction.library.SrcTgtPointsData;
 public class Hand extends CanvasInstrument {
 	@Inject private MetaShapeCustomiser metaCustomiser;
 	@Inject private TextSetter textSetter;
+	@Inject private SystemService system;
 
 	public Hand() {
 		super();
@@ -97,15 +98,12 @@ public class Hand extends CanvasInstrument {
 
 		dbleClickToInitTextSetter();
 
-		keyNodeBinder(SelectShapes::new).on(canvas).with(KeyCode.A, LSystem.INSTANCE.getControlKey()).first(c -> {
-			c.getShapes().addAll(canvas.getDrawing().getShapes());
-			c.setDrawing(canvas.getDrawing());
-		}).bind();
+		keyNodeBinder(() -> new SelectShapes(canvas.getDrawing())).on(canvas).with(KeyCode.A, system.getControlKey()).
+			first(c -> c.getShapes().addAll(canvas.getDrawing().getShapes())).bind();
 
-		keyNodeBinder(UpdateToGrid::new).on(canvas).with(KeyCode.U, LSystem.INSTANCE.getControlKey()).first(c -> {
-			c.setShape(canvas.getDrawing().getSelection().duplicateDeep(false));
-			c.setGrid(canvas.getMagneticGrid());
-		}).when(i -> canvas.getMagneticGrid().isMagnetic()).bind();
+		keyNodeBinder(() -> new UpdateToGrid(canvas.getMagneticGrid(), canvas.getDrawing().getSelection().duplicateDeep(false))).
+			on(canvas).with(KeyCode.U, system.getControlKey()).
+			when(i -> canvas.getMagneticGrid().isMagnetic()).bind();
 	}
 
 	/**
@@ -137,8 +135,7 @@ public class Hand extends CanvasInstrument {
 	 * Pressure to select shapes
 	 */
 	private void bindPressureToSelectShape() {
-		nodeBinder(new Press(), SelectShapes::new).on(canvas.getViews().getChildren()).first((i, c) -> {
-			c.setDrawing(canvas.getDrawing());
+		nodeBinder(new Press(), () -> new SelectShapes(canvas.getDrawing())).on(canvas.getViews().getChildren()).first((i, c) -> {
 			getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
 				if(i.isShiftPressed()) {
 					canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> c.addShape(sh));
@@ -154,8 +151,7 @@ public class Hand extends CanvasInstrument {
 		}).when(i -> !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null))).bind();
 
 		// A simple pressure on the canvas deselects the shapes
-		nodeBinder(new Press(), SelectShapes::new).on(canvas).
-			first((i, c) -> c.setDrawing(canvas.getDrawing())).
+		nodeBinder(new Press(), () -> new SelectShapes(canvas.getDrawing())).on(canvas).
 			when(i -> i.getSrcObject().orElse(null) instanceof Canvas).
 			bind();
 	}
@@ -250,12 +246,11 @@ public class Hand extends CanvasInstrument {
 		private List<ViewShape<?>> selectedViews;
 
 		DnD2Select(final Hand hand) {
-			super(hand, true, new DnD(), i -> new SelectShapes(), Collections.singletonList(hand.canvas), false, null);
+			super(hand, true, new DnD(), i -> new SelectShapes(hand.canvas.getDrawing()), Collections.singletonList(hand.canvas), false, null);
 		}
 
 		@Override
 		public void first() {
-			cmd.setDrawing(instrument.canvas.getDrawing());
 			selectedShapes = new ArrayList<>(instrument.canvas.getDrawing().getSelection().getShapes());
 			selectedViews = instrument.canvas.getSelectedViews();
 			Platform.runLater(() -> instrument.canvas.requestFocus());
