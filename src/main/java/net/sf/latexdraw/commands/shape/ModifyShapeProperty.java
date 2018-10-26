@@ -23,7 +23,7 @@ import org.malai.undo.Undoable;
  */
 public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoable, Modifying {
 	/** The shape to modify. */
-	private IGroup shapes;
+	private final IGroup shapes;
 
 	/** The old value of the property. */
 	private List<Optional<T>> oldValue;
@@ -39,12 +39,10 @@ public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoa
 
 		if(shapes != null) {
 			shapes.clear();
-			shapes = null;
 		}
 
 		if(oldValue != null) {
 			oldValue.clear();
-			oldValue = null;
 		}
 	}
 

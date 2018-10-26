@@ -42,7 +42,6 @@ public enum GridProperties {
 	/**
 	 * @param object The value to test.
 	 * @return True: if the type of the given value matches the type of the property.
-	 * @since 3.0
 	 */
 	public abstract boolean isValidValue(final Object object);
 }

@@ -24,18 +24,14 @@ import org.malai.instrument.Instrument;
  */
 public class InitTextSetter extends ActivateInstrument {
 	/** The text setter to move. */
-	private TextSetter setter;
-
+	private final TextSetter setter;
 	/** The text to set to the setter. */
-	private String text;
-
+	private final String text;
 	/** The position that takes account of the zoom. */
-	private IPoint position;
-
+	private final IPoint position;
 	/** The text (shape) to modify throw the setter. Can be null. */
-	private IText textShape;
-
-	private IPlot plotShape;
+	private final IText textShape;
+	private final IPlot plotShape;
 
 	public InitTextSetter(final Instrument<?> instrument, final TextSetter setter, final String text, final IPoint position, final IText textShape,
 					final IPlot plotShape) {
@@ -59,15 +55,5 @@ public class InitTextSetter extends ActivateInstrument {
 		setter.getTextField().setText(text);
 		setter.setText(textShape);
 		setter.setPlot(plotShape);
-	}
-
-	@Override
-	public void flush() {
-		plotShape = null;
-		text = null;
-		textShape = null;
-		setter = null;
-		position = null;
-		super.flush();
 	}
 }

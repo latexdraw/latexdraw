@@ -40,7 +40,7 @@ public class Export extends CommandImpl {
 	private ExportFormat format;
 
 	/** The canvas that contains views. */
-	private Canvas canvas;
+	private final Canvas canvas;
 
 	/** Defines if the shapes have been successfully exported. */
 	private boolean exported;
@@ -49,28 +49,20 @@ public class Export extends CommandImpl {
 	private FileChooser dialogueBox;
 
 	/** The PST generator to use. */
-	private PSTCodeGenerator pstGen;
+	private final PSTCodeGenerator pstGen;
 
 	private File outputFile;
 
 
 	/**
 	 * Creates the command.
-	 * @since 3.0
 	 */
-	public Export() {
+	public Export(final Canvas canvas, final PSTCodeGenerator pstGen) {
 		super();
+		this.canvas = canvas;
+		this.pstGen = pstGen;
 		exported = false;
 	}
-
-	@Override
-	public void flush() {
-		super.flush();
-		canvas = null;
-		format = null;
-		dialogueBox = null;
-	}
-
 
 	@Override
 	protected void doCmdBody() {
@@ -162,7 +154,6 @@ public class Export extends CommandImpl {
 	 * Creates a ps document of the given views (compiled using latex).
 	 * @param file The targeted location.
 	 * @return True: the file has been created.
-	 * @since 3.0
 	 */
 	private boolean exportAsEPS(final File file) {
 		File psFile;
@@ -182,7 +173,6 @@ public class Export extends CommandImpl {
 	 * Creates a pdf document of the given views (compiled using latex).
 	 * @param file The targeted location.
 	 * @return True: the file has been created.
-	 * @since 3.0
 	 */
 	private boolean exportAsPDF(final File file) {
 		File pdfFile;
@@ -240,7 +230,6 @@ public class Export extends CommandImpl {
 
 	/**
 	 * @param dialogBox The file chooser to set.
-	 * @since 3.0
 	 */
 	public void setDialogueBox(final FileChooser dialogBox) {
 		dialogueBox = dialogBox;
@@ -248,26 +237,9 @@ public class Export extends CommandImpl {
 
 	/**
 	 * @param expFormat The expFormat to set.
-	 * @since 3.0
 	 */
 	public void setFormat(final ExportFormat expFormat) {
 		format = expFormat;
-	}
-
-	/**
-	 * @param theCanvas The theCanvas to set.
-	 * @since 3.0
-	 */
-	public void setCanvas(final Canvas theCanvas) {
-		canvas = theCanvas;
-	}
-
-	/**
-	 * @param gen The PST generator to use for latex, ps, or pdf exports.
-	 * @since 3.0
-	 */
-	public void setPstGen(final PSTCodeGenerator gen) {
-		pstGen = gen;
 	}
 
 	/**

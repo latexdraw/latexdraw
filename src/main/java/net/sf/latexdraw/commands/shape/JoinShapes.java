@@ -30,10 +30,9 @@ import org.malai.undo.Undoable;
  */
 public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, Modifying {
 	/** The added group of shapes. */
-	final IGroup addedGroup;
-
+	private final IGroup addedGroup;
 	/** The shapes to handle. */
-	final List<IShape> shapes;
+	private final List<IShape> shapes;
 
 	public JoinShapes(final IDrawing theDrawing) {
 		super(theDrawing);

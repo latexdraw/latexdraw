@@ -20,13 +20,14 @@ import org.malai.command.CommandImpl;
  */
 public class ModifyPencilStyle extends CommandImpl {
 	/** The pencil to set. */
-	protected Pencil pencil;
+	private final Pencil pencil;
 
 	/** The new editing choice to set. */
-	protected EditionChoice editingChoice;
+	private EditionChoice editingChoice;
 
-	public ModifyPencilStyle() {
+	public ModifyPencilStyle(final Pencil pencil) {
 		super();
+		this.pencil = pencil;
 	}
 
 	@Override
@@ -39,20 +40,9 @@ public class ModifyPencilStyle extends CommandImpl {
 		return pencil != null && editingChoice != null && pencil.getCurrentChoice() != editingChoice;
 	}
 
-
-	/**
-	 * Sets the pencil to parameterise.
-	 * @param pen The pencil.
-	 * @since 3.0
-	 */
-	public void setPencil(final Pencil pen) {
-		pencil = pen;
-	}
-
 	/**
 	 * Sets the new editing choice of the pencil.
 	 * @param choice The new editing choice (can be null).
-	 * @since 3.0
 	 */
 	public void setEditingChoice(final EditionChoice choice) {
 		editingChoice = choice;

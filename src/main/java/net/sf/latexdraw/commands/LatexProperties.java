@@ -70,7 +70,6 @@ public enum LatexProperties {
 	/**
 	 * @param value The value to test.
 	 * @return True: the given value corresponds to the excepted value of the property.
-	 * @since 3.0
 	 */
 	public abstract boolean isValueSupported(final Object value);
 }

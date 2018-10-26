@@ -18,7 +18,7 @@ import org.malai.command.library.ModifyValue;
  */
 public abstract class ShapePropertyCmd<T> extends ModifyValue<T> {
 	/** The property to set. */
-	protected ShapeProperties<T> property;
+	protected final ShapeProperties<T> property;
 
 	/**
 	 * Creates and initialises the command.
@@ -26,12 +26,6 @@ public abstract class ShapePropertyCmd<T> extends ModifyValue<T> {
 	protected ShapePropertyCmd(final ShapeProperties<T> property, final T value) {
 		super(value);
 		this.property = property;
-	}
-
-	@Override
-	public void flush() {
-		super.flush();
-		property = null;
 	}
 
 	@Override
