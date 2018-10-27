@@ -128,7 +128,7 @@ public class TestIPicture implements HelperTest {
 	}
 
 	@Test
-	public void testisColourable() {
+	public void testIsColourable() {
 		assertFalse(shape.isColourable());
 	}
 

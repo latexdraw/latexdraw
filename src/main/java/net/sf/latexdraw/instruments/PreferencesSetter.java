@@ -330,7 +330,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	 */
 	public void writeXMLPreferences() {
 		try {
-			try(final OutputStream fos = Files.newOutputStream(Path.of(system.PATH_PREFERENCES_XML_FILE))) {
+			try(final OutputStream fos = Files.newOutputStream(Path.of(system.pathPreferencesXmlFile))) {
 				final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 				final Window win = pathExportField.getScene().getWindow();
 				final Rectangle2D rec = Screen.getPrimary().getBounds();
@@ -444,7 +444,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	 * @since 3.0
 	 */
 	public void readXMLPreferences() {
-		final File xml = new File(system.PATH_PREFERENCES_XML_FILE);
+		final File xml = new File(system.pathPreferencesXmlFile);
 
 		try {
 			if(xml.canRead()) {

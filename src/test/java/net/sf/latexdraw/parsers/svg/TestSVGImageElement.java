@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestSVGImageElement extends AbstractTestSVGElement {
+public class TestSVGImageElement extends TestBaseSVGElement {
 	@Test(expected = NullPointerException.class)
 	public void testContructorNULLEmpty() {
 		new SVGImageElement(null, "");

@@ -187,7 +187,7 @@ public class ViewText extends ViewPositionShape<IText> {
 		String log = ""; //NON-NLS
 		final File tmpDir = optDir.get();
 		final String doc = getLaTeXDocument();
-		final String basePathPic = tmpDir.getAbsolutePath() + system.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
+		final String basePathPic = tmpDir.getAbsolutePath() + SystemService.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
 		final String pathTex = basePathPic + ExportFormat.TEX.getFileExtension();
 		final OperatingSystem os = system.getSystem().orElse(OperatingSystem.LINUX);
 

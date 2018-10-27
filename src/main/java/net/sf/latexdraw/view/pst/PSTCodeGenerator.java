@@ -15,6 +15,7 @@ import java.util.Map;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
@@ -24,13 +25,13 @@ import net.sf.latexdraw.view.latex.VerticalPosition;
  * @author Arnaud Blouin
  */
 public class PSTCodeGenerator extends LaTeXGenerator {
-	private final String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + system.EOL + //NON-NLS
-		"% \\usepackage{epsfig}" + system.EOL + "% \\usepackage{pst-grad} % For gradients" + //NON-NLS
-		system.EOL + "% \\usepackage{pst-plot} % For axes" + system.EOL; //NON-NLS
+	private final String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + SystemService.EOL + //NON-NLS
+		"% \\usepackage{epsfig}" + SystemService.EOL + "% \\usepackage{pst-grad} % For gradients" + //NON-NLS
+		SystemService.EOL + "% \\usepackage{pst-plot} % For axes" + SystemService.EOL; //NON-NLS
 
-	private final String PACKAGE_FOR_SPACE_PICTURE = "\\usepackage[space]{grffile} % For spaces in paths" + system.EOL + //NON-NLS
-		"\\usepackage{etoolbox} % For spaces in paths" + system.EOL + "\\makeatletter % For spaces in paths" + system.EOL + //NON-NLS
-		"\\patchcmd\\Gread@eps{\\@inputcheck#1 }{\\@inputcheck\"#1\"\\relax}{}{}" + system.EOL + "\\makeatother" + system.EOL; //NON-NLS
+	private final String PACKAGE_FOR_SPACE_PICTURE = "\\usepackage[space]{grffile} % For spaces in paths" + SystemService.EOL + //NON-NLS
+		"\\usepackage{etoolbox} % For spaces in paths" + SystemService.EOL + "\\makeatletter % For spaces in paths" + SystemService.EOL + //NON-NLS
+		"\\patchcmd\\Gread@eps{\\@inputcheck#1 }{\\@inputcheck\"#1\"\\relax}{}{}" + SystemService.EOL + "\\makeatother" + SystemService.EOL; //NON-NLS
 
 	@Inject private PSTViewsFactory viewsFactory;
 
@@ -54,14 +55,14 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			tr.setY(0d);
 		}
 
-		doc.append("\\documentclass{article}").append(system.EOL).append("\\pagestyle{empty}").append(system.EOL).append(getPackages()). //NON-NLS
-			append(system.EOL).append("\\usepackage[left=0cm,top=0.1cm,right=0cm,bottom=0cm,nohead,nofoot,paperwidth="). //NON-NLS
-			append(tr.getX() / ppc * scale).append("cm,paperheight=").append(bl.getY() / ppc * scale + 0.2).append("cm]{geometry}").append(system.EOL). //NON-NLS
-			append("\\usepackage[usenames,dvipsnames]{pstricks}").append(system.EOL).append("\\usepackage{epsfig}").append(system.EOL). //NON-NLS
-			append("\\usepackage{pst-grad}").append(system.EOL).append("\\usepackage{pst-plot}").append(system.EOL). //NON-NLS
-			append(PACKAGE_FOR_SPACE_PICTURE).append("\\begin{document}").append(system.EOL). //NON-NLS
-			append("\\addtolength{\\oddsidemargin}{-0.2in}").append(system.EOL).append("\\addtolength{\\evensidemargin}{-0.2in}"). //NON-NLS
-			append(system.EOL).append(getDrawingCode()).append(system.EOL).append("\\end{document}"); //NON-NLS
+		doc.append("\\documentclass{article}").append(SystemService.EOL).append("\\pagestyle{empty}").append(SystemService.EOL).append(getPackages()). //NON-NLS
+			append(SystemService.EOL).append("\\usepackage[left=0cm,top=0.1cm,right=0cm,bottom=0cm,nohead,nofoot,paperwidth="). //NON-NLS
+			append(tr.getX() / ppc * scale).append("cm,paperheight=").append(bl.getY() / ppc * scale + 0.2).append("cm]{geometry}").append(SystemService.EOL). //NON-NLS
+			append("\\usepackage[usenames,dvipsnames]{pstricks}").append(SystemService.EOL).append("\\usepackage{epsfig}").append(SystemService.EOL). //NON-NLS
+			append("\\usepackage{pst-grad}").append(SystemService.EOL).append("\\usepackage{pst-plot}").append(SystemService.EOL). //NON-NLS
+			append(PACKAGE_FOR_SPACE_PICTURE).append("\\begin{document}").append(SystemService.EOL). //NON-NLS
+			append("\\addtolength{\\oddsidemargin}{-0.2in}").append(SystemService.EOL).append("\\addtolength{\\evensidemargin}{-0.2in}"). //NON-NLS
+			append(SystemService.EOL).append(getDrawingCode()).append(SystemService.EOL).append("\\end{document}"); //NON-NLS
 
 		return doc.toString();
 	}
@@ -87,22 +88,22 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			cache.append(getCommentWithTag());
 		}
 
-		cache.append(PACKAGE_PSTRICKS).append("% ").append(PACKAGE_FOR_SPACE_PICTURE.replaceAll(system.EOL, system.EOL + "% "));
+		cache.append(PACKAGE_PSTRICKS).append("% ").append(PACKAGE_FOR_SPACE_PICTURE.replaceAll(SystemService.EOL, SystemService.EOL + "% "));
 
 		if(!pkg.isEmpty()) {
-			pkg = "% User Packages:" + system.EOL + "% " + pkg.replace(system.EOL, system.EOL + "% "); //NON-NLS
-			cache.append(pkg).append(system.EOL);
+			pkg = "% User Packages:" + SystemService.EOL + "% " + pkg.replace(SystemService.EOL, SystemService.EOL + "% "); //NON-NLS
+			cache.append(pkg).append(SystemService.EOL);
 		}
 
-		cache.append(system.EOL);
+		cache.append(SystemService.EOL);
 
 		if(withLatexParams && (positionVertToken != VerticalPosition.NONE || !caption.isEmpty() || !label.isEmpty())) {
 			cache.append("\\begin{figure}"); //NON-NLS
 
 			if(positionVertToken == VerticalPosition.NONE) {
-				cache.append(system.EOL);
+				cache.append(SystemService.EOL);
 			}else {
-				cache.append('[').append(positionVertToken.getToken()).append(']').append(system.EOL);
+				cache.append('[').append(positionVertToken.getToken()).append(']').append(SystemService.EOL);
 			}
 
 			hasBeginFigure = true;
@@ -111,36 +112,36 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		}
 
 		if(withLatexParams && positionHoriCentre) {
-			cache.append("\\begin{center}").append(system.EOL); //NON-NLS
+			cache.append("\\begin{center}").append(SystemService.EOL); //NON-NLS
 		}
 
 		final float scaleF = MathUtils.INST.getCutNumberFloat(getScale());
 		cache.append("\\psscalebox{").append(scaleF).append(' ').append(scaleF).append("} % Change this value to rescale the drawing."); //NON-NLS
-		cache.append(system.EOL).append('{').append(system.EOL);
+		cache.append(SystemService.EOL).append('{').append(SystemService.EOL);
 		cache.append("\\begin{pspicture}("); //NON-NLS
 		cache.append(0).append(',').append(MathUtils.INST.getCutNumberFloat((origin.getY() - br.getY()) / ppc)).append(')').append('(');
 		cache.append(MathUtils.INST.getCutNumberFloat((tl.getX() - origin.getX()) / ppc)).append(',').append(MathUtils.INST.getCutNumberFloat((origin.getY() - tl.getY()) / ppc));
-		cache.append(')').append(system.EOL);
+		cache.append(')').append(SystemService.EOL);
 
 		drawing.getShapes().forEach(shape -> viewsFactory.createView(shape).ifPresent(pstView -> {
-			shapeCode.append(pstView.getCode(origin, ppc)).append(system.EOL);
+			shapeCode.append(pstView.getCode(origin, ppc)).append(SystemService.EOL);
 			cache.append(generateColourCode(pstView, addedColours));
 		}));
 
-		cache.append(shapeCode).append("\\end{pspicture}").append(system.EOL).append('}').append(system.EOL); //NON-NLS
+		cache.append(shapeCode).append("\\end{pspicture}").append(SystemService.EOL).append('}').append(SystemService.EOL); //NON-NLS
 
 		if(withLatexParams) {
 			if(positionHoriCentre) {
-				cache.append("\\end{center}").append(system.EOL); //NON-NLS
+				cache.append("\\end{center}").append(SystemService.EOL); //NON-NLS
 			}
 			if(!label.isEmpty()) {
-				cache.append("\\label{").append(label).append('}').append(system.EOL); //NON-NLS
+				cache.append("\\label{").append(label).append('}').append(SystemService.EOL); //NON-NLS
 			}
 			if(!caption.isEmpty()) {
-				cache.append("\\caption{").append(caption).append('}').append(system.EOL); //NON-NLS
+				cache.append("\\caption{").append(caption).append('}').append(SystemService.EOL); //NON-NLS
 			}
 			if(hasBeginFigure) {
-				cache.append("\\end{figure}").append(system.EOL); //NON-NLS
+				cache.append("\\end{figure}").append(SystemService.EOL); //NON-NLS
 			}
 		}
 
@@ -159,7 +160,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			for(final String nameColour : pstView.coloursName) {
 				if(addedColours.get(nameColour) == null && !DviPsColors.INSTANCE.getPredefinedColour(nameColour).isPresent()) {
 					addedColours.put(nameColour, nameColour);
-					return DviPsColors.INSTANCE.getUsercolourCode(nameColour) + system.EOL;
+					return DviPsColors.INSTANCE.getUsercolourCode(nameColour) + SystemService.EOL;
 				}
 			}
 		}

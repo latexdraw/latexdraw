@@ -66,7 +66,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	public PSTLatexdrawListener() {
 		super();
 		shapes = new ArrayDeque<>();
-		PSTContext.PPC = IShape.PPC;
+		PSTContext.ppc = IShape.PPC;
 		psCustomLatestPt = new Point2D(0d, 0d);
 	}
 
@@ -193,7 +193,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	@Override
 	public void exitPscircle(final net.sf.latexdraw.parsers.pst.PSTParser.PscircleContext ctx) {
 		final ICircle circle = ShapeFactory.INST.createCircle();
-		setCircle(circle, ctx.pstctx.coordToAdjustedPoint(ctx.centre), ctx.pstctx.valDimtoDouble(ctx.bracketValueDim().valueDim()) * PSTContext.PPC,
+		setCircle(circle, ctx.pstctx.coordToAdjustedPoint(ctx.centre), ctx.pstctx.valDimtoDouble(ctx.bracketValueDim().valueDim()) * PSTContext.ppc,
 			ctx.pstctx, ctx.pstctx.starredCmd(ctx.cmd));
 		shapes.peek().addShape(circle);
 	}
@@ -201,7 +201,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	@Override
 	public void exitPsqdisk(final net.sf.latexdraw.parsers.pst.PSTParser.PsqdiskContext ctx) {
 		final ICircle circle = ShapeFactory.INST.createCircle();
-		setCircle(circle, ctx.pstctx.coordToAdjustedPoint(ctx.coord()), ctx.pstctx.valDimtoDouble(ctx.bracketValueDim().valueDim()) * PSTContext.PPC,
+		setCircle(circle, ctx.pstctx.coordToAdjustedPoint(ctx.coord()), ctx.pstctx.valDimtoDouble(ctx.bracketValueDim().valueDim()) * PSTContext.ppc,
 			ctx.pstctx, true);
 		shapes.peek().addShape(circle);
 	}

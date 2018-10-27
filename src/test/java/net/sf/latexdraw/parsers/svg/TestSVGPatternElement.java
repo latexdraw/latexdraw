@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestSVGPatternElement extends AbstractTestSVGElement {
+public class TestSVGPatternElement extends TestBaseSVGElement {
 	@Test(expected = IllegalArgumentException.class)
 	public void testContructorFail() throws MalformedSVGDocument {
 		new SVGPatternElement(null, null);

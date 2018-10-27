@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
-public class TestSVGEllipseElement extends AbstractTestSVGElement {
+public class TestSVGEllipseElement extends TestBaseSVGElement {
 	@Test(expected = IllegalArgumentException.class)
 	public void testContructorNULLNULL() throws MalformedSVGDocument {
 		new SVGEllipseElement(null, null);

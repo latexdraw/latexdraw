@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public class TestSVGSVGElement extends AbstractTestSVGElement {
+public class TestSVGSVGElement extends TestBaseSVGElement {
 	SVGSVGElement e;
 
 	@Override

@@ -273,14 +273,14 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 		@Override
 		protected Boolean call() {
 			if(updateThumbnails) {
-				updateTemplates(system.PATH_TEMPLATES_DIR_USER, system.PATH_CACHE_DIR);
-				updateTemplates(system.PATH_TEMPLATES_SHARED, system.PATH_CACHE_SHARE_DIR);
+				updateTemplates(system.pathTemplatesDirUser, system.pathCacheDir);
+				updateTemplates(system.pathTemplatesShared, system.pathCacheShareDir);
 			}
 
 			Platform.runLater(() -> {
 				templatesPane.getChildren().clear();
-				fillTemplatePane(system.PATH_TEMPLATES_DIR_USER, system.PATH_CACHE_DIR);
-				fillTemplatePane(system.PATH_TEMPLATES_SHARED, system.PATH_CACHE_SHARE_DIR);
+				fillTemplatePane(system.pathTemplatesDirUser, system.pathCacheDir);
+				fillTemplatePane(system.pathTemplatesShared, system.pathCacheShareDir);
 			});
 
 			return Boolean.TRUE;

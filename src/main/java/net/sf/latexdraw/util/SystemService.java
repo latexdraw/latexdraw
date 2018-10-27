@@ -48,24 +48,24 @@ public final class SystemService {
 	/** The name of the templates directory */
 	public static final String TEMPLATE_DIR = "templates"; //NON-NLS
 
-	public final String PATH_LOCAL_USER;
-	public final String PATH_TEMPLATES_DIR_USER;
-	public final String PATH_PREFERENCES_XML_FILE;
-	public final String PATH_CACHE_DIR;
-	public final String PATH_CACHE_SHARE_DIR;
-	public final String PATH_TEMPLATES_SHARED;
-	public final String PATH_SHARED;
+	public final String pathLocalUser;
+	public final String pathTemplatesDirUser;
+	public final String pathPreferencesXmlFile;
+	public final String pathCacheDir;
+	public final String pathCacheShareDir;
+	public final String pathTemplatesShared;
+	public final String pathShared;
 
 
 	public SystemService() {
 		super();
-		PATH_SHARED = getPathShared();
-		PATH_TEMPLATES_SHARED = getPathTemplatesShared();
-		PATH_LOCAL_USER = getPathLocalUser();
-		PATH_CACHE_SHARE_DIR = PATH_LOCAL_USER + File.separator + CACHE_SHARED_DIR;
-		PATH_CACHE_DIR = PATH_LOCAL_USER + File.separator + CACHE_DIR;
-		PATH_PREFERENCES_XML_FILE = PATH_LOCAL_USER + File.separator + ".preferences.xml"; //NON-NLS
-		PATH_TEMPLATES_DIR_USER = PATH_LOCAL_USER + File.separator + TEMPLATE_DIR;
+		pathShared = getPathShared();
+		pathTemplatesShared = getPathTemplatesShared();
+		pathLocalUser = getPathLocalUser();
+		pathCacheShareDir = pathLocalUser + File.separator + CACHE_SHARED_DIR;
+		pathCacheDir = pathLocalUser + File.separator + CACHE_DIR;
+		pathPreferencesXmlFile = pathLocalUser + File.separator + ".preferences.xml"; //NON-NLS
+		pathTemplatesDirUser = pathLocalUser + File.separator + TEMPLATE_DIR;
 		checkDirectories();
 	}
 
@@ -510,10 +510,10 @@ public final class SystemService {
 	 */
 	public void checkDirectories() {
 		try {
-			new File(PATH_LOCAL_USER).mkdirs();
-			new File(PATH_TEMPLATES_DIR_USER).mkdirs();
-			new File(PATH_CACHE_DIR).mkdirs();
-			new File(PATH_CACHE_SHARE_DIR).mkdirs();
+			new File(pathLocalUser).mkdirs();
+			new File(pathTemplatesDirUser).mkdirs();
+			new File(pathCacheDir).mkdirs();
+			new File(pathCacheShareDir).mkdirs();
 		}catch(final SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}

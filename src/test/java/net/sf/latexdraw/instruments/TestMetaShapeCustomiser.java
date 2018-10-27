@@ -86,7 +86,7 @@ public class TestMetaShapeCustomiser implements CollectionMatcher {
 	}
 
 	@Test
-	public void activatedOnSelection() {
+	public void testActivatedOnSelection() {
 		meta.initialize(null, null);
 		final IDrawing dr = injector.getInstance(IDrawing.class);
 		dr.getSelection().addShape(ShapeFactory.INST.createRectangle());
@@ -94,7 +94,7 @@ public class TestMetaShapeCustomiser implements CollectionMatcher {
 	}
 
 	@Test
-	public void activatedOnSelectionRemoval() {
+	public void testActivatedOnSelectionRemoval() {
 		Mockito.when(injector.getInstance(Hand.class).isActivated()).thenReturn(true);
 		meta.initialize(null, null);
 		final IDrawing dr = injector.getInstance(IDrawing.class);

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
-public class TestSVGDefsElement extends AbstractTestSVGElement {
+public class TestSVGDefsElement extends TestBaseSVGElement {
 	SVGDefsElement defs;
 
 	@Override

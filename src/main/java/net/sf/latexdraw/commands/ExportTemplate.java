@@ -46,7 +46,7 @@ public class ExportTemplate extends IOCommand<Label> {
 		dialog.setHeaderText(lang.getBundle().getString("DrawContainer.nameTemplate"));
 
 		dialog.showAndWait().ifPresent(name -> {
-			final String path = system.PATH_TEMPLATES_DIR_USER + File.separator + name + ".svg"; //NON-NLS
+			final String path = system.pathTemplatesDirUser + File.separator + name + ".svg"; //NON-NLS
 
 			if(Paths.get(path).toFile().exists()) {
 				final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

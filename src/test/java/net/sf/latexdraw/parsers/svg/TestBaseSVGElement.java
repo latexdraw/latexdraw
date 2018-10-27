@@ -7,7 +7,7 @@ import org.w3c.dom.DOMException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public abstract class AbstractTestSVGElement {
+public abstract class TestBaseSVGElement {
 	protected SVGElement node;
 	protected SVGDocument doc = new SVGDocument();
 

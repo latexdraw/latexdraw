@@ -166,7 +166,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @return The comments with the '%' tag at the beginning of each line. Cannot be null.
 	 */
 	public String getCommentWithTag() {
-		return Stream.of(comment.split(system.EOL)).map(commentLine -> "% " + commentLine).collect(Collectors.joining(system.EOL));
+		return Stream.of(comment.split(SystemService.EOL)).map(commentLine -> "% " + commentLine).collect(Collectors.joining(SystemService.EOL));
 	}
 
 
@@ -285,7 +285,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final File tmpDir = optDir.get();
-		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + system.FILE_SEP + "tmpPSFile.ps", tmpDir); //NON-NLS
+		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + SystemService.FILE_SEP + "tmpPSFile.ps", tmpDir); //NON-NLS
 
 		if(!optFile.isPresent()) {
 			return Optional.empty();
@@ -299,7 +299,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final String log = system.execute(paramsLatex, tmpDir).b;
 
 		if(!fileEPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + system.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + SystemService.EOL + log));
 			return Optional.empty();
 		}
 
@@ -328,7 +328,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return Optional.empty();
 		}
 
-		final int lastSep = pathExportPs.lastIndexOf(system.FILE_SEP) + 1;
+		final int lastSep = pathExportPs.lastIndexOf(SystemService.FILE_SEP) + 1;
 		final String name = pathExportPs.substring(lastSep, pathExportPs.lastIndexOf(".ps")); //NON-NLS
 		final File tmpDir2 = tmpDir == null ? system.createTempDir().orElse(null) : tmpDir;
 
@@ -337,7 +337,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return Optional.empty();
 		}
 
-		final String path = tmpDir2.getAbsolutePath() + system.FILE_SEP;
+		final String path = tmpDir2.getAbsolutePath() + SystemService.FILE_SEP;
 		final Optional<File> optFile = system.saveFile(path + name + ExportFormat.TEX.getFileExtension(), getDocumentCode());
 
 		if(!optFile.isPresent()) {
@@ -369,7 +369,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		finalPS = new File(pathExportPs);
 
 		if(!finalPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + system.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + SystemService.EOL + log));
 			finalPS = null;
 		}
 
@@ -402,9 +402,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final File tmpDir = optDir.get();
-		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(system.FILE_SEP) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
+		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(SystemService.FILE_SEP) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
 		final File psFile;
-		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + system.FILE_SEP + name + ".ps"); //NON-NLS
+		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + SystemService.FILE_SEP + name + ".ps"); //NON-NLS
 
 		if(optFile.isPresent()) {
 			psFile = optFile.get();
@@ -424,7 +424,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			crop ? name + ExportFormat.PDF.getFileExtension() : pathExportPdf}, tmpDir).b;
 
 		if(crop) {
-			pdfFile = new File(tmpDir.getAbsolutePath() + system.FILE_SEP + name + ExportFormat.PDF.getFileExtension());
+			pdfFile = new File(tmpDir.getAbsolutePath() + SystemService.FILE_SEP + name + ExportFormat.PDF.getFileExtension());
 			log = system.execute(new String[] {os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir).b;
 			try {
 				Files.move(pdfFile.toPath(), Paths.get(pathExportPdf), StandardCopyOption.REPLACE_EXISTING);
@@ -437,7 +437,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		pdfFile = new File(pathExportPdf);
 
 		if(!pdfFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + system.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + SystemService.EOL + log));
 			pdfFile = null;
 		}
 

@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestSVGStopElement extends AbstractTestSVGElement {
+public class TestSVGStopElement extends TestBaseSVGElement {
 	@Override
 	@Before
 	public void setUp() throws Exception {

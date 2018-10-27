@@ -67,7 +67,7 @@ public final class LangService {
 		Optional<ResourceBundle> res = Optional.empty();
 
 		try {
-			final Path xml = Paths.get(system.PATH_PREFERENCES_XML_FILE);
+			final Path xml = Paths.get(system.pathPreferencesXmlFile);
 
 			if(xml.toFile().exists()) {
 				final Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(Files.newInputStream(xml)).getFirstChild();

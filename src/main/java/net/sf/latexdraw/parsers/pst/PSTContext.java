@@ -28,7 +28,7 @@ import static net.sf.latexdraw.view.pst.PSTricksConstants.DEFAULT_ORIGIN;
  * @author Arnaud BLOUIN
  */
 public class PSTContext {
-	static double PPC = 1d;
+	static double ppc = 1d;
 
 	static double doubleUnitToUnit(final double value, final String unit) {
 		switch(unit) {
@@ -117,7 +117,7 @@ public class PSTContext {
 	Point2D pictureSWPt = new Point2D(0d, 0d);
 	Point2D pictureNEPt = new Point2D(0d, 0d);
 	String tokenPosition = "";
-	String plotStyle = "line";
+	String plotStyle = "line"; //NON-NLS
 	int plotPoints = 50;
 	String textPosition = "";
 	double rputAngle = 0d;
@@ -247,25 +247,25 @@ public class PSTContext {
 	void setRputAngle(final Token star, final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim, final ParseTree put) {
 		if(put != null) {
 			switch(put.getText()) {
-				case "L":
+				case "L": //NON-NLS
 					rputAngle += -Math.PI / 2d;
 					break;
-				case "D":
+				case "D": //NON-NLS
 					rputAngle += -Math.PI;
 					break;
-				case "R":
+				case "R": //NON-NLS
 					rputAngle += -3d * Math.PI / 2d;
 					break;
-				case "N":
+				case "N": //NON-NLS
 					rputAngle = 0d;
 					break;
-				case "W":
+				case "W": //NON-NLS
 					rputAngle = -Math.PI / 2d;
 					break;
-				case "S":
+				case "S": //NON-NLS
 					rputAngle = -Math.PI;
 					break;
-				case "E":
+				case "E": //NON-NLS
 					rputAngle = -3d * Math.PI / 2d;
 					break;
 			}
@@ -315,18 +315,18 @@ public class PSTContext {
 
 	double fromXvalDimToCoord(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim) {
 		if(valDim == null) {
-			return PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE * PPC;
+			return PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE * ppc;
 		}
 		final double xunit = valDim.unit() == null ? xUnit * unit : 1d;
-		return PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * PPC * xunit, unitOrEmpty(valDim.unit()));
+		return PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * ppc * xunit, unitOrEmpty(valDim.unit()));
 	}
 
 	double fromYvalDimToCoord(final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext valDim) {
 		if(valDim == null) {
-			return -PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE * PPC;
+			return -PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE * ppc;
 		}
 		final double yunit = valDim.unit() == null ? yUnit * unit : 1d;
-		return -PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * PPC * yunit, unitOrEmpty(valDim.unit()));
+		return -PSTContext.doubleUnitToUnit(valToDouble(valDim.NUMBER().getText()) * ppc * yunit, unitOrEmpty(valDim.unit()));
 	}
 
 	/**
@@ -342,13 +342,13 @@ public class PSTContext {
 	}
 
 	/**
-	 * Converts a coord token into a point. The point is adapted to be a coordinated: negative Y, PPC used.
+	 * Converts a coord token into a point. The point is adapted to be a coordinated: negative Y, ppc used.
 	 * @param coord The coord to convert.
 	 * @return The transformed point. Cannot be null.
 	 */
 	Point2D coordToAdjustedPoint(final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext coord) {
 		if(coord == null) {
-			return new Point2D(PSTContext.doubleUnitToUnit(originX.a, originX.b) * PPC, PSTContext.doubleUnitToUnit(originY.a, originY.b) * PPC);
+			return new Point2D(PSTContext.doubleUnitToUnit(originX.a, originX.b) * ppc, PSTContext.doubleUnitToUnit(originY.a, originY.b) * ppc);
 		}
 		return new Point2D(fromXvalDimToCoord(coord.x), fromYvalDimToCoord(coord.y));
 	}

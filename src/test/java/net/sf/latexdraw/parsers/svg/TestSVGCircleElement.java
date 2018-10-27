@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestSVGCircleElement extends AbstractTestSVGElement {
+public class TestSVGCircleElement extends TestBaseSVGElement {
 	@Override
 	@Before
 	public void setUp() {

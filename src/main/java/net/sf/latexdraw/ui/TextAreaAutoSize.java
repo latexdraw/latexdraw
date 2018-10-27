@@ -34,21 +34,19 @@ public class TextAreaAutoSize extends TextArea {
 	 */
 	private boolean valid;
 	private final Text msg = new Text();
-	private final SystemService system;
 
 	/**
 	 * Creates the widget.
 	 */
-	public TextAreaAutoSize(final SystemService system) {
+	public TextAreaAutoSize() {
 		super();
 		valid = true;
-		this.system = system;
 
 		addEventHandler(KeyEvent.KEY_PRESSED, evt -> {
 			if(evt.getCode() == KeyCode.ENTER) {
 				if(evt.isShiftDown()) {
 					final int caretPosition = getCaretPosition();
-					setText(getText() + system.EOL);
+					setText(getText() + SystemService.EOL);
 					positionCaret(caretPosition + 1);
 				}else {
 					evt.consume();
@@ -88,7 +86,6 @@ public class TextAreaAutoSize extends TextArea {
 	 * Defines whether the text typed in the filed is valid. If not, the background of the filed is painted in red.
 	 * That feature can be used when the text typed needed to be validated.
 	 * @param ok Valid or not and the message (that cannot be null).
-	 * @since 3.2
 	 */
 	public void setValid(final Tuple<Boolean, String> ok) {
 		valid = ok.a;
@@ -99,7 +96,6 @@ public class TextAreaAutoSize extends TextArea {
 
 	/**
 	 * @return Whether the text typed in the filed is valid.
-	 * @since 3.1
 	 */
 	public boolean isValidText() {
 		return valid;
@@ -119,8 +115,8 @@ public class TextAreaAutoSize extends TextArea {
 			return;
 		}
 
-		final String[] lines = newText.split(system.EOL);
-		final int countEOL = newText.length() - newText.replace(system.EOL, "").length();
+		final String[] lines = newText.split(SystemService.EOL);
+		final int countEOL = newText.length() - newText.replace(SystemService.EOL, "").length();
 		final String maxLine = Arrays.stream(lines).reduce((a, b) -> a.length() > b.length() ? a : b).orElse("");
 
 		final Text txt = new Text(newText + " ");

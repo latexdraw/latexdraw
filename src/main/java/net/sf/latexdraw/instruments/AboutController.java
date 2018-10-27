@@ -46,22 +46,22 @@ public class AboutController implements Initializable {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		aboutText.setText(lang.getBundle().getString("LaTeXDrawFrame.219") + ' ' +  //NON-NLS
-			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + ", build " + VersionChecker.ID_BUILD + system.EOL +  //NON-NLS
-			LaTeXDraw.LABEL_APP + lang.getBundle().getString("LaTeXDrawFrame.221") + system.EOL + //NON-NLS
-			"Copyright(c) 2005-2018 - Arnaud BLOUIN" + system.EOL + //NON-NLS
+			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + ", build " + VersionChecker.ID_BUILD + SystemService.EOL +  //NON-NLS
+			LaTeXDraw.LABEL_APP + lang.getBundle().getString("LaTeXDrawFrame.221") + SystemService.EOL + //NON-NLS
+			"Copyright(c) 2005-2018 - Arnaud BLOUIN" + SystemService.EOL + //NON-NLS
 			"http://latexdraw.sourceforge.net/"); //NON-NLS
 		noteText.setText(system.readTextFile("/res/release_note.txt")); //NON-NLS
 		contribText.setText(system.readTextFile("/res/contributors.txt")); //NON-NLS
 		licenseText.setText(system.readTextFile("/res/license.txt")); //NON-NLS
 
 		final StringBuilder builder = new StringBuilder();
-		builder.append("LaTeX version:").append(system.getLaTeXVersion()).append(system.EOL); //NON-NLS
-		builder.append("DviPS version:").append(system.getDVIPSVersion()).append(system.EOL); //NON-NLS
-		builder.append("PS2PDF version:").append(system.EOL).append(system.getPS2PDFVersion()).append(system.EOL); //NON-NLS
-		builder.append("PS2EPSI version:").append(system.getPS2EPSVersion()).append(system.EOL); //NON-NLS
-		builder.append("PDFcrop version:").append(system.getPDFCROPVersion()).append(system.EOL); //NON-NLS
-		builder.append("Java properties:").append(system.EOL); //NON-NLS
-		System.getProperties().forEach((key, value) -> builder.append(key).append(':').append(' ').append(value).append(system.EOL));
+		builder.append("LaTeX version:").append(system.getLaTeXVersion()).append(SystemService.EOL); //NON-NLS
+		builder.append("DviPS version:").append(system.getDVIPSVersion()).append(SystemService.EOL); //NON-NLS
+		builder.append("PS2PDF version:").append(SystemService.EOL).append(system.getPS2PDFVersion()).append(SystemService.EOL); //NON-NLS
+		builder.append("PS2EPSI version:").append(system.getPS2EPSVersion()).append(SystemService.EOL); //NON-NLS
+		builder.append("PDFcrop version:").append(system.getPDFCROPVersion()).append(SystemService.EOL); //NON-NLS
+		builder.append("Java properties:").append(SystemService.EOL); //NON-NLS
+		System.getProperties().forEach((key, value) -> builder.append(key).append(':').append(' ').append(value).append(SystemService.EOL));
 		sysText.setText(builder.toString());
 	}
 }
