@@ -94,9 +94,13 @@ public abstract class Injector {
 			return (T) supplier.get();
 		}
 
-		try {
-			T instance = (T) instances.get(cl);
+		T instance = (T) instancesSuppliers.getOrDefault(cl, () -> null).get();
 
+		if(instance == null) {
+			instance = (T) instances.get(cl);
+		}
+
+		try {
 			if(instance == null) {
 				instance = cl.getDeclaredConstructor().newInstance();
 			}

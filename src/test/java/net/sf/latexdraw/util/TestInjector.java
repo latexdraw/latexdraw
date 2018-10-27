@@ -259,8 +259,37 @@ public class TestInjector implements HelperTest {
 		assertEquals(obj, injector.getInstances().iterator().next());
 	}
 
+	@Test
+	public void testSupplierGetInstance() {
+		final D d = new D();
+		injector = new Injector() {
+			@Override
+			protected void configure() {
+				bindToSupplier(D.class, () -> d);
+			}
+		};
+		injector.initialise();
+		final D obj = injector.getInstance(D.class);
+		assertEquals(d, obj);
+	}
+
+	@Test
+	public void testSupplierInjection() {
+		final B b = new B();
+		injector = new Injector() {
+			@Override
+			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+				bindToSupplier(B.class, () -> b);
+				bindAsEagerSingleton(A.class);
+			}
+		};
+		injector.initialise();
+		final A obj = injector.getInstance(A.class);
+		assertEquals(b, obj.b);
+	}
+
 	static class A {
-		@Inject B b;
+		@Inject private B b;
 	}
 
 	static class B {
