@@ -25,7 +25,7 @@ import org.malai.javafx.ui.JfxUI;
 import org.malai.javafx.ui.OpenSaver;
 
 /**
- * A command for saveing a drawing as an SVG document.
+ * A command for saving a drawing as an SVG document.
  * @author Arnaud Blouin
  */
 public class SaveDrawing extends Save<Label> {

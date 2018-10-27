@@ -1,5 +1,8 @@
 package net.sf.latexdraw;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -9,6 +12,9 @@ import javafx.application.Platform;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.commands.SaveDrawing;
+import net.sf.latexdraw.instruments.ExceptionsManager;
+import net.sf.latexdraw.instruments.FileLoaderSaver;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.hamcrest.Matchers;
@@ -17,6 +23,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junitpioneer.jupiter.TempDirectory;
 import org.malai.command.CommandsRegistry;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
@@ -27,7 +34,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-
 
 @ExtendWith(ApplicationExtension.class)
 public class TestLaTeXDraw {
@@ -53,6 +59,8 @@ public class TestLaTeXDraw {
 	@AfterAll
 	static void afterAll() throws TimeoutException {
 		FxToolkit.cleanupApplication(app);
+		BadaboomCollector.INSTANCE.clear();
+		CommandsRegistry.INSTANCE.clear();
 		app = null;
 	}
 
@@ -114,5 +122,20 @@ public class TestLaTeXDraw {
 		WaitForAsyncUtils.waitForFxEvents();
 		assertThat(hvalue, Matchers.greaterThan(pane.getHvalue()));
 		assertThat(vvalue, Matchers.greaterThan(pane.getVvalue()));
+	}
+
+	@Test
+	@ExtendWith(TempDirectory.class)
+	void testIntegrationSaveNoCrash(final FxRobot robot, @TempDirectory.TempDir final Path dir) {
+		final File file = Paths.get(dir.toString(), "foo.svg").toFile();
+		app.getInjector().getInstance(FileLoaderSaver.class).setCurrentFile(file);
+		robot.clickOn(app.getMainStage());
+		robot.clickOn("#dotB").clickOn("#canvas");
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.clickOn("#fileMenu").clickOn("#saveMenu").sleep(1000L);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(CommandsRegistry.INSTANCE.getCommands().size() - 1) instanceof SaveDrawing);
+		assertTrue(BadaboomCollector.INSTANCE.isEmpty());
+		assertFalse(app.getInjector().getInstance(ExceptionsManager.class).isActivated());
 	}
 }

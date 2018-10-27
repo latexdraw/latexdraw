@@ -8,7 +8,6 @@ import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
-import net.sf.latexdraw.view.jfx.MagneticGridImpl;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -37,7 +36,7 @@ public class TestModifyMagneticGrid extends TestUndoableCommand<ModifyMagneticGr
 	@Override
 	@Before
 	public void setUp() {
-		grid = new MagneticGridImpl(new Canvas(), new SystemService());
+		grid = new Canvas(new SystemService()).getMagneticGrid();
 		// Cannot have two runners so cannot use mock to mock Canvas:
 		CommandsRegistry.INSTANCE.removeAllHandlers();
 

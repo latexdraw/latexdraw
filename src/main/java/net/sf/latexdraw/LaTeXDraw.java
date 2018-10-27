@@ -13,6 +13,7 @@ package net.sf.latexdraw;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -79,11 +80,10 @@ public class LaTeXDraw extends JfxUI {
 	}
 
 	private Stage mainStage;
-	private final Injector injector;
+	private Injector injector;
 
 	public LaTeXDraw() {
 		super();
-		injector = new LatexdrawInjector(this);
 	}
 
 	private void showSplash(final Stage initStage, final Task<Void> task) {
@@ -128,11 +128,23 @@ public class LaTeXDraw extends JfxUI {
 			@Override
 			protected Void call() throws IOException {
 				updateProgress(0.1, 1d);
+				final CountDownLatch latch = new CountDownLatch(1);
+
 				Platform.runLater(() -> {
 					mainStage = new Stage(StageStyle.DECORATED);
 					mainStage.setIconified(true);
 					mainStage.setTitle(LABEL_APP);
+					injector = new LatexdrawInjector(LaTeXDraw.this);
+					latch.countDown();
 				});
+
+				// We need to wait for the javafx thread to perform its job before loading the UI (because of the injector).
+				try {
+					latch.await();
+				}catch(final InterruptedException ex) {
+					Thread.currentThread().interrupt();
+					throw new RuntimeException(ex);
+				}
 
 				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), injector.getInstance(LangService.class).getBundle(), //NON-NLS
 					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
@@ -196,5 +208,9 @@ public class LaTeXDraw extends JfxUI {
 	 */
 	public Stage getMainStage() {
 		return mainStage;
+	}
+
+	protected Injector getInjector() {
+		return injector;
 	}
 }

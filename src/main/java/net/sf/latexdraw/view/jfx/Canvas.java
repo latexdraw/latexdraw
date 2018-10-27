@@ -124,12 +124,11 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	private Optional<ViewShape<?>> tempView;
 
 	@Inject private ViewFactory viewFactory;
-	@Inject private SystemService system;
 
 	/**
 	 * Creates the canvas.
 	 */
-	public Canvas() {
+	public Canvas(final SystemService system) {
 		super();
 
 		modified = false;

@@ -90,6 +90,10 @@ public class LatexdrawInjector extends Injector {
 	@Override
 	protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		bindToInstance(Injector.class, this);
+		bindToInstance(JfxUI.class, app);
+		bindToInstance(Application.class, app);
+		bindToInstance(LaTeXDraw.class, app);
+		bindToSupplier(Stage.class, () -> app.getMainStage());
 		bindToInstance(BuilderFactory.class, new LatexdrawBuilderFactory(this));
 		bindAsEagerSingleton(SystemService.class);
 		bindAsEagerSingleton(LShapeFactory.class);
@@ -99,10 +103,6 @@ public class LatexdrawInjector extends Injector {
 		bindAsEagerSingleton(SVGDocumentGenerator.class);
 		bindAsEagerSingleton(LangService.class);
 		bindAsEagerSingleton(ExceptionsManager.class);
-		bindToInstance(JfxUI.class, app);
-		bindToInstance(Application.class, app);
-		bindToInstance(LaTeXDraw.class, app);
-		bindWithCommand(Stage.class, LaTeXDraw.class, ld -> ld.getMainStage());
 		bindAsEagerSingleton(ShortcutsController.class);
 		bindAsEagerSingleton(StatusBarController.class);
 		bindAsEagerSingleton(AboutController.class);

@@ -85,6 +85,10 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 	@Inject private JfxUI app;
 	@Inject private Stage mainstage;
 
+	public SVGDocumentGenerator() {
+		super();
+	}
+
 	@Override
 	public Task<Boolean> save(final String path, final ProgressBar progressBar, final Label statusBar) {
 		final SaveWorker sw = new SaveWorker(path, statusBar, true, false, progressBar);
