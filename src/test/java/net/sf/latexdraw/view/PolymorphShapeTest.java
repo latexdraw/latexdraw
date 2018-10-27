@@ -11,8 +11,10 @@
 package net.sf.latexdraw.view;
 
 import javafx.application.Platform;
+import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.models.CompareShapeMatcher;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -28,6 +30,11 @@ public interface PolymorphShapeTest extends PolymorphicConversion<IShape> {
 		}catch(final IllegalStateException ex) {
 			// Ok
 		}
+	}
+
+	@AfterAll
+	static void tearDownAll() {
+		ParameteriseShapeData.INST.clearTempFolders();
 	}
 
 	@ParameterizedTest

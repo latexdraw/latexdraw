@@ -25,12 +25,16 @@ public final class CompareShapeMatcher implements HelperTest {
 	}
 
 	public void assertEqualShapeLineStyle(final IShape s1, final IShape s2) {
-		assertEquals(s2.getDashSepBlack(), s1.getDashSepBlack(), 0.001);
-		assertEquals(s2.getDashSepWhite(), s1.getDashSepWhite(), 0.001);
-		assertEquals(s2.getDotSep(), s1.getDotSep(), 0.001);
-		assertEquals(s2.getLineStyle(), s1.getLineStyle());
+		if(s1.isThicknessable()) {
+			assertEquals(s2.getThickness(), s1.getThickness(), 0.001);
+		}
+		if(s2.isLineStylable()) {
+			assertEquals(s2.getLineStyle(), s1.getLineStyle());
+			assertEquals(s2.getDashSepBlack(), s1.getDashSepBlack(), 0.001);
+			assertEquals(s2.getDashSepWhite(), s1.getDashSepWhite(), 0.001);
+			assertEquals(s2.getDotSep(), s1.getDotSep(), 0.001);
+		}
 		assertEquals(s2.getLineColour(), s1.getLineColour());
-		assertEquals(s2.getThickness(), s1.getThickness(), 0.001);
 	}
 
 	public void assertEqualShapeBorderMov(final IShape s1, final IShape s2) {
@@ -38,36 +42,45 @@ public final class CompareShapeMatcher implements HelperTest {
 	}
 
 	public void assertEqualShapeDbleBorder(final IShape s1, final IShape s2) {
-		assertEquals(s2.getDbleBordCol(), s1.getDbleBordCol());
-		assertEquals(s2.getDbleBordSep(), s1.getDbleBordSep(), 0.001);
-		assertEquals(s2.hasDbleBord(), s1.hasDbleBord());
+		if(s2.isDbleBorderable()) {
+			assertEquals(s2.getDbleBordCol(), s1.getDbleBordCol());
+			assertEquals(s2.getDbleBordSep(), s1.getDbleBordSep(), 0.001);
+			assertEquals(s2.hasDbleBord(), s1.hasDbleBord());
+		}
 	}
 
 	public void assertEqualShapeFill(final IShape s1, final IShape s2) {
-		assertEquals(s2.isFilled(), s1.isFilled());
-		assertEquals(s2.getFillingCol(), s1.getFillingCol());
+		if(s1.isFillable()) {
+			assertEquals(s2.isFilled(), s1.isFilled());
+			assertEquals(s2.getFillingCol(), s1.getFillingCol());
+		}
 		if(s1.isInteriorStylable()) {
 			assertEquals(s2.getFillingStyle(), s1.getFillingStyle());
 		}
 	}
 
 	public void assertEqualShapeFillStyle(final IShape s1, final IShape s2) {
-		assertEquals(s2.getGradAngle(), s1.getGradAngle(), 0.001);
-		assertEquals(s2.getGradColEnd(), s1.getGradColEnd());
-		assertEquals(s2.getGradColStart(), s1.getGradColStart());
-		assertEquals(s2.getGradMidPt(), s1.getGradMidPt(), 0.001);
-		assertEquals(s2.getHatchingsAngle(), s1.getHatchingsAngle(), 0.001);
-		assertEquals(s2.getHatchingsCol(), s1.getHatchingsCol());
-		assertEquals(s2.getHatchingsSep(), s1.getHatchingsSep(), 0.001);
-		assertEquals(s2.getHatchingsWidth(), s1.getHatchingsWidth(), 0.001);
+		if(s2.getFillingStyle().isGradient()) {
+			assertEquals(s2.getGradAngle(), s1.getGradAngle(), 0.001);
+			assertEquals(s2.getGradColEnd(), s1.getGradColEnd());
+			assertEquals(s2.getGradColStart(), s1.getGradColStart());
+			assertEquals(s2.getGradMidPt(), s1.getGradMidPt(), 0.001);
+		}
+		if(s2.getFillingStyle().isHatchings()) {
+			assertEquals(s2.getHatchingsAngle(), s1.getHatchingsAngle(), 0.001);
+			assertEquals(s2.getHatchingsCol(), s1.getHatchingsCol());
+			assertEquals(s2.getHatchingsSep(), s1.getHatchingsSep(), 0.001);
+			assertEquals(s2.getHatchingsWidth(), s1.getHatchingsWidth(), 0.001);
+		}
 	}
 
 	public void assertEqualShapeShadow(final IShape s1, final IShape s2) {
 		assertEquals(s2.hasShadow(), s1.hasShadow());
-		assertThat(s2.getShadowAngle(),
-			anyOf(closeTo(s1.getShadowAngle(), 0.0001), closeTo(s1.getShadowAngle() + 2d * Math.PI, 0.001)));
-		assertEquals(s2.getShadowSize(), s1.getShadowSize(), 0.001);
-		assertEquals(s2.getShadowCol(), s1.getShadowCol());
+		if(s2.hasShadow()) {
+			assertThat(s2.getShadowAngle(), anyOf(closeTo(s1.getShadowAngle(), 0.0001), closeTo(s1.getShadowAngle() + 2d * Math.PI, 0.001)));
+			assertEquals(s2.getShadowSize(), s1.getShadowSize(), 0.001);
+			assertEquals(s2.getShadowCol(), s1.getShadowCol());
+		}
 	}
 
 	public void assertEqualShapeShowPts(final IShape s1, final IShape s2) {

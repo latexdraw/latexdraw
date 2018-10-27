@@ -22,58 +22,24 @@ public class TestSVGArrowable extends TestSVGBase<IArrowableSingleShape> {
 
 	@ParameterizedTest
 	@MethodSource("arrowsParamsDiv")
-	void testArrowStyle1(final IArrowableSingleShape sh, final ArrowStyle arr) {
+	void testArrowArrow1(final IArrowableSingleShape sh, final ArrowStyle arr) {
 		sh.setArrowStyle(arr, 0);
 		sh.setArrowStyle(ArrowStyle.LEFT_ROUND_BRACKET, -1);
 		final IArrowableSingleShape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsArrowStyle(sh.getArrowAt(0), s2.getArrowAt(0));
 		CompareShapeMatcher.INST.assertEqualsArrowStyle(sh.getArrowAt(-1), s2.getArrowAt(-1));
+		CompareShapeMatcher.INST.assertEqualsArrowArrow(sh.getArrowAt(0), s2.getArrowAt(0));
 	}
 
 	@ParameterizedTest
 	@MethodSource("arrowsParamsDiv")
-	void testArrowStyle2(final IArrowableSingleShape sh, final ArrowStyle arr) {
+	void testArrowArrow2(final IArrowableSingleShape sh, final ArrowStyle arr) {
 		sh.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
 		sh.setArrowStyle(arr, -1);
 		final IArrowableSingleShape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsArrowStyle(sh.getArrowAt(0), s2.getArrowAt(0));
 		CompareShapeMatcher.INST.assertEqualsArrowStyle(sh.getArrowAt(-1), s2.getArrowAt(-1));
-	}
-
-	@ParameterizedTest
-	@MethodSource("arrowsParamsDiv")
-	void testArrowArrowParamsArr1(final IArrowableSingleShape sh, final ArrowStyle arr) {
-		assumeTrue(arr.isArrow());
-		assumeFalse(sh instanceof IAxes);
-		sh.setArrowStyle(arr, 0);
-		sh.setArrowStyle(ArrowStyle.BAR_IN, -1);
-		final IArrowableSingleShape s2 = produceOutputShapeFrom(sh);
-		CompareShapeMatcher.INST.assertEqualsArrowStyle(sh.getArrowAt(0), s2.getArrowAt(0));
-		CompareShapeMatcher.INST.assertEqualsArrowStyle(sh.getArrowAt(-1), s2.getArrowAt(-1));
-	}
-
-	@ParameterizedTest
-	@MethodSource("arrowsParamsDiv")
-	void testArrowArrowParamsArr2(final IArrowableSingleShape sh, final ArrowStyle arr) {
-		assumeTrue(arr.isArrow());
-		assumeFalse(sh instanceof IAxes);
-		sh.setArrowStyle(ArrowStyle.CIRCLE_IN, 0);
-		sh.setArrowStyle(arr, -1);
-		final IArrowableSingleShape s2 = produceOutputShapeFrom(sh);
-		CompareShapeMatcher.INST.assertEqualsArrowStyle(sh.getArrowAt(0), s2.getArrowAt(0));
-		CompareShapeMatcher.INST.assertEqualsArrowStyle(sh.getArrowAt(-1), s2.getArrowAt(-1));
-	}
-
-	@ParameterizedTest
-	@MethodSource("arrowsParamsDiv")
-	void testArrowBarParamsArr1(final IArrowableSingleShape sh, final ArrowStyle arr) {
-		assumeTrue(arr.isBar());
-		assumeFalse(sh instanceof IAxes);
-		sh.setArrowStyle(arr, 0);
-		sh.setArrowStyle(ArrowStyle.DISK_END, -1);
-		final IArrowableSingleShape s2 = produceOutputShapeFrom(sh);
-		CompareShapeMatcher.INST.assertEqualsArrowStyle(sh.getArrowAt(0), s2.getArrowAt(0));
-		CompareShapeMatcher.INST.assertEqualsArrowStyle(sh.getArrowAt(-1), s2.getArrowAt(-1));
+		CompareShapeMatcher.INST.assertEqualsArrowArrow(sh.getArrowAt(-1), s2.getArrowAt(-1));
 	}
 
 	@ParameterizedTest
