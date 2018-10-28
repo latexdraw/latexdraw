@@ -27,7 +27,6 @@ import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.Tuple;
 import org.malai.command.Command;
 import org.malai.javafx.command.ActivateInactivateInstruments;
@@ -49,7 +48,6 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	@Inject private Pencil pencil;
 	@Inject private ShapeTextCustomiser custom;
 	@Inject private ShapePlotCustomiser plotCustom;
-	@Inject private SystemService service;
 	@Inject private LangService langTool;
 
 	/**
@@ -57,7 +55,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	 */
 	public TextSetter() {
 		super();
-		textField = new TextAreaAutoSize(service);
+		textField = new TextAreaAutoSize();
 	}
 
 	@Override
