@@ -129,7 +129,9 @@ public class TestLaTeXDraw {
 	void testIntegrationSaveNoCrash(final FxRobot robot, @TempDirectory.TempDir final Path dir) {
 		final File file = Paths.get(dir.toString(), "foo.svg").toFile();
 		app.getInjector().getInstance(FileLoaderSaver.class).setCurrentFile(file);
-		robot.clickOn(app.getMainStage()).sleep(500L).clickOn("#dotB").clickOn("#canvas");
+		Platform.runLater(() -> app.getInjector().getInstance(Canvas.class).requestFocus());
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.clickOn(app.getMainStage()).sleep(800L).clickOn("#dotB").clickOn("#canvas");
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.clickOn("#fileMenu").clickOn("#saveMenu").sleep(1000L);
 		WaitForAsyncUtils.waitForFxEvents();
