@@ -8,6 +8,7 @@ import net.sf.latexdraw.models.impl.LShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.PreferencesService;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
@@ -25,6 +26,7 @@ public class ShapePropInjector extends Injector {
 
 	@Override
 	protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+		bindAsEagerSingleton(PreferencesService.class);
 		bindToInstance(JfxUI.class, Mockito.mock(LaTeXDraw.class));
 		bindToInstance(Injector.class, this);
 		bindToInstance(BuilderFactory.class, new LatexdrawBuilderFactory(this));

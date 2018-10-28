@@ -55,7 +55,7 @@ import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.Preference;
+import net.sf.latexdraw.util.PreferencesService;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.util.VersionChecker;
@@ -107,6 +107,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	@Inject private MagneticGrid grid;
 	@Inject private SystemService system;
 	@Inject private LangService lang;
+	@Inject private PreferencesService preferences;
 	/** The file chooser of paths selection. */
 	private DirectoryChooser fileChooser;
 
@@ -197,7 +198,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	}
 
 	private void processXMLDataPreference(final File xml) {
-		final Map<String, Node> prefMap = Preference.INSTANCE.readXMLPreferencesFromFile(xml);
+		final Map<String, Node> prefMap = preferences.readXMLPreferencesFromFile(xml);
 		final Window win = pathExportField.getScene().getWindow();
 
 		Optional.ofNullable(prefMap.get(LNamespace.XML_LATEX_INCLUDES)).ifPresent(node -> latexIncludes.setText(node.getTextContent()));

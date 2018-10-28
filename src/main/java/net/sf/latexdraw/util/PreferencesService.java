@@ -26,39 +26,33 @@ import org.xml.sax.SAXException;
 /**
  * @author Arnaud Blouin
  */
-public final class Preference {
-	public static final Preference INSTANCE = new Preference();
+public class PreferencesService {
+	private final Map<String, Node> preferences;
 
-	private Preference() {
+	public PreferencesService() {
 		super();
+		preferences = new HashMap<>();
 	}
-
-	private Map<String, Node> preferences = null;
 
 	public Map<String, Node> readXMLPreferencesFromFile(final File xmlFile) {
 		if(xmlFile == null || !xmlFile.canRead()) {
 			return Collections.emptyMap();
 		}
 
-		if(preferences != null) {
-			return preferences;
-		}
-
 		try {
-			Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile).getFirstChild();
+			final Node root = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile).getFirstChild();
 
-			if(node == null || !LNamespace.XML_ROOT_PREFERENCES.equals(node.getNodeName())) {
+			if(root == null || !LNamespace.XML_ROOT_PREFERENCES.equals(root.getNodeName())) {
 				throw new IllegalArgumentException();
 			}
 
-			final NodeList nl = node.getChildNodes();
-			String name;
+			final NodeList nl = root.getChildNodes();
 
-			preferences = new HashMap<>();
+			flushPreferencesCache();
 
 			for(int i = 0, size = nl.getLength(); i < size; i++) {
-				node = nl.item(i);
-				name = node.getNodeName();
+				final Node node = nl.item(i);
+				final String name = node.getNodeName();
 
 				if(name != null && !name.isEmpty()) {
 					preferences.put(name, node);
@@ -73,6 +67,10 @@ public final class Preference {
 	}
 
 	public void flushPreferencesCache() {
-		preferences = null;
+		preferences.clear();
+	}
+
+	public Map<String, Node> getPreferences() {
+		return Collections.unmodifiableMap(preferences);
 	}
 }
