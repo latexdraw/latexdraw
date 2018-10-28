@@ -26,11 +26,9 @@ import net.sf.latexdraw.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.Mockito;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -71,7 +69,7 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		setter = injector.getInstance(TextSetter.class);
 		when(hand.isActivated()).thenReturn(false);
 		when(setter.isActivated()).thenReturn(false);
-		textAutoSize = new TextAreaAutoSize(injector.getInstance(SystemService.class));
+		textAutoSize = new TextAreaAutoSize();
 		when(setter.getTextField()).thenReturn(textAutoSize);
 		pencil.setActivated(true);
 		drawing = canvas.getDrawing();
