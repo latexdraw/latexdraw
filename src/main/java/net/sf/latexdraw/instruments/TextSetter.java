@@ -48,7 +48,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	@Inject private Pencil pencil;
 	@Inject private ShapeTextCustomiser custom;
 	@Inject private ShapePlotCustomiser plotCustom;
-	@Inject private LangService langTool;
+	@Inject private LangService lang;
 
 	/**
 	 * Creates the instrument.
@@ -138,19 +138,19 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 			valid = PSFunctionParser.isValidPostFixEquation(textField.getText(), Double.parseDouble(plotCustom.minXSpinner.getValue().toString()),
 				Double.parseDouble(plotCustom.maxXSpinner.getValue().toString()), Double.parseDouble(plotCustom.nbPtsSpinner.getValue().toString()));
 		}catch(final IllegalArgumentException ex) {
-			valid = new Tuple<>(Boolean.FALSE, langTool.getBundle().getString("invalid.function"));
+			valid = new Tuple<>(Boolean.FALSE, lang.getBundle().getString("invalid.function"));
 		}
 		textField.setValid(valid);
 		return valid.a;
 	}
 
 	private void setTextMessage() {
-		textField.getMessageField().setText(langTool.getBundle().getString("write.latex.text"));
+		textField.getMessageField().setText(lang.getBundle().getString("write.latex.text"));
 	}
 
 	private void setPlotMessage() {
 		final String eqEx = " 2 x add sin"; //NON-NLS
-		textField.getMessageField().setText(langTool.getBundle().getString("write.the.equation") + ' ' + eqEx);
+		textField.getMessageField().setText(lang.getBundle().getString("write.the.equation") + ' ' + eqEx);
 	}
 
 	@Override

@@ -11,7 +11,6 @@ import net.sf.latexdraw.commands.ModifyMagneticGrid;
 import net.sf.latexdraw.instruments.robot.FxRobotListSelection;
 import net.sf.latexdraw.instruments.robot.FxRobotSpinner;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.Preference;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
 import org.junit.Before;
@@ -47,7 +46,6 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 
 	@Before
 	public void setUp() {
-		Preference.INSTANCE.flushPreferencesCache();
 		setter = injector.getInstance(PreferencesSetter.class);
 		setter.setActivated(true);
 	}

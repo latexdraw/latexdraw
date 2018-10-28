@@ -7,14 +7,17 @@ import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import javafx.util.BuilderFactory;
 import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.LaTeXDraw;
+import net.sf.latexdraw.LatexdrawBuilderFactory;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.PreferencesService;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
@@ -86,9 +89,11 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 				bindToInstance(Injector.class, this);
+				bindToInstance(BuilderFactory.class, new LatexdrawBuilderFactory(this));
 				bindToInstance(JfxUI.class, Mockito.mock(LaTeXDraw.class));
 				bindToSupplier(Stage.class, () -> stage);
 				bindAsEagerSingleton(SystemService.class);
+				bindAsEagerSingleton(PreferencesService.class);
 				bindAsEagerSingleton(LangService.class);
 				bindAsEagerSingleton(ViewFactory.class);
 				bindAsEagerSingleton(SVGShapesFactory.class);
