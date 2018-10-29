@@ -134,7 +134,10 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 			if(worker.get()) {
 				return worker.getInsertedShapes();
 			}
-		}catch(final InterruptedException | ExecutionException ex) {
+		}catch(final InterruptedException ex) {
+			Thread.currentThread().interrupt();
+			BadaboomCollector.INSTANCE.add(ex);
+		}catch(final ExecutionException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 		return null;
@@ -456,7 +459,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 					}
 					Platform.runLater(() -> updateProgress(getProgress() + incr, 100d));
 				});
-			}catch(final Exception ex) {
+			}catch(final IllegalArgumentException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 			}
 
@@ -559,12 +562,8 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 					final Node n = nl.item(i);
 
 					if(n instanceof Element && LNamespace.LATEXDRAW_NAMESPACE_URI.equals(n.getNamespaceURI())) {
-						try {
-							final Element elt = (Element) n;
-							instruments.forEach(ins -> ins.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, elt));
-						}catch(final Exception e) {
-							BadaboomCollector.INSTANCE.add(e);
-						}
+						final Element elt = (Element) n;
+						instruments.forEach(ins -> ins.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, elt));
 					}
 				}
 			});

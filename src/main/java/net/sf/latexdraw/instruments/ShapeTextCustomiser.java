@@ -103,7 +103,10 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 					if(currentCompil != null) {
 						try {
 							currentCompil.get();
-						}catch(final InterruptedException | ExecutionException ex) {
+						}catch(final InterruptedException ex) {
+							Thread.currentThread().interrupt();
+							BadaboomCollector.INSTANCE.add(ex);
+						}catch(final ExecutionException ex) {
 							BadaboomCollector.INSTANCE.add(ex);
 						}
 					}

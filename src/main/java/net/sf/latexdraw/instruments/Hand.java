@@ -112,7 +112,7 @@ public class Hand extends CanvasInstrument {
 	private void dbleClickToInitTextSetter() {
 		// For text shapes.
 		nodeBinder(new DoubleClick(), i -> {
-			final IText text = ((ViewText) i.getSrcObject().get().getParent()).getModel();
+			final IText text = ((ViewText) i.getSrcObject().orElseThrow().getParent()).getModel();
 			return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(text.getPosition().getX() * canvas.getZoom(),
 				text.getPosition().getY() * canvas.getZoom()), text, null);
 		}).on(canvas.getViews().getChildren()).
@@ -122,7 +122,7 @@ public class Hand extends CanvasInstrument {
 
 		// For plot shapes.
 		nodeBinder(new DoubleClick(), i -> {
-				final IPlot plot = getViewShape(i.getSrcObject()).map(view -> ((ViewPlot) view).getModel()).get();
+				final IPlot plot = getViewShape(i.getSrcObject()).map(view -> ((ViewPlot) view).getModel()).orElseThrow();
 				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(plot.getPosition().getX() * canvas.getZoom(),
 					plot.getPosition().getY() * canvas.getZoom()), null, plot);
 		}).on(canvas.getViews().getChildren()).
@@ -135,20 +135,19 @@ public class Hand extends CanvasInstrument {
 	 * Pressure to select shapes
 	 */
 	private void bindPressureToSelectShape() {
-		nodeBinder(new Press(), () -> new SelectShapes(canvas.getDrawing())).on(canvas.getViews().getChildren()).first((i, c) -> {
+		nodeBinder(new Press(), () -> new SelectShapes(canvas.getDrawing())).on(canvas.getViews().getChildren()).first((i, c) ->
 			getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
-				if(i.isShiftPressed()) {
-					canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> c.addShape(sh));
-					return;
-				}
-				if(i.isCtrlPressed()) {
-					canvas.getDrawing().getSelection().getShapes().forEach(sh -> c.addShape(sh));
-					c.addShape(targetSh);
-					return;
-				}
-				c.setShape(targetSh);
-			});
-		}).when(i -> !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null))).bind();
+			if(i.isShiftPressed()) {
+				canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> c.addShape(sh));
+				return;
+			}
+			if(i.isCtrlPressed()) {
+				canvas.getDrawing().getSelection().getShapes().forEach(sh -> c.addShape(sh));
+				c.addShape(targetSh);
+				return;
+			}
+			c.setShape(targetSh);
+		})).when(i -> !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null))).bind();
 
 		// A simple pressure on the canvas deselects the shapes
 		nodeBinder(new Press(), () -> new SelectShapes(canvas.getDrawing())).on(canvas).
@@ -267,38 +266,42 @@ public class Hand extends CanvasInstrument {
 
 			// Updating the rectangle used for the interim feedback and for the selection of shapes.
 			selectionBorder = new BoundingBox(minX, minY, Math.max(maxX - minX, 1d), Math.max(maxY - minY, 1d));
-			final Rectangle selectionRec = new Rectangle(selectionBorder.getMinX() + Canvas.ORIGIN.getX(),
-				selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
-			// Transforming the selection rectangle to match the transformation of the canvas.
-			selectionRec.getTransforms().setAll(getInstrument().canvas.getLocalToSceneTransform());
 			// Cleaning the selected shapes in the command.
 			cmd.setShape(null);
 
 			if(interaction.isShiftPressed()) {
 				selectedViews.stream().filter(view -> !view.intersects(selectionBorder)).forEach(view -> cmd.addShape(view.getModel()));
-			}else {
-				if(interaction.isCtrlPressed()) {
-					selectedShapes.forEach(sh -> cmd.addShape(sh));
-				}
-				if(!selectionBorder.isEmpty()) {
-					instrument.canvas.getViews().getChildren().stream().filter(view -> {
-						Bounds bounds;
-						final Transform transform = view.getLocalToParentTransform();
-						if(transform.isIdentity()) {
-							bounds = selectionBorder;
-						}else {
-							try {
-								bounds = transform.createInverse().transform(selectionBorder);
-							}catch(final NonInvertibleTransformException ex) {
-								bounds = selectionBorder;
-								//TODO log
-							}
-						}
-						return view.intersects(bounds) &&
-							((ViewShape<?>) view).getActivatedShapes().stream().anyMatch(sh -> !Shape.intersect(sh, selectionRec).getLayoutBounds().isEmpty());
-					}).forEach(view -> cmd.addShape((IShape) view.getUserData()));
-				}
+				return;
 			}
+			if(interaction.isCtrlPressed()) {
+				selectedShapes.forEach(sh -> cmd.addShape(sh));
+			}
+			if(!selectionBorder.isEmpty()) {
+				updateSelection();
+			}
+		}
+
+		private void updateSelection() {
+			final Rectangle selectionRec = new Rectangle(selectionBorder.getMinX() + Canvas.ORIGIN.getX(),
+				selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
+			// Transforming the selection rectangle to match the transformation of the canvas.
+			selectionRec.getTransforms().setAll(getInstrument().canvas.getLocalToSceneTransform());
+
+			instrument.canvas.getViews().getChildren().stream().filter(view -> {
+				Bounds bounds;
+				final Transform transform = view.getLocalToParentTransform();
+				if(transform.isIdentity()) {
+					bounds = selectionBorder;
+				}else {
+					try {
+						bounds = transform.createInverse().transform(selectionBorder);
+					}catch(final NonInvertibleTransformException ex) {
+						bounds = selectionBorder;
+					}
+				}
+				return view.intersects(bounds) &&
+					((ViewShape<?>) view).getActivatedShapes().stream().anyMatch(sh -> !Shape.intersect(sh, selectionRec).getLayoutBounds().isEmpty());
+			}).forEach(view -> cmd.addShape((IShape) view.getUserData()));
 		}
 
 		@Override

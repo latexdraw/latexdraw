@@ -380,7 +380,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				root.appendChild(elt);
 
 				elt = document.createElement(LNamespace.XML_CLASSIC_GRID);
-				elt.setTextContent(Boolean.valueOf(styleList.getSelectionModel().getSelectedItem() == GridStyle.STANDARD).toString());
+				elt.setTextContent(Boolean.toString(styleList.getSelectionModel().getSelectedItem() == GridStyle.STANDARD));
 				root.appendChild(elt);
 
 				elt = document.createElement(LNamespace.XML_GRID_GAP);

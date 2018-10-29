@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.HostServices;
@@ -88,7 +89,7 @@ public final class Helper extends JfxInstrument implements Initializable {
 				aboutFrame.setTitle(lang.getBundle().getString("Res.1"));
 				aboutFrame.setScene(scene);
 				aboutFrame.centerOnScreen();
-			}catch(final Exception ex) {
+			}catch(final IOException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}
@@ -106,7 +107,7 @@ public final class Helper extends JfxInstrument implements Initializable {
 				shortcutFrame.setTitle(lang.getBundle().getString("LaTeXDrawFrame.3c"));
 				shortcutFrame.setScene(scene);
 				shortcutFrame.centerOnScreen();
-			}catch(final Exception ex) {
+			}catch(final IOException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}

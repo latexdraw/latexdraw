@@ -12,6 +12,7 @@ package net.sf.latexdraw.parsers.svg;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -130,8 +131,9 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 				clone.nnm.add((SVGAttr) attr.cloneNode(false));
 			}
 			return clone;
-		}catch(final CloneNotSupportedException e) {
-			return null;
+		}catch(final CloneNotSupportedException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+			return new SVGNamedNodeMap();
 		}
 	}
 

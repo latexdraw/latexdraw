@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -61,8 +62,8 @@ public final class ExceptionsManager extends JfxInstrument implements BadaboomHa
 				stageEx = new Stage(StageStyle.UTILITY);
 				stageEx.setScene(scene);
 				stageEx.centerOnScreen();
-			}catch(final Exception e) {
-				BadaboomCollector.INSTANCE.add(e);
+			}catch(final IOException ex) {
+				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}
 		return stageEx;

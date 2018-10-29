@@ -82,9 +82,9 @@ import org.malai.javafx.ui.JfxUI;
 public class LatexdrawInjector extends Injector {
 	private final LaTeXDraw app;
 
-	public LatexdrawInjector(final LaTeXDraw app) {
+	public LatexdrawInjector(final LaTeXDraw latexdraw) {
 		super();
-		this.app = app;
+		app = latexdraw;
 		initialise();
 	}
 

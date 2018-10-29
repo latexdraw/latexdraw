@@ -25,11 +25,11 @@ import net.sf.latexdraw.view.latex.VerticalPosition;
  * @author Arnaud Blouin
  */
 public class PSTCodeGenerator extends LaTeXGenerator {
-	private final String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + SystemService.EOL + //NON-NLS
+	private final String packagePstricks = "% \\usepackage[usenames,dvipsnames]{pstricks}" + SystemService.EOL + //NON-NLS
 		"% \\usepackage{pstricks-add}" + SystemService.EOL + "% \\usepackage{epsfig}" + SystemService.EOL + "% \\usepackage{pst-grad} % For gradients" + //NON-NLS
 		SystemService.EOL + "% \\usepackage{pst-plot} % For axes" + SystemService.EOL; //NON-NLS
 
-	private final String PACKAGE_FOR_SPACE_PICTURE = "\\usepackage[space]{grffile} % For spaces in paths" + SystemService.EOL + //NON-NLS
+	private final String packageForSpacePicture = "\\usepackage[space]{grffile} % For spaces in paths" + SystemService.EOL + //NON-NLS
 		"\\usepackage{etoolbox} % For spaces in paths" + SystemService.EOL + "\\makeatletter % For spaces in paths" + SystemService.EOL + //NON-NLS
 		"\\patchcmd\\Gread@eps{\\@inputcheck#1 }{\\@inputcheck\"#1\"\\relax}{}{}" + SystemService.EOL + "\\makeatother" + SystemService.EOL; //NON-NLS
 
@@ -60,7 +60,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			append(tr.getX() / ppc * scale).append("cm,paperheight=").append(bl.getY() / ppc * scale + 0.2).append("cm]{geometry}").append(SystemService.EOL). //NON-NLS
 			append("\\usepackage[usenames,dvipsnames]{pstricks}").append(SystemService.EOL).append("\\usepackage{epsfig}").append(SystemService.EOL). //NON-NLS
 			append("\\usepackage{pst-grad}").append(SystemService.EOL).append("\\usepackage{pst-plot}").append(SystemService.EOL). //NON-NLS
-			append(PACKAGE_FOR_SPACE_PICTURE).append("\\begin{document}").append(SystemService.EOL). //NON-NLS
+			append(packageForSpacePicture).append("\\begin{document}").append(SystemService.EOL). //NON-NLS
 			append("\\addtolength{\\oddsidemargin}{-0.2in}").append(SystemService.EOL).append("\\addtolength{\\evensidemargin}{-0.2in}"). //NON-NLS
 			append(SystemService.EOL).append(getDrawingCode()).append(SystemService.EOL).append("\\end{document}"); //NON-NLS
 
@@ -88,7 +88,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			cache.append(getCommentWithTag());
 		}
 
-		cache.append(PACKAGE_PSTRICKS).append("% ").append(PACKAGE_FOR_SPACE_PICTURE.replaceAll(SystemService.EOL, SystemService.EOL + "% "));
+		cache.append(packagePstricks).append("% ").append(packageForSpacePicture.replaceAll(SystemService.EOL, SystemService.EOL + "% "));
 
 		if(!pkg.isEmpty()) {
 			pkg = "% User Packages:" + SystemService.EOL + "% " + pkg.replace(SystemService.EOL, SystemService.EOL + "% "); //NON-NLS

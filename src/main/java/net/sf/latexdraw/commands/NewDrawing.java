@@ -58,7 +58,10 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 					SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui, mainstage).ifPresent(f -> {
 						try {
 							openSaveManager.save(f.getPath(), progressBar, statusWidget).get();
-						}catch(final InterruptedException | ExecutionException ex) {
+						}catch(final InterruptedException ex) {
+							Thread.currentThread().interrupt();
+							BadaboomCollector.INSTANCE.add(ex);
+						}catch(final ExecutionException ex) {
 							BadaboomCollector.INSTANCE.add(ex);
 						}
 						ui.setModified(false);

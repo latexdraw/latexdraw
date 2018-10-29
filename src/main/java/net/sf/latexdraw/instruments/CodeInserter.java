@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.instruments;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -150,7 +151,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 				codeInserterDialogue.setTitle(lang.getBundle().getString("InsertPSTricksCodeFrame.0"));
 				codeInserterDialogue.setScene(scene);
 				codeInserterDialogue.setOnHiding(evt -> setActivated(false));
-			}catch(final Exception ex) {
+			}catch(final IOException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 			}
 		}

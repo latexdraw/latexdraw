@@ -71,7 +71,9 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 					load();
 					return Boolean.TRUE;
 				}
-			}catch(InterruptedException | ExecutionException ex) {
+			}catch(InterruptedException ex) {
+				Thread.currentThread().interrupt();
+			}catch(ExecutionException ex) {
 				// ignored.
 			}
 			return Boolean.FALSE;

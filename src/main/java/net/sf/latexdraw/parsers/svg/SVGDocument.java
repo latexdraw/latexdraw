@@ -587,12 +587,12 @@ public class SVGDocument implements Document {
 		}
 
 		@Override
-		public DocumentType createDocumentType(final String qualifiedName, final String publicId, final String systemId) throws DOMException {
+		public DocumentType createDocumentType(final String qualifiedName, final String publicId, final String systemId) {
 			return new SVGDocumentType();
 		}
 
 		@Override
-		public Document createDocument(final String namespaceURI, final String qualifiedName, final DocumentType doctype) throws DOMException {
+		public Document createDocument(final String namespaceURI, final String qualifiedName, final DocumentType doctype) {
 			return new SVGDocument();
 		}
 

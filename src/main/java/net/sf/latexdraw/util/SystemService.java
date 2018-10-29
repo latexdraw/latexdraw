@@ -269,7 +269,10 @@ public final class SystemService {
 				return new Tuple<>(Boolean.TRUE, log.toString());
 			}
 
-		}catch(final IOException | SecurityException | InterruptedException ex) {
+		}catch(final IOException | SecurityException ex) {
+			return new Tuple<>(Boolean.FALSE, "ERR while execute the command : " + Arrays.toString(cmd) + ": " + ex.getMessage()); //NON-NLS
+		}catch(final InterruptedException ex) {
+			Thread.currentThread().interrupt();
 			return new Tuple<>(Boolean.FALSE, "ERR while execute the command : " + Arrays.toString(cmd) + ": " + ex.getMessage()); //NON-NLS
 		}
 
