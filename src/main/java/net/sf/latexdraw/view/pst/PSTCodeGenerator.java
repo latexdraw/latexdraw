@@ -75,7 +75,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		}
 
 		final StringBuilder cache = new StringBuilder();
-		String pkg = LaTeXGenerator.getPackages();
+		String pkg = getPackages();
 		final IPoint origin = handler.getOriginDrawingPoint();
 		final IPoint tl = handler.getTopRightDrawingPoint();
 		final IPoint br = handler.getBottomLeftDrawingPoint();

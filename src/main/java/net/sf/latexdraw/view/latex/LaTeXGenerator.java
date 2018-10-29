@@ -40,30 +40,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * The latex packages used when exporting using latex.
 	 * These packages are defined for the current document but not for all documents.
 	 */
-	public static final ObjectProperty<String> PACKAGES = new SimpleObjectProperty<>(""); //NON-NLS
-
-	@Inject protected SystemService system;
-
-
-	/**
-	 * @param packages the packages to set.
-	 * @since 3.0
-	 */
-	public static void setPackages(final String packages) {
-		if(packages != null && !packages.equals(getPackages())) {
-			PACKAGES.setValue(packages);
-		}
-	}
-
-
-	/**
-	 * @return the packages.
-	 * @since 3.0
-	 */
-	public static String getPackages() {
-		return PACKAGES.getValue();
-	}
-
+	protected final ObjectProperty<String> packages; //NON-NLS
 
 	/** The comment of the drawing. */
 	protected String comment;
@@ -87,8 +64,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 	protected double scale;
 
 	@Inject protected IDrawing drawing;
-
 	@Inject protected ViewsSynchroniserHandler handler;
+	@Inject protected SystemService system;
 
 	/** Defines if the latex parameters (position, caption, etc.) must be generated. */
 	protected boolean withLatexParams;
@@ -109,15 +86,30 @@ public abstract class LaTeXGenerator implements Modifiable {
 		caption = ""; //NON-NLS
 		positionHoriCentre = false;
 		positionVertToken = VerticalPosition.NONE;
-		scale = 1.0;
+		scale = 1d;
 		withComments = true;
 		withLatexParams = true;
+		packages = new SimpleObjectProperty<>("");
 	}
 
+	/**
+	 * @param pkgs the packages to set.
+	 */
+	public void setPackages(final String pkgs) {
+		if(pkgs != null && !pkgs.equals(getPackages())) {
+			packages.setValue(pkgs);
+		}
+	}
+
+	/**
+	 * @return the packages.
+	 */
+	public String getPackages() {
+		return packages.getValue();
+	}
 
 	/**
 	 * @return the scale of the drawing.
-	 * @since 3.0
 	 */
 	public double getScale() {
 		return scale;
@@ -125,7 +117,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @param sc the scale to set.
-	 * @since 3.0
 	 */
 	public void setScale(final double sc) {
 		if(sc >= 0.1) {
@@ -135,7 +126,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * @return the comment.
-	 * @since 3.0
 	 */
 	public String getComment() {
 		return comment;

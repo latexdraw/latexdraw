@@ -31,9 +31,11 @@ import net.sf.latexdraw.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 import net.sf.latexdraw.view.jfx.ViewText;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 
 /**
  * This instrument modifies texts.
@@ -47,6 +49,8 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	/** The error log field. */
 	@FXML private TextArea logField;
 	@FXML private TitledPane mainPane;
+
+	@Inject PSTCodeGenerator pstGen;
 
 	/**
 	 * Creates the instrument.
@@ -87,7 +91,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 
 			// Otherwise it means that this field is currently being edited and must not be updated.
 			if(!packagesField.isFocused()) {
-				packagesField.setText(LaTeXGenerator.getPackages());
+				packagesField.setText(pstGen.getPackages());
 			}
 
 			// Updating the log field.

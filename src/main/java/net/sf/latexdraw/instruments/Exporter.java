@@ -97,7 +97,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void reinit() {
-		LaTeXGenerator.setPackages(defaultPackages);
+		pstGen.setPackages(defaultPackages);
 	}
 
 	@Override
@@ -108,8 +108,8 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 		if(name.endsWith(LNamespace.XML_LATEX_INCLUDES)) {
 			final String[] lines = root.getTextContent().split(SystemService.EOL);
-			final String pkgs = LaTeXGenerator.getPackages();
-			LaTeXGenerator.setPackages(LaTeXGenerator.getPackages() +
+			final String pkgs = pstGen.getPackages();
+			pstGen.setPackages(pstGen.getPackages() +
 				Arrays.stream(lines).filter(line -> !pkgs.contains(line)).collect(Collectors.joining(SystemService.EOL, SystemService.EOL, "")));
 		}
 	}
@@ -133,7 +133,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 		}else {
 			final String ns = system.getNormaliseNamespaceURI(nsURI);
 			final Element elt = document.createElement(ns + LNamespace.XML_LATEX_INCLUDES);
-			elt.appendChild(document.createTextNode(LaTeXGenerator.getPackages()));
+			elt.appendChild(document.createTextNode(pstGen.getPackages()));
 			root.appendChild(elt);
 		}
 	}
@@ -224,12 +224,11 @@ public class Exporter extends JfxInstrument implements Initializable {
 	 * general, i.e. independent of any document. Packages for a
 	 * given document should by set using
 	 * {@link #setPackages(String)}.
-	 * @since 3.0
 	 */
 	public void setDefaultPackages(final String defaultPkgs) {
 		if(defaultPkgs != null) {
 			if(defaultPackages.isEmpty()) {
-				LaTeXGenerator.setPackages(defaultPkgs + SystemService.EOL + LaTeXGenerator.getPackages());
+				pstGen.setPackages(defaultPkgs + SystemService.EOL + pstGen.getPackages());
 			}
 			defaultPackages = defaultPkgs;
 		}
@@ -241,7 +240,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	 */
 	public void setPackages(final String packages) {
 		if(packages != null) {
-			LaTeXGenerator.setPackages(packages);
+			pstGen.setPackages(packages);
 			setModified(true);
 		}
 	}

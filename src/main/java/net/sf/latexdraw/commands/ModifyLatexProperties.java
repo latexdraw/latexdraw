@@ -56,7 +56,7 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 				oldValue = generator.getLabel();
 				break;
 			case PACKAGES:
-				oldValue = LaTeXGenerator.getPackages();
+				oldValue = generator.getPackages();
 				break;
 			case POSITION_HORIZONTAL:
 				oldValue = generator.isPositionHoriCentre();
@@ -84,7 +84,7 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 				generator.setLabel((String) object);
 				break;
 			case PACKAGES:
-				LaTeXGenerator.setPackages((String) object);
+				generator.setPackages((String) object);
 				break;
 			case POSITION_HORIZONTAL:
 				generator.setPositionHoriCentre((Boolean) object);
@@ -97,7 +97,7 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 
 	@Override
 	public boolean canDo() {
-		// PACKAGES does not require the generator since it is a static attribute.
+		// packages does not require the generator since it is a static attribute.
 		return property != null && property.isValueSupported(value) && (generator != null || property == LatexProperties.PACKAGES);
 	}
 

@@ -1,12 +1,10 @@
 package net.sf.latexdraw.instruments;
 
-import java.util.concurrent.TimeoutException;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,16 +33,9 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 		ins.setActivated(true);
 	}
 
-	@Override
-	@After
-	public void tearDown() throws TimeoutException {
-		LaTeXGenerator.setPackages("");
-		super.tearDown();
-	}
-
 	@Test
 	public void testEditPackagesField() {
 		clickOn(packagesField).type(KeyCode.A).type(KeyCode.B).sleep(1300L);
-		assertEquals("ab", LaTeXGenerator.getPackages());
+		assertEquals("ab", injector.getInstance(LaTeXGenerator.class).getPackages());
 	}
 }

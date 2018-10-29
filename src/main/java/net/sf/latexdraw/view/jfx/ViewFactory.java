@@ -40,6 +40,7 @@ import net.sf.latexdraw.models.interfaces.shape.IText;
 import net.sf.latexdraw.models.interfaces.shape.ITriangle;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
 
 /**
  * The factory that creates views from given models.
@@ -47,6 +48,7 @@ import net.sf.latexdraw.util.SystemService;
  */
 public final class ViewFactory implements PathElementProducer, JfxViewProducer {
 	@Inject private SystemService system;
+	@Inject private LaTeXGenerator codeGen;
 
 	public ViewFactory() {
 		super();
@@ -68,7 +70,7 @@ public final class ViewFactory implements PathElementProducer, JfxViewProducer {
 			return Optional.of((S) new ViewRectangle((IRectangle) shape));
 		}
 		if(shape instanceof IText) {
-			return Optional.of((S) new ViewText((IText) shape, system));
+			return Optional.of((S) new ViewText((IText) shape, system, codeGen));
 		}
 		if(shape instanceof ICircleArc) {
 			return Optional.of((S) new ViewCircleArc((ICircleArc) shape));

@@ -15,7 +15,6 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.data.TextSupplier;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +35,6 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 		}catch(final IllegalStateException ignored) {
 			// Ok
 		}
-		LaTeXGenerator.setPackages("");
 	}
 
 	@AfterAll

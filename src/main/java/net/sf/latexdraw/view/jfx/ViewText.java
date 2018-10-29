@@ -51,6 +51,7 @@ public class ViewText extends ViewPositionShape<IText> {
 	private final ChangeListener<String> textUpdate;
 	private Future<?> currentCompilation;
 	private final SystemService system;
+	private final LaTeXGenerator codeGen;
 
 	static {
 		LOGGER.setLevel(Level.OFF);
@@ -60,12 +61,13 @@ public class ViewText extends ViewPositionShape<IText> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewText(final IText sh, final SystemService system) {
+	ViewText(final IText sh, final SystemService system, final LaTeXGenerator gen) {
 		super(sh);
 		text = new Text();
 		compiledText = new ImageView();
 		compileTooltip = new Tooltip(null);
 		this.system = system;
+		this.codeGen = gen;
 
 		compiledText.setScaleX(1d / SCALE_COMPILE);
 		compiledText.setScaleY(compiledText.getScaleX());
@@ -151,7 +153,7 @@ public class ViewText extends ViewPositionShape<IText> {
 		final double scale = IShape.PPC * PSTricksConstants.INCH_VAL_CM / PSTricksConstants.INCH_VAL_PT * SCALE_COMPILE;
 
 		doc.append("\\documentclass{standalone}\n\\usepackage[usenames,dvipsnames]{pstricks}"); //NON-NLS
-		doc.append(LaTeXGenerator.getPackages()).append('\n');
+		doc.append(codeGen.getPackages()).append('\n');
 		doc.append("\\begin{document}\n\\psscalebox{"); //NON-NLS
 		doc.append((float) MathUtils.INST.getCutNumber(scale)).append(' ');
 		doc.append((float) MathUtils.INST.getCutNumber(scale)).append('}').append('{');
