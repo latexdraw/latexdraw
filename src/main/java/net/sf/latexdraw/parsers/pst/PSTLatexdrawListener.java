@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -29,6 +30,7 @@ import net.sf.latexdraw.models.interfaces.shape.Color;
 import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
+import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
@@ -70,6 +72,33 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		psCustomLatestPt = new Point2D(0d, 0d);
 	}
 
+	/**
+	 * Replaces the groups of shapes that contain a single shape by the contained shape (recursively).
+	 * Removes empty groups of shapes.
+	 */
+	public List<IShape> flatShapes() {
+		final List<IShape> flatten = shapes.stream().map(gp -> flatGroup(gp)).filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList());
+		if(flatten.size() == 1 && flatten.get(0) instanceof IGroup) {
+			return ((IGroup) flatten.get(0)).getShapes();
+		}
+		return flatten;
+	}
+
+	private Optional<IShape> flatGroup(final IGroup gp) {
+		if(gp.isEmpty()) {
+			return Optional.empty();
+		}
+
+		final IGroup group = ShapeFactory.INST.createGroup();
+		group.getShapes().addAll(gp.getShapes().stream().map(sh -> sh instanceof IGroup ? flatGroup((IGroup) sh) : Optional.of(sh)).
+			filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList()));
+
+		if(group.size() == 1) {
+			return Optional.of(group.getShapeAt(0));
+		}
+		return Optional.of(group);
+	}
+
 	@Override
 	public void enterPstCode(final net.sf.latexdraw.parsers.pst.PSTParser.PstCodeContext ctx) {
 		addGroup();
@@ -82,26 +111,16 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitPstBlock(final net.sf.latexdraw.parsers.pst.PSTParser.PstBlockContext ctx) {
-		flatLastGroup();
 		addParsedText(ctx.pstctx);
 	}
 
 	@Override
 	public void exitPstCode(final net.sf.latexdraw.parsers.pst.PSTParser.PstCodeContext ctx) {
 		addParsedText(ctx.pstctx);
-		flatLastGroup();
 	}
 
 	private void addGroup() {
-		shapes.push(ShapeFactory.INST.createGroup());
-	}
-
-	private void flatLastGroup() {
-		if(shapes.size() > 1) {
-			final IGroup last = shapes.pop();
-			shapes.peek().getShapes().addAll(last.getShapes());
-			last.clear();
-		}
+		shapes.addLast(ShapeFactory.INST.createGroup());
 	}
 
 	private void addParsedText(final PSTContext ctx) {
@@ -111,7 +130,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			setShapeParameters(text, ctx);
 			text.setLineColour(ctx.textColor);
 			text.setTextPosition(TextPosition.getTextPosition(ctx.textPosition));
-			shapes.peek().addShape(text);
+			shapes.getLast().addShape(text);
 		}
 	}
 
@@ -123,12 +142,21 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			stream = Stream.concat(Stream.of(ShapeFactory.INST.createPoint(ctx.pstctx.originToPoint())), stream);
 		}
 
-		shapes.peek().addShape(createLine(ctx.pstctx.starredCmd(ctx.cmd), stream.collect(Collectors.toList()), ctx.pstctx, false));
+		final IPolyline line = createLine(ctx.pstctx.starredCmd(ctx.cmd), stream.collect(Collectors.toList()), ctx.pstctx, false);
+		final IArc arc = line.getNbPoints() != 2 || shapes.getLast().isEmpty() || !(shapes.getLast().getShapeAt(-1) instanceof IArc) ?
+			null : (IArc) shapes.getLast().getShapeAt(-1);
+
+		if(arc == null || !line.getPtAt(0).rotatePoint(arc.getGravityCentre(), -arc.getRotationAngle()).equals(arc.getStartPoint(), 0.5) ||
+			!line.getPtAt(1).rotatePoint(arc.getGravityCentre(), -arc.getRotationAngle()).equals(arc.getEndPoint(), 0.5)) {
+			shapes.getLast().addShape(line);
+		}else {
+			arc.setArcStyle(ArcStyle.CHORD);
+		}
 	}
 
 	@Override
 	public void exitPsqline(final net.sf.latexdraw.parsers.pst.PSTParser.PsqlineContext ctx) {
-		shapes.peek().addShape(createLine(false, Arrays.asList(ShapeFactory.INST.createPoint(ctx.pstctx.coordToAdjustedPoint(ctx.p1)),
+		shapes.getLast().addShape(createLine(false, Arrays.asList(ShapeFactory.INST.createPoint(ctx.pstctx.coordToAdjustedPoint(ctx.p1)),
 			ShapeFactory.INST.createPoint(ctx.pstctx.coordToAdjustedPoint(ctx.p2))), ctx.pstctx, true));
 	}
 
@@ -154,7 +182,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 		setRectangularShape(rec, pts.a.getX(), pts.a.getY(), Math.abs(pts.b.getX() - pts.a.getX()),
 			Math.abs(pts.b.getY() - pts.a.getY()), ctx.pstctx, ctx.cmd);
-		shapes.peek().addShape(rec);
+		shapes.getLast().addShape(rec);
 	}
 
 	@Override
@@ -173,7 +201,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		final Tuple<IPoint, IPoint> pts = getRectangularPoints(ctx.p1, ctx.p2, ctx.pstctx);
 		setRectangularShape(ell, pts.a.getX() - pts.b.getX(), pts.a.getY() - pts.b.getY(), Math.abs(pts.b.getX() * 2d),
 			Math.abs(pts.b.getY() * 2d), ctx.pstctx, ctx.cmd);
-		shapes.peek().addShape(ell);
+		shapes.getLast().addShape(ell);
 	}
 
 	@Override
@@ -187,7 +215,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			rhombus.setRotationAngle(rhombus.getRotationAngle() - Math.toRadians(ctx.pstctx.gangle));
 		}
 
-		shapes.peek().addShape(rhombus);
+		shapes.getLast().addShape(rhombus);
 	}
 
 	@Override
@@ -195,7 +223,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		final ICircle circle = ShapeFactory.INST.createCircle();
 		setCircle(circle, ctx.pstctx.coordToAdjustedPoint(ctx.centre), ctx.pstctx.valDimtoDouble(ctx.bracketValueDim().valueDim()) * PSTContext.ppc,
 			ctx.pstctx, ctx.pstctx.starredCmd(ctx.cmd));
-		shapes.peek().addShape(circle);
+		shapes.getLast().addShape(circle);
 	}
 
 	@Override
@@ -203,7 +231,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		final ICircle circle = ShapeFactory.INST.createCircle();
 		setCircle(circle, ctx.pstctx.coordToAdjustedPoint(ctx.coord()), ctx.pstctx.valDimtoDouble(ctx.bracketValueDim().valueDim()) * PSTContext.ppc,
 			ctx.pstctx, true);
-		shapes.peek().addShape(circle);
+		shapes.getLast().addShape(circle);
 	}
 
 	@Override
@@ -225,7 +253,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			triangle.translate(0, triangle.getHeight());
 		}
 
-		shapes.peek().addShape(triangle);
+		shapes.getLast().addShape(triangle);
 	}
 
 	@Override
@@ -246,21 +274,21 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			setShapeForStar(pol);
 		}
 
-		shapes.peek().addShape(pol);
+		shapes.getLast().addShape(pol);
 	}
 
 	@Override
 	public void exitPswedge(final net.sf.latexdraw.parsers.pst.PSTParser.PswedgeContext ctx) {
 		final ICircleArc arc = ShapeFactory.INST.createCircleArc();
 		setArc(arc, ArcStyle.WEDGE, ctx.pos, ctx.radius.valueDim(), ctx.angle1.valueDim(), ctx.angle2.valueDim(), ctx.pstctx, ctx.cmd);
-		shapes.peek().addShape(arc);
+		shapes.getLast().addShape(arc);
 	}
 
 	@Override
 	public void exitPsarc(final net.sf.latexdraw.parsers.pst.PSTParser.PsarcContext ctx) {
 		final ICircleArc arc = ShapeFactory.INST.createCircleArc();
 		setArc(arc, ArcStyle.ARC, ctx.pos, ctx.radius.valueDim(), ctx.angle1.valueDim(), ctx.angle2.valueDim(), ctx.pstctx, ctx.cmd);
-		shapes.peek().addShape(arc);
+		shapes.getLast().addShape(arc);
 	}
 
 	@Override
@@ -269,7 +297,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		ctx.pstctx.arrowLeft = ArrowStyle.getArrowStyle(ctx.pstctx.arrowLeft).getOppositeArrowStyle().getPSTToken();
 		ctx.pstctx.arrowRight = ArrowStyle.getArrowStyle(ctx.pstctx.arrowRight).getOppositeArrowStyle().getPSTToken();
 		setArc(arc, ArcStyle.ARC, ctx.pos, ctx.radius.valueDim(), ctx.angle2.valueDim(), ctx.angle1.valueDim(), ctx.pstctx, ctx.cmd);
-		shapes.peek().addShape(arc);
+		shapes.getLast().addShape(arc);
 	}
 
 	@Override
@@ -317,7 +345,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		if(ctx.pstctx.starredCmd(ctx.cmd)) {
 			setShapeForStar(bc);
 		}
-		shapes.peek().addShape(bc);
+		shapes.getLast().addShape(bc);
 	}
 
 	@Override
@@ -360,7 +388,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		axes.setGridStartX(gridstart.getX());
 		axes.setGridStartY(gridstart.getY());
 		axes.setPosition(position);
-		shapes.peek().addShape(axes);
+		shapes.getLast().addShape(axes);
 	}
 
 	@Override
@@ -429,24 +457,24 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		grid.setGridEndY(gridEnd.getY());
 		grid.setGridStartX(gridStart.getX());
 		grid.setGridStartY(gridStart.getY());
-		shapes.peek().addShape(grid);
+		shapes.getLast().addShape(grid);
 	}
 
 	@Override
 	public void exitClosepath(final net.sf.latexdraw.parsers.pst.PSTParser.ClosepathContext ctx) {
 		final IFreehand fh = ShapeFactory.INST.createFreeHand(Collections.emptyList());
 		fh.setOpened(false);
-		shapes.peek().addShape(fh);
+		shapes.getLast().addShape(fh);
 	}
 
 	@Override
 	public void exitCurveto(final net.sf.latexdraw.parsers.pst.PSTParser.CurvetoContext ctx) {
-		shapes.peek().addShape(createFreeHand(false, ctx.pstctx, ShapeFactory.INST.createPoint(ctx.pstctx.coordToAdjustedPoint(ctx.p3))));
+		shapes.getLast().addShape(createFreeHand(false, ctx.pstctx, ShapeFactory.INST.createPoint(ctx.pstctx.coordToAdjustedPoint(ctx.p3))));
 	}
 
 	@Override
 	public void exitLineto(final net.sf.latexdraw.parsers.pst.PSTParser.LinetoContext ctx) {
-		shapes.peek().addShape(createFreeHand(true, ctx.pstctx, ShapeFactory.INST.createPoint(ctx.pstctx.coordToAdjustedPoint(ctx.coord()))));
+		shapes.getLast().addShape(createFreeHand(true, ctx.pstctx, ShapeFactory.INST.createPoint(ctx.pstctx.coordToAdjustedPoint(ctx.coord()))));
 	}
 
 	@Override
@@ -456,12 +484,12 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void enterPscustom(final net.sf.latexdraw.parsers.pst.PSTParser.PscustomContext ctx) {
-		shapes.peek().addShape(ShapeFactory.INST.createGroup());
+		shapes.getLast().addShape(ShapeFactory.INST.createGroup());
 	}
 
 	@Override
 	public void exitPscustom(final net.sf.latexdraw.parsers.pst.PSTParser.PscustomContext ctx) {
-		final IGroup customshapes = shapes.peek();
+		final IGroup customshapes = shapes.getLast();
 
 		if(ctx.pstctx.starredCmd(ctx.cmd)) {
 			setShapeForStar(customshapes);
@@ -548,12 +576,12 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			setShapeForStar(plot);
 		}
 
-		shapes.peek().addShape(plot);
+		shapes.getLast().addShape(plot);
 	}
 
 	@Override
 	public void exitTextcolor(final net.sf.latexdraw.parsers.pst.PSTParser.TextcolorContext ctx) {
-		DviPsColors.INSTANCE.getColour(ctx.name.getText()).ifPresent(colour -> shapes.peek().setLineColour(colour));
+		DviPsColors.INSTANCE.getColour(ctx.name.getText()).ifPresent(colour -> shapes.getLast().setLineColour(colour));
 	}
 
 	@Override
@@ -564,7 +592,14 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	@Override
 	public void exitRput(final net.sf.latexdraw.parsers.pst.PSTParser.RputContext ctx) {
 		final Point2D coord = ctx.pstctx.coordToAdjustedPoint(ctx.coord());
-		shapes.peek().translate(coord.getX(), coord.getY());
+		shapes.getLast().translate(coord.getX(), coord.getY());
+	}
+
+	@Override
+	public void exitPsrotate(final net.sf.latexdraw.parsers.pst.PSTParser.PsrotateContext ctx) {
+		final IPoint centre = ShapeFactory.INST.createPoint(ctx.pstctx.coordToAdjustedPoint(ctx.centre));
+
+		shapes.getLast().addToRotationAngle(centre, Math.toRadians(-ctx.pstctx.valDimtoDouble(ctx.angle.valueDim())));
 	}
 
 	@Override
@@ -582,27 +617,27 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		Color colour = null;
 
 		switch(ctx.colortype.getText()) {
-			case "rgb":
+			case "rgb": //NON-NLS
 				if(ctx.NUMBER().size() == 3) {
 					colour = ShapeFactory.INST.createColor(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
 								ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()),
 								ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol()));
 				}
 				break;
-			case "RGB":
+			case "RGB": //NON-NLS
 				if(ctx.NUMBER().size() == 3) {
 					colour = DviPsColors.INSTANCE.convertRGB2rgb(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
 								ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()),
 								ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol()));
 				}
 				break;
-			case "gray":
+			case "gray": //NON-NLS
 				colour = DviPsColors.INSTANCE.convertgray2rgb(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()));
 				break;
-			case "HTML":
+			case "HTML": //NON-NLS
 				colour = DviPsColors.INSTANCE.convertHTML2rgb(ctx.HEXA().getText());
 				break;
-			case "cmyk":
+			case "cmyk": //NON-NLS
 				if(ctx.NUMBER().size() == 4) {
 					colour = DviPsColors.INSTANCE.convertcmyk2rgb(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
 						ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()),
@@ -610,14 +645,14 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 						ctx.pstctx.numberToDouble(ctx.NUMBER(3).getSymbol()));
 				}
 				break;
-			case "cmy":
+			case "cmy": //NON-NLS
 				if(ctx.NUMBER().size() == 3) {
 					colour = ShapeFactory.INST.createColor(1d - ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
 						1d - ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()),
 						1d - ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol()));
 				}
 				break;
-			case "hsb":
+			case "hsb": //NON-NLS
 				if(ctx.NUMBER().size() == 3) {
 					colour = ShapeFactory.INST.createColorHSB(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
 						ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()),
@@ -664,18 +699,18 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	 * Creates an arc using the given parameters.
 	 */
 	private void setArc(final ICircleArc arc, final ArcStyle arcType, final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext posRaw,
-						final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext radius, final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext a1,
+						final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext rawRadius, final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext a1,
 						final net.sf.latexdraw.parsers.pst.PSTParser.ValueDimContext a2, final PSTContext ctx, final Token cmd) {
 		final Point2D centre = ctx.coordToAdjustedPoint(posRaw);
 		final double angle1 = ctx.valDimtoDouble(a1);
 		final double angle2 = ctx.valDimtoDouble(a2);
-		final double width = Math.abs(ctx.valDimtoDouble(radius) * IShape.PPC) * 2d;
+		final double radius = Math.abs(ctx.valDimtoDouble(rawRadius) * IShape.PPC);
 
+		arc.setWidth(radius * 2d);
+		arc.setPosition(centre.getX() - radius, centre.getY() + radius);
+		arc.setArcStyle(arcType);
 		arc.setAngleStart(Math.toRadians(angle1));
 		arc.setAngleEnd(Math.toRadians(angle2));
-		arc.setWidth(width);
-		arc.setPosition(centre.getX() - width / 2d, centre.getY() + width / 2d);
-		arc.setArcStyle(arcType);
 		setArrows(arc, ctx);
 		setShapeParameters(arc, ctx);
 
@@ -720,7 +755,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			setShapeForStar(dot);
 		}
 
-		shapes.peek().addShape(dot);
+		shapes.getLast().addShape(dot);
 	}
 
 	private Tuple<IPoint, IPoint> getRectangularPoints(final net.sf.latexdraw.parsers.pst.PSTParser.CoordContext c1,
@@ -863,9 +898,5 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		sh.setRBracketNum(ctx.arrowrBrLgth);
 		sh.setArrowStyle(ArrowStyle.getArrowStyle(ctx.arrowLeft), 0);
 		sh.setArrowStyle(ArrowStyle.getArrowStyle(ctx.arrowRight), 1);
-	}
-
-	public List<IShape> getShapes() {
-		return shapes.isEmpty() ? Collections.emptyList() : shapes.peek().getShapes();
 	}
 }

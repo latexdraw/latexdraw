@@ -10,9 +10,12 @@
  */
 package net.sf.latexdraw.view.pst;
 
+import java.util.List;
 import net.sf.latexdraw.models.MathUtils;
+import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.models.interfaces.shape.IPolyline;
 
 /**
  * Defines a PSTricks view of the LArc model.
@@ -32,12 +35,12 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1f) {
 			return "";
 		}
 
-		final double radiusX = shape.getWidth() / 2.0;
-		final double radiusY = shape.getHeight() / 2.0;
+		final double radiusX = shape.getWidth() / 2d;
+		final double radiusY = shape.getHeight() / 2d;
 		final double x = shape.getX() + radiusX - origin.getX();
 		final double y = origin.getY() - shape.getY() + radiusY;
 		double startAngle = shape.getAngleStart();
@@ -60,7 +63,7 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 			end.append('}');
 		}
 
-		if(!MathUtils.INST.equalsDouble(yunit, 1.0)) {
+		if(!MathUtils.INST.equalsDouble(yunit, 1d)) {
 			start.append("\\psscalebox{1 ").append(MathUtils.INST.getCutNumberFloat(yunit)).append('}').append('{'); //NON-NLS
 			end.append('}');
 		}
@@ -78,11 +81,13 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 				final IPoint endPt = shape.getEndPoint();
 
 				start.append("\\psarc"); //NON-NLS
-				end.append(System.getProperty("line.separator")).append("\\psline[").append(params).append(']').append('('); //NON-NLS
-				end.append(MathUtils.INST.getCutNumberFloat(startPt.getX() / ppc)).append(',');
-				end.append(MathUtils.INST.getCutNumberFloat(startPt.getY() / ppc)).append(')').append('(');
-				end.append(MathUtils.INST.getCutNumberFloat(endPt.getX() / ppc)).append(',');
-				end.append(MathUtils.INST.getCutNumberFloat(endPt.getY() / ppc)).append(')');
+				// Creating the closing line
+				final IPoint gcArc = shape.getGravityCentre();
+				final IPolyline closingLine = ShapeFactory.INST.createPolyline(
+					List.of(startPt.rotatePoint(gcArc, shape.getRotationAngle()), endPt.rotatePoint(gcArc, shape.getRotationAngle())));
+				closingLine.copy(shape);
+				closingLine.setRotationAngle(0d);
+				end.append(System.getProperty("line.separator")).append(new PSTLinesView(closingLine).getCode(origin, ppc));
 				break;
 			case WEDGE:
 				start.append("\\pswedge"); //NON-NLS

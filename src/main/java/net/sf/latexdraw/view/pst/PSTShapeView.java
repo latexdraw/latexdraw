@@ -194,18 +194,14 @@ public abstract class PSTShapeView<S extends IShape> {
 		final StringBuilder code;
 		final double angle = shape.getRotationAngle();
 
-		if(MathUtils.INST.equalsDouble(angle, 0.0)) {
+		if(MathUtils.INST.equalsDouble(angle, 0d)) {
 			code = null;
 		}else {
-			final IPoint gravityCenter = shape.getGravityCentre();
-			final double cx = (gravityCenter.getX() - position.getX()) / ppc;
-			final double cy = (position.getY() - gravityCenter.getY()) / ppc;
-			final double x = MathUtils.INST.getCutNumberFloat(-Math.cos(-angle) * cx + Math.sin(-angle) * cy + cx);
-			final double y = MathUtils.INST.getCutNumberFloat(-Math.sin(-angle) * cx - Math.cos(-angle) * cy + cy);
-
+			final IPoint gc = shape.getGravityCentre().substract(position);
 			code = new StringBuilder();
-			code.append("\\rput{").append(MathUtils.INST.getCutNumberFloat(-Math.toDegrees(shape.getRotationAngle()) % 360)).append('}').append('('); //NON-NLS
-			code.append((float) x).append(',').append((float) y).append(')').append('{');
+			code.append("\\psrotate(").append(MathUtils.INST.getCutNumberFloat(gc.getX() / ppc)).append(", "). //NON-NLS
+				append(MathUtils.INST.getCutNumberFloat(-gc.getY() / ppc)).append("){").
+				append(MathUtils.INST.getCutNumberFloat(-Math.toDegrees(shape.getRotationAngle()))).append("}{");
 		}
 
 		return code;

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.parsers.pst;
 
+import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -20,6 +21,7 @@ import static org.junit.Assert.fail;
 
 public abstract class TestPSTParser {
 	PSTLatexdrawListener listener;
+	List<IShape> parsedShapes;
 
 	@Before
 	public void setUp() throws Exception {
@@ -52,7 +54,7 @@ public abstract class TestPSTParser {
 	}
 
 	<T extends IShape> T getShapeAt(final int i) {
-		return (T) listener.getShapes().get(i);
+		return (T) parsedShapes.get(i);
 	}
 
 	void parser(final String code) {
@@ -62,6 +64,7 @@ public abstract class TestPSTParser {
 		final ErrorListener errList = new ErrorListener();
 		parser.addErrorListener(errList);
 		parser.pstCode(new PSTContext());
+		parsedShapes = listener.flatShapes();
 //		// Trying to flush the parser
 		parser.removeParseListener(listener);
 		parser.removeErrorListener(errList);

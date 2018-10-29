@@ -32,7 +32,7 @@ pstCode[PSTContext pstctx] : (pstBlock[pstctx] | psset[pstctx] | pspictureBlock[
         pscustom[new PSTContext(pstctx, true)] | includegraphics[new PSTContext(pstctx, true)] |
         psframebox[new PSTContext(pstctx, true)] | psdblframebox[new PSTContext(pstctx, true)] | psshadowbox[new PSTContext(pstctx, true)] | pscirclebox[new PSTContext(pstctx, true)] |
         psovalbox[new PSTContext(pstctx, true)] | psdiabox[new PSTContext(pstctx, true)] | pstribox[new PSTContext(pstctx, true)] |
-        rput[pstctx] | scalebox[pstctx] | psscalebox[pstctx] | definecolor[pstctx] | newpsobject[pstctx] | newpsstyle[pstctx] | textcolor[pstctx] |
+        rput[pstctx] | psrotate[pstctx] | scalebox[pstctx] | psscalebox[pstctx] | definecolor[pstctx] | newpsobject[pstctx] | newpsstyle[pstctx] | textcolor[pstctx] |
         savedata[pstctx] | color[pstctx] | unknowncmds[pstctx] | text[pstctx])* ;
 
 pstcustomBlock[PSTContext pstctx]
@@ -77,6 +77,12 @@ psdots[PSTContext pstctx] : cmd=('\\psdots*' | '\\psdots') paramBlock[pstctx]? p
 psaxes[PSTContext pstctx] : '\\psaxes' paramBlock[pstctx]? arrowBlock[pstctx]? p1=coord p2=coord? p3=coord? ;
 
 psgrid[PSTContext pstctx] : '\\psgrid' paramBlock[pstctx]? p1=coord? p2=coord? p3=coord? ;
+
+psrotate[PSTContext pstctx]
+@init {
+	PSTContext newpstctx = new PSTContext(pstctx, false);
+}
+    : '\\psrotate' paramBlock[pstctx]? centre=coord angle=bracketValueDim pstBlock[newpstctx] ;
 
 rput[PSTContext pstctx]
 @init {

@@ -14,8 +14,8 @@ public class TestParsingPscustom extends TestPSTParser {
 		parser("\\pscustom{\\moveto(0.0,2.64)\\lineto(0.19,2.82)\\curveto(0.285,2.91)(1.49,3.16)(2.6,3.32)" +
 				"\\curveto(3.71,3.48)(5.625,3.205)(6.43,2.77)\\curveto(7.235,2.335)(8.07,1.135)(8.1,0.37)" +
 				"\\curveto(8.13,-0.395)(7.64,-1.63)(7.12,-2.1)\\curveto(6.6,-2.57)(5.45,-3.18)(4.82,-3.32)\\closepath}");
-		assertEquals(1, listener.getShapes().size());
-		IFreehand fh = getShapeAt(0);
+		assertEquals(1, parsedShapes.size());
+		final IFreehand fh = getShapeAt(0);
 		assertEquals(7, fh.getNbPoints());
 		assertEquals(0d, fh.getPtAt(0).getX(), 0.001);
 		assertEquals(-2.64 * IShape.PPC, fh.getPtAt(0).getY(), 0.001);
@@ -35,8 +35,8 @@ public class TestParsingPscustom extends TestPSTParser {
 		parser("\\pscustom{\\moveto(0.0,2.64)\\lineto(0.19,2.82)\\curveto(0.285,2.91)(1.49,3.16)(2.6,3.32)" +
 				"\\curveto(3.71,3.48)(5.625,3.205)(6.43,2.77)\\curveto(7.235,2.335)(8.07,1.135)(8.1,0.37)" +
 				"\\curveto(8.13,-0.395)(7.64,-1.63)(7.12,-2.1)\\curveto(6.6,-2.57)(5.45,-3.18)(4.82,-3.32)}");
-		assertEquals(1, listener.getShapes().size());
-		IFreehand fh = getShapeAt(0);
+		assertEquals(1, parsedShapes.size());
+		final IFreehand fh = getShapeAt(0);
 		assertEquals(7, fh.getNbPoints());
 		assertEquals(0d, fh.getPtAt(0).getX(), 0.001);
 		assertEquals(-2.64 * IShape.PPC, fh.getPtAt(0).getY(), 0.001);
@@ -55,8 +55,8 @@ public class TestParsingPscustom extends TestPSTParser {
 	@Test
 	public void testPsCustomMovetoCurvetoLineTo() {
 		parser("\\pscustom{\\moveto(1,2)\\curveto(3.1,4.1)(3.2,4.3)(3,4)\\lineto(5,6)}");
-		assertEquals(1, listener.getShapes().size());
-		IFreehand fh = getShapeAt(0);
+		assertEquals(1, parsedShapes.size());
+		final IFreehand fh = getShapeAt(0);
 		assertEquals(3, fh.getNbPoints());
 		assertEquals(1d * IShape.PPC, fh.getPtAt(0).getX(), 0.001);
 		assertEquals(-2d * IShape.PPC, fh.getPtAt(0).getY(), 0.001);
@@ -70,7 +70,7 @@ public class TestParsingPscustom extends TestPSTParser {
 	@Test
 	public void testPsCustomMovetoCurveto() {
 		parser("\\pscustom[linewidth=10cm]{\\moveto(1,2)\\curveto(3.1,4.1)(3.2,4.3)(3,4)}");
-		IFreehand fh = getShapeAt(0);
+		final IFreehand fh = getShapeAt(0);
 		assertEquals(2, fh.getNbPoints());
 		assertEquals(1d * IShape.PPC, fh.getPtAt(0).getX(), 0.001);
 		assertEquals(-2d * IShape.PPC, fh.getPtAt(0).getY(), 0.001);
@@ -82,7 +82,7 @@ public class TestParsingPscustom extends TestPSTParser {
 	@Test
 	public void testPsCustomMovetoLineto() {
 		parser("\\pscustom[linewidth=10cm]{\\moveto(1,2)\\lineto(3,4)}");
-		IFreehand fh = getShapeAt(0);
+		final IFreehand fh = getShapeAt(0);
 		assertEquals(2, fh.getNbPoints());
 		assertEquals(1d * IShape.PPC, fh.getPtAt(0).getX(), 0.001);
 		assertEquals(-2d * IShape.PPC, fh.getPtAt(0).getY(), 0.001);
@@ -94,26 +94,26 @@ public class TestParsingPscustom extends TestPSTParser {
 	@Test
 	public void testPsCustomNothingWithNewpathCommand() {
 		parser("\\pscustom{\\newpath}");
-		assertTrue(listener.getShapes().isEmpty());
+		assertTrue(parsedShapes.isEmpty());
 	}
 
 	@Test
 	public void testPsCustomMustConsiderParametersCommand() {
 		parser("\\pscustom[linewidth=10cm]{\\moveto(1,2)\\lineto(3,4)\\lineto(4,4)}");
-		IShape sh = getShapeAt(0);
+		final IShape sh = getShapeAt(0);
 		assertEquals(10d * IShape.PPC, sh.getThickness(), 0.001);
 	}
 
 	@Test
 	public void testPsCustomStarCommand() {
 		parser("\\pscustom*{\\moveto(1,2)\\lineto(3,4)\\lineto(4,4)}");
-		IShape sh = getShapeAt(0);
+		final IShape sh = getShapeAt(0);
 		assertTrue(sh.isFilled());
 	}
 
 	@Test
 	public void testPsCustomEmptyCommand() {
 		parser("\\pscustom{}");
-		assertTrue(listener.getShapes().isEmpty());
+		assertTrue(parsedShapes.isEmpty());
 	}
 }

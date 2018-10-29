@@ -18,7 +18,7 @@ public class TestParsingPsdots extends TestPSTParser {
 	@Test
 	public void testParse2Points() {
 		parser("\\psdots(35.5,50.5)(2,2)");
-		final List<IShape> group = listener.getShapes();
+		final List<IShape> group = parsedShapes;
 		assertEquals(2, group.size());
 		assertTrue(group.get(0) instanceof IDot);
 		assertTrue(group.get(1) instanceof IDot);
@@ -31,7 +31,7 @@ public class TestParsingPsdots extends TestPSTParser {
 	@Theory
 	public void testDotStyleo(final DotStyle style) {
 		parser("\\psdots[dotstyle=" + style.getPSTToken() + "](1,1)(2,2)");
-		final List<IShape> group = listener.getShapes();
+		final List<IShape> group = parsedShapes;
 		assertEquals(2, group.size());
 		assertEquals(style, ((IDot) group.get(0)).getDotStyle());
 		assertEquals(style, ((IDot) group.get(1)).getDotStyle());
@@ -40,7 +40,7 @@ public class TestParsingPsdots extends TestPSTParser {
 	@Test
 	public void testDotStyleDot() {
 		parser("\\psdots" + "[dotstyle=*](1,1)(2,2)");
-		final List<IShape> group = listener.getShapes();
+		final List<IShape> group = parsedShapes;
 		assertEquals(2, group.size());
 		assertEquals(DotStyle.DOT, ((IDot) group.get(0)).getDotStyle());
 		assertEquals(DotStyle.DOT, ((IDot) group.get(1)).getDotStyle());
@@ -49,7 +49,7 @@ public class TestParsingPsdots extends TestPSTParser {
 	@Test
 	public void testNoDotStyle() {
 		parser("\\psdots(1,1)(2,2)");
-		final List<IShape> group = listener.getShapes();
+		final List<IShape> group = parsedShapes;
 		assertEquals(2, group.size());
 		assertEquals(DotStyle.DOT, ((IDot) group.get(0)).getDotStyle());
 		assertEquals(DotStyle.DOT, ((IDot) group.get(1)).getDotStyle());
@@ -58,7 +58,7 @@ public class TestParsingPsdots extends TestPSTParser {
 	@Test
 	public void testParse1Coordinates() {
 		parser("\\psdots" + "(5,10)");
-		final List<IShape> group = listener.getShapes();
+		final List<IShape> group = parsedShapes;
 		assertEquals(1, group.size());
 		assertEquals(5d * IShape.PPC, group.get(0).getPtAt(0).getX(), 0.0001);
 		assertEquals(-10d * IShape.PPC, group.get(0).getPtAt(0).getY(), 0.0001);
@@ -67,7 +67,7 @@ public class TestParsingPsdots extends TestPSTParser {
 	@Test
 	public void testFloatSigns() {
 		parser("\\psdots(+++35.5,--50.5)(+-++35.5,---50.5)");
-		final List<IShape> group = listener.getShapes();
+		final List<IShape> group = parsedShapes;
 		assertEquals(35.5 * IShape.PPC, group.get(0).getPtAt(0).getX(), 0.0001);
 		assertEquals(-50.5 * IShape.PPC, group.get(0).getPtAt(0).getY(), 0.0001);
 		assertEquals(-35.5 * IShape.PPC, group.get(1).getPtAt(0).getX(), 0.0001);
@@ -77,7 +77,7 @@ public class TestParsingPsdots extends TestPSTParser {
 	@Test
 	public void testStarLineColourIsFillingColour() {
 		parser("\\psdots*[" + "linecolor=green, dotstyle=o](1,1)(2,2)");
-		final List<IShape> group = listener.getShapes();
+		final List<IShape> group = parsedShapes;
 		assertEquals(DviPsColors.GREEN, group.get(0).getFillingCol());
 		assertEquals(DviPsColors.GREEN, group.get(0).getLineColour());
 		assertEquals(DviPsColors.GREEN, group.get(1).getFillingCol());

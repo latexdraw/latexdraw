@@ -69,31 +69,31 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 	@Test
 	public void testBeginCenterokWithBeginPsPicture() {
 		parser("\\begin{center}\\begin{pspicture}(1,1)\\psline(1,1)(1,0)\\end{pspicture}\\end{center}");
-		assertEquals(1, listener.getShapes().size());
+		assertEquals(1, parsedShapes.size());
 	}
 
 	@Test
 	public void testBeginCenterok() {
 		parser("\\begin{center}\\psline(1,1)(1,0)\\end{center}");
-		assertEquals(1, listener.getShapes().size());
+		assertEquals(1, parsedShapes.size());
 	}
 
 	@Test
 	public void testPsscalebox() {
 		parser("\\psscalebox{1 1}{\\psframe(2,3)(5,1)}");
-		assertEquals(1, listener.getShapes().size());
+		assertEquals(1, parsedShapes.size());
 	}
 
 	@Test
 	public void testScalebox() {
 		parser("\\scalebox{0.75}{\\psframe(2,3)(5,1)}");
-		assertEquals(1, listener.getShapes().size());
+		assertEquals(1, parsedShapes.size());
 	}
 
 	@Test
 	public void testTwoShapesDoNotShareTheirParameters() {
 		parser("\\psframe[linecolor=blue,fillstyle=solid,fillcolor=red](6,0)(4,-1)\\psbezier(1, 0)(2,0)(4,0)(4,0)");
-		assertEquals(2, listener.getShapes().size());
+		assertEquals(2, parsedShapes.size());
 		assertFalse(getShapeAt(1).isFilled());
 		assertNotEquals(getShapeAt(0).getFillingCol(), getShapeAt(1).getFillingCol());
 		assertNotEquals(getShapeAt(0).getLineColour(), getShapeAt(1).getLineColour());

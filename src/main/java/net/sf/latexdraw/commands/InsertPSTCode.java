@@ -63,7 +63,7 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 			parser.pstCode(new PSTContext());
 
 			final IGroup group = ShapeFactory.INST.createGroup();
-			group.getShapes().addAll(listener.getShapes());
+			group.getShapes().addAll(listener.flatShapes());
 
 			if(!group.isEmpty()) {
 				final IShape sh = group.size() > 1 ? group : group.getShapeAt(0);

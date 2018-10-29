@@ -40,14 +40,14 @@ public class TestTextParsing extends TestPSTParser {
 		"\\^ e", "\\^{ee}", "\\'{ee}", "\\`{ee}", "\\\"{ee}", "\\\" e", "\\` a", "\\@", "\\. o", "\\/", "\\,", "\\*", "\\' e", "\\\" e", "\\$", "\\{",
 		"\\}", "\\&", "\\_", "\\%", "\\\\"}) final String txt) {
 		parser(txt);
-		assertEquals(1, listener.getShapes().size());
+		assertEquals(1, parsedShapes.size());
 		assertEquals(txt, ((IText) getShapeAt(0)).getText());
 	}
 
 	@Test
 	public void testSeveralTextChuncks() {
 		parser("{foo} {barr}");
-		assertEquals(2, listener.getShapes().size());
+		assertEquals(2, parsedShapes.size());
 		assertTrue(getShapeAt(0) instanceof IText);
 		assertEquals("foo", ((IText) getShapeAt(0)).getText());
 		assertTrue(getShapeAt(1) instanceof IText);
@@ -57,7 +57,7 @@ public class TestTextParsing extends TestPSTParser {
 	@Test
 	public void testTextbugParsingSeveralRputCmds() {
 		parser("\\rput(0.9,0.6){aa}\\rput(7.4,0){bb}\\rput(1,0){cc}");
-		assertEquals(3, listener.getShapes().size());
+		assertEquals(3, parsedShapes.size());
 		assertEquals("aa", ((IText) getShapeAt(0)).getText());
 		assertEquals("bb", ((IText) getShapeAt(1)).getText());
 		assertEquals("cc", ((IText) getShapeAt(2)).getText());
@@ -75,8 +75,8 @@ public class TestTextParsing extends TestPSTParser {
 	public void testBug7220753() {
 		// https://bugs.launchpad.net/latexdraw/+bug/722075
 		parser("\\textcolor{blue}{xyz} foobar");
-		assertEquals(2, listener.getShapes().size());
-		IText text = getShapeAt(1);
+		assertEquals(2, parsedShapes.size());
+		final IText text = getShapeAt(1);
 		assertEquals("foobar", text.getText());
 		assertEquals(DviPsColors.BLACK, text.getLineColour());
 	}
@@ -85,8 +85,8 @@ public class TestTextParsing extends TestPSTParser {
 	public void testBug7220752() {
 		// https://bugs.launchpad.net/latexdraw/+bug/722075
 		parser("\\textcolor{blue}{xyz}");
-		assertEquals(1, listener.getShapes().size());
-		IText text = getShapeAt(0);
+		assertEquals(1, parsedShapes.size());
+		final IText text = getShapeAt(0);
 		assertEquals("xyz", text.getText());
 		assertEquals(DviPsColors.BLUE, text.getLineColour());
 	}
@@ -95,8 +95,8 @@ public class TestTextParsing extends TestPSTParser {
 	public void testBug7220751() {
 		// https://bugs.launchpad.net/latexdraw/+bug/722075
 		parser("\\color{blue} xyz");
-		assertEquals(1, listener.getShapes().size());
-		IText text = getShapeAt(0);
+		assertEquals(1, parsedShapes.size());
+		final IText text = getShapeAt(0);
 		assertEquals("xyz", text.getText());
 		assertEquals(DviPsColors.BLUE, text.getLineColour());
 	}
@@ -105,31 +105,31 @@ public class TestTextParsing extends TestPSTParser {
 	public void testBug911816() {
 		// https://bugs.launchpad.net/latexdraw/+bug/911816
 		parser("\\psframebox{$E=mc^2$}");
-		assertEquals(1, listener.getShapes().size());
-		IText text = getShapeAt(0);
+		assertEquals(1, parsedShapes.size());
+		final IText text = getShapeAt(0);
 		assertEquals("\\psframebox{$E=mc^2$}", text.getText());
 	}
 
 	@Test
 	public void testParseTexttiny() {
 		parser("\\rput(1,2){\\tiny coucou}");
-		assertEquals(1, listener.getShapes().size());
-		IText text = getShapeAt(0);
+		assertEquals(1, parsedShapes.size());
+		final IText text = getShapeAt(0);
 		assertEquals("\\tiny coucou", text.getText());
 	}
 
 	@Test
 	public void testParseTextfootnotesize() {
 		parser("\\rput(1,2){\\footnotesize coucou}");
-		assertEquals(1, listener.getShapes().size());
-		IText text = getShapeAt(0);
+		assertEquals(1, parsedShapes.size());
+		final IText text = getShapeAt(0);
 		assertEquals("\\footnotesize coucou", text.getText());
 	}
 
 	@Test
 	public void testParse1WordBracketedInto1TextShape() {
 		parser("{ foo }");
-		assertEquals(1, listener.getShapes().size());
+		assertEquals(1, parsedShapes.size());
 		assertTrue(getShapeAt(0) instanceof IText);
 		assertEquals("foo", ((IText) getShapeAt(0)).getText());
 	}
@@ -137,7 +137,7 @@ public class TestTextParsing extends TestPSTParser {
 	@Test
 	public void testParseMixedTextAndShapeInto2TextShapesAnd1Shape() {
 		parser("foo bar \\psdot(1,1) foo $math formula_{r}$ bar");
-		assertEquals(2, listener.getShapes().size());
+		assertEquals(2, parsedShapes.size());
 		assertTrue(getShapeAt(0) instanceof IDot);
 		assertTrue(getShapeAt(1) instanceof IText);
 		assertEquals("foo bar foo $math formula_{r}$ bar", ((IText) getShapeAt(1)).getText());

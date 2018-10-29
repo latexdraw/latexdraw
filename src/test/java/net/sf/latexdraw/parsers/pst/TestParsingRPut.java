@@ -20,7 +20,7 @@ public class TestParsingRPut extends TestPSTParser {
 	@Test
 	public void testRputPosition() {
 		parser("\\rput(1,2){coucou}");
-		assertEquals(1, listener.getShapes().size());
+		assertEquals(1, parsedShapes.size());
 		final IText text = getShapeAt(0);
 		assertEquals("coucou", text.getText());
 		assertEquals(1d * IShape.PPC, text.getPosition().getX(), 0.001);
