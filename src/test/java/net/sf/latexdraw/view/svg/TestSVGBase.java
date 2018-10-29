@@ -16,11 +16,13 @@ import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.PolymorphicConversion;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.malai.command.CommandsRegistry;
 import org.malai.undo.UndoCollector;
+import org.mockito.Mockito;
 
 @ExtendWith(InjectionExtension.class)
 abstract class TestSVGBase<T extends IShape> implements PolymorphicConversion<T> {
@@ -34,6 +36,7 @@ abstract class TestSVGBase<T extends IShape> implements PolymorphicConversion<T>
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 				bindAsEagerSingleton(SystemService.class);
 				bindAsEagerSingleton(ViewFactory.class);
+				bindToInstance(LaTeXGenerator.class, Mockito.mock(LaTeXGenerator.class));
 				bindAsEagerSingleton(SVGShapesFactory.class);
 			}
 		};
