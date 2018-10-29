@@ -28,7 +28,8 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
-			Platform.startup(() -> {});
+			Platform.startup(() -> {
+			});
 		}catch(final IllegalStateException ex) {
 			// Ok
 		}

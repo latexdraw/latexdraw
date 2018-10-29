@@ -18,7 +18,6 @@ import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -78,26 +77,26 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementDistYPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), distLabelsY,
-			incrementDistLabelY, Collections.singletonList(() ->  ((IAxesProp)pencil.createShapeInstance()).getDistLabelsY()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), distLabelsY,
+			incrementDistLabelY, Collections.singletonList(() ->  ((IAxesProp) pencil.createShapeInstance()).getDistLabelsY()));
 	}
 
 	@Test
 	public void testIncrementDistXPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), distLabelsX,
-			incrementDistLabelX, Collections.singletonList(() ->  ((IAxesProp)pencil.createShapeInstance()).getDistLabelsX()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), distLabelsX,
+			incrementDistLabelX, Collections.singletonList(() ->  ((IAxesProp) pencil.createShapeInstance()).getDistLabelsX()));
 	}
 
 	@Test
 	public void testIncrementLabelYPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), incrLabelY,
-			incrementLabelY, Collections.singletonList(() ->  ((IAxesProp)pencil.createShapeInstance()).getIncrementY()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), incrLabelY,
+			incrementLabelY, Collections.singletonList(() ->  ((IAxesProp) pencil.createShapeInstance()).getIncrementY()));
 	}
 
 	@Test
 	public void testIncrementLabelXPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), incrLabelX,
-			incrementLabelX, Collections.singletonList(() ->  ((IAxesProp)pencil.createShapeInstance()).getIncrementX()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), incrLabelX,
+			incrementLabelX, Collections.singletonList(() ->  ((IAxesProp) pencil.createShapeInstance()).getIncrementX()));
 	}
 
 	@Test

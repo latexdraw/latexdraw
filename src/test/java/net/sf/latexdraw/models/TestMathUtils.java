@@ -1,7 +1,6 @@
 package net.sf.latexdraw.models;
 
 import net.sf.latexdraw.data.DoubleData;
-import net.sf.latexdraw.data.ValuesGenerator;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
@@ -20,9 +19,9 @@ import static org.junit.Assume.assumeThat;
 @RunWith(Theories.class)
 public class TestMathUtils {
 	@DataPoints
-	public static double[] dbleValues = ValuesGenerator.doubleValues;
+	public static double[] dbleValues = {-0.00001, -1.34, -83.12, 0d, 0.00001, 1.34, 83.12};
 	@DataPoints
-	public static float[] floatValues = ValuesGenerator.floatValues;
+	public static float[] floatValues = {-10.23f, -0.001f, 0f, 0.00001f, 1.34f, 83.12f};
 
 	@Test
 	public void testIsValidPointNull() {

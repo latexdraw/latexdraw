@@ -47,7 +47,7 @@ public class TestIDot implements HelperTest {
 
 	@Test
 	public void testConstructor1() {
-		IDot dot1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		final IDot dot1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 
 		assertTrue(dot1.getDiametre() > 0);
 		assertNotNull(dot1.getDotStyle());
@@ -58,7 +58,7 @@ public class TestIDot implements HelperTest {
 
 	@Test
 	public void testConstructor3() {
-		IDot dot1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint(-1, 2));
+		final IDot dot1 = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint(-1, 2));
 		assertEqualsDouble(-1., dot1.getPosition().getX());
 		assertEqualsDouble(2., dot1.getPosition().getY());
 	}

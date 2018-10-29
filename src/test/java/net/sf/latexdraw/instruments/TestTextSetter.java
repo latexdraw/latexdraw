@@ -82,7 +82,7 @@ public class TestTextSetter extends BaseTestCanvas {
 		assertTrue(setter.isActivated());
 		assertTrue(setter.getTextField().isVisible());
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), setter.getTextField().getLayoutX(), 1d);
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() -setter.getTextField().getPrefHeight(), setter.getTextField().getLayoutY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - setter.getTextField().getPrefHeight(), setter.getTextField().getLayoutY(), 1d);
 		assertTrue(setter.getTextField().isFocused());
 	}
 

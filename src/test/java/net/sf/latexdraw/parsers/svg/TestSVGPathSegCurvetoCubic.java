@@ -29,14 +29,14 @@ public class TestSVGPathSegCurvetoCubic {
 
 	@Test
 	public void testToString() throws ParseException {
-		SVGPathSegMoveto m = new SVGPathSegMoveto(0, 0, false);
-		SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), pathSeg -> {
+		final SVGPathSegMoveto m = new SVGPathSegMoveto(0, 0, false);
+		final SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), pathSeg -> {
 			if(pathSeg instanceof SVGPathSegMoveto && cpt == 0) {
 				cpt++;
 				return;
 			}
 			assertTrue(pathSeg instanceof SVGPathSegCurvetoCubic);
-			SVGPathSegCurvetoCubic seg2 = (SVGPathSegCurvetoCubic) pathSeg;
+			final SVGPathSegCurvetoCubic seg2 = (SVGPathSegCurvetoCubic) pathSeg;
 			assertEquals(seg.getX(), seg2.getX(), 0.0001);
 			assertEquals(seg.getY(), seg2.getY(), 0.0001);
 			assertEquals(seg.isRelative(), seg2.isRelative());

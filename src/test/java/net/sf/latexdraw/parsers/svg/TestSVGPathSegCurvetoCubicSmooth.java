@@ -30,14 +30,14 @@ public class TestSVGPathSegCurvetoCubicSmooth {
 
 	@Test
 	public void testToString() throws ParseException {
-		SVGPathSegMoveto m = new SVGPathSegMoveto(0d, 0d, false);
-		SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), pathSeg -> {
+		final SVGPathSegMoveto m = new SVGPathSegMoveto(0d, 0d, false);
+		final SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), pathSeg -> {
 			if(pathSeg instanceof SVGPathSegMoveto && cpt == 0) {
 				cpt++;
 				return;
 			}
 			assertTrue(pathSeg instanceof SVGPathSegCurvetoCubicSmooth);
-			SVGPathSegCurvetoCubicSmooth seg2 = (SVGPathSegCurvetoCubicSmooth) pathSeg;
+			final SVGPathSegCurvetoCubicSmooth seg2 = (SVGPathSegCurvetoCubicSmooth) pathSeg;
 			assertEquals(seg.getX(), seg2.getX(), 0.0001);
 			assertEquals(seg.getY(), seg2.getY(), 0.0001);
 			assertEquals(seg.isRelative(), seg2.isRelative());

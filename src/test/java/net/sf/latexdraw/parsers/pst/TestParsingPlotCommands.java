@@ -15,7 +15,7 @@ public class TestParsingPlotCommands extends TestPSTParser {
 	@Test
 	public void testPsplot() {
 		parser("\\psplot{0}{720}{x sin}");
-		IPlot plot = getShapeAt(0);
+		final IPlot plot = getShapeAt(0);
 		assertEquals(0d, plot.getPlotMinX(), 0.00001);
 		assertEquals(720d, plot.getPlotMaxX(), 0.00001);
 		assertEquals("x sin", plot.getPlotEquation());
@@ -24,35 +24,35 @@ public class TestParsingPlotCommands extends TestPSTParser {
 	@Test
 	public void testPsplotNbPoints() {
 		parser("\\psplot[plotpoints=213]{0}{720}{x sin}");
-		IPlot plot = getShapeAt(0);
+		final IPlot plot = getShapeAt(0);
 		assertEquals(213, plot.getNbPlottedPoints());
 	}
 
 	@Theory
 	public void testPsplotPlotStyle(final PlotStyle style) {
 		parser("\\psplot[plotstyle=" + style.getPSTToken() + "]{0}{720}{x sin}");
-		IPlot plot = getShapeAt(0);
+		final IPlot plot = getShapeAt(0);
 		assertEquals(style, plot.getPlotStyle());
 	}
 
 	@Test
 	public void testPsplotXUnit() {
 		parser("\\psplot[xunit=0.1]{0}{720}{x sin}");
-		IPlot plot = getShapeAt(0);
+		final IPlot plot = getShapeAt(0);
 		assertEquals(0.1, plot.getXScale(), 0.00001);
 	}
 
 	@Test
 	public void testPsplotYUnit() {
 		parser("\\psplot[yunit=0.1]{0}{720}{x sin}");
-		IPlot plot = getShapeAt(0);
+		final IPlot plot = getShapeAt(0);
 		assertEquals(0.1, plot.getYScale(), 0.00001);
 	}
 
 	@Test
 	public void testPsplotStar() {
 		parser("\\psplot*[plotpoints=200]{0}{720}{x sin}");
-		IPlot plot = getShapeAt(0);
+		final IPlot plot = getShapeAt(0);
 		assertEquals(0d, plot.getPlotMinX(), 0.00001);
 		assertEquals(720d, plot.getPlotMaxX(), 0.00001);
 		assertEquals("x sin", plot.getPlotEquation());

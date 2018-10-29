@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(Parameterized.class)
 public class TestResources {
 
-	private String path;
+	private final String path;
 
 	public TestResources(final String pathToTest) {
 		super();

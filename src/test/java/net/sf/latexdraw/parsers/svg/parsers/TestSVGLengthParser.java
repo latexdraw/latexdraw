@@ -77,7 +77,7 @@ public class TestSVGLengthParser {
 
 	@Test
 	public void testParseNumberOrPercentmm() throws ParseException {
-		SVGLength l = new SVGLengthParser("1mm").parseNumberOrPercent();
+		final SVGLength l = new SVGLengthParser("1mm").parseNumberOrPercent();
 		assertEquals("1", l.getValueAsString());
 		assertEquals(SVGLength.LengthType.NUMBER, l.getLengthType());
 		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1, SVGLength.LengthType.NUMBER), l.getValue(), 0.001);
@@ -85,7 +85,7 @@ public class TestSVGLengthParser {
 
 	@Test
 	public void testParseNumberOrPercentdouble() throws ParseException {
-		SVGLength l = new SVGLengthParser("0.876").parseNumberOrPercent();
+		final SVGLength l = new SVGLengthParser("0.876").parseNumberOrPercent();
 		assertEquals("0.876", l.getValueAsString());
 		assertEquals(SVGLength.LengthType.NUMBER, l.getLengthType());
 		assertEquals(UnitProcessor.INSTANCE.toUserUnit(0.876, SVGLength.LengthType.NUMBER), l.getValue(), 0.001);

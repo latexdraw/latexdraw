@@ -93,7 +93,7 @@ abstract class TestViewShape<T extends ViewShape<S>, S extends ISingleShape> imp
 
 	protected List<PathElement> duplicatePath(final List<PathElement> path) {
 		return path.stream().map(elt -> {
-			PathElement dupelt;
+			final PathElement dupelt;
 			if(elt instanceof MoveTo) {
 				final MoveTo moveTo = (MoveTo) elt;
 				dupelt = factory.createMoveTo(moveTo.getX(), moveTo.getY());

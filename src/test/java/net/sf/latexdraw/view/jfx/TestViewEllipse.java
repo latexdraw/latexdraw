@@ -14,7 +14,8 @@ public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, IEllipse
 	@BeforeAll
 	public static void beforeClass() {
 		try {
-			Platform.startup(() -> {});
+			Platform.startup(() -> {
+			});
 		}catch(final IllegalStateException ex) {
 			// Ok
 		}

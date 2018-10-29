@@ -36,7 +36,8 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 	@BeforeAll
 	public static void beforeClass() {
 		try {
-			Platform.startup(() -> {});
+			Platform.startup(() -> {
+			});
 		}catch(final IllegalStateException ex) {
 			// Ok
 		}

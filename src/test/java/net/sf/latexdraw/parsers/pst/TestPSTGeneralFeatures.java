@@ -54,7 +54,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 	@Test
 	public void testPssetlinewidth() {
 		parser("\\psset{linewidth=2cm}\\psframe(10,10)");
-		IRectangle rec = getShapeAt(0);
+		final IRectangle rec = getShapeAt(0);
 		assertEquals(2d * IShape.PPC, rec.getThickness(), 0.0001);
 	}
 
@@ -62,7 +62,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 	public void testUnknownCommand() {
 		listener = new PSTLatexdrawListener();
 		parser("\\fuhfisduf");
-		IText txt = getShapeAt(0);
+		final IText txt = getShapeAt(0);
 		assertEquals("\\fuhfisduf", txt.getText());
 	}
 

@@ -20,10 +20,11 @@ import org.testfx.api.FxRobotInterface;
 public interface FxRobotCaptureScreenshot extends FxRobotInterface {
 	static Path createScreenshotFolder(final String folderName, final boolean withDate) {
 		try {
-			if(withDate)
+			if(withDate) {
 				return Files.createDirectory(Paths.get(folderName + System.currentTimeMillis()));
+			}
 			return Files.createDirectory(Paths.get(folderName));
-		}catch(IOException ex) {
+		}catch(final IOException ex) {
 			ex.printStackTrace();
 			return null;
 		}
@@ -35,18 +36,15 @@ public interface FxRobotCaptureScreenshot extends FxRobotInterface {
 
 	/**
 	 * Takes a screenshot using a file name.
-	 * @param dir
-	 * @param name
-	 * @param node
 	 * @return The screenshot
 	 */
 	default File captureScreenshot(final Path dir, final String name, final Node node) {
-		File captureFile = new File(dir + File.separator + name + new Date().getTime() + ".png");
+		final File captureFile = new File(dir + File.separator + name + new Date().getTime() + ".png");
 		Platform.runLater(() -> {
-			WritableImage img = node.snapshot(null, null);
+			final WritableImage img = node.snapshot(null, null);
 			try {
 				ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", captureFile);
-			}catch(Exception e) {
+			}catch(final Exception e) {
 				e.printStackTrace();
 			}
 		});

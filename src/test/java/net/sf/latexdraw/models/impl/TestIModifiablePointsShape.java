@@ -84,7 +84,7 @@ public class TestIModifiablePointsShape implements HelperTest {
 
 	@Theory
 	public void testGetGravityCentre(@ModifPtShapeData(x = {0d, 2d, 2d}, y = {0d, 0d, 2d}) final IModifiablePointsShape shape) {
-		assertTrue(shape.getGravityCentre().equals(ShapeFactory.INST.createPoint(1, 1)));
+		assertEquals(shape.getGravityCentre(), ShapeFactory.INST.createPoint(1, 1));
 	}
 
 

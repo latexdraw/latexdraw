@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class TestISquare implements HelperTest {
 	@Test
 	public void testConstructorsOKPoints() {
-		ISquare sq = ShapeFactory.INST.createSquare();
+		final ISquare sq = ShapeFactory.INST.createSquare();
 		assertEquals(4, sq.getNbPoints());
 	}
 

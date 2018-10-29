@@ -1,8 +1,5 @@
 package net.sf.latexdraw.parsers.svg;
 
-import net.sf.latexdraw.parsers.svg.SVGAttr;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGNamedNodeMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
@@ -146,7 +143,7 @@ public class TestSVGNamedNodeMap {
 		final SVGAttr attr2 = new SVGAttr("test2", "v2", doc.createElement("elt2"));
 		map.setNamedItem(attr1);
 		map.setNamedItem(attr2);
-		SVGNamedNodeMap map2 = (SVGNamedNodeMap) map.clone();
+		final SVGNamedNodeMap map2 = map.clone();
 		assertEquals(map.getLength(), map2.getLength());
 		assertTrue(map.getNamedItem("test1").isEqualNode(map2.getNamedItem("test1")));
 		assertTrue(map.getNamedItem("test2").isEqualNode(map2.getNamedItem("test2")));

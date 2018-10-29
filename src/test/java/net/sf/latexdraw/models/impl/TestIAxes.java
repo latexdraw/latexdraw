@@ -57,7 +57,7 @@ public class TestIAxes implements HelperTest {
 
 	@Test
 	public void testConstructor3OK() {
-		IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(10, -20));
+		final IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(10, -20));
 
 		assertNotNull(axes.getPtAt(0));
 		assertEqualsDouble(10d, axes.getPtAt(0).getX());
@@ -66,7 +66,7 @@ public class TestIAxes implements HelperTest {
 
 	@Test
 	public void testConstructor3NotOKNAN0() {
-		IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(Double.NaN, 0));
+		final IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(Double.NaN, 0));
 		assertNotNull(axes.getPtAt(0));
 		assertEqualsDouble(0d, axes.getPtAt(0).getX());
 		assertEqualsDouble(0d, axes.getPtAt(0).getY());
@@ -74,7 +74,7 @@ public class TestIAxes implements HelperTest {
 
 	@Test
 	public void testConstructor3NotOK0NAN() {
-		IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(0, Double.NaN));
+		final IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(0, Double.NaN));
 		assertNotNull(axes.getPtAt(0));
 		assertEqualsDouble(0d, axes.getPtAt(0).getX());
 		assertEqualsDouble(0d, axes.getPtAt(0).getY());
@@ -82,7 +82,7 @@ public class TestIAxes implements HelperTest {
 
 	@Test
 	public void testConstructor3NotOKINF0() {
-		IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(Double.POSITIVE_INFINITY, 0));
+		final IAxes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(Double.POSITIVE_INFINITY, 0));
 		assertNotNull(axes.getPtAt(0));
 		assertEqualsDouble(0d, axes.getPtAt(0).getX());
 		assertEqualsDouble(0d, axes.getPtAt(0).getY());
@@ -264,7 +264,7 @@ public class TestIAxes implements HelperTest {
 		shape.setTicksDisplayed(PlottingStyle.NONE);
 		shape.setTicksSize(34);
 
-		IAxes s2 = shape.duplicate();
+		final IAxes s2 = shape.duplicate();
 
 		assertNotNull(s2);
 		assertEqualsDouble(s2.getIncrementX(), shape.getIncrementX());
@@ -315,7 +315,7 @@ public class TestIAxes implements HelperTest {
 
 	@Theory
 	public void testGetTopRightPoint(@DoubleData final double startX, @DoubleData final double endX,
-									 @DoubleData final double startY, @DoubleData final double endY) {
+									@DoubleData final double startY, @DoubleData final double endY) {
 		assumeThat(endY, greaterThan(startY));
 		assumeThat(startX, lessThan(endX));
 

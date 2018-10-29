@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class TestParsingPsarcn extends TestPSTParser {
 	@Theory
 	public void testAngle1Angle2(@DoubleData(vals = {100d, 200d, 20d, -200.15d}) final double angle1,
-								 @DoubleData(vals = {100d, 200d, 20d, -200.15d}) final double angle2) {
+								@DoubleData(vals = {100d, 200d, 20d, -200.15d}) final double angle2) {
 		parser("\\psarcn{10}{" + angle1 + "}{" + angle2 + "}");
 		final IArc arc = getShapeAt(0);
 		assertEquals(Math.toRadians(angle2), arc.getAngleStart(), 0.0000001);

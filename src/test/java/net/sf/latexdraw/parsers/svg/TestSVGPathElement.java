@@ -24,7 +24,7 @@ public class TestSVGPathElement extends TestBaseSVGElement {
 	@Test
 	public void testGetPathData() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_D, "M 0 0 L 10 10");
-		SVGPathElement e = new SVGPathElement(node, null);
+		final SVGPathElement e = new SVGPathElement(node, null);
 		assertEquals("M 0 0 L 10 10", e.getPathData());
 	}
 

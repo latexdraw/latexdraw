@@ -288,7 +288,7 @@ public class TestILine implements HelperTest {
 	public void testGetPerpendicularLineHoriz() {
 		line.setLine(-10, 0, 10, 0);
 		line.updateAandB();
-		ILine line2 = line.getPerpendicularLine(ShapeFactory.INST.createPoint());
+		final ILine line2 = line.getPerpendicularLine(ShapeFactory.INST.createPoint());
 		assertNotNull(line2);
 		assertEqualsDouble(0d, line2.getX1());
 		assertEqualsDouble(0d, line2.getX2());
@@ -298,7 +298,7 @@ public class TestILine implements HelperTest {
 	public void testGetPerpendicularLineVert() {
 		line.setLine(0, 10, 0, -10);
 		line.updateAandB();
-		ILine line2 = line.getPerpendicularLine(ShapeFactory.INST.createPoint());
+		final ILine line2 = line.getPerpendicularLine(ShapeFactory.INST.createPoint());
 		assertNotNull(line2);
 		assertEqualsDouble(0d, line2.getY1());
 		assertEqualsDouble(0d, line2.getY2());
@@ -308,7 +308,7 @@ public class TestILine implements HelperTest {
 	public void testGetPerpendicularLineDiag() {
 		line.setLine(1, 1, 2, 2);
 		line.updateAandB();
-		ILine line2 = line.getPerpendicularLine(ShapeFactory.INST.createPoint());
+		final ILine line2 = line.getPerpendicularLine(ShapeFactory.INST.createPoint());
 		assertNotNull(line2);
 		assertEqualsDouble(0d, line2.getB());
 		assertEqualsDouble(-1d, line2.getA());
@@ -327,10 +327,10 @@ public class TestILine implements HelperTest {
 
 	@Test
 	public void testGetIntersection() {
-		ILine line2 = ShapeFactory.INST.createLine(72, -981, 0, 0);
+		final ILine line2 = ShapeFactory.INST.createLine(72, -981, 0, 0);
 		line.setLine(-237, 17, 13, -82);
 		line.updateAandB();
-		IPoint pt = line.getIntersection(line2);
+		final IPoint pt = line.getIntersection(line2);
 		assertNotNull(pt);
 		assertEqualsDouble(5.809358228, pt.getX());
 		assertEqualsDouble(-79.152505858, pt.getY());
@@ -350,10 +350,10 @@ public class TestILine implements HelperTest {
 
 	@Test
 	public void testGetIntersectionVert() {
-		ILine line2 = ShapeFactory.INST.createLine(0, 0, 1, 0);
+		final ILine line2 = ShapeFactory.INST.createLine(0, 0, 1, 0);
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
-		IPoint pt = line.getIntersection(line2);
+		final IPoint pt = line.getIntersection(line2);
 		assertNotNull(pt);
 		assertEqualsDouble(0d, pt.getX());
 		assertEqualsDouble(0d, pt.getY());
@@ -361,10 +361,10 @@ public class TestILine implements HelperTest {
 
 	@Test
 	public void testGetIntersectionHoriz() {
-		ILine line2 = ShapeFactory.INST.createLine(0, 0, 1, 0);
+		final ILine line2 = ShapeFactory.INST.createLine(0, 0, 1, 0);
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
-		IPoint pt = line2.getIntersection(line);
+		final IPoint pt = line2.getIntersection(line);
 		assertNotNull(pt);
 		assertEqualsDouble(0d, pt.getX());
 		assertEqualsDouble(0d, pt.getY());
@@ -406,10 +406,10 @@ public class TestILine implements HelperTest {
 
 	@Test
 	public void testGetIntersectionSegment() {
-		ILine line2 = ShapeFactory.INST.createLine(0, 0, 1, 0);
+		final ILine line2 = ShapeFactory.INST.createLine(0, 0, 1, 0);
 		line.setLine(1, 1, 0, -1);
 		line.updateAandB();
-		IPoint pt = line.getIntersectionSegment(line2);
+		final IPoint pt = line.getIntersectionSegment(line2);
 		assertNotNull(pt);
 		assertEqualsDouble(0.5, pt.getX());
 		assertEqualsDouble(0d, pt.getY());
@@ -430,7 +430,7 @@ public class TestILine implements HelperTest {
 	public void testGetIntersectionSegmentVert() {
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
-		IPoint pt = line.getIntersectionSegment(ShapeFactory.INST.createLine(0, 0, 1, 0));
+		final IPoint pt = line.getIntersectionSegment(ShapeFactory.INST.createLine(0, 0, 1, 0));
 		assertNotNull(pt);
 		assertEqualsDouble(0d, pt.getX());
 		assertEqualsDouble(0d, pt.getY());
@@ -447,7 +447,7 @@ public class TestILine implements HelperTest {
 	public void testGetIntersectionSegmentHoriz() {
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
-		IPoint pt = ShapeFactory.INST.createLine(0, 0, 1, 0).getIntersectionSegment(line);
+		final IPoint pt = ShapeFactory.INST.createLine(0, 0, 1, 0).getIntersectionSegment(line);
 		assertNotNull(pt);
 		assertEqualsDouble(0d, pt.getX());
 		assertEqualsDouble(0d, pt.getY());
@@ -494,7 +494,7 @@ public class TestILine implements HelperTest {
 	@Test
 	public void testFindPoints() {
 		line.setLine(1, 1, 3, 1);
-		IPoint[] pts = line.findPoints(1, 1, 2);
+		final IPoint[] pts = line.findPoints(1, 1, 2);
 		assertEqualsDouble(2, pts.length);
 		assertEqualsDouble(1d, pts[0].getY());
 		assertEqualsDouble(1d, pts[1].getY());

@@ -18,7 +18,6 @@ import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -77,8 +76,8 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		final boolean sel = showOrigin.isSelected();
 		selectShowOrigin.execute();
-		assertEquals(!sel, ((IAxesProp)drawing.getSelection().getShapeAt(0)).isShowOrigin());
-		assertEquals(!sel, ((IAxesProp)drawing.getSelection().getShapeAt(2)).isShowOrigin());
+		assertEquals(!sel, ((IAxesProp) drawing.getSelection().getShapeAt(0)).isShowOrigin());
+		assertEquals(!sel, ((IAxesProp) drawing.getSelection().getShapeAt(2)).isShowOrigin());
 	}
 
 	@Test

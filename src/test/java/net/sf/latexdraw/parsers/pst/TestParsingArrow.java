@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class TestParsingArrow extends TestPSTParser {
 	@DataPoints
 	public static Tuple<String, String>[] cmds() {
-		return new Tuple[]{new Tuple<>("\\psline", "(1,1)(2,2)"), new Tuple<>("\\psbezier", "(1,2)(3,4)(5,6)(7,8)"),
+		return new Tuple[] {new Tuple<>("\\psline", "(1,1)(2,2)"), new Tuple<>("\\psbezier", "(1,2)(3,4)(5,6)(7,8)"),
 			new Tuple<>("\\psaxes", "(0,0)(0,0)(3,4)")};
 	}
 

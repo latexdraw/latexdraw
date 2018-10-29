@@ -1,6 +1,5 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
-import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;

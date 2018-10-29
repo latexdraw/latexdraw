@@ -43,8 +43,7 @@ public class TestIPoint implements HelperTest {
 
 	@Test
 	public void testRotatePoint() {
-		assertEquals(ShapeFactory.INST.createPoint(-1, 0), ShapeFactory.INST.createPoint(0, 1).rotatePoint(ShapeFactory.INST.createPoint()
-			, Math.PI / 2.));
+		assertEquals(ShapeFactory.INST.createPoint(-1, 0), ShapeFactory.INST.createPoint(0, 1).rotatePoint(ShapeFactory.INST.createPoint(), Math.PI / 2.));
 		assertEquals(ShapeFactory.INST.createPoint(-1, 0), ShapeFactory.INST.createPoint(1, 0).rotatePoint(pt, Math.PI));
 		assertEquals(ShapeFactory.INST.createPoint(-1, 0), ShapeFactory.INST.createPoint(1, 0).rotatePoint(pt, -Math.PI));
 		assertEquals(ShapeFactory.INST.createPoint(1, 0), ShapeFactory.INST.createPoint(1, 0).rotatePoint(pt, 2. * Math.PI));
@@ -98,10 +97,8 @@ public class TestIPoint implements HelperTest {
 	public void testComputeRotationAngle() {
 		assertEquals(0., pt.computeRotationAngle(ShapeFactory.INST.createPoint(1, 0), ShapeFactory.INST.createPoint(1, 0)), 0.1);
 		assertEquals(Math.PI / 2., pt.computeRotationAngle(ShapeFactory.INST.createPoint(1, 0), ShapeFactory.INST.createPoint(0, 1)), 0.1);
-		assertEquals(Math.PI, Math.abs(pt.computeRotationAngle(ShapeFactory.INST.createPoint(1, 0), ShapeFactory.INST.createPoint(-1, 0)))
-			, 0.1);
-		assertEquals(-Math.PI / 2., pt.computeRotationAngle(ShapeFactory.INST.createPoint(0, 1), ShapeFactory.INST.createPoint(1, 0)),
-			0.1);
+		assertEquals(Math.PI, Math.abs(pt.computeRotationAngle(ShapeFactory.INST.createPoint(1, 0), ShapeFactory.INST.createPoint(-1, 0))), 0.1);
+		assertEquals(-Math.PI / 2., pt.computeRotationAngle(ShapeFactory.INST.createPoint(0, 1), ShapeFactory.INST.createPoint(1, 0)), 0.1);
 	}
 
 	@Test
@@ -136,8 +133,8 @@ public class TestIPoint implements HelperTest {
 	@Theory
 	public void testGetMiddlePoint(@DoubleData final double x1, @DoubleData final double x2, @DoubleData final double y1, @DoubleData
 	final double y2) {
-		assertEquals(ShapeFactory.INST.createPoint((x1 + x2) / 2d, (y1 + y2) / 2d), ShapeFactory.INST.createPoint(x1, y1).getMiddlePoint
-			(ShapeFactory.INST.createPoint(x2, y2)));
+		assertEquals(ShapeFactory.INST.createPoint((x1 + x2) / 2d, (y1 + y2) / 2d), ShapeFactory.INST.createPoint(x1, y1).
+			getMiddlePoint(ShapeFactory.INST.createPoint(x2, y2)));
 
 	}
 

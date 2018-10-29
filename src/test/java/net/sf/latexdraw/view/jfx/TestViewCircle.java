@@ -14,7 +14,8 @@ public class TestViewCircle extends TestViewBorderedShape<ViewCircle, ICircle, E
 	@BeforeAll
 	public static void beforeClass() {
 		try {
-			Platform.startup(() -> {});
+			Platform.startup(() -> {
+			});
 		}catch(final IllegalStateException ex) {
 			// Ok
 		}

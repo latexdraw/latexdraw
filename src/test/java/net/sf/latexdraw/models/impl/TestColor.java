@@ -138,9 +138,9 @@ public class TestColor {
 
 	@Theory
 	public void testEqualsOK(@DoubleData(vals = {0d, 0.21, 0.51, 1d}) final double o,
-							 @DoubleData(vals = {0d, 0.22, 0.52, 1d}) final double b,
-							 @DoubleData(vals = {0d, 0.23, 0.53, 1d}) final double r,
-							 @DoubleData(vals = {0d, 0.24, 0.54, 1d}) final double g) {
+							@DoubleData(vals = {0d, 0.22, 0.52, 1d}) final double b,
+							@DoubleData(vals = {0d, 0.23, 0.53, 1d}) final double r,
+							@DoubleData(vals = {0d, 0.24, 0.54, 1d}) final double g) {
 		color.setO(o);
 		color.setB(b);
 		color.setR(r);

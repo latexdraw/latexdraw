@@ -16,7 +16,7 @@ public abstract class TestBaseSVGElement {
 	@Before
 	public void setUp() throws Exception {
 		doc = new SVGDocument();
-		node = (SVGElement)doc.createElement(getNameNode());
+		node = (SVGElement) doc.createElement(getNameNode());
 	}
 
 	@Test
@@ -45,7 +45,7 @@ public abstract class TestBaseSVGElement {
 
 	@Test
 	public void testSetParent() {
-		SVGElement elt = (SVGElement)doc.createElement("elt");
+		final SVGElement elt = (SVGElement) doc.createElement("elt");
 
 		node.setParent(null);
 		assertNull(node.getParent());
@@ -91,7 +91,7 @@ public abstract class TestBaseSVGElement {
 
 	@Test
 	public void testAppendChild() {
-		SVGElement elt = (SVGElement)doc.createElement("eltAppendChild");
+		final SVGElement elt = (SVGElement) doc.createElement("eltAppendChild");
 		assertEquals(elt, node.appendChild(elt));
 		assertEquals(1, node.getChildren("eltAppendChild").getLength());
 	}

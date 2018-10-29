@@ -33,7 +33,7 @@ public class TestSVGStopElement extends TestBaseSVGElement {
 
 	@Test
 	public void testGetStopColorDefault() throws MalformedSVGDocument {
-		SVGStopElement e = new SVGStopElement(node, null);
+		final SVGStopElement e = new SVGStopElement(node, null);
 		assertEquals(DviPsColors.BLACK, e.getStopColor());
 	}
 
@@ -41,19 +41,19 @@ public class TestSVGStopElement extends TestBaseSVGElement {
 	public void testGetStopColor() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
 		node.setAttribute(SVGAttributes.SVG_STOP_COLOR, "blue");
-		SVGStopElement e = new SVGStopElement(node, null);
+		final SVGStopElement e = new SVGStopElement(node, null);
 		assertEquals(DviPsColors.BLUE, e.getStopColor());
 	}
 
 	@Test
 	public void testGetOffset() throws MalformedSVGDocument {
-		SVGStopElement e = new SVGStopElement(node, null);
+		final SVGStopElement e = new SVGStopElement(node, null);
 		assertEquals(0.5, e.getOffset(), 0.0001);
 	}
 
 	@Test
 	public void testEnableRendering() throws MalformedSVGDocument {
-		SVGStopElement s = new SVGStopElement(node, null);
+		final SVGStopElement s = new SVGStopElement(node, null);
 		assertTrue(s.enableRendering());
 	}
 

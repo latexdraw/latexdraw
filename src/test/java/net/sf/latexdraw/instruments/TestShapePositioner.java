@@ -8,7 +8,6 @@ import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;

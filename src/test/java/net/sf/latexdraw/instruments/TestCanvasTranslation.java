@@ -78,7 +78,7 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 			((IPicture) sh).setPathSource(getClass().getResource("/Arc.png").getFile());
 		}
 
-		canvas.getSelectionBorder().setFill(new Color(1d,1d, 1d, 0.1d));
+		canvas.getSelectionBorder().setFill(new Color(1d, 1d, 1d, 0.1d));
 		sh.setFilled(true);
 		sh.translate(-canvas.getOrigin().getX(), -canvas.getOrigin().getY());
 		Platform.runLater(() -> {

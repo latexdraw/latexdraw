@@ -44,8 +44,8 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), "$foo bar")));
 
 	final GUIVoidCommand addGroup = () -> Platform.runLater(() -> {
-		IRectangle r1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
-		IRectangle r2 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), 100, 100);
+		final IRectangle r1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
+		final IRectangle r2 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), 100, 100);
 		addedGroup = ShapeFactory.INST.createGroup();
 		addedGroup.addShape(r1);
 		addedGroup.addShape(r2);
@@ -108,7 +108,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	});
 
 	final GUIVoidCommand addRec2 = () -> Platform.runLater(() -> {
-		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), 100, 100);
+		final IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), 100, 100);
 		rec.setFilled(true);
 		rec.setFillingCol(DviPsColors.APRICOT);
 		canvas.getDrawing().addShape(rec);

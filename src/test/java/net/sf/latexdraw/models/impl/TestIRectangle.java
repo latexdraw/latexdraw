@@ -73,13 +73,13 @@ public class TestIRectangle implements HelperTest {
 
 	@Test
 	public void testConstructorsOKNbPoints() {
-		IRectangle rec = ShapeFactory.INST.createRectangle();
+		final IRectangle rec = ShapeFactory.INST.createRectangle();
 		assertEquals(4, rec.getNbPoints());
 	}
 
 	@Test
 	public void testConstructorsOK1() {
-		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(20, 26), ShapeFactory.INST.createPoint(30, 35));
+		final IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(20, 26), ShapeFactory.INST.createPoint(30, 35));
 		assertEqualsDouble(20., rec.getPosition().getX());
 		assertEqualsDouble(35., rec.getPosition().getY());
 		assertEqualsDouble(10., rec.getWidth());
@@ -88,7 +88,7 @@ public class TestIRectangle implements HelperTest {
 
 	@Test
 	public void testConstructorsOK2() {
-		IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(5, 6), 11, 12);
+		final IRectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(5, 6), 11, 12);
 		assertEqualsDouble(5., rec.getPosition().getX());
 		assertEqualsDouble(18., rec.getPosition().getY());
 		assertEqualsDouble(11., rec.getWidth());

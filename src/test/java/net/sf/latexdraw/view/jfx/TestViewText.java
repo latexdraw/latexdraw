@@ -21,9 +21,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestViewText extends TestViewShape<ViewText, IText> {
@@ -31,7 +31,8 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 	public static void beforeClass() {
 		ViewText.LOGGER.setLevel(Level.ALL);
 		try {
-			Platform.startup(() -> {});
+			Platform.startup(() -> {
+			});
 		}catch(final IllegalStateException ignored) {
 			// Ok
 		}
@@ -102,7 +103,7 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(BadaboomCollector.INSTANCE.isEmpty(), () -> HelperTest.getBadaboomMessages());
-		assertNull(getTooltip() == null ? "" : getTooltip().getText(), getTooltip());// Junit5 message
+		assertNull(getTooltip(), () -> getTooltip().getText());
 	}
 
 	@Test

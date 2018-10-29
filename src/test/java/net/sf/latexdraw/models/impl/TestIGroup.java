@@ -479,16 +479,14 @@ public class TestIGroup implements HelperTest {
 	public void testSetAxesDistLabelsX() {
 		init4setAxes();
 		shape.setDistLabelsX(12d);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).forEach(sh -> assertEqualsDouble(12d, sh
-			.getDistLabelsX()));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).forEach(sh -> assertEqualsDouble(12d, sh.getDistLabelsX()));
 	}
 
 	@Test
 	public void testSetAxesDistLabelsY() {
 		init4setAxes();
 		shape.setDistLabelsY(12d);
-		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).forEach(sh -> assertEqualsDouble(12d, sh
-			.getDistLabelsY()));
+		shape.getShapes().stream().filter(sh -> sh instanceof IAxes).map(sh -> (IAxes) sh).forEach(sh -> assertEqualsDouble(12d, sh.getDistLabelsY()));
 	}
 
 	@Test
@@ -590,8 +588,7 @@ public class TestIGroup implements HelperTest {
 		shape.setFillingStyle(FillingStyle.HLINES);
 		shape.setHatchingsCol(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getHatchingsCol().toAWT());
-		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getHatchingsCol().toAWT
-			()));
+		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getHatchingsCol().toAWT()));
 	}
 
 	@Test

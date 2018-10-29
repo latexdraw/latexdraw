@@ -24,7 +24,8 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
-			Platform.startup(() -> {});
+			Platform.startup(() -> {
+			});
 		}catch(final IllegalStateException ex) {
 			// Ok
 		}
@@ -167,9 +168,9 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 		model.setPlotStyle(PlotStyle.DOTS);
 		WaitForAsyncUtils.waitForFxEvents();
 		// Computing the number of different x
-		final int nbXDiff = (int) view.getChildren().stream().map(node -> ((ViewDot)node).dot.centerXProperty().get()).distinct().count();
+		final int nbXDiff = (int) view.getChildren().stream().map(node -> ((ViewDot) node).dot.centerXProperty().get()).distinct().count();
 		// Computing the number of different y
-		final int nbYDiff = (int) view.getChildren().stream().map(node -> ((ViewDot)node).dot.centerYProperty().get()).distinct().count();
+		final int nbYDiff = (int) view.getChildren().stream().map(node -> ((ViewDot) node).dot.centerYProperty().get()).distinct().count();
 		// The points of the plot must all differ
 		WaitForAsyncUtils.waitForFxEvents();
 		assertThat(view.getChildren().size(), anyOf(equalTo(nbXDiff), equalTo(nbYDiff)));

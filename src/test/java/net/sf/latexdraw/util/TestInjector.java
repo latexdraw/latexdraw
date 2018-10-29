@@ -321,7 +321,7 @@ public class TestInjector implements HelperTest {
 	static class I {
 		static int cpt = 0;
 
-		public I() {
+		I() {
 			cpt++;
 		}
 	}
@@ -332,7 +332,7 @@ public class TestInjector implements HelperTest {
 
 	static final class K {
 		private K() {
-
+			super();
 		}
 	}
 }

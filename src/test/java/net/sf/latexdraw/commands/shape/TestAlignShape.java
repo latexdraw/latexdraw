@@ -71,7 +71,7 @@ public class TestAlignShape extends TestUndoableCommand<AlignShapes, List<Tuple<
 
 	@Override
 	protected void checkUndo() {
-		int i=0;
+		int i = 0;
 		for(final IShape shape : shapes.getShapes()) {
 			assertEquals(shape.getTopLeftPoint(), memento.get(i).a);
 			assertEquals(shape.getBottomRightPoint(), memento.get(i).b);

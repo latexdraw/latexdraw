@@ -109,7 +109,7 @@ public class TestModifyShapeProperty extends TestUndoableCommand<ModifyShapeProp
 			{ShapeProperties.ARROW_LENGTH, 0.55, (Function<IGroup, List<Optional<Double>>>) g -> g.getArrowLengthList(), (Function<IShape, Double>) s -> ((IArrowable) s).getArrowLength()},
 			{ShapeProperties.ARROW_INSET, 0.22, (Function<IGroup, List<Optional<Double>>>) g -> g.getArrowInsetList(), (Function<IShape, Double>) s -> ((IArrowable) s).getArrowInset()},
 			{ShapeProperties.GRID_END, ShapeFactory.INST.createPoint(10d, 20d), (Function<IGroup, List<Optional<IPoint>>>) g -> g.getGridEndList(), (Function<IShape, IPoint>) s -> ((IStdGridProp) s).getGridEnd()},
-			{ShapeProperties.GRID_ORIGIN, ShapeFactory.INST.createPoint(10d, 20d), (Function<IGroup, List<Optional<IPoint>>>) g -> g.getGridOriginList(), (Function<IShape, IPoint>) s ->ShapeFactory.INST.createPoint(((IStdGridProp) s).getOriginX(), ((IStdGridProp) s).getOriginY())},
+			{ShapeProperties.GRID_ORIGIN, ShapeFactory.INST.createPoint(10d, 20d), (Function<IGroup, List<Optional<IPoint>>>) g -> g.getGridOriginList(), (Function<IShape, IPoint>) s -> ShapeFactory.INST.createPoint(((IStdGridProp) s).getOriginX(), ((IStdGridProp) s).getOriginY())},
 			{ShapeProperties.GRID_START, ShapeFactory.INST.createPoint(-10d, -20d), (Function<IGroup, List<Optional<IPoint>>>) g -> g.getGridStartList(), (Function<IShape, IPoint>) s -> ((IStdGridProp) s).getGridStart()},
 			{ShapeProperties.ARC_START_ANGLE, 11d, (Function<IGroup, List<Optional<Double>>>) g -> g.getAngleStartList(), (Function<IShape, Double>) s -> ((IArcProp) s).getAngleStart()},
 			{ShapeProperties.ARC_END_ANGLE, 11d, (Function<IGroup, List<Optional<Double>>>) g -> g.getAngleEndList(), (Function<IShape, Double>) s -> ((IArcProp) s).getAngleEnd()},

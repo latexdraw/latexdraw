@@ -153,8 +153,8 @@ public class TestIShape implements HelperTest {
 		shape.setThickness(10.);
 		shape.setHasDbleBord(false);
 		shape.setBordersPosition(BorderPos.INTO);
-		IPoint pt = shape.getBottomRightPoint();
-		double gap = shape.getBorderGap();
+		final IPoint pt = shape.getBottomRightPoint();
+		final double gap = shape.getBorderGap();
 		pt.translate(gap, gap);
 		assertEquals(pt, shape.getFullBottomRightPoint());
 	}
@@ -164,8 +164,8 @@ public class TestIShape implements HelperTest {
 		shape.setThickness(10.);
 		shape.setHasDbleBord(false);
 		shape.setBordersPosition(BorderPos.INTO);
-		IPoint pt = shape.getTopLeftPoint();
-		double gap = shape.getBorderGap();
+		final IPoint pt = shape.getTopLeftPoint();
+		final double gap = shape.getBorderGap();
 		pt.translate(-gap, -gap);
 		assertEquals(pt, shape.getFullTopLeftPoint());
 	}

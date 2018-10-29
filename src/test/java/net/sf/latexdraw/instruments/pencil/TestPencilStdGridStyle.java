@@ -15,7 +15,6 @@ import net.sf.latexdraw.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertFalse;
@@ -66,43 +65,43 @@ public class TestPencilStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testIncrLabelsSizePencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), labelsSizeS,
-			incrementlabelsSizeS, Collections.singletonList(() ->  ((IStdGridProp)pencil.createShapeInstance()).getLabelsSize()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), labelsSizeS,
+			incrementlabelsSizeS, Collections.singletonList(() ->  ((IStdGridProp) pencil.createShapeInstance()).getLabelsSize()));
 	}
 
 	@Test
 	public void testIncrxEndSPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), xEndS,
-			incrementxEndS, Collections.singletonList(() ->  ((IStdGridProp)pencil.createShapeInstance()).getGridEndX()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), xEndS,
+			incrementxEndS, Collections.singletonList(() ->  ((IStdGridProp) pencil.createShapeInstance()).getGridEndX()));
 	}
 
 	@Test
 	public void testIncryEndSPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), yEndS,
-			incrementyEndS, Collections.singletonList(() ->  ((IStdGridProp)pencil.createShapeInstance()).getGridEndY()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), yEndS,
+			incrementyEndS, Collections.singletonList(() ->  ((IStdGridProp) pencil.createShapeInstance()).getGridEndY()));
 	}
 
 	@Test
 	public void testIncrxStartSPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), xStartS,
-			decrementxStartS, Collections.singletonList(() ->  ((IStdGridProp)pencil.createShapeInstance()).getGridStartX()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), xStartS,
+			decrementxStartS, Collections.singletonList(() ->  ((IStdGridProp) pencil.createShapeInstance()).getGridStartX()));
 	}
 
 	@Test
 	public void testIncryStartSPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), yStartS,
-			decrementyStartS, Collections.singletonList(() ->  ((IStdGridProp)pencil.createShapeInstance()).getGridStartY()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), yStartS,
+			decrementyStartS, Collections.singletonList(() ->  ((IStdGridProp) pencil.createShapeInstance()).getGridStartY()));
 	}
 
 	@Test
 	public void testIncrxOriginSPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), xOriginS,
-			incrementxOriginS, Collections.singletonList(() ->  ((IStdGridProp)pencil.createShapeInstance()).getOriginX()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), xOriginS,
+			incrementxOriginS, Collections.singletonList(() ->  ((IStdGridProp) pencil.createShapeInstance()).getOriginX()));
 	}
 
 	@Test
 	public void testIncryOriginSPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), yOriginS,
-			incrementyOriginS, Collections.singletonList(() ->  ((IStdGridProp)pencil.createShapeInstance()).getOriginY()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), yOriginS,
+			incrementyOriginS, Collections.singletonList(() ->  ((IStdGridProp) pencil.createShapeInstance()).getOriginY()));
 	}
 }

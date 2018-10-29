@@ -15,7 +15,6 @@ import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -93,7 +92,7 @@ public class TestPencilDoubleLineStyle extends TestDoubleLineStyleGUI {
 
 	@Test
 	public void testIncrementDbleSpacingPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectdbleLine, updateIns), dbleSepField,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectdbleLine, updateIns), dbleSepField,
 			incrementDbleSep, Collections.singletonList(() ->  pencil.createShapeInstance().getDbleBordSep()));
 	}
 

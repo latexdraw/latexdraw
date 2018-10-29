@@ -1,6 +1,5 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;

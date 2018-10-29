@@ -11,103 +11,104 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
- class TestSVGTransformList {
+class TestSVGTransformList {
 	SVGTransformList t;
 
 	@BeforeEach
-	 void setUp() {
+	void setUp() {
 		t = new SVGTransformList();
 	}
 
 	@Test
-	 void testContructorsEmpty() {
+	void testContructorsEmpty() {
 		assertTrue(t.isEmpty());
 	}
 
 	@Test
-	 void testContructorsEmptynull() {
+	void testContructorsEmptynull() {
 		t = new SVGTransformList(null);
 		assertTrue(t.isEmpty());
 	}
 
 	@Test
-	 void testContructorsEmptyEmpty() {
+	void testContructorsEmptyEmpty() {
 		t = new SVGTransformList("");
 		assertTrue(t.isEmpty());
 	}
 
 	@Test
-	 void testContructorsNotEmpty() {
+	void testContructorsNotEmpty() {
 		t = new SVGTransformList("translate(2,2)");
 		assertFalse(t.isEmpty());
 	}
 
 	@Test
-	 void testAddTransformationsNULL() {
+	void testAddTransformationsNULL() {
 		t.addTransformations(null);
 		assertTrue(t.isEmpty());
 	}
 
 	@Test
-	 void testAddTransformationsEmpty() {
+	void testAddTransformationsEmpty() {
 		t.addTransformations("");
 		assertTrue(t.isEmpty());
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = {"dsqdsq", "translate", "matrix(1 2 3)"})
-	 void testAddTransformationsInvalid(final String data) {
+	void testAddTransformationsInvalid(final String data) {
 		t.addTransformations(data);
 		assertTrue(t.isEmpty());
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = {"rotate(1)", "rotate(1 , 2 4)", "skewY(	1)", "skewX(1)", "scale(1 1)", "translate(1 ,1)", "matrix(1 2 3 ,4 ,5 ,6)", "translate(1 1) ,"})
-	 void testAddTransformationsOK(final String data) {
+	@ValueSource(strings = {"rotate(1)", "rotate(1 , 2 4)", "skewY(	1)", "skewX(1)", "scale(1 1)", "translate(1 ,1)", "matrix(1 2 3 ,4 ,5 ,6)", "translate(1 " +
+		"1) ,"})
+	void testAddTransformationsOK(final String data) {
 		t.addTransformations(data);
 		assertEquals(1, t.size());
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = {"matrix(1 2 3 ,4 ,5 ,6) translate(2 2)", "rotate ( 2, 3 5), skewX( 2)", "rotate ( 2, 3 5)scale( 2)"})
-	 void testAddTransformationsOK2(final String data) {
+	void testAddTransformationsOK2(final String data) {
 		t.addTransformations(data);
 		assertEquals(2, t.size());
 	}
 
 	@Test
-	 void testAddTransformationsOK4() {
+	void testAddTransformationsOK4() {
 		t.addTransformations("rotate ( 2, 3 5), \n skewX( 2	\n)");
 		t.addTransformations("rotate ( 2, 3 5)scale( 2)");
 		assertEquals(4, t.size());
 	}
 
 	@Test
-	 void testTransformPoint() {
+	void testTransformPoint() {
 		final Point2D pt1 = new Point2D.Double(1d, 1d);
 		final Point2D pt2 = new Point2D.Double(3d, 4d);
 		t.addTransformations("translate( 2 3)");
 		assertEquals(pt2, t.transformPoint(pt1));
 	}
 
-	 @Test
-	 void testRotatePoint() {
-		 t.addTransformations("rotate(90)");
-		 final Point2D p = t.transformPoint(new Point2D.Double(1d, 0d));
-		 assertEquals(0d, p.getX(), 0.0001);
-		 assertEquals(1d, p.getY(), 0.0001);
-	 }
-
-	 @Test
-	 void testTransformPointIso() {
-		 final Point2D pt1 = new Point2D.Double(1d, 1d);
-		 t.addTransformations("translate( 2 3)");
-		 t.addTransformations("translate( -2 -3)");
-		 assertEquals(pt1, t.transformPoint(pt1));
-	 }
+	@Test
+	void testRotatePoint() {
+		t.addTransformations("rotate(90)");
+		final Point2D p = t.transformPoint(new Point2D.Double(1d, 0d));
+		assertEquals(0d, p.getX(), 0.0001);
+		assertEquals(1d, p.getY(), 0.0001);
+	}
 
 	@Test
-	 void testTransformPoint2() {
+	void testTransformPointIso() {
+		final Point2D pt1 = new Point2D.Double(1d, 1d);
+		t.addTransformations("translate( 2 3)");
+		t.addTransformations("translate( -2 -3)");
+		assertEquals(pt1, t.transformPoint(pt1));
+	}
+
+	@Test
+	void testTransformPoint2() {
 		t.addTransformations("translate( 2 3)");
 		t.addTransformations("translate( -2 -3)");
 		t.addTransformations("rotate(90)");
@@ -117,13 +118,13 @@ import static org.junit.Assert.assertTrue;
 	}
 
 	@Test
-	 void testGetGlobalTransformationDefault() {
+	void testGetGlobalTransformationDefault() {
 		final SVGMatrix m = t.getGlobalTransformationMatrix();
 		assertNull(m);
 	}
 
 	@Test
-	 void testGetGlobalTransformation1() {
+	void testGetGlobalTransformation1() {
 		t.addTransformations("scale( 2 3)");
 		final SVGMatrix m = t.getGlobalTransformationMatrix();
 		assertEquals(2d, m.a, 0.0001);
@@ -135,7 +136,7 @@ import static org.junit.Assert.assertTrue;
 	}
 
 	@Test
-	 void testGetGlobalTransformation2() {
+	void testGetGlobalTransformation2() {
 		t.addTransformations("scale( 2 3)");
 		t.addTransformations("skewX( 0.5	\n)");
 		final SVGMatrix m = t.getGlobalTransformationMatrix();

@@ -31,14 +31,14 @@ public class TestSVGPathSegCurvetoQuadratic {
 
 	@Test
 	public void testToString() throws ParseException {
-		SVGPathSegMoveto m = new SVGPathSegMoveto(0d, 0d, false);
-		SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), pathSeg -> {
+		final SVGPathSegMoveto m = new SVGPathSegMoveto(0d, 0d, false);
+		final SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), pathSeg -> {
 			if(pathSeg instanceof SVGPathSegMoveto && cpt == 0) {
 				cpt++;
 				return;
 			}
 			assertTrue(pathSeg instanceof SVGPathSegCurvetoQuadratic);
-			SVGPathSegCurvetoQuadratic seg2 = (SVGPathSegCurvetoQuadratic) pathSeg;
+			final SVGPathSegCurvetoQuadratic seg2 = (SVGPathSegCurvetoQuadratic) pathSeg;
 			assertEquals(seg.getX(), seg2.getX(), 0.0001);
 			assertEquals(seg.getX1(), seg2.getX1(), 0.0001);
 			assertEquals(seg.getY(), seg2.getY(), 0.0001);

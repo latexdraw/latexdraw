@@ -28,16 +28,18 @@ public class TestParsingShape extends TestPSTParser {
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@DataPoints
 	public static Tuple<String, String>[] cmds() {
-		return new Tuple[]{new Tuple<>("\\psline", "(1,1)(2,2)(3,3)"), new Tuple<>("\\psbezier", "(1,2)(3,4)(5,6)(7,8)"), new Tuple<>("\\psaxes", "(0,0)(0,0)" +
-			"(3,4)"), new Tuple<>("\\psframe", "(1,2)(3,4)"), new Tuple<>("\\psarc", "(5,10){1}{30}{40}"), new Tuple<>("\\pscircle", "(2,3cm){5}"), new
-			Tuple<>("\\psdot", "(1,2)"), new Tuple<>("\\psdiamond", "(35,20)"), new Tuple<>("\\psellipse", "(1,2)"), new Tuple<>("\\psgrid", "(0,0)(0,0)(1,1)" +
-			""), new Tuple<>("\\pspolygon", "(1,2)(3,4)(5,6)"), new Tuple<>("\\pstriangle", "(2,3)(4,5)"), new Tuple<>("\\pswedge", "(1,2)")};
+		return new Tuple[] {new Tuple<>("\\psline", "(1,1)(2,2)(3,3)"), new Tuple<>("\\psbezier", "(1,2)(3,4)(5,6)(7,8)"),
+			new Tuple<>("\\psaxes", "(0,0)(0,0)(3,4)"), new Tuple<>("\\psframe", "(1,2)(3,4)"), new Tuple<>("\\psarc", "(5,10){1}{30}{40}"),
+			new Tuple<>("\\pscircle", "(2,3cm){5}"), new Tuple<>("\\psdot", "(1,2)"), new Tuple<>("\\psdiamond", "(35,20)"),
+			new Tuple<>("\\psellipse", "(1,2)"), new Tuple<>("\\psgrid", "(0,0)(0,0)(1,1)"),
+			new Tuple<>("\\pspolygon", "(1,2)(3,4)(5,6)"), new Tuple<>("\\pstriangle", "(2,3)(4,5)"), new Tuple<>("\\pswedge", "(1,2)")};
 	}
 
 	@DataPoints("unit")
 	public static String[] units() {
-		return new String[]{"cm", "", "pt", "mm", "in"};
+		return new String[] {"cm", "", "pt", "mm", "in"};
 	}
+
 	DecimalFormat df;
 
 	@Override

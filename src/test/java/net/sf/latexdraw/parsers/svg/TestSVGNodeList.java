@@ -1,8 +1,5 @@
 package net.sf.latexdraw.parsers.svg;
 
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGNodeList;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;

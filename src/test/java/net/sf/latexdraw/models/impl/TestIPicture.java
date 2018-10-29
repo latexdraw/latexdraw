@@ -29,19 +29,19 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class TestIPicture implements HelperTest {
-	IPicture shape;
-	Path path;
-
-	@Rule public TemporaryFolder folder;
-
 	@BeforeClass
 	public static void beforeClass() {
 		try {
-			Platform.startup(() -> {});
+			Platform.startup(() -> {
+			});
 		}catch(final IllegalStateException ex) {
 			// OK
 		}
 	}
+
+	IPicture shape;
+	Path path;
+	@Rule public TemporaryFolder folder;
 
 	@Before
 	public void setUp() throws Exception {

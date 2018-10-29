@@ -92,7 +92,7 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 	@Test
 	public void testSelectPointsShapeAllHandlersCoordOK() {
 		new CompositeGUIVoidCommand(addLines, selectAllShapes).execute();
-		for(int i=0, size = addedPolyline.getNbPoints(); i<size; i++) {
+		for(int i = 0, size = addedPolyline.getNbPoints(); i < size; i++) {
 			assertEquals(addedPolyline.getPtAt(i), border.mvPtHandlers.get(i).getPoint());
 		}
 	}
@@ -100,7 +100,7 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 	@Test
 	public void testSelectPointsShapeAllHandlersTranslationOK() {
 		new CompositeGUIVoidCommand(addLines, selectAllShapes).execute();
-		for(int i=0, size = addedPolyline.getNbPoints(); i<size; i++) {
+		for(int i = 0, size = addedPolyline.getNbPoints(); i < size; i++) {
 			assertEquals(addedPolyline.getPtAt(i).getX() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateX(), 0.00001);
 			assertEquals(addedPolyline.getPtAt(i).getY() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateY(), 0.00001);
 			assertEquals(0d, border.mvPtHandlers.get(i).getX(), 0.00001);
@@ -149,8 +149,8 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 		new CompositeGUIVoidCommand(addLines, selectAllShapes).execute();
 		addedPolyline.setRotationAngle(Math.PI);
 		waitFXEvents.execute();
-		for(int i=0, size = addedPolyline.getNbPoints(); i<size; i++) {
-			assertEquals(addedPolyline.getPtAt(i).getX()  - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateX(), 0.00001);
+		for(int i = 0, size = addedPolyline.getNbPoints(); i < size; i++) {
+			assertEquals(addedPolyline.getPtAt(i).getX() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateX(), 0.00001);
 			assertEquals(addedPolyline.getPtAt(i).getY() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateY(), 0.00001);
 			assertEquals(0d, border.mvPtHandlers.get(i).getX(), 0.00001);
 			assertEquals(0d, border.mvPtHandlers.get(i).getY(), 0.00001);

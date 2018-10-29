@@ -14,7 +14,8 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 	@BeforeAll
 	public static void beforeClass() {
 		try {
-			Platform.startup(() -> {});
+			Platform.startup(() -> {
+			});
 		}catch(final IllegalStateException ex) {
 			// Ok
 		}

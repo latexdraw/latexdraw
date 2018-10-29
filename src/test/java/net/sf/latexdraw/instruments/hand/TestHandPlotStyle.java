@@ -17,7 +17,6 @@ import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -150,8 +149,8 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 	public void testIncrementnbPtsSpinnerHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddPlot, selectionAddPlot, updateIns), nbPtsSpinner,
 			incrementnbPtsSpinner, Arrays.asList(
-				() -> ((IPlot)drawing.getSelection().getShapeAt(1)).getNbPlottedPoints(),
-				() -> ((IPlot)drawing.getSelection().getShapeAt(2)).getNbPlottedPoints()
+				() -> ((IPlot) drawing.getSelection().getShapeAt(1)).getNbPlottedPoints(),
+				() -> ((IPlot) drawing.getSelection().getShapeAt(2)).getNbPlottedPoints()
 			));
 	}
 

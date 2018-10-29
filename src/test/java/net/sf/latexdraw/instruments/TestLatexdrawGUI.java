@@ -68,7 +68,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 		try {
 			injector = createInjector();
 			injector.initialise();
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()),injector.getInstance(LangService.class).getBundle(),
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), injector.getInstance(LangService.class).getBundle(),
 				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 
 			Parent parent = root;
@@ -98,8 +98,8 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 			aStage.show();
 			aStage.toFront();
 			if(root instanceof Region) {
-				aStage.minHeightProperty().bind(((Region)root).heightProperty());
-				aStage.minWidthProperty().bind(((Region)root).widthProperty());
+				aStage.minHeightProperty().bind(((Region) root).heightProperty());
+				aStage.minWidthProperty().bind(((Region) root).widthProperty());
 			}
 			aStage.sizeToScene();
 		}catch(final IOException ex) {

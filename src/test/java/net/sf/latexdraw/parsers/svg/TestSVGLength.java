@@ -19,7 +19,7 @@ public class TestSVGLength {
 
 	@Test
 	public void testGetters() {
-		SVGLength l = new SVGLength(1, LengthType.MM, "1");
+		final SVGLength l = new SVGLength(1, LengthType.MM, "1");
 		assertEquals(1d, l.getValue(), 0.000001);
 		assertEquals(LengthType.MM, l.getLengthType());
 		assertEquals("1", l.getValueAsString());

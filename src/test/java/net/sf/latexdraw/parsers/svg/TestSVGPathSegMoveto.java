@@ -27,9 +27,9 @@ public class TestSVGPathSegMoveto {
 
 	@Test
 	public void testToString() throws ParseException {
-		SVGPathParser parser = new SVGPathParser(seg.toString(), pathSeg -> {
+		final SVGPathParser parser = new SVGPathParser(seg.toString(), pathSeg -> {
 			assertTrue(pathSeg instanceof SVGPathSegMoveto);
-			SVGPathSegMoveto seg2 = (SVGPathSegMoveto) pathSeg;
+			final SVGPathSegMoveto seg2 = (SVGPathSegMoveto) pathSeg;
 			assertEquals(seg.getX(), seg2.getX(), 0.0001);
 			assertEquals(seg.getY(), seg2.getY(), 0.0001);
 			assertEquals(seg.isRelative(), seg2.isRelative());

@@ -33,7 +33,8 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
-			Platform.startup(() -> {});
+			Platform.startup(() -> {
+			});
 		}catch(final IllegalStateException ignored) {
 			// Ok
 		}

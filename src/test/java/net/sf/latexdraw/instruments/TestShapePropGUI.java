@@ -53,37 +53,37 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	};
 
 	protected final GUIVoidCommand selectionAddRec = () -> {
-		IShape sh = ShapeFactory.INST.createRectangle();
+		final IShape sh = ShapeFactory.INST.createRectangle();
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddArc = () -> {
-		IShape sh = ShapeFactory.INST.createCircleArc();
+		final IShape sh = ShapeFactory.INST.createCircleArc();
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddDot = () -> {
-		IShape sh = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
+		final IShape sh = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddAxes = () -> {
-		IShape sh = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
+		final IShape sh = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddBezier = () -> {
-		IShape sh = ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(1d, 2d)));
+		final IShape sh = ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(1d, 2d)));
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddFreehand = () -> {
-		IFreehand sh = ShapeFactory.INST.createFreeHand(Arrays.asList(
+		final IFreehand sh = ShapeFactory.INST.createFreeHand(Arrays.asList(
 			ShapeFactory.INST.createPoint(),
 			ShapeFactory.INST.createPoint(1d, 2d)));
 		drawing.addShape(sh);
@@ -91,19 +91,19 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	};
 
 	protected final GUIVoidCommand selectionAddGrid = () -> {
-		IShape sh = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
+		final IShape sh = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddText = () -> {
-		IShape sh = ShapeFactory.INST.createText();
+		final IShape sh = ShapeFactory.INST.createText();
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};
 
 	protected final GUIVoidCommand selectionAddPlot = () -> {
-		IShape sh = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 10, "x", false);
+		final IShape sh = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 10, "x", false);
 		drawing.addShape(sh);
 		drawing.getSelection().addShape(sh);
 	};

@@ -16,7 +16,6 @@ import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -67,8 +66,8 @@ public class TestPencilFreeHandStyle extends TestFreeHandStyleGUI {
 
 	@Test
 	public void testIncrementgapPointsPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns), gapPoints,
-			incrementgapPoints, Collections.singletonList(() ->  ((IFreehand)pencil.createShapeInstance()).getInterval()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns), gapPoints,
+			incrementgapPoints, Collections.singletonList(() ->  ((IFreehand) pencil.createShapeInstance()).getInterval()));
 	}
 
 	@Test

@@ -16,7 +16,6 @@ import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -119,31 +118,31 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testIncrementGradMidPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectGradStyle), gradMidPtField,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectGradStyle), gradMidPtField,
 			incrementgradMidPt, Collections.singletonList(() ->  pencil.createShapeInstance().getGradMidPt()));
 	}
 
 	@Test
 	public void testIncrementGradAnglePencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectGradStyle), gradAngleField,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectGradStyle), gradAngleField,
 			incrementgradAngle, Collections.singletonList(() ->  Math.toDegrees(pencil.createShapeInstance().getGradAngle())));
 	}
 
 	@Test
 	public void testIncrementHatchAnglePencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchAngleField,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchAngleField,
 			incrementhatchAngle, Collections.singletonList(() ->  Math.toDegrees(pencil.createShapeInstance().getHatchingsAngle())));
 	}
 
 	@Test
 	public void testIncrementHatchWidthPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchWidthField,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchWidthField,
 			incrementhatchWidth, Collections.singletonList(() ->  pencil.createShapeInstance().getHatchingsWidth()));
 	}
 
 	@Test
 	public void testIncrementHatchSepPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchSepField,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchSepField,
 			incrementhatchSep, Collections.singletonList(() ->  pencil.createShapeInstance().getHatchingsSep()));
 	}
 }

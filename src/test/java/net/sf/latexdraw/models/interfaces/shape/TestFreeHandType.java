@@ -1,7 +1,6 @@
 package net.sf.latexdraw.models.interfaces.shape;
 
 import net.sf.latexdraw.data.StringData;
-import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;

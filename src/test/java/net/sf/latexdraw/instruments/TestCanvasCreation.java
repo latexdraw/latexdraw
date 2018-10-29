@@ -269,7 +269,7 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		textAutoSize.setText("foo");
 		final Point2D pos = point(canvas).query();
 		when(setter.getPosition()).thenReturn(
-			ShapeFactory.INST.createPoint(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(),-Canvas.getMargins() + canvas.screenToLocal(pos).getY()));
+			ShapeFactory.INST.createPoint(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), -Canvas.getMargins() + canvas.screenToLocal(pos).getY()));
 		moveTo(pos).clickOn(MouseButton.PRIMARY);
 		waitFXEvents.execute();
 

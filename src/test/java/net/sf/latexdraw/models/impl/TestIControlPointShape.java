@@ -84,8 +84,8 @@ public class TestIControlPointShape implements HelperTest {
 
 	@Theory
 	public void testTranslate(@CtrlShapeData final IControlPointShape sh) {
-		List<IPoint> ctrlPts1 = cloneList(sh.getFirstCtrlPts(), p -> ShapeFactory.INST.createPoint(p));
-		List<IPoint> ctrlPts2 = cloneList(sh.getSecondCtrlPts(), p -> ShapeFactory.INST.createPoint(p));
+		final List<IPoint> ctrlPts1 = cloneList(sh.getFirstCtrlPts(), p -> ShapeFactory.INST.createPoint(p));
+		final List<IPoint> ctrlPts2 = cloneList(sh.getSecondCtrlPts(), p -> ShapeFactory.INST.createPoint(p));
 
 		sh.translate(10d, -12d);
 

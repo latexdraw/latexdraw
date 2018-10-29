@@ -65,10 +65,10 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 
 	@Test
 	public void testEditText() {
-		final IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX()+100, -Canvas.ORIGIN.getY()+200), "$foo");
+		final IText txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 200), "$foo");
 		Platform.runLater(() -> hand.canvas.getDrawing().addShape(txt));
 		WaitForAsyncUtils.waitForFxEvents();
-		final ViewShape<?> view = hand.canvas.getViewFromShape(txt).get();
+		final ViewShape<?> view = hand.canvas.getViewFromShape(txt).orElseThrow();
 		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals("abc$foo", txt.getText());

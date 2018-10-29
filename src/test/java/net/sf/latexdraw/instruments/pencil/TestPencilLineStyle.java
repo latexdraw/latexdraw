@@ -20,7 +20,6 @@ import net.sf.latexdraw.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -55,13 +54,13 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 
 	@Test
 	public void testIncrementFrameArcPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns), frameArcField,
-			incrementFrameArc, Collections.singletonList(() ->  ((IRectangle)pencil.createShapeInstance()).getLineArc()));
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns), frameArcField,
+			incrementFrameArc, Collections.singletonList(() ->  ((IRectangle) pencil.createShapeInstance()).getLineArc()));
 	}
 
 	@Test
 	public void testIncrementThicknessPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns), thicknessField,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns), thicknessField,
 			incrementThickness, Collections.singletonList(() ->  pencil.createShapeInstance().getThickness()));
 	}
 

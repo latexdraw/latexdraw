@@ -16,7 +16,6 @@ import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -88,31 +87,31 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testIncrementgridWidthPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), gridWidth,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), gridWidth,
 			incrementgridWidth, Collections.singletonList(() ->  ((IGrid) pencil.createShapeInstance()).getGridWidth()));
 	}
 
 	@Test
 	public void testIncrementsubGridWidthPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridWidth,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridWidth,
 			incrementsubGridWidth, Collections.singletonList(() ->  ((IGrid) pencil.createShapeInstance()).getSubGridWidth()));
 	}
 
 	@Test
 	public void testIncrementgridDotsPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), gridDots,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), gridDots,
 			incrementgridDots, Collections.singletonList(() ->  ((IGrid) pencil.createShapeInstance()).getGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDotsPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridDots,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridDots,
 			incrementsubGridDots, Collections.singletonList(() ->  ((IGrid) pencil.createShapeInstance()).getSubGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDivPencil() {
-		 doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridDiv,
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridDiv,
 			incrementsubGridDiv, Collections.singletonList(() ->  ((IGrid) pencil.createShapeInstance()).getSubGridDiv()));
 	}
 

@@ -85,7 +85,7 @@ public class TestSVGText {
 		assertEquals("coucou", txt.getData());
 	}
 
-	protected SVGText createSVGText(String str, SVGDocument document) {
+	protected SVGText createSVGText(final String str, final SVGDocument document) {
 		return new SVGText(str, document);
 	}
 }

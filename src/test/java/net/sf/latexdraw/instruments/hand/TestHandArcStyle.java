@@ -16,7 +16,6 @@ import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -94,15 +93,15 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 	public void testArcEndAngleSelection() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns), endAngleS,
 			incrementEndAngle, Arrays.asList(
-			() ->  Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(0)).getAngleEnd()),
-			() ->  Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(2)).getAngleEnd())));
+			() ->  Math.toDegrees(((IArc) drawing.getSelection().getShapeAt(0)).getAngleEnd()),
+			() ->  Math.toDegrees(((IArc) drawing.getSelection().getShapeAt(2)).getAngleEnd())));
 	}
 
 	@Test
 	public void testArcStartAngleSelection() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns), startAngleS,
 			incrementStartAngle, Arrays.asList(
-			() ->  Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(0)).getAngleStart()),
-			() ->  Math.toDegrees(((IArc)drawing.getSelection().getShapeAt(2)).getAngleStart())));
+			() ->  Math.toDegrees(((IArc) drawing.getSelection().getShapeAt(0)).getAngleStart()),
+			() ->  Math.toDegrees(((IArc) drawing.getSelection().getShapeAt(2)).getAngleStart())));
 	}
 }

@@ -41,14 +41,12 @@ public class TestSVGSVGElement extends TestBaseSVGElement {
 
 	@Test
 	public void testGetDefs() throws MalformedSVGDocument, ParserConfigurationException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document document = builder.newDocument();
-		Element elt, n;
-		n = document.createElement(SVGElements.SVG_SVG);
+		final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		final DocumentBuilder builder = factory.newDocumentBuilder();
+		final Document document = builder.newDocument();
+		final Element n = document.createElement(SVGElements.SVG_SVG);
 		n.setAttribute("xmlns", SVGDocument.SVG_NAMESPACE);
-		elt = document.createElement(SVGElements.SVG_DEFS);
-		n.appendChild(elt);
+		n.appendChild(document.createElement(SVGElements.SVG_DEFS));
 		e = new SVGSVGElement(n, null);
 		assertNotNull(e.getDefs());
 	}
@@ -60,14 +58,12 @@ public class TestSVGSVGElement extends TestBaseSVGElement {
 
 	@Test
 	public void testGetMeta() throws MalformedSVGDocument, ParserConfigurationException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document document = builder.newDocument();
-		Element elt, n;
-		n = document.createElement(SVGElements.SVG_SVG);
+		final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		final DocumentBuilder builder = factory.newDocumentBuilder();
+		final Document document = builder.newDocument();
+		final Element n = document.createElement(SVGElements.SVG_SVG);
 		n.setAttribute("xmlns", SVGDocument.SVG_NAMESPACE);
-		elt = document.createElement(SVGElements.SVG_METADATA);
-		n.appendChild(elt);
+		n.appendChild(document.createElement(SVGElements.SVG_METADATA));
 		e = new SVGSVGElement(n, null);
 		assertNotNull(e.getMeta());
 	}
@@ -75,7 +71,7 @@ public class TestSVGSVGElement extends TestBaseSVGElement {
 	@Test
 	public void testGetHeight() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "200");
-		SVGSVGElement e = new SVGSVGElement(node, null);
+		final SVGSVGElement e = new SVGSVGElement(node, null);
 		assertEquals(200d, e.getHeight(), 0.0001);
 	}
 
@@ -134,14 +130,14 @@ public class TestSVGSVGElement extends TestBaseSVGElement {
 	@Test
 	public void testGetWidth() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "100");
-		SVGSVGElement e = new SVGSVGElement(node, null);
+		final SVGSVGElement e = new SVGSVGElement(node, null);
 		assertEquals(100d, e.getWidth(), 0.0001);
 	}
 
 	@Test
 	public void testVersion() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_VERSION, "1.1");
-		SVGSVGElement e = new SVGSVGElement(node, null);
+		final SVGSVGElement e = new SVGSVGElement(node, null);
 		assertEquals("1.1", e.getVersion());
 	}
 

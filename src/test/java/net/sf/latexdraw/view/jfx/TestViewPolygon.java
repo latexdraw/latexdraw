@@ -14,7 +14,8 @@ public class TestViewPolygon extends TestViewPolyPoint<ViewPolygon, IPolygon> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
-			Platform.startup(() -> {});
+			Platform.startup(() -> {
+			});
 		}catch(final IllegalStateException ex) {
 			// Ok
 		}

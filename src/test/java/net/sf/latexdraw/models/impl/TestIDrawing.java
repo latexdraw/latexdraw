@@ -23,7 +23,7 @@ public class TestIDrawing {
 
 	@Test
 	public void testConstructor() {
-		IDrawing d = ShapeFactory.INST.createDrawing();
+		final IDrawing d = ShapeFactory.INST.createDrawing();
 		assertNotNull(d.getSelection());
 		assertNotNull(d.getShapes());
 	}
@@ -35,9 +35,9 @@ public class TestIDrawing {
 
 	@Test
 	public void testSetSelectionList1() {
-		List<IShape> list = new ArrayList<>();
-		IGroup selection = drawing.getSelection();
-		IShape sh = ShapeFactory.INST.createRectangle();
+		final List<IShape> list = new ArrayList<>();
+		final IGroup selection = drawing.getSelection();
+		final IShape sh = ShapeFactory.INST.createRectangle();
 
 		list.add(sh);
 		drawing.setSelection(list);
@@ -48,10 +48,10 @@ public class TestIDrawing {
 
 	@Test
 	public void testSetSelectionList2() {
-		List<IShape> list = new ArrayList<>();
-		IGroup selection = drawing.getSelection();
-		IShape sh = ShapeFactory.INST.createRectangle();
-		IShape sh2 = ShapeFactory.INST.createRectangle();
+		final List<IShape> list = new ArrayList<>();
+		final IGroup selection = drawing.getSelection();
+		final IShape sh = ShapeFactory.INST.createRectangle();
+		final IShape sh2 = ShapeFactory.INST.createRectangle();
 		list.add(sh);
 		list.add(sh2);
 		drawing.setSelection(list);

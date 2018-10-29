@@ -12,7 +12,6 @@ import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
 import org.junit.Test;
 import org.malai.command.CommandsRegistry;
-import org.malai.javafx.ui.JfxUI;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
@@ -30,12 +29,12 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	final GUIVoidCommand clickSep = () -> clickOn(sepB);
 
 	final GUIVoidCommand selectOneGroup = () -> {
-		IGroup group = ShapeFactory.INST.createGroup();
+		final IGroup group = ShapeFactory.INST.createGroup();
 		group.addShape(ShapeFactory.INST.createCircle());
 		group.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(20, 30), 10));
 		drawing.addShape(group);
 		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(0)));
-		SelectShapes cmd = new SelectShapes(drawing);
+		final SelectShapes cmd = new SelectShapes(drawing);
 		cmd.addShape(drawing.getShapeAt(0));
 		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
 		ins.update();

@@ -274,6 +274,7 @@
                 <configuration>
                     <sourceDirectories>
                         <sourceDirectory>src/main/java</sourceDirectory>
+                        <sourceDirectory>src/test/java</sourceDirectory>
                     </sourceDirectories>
                     <failsOnError>true</failsOnError>
                     <configLocation>checkstyle.xml</configLocation>
@@ -292,7 +293,7 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>8.10.1</version>
+                        <version>8.14</version>
                     </dependency>
                 </dependencies>
             </plugin>

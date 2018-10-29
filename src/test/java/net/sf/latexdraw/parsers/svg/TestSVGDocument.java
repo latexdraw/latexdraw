@@ -37,14 +37,14 @@ public class TestSVGDocument {
 
 	@Test
 	public void testSVGDocument() throws MalformedSVGDocument, URISyntaxException, IOException {
-		SVGDocument doc = new SVGDocument(new URI("src/test/resources/test.svg"));
+		final SVGDocument doc = new SVGDocument(new URI("src/test/resources/test.svg"));
 		assertNotNull(doc.getFirstChild());
 		assertNotNull(doc.getLastChild());
 	}
 
 	@Test
 	public void testSVGDocument2() {
-		SVGDocument doc = new SVGDocument();
+		final SVGDocument doc = new SVGDocument();
 		assertNotNull(doc.getFirstChild());
 		assertNotNull(doc.getLastChild());
 		assertNull(doc.getDocumentURI());
@@ -62,7 +62,7 @@ public class TestSVGDocument {
 
 	@Test
 	public void testAdoptNodeOK() {
-		SVGSVGElement elt = new SVGSVGElement(doc2);
+		final SVGSVGElement elt = new SVGSVGElement(doc2);
 		doc1.adoptNode(elt);
 		assertEquals(doc1, elt.getOwnerDocument());
 		assertEquals(elt, doc1.getFirstChild());
@@ -154,7 +154,7 @@ public class TestSVGDocument {
 
 	@Test
 	public void testIsEqualNode() {
-		SVGDocument doc = new SVGDocument();
+		final SVGDocument doc = new SVGDocument();
 		assertTrue(doc1.isEqualNode(doc));
 		assertFalse(doc1.isEqualNode(null));
 		assertFalse(doc1.isEqualNode(doc2));
@@ -162,7 +162,7 @@ public class TestSVGDocument {
 
 	@Test
 	public void testIsEqualNodeURI() throws MalformedSVGDocument, URISyntaxException, IOException {
-		SVGDocument doc = new SVGDocument(new URI("src/test/resources/test.svg"));
+		final SVGDocument doc = new SVGDocument(new URI("src/test/resources/test.svg"));
 		assertTrue(doc2.isEqualNode(doc));
 		assertFalse(doc2.isEqualNode(null));
 		assertFalse(doc2.isEqualNode(doc1));
@@ -185,7 +185,7 @@ public class TestSVGDocument {
 
 	@Test
 	public void testCreateElementOK() {
-		SVGElement elt = (SVGElement) doc1.createElement("test");
+		final SVGElement elt = (SVGElement) doc1.createElement("test");
 		assertEquals("test", elt.getNodeName());
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
@@ -198,7 +198,7 @@ public class TestSVGDocument {
 
 	@Test
 	public void testCreateTextNodeOK() {
-		SVGText elt = (SVGText) doc1.createTextNode("test");
+		final SVGText elt = (SVGText) doc1.createTextNode("test");
 		assertEquals("test", elt.getData());
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
@@ -210,7 +210,7 @@ public class TestSVGDocument {
 
 	@Test
 	public void testCreateCommentOK() {
-		SVGComment elt = (SVGComment) doc1.createComment("test");
+		final SVGComment elt = (SVGComment) doc1.createComment("test");
 		assertEquals("test", elt.getData());
 		assertEquals(doc1, elt.getOwnerDocument());
 	}

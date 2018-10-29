@@ -18,7 +18,7 @@ import static org.junit.Assume.assumeThat;
 public class TestParsingPSdot extends TestPSTParser {
 	@DataPoints
 	public static String[] cmds() {
-		return new String[]{"\\psdot", "\\psdots"};
+		return new String[] {"\\psdot", "\\psdots"};
 	}
 
 	@Theory

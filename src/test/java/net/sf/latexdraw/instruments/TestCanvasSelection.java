@@ -114,7 +114,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	public void testClickArrowSelectsShape() {
 		new CompositeGUIVoidCommand(addLines).execute();
 		final ViewPolyline vlines = (ViewPolyline) getPane().getChildren().get(0);
-		new CompositeGUIVoidCommand(() -> clickOn(vlines.lookup("#"+ ViewArrow.ID))).execute();
+		new CompositeGUIVoidCommand(() -> clickOn(vlines.lookup("#" + ViewArrow.ID))).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0));
 	}
@@ -177,7 +177,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() - 10d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY();
 		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 10),
-			() -> drag(x + 60, y+10), () -> drag(x + 70, y + 10)).execute();
+			() -> drag(x + 60, y + 10), () -> drag(x + 70, y + 10)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0));
 	}

@@ -15,7 +15,7 @@ public class StringSupplier extends ParameterSupplier {
 		Stream<String> stream = Arrays.stream(data.vals());
 
 		if(data.withNull()) {
-			stream = Stream.concat(stream, Stream.of((String)null));
+			stream = Stream.concat(stream, Stream.of((String) null));
 		}
 
 		return stream.map(i -> PotentialAssignment.forValue("", i)).collect(Collectors.toList());

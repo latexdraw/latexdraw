@@ -15,7 +15,7 @@ public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomi
 	protected CheckBox polarCB;
 	protected ComboBox<PlotStyle> plotStyleCB;
 
-	protected final GUICommand<PlotStyle> selectplotStyleCB = (style) -> selectGivenComboBoxItem(plotStyleCB, style);
+	protected final GUICommand<PlotStyle> selectplotStyleCB = style -> selectGivenComboBoxItem(plotStyleCB, style);
 	protected final GUIVoidCommand incrementnbPtsSpinner = () -> incrementSpinner(nbPtsSpinner);
 	protected final GUIVoidCommand incrementminXSpinner = () -> incrementSpinner(minXSpinner);
 	protected final GUIVoidCommand incrementmaxXSpinner = () -> incrementSpinner(maxXSpinner);

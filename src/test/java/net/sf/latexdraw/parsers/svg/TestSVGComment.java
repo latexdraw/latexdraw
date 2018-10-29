@@ -9,12 +9,12 @@ public class TestSVGComment extends TestSVGText {
 	@Override
 	@Test
 	public void testGetNodeType() {
-		SVGComment cdata = createSVGText("test", doc);
+		final SVGComment cdata = createSVGText("test", doc);
 		assertEquals(Node.COMMENT_NODE, cdata.getNodeType());
 	}
 
 	@Override
-	protected SVGComment createSVGText(String str, SVGDocument document) {
+	protected SVGComment createSVGText(final String str, final SVGDocument document) {
 		return new SVGComment(str, document);
 	}
 }
