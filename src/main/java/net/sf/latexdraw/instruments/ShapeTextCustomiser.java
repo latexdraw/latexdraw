@@ -34,7 +34,6 @@ import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 import net.sf.latexdraw.view.jfx.ViewText;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 
 /**

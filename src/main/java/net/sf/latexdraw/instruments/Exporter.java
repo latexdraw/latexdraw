@@ -30,7 +30,6 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.malai.command.Command;
@@ -61,20 +60,24 @@ public class Exporter extends JfxInstrument implements Initializable {
 	/** The menu item that export as PDF (using pdfcrop) document. */
 	@FXML protected MenuItem menuItemPDFcrop;
 	@FXML protected MenuItem exportTemplateMenu;
+
+	/** The default location of the exports. */
+	private String pathExport;
+	/** The dialog box that allows to define where the drawing must be exported. */
+	private FileChooser fileChooserExport;
+	/**
+	 * The latex packages that the interactive system saves by default. These
+	 * packages should by set by the user and must be general, i.e. independent of any document.
+	 */
+	private String defaultPackages;
+
+	@Inject private FileLoaderSaver loader;
 	/** The PST generator. */
 	@Inject private PSTCodeGenerator pstGen;
 	@Inject private StatusBarController statusBar;
 	@Inject private TemplateManager templateManager;
 	@Inject private LangService lang;
 	@Inject private JfxUI app;
-	/** The default location of the exports. */
-	private String pathExport;
-	/**
-	 * The latex packages that the interactive system saves by default. These
-	 * packages should by set by the user and must be general, i.e. independent of any document.
-	 */
-	private String defaultPackages;
-	@Inject private FileLoaderSaver loader;
 	/**
 	 * The canvas that contains the shapes to export. The canvas is used instead
 	 * of the drawing because to export as picture, we paint the views into a graphics.
@@ -82,8 +85,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	@Inject private Canvas canvas;
 	@Inject private SystemService system;
 	@Inject private SVGDocumentGenerator svgGen;
-	/** The dialog box that allows to define where the drawing must be exported. */
-	private FileChooser fileChooserExport;
+
 
 
 	/**
@@ -92,7 +94,6 @@ public class Exporter extends JfxInstrument implements Initializable {
 	public Exporter() {
 		super();
 		defaultPackages = "";
-		reinit();
 	}
 
 	@Override
