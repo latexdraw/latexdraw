@@ -22,6 +22,7 @@ import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTViewsFactory;
 import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import org.junit.After;
@@ -120,6 +121,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 				bindToInstance(Injector.class, this);
 				bindAsEagerSingleton(SystemService.class);
 				bindAsEagerSingleton(LangService.class);
+				bindToInstance(LaTeXGenerator.class, Mockito.mock(LaTeXGenerator.class));
 				bindAsEagerSingleton(ViewFactory.class);
 				bindAsEagerSingleton(SVGShapesFactory.class);
 				bindAsEagerSingleton(PSTViewsFactory.class);

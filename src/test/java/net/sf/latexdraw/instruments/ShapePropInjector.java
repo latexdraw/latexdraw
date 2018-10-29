@@ -14,6 +14,8 @@ import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.view.pst.PSTViewsFactory;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.view.svg.SVGShapesFactory;
@@ -33,6 +35,8 @@ public class ShapePropInjector extends Injector {
 		bindAsEagerSingleton(SystemService.class);
 		bindAsEagerSingleton(LangService.class);
 		bindAsEagerSingleton(LShapeFactory.class);
+		bindAsEagerSingleton(PSTCodeGenerator.class);
+		bindWithCommand(LaTeXGenerator.class, PSTCodeGenerator.class, gen -> gen);
 		bindAsEagerSingleton(ViewFactory.class);
 		bindAsEagerSingleton(PSTViewsFactory.class);
 		bindAsEagerSingleton(SVGShapesFactory.class);
