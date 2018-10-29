@@ -26,7 +26,7 @@ import net.sf.latexdraw.view.latex.VerticalPosition;
  */
 public class PSTCodeGenerator extends LaTeXGenerator {
 	private final String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + SystemService.EOL + //NON-NLS
-		"% \\usepackage{epsfig}" + SystemService.EOL + "% \\usepackage{pst-grad} % For gradients" + //NON-NLS
+		"% \\usepackage{pstricks-add}" + SystemService.EOL + "% \\usepackage{epsfig}" + SystemService.EOL + "% \\usepackage{pst-grad} % For gradients" + //NON-NLS
 		SystemService.EOL + "% \\usepackage{pst-plot} % For axes" + SystemService.EOL; //NON-NLS
 
 	private final String PACKAGE_FOR_SPACE_PICTURE = "\\usepackage[space]{grffile} % For spaces in paths" + SystemService.EOL + //NON-NLS
