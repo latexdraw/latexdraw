@@ -21,6 +21,7 @@ import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import org.junit.Before;
@@ -53,6 +54,7 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 				bindToInstance(Injector.class, this);
 				bindAsEagerSingleton(SystemService.class);
 				bindAsEagerSingleton(LangService.class);
+				bindToInstance(LaTeXGenerator.class, Mockito.mock(LaTeXGenerator.class));
 				bindAsEagerSingleton(ViewFactory.class);
 				bindAsEagerSingleton(SVGShapesFactory.class);
 				bindToInstance(JfxUI.class, Mockito.mock(LaTeXDraw.class));
