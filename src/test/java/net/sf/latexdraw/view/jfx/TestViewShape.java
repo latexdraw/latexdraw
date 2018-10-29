@@ -12,12 +12,16 @@ import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
+import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
+import net.sf.latexdraw.view.pst.PSTViewsFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,6 +54,11 @@ abstract class TestViewShape<T extends ViewShape<S>, S extends ISingleShape> imp
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 				bindAsEagerSingleton(SystemService.class);
+				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(PSTViewsFactory.class);
+				bindAsEagerSingleton(Canvas.class);
+				bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());
+				bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);
 				bindAsEagerSingleton(PSTCodeGenerator.class);
 				bindWithCommand(LaTeXGenerator.class, PSTCodeGenerator.class, gen -> gen);
 				bindAsEagerSingleton(ViewFactory.class);
