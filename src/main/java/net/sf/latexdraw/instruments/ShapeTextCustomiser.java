@@ -120,7 +120,10 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 		addComboPropBinding(textPos, ShapeProperties.TEXT_POSITION);
 
 		textInputBinder(ModifyLatexProperties::new).on(packagesField).
-			first(c -> c.setProperty(LatexProperties.PACKAGES)).
+			first(c -> {
+				c.setProperty(LatexProperties.PACKAGES);
+				c.setGenerator(pstGen);
+			}).
 			then((i, c) -> c.setValue(i.getWidget().getText())).bind();
 	}
 }
