@@ -77,8 +77,8 @@ public final class LangService {
 						loadResourceBundle(Locale.forLanguageTag(lang.getTextContent())).orElseGet(() -> getDefaultLanguage().orElse(null)));
 				}
 			}
-		}catch(final InvalidPathException | SAXException | ParserConfigurationException | IOException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
+		}catch(final InvalidPathException | SAXException | ParserConfigurationException | IOException ignored) {
+			// No preferences file
 		}
 
 		return Optional.ofNullable(res.orElseGet(() -> getDefaultLanguage().orElseGet(() -> loadResourceBundle(Locale.US).orElse(null))));
