@@ -11,6 +11,7 @@
 package net.sf.latexdraw.view;
 
 import javafx.application.Platform;
+import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.models.CompareShapeMatcher;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
@@ -19,10 +20,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-public interface PolymorphShapeTest extends PolymorphicConversion<IShape> {
+public interface PolymorphShapeTest extends PolymorphicConversion<IShape>, CollectionMatcher {
 	@BeforeAll
 	static void beforeClass() {
 		try {
@@ -105,6 +105,6 @@ public interface PolymorphShapeTest extends PolymorphicConversion<IShape> {
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
 	default void testPointsEquals(final IShape sh) {
 		final IShape s2 = produceOutputShapeFrom(sh);
-		assertEquals(sh.getPoints(), s2.getPoints());
+		assertListEquals(sh.getPoints(), s2.getPoints(), (p1, p2) -> p1.equals(p2, 0.001));
 	}
 }
