@@ -338,11 +338,9 @@ public class Border extends CanvasInstrument implements Initializable {
 		private double yGap;
 
 		DnD2Scale(final Border ins) {
-			super(ins, true, new DnD(), i -> {
-					System.out.println(i.getSrcObject().map(h -> ((ScaleHandler) h).getPosition().getOpposite()));
-					return new ScaleShapes(ins.canvas.getDrawing().getSelection().duplicateDeep(false), ins.canvas.getDrawing(),
-						i.getSrcObject().map(h -> ((ScaleHandler) h).getPosition().getOpposite()).orElse(Position.SW));
-				},
+			super(ins, true, new DnD(),
+				i -> new ScaleShapes(ins.canvas.getDrawing().getSelection().duplicateDeep(false), ins.canvas.getDrawing(),
+				i.getSrcObject().map(h -> ((ScaleHandler) h).getPosition().getOpposite()).orElse(Position.SW)),
 				ins.scaleHandlers.stream().map(h -> (Node) h).collect(Collectors.toList()), false, null);
 		}
 
