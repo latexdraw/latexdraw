@@ -604,7 +604,10 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitText(final net.sf.latexdraw.parsers.pst.PSTParser.TextContext ctx) {
-		ctx.pstctx.textParsed.add(ctx.getText());
+		// Several commands (eg psplot) contain texts that must not be considered as text shapes
+		if(ctx.save) {
+			ctx.pstctx.textParsed.add(ctx.getText());
+		}
 	}
 
 	@Override

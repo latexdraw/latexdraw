@@ -33,7 +33,7 @@ pstCode[PSTContext pstctx] : (pstBlock[pstctx] | psset[pstctx] | pspictureBlock[
         psframebox[new PSTContext(pstctx, true)] | psdblframebox[new PSTContext(pstctx, true)] | psshadowbox[new PSTContext(pstctx, true)] | pscirclebox[new PSTContext(pstctx, true)] |
         psovalbox[new PSTContext(pstctx, true)] | psdiabox[new PSTContext(pstctx, true)] | pstribox[new PSTContext(pstctx, true)] |
         rput[pstctx] | psrotate[pstctx] | scalebox[pstctx] | psscalebox[pstctx] | definecolor[pstctx] | newpsobject[pstctx] | newpsstyle[pstctx] | textcolor[pstctx] |
-        savedata[pstctx] | color[pstctx] | unknowncmds[pstctx] | text[pstctx])* ;
+        savedata[pstctx] | color[pstctx] | unknowncmds[pstctx] | text[pstctx, true])* ;
 
 pstcustomBlock[PSTContext pstctx]
 @init {
@@ -177,9 +177,9 @@ readdata[PSTContext pstctx] : '\\readdata' paramBlock[pstctx]? BRACE_OPEN LATEXC
 
 savedata[PSTContext pstctx] : '\\savedata' BRACE_OPEN LATEXCMD BRACE_CLOSE '[' .*? ~(']') ']' ;
 
-parametricplot[PSTContext pstctx] : cmd=('\\parametricplot*' | '\\parametricplot') paramBlock[pstctx]? BRACE_OPEN xmin=NUMBER BRACE_CLOSE BRACE_OPEN xmax=NUMBER BRACE_CLOSE BRACE_OPEN fct+=text[pstctx]+ ~(BRACE_CLOSE) BRACE_CLOSE ;
+parametricplot[PSTContext pstctx] : cmd=('\\parametricplot*' | '\\parametricplot') paramBlock[pstctx]? BRACE_OPEN xmin=NUMBER BRACE_CLOSE BRACE_OPEN xmax=NUMBER BRACE_CLOSE BRACE_OPEN fct+=text[pstctx, false]+ ~(BRACE_CLOSE) BRACE_CLOSE ;
 
-psplot[PSTContext pstctx] : cmd=('\\psplot*' | '\\psplot') paramBlock[pstctx]? BRACE_OPEN x0=NUMBER BRACE_CLOSE BRACE_OPEN x1=NUMBER BRACE_CLOSE BRACE_OPEN fct+=text[pstctx]+ BRACE_CLOSE ;
+psplot[PSTContext pstctx] : cmd=('\\psplot*' | '\\psplot') paramBlock[pstctx]? BRACE_OPEN x0=NUMBER BRACE_CLOSE BRACE_OPEN x1=NUMBER BRACE_CLOSE BRACE_OPEN fct+=text[pstctx, false]+ BRACE_CLOSE ;
 
 listplot[PSTContext pstctx] : cmd=('\\listplot*' | '\\listplot') paramBlock[pstctx]? BRACE_OPEN LATEXCMD+ BRACE_CLOSE ;
 
@@ -323,7 +323,7 @@ arrowvalue[PSTContext pstctx] : arrLeft=arrow? '-' arrRight=arrow? ;
 
 coord : '(' x=valueDim? ',' y=valueDim? ')';
 
-text[PSTContext pstctx] : ~(BRACE_OPEN|BRACE_CLOSE)+? ;
+text[PSTContext pstctx, boolean save] : ~(BRACE_OPEN|BRACE_CLOSE)+? ;
 
 show : 'all'  | 'x' | 'y' | 'none' ;
 
