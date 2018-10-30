@@ -17,7 +17,6 @@ import net.sf.latexdraw.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.PreferencesService;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
@@ -93,7 +92,6 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 				bindToInstance(JfxUI.class, Mockito.mock(LaTeXDraw.class));
 				bindToSupplier(Stage.class, () -> stage);
 				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(PreferencesService.class);
 				bindAsEagerSingleton(LangService.class);
 				bindAsEagerSingleton(ViewFactory.class);
 				bindAsEagerSingleton(SVGShapesFactory.class);

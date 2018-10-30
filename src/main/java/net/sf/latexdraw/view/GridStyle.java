@@ -52,17 +52,6 @@ public enum GridStyle {
 	}
 
 	/**
-	 * Searches the style which label matches the given label. Warning,
-	 * labels change depending on the language.
-	 * @param name The label of the style to find.
-	 * @return The found style or empty.
-	 * @since 4.0
-	 */
-	public static Optional<GridStyle> getLabelFromName(final String name) {
-		return Arrays.stream(values()).filter(v -> v.name().equals(name)).findFirst();
-	}
-
-	/**
 	 * @return The label of the style.
 	 */
 	public abstract String getLabel(final ResourceBundle bundle);

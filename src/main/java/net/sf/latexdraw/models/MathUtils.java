@@ -14,6 +14,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.OptionalDouble;
+import java.util.OptionalInt;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 
 /**
@@ -131,6 +132,16 @@ public final class MathUtils {
 		final double altitude = getAltitude(a, b, c);
 		return equalsDouble(altitude, 0d) ? 0d : gap / altitude * a.distance(b);
 	}
+
+
+	public OptionalInt parseInt(final String intvalue) {
+		try {
+			return OptionalInt.of(Integer.parseInt(intvalue));
+		}catch(final NumberFormatException ignored) {
+			return OptionalInt.empty();
+		}
+	}
+
 
 	/**
 	 * Compares two double values to know whether they are approximately equal.

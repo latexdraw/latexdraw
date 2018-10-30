@@ -17,6 +17,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -37,6 +39,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -51,11 +54,11 @@ import net.sf.latexdraw.commands.GridProperties;
 import net.sf.latexdraw.commands.ModifyMagneticGrid;
 import net.sf.latexdraw.commands.NewDrawing;
 import net.sf.latexdraw.commands.SetUnit;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.PreferencesService;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.util.VersionChecker;
@@ -71,12 +74,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * This instrument modifies the preferences.
  * @author Arnaud BLOUIN
  */
 public class PreferencesSetter extends JfxInstrument implements Initializable {
+	private final Map<String, Node> preferences;
 	/** The recent files. */
 	private final List<String> recentFileNames;
 	/** Sets if the grid is magnetic. */
@@ -107,7 +112,6 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	@Inject private MagneticGrid grid;
 	@Inject private SystemService system;
 	@Inject private LangService lang;
-	@Inject private PreferencesService preferences;
 	/** The file chooser of paths selection. */
 	private DirectoryChooser fileChooser;
 
@@ -117,6 +121,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	public PreferencesSetter() {
 		super();
 		recentFileNames = new ArrayList<>();
+		preferences = new HashMap<>();
 	}
 
 	@Override
@@ -187,7 +192,6 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	/**
 	 * @return The file chooser used to selected folders.
-	 * @since 3.0
 	 */
 	private DirectoryChooser getFileChooser() {
 		if(fileChooser == null) {
@@ -197,26 +201,64 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		return fileChooser;
 	}
 
-	private void processXMLDataPreference(final File xml) {
-		final Map<String, Node> prefMap = preferences.readXMLPreferencesFromFile(xml);
+	private Map<String, Node> readXMLPreferencesFromFile(final File xmlFile) {
+		if(xmlFile == null || !xmlFile.canRead()) {
+			return Collections.emptyMap();
+		}
+
+		try {
+			final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true); //NON-NLS
+			factory.setFeature("http://xml.org/sax/features/external-general-entities", false); //NON-NLS
+			factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false); //NON-NLS
+			factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false); //NON-NLS
+			factory.setXIncludeAware(false);
+			factory.setExpandEntityReferences(false);
+			final DocumentBuilder builder = factory.newDocumentBuilder();
+			builder.setErrorHandler(null);
+			final Node root = builder.parse(xmlFile).getFirstChild();
+
+			if(root == null || !LNamespace.XML_ROOT_PREFERENCES.equals(root.getNodeName())) {
+				return Collections.emptyMap();
+			}
+
+			final NodeList nl = root.getChildNodes();
+
+			flushPreferencesCache();
+
+			for(int i = 0, size = nl.getLength(); i < size; i++) {
+				final Node node = nl.item(i);
+				final String name = node.getNodeName();
+
+				if(name != null && !name.isEmpty()) {
+					preferences.put(name, node);
+				}
+			}
+
+			return Collections.unmodifiableMap(preferences);
+		}catch(final IOException | SAXException | FactoryConfigurationError | ParserConfigurationException ignored) {
+			// Empty file or not ok
+		}
+		return Collections.emptyMap();
+	}
+
+	private void flushPreferencesCache() {
+		preferences.clear();
+	}
+
+	private void processXMLDataPreference(final Map<String, Node> prefMap) {
 		final Window win = pathExportField.getScene().getWindow();
 
 		Optional.ofNullable(prefMap.get(LNamespace.XML_LATEX_INCLUDES)).ifPresent(node -> latexIncludes.setText(node.getTextContent()));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_OPENGL)).ifPresent(node -> openGL.setSelected(Boolean.parseBoolean(node.getTextContent())));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_CHECK_VERSION)).ifPresent(node -> checkNewVersion.setSelected(Boolean.parseBoolean(node.getTextContent())));
 
-		Optional.ofNullable(prefMap.get(LNamespace.XML_CLASSIC_GRID)).ifPresent(node -> {
-			if(Boolean.parseBoolean(node.getTextContent())) {
-				styleList.getSelectionModel().select(GridStyle.STANDARD);
-			}else {
-				styleList.getSelectionModel().select(GridStyle.CUSTOMISED);
-			}
-		});
+		styleList.getSelectionModel().select(
+			Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_STYLE)).
+				map(node -> GridStyle.getStylefromName(node.getTextContent()).orElse(GridStyle.NONE)).orElse(GridStyle.NONE));
 
-		Optional.ofNullable(prefMap.get(LNamespace.XML_DISPLAY_GRID)).map(node -> !Boolean.parseBoolean(node.getTextContent())).
-			ifPresent(node -> styleList.getSelectionModel().select(GridStyle.NONE));
-
-		Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_GAP)).ifPresent(node -> persoGridGapField.getValueFactory().setValue(Integer.valueOf(node.getTextContent())));
+		persoGridGapField.getValueFactory().setValue(Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_GAP)).
+			map(node -> MathUtils.INST.parseInt(node.getTextContent()).orElse(10)).orElse(10));
 
 		final Node langNode = prefMap.get(LNamespace.XML_LANG);
 		final Locale locale = langNode == null ? Locale.US : Locale.forLanguageTag(langNode.getTextContent());
@@ -228,11 +270,13 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		Optional.ofNullable(prefMap.get(LNamespace.XML_MAGNETIC_GRID)).ifPresent(node -> magneticCB.setSelected(Boolean.parseBoolean(node.getTextContent())));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_EXPORT)).ifPresent(node -> pathExportField.setText(node.getTextContent()));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_OPEN)).ifPresent(node -> pathOpenField.setText(node.getTextContent()));
-		Optional.ofNullable(prefMap.get(LNamespace.XML_UNIT)).ifPresent(node -> unitChoice.getSelectionModel().select(Unit.getUnit(node.getTextContent())));
+		unitChoice.getSelectionModel().select(Optional.ofNullable(prefMap.get(LNamespace.XML_UNIT)).map(node -> Unit.getUnit(node.getTextContent())).orElse(Unit.CM));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_RECENT_FILES)).ifPresent(node -> setRecentFiles(node));
+
 		if(win instanceof Stage) {
 			Optional.ofNullable(prefMap.get(LNamespace.XML_MAXIMISED)).ifPresent(node -> ((Stage) win).setFullScreen(Boolean.parseBoolean(node.getTextContent())));
 		}
+
 		Optional.ofNullable(prefMap.get(LNamespace.XML_SIZE)).ifPresent(node -> setWindowSize(node, win));
 		Optional.ofNullable(prefMap.get(LNamespace.XML_POSITION)).ifPresent(node -> setWindowPosition(node, win));
 	}
@@ -300,7 +344,6 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	/**
 	 * @return True if a new version must be checked.
-	 * @since 3.0
 	 */
 	public boolean isVersionCheckEnable() {
 		return checkNewVersion != null && checkNewVersion.isSelected();
@@ -308,7 +351,6 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	/**
 	 * Applies the values of the preferences setter to the concerned elements.
-	 * @since 3.0
 	 */
 	private void applyValues() {
 		grid.setGridStyle(styleList.getSelectionModel().getSelectedItem());
@@ -327,7 +369,6 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	/**
 	 * Writes the preferences of latexdraw in an XML document.
-	 * @since 3.0
 	 */
 	public void writeXMLPreferences() {
 		try {
@@ -359,7 +400,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				elt.setTextContent(pathOpenField.getText());
 				root.appendChild(elt);
 
-				elt = document.createElement(LNamespace.XML_DISPLAY_GRID);
+				elt = document.createElement(LNamespace.XML_GRID_STYLE);
 				elt.setTextContent(String.valueOf(styleList.getSelectionModel().getSelectedItem() != GridStyle.NONE));
 				root.appendChild(elt);
 
@@ -440,21 +481,11 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	}
 
 	/**
-	 * Reads the preferences of latexdraw defined in XML.
-	 * @throws IllegalArgumentException If a problem occurs.
-	 * @since 3.0
+	 * Reads the XML preferences.
 	 */
 	public void readXMLPreferences() {
-		final File xml = new File(system.pathPreferencesXmlFile);
-
-		try {
-			if(xml.canRead()) {
-				processXMLDataPreference(xml);
-			}
-			applyValues();
-		}catch(final SecurityException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-		}
+		processXMLDataPreference(readXMLPreferencesFromFile(new File(system.pathPreferencesXmlFile)));
+		applyValues();
 	}
 
 	/**

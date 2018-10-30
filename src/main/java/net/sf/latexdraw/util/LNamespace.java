@@ -68,7 +68,7 @@ public final class LNamespace {
 	public static final String XML_HEIGHT 				= "height"; //NON-NLS
 	public static final String XML_WIDTH 				= "width"; //NON-NLS
 	public static final String XML_MAXIMISED 			= "maximised"; //NON-NLS
-	public static final String XML_DISPLAY_GRID 		= "displayGrid"; //NON-NLS
+	public static final String XML_GRID_STYLE = "gridStyle"; //NON-NLS
 	public static final String XML_ROOT_PREFERENCES 	= "preferences"; //NON-NLS
 	public static final String XML_OPENGL	 			= "openGL"; //NON-NLS
 	public static final String XML_PATH_EXPORT 			= "pathExport"; //NON-NLS
