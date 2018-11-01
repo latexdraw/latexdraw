@@ -13,6 +13,7 @@ Version 4.0.0
     - rotated PST shapes not correctly imported
     - psplot not correctly imported
     - rotated arcs not correctly exported as PST code
+    - PST filling colour not export with hatchings
 
 Improvements:
 - can scroll on a spinner to change its value.

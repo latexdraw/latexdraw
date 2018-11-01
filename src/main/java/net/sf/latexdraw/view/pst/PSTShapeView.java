@@ -394,6 +394,7 @@ public abstract class PSTShapeView<S extends IShape> {
 
 		if(shape.isFilled()) {
 			code.append('*');
+			code.append(",fillcolor=").append(getColourName(shape.getFillingCol())); //NON-NLS
 		}
 
 		code.append(", hatchwidth="); //NON-NLS
