@@ -24,7 +24,6 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 	 * Creates and initialises a LBezierCurve PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTBezierCurveView(final IBezierCurve model) {
 		super(model);
@@ -33,28 +32,17 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
+		if(!MathUtils.INST.isValidPt(origin) || ppc < 1 || shape.getNbPoints() < 2) {
 			return "";
 		}
 
-		int i;
 		final int size = shape.getNbPoints();
-		IPoint pt;
-		IPoint ctrlPt1;
-		IPoint ctrlPt2;
-		final StringBuilder arrowsStyle = getArrowsStyleCode();
-		final StringBuilder params = getPropertiesCode(ppc);
 		final StringBuilder coord = new StringBuilder();
 		final List<IPoint> pts = shape.getPoints();
 		final List<IPoint> fCtrlPts = shape.getFirstCtrlPts();
 		final List<IPoint> sCtrlPts = shape.getSecondCtrlPts();
 		final double originx = origin.getX();
 		final double originy = origin.getY();
-		final StringBuilder cache = new StringBuilder();
-
-		if(size < 2) {
-			return "";
-		}
 
 		coord.append('(').append(MathUtils.INST.getCutNumberFloat((pts.get(0).getX() - originx) / ppc));
 		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - pts.get(0).getY()) / ppc));
@@ -63,12 +51,11 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 		coord.append(')').append('(').append(MathUtils.INST.getCutNumberFloat((fCtrlPts.get(1).getX() - originx) / ppc));
 		coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - fCtrlPts.get(1).getY()) / ppc));
 		coord.append(')').append('(').append(MathUtils.INST.getCutNumberFloat((pts.get(1).getX() - originx) / ppc));
-		coord.append(',').append(MathUtils.INST.getCutNumber((originy - pts.get(1).getY()) / ppc));
-		coord.append(')');
+		coord.append(',').append(MathUtils.INST.getCutNumber((originy - pts.get(1).getY()) / ppc)).append(')');
 
-		for(i = 2; i < size; i++) {
-			ctrlPt1 = fCtrlPts.get(i);
-			ctrlPt2 = sCtrlPts.get(i - 1);
+		for(int i = 2; i < size; i++) {
+			final IPoint ctrlPt1 = fCtrlPts.get(i);
+			final IPoint ctrlPt2 = sCtrlPts.get(i - 1);
 
 			coord.append('(').append(MathUtils.INST.getCutNumberFloat((ctrlPt2.getX() - originx) / ppc));
 			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - ctrlPt2.getY()) / ppc));
@@ -76,14 +63,14 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - ctrlPt1.getY()) / ppc));
 			coord.append(')').append('(');
 
-			pt = pts.get(i);
+			final IPoint pt = pts.get(i);
 			coord.append(MathUtils.INST.getCutNumberFloat((pt.getX() - originx) / ppc)).append(',');
 			coord.append(MathUtils.INST.getCutNumberFloat((originy - pt.getY()) / ppc)).append(')');
 		}
 
 		if(!shape.isOpened()) {
-			ctrlPt1 = sCtrlPts.get(0);
-			ctrlPt2 = sCtrlPts.get(sCtrlPts.size() - 1);
+			final IPoint ctrlPt1 = sCtrlPts.get(0);
+			final IPoint ctrlPt2 = sCtrlPts.get(sCtrlPts.size() - 1);
 
 			coord.append('(').append(MathUtils.INST.getCutNumberFloat((ctrlPt2.getX() - originx) / ppc));
 			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - ctrlPt2.getY()) / ppc));
@@ -91,19 +78,22 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - ctrlPt1.getY()) / ppc));
 			coord.append(')').append('(');
 
-			pt = pts.get(0);
+			final IPoint pt = pts.get(0);
 			coord.append(MathUtils.INST.getCutNumberFloat((pt.getX() - originx) / ppc)).append(',');
 			coord.append(MathUtils.INST.getCutNumberFloat((originy - pt.getY()) / ppc)).append(')');
 		}
 
-		cache.append("\\psbezier["); //NON-NLS
-		cache.append(params);
-		cache.append(']');
-		if(arrowsStyle != null) {
-			cache.append(arrowsStyle);
-		}
-		cache.append(coord);
+		final StringBuilder code = new StringBuilder();
 
-		return cache.toString();
+		code.append("\\psbezier[").append(getPropertiesCode(ppc)).append(']'); //NON-NLS
+
+		final StringBuilder arrowsStyle = getArrowsStyleCode();
+		if(arrowsStyle != null) {
+			code.append(arrowsStyle);
+		}
+
+		code.append(coord);
+
+		return code.toString();
 	}
 }
