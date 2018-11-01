@@ -167,4 +167,8 @@
     <Match>
         <Bug pattern="FCCD_FIND_CLASS_CIRCULAR_DEPENDENCY" />
     </Match>
+    <!-- Raises false positives -->
+    <Match>
+        <Bug pattern="OI_OPTIONAL_ISSUES_USES_IMMEDIATE_EXECUTION" />
+    </Match>
 </FindBugsFilter>
