@@ -1,10 +1,9 @@
-package net.sf.latexdraw.parsers;
+package net.sf.latexdraw.view.latex;
 
 import java.util.Optional;
 import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
@@ -209,11 +208,16 @@ public class TestDviPsColors {
 	}
 
 	@Test
-	public void testGetUserColorsCode() {
+	public void testGetUserColorsCodeKO() {
 		final Color c = ShapeFactory.INST.createColor(230d / 255d, 65d / 255d, 78d / 255d, 1d);
-		final Optional<String> nameColour = DviPsColors.INSTANCE.addUserColour(c);
 		assertNotNull(DviPsColors.INSTANCE.getUsercolourCode(null));
-		assertNotNull(DviPsColors.INSTANCE.getUsercolourCode(nameColour.orElseThrow()));
+		assertNotNull(DviPsColors.INSTANCE.getUsercolourCode(DviPsColors.INSTANCE.addUserColour(c).orElseThrow()));
+	}
+
+	@Test
+	public void testGetUserColorsCodeOK() {
+		final Color c = ShapeFactory.INST.createColor(0.5, 0.2, 0.9, 0.8);
+		assertEquals("\\definecolor{colour0}{rgb}{0.5,0.2,0.9}", DviPsColors.INSTANCE.getUsercolourCode(DviPsColors.INSTANCE.addUserColour(c).orElseThrow()));
 	}
 
 	@Theory

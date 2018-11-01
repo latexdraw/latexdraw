@@ -13,6 +13,7 @@ package net.sf.latexdraw.view.latex;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.Color;
 
@@ -481,14 +482,10 @@ public final class DviPsColors {
 	 * @return The code of the colour or an empty string if the given colour is not valid.
 	 */
 	public String getUsercolourCode(final String colourName) {
-		final Optional<Color> colour = getColour(colourName);
-
-		if(colour.isPresent()) {
-			final Color col = colour.get();
-			return "\\definecolor{" + colourName + "}{rgb}{" + //NON-NLS
-				(float) (col.getR() / 255.) + ',' + (float) (col.getG() / 255.) + ',' + (float) (col.getB() / 255.) + "}\n";
-		}
-		return "";
+		return getColour(colourName).map(col -> "\\definecolor{" + colourName + "}{rgb}{" + //NON-NLS
+			MathUtils.INST.getCutNumberFloat(col.getR()) + ',' +
+			MathUtils.INST.getCutNumberFloat(col.getG()) + ',' +
+			MathUtils.INST.getCutNumberFloat(col.getB()) + '}').orElse("");
 	}
 
 

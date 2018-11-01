@@ -161,7 +161,7 @@ public class ViewText extends ViewPositionShape<IText> {
 		if(!PSTricksConstants.DEFAULT_LINE_COLOR.equals(textColour)) {
 			final String name = DviPsColors.INSTANCE.getColourName(textColour).orElseGet(() -> DviPsColors.INSTANCE.addUserColour(textColour).orElse(""));
 			coloured = true;
-			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append("\\textcolor{").append(name).append('}').append('{'); //NON-NLS
+			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append(SystemService.EOL).append("\\textcolor{").append(name).append('}').append('{'); //NON-NLS
 		}
 
 		doc.append(code);

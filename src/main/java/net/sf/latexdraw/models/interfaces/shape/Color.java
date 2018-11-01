@@ -24,49 +24,49 @@ public interface Color {
 
 	/**
 	 * @return The red channel.
-	 * @throws IllegalArgumentException If the value in not in [0,1].
 	 */
 	double getR();
 
 	/**
 	 * Sets the red channel.
 	 * @param red the red to set
+	 * @throws IllegalArgumentException If the value in not in [0,1].
 	 */
 	void setR(final double red);
 
 	/**
 	 * @return The green channel.
-	 * @throws IllegalArgumentException If the value in not in [0,1].
 	 */
 	double getG();
 
 	/**
 	 * Sets the green channel.
 	 * @param green the green to set
+	 * @throws IllegalArgumentException If the value in not in [0,1].
 	 */
 	void setG(final double green);
 
 	/**
 	 * @return The blue channel.
-	 * @throws IllegalArgumentException If the value in not in [0,1].
 	 */
 	double getB();
 
 	/**
 	 * Sets the blue channel.
 	 * @param blue the blue to set
+	 * @throws IllegalArgumentException If the value in not in [0,1].
 	 */
 	void setB(final double blue);
 
 	/**
 	 * @return The opacity channel.
-	 * @throws IllegalArgumentException If the value in not in [0,1].
 	 */
 	double getO();
 
 	/**
 	 * Sets the opacity channel.
 	 * @param opacity the opacity to set
+	 * @throws IllegalArgumentException If the value in not in [0,1].
 	 */
 	void setO(final double opacity);
 
