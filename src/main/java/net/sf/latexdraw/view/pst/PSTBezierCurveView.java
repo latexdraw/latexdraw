@@ -32,7 +32,7 @@ public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 
 	@Override
 	public String getCode(final IPoint origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1 || shape.getNbPoints() < 2) {
+		if(ppc < 1 || !MathUtils.INST.isValidPt(origin) || shape.getNbPoints() < 2) {
 			return "";
 		}
 
