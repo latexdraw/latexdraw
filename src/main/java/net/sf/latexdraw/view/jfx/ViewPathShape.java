@@ -28,6 +28,7 @@ public abstract class ViewPathShape<S extends ISingleShape> extends ViewSingleSh
 	ViewPathShape(final S sh, final PathElementProducer pathProducer) {
 		super(sh);
 		this.pathProducer = pathProducer;
+		unbindRotationAngle();
 	}
 
 	@Override

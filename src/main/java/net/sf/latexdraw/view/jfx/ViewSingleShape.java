@@ -163,7 +163,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	/**
 	 * Unbinds the current rotation binding if one is already installed.
 	 */
-	private void unbindRotationAngle() {
+	void unbindRotationAngle() {
 		if(shapeRotation != null) {
 			border.getTransforms().remove(shapeRotation);
 			shapeRotation.angleProperty().unbind();
