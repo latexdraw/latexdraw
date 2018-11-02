@@ -144,7 +144,7 @@ abstract class LShape implements ISingleShape {
 		hatchingsSep = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_HATCH_SEP * PPC);
 		hatchingsWidth = new SimpleDoubleProperty(PSTricksConstants.DEFAULT_HATCH_WIDTH * PPC);
 		fillingStyle = new SimpleObjectProperty<>(FillingStyle.NONE);
-		fillingCol = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_INTERIOR_COLOR);
+		fillingCol = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_FILL_COLOR);
 		bordersPosition = new SimpleObjectProperty<>(BorderPos.INTO);
 		dbleBordCol = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_DOUBLE_COLOR);
 		dbleBordSep = new SimpleDoubleProperty(6d);

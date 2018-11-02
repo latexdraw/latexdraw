@@ -327,7 +327,7 @@ public abstract class PSTShapeView<S extends IShape> {
 		final Color interiorColor = shape.getFillingCol();
 		final StringBuilder code = new StringBuilder("fillstyle=solid"); //NON-NLS
 
-		if(!PSTricksConstants.DEFAULT_INTERIOR_COLOR.equals(interiorColor)) {
+		if(!PSTricksConstants.DEFAULT_FILL_COLOR.equals(interiorColor)) {
 			code.append(",fillcolor=").append(getColourName(interiorColor)); //NON-NLS
 		}
 
@@ -443,7 +443,7 @@ public abstract class PSTShapeView<S extends IShape> {
 				break;
 		}
 
-		if(!shape.isFilled() && shape.hasShadow() && shape.shadowFillsShape() && !PSTricksConstants.DEFAULT_INTERIOR_COLOR.equals(interiorColor)) {
+		if(!shape.isFilled() && shape.hasShadow() && shape.shadowFillsShape() && !PSTricksConstants.DEFAULT_FILL_COLOR.equals(interiorColor)) {
 			if(code == null) {
 				code = new StringBuilder();
 			}else {

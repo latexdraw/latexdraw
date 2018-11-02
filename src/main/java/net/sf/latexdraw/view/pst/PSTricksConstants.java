@@ -254,9 +254,6 @@ public final class PSTricksConstants {
 	/** The colour of the hatching of the figure by default */
 	public static final Color DEFAULT_HATCHING_COLOR = DviPsColors.BLACK;
 
-	/** The colour of the interior of the figure by default */
-	public static final Color DEFAULT_INTERIOR_COLOR = DviPsColors.WHITE;
-
 	/** The colour of the borders of the figure by default */
 	public static final Color DEFAULT_LINE_COLOR = DviPsColors.BLACK;
 
