@@ -43,9 +43,11 @@ public final class CompareShapeMatcher implements HelperTest {
 
 	public void assertEqualShapeDbleBorder(final IShape s1, final IShape s2) {
 		if(s2.isDbleBorderable()) {
-			assertEquals(s2.getDbleBordCol(), s1.getDbleBordCol());
-			assertEquals(s2.getDbleBordSep(), s1.getDbleBordSep(), 0.001);
 			assertEquals(s2.hasDbleBord(), s1.hasDbleBord());
+			if(s2.hasDbleBord()) {
+				assertEquals(s2.getDbleBordCol(), s1.getDbleBordCol());
+				assertEquals(s2.getDbleBordSep(), s1.getDbleBordSep(), 0.001);
+			}
 		}
 	}
 
