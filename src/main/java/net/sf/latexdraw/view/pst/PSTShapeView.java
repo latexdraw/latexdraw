@@ -13,6 +13,7 @@ package net.sf.latexdraw.view.pst;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.models.interfaces.shape.Color;
@@ -20,6 +21,7 @@ import net.sf.latexdraw.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.DviPsColors;
 
 import static java.lang.Math.toDegrees;
@@ -62,7 +64,6 @@ public abstract class PSTShapeView<S extends IShape> {
 	/**
 	 * Saves a colour coming from the generated code.
 	 * @param name The name of the generated colour.
-	 * @since 3.0
 	 */
 	protected void addColour(final String name) {
 		if(name != null) {
@@ -71,6 +72,23 @@ public abstract class PSTShapeView<S extends IShape> {
 			}
 			coloursName.add(name);
 		}
+	}
+
+
+	/**
+	 * Adds the PST colour code to the cache.
+	 * @param addedColours The PST colours already generated.
+	 */
+	public String generateColourCode(final Set<String> addedColours) {
+		if(coloursName == null) {
+			return "";
+		}
+
+		return coloursName.stream().
+			filter(col -> !addedColours.contains(col) && !DviPsColors.INSTANCE.getPredefinedColour(col).isPresent()).
+			peek(col -> addedColours.add(col)).
+			map(col -> DviPsColors.INSTANCE.getUsercolourCode(col)).
+			collect(Collectors.joining(SystemService.EOL));
 	}
 
 
@@ -212,7 +230,6 @@ public abstract class PSTShapeView<S extends IShape> {
 	 * @param colour The colour which name is looking for. If the colour does
 	 * not exist yet, it is created.
 	 * @return The name of a predefined or a newly generated colour.
-	 * @since 3.0
 	 */
 	protected String getColourName(final Color colour) {
 		final String name = DviPsColors.INSTANCE.getColourName(colour).orElseGet(() -> DviPsColors.INSTANCE.addUserColour(colour).orElse(""));

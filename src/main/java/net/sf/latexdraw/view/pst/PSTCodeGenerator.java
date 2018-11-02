@@ -10,13 +10,12 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemService;
-import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 
@@ -80,7 +79,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		final IPoint tl = handler.getTopRightDrawingPoint();
 		final IPoint br = handler.getBottomLeftDrawingPoint();
 		final int ppc = handler.getPPCDrawing();
-		final Map<String, String> addedColours = new HashMap<>();
+		final Set<String> addedColours = new HashSet<>();
 		final StringBuilder shapeCode = new StringBuilder();
 		final boolean hasBeginFigure;
 
@@ -125,7 +124,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 
 		drawing.getShapes().forEach(shape -> viewsFactory.createView(shape).ifPresent(pstView -> {
 			shapeCode.append(pstView.getCode(origin, ppc)).append(SystemService.EOL);
-			cache.append(generateColourCode(pstView, addedColours));
+			cache.append(pstView.generateColourCode(addedColours)).append(SystemService.EOL);
 		}));
 
 		cache.append(shapeCode).append("\\end{pspicture}").append(SystemService.EOL).append('}').append(SystemService.EOL); //NON-NLS
@@ -146,24 +145,5 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		}
 
 		return cache.toString();
-	}
-
-
-	/**
-	 * Adds the PST colour code to the cache.
-	 * @param pstView The shape which colour code will be generated.
-	 * @param addedColours The PST colours already generated.
-	 * @since 3.0
-	 */
-	private  String generateColourCode(final PSTShapeView<?> pstView, final Map<String, String> addedColours) {
-		if(pstView.coloursName != null) {
-			for(final String nameColour : pstView.coloursName) {
-				if(addedColours.get(nameColour) == null && !DviPsColors.INSTANCE.getPredefinedColour(nameColour).isPresent()) {
-					addedColours.put(nameColour, nameColour);
-					return DviPsColors.INSTANCE.getUsercolourCode(nameColour) + SystemService.EOL;
-				}
-			}
-		}
-		return ""; //NON-NLS
 	}
 }
