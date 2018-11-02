@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -41,6 +42,7 @@ import net.sf.latexdraw.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.models.interfaces.shape.IPolygon;
@@ -57,16 +59,19 @@ import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.antlr.v4.runtime.Token;
 
 public class PSTLatexdrawListener extends PSTCtxListener {
 	private final Deque<IGroup> shapes;
+	private final SystemService system;
 	Point2D psCustomLatestPt;
 
-	public PSTLatexdrawListener() {
+	public PSTLatexdrawListener(final SystemService system) {
 		super();
+		this.system = system;
 		shapes = new ArrayDeque<>();
 		PSTContext.ppc = IShape.PPC;
 		psCustomLatestPt = new Point2D(0d, 0d);
@@ -133,6 +138,18 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			shapes.getLast().addShape(text);
 		}
 	}
+
+	@Override
+	public void exitIncludegraphics(final net.sf.latexdraw.parsers.pst.PSTParser.IncludegraphicsContext ctx) {
+		final IPicture picture = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), system);
+		try {
+			picture.setPathSource(ctx.path.getText());
+			shapes.getLast().addShape(picture);
+		}catch(final IllegalArgumentException ex) {
+			log.log(Level.SEVERE, "Cannot load the picture with the path: " + ctx.path.getText());
+		}
+	}
+
 
 	@Override
 	public void exitPsline(final net.sf.latexdraw.parsers.pst.PSTParser.PslineContext ctx) {

@@ -25,6 +25,7 @@ import net.sf.latexdraw.parsers.pst.PSTLatexdrawListener;
 import net.sf.latexdraw.parsers.pst.PSTLexer;
 import net.sf.latexdraw.parsers.pst.PSTParser;
 import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.util.SystemService;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
@@ -42,21 +43,22 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 	/** The added shapes. */
 	private Optional<IShape> shapes;
 	private final LangService lang;
+	private final SystemService system;
 
 
-	public InsertPSTCode(final String codeToInsert, final Label status, final IDrawing drawingToFill, final LangService lang) {
+	public InsertPSTCode(final String codeToInsert, final Label status, final IDrawing drawingToFill, final LangService lang, final SystemService system) {
 		super(drawingToFill);
 		code = codeToInsert;
 		statusBar = status;
 		shapes = Optional.empty();
 		this.lang = lang;
-
+		this.system = system;
 	}
 
 	@Override
 	protected void doCmdBody() {
 		try {
-			final PSTLatexdrawListener listener = new PSTLatexdrawListener();
+			final PSTLatexdrawListener listener = new PSTLatexdrawListener(system);
 			final PSTLexer lexer = new PSTLexer(CharStreams.fromString(code));
 			final PSTParser parser = new PSTParser(new CommonTokenStream(lexer));
 			parser.addParseListener(listener);

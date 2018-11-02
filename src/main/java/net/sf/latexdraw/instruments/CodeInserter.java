@@ -61,6 +61,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 	@Inject private IDrawing drawing;
 	@Inject private StatusBarController statusBar;
 	@Inject private LangService lang;
+	@Inject private SystemService system;
 	@Inject private Injector injector;
 
 	/**
@@ -83,7 +84,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 			}
 		};
 
-		final PSTLatexdrawListener listener = new PSTLatexdrawListener() {
+		final PSTLatexdrawListener listener = new PSTLatexdrawListener(system) {
 			@Override
 			public void exitUnknowncmds(final PSTParser.UnknowncmdsContext ctx) {
 				errorLog.setText(errorLog.getText() + "Unknown command: " + ctx.LATEXCMD().getSymbol().getText() + SystemService.EOL); //NON-NLS
@@ -160,7 +161,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void configureBindings() {
-		buttonBinder(i -> new InsertPSTCode(text.getText(), statusBar.getLabel(), drawing, lang)).on(ok).bind();
+		buttonBinder(i -> new InsertPSTCode(text.getText(), statusBar.getLabel(), drawing, lang, system)).on(ok).bind();
 
 		buttonBinder(() -> new InactivateInstrument()).on(cancel, ok).first(cmd -> cmd.setInstrument(this)).bind();
 	}

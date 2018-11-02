@@ -4,6 +4,7 @@ import net.sf.latexdraw.data.StringData;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class TestTextParsing extends TestPSTParser {
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		listener = new PSTLatexdrawListener();
+		listener = new PSTLatexdrawListener(new SystemService());
 	}
 
 	@Test

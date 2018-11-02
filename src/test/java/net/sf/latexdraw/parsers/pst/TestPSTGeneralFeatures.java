@@ -5,6 +5,7 @@ import net.sf.latexdraw.models.interfaces.shape.IDot;
 import net.sf.latexdraw.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.models.interfaces.shape.IShape;
 import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.Test;
@@ -60,7 +61,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 
 	@Test
 	public void testUnknownCommand() {
-		listener = new PSTLatexdrawListener();
+		listener = new PSTLatexdrawListener(new SystemService());
 		parser("\\fuhfisduf");
 		final IText txt = getShapeAt(0);
 		assertEquals("\\fuhfisduf", txt.getText());
@@ -153,7 +154,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 
 	@Test
 	public void testParseUnkownParam() {
-		listener = new PSTLatexdrawListener();
+		listener = new PSTLatexdrawListener(new SystemService());
 		parser("\\psframe[foobar=true](5,10)");
 		assertTrue(getShapeAt(0) instanceof IRectangle);
 	}
@@ -161,7 +162,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 
 	@Test
 	public void testParseUnkownColor() {
-		listener = new PSTLatexdrawListener();
+		listener = new PSTLatexdrawListener(new SystemService());
 		parser("\\psframe[linecolor=col23](5,10)");
 		assertTrue(getShapeAt(0) instanceof IRectangle);
 	}

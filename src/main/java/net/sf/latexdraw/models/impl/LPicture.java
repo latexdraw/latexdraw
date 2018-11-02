@@ -48,7 +48,7 @@ class LPicture extends LPositionShape implements IPicture {
 
 	/**
 	 * Loads the image using the source path and creates the eps picture.
-	 * @since 3.0
+	 * @throws IllegalArgumentException if the source path is invalid or unsupported
 	 */
 	private void loadImage() {
 		if(image != null) {

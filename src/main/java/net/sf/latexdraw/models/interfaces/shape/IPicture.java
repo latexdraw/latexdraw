@@ -25,6 +25,7 @@ public interface IPicture extends IPositionShape {
 	/**
 	 * Sets the new picture.
 	 * @param pathSource the pathSource to set.
+	 * @throws IllegalArgumentException if the given source path is invalid or unsupported
 	 */
 	void setPathSource(final String pathSource);
 
