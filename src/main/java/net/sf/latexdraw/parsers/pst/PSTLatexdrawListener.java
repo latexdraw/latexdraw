@@ -756,6 +756,8 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 		if(starred) {
 			setShapeForStar(dot);
+		}else {
+			dot.setFillingCol(ShapeFactory.INST.createColor(ctx.fillColor.getR(), ctx.fillColor.getG(), ctx.fillColor.getB(), ctx.opacity));
 		}
 
 		shapes.getLast().addShape(dot);
