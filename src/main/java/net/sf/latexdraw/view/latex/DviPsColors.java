@@ -213,6 +213,7 @@ public final class DviPsColors {
 	public void clearUserColours() {
 		userColourHT.clear();
 		userNameColourHT.clear();
+		ctColours = 0;
 	}
 
 	/**
