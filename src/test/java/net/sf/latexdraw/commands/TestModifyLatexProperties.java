@@ -77,10 +77,7 @@ public class TestModifyLatexProperties extends TestUndoableCommand<ModifyLatexPr
 
 	@Override
 	protected void configCorrectCmd() {
-		cmd = new ModifyLatexProperties();
-		cmd.setGenerator(gen);
-		cmd.setProperty(property);
-		cmd.setValue(value);
+		cmd = new ModifyLatexProperties(gen, property, value);
 	}
 
 	@Override

@@ -22,17 +22,20 @@ import org.malai.undo.Undoable;
  */
 public class ModifyLatexProperties extends CommandImpl implements Undoable, Modifying {
 	/** The new value to set. */
-	protected Object value;
+	private Object value;
 	/** The saved value used for undo/redo. */
-	protected Object oldValue;
+	private Object oldValue;
 	/** The property to modify. */
-	protected LatexProperties property;
+	private final LatexProperties property;
 	/** The LaTeX generator to modify. */
-	protected LaTeXGenerator generator;
+	private final LaTeXGenerator generator;
 
 
-	public ModifyLatexProperties() {
+	public ModifyLatexProperties(final LaTeXGenerator generator, final LatexProperties property, final Object value) {
 		super();
+		this.generator = generator;
+		this.property = property;
+		this.value = value;
 	}
 
 	@Override
@@ -121,19 +124,5 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 	 */
 	public void setValue(final Object val) {
 		value = val;
-	}
-
-	/**
-	 * @param prop The prop to modify.
-	 */
-	public void setProperty(final LatexProperties prop) {
-		property = prop;
-	}
-
-	/**
-	 * @param gen The LaTeX generator to modify.
-	 */
-	public void setGenerator(final LaTeXGenerator gen) {
-		generator = gen;
 	}
 }

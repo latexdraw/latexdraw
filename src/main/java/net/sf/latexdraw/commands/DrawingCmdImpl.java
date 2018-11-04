@@ -19,7 +19,7 @@ import org.malai.command.CommandImpl;
  */
 public abstract class DrawingCmdImpl extends CommandImpl {
 	/** The drawing that will be handled by the command. */
-	protected IDrawing drawing;
+	protected final IDrawing drawing;
 
 	protected DrawingCmdImpl(final IDrawing theDrawing) {
 		super();

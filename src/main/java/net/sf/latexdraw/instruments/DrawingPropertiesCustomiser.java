@@ -157,32 +157,18 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 
 	@Override
 	protected void configureBindings() {
-		textInputBinder(ModifyLatexProperties::new).on(labelField).first(c -> {
-			c.setProperty(LatexProperties.LABEL);
-			c.setGenerator(latexGen);
-		}).then((i, c) -> c.setValue(i.getWidget().getText())).bind();
+		textInputBinder(() -> new ModifyLatexProperties(latexGen, LatexProperties.LABEL, null)).on(labelField).
+			then((i, c) -> c.setValue(i.getWidget().getText())).bind();
 
-		textInputBinder(ModifyLatexProperties::new).on(titleField).first(c -> {
-			c.setProperty(LatexProperties.CAPTION);
-			c.setGenerator(latexGen);
-		}).then((i, c) -> c.setValue(i.getWidget().getText())).bind();
+		textInputBinder(() -> new ModifyLatexProperties(latexGen, LatexProperties.CAPTION, null)).on(titleField).
+			then((i, c) -> c.setValue(i.getWidget().getText())).bind();
 
-		checkboxBinder(ModifyLatexProperties::new).on(middleHorizPosCB).first(c -> {
-			c.setProperty(LatexProperties.POSITION_HORIZONTAL);
-			c.setGenerator(latexGen);
-			c.setValue(middleHorizPosCB.isSelected());
-		}).bind();
+		checkboxBinder(i -> new ModifyLatexProperties(latexGen, LatexProperties.POSITION_HORIZONTAL, i.getWidget().isSelected())).on(middleHorizPosCB).bind();
 
-		comboboxBinder(ModifyLatexProperties::new).on(positionCB).first(c -> {
-			c.setProperty(LatexProperties.POSITION_VERTICAL);
-			c.setGenerator(latexGen);
-			c.setValue(positionCB.getSelectionModel().getSelectedItem());
-		}).bind();
+		comboboxBinder(i -> new ModifyLatexProperties(latexGen, LatexProperties.POSITION_VERTICAL, i.getWidget().getSelectionModel().getSelectedItem())).
+			on(positionCB).bind();
 
-		spinnerBinder(ModifyLatexProperties::new).on(scaleField).exec().first(c -> {
-			c.setValue(scaleField.getValue());
-			c.setProperty(LatexProperties.SCALE);
-			c.setGenerator(latexGen);
-		}).then(c -> c.setValue(scaleField.getValue())).bind();
+		spinnerBinder(i -> new ModifyLatexProperties(latexGen, LatexProperties.SCALE, i.getWidget().getValue())).on(scaleField).exec().
+			then(c -> c.setValue(scaleField.getValue())).bind();
 	}
 }
