@@ -2,19 +2,20 @@ package net.sf.latexdraw.parsers.svg;
 
 import net.sf.latexdraw.parsers.svg.parsers.SVGLength;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLength.LengthType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestSVGLength {
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testConstructor1() {
-		new SVGLength(1, null, "1");
+		assertThrows(IllegalArgumentException.class, () -> new SVGLength(1, null, "1"));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testConstructor2() {
-		new SVGLength(1, LengthType.CM, null);
+		assertThrows(IllegalArgumentException.class, () -> new SVGLength(1, LengthType.CM, null));
 	}
 
 	@Test

@@ -4,35 +4,36 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSVGDocument {
 	protected SVGDocument doc1;
 	protected SVGDocument doc2;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
 		doc1 = new SVGDocument();
 		doc2 = new SVGDocument(new URI("src/test/resources/test.svg"));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testSVGDocumentNULL() throws MalformedSVGDocument, IOException {
-		new SVGDocument(null);
+	@Test
+	public void testSVGDocumentNULL() {
+		assertThrows(IllegalArgumentException.class, () -> new SVGDocument(null));
 	}
 
-	@Test(expected = FileNotFoundException.class)
-	public void testSVGDocumentInvalidStr() throws MalformedSVGDocument, URISyntaxException, IOException {
-		new SVGDocument(new URI("dfqsfg"));
+	@Test
+	public void testSVGDocumentInvalidStr() {
+		assertThrows(FileNotFoundException.class, () -> new SVGDocument(new URI("dfqsfg")));
 	}
 
 	@Test
@@ -50,14 +51,14 @@ public class TestSVGDocument {
 		assertNull(doc.getDocumentURI());
 	}
 
-	@Test(expected = DOMException.class)
+	@Test
 	public void testAdoptNodeNULL() {
-		doc1.adoptNode(null);
+		assertThrows(DOMException.class, () -> doc1.adoptNode(null));
 	}
 
-	@Test(expected = DOMException.class)
+	@Test
 	public void testAdoptNodeKO() {
-		doc1.adoptNode(new SVGComment("", doc2));
+		assertThrows(DOMException.class, () -> doc1.adoptNode(new SVGComment("", doc2)));
 	}
 
 	@Test
@@ -178,9 +179,9 @@ public class TestSVGDocument {
 		assertFalse(doc2.isEqualNode(doc1));
 	}
 
-	@Test(expected = DOMException.class)
+	@Test
 	public void testCreateElementKO() {
-		doc1.createElement(null);
+		assertThrows(DOMException.class, () -> doc1.createElement(null));
 	}
 
 	@Test
@@ -190,9 +191,9 @@ public class TestSVGDocument {
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
-	@Test(expected = DOMException.class)
+	@Test
 	public void testCreateTextNodeKO() {
-		doc1.createTextNode(null);
+		assertThrows(DOMException.class, () -> doc1.createTextNode(null));
 	}
 
 
@@ -203,9 +204,9 @@ public class TestSVGDocument {
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
-	@Test(expected = DOMException.class)
+	@Test
 	public void testCreateCommentKO() {
-		doc1.createComment(null);
+		assertThrows(DOMException.class, () -> doc1.createComment(null));
 	}
 
 	@Test

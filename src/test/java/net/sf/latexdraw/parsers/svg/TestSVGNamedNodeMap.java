@@ -1,24 +1,23 @@
 package net.sf.latexdraw.parsers.svg;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.experimental.theories.suppliers.TestedOn;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.w3c.dom.DOMException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Theories.class)
 public class TestSVGNamedNodeMap {
 	SVGNamedNodeMap map;
 	SVGDocument doc;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		doc = new SVGDocument();
 		map = new SVGNamedNodeMap();
@@ -62,8 +61,9 @@ public class TestSVGNamedNodeMap {
 		assertNotNull(map.getNamedItem("test"));
 	}
 
-	@Theory
-	public void testItem(@TestedOn(ints = {0, -1, 1}) final int index) {
+	@ParameterizedTest
+	@ValueSource(ints = {0, -1, 1})
+	public void testItem(final int index) {
 		assertNull(map.item(index));
 	}
 
@@ -81,20 +81,20 @@ public class TestSVGNamedNodeMap {
 		assertEquals(map.item(0), attr);
 	}
 
-	@Test(expected = DOMException.class)
+	@Test
 	public void testRemoveNamedItemKONULL() {
-		map.removeNamedItem(null);
+		assertThrows(DOMException.class, () -> map.removeNamedItem(null));
 	}
 
 
-	@Test(expected = DOMException.class)
+	@Test
 	public void testRemoveNamedItemKOEmpty() {
-		map.removeNamedItem("");
+		assertThrows(DOMException.class, () -> map.removeNamedItem(""));
 	}
 
-	@Test(expected = DOMException.class)
+	@Test
 	public void testRemoveNamedItemKOInvalid() {
-		map.removeNamedItem("test");
+		assertThrows(DOMException.class, () -> map.removeNamedItem("test"));
 	}
 
 	@Test
@@ -104,12 +104,12 @@ public class TestSVGNamedNodeMap {
 		assertEquals(attr, map.removeNamedItem("test"));
 	}
 
-	@Test(expected = DOMException.class)
+	@Test
 	public void testRemoveNamedItemKOAlreadyRemoved() {
 		final SVGAttr attr = new SVGAttr("test", "", doc.createElement("elt"));
 		map.getAttributes().add(attr);
 		map.removeNamedItem("test");
-		map.removeNamedItem("test");
+		assertThrows(DOMException.class, () -> map.removeNamedItem("test"));
 	}
 
 	@Test
