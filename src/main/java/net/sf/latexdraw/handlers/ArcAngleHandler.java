@@ -41,12 +41,13 @@ public class ArcAngleHandler extends Rectangle implements Handler {
 		translateYProperty().unbind();
 
 		translateXProperty().bind(Bindings.createDoubleBinding(() -> getPosition(arc).getX() - DEFAULT_SIZE / 2d,
-			arc.angleStartProperty(), arc.angleEndProperty(), arc.getPtAt(0).xProperty(), arc.getPtAt(2).xProperty()));
+			arc.angleStartProperty(), arc.angleEndProperty(), arc.getPtAt(0).xProperty(), arc.getPtAt(2).xProperty(), arc.rotationAngleProperty()));
 		translateYProperty().bind(Bindings.createDoubleBinding(() -> getPosition(arc).getY() - DEFAULT_SIZE / 2d,
-			arc.angleStartProperty(), arc.angleEndProperty(), arc.getPtAt(0).yProperty(), arc.getPtAt(2).yProperty()));
+			arc.angleStartProperty(), arc.angleEndProperty(), arc.getPtAt(0).yProperty(), arc.getPtAt(2).yProperty(), arc.rotationAngleProperty()));
 	}
 
 	private IPoint getPosition(final IArc arc) {
-		return start ? arc.getStartPoint() : arc.getEndPoint();
+		return start ? arc.getStartPoint().rotatePoint(arc.getGravityCentre(), arc.getRotationAngle()) :
+			arc.getEndPoint().rotatePoint(arc.getGravityCentre(), arc.getRotationAngle());
 	}
 }

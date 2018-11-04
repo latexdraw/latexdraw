@@ -11,7 +11,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Function;
@@ -35,7 +34,6 @@ import net.sf.latexdraw.handlers.Handler;
 import net.sf.latexdraw.handlers.MovePtHandler;
 import net.sf.latexdraw.handlers.RotationHandler;
 import net.sf.latexdraw.handlers.ScaleHandler;
-import net.sf.latexdraw.models.MathUtils;
 import net.sf.latexdraw.models.ShapeFactory;
 import net.sf.latexdraw.models.interfaces.shape.IArc;
 import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
@@ -247,87 +245,29 @@ public class Border extends CanvasInstrument implements Initializable {
 				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getTgtScenePoint()))))).
 			exec().bind();
 
-		addBinding(new DnD2ArcAngle(this));
+		bindArcHandler();
 	}
 
-	private static class DnD2ArcAngle extends JfXWidgetBinding<ModifyShapeProperty<Double>, DnD, Border, SrcTgtPointsData> {
-		/** The gravity centre used for the rotation. */
-		private IPoint gc;
-		/** Defines whether the current handled shape is rotated. */
-		private boolean isRotated;
-		/** The current handled shape. */
-		private final IPoint gap;
-
-		DnD2ArcAngle(final Border ins) {
-			super(ins, true, new DnD(), i -> new ModifyShapeProperty<>(null, null, null),
-				Arrays.asList(ins.arcHandlerStart, ins.arcHandlerEnd), false, null);
-			gap = ShapeFactory.INST.createPoint();
-			isRotated = false;
-		}
-
-		@Override
-		protected ModifyShapeProperty<Double> map() {
-			final IDrawing drawing = instrument.canvas.getDrawing();
-			ShapeProperties<Double> prop = null;
-
-			if(drawing.getSelection().size() == 1) {
-				final IArc shape = (IArc) drawing.getSelection().getShapeAt(0);
-				final double rotAngle = shape.getRotationAngle();
-				IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getSrcLocalPoint())).orElse(null));
-				gc = shape.getGravityCentre();
-				IPoint pCentre;
-
-				if(interaction.getSrcObject().orElse(null) == instrument.arcHandlerStart) {
-					prop = ShapeProperties.ARC_START_ANGLE;
-					pCentre = shape.getStartPoint();
-				}else {
-					prop = ShapeProperties.ARC_END_ANGLE;
-					pCentre = shape.getEndPoint();
-				}
-
-				if(MathUtils.INST.equalsDouble(rotAngle, 0d)) {
-					isRotated = false;
-				}else {
-					pt = pt.rotatePoint(gc, -rotAngle);
-					pCentre = pCentre.rotatePoint(gc, -rotAngle);
-					isRotated = true;
-				}
-
-				gap.setPoint(pt.getX() - pCentre.getX(), pt.getY() - pCentre.getY());
-			}
-
-			return new ModifyShapeProperty<>(prop, drawing.getSelection().duplicateDeep(false), null);
-		}
-
-		@Override
-		public void first() {
-			// Nothing to do.
-		}
-
-		@Override
-		public void then() {
-			IPoint pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getTgtLocalPoint())).orElse(null));
-
-			if(isRotated) {
-				pt = pt.rotatePoint(gc, -cmd.getShapes().getRotationAngle());
-			}
-
-			cmd.setValue(computeAngle(ShapeFactory.INST.createPoint(pt.getX() - gap.getX(), pt.getY() - gap.getY())));
-		}
-
-
-		private double computeAngle(final IPoint position) {
-			final double angle = Math.acos((position.getX() - gc.getX()) / position.distance(gc));
-
-			return position.getY() > gc.getY() ? 2d * Math.PI - angle : angle;
-		}
-
-
-		@Override
-		public boolean when() {
-			return interaction.getSrcObject().isPresent() && interaction.getSrcLocalPoint() != null && interaction.getTgtLocalPoint() != null;
-		}
+	private void bindArcHandler() {
+		nodeBinder(new DnD(), i -> new ModifyShapeProperty<>(i.getSrcObject().orElse(null) == arcHandlerStart ?
+			ShapeProperties.ARC_START_ANGLE : ShapeProperties.ARC_END_ANGLE, canvas.getDrawing().getSelection().duplicateDeep(false), null)).
+			on(arcHandlerStart, arcHandlerEnd).
+			then((i, c) -> {
+				final IArc shape = (IArc) canvas.getDrawing().getSelection().getShapeAt(0);
+				final IPoint gc = c.getShapes().getGravityCentre();
+				final IPoint gap = ShapeFactory.INST.createPoint(i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(null)).
+					rotatePoint(shape.getGravityCentre(), -shape.getRotationAngle()).
+					substract(i.getSrcObject().orElse(null) == arcHandlerStart ? shape.getStartPoint() : shape.getEndPoint());
+				final IPoint position = ShapeFactory.INST.createPoint(i.getSrcObject().map(n -> n.localToParent(i.getTgtLocalPoint())).orElse(null)).
+					rotatePoint(c.getShapes().getGravityCentre(), -c.getShapes().getRotationAngle()).
+					substract(gap);
+				final double angle = Math.acos((position.getX() - gc.getX()) / position.distance(gc));
+				c.setValue(position.getY() > gc.getY() ? 2d * Math.PI - angle : angle);
+			}).
+			when(i -> i.getSrcObject().isPresent() && i.getSrcLocalPoint() != null && i.getTgtLocalPoint() != null && canvas.getDrawing().getSelection().size() == 1).
+			exec().bind();
 	}
+
 
 	private static class DnD2Scale extends JfXWidgetBinding<ScaleShapes, DnD, Border, SrcTgtPointsData> {
 		/** The point corresponding to the 'press' position. */

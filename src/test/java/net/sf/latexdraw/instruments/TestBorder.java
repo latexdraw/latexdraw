@@ -252,6 +252,36 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 	}
 
 	@Test
+	public void testArcStartHandlerRotated() {
+		new CompositeGUIVoidCommand(addArc, selectAllShapes).execute();
+		Platform.runLater(() -> addedArc.setRotationAngle(0.5));
+		WaitForAsyncUtils.waitForFxEvents();
+		final IPoint gc = addedArc.getGravityCentre();
+		final IPoint point = addedArc.getStartPoint().rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle());
+		final IPoint newpoint = point.rotatePoint(gc, -Math.PI / 4d).rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle());
+		drag(border.arcHandlerStart).dropBy(newpoint.getX() - point.getX(), newpoint.getY() - point.getY());
+		waitFXEvents.execute();
+		final ILine l1 = ShapeFactory.INST.createLine(gc, addedArc.getStartPoint().rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle()));
+		final ILine l2 = ShapeFactory.INST.createLine(gc, newpoint);
+		assertEquals(l1.getA(), l2.getA(), 0.02);
+	}
+
+	@Test
+	public void testArcEndHandlerRotated() {
+		new CompositeGUIVoidCommand(addArc, selectAllShapes).execute();
+		Platform.runLater(() -> addedArc.setRotationAngle(0.5));
+		WaitForAsyncUtils.waitForFxEvents();
+		final IPoint gc = addedArc.getGravityCentre();
+		final IPoint point = addedArc.getEndPoint().rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle());
+		final IPoint newpoint = point.rotatePoint(gc, Math.PI / 3d).rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle());
+		drag(border.arcHandlerEnd).dropBy(newpoint.getX() - point.getX(), newpoint.getY() - point.getY());
+		waitFXEvents.execute();
+		final ILine l1 = ShapeFactory.INST.createLine(gc, addedArc.getEndPoint().rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle()));
+		final ILine l2 = ShapeFactory.INST.createLine(gc, newpoint);
+		assertEquals(l1.getA(), l2.getA(), 0.02);
+	}
+
+	@Test
 	public void testScaleWRectangle() {
 		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
 		final double width = addedRec.getWidth();
