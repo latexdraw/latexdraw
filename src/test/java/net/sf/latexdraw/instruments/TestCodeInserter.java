@@ -116,4 +116,13 @@ public class TestCodeInserter {
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0) instanceof IText);
 	}
+
+	@Test
+	public void testFlushCodeOnOpen(final FxRobot robot) {
+		robot.clickOn(inserter.text).write("foobar").clickOn(inserter.ok);
+		WaitForAsyncUtils.waitForFxEvents();
+		Platform.runLater(() -> inserter.setActivated(true));
+		WaitForAsyncUtils.waitForFxEvents();
+		assertEquals(0, inserter.text.getLength());
+	}
 }

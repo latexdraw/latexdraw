@@ -172,6 +172,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 			getInsertCodeDialogue().ifPresent(dialogue -> {
 				super.setActivated(activated);
 				if(activated) {
+					text.setText("");
 					dialogue.show();
 					dialogue.centerOnScreen();
 				}else {
