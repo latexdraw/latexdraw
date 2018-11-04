@@ -19,7 +19,6 @@ import org.w3c.dom.Node;
 /**
  * Defines the SVG tag <code>stop</code>.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public class SVGStopElement extends SVGElement {
 	/**
@@ -57,7 +56,6 @@ public class SVGStopElement extends SVGElement {
 	/**
 	 * The offset attribute indicates where the gradient stop is placed.
 	 * @return The read offset or NaN.
-	 * @since 0.1
 	 */
 	public double getOffset() {
 		try {
@@ -71,7 +69,6 @@ public class SVGStopElement extends SVGElement {
 	/**
 	 * Indicates what colour to use at that gradient stop.
 	 * @return The read colour or black.
-	 * @since 0.1
 	 */
 	public Color getStopColor() {
 		final Color c = CSSColors.INSTANCE.getRGBColour(getAttribute(getUsablePrefix() + SVGAttributes.SVG_STOP_COLOR));

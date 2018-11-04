@@ -23,7 +23,6 @@ import org.malai.error.ErrorNotifier;
 /**
  * Defines an error collector.
  * @author Arnaud BLOUIN
- * @since 3.0
  */
 public final class BadaboomCollector extends ArrayList<Throwable> implements UncaughtExceptionHandler, ErrorNotifier, EventHandler<WorkerStateEvent> {
 	/** The logger that will stores the errors. */
@@ -49,7 +48,6 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	/**
 	 * Adds a handler to the manager.
 	 * @param handler The handler to add. Must not be null.
-	 * @since 3.0
 	 */
 	public void addHandler(final BadaboomHandler handler) {
 		synchronized(handlers) {
@@ -76,7 +74,6 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 
 	/**
 	 * Notifies the handlers that an event occurred.
-	 * @since 3.0
 	 */
 	private void notifyHandlers(final Throwable error) {
 		synchronized(handlers) {

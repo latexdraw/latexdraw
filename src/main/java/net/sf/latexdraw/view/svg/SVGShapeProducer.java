@@ -19,7 +19,6 @@ public interface SVGShapeProducer {
 	 * Creates a IShape instance using the given SVGElement.
 	 * @param elt The SVGElement to parse.
 	 * @return The created IShape instance or null.
-	 * @since 3.0
 	 */
 	IShape createShape(final SVGElement elt);
 

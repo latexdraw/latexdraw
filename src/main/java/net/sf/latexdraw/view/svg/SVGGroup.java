@@ -31,7 +31,6 @@ class SVGGroup extends SVGShape<IGroup> {
 	/**
 	 * Creates an SVG generator from IGroup instance.
 	 * @param group The group of shapes that will be converted.
-	 * @since 3.0
 	 */
 	SVGGroup(final IGroup group, final SVGShapeProducer shapeProducer) {
 		super(group);
@@ -46,7 +45,6 @@ class SVGGroup extends SVGShape<IGroup> {
 	 * information.
 	 * @param withTransformation True: the set of transformations that concerned the given SVG element will be applied to the shape.
 	 * @throws IllegalArgumentException If the given SVGGElement is null or not valid.
-	 * @since 3.0
 	 */
 	SVGGroup(final SVGGElement elt, final boolean withTransformation, final SVGShapeProducer shapeProducer) {
 		this(ShapeFactory.INST.createGroup(), shapeProducer);

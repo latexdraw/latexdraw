@@ -17,10 +17,10 @@ import java.awt.geom.Point2D;
  * @author Arnaud BLOUIN
  */
 public class SVGPathSegCurvetoCubicSmooth extends SVGPathPointSeg implements CtrlPointsSeg {
-	/** The x-coordinate of the second control point. @since 2.0 */
+	/** The x-coordinate of the second control point. */
 	protected double x2;
 
-	/** The y-coordinate of the second control point. @since 2.0 */
+	/** The y-coordinate of the second control point. */
 	protected double y2;
 
 

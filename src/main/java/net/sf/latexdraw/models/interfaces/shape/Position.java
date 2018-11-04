@@ -102,7 +102,6 @@ public enum Position {
 
 	/**
 	 * @return True if the given position is south oriented.
-	 * @since 3.0
 	 */
 	public boolean isSouth() {
 		return this == SOUTH || this == SE || this == SW;
@@ -110,7 +109,6 @@ public enum Position {
 
 	/**
 	 * @return True if the given position is north oriented.
-	 * @since 3.0
 	 */
 	public boolean isNorth() {
 		return this == NORTH || this == NE || this == NW;
@@ -118,7 +116,6 @@ public enum Position {
 
 	/**
 	 * @return True if the given position is east oriented.
-	 * @since 3.0
 	 */
 	public boolean isEast() {
 		return this == EAST || this == NE || this == SE;
@@ -126,7 +123,6 @@ public enum Position {
 
 	/**
 	 * @return True if the given position is west oriented.
-	 * @since 3.0
 	 */
 	public boolean isWest() {
 		return this == WEST || this == SW || this == NW;
@@ -134,7 +130,6 @@ public enum Position {
 
 	/**
 	 * @return The opposite position of the current position.
-	 * @since 3.0
 	 */
 	public abstract Position getOpposite();
 

@@ -34,7 +34,6 @@ public final class SVGElementsFactory {
 	 * @param src The node that will be used to create the SVG element.
 	 * @param parent The parent of the element to create.
 	 * @return The created SVG element.
-	 * @since 0.1
 	 */
 	public SVGElement createSVGElement(final Node src, final SVGElement parent) {
 		if(src == null || parent == null) {

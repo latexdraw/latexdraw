@@ -18,83 +18,70 @@ public interface ILine {
 	/**
 	 * Computes the angle of the line.
 	 * @return The angle of the line.
-	 * @since 3.0
 	 */
 	double getLineAngle();
 
 	/**
 	 * @return The x coordinate of the first point.
-	 * @since 3.0
 	 */
 	double getX1();
 
 	/**
 	 * Sets the x coordinate of the first point.
 	 * @param x1 The new x coordinate of the first point.
-	 * @since 3.0
 	 */
 	void setX1(final double x1);
 
 	/**
 	 * @return The x coordinate of the second point.
-	 * @since 3.0
 	 */
 	double getX2();
 
 	/**
 	 * Sets the x coordinate of the second point.
 	 * @param x2 The new x coordinate of the second point.
-	 * @since 3.0
 	 */
 	void setX2(final double x2);
 
 	/**
 	 * @return The y coordinate of the first point.
-	 * @since 3.0
 	 */
 	double getY1();
 
 	/**
 	 * Sets the y coordinate of the first point.
 	 * @param y1 The new y coordinate of the first point.
-	 * @since 3.0
 	 */
 	void setY1(final double y1);
 
 	/**
 	 * @return The y coordinate of the second point.
-	 * @since 3.0
 	 */
 	double getY2();
 
 	/**
 	 * Sets the y coordinate of the second point.
 	 * @param y2 The new y coordinate of the second point.
-	 * @since 3.0
 	 */
 	void setY2(final double y2);
 
 	/**
 	 * @return The first point.
-	 * @since 3.0
 	 */
 	IPoint getPoint1();
 
 	/**
 	 * @return The second point.
-	 * @since 3.0
 	 */
 	IPoint getPoint2();
 
 	/**
 	 * @return True if the line is vertical.
-	 * @since 3.0
 	 */
 	boolean isVerticalLine();
 
 	/**
 	 * @return True if the line is horizontal.
-	 * @since 3.0
 	 */
 	boolean isHorizontalLine();
 
@@ -102,7 +89,6 @@ public interface ILine {
 	 * @param pt The point to check.
 	 * @return True if the segment defined by the line contains the given point. False otherwise or
 	 * if the given point is null.
-	 * @since 3.0
 	 */
 	boolean isInSegment(final IPoint pt);
 
@@ -113,21 +99,18 @@ public interface ILine {
 	 * @param y1 The y coordinate of the first point.
 	 * @param x2 The x coordinate of the second point.
 	 * @param y2 The y coordinate of the second point.
-	 * @since 3.0
 	 */
 	void setLine(final double x1, final double y1, final double x2, final double y2);
 
 	/**
 	 * Sets the first point.
 	 * @param pt The new first point.
-	 * @since 3.0
 	 */
 	void setP1(final IPoint pt);
 
 	/**
 	 * Sets the second point.
 	 * @param pt The new second point.
-	 * @since 3.0
 	 */
 	void setP2(final IPoint pt);
 

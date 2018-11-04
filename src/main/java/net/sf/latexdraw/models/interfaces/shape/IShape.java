@@ -28,7 +28,6 @@ public interface IShape extends Modifiable {
 
 	/**
 	 * @return The points of the shape.
-	 * @since 3.0
 	 */
 	List<IPoint> getPoints();
 
@@ -40,13 +39,11 @@ public interface IShape extends Modifiable {
 	/**
 	 * @param position The position of the wanted points (-1 for the last point).
 	 * @return The point at the given position or null if the position is not valid.
-	 * @since 3.0
 	 */
 	IPoint getPtAt(final int position);
 
 	/**
 	 * @return The full thickness of the shape. It means that the potential double boundary can be considered.
-	 * @since 3.0
 	 */
 	double getFullThickness();
 
@@ -58,55 +55,46 @@ public interface IShape extends Modifiable {
 
 	/**
 	 * @return True if the thickness of the shape can be changed.
-	 * @since 3.0
 	 */
 	boolean isThicknessable();
 
 	/**
 	 * @return True if the shape can have a double border.
-	 * @since 3.0
 	 */
 	boolean isDbleBorderable();
 
 	/**
 	 * @return True if the shape can have colours.
-	 * @since 3.0
 	 */
 	boolean isColourable();
 
 	/**
 	 * @return True if the shape can have an interior colour.
-	 * @since 3.0
 	 */
 	boolean isFillable();
 
 	/**
 	 * @return True if the borders of the shape can be moved.
-	 * @since 3.0
 	 */
 	boolean isBordersMovable();
 
 	/**
 	 * @return True if the interior of the shape can have a style (hatchings, gradient).
-	 * @since 3.0
 	 */
 	boolean isInteriorStylable();
 
 	/**
 	 * @return True if the points of the shape can be displayed.
-	 * @since 3.0
 	 */
 	boolean isShowPtsable();
 
 	/**
 	 * @return True if the line style of the shape can be changed.
-	 * @since 3.0
 	 */
 	boolean isLineStylable();
 
 	/**
 	 * @return True if the shape can have a shadow.
-	 * @since 3.0
 	 */
 	boolean isShadowable();
 
@@ -114,7 +102,6 @@ public interface IShape extends Modifiable {
 	 * @return The top left point of the shape. It does not take account
 	 * of the thickness, the rotation angle, the double border, nor any
 	 * parameters; only the points of the shape are used to compute the returned point.
-	 * @since 3.0
 	 */
 	IPoint getTopLeftPoint();
 
@@ -122,7 +109,6 @@ public interface IShape extends Modifiable {
 	 * @return The top right point of the shape. It does not take account
 	 * of the thickness, the rotation angle, the double border, nor any
 	 * parameters; only the points of the shape are used to compute the returned point.
-	 * @since 3.0
 	 */
 	IPoint getTopRightPoint();
 
@@ -130,7 +116,6 @@ public interface IShape extends Modifiable {
 	 * @return The bottom right point of the shape. It does not take account
 	 * of the thickness, the rotation angle, the double border, nor any
 	 * parameters; only the points of the shape are used to compute the returned point.
-	 * @since 3.0
 	 */
 	IPoint getBottomRightPoint();
 
@@ -138,7 +123,6 @@ public interface IShape extends Modifiable {
 	 * @return The bottom left point of the shape. It does not take account
 	 * of the thickness, the rotation angle, the double border, nor any
 	 * parameters; only the points of the shape are used to compute the returned point.
-	 * @since 3.0
 	 */
 	IPoint getBottomLeftPoint();
 
@@ -146,7 +130,6 @@ public interface IShape extends Modifiable {
 	 * @return The top left point of the shape. It takes account
 	 * of the thickness, the rotation angle, the double border, or any
 	 * parameters but not the rotation angle; in contrary to getTopLeftPoint().
-	 * @since 3.0
 	 */
 	IPoint getFullTopLeftPoint();
 
@@ -154,7 +137,6 @@ public interface IShape extends Modifiable {
 	 * @return The bottom right point of the shape. It takes account
 	 * of the thickness, the rotation angle, the double border, or any
 	 * parameters but not the rotation angle; in contrary to getBottomRightPoint().
-	 * @since 3.0
 	 */
 	IPoint getFullBottomRightPoint();
 
@@ -170,7 +152,6 @@ public interface IShape extends Modifiable {
 	 * parameter will not be used.
 	 * @param bound The bound (e.g. the border of the selected shapes) used to compute the scaling.
 	 * @throws IllegalArgumentException If one of the parameter is not valid.
-	 * @since 3.0
 	 */
 	void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound);
 
@@ -184,7 +165,6 @@ public interface IShape extends Modifiable {
 	 * parameter will not be used.
 	 * @param bound The bound (e.g. the border of the selected shapes) used to compute the scaling.
 	 * @throws IllegalArgumentException If one of the parameter is not valid.
-	 * @since 3.0
 	 */
 	void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound);
 
@@ -209,13 +189,11 @@ public interface IShape extends Modifiable {
 
 	/**
 	 * @return True if the shape has hatchings.
-	 * @since 3.0
 	 */
 	boolean hasHatchings();
 
 	/**
 	 * @return True if the shape has a gradient.
-	 * @since 3.0
 	 */
 	boolean hasGradient();
 
@@ -499,13 +477,11 @@ public interface IShape extends Modifiable {
 	/**
 	 * Sets the position of the borders.
 	 * @param position The new position.
-	 * @since 3.0
 	 */
 	void setBordersPosition(final BorderPos position);
 
 	/**
 	 * @return True if when the shape has a shadow, it must be filled.
-	 * @since 2.0
 	 */
 	boolean shadowFillsShape();
 
@@ -514,14 +490,12 @@ public interface IShape extends Modifiable {
 	 * of the border. For example, it helps to compute the top left point that considers
 	 * the attributes of the shape (thickness, double borders,...).
 	 * @return The computed gap.
-	 * @since 3.0
 	 */
 	double getBorderGap();
 
 	/**
 	 * Creates a duplicate of the shape (however id are not the same).
 	 * @return The duplicata.
-	 * @since 3.0
 	 */
 	IShape duplicate();
 
@@ -529,7 +503,6 @@ public interface IShape extends Modifiable {
 	 * Rotates the shape.
 	 * @param point The rotation centre.
 	 * @param angle The angle of rotation in radians.
-	 * @since 3.0
 	 */
 	void rotate(final IPoint point, final double angle);
 
@@ -540,19 +513,16 @@ public interface IShape extends Modifiable {
 	 * to the given type.
 	 * @param clazz The type to check.
 	 * @return True if the type of the calling object conforms to the given type.
-	 * @since 3.0
 	 */
 	boolean isTypeOf(final Class<?> clazz);
 
 	/**
 	 * @return The width of the rectangle.
-	 * @since 3.0
 	 */
 	double getWidth();
 
 	/**
 	 * @return The height of the rectangle.
-	 * @since 3.0
 	 */
 	double getHeight();
 

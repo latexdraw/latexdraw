@@ -32,7 +32,6 @@ class LText extends LPositionShape implements IText {
 
 	/**
 	 * The constructor by default.
-	 * @since 3.0
 	 */
 	LText() {
 		this(ShapeFactory.INST.createPoint(), "text"); //NON-NLS
@@ -42,7 +41,6 @@ class LText extends LPositionShape implements IText {
 	 * @param pt The position of the text.
 	 * @param text The text.
 	 * @throws IllegalArgumentException If pt is not valid.
-	 * @since 3.0
 	 */
 	LText(final IPoint pt, final String text) {
 		super(pt);

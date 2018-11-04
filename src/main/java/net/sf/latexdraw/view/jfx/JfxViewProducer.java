@@ -18,7 +18,6 @@ public interface JfxViewProducer {
 	 * Creates a view from a shape.
 	 * @param shape The shape used to create the view.
 	 * @return The created view or empty.
-	 * @since 3.0
 	 */
 	<T extends IShape, S extends ViewShape<T>> Optional<S> createView(final T shape);
 }

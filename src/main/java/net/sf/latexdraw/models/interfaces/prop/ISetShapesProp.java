@@ -42,7 +42,6 @@ public interface ISetShapesProp {
 	 * Removes a shape of the drawing a the given position.
 	 * @param i the position of the shape in the vector (-1: the last shape of the vector).
 	 * @return The deleted shape if it exists. Null if the given position is not valid.
-	 * @since 1.9.1
 	 */
 	IShape removeShape(final int i);
 

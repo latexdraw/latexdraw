@@ -188,7 +188,6 @@ class SVGCircleArc extends SVGShape<ICircleArc> {
 	 * Creates an SVG g element that contains the 'show points' plotting.
 	 * @param doc The owner document.
 	 * @return The created g element or null if the shape has not the 'show points' option activated.
-	 * @since 2.0.0
 	 */
 	final SVGGElement getShowPointsElement(final SVGDocument doc) {
 		if(!shape.isShowPts() || doc == null) {

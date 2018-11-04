@@ -32,7 +32,6 @@ public class SVGGElement extends SVGElement {
 	 * Creates an empty G element.
 	 * @param owner The owner document.
 	 * @throws IllegalArgumentException If p is null.
-	 * @since 0.1
 	 */
 	public SVGGElement(final SVGDocument owner) {
 		super();

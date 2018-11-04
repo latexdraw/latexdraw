@@ -31,7 +31,6 @@ public class SVGMetadataElement extends SVGElement {
 	 * Creates a meta data element.
 	 * @param owner The owner document.
 	 * @throws IllegalArgumentException If owner is null.
-	 * @since 0.1
 	 */
 	public SVGMetadataElement(final SVGDocument owner) {
 		super(owner);

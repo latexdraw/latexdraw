@@ -78,7 +78,6 @@ public enum OperatingSystem {
 
 	/**
 	 * @return The path where is the ps2eps binary.
-	 * @since 3.1
 	 */
 	public String getPS2EPSBinPath() {
 		return "ps2epsi"; //NON-NLS
@@ -86,7 +85,6 @@ public enum OperatingSystem {
 
 	/**
 	 * @return The path where is the latex binary.
-	 * @since 3.0
 	 */
 	public String getLatexBinPath() {
 		return "latex"; //NON-NLS
@@ -94,7 +92,6 @@ public enum OperatingSystem {
 
 	/**
 	 * @return The path where is the dvips binary.
-	 * @since 3.0
 	 */
 	public String getDvipsBinPath() {
 		return "dvips"; //NON-NLS
@@ -102,7 +99,6 @@ public enum OperatingSystem {
 
 	/**
 	 * @return The path where is the ps2pdf binary.
-	 * @since 3.0
 	 */
 	public String getPs2pdfBinPath() {
 		return "ps2pdf"; //NON-NLS
@@ -110,7 +106,6 @@ public enum OperatingSystem {
 
 	/**
 	 * @return The path where is the pdfcrop binary.
-	 * @since 3.0
 	 */
 	public String getPdfcropBinPath() {
 		return "pdfcrop"; //NON-NLS

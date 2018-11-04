@@ -22,7 +22,6 @@ import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
 public interface IAxesProp extends IStdGridProp {
 	/**
 	 * @return The X increment of the axes.
-	 * @since 3.0
 	 */
 	double getIncrementX();
 
@@ -33,7 +32,6 @@ public interface IAxesProp extends IStdGridProp {
 
 	/**
 	 * @return The Y increment of the axes.
-	 * @since 3.0
 	 */
 	double getIncrementY();
 
@@ -44,7 +42,6 @@ public interface IAxesProp extends IStdGridProp {
 
 	/**
 	 * @return The increments of the axes.
-	 * @since 3.0
 	 */
 	IPoint getIncrement();
 

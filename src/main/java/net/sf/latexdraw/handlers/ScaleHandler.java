@@ -160,7 +160,6 @@ public class ScaleHandler extends Path implements Handler {
 
 	/**
 	 * @return The position of the handler.
-	 * @since 3.0
 	 */
 	public Position getPosition() {
 		return position;

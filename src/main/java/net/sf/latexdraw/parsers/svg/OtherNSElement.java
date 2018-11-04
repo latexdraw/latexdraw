@@ -33,7 +33,6 @@ public class OtherNSElement extends SVGElement {
 	 * Creates an non SVG element.
 	 * @param document The owner document.
 	 * @throws IllegalArgumentException if document is null.
-	 * @since 0.1
 	 */
 	public OtherNSElement(final SVGDocument document) {
 		super();

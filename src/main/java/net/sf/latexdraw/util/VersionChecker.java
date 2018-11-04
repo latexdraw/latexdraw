@@ -22,7 +22,6 @@ import net.sf.latexdraw.instruments.StatusBarController;
 /**
  * To check whether a new version of LaTeXDraw is out.
  * @author Arnaud BLOUIN
- * @since 1.8
  */
 public final class VersionChecker implements Runnable {
 	/** The version of the application */

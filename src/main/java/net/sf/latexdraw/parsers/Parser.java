@@ -20,7 +20,6 @@ public interface Parser {
 	/**
 	 * Launches the parsing.
 	 * @throws ParseException If an error occurs.
-	 * @since 2.0.2
 	 */
 	void parse() throws ParseException;
 }

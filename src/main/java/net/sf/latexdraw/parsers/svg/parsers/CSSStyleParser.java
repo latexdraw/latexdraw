@@ -19,7 +19,7 @@ import net.sf.latexdraw.parsers.css.AbstractCSSParser;
  * @author Arnaud BLOUIN
  */
 public class CSSStyleParser extends AbstractCSSParser {
-	/** The handler which will manage actions to do when a CSS style is parsed. @since 0.1 */
+	/** The handler which will manage actions to do when a CSS style is parsed. */
 	protected CSSStyleHandler handler;
 
 

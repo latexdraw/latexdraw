@@ -38,7 +38,6 @@ public enum BorderPos {
 	/**
 	 * @param style The style to get.
 	 * @return The style which name is the given name style.
-	 * @since 3.0
 	 */
 	public static BorderPos getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getLatexToken().equals(style)).findFirst().orElse(INTO);
@@ -46,7 +45,6 @@ public enum BorderPos {
 
 	/**
 	 * @return The latex token corresponding to the BorderPos.
-	 * @since 3.0
 	 */
 	public abstract String getLatexToken();
 }

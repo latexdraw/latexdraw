@@ -84,7 +84,6 @@ public enum PlottingStyle {
 	 * The style that corresponds to the given string.
 	 * @param style The style to check.
 	 * @return The corresponding style or ALL.
-	 * @since 3.0
 	 */
 	public static PlottingStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(ALL);
@@ -97,19 +96,16 @@ public enum PlottingStyle {
 
 	/**
 	 * @return The PST token corresponding to the labels style.
-	 * @since 3.0
 	 */
 	public abstract String getPSTToken();
 
 	/**
 	 * @return True if the current style supports the X-axis.
-	 * @since 3.0
 	 */
 	public abstract boolean isX();
 
 	/**
 	 * @return True if the current style supports the Y-axis.
-	 * @since 3.0
 	 */
 	public abstract boolean isY();
 }

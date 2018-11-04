@@ -218,7 +218,6 @@ public final class DviPsColors {
 
 	/**
 	 * Creates the hashTable {@link #nameColourHT}.
-	 * @since 1.9.2
 	 */
 	private void createColourHashTable() {
 		colourHT.put(N_LIME, LIME);
@@ -313,7 +312,6 @@ public final class DviPsColors {
 
 	/**
 	 * Creates the hashTable {@link #colourHT}.
-	 * @since 1.9.2
 	 */
 	private void createNameColourHashTable() {
 		nameColourHT.put(LIME, N_LIME);
@@ -396,7 +394,6 @@ public final class DviPsColors {
 	/**
 	 * @param name The name of the searched colour.
 	 * @return The corresponding predefined colour or null.
-	 * @since 3.0
 	 */
 	public Optional<Color> getPredefinedColour(final String name) {
 		if(name == null) {
@@ -470,7 +467,6 @@ public final class DviPsColors {
 
 	/**
 	 * @return A unique name for a user defined colour.
-	 * @since 3.0
 	 */
 	private String generateColourName() {
 		return "colour" + ctColours++; //NON-NLS
@@ -495,7 +491,6 @@ public final class DviPsColors {
 	 * @param hexaCode The hexadecimal code of the colour.
 	 * @return The corresponding rgb colour.
 	 * @throws IllegalArgumentException If the given argument is not valid (null or its length lesser than 8 characters).
-	 * @since 3.0
 	 */
 	public Color convertHTML2rgb(final String hexaCode) {
 		if(hexaCode == null || hexaCode.length() < 7) {
@@ -513,7 +508,6 @@ public final class DviPsColors {
 	 * @param b The blue level between 0 and 255.
 	 * @return The corresponding rgb colour.
 	 * @throws IllegalArgumentException If one of the given arguments is not valid.
-	 * @since 3.0
 	 */
 	public Color convertRGB2rgb(final double r, final double g, final double b) {
 		if(r < 0 || g < 0 || b < 0) {
@@ -531,7 +525,6 @@ public final class DviPsColors {
 	 * @param k The k level between 0 and 1.
 	 * @return The corresponding rgb colour.
 	 * @throws IllegalArgumentException On an invalid parameter.
-	 * @since 2.0.0
 	 */
 	public Color convertcmyk2rgb(final double c, final double m, final double y, final double k) {
 		if(c < 0d || c > 1d || m < 0d || m > 1d || y < 0d || y > 1d || k < 0d || k > 1d) {
@@ -545,7 +538,6 @@ public final class DviPsColors {
 	 * Converts a gray colour in an rgb one.
 	 * @param g The gray level between 0 an 1.
 	 * @return The corresponding rgb colour.
-	 * @since 2.0.0
 	 */
 	public Color convertgray2rgb(final double g) {
 		if(g < 0d || g > 1d) {

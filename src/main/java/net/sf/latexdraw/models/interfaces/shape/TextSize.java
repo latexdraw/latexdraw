@@ -80,7 +80,6 @@ public enum TextSize {
 	/**
 	 * @param size The text size value to analyse.
 	 * @return The corresponding text size item or null.
-	 * @since 3.0
 	 */
 	public static TextSize getTextSizeFromSize(final int size) {
 		switch(size) {
@@ -111,7 +110,6 @@ public enum TextSize {
 
 	/**
 	 * @return The latex token corresponding to the text size.
-	 * @since 3.0
 	 */
 	public abstract String getLatexToken();
 }

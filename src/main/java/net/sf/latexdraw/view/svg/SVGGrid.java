@@ -51,7 +51,6 @@ class SVGGrid extends SVGShape<IGrid> {
 	/**
 	 * Creates a grid from a latexdraw-SVG element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	SVGGrid(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));

@@ -41,7 +41,6 @@ class LFreehand extends LShape implements IFreehand {
 	/**
 	 * Creates and initialises a freehand model.
 	 * @throws IllegalArgumentException If the given point is not valid.
-	 * @since 3.0
 	 */
 	LFreehand(final List<IPoint> pts) {
 		super();

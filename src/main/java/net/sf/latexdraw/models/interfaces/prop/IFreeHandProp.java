@@ -19,25 +19,21 @@ import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
 public interface IFreeHandProp extends IClosableProp {
 	/**
 	 * @return the type.
-	 * @since 3.0
 	 */
 	FreeHandStyle getType();
 
 	/**
 	 * @param type the type to set.
-	 * @since 3.0
 	 */
 	void setType(final FreeHandStyle type);
 
 	/**
 	 * @return the interval.
-	 * @since 3.0
 	 */
 	int getInterval();
 
 	/**
 	 * @param interval the interval to set.
-	 * @since 3.0
 	 */
 	void setInterval(final int interval);
 }

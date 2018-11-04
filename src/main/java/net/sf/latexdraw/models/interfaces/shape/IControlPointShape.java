@@ -28,20 +28,17 @@ public interface IControlPointShape extends IModifiablePointsShape {
 	/**
 	 * @param position The position of the wanted points (-1 for the last point).
 	 * @return The first control point at the given position or null if the position is not valid.
-	 * @since 3.0
 	 */
 	IPoint getFirstCtrlPtAt(final int position);
 
 	/**
 	 * @param position The position of the wanted points (-1 for the last point).
 	 * @return The second control point at the given position or null if the position is not valid.
-	 * @since 3.0
 	 */
 	IPoint getSecondCtrlPtAt(final int position);
 
 	/**
 	 * Updates the second control points by using the first control points.
-	 * @since 1.9
 	 */
 	void updateSecondControlPoints();
 
@@ -49,7 +46,6 @@ public interface IControlPointShape extends IModifiablePointsShape {
 	 * Sets the X-coordinate of one of the first control point.
 	 * @param x The new X-coordinate.
 	 * @param id The position of the point to set.
-	 * @since 1.9
 	 */
 	void setXFirstCtrlPt(final double x, final int id);
 
@@ -57,7 +53,6 @@ public interface IControlPointShape extends IModifiablePointsShape {
 	 * Sets the Y-coordinate of one of the first control point.
 	 * @param y The new Y-coordinate.
 	 * @param id The position of the point to set.
-	 * @since 1.9
 	 */
 	void setYFirstCtrlPt(final double y, final int id);
 
@@ -65,7 +60,6 @@ public interface IControlPointShape extends IModifiablePointsShape {
 	 * Sets the X-coordinate of one of the second control point.
 	 * @param x The new X-coordinate.
 	 * @param id The position of the point to set.
-	 * @since 1.9
 	 */
 	void setXSecondCtrlPt(final double x, final int id);
 
@@ -73,7 +67,6 @@ public interface IControlPointShape extends IModifiablePointsShape {
 	 * Sets the Y-coordinate of one of the second control point.
 	 * @param y The new Y-coordinate.
 	 * @param id The position of the point to set.
-	 * @since 1.9
 	 */
 	void setYSecondCtrlPt(final double y, final int id);
 

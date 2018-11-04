@@ -23,7 +23,6 @@ public class PSTRhombusView extends PSTClassicalView<IRhombus> {
 	 * Creates and initialises a LRhombus PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTRhombusView(final IRhombus model) {
 		super(model);

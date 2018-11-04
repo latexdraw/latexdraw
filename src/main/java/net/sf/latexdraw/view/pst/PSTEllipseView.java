@@ -23,7 +23,6 @@ public class PSTEllipseView extends PSTClassicalView<IEllipse> {
 	 * Creates and initialises a LEllipse PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTEllipseView(final IEllipse model) {
 		super(model);

@@ -24,7 +24,6 @@ public interface IShapeFactory {
 	/**
 	 * @param shapeClass The class of the shape to instantiated.
 	 * @return A new instance of the class given as argument or null.
-	 * @since 3.0
 	 */
 	<T extends IShape> Optional<T> newShape(java.lang.Class<T> shapeClass);
 
@@ -97,7 +96,6 @@ public interface IShapeFactory {
 
 	/**
 	 * @return The created drawing.
-	 * @since 3.0
 	 */
 	IDrawing createDrawing();
 
@@ -105,7 +103,6 @@ public interface IShapeFactory {
 	 * Creates a group that will contains initially the given sh.
 	 * @param sh The shape to add to the group to create.
 	 * @return Created groupe. Cannot be null.
-	 * @since 3.3
 	 */
 	IGroup createGroup(IShape sh);
 
@@ -214,7 +211,6 @@ public interface IShapeFactory {
 	 * Creates and initialises a freehand model.
 	 * @return The created freehand shape.
 	 * @throws IllegalArgumentException If the given point is not valid.
-	 * @since 3.0
 	 */
 	IFreehand createFreeHand(final List<IPoint> pts);
 
@@ -237,7 +233,6 @@ public interface IShapeFactory {
 
 	/**
 	 * @return The created group of shapes.
-	 * @since 3.0
 	 */
 	IGroup createGroup();
 
@@ -272,7 +267,6 @@ public interface IShapeFactory {
 
 	/**
 	 * @return The created point with coordinates (0, 0).
-	 * @since 3.0
 	 */
 	IPoint createPoint();
 
@@ -305,7 +299,6 @@ public interface IShapeFactory {
 	 * @param x The X-coordinate to set.
 	 * @param y The Y-coordinate to set.
 	 * @return The created point.
-	 * @since 3.0
 	 */
 	IPoint createPoint(double x, double y);
 
@@ -313,7 +306,6 @@ public interface IShapeFactory {
 	 * Creates a Point2D with the specified coordinates.
 	 * @param pt The IPoint, if null the default value (0,0) will be used.
 	 * @return The created point.
-	 * @since 3.0
 	 */
 	IPoint createPoint(IPoint pt);
 
@@ -321,7 +313,6 @@ public interface IShapeFactory {
 	 * Creates a model with a set of points.
 	 * @param pts The points of the shape.
 	 * @return The created polyline.
-	 * @since 3.0
 	 */
 	IPolyline createPolyline(final List<IPoint> pts);
 
@@ -331,7 +322,6 @@ public interface IShapeFactory {
 	 * Creates a polygon with a set of points.
 	 * @param pts The points of the shape.
 	 * @return The created polygon.
-	 * @since 3.0
 	 */
 	IPolygon createPolygon(final List<IPoint> pts);
 
@@ -339,7 +329,6 @@ public interface IShapeFactory {
 
 	/**
 	 * @return The created rectangle with position (0,0) and width=10 and height=10.
-	 * @since 3.0
 	 */
 	IRectangle createRectangle();
 
@@ -351,7 +340,6 @@ public interface IShapeFactory {
 	 * @return The created rectangle.
 	 * @throws IllegalArgumentException If the width, the height or the point is not valid.
 	 * @throws NullPointerException if the given point is null.
-	 * @since 3.0
 	 */
 	IRectangle createRectangle(IPoint pos, double width, double height);
 
@@ -361,14 +349,12 @@ public interface IShapeFactory {
 	 * @param br The bottom right point of the rectangle.
 	 * @return The created rectangle.
 	 * @throws IllegalArgumentException if one of the given points is not valid.
-	 * @since 3.0
 	 */
 	IRectangle createRectangle(IPoint tl, IPoint br);
 
 	/**
 	 * Create a text at position (0,0) which text is "text".
 	 * @return The created text.
-	 * @since 3.0
 	 */
 	IText createText();
 
@@ -378,14 +364,12 @@ public interface IShapeFactory {
 	 * @param text The text.
 	 * @return The created text.
 	 * @throws IllegalArgumentException If pt is not valid.
-	 * @since 3.0
 	 */
 	IText createText(IPoint pt, String text);
 
 	/**
 	 * Creates a square at position (0,0) which width equals 10.
 	 * @return The created square.
-	 * @since 3.0
 	 */
 	ISquare createSquare();
 
@@ -395,7 +379,6 @@ public interface IShapeFactory {
 	 * @param width The width of the square.
 	 * @return The created square.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
-	 * @since 3.0
 	 */
 	ISquare createSquare(IPoint pos, double width);
 
@@ -405,14 +388,12 @@ public interface IShapeFactory {
 	 * @param width The width of the square.
 	 * @return The created circled arc.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
-	 * @since 3.0
 	 */
 	ICircleArc createCircleArc(IPoint pos, double width);
 
 	/**
 	 * Creates a circled arc with a 1 radius.
 	 * @return The created circled arc.
-	 * @since 3.0
 	 */
 	ICircleArc createCircleArc();
 
@@ -426,7 +407,6 @@ public interface IShapeFactory {
 	 * @return The created function.
 	 * @throws IllegalArgumentException If the given point is not valid or minX is greater than
 	 * maxX.
-	 * @since 3.2
 	 */
 	IPlot createPlot(IPoint pos, double minX, double maxX, String eq, boolean polar);
 
@@ -434,7 +414,6 @@ public interface IShapeFactory {
 	 * Duplicates the given shape.
 	 * @param shape The shape to duplicate
 	 * @return The duplicated shape or null.
-	 * @since 3.0
 	 */
 	<T extends IShape> T duplicate(final T shape);
 }

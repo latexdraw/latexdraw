@@ -136,7 +136,6 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 
 	/**
 	 * @return The SVG segment path list of the current Bézier curve.
-	 * @since 2.0.0
 	 */
 	SVGPathSegList getPathSegList() {
 		if(shape.getNbPoints() < 2) {
@@ -236,7 +235,6 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 	 * Creates an SVG g element that contains the 'show points' plotting.
 	 * @param doc The owner document.
 	 * @return The created g element or null if the shape has not the 'show points' option activated.
-	 * @since 2.0.0
 	 */
 	SVGGElement getShowPointsElement(final SVGDocument doc) {
 		if(!shape.isShowPts() || doc == null) {

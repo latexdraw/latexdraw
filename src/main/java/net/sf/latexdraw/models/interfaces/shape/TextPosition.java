@@ -67,7 +67,6 @@ public enum TextPosition {
 	/**
 	 * @param latexToken The latex token to test.
 	 * @return The TextPosition enumeration item corresponding to the given latex token.
-	 * @since 3.0
 	 */
 	public static TextPosition getTextPosition(final String latexToken) {
 		return Arrays.stream(values()).filter(it -> it.getLatexToken().equals(latexToken)).findFirst().orElse(BOT_LEFT);
@@ -75,7 +74,6 @@ public enum TextPosition {
 
 	/**
 	 * @return The latex token corresponding to the text position.
-	 * @since 3.0
 	 */
 	public abstract String getLatexToken();
 }

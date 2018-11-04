@@ -22,7 +22,6 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 class LEllipse extends LRectangularShape implements IEllipse {
 	/**
 	 * Creates an Ellipse.
-	 * @since 3.0
 	 */
 	LEllipse() {
 		this(ShapeFactory.INST.createPoint(), ShapeFactory.INST.createPoint(1.0, 1.0));

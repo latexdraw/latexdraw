@@ -45,7 +45,6 @@ public abstract class PSTShapeView<S extends IShape> {
 	 * Creates and initialises an abstract PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTShapeView(final S model) {
 		super();
@@ -97,7 +96,6 @@ public abstract class PSTShapeView<S extends IShape> {
 
 	/**
 	 * @return The PST code corresponding to the arrow parameters of the shape. Or null if no arrow.
-	 * @since 3.0
 	 */
 	protected StringBuilder getArrowsParametersCode() {
 		StringBuilder code = null;
@@ -157,7 +155,6 @@ public abstract class PSTShapeView<S extends IShape> {
 
 	/**
 	 * @return The PST code corresponding to the style of the arrows (e.g. {|->}).
-	 * @since 3.0
 	 */
 	protected StringBuilder getArrowsStyleCode() {
 		final StringBuilder code;
@@ -182,7 +179,6 @@ public abstract class PSTShapeView<S extends IShape> {
 
 	/**
 	 * @return The PSTricks code of the show-points option or null.
-	 * @since 3.0
 	 */
 	protected StringBuilder getShowPointsCode() {
 		final StringBuilder code;
@@ -202,7 +198,6 @@ public abstract class PSTShapeView<S extends IShape> {
 	 * @param ppc The number of pixels per centimetre.
 	 * @param position The reference point of the PSTricks drawing.
 	 * @return The header of the PSTricks rotation code.
-	 * @since 3.0
 	 */
 	protected StringBuilder getRotationHeaderCode(final float ppc, final IPoint position) {
 		if(ppc < 1 || !MathUtils.INST.isValidPt(position)) {
@@ -241,7 +236,6 @@ public abstract class PSTShapeView<S extends IShape> {
 	/**
 	 * @param ppc The number of pixels per centimetre.
 	 * @return The PSTricks code of the double border of the shape.
-	 * @since 3.0
 	 */
 	protected StringBuilder getDoubleBorderCode(final float ppc) {
 		final StringBuilder code;
@@ -266,7 +260,6 @@ public abstract class PSTShapeView<S extends IShape> {
 
 	/**
 	 * @return The PSTricks code of the border position.
-	 * @since 3.0
 	 */
 	protected StringBuilder getBorderPositionCode() {
 		final StringBuilder code;
@@ -297,7 +290,6 @@ public abstract class PSTShapeView<S extends IShape> {
 	/**
 	 * @param ppc The number of pixels per centimetre.
 	 * @return The PSTricks code of the line style.
-	 * @since 1.7
 	 */
 	protected StringBuilder getLineCode(final float ppc) {
 		final StringBuilder code = new StringBuilder();
@@ -338,7 +330,6 @@ public abstract class PSTShapeView<S extends IShape> {
 
 	/**
 	 * @return The PST code of the filling with parameter "plain".
-	 * @since 3.0
 	 */
 	private StringBuilder getFillingPlain() {
 		final Color interiorColor = shape.getFillingCol();
@@ -358,7 +349,6 @@ public abstract class PSTShapeView<S extends IShape> {
 
 	/**
 	 * @return The PST code of the filling with parameter "gradient".
-	 * @since 3.0
 	 */
 	private StringBuilder getFillingGrad() {
 		final Color gradStartCol = shape.getGradColStart();
@@ -389,7 +379,6 @@ public abstract class PSTShapeView<S extends IShape> {
 
 	/**
 	 * @return The PST code of the filling with parameter "hlines" or "vlines" etc.
-	 * @since 3.0
 	 */
 	private StringBuilder getFillingHatchings(final float ppc) {
 		final Color hatchingsCol = shape.getHatchingsCol();
@@ -431,7 +420,6 @@ public abstract class PSTShapeView<S extends IShape> {
 	/**
 	 * @param ppc The number of pixels per centimetre.
 	 * @return The PSTricks code for the filling of the shape. Null if there is no filling.
-	 * @since 1.7
 	 */
 	protected StringBuilder getFillingCode(final float ppc) {
 		StringBuilder code;
@@ -477,7 +465,6 @@ public abstract class PSTShapeView<S extends IShape> {
 	/**
 	 * @param ppc The number of pixels per centimetre.
 	 * @return The code of the shape shadow or null if there is no shadow.
-	 * @since 3.0
 	 */
 	protected StringBuilder getShadowCode(final float ppc) {
 		final StringBuilder code;

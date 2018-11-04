@@ -29,7 +29,6 @@ public enum Page {
 
 	/**
 	 * @return The width of the page in CM.
-	 * @since 3.1
 	 */
 	public double getWidth() {
 		return width;
@@ -37,7 +36,6 @@ public enum Page {
 
 	/**
 	 * @return The height of the page in CM.
-	 * @since 3.1
 	 */
 	public double getHeight() {
 		return height;

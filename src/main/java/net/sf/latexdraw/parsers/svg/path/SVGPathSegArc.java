@@ -17,13 +17,13 @@ import java.awt.geom.Arc2D;
  * @author Arnaud BLOUIN
  */
 public class SVGPathSegArc extends SVGPathPointSeg {
-	/** The x radius of the arc. @since 2.0 */
+	/** The x radius of the arc. */
 	protected double rx;
 
-	/** The y radius of the arc. @since 2.0 */
+	/** The y radius of the arc. */
 	protected double ry;
 
-	/** The x-axis rotation angle. @since 2.0 */
+	/** The x-axis rotation angle. */
 	protected double angle;
 
 	/** The value of the large-arc-flag parameter. */
@@ -62,7 +62,6 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 	 * @param x0 The X-coordinate of the initial position.
 	 * @param y0 The Y-coordinate of the initial position.
 	 * @return An Java Arc2D with double values.
-	 * @since 2.0
 	 */
 	public Arc2D getArc2D(final double x0, final double y0) {
 		double a = getAngle();
@@ -142,7 +141,6 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 
 	/**
 	 * @return the rx.
-	 * @since 2.0
 	 */
 	public double getRX() {
 		return rx;
@@ -150,7 +148,6 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 
 	/**
 	 * @return the ry.
-	 * @since 2.0
 	 */
 	public double getRY() {
 		return ry;
@@ -158,7 +155,6 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 
 	/**
 	 * @return the angle.
-	 * @since 2.0
 	 */
 	public double getAngle() {
 		return angle;
@@ -166,7 +162,6 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 
 	/**
 	 * @return the largeArcFlag.
-	 * @since 2.0
 	 */
 	public boolean isLargeArcFlag() {
 		return largeArcFlag;
@@ -174,7 +169,6 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 
 	/**
 	 * @return the sweepFlag.
-	 * @since 2.0
 	 */
 	public boolean isSweepFlag() {
 		return sweepFlag;

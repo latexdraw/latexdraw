@@ -43,7 +43,6 @@ public abstract class CodeParser implements Parser {
 
 	/**
 	 * Reinitialises the parser.
-	 * @since 2.0.2
 	 */
 	public void initialise() {
 		codeCore.position = 0;
@@ -52,7 +51,6 @@ public abstract class CodeParser implements Parser {
 
 	/**
 	 * @return the code.
-	 * @since 2.0.2
 	 */
 	public String getCode() {
 		return codeCore.code;
@@ -60,7 +58,6 @@ public abstract class CodeParser implements Parser {
 
 	/**
 	 * @param code the code to set. It re-initialises the parser.
-	 * @since 2.0.2
 	 */
 	public void setCode(final String code) {
 		if(code != null) {
@@ -72,7 +69,6 @@ public abstract class CodeParser implements Parser {
 	/**
 	 * Reads the next char and returns it.
 	 * @return the next read character or EOC if the end of the path is reached.
-	 * @since 2.0.2
 	 */
 	public int nextChar() {
 		codeCore.position++;
@@ -84,7 +80,6 @@ public abstract class CodeParser implements Parser {
 	 * The character at the given position.
 	 * @param pos The position of the wanted character.
 	 * @return The character or EOC.
-	 * @since 2.0.3
 	 */
 	public int getCharAt(final int pos) {
 		if(pos >= codeCore.code.length() || pos < 0) {
@@ -96,7 +91,6 @@ public abstract class CodeParser implements Parser {
 
 	/**
 	 * @return the current character or EOC if the end of the path is reached.
-	 * @since 2.0.2
 	 */
 	public int getChar() {
 		if(codeCore.position >= codeCore.code.length()) {
@@ -108,7 +102,6 @@ public abstract class CodeParser implements Parser {
 
 	/**
 	 * @return True if the end of the code is reached.
-	 * @since 2.0.2
 	 */
 	public boolean isEOC() {
 		return getChar() == EOC;
@@ -116,7 +109,6 @@ public abstract class CodeParser implements Parser {
 
 	/**
 	 * @return the position.
-	 * @since 2.0.2
 	 */
 	public int getPosition() {
 		return codeCore.position;
@@ -124,7 +116,6 @@ public abstract class CodeParser implements Parser {
 
 	/**
 	 * @param position the position to set.
-	 * @since 2.0.2
 	 */
 	public void setPosition(final int position) {
 		if(position >= 0) {
@@ -134,7 +125,6 @@ public abstract class CodeParser implements Parser {
 
 	/**
 	 * @return the line position.
-	 * @since 2.0.2
 	 */
 	public int getLinePosition() {
 		return codeCore.linePosition;
@@ -142,7 +132,6 @@ public abstract class CodeParser implements Parser {
 
 	/**
 	 * @param linePosition the line position to set. Must be greater than 0.
-	 * @since 2.0.2
 	 */
 	public void setLinePosition(final int linePosition) {
 		if(linePosition >= 1) {
@@ -153,19 +142,16 @@ public abstract class CodeParser implements Parser {
 	/**
 	 * Skips the comment.
 	 * @return The read comment.
-	 * @since 2.0.2
 	 */
 	public abstract String skipComment();
 
 	/**
 	 * Skips the useless characters.
-	 * @since 2.0.2
 	 */
 	public abstract void skipWSP();
 
 	/**
 	 * Skips both comments and ignorable characters.
-	 * @since 2.0.2
 	 */
 	public void skipWSPComments() {
 		int pos;
@@ -179,20 +165,17 @@ public abstract class CodeParser implements Parser {
 
 	/**
 	 * @return True if the current position points to a comment token.
-	 * @since 2.0.3
 	 */
 	public abstract boolean isComment();
 
 	/**
 	 * @return True if the current character is a whitespace/ignorable character.
-	 * @since 2.0.2
 	 */
 	public abstract boolean isWSP();
 
 	/**
 	 * @return True if the current character is EOL.
 	 * For the EOL CR+LF, the next character (LF) is read.
-	 * @since 2.0.2
 	 */
 	public boolean isEOL() {
 		final int c = getChar();

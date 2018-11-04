@@ -48,7 +48,6 @@ public class SVGPathElement extends SVGElement {
 
 	/**
 	 * @return True if the path is a unique line.
-	 * @since 0.1
 	 */
 	public boolean isLine() {
 		final SVGPathSegList segList = getSegList();
@@ -59,7 +58,6 @@ public class SVGPathElement extends SVGElement {
 
 	/**
 	 * @return True if the path is composed of lines and has a 'close path' segment at the end.
-	 * @since 0.1
 	 */
 	public boolean isLines() {
 		final SVGPathSegList segList = getSegList();
@@ -105,7 +103,6 @@ public class SVGPathElement extends SVGElement {
 
 	/**
 	 * @return True if the path is composed of lines and has a 'close path' segment at the end.
-	 * @since 0.1
 	 */
 	public boolean isPolygon() {
 		final SVGPathSegList segList = getSegList();
@@ -135,7 +132,6 @@ public class SVGPathElement extends SVGElement {
 	/**
 	 * The definition of the outline of a shape.
 	 * @return The path data (in postscript) from the segList attribute.
-	 * @since 0.1
 	 */
 	public String getPathData() {
 		return getAttribute(getUsablePrefix() + SVGAttributes.SVG_D);
@@ -144,7 +140,6 @@ public class SVGPathElement extends SVGElement {
 	/**
 	 * Sets the path data.
 	 * @param path The path to set.
-	 * @since 2.0.0
 	 */
 	public void setPathData(final SVGPathSegList path) {
 		if(path != null) {

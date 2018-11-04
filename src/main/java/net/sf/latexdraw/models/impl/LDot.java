@@ -174,7 +174,6 @@ class LDot extends LPositionShape implements IDot {
 	 * @param tl The top-left point to set. Must not be null.
 	 * @param br The bottom-right point to set. Must not be null.
 	 * @throws NullPointerException If tl or br is null.
-	 * @since 3d
 	 */
 	protected void getTopLeftBottomRightPoints(final IPoint tl, final IPoint br) {
 		final IPoint centre = getPosition();

@@ -52,7 +52,6 @@ public enum PlotStyle {
 	/**
 	 * @param latexToken The latex token to check.
 	 * @return The style corresponding to the PSTricks token given as parameter, or CURVE otherwise.
-	 * @since 3.2
 	 */
 	public static PlotStyle getPlotStyle(final String latexToken) {
 		return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(latexToken)).findFirst().orElse(CURVE);

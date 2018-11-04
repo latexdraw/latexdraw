@@ -21,13 +21,11 @@ public interface IArrowableShape extends IShape, IArrowable {
 	/**
 	 * @param arrow The arrow to look for.
 	 * @return The index of the given arrow in the set of arrows of the shape. -1 is not in the set.
-	 * @since 3.1
 	 */
 	int getArrowIndex(final IArrow arrow);
 
 	/**
 	 * @return The number of arrows.
-	 * @since 3.1
 	 */
 	int getNbArrows();
 
@@ -35,21 +33,18 @@ public interface IArrowableShape extends IShape, IArrowable {
 	 * Sets the style of the arrow at the given position.
 	 * @param style The style to set.
 	 * @param position The position of the arrow to modify.
-	 * @since 3.0
 	 */
 	void setArrowStyle(final ArrowStyle style, final int position);
 
 	/**
 	 * @param position The position of the arrow to use.
 	 * @return The style of the arrow at the given position.
-	 * @since 3.0
 	 */
 	ArrowStyle getArrowStyle(final int position);
 
 	/**
 	 * @param position The position of the wanted arrow (-1 for the last arrow).
 	 * @return The arrow at the given position or null if the position is not valid.
-	 * @since 3.0
 	 */
 	IArrow getArrowAt(final int position);
 

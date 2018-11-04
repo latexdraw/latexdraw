@@ -17,131 +17,111 @@ package net.sf.latexdraw.models.interfaces.prop;
 public interface IArrowable {
 	/**
 	 * @return The tbarsize dim parameter.
-	 * @since 3.0
 	 */
 	double getTBarSizeDim();
 
 	/**
 	 * Sets the latex parameter tbarsize num.
 	 * @param tbarSizeDim The new tbarsize num.
-	 * @since 3.0
 	 */
 	void setTBarSizeDim(final double tbarSizeDim);
 
 	/**
 	 * @return The tbarsize num parameter.
-	 * @since 3.0
 	 */
 	double getTBarSizeNum();
 
 	/**
 	 * Sets the latex parameter tbarsize num.
 	 * @param tbarSizeNum The new tbarsize num.
-	 * @since 3.0
 	 */
 	void setTBarSizeNum(final double tbarSizeNum);
 
 	/**
 	 * @return The dotsize dim parameter.
-	 * @since 3.0
 	 */
 	double getDotSizeDim();
 
 	/**
 	 * Sets the latex parameter dotsize dim.
 	 * @param dotSizeDim The new dotsize dim.
-	 * @since 3.0
 	 */
 	void setDotSizeDim(final double dotSizeDim);
 
 	/**
 	 * @return The dotsize num parameter.
-	 * @since 3.0
 	 */
 	double getDotSizeNum();
 
 	/**
 	 * Sets the latex parameter dotsize num.
 	 * @param dotSizeNum The new dotsize num.
-	 * @since 3.0
 	 */
 	void setDotSizeNum(final double dotSizeNum);
 
 	/**
 	 * @return The bracket num parameter.
-	 * @since 3.0
 	 */
 	double getBracketNum();
 
 	/**
 	 * Sets the latex parameter bracket num.
 	 * @param bracketNum The new bracket num.
-	 * @since 3.0
 	 */
 	void setBracketNum(final double bracketNum);
 
 	/**
 	 * @return The arrowsize num parameter.
-	 * @since 3.0
 	 */
 	double getArrowSizeNum();
 
 	/**
 	 * Sets the latex parameter arrowSize num.
 	 * @param arrowSizeNum The new arrowSize num.
-	 * @since 3.0
 	 */
 	void setArrowSizeNum(final double arrowSizeNum);
 
 	/**
 	 * @return The arrowsize dim parameter.
-	 * @since 3.0
 	 */
 	double getArrowSizeDim();
 
 	/**
 	 * Sets the latex parameter arrowSize num.
 	 * @param arrowSizeDim The new arrowSize num.
-	 * @since 3.0
 	 */
 	void setArrowSizeDim(final double arrowSizeDim);
 
 	/**
 	 * @return The inset of the arrow.
-	 * @since 3.0
 	 */
 	double getArrowInset();
 
 	/**
 	 * Defines the inset of the arrow.
 	 * @param inset The new inset.
-	 * @since 3.0
 	 */
 	void setArrowInset(final double inset);
 
 	/**
 	 * @return The length of the arrow.
-	 * @since 3.0
 	 */
 	double getArrowLength();
 
 	/**
 	 * Defines the length of the arrow.
 	 * @param lgth The new length of the arrow.
-	 * @since 3.0
 	 */
 	void setArrowLength(final double lgth);
 
 	/**
 	 * @return The rbracket parameter.
-	 * @since 3.0
 	 */
 	double getRBracketNum();
 
 	/**
 	 * Sets the latex parameter rbracket num.
 	 * @param rBracketNum The new rbracket num.
-	 * @since 3.0
 	 */
 	void setRBracketNum(final double rBracketNum);
 

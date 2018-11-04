@@ -23,7 +23,6 @@ public class PSTTriangleView extends PSTClassicalView<ITriangle> {
 	 * Creates and initialises a LTriangle PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTTriangleView(final ITriangle model) {
 		super(model);

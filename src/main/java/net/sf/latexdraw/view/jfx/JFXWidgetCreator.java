@@ -22,7 +22,6 @@ import javafx.util.Callback;
 /**
  * A trait for creating items.
  * @author Arnaud BLOUIN
- * @since 4.0
  */
 public interface JFXWidgetCreator {
 	default <T> void initComboBox(final ComboBox<T> box, final Map<T, Image> map, final T[] values) {

@@ -15,14 +15,12 @@ import net.sf.latexdraw.parsers.CodeParser;
 /**
  * An abstract CSS parser that contains functions to help the CSS parsing.
  * @author Arnaud BLOUIN
- * @since 2.0.3
  */
 public abstract class AbstractCSSParser extends CodeParser {
 	/**
 	 * Creates and initialises the CSS parser.
 	 * @param code The code to parse.
 	 * @throws IllegalArgumentException If the given code is null.
-	 * @since 2.0.3
 	 */
 	protected AbstractCSSParser(final String code) {
 		super(code);

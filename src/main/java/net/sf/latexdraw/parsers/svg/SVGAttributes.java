@@ -13,7 +13,6 @@ package net.sf.latexdraw.parsers.svg;
 /**
  * Contains SVG attributes according to the SVG specification version 1.1.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public final class SVGAttributes {
 	private SVGAttributes() {

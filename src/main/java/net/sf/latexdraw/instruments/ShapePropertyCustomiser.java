@@ -69,7 +69,6 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 
 	/**
 	 * Updates the instrument and its widgets
-	 * @since 3.0
 	 */
 	public void update() {
 		if(pencil.isActivated()) {
@@ -82,14 +81,12 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	/**
 	 * Updates the widgets using the given shape.
 	 * @param shape The shape used to update the widgets. If null, nothing is performed.
-	 * @since 3.0
 	 */
 	protected abstract void update(final IGroup shape);
 
 	/**
 	 * Sets the widgets of the instrument visible or not.
 	 * @param visible True: they are visible.
-	 * @since 3.0
 	 */
 	protected abstract void setWidgetsVisible(final boolean visible);
 

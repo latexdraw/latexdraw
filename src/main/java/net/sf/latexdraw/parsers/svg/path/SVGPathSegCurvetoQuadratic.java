@@ -15,10 +15,10 @@ package net.sf.latexdraw.parsers.svg.path;
  * @author Arnaud BLOUIN
  */
 public class SVGPathSegCurvetoQuadratic extends SVGPathPointSeg {
-	/** The x-coordinate of the first control point. @since 2.0 */
+	/** The x-coordinate of the first control point. */
 	protected double x1;
 
-	/** The y-coordinate of the first control point. @since 2.0 */
+	/** The y-coordinate of the first control point. */
 	protected double y1;
 
 
@@ -46,7 +46,6 @@ public class SVGPathSegCurvetoQuadratic extends SVGPathPointSeg {
 
 	/**
 	 * @return the x1.
-	 * @since 2.0
 	 */
 	public double getX1() {
 		return x1;
@@ -55,7 +54,6 @@ public class SVGPathSegCurvetoQuadratic extends SVGPathPointSeg {
 
 	/**
 	 * @return the y1.
-	 * @since 2.0
 	 */
 	public double getY1() {
 		return y1;

@@ -542,7 +542,6 @@ public class SVGDocument implements Document {
 	 * Serialise the given SVG document.
 	 * @param path The file of the future serialised document.
 	 * @return True: the document has been successfully saved.
-	 * @since 2.0
 	 */
 	public boolean saveSVGDocument(final String path) {
 		if(path == null) {

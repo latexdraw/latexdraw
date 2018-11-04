@@ -30,7 +30,6 @@ class SVGEllipse extends SVGShape<IEllipse> {
 	 * Creates a generator of SVG ellipse.
 	 * @param ellipse The ellipse shape used for the generation.
 	 * @throws IllegalArgumentException If ellipse is null.
-	 * @since 2.0
 	 */
 	SVGEllipse(final IEllipse ellipse) {
 		super(ellipse);
@@ -40,7 +39,6 @@ class SVGEllipse extends SVGShape<IEllipse> {
 	/**
 	 * Creates an ellipse from an SVG ellipse element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	SVGEllipse(final SVGEllipseElement elt) {
 		this(ShapeFactory.INST.createEllipse());
@@ -54,7 +52,6 @@ class SVGEllipse extends SVGShape<IEllipse> {
 	/**
 	 * Creates an ellipse from a latexdraw-SVG element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	SVGEllipse(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createEllipse());
@@ -82,7 +79,6 @@ class SVGEllipse extends SVGShape<IEllipse> {
 	 * Sets the ellipse parameters.
 	 * @param ellipseElt The source SVG ellipse element.
 	 * @param gap The gap used to define the latexdraw ellipse.
-	 * @since 3.0
 	 */
 	final void setEllipseParameters(final SVGEllipseElement ellipseElt, final double gap) {
 		final double width = 2. * ellipseElt.getRx() - gap;

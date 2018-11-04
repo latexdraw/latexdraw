@@ -64,7 +64,6 @@ public class URIReferenceParser extends AbstractSVGParser {
 
 	/**
 	 * @return The parsed URI.
-	 * @since 2.0.3
 	 */
 	public String getUri() {
 		return uri;

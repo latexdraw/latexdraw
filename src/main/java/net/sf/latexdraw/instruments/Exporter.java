@@ -176,7 +176,6 @@ public class Exporter extends JfxInstrument implements Initializable {
 	/**
 	 * @param format The format of the document to export.
 	 * @return The export dialog to select a path.
-	 * @since 3.0
 	 */
 	protected FileChooser getExportDialog(final ExportFormat format) {
 		if(fileChooserExport == null) {
@@ -213,7 +212,6 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 	/**
 	 * @return The latex packages that the interactive system saves by default.
-	 * @since 3.0
 	 */
 	public String getDefaultPackages() {
 		return defaultPackages;

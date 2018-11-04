@@ -28,7 +28,6 @@ public class PSTGroupView extends PSTShapeView<IGroup> {
 	 * Creates and initialises a LDrawing PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTGroupView(final IGroup model, final PSTViewProducer producer) {
 		super(model);

@@ -23,7 +23,6 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	 * Creates and initialises a LRect PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTPolygonView(final IPolygon model) {
 		super(model);
@@ -34,7 +33,6 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	 * @param position The reference point of the PSTricks drawing.
 	 * @param ppc The number of pixels per centimetre.
 	 * @return The PSTricks code of the polygon coordinates.
-	 * @since 3.0
 	 */
 	protected StringBuilder getPointsCode(final IPoint position, final float ppc) {
 		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {

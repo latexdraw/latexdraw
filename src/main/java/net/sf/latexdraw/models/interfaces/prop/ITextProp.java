@@ -20,26 +20,22 @@ import net.sf.latexdraw.models.interfaces.shape.TextPosition;
 public interface ITextProp {
 	/**
 	 * @return The text position of the text (bottom-right, top-left, etc.).
-	 * @since 3.0
 	 */
 	TextPosition getTextPosition();
 
 	/**
 	 * Sets the text position of the text.
 	 * @param textPosition The new text position of the text.
-	 * @since 3.0
 	 */
 	void setTextPosition(final TextPosition textPosition);
 
 	/**
 	 * @return the text.
-	 * @since 3.0
 	 */
 	String getText();
 
 	/**
 	 * @param text the text to set.
-	 * @since 3.0
 	 */
 	void setText(final String text);
 

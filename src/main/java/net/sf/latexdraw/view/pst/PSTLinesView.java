@@ -23,7 +23,6 @@ public class PSTLinesView extends PSTPolygonView {
 	 * Creates and initialises a LLines PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTLinesView(final IPolyline model) {
 		super(model);

@@ -22,7 +22,7 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public abstract class AbstractPointsElement extends SVGElement {
-	/** The points of the element. @since 2.0.3 */
+	/** The points of the element. */
 	protected List<Point2D> points;
 
 	/**
@@ -31,7 +31,6 @@ public abstract class AbstractPointsElement extends SVGElement {
 	 * @param parentNode The parentNode SVG element.
 	 * @throws MalformedSVGDocument If the element is not well formed.
 	 * @throws ParseException If the points string is not well formed.
-	 * @since 2.0.3
 	 */
 	protected AbstractPointsElement(final Node node, final SVGElement parentNode) throws MalformedSVGDocument, ParseException {
 		super(node, parentNode);
@@ -57,7 +56,6 @@ public abstract class AbstractPointsElement extends SVGElement {
 	/**
 	 * Parses the points of the element.
 	 * @throws ParseException If the format of the points is not valid.
-	 * @since 2.0.3
 	 */
 	public void parsePoints() throws ParseException {
 		final SVGPointsParser parser = new SVGPointsParser(getPoints());
@@ -73,7 +71,6 @@ public abstract class AbstractPointsElement extends SVGElement {
 
 	/**
 	 * @return The points that make up the shape.
-	 * @since 0.1
 	 */
 	public String getPoints() {
 		return getAttribute(getUsablePrefix() + SVGAttributes.SVG_POINTS);
@@ -83,7 +80,6 @@ public abstract class AbstractPointsElement extends SVGElement {
 	 * Parses and sets the pts to the element.
 	 * @param pts The string corresponding to the SVG pts of this element.
 	 * @throws ParseException If the format of the pts is not valid.
-	 * @since 2.0.3
 	 */
 	public void setPoints(final String pts) throws ParseException {
 		if(pts != null) {

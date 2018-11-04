@@ -17,40 +17,34 @@ package net.sf.latexdraw.models.interfaces.shape;
 public interface IPositionShape extends ISingleShape {
 	/**
 	 * @return The X coordinate of the shape (of the bottom-left point of the shape).
-	 * @since 3.0
 	 */
 	double getX();
 
 	/**
 	 * Sets the X coordinate of the shape (of the bottom-left point of the shape).
 	 * @param x The X coordinate of the shape.
-	 * @since 3.0
 	 */
 	void setX(final double x);
 
 	/**
 	 * @return The Y coordinate of the shape (of the bottom-left point of the shape).
-	 * @since 3.0
 	 */
 	double getY();
 
 	/**
 	 * Sets the Y coordinate of the shape (of the bottom-left point of the shape).
 	 * @param y The Y coordinate of the shape.
-	 * @since 3.0
 	 */
 	void setY(final double y);
 
 	/**
 	 * @return The position of the shape (the bottom-left point of the shape).
-	 * @since 3.0
 	 */
 	IPoint getPosition();
 
 	/**
 	 * Sets the position of the shape (the bottom-left point of the shape).
 	 * @param pt The new position of the shape.
-	 * @since 3.0
 	 */
 	void setPosition(final IPoint pt);
 
@@ -58,7 +52,6 @@ public interface IPositionShape extends ISingleShape {
 	 * Sets the position of the shape (the bottom-left point of the shape).
 	 * @param x The X coordinate of the new position of the shape.
 	 * @param y The Y coordinate of the new position of the shape.
-	 * @since 3.0
 	 */
 	void setPosition(final double x, final double y);
 }

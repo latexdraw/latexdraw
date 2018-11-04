@@ -60,7 +60,6 @@ public class PSFunctionParser {
 	 * @param nbPts The number of points to plot.
 	 * @return True if the given equation is a valid post-fixed PS equation. The second parameter is
 	 * the possible error message (never null but can be empty).
-	 * @since 3.3
 	 */
 	public static Tuple<Boolean, String> isValidPostFixEquation(final String eq, final double min, final double max, final double nbPts) {
 		try {
@@ -94,7 +93,6 @@ public class PSFunctionParser {
 	 * Creates and parser from postscript functions.
 	 * @param fct The function to parse.
 	 * @throws InvalidFormatPSFunctionException If the function format is not valid.
-	 * @since 3.0
 	 */
 	public PSFunctionParser(final String fct) {
 		super();
@@ -158,7 +156,6 @@ public class PSFunctionParser {
 	 * @return The arithmetic instance corresponding to the given command.
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 * @throws NumberFormatException If the function is not correct.
-	 * @since 3.0
 	 */
 	protected PSArithemticCommand identifyCommand(final String cmd) {
 		if(cmd == null || cmd.isEmpty()) {

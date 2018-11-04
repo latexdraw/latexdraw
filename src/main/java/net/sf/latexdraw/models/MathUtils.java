@@ -67,7 +67,6 @@ public final class MathUtils {
 	/**
 	 * @param pt The point to test.
 	 * @return True if the given point is valid (not NaN nor infinite nor null).
-	 * @since 3.0
 	 */
 	public boolean isValidPt(final IPoint pt) {
 		return pt != null && isValidPt(pt.getX(), pt.getY());
@@ -76,7 +75,6 @@ public final class MathUtils {
 	/**
 	 * @param coord The value to test.
 	 * @return True if the given value is value (not NaN nor infinite).
-	 * @since 3.0
 	 */
 	public boolean isValidCoord(final double coord) {
 		return !(java.lang.Double.isNaN(coord) || java.lang.Double.isInfinite(coord));
@@ -86,7 +84,6 @@ public final class MathUtils {
 	 * @param x The X coordinates to test.
 	 * @param y The Y coordinates to test.
 	 * @return True if the given values are value (not NaN nor infinite).
-	 * @since 3.0
 	 */
 	public boolean isValidPt(final double x, final double y) {
 		return isValidCoord(x) && isValidCoord(y);
@@ -123,7 +120,6 @@ public final class MathUtils {
 	 * @param c The point C.
 	 * @param gap The initial gap (for example, the thickness, the double border gap,...).
 	 * @return The gap created by the corner of the point B.
-	 * @since 2.0.0
 	 */
 	public double getCornerGap(final IPoint a, final IPoint b, final IPoint c, final double gap) {
 		if(!isValidPt(a) || !isValidPt(b) || !isValidPt(c)) {
@@ -149,7 +145,6 @@ public final class MathUtils {
 	 * @param b The second double value.
 	 * @param threshold The threshold used to compare the given values.
 	 * @return True if both values are approximately equal using a threshold approximation value.
-	 * @since 3.0
 	 */
 	public boolean equalsDouble(final double a, final double b, final double threshold) {
 		return Math.abs(a - b) <= threshold;
@@ -160,7 +155,6 @@ public final class MathUtils {
 	 * @param a The first double value.
 	 * @param b The second double value.
 	 * @return True if both values are approximatively equal using a threshold approximation value.
-	 * @since 3.0
 	 */
 	public boolean equalsDouble(final double a, final double b) {
 		return equalsDouble(a, b, THRESHOLD);
@@ -170,7 +164,6 @@ public final class MathUtils {
 	 * See getCutNumber(float value, double threshold). The threshold is by default the constant value THRESHOLD.
 	 * @param value The value to cut.
 	 * @return The cut or the intact number.
-	 * @since 3.0
 	 */
 	public float getCutNumber(final float value) {
 		return getCutNumber(value, THRESHOLD);
@@ -180,7 +173,6 @@ public final class MathUtils {
 	 * See getCutNumber(double value, double threshold). The threshold is by default the constant value THRESHOLD.
 	 * @param value The value to cut.
 	 * @return The cut or the intact number.
-	 * @since 3.0
 	 */
 	public double getCutNumber(final double value) {
 		return getCutNumber(value, THRESHOLD);
@@ -190,7 +182,6 @@ public final class MathUtils {
 	 * See getCutNumber(double value, double threshold). The threshold is by default the constant value THRESHOLD.
 	 * @param value The value to cut.
 	 * @return The cut or the intact number.
-	 * @since 3.0
 	 */
 	public float getCutNumberFloat(final double value) {
 		return (float) getCutNumber(value, THRESHOLD);
@@ -204,7 +195,6 @@ public final class MathUtils {
 	 * @param value The number to check.
 	 * @param threshold The minimum threshold of the value.
 	 * @return The cut or the intact number.
-	 * @since 1.9
 	 */
 	public float getCutNumber(final float value, final double threshold) {
 		return Math.abs(value) < Math.abs(threshold) ? 0f : value;
@@ -218,7 +208,6 @@ public final class MathUtils {
 	 * @param value The number to check.
 	 * @param threshold The minimum threshold of the value.
 	 * @return The cut or the intact number.
-	 * @since 1.9
 	 */
 	public double getCutNumber(final double value, final double threshold) {
 		return Math.abs(value) < Math.abs(threshold) ? 0d : value;

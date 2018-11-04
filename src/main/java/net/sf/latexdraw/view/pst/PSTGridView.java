@@ -24,7 +24,6 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 	 * Creates and initialises a LGrid PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTGridView(final IGrid model) {
 		super(model);

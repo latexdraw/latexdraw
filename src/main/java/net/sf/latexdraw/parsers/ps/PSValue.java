@@ -23,7 +23,6 @@ public class PSValue implements PSArithemticCommand {
 	/**
 	 * Creates of postscript value.
 	 * @param v The value.
-	 * @since 3.0
 	 */
 	public PSValue(final double v) {
 		super();

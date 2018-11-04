@@ -24,7 +24,6 @@ public class PSTTextView extends PSTShapeView<IText> {
 	 * Creates and initialises a LText PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTTextView(final IText model) {
 		super(model);

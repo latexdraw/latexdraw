@@ -138,7 +138,6 @@ public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 
 	/**
 	 * @return The version of the SVG document or an empty string if it is not specified.
-	 * @since 0.1
 	 */
 	public String getVersion() {
 		return getAttribute(getUsablePrefix() + SVGAttributes.SVG_VERSION);

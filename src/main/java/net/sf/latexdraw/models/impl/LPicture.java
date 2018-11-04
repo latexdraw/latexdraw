@@ -115,7 +115,6 @@ class LPicture extends LPositionShape implements IPicture {
 
 	/**
 	 * Creates an EPS image from the source one.
-	 * @since 2.0.0
 	 */
 	private void createEPSImage() {
 		pathTarget = system.getFileWithoutExtension(pathSource) + ExportFormat.EPS_LATEX.getFileExtension();

@@ -20,40 +20,34 @@ import net.sf.latexdraw.models.interfaces.shape.DotStyle;
 public interface IDotProp {
 	/**
 	 * @return The style of the dot.
-	 * @since 3.0
 	 */
 	DotStyle getDotStyle();
 
 	/**
 	 * Defines the style of the dot.
 	 * @param style The new style.
-	 * @since 3.0
 	 */
 	void setDotStyle(final DotStyle style);
 
 	/**
 	 * @return the diametre of the dot.
-	 * @since 3.0
 	 */
 	double getDiametre();
 
 	/**
 	 * Defines the diametre of the dot.
 	 * @param diametre the diametre to set. Must be greater than 0.
-	 * @since 3.0
 	 */
 	void setDiametre(final double diametre);
 
 	/**
 	 * @return The filling colour of the dottable or null if not fillable.
-	 * @since 3.0
 	 */
 	Color getDotFillingCol();
 
 	/**
 	 * Sets the filling colour of the dottable.
 	 * @param fillingCol its new colour.
-	 * @since 3.0
 	 */
 	void setDotFillingCol(final Color fillingCol);
 }

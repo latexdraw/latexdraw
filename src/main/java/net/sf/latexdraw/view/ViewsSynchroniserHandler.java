@@ -19,25 +19,21 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 public interface ViewsSynchroniserHandler {
 	/**
 	 * @return The top right point of the current drawing.
-	 * @since 3.0
 	 */
 	IPoint getTopRightDrawingPoint();
 
 	/**
 	 * @return The bottom left point of the current drawing.
-	 * @since 3.0
 	 */
 	IPoint getBottomLeftDrawingPoint();
 
 	/**
 	 * @return The origin point of the current drawing.
-	 * @since 3.0
 	 */
 	IPoint getOriginDrawingPoint();
 
 	/**
 	 * @return The number of pixels per centimetre of the current drawing.
-	 * @since 3.0
 	 */
 	int getPPCDrawing();
 }

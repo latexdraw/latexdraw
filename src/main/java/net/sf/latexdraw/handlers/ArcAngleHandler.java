@@ -26,7 +26,6 @@ public class ArcAngleHandler extends Rectangle implements Handler {
 	/**
 	 * Creates and initialises an arc angle handler.
 	 * @param isStart Defines whether the handled angle is the starting or the ending angle.
-	 * @since 3.0
 	 */
 	public ArcAngleHandler(final boolean isStart) {
 		super();

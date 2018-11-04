@@ -22,7 +22,6 @@ import org.malai.properties.Reinitialisable;
 public interface IDrawing extends ISetShapesProp, Modifiable, Reinitialisable {
 	/**
 	 * @return The group that contains the selected shape. Cannot be null.
-	 * @since 3.0
 	 */
 	IGroup getSelection();
 
@@ -30,7 +29,6 @@ public interface IDrawing extends ISetShapesProp, Modifiable, Reinitialisable {
 	 * Selects the given shapes and unselect the already selected shapes.
 	 * @param shapes The shapes to select. Cannot be null.
 	 * @throws NullPointerException when shapes is null.
-	 * @since 3.0
 	 */
 	void setSelection(final List<IShape> shapes);
 }

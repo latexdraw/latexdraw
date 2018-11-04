@@ -23,7 +23,6 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 	 * Creates and initialises a LAxes PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTAxesView(final IAxes model) {
 		super(model);

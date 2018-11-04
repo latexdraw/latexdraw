@@ -73,7 +73,6 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 
 	/**
 	 * Fills the given SVG path with elements corresponding to the Freehand curved path.
-	 * @since 3.0
 	 */
 	final void getPathCurves(final SVGPathSegList path) {
 		double prevx = shape.getPtAt(-1).getX();
@@ -132,7 +131,6 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 
 	/**
 	 * Fills the given SVG path with elements corresponding to the Freehand lined path.
-	 * @since 3.0
 	 */
 	final void getPathLines(final SVGPathSegList path) {
 		final IPoint p = shape.getPtAt(0);
@@ -154,7 +152,6 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 
 	/**
 	 * @return The path of the shape.
-	 * @since 2.0.0
 	 */
 	final SVGPathSegList getPath() {
 		final SVGPathSegList path = new SVGPathSegList();

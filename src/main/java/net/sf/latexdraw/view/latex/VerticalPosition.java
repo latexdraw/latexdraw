@@ -65,14 +65,12 @@ public enum VerticalPosition {
 
 	/**
 	 * @return The token corresponding to the placement.
-	 * @since 3.0
 	 */
 	public abstract String getToken();
 
 	/**
 	 * @param pos The position token to check.
 	 * @return The corresponding vertical position.
-	 * @since 3.0
 	 */
 	public static VerticalPosition getPosition(final String pos) {
 		if(pos == null) {

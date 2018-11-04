@@ -17,20 +17,17 @@ package net.sf.latexdraw.models.interfaces.shape;
 public interface IEllipse extends IRectangularShape {
 	/**
 	 * @return The half of the biggest axe.
-	 * @since 3.0
 	 */
 	double getA();
 
 	/**
 	 * @return The half of the smallest axe.
-	 * @since 3.0
 	 */
 	double getB();
 
 	/**
 	 * Translates the shape to its new centre.
 	 * @param centre The new centre.
-	 * @since 3.0
 	 */
 	void setCentre(final IPoint centre);
 

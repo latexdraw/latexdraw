@@ -94,13 +94,11 @@ public enum ExportFormat {
 
 	/**
 	 * @return The file filter corresponding to the format.
-	 * @since 3.0
 	 */
 	public abstract FileChooser.ExtensionFilter getFilter();
 
 	/**
 	 * @return The extension corresponding to the format.
-	 * @since 3.0
 	 */
 	public abstract String getFileExtension();
 }

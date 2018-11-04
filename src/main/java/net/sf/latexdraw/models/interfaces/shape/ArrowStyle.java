@@ -228,7 +228,6 @@ public enum ArrowStyle {
 	/**
 	 * @param token The PST token or the name of the style to get (e.g. NONE.toString()).
 	 * @return The arrow style corresponding to the given PST token or the style name (or null).
-	 * @since 3.0
 	 */
 	public static ArrowStyle getArrowStyle(final String token) {
 		return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findAny().orElse(ArrowStyle.NONE);
@@ -236,19 +235,16 @@ public enum ArrowStyle {
 
 	/**
 	 * @return The opposite arrow of the current one.
-	 * @since 3.0
 	 */
 	public abstract ArrowStyle getOppositeArrowStyle();
 
 	/**
 	 * @return The PSTricks token of the arrow style.
-	 * @since 3.0
 	 */
 	public abstract String getPSTToken();
 
 	/**
 	 * @return True if the style is a bar.
-	 * @since 3.0
 	 */
 	public boolean isBar() {
 		return this == BAR_END || this == BAR_IN;
@@ -261,7 +257,6 @@ public enum ArrowStyle {
 
 	/**
 	 * @return True if the style is an arrow.
-	 * @since 3.0
 	 */
 	public boolean isArrow() {
 		return this == LEFT_ARROW || this == RIGHT_ARROW || this == RIGHT_DBLE_ARROW || this == LEFT_DBLE_ARROW;
@@ -269,7 +264,6 @@ public enum ArrowStyle {
 
 	/**
 	 * @return True if the style is a round bracket.
-	 * @since 3.0
 	 */
 	public boolean isRoundBracket() {
 		return this == LEFT_ROUND_BRACKET || this == RIGHT_ROUND_BRACKET;
@@ -277,7 +271,6 @@ public enum ArrowStyle {
 
 	/**
 	 * @return True if the style is a square bracket.
-	 * @since 3.0
 	 */
 	public boolean isSquareBracket() {
 		return this == LEFT_SQUARE_BRACKET || this == RIGHT_SQUARE_BRACKET;
@@ -285,7 +278,6 @@ public enum ArrowStyle {
 
 	/**
 	 * @return True if the style is a circle or a disk.
-	 * @since 3.0
 	 */
 	public boolean isCircleDisk() {
 		return this == CIRCLE_END || this == CIRCLE_IN || this == DISK_END || this == DISK_IN;
@@ -293,7 +285,6 @@ public enum ArrowStyle {
 
 	/**
 	 * @return True if the style is a style for right arrows.
-	 * @since 3.0
 	 */
 	public boolean isRightStyle() {
 		return this == RIGHT_ARROW || this == RIGHT_DBLE_ARROW || this == RIGHT_ROUND_BRACKET || this == RIGHT_SQUARE_BRACKET;
@@ -302,7 +293,6 @@ public enum ArrowStyle {
 	/**
 	 * @param style The style to test.
 	 * @return True if the given style and the calling style are of the same kind (e.g. both are circles or disks).
-	 * @since 3.0
 	 */
 	public boolean isSameKind(final ArrowStyle style) {
 		return style != null && ((isArrow() && style.isArrow()) || (isBar() && style.isBar()) || (isCircleDisk() && style.isCircleDisk()) || (isRoundBracket()
@@ -312,7 +302,6 @@ public enum ArrowStyle {
 	/**
 	 * @return True if the current arrow style need its line to be reduced. For instance the arrow
 	 * style requires its line to be smaller. The width of the arrow can be used in complement to reduce the line.
-	 * @since 3.0
 	 */
 	public boolean needsLineReduction() {
 		return false;

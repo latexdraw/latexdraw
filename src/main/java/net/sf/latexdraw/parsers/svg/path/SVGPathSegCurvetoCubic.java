@@ -17,16 +17,16 @@ import java.awt.geom.Point2D;
  * @author Arnaud BLOUIN
  */
 public class SVGPathSegCurvetoCubic extends SVGPathPointSeg implements CtrlPointsSeg {
-	/** The x-coordinate of the first control point. @since 2.0 */
+	/** The x-coordinate of the first control point. */
 	protected double x1;
 
-	/** The y-coordinate of the first control point. @since 2.0 */
+	/** The y-coordinate of the first control point. */
 	protected double y1;
 
-	/** The x-coordinate of the second control point. @since 2.0 */
+	/** The x-coordinate of the second control point. */
 	protected double x2;
 
-	/** The y-coordinate of the second control point. @since 2.0 */
+	/** The y-coordinate of the second control point. */
 	protected double y2;
 
 

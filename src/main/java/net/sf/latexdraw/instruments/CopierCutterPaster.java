@@ -68,7 +68,6 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	/**
 	 * Updates the widgets of the instrument.
 	 * @param executedCmd The command currently executed. Can be null.
-	 * @since 3.0
 	 */
 	protected void updateWidgets(final Command executedCmd) {
 		copyMenu.setDisable(!activated || !isShapeSelected.get());

@@ -16,7 +16,6 @@ import org.w3c.dom.Node;
 /**
  * Defines the SVG tag <code>polygon</code>.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public class SVGPolygonElement extends AbstractPointsElement {
 	/**

@@ -153,7 +153,6 @@ public enum FillingStyle {
 	/**
 	 * @param token The style to get.
 	 * @return The style which name is the given name style (or null).
-	 * @since 3.0
 	 */
 	public static FillingStyle getStyleFromLatex(final String token) {
 		return Arrays.stream(values()).filter(style -> style.getLatexToken().equals(token)).findFirst().orElse(NONE);
@@ -162,7 +161,6 @@ public enum FillingStyle {
 	/**
 	 * @param style The text version of the filling style.
 	 * @return The filling style that corresponds to the given text (or null).
-	 * @since 3.0
 	 */
 	public static FillingStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(item -> item.toString().equals(style)).findFirst().orElse(NONE);
@@ -176,7 +174,6 @@ public enum FillingStyle {
 
 	/**
 	 * @return The latex token corresponding to the filling style.
-	 * @since 3.0
 	 */
 	public abstract String getLatexToken();
 
@@ -196,7 +193,6 @@ public enum FillingStyle {
 
 	/**
 	 * @return True if the style is a kind of hatchings.
-	 * @since 3.0
 	 */
 	public boolean isHatchings() {
 		return this == HLINES || this == HLINES_PLAIN || this == VLINES || this == VLINES_PLAIN || this == CLINES || this == CLINES_PLAIN;
@@ -204,7 +200,6 @@ public enum FillingStyle {
 
 	/**
 	 * @return True if the style is a gradient.
-	 * @since 3.0
 	 */
 	public boolean isGradient() {
 		return this == GRAD;

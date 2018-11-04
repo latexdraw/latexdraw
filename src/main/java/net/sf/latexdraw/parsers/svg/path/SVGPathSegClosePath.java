@@ -17,7 +17,6 @@ package net.sf.latexdraw.parsers.svg.path;
 public class SVGPathSegClosePath extends SVGPathSeg {
 	/**
 	 * The constructor.
-	 * @since 2.0
 	 */
 	public SVGPathSegClosePath() {
 		super(true);

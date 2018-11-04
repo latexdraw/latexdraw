@@ -25,7 +25,6 @@ public class LCommandLine {
 	 * deduces the filename that will be open, from the set of parameters.
 	 * @param args The parameters given to latexdraw.
 	 * @return The filename that will be open.
-	 * @since 2.0.3
 	 */
 	public static String getFileName(final String[] args) {
 		if(args == null || args.length == 0) {
@@ -61,7 +60,6 @@ public class LCommandLine {
 	 * Parses the given arguments.
 	 * @param args The arguments to parse.
 	 * @return The result of the parsing.
-	 * @since 2.0.3
 	 */
 	public CmdLineState parse(final String[] args) {
 		if(args == null || args.length == 0) {
@@ -79,7 +77,6 @@ public class LCommandLine {
 
 	/**
 	 * Displays the different options of the command line of latexdraw.
-	 * @since 2.0.3
 	 */
 	public void displayHelp() {
 		System.out.println(LaTeXDraw.LABEL_APP + ' ' + VersionChecker.VERSION + VersionChecker.VERSION_STABILITY);
@@ -91,7 +88,6 @@ public class LCommandLine {
 
 	/**
 	 * @return The filename.
-	 * @since 2.0.3
 	 */
 	public String getFilename() {
 		return filename;

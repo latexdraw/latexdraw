@@ -34,7 +34,6 @@ final class CSSStylesGenerator {
 	 * @param shape The shape to set.
 	 * @param styles The styles to set to the shape.
 	 * @param defs The definitions, may be null.
-	 * @since 2.0.0
 	 */
 	public void setCSSStyles(final IShape shape, final CSSStyleList styles, final SVGDefsElement defs) {
 		if(shape == null || styles == null) {

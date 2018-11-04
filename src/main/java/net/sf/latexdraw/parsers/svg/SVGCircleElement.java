@@ -65,7 +65,6 @@ public class SVGCircleElement extends SVGElement {
 
 	/**
 	 * @return The x-axis coordinate of the centre of the circle (0 if there it does not exist or it is not a coordinate).
-	 * @since 0.1
 	 */
 	public double getCx() {
 		try {
@@ -78,7 +77,6 @@ public class SVGCircleElement extends SVGElement {
 	/**
 	 * Sets the X-coordinate of the circle.
 	 * @param cx The new X-coordinate of the circle.
-	 * @since 0.1
 	 */
 	public void setCx(final double cx) {
 		setAttribute(getUsablePrefix() + SVGAttributes.SVG_CX, String.valueOf(cx));

@@ -39,7 +39,6 @@ class SVGText extends SVGShape<IText> {
 	/**
 	 * Creates a text from an SVG text element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	SVGText(final SVGTextElement elt) {
 		this(ShapeFactory.INST.createText());
@@ -63,7 +62,6 @@ class SVGText extends SVGShape<IText> {
 	/**
 	 * Creates a text from a latexdraw-SVG element.
 	 * @param elt The source element.
-	 * @since 2.0.0
 	 */
 	SVGText(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createText());

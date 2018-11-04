@@ -128,7 +128,6 @@ public enum DotStyle {
 	/**
 	 * @param styleName The style to get (in PST or the name of the style, e.g. FSQUARE.toString())
 	 * @return The style which name is the given name style or DOT.
-	 * @since 3.0
 	 */
 	public static DotStyle getStyle(final String styleName) {
 		return Arrays.stream(values()).filter(style -> style.name().equals(styleName) || style.getPSTToken().equals(styleName)).findFirst().orElse(DOT);
@@ -144,7 +143,6 @@ public enum DotStyle {
 
 	/**
 	 * @return The PSTricks token corresponding to the dot style.
-	 * @since 3.0
 	 */
 	public abstract String getPSTToken();
 }

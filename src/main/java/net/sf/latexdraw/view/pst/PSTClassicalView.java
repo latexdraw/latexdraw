@@ -21,7 +21,6 @@ abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
 	 * Creates and initialises an abstract PSTricks view for classical model.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTClassicalView(final S model) {
 		super(model);
@@ -31,7 +30,6 @@ abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
 	/**
 	 * @param ppc The number of pixels per centimetre.
 	 * @return The properties PSTricks code of the model.
-	 * @since 3.0
 	 */
 	protected StringBuilder getPropertiesCode(final float ppc) {
 		final StringBuilder params = new StringBuilder();

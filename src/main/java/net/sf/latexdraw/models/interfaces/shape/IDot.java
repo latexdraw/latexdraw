@@ -30,7 +30,6 @@ public interface IDot extends IPositionShape, IDotProp {
 	 * this function computes the top left point only using the centre and the width of the dot which are
 	 * the same for all the dot styles
 	 * @return The top left point of the dot.
-	 * @since 3.0
 	 */
 	IPoint getLazyTopLeftPoint();
 
@@ -39,49 +38,41 @@ public interface IDot extends IPositionShape, IDotProp {
 	 * this function computes the bottom right point only using the centre and the width of the dot which are
 	 * the same for all the dot styles
 	 * @return The top bottom right of the dot.
-	 * @since 3.0
 	 */
 	IPoint getLazyBottomRightPoint();
 
 	/**
 	 * @return The gap used to create plus-shaped dots.
-	 * @since 3.0
 	 */
 	double getPlusGap();
 
 	/**
 	 * @return The gap used to create cross-shaped dots.
-	 * @since 3.0
 	 */
 	double getCrossGap();
 
 	/**
 	 * @return The gap used to create bar-shaped dots.
-	 * @since 3.0
 	 */
 	double getBarGap();
 
 	/**
 	 * @return The thickness used to create bar-shaped dots.
-	 * @since 3.0
 	 */
 	double getBarThickness();
 
 	/**
 	 * @return The gap used to compute the shape of several kinds of dot.
-	 * @since 3.0
 	 */
 	double getGeneralGap();
 
 	/**
 	 * @return The gap used to create O-shaped dots.
-	 * @since 3.0
 	 */
 	double getOGap();
 
 	/**
 	 * @return True if the dot can be filled.
-	 * @since 3.0
 	 */
 	@Override
 	boolean isFillable();

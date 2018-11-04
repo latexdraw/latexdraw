@@ -22,7 +22,6 @@ public enum FreeHandStyle {
 	/**
 	 * @param type The type to check.
 	 * @return The corresponding type. Returns CURVES by default.
-	 * @since 3.0
 	 */
 	public static FreeHandStyle getType(final String type) {
 		return Arrays.stream(values()).filter(style -> style.toString().equals(type)).findFirst().orElse(CURVES);

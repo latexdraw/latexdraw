@@ -18,14 +18,12 @@ public interface IRectangularShape extends IPositionShape {
 	/**
 	 * Sets the width of the rectangle (the reference point is the bottom-left point of the rectangle).
 	 * @param width The new width.
-	 * @since 3.0
 	 */
 	void setWidth(final double width);
 
 	/**
 	 * Sets the height of the rectangle (the reference point is the bottom-left point of the rectangle).
 	 * @param height The new height.
-	 * @since 3.0
 	 */
 	void setHeight(final double height);
 }

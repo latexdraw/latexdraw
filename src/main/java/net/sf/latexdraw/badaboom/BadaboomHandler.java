@@ -13,19 +13,16 @@ package net.sf.latexdraw.badaboom;
 /**
  * Defines a badaboom handler. An object that wants to be aware of the activities of a 'badaboom' manager must implement this interface.
  * @author Arnaud BLOUIN
- * @since 3.0
  */
 public interface BadaboomHandler {
 	/**
 	 * Actions to do when an exception is received by the manager.
 	 * @param throwable The received exception.
-	 * @since 3.0
 	 */
 	void notifyEvent(final Throwable throwable);
 
 	/**
 	 * Actions to do when exceptions are received by the manager.
-	 * @since 3.0
 	 */
 	void notifyEvents();
 }

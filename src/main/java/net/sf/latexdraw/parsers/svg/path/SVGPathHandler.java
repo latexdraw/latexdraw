@@ -18,7 +18,6 @@ public interface SVGPathHandler {
 	/**
 	 * Actions to do when a SVGPath is parsed and created.
 	 * @param pathSeg The parsed SVGPath.
-	 * @since 2.0
 	 */
 	void onPathSeg(final SVGPathSeg pathSeg);
 }

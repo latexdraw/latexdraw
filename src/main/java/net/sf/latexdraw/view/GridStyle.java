@@ -45,7 +45,6 @@ public enum GridStyle {
 	 * Searches the style which label matches the given name.
 	 * @param name The name of the style to find.
 	 * @return The found style or empty.
-	 * @since 4.0
 	 */
 	public static Optional<GridStyle> getStylefromName(final String name) {
 		return Arrays.stream(values()).filter(v -> v.name().equals(name)).findFirst();

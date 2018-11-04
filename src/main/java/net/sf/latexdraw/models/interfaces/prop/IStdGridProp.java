@@ -19,38 +19,32 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
 public interface IStdGridProp {
 	/**
 	 * @return The minimal X-tick of the grid.
-	 * @since 3.0
 	 */
 	double getGridMinX();
 
 	/**
 	 * @return The maximal X-tick of the grid.
-	 * @since 3.0
 	 */
 	double getGridMaxX();
 
 	/**
 	 * @return The minimal Y-tick of the grid.
-	 * @since 3.0
 	 */
 	double getGridMinY();
 
 	/**
 	 * @return The maximal Y-tick of the grid.
-	 * @since 3.0
 	 */
 	double getGridMaxY();
 
 	/**
 	 * @return The size of the labels.
-	 * @since 3.0
 	 */
 	int getLabelsSize();
 
 	/**
 	 * Defines the size of the labels.
 	 * @param labelsSize The new size of the labels.
-	 * @since 3.0
 	 */
 	void setLabelsSize(final int labelsSize);
 
@@ -76,13 +70,11 @@ public interface IStdGridProp {
 
 	/**
 	 * @return The starting point of the grid.
-	 * @since 3.0
 	 */
 	IPoint getGridStart();
 
 	/**
 	 * @return The ending point of the grid.
-	 * @since 3.0
 	 */
 	IPoint getGridEnd();
 
@@ -146,7 +138,6 @@ public interface IStdGridProp {
 
 	/**
 	 * @return The size of a step of the grid (can be LShape.PPC or LShape.PPC*unit for instance).
-	 * @since 3.0
 	 */
 	double getStep();
 }

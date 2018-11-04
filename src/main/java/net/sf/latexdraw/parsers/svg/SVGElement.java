@@ -549,7 +549,6 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * Sets the transformation of the elements. Removes previous transformations.
 	 * Should not be called directly; call setAttribute instead.
 	 * @param transformation The transformation to set.
-	 * @since 3.0
 	 */
 	private void setTransformation(final String transformation) {
 		if(transform == null) {
@@ -934,7 +933,6 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * Sets the line cap of the stroke of the SVG shape.
 	 * @param svgLineCap The line cap to set. Must be SVG_LINECAP_VALUE_BUTT or SVG_LINECAP_VALUE_ROUND
 	 * or SVG_LINECAP_VALUE_SQUARE.
-	 * @since 0.2
 	 */
 	public void setStrokeLineCap(final String svgLineCap) {
 		if(SVGAttributes.SVG_LINECAP_VALUE_BUTT.equals(svgLineCap) || SVGAttributes.SVG_LINECAP_VALUE_ROUND.equals(svgLineCap) ||
@@ -947,7 +945,6 @@ public abstract class SVGElement implements LElement, Cloneable {
 	/**
 	 * Sets the miter level of the stroke.
 	 * @param miterLevel The miter level to set. Must be greater than or equal to 1.
-	 * @since 0.2
 	 */
 	public void setStrokeMiterLevel(final double miterLevel) {
 		if(miterLevel >= 1) {
@@ -959,7 +956,6 @@ public abstract class SVGElement implements LElement, Cloneable {
 	/**
 	 * Sets the dash offset of the stroke.
 	 * @param dashOffset The dash offset to set.
-	 * @since 0.2
 	 */
 	public void setStrokeDashOffset(final double dashOffset) {
 		setAttribute(SVGAttributes.SVG_STROKE_DASHOFFSET, String.valueOf(dashOffset));
@@ -969,7 +965,6 @@ public abstract class SVGElement implements LElement, Cloneable {
 	/**
 	 * Sets the dash array of the stroke.
 	 * @param dashArray The dash array to set. Must not be null.
-	 * @since 0.2
 	 */
 	public void setStrokeDashArray(final String dashArray) {
 		if(dashArray != null) {
@@ -982,7 +977,6 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * Sets the line join of the stroke of the SVG shape.
 	 * @param svgLineJoin The line join to set. Must be SVG_LINEJOIN_VALUE_BEVEL or SVG_LINEJOIN_VALUE_MITER
 	 * or SVG_LINEJOIN_VALUE_ROUND.
-	 * @since 0.2
 	 */
 	public void setStrokeLineJoin(final String svgLineJoin) {
 		if(SVGAttributes.SVG_LINEJOIN_VALUE_BEVEL.equals(svgLineJoin) || SVGAttributes.SVG_LINEJOIN_VALUE_MITER.equals(svgLineJoin) ||
@@ -1120,7 +1114,6 @@ public abstract class SVGElement implements LElement, Cloneable {
 	/**
 	 * Sets the owner document of the node.
 	 * @param doc The document to set.
-	 * @since 2.0.0
 	 */
 	public void setOwnerDocument(final SVGDocument doc) {
 		if(doc != null) {
@@ -1149,7 +1142,6 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * @param attrName The name of the researched attribute.
 	 * @param prefix The usable prefix.
 	 * @return The found value or null.
-	 * @since 2.0.6
 	 */
 	public String getSVGAttribute(final String attrName, final String prefix) {
 		if(attrName == null) {

@@ -24,7 +24,6 @@ public class PSTDotView extends PSTClassicalView<IDot> {
 	 * Creates and initialises a LDot PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
-	 * @since 3.0
 	 */
 	protected PSTDotView(final IDot model) {
 		super(model);

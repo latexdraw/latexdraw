@@ -15,13 +15,12 @@ package net.sf.latexdraw.parsers.svg.path;
  * @author Arnaud BLOUIN
  */
 public abstract class SVGPathSeg {
-	/** Defines if the segment path is relative or absolute. @since 2.0 */
+	/** Defines if the segment path is relative or absolute. */
 	protected boolean isRelative;
 
 	/**
 	 * The main constructor.
 	 * @param isRelative True: the path segment is relative, false it is absolute.
-	 * @since 2.0
 	 */
 	protected SVGPathSeg(final boolean isRelative) {
 		super();
@@ -31,7 +30,6 @@ public abstract class SVGPathSeg {
 
 	/**
 	 * @return the isRelative.
-	 * @since 2.0
 	 */
 	public boolean isRelative() {
 		return isRelative;
@@ -40,7 +38,6 @@ public abstract class SVGPathSeg {
 
 	/**
 	 * @param isRelative the isRelative to set.
-	 * @since 2.0
 	 */
 	public void setRelative(final boolean isRelative) {
 		this.isRelative = isRelative;

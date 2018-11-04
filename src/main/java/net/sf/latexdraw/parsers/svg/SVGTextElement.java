@@ -18,7 +18,6 @@ import org.w3c.dom.NodeList;
 /**
  * Defines the SVG tag <code>text</code>.
  * @author Arnaud BLOUIN
- * @since 0.1
  */
 public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 	/**
@@ -71,7 +70,6 @@ public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 
 	/**
 	 * @return The value of the dx attribute (0 if there it does not exist or it is not a length).
-	 * @since 0.1
 	 */
 	public double getDX() {
 		try {
@@ -84,7 +82,6 @@ public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 
 	/**
 	 * @return The value of the dy attribute (0 if there it does not exist or it is not a length).
-	 * @since 0.1
 	 */
 	public double getDY() {
 		try {

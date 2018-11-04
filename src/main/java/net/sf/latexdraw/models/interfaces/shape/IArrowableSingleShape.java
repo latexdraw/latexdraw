@@ -18,7 +18,6 @@ public interface IArrowableSingleShape extends ISingleShape, IArrowableShape {
 	/**
 	 * @param index The index of the arrow to use.
 	 * @return The line that will be used to place the arrow or null.
-	 * @since 3.0
 	 */
 	ILine getArrowLine(final int index);
 }

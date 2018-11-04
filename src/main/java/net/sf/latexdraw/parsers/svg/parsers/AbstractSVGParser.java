@@ -15,7 +15,6 @@ import net.sf.latexdraw.parsers.CodeParser;
 /**
  * Defines a model for the SVG parsers.
  * @author Arnaud BLOUIN
- * @since 2.0.0
  */
 public abstract class AbstractSVGParser extends CodeParser {
 	/**
