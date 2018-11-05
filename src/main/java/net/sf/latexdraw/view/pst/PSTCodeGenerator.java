@@ -12,8 +12,8 @@ package net.sf.latexdraw.view.pst;
 
 import java.util.HashSet;
 import java.util.Set;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
@@ -45,8 +45,8 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	@Override
 	public String getDocumentCode() {
 		final StringBuilder doc = new StringBuilder();
-		final IPoint bl = handler.getBottomLeftDrawingPoint();
-		final IPoint tr = handler.getTopRightDrawingPoint();
+		final Point bl = handler.getBottomLeftDrawingPoint();
+		final Point tr = handler.getTopRightDrawingPoint();
 		final float ppc = handler.getPPCDrawing();
 
 		if(tr.getY() < 0d) {
@@ -75,9 +75,9 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 
 		final StringBuilder cache = new StringBuilder();
 		String pkg = getPackages();
-		final IPoint origin = handler.getOriginDrawingPoint();
-		final IPoint tl = handler.getTopRightDrawingPoint();
-		final IPoint br = handler.getBottomLeftDrawingPoint();
+		final Point origin = handler.getOriginDrawingPoint();
+		final Point tl = handler.getTopRightDrawingPoint();
+		final Point br = handler.getBottomLeftDrawingPoint();
 		final int ppc = handler.getPPCDrawing();
 		final Set<String> addedColours = new HashSet<>();
 		final StringBuilder shapeCode = new StringBuilder();

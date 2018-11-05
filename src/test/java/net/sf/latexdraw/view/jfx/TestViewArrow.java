@@ -1,7 +1,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
-import net.sf.latexdraw.models.ShapeFactory;
+import net.sf.latexdraw.model.ShapeFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -10,9 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Polyline;
 
 /**
  * Defines a PSTricks view of the LLines model.
@@ -24,13 +24,13 @@ public class PSTLinesView extends PSTPolygonView {
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTLinesView(final IPolyline model) {
+	protected PSTLinesView(final Polyline model) {
 		super(model);
 	}
 
 
 	@Override
-	public String getCode(final IPoint position, final float ppc) {
+	public String getCode(final Point position, final float ppc) {
 		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
 			return "";
 		}

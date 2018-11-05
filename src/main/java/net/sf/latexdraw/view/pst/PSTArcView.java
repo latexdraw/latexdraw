@@ -11,29 +11,29 @@
 package net.sf.latexdraw.view.pst;
 
 import java.util.List;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IArc;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Arc;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Polyline;
 
 /**
  * Defines a PSTricks view of the LArc model.
  * @author Arnaud Blouin
  */
-public class PSTArcView extends PSTClassicalView<IArc> {
+public class PSTArcView extends PSTClassicalView<Arc> {
 	/**
 	 * Creates and initialises a LArc PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTArcView(final IArc model) {
+	protected PSTArcView(final Arc model) {
 		super(model);
 	}
 
 
 	@Override
-	public String getCode(final IPoint origin, final float ppc) {
+	public String getCode(final Point origin, final float ppc) {
 		if(!MathUtils.INST.isValidPt(origin) || ppc < 1f) {
 			return "";
 		}
@@ -76,13 +76,13 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 				start.append("\\psarc"); //NON-NLS
 				break;
 			case CHORD:
-				final IPoint startPt = shape.getStartPoint();
-				final IPoint endPt = shape.getEndPoint();
+				final Point startPt = shape.getStartPoint();
+				final Point endPt = shape.getEndPoint();
 
 				start.append("\\psarc"); //NON-NLS
 				// Creating the closing line
-				final IPoint gcArc = shape.getGravityCentre();
-				final IPolyline closingLine = ShapeFactory.INST.createPolyline(
+				final Point gcArc = shape.getGravityCentre();
+				final Polyline closingLine = ShapeFactory.INST.createPolyline(
 					List.of(startPt.rotatePoint(gcArc, shape.getRotationAngle()), endPt.rotatePoint(gcArc, shape.getRotationAngle())));
 				closingLine.copy(shape);
 				closingLine.setRotationAngle(0d);

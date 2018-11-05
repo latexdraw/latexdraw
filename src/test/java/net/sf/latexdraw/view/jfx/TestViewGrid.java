@@ -9,8 +9,8 @@ import javafx.scene.shape.PathElement;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Grid;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
-public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
+public class TestViewGrid extends TestViewStdGrid<ViewGrid, Grid> {
 	List<PathElement> mainGridBefore;
 	List<PathElement> subGridBefore;
 
@@ -42,7 +42,7 @@ public class TestViewGrid extends TestViewStdGrid<ViewGrid, IGrid> {
 	}
 
 	@Override
-	protected IGrid createModel() {
+	protected Grid createModel() {
 		return ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint(101, 67));
 	}
 

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import net.sf.latexdraw.view.jfx.LSpinner?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" text="Drawing properties" xmlns="http://javafx.com/javafx/8" expanded="false"
-            fx:controller="net.sf.latexdraw.instruments.DrawingPropertiesCustomiser" alignment="TOP_LEFT">
+            fx:controller="net.sf.latexdraw.instrument.DrawingPropertiesCustomiser" alignment="TOP_LEFT">
     <tooltip>
         <Tooltip text="%ToolbarBuilder.1"/>
     </tooltip>

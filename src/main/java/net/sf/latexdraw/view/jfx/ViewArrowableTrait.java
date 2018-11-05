@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Optional;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.shape.Shape;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
-import net.sf.latexdraw.models.interfaces.shape.IControlPointShape;
-import net.sf.latexdraw.models.interfaces.shape.ILine;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
+import net.sf.latexdraw.model.api.shape.ControlPointShape;
+import net.sf.latexdraw.model.api.shape.Line;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * A (sort of) trait for grouping all the JFX code related to painting arrows of arrowable shape.
@@ -28,9 +28,9 @@ import net.sf.latexdraw.models.interfaces.shape.IPoint;
  * @param <T> The type of the JFX view.
  * @author Arnaud Blouin
  */
-abstract class ViewArrowableTrait<T extends Shape, S extends IArrowableSingleShape> extends ViewShape<S> {
+abstract class ViewArrowableTrait<T extends Shape, S extends ArrowableSingleShape> extends ViewShape<S> {
 	protected final List<ViewArrow> arrows;
-	protected final ViewSingleShape<? extends IArrowableSingleShape, T> mainView;
+	protected final ViewSingleShape<? extends ArrowableSingleShape, T> mainView;
 	protected final ChangeListener<Object> updateArrow = (observable, oldValue, newValue) -> updateAllArrows();
 	protected final ChangeListener<Object> updateClip = (observable, oldValue, newValue) -> updateClip();
 
@@ -62,8 +62,8 @@ abstract class ViewArrowableTrait<T extends Shape, S extends IArrowableSingleSha
 			model.getPtAt(-1).xProperty().addListener(updateArrow);
 			model.getPtAt(-1).yProperty().addListener(updateArrow);
 
-			if(model instanceof IControlPointShape) {
-				final IControlPointShape ctrl = (IControlPointShape) model;
+			if(model instanceof ControlPointShape) {
+				final ControlPointShape ctrl = (ControlPointShape) model;
 				ctrl.getFirstCtrlPtAt(0).xProperty().addListener(updateArrow);
 				ctrl.getFirstCtrlPtAt(0).yProperty().addListener(updateArrow);
 				ctrl.getFirstCtrlPtAt(-1).xProperty().addListener(updateArrow);
@@ -141,8 +141,8 @@ abstract class ViewArrowableTrait<T extends Shape, S extends IArrowableSingleSha
 			pt.xProperty().removeListener(updateArrow);
 			pt.yProperty().removeListener(updateArrow);
 		});
-		if(model instanceof IControlPointShape) {
-			((IControlPointShape) model).getFirstCtrlPts().forEach(pt -> {
+		if(model instanceof ControlPointShape) {
+			((ControlPointShape) model).getFirstCtrlPts().forEach(pt -> {
 				pt.xProperty().removeListener(updateArrow);
 				pt.yProperty().removeListener(updateArrow);
 			});
@@ -151,12 +151,12 @@ abstract class ViewArrowableTrait<T extends Shape, S extends IArrowableSingleSha
 		super.flush();
 	}
 
-	protected static Optional<IPoint> getArrowReducedPoint(final IArrow arrow) {
-		final ILine l = arrow.getArrowLine();
+	protected static Optional<Point> getArrowReducedPoint(final Arrow arrow) {
+		final Line l = arrow.getArrowLine();
 		if(l == null) {
 			return Optional.empty();
 		}
-		final IPoint[] points = l.findPoints(l.getX1(), l.getY1(), arrow.getArrowShapeLength());
+		final Point[] points = l.findPoints(l.getX1(), l.getY1(), arrow.getArrowShapeLength());
 		if(points.length == 0) {
 			return Optional.empty();
 		}

@@ -3,7 +3,7 @@ package net.sf.latexdraw.view.jfx;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Path;
 import net.sf.latexdraw.data.ShapeSupplier;
-import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.model.api.shape.Triangle;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.ApplicationExtension;
@@ -12,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(ApplicationExtension.class)
-public class TestViewTriangle extends TestViewBorderedShape<ViewTriangle, ITriangle, Path> {
+public class TestViewTriangle extends TestViewBorderedShape<ViewTriangle, Triangle, Path> {
 	@Override
-	protected ITriangle createModel() {
+	protected Triangle createModel() {
 		return ShapeSupplier.createTriangle();
 	}
 

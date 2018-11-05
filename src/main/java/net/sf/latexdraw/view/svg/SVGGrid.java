@@ -15,35 +15,35 @@ import java.util.List;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.CSSColors;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGCircleElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGLineElement;
-import net.sf.latexdraw.parsers.svg.SVGTextElement;
-import net.sf.latexdraw.parsers.svg.SVGTransform;
-import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Color;
+import net.sf.latexdraw.model.api.shape.Grid;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.svg.CSSColors;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGCircleElement;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGLineElement;
+import net.sf.latexdraw.parser.svg.SVGTextElement;
+import net.sf.latexdraw.parser.svg.SVGTransform;
+import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
 
 /**
  * An SVG generator for a grid.
  * @author Arnaud BLOUIN
  */
-class SVGGrid extends SVGShape<IGrid> {
+class SVGGrid extends SVGShape<Grid> {
 	/**
 	 * Creates a generator of SVG grids.
 	 * @param grid The grid used for the generation.
 	 * @throws IllegalArgumentException If grid is null.
 	 */
-	SVGGrid(final IGrid grid) {
+	SVGGrid(final Grid grid) {
 		super(grid);
 	}
 
@@ -221,7 +221,7 @@ class SVGGrid extends SVGShape<IGrid> {
 	private void createSVGSubGridDots(final SVGDocument document, final SVGElement elt, final String prefix, final double subGridDiv, final double unit, final
 	double xSubStep, final double ySubStep, final double minX, final double maxX, final double minY, final double maxY, final int subGridDots, final double
 		subGridWidth, final double tlx, final double tly, final double brx, final double bry, final Color subGridColour) {
-		final double dotStep = unit * IShape.PPC / (subGridDots * subGridDiv);
+		final double dotStep = unit * Shape.PPC / (subGridDots * subGridDiv);
 		final double nbX = (maxX - minX) * subGridDiv;
 		final double nbY = (maxY - minY) * subGridDiv;
 		final SVGElement subgridDots = new SVGGElement(document);
@@ -334,7 +334,7 @@ class SVGGrid extends SVGShape<IGrid> {
 		double l;
 		double j;
 		final int gridDots = shape.getGridDots();
-		final double dotStep = unit * IShape.PPC / gridDots;
+		final double dotStep = unit * Shape.PPC / gridDots;
 		final SVGElement gridDotsElt = new SVGGElement(document);
 		SVGElement dot;
 
@@ -500,17 +500,17 @@ class SVGGrid extends SVGShape<IGrid> {
 		final String prefix = LNamespace.LATEXDRAW_NAMESPACE + ':';
 		final double unit = shape.getUnit();
 		final int subGridDiv = shape.getSubGridDiv();
-		double xStep = IShape.PPC * unit;
+		double xStep = Shape.PPC * unit;
 		final double xSubStep;
-		double yStep = IShape.PPC * unit;
+		double yStep = Shape.PPC * unit;
 		final double ySubStep;
 		xStep *= shape.getGridEndX() < shape.getGridStartX() ? -1 : 1;
 		yStep *= shape.getGridEndY() < shape.getGridStartY() ? -1 : 1;
 		xSubStep = xStep / subGridDiv;
 		ySubStep = yStep / subGridDiv;
 		final int subGridDots = shape.getSubGridDots();
-		final IPoint tl = shape.getTopLeftPoint();
-		final IPoint br = shape.getBottomRightPoint();
+		final Point tl = shape.getTopLeftPoint();
+		final Point br = shape.getBottomRightPoint();
 		double tlx = tl.getX();
 		double tly = tl.getY();
 		double brx = br.getX();
@@ -523,9 +523,9 @@ class SVGGrid extends SVGShape<IGrid> {
 		final Color subGridColor = shape.getSubGridColour();
 		final Color linesColor = shape.getLineColour();
 		final double gridWidth = shape.getGridWidth();
-		final double posX = Math.min(shape.getGridStartX(), shape.getGridEndX()) * IShape.PPC * unit;
-		final double posY = -Math.min(shape.getGridStartY(), shape.getGridEndY()) * IShape.PPC * unit;
-		final IPoint position = shape.getPosition();
+		final double posX = Math.min(shape.getGridStartX(), shape.getGridEndX()) * Shape.PPC * unit;
+		final double posY = -Math.min(shape.getGridStartY(), shape.getGridEndY()) * Shape.PPC * unit;
+		final Point position = shape.getPosition();
 
 		tlx -= position.getX();
 		brx -= position.getX();

@@ -16,31 +16,31 @@ import java.util.List;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
-import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGElements;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGNodeList;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.SVGTextElement;
-import net.sf.latexdraw.parsers.svg.SVGTransform;
-import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
+import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Polyline;
+import net.sf.latexdraw.model.api.shape.Rectangle;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.PlottingStyle;
+import net.sf.latexdraw.model.api.shape.TicksStyle;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGElements;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGNodeList;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
+import net.sf.latexdraw.parser.svg.SVGTextElement;
+import net.sf.latexdraw.parser.svg.SVGTransform;
+import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.GenericAxes;
 
@@ -48,12 +48,12 @@ import net.sf.latexdraw.view.GenericAxes;
  * SVG/latexdraw axes import export.
  * @author Arnaud BLOUIN
  */
-class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
+class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 	private SVGDocument currentDoc;
 	private SVGPathSegList currentPath;
 	private SVGGElement currentTicks;
 
-	SVGAxes(final IAxes shape) {
+	SVGAxes(final Axes shape) {
 		super(shape);
 	}
 
@@ -168,8 +168,8 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 
 		if(l1 != null && l2 != null) {
 			try {
-				final IPolyline la = new SVGPolylines(l1, false).shape;
-				final IPolyline lb = new SVGPolylines(l2, false).shape;
+				final Polyline la = new SVGPolylines(l1, false).shape;
+				final Polyline lb = new SVGPolylines(l2, false).shape;
 
 				// Legacy code: in older versions the position was computed from the lines
 				// now, a translation is used.
@@ -237,14 +237,14 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 		if(shape.getAxesStyle().supportsArrows() && shape.getNbArrows() == 4) {
 			final double posX = shape.getPosition().getX();
 			final double posY = shape.getPosition().getY();
-			final IArrow arr0 = shape.getArrowAt(1);
-			final IArrow arr1 = shape.getArrowAt(3);
+			final Arrow arr0 = shape.getArrowAt(1);
+			final Arrow arr1 = shape.getArrowAt(3);
 			final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0.;
 			final double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0.;
-			final IPolyline xLine = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(posX + shape.getGridStartX() *
-				IShape.PPC + arr0Reduction, posY), ShapeFactory.INST.createPoint(posX + shape.getGridEndX() * IShape.PPC - arr1Reduction, posY)));
-			final IPolyline yLine = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(posX, posY - shape.getGridStartY() *
-				IShape.PPC - arr0Reduction), ShapeFactory.INST.createPoint(posX, posY - shape.getGridEndY() * IShape.PPC + arr1Reduction)));
+			final Polyline xLine = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(posX + shape.getGridStartX() *
+				Shape.PPC + arr0Reduction, posY), ShapeFactory.INST.createPoint(posX + shape.getGridEndX() * Shape.PPC - arr1Reduction, posY)));
+			final Polyline yLine = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(posX, posY - shape.getGridStartY() *
+				Shape.PPC - arr0Reduction), ShapeFactory.INST.createPoint(posX, posY - shape.getGridEndY() * Shape.PPC + arr1Reduction)));
 
 
 			xLine.getArrowAt(0).copy(arr0);
@@ -271,10 +271,10 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 		if(gridEndx > 0 || gridEndy > 0) {
 			final double positionx = shape.getPosition().getX();
 			final double positiony = shape.getPosition().getY();
-			final double xMax = positionx + gridEndx * IShape.PPC;
-			final double yMax = positiony - gridEndy * IShape.PPC;
-			final IPoint pos = ShapeFactory.INST.createPoint(positionx, gridEndy > 0 ? yMax : positiony);
-			final IRectangle r = ShapeFactory.INST.createRectangle(pos, Math.abs(pos.getX() - (gridEndx > 0 ? xMax : positionx)),
+			final double xMax = positionx + gridEndx * Shape.PPC;
+			final double yMax = positiony - gridEndy * Shape.PPC;
+			final Point pos = ShapeFactory.INST.createPoint(positionx, gridEndy > 0 ? yMax : positiony);
+			final Rectangle r = ShapeFactory.INST.createRectangle(pos, Math.abs(pos.getX() - (gridEndx > 0 ? xMax : positionx)),
 				Math.abs(pos.getY() - positiony));
 
 			r.setBordersPosition(BorderPos.MID);
@@ -304,7 +304,7 @@ class SVGAxes extends SVGShape<IAxes> implements GenericAxes<SVGTextElement> {
 	}
 
 	@Override
-	public IAxes getModel() {
+	public Axes getModel() {
 		return getShape();
 	}
 

@@ -5,24 +5,24 @@ import java.util.Collections;
 import java.util.Optional;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
-import net.sf.latexdraw.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.models.interfaces.shape.IEllipse;
-import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
-import net.sf.latexdraw.models.interfaces.shape.IPolygon;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-import net.sf.latexdraw.models.interfaces.shape.ISquare;
-import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.Circle;
+import net.sf.latexdraw.model.api.shape.CircleArc;
+import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Ellipse;
+import net.sf.latexdraw.model.api.shape.Freehand;
+import net.sf.latexdraw.model.api.shape.Grid;
+import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.model.api.shape.Picture;
+import net.sf.latexdraw.model.api.shape.Polygon;
+import net.sf.latexdraw.model.api.shape.Polyline;
+import net.sf.latexdraw.model.api.shape.Rectangle;
+import net.sf.latexdraw.model.api.shape.Rhombus;
+import net.sf.latexdraw.model.api.shape.Square;
+import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.SystemService;
@@ -62,105 +62,105 @@ public class TestPSTViewFactory {
 
 	@Test
 	void testCreateGroupViewPST() {
-		final IGroup gp = ShapeFactory.INST.createGroup();
+		final Group gp = ShapeFactory.INST.createGroup();
 		gp.addShape(ShapeFactory.INST.createText());
-		final Optional<PSTShapeView<IGroup>> view = factory.createView(gp);
+		final Optional<PSTShapeView<Group>> view = factory.createView(gp);
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateTextViewPST() {
-		final Optional<PSTShapeView<IText>> view = factory.createView(ShapeFactory.INST.createText());
+		final Optional<PSTShapeView<Text>> view = factory.createView(ShapeFactory.INST.createText());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateArcCircleViewPST() {
-		final Optional<PSTShapeView<ICircleArc>> view = factory.createView(ShapeFactory.INST.createCircleArc());
+		final Optional<PSTShapeView<CircleArc>> view = factory.createView(ShapeFactory.INST.createCircleArc());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateRectangleViewPST() {
-		final Optional<PSTShapeView<IRectangle>> view = factory.createView(ShapeFactory.INST.createRectangle());
+		final Optional<PSTShapeView<Rectangle>> view = factory.createView(ShapeFactory.INST.createRectangle());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateSquareViewPST() {
-		final Optional<PSTShapeView<ISquare>> view = factory.createView(ShapeFactory.INST.createSquare());
+		final Optional<PSTShapeView<Square>> view = factory.createView(ShapeFactory.INST.createSquare());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateEllipseViewPST() {
-		final Optional<PSTShapeView<IEllipse>> view = factory.createView(ShapeFactory.INST.createEllipse());
+		final Optional<PSTShapeView<Ellipse>> view = factory.createView(ShapeFactory.INST.createEllipse());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateCircleViewPST() {
-		final Optional<PSTShapeView<ICircle>> view = factory.createView(ShapeFactory.INST.createCircle());
+		final Optional<PSTShapeView<Circle>> view = factory.createView(ShapeFactory.INST.createCircle());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateGridViewPST() {
-		final Optional<PSTShapeView<IGrid>> view = factory.createView(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
+		final Optional<PSTShapeView<Grid>> view = factory.createView(ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateAxesViewPST() {
-		final Optional<PSTShapeView<IAxes>> view = factory.createView(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
+		final Optional<PSTShapeView<Axes>> view = factory.createView(ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreatePolygonViewPST() {
-		final Optional<PSTShapeView<IPolygon>> view = factory.createView(ShapeFactory.INST.createPolygon(Collections.emptyList()));
+		final Optional<PSTShapeView<Polygon>> view = factory.createView(ShapeFactory.INST.createPolygon(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreatePolylineViewPST() {
-		final Optional<PSTShapeView<IPolyline>> view = factory.createView(ShapeFactory.INST.createPolyline(Collections.emptyList()));
+		final Optional<PSTShapeView<Polyline>> view = factory.createView(ShapeFactory.INST.createPolyline(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateTriangleViewPST() {
-		final Optional<PSTShapeView<ITriangle>> view = factory.createView(ShapeFactory.INST.createTriangle());
+		final Optional<PSTShapeView<Triangle>> view = factory.createView(ShapeFactory.INST.createTriangle());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateRhombusViewPST() {
-		final Optional<PSTShapeView<IRhombus>> view = factory.createView(ShapeFactory.INST.createRhombus());
+		final Optional<PSTShapeView<Rhombus>> view = factory.createView(ShapeFactory.INST.createRhombus());
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateFreehandViewPST() {
-		final Optional<PSTShapeView<IFreehand>> view = factory.createView(ShapeFactory.INST.createFreeHand(Collections.emptyList()));
+		final Optional<PSTShapeView<Freehand>> view = factory.createView(ShapeFactory.INST.createFreeHand(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreatePictureViewPST() {
-		final Optional<PSTShapeView<IPicture>> view = factory.createView(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), new SystemService()));
+		final Optional<PSTShapeView<Picture>> view = factory.createView(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), new SystemService()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateDotViewPST() {
-		final Optional<PSTShapeView<IDot>> view = factory.createView(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
+		final Optional<PSTShapeView<Dot>> view = factory.createView(ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint()));
 		assertTrue(view.isPresent());
 	}
 
 	@Test
 	void testCreateBezierCurveViewPST() {
-		final Optional<PSTShapeView<IBezierCurve>> view = factory.createView(ShapeFactory.INST.createBezierCurve(Collections.emptyList()));
+		final Optional<PSTShapeView<BezierCurve>> view = factory.createView(ShapeFactory.INST.createBezierCurve(Collections.emptyList()));
 		assertTrue(view.isPresent());
 	}
 }

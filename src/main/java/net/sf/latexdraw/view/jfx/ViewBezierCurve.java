@@ -21,17 +21,17 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.StrokeLineCap;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * The JFX shape view for Bézier curves.
  * @author Arnaud Blouin
  */
-public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
-	protected final ViewArrowableTraitPath<IBezierCurve> viewArrows;
+public class ViewBezierCurve extends ViewPathShape<BezierCurve> {
+	protected final ViewArrowableTraitPath<BezierCurve> viewArrows;
 	protected final Group showPoint;
 	protected final CubicCurveTo closingCurve;
 	protected final Line lastShPtsline;
@@ -41,7 +41,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 	 * Creates the view.
 	 * @param shape The model.
 	 */
-	ViewBezierCurve(final IBezierCurve shape, final PathElementProducer pathProducer) {
+	ViewBezierCurve(final BezierCurve shape, final PathElementProducer pathProducer) {
 		super(shape, pathProducer);
 		viewArrows = new ViewArrowableTraitPath<>(this, pathProducer);
 		showPoint = new Group();
@@ -128,7 +128,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 		}
 	}
 
-	private Line createLine(final IPoint p1, final IPoint p2) {
+	private Line createLine(final Point p1, final Point p2) {
 		final Line line = new Line();
 		line.startXProperty().bind(p1.xProperty());
 		line.startYProperty().bind(p1.yProperty());
@@ -143,7 +143,7 @@ public class ViewBezierCurve extends ViewPathShape<IBezierCurve> {
 		return line;
 	}
 
-	private final CubicCurveTo addCurveTo(final IPoint pt, final IPoint ctrl1, final IPoint ctrl2) {
+	private final CubicCurveTo addCurveTo(final Point pt, final Point ctrl1, final Point ctrl2) {
 		final CubicCurveTo curveto = pathProducer.createCubicCurveTo(0d, 0d, 0d, 0d, 0d, 0d);
 		curveto.xProperty().bind(pt.xProperty());
 		curveto.yProperty().bind(pt.yProperty());

@@ -27,7 +27,6 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Bounds;
-import javafx.scene.Group;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -41,22 +40,22 @@ import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.commands.ExportFormat;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDefsElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGElements;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGMetadataElement;
-import net.sf.latexdraw.parsers.svg.SVGSVGElement;
+import net.sf.latexdraw.command.ExportFormat;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Drawing;
+import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.svg.MalformedSVGDocument;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDefsElement;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGElements;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGMetadataElement;
+import net.sf.latexdraw.parser.svg.SVGSVGElement;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LangService;
@@ -81,7 +80,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 	@Inject private SVGShapesFactory svgFactory;
 	@Inject private LangService lang;
 	@Inject private Canvas canvas;
-	@Inject private IDrawing drawing;
+	@Inject private Drawing drawing;
 	@Inject private JfxUI app;
 	@Inject private Stage mainstage;
 
@@ -126,7 +125,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 	 * @param path The file of the SVG document to load.
 	 * @param position The position where the shapes will be inserted. Can be null.
 	 */
-	public IShape insert(final String path, final IPoint position) {
+	public Shape insert(final String path, final Point position) {
 		final InsertWorker worker = new InsertWorker(path, position);
 		new Thread(worker).start();
 
@@ -216,10 +215,10 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 
 	/** This worker inserts the given set of shapes into the drawing. */
 	private class InsertWorker extends LoadShapesWorker {
-		private IShape insertedShapes;
-		private final IPoint position;
+		private Shape insertedShapes;
+		private final Point position;
 
-		InsertWorker(final String path, final IPoint positionTemplate) {
+		InsertWorker(final String path, final Point positionTemplate) {
 			super(path, null, null);
 			setModified = true;
 			insertedShapes = null;
@@ -232,18 +231,18 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
 
 				Platform.runLater(() -> {
-					final List<IShape> shapes = toLatexdraw(svgDoc, 0);
+					final List<Shape> shapes = toLatexdraw(svgDoc, 0);
 
 					if(shapes.size() == 1) {
 						insertedShapes = shapes.get(0);
 					}else {
-						final IGroup gp = ShapeFactory.INST.createGroup();
+						final Group gp = ShapeFactory.INST.createGroup();
 						shapes.forEach(sh -> gp.addShape(sh));
 						insertedShapes = gp;
 					}
 
 					if(position != null) {
-						final IPoint tp = insertedShapes.getTopLeftPoint();
+						final Point tp = insertedShapes.getTopLeftPoint();
 						insertedShapes.translate(position.getX() - tp.getX(), position.getY() - tp.getY());
 					}
 
@@ -256,7 +255,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 			}
 		}
 
-		protected IShape getInsertedShapes() {
+		protected Shape getInsertedShapes() {
 			return insertedShapes;
 		}
 	}
@@ -352,8 +351,8 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 		private void updateTemplate(final Path file, final String pathCache) {
 			Platform.runLater(() -> {
 				try {
-					final Group template = new Group();
-					final List<IShape> shapes = toLatexdraw(new SVGDocument(file.toUri()), 0);
+					final javafx.scene.Group template = new javafx.scene.Group();
+					final List<Shape> shapes = toLatexdraw(new SVGDocument(file.toUri()), 0);
 					template.getChildren().setAll(shapes.stream().map(sh -> viewFactory.createView(sh)).
 						filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList()));
 					final File thumb = new File(pathCache + File.separator + file.getFileName() + ExportFormat.PNG.getFileExtension());
@@ -369,7 +368,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 		 * @param templateFile The file of the future thumbnail.
 		 * @param selection The set of shapes composing the template.
 		 */
-		private void createTemplateThumbnail(final File templateFile, final Group selection) {
+		private void createTemplateThumbnail(final File templateFile, final javafx.scene.Group selection) {
 			final Bounds bounds = selection.getBoundsInParent();
 			final double scale = 70d / Math.max(bounds.getWidth(), bounds.getHeight());
 			final WritableImage img = new WritableImage((int) (bounds.getWidth() * scale), (int) (bounds.getHeight() * scale));
@@ -428,16 +427,16 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 		 * @param drawing The drawing to convert in SVG.
 		 * @return The created SVG document or null.
 		 */
-		private SVGDocument toSVG(final IDrawing drawing, final double incr) {
+		private SVGDocument toSVG(final Drawing drawing, final double incr) {
 			// Creation of the SVG document.
-			final List<IShape> shapes = onlySelection ? drawing.getSelection().getShapes() : drawing.getShapes();
+			final List<Shape> shapes = onlySelection ? drawing.getSelection().getShapes() : drawing.getShapes();
 			final SVGDocument doc = new SVGDocument();
 			final SVGSVGElement root = doc.getFirstChild();
 			final SVGGElement g = new SVGGElement(doc);
 			final int padding = 20;
-			final Optional<IPoint> opttl = drawing.getShapes().parallelStream().map(sh -> sh.getTopLeftPoint()).
+			final Optional<Point> opttl = drawing.getShapes().parallelStream().map(sh -> sh.getTopLeftPoint()).
 				reduce((p1, p2) -> ShapeFactory.INST.createPoint(p1.getX() < p2.getX() ? p1.getX() : p2.getX(), p1.getY() < p2.getY() ? p1.getY() : p2.getY()));
-			final Optional<IPoint> optbr = drawing.getShapes().parallelStream().map(sh -> sh.getBottomRightPoint()).
+			final Optional<Point> optbr = drawing.getShapes().parallelStream().map(sh -> sh.getBottomRightPoint()).
 				reduce((p1, p2) -> ShapeFactory.INST.createPoint(p1.getX() > p2.getX() ? p1.getX() : p2.getX(), p1.getY() > p2.getY() ? p1.getY() : p2.getY()));
 
 			opttl.ifPresent(tl -> optbr.ifPresent(br ->
@@ -524,16 +523,16 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 		 * @param incrProgressBar The increment that will be used by the progress bar.
 		 * @return The created shapes or null.
 		 */
-		protected List<IShape> toLatexdraw(final SVGDocument doc, final double incrProgressBar) {
+		protected List<Shape> toLatexdraw(final SVGDocument doc, final double incrProgressBar) {
 			final NodeList elts = doc.getDocumentElement().getChildNodes();
-			final List<IShape> shapes = IntStream.range(0, elts.getLength()).mapToObj(i -> {
+			final List<Shape> shapes = IntStream.range(0, elts.getLength()).mapToObj(i -> {
 				updateProgress(getProgress() + incrProgressBar, 100d);
 				return elts.item(i);
 			}).filter(node -> node instanceof SVGElement).map(node -> svgFactory.createShape((SVGElement) node)).
 				filter(sh -> sh != null).collect(Collectors.toList());
 
-			if(shapes.size() == 1 && shapes.get(0) instanceof IGroup) {
-				return ((IGroup) shapes.get(0)).getShapes();
+			if(shapes.size() == 1 && shapes.get(0) instanceof Group) {
+				return ((Group) shapes.get(0)).getShapes();
 			}
 
 			return shapes;

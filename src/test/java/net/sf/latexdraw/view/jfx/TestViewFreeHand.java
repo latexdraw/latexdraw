@@ -5,9 +5,9 @@ import java.util.List;
 import javafx.application.Platform;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
-import net.sf.latexdraw.models.interfaces.shape.IFreehand;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.FreeHandStyle;
+import net.sf.latexdraw.model.api.shape.Freehand;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
-public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreehand, Path> {
+public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, Freehand, Path> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -35,7 +35,7 @@ public class TestViewFreeHand extends TestViewBorderedShape<ViewFreeHand, IFreeh
 	}
 
 	@Override
-	protected IFreehand createModel() {
+	protected Freehand createModel() {
 		return ShapeFactory.INST.createFreeHand(Arrays.asList(
 			ShapeFactory.INST.createPoint(9, 23),
 			ShapeFactory.INST.createPoint(21, 11),

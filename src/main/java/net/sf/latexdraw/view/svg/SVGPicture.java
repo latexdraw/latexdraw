@@ -10,13 +10,13 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGImageElement;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Picture;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGImageElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.SystemService;
 
@@ -24,8 +24,8 @@ import net.sf.latexdraw.util.SystemService;
  * An SVG generator for an picture.
  * @author Arnaud BLOUIN
  */
-class SVGPicture extends SVGShape<IPicture> {
-	SVGPicture(final IPicture shape) {
+class SVGPicture extends SVGShape<Picture> {
+	SVGPicture(final Picture shape) {
 		super(shape);
 	}
 

@@ -10,28 +10,28 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.DotStyle;
+import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * Defines a PSTricks view of the LDot model.
  * @author Arnaud Blouin
  */
-public class PSTDotView extends PSTClassicalView<IDot> {
+public class PSTDotView extends PSTClassicalView<Dot> {
 	/**
 	 * Creates and initialises a LDot PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTDotView(final IDot model) {
+	protected PSTDotView(final Dot model) {
 		super(model);
 	}
 
 
 	@Override
-	public String getCode(final IPoint origin, final float ppc) {
+	public String getCode(final Point origin, final float ppc) {
 		final double x = shape.getX() - origin.getX();
 		final double y = origin.getY() - shape.getY();
 		final DotStyle style = shape.getDotStyle();

@@ -12,13 +12,13 @@ package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Ellipse;
-import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
+import net.sf.latexdraw.model.api.shape.SingleShape;
 
 /**
  * A JFX abstract view to factorise code of views based on a JFX ellipse.
  * @author Arnaud Blouin
  */
-public abstract class ViewEllipseBased<T extends ISingleShape> extends ViewSingleShape<T, Ellipse> {
+public abstract class ViewEllipseBased<T extends SingleShape> extends ViewSingleShape<T, Ellipse> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.

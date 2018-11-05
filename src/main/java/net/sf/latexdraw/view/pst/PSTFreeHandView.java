@@ -11,21 +11,21 @@
 package net.sf.latexdraw.view.pst;
 
 import java.util.List;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Freehand;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * Defines a PSTricks view of the LFreeHand model.
  * @author Arnaud Blouin
  */
-public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
+public class PSTFreeHandView extends PSTClassicalView<Freehand> {
 	/**
 	 * Creates and initialises a LFreeHand PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTFreeHandView(final IFreehand model) {
+	protected PSTFreeHandView(final Freehand model) {
 		super(model);
 	}
 
@@ -34,7 +34,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 	 * Updates the cache with the code of the freehand shape having the Curve style.
 	 */
 	protected void updateCacheCurve(final StringBuilder coord, final double originx, final double originy, final double ppc) {
-		final List<IPoint> pts = shape.getPoints();
+		final List<Point> pts = shape.getPoints();
 		int i;
 		final int size = shape.getNbPoints();
 		final int interval = shape.getInterval();
@@ -107,8 +107,8 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 	 * Updates the cache with the code of the freehand shape having the Line style.
 	 */
 	protected void updateCacheLines(final StringBuilder coord, final double originx, final double originy, final double ppc) {
-		final List<IPoint> pts = shape.getPoints();
-		IPoint p = pts.get(0);
+		final List<Point> pts = shape.getPoints();
+		Point p = pts.get(0);
 		int i;
 		final int size = shape.getNbPoints();
 		final int interval = shape.getInterval();
@@ -131,7 +131,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 
 
 	@Override
-	public String getCode(final IPoint origin, final float ppc) {
+	public String getCode(final Point origin, final float ppc) {
 		if(ppc < 1 || shape.getNbPoints() < 2 || !MathUtils.INST.isValidPt(origin)) {
 			return "";
 		}

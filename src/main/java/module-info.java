@@ -25,7 +25,7 @@ module latexdraw {
 	exports net.sf.latexdraw.view to javafx.fxml;
 	exports net.sf.latexdraw.view.jfx to javafx.fxml;
 
-	opens net.sf.latexdraw.instruments to javafx.fxml;
+	opens net.sf.latexdraw.instrument to javafx.fxml;
 	opens res;
 	opens lang;
 	opens fxml;

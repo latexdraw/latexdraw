@@ -18,26 +18,26 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
-import net.sf.latexdraw.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.models.interfaces.shape.IEllipse;
-import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
-import net.sf.latexdraw.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.models.interfaces.shape.IPolygon;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.ISquare;
-import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.Circle;
+import net.sf.latexdraw.model.api.shape.CircleArc;
+import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Ellipse;
+import net.sf.latexdraw.model.api.shape.Freehand;
+import net.sf.latexdraw.model.api.shape.Grid;
+import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.model.api.shape.Picture;
+import net.sf.latexdraw.model.api.shape.Plot;
+import net.sf.latexdraw.model.api.shape.Polygon;
+import net.sf.latexdraw.model.api.shape.Polyline;
+import net.sf.latexdraw.model.api.shape.Rectangle;
+import net.sf.latexdraw.model.api.shape.Rhombus;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.Square;
+import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
@@ -56,60 +56,60 @@ public final class ViewFactory implements PathElementProducer, JfxViewProducer {
 
 
 	@Override
-	public <T extends IShape, S extends ViewShape<T>> Optional<S> createView(final T shape) {
-		if(shape instanceof IGroup) {
-			return Optional.of((S) new ViewGroup((IGroup) shape, this));
+	public <T extends Shape, S extends ViewShape<T>> Optional<S> createView(final T shape) {
+		if(shape instanceof Group) {
+			return Optional.of((S) new ViewGroup((Group) shape, this));
 		}
-		if(shape instanceof IPlot) {
-			return Optional.of((S) new ViewPlot((IPlot) shape, this));
+		if(shape instanceof Plot) {
+			return Optional.of((S) new ViewPlot((Plot) shape, this));
 		}
-		if(shape instanceof ISquare) {
-			return Optional.of((S) new ViewSquare((ISquare) shape));
+		if(shape instanceof Square) {
+			return Optional.of((S) new ViewSquare((Square) shape));
 		}
-		if(shape instanceof IRectangle) {
-			return Optional.of((S) new ViewRectangle((IRectangle) shape));
+		if(shape instanceof Rectangle) {
+			return Optional.of((S) new ViewRectangle((Rectangle) shape));
 		}
-		if(shape instanceof IText) {
-			return Optional.of((S) new ViewText((IText) shape, system, codeGen));
+		if(shape instanceof Text) {
+			return Optional.of((S) new ViewText((Text) shape, system, codeGen));
 		}
-		if(shape instanceof ICircleArc) {
-			return Optional.of((S) new ViewCircleArc((ICircleArc) shape));
+		if(shape instanceof CircleArc) {
+			return Optional.of((S) new ViewCircleArc((CircleArc) shape));
 		}
-		if(shape instanceof ICircle) {
-			return Optional.of((S) new ViewCircle((ICircle) shape));
+		if(shape instanceof Circle) {
+			return Optional.of((S) new ViewCircle((Circle) shape));
 		}
-		if(shape instanceof IEllipse) {
-			return Optional.of((S) new ViewEllipse((IEllipse) shape));
+		if(shape instanceof Ellipse) {
+			return Optional.of((S) new ViewEllipse((Ellipse) shape));
 		}
-		if(shape instanceof ITriangle) {
-			return Optional.of((S) new ViewTriangle((ITriangle) shape, this));
+		if(shape instanceof Triangle) {
+			return Optional.of((S) new ViewTriangle((Triangle) shape, this));
 		}
-		if(shape instanceof IRhombus) {
-			return Optional.of((S) new ViewRhombus((IRhombus) shape, this));
+		if(shape instanceof Rhombus) {
+			return Optional.of((S) new ViewRhombus((Rhombus) shape, this));
 		}
-		if(shape instanceof IPolyline) {
-			return Optional.of((S) new ViewPolyline((IPolyline) shape, this));
+		if(shape instanceof Polyline) {
+			return Optional.of((S) new ViewPolyline((Polyline) shape, this));
 		}
-		if(shape instanceof IPolygon) {
-			return Optional.of((S) new ViewPolygon((IPolygon) shape, this));
+		if(shape instanceof Polygon) {
+			return Optional.of((S) new ViewPolygon((Polygon) shape, this));
 		}
-		if(shape instanceof IBezierCurve) {
-			return Optional.of((S) new ViewBezierCurve((IBezierCurve) shape, this));
+		if(shape instanceof BezierCurve) {
+			return Optional.of((S) new ViewBezierCurve((BezierCurve) shape, this));
 		}
-		if(shape instanceof IAxes) {
-			return Optional.of((S) new ViewAxes((IAxes) shape, this));
+		if(shape instanceof Axes) {
+			return Optional.of((S) new ViewAxes((Axes) shape, this));
 		}
-		if(shape instanceof IGrid) {
-			return Optional.of((S) new ViewGrid((IGrid) shape, this));
+		if(shape instanceof Grid) {
+			return Optional.of((S) new ViewGrid((Grid) shape, this));
 		}
-		if(shape instanceof IDot) {
-			return Optional.of((S) new ViewDot((IDot) shape, this));
+		if(shape instanceof Dot) {
+			return Optional.of((S) new ViewDot((Dot) shape, this));
 		}
-		if(shape instanceof IPicture) {
-			return Optional.of((S) new ViewPicture((IPicture) shape));
+		if(shape instanceof Picture) {
+			return Optional.of((S) new ViewPicture((Picture) shape));
 		}
-		if(shape instanceof IFreehand) {
-			return Optional.of((S) new ViewFreeHand((IFreehand) shape, this));
+		if(shape instanceof Freehand) {
+			return Optional.of((S) new ViewFreeHand((Freehand) shape, this));
 		}
 		return Optional.empty();
 	}

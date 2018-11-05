@@ -13,9 +13,9 @@ package net.sf.latexdraw.view.latex;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.Color;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Color;
 
 /**
  * Colours used by pstricks.

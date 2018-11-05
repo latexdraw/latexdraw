@@ -14,31 +14,31 @@ import java.util.Objects;
 import javafx.beans.value.ObservableDoubleValue;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.paint.Color;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.ILine;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.CSSColors;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGCircleElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGElements;
-import net.sf.latexdraw.parsers.svg.SVGMarkerElement;
-import net.sf.latexdraw.parsers.svg.SVGNodeList;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.SVGTransform;
-import net.sf.latexdraw.parsers.svg.SVGTransformList;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegArc;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubic;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegLinetoVertical;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.Line;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.svg.CSSColors;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGCircleElement;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGElements;
+import net.sf.latexdraw.parser.svg.SVGMarkerElement;
+import net.sf.latexdraw.parser.svg.SVGNodeList;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
+import net.sf.latexdraw.parser.svg.SVGTransform;
+import net.sf.latexdraw.parser.svg.SVGTransformList;
+import net.sf.latexdraw.parser.svg.path.SVGPathSeg;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegArc;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegClosePath;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegCurvetoCubic;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegLinetoVertical;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.GenericViewArrow;
 
@@ -48,7 +48,7 @@ import net.sf.latexdraw.view.GenericViewArrow;
  */
 class SVGArrow implements GenericViewArrow {
 	/** The arrowhead generated or used to generate the SVG-arrowed */
-	IArrow arrow;
+	Arrow arrow;
 
 	SVGMarkerElement currentMarker;
 	SVGDocument currentDoc;
@@ -60,7 +60,7 @@ class SVGArrow implements GenericViewArrow {
 	 * Creates an SVG arrow generator.
 	 * @param arr The arrow. Must not be null.
 	 */
-	SVGArrow(final IArrow arr) {
+	SVGArrow(final Arrow arr) {
 		super();
 		arrow = Objects.requireNonNull(arr);
 	}
@@ -71,7 +71,7 @@ class SVGArrow implements GenericViewArrow {
 	 * @param elt The SVGMarkerElement uses to initialise the arrow.
 	 * @param owner The figure the has the arrow.
 	 */
-	void setArrow(final SVGMarkerElement elt, final IShape owner, final String svgMarker) {
+	void setArrow(final SVGMarkerElement elt, final Shape owner, final String svgMarker) {
 		SVGNodeList nl = elt.getChildren(SVGElements.SVG_PATH);
 
 		if(nl.getLength() == 0) {
@@ -90,7 +90,7 @@ class SVGArrow implements GenericViewArrow {
 	 * @param circle The circle element.
 	 * @param owner The shape that has the arrow.
 	 */
-	void setArrow(final SVGCircleElement circle, final IShape owner) {
+	void setArrow(final SVGCircleElement circle, final Shape owner) {
 		final double radius = circle.getR();
 		final double dotSizeDim;
 		final double dotSizeNum = MathUtils.INST.parserDouble(
@@ -242,7 +242,7 @@ class SVGArrow implements GenericViewArrow {
 	 * @param path The path element.
 	 * @param owner The shape that has the arrow.
 	 */
-	final void setArrow(final SVGPathElement path, final IShape owner, final String svgMarker) {
+	final void setArrow(final SVGPathElement path, final Shape owner, final String svgMarker) {
 		final SVGPathSegList list = path.getSegList();
 		final SVGPathSegMoveto m = (SVGPathSegMoveto) list.get(0);
 		final double lineWidth = owner.hasDbleBord() ? owner.getDbleBordSep() + 2d * owner.getThickness() : owner.getThickness();
@@ -272,7 +272,7 @@ class SVGArrow implements GenericViewArrow {
 			return null;
 		}
 
-		final ILine line = arrow.getArrowLine();
+		final Line line = arrow.getArrowLine();
 		final double lineAngle = (-line.getLineAngle() + Math.PI * 2d) % (Math.PI * 2d);
 
 		currentDoc = document;
@@ -316,7 +316,7 @@ class SVGArrow implements GenericViewArrow {
 	}
 
 	@Override
-	public IArrow getArrow() {
+	public Arrow getArrow() {
 		return arrow;
 	}
 

@@ -11,18 +11,18 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.image.ImageView;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.model.api.shape.Picture;
 
 /**
  * The JFX view of a picture.
  * @author Arnaud Blouin
  */
-public class ViewPicture extends ViewPositionShape<IPicture> {
+public class ViewPicture extends ViewPositionShape<Picture> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPicture(final IPicture sh) {
+	ViewPicture(final Picture sh) {
 		super(sh);
 		getChildren().add(new ImageView(model.getImage()));
 	}

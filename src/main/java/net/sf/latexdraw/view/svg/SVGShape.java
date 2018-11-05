@@ -12,40 +12,40 @@ package net.sf.latexdraw.view.svg;
 
 import java.text.ParseException;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.parsers.svg.CSSColors;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGCircleElement;
-import net.sf.latexdraw.parsers.svg.SVGDefsElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGElements;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGLineElement;
-import net.sf.latexdraw.parsers.svg.SVGLinearGradientElement;
-import net.sf.latexdraw.parsers.svg.SVGMarkerElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.SVGPatternElement;
-import net.sf.latexdraw.parsers.svg.SVGRectElement;
-import net.sf.latexdraw.parsers.svg.SVGStopElement;
-import net.sf.latexdraw.parsers.svg.SVGTransform;
-import net.sf.latexdraw.parsers.svg.SVGTransformList;
-import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
-import net.sf.latexdraw.parsers.svg.parsers.URIReferenceParser;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.Color;
+import net.sf.latexdraw.model.api.shape.FillingStyle;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Rectangle;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.LineStyle;
+import net.sf.latexdraw.parser.svg.CSSColors;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGCircleElement;
+import net.sf.latexdraw.parser.svg.SVGDefsElement;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGElements;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGLineElement;
+import net.sf.latexdraw.parser.svg.SVGLinearGradientElement;
+import net.sf.latexdraw.parser.svg.SVGMarkerElement;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
+import net.sf.latexdraw.parser.svg.SVGPatternElement;
+import net.sf.latexdraw.parser.svg.SVGRectElement;
+import net.sf.latexdraw.parser.svg.SVGStopElement;
+import net.sf.latexdraw.parser.svg.SVGTransform;
+import net.sf.latexdraw.parser.svg.SVGTransformList;
+import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
+import net.sf.latexdraw.parser.svg.parsers.URIReferenceParser;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.w3c.dom.Element;
@@ -58,13 +58,13 @@ import static java.lang.Math.toDegrees;
  * The generation or the importation of SVG parameters to a general LaTeXDraw shape.
  * @author Arnaud BLOUIN
  */
-abstract class SVGShape<S extends IShape> {
+abstract class SVGShape<S extends Shape> {
 	/** The beginning of the token used to declare a URL in an SVG document. */
 	static final String SVG_URL_TOKEN_BEGIN = "url(#"; //NON-NLS
 
-	static void parameteriseSVGArrow(final IArrowableSingleShape shape, final SVGElement parent, final int arrowPos, final boolean isShadow,
+	static void parameteriseSVGArrow(final ArrowableSingleShape shape, final SVGElement parent, final int arrowPos, final boolean isShadow,
 									final SVGDocument doc, final SVGDefsElement defs) {
-		final IArrow arrow = shape.getArrowAt(arrowPos);
+		final Arrow arrow = shape.getArrowAt(arrowPos);
 
 		if(arrow.getArrowStyle() != ArrowStyle.NONE) {
 			final String arrowName = "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.hashCode(); //NON-NLS
@@ -124,7 +124,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param strokeWidth The SVG stroke-width to convert.
 	 * @param stroke The stroke.
 	 */
-	static void setThickness(final IShape shape, final String strokeWidth, final String stroke) {
+	static void setThickness(final Shape shape, final String strokeWidth, final String stroke) {
 		if(shape != null && strokeWidth != null && !SVGAttributes.SVG_VALUE_NONE.equals(stroke)) {
 			try {
 				shape.setThickness(new SVGLengthParser(strokeWidth).parseLength().getValue());
@@ -140,7 +140,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param stoke The stroke of the shape.
 	 * @param opacity The possible stroke-opacity of the colour. May be null.
 	 */
-	static void setLineColour(final IShape shape, final String stoke, final String opacity) {
+	static void setLineColour(final Shape shape, final String stoke, final String opacity) {
 		if(shape != null && stoke != null) {
 			final Color col = CSSColors.INSTANCE.getRGBColour(stoke);
 			shape.setLineColour(col);
@@ -155,7 +155,7 @@ abstract class SVGShape<S extends IShape> {
 		}
 	}
 
-	private static void setHatchingsFromSVG(final IShape shape, final SVGPatternElement pat) {
+	private static void setHatchingsFromSVG(final Shape shape, final SVGPatternElement pat) {
 		final Color c = pat.getBackgroundColor();
 		final String str = pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_TYPE);
 		double angle;
@@ -204,7 +204,7 @@ abstract class SVGShape<S extends IShape> {
 		}
 	}
 
-	private static void setPlainFillFromSVG(final IShape shape, final String fill, final String opacity) {
+	private static void setPlainFillFromSVG(final Shape shape, final String fill, final String opacity) {
 		// Just getting the filling colour.
 		final Color fillCol = CSSColors.INSTANCE.getRGBColour(fill);
 
@@ -220,7 +220,7 @@ abstract class SVGShape<S extends IShape> {
 		}
 	}
 
-	private static void setGradientFromSVG(final IShape shape, final SVGLinearGradientElement grad) {
+	private static void setGradientFromSVG(final Shape shape, final SVGLinearGradientElement grad) {
 		shape.setGradColStart(grad.getStartColor());
 		shape.setGradColEnd(grad.getEndColor());
 		shape.setFillingStyle(FillingStyle.GRAD);
@@ -235,7 +235,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param defs The definition that may be useful to the the fill properties (url), may be null.
 	 * @param opacity The possible fill-opacity of the colour. May be null.
 	 */
-	static void setFillFromSVG(final IShape shape, final String fill, final String opacity, final SVGDefsElement defs) {
+	static void setFillFromSVG(final Shape shape, final String fill, final String opacity, final SVGDefsElement defs) {
 		if(shape == null || SVGAttributes.SVG_VALUE_NONE.equals(fill)) {
 			return;
 		}
@@ -265,7 +265,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param dashArray The dash array SVG property.
 	 * @param linecap The line cap SVG property.
 	 */
-	static void setDashedDotted(final IShape shape, final String dashArray, final String linecap) {
+	static void setDashedDotted(final Shape shape, final String dashArray, final String linecap) {
 		if(shape != null && dashArray != null && !SVGAttributes.SVG_VALUE_NONE.equals(dashArray)) {
 			if(SVGAttributes.SVG_LINECAP_VALUE_ROUND.equals(linecap)) {
 				shape.setLineStyle(LineStyle.DOTTED);
@@ -327,7 +327,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param dotSep The dot interval.
 	 * @return The created SVG line or null.
 	 */
-	static SVGLineElement getShowPointsLine(final SVGDocument doc, final double thickness, final Color col, final IPoint p1, final IPoint p2, final
+	static SVGLineElement getShowPointsLine(final SVGDocument doc, final double thickness, final Color col, final Point p1, final Point p2, final
 						double blackDash, final double whiteDash, final boolean hasDble, final double dotSep, final double doubleSep) {
 		if(doc == null) {
 			return null;
@@ -360,7 +360,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param col The colour of the dot.
 	 * @return The created dot or null.
 	 */
-	static SVGCircleElement getShowPointsDot(final SVGDocument doc, final double rad, final IPoint pt, final Color col) {
+	static SVGCircleElement getShowPointsDot(final SVGDocument doc, final double rad, final Point pt, final Color col) {
 		if(doc == null) {
 			return null;
 		}
@@ -443,7 +443,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param ah1 The first arrow.
 	 * @param ah2 The second arrow.
 	 */
-	final void homogeniseArrows(final IArrow ah1, final IArrow ah2) {
+	final void homogeniseArrows(final Arrow ah1, final Arrow ah2) {
 		if(ah1 == null || ah2 == null) {
 			return;
 		}
@@ -458,7 +458,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param source The arrow that will be copied.
 	 * @param target The arrow that will be set.
 	 */
-	final void homogeniseArrowFrom(final IArrow source, final IArrow target) {
+	final void homogeniseArrowFrom(final Arrow source, final Arrow target) {
 		if(source == null || target == null) {
 			return;
 		}
@@ -518,7 +518,7 @@ abstract class SVGShape<S extends IShape> {
 	}
 
 	private double applyShadowTransformationsComputeAngle(final double tx, final double ty) {
-		final IPoint gravityCenter = shape.getGravityCentre();
+		final Point gravityCenter = shape.getGravityCentre();
 		final double shSize = shape.getShadowSize();
 
 		if(MathUtils.INST.equalsDouble(ty, 0d)) {
@@ -638,7 +638,7 @@ abstract class SVGShape<S extends IShape> {
 	 * @param arrowID The SVG ID of the SVG arrow head.
 	 * @param elt An element of the SVG document (useful to get the defs of the document).
 	 */
-	final void setSVGArrow(final IArrow ah, final String arrowID, final SVGElement elt, final String svgMarker) {
+	final void setSVGArrow(final Arrow ah, final String arrowID, final SVGElement elt, final String svgMarker) {
 		if(ah != null && elt != null && !arrowID.isEmpty()) {
 			final SVGArrow arrGen = new SVGArrow(ah);
 			arrGen.setArrow((SVGMarkerElement) elt.getDef(new URIReferenceParser(arrowID).getURI()), getShape(), svgMarker);
@@ -662,7 +662,7 @@ abstract class SVGShape<S extends IShape> {
 		}
 
 		final double rotationAngle = shape.getRotationAngle();
-		final IPoint gravityCenter = shape.getGravityCentre();
+		final Point gravityCenter = shape.getGravityCentre();
 
 		if(!MathUtils.INST.equalsDouble(MathUtils.INST.mod2pi(rotationAngle), 0d)) {
 			final double gcx = gravityCenter.getX();
@@ -716,10 +716,10 @@ abstract class SVGShape<S extends IShape> {
 		}
 
 		if(shape.hasShadow()) {
-			final IPoint gravityCenter = shape.getGravityCentre();
+			final Point gravityCenter = shape.getGravityCentre();
 			final double gcx = gravityCenter.getX();
 			final double gcy = gravityCenter.getY();
-			final IPoint pt = ShapeFactory.INST.createPoint(gcx + shape.getShadowSize(), gcy).rotatePoint(shape.getGravityCentre(), -shape.getShadowAngle());
+			final Point pt = ShapeFactory.INST.createPoint(gcx + shape.getShadowSize(), gcy).rotatePoint(shape.getGravityCentre(), -shape.getShadowAngle());
 			final boolean filledShadow = shadowFills || shape.isFilled();
 
 			elt.setAttribute(SVGAttributes.SVG_TRANSFORM, new SVGTransform.SVGTranslateTransformation(shape.getShadowSize(), 0.) + " " +
@@ -799,7 +799,7 @@ abstract class SVGShape<S extends IShape> {
 		final String id = SVGElements.SVG_PATTERN + shape.hashCode();
 		final SVGPatternElement hatch = new SVGPatternElement(doc);
 		final SVGGElement gPath = new SVGGElement(doc);
-		final IPoint max = shape.getFullBottomRightPoint();
+		final Point max = shape.getFullBottomRightPoint();
 		final SVGPathElement path = new SVGPathElement(doc);
 
 		root.setAttribute(SVGAttributes.SVG_FILL, SVG_URL_TOKEN_BEGIN + id + ')');
@@ -915,7 +915,7 @@ abstract class SVGShape<S extends IShape> {
 
 		final String hatchingStyle = shape.getFillingStyle().getLatexToken();
 		final double hatchingAngle = shape.getHatchingsAngle();
-		final IRectangle bound = ShapeFactory.INST.createRectangle(shape.getFullTopLeftPoint(), shape.getFullBottomRightPoint());
+		final Rectangle bound = ShapeFactory.INST.createRectangle(shape.getFullTopLeftPoint(), shape.getFullBottomRightPoint());
 
 		switch(hatchingStyle) {
 			case PSTricksConstants.TOKEN_FILL_VLINES:
@@ -936,7 +936,7 @@ abstract class SVGShape<S extends IShape> {
 		return path;
 	}
 
-	private void getSVGHatchingsPath2(final SVGPathSegList path, final double hAngle, final IRectangle bound) {
+	private void getSVGHatchingsPath2(final SVGPathSegList path, final double hAngle, final Rectangle bound) {
 		if(path == null || bound == null) {
 			return;
 		}
@@ -945,8 +945,8 @@ abstract class SVGShape<S extends IShape> {
 		final double halphPI = Math.PI / 2.;
 		final double hatchingWidth = shape.getHatchingsWidth();
 		final double hatchingSep = shape.getHatchingsSep();
-		final IPoint nw = bound.getTopLeftPoint();
-		final IPoint se = bound.getBottomRightPoint();
+		final Point nw = bound.getTopLeftPoint();
+		final Point se = bound.getBottomRightPoint();
 		final double nwx = nw.getX();
 		final double nwy = nw.getY();
 		final double sex = se.getX();

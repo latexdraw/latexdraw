@@ -6,7 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <MenuButton xmlns:fx="http://javafx.com/fxml/1" mnemonicParsing="false" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.Helper" fx:id="helpMenu">
+            fx:controller="net.sf.latexdraw.instrument.Helper" fx:id="helpMenu">
     <graphic>
         <ImageView>
             <Image url="@/res/emblem-important.png"/>

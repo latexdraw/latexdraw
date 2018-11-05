@@ -11,14 +11,14 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
-import net.sf.latexdraw.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.model.api.shape.PositionShape;
 
 /**
  * The JFX view for positionable shapes.
  * @param <T> The type of the shape to view.
  * @author Arnaud Blouin
  */
-public abstract class ViewPositionShape<T extends IPositionShape> extends ViewShape<T> {
+public abstract class ViewPositionShape<T extends PositionShape> extends ViewShape<T> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.

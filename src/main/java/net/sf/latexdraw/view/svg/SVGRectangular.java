@@ -10,13 +10,13 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGRectElement;
+import net.sf.latexdraw.model.api.property.LineArcProp;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGRectElement;
 import net.sf.latexdraw.util.LNamespace;
 
 import static java.lang.Math.min;
@@ -25,7 +25,7 @@ import static java.lang.Math.min;
  * A class to factorise code between Rectangle and Square SVG generators.
  * @param <T> The type of the shape.
  */
-abstract class SVGRectangular<T extends IShape & ILineArcProp> extends SVGShape<T> {
+abstract class SVGRectangular<T extends Shape & LineArcProp> extends SVGShape<T> {
 	/**
 	 * Creates the SVG generator.
 	 * @param sh The shape used for the generation.

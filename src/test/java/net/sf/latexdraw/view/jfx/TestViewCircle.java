@@ -3,14 +3,14 @@ package net.sf.latexdraw.view.jfx;
 import javafx.application.Platform;
 import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.data.CircleSupplier;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.Circle;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestViewCircle extends TestViewBorderedShape<ViewCircle, ICircle, Ellipse> {
+public class TestViewCircle extends TestViewBorderedShape<ViewCircle, Circle, Ellipse> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -22,7 +22,7 @@ public class TestViewCircle extends TestViewBorderedShape<ViewCircle, ICircle, E
 	}
 
 	@Override
-	protected ICircle createModel() {
+	protected Circle createModel() {
 		return CircleSupplier.createCircle();
 	}
 

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import net.sf.latexdraw.view.jfx.LSpinner?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Double line" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser" alignment="TOP_LEFT" expanded="false">
+            fx:controller="net.sf.latexdraw.instrument.ShapeDoubleBorderCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
         <Tooltip text="%PropBuilder.14"/>
     </tooltip>

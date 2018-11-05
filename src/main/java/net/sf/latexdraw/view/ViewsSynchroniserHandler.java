@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.view;
 
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * Defines a handler that provides information to a views synchroniser.
@@ -20,17 +20,17 @@ public interface ViewsSynchroniserHandler {
 	/**
 	 * @return The top right point of the current drawing.
 	 */
-	IPoint getTopRightDrawingPoint();
+	Point getTopRightDrawingPoint();
 
 	/**
 	 * @return The bottom left point of the current drawing.
 	 */
-	IPoint getBottomLeftDrawingPoint();
+	Point getBottomLeftDrawingPoint();
 
 	/**
 	 * @return The origin point of the current drawing.
 	 */
-	IPoint getOriginDrawingPoint();
+	Point getOriginDrawingPoint();
 
 	/**
 	 * @return The number of pixels per centimetre of the current drawing.

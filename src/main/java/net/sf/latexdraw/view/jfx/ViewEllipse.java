@@ -11,18 +11,18 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
-import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.model.api.shape.Ellipse;
 
 /**
  * The JFX shape view for ellipses.
  * @author Arnaud Blouin
  */
-public class ViewEllipse extends ViewEllipseBased<IEllipse> {
+public class ViewEllipse extends ViewEllipseBased<Ellipse> {
 	/**
 	 * Creates the ellipse view.
 	 * @param sh The model.
 	 */
-	ViewEllipse(final IEllipse sh) {
+	ViewEllipse(final Ellipse sh) {
 		super(sh);
 		border.centerXProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getX(), model.getPtAt(2).xProperty(), model.getPtAt(3).xProperty()));
 		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));

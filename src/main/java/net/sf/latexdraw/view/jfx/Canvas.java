@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -38,12 +37,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Duration;
-import net.sf.latexdraw.commands.Modifying;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.command.Modifying;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Drawing;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.Page;
@@ -74,7 +73,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	static Page defaultPage = Page.USLETTER;
 
 	/** The origin of the drawing in the whole drawing area. */
-	public static final IPoint ORIGIN = ShapeFactory.INST.createPoint(margins, margins);
+	public static final Point ORIGIN = ShapeFactory.INST.createPoint(margins, margins);
 
 	public static void setDefaultPage(final Page newPage) {
 		if(newPage != null) {
@@ -94,7 +93,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	/** The model of the view. */
-	private final IDrawing drawing;
+	private final Drawing drawing;
 
 	/** The zoom applied on the canvas. */
 	private final DoubleProperty zoom;
@@ -112,7 +111,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 
 	private final Rectangle ongoingSelectionBorder;
 
-	private final Map<IShape, ViewShape<?>> shapesToViewMap;
+	private final Map<Shape, ViewShape<?>> shapesToViewMap;
 
 	/** The magnetic grid of the canvas. */
 	private final MagneticGridImpl magneticGrid;
@@ -136,8 +135,8 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		zoom = new SimpleDoubleProperty(1d);
 		tempView = Optional.empty();
 		page = new PageView(defaultPage, getOrigin());
-		setPrefWidth(margins * 2d + page.getPage().getWidth() * IShape.PPC);
-		setPrefHeight(margins * 2d + page.getPage().getHeight() * IShape.PPC);
+		setPrefWidth(margins * 2d + page.getPage().getWidth() * Shape.PPC);
+		setPrefHeight(margins * 2d + page.getPage().getHeight() * Shape.PPC);
 
 		magneticGrid = new MagneticGridImpl(this, system);
 
@@ -187,7 +186,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		selectionBorder.addEventHandler(MouseEvent.MOUSE_ENTERED, evt -> setCursor(Cursor.HAND));
 		selectionBorder.addEventHandler(MouseEvent.MOUSE_EXITED, evt -> setCursor(Cursor.DEFAULT));
 
-		drawing.getSelection().getShapes().addListener((Change<? extends IShape> evt) -> updateSelectionBorders());
+		drawing.getSelection().getShapes().addListener((Change<? extends Shape> evt) -> updateSelectionBorders());
 	}
 
 
@@ -197,7 +196,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		}
 
 		Platform.runLater(() -> {
-			final List<IShape> selection = new ArrayList<>(drawing.getSelection().getShapes());
+			final List<Shape> selection = new ArrayList<>(drawing.getSelection().getShapes());
 			if(selection.isEmpty()) {
 				selectionBorder.setVisible(false);
 			}else {
@@ -238,7 +237,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 
 
 	private final void defineShapeListToViewBinding() {
-		drawing.getShapes().addListener((Change<? extends IShape> evt) -> {
+		drawing.getShapes().addListener((Change<? extends Shape> evt) -> {
 			while(evt.next()) {
 				if(evt.wasAdded()) {
 					evt.getAddedSubList().forEach(sh -> viewFactory.createView(sh).ifPresent(v -> {
@@ -269,13 +268,13 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/**
 	 * @return The point where the page is located.
 	 */
-	public IPoint getOrigin() {
+	public Point getOrigin() {
 		return ORIGIN;
 	}
 
 	@Override
 	public int getPPCDrawing() {
-		return IShape.PPC;
+		return Shape.PPC;
 	}
 
 	/**
@@ -418,19 +417,19 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	@Override
-	public IPoint getTopRightDrawingPoint() {
+	public Point getTopRightDrawingPoint() {
 		final Bounds border = shapesPane.getBoundsInLocal();
 		return ShapeFactory.INST.createPoint(border.getMaxX(), border.getMinY());
 	}
 
 	@Override
-	public IPoint getBottomLeftDrawingPoint() {
+	public Point getBottomLeftDrawingPoint() {
 		final Bounds border = shapesPane.getBoundsInLocal();
 		return ShapeFactory.INST.createPoint(border.getMinX(), border.getMaxY());
 	}
 
 	@Override
-	public IPoint getOriginDrawingPoint() {
+	public Point getOriginDrawingPoint() {
 		final Bounds border = shapesPane.getBoundsInLocal();
 		return ShapeFactory.INST.createPoint(border.getMinX(), (border.getMaxY() - border.getMinY()) / 2.0);
 	}
@@ -457,7 +456,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	@Override
-	public Point2D getZoomedPoint(final Point pt) {
+	public Point2D getZoomedPoint(final java.awt.Point pt) {
 		return pt == null ? new Point2D.Double() : getZoomedPoint(pt.x, pt.y);
 	}
 
@@ -484,8 +483,8 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	 * @param pt The point to convert.
 	 * @return The converted point or null if the given point is null.
 	 */
-	public IPoint convertToOrigin(final IPoint pt) {
-		final IPoint convertion;
+	public Point convertToOrigin(final Point pt) {
+		final Point convertion;
 		if(pt == null) {
 			convertion = null;
 		}else {
@@ -498,7 +497,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/**
 	 * @return The model of the canvas.
 	 */
-	public IDrawing getDrawing() {
+	public Drawing getDrawing() {
 		return drawing;
 	}
 
@@ -549,7 +548,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	 * @param sh The shape to look for.
 	 * @return The view corresponding to the given shape or nothing.
 	 */
-	public Optional<ViewShape<?>> getViewFromShape(final IShape sh) {
+	public Optional<ViewShape<?>> getViewFromShape(final Shape sh) {
 		if(sh == null) {
 			return Optional.empty();
 		}

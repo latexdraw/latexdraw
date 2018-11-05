@@ -10,21 +10,21 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Polygon;
 
 /**
  * Defines a PSTricks view of the LPolygon model.
  * @author Arnaud Blouin
  */
-public class PSTPolygonView extends PSTClassicalView<IPolygon> {
+public class PSTPolygonView extends PSTClassicalView<Polygon> {
 	/**
 	 * Creates and initialises a LRect PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTPolygonView(final IPolygon model) {
+	protected PSTPolygonView(final Polygon model) {
 		super(model);
 	}
 
@@ -34,12 +34,12 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	 * @param ppc The number of pixels per centimetre.
 	 * @return The PSTricks code of the polygon coordinates.
 	 */
-	protected StringBuilder getPointsCode(final IPoint position, final float ppc) {
+	protected StringBuilder getPointsCode(final Point position, final float ppc) {
 		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
 			return null;
 		}
 
-		IPoint p;
+		Point p;
 		int i;
 		final int size = shape.getNbPoints();
 		final StringBuilder points = new StringBuilder();
@@ -55,7 +55,7 @@ public class PSTPolygonView extends PSTClassicalView<IPolygon> {
 
 
 	@Override
-	public String getCode(final IPoint position, final float ppc) {
+	public String getCode(final Point position, final float ppc) {
 		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
 			return "";
 		}

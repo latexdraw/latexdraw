@@ -24,10 +24,10 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.ILine;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.Line;
 import net.sf.latexdraw.view.GenericViewArrow;
 
 /**
@@ -37,7 +37,7 @@ import net.sf.latexdraw.view.GenericViewArrow;
 public class ViewArrow extends Group implements GenericViewArrow {
 	public static final String ID = "arrow"; //NON-NLS
 
-	final IArrow arrow;
+	final Arrow arrow;
 	final Path path;
 	final Ellipse ellipse;
 	final Arc arc;
@@ -47,7 +47,7 @@ public class ViewArrow extends Group implements GenericViewArrow {
 	 * @param model The arrow. Cannot be null.
 	 * @throws NullPointerException if the given arrow is null.
 	 */
-	ViewArrow(final IArrow model) {
+	ViewArrow(final Arrow model) {
 		super();
 		setId(ID);
 		arrow = Objects.requireNonNull(model);
@@ -75,7 +75,7 @@ public class ViewArrow extends Group implements GenericViewArrow {
 
 
 	@Override
-	public IArrow getArrow() {
+	public Arrow getArrow() {
 		return arrow;
 	}
 
@@ -91,7 +91,7 @@ public class ViewArrow extends Group implements GenericViewArrow {
 
 		GenericViewArrow.super.updatePath(isShadow);
 
-		final ILine line = arrow.getArrowLine();
+		final Line line = arrow.getArrowLine();
 		final double lineAngle = (-line.getLineAngle() + Math.PI * 2d) % (Math.PI * 2d);
 
 		if(arrow.getArrowStyle() != ArrowStyle.NONE && !MathUtils.INST.equalsDouble(lineAngle, 0d)) {

@@ -13,20 +13,20 @@ package net.sf.latexdraw.view.jfx;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
-import net.sf.latexdraw.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.model.api.shape.Square;
 
 /**
  * The JFX shape view for squares.
  * @author Arnaud Blouin
  */
-public class ViewSquare extends ViewRectangularBased<ISquare> {
+public class ViewSquare extends ViewRectangularBased<Square> {
 	final ChangeListener<Bounds> lineArcUp = (observable, oldValue, newValue) -> lineArcCall.changed(model.frameArcProperty(), model.getLineArc(), model.getLineArc());
 
 	/**
 	 * Creates the square view.
 	 * @param sh The model.
 	 */
-	ViewSquare(final ISquare sh) {
+	ViewSquare(final Square sh) {
 		super(sh);
 		border.xProperty().bind(model.getPtAt(0).xProperty());
 		border.yProperty().bind(model.getPtAt(0).yProperty());

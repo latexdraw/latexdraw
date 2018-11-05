@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <Button xmlns:fx="http://javafx.com/fxml/1" fx:id="deleteB" mnemonicParsing="false"
         style="-fx-padding: 5 5 5 5" xmlns="http://javafx.com/javafx/8"
-        fx:controller="net.sf.latexdraw.instruments.ShapeDeleter">
+        fx:controller="net.sf.latexdraw.instrument.ShapeDeleter">
     <graphic>
         <ImageView>
             <Image url="@/res/del.png"/>

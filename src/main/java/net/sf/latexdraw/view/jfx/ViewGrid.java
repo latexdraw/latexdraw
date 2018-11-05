@@ -19,14 +19,14 @@ import javafx.scene.shape.PathElement;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.model.api.shape.Grid;
+import net.sf.latexdraw.model.api.shape.Shape;
 
 /**
  * The JFX view of a grid.
  * @author Arnaud Blouin
  */
-public class ViewGrid extends ViewStdGrid<IGrid> {
+public class ViewGrid extends ViewStdGrid<Grid> {
 	private final Path subgrid;
 	private final Path maingrid;
 	private final ChangeListener<Number> mainGridLineCapUpdate;
@@ -40,7 +40,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewGrid(final IGrid sh, final PathElementProducer pathProducer) {
+	ViewGrid(final Grid sh, final PathElementProducer pathProducer) {
 		super(sh, pathProducer);
 		maingrid = new Path();
 		subgrid = new Path();
@@ -90,7 +90,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 										final double posX, final double posY, final double xStep, final double yStep, final double tlx,
 										final double tly, final double brx, final double bry, final double absStep) {
 		final int gridDots = model.getGridDots();
-		final double dotStep = unit * IShape.PPC / gridDots;
+		final double dotStep = unit * Shape.PPC / gridDots;
 		final ObservableList<PathElement> elements = maingrid.getElements();
 
 		for(double k = minX, i = posX; k <= maxX; i += xStep, k++) {
@@ -147,7 +147,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		final ObservableList<PathElement> elements = subgrid.getElements();
 
 		if(subGridDots > 0d) {
-			final double dotStep = unit * IShape.PPC / (subGridDots * subGridDiv);
+			final double dotStep = unit * Shape.PPC / (subGridDots * subGridDiv);
 			final double nbX = (maxX - minX) * subGridDiv;
 			final double nbY = (maxY - minY) * subGridDiv;
 
@@ -248,12 +248,12 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		final double minX = model.getGridMinX();
 		final double maxX = model.getGridMaxX();
 		final double unit = model.getUnit();
-		double yStep = IShape.PPC * unit;
-		double xStep = IShape.PPC * unit;
+		double yStep = Shape.PPC * unit;
+		double xStep = Shape.PPC * unit;
 		xStep *= model.getGridEndX() < model.getGridStartX() ? -1d : 1d;
 		yStep *= model.getGridEndY() < model.getGridStartY() ? -1d : 1d;
-		final double posX = Math.min(model.getGridStartX(), model.getGridEndX()) * IShape.PPC * unit;
-		final double posY = -Math.min(model.getGridStartY(), model.getGridEndY()) * IShape.PPC * unit;
+		final double posX = Math.min(model.getGridStartX(), model.getGridEndX()) * Shape.PPC * unit;
+		final double posY = -Math.min(model.getGridStartY(), model.getGridEndY()) * Shape.PPC * unit;
 		final double absStep = Math.abs(xStep);
 		final Rectangle2D bounds = getGridBounds(posX, posY);
 		final double tlx = bounds.getMinX();
@@ -280,7 +280,7 @@ public class ViewGrid extends ViewStdGrid<IGrid> {
 		final double gridStarty = model.getGridStartY();
 		final double gridEndx = model.getGridEndX();
 		final double gridEndy = model.getGridEndY();
-		final double step = IShape.PPC * model.getUnit();
+		final double step = Shape.PPC * model.getUnit();
 		final double x = gridStartx < gridEndx ? posX : posX - step * Math.abs(gridEndx - gridStartx);
 		final double y = gridStarty < gridEndy ? posY - step * Math.abs(gridEndy - gridStarty) : posY;
 		final double width = step * Math.abs(gridEndx - gridStartx);

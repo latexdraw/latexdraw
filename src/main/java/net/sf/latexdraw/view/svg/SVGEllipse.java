@@ -10,14 +10,14 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IEllipse;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGEllipseElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Ellipse;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGEllipseElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
@@ -25,13 +25,13 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * An SVG generator for an ellipse.
  * @author Arnaud BLOUIN
  */
-class SVGEllipse extends SVGShape<IEllipse> {
+class SVGEllipse extends SVGShape<Ellipse> {
 	/**
 	 * Creates a generator of SVG ellipse.
 	 * @param ellipse The ellipse shape used for the generation.
 	 * @throws IllegalArgumentException If ellipse is null.
 	 */
-	SVGEllipse(final IEllipse ellipse) {
+	SVGEllipse(final Ellipse ellipse) {
 		super(ellipse);
 	}
 
@@ -96,8 +96,8 @@ class SVGEllipse extends SVGShape<IEllipse> {
 			throw new IllegalArgumentException();
 		}
 
-		final IPoint tl = shape.getTopLeftPoint();
-		final IPoint br = shape.getBottomRightPoint();
+		final Point tl = shape.getTopLeftPoint();
+		final Point br = shape.getBottomRightPoint();
 		final double tlx = tl.getX();
 		final double tly = tl.getY();
 		final double brx = br.getX();

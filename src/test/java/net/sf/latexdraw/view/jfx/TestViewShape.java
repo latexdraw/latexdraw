@@ -12,8 +12,8 @@ import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
+import net.sf.latexdraw.model.api.shape.Drawing;
+import net.sf.latexdraw.model.api.shape.SingleShape;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.SystemService;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(InjectionExtension.class)
-abstract class TestViewShape<T extends ViewShape<S>, S extends ISingleShape> implements HelperTest, ITestViewShape<T, S> {
+abstract class TestViewShape<T extends ViewShape<S>, S extends SingleShape> implements HelperTest, ITestViewShape<T, S> {
 	public static void assertPathSameButNotEqual(final List<PathElement> p1, final List<PathElement> p2) {
 		assertEquals(p1.size(), p2.size());
 		for(int i = 0, size = p2.size(); i < size; i++) {
@@ -57,7 +57,7 @@ abstract class TestViewShape<T extends ViewShape<S>, S extends ISingleShape> imp
 				bindAsEagerSingleton(LangService.class);
 				bindAsEagerSingleton(PSTViewsFactory.class);
 				bindAsEagerSingleton(Canvas.class);
-				bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());
+				bindWithCommand(Drawing.class, Canvas.class, canvas -> canvas.getDrawing());
 				bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);
 				bindAsEagerSingleton(PSTCodeGenerator.class);
 				bindWithCommand(LaTeXGenerator.class, PSTCodeGenerator.class, gen -> gen);

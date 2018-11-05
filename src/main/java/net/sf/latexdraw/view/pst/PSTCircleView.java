@@ -10,26 +10,26 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Circle;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * Defines a PSTricks view of the ICircle model.
  * @author Arnaud Blouin
  */
-public class PSTCircleView extends PSTClassicalView<ICircle> {
+public class PSTCircleView extends PSTClassicalView<Circle> {
 	/**
 	 * Creates an SVG generator for circles.
 	 * @param circle The circle used for the conversion in SVG.
 	 */
-	protected PSTCircleView(final ICircle circle) {
+	protected PSTCircleView(final Circle circle) {
 		super(circle);
 	}
 
 
 	@Override
-	public String getCode(final IPoint position, final float ppc) {
+	public String getCode(final Point position, final float ppc) {
 		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
 			return "";
 		}

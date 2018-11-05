@@ -13,23 +13,23 @@ package net.sf.latexdraw.view.svg;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDefsElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.path.CtrlPointsSeg;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubic;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Color;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDefsElement;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
+import net.sf.latexdraw.parser.svg.path.CtrlPointsSeg;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegClosePath;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegCurvetoCubic;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
@@ -37,11 +37,11 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * An SVG generator for a Bézier curve.
  * @author Arnaud BLOUIN
  */
-class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
+class SVGBezierCurve extends SVGModifiablePointsShape<BezierCurve> {
 	/**
 	 * Creates a bezier curve and initialises its path from an SVG element.
 	 */
-	private static IBezierCurve pathToBezierCurve(final SVGElement elt) {
+	private static BezierCurve pathToBezierCurve(final SVGElement elt) {
 		if(!(elt instanceof SVGPathElement)) {
 			return null;
 		}
@@ -57,8 +57,8 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 		int i = 1;
 		final int size = list.size();
 		Point2D pt = new Point2D.Double(); // Creating a point to support when the first path element is relative.
-		final List<IPoint> pts = new ArrayList<>();
-		final List<IPoint> ctrlpts = new ArrayList<>();
+		final List<Point> pts = new ArrayList<>();
+		final List<Point> ctrlpts = new ArrayList<>();
 		final boolean closed;
 
 		pt = m.getPoint(pt);
@@ -86,7 +86,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 			closed = i < size && list.get(i) instanceof SVGPathSegClosePath; // There is something else at the end of the path.
 		}
 
-		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve(pts, ctrlpts);
+		final BezierCurve bc = ShapeFactory.INST.createBezierCurve(pts, ctrlpts);
 		bc.setOpened(!closed);
 		return bc;
 	}
@@ -97,7 +97,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 	 * @param bc The bezier curve used for the generation.
 	 * @throws IllegalArgumentException If bc is null.
 	 */
-	SVGBezierCurve(final IBezierCurve bc) {
+	SVGBezierCurve(final BezierCurve bc) {
 		super(bc);
 	}
 
@@ -113,8 +113,8 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 		setSVGParameters(main);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
-		final IArrow arrow1 = shape.getArrowAt(0);
-		final IArrow arrow2 = shape.getArrowAt(-1);
+		final Arrow arrow1 = shape.getArrowAt(0);
+		final Arrow arrow2 = shape.getArrowAt(-1);
 		setSVGArrow(arrow1, main.getAttribute(main.getUsablePrefix() + SVGAttributes.SVG_MARKER_START), main, SVGAttributes.SVG_MARKER_START);
 		setSVGArrow(arrow2, main.getAttribute(main.getUsablePrefix() + SVGAttributes.SVG_MARKER_END), main, SVGAttributes.SVG_MARKER_END);
 		homogeniseArrows(arrow1, arrow2);
@@ -157,8 +157,8 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 		}
 
 		if(!shape.isOpened()) {
-			final IPoint ctrl1b = shape.getFirstCtrlPtAt(0).centralSymmetry(shape.getPtAt(0));
-			final IPoint ctrl2b = shape.getFirstCtrlPtAt(-1).centralSymmetry(shape.getPtAt(-1));
+			final Point ctrl1b = shape.getFirstCtrlPtAt(0).centralSymmetry(shape.getPtAt(0));
+			final Point ctrl2b = shape.getFirstCtrlPtAt(-1).centralSymmetry(shape.getPtAt(-1));
 
 			path.add(new SVGPathSegCurvetoCubic(shape.getPtAt(0).getX(), shape.getPtAt(0).getY(), ctrl2b.getX(), ctrl2b.getY(),
 				ctrl1b.getX(), ctrl1b.getY(), false));
@@ -247,11 +247,11 @@ class SVGBezierCurve extends SVGModifiablePointsShape<IBezierCurve> {
 		final Color col = shape.getLineColour();
 		final boolean isClosed = !shape.isOpened();
 		final SVGGElement showPts = new SVGGElement(doc);
-		final IArrow arrow1 = shape.getArrowAt(0);
-		final IArrow arrow2 = shape.getArrowAt(-1);
+		final Arrow arrow1 = shape.getArrowAt(0);
+		final Arrow arrow2 = shape.getArrowAt(-1);
 		final double doubleSep = shape.getDbleBordSep();
 		final double thick = (hasDble ? shape.getDbleBordSep() + shape.getThickness() * 2. : shape.getThickness()) / 2.;
-		final double rad = (PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM * IShape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM * thick * 2.) / 2.;
+		final double rad = (PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM * Shape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM * thick * 2.) / 2.;
 		int i;
 		final int size = shape.getNbPoints();
 

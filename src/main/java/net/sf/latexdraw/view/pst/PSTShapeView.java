@@ -14,13 +14,13 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.Color;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.DviPsColors;
 
@@ -30,7 +30,7 @@ import static java.lang.Math.toDegrees;
  * Defines a PSTricks view of the LShape model.
  * @author Arnaud Blouin
  */
-public abstract class PSTShapeView<S extends IShape> {
+public abstract class PSTShapeView<S extends Shape> {
 	/** The shape model. */
 	protected final S shape;
 
@@ -91,7 +91,7 @@ public abstract class PSTShapeView<S extends IShape> {
 	}
 
 
-	public abstract String getCode(final IPoint origin, final float ppc);
+	public abstract String getCode(final Point origin, final float ppc);
 
 
 	/**
@@ -100,8 +100,8 @@ public abstract class PSTShapeView<S extends IShape> {
 	protected StringBuilder getArrowsParametersCode() {
 		StringBuilder code = null;
 
-		if(shape instanceof IArrowableSingleShape) {
-			final IArrowableSingleShape arr = (IArrowableSingleShape) shape;
+		if(shape instanceof ArrowableSingleShape) {
+			final ArrowableSingleShape arr = (ArrowableSingleShape) shape;
 			final ArrowStyle style1 = arr.getArrowStyle(0);
 			final ArrowStyle style2 = arr.getArrowStyle(-1);
 
@@ -127,12 +127,12 @@ public abstract class PSTShapeView<S extends IShape> {
 	 * @return The PST code corresponding to the parameter of the style of the given arrow. The style of the
 	 * given arrow must not be NONE.
 	 */
-	private StringBuilder getArrowParametersCode(final IArrow arrow) {
+	private StringBuilder getArrowParametersCode(final Arrow arrow) {
 		final StringBuilder code = new StringBuilder();
 		final ArrowStyle style = arrow.getArrowStyle();
 
 		if(style.isBar() || style.isRoundBracket() || style.isSquareBracket()) {
-			code.append("tbarsize=").append(MathUtils.INST.getCutNumberFloat(arrow.getTBarSizeDim() / IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //NON-NLS
+			code.append("tbarsize=").append(MathUtils.INST.getCutNumberFloat(arrow.getTBarSizeDim() / Shape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //NON-NLS
 				append(MathUtils.INST.getCutNumberFloat(arrow.getTBarSizeNum()));
 
 			if(style.isSquareBracket()) {
@@ -141,11 +141,11 @@ public abstract class PSTShapeView<S extends IShape> {
 				code.append(",rbracketlength=").append(MathUtils.INST.getCutNumberFloat(arrow.getRBracketNum())); //NON-NLS
 			}
 		}else if(style.isArrow()) {
-			code.append("arrowsize=").append(MathUtils.INST.getCutNumberFloat(arrow.getArrowSizeDim() / IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //NON-NLS
+			code.append("arrowsize=").append(MathUtils.INST.getCutNumberFloat(arrow.getArrowSizeDim() / Shape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //NON-NLS
 				append(MathUtils.INST.getCutNumberFloat(arrow.getArrowSizeNum())).append(",arrowlength="). //NON-NLS
 				append(MathUtils.INST.getCutNumberFloat(arrow.getArrowLength())).append(",arrowinset=").append(MathUtils.INST.getCutNumberFloat(arrow.getArrowInset())); //NON-NLS
 		}else {
-			code.append("dotsize=").append(MathUtils.INST.getCutNumberFloat(arrow.getDotSizeDim() / IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //NON-NLS
+			code.append("dotsize=").append(MathUtils.INST.getCutNumberFloat(arrow.getDotSizeDim() / Shape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //NON-NLS
 				append(MathUtils.INST.getCutNumberFloat(arrow.getDotSizeNum()));
 		}
 
@@ -159,8 +159,8 @@ public abstract class PSTShapeView<S extends IShape> {
 	protected StringBuilder getArrowsStyleCode() {
 		final StringBuilder code;
 
-		if(shape instanceof IArrowableSingleShape) {
-			final IArrowableSingleShape arr = (IArrowableSingleShape) shape;
+		if(shape instanceof ArrowableSingleShape) {
+			final ArrowableSingleShape arr = (ArrowableSingleShape) shape;
 			final ArrowStyle style1 = arr.getArrowStyle(0);
 			final ArrowStyle style2 = arr.getArrowStyle(-1);
 
@@ -199,7 +199,7 @@ public abstract class PSTShapeView<S extends IShape> {
 	 * @param position The reference point of the PSTricks drawing.
 	 * @return The header of the PSTricks rotation code.
 	 */
-	protected StringBuilder getRotationHeaderCode(final float ppc, final IPoint position) {
+	protected StringBuilder getRotationHeaderCode(final float ppc, final Point position) {
 		if(ppc < 1 || !MathUtils.INST.isValidPt(position)) {
 			return null;
 		}
@@ -210,7 +210,7 @@ public abstract class PSTShapeView<S extends IShape> {
 		if(MathUtils.INST.equalsDouble(angle, 0d)) {
 			code = null;
 		}else {
-			final IPoint gc = shape.getGravityCentre().substract(position);
+			final Point gc = shape.getGravityCentre().substract(position);
 			code = new StringBuilder();
 			code.append("\\psrotate(").append(MathUtils.INST.getCutNumberFloat(gc.getX() / ppc)).append(", "). //NON-NLS
 				append(MathUtils.INST.getCutNumberFloat(-gc.getY() / ppc)).append("){").

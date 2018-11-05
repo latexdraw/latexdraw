@@ -16,21 +16,21 @@ import javafx.beans.binding.ObjectBinding;
 import javafx.beans.value.ObservableDoubleValue;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.paint.Color;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.ILine;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.Line;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * A generic implementation trait to render arrows.
  * @author Arnaud Blouin
  */
 public interface GenericViewArrow {
-	IArrow getArrow();
+	Arrow getArrow();
 
 	default void updatePathRightLeftSquaredBracket(final boolean isShadow) {
-		final IArrow arrow = getArrow();
+		final Arrow arrow = getArrow();
 		final double halflineWidth = arrow.getShape().getFullThickness() / 2d;
 		final double lgth = arrow.getBracketShapedArrowLength() + halflineWidth;
 		final double width = arrow.getBarShapedArrowWidth();
@@ -51,8 +51,8 @@ public interface GenericViewArrow {
 		}
 	}
 
-	default void updatePathBarIn(final IPoint pt1, final IPoint pt2, final boolean isShadow) {
-		final IArrow arrow = getArrow();
+	default void updatePathBarIn(final Point pt1, final Point pt2, final boolean isShadow) {
+		final Arrow arrow = getArrow();
 		final double width = arrow.getBarShapedArrowWidth();
 		final double lineWidth = arrow.getShape().getThickness();
 		final double dec = isArrowInPositiveDirection(pt1, pt2) ? lineWidth / 2d : -lineWidth / 2d;
@@ -68,7 +68,7 @@ public interface GenericViewArrow {
 	}
 
 	default void updatePathBarEnd(final boolean isShadow) {
-		final IArrow arrow = getArrow();
+		final Arrow arrow = getArrow();
 		final double width = arrow.getBarShapedArrowWidth();
 		createMoveTo(0d, -width / 2d);
 		createLineTo(0d, width / 2d);
@@ -86,7 +86,7 @@ public interface GenericViewArrow {
 	}
 
 	default void updatePathRightLeftArrow(final boolean isShadow) {
-		final IArrow arrow = getArrow();
+		final Arrow arrow = getArrow();
 		final double width = arrow.getArrowShapedWidth();
 		final double length = arrow.getArrowLength() * width;
 		final double inset = arrow.getArrowInset() * length;
@@ -108,7 +108,7 @@ public interface GenericViewArrow {
 	}
 
 	default void updatePathRoundLeftRightBracket(final boolean isShadow) {
-		final IArrow arrow = getArrow();
+		final Arrow arrow = getArrow();
 		final double width = arrow.getBarShapedArrowWidth();
 		final double widtharc = arrow.getRBracketNum() * width * 2d;
 		final double xarc = -widtharc / 2d;
@@ -122,7 +122,7 @@ public interface GenericViewArrow {
 	}
 
 	default void updatePathDoubleLeftRightArrow(final boolean isShadow) {
-		final IArrow arrow = getArrow();
+		final Arrow arrow = getArrow();
 		final double width = arrow.getArrowShapedWidth();
 		final double length = arrow.getArrowLength() * width;
 		final double inset = arrow.getArrowInset() * length;
@@ -149,7 +149,7 @@ public interface GenericViewArrow {
 		}
 	}
 
-	default void updatePathSquareEnd(final IPoint pt1, final IPoint pt2, final boolean isShadow) {
+	default void updatePathSquareEnd(final Point pt1, final Point pt2, final boolean isShadow) {
 		createMoveTo(0d, 0d);
 		createLineTo(pt1.getX() < pt2.getX() ? 1d : -1d, 0d);
 		setPathStrokeWidth(createFullThickBinding());
@@ -162,15 +162,15 @@ public interface GenericViewArrow {
 	}
 
 
-	default void updatePathRoundIn(final IPoint pt1, final IPoint pt2, final boolean isShadow) {
-		final IArrow arrow = getArrow();
+	default void updatePathRoundIn(final Point pt1, final Point pt2, final boolean isShadow) {
+		final Arrow arrow = getArrow();
 		final double lineWidth = arrow.getShape().getFullThickness() / 2d;
 		createCircle(isArrowInPositiveDirection(pt1, pt2) ? lineWidth : -lineWidth, 0d, lineWidth);
 		setStrokeFillDiskCircle(isShadow);
 	}
 
 	default void updatePathDiskCircleEnd(final boolean isShadow) {
-		final IArrow arrow = getArrow();
+		final Arrow arrow = getArrow();
 		final double lineWidth = arrow.getShape().getFullThickness();
 		final double arrowRadius = arrow.getRoundShapedArrowRadius();
 		createCircle(0d, 0d, arrowRadius - lineWidth / 2d);
@@ -179,8 +179,8 @@ public interface GenericViewArrow {
 	}
 
 
-	default void updatePathDiskCircleIn(final IPoint pt1, final IPoint pt2, final boolean isShadow) {
-		final IArrow arrow = getArrow();
+	default void updatePathDiskCircleIn(final Point pt1, final Point pt2, final boolean isShadow) {
+		final Arrow arrow = getArrow();
 		final double arrowRadius = arrow.getRoundShapedArrowRadius();
 		final double lineWidth = arrow.getShape().getFullThickness();
 		createCircle(isArrowInPositiveDirection(pt1, pt2) ? arrowRadius : -arrowRadius, 0d, arrowRadius - lineWidth / 2d);
@@ -188,7 +188,7 @@ public interface GenericViewArrow {
 		setStrokeFillDiskCircle(isShadow);
 	}
 
-	default boolean isArrowInPositiveDirection(final IPoint pt1, final IPoint pt2) {
+	default boolean isArrowInPositiveDirection(final Point pt1, final Point pt2) {
 		return pt1.getX() < pt2.getX() || (MathUtils.INST.equalsDouble(pt1.getX(), pt2.getX()) && pt1.getY() < pt2.getY());
 	}
 
@@ -207,7 +207,7 @@ public interface GenericViewArrow {
 	}
 
 	default void setStrokeFillDiskCircle(final boolean isShadow) {
-		final IArrow arrow = getArrow();
+		final Arrow arrow = getArrow();
 
 		if(arrow.getArrowStyle() == ArrowStyle.ROUND_END || arrow.getArrowStyle() == ArrowStyle.ROUND_IN) {
 			setCircleStroke(null);
@@ -227,15 +227,15 @@ public interface GenericViewArrow {
 	}
 
 	default void updatePath(final boolean isShadow) {
-		final IArrow arrow = getArrow();
-		final ILine arrowLine = arrow.getArrowLine();
+		final Arrow arrow = getArrow();
+		final Line arrowLine = arrow.getArrowLine();
 
 		if(arrowLine == null || arrow.getArrowStyle() == ArrowStyle.NONE || !arrow.hasStyle()) {
 			return;
 		}
 
-		final IPoint pt1 = arrowLine.getPoint1();
-		final IPoint pt2 = arrowLine.getPoint2();
+		final Point pt1 = arrowLine.getPoint1();
+		final Point pt2 = arrowLine.getPoint2();
 
 		setTranslation(pt1.getX(), pt1.getY());
 

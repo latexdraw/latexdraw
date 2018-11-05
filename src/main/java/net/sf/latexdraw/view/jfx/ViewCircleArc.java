@@ -12,20 +12,20 @@ package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Arc;
-import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
+import net.sf.latexdraw.model.api.shape.CircleArc;
 
 /**
  * A JFX view to render arcs.
  * @author Arnaud Blouin
  */
-public class ViewCircleArc extends ViewSingleShape<ICircleArc, Arc> {
+public class ViewCircleArc extends ViewSingleShape<CircleArc, Arc> {
 	protected final ViewArrowableTraitArc viewArrows = new ViewArrowableTraitArc(this);
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewCircleArc(final ICircleArc sh) {
+	ViewCircleArc(final CircleArc sh) {
 		super(sh);
 
 		// Code duplicated from ViewCircle and ViewEllipseBased, but Arc and Ellipse share no common interface and no structural typing in Java.

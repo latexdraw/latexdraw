@@ -12,15 +12,15 @@ package net.sf.latexdraw.view.svg;
 
 import java.text.ParseException;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IPolygon;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Polygon;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
+import net.sf.latexdraw.parser.svg.SVGPolygonElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
@@ -28,12 +28,12 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * A SVG generator for a polygon.
  * @author Arnaud BLOUIN
  */
-class SVGPolygon extends SVGModifiablePointsShape<IPolygon> {
+class SVGPolygon extends SVGModifiablePointsShape<Polygon> {
 	/**
 	 * Creates a generator for IPolygon.
 	 * @param polygon The source polygon used to generate the SVG element.
 	 */
-	SVGPolygon(final IPolygon polygon) {
+	SVGPolygon(final Polygon polygon) {
 		super(polygon);
 	}
 
@@ -95,7 +95,7 @@ class SVGPolygon extends SVGModifiablePointsShape<IPolygon> {
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_POLYGON);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-		for(final IPoint pt : shape.getPoints()) {
+		for(final Point pt : shape.getPoints()) {
 			pointsBuilder.append(pt.getX()).append(',').append(pt.getY()).append(' ');
 		}
 

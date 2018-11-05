@@ -10,17 +10,17 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import net.sf.latexdraw.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.model.api.shape.Polygon;
 
 /**
  * @author Arnaud Blouin
  */
-public class ViewPolygon extends ViewPolyPoint<IPolygon> {
+public class ViewPolygon extends ViewPolyPoint<Polygon> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPolygon(final IPolygon sh, final PathElementProducer pathProducer) {
+	ViewPolygon(final Polygon sh, final PathElementProducer pathProducer) {
 		super(sh, pathProducer);
 		border.getElements().add(pathProducer.createClosePath());
 		shadow.getElements().add(pathProducer.createClosePath());

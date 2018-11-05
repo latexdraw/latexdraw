@@ -14,29 +14,29 @@ import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.ITriangle;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
-import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Triangle;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGPolygonElement;
+import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
 
 /**
  * SVG/latexdraw triangle import export.
  * @author Arnaud BLOUIN
  */
-class SVGTriangle extends SVGPolygonBased<ITriangle> {
+class SVGTriangle extends SVGPolygonBased<Triangle> {
 	/**
 	 * Creates a latexdraw->svg generator.
 	 * @param triangle The triangle used for the generation.
 	 * @throws IllegalArgumentException If the given triangle is null.
 	 */
-	SVGTriangle(final ITriangle triangle) {
+	SVGTriangle(final Triangle triangle) {
 		super(triangle);
 	}
 
@@ -93,11 +93,11 @@ class SVGTriangle extends SVGPolygonBased<ITriangle> {
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_TRIANGLE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 		final double gap = getPositionGap() / 2d;
-		final IPoint pt1 = shape.getTopLeftPoint();
-		final IPoint pt2 = shape.getBottomRightPoint();
-		final IPoint p1 = ShapeFactory.INST.createPoint((pt1.getX() + pt2.getX()) / 2d, pt1.getY());
-		final IPoint p2 = ShapeFactory.INST.createPoint(pt2.getX(), pt2.getY());
-		final IPoint p3 = ShapeFactory.INST.createPoint(pt1.getX(), pt2.getY());
+		final Point pt1 = shape.getTopLeftPoint();
+		final Point pt2 = shape.getBottomRightPoint();
+		final Point p1 = ShapeFactory.INST.createPoint((pt1.getX() + pt2.getX()) / 2d, pt1.getY());
+		final Point p2 = ShapeFactory.INST.createPoint(pt2.getX(), pt2.getY());
+		final Point p3 = ShapeFactory.INST.createPoint(pt1.getX(), pt2.getY());
 		final double p1x = p1.getX();
 		final double p1y = p1.getY();
 		final double p2x = p2.getX();

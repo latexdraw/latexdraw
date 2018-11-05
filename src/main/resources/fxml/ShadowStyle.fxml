@@ -9,7 +9,7 @@
 <?import net.sf.latexdraw.view.jfx.LSpinner?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="%LaTeXDrawFrame.shad"
             xmlns="http://javafx.com/javafx/8" alignment="TOP_LEFT" expanded="false"
-            fx:controller="net.sf.latexdraw.instruments.ShapeShadowCustomiser">
+            fx:controller="net.sf.latexdraw.instrument.ShapeShadowCustomiser">
     <tooltip>
         <Tooltip text="%PropBuilder.13"/>
     </tooltip>

@@ -10,14 +10,14 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGRectElement;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Rectangle;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGRectElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
@@ -25,13 +25,13 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * SVG/latexdraw rectangle import export.
  * @author Arnaud BLOUIN
  */
-class SVGRectangle extends SVGRectangular<IRectangle> {
+class SVGRectangle extends SVGRectangular<Rectangle> {
 	/**
 	 * Creates a generator of SVG rectangle.
 	 * @param rect The rectangle shape used for the generation.
 	 * @throws IllegalArgumentException If rect is null.
 	 */
-	SVGRectangle(final IRectangle rect) {
+	SVGRectangle(final Rectangle rect) {
 		super(rect);
 	}
 
@@ -84,8 +84,8 @@ class SVGRectangle extends SVGRectangular<IRectangle> {
 		}
 
 		final double gap = getPositionGap();
-		final IPoint tl = shape.getTopLeftPoint();
-		final IPoint br = shape.getBottomRightPoint();
+		final Point tl = shape.getTopLeftPoint();
+		final Point br = shape.getBottomRightPoint();
 		SVGElement elt;
 		final SVGElement root = new SVGGElement(document);
 		final double width = Math.max(1d, br.getX() - tl.getX() + gap);

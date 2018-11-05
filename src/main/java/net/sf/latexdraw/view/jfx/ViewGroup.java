@@ -11,23 +11,22 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.stream.Collectors;
-import javafx.scene.Group;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.model.api.shape.Group;
 
 /**
  * The JFX view of a group of shapes.
  * @author Arnaud Blouin
  */
-public class ViewGroup extends ViewShape<IGroup> {
-	private final Group group;
+public class ViewGroup extends ViewShape<Group> {
+	private final javafx.scene.Group group;
 
 	/**
 	 * Creates the view.
 	 * @param gp The model.
 	 */
-	ViewGroup(final IGroup gp, final JfxViewProducer viewProducer) {
+	ViewGroup(final Group gp, final JfxViewProducer viewProducer) {
 		super(gp);
-		group = new Group();
+		group = new javafx.scene.Group();
 		group.getChildren().addAll(model.getShapes().stream().map(sh -> viewProducer.createView(sh).get()).collect(Collectors.toList()));
 		getChildren().add(group);
 	}

@@ -6,10 +6,10 @@ import java.util.stream.Stream;
 import javafx.application.Platform;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Line;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.ArcStyle;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.CircleArc;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> {
+public class TestViewCircleArc extends TestViewShape<ViewCircleArc, CircleArc> {
 	// Tricky way to factorise the code that concerns all the layers of the view.
 	static Stream<Function<ViewCircleArc, Arc>> getArcsToTest() {
 		return Stream.of(v -> v.border, v -> v.shadow, v -> v.dblBorder);
@@ -44,7 +44,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, ICircleArc> 
 	}
 
 	@Override
-	protected ICircleArc createModel() {
+	protected CircleArc createModel() {
 		return ShapeFactory.INST.createCircleArc(ShapeFactory.INST.createPoint(), 10d);
 	}
 

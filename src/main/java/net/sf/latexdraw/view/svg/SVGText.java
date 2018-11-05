@@ -10,17 +10,17 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.models.interfaces.shape.TextPosition;
-import net.sf.latexdraw.models.interfaces.shape.TextSize;
-import net.sf.latexdraw.parsers.svg.CSSColors;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGElements;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGTextElement;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.model.api.shape.TextPosition;
+import net.sf.latexdraw.model.api.shape.TextSize;
+import net.sf.latexdraw.parser.svg.CSSColors;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGElements;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGTextElement;
 import net.sf.latexdraw.util.LNamespace;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -29,9 +29,9 @@ import org.w3c.dom.NodeList;
  * An SVG generator for a text.
  * @author Arnaud BLOUIN
  */
-class SVGText extends SVGShape<IText> {
+class SVGText extends SVGShape<Text> {
 
-	SVGText(final IText f) {
+	SVGText(final Text f) {
 		super(f);
 	}
 

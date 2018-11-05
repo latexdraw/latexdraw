@@ -12,14 +12,14 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
 import javafx.beans.value.ChangeListener;
-import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.api.shape.Freehand;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * The JFX view of a freehand model.
  * @author Arnaud Blouin
  */
-public class ViewFreeHand extends ViewPathShape<IFreehand> {
+public class ViewFreeHand extends ViewPathShape<Freehand> {
 	private final ChangeListener<Object> update = (observable, oldValue, newValue) -> setPath();
 
 
@@ -27,7 +27,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewFreeHand(final IFreehand sh, final PathElementProducer pathProducer) {
+	ViewFreeHand(final Freehand sh, final PathElementProducer pathProducer) {
 		super(sh, pathProducer);
 
 		// To update on translation. To improve.
@@ -72,7 +72,7 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 	 */
 	private void setPathCurves() {
 		final int interval = model.getInterval();
-		final List<IPoint> pts = model.getPoints();
+		final List<Point> pts = model.getPoints();
 		final int size = pts.size();
 		double prevx = pts.get(size - 1).getX();
 		double prevy = pts.get(size - 1).getY();
@@ -139,9 +139,9 @@ public class ViewFreeHand extends ViewPathShape<IFreehand> {
 	 */
 	private void setPathLines() {
 		final int interval = model.getInterval();
-		final List<IPoint> pts = model.getPoints();
+		final List<Point> pts = model.getPoints();
 		final int size = pts.size();
-		IPoint pt = pts.get(0);
+		Point pt = pts.get(0);
 		int i;
 
 		border.getElements().add(pathProducer.createMoveTo(pt.getX(), pt.getY()));

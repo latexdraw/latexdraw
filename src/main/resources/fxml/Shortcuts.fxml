@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="500.0" prefWidth="700.0"
-            fx:controller="net.sf.latexdraw.instruments.ShortcutsController">
+            fx:controller="net.sf.latexdraw.instrument.ShortcutsController">
     <center>
         <TableView fx:id="table" editable="false">
             <columns>

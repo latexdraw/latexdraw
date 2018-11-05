@@ -17,8 +17,8 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.SystemService;
@@ -136,9 +136,9 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 
 
 	@Override
-	public IPoint getTransformedPointToGrid(final Point3D pt) {
+	public Point getTransformedPointToGrid(final Point3D pt) {
 		if(isMagnetic() && isGridDisplayed()) {
-			final IPoint point = ShapeFactory.INST.createPoint(pt.getX(), pt.getY());
+			final Point point = ShapeFactory.INST.createPoint(pt.getX(), pt.getY());
 			final double modulo = getMagneticGridGap();
 			double x = point.getX();
 			double y = point.getY();

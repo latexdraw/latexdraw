@@ -5,63 +5,63 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
-import net.sf.latexdraw.models.interfaces.shape.IPolygon;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.ISquare;
-import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.Picture;
+import net.sf.latexdraw.model.api.shape.Polygon;
+import net.sf.latexdraw.model.api.shape.Polyline;
+import net.sf.latexdraw.model.api.shape.Rhombus;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.Square;
+import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.util.SystemService;
 import org.junit.experimental.theories.ParameterSignature;
 import org.junit.experimental.theories.ParameterSupplier;
 import org.junit.experimental.theories.PotentialAssignment;
 
 public class ShapeSupplier extends ParameterSupplier {
-	public static IPicture createPicture() {
+	public static Picture createPicture() {
 		return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(76, 45), new SystemService());
 	}
 
-	public static ISquare createSquare() {
+	public static Square createSquare() {
 		return ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(13d, 84d), 233);
 	}
 
-	public static Stream<ISquare> createDiversifiedSquare() {
+	public static Stream<Square> createDiversifiedSquare() {
 		return Stream.of(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(13d, 84d), 233), ParameteriseShapeData.INST.setSquareData1(createSquare()));
 	}
 
-	public static IRhombus createRhombus() {
+	public static Rhombus createRhombus() {
 		return ShapeFactory.INST.createRhombus(ShapeFactory.INST.createPoint(251d, 33d), 220, 376);
 	}
 
-	public static ITriangle createTriangle() {
+	public static Triangle createTriangle() {
 		return ShapeFactory.INST.createTriangle(ShapeFactory.INST.createPoint(251d, 33d), 76, 12);
 	}
 
-	public static IBezierCurve createBezierCurve() {
+	public static BezierCurve createBezierCurve() {
 		return ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 			ShapeFactory.INST.createPoint(251d, 33d)));
 	}
 
-	public static IPolyline createPolyline() {
+	public static Polyline createPolyline() {
 		return ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 			ShapeFactory.INST.createPoint(251d, 33d)));
 	}
 
-	public static IPolygon createPolygon() {
+	public static Polygon createPolygon() {
 		return ShapeFactory.INST.createPolygon(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 			ShapeFactory.INST.createPoint(251d, 33d)));
 	}
 
-	public static Stream<IShape> getDiversifiedShapes() throws IOException {
+	public static Stream<Shape> getDiversifiedShapes() throws IOException {
 		return
 			Stream.concat(RectSupplier.createDiversifiedRectangle(), Stream.concat(ArcSupplier.createDiversifiedArc(),
 				Stream.concat(DotSupplier.createDiversifiedDot(), Stream.concat(PlotSupplier.createDiversifiedPlot(),
 				Stream.concat(GridSupplier.createDiversifiedGrid(), Stream.concat(AxesSupplier.createDiversifiedAxes(),
 				Stream.concat(TextSupplier.createDiversifiedText(),
-					Stream.of((IShape) EllSupplier.createEllipse(), createBezierCurve(), CircleSupplier.createCircle(), createPolyline(), createPolygon(), createSquare(),
+					Stream.of((Shape) EllSupplier.createEllipse(), createBezierCurve(), CircleSupplier.createCircle(), createPolyline(), createPolygon(), createSquare(),
 			ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
 			createRhombus(), createTriangle(),
@@ -72,7 +72,7 @@ public class ShapeSupplier extends ParameterSupplier {
 				ParameteriseShapeData.INST.setShapeData4(sh.duplicate()))).flatMap(s -> s.stream());
 	}
 
-	public static Stream<IShape> getStdShapesStream() {
+	public static Stream<Shape> getStdShapesStream() {
 		return Stream.of(EllSupplier.createEllipse(), ArcSupplier.createArc(), GridSupplier.createGrid(), CircleSupplier.createCircle(),
 			RectSupplier.createRectangle(), createBezierCurve(), TextSupplier.createText(), DotSupplier.createDot(), createPolyline(),
 			createPolygon(), AxesSupplier.createAxes(), createSquare(),
@@ -84,7 +84,7 @@ public class ShapeSupplier extends ParameterSupplier {
 	@Override
 	public List<PotentialAssignment> getValueSources(final ParameterSignature sig) throws IOException {
 		final ShapeData shapeData = sig.getAnnotation(ShapeData.class);
-		final Stream<IShape> instances;
+		final Stream<Shape> instances;
 
 		if(shapeData.withParamVariants()) {
 			instances = getDiversifiedShapes();

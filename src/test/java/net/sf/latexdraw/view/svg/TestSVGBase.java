@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDefsElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGSVGElement;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDefsElement;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGSVGElement;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.SystemService;
@@ -25,7 +25,7 @@ import org.malai.undo.UndoCollector;
 import org.mockito.Mockito;
 
 @ExtendWith(InjectionExtension.class)
-abstract class TestSVGBase<T extends IShape> implements PolymorphicConversion<T> {
+abstract class TestSVGBase<T extends Shape> implements PolymorphicConversion<T> {
 	SVGDocument doc;
 	SVGShapesFactory factory;
 

@@ -10,10 +10,10 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.CSSStyleList;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDefsElement;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.svg.CSSStyleList;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDefsElement;
 
 /**
  * Methods to get/set CSS style from/to a LaTeXDraw shape.
@@ -35,7 +35,7 @@ final class CSSStylesGenerator {
 	 * @param styles The styles to set to the shape.
 	 * @param defs The definitions, may be null.
 	 */
-	public void setCSSStyles(final IShape shape, final CSSStyleList styles, final SVGDefsElement defs) {
+	public void setCSSStyles(final Shape shape, final CSSStyleList styles, final SVGDefsElement defs) {
 		if(shape == null || styles == null) {
 			return;
 		}

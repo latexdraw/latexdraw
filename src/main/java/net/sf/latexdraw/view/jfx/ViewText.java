@@ -22,12 +22,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
-import net.sf.latexdraw.commands.ExportFormat;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.command.ExportFormat;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Color;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.util.OperatingSystem;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.util.Triple;
@@ -40,12 +39,12 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * The JFX shape view for text shapes.
  * @author Arnaud Blouin
  */
-public class ViewText extends ViewPositionShape<IText> {
+public class ViewText extends ViewPositionShape<Text> {
 	static final Logger LOGGER = Logger.getAnonymousLogger();
 	private static final ExecutorService COMPILATION_POOL = Executors.newFixedThreadPool(5);
 	private static final double SCALE_COMPILE = 2d;
 
-	private final Text text;
+	private final javafx.scene.text.Text text;
 	private final ImageView compiledText;
 	private final Tooltip compileTooltip;
 	private final ChangeListener<String> textUpdate;
@@ -61,9 +60,9 @@ public class ViewText extends ViewPositionShape<IText> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewText(final IText sh, final SystemService system, final LaTeXGenerator gen) {
+	ViewText(final Text sh, final SystemService system, final LaTeXGenerator gen) {
 		super(sh);
-		text = new Text();
+		text = new javafx.scene.text.Text();
 		compiledText = new ImageView();
 		compileTooltip = new Tooltip(null);
 		this.system = system;
@@ -150,7 +149,7 @@ public class ViewText extends ViewPositionShape<IText> {
 		boolean coloured = false;
 
 		// We must scale the text to fit its latex size: latexdrawDPI/latexDPI is the ratio to scale the created png picture.
-		final double scale = IShape.PPC * PSTricksConstants.INCH_VAL_CM / PSTricksConstants.INCH_VAL_PT * SCALE_COMPILE;
+		final double scale = Shape.PPC * PSTricksConstants.INCH_VAL_CM / PSTricksConstants.INCH_VAL_PT * SCALE_COMPILE;
 
 		doc.append("\\documentclass{standalone}\n\\usepackage[usenames,dvipsnames]{pstricks}"); //NON-NLS
 		doc.append(codeGen.getPackages()).append('\n');

@@ -10,19 +10,19 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.model.api.shape.Polyline;
 
 /**
  * @author Arnaud Blouin
  */
-public class ViewPolyline extends ViewPolyPoint<IPolyline> {
-	protected final ViewArrowableTraitPath<IPolyline> viewArrows;
+public class ViewPolyline extends ViewPolyPoint<Polyline> {
+	protected final ViewArrowableTraitPath<Polyline> viewArrows;
 
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPolyline(final IPolyline sh, final PathElementProducer pathProducer) {
+	ViewPolyline(final Polyline sh, final PathElementProducer pathProducer) {
 		super(sh, pathProducer);
 		viewArrows = new ViewArrowableTraitPath<>(this, pathProducer);
 		getChildren().add(viewArrows);

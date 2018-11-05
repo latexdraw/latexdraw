@@ -11,7 +11,7 @@
 package net.sf.latexdraw.view;
 
 import javafx.geometry.Point3D;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.api.shape.Point;
 import org.malai.properties.Modifiable;
 import org.malai.properties.Preferenciable;
 
@@ -25,7 +25,7 @@ public interface MagneticGrid extends Preferenciable, Modifiable {
 	 * @param pt The point to transform.
 	 * @return The transformed point or if there is no magnetic grid, a clone of the given point.
 	 */
-	IPoint getTransformedPointToGrid(final Point3D pt);
+	Point getTransformedPointToGrid(final Point3D pt);
 
 	/**
 	 * @return The gap between the lines of the magnetic grid.

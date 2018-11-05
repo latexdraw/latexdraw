@@ -11,35 +11,35 @@
 package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Arc2D;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDefsElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegArc;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.ArcStyle;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.CircleArc;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDefsElement;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegArc;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegClosePath;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 
 /**
  * An SVG generator for an arc.
  * @author Arnaud BLOUIN
  */
-class SVGCircleArc extends SVGShape<ICircleArc> {
+class SVGCircleArc extends SVGShape<CircleArc> {
 	/**
 	 * Creates a generator of SVG arc.
 	 * @param shape The arc shape used for the generation.
 	 * @throws IllegalArgumentException If arc is null.
 	 */
-	SVGCircleArc(final ICircleArc shape) {
+	SVGCircleArc(final CircleArc shape) {
 		super(shape);
 	}
 
@@ -53,8 +53,8 @@ class SVGCircleArc extends SVGShape<ICircleArc> {
 		this(ShapeFactory.INST.createCircleArc());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
-		final IArrow arr1 = shape.getArrowAt(0);
-		final IArrow arr2 = shape.getArrowAt(-1);
+		final Arrow arr1 = shape.getArrowAt(0);
+		final Arrow arr2 = shape.getArrowAt(-1);
 
 		if(elt == null || !(elt2 instanceof SVGPathElement)) {
 			throw new IllegalArgumentException();
@@ -117,8 +117,8 @@ class SVGCircleArc extends SVGShape<ICircleArc> {
 		final double endAngle = shape.getAngleEnd() % (2. * Math.PI);
 		final ArcStyle type = shape.getArcStyle();
 		final SVGElement root = new SVGGElement(doc);
-		final IPoint start = shape.getStartPoint();
-		final IPoint end = shape.getEndPoint();
+		final Point start = shape.getStartPoint();
+		final Point end = shape.getEndPoint();
 		final double radius = shape.getWidth() / 2.0;
 		final boolean largeArcFlag = Math.abs(endAngle - startAngle) >= Math.PI;
 		final boolean sweepFlag = startAngle >= endAngle;
@@ -135,7 +135,7 @@ class SVGCircleArc extends SVGShape<ICircleArc> {
 			path.add(new SVGPathSegClosePath());
 		}else {
 			if(type == ArcStyle.WEDGE) {
-				final IPoint gravityCenter = shape.getGravityCentre();
+				final Point gravityCenter = shape.getGravityCentre();
 				path.add(new SVGPathSegLineto(gravityCenter.getX(), gravityCenter.getY(), false));
 				path.add(new SVGPathSegClosePath());
 			}

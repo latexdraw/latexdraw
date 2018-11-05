@@ -11,8 +11,8 @@
 package net.sf.latexdraw.view.pst;
 
 import java.awt.geom.Point2D;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.Color;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.view.latex.DviPsColors;
 
 /**

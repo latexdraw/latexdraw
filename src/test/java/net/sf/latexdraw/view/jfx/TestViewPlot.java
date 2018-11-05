@@ -5,10 +5,10 @@ import javafx.application.Platform;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.DotStyle;
+import net.sf.latexdraw.model.api.shape.Plot;
+import net.sf.latexdraw.model.api.shape.PlotStyle;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
+public class TestViewPlot extends TestViewShape<ViewPlot, Plot> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -36,7 +36,7 @@ public class TestViewPlot extends TestViewShape<ViewPlot, IPlot> {
 	}
 
 	@Override
-	protected IPlot createModel() {
+	protected Plot createModel() {
 		return ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(101, 67), 1d, 10d, "x", false);
 	}
 

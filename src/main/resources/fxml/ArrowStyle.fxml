@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import net.sf.latexdraw.view.jfx.LSpinner?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Arrow" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.ShapeArrowCustomiser" alignment="TOP_LEFT" expanded="false">
+            fx:controller="net.sf.latexdraw.instrument.ShapeArrowCustomiser" alignment="TOP_LEFT" expanded="false">
     <VBox spacing="5">
         <AnchorPane>
             <ComboBox fx:id="arrowLeftCB" prefHeight="25.0" prefWidth="90.0" layoutX="22.0" layoutY="0.0">

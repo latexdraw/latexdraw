@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
-import net.sf.latexdraw.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.view.PlotViewComputation;
 
 /**
  * The JFX view of a plot.
  * @author Arnaud Blouin
  */
-public class ViewPlot extends ViewPositionShape<IPlot> implements PlotViewComputation {
+public class ViewPlot extends ViewPositionShape<Plot> implements PlotViewComputation {
 	private ViewPolyline lineView;
 	private ViewPolygon polygonView;
 	private ViewBezierCurve curveView;
@@ -33,7 +33,7 @@ public class ViewPlot extends ViewPositionShape<IPlot> implements PlotViewComput
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewPlot(final IPlot sh, final PathElementProducer pathProducer) {
+	ViewPlot(final Plot sh, final PathElementProducer pathProducer) {
 		super(sh);
 
 		this.pathProducer = pathProducer;

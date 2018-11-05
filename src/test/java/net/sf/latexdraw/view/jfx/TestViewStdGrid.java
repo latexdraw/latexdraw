@@ -1,13 +1,13 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.text.Text;
-import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
+import net.sf.latexdraw.model.api.shape.StandardGrid;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertNotEquals;
 
-abstract class TestViewStdGrid<S extends ViewStdGrid<T>, T extends IStandardGrid> extends TestViewShape<S, T> {
+abstract class TestViewStdGrid<S extends ViewStdGrid<T>, T extends StandardGrid> extends TestViewShape<S, T> {
 	abstract void testChangeGridEndX();
 
 	abstract void testChangeGridEndY();

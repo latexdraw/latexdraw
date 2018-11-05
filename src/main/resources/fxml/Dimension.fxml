@@ -7,7 +7,7 @@
 <?import net.sf.latexdraw.view.jfx.LSpinner?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Position / Dimensions"
             xmlns="http://javafx.com/javafx/8" alignment="TOP_LEFT" expanded="false"
-            fx:controller="net.sf.latexdraw.instruments.ShapeCoordDimCustomiser">
+            fx:controller="net.sf.latexdraw.instrument.ShapeCoordDimCustomiser">
     <AnchorPane layoutX="10.0" layoutY="5.0"
                 style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
         <Label layoutX="0.0" layoutY="9.0" text="x"/>

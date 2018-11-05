@@ -11,16 +11,16 @@
 package net.sf.latexdraw.view.pst;
 
 import java.util.ResourceBundle;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Picture;
+import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.util.SystemService;
 
 /**
  * Defines a PSTricks view of the LPicture model.
  * @author Arnaud Blouin
  */
-public class PSTPictureView extends PSTShapeView<IPicture> {
+public class PSTPictureView extends PSTShapeView<Picture> {
 	private final SystemService system;
 	private final ResourceBundle bundle;
 
@@ -29,7 +29,7 @@ public class PSTPictureView extends PSTShapeView<IPicture> {
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTPictureView(final IPicture model, final SystemService system, final ResourceBundle bundle) {
+	protected PSTPictureView(final Picture model, final SystemService system, final ResourceBundle bundle) {
 		super(model);
 		this.system = system;
 		this.bundle = bundle;
@@ -37,7 +37,7 @@ public class PSTPictureView extends PSTShapeView<IPicture> {
 
 
 	@Override
-	public String getCode(final IPoint origin, final float ppc) {
+	public String getCode(final Point origin, final float ppc) {
 		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
 			return "";
 		}

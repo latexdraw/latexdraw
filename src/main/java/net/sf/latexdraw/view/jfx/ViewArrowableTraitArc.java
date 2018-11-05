@@ -11,15 +11,15 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.shape.Arc;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.CircleArc;
 
 /**
  * An implementation of ViewArrowable for arc-based views.
  */
-class ViewArrowableTraitArc extends ViewArrowableTrait<Arc, ICircleArc> {
-	ViewArrowableTraitArc(final ViewSingleShape<ICircleArc, Arc> view) {
+class ViewArrowableTraitArc extends ViewArrowableTrait<Arc, CircleArc> {
+	ViewArrowableTraitArc(final ViewSingleShape<CircleArc, Arc> view) {
 		super(view);
 	}
 
@@ -33,7 +33,7 @@ class ViewArrowableTraitArc extends ViewArrowableTrait<Arc, ICircleArc> {
 		final double width = Math.max(arc.getRadiusX() * 2d, 1d);
 		double sAngle = model.getAngleStart();
 		double eAngle = model.getAngleEnd();
-		IArrow arr = model.getArrowAt(1);
+		Arrow arr = model.getArrowAt(1);
 		final double gap = Math.atan(arr.getArrowShapeLength() / width);
 
 		if(arr.getArrowStyle().isReducingShape()) {

@@ -1,15 +1,15 @@
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.CompareShapeMatcher;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
+import net.sf.latexdraw.model.CompareShapeMatcher;
+import net.sf.latexdraw.model.api.shape.Dot;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class TestSVGDot extends TestSVGBase<IDot> {
+public class TestSVGDot extends TestSVGBase<Dot> {
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.DotSupplier#createDiversifiedDot")
-	void testDotParams(final IDot sh) {
-		final IDot s2 = produceOutputShapeFrom(sh);
+	void testDotParams(final Dot sh) {
+		final Dot s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsDot(sh, s2);
 	}
 }

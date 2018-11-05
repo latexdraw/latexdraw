@@ -16,18 +16,18 @@ import javafx.beans.value.ChangeListener;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
+import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.view.GenericAxes;
 
 /**
  * The JFX view of a axes.
  * @author Arnaud Blouin
  */
-public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
+public class ViewAxes extends ViewStdGrid<Axes> implements GenericAxes<Text> {
 	protected final Path framePath;
 	protected final ViewPolyline axesHoriz;
 	protected final ViewPolyline axesVert;
@@ -42,7 +42,7 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewAxes(final IAxes sh, final PathElementProducer pathProducer) {
+	ViewAxes(final Axes sh, final PathElementProducer pathProducer) {
 		super(sh, pathProducer);
 		labelUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, false, true));
 		labelTicksUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, true, true));
@@ -66,10 +66,10 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 			bind(Bindings.createObjectBinding(() -> model.getArrowAt(1).getArrowStyle().getOppositeArrowStyle(), model.getArrowAt(1).styleProperty()));
 		axesVert.getModel().getArrowAt(1).styleProperty().bind(model.getArrowAt(3).styleProperty());
 
-		axesHoriz.getModel().getPtAt(0).xProperty().bind(model.gridStartXProperty().multiply(IShape.PPC));
-		axesHoriz.getModel().getPtAt(1).xProperty().bind(model.gridEndXProperty().multiply(IShape.PPC));
-		axesVert.getModel().getPtAt(0).yProperty().bind(model.gridStartYProperty().negate().multiply(IShape.PPC));
-		axesVert.getModel().getPtAt(1).yProperty().bind(model.gridEndYProperty().negate().multiply(IShape.PPC));
+		axesHoriz.getModel().getPtAt(0).xProperty().bind(model.gridStartXProperty().multiply(Shape.PPC));
+		axesHoriz.getModel().getPtAt(1).xProperty().bind(model.gridEndXProperty().multiply(Shape.PPC));
+		axesVert.getModel().getPtAt(0).yProperty().bind(model.gridStartYProperty().negate().multiply(Shape.PPC));
+		axesVert.getModel().getPtAt(1).yProperty().bind(model.gridEndYProperty().negate().multiply(Shape.PPC));
 
 		bindsAxesParametersToAxeLines(axesHoriz);
 		bindsAxesParametersToAxeLines(axesVert);
@@ -114,8 +114,8 @@ public class ViewAxes extends ViewStdGrid<IAxes> implements GenericAxes<Text> {
 		final double endy = model.getGridEndY();
 
 		if(endx > 0d || endy > 0d) {
-			final double y1 = endy > 0d ? -endy * IShape.PPC : 0d;
-			final double x2 = endx > 0d ? +endx * IShape.PPC : 0d;
+			final double y1 = endy > 0d ? -endy * Shape.PPC : 0d;
+			final double x2 = endx > 0d ? +endx * Shape.PPC : 0d;
 
 			framePath.getElements().add(pathProducer.createMoveTo(0d, y1));
 			framePath.getElements().add(pathProducer.createLineTo(x2, y1));

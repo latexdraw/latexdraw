@@ -10,19 +10,19 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.model.api.shape.Rectangle;
 
 /**
  * Defines a PSTricks view of the LRect model.
  * @author Arnaud Blouin
  */
-class PSTRectView extends PSTFrameView<IRectangle> {
+class PSTRectView extends PSTFrameView<Rectangle> {
 	/**
 	 * Creates and initialises a LRect PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	PSTRectView(final IRectangle model) {
+	PSTRectView(final Rectangle model) {
 		super(model);
 	}
 }

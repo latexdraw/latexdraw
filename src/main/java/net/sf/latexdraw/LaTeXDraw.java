@@ -34,10 +34,10 @@ import javafx.stage.WindowEvent;
 import javafx.util.BuilderFactory;
 import javafx.util.Duration;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.instruments.PreferencesSetter;
-import net.sf.latexdraw.instruments.StatusBarController;
-import net.sf.latexdraw.instruments.TabSelector;
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.instrument.PreferencesSetter;
+import net.sf.latexdraw.instrument.StatusBarController;
+import net.sf.latexdraw.instrument.TabSelector;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.VersionChecker;
@@ -193,7 +193,7 @@ public class LaTeXDraw extends JfxUI {
 	protected <T extends Modifiable & Reinitialisable> Set<T> getAdditionalComponents() {
 		final Set<T> set = new HashSet<>();
 		set.add((T) injector.getInstance(Canvas.class));
-		set.add((T) injector.getInstance(IDrawing.class));
+		set.add((T) injector.getInstance(Drawing.class));
 		return set;
 	}
 

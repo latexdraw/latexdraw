@@ -15,10 +15,10 @@ import java.util.List;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.pst.PSTContext;
-import net.sf.latexdraw.parsers.pst.TestPSTParser;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.pst.PSTContext;
+import net.sf.latexdraw.parser.pst.TestPSTParser;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.SystemService;
@@ -35,7 +35,7 @@ import org.malai.undo.UndoCollector;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(InjectionExtension.class)
-abstract class TestPSTBase<T extends IShape> implements PolymorphicConversion<T> {
+abstract class TestPSTBase<T extends Shape> implements PolymorphicConversion<T> {
 	PSTViewsFactory factory;
 	SystemService system;
 
@@ -66,18 +66,18 @@ abstract class TestPSTBase<T extends IShape> implements PolymorphicConversion<T>
 
 	@Override
 	public T produceOutputShapeFrom(final T sh) {
-		final String view = factory.createView(sh).orElseThrow().getCode(ShapeFactory.INST.createPoint(), IShape.PPC);
-		final net.sf.latexdraw.parsers.pst.PSTLexer lexer = new net.sf.latexdraw.parsers.pst.PSTLexer(CharStreams.fromString(view));
-		final net.sf.latexdraw.parsers.pst.PSTParser parser = new net.sf.latexdraw.parsers.pst.PSTParser(new CommonTokenStream(lexer));
+		final String view = factory.createView(sh).orElseThrow().getCode(ShapeFactory.INST.createPoint(), Shape.PPC);
+		final net.sf.latexdraw.parser.pst.PSTLexer lexer = new net.sf.latexdraw.parser.pst.PSTLexer(CharStreams.fromString(view));
+		final net.sf.latexdraw.parser.pst.PSTParser parser = new net.sf.latexdraw.parser.pst.PSTParser(new CommonTokenStream(lexer));
 		final TestPSTParser.ErrorPSTLatexdrawListener listener = new TestPSTParser.ErrorPSTLatexdrawListener(system);
 		parser.addParseListener(listener);
 		parser.pstCode(new PSTContext());
 
 		parser.getInterpreter().clearDFA();
 		lexer.getInterpreter().clearDFA();
-		new ATNDeserializer().deserialize(net.sf.latexdraw.parsers.pst.PSTLexer._serializedATN.toCharArray());
+		new ATNDeserializer().deserialize(net.sf.latexdraw.parser.pst.PSTLexer._serializedATN.toCharArray());
 
-		final List<IShape> shapes = listener.flatShapes();
+		final List<Shape> shapes = listener.flatShapes();
 		assertEquals(1, shapes.size());
 
 		return (T) shapes.get(0);

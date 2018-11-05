@@ -9,12 +9,11 @@ import javafx.geometry.Bounds;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.data.TextSupplier;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Text;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestViewText extends TestViewShape<ViewText, IText> {
+public class TestViewText extends TestViewShape<ViewText, Text> {
 	@BeforeAll
 	public static void beforeClass() {
 		ViewText.LOGGER.setLevel(Level.ALL);
@@ -51,7 +50,7 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 	}
 
 	@Override
-	protected IText createModel() {
+	protected Text createModel() {
 		return TextSupplier.createText();
 	}
 
@@ -59,8 +58,8 @@ public class TestViewText extends TestViewShape<ViewText, IText> {
 		return (ImageView) view.getChildren().stream().filter(node -> node instanceof ImageView).findAny().orElseThrow(() -> new IllegalArgumentException());
 	}
 
-	private Text getText() {
-		return (Text) view.getChildren().stream().filter(node -> node instanceof Text).findAny().orElseThrow(() -> new IllegalArgumentException());
+	private javafx.scene.text.Text getText() {
+		return (javafx.scene.text.Text) view.getChildren().stream().filter(node -> node instanceof javafx.scene.text.Text).findAny().orElseThrow(() -> new IllegalArgumentException());
 	}
 
 	private Tooltip getTooltip() {

@@ -10,27 +10,27 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IEllipse;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Ellipse;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * Defines a PSTricks view of the LEllipse model.
  * @author Arnaud Blouin
  */
-public class PSTEllipseView extends PSTClassicalView<IEllipse> {
+public class PSTEllipseView extends PSTClassicalView<Ellipse> {
 	/**
 	 * Creates and initialises a LEllipse PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTEllipseView(final IEllipse model) {
+	protected PSTEllipseView(final Ellipse model) {
 		super(model);
 	}
 
 
 	@Override
-	public String getCode(final IPoint position, final float ppc) {
+	public String getCode(final Point position, final float ppc) {
 		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
 			return "";
 		}

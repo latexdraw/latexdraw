@@ -8,29 +8,29 @@ import java.util.HashSet;
 import java.util.Set;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.HelperTest;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.ArcStyle;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.models.interfaces.shape.IArc;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
-import net.sf.latexdraw.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
-import net.sf.latexdraw.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.ISquare;
-import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
-import net.sf.latexdraw.models.interfaces.shape.TextPosition;
-import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.ArcStyle;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
+import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.DotStyle;
+import net.sf.latexdraw.model.api.shape.FillingStyle;
+import net.sf.latexdraw.model.api.shape.Arc;
+import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
+import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Grid;
+import net.sf.latexdraw.model.api.shape.Picture;
+import net.sf.latexdraw.model.api.shape.Plot;
+import net.sf.latexdraw.model.api.shape.Rectangle;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.Square;
+import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.model.api.shape.LineStyle;
+import net.sf.latexdraw.model.api.shape.PlotStyle;
+import net.sf.latexdraw.model.api.shape.PlottingStyle;
+import net.sf.latexdraw.model.api.shape.TextPosition;
+import net.sf.latexdraw.model.api.shape.TicksStyle;
 import org.junit.rules.TemporaryFolder;
 
 public final class ParameteriseShapeData implements HelperTest {
@@ -69,7 +69,7 @@ public final class ParameteriseShapeData implements HelperTest {
 	 * rotation angle = 3.05
 	 * show pts = true
 	 */
-	public IShape setShapeData1(final IShape sh) {
+	public Shape setShapeData1(final Shape sh) {
 		if(sh.isFillable()) {
 			sh.setFilled(true);
 			sh.setFillingCol(ShapeFactory.INST.createColor(0.3, 0.85, 0.15, 0.65));
@@ -127,7 +127,7 @@ public final class ParameteriseShapeData implements HelperTest {
 	 * rotation angle = -1.36
 	 * show pts = false
 	 */
-	public IShape setShapeData2(final IShape sh) {
+	public Shape setShapeData2(final Shape sh) {
 		if(sh.isInteriorStylable()) {
 			sh.setFillingStyle(FillingStyle.VLINES);
 			sh.setHatchingsCol(ShapeFactory.INST.createColor(0.1, 0.3, 0.2, 0.6));
@@ -176,7 +176,7 @@ public final class ParameteriseShapeData implements HelperTest {
 	 * rotation angle = default
 	 * show pts = default
 	 */
-	public IShape setShapeData3(final IShape sh) {
+	public Shape setShapeData3(final Shape sh) {
 		if(sh.isInteriorStylable()) {
 			sh.setFillingStyle(FillingStyle.GRAD);
 			sh.setGradColStart(ShapeFactory.INST.createColorFX(Color.RED));
@@ -227,7 +227,7 @@ public final class ParameteriseShapeData implements HelperTest {
 	 * dash sep white = default
 	 * show pts = default
 	 */
-	public IShape setShapeData4(final IShape sh) {
+	public Shape setShapeData4(final Shape sh) {
 		if(sh.isShadowable()) {
 			sh.setHasShadow(true);
 		}
@@ -247,7 +247,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return sh;
 	}
 
-	public IPicture setPictureData1(final IPicture pic) throws IOException {
+	public Picture setPictureData1(final Picture pic) throws IOException {
 		final TemporaryFolder folder = new TemporaryFolder();
 		folder.create();
 		tempFolders.add(folder);
@@ -255,64 +255,64 @@ public final class ParameteriseShapeData implements HelperTest {
 		return pic;
 	}
 
-	public IRectangle setRectangleData1(final IRectangle rec) {
+	public Rectangle setRectangleData1(final Rectangle rec) {
 		rec.setLineArc(0.55);
 		return rec;
 	}
 
-	public ISquare setSquareData1(final ISquare sq) {
+	public Square setSquareData1(final Square sq) {
 		sq.setLineArc(0.33);
 		return sq;
 	}
 
-	public IText setTextData1(final IText text) {
+	public Text setTextData1(final Text text) {
 		text.setTextPosition(TextPosition.CENTER);
 		return text;
 	}
 
-	public IArc setArcData1(final IArc arc) {
+	public Arc setArcData1(final Arc arc) {
 		arc.setAngleStart(1.23);
 		arc.setAngleEnd(2.23);
 		arc.setArcStyle(ArcStyle.CHORD);
 		return arc;
 	}
 
-	public IArc setArcData2(final IArc arc) {
+	public Arc setArcData2(final Arc arc) {
 		arc.setAngleStart(-1.23);
 		arc.setAngleEnd(2.23);
 		return arc;
 	}
 
-	public IArc setArcData3(final IArc arc) {
+	public Arc setArcData3(final Arc arc) {
 		arc.setAngleStart(2.23);
 		arc.setAngleEnd(1.23);
 		arc.setArcStyle(ArcStyle.WEDGE);
 		return arc;
 	}
 
-	public IDot setDotData1(final IDot dot) {
+	public Dot setDotData1(final Dot dot) {
 		dot.setDotStyle(DotStyle.ASTERISK);
 		return dot;
 	}
 
-	public IDot setDotData2(final IDot dot) {
+	public Dot setDotData2(final Dot dot) {
 		dot.setDotStyle(DotStyle.FDIAMOND);
 		return dot;
 	}
 
-	public IDot setDotData3(final IDot dot) {
+	public Dot setDotData3(final Dot dot) {
 		dot.setDotStyle(DotStyle.PENTAGON);
 		return dot;
 	}
 
-	public IPlot setPlotData1(final IPlot plot) {
+	public Plot setPlotData1(final Plot plot) {
 		plot.setPlotMaxX(100d);
 		plot.setPlotMinX(85d);
 		plot.setNbPlottedPoints(10);
 		return plot;
 	}
 
-	public IPlot setPlotData2(final IPlot plot) {
+	public Plot setPlotData2(final Plot plot) {
 		plot.setPlotMaxX(100d);
 		plot.setPlotMinX(1d);
 		plot.setPlotEquation("x log");
@@ -322,7 +322,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return plot;
 	}
 
-	public IPlot setPlotData3(final IPlot plot) {
+	public Plot setPlotData3(final Plot plot) {
 		plot.setPlotMaxX(1d);
 		plot.setPlotMinX(-100d);
 		plot.setNbPlottedPoints(10);
@@ -330,14 +330,14 @@ public final class ParameteriseShapeData implements HelperTest {
 		return plot;
 	}
 
-	public IPlot setPlotData4(final IPlot plot) {
+	public Plot setPlotData4(final Plot plot) {
 		plot.setPlotStyle(PlotStyle.LINE);
 		plot.setPlotEquation("x sin");
 		plot.setPolar(true);
 		return plot;
 	}
 
-	public IGrid setGridData1(final IGrid sh) {
+	public Grid setGridData1(final Grid sh) {
 		sh.setGridLabelsColour(ShapeFactory.INST.createColorFX(Color.AQUA));
 		sh.setGridDots(3);
 		sh.setUnit(1.1);
@@ -346,7 +346,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return sh;
 	}
 
-	public IGrid setGridData2(final IGrid sh) {
+	public Grid setGridData2(final Grid sh) {
 		sh.setSubGridWidth(2.13);
 		sh.setSubGridDiv(11);
 		sh.setSubGridColour(ShapeFactory.INST.createColor(0.15, 0.2, 0.3, 0.6));
@@ -355,7 +355,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return sh;
 	}
 
-	public IGrid setGridData3(final IGrid sh) {
+	public Grid setGridData3(final Grid sh) {
 		sh.setGridLabelsColour(ShapeFactory.INST.createColor(0.1, 0.2, 0.3, 0.4));
 		sh.setSubGridDots(6);
 		sh.setUnit(0.4);
@@ -363,7 +363,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return sh;
 	}
 
-	public IAxes setAxesData1(final IAxes sh) {
+	public Axes setAxesData1(final Axes sh) {
 		sh.setIncrementX(1.2);
 		sh.setDistLabelsY(0.85);
 		sh.setLabelsDisplayed(PlottingStyle.ALL);
@@ -375,7 +375,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return sh;
 	}
 
-	public IAxes setAxesData2(final IAxes sh) {
+	public Axes setAxesData2(final Axes sh) {
 		sh.setIncrementY(0.8);
 		sh.setDistLabelsX(1.35);
 		sh.setLabelsDisplayed(PlottingStyle.NONE);
@@ -387,7 +387,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return sh;
 	}
 
-	public IArrowableSingleShape setArrowableData1(final IArrowableSingleShape sh) {
+	public ArrowableSingleShape setArrowableData1(final ArrowableSingleShape sh) {
 		sh.setArrowStyle(ArrowStyle.LEFT_ARROW, 0);
 		sh.setArrowStyle(ArrowStyle.BAR_IN, -1);
 		sh.setArrowInset(1.1);
@@ -399,7 +399,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return sh;
 	}
 
-	public IArrowableSingleShape setArrowableData2(final IArrowableSingleShape sh) {
+	public ArrowableSingleShape setArrowableData2(final ArrowableSingleShape sh) {
 		sh.setArrowStyle(ArrowStyle.BAR_END, 0);
 		sh.setArrowStyle(ArrowStyle.ROUND_IN, -1);
 		sh.setTBarSizeDim(2.5);
@@ -409,7 +409,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return sh;
 	}
 
-	public IArrowableSingleShape setArrowableData3(final IArrowableSingleShape sh) {
+	public ArrowableSingleShape setArrowableData3(final ArrowableSingleShape sh) {
 		sh.setArrowStyle(ArrowStyle.RIGHT_ROUND_BRACKET, 0);
 		sh.setArrowStyle(ArrowStyle.RIGHT_DBLE_ARROW, -1);
 		sh.setArrowInset(2.1);
@@ -422,7 +422,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return sh;
 	}
 
-	public IArrowableSingleShape setArrowableData4(final IArrowableSingleShape sh) {
+	public ArrowableSingleShape setArrowableData4(final ArrowableSingleShape sh) {
 		sh.setArrowStyle(ArrowStyle.NONE, 0);
 		sh.setArrowStyle(ArrowStyle.LEFT_DBLE_ARROW, -1);
 		sh.setArrowInset(0.2);
@@ -432,7 +432,7 @@ public final class ParameteriseShapeData implements HelperTest {
 		return sh;
 	}
 
-	public IArrowableSingleShape setArrowableData5(final IArrowableSingleShape sh) {
+	public ArrowableSingleShape setArrowableData5(final ArrowableSingleShape sh) {
 		sh.setArrowStyle(ArrowStyle.LEFT_SQUARE_BRACKET, 0);
 		sh.setArrowStyle(ArrowStyle.NONE, -1);
 		sh.setBracketNum(0.1);

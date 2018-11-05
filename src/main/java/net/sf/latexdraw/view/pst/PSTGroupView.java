@@ -13,15 +13,15 @@ package net.sf.latexdraw.view.pst;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * A PSTricks view of the LDrawing model.
  * @author Arnaud BLOUIN
  */
-public class PSTGroupView extends PSTShapeView<IGroup> {
+public class PSTGroupView extends PSTShapeView<Group> {
 	private final PSTViewProducer producer;
 
 	/**
@@ -29,14 +29,14 @@ public class PSTGroupView extends PSTShapeView<IGroup> {
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTGroupView(final IGroup model, final PSTViewProducer producer) {
+	protected PSTGroupView(final Group model, final PSTViewProducer producer) {
 		super(model);
 		this.producer = producer;
 	}
 
 
 	@Override
-	public String getCode(final IPoint origin, final float ppc) {
+	public String getCode(final Point origin, final float ppc) {
 		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
 			return "";
 		}

@@ -20,15 +20,14 @@ import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.model.api.shape.Shape;
 
 /**
  * The base class of a JFX shape view.
  * @param <S> The type of the model.
  * @author Arnaud Blouin
  */
-public abstract class ViewShape<S extends IShape> extends Group {
+public abstract class ViewShape<S extends Shape> extends Group {
 	protected static void checkToExecuteOnUIThread(final Runnable cmd) {
 		if(Platform.isFxApplicationThread()) {
 			cmd.run();
@@ -52,14 +51,14 @@ public abstract class ViewShape<S extends IShape> extends Group {
 		setFocusTraversable(false);
 	}
 
-	public Collection<Shape> getActivatedShapes() {
+	public Collection<javafx.scene.shape.Shape> getActivatedShapes() {
 		return getActivatedGroupNodes(this);
 	}
 
-	private static Collection<Shape> getActivatedGroupNodes(final Group gp) {
+	private static Collection<javafx.scene.shape.Shape> getActivatedGroupNodes(final Group gp) {
 		// Adding all the shape children
-		final Collection<Shape> shapes = gp.getChildren().stream().filter(node -> node instanceof Shape && node.isVisible() && !node.isDisable()).
-			map(node -> (Shape) node).collect(Collectors.toList());
+		final Collection<javafx.scene.shape.Shape> shapes = gp.getChildren().stream().filter(node -> node instanceof javafx.scene.shape.Shape && node.isVisible() && !node.isDisable()).
+			map(node -> (javafx.scene.shape.Shape) node).collect(Collectors.toList());
 
 		// Adding all the view shape children
 		shapes.addAll(gp.getChildren().stream().filter(node -> node instanceof ViewShape<?> && node.isVisible() && !node.isDisable()).

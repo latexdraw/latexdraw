@@ -6,11 +6,11 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
-import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.FillingStyle;
+import net.sf.latexdraw.model.api.shape.SingleShape;
+import net.sf.latexdraw.model.api.shape.LineStyle;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 
-abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends ISingleShape, R extends Shape> extends TestViewShape<T, S>
+abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends SingleShape, R extends Shape> extends TestViewShape<T, S>
 	implements ITestViewBorderedShape<T, S, R> {
 	protected R border;
 

@@ -3,8 +3,8 @@ package net.sf.latexdraw.view.pst;
 import java.lang.reflect.InvocationTargetException;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(InjectionExtension.class)
 public class TestDrawingProperties {
-	IDrawing drawing;
+	Drawing drawing;
 	PSTCodeGenerator gen;
 
 	@ConfigureInjection
@@ -35,14 +35,14 @@ public class TestDrawingProperties {
 				bindAsEagerSingleton(PSTCodeGenerator.class);
 				bindToInstance(ViewFactory.class, Mockito.mock(ViewFactory.class));
 				bindAsEagerSingleton(Canvas.class);
-				bindWithCommand(IDrawing.class, Canvas.class, canvas -> canvas.getDrawing());
+				bindWithCommand(Drawing.class, Canvas.class, canvas -> canvas.getDrawing());
 				bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);
 			}
 		};
 	}
 
 	@BeforeEach
-	void setUp(final PSTCodeGenerator gen, final IDrawing drawing) {
+	void setUp(final PSTCodeGenerator gen, final Drawing drawing) {
 		this.drawing = drawing;
 		this.gen = gen;
 		drawing.addShape(ShapeFactory.INST.createCircle());

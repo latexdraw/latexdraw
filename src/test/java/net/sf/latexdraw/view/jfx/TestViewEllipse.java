@@ -1,16 +1,15 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.application.Platform;
-import javafx.scene.shape.Ellipse;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.Ellipse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, IEllipse, Ellipse> {
+public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, Ellipse, javafx.scene.shape.Ellipse> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -22,8 +21,8 @@ public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, IEllipse
 	}
 
 	@Override
-	protected IEllipse createModel() {
-		final IEllipse rec = ShapeFactory.INST.createEllipse();
+	protected Ellipse createModel() {
+		final Ellipse rec = ShapeFactory.INST.createEllipse();
 		rec.setWidth(10d);
 		rec.setHeight(20d);
 		rec.setX(100d);

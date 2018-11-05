@@ -13,8 +13,8 @@ package net.sf.latexdraw.view.jfx;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.Page;
 
 /**
@@ -38,7 +38,7 @@ public class PageView extends Group {
 	private final Rectangle recShadowRight;
 
 	/** The origin point where the page has to ben placed. */
-	private final IPoint origin;
+	private final Point origin;
 
 	/** The current page format. */
 	private final Page format;
@@ -48,7 +48,7 @@ public class PageView extends Group {
 	 * @param page The page format. Cannot be null.
 	 * @param orig The origin point where the page has to be placed. Cannot be null.
 	 */
-	public PageView(final Page page, final IPoint orig) {
+	public PageView(final Page page, final Point orig) {
 		super();
 
 		format = page;
@@ -89,8 +89,8 @@ public class PageView extends Group {
 	public final void setPage(final Page page) {
 		recPage.setX(origin.getX());
 		recPage.setY(origin.getY());
-		recPage.setWidth(page.getWidth() * IShape.PPC);
-		recPage.setHeight(page.getHeight() * IShape.PPC);
+		recPage.setWidth(page.getWidth() * Shape.PPC);
+		recPage.setHeight(page.getHeight() * Shape.PPC);
 
 		recShadowRight.setX(recPage.getX() + recPage.getWidth());
 		recShadowRight.setY(recPage.getY() + GAP_SHADOW);

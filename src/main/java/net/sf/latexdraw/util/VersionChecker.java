@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import javafx.application.Platform;
-import net.sf.latexdraw.instruments.StatusBarController;
+import net.sf.latexdraw.instrument.StatusBarController;
 
 /**
  * To check whether a new version of LaTeXDraw is out.

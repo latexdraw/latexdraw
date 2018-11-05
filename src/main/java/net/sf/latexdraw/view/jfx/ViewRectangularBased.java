@@ -13,13 +13,13 @@ package net.sf.latexdraw.view.jfx;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.shape.Rectangle;
-import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
+import net.sf.latexdraw.model.api.shape.SingleShape;
 
 /**
  * A JFX abstract view to factorise code of views based on a JFX rectangle.
  * @author Arnaud Blouin
  */
-public abstract class ViewRectangularBased<T extends ISingleShape> extends ViewSingleShape<T, Rectangle> {
+public abstract class ViewRectangularBased<T extends SingleShape> extends ViewSingleShape<T, Rectangle> {
 	final ChangeListener<? super Number> lineArcCall = (observable, oldValue, newValue) -> {
 		final double lineArc = newValue.doubleValue();
 		final double width = model.getWidth();

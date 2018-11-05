@@ -10,14 +10,14 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGPolygonElement;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
-abstract class SVGPolygonBased<T extends IShape> extends SVGShape<T> {
+abstract class SVGPolygonBased<T extends Shape> extends SVGShape<T> {
 	/**
 	 * Creates the SVG generator.
 	 * @param sh The shape used for the generation.

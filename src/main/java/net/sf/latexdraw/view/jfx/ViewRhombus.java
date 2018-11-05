@@ -14,17 +14,17 @@ import javafx.beans.binding.Bindings;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import net.sf.latexdraw.models.interfaces.shape.IRhombus;
+import net.sf.latexdraw.model.api.shape.Rhombus;
 
 /**
  * @author Arnaud Blouin
  */
-public class ViewRhombus extends ViewPathShape<IRhombus> {
+public class ViewRhombus extends ViewPathShape<Rhombus> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewRhombus(final IRhombus sh, final PathElementProducer pathProducer) {
+	ViewRhombus(final Rhombus sh, final PathElementProducer pathProducer) {
 		super(sh, pathProducer);
 		setupPath(border);
 		setupPath(shadow);

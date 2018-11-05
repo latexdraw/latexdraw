@@ -10,9 +10,9 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
 
 public interface SVGShapeProducer {
 	/**
@@ -20,7 +20,7 @@ public interface SVGShapeProducer {
 	 * @param elt The SVGElement to parse.
 	 * @return The created IShape instance or null.
 	 */
-	IShape createShape(final SVGElement elt);
+	Shape createShape(final SVGElement elt);
 
 	/**
 	 * Creates a IShape instance using the given SVGElement.
@@ -28,7 +28,7 @@ public interface SVGShapeProducer {
 	 * @param withTransformations True: the set of transformations that concerned the given SVG element will be applied to the shape.
 	 * @return The created IShape instance or null.
 	 */
-	IShape createShape(final SVGElement elt, final boolean withTransformations);
+	Shape createShape(final SVGElement elt, final boolean withTransformations);
 
 	/**
 	 * Creates an SVG Element corresponding to the given shape.
@@ -36,5 +36,5 @@ public interface SVGShapeProducer {
 	 * @param doc The SVG document used to instantiate to SVG element.
 	 * @return The created SVG element.
 	 */
-	SVGElement createSVGElement(final IShape shape, final SVGDocument doc);
+	SVGElement createSVGElement(final Shape shape, final SVGDocument doc);
 }

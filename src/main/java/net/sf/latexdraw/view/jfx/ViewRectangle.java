@@ -13,13 +13,13 @@ package net.sf.latexdraw.view.jfx;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.model.api.shape.Rectangle;
 
 /**
  * The JFX shape view for rectangles.
  * @author Arnaud Blouin
  */
-public class ViewRectangle extends ViewRectangularBased<IRectangle> {
+public class ViewRectangle extends ViewRectangularBased<Rectangle> {
 	final ChangeListener<Bounds> lineArcUp = (observable, oldValue, newValue) -> lineArcCall.changed(model.frameArcProperty(), model.getLineArc(), model.getLineArc());
 
 
@@ -27,7 +27,7 @@ public class ViewRectangle extends ViewRectangularBased<IRectangle> {
 	 * Creates the rectangle view.
 	 * @param sh The model.
 	 */
-	ViewRectangle(final IRectangle sh) {
+	ViewRectangle(final Rectangle sh) {
 		super(sh);
 		border.xProperty().bind(model.getPtAt(0).xProperty());
 		border.yProperty().bind(model.getPtAt(0).yProperty());

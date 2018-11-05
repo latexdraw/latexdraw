@@ -10,27 +10,27 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * Defines a PSTricks view of the LAxes model.
  * @author Arnaud Blouin
  */
-public class PSTAxesView extends PSTShapeView<IAxes> {
+public class PSTAxesView extends PSTShapeView<Axes> {
 	/**
 	 * Creates and initialises a LAxes PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTAxesView(final IAxes model) {
+	protected PSTAxesView(final Axes model) {
 		super(model);
 	}
 
 
 	@Override
-	public String getCode(final IPoint origDrawing, final float ppc) {
+	public String getCode(final Point origDrawing, final float ppc) {
 		if(!MathUtils.INST.isValidPt(origDrawing) || ppc < 1) {
 			return "";
 		}

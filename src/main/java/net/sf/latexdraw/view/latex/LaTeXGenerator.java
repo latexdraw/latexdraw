@@ -22,9 +22,9 @@ import java.util.stream.Stream;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.commands.ExportFormat;
-import net.sf.latexdraw.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.command.ExportFormat;
+import net.sf.latexdraw.model.api.shape.Drawing;
+import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.OperatingSystem;
 import net.sf.latexdraw.util.SystemService;
@@ -63,7 +63,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	/** The scale of the drawing. */
 	protected double scale;
 
-	@Inject protected IDrawing drawing;
+	@Inject protected Drawing drawing;
 	@Inject protected ViewsSynchroniserHandler handler;
 	@Inject protected SystemService system;
 
@@ -337,8 +337,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final File texFile = optFile.get();
 		String log;
 		File finalPS;
-		final IPoint tr = handler.getTopRightDrawingPoint();
-		final IPoint bl = handler.getBottomLeftDrawingPoint();
+		final Point tr = handler.getTopRightDrawingPoint();
+		final Point bl = handler.getBottomLeftDrawingPoint();
 		final int ppc = handler.getPPCDrawing();
 		final float dec = 0.2f;
 		final OperatingSystem os = system.getSystem().orElse(OperatingSystem.LINUX);

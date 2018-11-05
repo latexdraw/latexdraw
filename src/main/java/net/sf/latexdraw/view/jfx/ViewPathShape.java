@@ -11,14 +11,14 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.shape.Path;
-import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
+import net.sf.latexdraw.model.api.shape.SingleShape;
 
 /**
  * The JFX view for shapes that can be painted as a path.
  * @param <S> The type of the model.
  * @author Arnaud BLOUIN
  */
-public abstract class ViewPathShape<S extends ISingleShape> extends ViewSingleShape<S, Path> {
+public abstract class ViewPathShape<S extends SingleShape> extends ViewSingleShape<S, Path> {
 	protected final PathElementProducer pathProducer;
 
 	/**

@@ -10,21 +10,21 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Plot;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.PlotStyle;
 
 /**
  * @author Arnaud Blouin
  */
-public class PSTPlotView extends PSTClassicalView<IPlot> {
-	protected PSTPlotView(final IPlot model) {
+public class PSTPlotView extends PSTClassicalView<Plot> {
+	protected PSTPlotView(final Plot model) {
 		super(model);
 	}
 
 	@Override
-	public String getCode(final IPoint position, final float ppc) {
+	public String getCode(final Point position, final float ppc) {
 		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
 			return "";
 		}

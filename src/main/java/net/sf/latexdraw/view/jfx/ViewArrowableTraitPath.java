@@ -15,13 +15,13 @@ import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import net.sf.latexdraw.models.interfaces.shape.IArrowableSingleShape;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * An implementation of ViewArrowable for path-based views.
  */
-class ViewArrowableTraitPath<T extends IArrowableSingleShape> extends ViewArrowableTrait<Path, T> {
+class ViewArrowableTraitPath<T extends ArrowableSingleShape> extends ViewArrowableTrait<Path, T> {
 	private final PathElementProducer pathProducer;
 
 	ViewArrowableTraitPath(final ViewSingleShape<T, Path> view, final PathElementProducer pathProducer) {
@@ -36,8 +36,8 @@ class ViewArrowableTraitPath<T extends IArrowableSingleShape> extends ViewArrowa
 		clip.setStrokeWidth(path.getStrokeWidth());
 
 		if(!clip.getElements().isEmpty()) { // Defensive programming
-			final Optional<IPoint> pt1 = getArrowReducedPoint(arrows.get(0).arrow);
-			final Optional<IPoint> pt2 = getArrowReducedPoint(arrows.get(arrows.size() - 1).arrow);
+			final Optional<Point> pt1 = getArrowReducedPoint(arrows.get(0).arrow);
+			final Optional<Point> pt2 = getArrowReducedPoint(arrows.get(arrows.size() - 1).arrow);
 
 			if(pt1.isPresent() && clip.getElements().get(0) instanceof MoveTo) { // Defensive programming
 				// Changing the first point to the one at the beginning of the arrow.

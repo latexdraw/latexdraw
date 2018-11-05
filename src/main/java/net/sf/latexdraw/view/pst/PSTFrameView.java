@@ -10,25 +10,25 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.property.LineArcProp;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Shape;
 
-abstract class PSTFrameView<T extends IShape & ILineArcProp> extends PSTClassicalView<T> {
+abstract class PSTFrameView<T extends Shape & LineArcProp> extends PSTClassicalView<T> {
 	PSTFrameView(final T model) {
 		super(model);
 	}
 
 	@Override
-	public String getCode(final IPoint position, final float ppc) {
+	public String getCode(final Point position, final float ppc) {
 		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
 			return "";
 		}
 
 		final StringBuilder params = getPropertiesCode(ppc);
-		final IPoint tl = shape.getTopLeftPoint();
-		final IPoint br = shape.getBottomRightPoint();
+		final Point tl = shape.getTopLeftPoint();
+		final Point br = shape.getBottomRightPoint();
 		final double x1 = tl.getX() - position.getX();
 		final double x2 = br.getX() - position.getX();
 		final double y1 = position.getY() - tl.getY();

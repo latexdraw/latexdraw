@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import net.sf.latexdraw.view.jfx.LSpinner?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Plot" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.ShapePlotCustomiser" alignment="TOP_LEFT" expanded="false">
+            fx:controller="net.sf.latexdraw.instrument.ShapePlotCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
         <Tooltip text="Customizes plots' properties."/>
     </tooltip>

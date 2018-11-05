@@ -1,16 +1,15 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.application.Platform;
-import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.data.RectSupplier;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.Rectangle;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRectangle, Rectangle> {
+public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, Rectangle, javafx.scene.shape.Rectangle> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -22,7 +21,7 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, IRec
 	}
 
 	@Override
-	protected IRectangle createModel() {
+	protected Rectangle createModel() {
 		return RectSupplier.createRectangle();
 	}
 

@@ -11,15 +11,15 @@
 package net.sf.latexdraw.view.svg;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Plot;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.PlotStyle;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.PlotViewComputation;
 
@@ -27,7 +27,7 @@ import net.sf.latexdraw.view.PlotViewComputation;
  * An SVG generator for plotted functions.
  * @author Arnaud BLOUIN
  */
-class SVGPlot extends SVGShape<IPlot> implements PlotViewComputation {
+class SVGPlot extends SVGShape<Plot> implements PlotViewComputation {
 	static final String XML_TYPE_PLOT = "plot"; //NON-NLS
 	static final String XML_NB_POINTS = "nbpts"; //NON-NLS
 	static final String XML_EQ = "eq"; //NON-NLS
@@ -40,7 +40,7 @@ class SVGPlot extends SVGShape<IPlot> implements PlotViewComputation {
 
 	private final SVGShapeProducer shapeProducer;
 
-	SVGPlot(final IPlot plot, final SVGShapeProducer shapeProducer) {
+	SVGPlot(final Plot plot, final SVGShapeProducer shapeProducer) {
 		super(plot);
 		this.shapeProducer = shapeProducer;
 	}
@@ -57,9 +57,9 @@ class SVGPlot extends SVGShape<IPlot> implements PlotViewComputation {
 		setPlotParameters(elt);
 
 		if(elt.getChildNodes().getLength() > 0 && elt.getChildNodes().item(0) instanceof SVGElement) {
-			final IShape sh = shapeProducer.createShape((SVGElement) elt.getChildNodes().item(0));
-			if(sh instanceof IDot) {
-				final IDot dot = (IDot) sh;
+			final Shape sh = shapeProducer.createShape((SVGElement) elt.getChildNodes().item(0));
+			if(sh instanceof Dot) {
+				final Dot dot = (Dot) sh;
 				shape.setDiametre(dot.getDiametre());
 				shape.setDotStyle(dot.getDotStyle());
 				shape.setLineColour(dot.getLineColour());
@@ -212,7 +212,7 @@ class SVGPlot extends SVGShape<IPlot> implements PlotViewComputation {
 
 
 	private void toSVGDots(final SVGElement elt, final SVGDocument doc, final double posX, final double posY, final double minX, final double maxX, final double step) {
-		for(final IDot dot : updatePoints(shape, posX, posY, minX, maxX, step)) {
+		for(final Dot dot : updatePoints(shape, posX, posY, minX, maxX, step)) {
 			elt.appendChild(shapeProducer.createSVGElement(dot, doc));
 		}
 	}

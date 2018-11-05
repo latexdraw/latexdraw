@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.scene.shape.PathElement;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.AxesStyle;
-import net.sf.latexdraw.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
-import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
+import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.PlottingStyle;
+import net.sf.latexdraw.model.api.shape.TicksStyle;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,14 +21,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
+public class TestViewAxes extends TestViewStdGrid<ViewAxes, Axes> {
 	List<PathElement> mainAxesBefore;
 	List<PathElement> pathTicksBefore;
 	// Nested junit5:
-	IPoint ptH1;
-	IPoint ptH2;
-	IPoint ptV1;
-	IPoint ptV2;
+	Point ptH1;
+	Point ptH2;
+	Point ptV1;
+	Point ptV2;
 
 	@BeforeAll
 	public static void beforeClass() {
@@ -51,7 +51,7 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, IAxes> {
 	}
 
 	@Override
-	protected IAxes createModel() {
+	protected Axes createModel() {
 		return ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(101, 67));
 	}
 

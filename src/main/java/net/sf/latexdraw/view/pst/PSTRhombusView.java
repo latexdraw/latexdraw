@@ -10,33 +10,33 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IRhombus;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Rhombus;
 
 /**
  * Defines a PSTricks view of the LRhombus model.
  * @author Arnaud Blouin
  */
-public class PSTRhombusView extends PSTClassicalView<IRhombus> {
+public class PSTRhombusView extends PSTClassicalView<Rhombus> {
 	/**
 	 * Creates and initialises a LRhombus PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTRhombusView(final IRhombus model) {
+	protected PSTRhombusView(final Rhombus model) {
 		super(model);
 	}
 
 
 	@Override
-	public String getCode(final IPoint origin, final float ppc) {
+	public String getCode(final Point origin, final float ppc) {
 		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
 			return "";
 		}
 
-		final IPoint tl = shape.getTopLeftPoint();
-		final IPoint br = shape.getBottomRightPoint();
+		final Point tl = shape.getTopLeftPoint();
+		final Point br = shape.getBottomRightPoint();
 		final double tlx = tl.getX();
 		final double tly = tl.getY();
 		final double brx = br.getX();

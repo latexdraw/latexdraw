@@ -12,16 +12,16 @@ package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Point2D;
 import java.util.List;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.parsers.svg.CSSColors;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Color;
+import net.sf.latexdraw.model.api.shape.DotStyle;
+import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.parser.svg.CSSColors;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.jfx.JFXToSVG;
 import net.sf.latexdraw.view.jfx.ViewFactory;
@@ -30,7 +30,7 @@ import net.sf.latexdraw.view.jfx.ViewFactory;
  * An SVG generator for dot shapes.
  * @author Arnaud BLOUIN
  */
-class SVGDot extends SVGShape<IDot> {
+class SVGDot extends SVGShape<Dot> {
 	private final ViewFactory viewFactory;
 
 	/**
@@ -38,7 +38,7 @@ class SVGDot extends SVGShape<IDot> {
 	 * @param dot The dot used for the generation.
 	 * @throws IllegalArgumentException If dot is null.
 	 */
-	SVGDot(final IDot dot, final ViewFactory viewFactory) {
+	SVGDot(final Dot dot, final ViewFactory viewFactory) {
 		super(dot);
 		this.viewFactory = viewFactory;
 	}

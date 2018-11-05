@@ -12,29 +12,29 @@ package net.sf.latexdraw.view.svg;
 
 import java.awt.geom.Point2D;
 import java.util.List;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
-import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Rhombus;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGPolygonElement;
+import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
 
 /**
  * SVG/latexdraw rhombus import export.
  * @author Arnaud BLOUIN
  */
-class SVGRhombus extends SVGPolygonBased<IRhombus> {
+class SVGRhombus extends SVGPolygonBased<Rhombus> {
 	/**
 	 * Creates a latexdraw->svg generator.
 	 * @param rhombus The rhombus used for the generation.
 	 * @throws IllegalArgumentException If the given rhombus is null.
 	 */
-	SVGRhombus(final IRhombus rhombus) {
+	SVGRhombus(final Rhombus rhombus) {
 		super(rhombus);
 	}
 
@@ -82,12 +82,12 @@ class SVGRhombus extends SVGPolygonBased<IRhombus> {
 			return null;
 		}
 
-		final IPoint tl = shape.getTopLeftPoint();
-		final IPoint br = shape.getBottomRightPoint();
-		final IPoint gc = shape.getGravityCentre();
-		final IPoint p1 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, tl.getY());
-		final IPoint p2 = ShapeFactory.INST.createPoint(br.getX(), (tl.getY() + br.getY()) / 2d);
-		final IPoint p3 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, br.getY());
+		final Point tl = shape.getTopLeftPoint();
+		final Point br = shape.getBottomRightPoint();
+		final Point gc = shape.getGravityCentre();
+		final Point p1 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, tl.getY());
+		final Point p2 = ShapeFactory.INST.createPoint(br.getX(), (tl.getY() + br.getY()) / 2d);
+		final Point p3 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, br.getY());
 		final SVGElement root = new SVGGElement(doc);
 		final double gap = getPositionGap() / 2d;
 		final double cornerGap1 = MathUtils.INST.getCornerGap(gc, p1, p2, gap);

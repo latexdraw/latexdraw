@@ -3,14 +3,14 @@ package net.sf.latexdraw.view.jfx;
 import javafx.application.Platform;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.data.ShapeSupplier;
-import net.sf.latexdraw.models.interfaces.shape.BorderPos;
-import net.sf.latexdraw.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.Square;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestViewSquare extends TestViewBorderedShape<ViewSquare, ISquare, Rectangle> implements TestLineArcView<ViewSquare, ISquare> {
+public class TestViewSquare extends TestViewBorderedShape<ViewSquare, Square, Rectangle> implements TestLineArcView<ViewSquare, Square> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -22,7 +22,7 @@ public class TestViewSquare extends TestViewBorderedShape<ViewSquare, ISquare, R
 	}
 
 	@Override
-	protected ISquare createModel() {
+	protected Square createModel() {
 		return ShapeSupplier.createSquare();
 	}
 

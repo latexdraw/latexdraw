@@ -9,10 +9,10 @@
         <Class name="net.sf.latexdraw.HelperTest"/>
     </Match>
     <Match>
-        <Class name="net.sf.latexdraw.parsers.pst.PSTLexer"/>
+        <Class name="net.sf.latexdraw.parser.pst.PSTLexer"/>
     </Match>
     <Match>
-        <Class name="net.sf.latexdraw.parsers.pst.PSTParser"/>
+        <Class name="net.sf.latexdraw.parser.pst.PSTParser"/>
     </Match>
     <Match>
         <Bug pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" />
@@ -117,7 +117,7 @@
     <!-- Has false positive instances in the model package -->
     <Match>
         <Bug pattern="OI_OPTIONAL_ISSUES_PRIMITIVE_VARIANT_PREFERRED" />
-        <Class name="~.*\.LGroup.*" />
+        <Class name="~.*\.Group.*" />
     </Match>
     <!-- Has false positive instances in the command package -->
     <Match>

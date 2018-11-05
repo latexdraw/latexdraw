@@ -4,14 +4,14 @@ import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Path;
 import net.sf.latexdraw.data.ShapeSupplier;
-import net.sf.latexdraw.models.interfaces.shape.IRhombus;
+import net.sf.latexdraw.model.api.shape.Rhombus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus, Path> {
+public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, Rhombus, Path> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -23,7 +23,7 @@ public class TestViewRhombus extends TestViewBorderedShape<ViewRhombus, IRhombus
 	}
 
 	@Override
-	protected IRhombus createModel() {
+	protected Rhombus createModel() {
 		return ShapeSupplier.createRhombus();
 	}
 

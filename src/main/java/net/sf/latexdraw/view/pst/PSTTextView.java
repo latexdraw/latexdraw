@@ -10,28 +10,28 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Color;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Text;
 
 /**
  * Defines a PSTricks view of the LText model.
  * @author Arnaud Blouin
  */
-public class PSTTextView extends PSTShapeView<IText> {
+public class PSTTextView extends PSTShapeView<Text> {
 	/**
 	 * Creates and initialises a LText PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTTextView(final IText model) {
+	protected PSTTextView(final Text model) {
 		super(model);
 	}
 
 
 	@Override
-	public String getCode(final IPoint origin, final float ppc) {
+	public String getCode(final Point origin, final float ppc) {
 		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
 			return "";
 		}

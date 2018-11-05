@@ -6,9 +6,9 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.shape.PathElement;
 import javafx.scene.transform.Translate;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.Polyline;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,7 +18,7 @@ import org.testfx.util.WaitForAsyncUtils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline> {
+public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, Polyline> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -30,7 +30,7 @@ public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, IPolyline>
 	}
 
 	@Override
-	protected IPolyline createModel() {
+	protected Polyline createModel() {
 		return ShapeFactory.INST.createPolyline(Arrays.asList(
 		ShapeFactory.INST.createPoint(9, 23),
 		ShapeFactory.INST.createPoint(21, 11),

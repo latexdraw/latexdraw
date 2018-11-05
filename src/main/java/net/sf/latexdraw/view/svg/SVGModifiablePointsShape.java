@@ -16,21 +16,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.parsers.svg.AbstractPointsElement;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGLineElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.ModifiablePointsShape;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.parser.svg.AbstractPointsElement;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGLineElement;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
+import net.sf.latexdraw.parser.svg.path.SVGPathSeg;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegClosePath;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.util.LNamespace;
 
-abstract class SVGModifiablePointsShape<S extends IModifiablePointsShape> extends SVGShape<S> {
+abstract class SVGModifiablePointsShape<S extends ModifiablePointsShape> extends SVGShape<S> {
 	/**
 	 * Creates the SVG generator.
 	 * @param sh The shape used for the generation.
@@ -53,7 +53,7 @@ abstract class SVGModifiablePointsShape<S extends IModifiablePointsShape> extend
 	/**
 	 * Returns a set of points from an SVG element.
 	 */
-	static List<IPoint> getPointsFromSVGElement(final SVGElement elt) {
+	static List<Point> getPointsFromSVGElement(final SVGElement elt) {
 		if(elt instanceof SVGLineElement) {
 			final SVGLineElement lineElt = (SVGLineElement) elt;
 			return Arrays.asList(ShapeFactory.INST.createPoint(lineElt.getX1(), lineElt.getY1()), ShapeFactory.INST.createPoint(lineElt.getX2(), lineElt.getY2()));
@@ -73,7 +73,7 @@ abstract class SVGModifiablePointsShape<S extends IModifiablePointsShape> extend
 	/**
 	 * Gets the line points from the given SVGPathElement
 	 */
-	static List<IPoint> getLinePointsFromSVGPathElement(final SVGPathElement elt) {
+	static List<Point> getLinePointsFromSVGPathElement(final SVGPathElement elt) {
 		if(elt == null) {
 			return Collections.emptyList();
 		}
@@ -81,7 +81,7 @@ abstract class SVGModifiablePointsShape<S extends IModifiablePointsShape> extend
 		final SVGPathSegList segs = elt.getSegList();
 		final int size = segs.get(segs.size() - 1) instanceof SVGPathSegClosePath ? segs.size() - 1 : segs.size();
 		Point2D pt = new Point2D.Double(); // Creating a point to support when the first path element is relative.
-		final List<IPoint> pts = new ArrayList<>();
+		final List<Point> pts = new ArrayList<>();
 
 		for(int i = 0; i < size; i++) {
 			final SVGPathSeg seg = segs.get(i);

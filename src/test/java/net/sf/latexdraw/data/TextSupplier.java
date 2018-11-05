@@ -3,18 +3,18 @@ package net.sf.latexdraw.data;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IText;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Text;
 import org.junit.experimental.theories.ParameterSignature;
 import org.junit.experimental.theories.ParameterSupplier;
 import org.junit.experimental.theories.PotentialAssignment;
 
 public class TextSupplier extends ParameterSupplier {
-	public static IText createText() {
+	public static Text createText() {
 		return ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(51d, 73d), "$foo");
 	}
 
-	public static Stream<IText> createDiversifiedText() {
+	public static Stream<Text> createDiversifiedText() {
 		return Stream.of(createText(), ParameteriseShapeData.INST.setTextData1(createText()));
 	}
 
@@ -22,7 +22,7 @@ public class TextSupplier extends ParameterSupplier {
 	@Override
 	public List<PotentialAssignment> getValueSources(final ParameterSignature sig) {
 		final TextData shapeData = sig.getAnnotation(TextData.class);
-		final Stream<IText> instances;
+		final Stream<Text> instances;
 
 		if(shapeData.withParamVariants()) {
 			instances = createDiversifiedText();

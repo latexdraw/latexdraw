@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import net.sf.latexdraw.view.jfx.LSpinner?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Grid/Axe" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.ShapeStdGridCustomiser" alignment="TOP_LEFT" expanded="false">
+            fx:controller="net.sf.latexdraw.instrument.ShapeStdGridCustomiser" alignment="TOP_LEFT" expanded="false">
     <VBox spacing="10">
         <GridPane minWidth="270" maxWidth="270" hgap="5" vgap="3"
                   style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">

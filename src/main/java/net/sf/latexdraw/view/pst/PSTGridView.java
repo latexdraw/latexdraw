@@ -10,22 +10,22 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.Color;
+import net.sf.latexdraw.model.api.shape.Grid;
+import net.sf.latexdraw.model.api.shape.Point;
 
 /**
  * Defines a PSTricks view of the LGrid model.
  * @author Arnaud Blouin
  */
-public class PSTGridView extends PSTShapeView<IGrid> {
+public class PSTGridView extends PSTShapeView<Grid> {
 	/**
 	 * Creates and initialises a LGrid PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTGridView(final IGrid model) {
+	protected PSTGridView(final Grid model) {
 		super(model);
 	}
 
@@ -74,7 +74,7 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 
 
 	@Override
-	public String getCode(final IPoint pt, final float ppc) {
+	public String getCode(final Point pt, final float ppc) {
 		if(!MathUtils.INST.isValidPt(pt) || ppc < 1) {
 			return "";
 		}
@@ -85,7 +85,7 @@ public class PSTGridView extends PSTShapeView<IGrid> {
 		final int endY;
 		final boolean isXLabelSouth = shape.isXLabelSouth();
 		final boolean isYLabelWest = shape.isYLabelWest();
-		final IPoint position = shape.getPosition();
+		final Point position = shape.getPosition();
 		final StringBuilder start = new StringBuilder();
 		final StringBuilder end = new StringBuilder();
 		final StringBuilder rot = getRotationHeaderCode(ppc, position);

@@ -13,13 +13,13 @@ package net.sf.latexdraw.view.jfx;
 import javafx.scene.Group;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.models.interfaces.shape.IStandardGrid;
+import net.sf.latexdraw.model.api.shape.StandardGrid;
 
 /**
  * The JFX view of an abstract grid.
  * @author Arnaud Blouin
  */
-public abstract class ViewStdGrid<T extends IStandardGrid> extends ViewPositionShape<T> {
+public abstract class ViewStdGrid<T extends StandardGrid> extends ViewPositionShape<T> {
 	protected final Group labels;
 	protected final PathElementProducer pathProducer;
 

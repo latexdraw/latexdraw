@@ -10,14 +10,14 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGCircleElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Circle;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGCircleElement;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
@@ -25,13 +25,13 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * An SVG generator for a circle.
  * @author Arnaud BLOUIN
  */
-class SVGCircle extends SVGShape<ICircle> {
+class SVGCircle extends SVGShape<Circle> {
 	/**
 	 * Creates a generator of SVG circle.
 	 * @param circle The circle shape used for the generation.
 	 * @throws IllegalArgumentException If circle is null.
 	 */
-	SVGCircle(final ICircle circle) {
+	SVGCircle(final Circle circle) {
 		super(circle);
 	}
 
@@ -91,8 +91,8 @@ class SVGCircle extends SVGShape<ICircle> {
 			return null;
 		}
 
-		final IPoint tl = shape.getTopLeftPoint();
-		final IPoint br = shape.getBottomRightPoint();
+		final Point tl = shape.getTopLeftPoint();
+		final Point br = shape.getBottomRightPoint();
 		final double tlx = tl.getX();
 		final double tly = tl.getY();
 		final double brx = br.getX();

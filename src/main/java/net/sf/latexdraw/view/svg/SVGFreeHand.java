@@ -12,29 +12,29 @@ package net.sf.latexdraw.view.svg;
 
 import java.util.stream.Collectors;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.FreeHandStyle;
-import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubic;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.FreeHandStyle;
+import net.sf.latexdraw.model.api.shape.Freehand;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
+import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegClosePath;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegCurvetoCubic;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
+import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 
 /**
  * An SVG generator for a free hand drawing.
  * @author Arnaud BLOUIN
  */
-class SVGFreeHand extends SVGShape<IFreehand> {
-	SVGFreeHand(final IFreehand fh) {
+class SVGFreeHand extends SVGShape<Freehand> {
+	SVGFreeHand(final Freehand fh) {
 		super(fh);
 	}
 
@@ -133,7 +133,7 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 	 * Fills the given SVG path with elements corresponding to the Freehand lined path.
 	 */
 	final void getPathLines(final SVGPathSegList path) {
-		final IPoint p = shape.getPtAt(0);
+		final Point p = shape.getPtAt(0);
 		int i;
 		final int size = shape.getNbPoints();
 		final int interval = shape.getInterval();
@@ -189,7 +189,7 @@ class SVGFreeHand extends SVGShape<IFreehand> {
 		final String path = getPath().toString();
 		final StringBuilder pts = new StringBuilder();
 
-		for(final IPoint pt : shape.getPoints()) {
+		for(final Point pt : shape.getPoints()) {
 			pts.append(pt.getX()).append(' ').append(pt.getY()).append(' ');
 		}
 

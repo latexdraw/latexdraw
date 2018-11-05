@@ -14,18 +14,18 @@ import java.text.ParseException;
 import java.util.Collections;
 import java.util.List;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDefsElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGLineElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.SVGPolyLineElement;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Polyline;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDefsElement;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGLineElement;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
+import net.sf.latexdraw.parser.svg.SVGPolyLineElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
@@ -33,12 +33,12 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * An SVG generator for some joined lines.
  * @author Arnaud BLOUIN
  */
-class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
+class SVGPolylines extends SVGModifiablePointsShape<Polyline> {
 	/**
 	 * Creates a generator for IPolyline.
 	 * @param polyline The source polyline used to generate the SVG element.
 	 */
-	SVGPolylines(final IPolyline polyline) {
+	SVGPolylines(final Polyline polyline) {
 		super(polyline);
 	}
 
@@ -92,8 +92,8 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 		setSVGLatexdrawParameters(elt);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
-		final IArrow arrow1 = shape.getArrowAt(0);
-		final IArrow arrow2 = shape.getArrowAt(-1);
+		final Arrow arrow1 = shape.getArrowAt(0);
+		final Arrow arrow2 = shape.getArrowAt(-1);
 		setSVGArrow(arrow1, shapeElt.getAttribute(shapeElt.getUsablePrefix() + SVGAttributes.SVG_MARKER_START), shapeElt, SVGAttributes.SVG_MARKER_START);
 		setSVGArrow(arrow2, shapeElt.getAttribute(shapeElt.getUsablePrefix() + SVGAttributes.SVG_MARKER_END), shapeElt, SVGAttributes.SVG_MARKER_END);
 		homogeniseArrows(arrow1, arrow2);
@@ -114,13 +114,13 @@ class SVGPolylines extends SVGModifiablePointsShape<IPolyline> {
 		final SVGElement root = new SVGGElement(doc);
 		final SVGDefsElement defs = doc.getFirstChild().getDefs();
 		final StringBuilder points = new StringBuilder();
-		final List<IPoint> pts = shape.getPoints();
+		final List<Point> pts = shape.getPoints();
 		SVGPolyLineElement elt;
 
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_JOINED_LINES);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-		for(final IPoint pt : pts) {
+		for(final Point pt : pts) {
 			points.append(pt.getX()).append(',').append(pt.getY()).append(' ');
 		}
 

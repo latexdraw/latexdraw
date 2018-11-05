@@ -25,21 +25,20 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Stop;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.transform.Rotate;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.Color;
-import net.sf.latexdraw.models.interfaces.shape.FillingStyle;
-import net.sf.latexdraw.models.interfaces.shape.ILine;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
-import net.sf.latexdraw.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Color;
+import net.sf.latexdraw.model.api.shape.FillingStyle;
+import net.sf.latexdraw.model.api.shape.Line;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.SingleShape;
+import net.sf.latexdraw.model.api.shape.LineStyle;
 
 /**
  * The base class of a JFX single shape view.
@@ -47,7 +46,7 @@ import net.sf.latexdraw.models.interfaces.shape.LineStyle;
  * @param <T> The type of the JFX shape used to draw the view.
  * @author Arnaud Blouin
  */
-public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> extends ViewShape<S> {
+public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> extends ViewShape<S> {
 	protected final T border;
 	protected final T dblBorder;
 	protected final T shadow;
@@ -182,8 +181,8 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 
 	private final void updateShadowPosition() {
 		if(shadow != null) {
-			final IPoint gc = model.getGravityCentre();
-			final IPoint shadowgc = ShapeFactory.INST.createPoint(gc.getX() + model.getShadowSize(), gc.getY());
+			final Point gc = model.getGravityCentre();
+			final Point shadowgc = ShapeFactory.INST.createPoint(gc.getX() + model.getShadowSize(), gc.getY());
 			shadowgc.setPoint(shadowgc.rotatePoint(gc, model.getShadowAngle()));
 			shadow.setTranslateX(shadowgc.getX() - gc.getX());
 			shadow.setTranslateY(gc.getY() - shadowgc.getY());
@@ -298,7 +297,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 
 	private void createHatchingLine(final Group group, final double x1, final double y1, final double x2, final double y2,
 									final double clipWidth, final double clipHeight) {
-		final Line line = new Line();
+		final javafx.scene.shape.Line line = new javafx.scene.shape.Line();
 		line.setStrokeWidth(model.getHatchingsWidth());
 		line.setStrokeLineJoin(StrokeLineJoin.MITER);
 		line.setStrokeLineCap(StrokeLineCap.SQUARE);
@@ -314,10 +313,10 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 
 
 	private LinearGradient computeGradient() {
-		final IPoint tl = model.getTopLeftPoint();
-		final IPoint br = model.getBottomRightPoint();
-		IPoint pt1 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, tl.getY());
-		IPoint pt2 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, br.getY());
+		final Point tl = model.getTopLeftPoint();
+		final Point br = model.getBottomRightPoint();
+		Point pt1 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, tl.getY());
+		Point pt2 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, br.getY());
 		double angle = model.getGradAngle() % (2d * Math.PI);
 		double gradMidPt = model.getGradMidPt();
 
@@ -351,9 +350,9 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 
 				pt2.setX(tl.getX() + (br.getX() - tl.getX()) * gradMidPt);
 			}else {
-				final IPoint cg = model.getGravityCentre();
-				final ILine l2;
-				final ILine l;
+				final Point cg = model.getGravityCentre();
+				final Line l2;
+				final Line l;
 
 				pt1 = pt1.rotatePoint(cg, -angle);
 				pt2 = pt2.rotatePoint(cg, -angle);
@@ -369,7 +368,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 				final double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
 				l.setX1(pt1.getX());
 				l.setY1(pt1.getY());
-				final IPoint[] pts = l.findPoints(pt1, 2d * distance * gradMidPt);
+				final Point[] pts = l.findPoints(pt1, 2d * distance * gradMidPt);
 				pt2 = pts[0];
 
 				if(gradMidPt < 0.5) {

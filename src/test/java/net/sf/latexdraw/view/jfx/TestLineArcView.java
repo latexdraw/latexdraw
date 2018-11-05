@@ -1,13 +1,13 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.shape.Rectangle;
-import net.sf.latexdraw.models.interfaces.prop.ILineArcProp;
-import net.sf.latexdraw.models.interfaces.shape.ISingleShape;
+import net.sf.latexdraw.model.api.property.LineArcProp;
+import net.sf.latexdraw.model.api.shape.SingleShape;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public interface TestLineArcView<T extends ViewSingleShape<S, Rectangle>, S extends ISingleShape & ILineArcProp> extends ITestViewBorderedShape<T, S, Rectangle> {
+public interface TestLineArcView<T extends ViewSingleShape<S, Rectangle>, S extends SingleShape & LineArcProp> extends ITestViewBorderedShape<T, S, Rectangle> {
 	@Test
 	default void testBorderLineArcWidth() {
 		getModel().setLineArc(0.33);

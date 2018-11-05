@@ -11,7 +11,7 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Optional;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.model.api.shape.Shape;
 
 public interface JfxViewProducer {
 	/**
@@ -19,5 +19,5 @@ public interface JfxViewProducer {
 	 * @param shape The shape used to create the view.
 	 * @return The created view or empty.
 	 */
-	<T extends IShape, S extends ViewShape<T>> Optional<S> createView(final T shape);
+	<T extends Shape, S extends ViewShape<T>> Optional<S> createView(final T shape);
 }

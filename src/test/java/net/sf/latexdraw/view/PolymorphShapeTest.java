@@ -13,8 +13,8 @@ package net.sf.latexdraw.view;
 import javafx.application.Platform;
 import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.data.ParameteriseShapeData;
-import net.sf.latexdraw.models.CompareShapeMatcher;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.model.CompareShapeMatcher;
+import net.sf.latexdraw.model.api.shape.Shape;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -22,7 +22,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-public interface PolymorphShapeTest extends PolymorphicConversion<IShape>, CollectionMatcher {
+public interface PolymorphShapeTest extends PolymorphicConversion<Shape>, CollectionMatcher {
 	@BeforeAll
 	static void beforeClass() {
 		try {
@@ -40,71 +40,71 @@ public interface PolymorphShapeTest extends PolymorphicConversion<IShape>, Colle
 
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
-	default void testLoadSaveShapeParams(final IShape sh) {
+	default void testLoadSaveShapeParams(final Shape sh) {
 		assumeTrue(sh.isBordersMovable());
-		final IShape s2 = produceOutputShapeFrom(sh);
+		final Shape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeBorderMov(sh, s2);
 	}
 
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
-	default void testLoadShapeLineStyleParams(final IShape sh) {
+	default void testLoadShapeLineStyleParams(final Shape sh) {
 		assumeTrue(sh.isLineStylable());
-		final IShape s2 = produceOutputShapeFrom(sh);
+		final Shape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeLineStyle(sh, s2);
 	}
 
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
-	default void testLoadShapeShowPtsParams(final IShape sh) {
+	default void testLoadShapeShowPtsParams(final Shape sh) {
 		assumeTrue(sh.isShowPtsable());
-		final IShape s2 = produceOutputShapeFrom(sh);
+		final Shape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeShowPts(sh, s2);
 	}
 
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
-	default void testLoadRotationAngleParams(final IShape sh) {
-		final IShape s2 = produceOutputShapeFrom(sh);
+	default void testLoadRotationAngleParams(final Shape sh) {
+		final Shape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeRotationAngle(sh, s2);
 	}
 
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
-	default void testLoadDbleBorderableParams(final IShape sh) {
+	default void testLoadDbleBorderableParams(final Shape sh) {
 		assumeTrue(sh.isDbleBorderable());
-		final IShape s2 = produceOutputShapeFrom(sh);
+		final Shape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeDbleBorder(sh, s2);
 	}
 
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
-	default void testLoadFillParams(final IShape sh) {
+	default void testLoadFillParams(final Shape sh) {
 		assumeTrue(sh.isFillable());
-		final IShape s2 = produceOutputShapeFrom(sh);
+		final Shape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeFill(sh, s2);
 	}
 
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
-	default void testLoadFillStyleParams(final IShape sh) {
+	default void testLoadFillStyleParams(final Shape sh) {
 		assumeTrue(sh.isInteriorStylable());
-		final IShape s2 = produceOutputShapeFrom(sh);
+		final Shape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeFillStyle(sh, s2);
 	}
 
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
-	default void testLoadShadowParams(final IShape sh) {
+	default void testLoadShadowParams(final Shape sh) {
 		assumeTrue(sh.isShadowable());
-		final IShape s2 = produceOutputShapeFrom(sh);
+		final Shape s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualShapeShadow(sh, s2);
 	}
 
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
-	default void testPointsEquals(final IShape sh) {
-		final IShape s2 = produceOutputShapeFrom(sh);
+	default void testPointsEquals(final Shape sh) {
+		final Shape s2 = produceOutputShapeFrom(sh);
 		assertListEquals(sh.getPoints(), s2.getPoints(), (p1, p2) -> p1.equals(p2, 0.001));
 	}
 }

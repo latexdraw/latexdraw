@@ -10,14 +10,14 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.ISquare;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGRectElement;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Square;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGRectElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
@@ -25,12 +25,12 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  * SVG/latexdraw square import export.
  * @author Arnaud BLOUIN
  */
-class SVGSquare extends SVGRectangular<ISquare> {
+class SVGSquare extends SVGRectangular<Square> {
 	/**
 	 * Creates an SVG generator for squares.
 	 * @param square The source square to convert in SVG.
 	 */
-	SVGSquare(final ISquare square) {
+	SVGSquare(final Square square) {
 		super(square);
 	}
 
@@ -68,8 +68,8 @@ class SVGSquare extends SVGRectangular<ISquare> {
 		}
 
 		final double gap = getPositionGap();
-		final IPoint tl = shape.getTopLeftPoint();
-		final IPoint br = shape.getBottomRightPoint();
+		final Point tl = shape.getTopLeftPoint();
+		final Point br = shape.getBottomRightPoint();
 		SVGElement elt;
 		final SVGElement root = new SVGGElement(document);
 		final double width = Math.max(1d, br.getX() - tl.getX() + gap);

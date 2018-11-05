@@ -10,15 +10,15 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.model.api.shape.Square;
 
 /**
  * Defines a PSTricks view of the LSquare model.
  * @author Arnaud Blouin
  */
-public class PSTSquareView extends PSTFrameView<ISquare> {
+public class PSTSquareView extends PSTFrameView<Square> {
 
-	protected PSTSquareView(final ISquare model) {
+	protected PSTSquareView(final Square model) {
 		super(model);
 	}
 }

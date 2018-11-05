@@ -13,37 +13,37 @@ package net.sf.latexdraw.view.svg;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
-import net.sf.latexdraw.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
-import net.sf.latexdraw.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.models.interfaces.shape.ICircleArc;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.models.interfaces.shape.IEllipse;
-import net.sf.latexdraw.models.interfaces.shape.IFreehand;
-import net.sf.latexdraw.models.interfaces.shape.IGrid;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
-import net.sf.latexdraw.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.models.interfaces.shape.IPolygon;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.models.interfaces.shape.IRhombus;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.ISquare;
-import net.sf.latexdraw.models.interfaces.shape.IText;
-import net.sf.latexdraw.models.interfaces.shape.ITriangle;
-import net.sf.latexdraw.parsers.svg.SVGCircleElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGEllipseElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGImageElement;
-import net.sf.latexdraw.parsers.svg.SVGLineElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.SVGPolyLineElement;
-import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
-import net.sf.latexdraw.parsers.svg.SVGRectElement;
-import net.sf.latexdraw.parsers.svg.SVGTextElement;
+import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.Circle;
+import net.sf.latexdraw.model.api.shape.CircleArc;
+import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Ellipse;
+import net.sf.latexdraw.model.api.shape.Freehand;
+import net.sf.latexdraw.model.api.shape.Grid;
+import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.model.api.shape.Picture;
+import net.sf.latexdraw.model.api.shape.Plot;
+import net.sf.latexdraw.model.api.shape.Polygon;
+import net.sf.latexdraw.model.api.shape.Polyline;
+import net.sf.latexdraw.model.api.shape.Rectangle;
+import net.sf.latexdraw.model.api.shape.Rhombus;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.Square;
+import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.model.api.shape.Triangle;
+import net.sf.latexdraw.parser.svg.SVGCircleElement;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGEllipseElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.parser.svg.SVGImageElement;
+import net.sf.latexdraw.parser.svg.SVGLineElement;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
+import net.sf.latexdraw.parser.svg.SVGPolyLineElement;
+import net.sf.latexdraw.parser.svg.SVGPolygonElement;
+import net.sf.latexdraw.parser.svg.SVGRectElement;
+import net.sf.latexdraw.parser.svg.SVGTextElement;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.SystemService;
@@ -55,7 +55,7 @@ import net.sf.latexdraw.view.jfx.ViewFactory;
  */
 public class SVGShapesFactory implements SVGShapeProducer {
 	/** A map to reduce the CC during the creation of shapes. */
-	private final Map<String, BiFunction<SVGGElement, Boolean, IShape>> creationMap;
+	private final Map<String, BiFunction<SVGGElement, Boolean, Shape>> creationMap;
 
 	@Inject private ViewFactory viewFactory;
 	@Inject private SystemService system;
@@ -91,71 +91,71 @@ public class SVGShapesFactory implements SVGShapeProducer {
 
 
 	@Override
-	public SVGElement createSVGElement(final IShape shape, final SVGDocument doc) {
-		if(shape instanceof IGroup) {
-			return new SVGGroup((IGroup) shape, this).toSVG(doc);
+	public SVGElement createSVGElement(final Shape shape, final SVGDocument doc) {
+		if(shape instanceof Group) {
+			return new SVGGroup((Group) shape, this).toSVG(doc);
 		}
-		if(shape instanceof IPlot) {
-			return new SVGPlot((IPlot) shape, this).toSVG(doc);
+		if(shape instanceof Plot) {
+			return new SVGPlot((Plot) shape, this).toSVG(doc);
 		}
-		if(shape instanceof ISquare) {
-			return new SVGSquare((ISquare) shape).toSVG(doc);
+		if(shape instanceof Square) {
+			return new SVGSquare((Square) shape).toSVG(doc);
 		}
-		if(shape instanceof IRectangle) {
-			return new SVGRectangle((IRectangle) shape).toSVG(doc);
+		if(shape instanceof Rectangle) {
+			return new SVGRectangle((Rectangle) shape).toSVG(doc);
 		}
-		if(shape instanceof IText) {
-			return new SVGText((IText) shape).toSVG(doc);
+		if(shape instanceof Text) {
+			return new SVGText((Text) shape).toSVG(doc);
 		}
-		if(shape instanceof ICircleArc) {
-			return new SVGCircleArc((ICircleArc) shape).toSVG(doc);
+		if(shape instanceof CircleArc) {
+			return new SVGCircleArc((CircleArc) shape).toSVG(doc);
 		}
-		if(shape instanceof ICircle) {
-			return new SVGCircle((ICircle) shape).toSVG(doc);
+		if(shape instanceof Circle) {
+			return new SVGCircle((Circle) shape).toSVG(doc);
 		}
-		if(shape instanceof IEllipse) {
-			return new SVGEllipse((IEllipse) shape).toSVG(doc);
+		if(shape instanceof Ellipse) {
+			return new SVGEllipse((Ellipse) shape).toSVG(doc);
 		}
-		if(shape instanceof ITriangle) {
-			return new SVGTriangle((ITriangle) shape).toSVG(doc);
+		if(shape instanceof Triangle) {
+			return new SVGTriangle((Triangle) shape).toSVG(doc);
 		}
-		if(shape instanceof IRhombus) {
-			return new SVGRhombus((IRhombus) shape).toSVG(doc);
+		if(shape instanceof Rhombus) {
+			return new SVGRhombus((Rhombus) shape).toSVG(doc);
 		}
-		if(shape instanceof IPolyline) {
-			return new SVGPolylines((IPolyline) shape).toSVG(doc);
+		if(shape instanceof Polyline) {
+			return new SVGPolylines((Polyline) shape).toSVG(doc);
 		}
-		if(shape instanceof IPolygon) {
-			return new SVGPolygon((IPolygon) shape).toSVG(doc);
+		if(shape instanceof Polygon) {
+			return new SVGPolygon((Polygon) shape).toSVG(doc);
 		}
-		if(shape instanceof IBezierCurve) {
-			return new SVGBezierCurve((IBezierCurve) shape).toSVG(doc);
+		if(shape instanceof BezierCurve) {
+			return new SVGBezierCurve((BezierCurve) shape).toSVG(doc);
 		}
-		if(shape instanceof IAxes) {
-			return new SVGAxes((IAxes) shape).toSVG(doc);
+		if(shape instanceof Axes) {
+			return new SVGAxes((Axes) shape).toSVG(doc);
 		}
-		if(shape instanceof IGrid) {
-			return new SVGGrid((IGrid) shape).toSVG(doc);
+		if(shape instanceof Grid) {
+			return new SVGGrid((Grid) shape).toSVG(doc);
 		}
-		if(shape instanceof IDot) {
-			return new SVGDot((IDot) shape, viewFactory).toSVG(doc);
+		if(shape instanceof Dot) {
+			return new SVGDot((Dot) shape, viewFactory).toSVG(doc);
 		}
-		if(shape instanceof IPicture) {
-			return new SVGPicture((IPicture) shape).toSVG(doc);
+		if(shape instanceof Picture) {
+			return new SVGPicture((Picture) shape).toSVG(doc);
 		}
-		if(shape instanceof IFreehand) {
-			return new SVGFreeHand((IFreehand) shape).toSVG(doc);
+		if(shape instanceof Freehand) {
+			return new SVGFreeHand((Freehand) shape).toSVG(doc);
 		}
 		return null;
 	}
 
 	@Override
-	public IShape createShape(final SVGElement elt) {
+	public Shape createShape(final SVGElement elt) {
 		return createShape(elt, true);
 	}
 
 
-	private IShape createShapeFromPathElement(final SVGPathElement path) {
+	private Shape createShapeFromPathElement(final SVGPathElement path) {
 		if(path.isPolygon()) {
 			return new SVGPolygon(path).getShape();
 		}
@@ -171,7 +171,7 @@ public class SVGShapesFactory implements SVGShapeProducer {
 		return null;
 	}
 
-	private IShape createShapeFromGElement(final SVGGElement elt, final boolean withTransformations) {
+	private Shape createShapeFromGElement(final SVGGElement elt, final boolean withTransformations) {
 		final String ltdPref = elt.lookupPrefixUsable(LNamespace.LATEXDRAW_NAMESPACE_URI);
 		final String type = elt.getAttribute(ltdPref + LNamespace.XML_TYPE);
 
@@ -193,7 +193,7 @@ public class SVGShapesFactory implements SVGShapeProducer {
 
 
 	@Override
-	public IShape createShape(final SVGElement elt, final boolean withTransformations) {
+	public Shape createShape(final SVGElement elt, final boolean withTransformations) {
 		if(elt == null || !elt.enableRendering()) {
 			return null;
 		}

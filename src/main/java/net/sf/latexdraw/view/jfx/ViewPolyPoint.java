@@ -16,13 +16,13 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
-import net.sf.latexdraw.models.interfaces.shape.IModifiablePointsShape;
+import net.sf.latexdraw.model.api.shape.ModifiablePointsShape;
 
 /**
  * The JFX shape view for multipoints shapes.
  * @author Arnaud Blouin
  */
-public abstract class ViewPolyPoint<T extends IModifiablePointsShape> extends ViewPathShape<T> {
+public abstract class ViewPolyPoint<T extends ModifiablePointsShape> extends ViewPathShape<T> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.

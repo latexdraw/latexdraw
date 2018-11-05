@@ -13,21 +13,21 @@ package net.sf.latexdraw.view;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.models.MathUtils;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.PlottingStyle;
-import net.sf.latexdraw.models.interfaces.shape.TicksStyle;
+import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.PlottingStyle;
+import net.sf.latexdraw.model.api.shape.TicksStyle;
 
 public interface GenericAxes<T> {
 	/** The interval between the labels and the axes. */
 	double GAP_LABEL = 5d;
 
-	IAxes getModel();
+	Axes getModel();
 
 	default void updatePathTicksX(final double gapx, final TicksStyle ticksStyle, final double tickLgth) {
-		final IAxes model = getModel();
+		final Axes model = getModel();
 		final boolean noArrowLeftX = model.getArrowStyle(1) == ArrowStyle.NONE || model.getGridMinX() == model.getOriginX();
 		final boolean noArrowRightX = model.getArrowStyle(3) == ArrowStyle.NONE || model.getGridMaxX() == model.getOriginX();
 		final double distX = model.getDistLabelsX();
@@ -56,7 +56,7 @@ public interface GenericAxes<T> {
 	}
 
 	default void updatePathTicksY(final double gapy, final TicksStyle ticksStyle, final double tickLgth) {
-		final IAxes model = getModel();
+		final Axes model = getModel();
 		final boolean noArrowTopY = model.getArrowStyle(2) == ArrowStyle.NONE || model.getGridMaxY() == model.getOriginY();
 		final boolean noArrowBotY = model.getArrowStyle(0) == ArrowStyle.NONE || model.getGridMinY() == model.getOriginY();
 		final double distY = model.getDistLabelsY();
@@ -85,7 +85,7 @@ public interface GenericAxes<T> {
 	}
 
 	default void updatePathLabelsY(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final Text fontText) {
-		final IAxes model = getModel();
+		final Axes model = getModel();
 		final int origy = (int) model.getOriginY();
 		final double gap;
 		final double height = fontText.getBaselineOffset();
@@ -118,7 +118,7 @@ public interface GenericAxes<T> {
 	 * Updates the labels path by drawing the labels of the X-axis.
 	 */
 	default void updatePathLabelsX(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final Text fontText) {
-		final IAxes model = getModel();
+		final Axes model = getModel();
 		// Painting the labels on the X-axis.
 		final int origx = (int) model.getOriginX();
 		final double gap = (ticksDisplay.isX() && ticksStyle.isBottom() ? model.getTicksSize() : 0d) + model.getThickness() / 2d + GAP_LABEL;
@@ -142,7 +142,7 @@ public interface GenericAxes<T> {
 	}
 
 	default void updatePathTicks() {
-		final IAxes model = getModel();
+		final Axes model = getModel();
 		final PlottingStyle ticksDisplay = model.getTicksDisplayed();
 		final TicksStyle ticksStyle = model.getTicksStyle();
 		final double tickLgth = ticksStyle == TicksStyle.FULL ? model.getTicksSize() * 2d : model.getTicksSize();
@@ -161,7 +161,7 @@ public interface GenericAxes<T> {
 
 
 	default void updatePathLabels() {
-		final IAxes model = getModel();
+		final Axes model = getModel();
 		final Font font = new Font("cmr10", model.getLabelsSize()); //NON-NLS
 		final PlottingStyle labelsDisplay = model.getLabelsDisplayed();
 		final PlottingStyle ticksDisplay = model.getTicksDisplayed();
@@ -197,12 +197,12 @@ public interface GenericAxes<T> {
 	}
 
 	default double getGapX() {
-		final IAxes model = getModel();
-		return MathUtils.INST.equalsDouble(model.getDistLabelsX(), 0d) ? IShape.PPC : model.getDistLabelsX() / model.getIncrementX() * IShape.PPC;
+		final Axes model = getModel();
+		return MathUtils.INST.equalsDouble(model.getDistLabelsX(), 0d) ? Shape.PPC : model.getDistLabelsX() / model.getIncrementX() * Shape.PPC;
 	}
 
 	default double getGapY() {
-		final IAxes model = getModel();
-		return MathUtils.INST.equalsDouble(model.getDistLabelsY(), 0d) ? IShape.PPC : model.getDistLabelsY() / model.getIncrementY() * IShape.PPC;
+		final Axes model = getModel();
+		return MathUtils.INST.equalsDouble(model.getDistLabelsY(), 0d) ? Shape.PPC : model.getDistLabelsY() / model.getIncrementY() * Shape.PPC;
 	}
 }

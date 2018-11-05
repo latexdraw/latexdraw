@@ -15,17 +15,17 @@ import javafx.beans.value.ChangeListener;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.StrokeLineCap;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.DotStyle;
+import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Shape;
 
 /**
  * The JFX shape view for dot shapes.
  * @author Arnaud Blouin
  */
-public class ViewDot extends ViewShape<IDot> {
+public class ViewDot extends ViewShape<Dot> {
 	final Path path;
 	final Ellipse dot;
 	final ChangeListener<Object> updateDot = (observable, oldValue, newValue) -> updateDot();
@@ -40,7 +40,7 @@ public class ViewDot extends ViewShape<IDot> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewDot(final IDot sh, final PathElementProducer pathProducer) {
+	ViewDot(final Dot sh, final PathElementProducer pathProducer) {
 		super(sh);
 		this.pathProducer = pathProducer;
 		path = new Path();
@@ -114,9 +114,9 @@ public class ViewDot extends ViewShape<IDot> {
 	}
 
 	private void setPathOTime() {
-		final IPoint centre = model.getPosition();
-		final IPoint br = model.getLazyBottomRightPoint();
-		final IPoint tl = model.getLazyTopLeftPoint();
+		final Point centre = model.getPosition();
+		final Point br = model.getLazyBottomRightPoint();
+		final Point tl = model.getLazyTopLeftPoint();
 		final double dec = model.getGeneralGap();
 		final double tlx = tl.getX();
 		final double tly = tl.getY();
@@ -125,8 +125,8 @@ public class ViewDot extends ViewShape<IDot> {
 
 		setPathOLikeDot(model.getOGap());
 
-		IPoint p1 = ShapeFactory.INST.createPoint((tlx + brx) / 2d, tly + dec * 2d);
-		IPoint p2 = ShapeFactory.INST.createPoint((tlx + brx) / 2d, bry - dec * 2d);
+		Point p1 = ShapeFactory.INST.createPoint((tlx + brx) / 2d, tly + dec * 2d);
+		Point p2 = ShapeFactory.INST.createPoint((tlx + brx) / 2d, bry - dec * 2d);
 		p1 = p1.rotatePoint(centre, Math.PI / 4d);
 		p2 = p2.rotatePoint(centre, Math.PI / 4d);
 
@@ -145,8 +145,8 @@ public class ViewDot extends ViewShape<IDot> {
 
 	private void setPathOPlus() {
 		final double dec = model.getGeneralGap();
-		final IPoint br = model.getLazyBottomRightPoint();
-		final IPoint tl = model.getLazyTopLeftPoint();
+		final Point br = model.getLazyBottomRightPoint();
+		final Point tl = model.getLazyTopLeftPoint();
 
 		setPathOLikeDot(model.getOGap());
 		path.getElements().add(pathProducer.createMoveTo((tl.getX() + br.getX()) / 2d, tl.getY() + dec * 2d));
@@ -162,7 +162,7 @@ public class ViewDot extends ViewShape<IDot> {
 
 
 	private void setPathOLikeDot(final double dec) {
-		final IPoint pos = model.getPosition();
+		final Point pos = model.getPosition();
 		final double radius = (model.getDiametre() - dec) / 2d;
 		dot.setCenterX(pos.getX());
 		dot.setCenterY(pos.getY());
@@ -172,8 +172,8 @@ public class ViewDot extends ViewShape<IDot> {
 
 
 	private void setPathBar() {
-		final IPoint br = model.getLazyBottomRightPoint();
-		final IPoint tl = model.getLazyTopLeftPoint();
+		final Point br = model.getLazyBottomRightPoint();
+		final Point tl = model.getLazyTopLeftPoint();
 
 		path.getElements().add(pathProducer.createMoveTo((tl.getX() + br.getX()) / 2d, tl.getY() + model.getBarThickness() / 2d));
 		path.getElements().add(pathProducer.createLineTo((tl.getX() + br.getX()) / 2d, br.getY() + model.getBarGap()));
@@ -182,8 +182,8 @@ public class ViewDot extends ViewShape<IDot> {
 
 	private void setPathPlus() {
 		final double plusGap = model.getPlusGap();
-		final IPoint br = model.getLazyBottomRightPoint();
-		final IPoint tl = model.getLazyTopLeftPoint();
+		final Point br = model.getLazyBottomRightPoint();
+		final Point tl = model.getLazyTopLeftPoint();
 
 		path.getElements().add(pathProducer.createMoveTo((tl.getX() + br.getX()) / 2d, tl.getY() - plusGap));
 		path.getElements().add(pathProducer.createLineTo((tl.getX() + br.getX()) / 2d, br.getY() + plusGap));
@@ -193,8 +193,8 @@ public class ViewDot extends ViewShape<IDot> {
 
 
 	private void setPathSquare() {
-		final double dec = model.getDiametre() / IDot.THICKNESS_O_STYLE_FACTOR;
-		final IPoint tl = model.getLazyTopLeftPoint();
+		final double dec = model.getDiametre() / Dot.THICKNESS_O_STYLE_FACTOR;
+		final Point tl = model.getLazyTopLeftPoint();
 		final double width = model.getDiametre() - dec * 3d;
 		final double x = tl.getX() + dec + dec / 2d;
 		final double y = tl.getY() + dec + dec / 2d;
@@ -208,8 +208,8 @@ public class ViewDot extends ViewShape<IDot> {
 
 
 	private void setPathX() {
-		final IPoint br = model.getLazyBottomRightPoint();
-		final IPoint tl = model.getLazyTopLeftPoint();
+		final Point br = model.getLazyBottomRightPoint();
+		final Point tl = model.getLazyTopLeftPoint();
 		final double crossGap = model.getCrossGap();
 
 		path.getElements().add(pathProducer.createMoveTo(tl.getX() + crossGap, tl.getY() + crossGap));
@@ -220,10 +220,10 @@ public class ViewDot extends ViewShape<IDot> {
 
 
 	private void setPathAsterisk() {
-		final IPoint br = model.getLazyBottomRightPoint();
-		final IPoint tl = model.getLazyTopLeftPoint();
+		final Point br = model.getLazyBottomRightPoint();
+		final Point tl = model.getLazyTopLeftPoint();
 		final double width = model.getDiametre();
-		final double dec = width / IDot.THICKNESS_O_STYLE_FACTOR;
+		final double dec = width / Dot.THICKNESS_O_STYLE_FACTOR;
 		final double xCenter = (tl.getX() + br.getX()) / 2d;
 		final double yCenter = (tl.getY() + br.getY()) / 2d;
 		final double radius = Math.abs(tl.getY() + width / 10d - (br.getY() - width / 10d)) / 2d + dec;
@@ -241,14 +241,14 @@ public class ViewDot extends ViewShape<IDot> {
 	 * Creates a diamond (one of the possibles shapes of a dot).
 	 */
 	private void setPathDiamond() {
-		final IPoint tl = model.getLazyTopLeftPoint();
-		final IPoint br = model.getLazyBottomRightPoint();
-		final double dec = model.getDiametre() / IDot.THICKNESS_O_STYLE_FACTOR;
+		final Point tl = model.getLazyTopLeftPoint();
+		final Point br = model.getLazyBottomRightPoint();
+		final double dec = model.getDiametre() / Dot.THICKNESS_O_STYLE_FACTOR;
 		// This diamond is a golden diamond
 		// cf. http://mathworld.wolfram.com/GoldenRhombus.html
 		final double midY = (tl.getY() + br.getY()) / 2d;
-		final double a = Math.abs(tl.getX() - br.getX()) / (2d * Math.sin(IShape.GOLDEN_ANGLE));
-		final double p = 2d * a * Math.cos(IShape.GOLDEN_ANGLE);
+		final double a = Math.abs(tl.getX() - br.getX()) / (2d * Math.sin(Shape.GOLDEN_ANGLE));
+		final double p = 2d * a * Math.cos(Shape.GOLDEN_ANGLE);
 		final double x1 = br.getX() - dec - 0.5 * dec;
 		final double x3 = tl.getX() + dec + 0.5 * dec;
 
@@ -264,9 +264,9 @@ public class ViewDot extends ViewShape<IDot> {
 	 * Creates a pentagon (one of the possibles shapes of a dot)
 	 */
 	private void setPathPentagon() {
-		final double dec = model.getDiametre() / IDot.THICKNESS_O_STYLE_FACTOR;
-		final IPoint tl = model.getLazyTopLeftPoint();
-		final IPoint br = model.getLazyBottomRightPoint();
+		final double dec = model.getDiametre() / Dot.THICKNESS_O_STYLE_FACTOR;
+		final Point tl = model.getLazyTopLeftPoint();
+		final Point br = model.getLazyBottomRightPoint();
 		final double yCenter = (tl.getY() + br.getY()) / 2d - dec;
 		final double xCenter = (tl.getX() + br.getX()) / 2d;
 		final double dist = Math.abs(tl.getY() - br.getY()) / 2d + dec;
@@ -288,9 +288,9 @@ public class ViewDot extends ViewShape<IDot> {
 	 * Creates a triangle (one of the possibles shapes of a dot).
 	 */
 	private void setPathTriangle() {
-		final IPoint tl = model.getLazyTopLeftPoint();
-		final double dec = model.getDiametre() / IDot.THICKNESS_O_STYLE_FACTOR;
-		final IPoint br = model.getLazyBottomRightPoint();
+		final Point tl = model.getLazyTopLeftPoint();
+		final double dec = model.getDiametre() / Dot.THICKNESS_O_STYLE_FACTOR;
+		final Point br = model.getLazyBottomRightPoint();
 
 		path.getElements().add(pathProducer.createMoveTo((br.getX() + tl.getX()) / 2d, tl.getY() - 1.5 * dec));
 		path.getElements().add(pathProducer.createLineTo(tl.getX() - 0.3 * dec, br.getY() - 3d * dec));
@@ -340,12 +340,12 @@ public class ViewDot extends ViewShape<IDot> {
 				break;
 			case DOT:
 				dot.setStrokeLineCap(StrokeLineCap.SQUARE);
-				dot.setStrokeWidth(model.getDiametre() / IDot.THICKNESS_O_STYLE_FACTOR);
+				dot.setStrokeWidth(model.getDiametre() / Dot.THICKNESS_O_STYLE_FACTOR);
 				break;
 			case OPLUS:
 			case OTIMES:
 				dot.setStrokeLineCap(StrokeLineCap.SQUARE);
-				dot.setStrokeWidth(model.getDiametre() / IDot.THICKNESS_O_STYLE_FACTOR);
+				dot.setStrokeWidth(model.getDiametre() / Dot.THICKNESS_O_STYLE_FACTOR);
 				path.setStrokeLineCap(StrokeLineCap.BUTT);
 				path.setStrokeWidth(model.getGeneralGap());
 				break;
@@ -370,7 +370,7 @@ public class ViewDot extends ViewShape<IDot> {
 				break;
 			case PLUS:
 				path.setStrokeLineCap(StrokeLineCap.SQUARE);
-				path.setStrokeWidth(model.getDiametre() / IDot.PLUS_COEFF_WIDTH);
+				path.setStrokeWidth(model.getDiametre() / Dot.PLUS_COEFF_WIDTH);
 				break;
 			case X:
 				path.setStrokeLineCap(StrokeLineCap.SQUARE);

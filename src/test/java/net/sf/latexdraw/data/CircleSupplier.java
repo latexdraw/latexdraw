@@ -3,14 +3,14 @@ package net.sf.latexdraw.data;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Circle;
 import org.junit.experimental.theories.ParameterSignature;
 import org.junit.experimental.theories.ParameterSupplier;
 import org.junit.experimental.theories.PotentialAssignment;
 
 public class CircleSupplier extends ParameterSupplier {
-	public static ICircle createCircle() {
+	public static Circle createCircle() {
 		return ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(51d, 73d), 200d);
 	}
 

@@ -13,34 +13,34 @@ package net.sf.latexdraw.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
-import net.sf.latexdraw.models.interfaces.shape.IDot;
-import net.sf.latexdraw.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.models.interfaces.shape.IPolygon;
-import net.sf.latexdraw.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.models.interfaces.shape.PlotStyle;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Plot;
+import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Polygon;
+import net.sf.latexdraw.model.api.shape.Polyline;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.PlotStyle;
 
 /**
  * @author Arnaud Blouin
  */
 public interface PlotViewComputation {
-	default IPoint getPolarPoint(final IPlot shape, final double x, final double xs, final double ys, final double posX, final double posY) {
+	default Point getPolarPoint(final Plot shape, final double x, final double xs, final double ys, final double posX, final double posY) {
 		final double radius = shape.getY(x);
 		final double angle = Math.toRadians(x);
 		final double x1 = radius * Math.cos(angle);
 		final double y1 = -radius * Math.sin(angle);
-		return ShapeFactory.INST.createPoint(x1 * IShape.PPC * xs + posX, y1 * IShape.PPC * ys + posY);
+		return ShapeFactory.INST.createPoint(x1 * Shape.PPC * xs + posX, y1 * Shape.PPC * ys + posY);
 	}
 
-	default List<IPoint> fillPoints(final IPlot shape, final double posX, final double posY, final double minX,
+	default List<Point> fillPoints(final Plot shape, final double posX, final double posY, final double minX,
 								final double maxX, final double step) {
 		final double xs = shape.getXScale();
 		final double ys = shape.getYScale();
 		double x = minX;
-		final List<IPoint> pts = new ArrayList<>();
+		final List<Point> pts = new ArrayList<>();
 
 		if(shape.isPolar()) {
 			for(int i = 0; i < shape.getNbPlottedPoints(); i++, x += step) {
@@ -49,7 +49,7 @@ public interface PlotViewComputation {
 			pts.add(getPolarPoint(shape, maxX, xs, ys, posX, posY));
 		}else {
 			for(int i = 0; i < shape.getNbPlottedPoints(); i++, x += step) {
-				pts.add(ShapeFactory.INST.createPoint(x * IShape.PPC * xs + posX, -shape.getY(x) * IShape.PPC * ys + posY));
+				pts.add(ShapeFactory.INST.createPoint(x * Shape.PPC * xs + posX, -shape.getY(x) * Shape.PPC * ys + posY));
 			}
 		}
 
@@ -57,9 +57,9 @@ public interface PlotViewComputation {
 	}
 
 
-	default List<IDot> updatePoints(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
+	default List<Dot> updatePoints(final Plot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		return ShapeFactory.INST.createPolyline(fillPoints(shape, posX, posY, minX, maxX, step)).getPoints().stream().map(pt -> {
-			final IDot dot = ShapeFactory.INST.createDot(pt);
+			final Dot dot = ShapeFactory.INST.createDot(pt);
 			dot.copy(shape);
 			dot.setPosition(pt);
 			dot.setRotationAngle(0d);
@@ -68,49 +68,49 @@ public interface PlotViewComputation {
 	}
 
 
-	default IPolygon updatePolygon(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
-		final IPolygon pg = ShapeFactory.INST.createPolygon(fillPoints(shape, posX, posY, minX, maxX, step));
+	default Polygon updatePolygon(final Plot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
+		final Polygon pg = ShapeFactory.INST.createPolygon(fillPoints(shape, posX, posY, minX, maxX, step));
 		pg.copy(shape);
 		return pg;
 	}
 
 
-	default IPolyline updateLine(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
-		final IPolyline pl = ShapeFactory.INST.createPolyline(fillPoints(shape, posX, posY, minX, maxX, step));
+	default Polyline updateLine(final Plot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
+		final Polyline pl = ShapeFactory.INST.createPolyline(fillPoints(shape, posX, posY, minX, maxX, step));
 		pl.copy(shape);
 		return pl;
 	}
 
 
-	default IBezierCurve updateCurve(final IPlot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
+	default BezierCurve updateCurve(final Plot shape, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		// The algorithm follows this definition:
 		// https://stackoverflow.com/questions/15864441/how-to-make-a-line-curve-through-points
 		final double scale = 0.33d;
-		final IBezierCurve bc = ShapeFactory.INST.createBezierCurve(fillPoints(shape, posX, posY, minX, maxX, step));
+		final BezierCurve bc = ShapeFactory.INST.createBezierCurve(fillPoints(shape, posX, posY, minX, maxX, step));
 
 		bc.setOpened(shape.getPlotStyle() != PlotStyle.CCURVE);
 		bc.copy(shape);
 		int i = 0;
 		final int last = bc.getPoints().size() - 1;
 
-		for(final IPoint pt : bc.getPoints()) {
+		for(final Point pt : bc.getPoints()) {
 			if(i == 0) {
-				final IPoint p2 = bc.getPtAt(i + 1);
-				final IPoint tangent = p2.substract(pt);
-				final IPoint q1 = pt.add(tangent.zoom(scale));
+				final Point p2 = bc.getPtAt(i + 1);
+				final Point tangent = p2.substract(pt);
+				final Point q1 = pt.add(tangent.zoom(scale));
 				bc.setXFirstCtrlPt(q1.getX(), i);
 				bc.setYFirstCtrlPt(q1.getY(), i);
 			}else if(i == last) {
-				final IPoint p0 = bc.getPtAt(i - 1);
-				final IPoint tangent = pt.substract(p0);
-				final IPoint q0 = pt.substract(tangent.zoom(scale));
+				final Point p0 = bc.getPtAt(i - 1);
+				final Point tangent = pt.substract(p0);
+				final Point q0 = pt.substract(tangent.zoom(scale));
 				bc.setXFirstCtrlPt(q0.getX(), i);
 				bc.setYFirstCtrlPt(q0.getY(), i);
 			}else {
-				final IPoint p0 = bc.getPtAt(i - 1);
-				final IPoint p2 = bc.getPtAt(i + 1);
-				final IPoint tangent = p2.substract(p0).normalise();
-				final IPoint q0 = pt.substract(tangent.zoom(scale * pt.substract(p0).magnitude()));
+				final Point p0 = bc.getPtAt(i - 1);
+				final Point p2 = bc.getPtAt(i + 1);
+				final Point tangent = p2.substract(p0).normalise();
+				final Point q0 = pt.substract(tangent.zoom(scale * pt.substract(p0).magnitude()));
 				bc.setXFirstCtrlPt(q0.getX(), i);
 				bc.setYFirstCtrlPt(q0.getY(), i);
 			}

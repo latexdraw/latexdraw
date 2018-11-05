@@ -3,13 +3,13 @@ package net.sf.latexdraw.view.jfx;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import net.sf.latexdraw.data.ShapeSupplier;
-import net.sf.latexdraw.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.model.api.shape.Picture;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestViewPicture extends TestViewShape<ViewPicture, IPicture> {
+public class TestViewPicture extends TestViewShape<ViewPicture, Picture> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -21,7 +21,7 @@ public class TestViewPicture extends TestViewShape<ViewPicture, IPicture> {
 	}
 
 	@Override
-	protected IPicture createModel() {
+	protected Picture createModel() {
 		return ShapeSupplier.createPicture();
 	}
 

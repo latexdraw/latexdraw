@@ -14,17 +14,17 @@ import javafx.beans.binding.Bindings;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import net.sf.latexdraw.models.interfaces.shape.ITriangle;
+import net.sf.latexdraw.model.api.shape.Triangle;
 
 /**
  * @author Arnaud Blouin
  */
-public class ViewTriangle extends ViewPathShape<ITriangle> {
+public class ViewTriangle extends ViewPathShape<Triangle> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewTriangle(final ITriangle sh, final PathElementProducer pathProducer) {
+	ViewTriangle(final Triangle sh, final PathElementProducer pathProducer) {
 		super(sh, pathProducer);
 		setupPath(border);
 		setupPath(shadow);

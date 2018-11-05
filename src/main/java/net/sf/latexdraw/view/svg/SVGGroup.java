@@ -11,13 +11,13 @@
 package net.sf.latexdraw.view.svg;
 
 import java.util.List;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.parser.svg.SVGAttributes;
+import net.sf.latexdraw.parser.svg.SVGDocument;
+import net.sf.latexdraw.parser.svg.SVGElement;
+import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.util.LNamespace;
 import org.w3c.dom.NodeList;
 
@@ -25,14 +25,14 @@ import org.w3c.dom.NodeList;
  * An SVG generator for a group of shapes.
  * @author Arnaud BLOUIN
  */
-class SVGGroup extends SVGShape<IGroup> {
+class SVGGroup extends SVGShape<Group> {
 	private final SVGShapeProducer shapeProducer;
 
 	/**
 	 * Creates an SVG generator from IGroup instance.
 	 * @param group The group of shapes that will be converted.
 	 */
-	SVGGroup(final IGroup group, final SVGShapeProducer shapeProducer) {
+	SVGGroup(final Group group, final SVGShapeProducer shapeProducer) {
 		super(group);
 		this.shapeProducer = shapeProducer;
 	}
@@ -54,7 +54,7 @@ class SVGGroup extends SVGShape<IGroup> {
 		}
 
 		final NodeList nodeList = elt.getChildNodes();
-		IShape sh;
+		Shape sh;
 
 		if(nodeList.getLength() < 2) {
 			throw new IllegalArgumentException();
@@ -78,12 +78,12 @@ class SVGGroup extends SVGShape<IGroup> {
 
 		if(!shape.isEmpty()) {
 			final SVGElement root = new SVGGElement(doc);
-			final List<IShape> shapes = shape.getShapes();
+			final List<Shape> shapes = shape.getShapes();
 
 			root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_GROUP);
 			root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-			for(final IShape f : shapes) {
+			for(final Shape f : shapes) {
 				root.appendChild(shapeProducer.createSVGElement(f, doc));
 			}
 

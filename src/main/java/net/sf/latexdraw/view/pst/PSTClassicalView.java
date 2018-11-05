@@ -10,13 +10,13 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.models.interfaces.shape.IShape;
+import net.sf.latexdraw.model.api.shape.Shape;
 
 /**
  * Defines methods for classical PSTricks views.
  * @author Arnaud Blouin
  */
-abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
+abstract class PSTClassicalView<S extends Shape> extends PSTShapeView<S> {
 	/**
 	 * Creates and initialises an abstract PSTricks view for classical model.
 	 * @param model The model to view.

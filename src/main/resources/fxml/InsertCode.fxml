@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="net.sf.latexdraw.instruments.CodeInserter">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="net.sf.latexdraw.instrument.CodeInserter">
     <top>
         <TextArea fx:id="label" prefHeight="70.0" prefWidth="800.0" wrapText="true" BorderPane.alignment="CENTER"/>
     </top>

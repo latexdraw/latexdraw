@@ -13,10 +13,10 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Shape;
 import net.sf.latexdraw.CollectionMatcher;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.ArrowStyle;
-import net.sf.latexdraw.models.interfaces.shape.IBezierCurve;
-import net.sf.latexdraw.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.Point;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, IBezierCurve, Path> implements CollectionMatcher {
+public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, BezierCurve, Path> implements CollectionMatcher {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -41,7 +41,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Override
-	protected IBezierCurve createModel() {
+	protected BezierCurve createModel() {
 		return ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 			ShapeFactory.INST.createPoint(251d, 33d)));
 	}
@@ -122,7 +122,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	void testShowPtsMainDotsOkPosition() {
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		final List<IPoint> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
+		final List<Point> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
 			map(ell -> ShapeFactory.INST.createPoint(((Ellipse) ell).getCenterX(), ((Ellipse) ell).getCenterY())).collect(Collectors.toList());
 		model.getPoints().forEach(pt -> assertThat(centers, CoreMatchers.hasItem(pt)));
 	}
@@ -131,7 +131,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	void testShowPtsCtrl1DotsOkPosition() {
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		final List<IPoint> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
+		final List<Point> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
 			map(ell -> ShapeFactory.INST.createPoint(((Ellipse) ell).getCenterX(), ((Ellipse) ell).getCenterY())).collect(Collectors.toList());
 		model.getFirstCtrlPts().forEach(pt -> assertThat(centers, CoreMatchers.hasItem(pt)));
 	}
@@ -140,7 +140,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	void testShowPtsCtrl2DotsOkPosition() {
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		final List<IPoint> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
+		final List<Point> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
 			map(ell -> ShapeFactory.INST.createPoint(((Ellipse) ell).getCenterX(), ((Ellipse) ell).getCenterY())).collect(Collectors.toList());
 		model.getSecondCtrlPts().forEach(pt -> assertThat(centers, CoreMatchers.hasItem(pt)));
 	}
@@ -222,7 +222,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		assertEquals(y + 12d, ((MoveTo) getBorder().getElements().get(0)).getY(), 0.0000001);
 	}
 
-	private Optional<Node> getShowPtDotAtCoord(final IPoint pt) {
+	private Optional<Node> getShowPtDotAtCoord(final Point pt) {
 		return view.showPoint.getChildren().stream().filter(node -> node instanceof Ellipse &&
 			Double.compare(((Ellipse) node).getCenterX(), pt.getX()) == 0 && Double.compare(((Ellipse) node).getCenterY(), pt.getY()) == 0).findAny();
 	}

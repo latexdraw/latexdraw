@@ -3,14 +3,14 @@ package net.sf.latexdraw.view.jfx;
 import java.util.Arrays;
 import javafx.application.Platform;
 import net.sf.latexdraw.data.InjectionExtension;
-import net.sf.latexdraw.models.ShapeFactory;
-import net.sf.latexdraw.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Polygon;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 // To remove with vintage will not be used anymore. Otherwise, junit thinks this class is junit4
 @ExtendWith(InjectionExtension.class)
-public class TestViewPolygon extends TestViewPolyPoint<ViewPolygon, IPolygon> {
+public class TestViewPolygon extends TestViewPolyPoint<ViewPolygon, Polygon> {
 	@BeforeAll
 	public static void beforeClass() {
 		try {
@@ -22,7 +22,7 @@ public class TestViewPolygon extends TestViewPolyPoint<ViewPolygon, IPolygon> {
 	}
 
 	@Override
-	protected IPolygon createModel() {
+	protected Polygon createModel() {
 		return ShapeFactory.INST.createPolygon(Arrays.asList(
 			ShapeFactory.INST.createPoint(9, 23),
 			ShapeFactory.INST.createPoint(21, 11),

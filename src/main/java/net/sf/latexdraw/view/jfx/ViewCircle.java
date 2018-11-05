@@ -11,18 +11,18 @@
 package net.sf.latexdraw.view.jfx;
 
 import javafx.beans.binding.Bindings;
-import net.sf.latexdraw.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.model.api.shape.Circle;
 
 /**
  * The JFX shape view for circles.
  * @author Arnaud Blouin
  */
-public class ViewCircle extends ViewEllipseBased<ICircle> {
+public class ViewCircle extends ViewEllipseBased<Circle> {
 	/**
 	 * Creates the circle view.
 	 * @param sh The model.
 	 */
-	ViewCircle(final ICircle sh) {
+	ViewCircle(final Circle sh) {
 		super(sh);
 		border.centerXProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getX(), model.getPtAt(2).xProperty(), model.getPtAt(3).xProperty()));
 		border.centerYProperty().bind(Bindings.createDoubleBinding(() -> model.getCenter().getY(), model.getPtAt(0).yProperty(), model.getPtAt(3).yProperty()));
