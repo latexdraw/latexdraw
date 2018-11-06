@@ -4,7 +4,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
-import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -29,12 +28,6 @@ public class TestViewText extends TestViewShape<ViewText, Text> {
 	@BeforeAll
 	public static void beforeClass() {
 		ViewText.LOGGER.setLevel(Level.ALL);
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ignored) {
-			// Ok
-		}
 	}
 
 	@AfterAll

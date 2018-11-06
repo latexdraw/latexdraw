@@ -3,14 +3,12 @@ package net.sf.latexdraw.view.jfx;
 import java.util.Arrays;
 import java.util.function.Function;
 import java.util.stream.Stream;
-import javafx.application.Platform;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Line;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.ArcStyle;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.CircleArc;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -31,16 +29,6 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, CircleArc> {
 	}
 	static Stream<Arguments> styleFunction() {
 		return Arrays.stream(ArcStyle.values()).map(s -> getArcsToTest().map(i1 -> arguments(s, i1))).flatMap(s -> s);
-	}
-
-	@BeforeAll
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ex) {
-			// Ok
-		}
 	}
 
 	@Override

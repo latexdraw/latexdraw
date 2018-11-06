@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javafx.application.Platform;
-import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Circle;
@@ -16,39 +14,30 @@ import net.sf.latexdraw.model.api.shape.PositionShape;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.SystemService;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junitpioneer.jupiter.TempDirectory;
+import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestPicture implements HelperTest {
-	@BeforeClass
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ex) {
-			// OK
-		}
-	}
-
+@ExtendWith(ApplicationExtension.class)
+@ExtendWith(TempDirectory.class)
+public class TestPicture {
 	Picture shape;
 	Path path;
-	@Rule public TemporaryFolder folder;
+	Path folder;
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeEach
+	public void setUp(@TempDirectory.TempDir final Path dir) throws IOException {
 		WaitForAsyncUtils.waitForFxEvents();
 		shape = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), new SystemService());
-		folder = new TemporaryFolder();
-		folder.create();
+		folder = dir;
 		path = ParameteriseShapeData.INST.getTestPNG(folder);
 		shape.setPathSource(path.toString());
 	}
@@ -72,7 +61,7 @@ public class TestPicture implements HelperTest {
 
 	@Test
 	public void testLoadEPSNotExists() throws IOException {
-		path = Paths.get(folder.getRoot().toPath().toString(), "epsPic.eps");
+		path = Paths.get(folder.toString(), "epsPic.eps");
 		Files.copy(Paths.get("src/test/resources/epsPic.eps"), path);
 
 		shape.setPathSource(path.toString());
@@ -81,7 +70,7 @@ public class TestPicture implements HelperTest {
 
 	@Test
 	public void testLoadPDFNotExists() throws IOException {
-		path = Paths.get(folder.getRoot().toPath().toString(), "pdfPic.pdf");
+		path = Paths.get(folder.toString(), "pdfPic.pdf");
 		Files.copy(Paths.get("src/test/resources/pdfPic.pdf"), path);
 
 		shape.setPathSource(path.toString());
@@ -134,7 +123,7 @@ public class TestPicture implements HelperTest {
 
 	@Test
 	public void testGetHeight() {
-		assertEqualsDouble(shape.getImage().getHeight(), shape.getHeight());
+		assertEquals(shape.getImage().getHeight(), shape.getHeight(), 0.001);
 	}
 
 	@Test
@@ -144,35 +133,35 @@ public class TestPicture implements HelperTest {
 
 	@Test
 	public void testGetWidth() {
-		assertEqualsDouble(shape.getImage().getWidth(), shape.getWidth());
+		assertEquals(shape.getImage().getWidth(), shape.getWidth(), 0.001);
 	}
 
 	@Test
 	public void testGetBottomLeftPoint() {
 		final Point pt = shape.getBottomLeftPoint();
-		assertEqualsDouble(shape.getPosition().getX(), pt.getX());
-		assertEqualsDouble(shape.getPosition().getY() + shape.getImage().getHeight(), pt.getY());
+		assertEquals(shape.getPosition().getX(), pt.getX(), 0.001);
+		assertEquals(shape.getPosition().getY() + shape.getImage().getHeight(), pt.getY(), 0.001);
 	}
 
 	@Test
 	public void testGetBottomRightPoint() {
 		final Point pt = shape.getBottomRightPoint();
-		assertEqualsDouble(shape.getPosition().getX() + shape.getImage().getWidth(), pt.getX());
-		assertEqualsDouble(shape.getPosition().getY() + shape.getImage().getHeight(), pt.getY());
+		assertEquals(shape.getPosition().getX() + shape.getImage().getWidth(), pt.getX(), 0.001);
+		assertEquals(shape.getPosition().getY() + shape.getImage().getHeight(), pt.getY(), 0.001);
 	}
 
 	@Test
 	public void testGetTopLeftPoint() {
 		final Point pt = shape.getTopLeftPoint();
-		assertEqualsDouble(shape.getPosition().getX(), pt.getX());
-		assertEqualsDouble(shape.getPosition().getY(), pt.getY());
+		assertEquals(shape.getPosition().getX(), pt.getX(), 0.001);
+		assertEquals(shape.getPosition().getY(), pt.getY(), 0.001);
 	}
 
 	@Test
 	public void testGetTopRightPoint() {
 		final Point pt = shape.getTopRightPoint();
-		assertEqualsDouble(shape.getPosition().getX() + shape.getImage().getWidth(), pt.getX());
-		assertEqualsDouble(shape.getPosition().getY(), pt.getY());
+		assertEquals(shape.getPosition().getX() + shape.getImage().getWidth(), pt.getX(), 0.001);
+		assertEquals(shape.getPosition().getY(), pt.getY(), 0.001);
 	}
 
 	@Test

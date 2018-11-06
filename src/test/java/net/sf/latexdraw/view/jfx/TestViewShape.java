@@ -27,11 +27,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.malai.command.CommandsRegistry;
 import org.malai.undo.UndoCollector;
+import org.testfx.framework.junit5.ApplicationExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(ApplicationExtension.class)
 @ExtendWith(InjectionExtension.class)
 abstract class TestViewShape<T extends ViewShape<S>, S extends SingleShape> implements HelperTest, ITestViewShape<T, S> {
 	public static void assertPathSameButNotEqual(final List<PathElement> p1, final List<PathElement> p2) {

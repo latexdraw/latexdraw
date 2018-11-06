@@ -10,7 +10,8 @@
  */
 package net.sf.latexdraw.view;
 
-import javafx.application.Platform;
+import java.util.concurrent.TimeoutException;
+import javafx.stage.Stage;
 import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.model.CompareShapeMatcher;
@@ -19,18 +20,28 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.testfx.api.FxToolkit;
+import org.testfx.framework.junit5.ApplicationAdapter;
+import org.testfx.framework.junit5.ApplicationFixture;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public interface PolymorphShapeTest extends PolymorphicConversion<Shape>, CollectionMatcher {
 	@BeforeAll
-	static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ex) {
-			// Ok
-		}
+	static void beforeAll() throws TimeoutException {
+		FxToolkit.registerPrimaryStage();
+		FxToolkit.setupApplication(() -> new ApplicationAdapter(new ApplicationFixture() {
+			@Override
+			public void init() {
+			}
+			@Override
+			public void start(final Stage stage) {
+			}
+			@Override
+			public void stop() {
+			}
+		}));
 	}
 
 	@AfterAll
@@ -104,6 +115,7 @@ public interface PolymorphShapeTest extends PolymorphicConversion<Shape>, Collec
 	@ParameterizedTest
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
 	default void testPointsEquals(final Shape sh) {
+		WaitForAsyncUtils.waitForFxEvents();
 		final Shape s2 = produceOutputShapeFrom(sh);
 		assertListEquals(sh.getPoints(), s2.getPoints(), (p1, p2) -> p1.equals(p2, 0.001));
 	}

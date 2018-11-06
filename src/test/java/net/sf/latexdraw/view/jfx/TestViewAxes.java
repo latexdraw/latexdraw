@@ -3,16 +3,14 @@ package net.sf.latexdraw.view.jfx;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javafx.application.Platform;
 import javafx.scene.shape.PathElement;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.model.ShapeFactory;
-import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.Axes;
-import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
+import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
@@ -29,16 +27,6 @@ public class TestViewAxes extends TestViewStdGrid<ViewAxes, Axes> {
 	Point ptH2;
 	Point ptV1;
 	Point ptV2;
-
-	@BeforeAll
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ignored) {
-			// Ok
-		}
-	}
 
 	@BeforeEach
 	void setUp() {

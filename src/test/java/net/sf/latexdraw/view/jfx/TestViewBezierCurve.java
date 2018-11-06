@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -18,7 +17,6 @@ import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
 import net.sf.latexdraw.model.api.shape.Point;
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -30,16 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, BezierCurve, Path> implements CollectionMatcher {
-	@BeforeAll
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ex) {
-			// Ok
-		}
-	}
-
 	@Override
 	protected BezierCurve createModel() {
 		return ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),

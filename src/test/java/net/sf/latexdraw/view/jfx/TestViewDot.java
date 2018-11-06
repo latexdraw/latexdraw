@@ -1,16 +1,14 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
-import javafx.application.Platform;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.model.ShapeFactory;
-import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,16 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestViewDot extends TestViewShape<ViewDot, Dot> {
 	List<PathElement> pathBefore;
 	Ellipse dotBefore;
-
-	@BeforeAll
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ex) {
-			// Ok
-		}
-	}
 
 	@BeforeEach
 	void setUp() {

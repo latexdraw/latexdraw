@@ -2,14 +2,12 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
 import java.util.List;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.shape.PathElement;
 import javafx.scene.transform.Translate;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.Polyline;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -19,16 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TestViewPolyline extends TestViewPolyPoint<ViewPolyline, Polyline> {
-	@BeforeAll
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ex) {
-			// Ok
-		}
-	}
-
 	@Override
 	protected Polyline createModel() {
 		return ShapeFactory.INST.createPolyline(Arrays.asList(

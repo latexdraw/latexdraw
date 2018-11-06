@@ -3,7 +3,6 @@ package net.sf.latexdraw.view.jfx;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javafx.application.Platform;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.PathElement;
 import javafx.scene.shape.Shape;
@@ -12,7 +11,6 @@ import javafx.scene.text.Text;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Grid;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
@@ -24,16 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class TestViewGrid extends TestViewStdGrid<ViewGrid, Grid> {
 	List<PathElement> mainGridBefore;
 	List<PathElement> subGridBefore;
-
-	@BeforeAll
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ex) {
-			// Ok
-		}
-	}
 
 	@BeforeEach
 	void setUpViewGrid() {

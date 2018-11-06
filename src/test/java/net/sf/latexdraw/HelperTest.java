@@ -1,7 +1,5 @@
 package net.sf.latexdraw;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -22,14 +20,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
 public interface HelperTest {
-	static void setFinalStaticFieldValue(final Field field, final Object value) throws IllegalAccessException, NoSuchFieldException {
-		field.setAccessible(true);
-		final Field modField = Field.class.getDeclaredField("modifiers");
-		modField.setAccessible(true);
-		modField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-		field.set(null, value);
-	}
-
 	default <T> List<T> cloneList(final List<T> list, final Function<T, T> cloner) {
 		final List<T> clone = new ArrayList<>(list.size());
 		list.forEach(elt -> clone.add(cloner.apply(elt)));

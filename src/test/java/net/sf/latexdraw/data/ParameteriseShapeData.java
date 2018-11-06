@@ -47,6 +47,12 @@ public final class ParameteriseShapeData implements HelperTest {
 		return path;
 	}
 
+	public Path getTestPNG(final Path folder) throws IOException {
+		final Path path = Paths.get(folder.toString(), "LaTeXDrawSmall.png");
+		Files.copy(Paths.get("src/test/resources/LaTeXDrawSmall.png"), path);
+		return path;
+	}
+
 	public void clearTempFolders() {
 		tempFolders.forEach(folder -> folder.delete());
 		tempFolders.clear();

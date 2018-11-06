@@ -1,7 +1,6 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.List;
-import javafx.application.Platform;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
@@ -9,7 +8,6 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.PlotStyle;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -21,16 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestViewPlot extends TestViewShape<ViewPlot, Plot> {
-	@BeforeAll
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ex) {
-			// Ok
-		}
-	}
-
 	private List<PathElement> getCurvePath() {
 		return ((ViewBezierCurve) view.getChildren().get(0)).getBorder().getElements();
 	}

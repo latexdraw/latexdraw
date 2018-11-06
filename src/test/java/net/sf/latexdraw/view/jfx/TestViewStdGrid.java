@@ -5,7 +5,7 @@ import net.sf.latexdraw.model.api.shape.StandardGrid;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 abstract class TestViewStdGrid<S extends ViewStdGrid<T>, T extends StandardGrid> extends TestViewShape<S, T> {
 	abstract void testChangeGridEndX();

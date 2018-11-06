@@ -1,25 +1,13 @@
 package net.sf.latexdraw.view.jfx;
 
-import javafx.application.Platform;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.BorderPos;
 import net.sf.latexdraw.model.api.shape.Ellipse;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestViewEllipse extends TestViewBorderedShape<ViewEllipse, Ellipse, javafx.scene.shape.Ellipse> {
-	@BeforeAll
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ex) {
-			// Ok
-		}
-	}
-
 	@Override
 	protected Ellipse createModel() {
 		final Ellipse rec = ShapeFactory.INST.createEllipse();

@@ -1,25 +1,13 @@
 package net.sf.latexdraw.view.jfx;
 
-import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.model.api.shape.Picture;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestViewPicture extends TestViewShape<ViewPicture, Picture> {
-	@BeforeAll
-	public static void beforeClass() {
-		try {
-			Platform.startup(() -> {
-			});
-		}catch(final IllegalStateException ex) {
-			// Ok
-		}
-	}
-
 	@Override
 	protected Picture createModel() {
 		return ShapeSupplier.createPicture();

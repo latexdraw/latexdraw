@@ -5,13 +5,10 @@ import javafx.scene.shape.Path;
 import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.model.api.shape.Triangle;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.testfx.framework.junit5.ApplicationExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@ExtendWith(ApplicationExtension.class)
 public class TestViewTriangle extends TestViewBorderedShape<ViewTriangle, Triangle, Path> {
 	@Override
 	protected Triangle createModel() {
