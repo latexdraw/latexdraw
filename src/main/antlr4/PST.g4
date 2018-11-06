@@ -11,7 +11,7 @@
  grammar PST;
 
 @header {
-package net.sf.latexdraw.parsers.pst;
+package net.sf.latexdraw.parser.pst;
 }
 
 // PST is a internal DSL of LaTeX. PST is a dynamic language so defining its grammar may be considered as a non-sense.
