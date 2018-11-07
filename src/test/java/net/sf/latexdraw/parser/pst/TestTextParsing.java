@@ -6,22 +6,17 @@ import net.sf.latexdraw.model.api.shape.Dot;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Theories.class)
 public class TestTextParsing extends TestPSTParser {
-	@Override
-	@Before
-	public void setUp() throws Exception {
-		super.setUp();
+	@BeforeEach
+	void setUpText() {
 		listener = new PSTLatexdrawListener(new SystemService());
 	}
 

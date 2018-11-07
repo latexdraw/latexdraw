@@ -5,13 +5,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import net.sf.latexdraw.instrument.StatusBarController;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.mock;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TestVersionChecker {
 	@Test
 	public void testCheckVersionNoNewVersion() throws InterruptedException {

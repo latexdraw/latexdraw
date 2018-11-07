@@ -1,19 +1,17 @@
 package net.sf.latexdraw.parser.pst;
 
 import java.util.List;
-import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Theories.class)
 public class TestParsingPsdots extends TestPSTParser {
 	@Test
 	public void testParse2Points() {
@@ -28,7 +26,8 @@ public class TestParsingPsdots extends TestPSTParser {
 		assertEquals(-2d * Shape.PPC, group.get(1).getPtAt(0).getY(), 0.0001);
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource(value = DotStyle.class)
 	public void testDotStyleo(final DotStyle style) {
 		parser("\\psdots[dotstyle=" + style.getPSTToken() + "](1,1)(2,2)");
 		final List<Shape> group = parsedShapes;

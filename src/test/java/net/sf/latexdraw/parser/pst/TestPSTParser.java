@@ -13,19 +13,19 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.malai.command.CommandsRegistry;
 import org.malai.undo.UndoCollector;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class TestPSTParser {
 	PSTLatexdrawListener listener;
 	List<Shape> parsedShapes;
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeEach
+	void setUp() {
 		DviPsColors.INSTANCE.clearUserColours();
 
 		listener = new ErrorPSTLatexdrawListener(new SystemService());
@@ -45,8 +45,8 @@ public abstract class TestPSTParser {
 		});
 	}
 
-	@After
-	public void tearDown() {
+	@AfterEach
+	void tearDown() {
 		CommandsRegistry.INSTANCE.clear();
 		CommandsRegistry.INSTANCE.removeAllHandlers();
 		BadaboomCollector.INSTANCE.clear();

@@ -3,10 +3,10 @@ package net.sf.latexdraw.parser.pst;
 import net.sf.latexdraw.model.api.shape.FillingStyle;
 import net.sf.latexdraw.model.api.shape.Polyline;
 import net.sf.latexdraw.model.api.shape.Shape;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TestParsingQline extends TestPSTParser {
 	@Test

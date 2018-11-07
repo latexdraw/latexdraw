@@ -4,10 +4,10 @@ import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.Polyline;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TestParsingPsline extends TestPSTParser {
 	@Test

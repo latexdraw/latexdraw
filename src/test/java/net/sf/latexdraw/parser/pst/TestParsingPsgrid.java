@@ -4,17 +4,14 @@ import net.sf.latexdraw.model.api.shape.Grid;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.experimental.theories.suppliers.TestedOn;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Theories.class)
 public class TestParsingPsgrid extends TestPSTParser {
 	@Test
 	public void testGridXUnitCM() {
@@ -87,22 +84,25 @@ public class TestParsingPsgrid extends TestPSTParser {
 		assertEquals((int) (0.3 * Shape.PPC), grid.getLabelsSize());
 	}
 
-	@Theory
-	public void testGridSubGridDiv(@TestedOn(ints = {0, 3}) final int div) {
+	@ParameterizedTest
+	@ValueSource(ints = {0, 3})
+	public void testGridSubGridDiv(final int div) {
 		parser("\\psgrid[subgriddiv=" + div + "](0,0)(0,0)(1,1)");
 		final Grid grid = getShapeAt(0);
 		assertEquals(div, grid.getSubGridDiv());
 	}
 
-	@Theory
-	public void testSubGridDots(@TestedOn(ints = {0, 3}) final int div) {
+	@ParameterizedTest
+	@ValueSource(ints = {0, 3})
+	public void testSubGridDots(final int div) {
 		parser("\\psgrid[subgriddots=" + div + "](0,0)(0,0)(1,1)");
 		final Grid grid = getShapeAt(0);
 		assertEquals(div, grid.getSubGridDots());
 	}
 
-	@Theory
-	public void testGridDots(@TestedOn(ints = {0, 3}) final int div) {
+	@ParameterizedTest
+	@ValueSource(ints = {0, 3})
+	public void testGridDots(final int div) {
 		parser("\\psgrid[griddots=" + div + "](0,0)(0,0)(1,1)");
 		final Grid grid = getShapeAt(0);
 		assertEquals(div, grid.getGridDots());

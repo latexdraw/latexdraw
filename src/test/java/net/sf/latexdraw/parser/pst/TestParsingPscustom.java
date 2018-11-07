@@ -3,10 +3,10 @@ package net.sf.latexdraw.parser.pst;
 import net.sf.latexdraw.model.api.shape.FreeHandStyle;
 import net.sf.latexdraw.model.api.shape.Freehand;
 import net.sf.latexdraw.model.api.shape.Shape;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestParsingPscustom extends TestPSTParser {
 	@Test

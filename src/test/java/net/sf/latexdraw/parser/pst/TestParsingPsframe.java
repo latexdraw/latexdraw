@@ -1,17 +1,14 @@
 package net.sf.latexdraw.parser.pst;
 
-import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(Theories.class)
 public class TestParsingPsframe extends TestPSTParser {
 	@Test
 	public void testPssetunityunit() {
@@ -73,8 +70,9 @@ public class TestParsingPsframe extends TestPSTParser {
 		parser("\\psframe[dash=2cm 0.3](35,20)");
 	}
 
-	@Theory
-	public void testParamFramearcOK(@DoubleData(vals = {0d, 1d, 0.5}) final double arc) {
+	@ParameterizedTest
+	@ValueSource(doubles = {0d, 1d, 0.5})
+	public void testParamFramearcOK(final double arc) {
 		parser("\\psframe[framearc=" + arc + "](35,20)");
 		final Rectangle rec = getShapeAt(0);
 		assertEquals(arc, rec.getLineArc(), 0.00001);
@@ -87,8 +85,9 @@ public class TestParsingPsframe extends TestPSTParser {
 		assertEquals(0.3, rec.getLineArc(), 0.00001);
 	}
 
-	@Theory
-	public void testParamFramearcKO(@DoubleData(vals = {-1d, 2}) final double arc) {
+	@ParameterizedTest
+	@ValueSource(doubles = {-1d, 2})
+	public void testParamFramearcKO(final double arc) {
 		parser("\\psframe[framearc=" + arc + "](35,20)");
 		final Rectangle rec = getShapeAt(0);
 		assertEquals(0d, rec.getLineArc(), 0.00001);

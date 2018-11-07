@@ -1,19 +1,19 @@
 package net.sf.latexdraw.parser.pst;
 
-import net.sf.latexdraw.data.DoubleData;
-import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.Axes;
-import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
+import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Theories.class)
 public class TestParsingPsaxes extends TestPSTParser {
 	@Test
 	public void testParse3Coord() {
@@ -65,78 +65,95 @@ public class TestParsingPsaxes extends TestPSTParser {
 		assertEquals(2d * Shape.PPC, axes.getPosition().getY(), 0.0001);
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource(value = AxesStyle.class)
 	public void testAxesstyle(final AxesStyle style) {
 		parser("\\psaxes[axesstyle=" + style.getPSTToken() + "](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
 		assertEquals(style, axes.getAxesStyle());
 	}
 
-	@Theory
-	public void testShowOrigin(final boolean origin) {
-		parser("\\psaxes[showorigin=" + origin + "](0,0)(0,0)(2,2)");
+	@Test
+	public void testShowOrigin() {
+		parser("\\psaxes[showorigin=true](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
-		assertEquals(origin, axes.isShowOrigin());
+		assertTrue(axes.isShowOrigin());
 	}
 
-	@Theory
+	@Test
+	public void testShowOriginNot() {
+		parser("\\psaxes[showorigin=false](0,0)(0,0)(2,2)");
+		final Axes axes = getShapeAt(0);
+		assertFalse(axes.isShowOrigin());
+	}
+
+	@ParameterizedTest
+	@EnumSource(value = TicksStyle.class)
 	public void testTickStyle(final TicksStyle style) {
 		parser("\\psaxes[tickstyle=" + style.getPSTToken() + "](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
 		assertEquals(style, axes.getTicksStyle());
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource(value = PlottingStyle.class)
 	public void testTickStyle(final PlottingStyle style) {
 		parser("\\psaxes[ticks=" + style.getPSTToken() + "](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
 		assertEquals(style, axes.getTicksDisplayed());
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource(value = PlottingStyle.class)
 	public void testLabelsStyle(final PlottingStyle style) {
 		parser("\\psaxes[labels=" + style.getPSTToken() + "](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
 		assertEquals(style, axes.getLabelsDisplayed());
 	}
 
-	@Theory
-	public void testParamDx(@DoubleData(vals = {2d, 3.5}) final double dx) {
+	@ParameterizedTest
+	@ValueSource(doubles = {2d, 3.5})
+	public void testParamDx(final double dx) {
 		parser("\\psaxes[Dx=" + dx + "](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
 		assertEquals(dx, axes.getIncrementX(), 0.00001);
 	}
 
-	@Theory
-	public void testParamDY(@DoubleData(vals = {2d, 3.5}) final double dy) {
+	@ParameterizedTest
+	@ValueSource(doubles = {2d, 3.5})
+	public void testParamDY(final double dy) {
 		parser("\\psaxes[Dy=" + dy + "](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
 		assertEquals(dy, axes.getIncrementY(), 0.00001);
 	}
 
-	@Theory
-	public void testParamdx(@DoubleData(vals = {2d, 3.5}) final double dx) {
+	@ParameterizedTest
+	@ValueSource(doubles = {2d, 3.5})
+	public void testParamdx(final double dx) {
 		parser("\\psaxes[dx=" + dx + " cm](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
 		assertEquals(dx, axes.getDistLabelsX(), 0.00001);
 	}
 
-	@Theory
-	public void testParamdy(@DoubleData(vals = {2d, 3.5}) final double dy) {
+	@ParameterizedTest
+	@ValueSource(doubles = {2d, 3.5})
+	public void testParamdy(final double dy) {
 		parser("\\psaxes[dy=" + dy + " cm](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
 		assertEquals(dy, axes.getDistLabelsY(), 0.00001);
 	}
 
-	@Theory
-	public void testOx(@DoubleData(vals = {2d, 3.5}) final double ox) {
+	@ParameterizedTest
+	@ValueSource(doubles = {2d, 3.5})
+	public void testOx(final double ox) {
 		parser("\\psaxes[Ox=" + ox + "](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
 		assertEquals(ox, axes.getOriginX(), 0.00001);
 	}
 
-	@Theory
-	public void testOy(@DoubleData(vals = {2d, 3.5}) final double oy) {
+	@ParameterizedTest
+	@ValueSource(doubles = {2d, 3.5})
+	public void testOy(final double oy) {
 		parser("\\psaxes[Oy=" + oy + "](0,0)(0,0)(2,2)");
 		final Axes axes = getShapeAt(0);
 		assertEquals(oy, axes.getOriginY(), 0.00001);

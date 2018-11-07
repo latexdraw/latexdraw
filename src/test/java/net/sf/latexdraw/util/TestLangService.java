@@ -1,32 +1,31 @@
 package net.sf.latexdraw.util;
 
 import java.util.Locale;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(Theories.class)
-public class TestLangTool {
-	@DataPoints
-	public static Locale[] locales = {Locale.TAIWAN, new Locale("foo", "Bar")};
+public class TestLangService {
+	public static Stream<Locale> getLocales() {
+		return Stream.of(Locale.TAIWAN, new Locale("foo", "Bar"));
+	}
 
 	LangService lang;
 	Locale locale;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		locale = Locale.getDefault();
 		lang = new LangService(new SystemService());
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		Locale.setDefault(locale);
 	}
@@ -42,7 +41,8 @@ public class TestLangTool {
 		assertFalse(lang.getSupportedLocales().isEmpty());
 	}
 
-	@Theory
+	@ParameterizedTest
+	@MethodSource(value = "getLocales")
 	public void testIncorrectLocale(final Locale badLocale) {
 		Locale.setDefault(badLocale);
 		lang = new LangService(new SystemService());

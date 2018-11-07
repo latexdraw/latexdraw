@@ -4,21 +4,22 @@ import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.TextPosition;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class TestParsingRPut extends TestPSTParser {
 	@Test
-	public void testRefPointCombotbr() {
+	void testRefPointCombotbr() {
 		parser("\\rput[t](0,0){\\rput[br](2,2){coucou}}");
 		final Text txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT_RIGHT, txt.getTextPosition());
 	}
 
 	@Test
-	public void testRputPosition() {
+	void testRputPosition() {
 		parser("\\rput(1,2){coucou}");
 		assertEquals(1, parsedShapes.size());
 		final Text text = getShapeAt(0);
@@ -28,32 +29,32 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPointNone() {
+	void testRefPointNone() {
 		parser("\\rput(10,20){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals(TextPosition.CENTER, txt.getTextPosition());
 	}
 
 	@Test
-	@Ignore("BASE not supported yet")
-	public void testRefPointB() {
+	@Disabled("BASE not supported yet")
+	void testRefPointB() {
 		parser("\\rput[B](10,20){coucou}");
 	}
 
 	@Test
-	@Ignore("Br not supported yet")
-	public void testRefPointBr() {
+	@Disabled("Br not supported yet")
+	void testRefPointBr() {
 		parser("\\rput[Br](10,20){coucou}");
 	}
 
 	@Test
-	@Ignore("Bl not supported yet")
-	public void testRefPointBl() {
+	@Disabled("Bl not supported yet")
+	void testRefPointBl() {
 		parser("\\rput[Bl](10,20){coucou}");
 	}
 
 	@Test
-	public void testRefPointr() {
+	void testRefPointr() {
 		parser("\\rput[r](10,20){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals(TextPosition.RIGHT, txt.getTextPosition());
@@ -62,7 +63,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPointl() {
+	void testRefPointl() {
 		parser("\\rput[l](10,20){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals(TextPosition.LEFT, txt.getTextPosition());
@@ -71,7 +72,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPointtr() {
+	void testRefPointtr() {
 		parser("\\rput[tr](10,20){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals(TextPosition.TOP_RIGHT, txt.getTextPosition());
@@ -80,7 +81,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPointb() {
+	void testRefPointb() {
 		parser("\\rput[b](10,20){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT, txt.getTextPosition());
@@ -89,7 +90,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPointt() {
+	void testRefPointt() {
 		parser("\\rput[t](10,20){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals(TextPosition.TOP, txt.getTextPosition());
@@ -98,7 +99,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPointtl() {
+	void testRefPointtl() {
 		parser("\\rput[tl](10,20){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals(TextPosition.TOP_LEFT, txt.getTextPosition());
@@ -107,7 +108,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPointbl() {
+	void testRefPointbl() {
 		parser("\\rput[bl](10,20){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT_LEFT, txt.getTextPosition());
@@ -116,7 +117,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRefPointbr() {
+	void testRefPointbr() {
 		parser("\\rput[br](10,20){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals(TextPosition.BOT_RIGHT, txt.getTextPosition());
@@ -125,7 +126,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testDoubleRputRotationMustNotRotateOtherShapes() {
+	void testDoubleRputRotationMustNotRotateOtherShapes() {
 		parser("\\rput{10}(0,0){\\rput{80}(0,0){coucou}}\\psframe(10,10)");
 		final Text txt = getShapeAt(0);
 		final Rectangle rec = getShapeAt(1);
@@ -134,21 +135,21 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testTripleRputRotationWithStar() {
+	void testTripleRputRotationWithStar() {
 		parser("\\rput{10}(0,0){\\rput{*30}(0,0){\\rput{50}(0,0){coucou}}}");
 		final Text txt = getShapeAt(0);
 		assertEquals(-80d, Math.toDegrees(txt.getRotationAngle()), 0.001);
 	}
 
 	@Test
-	public void testDoubleRputRotation() {
+	void testDoubleRputRotation() {
 		parser("\\rput{10}(0,0){\\rput{80}(0,0){coucou}}");
 		final Text txt = getShapeAt(0);
 		assertEquals(Math.toRadians(-90), txt.getRotationAngle(), 0.001);
 	}
 
 	@Test
-	public void testDoubleRputPosition() {
+	void testDoubleRputPosition() {
 		parser("\\rput(1,2){\\rput(2,3){coucou}}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -157,7 +158,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordStarFloatText() {
+	void testRPutCoordStarFloatText() {
 		parser("\\rput{*-90.8929}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -167,7 +168,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordStarSignedIntText() {
+	void testRPutCoordStarSignedIntText() {
 		parser("\\rput{*-++-90}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -177,7 +178,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordStarIntText() {
+	void testRPutCoordStarIntText() {
 		parser("\\rput{*90}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -187,7 +188,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordRotationRText() {
+	void testRPutCoordRotationRText() {
 		parser("\\rput{R}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -197,7 +198,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordRotationDText() {
+	void testRPutCoordRotationDText() {
 		parser("\\rput{D}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -207,7 +208,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordRotationLText() {
+	void testRPutCoordRotationLText() {
 		parser("\\rput{L}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -217,7 +218,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordRotationUText() {
+	void testRPutCoordRotationUText() {
 		parser("\\rput{U}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -227,7 +228,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordRotationEText() {
+	void testRPutCoordRotationEText() {
 		parser("\\rput{E}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -237,7 +238,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordRotationSText() {
+	void testRPutCoordRotationSText() {
 		parser("\\rput{S}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -247,7 +248,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordRotationWText() {
+	void testRPutCoordRotationWText() {
 		parser("\\rput{W}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -257,7 +258,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordRotationNText() {
+	void testRPutCoordRotationNText() {
 		parser("\\rput{N}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -267,7 +268,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordRotationDoubleText() {
+	void testRPutCoordRotationDoubleText() {
 		parser("\\rput{-10.0}(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());
@@ -277,7 +278,7 @@ public class TestParsingRPut extends TestPSTParser {
 	}
 
 	@Test
-	public void testRPutCoordText() {
+	void testRPutCoordText() {
 		parser("\\rput(1,2){coucou}");
 		final Text txt = getShapeAt(0);
 		assertEquals("coucou", txt.getText());

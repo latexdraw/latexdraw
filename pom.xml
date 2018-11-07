@@ -467,5 +467,11 @@
             <version>jdk-11+26</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.codepoetics</groupId>
+            <artifactId>protonpack</artifactId>
+            <version>1.13</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

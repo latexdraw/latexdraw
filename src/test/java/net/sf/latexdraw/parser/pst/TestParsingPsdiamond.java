@@ -3,11 +3,11 @@ package net.sf.latexdraw.parser.pst;
 import net.sf.latexdraw.model.api.shape.Rhombus;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestParsingPsdiamond extends TestPSTParser {
 	@Test

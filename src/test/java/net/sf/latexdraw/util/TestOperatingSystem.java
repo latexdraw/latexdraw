@@ -3,10 +3,10 @@ package net.sf.latexdraw.util;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import static net.bytebuddy.matcher.ElementMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.assertThat;
 
 public class TestOperatingSystem {
 	@ParameterizedTest

@@ -3,11 +3,11 @@ package net.sf.latexdraw.parser.pst;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
 import net.sf.latexdraw.model.api.shape.Shape;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestParsingPSbezier extends TestPSTParser {
 	@Test

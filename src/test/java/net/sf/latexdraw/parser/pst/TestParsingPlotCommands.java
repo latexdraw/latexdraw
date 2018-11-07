@@ -3,14 +3,14 @@ package net.sf.latexdraw.parser.pst;
 import net.sf.latexdraw.model.api.shape.FillingStyle;
 import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.PlotStyle;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-@RunWith(Theories.class)
 public class TestParsingPlotCommands extends TestPSTParser {
 	@Test
 	public void testPsplot() {
@@ -28,7 +28,8 @@ public class TestParsingPlotCommands extends TestPSTParser {
 		assertEquals(213, plot.getNbPlottedPoints());
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource(value = PlotStyle.class)
 	public void testPsplotPlotStyle(final PlotStyle style) {
 		parser("\\psplot[plotstyle=" + style.getPSTToken() + "]{0}{720}{x sin}");
 		final Plot plot = getShapeAt(0);
@@ -59,10 +60,17 @@ public class TestParsingPlotCommands extends TestPSTParser {
 		assertEquals(FillingStyle.PLAIN, plot.getFillingStyle());
 	}
 
-	@Theory
-	public void testPsplotPolar(final boolean polar) {
-		parser("\\psplot[polarplot=" + polar + "]{0}{720}{x sin}");
+	@Test
+	public void testPsplotPolar() {
+		parser("\\psplot[polarplot=true]{0}{720}{x sin}");
 		final Plot plot = getShapeAt(0);
-		assertEquals(polar, plot.isPolar());
+		assertTrue(plot.isPolar());
+	}
+
+	@Test
+	public void testPsplotNotPolar() {
+		parser("\\psplot[polarplot=false]{0}{720}{x sin}");
+		final Plot plot = getShapeAt(0);
+		assertFalse(plot.isPolar());
 	}
 }

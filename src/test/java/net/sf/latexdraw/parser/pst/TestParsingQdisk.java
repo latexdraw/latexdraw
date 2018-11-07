@@ -1,15 +1,15 @@
 package net.sf.latexdraw.parser.pst;
 
 import net.sf.latexdraw.model.api.shape.BorderPos;
-import net.sf.latexdraw.model.api.shape.FillingStyle;
 import net.sf.latexdraw.model.api.shape.Circle;
-import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.FillingStyle;
 import net.sf.latexdraw.model.api.shape.LineStyle;
+import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TestParsingQdisk extends TestPSTParser {
 	@Test

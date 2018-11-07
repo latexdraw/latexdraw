@@ -1,10 +1,10 @@
 package net.sf.latexdraw.parser.pst;
 
-import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.Arc;
-import org.junit.Test;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestParsingPsarc extends TestPSTParser {
 	@Test
