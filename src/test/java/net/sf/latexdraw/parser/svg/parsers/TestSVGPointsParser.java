@@ -2,27 +2,22 @@ package net.sf.latexdraw.parser.svg.parsers;
 
 import java.awt.geom.Point2D;
 import java.text.ParseException;
-import net.sf.latexdraw.data.StringData;
 import net.sf.latexdraw.parser.TestCodeParser;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Theories.class)
+
 public class TestSVGPointsParser extends TestCodeParser {
-	@Rule public ExpectedException exceptionGrabber = ExpectedException.none();
-
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		parser = new SVGPointsParser("");
 		parser2 = new SVGPointsParser("");
 	}
@@ -37,11 +32,11 @@ public class TestSVGPointsParser extends TestCodeParser {
 		assertEquals(((SVGPointsParser) parser).getPoints().get(((SVGPointsParser) parser).getPoints().size() - 1), new Point2D.Double(5d, 6d));
 	}
 
-	@Theory
-	public void testParseKO(@StringData(vals = {"fdsfsd", "10 10 10", "10,, 10 10 10"}) final String data) throws ParseException {
-		exceptionGrabber.expect(ParseException.class);
+	@ParameterizedTest
+	@ValueSource(strings = {"fdsfsd", "10 10 10", "10,, 10 10 10"})
+	void testParseKO(final String data) {
 		parser.setCode(data);
-		parser.parse();
+		assertThrows(ParseException.class, () -> parser.parse());
 	}
 
 	@Test
@@ -59,13 +54,13 @@ public class TestSVGPointsParser extends TestCodeParser {
 	}
 
 	@Test
-	public void testIsWSP() {
+	void testIsWSP() {
 		parser.setCode(" \r\t\na");
 		assertTrue(parser.isWSP());
 	}
 
 	@Test
-	public void testIsNotWSP() {
+	void testIsNotWSP() {
 		parser.setCode(" \r\t\na");
 		parser.nextChar();
 		parser.nextChar();
@@ -75,30 +70,30 @@ public class TestSVGPointsParser extends TestCodeParser {
 	}
 
 	@Test
-	public void testSkipWSPComma() {
+	void testSkipWSPComma() {
 		parser.setCode(" \r , \t \n 10 10");
 		((SVGPointsParser) parser).skipWSPComma();
 		assertEquals('1', parser.getChar());
 	}
 
-	@Theory
-	public void testReadNumber(@StringData(vals = {"10", "+10", "-10", "-10.", "-.1", "10e2", "10e-2", "10e+2", "10E2", "10E-2", "10E+2", "0.E+2"})
-								final String data) throws ParseException {
+	@ParameterizedTest
+	@ValueSource(strings = {"10", "+10", "-10", "-10.", "-.1", "10e2", "10e-2", "10e+2", "10E2", "10E-2", "10E+2", "0.E+2"})
+	void testReadNumber(final String data) throws ParseException {
 		final SVGPointsParser p = (SVGPointsParser) parser;
 		p.setCode(data);
 		assertEquals(Double.parseDouble(data), p.readNumber(), 0.0001);
 	}
 
-	@Theory
-	public void testReadNumberKO(@StringData(vals = {".E+2", ".Efd+2", "", " \t", "aa", ".", "--10"}) final String data) throws ParseException {
-		exceptionGrabber.expect(ParseException.class);
+	@ParameterizedTest
+	@ValueSource(strings = {".E+2", ".Efd+2", "", " \t", "aa", ".", "--10"})
+	void testReadNumberKO(final String data) {
 		final SVGPointsParser p = (SVGPointsParser) parser;
 		p.setCode(data);
-		p.readNumber();
+		assertThrows(ParseException.class, () -> p.readNumber());
 	}
 
 	@Test
-	public void testGetPoints() throws ParseException {
+	void testGetwPoints() throws ParseException {
 		parser.setCode(" 1, 2,3 4 5,6");
 		parser.parse();
 		assertNotNull(((SVGPointsParser) parser).getPoints());

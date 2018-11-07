@@ -1,27 +1,27 @@
 package net.sf.latexdraw.parser.svg;
 
 import java.text.ParseException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import net.sf.latexdraw.parser.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegCurvetoQuadratic;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class TestSVGPathSegCurvetoQuadratic {
 	SVGPathSegCurvetoQuadratic seg;
-	int cpt;
 
-	@Before
-	public void setUp() {
-		cpt = 0;
+	@BeforeEach
+	void setUp() {
 		seg = new SVGPathSegCurvetoQuadratic(3e1, 4e-1, -5e1, 6.5, true);
 	}
 
 	@Test
-	public void testGetters() {
+	void testGetters() {
 		assertEquals(-5e1, seg.getX1(), 0.0001);
 		assertEquals(6.5, seg.getY1(), 0.0001);
 		assertEquals(3e1, seg.getX(), 0.0001);
@@ -30,14 +30,14 @@ public class TestSVGPathSegCurvetoQuadratic {
 	}
 
 	@Test
-	public void testToString() throws ParseException {
+	void testToString() throws ParseException {
+		final AtomicBoolean done = new AtomicBoolean(false);
 		final SVGPathSegMoveto m = new SVGPathSegMoveto(0d, 0d, false);
 		final SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), pathSeg -> {
-			if(pathSeg instanceof SVGPathSegMoveto && cpt == 0) {
-				cpt++;
+			if(pathSeg instanceof SVGPathSegMoveto) {
 				return;
 			}
-			assertTrue(pathSeg instanceof SVGPathSegCurvetoQuadratic);
+			done.set(true);
 			final SVGPathSegCurvetoQuadratic seg2 = (SVGPathSegCurvetoQuadratic) pathSeg;
 			assertEquals(seg.getX(), seg2.getX(), 0.0001);
 			assertEquals(seg.getX1(), seg2.getX1(), 0.0001);
@@ -46,5 +46,6 @@ public class TestSVGPathSegCurvetoQuadratic {
 			assertEquals(seg.isRelative(), seg2.isRelative());
 		});
 		parser.parse();
+		assertTrue(done.get());
 	}
 }

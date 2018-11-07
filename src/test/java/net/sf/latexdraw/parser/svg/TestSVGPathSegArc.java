@@ -1,28 +1,27 @@
 package net.sf.latexdraw.parser.svg;
 
 import java.text.ParseException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import net.sf.latexdraw.parser.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegArc;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSVGPathSegArc {
 	SVGPathSegArc seg;
-	int cpt;
 
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		seg = new SVGPathSegArc(1, 2, 3, 4, 5, true, false, true);
-		cpt = 0;
 	}
 
 	@Test
-	public void testGettersConstructor() {
+	void testGettersConstructor() {
 		assertEquals(5d, seg.getAngle(), 0.0001);
 		assertEquals(3d, seg.getRX(), 0.0001);
 		assertEquals(4d, seg.getRY(), 0.0001);
@@ -34,14 +33,15 @@ public class TestSVGPathSegArc {
 	}
 
 	@Test
-	public void testToString() throws ParseException {
+	void testToString() throws ParseException {
+		final AtomicBoolean done = new AtomicBoolean(false);
 		final SVGPathSegMoveto m = new SVGPathSegMoveto(0, 0, false);
 		final SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), pathSeg -> {
-			if(pathSeg instanceof SVGPathSegMoveto && cpt == 0) {
-				cpt++;
+			if(pathSeg instanceof SVGPathSegMoveto) {
 				return;
 			}
-			assertTrue(pathSeg instanceof SVGPathSegArc);
+
+			done.set(true);
 			final SVGPathSegArc seg2 = (SVGPathSegArc) pathSeg;
 			assertEquals(seg.getAngle(), seg2.getAngle(), 0.0001);
 			assertEquals(seg.getRX(), seg2.getRX(), 0.0001);
@@ -53,5 +53,6 @@ public class TestSVGPathSegArc {
 			assertEquals(seg.isSweepFlag(), seg2.isSweepFlag());
 		});
 		parser.parse();
+		assertTrue(done.get());
 	}
 }

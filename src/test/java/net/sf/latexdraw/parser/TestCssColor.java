@@ -2,15 +2,15 @@ package net.sf.latexdraw.parser;
 
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.parser.svg.CSSColors;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestCssColor {
 	@Test
-	public void testGetColour() {
+	void testGetColour() {
 		assertEquals(CSSColors.CSS_ALICEBLUE_RGB_VALUE, CSSColors.INSTANCE.getColor(CSSColors.CSS_ALICEBLUE_NAME));
 		assertEquals(CSSColors.CSS_ANTIQUEWHITE_RGB_VALUE, CSSColors.INSTANCE.getColor(CSSColors.CSS_ANTIQUEWHITE_NAME));
 		assertEquals(CSSColors.CSS_AQUA_RGB_VALUE, CSSColors.INSTANCE.getColor(CSSColors.CSS_AQUA_NAME));
@@ -161,32 +161,32 @@ public class TestCssColor {
 	}
 
 	@Test
-	public void testGetColourNULL() {
+	void testGetColourNULL() {
 		assertNull(CSSColors.INSTANCE.getColor(null));
 	}
 
 	@Test
-	public void testGetColourKO() {
+	void testGetColourKO() {
 		assertNull(CSSColors.INSTANCE.getColor(""));
 	}
 
 	@Test
-	public void testGetColorNameNULL() {
+	void testGetColorNameNULL() {
 		assertNull(CSSColors.INSTANCE.getColorName(null, true));
 	}
 
 	@Test
-	public void testGetColorNameKO() {
+	void testGetColorNameKO() {
 		assertNull(CSSColors.INSTANCE.getColorName(ShapeFactory.INST.createColorInt(3, 2, 1), false));
 	}
 
 	@Test
-	public void testGetColorNameExistingNotSameObject() {
+	void testGetColorNameExistingNotSameObject() {
 		assertNotNull(CSSColors.INSTANCE.getColorName(ShapeFactory.INST.createColorInt(4, 2, 1), true));
 	}
 
 	@Test
-	public void testGetColorName() {
+	void testGetColorName() {
 		assertEquals(CSSColors.CSS_ALICEBLUE_NAME, CSSColors.INSTANCE.getColorName(CSSColors.CSS_ALICEBLUE_RGB_VALUE, false));
 		assertEquals(CSSColors.CSS_ANTIQUEWHITE_NAME, CSSColors.INSTANCE.getColorName(CSSColors.CSS_ANTIQUEWHITE_RGB_VALUE, false));
 		assertEquals(CSSColors.CSS_AQUAMARINE_NAME, CSSColors.INSTANCE.getColorName(CSSColors.CSS_AQUAMARINE_RGB_VALUE, false));
@@ -328,57 +328,57 @@ public class TestCssColor {
 	}
 
 	@Test
-	public void testGetRGBColourNULL() {
+	void testGetRGBColourNULL() {
 		assertNull(CSSColors.INSTANCE.getRGBColour(null));
 	}
 
 	@Test
-	public void testGetRGBColourKO() {
+	void testGetRGBColourKO() {
 		assertNull(CSSColors.INSTANCE.getRGBColour(""));
 	}
 
 	@Test
-	public void testGetRGBColourExistingColourNotSameObject() {
+	void testGetRGBColourExistingColourNotSameObject() {
 		assertEquals(ShapeFactory.INST.createColorInt(85, 136, 0), CSSColors.INSTANCE.getRGBColour("#580"));
 	}
 
 	@Test
-	public void testGetRGBColourExistingColourHexa() {
+	void testGetRGBColourExistingColourHexa() {
 		assertEquals(CSSColors.CSS_DEEPPINK_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("#ff1493"));
 	}
 
 	@Test
-	public void testGetRGBColourExistingColourPredefinedName() {
+	void testGetRGBColourExistingColourPredefinedName() {
 		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("blue"));
 	}
 
 	@Test
-	public void testGetRGBColourExistingColourRGB1() {
+	void testGetRGBColourExistingColourRGB1() {
 		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(	  0% ,	0%    ,  100%  )"));
 	}
 
 	@Test
-	public void testGetRGBColourExistingColourRGB2() {
+	void testGetRGBColourExistingColourRGB2() {
 		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(	  0 ,	0    ,  255  )"));
 	}
 
 	@Test
-	public void testSVGRGBtoRGBKO2() {
+	void testSVGRGBtoRGBKO2() {
 		assertNull(CSSColors.INSTANCE.getRGBColour("rgb(a, b, c)"));
 	}
 
 	@Test
-	public void testSVGRGBtoRGBOK1() {
+	void testSVGRGBtoRGBOK1() {
 		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(0,0,255)"));
 	}
 
 	@Test
-	public void testSVGRGBtoRGBOK2() {
+	void testSVGRGBtoRGBOK2() {
 		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(	  0 ,	0    ,  255  )"));
 	}
 
 	@Test
-	public void testSVGRGBtoRGBOK3() {
+	void testSVGRGBtoRGBOK3() {
 		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(	  0% ,	0%    ,  100%  )"));
 	}
 }

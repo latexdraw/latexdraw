@@ -2,18 +2,18 @@ package net.sf.latexdraw.parser.svg.parsers;
 
 import java.text.ParseException;
 import net.sf.latexdraw.parser.TestCodeParser;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandler {
 	String name;
 	String value;
 
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		parser = new CSSStyleParser("", this);
 		parser2 = new CSSStyleParser("", this);
 	}
@@ -28,7 +28,7 @@ public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandle
 	}
 
 	@Test
-	public void testParseEmpty() throws ParseException {
+	void testParseEmpty() throws ParseException {
 		parser.setCode("");
 		parser.parse();
 		assertNull(name);
@@ -36,7 +36,7 @@ public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandle
 	}
 
 	@Test
-	public void testParseKO() throws ParseException {
+	void testParseKO() throws ParseException {
 		parser.setCode("\t \n/**/ \n\r \t /* fldijfsd */ \n");
 		parser.parse();
 		assertNull(name);

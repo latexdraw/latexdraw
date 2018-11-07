@@ -19,14 +19,15 @@ import net.sf.latexdraw.model.api.shape.Rhombus;
 import net.sf.latexdraw.model.api.shape.Square;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestShapeFactory implements HelperTest {
 	@Test
-	public void testNewShape() {
+	void testNewShape() {
 		assertTrue(ShapeFactory.INST.newShape(Rectangle.class).isPresent());
 		assertTrue(ShapeFactory.INST.newShape(Polyline.class).isPresent());
 		assertTrue(ShapeFactory.INST.newShape(BezierCurve.class).isPresent());
@@ -68,14 +69,14 @@ public class TestShapeFactory implements HelperTest {
 	}
 
 	@Test
-	public void testCreateBezierCurveFromSameNbPoints() {
+	void testCreateBezierCurveFromSameNbPoints() {
 		BezierCurve bc = ShapeFactory.INST.createBezierCurve(Collections.singletonList(ShapeFactory.INST.createPoint()));
 		bc = ShapeFactory.INST.createBezierCurveFrom(bc, ShapeFactory.INST.createPoint(1d, 2d));
 		assertEquals(bc.getNbPoints(), bc.getFirstCtrlPts().size());
 	}
 
 	@Test
-	public void testCreateBezierCurveFromSameNewPoint() {
+	void testCreateBezierCurveFromSameNewPoint() {
 		BezierCurve bc = ShapeFactory.INST.createBezierCurve(Collections.singletonList(ShapeFactory.INST.createPoint()));
 		bc = ShapeFactory.INST.createBezierCurveFrom(bc, ShapeFactory.INST.createPoint(1d, 2d));
 		assertEqualsDouble(1d, bc.getPtAt(1).getX());
@@ -83,45 +84,45 @@ public class TestShapeFactory implements HelperTest {
 	}
 
 	@Test
-	public void testCreateBezierCurveFromSameNewCtrlPoint() {
+	void testCreateBezierCurveFromSameNewCtrlPoint() {
 		BezierCurve bc = ShapeFactory.INST.createBezierCurve(Collections.singletonList(ShapeFactory.INST.createPoint()));
 		bc = ShapeFactory.INST.createBezierCurveFrom(bc, ShapeFactory.INST.createPoint(1d, 2d));
 		assertEqualsDouble(1d, bc.getFirstCtrlPtAt(1).getX());
 		assertEqualsDouble(2d + BezierCurve.DEFAULT_POSITION_CTRL, bc.getFirstCtrlPtAt(1).getY());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testNullPointsPolygonCrash() {
-		ShapeFactory.INST.createPolygon(null);
+	@Test
+	void testNullPointsPolygonCrash() {
+		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createPolygon(null));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testNullPointsPolylineCrash() {
-		ShapeFactory.INST.createPolyline(null);
+	@Test
+	void testNullPointsPolylineCrash() {
+		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createPolyline(null));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testNullPointsBCCrash() {
-		ShapeFactory.INST.createBezierCurve(null);
+	@Test
+	void testNullPointsBCCrash() {
+		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createBezierCurve(null));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testBadEquationPlot() {
-		ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 3, "y", false);
+	@Test
+	void testBadEquationPlot() {
+		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 3, "y", false));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testBadMinMaxPlot() {
-		ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 3, 1, "x", false);
+	@Test
+	void testBadMinMaxPlot() {
+		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 3, 1, "x", false));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testBadMinPlot() {
-		ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), Double.NaN, 1, "x", false);
+	@Test
+	void testBadMinPlot() {
+		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), Double.NaN, 1, "x", false));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testBadMaxPlot() {
-		ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, Double.NaN, "x", false);
+	@Test
+	void testBadMaxPlot() {
+		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, Double.NaN, "x", false));
 	}
 }

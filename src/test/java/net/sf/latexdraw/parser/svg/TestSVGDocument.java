@@ -17,34 +17,34 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSVGDocument {
-	protected SVGDocument doc1;
-	protected SVGDocument doc2;
+	SVGDocument doc1;
+	SVGDocument doc2;
 
 	@BeforeEach
-	public void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
+	void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
 		doc1 = new SVGDocument();
 		doc2 = new SVGDocument(new URI("src/test/resources/test.svg"));
 	}
 
 	@Test
-	public void testSVGDocumentNULL() {
+	void testSVGDocumentNULL() {
 		assertThrows(IllegalArgumentException.class, () -> new SVGDocument(null));
 	}
 
 	@Test
-	public void testSVGDocumentInvalidStr() {
+	void testSVGDocumentInvalidStr() {
 		assertThrows(FileNotFoundException.class, () -> new SVGDocument(new URI("dfqsfg")));
 	}
 
 	@Test
-	public void testSVGDocument() throws MalformedSVGDocument, URISyntaxException, IOException {
+	void testSVGDocument() throws MalformedSVGDocument, URISyntaxException, IOException {
 		final SVGDocument doc = new SVGDocument(new URI("src/test/resources/test.svg"));
 		assertNotNull(doc.getFirstChild());
 		assertNotNull(doc.getLastChild());
 	}
 
 	@Test
-	public void testSVGDocument2() {
+	void testSVGDocument2() {
 		final SVGDocument doc = new SVGDocument();
 		assertNotNull(doc.getFirstChild());
 		assertNotNull(doc.getLastChild());
@@ -52,17 +52,17 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testAdoptNodeNULL() {
+	void testAdoptNodeNULL() {
 		assertThrows(DOMException.class, () -> doc1.adoptNode(null));
 	}
 
 	@Test
-	public void testAdoptNodeKO() {
+	void testAdoptNodeKO() {
 		assertThrows(DOMException.class, () -> doc1.adoptNode(new SVGComment("", doc2)));
 	}
 
 	@Test
-	public void testAdoptNodeOK() {
+	void testAdoptNodeOK() {
 		final SVGSVGElement elt = new SVGSVGElement(doc2);
 		doc1.adoptNode(elt);
 		assertEquals(doc1, elt.getOwnerDocument());
@@ -70,12 +70,12 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testGetDocumentElement() {
+	void testGetDocumentElement() {
 		assertNotNull(doc1.getDocumentElement());
 	}
 
 	@Test
-	public void testSetDocumentURI() {
+	void testSetDocumentURI() {
 		doc1.setDocumentURI(null);
 		assertNull(doc1.getDocumentURI());
 		doc1.setDocumentURI("coucou");
@@ -83,7 +83,7 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testSetXmlStandalone() {
+	void testSetXmlStandalone() {
 		doc1.setXmlStandalone(false);
 		assertFalse(doc1.getXmlStandalone());
 		doc1.setXmlStandalone(true);
@@ -91,7 +91,7 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testSetXmlVersion() {
+	void testSetXmlVersion() {
 		doc1.setXmlVersion(null);
 		assertNull(doc1.getXmlVersion());
 		doc1.setXmlVersion("coucou");
@@ -99,7 +99,7 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testUselessMethods() {
+	void testUselessMethods() {
 		assertNull(doc1.getAttributes());
 		assertNotNull(doc1.getChildNodes());
 		assertEquals(0, doc1.getChildNodes().getLength());
@@ -122,13 +122,13 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testGetFirstChild() {
+	void testGetFirstChild() {
 		assertNotNull(doc1.getFirstChild());
 		assertNotNull(doc2.getFirstChild());
 	}
 
 	@Test
-	public void testGetLastChild() {
+	void testGetLastChild() {
 		assertNotNull(doc1.getLastChild());
 		assertNotNull(doc2.getLastChild());
 		assertEquals(doc1.getLastChild(), doc1.getFirstChild());
@@ -136,25 +136,25 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testGetNodeName() {
+	void testGetNodeName() {
 		assertEquals("#document", doc1.getNodeName());
 		assertEquals("#document", doc2.getNodeName());
 	}
 
 	@Test
-	public void testGetNodeType() {
+	void testGetNodeType() {
 		assertEquals(Node.DOCUMENT_NODE, doc1.getNodeType());
 		assertEquals(Node.DOCUMENT_NODE, doc2.getNodeType());
 	}
 
 	@Test
-	public void testHasChildNode() {
+	void testHasChildNode() {
 		assertTrue(doc1.hasChildNodes());
 		assertTrue(doc2.hasChildNodes());
 	}
 
 	@Test
-	public void testIsEqualNode() {
+	void testIsEqualNode() {
 		final SVGDocument doc = new SVGDocument();
 		assertTrue(doc1.isEqualNode(doc));
 		assertFalse(doc1.isEqualNode(null));
@@ -162,7 +162,7 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testIsEqualNodeURI() throws MalformedSVGDocument, URISyntaxException, IOException {
+	void testIsEqualNodeURI() throws MalformedSVGDocument, URISyntaxException, IOException {
 		final SVGDocument doc = new SVGDocument(new URI("src/test/resources/test.svg"));
 		assertTrue(doc2.isEqualNode(doc));
 		assertFalse(doc2.isEqualNode(null));
@@ -170,7 +170,7 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testIsSameNode() {
+	void testIsSameNode() {
 		assertTrue(doc1.isEqualNode(doc1));
 		assertTrue(doc2.isEqualNode(doc2));
 		assertFalse(doc1.isEqualNode(null));
@@ -180,37 +180,37 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	public void testCreateElementKO() {
+	void testCreateElementKO() {
 		assertThrows(DOMException.class, () -> doc1.createElement(null));
 	}
 
 	@Test
-	public void testCreateElementOK() {
+	void testCreateElementOK() {
 		final SVGElement elt = (SVGElement) doc1.createElement("test");
 		assertEquals("test", elt.getNodeName());
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
 	@Test
-	public void testCreateTextNodeKO() {
+	void testCreateTextNodeKO() {
 		assertThrows(DOMException.class, () -> doc1.createTextNode(null));
 	}
 
 
 	@Test
-	public void testCreateTextNodeOK() {
+	void testCreateTextNodeOK() {
 		final SVGText elt = (SVGText) doc1.createTextNode("test");
 		assertEquals("test", elt.getData());
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
 	@Test
-	public void testCreateCommentKO() {
+	void testCreateCommentKO() {
 		assertThrows(DOMException.class, () -> doc1.createComment(null));
 	}
 
 	@Test
-	public void testCreateCommentOK() {
+	void testCreateCommentOK() {
 		final SVGComment elt = (SVGComment) doc1.createComment("test");
 		assertEquals("test", elt.getData());
 		assertEquals(doc1, elt.getOwnerDocument());

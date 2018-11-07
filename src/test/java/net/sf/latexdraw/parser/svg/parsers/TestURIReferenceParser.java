@@ -1,41 +1,40 @@
 package net.sf.latexdraw.parser.svg.parsers;
 
-import net.sf.latexdraw.data.StringData;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@RunWith(Theories.class)
 public class TestURIReferenceParser {
 	URIReferenceParser p;
 
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		p = new URIReferenceParser("url(#id)");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testConstructorKO() {
-		new URIReferenceParser(null);
+	@Test
+	void testConstructorKO() {
+		assertThrows(IllegalArgumentException.class, () -> new URIReferenceParser(null));
 	}
 
 	@Test
-	public void testGetURIOK() {
+	void testGetURIOK() {
 		assertEquals("id", p.getURI());
 	}
 
 	@Test
-	public void testSetCodeOK() {
+	void testSetCodeOK() {
 		p.setCode("url(#id2)");
 		assertEquals("id2", p.getURI());
 	}
 
-	@Theory
-	public void testSetCodeKO(@StringData(vals = {"", "url(#id", "url#id)", "url(id)", "u", "url(", "url(#)"}) final String data) {
+	@ParameterizedTest
+	@ValueSource(strings = {"", "url(#id", "url#id)", "url(id)", "u", "url(", "url(#)"})
+	void testSetCodeKO(final String data) {
 		p.setCode(data);
 		assertEquals("", p.getURI());
 	}

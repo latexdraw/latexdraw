@@ -1,9 +1,9 @@
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.data.AxesSupplier;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.model.CompareShapeMatcher;
-import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,7 @@ public class TestSVGAxes extends TestSVGBase<Axes> {
 
 	@BeforeEach
 	void setUp() {
-		sh = AxesSupplier.createAxes();
+		sh = ShapeSupplier.createAxes();
 	}
 
 	@ParameterizedTest

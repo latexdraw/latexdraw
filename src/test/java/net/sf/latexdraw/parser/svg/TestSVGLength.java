@@ -9,17 +9,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestSVGLength {
 	@Test
-	public void testConstructor1() {
+	void testConstructor1() {
 		assertThrows(IllegalArgumentException.class, () -> new SVGLength(1, null, "1"));
 	}
 
 	@Test
-	public void testConstructor2() {
+	void testConstructor2() {
 		assertThrows(IllegalArgumentException.class, () -> new SVGLength(1, LengthType.CM, null));
 	}
 
 	@Test
-	public void testGetters() {
+	void testGetters() {
 		final SVGLength l = new SVGLength(1, LengthType.MM, "1");
 		assertEquals(1d, l.getValue(), 0.000001);
 		assertEquals(LengthType.MM, l.getLengthType());

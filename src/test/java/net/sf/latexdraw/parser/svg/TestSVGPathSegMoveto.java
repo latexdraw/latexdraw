@@ -1,19 +1,20 @@
 package net.sf.latexdraw.parser.svg;
 
 import java.text.ParseException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import net.sf.latexdraw.parser.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSVGPathSegMoveto {
 	SVGPathSegMoveto seg;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		seg = new SVGPathSegMoveto(-1d, -2d, false);
 	}
@@ -27,13 +28,15 @@ public class TestSVGPathSegMoveto {
 
 	@Test
 	public void testToString() throws ParseException {
+		final AtomicBoolean done = new AtomicBoolean(false);
 		final SVGPathParser parser = new SVGPathParser(seg.toString(), pathSeg -> {
-			assertTrue(pathSeg instanceof SVGPathSegMoveto);
+			done.set(true);
 			final SVGPathSegMoveto seg2 = (SVGPathSegMoveto) pathSeg;
 			assertEquals(seg.getX(), seg2.getX(), 0.0001);
 			assertEquals(seg.getY(), seg2.getY(), 0.0001);
 			assertEquals(seg.isRelative(), seg2.isRelative());
 		});
 		parser.parse();
+		assertTrue(done.get());
 	}
 }

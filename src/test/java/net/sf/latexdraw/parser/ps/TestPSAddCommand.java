@@ -1,6 +1,5 @@
 package net.sf.latexdraw.parser.ps;
 
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

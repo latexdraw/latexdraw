@@ -25,7 +25,6 @@ public class TestSVGSkewYTransformation {
 		assertThrows(IllegalArgumentException.class, () -> new SVGTransform.SVGSkewYTransformation(code));
 	}
 
-
 	@Test
 	void testTransfoOKWS() {
 		final SVGTransform.SVGSkewYTransformation transfo = new SVGTransform.SVGSkewYTransformation("\n \t skewY (		21.65\n \n\t     )   \n");

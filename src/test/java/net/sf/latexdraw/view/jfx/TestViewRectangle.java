@@ -1,6 +1,6 @@
 package net.sf.latexdraw.view.jfx;
 
-import net.sf.latexdraw.data.RectSupplier;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.model.api.shape.BorderPos;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, Rectangle, javafx.scene.shape.Rectangle> {
 	@Override
 	protected Rectangle createModel() {
-		return RectSupplier.createRectangle();
+		return ShapeSupplier.createRectangle();
 	}
 
 	@Test

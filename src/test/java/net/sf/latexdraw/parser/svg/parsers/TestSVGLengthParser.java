@@ -1,30 +1,24 @@
 package net.sf.latexdraw.parser.svg.parsers;
 
 import java.text.ParseException;
-import net.sf.latexdraw.data.StringData;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@RunWith(Theories.class)
+
 public class TestSVGLengthParser {
-	@Rule public ExpectedException exceptionGrabber = ExpectedException.none();
-
-	@Theory
-	public void testParseLengthKO(@StringData(vals = {"", "1m", "m", "1p", "1e1i", "1ci", "1 c "}) final String data) throws ParseException {
-		exceptionGrabber.expect(ParseException.class);
-		new SVGLengthParser(data).parseLength();
+	@ParameterizedTest
+	@ValueSource(strings = {"", "1m", "m", "1p", "1e1i", "1ci", "1 c "})
+	public void testParseLengthKO(final String data) {
+		assertThrows(ParseException.class, () -> new SVGLengthParser(data).parseLength());
 	}
 
 	@Test
 	public void testParseLengthNULL() {
-		exceptionGrabber.expect(IllegalArgumentException.class);
-		new SVGLengthParser(null);
+		assertThrows(IllegalArgumentException.class, () -> new SVGLengthParser(null));
 	}
 
 	@Test
@@ -91,10 +85,10 @@ public class TestSVGLengthParser {
 		assertEquals(UnitProcessor.INSTANCE.toUserUnit(0.876, SVGLength.LengthType.NUMBER), l.getValue(), 0.001);
 	}
 
-	@Theory
-	public void testParseCoordinate(@StringData(vals = {"", "1m", "m", "1p", "1e1i", "1ci", "1 c "}) final String data) throws ParseException {
-		exceptionGrabber.expect(ParseException.class);
-		new SVGLengthParser(data).parseCoordinate();
+	@ParameterizedTest
+	@ValueSource(strings = {"", "1m", "m", "1p", "1e1i", "1ci", "1 c "})
+	public void testParseCoordinate(final String data) {
+		assertThrows(ParseException.class, () -> new SVGLengthParser(data).parseCoordinate());
 	}
 
 	@Test

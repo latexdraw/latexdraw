@@ -1,18 +1,19 @@
 package net.sf.latexdraw.parser.svg;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestSVGPathElement extends TestBaseSVGElement {
-	@Test(expected = IllegalArgumentException.class)
-	public void testContructorFail1() throws MalformedSVGDocument {
-		new SVGPathElement(null, null);
+	@Test
+	public void testContructorFail1() {
+		assertThrows(IllegalArgumentException.class, () -> new SVGPathElement(null, null));
 	}
 
-	@Test(expected = MalformedSVGDocument.class)
-	public void testContructorFail2() throws MalformedSVGDocument {
-		new SVGPathElement(node, null);
+	@Test
+	public void testContructorFail2() {
+		assertThrows(MalformedSVGDocument.class, () -> new SVGPathElement(node, null));
 	}
 
 	@Test

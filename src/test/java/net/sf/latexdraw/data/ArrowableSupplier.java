@@ -10,7 +10,7 @@ import org.junit.experimental.theories.PotentialAssignment;
 
 public class ArrowableSupplier extends ParameterSupplier {
 	public static Stream<ArrowableSingleShape> createArrowableShapes() {
-		return Stream.of(ShapeSupplier.createPolyline(), AxesSupplier.createAxes(), ShapeSupplier.createBezierCurve(), ArcSupplier.createArc());
+		return Stream.of(ShapeSupplier.createPolyline(), ShapeSupplier.createAxes(), ShapeSupplier.createBezierCurve(), ArcSupplier.createArc());
 	}
 
 	public static Stream<ArrowableSingleShape> createDiversifiedArrowableShapes() {

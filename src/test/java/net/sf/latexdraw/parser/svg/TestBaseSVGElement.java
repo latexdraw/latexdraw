@@ -1,11 +1,12 @@
 package net.sf.latexdraw.parser.svg;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.DOMException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class TestBaseSVGElement {
 	protected SVGElement node;
@@ -13,14 +14,14 @@ public abstract class TestBaseSVGElement {
 
 	public abstract String getNameNode();
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeEach
+	void setUp() throws Exception {
 		doc = new SVGDocument();
 		node = (SVGElement) doc.createElement(getNameNode());
 	}
 
 	@Test
-	public void testGetStroke() {
+	void testGetStroke() {
 		node.removeAttribute(SVGAttributes.SVG_STROKE);
 		assertNull(node.getStroke());
 
@@ -31,12 +32,12 @@ public abstract class TestBaseSVGElement {
 	}
 
 	@Test
-	public void testGetNodeName() {
+	void testGetNodeName() {
 		assertEquals(getNameNode(), node.getNodeName());
 	}
 
 	@Test
-	public void testSetNodeName() {
+	void testSetNodeName() {
 		node.setNodeName("test");
 		assertEquals("test", node.getNodeName());
 		node.setNodeName(getNameNode());
@@ -44,7 +45,7 @@ public abstract class TestBaseSVGElement {
 	}
 
 	@Test
-	public void testSetParent() {
+	void testSetParent() {
 		final SVGElement elt = (SVGElement) doc.createElement("elt");
 
 		node.setParent(null);
@@ -59,7 +60,7 @@ public abstract class TestBaseSVGElement {
 	}
 
 	@Test
-	public void testGetAttribute() {
+	void testGetAttribute() {
 		assertEquals("", node.getAttribute(null));
 		assertEquals("", node.getAttribute(""));
 		node.setAttribute("testAttr", "valAttr");
@@ -67,7 +68,7 @@ public abstract class TestBaseSVGElement {
 	}
 
 	@Test
-	public void testGetAttributeNode() {
+	void testGetAttributeNode() {
 		assertNull(node.getAttributeNode(null));
 		assertNull(node.getAttributeNode(""));
 		node.setAttribute("testAttr2", "valAttr2");
@@ -75,22 +76,22 @@ public abstract class TestBaseSVGElement {
 	}
 
 	@Test
-	public void testGetTagName() {
+	void testGetTagName() {
 		assertEquals(node.getNodeName(), node.getTagName());
 	}
 
-	@Test(expected = DOMException.class)
-	public void testAppendChildNull() {
-		node.appendChild(null);
-	}
-
-	@Test(expected = DOMException.class)
-	public void testAppendChildEmpty() {
-		node.appendChild(new SVGAttr("", "", node));
+	@Test
+	void testAppendChildNull() {
+		assertThrows(DOMException.class, () -> node.appendChild(null));
 	}
 
 	@Test
-	public void testAppendChild() {
+	void testAppendChildEmpty() {
+		assertThrows(DOMException.class, () -> node.appendChild(new SVGAttr("", "", node)));
+	}
+
+	@Test
+	void testAppendChild() {
 		final SVGElement elt = (SVGElement) doc.createElement("eltAppendChild");
 		assertEquals(elt, node.appendChild(elt));
 		assertEquals(1, node.getChildren("eltAppendChild").getLength());

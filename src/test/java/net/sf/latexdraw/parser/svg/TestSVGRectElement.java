@@ -1,47 +1,48 @@
 package net.sf.latexdraw.parser.svg;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSVGRectElement extends TestBaseSVGElement {
-	@Test(expected = IllegalArgumentException.class)
-	public void testContructorFail1() throws MalformedSVGDocument {
-		new SVGRectElement(null, null);
+	@Test
+	public void testContructorFail1() {
+		assertThrows(IllegalArgumentException.class, () -> new SVGRectElement(null, null));
 	}
 
-	@Test(expected = MalformedSVGDocument.class)
-	public void testContructorFail2() throws MalformedSVGDocument {
-		new SVGRectElement(node, null);
+	@Test
+	public void testContructorFail2() {
+		assertThrows(MalformedSVGDocument.class, () -> new SVGRectElement(node, null));
 	}
 
-	@Test(expected = MalformedSVGDocument.class)
-	public void testContructorFail3() throws MalformedSVGDocument {
+	@Test
+	public void testContructorFail3() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "dsd");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "dsd");
-		new SVGRectElement(node, null);
+		assertThrows(MalformedSVGDocument.class, () -> new SVGRectElement(node, null));
 	}
 
-	@Test(expected = MalformedSVGDocument.class)
-	public void testContructorFail4() throws MalformedSVGDocument {
+	@Test
+	public void testContructorFail4() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "1");
-		new SVGRectElement(node, null);
+		assertThrows(MalformedSVGDocument.class, () -> new SVGRectElement(node, null));
 	}
 
-	@Test(expected = MalformedSVGDocument.class)
-	public void testContructorFail5() throws MalformedSVGDocument {
+	@Test
+	public void testContructorFail5() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "-1");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "10");
-		new SVGRectElement(node, null);
+		assertThrows(MalformedSVGDocument.class, () -> new SVGRectElement(node, null));
 	}
 
-	@Test(expected = MalformedSVGDocument.class)
-	public void testContructorFail6() throws MalformedSVGDocument {
+	@Test
+	public void testContructorFail6() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "-1");
-		new SVGRectElement(node, null);
+		assertThrows(MalformedSVGDocument.class, () -> new SVGRectElement(node, null));
 	}
 
 	@Test

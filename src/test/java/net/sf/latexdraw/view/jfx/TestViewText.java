@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.data.TextSupplier;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Text;
 import org.junit.jupiter.api.AfterAll;
@@ -44,7 +44,7 @@ public class TestViewText extends TestViewShape<ViewText, Text> {
 
 	@Override
 	protected Text createModel() {
-		return TextSupplier.createText();
+		return ShapeSupplier.createText();
 	}
 
 	private ImageView getImage() {

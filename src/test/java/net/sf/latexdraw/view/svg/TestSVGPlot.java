@@ -1,6 +1,6 @@
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.data.PlotSupplier;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.model.CompareShapeMatcher;
 import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.PlotStyle;
@@ -19,7 +19,7 @@ public class TestSVGPlot extends TestSVGBase<Plot> {
 	@ParameterizedTest
 	@EnumSource(PlotStyle.class)
 	void testPlotParamsWithAllStyle(final PlotStyle style) {
-		final Plot sh = PlotSupplier.createPlot();
+		final Plot sh = ShapeSupplier.createPlot();
 		sh.setPlotStyle(style);
 		final Plot s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsPlot(sh, s2);

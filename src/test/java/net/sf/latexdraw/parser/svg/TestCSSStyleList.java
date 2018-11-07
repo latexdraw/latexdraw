@@ -1,86 +1,86 @@
 package net.sf.latexdraw.parser.svg;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestCSSStyleList {
 	CSSStyleList list;
 
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		list = new CSSStyleList();
 	}
 
 	@Test
-	public void testAddCSSStyleNULLNULL() {
+	void testAddCSSStyleNULLNULL() {
 		list.addCSSStyle(null, null);
 		assertEquals(0, list.size());
 	}
 
 	@Test
-	public void testAddCSSStyleEmptyNULL() {
+	void testAddCSSStyleEmptyNULL() {
 		list.addCSSStyle("", null);
 		assertEquals(0, list.size());
 	}
 
 	@Test
-	public void testAddCSSStyleNULLEmpty() {
+	void testAddCSSStyleNULLEmpty() {
 		list.addCSSStyle(null, "");
 		assertEquals(0, list.size());
 	}
 
 	@Test
-	public void testAddCSSStyleOK() {
+	void testAddCSSStyleOK() {
 		list.addCSSStyle("name", "value");
 		assertEquals(1, list.size());
 		assertEquals("value", list.getCSSValue("name"));
 	}
 
 	@Test
-	public void testGetCSSValueNULL() {
+	void testGetCSSValueNULL() {
 		assertNull(list.getCSSValue(null));
 	}
 
 	@Test
-	public void testGetCSSValueEmpty() {
+	void testGetCSSValueEmpty() {
 		assertNull(list.getCSSValue(""));
 	}
 
 	@Test
-	public void testGetCSSValueNotExisting() {
+	void testGetCSSValueNotExisting() {
 		assertNull(list.getCSSValue("test"));
 	}
 
 	@Test
-	public void testGetCSSValueOK() {
+	void testGetCSSValueOK() {
 		list.addCSSStyle("name", "value");
 		assertEquals(1, list.size());
 		assertEquals("value", list.getCSSValue("name"));
 	}
 
 	@Test
-	public void testOnCSSStyleNULLNULL() {
+	void testOnCSSStyleNULLNULL() {
 		list.onCSSStyle(null, null);
 		assertEquals(0, list.size());
 	}
 
 	@Test
-	public void testOnCSSStyleEmptyNULL() {
+	void testOnCSSStyleEmptyNULL() {
 		list.onCSSStyle("", null);
 		assertEquals(0, list.size());
 	}
 
 	@Test
-	public void testOnCSSStyleNULLEmpty() {
+	void testOnCSSStyleNULLEmpty() {
 		list.onCSSStyle(null, "");
 		assertEquals(0, list.size());
 	}
 
 	@Test
-	public void testOnCSSStyleOK() {
+	void testOnCSSStyleOK() {
 		list.onCSSStyle("name", "value");
 		assertEquals(1, list.size());
 		assertEquals("value", list.getCSSValue("name"));

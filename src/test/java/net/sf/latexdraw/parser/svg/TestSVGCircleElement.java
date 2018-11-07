@@ -2,58 +2,59 @@ package net.sf.latexdraw.parser.svg;
 
 import net.sf.latexdraw.parser.svg.parsers.SVGLength;
 import net.sf.latexdraw.parser.svg.parsers.UnitProcessor;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSVGCircleElement extends TestBaseSVGElement {
 	@Override
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		doc = new SVGDocument();
 		node = (SVGElement) doc.createElement(SVGElements.SVG_CIRCLE);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testContructorFail1() throws MalformedSVGDocument {
-		new SVGCircleElement(null, null);
-	}
-
-	@Test(expected = MalformedSVGDocument.class)
-	public void testContructorFail2() throws MalformedSVGDocument {
-		new SVGCircleElement(node, null);
-	}
-
-	@Test(expected = MalformedSVGDocument.class)
-	public void testContructorFail3() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_R, "dsd");
-		new SVGCircleElement(node, null);
-	}
-
-	@Test(expected = MalformedSVGDocument.class)
-	public void testContructorFail4() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_R, "-1");
-		new SVGCircleElement(node, null);
+	@Test
+	void testContructorFail1() {
+		assertThrows(IllegalArgumentException.class, () -> new SVGCircleElement(null, null));
 	}
 
 	@Test
-	public void testContructorOK() throws MalformedSVGDocument {
+	void testContructorFail2() {
+		assertThrows(MalformedSVGDocument.class, () -> new SVGCircleElement(node, null));
+	}
+
+	@Test
+	void testContructorFail3() {
+		node.setAttribute(SVGAttributes.SVG_R, "dsd");
+		assertThrows(MalformedSVGDocument.class, () -> new SVGCircleElement(node, null));
+	}
+
+	@Test
+	void testContructorFail4() {
+		node.setAttribute(SVGAttributes.SVG_R, "-1");
+		assertThrows(MalformedSVGDocument.class, () -> new SVGCircleElement(node, null));
+	}
+
+	@Test
+	void testContructorOK() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		new SVGCircleElement(node, null);
 	}
 
 	@Test
-	public void testGetCy0() throws MalformedSVGDocument {
+	void testGetCy0() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
 		assertEquals(0d, e.getCy(), 0.0001);
 	}
 
 	@Test
-	public void testGetCyOkRCY() throws MalformedSVGDocument {
+	void testGetCyOkRCY() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		node.setAttribute(SVGAttributes.SVG_CY, "40");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
@@ -61,7 +62,7 @@ public class TestSVGCircleElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	public void testGetCyPix() throws MalformedSVGDocument {
+	void testGetCyPix() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		node.setAttribute(SVGAttributes.SVG_CY, "40px ");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
@@ -69,7 +70,7 @@ public class TestSVGCircleElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	public void testGetCycm() throws MalformedSVGDocument {
+	void testGetCycm() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		node.setAttribute(SVGAttributes.SVG_CY, " 40 cm ");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
@@ -77,14 +78,14 @@ public class TestSVGCircleElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	public void testGetCx0() throws MalformedSVGDocument {
+	void testGetCx0() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
 		assertEquals(0d, e.getCx(), 0.0001);
 	}
 
 	@Test
-	public void testGetCxVal() throws MalformedSVGDocument {
+	void testGetCxVal() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		node.setAttribute(SVGAttributes.SVG_CX, "76.987");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
@@ -92,7 +93,7 @@ public class TestSVGCircleElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	public void testGetCxPix() throws MalformedSVGDocument {
+	void testGetCxPix() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		node.setAttribute(SVGAttributes.SVG_CX, "40px ");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
@@ -100,7 +101,7 @@ public class TestSVGCircleElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	public void testGetCxmm() throws MalformedSVGDocument {
+	void testGetCxmm() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		node.setAttribute(SVGAttributes.SVG_CX, " 30.5 mm ");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
@@ -108,28 +109,28 @@ public class TestSVGCircleElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	public void testEnableRenderingKO() throws MalformedSVGDocument {
+	void testEnableRenderingKO() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "0");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
 		assertFalse(e.enableRendering());
 	}
 
 	@Test
-	public void testEnableRenderingOK() throws MalformedSVGDocument {
+	void testEnableRenderingOK() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
 		assertTrue(e.enableRendering());
 	}
 
 	@Test
-	public void testGetR() throws MalformedSVGDocument {
+	void testGetR() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "20");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
 		assertEquals(20d, e.getR(), 0.0001);
 	}
 
 	@Test
-	public void testGetRpt() throws MalformedSVGDocument {
+	void testGetRpt() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "20 pt");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
 		assertEquals(UnitProcessor.INSTANCE.toUserUnit(20, SVGLength.LengthType.PT), e.getR(), 0.0001);

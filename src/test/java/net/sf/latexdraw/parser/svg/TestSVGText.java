@@ -1,91 +1,92 @@
 package net.sf.latexdraw.parser.svg;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Node;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestSVGText {
 	SVGDocument doc;
 	SVGText txt;
 
-	@Before
-	public void setUp() {
+	@BeforeEach
+	void setUp() {
 		doc = new SVGDocument();
 		txt = createSVGText("test", doc);
 	}
 
-	@Test(expected = NullPointerException.class)
-	public void testConstructorFail1() {
-		txt = createSVGText(null, null);
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void testConstructorFail2() {
-		txt = createSVGText(null, doc);
+	@Test
+	void testConstructorFail1() {
+		assertThrows(NullPointerException.class, () -> txt = createSVGText(null, null));
 	}
 
 	@Test
-	public void testConstructorOK1() {
+	void testConstructorFail2() {
+		assertThrows(NullPointerException.class, () -> txt = createSVGText(null, doc));
+	}
+
+	@Test
+	void testConstructorOK1() {
 		txt = createSVGText("a", null);
 		assertEquals("a", txt.getData());
 		assertNull(txt.getOwnerDocument());
 	}
 
 	@Test
-	public void testConstructorOK2() {
+	void testConstructorOK2() {
 		assertEquals("test", txt.getData());
 		assertEquals(txt.getOwnerDocument(), doc);
 	}
 
 	@Test
-	public void testGetNodeValue() {
+	void testGetNodeValue() {
 		assertEquals("test", txt.getNodeValue());
 		txt = createSVGText("", doc);
 		assertEquals("", txt.getNodeValue());
 	}
 
 	@Test
-	public void testAppendDataDefault() {
+	void testAppendDataDefault() {
 		assertEquals("test", txt.getData());
 	}
 
 	@Test
-	public void testAppendDataNULL() {
+	void testAppendDataNULL() {
 		txt.appendData(null);
 		assertEquals("test", txt.getData());
 	}
 
 	@Test
-	public void testAppendDataAppend() {
+	void testAppendDataAppend() {
 		txt.appendData("coucou");
 		assertEquals("testcoucou", txt.getData());
 	}
 
 	@Test
-	public void testGetData() {
+	void testGetData() {
 		assertEquals("test", txt.getData());
 	}
 
 	@Test
-	public void testGetLength() {
+	void testGetLength() {
 		assertEquals(txt.getLength(), "text".length());
 	}
 
 	@Test
-	public void testGetNodeType() {
+	void testGetNodeType() {
 		assertEquals(Node.TEXT_NODE, txt.getNodeType());
 	}
 
 	@Test
-	public void testSetData() {
+	void testSetData() {
 		txt.setData("coucou");
 		assertEquals("coucou", txt.getData());
 	}
 
-	protected SVGText createSVGText(final String str, final SVGDocument document) {
+	SVGText createSVGText(final String str, final SVGDocument document) {
 		return new SVGText(str, document);
 	}
 }

@@ -6,13 +6,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Axes;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Grid;
 import net.sf.latexdraw.model.api.shape.Picture;
+import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.Polygon;
 import net.sf.latexdraw.model.api.shape.Polyline;
+import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Rhombus;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Square;
+import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.util.SystemService;
 import org.junit.experimental.theories.ParameterSignature;
@@ -20,6 +26,57 @@ import org.junit.experimental.theories.ParameterSupplier;
 import org.junit.experimental.theories.PotentialAssignment;
 
 public class ShapeSupplier extends ParameterSupplier {
+	public static Rectangle createRectangle() {
+		return ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(51d, 73d), 354d, 234d);
+	}
+
+	public static Stream<Rectangle> createDiversifiedRectangle() {
+		return Stream.of(createRectangle(), ParameteriseShapeData.INST.setRectangleData1(createRectangle()));
+	}
+
+	public static Plot createPlot() {
+		return ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(23, 300), 1d, 10d, "x", false);
+	}
+
+	public static Stream<Plot> createDiversifiedPlot() {
+		return Stream.of(createPlot(), ParameteriseShapeData.INST.setPlotData1(createPlot()), ParameteriseShapeData.INST.setPlotData2(createPlot()),
+			ParameteriseShapeData.INST.setPlotData3(createPlot()), ParameteriseShapeData.INST.setPlotData4(createPlot()));
+	}
+
+	public static Grid createGrid() {
+		return ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint(130d, 284d));
+	}
+
+	public static Stream<Grid> createDiversifiedGrid() {
+		return Stream.of(createGrid(), ParameteriseShapeData.INST.setGridData1(createGrid()), ParameteriseShapeData.INST.setGridData2(createGrid()),
+			ParameteriseShapeData.INST.setGridData3(createGrid()));
+	}
+
+	public static Dot createDot() {
+		return ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint(120, 234));
+	}
+
+	public static Stream<Dot> createDiversifiedDot() {
+		return Stream.of(createDot(), ParameteriseShapeData.INST.setDotData1(createDot()),
+			ParameteriseShapeData.INST.setDotData2(createDot()), ParameteriseShapeData.INST.setDotData3(createDot()));
+	}
+
+	public static Axes createAxes() {
+		return ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint(133, 146));
+	}
+
+	public static Stream<Axes> createDiversifiedAxes() {
+		return Stream.of(createAxes(), ParameteriseShapeData.INST.setAxesData1(createAxes()), ParameteriseShapeData.INST.setAxesData2(createAxes()));
+	}
+
+	public static Text createText() {
+		return ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(51d, 73d), "$foo");
+	}
+
+	public static Stream<Text> createDiversifiedText() {
+		return Stream.of(createText(), ParameteriseShapeData.INST.setTextData1(createText()));
+	}
+
 	public static Picture createPicture() {
 		return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(76, 45), new SystemService());
 	}
@@ -57,10 +114,10 @@ public class ShapeSupplier extends ParameterSupplier {
 
 	public static Stream<Shape> getDiversifiedShapes() throws IOException {
 		return
-			Stream.concat(RectSupplier.createDiversifiedRectangle(), Stream.concat(ArcSupplier.createDiversifiedArc(),
-				Stream.concat(DotSupplier.createDiversifiedDot(), Stream.concat(PlotSupplier.createDiversifiedPlot(),
-				Stream.concat(GridSupplier.createDiversifiedGrid(), Stream.concat(AxesSupplier.createDiversifiedAxes(),
-				Stream.concat(TextSupplier.createDiversifiedText(),
+			Stream.concat(createDiversifiedRectangle(), Stream.concat(ArcSupplier.createDiversifiedArc(),
+				Stream.concat(createDiversifiedDot(), Stream.concat(createDiversifiedPlot(),
+				Stream.concat(createDiversifiedGrid(), Stream.concat(createDiversifiedAxes(),
+				Stream.concat(createDiversifiedText(),
 					Stream.of((Shape) EllSupplier.createEllipse(), createBezierCurve(), CircleSupplier.createCircle(), createPolyline(), createPolygon(), createSquare(),
 			ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
@@ -73,12 +130,12 @@ public class ShapeSupplier extends ParameterSupplier {
 	}
 
 	public static Stream<Shape> getStdShapesStream() {
-		return Stream.of(EllSupplier.createEllipse(), ArcSupplier.createArc(), GridSupplier.createGrid(), CircleSupplier.createCircle(),
-			RectSupplier.createRectangle(), createBezierCurve(), TextSupplier.createText(), DotSupplier.createDot(), createPolyline(),
-			createPolygon(), AxesSupplier.createAxes(), createSquare(),
+		return Stream.of(EllSupplier.createEllipse(), ArcSupplier.createArc(), createGrid(), CircleSupplier.createCircle(),
+			createRectangle(), createBezierCurve(), createText(), createDot(), createPolyline(),
+			createPolygon(), createAxes(), createSquare(),
 			ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
 				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
-			PlotSupplier.createPlot(), createRhombus(), createTriangle(), createPicture());
+			createPlot(), createRhombus(), createTriangle(), createPicture());
 	}
 
 	@Override

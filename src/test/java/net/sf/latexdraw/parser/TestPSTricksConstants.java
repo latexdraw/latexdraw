@@ -1,24 +1,24 @@
 package net.sf.latexdraw.parser;
 
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestPSTricksConstants {
 	@Test
-	public void testIsValidArrowStyleNULL() {
+	void testIsValidArrowStyleNULL() {
 		assertFalse(PSTricksConstants.isValidFillStyle(null));
 	}
 
 	@Test
-	public void testIsValidArrowStyleKO() {
+	void testIsValidArrowStyleKO() {
 		assertFalse(PSTricksConstants.isValidFillStyle("notanarrow"));
 	}
 
 	@Test
-	public void testIsValidArrowStyle() {
+	void testIsValidArrowStyle() {
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_CROSSHATCH));
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_CROSSHATCH_F));
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_GRADIENT));

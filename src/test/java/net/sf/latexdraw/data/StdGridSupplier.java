@@ -10,11 +10,11 @@ import org.junit.experimental.theories.PotentialAssignment;
 
 public class StdGridSupplier extends ParameterSupplier {
 	public static Stream<StandardGrid> createStdGrids() {
-		return Stream.of(GridSupplier.createGrid(), AxesSupplier.createAxes());
+		return Stream.of(ShapeSupplier.createGrid(), ShapeSupplier.createAxes());
 	}
 
 	public static Stream<StandardGrid> createDiversifiedStdGrids() {
-		return Stream.concat(GridSupplier.createDiversifiedGrid(), AxesSupplier.createDiversifiedAxes());
+		return Stream.concat(ShapeSupplier.createDiversifiedGrid(), ShapeSupplier.createDiversifiedAxes());
 	}
 
 	@Override

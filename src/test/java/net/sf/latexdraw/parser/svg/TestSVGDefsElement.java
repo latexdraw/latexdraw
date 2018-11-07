@@ -1,57 +1,57 @@
 package net.sf.latexdraw.parser.svg;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestSVGDefsElement extends TestBaseSVGElement {
 	SVGDefsElement defs;
 
-	@Override
-	@Before
-	public void setUp() throws Exception {
+	@BeforeEach
+	void setUpDefs() throws Exception {
 		super.setUp();
 		defs = new SVGDefsElement(node, null);
 	}
 
 	@Test
-	public void testEnableRendering() {
+	void testEnableRendering() {
 		assertFalse(defs.enableRendering());
 	}
 
 	@Test
-	public void testGetDefNULL() {
+	void testGetDefNULL() {
 		assertNull(defs.getDef(null));
 	}
 
 	@Test
-	public void testGetDefEmpty() {
+	void testGetDefEmpty() {
 		assertNull(defs.getDef(""));
 	}
 
 	@Test
-	public void testGetDefInvalid() {
+	void testGetDefInvalid() {
 		assertNull(defs.getDef("dsqd"));
 	}
 
 	@Test
-	public void testGetDefOK() {
+	void testGetDefOK() {
 		final SVGMarkerElement mark = new SVGMarkerElement(node.getOwnerDocument());
 		mark.setAttribute(SVGAttributes.SVG_ID, SVGAttributes.SVG_ID);
 		defs.appendChild(mark);
 		assertEquals(mark, defs.getDef("id"));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testContructorKO() throws MalformedSVGDocument {
-		new SVGDefsElement(null, null);
+	@Test
+	void testContructorKO() {
+		assertThrows(IllegalArgumentException.class, () -> new SVGDefsElement(null, null));
 	}
 
 	@Test
-	public void testContructorOK() throws MalformedSVGDocument {
+	void testContructorOK() throws MalformedSVGDocument {
 		new SVGDefsElement(node, null);
 	}
 

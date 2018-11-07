@@ -10,7 +10,7 @@ import org.junit.experimental.theories.PotentialAssignment;
 
 public class LineArcSupplier extends ParameterSupplier {
 	public static Stream<LineArcProp> lineArcDiversified() {
-		return Stream.concat(RectSupplier.createDiversifiedRectangle(), ShapeSupplier.createDiversifiedSquare());
+		return Stream.concat(ShapeSupplier.createDiversifiedRectangle(), ShapeSupplier.createDiversifiedSquare());
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class LineArcSupplier extends ParameterSupplier {
 		if(shapeData.withParamVariants()) {
 			instances = lineArcDiversified();
 		}else {
-			instances = Stream.of(RectSupplier.createRectangle(), ShapeSupplier.createSquare());
+			instances = Stream.of(ShapeSupplier.createRectangle(), ShapeSupplier.createSquare());
 		}
 
 		return instances.map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());

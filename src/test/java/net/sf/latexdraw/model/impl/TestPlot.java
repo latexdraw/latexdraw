@@ -2,20 +2,20 @@ package net.sf.latexdraw.model.impl;
 
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
-import net.sf.latexdraw.data.PlotSupplier;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.data.StringData;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.property.PlotProp;
-import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Circle;
 import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Plot;
+import net.sf.latexdraw.model.api.shape.PlotStyle;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.PositionShape;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.model.api.shape.PlotStyle;
 import net.sf.latexdraw.parser.ps.InvalidFormatPSFunctionException;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
@@ -39,7 +39,7 @@ public class TestPlot implements HelperTest {
 
 	@Before
 	public void setUp() {
-		shape = PlotSupplier.createPlot();
+		shape = ShapeSupplier.createPlot();
 	}
 
 	@Test
