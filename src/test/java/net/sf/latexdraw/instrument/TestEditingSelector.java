@@ -13,6 +13,7 @@ import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
+import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
@@ -46,6 +47,7 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 				bindAsEagerSingleton(LangService.class);
 				bindAsEagerSingleton(ViewFactory.class);
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
+				bindToInstance(LaTeXGenerator.class, Mockito.mock(LaTeXGenerator.class));
 				bindToInstance(StatusBarController.class, Mockito.mock(StatusBarController.class));
 				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
 				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
