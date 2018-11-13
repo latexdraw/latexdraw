@@ -14,9 +14,9 @@ public class TestDeleteShapes extends TestUndoableCommand<DeleteShapes, Object> 
 	@Override
 	protected void checkUndo() {
 		assertEquals(3, drawing.size());
-		assertEquals(shape1, drawing.getShapeAt(0));
-		assertEquals(shape2, drawing.getShapeAt(1));
-		assertEquals(shape3, drawing.getShapeAt(2));
+		assertEquals(shape1, drawing.getShapeAt(0).orElseThrow());
+		assertEquals(shape2, drawing.getShapeAt(1).orElseThrow());
+		assertEquals(shape3, drawing.getShapeAt(2).orElseThrow());
 	}
 
 	@Override
@@ -35,6 +35,6 @@ public class TestDeleteShapes extends TestUndoableCommand<DeleteShapes, Object> 
 	@Override
 	protected void checkDo() {
 		assertEquals(1, drawing.size());
-		assertEquals(shape2, drawing.getShapeAt(0));
+		assertEquals(shape2, drawing.getShapeAt(0).orElseThrow());
 	}
 }

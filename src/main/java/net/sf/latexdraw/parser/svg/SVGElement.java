@@ -18,6 +18,8 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.parser.svg.parsers.CSSStyleParser;
 import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
@@ -201,7 +203,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public NamedNodeMap getAttributes() {
+	public @NotNull NamedNodeMap getAttributes() {
 		return attributes;
 	}
 
@@ -266,19 +268,19 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public String getAttribute(final String nameAttr) {
+	public @NotNull String getAttribute(final String nameAttr) {
 		if(attributes == null || nameAttr == null) {
 			return "";
 		}
 
 		final Node n = attributes.getNamedItem(nameAttr);
 
-		return n == null ? "" : n.getNodeValue();
+		return n == null || n.getNodeValue() == null ? "" : n.getNodeValue();
 	}
 
 
 	@Override
-	public Attr getAttributeNode(final String nameAttr) {
+	public @Nullable Attr getAttributeNode(final String nameAttr) {
 		return attributes == null ? null : (Attr) attributes.getNamedItem(nameAttr);
 	}
 
@@ -305,19 +307,19 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public NodeList getChildNodes() {
+	public @NotNull NodeList getChildNodes() {
 		return children;
 	}
 
 
 	@Override
-	public Node getFirstChild() {
+	public @Nullable Node getFirstChild() {
 		return children.getNodes() == null || children.getNodes().isEmpty() ? null : children.getNodes().get(0);
 	}
 
 
 	@Override
-	public Node getLastChild() {
+	public @Nullable Node getLastChild() {
 		return children.getNodes() == null || children.getNodes().isEmpty() ? null : children.getNodes().get(children.getNodes().size() - 1);
 	}
 
@@ -342,7 +344,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public boolean hasAttributes() {
-		return attributes != null && attributes.getAttributes() != null && !attributes.getAttributes().isEmpty();
+		return attributes != null && !attributes.getAttributes().isEmpty();
 	}
 
 
@@ -393,7 +395,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public Node removeChild(final Node oldChild) {
+	public @Nullable Node removeChild(final Node oldChild) {
 		boolean ok = false;
 
 		if(oldChild != null) {
@@ -432,7 +434,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 				final SVGAttr attr = attributes.getAttributes().get(i);
 				final String attrName = attr.getName();
 
-				if(attrName != null && attrName.startsWith(xmlns) && namespaceURI.equals(attr.getValue())) {
+				if(attrName.startsWith(xmlns) && namespaceURI.equals(attr.getValue())) {
 					final int index = attrName.indexOf(':');
 
 					pref = index == -1 ? "" : attrName.substring(index + 1); //NON-NLS
@@ -499,7 +501,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 					final SVGAttr attr = attributes.getAttributes().get(i);
 					final String attrName = attr.getName();
 
-					if(attrName != null && attrName.startsWith(xmlns) && pref.equals(attrName.substring(xmlns.length()))) {
+					if(attrName.startsWith(xmlns) && pref.equals(attrName.substring(xmlns.length()))) {
 						uri = attr.getNodeValue();
 						again = false;
 					}else {
@@ -538,7 +540,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public String getUsablePrefix() {
+	public @NotNull String getUsablePrefix() {
 		final String prefix = getPrefix();
 
 		return prefix == null || prefix.isEmpty() ? "" : prefix + ':'; //NON-NLS
@@ -576,7 +578,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public Node getNextSibling() {
+	public @Nullable Node getNextSibling() {
 		if(parent == null) {
 			return null;
 		}
@@ -594,7 +596,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public Node getPreviousSibling() {
+	public @Nullable Node getPreviousSibling() {
 		if(parent == null) {
 			return null;
 		}
@@ -611,7 +613,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public NodeList getElementsByTagName(final String nameElt) {
+	public @NotNull NodeList getElementsByTagName(final String nameElt) {
 		if("*".equals(nameElt)) { //NON-NLS
 			return getChildNodes();
 		}
@@ -635,7 +637,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public NodeList getElementsByTagNameNS(final String namespaceURI, final String localName) {
+	public @NotNull NodeList getElementsByTagNameNS(final String namespaceURI, final String localName) {
 		final String all = "*"; //NON-NLS
 
 		if(all.equals(namespaceURI)) {
@@ -665,7 +667,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public String getTextContent() {
+	public @NotNull String getTextContent() {
 		final NodeList nl = getElementsByTagName(SVGText.TEXT_NODE_NAME);
 		final StringBuilder buf = new StringBuilder();
 
@@ -813,7 +815,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * @param namespaceURI The URI to look for.
 	 * @return the prefix followed by ':' or an empty string.
 	 */
-	public String lookupPrefixUsable(final String namespaceURI) {
+	public @NotNull String lookupPrefixUsable(final String namespaceURI) {
 		String pref = lookupPrefix(namespaceURI);
 
 		if(pref == null) {
@@ -1055,13 +1057,13 @@ public abstract class SVGElement implements LElement, Cloneable {
 	/**
 	 * @return The fill content of the element (if it is possible) or null.
 	 */
-	public Color getStroke() {
+	public @NotNull Optional<Color> getStroke() {
 		final Color stroke = CSSColors.INSTANCE.getRGBColour(getSVGAttribute(SVGAttributes.SVG_STROKE, getUsablePrefix()));
 
 		if(stroke == null) {
-			return parent == null ? null : parent.getStroke();
+			return parent == null ? Optional.empty() : parent.getStroke();
 		}
-		return stroke.newColorWithOpacity(getOpacity(SVGAttributes.SVG_OPACITY, SVGAttributes.SVG_STROKE_OPACITY));
+		return Optional.of(stroke.newColorWithOpacity(getOpacity(SVGAttributes.SVG_OPACITY, SVGAttributes.SVG_STROKE_OPACITY)));
 	}
 
 

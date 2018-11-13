@@ -13,10 +13,12 @@ package net.sf.latexdraw.model.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.property.IStdGridProp;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This trait encapsulates the code of the group related to the support of standard grids.
@@ -143,12 +145,12 @@ interface GroupStdGridBase extends Group {
 	}
 
 	@Override
-	default Point getGridStart() {
-		return firstIStdGrid().map(sh -> sh.getGridStart()).orElse(null);
+	default @NotNull Point getGridStart() {
+		return firstIStdGrid().map(sh -> sh.getGridStart()).orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override
-	default Point getGridEnd() {
-		return firstIStdGrid().map(sh -> sh.getGridEnd()).orElse(null);
+	default @NotNull Point getGridEnd() {
+		return firstIStdGrid().map(sh -> sh.getGridEnd()).orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 }

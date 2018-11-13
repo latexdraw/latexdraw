@@ -68,11 +68,11 @@ public class TestPlot implements HelperTest {
 		assertEquals(73, plot.getNbPlottedPoints());
 	}
 
-	@Theory
-	public void testNotValidEquation(@StringData(vals = {""}, withNull = true) final String value) {
-		final String eq = shape.getPlotEquation();
-		shape.setPlotEquation(value);
-		assertEquals(eq, shape.getPlotEquation());
+	@Test
+	public void testNotValidEquation() {
+		shape.setPlotEquation("x");
+		shape.setPlotEquation("");
+		assertEquals("x", shape.getPlotEquation());
 	}
 
 	@Test(expected = InvalidFormatPSFunctionException.class)
@@ -147,25 +147,11 @@ public class TestPlot implements HelperTest {
 		assertEquals(style, shape.getPlotStyle());
 	}
 
-	@Test
-	public void testValidPlotStyleKO() {
-		shape.setPlotStyle(PlotStyle.ECURVE);
-		shape.setPlotStyle(null);
-		assertEquals(PlotStyle.ECURVE, shape.getPlotStyle());
-	}
-
 	@Theory
 	public void testValidDotStyle(final DotStyle style) {
 		shape.setPlotStyle(PlotStyle.DOTS);
 		shape.setDotStyle(style);
 		assertEquals(style, shape.getDotStyle());
-	}
-
-	@Test
-	public void testValidDotStyleKO() {
-		shape.setDotStyle(DotStyle.BAR);
-		shape.setDotStyle(null);
-		assertEquals(DotStyle.BAR, shape.getDotStyle());
 	}
 
 	@Theory
@@ -186,14 +172,6 @@ public class TestPlot implements HelperTest {
 	@Test
 	public void testValidDotFillingCol() {
 		shape.setDotFillingCol(DviPsColors.RED);
-		assertEquals(DviPsColors.RED, shape.getDotFillingCol());
-		assertEquals(DviPsColors.RED, shape.getFillingCol());
-	}
-
-	@Test
-	public void testValidDotFillingColKO() {
-		shape.setDotFillingCol(DviPsColors.RED);
-		shape.setDotFillingCol(null);
 		assertEquals(DviPsColors.RED, shape.getDotFillingCol());
 		assertEquals(DviPsColors.RED, shape.getFillingCol());
 	}
@@ -348,7 +326,6 @@ public class TestPlot implements HelperTest {
 
 	@Test
 	public void testIsTypeOf() {
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

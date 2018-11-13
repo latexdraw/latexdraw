@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.property;
 
 import net.sf.latexdraw.model.api.shape.PlotStyle;
 import net.sf.latexdraw.parser.ps.InvalidFormatPSFunctionException;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Properties of plots.
@@ -32,14 +33,14 @@ public interface PlotProp extends Scalable, DotProp {
 	/**
 	 * @return The equation.
 	 */
-	String getPlotEquation();
+	@NotNull String getPlotEquation();
 
 	/**
 	 * Sets the equation.
-	 * @param equation The equation to set. Nothing done if null or empty.
+	 * @param equation The equation to set. Nothing done if empty.
 	 * @throws InvalidFormatPSFunctionException When the given equation is not valid.
 	 */
-	void setPlotEquation(final String equation);
+	void setPlotEquation(final @NotNull String equation);
 
 	/**
 	 * @return Returns the X-min value of the plotted function.
@@ -80,11 +81,11 @@ public interface PlotProp extends Scalable, DotProp {
 	double getPlottingStep();
 
 	/** @return The current plot style. */
-	PlotStyle getPlotStyle();
+	@NotNull PlotStyle getPlotStyle();
 
 	/**
 	 * Sets the plot style.
 	 * @param style The new plot style. Nothing done if null.
 	 */
-	void setPlotStyle(final PlotStyle style);
+	void setPlotStyle(final @NotNull PlotStyle style);
 }

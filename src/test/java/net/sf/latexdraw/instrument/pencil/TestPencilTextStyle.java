@@ -34,9 +34,9 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeTextCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -47,7 +47,7 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
 		selectPosition.execute(TextPosition.BOT_LEFT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.BOT_LEFT, ((Text) pencil.createShapeInstance()).getTextPosition());
+		assertEquals(TextPosition.BOT_LEFT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.BOT_LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -56,7 +56,7 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
 		selectPosition.execute(TextPosition.BOT_RIGHT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.BOT_RIGHT, ((Text) pencil.createShapeInstance()).getTextPosition());
+		assertEquals(TextPosition.BOT_RIGHT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.BOT_RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -65,7 +65,7 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
 		selectPosition.execute(TextPosition.BOT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.BOT, ((Text) pencil.createShapeInstance()).getTextPosition());
+		assertEquals(TextPosition.BOT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.BOT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -74,7 +74,7 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
 		selectPosition.execute(TextPosition.TOP);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.TOP, ((Text) pencil.createShapeInstance()).getTextPosition());
+		assertEquals(TextPosition.TOP, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.TOP, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -83,7 +83,7 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
 		selectPosition.execute(TextPosition.TOP_LEFT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.TOP_LEFT, ((Text) pencil.createShapeInstance()).getTextPosition());
+		assertEquals(TextPosition.TOP_LEFT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.TOP_LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -92,7 +92,7 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
 		selectPosition.execute(TextPosition.TOP_RIGHT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.TOP_RIGHT, ((Text) pencil.createShapeInstance()).getTextPosition());
+		assertEquals(TextPosition.TOP_RIGHT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.TOP_RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -101,7 +101,7 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
 		selectPosition.execute(TextPosition.RIGHT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.RIGHT, ((Text) pencil.createShapeInstance()).getTextPosition());
+		assertEquals(TextPosition.RIGHT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -110,7 +110,7 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
 		selectPosition.execute(TextPosition.LEFT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.LEFT, ((Text) pencil.createShapeInstance()).getTextPosition());
+		assertEquals(TextPosition.LEFT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -119,7 +119,7 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
 		selectPosition.execute(TextPosition.CENTER);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.CENTER, ((Text) pencil.createShapeInstance()).getTextPosition());
+		assertEquals(TextPosition.CENTER, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.CENTER, textPos.getSelectionModel().getSelectedItem());
 	}
 

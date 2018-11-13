@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.model.api.property;
 
-import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.model.api.shape.TextPosition;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Properties of text shapes.
@@ -21,26 +21,21 @@ public interface TextProp {
 	/**
 	 * @return The text position of the text (bottom-right, top-left, etc.).
 	 */
-	TextPosition getTextPosition();
+	@NotNull TextPosition getTextPosition();
 
 	/**
 	 * Sets the text position of the text.
 	 * @param textPosition The new text position of the text.
 	 */
-	void setTextPosition(final TextPosition textPosition);
+	void setTextPosition(final @NotNull TextPosition textPosition);
 
 	/**
 	 * @return the text.
 	 */
-	String getText();
+	@NotNull String getText();
 
 	/**
 	 * @param text the text to set.
 	 */
-	void setText(final String text);
-
-	/**
-	 * @return The text property.
-	 */
-	StringProperty textProperty();
+	void setText(final @NotNull String text);
 }

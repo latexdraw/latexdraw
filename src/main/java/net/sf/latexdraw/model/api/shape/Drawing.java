@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.shape;
 
 import java.util.List;
 import net.sf.latexdraw.model.api.property.SetShapesProp;
+import org.jetbrains.annotations.NotNull;
 import org.malai.properties.Modifiable;
 import org.malai.properties.Reinitialisable;
 
@@ -23,12 +24,11 @@ public interface Drawing extends SetShapesProp, Modifiable, Reinitialisable {
 	/**
 	 * @return The group that contains the selected shape. Cannot be null.
 	 */
-	Group getSelection();
+	@NotNull Group getSelection();
 
 	/**
 	 * Selects the given shapes and unselect the already selected shapes.
 	 * @param shapes The shapes to select. Cannot be null.
-	 * @throws NullPointerException when shapes is null.
 	 */
-	void setSelection(final List<Shape> shapes);
+	void setSelection(final @NotNull List<Shape> shapes);
 }

@@ -54,7 +54,6 @@ public final class LNamespace {
 	public static final String XML_COMMENTS				= "comments"; //NON-NLS
 	public static final String XML_ZOOM					= "zoom"; //NON-NLS
 	public static final String XML_UNIT					= "unit"; //NON-NLS
-	public static final String XML_CLASSIC_GRID			= "classicGrid"; //NON-NLS
 	public static final String XML_MAGNETIC_GRID_STYLE	= "magneticGridStyle"; //NON-NLS
 	public static final String XML_GRID_GAP				= "gridGap"; //NON-NLS
 	public static final String XML_MAGNETIC_GRID		= "magneticGrid"; //NON-NLS
@@ -65,9 +64,6 @@ public final class LNamespace {
 	public static final String XML_VIEWPORT_X 			= "vpx"; //NON-NLS
 	public static final String XML_VIEWPORT_Y 			= "vpy"; //NON-NLS
 	public static final String XML_SIZE 				= "size"; //NON-NLS
-	public static final String XML_HEIGHT 				= "height"; //NON-NLS
-	public static final String XML_WIDTH 				= "width"; //NON-NLS
-	public static final String XML_MAXIMISED 			= "maximised"; //NON-NLS
 	public static final String XML_GRID_STYLE = "gridStyle"; //NON-NLS
 	public static final String XML_ROOT_PREFERENCES 	= "preferences"; //NON-NLS
 	public static final String XML_OPENGL	 			= "openGL"; //NON-NLS

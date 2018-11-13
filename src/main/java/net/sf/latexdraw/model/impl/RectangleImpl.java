@@ -15,13 +15,14 @@ import net.sf.latexdraw.model.api.property.LineArcProp;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A model of a rectangle.
  * @author Arnaud Blouin
  */
 class RectangleImpl extends RectangularShapeBase implements Rectangle {
-	private final LineArcPropImpl lineArcProp;
+	private final @NotNull LineArcPropImpl lineArcProp;
 
 	RectangleImpl(final Point tl, final Point br) {
 		super(tl, br);
@@ -52,7 +53,7 @@ class RectangleImpl extends RectangularShapeBase implements Rectangle {
 	}
 
 	@Override
-	public  DoubleProperty frameArcProperty() {
+	public @NotNull DoubleProperty frameArcProperty() {
 		return lineArcProp.frameArc;
 	}
 }

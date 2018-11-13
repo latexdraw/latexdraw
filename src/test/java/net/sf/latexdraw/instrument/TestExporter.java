@@ -3,6 +3,7 @@ package net.sf.latexdraw.instrument;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +21,6 @@ import net.sf.latexdraw.command.Export;
 import net.sf.latexdraw.command.ExportTemplate;
 import net.sf.latexdraw.data.StringData;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.junit.Before;
 import org.junit.Rule;
@@ -52,19 +52,18 @@ public class TestExporter extends BaseTestCanvas {
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
-				bindAsEagerSingleton(Border.class);
-				bindAsEagerSingleton(Exporter.class);
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
-				bindAsEagerSingleton(FacadeCanvasController.class);
-				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
 				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindToInstance(StatusBarController.class, Mockito.mock(StatusBarController.class));
-				bindToInstance(TemplateManager.class, Mockito.mock(TemplateManager.class));
 				bindAsEagerSingleton(PSTCodeGenerator.class);
-				bindToInstance(FileLoaderSaver.class, Mockito.mock(FileLoaderSaver.class));
-				bindAsEagerSingleton(Hand.class);
-				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
+				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
+				bindAsEagerSingleton(Border.class);
+				bindAsEagerSingleton(FacadeCanvasController.class);
+				bindToInstance(TemplateManager.class, Mockito.mock(TemplateManager.class));
+				bindAsEagerSingleton(Exporter.class);
+				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
+				bindAsEagerSingleton(Hand.class);
 			}
 		};
 	}
@@ -73,7 +72,7 @@ public class TestExporter extends BaseTestCanvas {
 	public void start(final Stage aStage) {
 		super.start(aStage);
 		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Export.fxml"), injector.getInstance(LangService.class).getBundle(),
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Export.fxml"), injector.getInstance(ResourceBundle.class),
 				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 			final BorderPane pane = new BorderPane();
 			pane.setTop(root);

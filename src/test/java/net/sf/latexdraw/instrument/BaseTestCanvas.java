@@ -13,6 +13,7 @@ import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.Polyline;
 import net.sf.latexdraw.model.api.shape.Rectangle;
+import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
@@ -22,6 +23,7 @@ import org.testfx.util.WaitForAsyncUtils;
 
 abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	Pencil pencil;
+	EditingService editing;
 	Hand hand;
 	Canvas canvas;
 
@@ -40,7 +42,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 
 	final GUIVoidCommand addText = () -> Platform.runLater(() ->
 		canvas.getDrawing().addShape(ShapeFactory.INST.createText(
-			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), "$foo bar")));
+			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), "$gridGapProp bar")));
 
 	final GUIVoidCommand addGroup = () -> Platform.runLater(() -> {
 		final Rectangle r1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
@@ -94,7 +96,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	final GUICommand<Integer> selectShape = index -> {
 		Platform.runLater(() -> {
 			canvas.getDrawing().getSelection().clear();
-			canvas.getDrawing().getSelection().addShape(canvas.getDrawing().getShapeAt(index));
+			canvas.getDrawing().getSelection().addShape(canvas.getDrawing().getShapeAt(index).orElseThrow());
 		});
 		WaitForAsyncUtils.waitForFxEvents();
 	};
@@ -126,6 +128,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 
 	@Before
 	public void setUp() {
+		editing = injector.getInstance(EditingService.class);
 		pencil = injector.getInstance(Pencil.class);
 		hand = injector.getInstance(Hand.class);
 		canvas = injector.getInstance(Canvas.class);

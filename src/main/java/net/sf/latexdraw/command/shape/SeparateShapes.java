@@ -16,6 +16,7 @@ import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -24,39 +25,35 @@ import org.malai.undo.Undoable;
  */
 public class SeparateShapes extends ShapeCmdImpl<Group> implements Modifying, Undoable {
 	/** The drawing that will be handled by the command. */
-	protected final Drawing drawing;
+	private final @NotNull Drawing drawing;
 
 
-	public SeparateShapes(final Drawing drawing, final Group gp) {
+	public SeparateShapes(final @NotNull Drawing drawing, final @NotNull Group gp) {
 		super(gp);
 		this.drawing = drawing;
 	}
 
 	@Override
 	public boolean canDo() {
-		return drawing != null && shape.isPresent() && !shape.get().isEmpty() && super.canDo();
+		return !shape.isEmpty();
 	}
 
 	@Override
 	protected void doCmdBody() {
-		shape.ifPresent(sh -> {
-			final int position = drawing.getShapes().indexOf(sh);
-			final int insertPos = position >= drawing.size() - 1 ? -1 : position;
-			drawing.removeShape(position);
-			sh.getShapes().forEach(s -> drawing.addShape(s, insertPos));
-			drawing.setModified(true);
-		});
+		final int position = drawing.getShapes().indexOf(shape);
+		final int insertPos = position >= drawing.size() - 1 ? -1 : position;
+		drawing.removeShape(position);
+		shape.getShapes().forEach(s -> drawing.addShape(s, insertPos));
+		drawing.setModified(true);
 	}
 
 	@Override
 	public void undo() {
-		shape.ifPresent(gp -> {
-			final int position = drawing.getShapes().indexOf(gp.getShapeAt(0));
-			final int addPosition = position >= drawing.size() ? -1 : position;
-			IntStream.range(0, gp.getShapes().size()).forEach(i -> drawing.removeShape(position));
-			drawing.addShape(gp, addPosition);
-			drawing.setModified(true);
-		});
+		final int position = shape.getShapeAt(0).map(s -> drawing.getShapes().indexOf(s)).orElse(-1);
+		final int addPosition = position >= drawing.size() ? -1 : position;
+		IntStream.range(0, shape.getShapes().size()).forEach(i -> drawing.removeShape(position));
+		drawing.addShape(shape, addPosition);
+		drawing.setModified(true);
 	}
 
 	@Override

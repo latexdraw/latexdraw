@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -25,27 +26,19 @@ public class MirrorShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	private final boolean horizontally;
 
 
-	public MirrorShapes(final boolean horizontally, final Shape sh) {
+	public MirrorShapes(final boolean horizontally, final @NotNull Shape sh) {
 		super(sh);
 		this.horizontally = horizontally;
 	}
 
 	@Override
 	protected void doCmdBody() {
-		shape.ifPresent(sh -> {
-			if(horizontally) {
-				sh.mirrorHorizontal(sh.getGravityCentre().getX());
-			}else {
-				sh.mirrorVertical(sh.getGravityCentre().getY());
-			}
-			sh.setModified(true);
-		});
-	}
-
-
-	@Override
-	public boolean canDo() {
-		return shape.isPresent();
+		if(horizontally) {
+			shape.mirrorHorizontal(shape.getGravityCentre().getX());
+		}else {
+			shape.mirrorVertical(shape.getGravityCentre().getY());
+		}
+		shape.setModified(true);
 	}
 
 	@Override
@@ -59,12 +52,17 @@ public class MirrorShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull  String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.7");
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return RegistrationPolicy.LIMITED;
+	}
+
+	@Override
+	public boolean canDo() {
+		return true;
 	}
 }

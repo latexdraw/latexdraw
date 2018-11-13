@@ -11,9 +11,11 @@
 package net.sf.latexdraw.command.shape;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
 import org.malai.command.CommandImpl;
 
@@ -23,13 +25,13 @@ import org.malai.command.CommandImpl;
  */
 public class CopyShapes extends CommandImpl {
 	/** The selection command. */
-	protected SelectShapes selection;
+	protected final @NotNull Optional<SelectShapes> selection;
 	/** The copied shapes from the selection. */
 	protected List<Shape> copiedShapes;
 	/** The number of times that the shapes have been copied. Use to compute the gap while pasting. */
 	protected int nbTimeCopied;
 
-	public CopyShapes(final SelectShapes selection) {
+	public CopyShapes(final @NotNull Optional<SelectShapes> selection) {
 		super();
 		this.selection = selection;
 		nbTimeCopied = 0;
@@ -37,7 +39,8 @@ public class CopyShapes extends CommandImpl {
 
 	@Override
 	protected void doCmdBody() {
-		copiedShapes = selection.getShapes().stream().map(ShapeFactory.INST::duplicate).collect(Collectors.toList());
+		copiedShapes = selection.map(sel -> sel.getShapes().stream().map(ShapeFactory.INST::duplicate).filter(s -> s.isPresent()).
+			map(s -> s.get()).collect(Collectors.toList())).orElse(null);
 	}
 
 	@Override
@@ -47,10 +50,10 @@ public class CopyShapes extends CommandImpl {
 
 	@Override
 	public boolean canDo() {
-		return selection != null && !selection.getShapes().isEmpty();
+		return selection.isPresent() && !selection.get().getShapes().isEmpty();
 	}
 
-	public SelectShapes getSelection() {
+	public @NotNull Optional<SelectShapes> getSelection() {
 		return selection;
 	}
 
@@ -60,6 +63,5 @@ public class CopyShapes extends CommandImpl {
 		if(copiedShapes != null) {
 			copiedShapes.clear();
 		}
-		selection = null;
 	}
 }

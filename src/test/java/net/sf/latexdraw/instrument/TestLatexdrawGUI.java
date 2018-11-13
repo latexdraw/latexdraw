@@ -2,6 +2,7 @@ package net.sf.latexdraw.instrument;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeoutException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,14 +16,14 @@ import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.Page;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTViewsFactory;
 import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import org.junit.After;
@@ -63,13 +64,13 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	@Override
 	public void start(final Stage aStage) {
 		Canvas.setMargins(20);
-		Canvas.setDefaultPage(Page.HORIZONTAL);
 		stage = aStage;
 
 		try {
 			injector = createInjector();
 			injector.initialise();
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), injector.getInstance(LangService.class).getBundle(),
+			injector.getInstance(PreferencesService.class).setPage(Page.HORIZONTAL);
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), injector.getInstance(ResourceBundle.class),
 				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 
 			Parent parent = root;
@@ -119,9 +120,10 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 				bindToInstance(Injector.class, this);
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(LangService.class);
-				bindToInstance(LaTeXGenerator.class, Mockito.mock(LaTeXGenerator.class));
+				bindAsEagerSingleton(LaTeXDataService.class);
+				bindAsEagerSingleton(PreferencesService.class);
+				bindAsEagerSingleton(EditingService.class);
+				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindAsEagerSingleton(ViewFactory.class);
 				bindAsEagerSingleton(SVGShapesFactory.class);
 				bindAsEagerSingleton(PSTViewsFactory.class);

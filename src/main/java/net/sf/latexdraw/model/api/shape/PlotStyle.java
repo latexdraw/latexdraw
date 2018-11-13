@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.api.shape;
 
 import java.util.Arrays;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The different possible plotting styles.
@@ -19,32 +20,32 @@ import java.util.Arrays;
 public enum PlotStyle {
 	CURVE {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return "curve"; //NON-NLS
 		}
 	}, LINE {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return "line"; //NON-NLS
 		}
 	}, DOTS {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return "dots"; //NON-NLS
 		}
 	}, POLYGON {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return "polygon"; //NON-NLS
 		}
 	}, ECURVE {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return "ecurve"; //NON-NLS
 		}
 	}, CCURVE {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return "ccurve"; //NON-NLS
 		}
 	};
@@ -53,10 +54,10 @@ public enum PlotStyle {
 	 * @param latexToken The latex token to check.
 	 * @return The style corresponding to the PSTricks token given as parameter, or CURVE otherwise.
 	 */
-	public static PlotStyle getPlotStyle(final String latexToken) {
+	public static @NotNull PlotStyle getPlotStyle(final String latexToken) {
 		return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(latexToken)).findFirst().orElse(CURVE);
 	}
 
 	/** @return The PST token corresponding to the plot style. */
-	public abstract String getPSTToken();
+	public abstract @NotNull String getPSTToken();
 }

@@ -11,7 +11,6 @@ import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.PositionShape;
-import net.sf.latexdraw.util.SystemService;
 import org.junit.experimental.theories.ParameterSignature;
 import org.junit.experimental.theories.ParameterSupplier;
 import org.junit.experimental.theories.ParametersSuppliedBy;
@@ -127,7 +126,7 @@ public class TestPositionShapeBase implements HelperTest {
 				ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0d, 10d, "x", false),
 				ShapeFactory.INST.createRhombus(),
 				ShapeFactory.INST.createTriangle(),
-				ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), new SystemService())).
+				ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint())).
 				map(r -> PotentialAssignment.forValue("", r)).collect(Collectors.toList());
 		}
 	}

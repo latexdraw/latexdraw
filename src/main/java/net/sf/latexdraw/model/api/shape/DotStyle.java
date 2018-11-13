@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.shape;
 
 import java.util.Arrays;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The different styles of dot.
@@ -20,52 +21,52 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
 public enum DotStyle {
 	ASTERISK {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.ASTERISK_STYLE;
 		}
 	}, BAR {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.BAR_STYLE;
 		}
 	}, OPLUS {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.OPLUS_STYLE;
 		}
 	}, OTIMES {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.OTIMES_STYLE;
 		}
 	}, PLUS {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.PLUS_STYLE;
 		}
 	}, DOT {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.DOT_STYLE;
 		}
 	}, X {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.X_STYLE;
 		}
 	}, FDIAMOND {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.FDIAMOND_STYLE;
 		}
 	}, FTRIANGLE {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.FTRIANGLE_STYLE;
 		}
 	}, FPENTAGON {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.FPENTAGON_STYLE;
 		}
 	}, DIAMOND {
@@ -75,7 +76,7 @@ public enum DotStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.DIAMOND_STYLE;
 		}
 	}, O {
@@ -85,7 +86,7 @@ public enum DotStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.O_STYLE;
 		}
 	}, TRIANGLE {
@@ -95,7 +96,7 @@ public enum DotStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TRIANGLE_STYLE;
 		}
 	}, PENTAGON {
@@ -105,7 +106,7 @@ public enum DotStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.PENTAGON_STYLE;
 		}
 	}, SQUARE {
@@ -115,12 +116,12 @@ public enum DotStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.SQUARE_STYLE;
 		}
 	}, FSQUARE {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.FSQUARE_STYLE;
 		}
 	};
@@ -129,7 +130,7 @@ public enum DotStyle {
 	 * @param styleName The style to get (in PST or the name of the style, e.g. FSQUARE.toString())
 	 * @return The style which name is the given name style or DOT.
 	 */
-	public static DotStyle getStyle(final String styleName) {
+	public static @NotNull DotStyle getStyle(final String styleName) {
 		return Arrays.stream(values()).filter(style -> style.name().equals(styleName) || style.getPSTToken().equals(styleName)).findFirst().orElse(DOT);
 	}
 
@@ -144,5 +145,5 @@ public enum DotStyle {
 	/**
 	 * @return The PSTricks token corresponding to the dot style.
 	 */
-	public abstract String getPSTToken();
+	public abstract @NotNull String getPSTToken();
 }

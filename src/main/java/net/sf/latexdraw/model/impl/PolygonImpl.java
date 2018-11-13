@@ -14,6 +14,7 @@ import java.util.List;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Polygon;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * a model of a polygon.
@@ -22,14 +23,14 @@ import net.sf.latexdraw.model.api.shape.Polygon;
 class PolygonImpl extends ModifiablePointsShapeBase implements Polygon {
 	/**
 	 * Creates a model with a set of points.
-	 * @throws IllegalArgumentException If one of the points or the list is null.
+	 * @throws IllegalArgumentException If one of the points is null.
 	 */
-	PolygonImpl(final List<Point> pts) {
+	PolygonImpl(final @NotNull List<Point> pts) {
 		super(pts);
 	}
 
 	@Override
-	public Polygon duplicate() {
+	public @NotNull Polygon duplicate() {
 		final Polygon dup = ShapeFactory.INST.createPolygon(points);
 		dup.copy(this);
 		return dup;

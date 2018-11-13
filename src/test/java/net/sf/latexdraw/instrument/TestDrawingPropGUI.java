@@ -11,6 +11,7 @@ import net.sf.latexdraw.instrument.robot.FxRobotListSelection;
 import net.sf.latexdraw.instrument.robot.FxRobotSpinner;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
+import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.latex.VerticalPosition;
@@ -29,7 +30,7 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 	ComboBox<VerticalPosition> positionCB;
 	Spinner<Double> scaleField;
 	DrawingPropertiesCustomiser ins;
-	LaTeXGenerator gen;
+	LaTeXDataService data;
 
 	final GUIVoidCommand typeLabel = () -> clickOn(labelField).write("newLabel");
 	final GUIVoidCommand typeTitle = () -> clickOn(titleField).write("new Title");
@@ -66,67 +67,67 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 		scaleField = find("#scaleField");
 		injector.getInstance(Drawing.class).addShape(ShapeFactory.INST.createCircle());
 		ins = injector.getInstance(DrawingPropertiesCustomiser.class);
-		gen = injector.getInstance(LaTeXGenerator.class);
+		data = injector.getInstance(LaTeXDataService.class);
 		ins.setActivated(true);
 	}
 
 	@Test
 	public void testSetCaption() {
 		new CompositeGUIVoidCommand(typeTitle, () -> sleep(1200L)).execute();
-		assertEquals("new Title", gen.getCaption());
+		assertEquals("new Title", data.getCaption());
 	}
 
 	@Test
 	public void testSetLabel() {
 		new CompositeGUIVoidCommand(typeLabel, () -> sleep(1200L)).execute();
-		assertEquals("newLabel", gen.getLabel());
+		assertEquals("newLabel", data.getLabel());
 	}
 
 	@Test
 	public void testSetScale() {
-		doTestSpinner(new CompositeGUIVoidCommand(), scaleField, changeScale, Collections.singletonList(() -> gen.getScale()));
+		doTestSpinner(new CompositeGUIVoidCommand(), scaleField, changeScale, Collections.singletonList(() -> data.getScale()));
 	}
 
 	@Test
 	public void testSetMiddleHoriz() {
 		checkMiddleHoriz.execute();
-		assertEquals(middleHorizPosCB.isSelected(), gen.isPositionHoriCentre());
+		assertEquals(middleHorizPosCB.isSelected(), data.isPositionHoriCentre());
 	}
 
 	@Test
 	public void testSePositionBOTTOM() {
 		changePosition.execute(VerticalPosition.BOTTOM);
-		assertEquals(VerticalPosition.BOTTOM, gen.getPositionVertToken());
+		assertEquals(VerticalPosition.BOTTOM, data.getPositionVertToken());
 	}
 
 	@Test
 	public void testSePositionFLOAT() {
 		changePosition.execute(VerticalPosition.FLOATS_PAGE);
-		assertEquals(VerticalPosition.FLOATS_PAGE, gen.getPositionVertToken());
+		assertEquals(VerticalPosition.FLOATS_PAGE, data.getPositionVertToken());
 	}
 
 	@Test
 	public void testSePositionHERE() {
 		changePosition.execute(VerticalPosition.HERE);
-		assertEquals(VerticalPosition.HERE, gen.getPositionVertToken());
+		assertEquals(VerticalPosition.HERE, data.getPositionVertToken());
 	}
 
 	@Test
 	public void testSePositionHEREHERE() {
 		changePosition.execute(VerticalPosition.HERE_HERE);
-		assertEquals(VerticalPosition.HERE_HERE, gen.getPositionVertToken());
+		assertEquals(VerticalPosition.HERE_HERE, data.getPositionVertToken());
 	}
 
 	@Test
 	public void testSePositionTOP() {
 		changePosition.execute(VerticalPosition.TOP);
-		assertEquals(VerticalPosition.TOP, gen.getPositionVertToken());
+		assertEquals(VerticalPosition.TOP, data.getPositionVertToken());
 	}
 
 	@Test
 	public void testSePositionNONE() {
 		changePosition.execute(VerticalPosition.NONE);
-		assertEquals(VerticalPosition.NONE, gen.getPositionVertToken());
+		assertEquals(VerticalPosition.NONE, data.getPositionVertToken());
 	}
 
 	@Test

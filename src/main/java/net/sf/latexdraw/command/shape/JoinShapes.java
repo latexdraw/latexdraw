@@ -22,6 +22,7 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -30,11 +31,11 @@ import org.malai.undo.Undoable;
  */
 public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, Modifying {
 	/** The added group of shapes. */
-	private final Group addedGroup;
+	private final @NotNull Group addedGroup;
 	/** The shapes to handle. */
-	private final List<Shape> shapes;
+	private final @NotNull List<Shape> shapes;
 
-	public JoinShapes(final Drawing theDrawing) {
+	public JoinShapes(final @NotNull Drawing theDrawing) {
 		super(theDrawing);
 		addedGroup = ShapeFactory.INST.createGroup();
 		shapes = new ArrayList<>();
@@ -47,7 +48,7 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && !shapes.isEmpty();
+		return !shapes.isEmpty();
 	}
 
 	private void joinShapes() {
@@ -78,17 +79,17 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("UndoRedoManager.join");
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return RegistrationPolicy.LIMITED;
 	}
 
 	@Override
-	public List<Shape> getShapes() {
+	public @NotNull List<Shape> getShapes() {
 		return shapes;
 	}
 }

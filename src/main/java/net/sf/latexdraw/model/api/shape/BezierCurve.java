@@ -10,11 +10,14 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The API for Bezier curves.
  * @author Arnaud BLOUIN
  */
 public interface BezierCurve extends ControlPointShape, ArrowableSingleShape, Closable {
+	@NotNull
 	@Override
 	BezierCurve duplicate();
 }

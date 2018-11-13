@@ -2,6 +2,7 @@ package net.sf.latexdraw.instrument;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +12,6 @@ import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -31,6 +31,7 @@ public class TestShapeDeleter extends BaseTestCanvas {
 				bindToSupplier(Stage.class, () -> stage);
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
+				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
 				bindAsEagerSingleton(Hand.class);
 				bindAsEagerSingleton(ShapeDeleter.class);
@@ -38,7 +39,6 @@ public class TestShapeDeleter extends BaseTestCanvas {
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
 				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
-				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 			}
 		};
 	}
@@ -47,7 +47,7 @@ public class TestShapeDeleter extends BaseTestCanvas {
 	public void start(final Stage aStage) {
 		super.start(aStage);
 		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Deleter.fxml"), injector.getInstance(LangService.class).getBundle(),
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Deleter.fxml"), injector.getInstance(ResourceBundle.class),
 				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 			final BorderPane pane = new BorderPane();
 			pane.setTop(root);

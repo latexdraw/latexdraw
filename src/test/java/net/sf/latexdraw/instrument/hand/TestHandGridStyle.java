@@ -35,9 +35,9 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeGridCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Pencil.class, pencil);
 			}
 		};
@@ -75,8 +75,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		final Color col = colourLabels.getValue();
 		pickcolourLabels.execute();
 		waitFXEvents.execute();
-		assertEquals(colourLabels.getValue(), ((Grid) drawing.getSelection().getShapeAt(1)).getGridLabelsColour().toJFX());
-		assertEquals(colourLabels.getValue(), ((Grid) drawing.getSelection().getShapeAt(2)).getGridLabelsColour().toJFX());
+		assertEquals(colourLabels.getValue(), ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridLabelsColour().toJFX());
+		assertEquals(colourLabels.getValue(), ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridLabelsColour().toJFX());
 		assertNotEquals(col, colourLabels.getValue());
 	}
 
@@ -86,8 +86,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		final Color col = colourSubGrid.getValue();
 		pickcolourSubGrid.execute();
 		waitFXEvents.execute();
-		assertEquals(colourSubGrid.getValue(), ((Grid) drawing.getSelection().getShapeAt(1)).getSubGridColour().toJFX());
-		assertEquals(colourSubGrid.getValue(), ((Grid) drawing.getSelection().getShapeAt(2)).getSubGridColour().toJFX());
+		assertEquals(colourSubGrid.getValue(), ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getSubGridColour().toJFX());
+		assertEquals(colourSubGrid.getValue(), ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getSubGridColour().toJFX());
 		assertNotEquals(col, colourSubGrid.getValue());
 	}
 
@@ -95,40 +95,40 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 	public void testIncrementgridWidthHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), gridWidth,
 			incrementgridWidth, Arrays.asList(
-			() ->  ((Grid) drawing.getSelection().getShapeAt(1)).getGridWidth(),
-			() ->  ((Grid) drawing.getSelection().getShapeAt(2)).getGridWidth()));
+			() ->  ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridWidth(),
+			() ->  ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridWidth()));
 	}
 
 	@Test
 	public void testIncrementsubGridWidthHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridWidth,
 			incrementsubGridWidth, Arrays.asList(
-			() ->  ((Grid) drawing.getSelection().getShapeAt(1)).getSubGridWidth(),
-			() ->  ((Grid) drawing.getSelection().getShapeAt(2)).getSubGridWidth()));
+			() ->  ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getSubGridWidth(),
+			() ->  ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getSubGridWidth()));
 	}
 
 	@Test
 	public void testIncrementgridDotsHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), gridDots,
 			incrementgridDots, Arrays.asList(
-			() ->  ((Grid) drawing.getSelection().getShapeAt(1)).getGridDots(),
-			() ->  ((Grid) drawing.getSelection().getShapeAt(2)).getGridDots()));
+			() ->  ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridDots(),
+			() ->  ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDotsHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridDots,
 			incrementsubGridDots, Arrays.asList(
-			() ->  ((Grid) drawing.getSelection().getShapeAt(1)).getSubGridDots(),
-			() ->  ((Grid) drawing.getSelection().getShapeAt(2)).getSubGridDots()));
+			() ->  ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getSubGridDots(),
+			() ->  ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getSubGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDivHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridDiv,
 			incrementsubGridDiv, Arrays.asList(
-			() ->  ((Grid) drawing.getSelection().getShapeAt(1)).getSubGridDiv(),
-			() ->  ((Grid) drawing.getSelection().getShapeAt(2)).getSubGridDiv()));
+			() ->  ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getSubGridDiv(),
+			() ->  ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getSubGridDiv()));
 	}
 
 	@Test
@@ -137,8 +137,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		final boolean sel = labelsYInvertedCB.isSelected();
 		clicklabelsYInvertedCB.execute();
 		waitFXEvents.execute();
-		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(1)).isXLabelSouth());
-		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(2)).isXLabelSouth());
+		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).isXLabelSouth());
+		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).isXLabelSouth());
 		assertNotEquals(sel, labelsYInvertedCB.isSelected());
 	}
 
@@ -148,8 +148,8 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 		final boolean sel = labelsXInvertedCB.isSelected();
 		clicklabelsXInvertedCB.execute();
 		waitFXEvents.execute();
-		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(1)).isYLabelWest());
-		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(2)).isYLabelWest());
+		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).isYLabelWest());
+		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).isYLabelWest());
 		assertNotEquals(sel, labelsXInvertedCB.isSelected());
 	}
 }

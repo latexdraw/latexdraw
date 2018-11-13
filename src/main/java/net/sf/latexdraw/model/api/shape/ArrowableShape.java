@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.shape;
 
 import java.util.List;
 import net.sf.latexdraw.model.api.property.Arrowable;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for shapes that can have arrows.
@@ -34,7 +35,7 @@ public interface ArrowableShape extends Shape, Arrowable {
 	 * @param style The style to set.
 	 * @param position The position of the arrow to modify.
 	 */
-	void setArrowStyle(final ArrowStyle style, final int position);
+	void setArrowStyle(final @NotNull ArrowStyle style, final int position);
 
 	/**
 	 * @param position The position of the arrow to use.
@@ -48,5 +49,5 @@ public interface ArrowableShape extends Shape, Arrowable {
 	 */
 	Arrow getArrowAt(final int position);
 
-	List<Arrow> getArrows();
+	@NotNull List<Arrow> getArrows();
 }

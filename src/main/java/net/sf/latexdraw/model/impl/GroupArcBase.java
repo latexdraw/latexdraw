@@ -17,6 +17,7 @@ import net.sf.latexdraw.model.api.property.ArcProp;
 import net.sf.latexdraw.model.api.shape.ArcStyle;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This trait encapsulates the code of the group related to the support of IArcProp shapes.
@@ -33,12 +34,12 @@ interface GroupArcBase extends Group {
 	}
 
 	@Override
-	default ArcStyle getArcStyle() {
+	default @NotNull ArcStyle getArcStyle() {
 		return firstIArcProp().map(arc -> arc.getArcStyle()).orElse(ArcStyle.ARC);
 	}
 
 	@Override
-	default void setArcStyle(final ArcStyle typeArc) {
+	default void setArcStyle(final @NotNull ArcStyle typeArc) {
 		arcShapes().forEach(sh -> sh.setArcStyle(typeArc));
 	}
 

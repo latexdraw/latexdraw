@@ -76,7 +76,6 @@ public class TestEllipse implements HelperTest {
 	@Test
 	public void testIsTypeOf() {
 		final Ellipse shape = ShapeFactory.INST.createEllipse();
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

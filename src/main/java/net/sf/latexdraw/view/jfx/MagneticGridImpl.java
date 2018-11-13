@@ -19,13 +19,14 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Point;
-import net.sf.latexdraw.ui.ScaleRuler;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.GridStyle;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -37,7 +38,8 @@ import org.w3c.dom.NodeList;
  */
 public class MagneticGridImpl extends Path implements MagneticGrid {
 	/** The canvas that paints the grid. */
-	private final Canvas canvas;
+	private final @NotNull Canvas canvas;
+	private final @NotNull PreferencesService prefs;
 	/** Allows to know if the grid is magnetic or not. */
 	private boolean isMagnetic;
 	/** defines the spacing between the lines of the grid. */
@@ -46,23 +48,23 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 	private GridStyle style;
 	/** Defined if the canvas has been modified. */
 	private boolean modified;
-	private final SystemService system;
 
 
 	/**
 	 * Creates the magnetic grid.
 	 * @param canv The canvas in which the grid will work.
-	 * @throws NullPointerException if the given parameters are not valid.
 	 */
-	public MagneticGridImpl(final Canvas canv, final SystemService system) {
+	public MagneticGridImpl(final @NotNull Canvas canv, final @NotNull PreferencesService prefs) {
 		super();
-		this.system = system;
+		this.prefs = prefs;
 		modified = false;
 		canvas = canv;
 		reinitGrid();
 		setStroke(new Color(0d, 0d, 1d, 0.3d));
 		setStrokeWidth(1);
 		canvas.zoomProperty().addListener((observable, oldValue, newValue) -> update());
+		this.prefs.gridGapProperty().addListener((observable, oldValue, newValue) -> update());
+		this.prefs.gridStyleProperty().addListener((observable, oldValue, newValue) -> update());
 	}
 
 
@@ -77,7 +79,7 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 		switch(style) {
 			case STANDARD:
 				double ppc = canvas.getPPCDrawing();
-				if(ScaleRuler.getUnit() == Unit.INCH) {
+				if(prefs.getUnit() == Unit.INCH) {
 					ppc *= PSTricksConstants.INCH_VAL_CM;
 				}
 
@@ -186,7 +188,7 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 			gap = getGridSpacing();
 		}else {
 			final double ppc = canvas.getPPCDrawing();
-			gap = ScaleRuler.getUnit() == Unit.CM ? ppc / 10d : ppc * PSTricksConstants.INCH_VAL_CM / 10d;
+			gap = prefs.getUnit() == Unit.CM ? ppc / 10d : ppc * PSTricksConstants.INCH_VAL_CM / 10d;
 			gap = gap - (int) gap > 0.5 ? (int) gap + 1d : (int) gap;
 		}
 
@@ -274,7 +276,7 @@ public class MagneticGridImpl extends Path implements MagneticGrid {
 			return;
 		}
 
-		final String ns = generalPreferences ? "" : system.getNormaliseNamespaceURI(nsURI); //NON-NLS
+		final String ns = generalPreferences ? "" : SystemUtils.getInstance().getNormaliseNamespaceURI(nsURI); //NON-NLS
 		Element elt = document.createElement(ns + LNamespace.XML_MAGNETIC_GRID_STYLE);
 		elt.setTextContent(getGridStyle().toString());
 		root.appendChild(elt);

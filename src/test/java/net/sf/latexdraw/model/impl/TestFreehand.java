@@ -36,13 +36,6 @@ public class TestFreehand implements HelperTest {
 		assertEquals(style, shape.getType());
 	}
 
-	@Test
-	public void testSetGetTypeKO() {
-		shape.setType(FreeHandStyle.CURVES);
-		shape.setType(null);
-		assertEquals(FreeHandStyle.CURVES, shape.getType());
-	}
-
 	@Theory
 	public void testSetIsOpen(final boolean open) {
 		shape.setOpened(open);
@@ -90,7 +83,6 @@ public class TestFreehand implements HelperTest {
 
 	@Test
 	public void testIsTypeOf() {
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

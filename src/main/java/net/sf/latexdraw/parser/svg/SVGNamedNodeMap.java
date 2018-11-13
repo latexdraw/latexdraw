@@ -12,7 +12,8 @@ package net.sf.latexdraw.parser.svg;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -21,9 +22,9 @@ import org.w3c.dom.Node;
  * Defines an SVG named node map.
  * @author Arnaud BLOUIN
  */
-public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
+public class SVGNamedNodeMap implements NamedNodeMap {
 	/** The set of nodes. */
-	private List<SVGAttr> nnm;
+	private final @NotNull List<SVGAttr> nnm;
 
 	/**
 	 * The constructor by default.
@@ -35,13 +36,13 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 
 	@Override
 	public int getLength() {
-		return nnm == null ? 0 : nnm.size();
+		return nnm.size();
 	}
 
 
 	@Override
-	public Node getNamedItem(final String name) {
-		if(nnm == null || name == null) {
+	public @Nullable Node getNamedItem(final String name) {
+		if(name == null) {
 			return null;
 		}
 
@@ -66,8 +67,8 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 
 
 	@Override
-	public Node item(final int index) {
-		return nnm == null || index < 0 || index >= getLength() ? null : nnm.get(index);
+	public @Nullable Node item(final int index) {
+		return index < 0 || index >= getLength() ? null : nnm.get(index);
 	}
 
 
@@ -121,20 +122,13 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 	}
 
 
-	@Override
-	public SVGNamedNodeMap clone() {
-		try {
-			final SVGNamedNodeMap clone = (SVGNamedNodeMap) super.clone();
-			clone.nnm = new ArrayList<>();
+	public @NotNull SVGNamedNodeMap duplicate() {
+		final SVGNamedNodeMap clone = new SVGNamedNodeMap();
 
-			for(final SVGAttr attr : nnm) {
-				clone.nnm.add((SVGAttr) attr.cloneNode(false));
-			}
-			return clone;
-		}catch(final CloneNotSupportedException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-			return new SVGNamedNodeMap();
+		for(final SVGAttr attr : nnm) {
+			clone.nnm.add((SVGAttr) attr.cloneNode(false));
 		}
+		return clone;
 	}
 
 
@@ -169,7 +163,7 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 	/**
 	 * @return the attributes.
 	 */
-	public List<SVGAttr> getAttributes() {
+	public @NotNull List<SVGAttr> getAttributes() {
 		return nnm;
 	}
 
@@ -193,7 +187,8 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 		}
 
 		for(i = 0; i < size && ok; i++) {
-			ok = item(i).isEqualNode(map.item(i));
+			final Node item = item(i);
+			ok = item != null && item.isEqualNode(map.item(i));
 		}
 
 		return ok;

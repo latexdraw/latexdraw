@@ -12,11 +12,12 @@ package net.sf.latexdraw.model.api.shape;
 
 import javafx.beans.property.DoubleProperty;
 import net.sf.latexdraw.model.api.property.LineArcProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for rectangles.
  * @author Arnaud BLOUIN
  */
 public interface Rectangle extends RectangularShape, LineArcProp {
-	DoubleProperty frameArcProperty();
+	@NotNull DoubleProperty frameArcProperty();
 }

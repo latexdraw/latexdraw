@@ -94,7 +94,7 @@ class SVGGrid extends SVGShape<Grid> {
 	private final void setDimensionGridElement(final SVGGElement elt, final String prefix) {
 		List<Point2D> values;
 
-		shape.setLineColour(elt.getStroke());
+		elt.getStroke().ifPresent(col -> shape.setLineColour(col));
 		values = SVGPointsParser.parsePoints(elt.getAttribute(prefix + LNamespace.XML_GRID_END));
 
 		if(!values.isEmpty()) {
@@ -133,7 +133,7 @@ class SVGGrid extends SVGShape<Grid> {
 			}catch(final NumberFormatException ignore) {
 			}
 
-			shape.setGridLabelsColour(labelElt.getStroke());
+			labelElt.getStroke().ifPresent(col -> shape.setGridLabelsColour(col));
 		}
 	}
 
@@ -153,7 +153,7 @@ class SVGGrid extends SVGShape<Grid> {
 		if(isGridDotted) {
 			shape.setLineColour(CSSColors.INSTANCE.getRGBColour(mainGridElt.getFill()));
 		}else {
-			shape.setLineColour(mainGridElt.getStroke());
+			mainGridElt.getStroke().ifPresent(col -> shape.setLineColour(col));
 		}
 
 		final String val = mainGridElt.getAttribute(prefix + LNamespace.XML_GRID_WIDTH);
@@ -194,7 +194,7 @@ class SVGGrid extends SVGShape<Grid> {
 		if(isGridDotted) {
 			shape.setSubGridColour(CSSColors.INSTANCE.getRGBColour(subGridElt.getFill()));
 		}else {
-			shape.setSubGridColour(subGridElt.getStroke());
+			subGridElt.getStroke().ifPresent(col -> shape.setSubGridColour(col));
 		}
 
 		final String val = subGridElt.getAttribute(prefix + LNamespace.XML_GRID_WIDTH);

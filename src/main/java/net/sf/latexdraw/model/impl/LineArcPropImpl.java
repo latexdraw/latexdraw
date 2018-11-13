@@ -14,6 +14,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.property.LineArcProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Line arc properties.
@@ -22,7 +23,7 @@ import net.sf.latexdraw.model.api.property.LineArcProp;
  */
 class LineArcPropImpl implements LineArcProp {
 	/** The radius of arcs drawn at the corners of lines. */
-	final DoubleProperty frameArc;
+	final @NotNull DoubleProperty frameArc;
 
 	LineArcPropImpl() {
 		super();

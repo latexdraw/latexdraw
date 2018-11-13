@@ -13,12 +13,9 @@ package net.sf.latexdraw.ui;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.beans.NamedArg;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
@@ -26,26 +23,6 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * @author Arnaud BLOUIN
  */
 public class ScaleRuler extends Pane {
-	/** The current unit of the rulers. */
-	protected static final ObjectProperty<Unit> UNIT = new SimpleObjectProperty<>(Unit.CM);
-
-	/**
-	 * @return the current unit used by the rulers.
-	 */
-	public static Unit getUnit() {
-		return UNIT.getValue();
-	}
-
-	/**
-	 * @param unit The unit that the rulers must use. Must not be null.
-	 */
-	public static void setUnit(final Unit unit) {
-		if(unit != null) {
-			UNIT.setValue(unit);
-		}
-	}
-
-
 	/** The canvas that the ruler manages. */
 	private Canvas canvas;
 	private final Group group;

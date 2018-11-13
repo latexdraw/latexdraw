@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.command.shape;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.beans.property.IntegerProperty;
@@ -21,6 +20,7 @@ import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -32,9 +32,9 @@ abstract class AlignDistribCmd extends ShapeCmdImpl<Group> implements Undoable, 
 	protected List<Point> oldPositions;
 	/** The views corresponding to the shapes to align. */
 	protected List<ViewShape<?>> views;
-	protected final Canvas canvas;
+	protected final @NotNull Canvas canvas;
 
-	AlignDistribCmd(final Canvas canvas, final Group gp) {
+	AlignDistribCmd(final @NotNull Canvas canvas, final @NotNull Group gp) {
 		super(gp);
 		this.canvas = canvas;
 	}
@@ -43,30 +43,27 @@ abstract class AlignDistribCmd extends ShapeCmdImpl<Group> implements Undoable, 
 	public void undo() {
 		final IntegerProperty pos = new SimpleIntegerProperty(0);
 
-		shape.ifPresent(gp -> {
-			gp.getShapes().forEach(sh -> {
-				// Reusing the old position.
-				final Point pt = sh.getTopLeftPoint();
-				final Point oldPt = oldPositions.get(pos.get());
-				if(!pt.equals(oldPt)) {
-					sh.translate(oldPt.getX() - pt.getX(), oldPt.getY() - pt.getY());
-				}
-				pos.set(pos.get() + 1);
-			});
-			gp.setModified(true);
+		shape.getShapes().forEach(sh -> {
+			// Reusing the old position.
+			final Point pt = sh.getTopLeftPoint();
+			final Point oldPt = oldPositions.get(pos.get());
+			if(!pt.equals(oldPt)) {
+				sh.translate(oldPt.getX() - pt.getX(), oldPt.getY() - pt.getY());
+			}
+			pos.set(pos.get() + 1);
 		});
+		shape.setModified(true);
 	}
 
 	@Override
 	protected void doCmdBody() {
-		views = shape.map(gp -> gp.getShapes().stream().map(sh -> canvas.getViewFromShape(sh)).filter(opt -> opt.isPresent()).
-			map(opt -> opt.get()).collect(Collectors.<ViewShape<?>>toList())).orElse(Collections.emptyList());
-		oldPositions = shape.map(gp -> gp.getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList())).orElse(Collections.emptyList());
+		views = shape.getShapes().stream().map(sh -> canvas.getViewFromShape(sh)).filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.<ViewShape<?>>toList());
+		oldPositions = shape.getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList());
 		redo();
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 }

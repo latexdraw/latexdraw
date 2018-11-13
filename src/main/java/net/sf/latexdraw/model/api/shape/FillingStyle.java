@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.shape;
 
 import java.util.Arrays;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The different styles of filling.
@@ -25,12 +26,12 @@ public enum FillingStyle {
 		}
 
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_NONE;
 		}
 
 		@Override
-		public FillingStyle getFilledStyle() {
+		public @NotNull FillingStyle getFilledStyle() {
 			return PLAIN;
 		}
 	}, GRAD {
@@ -40,7 +41,7 @@ public enum FillingStyle {
 		}
 
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_GRADIENT;
 		}
 	}, HLINES {
@@ -50,12 +51,12 @@ public enum FillingStyle {
 		}
 
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_HLINES;
 		}
 
 		@Override
-		public FillingStyle getFilledStyle() {
+		public @NotNull FillingStyle getFilledStyle() {
 			return HLINES_PLAIN;
 		}
 	}, VLINES {
@@ -65,12 +66,12 @@ public enum FillingStyle {
 		}
 
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_VLINES;
 		}
 
 		@Override
-		public FillingStyle getFilledStyle() {
+		public @NotNull FillingStyle getFilledStyle() {
 			return VLINES_PLAIN;
 		}
 	}, CLINES {
@@ -80,12 +81,12 @@ public enum FillingStyle {
 		}
 
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_CROSSHATCH;
 		}
 
 		@Override
-		public FillingStyle getFilledStyle() {
+		public @NotNull FillingStyle getFilledStyle() {
 			return CLINES_PLAIN;
 		}
 	}, PLAIN {
@@ -95,12 +96,12 @@ public enum FillingStyle {
 		}
 
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_SOLID;
 		}
 
 		@Override
-		public FillingStyle getUnfilledStyle() {
+		public @NotNull FillingStyle getUnfilledStyle() {
 			return NONE;
 		}
 	}, HLINES_PLAIN {
@@ -110,12 +111,12 @@ public enum FillingStyle {
 		}
 
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_HLINES_F;
 		}
 
 		@Override
-		public FillingStyle getUnfilledStyle() {
+		public @NotNull FillingStyle getUnfilledStyle() {
 			return HLINES;
 		}
 	}, VLINES_PLAIN {
@@ -125,12 +126,12 @@ public enum FillingStyle {
 		}
 
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_VLINES_F;
 		}
 
 		@Override
-		public FillingStyle getUnfilledStyle() {
+		public @NotNull FillingStyle getUnfilledStyle() {
 			return VLINES;
 		}
 	}, CLINES_PLAIN {
@@ -140,12 +141,12 @@ public enum FillingStyle {
 		}
 
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.TOKEN_FILL_CROSSHATCH_F;
 		}
 
 		@Override
-		public FillingStyle getUnfilledStyle() {
+		public @NotNull FillingStyle getUnfilledStyle() {
 			return CLINES;
 		}
 	};
@@ -154,7 +155,7 @@ public enum FillingStyle {
 	 * @param token The style to get.
 	 * @return The style which name is the given name style (or null).
 	 */
-	public static FillingStyle getStyleFromLatex(final String token) {
+	public static @NotNull FillingStyle getStyleFromLatex(final String token) {
 		return Arrays.stream(values()).filter(style -> style.getLatexToken().equals(token)).findFirst().orElse(NONE);
 	}
 
@@ -162,7 +163,7 @@ public enum FillingStyle {
 	 * @param style The text version of the filling style.
 	 * @return The filling style that corresponds to the given text (or null).
 	 */
-	public static FillingStyle getStyle(final String style) {
+	public static @NotNull FillingStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(item -> item.toString().equals(style)).findFirst().orElse(NONE);
 	}
 
@@ -175,19 +176,19 @@ public enum FillingStyle {
 	/**
 	 * @return The latex token corresponding to the filling style.
 	 */
-	public abstract String getLatexToken();
+	public abstract @NotNull String getLatexToken();
 
 	/**
 	 * @return The filling style that corresponds to the given style but filled. Cannot be null.
 	 */
-	public FillingStyle getFilledStyle() {
+	public @NotNull FillingStyle getFilledStyle() {
 		return this;
 	}
 
 	/**
 	 * @return The filling style that corresponds to the given style but not filled. Cannot be null.
 	 */
-	public FillingStyle getUnfilledStyle() {
+	public @NotNull FillingStyle getUnfilledStyle() {
 		return this;
 	}
 

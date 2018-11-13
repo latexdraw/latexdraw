@@ -32,6 +32,8 @@ import net.sf.latexdraw.model.api.shape.SingleShape;
 import net.sf.latexdraw.model.api.shape.LineStyle;
 import net.sf.latexdraw.model.api.shape.Position;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The base shape model.
@@ -39,85 +41,85 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  */
 abstract class ShapeBase implements SingleShape {
 	/** The thickness of the lines of the shape in pixels. */
-	protected final DoubleProperty thickness;
+	protected final @NotNull DoubleProperty thickness;
 
 	/** The colour of the lines. */
-	protected final ObjectProperty<Color> lineColour;
+	protected final @NotNull ObjectProperty<Color> lineColour;
 
 	/** The style of the lines. */
-	protected final ObjectProperty<LineStyle> lineStyle;
+	protected final @NotNull ObjectProperty<LineStyle> lineStyle;
 
 	/** The style of the interior of the shape. */
-	protected final ObjectProperty<FillingStyle> fillingStyle;
+	protected final @NotNull ObjectProperty<FillingStyle> fillingStyle;
 
 	/** The white dash separator for dashed lines in pixel. */
-	protected final DoubleProperty dashSepWhite;
+	protected final @NotNull DoubleProperty dashSepWhite;
 
 	/** The black dash separator for dashed lines in pixel. */
-	protected final DoubleProperty dashSepBlack;
+	protected final @NotNull DoubleProperty dashSepBlack;
 
 	/** The dot separator for dotted lines. */
-	protected final DoubleProperty dotSep;
+	protected final @NotNull DoubleProperty dotSep;
 
 	/** The colour of the interior of the shape. */
-	protected final ObjectProperty<Color> fillingCol;
+	protected final @NotNull ObjectProperty<Color> fillingCol;
 
 	/** The start colour of the gradient. */
-	protected final ObjectProperty<Color> gradColStart;
+	protected final @NotNull ObjectProperty<Color> gradColStart;
 
 	/** The end colour of the gradient. */
-	protected final ObjectProperty<Color> gradColEnd;
+	protected final @NotNull ObjectProperty<Color> gradColEnd;
 
 	/** The angle of the gradient in radian. */
-	protected final DoubleProperty gradAngle;
+	protected final @NotNull DoubleProperty gradAngle;
 
 	/** The middle point of the gradient. */
-	protected final DoubleProperty gradMidPt;
+	protected final @NotNull DoubleProperty gradMidPt;
 
 	/** The separation size between hatchings in pixel. */
-	protected final DoubleProperty hatchingsSep;
+	protected final @NotNull DoubleProperty hatchingsSep;
 
 	/** The colour of the hatchings. */
-	protected final ObjectProperty<Color> hatchingsCol;
+	protected final @NotNull ObjectProperty<Color> hatchingsCol;
 
 	/** The angle of the hatchings in radian. */
-	protected final DoubleProperty hatchingsAngle;
+	protected final @NotNull DoubleProperty hatchingsAngle;
 
 	/** The thickness of the hatchings in pixel. */
-	protected final DoubleProperty hatchingsWidth;
+	protected final @NotNull DoubleProperty hatchingsWidth;
 
 	/** The rotation angle of the shape. */
-	protected final DoubleProperty rotationAngle;
+	protected final @NotNull DoubleProperty rotationAngle;
 
 	/** Defines if the points of the shape must be considered. */
-	protected final BooleanProperty showPts;
+	protected final @NotNull BooleanProperty showPts;
 
 	/** Defines if the shape has double borders. */
-	protected final BooleanProperty hasDbleBord;
+	protected final @NotNull BooleanProperty hasDbleBord;
 
 	/** The colour of the double borders. */
-	protected final ObjectProperty<Color> dbleBordCol;
+	protected final @NotNull ObjectProperty<Color> dbleBordCol;
 
 	/** The separation size of the double borders in pixel. */
-	protected final DoubleProperty dbleBordSep;
+	protected final @NotNull DoubleProperty dbleBordSep;
 
 	/** Defines if the shape has a shadow. */
-	protected final BooleanProperty hasShadow;
+	protected final @NotNull BooleanProperty hasShadow;
 
 	/** The colour of the shadow. */
-	protected final ObjectProperty<Color> shadowCol;
+	protected final @NotNull ObjectProperty<Color> shadowCol;
 
 	/** The angle of the shadow in radian. */
-	protected final DoubleProperty shadowAngle;
+	protected final @NotNull DoubleProperty shadowAngle;
 
 	/** The size of the shadow in pixel. */
-	protected final DoubleProperty shadowSize;
+	protected final @NotNull DoubleProperty shadowSize;
 
 	/** The position of the border of the shape. */
-	protected final ObjectProperty<BorderPos> bordersPosition;
+	protected final @NotNull ObjectProperty<BorderPos> bordersPosition;
 
 	/** The points of the shape. */
-	protected final List<Point> points;
+	protected final @NotNull List<Point> points;
 
 	/** Defined if the shape has been modified. */
 	protected boolean modified;
@@ -223,7 +225,7 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public BorderPos getBordersPosition() {
+	public @NotNull BorderPos getBordersPosition() {
 		return bordersPosition.get();
 	}
 
@@ -238,7 +240,7 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public Color getDbleBordCol() {
+	public @NotNull Color getDbleBordCol() {
 		return dbleBordCol.get();
 	}
 
@@ -253,17 +255,17 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public Color getFillingCol() {
+	public @NotNull Color getFillingCol() {
 		return fillingCol.get();
 	}
 
 	@Override
-	public FillingStyle getFillingStyle() {
+	public @NotNull FillingStyle getFillingStyle() {
 		return fillingStyle.get();
 	}
 
 	@Override
-	public Point getFullBottomRightPoint() {
+	public @NotNull Point getFullBottomRightPoint() {
 		final double gap = getBorderGap();
 		final Point br = getBottomRightPoint();
 
@@ -273,7 +275,7 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public Point getFullTopLeftPoint() {
+	public @NotNull Point getFullTopLeftPoint() {
 		final double gap = getBorderGap();
 		final Point tl = getTopLeftPoint();
 
@@ -288,12 +290,12 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public Color getGradColEnd() {
+	public @NotNull Color getGradColEnd() {
 		return gradColEnd.get();
 	}
 
 	@Override
-	public Color getGradColStart() {
+	public @NotNull Color getGradColStart() {
 		return gradColStart.get();
 	}
 
@@ -303,7 +305,7 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public Point getGravityCentre() {
+	public @NotNull Point getGravityCentre() {
 		return points.isEmpty() ? ShapeFactory.INST.createPoint() : getTopLeftPoint().getMiddlePoint(getBottomRightPoint());
 	}
 
@@ -313,7 +315,7 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public Color getHatchingsCol() {
+	public @NotNull Color getHatchingsCol() {
 		return hatchingsCol.get();
 	}
 
@@ -328,12 +330,12 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public Color getLineColour() {
+	public @NotNull Color getLineColour() {
 		return lineColour.get();
 	}
 
 	@Override
-	public LineStyle getLineStyle() {
+	public @NotNull LineStyle getLineStyle() {
 		return lineStyle.get();
 	}
 
@@ -343,7 +345,7 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public List<Point> getPoints() {
+	public @NotNull List<Point> getPoints() {
 		return Collections.unmodifiableList(points);
 	}
 
@@ -371,7 +373,7 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public Color getShadowCol() {
+	public @NotNull Color getShadowCol() {
 		return shadowCol.get();
 	}
 
@@ -422,8 +424,8 @@ abstract class ShapeBase implements SingleShape {
 
 
 	@Override
-	public void setBordersPosition(final BorderPos position) {
-		if(position != null && isBordersMovable()) {
+	public void setBordersPosition(final @NotNull BorderPos position) {
+		if(isBordersMovable()) {
 			bordersPosition.set(position);
 		}
 	}
@@ -443,8 +445,8 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public void setDbleBordCol(final Color col) {
-		if(col != null && isDbleBorderable()) {
+	public void setDbleBordCol(final @NotNull Color col) {
+		if(isDbleBorderable()) {
 			dbleBordCol.set(col);
 		}
 	}
@@ -477,15 +479,15 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public void setFillingCol(final Color col) {
-		if(col != null && isFillable()) {
+	public void setFillingCol(final @NotNull Color col) {
+		if(isFillable()) {
 			fillingCol.set(col);
 		}
 	}
 
 	@Override
-	public void setFillingStyle(final FillingStyle style) {
-		if(style != null && isFillable()) {
+	public void setFillingStyle(final @NotNull FillingStyle style) {
+		if(isFillable()) {
 			fillingStyle.set(style);
 		}
 	}
@@ -498,15 +500,15 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public void setGradColEnd(final Color col) {
-		if(col != null && isInteriorStylable()) {
+	public void setGradColEnd(final @NotNull Color col) {
+		if(isInteriorStylable()) {
 			gradColEnd.set(col);
 		}
 	}
 
 	@Override
-	public void setGradColStart(final Color col) {
-		if(col != null && isInteriorStylable()) {
+	public void setGradColStart(final @NotNull Color col) {
+		if(isInteriorStylable()) {
 			gradColStart.set(col);
 		}
 	}
@@ -540,8 +542,8 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public void setHatchingsCol(final Color col) {
-		if(col != null && isInteriorStylable()) {
+	public void setHatchingsCol(final @NotNull Color col) {
+		if(isInteriorStylable()) {
 			hatchingsCol.set(col);
 		}
 	}
@@ -561,32 +563,24 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public void setLineColour(final Color col) {
-		if(col != null) {
-			lineColour.set(col);
-		}
+	public void setLineColour(final @NotNull Color col) {
+		lineColour.set(col);
 	}
 
 	@Override
-	public void setLineStyle(final LineStyle style) {
-		if(style != null && isLineStylable()) {
+	public void setLineStyle(final @NotNull LineStyle style) {
+		if(isLineStylable()) {
 			lineStyle.setValue(style);
 		}
 	}
 
 	@Override
-	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
-		if(bound == null || pos == null) {
-			return;
-		}
+	public void scale(final double prevWidth, final double prevHeight, final @NotNull Position pos, final @NotNull Rectangle2D bound) {
 		scaleSetPoints(points, prevWidth, prevHeight, pos, bound);
 	}
 
 	@Override
-	public void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
-		if(bound == null || pos == null) {
-			return;
-		}
+	public void scaleWithRatio(final double prevWidth, final double prevHeight, final @NotNull Position pos, final @NotNull Rectangle2D bound) {
 		scaleSetPointsWithRatio(points, prevWidth, prevHeight, pos, bound);
 	}
 
@@ -640,8 +634,8 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public void setShadowCol(final Color col) {
-		if(col != null && isShadowable()) {
+	public void setShadowCol(final @NotNull Color col) {
+		if(isShadowable()) {
 			shadowCol.set(col);
 		}
 	}
@@ -694,39 +688,37 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public Point getBottomRightPoint() {
+	public @NotNull Point getBottomRightPoint() {
 		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
 			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).
 				orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override
-	public Point getBottomLeftPoint() {
+	public @NotNull Point getBottomLeftPoint() {
 		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
 			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).
 				orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override
-	public Point getTopLeftPoint() {
+	public @NotNull Point getTopLeftPoint() {
 		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
 			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).
 				orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override
-	public Point getTopRightPoint() {
+	public @NotNull Point getTopRightPoint() {
 		return getNbPoints() == 1 ? ShapeFactory.INST.createPoint(getPtAt(0)) :
 			points.stream().reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).
 				orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override
-	public Shape duplicate() {
-		final Shape shape = ShapeFactory.INST.newShape(getClass()).orElse(null);
-		if(shape != null) {
-			shape.copy(this);
-		}
+	public @NotNull Shape duplicate() {
+		final Shape shape = ShapeFactory.INST.newShape(getClass()).orElseThrow();
+		shape.copy(this);
 		return shape;
 	}
 
@@ -741,7 +733,7 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public void rotate(final Point point, final double angle) {
+	public void rotate(final @Nullable Point point, final double angle) {
 		final Point gc = getGravityCentre();
 
 		if(point != null && !gc.equals(point)) { // The position of the shape must be rotated.
@@ -793,8 +785,8 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public boolean isTypeOf(final Class<?> clazz) {
-		return clazz != null && clazz.isInstance(this);
+	public boolean isTypeOf(final @NotNull Class<?> clazz) {
+		return clazz.isInstance(this);
 	}
 
 	@Override
@@ -808,132 +800,132 @@ abstract class ShapeBase implements SingleShape {
 	}
 
 	@Override
-	public DoubleProperty thicknessProperty() {
+	public @NotNull DoubleProperty thicknessProperty() {
 		return thickness;
 	}
 
 	@Override
-	public ObjectProperty<LineStyle> linestyleProperty() {
+	public @NotNull ObjectProperty<LineStyle> linestyleProperty() {
 		return lineStyle;
 	}
 
 	@Override
-	public ObjectProperty<BorderPos> borderPosProperty() {
+	public @NotNull ObjectProperty<BorderPos> borderPosProperty() {
 		return bordersPosition;
 	}
 
 	@Override
-	public ObjectProperty<Color> lineColourProperty() {
+	public @NotNull ObjectProperty<Color> lineColourProperty() {
 		return lineColour;
 	}
 
 	@Override
-	public ObjectProperty<FillingStyle> fillingProperty() {
+	public @NotNull ObjectProperty<FillingStyle> fillingProperty() {
 		return fillingStyle;
 	}
 
 	@Override
-	public DoubleProperty dashSepWhiteProperty() {
+	public @NotNull DoubleProperty dashSepWhiteProperty() {
 		return dashSepWhite;
 	}
 
 	@Override
-	public DoubleProperty dashSepBlackProperty() {
+	public @NotNull DoubleProperty dashSepBlackProperty() {
 		return dashSepBlack;
 	}
 
 	@Override
-	public DoubleProperty dotSepProperty() {
+	public @NotNull DoubleProperty dotSepProperty() {
 		return dotSep;
 	}
 
 	@Override
-	public BooleanProperty dbleBordProperty() {
+	public @NotNull BooleanProperty dbleBordProperty() {
 		return hasDbleBord;
 	}
 
 	@Override
-	public DoubleProperty dbleBordSepProperty() {
+	public @NotNull DoubleProperty dbleBordSepProperty() {
 		return dbleBordSep;
 	}
 
 	@Override
-	public ObjectProperty<Color> dbleBordColProperty() {
+	public @NotNull ObjectProperty<Color> dbleBordColProperty() {
 		return dbleBordCol;
 	}
 
 	@Override
-	public ObjectProperty<Color> gradColStartProperty() {
+	public @NotNull ObjectProperty<Color> gradColStartProperty() {
 		return gradColStart;
 	}
 
 	@Override
-	public ObjectProperty<Color> gradColEndProperty() {
+	public @NotNull ObjectProperty<Color> gradColEndProperty() {
 		return gradColEnd;
 	}
 
 	@Override
-	public ObjectProperty<Color> fillingColProperty() {
+	public @NotNull ObjectProperty<Color> fillingColProperty() {
 		return fillingCol;
 	}
 
 	@Override
-	public DoubleProperty gradAngleProperty() {
+	public @NotNull DoubleProperty gradAngleProperty() {
 		return gradAngle;
 	}
 
 	@Override
-	public DoubleProperty gradMidPtProperty() {
+	public @NotNull DoubleProperty gradMidPtProperty() {
 		return gradMidPt;
 	}
 
 	@Override
-	public BooleanProperty shadowProperty() {
+	public @NotNull BooleanProperty shadowProperty() {
 		return hasShadow;
 	}
 
 	@Override
-	public ObjectProperty<Color> shadowColProperty() {
+	public @NotNull ObjectProperty<Color> shadowColProperty() {
 		return shadowCol;
 	}
 
 	@Override
-	public DoubleProperty shadowAngleProperty() {
+	public @NotNull DoubleProperty shadowAngleProperty() {
 		return shadowAngle;
 	}
 
 	@Override
-	public DoubleProperty shadowSizeProperty() {
+	public @NotNull DoubleProperty shadowSizeProperty() {
 		return shadowSize;
 	}
 
 	@Override
-	public DoubleProperty hatchingsAngleProperty() {
+	public @NotNull DoubleProperty hatchingsAngleProperty() {
 		return hatchingsAngle;
 	}
 
 	@Override
-	public DoubleProperty hatchingsSepProperty() {
+	public @NotNull DoubleProperty hatchingsSepProperty() {
 		return hatchingsSep;
 	}
 
 	@Override
-	public DoubleProperty hatchingsWidthProperty() {
+	public @NotNull DoubleProperty hatchingsWidthProperty() {
 		return hatchingsWidth;
 	}
 
 	@Override
-	public ObjectProperty<Color> hatchingsColProperty() {
+	public @NotNull ObjectProperty<Color> hatchingsColProperty() {
 		return hatchingsCol;
 	}
 
 	@Override
-	public DoubleProperty rotationAngleProperty() {
+	public @NotNull DoubleProperty rotationAngleProperty() {
 		return rotationAngle;
 	}
 
 	@Override
-	public ReadOnlyBooleanProperty showPointProperty() {
+	public @NotNull ReadOnlyBooleanProperty showPointProperty() {
 		return showPts;
 	}
 }

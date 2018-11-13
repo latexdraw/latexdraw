@@ -13,6 +13,7 @@ package net.sf.latexdraw.instrument;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -34,13 +35,13 @@ import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Text;
-import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
+import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewText;
-import org.malai.command.Command;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.binding.JfXWidgetBinding;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.DoubleClick;
@@ -52,12 +53,11 @@ import org.malai.javafx.interaction.library.SrcTgtPointsData;
  * @author Arnaud BLOUIN
  */
 public class Hand extends CanvasInstrument {
-	@Inject private MetaShapeCustomiser metaCustomiser;
-	@Inject private TextSetter textSetter;
-	@Inject private SystemService system;
+	private final @NotNull TextSetter textSetter;
 
-	public Hand() {
-		super();
+	public Hand(final Canvas canvas, final MagneticGrid grid, final TextSetter textSetter) {
+		super(canvas, grid);
+		this.textSetter = Objects.requireNonNull(textSetter);
 	}
 
 	private final ListChangeListener<Node> viewHandler = evt -> {
@@ -97,11 +97,11 @@ public class Hand extends CanvasInstrument {
 
 		dbleClickToInitTextSetter();
 
-		keyNodeBinder(() -> new SelectShapes(canvas.getDrawing())).on(canvas).with(KeyCode.A, system.getControlKey()).
+		keyNodeBinder(() -> new SelectShapes(canvas.getDrawing())).on(canvas).with(KeyCode.A, SystemUtils.getInstance().getControlKey()).
 			first(c -> c.getShapes().addAll(canvas.getDrawing().getShapes())).bind();
 
 		keyNodeBinder(() -> new UpdateToGrid(canvas.getMagneticGrid(), canvas.getDrawing().getSelection().duplicateDeep(false))).
-			on(canvas).with(KeyCode.U, system.getControlKey()).
+			on(canvas).with(KeyCode.U, SystemUtils.getInstance().getControlKey()).
 			when(i -> canvas.getMagneticGrid().isMagnetic()).bind();
 	}
 
@@ -195,12 +195,6 @@ public class Hand extends CanvasInstrument {
 		canvas.setCursor(Cursor.DEFAULT);
 	}
 
-	@Override
-	public void onCmdDone(final Command cmd) {
-		if(cmd instanceof TranslateShapes) {
-			metaCustomiser.dimPosCustomiser.update();
-		}
-	}
 
 	/**
 	 * A tricky workaround to get the real plot view hidden behind its content views (Bezier curve, dots, etc.).

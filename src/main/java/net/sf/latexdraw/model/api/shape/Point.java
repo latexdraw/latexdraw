@@ -13,6 +13,7 @@ package net.sf.latexdraw.model.api.shape;
 import java.awt.geom.Point2D;
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Point3D;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for points.
@@ -80,20 +81,20 @@ public interface Point {
 	 * @param pt The second point of the subtraction
 	 * @return The result of the subtraction.
 	 */
-	Point add(final Point pt);
+	@NotNull Point add(final Point pt);
 
 	/**
 	 * Subtracts the given pt to the current one: this-pt
 	 * @param pt The second point of the subtraction
 	 * @return The result of the subtraction.
 	 */
-	Point substract(final Point pt);
+	@NotNull Point substract(final Point pt);
 
 	/**
 	 * Normalizes the point (considered here as a vector).
 	 * @return The vector normalization.
 	 */
-	Point normalise();
+	@NotNull Point normalise();
 
 	/**
 	 * The magnitude (length) of the point considered here as a vector.

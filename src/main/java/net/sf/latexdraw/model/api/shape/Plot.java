@@ -16,6 +16,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.model.api.property.PlotProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for plots.
@@ -28,26 +29,27 @@ public interface Plot extends PositionShape, PlotProp {
 	 */
 	double getY(final double x);
 
-	BooleanProperty polarProperty();
+	@NotNull BooleanProperty polarProperty();
 
-	StringProperty plotEquationProperty();
+	@NotNull StringProperty plotEquationProperty();
 
-	DoubleProperty plotMinXProperty();
+	@NotNull DoubleProperty plotMinXProperty();
 
-	DoubleProperty plotMaxXProperty();
+	@NotNull DoubleProperty plotMaxXProperty();
 
-	IntegerProperty nbPlottedPointsProperty();
+	@NotNull IntegerProperty nbPlottedPointsProperty();
 
-	ObjectProperty<PlotStyle> plotStyleProperty();
+	@NotNull ObjectProperty<PlotStyle> plotStyleProperty();
 
-	ObjectProperty<DotStyle> dotStyleProperty();
+	@NotNull ObjectProperty<DotStyle> dotStyleProperty();
 
-	DoubleProperty dotDiametreProperty();
+	@NotNull DoubleProperty dotDiametreProperty();
 
-	DoubleProperty xScaleProperty();
+	@NotNull DoubleProperty xScaleProperty();
 
-	DoubleProperty yScaleProperty();
+	@NotNull DoubleProperty yScaleProperty();
 
+	@NotNull
 	@Override
 	Plot duplicate();
 }

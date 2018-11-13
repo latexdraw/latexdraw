@@ -36,23 +36,24 @@ import net.sf.latexdraw.model.api.shape.PlotStyle;
 import net.sf.latexdraw.model.api.shape.Position;
 import net.sf.latexdraw.parser.ps.PSFunctionParser;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Implementation of the plotted function.
  * @author Arnaud Blouin
  */
 class PlotImpl extends PositionShapeBase implements Plot {
-	private final IntegerProperty nbPoints;
-	private final ObjectProperty<PlotStyle> style;
-	private final ObjectProperty<DotStyle> dotStyle;
-	private final DoubleProperty dotDiametre;
-	private final BooleanProperty polar;
-	private final DoubleProperty minX;
-	private final DoubleProperty maxX;
-	private final StringProperty equation;
-	private final DoubleProperty xscale;
-	private final DoubleProperty yscale;
-	private PSFunctionParser parser;
+	private final @NotNull IntegerProperty nbPoints;
+	private final @NotNull ObjectProperty<PlotStyle> style;
+	private final @NotNull ObjectProperty<DotStyle> dotStyle;
+	private final @NotNull DoubleProperty dotDiametre;
+	private final @NotNull BooleanProperty polar;
+	private final @NotNull DoubleProperty minX;
+	private final @NotNull DoubleProperty maxX;
+	private final @NotNull StringProperty equation;
+	private final @NotNull DoubleProperty xscale;
+	private final @NotNull DoubleProperty yscale;
+	private @NotNull PSFunctionParser parser;
 
 	PlotImpl(final Point pt, final double xMin, final double xMax, final String equationPlot, final boolean polarCoord) {
 		super(pt);
@@ -103,7 +104,7 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	public Plot duplicate() {
+	public @NotNull Plot duplicate() {
 		final Plot plot = ShapeFactory.INST.createPlot(getPosition(), getPlotMinX(), getPlotMaxX(), getPlotEquation(), isPolar());
 		plot.copy(this);
 		return plot;
@@ -126,15 +127,13 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	public PlotStyle getPlotStyle() {
+	public @NotNull PlotStyle getPlotStyle() {
 		return style.get();
 	}
 
 	@Override
-	public void setPlotStyle(final PlotStyle plotStyle) {
-		if(plotStyle != null) {
-			style.setValue(plotStyle);
-		}
+	public void setPlotStyle(final @NotNull PlotStyle plotStyle) {
+		style.setValue(plotStyle);
 	}
 
 	@Override
@@ -178,7 +177,7 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	public Point getTopLeftPoint() {
+	public @NotNull Point getTopLeftPoint() {
 		final double step = getPlottingStep();
 		final Point pos = getPosition();
 		final double plotMinX = getPlotMinX();
@@ -187,7 +186,7 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	public Point getBottomRightPoint() {
+	public @NotNull Point getBottomRightPoint() {
 		final double step = getPlottingStep();
 		final Point pos = getPosition();
 		final double plotMinX = getPlotMinX();
@@ -196,7 +195,7 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	public Point getTopRightPoint() {
+	public @NotNull Point getTopRightPoint() {
 		final double step = getPlottingStep();
 		final Point pos = getPosition();
 		final double plotMinX = getPlotMinX();
@@ -205,7 +204,7 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	public Point getBottomLeftPoint() {
+	public @NotNull Point getBottomLeftPoint() {
 		final double step = getPlottingStep();
 		final Point pos = getPosition();
 		final double plotMinX = getPlotMinX();
@@ -214,12 +213,14 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	protected void scaleSetPointsWithRatio(final List<Point> pts, final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+	protected void scaleSetPointsWithRatio(final @NotNull List<Point> pts, final double prevWidth, final double prevHeight, final @NotNull Position pos,
+		final @NotNull Rectangle2D bound) {
 		scaleSetPoints(pts, prevWidth, prevHeight, pos, bound);
 	}
 
 	@Override
-	protected void scaleSetPoints(final List<Point> pts, final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+	protected void scaleSetPoints(final @NotNull List<Point> pts, final double prevWidth, final double prevHeight, final @NotNull Position pos,
+		final @NotNull Rectangle2D bound) {
 		switch(pos) {
 			case EAST:
 				getPtAt(0).translate(bound.getWidth() - prevWidth, 0d);
@@ -249,7 +250,7 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	public Point getPosition() {
+	public @NotNull Point getPosition() {
 		return getPtAt(0);
 	}
 
@@ -271,13 +272,13 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	public String getPlotEquation() {
+	public @NotNull String getPlotEquation() {
 		return equation.get();
 	}
 
 	@Override
-	public void setPlotEquation(final String eq) {
-		if(eq != null && !eq.isEmpty()) {
+	public void setPlotEquation(final @NotNull String eq) {
+		if(!eq.isEmpty()) {
 			parser = new PSFunctionParser(eq);
 			equation.setValue(eq);
 		}
@@ -330,25 +331,23 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	public Color getDotFillingCol() {
+	public @NotNull Color getDotFillingCol() {
 		return super.getFillingCol();
 	}
 
 	@Override
-	public void setDotFillingCol(final Color col) {
+	public void setDotFillingCol(final @NotNull Color col) {
 		setFillingCol(col);
 	}
 
 	@Override
-	public DotStyle getDotStyle() {
+	public @NotNull DotStyle getDotStyle() {
 		return dotStyle.get();
 	}
 
 	@Override
-	public void setDotStyle(final DotStyle dotst) {
-		if(dotst != null) {
-			dotStyle.setValue(dotst);
-		}
+	public void setDotStyle(final @NotNull DotStyle dotst) {
+		dotStyle.setValue(dotst);
 	}
 
 	@Override
@@ -382,52 +381,52 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	}
 
 	@Override
-	public BooleanProperty polarProperty() {
+	public @NotNull BooleanProperty polarProperty() {
 		return polar;
 	}
 
 	@Override
-	public StringProperty plotEquationProperty() {
+	public @NotNull StringProperty plotEquationProperty() {
 		return equation;
 	}
 
 	@Override
-	public DoubleProperty plotMinXProperty() {
+	public @NotNull DoubleProperty plotMinXProperty() {
 		return minX;
 	}
 
 	@Override
-	public DoubleProperty plotMaxXProperty() {
+	public @NotNull DoubleProperty plotMaxXProperty() {
 		return maxX;
 	}
 
 	@Override
-	public IntegerProperty nbPlottedPointsProperty() {
+	public @NotNull IntegerProperty nbPlottedPointsProperty() {
 		return nbPoints;
 	}
 
 	@Override
-	public ObjectProperty<PlotStyle> plotStyleProperty() {
+	public @NotNull ObjectProperty<PlotStyle> plotStyleProperty() {
 		return style;
 	}
 
 	@Override
-	public ObjectProperty<DotStyle> dotStyleProperty() {
+	public @NotNull ObjectProperty<DotStyle> dotStyleProperty() {
 		return dotStyle;
 	}
 
 	@Override
-	public DoubleProperty dotDiametreProperty() {
+	public @NotNull DoubleProperty dotDiametreProperty() {
 		return dotDiametre;
 	}
 
 	@Override
-	public DoubleProperty xScaleProperty() {
+	public @NotNull DoubleProperty xScaleProperty() {
 		return xscale;
 	}
 
 	@Override
-	public DoubleProperty yScaleProperty() {
+	public @NotNull DoubleProperty yScaleProperty() {
 		return yscale;
 	}
 }

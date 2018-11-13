@@ -27,7 +27,6 @@ import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Theories.class)
@@ -53,12 +52,6 @@ public class TestSetShapesBase {
 		shape.addShape(sh1);
 		shape.addShape(sh2);
 		assertThat(shape.getShapes(), contains(sh1, sh2));
-	}
-
-	@Theory
-	public void testAddShapeIShapeKO(@SetShapeData final SetShapesProp shape) {
-		shape.addShape(null);
-		assertThat(shape.getShapes(), empty());
 	}
 
 	@Theory
@@ -140,17 +133,10 @@ public class TestSetShapesBase {
 	@Theory
 	public void testGetShapeAt(@SetShapeData final SetShapesProp shape) {
 		shape.getShapes().addAll(sh1, sh2, sh3);
-		assertEquals(sh1, shape.getShapeAt(0));
-		assertEquals(sh2, shape.getShapeAt(1));
-		assertEquals(sh3, shape.getShapeAt(2));
-		assertEquals(sh3, shape.getShapeAt(-1));
-	}
-
-	@Theory
-	public void testGetShapeAtKO(@SetShapeData final SetShapesProp shape) {
-		shape.getShapes().addAll(sh1, sh2, sh3);
-		assertNull(shape.getShapeAt(-2));
-		assertNull(shape.getShapeAt(3));
+		assertEquals(sh1, shape.getShapeAt(0).orElseThrow());
+		assertEquals(sh2, shape.getShapeAt(1).orElseThrow());
+		assertEquals(sh3, shape.getShapeAt(2).orElseThrow());
+		assertEquals(sh3, shape.getShapeAt(-1).orElseThrow());
 	}
 
 	@Theory
@@ -169,7 +155,6 @@ public class TestSetShapesBase {
 	@Theory
 	public void testContainsKO(@SetShapeData final SetShapesProp shape) {
 		shape.getShapes().addAll(sh1, sh2);
-		assertFalse(shape.contains(null));
 		assertFalse(shape.contains(sh3));
 	}
 

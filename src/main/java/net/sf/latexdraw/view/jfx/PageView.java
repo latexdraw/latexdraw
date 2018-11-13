@@ -15,7 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Page;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The different page sizes that can be used.
@@ -37,22 +39,13 @@ public class PageView extends Group {
 
 	private final Rectangle recShadowRight;
 
-	/** The origin point where the page has to ben placed. */
-	private final Point origin;
-
-	/** The current page format. */
-	private final Page format;
-
 	/**
 	 * Creates a view of a page.
-	 * @param page The page format. Cannot be null.
-	 * @param orig The origin point where the page has to be placed. Cannot be null.
+	 * @param origin The origin point where the page has to be placed. Cannot be null.
 	 */
-	public PageView(final Page page, final Point orig) {
+	public PageView(final @NotNull PreferencesService prefs, final Point origin) {
 		super();
 
-		format = page;
-		origin = orig;
 		recPage = new Rectangle();
 		recShadowBottom = new Rectangle();
 		recShadowRight = new Rectangle();
@@ -60,6 +53,9 @@ public class PageView extends Group {
 		recPage.setStrokeWidth(1d);
 		recPage.setStroke(Color.BLACK);
 		recPage.setFill(null);
+		recPage.setX(origin.getX());
+		recPage.setY(origin.getY());
+
 		recShadowRight.setStroke(null);
 		recShadowBottom.setStroke(null);
 		recShadowRight.setFill(Color.GRAY);
@@ -72,25 +68,14 @@ public class PageView extends Group {
 		recPage.toFront();
 		setMouseTransparent(true);
 		setFocusTraversable(false);
-		setPage(page);
+
+		update(prefs.getPage());
+		prefs.pageProperty().addListener((observable, oldValue, newValue) -> update(newValue));
 	}
 
-	/**
-	 * @return The current page format.
-	 */
-	public Page getPage() {
-		return format;
-	}
-
-	/**
-	 * Sets the current page format.
-	 * @param page The new page format to use. Cannot be null.
-	 */
-	public final void setPage(final Page page) {
-		recPage.setX(origin.getX());
-		recPage.setY(origin.getY());
-		recPage.setWidth(page.getWidth() * Shape.PPC);
-		recPage.setHeight(page.getHeight() * Shape.PPC);
+	private final void update(final Page newPage) {
+		recPage.setWidth(newPage.getWidth() * Shape.PPC);
+		recPage.setHeight(newPage.getHeight() * Shape.PPC);
 
 		recShadowRight.setX(recPage.getX() + recPage.getWidth());
 		recShadowRight.setY(recPage.getY() + GAP_SHADOW);

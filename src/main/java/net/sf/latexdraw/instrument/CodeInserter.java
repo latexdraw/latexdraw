@@ -12,6 +12,7 @@ package net.sf.latexdraw.instrument;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Handler;
@@ -33,10 +34,8 @@ import net.sf.latexdraw.parser.pst.PSTContext;
 import net.sf.latexdraw.parser.pst.PSTLatexdrawListener;
 import net.sf.latexdraw.parser.pst.PSTLexer;
 import net.sf.latexdraw.parser.pst.PSTParser;
-import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStreams;
@@ -44,6 +43,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.tree.ErrorNode;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.library.InactivateInstrument;
 import org.malai.javafx.instrument.JfxInstrument;
 
@@ -58,53 +58,56 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 	@FXML TextArea text;
 	@FXML TextArea errorLog;
 	private Stage codeInserterDialogue;
-	@Inject private Drawing drawing;
-	@Inject private StatusBarController statusBar;
-	@Inject private LangService lang;
-	@Inject private SystemService system;
-	@Inject private Injector injector;
+	private final @NotNull Drawing drawing;
+	private final @NotNull StatusBarController statusBar;
+	private final @NotNull ResourceBundle lang;
+	private final @NotNull Injector injector;
 
 	/**
 	 * Creates the instrument.
 	 */
-	public CodeInserter() {
+	public CodeInserter(final Drawing drawing, final StatusBarController statusBar, final ResourceBundle lang, final Injector injector) {
 		super();
+		this.drawing = Objects.requireNonNull(drawing);
+		this.statusBar = Objects.requireNonNull(statusBar);
+		this.lang = Objects.requireNonNull(lang);
+		this.injector = Objects.requireNonNull(injector);
 	}
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		label.setText(lang.getBundle().getString("LaTeXDrawFrame.16"));
+		label.setText(lang.getString("LaTeXDrawFrame.16"));
 
 		// Collecting errors from the parser.
 		final ANTLRErrorListener errorListener = new BaseErrorListener() {
 			@Override
 			public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol, final int line, final int charPositionInLine,
 									final String msg, final RecognitionException e) {
-				errorLog.setText(errorLog.getText() + "Syntax error: " + msg + SystemService.EOL); //NON-NLS
+				errorLog.setText(errorLog.getText() + "Syntax error: " + msg + SystemUtils.getInstance().EOL); //NON-NLS
 			}
 		};
 
-		final PSTLatexdrawListener listener = new PSTLatexdrawListener(system) {
+		final PSTLatexdrawListener listener = new PSTLatexdrawListener() {
 			@Override
 			public void exitUnknowncmds(final PSTParser.UnknowncmdsContext ctx) {
-				errorLog.setText(errorLog.getText() + "Unknown command: " + ctx.LATEXCMD().getSymbol().getText() + SystemService.EOL); //NON-NLS
+				errorLog.setText(errorLog.getText() + "Unknown command: " + ctx.LATEXCMD().getSymbol().getText() + SystemUtils.getInstance().EOL); //NON-NLS
 			}
 
 			@Override
 			public void enterUnknownParamSetting(final PSTParser.UnknownParamSettingContext ctx) {
-				errorLog.setText(errorLog.getText() + "Unknown parameter: " + ctx.name.getText() + SystemService.EOL); //NON-NLS
+				errorLog.setText(errorLog.getText() + "Unknown parameter: " + ctx.name.getText() + SystemUtils.getInstance().EOL); //NON-NLS
 			}
 
 			@Override
 			public void visitErrorNode(final ErrorNode node) {
-				errorLog.setText(errorLog.getText() + "Error: " + node.getText() + SystemService.EOL); //NON-NLS
+				errorLog.setText(errorLog.getText() + "Error: " + node.getText() + SystemUtils.getInstance().EOL); //NON-NLS
 			}
 
 			@Override
 			public void exitText(final PSTParser.TextContext ctx) {
 				super.exitText(ctx);
 				if(ctx.getText().startsWith("\\")) {
-					errorLog.setText(errorLog.getText() + "Bad command: '" + ctx.getText() + "'?" + SystemService.EOL); //NON-NLS
+					errorLog.setText(errorLog.getText() + "Bad command: '" + ctx.getText() + "'?" + SystemUtils.getInstance().EOL); //NON-NLS
 				}
 			}
 		};
@@ -112,7 +115,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 		listener.log.addHandler(new Handler() {
 			@Override
 			public void publish(final LogRecord record) {
-				errorLog.setText(errorLog.getText() + record.getMessage() + SystemService.EOL);
+				errorLog.setText(errorLog.getText() + record.getMessage() + SystemUtils.getInstance().EOL);
 			}
 
 			@Override
@@ -140,16 +143,16 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 
 
 	/** @return The created latexdraw dialogue box. */
-	Optional<Stage> getInsertCodeDialogue() {
+	@NotNull Optional<Stage> getInsertCodeDialogue() {
 		if(codeInserterDialogue == null) {
 			try {
 				// The FXML file only loaded only when this method is called: this JFX controller is created by
 				// the app injector and lives as a singleton. A call to this function loads the FXML.
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/InsertCode.fxml"), lang.getBundle(), //NON-NLS
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/InsertCode.fxml"), lang, //NON-NLS
 					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				final Scene scene = new Scene(root);
 				codeInserterDialogue = new Stage(StageStyle.UTILITY);
-				codeInserterDialogue.setTitle(lang.getBundle().getString("InsertPSTricksCodeFrame.0"));
+				codeInserterDialogue.setTitle(lang.getString("InsertPSTricksCodeFrame.0"));
 				codeInserterDialogue.setScene(scene);
 				codeInserterDialogue.setOnHiding(evt -> setActivated(false));
 			}catch(final IOException ex) {
@@ -161,7 +164,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void configureBindings() {
-		buttonBinder(i -> new InsertPSTCode(text.getText(), statusBar.getLabel(), drawing, lang, system)).on(ok).bind();
+		buttonBinder(i -> new InsertPSTCode(text.getText(), statusBar.getLabel(), drawing, lang)).on(ok).bind();
 
 		buttonBinder(() -> new InactivateInstrument()).on(cancel, ok).first(cmd -> cmd.setInstrument(this)).bind();
 	}

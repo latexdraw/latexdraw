@@ -10,11 +10,14 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.model.api.shape.Group;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.malai.undo.Undoable;
 
 /**
@@ -23,33 +26,15 @@ import org.malai.undo.Undoable;
  */
 public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoable, Modifying {
 	/** The shape to modify. */
-	private final Group shapes;
+	private final @NotNull Group shapes;
 
 	/** The old value of the property. */
-	private List<Optional<T>> oldValue;
+	private @NotNull List<Optional<T>> oldValue;
 
-	public ModifyShapeProperty(final ShapeProperties<T> property, final Group shapes, final T value) {
+	public ModifyShapeProperty(final @NotNull ShapeProperties<T> property, final @NotNull Group shapes, final @Nullable T value) {
 		super(property, value);
 		this.shapes = shapes;
-	}
-
-	@Override
-	public void flush() {
-		super.flush();
-
-		if(shapes != null) {
-			shapes.clear();
-		}
-
-		if(oldValue != null) {
-			oldValue.clear();
-		}
-	}
-
-
-	@Override
-	public boolean canDo() {
-		return shapes != null && super.canDo();
+		oldValue = Collections.emptyList();
 	}
 
 
@@ -68,7 +53,7 @@ public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoa
 
 	@Override
 	public String getUndoName(final ResourceBundle bundle) {
-		return property == null ? "" : property.getMessage(bundle); //NON-NLS
+		return property.getMessage(bundle);
 	}
 
 
@@ -87,13 +72,11 @@ public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoa
 
 	@Override
 	protected void doCmdBody() {
-		if(oldValue == null) {
-			oldValue = property.getPropertyValues(shapes);
-		}
+		oldValue = property.getPropertyValues(shapes);
 		applyValue(value);
 	}
 
-	public Group getShapes() {
+	public @NotNull Group getShapes() {
 		return shapes;
 	}
 

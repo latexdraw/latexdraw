@@ -22,6 +22,7 @@ import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
 import net.sf.latexdraw.model.api.shape.Line;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of an arrow.
@@ -29,29 +30,29 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  */
 class ArrowImpl implements Arrow {
 	/** The style of the arrow. */
-	private final ObjectProperty<ArrowStyle> style;
+	private final @NotNull ObjectProperty<ArrowStyle> style;
 	/** The latex parameter arrowSize num. */
-	private final DoubleProperty arrowSizeDim;
+	private final @NotNull DoubleProperty arrowSizeDim;
 	/** The latex parameter arrowSize num. */
-	private final DoubleProperty arrowSizeNum;
+	private final @NotNull DoubleProperty arrowSizeNum;
 	/** The length of the arrow. */
-	private final DoubleProperty arrowLength;
+	private final @NotNull DoubleProperty arrowLength;
 	/** The inset of the arrow. */
-	private final DoubleProperty arrowInset;
+	private final @NotNull DoubleProperty arrowInset;
 	/** The latex parameter dotsize dim. */
-	private final DoubleProperty dotSizeDim;
+	private final @NotNull DoubleProperty dotSizeDim;
 	/** The latex parameter dotsize num. */
-	private final DoubleProperty dotSizeNum;
+	private final @NotNull DoubleProperty dotSizeNum;
 	/** The latex parameter tbarsize num. */
-	private final DoubleProperty tBarSizeDim;
+	private final @NotNull DoubleProperty tBarSizeDim;
 	/** The latex parameter tbarsize num. */
-	private final DoubleProperty tBarSizeNum;
+	private final @NotNull DoubleProperty tBarSizeNum;
 	/** The latex parameter bracket num. */
-	private final DoubleProperty bracketNum;
+	private final @NotNull DoubleProperty bracketNum;
 	/** The latex parameter rbracket num. */
-	private final DoubleProperty rBracketNum;
+	private final @NotNull DoubleProperty rBracketNum;
 	/** The owner of the arrow. */
-	private final ArrowableSingleShape owner;
+	private final @NotNull ArrowableSingleShape owner;
 
 
 	/**
@@ -157,8 +158,8 @@ class ArrowImpl implements Arrow {
 	}
 
 	@Override
-	public void bindFrom(final Arrow arrow) {
-		if(arrow == null || arrow == this) {
+	public void bindFrom(final @NotNull Arrow arrow) {
+		if(arrow == this) {
 			return;
 		}
 
@@ -216,7 +217,7 @@ class ArrowImpl implements Arrow {
 	}
 
 	@Override
-	public ArrowStyle getArrowStyle() {
+	public @NotNull ArrowStyle getArrowStyle() {
 		return style.get();
 	}
 
@@ -241,7 +242,7 @@ class ArrowImpl implements Arrow {
 	}
 
 	@Override
-	public ArrowableSingleShape getShape() {
+	public @NotNull ArrowableSingleShape getShape() {
 		return owner;
 	}
 
@@ -300,10 +301,8 @@ class ArrowImpl implements Arrow {
 
 
 	@Override
-	public void setArrowStyle(final ArrowStyle arrowStyle) {
-		if(arrowStyle != null) {
-			style.set(arrowStyle);
-		}
+	public void setArrowStyle(final @NotNull ArrowStyle arrowStyle) {
+		style.set(arrowStyle);
 	}
 
 	@Override
@@ -349,57 +348,57 @@ class ArrowImpl implements Arrow {
 	}
 
 	@Override
-	public ObjectProperty<ArrowStyle> styleProperty() {
+	public @NotNull ObjectProperty<ArrowStyle> styleProperty() {
 		return style;
 	}
 
 	@Override
-	public DoubleProperty arrowSizeDimProperty() {
+	public @NotNull DoubleProperty arrowSizeDimProperty() {
 		return arrowSizeDim;
 	}
 
 	@Override
-	public DoubleProperty arrowSizeNumProperty() {
+	public @NotNull DoubleProperty arrowSizeNumProperty() {
 		return arrowSizeNum;
 	}
 
 	@Override
-	public DoubleProperty arrowLengthProperty() {
+	public @NotNull DoubleProperty arrowLengthProperty() {
 		return arrowLength;
 	}
 
 	@Override
-	public DoubleProperty arrowInsetProperty() {
+	public @NotNull DoubleProperty arrowInsetProperty() {
 		return arrowInset;
 	}
 
 	@Override
-	public DoubleProperty dotSizeDimProperty() {
+	public @NotNull DoubleProperty dotSizeDimProperty() {
 		return dotSizeDim;
 	}
 
 	@Override
-	public DoubleProperty dotSizeNumProperty() {
+	public @NotNull DoubleProperty dotSizeNumProperty() {
 		return dotSizeNum;
 	}
 
 	@Override
-	public DoubleProperty tBarSizeDimProperty() {
+	public @NotNull DoubleProperty tBarSizeDimProperty() {
 		return tBarSizeDim;
 	}
 
 	@Override
-	public DoubleProperty tBarSizeNumProperty() {
+	public @NotNull DoubleProperty tBarSizeNumProperty() {
 		return tBarSizeNum;
 	}
 
 	@Override
-	public DoubleProperty bracketNumProperty() {
+	public @NotNull DoubleProperty bracketNumProperty() {
 		return bracketNum;
 	}
 
 	@Override
-	public DoubleProperty rBracketNumProperty() {
+	public @NotNull DoubleProperty rBracketNumProperty() {
 		return rBracketNum;
 	}
 }

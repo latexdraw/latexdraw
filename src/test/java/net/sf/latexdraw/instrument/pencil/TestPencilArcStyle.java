@@ -11,8 +11,8 @@ import net.sf.latexdraw.instrument.ShapeArcCustomiser;
 import net.sf.latexdraw.instrument.ShapePropInjector;
 import net.sf.latexdraw.instrument.TestArcStyleGUI;
 import net.sf.latexdraw.instrument.TextSetter;
-import net.sf.latexdraw.model.api.shape.ArcStyle;
 import net.sf.latexdraw.model.api.shape.Arc;
+import net.sf.latexdraw.model.api.shape.ArcStyle;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,9 +34,9 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeArcCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -91,30 +91,30 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 	@Test
 	public void testArcEndAnglePencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns), endAngleS, incrementEndAngle,
-			Collections.singletonList(() -> Math.toDegrees(((Arc) pencil.createShapeInstance()).getAngleEnd())));
+			Collections.singletonList(() -> Math.toDegrees(((Arc) editing.createShapeInstance()).getAngleEnd())));
 	}
 
 	@Test
 	public void testArcStartAnglePencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns), startAngleS, incrementStartAngle,
-			Collections.singletonList(() -> Math.toDegrees(((Arc) pencil.createShapeInstance()).getAngleStart())));
+			Collections.singletonList(() -> Math.toDegrees(((Arc) editing.createShapeInstance()).getAngleStart())));
 	}
 
 	@Test
 	public void testArcTypeWedgePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectWedge).execute();
-		assertEquals(ArcStyle.WEDGE, ((Arc) pencil.createShapeInstance()).getArcStyle());
+		assertEquals(ArcStyle.WEDGE, ((Arc) editing.createShapeInstance()).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeArcPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectArc).execute();
-		assertEquals(ArcStyle.ARC, ((Arc) pencil.createShapeInstance()).getArcStyle());
+		assertEquals(ArcStyle.ARC, ((Arc) editing.createShapeInstance()).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeChordPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectArc, selectChord).execute();
-		assertEquals(ArcStyle.CHORD, ((Arc) pencil.createShapeInstance()).getArcStyle());
+		assertEquals(ArcStyle.CHORD, ((Arc) editing.createShapeInstance()).getArcStyle());
 	}
 }

@@ -19,7 +19,8 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Picture;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A model of a picture.
@@ -32,7 +33,6 @@ class PictureImpl extends PositionShapeBase implements Picture {
 	private String pathTarget;
 	/** The path of the source image. */
 	private String pathSource;
-	final SystemService system;
 
 
 	/**
@@ -40,9 +40,8 @@ class PictureImpl extends PositionShapeBase implements Picture {
 	 * @param pt The position of the top-left point of the picture.
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 */
-	PictureImpl(final Point pt, final SystemService system) {
+	PictureImpl(final Point pt) {
 		super(pt);
-		this.system = system;
 	}
 
 
@@ -70,11 +69,11 @@ class PictureImpl extends PositionShapeBase implements Picture {
 	 * If not found, a jpg picture is created (to be
 	 */
 	private void searchOrCreateImg() {
-		final String path = system.getFileWithoutExtension(pathSource);
+		final String path = SystemUtils.getInstance().getFileWithoutExtension(pathSource);
 		pathSource = Stream.of(".jpg", ".png", ".gif", ".jpeg").map(ext -> new File(path + ext)). //NON-NLS
 			filter(f -> f.exists()).map(f -> f.getPath()).findFirst().
 			orElseGet(() -> {
-				system.execute(new String[] {"convert", pathSource, path + ".jpg"}, null); //NON-NLS
+				SystemUtils.getInstance().execute(new String[] {"convert", pathSource, path + ".jpg"}, null); //NON-NLS
 				return path + ".jpg"; //NON-NLS
 			});
 	}
@@ -90,8 +89,8 @@ class PictureImpl extends PositionShapeBase implements Picture {
 	}
 
 	@Override
-	public Picture duplicate() {
-		final Picture pic = ShapeFactory.INST.createPicture(getPosition(), system);
+	public @NotNull Picture duplicate() {
+		final Picture pic = ShapeFactory.INST.createPicture(getPosition());
 		pic.copy(this);
 		return pic;
 	}
@@ -117,48 +116,48 @@ class PictureImpl extends PositionShapeBase implements Picture {
 	 * Creates an EPS image from the source one.
 	 */
 	private void createEPSImage() {
-		pathTarget = system.getFileWithoutExtension(pathSource) + ExportFormat.EPS_LATEX.getFileExtension();
+		pathTarget = SystemUtils.getInstance().getFileWithoutExtension(pathSource) + ExportFormat.EPS_LATEX.getFileExtension();
 
 		if(!new File(pathTarget).exists()) {
-			system.execute(new String[] {"convert", pathSource, pathTarget}, null); //NON-NLS
+			SystemUtils.getInstance().execute(new String[] {"convert", pathSource, pathTarget}, null); //NON-NLS
 		}
 	}
 
 
 	@Override
-	public Point getPosition() {
+	public @NotNull Point getPosition() {
 		return getPtAt(0);
 	}
 
 
 	@Override
-	public Point getTopRightPoint() {
+	public @NotNull Point getTopRightPoint() {
 		final Point pos = getPtAt(0);
 		return ShapeFactory.INST.createPoint(pos.getX() + getWidth(), pos.getY());
 	}
 
 
 	@Override
-	public Point getFullBottomRightPoint() {
+	public @NotNull Point getFullBottomRightPoint() {
 		return getBottomRightPoint();
 	}
 
 
 	@Override
-	public Point getFullTopLeftPoint() {
+	public @NotNull Point getFullTopLeftPoint() {
 		return getTopLeftPoint();
 	}
 
 
 	@Override
-	public Point getBottomRightPoint() {
+	public @NotNull Point getBottomRightPoint() {
 		final Point pos = getPtAt(0);
 		return ShapeFactory.INST.createPoint(pos.getX() + getWidth(), pos.getY() + getHeight());
 	}
 
 
 	@Override
-	public Point getBottomLeftPoint() {
+	public @NotNull Point getBottomLeftPoint() {
 		final Point pos = getPtAt(0);
 		return ShapeFactory.INST.createPoint(pos.getX(), pos.getY() + getHeight());
 	}

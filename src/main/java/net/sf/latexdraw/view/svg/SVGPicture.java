@@ -18,7 +18,6 @@ import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.parser.svg.SVGImageElement;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.SystemService;
 
 /**
  * An SVG generator for an picture.
@@ -34,8 +33,8 @@ class SVGPicture extends SVGShape<Picture> {
 	 * Creates a picture from a SVGImage element.
 	 * @param elt The source element.
 	 */
-	SVGPicture(final SVGImageElement elt, final SystemService system) {
-		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), system));
+	SVGPicture(final SVGImageElement elt) {
+		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 
 		shape.setPathSource(elt.getURI());
 		shape.getPosition().setPoint(elt.getX(), elt.getY());
@@ -47,8 +46,8 @@ class SVGPicture extends SVGShape<Picture> {
 	 * Creates a picture from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 */
-	SVGPicture(final SVGGElement elt, final boolean withTransformation, final SystemService system) {
-		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), system));
+	SVGPicture(final SVGGElement elt, final boolean withTransformation) {
+		this(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 

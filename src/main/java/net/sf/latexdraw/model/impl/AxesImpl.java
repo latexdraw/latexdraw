@@ -31,33 +31,34 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of axes.
  * @author Arnaud Blouin
  */
 class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
-	private final List<Arrow> arrows;
+	private final @NotNull List<Arrow> arrows;
 	/** The increment of X axe (Dx in PST). */
-	private final DoubleProperty incrementX;
+	private final @NotNull DoubleProperty incrementX;
 	/** The increment of Y axe (Dy in PST). */
-	private final DoubleProperty incrementY;
+	private final @NotNull DoubleProperty incrementY;
 	/** The distance between each label of the X axe; if 0, the default value will be used (in cm). */
-	private final DoubleProperty distLabelsX;
+	private final @NotNull DoubleProperty distLabelsX;
 	/** The distance between each label of the Y axe; if 0, the default value will be used (in cm). */
-	private final DoubleProperty distLabelsY;
+	private final @NotNull DoubleProperty distLabelsY;
 	/** Define which labels must be displayed. */
-	private final ObjectProperty<PlottingStyle> labelsDisplayed;
+	private final @NotNull ObjectProperty<PlottingStyle> labelsDisplayed;
 	/** Define the origin must be shown. */
-	private final BooleanProperty showOrigin;
+	private final @NotNull BooleanProperty showOrigin;
 	/** Define how the ticks must be shown. */
-	private final ObjectProperty<PlottingStyle> ticksDisplayed;
+	private final @NotNull ObjectProperty<PlottingStyle> ticksDisplayed;
 	/** Define the style of the ticks. */
-	private final ObjectProperty<TicksStyle> ticksStyle;
+	private final @NotNull ObjectProperty<TicksStyle> ticksStyle;
 	/** The size of the ticks. */
-	private final DoubleProperty ticksSize;
+	private final @NotNull DoubleProperty ticksSize;
 	/** The style of the axes. */
-	private final ObjectProperty<AxesStyle> axesStyle;
+	private final @NotNull ObjectProperty<AxesStyle> axesStyle;
 
 	AxesImpl(final Point pt) {
 		super(pt);
@@ -104,17 +105,17 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public Axes duplicate() {
+	public @NotNull Axes duplicate() {
 		final Axes axes = ShapeFactory.INST.createAxes(getPosition());
 		axes.copy(this);
 		return axes;
 	}
 
 	@Override
-	public void setArrowStyle(final ArrowStyle style, final int position) {
+	public void setArrowStyle(final @NotNull ArrowStyle style, final int position) {
 		final int pos = position == -1 ? arrows.size() - 1 : position;
 
-		if(style != null && pos < 4 && pos >= 0) {
+		if(pos < 4 && pos >= 0) {
 			ArrowableShapeBase.super.setArrowStyle(style, position);
 			switch(pos) {
 				case 0:
@@ -134,7 +135,7 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public Point getPosition() {
+	public @NotNull Point getPosition() {
 		return getPtAt(0);
 	}
 
@@ -182,7 +183,7 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public AxesStyle getAxesStyle() {
+	public @NotNull AxesStyle getAxesStyle() {
 		return axesStyle.getValue();
 	}
 
@@ -197,12 +198,12 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public PlottingStyle getLabelsDisplayed() {
+	public @NotNull PlottingStyle getLabelsDisplayed() {
 		return labelsDisplayed.getValue();
 	}
 
 	@Override
-	public PlottingStyle getTicksDisplayed() {
+	public @NotNull PlottingStyle getTicksDisplayed() {
 		return ticksDisplayed.getValue();
 	}
 
@@ -212,7 +213,7 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public TicksStyle getTicksStyle() {
+	public @NotNull TicksStyle getTicksStyle() {
 		return ticksStyle.getValue();
 	}
 
@@ -222,10 +223,8 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public void setAxesStyle(final AxesStyle style) {
-		if(style != null) {
-			axesStyle.set(style);
-		}
+	public void setAxesStyle(final @NotNull AxesStyle style) {
+		axesStyle.set(style);
 	}
 
 	@Override
@@ -270,10 +269,8 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public void setTicksDisplayed(final PlottingStyle style) {
-		if(style != null) {
-			ticksDisplayed.set(style);
-		}
+	public void setTicksDisplayed(final @NotNull PlottingStyle style) {
+		ticksDisplayed.set(style);
 	}
 
 	@Override
@@ -284,10 +281,8 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public void setTicksStyle(final TicksStyle style) {
-		if(style != null) {
-			ticksStyle.set(style);
-		}
+	public void setTicksStyle(final @NotNull TicksStyle style) {
+		ticksStyle.set(style);
 	}
 
 	@Override
@@ -316,7 +311,7 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public Point getIncrement() {
+	public @NotNull Point getIncrement() {
 		return ShapeFactory.INST.createPoint(getIncrementX(), getIncrementY());
 	}
 
@@ -329,7 +324,7 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public Point getDistLabels() {
+	public @NotNull Point getDistLabels() {
 		return ShapeFactory.INST.createPoint(getDistLabelsX(), getDistLabelsY());
 	}
 
@@ -342,57 +337,57 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 	}
 
 	@Override
-	public List<Arrow> getArrows() {
+	public @NotNull List<Arrow> getArrows() {
 		return arrows;
 	}
 
 	@Override
-	public DoubleProperty incrementXProperty() {
+	public @NotNull DoubleProperty incrementXProperty() {
 		return incrementX;
 	}
 
 	@Override
-	public DoubleProperty incrementYProperty() {
+	public @NotNull DoubleProperty incrementYProperty() {
 		return incrementY;
 	}
 
 	@Override
-	public DoubleProperty distLabelsXProperty() {
+	public @NotNull DoubleProperty distLabelsXProperty() {
 		return distLabelsX;
 	}
 
 	@Override
-	public DoubleProperty distLabelsYProperty() {
+	public @NotNull DoubleProperty distLabelsYProperty() {
 		return distLabelsY;
 	}
 
 	@Override
-	public ObjectProperty<PlottingStyle> labelsDisplayedProperty() {
+	public @NotNull ObjectProperty<PlottingStyle> labelsDisplayedProperty() {
 		return labelsDisplayed;
 	}
 
 	@Override
-	public BooleanProperty showOriginProperty() {
+	public @NotNull BooleanProperty showOriginProperty() {
 		return showOrigin;
 	}
 
 	@Override
-	public ObjectProperty<PlottingStyle> ticksDisplayedProperty() {
+	public @NotNull ObjectProperty<PlottingStyle> ticksDisplayedProperty() {
 		return ticksDisplayed;
 	}
 
 	@Override
-	public ObjectProperty<TicksStyle> ticksStyleProperty() {
+	public @NotNull ObjectProperty<TicksStyle> ticksStyleProperty() {
 		return ticksStyle;
 	}
 
 	@Override
-	public DoubleProperty ticksSizeProperty() {
+	public @NotNull DoubleProperty ticksSizeProperty() {
 		return ticksSize;
 	}
 
 	@Override
-	public ObjectProperty<AxesStyle> axesStyleProperty() {
+	public @NotNull ObjectProperty<AxesStyle> axesStyleProperty() {
 		return axesStyle;
 	}
 }

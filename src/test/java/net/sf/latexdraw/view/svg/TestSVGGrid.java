@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class TestSVGGrid extends TestSVGBase<Grid> {
 	@ParameterizedTest
-	@MethodSource("net.sf.latexdraw.data.GridSupplier#createDiversifiedGrid")
+	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#createDiversifiedGrid")
 	void testGridParams(final Grid sh) {
 		final Grid s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsGrid(sh, s2);

@@ -259,7 +259,7 @@ public abstract class Injector {
 					return;
 				}
 
-				if(!instances.containsKey(src)) {
+				if(!isConfigured(src)) {
 					LOGGER.severe("The type " + src.getTypeName() + " is not registered yet. Ignoring the binding."); //NON-NLS
 					return;
 				}

@@ -2,8 +2,9 @@ package net.sf.latexdraw.command;
 
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.util.Tuple;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -21,31 +22,27 @@ public class TestCheckConvertExists {
 	CheckConvertExists cmd;
 	Label label;
 	Hyperlink link;
+	SystemUtils system;
 
 	@BeforeEach
 	void setUp() {
+		system = SystemUtils.getInstance();
 		label = new Label();
 		link = new Hyperlink();
 		label.setVisible(false);
 	}
 
-	@Test
-	void testLabelKO() {
-		cmd = new CheckConvertExists(null, link, new SystemService());
-		assertFalse(cmd.canDo());
-	}
-
-	@Test
-	void testLinkKO() {
-		cmd = new CheckConvertExists(label, null, new SystemService());
-		assertFalse(cmd.canDo());
+	@AfterEach
+	void tearDown() {
+		SystemUtils.setSingleton(system);
 	}
 
 	@Test
 	void testExecuteNoConvert() {
-		final SystemService mockSys = Mockito.mock(SystemService.class);
-		cmd = new CheckConvertExists(label, link, mockSys);
+		final SystemUtils mockSys = Mockito.mock(SystemUtils.class);
 		Mockito.when(mockSys.execute(Mockito.any(), Mockito.any())).thenReturn(new Tuple<>(false, ""));
+		SystemUtils.setSingleton(mockSys);
+		cmd = new CheckConvertExists(label, link);
 		cmd.doIt();
 		assertTrue(link.isVisible());
 		assertFalse(link.getText().isEmpty());
@@ -56,7 +53,7 @@ public class TestCheckConvertExists {
 	class WithDataOK {
 		@BeforeEach
 		void setUp() {
-			cmd = new CheckConvertExists(label, link, new SystemService());
+			cmd = new CheckConvertExists(label, link);
 		}
 
 		@Test

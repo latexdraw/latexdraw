@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The API for circles.
  * @author Arnaud BLOUIN
@@ -18,7 +20,7 @@ public interface Circle extends SquaredShape {
 	/**
 	 * @return The centre of the circle.
 	 */
-	Point getCenter();
+	@NotNull Point getCenter();
 
 	/**
 	 * @return The radius of the circle.

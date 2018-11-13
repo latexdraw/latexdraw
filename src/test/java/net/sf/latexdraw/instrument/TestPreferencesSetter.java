@@ -3,26 +3,27 @@ package net.sf.latexdraw.instrument;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Locale;
 import javafx.application.Platform;
-import javafx.scene.control.TextInputControl;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import net.sf.latexdraw.command.ModifyMagneticGrid;
 import net.sf.latexdraw.instrument.robot.FxRobotListSelection;
 import net.sf.latexdraw.instrument.robot.FxRobotSpinner;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
+import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.GridStyle;
-import net.sf.latexdraw.view.MagneticGrid;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.command.CommandsRegistry;
 import org.mockito.Mockito;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
 public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotListSelection, FxRobotSpinner {
 	PreferencesSetter setter;
+	PreferencesService prefs;
 
 	@Override
 	protected String getFXMLPathFromLatexdraw() {
@@ -37,9 +38,6 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				bindAsEagerSingleton(PreferencesSetter.class);
-				bindToInstance(FileLoaderSaver.class, Mockito.mock(FileLoaderSaver.class));
-				bindToInstance(MagneticGrid.class, Mockito.mock(MagneticGrid.class));
-				bindToInstance(Exporter.class, Mockito.mock(Exporter.class));
 			}
 		};
 	}
@@ -47,86 +45,112 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 	@Before
 	public void setUp() {
 		setter = injector.getInstance(PreferencesSetter.class);
+		prefs = injector.getInstance(PreferencesService.class);
 		setter.setActivated(true);
 	}
 
-	private void writeReadPrefs() {
-		Platform.runLater(() -> {
-			setter.writeXMLPreferences();
-			waitFXEvents.execute();
-			setter.readXMLPreferences();
-			waitFXEvents.execute();
-		});
+	@Test
+	public void testOpenGL() {
+		final boolean openGL = prefs.openGLProperty().get();
+		clickOn(setter.openGL);
+		waitFXEvents.execute();
+		assertNotEquals(openGL, prefs.openGLProperty().get());
 	}
 
 	@Test
-	public void testReadWriteMagneticGrid() {
-		Platform.runLater(() -> setter.readXMLPreferences());
-		waitFXEvents.execute();
-		clickOn(setter.magneticCB);
-		waitFXEvents.execute();
-		final boolean value = setter.magneticCB.isSelected();
-		writeReadPrefs();
-		assertEquals(value, setter.magneticCB.isSelected());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof ModifyMagneticGrid);
-	}
-
-	@Test
-	public void testReadWriteCheckNewVersion() {
-		Platform.runLater(() -> setter.readXMLPreferences());
-		waitFXEvents.execute();
+	public void testCheckVersion() {
+		final boolean version = prefs.checkVersionProperty().get();
 		clickOn(setter.checkNewVersion);
 		waitFXEvents.execute();
-		final boolean value = setter.checkNewVersion.isSelected();
-		writeReadPrefs();
-		assertEquals(value, setter.checkNewVersion.isSelected());
+		assertNotEquals(version, prefs.checkVersionProperty().get());
 	}
 
 	@Test
-	public void testChangeMagneticGrid() {
-		Platform.runLater(() -> setter.readXMLPreferences());
+	public void testMagnetic() {
+		final boolean magnetic = prefs.isMagneticGrid();
+		clickOn(setter.magneticCB);
 		waitFXEvents.execute();
-		selectNextComboBoxItem(setter.styleList);
-		waitFXEvents.execute();
-		final GridStyle value = setter.styleList.getValue();
-		writeReadPrefs();
-		assertEquals(value, setter.styleList.getValue());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof ModifyMagneticGrid);
+		assertNotEquals(magnetic, prefs.isMagneticGrid());
 	}
 
 	@Test
-	public void testGidGap() {
-		Platform.runLater(() -> setter.readXMLPreferences());
+	public void testLang() {
+		Platform.runLater(() -> prefs.langProperty().set(Locale.FRENCH));
+		WaitForAsyncUtils.waitForFxEvents();
+		selectGivenComboBoxItem(setter.langList, Locale.US);
 		waitFXEvents.execute();
-		incrementSpinner(setter.persoGridGapField);
+		assertEquals(Locale.US, prefs.getLang());
+	}
+
+	@Test
+	public void testGridStyle() {
+		Platform.runLater(() -> prefs.gridStyleProperty().set(GridStyle.CUSTOMISED));
+		WaitForAsyncUtils.waitForFxEvents();
+		selectGivenComboBoxItem(setter.styleList, GridStyle.STANDARD);
 		waitFXEvents.execute();
-		final int value = setter.persoGridGapField.getValue();
-		writeReadPrefs();
-		assertEquals(value, setter.persoGridGapField.getValue().intValue());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof ModifyMagneticGrid);
+		assertEquals(GridStyle.STANDARD, prefs.getGridStyle());
+	}
+
+	@Test
+	public void testUnit() {
+		Platform.runLater(() -> prefs.unitProperty().set(Unit.CM));
+		WaitForAsyncUtils.waitForFxEvents();
+		selectGivenComboBoxItem(setter.unitChoice, Unit.INCH);
+		waitFXEvents.execute();
+		assertEquals(Unit.INCH, prefs.getUnit());
+	}
+
+	@Test
+	public void testIncludes() {
+		prefs.includesProperty().setValue("");
+		clickOn(setter.latexIncludes).write("fooo").sleep(1000L);
+		waitFXEvents.execute();
+		assertEquals("fooo", prefs.includesProperty().get());
+	}
+
+	@Test
+	public void testNbRecentFiles() {
+		prefs.setNbRecentFiles(2);
+		waitFXEvents.execute();
+		incrementSpinner(setter.nbRecentFilesField);
+		incrementSpinner(setter.nbRecentFilesField);
+		waitFXEvents.execute();
+		assertEquals(4, prefs.getNbRecentFiles());
+	}
+
+	@Test
+	public void testGridGap() {
+		prefs.gridGapProperty().set(4);
+		waitFXEvents.execute();
+		incrementSpinner(setter.magneticGridGap);
+		incrementSpinner(setter.magneticGridGap);
+		waitFXEvents.execute();
+		assertEquals(6, prefs.gridGapProperty().get());
 	}
 
 	@Test
 	public void testClickChooseLoadFolder() throws NoSuchFieldException, IllegalAccessException {
 		final DirectoryChooser chooser = Mockito.mock(DirectoryChooser.class);
-			Mockito.when(chooser.showDialog(Mockito.any())).thenReturn(new File("foo"));
+		Mockito.when(chooser.showDialog(Mockito.any())).thenReturn(new File("/tmp"));
 		final Field field = PreferencesSetter.class.getDeclaredField("fileChooser");
 		field.setAccessible(true);
 		field.set(setter, chooser);
 		clickOn("#buttonOpen");
 		waitFXEvents.execute();
-		assertEquals("foo", ((TextInputControl) find("#pathOpenField")).getText());
+		assertEquals("/tmp", setter.pathOpenField.getText());
+		assertEquals("/tmp", prefs.getPathOpen());
 	}
 
 	@Test
 	public void testClickChooseExportFolder() throws NoSuchFieldException, IllegalAccessException {
 		final DirectoryChooser chooser = Mockito.mock(DirectoryChooser.class);
-			Mockito.when(chooser.showDialog(Mockito.any())).thenReturn(new File("bar"));
+		Mockito.when(chooser.showDialog(Mockito.any())).thenReturn(new File("/tmp"));
 		final Field field = PreferencesSetter.class.getDeclaredField("fileChooser");
 		field.setAccessible(true);
 		field.set(setter, chooser);
 		clickOn("#buttonExport");
 		waitFXEvents.execute();
-		assertEquals("bar", ((TextInputControl) find("#pathExportField")).getText());
+		assertEquals("/tmp", setter.pathExportField.getText());
+		assertEquals("/tmp", prefs.getPathExport());
 	}
 }

@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.impl;
 
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Color;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of a colour.
@@ -32,12 +33,12 @@ class ColorImpl implements Color {
 	}
 
 	@Override
-	public javafx.scene.paint.Color toJFX() {
+	public @NotNull javafx.scene.paint.Color toJFX() {
 		return new javafx.scene.paint.Color(r, g, b, o);
 	}
 
 	@Override
-	public java.awt.Color toAWT() {
+	public @NotNull java.awt.Color toAWT() {
 		return new java.awt.Color((float) r, (float) g, (float) b, (float) o);
 	}
 
@@ -92,7 +93,7 @@ class ColorImpl implements Color {
 	}
 
 	@Override
-	public Color newColorWithOpacity(final double opacity) {
+	public @NotNull Color newColorWithOpacity(final double opacity) {
 		return new ColorImpl(getR(), getG(), getB(), opacity);
 	}
 

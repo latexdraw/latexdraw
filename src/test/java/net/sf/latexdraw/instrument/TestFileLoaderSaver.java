@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collections;
+import java.util.ResourceBundle;
 import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ProgressBar;
@@ -16,9 +16,9 @@ import net.sf.latexdraw.command.NewDrawing;
 import net.sf.latexdraw.command.SaveDrawing;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
+import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
@@ -38,6 +38,7 @@ import static org.junit.Assert.assertTrue;
 
 public class TestFileLoaderSaver extends TestLatexdrawGUI {
 	FileLoaderSaver loader;
+	PreferencesService prefs;
 	FileChooser chooser;
 	@Rule public TemporaryFolder tmp = new TemporaryFolder();
 
@@ -52,8 +53,9 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				bindToInstance(Injector.class, this);
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(PreferencesService.class);
+				bindAsEagerSingleton(LaTeXDataService.class);
+				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindToInstance(LaTeXGenerator.class, Mockito.mock(LaTeXGenerator.class));
 				bindAsEagerSingleton(ViewFactory.class);
 				bindAsEagerSingleton(SVGShapesFactory.class);
@@ -73,13 +75,14 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 	@Before
 	public void setUp() throws NoSuchFieldException, IllegalAccessException, IOException {
 		loader = injector.getInstance(FileLoaderSaver.class);
+		prefs = injector.getInstance(PreferencesService.class);
 
 		chooser = Mockito.mock(FileChooser.class);
 		Mockito.when(chooser.getExtensionFilters()).thenReturn(FXCollections.observableArrayList());
 		final Field field = FileLoaderSaver.class.getDeclaredField("fileChooser");
 		field.setAccessible(true);
 		field.set(loader, chooser);
-		loader.setCurrentFile(tmp.newFile());
+		prefs.setCurrentFile(tmp.newFile());
 
 		Mockito.when(injector.getInstance(StatusBarController.class).getProgressBar()).thenReturn(new ProgressBar());
 	}
@@ -115,7 +118,7 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 	@Test
 	public void testLoadMenu() {
 		final File file = new File(getClass().getResource("/test.svg").getFile());
-		loader.setCurrentFile(file);
+		prefs.setCurrentFile(file);
 		Mockito.when(injector.getInstance(JfxUI.class).isModified()).thenReturn(false);
 		clickOn("#fileMenu").clickOn("#loadMenu");
 		waitFXEvents.execute();
@@ -125,7 +128,9 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 
 	@Test
 	public void testRecentMenu() {
-		loader.updateRecentMenuItems(Collections.singletonList(getClass().getResource("/test.svg").getFile()));
+		prefs.setNbRecentFiles(0);
+		prefs.setNbRecentFiles(1);
+		prefs.addRecentFile(getClass().getResource("/test.svg").getFile());
 		Mockito.when(injector.getInstance(JfxUI.class).isModified()).thenReturn(false);
 		clickOn("#fileMenu").clickOn("#recentFilesMenu").clickOn("#recent0");
 		waitFXEvents.execute();

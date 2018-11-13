@@ -19,6 +19,7 @@ import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This trait encapsulates the code of the group related to the support of dot shapes.
@@ -35,22 +36,22 @@ interface GroupDotBase extends Group {
 	}
 
 	@Override
-	default Color getDotFillingCol() {
+	default @NotNull Color getDotFillingCol() {
 		return firstDottable().map(sh -> sh.getDotFillingCol()).orElse(DviPsColors.BLACK);
 	}
 
 	@Override
-	default void setDotFillingCol(final Color fillingCol) {
+	default void setDotFillingCol(final @NotNull Color fillingCol) {
 		dotShapes().forEach(sh -> sh.setDotFillingCol(fillingCol));
 	}
 
 	@Override
-	default DotStyle getDotStyle() {
+	default @NotNull DotStyle getDotStyle() {
 		return firstDottable().map(sh -> sh.getDotStyle()).orElse(DotStyle.DOT);
 	}
 
 	@Override
-	default void setDotStyle(final DotStyle style) {
+	default void setDotStyle(final @NotNull DotStyle style) {
 		dotShapes().forEach(sh -> sh.setDotStyle(style));
 	}
 

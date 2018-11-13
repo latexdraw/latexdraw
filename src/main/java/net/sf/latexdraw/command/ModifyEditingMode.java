@@ -11,40 +11,34 @@
 package net.sf.latexdraw.command;
 
 import net.sf.latexdraw.instrument.EditionChoice;
-import net.sf.latexdraw.instrument.Pencil;
+import net.sf.latexdraw.service.EditingService;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.CommandImpl;
 
 /**
  * This command allows to set the kind of shape that the pencil must draw.
  * @author Arnaud Blouin
  */
-public class ModifyPencilStyle extends CommandImpl {
+public class ModifyEditingMode extends CommandImpl {
 	/** The pencil to set. */
-	private final Pencil pencil;
+	private final @NotNull EditingService editing;
 
 	/** The new editing choice to set. */
-	private EditionChoice editingChoice;
+	private final @NotNull EditionChoice editingChoice;
 
-	public ModifyPencilStyle(final Pencil pencil) {
+	public ModifyEditingMode(final @NotNull EditingService editing, final @NotNull EditionChoice choice) {
 		super();
-		this.pencil = pencil;
+		this.editing = editing;
+		editingChoice = choice;
 	}
 
 	@Override
 	protected void doCmdBody() {
-		pencil.setCurrentChoice(editingChoice);
+		editing.setCurrentChoice(editingChoice);
 	}
 
 	@Override
 	public boolean canDo() {
-		return pencil != null && editingChoice != null && pencil.getCurrentChoice() != editingChoice;
-	}
-
-	/**
-	 * Sets the new editing choice of the pencil.
-	 * @param choice The new editing choice (can be null).
-	 */
-	public void setEditingChoice(final EditionChoice choice) {
-		editingChoice = choice;
+		return true;
 	}
 }

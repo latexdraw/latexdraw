@@ -11,9 +11,11 @@
 package net.sf.latexdraw.parser.svg;
 
 import java.text.ParseException;
+import java.util.Optional;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Node;
 
 /**
@@ -81,9 +83,9 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 	/**
 	 * @return The background colour of the pattern if there is a one.
 	 */
-	public Color getBackgroundColor() {
+	public @NotNull Optional<Color> getBackgroundColor() {
 		return children.getNodes().stream().filter(ch -> ch instanceof SVGRectElement).
-			map(ch -> CSSColors.INSTANCE.getRGBColour(ch.getFill())).findAny().orElse(null);
+			map(ch -> CSSColors.INSTANCE.getRGBColour(ch.getFill())).findAny();
 	}
 
 
@@ -148,9 +150,9 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 	/**
 	 * @return The colour of the possible hatching if there is a one.
 	 */
-	public Color getHatchingColor() {
+	public @NotNull Optional<Color> getHatchingColor() {
 		final SVGGElement g = getGElement();
-		return g == null ? null : g.getStroke();
+		return g == null ? Optional.empty() : g.getStroke();
 	}
 
 

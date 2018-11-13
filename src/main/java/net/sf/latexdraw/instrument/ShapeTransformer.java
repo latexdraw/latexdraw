@@ -98,14 +98,14 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(i -> new AlignShapes(canvas, (AlignShapes.Alignment) i.getWidget().getUserData(), pencil.canvas.getDrawing().getSelection().duplicateDeep(false))).
+		buttonBinder(i -> new AlignShapes(canvas, (AlignShapes.Alignment) i.getWidget().getUserData(), canvas.getDrawing().getSelection().duplicateDeep(false))).
 			on(alignBot, alignLeft, alignMidHoriz, alignMidVert, alignRight, alignTop).bind();
 
-		buttonBinder(i -> new MirrorShapes(i.getWidget() == mirrorH, pencil.canvas.getDrawing().getSelection().duplicateDeep(false))).
+		buttonBinder(i -> new MirrorShapes(i.getWidget() == mirrorH, canvas.getDrawing().getSelection().duplicateDeep(false))).
 			on(mirrorH, mirrorV).bind();
 
 		buttonBinder(i -> new DistributeShapes(canvas, (DistributeShapes.Distribution) i.getWidget().getUserData(),
-			pencil.canvas.getDrawing().getSelection().duplicateDeep(false))).
+			canvas.getDrawing().getSelection().duplicateDeep(false))).
 			on(distribHorizEq, distribHorizLeft, distribHorizMid, distribHorizRight, distribVertBot, distribVertEq, distribVertMid, distribVertTop).bind();
 	}
 }

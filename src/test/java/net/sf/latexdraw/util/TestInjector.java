@@ -288,6 +288,71 @@ public class TestInjector implements HelperTest {
 		assertEquals(b, obj.b);
 	}
 
+	@Test
+	void testInjectOneParameter() {
+		injector = new Injector() {
+			@Override
+			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+				bindAsEagerSingleton(A.class);
+				bindAsEagerSingleton(B.class);
+				bindAsEagerSingleton(X.class);
+			}
+		};
+
+		injector.initialise();
+		final X x = injector.getInstance(X.class);
+		assertNotNull(x);
+		assertNotNull(x.b);
+	}
+
+	@Test
+	void testInjectParameters() {
+		final F f = new F() {
+		};
+
+		injector = new Injector() {
+			@Override
+			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+				bindAsEagerSingleton(D.class);
+				bindAsEagerSingleton(E.class);
+				bindToInstance(F.class, f);
+				bindAsEagerSingleton(Z.class);
+			}
+		};
+
+		injector.initialise();
+		final Z z = injector.getInstance(Z.class);
+		assertNotNull(z);
+		assertNotNull(z.d);
+		assertEquals(injector.getInstance(D.class), z.d);
+		assertNotNull(z.e);
+		assertEquals(injector.getInstance(E.class), z.e);
+		assertNotNull(z.f);
+		assertEquals(injector.getInstance(F.class), z.f);
+	}
+
+	static class X {
+		final B b;
+
+		X(@Inject final B b) {
+			super();
+			this.b = b;
+		}
+	}
+
+	static class Z {
+		final D d;
+		final E e;
+		final F f;
+
+		Z(@Inject final D d, @Inject final E e, @Inject final F f) {
+			super();
+			this.d = d;
+			this.e = e;
+			this.f = f;
+		}
+	}
+
 	static class A {
 		@Inject private B b;
 	}

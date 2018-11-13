@@ -51,7 +51,6 @@ public class TestRhombus implements HelperTest {
 	@Test
 	public void testIsTypeOf() {
 		final Rhombus shape = ShapeFactory.INST.createRhombus();
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

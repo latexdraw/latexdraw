@@ -11,6 +11,7 @@
 package net.sf.latexdraw.parser.svg;
 
 import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -25,15 +26,15 @@ import org.w3c.dom.UserDataHandler;
  * Defines an SVG attribute.
  * @author Arnaud BLOUIN
  */
-public class SVGAttr implements Attr, Cloneable {
+public class SVGAttr implements Attr {
 	/** The name of the attribute. */
-	private final String name;
+	private final @NotNull String name;
 
 	/** The owner of the attribute. */
-	private final Element owner;
+	private final @NotNull Element owner;
 
 	/** The value of the attribute. */
-	private String value;
+	private @NotNull String value;
 
 
 	/**
@@ -52,19 +53,19 @@ public class SVGAttr implements Attr, Cloneable {
 
 
 	@Override
-	public String getName() {
+	public @NotNull String getName() {
 		return name;
 	}
 
 
 	@Override
-	public Element getOwnerElement() {
+	public @NotNull Element getOwnerElement() {
 		return owner;
 	}
 
 
 	@Override
-	public String getValue() {
+	public @NotNull String getValue() {
 		return value;
 	}
 
@@ -86,17 +87,13 @@ public class SVGAttr implements Attr, Cloneable {
 
 	/** No deep allow. */
 	@Override
-	public Node cloneNode(final boolean deep) {
-		try {
-			return (SVGAttr) clone();
-		}catch(final CloneNotSupportedException ex) {
-			return null;
-		}
+	public @NotNull Node cloneNode(final boolean deep) {
+		return new SVGAttr(name, value, owner);
 	}
 
 
 	@Override
-	public String getNodeName() {
+	public @NotNull String getNodeName() {
 		return name;
 	}
 
@@ -108,13 +105,13 @@ public class SVGAttr implements Attr, Cloneable {
 
 
 	@Override
-	public String getNodeValue() {
+	public @NotNull String getNodeValue() {
 		return value;
 	}
 
 
 	@Override
-	public Node getParentNode() {
+	public @NotNull Node getParentNode() {
 		return owner;
 	}
 
@@ -157,10 +154,6 @@ public class SVGAttr implements Attr, Cloneable {
 
 	@Override
 	public String getPrefix() {
-		if(getNodeName() == null) {
-			return null;
-		}
-
 		final int index = getName().indexOf(':');
 
 		if(index != -1) {

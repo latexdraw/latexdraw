@@ -16,9 +16,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
+import javafx.scene.transform.Translate;
 import net.sf.latexdraw.command.shape.TranslateShapes;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.malai.command.Command;
 
 /**
  * This instrument modifies arc dimensions and coordinates of shapes or pencil parameters.
@@ -36,6 +38,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	 */
 	public ShapeCoordDimCustomiser() {
 		super();
+		//FIXME update when shapes are moved.
 	}
 
 	@Override
@@ -51,6 +54,13 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	}
 
 	@Override
+	public void onCmdExecuted(final Command cmd) {
+		if(cmd instanceof Translate) {
+			update();
+		}
+	}
+
+	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
@@ -58,11 +68,11 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	@Override
 	protected void configureBindings() {
 		spinnerBinder(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false))).on(tlxS).
-			then((i, c) -> c.setT((Double) i.getWidget().getValue() - c.getShape().get().getTopLeftPoint().getX(), 0d)).
+			then((i, c) -> c.setT((Double) i.getWidget().getValue() - c.getShape().getTopLeftPoint().getX(), 0d)).
 			exec().bind();
 
 		spinnerBinder(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false))).on(tlyS).
-			then((i, c) -> c.setT(0d, (Double) i.getWidget().getValue() - c.getShape().get().getTopLeftPoint().getY())).
+			then((i, c) -> c.setT(0d, (Double) i.getWidget().getValue() - c.getShape().getTopLeftPoint().getY())).
 			exec().bind();
 	}
 

@@ -2,13 +2,13 @@ package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
 import javafx.application.Platform;
-import javafx.scene.control.Spinner;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
@@ -19,11 +19,9 @@ import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
 
 public class TestTextSetterReEdit extends BaseTestCanvas {
 	TextSetter setter;
-	ShapePlotCustomiser plot;
 
 	@Override
 	protected Injector createInjector() {
@@ -35,12 +33,10 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
+				bindAsEagerSingleton(TextSetter.class);
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
-				bindAsEagerSingleton(TextSetter.class);
-				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
-				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
 			}
 		};
 	}
@@ -50,13 +46,11 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 	public void setUp() {
 		super.setUp();
 		setter = injector.getInstance(TextSetter.class);
-		plot = injector.getInstance(ShapePlotCustomiser.class);
-		plot.maxXSpinner = Mockito.mock(Spinner.class);
-		plot.minXSpinner = Mockito.mock(Spinner.class);
-		plot.nbPtsSpinner = Mockito.mock(Spinner.class);
-		when(plot.maxXSpinner.getValue()).thenReturn(10d);
-		when(plot.minXSpinner.getValue()).thenReturn(0d);
-		when(plot.nbPtsSpinner.getValue()).thenReturn(10);
+		final EditingService editing = injector.getInstance(EditingService.class);
+		editing.getGroupParams().setPlotMinX(0d);
+		editing.getGroupParams().setPlotMaxX(10d);
+		editing.getGroupParams().setNbPlottedPoints(10);
+		editing.setCurrentChoice(EditionChoice.HAND);
 		hand.setActivated(true);
 		Platform.runLater(() -> setter.initialize(null, null));
 		WaitForAsyncUtils.waitForFxEvents(100);
@@ -65,13 +59,13 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 
 	@Test
 	public void testEditText() {
-		final Text txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 200), "$foo");
+		final Text txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 200), "$gridGapProp");
 		Platform.runLater(() -> hand.canvas.getDrawing().addShape(txt));
 		WaitForAsyncUtils.waitForFxEvents();
 		final ViewShape<?> view = hand.canvas.getViewFromShape(txt).orElseThrow();
 		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals("abc$foo", txt.getText());
+		assertEquals("abc$gridGapProp", txt.getText());
 	}
 
 	@Test

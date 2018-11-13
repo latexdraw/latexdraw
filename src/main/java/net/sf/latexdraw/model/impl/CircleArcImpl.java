@@ -25,19 +25,20 @@ import net.sf.latexdraw.model.api.shape.CircleArc;
 import net.sf.latexdraw.model.api.shape.Line;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of the circle arc.
  * @author Arnaud Blouin
  */
 class CircleArcImpl extends SquaredShapeBase implements CircleArc, ArrowableShapeBase {
-	private final List<Arrow> arrows;
+	private final @NotNull List<Arrow> arrows;
 	/** The style of the arc. */
-	private final ObjectProperty<ArcStyle> style;
+	private final @NotNull ObjectProperty<ArcStyle> style;
 	/** The start angle of the arc. In radian. */
-	private final DoubleProperty startAngle;
+	private final @NotNull DoubleProperty startAngle;
 	/** The end angle of the arc. In radian. */
-	private final DoubleProperty endAngle;
+	private final @NotNull DoubleProperty endAngle;
 
 
 	CircleArcImpl(final Point tl, final double width) {
@@ -61,7 +62,7 @@ class CircleArcImpl extends SquaredShapeBase implements CircleArc, ArrowableShap
 	}
 
 	@Override
-	public Point getCenter() {
+	public @NotNull Point getCenter() {
 		return getGravityCentre();
 	}
 
@@ -110,12 +111,12 @@ class CircleArcImpl extends SquaredShapeBase implements CircleArc, ArrowableShap
 	}
 
 	@Override
-	public Point getEndPoint() {
+	public @NotNull Point getEndPoint() {
 		return getPointOnArc(getAngleEnd());
 	}
 
 	@Override
-	public Point getStartPoint() {
+	public @NotNull Point getStartPoint() {
 		return getPointOnArc(getAngleStart());
 	}
 
@@ -125,7 +126,7 @@ class CircleArcImpl extends SquaredShapeBase implements CircleArc, ArrowableShap
 	}
 
 	@Override
-	public ArcStyle getArcStyle() {
+	public @NotNull ArcStyle getArcStyle() {
 		return style.get();
 	}
 
@@ -144,29 +145,27 @@ class CircleArcImpl extends SquaredShapeBase implements CircleArc, ArrowableShap
 	}
 
 	@Override
-	public void setArcStyle(final ArcStyle arcStyle) {
-		if(arcStyle != null) {
-			style.set(arcStyle);
-		}
+	public void setArcStyle(final @NotNull ArcStyle arcStyle) {
+		style.set(arcStyle);
 	}
 
 	@Override
-	public List<Arrow> getArrows() {
+	public @NotNull List<Arrow> getArrows() {
 		return arrows;
 	}
 
 	@Override
-	public ObjectProperty<ArcStyle> arcStyleProperty() {
+	public @NotNull ObjectProperty<ArcStyle> arcStyleProperty() {
 		return style;
 	}
 
 	@Override
-	public DoubleProperty angleStartProperty() {
+	public @NotNull DoubleProperty angleStartProperty() {
 		return startAngle;
 	}
 
 	@Override
-	public DoubleProperty angleEndProperty() {
+	public @NotNull DoubleProperty angleEndProperty() {
 		return endAngle;
 	}
 }

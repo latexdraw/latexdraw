@@ -1,5 +1,6 @@
 package net.sf.latexdraw.command.shape;
 
+import java.util.Optional;
 import net.sf.latexdraw.command.TestCommand;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
@@ -20,9 +21,10 @@ public class TestCopyShapes extends TestCommand<CopyShapes> {
 
 	@Override
 	protected void configCorrectCmd() {
-		cmd = new CopyShapes(new SelectShapes(Mockito.mock(Drawing.class)));
+		final SelectShapes selectShapes = new SelectShapes(Mockito.mock(Drawing.class));
+		cmd = new CopyShapes(Optional.of(selectShapes));
 		shape = ShapeFactory.INST.createRectangle();
-		cmd.selection.setShape(shape);
+		selectShapes.setShape(shape);
 	}
 
 	@Override
@@ -39,7 +41,7 @@ public class TestCopyShapes extends TestCommand<CopyShapes> {
 
 	@Test
 	public void testUnregistered() {
-		assertTrue(cmd.unregisteredBy(new CopyShapes(new SelectShapes(Mockito.mock(Drawing.class)))));
+		assertTrue(cmd.unregisteredBy(new CopyShapes(Optional.of(new SelectShapes(Mockito.mock(Drawing.class))))));
 	}
 
 	@Test

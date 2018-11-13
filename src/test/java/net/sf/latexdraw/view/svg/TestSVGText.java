@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class TestSVGText extends TestSVGBase<Text> {
 	@ParameterizedTest
-	@MethodSource("net.sf.latexdraw.data.TextSupplier#createDiversifiedText")
+	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#createDiversifiedText")
 	void testTextPosition(final Text sh) {
 		final Text s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsText(sh, s2);

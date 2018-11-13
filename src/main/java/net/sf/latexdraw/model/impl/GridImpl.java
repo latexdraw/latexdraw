@@ -28,6 +28,7 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Position;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A model of a grid.
@@ -35,34 +36,34 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  */
 class GridImpl extends GridBase implements Grid {
 	/** If true, the x label will be displayed at the south of the grid. Else at the north */
-	private final BooleanProperty xLabelSouth;
+	private final @NotNull BooleanProperty xLabelSouth;
 
 	/** If true, the y label will be displayed at the west of the grid. Else at the east */
-	private final BooleanProperty yLabelWest;
+	private final @NotNull BooleanProperty yLabelWest;
 
 	/** The colour of the sub-grid. */
-	private final ObjectProperty<Color> subGridColour;
+	private final @NotNull ObjectProperty<Color> subGridColour;
 
 	/** The number of division in a sub-grid. */
-	private final IntegerProperty subGridDiv;
+	private final @NotNull IntegerProperty subGridDiv;
 
 	/** The thickness of the main borders of the grid. */
-	private final DoubleProperty gridWidth;
+	private final @NotNull DoubleProperty gridWidth;
 
 	/** The colour of the labels */
-	private final ObjectProperty<Color> gridLabelsColour;
+	private final @NotNull ObjectProperty<Color> gridLabelsColour;
 
 	/** The number of dots in the lines of the grid ( if >0, replace a plain line) */
-	private final IntegerProperty gridDots;
+	private final @NotNull IntegerProperty gridDots;
 
 	/** The thickness of the lines of the sub-grid */
-	private final DoubleProperty subGridWidth;
+	private final @NotNull DoubleProperty subGridWidth;
 
 	/** The number of dots in the lines of the sub-grid ( if >0, replace a plain line) */
-	private final IntegerProperty subGridDots;
+	private final @NotNull IntegerProperty subGridDots;
 
 	/** The unit of the grid */
-	private final DoubleProperty unit;
+	private final @NotNull DoubleProperty unit;
 
 
 	/**
@@ -106,14 +107,14 @@ class GridImpl extends GridBase implements Grid {
 	}
 
 	@Override
-	public Grid duplicate() {
+	public @NotNull Grid duplicate() {
 		final Grid grid = ShapeFactory.INST.createGrid(getPosition());
 		grid.copy(this);
 		return grid;
 	}
 
 	@Override
-	public Point getPosition() {
+	public @NotNull Point getPosition() {
 		return getPtAt(0);
 	}
 
@@ -138,29 +139,25 @@ class GridImpl extends GridBase implements Grid {
 	}
 
 	@Override
-	public Point getBottomRightPoint() {
+	public @NotNull Point getBottomRightPoint() {
 		final Point pos = getPosition();
 		return ShapeFactory.INST.createPoint(pos.getX() + getGridMaxX() * PPC * getUnit(), pos.getY() - getGridMinY() * PPC);
 	}
 
 
 	@Override
-	public Point getTopLeftPoint() {
+	public @NotNull Point getTopLeftPoint() {
 		final Point pos = getPosition();
 		return ShapeFactory.INST.createPoint(pos.getX() + getGridMinX() * PPC, pos.getY() - getGridMaxY() * PPC * getUnit());
 	}
 
 	@Override
-	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
+	public void scale(final double x, final double y, final @NotNull Position pos, final @NotNull Rectangle2D bound) {
 		scaleWithRatio(x, y, pos, bound);
 	}
 
 	@Override
-	public void scaleWithRatio(final double x, final double y, final Position pos, final Rectangle2D bound) {
-		if(pos == null || bound == null) {
-			return;
-		}
-
+	public void scaleWithRatio(final double x, final double y, final @NotNull Position pos, final @NotNull Rectangle2D bound) {
 		final double sx = x / bound.getWidth();
 		final double sy = y / bound.getHeight();
 		final double u = getUnit();
@@ -214,15 +211,13 @@ class GridImpl extends GridBase implements Grid {
 	}
 
 	@Override
-	public Color getGridLabelsColour() {
+	public @NotNull Color getGridLabelsColour() {
 		return gridLabelsColour.get();
 	}
 
 	@Override
-	public void setGridLabelsColour(final Color gridLabelsCol) {
-		if(gridLabelsCol != null) {
-			gridLabelsColour.setValue(gridLabelsCol);
-		}
+	public void setGridLabelsColour(final @NotNull Color gridLabelsCol) {
+		gridLabelsColour.setValue(gridLabelsCol);
 	}
 
 	@Override
@@ -238,15 +233,13 @@ class GridImpl extends GridBase implements Grid {
 	}
 
 	@Override
-	public Color getSubGridColour() {
+	public @NotNull Color getSubGridColour() {
 		return subGridColour.get();
 	}
 
 	@Override
-	public void setSubGridColour(final Color subGridCol) {
-		if(subGridCol != null) {
-			subGridColour.set(subGridCol);
-		}
+	public void setSubGridColour(final @NotNull Color subGridCol) {
+		subGridColour.set(subGridCol);
 	}
 
 	@Override
@@ -298,52 +291,52 @@ class GridImpl extends GridBase implements Grid {
 	}
 
 	@Override
-	public ObjectProperty<Color> gridLabelsColourProperty() {
+	public @NotNull ObjectProperty<Color> gridLabelsColourProperty() {
 		return gridLabelsColour;
 	}
 
 	@Override
-	public IntegerProperty gridDotsProperty() {
+	public @NotNull IntegerProperty gridDotsProperty() {
 		return gridDots;
 	}
 
 	@Override
-	public DoubleProperty unitProperty() {
+	public @NotNull DoubleProperty unitProperty() {
 		return unit;
 	}
 
 	@Override
-	public DoubleProperty subGridWidthProperty() {
+	public @NotNull DoubleProperty subGridWidthProperty() {
 		return subGridWidth;
 	}
 
 	@Override
-	public IntegerProperty subGridDotsProperty() {
+	public @NotNull IntegerProperty subGridDotsProperty() {
 		return subGridDots;
 	}
 
 	@Override
-	public IntegerProperty subGridDivProperty() {
+	public @NotNull IntegerProperty subGridDivProperty() {
 		return subGridDiv;
 	}
 
 	@Override
-	public ObjectProperty<Color> subGridColourProperty() {
+	public @NotNull ObjectProperty<Color> subGridColourProperty() {
 		return subGridColour;
 	}
 
 	@Override
-	public DoubleProperty gridWidthProperty() {
+	public @NotNull DoubleProperty gridWidthProperty() {
 		return gridWidth;
 	}
 
 	@Override
-	public BooleanProperty yLabelWestProperty() {
+	public @NotNull BooleanProperty yLabelWestProperty() {
 		return yLabelWest;
 	}
 
 	@Override
-	public BooleanProperty xLabelSouthProperty() {
+	public @NotNull BooleanProperty xLabelSouthProperty() {
 		return xLabelSouth;
 	}
 

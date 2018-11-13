@@ -37,12 +37,8 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
-				bindAsEagerSingleton(Border.class);
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
-				bindAsEagerSingleton(FacadeCanvasController.class);
-				bindAsEagerSingleton(Hand.class);
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
-				bindAsEagerSingleton(MetaShapeCustomiser.class);
 				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
 				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
 				bindToInstance(ShapeCoordDimCustomiser.class, Mockito.mock(ShapeCoordDimCustomiser.class));
@@ -62,6 +58,10 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 				bindToInstance(ShapeBorderCustomiser.class, Mockito.mock(ShapeBorderCustomiser.class));
 				bindToInstance(ShapeArcCustomiser.class, Mockito.mock(ShapeArcCustomiser.class));
 				bindAsEagerSingleton(TextSetter.class);
+				bindAsEagerSingleton(Hand.class);
+				bindAsEagerSingleton(MetaShapeCustomiser.class);
+				bindAsEagerSingleton(Border.class);
+				bindAsEagerSingleton(FacadeCanvasController.class);
 			}
 		};
 	}
@@ -209,7 +209,7 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 	@Test
 	public void testRotateTwoRectangles() {
 		new CompositeGUIVoidCommand(addRec, addRec).execute();
-		Platform.runLater(() -> canvas.getDrawing().getShapeAt(1).translate(150, 60));
+		Platform.runLater(() -> canvas.getDrawing().getShapeAt(1).orElseThrow().translate(150, 60));
 		selectAllShapes.execute();
 		final Point pt1 = ShapeFactory.INST.createPoint(point(border.rotHandler).query());
 		final Point gc = ShapeFactory.INST.createPoint(point(getPane().getChildren().get(0)).query());

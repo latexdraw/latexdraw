@@ -11,7 +11,7 @@
 package net.sf.latexdraw.command;
 
 import java.util.ResourceBundle;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import org.malai.command.CommandImpl;
 import org.malai.undo.Undoable;
@@ -27,13 +27,13 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 	private Object oldValue;
 	/** The property to modify. */
 	private final LatexProperties property;
-	/** The LaTeX generator to modify. */
-	private final LaTeXGenerator generator;
+	/** The LaTeX data to modify. */
+	private final LaTeXDataService data;
 
 
-	public ModifyLatexProperties(final LaTeXGenerator generator, final LatexProperties property, final Object value) {
+	public ModifyLatexProperties(final LaTeXDataService data, final LatexProperties property, final Object value) {
 		super();
-		this.generator = generator;
+		this.data = data;
 		this.property = property;
 		this.value = value;
 	}
@@ -47,25 +47,25 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 	protected void doCmdBody() {
 		switch(property) {
 			case SCALE:
-				oldValue = generator.getScale();
+				oldValue = data.getScale();
 				break;
 			case CAPTION:
-				oldValue = generator.getCaption();
+				oldValue = data.getCaption();
 				break;
 			case COMMENT:
-				oldValue = generator.getComment();
+				oldValue = data.getComment();
 				break;
 			case LABEL:
-				oldValue = generator.getLabel();
+				oldValue = data.getLabel();
 				break;
 			case PACKAGES:
-				oldValue = generator.getPackages();
+				oldValue = data.getPackages();
 				break;
 			case POSITION_HORIZONTAL:
-				oldValue = generator.isPositionHoriCentre();
+				oldValue = data.isPositionHoriCentre();
 				break;
 			case POSITION_VERTICAL:
-				oldValue = generator.getPositionVertToken();
+				oldValue = data.getPositionVertToken();
 				break;
 		}
 
@@ -75,33 +75,33 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 	private void applyValue(final Object object) {
 		switch(property) {
 			case SCALE:
-				generator.setScale((Double) object);
+				data.setScale((Double) object);
 				break;
 			case CAPTION:
-				generator.setCaption((String) object);
+				data.setCaption((String) object);
 				break;
 			case COMMENT:
-				generator.setComment((String) object);
+				data.setComment((String) object);
 				break;
 			case LABEL:
-				generator.setLabel((String) object);
+				data.setLabel((String) object);
 				break;
 			case PACKAGES:
-				generator.setPackages((String) object);
+				data.setPackages((String) object);
 				break;
 			case POSITION_HORIZONTAL:
-				generator.setPositionHoriCentre((Boolean) object);
+				data.setPositionHoriCentre((Boolean) object);
 				break;
 			case POSITION_VERTICAL:
-				generator.setPositionVertToken((VerticalPosition) object);
+				data.setPositionVertToken((VerticalPosition) object);
 				break;
 		}
 	}
 
 	@Override
 	public boolean canDo() {
-		// packages does not require the generator since it is a static attribute.
-		return property != null && property.isValueSupported(value) && (generator != null || property == LatexProperties.PACKAGES);
+		// packages does not require the data since it is a static attribute.
+		return property != null && property.isValueSupported(value) && (data != null || property == LatexProperties.PACKAGES);
 	}
 
 	@Override

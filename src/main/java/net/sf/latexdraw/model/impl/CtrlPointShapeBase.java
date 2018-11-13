@@ -20,6 +20,7 @@ import net.sf.latexdraw.model.api.shape.ControlPointShape;
 import net.sf.latexdraw.model.api.shape.Line;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Position;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of a abstract shape that contains control points.
@@ -34,11 +35,11 @@ abstract class CtrlPointShapeBase extends ModifiablePointsShapeBase implements C
 	/** The default balance gap used to balance all the points of the bézier curve. */
 	protected int defaultBalanceGap = 50;
 	/** This vector contains the points which allows to change the angles of the curves */
-	protected final List<Point> firstCtrlPts;
+	protected final @NotNull List<Point> firstCtrlPts;
 	/** Contains the second control points of each points; useful for closed curve. */
-	protected final List<Point> secondCtrlPts;
+	protected final @NotNull List<Point> secondCtrlPts;
 
-	CtrlPointShapeBase(final List<Point> pts, final List<Point> ctrlPts) {
+	CtrlPointShapeBase(final @NotNull List<Point> pts, final @NotNull List<Point> ctrlPts) {
 		super(pts);
 		firstCtrlPts = Collections.unmodifiableList(ctrlPts.stream().map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList()));
 		secondCtrlPts = Collections.unmodifiableList(pts.stream().map(pt -> ShapeFactory.INST.createPoint()).collect(Collectors.toList()));
@@ -46,14 +47,14 @@ abstract class CtrlPointShapeBase extends ModifiablePointsShapeBase implements C
 	}
 
 	@Override
-	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+	public void scale(final double prevWidth, final double prevHeight, final @NotNull Position pos, final @NotNull Rectangle2D bound) {
 		super.scale(prevWidth, prevHeight, pos, bound);
 		scaleSetPoints(firstCtrlPts, prevWidth, prevHeight, pos, bound);
 		scaleSetPoints(secondCtrlPts, prevWidth, prevHeight, pos, bound);
 	}
 
 	@Override
-	public void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+	public void scaleWithRatio(final double prevWidth, final double prevHeight, final @NotNull Position pos, final @NotNull Rectangle2D bound) {
 		super.scaleWithRatio(prevWidth, prevHeight, pos, bound);
 		scaleSetPointsWithRatio(firstCtrlPts, prevWidth, prevHeight, pos, bound);
 		scaleSetPointsWithRatio(secondCtrlPts, prevWidth, prevHeight, pos, bound);
@@ -150,7 +151,7 @@ abstract class CtrlPointShapeBase extends ModifiablePointsShapeBase implements C
 
 
 	@Override
-	public List<Point> getFirstCtrlPts() {
+	public @NotNull List<Point> getFirstCtrlPts() {
 		return firstCtrlPts;
 	}
 
@@ -182,7 +183,7 @@ abstract class CtrlPointShapeBase extends ModifiablePointsShapeBase implements C
 
 
 	@Override
-	public List<Point> getSecondCtrlPts() {
+	public @NotNull List<Point> getSecondCtrlPts() {
 		return secondCtrlPts;
 	}
 
@@ -269,5 +270,5 @@ abstract class CtrlPointShapeBase extends ModifiablePointsShapeBase implements C
 	}
 
 	@Override
-	public abstract ControlPointShape duplicate();
+	public abstract @NotNull ControlPointShape duplicate();
 }

@@ -2,14 +2,14 @@ package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,8 +30,8 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				bindToInstance(Injector.class, this);
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(PreferencesService.class);
+				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindAsEagerSingleton(ExceptionsManager.class);
 			}
 		};

@@ -32,9 +32,9 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeStdGridCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Pencil.class, pencil);
 			}
 		};
@@ -70,79 +70,79 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 	public void testIncrLabelsSizeHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			labelsSizeS, incrementlabelsSizeS, Arrays.asList(
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1)).getLabelsSize(),
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2)).getLabelsSize()));
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getLabelsSize(),
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getLabelsSize()));
 	}
 
 	@Test
 	public void testScrollLabelsSizeHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			labelsSizeS, scrolllabelsSizeS, Arrays.asList(
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1)).getLabelsSize(),
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2)).getLabelsSize()));
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getLabelsSize(),
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getLabelsSize()));
 	}
 
 	@Test
 	public void testIncrxEndSHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			xEndS, incrementxEndS, Arrays.asList(
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1)).getGridEndX(),
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2)).getGridEndX()));
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridEndX(),
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridEndX()));
 	}
 
 	@Test
 	public void testScrollIncrxEndSHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			xEndS, scrollxEndS, Arrays.asList(
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1)).getGridEndX(),
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2)).getGridEndX()));
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridEndX(),
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridEndX()));
 	}
 
 	@Test
 	public void testIncryEndSHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			yEndS, incrementyEndS, Arrays.asList(
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1)).getGridEndY(),
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2)).getGridEndY()));
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridEndY(),
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridEndY()));
 	}
 
 	@Test
 	public void testScrollIncryEndSHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			yEndS, scrollyEndS, Arrays.asList(
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1)).getGridEndY(),
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2)).getGridEndY()));
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridEndY(),
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridEndY()));
 	}
 
 	@Test
 	public void testIncrxStartSHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			xStartS, decrementxStartS, Arrays.asList(
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1)).getGridStartX(),
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2)).getGridStartX()));
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridStartX(),
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridStartX()));
 	}
 
 	@Test
 	public void testScrollIncrxStartSHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			xStartS, scrollxStartS, Arrays.asList(
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1)).getGridStartX(),
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2)).getGridStartX()));
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridStartX(),
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridStartX()));
 	}
 
 	@Test
 	public void testIncryStartSHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			yStartS, decrementyStartS, Arrays.asList(
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1)).getGridStartY(),
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2)).getGridStartY()));
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridStartY(),
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridStartY()));
 	}
 
 	@Test
 	public void testScrollIncryStartSHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			yStartS, scrollyStartS, Arrays.asList(
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1)).getGridStartY(),
-				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2)).getGridStartY()));
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridStartY(),
+				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridStartY()));
 	}
 }

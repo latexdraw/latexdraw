@@ -35,9 +35,9 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeFillingCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Pencil.class, pencil);
 			}
 		};
@@ -94,8 +94,8 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 		selectStyle.execute(FillingStyle.PLAIN);
 		waitFXEvents.execute();
 		final FillingStyle newStyle = fillStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).getFillingStyle());
-		assertEquals(newStyle, drawing.getSelection().getShapeAt(2).getFillingStyle());
+		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).orElseThrow().getFillingStyle());
+		assertEquals(newStyle, drawing.getSelection().getShapeAt(2).orElseThrow().getFillingStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -105,8 +105,8 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 		final Color col = fillColButton.getValue();
 		pickfillCol.execute();
 		waitFXEvents.execute();
-		assertEquals(fillColButton.getValue(), drawing.getSelection().getShapeAt(1).getFillingCol().toJFX());
-		assertEquals(fillColButton.getValue(), drawing.getSelection().getShapeAt(2).getFillingCol().toJFX());
+		assertEquals(fillColButton.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getFillingCol().toJFX());
+		assertEquals(fillColButton.getValue(), drawing.getSelection().getShapeAt(2).orElseThrow().getFillingCol().toJFX());
 		assertNotEquals(col, fillColButton.getValue());
 	}
 
@@ -116,8 +116,8 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 		final Color col = hatchColButton.getValue();
 		pickhatchCol.execute();
 		waitFXEvents.execute();
-		assertEquals(hatchColButton.getValue(), drawing.getSelection().getShapeAt(1).getHatchingsCol().toJFX());
-		assertEquals(hatchColButton.getValue(), drawing.getSelection().getShapeAt(2).getHatchingsCol().toJFX());
+		assertEquals(hatchColButton.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getHatchingsCol().toJFX());
+		assertEquals(hatchColButton.getValue(), drawing.getSelection().getShapeAt(2).orElseThrow().getHatchingsCol().toJFX());
 		assertNotEquals(col, hatchColButton.getValue());
 	}
 
@@ -127,8 +127,8 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 		final Color col = gradStartColButton.getValue();
 		pickgradStartCol.execute();
 		waitFXEvents.execute();
-		assertEquals(gradStartColButton.getValue(), drawing.getSelection().getShapeAt(1).getGradColStart().toJFX());
-		assertEquals(gradStartColButton.getValue(), drawing.getSelection().getShapeAt(2).getGradColStart().toJFX());
+		assertEquals(gradStartColButton.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getGradColStart().toJFX());
+		assertEquals(gradStartColButton.getValue(), drawing.getSelection().getShapeAt(2).orElseThrow().getGradColStart().toJFX());
 		assertNotEquals(col, gradStartColButton.getValue());
 	}
 
@@ -138,8 +138,8 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 		final Color col = gradEndColButton.getValue();
 		pickgradEndCol.execute();
 		waitFXEvents.execute();
-		assertEquals(gradEndColButton.getValue(), drawing.getSelection().getShapeAt(1).getGradColEnd().toJFX());
-		assertEquals(gradEndColButton.getValue(), drawing.getSelection().getShapeAt(2).getGradColEnd().toJFX());
+		assertEquals(gradEndColButton.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getGradColEnd().toJFX());
+		assertEquals(gradEndColButton.getValue(), drawing.getSelection().getShapeAt(2).orElseThrow().getGradColEnd().toJFX());
 		assertNotEquals(col, gradEndColButton.getValue());
 	}
 
@@ -147,39 +147,39 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 	public void testIncrementGradMidHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectGradStyle), gradMidPtField,
 			incrementgradMidPt, Arrays.asList(
-			() ->  drawing.getSelection().getShapeAt(1).getGradMidPt(),
-			() ->  drawing.getSelection().getShapeAt(2).getGradMidPt()));
+			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getGradMidPt(),
+			() ->  drawing.getSelection().getShapeAt(2).orElseThrow().getGradMidPt()));
 	}
 
 	@Test
 	public void testIncrementGradAngleHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectGradStyle), gradAngleField,
 			incrementgradAngle, Arrays.asList(
-			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).getGradAngle()),
-			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).getGradAngle())));
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).orElseThrow().getGradAngle()),
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).orElseThrow().getGradAngle())));
 	}
 
 	@Test
 	public void testIncrementHatchAngleHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchAngleField,
 			incrementhatchAngle, Arrays.asList(
-			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).getHatchingsAngle()),
-			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).getHatchingsAngle())));
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).orElseThrow().getHatchingsAngle()),
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).orElseThrow().getHatchingsAngle())));
 	}
 
 	@Test
 	public void testIncrementHatchWidthHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchWidthField,
 			incrementhatchWidth, Arrays.asList(
-			() ->  drawing.getSelection().getShapeAt(1).getHatchingsWidth(),
-			() ->  drawing.getSelection().getShapeAt(2).getHatchingsWidth()));
+			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getHatchingsWidth(),
+			() ->  drawing.getSelection().getShapeAt(2).orElseThrow().getHatchingsWidth()));
 	}
 
 	@Test
 	public void testIncrementHatchSepHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchSepField,
 			incrementhatchSep, Arrays.asList(
-			() ->  drawing.getSelection().getShapeAt(1).getHatchingsSep(),
-			() ->  drawing.getSelection().getShapeAt(2).getHatchingsSep()));
+			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getHatchingsSep(),
+			() ->  drawing.getSelection().getShapeAt(2).orElseThrow().getHatchingsSep()));
 	}
 }

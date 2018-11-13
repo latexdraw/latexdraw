@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.command;
 
-import java.util.Optional;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
 
 /**
@@ -23,15 +23,10 @@ public interface ShapeCmd<T extends Shape> extends Command {
 	 * Sets the shape to add.
 	 * @param sh The shape to add.
 	 */
-	void setShape(final T sh);
+	void setShape(final @NotNull T sh);
 
 	/**
 	 * @return The shape to modify.
 	 */
-	Optional<T> getShape();
-
-	@Override
-	default boolean canDo() {
-		return getShape().isPresent();
-	}
+	@NotNull T getShape();
 }

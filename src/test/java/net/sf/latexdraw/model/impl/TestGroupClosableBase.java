@@ -59,14 +59,6 @@ public class TestGroupClosableBase {
 	}
 
 	@Test
-	public void testSetOpenListKO() {
-		open1.setOpened(true);
-		open2.setOpened(true);
-		group.setOpenList(null);
-		assertEquals(Arrays.asList(Optional.empty(), Optional.of(true), Optional.empty(), Optional.of(true)), group.getOpenList());
-	}
-
-	@Test
 	public void testSetOpenListKONotSameSize() {
 		open1.setOpened(true);
 		open2.setOpened(true);

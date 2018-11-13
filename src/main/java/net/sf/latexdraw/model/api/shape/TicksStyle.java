@@ -13,6 +13,7 @@ package net.sf.latexdraw.model.api.shape;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines the different kinds of ticks.
@@ -31,12 +32,12 @@ public enum TicksStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TOKEN_TICKS_STYLE_FULL;
 		}
 
 		@Override
-		public String getLabel(final ResourceBundle bundle) {
+		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
 			return bundle.getString("Axe.3"); //NON-NLS
 		}
 	}, TOP {
@@ -51,12 +52,12 @@ public enum TicksStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TOKEN_TICKS_STYLE_TOP;
 		}
 
 		@Override
-		public String getLabel(final ResourceBundle bundle) {
+		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
 			return bundle.getString("Axe.4"); //NON-NLS
 		}
 	}, BOTTOM {
@@ -71,12 +72,12 @@ public enum TicksStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM;
 		}
 
 		@Override
-		public String getLabel(final ResourceBundle bundle) {
+		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
 			return bundle.getString("Axe.5"); //NON-NLS
 		}
 	};
@@ -85,14 +86,14 @@ public enum TicksStyle {
 	 * @param style The style to check. Can be the PST token or the name of the style (e.g. FULL.toString()).
 	 * @return The corresponding style or FULL.
 	 */
-	public static TicksStyle getStyle(final String style) {
+	public static @NotNull TicksStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(FULL);
 	}
 
 	/**
 	 * @return The PST token corresponding to the tick style.
 	 */
-	public abstract String getPSTToken();
+	public abstract @NotNull String getPSTToken();
 
 	/**
 	 * @return True if the current tick style considers the top ticks.
@@ -107,5 +108,5 @@ public enum TicksStyle {
 	/**
 	 * @return The internationalised label of the ticks style.
 	 */
-	public abstract String getLabel(final ResourceBundle bundle);
+	public abstract @NotNull String getLabel(final @NotNull ResourceBundle bundle);
 }

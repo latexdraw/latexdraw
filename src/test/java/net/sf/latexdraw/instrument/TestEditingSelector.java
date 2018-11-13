@@ -3,13 +3,16 @@ package net.sf.latexdraw.instrument;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
+import javafx.application.HostServices;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
@@ -23,6 +26,7 @@ import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 
 @RunWith(Theories.class)
 public class TestEditingSelector extends TestLatexdrawGUI {
@@ -43,24 +47,21 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				bindToInstance(Injector.class, this);
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(PreferencesService.class);
+				bindToInstance(LaTeXDataService.class, Mockito.mock(LaTeXDataService.class));
+				bindToInstance(EditingService.class, Mockito.mock(EditingService.class));
+				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindAsEagerSingleton(ViewFactory.class);
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(LaTeXGenerator.class, Mockito.mock(LaTeXGenerator.class));
+				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindToInstance(StatusBarController.class, Mockito.mock(StatusBarController.class));
 				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
 				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
 				bindToInstance(Drawing.class, ShapeFactory.INST.createDrawing());
 				bindToInstance(Hand.class, Mockito.mock(Hand.class));
 				bindToInstance(Canvas.class, Mockito.mock(Canvas.class));
-				bindAsEagerSingleton(EditingSelector.class);
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
-				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
-				bindToInstance(Border.class, Mockito.mock(Border.class));
-				bindToInstance(ShapeDeleter.class, Mockito.mock(ShapeDeleter.class));
-				bindToInstance(CodeInserter.class, Mockito.mock(CodeInserter.class));
-				bindToInstance(MagneticGrid.class, Mockito.mock(MagneticGrid.class));
 				bindToInstance(ShapeAxesCustomiser.class, Mockito.mock(ShapeAxesCustomiser.class));
 				bindToInstance(ShapeDoubleBorderCustomiser.class, Mockito.mock(ShapeDoubleBorderCustomiser.class));
 				bindToInstance(ShapeFreeHandCustomiser.class, Mockito.mock(ShapeFreeHandCustomiser.class));
@@ -77,6 +78,12 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 				bindToInstance(ShapeGridCustomiser.class, Mockito.mock(ShapeGridCustomiser.class));
 				bindToInstance(ShapeArrowCustomiser.class, Mockito.mock(ShapeArrowCustomiser.class));
 				bindToInstance(ShapeStdGridCustomiser.class, Mockito.mock(ShapeStdGridCustomiser.class));
+				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
+				bindToInstance(MagneticGrid.class, Mockito.mock(MagneticGrid.class));
+				bindToInstance(Border.class, Mockito.mock(Border.class));
+				bindToInstance(ShapeDeleter.class, Mockito.mock(ShapeDeleter.class));
+				bindToInstance(CodeInserter.class, Mockito.mock(CodeInserter.class));
+				bindAsEagerSingleton(EditingSelector.class);
 			}
 		};
 	}
@@ -88,12 +95,12 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 		drawing = injector.getInstance(Drawing.class);
 		pencil = injector.getInstance(Pencil.class);
 		hand = injector.getInstance(Hand.class);
-		pencil.textSetter = textSetter;
 		Mockito.when(injector.getInstance(Canvas.class).getDrawing()).thenReturn(drawing);
 	}
 
 	@Theory
 	public void testClickShapeMode(final EditionChoice mode) {
+		assumeFalse(mode == EditionChoice.HAND);
 		final Map<EditionChoice, String> modeToID = new HashMap<>();
 		modeToID.put(EditionChoice.PLOT, "#plotB");
 		modeToID.put(EditionChoice.PICTURE, "#picB");
@@ -115,7 +122,7 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 
 		clickOn(modeToID.get(mode));
 		waitFXEvents.execute();
-		Mockito.verify(pencil, Mockito.times(1)).setCurrentChoice(mode);
+		Mockito.verify(injector.getInstance(EditingService.class), Mockito.times(1)).setCurrentChoice(mode);
 		// Do not want to write another test case to limit the number of GUI test (memory and time issues)
 		if(mode != EditionChoice.TEXT) {
 			Mockito.verify(textSetter, Mockito.times(1)).setActivated(false, false);
@@ -153,13 +160,13 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 		final TextAreaAutoSize textfield = Mockito.mock(TextAreaAutoSize.class);
 		Mockito.when(textSetter.getTextField()).thenReturn(textfield);
 		Mockito.when(textSetter.isActivated()).thenReturn(true);
-		Mockito.when(textfield.getText()).thenReturn("foo");
+		Mockito.when(textfield.getText()).thenReturn("gridGapProp");
 
 		clickOn(selector.handB);
 		waitFXEvents.execute();
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Text);
-		assertEquals("foo", ((Text) drawing.getShapeAt(0)).getText());
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Text);
+		assertEquals("gridGapProp", ((Text) drawing.getShapeAt(0).orElseThrow()).getText());
 	}
 
 	@Test

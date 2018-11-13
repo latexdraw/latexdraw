@@ -34,9 +34,9 @@ public class TestPencilShadowStyle extends TestShadowStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeShadowCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -70,7 +70,7 @@ public class TestPencilShadowStyle extends TestShadowStyleGUI {
 		final boolean sel = shadowCB.isSelected();
 		checkShadow.execute();
 		waitFXEvents.execute();
-		assertEquals(!sel, pencil.createShapeInstance().hasShadow());
+		assertEquals(!sel, editing.createShapeInstance().hasShadow());
 		assertNotEquals(sel, shadowCB.isSelected());
 	}
 
@@ -80,20 +80,20 @@ public class TestPencilShadowStyle extends TestShadowStyleGUI {
 		final Color col = shadowColB.getValue();
 		pickShadCol.execute();
 		waitFXEvents.execute();
-		assertEquals(shadowColB.getValue(), pencil.createShapeInstance().getShadowCol().toJFX());
+		assertEquals(shadowColB.getValue(), editing.createShapeInstance().getShadowCol().toJFX());
 		assertNotEquals(col, shadowColB.getValue());
 	}
 
 	@Test
 	public void testIncrementShadowSizePencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, checkShadow, updateIns), shadowSizeField,
-			incrementshadowSizeField, Collections.singletonList(() -> pencil.createShapeInstance().getShadowSize()));
+			incrementshadowSizeField, Collections.singletonList(() -> editing.createShapeInstance().getShadowSize()));
 	}
 
 	@Test
 	public void testIncrementShadowAnglePencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, checkShadow, updateIns),
 			shadowAngleField, incrementshadowAngleField,
-			Collections.singletonList(() -> Math.toDegrees(pencil.createShapeInstance().getShadowAngle())));
+			Collections.singletonList(() -> Math.toDegrees(editing.createShapeInstance().getShadowAngle())));
 	}
 }

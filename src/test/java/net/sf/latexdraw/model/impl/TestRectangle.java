@@ -98,7 +98,6 @@ public class TestRectangle implements HelperTest {
 	@Test
 	public void testIsTypeOf() {
 		final Rectangle shape = ShapeFactory.INST.createRectangle();
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Ellipse.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

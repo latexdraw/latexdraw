@@ -13,6 +13,7 @@ package net.sf.latexdraw.model.api.shape;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.model.api.property.DotProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for dots.
@@ -31,7 +32,7 @@ public interface Dot extends PositionShape, DotProp {
 	 * the same for all the dot styles
 	 * @return The top left point of the dot.
 	 */
-	Point getLazyTopLeftPoint();
+	@NotNull Point getLazyTopLeftPoint();
 
 	/**
 	 * While getBottomRightPoint takes care about the current shape of the dot to compute the bottom right point,
@@ -39,7 +40,7 @@ public interface Dot extends PositionShape, DotProp {
 	 * the same for all the dot styles
 	 * @return The top bottom right of the dot.
 	 */
-	Point getLazyBottomRightPoint();
+	@NotNull Point getLazyBottomRightPoint();
 
 	/**
 	 * @return The gap used to create plus-shaped dots.
@@ -80,10 +81,10 @@ public interface Dot extends PositionShape, DotProp {
 	/**
 	 * @return The dot style property.
 	 */
-	ObjectProperty<DotStyle> styleProperty();
+	@NotNull ObjectProperty<DotStyle> styleProperty();
 
 	/**
 	 * @return The dot diametre property.
 	 */
-	DoubleProperty diametreProperty();
+	@NotNull DoubleProperty diametreProperty();
 }

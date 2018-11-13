@@ -177,6 +177,7 @@
                         --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.data=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.service=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.model=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.util=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.badaboom=ALL-UNNAMED
@@ -184,13 +185,16 @@
                         --add-opens latexdraw/net.sf.latexdraw.handler=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.parser=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.parser.svg=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.parser.svg.parsers=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.parser.svg.path=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.parser.pst=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.parser.ps=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.parser.css=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.ui=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.instrument=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.instrument.hand=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.instrument.pencil=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.instrument.hand=ALL-UNNAMED
+                        --add-opens latexdraw/net.sf.latexdraw.instrument.editing=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.instrument.robot=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.command=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.command.shape=ALL-UNNAMED
@@ -406,6 +410,12 @@
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
             <version>4.7.1-j11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>16.0.1-j11</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.malai</groupId>

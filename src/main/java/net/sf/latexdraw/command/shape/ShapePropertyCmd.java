@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.malai.command.library.ModifyValue;
 
 /**
@@ -18,12 +20,12 @@ import org.malai.command.library.ModifyValue;
  */
 public abstract class ShapePropertyCmd<T> extends ModifyValue<T> {
 	/** The property to set. */
-	protected final ShapeProperties<T> property;
+	protected final @NotNull ShapeProperties<T> property;
 
 	/**
 	 * Creates and initialises the command.
 	 */
-	protected ShapePropertyCmd(final ShapeProperties<T> property, final T value) {
+	protected ShapePropertyCmd(final @NotNull ShapeProperties<T> property, final @Nullable T value) {
 		super(value);
 		this.property = property;
 	}
@@ -37,6 +39,6 @@ public abstract class ShapePropertyCmd<T> extends ModifyValue<T> {
 	 * @return True if the property to modify is supported.
 	 */
 	protected boolean isPropertySupported() {
-		return property != null;
+		return true;
 	}
 }

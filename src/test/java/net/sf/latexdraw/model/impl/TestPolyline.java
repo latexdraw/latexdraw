@@ -31,7 +31,6 @@ public class TestPolyline implements HelperTest {
 	@Test
 	public void testIsTypeOf() {
 		final Polyline shape = ShapeFactory.INST.createPolyline(Collections.emptyList());
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

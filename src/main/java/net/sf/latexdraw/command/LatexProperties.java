@@ -11,6 +11,7 @@
 package net.sf.latexdraw.command;
 
 import net.sf.latexdraw.view.latex.VerticalPosition;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This enumeration defines the different LaTeX properties that can be modified.
@@ -20,49 +21,49 @@ public enum LatexProperties {
 	/** The scale of the drawing. */
 	SCALE {
 		@Override
-		public boolean isValueSupported(final Object value) {
+		public boolean isValueSupported(final @Nullable Object value) {
 			return value instanceof Double;
 		}
 	},
 	/** Modification of the comments. */
 	COMMENT {
 		@Override
-		public boolean isValueSupported(final Object value) {
+		public boolean isValueSupported(final @Nullable Object value) {
 			return value instanceof String;
 		}
 	},
 	/** Modification of the packages. */
 	PACKAGES {
 		@Override
-		public boolean isValueSupported(final Object value) {
+		public boolean isValueSupported(final @Nullable Object value) {
 			return value instanceof String;
 		}
 	},
 	/** Modification of the caption. */
 	CAPTION {
 		@Override
-		public boolean isValueSupported(final Object value) {
+		public boolean isValueSupported(final @Nullable Object value) {
 			return value instanceof String;
 		}
 	},
 	/** Modification of the label. */
 	LABEL {
 		@Override
-		public boolean isValueSupported(final Object value) {
+		public boolean isValueSupported(final @Nullable Object value) {
 			return value instanceof String;
 		}
 	},
 	/** Modification of the vertical position. */
 	POSITION_VERTICAL {
 		@Override
-		public boolean isValueSupported(final Object value) {
+		public boolean isValueSupported(final @Nullable Object value) {
 			return value instanceof VerticalPosition;
 		}
 	},
 	/** Modification of the horizontal position. */
 	POSITION_HORIZONTAL {
 		@Override
-		public boolean isValueSupported(final Object value) {
+		public boolean isValueSupported(final @Nullable Object value) {
 			return value instanceof Boolean;
 		}
 	};
@@ -71,5 +72,5 @@ public enum LatexProperties {
 	 * @param value The value to test.
 	 * @return True: the given value corresponds to the excepted value of the property.
 	 */
-	public abstract boolean isValueSupported(final Object value);
+	public abstract boolean isValueSupported(final @Nullable Object value);
 }

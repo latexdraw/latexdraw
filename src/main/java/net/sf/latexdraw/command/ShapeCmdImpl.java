@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.command;
 
-import java.util.Optional;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.CommandImpl;
 
 /**
@@ -20,25 +20,20 @@ import org.malai.command.CommandImpl;
  */
 public abstract class ShapeCmdImpl<T extends Shape> extends CommandImpl implements ShapeCmd<T> {
 	/** The shape to add. */
-	protected Optional<T> shape;
+	protected T shape;
 
 	protected ShapeCmdImpl(final T sh) {
 		super();
-		shape = Optional.ofNullable(sh);
+		shape = sh;
 	}
 
 	@Override
-	public void setShape(final T sh) {
-		shape = Optional.ofNullable(sh);
+	public void setShape(final @NotNull T sh) {
+		shape = sh;
 	}
 
 	@Override
-	public Optional<T> getShape() {
+	public @NotNull T getShape() {
 		return shape;
-	}
-
-	@Override
-	public boolean canDo() {
-		return shape.isPresent();
 	}
 }

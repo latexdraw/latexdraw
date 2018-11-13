@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.api.property;
 
 import net.sf.latexdraw.model.api.shape.FreeHandStyle;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Properties of freehand shapes.
@@ -20,12 +21,12 @@ public interface FreeHandProp extends ClosableProp {
 	/**
 	 * @return the type.
 	 */
-	FreeHandStyle getType();
+	@NotNull FreeHandStyle getType();
 
 	/**
 	 * @param type the type to set.
 	 */
-	void setType(final FreeHandStyle type);
+	void setType(final @NotNull FreeHandStyle type);
 
 	/**
 	 * @return the interval.

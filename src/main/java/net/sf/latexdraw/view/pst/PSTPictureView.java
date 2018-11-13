@@ -14,14 +14,13 @@ import java.util.ResourceBundle;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Picture;
 import net.sf.latexdraw.model.api.shape.Point;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
 
 /**
  * Defines a PSTricks view of the LPicture model.
  * @author Arnaud Blouin
  */
 public class PSTPictureView extends PSTShapeView<Picture> {
-	private final SystemService system;
 	private final ResourceBundle bundle;
 
 	/**
@@ -29,9 +28,8 @@ public class PSTPictureView extends PSTShapeView<Picture> {
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTPictureView(final Picture model, final SystemService system, final ResourceBundle bundle) {
+	protected PSTPictureView(final Picture model, final ResourceBundle bundle) {
 		super(model);
-		this.system = system;
 		this.bundle = bundle;
 	}
 
@@ -50,7 +48,7 @@ public class PSTPictureView extends PSTShapeView<Picture> {
 		path = path.replaceAll("\\\\", "/");
 
 		if(path.contains(" ")) {
-			start.append(bundle.getString("Picture.0")).append(SystemService.EOL);
+			start.append(bundle.getString("Picture.0")).append(SystemUtils.getInstance().EOL);
 		}
 
 		if(rot != null) {
@@ -62,7 +60,7 @@ public class PSTPictureView extends PSTShapeView<Picture> {
 		code.append(MathUtils.INST.getCutNumberFloat((shape.getX() + shape.getWidth() / 2. - origin.getX()) / ppc)).append(',');
 		code.append(MathUtils.INST.getCutNumberFloat((origin.getY() - shape.getY() - shape.getHeight() / 2.) / ppc)).append(')').append('{');
 		code.append("\\includegraphics{"); //NON-NLS
-		code.append(system.normalizeForLaTeX(path));
+		code.append(SystemUtils.getInstance().normalizeForLaTeX(path));
 		code.append('}').append('}');
 
 		if(rot != null) {

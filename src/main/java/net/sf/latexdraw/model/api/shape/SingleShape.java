@@ -14,6 +14,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for shapes not composed of several shapes.
@@ -23,65 +24,65 @@ public interface SingleShape extends Shape {
 	/**
 	 * @return The property of the thickness.
 	 */
-	DoubleProperty thicknessProperty();
+	@NotNull DoubleProperty thicknessProperty();
 
 	/**
 	 * @return The property of the line style.
 	 */
-	ObjectProperty<LineStyle> linestyleProperty();
+	@NotNull ObjectProperty<LineStyle> linestyleProperty();
 
 	/**
 	 * @return The property of the border position.
 	 */
-	ObjectProperty<BorderPos> borderPosProperty();
+	@NotNull ObjectProperty<BorderPos> borderPosProperty();
 
 	/**
 	 * @return The property of the line colour.
 	 */
-	ObjectProperty<Color> lineColourProperty();
+	@NotNull ObjectProperty<Color> lineColourProperty();
 
 	/**
 	 * @return The property of the filling.
 	 */
-	ObjectProperty<FillingStyle> fillingProperty();
+	@NotNull ObjectProperty<FillingStyle> fillingProperty();
 
-	DoubleProperty dashSepWhiteProperty();
+	@NotNull DoubleProperty dashSepWhiteProperty();
 
-	DoubleProperty dashSepBlackProperty();
+	@NotNull DoubleProperty dashSepBlackProperty();
 
-	DoubleProperty dotSepProperty();
+	@NotNull DoubleProperty dotSepProperty();
 
-	BooleanProperty dbleBordProperty();
+	@NotNull BooleanProperty dbleBordProperty();
 
-	DoubleProperty dbleBordSepProperty();
+	@NotNull DoubleProperty dbleBordSepProperty();
 
-	ObjectProperty<Color> dbleBordColProperty();
+	@NotNull ObjectProperty<Color> dbleBordColProperty();
 
-	ObjectProperty<Color> gradColStartProperty();
+	@NotNull ObjectProperty<Color> gradColStartProperty();
 
-	ObjectProperty<Color> gradColEndProperty();
+	@NotNull ObjectProperty<Color> gradColEndProperty();
 
-	ObjectProperty<Color> fillingColProperty();
+	@NotNull ObjectProperty<Color> fillingColProperty();
 
-	DoubleProperty gradAngleProperty();
+	@NotNull DoubleProperty gradAngleProperty();
 
-	DoubleProperty gradMidPtProperty();
+	@NotNull DoubleProperty gradMidPtProperty();
 
-	BooleanProperty shadowProperty();
+	@NotNull BooleanProperty shadowProperty();
 
-	ObjectProperty<Color> shadowColProperty();
+	@NotNull ObjectProperty<Color> shadowColProperty();
 
-	DoubleProperty shadowAngleProperty();
+	@NotNull DoubleProperty shadowAngleProperty();
 
-	DoubleProperty shadowSizeProperty();
+	@NotNull DoubleProperty shadowSizeProperty();
 
-	DoubleProperty hatchingsAngleProperty();
+	@NotNull DoubleProperty hatchingsAngleProperty();
 
-	DoubleProperty hatchingsSepProperty();
+	@NotNull DoubleProperty hatchingsSepProperty();
 
-	DoubleProperty hatchingsWidthProperty();
+	@NotNull DoubleProperty hatchingsWidthProperty();
 
-	ObjectProperty<Color> hatchingsColProperty();
+	@NotNull ObjectProperty<Color> hatchingsColProperty();
 
-	ReadOnlyBooleanProperty showPointProperty();
+	@NotNull ReadOnlyBooleanProperty showPointProperty();
 }

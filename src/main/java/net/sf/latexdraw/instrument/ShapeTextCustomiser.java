@@ -31,10 +31,10 @@ import net.sf.latexdraw.model.api.property.TextProp;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.TextPosition;
+import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 import net.sf.latexdraw.view.jfx.ViewText;
-import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 
 /**
  * This instrument modifies texts.
@@ -48,14 +48,14 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	/** The error log field. */
 	@FXML private TextArea logField;
 	@FXML private TitledPane mainPane;
-
-	@Inject PSTCodeGenerator pstGen;
+	@Inject LaTeXDataService latexData;
 
 	/**
 	 * Creates the instrument.
 	 */
 	public ShapeTextCustomiser() {
 		super();
+		//FIXME update the instrument when text property commands are done.
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 
 			// Otherwise it means that this field is currently being edited and must not be updated.
 			if(!packagesField.isFocused()) {
-				packagesField.setText(pstGen.getPackages());
+				packagesField.setText(latexData.getPackages());
 			}
 
 			// Updating the log field.
@@ -122,7 +122,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	protected void configureBindings() {
 		addComboPropBinding(textPos, ShapeProperties.TEXT_POSITION);
 
-		textInputBinder(() -> new ModifyLatexProperties(pstGen, LatexProperties.PACKAGES, null)).on(packagesField).
+		textInputBinder(() -> new ModifyLatexProperties(latexData, LatexProperties.PACKAGES, null)).on(packagesField).
 			then((i, c) -> c.setValue(i.getWidget().getText())).bind();
 	}
 }

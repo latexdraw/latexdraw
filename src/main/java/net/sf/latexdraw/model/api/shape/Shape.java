@@ -13,6 +13,8 @@ package net.sf.latexdraw.model.api.shape;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 import javafx.beans.property.DoubleProperty;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.malai.properties.Modifiable;
 
 /**
@@ -29,7 +31,7 @@ public interface Shape extends Modifiable {
 	/**
 	 * @return The points of the shape.
 	 */
-	List<Point> getPoints();
+	@NotNull List<Point> getPoints();
 
 	/**
 	 * @return The number of points of the shape.
@@ -103,42 +105,42 @@ public interface Shape extends Modifiable {
 	 * of the thickness, the rotation angle, the double border, nor any
 	 * parameters; only the points of the shape are used to compute the returned point.
 	 */
-	Point getTopLeftPoint();
+	@NotNull Point getTopLeftPoint();
 
 	/**
 	 * @return The top right point of the shape. It does not take account
 	 * of the thickness, the rotation angle, the double border, nor any
 	 * parameters; only the points of the shape are used to compute the returned point.
 	 */
-	Point getTopRightPoint();
+	@NotNull Point getTopRightPoint();
 
 	/**
 	 * @return The bottom right point of the shape. It does not take account
 	 * of the thickness, the rotation angle, the double border, nor any
 	 * parameters; only the points of the shape are used to compute the returned point.
 	 */
-	Point getBottomRightPoint();
+	@NotNull Point getBottomRightPoint();
 
 	/**
 	 * @return The bottom left point of the shape. It does not take account
 	 * of the thickness, the rotation angle, the double border, nor any
 	 * parameters; only the points of the shape are used to compute the returned point.
 	 */
-	Point getBottomLeftPoint();
+	@NotNull Point getBottomLeftPoint();
 
 	/**
 	 * @return The top left point of the shape. It takes account
 	 * of the thickness, the rotation angle, the double border, or any
 	 * parameters but not the rotation angle; in contrary to getTopLeftPoint().
 	 */
-	Point getFullTopLeftPoint();
+	@NotNull Point getFullTopLeftPoint();
 
 	/**
 	 * @return The bottom right point of the shape. It takes account
 	 * of the thickness, the rotation angle, the double border, or any
 	 * parameters but not the rotation angle; in contrary to getBottomRightPoint().
 	 */
-	Point getFullBottomRightPoint();
+	@NotNull Point getFullBottomRightPoint();
 
 
 	/**
@@ -153,7 +155,7 @@ public interface Shape extends Modifiable {
 	 * @param bound The bound (e.g. the border of the selected shapes) used to compute the scaling.
 	 * @throws IllegalArgumentException If one of the parameter is not valid.
 	 */
-	void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound);
+	void scale(final double prevWidth, final double prevHeight, final @NotNull Position pos, final @NotNull Rectangle2D bound);
 
 	/**
 	 * Scales the shape by using the same ratio between X and Y.
@@ -166,7 +168,7 @@ public interface Shape extends Modifiable {
 	 * @param bound The bound (e.g. the border of the selected shapes) used to compute the scaling.
 	 * @throws IllegalArgumentException If one of the parameter is not valid.
 	 */
-	void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound);
+	void scaleWithRatio(final double prevWidth, final double prevHeight, final @NotNull Position pos, final @NotNull Rectangle2D bound);
 
 	/**
 	 * Returns horizontally the shape.
@@ -210,22 +212,22 @@ public interface Shape extends Modifiable {
 	/**
 	 * @return the lineColour.
 	 */
-	Color getLineColour();
+	@NotNull Color getLineColour();
 
 	/**
 	 * @param lineColour the lineColour to set.
 	 */
-	void setLineColour(final Color lineColour);
+	void setLineColour(final @NotNull Color lineColour);
 
 	/**
 	 * @return the lineStyle.
 	 */
-	LineStyle getLineStyle();
+	@NotNull LineStyle getLineStyle();
 
 	/**
 	 * @param lineStyle the lineStyle to set.
 	 */
-	void setLineStyle(final LineStyle lineStyle);
+	void setLineStyle(final @NotNull LineStyle lineStyle);
 
 	/**
 	 * @return the dashSepWhite.
@@ -260,42 +262,42 @@ public interface Shape extends Modifiable {
 	/**
 	 * @return the fillingCol.
 	 */
-	Color getFillingCol();
+	@NotNull Color getFillingCol();
 
 	/**
 	 * @param fillingCol the fillingCol to set.
 	 */
-	void setFillingCol(final Color fillingCol);
+	void setFillingCol(final @NotNull Color fillingCol);
 
 	/**
 	 * @return the fillingStyle.
 	 */
-	FillingStyle getFillingStyle();
+	@NotNull FillingStyle getFillingStyle();
 
 	/**
 	 * @param fillingStyle the fillingStyle to set.
 	 */
-	void setFillingStyle(final FillingStyle fillingStyle);
+	void setFillingStyle(final @NotNull FillingStyle fillingStyle);
 
 	/**
 	 * @return the gradColStart.
 	 */
-	Color getGradColStart();
+	@NotNull Color getGradColStart();
 
 	/**
 	 * @param gradColStart the gradColStart to set.
 	 */
-	void setGradColStart(final Color gradColStart);
+	void setGradColStart(final @NotNull Color gradColStart);
 
 	/**
 	 * @return the gradColEnd.
 	 */
-	Color getGradColEnd();
+	@NotNull Color getGradColEnd();
 
 	/**
 	 * @param gradColEnd the gradColEnd to set.
 	 */
-	void setGradColEnd(final Color gradColEnd);
+	void setGradColEnd(final @NotNull Color gradColEnd);
 
 	/**
 	 * @return the gradAngle.
@@ -330,12 +332,12 @@ public interface Shape extends Modifiable {
 	/**
 	 * @return the hatchingsCol.
 	 */
-	Color getHatchingsCol();
+	@NotNull Color getHatchingsCol();
 
 	/**
 	 * @param hatchingsCol the hatchingsCol to set.
 	 */
-	void setHatchingsCol(final Color hatchingsCol);
+	void setHatchingsCol(final @NotNull Color hatchingsCol);
 
 	/**
 	 * @return the hatchingsAngle.
@@ -390,12 +392,12 @@ public interface Shape extends Modifiable {
 	/**
 	 * @return the dbleBordCol.
 	 */
-	Color getDbleBordCol();
+	@NotNull Color getDbleBordCol();
 
 	/**
 	 * @param dbleBordCol the dbleBordCol to set.
 	 */
-	void setDbleBordCol(final Color dbleBordCol);
+	void setDbleBordCol(final @NotNull Color dbleBordCol);
 
 	/**
 	 * @return the dbleBordSep.
@@ -420,12 +422,12 @@ public interface Shape extends Modifiable {
 	/**
 	 * @return the shadowCol.
 	 */
-	Color getShadowCol();
+	@NotNull Color getShadowCol();
 
 	/**
 	 * @param shadowCol the shadowCol to set.
 	 */
-	void setShadowCol(final Color shadowCol);
+	void setShadowCol(final @NotNull Color shadowCol);
 
 	/**
 	 * @return the shadowAngle in radian.
@@ -440,7 +442,7 @@ public interface Shape extends Modifiable {
 	/**
 	 * @return the gravityCentre.
 	 */
-	Point getGravityCentre();
+	@NotNull Point getGravityCentre();
 
 	/**
 	 * @return the isFilled.
@@ -457,7 +459,7 @@ public interface Shape extends Modifiable {
 	 * @param gravCentre The gravity centre of the rotation. If null, the gravity centre of the shape will be used.
 	 * @param angle The angle to add. In radian.
 	 */
-	void addToRotationAngle(final Point gravCentre, final double angle);
+	void addToRotationAngle(final @Nullable Point gravCentre, final double angle);
 
 	/**
 	 * @return the shadowSize in pixel.
@@ -472,13 +474,13 @@ public interface Shape extends Modifiable {
 	/**
 	 * @return the bordersPosition.
 	 */
-	BorderPos getBordersPosition();
+	@NotNull BorderPos getBordersPosition();
 
 	/**
 	 * Sets the position of the borders.
 	 * @param position The new position.
 	 */
-	void setBordersPosition(final BorderPos position);
+	void setBordersPosition(final @NotNull BorderPos position);
 
 	/**
 	 * @return True if when the shape has a shadow, it must be filled.
@@ -497,14 +499,14 @@ public interface Shape extends Modifiable {
 	 * Creates a duplicate of the shape (however id are not the same).
 	 * @return The duplicata.
 	 */
-	Shape duplicate();
+	@NotNull Shape duplicate();
 
 	/**
 	 * Rotates the shape.
 	 * @param point The rotation centre.
 	 * @param angle The angle of rotation in radians.
 	 */
-	void rotate(final Point point, final double angle);
+	void rotate(final @Nullable Point point, final double angle);
 
 	/**
 	 * This operation is a workaround to support the dynamic typing
@@ -514,7 +516,7 @@ public interface Shape extends Modifiable {
 	 * @param clazz The type to check.
 	 * @return True if the type of the calling object conforms to the given type.
 	 */
-	boolean isTypeOf(final Class<?> clazz);
+	boolean isTypeOf(final @NotNull Class<?> clazz);
 
 	/**
 	 * @return The width of the rectangle.
@@ -526,5 +528,5 @@ public interface Shape extends Modifiable {
 	 */
 	double getHeight();
 
-	DoubleProperty rotationAngleProperty();
+	@NotNull DoubleProperty rotationAngleProperty();
 }

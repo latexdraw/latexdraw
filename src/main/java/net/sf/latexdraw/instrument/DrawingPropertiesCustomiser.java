@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,11 +21,11 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import net.sf.latexdraw.command.LatexProperties;
 import net.sf.latexdraw.command.ModifyLatexProperties;
-import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.SystemService;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.latex.VerticalPosition;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
@@ -46,14 +47,14 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	/** Defines the scale of the drawing. */
 	@FXML private Spinner<Double> scaleField;
 	/** The LaTeX code generator. */
-	@Inject private LaTeXGenerator latexGen;
-	@Inject private SystemService system;
+	private final @NotNull LaTeXDataService latexData;
 
 	/**
 	 * Creates the instrument.
 	 */
-	public DrawingPropertiesCustomiser() {
+	public DrawingPropertiesCustomiser(final LaTeXDataService data) {
 		super();
+		this.latexData = Objects.requireNonNull(data);
 	}
 
 	@Override
@@ -77,10 +78,10 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	@Override
 	public void reinit() {
 		super.reinit();
-		latexGen.setCaption("");
-		latexGen.setLabel("");
-		latexGen.setPositionHoriCentre(false);
-		latexGen.setPositionVertToken(VerticalPosition.NONE);
+		latexData.setCaption("");
+		latexData.setLabel("");
+		latexData.setPositionHoriCentre(false);
+		latexData.setPositionVertToken(VerticalPosition.NONE);
 		updateWidgets();
 	}
 
@@ -92,26 +93,26 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 			return;
 		}
 
-		final String ns = system.getNormaliseNamespaceURI(nsURI);
+		final String ns = SystemUtils.getInstance().getNormaliseNamespaceURI(nsURI);
 
-		if(!latexGen.getCaption().isEmpty()) {
+		if(!latexData.getCaption().isEmpty()) {
 			final Element elt = document.createElement(ns + LNamespace.XML_CAPTION);
-			elt.appendChild(document.createTextNode(latexGen.getCaption()));
+			elt.appendChild(document.createTextNode(latexData.getCaption()));
 			root.appendChild(elt);
 		}
-		if(!latexGen.getLabel().isEmpty()) {
+		if(!latexData.getLabel().isEmpty()) {
 			final Element elt = document.createElement(ns + LNamespace.XML_LABEL);
-			elt.appendChild(document.createTextNode(latexGen.getLabel()));
+			elt.appendChild(document.createTextNode(latexData.getLabel()));
 			root.appendChild(elt);
 		}
-		if(latexGen.isPositionHoriCentre()) {
+		if(latexData.isPositionHoriCentre()) {
 			final Element elt = document.createElement(ns + LNamespace.XML_POSITION_HORIZ);
-			elt.setTextContent(String.valueOf(latexGen.isPositionHoriCentre()));
+			elt.setTextContent(String.valueOf(latexData.isPositionHoriCentre()));
 			root.appendChild(elt);
 		}
-		if(latexGen.getPositionVertToken() != VerticalPosition.NONE) {
+		if(latexData.getPositionVertToken() != VerticalPosition.NONE) {
 			final Element elt = document.createElement(ns + LNamespace.XML_POSITION_VERT);
-			elt.setTextContent(latexGen.getPositionVertToken().toString());
+			elt.setTextContent(latexData.getPositionVertToken().toString());
 			root.appendChild(elt);
 		}
 	}
@@ -123,28 +124,28 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 		final String name = root.getNodeName();
 
 		if(name.endsWith(LNamespace.XML_CAPTION)) {
-			latexGen.setCaption(root.getTextContent());
+			latexData.setCaption(root.getTextContent());
 			return;
 		}
 		if(name.endsWith(LNamespace.XML_LABEL)) {
-			latexGen.setLabel(root.getTextContent());
+			latexData.setLabel(root.getTextContent());
 			return;
 		}
 		if(name.endsWith(LNamespace.XML_POSITION_HORIZ)) {
-			latexGen.setPositionHoriCentre(Boolean.parseBoolean(root.getTextContent()));
+			latexData.setPositionHoriCentre(Boolean.parseBoolean(root.getTextContent()));
 			return;
 		}
 		if(name.endsWith(LNamespace.XML_POSITION_VERT)) {
-			latexGen.setPositionVertToken(VerticalPosition.getPosition(root.getTextContent()));
+			latexData.setPositionVertToken(VerticalPosition.getPosition(root.getTextContent()));
 		}
 	}
 
 	protected void updateWidgets() {
-		titleField.setText(latexGen.getCaption());
-		labelField.setText(latexGen.getLabel());
-		middleHorizPosCB.setSelected(latexGen.isPositionHoriCentre());
-		positionCB.setValue(latexGen.getPositionVertToken());
-		scaleField.getValueFactory().setValue(latexGen.getScale());
+		titleField.setText(latexData.getCaption());
+		labelField.setText(latexData.getLabel());
+		middleHorizPosCB.setSelected(latexData.isPositionHoriCentre());
+		positionCB.setValue(latexData.getPositionVertToken());
+		scaleField.getValueFactory().setValue(latexData.getScale());
 	}
 
 	@Override
@@ -157,18 +158,18 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 
 	@Override
 	protected void configureBindings() {
-		textInputBinder(() -> new ModifyLatexProperties(latexGen, LatexProperties.LABEL, null)).on(labelField).
+		textInputBinder(() -> new ModifyLatexProperties(latexData, LatexProperties.LABEL, null)).on(labelField).
 			then((i, c) -> c.setValue(i.getWidget().getText())).bind();
 
-		textInputBinder(() -> new ModifyLatexProperties(latexGen, LatexProperties.CAPTION, null)).on(titleField).
+		textInputBinder(() -> new ModifyLatexProperties(latexData, LatexProperties.CAPTION, null)).on(titleField).
 			then((i, c) -> c.setValue(i.getWidget().getText())).bind();
 
-		checkboxBinder(i -> new ModifyLatexProperties(latexGen, LatexProperties.POSITION_HORIZONTAL, i.getWidget().isSelected())).on(middleHorizPosCB).bind();
+		checkboxBinder(i -> new ModifyLatexProperties(latexData, LatexProperties.POSITION_HORIZONTAL, i.getWidget().isSelected())).on(middleHorizPosCB).bind();
 
-		comboboxBinder(i -> new ModifyLatexProperties(latexGen, LatexProperties.POSITION_VERTICAL, i.getWidget().getSelectionModel().getSelectedItem())).
+		comboboxBinder(i -> new ModifyLatexProperties(latexData, LatexProperties.POSITION_VERTICAL, i.getWidget().getSelectionModel().getSelectedItem())).
 			on(positionCB).bind();
 
-		spinnerBinder(i -> new ModifyLatexProperties(latexGen, LatexProperties.SCALE, i.getWidget().getValue())).on(scaleField).exec().
+		spinnerBinder(i -> new ModifyLatexProperties(latexData, LatexProperties.SCALE, i.getWidget().getValue())).on(scaleField).exec().
 			then(c -> c.setValue(scaleField.getValue())).bind();
 	}
 }

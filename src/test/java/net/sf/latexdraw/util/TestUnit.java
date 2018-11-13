@@ -1,5 +1,6 @@
 package net.sf.latexdraw.util;
 
+import net.sf.latexdraw.service.PreferencesService;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -19,7 +20,7 @@ public class TestUnit {
 	@ParameterizedTest
 	@EnumSource(Unit.class)
 	public void testgetLabel(final Unit unit) {
-		assertThat(unit.getLabel(new LangService(new SystemService()).getBundle()), not(is(emptyOrNullString())));
+		assertThat(unit.getLabel(new PreferencesService().getBundle()), not(is(emptyOrNullString())));
 	}
 
 	@ParameterizedTest

@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.scene.shape.ClosePath;
@@ -38,20 +39,19 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Square;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
-import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.SystemService;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import net.sf.latexdraw.service.LaTeXDataService;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The factory that creates views from given models.
  * @author Arnaud Blouin
  */
 public final class ViewFactory implements PathElementProducer, JfxViewProducer {
-	@Inject private SystemService system;
-	@Inject private LaTeXGenerator codeGen;
+	private final @NotNull LaTeXDataService latexdata;
 
-	public ViewFactory() {
+	public ViewFactory(final LaTeXDataService latexdata) {
 		super();
+		this.latexdata = Objects.requireNonNull(latexdata);
 	}
 
 
@@ -70,7 +70,7 @@ public final class ViewFactory implements PathElementProducer, JfxViewProducer {
 			return Optional.of((S) new ViewRectangle((Rectangle) shape));
 		}
 		if(shape instanceof Text) {
-			return Optional.of((S) new ViewText((Text) shape, system, codeGen));
+			return Optional.of((S) new ViewText((Text) shape, latexdata));
 		}
 		if(shape instanceof CircleArc) {
 			return Optional.of((S) new ViewCircleArc((CircleArc) shape));

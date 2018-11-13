@@ -13,6 +13,7 @@ package net.sf.latexdraw.model.api.shape;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.model.api.property.FreeHandProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for freehand shapes.
@@ -22,13 +23,14 @@ public interface Freehand extends FreeHandProp, SingleShape, Closable {
 	/**
 	 * @return The property of the freehand type.
 	 */
-	ObjectProperty<FreeHandStyle> typeProperty();
+	@NotNull ObjectProperty<FreeHandStyle> typeProperty();
 
 	/**
 	 * @return The property of the interval parameter.
 	 */
-	IntegerProperty intervalProperty();
+	@NotNull IntegerProperty intervalProperty();
 
+	@NotNull
 	@Override
 	Freehand duplicate();
 }

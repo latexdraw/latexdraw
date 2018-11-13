@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The API for shapes that have a position.
  * @author Arnaud BLOUIN
@@ -40,7 +42,7 @@ public interface PositionShape extends SingleShape {
 	/**
 	 * @return The position of the shape (the bottom-left point of the shape).
 	 */
-	Point getPosition();
+	@NotNull Point getPosition();
 
 	/**
 	 * Sets the position of the shape (the bottom-left point of the shape).

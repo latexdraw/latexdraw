@@ -13,6 +13,7 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,12 +21,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import net.sf.latexdraw.command.CheckConvertExists;
-import net.sf.latexdraw.command.ModifyPencilStyle;
+import net.sf.latexdraw.command.ModifyEditingMode;
 import net.sf.latexdraw.command.shape.AddShape;
 import net.sf.latexdraw.model.ShapeFactory;
-import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.view.jfx.Canvas;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
 import org.malai.javafx.command.ActivateInactivateInstruments;
 import org.malai.javafx.instrument.JfxInstrument;
@@ -37,92 +38,79 @@ import org.malai.javafx.instrument.JfxInstrument;
 public class EditingSelector extends JfxInstrument implements Initializable {
 	/** The button that allows to select the instrument Hand. */
 	@FXML ToggleButton handB;
-
 	/** The button that allows to select the instrument Pencil to draw dots. */
 	@FXML ToggleButton dotB;
-
 	/** The button that allows to select the instrument Pencil to draw free hand shapes. */
 	@FXML ToggleButton freeHandB;
-
 	/** The button that allows to select the instrument Pencil to add texts. */
 	@FXML ToggleButton textB;
-
 	/** The button that allows to select the instrument Pencil to add rectangles. */
 	@FXML ToggleButton recB;
-
 	/** The button that allows to select the instrument Pencil to add squares. */
 	@FXML ToggleButton squareB;
-
 	/** The button that allows to select the instrument Pencil to add ellipses. */
 	@FXML ToggleButton ellipseB;
-
 	/** The button that allows to select the instrument Pencil to add circles. */
 	@FXML ToggleButton circleB;
-
 	/** The button that allows to select the instrument Pencil to add lines. */
 	@FXML ToggleButton linesB;
-
 	/** The button that allows to select the instrument Pencil to add polygons. */
 	@FXML ToggleButton polygonB;
-
 	/** The button that allows to select the instrument Pencil to add bezier curves. */
 	@FXML ToggleButton bezierB;
-
 	/** The button that allows to select the instrument Pencil to add grids. */
 	@FXML ToggleButton gridB;
-
 	/** The button that allows to select the instrument Pencil to add axes. */
 	@FXML ToggleButton axesB;
-
 	/** The button that allows to select the instrument Pencil to add rhombuses. */
 	@FXML ToggleButton rhombusB;
-
 	/** The button that allows to select the instrument Pencil to add triangles. */
 	@FXML ToggleButton triangleB;
-
 	/** The button that allows to select the instrument Pencil to add arcs. */
 	@FXML ToggleButton arcB;
-
 	/** The button that allows to select the instrument Pencil to add pictures. */
 	@FXML ToggleButton picB;
-
 	/** The button that allows to select the instrument Pencil to add plotted curves. */
 	@FXML ToggleButton plotB;
-
 	/** The button that allows to insert some code (converted in shapes). */
 	@FXML Button codeB;
-
 	@FXML ToggleGroup groupEditing;
 
 	/** The instrument Hand. */
-	@Inject Hand hand;
-
+	private final @NotNull Hand hand;
 	/** The instrument Pencil. */
-	@Inject Pencil pencil;
-
+	private final @NotNull Pencil pencil;
+	private final @NotNull EditingService editing;
 	/** The instrument that manages instruments that customise shapes and the pencil. */
-	@Inject MetaShapeCustomiser metaShapeCustomiser;
-
+	private final @NotNull MetaShapeCustomiser metaShapeCustomiser;
+	/** The instrument that manages instruments that customise shapes and the pencil. */
+	private final @NotNull TextSetter textSetter;
 	/** The instrument that manages selected shapes. */
-	@Inject Border border;
-
+	private final @NotNull Border border;
 	/** The instrument used to delete shapes. */
-	@Inject ShapeDeleter deleter;
-
-	@Inject Canvas canvas;
-
-	@Inject CodeInserter codeInserter;
-	@Inject StatusBarController status;
-	@Inject private SystemService system;
-
-	final Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
+	private final @NotNull ShapeDeleter deleter;
+	private final @NotNull Canvas canvas;
+	private final @NotNull CodeInserter codeInserter;
+	private final @NotNull StatusBarController status;
+	private final @NotNull Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
 
 
 	/**
 	 * Creates the instrument.
 	 */
-	public EditingSelector() {
+	public EditingSelector(final Hand hand, final Pencil pencil, final MetaShapeCustomiser meta, final EditingService editing, final TextSetter textSetter,
+						final Border border, final ShapeDeleter deleter, final Canvas canvas, final CodeInserter codeInserter, final StatusBarController status) {
 		super();
+		this.hand = Objects.requireNonNull(hand);
+		this.pencil = Objects.requireNonNull(pencil);
+		this.editing = Objects.requireNonNull(editing);
+		this.textSetter = Objects.requireNonNull(textSetter);
+		this.metaShapeCustomiser = Objects.requireNonNull(meta);
+		this.border = Objects.requireNonNull(border);
+		this.deleter = Objects.requireNonNull(deleter);
+		this.canvas = Objects.requireNonNull(canvas);
+		this.codeInserter = Objects.requireNonNull(codeInserter);
+		this.status = Objects.requireNonNull(status);
 		button2EditingChoiceMap = new HashMap<>();
 	}
 
@@ -145,6 +133,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		button2EditingChoiceMap.put(triangleB, EditionChoice.TRIANGLE);
 		button2EditingChoiceMap.put(picB, EditionChoice.PICTURE);
 		button2EditingChoiceMap.put(plotB, EditionChoice.PLOT);
+		button2EditingChoiceMap.put(handB, EditionChoice.HAND);
 		setActivated(true);
 		handB.setSelected(true);
 		codeInserter.setActivated(false);
@@ -163,18 +152,16 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[button2EditingChoiceMap.size() + 1]);
-		nodes[nodes.length - 1] = handB;
+		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[0]);
 
 		// Checking that converting pictures can be done.
-		toggleButtonBinder(i -> new CheckConvertExists(status.getLabel(), status.getLink(), system)).on(picB).bind();
+		toggleButtonBinder(i -> new CheckConvertExists(status.getLabel(), status.getLink())).on(picB).bind();
 
-		toggleButtonBinder(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(pencil.textSetter.getPosition()),
-								pencil.textSetter.getTextField().getText()), canvas.getDrawing())).
-			on(handB).when(i -> pencil.textSetter.isActivated() && !pencil.textSetter.getTextField().getText().isEmpty()).bind();
+		toggleButtonBinder(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(textSetter.getPosition()),
+								textSetter.getTextField().getText()), canvas.getDrawing())).
+			on(handB).when(i -> textSetter.isActivated() && !textSetter.getTextField().getText().isEmpty()).bind();
 
-		toggleButtonBinder(() -> new ModifyPencilStyle(pencil)).on(nodes).
-			first((i, c) -> c.setEditingChoice(button2EditingChoiceMap.get(i.getWidget()))).bind();
+		toggleButtonBinder(i -> new ModifyEditingMode(editing, button2EditingChoiceMap.get(i.getWidget()))).on(nodes).bind();
 
 		toggleButtonBinder(ActivateInactivateInstruments::new).on(nodes).first((i, c) -> {
 			final ToggleButton button = i.getWidget();
@@ -182,7 +169,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 			c.setActivateFirst(false);
 
 			if(button != textB) {
-				c.addInstrumentToInactivate(pencil.textSetter);
+				c.addInstrumentToInactivate(textSetter);
 			}
 
 			/* Selection of the instruments to activate/deactivate. */

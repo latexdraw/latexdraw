@@ -13,6 +13,7 @@ package net.sf.latexdraw.model.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.property.AxesProp;
 import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.Group;
@@ -20,6 +21,7 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This trait encapsulates the code of the group related to the support of axes.
@@ -76,7 +78,7 @@ interface GroupAxesBase extends Group {
 	}
 
 	@Override
-	default PlottingStyle getLabelsDisplayed() {
+	default @NotNull PlottingStyle getLabelsDisplayed() {
 		return firstIAxes().map(sh -> sh.getLabelsDisplayed()).orElse(PlottingStyle.ALL);
 	}
 
@@ -96,22 +98,22 @@ interface GroupAxesBase extends Group {
 	}
 
 	@Override
-	default PlottingStyle getTicksDisplayed() {
+	default @NotNull PlottingStyle getTicksDisplayed() {
 		return firstIAxes().map(sh -> sh.getTicksDisplayed()).orElse(PlottingStyle.ALL);
 	}
 
 	@Override
-	default void setTicksDisplayed(final PlottingStyle ticksDisplayed) {
+	default void setTicksDisplayed(final @NotNull PlottingStyle ticksDisplayed) {
 		axesShapes().forEach(sh -> sh.setTicksDisplayed(ticksDisplayed));
 	}
 
 	@Override
-	default TicksStyle getTicksStyle() {
+	default @NotNull TicksStyle getTicksStyle() {
 		return firstIAxes().map(sh -> sh.getTicksStyle()).orElse(TicksStyle.FULL);
 	}
 
 	@Override
-	default void setTicksStyle(final TicksStyle ticksStyle) {
+	default void setTicksStyle(final @NotNull TicksStyle ticksStyle) {
 		axesShapes().forEach(sh -> sh.setTicksStyle(ticksStyle));
 	}
 
@@ -126,18 +128,18 @@ interface GroupAxesBase extends Group {
 	}
 
 	@Override
-	default AxesStyle getAxesStyle() {
+	default @NotNull AxesStyle getAxesStyle() {
 		return firstIAxes().map(sh -> sh.getAxesStyle()).orElse(AxesStyle.AXES);
 	}
 
 	@Override
-	default void setAxesStyle(final AxesStyle axesStyle) {
+	default void setAxesStyle(final @NotNull AxesStyle axesStyle) {
 		axesShapes().forEach(sh -> sh.setAxesStyle(axesStyle));
 	}
 
 	@Override
-	default Point getIncrement() {
-		return firstIAxes().map(sh -> sh.getIncrement()).orElse(null);
+	default @NotNull Point getIncrement() {
+		return firstIAxes().map(sh -> sh.getIncrement()).orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override
@@ -146,8 +148,8 @@ interface GroupAxesBase extends Group {
 	}
 
 	@Override
-	default Point getDistLabels() {
-		return firstIAxes().map(sh -> sh.getDistLabels()).orElse(null);
+	default @NotNull Point getDistLabels() {
+		return firstIAxes().map(sh -> sh.getDistLabels()).orElseGet(() -> ShapeFactory.INST.createPoint());
 	}
 
 	@Override

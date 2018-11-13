@@ -18,6 +18,7 @@ import net.sf.latexdraw.command.ShapesCmd;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
 
 /**
@@ -26,9 +27,9 @@ import org.malai.command.Command;
  */
 public class SelectShapes extends DrawingCmdImpl implements ShapesCmd, Modifying {
 	/** The shapes to handle. */
-	final List<Shape> shapes;
+	private final @NotNull List<Shape> shapes;
 
-	public SelectShapes(final Drawing theDrawing) {
+	public SelectShapes(final @NotNull Drawing theDrawing) {
 		super(theDrawing);
 		shapes = new ArrayList<>();
 	}
@@ -41,7 +42,7 @@ public class SelectShapes extends DrawingCmdImpl implements ShapesCmd, Modifying
 			selection.clear();
 		}else {
 			for(int i = selection.size() - 1; i >= 0; i--) {
-				if(!shapes.contains(selection.getShapeAt(i))) {
+				if(selection.getShapeAt(i).filter(s -> shapes.contains(s)).isEmpty()) {
 					selection.removeShape(i);
 				}
 			}
@@ -54,8 +55,13 @@ public class SelectShapes extends DrawingCmdImpl implements ShapesCmd, Modifying
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return RegistrationPolicy.UNLIMITED;
+	}
+
+	@Override
+	public boolean canDo() {
+		return true;
 	}
 
 	@Override
@@ -64,7 +70,7 @@ public class SelectShapes extends DrawingCmdImpl implements ShapesCmd, Modifying
 	}
 
 	@Override
-	public List<Shape> getShapes() {
+	public @NotNull List<Shape> getShapes() {
 		return shapes;
 	}
 }

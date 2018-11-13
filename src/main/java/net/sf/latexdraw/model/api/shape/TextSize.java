@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * This enumeration defines the concept of text size for latex texts.
  * @author Arnaud Blouin
@@ -18,61 +20,61 @@ public enum TextSize {
 	/** \tiny size */
 	TINY {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return "tiny"; //NON-NLS
 		}
 	}, /** \scriptsize size */
 	SCRIPT {
 			@Override
-			public String getLatexToken() {
+			public @NotNull String getLatexToken() {
 				return "scriptsize"; //NON-NLS
 			}
 		}, /** \footnotesize size */
 	FOOTNOTE {
 			@Override
-			public String getLatexToken() {
+			public @NotNull String getLatexToken() {
 				return "footnotesize"; //NON-NLS
 			}
 		}, /** \small size */
 	SMALL {
 			@Override
-			public String getLatexToken() {
+			public @NotNull String getLatexToken() {
 				return "small"; //NON-NLS
 			}
 		}, /** \small size */
 	NORMAL {
 			@Override
-			public String getLatexToken() {
+			public @NotNull String getLatexToken() {
 				return "normalsize"; //NON-NLS
 			}
 		}, /** \large size */
 	LARGE1 {
 			@Override
-			public String getLatexToken() {
+			public @NotNull String getLatexToken() {
 				return "large"; //NON-NLS
 			}
 		}, /** \Large size */
 	LARGE2 {
 			@Override
-			public String getLatexToken() {
+			public @NotNull String getLatexToken() {
 				return "Large"; //NON-NLS
 			}
 		}, /** \LARGE size */
 	LARGE3 {
 			@Override
-			public String getLatexToken() {
+			public @NotNull String getLatexToken() {
 				return "LARGE"; //NON-NLS
 			}
 		}, /** \huge size */
 	HUGE1 {
 			@Override
-			public String getLatexToken() {
+			public @NotNull String getLatexToken() {
 				return "huge"; //NON-NLS
 			}
 		}, /** \Huge size */
 	HUGE2 {
 			@Override
-			public String getLatexToken() {
+			public @NotNull String getLatexToken() {
 				return "Huge"; //NON-NLS
 			}
 		};
@@ -111,5 +113,5 @@ public enum TextSize {
 	/**
 	 * @return The latex token corresponding to the text size.
 	 */
-	public abstract String getLatexToken();
+	public abstract @NotNull String getLatexToken();
 }

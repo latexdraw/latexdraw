@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class TestSVGPlot extends TestSVGBase<Plot> {
 	@ParameterizedTest
-	@MethodSource("net.sf.latexdraw.data.PlotSupplier#createDiversifiedPlot")
+	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#createDiversifiedPlot")
 	void testPlotParams(final Plot sh) {
 		final Plot s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsPlot(sh, s2);

@@ -16,6 +16,7 @@ import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -38,10 +39,10 @@ public class TranslateShapes extends ShapeCmdImpl<Group> implements Undoable, Mo
 	 */
 	private double performedTy;
 	/** The drawing that will be handled by the command. */
-	private final Drawing drawing;
+	private final @NotNull Drawing drawing;
 
 
-	public TranslateShapes(final Drawing dr, final Group sh) {
+	public TranslateShapes(final @NotNull Drawing dr, final @NotNull Group sh) {
 		super(sh);
 		drawing = dr;
 		performedTx = 0d;
@@ -49,7 +50,7 @@ public class TranslateShapes extends ShapeCmdImpl<Group> implements Undoable, Mo
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 
@@ -60,41 +61,34 @@ public class TranslateShapes extends ShapeCmdImpl<Group> implements Undoable, Mo
 
 	@Override
 	protected void doCmdBody() {
-		shape.ifPresent(sh ->  {
-			sh.translate(tx, ty);
-			sh.setModified(true);
-			drawing.setModified(true);
-			performedTx += tx;
-			performedTy += ty;
-		});
+		shape.translate(tx, ty);
+		shape.setModified(true);
+		drawing.setModified(true);
+		performedTx += tx;
+		performedTy += ty;
 	}
 
 	@Override
 	public boolean canDo() {
-		return drawing != null && shape.isPresent() && !shape.get().isEmpty() && MathUtils.INST.isValidPt(tx, ty) &&
-			(!MathUtils.INST.equalsDouble(tx, 0d) || !MathUtils.INST.equalsDouble(ty, 0d)) && super.canDo();
+		return !shape.isEmpty() && MathUtils.INST.isValidPt(tx, ty) && (!MathUtils.INST.equalsDouble(tx, 0d) || !MathUtils.INST.equalsDouble(ty, 0d));
 	}
 
 	@Override
 	public void undo() {
-		shape.ifPresent(sh -> {
-			sh.translate(-performedTx, -performedTy);
-			sh.setModified(true);
-			drawing.setModified(true);
-		});
+		shape.translate(-performedTx, -performedTy);
+		shape.setModified(true);
+		drawing.setModified(true);
 	}
 
 	@Override
 	public void redo() {
-		shape.ifPresent(sh -> {
-			sh.translate(performedTx, performedTy);
-			sh.setModified(true);
-			drawing.setModified(true);
-		});
+		shape.translate(performedTx, performedTy);
+		shape.setModified(true);
+		drawing.setModified(true);
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.32");
 	}
 

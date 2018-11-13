@@ -65,10 +65,10 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 	@Override
 	protected void configureBindings() {
 		spinnerBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(),
-			canvas.getDrawing().getSelection().duplicateDeep(false), Math.toRadians(rotationField.getValue()) -
-			pencil.canvas.getDrawing().getSelection().getRotationAngle())).
+			canvas.getDrawing().getSelection().duplicateDeep(false),
+			Math.toRadians(rotationField.getValue()) - canvas.getDrawing().getSelection().getRotationAngle())).
 			on(rotationField).
-			then(c -> c.setRotationAngle(Math.toRadians(rotationField.getValue()) - pencil.canvas.getDrawing().getSelection().getRotationAngle())).
+			then(c -> c.setRotationAngle(Math.toRadians(rotationField.getValue()) - canvas.getDrawing().getSelection().getRotationAngle())).
 			exec().bind();
 
 		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI / 2d)).

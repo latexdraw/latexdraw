@@ -35,9 +35,9 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeArrowCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -73,7 +73,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.LEFT_ARROW, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -90,7 +90,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.BAR_END, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -107,7 +107,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.BAR_IN, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -124,7 +124,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.CIRCLE_END, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertTrue(dotPane.isVisible());
@@ -141,7 +141,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.CIRCLE_IN, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertTrue(dotPane.isVisible());
@@ -158,7 +158,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.DISK_END, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertTrue(dotPane.isVisible());
@@ -175,7 +175,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.DISK_IN, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertTrue(dotPane.isVisible());
@@ -192,7 +192,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -209,7 +209,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.LEFT_ROUND_BRACKET, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -226,7 +226,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.LEFT_SQUARE_BRACKET, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -242,7 +242,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.NONE, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
 		assertFalse(barPane.isVisible());
@@ -258,7 +258,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.RIGHT_ARROW, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -275,7 +275,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -292,7 +292,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.RIGHT_ROUND_BRACKET, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -309,7 +309,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.RIGHT_SQUARE_BRACKET, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -326,7 +326,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.ROUND_IN, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -343,7 +343,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.LEFT_ARROW, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -360,7 +360,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.BAR_END, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -377,7 +377,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.BAR_IN, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -394,7 +394,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.CIRCLE_END, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertTrue(dotPane.isVisible());
@@ -411,7 +411,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.CIRCLE_IN, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertTrue(dotPane.isVisible());
@@ -428,7 +428,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.DISK_END, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertTrue(dotPane.isVisible());
@@ -445,7 +445,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.DISK_IN, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertTrue(dotPane.isVisible());
@@ -462,7 +462,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -479,7 +479,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.LEFT_ROUND_BRACKET, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -496,7 +496,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.LEFT_SQUARE_BRACKET, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -512,7 +512,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.NONE, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
 		assertFalse(barPane.isVisible());
@@ -528,7 +528,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.RIGHT_ARROW, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -545,7 +545,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -562,7 +562,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.RIGHT_ROUND_BRACKET, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -579,7 +579,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.RIGHT_SQUARE_BRACKET, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -596,7 +596,7 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.ROUND_IN, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) editing.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -636,60 +636,60 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testIncrementtbarsizeNumPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleRBrack), tbarsizeNum,
-			incrementtbarsizeNum, Collections.singletonList(() -> ((ArrowableSingleShape) pencil.createShapeInstance()).getTBarSizeNum()));
+			incrementtbarsizeNum, Collections.singletonList(() -> ((ArrowableSingleShape) editing.createShapeInstance()).getTBarSizeNum()));
 	}
 
 	@Test
 	public void testIncrementtbarsizeDimPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleRBrack), tbarsizeDim,
-			incrementtbarsizeDim, Collections.singletonList(() -> ((ArrowableSingleShape) pencil.createShapeInstance()).getTBarSizeDim()));
+			incrementtbarsizeDim, Collections.singletonList(() -> ((ArrowableSingleShape) editing.createShapeInstance()).getTBarSizeDim()));
 	}
 
 	@Test
 	public void testIncrementdotSizeNumPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleDot), dotSizeNum,
-			incrementdotSizeNum, Collections.singletonList(() -> ((ArrowableSingleShape) pencil.createShapeInstance()).getDotSizeNum()));
+			incrementdotSizeNum, Collections.singletonList(() -> ((ArrowableSingleShape) editing.createShapeInstance()).getDotSizeNum()));
 	}
 
 	@Test
 	public void testIncrementdotSizeDimPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleDot), dotSizeDim,
-			incrementdotSizeDim, Collections.singletonList(() -> ((ArrowableSingleShape) pencil.createShapeInstance()).getDotSizeDim()));
+			incrementdotSizeDim, Collections.singletonList(() -> ((ArrowableSingleShape) editing.createShapeInstance()).getDotSizeDim()));
 	}
 
 	@Test
 	public void testIncrementrbracketNumPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleRBrack), rbracketNum, incrementrbracketNum,
-			Collections.singletonList(() -> ((ArrowableSingleShape) pencil.createShapeInstance()).getRBracketNum()));
+			Collections.singletonList(() -> ((ArrowableSingleShape) editing.createShapeInstance()).getRBracketNum()));
 	}
 
 	@Test
 	public void testIncrementbracketNumPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleSBrack), bracketNum,
-			incrementbracketNum, Collections.singletonList(() ->  ((ArrowableSingleShape) pencil.createShapeInstance()).getBracketNum()));
+			incrementbracketNum, Collections.singletonList(() ->  ((ArrowableSingleShape) editing.createShapeInstance()).getBracketNum()));
 	}
 
 	@Test
 	public void testIncrementarrowLengthPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow), arrowLength,
-			incrementarrowLength, Collections.singletonList(() ->  ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowLength()));
+			incrementarrowLength, Collections.singletonList(() ->  ((ArrowableSingleShape) editing.createShapeInstance()).getArrowLength()));
 	}
 
 	@Test
 	public void testIncrementarrowInsetPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow), arrowInset,
-			incrementarrowInset, Collections.singletonList(() ->  ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowInset()));
+			incrementarrowInset, Collections.singletonList(() ->  ((ArrowableSingleShape) editing.createShapeInstance()).getArrowInset()));
 	}
 
 	@Test
 	public void testIncrementarrowSizeNumPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow), arrowSizeNum,
-			incrementarrowSizeNum, Collections.singletonList(() ->  ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowSizeNum()));
+			incrementarrowSizeNum, Collections.singletonList(() ->  ((ArrowableSingleShape) editing.createShapeInstance()).getArrowSizeNum()));
 	}
 
 	@Test
 	public void testIncrementarrowSizeDimPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectArrowStyleArrow), arrowSizeDim,
-			incrementarrowSizeDim, Collections.singletonList(() ->  ((ArrowableSingleShape) pencil.createShapeInstance()).getArrowSizeDim()));
+			incrementarrowSizeDim, Collections.singletonList(() ->  ((ArrowableSingleShape) editing.createShapeInstance()).getArrowSizeDim()));
 	}
 }

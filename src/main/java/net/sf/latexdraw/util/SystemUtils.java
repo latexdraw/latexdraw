@@ -31,42 +31,49 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines some routines that provides information about the operating system currently used.
  * @author Arnaud BLOUIN, Jan-Cornelius MOLNAR
  */
-public final class SystemService {
+public final class SystemUtils {
+	private static SystemUtils INSTANCE = new SystemUtils();
+
+	public static void setSingleton(final @NotNull SystemUtils instance) {
+		INSTANCE = instance;
+	}
+
+	public static SystemUtils getInstance() {
+		return INSTANCE;
+	}
+
 	/** The line separator of the current system. */
-	public static final String EOL = System.getProperty("line.separator");
+	public final String EOL = System.getProperty("line.separator");
 	/** The file separator of the current system. */
-	public static final String FILE_SEP = System.getProperty("file.separator");
+	public final String FILE_SEP = System.getProperty("file.separator");
 	/** The name of the cache directory */
-	public static final String CACHE_DIR = ".cache"; //NON-NLS
+	public final String CACHE_DIR = ".cache"; //NON-NLS
 	/** The name of the cache directory for shared templates */
-	public static final String CACHE_SHARED_DIR = ".cacheShared"; //NON-NLS
+	public final String CACHE_SHARED_DIR = ".cacheShared"; //NON-NLS
 	/** The name of the templates directory */
-	public static final String TEMPLATE_DIR = "templates"; //NON-NLS
+	public final String TEMPLATE_DIR = "templates"; //NON-NLS
 
-	public final String pathLocalUser;
-	public final String pathTemplatesDirUser;
-	public final String pathPreferencesXmlFile;
-	public final String pathCacheDir;
-	public final String pathCacheShareDir;
-	public final String pathTemplatesShared;
-	public final String pathShared;
-
-
-	public SystemService() {
+	private SystemUtils() {
 		super();
-		pathShared = getPathShared();
-		pathTemplatesShared = getPathTemplatesShared();
-		pathLocalUser = getPathLocalUser();
-		pathCacheShareDir = pathLocalUser + File.separator + CACHE_SHARED_DIR;
-		pathCacheDir = pathLocalUser + File.separator + CACHE_DIR;
-		pathPreferencesXmlFile = pathLocalUser + File.separator + ".preferences.xml"; //NON-NLS
-		pathTemplatesDirUser = pathLocalUser + File.separator + TEMPLATE_DIR;
 		checkDirectories();
+	}
+
+	public @NotNull String getPathCacheShareDir() {
+		return getPathLocalUser() + File.separator + CACHE_SHARED_DIR;
+	}
+
+	public @NotNull String getPathCacheDir() {
+		return getPathLocalUser() + File.separator + CACHE_DIR;
+	}
+
+	public @NotNull String getPathTemplatesDirUser() {
+		return getPathLocalUser() + File.separator + TEMPLATE_DIR;
 	}
 
 	/**
@@ -142,7 +149,7 @@ public final class SystemService {
 	/**
 	 * @return The control modifier used by the currently used operating system.
 	 */
-	public KeyCode getControlKey() {
+	public @NotNull KeyCode getControlKey() {
 		if(isMac()) {
 			return KeyCode.META;
 		}
@@ -152,7 +159,7 @@ public final class SystemService {
 	/**
 	 * @return The name of the operating system currently used.
 	 */
-	public Optional<OperatingSystem> getSystem() {
+	public @NotNull Optional<OperatingSystem> getSystem() {
 		final String os = System.getProperty("os.name"); //NON-NLS
 
 		if("linux".equalsIgnoreCase(os)) { //NON-NLS
@@ -202,35 +209,35 @@ public final class SystemService {
 	/**
 	 * @return The version of the current LaTeX.
 	 */
-	public String getLaTeXVersion() {
+	public @NotNull String getLaTeXVersion() {
 		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getLatexBinPath(), "--version" }, null).b; //NON-NLS
 	}
 
 	/**
 	 * @return The version of the current dvips.
 	 */
-	public String getDVIPSVersion() {
+	public @NotNull String getDVIPSVersion() {
 		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getDvipsBinPath(), "--version" }, null).b; //NON-NLS
 	}
 
 	/**
 	 * @return The version of the current ps2pdf.
 	 */
-	public String getPS2PDFVersion() {
+	public @NotNull String getPS2PDFVersion() {
 		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPs2pdfBinPath() }, null).b;
 	}
 
 	/**
 	 * @return The version of the current ps2eps.
 	 */
-	public String getPS2EPSVersion() {
+	public @NotNull String getPS2EPSVersion() {
 		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPS2EPSBinPath(), "--version" }, null).b; //NON-NLS
 	}
 
 	/**
 	 * @return The version of the current pdfcrop.
 	 */
-	public String getPDFCROPVersion() {
+	public @NotNull String getPDFCROPVersion() {
 		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPdfcropBinPath(), "--version" }, null).b; //NON-NLS
 	}
 
@@ -240,8 +247,8 @@ public final class SystemService {
 	 * @param tmpdir The working dir
 	 * @return The log.
 	 */
-	public Tuple<Boolean, String> execute(final String[] cmd, final File tmpdir) {
-		if(cmd == null || cmd.length == 0) {
+	public @NotNull Tuple<Boolean, String> execute(final @NotNull String[] cmd, final File tmpdir) {
+		if(cmd.length == 0) {
 			return new Tuple<>(Boolean.FALSE, "");
 		}
 
@@ -283,7 +290,7 @@ public final class SystemService {
 	/**
 	 * @return The precise latex error messages that the latex compilation produced.
 	 */
-	public String getLatexErrorMessageFromLog(final String log) {
+	public @NotNull String getLatexErrorMessageFromLog(final String log) {
 		if(log == null) {
 			return "";
 		}
@@ -300,7 +307,7 @@ public final class SystemService {
 		return errors.toString();
 	}
 
-	public String getFileWithoutExtension(final String file) {
+	public @NotNull String getFileWithoutExtension(final String file) {
 		return file == null ? "" : file.substring(0, file.lastIndexOf('.'));
 	}
 
@@ -364,7 +371,7 @@ public final class SystemService {
 	 * @param path The location where the file must be created.
 	 * @return The created file or nothing.
 	 */
-	public Optional<File> saveFile(final String path, final String text) {
+	public @NotNull Optional<File> saveFile(final String path, final String text) {
 		boolean ok = true;
 		try(final OutputStreamWriter osw = new OutputStreamWriter(Files.newOutputStream(Path.of(path)))) {
 			osw.append(text);
@@ -381,7 +388,7 @@ public final class SystemService {
 	 * @param path The path of the file to read.
 	 * @return The content of the text file to read. Cannot be null.
 	 */
-	public String readTextFile(final String path) {
+	public @NotNull String readTextFile(final String path) {
 		final StringBuilder txt = new StringBuilder();
 
 		try(final InputStream is = getClass().getResourceAsStream(path);
@@ -405,7 +412,7 @@ public final class SystemService {
 	 * The created folder will have restricted access: only the user can access the folder.
 	 * @return The created folder or null (if the folder cannot be created or the rights cannot be restricted to the current user).
 	 */
-	public Optional<File> createTempDir() {
+	public @NotNull Optional<File> createTempDir() {
 		final String pathTmp = System.getProperty("java.io.tmpdir"); //NON-NLS
 		final String path = pathTmp + (pathTmp.endsWith(FILE_SEP) ? "" : FILE_SEP) + "latexdraw" + FILE_SEP + "latexdrawTmp" + //NON-NLS
 			System.currentTimeMillis() + ThreadLocalRandom.current().nextInt(100000);
@@ -438,7 +445,7 @@ public final class SystemService {
 	 * @param nsURI The namespace to normalise.
 	 * @return The normalised namespace.
 	 */
-	public String getNormaliseNamespaceURI(final String nsURI) {
+	public @NotNull String getNormaliseNamespaceURI(final String nsURI) {
 		return nsURI == null || nsURI.isEmpty() ? "" : nsURI + ':'; //NON-NLS
 	}
 
@@ -446,7 +453,7 @@ public final class SystemService {
 	/**
 	 * @return The home directory of the user depending of his operating system.
 	 */
-	private String getPathLocalUser() {
+	public @NotNull String getPathLocalUser() {
 		final String home = System.getProperty("user.home"); //NON-NLS
 
 		if(isVista() || isSeven() || is8() || is10()) {
@@ -465,7 +472,7 @@ public final class SystemService {
 	/**
 	 * @return The path of the directory where the templates shared by the different users are located.
 	 */
-	private String getPathTemplatesShared() {
+	public @NotNull String getPathTemplatesShared() {
 		return getPathShared() + File.separator + TEMPLATE_DIR;
 	}
 
@@ -473,7 +480,7 @@ public final class SystemService {
 	/**
 	 * @return The path where files are shared by users.
 	 */
-	private String getPathShared() {
+	private @NotNull String getPathShared() {
 		final String home = System.getProperty("user.home"); //NON-NLS
 
 		if(isMacOSX()) {
@@ -513,10 +520,10 @@ public final class SystemService {
 	 */
 	public void checkDirectories() {
 		try {
-			new File(pathLocalUser).mkdirs();
-			new File(pathTemplatesDirUser).mkdirs();
-			new File(pathCacheDir).mkdirs();
-			new File(pathCacheShareDir).mkdirs();
+			new File(getPathLocalUser()).mkdirs();
+			new File(getPathTemplatesDirUser()).mkdirs();
+			new File(getPathCacheDir()).mkdirs();
+			new File(getPathCacheShareDir()).mkdirs();
 		}catch(final SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}

@@ -94,10 +94,10 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);
+				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindAsEagerSingleton(ShapeTransformer.class);
 				bindToInstance(Hand.class, hand);
 				bindToInstance(Pencil.class, pencil);
-				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 			}
 		};

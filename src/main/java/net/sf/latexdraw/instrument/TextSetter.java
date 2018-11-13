@@ -12,6 +12,7 @@ package net.sf.latexdraw.instrument;
 
 import java.net.URL;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
@@ -20,48 +21,53 @@ import net.sf.latexdraw.command.shape.AddShape;
 import net.sf.latexdraw.command.shape.ModifyShapeProperty;
 import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.parser.ps.PSFunctionParser;
+import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
-import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.Tuple;
+import net.sf.latexdraw.view.jfx.Canvas;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
 import org.malai.javafx.command.ActivateInactivateInstruments;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * An instrument for adding and modifying texts of the drawing.
  * @author Arnaud Blouin
  */
-public class TextSetter extends CanvasInstrument implements Initializable {
+public class TextSetter extends JfxInstrument implements Initializable {
 	/** The text field. */
-	private final TextAreaAutoSize textField;
+	private final @NotNull TextAreaAutoSize textField;
 	/** The position where texts are added. It may not corresponds with the location of the text field since the text field position is absolute
 	 * (does not consider the zoom level). */
 	private Point position;
 	/** The text to modify throw this instrument. If it is not set, a new text will be created. */
 	private Text text;
 	private Plot plot;
-	/** The pencil used to create shapes. */
-	@Inject private Pencil pencil;
-	@Inject private ShapeTextCustomiser custom;
-	@Inject private ShapePlotCustomiser plotCustom;
-	@Inject private LangService lang;
+	private final @NotNull ResourceBundle lang;
+	private final @NotNull EditingService editing;
+	private final @NotNull Drawing drawing;
+	private final @NotNull Canvas canvas;
 
 	/**
 	 * Creates the instrument.
 	 */
-	public TextSetter() {
+	public TextSetter(final Canvas canvas, final ResourceBundle lang, final EditingService editing, final Drawing drawing) {
 		super();
+		this.editing = Objects.requireNonNull(editing);
+		this.lang = Objects.requireNonNull(lang);
+		this.drawing = Objects.requireNonNull(drawing);
+		this.canvas = Objects.requireNonNull(canvas);
 		textField = new TextAreaAutoSize();
 	}
 
 	@Override
 	public void onCmdDone(final Command cmd) {
 		super.onCmdDone(cmd);
-		custom.update();
 		Platform.runLater(() -> canvas.requestFocus());
 	}
 
@@ -91,39 +97,32 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 		}
 	}
 
-	/**
-	 * @param pen The pen to set to the text setter.
-	 */
-	public void setPencil(final Pencil pen) {
-		pencil = pen;
-	}
-
 	@Override
 	protected void configureBindings() {
 		// Key Enter to validate the text.
 		keyNodeBinder(i -> new ModifyShapeProperty<>(ShapeProperties.TEXT, ShapeFactory.INST.createGroup(text), textField.getText())).
-			on(textField).with(KeyCode.ENTER).when(i -> text != null && !pencil.isActivated() && !textField.getText().isEmpty()).bind();
+			on(textField).with(KeyCode.ENTER).when(i -> text != null && editing.getCurrentChoice() == EditionChoice.HAND && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to validate the equation of a plot shape.
 		keyNodeBinder(i -> new ModifyShapeProperty<>(ShapeProperties.PLOT_EQ, ShapeFactory.INST.createGroup(plot), textField.getText())).
-			on(textField).with(KeyCode.ENTER).when(i -> plot != null && !pencil.isActivated() && checkValidPlotFct()).bind();
+			on(textField).with(KeyCode.ENTER).when(i -> plot != null && editing.getCurrentChoice() == EditionChoice.HAND && checkValidPlotFct()).bind();
 
 		// Key Enter to add a text shape.
 		keyNodeBinder(i -> {
-			text = (Text) pencil.createShapeInstance();
+			text = (Text) editing.createShapeInstance();
 			text.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY()));
 			text.setText(textField.getText());
-			return new AddShape(text, canvas.getDrawing());
+			return new AddShape(text, drawing);
 		}).on(textField).with(KeyCode.ENTER).
-			when(i -> pencil.isActivated() && pencil.getCurrentChoice() == EditionChoice.TEXT && !textField.getText().isEmpty()).bind();
+			when(i -> editing.getCurrentChoice() == EditionChoice.TEXT && !textField.getText().isEmpty()).bind();
 
 		// Key Enter to add a plot shape.
 		keyNodeBinder(i -> {
-			plot = (Plot) pencil.createShapeInstance();
+			plot = (Plot) editing.createShapeInstance();
 			plot.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY() + textField.getHeight()));
 			plot.setPlotEquation(textField.getText());
-			return new AddShape(plot, canvas.getDrawing());
-		}).on(textField).with(KeyCode.ENTER).when(i -> pencil.isActivated() && pencil.getCurrentChoice() == EditionChoice.PLOT && checkValidPlotFct()).bind();
+			return new AddShape(plot, drawing);
+		}).on(textField).with(KeyCode.ENTER).when(i -> editing.getCurrentChoice() == EditionChoice.PLOT && checkValidPlotFct()).bind();
 
 		keyNodeBinder(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false)).
 			on(textField).with(KeyCode.ENTER).when(i -> textField.isValidText() && !textField.getText().isEmpty()).bind();
@@ -135,32 +134,32 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	private boolean checkValidPlotFct() {
 		Tuple<Boolean, String> valid;
 		try {
-			valid = PSFunctionParser.isValidPostFixEquation(textField.getText(), Double.parseDouble(plotCustom.minXSpinner.getValue().toString()),
-				Double.parseDouble(plotCustom.maxXSpinner.getValue().toString()), Double.parseDouble(plotCustom.nbPtsSpinner.getValue().toString()));
+			valid = PSFunctionParser.isValidPostFixEquation(textField.getText(), editing.getGroupParams().getPlotMinX(),
+				editing.getGroupParams().getPlotMaxX(), editing.getGroupParams().getNbPlottedPoints());
 		}catch(final IllegalArgumentException ex) {
-			valid = new Tuple<>(Boolean.FALSE, lang.getBundle().getString("invalid.function"));
+			valid = new Tuple<>(Boolean.FALSE, lang.getString("invalid.function"));
 		}
 		textField.setValid(valid);
 		return valid.a;
 	}
 
 	private void setTextMessage() {
-		textField.getMessageField().setText(lang.getBundle().getString("write.latex.text"));
+		textField.getMessageField().setText(lang.getString("write.latex.text"));
 	}
 
 	private void setPlotMessage() {
 		final String eqEx = " 2 x add sin"; //NON-NLS
-		textField.getMessageField().setText(lang.getBundle().getString("write.the.equation") + ' ' + eqEx);
+		textField.getMessageField().setText(lang.getString("write.the.equation") + ' ' + eqEx);
 	}
 
 	@Override
 	public void setActivated(final boolean act) {
 		super.setActivated(act);
-		if(act && pencil.isActivated()) {
-			if(pencil.getCurrentChoice() == EditionChoice.TEXT) {
+		if(act) {
+			if(editing.getCurrentChoice() == EditionChoice.TEXT) {
 				setTextMessage();
 			}else {
-				if(pencil.getCurrentChoice() == EditionChoice.PLOT) {
+				if(editing.getCurrentChoice() == EditionChoice.PLOT) {
 					setPlotMessage();
 				}
 			}
@@ -184,7 +183,7 @@ public class TextSetter extends CanvasInstrument implements Initializable {
 	/**
 	 * @return The text field used to set texts.
 	 */
-	public TextAreaAutoSize getTextField() {
+	public @NotNull TextAreaAutoSize getTextField() {
 		return textField;
 	}
 

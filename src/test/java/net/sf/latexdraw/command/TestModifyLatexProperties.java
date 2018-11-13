@@ -4,9 +4,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.view.latex.VerticalPosition;
-import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -20,7 +19,7 @@ public class TestModifyLatexProperties extends TestUndoableCommand<ModifyLatexPr
 		return Arrays.stream(LatexProperties.values()).collect(Collectors.toList());
 	}
 
-	LaTeXGenerator gen;
+	LaTeXDataService data;
 
 	@Parameterized.Parameter
 	public LatexProperties property;
@@ -33,35 +32,35 @@ public class TestModifyLatexProperties extends TestUndoableCommand<ModifyLatexPr
 	@Override
 	@Before
 	public void setUp() {
-		gen = new PSTCodeGenerator();
+		data = new LaTeXDataService();
 
 		switch(property) {
 			case PACKAGES:
-				mementoCmd = () -> gen.getPackages();
+				mementoCmd = () -> data.getPackages();
 				value = "pkg";
 				break;
 			case CAPTION:
-				mementoCmd = () -> gen.getCaption();
+				mementoCmd = () -> data.getCaption();
 				value = "mycaption";
 				break;
 			case LABEL:
-				mementoCmd = () -> gen.getLabel();
+				mementoCmd = () -> data.getLabel();
 				value = "mylabel";
 				break;
 			case POSITION_HORIZONTAL:
-				mementoCmd = () -> gen.isPositionHoriCentre();
+				mementoCmd = () -> data.isPositionHoriCentre();
 				value = true;
 				break;
 			case POSITION_VERTICAL:
-				mementoCmd = () -> gen.getPositionVertToken();
+				mementoCmd = () -> data.getPositionVertToken();
 				value = VerticalPosition.FLOATS_PAGE;
 				break;
 			case SCALE:
-				mementoCmd = () -> gen.getScale();
+				mementoCmd = () -> data.getScale();
 				value = 1.1d;
 				break;
 			case COMMENT:
-				mementoCmd = () -> gen.getComment();
+				mementoCmd = () -> data.getComment();
 				value = "comment";
 				break;
 		}
@@ -77,7 +76,7 @@ public class TestModifyLatexProperties extends TestUndoableCommand<ModifyLatexPr
 
 	@Override
 	protected void configCorrectCmd() {
-		cmd = new ModifyLatexProperties(gen, property, value);
+		cmd = new ModifyLatexProperties(data, property, value);
 	}
 
 	@Override

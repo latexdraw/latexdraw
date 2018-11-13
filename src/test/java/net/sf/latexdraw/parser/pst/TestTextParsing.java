@@ -4,7 +4,6 @@ import net.sf.latexdraw.data.StringData;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Dot;
 import net.sf.latexdraw.model.api.shape.Text;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.experimental.theories.Theory;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestTextParsing extends TestPSTParser {
 	@BeforeEach
 	void setUpText() {
-		listener = new PSTLatexdrawListener(new SystemService());
+		listener = new PSTLatexdrawListener();
 	}
 
 	@Test

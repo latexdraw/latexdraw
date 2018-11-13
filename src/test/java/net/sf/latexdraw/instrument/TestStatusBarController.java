@@ -1,12 +1,12 @@
 package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.scene.control.Hyperlink;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -21,8 +21,8 @@ public class TestStatusBarController extends TestLatexdrawGUI {
 		return new Injector() {
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(PreferencesService.class);
+				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindAsEagerSingleton(StatusBarController.class);
 			}
@@ -33,12 +33,12 @@ public class TestStatusBarController extends TestLatexdrawGUI {
 	public void testClickHyperlink() {
 		final Hyperlink link = find("#link");
 		Platform.runLater(() -> {
-			link.setText("foo");
+			link.setText("gridGapProp");
 			link.setVisible(true);
 		});
 		waitFXEvents.execute();
 		clickOn(link);
 		waitFXEvents.execute();
-		Mockito.verify(injector.getInstance(HostServices.class), Mockito.times(1)).showDocument("foo");
+		Mockito.verify(injector.getInstance(HostServices.class), Mockito.times(1)).showDocument("gridGapProp");
 	}
 }

@@ -9,6 +9,7 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Freehand;
 import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.service.EditingService;
 import org.junit.Before;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -18,22 +19,23 @@ import static org.mockito.Mockito.when;
 
 public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extends TestLatexdrawGUI implements
 	FxRobotColourPicker, FxRobotListSelection, FxRobotSpinner {
+	protected EditingService editing;
 	protected Pencil pencil;
 	protected Hand hand;
 	protected Drawing drawing;
 	protected T ins;
 
-	protected final GUIVoidCommand pencilCreatesRec = () -> pencil.setCurrentChoice(EditionChoice.RECT);
-	protected final GUIVoidCommand pencilCreatesBezier = () -> pencil.setCurrentChoice(EditionChoice.BEZIER_CURVE);
-	protected final GUIVoidCommand pencilCreatesCircle = () -> pencil.setCurrentChoice(EditionChoice.CIRCLE);
-	protected final GUIVoidCommand pencilCreatesText = () -> pencil.setCurrentChoice(EditionChoice.TEXT);
-	protected final GUIVoidCommand pencilCreatesPic = () -> pencil.setCurrentChoice(EditionChoice.PICTURE);
-	protected final GUIVoidCommand pencilCreatesArc = () -> pencil.setCurrentChoice(EditionChoice.CIRCLE_ARC);
-	protected final GUIVoidCommand pencilCreatesAxes = () -> pencil.setCurrentChoice(EditionChoice.AXES);
-	protected final GUIVoidCommand pencilCreatesDot = () -> pencil.setCurrentChoice(EditionChoice.DOT);
-	protected final GUIVoidCommand pencilCreatesFreehand = () -> pencil.setCurrentChoice(EditionChoice.FREE_HAND);
-	protected final GUIVoidCommand pencilCreatesGrid = () -> pencil.setCurrentChoice(EditionChoice.GRID);
-	protected final GUIVoidCommand pencilCreatesPlot = () -> pencil.setCurrentChoice(EditionChoice.PLOT);
+	protected final GUIVoidCommand pencilCreatesRec = () -> editing.setCurrentChoice(EditionChoice.RECT);
+	protected final GUIVoidCommand pencilCreatesBezier = () -> editing.setCurrentChoice(EditionChoice.BEZIER_CURVE);
+	protected final GUIVoidCommand pencilCreatesCircle = () -> editing.setCurrentChoice(EditionChoice.CIRCLE);
+	protected final GUIVoidCommand pencilCreatesText = () -> editing.setCurrentChoice(EditionChoice.TEXT);
+	protected final GUIVoidCommand pencilCreatesPic = () -> editing.setCurrentChoice(EditionChoice.PICTURE);
+	protected final GUIVoidCommand pencilCreatesArc = () -> editing.setCurrentChoice(EditionChoice.CIRCLE_ARC);
+	protected final GUIVoidCommand pencilCreatesAxes = () -> editing.setCurrentChoice(EditionChoice.AXES);
+	protected final GUIVoidCommand pencilCreatesDot = () -> editing.setCurrentChoice(EditionChoice.DOT);
+	protected final GUIVoidCommand pencilCreatesFreehand = () -> editing.setCurrentChoice(EditionChoice.FREE_HAND);
+	protected final GUIVoidCommand pencilCreatesGrid = () -> editing.setCurrentChoice(EditionChoice.GRID);
+	protected final GUIVoidCommand pencilCreatesPlot = () -> editing.setCurrentChoice(EditionChoice.PLOT);
 
 	protected final GUIVoidCommand updateIns = () -> {
 		Platform.runLater(() -> ins.update());
@@ -110,6 +112,7 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 
 	@Before
 	public void setUp() {
+		editing = injector.getInstance(EditingService.class);
 		pencil = injector.getInstance(Pencil.class);
 		hand = injector.getInstance(Hand.class);
 		drawing = injector.getInstance(Drawing.class);

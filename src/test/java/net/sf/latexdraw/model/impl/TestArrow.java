@@ -164,13 +164,6 @@ public class TestArrow {
 	}
 
 	@Test
-	public void testGetSetArrowStyleKO() {
-		arrow.setArrowStyle(ArrowStyle.RIGHT_ARROW);
-		arrow.setArrowStyle(null);
-		assertEquals(ArrowStyle.RIGHT_ARROW, arrow.getArrowStyle());
-	}
-
-	@Test
 	public void testGetSetArrowSizeDimKO() {
 		arrow.setArrowSizeDim(11.2);
 		arrow.setArrowSizeDim(0d);

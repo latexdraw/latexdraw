@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.shape;
 
 import java.awt.geom.Rectangle2D;
 import net.sf.latexdraw.model.ShapeFactory;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The different cardinal points.
@@ -20,82 +21,82 @@ import net.sf.latexdraw.model.ShapeFactory;
 public enum Position {
 	NORTH {
 		@Override
-		public Position getOpposite() {
+		public @NotNull Position getOpposite() {
 			return SOUTH;
 		}
 
 		@Override
-		public Point getReferencePoint(final Rectangle2D bound) {
+		public @NotNull Point getReferencePoint(final @NotNull Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getCenterX(), bound.getMinY());
 		}
 	}, SOUTH {
 		@Override
-		public Position getOpposite() {
+		public @NotNull Position getOpposite() {
 			return NORTH;
 		}
 
 		@Override
-		public Point getReferencePoint(final Rectangle2D bound) {
+		public @NotNull Point getReferencePoint(final @NotNull Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getCenterX(), bound.getMaxY());
 		}
 	}, EAST {
 		@Override
-		public Position getOpposite() {
+		public @NotNull Position getOpposite() {
 			return WEST;
 		}
 
 		@Override
-		public Point getReferencePoint(final Rectangle2D bound) {
+		public @NotNull Point getReferencePoint(final @NotNull Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMaxX(), bound.getCenterY());
 		}
 	}, WEST {
 		@Override
-		public Position getOpposite() {
+		public @NotNull Position getOpposite() {
 			return EAST;
 		}
 
 		@Override
-		public Point getReferencePoint(final Rectangle2D bound) {
+		public @NotNull Point getReferencePoint(final @NotNull Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMinX(), bound.getCenterY());
 		}
 	}, NE {
 		@Override
-		public Position getOpposite() {
+		public @NotNull Position getOpposite() {
 			return SW;
 		}
 
 		@Override
-		public Point getReferencePoint(final Rectangle2D bound) {
+		public @NotNull Point getReferencePoint(final @NotNull Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMaxX(), bound.getMinY());
 		}
 	}, NW {
 		@Override
-		public Position getOpposite() {
+		public @NotNull Position getOpposite() {
 			return SE;
 		}
 
 		@Override
-		public Point getReferencePoint(final Rectangle2D bound) {
+		public @NotNull Point getReferencePoint(final @NotNull Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMinX(), bound.getMinY());
 		}
 	}, SE {
 		@Override
-		public Position getOpposite() {
+		public @NotNull Position getOpposite() {
 			return NW;
 		}
 
 		@Override
-		public Point getReferencePoint(final Rectangle2D bound) {
+		public @NotNull Point getReferencePoint(final @NotNull Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMaxX(), bound.getMaxY());
 		}
 	}, SW {
 		@Override
-		public Position getOpposite() {
+		public @NotNull Position getOpposite() {
 			return NE;
 		}
 
 		@Override
-		public Point getReferencePoint(final Rectangle2D bound) {
+		public @NotNull Point getReferencePoint(final @NotNull Rectangle2D bound) {
 			return ShapeFactory.INST.createPoint(bound.getMinX(), bound.getMaxY());
 		}
 	};
@@ -131,7 +132,7 @@ public enum Position {
 	/**
 	 * @return The opposite position of the current position.
 	 */
-	public abstract Position getOpposite();
+	public abstract @NotNull Position getOpposite();
 
-	public abstract Point getReferencePoint(final Rectangle2D bound);
+	public abstract @NotNull Point getReferencePoint(final @NotNull Rectangle2D bound);
 }

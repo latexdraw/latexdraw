@@ -15,6 +15,7 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.PositionShape;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A model of a shape that has a position.
@@ -48,7 +49,7 @@ abstract class PositionShapeBase extends ShapeBase implements PositionShape {
 	}
 
 	@Override
-	public Point getPosition() {
+	public @NotNull Point getPosition() {
 		return getBottomLeftPoint();
 	}
 

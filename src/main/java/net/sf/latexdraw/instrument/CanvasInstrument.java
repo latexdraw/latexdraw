@@ -10,12 +10,13 @@
  */
 package net.sf.latexdraw.instrument;
 
+import java.util.Objects;
 import javafx.geometry.Point3D;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Point;
-import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.instrument.JfxInstrument;
 
 /**
@@ -23,11 +24,13 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud Blouin
  */
 abstract class CanvasInstrument extends JfxInstrument {
-	@Inject protected Canvas canvas;
-	@Inject protected MagneticGrid grid;
+	protected final @NotNull Canvas canvas;
+	protected final @NotNull MagneticGrid grid;
 
-	CanvasInstrument() {
+	CanvasInstrument(final Canvas canvas, final MagneticGrid grid) {
 		super();
+		this.canvas = Objects.requireNonNull(canvas);
+		this.grid = Objects.requireNonNull(grid);
 	}
 
 	/**

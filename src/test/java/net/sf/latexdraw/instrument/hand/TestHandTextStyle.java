@@ -34,9 +34,9 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeTextCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Pencil.class, pencil);
 			}
 		};
@@ -73,8 +73,8 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.BOT_LEFT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.BOT_LEFT, ((Text) drawing.getSelection().getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.BOT_LEFT, ((Text) drawing.getSelection().getShapeAt(2)).getTextPosition());
+		assertEquals(TextPosition.BOT_LEFT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
+		assertEquals(TextPosition.BOT_LEFT, ((Text) drawing.getSelection().getShapeAt(2).orElseThrow()).getTextPosition());
 		assertEquals(TextPosition.BOT_LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -83,8 +83,8 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.BOT_RIGHT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.BOT_RIGHT, ((Text) drawing.getSelection().getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.BOT_RIGHT, ((Text) drawing.getSelection().getShapeAt(2)).getTextPosition());
+		assertEquals(TextPosition.BOT_RIGHT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
+		assertEquals(TextPosition.BOT_RIGHT, ((Text) drawing.getSelection().getShapeAt(2).orElseThrow()).getTextPosition());
 		assertEquals(TextPosition.BOT_RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -93,8 +93,8 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.BOT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.BOT, ((Text) drawing.getSelection().getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.BOT, ((Text) drawing.getSelection().getShapeAt(2)).getTextPosition());
+		assertEquals(TextPosition.BOT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
+		assertEquals(TextPosition.BOT, ((Text) drawing.getSelection().getShapeAt(2).orElseThrow()).getTextPosition());
 		assertEquals(TextPosition.BOT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -103,8 +103,8 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.TOP);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.TOP, ((Text) drawing.getSelection().getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.TOP, ((Text) drawing.getSelection().getShapeAt(2)).getTextPosition());
+		assertEquals(TextPosition.TOP, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
+		assertEquals(TextPosition.TOP, ((Text) drawing.getSelection().getShapeAt(2).orElseThrow()).getTextPosition());
 		assertEquals(TextPosition.TOP, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -113,8 +113,8 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.TOP_LEFT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.TOP_LEFT, ((Text) drawing.getSelection().getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.TOP_LEFT, ((Text) drawing.getSelection().getShapeAt(2)).getTextPosition());
+		assertEquals(TextPosition.TOP_LEFT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
+		assertEquals(TextPosition.TOP_LEFT, ((Text) drawing.getSelection().getShapeAt(2).orElseThrow()).getTextPosition());
 		assertEquals(TextPosition.TOP_LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -123,8 +123,8 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.TOP_RIGHT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.TOP_RIGHT, ((Text) drawing.getSelection().getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.TOP_RIGHT, ((Text) drawing.getSelection().getShapeAt(2)).getTextPosition());
+		assertEquals(TextPosition.TOP_RIGHT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
+		assertEquals(TextPosition.TOP_RIGHT, ((Text) drawing.getSelection().getShapeAt(2).orElseThrow()).getTextPosition());
 		assertEquals(TextPosition.TOP_RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -133,8 +133,8 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.RIGHT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.RIGHT, ((Text) drawing.getSelection().getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.RIGHT, ((Text) drawing.getSelection().getShapeAt(2)).getTextPosition());
+		assertEquals(TextPosition.RIGHT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
+		assertEquals(TextPosition.RIGHT, ((Text) drawing.getSelection().getShapeAt(2).orElseThrow()).getTextPosition());
 		assertEquals(TextPosition.RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -143,8 +143,8 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.LEFT);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.LEFT, ((Text) drawing.getSelection().getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.LEFT, ((Text) drawing.getSelection().getShapeAt(2)).getTextPosition());
+		assertEquals(TextPosition.LEFT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
+		assertEquals(TextPosition.LEFT, ((Text) drawing.getSelection().getShapeAt(2).orElseThrow()).getTextPosition());
 		assertEquals(TextPosition.LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
@@ -153,8 +153,8 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.CENTER);
 		waitFXEvents.execute();
-		assertEquals(TextPosition.CENTER, ((Text) drawing.getSelection().getShapeAt(0)).getTextPosition());
-		assertEquals(TextPosition.CENTER, ((Text) drawing.getSelection().getShapeAt(2)).getTextPosition());
+		assertEquals(TextPosition.CENTER, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
+		assertEquals(TextPosition.CENTER, ((Text) drawing.getSelection().getShapeAt(2).orElseThrow()).getTextPosition());
 		assertEquals(TextPosition.CENTER, textPos.getSelectionModel().getSelectedItem());
 	}
 }

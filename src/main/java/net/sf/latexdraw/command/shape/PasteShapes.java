@@ -11,8 +11,8 @@
 package net.sf.latexdraw.command.shape;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.command.DrawingCmdImpl;
 import net.sf.latexdraw.command.Modifying;
@@ -20,6 +20,7 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.MagneticGrid;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
 import org.malai.undo.Undoable;
 
@@ -29,12 +30,12 @@ import org.malai.undo.Undoable;
  */
 public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 	/** The cut or copy command. */
-	private final CopyShapes copy;
+	private final @NotNull Optional<CopyShapes> copy;
 	/** The magnetic grid to use. */
-	private final MagneticGrid grid;
-	private final List<Shape> pastedShapes;
+	private final @NotNull MagneticGrid grid;
+	private final @NotNull List<Shape> pastedShapes;
 
-	public PasteShapes(final CopyShapes copyCmd, final MagneticGrid magnetGrid, final Drawing drawing) {
+	public PasteShapes(final @NotNull Optional<CopyShapes> copyCmd, final @NotNull MagneticGrid magnetGrid, final @NotNull Drawing drawing) {
 		super(drawing);
 		copy = copyCmd;
 		grid = magnetGrid;
@@ -43,7 +44,7 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 
 	@Override
 	public boolean canDo() {
-		return copy != null && grid != null && super.canDo();
+		return copy.isPresent();
 	}
 
 	@Override
@@ -53,56 +54,61 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 
 	@Override
 	public void doCmdBody() {
-		// While pasting cut shapes, the first paste must be at the same position that the original shapes.
-		// But for pasting after just copying, a initial gap must be used.
-		if(!(copy instanceof CutShapes)) {
-			copy.nbTimeCopied++;
-		}
+		copy.ifPresent(cop -> {
+			// While pasting cut shapes, the first paste must be at the same position that the original shapes.
+			// But for pasting after just copying, a initial gap must be used.
+			if(!(cop instanceof CutShapes)) {
+				cop.nbTimeCopied++;
+			}
 
-		final int gapPaste = grid.isMagnetic() ? grid.getGridSpacing() : 10;
-		final int gap = copy.nbTimeCopied * gapPaste;
+			final int gapPaste = grid.isMagnetic() ? grid.getGridSpacing() : 10;
+			final int gap = cop.nbTimeCopied * gapPaste;
 
-		copy.copiedShapes.forEach(shape -> {
-			final Shape sh = ShapeFactory.INST.duplicate(shape);
-			pastedShapes.add(sh);
-			sh.translate(gap, gap);
-			drawing.addShape(sh);
+			cop.copiedShapes.forEach(shape -> ShapeFactory.INST.duplicate(shape).ifPresent(sh -> {
+				pastedShapes.add(sh);
+				sh.translate(gap, gap);
+				drawing.addShape(sh);
+			}));
+
+			if(cop instanceof CutShapes) {
+				cop.nbTimeCopied++;
+			}
+
+			drawing.setModified(true);
 		});
-
-		if(copy instanceof CutShapes) {
-			copy.nbTimeCopied++;
-		}
-
-		drawing.setModified(true);
 	}
 
 	@Override
 	public void undo() {
-		int i = 0;
-		final int nbShapes = copy.copiedShapes.size();
+		copy.ifPresent(cop -> {
+			int i = 0;
+			final int nbShapes = cop.copiedShapes.size();
 
-		while(i < nbShapes && !drawing.isEmpty()) {
-			drawing.removeShape(drawing.size() - 1);
-			i++;
-		}
+			while(i < nbShapes && !drawing.isEmpty()) {
+				drawing.removeShape(drawing.size() - 1);
+				i++;
+			}
 
-		copy.nbTimeCopied--;
-		drawing.setModified(true);
+			cop.nbTimeCopied--;
+			drawing.setModified(true);
+		});
 	}
 
 	@Override
 	public void redo() {
-		if(!(copy instanceof CutShapes)) {
-			copy.nbTimeCopied++;
-		}
+		copy.ifPresent(cop -> {
+			if(!(cop instanceof CutShapes)) {
+				cop.nbTimeCopied++;
+			}
 
-		pastedShapes.forEach(drawing::addShape);
+			pastedShapes.forEach(drawing::addShape);
 
-		if(copy instanceof CutShapes) {
-			copy.nbTimeCopied++;
-		}
+			if(cop instanceof CutShapes) {
+				cop.nbTimeCopied++;
+			}
 
-		drawing.setModified(true);
+			drawing.setModified(true);
+		});
 	}
 
 	@Override
@@ -112,10 +118,6 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 
 	@Override
 	public List<Command> followingCmds() {
-		if(drawing == null) {
-			return Collections.emptyList();
-		}
-
 		final List<Command> list = new ArrayList<>();
 		final SelectShapes selectCmd = new SelectShapes(drawing);
 		pastedShapes.forEach(selectCmd::addShape);
@@ -123,7 +125,7 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 		return list;
 	}
 
-	public CopyShapes getCopy() {
+	public @NotNull Optional<CopyShapes> getCopy() {
 		return copy;
 	}
 }

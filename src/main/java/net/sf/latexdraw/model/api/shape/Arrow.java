@@ -13,6 +13,7 @@ package net.sf.latexdraw.model.api.shape;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.model.api.property.Arrowable;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for arrows.
@@ -45,13 +46,13 @@ public interface Arrow extends Arrowable {
 	/**
 	 * @return The style of the arrow.
 	 */
-	ArrowStyle getArrowStyle();
+	@NotNull ArrowStyle getArrowStyle();
 
 	/**
 	 * Defines the style of the arrow.
 	 * @param arrowStyle The new style of the arrow.
 	 */
-	void setArrowStyle(final ArrowStyle arrowStyle);
+	void setArrowStyle(final @NotNull ArrowStyle arrowStyle);
 
 	/**
 	 * @return True if the arrow is the left arrow of its shape.
@@ -66,7 +67,7 @@ public interface Arrow extends Arrowable {
 	/**
 	 * @return The shape that contains the arrow.
 	 */
-	ArrowableSingleShape getShape();
+	@NotNull ArrowableSingleShape getShape();
 
 	/**
 	 * @return The line that can be used to locate the arrow.
@@ -93,31 +94,31 @@ public interface Arrow extends Arrowable {
 	 */
 	double getArrowShapedWidth();
 
-	ObjectProperty<ArrowStyle> styleProperty();
+	@NotNull ObjectProperty<ArrowStyle> styleProperty();
 
-	DoubleProperty arrowSizeDimProperty();
+	@NotNull DoubleProperty arrowSizeDimProperty();
 
-	DoubleProperty arrowSizeNumProperty();
+	@NotNull DoubleProperty arrowSizeNumProperty();
 
-	DoubleProperty arrowLengthProperty();
+	@NotNull DoubleProperty arrowLengthProperty();
 
-	DoubleProperty arrowInsetProperty();
+	@NotNull DoubleProperty arrowInsetProperty();
 
-	DoubleProperty dotSizeDimProperty();
+	@NotNull DoubleProperty dotSizeDimProperty();
 
-	DoubleProperty dotSizeNumProperty();
+	@NotNull DoubleProperty dotSizeNumProperty();
 
-	DoubleProperty tBarSizeDimProperty();
+	@NotNull DoubleProperty tBarSizeDimProperty();
 
-	DoubleProperty tBarSizeNumProperty();
+	@NotNull DoubleProperty tBarSizeNumProperty();
 
-	DoubleProperty bracketNumProperty();
+	@NotNull DoubleProperty bracketNumProperty();
 
-	DoubleProperty rBracketNumProperty();
+	@NotNull DoubleProperty rBracketNumProperty();
 
 	/**
 	 * Binds the parameters (but not the arrow style) of the calling arrow to the ones of the given arrows.
 	 * @param arrow The arrow used as the model to bind
 	 */
-	void bindFrom(final Arrow arrow);
+	void bindFrom(final @NotNull Arrow arrow);
 }

@@ -10,12 +10,12 @@
  */
 package net.sf.latexdraw.command.shape;
 
-import java.util.Optional;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -24,28 +24,26 @@ import org.malai.undo.Undoable;
  */
 public class AddShape extends ShapeCmdImpl<Shape> implements Undoable, Modifying {
 	/** The drawing that will be handled by the command. */
-	protected final Optional<Drawing> drawing;
+	protected final @NotNull Drawing drawing;
 
-	public AddShape(final Shape sh, final Drawing dr) {
+	public AddShape(final @NotNull Shape sh, final @NotNull Drawing dr) {
 		super(sh);
-		drawing = Optional.ofNullable(dr);
+		drawing = dr;
 	}
 
 	@Override
 	protected void doCmdBody() {
-		drawing.ifPresent(dr -> shape.ifPresent(sh -> {
-			dr.addShape(sh);
-			dr.setModified(true);
-		}));
+		drawing.addShape(shape);
+		drawing.setModified(true);
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("UndoRedoManager.create");
 	}
 
@@ -56,14 +54,12 @@ public class AddShape extends ShapeCmdImpl<Shape> implements Undoable, Modifying
 
 	@Override
 	public void undo() {
-		drawing.ifPresent(dr -> shape.ifPresent(sh -> {
-			dr.removeShape(sh);
-			dr.setModified(true);
-		}));
+		drawing.removeShape(shape);
+		drawing.setModified(true);
 	}
 
 	@Override
 	public boolean canDo() {
-		return drawing.isPresent() && shape.isPresent();
+		return true;
 	}
 }

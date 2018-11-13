@@ -12,6 +12,7 @@ package net.sf.latexdraw.command;
 
 import java.util.List;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
 
 /**
@@ -44,5 +45,5 @@ public interface ShapesCmd extends Command {
 	/**
 	 * @return The shapes to handle.
 	 */
-	List<Shape> getShapes();
+	@NotNull List<Shape> getShapes();
 }

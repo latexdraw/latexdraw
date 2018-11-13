@@ -29,6 +29,8 @@ import javax.imageio.ImageIO;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.malai.command.CommandImpl;
 
 /**
@@ -37,19 +39,19 @@ import org.malai.command.CommandImpl;
  */
 public class Export extends CommandImpl {
 	/** The format with which the drawing must be exported. */
-	private ExportFormat format;
+	private final @NotNull ExportFormat format;
 
 	/** The canvas that contains views. */
-	private final Canvas canvas;
+	private final @NotNull Canvas canvas;
 
 	/** Defines if the shapes have been successfully exported. */
 	private boolean exported;
 
 	/** The dialogue chooser used to select the targeted file. */
-	private FileChooser dialogueBox;
+	private final @NotNull FileChooser dialogueBox;
 
 	/** The PST generator to use. */
-	private final PSTCodeGenerator pstGen;
+	private final @NotNull PSTCodeGenerator pstGen;
 
 	private File outputFile;
 
@@ -57,10 +59,12 @@ public class Export extends CommandImpl {
 	/**
 	 * Creates the command.
 	 */
-	public Export(final Canvas canvas, final PSTCodeGenerator pstGen) {
+	public Export(final @NotNull Canvas canvas, final @NotNull PSTCodeGenerator pstGen, final @NotNull ExportFormat format, final @NotNull FileChooser dialogueBox) {
 		super();
 		this.canvas = canvas;
 		this.pstGen = pstGen;
+		this.format = format;
+		this.dialogueBox = dialogueBox;
 		exported = false;
 	}
 
@@ -87,7 +91,7 @@ public class Export extends CommandImpl {
 		}
 	}
 
-	private boolean export(final File file) {
+	private boolean export(final @NotNull File file) {
 		switch(format) {
 			case BMP:
 				return exportAsPicture(file, "bmp", false); //NON-NLS
@@ -110,8 +114,7 @@ public class Export extends CommandImpl {
 
 	@Override
 	public boolean canDo() {
-		return canvas != null && format != null && dialogueBox != null && (format == ExportFormat.BMP || format == ExportFormat.JPG ||
-			format == ExportFormat.PNG || pstGen != null);
+		return true;
 	}
 
 
@@ -126,7 +129,7 @@ public class Export extends CommandImpl {
 	 * @param file The targeted location.
 	 * @return true if the picture was well created.
 	 */
-	private boolean exportAsPicture(final File file, final String format, final boolean alpha) {
+	private boolean exportAsPicture(final @NotNull File file, final @NotNull String format, final boolean alpha) {
 		BufferedImage rendImage = createRenderedImage();
 		boolean success = false;
 
@@ -155,7 +158,7 @@ public class Export extends CommandImpl {
 	 * @param file The targeted location.
 	 * @return True: the file has been created.
 	 */
-	private boolean exportAsEPS(final File file) {
+	private boolean exportAsEPS(final @NotNull File file) {
 		File psFile;
 
 		try {
@@ -174,7 +177,7 @@ public class Export extends CommandImpl {
 	 * @param file The targeted location.
 	 * @return True: the file has been created.
 	 */
-	private boolean exportAsPDF(final File file) {
+	private boolean exportAsPDF(final @NotNull File file) {
 		File pdfFile;
 
 		try {
@@ -193,7 +196,7 @@ public class Export extends CommandImpl {
 	 * @param file The targeted location.
 	 * @return true if the PST document was been successfully created.
 	 */
-	private boolean exportAsPST(final File file) {
+	private boolean exportAsPST(final @NotNull File file) {
 		boolean ok;
 
 		try {
@@ -214,7 +217,7 @@ public class Export extends CommandImpl {
 	/**
 	 * @return A writable image that contains given views (not null).
 	 */
-	private BufferedImage createRenderedImage() {
+	private @NotNull BufferedImage createRenderedImage() {
 		final Group views = canvas.getViews();
 		final Bounds bounds = views.getBoundsInParent();
 		final double scale = 3d;
@@ -229,23 +232,9 @@ public class Export extends CommandImpl {
 	}
 
 	/**
-	 * @param dialogBox The file chooser to set.
-	 */
-	public void setDialogueBox(final FileChooser dialogBox) {
-		dialogueBox = dialogBox;
-	}
-
-	/**
-	 * @param expFormat The expFormat to set.
-	 */
-	public void setFormat(final ExportFormat expFormat) {
-		format = expFormat;
-	}
-
-	/**
 	 * @return The output file produced during the export.
 	 */
-	public File getOutputFile() {
+	public @Nullable File getOutputFile() {
 		return outputFile;
 	}
 }

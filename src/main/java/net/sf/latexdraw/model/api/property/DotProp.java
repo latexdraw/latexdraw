@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.property;
 
 import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.DotStyle;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Properties of dots.
@@ -21,13 +22,13 @@ public interface DotProp {
 	/**
 	 * @return The style of the dot.
 	 */
-	DotStyle getDotStyle();
+	@NotNull DotStyle getDotStyle();
 
 	/**
 	 * Defines the style of the dot.
 	 * @param style The new style.
 	 */
-	void setDotStyle(final DotStyle style);
+	void setDotStyle(final @NotNull DotStyle style);
 
 	/**
 	 * @return the diametre of the dot.
@@ -43,11 +44,11 @@ public interface DotProp {
 	/**
 	 * @return The filling colour of the dottable or null if not fillable.
 	 */
-	Color getDotFillingCol();
+	@NotNull Color getDotFillingCol();
 
 	/**
 	 * Sets the filling colour of the dottable.
 	 * @param fillingCol its new colour.
 	 */
-	void setDotFillingCol(final Color fillingCol);
+	void setDotFillingCol(final @NotNull Color fillingCol);
 }

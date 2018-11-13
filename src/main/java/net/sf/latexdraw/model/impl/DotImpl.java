@@ -25,6 +25,7 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Position;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of a dot.
@@ -32,9 +33,9 @@ import net.sf.latexdraw.view.latex.DviPsColors;
  */
 class DotImpl extends PositionShapeBase implements Dot {
 	/** The current style of the dot. */
-	private final ObjectProperty<DotStyle> style;
+	private final @NotNull ObjectProperty<DotStyle> style;
 	/** The radius of the dot. */
-	private final DoubleProperty diametre;
+	private final @NotNull DoubleProperty diametre;
 
 
 	/**
@@ -47,20 +48,18 @@ class DotImpl extends PositionShapeBase implements Dot {
 	}
 
 	@Override
-	public Color getFillingCol() {
+	public @NotNull Color getFillingCol() {
 		return isFillable() ? super.getFillingCol() : DviPsColors.BLACK;
 	}
 
 	@Override
-	public DotStyle getDotStyle() {
+	public @NotNull DotStyle getDotStyle() {
 		return style.get();
 	}
 
 	@Override
-	public void setDotStyle(final DotStyle dotStyle) {
-		if(dotStyle != null) {
-			style.set(dotStyle);
-		}
+	public void setDotStyle(final @NotNull DotStyle dotStyle) {
+		style.set(dotStyle);
 	}
 
 	@Override
@@ -110,17 +109,17 @@ class DotImpl extends PositionShapeBase implements Dot {
 	}
 
 	@Override
-	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+	public void scale(final double prevWidth, final double prevHeight, final @NotNull Position pos, final @NotNull Rectangle2D bound) {
 		scaleWithRatio(prevWidth, prevHeight, pos, bound);
 	}
 
 	@Override
-	public void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+	public void scaleWithRatio(final double prevWidth, final double prevHeight, final @NotNull Position pos, final @NotNull Rectangle2D bound) {
 		setDiametre(getDiametre() * Math.max(prevWidth / bound.getWidth(), prevHeight / bound.getHeight()));
 	}
 
 	@Override
-	public Point getPosition() {
+	public @NotNull Point getPosition() {
 		// The position of the dot is its centre.
 		return points.get(0);
 	}
@@ -139,7 +138,7 @@ class DotImpl extends PositionShapeBase implements Dot {
 	}
 
 	@Override
-	public Point getBottomLeftPoint() {
+	public @NotNull Point getBottomLeftPoint() {
 		final Point tl = ShapeFactory.INST.createPoint();
 		final Point br = ShapeFactory.INST.createPoint();
 		getTopLeftBottomRightPoints(tl, br);
@@ -147,21 +146,21 @@ class DotImpl extends PositionShapeBase implements Dot {
 	}
 
 	@Override
-	public Point getBottomRightPoint() {
+	public @NotNull Point getBottomRightPoint() {
 		final Point br = ShapeFactory.INST.createPoint();
 		getTopLeftBottomRightPoints(ShapeFactory.INST.createPoint(), br);
 		return br;
 	}
 
 	@Override
-	public Point getTopLeftPoint() {
+	public @NotNull Point getTopLeftPoint() {
 		final Point tl = ShapeFactory.INST.createPoint();
 		getTopLeftBottomRightPoints(tl, ShapeFactory.INST.createPoint());
 		return tl;
 	}
 
 	@Override
-	public Point getTopRightPoint() {
+	public @NotNull Point getTopRightPoint() {
 		final Point tl = ShapeFactory.INST.createPoint();
 		final Point br = ShapeFactory.INST.createPoint();
 		getTopLeftBottomRightPoints(tl, br);
@@ -278,14 +277,14 @@ class DotImpl extends PositionShapeBase implements Dot {
 	}
 
 	@Override
-	public Point getLazyTopLeftPoint() {
+	public @NotNull Point getLazyTopLeftPoint() {
 		final Point centre = getPosition();
 		final double diam = getDiametre();
 		return ShapeFactory.INST.createPoint(centre.getX() - diam / 2d, centre.getY() - diam / 2d);
 	}
 
 	@Override
-	public Point getLazyBottomRightPoint() {
+	public @NotNull Point getLazyBottomRightPoint() {
 		final Point centre = getPosition();
 		final double diam = getDiametre();
 		return ShapeFactory.INST.createPoint(centre.getX() + diam / 2d, centre.getY() + diam / 2d);
@@ -323,22 +322,22 @@ class DotImpl extends PositionShapeBase implements Dot {
 	}
 
 	@Override
-	public Color getDotFillingCol() {
+	public @NotNull Color getDotFillingCol() {
 		return getFillingCol();
 	}
 
 	@Override
-	public void setDotFillingCol(final Color value) {
+	public void setDotFillingCol(final @NotNull Color value) {
 		setFillingCol(value);
 	}
 
 	@Override
-	public ObjectProperty<DotStyle> styleProperty() {
+	public @NotNull ObjectProperty<DotStyle> styleProperty() {
 		return style;
 	}
 
 	@Override
-	public DoubleProperty diametreProperty() {
+	public @NotNull DoubleProperty diametreProperty() {
 		return diametre;
 	}
 

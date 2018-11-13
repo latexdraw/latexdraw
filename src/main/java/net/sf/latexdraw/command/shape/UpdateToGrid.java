@@ -13,14 +13,14 @@ package net.sf.latexdraw.command.shape;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import java.util.concurrent.atomic.AtomicInteger;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.view.MagneticGrid;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -29,11 +29,11 @@ import org.malai.undo.Undoable;
  */
 public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modifying {
 	/** The magnetic grid to use. */
-	private final MagneticGrid grid;
-	private final List<List<Point>> listPts;
+	private final @NotNull MagneticGrid grid;
+	private final @NotNull List<List<Point>> listPts;
 
 
-	public UpdateToGrid(final MagneticGrid grid, final Group gp) {
+	public UpdateToGrid(final @NotNull MagneticGrid grid, final @NotNull Group gp) {
 		super(gp);
 		listPts = new ArrayList<>();
 		this.grid = grid;
@@ -41,65 +41,59 @@ public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modif
 
 	@Override
 	protected void doCmdBody() {
-		shape.ifPresent(gp -> {
-			gp.getShapes().forEach(sh -> {
-				final List<Point> list = new ArrayList<>();
-				listPts.add(list);
-				sh.getPoints().forEach(pt -> list.add(ShapeFactory.INST.createPoint(pt)));
-			});
-			redo();
+		shape.getShapes().forEach(sh -> {
+			final List<Point> list = new ArrayList<>();
+			listPts.add(list);
+			sh.getPoints().forEach(pt -> list.add(ShapeFactory.INST.createPoint(pt)));
 		});
+		redo();
 	}
 
 	@Override
 	public boolean canDo() {
-		return grid != null && super.canDo();
+		return true;
 	}
 
 	@Override
 	public void undo() {
-		shape.ifPresent(gp -> {
-			final IntegerProperty i = new SimpleIntegerProperty();
-			final IntegerProperty j = new SimpleIntegerProperty();
+		final AtomicInteger i = new AtomicInteger();
+		final AtomicInteger j = new AtomicInteger();
 
-			gp.getShapes().forEach(sh -> {
-				j.set(0);
-				sh.getPoints().forEach(pt -> {
-					pt.setPoint(listPts.get(i.get()).get(j.get()).getX(), listPts.get(i.get()).get(j.get()).getY());
-					j.setValue(j.getValue() + 1);
-				});
-				i.set(i.get() + 1);
-				sh.setModified(true);
+		shape.getShapes().forEach(sh -> {
+			j.set(0);
+			sh.getPoints().forEach(pt -> {
+				pt.setPoint(listPts.get(i.get()).get(j.get()).getX(), listPts.get(i.get()).get(j.get()).getY());
+				j.incrementAndGet();
 			});
+			i.set(i.get() + 1);
+			sh.setModified(true);
 		});
 	}
 
 
 	@Override
 	public void redo() {
-		shape.ifPresent(gp -> {
-			final IntegerProperty i = new SimpleIntegerProperty();
-			final IntegerProperty j = new SimpleIntegerProperty();
+		final AtomicInteger i = new AtomicInteger();
+		final AtomicInteger j = new AtomicInteger();
 
-			gp.getShapes().forEach(sh -> {
-				j.set(0);
-				sh.getPoints().forEach(pt -> {
-					pt.setPoint(grid.getTransformedPointToGrid(pt.toPoint3D()));
-					j.set(j.get() + 1);
-				});
-				i.set(i.get() + 1);
-				sh.setModified(true);
+		shape.getShapes().forEach(sh -> {
+			j.set(0);
+			sh.getPoints().forEach(pt -> {
+				pt.setPoint(grid.getTransformedPointToGrid(pt.toPoint3D()));
+				j.incrementAndGet();
 			});
+			i.set(i.get() + 1);
+			sh.setModified(true);
 		});
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.33");
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 }

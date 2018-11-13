@@ -39,9 +39,9 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeBorderCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -55,13 +55,13 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testIncrementFrameArcPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns), frameArcField,
-			incrementFrameArc, Collections.singletonList(() ->  ((Rectangle) pencil.createShapeInstance()).getLineArc()));
+			incrementFrameArc, Collections.singletonList(() ->  ((Rectangle) editing.createShapeInstance()).getLineArc()));
 	}
 
 	@Test
 	public void testIncrementThicknessPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns), thicknessField,
-			incrementThickness, Collections.singletonList(() ->  pencil.createShapeInstance().getThickness()));
+			incrementThickness, Collections.singletonList(() ->  editing.createShapeInstance().getThickness()));
 	}
 
 	@Test
@@ -70,7 +70,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		final BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
 		selectBorderPos.execute();
 		waitFXEvents.execute();
-		assertEquals(bordersPosCB.getSelectionModel().getSelectedItem(), pencil.createShapeInstance().getBordersPosition());
+		assertEquals(bordersPosCB.getSelectionModel().getSelectedItem(), editing.createShapeInstance().getBordersPosition());
 		assertNotEquals(style, bordersPosCB.getSelectionModel().getSelectedItem());
 	}
 
@@ -80,7 +80,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		final LineStyle style = lineCB.getSelectionModel().getSelectedItem();
 		selectLineStyle.execute();
 		waitFXEvents.execute();
-		assertEquals(lineCB.getSelectionModel().getSelectedItem(), pencil.createShapeInstance().getLineStyle());
+		assertEquals(lineCB.getSelectionModel().getSelectedItem(), editing.createShapeInstance().getLineStyle());
 		assertNotEquals(style, lineCB.getSelectionModel().getSelectedItem());
 	}
 
@@ -90,7 +90,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		final Color col = lineColButton.getValue();
 		pickLineCol.execute();
 		waitFXEvents.execute();
-		assertEquals(lineColButton.getValue(), pencil.createShapeInstance().getLineColour().toJFX());
+		assertEquals(lineColButton.getValue(), editing.createShapeInstance().getLineColour().toJFX());
 		assertNotEquals(col, lineColButton.getValue());
 	}
 
@@ -100,7 +100,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		final boolean sel = showPoints.isSelected();
 		checkShowPts.execute();
 		waitFXEvents.execute();
-		assertEquals(!sel, pencil.createShapeInstance().isShowPts());
+		assertEquals(!sel, editing.createShapeInstance().isShowPts());
 	}
 
 	@Test
@@ -178,7 +178,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		final boolean isopen = opened.isSelected();
 		checkOpened.execute();
 		waitFXEvents.execute();
-		assertEquals(opened.isSelected(), ((Freehand) pencil.createShapeInstance()).isOpened());
+		assertEquals(opened.isSelected(), ((Freehand) editing.createShapeInstance()).isOpened());
 		assertNotEquals(isopen, opened.isSelected());
 	}
 
@@ -188,7 +188,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		final boolean isopen = opened.isSelected();
 		checkOpened.execute();
 		waitFXEvents.execute();
-		assertEquals(opened.isSelected(), ((BezierCurve) pencil.createShapeInstance()).isOpened());
+		assertEquals(opened.isSelected(), ((BezierCurve) editing.createShapeInstance()).isOpened());
 		assertNotEquals(isopen, opened.isSelected());
 	}
 }

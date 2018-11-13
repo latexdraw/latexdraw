@@ -34,9 +34,9 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeShadowCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Pencil.class, pencil);
 			}
 		};
@@ -74,8 +74,8 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 		final boolean sel = shadowCB.isSelected();
 		checkShadow.execute();
 		waitFXEvents.execute();
-		assertEquals(shadowCB.isSelected(), drawing.getSelection().getShapeAt(1).hasShadow());
-		assertEquals(shadowCB.isSelected(), drawing.getSelection().getShapeAt(2).hasShadow());
+		assertEquals(shadowCB.isSelected(), drawing.getSelection().getShapeAt(1).orElseThrow().hasShadow());
+		assertEquals(shadowCB.isSelected(), drawing.getSelection().getShapeAt(2).orElseThrow().hasShadow());
 		assertNotEquals(sel, shadowCB.isSelected());
 	}
 
@@ -85,8 +85,8 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 		final Color col = shadowColB.getValue();
 		pickShadCol.execute();
 		waitFXEvents.execute();
-		assertEquals(shadowColB.getValue(), drawing.getSelection().getShapeAt(1).getShadowCol().toJFX());
-		assertEquals(shadowColB.getValue(), drawing.getSelection().getShapeAt(2).getShadowCol().toJFX());
+		assertEquals(shadowColB.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getShadowCol().toJFX());
+		assertEquals(shadowColB.getValue(), drawing.getSelection().getShapeAt(2).orElseThrow().getShadowCol().toJFX());
 		assertNotEquals(col, shadowColB.getValue());
 	}
 
@@ -94,15 +94,15 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 	public void testIncrementShadowSizeHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns), shadowSizeField,
 			incrementshadowSizeField, Arrays.asList(
-			() ->  drawing.getSelection().getShapeAt(1).getShadowSize(),
-			() ->  drawing.getSelection().getShapeAt(2).getShadowSize()));
+			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getShadowSize(),
+			() ->  drawing.getSelection().getShapeAt(2).orElseThrow().getShadowSize()));
 	}
 
 	@Test
 	public void testIncrementShadowAngleHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns), shadowAngleField,
 			incrementshadowAngleField, Arrays.asList(
-			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).getShadowAngle()),
-			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).getShadowAngle())));
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).orElseThrow().getShadowAngle()),
+			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).orElseThrow().getShadowAngle())));
 	}
 }

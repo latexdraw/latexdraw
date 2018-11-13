@@ -13,6 +13,7 @@ package net.sf.latexdraw.instrument;
 import java.util.Optional;
 import net.sf.latexdraw.command.shape.CopyShapes;
 import net.sf.latexdraw.command.shape.SelectShapes;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.CommandsRegistry;
 
 /**
@@ -20,12 +21,12 @@ import org.malai.command.CommandsRegistry;
  * @author  Arnaud Blouin
  */
 public interface CmdRegistrySearcher {
-	default Optional<CopyShapes> getCopyCutCmd() {
+	default @NotNull Optional<CopyShapes> getCopyCutCmd() {
 		return CommandsRegistry.INSTANCE.getCommands().parallelStream().
 			filter(cmd -> cmd instanceof CopyShapes).map(cmd -> (CopyShapes) cmd).findFirst();
 	}
 
-	default Optional<SelectShapes> getSelectCmd() {
+	default @NotNull Optional<SelectShapes> getSelectCmd() {
 		return CommandsRegistry.INSTANCE.getCommands().parallelStream().
 			filter(cmd -> cmd instanceof SelectShapes).map(cmd -> (SelectShapes) cmd).findFirst();
 	}

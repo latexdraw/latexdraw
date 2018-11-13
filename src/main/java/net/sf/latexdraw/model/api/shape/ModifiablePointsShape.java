@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The API for modifiable points.
  * @author Arnaud BLOUIN
@@ -24,6 +26,7 @@ public interface ModifiablePointsShape extends SingleShape {
 	 */
 	boolean setPoint(final double x, final double y, final int position);
 
+	@NotNull
 	@Override
 	ModifiablePointsShape duplicate();
 

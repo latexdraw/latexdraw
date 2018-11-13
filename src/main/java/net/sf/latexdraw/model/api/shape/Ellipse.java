@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The API for ellipses.
  * @author Arnaud BLOUIN
@@ -29,10 +31,10 @@ public interface Ellipse extends RectangularShape {
 	 * Translates the shape to its new centre.
 	 * @param centre The new centre.
 	 */
-	void setCentre(final Point centre);
+	void setCentre(final @NotNull Point centre);
 
 	/**
 	 * @return The center of the ellipse. Cannot be null.
 	 */
-	Point getCenter();
+	@NotNull Point getCenter();
 }

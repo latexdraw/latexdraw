@@ -11,17 +11,24 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import net.sf.latexdraw.util.Inject;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A facade controller for the canvas as a FXML document can be controlled by a single controller.
  * @author Arnaud Blouin
  */
 public class FacadeCanvasController implements Initializable {
-	@Inject Border border;
-	@Inject CanvasController canvasController;
+	private final @NotNull Border border;
+	private final @NotNull CanvasController canvasController;
+
+	public FacadeCanvasController(final Border border, final CanvasController canvasController) {
+		super();
+		this.border = Objects.requireNonNull(border);
+		this.canvasController = Objects.requireNonNull(canvasController);
+	}
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {

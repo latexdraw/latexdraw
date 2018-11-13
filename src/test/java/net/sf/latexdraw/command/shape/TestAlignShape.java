@@ -8,10 +8,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import net.sf.latexdraw.command.TestUndoableCommand;
 import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Factory;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.model.api.shape.Factory;
+import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
@@ -51,10 +52,10 @@ public class TestAlignShape extends TestUndoableCommand<AlignShapes, List<Tuple<
 		shapes.addShape(fac.createRectangle(fac.createPoint(14d, 60d), 20d, 16d));
 		views = new javafx.scene.Group();
 
-		final ViewFactory vfac = new ViewFactory();
+		final ViewFactory vfac = new ViewFactory(Mockito.mock(LaTeXDataService.class));
 		IntStream.range(0, shapes.size()).forEach(i -> {
-			views.getChildren().add(vfac.createView(shapes.getShapeAt(i)).get());
-			Mockito.when(canvas.getViewFromShape(shapes.getShapeAt(i))).thenReturn(Optional.of((ViewShape<?>) views.getChildren().get(i)));
+			views.getChildren().add(vfac.createView(shapes.getShapeAt(i).orElseThrow()).get());
+			Mockito.when(canvas.getViewFromShape(shapes.getShapeAt(i).orElseThrow())).thenReturn(Optional.of((ViewShape<?>) views.getChildren().get(i)));
 		});
 		super.setUp();
 	}

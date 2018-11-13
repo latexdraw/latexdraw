@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.api.shape;
 
 import javafx.scene.image.Image;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for pictures.
@@ -39,6 +40,7 @@ public interface Picture extends PositionShape {
 	 */
 	Image getImage();
 
+	@NotNull
 	@Override
 	Picture duplicate();
 }

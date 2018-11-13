@@ -16,20 +16,21 @@ import java.util.Locale;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A singleton that contains helper geom methods.
  * @author Arnaud Blouin
  */
 public final class MathUtils {
-	public static final MathUtils INST = new MathUtils();
+	public static final @NotNull MathUtils INST = new MathUtils();
 
 	/** The threshold used to compare double values. */
 	public static final double THRESHOLD = 0.001;
 
-	public final DecimalFormat format;
+	public final @NotNull DecimalFormat format;
 
-	public final String doubleRegex;
+	public final @NotNull String doubleRegex;
 
 	private MathUtils() {
 		super();
@@ -48,10 +49,7 @@ public final class MathUtils {
 	 * @param str The string to parse.
 	 * @return Empty if the string is not a double. The value otherwise.
 	 */
-	public OptionalDouble parserDouble(final String str) {
-		if(str == null) {
-			return OptionalDouble.empty();
-		}
+	public @NotNull OptionalDouble parserDouble(final @NotNull String str) {
 		try {
 			return OptionalDouble.of(Double.parseDouble(str));
 		}catch(final NumberFormatException ignored) {

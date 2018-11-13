@@ -24,6 +24,7 @@ import net.sf.latexdraw.model.api.shape.FreeHandStyle;
 import net.sf.latexdraw.model.api.shape.Freehand;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of a free hand shape.
@@ -31,18 +32,18 @@ import net.sf.latexdraw.model.api.shape.Shape;
  */
 class FreehandImpl extends ShapeBase implements Freehand {
 	/** The type of the curves of the shape. */
-	private final ObjectProperty<FreeHandStyle> type;
+	private final @NotNull ObjectProperty<FreeHandStyle> type;
 	/** The interval to consider while painting the shape. */
-	private final IntegerProperty interval;
+	private final @NotNull IntegerProperty interval;
 	/** Defines if the drawing is opened of closed. */
-	private final BooleanProperty open;
+	private final @NotNull BooleanProperty open;
 
 
 	/**
 	 * Creates and initialises a freehand model.
 	 * @throws IllegalArgumentException If the given point is not valid.
 	 */
-	FreehandImpl(final List<Point> pts) {
+	FreehandImpl(final @NotNull List<Point> pts) {
 		super();
 		type = new SimpleObjectProperty<>(FreeHandStyle.CURVES);
 		interval = new SimpleIntegerProperty(2);
@@ -51,7 +52,7 @@ class FreehandImpl extends ShapeBase implements Freehand {
 	}
 
 	@Override
-	public Freehand duplicate() {
+	public @NotNull Freehand duplicate() {
 		final Freehand dup = ShapeFactory.INST.createFreeHand(points.stream().
 			map(pt -> ShapeFactory.INST.createPoint(pt.getX(), pt.getY())).collect(Collectors.toList()));
 		dup.copy(this);
@@ -83,15 +84,13 @@ class FreehandImpl extends ShapeBase implements Freehand {
 	}
 
 	@Override
-	public FreeHandStyle getType() {
+	public @NotNull FreeHandStyle getType() {
 		return type.get();
 	}
 
 	@Override
-	public void setType(final FreeHandStyle freeHandStyle) {
-		if(freeHandStyle != null) {
-			type.set(freeHandStyle);
-		}
+	public void setType(final @NotNull FreeHandStyle freeHandStyle) {
+		type.set(freeHandStyle);
 	}
 
 	@Override
@@ -105,12 +104,12 @@ class FreehandImpl extends ShapeBase implements Freehand {
 	}
 
 	@Override
-	public ObjectProperty<FreeHandStyle> typeProperty() {
+	public @NotNull ObjectProperty<FreeHandStyle> typeProperty() {
 		return type;
 	}
 
 	@Override
-	public IntegerProperty intervalProperty() {
+	public @NotNull IntegerProperty intervalProperty() {
 		return interval;
 	}
 
@@ -120,7 +119,7 @@ class FreehandImpl extends ShapeBase implements Freehand {
 	}
 
 	@Override
-	public BooleanProperty openedProperty() {
+	public @NotNull BooleanProperty openedProperty() {
 		return open;
 	}
 }

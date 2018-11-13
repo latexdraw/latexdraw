@@ -35,9 +35,9 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeGridCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -71,7 +71,7 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 		final Color col = colourLabels.getValue();
 		pickcolourLabels.execute();
 		waitFXEvents.execute();
-		assertEquals(colourLabels.getValue(), ((Grid) pencil.createShapeInstance()).getGridLabelsColour().toJFX());
+		assertEquals(colourLabels.getValue(), ((Grid) editing.createShapeInstance()).getGridLabelsColour().toJFX());
 		assertNotEquals(col, colourLabels.getValue());
 	}
 
@@ -81,38 +81,38 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 		final Color col = colourSubGrid.getValue();
 		pickcolourSubGrid.execute();
 		waitFXEvents.execute();
-		assertEquals(colourSubGrid.getValue(), ((Grid) pencil.createShapeInstance()).getSubGridColour().toJFX());
+		assertEquals(colourSubGrid.getValue(), ((Grid) editing.createShapeInstance()).getSubGridColour().toJFX());
 		assertNotEquals(col, colourSubGrid.getValue());
 	}
 
 	@Test
 	public void testIncrementgridWidthPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), gridWidth,
-			incrementgridWidth, Collections.singletonList(() ->  ((Grid) pencil.createShapeInstance()).getGridWidth()));
+			incrementgridWidth, Collections.singletonList(() ->  ((Grid) editing.createShapeInstance()).getGridWidth()));
 	}
 
 	@Test
 	public void testIncrementsubGridWidthPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridWidth,
-			incrementsubGridWidth, Collections.singletonList(() ->  ((Grid) pencil.createShapeInstance()).getSubGridWidth()));
+			incrementsubGridWidth, Collections.singletonList(() ->  ((Grid) editing.createShapeInstance()).getSubGridWidth()));
 	}
 
 	@Test
 	public void testIncrementgridDotsPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), gridDots,
-			incrementgridDots, Collections.singletonList(() ->  ((Grid) pencil.createShapeInstance()).getGridDots()));
+			incrementgridDots, Collections.singletonList(() ->  ((Grid) editing.createShapeInstance()).getGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDotsPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridDots,
-			incrementsubGridDots, Collections.singletonList(() ->  ((Grid) pencil.createShapeInstance()).getSubGridDots()));
+			incrementsubGridDots, Collections.singletonList(() ->  ((Grid) editing.createShapeInstance()).getSubGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDivPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridDiv,
-			incrementsubGridDiv, Collections.singletonList(() ->  ((Grid) pencil.createShapeInstance()).getSubGridDiv()));
+			incrementsubGridDiv, Collections.singletonList(() ->  ((Grid) editing.createShapeInstance()).getSubGridDiv()));
 	}
 
 	@Test
@@ -121,7 +121,7 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 		final boolean sel = labelsYInvertedCB.isSelected();
 		clicklabelsYInvertedCB.execute();
 		waitFXEvents.execute();
-		assertEquals(sel, ((Grid) pencil.createShapeInstance()).isXLabelSouth());
+		assertEquals(sel, ((Grid) editing.createShapeInstance()).isXLabelSouth());
 		assertNotEquals(sel, labelsYInvertedCB.isSelected());
 	}
 
@@ -131,7 +131,7 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 		final boolean sel = labelsXInvertedCB.isSelected();
 		clicklabelsXInvertedCB.execute();
 		waitFXEvents.execute();
-		assertEquals(sel, ((Grid) pencil.createShapeInstance()).isYLabelWest());
+		assertEquals(sel, ((Grid) editing.createShapeInstance()).isYLabelWest());
 		assertNotEquals(sel, labelsXInvertedCB.isSelected());
 	}
 }

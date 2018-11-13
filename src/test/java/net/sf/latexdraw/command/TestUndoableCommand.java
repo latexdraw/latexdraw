@@ -1,7 +1,6 @@
 package net.sf.latexdraw.command;
 
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.service.PreferencesService;
 import org.junit.Before;
 import org.junit.Test;
 import org.malai.command.Command;
@@ -11,12 +10,12 @@ import static org.junit.Assert.assertNotNull;
 
 public abstract class TestUndoableCommand<T extends Command & Undoable, S> extends TestCommand<T> {
 	protected S memento;
-	LangService lang;
+	PreferencesService prefs;
 
 	@Override
 	@Before
 	public void setUp() {
-		lang = new LangService(new SystemService());
+		prefs = new PreferencesService();
 		super.setUp();
 	}
 
@@ -49,6 +48,6 @@ public abstract class TestUndoableCommand<T extends Command & Undoable, S> exten
 
 	@Test
 	public void testUndoRedoNameConfigured() {
-		assertNotNull(cmd.getUndoName(lang.getBundle()));
+		assertNotNull(cmd.getUndoName(prefs.getBundle()));
 	}
 }

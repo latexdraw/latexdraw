@@ -16,7 +16,9 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.property.TextProp;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.TextPosition;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A model of a text.
@@ -24,9 +26,9 @@ import net.sf.latexdraw.model.api.shape.TextPosition;
  */
 class TextImpl extends PositionShapeBase implements net.sf.latexdraw.model.api.shape.Text {
 	/** The text */
-	private final StringProperty text;
+	private final @NotNull StringProperty text;
 	/** The text position of the text. */
-	private TextPosition textPosition;
+	private @NotNull TextPosition textPosition;
 
 
 	/**
@@ -49,32 +51,32 @@ class TextImpl extends PositionShapeBase implements net.sf.latexdraw.model.api.s
 	}
 
 	@Override
-	public net.sf.latexdraw.model.api.shape.Text duplicate() {
-		final net.sf.latexdraw.model.api.shape.Text text = ShapeFactory.INST.createText();
+	public @NotNull Text duplicate() {
+		final Text text = ShapeFactory.INST.createText();
 		text.copy(this);
 		return text;
 	}
 
 	@Override
-	public Point getPosition() {
+	public @NotNull Point getPosition() {
 		return getPtAt(0);
 	}
 
 	@Override
-	public String getText() {
+	public @NotNull String getText() {
 		return text.get();
 	}
 
 
 	@Override
-	public void setText(final String newTxt) {
-		if(newTxt != null && !newTxt.isEmpty()) {
+	public void setText(final @NotNull String newTxt) {
+		if(!newTxt.isEmpty()) {
 			text.setValue(newTxt);
 		}
 	}
 
 	@Override
-	public StringProperty textProperty() {
+	public @NotNull StringProperty textProperty() {
 		return text;
 	}
 
@@ -92,16 +94,14 @@ class TextImpl extends PositionShapeBase implements net.sf.latexdraw.model.api.s
 
 
 	@Override
-	public TextPosition getTextPosition() {
+	public @NotNull TextPosition getTextPosition() {
 		return textPosition;
 	}
 
 
 	@Override
-	public void setTextPosition(final TextPosition textPosition) {
-		if(textPosition != null) {
-			this.textPosition = textPosition;
-		}
+	public void setTextPosition(final @NotNull TextPosition textPosition) {
+		this.textPosition = textPosition;
 	}
 
 	@Override

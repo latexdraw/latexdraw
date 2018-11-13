@@ -11,8 +11,8 @@ import net.sf.latexdraw.instrument.ShapeArcCustomiser;
 import net.sf.latexdraw.instrument.ShapePropInjector;
 import net.sf.latexdraw.instrument.TestArcStyleGUI;
 import net.sf.latexdraw.instrument.TextSetter;
-import net.sf.latexdraw.model.api.shape.ArcStyle;
 import net.sf.latexdraw.model.api.shape.Arc;
+import net.sf.latexdraw.model.api.shape.ArcStyle;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,11 +33,11 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
-				bindAsEagerSingleton(ShapeArcCustomiser.class);
-				bindAsEagerSingleton(Hand.class);
-				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
 				bindToInstance(TextSetter.class, mock(TextSetter.class));
+				bindAsEagerSingleton(Hand.class);
 				bindToInstance(Pencil.class, pencil);
+				bindAsEagerSingleton(ShapeArcCustomiser.class);
+				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
 			}
 		};
 	}
@@ -71,37 +71,37 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 	@Test
 	public void testArcTypeChordSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectWedge, selectChord).execute();
-		assertEquals(ArcStyle.CHORD, ((Arc) drawing.getSelection().getShapeAt(0)).getArcStyle());
-		assertEquals(ArcStyle.CHORD, ((Arc) drawing.getSelection().getShapeAt(2)).getArcStyle());
+		assertEquals(ArcStyle.CHORD, ((Arc) drawing.getSelection().getShapeAt(0).orElseThrow()).getArcStyle());
+		assertEquals(ArcStyle.CHORD, ((Arc) drawing.getSelection().getShapeAt(2).orElseThrow()).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeArcSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectArc).execute();
-		assertEquals(ArcStyle.ARC, ((Arc) drawing.getSelection().getShapeAt(0)).getArcStyle());
-		assertEquals(ArcStyle.ARC, ((Arc) drawing.getSelection().getShapeAt(2)).getArcStyle());
+		assertEquals(ArcStyle.ARC, ((Arc) drawing.getSelection().getShapeAt(0).orElseThrow()).getArcStyle());
+		assertEquals(ArcStyle.ARC, ((Arc) drawing.getSelection().getShapeAt(2).orElseThrow()).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeWedgeSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectWedge).execute();
-		assertEquals(ArcStyle.WEDGE, ((Arc) drawing.getSelection().getShapeAt(0)).getArcStyle());
-		assertEquals(ArcStyle.WEDGE, ((Arc) drawing.getSelection().getShapeAt(2)).getArcStyle());
+		assertEquals(ArcStyle.WEDGE, ((Arc) drawing.getSelection().getShapeAt(0).orElseThrow()).getArcStyle());
+		assertEquals(ArcStyle.WEDGE, ((Arc) drawing.getSelection().getShapeAt(2).orElseThrow()).getArcStyle());
 	}
 
 	@Test
 	public void testArcEndAngleSelection() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns), endAngleS,
 			incrementEndAngle, Arrays.asList(
-			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(0)).getAngleEnd()),
-			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(2)).getAngleEnd())));
+			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(0).orElseThrow()).getAngleEnd()),
+			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(2).orElseThrow()).getAngleEnd())));
 	}
 
 	@Test
 	public void testArcStartAngleSelection() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns), startAngleS,
 			incrementStartAngle, Arrays.asList(
-			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(0)).getAngleStart()),
-			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(2)).getAngleStart())));
+			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(0).orElseThrow()).getAngleStart()),
+			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(2).orElseThrow()).getAngleStart())));
 	}
 }

@@ -43,7 +43,7 @@ public class TestDrawing {
 		drawing.setSelection(list);
 		assertEquals(selection, drawing.getSelection());
 		assertEquals(1, drawing.getSelection().size());
-		assertEquals(sh, drawing.getSelection().getShapeAt(0));
+		assertEquals(sh, drawing.getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -57,8 +57,8 @@ public class TestDrawing {
 		drawing.setSelection(list);
 		assertEquals(selection, drawing.getSelection());
 		assertEquals(2, drawing.getSelection().size());
-		assertEquals(sh, drawing.getSelection().getShapeAt(0));
-		assertEquals(sh2, drawing.getSelection().getShapeAt(1));
+		assertEquals(sh, drawing.getSelection().getShapeAt(0).orElseThrow());
+		assertEquals(sh2, drawing.getSelection().getShapeAt(1).orElseThrow());
 	}
 
 	@Test

@@ -37,9 +37,9 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeAxesCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -72,31 +72,31 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		final boolean sel = showOrigin.isSelected();
 		selectShowOrigin.execute();
-		assertEquals(!sel, ((AxesProp) pencil.createShapeInstance()).isShowOrigin());
+		assertEquals(!sel, ((AxesProp) editing.createShapeInstance()).isShowOrigin());
 	}
 
 	@Test
 	public void testIncrementDistYPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), distLabelsY,
-			incrementDistLabelY, Collections.singletonList(() ->  ((AxesProp) pencil.createShapeInstance()).getDistLabelsY()));
+			incrementDistLabelY, Collections.singletonList(() ->  ((AxesProp) editing.createShapeInstance()).getDistLabelsY()));
 	}
 
 	@Test
 	public void testIncrementDistXPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), distLabelsX,
-			incrementDistLabelX, Collections.singletonList(() ->  ((AxesProp) pencil.createShapeInstance()).getDistLabelsX()));
+			incrementDistLabelX, Collections.singletonList(() ->  ((AxesProp) editing.createShapeInstance()).getDistLabelsX()));
 	}
 
 	@Test
 	public void testIncrementLabelYPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), incrLabelY,
-			incrementLabelY, Collections.singletonList(() ->  ((AxesProp) pencil.createShapeInstance()).getIncrementY()));
+			incrementLabelY, Collections.singletonList(() ->  ((AxesProp) editing.createShapeInstance()).getIncrementY()));
 	}
 
 	@Test
 	public void testIncrementLabelXPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), incrLabelX,
-			incrementLabelX, Collections.singletonList(() ->  ((AxesProp) pencil.createShapeInstance()).getIncrementX()));
+			incrementLabelX, Collections.singletonList(() ->  ((AxesProp) editing.createShapeInstance()).getIncrementX()));
 	}
 
 	@Test
@@ -106,7 +106,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 		selectPlotLabel.execute();
 		waitFXEvents.execute();
 		final PlottingStyle newStyle = showLabels.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((AxesProp) pencil.createShapeInstance()).getLabelsDisplayed());
+		assertEquals(newStyle, ((AxesProp) editing.createShapeInstance()).getLabelsDisplayed());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -117,7 +117,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 		selectPlotTicks.execute();
 		waitFXEvents.execute();
 		final PlottingStyle newStyle = showTicks.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((AxesProp) pencil.createShapeInstance()).getTicksDisplayed());
+		assertEquals(newStyle, ((AxesProp) editing.createShapeInstance()).getTicksDisplayed());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -128,7 +128,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 		selectTicksStyle.execute();
 		waitFXEvents.execute();
 		final TicksStyle newStyle = shapeTicks.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((AxesProp) pencil.createShapeInstance()).getTicksStyle());
+		assertEquals(newStyle, ((AxesProp) editing.createShapeInstance()).getTicksStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -139,7 +139,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 		selectAxeStyle.execute();
 		waitFXEvents.execute();
 		final AxesStyle newStyle = shapeAxes.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((AxesProp) pencil.createShapeInstance()).getAxesStyle());
+		assertEquals(newStyle, ((AxesProp) editing.createShapeInstance()).getAxesStyle());
 		assertNotEquals(style, newStyle);
 	}
 }

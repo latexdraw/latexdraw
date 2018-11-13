@@ -20,7 +20,7 @@ public class TestSVGAxes extends TestSVGBase<Axes> {
 	}
 
 	@ParameterizedTest
-	@MethodSource("net.sf.latexdraw.data.AxesSupplier#createDiversifiedAxes")
+	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#createDiversifiedAxes")
 	void testAxesParams(final Axes sh) {
 		final Axes s2 = produceOutputShapeFrom(sh);
 		CompareShapeMatcher.INST.assertEqualsAxes(sh, s2);

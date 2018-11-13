@@ -20,7 +20,6 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Square;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
-import net.sf.latexdraw.util.SystemService;
 import org.junit.experimental.theories.ParameterSignature;
 import org.junit.experimental.theories.ParameterSupplier;
 import org.junit.experimental.theories.PotentialAssignment;
@@ -78,7 +77,7 @@ public class ShapeSupplier extends ParameterSupplier {
 	}
 
 	public static Picture createPicture() {
-		return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(76, 45), new SystemService());
+		return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(76, 45));
 	}
 
 	public static Square createSquare() {

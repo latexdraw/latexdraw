@@ -29,7 +29,7 @@
     <Button fx:id="buttonExport" layoutX="320.0" layoutY="374.0" mnemonicParsing="false" text="%PreferencesFrame.selectFolder"/>
     <Label layoutX="14.0" layoutY="409.0" text="%MenuBuilder.1"/>
     <ComboBox fx:id="unitChoice" layoutX="84.0" layoutY="404.0" prefHeight="25.0" prefWidth="140.0"/>
-    <ComboBox fx:id="styleList" editable="false" layoutX="126.0" layoutY="438.0" prefHeight="25.0" prefWidth="120.0"/>
+    <ComboBox fx:id="styleList" layoutX="126.0" layoutY="438.0" prefHeight="25.0" prefWidth="120.0"/>
     <CheckBox fx:id="magneticCB" layoutX="14.0" layoutY="441.0" text="%LaTeXDrawFrame.13">
         <tooltip>
             <Tooltip text="%LaTeXDrawFrame.14"/>
@@ -38,8 +38,8 @@
     <ImageView layoutX="14.0" layoutY="472.0">
         <Image url="@/res/gridGap.png"/>
     </ImageView>
-    <LSpinner fx:id="persoGridGapField" amountToStepBy="1" initialValue="10" layoutX="43.0" layoutY="470.0" max="100000" min="2" editable="true"
-             prefHeight="25.0" prefWidth="75.0">
+    <LSpinner fx:id="magneticGridGap" amountToStepBy="1" initialValue="10" layoutX="43.0" layoutY="470.0" max="100000" min="2" editable="true"
+              prefHeight="25.0" prefWidth="75.0">
         <tooltip>
             <Tooltip text="%LaTeXDrawFrame.15"/>
         </tooltip>

@@ -16,6 +16,7 @@ import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -26,12 +27,12 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	/** The rotation angle to apply. */
 	private double rotationAngle;
 	/** The gravity centre used for the rotation. */
-	private final Point gc;
+	private final @NotNull Point gc;
 	/** The last increment performed on shapes. Used to execute several times the command. */
 	private double lastRotationAngle;
 
 
-	public RotateShapes(final Point gc, final Shape sh, final double rotation) {
+	public RotateShapes(final @NotNull Point gc, final @NotNull Shape sh, final double rotation) {
 		super(sh);
 		this.gc = gc;
 		lastRotationAngle = 0d;
@@ -40,7 +41,7 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && MathUtils.INST.isValidCoord(rotationAngle) && MathUtils.INST.isValidPt(gc);
+		return MathUtils.INST.isValidCoord(rotationAngle) && MathUtils.INST.isValidPt(gc);
 	}
 
 	@Override
@@ -59,10 +60,8 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	 * @param angleIncrement The increment to add to the rotation angle of the shape.
 	 */
 	private void rotateShapes(final double angleIncrement) {
-		shape.ifPresent(sh -> {
-			sh.addToRotationAngle(gc, angleIncrement);
-			sh.setModified(true);
-		});
+		shape.addToRotationAngle(gc, angleIncrement);
+		shape.setModified(true);
 	}
 
 	@Override
@@ -88,7 +87,7 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 		return rotationAngle;
 	}
 
-	public Point getGc() {
+	public @NotNull Point getGc() {
 		return gc;
 	}
 }

@@ -1,14 +1,9 @@
 package net.sf.latexdraw.model.api.shape;
 
-import java.lang.reflect.InvocationTargetException;
-import net.sf.latexdraw.data.ConfigureInjection;
-import net.sf.latexdraw.data.InjectionExtension;
-import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
+import java.util.ResourceBundle;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -17,19 +12,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-@ExtendWith(InjectionExtension.class)
 public class TestAxesStyle {
-	@ConfigureInjection
-	Injector createInjector() {
-		return new Injector() {
-			@Override
-			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(LangService.class);
-			}
-		};
-	}
-
 	@Test
 	void testSupportsArrows() {
 		assertTrue(AxesStyle.AXES.supportsArrows());
@@ -64,8 +47,9 @@ public class TestAxesStyle {
 
 	@ParameterizedTest
 	@EnumSource(AxesStyle.class)
-	void testGetLabel(final AxesStyle style, final LangService lang) {
-		assertNotNull(style.getLabel(lang.getBundle()));
-		assertFalse(style.getLabel(lang.getBundle()).isEmpty());
+	void testGetLabel(final AxesStyle style) {
+		final ResourceBundle lang = new PreferencesService().getBundle();
+		assertNotNull(style.getLabel(lang));
+		assertFalse(style.getLabel(lang).isEmpty());
 	}
 }

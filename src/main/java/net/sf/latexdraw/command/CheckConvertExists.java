@@ -12,7 +12,8 @@ package net.sf.latexdraw.command;
 
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.CommandImpl;
 
 /**
@@ -20,20 +21,18 @@ import org.malai.command.CommandImpl;
  * @author Arnaud Blouin
  */
 public class CheckConvertExists extends CommandImpl {
-	final Label statusLabel;
-	final Hyperlink link;
-	final SystemService service;
+	private final @NotNull Label statusLabel;
+	private final @NotNull Hyperlink link;
 
-	public CheckConvertExists(final Label statusLabel, final Hyperlink link, final SystemService service) {
+	public CheckConvertExists(final @NotNull Label statusLabel, final @NotNull Hyperlink link) {
 		super();
 		this.statusLabel = statusLabel;
 		this.link = link;
-		this.service = service;
 	}
 
 	@Override
 	protected void doCmdBody() {
-		if(!service.execute(new String[] {"convert", "-version"}, null).a) { //NON-NLS
+		if(!SystemUtils.getInstance().execute(new String[] {"convert", "-version"}, null).a) { //NON-NLS
 			statusLabel.setText("ImageMagick is not installed but is required for converting images. See: ");
 			link.setVisible(true);
 			link.setText("https://github.com/arnobl/latexdraw/wiki/Manual#inserting--converting-pictures"); //NON-NLS
@@ -41,12 +40,12 @@ public class CheckConvertExists extends CommandImpl {
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return RegistrationPolicy.NONE;
 	}
 
 	@Override
 	public boolean canDo() {
-		return statusLabel != null && link != null && service != null;
+		return true;
 	}
 }

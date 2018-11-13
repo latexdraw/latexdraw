@@ -2,6 +2,7 @@ package net.sf.latexdraw.instrument;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.VerticalDirection;
 import javafx.scene.Parent;
@@ -12,7 +13,6 @@ import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.instrument.robot.FxRobotSpinner;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -33,15 +33,13 @@ public class TestZoomer extends BaseTestCanvas implements FxRobotSpinner {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				bindToInstance(Border.class, Mockito.mock(Border.class));
+				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
 				bindAsEagerSingleton(Hand.class);
 				bindAsEagerSingleton(Zoomer.class);
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
-				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
-				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
-				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 			}
 		};
 	}
@@ -51,7 +49,7 @@ public class TestZoomer extends BaseTestCanvas implements FxRobotSpinner {
 	public void start(final Stage aStage) {
 		super.start(aStage);
 		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Zoom.fxml"), injector.getInstance(LangService.class).getBundle(),
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Zoom.fxml"), injector.getInstance(ResourceBundle.class),
 				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 			final BorderPane pane = new BorderPane();
 			pane.setTop(root);

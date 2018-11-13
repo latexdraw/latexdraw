@@ -13,6 +13,7 @@ package net.sf.latexdraw.model.api.shape;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import net.sf.latexdraw.model.api.property.IStdGridProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for LaTeX grid shapes.
@@ -22,38 +23,39 @@ public interface StandardGrid extends PositionShape, IStdGridProp {
 	/**
 	 * @return The property of the label size parameter.
 	 */
-	IntegerProperty labelsSizeProperty();
+	@NotNull IntegerProperty labelsSizeProperty();
 
 	/**
 	 * @return The property of the X-start parameter.
 	 */
-	DoubleProperty gridStartXProperty();
+	@NotNull DoubleProperty gridStartXProperty();
 
 	/**
 	 * @return The property of the Y-start parameter.
 	 */
-	DoubleProperty gridStartYProperty();
+	@NotNull DoubleProperty gridStartYProperty();
 
 	/**
 	 * @return The property of the X-end parameter.
 	 */
-	DoubleProperty gridEndXProperty();
+	@NotNull DoubleProperty gridEndXProperty();
 
 	/**
 	 * @return The property of the Y-end parameter.
 	 */
-	DoubleProperty gridEndYProperty();
+	@NotNull DoubleProperty gridEndYProperty();
 
 	/**
 	 * @return The property of the X-origin parameter.
 	 */
-	DoubleProperty originXProperty();
+	@NotNull DoubleProperty originXProperty();
 
 	/**
 	 * @return The property of the Y-origin parameter.
 	 */
-	DoubleProperty originYProperty();
+	@NotNull DoubleProperty originYProperty();
 
+	@NotNull
 	@Override
 	StandardGrid duplicate();
 }

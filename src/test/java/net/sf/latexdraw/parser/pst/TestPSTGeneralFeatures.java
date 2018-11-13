@@ -5,7 +5,6 @@ import net.sf.latexdraw.model.api.shape.Dot;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Text;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.jupiter.api.Test;
@@ -61,7 +60,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 
 	@Test
 	void testUnknownCommand() {
-		listener = new PSTLatexdrawListener(new SystemService());
+		listener = new PSTLatexdrawListener();
 		parser("\\fuhfisduf");
 		final Text txt = getShapeAt(0);
 		assertEquals("\\fuhfisduf", txt.getText());
@@ -154,7 +153,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 
 	@Test
 	void testParseUnkownParam() {
-		listener = new PSTLatexdrawListener(new SystemService());
+		listener = new PSTLatexdrawListener();
 		parser("\\psframe[foobar=true](5,10)");
 		assertTrue(getShapeAt(0) instanceof Rectangle);
 	}
@@ -162,7 +161,7 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 
 	@Test
 	void testParseUnkownColor() {
-		listener = new PSTLatexdrawListener(new SystemService());
+		listener = new PSTLatexdrawListener();
 		parser("\\psframe[linecolor=col23](5,10)");
 		assertTrue(getShapeAt(0) instanceof Rectangle);
 	}

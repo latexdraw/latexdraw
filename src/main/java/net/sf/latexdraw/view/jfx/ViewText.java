@@ -27,12 +27,12 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.util.OperatingSystem;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.util.Triple;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 
 /**
@@ -49,8 +49,7 @@ public class ViewText extends ViewPositionShape<Text> {
 	private final Tooltip compileTooltip;
 	private final ChangeListener<String> textUpdate;
 	private Future<?> currentCompilation;
-	private final SystemService system;
-	private final LaTeXGenerator codeGen;
+	private final LaTeXDataService latexData;
 
 	static {
 		LOGGER.setLevel(Level.OFF);
@@ -60,13 +59,12 @@ public class ViewText extends ViewPositionShape<Text> {
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	ViewText(final Text sh, final SystemService system, final LaTeXGenerator gen) {
+	ViewText(final Text sh, final LaTeXDataService data) {
 		super(sh);
 		text = new javafx.scene.text.Text();
 		compiledText = new ImageView();
 		compileTooltip = new Tooltip(null);
-		this.system = system;
-		this.codeGen = gen;
+		this.latexData = data;
 
 		compiledText.setScaleX(1d / SCALE_COMPILE);
 		compiledText.setScaleY(compiledText.getScaleX());
@@ -120,7 +118,7 @@ public class ViewText extends ViewPositionShape<Text> {
 
 		// A text will be used to render the text shape.
 		if(values.a == null) {
-			compileTooltip.setText(system.getLatexErrorMessageFromLog(values.b));
+			compileTooltip.setText(SystemUtils.getInstance().getLatexErrorMessageFromLog(values.b));
 			Tooltip.install(text, compileTooltip);
 			setImageTextEnable(false);
 			compiledText.setImage(null);
@@ -152,7 +150,7 @@ public class ViewText extends ViewPositionShape<Text> {
 		final double scale = Shape.PPC * PSTricksConstants.INCH_VAL_CM / PSTricksConstants.INCH_VAL_PT * SCALE_COMPILE;
 
 		doc.append("\\documentclass{standalone}\n\\usepackage[usenames,dvipsnames]{pstricks}"); //NON-NLS
-		doc.append(codeGen.getPackages()).append('\n');
+		doc.append(latexData.getPackages()).append('\n');
 		doc.append("\\begin{document}\n\\psscalebox{"); //NON-NLS
 		doc.append((float) MathUtils.INST.getCutNumber(scale)).append(' ');
 		doc.append((float) MathUtils.INST.getCutNumber(scale)).append('}').append('{');
@@ -160,7 +158,7 @@ public class ViewText extends ViewPositionShape<Text> {
 		if(!PSTricksConstants.DEFAULT_LINE_COLOR.equals(textColour)) {
 			final String name = DviPsColors.INSTANCE.getColourName(textColour).orElseGet(() -> DviPsColors.INSTANCE.addUserColour(textColour).orElse(""));
 			coloured = true;
-			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append(SystemService.EOL).append("\\textcolor{").append(name).append('}').append('{'); //NON-NLS
+			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append(SystemUtils.getInstance().EOL).append("\\textcolor{").append(name).append('}').append('{'); //NON-NLS
 		}
 
 		doc.append(code);
@@ -178,7 +176,7 @@ public class ViewText extends ViewPositionShape<Text> {
 	 * @return The LaTeX compiled picture of the text with its file path and its log.
 	 */
 	private Tuple<Image, String> createImage() {
-		final Optional<File> optDir = system.createTempDir();
+		final Optional<File> optDir = SystemUtils.getInstance().createTempDir();
 
 		if(!optDir.isPresent()) {
 			return new Tuple<>(null, "A temporary file cannot be created."); //NON-NLS
@@ -188,26 +186,26 @@ public class ViewText extends ViewPositionShape<Text> {
 		String log = ""; //NON-NLS
 		final File tmpDir = optDir.get();
 		final String doc = getLaTeXDocument();
-		final String basePathPic = tmpDir.getAbsolutePath() + SystemService.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
+		final String basePathPic = tmpDir.getAbsolutePath() + SystemUtils.getInstance().FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
 		final String pathTex = basePathPic + ExportFormat.TEX.getFileExtension();
-		final OperatingSystem os = system.getSystem().orElse(OperatingSystem.LINUX);
+		final OperatingSystem os = SystemUtils.getInstance().getSystem().orElse(OperatingSystem.LINUX);
 
 		LOGGER.log(Level.INFO, doc);
 
 		// Saving the LaTeX document into a file to be compiled.
-		if(!system.saveFile(pathTex, doc).isPresent()) {
+		if(!SystemUtils.getInstance().saveFile(pathTex, doc).isPresent()) {
 			return new Triple<>(null, basePathPic, log);
 		}
 
 		// Compiling the LaTeX document.
-		Tuple<Boolean, String> res = system.execute(new String[] {os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //NON-NLS
-			"--output-directory=" + tmpDir.getAbsolutePath(), system.normalizeForLaTeX(pathTex)}, null); //NON-NLS
+		Tuple<Boolean, String> res = SystemUtils.getInstance().execute(new String[] {os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //NON-NLS
+			"--output-directory=" + tmpDir.getAbsolutePath(), SystemUtils.getInstance().normalizeForLaTeX(pathTex)}, null); //NON-NLS
 		boolean ok = res.a;
 		log = res.b;
 
 		// Compiling the DVI document.
 		if(ok) {
-			res = system.execute(new String[] {os.getDvipsBinPath(), basePathPic + ".dvi", "-o", //NON-NLS
+			res = SystemUtils.getInstance().execute(new String[] {os.getDvipsBinPath(), basePathPic + ".dvi", "-o", //NON-NLS
 				basePathPic + ExportFormat.EPS_LATEX.getFileExtension()}, null); //NON-NLS
 			ok = res.a;
 			log = log + res.b;
@@ -215,7 +213,7 @@ public class ViewText extends ViewPositionShape<Text> {
 
 		// Converting the PS document as a PDF one.
 		if(ok) {
-			res = system.execute(new String[] {os.getPs2pdfBinPath(), basePathPic + ExportFormat.EPS_LATEX.getFileExtension(),
+			res = SystemUtils.getInstance().execute(new String[] {os.getPs2pdfBinPath(), basePathPic + ExportFormat.EPS_LATEX.getFileExtension(),
 				basePathPic + ExportFormat.PDF.getFileExtension()}, null); //NON-NLS
 			ok = res.a;
 			log = log + res.b;
@@ -225,12 +223,12 @@ public class ViewText extends ViewPositionShape<Text> {
 		if(ok) {
 			final String pdfpath = basePathPic + ExportFormat.PDF.getFileExtension();
 			final String picPath = basePathPic + ".png"; //NON-NLS
-			system.execute(new String[] {"convert", pdfpath, picPath}, null); //NON-NLS
+			SystemUtils.getInstance().execute(new String[] {"convert", pdfpath, picPath}, null); //NON-NLS
 			img = new Image(new File(picPath).toURI().toString());
 		}
 
 		// Deleting the temporary folder and its content.
-		system.removeDirWithContent(tmpDir.getPath());
+		SystemUtils.getInstance().removeDirWithContent(tmpDir.getPath());
 
 		LOGGER.log(Level.INFO, log);
 

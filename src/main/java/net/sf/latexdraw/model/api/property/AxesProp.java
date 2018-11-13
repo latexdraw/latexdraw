@@ -14,6 +14,7 @@ import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Properties of axes.
@@ -43,7 +44,7 @@ public interface AxesProp extends IStdGridProp {
 	/**
 	 * @return The increments of the axes.
 	 */
-	Point getIncrement();
+	@NotNull Point getIncrement();
 
 	/**
 	 * @param increment The axes' increment to set.
@@ -53,7 +54,7 @@ public interface AxesProp extends IStdGridProp {
 	/**
 	 * @return The distance between the labels of the axes.
 	 */
-	Point getDistLabels();
+	@NotNull Point getDistLabels();
 
 	/**
 	 * @param distLabels The distance between the labels of the axes.
@@ -83,7 +84,7 @@ public interface AxesProp extends IStdGridProp {
 	/**
 	 * @return the labelsDisplayed.
 	 */
-	PlottingStyle getLabelsDisplayed();
+	@NotNull PlottingStyle getLabelsDisplayed();
 
 	/**
 	 * @param labelsDisplayed the labelsDisplayed to set.
@@ -103,22 +104,22 @@ public interface AxesProp extends IStdGridProp {
 	/**
 	 * @return the ticksDisplayed.
 	 */
-	PlottingStyle getTicksDisplayed();
+	@NotNull PlottingStyle getTicksDisplayed();
 
 	/**
 	 * @param ticksDisplayed the ticksDisplayed to set.
 	 */
-	void setTicksDisplayed(final PlottingStyle ticksDisplayed);
+	void setTicksDisplayed(final @NotNull PlottingStyle ticksDisplayed);
 
 	/**
 	 * @return the ticksStyle.
 	 */
-	TicksStyle getTicksStyle();
+	@NotNull TicksStyle getTicksStyle();
 
 	/**
 	 * @param ticksStyle the ticksStyle to set.
 	 */
-	void setTicksStyle(final TicksStyle ticksStyle);
+	void setTicksStyle(final @NotNull TicksStyle ticksStyle);
 
 	/**
 	 * @return the ticksSize.
@@ -133,10 +134,10 @@ public interface AxesProp extends IStdGridProp {
 	/**
 	 * @return the axesStyle.
 	 */
-	AxesStyle getAxesStyle();
+	@NotNull AxesStyle getAxesStyle();
 
 	/**
 	 * @param axesStyle the axesStyle to set.
 	 */
-	void setAxesStyle(final AxesStyle axesStyle);
+	void setAxesStyle(final @NotNull AxesStyle axesStyle);
 }

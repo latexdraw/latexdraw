@@ -51,7 +51,6 @@ public class TestTriangle implements HelperTest {
 	@Test
 	public void testIsTypeOf() {
 		final Triangle shape = ShapeFactory.INST.createTriangle();
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

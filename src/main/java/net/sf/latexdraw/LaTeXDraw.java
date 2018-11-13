@@ -38,8 +38,8 @@ import net.sf.latexdraw.instrument.PreferencesSetter;
 import net.sf.latexdraw.instrument.StatusBarController;
 import net.sf.latexdraw.instrument.TabSelector;
 import net.sf.latexdraw.model.api.shape.Drawing;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -146,7 +146,10 @@ public class LaTeXDraw extends JfxUI {
 					throw new RuntimeException(ex);
 				}
 
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), injector.getInstance(LangService.class).getBundle(), //NON-NLS
+				final PreferencesService prefs = injector.getInstance(PreferencesService.class);
+				prefs.readPreferences();
+
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), prefs.getBundle(), //NON-NLS
 					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				updateProgress(0.6, 1d);
 				final Scene scene = new Scene(root);
@@ -160,8 +163,6 @@ public class LaTeXDraw extends JfxUI {
 					setModified(false);
 					mainStage.show();
 					registerScene(scene);
-					final PreferencesSetter prefSetter = injector.getInstance(PreferencesSetter.class);
-					prefSetter.readXMLPreferences();
 					// Preventing the stage to close automatically.
 					mainStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, WindowEvent::consume);
 					mainStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png")); //NON-NLS
@@ -171,7 +172,7 @@ public class LaTeXDraw extends JfxUI {
 					injector.getInstance(Canvas.class).requestFocus();
 					// Checking a new version if required.
 					if(VersionChecker.WITH_UPDATE && injector.getInstance(PreferencesSetter.class).isVersionCheckEnable()) {
-						new Thread(new VersionChecker(injector.getInstance(StatusBarController.class), injector.getInstance(LangService.class))).start();
+						new Thread(new VersionChecker(injector.getInstance(StatusBarController.class), prefs.getBundle())).start();
 					}
 					setModified(false);
 				});

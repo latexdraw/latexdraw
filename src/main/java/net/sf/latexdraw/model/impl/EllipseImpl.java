@@ -14,6 +14,7 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Ellipse;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of an ellipse.
@@ -38,7 +39,7 @@ class EllipseImpl extends RectangularShapeBase implements Ellipse {
 	}
 
 	@Override
-	public void setCentre(final Point centre) {
+	public void setCentre(final @NotNull Point centre) {
 		if(MathUtils.INST.isValidPt(centre)) {
 			final Point gc = getGravityCentre();
 			translate(centre.getX() - gc.getX(), centre.getY() - gc.getY());
@@ -46,7 +47,7 @@ class EllipseImpl extends RectangularShapeBase implements Ellipse {
 	}
 
 	@Override
-	public Point getCenter() {
+	public @NotNull Point getCenter() {
 		return getGravityCentre();
 	}
 

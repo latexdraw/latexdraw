@@ -35,7 +35,6 @@ public class TestDot implements HelperTest {
 
 	@Test
 	public void testIsTypeOf() {
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));
@@ -67,13 +66,6 @@ public class TestDot implements HelperTest {
 	public void testGetSetDotStyle(final DotStyle style) {
 		shape.setDotStyle(style);
 		assertEquals(style, shape.getDotStyle());
-	}
-
-	@Test
-	public void testGetSetDotStyleKO() {
-		shape.setDotStyle(DotStyle.DOT);
-		shape.setDotStyle(null);
-		assertEquals(DotStyle.DOT, shape.getDotStyle());
 	}
 
 	@Theory

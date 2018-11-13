@@ -26,6 +26,8 @@ import net.sf.latexdraw.model.api.shape.StandardGrid;
 import net.sf.latexdraw.model.api.shape.LineStyle;
 import net.sf.latexdraw.model.api.shape.Position;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This trait encapsulates the code of the group related to the support of the general shape's properties.
@@ -58,7 +60,7 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default Point getFullBottomRightPoint() {
+	default @NotNull Point getFullBottomRightPoint() {
 		final double gap = getBorderGap();
 		final Point br = getBottomRightPoint();
 		br.translate(gap, gap);
@@ -66,7 +68,7 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default Point getFullTopLeftPoint() {
+	default @NotNull Point getFullTopLeftPoint() {
 		final double gap = getBorderGap();
 		final Point tl = getTopLeftPoint();
 		tl.translate(-gap, -gap);
@@ -84,7 +86,7 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default ObservableList<Point> getPoints() {
+	default @NotNull ObservableList<Point> getPoints() {
 		return FXCollections.emptyObservableList();
 	}
 
@@ -99,7 +101,7 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default void scaleWithRatio(final double x, final double x2, final Position x3, final Rectangle2D x4) {
+	default void scaleWithRatio(final double x, final double x2, final @NotNull Position x3, final @NotNull Rectangle2D x4) {
 		//TODO ?
 	}
 
@@ -139,7 +141,7 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+	default void scale(final double prevWidth, final double prevHeight, final @NotNull Position pos, final @NotNull Rectangle2D bound) {
 		if(getShapes().stream().anyMatch(sh -> sh instanceof SquaredShape || sh instanceof StandardGrid || sh instanceof Dot)) {
 			getShapes().forEach(sh -> sh.scaleWithRatio(prevWidth, prevHeight, pos, bound));
 		}else {
@@ -183,7 +185,7 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default Color getLineColour() {
+	default @NotNull Color getLineColour() {
 		return isEmpty() ? PSTricksConstants.DEFAULT_LINE_COLOR : getShapes().get(0).getLineColour();
 	}
 
@@ -193,12 +195,12 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default LineStyle getLineStyle() {
+	default @NotNull LineStyle getLineStyle() {
 		return getShapes().stream().filter(sh -> sh.isLineStylable()).map(sh -> sh.getLineStyle()).findFirst().orElse(LineStyle.SOLID);
 	}
 
 	@Override
-	default void setLineStyle(final LineStyle style) {
+	default void setLineStyle(final @NotNull LineStyle style) {
 		getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> sh.setLineStyle(style));
 	}
 
@@ -208,27 +210,27 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default BorderPos getBordersPosition() {
+	default @NotNull BorderPos getBordersPosition() {
 		return getShapes().stream().filter(sh -> sh.isBordersMovable()).map(sh -> sh.getBordersPosition()).findFirst().orElse(BorderPos.INTO);
 	}
 
 	@Override
-	default void setBordersPosition(final BorderPos position) {
+	default void setBordersPosition(final @NotNull BorderPos position) {
 		getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> sh.setBordersPosition(position));
 	}
 
 	@Override
-	default void setLineColour(final Color lineColour) {
+	default void setLineColour(final @NotNull Color lineColour) {
 		getShapes().forEach(sh -> sh.setLineColour(lineColour));
 	}
 
 	@Override
-	default void setDbleBordCol(final Color colour) {
+	default void setDbleBordCol(final @NotNull Color colour) {
 		getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> sh.setDbleBordCol(colour));
 	}
 
 	@Override
-	default Color getDbleBordCol() {
+	default @NotNull Color getDbleBordCol() {
 		return getShapes().stream().filter(sh -> sh.hasDbleBord()).map(sh -> sh.getDbleBordCol()).findFirst().orElse(PSTricksConstants.DEFAULT_DOUBLE_COLOR);
 	}
 
@@ -293,23 +295,23 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default void setShadowCol(final Color colour) {
+	default void setShadowCol(final @NotNull Color colour) {
 		getShapes().stream().filter(sh -> sh.isShadowable()).forEach(sh -> sh.setShadowCol(colour));
 	}
 
 	@Override
-	default Color getShadowCol() {
+	default @NotNull Color getShadowCol() {
 		return getShapes().stream().filter(sh -> sh.isShadowable() && sh.hasShadow()).
 			map(sh -> sh.getShadowCol()).findFirst().orElse(PSTricksConstants.DEFAULT_SHADOW_COLOR);
 	}
 
 	@Override
-	default FillingStyle getFillingStyle() {
+	default @NotNull FillingStyle getFillingStyle() {
 		return getShapes().stream().filter(sh -> sh.isInteriorStylable()).map(sh -> sh.getFillingStyle()).findFirst().orElse(FillingStyle.NONE);
 	}
 
 	@Override
-	default void setFillingStyle(final FillingStyle style) {
+	default void setFillingStyle(final @NotNull FillingStyle style) {
 		getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> sh.setFillingStyle(style));
 	}
 
@@ -334,45 +336,45 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default void setFillingCol(final Color colour) {
+	default void setFillingCol(final @NotNull Color colour) {
 		getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> sh.setFillingCol(colour));
 	}
 
 	@Override
-	default Color getFillingCol() {
+	default @NotNull Color getFillingCol() {
 		return getShapes().stream().filter(sh -> sh.isFillable() && sh.isFilled()).
 			map(sh -> sh.getFillingCol()).findFirst().orElse(PSTricksConstants.DEFAULT_FILL_COLOR);
 	}
 
 	@Override
-	default void setHatchingsCol(final Color colour) {
+	default void setHatchingsCol(final @NotNull Color colour) {
 		getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> sh.setHatchingsCol(colour));
 	}
 
 	@Override
-	default Color getHatchingsCol() {
+	default @NotNull Color getHatchingsCol() {
 		return getShapes().stream().filter(sh -> sh.isInteriorStylable() && sh.getFillingStyle().isHatchings()).
 			map(sh -> sh.getHatchingsCol()).findFirst().orElse(PSTricksConstants.DEFAULT_HATCHING_COLOR);
 	}
 
 	@Override
-	default void setGradColStart(final Color colour) {
+	default void setGradColStart(final @NotNull Color colour) {
 		getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> sh.setGradColStart(colour));
 	}
 
 	@Override
-	default Color getGradColStart() {
+	default @NotNull Color getGradColStart() {
 		return getShapes().stream().filter(sh -> sh.isInteriorStylable() && sh.getFillingStyle().isGradient()).
 			map(sh -> sh.getGradColStart()).findFirst().orElse(PSTricksConstants.DEFAULT_GRADIENT_START_COLOR);
 	}
 
 	@Override
-	default void setGradColEnd(final Color colour) {
+	default void setGradColEnd(final @NotNull Color colour) {
 		getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> sh.setGradColEnd(colour));
 	}
 
 	@Override
-	default Color getGradColEnd() {
+	default @NotNull Color getGradColEnd() {
 		return getShapes().stream().filter(sh -> sh.isInteriorStylable() && sh.getFillingStyle().isGradient()).
 			map(sh -> sh.getGradColEnd()).findFirst().orElse(PSTricksConstants.DEFAULT_GRADIENT_END_COLOR);
 	}
@@ -448,43 +450,43 @@ interface GroupShapeBase extends Group {
 	}
 
 	@Override
-	default void rotate(final Point point, final double angle) {
+	default void rotate(final @Nullable Point point, final double angle) {
 		getShapes().forEach(sh -> sh.rotate(point, angle));
 	}
 
 	@Override
 	default double getRotationAngle() {
-		return size() == 1 ? getShapeAt(0).getRotationAngle() : rotationAngleProperty().doubleValue();
+		return size() == 1 ? getShapeAt(0).map(s -> s.getRotationAngle()).orElse(0d) : rotationAngleProperty().doubleValue();
 	}
 
 	@Override
-	default Point getGravityCentre() {
+	default @NotNull Point getGravityCentre() {
 		return isEmpty() ? ShapeFactory.INST.createPoint() : getTopLeftPoint().getMiddlePoint(getBottomRightPoint());
 	}
 
 	@Override
-	default Point getBottomRightPoint() {
+	default @NotNull Point getBottomRightPoint() {
 		return getShapes().parallelStream().map(sh -> sh.getBottomRightPoint()).
 			reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).
 			orElseGet(() -> ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
 	}
 
 	@Override
-	default Point getBottomLeftPoint() {
+	default @NotNull Point getBottomLeftPoint() {
 		return getShapes().parallelStream().map(sh -> sh.getBottomLeftPoint()).
 			reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).
 			orElseGet(() -> ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
 	}
 
 	@Override
-	default Point getTopLeftPoint() {
+	default @NotNull Point getTopLeftPoint() {
 		return getShapes().parallelStream().map(sh -> sh.getTopLeftPoint()).
 			reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).
 			orElseGet(() -> ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));
 	}
 
 	@Override
-	default Point getTopRightPoint() {
+	default @NotNull Point getTopRightPoint() {
 		return getShapes().parallelStream().map(sh -> sh.getTopRightPoint()).
 			reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).
 			orElseGet(() -> ShapeFactory.INST.createPoint(Double.NaN, Double.NaN));

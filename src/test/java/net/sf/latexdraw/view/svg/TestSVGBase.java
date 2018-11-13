@@ -4,16 +4,18 @@ import java.lang.reflect.InvocationTargetException;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.parser.svg.SVGAttributes;
 import net.sf.latexdraw.parser.svg.SVGDefsElement;
 import net.sf.latexdraw.parser.svg.SVGDocument;
 import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGSVGElement;
+import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.PolymorphicConversion;
+import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
@@ -34,9 +36,11 @@ abstract class TestSVGBase<T extends Shape> implements PolymorphicConversion<T> 
 		return new Injector() {
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(ViewFactory.class);
+				bindToInstance(LaTeXDataService.class, Mockito.mock(LaTeXDataService.class));
+				bindToInstance(Drawing.class, Mockito.mock(Drawing.class));
+				bindToInstance(ViewsSynchroniserHandler.class, Mockito.mock(ViewsSynchroniserHandler.class));
 				bindToInstance(LaTeXGenerator.class, Mockito.mock(LaTeXGenerator.class));
+				bindAsEagerSingleton(ViewFactory.class);
 				bindAsEagerSingleton(SVGShapesFactory.class);
 			}
 		};

@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.FillingStyle;
+import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewArrow;
@@ -45,12 +46,13 @@ public class TestCanvasSelection extends BaseTestCanvas {
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
+				bindAsEagerSingleton(TextSetter.class);
 				bindAsEagerSingleton(Hand.class);
+				bindToInstance(EditingService.class, Mockito.mock(EditingService.class));
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
 				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
-				bindAsEagerSingleton(TextSetter.class);
 			}
 		};
 	}
@@ -69,7 +71,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	public void testOneClickOnShapeSelectsIt() {
 		new CompositeGUIVoidCommand(addRec, clickOnAddedFirstShape).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -98,7 +100,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	public void testCtrlClickOnShapeAddsSelection() {
 		new CompositeGUIVoidCommand(addRec, addRec2, clickOnAddedFirstShape, ctrlClickOnAddedRec2).execute();
 		assertEquals(2, canvas.getDrawing().getSelection().size());
-		assertNotSame(canvas.getDrawing().getSelection().getShapeAt(0), canvas.getDrawing().getSelection().getShapeAt(1));
+		assertNotSame(canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow(), canvas.getDrawing().getSelection().getShapeAt(1).orElseThrow());
 	}
 
 	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
@@ -107,7 +109,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(addRec, addRec2, clickOnAddedFirstShape, ctrlClickOnAddedRec2,
 			shiftClickOnAddedRec).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertNotSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertNotSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -116,7 +118,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		final ViewPolyline vlines = (ViewPolyline) getPane().getChildren().get(0);
 		new CompositeGUIVoidCommand(() -> clickOn(vlines.lookup("#" + ViewArrow.ID))).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -125,7 +127,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		final ViewPlot vplot = (ViewPlot) getPane().getChildren().get(0);
 		new CompositeGUIVoidCommand(() -> clickOn(vplot)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertSame(addedPlot, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertSame(addedPlot, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -167,7 +169,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 10),
 			() -> drag(x + 50, y), () -> drag(x + 100, y)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -179,7 +181,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 10),
 			() -> drag(x + 60, y + 10), () -> drag(x + 70, y + 10)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -191,7 +193,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 50, y + 20), () -> drag(x + 100, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -203,7 +205,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 50, y + 20), () -> drag(x + 100, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -227,7 +229,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 50, y + 20), () -> drag(x + 60, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertSame(addedGroup, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertSame(addedGroup, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -239,7 +241,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 50, y + 20), () -> drag(x + 60, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertSame(addedGrid, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertSame(addedGrid, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
@@ -253,13 +255,13 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 60, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
-		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
+		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
 	public void testEditTextDoesNotCreateANewOne() {
-		when(pencil.getCurrentChoice()).thenReturn(EditionChoice.TEXT);
-		when(pencil.createShapeInstance()).thenReturn(ShapeFactory.INST.createText());
+		when(editing.getCurrentChoice()).thenReturn(EditionChoice.TEXT);
+		when(editing.createShapeInstance()).thenReturn(ShapeFactory.INST.createText());
 		new CompositeGUIVoidCommand(addText).execute();
 		final ViewText v = (ViewText) canvas.getViews().getChildren().get(0);
 		doubleClickOn(v).sleep(10).write("@bar bar").sleep(10).type(KeyCode.ENTER);
@@ -270,8 +272,8 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 	@Test
 	public void testEditPlotDoesNotCreateANewOne() {
-		when(pencil.getCurrentChoice()).thenReturn(EditionChoice.PLOT);
-		when(pencil.createShapeInstance()).thenReturn(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0, 5, "x", false));
+		when(editing.getCurrentChoice()).thenReturn(EditionChoice.PLOT);
+		when(editing.createShapeInstance()).thenReturn(ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 0, 5, "x", false));
 		final ShapePlotCustomiser plot = injector.getInstance(ShapePlotCustomiser.class);
 		plot.maxXSpinner = Mockito.mock(Spinner.class);
 		plot.minXSpinner = Mockito.mock(Spinner.class);

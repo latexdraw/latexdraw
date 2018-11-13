@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.api.shape;
 
 import java.util.Arrays;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The position of the text (bottom-right, top-left, etc.).
@@ -19,47 +20,47 @@ import java.util.Arrays;
 public enum TextPosition {
 	BOT_LEFT {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return "bl"; //NON-NLS
 		}
 	}, BOT {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return "b"; //NON-NLS
 		}
 	}, BOT_RIGHT {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return "br"; //NON-NLS
 		}
 	}, TOP_LEFT {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return "tl"; //NON-NLS
 		}
 	}, TOP {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return "t"; //NON-NLS
 		}
 	}, TOP_RIGHT {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return "tr"; //NON-NLS
 		}
 	}, LEFT {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return "l"; //NON-NLS
 		}
 	}, RIGHT {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return "r"; //NON-NLS
 		}
 	}, CENTER {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return ""; //NON-NLS
 		}
 	};
@@ -68,12 +69,12 @@ public enum TextPosition {
 	 * @param latexToken The latex token to test.
 	 * @return The TextPosition enumeration item corresponding to the given latex token.
 	 */
-	public static TextPosition getTextPosition(final String latexToken) {
+	public static @NotNull TextPosition getTextPosition(final String latexToken) {
 		return Arrays.stream(values()).filter(it -> it.getLatexToken().equals(latexToken)).findFirst().orElse(BOT_LEFT);
 	}
 
 	/**
 	 * @return The latex token corresponding to the text position.
 	 */
-	public abstract String getLatexToken();
+	public abstract @NotNull String getLatexToken();
 }

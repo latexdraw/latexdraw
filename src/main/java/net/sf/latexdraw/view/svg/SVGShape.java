@@ -11,6 +11,7 @@
 package net.sf.latexdraw.view.svg;
 
 import java.text.ParseException;
+import java.util.Optional;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -48,6 +49,7 @@ import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -156,7 +158,7 @@ abstract class SVGShape<S extends Shape> {
 	}
 
 	private static void setHatchingsFromSVG(final Shape shape, final SVGPatternElement pat) {
-		final Color c = pat.getBackgroundColor();
+		final @NotNull Optional<Color> c = pat.getBackgroundColor();
 		final String str = pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_TYPE);
 		double angle;
 		double sep;
@@ -189,9 +191,10 @@ abstract class SVGShape<S extends Shape> {
 			shape.setHatchingsAngle(angle);
 		}
 
-		shape.setFilled(c != null);
-		shape.setFillingCol(c);
-		shape.setHatchingsCol(pat.getHatchingColor());
+		shape.setFilled(c.isPresent());
+		c.ifPresent(col -> shape.setFillingCol(col));
+
+		pat.getHatchingColor().ifPresent(col -> shape.setHatchingsCol(col));
 
 		if(!Double.isNaN(sep)) {
 			shape.setHatchingsSep(sep);
@@ -465,7 +468,7 @@ abstract class SVGShape<S extends Shape> {
 
 		final ArrowStyle style = source.getArrowStyle();
 
-		if(style != null && style != ArrowStyle.NONE) {
+		if(style != ArrowStyle.NONE) {
 			if(style.isBar()) {
 				target.setTBarSizeDim(source.getTBarSizeDim());
 				target.setTBarSizeNum(source.getTBarSizeNum());
@@ -562,11 +565,7 @@ abstract class SVGShape<S extends Shape> {
 			}
 		}
 
-		final Color strok = elt.getStroke();
-		if(strok != null) {
-			shape.setShadowCol(strok);
-		}
-
+		elt.getStroke().ifPresent(col -> shape.setShadowCol(col));
 		applyShadowTransformations(elt);
 		shape.setHasShadow(true);
 	}
@@ -581,8 +580,8 @@ abstract class SVGShape<S extends Shape> {
 		}
 
 		shape.setDbleBordSep(elt.getStrokeWidth());
-		shape.setDbleBordCol(elt.getStroke());
-		shape.setThickness((shape.getThickness() - shape.getDbleBordSep()) / 2.);
+		elt.getStroke().ifPresent(col -> shape.setDbleBordCol(col));
+		shape.setThickness((shape.getThickness() - shape.getDbleBordSep()) / 2d);
 		shape.setHasDbleBord(true);
 	}
 
@@ -612,7 +611,7 @@ abstract class SVGShape<S extends Shape> {
 
 		setSVGLatexdrawParameters(elt);
 
-		shape.setLineColour(elt.getStroke());
+		elt.getStroke().ifPresent(col -> shape.setLineColour(col));
 
 		final Color lineCol = shape.getLineColour();
 		try {

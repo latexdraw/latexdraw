@@ -39,7 +39,6 @@ public class TestAxes implements HelperTest {
 
 	@Test
 	public void testIsTypeOf() {
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));
@@ -179,24 +178,10 @@ public class TestAxes implements HelperTest {
 		assertEquals(style, shape.getTicksDisplayed());
 	}
 
-	@Test
-	public void testGetSetTicksDisplayedKO() {
-		shape.setTicksDisplayed(PlottingStyle.ALL);
-		shape.setTicksDisplayed(null);
-		assertEquals(PlottingStyle.ALL, shape.getTicksDisplayed());
-	}
-
 	@Theory
 	public void testGetSetTicksStyle(final TicksStyle style) {
 		shape.setTicksStyle(style);
 		assertEquals(style, shape.getTicksStyle());
-	}
-
-	@Test
-	public void testGetSetTicksStyleKO() {
-		shape.setTicksStyle(TicksStyle.BOTTOM);
-		shape.setTicksStyle(null);
-		assertEquals(TicksStyle.BOTTOM, shape.getTicksStyle());
 	}
 
 	@Theory
@@ -218,13 +203,6 @@ public class TestAxes implements HelperTest {
 	public void testGetSetAxesStyle(final AxesStyle style) {
 		shape.setAxesStyle(style);
 		assertEquals(style, shape.getAxesStyle());
-	}
-
-	@Test
-	public void testGetSetAxesStyleKO() {
-		shape.setAxesStyle(AxesStyle.AXES);
-		shape.setAxesStyle(null);
-		assertEquals(AxesStyle.AXES, shape.getAxesStyle());
 	}
 
 	@Test

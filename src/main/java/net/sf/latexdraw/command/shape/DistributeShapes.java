@@ -19,6 +19,7 @@ import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This command distributes the provided shapes.
@@ -37,16 +38,16 @@ public class DistributeShapes extends AlignDistribCmd {
 	}
 
 	/** The alignment to perform. */
-	private final Distribution distribution;
+	private final @NotNull Distribution distribution;
 
-	public DistributeShapes(final Canvas canvas, final Distribution distribution, final Group gp) {
+	public DistributeShapes(final @NotNull Canvas canvas, final @NotNull Distribution distribution, final @NotNull Group gp) {
 		super(canvas, gp);
 		this.distribution = distribution;
 	}
 
 	@Override
 	public boolean canDo() {
-		return canvas != null && distribution != null && shape.isPresent() && !shape.get().isEmpty();
+		return !shape.isEmpty();
 	}
 
 	/**
@@ -154,11 +155,11 @@ public class DistributeShapes extends AlignDistribCmd {
 		}else {
 			distributeNotEq();
 		}
-		shape.ifPresent(sh -> sh.setModified(true));
+		shape.setModified(true);
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.6");
 	}
 }

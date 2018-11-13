@@ -2,6 +2,7 @@ package net.sf.latexdraw.view.jfx;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.CubicCurveTo;
@@ -14,14 +15,10 @@ import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.SingleShape;
+import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
-import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import net.sf.latexdraw.view.latex.LaTeXGenerator;
-import net.sf.latexdraw.view.pst.PSTCodeGenerator;
-import net.sf.latexdraw.view.pst.PSTViewsFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,15 +52,12 @@ abstract class TestViewShape<T extends ViewShape<S>, S extends SingleShape> impl
 		return new Injector() {
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(LangService.class);
-				bindAsEagerSingleton(PSTViewsFactory.class);
+				bindAsEagerSingleton(LaTeXDataService.class);
+				bindAsEagerSingleton(PreferencesService.class);
+				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
+				bindAsEagerSingleton(ViewFactory.class);
 				bindAsEagerSingleton(Canvas.class);
 				bindWithCommand(Drawing.class, Canvas.class, canvas -> canvas.getDrawing());
-				bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);
-				bindAsEagerSingleton(PSTCodeGenerator.class);
-				bindWithCommand(LaTeXGenerator.class, PSTCodeGenerator.class, gen -> gen);
-				bindAsEagerSingleton(ViewFactory.class);
 			}
 		};
 	}

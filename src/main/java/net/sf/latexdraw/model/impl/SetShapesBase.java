@@ -11,8 +11,10 @@
 package net.sf.latexdraw.model.impl;
 
 import java.util.List;
+import java.util.Optional;
 import net.sf.latexdraw.model.api.property.SetShapesProp;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This trait implements the ISetShapes interface.
@@ -21,21 +23,21 @@ import net.sf.latexdraw.model.api.shape.Shape;
  */
 interface SetShapesBase extends SetShapesProp {
 	@Override
-	default boolean contains(final Shape sh) {
-		return sh != null && getShapes().contains(sh);
+	default boolean contains(final @NotNull Shape sh) {
+		return getShapes().contains(sh);
 	}
 
 	@Override
-	default void addShape(final Shape sh) {
-		if(sh != null && (!(sh instanceof SetShapesProp) || !((SetShapesProp) sh).isEmpty())) {
+	default void addShape(final @NotNull Shape sh) {
+		if(!(sh instanceof SetShapesProp) || !((SetShapesProp) sh).isEmpty()) {
 			getShapes().add(sh);
 		}
 	}
 
 	@Override
-	default void addShape(final Shape sh, final int index) {
+	default void addShape(final @NotNull Shape sh, final int index) {
 		final List<Shape> shapes = getShapes();
-		if(sh != null && index <= shapes.size() && (index == -1 || index >= 0) && (!(sh instanceof SetShapesProp) || !((SetShapesProp) sh).isEmpty())) {
+		if(index <= shapes.size() && (index == -1 || index >= 0) && (!(sh instanceof SetShapesProp) || !((SetShapesProp) sh).isEmpty())) {
 			if(index == -1 || index == shapes.size()) {
 				shapes.add(sh);
 			}else {
@@ -53,15 +55,15 @@ interface SetShapesBase extends SetShapesProp {
 	}
 
 	@Override
-	default Shape getShapeAt(final int i) {
+	default @NotNull Optional<Shape> getShapeAt(final int i) {
 		final List<Shape> shapes = getShapes();
 		if(i < -1 || i >= shapes.size()) {
-			return null;
+			return Optional.empty();
 		}
 		if(i == -1) {
-			return shapes.get(shapes.size() - 1);
+			return Optional.ofNullable(shapes.get(shapes.size() - 1));
 		}
-		return shapes.get(i);
+		return Optional.ofNullable(shapes.get(i));
 	}
 
 
@@ -72,21 +74,21 @@ interface SetShapesBase extends SetShapesProp {
 
 
 	@Override
-	default boolean removeShape(final Shape sh) {
-		return sh != null && getShapes().remove(sh);
+	default boolean removeShape(final @NotNull Shape sh) {
+		return getShapes().remove(sh);
 	}
 
 
 	@Override
-	default Shape removeShape(final int i) {
+	default @NotNull Optional<Shape> removeShape(final int i) {
 		final List<Shape> shapes = getShapes();
 		if(i < -1 || shapes.isEmpty() || i >= shapes.size()) {
-			return null;
+			return Optional.empty();
 		}
 		if(i == -1) {
-			return shapes.remove(shapes.size() - 1);
+			return Optional.ofNullable(shapes.remove(shapes.size() - 1));
 		}
-		return shapes.remove(i);
+		return Optional.ofNullable(shapes.remove(i));
 	}
 
 

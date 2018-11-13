@@ -7,6 +7,7 @@ import org.w3c.dom.DOMException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class TestBaseSVGElement {
 	protected SVGElement node;
@@ -15,7 +16,7 @@ public abstract class TestBaseSVGElement {
 	public abstract String getNameNode();
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		doc = new SVGDocument();
 		node = (SVGElement) doc.createElement(getNameNode());
 	}
@@ -23,12 +24,7 @@ public abstract class TestBaseSVGElement {
 	@Test
 	void testGetStroke() {
 		node.removeAttribute(SVGAttributes.SVG_STROKE);
-		assertNull(node.getStroke());
-
-		node.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.CSS_ALICEBLUE_NAME);
-		assertEquals(CSSColors.CSS_ALICEBLUE_RGB_VALUE, node.getStroke());
-		node.setAttribute(SVGAttributes.SVG_STROKE, "testtest");
-		assertNull(node.getStroke());
+		assertTrue(node.getStroke().isEmpty());
 	}
 
 	@Test

@@ -287,7 +287,7 @@ Improvements:
    - the error window displays all the errors, not a single one
 - the shape handlers are no more zoomed when zooming in/out.
 - the widgets of the parameters toolbar now appear and disappear more accurately
-- the selected shapes are no more unselected when selecting the pencil.
+- the selected shapes are no more unselected when selecting the editing.
 - can undo/redo change of unit (cm or inch).
 - the lime and teal colours are now supported.
 - Can zoom in/out with the keys '+' and '-'.

@@ -36,9 +36,9 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeDotCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -69,7 +69,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 	@Test
 	public void testIncrementDotSizePencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns), dotSizeField,
-			incrementDotSize, Collections.singletonList(() ->  ((Dot) pencil.createShapeInstance()).getDiametre()));
+			incrementDotSize, Collections.singletonList(() ->  ((Dot) editing.createShapeInstance()).getDiametre()));
 	}
 
 	@Test
@@ -77,7 +77,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
 		setDotStyle.execute(DotStyle.BAR);
 		waitFXEvents.execute();
-		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((Dot) pencil.createShapeInstance()).getDotStyle());
+		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((Dot) editing.createShapeInstance()).getDotStyle());
 	}
 
 	@Test
@@ -85,7 +85,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
 		setDotStyle.execute(DotStyle.ASTERISK);
 		waitFXEvents.execute();
-		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((Dot) pencil.createShapeInstance()).getDotStyle());
+		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((Dot) editing.createShapeInstance()).getDotStyle());
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
 		setDotStyle.execute(DotStyle.DOT);
 		waitFXEvents.execute();
-		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((Dot) pencil.createShapeInstance()).getDotStyle());
+		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((Dot) editing.createShapeInstance()).getDotStyle());
 	}
 
 	@Test
@@ -116,7 +116,7 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 		final Color col = fillingB.getValue();
 		pickFillingColour.execute();
 		waitFXEvents.execute();
-		assertEquals(fillingB.getValue(), ((Dot) pencil.createShapeInstance()).getDotFillingCol().toJFX());
+		assertEquals(fillingB.getValue(), ((Dot) editing.createShapeInstance()).getDotFillingCol().toJFX());
 		assertNotEquals(col, fillingB.getValue());
 	}
 }

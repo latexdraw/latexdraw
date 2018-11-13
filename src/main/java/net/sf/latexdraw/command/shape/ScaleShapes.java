@@ -11,7 +11,6 @@
 package net.sf.latexdraw.command.shape;
 
 import java.awt.geom.Rectangle2D;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.command.ShapeCmdImpl;
@@ -20,6 +19,7 @@ import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Position;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -28,7 +28,7 @@ import org.malai.undo.Undoable;
  */
 public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modifying {
 	/** The direction of the scaling. */
-	private final Position refPosition;
+	private final @NotNull Position refPosition;
 
 	/** The new X position used to compute the scale factor. */
 	private double newX;
@@ -37,7 +37,7 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 	private double newY;
 
 	/** The bound of the selected shapes used to perform the scaling. */
-	private final Rectangle2D bound;
+	private final @NotNull Rectangle2D bound;
 
 	/** The old width of the selection. */
 	private double oldWidth;
@@ -46,10 +46,10 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 	private double oldHeight;
 
 	/** The drawing that will be handled by the command. */
-	private final Drawing drawing;
+	private final @NotNull Drawing drawing;
 
 
-	public ScaleShapes(final Group gp, final Drawing drawing, final Position refPosition) {
+	public ScaleShapes(final @NotNull Group gp, final @NotNull Drawing drawing, final @NotNull Position refPosition) {
 		super(gp);
 		this.drawing = drawing;
 		this.refPosition = refPosition;
@@ -58,7 +58,7 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 
@@ -69,14 +69,10 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 
 	@Override
 	public boolean canDo() {
-		return drawing != null && refPosition != null && isValidScales() && super.canDo();
+		return isValidScales();
 	}
 
 	private boolean isValidScales() {
-		if(refPosition == null) {
-			return false;
-		}
-
 		switch(refPosition) {
 			case EAST:
 				return MathUtils.INST.isValidCoord(newX) && scaledWidth(newX) > 1d;
@@ -94,44 +90,34 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 	@Override
 	protected void doCmdBody() {
 		if(Double.isNaN(oldWidth)) {
-			shape.ifPresent(sh -> {
-				final Point br = sh.getBottomRightPoint();
-				final Point tl = sh.getTopLeftPoint();
-				oldWidth = br.getX() - tl.getX();
-				oldHeight = br.getY() - tl.getY();
-				updateBound(tl, br);
-			});
+			final Point br = shape.getBottomRightPoint();
+			final Point tl = shape.getTopLeftPoint();
+			oldWidth = br.getX() - tl.getX();
+			oldHeight = br.getY() - tl.getY();
+			updateBound(tl, br);
 		}
 		redo();
 	}
 
-	private void updateBound(final Point tl, final Point br) {
+	private void updateBound(final @NotNull Point tl, final @NotNull Point br) {
 		bound.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
 	}
 
 	@Override
 	public void undo() {
-		shape.ifPresent(sh -> {
-			sh.scale(oldWidth, oldHeight, refPosition, bound);
-			sh.setModified(true);
-			drawing.setModified(true);
-			updateBound(sh.getTopLeftPoint(), sh.getBottomRightPoint());
-		});
+		shape.scale(oldWidth, oldHeight, refPosition, bound);
+		shape.setModified(true);
+		drawing.setModified(true);
+		updateBound(shape.getTopLeftPoint(), shape.getBottomRightPoint());
 	}
 
 	@Override
-	public void setShape(final Group sh) {
+	public void setShape(final @NotNull Group sh) {
 		super.setShape(sh);
-
-		if(sh != null) {
-			updateBound(sh.getTopLeftPoint(), sh.getBottomRightPoint());
-		}
+		updateBound(sh.getTopLeftPoint(), sh.getBottomRightPoint());
 	}
 
 	private double scaledHeight(final double y) {
-		if(refPosition == null) {
-			return 0d;
-		}
 		if(refPosition.isSouth()) {
 			return bound.getHeight() + bound.getY() - y;
 		}
@@ -142,9 +128,6 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 	}
 
 	private double scaledWidth(final double x) {
-		if(refPosition == null) {
-			return 0d;
-		}
 		if(refPosition.isWest()) {
 			return bound.getWidth() + x - bound.getMaxX();
 		}
@@ -156,12 +139,10 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 
 	@Override
 	public void redo() {
-		shape.ifPresent(sh -> {
-			sh.scale(scaledWidth(newX), scaledHeight(newY), refPosition, bound);
-			sh.setModified(true);
-			drawing.setModified(true);
-			updateBound(sh.getTopLeftPoint(), sh.getBottomRightPoint());
-		});
+		shape.scale(scaledWidth(newX), scaledHeight(newY), refPosition, bound);
+		shape.setModified(true);
+		drawing.setModified(true);
+		updateBound(shape.getTopLeftPoint(), shape.getBottomRightPoint());
 	}
 
 	@Override
@@ -169,8 +150,8 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 		return bundle.getString("Actions.11");
 	}
 
-	public Optional<Position> getRefPosition() {
-		return Optional.ofNullable(refPosition);
+	public @NotNull Position getRefPosition() {
+		return refPosition;
 	}
 
 	public void setNewX(final double x) {

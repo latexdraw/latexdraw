@@ -21,7 +21,7 @@ import net.sf.latexdraw.model.api.shape.Arrow;
 import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.latex.DviPsColors;
 
 import static java.lang.Math.toDegrees;
@@ -87,7 +87,7 @@ public abstract class PSTShapeView<S extends Shape> {
 			filter(col -> !addedColours.contains(col) && !DviPsColors.INSTANCE.getPredefinedColour(col).isPresent()).
 			peek(col -> addedColours.add(col)).
 			map(col -> DviPsColors.INSTANCE.getUsercolourCode(col)).
-			collect(Collectors.joining(SystemService.EOL));
+			collect(Collectors.joining(SystemUtils.getInstance().EOL));
 	}
 
 

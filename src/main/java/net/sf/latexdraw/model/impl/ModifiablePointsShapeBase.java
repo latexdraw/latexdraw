@@ -16,22 +16,24 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.ModifiablePointsShape;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A model of a shape that contains points that can be modified.
  * @author Arnaud Blouin
  */
 abstract class ModifiablePointsShapeBase extends ShapeBase implements ModifiablePointsShape {
-	protected ModifiablePointsShapeBase(final List<Point> pts) {
+	protected ModifiablePointsShapeBase(final @NotNull List<Point> pts) {
 		super();
-		if(pts == null || pts.stream().anyMatch(pt -> !MathUtils.INST.isValidPt(pt))) {
+		if(pts.stream().anyMatch(pt -> !MathUtils.INST.isValidPt(pt))) {
 			throw new IllegalArgumentException();
 		}
 		points.addAll(pts.stream().map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList()));
 	}
 
 	@Override
-	public abstract ModifiablePointsShape duplicate();
+	public abstract @NotNull ModifiablePointsShape duplicate();
 
 	@Override
 	public void setRotationAngleOnly(final double rotationAngle) {
@@ -39,7 +41,7 @@ abstract class ModifiablePointsShapeBase extends ShapeBase implements Modifiable
 	}
 
 	@Override
-	public void rotate(final Point gc, final double angle) {
+	public void rotate(final @Nullable Point gc, final double angle) {
 		if(MathUtils.INST.isValidCoord(angle)) {
 			final double diff = angle - getRotationAngle();
 			final Point gc2 = gc == null ? getGravityCentre() : gc;

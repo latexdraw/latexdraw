@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.impl;
 
 import java.util.List;
+import java.util.Optional;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -18,6 +19,7 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Implements the concept of drawing.
@@ -25,10 +27,10 @@ import net.sf.latexdraw.model.api.shape.Shape;
  */
 class DrawingImpl implements Drawing, SetShapesBase {
 	/** The set of shapes. */
-	private final ListProperty<Shape> shapes;
+	private final @NotNull ListProperty<Shape> shapes;
 
 	/** The selected shapes of the drawing. */
-	private final Group selection;
+	private final @NotNull Group selection;
 
 	/** Defined if the shape has been modified. */
 	private boolean modified;
@@ -43,12 +45,12 @@ class DrawingImpl implements Drawing, SetShapesBase {
 
 
 	@Override
-	public Group getSelection() {
+	public @NotNull Group getSelection() {
 		return selection;
 	}
 
 	@Override
-	public void setSelection(final List<Shape> newSelection) {
+	public void setSelection(final @NotNull List<Shape> newSelection) {
 		selection.clear();
 		newSelection.forEach(sh -> selection.addShape(sh));
 	}
@@ -60,18 +62,18 @@ class DrawingImpl implements Drawing, SetShapesBase {
 	}
 
 	@Override
-	public ListProperty<Shape> getShapes() {
+	public @NotNull ListProperty<Shape> getShapes() {
 		return shapes;
 	}
 
 	@Override
-	public boolean removeShape(final Shape sh) {
+	public boolean removeShape(final @NotNull Shape sh) {
 		selection.removeShape(sh);
 		return SetShapesBase.super.removeShape(sh);
 	}
 
 	@Override
-	public Shape removeShape(final int i) {
+	public @NotNull Optional<Shape> removeShape(final int i) {
 		// Must be removed from the selection before removing from the main list (otherwise mapping selection2border will fail.
 		if(i >= -1 && !shapes.isEmpty() && i < shapes.size()) {
 			if(i == -1) {

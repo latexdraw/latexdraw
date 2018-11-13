@@ -14,7 +14,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.Optional;
 import javafx.geometry.Point3D;
-import net.sf.latexdraw.util.SystemService;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for shape factories.
@@ -25,21 +25,14 @@ public interface Factory {
 	 * @param shapeClass The class of the shape to instantiated.
 	 * @return A new instance of the class given as argument or null.
 	 */
-	<T extends Shape> Optional<T> newShape(java.lang.Class<T> shapeClass);
+	@NotNull <T extends Shape> Optional<T> newShape(java.lang.Class<T> shapeClass);
 
 	/**
 	 * Creates a color from an JavaFX color.
 	 * @param col The colour to convert.
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColorFX(final javafx.scene.paint.Color col);
-
-	/**
-	 * Creates a color from an AWT color.
-	 * @param col The colour to convert.
-	 * @return The converted colour. Cannot be null.
-	 */
-	Color createColorAWT(final java.awt.Color col);
+	@NotNull Color createColorFX(final javafx.scene.paint.Color col);
 
 	/**
 	 * Creates a color following the HSB format.
@@ -48,7 +41,7 @@ public interface Factory {
 	 * @param b The B
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColorHSB(double h, double s, double b);
+	@NotNull Color createColorHSB(double h, double s, double b);
 
 	/**
 	 * Creates a colour following the RGBA format.
@@ -58,7 +51,7 @@ public interface Factory {
 	 * @param a The A.
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColorInt(int r, int g, int b, int a);
+	@NotNull Color createColorInt(int r, int g, int b, int a);
 
 	/**
 	 * Creates a colour following the RGB format.
@@ -67,7 +60,7 @@ public interface Factory {
 	 * @param b The B.
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColorInt(int r, int g, int b);
+	@NotNull Color createColorInt(int r, int g, int b);
 
 	/**
 	 * Creates a colour.
@@ -77,7 +70,7 @@ public interface Factory {
 	 * @param o Opacity
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColor(double r, double g, double b, double o);
+	@NotNull Color createColor(double r, double g, double b, double o);
 
 	/**
 	 * Creates a colour.
@@ -86,25 +79,25 @@ public interface Factory {
 	 * @param b Blue
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColor(double r, double g, double b);
+	@NotNull Color createColor(double r, double g, double b);
 
 	/**
 	 * Creates a colour (1,1,1,1)
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColor();
+	@NotNull Color createColor();
 
 	/**
 	 * @return The created drawing.
 	 */
-	Drawing createDrawing();
+	@NotNull Drawing createDrawing();
 
 	/**
 	 * Creates a group that will contains initially the given sh.
 	 * @param sh The shape to add to the group to create.
 	 * @return Created groupe. Cannot be null.
 	 */
-	Group createGroup(Shape sh);
+	@NotNull Group createGroup(Shape sh);
 
 	/**
 	 * Creates an arrow from an other arrow.
@@ -113,38 +106,38 @@ public interface Factory {
 	 * @return The created arrow.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	Arrow createArrow(Arrow arrow, ArrowableSingleShape owner);
+	@NotNull Arrow createArrow(Arrow arrow, ArrowableSingleShape owner);
 
 	/**
 	 * Creates an arrow.
 	 * @param owner The shape that contains the arrow.
 	 * @return The created arrow.
 	 */
-	Arrow createArrow(ArrowableSingleShape owner);
+	@NotNull Arrow createArrow(ArrowableSingleShape owner);
 
 	/**
 	 * Creates axes with default values.
 	 * @param pt The bottom left position of the axes.
 	 * @return The created axes.
 	 */
-	Axes createAxes(Point pt);
+	@NotNull Axes createAxes(Point pt);
 
 	/**
 	 * @param pt The centre of the dot.
 	 * @return The created dot.
 	 */
-	Dot createDot(Point pt);
+	@NotNull Dot createDot(Point pt);
 
 	/**
 	 * Creates a bezier curve with a set of points.
 	 * @param pts The points of the curve.
 	 * @return The created bezier curve.
 	 */
-	BezierCurve createBezierCurve(final List<Point> pts);
+	@NotNull BezierCurve createBezierCurve(final @NotNull List<Point> pts);
 
-	BezierCurve createBezierCurve(final List<Point> pts, final List<Point> ctrlpts);
+	@NotNull BezierCurve createBezierCurve(final @NotNull List<Point> pts, final @NotNull List<Point> ctrlpts);
 
-	BezierCurve createBezierCurveFrom(final BezierCurve bc, final Point pointToAdd);
+	@NotNull BezierCurve createBezierCurveFrom(final BezierCurve bc, final Point pointToAdd);
 
 	/**
 	 * Creates an ellipse.
@@ -153,12 +146,12 @@ public interface Factory {
 	 * @return The created ellipse.
 	 * @throws IllegalArgumentException If a or b is not valid.
 	 */
-	Ellipse createEllipse(Point tl, Point br);
+	@NotNull Ellipse createEllipse(Point tl, Point br);
 
 	/**
 	 * @return The created ellipse.
 	 */
-	Ellipse createEllipse();
+	@NotNull Ellipse createEllipse();
 
 	/**
 	 * Creates a triangle.
@@ -168,12 +161,12 @@ public interface Factory {
 	 * @return The created triangle.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 */
-	Triangle createTriangle(Point pos, double width, double height);
+	@NotNull Triangle createTriangle(Point pos, double width, double height);
 
 	/**
 	 * @return The created triangle.
 	 */
-	Triangle createTriangle();
+	@NotNull Triangle createTriangle();
 
 	/**
 	 * Creates a rhombus.
@@ -183,13 +176,13 @@ public interface Factory {
 	 * @return The created rhombus.
 	 * @throws IllegalArgumentException If the width, the height or the centre is not valid.
 	 */
-	Rhombus createRhombus(Point centre, double width, double height);
+	@NotNull Rhombus createRhombus(Point centre, double width, double height);
 
 	/**
 	 * Creates a rhombus at the position (0,0) with width=height=1.
 	 * @return The created rhombus.
 	 */
-	Rhombus createRhombus();
+	@NotNull Rhombus createRhombus();
 
 	/**
 	 * Creates a picture and the corresponding EPS picture.
@@ -198,23 +191,23 @@ public interface Factory {
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 * @throws NullPointerException If the given point is null.
 	 */
-	Picture createPicture(Point pt, final SystemService system);
+	@NotNull Picture createPicture(Point pt);
 
 	/**
 	 * Creates a grid with a predefined point.
 	 * @param pt The position.
 	 * @return The created grid.
 	 */
-	Grid createGrid(Point pt);
+	@NotNull Grid createGrid(Point pt);
 
 	/**
 	 * Creates and initialises a freehand model.
 	 * @return The created freehand shape.
 	 * @throws IllegalArgumentException If the given point is not valid.
 	 */
-	Freehand createFreeHand(final List<Point> pts);
+	@NotNull Freehand createFreeHand(final @NotNull List<Point> pts);
 
-	Freehand createFreeHandFrom(Freehand sh, Point pointToAdd);
+	@NotNull Freehand createFreeHandFrom(Freehand sh, Point pointToAdd);
 
 	/**
 	 * Creates a circle.
@@ -224,17 +217,17 @@ public interface Factory {
 	 * @throws IllegalArgumentException If the radius is not valid.
 	 * @throws NullPointerException If the given point pt is null.
 	 */
-	Circle createCircle(Point pt, double radius);
+	@NotNull Circle createCircle(Point pt, double radius);
 
 	/**
 	 * @return The created circle.
 	 */
-	Circle createCircle();
+	@NotNull Circle createCircle();
 
 	/**
 	 * @return The created group of shapes.
 	 */
-	Group createGroup();
+	@NotNull Group createGroup();
 
 	/**
 	 * Constructs a line from the specified coordinates.
@@ -245,7 +238,7 @@ public interface Factory {
 	 * @return The created line.
 	 * @throws IllegalArgumentException If one of the given coordinate is not valid.
 	 */
-	Line createLine(double x1, double y1, double x2, double y2);
+	@NotNull Line createLine(double x1, double y1, double x2, double y2);
 
 	/**
 	 * Creates a line by creating a second point with
@@ -254,7 +247,7 @@ public interface Factory {
 	 * @return The created line.
 	 * @throws IllegalArgumentException If one of the given parameter is not valid.
 	 */
-	Line createLine(double b, Point p1);
+	@NotNull Line createLine(double b, Point p1);
 
 	/**
 	 * Constructs a line from the specified <code>Point2D</code> objects.
@@ -263,12 +256,12 @@ public interface Factory {
 	 * @return The created line.
 	 * @throws IllegalArgumentException If one of the given points is not valid.
 	 */
-	Line createLine(Point p1, Point p2);
+	@NotNull Line createLine(Point p1, Point p2);
 
 	/**
 	 * @return The created point with coordinates (0, 0).
 	 */
-	Point createPoint();
+	@NotNull Point createPoint();
 
 	/**
 	 * Duplicates a java 2D point into a IPoint. If the given point pt is null, a point (0,0) is
@@ -276,7 +269,7 @@ public interface Factory {
 	 * @param pt The point to convert.
 	 * @return The created point. Cannot be null.
 	 */
-	Point createPoint(Point2D pt);
+	@NotNull Point createPoint(Point2D pt);
 
 	/**
 	 * Duplicates a JFX point into a IPoint. If the given point pt is null, a point (0,0) is
@@ -284,7 +277,7 @@ public interface Factory {
 	 * @param pt The point to convert.
 	 * @return The created point. Cannot be null.
 	 */
-	Point createPoint(javafx.geometry.Point2D pt);
+	@NotNull Point createPoint(javafx.geometry.Point2D pt);
 
 	/**
 	 * Duplicates a java 3D point into a IPoint. If the given point pt is null, a point (0,0) is
@@ -292,7 +285,7 @@ public interface Factory {
 	 * @param pt The point to convert.
 	 * @return The created point. Cannot be null.
 	 */
-	Point createPoint(Point3D pt);
+	@NotNull Point createPoint(Point3D pt);
 
 	/**
 	 * Creates a Point2D with the specified coordinates.
@@ -300,37 +293,37 @@ public interface Factory {
 	 * @param y The Y-coordinate to set.
 	 * @return The created point.
 	 */
-	Point createPoint(double x, double y);
+	@NotNull Point createPoint(double x, double y);
 
 	/**
 	 * Creates a Point2D with the specified coordinates.
 	 * @param pt The IPoint, if null the default value (0,0) will be used.
 	 * @return The created point.
 	 */
-	Point createPoint(Point pt);
+	@NotNull Point createPoint(Point pt);
 
 	/**
 	 * Creates a model with a set of points.
 	 * @param pts The points of the shape.
 	 * @return The created polyline.
 	 */
-	Polyline createPolyline(final List<Point> pts);
+	@NotNull Polyline createPolyline(final @NotNull List<Point> pts);
 
-	Polyline createPolylineFrom(Polyline sh, Point pointToAdd);
+	@NotNull Polyline createPolylineFrom(Polyline sh, Point pointToAdd);
 
 	/**
 	 * Creates a polygon with a set of points.
 	 * @param pts The points of the shape.
 	 * @return The created polygon.
 	 */
-	Polygon createPolygon(final List<Point> pts);
+	@NotNull Polygon createPolygon(final @NotNull List<Point> pts);
 
-	Polygon createPolygonFrom(Polygon sh, Point pointToAdd);
+	@NotNull Polygon createPolygonFrom(Polygon sh, Point pointToAdd);
 
 	/**
 	 * @return The created rectangle with position (0,0) and width=10 and height=10.
 	 */
-	Rectangle createRectangle();
+	@NotNull Rectangle createRectangle();
 
 	/**
 	 * Creates a rectangle.
@@ -341,7 +334,7 @@ public interface Factory {
 	 * @throws IllegalArgumentException If the width, the height or the point is not valid.
 	 * @throws NullPointerException if the given point is null.
 	 */
-	Rectangle createRectangle(Point pos, double width, double height);
+	@NotNull Rectangle createRectangle(Point pos, double width, double height);
 
 	/**
 	 * Creates a rectangle.
@@ -350,13 +343,13 @@ public interface Factory {
 	 * @return The created rectangle.
 	 * @throws IllegalArgumentException if one of the given points is not valid.
 	 */
-	Rectangle createRectangle(Point tl, Point br);
+	@NotNull Rectangle createRectangle(Point tl, Point br);
 
 	/**
 	 * Create a text at position (0,0) which text is "text".
 	 * @return The created text.
 	 */
-	Text createText();
+	@NotNull Text createText();
 
 	/**
 	 * Creates a text.
@@ -365,13 +358,13 @@ public interface Factory {
 	 * @return The created text.
 	 * @throws IllegalArgumentException If pt is not valid.
 	 */
-	Text createText(Point pt, String text);
+	@NotNull Text createText(Point pt, String text);
 
 	/**
 	 * Creates a square at position (0,0) which width equals 10.
 	 * @return The created square.
 	 */
-	Square createSquare();
+	@NotNull Square createSquare();
 
 	/**
 	 * Creates a square.
@@ -380,7 +373,7 @@ public interface Factory {
 	 * @return The created square.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 */
-	Square createSquare(Point pos, double width);
+	@NotNull Square createSquare(Point pos, double width);
 
 	/**
 	 * Creates a circled arc.
@@ -389,13 +382,13 @@ public interface Factory {
 	 * @return The created circled arc.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 */
-	CircleArc createCircleArc(Point pos, double width);
+	@NotNull CircleArc createCircleArc(Point pos, double width);
 
 	/**
 	 * Creates a circled arc with a 1 radius.
 	 * @return The created circled arc.
 	 */
-	CircleArc createCircleArc();
+	@NotNull CircleArc createCircleArc();
 
 	/**
 	 * Creates a plotted function.
@@ -408,12 +401,12 @@ public interface Factory {
 	 * @throws IllegalArgumentException If the given point is not valid or minX is greater than
 	 * maxX.
 	 */
-	Plot createPlot(Point pos, double minX, double maxX, String eq, boolean polar);
+	@NotNull Plot createPlot(Point pos, double minX, double maxX, String eq, boolean polar);
 
 	/**
 	 * Duplicates the given shape.
 	 * @param shape The shape to duplicate
-	 * @return The duplicated shape or null.
+	 * @return The duplicated shape or nothing.
 	 */
-	<T extends Shape> T duplicate(final T shape);
+	@NotNull <T extends Shape> Optional<T> duplicate(final T shape);
 }

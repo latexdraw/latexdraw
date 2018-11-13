@@ -15,6 +15,7 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Line;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A model of a line (not a shape).
@@ -73,29 +74,6 @@ class LineImpl extends Line2D.Double implements Line {
 			super.setLine(x1, y1, x2, y2);
 			updateAandB();
 		}
-	}
-
-
-	@Override
-	public boolean isInSegment(final Point pt) {
-		if(pt == null) {
-			return false;
-		}
-
-		final double minX = Math.min(x1, x2);
-		final double maxX = Math.max(x1, x2);
-		final double minY = Math.min(y1, y2);
-		final double maxY = Math.max(y1, y2);
-		final double x = pt.getX();
-		final double y = pt.getY();
-
-		if(isHorizontalLine()) {
-			return MathUtils.INST.equalsDouble(y, minY) && x >= minX && x <= maxX;
-		}
-		if(isVerticalLine()) {
-			return MathUtils.INST.equalsDouble(x, minX) && y >= minY && y <= maxY;
-		}
-		return y >= minY && y <= maxY && x >= minX && x <= maxX && MathUtils.INST.equalsDouble(y, getA() * x + getB());
 	}
 
 
@@ -271,7 +249,7 @@ class LineImpl extends Line2D.Double implements Line {
 
 
 	@Override
-	public Point getTopLeftPoint() {
+	public @NotNull Point getTopLeftPoint() {
 		final Point pt1 = getPoint1();
 		final Point pt2 = getPoint2();
 
@@ -280,7 +258,7 @@ class LineImpl extends Line2D.Double implements Line {
 
 
 	@Override
-	public Point getBottomRightPoint() {
+	public @NotNull Point getBottomRightPoint() {
 		final Point pt1 = getPoint1();
 		final Point pt2 = getPoint2();
 
@@ -301,13 +279,13 @@ class LineImpl extends Line2D.Double implements Line {
 
 
 	@Override
-	public Point getPoint1() {
+	public @NotNull Point getPoint1() {
 		return ShapeFactory.INST.createPoint(x1, y1);
 	}
 
 
 	@Override
-	public Point getPoint2() {
+	public @NotNull Point getPoint2() {
 		return ShapeFactory.INST.createPoint(x2, y2);
 	}
 

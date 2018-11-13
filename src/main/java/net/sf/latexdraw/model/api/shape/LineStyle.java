@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.shape;
 
 import java.util.Arrays;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The different styles of the lines.
@@ -20,17 +21,17 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
 public enum LineStyle {
 	SOLID {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.LINE_SOLID_STYLE;
 		}
 	}, DASHED {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.LINE_DASHED_STYLE;
 		}
 	}, DOTTED {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.LINE_DOTTED_STYLE;
 		}
 	};
@@ -39,12 +40,12 @@ public enum LineStyle {
 	 * @param style The style to get.
 	 * @return The style which name is the given name style.
 	 */
-	public static LineStyle getStyle(final String style) {
+	public static @NotNull LineStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getLatexToken().equals(style)).findFirst().orElse(SOLID);
 	}
 
 	/**
 	 * @return The latex token corresponding to the line style.
 	 */
-	public abstract String getLatexToken();
+	public abstract @NotNull String getLatexToken();
 }

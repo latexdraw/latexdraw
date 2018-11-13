@@ -226,11 +226,11 @@ public class TestModifyShapeProperty extends TestUndoableCommand<ModifyShapeProp
 					if(Double.isNaN(value)) {
 						fail();
 					}else {
-						assertThat((Double) valueToCheckCmd.apply(group.getShapeAt(i.get())), closeTo(value, 0.0001));
+						assertThat((Double) valueToCheckCmd.apply(group.getShapeAt(i.get()).orElseThrow()), closeTo(value, 0.0001));
 					}
 				}else {
 					assertEquals(String.format("Incorrect value for shape %s", group.getShapeAt(i.get())), obj,
-						valueToCheckCmd.apply(group.getShapeAt(i.get())));
+						valueToCheckCmd.apply(group.getShapeAt(i.get()).orElseThrow()));
 				}
 			});
 			i.incrementAndGet();

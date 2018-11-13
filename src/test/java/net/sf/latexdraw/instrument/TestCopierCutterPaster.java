@@ -2,6 +2,7 @@ package net.sf.latexdraw.instrument;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +12,6 @@ import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -46,14 +46,14 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
+				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 				bindAsEagerSingleton(Border.class);
 				bindAsEagerSingleton(CopierCutterPaster.class);
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
-				bindAsEagerSingleton(Hand.class);
-				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
+				bindAsEagerSingleton(Hand.class);
 			}
 		};
 	}
@@ -62,7 +62,7 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 	public void start(final Stage aStage) {
 		super.start(aStage);
 		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/CopyPaste.fxml"), injector.getInstance(LangService.class).getBundle(),
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/CopyPaste.fxml"), injector.getInstance(ResourceBundle.class),
 				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 			final BorderPane pane = new BorderPane();
 			pane.setTop(root);

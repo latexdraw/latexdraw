@@ -23,10 +23,10 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 	final GUIVoidCommand selectTwoShapes = () -> {
 		drawing.addShape(ShapeFactory.INST.createCircle());
 		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(20, 30), 10));
-		drawing.setSelection(Arrays.asList(drawing.getShapeAt(0), drawing.getShapeAt(1)));
+		drawing.setSelection(Arrays.asList(drawing.getShapeAt(0).orElseThrow(), drawing.getShapeAt(1).orElseThrow()));
 		final SelectShapes cmd = new SelectShapes(drawing);
-		cmd.addShape(drawing.getShapeAt(0));
-		cmd.addShape(drawing.getShapeAt(1));
+		cmd.addShape(drawing.getShapeAt(0).orElseThrow());
+		cmd.addShape(drawing.getShapeAt(1).orElseThrow());
 		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
 		ins.update();
 	};
@@ -35,26 +35,26 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		drawing.addShape(ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(1, 3), 11));
 		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(270, 335), 13));
 		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(412, 711), 15));
-		drawing.setSelection(Arrays.asList(drawing.getShapeAt(0), drawing.getShapeAt(1), drawing.getShapeAt(2)));
+		drawing.setSelection(Arrays.asList(drawing.getShapeAt(0).orElseThrow(), drawing.getShapeAt(1).orElseThrow(), drawing.getShapeAt(2).orElseThrow()));
 		final SelectShapes cmd = new SelectShapes(drawing);
-		cmd.addShape(drawing.getShapeAt(0));
-		cmd.addShape(drawing.getShapeAt(1));
-		cmd.addShape(drawing.getShapeAt(2));
+		cmd.addShape(drawing.getShapeAt(0).orElseThrow());
+		cmd.addShape(drawing.getShapeAt(1).orElseThrow());
+		cmd.addShape(drawing.getShapeAt(2).orElseThrow());
 		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
 		ins.update();
 	};
 
 	final GUIVoidCommand selectOneShape = () -> {
 		drawing.addShape(ShapeFactory.INST.createCircle());
-		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(-1)));
+		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(-1).orElseThrow()));
 		final SelectShapes cmd = new SelectShapes(drawing);
-		cmd.addShape(drawing.getShapeAt(-1));
+		cmd.addShape(drawing.getShapeAt(-1).orElseThrow());
 		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
 		ins.update();
 	};
 
 	final GUICommand<List<Integer>> selectShapeAt = indexes -> {
-		final List<Shape> selectedShapes = indexes.stream().map(i -> drawing.getShapeAt(i)).collect(Collectors.toList());
+		final List<Shape> selectedShapes = indexes.stream().map(i -> drawing.getShapeAt(i).orElseThrow()).collect(Collectors.toList());
 		drawing.setSelection(selectedShapes);
 		final SelectShapes cmd = new SelectShapes(drawing);
 		selectedShapes.forEach(sh -> cmd.addShape(sh));

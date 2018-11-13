@@ -16,6 +16,7 @@ import net.sf.latexdraw.model.api.shape.Arrow;
 import net.sf.latexdraw.model.api.shape.ArrowableShape;
 import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Implementation of IArrowableShape.
@@ -170,12 +171,10 @@ interface ArrowableShapeBase extends ArrowableSingleShape {
 	}
 
 	@Override
-	default void setArrowStyle(final ArrowStyle style, final int position) {
-		if(style != null) {
-			final Arrow arr = getArrowAt(position);
-			if(arr != null) {
-				arr.setArrowStyle(style);
-			}
+	default void setArrowStyle(final @NotNull ArrowStyle style, final int position) {
+		final Arrow arr = getArrowAt(position);
+		if(arr != null) {
+			arr.setArrowStyle(style);
 		}
 	}
 

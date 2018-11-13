@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.api.shape;
 
 import java.util.Arrays;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The different types of freehand.
@@ -23,7 +24,7 @@ public enum FreeHandStyle {
 	 * @param type The type to check.
 	 * @return The corresponding type. Returns CURVES by default.
 	 */
-	public static FreeHandStyle getType(final String type) {
+	public static @NotNull FreeHandStyle getType(final String type) {
 		return Arrays.stream(values()).filter(style -> style.toString().equals(type)).findFirst().orElse(CURVES);
 	}
 }

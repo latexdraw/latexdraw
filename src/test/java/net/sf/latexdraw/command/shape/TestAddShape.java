@@ -18,7 +18,7 @@ public class TestAddShape extends TestUndoableCommand<AddShape, Shape> {
 	@Override
 	protected void configCorrectCmd() {
 		cmd = new AddShape(ShapeFactory.INST.createRectangle(), drawing);
-		memento = cmd.getShape().orElse(null);
+		memento = cmd.getShape();
 	}
 
 	@Override

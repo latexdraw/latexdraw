@@ -10,7 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
+import java.util.Objects;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.model.api.shape.Arc;
 import net.sf.latexdraw.model.api.shape.Axes;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
@@ -31,20 +33,18 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Square;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
-import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A singleton factory that produces PSTricks views.
  * @author Arnaud Blouin
  */
 public final class PSTViewsFactory implements PSTViewProducer {
-	@Inject private SystemService system;
-	@Inject private LangService lang;
+	private final @NotNull ResourceBundle lang;
 
-	public PSTViewsFactory() {
+	public PSTViewsFactory(final ResourceBundle lang) {
 		super();
+		this.lang = Objects.requireNonNull(lang);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public final class PSTViewsFactory implements PSTViewProducer {
 			return Optional.of((PSTShapeView<T>) new PSTDotView((Dot) shape));
 		}
 		if(shape instanceof Picture) {
-			return Optional.of((PSTShapeView<T>) new PSTPictureView((Picture) shape, system, lang.getBundle()));
+			return Optional.of((PSTShapeView<T>) new PSTPictureView((Picture) shape, lang));
 		}
 		if(shape instanceof Freehand) {
 			return Optional.of((PSTShapeView<T>) new PSTFreeHandView((Freehand) shape));

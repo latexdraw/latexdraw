@@ -57,11 +57,6 @@ public class TestGroup implements HelperTest {
 	}
 
 	@Test
-	public void testIsTypeOfKO() {
-		assertFalse(shape.isTypeOf(null));
-	}
-
-	@Test
 	public void testIsTypeOfOK() {
 		assertTrue(shape.isTypeOf(shape.getClass()));
 		assertTrue(shape.isTypeOf(Shape.class));
@@ -362,22 +357,10 @@ public class TestGroup implements HelperTest {
 	}
 
 	@Test
-	public void testGetAxesIncrementNoAxes() {
-		shape.getShapes().add(ShapeFactory.INST.createRectangle());
-		assertNull(shape.getIncrement());
-	}
-
-	@Test
 	public void testGetAxesDistLabelsOk() {
 		final Point pt = ShapeFactory.INST.createPoint(10d, 11d);
 		init4getAxes().setDistLabels(pt);
 		assertEquals(pt, shape.getDistLabels());
-	}
-
-	@Test
-	public void testGetAxesDistLabelsNoAxes() {
-		shape.getShapes().add(ShapeFactory.INST.createRectangle());
-		assertNull(shape.getDistLabels());
 	}
 
 	@Test

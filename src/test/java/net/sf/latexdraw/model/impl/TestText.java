@@ -35,24 +35,10 @@ public class TestText implements HelperTest {
 		assertEquals("bar", shape.getText());
 	}
 
-	@Test
-	public void testGetSetTextKO() {
-		shape.setText("bar");
-		shape.setText(null);
-		assertEquals("bar", shape.getText());
-	}
-
 	@Theory
 	public void testGetSetTextPosition(final TextPosition value) {
 		shape.setTextPosition(value);
 		assertEquals(value, shape.getTextPosition());
-	}
-
-	@Test
-	public void testGetSetTextPositionKO() {
-		shape.setTextPosition(TextPosition.BOT_RIGHT);
-		shape.setTextPosition(null);
-		assertEquals(TextPosition.BOT_RIGHT, shape.getTextPosition());
 	}
 
 	@Test
@@ -95,7 +81,6 @@ public class TestText implements HelperTest {
 
 	@Test
 	public void testIsTypeOf() {
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

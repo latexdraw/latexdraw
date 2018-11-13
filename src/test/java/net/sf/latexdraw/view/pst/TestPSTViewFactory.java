@@ -3,6 +3,7 @@ package net.sf.latexdraw.view.pst;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -23,9 +24,8 @@ import net.sf.latexdraw.model.api.shape.Rhombus;
 import net.sf.latexdraw.model.api.shape.Square;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,8 +43,8 @@ public class TestPSTViewFactory {
 		return new Injector() {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(PreferencesService.class);
+				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindAsEagerSingleton(PSTViewsFactory.class);
 			}
 		};
@@ -148,7 +148,7 @@ public class TestPSTViewFactory {
 
 	@Test
 	void testCreatePictureViewPST() {
-		final Optional<PSTShapeView<Picture>> view = factory.createView(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), new SystemService()));
+		final Optional<PSTShapeView<Picture>> view = factory.createView(ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint()));
 		assertTrue(view.isPresent());
 	}
 

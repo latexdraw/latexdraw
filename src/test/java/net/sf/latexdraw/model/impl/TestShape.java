@@ -9,9 +9,9 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.BorderPos;
 import net.sf.latexdraw.model.api.shape.FillingStyle;
+import net.sf.latexdraw.model.api.shape.LineStyle;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.model.api.shape.LineStyle;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
@@ -23,7 +23,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 
@@ -224,25 +223,9 @@ public class TestShape implements HelperTest {
 	}
 
 	@Theory
-	public void testGetSetGradColEndKO(@ShapeData final Shape shape) {
-		assumeTrue(shape.isInteriorStylable());
-		shape.setGradColEnd(DviPsColors.BLUE);
-		shape.setGradColEnd(null);
-		assertEquals(DviPsColors.BLUE, shape.getGradColEnd());
-	}
-
-	@Theory
 	public void testGetSetGradColStart(@ShapeData final Shape shape) {
 		assumeTrue(shape.isInteriorStylable());
 		shape.setGradColStart(DviPsColors.BLUE);
-		assertEquals(DviPsColors.BLUE, shape.getGradColStart());
-	}
-
-	@Theory
-	public void testGetSetGradColStartKO(@ShapeData final Shape shape) {
-		assumeTrue(shape.isInteriorStylable());
-		shape.setGradColStart(DviPsColors.BLUE);
-		shape.setGradColStart(null);
 		assertEquals(DviPsColors.BLUE, shape.getGradColStart());
 	}
 
@@ -297,14 +280,6 @@ public class TestShape implements HelperTest {
 	public void testGetSetHatchingsCol(@ShapeData final Shape shape) {
 		assumeTrue(shape.isInteriorStylable());
 		shape.setHatchingsCol(DviPsColors.CYAN);
-		assertEquals(DviPsColors.CYAN, shape.getHatchingsCol());
-	}
-
-	@Theory
-	public void testGetSetHatchingsColKO(@ShapeData final Shape shape) {
-		assumeTrue(shape.isInteriorStylable());
-		shape.setHatchingsCol(DviPsColors.CYAN);
-		shape.setHatchingsCol(null);
 		assertEquals(DviPsColors.CYAN, shape.getHatchingsCol());
 	}
 
@@ -374,14 +349,6 @@ public class TestShape implements HelperTest {
 	}
 
 	@Theory
-	public void testGetSetDbleBordColKO(@ShapeData final Shape shape) {
-		assumeTrue(shape.isDbleBorderable());
-		shape.setDbleBordCol(DviPsColors.CYAN);
-		shape.setDbleBordCol(null);
-		assertEquals(DviPsColors.CYAN, shape.getDbleBordCol());
-	}
-
-	@Theory
 	public void testGetSetDbleBordSep(@ShapeData final Shape shape, @DoubleData final double value) {
 		assumeTrue(shape.isDbleBorderable());
 		assumeThat(value, greaterThan(0d));
@@ -412,14 +379,6 @@ public class TestShape implements HelperTest {
 	}
 
 	@Theory
-	public void testGetSetShadowColKO(@ShapeData final Shape shape) {
-		assumeTrue(shape.isShadowable());
-		shape.setShadowCol(DviPsColors.CYAN);
-		shape.setShadowCol(null);
-		assertEquals(DviPsColors.CYAN, shape.getShadowCol());
-	}
-
-	@Theory
 	public void testGetSetShadowAngle(@ShapeData final Shape shape, @DoubleData(angle = true) final double value) {
 		assumeTrue(shape.isShadowable());
 		shape.setShadowAngle(value);
@@ -439,14 +398,6 @@ public class TestShape implements HelperTest {
 		assumeTrue(shape.isFillable());
 		shape.setFilled(value);
 		assertEquals(value, shape.isFilled());
-	}
-
-	@Theory
-	public void testSetFilledFillingStyleFilled(@ShapeData final Shape shape, final FillingStyle style) {
-		assumeTrue(shape.isFillable());
-		assumeFalse(style.isFilled());
-//		shape.setFilled(value);
-//		assertEquals(value, shape.isFilled());
 	}
 
 	@Theory
@@ -484,14 +435,6 @@ public class TestShape implements HelperTest {
 		assumeTrue(shape.isBordersMovable());
 		shape.setBordersPosition(style);
 		assertEquals(style, shape.getBordersPosition());
-	}
-
-	@Theory
-	public void testGetSetBorderPositionKO(@ShapeData final Shape shape) {
-		assumeTrue(shape.isBordersMovable());
-		shape.setBordersPosition(BorderPos.MID);
-		shape.setBordersPosition(null);
-		assertEquals(BorderPos.MID, shape.getBordersPosition());
 	}
 
 	@Theory
@@ -595,25 +538,10 @@ public class TestShape implements HelperTest {
 	}
 
 	@Theory
-	public void testSetGetLineColourKO(@ShapeData final Shape shape) {
-		shape.setLineColour(DviPsColors.CYAN);
-		shape.setLineColour(null);
-		assertEquals(DviPsColors.CYAN, shape.getLineColour());
-	}
-
-	@Theory
 	public void testSetGetLineStyle(@ShapeData final Shape shape, final LineStyle style) {
 		assumeTrue(shape.isLineStylable());
 		shape.setLineStyle(style);
 		assertEquals(style, shape.getLineStyle());
-	}
-
-	@Theory
-	public void testSetGetLineStyleKO(@ShapeData final Shape shape) {
-		assumeTrue(shape.isLineStylable());
-		shape.setLineStyle(LineStyle.DASHED);
-		shape.setLineStyle(null);
-		assertEquals(LineStyle.DASHED, shape.getLineStyle());
 	}
 
 	@Theory
@@ -672,25 +600,9 @@ public class TestShape implements HelperTest {
 	}
 
 	@Theory
-	public void testSetGetFillingColKO(@ShapeData final Shape shape) {
-		assumeTrue(shape.isInteriorStylable());
-		shape.setFillingCol(DviPsColors.DARKGRAY);
-		shape.setFillingCol(null);
-		assertEquals(DviPsColors.DARKGRAY, shape.getFillingCol());
-	}
-
-	@Theory
 	public void testSetGetFillingStyle(@ShapeData final Shape shape, final FillingStyle style) {
 		assumeTrue(shape.isInteriorStylable());
 		shape.setFillingStyle(style);
 		assertEquals(style, shape.getFillingStyle());
-	}
-
-	@Theory
-	public void testSetGetFillingStyleKO(@ShapeData final Shape shape) {
-		assumeTrue(shape.isInteriorStylable());
-		shape.setFillingStyle(FillingStyle.CLINES);
-		shape.setFillingStyle(null);
-		assertEquals(FillingStyle.CLINES, shape.getFillingStyle());
 	}
 }

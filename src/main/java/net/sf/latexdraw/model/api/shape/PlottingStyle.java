@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.shape;
 
 import java.util.Arrays;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines the different style of labels.
@@ -30,7 +31,7 @@ public enum PlottingStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL;
 		}
 	}, X {
@@ -45,7 +46,7 @@ public enum PlottingStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TOKEN_LABELS_DISPLAYED_X;
 		}
 	}, Y {
@@ -60,7 +61,7 @@ public enum PlottingStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TOKEN_LABELS_DISPLAYED_Y;
 		}
 	}, NONE {
@@ -75,7 +76,7 @@ public enum PlottingStyle {
 		}
 
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TOKEN_LABELS_DISPLAYED_NONE;
 		}
 	};
@@ -85,7 +86,7 @@ public enum PlottingStyle {
 	 * @param style The style to check.
 	 * @return The corresponding style or ALL.
 	 */
-	public static PlottingStyle getStyle(final String style) {
+	public static @NotNull PlottingStyle getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(ALL);
 	}
 
@@ -97,7 +98,7 @@ public enum PlottingStyle {
 	/**
 	 * @return The PST token corresponding to the labels style.
 	 */
-	public abstract String getPSTToken();
+	public abstract @NotNull String getPSTToken();
 
 	/**
 	 * @return True if the current style supports the X-axis.

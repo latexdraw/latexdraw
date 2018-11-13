@@ -14,32 +14,34 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.model.api.property.AxesProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for LaTeX axes.
  * @author Arnaud BLOUIN
  */
 public interface Axes extends StandardGrid, AxesProp, ArrowableSingleShape {
-	DoubleProperty incrementXProperty();
+	@NotNull DoubleProperty incrementXProperty();
 
-	DoubleProperty incrementYProperty();
+	@NotNull DoubleProperty incrementYProperty();
 
-	DoubleProperty distLabelsXProperty();
+	@NotNull DoubleProperty distLabelsXProperty();
 
-	DoubleProperty distLabelsYProperty();
+	@NotNull DoubleProperty distLabelsYProperty();
 
-	ObjectProperty<PlottingStyle> labelsDisplayedProperty();
+	@NotNull ObjectProperty<PlottingStyle> labelsDisplayedProperty();
 
-	BooleanProperty showOriginProperty();
+	@NotNull BooleanProperty showOriginProperty();
 
-	ObjectProperty<PlottingStyle> ticksDisplayedProperty();
+	@NotNull ObjectProperty<PlottingStyle> ticksDisplayedProperty();
 
-	ObjectProperty<TicksStyle> ticksStyleProperty();
+	@NotNull ObjectProperty<TicksStyle> ticksStyleProperty();
 
-	DoubleProperty ticksSizeProperty();
+	@NotNull DoubleProperty ticksSizeProperty();
 
-	ObjectProperty<AxesStyle> axesStyleProperty();
+	@NotNull ObjectProperty<AxesStyle> axesStyleProperty();
 
+	@NotNull
 	@Override
 	Axes duplicate();
 }

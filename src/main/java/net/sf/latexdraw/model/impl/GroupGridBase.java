@@ -18,6 +18,7 @@ import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This trait encapsulates the code of the group related to the support of grids.
@@ -64,12 +65,12 @@ interface GroupGridBase extends Group {
 	}
 
 	@Override
-	default Color getGridLabelsColour() {
+	default @NotNull Color getGridLabelsColour() {
 		return firstIGrid().map(sh -> sh.getGridLabelsColour()).orElse(DviPsColors.BLACK);
 	}
 
 	@Override
-	default void setGridLabelsColour(final Color gridLabelsColour) {
+	default void setGridLabelsColour(final @NotNull Color gridLabelsColour) {
 		gridShapes().forEach(sh -> sh.setGridLabelsColour(gridLabelsColour));
 	}
 
@@ -84,12 +85,12 @@ interface GroupGridBase extends Group {
 	}
 
 	@Override
-	default Color getSubGridColour() {
+	default @NotNull Color getSubGridColour() {
 		return firstIGrid().map(sh -> sh.getSubGridColour()).orElse(DviPsColors.BLACK);
 	}
 
 	@Override
-	default void setSubGridColour(final Color subGridColour) {
+	default void setSubGridColour(final @NotNull Color subGridColour) {
 		gridShapes().forEach(sh -> sh.setSubGridColour(subGridColour));
 	}
 

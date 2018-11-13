@@ -1,14 +1,16 @@
 package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.LatexdrawBuilderFactory;
-import net.sf.latexdraw.model.impl.ShapeFactoryImpl;
 import net.sf.latexdraw.model.api.shape.Drawing;
+import net.sf.latexdraw.model.impl.ShapeFactoryImpl;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -30,18 +32,20 @@ public class ShapePropInjector extends Injector {
 		bindToInstance(JfxUI.class, Mockito.mock(LaTeXDraw.class));
 		bindToInstance(Injector.class, this);
 		bindToInstance(BuilderFactory.class, new LatexdrawBuilderFactory(this));
-		bindAsEagerSingleton(SystemService.class);
-		bindAsEagerSingleton(LangService.class);
+		bindAsEagerSingleton(LaTeXDataService.class);
+		bindAsEagerSingleton(PreferencesService.class);
+		bindAsEagerSingleton(EditingService.class);
+		bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 		bindAsEagerSingleton(ShapeFactoryImpl.class);
-		bindAsEagerSingleton(PSTCodeGenerator.class);
-		bindWithCommand(LaTeXGenerator.class, PSTCodeGenerator.class, gen -> gen);
-		bindAsEagerSingleton(ViewFactory.class);
 		bindAsEagerSingleton(PSTViewsFactory.class);
+		bindAsEagerSingleton(ViewFactory.class);
 		bindAsEagerSingleton(SVGShapesFactory.class);
-		bindAsEagerSingleton(SVGDocumentGenerator.class);
 		bindAsEagerSingleton(Canvas.class);
 		bindWithCommand(Drawing.class, Canvas.class, canvas -> canvas.getDrawing());
 		bindWithCommand(MagneticGrid.class, Canvas.class, canvas -> canvas.getMagneticGrid());
 		bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);
+		bindAsEagerSingleton(PSTCodeGenerator.class);
+		bindWithCommand(LaTeXGenerator.class, PSTCodeGenerator.class, gen -> gen);
+		bindAsEagerSingleton(SVGDocumentGenerator.class);
 	}
 }

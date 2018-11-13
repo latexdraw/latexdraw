@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 public class TestCircle implements HelperTest {
 	@Theory
 	public void testIsTypeOf(@CircleData final Circle shape) {
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Square.class));
 		assertTrue(shape.isTypeOf(Shape.class));

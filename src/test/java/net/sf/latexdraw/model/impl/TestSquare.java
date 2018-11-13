@@ -59,7 +59,6 @@ public class TestSquare implements HelperTest {
 	@Test
 	public void testIsTypeOf() {
 		final Square shape = ShapeFactory.INST.createSquare();
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Grid.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

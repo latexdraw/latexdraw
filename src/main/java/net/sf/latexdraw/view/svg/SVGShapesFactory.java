@@ -12,6 +12,7 @@ package net.sf.latexdraw.view.svg;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import net.sf.latexdraw.model.api.shape.Axes;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
@@ -44,10 +45,9 @@ import net.sf.latexdraw.parser.svg.SVGPolyLineElement;
 import net.sf.latexdraw.parser.svg.SVGPolygonElement;
 import net.sf.latexdraw.parser.svg.SVGRectElement;
 import net.sf.latexdraw.parser.svg.SVGTextElement;
-import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.jfx.ViewFactory;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Creates SVG elements based on latexdraw.
@@ -55,18 +55,16 @@ import net.sf.latexdraw.view.jfx.ViewFactory;
  */
 public class SVGShapesFactory implements SVGShapeProducer {
 	/** A map to reduce the CC during the creation of shapes. */
-	private final Map<String, BiFunction<SVGGElement, Boolean, Shape>> creationMap;
-
-	@Inject private ViewFactory viewFactory;
-	@Inject private SystemService system;
-
+	private final @NotNull Map<String, BiFunction<SVGGElement, Boolean, Shape>> creationMap;
+	private final @NotNull ViewFactory viewFactory;
 
 	/**
 	 * Creates the factory.
 	 */
-	public SVGShapesFactory() {
+	public SVGShapesFactory(final ViewFactory viewFactory) {
 		super();
 
+		this.viewFactory = Objects.requireNonNull(viewFactory);
 		creationMap = new HashMap<>();
 		creationMap.put(SVGPlot.XML_TYPE_PLOT, (elt, withTransformations) -> new SVGPlot(elt, withTransformations, this).getShape());
 		creationMap.put(LNamespace.XML_TYPE_RECT, (elt, withTransformations) -> new SVGRectangle(elt, withTransformations).getShape());
@@ -86,7 +84,7 @@ public class SVGShapesFactory implements SVGShapeProducer {
 		creationMap.put(LNamespace.XML_TYPE_GROUP, (elt, withTransformations) -> new SVGGroup(elt, withTransformations, this).getShape());
 		creationMap.put(LNamespace.XML_TYPE_DOT, (elt, withTransformations) -> new SVGDot(elt, withTransformations, viewFactory).getShape());
 		creationMap.put(LNamespace.XML_TYPE_ARC, (elt, withTransformations) -> new SVGCircleArc(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_PICTURE, (elt, withTransformations) -> new SVGPicture(elt, withTransformations, system).getShape());
+		creationMap.put(LNamespace.XML_TYPE_PICTURE, (elt, withTransformations) -> new SVGPicture(elt, withTransformations).getShape());
 	}
 
 
@@ -213,7 +211,7 @@ public class SVGShapesFactory implements SVGShapeProducer {
 			return new SVGPolylines((SVGPolyLineElement) elt).getShape();
 		}
 		if(elt instanceof SVGImageElement) {
-			return new SVGPicture((SVGImageElement) elt, system).getShape();
+			return new SVGPicture((SVGImageElement) elt).getShape();
 		}
 		if(elt instanceof SVGLineElement) {
 			return new SVGPolylines((SVGLineElement) elt).getShape();

@@ -12,7 +12,8 @@ package net.sf.latexdraw.model.api.shape;
 
 import javafx.beans.property.BooleanProperty;
 import net.sf.latexdraw.model.api.property.ClosableProp;
+import org.jetbrains.annotations.NotNull;
 
 public interface Closable extends ClosableProp {
-	BooleanProperty openedProperty();
+	@NotNull BooleanProperty openedProperty();
 }

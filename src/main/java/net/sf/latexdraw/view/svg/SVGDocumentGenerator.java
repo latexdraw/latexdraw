@@ -19,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -58,8 +59,7 @@ import net.sf.latexdraw.parser.svg.SVGMetadataElement;
 import net.sf.latexdraw.parser.svg.SVGSVGElement;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.malai.javafx.instrument.JfxInstrument;
@@ -76,9 +76,8 @@ import org.w3c.dom.NodeList;
  */
 public class SVGDocumentGenerator implements OpenSaver<Label> {
 	@Inject private ViewFactory viewFactory;
-	@Inject private SystemService system;
 	@Inject private SVGShapesFactory svgFactory;
-	@Inject private LangService lang;
+	@Inject private ResourceBundle lang;
 	@Inject private Canvas canvas;
 	@Inject private Drawing drawing;
 	@Inject private JfxUI app;
@@ -275,14 +274,14 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 		@Override
 		protected Boolean call() {
 			if(updateThumbnails) {
-				updateTemplates(system.pathTemplatesDirUser, system.pathCacheDir);
-				updateTemplates(system.pathTemplatesShared, system.pathCacheShareDir);
+				updateTemplates(SystemUtils.getInstance().getPathTemplatesDirUser(), SystemUtils.getInstance().getPathCacheDir());
+				updateTemplates(SystemUtils.getInstance().getPathTemplatesShared(), SystemUtils.getInstance().getPathCacheShareDir());
 			}
 
 			Platform.runLater(() -> {
 				templatesPane.getChildren().clear();
-				fillTemplatePane(system.pathTemplatesDirUser, system.pathCacheDir);
-				fillTemplatePane(system.pathTemplatesShared, system.pathCacheShareDir);
+				fillTemplatePane(SystemUtils.getInstance().getPathTemplatesDirUser(), SystemUtils.getInstance().getPathCacheDir());
+				fillTemplatePane(SystemUtils.getInstance().getPathTemplatesShared(), SystemUtils.getInstance().getPathCacheShareDir());
 			});
 
 			return Boolean.TRUE;
@@ -403,7 +402,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 			super.done();
 			updateTemplates(templatePane, true);
 			if(statusBar != null) {
-				Platform.runLater(() -> statusBar.setText(lang.getBundle().getString("LaTeXDrawFrame.169"))); //NON-NLS
+				Platform.runLater(() -> statusBar.setText(lang.getString("LaTeXDrawFrame.169"))); //NON-NLS
 			}
 		}
 	}
@@ -506,7 +505,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 			super.done();
 			// Showing a message in the status bar.
 			if(statusBar != null) {
-				Platform.runLater(() -> statusBar.setText(lang.getBundle().getString("SVG.1"))); //NON-NLS
+				Platform.runLater(() -> statusBar.setText(lang.getString("SVG.1"))); //NON-NLS
 			}
 		}
 	}

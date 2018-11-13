@@ -12,11 +12,12 @@ package net.sf.latexdraw.model.api.shape;
 
 import javafx.beans.property.DoubleProperty;
 import net.sf.latexdraw.model.api.property.LineArcProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * DThe API for squares.
  * @author Arnaud BLOUIN
  */
 public interface Square extends SquaredShape, LineArcProp {
-	DoubleProperty frameArcProperty();
+	@NotNull DoubleProperty frameArcProperty();
 }

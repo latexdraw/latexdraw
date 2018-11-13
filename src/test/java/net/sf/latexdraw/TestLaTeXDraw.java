@@ -14,7 +14,7 @@ import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.command.SaveDrawing;
 import net.sf.latexdraw.instrument.ExceptionsManager;
-import net.sf.latexdraw.instrument.FileLoaderSaver;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.hamcrest.Matchers;
@@ -43,7 +43,6 @@ public class TestLaTeXDraw {
 	@BeforeAll
 	static void beforeAll() throws TimeoutException {
 		Canvas.setMargins(20);
-		Canvas.setDefaultPage(Page.HORIZONTAL);
 		FxToolkit.registerPrimaryStage();
 		final AtomicReference<LaTeXDraw> ld = new AtomicReference<>();
 		final Supplier<Application> supplier = () -> {
@@ -69,6 +68,7 @@ public class TestLaTeXDraw {
 	public void setUp() {
 		CommandsRegistry.INSTANCE.clear();
 		BadaboomCollector.INSTANCE.clear();
+		app.getInjector().getInstance(PreferencesService.class).setPage(Page.HORIZONTAL);
 	}
 
 	@Test
@@ -130,7 +130,7 @@ public class TestLaTeXDraw {
 	@ExtendWith(TempDirectory.class)
 	void testIntegrationSaveNoCrash(final FxRobot robot, @TempDirectory.TempDir final Path dir) {
 		final File file = Paths.get(dir.toString(), "foo.svg").toFile();
-		app.getInjector().getInstance(FileLoaderSaver.class).setCurrentFile(file);
+		app.getInjector().getInstance(PreferencesService.class).setCurrentFile(file);
 		Platform.runLater(() -> app.getInjector().getInstance(Canvas.class).requestFocus());
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.clickOn(app.getMainStage()).sleep(800L).clickOn("#dotB").clickOn("#canvas");

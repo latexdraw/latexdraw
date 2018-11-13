@@ -1,12 +1,12 @@
 package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -29,8 +29,8 @@ public class TestHelper extends TestLatexdrawGUI {
 			@Override
 			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 				bindToInstance(Injector.class, this);
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(PreferencesService.class);
+				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindAsEagerSingleton(ShortcutsController.class);
 				bindAsEagerSingleton(AboutController.class);

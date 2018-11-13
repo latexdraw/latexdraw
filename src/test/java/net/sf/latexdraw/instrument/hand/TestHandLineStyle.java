@@ -38,9 +38,9 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeBorderCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Pencil.class, pencil);
 			}
 		};
@@ -79,16 +79,16 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	public void testChangeFrameArcSelection() {
 		doTestSpinner(new CompositeGUIVoidCommand(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns)), frameArcField,
 			incrementFrameArc, Arrays.asList(
-				() -> ((Rectangle) drawing.getSelection().getShapeAt(0)).getLineArc(),
-				() -> ((Rectangle) drawing.getSelection().getShapeAt(1)).getLineArc()));
+				() -> ((Rectangle) drawing.getSelection().getShapeAt(0).orElseThrow()).getLineArc(),
+				() -> ((Rectangle) drawing.getSelection().getShapeAt(1).orElseThrow()).getLineArc()));
 	}
 
 	@Test
 	public void testChangeThicknessSelection() {
 		doTestSpinner(new CompositeGUIVoidCommand(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns)), thicknessField,
 			incrementThickness, Arrays.asList(
-				() -> drawing.getSelection().getShapeAt(0).getThickness(),
-				() -> drawing.getSelection().getShapeAt(1).getThickness()));
+				() -> drawing.getSelection().getShapeAt(0).orElseThrow().getThickness(),
+				() -> drawing.getSelection().getShapeAt(1).orElseThrow().getThickness()));
 	}
 
 	@Test
@@ -98,8 +98,8 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		selectBorderPos.execute();
 		waitFXEvents.execute();
 		final BorderPos newStyle = bordersPosCB.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, drawing.getSelection().getShapeAt(0).getBordersPosition());
-		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).getBordersPosition());
+		assertEquals(newStyle, drawing.getSelection().getShapeAt(0).orElseThrow().getBordersPosition());
+		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).orElseThrow().getBordersPosition());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -110,8 +110,8 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		selectLineStyle.execute();
 		waitFXEvents.execute();
 		final LineStyle newStyle = lineCB.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, drawing.getSelection().getShapeAt(0).getLineStyle());
-		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).getLineStyle());
+		assertEquals(newStyle, drawing.getSelection().getShapeAt(0).orElseThrow().getLineStyle());
+		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).orElseThrow().getLineStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -121,14 +121,14 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		final boolean sel = showPoints.isSelected();
 		checkShowPts.execute();
 		waitFXEvents.execute();
-		assertEquals(!sel, drawing.getSelection().getShapeAt(0).isShowPts());
-		assertEquals(!sel, drawing.getSelection().getShapeAt(1).isShowPts());
+		assertEquals(!sel, drawing.getSelection().getShapeAt(0).orElseThrow().isShowPts());
+		assertEquals(!sel, drawing.getSelection().getShapeAt(1).orElseThrow().isShowPts());
 	}
 
 	@Test
 	public void testCheckCloseOKSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddFreehand, updateIns).execute();
-		assertEquals(((ClosableProp) drawing.getSelection().getShapeAt(0)).isOpened(), opened.isSelected());
+		assertEquals(((ClosableProp) drawing.getSelection().getShapeAt(0).orElseThrow()).isOpened(), opened.isSelected());
 	}
 
 	@Test
@@ -137,8 +137,8 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		final boolean isOpen = opened.isSelected();
 		checkOpened.execute();
 		waitFXEvents.execute();
-		assertEquals(!isOpen, ((ClosableProp) drawing.getSelection().getShapeAt(0)).isOpened());
-		assertEquals(!isOpen, ((ClosableProp) drawing.getSelection().getShapeAt(1)).isOpened());
+		assertEquals(!isOpen, ((ClosableProp) drawing.getSelection().getShapeAt(0).orElseThrow()).isOpened());
+		assertEquals(!isOpen, ((ClosableProp) drawing.getSelection().getShapeAt(1).orElseThrow()).isOpened());
 	}
 
 	@Test
@@ -147,8 +147,8 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		final Color col = lineColButton.getValue();
 		pickLineCol.execute();
 		waitFXEvents.execute();
-		assertEquals(lineColButton.getValue(), drawing.getSelection().getShapeAt(0).getLineColour().toJFX());
-		assertEquals(lineColButton.getValue(), drawing.getSelection().getShapeAt(1).getLineColour().toJFX());
+		assertEquals(lineColButton.getValue(), drawing.getSelection().getShapeAt(0).orElseThrow().getLineColour().toJFX());
+		assertEquals(lineColButton.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getLineColour().toJFX());
 		assertNotEquals(col, lineColButton.getValue());
 	}
 }

@@ -34,9 +34,9 @@ public class TestPencilFreeHandStyle extends TestFreeHandStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeFreeHandCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -67,7 +67,7 @@ public class TestPencilFreeHandStyle extends TestFreeHandStyleGUI {
 	@Test
 	public void testIncrementgapPointsPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns), gapPoints,
-			incrementgapPoints, Collections.singletonList(() ->  ((Freehand) pencil.createShapeInstance()).getInterval()));
+			incrementgapPoints, Collections.singletonList(() ->  ((Freehand) editing.createShapeInstance()).getInterval()));
 	}
 
 	@Test
@@ -75,8 +75,8 @@ public class TestPencilFreeHandStyle extends TestFreeHandStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns).execute();
 		selectLineStyle.execute();
 		waitFXEvents.execute();
-		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((Freehand) pencil.createShapeInstance()).getType());
-		assertEquals(FreeHandStyle.LINES, ((Freehand) pencil.createShapeInstance()).getType());
+		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((Freehand) editing.createShapeInstance()).getType());
+		assertEquals(FreeHandStyle.LINES, ((Freehand) editing.createShapeInstance()).getType());
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class TestPencilFreeHandStyle extends TestFreeHandStyleGUI {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesFreehand, updateIns).execute();
 		selectCurveStyle.execute();
 		waitFXEvents.execute();
-		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((Freehand) pencil.createShapeInstance()).getType());
-		assertEquals(FreeHandStyle.CURVES, ((Freehand) pencil.createShapeInstance()).getType());
+		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((Freehand) editing.createShapeInstance()).getType());
+		assertEquals(FreeHandStyle.CURVES, ((Freehand) editing.createShapeInstance()).getType());
 	}
 }

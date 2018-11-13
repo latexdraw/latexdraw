@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.api.property;
 
 import net.sf.latexdraw.model.api.shape.Color;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Properties of grids.
@@ -30,12 +31,12 @@ public interface GridProp extends IStdGridProp {
 	/**
 	 * @return Returns the gridLabelsDviPsColors.
 	 */
-	Color getGridLabelsColour();
+	@NotNull Color getGridLabelsColour();
 
 	/**
 	 * @param gridLabelsColour The gridLabelsColor to set.
 	 */
-	void setGridLabelsColour(final Color gridLabelsColour);
+	void setGridLabelsColour(final @NotNull Color gridLabelsColour);
 
 	/**
 	 * @return the isXLabelSouth.
@@ -70,12 +71,12 @@ public interface GridProp extends IStdGridProp {
 	/**
 	 * @return Returns the subGridDviPsColors.
 	 */
-	Color getSubGridColour();
+	@NotNull Color getSubGridColour();
 
 	/**
 	 * @param subGridColour The subGridColor to set.
 	 */
-	void setSubGridColour(final Color subGridColour);
+	void setSubGridColour(final @NotNull Color subGridColour);
 
 	/**
 	 * @return Returns the subGridDiv.

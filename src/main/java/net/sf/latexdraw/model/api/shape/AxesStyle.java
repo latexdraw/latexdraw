@@ -13,6 +13,7 @@ package net.sf.latexdraw.model.api.shape;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines the different kinds of axes.
@@ -21,7 +22,7 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
 public enum AxesStyle {
 	AXES {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TOKEN_AXES_STYLE_AXES;
 		}
 
@@ -31,12 +32,12 @@ public enum AxesStyle {
 		}
 
 		@Override
-		public String getLabel(final ResourceBundle bundle) {
+		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
 			return bundle.getString("Axe.1"); //NON-NLS
 		}
 	}, FRAME {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TOKEN_AXES_STYLE_FRAME;
 		}
 
@@ -46,12 +47,12 @@ public enum AxesStyle {
 		}
 
 		@Override
-		public String getLabel(final ResourceBundle bundle) {
+		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
 			return bundle.getString("Axe.2"); //NON-NLS
 		}
 	}, NONE {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.TOKEN_AXES_STYLE_NONE;
 		}
 
@@ -61,7 +62,7 @@ public enum AxesStyle {
 		}
 
 		@Override
-		public String getLabel(final ResourceBundle bundle) {
+		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
 			return "None"; //NON-NLS
 		}
 	};
@@ -82,10 +83,10 @@ public enum AxesStyle {
 	/**
 	 * @return The PST token corresponding to the axe style.
 	 */
-	public abstract String getPSTToken();
+	public abstract @NotNull String getPSTToken();
 
 	/**
 	 * @return The internationalised label of the axe style.
 	 */
-	public abstract String getLabel(final ResourceBundle bundle);
+	public abstract @NotNull String getLabel(final @NotNull ResourceBundle bundle);
 }

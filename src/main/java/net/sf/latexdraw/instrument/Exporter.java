@@ -13,6 +13,7 @@ package net.sf.latexdraw.instrument;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.ListChangeListener;
@@ -25,17 +26,17 @@ import net.sf.latexdraw.command.Export;
 import net.sf.latexdraw.command.ExportFormat;
 import net.sf.latexdraw.command.ExportTemplate;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.ui.JfxUI;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -60,45 +61,39 @@ public class Exporter extends JfxInstrument implements Initializable {
 	/** The menu item that export as PDF (using pdfcrop) document. */
 	@FXML protected MenuItem menuItemPDFcrop;
 	@FXML protected MenuItem exportTemplateMenu;
-
-	/** The default location of the exports. */
-	private String pathExport;
 	/** The dialog box that allows to define where the drawing must be exported. */
-	private FileChooser fileChooserExport;
-	/**
-	 * The latex packages that the interactive system saves by default. These
-	 * packages should by set by the user and must be general, i.e. independent of any document.
-	 */
-	private String defaultPackages;
-
-	@Inject private FileLoaderSaver loader;
+	private final @NotNull FileChooser fileChooserExport;
+	private final @NotNull PreferencesService prefs;
 	/** The PST generator. */
-	@Inject private PSTCodeGenerator pstGen;
-	@Inject private StatusBarController statusBar;
-	@Inject private TemplateManager templateManager;
-	@Inject private LangService lang;
-	@Inject private JfxUI app;
+	private final @NotNull PSTCodeGenerator pstGen;
+	private final @NotNull LaTeXDataService latexData;
+	private final @NotNull StatusBarController statusBar;
+	private final @NotNull TemplateManager templateManager;
+	private final @NotNull JfxUI app;
 	/**
 	 * The canvas that contains the shapes to export. The canvas is used instead
 	 * of the drawing because to export as picture, we paint the views into a graphics.
 	 */
-	@Inject private Canvas canvas;
-	@Inject private SystemService system;
-	@Inject private SVGDocumentGenerator svgGen;
-
+	private final @NotNull Canvas canvas;
+	private final @NotNull SVGDocumentGenerator svgGen;
 
 
 	/**
 	 * Creates the instrument.
 	 */
-	public Exporter() {
+	public Exporter(final PreferencesService prefs, final PSTCodeGenerator pstGen, final StatusBarController statusBar, final TemplateManager templateManager,
+					final JfxUI app, final Canvas canvas, final SVGDocumentGenerator svgGen, final LaTeXDataService latexData) {
 		super();
-		defaultPackages = "";
-	}
-
-	@Override
-	public void reinit() {
-		pstGen.setPackages(defaultPackages);
+		this.prefs = Objects.requireNonNull(prefs);
+		this.pstGen = Objects.requireNonNull(pstGen);
+		this.latexData = Objects.requireNonNull(latexData);
+		this.statusBar = Objects.requireNonNull(statusBar);
+		this.templateManager = Objects.requireNonNull(templateManager);
+		this.app = Objects.requireNonNull(app);
+		this.canvas = Objects.requireNonNull(canvas);
+		this.svgGen = Objects.requireNonNull(svgGen);
+		fileChooserExport = new FileChooser();
+		fileChooserExport.setTitle(prefs.getBundle().getString("Exporter.1"));
 	}
 
 	@Override
@@ -108,34 +103,10 @@ public class Exporter extends JfxInstrument implements Initializable {
 		final String name = root.getNodeName();
 
 		if(name.endsWith(LNamespace.XML_LATEX_INCLUDES)) {
-			final String[] lines = root.getTextContent().split(SystemService.EOL);
-			final String pkgs = pstGen.getPackages();
-			pstGen.setPackages(pstGen.getPackages() +
-				Arrays.stream(lines).filter(line -> !pkgs.contains(line)).collect(Collectors.joining(SystemService.EOL, SystemService.EOL, "")));
-		}
-	}
-
-	@Override
-	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
-		super.save(generalPreferences, nsURI, document, root);
-
-		if(document == null || root == null) {
-			return;
-		}
-
-		if(generalPreferences) {
-			Element elt = document.createElement(LNamespace.XML_PATH_EXPORT);
-			elt.setTextContent(pathExport);
-			root.appendChild(elt);
-
-			elt = document.createElement(LNamespace.XML_LATEX_INCLUDES);
-			elt.setTextContent(defaultPackages);
-			root.appendChild(elt);
-		}else {
-			final String ns = system.getNormaliseNamespaceURI(nsURI);
-			final Element elt = document.createElement(ns + LNamespace.XML_LATEX_INCLUDES);
-			elt.appendChild(document.createTextNode(pstGen.getPackages()));
-			root.appendChild(elt);
+			final String[] lines = root.getTextContent().split(SystemUtils.getInstance().EOL);
+			final String pkgs = latexData.getPackages();
+			latexData.setPackages(latexData.getPackages() +
+				Arrays.stream(lines).filter(line -> !pkgs.contains(line)).collect(Collectors.joining(SystemUtils.getInstance().EOL, SystemUtils.getInstance().EOL, "")));
 		}
 	}
 
@@ -153,22 +124,13 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		menuItemBinder(() -> new Export(canvas, pstGen)).
+		menuItemBinder(i -> new Export(canvas, pstGen, (ExportFormat) i.getWidget().getUserData(), getExportDialog((ExportFormat) i.getWidget().getUserData()))).
 			on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST).
-			first((i, c) -> {
-			if(i.getWidget().getUserData() instanceof ExportFormat) {
-				final ExportFormat format = (ExportFormat) i.getWidget().getUserData();
-				c.setDialogueBox(getExportDialog(format));
-				c.setFormat(format);
-			}
-		}).bind();
+			when(i -> i.getWidget().getUserData() instanceof ExportFormat).
+			bind();
 
-		menuItemBinder(() -> new ExportTemplate(templateManager.templatePane, system, svgGen, lang)).
-			on(exportTemplateMenu).first(c -> {
-			c.setUi(app);
-			c.setProgressBar(statusBar.getProgressBar());
-			c.setStatusWidget(statusBar.getLabel());
-		}).bind();
+		menuItemBinder(() -> new ExportTemplate(templateManager.templatePane, svgGen, prefs.getBundle(), app, statusBar.getProgressBar(), statusBar.getLabel())).
+			on(exportTemplateMenu).bind();
 
 		exportTemplateMenu.disableProperty().bind(canvas.getDrawing().getSelection().getShapes().emptyProperty());
 	}
@@ -177,22 +139,14 @@ public class Exporter extends JfxInstrument implements Initializable {
 	 * @param format The format of the document to export.
 	 * @return The export dialog to select a path.
 	 */
-	protected FileChooser getExportDialog(final ExportFormat format) {
-		if(fileChooserExport == null) {
-			fileChooserExport = new FileChooser();
-			fileChooserExport.setTitle(lang.getBundle().getString("Exporter.1"));
-		}
-
+	protected @NotNull FileChooser getExportDialog(final ExportFormat format) {
 		fileChooserExport.getExtensionFilters().clear();
 		fileChooserExport.getExtensionFilters().addAll(format.getFilter());
 
-		if(pathExport == null || !new File(pathExport).isDirectory()) {
-			final File currentFile = loader.getCurrentFile();
-			if(currentFile != null && currentFile.isDirectory()) {
-				fileChooserExport.setInitialDirectory(new File(currentFile.getPath()).getParentFile());
-			}
+		if(!new File(prefs.getPathExport()).isDirectory()) {
+			prefs.getCurrentFile().filter(f -> f.isDirectory()).ifPresent(f -> fileChooserExport.setInitialDirectory(new File(f.getPath()).getParentFile()));
 		}else {
-			fileChooserExport.setInitialDirectory(new File(pathExport));
+			fileChooserExport.setInitialDirectory(new File(prefs.getPathExport()));
 		}
 
 		return fileChooserExport;
@@ -200,64 +154,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void onCmdExecuted(final Command cmd) {
-		statusBar.getLabel().setText(lang.getBundle().getString("LaTeXDrawFrame.184"));
-
-		if(cmd instanceof Export) {
-			final File outputFile = ((Export) cmd).getOutputFile();
-			if(outputFile != null) {
-				pathExport = outputFile.getParentFile().getPath();
-			}
-		}
-	}
-
-	/**
-	 * @return The latex packages that the interactive system saves by default.
-	 */
-	public String getDefaultPackages() {
-		return defaultPackages;
-	}
-
-	/**
-	 * @param defaultPkgs The latex packages that the interactive system saves by
-	 * default. These packages should by set by the user and must be
-	 * general, i.e. independent of any document. Packages for a
-	 * given document should by set using
-	 * {@link #setPackages(String)}.
-	 */
-	public void setDefaultPackages(final String defaultPkgs) {
-		if(defaultPkgs != null) {
-			if(defaultPackages.isEmpty()) {
-				pstGen.setPackages(defaultPkgs + SystemService.EOL + pstGen.getPackages());
-			}
-			defaultPackages = defaultPkgs;
-		}
-	}
-
-	/**
-	 * @param packages The latex packages used when exporting using latex. These packages are defined for the current document but not for all
-	 * documents. These general packages can be set using {@link #setDefaultPackages(String)}.
-	 */
-	public void setPackages(final String packages) {
-		if(packages != null) {
-			pstGen.setPackages(packages);
-			setModified(true);
-		}
-	}
-
-	/**
-	 * @return The path where files are exported.
-	 */
-	public String getPathExport() {
-		return pathExport;
-	}
-
-	/**
-	 * @param path The path where files are exported.
-	 */
-	public void setPathExport(final String path) {
-		if(path != null) {
-			pathExport = path;
-		}
+		statusBar.getLabel().setText(prefs.getBundle().getString("LaTeXDrawFrame.184"));
 	}
 
 	@Override

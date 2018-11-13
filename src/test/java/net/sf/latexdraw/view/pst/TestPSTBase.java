@@ -12,6 +12,7 @@ package net.sf.latexdraw.view.pst;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.ResourceBundle;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
@@ -19,9 +20,8 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.parser.pst.PSTContext;
 import net.sf.latexdraw.parser.pst.TestPSTParser;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.PolymorphicConversion;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.antlr.v4.runtime.CharStreams;
@@ -37,24 +37,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(InjectionExtension.class)
 abstract class TestPSTBase<T extends Shape> implements PolymorphicConversion<T> {
 	PSTViewsFactory factory;
-	SystemService system;
 
 	@ConfigureInjection
 	Injector configure() {
 		return new Injector() {
 			@Override
 			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-				bindAsEagerSingleton(SystemService.class);
-				bindAsEagerSingleton(LangService.class);
+				bindAsEagerSingleton(PreferencesService.class);
+				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindAsEagerSingleton(PSTViewsFactory.class);
 			}
 		};
 	}
 
 	@BeforeEach
-	public void setUp(final PSTViewsFactory fact, final SystemService system) {
+	public void setUp(final PSTViewsFactory fact) {
 		factory = fact;
-		this.system = system;
 	}
 
 	@AfterEach
@@ -69,7 +67,7 @@ abstract class TestPSTBase<T extends Shape> implements PolymorphicConversion<T> 
 		final String view = factory.createView(sh).orElseThrow().getCode(ShapeFactory.INST.createPoint(), Shape.PPC);
 		final net.sf.latexdraw.parser.pst.PSTLexer lexer = new net.sf.latexdraw.parser.pst.PSTLexer(CharStreams.fromString(view));
 		final net.sf.latexdraw.parser.pst.PSTParser parser = new net.sf.latexdraw.parser.pst.PSTParser(new CommonTokenStream(lexer));
-		final TestPSTParser.ErrorPSTLatexdrawListener listener = new TestPSTParser.ErrorPSTLatexdrawListener(system);
+		final TestPSTParser.ErrorPSTLatexdrawListener listener = new TestPSTParser.ErrorPSTLatexdrawListener();
 		parser.addParseListener(listener);
 		parser.pstCode(new PSTContext());
 

@@ -80,13 +80,6 @@ public class TestGrid implements HelperTest {
 		assertEquals(DviPsColors.BLUE, shape.getGridLabelsColour());
 	}
 
-	@Test
-	public void testGetSetGridLabelsColorKO() {
-		shape.setGridLabelsColour(DviPsColors.BLUE);
-		shape.setGridLabelsColour(null);
-		assertEquals(DviPsColors.BLUE, shape.getGridLabelsColour());
-	}
-
 	@Theory
 	public void testGetSetGridWidth(@DoubleData final double value) {
 		assumeThat(value, greaterThan(0d));
@@ -105,13 +98,6 @@ public class TestGrid implements HelperTest {
 	@Test
 	public void testGetSetSubGridColor() {
 		shape.setSubGridColour(DviPsColors.RED);
-		assertEquals(DviPsColors.RED, shape.getSubGridColour());
-	}
-
-	@Test
-	public void testGetSetSubGridColorKO() {
-		shape.setSubGridColour(DviPsColors.RED);
-		shape.setSubGridColour(null);
 		assertEquals(DviPsColors.RED, shape.getSubGridColour());
 	}
 
@@ -297,7 +283,6 @@ public class TestGrid implements HelperTest {
 
 	@Test
 	public void testIsTypeOf() {
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

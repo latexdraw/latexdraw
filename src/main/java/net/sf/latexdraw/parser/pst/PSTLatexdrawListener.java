@@ -23,27 +23,30 @@ import java.util.stream.Stream;
 import javafx.geometry.Point2D;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Arc;
 import net.sf.latexdraw.model.api.shape.ArcStyle;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
-import net.sf.latexdraw.model.api.shape.AxesStyle;
-import net.sf.latexdraw.model.api.shape.BorderPos;
-import net.sf.latexdraw.model.api.shape.Color;
-import net.sf.latexdraw.model.api.shape.DotStyle;
-import net.sf.latexdraw.model.api.shape.FillingStyle;
-import net.sf.latexdraw.model.api.shape.FreeHandStyle;
-import net.sf.latexdraw.model.api.shape.Arc;
 import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
 import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.BorderPos;
 import net.sf.latexdraw.model.api.shape.Circle;
 import net.sf.latexdraw.model.api.shape.CircleArc;
+import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Ellipse;
+import net.sf.latexdraw.model.api.shape.FillingStyle;
+import net.sf.latexdraw.model.api.shape.FreeHandStyle;
 import net.sf.latexdraw.model.api.shape.Freehand;
 import net.sf.latexdraw.model.api.shape.Grid;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.model.api.shape.LineStyle;
 import net.sf.latexdraw.model.api.shape.Picture;
 import net.sf.latexdraw.model.api.shape.Plot;
+import net.sf.latexdraw.model.api.shape.PlotStyle;
+import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Polygon;
 import net.sf.latexdraw.model.api.shape.Polyline;
@@ -53,25 +56,19 @@ import net.sf.latexdraw.model.api.shape.Rhombus;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.StandardGrid;
 import net.sf.latexdraw.model.api.shape.Text;
-import net.sf.latexdraw.model.api.shape.Triangle;
-import net.sf.latexdraw.model.api.shape.LineStyle;
-import net.sf.latexdraw.model.api.shape.PlotStyle;
-import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TextPosition;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.antlr.v4.runtime.Token;
 
 public class PSTLatexdrawListener extends PSTCtxListener {
 	private final Deque<Group> shapes;
-	private final SystemService system;
 	Point2D psCustomLatestPt;
 
-	public PSTLatexdrawListener(final SystemService system) {
+	public PSTLatexdrawListener() {
 		super();
-		this.system = system;
 		shapes = new ArrayDeque<>();
 		PSTContext.ppc = Shape.PPC;
 		psCustomLatestPt = new Point2D(0d, 0d);
@@ -99,7 +96,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList()));
 
 		if(group.size() == 1) {
-			return Optional.of(group.getShapeAt(0));
+			return group.getShapeAt(0);
 		}
 		return Optional.of(group);
 	}
@@ -141,7 +138,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitIncludegraphics(final net.sf.latexdraw.parser.pst.PSTParser.IncludegraphicsContext ctx) {
-		final Picture picture = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), system);
+		final Picture picture = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		try {
 			picture.setPathSource(ctx.path.getText());
 			shapes.getLast().addShape(picture);
@@ -160,8 +157,8 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		}
 
 		final Polyline line = createLine(ctx.pstctx.starredCmd(ctx.cmd), stream.collect(Collectors.toList()), ctx.pstctx, false);
-		final Arc arc = line.getNbPoints() != 2 || shapes.getLast().isEmpty() || !(shapes.getLast().getShapeAt(-1) instanceof Arc) ?
-			null : (Arc) shapes.getLast().getShapeAt(-1);
+		final Arc arc = line.getNbPoints() != 2 || shapes.getLast().isEmpty() || !shapes.getLast().getShapeAt(-1).filter(s -> s instanceof Arc).isPresent() ?
+			null : (Arc) shapes.getLast().getShapeAt(-1).orElseThrow();
 
 		if(arc == null || !line.getPtAt(0).rotatePoint(arc.getGravityCentre(), -arc.getRotationAngle()).equals(arc.getStartPoint(), 0.5) ||
 			!line.getPtAt(1).rotatePoint(arc.getGravityCentre(), -arc.getRotationAngle()).equals(arc.getEndPoint(), 0.5)) {

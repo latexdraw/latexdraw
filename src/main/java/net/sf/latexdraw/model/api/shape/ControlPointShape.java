@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.api.shape;
 
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for shapes that contains control points.
@@ -73,13 +74,14 @@ public interface ControlPointShape extends ModifiablePointsShape {
 	/**
 	 * @return the firstCtrlPts.
 	 */
-	List<Point> getFirstCtrlPts();
+	@NotNull List<Point> getFirstCtrlPts();
 
 	/**
 	 * @return the secondCtrlPts.
 	 */
-	List<Point> getSecondCtrlPts();
+	@NotNull List<Point> getSecondCtrlPts();
 
+	@NotNull
 	@Override
 	ControlPointShape duplicate();
 }

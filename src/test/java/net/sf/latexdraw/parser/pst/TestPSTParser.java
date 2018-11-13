@@ -5,7 +5,6 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStreams;
@@ -28,7 +27,7 @@ public abstract class TestPSTParser {
 	void setUp() {
 		DviPsColors.INSTANCE.clearUserColours();
 
-		listener = new ErrorPSTLatexdrawListener(new SystemService());
+		listener = new ErrorPSTLatexdrawListener();
 		listener.log.addHandler(new Handler() {
 			@Override
 			public void publish(final LogRecord record) {
@@ -83,8 +82,8 @@ public abstract class TestPSTParser {
 	}
 
 	public static class ErrorPSTLatexdrawListener extends PSTLatexdrawListener {
-		public ErrorPSTLatexdrawListener(final SystemService system) {
-			super(system);
+		public ErrorPSTLatexdrawListener() {
+			super();
 		}
 
 		@Override

@@ -30,9 +30,9 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeCoordDimCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Pencil.class, pencil);
 			}
 		};
@@ -55,15 +55,15 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 	public void testSetYSelection() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns), tlyS,
 			incrementY, Arrays.asList(
-			() ->  drawing.getSelection().getShapeAt(0).getTopLeftPoint().getY(),
-			() ->  drawing.getSelection().getShapeAt(1).getTopLeftPoint().getY()));
+			() ->  drawing.getSelection().getShapeAt(0).orElseThrow().getTopLeftPoint().getY(),
+			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getTopLeftPoint().getY()));
 	}
 
 	@Test
 	public void testSetXSelection() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns), tlxS,
 			incrementX, Arrays.asList(
-			() ->  drawing.getSelection().getShapeAt(0).getTopLeftPoint().getX(),
-			() ->  drawing.getSelection().getShapeAt(1).getTopLeftPoint().getX()));
+			() ->  drawing.getSelection().getShapeAt(0).orElseThrow().getTopLeftPoint().getX(),
+			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getTopLeftPoint().getX()));
 	}
 }

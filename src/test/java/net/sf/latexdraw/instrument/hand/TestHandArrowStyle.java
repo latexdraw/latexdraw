@@ -35,9 +35,9 @@ public class TestHandArrowStyle extends TestArrowStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeArrowCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Pencil.class, pencil);
 			}
 		};
@@ -77,8 +77,8 @@ public class TestHandArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.BAR_IN, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowAt(0).getArrowStyle());
-		assertEquals(newStyle, ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getArrowAt(0).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -90,8 +90,8 @@ public class TestHandArrowStyle extends TestArrowStyleGUI {
 		waitFXEvents.execute();
 		final ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
 		assertEquals(ArrowStyle.ROUND_IN, newStyle);
-		assertEquals(newStyle, ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowAt(-1).getArrowStyle());
-		assertEquals(newStyle, ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getArrowAt(-1).getArrowStyle());
+		assertEquals(newStyle, ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -99,79 +99,79 @@ public class TestHandArrowStyle extends TestArrowStyleGUI {
 	public void testIncrementtbarsizeNumHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleRBrack), tbarsizeNum,
 			incrementtbarsizeNum, Arrays.asList(
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getTBarSizeNum(),
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getTBarSizeNum()));
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getTBarSizeNum(),
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getTBarSizeNum()));
 	}
 
 	@Test
 	public void testIncrementtbarsizeDimHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleRBrack), tbarsizeDim,
 			incrementtbarsizeDim, Arrays.asList(
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getTBarSizeDim(),
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getTBarSizeDim()));
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getTBarSizeDim(),
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getTBarSizeDim()));
 	}
 
 	@Test
 	public void testIncrementdotSizeNumHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleDot), dotSizeNum,
 			incrementdotSizeNum, Arrays.asList(
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getDotSizeNum(),
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getDotSizeNum()));
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getDotSizeNum(),
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getDotSizeNum()));
 	}
 
 	@Test
 	public void testIncrementdotSizeDimHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleDot), dotSizeDim,
 			incrementdotSizeDim, Arrays.asList(
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getDotSizeDim(),
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getDotSizeDim()));
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getDotSizeDim(),
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getDotSizeDim()));
 	}
 
 	@Test
 	public void testIncrementrbracketNumHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleRBrack), rbracketNum,
 			incrementrbracketNum, Arrays.asList(
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getRBracketNum(),
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getRBracketNum()));
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getRBracketNum(),
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getRBracketNum()));
 	}
 
 	@Test
 	public void testIncrementbracketNumHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleSBrack), bracketNum,
 			incrementbracketNum, Arrays.asList(
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getBracketNum(),
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getBracketNum()));
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getBracketNum(),
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getBracketNum()));
 	}
 
 	@Test
 	public void testIncrementarrowLengthHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow), arrowLength,
 			incrementarrowLength, Arrays.asList(
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowLength(),
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowLength()));
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getArrowLength(),
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getArrowLength()));
 	}
 
 	@Test
 	public void testIncrementarrowInsetHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow), arrowInset,
 			incrementarrowInset, Arrays.asList(
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowInset(),
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowInset()));
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getArrowInset(),
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getArrowInset()));
 	}
 
 	@Test
 	public void testIncrementarrowSizeNumHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow), arrowSizeNum,
 			incrementarrowSizeNum, Arrays.asList(
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowSizeNum(),
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowSizeNum()));
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getArrowSizeNum(),
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getArrowSizeNum()));
 	}
 
 	@Test
 	public void testIncrementarrowSizeDimHand() {
 		doTestSpinner(new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns, selectArrowStyleArrow), arrowSizeDim,
 			incrementarrowSizeDim, Arrays.asList(
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0)).getArrowSizeDim(),
-			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1)).getArrowSizeDim()));
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(0).orElseThrow()).getArrowSizeDim(),
+			() ->  ((ArrowableSingleShape) drawing.getSelection().getShapeAt(1).orElseThrow()).getArrowSizeDim()));
 	}
 }

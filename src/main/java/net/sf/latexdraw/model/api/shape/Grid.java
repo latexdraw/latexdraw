@@ -15,32 +15,34 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.model.api.property.GridProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for LaTeX grids.
  * @author Arnaud BLOUIN
  */
 public interface Grid extends StandardGrid, GridProp {
-	ObjectProperty<Color> gridLabelsColourProperty();
+	@NotNull ObjectProperty<Color> gridLabelsColourProperty();
 
-	IntegerProperty gridDotsProperty();
+	@NotNull IntegerProperty gridDotsProperty();
 
-	DoubleProperty unitProperty();
+	@NotNull DoubleProperty unitProperty();
 
-	DoubleProperty subGridWidthProperty();
+	@NotNull DoubleProperty subGridWidthProperty();
 
-	IntegerProperty subGridDotsProperty();
+	@NotNull IntegerProperty subGridDotsProperty();
 
-	IntegerProperty subGridDivProperty();
+	@NotNull IntegerProperty subGridDivProperty();
 
-	ObjectProperty<Color> subGridColourProperty();
+	@NotNull ObjectProperty<Color> subGridColourProperty();
 
-	DoubleProperty gridWidthProperty();
+	@NotNull DoubleProperty gridWidthProperty();
 
-	BooleanProperty yLabelWestProperty();
+	@NotNull BooleanProperty yLabelWestProperty();
 
-	BooleanProperty xLabelSouthProperty();
+	@NotNull BooleanProperty xLabelSouthProperty();
 
+	@NotNull
 	@Override
 	Grid duplicate();
 }

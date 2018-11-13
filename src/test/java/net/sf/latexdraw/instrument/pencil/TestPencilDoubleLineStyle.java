@@ -34,9 +34,9 @@ public class TestPencilDoubleLineStyle extends TestDoubleLineStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeDoubleBorderCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -86,14 +86,14 @@ public class TestPencilDoubleLineStyle extends TestDoubleLineStyleGUI {
 		final boolean sel = dbleBoundCB.isSelected();
 		selectdbleLine.execute();
 		waitFXEvents.execute();
-		assertEquals(!sel, pencil.createShapeInstance().hasDbleBord());
+		assertEquals(!sel, editing.createShapeInstance().hasDbleBord());
 		assertNotEquals(sel, dbleBoundCB.isSelected());
 	}
 
 	@Test
 	public void testIncrementDbleSpacingPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectdbleLine, updateIns), dbleSepField,
-			incrementDbleSep, Collections.singletonList(() ->  pencil.createShapeInstance().getDbleBordSep()));
+			incrementDbleSep, Collections.singletonList(() ->  editing.createShapeInstance().getDbleBordSep()));
 	}
 
 	@Test
@@ -102,7 +102,7 @@ public class TestPencilDoubleLineStyle extends TestDoubleLineStyleGUI {
 		final Color col = dbleBoundColB.getValue();
 		pickDbleColour.execute();
 		waitFXEvents.execute();
-		assertEquals(dbleBoundColB.getValue(), pencil.createShapeInstance().getDbleBordCol().toJFX());
+		assertEquals(dbleBoundColB.getValue(), editing.createShapeInstance().getDbleBordCol().toJFX());
 		assertNotEquals(col, dbleBoundColB.getValue());
 	}
 }

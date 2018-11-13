@@ -21,8 +21,10 @@ import net.sf.latexdraw.command.shape.CopyShapes;
 import net.sf.latexdraw.command.shape.CutShapes;
 import net.sf.latexdraw.command.shape.PasteShapes;
 import net.sf.latexdraw.command.shape.SelectShapes;
-import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
+import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.Canvas;
+import org.jetbrains.annotations.Nullable;
 import org.malai.command.Command;
 import org.malai.command.CommandsRegistry;
 
@@ -37,7 +39,6 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	@FXML protected MenuItem pasteMenu;
 	/** The menu item to cut the shapes. */
 	@FXML protected MenuItem cutMenu;
-	@Inject private SystemService system;
 
 	private final Supplier<Boolean> isShapeSelected = () -> {
 		final SelectShapes cmd = (SelectShapes) CommandsRegistry.INSTANCE.getCommands().parallelStream().
@@ -49,8 +50,8 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	/**
 	 * Creates the instrument.
 	 */
-	public CopierCutterPaster() {
-		super();
+	public CopierCutterPaster(final Canvas canvas, final MagneticGrid grid) {
+		super(canvas, grid);
 		CommandsRegistry.INSTANCE.addHandler(this);
 	}
 
@@ -69,7 +70,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	 * Updates the widgets of the instrument.
 	 * @param executedCmd The command currently executed. Can be null.
 	 */
-	protected void updateWidgets(final Command executedCmd) {
+	protected void updateWidgets(final @Nullable Command executedCmd) {
 		copyMenu.setDisable(!activated || !isShapeSelected.get());
 		cutMenu.setDisable(!activated || copyMenu.isDisable());
 		pasteMenu.setDisable(!activated || !(executedCmd instanceof CopyShapes || getCopyCutCmd().isPresent()));
@@ -78,25 +79,25 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	@Override
 	protected void configureBindings() {
 		// menu to paste shapes.
-		menuItemBinder(i -> new PasteShapes(getCopyCutCmd().orElse(null), grid, canvas.getDrawing())).on(pasteMenu).
+		menuItemBinder(i -> new PasteShapes(getCopyCutCmd(), grid, canvas.getDrawing())).on(pasteMenu).
 			when(i -> getCopyCutCmd().isPresent()).bind();
 
 		// Key shortcut ctrl+V to paste shapes.
-		keyNodeBinder(i -> new PasteShapes(getCopyCutCmd().orElse(null), grid, canvas.getDrawing())).
-			on(canvas).with(KeyCode.V, system.getControlKey()).when(i -> getCopyCutCmd().isPresent()).bind();
+		keyNodeBinder(i -> new PasteShapes(getCopyCutCmd(), grid, canvas.getDrawing())).
+			on(canvas).with(KeyCode.V, SystemUtils.getInstance().getControlKey()).when(i -> getCopyCutCmd().isPresent()).bind();
 
 		// menu to copy shapes.
-		menuItemBinder(i -> new CopyShapes(getSelectCmd().orElse(null))).on(copyMenu).when(i -> isShapeSelected.get()).bind();
+		menuItemBinder(i -> new CopyShapes(getSelectCmd())).on(copyMenu).when(i -> isShapeSelected.get()).bind();
 
 		// Key shortcut ctrl+C to copy shapes.
-		keyNodeBinder(i -> new CopyShapes(getSelectCmd().orElse(null))).on(canvas).with(KeyCode.C, system.getControlKey()).
+		keyNodeBinder(i -> new CopyShapes(getSelectCmd())).on(canvas).with(KeyCode.C, SystemUtils.getInstance().getControlKey()).
 			when(i -> isShapeSelected.get()).bind();
 
 		// menu to cut shapes.
-		menuItemBinder(i -> new CutShapes(getSelectCmd().orElse(null))).on(cutMenu).when(i -> isShapeSelected.get()).bind();
+		menuItemBinder(i -> new CutShapes(getSelectCmd())).on(cutMenu).when(i -> isShapeSelected.get()).bind();
 
 		// Key shortcut ctrl+X to cut shapes.
-		keyNodeBinder(i -> new CutShapes(getSelectCmd().orElse(null))).on(canvas).with(KeyCode.X, system.getControlKey()).
+		keyNodeBinder(i -> new CutShapes(getSelectCmd())).on(canvas).with(KeyCode.X, SystemUtils.getInstance().getControlKey()).
 			when(i -> isShapeSelected.get()).bind();
 	}
 

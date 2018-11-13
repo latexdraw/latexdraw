@@ -44,6 +44,7 @@ import net.sf.latexdraw.model.api.shape.PlotStyle;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TextPosition;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines shape properties.
@@ -345,15 +346,16 @@ public final class ShapeProperties<T> {
 	public static final ShapeProperties<Double> DOT_SIZE = new ShapeProperties<>(
 		(v, g) -> g.setDiametre(v), (v, g) -> g.setDotSizeList(v), g -> g.getDotSizeList(), g -> g.isTypeOf(DotProp.class), "Actions.29"); //NON-NLS;
 
-	private final BiConsumer<T, Group> setValue;
-	private final BiConsumer<List<Optional<T>>, Group> setListValue;
-	private final Function<Group, List<Optional<T>>> getListValue;
-	private final Predicate<Group> acceptPred;
-	private final String labelName;
+	private final @NotNull BiConsumer<T, Group> setValue;
+	private final @NotNull BiConsumer<List<Optional<T>>, Group> setListValue;
+	private final @NotNull Function<Group, List<Optional<T>>> getListValue;
+	private final @NotNull Predicate<Group> acceptPred;
+	private final @NotNull String labelName;
 
 
-	private ShapeProperties(final BiConsumer<T, Group> setValue, final BiConsumer<List<Optional<T>>, Group> setListValue, final Function<Group,
-		List<Optional<T>>> getListValue, final Predicate<Group> accept, final String labelName) {
+	private ShapeProperties(final @NotNull BiConsumer<T, Group> setValue, final @NotNull BiConsumer<List<Optional<T>>, Group> setListValue,
+							final @NotNull Function<Group, @NotNull List<Optional<T>>> getListValue, final @NotNull Predicate<Group> accept,
+							final @NotNull String labelName) {
 		super();
 		this.setListValue = setListValue;
 		this.setValue = setValue;
@@ -367,7 +369,7 @@ public final class ShapeProperties<T> {
 	 * @param group The group to modify.
 	 * @param value The new value of the property to set.
 	 */
-	public void setPropertyValue(final Group group, final T value) {
+	public void setPropertyValue(final @NotNull Group group, final @NotNull T value) {
 		if(group != null) {
 			setValue.accept(value, group);
 		}
@@ -380,7 +382,7 @@ public final class ShapeProperties<T> {
 	 * @param group The group to modify.
 	 * @param values The set of new values of the property to set.
 	 */
-	public void setPropertyValueList(final Group group, final List<Optional<T>> values) {
+	public void setPropertyValueList(final @NotNull Group group, final @NotNull List<Optional<T>> values) {
 		if(group != null) {
 			setListValue.accept(values, group);
 		}
@@ -390,14 +392,14 @@ public final class ShapeProperties<T> {
 	 * @param group The group to explore.
 	 * @return The list of property values of the shapes of the given group.
 	 */
-	public List<Optional<T>> getPropertyValues(final Group group) {
+	public @NotNull List<Optional<T>> getPropertyValues(final @NotNull Group group) {
 		return group == null ? Collections.emptyList() : getListValue.apply(group);
 	}
 
 	/**
 	 * @return The title of the properties.
 	 */
-	public String getMessage(final ResourceBundle bundle) {
+	public @NotNull String getMessage(final @NotNull ResourceBundle bundle) {
 		return bundle.getString(labelName);
 	}
 

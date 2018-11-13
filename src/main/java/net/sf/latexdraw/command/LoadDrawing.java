@@ -11,6 +11,8 @@
 package net.sf.latexdraw.command;
 
 import java.io.File;
+import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import javafx.concurrent.Task;
 import javafx.scene.control.ButtonType;
@@ -18,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import net.sf.latexdraw.util.LangService;
 import org.malai.javafx.command.Load;
 import org.malai.javafx.ui.JfxUI;
 import org.malai.javafx.ui.OpenSaver;
@@ -30,12 +31,12 @@ import org.malai.javafx.ui.OpenSaver;
 public class LoadDrawing extends Load<Label> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	private FileChooser fileChooser;
-	private final File currentFolder;
-	private final LangService lang;
+	private final Optional<File> currentFolder;
+	private final ResourceBundle lang;
 	private final Stage mainstage;
 
 	public LoadDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
-				final FileChooser fileChooser, final File currentFolder, final LangService lang, final Stage mainstage) {
+				final FileChooser fileChooser, final Optional<File> currentFolder, final ResourceBundle lang, final Stage mainstage) {
 		super(file, openSaveManager, progressBar, statusWidget, ui);
 		this.fileChooser = fileChooser;
 		this.currentFolder = currentFolder;
@@ -94,7 +95,7 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 
 	private void load() {
 		if(file == null) {
-			fileChooser.setInitialDirectory(currentFolder);
+			currentFolder.ifPresent(folder -> fileChooser.setInitialDirectory(folder));
 			file = fileChooser.showOpenDialog(mainstage);
 		}else {
 			fileChooser.setInitialDirectory(file.getParentFile());

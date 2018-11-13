@@ -21,25 +21,26 @@ import net.sf.latexdraw.model.api.shape.BezierCurve;
 import net.sf.latexdraw.model.api.shape.Line;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of a Bezier curve.
  * @author Arnaud Blouin
  */
 class BezierCurveImpl extends CtrlPointShapeBase implements BezierCurve, ArrowableShapeBase {
-	private final List<Arrow> arrows;
+	private final @NotNull List<Arrow> arrows;
 	/** Defines if the drawing is opened of closed. */
-	private final BooleanProperty open;
+	private final @NotNull BooleanProperty open;
 
 	/**
 	 * Creates a bezier curve with a set of points.
 	 * @param pts The list of points.
 	 */
-	BezierCurveImpl(final List<Point> pts) {
+	BezierCurveImpl(final @NotNull List<Point> pts) {
 		this(pts, computeDefaultFirstCtrlPoints(pts));
 	}
 
-	BezierCurveImpl(final List<Point> pts, final List<Point> ptsCtrl) {
+	BezierCurveImpl(final @NotNull List<Point> pts, final @NotNull List<Point> ptsCtrl) {
 		super(pts, ptsCtrl);
 		arrows = new ArrayList<>();
 		arrows.add(ShapeFactory.INST.createArrow(this));
@@ -87,7 +88,7 @@ class BezierCurveImpl extends CtrlPointShapeBase implements BezierCurve, Arrowab
 	}
 
 	@Override
-	public BezierCurve duplicate() {
+	public @NotNull BezierCurve duplicate() {
 		final BezierCurve dup = ShapeFactory.INST.createBezierCurve(points, firstCtrlPts);
 		dup.copy(this);
 		return dup;
@@ -109,12 +110,12 @@ class BezierCurveImpl extends CtrlPointShapeBase implements BezierCurve, Arrowab
 	}
 
 	@Override
-	public List<Arrow> getArrows() {
+	public @NotNull List<Arrow> getArrows() {
 		return arrows;
 	}
 
 	@Override
-	public BooleanProperty openedProperty() {
+	public @NotNull BooleanProperty openedProperty() {
 		return open;
 	}
 }

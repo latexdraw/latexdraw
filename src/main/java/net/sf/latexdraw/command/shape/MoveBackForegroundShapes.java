@@ -21,6 +21,7 @@ import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -31,13 +32,13 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<Group> implements Und
 	/** Defines whether the shapes must be placed in the foreground. */
 	private final boolean foreground;
 	/** The drawing that will be handled by the command. */
-	private final Drawing drawing;
+	private final @NotNull Drawing drawing;
 	/** The former position of the shapes. */
 	private int[] formerId;
 	/** The shapes sorted by their position. */
 	private List<Shape> sortedSh;
 
-	public MoveBackForegroundShapes(final Group gp, final boolean foreground, final Drawing drawing) {
+	public MoveBackForegroundShapes(final @NotNull Group gp, final boolean foreground, final @NotNull Drawing drawing) {
 		super(gp);
 		this.drawing = drawing;
 		this.foreground = foreground;
@@ -54,44 +55,40 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<Group> implements Und
 
 	/** Puts the shapes in the foreground. */
 	private void moveForeground() {
-		shape.ifPresent(gp -> {
-			final int size = gp.size();
-			formerId = new int[size];
-			final List<Shape> drshapes = drawing.getShapes();
-			sortedSh = gp.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
+		final int size = shape.size();
+		formerId = new int[size];
+		final List<Shape> drshapes = drawing.getShapes();
+		sortedSh = shape.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
 
-			for(int i = 0; i < size; i++) {
-				final Shape sh = sortedSh.get(i);
-				formerId[i] = drshapes.indexOf(sh);
-				drawing.removeShape(sh);
-				drawing.addShape(sh);
-			}
-			drawing.setModified(true);
-		});
+		for(int i = 0; i < size; i++) {
+			final Shape sh = sortedSh.get(i);
+			formerId[i] = drshapes.indexOf(sh);
+			drawing.removeShape(sh);
+			drawing.addShape(sh);
+		}
+		drawing.setModified(true);
 	}
 
 
 	/** Puts the shapes in the background. */
 	private void moveBackground() {
-		shape.ifPresent(gp -> {
-			final int size = gp.size();
-			formerId = new int[size];
-			final List<Shape> drshapes = drawing.getShapes();
-			sortedSh = gp.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
+		final int size = shape.size();
+		formerId = new int[size];
+		final List<Shape> drshapes = drawing.getShapes();
+		sortedSh = shape.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
 
-			for(int i = size - 1; i >= 0; i--) {
-				final Shape sh = sortedSh.get(i);
-				formerId[i] = drshapes.indexOf(sh);
-				drawing.removeShape(sh);
-				drawing.addShape(sh, 0);
-			}
-			drawing.setModified(true);
-		});
+		for(int i = size - 1; i >= 0; i--) {
+			final Shape sh = sortedSh.get(i);
+			formerId[i] = drshapes.indexOf(sh);
+			drawing.removeShape(sh);
+			drawing.addShape(sh, 0);
+		}
+		drawing.setModified(true);
 	}
 
 	@Override
 	public boolean canDo() {
-		return drawing != null && shape.isPresent() && !shape.get().isEmpty() && super.canDo();
+		return !shape.isEmpty();
 	}
 
 	@Override
@@ -121,12 +118,12 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<Group> implements Und
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.8");
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return RegistrationPolicy.LIMITED;
 	}
 }

@@ -21,6 +21,8 @@ import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.command.shape.DeleteShapes;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * This instrument deletes the selected shapes.
@@ -35,8 +37,8 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Cmd
 	/**
 	 * Creates the instrument.
 	 */
-	public ShapeDeleter() {
-		super();
+	public ShapeDeleter(final Canvas canvas, final MagneticGrid grid) {
+		super(canvas, grid);
 	}
 
 	@Override

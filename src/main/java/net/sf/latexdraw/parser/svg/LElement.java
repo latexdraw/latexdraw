@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.parser.svg;
 
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 
 /**
@@ -20,5 +21,5 @@ interface LElement extends Element {
 	/**
 	 * @return The prefix followed by Character ':'. This method aims at simplifying the use of the prefix.
 	 */
-	String getUsablePrefix();
+	@NotNull String getUsablePrefix();
 }

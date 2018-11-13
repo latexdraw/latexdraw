@@ -52,10 +52,10 @@ public class TestCanvasCreation extends BaseTestCanvas {
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
+				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(Hand.class, Mockito.mock(Hand.class));
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(ShapeTextCustomiser.class, Mockito.mock(ShapeTextCustomiser.class));
 				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
 			}
@@ -80,110 +80,110 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawRectangle() {
-		pencil.setCurrentChoice(EditionChoice.RECT);
+		editing.setCurrentChoice(EditionChoice.RECT);
 		final Point2D pos = point(canvas).query();
 		drag(pos, MouseButton.PRIMARY).dropBy(100d, 200d);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Rectangle);
-		assertEquals(100d, drawing.getShapeAt(0).getWidth(), 0.00001d);
-		assertEquals(200d, drawing.getShapeAt(0).getHeight(), 0.00001d);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Rectangle);
+		assertEquals(100d, drawing.getShapeAt(0).orElseThrow().getWidth(), 0.00001d);
+		assertEquals(200d, drawing.getShapeAt(0).orElseThrow().getHeight(), 0.00001d);
 
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), ((Rectangle) drawing.getShapeAt(0)).getPosition().getX(), 0.00001d);
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), ((Rectangle) drawing.getShapeAt(0).orElseThrow()).getPosition().getX(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getY(), 0.00001d);
 	}
 
 	@Test
 	public void testDrawEllipse() {
-		pencil.setCurrentChoice(EditionChoice.ELLIPSE);
+		editing.setCurrentChoice(EditionChoice.ELLIPSE);
 		final Point2D pos = point(canvas).atOffset(-10d, -200d).query();
 		drag(pos, MouseButton.PRIMARY).dropBy(100d, 200d);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Ellipse);
-		assertEquals(100d, drawing.getShapeAt(0).getWidth(), 0.00001d);
-		assertEquals(200d, drawing.getShapeAt(0).getHeight(), 0.00001d);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Ellipse);
+		assertEquals(100d, drawing.getShapeAt(0).orElseThrow().getWidth(), 0.00001d);
+		assertEquals(200d, drawing.getShapeAt(0).orElseThrow().getHeight(), 0.00001d);
 
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getX(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getY(), 0.00001d);
 	}
 
 	@Test
 	public void testDrawSquare() {
-		pencil.setCurrentChoice(EditionChoice.SQUARE);
+		editing.setCurrentChoice(EditionChoice.SQUARE);
 		final Point2D pos = point(canvas).query();
 		drag(pos, MouseButton.PRIMARY).dropBy(101d, 11d);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Square);
-		assertEquals(202d, drawing.getShapeAt(0).getWidth(), 0.00001d);
-		assertEquals(202d, drawing.getShapeAt(0).getHeight(), 0.00001d);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Square);
+		assertEquals(202d, drawing.getShapeAt(0).orElseThrow().getWidth(), 0.00001d);
+		assertEquals(202d, drawing.getShapeAt(0).orElseThrow().getHeight(), 0.00001d);
 
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getX(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getY(), 0.00001d);
 	}
 
 	@Test
 	public void testDrawCircle() {
-		pencil.setCurrentChoice(EditionChoice.CIRCLE);
+		editing.setCurrentChoice(EditionChoice.CIRCLE);
 		final Point2D pos = point(canvas).query();
 		drag(pos, MouseButton.PRIMARY).dropBy(101d, 11d);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Circle);
-		assertEquals(202d, drawing.getShapeAt(0).getWidth(), 0.00001d);
-		assertEquals(202d, drawing.getShapeAt(0).getHeight(), 0.00001d);
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Circle);
+		assertEquals(202d, drawing.getShapeAt(0).orElseThrow().getWidth(), 0.00001d);
+		assertEquals(202d, drawing.getShapeAt(0).orElseThrow().getHeight(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getX(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getY(), 0.00001d);
 	}
 
 	@Test
 	public void testDrawCircleArc() {
-		pencil.setCurrentChoice(EditionChoice.CIRCLE_ARC);
+		editing.setCurrentChoice(EditionChoice.CIRCLE_ARC);
 		final Point2D pos = point(canvas).query();
 		drag(pos, MouseButton.PRIMARY).dropBy(101d, 11d);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof CircleArc);
-		assertEquals(202d, drawing.getShapeAt(0).getWidth(), 0.00001d);
-		assertEquals(202d, drawing.getShapeAt(0).getHeight(), 0.00001d);
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getX(), 0.00001d);
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).getTopLeftPoint().getY(), 0.00001d);
-		assertEquals(ArcStyle.ARC, ((CircleArc) drawing.getShapeAt(0)).getArcStyle());
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof CircleArc);
+		assertEquals(202d, drawing.getShapeAt(0).orElseThrow().getWidth(), 0.00001d);
+		assertEquals(202d, drawing.getShapeAt(0).orElseThrow().getHeight(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX() - 101d, drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getX(), 0.00001d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY() - 101d, drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getY(), 0.00001d);
+		assertEquals(ArcStyle.ARC, ((CircleArc) drawing.getShapeAt(0).orElseThrow()).getArcStyle());
 	}
 
 	@Test
 	public void testDrawFreeHand() {
-		pencil.setCurrentChoice(EditionChoice.FREE_HAND);
-		pencil.getGroupParams().setInterval(1);
+		editing.setCurrentChoice(EditionChoice.FREE_HAND);
+		editing.getGroupParams().setInterval(1);
 		final Point2D pos = point(canvas).query();
 		drag(pos, MouseButton.PRIMARY).dropBy(100d, 200d);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Freehand);
-		assertEquals(100d, drawing.getShapeAt(0).getWidth(), 1d);
-		assertEquals(200d, drawing.getShapeAt(0).getHeight(), 1d);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Freehand);
+		assertEquals(100d, drawing.getShapeAt(0).orElseThrow().getWidth(), 1d);
+		assertEquals(200d, drawing.getShapeAt(0).orElseThrow().getHeight(), 1d);
 
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), drawing.getShapeAt(0).getTopLeftPoint().getX(), 1d);
-		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).getTopLeftPoint().getY(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getX(), 1d);
+		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), drawing.getShapeAt(0).orElseThrow().getTopLeftPoint().getY(), 1d);
 	}
 
 	@Test
 	public void testDrawPolygon() {
-		pencil.setCurrentChoice(EditionChoice.POLYGON);
+		editing.setCurrentChoice(EditionChoice.POLYGON);
 		final Point2D pos = point(canvas).query();
 		moveTo(pos).clickOn(MouseButton.PRIMARY).moveBy(-20d, -100d).clickOn(MouseButton.PRIMARY).moveBy(-100d, 50d).clickOn(MouseButton.SECONDARY);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Polygon);
-		final Polygon sh = (Polygon) drawing.getShapeAt(0);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Polygon);
+		final Polygon sh = (Polygon) drawing.getShapeAt(0).orElseThrow();
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
 		assertEquals(3, sh.getNbPoints());
@@ -191,14 +191,14 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawPolylines() {
-		pencil.setCurrentChoice(EditionChoice.LINES);
+		editing.setCurrentChoice(EditionChoice.LINES);
 		final Point2D pos = point(canvas).query();
 		moveTo(pos).clickOn(MouseButton.PRIMARY).moveBy(-20d, -100d).clickOn(MouseButton.PRIMARY).moveBy(-100d, 50d).clickOn(MouseButton.SECONDARY);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Polyline);
-		final Polyline sh = (Polyline) drawing.getShapeAt(0);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Polyline);
+		final Polyline sh = (Polyline) drawing.getShapeAt(0).orElseThrow();
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
 		assertEquals(3, sh.getNbPoints());
@@ -206,14 +206,14 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawBezierCurve() {
-		pencil.setCurrentChoice(EditionChoice.BEZIER_CURVE);
+		editing.setCurrentChoice(EditionChoice.BEZIER_CURVE);
 		final Point2D pos = point(canvas).query();
 		moveTo(pos).clickOn(MouseButton.PRIMARY).moveBy(-20d, -100d).clickOn(MouseButton.PRIMARY).moveBy(-100d, 50d).clickOn(MouseButton.SECONDARY);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof BezierCurve);
-		final BezierCurve sh = (BezierCurve) drawing.getShapeAt(0);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof BezierCurve);
+		final BezierCurve sh = (BezierCurve) drawing.getShapeAt(0).orElseThrow();
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPtAt(0).getX(), 1d);
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPtAt(0).getY(), 1d);
 		assertTrue(sh.isOpened());
@@ -222,51 +222,51 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawDot() {
-		pencil.setCurrentChoice(EditionChoice.DOT);
+		editing.setCurrentChoice(EditionChoice.DOT);
 		final Point2D pos = point(canvas).query();
 		moveTo(pos).clickOn(MouseButton.PRIMARY);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Dot);
-		final Dot sh = (Dot) drawing.getShapeAt(0);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Dot);
+		final Dot sh = (Dot) drawing.getShapeAt(0).orElseThrow();
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
 
 	@Test
 	public void testDrawGrid() {
-		pencil.setCurrentChoice(EditionChoice.GRID);
+		editing.setCurrentChoice(EditionChoice.GRID);
 		final Point2D pos = point(canvas).query();
 		moveTo(pos).clickOn(MouseButton.PRIMARY);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Grid);
-		final Grid sh = (Grid) drawing.getShapeAt(0);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Grid);
+		final Grid sh = (Grid) drawing.getShapeAt(0).orElseThrow();
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
 
 	@Test
 	public void testDrawAxes() {
-		pencil.setCurrentChoice(EditionChoice.AXES);
+		editing.setCurrentChoice(EditionChoice.AXES);
 		final Point2D pos = point(canvas).query();
 		moveTo(pos).clickOn(MouseButton.PRIMARY);
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Axes);
-		final Axes sh = (Axes) drawing.getShapeAt(0);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Axes);
+		final Axes sh = (Axes) drawing.getShapeAt(0).orElseThrow();
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
 
 	@Test
 	public void testDrawText() {
-		pencil.setCurrentChoice(EditionChoice.TEXT);
+		editing.setCurrentChoice(EditionChoice.TEXT);
 		when(setter.isActivated()).thenReturn(true);
-		textAutoSize.setText("foo");
+		textAutoSize.setText("gridGapProp");
 		final Point2D pos = point(canvas).query();
 		when(setter.getPosition()).thenReturn(
 			ShapeFactory.INST.createPoint(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), -Canvas.getMargins() + canvas.screenToLocal(pos).getY()));
@@ -274,9 +274,9 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Text);
-		final Text sh = (Text) drawing.getShapeAt(0);
-		assertEquals("foo", sh.getText());
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Text);
+		final Text sh = (Text) drawing.getShapeAt(0).orElseThrow();
+		assertEquals("gridGapProp", sh.getText());
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}
@@ -286,11 +286,11 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		final FileChooser c = Mockito.mock(FileChooser.class);
 		final URL resource = getClass().getResource("/LaTeXDrawSmall.png");
 
-		pencil.setCurrentChoice(EditionChoice.PICTURE);
+		editing.setCurrentChoice(EditionChoice.PICTURE);
 		when(c.showOpenDialog(Mockito.any())).thenReturn(new File(resource.getPath()));
 		pencil.setPictureFileChooser(c);
 		when(setter.isActivated()).thenReturn(true);
-		textAutoSize.setText("foo");
+		textAutoSize.setText("gridGapProp");
 		final Point2D pos = point(canvas).query();
 		when(setter.getPosition()).thenReturn(ShapeFactory.INST.createPoint(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(),
 			-Canvas.getMargins() + canvas.screenToLocal(pos).getY()));
@@ -298,8 +298,8 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		waitFXEvents.execute();
 
 		assertEquals(1, drawing.size());
-		assertTrue(drawing.getShapeAt(0) instanceof Picture);
-		final Picture sh = (Picture) drawing.getShapeAt(0);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Picture);
+		final Picture sh = (Picture) drawing.getShapeAt(0).orElseThrow();
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), sh.getPosition().getX(), 1d);
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getY(), sh.getPosition().getY(), 1d);
 	}

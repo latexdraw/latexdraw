@@ -18,6 +18,7 @@ import javafx.geometry.Point3D;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 import static java.lang.Math.atan;
 
@@ -26,8 +27,8 @@ import static java.lang.Math.atan;
  * @author Arnaud Blouin
  */
 class PointImpl implements Point {
-	private final DoubleProperty x;
-	private final DoubleProperty y;
+	private final @NotNull DoubleProperty x;
+	private final @NotNull DoubleProperty y;
 
 	/**
 	 * Creates a Point2D with coordinates (0, 0).
@@ -197,15 +198,16 @@ class PointImpl implements Point {
 	}
 
 	@Override
-	public Point substract(final Point pt) {
-		if(pt == null) {
-			return null;
+	public @NotNull Point substract(final Point pt) {
+		final Point sub = ShapeFactory.INST.createPoint(this);
+		if(pt != null) {
+			sub.translate(-pt.getX(), -pt.getY());
 		}
-		return ShapeFactory.INST.createPoint(getX() - pt.getX(), getY() - pt.getY());
+		return sub;
 	}
 
 	@Override
-	public Point normalise() {
+	public @NotNull Point normalise() {
 		final double magnitude = magnitude();
 		return ShapeFactory.INST.createPoint(getX() / magnitude, getY() / magnitude);
 	}
@@ -216,7 +218,7 @@ class PointImpl implements Point {
 	}
 
 	@Override
-	public Point add(final Point pt) {
+	public @NotNull Point add(final Point pt) {
 		final Point added = ShapeFactory.INST.createPoint(this);
 		if(pt != null) {
 			added.translate(pt.getX(), pt.getY());
@@ -225,12 +227,12 @@ class PointImpl implements Point {
 	}
 
 	@Override
-	public  DoubleProperty xProperty() {
+	public  @NotNull DoubleProperty xProperty() {
 		return x;
 	}
 
 	@Override
-	public  DoubleProperty yProperty() {
+	public  @NotNull DoubleProperty yProperty() {
 		return y;
 	}
 

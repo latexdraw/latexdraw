@@ -12,6 +12,8 @@ package net.sf.latexdraw.command.shape;
 
 import java.util.ResourceBundle;
 import net.sf.latexdraw.model.api.shape.ModifiablePointsShape;
+import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -20,10 +22,11 @@ import org.malai.undo.Undoable;
  */
 public class MovePointShape extends MovePoint implements Undoable {
 	/** The shape to modify. */
-	private ModifiablePointsShape shape;
+	private final @NotNull ModifiablePointsShape shape;
 
-	public MovePointShape() {
-		super();
+	public MovePointShape(final @NotNull ModifiablePointsShape shape, final @NotNull Point coord) {
+		super(coord);
+		this.shape = shape;
 	}
 
 	@Override
@@ -35,7 +38,7 @@ public class MovePointShape extends MovePoint implements Undoable {
 
 	@Override
 	public boolean canDo() {
-		return shape != null && shape.getPoints().indexOf(point) != -1 && super.canDo();
+		return shape.getPoints().indexOf(point) != -1 && super.canDo();
 	}
 
 	@Override
@@ -58,24 +61,11 @@ public class MovePointShape extends MovePoint implements Undoable {
 	}
 
 	@Override
-	public void flush() {
-		super.flush();
-		shape = null;
-	}
-
-	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.10"); //NON-NLS
 	}
 
-	/**
-	 * @param sh The shape to modify.
-	 */
-	public void setShape(final ModifiablePointsShape sh) {
-		shape = sh;
-	}
-
-	public ModifiablePointsShape getShape() {
+	public @NotNull ModifiablePointsShape getShape() {
 		return shape;
 	}
 }

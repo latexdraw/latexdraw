@@ -11,13 +11,16 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
-import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Manages the code panel.
@@ -27,10 +30,11 @@ public class CodePanelController extends CanvasInstrument implements Initializab
 	@FXML private TextArea codeArea;
 	@FXML private Tab tabPST;
 	/** The PSTricks generator. */
-	@Inject private LaTeXGenerator pstGenerator;
+	private final @NotNull LaTeXGenerator pstGenerator;
 
-	public CodePanelController() {
-		super();
+	public CodePanelController(final Canvas canvas, final MagneticGrid grid, final LaTeXGenerator pstGenerator) {
+		super(canvas, grid);
+		this.pstGenerator = Objects.requireNonNull(pstGenerator);
 	}
 
 	@Override

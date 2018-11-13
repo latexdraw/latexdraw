@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The API for lines.
  * @author Arnaud BLOUIN
@@ -68,12 +70,12 @@ public interface Line {
 	/**
 	 * @return The first point.
 	 */
-	Point getPoint1();
+	@NotNull Point getPoint1();
 
 	/**
 	 * @return The second point.
 	 */
-	Point getPoint2();
+	@NotNull Point getPoint2();
 
 	/**
 	 * @return True if the line is vertical.
@@ -84,13 +86,6 @@ public interface Line {
 	 * @return True if the line is horizontal.
 	 */
 	boolean isHorizontalLine();
-
-	/**
-	 * @param pt The point to check.
-	 * @return True if the segment defined by the line contains the given point. False otherwise or
-	 * if the given point is null.
-	 */
-	boolean isInSegment(final Point pt);
 
 	/**
 	 * Sets the position of the line. Do nothing if one of the given parameter
@@ -127,12 +122,12 @@ public interface Line {
 	/**
 	 * @return The top left point of the line (may be not a point on the line).
 	 */
-	Point getTopLeftPoint();
+	@NotNull Point getTopLeftPoint();
 
 	/**
 	 * @return The bottom right point of the line (may be not a point on the line).
 	 */
-	Point getBottomRightPoint();
+	@NotNull Point getBottomRightPoint();
 
 	/**
 	 * Creates the line which is perpendicular to the current line at the point pt.

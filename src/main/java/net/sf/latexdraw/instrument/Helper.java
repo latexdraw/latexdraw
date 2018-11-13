@@ -12,6 +12,7 @@ package net.sf.latexdraw.instrument;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
@@ -24,9 +25,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.binding.MenuItem2OpenWebPage;
 import org.malai.javafx.binding.MenuItem2ShowLazyStage;
 import org.malai.javafx.instrument.JfxInstrument;
@@ -51,15 +51,18 @@ public final class Helper extends JfxInstrument implements Initializable {
 	/** The shortcut dialogue box. */
 	private Stage shortcutFrame;
 	@FXML private MenuItem manuelItem;
-	@Inject private HostServices services;
-	@Inject private LangService lang;
-	@Inject private Injector injector;
+	private final @NotNull HostServices services;
+	private final @NotNull ResourceBundle lang;
+	private final @NotNull Injector injector;
 
 	/**
 	 * Creates the instrument.
 	 */
-	public Helper() {
+	public Helper(final Injector injector, final ResourceBundle lang, final HostServices services) {
 		super();
+		this.injector = Objects.requireNonNull(injector);
+		this.lang = Objects.requireNonNull(lang);
+		this.services = Objects.requireNonNull(services);
 	}
 
 	@Override
@@ -81,11 +84,11 @@ public final class Helper extends JfxInstrument implements Initializable {
 	Stage getAboutFrame() {
 		if(aboutFrame == null) {
 			try {
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/About.fxml"), lang.getBundle(), //NON-NLS
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/About.fxml"), lang, //NON-NLS
 					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				final Scene scene = new Scene(root);
 				aboutFrame = new Stage(StageStyle.UTILITY);
-				aboutFrame.setTitle(lang.getBundle().getString("Res.1"));
+				aboutFrame.setTitle(lang.getString("Res.1"));
 				aboutFrame.setScene(scene);
 				aboutFrame.centerOnScreen();
 			}catch(final IOException ex) {
@@ -99,11 +102,11 @@ public final class Helper extends JfxInstrument implements Initializable {
 	Stage getShortcutsFrame() {
 		if(shortcutFrame == null) {
 			try {
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/Shortcuts.fxml"), lang.getBundle(), //NON-NLS
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/Shortcuts.fxml"), lang, //NON-NLS
 					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				final Scene scene = new Scene(root);
 				shortcutFrame = new Stage(StageStyle.UTILITY);
-				shortcutFrame.setTitle(lang.getBundle().getString("LaTeXDrawFrame.3c"));
+				shortcutFrame.setTitle(lang.getString("LaTeXDrawFrame.3c"));
 				shortcutFrame.setScene(scene);
 				shortcutFrame.centerOnScreen();
 			}catch(final IOException ex) {

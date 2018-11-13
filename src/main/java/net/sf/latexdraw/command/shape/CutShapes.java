@@ -12,11 +12,13 @@ package net.sf.latexdraw.command.shape;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -28,21 +30,21 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 	private List<Integer> positionShapes;
 
 
-	public CutShapes(final SelectShapes selection) {
+	public CutShapes(final @NotNull Optional<SelectShapes> selection) {
 		super(selection);
 	}
 
 	@Override
 	public void doCmdBody() {
-		// Removing the shapes.
-		selection.getDrawing().ifPresent(dr -> {
-			final List<Shape> drawingSh = dr.getShapes();
+		selection.ifPresent(sel -> {
+			// Removing the shapes.
+			final List<Shape> drawingSh = sel.getDrawing().getShapes();
 
-			copiedShapes = new ArrayList<>(selection.getShapes());
-			positionShapes = selection.getShapes().stream().map(drawingSh::indexOf).collect(Collectors.toList());
+			copiedShapes = new ArrayList<>(sel.getShapes());
+			positionShapes = sel.getShapes().stream().map(drawingSh::indexOf).collect(Collectors.toList());
 
 			deleteShapes();
-			selection.getShapes().clear();
+			sel.getShapes().clear();
 		});
 	}
 
@@ -50,9 +52,9 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 	 * Delete the shapes from the drawing.
 	 */
 	private void deleteShapes() {
-		selection.getDrawing().ifPresent(dr -> {
-			copiedShapes.forEach(dr::removeShape);
-			dr.setModified(true);
+		selection.ifPresent(sel -> {
+			copiedShapes.forEach(s -> sel.getDrawing().removeShape(s));
+			sel.getDrawing().setModified(true);
 		});
 	}
 
@@ -63,14 +65,14 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 
 	@Override
 	public void undo() {
-		selection.getDrawing().ifPresent(dr -> {
-			IntStream.range(0, positionShapes.size()).forEach(i -> dr.addShape(copiedShapes.get(i), positionShapes.get(i)));
-			dr.setModified(true);
+		selection.ifPresent(sel -> {
+			IntStream.range(0, positionShapes.size()).forEach(i -> sel.getDrawing().addShape(copiedShapes.get(i), positionShapes.get(i)));
+			sel.getDrawing().setModified(true);
 		});
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("LaTeXDrawFrame.44");
 	}
 }

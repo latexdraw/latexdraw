@@ -10,13 +10,21 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.model.api.property.TextProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for texts.
  * @author Arnaud BLOUIN
  */
 public interface Text extends PositionShape, TextProp {
+	@NotNull
 	@Override
 	Text duplicate();
+
+	/**
+	 * @return The text property.
+	 */
+	@NotNull StringProperty textProperty();
 }

@@ -12,8 +12,8 @@ import net.sf.latexdraw.instrument.ShapeDotCustomiser;
 import net.sf.latexdraw.instrument.ShapePropInjector;
 import net.sf.latexdraw.instrument.TestDotStyleGUI;
 import net.sf.latexdraw.instrument.TextSetter;
-import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,9 +36,9 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeDotCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Pencil.class, pencil);
 			}
 		};
@@ -74,8 +74,8 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 	public void testDotSizeSelection() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns), dotSizeField,
 			incrementDotSize, Arrays.asList(
-			() ->  ((Dot) drawing.getSelection().getShapeAt(0)).getDiametre(),
-			() ->  ((Dot) drawing.getSelection().getShapeAt(2)).getDiametre()));
+			() ->  ((Dot) drawing.getSelection().getShapeAt(0).orElseThrow()).getDiametre(),
+			() ->  ((Dot) drawing.getSelection().getShapeAt(2).orElseThrow()).getDiametre()));
 	}
 
 	@Test
@@ -85,8 +85,8 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 		selectNextDotStyle.execute();
 		waitFXEvents.execute();
 		final DotStyle newStyle = dotCB.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, ((Dot) drawing.getSelection().getShapeAt(0)).getDotStyle());
-		assertEquals(newStyle, ((Dot) drawing.getSelection().getShapeAt(2)).getDotStyle());
+		assertEquals(newStyle, ((Dot) drawing.getSelection().getShapeAt(0).orElseThrow()).getDotStyle());
+		assertEquals(newStyle, ((Dot) drawing.getSelection().getShapeAt(2).orElseThrow()).getDotStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -110,8 +110,8 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 		final Color col = fillingB.getValue();
 		pickFillingColour.execute();
 		waitFXEvents.execute();
-		assertEquals(fillingB.getValue(), ((Dot) drawing.getSelection().getShapeAt(0)).getDotFillingCol().toJFX());
-		assertEquals(fillingB.getValue(), ((Dot) drawing.getSelection().getShapeAt(2)).getDotFillingCol().toJFX());
+		assertEquals(fillingB.getValue(), ((Dot) drawing.getSelection().getShapeAt(0).orElseThrow()).getDotFillingCol().toJFX());
+		assertEquals(fillingB.getValue(), ((Dot) drawing.getSelection().getShapeAt(2).orElseThrow()).getDotFillingCol().toJFX());
 		assertNotEquals(col, fillingB.getValue());
 	}
 }

@@ -46,7 +46,6 @@ public class TestCircleArc implements HelperTest {
 
 	@Theory
 	public void testIsTypeOf(@ArcData final CircleArc shape) {
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertTrue(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

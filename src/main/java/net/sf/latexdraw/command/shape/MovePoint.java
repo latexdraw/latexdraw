@@ -13,6 +13,7 @@ package net.sf.latexdraw.command.shape;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.CommandImpl;
 
 /**
@@ -21,7 +22,7 @@ import org.malai.command.CommandImpl;
  */
 public abstract class MovePoint extends CommandImpl implements Modifying {
 	/** The point to move. */
-	protected Point point;
+	protected final @NotNull Point point;
 
 	/** The new coordinates of the point to move. */
 	protected Point newCoord;
@@ -36,8 +37,9 @@ public abstract class MovePoint extends CommandImpl implements Modifying {
 	/**
 	 * Creates the command.
 	 */
-	protected MovePoint() {
+	protected MovePoint(final @NotNull Point pt) {
 		super();
+		point = pt;
 		tx = 0d;
 		ty = 0d;
 	}
@@ -53,16 +55,8 @@ public abstract class MovePoint extends CommandImpl implements Modifying {
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
+	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return RegistrationPolicy.LIMITED;
-	}
-
-	/**
-	 * Sets the point to move.
-	 * @param pt The point to move.
-	 */
-	public void setPoint(final Point pt) {
-		point = pt;
 	}
 
 	/**

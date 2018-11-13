@@ -17,6 +17,7 @@ import net.sf.latexdraw.model.api.property.FreeHandProp;
 import net.sf.latexdraw.model.api.shape.FreeHandStyle;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This trait encapsulates the code of the group related to the support of free hand shapes.
@@ -33,12 +34,12 @@ interface GroupFreeHandBase extends Group {
 	}
 
 	@Override
-	default FreeHandStyle getType() {
+	default @NotNull FreeHandStyle getType() {
 		return firstIFreeHand().map(sh -> sh.getType()).orElse(FreeHandStyle.CURVES);
 	}
 
 	@Override
-	default void setType(final FreeHandStyle fhType) {
+	default void setType(final @NotNull FreeHandStyle fhType) {
 		fhShapes().forEach(sh -> sh.setType(fhType));
 	}
 

@@ -19,6 +19,7 @@ import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.command.ShapesCmd;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -27,10 +28,10 @@ import org.malai.undo.Undoable;
  */
 public class DeleteShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, Modifying {
 	/** The index of the deleted shapes into the original list. */
-	List<Integer> positionShapes;
+	private List<Integer> positionShapes;
 
 	/** The shapes to handle. */
-	final List<Shape> shapes;
+	private final @NotNull List<Shape> shapes;
 
 
 	public DeleteShapes(final Drawing drawing) {
@@ -51,7 +52,7 @@ public class DeleteShapes extends DrawingCmdImpl implements ShapesCmd, Undoable,
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && !shapes.isEmpty();
+		return !shapes.isEmpty();
 	}
 
 	@Override
@@ -68,12 +69,12 @@ public class DeleteShapes extends DrawingCmdImpl implements ShapesCmd, Undoable,
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.5");
 	}
 
 	@Override
-	public List<Shape> getShapes() {
+	public @NotNull List<Shape> getShapes() {
 		return shapes;
 	}
 }

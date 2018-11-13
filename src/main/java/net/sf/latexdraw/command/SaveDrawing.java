@@ -12,14 +12,14 @@ package net.sf.latexdraw.command;
 
 import java.io.File;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.PreferencesSetter;
-import net.sf.latexdraw.util.LangService;
+import net.sf.latexdraw.service.PreferencesService;
 import org.malai.javafx.command.Save;
 import org.malai.javafx.ui.JfxUI;
 import org.malai.javafx.ui.OpenSaver;
@@ -32,12 +32,12 @@ public class SaveDrawing extends Save<Label> {
 	/**
 	 * Show the export dialog to select a path.
 	 */
-	protected static Optional<File> showDialog(final FileChooser fc, final boolean saveAs, final File file, final File currFolder,
+	protected static Optional<File> showDialog(final FileChooser fc, final boolean saveAs, final File file, final Optional<File> currFolder,
 												final JfxUI ui, final Stage stage) {
 		File f;
 
 		if(saveAs || (file == null && ui.isModified())) {
-			fc.setInitialDirectory(currFolder);
+			currFolder.ifPresent(dir -> fc.setInitialDirectory(dir));
 			f = fc.showSaveDialog(stage);
 		}else {
 			f = file;
@@ -50,10 +50,10 @@ public class SaveDrawing extends Save<Label> {
 		return Optional.ofNullable(f);
 	}
 
-	protected static ButtonType showAskModificationsDialog(final LangService lang) {
+	protected static ButtonType showAskModificationsDialog(final ResourceBundle lang) {
 		final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle(lang.getBundle().getString("Actions.2"));
-		alert.setHeaderText(lang.getBundle().getString("LaTeXDrawFrame.188"));
+		alert.setTitle(lang.getString("Actions.2"));
+		alert.setHeaderText(lang.getString("LaTeXDrawFrame.188"));
 		alert.getButtonTypes().setAll(ButtonType.NO, ButtonType.YES, ButtonType.CANCEL);
 		return alert.showAndWait().orElse(ButtonType.CANCEL);
 	}
@@ -62,29 +62,27 @@ public class SaveDrawing extends Save<Label> {
 	private boolean saveAs;
 	/** True: the app will be closed after the drawing saved. */
 	private final boolean saveOnClose;
-	private final File currentFolder;
+	private final Optional<File> currentFolder;
 	/** The file chooser that will be used to select the location to save. */
 	private FileChooser fileChooser;
-	private final PreferencesSetter prefSetter;
-	private final LangService lang;
+	private final PreferencesService prefService;
 	private final Stage mainstage;
 
-	public SaveDrawing(final boolean saveAs, final boolean saveOnClose, final File currentFolder, final FileChooser fileChooser,
-				final PreferencesSetter prefSetter, final File file, final OpenSaver<Label> openSaveManager, final ProgressBar bar, final JfxUI ui,
-				final Label statusWidget, final LangService lang, final Stage mainstage) {
+	public SaveDrawing(final boolean saveAs, final boolean saveOnClose, final Optional<File> currentFolder, final FileChooser fileChooser,
+				final PreferencesService prefService, final File file, final OpenSaver<Label> openSaveManager, final ProgressBar bar, final JfxUI ui,
+				final Label statusWidget, final Stage mainstage) {
 		super(file, openSaveManager, bar, statusWidget, ui);
 		this.saveAs = saveAs;
 		this.saveOnClose = saveOnClose;
 		this.currentFolder = currentFolder;
 		this.fileChooser = fileChooser;
-		this.prefSetter = prefSetter;
-		this.lang = lang;
+		this.prefService = prefService;
 		this.mainstage = mainstage;
 	}
 
 	@Override
 	public boolean canDo() {
-		return openSaveManager != null && fileChooser != null && ui != null && prefSetter != null;
+		return openSaveManager != null && fileChooser != null && ui != null && prefService != null;
 	}
 
 	@Override
@@ -109,7 +107,7 @@ public class SaveDrawing extends Save<Label> {
 	private void saveOnClose() {
 		if(ui.isModified()) {
 			saveAs = true;
-			final ButtonType type = showAskModificationsDialog(lang);
+			final ButtonType type = showAskModificationsDialog(prefService.getBundle());
 			if(type == ButtonType.NO) {
 				quit();
 			}else {
@@ -129,7 +127,7 @@ public class SaveDrawing extends Save<Label> {
 	}
 
 	private void quit() {
-		prefSetter.writeXMLPreferences();
+		prefService.writePreferences();
 		mainstage.close();
 	}
 

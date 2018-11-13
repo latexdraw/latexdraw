@@ -92,21 +92,6 @@ public class TestShapeFactory implements HelperTest {
 	}
 
 	@Test
-	void testNullPointsPolygonCrash() {
-		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createPolygon(null));
-	}
-
-	@Test
-	void testNullPointsPolylineCrash() {
-		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createPolyline(null));
-	}
-
-	@Test
-	void testNullPointsBCCrash() {
-		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createBezierCurve(null));
-	}
-
-	@Test
 	void testBadEquationPlot() {
 		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), 1, 3, "y", false));
 	}

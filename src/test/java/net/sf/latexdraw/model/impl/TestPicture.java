@@ -13,7 +13,6 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.PositionShape;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.util.SystemService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +35,7 @@ public class TestPicture {
 	@BeforeEach
 	public void setUp(@TempDirectory.TempDir final Path dir) throws IOException {
 		WaitForAsyncUtils.waitForFxEvents();
-		shape = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), new SystemService());
+		shape = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		folder = dir;
 		path = ParameteriseShapeData.INST.getTestPNG(folder);
 		shape.setPathSource(path.toString());
@@ -180,14 +179,13 @@ public class TestPicture {
 
 	@Test
 	public void testCopy() {
-		final Picture pic2 = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(), new SystemService());
+		final Picture pic2 = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		pic2.copy(shape);
 		assertEquals(shape.getPathSource(), pic2.getPathSource());
 	}
 
 	@Test
 	public void testIsTypeOf() {
-		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(Rectangle.class));
 		assertFalse(shape.isTypeOf(Circle.class));
 		assertTrue(shape.isTypeOf(Shape.class));

@@ -18,19 +18,20 @@ import net.sf.latexdraw.model.api.shape.Line;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Polyline;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of a polyline.
  * @author Arnaud Blouin
  */
 class PolylineImpl extends PolygonImpl implements Polyline, ArrowableShapeBase {
-	private final List<Arrow> arrows;
+	private final @NotNull List<Arrow> arrows;
 
 	/**
 	 * Creates a model with a set of points.
-	 * @throws IllegalArgumentException If one of the points or the list is null.
+	 * @throws IllegalArgumentException If one of the points is null.
 	 */
-	PolylineImpl(final List<Point> pts) {
+	PolylineImpl(final @NotNull List<Point> pts) {
 		super(pts);
 		arrows = Arrays.asList(ShapeFactory.INST.createArrow(this), ShapeFactory.INST.createArrow(this));
 	}
@@ -42,7 +43,7 @@ class PolylineImpl extends PolygonImpl implements Polyline, ArrowableShapeBase {
 	}
 
 	@Override
-	public Polyline duplicate() {
+	public @NotNull Polyline duplicate() {
 		final Polyline dup = ShapeFactory.INST.createPolyline(points);
 		dup.copy(this);
 		return dup;
@@ -69,7 +70,7 @@ class PolylineImpl extends PolygonImpl implements Polyline, ArrowableShapeBase {
 	}
 
 	@Override
-	public List<Arrow> getArrows() {
+	public @NotNull List<Arrow> getArrows() {
 		return arrows;
 	}
 }

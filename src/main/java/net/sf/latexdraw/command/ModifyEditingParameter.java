@@ -12,24 +12,19 @@ package net.sf.latexdraw.command;
 
 import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.command.shape.ShapePropertyCmd;
-import net.sf.latexdraw.instrument.Pencil;
+import net.sf.latexdraw.service.EditingService;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * This command modifies a parameter of the pencil and updates its corresponding instrument.
+ * This command modifies a parameter of the editing parameters.
  * @author Arnaud Blouin
  */
-public class ModifyPencilParameter<T> extends ShapePropertyCmd<T> {
-	/** The pencil to modify. */
-	private final Pencil pencil;
+public class ModifyEditingParameter<T> extends ShapePropertyCmd<T> {
+	private final @NotNull EditingService editing;
 
-	public ModifyPencilParameter(final ShapeProperties<T> property, final Pencil pencil, final T value) {
+	public ModifyEditingParameter(final @NotNull ShapeProperties<T> property, final @NotNull EditingService editing, final T value) {
 		super(property, value);
-		this.pencil = pencil;
-	}
-
-	@Override
-	public boolean canDo() {
-		return pencil != null && super.canDo();
+		this.editing = editing;
 	}
 
 	@Override
@@ -39,12 +34,12 @@ public class ModifyPencilParameter<T> extends ShapePropertyCmd<T> {
 
 	@Override
 	protected void doCmdBody() {
-		// Modification of the pencil.
+		// Modification of the editing.
 		applyValue(value);
 	}
 
 	@Override
 	protected void applyValue(final T obj) {
-		property.setPropertyValue(pencil.getGroupParams(), value);
+		property.setPropertyValue(editing.getGroupParams(), value);
 	}
 }

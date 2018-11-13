@@ -34,9 +34,9 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				bindAsEagerSingleton(ShapeDoubleBorderCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Pencil.class, pencil);
 			}
 		};
@@ -90,8 +90,8 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 		final boolean sel = dbleBoundCB.isSelected();
 		selectdbleLine.execute();
 		waitFXEvents.execute();
-		assertEquals(!sel, drawing.getSelection().getShapeAt(0).hasDbleBord());
-		assertEquals(!sel, drawing.getSelection().getShapeAt(2).hasDbleBord());
+		assertEquals(!sel, drawing.getSelection().getShapeAt(0).orElseThrow().hasDbleBord());
+		assertEquals(!sel, drawing.getSelection().getShapeAt(2).orElseThrow().hasDbleBord());
 		assertNotEquals(sel, dbleBoundCB.isSelected());
 	}
 
@@ -99,8 +99,8 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 	public void testIncrementDbleSpacingSelection() {
 		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddAxes, selectionAddRec, selectdbleLine, updateIns), dbleSepField,
 			incrementDbleSep, Arrays.asList(
-			() ->  drawing.getSelection().getShapeAt(0).getDbleBordSep(),
-			() ->  drawing.getSelection().getShapeAt(2).getDbleBordSep()));
+			() ->  drawing.getSelection().getShapeAt(0).orElseThrow().getDbleBordSep(),
+			() ->  drawing.getSelection().getShapeAt(2).orElseThrow().getDbleBordSep()));
 	}
 
 	@Test
@@ -109,8 +109,8 @@ public class TestHandDoubleLineStyle extends TestDoubleLineStyleGUI {
 		final Color col = dbleBoundColB.getValue();
 		pickDbleColour.execute();
 		waitFXEvents.execute();
-		assertEquals(dbleBoundColB.getValue(), drawing.getSelection().getShapeAt(0).getDbleBordCol().toJFX());
-		assertEquals(dbleBoundColB.getValue(), drawing.getSelection().getShapeAt(1).getDbleBordCol().toJFX());
+		assertEquals(dbleBoundColB.getValue(), drawing.getSelection().getShapeAt(0).orElseThrow().getDbleBordCol().toJFX());
+		assertEquals(dbleBoundColB.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getDbleBordCol().toJFX());
 		assertNotEquals(col, dbleBoundColB.getValue());
 	}
 }

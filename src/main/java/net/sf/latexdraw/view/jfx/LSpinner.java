@@ -13,8 +13,6 @@ package net.sf.latexdraw.view.jfx;
 import javafx.beans.NamedArg;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.util.StringConverter;
 
 /**
  * A spinner that works...
@@ -57,25 +55,6 @@ public class LSpinner<T> extends Spinner<T> {
 					increment();
 				}
 			}
-		});
-
-		// Workaround to avoid NPE when setting no value in a spinner.
-		// Fixed in Java 9
-		getEditor().setOnAction(action -> {
-			final SpinnerValueFactory<T> factory = getValueFactory();
-			if(factory != null) {
-				final StringConverter<T> converter = factory.getConverter();
-				if(converter != null) {
-					final T value = converter.fromString(getEditor().getText());
-					if(value == null) {
-						getEditor().setText(converter.toString(factory.getValue()));
-					}else {
-						factory.setValue(value);
-					}
-					sendAction();
-				}
-			}
-			action.consume();
 		});
 	}
 

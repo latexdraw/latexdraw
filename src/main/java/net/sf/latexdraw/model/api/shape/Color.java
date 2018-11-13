@@ -11,16 +11,18 @@
 package net.sf.latexdraw.model.api.shape;
 
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The API for colours.
  * @author Arnaud BLOUIN
  */
 public interface Color {
 	/** @return The AWT color. */
-	java.awt.Color toAWT();
+	@NotNull java.awt.Color toAWT();
 
 	/** @return The JavaFX color. */
-	javafx.scene.paint.Color toJFX();
+	@NotNull javafx.scene.paint.Color toJFX();
 
 	/**
 	 * @return The red channel.
@@ -70,5 +72,5 @@ public interface Color {
 	 */
 	void setO(final double opacity);
 
-	Color newColorWithOpacity(final double opacity);
+	@NotNull Color newColorWithOpacity(final double opacity);
 }

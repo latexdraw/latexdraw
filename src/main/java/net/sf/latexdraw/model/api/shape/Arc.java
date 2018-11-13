@@ -13,6 +13,7 @@ package net.sf.latexdraw.model.api.shape;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.model.api.property.ArcProp;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for an elliptic arc.
@@ -22,16 +23,16 @@ public interface Arc extends PositionShape, ArcProp, ArrowableSingleShape {
 	/**
 	 * @return The coordinate of the start point of the arc.
 	 */
-	Point getStartPoint();
+	@NotNull Point getStartPoint();
 
 	/**
 	 * @return The coordinate of the end point of the arc.
 	 */
-	Point getEndPoint();
+	@NotNull Point getEndPoint();
 
-	ObjectProperty<ArcStyle> arcStyleProperty();
+	@NotNull ObjectProperty<ArcStyle> arcStyleProperty();
 
-	DoubleProperty angleStartProperty();
+	@NotNull DoubleProperty angleStartProperty();
 
-	DoubleProperty angleEndProperty();
+	@NotNull DoubleProperty angleEndProperty();
 }

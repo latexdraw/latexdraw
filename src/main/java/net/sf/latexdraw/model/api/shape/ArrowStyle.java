@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.shape;
 
 import java.util.Arrays;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The arrow styles.
@@ -20,22 +21,22 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
 public enum ArrowStyle {
 	NONE {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return "";
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return NONE;
 		}
 	}, LEFT_ARROW {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.LARROW_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return RIGHT_ARROW;
 		}
 
@@ -45,12 +46,12 @@ public enum ArrowStyle {
 		}
 	}, RIGHT_ARROW {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.RARROW_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return LEFT_ARROW;
 		}
 
@@ -60,12 +61,12 @@ public enum ArrowStyle {
 		}
 	}, RIGHT_DBLE_ARROW {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.DRARROW_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return LEFT_DBLE_ARROW;
 		}
 
@@ -75,12 +76,12 @@ public enum ArrowStyle {
 		}
 	}, LEFT_DBLE_ARROW {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.DLARROW_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return RIGHT_DBLE_ARROW;
 		}
 
@@ -90,122 +91,122 @@ public enum ArrowStyle {
 		}
 	}, BAR_END {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.BAREND_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return BAR_END;
 		}
 	}, BAR_IN {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.BARIN_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return BAR_IN;
 		}
 	}, LEFT_SQUARE_BRACKET {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.LSBRACKET_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return RIGHT_SQUARE_BRACKET;
 		}
 	}, RIGHT_SQUARE_BRACKET {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.RSBRACKET_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return LEFT_SQUARE_BRACKET;
 		}
 	}, LEFT_ROUND_BRACKET {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.LRBRACKET_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return RIGHT_ROUND_BRACKET;
 		}
 	}, RIGHT_ROUND_BRACKET {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.RRBRACKET_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return LEFT_ROUND_BRACKET;
 		}
 	}, CIRCLE_END {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.CIRCLEEND_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return CIRCLE_END;
 		}
 	}, CIRCLE_IN {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.CIRCLEIN_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return CIRCLE_IN;
 		}
 	}, DISK_END {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.DISKEND_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return DISK_END;
 		}
 	}, DISK_IN {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.DISKIN_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return DISK_IN;
 		}
 	}, ROUND_END {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.ROUNDEND_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return ROUND_END;
 		}
 	}, ROUND_IN {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.ROUNDIN_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return ROUND_IN;
 		}
 
@@ -215,12 +216,12 @@ public enum ArrowStyle {
 		}
 	}, SQUARE_END {
 		@Override
-		public String getPSTToken() {
+		public @NotNull String getPSTToken() {
 			return PSTricksConstants.SQUAREEND_STYLE;
 		}
 
 		@Override
-		public ArrowStyle getOppositeArrowStyle() {
+		public @NotNull ArrowStyle getOppositeArrowStyle() {
 			return SQUARE_END;
 		}
 	};
@@ -229,19 +230,19 @@ public enum ArrowStyle {
 	 * @param token The PST token or the name of the style to get (e.g. NONE.toString()).
 	 * @return The arrow style corresponding to the given PST token or the style name (or null).
 	 */
-	public static ArrowStyle getArrowStyle(final String token) {
+	public static @NotNull ArrowStyle getArrowStyle(final String token) {
 		return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findAny().orElse(ArrowStyle.NONE);
 	}
 
 	/**
 	 * @return The opposite arrow of the current one.
 	 */
-	public abstract ArrowStyle getOppositeArrowStyle();
+	public abstract @NotNull ArrowStyle getOppositeArrowStyle();
 
 	/**
 	 * @return The PSTricks token of the arrow style.
 	 */
-	public abstract String getPSTToken();
+	public abstract @NotNull String getPSTToken();
 
 	/**
 	 * @return True if the style is a bar.

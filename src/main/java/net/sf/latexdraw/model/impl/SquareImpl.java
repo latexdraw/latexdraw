@@ -15,13 +15,14 @@ import net.sf.latexdraw.model.api.property.LineArcProp;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Square;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A model of a square.
  * @author Arnaud Blouin
  */
 class SquareImpl extends SquaredShapeBase implements Square {
-	private final LineArcPropImpl lineArcProp;
+	private final @NotNull LineArcPropImpl lineArcProp;
 
 	SquareImpl(final Point tl, final double width) {
 		super(tl, width);
@@ -52,7 +53,7 @@ class SquareImpl extends SquaredShapeBase implements Square {
 	}
 
 	@Override
-	public  DoubleProperty frameArcProperty() {
+	public @NotNull DoubleProperty frameArcProperty() {
 		return lineArcProp.frameArc;
 	}
 }

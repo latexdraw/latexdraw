@@ -35,10 +35,9 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
+				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
-				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(ShapeCoordDimCustomiser.class, Mockito.mock(ShapeCoordDimCustomiser.class));
 				bindToInstance(ShapeBorderCustomiser.class, Mockito.mock(ShapeBorderCustomiser.class));
 				bindToInstance(ShapeDoubleBorderCustomiser.class, Mockito.mock(ShapeDoubleBorderCustomiser.class));
@@ -53,6 +52,7 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 				bindToInstance(ShapeGridCustomiser.class, Mockito.mock(ShapeGridCustomiser.class));
 				bindToInstance(ShapeFreeHandCustomiser.class, Mockito.mock(ShapeFreeHandCustomiser.class));
 				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
+				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 				bindToInstance(ShapeTransformer.class, Mockito.mock(ShapeTransformer.class));
 				bindToInstance(ShapeGrouper.class, Mockito.mock(ShapeGrouper.class));
 				bindToInstance(ShapePositioner.class, Mockito.mock(ShapePositioner.class));
@@ -99,15 +99,15 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 	public void testTranslateSeveralShapesUsingOne() {
 		new CompositeGUIVoidCommand(addRec, addRec2, selectAllShapes).execute();
 		canvas.getDrawing().getShapes().forEach(sh -> sh.setFilled(true));
-		final Point tl1 = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
-		final Point tl2 = canvas.getDrawing().getShapeAt(1).getTopLeftPoint();
+		final Point tl1 = canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint();
+		final Point tl2 = canvas.getDrawing().getShapeAt(1).orElseThrow().getTopLeftPoint();
 		drag(canvas.getViews().getChildren().get(1)).sleep(10).dropBy(100d, 200d);
 		waitFXEvents.execute();
 		assertEquals(2, canvas.getDrawing().getSelection().size());
-		assertEquals(tl1.getX() + 100d, canvas.getDrawing().getShapeAt(0).getTopLeftPoint().getX(), 1d);
-		assertEquals(tl1.getY() + 200d, canvas.getDrawing().getShapeAt(0).getTopLeftPoint().getY(), 1d);
-		assertEquals(tl2.getX() + 100d, canvas.getDrawing().getShapeAt(1).getTopLeftPoint().getX(), 1d);
-		assertEquals(tl2.getY() + 200d, canvas.getDrawing().getShapeAt(1).getTopLeftPoint().getY(), 1d);
+		assertEquals(tl1.getX() + 100d, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint().getX(), 1d);
+		assertEquals(tl1.getY() + 200d, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint().getY(), 1d);
+		assertEquals(tl2.getX() + 100d, canvas.getDrawing().getShapeAt(1).orElseThrow().getTopLeftPoint().getX(), 1d);
+		assertEquals(tl2.getY() + 200d, canvas.getDrawing().getShapeAt(1).orElseThrow().getTopLeftPoint().getY(), 1d);
 	}
 
 
@@ -115,21 +115,21 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 	public void testTranslateCorrectSelectedShape() {
 		new CompositeGUIVoidCommand(addRec, addRec2).execute();
 		canvas.getDrawing().getShapes().forEach(sh -> sh.setFilled(true));
-		final Point tl1 = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
-		final Point tl2 = canvas.getDrawing().getShapeAt(1).getTopLeftPoint();
+		final Point tl1 = canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint();
+		final Point tl2 = canvas.getDrawing().getShapeAt(1).orElseThrow().getTopLeftPoint();
 		clickOn(canvas.getViews().getChildren().get(0)).sleep(10).drag(canvas.getViews().getChildren().get(1)).sleep(10).
 			dropBy(100d, 200d);
 		waitFXEvents.execute();
 
-		assertEquals(tl1, canvas.getDrawing().getShapeAt(0).getTopLeftPoint());
-		assertEquals(tl2.getX() + 100d, canvas.getDrawing().getShapeAt(1).getTopLeftPoint().getX(), 1d);
-		assertEquals(tl2.getY() + 200d, canvas.getDrawing().getShapeAt(1).getTopLeftPoint().getY(), 1d);
+		assertEquals(tl1, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint());
+		assertEquals(tl2.getX() + 100d, canvas.getDrawing().getShapeAt(1).orElseThrow().getTopLeftPoint().getX(), 1d);
+		assertEquals(tl2.getY() + 200d, canvas.getDrawing().getShapeAt(1).orElseThrow().getTopLeftPoint().getY(), 1d);
 	}
 
 	@Test
 	public void testTranslateOnSelectionRectangle() {
 		new CompositeGUIVoidCommand(addRec).execute();
-		final Point tl = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
+		final Point tl = canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint();
 
 		clickOn(canvas.getViews().getChildren().get(0));
 		waitFXEvents.execute();
@@ -137,16 +137,16 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 			canvas.getSelectionBorder().getLayoutY() + Canvas.getMargins());
 		drag(bounds.getX() + 150, bounds.getY()).sleep(10).dropBy(100d, 200d);
 		waitFXEvents.execute();
-		assertEquals(tl.getX() + 100d, canvas.getDrawing().getShapeAt(0).getTopLeftPoint().getX(), 1d);
-		assertEquals(tl.getY() + 200d, canvas.getDrawing().getShapeAt(0).getTopLeftPoint().getY(), 1d);
+		assertEquals(tl.getX() + 100d, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint().getX(), 1d);
+		assertEquals(tl.getY() + 200d, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint().getY(), 1d);
 	}
 
 	@Test
 	public void testTranslateAbortOK() {
 		new CompositeGUIVoidCommand(addRec).execute();
-		final Point tl = canvas.getDrawing().getShapeAt(0).getTopLeftPoint();
+		final Point tl = canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint();
 		drag(canvas.getViews().getChildren().get(0)).sleep(10).moveBy(100d, 200d).type(KeyCode.ESCAPE);
 		waitFXEvents.execute();
-		assertEquals(tl, canvas.getDrawing().getShapeAt(0).getTopLeftPoint());
+		assertEquals(tl, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint());
 	}
 }

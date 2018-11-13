@@ -20,7 +20,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.util.SystemService;
+import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.util.Tuple;
 
 /**
@@ -46,7 +46,7 @@ public class TextAreaAutoSize extends TextArea {
 			if(evt.getCode() == KeyCode.ENTER) {
 				if(evt.isShiftDown()) {
 					final int caretPosition = getCaretPosition();
-					setText(getText() + SystemService.EOL);
+					setText(getText() + SystemUtils.getInstance().EOL);
 					positionCaret(caretPosition + 1);
 				}else {
 					evt.consume();
@@ -115,8 +115,8 @@ public class TextAreaAutoSize extends TextArea {
 			return;
 		}
 
-		final String[] lines = newText.split(SystemService.EOL);
-		final int countEOL = newText.length() - newText.replace(SystemService.EOL, "").length();
+		final String[] lines = newText.split(SystemUtils.getInstance().EOL);
+		final int countEOL = newText.length() - newText.replace(SystemUtils.getInstance().EOL, "").length();
 		final String maxLine = Arrays.stream(lines).reduce((a, b) -> a.length() > b.length() ? a : b).orElse("");
 
 		final Text txt = new Text(newText + " ");

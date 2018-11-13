@@ -12,24 +12,24 @@ package net.sf.latexdraw.model.impl;
 
 import net.sf.latexdraw.model.api.shape.Circle;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An implementation of a circle.
  * @author Arnaud Blouin
  */
 class CircleImpl extends SquaredShapeBase implements Circle {
-
 	CircleImpl(final Point pos, final double width) {
 		super(pos, width);
 	}
 
 	@Override
-	public Point getCenter() {
+	public @NotNull Point getCenter() {
 		return getGravityCentre();
 	}
 
 	@Override
 	public double getRadius() {
-		return getWidth() / 2.0;
+		return getWidth() / 2d;
 	}
 }

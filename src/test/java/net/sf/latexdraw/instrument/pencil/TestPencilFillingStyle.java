@@ -35,9 +35,9 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeFillingCustomiser.class);
+				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 			}
 		};
@@ -72,7 +72,7 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 		selectStyle.execute(FillingStyle.PLAIN);
 		waitFXEvents.execute();
 		final FillingStyle newStyle = fillStyleCB.getSelectionModel().getSelectedItem();
-		assertEquals(newStyle, pencil.createShapeInstance().getFillingStyle());
+		assertEquals(newStyle, editing.createShapeInstance().getFillingStyle());
 		assertNotEquals(style, newStyle);
 	}
 
@@ -82,7 +82,7 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 		final Color col = fillColButton.getValue();
 		pickfillCol.execute();
 		waitFXEvents.execute();
-		assertEquals(fillColButton.getValue(), pencil.createShapeInstance().getFillingCol().toJFX());
+		assertEquals(fillColButton.getValue(), editing.createShapeInstance().getFillingCol().toJFX());
 		assertNotEquals(col, fillColButton.getValue());
 	}
 
@@ -92,7 +92,7 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 		final Color col = hatchColButton.getValue();
 		pickhatchCol.execute();
 		waitFXEvents.execute();
-		assertEquals(hatchColButton.getValue(), pencil.createShapeInstance().getHatchingsCol().toJFX());
+		assertEquals(hatchColButton.getValue(), editing.createShapeInstance().getHatchingsCol().toJFX());
 		assertNotEquals(col, hatchColButton.getValue());
 	}
 
@@ -102,7 +102,7 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 		final Color col = gradStartColButton.getValue();
 		pickgradStartCol.execute();
 		waitFXEvents.execute();
-		assertEquals(gradStartColButton.getValue(), pencil.createShapeInstance().getGradColStart().toJFX());
+		assertEquals(gradStartColButton.getValue(), editing.createShapeInstance().getGradColStart().toJFX());
 		assertNotEquals(col, gradStartColButton.getValue());
 	}
 
@@ -112,37 +112,37 @@ public class TestPencilFillingStyle extends TestFillingStyleGUI {
 		final Color col = gradEndColButton.getValue();
 		pickgradEndCol.execute();
 		waitFXEvents.execute();
-		assertEquals(gradEndColButton.getValue(), pencil.createShapeInstance().getGradColEnd().toJFX());
+		assertEquals(gradEndColButton.getValue(), editing.createShapeInstance().getGradColEnd().toJFX());
 		assertNotEquals(col, gradEndColButton.getValue());
 	}
 
 	@Test
 	public void testIncrementGradMidPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectGradStyle), gradMidPtField,
-			incrementgradMidPt, Collections.singletonList(() ->  pencil.createShapeInstance().getGradMidPt()));
+			incrementgradMidPt, Collections.singletonList(() ->  editing.createShapeInstance().getGradMidPt()));
 	}
 
 	@Test
 	public void testIncrementGradAnglePencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectGradStyle), gradAngleField,
-			incrementgradAngle, Collections.singletonList(() ->  Math.toDegrees(pencil.createShapeInstance().getGradAngle())));
+			incrementgradAngle, Collections.singletonList(() ->  Math.toDegrees(editing.createShapeInstance().getGradAngle())));
 	}
 
 	@Test
 	public void testIncrementHatchAnglePencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchAngleField,
-			incrementhatchAngle, Collections.singletonList(() ->  Math.toDegrees(pencil.createShapeInstance().getHatchingsAngle())));
+			incrementhatchAngle, Collections.singletonList(() ->  Math.toDegrees(editing.createShapeInstance().getHatchingsAngle())));
 	}
 
 	@Test
 	public void testIncrementHatchWidthPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchWidthField,
-			incrementhatchWidth, Collections.singletonList(() ->  pencil.createShapeInstance().getHatchingsWidth()));
+			incrementhatchWidth, Collections.singletonList(() ->  editing.createShapeInstance().getHatchingsWidth()));
 	}
 
 	@Test
 	public void testIncrementHatchSepPencil() {
 		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns, selectHatchingsStyle), hatchSepField,
-			incrementhatchSep, Collections.singletonList(() ->  pencil.createShapeInstance().getHatchingsSep()));
+			incrementhatchSep, Collections.singletonList(() ->  editing.createShapeInstance().getHatchingsSep()));
 	}
 }

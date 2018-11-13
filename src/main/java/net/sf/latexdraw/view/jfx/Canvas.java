@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javafx.animation.KeyFrame;
@@ -23,6 +24,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener.Change;
@@ -43,12 +45,12 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.Page;
-import net.sf.latexdraw.util.SystemService;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.malai.command.CmdHandler;
 import org.malai.command.Command;
 import org.malai.command.CommandsRegistry;
@@ -56,7 +58,6 @@ import org.malai.properties.Modifiable;
 import org.malai.properties.Preferenciable;
 import org.malai.properties.Reinitialisable;
 import org.malai.properties.Zoomable;
-import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -70,16 +71,8 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/** The margin used to surround the drawing. */
 	static int margins = 1500;
 
-	static Page defaultPage = Page.USLETTER;
-
 	/** The origin of the drawing in the whole drawing area. */
-	public static final Point ORIGIN = ShapeFactory.INST.createPoint(margins, margins);
-
-	public static void setDefaultPage(final Page newPage) {
-		if(newPage != null) {
-			defaultPage = newPage;
-		}
-	}
+	public static final @NotNull Point ORIGIN = ShapeFactory.INST.createPoint(margins, margins);
 
 	public static int getMargins() {
 		return margins;
@@ -93,52 +86,38 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	/** The model of the view. */
-	private final Drawing drawing;
-
+	private final @NotNull Drawing drawing;
 	/** The zoom applied on the canvas. */
-	private final DoubleProperty zoom;
-
+	private final @NotNull DoubleProperty zoom;
 	/** The current page of the canvas. */
-	private final PageView page;
-
+	private final @NotNull PageView page;
 	/** The views of the shape. */
-	private final Group shapesPane;
-
+	private final @NotNull Group shapesPane;
 	/** The pane that contains widgets to handle shapes, such as handlers, text fields. */
-	private final Group widgetsPane;
-
-	private final Rectangle selectionBorder;
-
-	private final Rectangle ongoingSelectionBorder;
-
-	private final Map<Shape, ViewShape<?>> shapesToViewMap;
-
+	private final @NotNull Group widgetsPane;
+	private final @NotNull Rectangle selectionBorder;
+	private final @NotNull Rectangle ongoingSelectionBorder;
+	private final @NotNull Map<Shape, ViewShape<?>> shapesToViewMap;
 	/** The magnetic grid of the canvas. */
-	private final MagneticGridImpl magneticGrid;
-
+	private final @NotNull MagneticGridImpl magneticGrid;
 	/** Defined whether the canvas has been modified. */
 	private boolean modified;
-
 	/** The temporary view that the canvas may contain. */
-	private Optional<ViewShape<?>> tempView;
-
-	@Inject private ViewFactory viewFactory;
+	private @NotNull Optional<ViewShape<?>> tempView;
+	private final @NotNull ViewFactory viewFactory;
 
 	/**
 	 * Creates the canvas.
 	 */
-	public Canvas(final SystemService system) {
+	public Canvas(final PreferencesService prefs, final ViewFactory viewFactory) {
 		super();
-
+		this.viewFactory = Objects.requireNonNull(viewFactory);
 		modified = false;
 		drawing = ShapeFactory.INST.createDrawing();
 		zoom = new SimpleDoubleProperty(1d);
 		tempView = Optional.empty();
-		page = new PageView(defaultPage, getOrigin());
-		setPrefWidth(margins * 2d + page.getPage().getWidth() * Shape.PPC);
-		setPrefHeight(margins * 2d + page.getPage().getHeight() * Shape.PPC);
-
-		magneticGrid = new MagneticGridImpl(this, system);
+		page = new PageView(prefs, getOrigin());
+		magneticGrid = new MagneticGridImpl(this, prefs);
 
 		widgetsPane = new Group();
 		shapesPane = new Group();
@@ -169,10 +148,13 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		CommandsRegistry.INSTANCE.addHandler(this);
 
 		shapesPane.setFocusTraversable(false);
+
+		prefWidthProperty().bind(Bindings.createDoubleBinding(() -> margins * 2d + prefs.getPage().getWidth() * Shape.PPC, prefs.pageProperty()));
+		prefHeightProperty().bind(Bindings.createDoubleBinding(() -> margins * 2d + prefs.getPage().getHeight() * Shape.PPC, prefs.pageProperty()));
 	}
 
 
-	public MagneticGrid getMagneticGrid() {
+	public @NotNull MagneticGrid getMagneticGrid() {
 		return magneticGrid;
 	}
 
@@ -231,7 +213,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/**
 	 * @return The selected views.
 	 */
-	public List<ViewShape<?>> getSelectedViews() {
+	public @NotNull List<ViewShape<?>> getSelectedViews() {
 		return drawing.getSelection().getShapes().stream().map(sh -> shapesToViewMap.get(sh)).collect(Collectors.toList());
 	}
 
@@ -268,7 +250,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/**
 	 * @return The point where the page is located.
 	 */
-	public Point getOrigin() {
+	public @NotNull Point getOrigin() {
 		return ORIGIN;
 	}
 
@@ -280,7 +262,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/**
 	 * @return The page of the drawing area. Cannot be null.
 	 */
-	public PageView getPage() {
+	public @NotNull PageView getPage() {
 		return page;
 	}
 
@@ -288,7 +270,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		updateSelectionBorders();
 	}
 
-	public Rectangle getSelectionBorder() {
+	public @NotNull Rectangle getSelectionBorder() {
 		return selectionBorder;
 	}
 
@@ -297,7 +279,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		return zoom.getValue();
 	}
 
-	public DoubleProperty zoomProperty() {
+	public @NotNull DoubleProperty zoomProperty() {
 		return zoom;
 	}
 
@@ -306,41 +288,6 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		if(cmd instanceof Modifying) {
 			update();
 		}
-	}
-
-	@Override
-	public void onUndoableAdded(final Undoable u) {
-		/* Nothing to do. */
-	}
-
-	@Override
-	public void onUndoableCleared() {
-		/* Nothing to do. */
-	}
-
-	@Override
-	public void onUndoableRedo(final Undoable u) {
-		/* Nothing to do. */
-	}
-
-	@Override
-	public void onUndoableUndo(final Undoable u) {
-		/* Nothing to do. */
-	}
-
-	@Override
-	public void onCmdCancelled(final Command a) {
-		/* Nothing to do. */
-	}
-
-	@Override
-	public void onCmdAdded(final Command a) {
-		/* Nothing to do. */
-	}
-
-	@Override
-	public void onCmdDone(final Command a) {
-		/* Nothing to do. */
 	}
 
 	@Override
@@ -417,19 +364,19 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	@Override
-	public Point getTopRightDrawingPoint() {
+	public @NotNull Point getTopRightDrawingPoint() {
 		final Bounds border = shapesPane.getBoundsInLocal();
 		return ShapeFactory.INST.createPoint(border.getMaxX(), border.getMinY());
 	}
 
 	@Override
-	public Point getBottomLeftDrawingPoint() {
+	public @NotNull Point getBottomLeftDrawingPoint() {
 		final Bounds border = shapesPane.getBoundsInLocal();
 		return ShapeFactory.INST.createPoint(border.getMinX(), border.getMaxY());
 	}
 
 	@Override
-	public Point getOriginDrawingPoint() {
+	public @NotNull Point getOriginDrawingPoint() {
 		final Bounds border = shapesPane.getBoundsInLocal();
 		return ShapeFactory.INST.createPoint(border.getMinX(), (border.getMaxY() - border.getMinY()) / 2.0);
 	}
@@ -450,13 +397,13 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	@Override
-	public Point2D getZoomedPoint(final double x, final double y) {
+	public @NotNull Point2D getZoomedPoint(final double x, final double y) {
 		final double zoomValue = zoom.getValue();
 		return new Point2D.Double(x / zoomValue, y / zoomValue);
 	}
 
 	@Override
-	public Point2D getZoomedPoint(final java.awt.Point pt) {
+	public @NotNull Point2D getZoomedPoint(final java.awt.Point pt) {
 		return pt == null ? new Point2D.Double() : getZoomedPoint(pt.x, pt.y);
 	}
 
@@ -497,7 +444,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/**
 	 * @return The model of the canvas.
 	 */
-	public Drawing getDrawing() {
+	public @NotNull Drawing getDrawing() {
 		return drawing;
 	}
 
@@ -505,7 +452,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	 * Sets the temporary view.
 	 * @param view The new temporary view.
 	 */
-	public void setTempView(final ViewShape<?> view) {
+	public void setTempView(final @Nullable ViewShape<?> view) {
 		tempView.ifPresent(v -> {
 			shapesPane.getChildren().remove(v);
 			v.flush();
@@ -540,7 +487,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/**
 	 * @return The views that the canvas contains.
 	 */
-	public Group getViews() {
+	public @NotNull Group getViews() {
 		return shapesPane;
 	}
 
@@ -548,7 +495,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	 * @param sh The shape to look for.
 	 * @return The view corresponding to the given shape or nothing.
 	 */
-	public Optional<ViewShape<?>> getViewFromShape(final Shape sh) {
+	public @NotNull Optional<ViewShape<?>> getViewFromShape(final Shape sh) {
 		if(sh == null) {
 			return Optional.empty();
 		}

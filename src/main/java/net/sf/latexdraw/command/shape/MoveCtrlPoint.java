@@ -13,6 +13,7 @@ package net.sf.latexdraw.command.shape;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.model.api.shape.ControlPointShape;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 
 /**
@@ -21,13 +22,15 @@ import org.malai.undo.Undoable;
  */
 public class MoveCtrlPoint extends MovePoint implements Undoable {
 	/** The control point shape to modify. */
-	private ControlPointShape shape;
+	private final @NotNull ControlPointShape shape;
 
 	/** True: it is a first control point which is moved. */
-	private boolean isFirstCtrlPt;
+	private final boolean isFirstCtrlPt;
 
-	public MoveCtrlPoint() {
-		super();
+	public MoveCtrlPoint(final @NotNull ControlPointShape sh, final @NotNull Point coord, final boolean firstCtrl) {
+		super(coord);
+		shape = sh;
+		isFirstCtrlPt = firstCtrl;
 	}
 
 	@Override
@@ -45,17 +48,11 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 	}
 
 	@Override
-	public void flush() {
-		super.flush();
-		shape = null;
-	}
-
-	@Override
 	public boolean canDo() {
-		return shape != null && getIndexCtrlPt() != -1 && super.canDo();
+		return getIndexCtrlPt() != -1 && super.canDo();
 	}
 
-	private void move(final Point firstPt, final Point sndPt) {
+	private void move(final @NotNull Point firstPt, final @NotNull Point sndPt) {
 		final int indexPt = getIndexCtrlPt();
 		shape.setXFirstCtrlPt(firstPt.getX(), indexPt);
 		shape.setYFirstCtrlPt(firstPt.getY(), indexPt);
@@ -85,21 +82,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.9"); //NON-NLS
-	}
-
-	/**
-	 * @param val True: it is a first control point which is moved.
-	 */
-	public void setIsFirstCtrlPt(final boolean val) {
-		isFirstCtrlPt = val;
-	}
-
-	/**
-	 * @param sh The shape to modify.
-	 */
-	public void setShape(final ControlPointShape sh) {
-		shape = sh;
 	}
 }

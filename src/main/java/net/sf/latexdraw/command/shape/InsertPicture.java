@@ -11,11 +11,10 @@
 package net.sf.latexdraw.command.shape;
 
 import java.io.File;
-import java.util.Optional;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Picture;
-import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This command asks the user to select a picture and, if valid, adds it to a drawing.
@@ -23,7 +22,7 @@ import net.sf.latexdraw.model.api.shape.Shape;
  */
 public class InsertPicture extends AddShape {
 	/** The file chooser used to select the picture to add. */
-	private final Optional<FileChooser> fileChooser;
+	private final @NotNull FileChooser fileChooser;
 
 	/** Defines if the picture has been successfully loaded. */
 	private boolean loaded;
@@ -34,22 +33,20 @@ public class InsertPicture extends AddShape {
 	 * @param dr The drawing that will be handled by the command.
 	 * @param chooser The file chooser used to select the picture to load.
 	 */
-	public InsertPicture(final Shape sh, final Drawing dr, final FileChooser chooser) {
+	public InsertPicture(final @NotNull Picture sh, final @NotNull Drawing dr, final @NotNull FileChooser chooser) {
 		super(sh, dr);
-		fileChooser = Optional.ofNullable(chooser);
+		fileChooser = chooser;
 	}
 
 	@Override
 	protected void doCmdBody() {
 		// Asks the user for the picture to load.
-		fileChooser.ifPresent(ch -> shape.ifPresent(sh -> {
-			final File file = ch.showOpenDialog(null);
+		final File file = fileChooser.showOpenDialog(null);
 
-			if(file != null && file.canRead()) {
-				((Picture) sh).setPathSource(file.getAbsolutePath());
-				loaded = true;
-			}
-		}));
+		if(file != null && file.canRead()) {
+			((Picture) shape).setPathSource(file.getAbsolutePath());
+			loaded = true;
+		}
 
 		if(loaded) {
 			redo();
@@ -58,10 +55,8 @@ public class InsertPicture extends AddShape {
 
 	@Override
 	public void redo() {
-		drawing.ifPresent(dr -> shape.ifPresent(sh -> {
-			dr.addShape(sh);
-			dr.setModified(true);
-		}));
+		drawing.addShape(shape);
+		drawing.setModified(true);
 	}
 
 	@Override
@@ -71,6 +66,6 @@ public class InsertPicture extends AddShape {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && fileChooser.isPresent() && shape.orElse(null) instanceof Picture;
+		return super.canDo() && shape instanceof Picture;
 	}
 }

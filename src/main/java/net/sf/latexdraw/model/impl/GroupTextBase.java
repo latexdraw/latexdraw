@@ -13,10 +13,10 @@ package net.sf.latexdraw.model.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.TextPosition;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This trait encapsulates the code of the group related to the support of texts.
@@ -24,36 +24,31 @@ import net.sf.latexdraw.model.api.shape.TextPosition;
  */
 interface GroupTextBase extends Group {
 	/** May return the first free hand shape of the group. */
-	default Optional<Text> firstIText() {
+	default @NotNull Optional<Text> firstIText() {
 		return txtShapes().stream().filter(sh -> sh.isTypeOf(Text.class)).findFirst();
 	}
 
-	default List<Text> txtShapes() {
+	default @NotNull List<Text> txtShapes() {
 		return getShapes().stream().filter(sh -> sh instanceof Text).map(sh -> (Text) sh).collect(Collectors.toList());
 	}
 
 	@Override
-	default TextPosition getTextPosition() {
-		return firstIText().map(sh -> sh.getTextPosition()).orElse(null);
+	default @NotNull TextPosition getTextPosition() {
+		return firstIText().map(sh -> sh.getTextPosition()).orElse(TextPosition.BOT_LEFT);
 	}
 
 	@Override
-	default void setTextPosition(final TextPosition textPosition) {
+	default void setTextPosition(final @NotNull TextPosition textPosition) {
 		txtShapes().forEach(sh -> sh.setTextPosition(textPosition));
 	}
 
 	@Override
-	default String getText() {
-		return firstIText().map(sh -> sh.getText()).orElse(null);
+	default @NotNull String getText() {
+		return firstIText().map(sh -> sh.getText()).orElse("");
 	}
 
 	@Override
-	default void setText(final String text) {
+	default void setText(final @NotNull String text) {
 		txtShapes().forEach(sh -> sh.setText(text));
-	}
-
-	@Override
-	default StringProperty textProperty() { //FIXME create a TextProp
-		return null;
 	}
 }

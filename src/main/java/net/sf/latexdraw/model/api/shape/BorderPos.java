@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.shape;
 
 import java.util.Arrays;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The different positions of the border.
@@ -20,17 +21,17 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
 public enum BorderPos {
 	INTO {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.BORDERS_INSIDE;
 		}
 	}, MID {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.BORDERS_MIDDLE;
 		}
 	}, OUT {
 		@Override
-		public String getLatexToken() {
+		public @NotNull String getLatexToken() {
 			return PSTricksConstants.BORDERS_OUTSIDE;
 		}
 	};
@@ -39,12 +40,12 @@ public enum BorderPos {
 	 * @param style The style to get.
 	 * @return The style which name is the given name style.
 	 */
-	public static BorderPos getStyle(final String style) {
+	public static @NotNull BorderPos getStyle(final String style) {
 		return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getLatexToken().equals(style)).findFirst().orElse(INTO);
 	}
 
 	/**
 	 * @return The latex token corresponding to the BorderPos.
 	 */
-	public abstract String getLatexToken();
+	public abstract @NotNull String getLatexToken();
 }

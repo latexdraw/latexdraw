@@ -33,9 +33,9 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 		group.addShape(ShapeFactory.INST.createCircle());
 		group.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(20, 30), 10));
 		drawing.addShape(group);
-		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(0)));
+		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(0).orElseThrow()));
 		final SelectShapes cmd = new SelectShapes(drawing);
-		cmd.addShape(drawing.getShapeAt(0));
+		cmd.addShape(drawing.getShapeAt(0).orElseThrow());
 		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
 		ins.update();
 	};
@@ -67,9 +67,9 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);
 				bindAsEagerSingleton(ShapeGrouper.class);
+				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 				bindToInstance(Pencil.class, pencil);
-				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 			}
 		};
@@ -132,17 +132,17 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 		new CompositeGUIVoidCommand(selectTwoShapes, clickGroup).execute();
 		assertEquals(1, drawing.size());
 		waitFXEvents.execute();
-		assertTrue(drawing.getShapeAt(0) instanceof Group);
+		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Group);
 	}
 
 	@Test
 	public void testUnGroup() {
 		selectOneGroup.execute();
-		final Group group = (Group) drawing.getShapeAt(0);
+		final Group group = (Group) drawing.getShapeAt(0).orElseThrow();
 		clickSep.execute();
 		waitFXEvents.execute();
 		assertEquals(2, drawing.size());
-		assertEquals(group.getShapeAt(0), drawing.getShapeAt(0));
-		assertEquals(group.getShapeAt(1), drawing.getShapeAt(1));
+		assertEquals(group.getShapeAt(0).orElseThrow(), drawing.getShapeAt(0).orElseThrow());
+		assertEquals(group.getShapeAt(1).orElseThrow(), drawing.getShapeAt(1).orElseThrow());
 	}
 }

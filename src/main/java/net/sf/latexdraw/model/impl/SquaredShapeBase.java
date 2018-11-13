@@ -17,13 +17,13 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.SquaredShape;
 import net.sf.latexdraw.model.api.shape.Position;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A model of a squared shape.
  * @author Arnaud Blouin
  */
 abstract class SquaredShapeBase extends PositionShapeBase implements SquaredShape {
-
 	SquaredShapeBase(final Point tl, final double width) {
 		super(tl);
 
@@ -38,10 +38,8 @@ abstract class SquaredShapeBase extends PositionShapeBase implements SquaredShap
 	}
 
 	@Override
-	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
-		if(bound != null && pos != null) {
-			scaleSetPointsWithRatio(points, prevWidth, prevHeight, pos, bound);
-		}
+	public void scale(final double prevWidth, final double prevHeight, final @NotNull Position pos, final @NotNull Rectangle2D bound) {
+		scaleSetPointsWithRatio(points, prevWidth, prevHeight, pos, bound);
 	}
 
 	@Override

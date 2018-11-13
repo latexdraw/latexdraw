@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.api.property;
 
 import net.sf.latexdraw.model.api.shape.ArcStyle;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Properties of arcs.
@@ -20,12 +21,12 @@ public interface ArcProp {
 	/**
 	 * @return the style of the arc.
 	 */
-	ArcStyle getArcStyle();
+	@NotNull ArcStyle getArcStyle();
 
 	/**
 	 * @param style the arc style to set.
 	 */
-	void setArcStyle(final ArcStyle style);
+	void setArcStyle(final @NotNull ArcStyle style);
 
 	/**
 	 * @return the angleStart.

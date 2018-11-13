@@ -12,6 +12,7 @@ package net.sf.latexdraw.model.api.shape;
 
 import java.util.ResourceBundle;
 import javafx.scene.shape.ArcType;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The different styles of arc.
@@ -25,12 +26,12 @@ public enum ArcStyle {
 		}
 
 		@Override
-		public String getLabel(final ResourceBundle bundle) {
+		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
 			return bundle.getString("Arc.arc"); //NON-NLS
 		}
 
 		@Override
-		public ArcType getJFXStyle() {
+		public @NotNull ArcType getJFXStyle() {
 			return ArcType.ROUND;
 		}
 	}, ARC {
@@ -40,12 +41,12 @@ public enum ArcStyle {
 		}
 
 		@Override
-		public String getLabel(final ResourceBundle bundle) {
+		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
 			return bundle.getString("Arc.wedge"); //NON-NLS
 		}
 
 		@Override
-		public ArcType getJFXStyle() {
+		public @NotNull ArcType getJFXStyle() {
 			return ArcType.OPEN;
 		}
 	}, CHORD {
@@ -55,12 +56,12 @@ public enum ArcStyle {
 		}
 
 		@Override
-		public String getLabel(final ResourceBundle bundle) {
+		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
 			return bundle.getString("Arc.chord"); //NON-NLS
 		}
 
 		@Override
-		public ArcType getJFXStyle() {
+		public @NotNull ArcType getJFXStyle() {
 			return ArcType.CHORD;
 		}
 	};
@@ -73,10 +74,10 @@ public enum ArcStyle {
 	/**
 	 * @return The internationalised label of the arc type.
 	 */
-	public abstract String getLabel(final ResourceBundle bundle);
+	public abstract @NotNull String getLabel(final @NotNull ResourceBundle bundle);
 
 	/**
 	 * @return The JFX arc style corresponding to the current arc style.
 	 */
-	public abstract ArcType getJFXStyle();
+	public abstract @NotNull ArcType getJFXStyle();
 }

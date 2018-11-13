@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.api.property;
 
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Properties of standard grids.
@@ -71,12 +72,12 @@ public interface IStdGridProp {
 	/**
 	 * @return The starting point of the grid.
 	 */
-	Point getGridStart();
+	@NotNull Point getGridStart();
 
 	/**
 	 * @return The ending point of the grid.
 	 */
-	Point getGridEnd();
+	@NotNull Point getGridEnd();
 
 	/**
 	 * @param x The x-coordinate of the starting point of the grid.

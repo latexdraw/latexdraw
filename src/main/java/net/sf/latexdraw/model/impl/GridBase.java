@@ -20,6 +20,7 @@ import net.sf.latexdraw.model.api.property.IStdGridProp;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.StandardGrid;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A implementation of an abstract latex grid.
@@ -27,19 +28,19 @@ import net.sf.latexdraw.model.api.shape.StandardGrid;
  */
 abstract class GridBase extends PositionShapeBase implements StandardGrid {
 	/** The x-minimum values of the axes */
-	protected final DoubleProperty gridStartx;
+	protected final @NotNull DoubleProperty gridStartx;
 	/** The y-minimum values of the axes */
-	protected final DoubleProperty gridStarty;
+	protected final @NotNull DoubleProperty gridStarty;
 	/** The x-maximum values of the axes */
-	protected final DoubleProperty gridEndx;
+	protected final @NotNull DoubleProperty gridEndx;
 	/** The y-maximum values of the axes */
-	protected final DoubleProperty gridEndy;
+	protected final @NotNull DoubleProperty gridEndy;
 	/** The x-coordinate of the origin of the grid */
-	protected final DoubleProperty originx;
+	protected final @NotNull DoubleProperty originx;
 	/** The y-coordinate of the origin of the grid */
-	protected final DoubleProperty originy;
+	protected final @NotNull DoubleProperty originy;
 	/** The size of the labels. */
-	protected final IntegerProperty labelSize;
+	protected final @NotNull IntegerProperty labelSize;
 
 
 	/**
@@ -83,21 +84,21 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 
 
 	@Override
-	public Point getBottomRightPoint() {
+	public @NotNull Point getBottomRightPoint() {
 		final Point pos = getPosition();
 		return ShapeFactory.INST.createPoint(pos.getX() + getGridMaxX() * PPC, pos.getY() - getGridMinY() * PPC);
 	}
 
 
 	@Override
-	public Point getTopLeftPoint() {
+	public @NotNull Point getTopLeftPoint() {
 		final Point pos = getPosition();
 		return ShapeFactory.INST.createPoint(pos.getX() + getGridMinX() * PPC, pos.getY() - getGridMaxY() * PPC);
 	}
 
 
 	@Override
-	public Point getTopRightPoint() {
+	public @NotNull Point getTopRightPoint() {
 		final Point pos = getPosition();
 		final double step = getStep();
 		//FIXME strange: different from getTopLeftPoint and co. but works for scale.
@@ -124,61 +125,10 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 		}
 	}
 
-
-	@Override
-	public void setLabelsSize(final int labelsSize) {
-		if(labelsSize >= 0) {
-			labelSize.set(labelsSize);
-		}
-	}
-
-
 	@Override
 	public double getGridEndX() {
 		return gridEndx.get();
 	}
-
-
-	@Override
-	public double getGridEndY() {
-		return gridEndy.get();
-	}
-
-	@Override
-	public double getGridStartX() {
-		return gridStartx.get();
-	}
-
-
-	@Override
-	public double getGridStartY() {
-		return gridStarty.get();
-	}
-
-
-	@Override
-	public int getLabelsSize() {
-		return labelSize.get();
-	}
-
-
-	@Override
-	public double getOriginX() {
-		return originx.get();
-	}
-
-	@Override
-	public double getOriginY() {
-		return originy.get();
-	}
-
-
-	@Override
-	public void setGridEnd(final double x, final double y) {
-		setGridEndX(x);
-		setGridEndY(y);
-	}
-
 
 	@Override
 	public void setGridEndX(final double x) {
@@ -187,6 +137,10 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 		}
 	}
 
+	@Override
+	public double getGridEndY() {
+		return gridEndy.get();
+	}
 
 	@Override
 	public void setGridEndY(final double y) {
@@ -195,13 +149,10 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 		}
 	}
 
-
 	@Override
-	public void setGridStart(final double x, final double y) {
-		setGridStartX(x);
-		setGridStartY(y);
+	public double getGridStartX() {
+		return gridStartx.get();
 	}
-
 
 	@Override
 	public void setGridStartX(final double x) {
@@ -210,6 +161,10 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 		}
 	}
 
+	@Override
+	public double getGridStartY() {
+		return gridStarty.get();
+	}
 
 	@Override
 	public void setGridStartY(final double y) {
@@ -218,13 +173,22 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 		}
 	}
 
-
 	@Override
-	public void setOrigin(final double x, final double y) {
-		setOriginX(x);
-		setOriginY(y);
+	public int getLabelsSize() {
+		return labelSize.get();
 	}
 
+	@Override
+	public void setLabelsSize(final int labelsSize) {
+		if(labelsSize >= 0) {
+			labelSize.set(labelsSize);
+		}
+	}
+
+	@Override
+	public double getOriginX() {
+		return originx.get();
+	}
 
 	@Override
 	public void setOriginX(final double x) {
@@ -233,6 +197,10 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 		}
 	}
 
+	@Override
+	public double getOriginY() {
+		return originy.get();
+	}
 
 	@Override
 	public void setOriginY(final double y) {
@@ -241,6 +209,23 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 		}
 	}
 
+	@Override
+	public void setGridEnd(final double x, final double y) {
+		setGridEndX(x);
+		setGridEndY(y);
+	}
+
+	@Override
+	public void setGridStart(final double x, final double y) {
+		setGridStartX(x);
+		setGridStartY(y);
+	}
+
+	@Override
+	public void setOrigin(final double x, final double y) {
+		setOriginX(x);
+		setOriginY(y);
+	}
 
 	@Override
 	public void copy(final Shape s) {
@@ -260,48 +245,48 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 
 
 	@Override
-	public Point getGridStart() {
+	public @NotNull Point getGridStart() {
 		return ShapeFactory.INST.createPoint(getGridStartX(), getGridStartY());
 	}
 
 
 	@Override
-	public Point getGridEnd() {
+	public @NotNull Point getGridEnd() {
 		return ShapeFactory.INST.createPoint(getGridEndX(), getGridEndY());
 	}
 
 	@Override
-	public IntegerProperty labelsSizeProperty() {
+	public @NotNull IntegerProperty labelsSizeProperty() {
 		return labelSize;
 	}
 
 	@Override
-	public DoubleProperty gridStartXProperty() {
+	public @NotNull DoubleProperty gridStartXProperty() {
 		return gridStartx;
 	}
 
 	@Override
-	public DoubleProperty gridStartYProperty() {
+	public @NotNull DoubleProperty gridStartYProperty() {
 		return gridStarty;
 	}
 
 	@Override
-	public DoubleProperty gridEndXProperty() {
+	public @NotNull DoubleProperty gridEndXProperty() {
 		return gridEndx;
 	}
 
 	@Override
-	public DoubleProperty gridEndYProperty() {
+	public @NotNull DoubleProperty gridEndYProperty() {
 		return gridEndy;
 	}
 
 	@Override
-	public DoubleProperty originXProperty() {
+	public @NotNull DoubleProperty originXProperty() {
 		return originx;
 	}
 
 	@Override
-	public DoubleProperty originYProperty() {
+	public @NotNull DoubleProperty originYProperty() {
 		return originy;
 	}
 
@@ -326,5 +311,5 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 	}
 
 	@Override
-	public abstract StandardGrid duplicate();
+	public abstract @NotNull StandardGrid duplicate();
 }

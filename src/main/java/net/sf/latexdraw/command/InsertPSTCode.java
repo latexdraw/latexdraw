@@ -24,8 +24,6 @@ import net.sf.latexdraw.parser.pst.PSTContext;
 import net.sf.latexdraw.parser.pst.PSTLatexdrawListener;
 import net.sf.latexdraw.parser.pst.PSTLexer;
 import net.sf.latexdraw.parser.pst.PSTParser;
-import net.sf.latexdraw.util.LangService;
-import net.sf.latexdraw.util.SystemService;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
@@ -42,23 +40,21 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 	private final Label statusBar;
 	/** The added shapes. */
 	private Optional<Shape> shapes;
-	private final LangService lang;
-	private final SystemService system;
+	private final ResourceBundle lang;
 
 
-	public InsertPSTCode(final String codeToInsert, final Label status, final Drawing drawingToFill, final LangService lang, final SystemService system) {
+	public InsertPSTCode(final String codeToInsert, final Label status, final Drawing drawingToFill, final ResourceBundle lang) {
 		super(drawingToFill);
 		code = codeToInsert;
 		statusBar = status;
 		shapes = Optional.empty();
 		this.lang = lang;
-		this.system = system;
 	}
 
 	@Override
 	protected void doCmdBody() {
 		try {
-			final PSTLatexdrawListener listener = new PSTLatexdrawListener(system);
+			final PSTLatexdrawListener listener = new PSTLatexdrawListener();
 			final PSTLexer lexer = new PSTLexer(CharStreams.fromString(code));
 			final PSTParser parser = new PSTParser(new CommonTokenStream(lexer));
 			parser.addParseListener(listener);
@@ -68,7 +64,7 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 			group.getShapes().addAll(listener.flatShapes());
 
 			if(!group.isEmpty()) {
-				final Shape sh = group.size() > 1 ? group : group.getShapeAt(0);
+				final Shape sh = group.size() > 1 ? group : group.getShapeAt(0).orElseThrow();
 				final Point tl = sh.getTopLeftPoint();
 				final double tx = tl.getX() < 0d ? -tl.getX() + 50d : 0d;
 				final double ty = tl.getY() < 0d ? -tl.getY() + 50d : 0d;
@@ -78,7 +74,7 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 				redo();
 
 				if(statusBar != null) {
-					statusBar.setText(lang.getBundle().getString("LaTeXDrawFrame.36"));
+					statusBar.setText(lang.getString("LaTeXDrawFrame.36"));
 				}
 			}
 			parser.getInterpreter().clearDFA();
@@ -86,7 +82,7 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 		}catch(final RecognitionException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			if(statusBar != null) {
-				statusBar.setText(lang.getBundle().getString("LaTeXDrawFrame.34"));
+				statusBar.setText(lang.getString("LaTeXDrawFrame.34"));
 			}
 		}
 
@@ -116,7 +112,7 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 
 	@Override
 	public boolean canDo() {
-		return code != null && super.canDo();
+		return code != null;
 	}
 
 	@Override

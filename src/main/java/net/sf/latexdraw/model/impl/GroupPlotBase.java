@@ -17,6 +17,7 @@ import net.sf.latexdraw.model.api.property.PlotProp;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.PlotStyle;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Arnaud Blouin
@@ -66,22 +67,22 @@ interface GroupPlotBase extends Group {
 	}
 
 	@Override
-	default PlotStyle getPlotStyle() {
+	default @NotNull PlotStyle getPlotStyle() {
 		return firstPlot().map(sh -> sh.getPlotStyle()).orElse(PlotStyle.CURVE);
 	}
 
 	@Override
-	default void setPlotStyle(final PlotStyle style) {
+	default void setPlotStyle(final @NotNull PlotStyle style) {
 		plotShapes().forEach(sh -> sh.setPlotStyle(style));
 	}
 
 	@Override
-	default String getPlotEquation() {
+	default @NotNull String getPlotEquation() {
 		return firstPlot().map(sh -> sh.getPlotEquation()).orElse("");
 	}
 
 	@Override
-	default void setPlotEquation(final String eq) {
+	default void setPlotEquation(final @NotNull String eq) {
 		plotShapes().forEach(sh -> sh.setPlotEquation(eq));
 	}
 

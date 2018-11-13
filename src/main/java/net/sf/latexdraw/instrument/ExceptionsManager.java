@@ -12,6 +12,7 @@ package net.sf.latexdraw.instrument;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,9 +25,9 @@ import javafx.stage.StageStyle;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
-import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.LangService;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.malai.javafx.command.ShowStage;
 import org.malai.javafx.instrument.JfxInstrument;
 
@@ -35,18 +36,20 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud Blouin
  */
 public final class ExceptionsManager extends JfxInstrument implements BadaboomHandler, Initializable {
-	@Inject private LangService lang;
-	@Inject private Injector injector;
+	private final @NotNull ResourceBundle lang;
+	private final @NotNull Injector injector;
 	/** The button used to shows the panel of exceptions. */
 	@FXML private Button exceptionB;
 	/** The frame to show when exceptions occur. */
-	private Stage stageEx;
+	private @Nullable Stage stageEx;
 
 	/**
 	 * Creates the instrument.
 	 */
-	public ExceptionsManager() {
+	public ExceptionsManager(final ResourceBundle lang, final Injector injector) {
 		super();
+		this.lang = Objects.requireNonNull(lang);
+		this.injector = Objects.requireNonNull(injector);
 		BadaboomCollector.INSTANCE.addHandler(this);
 	}
 
@@ -56,7 +59,7 @@ public final class ExceptionsManager extends JfxInstrument implements BadaboomHa
 	public Stage getStageEx() {
 		if(stageEx == null) {
 			try {
-				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/Badaboom.fxml"), lang.getBundle(), //NON-NLS
+				final Parent root = FXMLLoader.load(getClass().getResource("/fxml/Badaboom.fxml"), lang, //NON-NLS
 					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				final Scene scene = new Scene(root);
 				stageEx = new Stage(StageStyle.UTILITY);

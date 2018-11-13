@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.command;
 
-import java.util.Optional;
 import net.sf.latexdraw.model.api.shape.Drawing;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.CommandImpl;
 
 /**
@@ -19,19 +19,14 @@ import org.malai.command.CommandImpl;
  */
 public abstract class DrawingCmdImpl extends CommandImpl {
 	/** The drawing that will be handled by the command. */
-	protected final Drawing drawing;
+	protected final @NotNull Drawing drawing;
 
-	protected DrawingCmdImpl(final Drawing theDrawing) {
+	protected DrawingCmdImpl(final @NotNull Drawing theDrawing) {
 		super();
 		drawing = theDrawing;
 	}
 
-	public Optional<Drawing> getDrawing() {
-		return Optional.ofNullable(drawing);
-	}
-
-	@Override
-	public boolean canDo() {
-		return drawing != null;
+	public @NotNull Drawing getDrawing() {
+		return drawing;
 	}
 }
