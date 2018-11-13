@@ -35,6 +35,7 @@ import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -55,6 +56,7 @@ import org.malai.javafx.interaction.library.SrcTgtPointsData;
 public class Hand extends CanvasInstrument {
 	private final @NotNull TextSetter textSetter;
 
+	@Inject
 	public Hand(final Canvas canvas, final MagneticGrid grid, final TextSetter textSetter) {
 		super(canvas, grid);
 		this.textSetter = Objects.requireNonNull(textSetter);

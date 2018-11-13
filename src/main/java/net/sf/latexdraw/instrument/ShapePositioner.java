@@ -17,7 +17,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import net.sf.latexdraw.command.shape.MoveBackForegroundShapes;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * Puts shapes in background / foreground.
@@ -30,11 +34,9 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 	@FXML private Button backgroundB;
 	@FXML private Pane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapePositioner() {
-		super();
+	@Inject
+	public ShapePositioner(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

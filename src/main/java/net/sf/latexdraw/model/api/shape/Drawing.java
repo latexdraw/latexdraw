@@ -11,6 +11,7 @@
 package net.sf.latexdraw.model.api.shape;
 
 import java.util.List;
+import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.model.api.property.SetShapesProp;
 import org.jetbrains.annotations.NotNull;
 import org.malai.properties.Modifiable;
@@ -31,4 +32,8 @@ public interface Drawing extends SetShapesProp, Modifiable, Reinitialisable {
 	 * @param shapes The shapes to select. Cannot be null.
 	 */
 	void setSelection(final @NotNull List<Shape> shapes);
+
+	void setTitle(final @NotNull String title);
+
+	@NotNull StringProperty titleProperty();
 }

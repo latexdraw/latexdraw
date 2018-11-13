@@ -29,11 +29,11 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
-				bindAsEagerSingleton(ShapeCoordDimCustomiser.class);
 				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
-				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
 				bindToInstance(Pencil.class, pencil);
+				bindAsEagerSingleton(ShapeCoordDimCustomiser.class);
+				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
 			}
 		};
 	}

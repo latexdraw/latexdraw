@@ -13,10 +13,15 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
+import net.sf.latexdraw.command.LoadTemplate;
+import net.sf.latexdraw.command.UpdateTemplates;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.malai.command.CmdHandler;
+import org.malai.command.CommandsRegistry;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
@@ -24,6 +29,8 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 public class TestTemplateManager extends BaseTestCanvas {
+	CmdHandler handler;
+
 	@Override
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
@@ -36,10 +43,10 @@ public class TestTemplateManager extends BaseTestCanvas {
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
 				bindAsEagerSingleton(Hand.class);
+				bindToInstance(StatusBarController.class, Mockito.mock(StatusBarController.class));
 				bindAsEagerSingleton(TemplateManager.class);
 				bindToInstance(Pencil.class, Mockito.mock(Pencil.class));
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
-				bindToInstance(StatusBarController.class, Mockito.mock(StatusBarController.class));
 			}
 		};
 	}
@@ -63,8 +70,16 @@ public class TestTemplateManager extends BaseTestCanvas {
 	@Before
 	public void setUp() {
 		super.setUp();
+		handler = Mockito.mock(CmdHandler.class);
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
+		CommandsRegistry.INSTANCE.addHandler(handler);
+	}
+
+	@Override
+	@After
+	public void tearDown() {
+		CommandsRegistry.INSTANCE.removeHandler(handler);
 	}
 
 	@Test
@@ -77,14 +92,13 @@ public class TestTemplateManager extends BaseTestCanvas {
 		drag(pane.getChildren().get(0)).dropTo(canvas);
 		waitFXEvents.execute();
 		assertEquals(1, canvas.getDrawing().size());
+		Mockito.verify(handler, Mockito.times(1)).onCmdDone(Mockito.any(LoadTemplate.class));
 	}
 
 	@Test
 	public void testClickRefreshTemplates() {
-		final SVGDocumentGenerator mockGen = Mockito.mock(SVGDocumentGenerator.class);
-		injector.getInstance(TemplateManager.class).svgGen = mockGen;
 		clickOn("#updateTemplates");
 		waitFXEvents.execute();
-		Mockito.verify(mockGen, Mockito.times(1)).updateTemplates(Mockito.any(), Mockito.anyBoolean());
+		Mockito.verify(handler, Mockito.times(1)).onCmdDone(Mockito.any(UpdateTemplates.class));
 	}
 }

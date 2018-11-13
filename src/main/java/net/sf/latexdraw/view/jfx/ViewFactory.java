@@ -40,6 +40,7 @@ import net.sf.latexdraw.model.api.shape.Square;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.util.Inject;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -49,6 +50,7 @@ import org.jetbrains.annotations.NotNull;
 public final class ViewFactory implements PathElementProducer, JfxViewProducer {
 	private final @NotNull LaTeXDataService latexdata;
 
+	@Inject
 	public ViewFactory(final LaTeXDataService latexdata) {
 		super();
 		this.latexdata = Objects.requireNonNull(latexdata);

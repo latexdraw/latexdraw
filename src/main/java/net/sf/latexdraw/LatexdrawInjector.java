@@ -102,9 +102,9 @@ public class LatexdrawInjector extends Injector {
 		bindAsEagerSingleton(ViewFactory.class);
 		bindAsEagerSingleton(PSTViewsFactory.class);
 		bindAsEagerSingleton(SVGShapesFactory.class);
-		bindAsEagerSingleton(SVGDocumentGenerator.class);
 		bindAsEagerSingleton(ExceptionsManager.class);
 		bindAsEagerSingleton(ShortcutsController.class);
+		bindWithCommand(HostServices.class, Application.class, app -> app.getHostServices());
 		bindAsEagerSingleton(StatusBarController.class);
 		bindAsEagerSingleton(AboutController.class);
 		bindAsEagerSingleton(Canvas.class);
@@ -112,7 +112,7 @@ public class LatexdrawInjector extends Injector {
 		bindAsEagerSingleton(CanvasController.class);
 		bindWithCommand(Drawing.class, Canvas.class, canvas -> canvas.getDrawing());
 		bindWithCommand(ViewsSynchroniserHandler.class, Canvas.class, canvas -> canvas);
-		bindWithCommand(HostServices.class, Application.class, app -> app.getHostServices());
+		bindAsEagerSingleton(SVGDocumentGenerator.class);
 		bindAsEagerSingleton(Zoomer.class);
 		bindAsEagerSingleton(UndoRedoManager.class);
 		bindAsEagerSingleton(PSTCodeGenerator.class);
@@ -128,6 +128,7 @@ public class LatexdrawInjector extends Injector {
 		bindAsEagerSingleton(Helper.class);
 		bindAsEagerSingleton(TextSetter.class);
 		bindAsEagerSingleton(Pencil.class);
+		bindAsEagerSingleton(Hand.class);
 		bindAsEagerSingleton(ShapeArcCustomiser.class);
 		bindAsEagerSingleton(ShapeArrowCustomiser.class);
 		bindAsEagerSingleton(ShapeAxesCustomiser.class);
@@ -148,7 +149,6 @@ public class LatexdrawInjector extends Injector {
 		bindAsEagerSingleton(ShapeTextCustomiser.class);
 		bindAsEagerSingleton(ShapeTransformer.class);
 		bindAsEagerSingleton(MetaShapeCustomiser.class);
-		bindAsEagerSingleton(Hand.class);
 		bindAsEagerSingleton(Border.class);
 		bindAsEagerSingleton(FacadeCanvasController.class);
 		bindAsEagerSingleton(EditingSelector.class);

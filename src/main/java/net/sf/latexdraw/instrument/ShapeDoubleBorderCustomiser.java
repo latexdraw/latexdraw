@@ -19,7 +19,11 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.command.shape.ShapeProperties;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * This instrument modifies double border properties of shapes or the pencil.
@@ -34,11 +38,9 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser impleme
 	@FXML private Spinner<Double> dbleSepField;
 	@FXML private TitledPane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeDoubleBorderCustomiser() {
-		super();
+	@Inject
+	public ShapeDoubleBorderCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

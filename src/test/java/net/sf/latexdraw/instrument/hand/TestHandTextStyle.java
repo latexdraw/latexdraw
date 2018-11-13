@@ -33,11 +33,11 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
-				bindAsEagerSingleton(ShapeTextCustomiser.class);
+				bindToInstance(Pencil.class, pencil);
 				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
+				bindAsEagerSingleton(ShapeTextCustomiser.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(Pencil.class, pencil);
 			}
 		};
 	}

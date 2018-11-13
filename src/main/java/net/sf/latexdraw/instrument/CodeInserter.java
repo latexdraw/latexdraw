@@ -34,6 +34,7 @@ import net.sf.latexdraw.parser.pst.PSTContext;
 import net.sf.latexdraw.parser.pst.PSTLatexdrawListener;
 import net.sf.latexdraw.parser.pst.PSTLexer;
 import net.sf.latexdraw.parser.pst.PSTParser;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.SystemUtils;
 import org.antlr.v4.runtime.ANTLRErrorListener;
@@ -63,9 +64,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 	private final @NotNull ResourceBundle lang;
 	private final @NotNull Injector injector;
 
-	/**
-	 * Creates the instrument.
-	 */
+	@Inject
 	public CodeInserter(final Drawing drawing, final StatusBarController statusBar, final ResourceBundle lang, final Injector injector) {
 		super();
 		this.drawing = Objects.requireNonNull(drawing);

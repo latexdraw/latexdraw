@@ -33,11 +33,11 @@ public class TestPencilFreeHandStyle extends TestFreeHandStyleGUI {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
-				bindAsEagerSingleton(ShapeFreeHandCustomiser.class);
+				bindToInstance(Hand.class, hand);
 				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
+				bindAsEagerSingleton(ShapeFreeHandCustomiser.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(Hand.class, hand);
 			}
 		};
 	}

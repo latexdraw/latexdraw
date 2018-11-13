@@ -12,6 +12,7 @@ package net.sf.latexdraw.instrument;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -33,6 +34,7 @@ import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.ui.JfxUI;
@@ -47,13 +49,18 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 	@FXML FlowPane templatePane;
 	@FXML private TitledPane mainPane;
 	@FXML private Label emptyLabel;
-	@Inject private Drawing drawing;
-	@Inject private StatusBarController statusController;
-	@Inject protected SVGDocumentGenerator svgGen;
-	@Inject private JfxUI app;
+	private final @NotNull Drawing drawing;
+	private final @NotNull StatusBarController statusController;
+	private final @NotNull SVGDocumentGenerator svgGen;
+	private final @NotNull JfxUI app;
 
-	public TemplateManager() {
+	@Inject
+	public TemplateManager(final Drawing drawing, final StatusBarController statusController, final SVGDocumentGenerator svgGen, final JfxUI app) {
 		super();
+		this.drawing = Objects.requireNonNull(drawing);
+		this.statusController = Objects.requireNonNull(statusController);
+		this.svgGen = Objects.requireNonNull(svgGen);
+		this.app = Objects.requireNonNull(app);
 	}
 
 

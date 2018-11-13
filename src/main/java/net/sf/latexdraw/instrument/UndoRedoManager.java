@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -38,13 +39,9 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	@FXML private Button undoB;
 	/** The button used to redo commands. */
 	@FXML private Button redoB;
-
 	private final @NotNull ResourceBundle lang;
 
-
-	/**
-	 * Creates the instrument.
-	 */
+	@Inject
 	public UndoRedoManager(final Canvas canvas, final MagneticGrid grid, final ResourceBundle lang) {
 		super(canvas, grid);
 		this.lang = Objects.requireNonNull(lang);

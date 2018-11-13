@@ -133,7 +133,6 @@ public class LaTeXDraw extends JfxUI {
 				Platform.runLater(() -> {
 					mainStage = new Stage(StageStyle.DECORATED);
 					mainStage.setIconified(true);
-					mainStage.setTitle(LABEL_APP);
 					injector = new LatexdrawInjector(LaTeXDraw.this);
 					latch.countDown();
 				});
@@ -155,6 +154,8 @@ public class LaTeXDraw extends JfxUI {
 				final Scene scene = new Scene(root);
 				updateProgress(0.7, 1d);
 				scene.getStylesheets().add("css/style.css"); //NON-NLS
+				// Binding the title of the app on the title of the drawing.
+				mainStage.titleProperty().bind(injector.getInstance(Drawing.class).titleProperty().concat(" -- " + LABEL_APP));
 				updateProgress(0.8, 1d);
 
 				Platform.runLater(() -> {
@@ -196,12 +197,6 @@ public class LaTeXDraw extends JfxUI {
 		set.add((T) injector.getInstance(Canvas.class));
 		set.add((T) injector.getInstance(Drawing.class));
 		return set;
-	}
-
-	@Override
-	public void reinit() {
-		super.reinit();
-		mainStage.setTitle(LABEL_APP);
 	}
 
 	/**

@@ -66,10 +66,10 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);
-				bindAsEagerSingleton(ShapeGrouper.class);
-				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 				bindToInstance(Pencil.class, pencil);
+				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
+				bindAsEagerSingleton(ShapeGrouper.class);
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 			}
 		};

@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import net.sf.latexdraw.command.LatexProperties;
 import net.sf.latexdraw.command.ModifyLatexProperties;
 import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.latex.VerticalPosition;
@@ -49,9 +50,7 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	/** The LaTeX code generator. */
 	private final @NotNull LaTeXDataService latexData;
 
-	/**
-	 * Creates the instrument.
-	 */
+	@Inject
 	public DrawingPropertiesCustomiser(final LaTeXDataService data) {
 		super();
 		this.latexData = Objects.requireNonNull(data);

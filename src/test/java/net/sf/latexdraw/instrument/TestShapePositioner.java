@@ -43,9 +43,9 @@ public class TestShapePositioner extends SelectionBasedTesting<ShapePositioner> 
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
-				bindAsEagerSingleton(ShapePositioner.class);
 				bindToInstance(Hand.class, hand);
 				bindToInstance(Pencil.class, pencil);
+				bindAsEagerSingleton(ShapePositioner.class);
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 			}
 		};

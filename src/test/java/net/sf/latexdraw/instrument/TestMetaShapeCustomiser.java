@@ -2,10 +2,14 @@ package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Stream;
 import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -25,6 +29,10 @@ public class TestMetaShapeCustomiser implements CollectionMatcher {
 		return new Injector() {
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+				bindToInstance(EditingService.class, Mockito.mock(EditingService.class));
+				bindToInstance(LaTeXDataService.class, Mockito.mock(LaTeXDataService.class));
+				bindToInstance(PreferencesService.class, Mockito.mock(PreferencesService.class));
+				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(MagneticGrid.class, Mockito.mock(MagneticGrid.class));
 				bindToInstance(ShapeArcCustomiser.class, Mockito.mock(ShapeArcCustomiser.class));

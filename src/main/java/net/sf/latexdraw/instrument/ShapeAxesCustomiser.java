@@ -21,9 +21,13 @@ import javafx.scene.layout.Pane;
 import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.model.api.property.AxesProp;
 import net.sf.latexdraw.model.api.shape.AxesStyle;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * This instrument modifies axes properties of shapes or the pencil.
@@ -50,11 +54,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 	@FXML private Spinner<Double> distLabelsY;
 	@FXML private Pane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeAxesCustomiser() {
-		super();
+	@Inject
+	public ShapeAxesCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

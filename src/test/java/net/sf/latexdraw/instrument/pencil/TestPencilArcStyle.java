@@ -33,11 +33,11 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
-				bindAsEagerSingleton(ShapeArcCustomiser.class);
+				bindToInstance(Hand.class, hand);
 				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
+				bindAsEagerSingleton(ShapeArcCustomiser.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(Hand.class, hand);
 			}
 		};
 	}

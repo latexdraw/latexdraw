@@ -27,8 +27,12 @@ import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.model.api.property.ClosableProp;
 import net.sf.latexdraw.model.api.property.LineArcProp;
 import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.LineStyle;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 
 /**
@@ -53,11 +57,9 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 	@FXML private TitledPane linePane;
 	@FXML private CheckBox opened;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeBorderCustomiser() {
-		super();
+	@Inject
+	public ShapeBorderCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

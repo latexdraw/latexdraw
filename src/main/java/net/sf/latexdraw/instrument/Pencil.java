@@ -36,6 +36,7 @@ import net.sf.latexdraw.model.api.shape.RectangularShape;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.SquaredShape;
 import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
@@ -58,9 +59,7 @@ public class Pencil extends CanvasInstrument {
 	/** The file chooser used to select the picture to insert. Use its getter instead as it is lazy instantiated. */
 	private FileChooser pictureFileChooser;
 
-	/**
-	 * Creates the pencil. Automatically invoked by the dependency injector. Do not call.
-	 */
+	@Inject
 	public Pencil(final Canvas canvas, final MagneticGrid grid, final TextSetter textSetter, final ViewFactory viewFactory, final EditingService editing) {
 		super(canvas, grid);
 		this.editing = Objects.requireNonNull(editing);

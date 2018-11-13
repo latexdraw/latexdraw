@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class TestInjector implements HelperTest {
@@ -102,13 +103,12 @@ public class TestInjector implements HelperTest {
 		injector = new Injector() {
 			@Override
 			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-				bindAsEagerSingleton(A.class);
+				bindAsEagerSingleton(X.class);
 			}
 		};
 		injector.initialise();
-		assertNotNull(injector.getInstance(A.class));
-		assertNull(injector.getInstance(A.class).b);
-		Mockito.verify(handler, Mockito.atLeastOnce()).publish(Mockito.any());
+		assertNotNull(injector.getInstance(X.class));
+		assertNull(injector.getInstance(X.class).b);
 	}
 
 	@Test
@@ -144,41 +144,6 @@ public class TestInjector implements HelperTest {
 	}
 
 	@Test
-	public void testInjectOnBindCmd() {
-		injector = new Injector() {
-			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-				bindAsEagerSingleton(G.class);
-				bindWithCommand(F.class, G.class, g -> g);
-				bindAsEagerSingleton(H.class);
-			}
-		};
-		injector.initialise();
-		assertNotNull(injector.getInstance(G.class));
-		assertNotNull(injector.getInstance(F.class));
-		assertNotNull(injector.getInstance(H.class));
-		assertSame(injector.getInstance(F.class), injector.getInstance(H.class).f);
-		Mockito.verify(handler, Mockito.never()).publish(Mockito.any());
-	}
-
-	@Test
-	public void testInjectOnCyclicDependency() {
-		injector = new Injector() {
-			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-				bindAsEagerSingleton(A.class);
-				bindAsEagerSingleton(B.class);
-			}
-		};
-		injector.initialise();
-		assertNotNull(injector.getInstance(A.class));
-		assertNotNull(injector.getInstance(B.class));
-		assertSame(injector.getInstance(A.class), injector.getInstance(B.class).a);
-		assertSame(injector.getInstance(B.class), injector.getInstance(A.class).b);
-		Mockito.verify(handler, Mockito.never()).publish(Mockito.any());
-	}
-
-	@Test
 	public void testDoNotCreateSingletonSeveralTimes() {
 		injector = new Injector() {
 			@Override
@@ -190,20 +155,6 @@ public class TestInjector implements HelperTest {
 		injector.getInstance(I.class);
 		injector.getInstance(I.class);
 		assertEquals(1, I.cpt);
-		Mockito.verify(handler, Mockito.never()).publish(Mockito.any());
-	}
-
-	@Test
-	public void testCanInjectItself() {
-		injector = new Injector() {
-			@Override
-			protected void configure() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-				bindAsEagerSingleton(J.class);
-			}
-		};
-		injector.initialise();
-		injector.getInstance(J.class);
-		assertEquals(injector.getInstance(J.class), injector.getInstance(J.class).j);
 		Mockito.verify(handler, Mockito.never()).publish(Mockito.any());
 	}
 
@@ -280,11 +231,11 @@ public class TestInjector implements HelperTest {
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 				bindToSupplier(B.class, () -> b);
-				bindAsEagerSingleton(A.class);
+				bindAsEagerSingleton(X.class);
 			}
 		};
 		injector.initialise();
-		final A obj = injector.getInstance(A.class);
+		final X obj = injector.getInstance(X.class);
 		assertEquals(b, obj.b);
 	}
 
@@ -293,7 +244,6 @@ public class TestInjector implements HelperTest {
 		injector = new Injector() {
 			@Override
 			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-				bindAsEagerSingleton(A.class);
 				bindAsEagerSingleton(B.class);
 				bindAsEagerSingleton(X.class);
 			}
@@ -331,13 +281,39 @@ public class TestInjector implements HelperTest {
 		assertEquals(injector.getInstance(F.class), z.f);
 	}
 
-	static class X {
-		final B b;
+	@Test
+	void testNoConstructorToInject() {
+		injector = new Injector() {
+			@Override
+			protected void configure() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+				bindAsEagerSingleton(B.class);
+				assertThrows(NoSuchMethodException.class, () -> bindAsEagerSingleton(J.class));
+			}
+		};
 
-		X(@Inject final B b) {
+		injector.initialise();
+	}
+
+	static class J {
+		B b;
+
+		J(final B b) {
 			super();
 			this.b = b;
 		}
+	}
+
+	static class X {
+		final B b;
+
+		@Inject
+		X(final B b) {
+			super();
+			this.b = b;
+		}
+	}
+
+	static class B {
 	}
 
 	static class Z {
@@ -345,7 +321,8 @@ public class TestInjector implements HelperTest {
 		final E e;
 		final F f;
 
-		Z(@Inject final D d, @Inject final E e, @Inject final F f) {
+		@Inject
+		Z(final D d, final E e, final F f) {
 			super();
 			this.d = d;
 			this.e = e;
@@ -353,23 +330,24 @@ public class TestInjector implements HelperTest {
 		}
 	}
 
-	static class A {
-		@Inject private B b;
-	}
-
-	static class B {
-		@Inject A a;
-	}
-
 	static class C {
-		@Inject D d;
+		final D d;
+
+		@Inject
+		C(final D d) {
+			super();
+			this.d = d;
+		}
 	}
 
 	static class D {
 	}
 
 	static class E extends C {
-
+		@Inject
+		E(final D d) {
+			super(d);
+		}
 	}
 
 	interface F {
@@ -379,20 +357,13 @@ public class TestInjector implements HelperTest {
 
 	}
 
-	static class H {
-		@Inject F f;
-	}
-
 	static class I {
 		static int cpt = 0;
 
 		I() {
+			super();
 			cpt++;
 		}
-	}
-
-	static class J {
-		@Inject J j;
 	}
 
 	static final class K {

@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import javafx.collections.ListChangeListener;
@@ -23,6 +24,7 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This instrument deletes the selected shapes.
@@ -31,14 +33,12 @@ import net.sf.latexdraw.view.jfx.Canvas;
 public class ShapeDeleter extends CanvasInstrument implements Initializable, CmdRegistrySearcher {
 	/** The button used to remove the selected shapes. */
 	@FXML private Button deleteB;
-	@Inject private Hand hand;
+	private final @NotNull Hand hand;
 
-
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeDeleter(final Canvas canvas, final MagneticGrid grid) {
+	@Inject
+	public ShapeDeleter(final Canvas canvas, final MagneticGrid grid, final Hand hand) {
 		super(canvas, grid);
+		this.hand = Objects.requireNonNull(hand);
 	}
 
 	@Override

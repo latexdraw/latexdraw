@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
@@ -32,6 +33,7 @@ public class CodePanelController extends CanvasInstrument implements Initializab
 	/** The PSTricks generator. */
 	private final @NotNull LaTeXGenerator pstGenerator;
 
+	@Inject
 	public CodePanelController(final Canvas canvas, final MagneticGrid grid, final LaTeXGenerator pstGenerator) {
 		super(canvas, grid);
 		this.pstGenerator = Objects.requireNonNull(pstGenerator);

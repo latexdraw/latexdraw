@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.instrument;
 
+import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
@@ -37,22 +38,24 @@ import org.malai.undo.Undoable;
  * @author Arnaud BLOUIN
  */
 public abstract class ShapePropertyCustomiser extends JfxInstrument {
-	/** The Hand instrument. */
-	@Inject protected Hand hand;
-	/** The Pencil instrument. */
-	@Inject protected Pencil pencil;
-	@Inject protected Canvas canvas;
-	@Inject protected Drawing drawing;
-	@Inject protected EditingService editing;
-	protected final BooleanSupplier handActiv = () -> hand.isActivated();
-	protected final BooleanSupplier pencilActiv = () -> pencil.isActivated();
+	protected final @NotNull Hand hand;
+	protected final @NotNull Pencil pencil;
+	protected final @NotNull Canvas canvas;
+	protected final @NotNull Drawing drawing;
+	protected final @NotNull EditingService editing;
+	protected final @NotNull BooleanSupplier handActiv;
+	protected final @NotNull BooleanSupplier pencilActiv;
 
-
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapePropertyCustomiser() {
+	@Inject
+	public ShapePropertyCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
 		super();
+		this.hand = Objects.requireNonNull(hand);
+		this.pencil = Objects.requireNonNull(pencil);
+		this.canvas = Objects.requireNonNull(canvas);
+		this.drawing = Objects.requireNonNull(drawing);
+		this.editing = Objects.requireNonNull(editing);
+		handActiv = () -> hand.isActivated();
+		pencilActiv = () -> pencil.isActivated();
 	}
 
 	@Override

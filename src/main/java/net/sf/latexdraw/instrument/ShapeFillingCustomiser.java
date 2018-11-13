@@ -23,8 +23,12 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.command.shape.ShapeProperties;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.FillingStyle;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 
 /**
@@ -57,11 +61,9 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 	@FXML private AnchorPane gradientPane;
 	@FXML private TitledPane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeFillingCustomiser() {
-		super();
+	@Inject
+	public ShapeFillingCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
@@ -41,6 +42,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	/**
 	 * Creates and initialises the generator.
 	 */
+	@Inject
 	public PSTCodeGenerator(final Drawing drawing, final ViewsSynchroniserHandler handler, final PSTViewsFactory viewsFactory, final LaTeXDataService latexdata) {
 		super(drawing, handler, latexdata);
 		this.viewsFactory = Objects.requireNonNull(viewsFactory);

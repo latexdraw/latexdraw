@@ -13,6 +13,7 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -28,13 +29,17 @@ import net.sf.latexdraw.command.LatexProperties;
 import net.sf.latexdraw.command.ModifyLatexProperties;
 import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.model.api.property.TextProp;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.TextPosition;
+import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 import net.sf.latexdraw.view.jfx.ViewText;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This instrument modifies texts.
@@ -48,14 +53,14 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	/** The error log field. */
 	@FXML private TextArea logField;
 	@FXML private TitledPane mainPane;
-	@Inject LaTeXDataService latexData;
+	private final @NotNull LaTeXDataService latexData;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeTextCustomiser() {
-		super();
+	@Inject
+	public ShapeTextCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing,
+		final LaTeXDataService latexData) {
+		super(hand, pencil, canvas, drawing, editing);
 		//FIXME update the instrument when text property commands are done.
+		this.latexData = Objects.requireNonNull(latexData);
 	}
 
 	@Override

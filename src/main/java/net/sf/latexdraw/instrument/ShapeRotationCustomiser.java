@@ -18,7 +18,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.Pane;
 import net.sf.latexdraw.command.shape.RotateShapes;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * This instrument modifies the rotation angle of selected shapes.
@@ -35,11 +39,9 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 	@FXML private Spinner<Double> rotationField;
 	@FXML private Pane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeRotationCustomiser() {
-		super();
+	@Inject
+	public ShapeRotationCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

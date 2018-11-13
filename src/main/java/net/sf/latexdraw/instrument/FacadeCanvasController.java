@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import net.sf.latexdraw.util.Inject;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -24,6 +25,7 @@ public class FacadeCanvasController implements Initializable {
 	private final @NotNull Border border;
 	private final @NotNull CanvasController canvasController;
 
+	@Inject
 	public FacadeCanvasController(final Border border, final CanvasController canvasController) {
 		super();
 		this.border = Objects.requireNonNull(border);

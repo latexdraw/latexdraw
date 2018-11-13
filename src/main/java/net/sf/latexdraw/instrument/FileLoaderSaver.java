@@ -27,6 +27,7 @@ import net.sf.latexdraw.command.NewDrawing;
 import net.sf.latexdraw.command.SaveDrawing;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Bindings;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.jetbrains.annotations.NotNull;
@@ -61,9 +62,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	private final @NotNull Stage mainstage;
 	private final @NotNull PreferencesService prefService;
 
-	/**
-	 * Creates the file loader/saver.
-	 */
+	@Inject
 	public FileLoaderSaver(final StatusBarController statusBar, final SVGDocumentGenerator svgGen, final JfxUI app, final Stage mainstage,
 		final PreferencesService prefService) {
 		super();

@@ -45,6 +45,7 @@ import net.sf.latexdraw.model.api.shape.ModifiablePointsShape;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Position;
 import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
@@ -75,6 +76,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 	private final @NotNull MetaShapeCustomiser metaCustomiser;
 
+	@Inject
 	public Border(final Canvas canvas, final MagneticGrid grid, final MetaShapeCustomiser metaCustomiser) {
 		super(canvas, grid);
 		this.metaCustomiser = Objects.requireNonNull(metaCustomiser);

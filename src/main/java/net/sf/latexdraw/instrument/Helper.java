@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
 import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.binding.MenuItem2OpenWebPage;
@@ -55,9 +56,7 @@ public final class Helper extends JfxInstrument implements Initializable {
 	private final @NotNull ResourceBundle lang;
 	private final @NotNull Injector injector;
 
-	/**
-	 * Creates the instrument.
-	 */
+	@Inject
 	public Helper(final Injector injector, final ResourceBundle lang, final HostServices services) {
 		super();
 		this.injector = Objects.requireNonNull(injector);

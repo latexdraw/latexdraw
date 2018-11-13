@@ -42,10 +42,10 @@ public class TestShapeRotationCustomiser extends SelectionBasedTesting<ShapeRota
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
 				hand = mock(Hand.class);
-				bindAsEagerSingleton(ShapeRotationCustomiser.class);
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
 				bindToInstance(Hand.class, hand);
 				bindToInstance(Pencil.class, pencil);
+				bindAsEagerSingleton(ShapeRotationCustomiser.class);
 				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
 			}
 		};

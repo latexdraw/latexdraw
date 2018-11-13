@@ -18,7 +18,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.command.shape.JoinShapes;
 import net.sf.latexdraw.command.shape.SeparateShapes;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * This instrument groups and separates shapes.
@@ -31,11 +35,9 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 	@FXML private Button sepB;
 	@FXML private AnchorPane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeGrouper() {
-		super();
+	@Inject
+	public ShapeGrouper(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

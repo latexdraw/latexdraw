@@ -20,7 +20,11 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.model.api.property.GridProp;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * This instrument modifies grids properties of shapes or the pencil.
@@ -47,11 +51,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Init
 	@FXML private ToggleButton labelsXInvertedCB;
 	@FXML private Pane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeGridCustomiser() {
-		super();
+	@Inject
+	public ShapeGridCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

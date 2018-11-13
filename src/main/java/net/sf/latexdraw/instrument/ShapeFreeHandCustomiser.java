@@ -22,8 +22,12 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.model.api.property.FreeHandProp;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.FreeHandStyle;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 
 /**
@@ -37,11 +41,9 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 	@FXML private Spinner<Integer> gapPoints;
 	@FXML private TitledPane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeFreeHandCustomiser() {
-		super();
+	@Inject
+	public ShapeFreeHandCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

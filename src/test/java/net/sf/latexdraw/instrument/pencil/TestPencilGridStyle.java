@@ -34,11 +34,11 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				hand = mock(Hand.class);
-				bindAsEagerSingleton(ShapeGridCustomiser.class);
+				bindToInstance(Hand.class, hand);
 				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Pencil.class);
+				bindAsEagerSingleton(ShapeGridCustomiser.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(Hand.class, hand);
 			}
 		};
 	}

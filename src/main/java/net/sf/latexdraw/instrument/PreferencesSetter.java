@@ -28,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.stage.DirectoryChooser;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.GridStyle;
 import org.jetbrains.annotations.NotNull;
@@ -69,9 +70,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	private ObjectProperty<Integer> gridGapProp;
 	private ObjectProperty<Integer> recentFilesNb;
 
-	/**
-	 * Creates the instrument.
-	 */
+	@Inject
 	public PreferencesSetter(final PreferencesService prefsService) {
 		super();
 		this.prefsService = Objects.requireNonNull(prefsService);

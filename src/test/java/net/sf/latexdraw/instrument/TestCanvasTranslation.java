@@ -67,8 +67,6 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 		super.setUp();
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
-		final MetaShapeCustomiser meta = injector.getInstance(MetaShapeCustomiser.class);
-		meta.dimPosCustomiser = injector.getInstance(ShapeCoordDimCustomiser.class);
 		WaitForAsyncUtils.waitForFxEvents();
 	}
 

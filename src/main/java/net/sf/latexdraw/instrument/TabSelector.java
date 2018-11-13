@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.command.ActivateInactivateInstruments;
 import org.malai.javafx.instrument.JfxInstrument;
 
@@ -31,27 +33,35 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  */
 public class TabSelector extends JfxInstrument implements Initializable {
-	@Inject private EditingSelector selector;
-	@Inject private CopierCutterPaster paster;
-	@Inject private UndoRedoManager undo;
-	@Inject private Zoomer zoomer;
-	@Inject private ShapeDeleter deleter;
 	@FXML private TabPane tabPane;
 	@FXML private ScrollPane scrollPane;
 	@FXML private Pane canvasPane;
 	@FXML private ScaleRuler xruler;
 	@FXML private ScaleRuler yruler;
 	@FXML private Pane rulersScrollerPane;
-	@Inject private TextSetter textSetter;
-	@Inject private MetaShapeCustomiser meta;
-	@Inject private Canvas canvas;
-	@Inject private PreferencesSetter prefSetter;
+	private final @NotNull EditingSelector selector;
+	private final @NotNull CopierCutterPaster paster;
+	private final @NotNull UndoRedoManager undo;
+	private final @NotNull Zoomer zoomer;
+	private final @NotNull ShapeDeleter deleter;
+	private final @NotNull TextSetter textSetter;
+	private final @NotNull MetaShapeCustomiser meta;
+	private final @NotNull Canvas canvas;
+	private final @NotNull PreferencesSetter prefSetter;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public TabSelector() {
+	@Inject
+	public TabSelector(final EditingSelector selector, final CopierCutterPaster paster, final UndoRedoManager undo, final Zoomer zoomer,
+		final ShapeDeleter deleter, final TextSetter textSetter, final MetaShapeCustomiser meta, final Canvas canvas, final PreferencesSetter prefSetter) {
 		super();
+		this.selector = Objects.requireNonNull(selector);
+		this.paster = Objects.requireNonNull(paster);
+		this.undo = Objects.requireNonNull(undo);
+		this.zoomer = Objects.requireNonNull(zoomer);
+		this.deleter = Objects.requireNonNull(deleter);
+		this.textSetter = Objects.requireNonNull(textSetter);
+		this.meta = Objects.requireNonNull(meta);
+		this.canvas = Objects.requireNonNull(canvas);
+		this.prefSetter = Objects.requireNonNull(prefSetter);
 	}
 
 	@Override

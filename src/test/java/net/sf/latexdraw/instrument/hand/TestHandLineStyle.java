@@ -14,8 +14,8 @@ import net.sf.latexdraw.instrument.TestLineStyleGUI;
 import net.sf.latexdraw.instrument.TextSetter;
 import net.sf.latexdraw.model.api.property.ClosableProp;
 import net.sf.latexdraw.model.api.shape.BorderPos;
-import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.LineStyle;
+import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,11 +37,11 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
-				bindAsEagerSingleton(ShapeBorderCustomiser.class);
+				bindToInstance(Pencil.class, pencil);
 				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
+				bindAsEagerSingleton(ShapeBorderCustomiser.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(Pencil.class, pencil);
 			}
 		};
 	}

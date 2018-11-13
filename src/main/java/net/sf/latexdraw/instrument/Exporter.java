@@ -28,6 +28,7 @@ import net.sf.latexdraw.command.ExportTemplate;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -78,9 +79,7 @@ public class Exporter extends JfxInstrument implements Initializable {
 	private final @NotNull SVGDocumentGenerator svgGen;
 
 
-	/**
-	 * Creates the instrument.
-	 */
+	@Inject
 	public Exporter(final PreferencesService prefs, final PSTCodeGenerator pstGen, final StatusBarController statusBar, final TemplateManager templateManager,
 					final JfxUI app, final Canvas canvas, final SVGDocumentGenerator svgGen, final LaTeXDataService latexData) {
 		super();

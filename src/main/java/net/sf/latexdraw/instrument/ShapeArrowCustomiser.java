@@ -23,9 +23,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.model.api.property.Arrowable;
-import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 
 /**
@@ -64,11 +68,9 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 	@FXML private AnchorPane rbracketPane;
 	@FXML private TitledPane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeArrowCustomiser() {
-		super();
+	@Inject
+	public ShapeArrowCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

@@ -107,12 +107,12 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 				bindAsEagerSingleton(SVGDocumentGenerator.class);
 				bindAsEagerSingleton(ExceptionsManager.class);
 				bindAsEagerSingleton(ShortcutsController.class);
+				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindAsEagerSingleton(StatusBarController.class);
 				bindAsEagerSingleton(AboutController.class);
 				bindAsEagerSingleton(CanvasController.class);
 				bindToInstance(Border.class, Mockito.mock(Border.class));
 				bindAsEagerSingleton(FacadeCanvasController.class);
-				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindToInstance(Zoomer.class, zoomer);
 				bindToInstance(UndoRedoManager.class, undo);
 				bindToInstance(EditingSelector.class, selector);

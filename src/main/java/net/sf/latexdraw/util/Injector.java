@@ -11,7 +11,6 @@
 package net.sf.latexdraw.util;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,13 +18,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  * The base class for performing dependency injection.
@@ -61,7 +58,6 @@ public abstract class Injector {
 	public void initialise() {
 		try {
 			configure();
-			singletons.forEach(cl -> injectFieldsOf(instances.get(cl)));
 		}catch(final NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ex) {
 			LOGGER.log(Level.SEVERE, "Cannot create an instance of a class. Make sure this class has a public default constructor.", ex); //NON-NLS
 		}
@@ -100,17 +96,7 @@ public abstract class Injector {
 			instance = (T) instances.get(cl);
 		}
 
-		try {
-			if(instance == null) {
-				instance = cl.getDeclaredConstructor().newInstance();
-			}
-
-			injectFieldsOf(instance);
-			return instance;
-		}catch(final NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ex) {
-			LOGGER.log(Level.SEVERE, "Cannot create an instance of " + cl.getTypeName() + ". Make sure this class has a public default constructor.", ex); //NON-NLS
-			return null;
-		}
+		return instance;
 	}
 
 	/**
@@ -126,53 +112,6 @@ public abstract class Injector {
 		}
 	}
 
-	/**
-	 * Injects the fields (direct and inherited) of the instance.
-	 * @param instance The instance to inject.
-	 */
-	private void injectFieldsOf(final Object instance) {
-		// Getting the fields to inject.
-		getAllFieldsToInject(instance.getClass()).stream().filter(field -> {
-			// The field must be configured
-			if(!isConfigured(field.getType())) {
-				LOGGER.log(Level.SEVERE, "The field " + field.getName() + " in " + instance.getClass().getTypeName() + //NON-NLS
-					" has not been configured for injection yet. Aborting its injection."); //NON-NLS
-				return false;
-			}
-			return true;
-		}).forEach(field -> {
-			try {
-				Object value;
-				// First: checking whether a binding between types exists.
-				synchronized(bindingsBetweenTypes) {
-					value = bindingsBetweenTypes.getOrDefault(field.getType(), () -> null).get();
-				}
-
-				// Otherwise, checking whether a singleton value exists.
-				if(value == null) {
-					synchronized(instances) {
-						value = instances.get(field.getType());
-					}
-				}
-
-				if(value == null) {
-					synchronized(instancesSuppliers) {
-						value = instancesSuppliers.getOrDefault(field.getType(), () -> null).get();
-					}
-				}
-
-				// Injecting the value.
-				final Object val = value;
-				LOGGER.info(() -> "Injecting the field: " + field.getName() + " of " + instance.getClass().getTypeName() + " with: " + val); //NON-NLS
-				final boolean oldAccess = field.canAccess(instance);
-				field.setAccessible(true);
-				field.set(instance, value);
-				field.setAccessible(oldAccess);
-			}catch(final IllegalAccessException ex) {
-				LOGGER.log(Level.SEVERE, "Cannot access a field to inject.", ex); //NON-NLS
-			}
-		});
-	}
 
 	/**
 	 * Configures the given class as a eager singleton.
@@ -189,28 +128,21 @@ public abstract class Injector {
 		// Getting all the constructors
 		final Constructor<T>[] cons = (Constructor<T>[]) cl.getDeclaredConstructors();
 
-		// Looking for the default constructor.
-		// Do not use the getDeclaredConstructor() method to do that as it raises an exception when no default constructor is defined.
-		final Optional<Constructor<T>> conDefault = Arrays.stream(cons).filter(con -> con.getParameterCount() == 0).findFirst();
-		final T instance;
+		final Constructor<T> consInject = Arrays.stream(cons).
+			filter(con -> con.isAnnotationPresent(Inject.class)).
+			findFirst().
+			orElseGet(() -> Arrays.stream(cons).filter(con -> con.getParameterCount() == 0).findFirst().orElse(null));
 
-		if(conDefault.isPresent()) {
-			// Simply calling the default constructor
-			instance = conDefault.get().newInstance();
-		}else {
-			// Looking for a constructor that all its arguments are annotated with @Inject
-			final Constructor<T> conInjection = Arrays.stream(cons).filter(con -> Arrays.stream(con.getParameterAnnotations()).
-				flatMap(annots -> Arrays.stream(annots)).
-				allMatch(annot -> annot.annotationType() == Inject.class)).
-				findFirst().orElseThrow(NoSuchMethodException::new);
-
-			// Calling the found constructor with as argument instances managed by the injector.
-			instance = conInjection.newInstance(Arrays.stream(conInjection.getParameterTypes()).map(arg -> getInstance(arg)).toArray());
+		if(consInject == null) {
+			throw new NoSuchMethodException("Cannot find a constructor to inject for " + cl.getSimpleName());
 		}
+
+		final T instance = consInject.newInstance(Arrays.stream(consInject.getParameterTypes()).map(arg -> getInstance(arg)).toArray());
 
 		synchronized(singletons) {
 			singletons.add(cl);
 		}
+
 		bindToInstance(cl, instance);
 	}
 
@@ -269,24 +201,6 @@ public abstract class Injector {
 				bindingsBetweenTypes.put(out, () -> cmd.apply(getInstance(src)));
 			}
 		}
-	}
-
-	/**
-	 * A helper method to get all (direct and inherited) attributes of a given class that need to be injected
-	 * (annotated by @Inject from javax). Works only on the net.sf.latexdraw classes.
-	 * @param cl The class to analyse.
-	 * @return The fields to inject.
-	 */
-	private static Set<Field> getAllFieldsToInject(final Class<?> cl) {
-		final Set<Field> fields = new HashSet<>(Arrays.asList(cl.getDeclaredFields()));
-		Class<?> currentClass = cl.getSuperclass();
-
-		while(currentClass != null && currentClass.getTypeName().startsWith("net.sf.latexdraw")) { //NON-NLS
-			fields.addAll(Arrays.asList(currentClass.getDeclaredFields()));
-			currentClass = currentClass.getSuperclass();
-		}
-
-		return fields.stream().filter(field -> field.isAnnotationPresent(Inject.class)).collect(Collectors.toSet());
 	}
 
 	/**

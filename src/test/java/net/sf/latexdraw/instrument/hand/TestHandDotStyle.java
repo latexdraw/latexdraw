@@ -35,11 +35,11 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
-				bindAsEagerSingleton(ShapeDotCustomiser.class);
+				bindToInstance(Pencil.class, pencil);
 				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
+				bindAsEagerSingleton(ShapeDotCustomiser.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(Pencil.class, pencil);
 			}
 		};
 	}

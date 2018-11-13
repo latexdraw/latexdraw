@@ -24,7 +24,11 @@ import javafx.scene.image.Image;
 import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.model.api.property.DotProp;
 import net.sf.latexdraw.model.api.shape.DotStyle;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 
 /**
@@ -40,11 +44,9 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	@FXML private ColorPicker fillingB;
 	@FXML private TitledPane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeDotCustomiser() {
-		super();
+	@Inject
+	public ShapeDotCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

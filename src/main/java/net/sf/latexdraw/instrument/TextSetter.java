@@ -28,6 +28,7 @@ import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.parser.ps.PSFunctionParser;
 import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
@@ -53,9 +54,7 @@ public class TextSetter extends JfxInstrument implements Initializable {
 	private final @NotNull Drawing drawing;
 	private final @NotNull Canvas canvas;
 
-	/**
-	 * Creates the instrument.
-	 */
+	@Inject
 	public TextSetter(final Canvas canvas, final ResourceBundle lang, final EditingService editing, final Drawing drawing) {
 		super();
 		this.editing = Objects.requireNonNull(editing);

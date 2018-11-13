@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Optional;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
@@ -28,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 class DrawingImpl implements Drawing, SetShapesBase {
 	/** The set of shapes. */
 	private final @NotNull ListProperty<Shape> shapes;
-
+	private final @NotNull StringProperty title;
 	/** The selected shapes of the drawing. */
 	private final @NotNull Group selection;
 
@@ -38,6 +40,7 @@ class DrawingImpl implements Drawing, SetShapesBase {
 
 	DrawingImpl() {
 		super();
+		title = new SimpleStringProperty("");
 		shapes = new SimpleListProperty<>(FXCollections.observableArrayList());
 		selection = ShapeFactory.INST.createGroup();
 		modified = false;
@@ -102,5 +105,16 @@ class DrawingImpl implements Drawing, SetShapesBase {
 	@Override
 	public void reinit() {
 		clear();
+		title.set("");
+	}
+
+	@Override
+	public @NotNull StringProperty titleProperty() {
+		return title;
+	}
+
+	@Override
+	public void setTitle(final @NotNull String title) {
+		this.title.set(title);
 	}
 }

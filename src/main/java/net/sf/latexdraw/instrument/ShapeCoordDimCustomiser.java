@@ -18,8 +18,12 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.transform.Translate;
 import net.sf.latexdraw.command.shape.TranslateShapes;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.command.Command;
 
 /**
@@ -33,11 +37,9 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	@FXML private Spinner<Double> tlyS;
 	@FXML private TitledPane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeCoordDimCustomiser() {
-		super();
+	@Inject
+	public ShapeCoordDimCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 		//FIXME update when shapes are moved.
 	}
 

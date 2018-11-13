@@ -25,6 +25,7 @@ import javafx.stage.StageStyle;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -43,9 +44,7 @@ public final class ExceptionsManager extends JfxInstrument implements BadaboomHa
 	/** The frame to show when exceptions occur. */
 	private @Nullable Stage stageEx;
 
-	/**
-	 * Creates the instrument.
-	 */
+	@Inject
 	public ExceptionsManager(final ResourceBundle lang, final Injector injector) {
 		super();
 		this.lang = Objects.requireNonNull(lang);

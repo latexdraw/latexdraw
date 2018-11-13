@@ -36,11 +36,11 @@ public class TestHandPlotStyle extends TestPlotStyleGUI {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
 				pencil = mock(Pencil.class);
-				bindAsEagerSingleton(ShapePlotCustomiser.class);
+				bindToInstance(Pencil.class, pencil);
 				bindToInstance(TextSetter.class, mock(TextSetter.class));
 				bindAsEagerSingleton(Hand.class);
+				bindAsEagerSingleton(ShapePlotCustomiser.class);
 				bindToInstance(MetaShapeCustomiser.class, mock(MetaShapeCustomiser.class));
-				bindToInstance(Pencil.class, pencil);
 			}
 		};
 	}

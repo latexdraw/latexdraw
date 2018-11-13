@@ -19,7 +19,11 @@ import javafx.scene.layout.VBox;
 import net.sf.latexdraw.command.shape.AlignShapes;
 import net.sf.latexdraw.command.shape.DistributeShapes;
 import net.sf.latexdraw.command.shape.MirrorShapes;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * This instrument transforms (mirror, etc.) the selected shapes.
@@ -60,11 +64,9 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 	@FXML private Button distribHorizRight;
 	@FXML private VBox mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeTransformer() {
-		super();
+	@Inject
+	public ShapeTransformer(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

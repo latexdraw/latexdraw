@@ -45,6 +45,7 @@ import net.sf.latexdraw.parser.svg.SVGPolyLineElement;
 import net.sf.latexdraw.parser.svg.SVGPolygonElement;
 import net.sf.latexdraw.parser.svg.SVGRectElement;
 import net.sf.latexdraw.parser.svg.SVGTextElement;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.jetbrains.annotations.NotNull;
@@ -61,6 +62,7 @@ public class SVGShapesFactory implements SVGShapeProducer {
 	/**
 	 * Creates the factory.
 	 */
+	@Inject
 	public SVGShapesFactory(final ViewFactory viewFactory) {
 		super();
 

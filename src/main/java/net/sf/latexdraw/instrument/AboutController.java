@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import net.sf.latexdraw.LaTeXDraw;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.util.VersionChecker;
 import org.jetbrains.annotations.NotNull;
@@ -34,9 +35,7 @@ public class AboutController implements Initializable {
 	@FXML private TextArea licenseText;
 	private final @NotNull ResourceBundle lang;
 
-	/**
-	 * Creates the controller.
-	 */
+	@Inject
 	public AboutController(final ResourceBundle lang) {
 		super();
 		this.lang = Objects.requireNonNull(lang);

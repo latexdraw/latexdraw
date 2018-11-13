@@ -13,6 +13,7 @@ package net.sf.latexdraw.instrument;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -22,20 +23,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import net.sf.latexdraw.util.Inject;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The controller of the shortcuts dialogue box.
  * @author Arnaud BLOUIN
  */
 public class ShortcutsController implements Initializable {
-	@Inject private ResourceBundle lang;
+	private final @NotNull ResourceBundle lang;
 	@FXML private TableView<ObservableList<String>> table;
 
-	/**
-	 * Creates the controller.
-	 */
-	public ShortcutsController() {
+	@Inject
+	public ShortcutsController(final ResourceBundle lang) {
 		super();
+		this.lang = Objects.requireNonNull(lang);
 	}
 
 	@SuppressWarnings("unchecked")

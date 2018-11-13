@@ -20,7 +20,11 @@ import javafx.scene.control.ToggleButton;
 import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.model.api.property.ArcProp;
 import net.sf.latexdraw.model.api.shape.ArcStyle;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * This instrument modifies arc parameters.
@@ -39,11 +43,9 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initi
 	@FXML private Spinner<Double> endAngleS;
 	@FXML private TitledPane mainPane;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapeArcCustomiser() {
-		super();
+	@Inject
+	public ShapeArcCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
 	}
 
 	@Override

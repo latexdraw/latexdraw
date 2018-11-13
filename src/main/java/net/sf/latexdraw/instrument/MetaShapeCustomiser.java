@@ -11,76 +11,86 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.Initializable;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.view.jfx.Canvas;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This meta-instrument manages the instruments that customises shape properties.
+ * Facade pattern for all the instruments that handle shape's properties.
  * @author Arnaud BLOUIN
  */
 public class MetaShapeCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** This instrument customises the line properties of shapes and the pencil. */
-	@Inject protected ShapeBorderCustomiser borderCustomiser;
-
+	protected final @NotNull ShapeBorderCustomiser borderCustomiser;
 	/** This instrument customises the double line properties of shapes and the pencil. */
-	@Inject protected ShapeDoubleBorderCustomiser doubleBorderCustomiser;
-
+	protected final @NotNull ShapeDoubleBorderCustomiser doubleBorderCustomiser;
 	/** This instrument customises the shadow properties of shapes and the pencil. */
-	@Inject protected ShapeShadowCustomiser shadowCustomiser;
-
+	protected final @NotNull ShapeShadowCustomiser shadowCustomiser;
 	/** This instrument customises the filling properties of shapes and the pencil. */
-	@Inject protected ShapeFillingCustomiser fillingCustomiser;
-
+	protected final @NotNull ShapeFillingCustomiser fillingCustomiser;
 	/** This instrument customises the texts. */
-	@Inject protected ShapeTextCustomiser shapeTextCustomiser;
-
+	protected final @NotNull ShapeTextCustomiser shapeTextCustomiser;
 	/** This instrument customises the rotation angle. */
-	@Inject protected ShapeRotationCustomiser rotationCustomiser;
-
+	protected final @NotNull ShapeRotationCustomiser rotationCustomiser;
 	/** This instrument customises the arrows. */
-	@Inject protected ShapeArrowCustomiser arrowCustomiser;
-
+	protected final @NotNull ShapeArrowCustomiser arrowCustomiser;
 	/** This instrument customises the dot parameters. */
-	@Inject protected ShapeDotCustomiser dotCustomiser;
-
+	protected final @NotNull ShapeDotCustomiser dotCustomiser;
 	/** This instrument customises the arc parameters. */
-	@Inject protected ShapeArcCustomiser arcCustomiser;
-
+	protected final @NotNull ShapeArcCustomiser arcCustomiser;
 	/** This instrument customises the dimensions and the position. */
-	@Inject protected ShapeCoordDimCustomiser dimPosCustomiser;
-
+	protected final @NotNull ShapeCoordDimCustomiser dimPosCustomiser;
 	/** This instrument customises grids and axes. */
-	@Inject protected ShapeStdGridCustomiser gridCustomiser;
-
+	protected final @NotNull ShapeStdGridCustomiser gridCustomiser;
 	/** This instrument groups shapes. */
-	@Inject protected ShapeGrouper shapeGrouper;
-
+	protected final @NotNull ShapeGrouper shapeGrouper;
 	/** This instrument that customises axes. */
-	@Inject protected ShapeAxesCustomiser shapeAxesCustomiser;
-
+	protected final @NotNull ShapeAxesCustomiser shapeAxesCustomiser;
 	/** This instrument that customises grids. */
-	@Inject protected ShapeGridCustomiser shapeGridCustomiser;
-
+	protected final @NotNull ShapeGridCustomiser shapeGridCustomiser;
 	/** This instrument that customises freehands. */
-	@Inject protected ShapeFreeHandCustomiser shapeFreeHandCustomiser;
-
+	protected final @NotNull ShapeFreeHandCustomiser shapeFreeHandCustomiser;
 	/** This instrument that transforms shapes. */
-	@Inject protected ShapeTransformer shapeTransformer;
-
+	protected final @NotNull ShapeTransformer shapeTransformer;
 	/** This instrument that places shapes. */
-	@Inject protected ShapePositioner shapePositioner;
+	protected final @NotNull ShapePositioner shapePositioner;
+	protected final @NotNull ShapePlotCustomiser plotCustom;
 
-	@Inject protected ShapePlotCustomiser plotCustom;
-
-	/**
-	 * Creates the instrument.
-	 */
-	public MetaShapeCustomiser() {
-		super();
+	@Inject
+	public MetaShapeCustomiser(final ShapeBorderCustomiser borderCust, final ShapeDoubleBorderCustomiser dbleBordCust, final ShapeShadowCustomiser shadCust,
+		final ShapeFillingCustomiser fillCust, final ShapeTextCustomiser txtCust, final ShapeRotationCustomiser rotCust, final ShapeArrowCustomiser arrCust,
+		final ShapeDotCustomiser dotCust, final ShapeArcCustomiser arcCust, final ShapeCoordDimCustomiser dimPosCust, final ShapeStdGridCustomiser absGridCust,
+		final ShapeGrouper grouper, final ShapeAxesCustomiser axesCust, final ShapeGridCustomiser gridCust, final ShapeFreeHandCustomiser fhCust,
+		final ShapeTransformer transformer, final ShapePositioner positioner, final ShapePlotCustomiser plotCust, final Hand hand, final Pencil pencil,
+		final Canvas canvas, final Drawing drawing, final EditingService editing) {
+		super(hand, pencil, canvas, drawing, editing);
+		borderCustomiser = Objects.requireNonNull(borderCust);
+		doubleBorderCustomiser = Objects.requireNonNull(dbleBordCust);
+		shadowCustomiser = Objects.requireNonNull(shadCust);
+		fillingCustomiser = Objects.requireNonNull(fillCust);
+		shapeTextCustomiser = Objects.requireNonNull(txtCust);
+		rotationCustomiser = Objects.requireNonNull(rotCust);
+		arrowCustomiser = Objects.requireNonNull(arrCust);
+		dotCustomiser = Objects.requireNonNull(dotCust);
+		arcCustomiser = Objects.requireNonNull(arcCust);
+		dimPosCustomiser = Objects.requireNonNull(dimPosCust);
+		gridCustomiser = Objects.requireNonNull(absGridCust);
+		shapeGrouper = Objects.requireNonNull(grouper);
+		shapeAxesCustomiser = Objects.requireNonNull(axesCust);
+		shapeGridCustomiser = Objects.requireNonNull(gridCust);
+		shapeFreeHandCustomiser = Objects.requireNonNull(fhCust);
+		shapeTransformer = Objects.requireNonNull(transformer);
+		shapePositioner = Objects.requireNonNull(positioner);
+		plotCustom = Objects.requireNonNull(plotCust);
 	}
 
 	@Override

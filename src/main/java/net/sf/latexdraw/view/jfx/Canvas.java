@@ -46,6 +46,7 @@ import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
@@ -109,6 +110,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/**
 	 * Creates the canvas.
 	 */
+	@Inject
 	public Canvas(final PreferencesService prefs, final ViewFactory viewFactory) {
 		super();
 		this.viewFactory = Objects.requireNonNull(viewFactory);

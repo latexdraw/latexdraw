@@ -25,6 +25,7 @@ import net.sf.latexdraw.command.ModifyEditingMode;
 import net.sf.latexdraw.command.shape.AddShape;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
@@ -95,9 +96,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	private final @NotNull Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
 
 
-	/**
-	 * Creates the instrument.
-	 */
+	@Inject
 	public EditingSelector(final Hand hand, final Pencil pencil, final MetaShapeCustomiser meta, final EditingService editing, final TextSetter textSetter,
 						final Border border, final ShapeDeleter deleter, final Canvas canvas, final CodeInserter codeInserter, final StatusBarController status) {
 		super();

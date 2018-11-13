@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -38,7 +39,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
-import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.command.ExportFormat;
@@ -62,6 +62,7 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.ui.JfxUI;
 import org.malai.javafx.ui.OpenSaver;
@@ -75,16 +76,23 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  */
 public class SVGDocumentGenerator implements OpenSaver<Label> {
-	@Inject private ViewFactory viewFactory;
-	@Inject private SVGShapesFactory svgFactory;
-	@Inject private ResourceBundle lang;
-	@Inject private Canvas canvas;
-	@Inject private Drawing drawing;
-	@Inject private JfxUI app;
-	@Inject private Stage mainstage;
+	private final @NotNull ViewFactory viewFactory;
+	private final @NotNull SVGShapesFactory svgFactory;
+	private final @NotNull ResourceBundle lang;
+	private final @NotNull Canvas canvas;
+	private final @NotNull Drawing drawing;
+	private final @NotNull JfxUI app;
 
-	public SVGDocumentGenerator() {
+	@Inject
+	public SVGDocumentGenerator(final ViewFactory viewFactory, final SVGShapesFactory svgFactory, final ResourceBundle lang, final Canvas canvas,
+		final Drawing drawing, final JfxUI app) {
 		super();
+		this.viewFactory = Objects.requireNonNull(viewFactory);
+		this.svgFactory = Objects.requireNonNull(svgFactory);
+		this.lang = Objects.requireNonNull(lang);
+		this.canvas = Objects.requireNonNull(canvas);
+		this.drawing = Objects.requireNonNull(drawing);
+		this.app = Objects.requireNonNull(app);
 	}
 
 	@Override
@@ -495,7 +503,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 				Platform.runLater(() -> updateProgress(getProgress() + incr, 100d));
 
 				app.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-				Platform.runLater(() -> mainstage.setTitle(getDocumentName()));
+				Platform.runLater(() -> drawing.setTitle(getDocumentName()));
 			}
 			return doc.saveSVGDocument(path);
 		}
@@ -609,7 +617,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 							app.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
 						}
 
-						mainstage.setTitle(getDocumentName());
+						drawing.setTitle(getDocumentName());
 					});
 				});
 

@@ -21,6 +21,7 @@ import net.sf.latexdraw.command.shape.CopyShapes;
 import net.sf.latexdraw.command.shape.CutShapes;
 import net.sf.latexdraw.command.shape.PasteShapes;
 import net.sf.latexdraw.command.shape.SelectShapes;
+import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -47,9 +48,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	};
 
 
-	/**
-	 * Creates the instrument.
-	 */
+	@Inject
 	public CopierCutterPaster(final Canvas canvas, final MagneticGrid grid) {
 		super(canvas, grid);
 		CommandsRegistry.INSTANCE.addHandler(this);

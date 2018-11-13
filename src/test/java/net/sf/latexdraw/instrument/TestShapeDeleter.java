@@ -81,7 +81,7 @@ public class TestShapeDeleter extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
 		clickOn("#deleteB");
 		waitFXEvents.execute();
-assertTrue(canvas.getDrawing().isEmpty());
+		assertTrue(canvas.getDrawing().isEmpty());
 		assertTrue(find("#deleteB").isDisabled());
 	}
 

@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,11 +22,15 @@ import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.command.shape.ShapeProperties;
 import net.sf.latexdraw.model.api.property.PlotProp;
+import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.PlotStyle;
 import net.sf.latexdraw.parser.ps.PSFunctionParser;
+import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Tuple;
+import net.sf.latexdraw.view.jfx.Canvas;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This instrument modifies plot parameters.
@@ -40,13 +45,13 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 	@FXML private CheckBox polarCB;
 	@FXML private ComboBox<PlotStyle> plotStyleCB;
 	@FXML private TitledPane mainPane;
-	@Inject private ResourceBundle lang;
+	private final @NotNull ResourceBundle lang;
 
-	/**
-	 * Creates the instrument.
-	 */
-	public ShapePlotCustomiser() {
-		super();
+	@Inject
+	public ShapePlotCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing,
+		final ResourceBundle lang) {
+		super(hand, pencil, canvas, drawing, editing);
+		this.lang = Objects.requireNonNull(lang);
 	}
 
 	@Override

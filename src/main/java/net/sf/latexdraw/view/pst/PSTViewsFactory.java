@@ -33,6 +33,7 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Square;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
+import net.sf.latexdraw.util.Inject;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -42,6 +43,7 @@ import org.jetbrains.annotations.NotNull;
 public final class PSTViewsFactory implements PSTViewProducer {
 	private final @NotNull ResourceBundle lang;
 
+	@Inject
 	public PSTViewsFactory(final ResourceBundle lang) {
 		super();
 		this.lang = Objects.requireNonNull(lang);

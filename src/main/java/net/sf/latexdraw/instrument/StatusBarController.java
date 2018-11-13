@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import net.sf.latexdraw.util.Inject;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.interaction.library.HyperlinkClicked;
 
@@ -30,13 +32,12 @@ public class StatusBarController extends JfxInstrument implements Initializable 
 	@FXML private Label label;
 	@FXML private ProgressBar progressBar;
 	@FXML private Hyperlink link;
-	@Inject private HostServices services;
+	private final @NotNull HostServices services;
 
-	/**
-	 * Creates the controller.
-	 */
-	public StatusBarController() {
+	@Inject
+	public StatusBarController(final HostServices services) {
 		super();
+		this.services = Objects.requireNonNull(services);
 	}
 
 	/**
