@@ -65,7 +65,6 @@ public abstract class TestPSTParser {
 		parser.addErrorListener(errList);
 		parser.pstCode(new PSTContext());
 		parsedShapes = listener.flatShapes();
-//		// Trying to flush the parser
 		parser.removeParseListener(listener);
 		parser.removeErrorListener(errList);
 		parser.getInterpreter().clearDFA();
@@ -75,8 +74,8 @@ public abstract class TestPSTParser {
 
 	public static class ErrorListener extends BaseErrorListener {
 		@Override
-		public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol, final int line, final int charPositionInLine, final
-		String msg, final RecognitionException e) {
+		public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol, final int line, final int charPositionInLine,
+			final String msg, final RecognitionException e) {
 			fail(msg);
 		}
 	}

@@ -23,61 +23,70 @@ public enum TextSize {
 		public @NotNull String getLatexToken() {
 			return "tiny"; //NON-NLS
 		}
-	}, /** \scriptsize size */
+	},
+	/** \scriptsize size */
 	SCRIPT {
-			@Override
-			public @NotNull String getLatexToken() {
-				return "scriptsize"; //NON-NLS
-			}
-		}, /** \footnotesize size */
+		@Override
+		public @NotNull String getLatexToken() {
+			return "scriptsize"; //NON-NLS
+		}
+	},
+	/** \footnotesize size */
 	FOOTNOTE {
-			@Override
-			public @NotNull String getLatexToken() {
-				return "footnotesize"; //NON-NLS
-			}
-		}, /** \small size */
+		@Override
+		public @NotNull String getLatexToken() {
+			return "footnotesize"; //NON-NLS
+		}
+	},
+	/** \small size */
 	SMALL {
-			@Override
-			public @NotNull String getLatexToken() {
-				return "small"; //NON-NLS
-			}
-		}, /** \small size */
+		@Override
+		public @NotNull String getLatexToken() {
+			return "small"; //NON-NLS
+		}
+	},
+	/** \small size */
 	NORMAL {
-			@Override
-			public @NotNull String getLatexToken() {
-				return "normalsize"; //NON-NLS
-			}
-		}, /** \large size */
+		@Override
+		public @NotNull String getLatexToken() {
+			return "normalsize"; //NON-NLS
+		}
+	},
+	/** \large size */
 	LARGE1 {
-			@Override
-			public @NotNull String getLatexToken() {
-				return "large"; //NON-NLS
-			}
-		}, /** \Large size */
+		@Override
+		public @NotNull String getLatexToken() {
+			return "large"; //NON-NLS
+		}
+	},
+	/** \Large size */
 	LARGE2 {
-			@Override
-			public @NotNull String getLatexToken() {
-				return "Large"; //NON-NLS
-			}
-		}, /** \LARGE size */
+		@Override
+		public @NotNull String getLatexToken() {
+			return "Large"; //NON-NLS
+		}
+	},
+	/** \LARGE size */
 	LARGE3 {
-			@Override
-			public @NotNull String getLatexToken() {
-				return "LARGE"; //NON-NLS
-			}
-		}, /** \huge size */
+		@Override
+		public @NotNull String getLatexToken() {
+			return "LARGE"; //NON-NLS
+		}
+	},
+	/** \huge size */
 	HUGE1 {
-			@Override
-			public @NotNull String getLatexToken() {
-				return "huge"; //NON-NLS
-			}
-		}, /** \Huge size */
+		@Override
+		public @NotNull String getLatexToken() {
+			return "huge"; //NON-NLS
+		}
+	},
+	/** \Huge size */
 	HUGE2 {
-			@Override
-			public @NotNull String getLatexToken() {
-				return "Huge"; //NON-NLS
-			}
-		};
+		@Override
+		public @NotNull String getLatexToken() {
+			return "Huge"; //NON-NLS
+		}
+	};
 
 	/**
 	 * @param size The text size value to analyse.

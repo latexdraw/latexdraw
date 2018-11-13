@@ -16,7 +16,6 @@ import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.command.LoadTemplate;
 import net.sf.latexdraw.command.UpdateTemplates;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -131,8 +131,7 @@ public class TestPoint implements HelperTest {
 	}
 
 	@Theory
-	public void testGetMiddlePoint(@DoubleData final double x1, @DoubleData final double x2, @DoubleData final double y1, @DoubleData
-	final double y2) {
+	public void testGetMiddlePoint(@DoubleData final double x1, @DoubleData final double x2, @DoubleData final double y1, @DoubleData final double y2) {
 		assertEquals(ShapeFactory.INST.createPoint((x1 + x2) / 2d, (y1 + y2) / 2d), ShapeFactory.INST.createPoint(x1, y1).
 			getMiddlePoint(ShapeFactory.INST.createPoint(x2, y2)));
 
@@ -153,8 +152,7 @@ public class TestPoint implements HelperTest {
 	}
 
 	@Theory
-	public void testTranslateKO(@DoubleData(bads = true, vals = {0d}) final double tx, @DoubleData(bads = true, vals = {0d}) final double
-		ty) {
+	public void testTranslateKO(@DoubleData(bads = true, vals = {0d}) final double tx, @DoubleData(bads = true, vals = {0d}) final double ty) {
 		pt.translate(10d, -11d);
 		pt.translate(tx, -ty);
 

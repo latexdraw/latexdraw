@@ -53,7 +53,7 @@ public class ScaleRuler extends Pane {
 		}
 
 		group.getChildren().clear();
-			updateVertical(height);
+		updateVertical(height);
 		if(vertical) {
 
 		}else {

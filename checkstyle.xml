@@ -25,6 +25,12 @@
     </module>
 
     <module name="TreeWalker">
+        <module name="Indentation">
+            <property name="basicOffset" value="8"/>
+            <property name="lineWrappingIndentation" value="0"/>
+            <property name="arrayInitIndent" value="8"/>
+            <property name="caseIndent" value="8"/>
+        </module>
         <module name="EqualsAvoidNull"/>
         <module name="FinalClass"/>
         <module name="FinalLocalVariable"/>

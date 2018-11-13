@@ -36,9 +36,9 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.FillingStyle;
 import net.sf.latexdraw.model.api.shape.Line;
+import net.sf.latexdraw.model.api.shape.LineStyle;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.SingleShape;
-import net.sf.latexdraw.model.api.shape.LineStyle;
 
 /**
  * The base class of a JFX single shape view.
@@ -194,16 +194,21 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 
 	private Paint getFillingPaint(final FillingStyle style) {
 		switch(style) {
-			case NONE: return model.hasShadow() && model.shadowFillsShape() ? model.getFillingCol().toJFX() : null;
-			case GRAD: return computeGradient();
-			case PLAIN: return model.getFillingCol().toJFX();
+			case NONE:
+				return model.hasShadow() && model.shadowFillsShape() ? model.getFillingCol().toJFX() : null;
+			case GRAD:
+				return computeGradient();
+			case PLAIN:
+				return model.getFillingCol().toJFX();
 			case CLINES_PLAIN:
 			case HLINES_PLAIN:
 			case VLINES_PLAIN:
 			case CLINES:
 			case VLINES:
-			case HLINES: return getHatchingsFillingPaint(style);
-			default: return null;
+			case HLINES:
+				return getHatchingsFillingPaint(style);
+			default:
+				return null;
 		}
 	}
 

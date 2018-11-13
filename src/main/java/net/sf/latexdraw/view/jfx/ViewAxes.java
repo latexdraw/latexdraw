@@ -17,10 +17,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import net.sf.latexdraw.model.ShapeFactory;
-import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.Axes;
-import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
+import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.GenericAxes;
 
 /**
@@ -130,7 +130,7 @@ public class ViewAxes extends ViewStdGrid<Axes> implements GenericAxes<Text> {
 		if(axes) {
 			framePath.getElements().clear();
 			if(model.getAxesStyle() == AxesStyle.FRAME) {
-					updatePathFrame();
+				updatePathFrame();
 			}
 		}
 

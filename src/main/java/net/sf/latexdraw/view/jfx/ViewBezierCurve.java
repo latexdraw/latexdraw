@@ -81,18 +81,18 @@ public class ViewBezierCurve extends ViewPathShape<BezierCurve> {
 	 * Sub routine that creates and binds show points.
 	 */
 	private final void bindShowPoints() {
-		showPoint.getChildren().addAll(Stream.concat(Stream.concat(model.getPoints().stream(), model.getFirstCtrlPts().stream()), model.getSecondCtrlPts()
-			.stream()).map(pt -> {
-			final Ellipse dot = new Ellipse();
-			dot.fillProperty().bind(Bindings.createObjectBinding(() -> model.getLineColour().toJFX(), model.lineColourProperty()));
-			dot.centerXProperty().bind(pt.xProperty());
-			dot.centerYProperty().bind(pt.yProperty());
-			dot.radiusXProperty().bind(Bindings.createDoubleBinding(() -> (model.getArrowAt(0).getDotSizeDim() +
-				model.getArrowAt(0).getDotSizeNum() * model.getFullThickness()) / 2d, model.thicknessProperty(), model.dbleBordProperty(),
-				model.dbleBordSepProperty(), model.getArrowAt(0).dotSizeDimProperty(), model.getArrowAt(0).dotSizeNumProperty()));
-			dot.radiusYProperty().bind(dot.radiusXProperty());
-			return dot;
-		}).collect(Collectors.toList()));
+		showPoint.getChildren().addAll(Stream.concat(Stream.concat(model.getPoints().stream(), model.getFirstCtrlPts().stream()),
+			model.getSecondCtrlPts().stream()).map(pt -> {
+				final Ellipse dot = new Ellipse();
+				dot.fillProperty().bind(Bindings.createObjectBinding(() -> model.getLineColour().toJFX(), model.lineColourProperty()));
+				dot.centerXProperty().bind(pt.xProperty());
+				dot.centerYProperty().bind(pt.yProperty());
+				dot.radiusXProperty().bind(Bindings.createDoubleBinding(() -> (model.getArrowAt(0).getDotSizeDim() +
+					model.getArrowAt(0).getDotSizeNum() * model.getFullThickness()) / 2d, model.thicknessProperty(), model.dbleBordProperty(),
+					model.dbleBordSepProperty(), model.getArrowAt(0).dotSizeDimProperty(), model.getArrowAt(0).dotSizeNumProperty()));
+				dot.radiusYProperty().bind(dot.radiusXProperty());
+				return dot;
+			}).collect(Collectors.toList()));
 
 		showPoint.getChildren().addAll(IntStream.range(0, model.getFirstCtrlPts().size()).
 			mapToObj(i -> createLine(model.getFirstCtrlPtAt(i), model.getSecondCtrlPtAt(i))).collect(Collectors.toList()));

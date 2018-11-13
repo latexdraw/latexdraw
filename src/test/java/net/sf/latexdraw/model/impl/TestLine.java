@@ -54,8 +54,7 @@ public class TestLine implements HelperTest {
 	}
 
 	@Theory
-	public void testConstructors2KO2(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {}) final double
-		y) {
+	public void testConstructors2KO2(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {}) final double y) {
 		thrown.expect(IllegalArgumentException.class);
 		ShapeFactory.INST.createLine(10d, ShapeFactory.INST.createPoint(x, y));
 	}
@@ -75,15 +74,13 @@ public class TestLine implements HelperTest {
 	}
 
 	@Theory
-	public void testConstructors3KO1(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {}) final double
-		y) {
+	public void testConstructors3KO1(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {}) final double y) {
 		thrown.expect(IllegalArgumentException.class);
 		ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(x, 2d), ShapeFactory.INST.createPoint(1d, y));
 	}
 
 	@Theory
-	public void testConstructors3KO2(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {}) final double
-		y) {
+	public void testConstructors3KO2(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {}) final double y) {
 		thrown.expect(IllegalArgumentException.class);
 		ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(1d, y), ShapeFactory.INST.createPoint(x, -10d));
 	}
@@ -151,8 +148,7 @@ public class TestLine implements HelperTest {
 	}
 
 	@Theory
-	public void testSetLine(@DoubleData final double x1, @DoubleData final double x2, @DoubleData final double y1, @DoubleData final
-	double y2) {
+	public void testSetLine(@DoubleData final double x1, @DoubleData final double x2, @DoubleData final double y1, @DoubleData final double y2) {
 		line.setLine(x1, y1, x2, y2);
 		assertEqualsDouble(x1, line.getX1());
 		assertEqualsDouble(x2, line.getX2());
@@ -320,8 +316,7 @@ public class TestLine implements HelperTest {
 	}
 
 	@Theory
-	public void testGetPerpendicularLineDiagKO(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {})
-	final double y) {
+	public void testGetPerpendicularLineDiagKO(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {}) final double y) {
 		assertNull(line.getPerpendicularLine(ShapeFactory.INST.createPoint(x, y)));
 	}
 
@@ -344,8 +339,7 @@ public class TestLine implements HelperTest {
 	@Test
 	public void testGetIntersectionKO() {
 		assertNull(line.getIntersection(line));
-		assertNull(line.getIntersection(ShapeFactory.INST.createLine(line.getX1() + 1, line.getY1() + 1, line.getX2() + 1, line.getY2() +
-			1)));
+		assertNull(line.getIntersection(ShapeFactory.INST.createLine(line.getX1() + 1, line.getY1() + 1, line.getX2() + 1, line.getY2() + 1)));
 	}
 
 	@Test
