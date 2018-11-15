@@ -10,8 +10,11 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.CubicCurveTo;
@@ -41,6 +44,7 @@ import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.Tuple;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -48,72 +52,45 @@ import org.jetbrains.annotations.NotNull;
  * @author Arnaud Blouin
  */
 public final class ViewFactory implements PathElementProducer, JfxViewProducer {
-	private final @NotNull LaTeXDataService latexdata;
+	private final @NotNull List<Tuple<Class<? extends Shape>, Function<Shape, ViewShape<?>>>> producers;
 
 	@Inject
 	public ViewFactory(final LaTeXDataService latexdata) {
 		super();
-		this.latexdata = Objects.requireNonNull(latexdata);
+		producers = new ArrayList<>();
+		fillProducers(Objects.requireNonNull(latexdata));
 	}
 
+	private final void fillProducers(final LaTeXDataService latexdata) {
+		producers.add(new Tuple<>(Group.class, sh -> new ViewGroup((Group) sh, this)));
+		producers.add(new Tuple<>(Plot.class, sh -> new ViewPlot((Plot) sh, this)));
+		producers.add(new Tuple<>(Square.class, sh -> new ViewSquare((Square) sh)));
+		producers.add(new Tuple<>(Rectangle.class, sh -> new ViewRectangle((Rectangle) sh)));
+		producers.add(new Tuple<>(Text.class, sh -> new ViewText((Text) sh, latexdata)));
+		producers.add(new Tuple<>(CircleArc.class, sh -> new ViewCircleArc((CircleArc) sh)));
+		producers.add(new Tuple<>(Circle.class, sh -> new ViewCircle((Circle) sh)));
+		producers.add(new Tuple<>(Ellipse.class, sh -> new ViewEllipse((Ellipse) sh)));
+		producers.add(new Tuple<>(Triangle.class, sh -> new ViewTriangle((Triangle) sh, this)));
+		producers.add(new Tuple<>(Rhombus.class, sh -> new ViewRhombus((Rhombus) sh, this)));
+		producers.add(new Tuple<>(Polyline.class, sh -> new ViewPolyline((Polyline) sh, this)));
+		producers.add(new Tuple<>(Polygon.class, sh -> new ViewPolygon((Polygon) sh, this)));
+		producers.add(new Tuple<>(BezierCurve.class, sh -> new ViewBezierCurve((BezierCurve) sh, this)));
+		producers.add(new Tuple<>(Axes.class, sh -> new ViewAxes((Axes) sh, this)));
+		producers.add(new Tuple<>(Grid.class, sh -> new ViewGrid((Grid) sh, this)));
+		producers.add(new Tuple<>(Dot.class, sh -> new ViewDot((Dot) sh, this)));
+		producers.add(new Tuple<>(Picture.class, sh -> new ViewPicture((Picture) sh)));
+		producers.add(new Tuple<>(Freehand.class, sh -> new ViewFreeHand((Freehand) sh, this)));
+	}
 
 	@Override
 	public <T extends Shape, S extends ViewShape<T>> Optional<S> createView(final T shape) {
-		if(shape instanceof Group) {
-			return Optional.of((S) new ViewGroup((Group) shape, this));
-		}
-		if(shape instanceof Plot) {
-			return Optional.of((S) new ViewPlot((Plot) shape, this));
-		}
-		if(shape instanceof Square) {
-			return Optional.of((S) new ViewSquare((Square) shape));
-		}
-		if(shape instanceof Rectangle) {
-			return Optional.of((S) new ViewRectangle((Rectangle) shape));
-		}
-		if(shape instanceof Text) {
-			return Optional.of((S) new ViewText((Text) shape, latexdata));
-		}
-		if(shape instanceof CircleArc) {
-			return Optional.of((S) new ViewCircleArc((CircleArc) shape));
-		}
-		if(shape instanceof Circle) {
-			return Optional.of((S) new ViewCircle((Circle) shape));
-		}
-		if(shape instanceof Ellipse) {
-			return Optional.of((S) new ViewEllipse((Ellipse) shape));
-		}
-		if(shape instanceof Triangle) {
-			return Optional.of((S) new ViewTriangle((Triangle) shape, this));
-		}
-		if(shape instanceof Rhombus) {
-			return Optional.of((S) new ViewRhombus((Rhombus) shape, this));
-		}
-		if(shape instanceof Polyline) {
-			return Optional.of((S) new ViewPolyline((Polyline) shape, this));
-		}
-		if(shape instanceof Polygon) {
-			return Optional.of((S) new ViewPolygon((Polygon) shape, this));
-		}
-		if(shape instanceof BezierCurve) {
-			return Optional.of((S) new ViewBezierCurve((BezierCurve) shape, this));
-		}
-		if(shape instanceof Axes) {
-			return Optional.of((S) new ViewAxes((Axes) shape, this));
-		}
-		if(shape instanceof Grid) {
-			return Optional.of((S) new ViewGrid((Grid) shape, this));
-		}
-		if(shape instanceof Dot) {
-			return Optional.of((S) new ViewDot((Dot) shape, this));
-		}
-		if(shape instanceof Picture) {
-			return Optional.of((S) new ViewPicture((Picture) shape));
-		}
-		if(shape instanceof Freehand) {
-			return Optional.of((S) new ViewFreeHand((Freehand) shape, this));
-		}
-		return Optional.empty();
+		// Makes use of a list of tuples to reduce the CC.
+		// Looking for the tuple which type matches the type of the given shape.
+		// Then calling the associated function that produces the PST view.
+		return producers.stream()
+			.filter(t -> t.a.isAssignableFrom(shape.getClass()))
+			.findFirst()
+			.map(t -> (S) t.b.apply(shape));
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package net.sf.latexdraw.parser.svg;
 
 import java.awt.geom.Point2D;
-import java.text.ParseException;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,7 @@ public class TestSVGPolylineElement extends TestBaseSVGElement {
 	SVGPolyLineElement pl;
 
 	@Test
-	void testGetPoints() throws MalformedSVGDocument, ParseException {
+	void testGetPoints() {
 		final String path = "10,10 20,20";
 		node.setAttribute(SVGAttributes.SVG_POINTS, path);
 		pl = new SVGPolyLineElement(node, null);
@@ -21,14 +20,14 @@ public class TestSVGPolylineElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testEnableRendering() throws MalformedSVGDocument, ParseException {
+	void testEnableRendering() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		pl = new SVGPolyLineElement(node, null);
 		assertTrue(pl.enableRendering());
 	}
 
 	@Test
-	void testSetPoints() throws MalformedSVGDocument, ParseException {
+	void testSetPoints() {
 		final String path = "10,10 20,20";
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		pl = new SVGPolyLineElement(node, null);
@@ -36,7 +35,7 @@ public class TestSVGPolylineElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testSetPoints2() throws MalformedSVGDocument, ParseException {
+	void testSetPoints2() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		pl = new SVGPolyLineElement(node, null);
 		pl.setPoints("11,12 22,23");
@@ -46,14 +45,15 @@ public class TestSVGPolylineElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testSetPointsFail() throws MalformedSVGDocument, ParseException {
+	void testSetPointsFail() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		pl = new SVGPolyLineElement(node, null);
-		assertThrows(ParseException.class, () -> pl.setPoints("10,,20fdsf"));
+		pl.setPoints("10,,20fdsf");
+		assertEquals(2, pl.getPoints2D().size());
 	}
 
 	@Test
-	void testGetPoints2D() throws MalformedSVGDocument, ParseException {
+	void testGetPoints2D() {
 		final String path = "	  10\t ,\n	10 	\t 	20 \t\n\t\r,	\n20 	\r30,30	\n";
 		node.setAttribute(SVGAttributes.SVG_POINTS, path);
 		final SVGPolyLineElement pl = new SVGPolyLineElement(node, null);
@@ -72,23 +72,23 @@ public class TestSVGPolylineElement extends TestBaseSVGElement {
 
 	@Test
 	void testContructorFail2() {
-		assertThrows(MalformedSVGDocument.class, () -> new SVGPolyLineElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGPolyLineElement(node, null));
 	}
 
 	@Test
 	void testContructorFail3() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGPolyLineElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGPolyLineElement(node, null));
 	}
 
 	@Test
 	void testContructorFail4() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "dsqdgfd");
-		assertThrows(ParseException.class, () -> new SVGPolyLineElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGPolyLineElement(node, null));
 	}
 
 	@Test
-	void testContructorOK1() throws MalformedSVGDocument, ParseException {
+	void testContructorOK1() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10");
 		new SVGPolyLineElement(node, null);
 	}
@@ -96,11 +96,11 @@ public class TestSVGPolylineElement extends TestBaseSVGElement {
 	@Test
 	void testContructorOK2() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, ",");
-		assertThrows(ParseException.class, () -> new SVGPolyLineElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGPolyLineElement(node, null));
 	}
 
 	@Test
-	void testContructorOK3() throws MalformedSVGDocument, ParseException {
+	void testContructorOK3() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		new SVGPolyLineElement(node, null);
 	}

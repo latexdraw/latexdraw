@@ -19,6 +19,7 @@ import net.sf.latexdraw.model.api.shape.Axes;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
+import org.jetbrains.annotations.NotNull;
 
 public interface GenericAxes<T> {
 	/** The interval between the labels and the axes. */
@@ -28,8 +29,8 @@ public interface GenericAxes<T> {
 
 	default void updatePathTicksX(final double gapx, final TicksStyle ticksStyle, final double tickLgth) {
 		final Axes model = getModel();
-		final boolean noArrowLeftX = model.getArrowStyle(1) == ArrowStyle.NONE || model.getGridMinX() == model.getOriginX();
-		final boolean noArrowRightX = model.getArrowStyle(3) == ArrowStyle.NONE || model.getGridMaxX() == model.getOriginX();
+		final boolean noArrowLeftX = isNoArrowLeftX();
+		final boolean noArrowRightX = isNoArrowRightX();
 		final double distX = model.getDistLabelsX();
 		final double y;
 
@@ -114,17 +115,28 @@ public interface GenericAxes<T> {
 	}
 
 
+	default boolean isNoArrowLeftX() {
+		final Axes model = getModel();
+		return model.getArrowStyle(1) == ArrowStyle.NONE || MathUtils.INST.equalsDouble(model.getGridMinX(), model.getOriginX());
+	}
+
+	default boolean isNoArrowRightX() {
+		final Axes model = getModel();
+		return model.getArrowStyle(3) == ArrowStyle.NONE || MathUtils.INST.equalsDouble(model.getGridMaxX(), model.getOriginX());
+	}
+
+
 	/**
 	 * Updates the labels path by drawing the labels of the X-axis.
 	 */
-	default void updatePathLabelsX(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final Text fontText) {
+	default void updatePathLabelsX(final @NotNull PlottingStyle ticksDisplay, final @NotNull TicksStyle ticksStyle, final @NotNull Text fontText) {
 		final Axes model = getModel();
 		// Painting the labels on the X-axis.
 		final int origx = (int) model.getOriginX();
 		final double gap = (ticksDisplay.isX() && ticksStyle.isBottom() ? model.getTicksSize() : 0d) + model.getThickness() / 2d + GAP_LABEL;
 		final double sep = model.getGridMaxY() <= -model.getOriginY() ? -gap - GAP_LABEL : gap + fontText.getBaselineOffset();
-		final boolean noArrowLeftX = model.getArrowStyle(1) == ArrowStyle.NONE || model.getGridMinX() == model.getOriginX();
-		final boolean noArrowRightX = model.getArrowStyle(3) == ArrowStyle.NONE || model.getGridMaxX() == model.getOriginX();
+		final boolean noArrowLeftX = isNoArrowLeftX();
+		final boolean noArrowRightX = isNoArrowRightX();
 		final boolean showOrig = model.isShowOrigin();
 		final double distX = model.getDistLabelsX();
 		final boolean yGE0 = model.getGridMinY() >= 0;

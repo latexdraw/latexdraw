@@ -19,6 +19,7 @@ import net.sf.latexdraw.parser.svg.SVGDocument;
 import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.util.LNamespace;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.NodeList;
 
 /**
@@ -71,25 +72,16 @@ class SVGGroup extends SVGShape<Group> {
 
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null) {
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
+		if(shape.isEmpty()) {
 			return null;
 		}
 
-		if(!shape.isEmpty()) {
-			final SVGElement root = new SVGGElement(doc);
-			final List<Shape> shapes = shape.getShapes();
-
-			root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_GROUP);
-			root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
-
-			for(final Shape f : shapes) {
-				root.appendChild(shapeProducer.createSVGElement(f, doc));
-			}
-
-			return root;
-		}
-
-		return null;
+		final SVGElement root = new SVGGElement(doc);
+		final List<Shape> shapes = shape.getShapes();
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_GROUP);
+		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
+		shapes.stream().map(f -> shapeProducer.createSVGElement(f, doc)).forEach(newChild -> root.appendChild(newChild));
+		return root;
 	}
 }

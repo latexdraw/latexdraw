@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.command.shape;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -23,25 +22,25 @@ import net.sf.latexdraw.model.api.property.ClosableProp;
 import net.sf.latexdraw.model.api.property.DotProp;
 import net.sf.latexdraw.model.api.property.FreeHandProp;
 import net.sf.latexdraw.model.api.property.GridProp;
+import net.sf.latexdraw.model.api.property.IStdGridProp;
 import net.sf.latexdraw.model.api.property.LineArcProp;
 import net.sf.latexdraw.model.api.property.PlotProp;
 import net.sf.latexdraw.model.api.property.Scalable;
-import net.sf.latexdraw.model.api.property.IStdGridProp;
 import net.sf.latexdraw.model.api.property.TextProp;
 import net.sf.latexdraw.model.api.shape.ArcStyle;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
 import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.BorderPos;
 import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.FillingStyle;
 import net.sf.latexdraw.model.api.shape.FreeHandStyle;
-import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
 import net.sf.latexdraw.model.api.shape.Group;
-import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.LineStyle;
 import net.sf.latexdraw.model.api.shape.PlotStyle;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
+import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.TextPosition;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
 import org.jetbrains.annotations.NotNull;
@@ -370,9 +369,7 @@ public final class ShapeProperties<T> {
 	 * @param value The new value of the property to set.
 	 */
 	public void setPropertyValue(final @NotNull Group group, final @NotNull T value) {
-		if(group != null) {
-			setValue.accept(value, group);
-		}
+		setValue.accept(value, group);
 	}
 
 	/**
@@ -383,9 +380,7 @@ public final class ShapeProperties<T> {
 	 * @param values The set of new values of the property to set.
 	 */
 	public void setPropertyValueList(final @NotNull Group group, final @NotNull List<Optional<T>> values) {
-		if(group != null) {
-			setListValue.accept(values, group);
-		}
+		setListValue.accept(values, group);
 	}
 
 	/**
@@ -393,7 +388,7 @@ public final class ShapeProperties<T> {
 	 * @return The list of property values of the shapes of the given group.
 	 */
 	public @NotNull List<Optional<T>> getPropertyValues(final @NotNull Group group) {
-		return group == null ? Collections.emptyList() : getListValue.apply(group);
+		return getListValue.apply(group);
 	}
 
 	/**

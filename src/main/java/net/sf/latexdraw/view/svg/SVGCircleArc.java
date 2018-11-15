@@ -28,6 +28,7 @@ import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An SVG generator for an arc.
@@ -49,14 +50,14 @@ class SVGCircleArc extends SVGShape<CircleArc> {
 	 * @param elt The source element.
 	 * @param withTransformation If true, the SVG transformations will be applied.
 	 */
-	SVGCircleArc(final SVGGElement elt, final boolean withTransformation) {
+	SVGCircleArc(final @NotNull SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createCircleArc());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 		final Arrow arr1 = shape.getArrowAt(0);
 		final Arrow arr2 = shape.getArrowAt(-1);
 
-		if(elt == null || !(elt2 instanceof SVGPathElement)) {
+		if(!(elt2 instanceof SVGPathElement)) {
 			throw new IllegalArgumentException();
 		}
 
@@ -79,15 +80,7 @@ class SVGCircleArc extends SVGShape<CircleArc> {
 		shape.setPosition(arc.getMinX(), arc.getMaxY());
 		shape.setWidth(arc.getMaxX() - arc.getMinX());
 
-		if(l.size() > 2) {
-			if(l.get(2) instanceof SVGPathSegClosePath) {
-				shape.setArcStyle(ArcStyle.CHORD);
-			}else {
-				if(l.size() == 4 && l.get(2) instanceof SVGPathSegLineto && l.get(3) instanceof SVGPathSegClosePath) {
-					shape.setArcStyle(ArcStyle.WEDGE);
-				}
-			}
-		}
+		checkSVGArcIsChordWedge(l);
 
 		shape.setShowPts(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHOW_PTS) != null);
 
@@ -104,10 +97,22 @@ class SVGCircleArc extends SVGShape<CircleArc> {
 		}
 	}
 
+	private final void checkSVGArcIsChordWedge(final SVGPathSegList list) {
+		if(list.size() > 2) {
+			if(list.get(2) instanceof SVGPathSegClosePath) {
+				shape.setArcStyle(ArcStyle.CHORD);
+			}else {
+				if(list.size() == 4 && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegClosePath) {
+					shape.setArcStyle(ArcStyle.WEDGE);
+				}
+			}
+		}
+	}
+
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null || doc.getFirstChild().getDefs() == null) {
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
+		if(doc.getFirstChild().getDefs() == null) {
 			return null;
 		}
 

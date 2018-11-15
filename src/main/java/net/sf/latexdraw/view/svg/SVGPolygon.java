@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import java.text.ParseException;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Polygon;
@@ -23,6 +21,7 @@ import net.sf.latexdraw.parser.svg.SVGPathElement;
 import net.sf.latexdraw.parser.svg.SVGPolygonElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A SVG generator for a polygon.
@@ -84,11 +83,7 @@ class SVGPolygon extends SVGModifiablePointsShape<Polygon> {
 	}
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null) {
-			throw new IllegalArgumentException();
-		}
-
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
 		final SVGElement root = new SVGGElement(doc);
 		final StringBuilder pointsBuilder = new StringBuilder();
 
@@ -103,11 +98,7 @@ class SVGPolygon extends SVGModifiablePointsShape<Polygon> {
 
 		if(shape.hasShadow()) {
 			final SVGPolygonElement shad = new SVGPolygonElement(doc);
-			try {
-				shad.setPoints(points);
-			}catch(final ParseException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
+			shad.setPoints(points);
 			setSVGShadowAttributes(shad, true);
 			root.appendChild(shad);
 		}
@@ -115,31 +106,19 @@ class SVGPolygon extends SVGModifiablePointsShape<Polygon> {
 		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken())) {
 			// The background of the borders must be filled is there is a shadow.
 			final SVGPolygonElement elt = new SVGPolygonElement(doc);
-			try {
-				elt.setPoints(points);
-			}catch(final ParseException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
+			elt.setPoints(points);
 			setSVGBorderBackground(elt, root);
 		}
 
 		final SVGPolygonElement elt = new SVGPolygonElement(doc);
-		try {
-			elt.setPoints(points);
-		}catch(final ParseException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-		}
+		elt.setPoints(points);
 		root.appendChild(elt);
 		setSVGAttributes(doc, elt, true);
 		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
 		if(shape.hasDbleBord()) {
 			final SVGPolygonElement dblBord = new SVGPolygonElement(doc);
-			try {
-				dblBord.setPoints(points);
-			}catch(final ParseException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
+			dblBord.setPoints(points);
 			setSVGDoubleBordersAttributes(dblBord);
 			root.appendChild(dblBord);
 		}

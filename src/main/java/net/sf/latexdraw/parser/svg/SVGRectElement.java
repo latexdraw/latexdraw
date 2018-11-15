@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
-import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
 import org.w3c.dom.Node;
 
 /**
@@ -19,11 +17,7 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public class SVGRectElement extends SVGElement implements SVGRectParseTrait {
-	/**
-	 * See {@link SVGElement#SVGElement(Node, SVGElement)}.
-	 * @throws MalformedSVGDocument If the element is not well formed.
-	 */
-	public SVGRectElement(final Node node, final SVGElement elt) throws MalformedSVGDocument {
+	public SVGRectElement(final Node node, final SVGElement elt) {
 		super(node, elt);
 	}
 
@@ -90,11 +84,7 @@ public class SVGRectElement extends SVGElement implements SVGRectParseTrait {
 	 * For rounded rectangles, the x-axis radius of the ellipse used to round off the corners of the rectangle.
 	 */
 	public double getRx() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX)).parseLength().getValue();
-		}catch(final ParseException ex) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX)).map(val -> val.getValue()).orElse(0d);
 	}
 
 
@@ -103,11 +93,7 @@ public class SVGRectElement extends SVGElement implements SVGRectParseTrait {
 	 * For rounded rectangles, the y-axis radius of the ellipse used to round off the corners of the rectangle.
 	 */
 	public double getRy() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY)).parseLength().getValue();
-		}catch(final ParseException ex) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY)).map(val -> val.getValue()).orElse(0d);
 	}
 
 	@Override

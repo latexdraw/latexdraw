@@ -10,14 +10,11 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.model.api.shape.Color;
-import net.sf.latexdraw.parser.svg.parsers.CSSStyleParser;
-import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Attr;
@@ -49,7 +46,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	protected SVGTransformList transform;
 
 	/** The list of the CSS styles of the SVG attribute style. */
-	protected CSSStyleList stylesCSS;
+	protected Map<String, String> stylesCSS;
 
 	/** The document containing the element. */
 	protected SVGDocument ownerDocument;
@@ -84,9 +81,8 @@ public abstract class SVGElement implements LElement, Cloneable {
 	/**
 	 * The constructor using a node in order to be initialised.
 	 * @param n The node.
-	 * @throws MalformedSVGDocument If the element is not well formed.
 	 */
-	protected SVGElement(final Node n) throws MalformedSVGDocument {
+	protected SVGElement(final Node n) {
 		this(n, null);
 	}
 
@@ -95,9 +91,9 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * The constructor using a node to create the SVG element and an SVG element to be its parent.
 	 * @param n The node.
 	 * @param p The parent SVG element.
-	 * @throws MalformedSVGDocument If the element is not well formed.
+	 * @throws IllegalArgumentException If the element is not well formed.
 	 */
-	protected SVGElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	protected SVGElement(final Node n, final SVGElement p) throws IllegalArgumentException {
 		this();
 
 		if(n == null) {
@@ -122,16 +118,11 @@ public abstract class SVGElement implements LElement, Cloneable {
 		final String style = getAttribute(getUsablePrefix() + SVGAttributes.SVG_STYLE);
 
 		if(!style.isEmpty()) {
-			stylesCSS = new CSSStyleList();
-			try {
-				new CSSStyleParser(style, stylesCSS).parse();
-			}catch(final ParseException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
+			stylesCSS = SVGParserUtils.INSTANCE.parseCSS(style);
 		}
 
 		if(!checkAttributes()) {
-			throw new MalformedSVGDocument();
+			throw new IllegalArgumentException();
 		}
 
 		final NodeList nl = n.getChildNodes();
@@ -470,56 +461,46 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	@Override
-	public String lookupNamespaceURI(final String pref) {
-		String uri = null;
-
+	public String lookupNamespaceURI(final String prefix) {
 		if(attributes != null) {
-			if(pref == null) {
-				int i = 0;
-				final int size = attributes.getLength();
-				boolean again = true;
-				final String xmlns = "xmlns"; //NON-NLS
-
-				while(i < size && again) {
-					final SVGAttr attr = attributes.getAttributes().get(i);
-					final String attrName = attr.getName();
-
-					if(xmlns.equals(attrName)) {
-						uri = attr.getNodeValue();
-						again = false;
-					}else {
-						i++;
-					}
-				}
-			}else {
-				int i = 0;
-				final int size = attributes.getLength();
-				boolean again = true;
-				final String xmlns = "xmlns:"; //NON-NLS
-
-				while(i < size && again) {
-					final SVGAttr attr = attributes.getAttributes().get(i);
-					final String attrName = attr.getName();
-
-					if(attrName.startsWith(xmlns) && pref.equals(attrName.substring(xmlns.length()))) {
-						uri = attr.getNodeValue();
-						again = false;
-					}else {
-						i++;
-					}
-				}
+			final String uri = lookupNamespaceURIWithAttributes(prefix);
+			if(uri != null) {
+				return uri;
 			}
 		}
 
-		if(uri != null) {
-			return uri;
+		return parent == null ? null : parent.lookupNamespaceURI(prefix);
+	}
+
+	/**
+	 * Companion method of lookupNamespaceURIWithAttributes
+	 */
+	private boolean isNamespaceTag(final String prefix, final String attrName) {
+		return prefix == null ? "xmlns".equals(attrName) : attrName.startsWith("xmlns:") && prefix.equals(attrName.substring("xmlns:".length())); //NON-NLS
+	}
+
+	/**
+	 * Companion method of lookupNamespaceURI
+	 */
+	private String lookupNamespaceURIWithAttributes(final String prefix) {
+		String uri = null;
+		int i = 0;
+		final int size = attributes.getLength();
+		boolean again = true;
+
+		while(i < size && again) {
+			final SVGAttr attr = attributes.getAttributes().get(i);
+			final String attrName = attr.getName();
+
+			if(isNamespaceTag(prefix, attrName)) {
+				uri = attr.getNodeValue();
+				again = false;
+			}else {
+				i++;
+			}
 		}
 
-		if(getParentNode() == null) {
-			return null;
-		}
-
-		return parent.lookupNamespaceURI(pref);
+		return uri;
 	}
 
 
@@ -945,58 +926,11 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 
 	/**
-	 * Sets the miter level of the stroke.
-	 * @param miterLevel The miter level to set. Must be greater than or equal to 1.
-	 */
-	public void setStrokeMiterLevel(final double miterLevel) {
-		if(miterLevel >= 1) {
-			setAttribute(SVGAttributes.SVG_STROKE_MITERLIMIT, String.valueOf(miterLevel));
-		}
-	}
-
-
-	/**
-	 * Sets the dash offset of the stroke.
-	 * @param dashOffset The dash offset to set.
-	 */
-	public void setStrokeDashOffset(final double dashOffset) {
-		setAttribute(SVGAttributes.SVG_STROKE_DASHOFFSET, String.valueOf(dashOffset));
-	}
-
-
-	/**
-	 * Sets the dash array of the stroke.
-	 * @param dashArray The dash array to set. Must not be null.
-	 */
-	public void setStrokeDashArray(final String dashArray) {
-		if(dashArray != null) {
-			setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, dashArray);
-		}
-	}
-
-
-	/**
-	 * Sets the line join of the stroke of the SVG shape.
-	 * @param svgLineJoin The line join to set. Must be SVG_LINEJOIN_VALUE_BEVEL or SVG_LINEJOIN_VALUE_MITER
-	 * or SVG_LINEJOIN_VALUE_ROUND.
-	 */
-	public void setStrokeLineJoin(final String svgLineJoin) {
-		if(SVGAttributes.SVG_LINEJOIN_VALUE_BEVEL.equals(svgLineJoin) || SVGAttributes.SVG_LINEJOIN_VALUE_MITER.equals(svgLineJoin) ||
-			SVGAttributes.SVG_LINEJOIN_VALUE_ROUND.equals(svgLineJoin)) {
-			setAttribute(getUsablePrefix() + SVGAttributes.SVG_STROKE_LINEJOIN, svgLineJoin);
-		}
-	}
-
-
-	/**
 	 * @return The stroke width of the element (if it is possible) or 1.
 	 */
 	public double getStrokeWidth() {
-		try {
-			return new SVGLengthParser(getSVGAttribute(SVGAttributes.SVG_STROKE_WIDTH, getUsablePrefix())).parseLength().getValue();
-		}catch(final ParseException ex) {
-			return parent == null ? 1d : parent.getStrokeWidth();
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getSVGAttribute(SVGAttributes.SVG_STROKE_WIDTH, getUsablePrefix())).
+			map(val -> val.getValue()).orElseGet(() -> parent == null ? 1d : parent.getStrokeWidth());
 	}
 
 
@@ -1131,7 +1065,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	/**
 	 * @return the stylesCSS
 	 */
-	public CSSStyleList getStylesCSS() {
+	public Map<String, String> getStylesCSS() {
 		return stylesCSS;
 	}
 

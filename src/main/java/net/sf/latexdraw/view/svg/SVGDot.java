@@ -14,17 +14,18 @@ import java.awt.geom.Point2D;
 import java.util.List;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Color;
-import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.parser.svg.CSSColors;
 import net.sf.latexdraw.parser.svg.SVGAttributes;
 import net.sf.latexdraw.parser.svg.SVGDocument;
 import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
-import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.parser.svg.SVGParserUtils;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.jfx.JFXToSVG;
 import net.sf.latexdraw.view.jfx.ViewFactory;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An SVG generator for dot shapes.
@@ -67,7 +68,7 @@ class SVGDot extends SVGShape<Dot> {
 		}catch(final NumberFormatException ignore) {
 		}
 
-		final List<Point2D> pos = SVGPointsParser.parsePoints(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POSITION));
+		final List<Point2D> pos = SVGParserUtils.INSTANCE.parsePoints(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POSITION));
 
 		if(!pos.isEmpty()) {
 			shape.setPosition(pos.get(0).getX(), pos.get(0).getY());
@@ -93,11 +94,7 @@ class SVGDot extends SVGShape<Dot> {
 	}
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null) {
-			return null;
-		}
-
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
 		final SVGElement root = new SVGGElement(doc);
 
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_DOT);

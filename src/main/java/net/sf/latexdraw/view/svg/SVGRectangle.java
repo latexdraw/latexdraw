@@ -20,6 +20,7 @@ import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.parser.svg.SVGRectElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * SVG/latexdraw rectangle import export.
@@ -78,8 +79,8 @@ class SVGRectangle extends SVGRectangular<Rectangle> {
 
 
 	@Override
-	SVGElement toSVG(final SVGDocument document) {
-		if(document == null || document.getFirstChild().getDefs() == null) {
+	SVGElement toSVG(final @NotNull SVGDocument document) {
+		if(document.getFirstChild().getDefs() == null) {
 			throw new IllegalArgumentException();
 		}
 

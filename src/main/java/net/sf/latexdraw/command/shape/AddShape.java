@@ -28,7 +28,7 @@ public class AddShape extends ShapeCmdImpl<Shape> implements Undoable, Modifying
 
 	public AddShape(final @NotNull Shape sh, final @NotNull Drawing dr) {
 		super(sh);
-		drawing = dr;
+		drawing  = dr;
 	}
 
 	@Override

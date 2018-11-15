@@ -23,8 +23,9 @@ import net.sf.latexdraw.parser.svg.SVGDocument;
 import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.parser.svg.SVGPolygonElement;
-import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.parser.svg.SVGParserUtils;
 import net.sf.latexdraw.util.LNamespace;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * SVG/latexdraw triangle import export.
@@ -58,7 +59,7 @@ class SVGTriangle extends SVGPolygonBased<Triangle> {
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
 
-		final List<Point2D> ptsPol = SVGPointsParser.parsePoints(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POINTS));
+		final List<Point2D> ptsPol = SVGParserUtils.INSTANCE.parsePoints(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI) + LNamespace.XML_POINTS));
 
 		if(ptsPol.size() != 4) {
 			throw new IllegalArgumentException();
@@ -84,8 +85,8 @@ class SVGTriangle extends SVGPolygonBased<Triangle> {
 
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null || doc.getFirstChild().getDefs() == null) {
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
+		if(doc.getFirstChild().getDefs() == null) {
 			return null;
 		}
 

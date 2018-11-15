@@ -141,51 +141,74 @@ public class ViewGrid extends ViewStdGrid<Grid> {
 							final double posX, final double posY, final double xStep, final double yStep, final double tlx,
 							final double tly, final double brx, final double bry) {
 		final double subGridDiv = model.getSubGridDiv();
-		final double subGridDots = model.getSubGridDots();
 		final double xSubStep = xStep / subGridDiv;
 		final double ySubStep = yStep / subGridDiv;
-		final ObservableList<PathElement> elements = subgrid.getElements();
 
-		if(subGridDots > 0d) {
-			final double dotStep = unit * Shape.PPC / (subGridDots * subGridDiv);
-			final double nbX = (maxX - minX) * subGridDiv;
-			final double nbY = (maxY - minY) * subGridDiv;
-
-			for(double i = 0d, n = tlx; i < nbX; i++, n += xSubStep) {
-				for(double j = 0d, m = tly; j <= nbY; j++, m += ySubStep) {
-					for(double k = 0d; k < subGridDots; k++) {
-						elements.add(pathProducer.createMoveTo(n + k * dotStep, m));
-						elements.add(pathProducer.createLineTo(n + k * dotStep, m));
-					}
-				}
-			}
-
-			for(double j = 0d, n = tly; j < nbY; j++, n += ySubStep) {
-				for(double i = 0d, m = tlx; i <= nbX; i++, m += xSubStep) {
-					for(double k = 0d; k < subGridDots; k++) {
-						elements.add(pathProducer.createMoveTo(m, n + k * dotStep));
-						elements.add(pathProducer.createLineTo(m, n + k * dotStep));
-					}
-				}
-			}
-
-			elements.add(pathProducer.createMoveTo(brx, bry));
-			elements.add(pathProducer.createLineTo(brx, bry));
+		if(model.getSubGridDots() > 0d) {
+			updatePathSubGridDots(minX, maxX, minY, maxY, xSubStep, ySubStep, tlx, tly, brx, bry, unit);
 		}else {
 			if(subGridDiv > 1d) {
-				for(double k = minX, i = posX; k < maxX; i += xStep, k++) {
-					for(double j = 0d; j <= subGridDiv; j++) {
-						elements.add(pathProducer.createMoveTo(i + xSubStep * j, bry));
-						elements.add(pathProducer.createLineTo(i + xSubStep * j, tly));
-					}
-				}
+				updatePathSubGridLines(posX, posY, minX, maxX, minY, maxY, xStep, yStep, xSubStep, ySubStep, tlx, tly, brx, bry);
+			}
+		}
+	}
 
-				for(double k = minY, i = posY; k < maxY; i -= yStep, k++) {
-					for(double j = 0d; j <= subGridDiv; j++) {
-						elements.add(pathProducer.createMoveTo(tlx, i - ySubStep * j));
-						elements.add(pathProducer.createLineTo(brx, i - ySubStep * j));
-					}
+	/**
+	 * Companion method of updatePathSubGrid
+	 */
+	private final void updatePathSubGridDots(final double minX, final double maxX, final double minY, final double maxY, final double xSubStep,
+		final double ySubStep, final double tlx, final double tly, final double brx, final double bry, final double unit) {
+		final ObservableList<PathElement> elements = subgrid.getElements();
+		final double subGridDiv = model.getSubGridDiv();
+		final double subGridDots = model.getSubGridDots();
+
+		final double dotStep = unit * Shape.PPC / (subGridDots * subGridDiv);
+		final double nbX = (maxX - minX) * subGridDiv;
+		final double nbY = (maxY - minY) * subGridDiv;
+
+		for(double i = 0d, n = tlx; i < nbX; i++, n += xSubStep) {
+			for(double j = 0d, m = tly; j <= nbY; j++, m += ySubStep) {
+				for(double k = 0d; k < subGridDots; k++) {
+					elements.add(pathProducer.createMoveTo(n + k * dotStep, m));
+					elements.add(pathProducer.createLineTo(n + k * dotStep, m));
 				}
+			}
+		}
+
+		for(double j = 0d, n = tly; j < nbY; j++, n += ySubStep) {
+			for(double i = 0d, m = tlx; i <= nbX; i++, m += xSubStep) {
+				for(double k = 0d; k < subGridDots; k++) {
+					elements.add(pathProducer.createMoveTo(m, n + k * dotStep));
+					elements.add(pathProducer.createLineTo(m, n + k * dotStep));
+				}
+			}
+		}
+
+		elements.add(pathProducer.createMoveTo(brx, bry));
+		elements.add(pathProducer.createLineTo(brx, bry));
+	}
+
+
+	/**
+	 * Companion method of updatePathSubGrid
+	 */
+	private final void updatePathSubGridLines(final double posX, final double posY, final double minX, final double maxX,
+		final double minY, final double maxY, final double xStep, final double yStep, final double xSubStep, final double ySubStep,
+		final double tlx, final double tly, final double brx, final double bry) {
+		final ObservableList<PathElement> elements = subgrid.getElements();
+		final double subGridDiv = model.getSubGridDiv();
+
+		for(double k = minX, i = posX; k < maxX; i += xStep, k++) {
+			for(double j = 0d; j <= subGridDiv; j++) {
+				elements.add(pathProducer.createMoveTo(i + xSubStep * j, bry));
+				elements.add(pathProducer.createLineTo(i + xSubStep * j, tly));
+			}
+		}
+
+		for(double k = minY, i = posY; k < maxY; i -= yStep, k++) {
+			for(double j = 0d; j <= subGridDiv; j++) {
+				elements.add(pathProducer.createMoveTo(tlx, i - ySubStep * j));
+				elements.add(pathProducer.createLineTo(brx, i - ySubStep * j));
 			}
 		}
 	}

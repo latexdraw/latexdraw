@@ -19,18 +19,17 @@ import org.w3c.dom.Node;
  */
 public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 	/**
-	 * See {@link SVGElement#SVGElement()}
 	 * @param n The node.
 	 * @param owner The owner document.
-	 * @throws MalformedSVGDocument If the tag is not valid.
+	 * @throws IllegalArgumentException parameters not valid.
 	 */
-	public SVGSVGElement(final SVGDocument owner, final Node n) throws MalformedSVGDocument {
+	public SVGSVGElement(final SVGDocument owner, final Node n) {
 		super(n);
 		if(n == null || !n.getNodeName().endsWith(SVGElements.SVG_SVG) || owner == null) {
 			throw new IllegalArgumentException();
 		}
 		if(!checkAttributes()) {
-			throw new MalformedSVGDocument();
+			throw new IllegalArgumentException("Tags not correct");
 		}
 
 		ownerDocument = owner;
@@ -40,15 +39,15 @@ public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 	/**
 	 * @param n The source node.
 	 * @param e Will not be used.
-	 * @throws MalformedSVGDocument If the document is not valid.
+	 * @throws IllegalArgumentException parameters not valid.
 	 */
-	public SVGSVGElement(final Node n, final SVGElement e) throws MalformedSVGDocument {
+	public SVGSVGElement(final Node n, final SVGElement e) {
 		super(n, e);
 		if(n == null || !n.getNodeName().endsWith(SVGElements.SVG_SVG)) {
 			throw new IllegalArgumentException();
 		}
 		if(!checkAttributes()) {
-			throw new MalformedSVGDocument();
+			throw new IllegalArgumentException("Tags not correct");
 		}
 	}
 

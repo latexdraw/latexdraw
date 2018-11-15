@@ -22,22 +22,22 @@ public class TestSVGStopElement extends TestBaseSVGElement {
 	@Test
 	void testContructorFail3() {
 		node.setAttribute(SVGAttributes.SVG_OFFSET, "dsd");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGStopElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGStopElement(node, null));
 	}
 
 	@Test
-	void testContructor() throws MalformedSVGDocument {
+	void testContructor() {
 		new SVGStopElement(node, null);
 	}
 
 	@Test
-	void testGetStopColorDefault() throws MalformedSVGDocument {
+	void testGetStopColorDefault() {
 		final SVGStopElement e = new SVGStopElement(node, null);
 		assertEquals(DviPsColors.BLACK, e.getStopColor());
 	}
 
 	@Test
-	void testGetStopColor() throws MalformedSVGDocument {
+	void testGetStopColor() {
 		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
 		node.setAttribute(SVGAttributes.SVG_STOP_COLOR, "blue");
 		final SVGStopElement e = new SVGStopElement(node, null);
@@ -45,13 +45,13 @@ public class TestSVGStopElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetOffset() throws MalformedSVGDocument {
+	void testGetOffset() {
 		final SVGStopElement e = new SVGStopElement(node, null);
 		assertEquals(0.5, e.getOffset(), 0.0001);
 	}
 
 	@Test
-	void testEnableRendering() throws MalformedSVGDocument {
+	void testEnableRendering() {
 		final SVGStopElement s = new SVGStopElement(node, null);
 		assertTrue(s.enableRendering());
 	}

@@ -21,9 +21,8 @@ import org.w3c.dom.Node;
 public class OtherNSElement extends SVGElement {
 	/**
 	 * See {@link SVGElement#SVGElement(Node, SVGElement)}.
-	 * @throws MalformedSVGDocument If the element is not well formed.
 	 */
-	public OtherNSElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public OtherNSElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 

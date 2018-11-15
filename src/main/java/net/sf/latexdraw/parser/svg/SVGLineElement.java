@@ -17,10 +17,7 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public class SVGLineElement extends SVGElement implements SVGLineParseTrait {
-	/**
-	 * {@link SVGElement#SVGElement(Node, SVGElement)}
-	 */
-	public SVGLineElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public SVGLineElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 

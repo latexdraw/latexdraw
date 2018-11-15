@@ -13,14 +13,14 @@ public class TestSVGPolygonElement extends TestBaseSVGElement {
 	SVGPolygonElement pl;
 
 	@Test
-	void testEnableRendering() throws MalformedSVGDocument, ParseException {
+	void testEnableRendering() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		pl = new SVGPolygonElement(node, null);
 		assertTrue(pl.enableRendering());
 	}
 
 	@Test
-	void testSetPoints() throws ParseException, MalformedSVGDocument {
+	void testSetPoints() {
 		final String path = "10,10 20,20";
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		pl = new SVGPolygonElement(node, null);
@@ -28,7 +28,7 @@ public class TestSVGPolygonElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testSetPoints2() throws ParseException, MalformedSVGDocument {
+	void testSetPoints2() throws ParseException {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		pl = new SVGPolygonElement(node, null);
 		pl.setPoints("11,12 21,22");
@@ -38,14 +38,15 @@ public class TestSVGPolygonElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testSetPointsFail() throws ParseException, MalformedSVGDocument {
+	void testSetPointsFail() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		final SVGPolygonElement pl = new SVGPolygonElement(node, null);
-		assertThrows(ParseException.class, () -> pl.setPoints("10,,20fdsf"));
+		pl.setPoints("10,,20fdsf");
+		assertEquals(2, pl.getPoints2D().size());
 	}
 
 	@Test
-	void testGetPoints() throws MalformedSVGDocument, ParseException {
+	void testGetPoints() {
 		final String path = "10,10 20,20";
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		final SVGPolygonElement pl = new SVGPolygonElement(node, null);
@@ -53,7 +54,7 @@ public class TestSVGPolygonElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetPoints2D() throws MalformedSVGDocument, ParseException {
+	void testGetPoints2D() {
 		final String path = "	10\t ,\n	10 	\t 	20 \t\n\t\r,	\n20 	\r30,30	\n";
 		node.setAttribute(SVGAttributes.SVG_POINTS, path);
 		final SVGPolygonElement pl = new SVGPolygonElement(node, null);
@@ -71,23 +72,23 @@ public class TestSVGPolygonElement extends TestBaseSVGElement {
 
 	@Test
 	void testContructorFail2() {
-		assertThrows(MalformedSVGDocument.class, () -> new SVGPolygonElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGPolygonElement(node, null));
 	}
 
 	@Test
 	void testContructorOK1() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGPolygonElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGPolygonElement(node, null));
 	}
 
 	@Test
 	void testContructorFail5() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "dsqdgfd");
-		assertThrows(ParseException.class, () -> new SVGPolygonElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGPolygonElement(node, null));
 	}
 
 	@Test
-	void testContructorOK2() throws MalformedSVGDocument, ParseException {
+	void testContructorOK2() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10");
 		new SVGPolygonElement(node, null);
 	}
@@ -95,11 +96,11 @@ public class TestSVGPolygonElement extends TestBaseSVGElement {
 	@Test
 	void testContructorFail7() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, ",");
-		assertThrows(ParseException.class, () -> new SVGPolygonElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGPolygonElement(node, null));
 	}
 
 	@Test
-	void testContructorOK3() throws MalformedSVGDocument, ParseException {
+	void testContructorOK3() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		new SVGPolygonElement(node, null);
 	}

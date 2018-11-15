@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
-import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
 
 /**
  * An internal trait to factorise code related to parsing line parameters.
@@ -22,11 +20,7 @@ interface SVGLineParseTrait extends LElement {
 	 * @return The x-axis coordinate of the start of the line (0 if there it does not exist or it is not a length).
 	 */
 	default double getX1() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_X1)).parseCoordinate().getValue();
-		}catch(final ParseException ignore) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_X1)).map(v -> v.getValue()).orElse(0d);
 	}
 
 
@@ -34,11 +28,7 @@ interface SVGLineParseTrait extends LElement {
 	 * @return The y-axis coordinate of the start of the line (0 if there it does not exist or it is not a length).
 	 */
 	default double getY1() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y1)).parseCoordinate().getValue();
-		}catch(final ParseException ignore) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y1)).map(v -> v.getValue()).orElse(0d);
 	}
 
 
@@ -46,11 +36,7 @@ interface SVGLineParseTrait extends LElement {
 	 * @return The x-axis coordinate of the end of the line (0 if there it does not exist or it is not a length).
 	 */
 	default double getX2() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_X2)).parseCoordinate().getValue();
-		}catch(final ParseException ignore) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_X2)).map(v -> v.getValue()).orElse(0d);
 	}
 
 
@@ -58,10 +44,6 @@ interface SVGLineParseTrait extends LElement {
 	 * @return The y-axis coordinate of the end of the line (0 if there it does not exist or it is not a length).
 	 */
 	default double getY2() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y2)).parseCoordinate().getValue();
-		}catch(final ParseException ignore) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y2)).map(v -> v.getValue()).orElse(0d);
 	}
 }

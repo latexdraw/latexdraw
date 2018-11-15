@@ -10,9 +10,7 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
 import net.sf.latexdraw.model.api.shape.Color;
-import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.w3c.dom.Node;
 
@@ -21,11 +19,7 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public class SVGStopElement extends SVGElement {
-	/**
-	 * See {@link SVGElement#SVGElement(Node, SVGElement)}.
-	 * @throws MalformedSVGDocument If the element is not well formed.
-	 */
-	public SVGStopElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public SVGStopElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 
@@ -58,11 +52,8 @@ public class SVGStopElement extends SVGElement {
 	 * @return The read offset or NaN.
 	 */
 	public double getOffset() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_OFFSET)).parseNumberOrPercent().getValue();
-		}catch(final ParseException e) {
-			return Double.NaN;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_OFFSET)).
+			map(val -> val.getValue()).orElse(Double.NaN);
 	}
 
 
@@ -72,7 +63,6 @@ public class SVGStopElement extends SVGElement {
 	 */
 	public Color getStopColor() {
 		final Color c = CSSColors.INSTANCE.getRGBColour(getAttribute(getUsablePrefix() + SVGAttributes.SVG_STOP_COLOR));
-
 		return c == null ? DviPsColors.BLACK : c;
 	}
 }

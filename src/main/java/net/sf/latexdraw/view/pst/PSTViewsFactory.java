@@ -10,10 +10,12 @@
  */
 package net.sf.latexdraw.view.pst;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import net.sf.latexdraw.model.api.shape.Arc;
+import java.util.function.Function;
 import net.sf.latexdraw.model.api.shape.Axes;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
 import net.sf.latexdraw.model.api.shape.Circle;
@@ -34,6 +36,7 @@ import net.sf.latexdraw.model.api.shape.Square;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.Tuple;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -41,70 +44,44 @@ import org.jetbrains.annotations.NotNull;
  * @author Arnaud Blouin
  */
 public final class PSTViewsFactory implements PSTViewProducer {
-	private final @NotNull ResourceBundle lang;
+	private final @NotNull List<Tuple<Class<? extends Shape>, Function<Shape, PSTShapeView<?>>>> producers;
 
 	@Inject
 	public PSTViewsFactory(final ResourceBundle lang) {
 		super();
-		this.lang = Objects.requireNonNull(lang);
+		producers = new ArrayList<>();
+		fillProducers(Objects.requireNonNull(lang));
+	}
+
+	private final void fillProducers(final @NotNull ResourceBundle lang) {
+		producers.add(new Tuple<>(Group.class, sh -> new PSTGroupView((Group) sh, this)));
+		producers.add(new Tuple<>(Plot.class, sh -> new PSTPlotView((Plot) sh)));
+		producers.add(new Tuple<>(Square.class, sh -> new PSTSquareView((Square) sh)));
+		producers.add(new Tuple<>(Rectangle.class, sh -> new PSTRectView((Rectangle) sh)));
+		producers.add(new Tuple<>(Text.class, sh -> new PSTTextView((Text) sh)));
+		producers.add(new Tuple<>(CircleArc.class, sh -> new PSTArcView((CircleArc) sh)));
+		producers.add(new Tuple<>(Circle.class, sh -> new PSTCircleView((Circle) sh)));
+		producers.add(new Tuple<>(Ellipse.class, sh -> new PSTEllipseView((Ellipse) sh)));
+		producers.add(new Tuple<>(Triangle.class, sh -> new PSTTriangleView((Triangle) sh)));
+		producers.add(new Tuple<>(Rhombus.class, sh -> new PSTRhombusView((Rhombus) sh)));
+		producers.add(new Tuple<>(Polyline.class, sh -> new PSTLinesView((Polyline) sh)));
+		producers.add(new Tuple<>(Polygon.class, sh -> new PSTPolygonView((Polygon) sh)));
+		producers.add(new Tuple<>(BezierCurve.class, sh -> new PSTBezierCurveView((BezierCurve) sh)));
+		producers.add(new Tuple<>(Axes.class, sh -> new PSTAxesView((Axes) sh)));
+		producers.add(new Tuple<>(Grid.class, sh -> new PSTGridView((Grid) sh)));
+		producers.add(new Tuple<>(Dot.class, sh -> new PSTDotView((Dot) sh)));
+		producers.add(new Tuple<>(Picture.class, sh -> new PSTPictureView((Picture) sh, lang)));
+		producers.add(new Tuple<>(Freehand.class, sh -> new PSTFreeHandView((Freehand) sh)));
 	}
 
 	@Override
 	public <T extends Shape> Optional<PSTShapeView<T>> createView(final T shape) {
-		if(shape instanceof Group) {
-			return Optional.of((PSTShapeView<T>) new PSTGroupView((Group) shape, this));
-		}
-		if(shape instanceof Plot) {
-			return Optional.of((PSTShapeView<T>) new PSTPlotView((Plot) shape));
-		}
-		if(shape instanceof Square) {
-			return Optional.of((PSTShapeView<T>) new PSTSquareView((Square) shape));
-		}
-		if(shape instanceof Rectangle) {
-			return Optional.of((PSTShapeView<T>) new PSTRectView((Rectangle) shape));
-		}
-		if(shape instanceof Text) {
-			return Optional.of((PSTShapeView<T>) new PSTTextView((Text) shape));
-		}
-		if(shape instanceof CircleArc) {
-			return Optional.of((PSTShapeView<T>) new PSTArcView((Arc) shape));
-		}
-		if(shape instanceof Circle) {
-			return Optional.of((PSTShapeView<T>) new PSTCircleView((Circle) shape));
-		}
-		if(shape instanceof Ellipse) {
-			return Optional.of((PSTShapeView<T>) new PSTEllipseView((Ellipse) shape));
-		}
-		if(shape instanceof Triangle) {
-			return Optional.of((PSTShapeView<T>) new PSTTriangleView((Triangle) shape));
-		}
-		if(shape instanceof Rhombus) {
-			return Optional.of((PSTShapeView<T>) new PSTRhombusView((Rhombus) shape));
-		}
-		if(shape instanceof Polyline) {
-			return Optional.of((PSTShapeView<T>) new PSTLinesView((Polyline) shape));
-		}
-		if(shape instanceof Polygon) {
-			return Optional.of((PSTShapeView<T>) new PSTPolygonView((Polygon) shape));
-		}
-		if(shape instanceof BezierCurve) {
-			return Optional.of((PSTShapeView<T>) new PSTBezierCurveView((BezierCurve) shape));
-		}
-		if(shape instanceof Axes) {
-			return Optional.of((PSTShapeView<T>) new PSTAxesView((Axes) shape));
-		}
-		if(shape instanceof Grid) {
-			return Optional.of((PSTShapeView<T>) new PSTGridView((Grid) shape));
-		}
-		if(shape instanceof Dot) {
-			return Optional.of((PSTShapeView<T>) new PSTDotView((Dot) shape));
-		}
-		if(shape instanceof Picture) {
-			return Optional.of((PSTShapeView<T>) new PSTPictureView((Picture) shape, lang));
-		}
-		if(shape instanceof Freehand) {
-			return Optional.of((PSTShapeView<T>) new PSTFreeHandView((Freehand) shape));
-		}
-		return Optional.empty();
+		// Makes use of a list of tuples to reduce the CC.
+		// Looking for the tuple which type matches the type of the given shape.
+		// Then calling the associated function that produces the PST view.
+		return producers.stream()
+			.filter(t -> t.a.isAssignableFrom(shape.getClass()))
+			.findFirst()
+			.map(t -> (PSTShapeView<T>) t.b.apply(shape));
 	}
 }

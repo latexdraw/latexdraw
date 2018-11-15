@@ -10,21 +10,21 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import java.text.ParseException;
+import java.util.Map;
 import java.util.Optional;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
+import net.sf.latexdraw.model.api.shape.Arrow;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
+import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
 import net.sf.latexdraw.model.api.shape.BorderPos;
 import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.FillingStyle;
-import net.sf.latexdraw.model.api.shape.Arrow;
-import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
+import net.sf.latexdraw.model.api.shape.LineStyle;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.model.api.shape.LineStyle;
 import net.sf.latexdraw.parser.svg.CSSColors;
 import net.sf.latexdraw.parser.svg.SVGAttributes;
 import net.sf.latexdraw.parser.svg.SVGCircleElement;
@@ -42,8 +42,7 @@ import net.sf.latexdraw.parser.svg.SVGRectElement;
 import net.sf.latexdraw.parser.svg.SVGStopElement;
 import net.sf.latexdraw.parser.svg.SVGTransform;
 import net.sf.latexdraw.parser.svg.SVGTransformList;
-import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
-import net.sf.latexdraw.parser.svg.parsers.URIReferenceParser;
+import net.sf.latexdraw.parser.svg.SVGParserUtils;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
@@ -128,11 +127,7 @@ abstract class SVGShape<S extends Shape> {
 	 */
 	static void setThickness(final Shape shape, final String strokeWidth, final String stroke) {
 		if(shape != null && strokeWidth != null && !SVGAttributes.SVG_VALUE_NONE.equals(stroke)) {
-			try {
-				shape.setThickness(new SVGLengthParser(strokeWidth).parseLength().getValue());
-			}catch(final ParseException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
+			SVGParserUtils.INSTANCE.parseLength(strokeWidth).ifPresent(lgth -> shape.setThickness(lgth.getValue()));
 		}
 	}
 
@@ -628,7 +623,13 @@ abstract class SVGShape<S extends Shape> {
 			setFillFromSVG(shape, elt.getFill(), elt.getSVGAttribute(SVGAttributes.SVG_FILL_OPACITY, null), elt.getSVGRoot().getDefs());
 		}
 
-		CSSStylesGenerator.INSTANCE.setCSSStyles(shape, elt.getStylesCSS(), elt.getSVGRoot().getDefs());
+		final Map<String, String> stylesCSS = elt.getStylesCSS();
+		if(stylesCSS != null) {
+			SVGShape.setThickness(shape, stylesCSS.get(SVGAttributes.SVG_STROKE_WIDTH), stylesCSS.get(SVGAttributes.SVG_STROKE));
+			SVGShape.setLineColour(shape, stylesCSS.get(SVGAttributes.SVG_STROKE), stylesCSS.get(SVGAttributes.SVG_STROKE_OPACITY));
+			SVGShape.setDashedDotted(shape, stylesCSS.get(SVGAttributes.SVG_STROKE_DASHARRAY), stylesCSS.get(SVGAttributes.SVG_STROKE_LINECAP));
+			SVGShape.setFillFromSVG(shape, stylesCSS.get(SVGAttributes.SVG_FILL), stylesCSS.get(SVGAttributes.SVG_FILL_OPACITY), elt.getSVGRoot().getDefs());
+		}
 	}
 
 	/**
@@ -637,10 +638,10 @@ abstract class SVGShape<S extends Shape> {
 	 * @param arrowID The SVG ID of the SVG arrow head.
 	 * @param elt An element of the SVG document (useful to get the defs of the document).
 	 */
-	final void setSVGArrow(final Arrow ah, final String arrowID, final SVGElement elt, final String svgMarker) {
+	final void setSVGArrow(final Arrow ah, final @NotNull String arrowID, final SVGElement elt, final @NotNull String svgMarker) {
 		if(ah != null && elt != null && !arrowID.isEmpty()) {
 			final SVGArrow arrGen = new SVGArrow(ah);
-			arrGen.setArrow((SVGMarkerElement) elt.getDef(new URIReferenceParser(arrowID).getURI()), getShape(), svgMarker);
+			arrGen.setArrow((SVGMarkerElement) elt.getDef(SVGParserUtils.INSTANCE.parseURIRerefence(arrowID)), getShape(), svgMarker);
 		}
 	}
 
@@ -649,7 +650,7 @@ abstract class SVGShape<S extends Shape> {
 	 * @param doc The SVG document.
 	 * @return The created SVGElement or null.
 	 */
-	abstract SVGElement toSVG(final SVGDocument doc);
+	abstract SVGElement toSVG(final @NotNull SVGDocument doc);
 
 	/**
 	 * @param elt Rotates the SVG element.
@@ -935,86 +936,92 @@ abstract class SVGShape<S extends Shape> {
 		return path;
 	}
 
-	private void getSVGHatchingsPath2(final SVGPathSegList path, final double hAngle, final Rectangle bound) {
-		if(path == null || bound == null) {
+	/**
+	 * Sub-routine of getSVGHatchingsPath2
+	 */
+	private double getAngleForSVGHacthings2(final double baseAngle) {
+		final double halphPI = Math.PI / 2d;
+		// Computing the angle.
+		if(baseAngle > 3d * halphPI) {
+			return baseAngle - Math.PI * 2d;
+		}
+		if(baseAngle > halphPI) {
+			return baseAngle - Math.PI;
+		}
+		if(baseAngle < -3d * halphPI) {
+			return baseAngle + Math.PI * 2d;
+		}
+		if(baseAngle < -halphPI) {
+			return baseAngle + Math.PI;
+		}
+		return baseAngle;
+	}
+
+	/**
+	 * Sub-routine of getSVGHatchingsPath2
+	 */
+	private void drawHatchingsNoRotation(final @NotNull SVGPathSegList path, final double val, final @NotNull Rectangle bound) {
+		final Point nw = bound.getTopLeftPoint();
+		final Point se = bound.getBottomRightPoint();
+		for(double x = nw.getX(); x < se.getX(); x += val) {
+			path.add(new SVGPathSegMoveto(x, nw.getY(), false));
+			path.add(new SVGPathSegLineto(x, se.getY(), false));
+		}
+	}
+
+	/**
+	 * Sub-routine of getSVGHatchingsPath2
+	 */
+	private void drawHatchingsRotation(final @NotNull SVGPathSegList path, final double val, final @NotNull Rectangle bound, final double angle) {
+		final Point nw = bound.getTopLeftPoint();
+		final Point se = bound.getBottomRightPoint();
+		final double incX = val / Math.cos(angle);
+		final double incY = val / Math.sin(angle);
+		final double maxX;
+		double y1;
+		double x2;
+
+		if(angle > 0d) {
+			y1 = nw.getY();
+			maxX = se.getX() + (se.getY() - (nw.getY() < 0d ? nw.getY() : 0d)) * Math.tan(angle);
+		}else {
+			y1 = se.getY();
+			maxX = se.getX() - se.getY() * Math.tan(angle);
+		}
+
+		if(incX < 0d || MathUtils.INST.equalsDouble(incX, 0d)) {
 			return;
 		}
 
-		double angle2 = hAngle % (Math.PI * 2.);
-		final double halphPI = Math.PI / 2.;
-		final double hatchingWidth = shape.getHatchingsWidth();
-		final double hatchingSep = shape.getHatchingsSep();
-		final Point nw = bound.getTopLeftPoint();
-		final Point se = bound.getBottomRightPoint();
-		final double nwx = nw.getX();
-		final double nwy = nw.getY();
-		final double sex = se.getX();
-		final double sey = se.getY();
+		final double x1 = nw.getX();
+		final double y2 = y1;
+		x2 = x1;
 
-		// Computing the angle.
-		if(angle2 > 0.) {
-			if(angle2 > 3. * halphPI) {
-				angle2 -= Math.PI * 2.;
-			}else {
-				if(angle2 > halphPI) {
-					angle2 -= Math.PI;
-				}
-			}
-		}else {
-			if(angle2 < -3. * halphPI) {
-				angle2 += Math.PI * 2.;
-			}else {
-				if(angle2 < -halphPI) {
-					angle2 += Math.PI;
-				}
-			}
+		while(x2 < maxX) {
+			x2 += incX;
+			y1 += incY;
+			path.add(new SVGPathSegMoveto(x1, y1, false));
+			path.add(new SVGPathSegLineto(x2, y2, false));
 		}
+	}
 
-		final double val = hatchingWidth + hatchingSep;
+	private void getSVGHatchingsPath2(final @NotNull SVGPathSegList path, final double hAngle, final @NotNull Rectangle bound) {
+		final double angle = getAngleForSVGHacthings2(hAngle % (Math.PI * 2d));
+		final double val = shape.getHatchingsWidth() + shape.getHatchingsSep();
 
-		if(MathUtils.INST.equalsDouble(angle2, 0.)) { // Drawing the hatchings vertically.
-			for(double x = nwx; x < sex; x += val) {
-				path.add(new SVGPathSegMoveto(x, nwy, false));
-				path.add(new SVGPathSegLineto(x, sey, false));
-			}
+		if(MathUtils.INST.equalsDouble(angle, 0d)) { // Drawing the hatchings vertically.
+			drawHatchingsNoRotation(path, val, bound);
 		}else { // Drawing the hatchings horizontally.
-			if(MathUtils.INST.equalsDouble(angle2, halphPI) || MathUtils.INST.equalsDouble(angle2, -halphPI)) {
-				for(double y = nwy; y < sey; y += val) {
-					path.add(new SVGPathSegMoveto(nwx, y, false));
-					path.add(new SVGPathSegLineto(sex, y, false));
+			if(MathUtils.INST.equalsDouble(angle, Math.PI / 2d) || MathUtils.INST.equalsDouble(angle, -Math.PI / 2d)) {
+				final Point nw = bound.getTopLeftPoint();
+				final Point se = bound.getBottomRightPoint();
+				for(double y = nw.getY(); y < se.getY(); y += val) {
+					path.add(new SVGPathSegMoveto(nw.getX(), y, false));
+					path.add(new SVGPathSegLineto(se.getX(), y, false));
 				}
 			}else {
 				// Drawing the hatchings by rotation.
-				final double incX = val / Math.cos(angle2);
-				final double incY = val / Math.sin(angle2);
-				final double maxX;
-				double y1;
-				double x2;
-				final double y2;
-				final double x1;
-
-				if(angle2 > 0.) {
-					y1 = nwy;
-					maxX = sex + (sey - (nwy < 0 ? nwy : 0)) * Math.tan(angle2);
-				}else {
-					y1 = sey;
-					maxX = sex - sey * Math.tan(angle2);
-				}
-
-				x1 = nwx;
-				x2 = x1;
-				y2 = y1;
-
-				if(incX < 0. || MathUtils.INST.equalsDouble(incX, 0.)) {
-					return;
-				}
-
-				while(x2 < maxX) {
-					x2 += incX;
-					y1 += incY;
-					path.add(new SVGPathSegMoveto(x1, y1, false));
-					path.add(new SVGPathSegLineto(x2, y2, false));
-				}
+				drawHatchingsRotation(path, val, bound, angle);
 			}
 		}
 	}

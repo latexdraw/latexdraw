@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
-import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
 import org.w3c.dom.Node;
 
 /**
@@ -19,10 +17,7 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public class SVGEllipseElement extends SVGElement {
-	/**
-	 * {@link SVGElement#SVGElement(Node, SVGElement)}
-	 */
-	public SVGEllipseElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public SVGEllipseElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 
@@ -56,11 +51,7 @@ public class SVGEllipseElement extends SVGElement {
 	 * @return The x-axis coordinate of the centre of the ellipse (0 if there it does not exist or it is not a coordinate).
 	 */
 	public double getCx() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX)).parseCoordinate().getValue();
-		}catch(final ParseException ignored) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX)).map(val -> val.getValue()).orElse(0d);
 	}
 
 
@@ -68,11 +59,7 @@ public class SVGEllipseElement extends SVGElement {
 	 * @return The y-axis coordinate of the centre of the ellipse (0 if there it does not exist or it is not a coordinate).
 	 */
 	public double getCy() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY)).parseCoordinate().getValue();
-		}catch(final ParseException ignored) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY)).map(val -> val.getValue()).orElse(0d);
 	}
 
 
@@ -80,11 +67,7 @@ public class SVGEllipseElement extends SVGElement {
 	 * @return The x-axis radius of the ellipse (NaN if there it does not exist or it is not a length).
 	 */
 	public double getRx() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX)).parseLength().getValue();
-		}catch(final ParseException ignored) {
-			return Double.NaN;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RX)).map(val -> val.getValue()).orElse(0d);
 	}
 
 
@@ -92,11 +75,7 @@ public class SVGEllipseElement extends SVGElement {
 	 * @return The y-axis radius of the ellipse (NaN if there it does not exist or it is not a length).
 	 */
 	public double getRy() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY)).parseLength().getValue();
-		}catch(final ParseException ignored) {
-			return Double.NaN;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_RY)).map(val -> val.getValue()).orElse(Double.NaN);
 	}
 
 

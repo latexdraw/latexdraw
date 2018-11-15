@@ -18,15 +18,15 @@ import javafx.scene.text.Font;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
-import net.sf.latexdraw.model.api.shape.AxesStyle;
-import net.sf.latexdraw.model.api.shape.BorderPos;
 import net.sf.latexdraw.model.api.shape.Arrow;
 import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
+import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Polyline;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
 import net.sf.latexdraw.parser.svg.SVGAttributes;
 import net.sf.latexdraw.parser.svg.SVGDocument;
@@ -37,12 +37,13 @@ import net.sf.latexdraw.parser.svg.SVGNodeList;
 import net.sf.latexdraw.parser.svg.SVGPathElement;
 import net.sf.latexdraw.parser.svg.SVGTextElement;
 import net.sf.latexdraw.parser.svg.SVGTransform;
-import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.parser.svg.SVGParserUtils;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.GenericAxes;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * SVG/latexdraw axes import export.
@@ -85,35 +86,35 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 		}catch(final NumberFormatException ignored) {
 		}
 
-		values = SVGPointsParser.parsePoints(elt.getAttribute(pref + LNamespace.XML_GRID_END));
+		values = SVGParserUtils.INSTANCE.parsePoints(elt.getAttribute(pref + LNamespace.XML_GRID_END));
 
 		if(!values.isEmpty()) {
 			shape.setGridEndX((int) values.get(0).getX());
 			shape.setGridEndY((int) values.get(0).getY());
 		}
 
-		values = SVGPointsParser.parsePoints(elt.getAttribute(pref + LNamespace.XML_GRID_START));
+		values = SVGParserUtils.INSTANCE.parsePoints(elt.getAttribute(pref + LNamespace.XML_GRID_START));
 
 		if(!values.isEmpty()) {
 			shape.setGridStartX((int) values.get(0).getX());
 			shape.setGridStartY((int) values.get(0).getY());
 		}
 
-		values = SVGPointsParser.parsePoints(elt.getAttribute(pref + LNamespace.XML_GRID_ORIGIN));
+		values = SVGParserUtils.INSTANCE.parsePoints(elt.getAttribute(pref + LNamespace.XML_GRID_ORIGIN));
 
 		if(!values.isEmpty()) {
 			shape.setOriginX((int) values.get(0).getX());
 			shape.setOriginY((int) values.get(0).getY());
 		}
 
-		values = SVGPointsParser.parsePoints(elt.getAttribute(pref + LNamespace.XML_AXE_INCREMENT));
+		values = SVGParserUtils.INSTANCE.parsePoints(elt.getAttribute(pref + LNamespace.XML_AXE_INCREMENT));
 
 		if(!values.isEmpty()) {
 			shape.setIncrementX(values.get(0).getX());
 			shape.setIncrementY(values.get(0).getY());
 		}
 
-		values = SVGPointsParser.parsePoints(elt.getAttribute(pref + LNamespace.XML_AXE_DIST_LABELS));
+		values = SVGParserUtils.INSTANCE.parsePoints(elt.getAttribute(pref + LNamespace.XML_AXE_DIST_LABELS));
 
 		if(!values.isEmpty()) {
 			shape.setDistLabelsX(values.get(0).getX());
@@ -191,11 +192,7 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null) {
-			return null;
-		}
-
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
 		currentDoc = doc;
 		currentPath = new SVGPathSegList();
 		currentTicks = new SVGGElement(doc);
@@ -233,7 +230,7 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 	}
 
 
-	private void createArrows(final SVGElement elt, final SVGDocument document) {
+	private void createArrows(final @NotNull SVGElement elt, final @NotNull SVGDocument document) {
 		if(shape.getAxesStyle().supportsArrows() && shape.getNbArrows() == 4) {
 			final double posX = shape.getPosition().getX();
 			final double posY = shape.getPosition().getY();
@@ -264,7 +261,7 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 	}
 
 
-	private void createFrame(final SVGElement elt, final SVGDocument document) {
+	private void createFrame(final @NotNull SVGElement elt, final @NotNull SVGDocument document) {
 		final double gridEndx = shape.getGridEndX();
 		final double gridEndy = shape.getGridEndY();
 

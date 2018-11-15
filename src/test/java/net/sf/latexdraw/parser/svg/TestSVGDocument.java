@@ -21,7 +21,7 @@ public class TestSVGDocument {
 	SVGDocument doc2;
 
 	@BeforeEach
-	void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
+	void setUp() throws URISyntaxException, IOException {
 		doc1 = new SVGDocument();
 		doc2 = new SVGDocument(new URI("src/test/resources/test.svg"));
 	}
@@ -37,7 +37,7 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	void testSVGDocument() throws MalformedSVGDocument, URISyntaxException, IOException {
+	void testSVGDocument() throws URISyntaxException, IOException {
 		final SVGDocument doc = new SVGDocument(new URI("src/test/resources/test.svg"));
 		assertNotNull(doc.getFirstChild());
 		assertNotNull(doc.getLastChild());
@@ -162,7 +162,7 @@ public class TestSVGDocument {
 	}
 
 	@Test
-	void testIsEqualNodeURI() throws MalformedSVGDocument, URISyntaxException, IOException {
+	void testIsEqualNodeURI() throws URISyntaxException, IOException {
 		final SVGDocument doc = new SVGDocument(new URI("src/test/resources/test.svg"));
 		assertTrue(doc2.isEqualNode(doc));
 		assertFalse(doc2.isEqualNode(null));

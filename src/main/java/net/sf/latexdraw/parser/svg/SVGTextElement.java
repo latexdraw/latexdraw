@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
-import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -29,10 +27,7 @@ public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 		setNodeName(SVGElements.SVG_TEXT);
 	}
 
-	/**
-	 * {@link SVGElement#SVGElement(Node, SVGElement)}
-	 */
-	public SVGTextElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public SVGTextElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 
@@ -72,11 +67,7 @@ public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 	 * @return The value of the dx attribute (0 if there it does not exist or it is not a length).
 	 */
 	public double getDX() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_DX)).parseLength().getValue();
-		}catch(final ParseException ignore) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_DX)).map(v -> v.getValue()).orElse(0d);
 	}
 
 
@@ -84,11 +75,7 @@ public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 	 * @return The value of the dy attribute (0 if there it does not exist or it is not a length).
 	 */
 	public double getDY() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_DY)).parseLength().getValue();
-		}catch(final ParseException ignore) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_DY)).map(v -> v.getValue()).orElse(0d);
 	}
 
 	@Override

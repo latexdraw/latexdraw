@@ -158,46 +158,61 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 
 			arrowLeftCB.setValue(arrStyle1);
 			arrowRightCB.setValue(arrStyle2);
-			final boolean isArrow = arrStyle1.isArrow() || arrStyle2.isArrow();
-			final boolean isDot = arrStyle1.isCircleDisk() || arrStyle2.isCircleDisk();
-			final boolean isBar = arrStyle1.isBar() || arrStyle2.isBar();
-			final boolean isSBracket = arrStyle1.isSquareBracket() || arrStyle2.isSquareBracket();
-			final boolean isRBracket = arrStyle1.isRoundBracket() || arrStyle2.isRoundBracket();
-
-			// Updating the visibility of the widgets.
-			arrowPane.setVisible(isArrow);
-			dotPane.setVisible(isDot);
-			barPane.setVisible(isBar || isSBracket || isRBracket);
-			bracketPane.setVisible(isSBracket);
-			rbracketPane.setVisible(isRBracket);
 
 			// Updating the value of the widgets.
-			if(isArrow) {
-				arrowInset.getValueFactory().setValue(arr1.getArrowInset());
-				arrowLength.getValueFactory().setValue(arr1.getArrowLength());
-				arrowSizeDim.getValueFactory().setValue(arr1.getArrowSizeDim());
-				arrowSizeNum.getValueFactory().setValue(arr1.getArrowSizeNum());
-			}
-
-			if(isDot) {
-				dotSizeNum.getValueFactory().setValue(arr1.getDotSizeNum());
-				dotSizeDim.getValueFactory().setValue(arr1.getDotSizeDim());
-			}
-
-			if(isBar || isSBracket || isRBracket) {
-				tbarsizeDim.getValueFactory().setValue(arr1.getTBarSizeDim());
-				tbarsizeNum.getValueFactory().setValue(arr1.getTBarSizeNum());
-			}
-
-			if(isSBracket) {
-				bracketNum.getValueFactory().setValue(arr1.getBracketNum());
-			}
-
-			if(isRBracket) {
-				rbracketNum.getValueFactory().setValue(arr1.getRBracketNum());
-			}
+			updateArrowWidgets(arr1, arrStyle2);
+			updateArrowDotWidgets(arr1, arrStyle2);
+			updateArrowBarWidgets(arr1, arrStyle2);
+			updateArrowSBracketWidgets(arr1, arrStyle2);
+			updateArrowRBracketWidgets(arr1, arrStyle2);
 		}else {
 			setActivated(false);
+		}
+	}
+
+	private void updateArrowRBracketWidgets(final Arrow arr1, final ArrowStyle arr2) {
+		final boolean isRBracket = arr1.getArrowStyle().isRoundBracket() || arr2.isRoundBracket();
+		rbracketPane.setVisible(isRBracket);
+		if(isRBracket) {
+			rbracketNum.getValueFactory().setValue(arr1.getRBracketNum());
+		}
+	}
+
+	private void updateArrowSBracketWidgets(final Arrow arr1, final ArrowStyle arr2) {
+		final boolean isSBracket = arr1.getArrowStyle().isSquareBracket() || arr2.isSquareBracket();
+		bracketPane.setVisible(isSBracket);
+		if(isSBracket) {
+			bracketNum.getValueFactory().setValue(arr1.getBracketNum());
+		}
+	}
+
+	private void updateArrowBarWidgets(final Arrow arr1, final ArrowStyle arr2) {
+		final boolean isBar = arr1.getArrowStyle().isBar() || arr2.isBar() || arr1.getArrowStyle().isSquareBracket() ||
+			arr2.isSquareBracket() || arr1.getArrowStyle().isRoundBracket() || arr2.isRoundBracket();
+		barPane.setVisible(isBar);
+		if(isBar) {
+			tbarsizeDim.getValueFactory().setValue(arr1.getTBarSizeDim());
+			tbarsizeNum.getValueFactory().setValue(arr1.getTBarSizeNum());
+		}
+	}
+
+	private void updateArrowWidgets(final Arrow arr1, final ArrowStyle arr2) {
+		final boolean isArrow = arr1.getArrowStyle().isArrow() || arr2.isArrow();
+		arrowPane.setVisible(isArrow);
+		if(isArrow) {
+			arrowInset.getValueFactory().setValue(arr1.getArrowInset());
+			arrowLength.getValueFactory().setValue(arr1.getArrowLength());
+			arrowSizeDim.getValueFactory().setValue(arr1.getArrowSizeDim());
+			arrowSizeNum.getValueFactory().setValue(arr1.getArrowSizeNum());
+		}
+	}
+
+	private void updateArrowDotWidgets(final Arrow arr1, final ArrowStyle arr2) {
+		final boolean isDot = arr1.getArrowStyle().isCircleDisk() || arr2.isCircleDisk();
+		dotPane.setVisible(isDot);
+		if(isDot) {
+			dotSizeNum.getValueFactory().setValue(arr1.getDotSizeNum());
+			dotSizeDim.getValueFactory().setValue(arr1.getDotSizeDim());
 		}
 	}
 }

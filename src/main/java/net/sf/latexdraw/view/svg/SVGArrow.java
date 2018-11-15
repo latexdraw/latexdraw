@@ -41,6 +41,7 @@ import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.GenericViewArrow;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An SVG generator for arrows.
@@ -179,29 +180,53 @@ class SVGArrow implements GenericViewArrow {
 		}
 
 		// It may be a bracket.
-		if(list.size() == 4 && seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto) {
+		if(isBarBracketBracket(list, seg)) {
 			setArrowBarBracketSquareBracket(path, m, lineWidth, tbarNum);
 			return;
 		}
 
 		// square end
-		if(list.size() == 2 && MathUtils.INST.equalsDouble(0d, m.getX()) && MathUtils.INST.equalsDouble(0d, m.getY()) &&
-			seg instanceof SVGPathSegLineto && MathUtils.INST.equalsDouble(0d, ((SVGPathSegLineto) seg).getY())) {
+		if(isBarBracketSquareEnd(list, m, seg)) {
 			arrow.setArrowStyle(ArrowStyle.SQUARE_END);
 			return;
 		}
 
-		if(list.size() == 2 && ((seg instanceof SVGPathSegLineto && MathUtils.INST.equalsDouble(((SVGPathSegLineto) seg).getX(), m.getX())) ||
-			seg instanceof SVGPathSegLinetoVertical)) {
+		if(isBarBracketBar(list, m, seg)) {
 			arrow.setArrowStyle(MathUtils.INST.equalsDouble(m.getX(), 0d) ? ArrowStyle.BAR_END : ArrowStyle.BAR_IN);
 		}
 	}
 
+	/**
+	 * Companion method of setArrowBarBracket
+	 */
+	private boolean isBarBracketBracket(final SVGPathSegList list, final SVGPathSeg seg) {
+		return list.size() == 4 && seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto;
+	}
+
+	/**
+	 * Companion method of setArrowBarBracket
+	 */
+	private boolean isBarBracketSquareEnd(final SVGPathSegList list, final SVGPathSegMoveto m, final SVGPathSeg seg) {
+		return list.size() == 2 && MathUtils.INST.equalsDouble(0d, m.getX()) && MathUtils.INST.equalsDouble(0d, m.getY()) &&
+			seg instanceof SVGPathSegLineto && MathUtils.INST.equalsDouble(0d, ((SVGPathSegLineto) seg).getY());
+	}
+
+	/**
+	 * Companion method of setArrowBarBracket
+	 */
+	private boolean isBarBracketBar(final SVGPathSegList list, final SVGPathSegMoveto m, final SVGPathSeg seg) {
+		return list.size() == 2 && ((seg instanceof SVGPathSegLineto && MathUtils.INST.equalsDouble(((SVGPathSegLineto) seg).getX(), m.getX())) ||
+			seg instanceof SVGPathSegLinetoVertical);
+	}
+
+	private boolean checkArrowArrow(final SVGPathSegList list, final SVGPathSeg seg) {
+		return !(seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto &&
+			list.get(4) instanceof SVGPathSegClosePath);
+	}
 
 	private void setArrowArrow(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final SVGPathSeg seg, final SVGPathSegList list,
 							final String svgMarker) {
-		if(!(seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto &&
-			list.get(4) instanceof SVGPathSegClosePath)) {
+		if(checkArrowArrow(list, seg)) {
 			return;
 		}
 
@@ -265,10 +290,10 @@ class SVGArrow implements GenericViewArrow {
 	 * Return the SVG tree of the arrowhead or null if this arrowhead has no style.
 	 * @param document The document used to create elements.
 	 * @param isShadow True: this operation is call to create the SVG shadow of the shape.
-	 * @return The SVG tree of the arrowhead or null if the document is null.
+	 * @return The SVG tree of the arrowhead or null
 	 */
-	SVGElement toSVG(final SVGDocument document, final boolean isShadow) {
-		if(document == null || !arrow.hasStyle()) {
+	SVGElement toSVG(final @NotNull SVGDocument document, final boolean isShadow) {
+		if(!arrow.hasStyle()) {
 			return null;
 		}
 

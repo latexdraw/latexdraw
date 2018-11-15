@@ -1,8 +1,6 @@
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
 import java.util.concurrent.atomic.AtomicBoolean;
-import net.sf.latexdraw.parser.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegCurvetoQuadratic;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,10 +28,10 @@ public class TestSVGPathSegCurvetoQuadratic {
 	}
 
 	@Test
-	void testToString() throws ParseException {
+	void testToString() {
 		final AtomicBoolean done = new AtomicBoolean(false);
 		final SVGPathSegMoveto m = new SVGPathSegMoveto(0d, 0d, false);
-		final SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), pathSeg -> {
+		SVGParserUtils.INSTANCE.parseSVGPath(m.toString() + " " + seg.toString(), pathSeg -> {
 			if(pathSeg instanceof SVGPathSegMoveto) {
 				return;
 			}
@@ -45,7 +43,6 @@ public class TestSVGPathSegCurvetoQuadratic {
 			assertEquals(seg.getY1(), seg2.getY1(), 0.0001);
 			assertEquals(seg.isRelative(), seg2.isRelative());
 		});
-		parser.parse();
 		assertTrue(done.get());
 	}
 }

@@ -24,9 +24,9 @@ public class SVGImageElement extends SVGElement implements SVGRectParseTrait {
 	 * {@link SVGImageElement#SVGImageElement(SVGDocument, String)}
 	 * @param n The node.
 	 * @param p The parent SVG element.
-	 * @throws MalformedSVGDocument If the element is not well formed.
+	 * @throws IllegalArgumentException If the element is not well formed.
 	 */
-	public SVGImageElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public SVGImageElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 

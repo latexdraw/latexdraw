@@ -20,6 +20,7 @@ import net.sf.latexdraw.parser.svg.SVGEllipseElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An SVG generator for an ellipse.
@@ -91,9 +92,9 @@ class SVGEllipse extends SVGShape<Ellipse> {
 
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null || doc.getFirstChild().getDefs() == null) {
-			throw new IllegalArgumentException();
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
+		if(doc.getFirstChild().getDefs() == null) {
+			return null;
 		}
 
 		final Point tl = shape.getTopLeftPoint();

@@ -18,6 +18,7 @@ import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.parser.svg.SVGImageElement;
 import net.sf.latexdraw.util.LNamespace;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An SVG generator for an picture.
@@ -67,11 +68,7 @@ class SVGPicture extends SVGShape<Picture> {
 
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null) {
-			return null;
-		}
-
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
 		final SVGElement root = new SVGGElement(doc);
 		final SVGElement img;
 

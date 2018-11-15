@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
 import org.w3c.dom.Node;
 
 /**
@@ -18,16 +17,12 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public class SVGPolygonElement extends AbstractPointsElement {
-	/**
-	 * {@link AbstractPointsElement#AbstractPointsElement(Node, SVGElement)}
-	 */
-	public SVGPolygonElement(final Node n, final SVGElement p) throws MalformedSVGDocument, ParseException {
+	public SVGPolygonElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 
 
 	/**
-	 * {@link AbstractPointsElement#AbstractPointsElement(Node, SVGElement)}
 	 * @param doc The owner document.
 	 */
 	public SVGPolygonElement(final SVGDocument doc) {

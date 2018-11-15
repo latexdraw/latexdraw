@@ -10,9 +10,7 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
 import net.sf.latexdraw.model.MathUtils;
-import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
 import org.w3c.dom.Node;
 
 /**
@@ -20,10 +18,7 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public class SVGCircleElement extends SVGElement {
-	/**
-	 * {@link SVGElement#SVGElement(Node, SVGElement)}
-	 */
-	public SVGCircleElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public SVGCircleElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 
@@ -67,11 +62,7 @@ public class SVGCircleElement extends SVGElement {
 	 * @return The x-axis coordinate of the centre of the circle (0 if there it does not exist or it is not a coordinate).
 	 */
 	public double getCx() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX)).parseCoordinate().getValue();
-		}catch(final ParseException ignore) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CX)).map(val -> val.getValue()).orElse(0d);
 	}
 
 	/**
@@ -86,11 +77,7 @@ public class SVGCircleElement extends SVGElement {
 	 * @return The y-axis coordinate of the centre of the circle (0 if there it does not exist or it is not a coordinate).
 	 */
 	public double getCy() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY)).parseCoordinate().getValue();
-		}catch(final ParseException ignore) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_CY)).map(val -> val.getValue()).orElse(0d);
 	}
 
 	/**
@@ -105,11 +92,7 @@ public class SVGCircleElement extends SVGElement {
 	 * @return The radius of the circle (NaN if there it does not exist or it is not a length).
 	 */
 	public double getR() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_R)).parseLength().getValue();
-		}catch(final ParseException ignore) {
-			return Double.NaN;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_R)).map(val -> val.getValue()).orElse(Double.NaN);
 	}
 
 	/**

@@ -15,6 +15,12 @@
         <Class name="net.sf.latexdraw.parser.pst.PSTParser"/>
     </Match>
     <Match>
+        <Class name="net.sf.latexdraw.parser.svg.SVGPathLexer"/>
+    </Match>
+    <Match>
+        <Class name="net.sf.latexdraw.parser.svg.SVGPathParser"/>
+    </Match>
+    <Match>
         <Bug pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" />
     </Match>
     <Match>
@@ -170,5 +176,11 @@
     <!-- Raises false positives -->
     <Match>
         <Bug pattern="OI_OPTIONAL_ISSUES_USES_IMMEDIATE_EXECUTION" />
+    </Match>
+    <Match>
+        <Bug pattern="OCP_OVERLY_CONCRETE_PARAMETER" />
+    </Match>
+    <Match>
+        <Bug pattern="SEC_SIDE_EFFECT_CONSTRUCTOR" />
     </Match>
 </FindBugsFilter>

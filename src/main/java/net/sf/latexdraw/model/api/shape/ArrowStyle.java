@@ -295,9 +295,9 @@ public enum ArrowStyle {
 	 * @param style The style to test.
 	 * @return True if the given style and the calling style are of the same kind (e.g. both are circles or disks).
 	 */
-	public boolean isSameKind(final ArrowStyle style) {
-		return style != null && ((isArrow() && style.isArrow()) || (isBar() && style.isBar()) || (isCircleDisk() && style.isCircleDisk()) || (isRoundBracket()
-			&& style.isRoundBracket()) || (isSquareBracket() && style.isSquareBracket()));
+	public boolean isSameKind(final @NotNull ArrowStyle style) {
+		return (isArrow() && style.isArrow()) || (isBar() && style.isBar()) || (isCircleDisk() && style.isCircleDisk()) ||
+			(isRoundBracket() && style.isRoundBracket()) || (isSquareBracket() && style.isSquareBracket());
 	}
 
 	/**

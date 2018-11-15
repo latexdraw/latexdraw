@@ -179,18 +179,7 @@ public final class SystemUtils {
 		}
 
 		if("mac os x".equalsIgnoreCase(os)) { //NON-NLS
-			final String[] v = System.getProperty("os.version").split("\\."); //NON-NLS
-			final double[] d = new double[v.length];
-
-			for(int i = 0; i < v.length; i++) {
-				d[i] = Double.parseDouble(v[i]);
-			}
-
-			// A change since El Capitan
-			if((d.length >= 1 && d[0] > 10) || (d.length >= 2 && d[0] == 10 && d[1] >= 11)) {
-				return Optional.of(OperatingSystem.MAC_OS_X_CAPITAN);
-			}
-			return Optional.of(OperatingSystem.MAC_OS_X);
+			return getMacSystem();
 		}
 
 		if(os.toLowerCase().contains("windows 8")) { //NON-NLS
@@ -204,6 +193,21 @@ public final class SystemUtils {
 		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os)); //NON-NLS
 
 		return Optional.empty();
+	}
+
+	private Optional<OperatingSystem> getMacSystem() {
+		final String[] v = System.getProperty("os.version").split("\\."); //NON-NLS
+		final double[] d = new double[v.length];
+
+		for(int i = 0; i < v.length; i++) {
+			d[i] = Double.parseDouble(v[i]);
+		}
+
+		// A change since El Capitan
+		if((d.length >= 1 && d[0] > 10) || (d.length >= 2 && d[0] == 10 && d[1] >= 11)) {
+			return Optional.of(OperatingSystem.MAC_OS_X_CAPITAN);
+		}
+		return Optional.of(OperatingSystem.MAC_OS_X);
 	}
 
 	/**

@@ -74,7 +74,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		showPoints.managedProperty().bind(showPoints.visibleProperty());
 		opened.managedProperty().bind(opened.visibleProperty());
 
-		linePane.managedProperty().bind(linePane.visibleProperty());
+		linePane.visibleProperty().bind(thicknessField.visibleProperty().or(lineCB.visibleProperty()).or(lineColButton.visibleProperty()).
+			or(bordersPosCB.visibleProperty()).or(frameArcField.visibleProperty()).or(showPoints.visibleProperty()).or(linePane.visibleProperty()));
 
 		final Map<BorderPos, Image> cachePos = new EnumMap<>(BorderPos.class);
 		cachePos.put(BorderPos.INTO, new Image("/res/doubleBoundary/double.boundary.into.png")); //NON-NLS
@@ -111,7 +112,6 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			frameArcField.setVisible(supportRound);
 			frameArcPic.setVisible(supportRound);
 			showPoints.setVisible(showPts);
-			linePane.setVisible(isTh || isStylable || isColor || isMvble || supportRound || showPts);
 			opened.setVisible(curve);
 
 			if(isColor) {

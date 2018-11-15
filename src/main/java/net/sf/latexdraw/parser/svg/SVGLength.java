@@ -8,7 +8,9 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  */
-package net.sf.latexdraw.parser.svg.parsers;
+package net.sf.latexdraw.parser.svg;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines an SVG length implementation.
@@ -16,11 +18,11 @@ package net.sf.latexdraw.parser.svg.parsers;
  */
 public class SVGLength {
 	/** The value of the length in the user space. */
-	protected double value;
+	private final double value;
 	/** The type of the length. */
-	protected LengthType lengthType;
+	private final @NotNull LengthType lengthType;
 	/** The original parsed length value (without the length token). */
-	protected String valueAsString;
+	private final @NotNull String valueAsString;
 
 	/**
 	 * Builds an SVGLength.
@@ -28,18 +30,8 @@ public class SVGLength {
 	 * @param lengthType The type of the length.
 	 * @param valueAsString The original parsed length value (without the length token).
 	 */
-	public SVGLength(final double value, final LengthType lengthType, final String valueAsString) {
+	public SVGLength(final double value, final @NotNull LengthType lengthType, final @NotNull String valueAsString) {
 		super();
-		if(lengthType == null || valueAsString == null) {
-			throw new IllegalArgumentException();
-		}
-
-		try {
-			Double.parseDouble(valueAsString);
-		}catch(final NumberFormatException e) {
-			throw new IllegalArgumentException();
-		}
-
 		this.value = value;
 		this.lengthType = lengthType;
 		this.valueAsString = valueAsString;
@@ -55,17 +47,17 @@ public class SVGLength {
 	/**
 	 * @return the lengthType
 	 */
-	public LengthType getLengthType() {
+	public @NotNull LengthType getLengthType() {
 		return lengthType;
 	}
 
 	/**
 	 * @return the valueAsString
 	 */
-	public String getValueAsString() {
+	public @NotNull String getValueAsString() {
 		return valueAsString;
 	}
 
 
-	public enum LengthType { UNKNOWN, NUMBER, PERCENTAGE, EM, EX, PX, CM, MM, IN, PT, PC }
+	public enum LengthType { UNKNOWN, NUMBER, PERCENTAGE, em, ex, px, cm, mm, in, pt, pc }
 }

@@ -16,45 +16,45 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 
 	@Test
 	void testContructorNodeNULL() {
-		assertThrows(MalformedSVGDocument.class, () -> new SVGImageElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGImageElement(node, null));
 	}
 
 	@Test
 	void testContructorNodeInvalidNULL() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "dsd");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "dsd");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGImageElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGImageElement(node, null));
 	}
 
 	@Test
 	void testContructorNodeInvalid2NULL() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "1");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGImageElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGImageElement(node, null));
 	}
 
 	@Test
 	void testContructorNodeInvalid3NULL() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "-1");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "10");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGImageElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGImageElement(node, null));
 	}
 
 	@Test
 	void testContructorNodeInvalid4NULL() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "-1");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGImageElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGImageElement(node, null));
 	}
 
 	@Test
-	void testContructorOK() throws MalformedSVGDocument {
+	void testContructorOK() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		new SVGImageElement(node, null);
 	}
 
 	@Test
-	void testGetHeight() throws MalformedSVGDocument {
+	void testGetHeight() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		final SVGImageElement e = new SVGImageElement(node, null);
@@ -62,7 +62,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetWidth() throws MalformedSVGDocument {
+	void testGetWidth() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		final SVGImageElement e = new SVGImageElement(node, null);
@@ -70,7 +70,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetURINULL() throws MalformedSVGDocument {
+	void testGetURINULL() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		final SVGImageElement e = new SVGImageElement(node, null);
@@ -78,7 +78,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetURIxlink() throws MalformedSVGDocument {
+	void testGetURIxlink() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		node.setAttribute("xlink:href", "/dir/file");
@@ -87,7 +87,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testEnableRenderingNULL() throws MalformedSVGDocument {
+	void testEnableRenderingNULL() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		final SVGImageElement e = new SVGImageElement(node, null);
@@ -95,7 +95,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testEnableRenderingBadxlink() throws MalformedSVGDocument {
+	void testEnableRenderingBadxlink() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		node.setAttribute("xlink:href", "/rerzerojcsf/dsqdsdfgdre");
@@ -104,7 +104,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testEnableRenderingBadSVGWIDTH() throws MalformedSVGDocument {
+	void testEnableRenderingBadSVGWIDTH() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "0");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		final SVGImageElement e = new SVGImageElement(node, null);
@@ -112,7 +112,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testEnableRenderingBadSVGHEIGHT() throws MalformedSVGDocument {
+	void testEnableRenderingBadSVGHEIGHT() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "0");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "0");
 		final SVGImageElement e = new SVGImageElement(node, null);
@@ -120,7 +120,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testEnableRenderingBadSVGHEIGHTOKSVGWIDTH() throws MalformedSVGDocument {
+	void testEnableRenderingBadSVGHEIGHTOKSVGWIDTH() {
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "0");
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "20");
 		final SVGImageElement e = new SVGImageElement(node, null);
@@ -128,7 +128,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetY0() throws MalformedSVGDocument {
+	void testGetY0() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		final SVGImageElement e = new SVGImageElement(node, null);
@@ -136,7 +136,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetY1() throws MalformedSVGDocument {
+	void testGetY1() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		node.setAttribute(SVGAttributes.SVG_Y, "1");
@@ -145,7 +145,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetX0() throws MalformedSVGDocument {
+	void testGetX0() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		final SVGImageElement e = new SVGImageElement(node, null);
@@ -153,7 +153,7 @@ public class TestSVGImageElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetX1() throws MalformedSVGDocument {
+	void testGetX1() {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		node.setAttribute(SVGAttributes.SVG_X, "1");

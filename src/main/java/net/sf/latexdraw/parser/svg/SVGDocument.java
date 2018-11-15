@@ -71,11 +71,10 @@ public class SVGDocument implements Document {
 	 * The constructor. An URI defines the location of the SVG document to parse. If the document is valid,
 	 * the document is read an place in the <code>root</code> attribute.
 	 * @param uri The file to parse.
-	 * @throws MalformedSVGDocument If an error occurs.
 	 * @throws IOException If the document cannot be opened.
-	 * @throws IllegalArgumentException If a n argument is not valid.
+	 * @throws IllegalArgumentException If an argument is not valid.
 	 */
-	public SVGDocument(final URI uri) throws MalformedSVGDocument, IOException {
+	public SVGDocument(final URI uri) throws IOException {
 		super();
 		if(uri == null) {
 			throw new IllegalArgumentException();
@@ -116,7 +115,7 @@ public class SVGDocument implements Document {
 			}
 		}catch(final SAXException | ParserConfigurationException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
-			throw new MalformedSVGDocument();
+			throw new IllegalArgumentException(ex);
 		}
 	}
 

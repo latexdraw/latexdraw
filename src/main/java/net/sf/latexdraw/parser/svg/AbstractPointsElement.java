@@ -11,10 +11,9 @@
 package net.sf.latexdraw.parser.svg;
 
 import java.awt.geom.Point2D;
-import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Node;
 
 /**
@@ -23,19 +22,18 @@ import org.w3c.dom.Node;
  */
 public abstract class AbstractPointsElement extends SVGElement {
 	/** The points of the element. */
-	protected List<Point2D> points;
+	protected final @NotNull List<Point2D> points;
 
 	/**
 	 * Creates an SVG element that can contains points.
 	 * @param node The node used to create the SVG element.
 	 * @param parentNode The parentNode SVG element.
-	 * @throws MalformedSVGDocument If the element is not well formed.
-	 * @throws ParseException If the points string is not well formed.
+	 * @throws IllegalArgumentException If errors with the arguments.
 	 */
-	protected AbstractPointsElement(final Node node, final SVGElement parentNode) throws MalformedSVGDocument, ParseException {
+	protected AbstractPointsElement(final Node node, final SVGElement parentNode) {
 		super(node, parentNode);
-
-		parsePoints();
+		points = new ArrayList<>();
+		parsePoints(getPoints());
 	}
 
 
@@ -44,29 +42,28 @@ public abstract class AbstractPointsElement extends SVGElement {
 	 */
 	protected AbstractPointsElement(final SVGDocument doc) {
 		super(doc);
-
-		try {
-			setPoints("0,0 1,1");
-		}catch(final ParseException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+		points = new ArrayList<>();
+		setPoints("0,0 1,1");
 	}
 
 
 	/**
 	 * Parses the points of the element.
-	 * @throws ParseException If the format of the points is not valid.
 	 */
-	public void parsePoints() throws ParseException {
-		final SVGPointsParser parser = new SVGPointsParser(getPoints());
-		parser.parse();
-		points = parser.getPoints();
+	protected boolean parsePoints(final String code) {
+		final List<Point2D> pts = SVGParserUtils.INSTANCE.parsePoints(code);
+		if(pts.isEmpty()) {
+			return false;
+		}
+		points.clear();
+		points.addAll(pts);
+		return true;
 	}
 
 
 	@Override
 	public boolean checkAttributes() {
-		return !getPoints().isEmpty();
+		return !SVGParserUtils.INSTANCE.parsePoints(getPoints()).isEmpty();
 	}
 
 	/**
@@ -79,12 +76,10 @@ public abstract class AbstractPointsElement extends SVGElement {
 	/**
 	 * Parses and sets the pts to the element.
 	 * @param pts The string corresponding to the SVG pts of this element.
-	 * @throws ParseException If the format of the pts is not valid.
 	 */
-	public void setPoints(final String pts) throws ParseException {
-		if(pts != null) {
+	public void setPoints(final String pts) {
+		if(pts != null && parsePoints(pts)) {
 			setAttribute(SVGAttributes.SVG_POINTS, pts);
-			parsePoints();
 		}
 	}
 

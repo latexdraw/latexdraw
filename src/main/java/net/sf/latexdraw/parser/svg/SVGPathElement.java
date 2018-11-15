@@ -10,14 +10,13 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
-import net.sf.latexdraw.parser.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegClosePath;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegCurvetoCubic;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegCurvetoCubicSmooth;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Node;
 
 /**
@@ -25,11 +24,7 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public class SVGPathElement extends SVGElement {
-	/**
-	 * See {@link SVGElement#SVGElement(Node, SVGElement)}.
-	 * @throws MalformedSVGDocument If the element is not well formed.
-	 */
-	public SVGPathElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public SVGPathElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 
@@ -133,7 +128,7 @@ public class SVGPathElement extends SVGElement {
 	 * The definition of the outline of a shape.
 	 * @return The path data (in postscript) from the segList attribute.
 	 */
-	public String getPathData() {
+	public @NotNull String getPathData() {
 		return getAttribute(getUsablePrefix() + SVGAttributes.SVG_D);
 	}
 
@@ -161,16 +156,8 @@ public class SVGPathElement extends SVGElement {
 	 * @return the segList.
 	 */
 	public SVGPathSegList getSegList() {
-		final String path = getPathData();
 		final SVGPathSegList segList = new SVGPathSegList();
-		final SVGPathParser pp = new SVGPathParser(path, segList);
-
-		try {
-			pp.parse();
-		}catch(final ParseException e) {
-			throw new IllegalArgumentException(e + " But : \"" + path + "\" found."); //NON-NLS
-		}
-
+		SVGParserUtils.INSTANCE.parseSVGPath(getPathData(), segList);
 		return segList;
 	}
 }

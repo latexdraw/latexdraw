@@ -1,8 +1,6 @@
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
 import java.util.concurrent.atomic.AtomicBoolean;
-import net.sf.latexdraw.parser.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegArc;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,10 +31,10 @@ public class TestSVGPathSegArc {
 	}
 
 	@Test
-	void testToString() throws ParseException {
+	void testToString() {
 		final AtomicBoolean done = new AtomicBoolean(false);
 		final SVGPathSegMoveto m = new SVGPathSegMoveto(0, 0, false);
-		final SVGPathParser parser = new SVGPathParser(m.toString() + " " + seg.toString(), pathSeg -> {
+		SVGParserUtils.INSTANCE.parseSVGPath(m.toString() + " " + seg.toString(), pathSeg -> {
 			if(pathSeg instanceof SVGPathSegMoveto) {
 				return;
 			}
@@ -52,7 +50,6 @@ public class TestSVGPathSegArc {
 			assertEquals(seg.isRelative(), seg2.isRelative());
 			assertEquals(seg.isSweepFlag(), seg2.isSweepFlag());
 		});
-		parser.parse();
 		assertTrue(done.get());
 	}
 }

@@ -22,6 +22,7 @@ import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.PlotViewComputation;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An SVG generator for plotted functions.
@@ -139,7 +140,7 @@ class SVGPlot extends SVGShape<Plot> implements PlotViewComputation {
 		}
 	}
 
-	private void toSVGShape(final SVGDocument doc, final SVGElement elt) {
+	private void toSVGShape(final @NotNull SVGDocument doc, final @NotNull SVGElement elt) {
 		final double minX = shape.getPlotMinX();
 		final double maxX = shape.getPlotMaxX();
 		final double step = shape.getPlottingStep();
@@ -169,8 +170,8 @@ class SVGPlot extends SVGShape<Plot> implements PlotViewComputation {
 	}
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null || doc.getFirstChild().getDefs() == null) {
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
+		if(doc.getFirstChild().getDefs() == null) {
 			return null;
 		}
 
@@ -211,24 +212,24 @@ class SVGPlot extends SVGShape<Plot> implements PlotViewComputation {
 	}
 
 
-	private void toSVGDots(final SVGElement elt, final SVGDocument doc, final double posX, final double posY, final double minX, final double maxX, final double step) {
+	private void toSVGDots(final SVGElement elt, final @NotNull SVGDocument doc, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		for(final Dot dot : updatePoints(shape, posX, posY, minX, maxX, step)) {
 			elt.appendChild(shapeProducer.createSVGElement(dot, doc));
 		}
 	}
 
 
-	private void toSVGPolygon(final SVGElement elt, final SVGDocument doc, final double posX, final double posY, final double minX, final double maxX, final double step) {
+	private void toSVGPolygon(final SVGElement elt, final @NotNull SVGDocument doc, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		elt.appendChild(shapeProducer.createSVGElement(updatePolygon(shape, posX, posY, minX, maxX, step), doc));
 	}
 
 
-	private void toSVGLine(final SVGElement elt, final SVGDocument doc, final double posX, final double posY, final double minX, final double maxX, final double step) {
+	private void toSVGLine(final SVGElement elt, final @NotNull SVGDocument doc, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		elt.appendChild(shapeProducer.createSVGElement(updateLine(shape, posX, posY, minX, maxX, step), doc));
 	}
 
 
-	private void toSVGCurve(final SVGElement elt, final SVGDocument doc, final double posX, final double posY, final double minX, final double maxX, final double step) {
+	private void toSVGCurve(final SVGElement elt, final @NotNull SVGDocument doc, final double posX, final double posY, final double minX, final double maxX, final double step) {
 		elt.appendChild(shapeProducer.createSVGElement(updateCurve(shape, posX, posY, minX, maxX, step), doc));
 	}
 }

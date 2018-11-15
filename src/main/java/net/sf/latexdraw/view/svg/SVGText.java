@@ -22,6 +22,7 @@ import net.sf.latexdraw.parser.svg.SVGElements;
 import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.parser.svg.SVGTextElement;
 import net.sf.latexdraw.util.LNamespace;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -107,11 +108,7 @@ class SVGText extends SVGShape<Text> {
 
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null) {
-			return null;
-		}
-
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
 		final SVGElement root = new SVGGElement(doc);
 		final String ltdPref = LNamespace.LATEXDRAW_NAMESPACE + ':';
 		final Element txt = new SVGTextElement(doc);

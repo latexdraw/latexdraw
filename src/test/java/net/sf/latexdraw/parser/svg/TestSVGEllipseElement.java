@@ -1,7 +1,5 @@
 package net.sf.latexdraw.parser.svg;
 
-import net.sf.latexdraw.parser.svg.parsers.SVGLength;
-import net.sf.latexdraw.parser.svg.parsers.UnitProcessor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -19,45 +17,45 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 
 	@Test
 	void testContructorNodeNULL() {
-		assertThrows(MalformedSVGDocument.class, () -> new SVGEllipseElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGEllipseElement(node, null));
 	}
 
 	@Test
 	void testContructorNodeInvInvNULL() {
 		node.setAttribute(SVGAttributes.SVG_RX, "dsd");
 		node.setAttribute(SVGAttributes.SVG_RY, "dsd");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGEllipseElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGEllipseElement(node, null));
 	}
 
 	@Test
 	void testContructorNodeInvNULL() {
 		node.setAttribute(SVGAttributes.SVG_RX, "1");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGEllipseElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGEllipseElement(node, null));
 	}
 
 	@Test
 	void testContructorNode2NULL() {
 		node.setAttribute(SVGAttributes.SVG_RX, "-1");
 		node.setAttribute(SVGAttributes.SVG_RY, "10");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGEllipseElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGEllipseElement(node, null));
 	}
 
 	@Test
 	void testContructorNode3NULL() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "-1");
-		assertThrows(MalformedSVGDocument.class, () -> new SVGEllipseElement(node, null));
+		assertThrows(IllegalArgumentException.class, () -> new SVGEllipseElement(node, null));
 	}
 
 	@Test
-	void testContructorNodeOK() throws MalformedSVGDocument {
+	void testContructorNodeOK() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		new SVGEllipseElement(node, null);
 	}
 
 	@Test
-	void testGetCyDefault() throws MalformedSVGDocument {
+	void testGetCyDefault() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
@@ -65,7 +63,7 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetCyVal() throws MalformedSVGDocument {
+	void testGetCyVal() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_CY, "40");
@@ -74,7 +72,7 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetCyValPX() throws MalformedSVGDocument {
+	void testGetCyValPX() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_CY, "40px");
@@ -83,16 +81,16 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetCyValCM() throws MalformedSVGDocument {
+	void testGetCyValCM() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_CY, "40 cm");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(40, SVGLength.LengthType.CM), ell.getCy(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(40, SVGLength.LengthType.cm), ell.getCy(), 0.0001);
 	}
 
 	@Test
-	void testGetCxDefault() throws MalformedSVGDocument {
+	void testGetCxDefault() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
@@ -100,7 +98,7 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetCxVal() throws MalformedSVGDocument {
+	void testGetCxVal() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_CX, "30");
@@ -109,7 +107,7 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetCxValPX() throws MalformedSVGDocument {
+	void testGetCxValPX() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_CX, "40px");
@@ -118,17 +116,17 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetCxValCM() throws MalformedSVGDocument {
+	void testGetCxValCM() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_CX, "40 cm");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(40, SVGLength.LengthType.CM), ell.getCx(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(40, SVGLength.LengthType.cm), ell.getCx(), 0.0001);
 	}
 
 	@ParameterizedTest
 	@CsvSource(value = {"0,10", "10,0", "0,0"})
-	void testEnableRenderingKO(final String v1, final String v2) throws MalformedSVGDocument {
+	void testEnableRenderingKO(final String v1, final String v2) {
 		node.setAttribute(SVGAttributes.SVG_RX, v1);
 		node.setAttribute(SVGAttributes.SVG_RY, v2);
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
@@ -136,7 +134,7 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testEnableRendering() throws MalformedSVGDocument {
+	void testEnableRendering() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "10");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
@@ -144,7 +142,7 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetRy() throws MalformedSVGDocument {
+	void testGetRy() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
@@ -152,16 +150,16 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetRyValDim() throws MalformedSVGDocument {
+	void testGetRyValDim() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_RY, "20 pt");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(20, SVGLength.LengthType.PT), ell.getRy(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(20, SVGLength.LengthType.pt), ell.getRy(), 0.0001);
 	}
 
 	@Test
-	void testGetRx() throws MalformedSVGDocument {
+	void testGetRx() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
@@ -169,12 +167,12 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testGetRxValDim() throws MalformedSVGDocument {
+	void testGetRxValDim() {
 		node.setAttribute(SVGAttributes.SVG_RX, "10");
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_RX, "10mm");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
-		assertEquals(UnitProcessor.INSTANCE.toUserUnit(10, SVGLength.LengthType.MM), ell.getRx(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(10, SVGLength.LengthType.mm), ell.getRx(), 0.0001);
 	}
 
 	@Override

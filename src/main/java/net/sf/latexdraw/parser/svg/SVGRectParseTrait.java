@@ -10,9 +10,6 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
-import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
-
 /**
  * A trait for factorising code related to parsing rectangle dimensions.
  * @author Arnaud Blouin
@@ -24,11 +21,7 @@ interface SVGRectParseTrait extends LElement {
 	 * @return The value of the X attribute (0 if there it does not exist or it is not a length).
 	 */
 	default double getX() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_X)).parseCoordinate().getValue();
-		}catch(final ParseException ex) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_X)).map(val -> val.getValue()).orElse(0d);
 	}
 
 
@@ -36,11 +29,7 @@ interface SVGRectParseTrait extends LElement {
 	 * @return The value of the X attribute (0 if there it does not exist or it is not a length).
 	 */
 	default double getY() {
-		try {
-			return new SVGLengthParser(getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y)).parseCoordinate().getValue();
-		}catch(final ParseException ex) {
-			return 0d;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_Y)).map(val -> val.getValue()).orElse(0d);
 	}
 
 
@@ -50,12 +39,7 @@ interface SVGRectParseTrait extends LElement {
 	default double getWidth() {
 		final String value = getAttribute(getUsablePrefix() + SVGAttributes.SVG_WIDTH);
 		final double defVal = isDimensionsRequired() ? Double.NaN : 0d;
-
-		try {
-			return value.isEmpty() ? defVal : new SVGLengthParser(value).parseLength().getValue();
-		}catch(final ParseException ex) {
-			return defVal;
-		}
+		return value.isEmpty() ? defVal : SVGParserUtils.INSTANCE.parseLength(value).map(val -> val.getValue()).orElse(defVal);
 	}
 
 
@@ -65,11 +49,6 @@ interface SVGRectParseTrait extends LElement {
 	default double getHeight() {
 		final String value = getAttribute(getUsablePrefix() + SVGAttributes.SVG_HEIGHT);
 		final double defVal = isDimensionsRequired() ? Double.NaN : 0d;
-
-		try {
-			return value.isEmpty() ? defVal : new SVGLengthParser(value).parseLength().getValue();
-		}catch(final ParseException ex) {
-			return defVal;
-		}
+		return value.isEmpty() ? defVal : SVGParserUtils.INSTANCE.parseLength(value).map(val -> val.getValue()).orElse(defVal);
 	}
 }

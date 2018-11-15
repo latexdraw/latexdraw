@@ -20,6 +20,7 @@ import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An SVG generator for a circle.
@@ -86,8 +87,8 @@ class SVGCircle extends SVGShape<Circle> {
 
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null || doc.getFirstChild().getDefs() == null) {
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
+		if(doc.getFirstChild().getDefs() == null) {
 			return null;
 		}
 

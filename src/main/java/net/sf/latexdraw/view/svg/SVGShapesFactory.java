@@ -10,7 +10,9 @@
  */
 package net.sf.latexdraw.view.svg;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiFunction;
@@ -47,6 +49,7 @@ import net.sf.latexdraw.parser.svg.SVGRectElement;
 import net.sf.latexdraw.parser.svg.SVGTextElement;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,8 +59,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SVGShapesFactory implements SVGShapeProducer {
 	/** A map to reduce the CC during the creation of shapes. */
-	private final @NotNull Map<String, BiFunction<SVGGElement, Boolean, Shape>> creationMap;
 	private final @NotNull ViewFactory viewFactory;
+	private final @NotNull Map<String, BiFunction<SVGGElement, Boolean, Shape>> xmlToSVGProducers;
+	private final @NotNull List<Tuple<Class<? extends Shape>, BiFunction<Shape, SVGDocument, SVGElement>>> shapeToSVGProducers;
+	private final @NotNull List<Tuple<Class<? extends SVGElement>, BiFunction<SVGElement, Boolean, Shape>>> svgToShapeProducers;
 
 	/**
 	 * Creates the factory.
@@ -65,88 +70,81 @@ public class SVGShapesFactory implements SVGShapeProducer {
 	@Inject
 	public SVGShapesFactory(final ViewFactory viewFactory) {
 		super();
-
+		shapeToSVGProducers = new ArrayList<>();
+		svgToShapeProducers = new ArrayList<>();
 		this.viewFactory = Objects.requireNonNull(viewFactory);
-		creationMap = new HashMap<>();
-		creationMap.put(SVGPlot.XML_TYPE_PLOT, (elt, withTransformations) -> new SVGPlot(elt, withTransformations, this).getShape());
-		creationMap.put(LNamespace.XML_TYPE_RECT, (elt, withTransformations) -> new SVGRectangle(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_ELLIPSE, (elt, withTransformations) -> new SVGEllipse(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_CIRCLE, (elt, withTransformations) -> new SVGCircle(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_POLYGON, (elt, withTransformations) -> new SVGPolygon(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_SQUARE, (elt, withTransformations) -> new SVGSquare(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_TRIANGLE, (elt, withTransformations) -> new SVGTriangle(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_RHOMBUS, (elt, withTransformations) -> new SVGRhombus(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_JOINED_LINES, (elt, withTransformations) -> new SVGPolylines(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_FREEHAND, (elt, withTransformations) -> new SVGFreeHand(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_LINE, (elt, withTransformations) -> new SVGPolylines(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_BEZIER_CURVE, (elt, withTransformations) -> new SVGBezierCurve(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_GRID, (elt, withTransformations) -> new SVGGrid(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_AXE, (elt, withTransformations) -> new SVGAxes(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_TEXT, (elt, withTransformations) -> new SVGText(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_GROUP, (elt, withTransformations) -> new SVGGroup(elt, withTransformations, this).getShape());
-		creationMap.put(LNamespace.XML_TYPE_DOT, (elt, withTransformations) -> new SVGDot(elt, withTransformations, viewFactory).getShape());
-		creationMap.put(LNamespace.XML_TYPE_ARC, (elt, withTransformations) -> new SVGCircleArc(elt, withTransformations).getShape());
-		creationMap.put(LNamespace.XML_TYPE_PICTURE, (elt, withTransformations) -> new SVGPicture(elt, withTransformations).getShape());
+		xmlToSVGProducers = new HashMap<>();
+		fillStringCreationMap();
+		fillShapeCreationList();
+		fillSVGToShapeProducers();
 	}
 
+	private final void fillShapeCreationList() {
+		shapeToSVGProducers.add(new Tuple<>(Group.class, (sh, doc) -> new SVGGroup((Group) sh, this).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Plot.class, (sh, doc) -> new SVGPlot((Plot) sh, this).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Square.class, (sh, doc) -> new SVGSquare((Square) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Rectangle.class, (sh, doc) -> new SVGRectangle((Rectangle) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Text.class, (sh, doc) -> new SVGText((Text) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(CircleArc.class, (sh, doc) -> new SVGCircleArc((CircleArc) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Circle.class, (sh, doc) -> new SVGCircle((Circle) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Ellipse.class, (sh, doc) -> new SVGEllipse((Ellipse) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Triangle.class, (sh, doc) -> new SVGTriangle((Triangle) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Rhombus.class, (sh, doc) -> new SVGRhombus((Rhombus) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Polyline.class, (sh, doc) -> new SVGPolylines((Polyline) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Polygon.class, (sh, doc) -> new SVGPolygon((Polygon) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(BezierCurve.class, (sh, doc) -> new SVGBezierCurve((BezierCurve) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Axes.class, (sh, doc) -> new SVGAxes((Axes) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Grid.class, (sh, doc) -> new SVGGrid((Grid) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Dot.class, (sh, doc) -> new SVGDot((Dot) sh, viewFactory).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Picture.class, (sh, doc) -> new SVGPicture((Picture) sh).toSVG(doc)));
+		shapeToSVGProducers.add(new Tuple<>(Freehand.class, (sh, doc) -> new SVGFreeHand((Freehand) sh).toSVG(doc)));
+	}
+
+	private final void fillStringCreationMap() {
+		xmlToSVGProducers.put(SVGPlot.XML_TYPE_PLOT, (elt, withTransformations) -> new SVGPlot(elt, withTransformations, this).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_RECT, (elt, withTransformations) -> new SVGRectangle(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_ELLIPSE, (elt, withTransformations) -> new SVGEllipse(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_CIRCLE, (elt, withTransformations) -> new SVGCircle(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_POLYGON, (elt, withTransformations) -> new SVGPolygon(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_SQUARE, (elt, withTransformations) -> new SVGSquare(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_TRIANGLE, (elt, withTransformations) -> new SVGTriangle(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_RHOMBUS, (elt, withTransformations) -> new SVGRhombus(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_JOINED_LINES, (elt, withTransformations) -> new SVGPolylines(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_FREEHAND, (elt, withTransformations) -> new SVGFreeHand(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_LINE, (elt, withTransformations) -> new SVGPolylines(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_BEZIER_CURVE, (elt, withTransformations) -> new SVGBezierCurve(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_GRID, (elt, withTransformations) -> new SVGGrid(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_AXE, (elt, withTransformations) -> new SVGAxes(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_TEXT, (elt, withTransformations) -> new SVGText(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_GROUP, (elt, withTransformations) -> new SVGGroup(elt, withTransformations, this).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_DOT, (elt, withTransformations) -> new SVGDot(elt, withTransformations, viewFactory).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_ARC, (elt, withTransformations) -> new SVGCircleArc(elt, withTransformations).getShape());
+		xmlToSVGProducers.put(LNamespace.XML_TYPE_PICTURE, (elt, withTransformations) -> new SVGPicture(elt, withTransformations).getShape());
+	}
+
+	private final void fillSVGToShapeProducers() {
+		svgToShapeProducers.add(new Tuple<>(SVGRectElement.class, (svgElt, t) -> new SVGRectangle((SVGRectElement) svgElt).getShape()));
+		svgToShapeProducers.add(new Tuple<>(SVGEllipseElement.class, (svgElt, t) -> new SVGEllipse((SVGEllipseElement) svgElt).getShape()));
+		svgToShapeProducers.add(new Tuple<>(SVGCircleElement.class, (svgElt, t) -> new SVGCircle((SVGCircleElement) svgElt).getShape()));
+		svgToShapeProducers.add(new Tuple<>(SVGPolygonElement.class, (svgElt, t) -> new SVGPolygon((SVGPolygonElement) svgElt).getShape()));
+		svgToShapeProducers.add(new Tuple<>(SVGPolyLineElement.class, (svgElt, t) -> new SVGPolylines((SVGPolyLineElement) svgElt).getShape()));
+		svgToShapeProducers.add(new Tuple<>(SVGImageElement.class, (svgElt, t) -> new SVGPicture((SVGImageElement) svgElt).getShape()));
+		svgToShapeProducers.add(new Tuple<>(SVGLineElement.class, (svgElt, t) -> new SVGPolylines((SVGLineElement) svgElt).getShape()));
+		svgToShapeProducers.add(new Tuple<>(SVGTextElement.class, (svgElt, t) -> new SVGText((SVGTextElement) svgElt).getShape()));
+		svgToShapeProducers.add(new Tuple<>(SVGPathElement.class, (svgElt, t) -> createShapeFromPathElement((SVGPathElement) svgElt)));
+		svgToShapeProducers.add(new Tuple<>(SVGGElement.class, (svgElt, t) -> createShapeFromGElement((SVGGElement) svgElt, t)));
+	}
 
 	@Override
-	public SVGElement createSVGElement(final Shape shape, final SVGDocument doc) {
-		if(shape instanceof Group) {
-			return new SVGGroup((Group) shape, this).toSVG(doc);
-		}
-		if(shape instanceof Plot) {
-			return new SVGPlot((Plot) shape, this).toSVG(doc);
-		}
-		if(shape instanceof Square) {
-			return new SVGSquare((Square) shape).toSVG(doc);
-		}
-		if(shape instanceof Rectangle) {
-			return new SVGRectangle((Rectangle) shape).toSVG(doc);
-		}
-		if(shape instanceof Text) {
-			return new SVGText((Text) shape).toSVG(doc);
-		}
-		if(shape instanceof CircleArc) {
-			return new SVGCircleArc((CircleArc) shape).toSVG(doc);
-		}
-		if(shape instanceof Circle) {
-			return new SVGCircle((Circle) shape).toSVG(doc);
-		}
-		if(shape instanceof Ellipse) {
-			return new SVGEllipse((Ellipse) shape).toSVG(doc);
-		}
-		if(shape instanceof Triangle) {
-			return new SVGTriangle((Triangle) shape).toSVG(doc);
-		}
-		if(shape instanceof Rhombus) {
-			return new SVGRhombus((Rhombus) shape).toSVG(doc);
-		}
-		if(shape instanceof Polyline) {
-			return new SVGPolylines((Polyline) shape).toSVG(doc);
-		}
-		if(shape instanceof Polygon) {
-			return new SVGPolygon((Polygon) shape).toSVG(doc);
-		}
-		if(shape instanceof BezierCurve) {
-			return new SVGBezierCurve((BezierCurve) shape).toSVG(doc);
-		}
-		if(shape instanceof Axes) {
-			return new SVGAxes((Axes) shape).toSVG(doc);
-		}
-		if(shape instanceof Grid) {
-			return new SVGGrid((Grid) shape).toSVG(doc);
-		}
-		if(shape instanceof Dot) {
-			return new SVGDot((Dot) shape, viewFactory).toSVG(doc);
-		}
-		if(shape instanceof Picture) {
-			return new SVGPicture((Picture) shape).toSVG(doc);
-		}
-		if(shape instanceof Freehand) {
-			return new SVGFreeHand((Freehand) shape).toSVG(doc);
-		}
-		return null;
+	public SVGElement createSVGElement(final @NotNull Shape shape, final @NotNull SVGDocument doc) {
+		// Makes use of a list of tuples to reduce the CC.
+		// Looking for the tuple which type matches the type of the given shape.
+		// Then calling the associated function that produces the PST view.
+		return shapeToSVGProducers.stream()
+			.filter(t -> t.a.isAssignableFrom(shape.getClass()))
+			.findFirst()
+			.map(t -> t.b.apply(shape, doc))
+			.orElse(null);
 	}
 
 	@Override
@@ -188,7 +186,7 @@ public class SVGShapesFactory implements SVGShapeProducer {
 		}
 
 		// Otherwise, it should be a latexdraw shape saved in an SVG document.
-		return creationMap.getOrDefault(type, (a, b) -> null).apply(elt, withTransformations);
+		return xmlToSVGProducers.getOrDefault(type, (a, b) -> null).apply(elt, withTransformations);
 	}
 
 
@@ -197,37 +195,10 @@ public class SVGShapesFactory implements SVGShapeProducer {
 		if(elt == null || !elt.enableRendering()) {
 			return null;
 		}
-		if(elt instanceof SVGRectElement) {
-			return new SVGRectangle((SVGRectElement) elt).getShape();
-		}
-		if(elt instanceof SVGEllipseElement) {
-			return new SVGEllipse((SVGEllipseElement) elt).getShape();
-		}
-		if(elt instanceof SVGCircleElement) {
-			return new SVGCircle((SVGCircleElement) elt).getShape();
-		}
-		if(elt instanceof SVGPolygonElement) {
-			return new SVGPolygon((SVGPolygonElement) elt).getShape();
-		}
-		if(elt instanceof SVGPolyLineElement) {
-			return new SVGPolylines((SVGPolyLineElement) elt).getShape();
-		}
-		if(elt instanceof SVGImageElement) {
-			return new SVGPicture((SVGImageElement) elt).getShape();
-		}
-		if(elt instanceof SVGLineElement) {
-			return new SVGPolylines((SVGLineElement) elt).getShape();
-		}
-		if(elt instanceof SVGTextElement) {
-			return new SVGText((SVGTextElement) elt).getShape();
-		}
-		if(elt instanceof SVGPathElement) {
-			return createShapeFromPathElement((SVGPathElement) elt);
-		}
-		// If we have a group of shapes or a latexdraw shape.
-		if(elt instanceof SVGGElement) {
-			return createShapeFromGElement((SVGGElement) elt, withTransformations);
-		}
-		return null;
+		return svgToShapeProducers.stream()
+			.filter(t -> t.a.isAssignableFrom(elt.getClass()))
+			.findFirst()
+			.map(t -> t.b.apply(elt, withTransformations))
+			.orElse(null);
 	}
 }

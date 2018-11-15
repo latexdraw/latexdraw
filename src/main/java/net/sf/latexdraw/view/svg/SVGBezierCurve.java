@@ -32,6 +32,7 @@ import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An SVG generator for a Bézier curve.
@@ -171,8 +172,8 @@ class SVGBezierCurve extends SVGModifiablePointsShape<BezierCurve> {
 
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null || doc.getFirstChild().getDefs() == null) {
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
+		if(doc.getFirstChild().getDefs() == null) {
 			return null;
 		}
 
@@ -236,29 +237,35 @@ class SVGBezierCurve extends SVGModifiablePointsShape<BezierCurve> {
 	 * @param doc The owner document.
 	 * @return The created g element or null if the shape has not the 'show points' option activated.
 	 */
-	SVGGElement getShowPointsElement(final SVGDocument doc) {
-		if(!shape.isShowPts() || doc == null) {
+	SVGGElement getShowPointsElement(final @NotNull SVGDocument doc) {
+		if(!shape.isShowPts()) {
 			return null;
 		}
 
-		final double blackDash = shape.getDashSepBlack();
-		final double whiteDash = shape.getDashSepWhite();
 		final boolean hasDble = shape.hasDbleBord();
-		final Color col = shape.getLineColour();
-		final boolean isClosed = !shape.isOpened();
 		final SVGGElement showPts = new SVGGElement(doc);
-		final Arrow arrow1 = shape.getArrowAt(0);
-		final Arrow arrow2 = shape.getArrowAt(-1);
-		final double doubleSep = shape.getDbleBordSep();
-		final double thick = (hasDble ? shape.getDbleBordSep() + shape.getThickness() * 2. : shape.getThickness()) / 2.;
-		final double rad = (PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM * Shape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM * thick * 2.) / 2.;
-		int i;
-		final int size = shape.getNbPoints();
+		final double thick = (hasDble ? shape.getDbleBordSep() + shape.getThickness() * 2d : shape.getThickness()) / 2d;
 
 		showPts.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SHOW_PTS);
 
-		/* Plotting the lines. */
-		for(i = 3; i < size; i += 2) {
+		// Plotting the lines
+		produceShowPointsLines(doc, showPts, thick);
+		// Plotting the dots
+		produceShowPointsDots(doc, showPts, thick);
+
+		return showPts;
+	}
+
+	private void produceShowPointsLines(final @NotNull SVGDocument doc, final @NotNull SVGGElement showPts, final double thick) {
+		final double blackDash = shape.getDashSepBlack();
+		final double whiteDash = shape.getDashSepWhite();
+		final Color col = shape.getLineColour();
+		final boolean isClosed = !shape.isOpened();
+		final int size = shape.getNbPoints();
+		final double doubleSep = shape.getDbleBordSep();
+		final boolean hasDble = shape.hasDbleBord();
+
+		for(int i = 3; i < size; i += 2) {
 			showPts.appendChild(getShowPointsLine(doc, thick, col, shape.getPtAt(i - 1), shape.getSecondCtrlPtAt(i - 1), blackDash, whiteDash, hasDble, 1.,
 				doubleSep));
 			showPts.appendChild(getShowPointsLine(doc, thick, col, shape.getSecondCtrlPtAt(i - 1), shape.getFirstCtrlPtAt(i), blackDash, whiteDash, hasDble,
@@ -266,7 +273,7 @@ class SVGBezierCurve extends SVGModifiablePointsShape<BezierCurve> {
 			showPts.appendChild(getShowPointsLine(doc, thick, col, shape.getFirstCtrlPtAt(i), shape.getPtAt(i), blackDash, whiteDash, hasDble, 1., doubleSep));
 		}
 
-		for(i = 2; i < size; i += 2) {
+		for(int i = 2; i < size; i += 2) {
 			showPts.appendChild(getShowPointsLine(doc, thick, col, shape.getPtAt(i - 1), shape.getSecondCtrlPtAt(i - 1), blackDash, whiteDash, hasDble, 1.,
 				doubleSep));
 			showPts.appendChild(getShowPointsLine(doc, thick, col, shape.getSecondCtrlPtAt(i - 1), shape.getFirstCtrlPtAt(i), blackDash, whiteDash, hasDble,
@@ -287,8 +294,19 @@ class SVGBezierCurve extends SVGModifiablePointsShape<BezierCurve> {
 		showPts.appendChild(getShowPointsLine(doc, thick, col, shape.getFirstCtrlPtAt(0), shape.getFirstCtrlPtAt(1), blackDash, whiteDash, hasDble, 1.,
 			doubleSep));
 		showPts.appendChild(getShowPointsLine(doc, thick, col, shape.getFirstCtrlPtAt(1), shape.getPtAt(1), blackDash, whiteDash, hasDble, 1., doubleSep));
+	}
 
-		// Plotting the dots.
+	/**
+	 * Companion method of getShowPointsElement
+	 */
+	private void produceShowPointsDots(final @NotNull SVGDocument doc, final @NotNull SVGGElement showPts, final double thick) {
+		final Arrow arrow1 = shape.getArrowAt(0);
+		final Arrow arrow2 = shape.getArrowAt(-1);
+		final double rad = (PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM * Shape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM * thick * 2d) / 2d;
+		final int size = shape.getNbPoints();
+		final Color col = shape.getLineColour();
+		final boolean isClosed = !shape.isOpened();
+
 		if(!arrow1.hasStyle() || isClosed) {
 			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getPtAt(0), col));
 		}
@@ -297,12 +315,12 @@ class SVGBezierCurve extends SVGModifiablePointsShape<BezierCurve> {
 			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getPtAt(-1), col));
 		}
 
-		for(i = 1; i < size - 1; i++) {
+		for(int i = 1; i < size - 1; i++) {
 			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getPtAt(i), col));
 			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(i), col));
 		}
 
-		for(i = 0; i < size; i++) {
+		for(int i = 0; i < size; i++) {
 			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getFirstCtrlPtAt(i), col));
 		}
 
@@ -310,7 +328,5 @@ class SVGBezierCurve extends SVGModifiablePointsShape<BezierCurve> {
 			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(-1), col));
 			showPts.appendChild(SVGShape.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(0), col));
 		}
-
-		return showPts;
 	}
 }

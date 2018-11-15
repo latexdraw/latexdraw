@@ -74,6 +74,53 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		return doc.toString();
 	}
 
+	private void commentCode(final StringBuilder cache) {
+		if(withComments && !latexdata.getComment().isEmpty()) {
+			cache.append(latexdata.getCommentWithTag());
+		}
+	}
+
+	private void addPkgs(final StringBuilder cache) {
+		String pkg = latexdata.getPackages();
+
+		if(!pkg.isEmpty()) {
+			pkg = "% User Packages:" + SystemUtils.getInstance().EOL + "% " + pkg.replace(SystemUtils.getInstance().EOL, SystemUtils.getInstance().EOL + "% "); //NON-NLS
+			cache.append(pkg).append(SystemUtils.getInstance().EOL);
+		}
+	}
+
+	private boolean startlatexParams(final StringBuilder cache) {
+		if(!withLatexParams) {
+			return false;
+		}
+
+		cache.append("\\begin{figure}"); //NON-NLS
+
+		if(latexdata.getPositionVertToken() == VerticalPosition.NONE) {
+			cache.append(SystemUtils.getInstance().EOL);
+		}else {
+			cache.append('[').append(latexdata.getPositionVertToken().getToken()).append(']').append(SystemUtils.getInstance().EOL);
+		}
+
+		return true;
+	}
+
+	private void endlatexParams(final StringBuilder cache, final boolean hasBegan) {
+		if(withLatexParams) {
+			if(latexdata.isPositionHoriCentre()) {
+				cache.append("\\end{center}").append(SystemUtils.getInstance().EOL); //NON-NLS
+			}
+			if(!latexdata.getLabel().isEmpty()) {
+				cache.append("\\label{").append(latexdata.getLabel()).append('}').append(SystemUtils.getInstance().EOL); //NON-NLS
+			}
+			if(!latexdata.getCaption().isEmpty()) {
+				cache.append("\\caption{").append(latexdata.getCaption()).append('}').append(SystemUtils.getInstance().EOL); //NON-NLS
+			}
+			if(hasBegan) {
+				cache.append("\\end{figure}").append(SystemUtils.getInstance().EOL); //NON-NLS
+			}
+		}
+	}
 
 	@Override
 	public String getDrawingCode() {
@@ -82,41 +129,22 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		}
 
 		final StringBuilder cache = new StringBuilder();
-		String pkg = latexdata.getPackages();
 		final Point origin = handler.getOriginDrawingPoint();
 		final Point tl = handler.getTopRightDrawingPoint();
 		final Point br = handler.getBottomLeftDrawingPoint();
 		final int ppc = handler.getPPCDrawing();
 		final Set<String> addedColours = new HashSet<>();
 		final StringBuilder shapeCode = new StringBuilder();
-		final boolean hasBeginFigure;
 
-		if(withComments && !latexdata.getComment().isEmpty()) {
-			cache.append(latexdata.getCommentWithTag());
-		}
+		commentCode(cache);
 
 		cache.append(packagePstricks).append("% ").append(packageForSpacePicture.replaceAll(SystemUtils.getInstance().EOL, SystemUtils.getInstance().EOL + "% "));
 
-		if(!pkg.isEmpty()) {
-			pkg = "% User Packages:" + SystemUtils.getInstance().EOL + "% " + pkg.replace(SystemUtils.getInstance().EOL, SystemUtils.getInstance().EOL + "% "); //NON-NLS
-			cache.append(pkg).append(SystemUtils.getInstance().EOL);
-		}
+		addPkgs(cache);
 
 		cache.append(SystemUtils.getInstance().EOL);
 
-		if(withLatexParams && (latexdata.getPositionVertToken() != VerticalPosition.NONE || !latexdata.getCaption().isEmpty() || !latexdata.getLabel().isEmpty())) {
-			cache.append("\\begin{figure}"); //NON-NLS
-
-			if(latexdata.getPositionVertToken() == VerticalPosition.NONE) {
-				cache.append(SystemUtils.getInstance().EOL);
-			}else {
-				cache.append('[').append(latexdata.getPositionVertToken().getToken()).append(']').append(SystemUtils.getInstance().EOL);
-			}
-
-			hasBeginFigure = true;
-		}else {
-			hasBeginFigure = false;
-		}
+		final boolean hasBegan = startlatexParams(cache);
 
 		if(withLatexParams && latexdata.isPositionHoriCentre()) {
 			cache.append("\\begin{center}").append(SystemUtils.getInstance().EOL); //NON-NLS
@@ -137,20 +165,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 
 		cache.append(shapeCode).append("\\end{pspicture}").append(SystemUtils.getInstance().EOL).append('}').append(SystemUtils.getInstance().EOL); //NON-NLS
 
-		if(withLatexParams) {
-			if(latexdata.isPositionHoriCentre()) {
-				cache.append("\\end{center}").append(SystemUtils.getInstance().EOL); //NON-NLS
-			}
-			if(!latexdata.getLabel().isEmpty()) {
-				cache.append("\\label{").append(latexdata.getLabel()).append('}').append(SystemUtils.getInstance().EOL); //NON-NLS
-			}
-			if(!latexdata.getCaption().isEmpty()) {
-				cache.append("\\caption{").append(latexdata.getCaption()).append('}').append(SystemUtils.getInstance().EOL); //NON-NLS
-			}
-			if(hasBeginFigure) {
-				cache.append("\\end{figure}").append(SystemUtils.getInstance().EOL); //NON-NLS
-			}
-		}
+		endlatexParams(cache, hasBegan);
 
 		return cache.toString();
 	}

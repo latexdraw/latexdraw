@@ -18,10 +18,7 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public class SVGLinearGradientElement extends SVGElement implements SVGLineParseTrait {
-	/**
-	 * {@link SVGElement#SVGElement(Node, SVGElement)}
-	 */
-	public SVGLinearGradientElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public SVGLinearGradientElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 

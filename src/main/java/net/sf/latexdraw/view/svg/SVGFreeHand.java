@@ -11,7 +11,6 @@
 package net.sf.latexdraw.view.svg;
 
 import java.util.stream.Collectors;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.FreeHandStyle;
 import net.sf.latexdraw.model.api.shape.Freehand;
@@ -21,13 +20,14 @@ import net.sf.latexdraw.parser.svg.SVGDocument;
 import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.parser.svg.SVGPathElement;
-import net.sf.latexdraw.parser.svg.parsers.SVGPointsParser;
+import net.sf.latexdraw.parser.svg.SVGParserUtils;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegClosePath;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegCurvetoCubic;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An SVG generator for a free hand drawing.
@@ -40,31 +40,20 @@ class SVGFreeHand extends SVGShape<Freehand> {
 
 	SVGFreeHand(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.INST.createFreeHand(
-			SVGPointsParser.parsePoints(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS)).stream().
+			SVGParserUtils.INSTANCE.parsePoints(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS)).stream().
 			map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList())));
 
 		final SVGElement main = getLaTeXDrawElement(elt, null);
 
 		try {
 			shape.setInterval(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_INTERVAL)).intValue());
-		}catch(final NumberFormatException ignore) {
+		}catch(final NumberFormatException ignored) {
 		}
 
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
-
-		try {
-			FreeHandStyle type = FreeHandStyle.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE));
-			if(type == null) {
-				final int val = Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE)).intValue();
-				type = val == 0 ? FreeHandStyle.LINES : FreeHandStyle.CURVES;
-			}
-
-			shape.setType(type);
-		}catch(final NumberFormatException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-		}
+		shape.setType(FreeHandStyle.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE)));
 
 		if(withTransformation) {
 			applyTransformations(elt);
@@ -174,11 +163,7 @@ class SVGFreeHand extends SVGShape<Freehand> {
 
 
 	@Override
-	SVGElement toSVG(final SVGDocument doc) {
-		if(doc == null) {
-			return null;
-		}
-
+	SVGElement toSVG(final @NotNull SVGDocument doc) {
 		final SVGElement root = new SVGGElement(doc);
 		SVGElement elt;
 

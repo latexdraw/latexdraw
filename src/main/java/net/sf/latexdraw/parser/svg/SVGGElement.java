@@ -19,11 +19,7 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public class SVGGElement extends SVGElement {
-	/**
-	 * See {@link SVGElement#SVGElement(Node, SVGElement)}.
-	 * @throws MalformedSVGDocument If the element is not well formed.
-	 */
-	public SVGGElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public SVGGElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 

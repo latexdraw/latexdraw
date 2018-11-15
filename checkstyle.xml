@@ -76,7 +76,7 @@
         <module name="NoFinalizer"/>
         <module name="ParameterAssignment"/>
         <module name="CyclomaticComplexity">
-            <property name="max" value="19"/>
+            <property name="max" value="10"/>
             <property name="switchBlockAsSingleDecisionPoint" value="true"/>
         </module>
 

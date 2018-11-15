@@ -48,7 +48,6 @@ import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.parser.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parser.svg.SVGAttributes;
 import net.sf.latexdraw.parser.svg.SVGDefsElement;
 import net.sf.latexdraw.parser.svg.SVGDocument;
@@ -256,7 +255,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 					drawing.addShape(insertedShapes);
 				});
 				return Boolean.TRUE;
-			}catch(final IOException | MalformedSVGDocument ex) {
+			}catch(final IOException | IllegalArgumentException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 				return Boolean.FALSE;
 			}
@@ -364,7 +363,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 						filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList()));
 					final File thumb = new File(pathCache + File.separator + file.getFileName() + ExportFormat.PNG.getFileExtension());
 					createTemplateThumbnail(thumb, template);
-				}catch(final MalformedSVGDocument | IOException | IllegalArgumentException ex) {
+				}catch(final IOException | IllegalArgumentException ex) {
 					BadaboomCollector.INSTANCE.add(ex);
 				}
 			});
@@ -622,7 +621,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 				});
 
 				return Boolean.TRUE;
-			}catch(final MalformedSVGDocument | IOException | DOMException ex) {
+			}catch(final IllegalArgumentException | IOException | DOMException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
 				return Boolean.FALSE;
 			}

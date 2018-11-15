@@ -29,6 +29,7 @@ import net.sf.latexdraw.parser.svg.path.SVGPathSegClosePath;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.util.LNamespace;
+import org.jetbrains.annotations.NotNull;
 
 abstract class SVGModifiablePointsShape<S extends ModifiablePointsShape> extends SVGShape<S> {
 	/**
@@ -53,7 +54,7 @@ abstract class SVGModifiablePointsShape<S extends ModifiablePointsShape> extends
 	/**
 	 * Returns a set of points from an SVG element.
 	 */
-	static List<Point> getPointsFromSVGElement(final SVGElement elt) {
+	static @NotNull List<Point> getPointsFromSVGElement(final SVGElement elt) {
 		if(elt instanceof SVGLineElement) {
 			final SVGLineElement lineElt = (SVGLineElement) elt;
 			return Arrays.asList(ShapeFactory.INST.createPoint(lineElt.getX1(), lineElt.getY1()), ShapeFactory.INST.createPoint(lineElt.getX2(), lineElt.getY2()));
@@ -62,7 +63,7 @@ abstract class SVGModifiablePointsShape<S extends ModifiablePointsShape> extends
 		if(elt instanceof AbstractPointsElement) {
 			final List<Point2D> ptsPol = ((AbstractPointsElement) elt).getPoints2D();
 			if(ptsPol == null) {
-				return null;
+				return Collections.emptyList();
 			}
 			return ptsPol.stream().map(pt -> ShapeFactory.INST.createPoint(pt.getX(), pt.getY())).collect(Collectors.toList());
 		}

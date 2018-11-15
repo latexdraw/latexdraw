@@ -110,17 +110,6 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 			dblBorder = null;
 		}
 
-		if(model.isThicknessable()) {
-			model.thicknessProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
-		}
-
-		if(model.isLineStylable()) {
-			model.linestyleProperty().addListener((ChangeListener<? super LineStyle>) strokesUpdateCall);
-			model.dashSepBlackProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
-			model.dashSepWhiteProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
-			model.dotSepProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
-		}
-
 		if(model.isFillable()) {
 			fillUpdateCall = (obs, oldVal, newVal) -> border.setFill(getFillingPaint(model.getFillingStyle()));
 			model.fillingProperty().addListener((ChangeListener<? super FillingStyle>) fillUpdateCall);
@@ -143,11 +132,26 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 
 		border.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getLineColour().toJFX(), model.lineColourProperty()));
 
+		setUpLine();
 		bindBorderMovable();
 		updateStrokes();
 		updateShadowPosition();
 		bindRotationAngle();
 	}
+
+	private final void setUpLine() {
+		if(model.isThicknessable()) {
+			model.thicknessProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
+		}
+
+		if(model.isLineStylable()) {
+			model.linestyleProperty().addListener((ChangeListener<? super LineStyle>) strokesUpdateCall);
+			model.dashSepBlackProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
+			model.dashSepWhiteProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
+			model.dotSepProperty().addListener((ChangeListener<? super Number>) strokesUpdateCall);
+		}
+	}
+
 
 	private void bindRotationTransformation(final Supplier<Double> pivotX, final Supplier<Double> pivotY) {
 		shapeRotation = new Rotate();
@@ -216,62 +220,63 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 	private Paint getHatchingsFillingPaint(final FillingStyle style) {
 		final Bounds bounds = border.getBoundsInParent();
 
-		if(bounds.getWidth() > 0d && bounds.getHeight() > 0d) {
-			final Group hatchings = new Group();
-			final double hAngle = model.getHatchingsAngle();
-
-			hatchings.getChildren().add(new Rectangle(bounds.getWidth(), bounds.getHeight(), style.isFilled() ? model.getFillingCol().toJFX() : null));
-
-			if(style == FillingStyle.VLINES || style == FillingStyle.VLINES_PLAIN) {
-				computeHatchings(hatchings, hAngle, bounds.getWidth(), bounds.getHeight());
-			}else {
-				if(style == FillingStyle.HLINES || style == FillingStyle.HLINES_PLAIN) {
-					computeHatchings(hatchings, hAngle > 0d ? hAngle - Math.PI / 2d : hAngle + Math.PI / 2d, bounds.getWidth(), bounds.getHeight());
-				}else {
-					if(style == FillingStyle.CLINES || style == FillingStyle.CLINES_PLAIN) {
-						computeHatchings(hatchings, hAngle, bounds.getWidth(), bounds.getHeight());
-						computeHatchings(hatchings, hAngle > 0d ? hAngle - Math.PI / 2d : hAngle + Math.PI / 2d, bounds.getWidth(), bounds.getHeight());
-					}
-				}
-			}
-
-			final WritableImage image = new WritableImage((int) bounds.getWidth(), (int) bounds.getHeight());
-			Platform.runLater(() -> hatchings.snapshot(new SnapshotParameters(), image));
-			return new ImagePattern(image, 0, 0, 1, 1, true);
+		if(bounds.getWidth() <= 0d || bounds.getHeight() <= 0d) {
+			return null;
 		}
 
-		return null;
+		final Group hatchings = new Group();
+		final double hAngle = model.getHatchingsAngle();
+
+		hatchings.getChildren().add(new Rectangle(bounds.getWidth(), bounds.getHeight(), style.isFilled() ? model.getFillingCol().toJFX() : null));
+
+		switch(style) {
+			case VLINES:
+			case VLINES_PLAIN:
+				computeHatchings(hatchings, hAngle, bounds.getWidth(), bounds.getHeight());
+				break;
+			case HLINES:
+			case HLINES_PLAIN:
+				computeHatchings(hatchings, hAngle > 0d ? hAngle - Math.PI / 2d : hAngle + Math.PI / 2d, bounds.getWidth(), bounds.getHeight());
+				break;
+			case CLINES:
+			case CLINES_PLAIN:
+				computeHatchings(hatchings, hAngle, bounds.getWidth(), bounds.getHeight());
+				computeHatchings(hatchings, hAngle > 0d ? hAngle - Math.PI / 2d : hAngle + Math.PI / 2d, bounds.getWidth(), bounds.getHeight());
+				break;
+		}
+
+		final WritableImage image = new WritableImage((int) bounds.getWidth(), (int) bounds.getHeight());
+		Platform.runLater(() -> hatchings.snapshot(new SnapshotParameters(), image));
+		return new ImagePattern(image, 0, 0, 1, 1, true);
 	}
 
-
-	private void computeHatchings(final Group hatchings, final double angle, final double width, final double height) {
-		double angle2 = angle % (Math.PI * 2d);
-		final float halfPI = (float) (Math.PI / 2d);
-		final double val = model.getHatchingsWidth() + model.getHatchingsSep();
-
-		if(angle2 > 0d) {
-			if((float) angle2 > 3f * halfPI) {
-				angle2 -= Math.PI * 2d;
-			}else {
-				if((float) angle2 > halfPI) {
-					angle2 -= Math.PI;
-				}
+	/**
+	 * Companion method of computeHatchings
+	 */
+	private double computeHatchingsAngle(final double angle) {
+		if(angle > 0d) {
+			if(angle > 3f * Math.PI / 2d) {
+				return angle - Math.PI * 2d;
+			}
+			if(angle > Math.PI / 2d) {
+				return angle - Math.PI;
 			}
 		}else {
-			if((float) angle2 < -3f * halfPI) {
-				angle2 += Math.PI * 2d;
-			}else {
-				if((float) angle2 < -halfPI) {
-					angle2 += Math.PI;
-				}
+			if(angle < -3f * Math.PI / 2d) {
+				return angle + Math.PI * 2d;
+			}
+			if(angle < -Math.PI / 2d) {
+				return angle + Math.PI;
 			}
 		}
+		return angle;
+	}
 
-		if(MathUtils.INST.equalsDouble(angle2, 0d)) {
-			for(double x = 0d; x < width; x += val) {
-				createHatchingLine(hatchings, x, 0d, x, height, width, height);
-			}
-		}else if(MathUtils.INST.equalsDouble(angle2, Math.abs(halfPI))) {
+	/**
+	 * Companion method of computeHatchings
+	 */
+	private void computeRotatedHatchings(final Group hatchings, final double angle2, final double width, final double height, final double val) {
+		if(MathUtils.INST.equalsDouble(angle2, Math.PI / 2d)) {
 			for(double y = 0d; y < height; y += val) {
 				createHatchingLine(hatchings, 0d, y, width, y, width, height);
 			}
@@ -300,6 +305,20 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 		}
 	}
 
+	private void computeHatchings(final Group hatchings, final double angle, final double width, final double height) {
+		final double adaptedAngle = computeHatchingsAngle(angle % (Math.PI * 2d));
+		final double val = model.getHatchingsWidth() + model.getHatchingsSep();
+
+		if(MathUtils.INST.equalsDouble(adaptedAngle, 0d)) {
+
+			for(double x = 0d; x < width; x += val) {
+				createHatchingLine(hatchings, x, 0d, x, height, width, height);
+			}
+		}else {
+			computeRotatedHatchings(hatchings, adaptedAngle, width, height, val);
+		}
+	}
+
 	private void createHatchingLine(final Group group, final double x1, final double y1, final double x2, final double y2,
 									final double clipWidth, final double clipHeight) {
 		final javafx.scene.shape.Line line = new javafx.scene.shape.Line();
@@ -317,17 +336,56 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 	}
 
 
+	private LinearGradient computeRotatedGradient(final double angle, final double gradMidPt, final Point tl, final Point br) {
+		Point pt1;
+		Point pt2;
+
+		if(MathUtils.INST.equalsDouble(angle % (Math.PI / 2d), 0d)) {
+			pt1 = ShapeFactory.INST.createPoint(tl.getX(), (tl.getY() + br.getY()) / 2d);
+			pt2 = ShapeFactory.INST.createPoint(br.getX(), (tl.getY() + br.getY()) / 2d);
+
+			if(gradMidPt < 0.5) {
+				pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), br.getX(), (tl.getY() + br.getY()) / 2d));
+			}
+
+			pt2.setX(tl.getX() + (br.getX() - tl.getX()) * gradMidPt);
+		}else {
+			final Line l2;
+			final Point cg = model.getGravityCentre();
+			pt1 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, tl.getY()).rotatePoint(cg, -angle);
+			pt2 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, br.getY()).rotatePoint(cg, -angle);
+			final Line l = ShapeFactory.INST.createLine(pt1, pt2);
+
+			if(angle >= 0d && angle < Math.PI / 2d) {
+				l2 = l.getPerpendicularLine(tl);
+			}else {
+				l2 = l.getPerpendicularLine(ShapeFactory.INST.createPoint(tl.getX(), br.getY()));
+			}
+
+			pt1 = l.getIntersection(l2);
+			l.setX1(pt1.getX());
+			l.setY1(pt1.getY());
+			pt2 = l.findPoints(pt1, 2d * Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY()) * gradMidPt)[0];
+
+			if(gradMidPt < 0.5) {
+				pt1 = pt1.rotatePoint(model.getGravityCentre(), Math.PI);
+			}
+		}
+
+		return new LinearGradient(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY(), false, CycleMethod.NO_CYCLE,
+			new Stop(0d, model.getGradColStart().toJFX()), new Stop(1d, model.getGradColEnd().toJFX()));
+	}
+
 	private LinearGradient computeGradient() {
 		final Point tl = model.getTopLeftPoint();
 		final Point br = model.getBottomRightPoint();
-		Point pt1 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, tl.getY());
-		Point pt2 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, br.getY());
-		double angle = model.getGradAngle() % (2d * Math.PI);
-		double gradMidPt = model.getGradMidPt();
 
 		if(tl.equals(br)) {
 			return null;
 		}
+
+		double angle = model.getGradAngle() % (2d * Math.PI);
+		double gradMidPt = model.getGradMidPt();
 
 		if(angle < 0d) {
 			angle = 2d * Math.PI + angle;
@@ -338,49 +396,18 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 			angle -= Math.PI;
 		}
 
-		if(MathUtils.INST.equalsDouble(angle, 0d)) {
-			if(gradMidPt < 0.5) {
-				pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (tl.getX() + br.getX()) / 2d, br.getY()));
-			}
-
-			pt2.setY(tl.getY() + (br.getY() - tl.getY()) * gradMidPt);
-		}else {
-			if(MathUtils.INST.equalsDouble(angle % (Math.PI / 2d), 0d)) {
-				pt1 = ShapeFactory.INST.createPoint(tl.getX(), (tl.getY() + br.getY()) / 2d);
-				pt2 = ShapeFactory.INST.createPoint(br.getX(), (tl.getY() + br.getY()) / 2d);
-
-				if(gradMidPt < 0.5) {
-					pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), br.getX(), (tl.getY() + br.getY()) / 2d));
-				}
-
-				pt2.setX(tl.getX() + (br.getX() - tl.getX()) * gradMidPt);
-			}else {
-				final Point cg = model.getGravityCentre();
-				final Line l2;
-				final Line l;
-
-				pt1 = pt1.rotatePoint(cg, -angle);
-				pt2 = pt2.rotatePoint(cg, -angle);
-				l = ShapeFactory.INST.createLine(pt1, pt2);
-
-				if(angle >= 0d && angle < Math.PI / 2d) {
-					l2 = l.getPerpendicularLine(tl);
-				}else {
-					l2 = l.getPerpendicularLine(ShapeFactory.INST.createPoint(tl.getX(), br.getY()));
-				}
-
-				pt1 = l.getIntersection(l2);
-				final double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
-				l.setX1(pt1.getX());
-				l.setY1(pt1.getY());
-				final Point[] pts = l.findPoints(pt1, 2d * distance * gradMidPt);
-				pt2 = pts[0];
-
-				if(gradMidPt < 0.5) {
-					pt1 = pt1.rotatePoint(model.getGravityCentre(), Math.PI);
-				}
-			}
+		if(!MathUtils.INST.equalsDouble(angle, 0d)) {
+			return computeRotatedGradient(angle, gradMidPt, tl, br);
 		}
+
+		final Point pt1 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, tl.getY());
+		final Point pt2 = ShapeFactory.INST.createPoint((tl.getX() + br.getX()) / 2d, br.getY());
+
+		if(gradMidPt < 0.5) {
+			pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (tl.getX() + br.getX()) / 2d, br.getY()));
+		}
+
+		pt2.setY(tl.getY() + (br.getY() - tl.getY()) * gradMidPt);
 
 		return new LinearGradient(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY(), false, CycleMethod.NO_CYCLE,
 			new Stop(0d, model.getGradColStart().toJFX()), new Stop(1d, model.getGradColEnd().toJFX()));

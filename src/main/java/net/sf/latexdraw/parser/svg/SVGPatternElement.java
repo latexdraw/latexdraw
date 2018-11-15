@@ -10,11 +10,9 @@
  */
 package net.sf.latexdraw.parser.svg;
 
-import java.text.ParseException;
 import java.util.Optional;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Color;
-import net.sf.latexdraw.parser.svg.parsers.SVGLengthParser;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Node;
 
@@ -23,11 +21,7 @@ import org.w3c.dom.Node;
  * @author Arnaud BLOUIN
  */
 public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
-	/**
-	 * See {@link SVGElement#SVGElement(Node, SVGElement)}.
-	 * @throws MalformedSVGDocument If the element is not well formed.
-	 */
-	public SVGPatternElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+	public SVGPatternElement(final Node n, final SVGElement p) {
 		super(n, p);
 	}
 
@@ -166,11 +160,8 @@ public class SVGPatternElement extends SVGElement implements SVGRectParseTrait {
 			return Double.NaN;
 		}
 
-		try {
-			return new SVGLengthParser(g.getAttribute(getUsablePrefix() + SVGAttributes.SVG_STROKE_WIDTH)).parseLength().getValue();
-		}catch(final ParseException ex) {
-			return Double.NaN;
-		}
+		return SVGParserUtils.INSTANCE.parseLength(g.getAttribute(getUsablePrefix() + SVGAttributes.SVG_STROKE_WIDTH)).
+			map(v -> v.getValue()).orElse(Double.NaN);
 	}
 
 	@Override

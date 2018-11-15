@@ -12,7 +12,7 @@ public class TestSVGDefsElement extends TestBaseSVGElement {
 	SVGDefsElement defs;
 
 	@BeforeEach
-	void setUpDefs() throws Exception {
+	void setUpDefs() {
 		super.setUp();
 		defs = new SVGDefsElement(node, null);
 	}
@@ -51,7 +51,7 @@ public class TestSVGDefsElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testContructorOK() throws MalformedSVGDocument {
+	void testContructorOK() {
 		new SVGDefsElement(node, null);
 	}
 

@@ -11,6 +11,7 @@
 package net.sf.latexdraw.parser.svg.path;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * A list of SVGPath segments.
@@ -19,18 +20,11 @@ import java.util.ArrayList;
 public class SVGPathSegList extends ArrayList<SVGPathSeg> implements SVGPathHandler {
 	@Override
 	public String toString() {
-		final StringBuilder path = new StringBuilder();
-
-		for(final SVGPathSeg seg : this) {
-			if(seg != null) {
-				path.append(seg);
-				path.append(' ');
-			}
-		}
-
-		return path.toString();
+		return stream()
+			.filter(seg -> seg != null)
+			.map(seg -> seg.toString())
+			.collect(Collectors.joining(" "));
 	}
-
 
 	@Override
 	public void onPathSeg(final SVGPathSeg pathSeg) {
