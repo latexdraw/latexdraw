@@ -14,8 +14,8 @@ import net.sf.latexdraw.model.api.shape.Text;
 
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.closeTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.junit.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class CompareShapeMatcher implements HelperTest {
 	public static final CompareShapeMatcher INST = new CompareShapeMatcher();
@@ -175,24 +175,20 @@ public final class CompareShapeMatcher implements HelperTest {
 	}
 
 	public void assertEqualsArrowBar(final Arrow arr1, final Arrow arr2) {
-		final String msg = arr1.getArrowStyle() + " " + arr2.getArrowStyle();
-		assertEquals(msg, arr1.getTBarSizeNum(), arr2.getTBarSizeNum(), 0.001);
-		assertEquals(msg, arr1.getTBarSizeDim(), arr2.getTBarSizeDim(), 0.001);
+		assertEquals(arr1.getTBarSizeNum(), arr2.getTBarSizeNum(), 0.001, arr1.getArrowStyle() + " " + arr2.getArrowStyle());
+		assertEquals(arr1.getTBarSizeDim(), arr2.getTBarSizeDim(), 0.001, arr1.getArrowStyle() + " " + arr2.getArrowStyle());
 	}
 
 	public void assertEqualsArrowBracket(final Arrow arr1, final Arrow arr2) {
-		final String msg = arr1.getArrowStyle() + " " + arr2.getArrowStyle();
-		assertEquals(msg, arr1.getBracketNum(), arr2.getBracketNum(), 0.001);
+		assertEquals(arr1.getBracketNum(), arr2.getBracketNum(), 0.001, arr1.getArrowStyle() + " " + arr2.getArrowStyle());
 	}
 
 	public void assertEqualsArrowRBracket(final Arrow arr1, final Arrow arr2) {
-		final String msg = arr1.getArrowStyle() + " " + arr2.getArrowStyle();
-		assertEquals(msg, arr1.getRBracketNum(), arr2.getRBracketNum(), 0.001);
+		assertEquals(arr1.getRBracketNum(), arr2.getRBracketNum(), 0.001, arr1.getArrowStyle() + " " + arr2.getArrowStyle());
 	}
 
 	public void assertEqualsArrowCircleDisk(final Arrow arr1, final Arrow arr2) {
-		final String msg = arr1.getArrowStyle() + " " + arr2.getArrowStyle();
-		assertEquals(msg, arr1.getDotSizeNum(), arr2.getDotSizeNum(), 0.001);
-		assertEquals(msg, arr1.getDotSizeDim(), arr2.getDotSizeDim(), 0.001);
+		assertEquals(arr1.getDotSizeNum(), arr2.getDotSizeNum(), 0.001, arr1.getArrowStyle() + " " + arr2.getArrowStyle());
+		assertEquals(arr1.getDotSizeDim(), arr2.getDotSizeDim(), 0.001, arr1.getArrowStyle() + " " + arr2.getArrowStyle());
 	}
 }
