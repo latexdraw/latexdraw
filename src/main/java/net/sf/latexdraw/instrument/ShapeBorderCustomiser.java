@@ -73,9 +73,10 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		frameArcPic.managedProperty().bind(frameArcPic.visibleProperty());
 		showPoints.managedProperty().bind(showPoints.visibleProperty());
 		opened.managedProperty().bind(opened.visibleProperty());
+		linePane.managedProperty().bind(linePane.visibleProperty());
 
-		linePane.visibleProperty().bind(thicknessField.visibleProperty().or(lineCB.visibleProperty()).or(lineColButton.visibleProperty()).
-			or(bordersPosCB.visibleProperty()).or(frameArcField.visibleProperty()).or(showPoints.visibleProperty()).or(linePane.visibleProperty()));
+		linePane.visibleProperty().bind(activatedProp.and(thicknessField.visibleProperty().or(lineCB.visibleProperty()).or(lineColButton.visibleProperty()).
+				or(bordersPosCB.visibleProperty()).or(frameArcField.visibleProperty()).or(showPoints.visibleProperty())));
 
 		final Map<BorderPos, Image> cachePos = new EnumMap<>(BorderPos.class);
 		cachePos.put(BorderPos.INTO, new Image("/res/doubleBoundary/double.boundary.into.png")); //NON-NLS
@@ -140,7 +141,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
-		linePane.setVisible(visible);
+		// Nothing to do.
 	}
 
 	@Override
