@@ -11,7 +11,6 @@
     <properties>
         <malai.version>3.1-SNAPSHOT</malai.version>
         <antlr.version>4.7.1</antlr.version>
-        <jfx.version>11</jfx.version>
         <java.version>11</java.version>
         <junit.version>5.3.1</junit.version>
         <testfx.version>4.0.15-alpha</testfx.version>
@@ -53,7 +52,6 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <release>${java.version}</release>
-                    <showWarnings>true</showWarnings>
                     <compilerArgs combine.children="append">
                         <arg>-XDcompilePolicy=simple</arg>
                         <arg>-Xplugin:ErrorProne
@@ -444,31 +442,6 @@
             <artifactId>hamcrest-junit</artifactId>
             <version>2.0.0.0</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>${jfx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${jfx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${jfx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${jfx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-swing</artifactId>
-            <version>${jfx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
