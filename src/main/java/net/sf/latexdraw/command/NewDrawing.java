@@ -20,6 +20,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.CommandsRegistry;
 import org.malai.javafx.command.IOCommand;
 import org.malai.javafx.ui.JfxUI;
@@ -32,14 +33,15 @@ import org.malai.undo.UndoCollector;
  */
 public class NewDrawing extends IOCommand<Label> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
-	private FileChooser fileChooser;
+	private final @NotNull FileChooser fileChooser;
 	/** The instrument used that manage the preferences. */
-	private final Optional<File> currentFolder;
-	private final ResourceBundle lang;
-	private final Stage mainstage;
+	private final @NotNull Optional<File> currentFolder;
+	private final @NotNull ResourceBundle lang;
+	private final @NotNull Stage mainstage;
 
-	public NewDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
-					final FileChooser fileChooser, final Optional<File> currentFolder, final ResourceBundle lang, final Stage mainstage) {
+	public NewDrawing(final File file, final @NotNull OpenSaver<Label> openSaveManager, final @NotNull ProgressBar progressBar,
+		final @NotNull Label statusWidget, final @NotNull JfxUI ui, final @NotNull FileChooser fileChooser, final @NotNull Optional<File> currentFolder,
+		final @NotNull ResourceBundle lang, final @NotNull Stage mainstage) {
 		super(file, openSaveManager, progressBar, statusWidget, ui);
 		this.fileChooser = fileChooser;
 		this.currentFolder = currentFolder;
@@ -87,13 +89,6 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 
 	@Override
 	public boolean canDo() {
-		return fileChooser != null && ui != null && openSaveManager != null;
-	}
-
-
-	@Override
-	public void flush() {
-		super.flush();
-		fileChooser = null;
+		return ui != null && openSaveManager != null;
 	}
 }

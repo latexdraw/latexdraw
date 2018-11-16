@@ -12,6 +12,7 @@ package net.sf.latexdraw.command;
 
 import javafx.scene.layout.Pane;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.CommandImpl;
 
 /**
@@ -21,10 +22,10 @@ import org.malai.command.CommandImpl;
 public class UpdateTemplates extends CommandImpl {
 	/** Defines if the thumbnails must be updated. */
 	private final boolean updateThumbnails;
-	private final Pane templatesPane;
-	private final SVGDocumentGenerator svgGen;
+	private final @NotNull Pane templatesPane;
+	private final @NotNull SVGDocumentGenerator svgGen;
 
-	public UpdateTemplates(final Pane templatesPane, final SVGDocumentGenerator svgGen, final boolean updateThumbnails) {
+	public UpdateTemplates(final @NotNull Pane templatesPane, final @NotNull SVGDocumentGenerator svgGen, final boolean updateThumbnails) {
 		super();
 		this.templatesPane = templatesPane;
 		this.updateThumbnails = updateThumbnails;
@@ -34,10 +35,5 @@ public class UpdateTemplates extends CommandImpl {
 	@Override
 	public void doCmdBody() {
 		svgGen.updateTemplates(templatesPane, updateThumbnails);
-	}
-
-	@Override
-	public boolean canDo() {
-		return templatesPane != null && svgGen != null;
 	}
 }

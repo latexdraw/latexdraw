@@ -55,14 +55,4 @@ public class MirrorShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	public @NotNull  String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.7");
 	}
-
-	@Override
-	public @NotNull RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
-	}
-
-	@Override
-	public boolean canDo() {
-		return true;
-	}
 }

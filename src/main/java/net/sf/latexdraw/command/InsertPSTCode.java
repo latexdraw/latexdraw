@@ -27,6 +27,8 @@ import net.sf.latexdraw.parser.pst.PSTParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.malai.undo.Undoable;
 
 /**
@@ -35,15 +37,15 @@ import org.malai.undo.Undoable;
  */
 public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying {
 	/** The code to parse. */
-	private final String code;
+	private final @NotNull String code;
 	/** The status bar. */
-	private final Label statusBar;
+	private final @Nullable Label statusBar;
 	/** The added shapes. */
-	private Optional<Shape> shapes;
-	private final ResourceBundle lang;
+	private @NotNull Optional<Shape> shapes;
+	private final @NotNull ResourceBundle lang;
 
 
-	public InsertPSTCode(final String codeToInsert, final Label status, final Drawing drawingToFill, final ResourceBundle lang) {
+	public InsertPSTCode(final @NotNull String codeToInsert, final @Nullable Label status, final @NotNull Drawing drawingToFill, final @NotNull ResourceBundle lang) {
 		super(drawingToFill);
 		code = codeToInsert;
 		statusBar = status;
@@ -106,22 +108,12 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.4");
-	}
-
-	@Override
-	public boolean canDo() {
-		return code != null;
 	}
 
 	@Override
 	public boolean hadEffect() {
 		return isDone() && shapes.isPresent();
-	}
-
-	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 }

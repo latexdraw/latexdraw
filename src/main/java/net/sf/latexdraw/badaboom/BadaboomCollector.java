@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
+import org.jetbrains.annotations.NotNull;
 import org.malai.error.ErrorCatcher;
 import org.malai.error.ErrorNotifier;
 
@@ -32,7 +33,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	public static final BadaboomCollector INSTANCE = new BadaboomCollector();
 
 	/** Contains objects that want to be aware of the manager activities. */
-	private final List<BadaboomHandler> handlers;
+	private final @NotNull List<BadaboomHandler> handlers;
 
 
 	/**
@@ -49,7 +50,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	 * Adds a handler to the manager.
 	 * @param handler The handler to add. Must not be null.
 	 */
-	public void addHandler(final BadaboomHandler handler) {
+	public void addHandler(final @NotNull BadaboomHandler handler) {
 		synchronized(handlers) {
 			handlers.add(handler);
 		}
@@ -83,9 +84,9 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 
 
 	@Override
-	public boolean add(final Throwable ex) {
+	public boolean add(final @NotNull Throwable ex) {
 		synchronized(INSTANCE) {
-			if(ex == null || !super.add(ex)) {
+			if(!super.add(ex)) {
 				return false;
 			}
 		}
@@ -96,9 +97,9 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 
 
 	@Override
-	public Throwable set(final int pos, final Throwable ex) {
+	public Throwable set(final int pos, final @NotNull Throwable ex) {
 		synchronized(INSTANCE) {
-			if(ex == null || super.set(pos, ex) == null) {
+			if(super.set(pos, ex) == null) {
 				return null;
 			}
 		}
@@ -108,13 +109,11 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	}
 
 	@Override
-	public void add(final int index, final Throwable ex) {
+	public void add(final int index, final @NotNull Throwable ex) {
 		synchronized(INSTANCE) {
-			if(ex != null) {
-				super.add(index, ex);
-				LOGGER.log(Level.SEVERE, "An Exception occured.", ex); //NON-NLS
-				notifyHandlers(ex);
-			}
+			super.add(index, ex);
+			LOGGER.log(Level.SEVERE, "An Exception occured.", ex); //NON-NLS
+			notifyHandlers(ex);
 		}
 	}
 

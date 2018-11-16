@@ -45,11 +45,6 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
-	}
-
-	@Override
 	public void doCmdBody() {
 		rotateShapes(rotationAngle - lastRotationAngle);
 		lastRotationAngle = rotationAngle;
@@ -75,7 +70,7 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.31");
 	}
 

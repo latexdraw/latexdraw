@@ -43,9 +43,4 @@ public class CheckConvertExists extends CommandImpl {
 	public @NotNull RegistrationPolicy getRegistrationPolicy() {
 		return RegistrationPolicy.NONE;
 	}
-
-	@Override
-	public boolean canDo() {
-		return true;
-	}
 }

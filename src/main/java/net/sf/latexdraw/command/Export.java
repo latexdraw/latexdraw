@@ -30,7 +30,6 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.malai.command.CommandImpl;
 
 /**
@@ -52,9 +51,6 @@ public class Export extends CommandImpl {
 
 	/** The PST generator to use. */
 	private final @NotNull PSTCodeGenerator pstGen;
-
-	private File outputFile;
-
 
 	/**
 	 * Creates the command.
@@ -85,9 +81,6 @@ public class Export extends CommandImpl {
 
 		if(exported) {
 			exported = export(file);
-			if(exported) {
-				outputFile = file;
-			}
 		}
 	}
 
@@ -109,12 +102,6 @@ public class Export extends CommandImpl {
 				return exportAsPST(file);
 		}
 		return false;
-	}
-
-
-	@Override
-	public boolean canDo() {
-		return true;
 	}
 
 
@@ -163,7 +150,7 @@ public class Export extends CommandImpl {
 
 		try {
 			psFile = pstGen.createEPSFile(file.getAbsolutePath()).orElse(null);
-		}catch(final SecurityException ex) {
+		}catch(final @NotNull SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			psFile = null;
 		}
@@ -182,7 +169,7 @@ public class Export extends CommandImpl {
 
 		try {
 			pdfFile = pstGen.createPDFFile(file.getAbsolutePath(), format == ExportFormat.PDF_CROP).orElse(null);
-		}catch(final SecurityException ex) {
+		}catch(final @NotNull SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			pdfFile = null;
 		}
@@ -206,7 +193,7 @@ public class Export extends CommandImpl {
 				out.println(pstGen.getDrawingCode());
 				ok = true;
 			}
-		}catch(final IOException ex) {
+		}catch(final @NotNull IOException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			ok = false;
 		}
@@ -229,12 +216,5 @@ public class Export extends CommandImpl {
 		views.snapshot(snapshotParameters, img);
 
 		return SwingFXUtils.fromFXImage(img, null);
-	}
-
-	/**
-	 * @return The output file produced during the export.
-	 */
-	public @Nullable File getOutputFile() {
-		return outputFile;
 	}
 }

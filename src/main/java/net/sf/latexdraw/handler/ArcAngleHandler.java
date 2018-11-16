@@ -14,6 +14,7 @@ import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Arc;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A handler that changes the start/end angle of an arc.
@@ -36,7 +37,7 @@ public class ArcAngleHandler extends Rectangle implements Handler {
 		setFill(DEFAULT_COLOR);
 	}
 
-	public void setCurrentArc(final Arc arc) {
+	public void setCurrentArc(final @NotNull Arc arc) {
 		translateXProperty().unbind();
 		translateYProperty().unbind();
 
@@ -46,7 +47,7 @@ public class ArcAngleHandler extends Rectangle implements Handler {
 			arc.angleStartProperty(), arc.angleEndProperty(), arc.getPtAt(0).yProperty(), arc.getPtAt(2).yProperty(), arc.rotationAngleProperty()));
 	}
 
-	private Point getPosition(final Arc arc) {
+	private Point getPosition(final @NotNull Arc arc) {
 		return start ? arc.getStartPoint().rotatePoint(arc.getGravityCentre(), arc.getRotationAngle()) :
 			arc.getEndPoint().rotatePoint(arc.getGravityCentre(), arc.getRotationAngle());
 	}

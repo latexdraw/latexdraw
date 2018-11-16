@@ -52,19 +52,13 @@ public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoa
 
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return property.getMessage(bundle);
 	}
 
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
-	}
-
-
-	@Override
-	protected void applyValue(final T obj) {
+	protected void applyValue(final @NotNull T obj) {
 		property.setPropertyValue(shapes, obj);
 		shapes.setModified(true);
 	}

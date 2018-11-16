@@ -21,6 +21,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.command.IOCommand;
 import org.malai.javafx.ui.JfxUI;
 
@@ -29,12 +30,12 @@ import org.malai.javafx.ui.JfxUI;
  * @author Arnaud Blouin
  */
 public class ExportTemplate extends IOCommand<Label> {
-	private final SVGDocumentGenerator svgGen;
-	private final Pane templatesPane;
-	private final ResourceBundle lang;
+	private final @NotNull SVGDocumentGenerator svgGen;
+	private final @NotNull Pane templatesPane;
+	private final @NotNull ResourceBundle lang;
 
-	public ExportTemplate(final Pane templatesPane, final SVGDocumentGenerator svgGen, final ResourceBundle lang,
-						final JfxUI ui, final ProgressBar progressBar, final Label statusWidget) {
+	public ExportTemplate(final @NotNull Pane templatesPane, final @NotNull SVGDocumentGenerator svgGen, final @NotNull ResourceBundle lang,
+						final @NotNull JfxUI ui, final @NotNull ProgressBar progressBar, final @NotNull Label statusWidget) {
 		super(null, svgGen, progressBar, statusWidget, ui);
 		this.templatesPane = templatesPane;
 		this.svgGen = svgGen;
@@ -67,6 +68,6 @@ public class ExportTemplate extends IOCommand<Label> {
 
 	@Override
 	public boolean canDo() {
-		return ui != null && templatesPane != null;
+		return ui != null;
 	}
 }

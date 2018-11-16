@@ -106,6 +106,10 @@ public final class ShapeProperties<T> {
 	public static final ShapeProperties<PlottingStyle> AXES_TICKS_SHOW = new ShapeProperties<>(
 		(v, g) -> g.setTicksDisplayed(v), (v, g) -> g.setAxesTicksDisplayedList(v), g -> g.getAxesTicksDisplayedList(), g -> g.isTypeOf(AxesProp.class), "Actions.13"); //NON-NLS
 
+	/** The ticks size */
+	public static final ShapeProperties<Double> AXES_TICKS_SIZE = new ShapeProperties<>(
+		(v, g) -> g.setTicksSize(v), (v, g) -> g.setAxesTicksSizeList(v), g -> g.getAxesTicksSizeList(), g -> g.isTypeOf(AxesProp.class), "Actions.13"); //NON-NLS
+
 	/** The width of the sub-grids. */
 	public static final ShapeProperties<Double> GRID_SUBGRID_WIDTH = new ShapeProperties<>(
 		(v, g) -> g.setSubGridWidth(v), (v, g) -> g.setSubGridWidthList(v), g -> g.getSubGridWidthList(), g -> g.isTypeOf(GridProp.class), "Actions.14"); //NON-NLS
@@ -398,7 +402,7 @@ public final class ShapeProperties<T> {
 		return bundle.getString(labelName);
 	}
 
-	public boolean accept(final Group g) {
-		return g != null && acceptPred.test(g);
+	public boolean accept(final @NotNull Group g) {
+		return acceptPred.test(g);
 	}
 }

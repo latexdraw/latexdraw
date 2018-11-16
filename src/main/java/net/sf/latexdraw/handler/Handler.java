@@ -11,6 +11,7 @@
 package net.sf.latexdraw.handler;
 
 import javafx.scene.paint.Color;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The API for the handlers that manipulate shape views.
@@ -25,7 +26,7 @@ public interface Handler {
 	/**
 	 * The default colour of the handler.
 	 */
-	Color DEFAULT_COLOR = new Color(0d, 0d, 0d, 0.4);
+	@NotNull Color DEFAULT_COLOR = new Color(0d, 0d, 0d, 0.4);
 
 	/**
 	 * Flushes the handler.

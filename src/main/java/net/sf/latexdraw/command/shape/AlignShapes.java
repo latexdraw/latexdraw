@@ -95,7 +95,7 @@ public class AlignShapes extends AlignDistribCmd {
 		translateX(middles, (theMaxX + theMinX) / 2d);
 	}
 
-	private void translateX(final List<Double> vals, final double ref) {
+	private void translateX(final @NotNull List<Double> vals, final double ref) {
 		int i = 0;
 
 		for(final Shape sh : shape.getShapes()) {
@@ -107,7 +107,7 @@ public class AlignShapes extends AlignDistribCmd {
 		}
 	}
 
-	private void translateY(final List<Double> vals, final double ref) {
+	private void translateY(final @NotNull List<Double> vals, final double ref) {
 		int i = 0;
 
 		for(final Shape sh : shape.getShapes()) {

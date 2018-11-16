@@ -58,11 +58,6 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 	}
 
 	@Override
-	public @NotNull RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
-	}
-
-	@Override
 	public boolean hadEffect() {
 		return isDone() && (!MathUtils.INST.equalsDouble(oldWidth, bound.getWidth()) || !MathUtils.INST.equalsDouble(oldHeight, bound.getHeight()));
 	}
@@ -146,7 +141,7 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.11");
 	}
 

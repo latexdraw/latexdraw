@@ -50,11 +50,6 @@ public class TranslateShapes extends ShapeCmdImpl<Group> implements Undoable, Mo
 	}
 
 	@Override
-	public @NotNull RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
-	}
-
-	@Override
 	public boolean hadEffect() {
 		return !MathUtils.INST.equalsDouble(performedTx, 0d) || !MathUtils.INST.equalsDouble(performedTy, 0d);
 	}

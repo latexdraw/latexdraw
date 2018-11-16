@@ -13,6 +13,7 @@ package net.sf.latexdraw.command;
 import java.util.List;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.malai.command.Command;
 
 /**
@@ -24,7 +25,7 @@ public interface ShapesCmd extends Command {
 	 * Sets the shape to handle.
 	 * @param shape The shape to handle. Can be null.
 	 */
-	default void setShape(final Shape shape) {
+	default void setShape(final @Nullable Shape shape) {
 		getShapes().clear();
 
 		if(shape != null) {
@@ -36,7 +37,7 @@ public interface ShapesCmd extends Command {
 	 * Add a shape to the list of shapes to handle.
 	 * @param shape The shape to handle.
 	 */
-	default void addShape(final Shape shape) {
+	default void addShape(final @Nullable Shape shape) {
 		if(shape != null) {
 			getShapes().add(shape);
 		}

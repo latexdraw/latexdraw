@@ -14,6 +14,7 @@ import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A handler for moving control points (for Bézier curves).
@@ -21,14 +22,14 @@ import net.sf.latexdraw.model.api.shape.Point;
  */
 public class CtrlPointHandler extends Ellipse implements Handler {
 	/** The control point to move. */
-	private Point point;
+	private final @NotNull Point point;
 
 	/**
 	 * Creates the handler.
 	 * @param pt The control point to move.
 	 * @throws NullPointerException If the given point is null.
 	 */
-	public CtrlPointHandler(final Point pt) {
+	public CtrlPointHandler(final @NotNull Point pt) {
 		super();
 		point = Objects.requireNonNull(pt);
 		setRadiusX(DEFAULT_SIZE / 2d);
@@ -43,13 +44,12 @@ public class CtrlPointHandler extends Ellipse implements Handler {
 	public void flush() {
 		translateXProperty().unbind();
 		translateYProperty().unbind();
-		point = null;
 	}
 
 	/**
 	 * @return The control point controlled by the handler.
 	 */
-	public Point getPoint() {
+	public @NotNull Point getPoint() {
 		return point;
 	}
 }

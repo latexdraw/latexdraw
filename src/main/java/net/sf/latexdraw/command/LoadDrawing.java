@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.command.Load;
 import org.malai.javafx.ui.JfxUI;
 import org.malai.javafx.ui.OpenSaver;
@@ -30,13 +31,13 @@ import org.malai.javafx.ui.OpenSaver;
  */
 public class LoadDrawing extends Load<Label> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
-	private FileChooser fileChooser;
-	private final Optional<File> currentFolder;
-	private final ResourceBundle lang;
-	private final Stage mainstage;
+	private final @NotNull FileChooser fileChooser;
+	private final @NotNull Optional<File> currentFolder;
+	private final @NotNull ResourceBundle lang;
+	private final @NotNull Stage mainstage;
 
 	public LoadDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
-				final FileChooser fileChooser, final Optional<File> currentFolder, final ResourceBundle lang, final Stage mainstage) {
+				final @NotNull FileChooser fileChooser, final @NotNull Optional<File> currentFolder, final @NotNull ResourceBundle lang, final @NotNull Stage mainstage) {
 		super(file, openSaveManager, progressBar, statusWidget, ui);
 		this.fileChooser = fileChooser;
 		this.currentFolder = currentFolder;
@@ -82,14 +83,8 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 	}
 
 	@Override
-	public void flush() {
-		fileChooser = null;
-		super.flush();
-	}
-
-	@Override
 	public boolean canDo() {
-		return ui != null && openSaveManager != null && fileChooser != null;
+		return ui != null && openSaveManager != null;
 	}
 
 

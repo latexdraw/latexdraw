@@ -54,11 +54,6 @@ public abstract class MovePoint extends CommandImpl implements Modifying {
 		return super.hadEffect() && (!MathUtils.INST.equalsDouble(tx, 0d) || !MathUtils.INST.equalsDouble(ty, 0d));
 	}
 
-	@Override
-	public @NotNull RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
-	}
-
 	/**
 	 * Sets the new coordinates of the point to move.
 	 * @param coord The new coordinates of the point to move.

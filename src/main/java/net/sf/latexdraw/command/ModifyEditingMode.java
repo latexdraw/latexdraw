@@ -36,9 +36,4 @@ public class ModifyEditingMode extends CommandImpl {
 	protected void doCmdBody() {
 		editing.setCurrentChoice(editingChoice);
 	}
-
-	@Override
-	public boolean canDo() {
-		return true;
-	}
 }

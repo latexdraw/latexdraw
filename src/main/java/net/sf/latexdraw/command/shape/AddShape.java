@@ -38,11 +38,6 @@ public class AddShape extends ShapeCmdImpl<Shape> implements Undoable, Modifying
 	}
 
 	@Override
-	public @NotNull RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
-	}
-
-	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("UndoRedoManager.create");
 	}

@@ -48,11 +48,6 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 	}
 
 	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
-	}
-
-	@Override
 	public void doCmdBody() {
 		copy.ifPresent(cop -> {
 			// While pasting cut shapes, the first paste must be at the same position that the original shapes.
@@ -112,12 +107,12 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("LaTeXDrawFrame.43");
 	}
 
 	@Override
-	public List<Command> followingCmds() {
+	public @NotNull List<Command> followingCmds() {
 		final List<Command> list = new ArrayList<>();
 		final SelectShapes selectCmd = new SelectShapes(drawing);
 		pastedShapes.forEach(selectCmd::addShape);

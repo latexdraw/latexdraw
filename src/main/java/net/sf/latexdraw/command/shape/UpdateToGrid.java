@@ -50,11 +50,6 @@ public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modif
 	}
 
 	@Override
-	public boolean canDo() {
-		return true;
-	}
-
-	@Override
 	public void undo() {
 		final AtomicInteger i = new AtomicInteger();
 		final AtomicInteger j = new AtomicInteger();
@@ -90,10 +85,5 @@ public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modif
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.33");
-	}
-
-	@Override
-	public @NotNull RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 }

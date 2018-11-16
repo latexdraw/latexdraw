@@ -21,6 +21,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A handler to rotate shapes.
@@ -31,7 +32,7 @@ public class RotationHandler extends Group implements Handler {
 	 * The constructor by default.
 	 * @param border The selection border.
 	 */
-	public RotationHandler(final Rectangle border) {
+	public RotationHandler(final @NotNull Rectangle border) {
 		super();
 		final Arc arc = new Arc();
 		arc.setCenterX(DEFAULT_SIZE / 2d);

@@ -20,6 +20,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Position;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A handler to scale shapes.
@@ -27,14 +28,14 @@ import net.sf.latexdraw.model.api.shape.Position;
  */
 public class ScaleHandler extends Path implements Handler {
 	/** The position of the handler. */
-	private final Position position;
+	private final @NotNull Position position;
 
 	/**
 	 * Creates the handler.
 	 * @param handlerPosition The position of the handler.
 	 * @throws NullPointerException If one of the given arguments is null.
 	 */
-	public ScaleHandler(final Position handlerPosition, final Rectangle border) {
+	public ScaleHandler(final @NotNull Position handlerPosition, final @NotNull Rectangle border) {
 		super();
 		position = Objects.requireNonNull(handlerPosition);
 		setStroke(null);
@@ -161,7 +162,7 @@ public class ScaleHandler extends Path implements Handler {
 	/**
 	 * @return The position of the handler.
 	 */
-	public Position getPosition() {
+	public @NotNull Position getPosition() {
 		return position;
 	}
 }

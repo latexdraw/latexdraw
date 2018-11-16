@@ -61,9 +61,4 @@ abstract class AlignDistribCmd extends ShapeCmdImpl<Group> implements Undoable, 
 		oldPositions = shape.getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList());
 		redo();
 	}
-
-	@Override
-	public @NotNull RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
-	}
 }

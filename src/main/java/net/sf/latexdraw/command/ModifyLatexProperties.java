@@ -13,6 +13,7 @@ package net.sf.latexdraw.command;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.view.latex.VerticalPosition;
+import org.jetbrains.annotations.NotNull;
 import org.malai.command.CommandImpl;
 import org.malai.undo.Undoable;
 
@@ -26,21 +27,16 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 	/** The saved value used for undo/redo. */
 	private Object oldValue;
 	/** The property to modify. */
-	private final LatexProperties property;
+	private final @NotNull LatexProperties property;
 	/** The LaTeX data to modify. */
-	private final LaTeXDataService data;
+	private final @NotNull LaTeXDataService data;
 
 
-	public ModifyLatexProperties(final LaTeXDataService data, final LatexProperties property, final Object value) {
+	public ModifyLatexProperties(final @NotNull LaTeXDataService data, final @NotNull LatexProperties property, final Object value) {
 		super();
 		this.data = data;
 		this.property = property;
 		this.value = value;
-	}
-
-	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
-		return hadEffect() ? RegistrationPolicy.LIMITED : RegistrationPolicy.NONE;
 	}
 
 	@Override
@@ -100,8 +96,7 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 
 	@Override
 	public boolean canDo() {
-		// packages does not require the data since it is a static attribute.
-		return property != null && property.isValueSupported(value) && (data != null || property == LatexProperties.PACKAGES);
+		return property.isValueSupported(value);
 	}
 
 	@Override
@@ -115,7 +110,7 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.0");
 	}
 

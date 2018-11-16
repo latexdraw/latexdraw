@@ -84,11 +84,6 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 	}
 
 	@Override
-	public @NotNull RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
-	}
-
-	@Override
 	public @NotNull List<Shape> getShapes() {
 		return shapes;
 	}

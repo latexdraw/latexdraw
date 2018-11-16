@@ -16,6 +16,7 @@ import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
+import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.command.IOCommand;
 import org.malai.undo.Undoable;
 
@@ -25,11 +26,11 @@ import org.malai.undo.Undoable;
  */
 public class LoadTemplate extends IOCommand<Label> implements Undoable, Modifying {
 	private Shape insertedShapes;
-	private final Drawing drawing;
+	private final @NotNull Drawing drawing;
 	private Point position;
-	private final SVGDocumentGenerator svgGen;
+	private final @NotNull SVGDocumentGenerator svgGen;
 
-	public LoadTemplate(final SVGDocumentGenerator svgGen, final Drawing drawing) {
+	public LoadTemplate(final @NotNull SVGDocumentGenerator svgGen, final @NotNull Drawing drawing) {
 		super();
 		this.svgGen = svgGen;
 		this.drawing = drawing;
@@ -52,18 +53,13 @@ public class LoadTemplate extends IOCommand<Label> implements Undoable, Modifyin
 	}
 
 	@Override
-	public String getUndoName(final ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("template.added");
 	}
 
 	@Override
 	public boolean canDo() {
-		return drawing != null;
-	}
-
-	@Override
-	public RegistrationPolicy getRegistrationPolicy() {
-		return RegistrationPolicy.LIMITED;
+		return ui != null;
 	}
 
 	@Override

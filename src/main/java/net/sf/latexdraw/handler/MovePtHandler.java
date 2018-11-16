@@ -14,6 +14,7 @@ import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A handler that moves a point of a shape.
@@ -21,13 +22,13 @@ import net.sf.latexdraw.model.api.shape.Point;
  */
 public class MovePtHandler extends Rectangle implements Handler {
 	/** The point moved by the handler. */
-	private final Point point;
+	private final @NotNull Point point;
 
 	/**
 	 * The constructor by default.
 	 * @throws NullPointerException If the given point is null.
 	 */
-	public MovePtHandler(final Point pt) {
+	public MovePtHandler(final @NotNull Point pt) {
 		super();
 		point = Objects.requireNonNull(pt);
 		setWidth(DEFAULT_SIZE);
@@ -47,7 +48,7 @@ public class MovePtHandler extends Rectangle implements Handler {
 	/**
 	 * @return The point controlled by the handler.
 	 */
-	public Point getPoint() {
+	public @NotNull Point getPoint() {
 		return point;
 	}
 }

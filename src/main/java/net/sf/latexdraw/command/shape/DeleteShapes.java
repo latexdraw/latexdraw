@@ -34,7 +34,7 @@ public class DeleteShapes extends DrawingCmdImpl implements ShapesCmd, Undoable,
 	private final @NotNull List<Shape> shapes;
 
 
-	public DeleteShapes(final Drawing drawing) {
+	public DeleteShapes(final @NotNull Drawing drawing) {
 		super(drawing);
 		shapes = new ArrayList<>();
 	}

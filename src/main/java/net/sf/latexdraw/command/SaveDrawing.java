@@ -20,6 +20,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.sf.latexdraw.service.PreferencesService;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.malai.javafx.command.Save;
 import org.malai.javafx.ui.JfxUI;
 import org.malai.javafx.ui.OpenSaver;
@@ -32,8 +34,8 @@ public class SaveDrawing extends Save<Label> {
 	/**
 	 * Show the export dialog to select a path.
 	 */
-	protected static Optional<File> showDialog(final FileChooser fc, final boolean saveAs, final File file, final Optional<File> currFolder,
-												final JfxUI ui, final Stage stage) {
+	protected static Optional<File> showDialog(final @NotNull FileChooser fc, final boolean saveAs, final @Nullable File file,
+		final @NotNull Optional<File> currFolder, final @NotNull JfxUI ui, final Stage stage) {
 		File f;
 
 		if(saveAs || (file == null && ui.isModified())) {
@@ -62,15 +64,15 @@ public class SaveDrawing extends Save<Label> {
 	private boolean saveAs;
 	/** True: the app will be closed after the drawing saved. */
 	private final boolean saveOnClose;
-	private final Optional<File> currentFolder;
+	private final @NotNull Optional<File> currentFolder;
 	/** The file chooser that will be used to select the location to save. */
-	private FileChooser fileChooser;
-	private final PreferencesService prefService;
-	private final Stage mainstage;
+	private final @NotNull FileChooser fileChooser;
+	private final @NotNull PreferencesService prefService;
+	private final @NotNull Stage mainstage;
 
-	public SaveDrawing(final boolean saveAs, final boolean saveOnClose, final Optional<File> currentFolder, final FileChooser fileChooser,
-				final PreferencesService prefService, final File file, final OpenSaver<Label> openSaveManager, final ProgressBar bar, final JfxUI ui,
-				final Label statusWidget, final Stage mainstage) {
+	public SaveDrawing(final boolean saveAs, final boolean saveOnClose, final @NotNull Optional<File> currentFolder, final @NotNull FileChooser fileChooser,
+				final @NotNull PreferencesService prefService, final File file, final @NotNull OpenSaver<Label> openSaveManager, final @NotNull ProgressBar bar,
+		final @NotNull JfxUI ui, final @NotNull Label statusWidget, final @NotNull Stage mainstage) {
 		super(file, openSaveManager, bar, statusWidget, ui);
 		this.saveAs = saveAs;
 		this.saveOnClose = saveOnClose;
@@ -82,7 +84,7 @@ public class SaveDrawing extends Save<Label> {
 
 	@Override
 	public boolean canDo() {
-		return openSaveManager != null && fileChooser != null && ui != null && prefService != null;
+		return openSaveManager != null && ui != null;
 	}
 
 	@Override
@@ -129,11 +131,5 @@ public class SaveDrawing extends Save<Label> {
 	private void quit() {
 		prefService.writePreferences();
 		mainstage.close();
-	}
-
-	@Override
-	public void flush() {
-		super.flush();
-		fileChooser = null;
 	}
 }
