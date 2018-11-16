@@ -63,8 +63,9 @@ public class ViewCircleArc extends ViewSingleShape<CircleArc, Arc> {
 
 	private final void bindArcProperties(final Arc arc) {
 		arc.startAngleProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getAngleStart()), model.angleStartProperty()));
-		arc.lengthProperty().bind(Bindings.createDoubleBinding(() -> Math.toDegrees(model.getAngleEnd() - model.getAngleStart()),
-			model.angleStartProperty(), model.angleEndProperty()));
+		arc.lengthProperty().bind(Bindings.createDoubleBinding(
+			() -> model.getAngleEnd() > model.getAngleStart() ? Math.toDegrees(model.getAngleEnd() - model.getAngleStart()) :
+				Math.toDegrees(Math.PI * 2d - model.getAngleStart() + model.getAngleEnd()), model.angleStartProperty(), model.angleEndProperty()));
 		model.angleStartProperty().addListener(viewArrows.updateArrow);
 		model.angleEndProperty().addListener(viewArrows.updateArrow);
 		arc.typeProperty().bind(Bindings.createObjectBinding(() -> model.getArcStyle().getJFXStyle(), model.arcStyleProperty()));

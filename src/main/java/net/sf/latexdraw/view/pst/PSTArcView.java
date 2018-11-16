@@ -42,8 +42,6 @@ public class PSTArcView extends PSTClassicalView<Arc> {
 		final double radiusY = shape.getHeight() / 2d;
 		final double x = shape.getX() + radiusX - origin.getX();
 		final double y = origin.getY() - shape.getY() + radiusY;
-		double startAngle = shape.getAngleStart();
-		double endAngle = shape.getAngleEnd();
 		final double yunit = radiusY / radiusX;
 		final StringBuilder start = new StringBuilder();
 		final StringBuilder end = new StringBuilder();
@@ -51,12 +49,6 @@ public class PSTArcView extends PSTClassicalView<Arc> {
 		final StringBuilder rotation = getRotationHeaderCode(ppc, origin);
 		final StringBuilder arrowsStyle = getArrowsStyleCode();
 		final StringBuilder cache = new StringBuilder();
-
-		if(startAngle > endAngle) {
-			final double tmp = startAngle;
-			startAngle = endAngle;
-			endAngle = tmp;
-		}
 
 		if(rotation != null) {
 			end.append('}');
@@ -102,8 +94,8 @@ public class PSTArcView extends PSTClassicalView<Arc> {
 		cache.append(MathUtils.INST.getCutNumberFloat(x / ppc)).append(',');
 		cache.append(MathUtils.INST.getCutNumberFloat(y / ppc)).append(')').append('{');
 		cache.append(MathUtils.INST.getCutNumberFloat(radiusX / ppc)).append('}').append('{');
-		cache.append(MathUtils.INST.getCutNumberFloat(Math.toDegrees(startAngle))).append('}').append('{');
-		cache.append(MathUtils.INST.getCutNumberFloat(Math.toDegrees(endAngle))).append('}');
+		cache.append(MathUtils.INST.getCutNumberFloat(Math.toDegrees(shape.getAngleStart()))).append('}').append('{');
+		cache.append(MathUtils.INST.getCutNumberFloat(Math.toDegrees(shape.getAngleEnd()))).append('}');
 		cache.append(end);
 
 		return cache.toString();
