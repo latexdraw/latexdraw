@@ -109,13 +109,11 @@ public abstract class PSTShapeView<S extends Shape> {
 				if(style2 != ArrowStyle.NONE) {
 					code = getArrowParametersCode(arr.getArrowAt(-1));
 				}
-			}else if(style2 == ArrowStyle.NONE) {
-				code = getArrowParametersCode(arr.getArrowAt(0));
-			}else if(style1.isSameKind(style2)) {
-				code = getArrowParametersCode(arr.getArrowAt(0));
 			}else {
 				code = getArrowParametersCode(arr.getArrowAt(0));
-				code.append(',').append(getArrowParametersCode(arr.getArrowAt(-1)));
+				if(style2 != ArrowStyle.NONE && !style1.isSameKind(style2)) {
+					code.append(',').append(getArrowParametersCode(arr.getArrowAt(-1)));
+				}
 			}
 		}
 
@@ -137,16 +135,20 @@ public abstract class PSTShapeView<S extends Shape> {
 
 			if(style.isSquareBracket()) {
 				code.append(",bracketlength=").append(MathUtils.INST.getCutNumberFloat(arrow.getBracketNum())); //NON-NLS
-			}else if(style.isRoundBracket()) {
-				code.append(",rbracketlength=").append(MathUtils.INST.getCutNumberFloat(arrow.getRBracketNum())); //NON-NLS
+			}else {
+				if(style.isRoundBracket()) {
+					code.append(",rbracketlength=").append(MathUtils.INST.getCutNumberFloat(arrow.getRBracketNum())); //NON-NLS
+				}
 			}
-		}else if(style.isArrow()) {
-			code.append("arrowsize=").append(MathUtils.INST.getCutNumberFloat(arrow.getArrowSizeDim() / Shape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //NON-NLS
-				append(MathUtils.INST.getCutNumberFloat(arrow.getArrowSizeNum())).append(",arrowlength="). //NON-NLS
-				append(MathUtils.INST.getCutNumberFloat(arrow.getArrowLength())).append(",arrowinset=").append(MathUtils.INST.getCutNumberFloat(arrow.getArrowInset())); //NON-NLS
 		}else {
-			code.append("dotsize=").append(MathUtils.INST.getCutNumberFloat(arrow.getDotSizeDim() / Shape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //NON-NLS
-				append(MathUtils.INST.getCutNumberFloat(arrow.getDotSizeNum()));
+			if(style.isArrow()) {
+				code.append("arrowsize=").append(MathUtils.INST.getCutNumberFloat(arrow.getArrowSizeDim() / Shape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //NON-NLS
+					append(MathUtils.INST.getCutNumberFloat(arrow.getArrowSizeNum())).append(",arrowlength="). //NON-NLS
+					append(MathUtils.INST.getCutNumberFloat(arrow.getArrowLength())).append(",arrowinset=").append(MathUtils.INST.getCutNumberFloat(arrow.getArrowInset())); //NON-NLS
+			}else {
+				code.append("dotsize=").append(MathUtils.INST.getCutNumberFloat(arrow.getDotSizeDim() / Shape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //NON-NLS
+					append(MathUtils.INST.getCutNumberFloat(arrow.getDotSizeNum()));
+			}
 		}
 
 		return code;

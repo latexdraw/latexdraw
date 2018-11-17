@@ -31,7 +31,7 @@ public class PSTAxesView extends PSTShapeView<Axes> {
 
 	@Override
 	public String getCode(final Point origDrawing, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origDrawing) || ppc < 1) {
+		if(!MathUtils.INST.isValidPt(origDrawing)) {
 			return "";
 		}
 
@@ -48,7 +48,7 @@ public class PSTAxesView extends PSTShapeView<Axes> {
 		final double gridStarty = shape.getGridStartY();
 		final StringBuilder cache = new StringBuilder();
 
-		if(!MathUtils.INST.equalsDouble(positionx, 0.0) || !MathUtils.INST.equalsDouble(positiony, 0.0)) {
+		if(!MathUtils.INST.equalsDouble(positionx, 0d) || !MathUtils.INST.equalsDouble(positiony, 0d)) {
 			end.append('}');
 			start.append("\\rput(").append(MathUtils.INST.getCutNumberFloat((positionx - origDrawing.getX()) / ppc)).append(','); //NON-NLS
 			start.append(MathUtils.INST.getCutNumberFloat((origDrawing.getY() - positiony) / ppc)).append(')').append('{');
@@ -80,6 +80,7 @@ public class PSTAxesView extends PSTShapeView<Axes> {
 
 	protected StringBuilder updateParams(final float ppc) {
 		final StringBuilder params = getLineCode(ppc);
+		final StringBuilder paramsArrows = getArrowsParametersCode();
 		final double incrementx = shape.getIncrementX();
 		final double incrementy = shape.getIncrementY();
 		final double originx = shape.getOriginX();
@@ -87,6 +88,10 @@ public class PSTAxesView extends PSTShapeView<Axes> {
 		final double distLabelsX = shape.getDistLabelsX();
 		final double distLabelsY = shape.getDistLabelsY();
 		final boolean showOrigin = shape.isShowOrigin();
+
+		if(paramsArrows != null) {
+			params.append(", ").append(paramsArrows);
+		}
 
 		params.append(", tickstyle=").append(shape.getTicksStyle().getPSTToken()); //NON-NLS
 		params.append(", axesstyle=").append(shape.getAxesStyle().getPSTToken()); //NON-NLS
