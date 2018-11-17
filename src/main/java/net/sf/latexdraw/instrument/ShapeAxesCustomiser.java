@@ -52,6 +52,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 	@FXML private Spinner<Double> distLabelsX;
 	/** The distance between the Y-labels. */
 	@FXML private Spinner<Double> distLabelsY;
+	@FXML private Spinner<Double> ticksSize;
 	@FXML private Pane mainPane;
 
 	@Inject
@@ -81,6 +82,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 			showOrigin.setSelected(shape.isShowOrigin());
 			distLabelsX.getValueFactory().setValue(shape.getDistLabelsX());
 			distLabelsY.getValueFactory().setValue(shape.getDistLabelsY());
+			ticksSize.getValueFactory().setValue(shape.getTicksSize());
 			setActivated(true);
 		}else {
 			setActivated(false);
@@ -98,10 +100,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 		addComboPropBinding(showTicks, ShapeProperties.AXES_TICKS_SHOW);
 		addComboPropBinding(showLabels, ShapeProperties.AXES_LABELS_SHOW);
 		addComboPropBinding(shapeTicks, ShapeProperties.AXES_TICKS_STYLE);
-
 		addSpinnerXYPropBinding(incrLabelX, incrLabelY, ShapeProperties.AXES_LABELS_INCR);
 		addSpinnerXYPropBinding(distLabelsX, distLabelsY, ShapeProperties.AXES_LABELS_DIST);
-
+		addSpinnerPropBinding(ticksSize, ShapeProperties.AXES_TICKS_SIZE);
 		addCheckboxPropBinding(showOrigin, ShapeProperties.AXES_SHOW_ORIGIN);
 	}
 }

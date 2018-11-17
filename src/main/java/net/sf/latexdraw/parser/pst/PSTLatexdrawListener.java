@@ -392,6 +392,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		axes.setTicksDisplayed(PlottingStyle.getStyle(ctx.pstctx.ticks));
 		axes.setLabelsDisplayed(PlottingStyle.getStyle(ctx.pstctx.labels));
 		axes.setTicksStyle(TicksStyle.getStyle(ctx.pstctx.ticksStyle));
+		axes.setTicksSize(ctx.pstctx.ticksSize * Shape.PPC);
 		axes.setIncrementX(ctx.pstctx.dxIncrement);
 		axes.setIncrementY(ctx.pstctx.dyIncrement);
 		axes.setDistLabelsX(ctx.pstctx.dxLabelDist);

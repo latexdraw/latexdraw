@@ -92,24 +92,22 @@ public class PSTAxesView extends PSTShapeView<Axes> {
 		params.append(", axesstyle=").append(shape.getAxesStyle().getPSTToken()); //NON-NLS
 		params.append(", labels=").append(shape.getLabelsDisplayed().getPSTToken()); //NON-NLS
 		params.append(", ticks=").append(shape.getTicksDisplayed().getPSTToken()); //NON-NLS
-		//		params.append(", ticksize=").append((float)LNumber.getCutNumber(shape.getTicksSize()/ppc)).append(PSTricksConstants.TOKEN_CM); //NON-NLS
+		params.append(", ticksize=").append(MathUtils.INST.getCutNumberFloat(shape.getTicksSize() / ppc)).append(PSTricksConstants.TOKEN_CM); //NON-NLS
 
-		if(!MathUtils.INST.equalsDouble(distLabelsX, 0.)) {
+		if(!MathUtils.INST.equalsDouble(distLabelsX, 0d)) {
 			params.append(", dx=").append(MathUtils.INST.getCutNumberFloat(distLabelsX)).append(PSTricksConstants.TOKEN_CM); //NON-NLS
 		}
 
-		if(!MathUtils.INST.equalsDouble(distLabelsY, 0.)) {
+		if(!MathUtils.INST.equalsDouble(distLabelsY, 0d)) {
 			params.append(", dy=").append(MathUtils.INST.getCutNumberFloat(distLabelsY)).append(PSTricksConstants.TOKEN_CM); //NON-NLS
 		}
 
 		if(!MathUtils.INST.equalsDouble(incrementx, PSTricksConstants.DEFAULT_DX)) {
-			params.append(", Dx=").append(MathUtils.INST.equalsDouble(incrementx, incrementx) ? String.valueOf((int) incrementx) : //NON-NLS
-				String.valueOf(MathUtils.INST.getCutNumberFloat(incrementx)));
+			params.append(", Dx=").append(String.valueOf(MathUtils.INST.getCutNumberFloat(incrementx))); //NON-NLS
 		}
 
 		if(!MathUtils.INST.equalsDouble(incrementy, PSTricksConstants.DEFAULT_DY)) {
-			params.append(", Dy=").append(MathUtils.INST.equalsDouble(incrementy, incrementy) ? String.valueOf((int) incrementy) : //NON-NLS
-				String.valueOf(MathUtils.INST.getCutNumberFloat(incrementy)));
+			params.append(", Dy=").append(String.valueOf(MathUtils.INST.getCutNumberFloat(incrementy))); //NON-NLS
 		}
 
 		if(!MathUtils.INST.equalsDouble(originx, PSTricksConstants.DEFAULT_OX)) {

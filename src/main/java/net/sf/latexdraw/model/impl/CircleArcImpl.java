@@ -120,7 +120,7 @@ class CircleArcImpl extends SquaredShapeBase implements CircleArc, ArrowableShap
 		return getPointOnArc(getAngleStart());
 	}
 
-	private Point getPointOnArc(final double angle) {
+	private @NotNull Point getPointOnArc(final double angle) {
 		final Point grav = getGravityCentre();
 		return ShapeFactory.INST.createPoint(grav.getX() + Math.cos(angle) * getRadius(), grav.getY() - Math.sin(angle) * getRadius());
 	}

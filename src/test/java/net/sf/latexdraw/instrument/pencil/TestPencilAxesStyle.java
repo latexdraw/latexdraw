@@ -100,6 +100,12 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 	}
 
 	@Test
+	public void testTicksSizePencil() {
+		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns), ticksSize,
+			incrementTicksSize, Collections.singletonList(() ->  ((AxesProp) editing.createShapeInstance()).getTicksSize()));
+	}
+
+	@Test
 	public void testSelectShowLabelsPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		final PlottingStyle style = showLabels.getSelectionModel().getSelectedItem();

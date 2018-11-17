@@ -20,6 +20,9 @@
         <ComboBox fx:id="shapeTicks" editable="false" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%AxesCust.1"/>
         <ComboBox fx:id="showTicks" editable="false" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="%ShapeShad.1"/>
+        <LSpinner fx:id="ticksSize" prefHeight="25.0" prefWidth="90.0" editable="true" min="0.0001" max="100.0" initialValue="1.0" amountToStepBy="0.1"
+                  GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     </GridPane>
     <GridPane minWidth="270" maxWidth="270" hgap="5" vgap="3"
               style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">

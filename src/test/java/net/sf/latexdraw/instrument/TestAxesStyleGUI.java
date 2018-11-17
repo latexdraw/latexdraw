@@ -18,6 +18,7 @@ public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomi
 	protected Spinner<Double> incrLabelY;
 	protected Spinner<Double> distLabelsX;
 	protected Spinner<Double> distLabelsY;
+	protected Spinner<Double> ticksSize;
 	protected CheckBox showOrigin;
 	protected Pane mainPane;
 
@@ -27,6 +28,7 @@ public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomi
 	protected final GUIVoidCommand selectPlotLabel = () -> selectNextComboBoxItem(showLabels);
 	protected final GUIVoidCommand incrementLabelX = () -> incrementSpinner(incrLabelX);
 	protected final GUIVoidCommand incrementLabelY = () -> incrementSpinner(incrLabelY);
+	protected final GUIVoidCommand incrementTicksSize = () -> incrementSpinner(ticksSize);
 	protected final GUIVoidCommand incrementDistLabelX = () -> incrementSpinner(distLabelsX);
 	protected final GUIVoidCommand incrementDistLabelY = () -> incrementSpinner(distLabelsY);
 	protected final GUIVoidCommand selectShowOrigin = () -> clickOn(showOrigin);
@@ -47,6 +49,7 @@ public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomi
 		showLabels = find("#showLabels");
 		incrLabelX = find("#incrLabelX");
 		incrLabelY = find("#incrLabelY");
+		ticksSize = find("#ticksSize");
 		distLabelsX = find("#distLabelsX");
 		distLabelsY = find("#distLabelsY");
 		showOrigin = find("#showOrigin");

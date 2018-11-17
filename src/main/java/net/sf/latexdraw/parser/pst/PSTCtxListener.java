@@ -327,33 +327,13 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parser.pst.PSTBase
 	}
 
 	@Override
+	public void exitParamticksize(final net.sf.latexdraw.parser.pst.PSTParser.ParamticksizeContext ctx) {
+		ctx.pstctx.ticksSize = ctx.pstctx.valDimtoDouble(ctx.valueDim());
+	}
+
+	@Override
 	public void exitParamshowpoints(final net.sf.latexdraw.parser.pst.PSTParser.ParamshowpointsContext ctx) {
 		ctx.pstctx.showPoints = Boolean.parseBoolean(ctx.booleanvalue().getText());
-	}
-
-	@Override
-	public void exitParamlinearc(final net.sf.latexdraw.parser.pst.PSTParser.ParamlinearcContext ctx) {
-		super.exitParamlinearc(ctx);
-	}
-
-	@Override
-	public void exitParamcornersize(final net.sf.latexdraw.parser.pst.PSTParser.ParamcornersizeContext ctx) {
-		super.exitParamcornersize(ctx);
-	}
-
-	@Override
-	public void exitParamarcsepA(final net.sf.latexdraw.parser.pst.PSTParser.ParamarcsepAContext ctx) {
-		super.exitParamarcsepA(ctx);
-	}
-
-	@Override
-	public void exitParamarcsepB(final net.sf.latexdraw.parser.pst.PSTParser.ParamarcsepBContext ctx) {
-		super.exitParamarcsepB(ctx);
-	}
-
-	@Override
-	public void exitParamarcsep(final net.sf.latexdraw.parser.pst.PSTParser.ParamarcsepContext ctx) {
-		super.exitParamarcsep(ctx);
 	}
 
 	@Override

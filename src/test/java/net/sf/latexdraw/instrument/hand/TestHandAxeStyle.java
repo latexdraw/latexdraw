@@ -113,6 +113,14 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 	}
 
 	@Test
+	public void testIncrementTicksSizeSelection() {
+		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns), ticksSize,
+			incrementTicksSize, Arrays.asList(
+			() ->  ((AxesProp) drawing.getSelection().getShapeAt(0).orElseThrow()).getTicksSize(),
+			() ->  ((AxesProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getTicksSize()));
+	}
+
+	@Test
 	public void testSelectShowLabelsSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		final PlottingStyle style = showLabels.getSelectionModel().getSelectedItem();
