@@ -13,6 +13,7 @@ package net.sf.latexdraw.view.pst;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Polygon;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LPolygon model.
@@ -34,11 +35,7 @@ public class PSTPolygonView extends PSTClassicalView<Polygon> {
 	 * @param ppc The number of pixels per centimetre.
 	 * @return The PSTricks code of the polygon coordinates.
 	 */
-	protected StringBuilder getPointsCode(final Point position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
-			return null;
-		}
-
+	protected @NotNull StringBuilder getPointsCode(final @NotNull Point position, final float ppc) {
 		Point p;
 		int i;
 		final int size = shape.getNbPoints();
@@ -55,10 +52,7 @@ public class PSTPolygonView extends PSTClassicalView<Polygon> {
 
 
 	@Override
-	public String getCode(final Point position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
-			return "";
-		}
+	public @NotNull String getCode(final @NotNull Point position, final float ppc) {
 		return "\\pspolygon[" + getPropertiesCode(ppc) + ']' + getPointsCode(position, ppc); //NON-NLS
 	}
 }

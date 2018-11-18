@@ -10,9 +10,9 @@
  */
 package net.sf.latexdraw.view.pst;
 
-import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Polyline;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LLines model.
@@ -30,11 +30,7 @@ public class PSTLinesView extends PSTPolygonView {
 
 
 	@Override
-	public String getCode(final Point position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point position, final float ppc) {
 		final StringBuilder points = getPointsCode(position, ppc);
 		final StringBuilder arrowsStyle = getArrowsStyleCode();
 		final StringBuilder code = new StringBuilder();

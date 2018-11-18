@@ -14,6 +14,7 @@ import java.util.List;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Freehand;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LFreeHand model.
@@ -33,7 +34,7 @@ public class PSTFreeHandView extends PSTClassicalView<Freehand> {
 	/**
 	 * Updates the cache with the code of the freehand shape having the Curve style.
 	 */
-	protected void updateCacheCurve(final StringBuilder coord, final double originx, final double originy, final double ppc) {
+	protected void updateCacheCurve(final @NotNull StringBuilder coord, final double originx, final double originy, final double ppc) {
 		final List<Point> pts = shape.getPoints();
 		int i;
 		final int size = shape.getNbPoints();
@@ -106,7 +107,7 @@ public class PSTFreeHandView extends PSTClassicalView<Freehand> {
 	/**
 	 * Updates the cache with the code of the freehand shape having the Line style.
 	 */
-	protected void updateCacheLines(final StringBuilder coord, final double originx, final double originy, final double ppc) {
+	protected void updateCacheLines(final @NotNull StringBuilder coord, final double originx, final double originy, final double ppc) {
 		final List<Point> pts = shape.getPoints();
 		Point p = pts.get(0);
 		int i;
@@ -131,8 +132,8 @@ public class PSTFreeHandView extends PSTClassicalView<Freehand> {
 
 
 	@Override
-	public String getCode(final Point origin, final float ppc) {
-		if(ppc < 1 || shape.getNbPoints() < 2 || !MathUtils.INST.isValidPt(origin)) {
+	public @NotNull String getCode(final @NotNull Point origin, final float ppc) {
+		if(shape.getNbPoints() < 2) {
 			return "";
 		}
 

@@ -13,6 +13,7 @@ package net.sf.latexdraw.view.pst;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Ellipse;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LEllipse model.
@@ -30,11 +31,7 @@ public class PSTEllipseView extends PSTClassicalView<Ellipse> {
 
 
 	@Override
-	public String getCode(final Point position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point position, final float ppc) {
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
 		final float x = MathUtils.INST.getCutNumberFloat(shape.getX() + shape.getWidth() / 2.0 - position.getX());
 		final float y = MathUtils.INST.getCutNumberFloat(position.getY() + shape.getHeight() / 2.0 - shape.getY());

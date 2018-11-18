@@ -16,6 +16,7 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Arc;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Polyline;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LArc model.
@@ -33,11 +34,7 @@ public class PSTArcView extends PSTClassicalView<Arc> {
 
 
 	@Override
-	public String getCode(final Point origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1f) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point origin, final float ppc) {
 		final double radiusX = shape.getWidth() / 2d;
 		final double radiusY = shape.getHeight() / 2d;
 		final double x = shape.getX() + radiusX - origin.getX();

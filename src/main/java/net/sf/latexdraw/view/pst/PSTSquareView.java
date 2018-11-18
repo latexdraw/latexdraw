@@ -17,7 +17,6 @@ import net.sf.latexdraw.model.api.shape.Square;
  * @author Arnaud Blouin
  */
 public class PSTSquareView extends PSTFrameView<Square> {
-
 	protected PSTSquareView(final Square model) {
 		super(model);
 	}

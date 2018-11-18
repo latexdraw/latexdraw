@@ -14,6 +14,7 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Text;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LText model.
@@ -31,11 +32,7 @@ public class PSTTextView extends PSTShapeView<Text> {
 
 
 	@Override
-	public String getCode(final Point origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point origin, final float ppc) {
 		final StringBuilder rot = getRotationHeaderCode(ppc, origin);
 		final StringBuilder code = new StringBuilder();
 
@@ -55,7 +52,7 @@ public class PSTTextView extends PSTShapeView<Text> {
 
 		final String tokenPosition = shape.getTextPosition().getLatexToken();
 
-		if(tokenPosition == null || tokenPosition.isEmpty()) {
+		if(tokenPosition.isEmpty()) {
 			code.append("\\rput("); //NON-NLS
 		}else {
 			code.append("\\rput[").append(shape.getTextPosition().getLatexToken()).append(']').append('('); //NON-NLS

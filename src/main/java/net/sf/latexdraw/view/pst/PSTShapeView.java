@@ -23,6 +23,7 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.latex.DviPsColors;
+import org.jetbrains.annotations.NotNull;
 
 import static java.lang.Math.toDegrees;
 
@@ -32,7 +33,7 @@ import static java.lang.Math.toDegrees;
  */
 public abstract class PSTShapeView<S extends Shape> {
 	/** The shape model. */
-	protected final S shape;
+	protected final @NotNull S shape;
 
 	/**
 	 * The list of name of the colours added to the generated code. Useful when generating
@@ -55,7 +56,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	/**
 	 * @return The mode of the view.
 	 */
-	public S getShape() {
+	public @NotNull S getShape() {
 		return shape;
 	}
 
@@ -78,7 +79,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * Adds the PST colour code to the cache.
 	 * @param addedColours The PST colours already generated.
 	 */
-	public String generateColourCode(final Set<String> addedColours) {
+	public @NotNull String generateColourCode(final Set<String> addedColours) {
 		if(coloursName == null) {
 			return "";
 		}
@@ -91,7 +92,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	}
 
 
-	public abstract String getCode(final Point origin, final float ppc);
+	public abstract @NotNull String getCode(final @NotNull Point origin, final float ppc);
 
 
 	/**
@@ -125,7 +126,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * @return The PST code corresponding to the parameter of the style of the given arrow. The style of the
 	 * given arrow must not be NONE.
 	 */
-	private StringBuilder getArrowParametersCode(final Arrow arrow) {
+	private @NotNull StringBuilder getArrowParametersCode(final Arrow arrow) {
 		final StringBuilder code = new StringBuilder();
 		final ArrowStyle style = arrow.getArrowStyle();
 
@@ -202,10 +203,6 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * @return The header of the PSTricks rotation code.
 	 */
 	protected StringBuilder getRotationHeaderCode(final float ppc, final Point position) {
-		if(ppc < 1 || !MathUtils.INST.isValidPt(position)) {
-			return null;
-		}
-
 		final StringBuilder code;
 		final double angle = shape.getRotationAngle();
 
@@ -293,7 +290,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * @param ppc The number of pixels per centimetre.
 	 * @return The PSTricks code of the line style.
 	 */
-	protected StringBuilder getLineCode(final float ppc) {
+	protected @NotNull StringBuilder getLineCode(final float ppc) {
 		final StringBuilder code = new StringBuilder();
 		final Color linesColor = shape.getLineColour();
 
@@ -333,7 +330,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	/**
 	 * @return The PST code of the filling with parameter "plain".
 	 */
-	private StringBuilder getFillingPlain() {
+	private @NotNull StringBuilder getFillingPlain() {
 		final Color interiorColor = shape.getFillingCol();
 		final StringBuilder code = new StringBuilder("fillstyle=solid"); //NON-NLS
 
@@ -352,7 +349,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	/**
 	 * @return The PST code of the filling with parameter "gradient".
 	 */
-	private StringBuilder getFillingGrad() {
+	private @NotNull StringBuilder getFillingGrad() {
 		final Color gradStartCol = shape.getGradColStart();
 		final Color gradEndCol = shape.getGradColEnd();
 		final float gradMidPt = MathUtils.INST.getCutNumberFloat(shape.getGradMidPt());
@@ -382,7 +379,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	/**
 	 * @return The PST code of the filling with parameter "hlines" or "vlines" etc.
 	 */
-	private StringBuilder getFillingHatchings(final float ppc) {
+	private @NotNull StringBuilder getFillingHatchings(final float ppc) {
 		final Color hatchingsCol = shape.getHatchingsCol();
 		final StringBuilder code = new StringBuilder();
 

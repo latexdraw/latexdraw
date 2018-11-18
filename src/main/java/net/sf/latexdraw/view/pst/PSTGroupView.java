@@ -13,34 +13,30 @@ package net.sf.latexdraw.view.pst;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A PSTricks view of the LDrawing model.
  * @author Arnaud BLOUIN
  */
 public class PSTGroupView extends PSTShapeView<Group> {
-	private final PSTViewProducer producer;
+	private final @NotNull PSTViewProducer producer;
 
 	/**
 	 * Creates and initialises a LDrawing PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTGroupView(final Group model, final PSTViewProducer producer) {
+	protected PSTGroupView(final Group model, final @NotNull PSTViewProducer producer) {
 		super(model);
 		this.producer = producer;
 	}
 
 
 	@Override
-	public String getCode(final Point origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point origin, final float ppc) {
 		final List<PSTShapeView<?>> pstViews = shape.getShapes().stream().map(sh -> producer.createView(sh)).
 			filter(Optional::isPresent).map(opt -> opt.get()).collect(Collectors.toList());
 

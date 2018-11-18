@@ -13,6 +13,7 @@ package net.sf.latexdraw.view.pst;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Rhombus;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LRhombus model.
@@ -30,11 +31,7 @@ public class PSTRhombusView extends PSTClassicalView<Rhombus> {
 
 
 	@Override
-	public String getCode(final Point origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point origin, final float ppc) {
 		final Point tl = shape.getTopLeftPoint();
 		final Point br = shape.getBottomRightPoint();
 		final double tlx = tl.getX();

@@ -14,6 +14,7 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.property.LineArcProp;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 abstract class PSTFrameView<T extends Shape & LineArcProp> extends PSTClassicalView<T> {
 	PSTFrameView(final T model) {
@@ -21,11 +22,7 @@ abstract class PSTFrameView<T extends Shape & LineArcProp> extends PSTClassicalV
 	}
 
 	@Override
-	public String getCode(final Point position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point position, final float ppc) {
 		final StringBuilder params = getPropertiesCode(ppc);
 		final Point tl = shape.getTopLeftPoint();
 		final Point br = shape.getBottomRightPoint();

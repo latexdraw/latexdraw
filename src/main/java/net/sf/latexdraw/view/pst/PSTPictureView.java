@@ -15,31 +15,28 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Picture;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.util.SystemUtils;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LPicture model.
  * @author Arnaud Blouin
  */
 public class PSTPictureView extends PSTShapeView<Picture> {
-	private final ResourceBundle bundle;
+	private final @NotNull ResourceBundle bundle;
 
 	/**
 	 * Creates and initialises a LPicture PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTPictureView(final Picture model, final ResourceBundle bundle) {
+	protected PSTPictureView(final Picture model, final @NotNull ResourceBundle bundle) {
 		super(model);
 		this.bundle = bundle;
 	}
 
 
 	@Override
-	public String getCode(final Point origin, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origin) || ppc < 1) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point origin, final float ppc) {
 		String path = shape.getPathTarget();
 		final StringBuilder start = new StringBuilder();
 		final StringBuilder rot = getRotationHeaderCode(ppc, origin);

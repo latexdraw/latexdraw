@@ -14,6 +14,7 @@ import java.util.List;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LBezierCurve model.
@@ -31,8 +32,8 @@ public class PSTBezierCurveView extends PSTClassicalView<BezierCurve> {
 
 
 	@Override
-	public String getCode(final Point origin, final float ppc) {
-		if(ppc < 1 || !MathUtils.INST.isValidPt(origin) || shape.getNbPoints() < 2) {
+	public @NotNull String getCode(final @NotNull Point origin, final float ppc) {
+		if(shape.getNbPoints() < 2) {
 			return "";
 		}
 

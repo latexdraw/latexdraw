@@ -13,6 +13,7 @@ package net.sf.latexdraw.view.pst;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Axes;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LAxes model.
@@ -30,11 +31,7 @@ public class PSTAxesView extends PSTShapeView<Axes> {
 
 
 	@Override
-	public String getCode(final Point origDrawing, final float ppc) {
-		if(!MathUtils.INST.isValidPt(origDrawing)) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point origin, final float ppc) {
 		final StringBuilder start = new StringBuilder();
 		final StringBuilder end = new StringBuilder();
 		final StringBuilder rot = getRotationHeaderCode(ppc, shape.getPosition());
@@ -50,8 +47,8 @@ public class PSTAxesView extends PSTShapeView<Axes> {
 
 		if(!MathUtils.INST.equalsDouble(positionx, 0d) || !MathUtils.INST.equalsDouble(positiony, 0d)) {
 			end.append('}');
-			start.append("\\rput(").append(MathUtils.INST.getCutNumberFloat((positionx - origDrawing.getX()) / ppc)).append(','); //NON-NLS
-			start.append(MathUtils.INST.getCutNumberFloat((origDrawing.getY() - positiony) / ppc)).append(')').append('{');
+			start.append("\\rput(").append(MathUtils.INST.getCutNumberFloat((positionx - origin.getX()) / ppc)).append(','); //NON-NLS
+			start.append(MathUtils.INST.getCutNumberFloat((origin.getY() - positiony) / ppc)).append(')').append('{');
 		}
 
 		if(rot != null) {
@@ -78,7 +75,7 @@ public class PSTAxesView extends PSTShapeView<Axes> {
 	}
 
 
-	protected StringBuilder updateParams(final float ppc) {
+	protected @NotNull StringBuilder updateParams(final float ppc) {
 		final StringBuilder params = getLineCode(ppc);
 		final StringBuilder paramsArrows = getArrowsParametersCode();
 		final double incrementx = shape.getIncrementX();

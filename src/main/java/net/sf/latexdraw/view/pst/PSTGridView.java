@@ -14,6 +14,7 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.Grid;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LGrid model.
@@ -33,7 +34,7 @@ public class PSTGridView extends PSTShapeView<Grid> {
 	/**
 	 * Returns the PST code of the parameters of the grid.
 	 */
-	private StringBuilder getParamsCode(final float ppc, final double unit) {
+	private @NotNull StringBuilder getParamsCode(final float ppc, final double unit) {
 		final Color gridLabelsColor = shape.getGridLabelsColour();
 		final Color subGridColor = shape.getSubGridColour();
 		final Color linesColor = shape.getLineColour();
@@ -74,11 +75,7 @@ public class PSTGridView extends PSTShapeView<Grid> {
 
 
 	@Override
-	public String getCode(final Point pt, final float ppc) {
-		if(!MathUtils.INST.isValidPt(pt) || ppc < 1) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point pt, final float ppc) {
 		final int startX;
 		final int startY;
 		final int endX;

@@ -13,6 +13,7 @@ package net.sf.latexdraw.view.pst;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Circle;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the ICircle model.
@@ -29,11 +30,7 @@ public class PSTCircleView extends PSTClassicalView<Circle> {
 
 
 	@Override
-	public String getCode(final Point position, final float ppc) {
-		if(!MathUtils.INST.isValidPt(position) || ppc < 1) {
-			return "";
-		}
-
+	public @NotNull String getCode(final @NotNull Point position, final float ppc) {
 		final double radius = shape.getWidth() / 2.0;
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
 		final double x = shape.getX() + radius - position.getX();

@@ -14,6 +14,7 @@ import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Dot;
 import net.sf.latexdraw.model.api.shape.Point;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LDot model.
@@ -31,7 +32,7 @@ public class PSTDotView extends PSTClassicalView<Dot> {
 
 
 	@Override
-	public String getCode(final Point origin, final float ppc) {
+	public @NotNull String getCode(final @NotNull Point origin, final float ppc) {
 		final double x = shape.getX() - origin.getX();
 		final double y = origin.getY() - shape.getY();
 		final DotStyle style = shape.getDotStyle();
