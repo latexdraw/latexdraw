@@ -24,9 +24,8 @@ public class PSTDotView extends PSTClassicalView<Dot> {
 	/**
 	 * Creates and initialises a LDot PSTricks view.
 	 * @param model The model to view.
-	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTDotView(final Dot model) {
+	protected PSTDotView(final @NotNull Dot model) {
 		super(model);
 	}
 

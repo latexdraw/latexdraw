@@ -27,9 +27,8 @@ public class PSTPictureView extends PSTShapeView<Picture> {
 	/**
 	 * Creates and initialises a LPicture PSTricks view.
 	 * @param model The model to view.
-	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTPictureView(final Picture model, final @NotNull ResourceBundle bundle) {
+	protected PSTPictureView(final @NotNull Picture model, final @NotNull ResourceBundle bundle) {
 		super(model);
 		this.bundle = bundle;
 	}

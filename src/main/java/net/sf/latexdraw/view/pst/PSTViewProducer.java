@@ -12,6 +12,7 @@ package net.sf.latexdraw.view.pst;
 
 import java.util.Optional;
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 public interface PSTViewProducer {
 	/**
@@ -19,5 +20,5 @@ public interface PSTViewProducer {
 	 * @param shape The shape used to create the view.
 	 * @return The created view or null.
 	 */
-	<T extends Shape> Optional<PSTShapeView<T>> createView(final T shape);
+	<T extends Shape> Optional<PSTShapeView<T>> createView(final @NotNull T shape);
 }

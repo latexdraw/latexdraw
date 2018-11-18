@@ -11,6 +11,7 @@
 package net.sf.latexdraw.view.pst;
 
 import net.sf.latexdraw.model.api.shape.Shape;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines methods for classical PSTricks views.
@@ -20,9 +21,8 @@ abstract class PSTClassicalView<S extends Shape> extends PSTShapeView<S> {
 	/**
 	 * Creates and initialises an abstract PSTricks view for classical model.
 	 * @param model The model to view.
-	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTClassicalView(final S model) {
+	protected PSTClassicalView(final @NotNull S model) {
 		super(model);
 	}
 

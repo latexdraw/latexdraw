@@ -26,7 +26,7 @@ public class PSTBezierCurveView extends PSTClassicalView<BezierCurve> {
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTBezierCurveView(final BezierCurve model) {
+	protected PSTBezierCurveView(final @NotNull BezierCurve model) {
 		super(model);
 	}
 

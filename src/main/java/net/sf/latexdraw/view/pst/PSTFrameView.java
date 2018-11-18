@@ -17,7 +17,7 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
 
 abstract class PSTFrameView<T extends Shape & LineArcProp> extends PSTClassicalView<T> {
-	PSTFrameView(final T model) {
+	PSTFrameView(final @NotNull T model) {
 		super(model);
 	}
 

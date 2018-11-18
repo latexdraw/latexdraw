@@ -11,6 +11,7 @@
 package net.sf.latexdraw.view.pst;
 
 import net.sf.latexdraw.model.api.shape.Rectangle;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LRect model.
@@ -20,9 +21,8 @@ class PSTRectView extends PSTFrameView<Rectangle> {
 	/**
 	 * Creates and initialises a LRect PSTricks view.
 	 * @param model The model to view.
-	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	PSTRectView(final Rectangle model) {
+	PSTRectView(final @NotNull Rectangle model) {
 		super(model);
 	}
 }

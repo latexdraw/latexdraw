@@ -11,14 +11,13 @@
 package net.sf.latexdraw.view.pst;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.model.MathUtils;
-import net.sf.latexdraw.model.api.shape.ArrowStyle;
-import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
+import net.sf.latexdraw.model.api.shape.Color;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.SystemUtils;
@@ -45,11 +44,10 @@ public abstract class PSTShapeView<S extends Shape> {
 	/**
 	 * Creates and initialises an abstract PSTricks view.
 	 * @param model The model to view.
-	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTShapeView(final S model) {
+	protected PSTShapeView(final @NotNull S model) {
 		super();
-		shape = Objects.requireNonNull(model);
+		shape = model;
 	}
 
 

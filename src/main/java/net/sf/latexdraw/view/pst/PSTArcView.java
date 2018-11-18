@@ -26,9 +26,8 @@ public class PSTArcView extends PSTClassicalView<Arc> {
 	/**
 	 * Creates and initialises a LArc PSTricks view.
 	 * @param model The model to view.
-	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTArcView(final Arc model) {
+	protected PSTArcView(final @NotNull Arc model) {
 		super(model);
 	}
 

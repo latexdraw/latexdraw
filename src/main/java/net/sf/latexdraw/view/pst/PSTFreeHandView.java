@@ -24,9 +24,8 @@ public class PSTFreeHandView extends PSTClassicalView<Freehand> {
 	/**
 	 * Creates and initialises a LFreeHand PSTricks view.
 	 * @param model The model to view.
-	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTFreeHandView(final Freehand model) {
+	protected PSTFreeHandView(final @NotNull Freehand model) {
 		super(model);
 	}
 

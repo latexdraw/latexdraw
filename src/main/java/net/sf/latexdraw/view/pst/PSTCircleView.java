@@ -24,7 +24,7 @@ public class PSTCircleView extends PSTClassicalView<Circle> {
 	 * Creates an SVG generator for circles.
 	 * @param circle The circle used for the conversion in SVG.
 	 */
-	protected PSTCircleView(final Circle circle) {
+	protected PSTCircleView(final @NotNull Circle circle) {
 		super(circle);
 	}
 

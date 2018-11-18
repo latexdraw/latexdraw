@@ -11,13 +11,14 @@
 package net.sf.latexdraw.view.pst;
 
 import net.sf.latexdraw.model.api.shape.Square;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a PSTricks view of the LSquare model.
  * @author Arnaud Blouin
  */
 public class PSTSquareView extends PSTFrameView<Square> {
-	protected PSTSquareView(final Square model) {
+	protected PSTSquareView(final @NotNull Square model) {
 		super(model);
 	}
 }

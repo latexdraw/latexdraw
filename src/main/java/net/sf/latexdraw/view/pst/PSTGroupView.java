@@ -27,9 +27,8 @@ public class PSTGroupView extends PSTShapeView<Group> {
 	/**
 	 * Creates and initialises a LDrawing PSTricks view.
 	 * @param model The model to view.
-	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTGroupView(final Group model, final @NotNull PSTViewProducer producer) {
+	protected PSTGroupView(final @NotNull Group model, final @NotNull PSTViewProducer producer) {
 		super(model);
 		this.producer = producer;
 	}

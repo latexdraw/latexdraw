@@ -44,7 +44,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Arnaud Blouin
  */
 public final class PSTViewsFactory implements PSTViewProducer {
-	private final @NotNull List<Tuple<Class<? extends Shape>, Function<Shape, PSTShapeView<?>>>> producers;
+	private final @NotNull List<Tuple<Class<? extends Shape>, Function<@NotNull Shape, @NotNull PSTShapeView<?>>>> producers;
 
 	@Inject
 	public PSTViewsFactory(final ResourceBundle lang) {
@@ -75,7 +75,7 @@ public final class PSTViewsFactory implements PSTViewProducer {
 	}
 
 	@Override
-	public <T extends Shape> Optional<PSTShapeView<T>> createView(final T shape) {
+	public <T extends Shape> Optional<PSTShapeView<T>> createView(final @NotNull T shape) {
 		// Makes use of a list of tuples to reduce the CC.
 		// Looking for the tuple which type matches the type of the given shape.
 		// Then calling the associated function that produces the PST view.

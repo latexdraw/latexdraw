@@ -74,13 +74,13 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		return doc.toString();
 	}
 
-	private void commentCode(final StringBuilder cache) {
+	private void commentCode(final @NotNull StringBuilder cache) {
 		if(withComments && !latexdata.getComment().isEmpty()) {
 			cache.append(latexdata.getCommentWithTag());
 		}
 	}
 
-	private void addPkgs(final StringBuilder cache) {
+	private void addPkgs(final @NotNull StringBuilder cache) {
 		String pkg = latexdata.getPackages();
 
 		if(!pkg.isEmpty()) {
@@ -89,7 +89,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		}
 	}
 
-	private boolean startlatexParams(final StringBuilder cache) {
+	private boolean startlatexParams(final @NotNull StringBuilder cache) {
 		if(!withLatexParams) {
 			return false;
 		}
@@ -105,7 +105,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		return true;
 	}
 
-	private void endlatexParams(final StringBuilder cache, final boolean hasBegan) {
+	private void endlatexParams(final @NotNull StringBuilder cache, final boolean hasBegan) {
 		if(withLatexParams) {
 			if(latexdata.isPositionHoriCentre()) {
 				cache.append("\\end{center}").append(SystemUtils.getInstance().EOL); //NON-NLS

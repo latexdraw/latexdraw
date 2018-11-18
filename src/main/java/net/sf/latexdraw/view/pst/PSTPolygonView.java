@@ -23,9 +23,8 @@ public class PSTPolygonView extends PSTClassicalView<Polygon> {
 	/**
 	 * Creates and initialises a LRect PSTricks view.
 	 * @param model The model to view.
-	 * @throws IllegalArgumentException If the given model is not valid.
 	 */
-	protected PSTPolygonView(final Polygon model) {
+	protected PSTPolygonView(final @NotNull Polygon model) {
 		super(model);
 	}
 

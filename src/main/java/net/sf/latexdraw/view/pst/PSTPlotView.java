@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Arnaud Blouin
  */
 public class PSTPlotView extends PSTClassicalView<Plot> {
-	protected PSTPlotView(final Plot model) {
+	protected PSTPlotView(final @NotNull Plot model) {
 		super(model);
 	}
 
