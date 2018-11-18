@@ -13,12 +13,15 @@ import net.sf.latexdraw.model.api.shape.ArcStyle;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.BorderPos;
+import net.sf.latexdraw.model.api.shape.Closable;
 import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.FillingStyle;
 import net.sf.latexdraw.model.api.shape.Arc;
 import net.sf.latexdraw.model.api.shape.ArrowableSingleShape;
 import net.sf.latexdraw.model.api.shape.Axes;
 import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.FreeHandStyle;
+import net.sf.latexdraw.model.api.shape.Freehand;
 import net.sf.latexdraw.model.api.shape.Grid;
 import net.sf.latexdraw.model.api.shape.Picture;
 import net.sf.latexdraw.model.api.shape.Plot;
@@ -444,6 +447,28 @@ public final class ParameteriseShapeData implements HelperTest {
 		sh.setBracketNum(0.1);
 		sh.setTBarSizeNum(2.5);
 		sh.setTBarSizeDim(0.5);
+		return sh;
+	}
+
+	public <T extends Shape & Closable> T setClosableOpened(final T sh) {
+		sh.setOpened(true);
+		return sh;
+	}
+
+	public <T extends Shape & Closable> T setClosableClosed(final T sh) {
+		sh.setOpened(false);
+		return sh;
+	}
+
+	public Freehand setFreeHand1(final Freehand sh) {
+		sh.setInterval(10);
+		sh.setType(FreeHandStyle.LINES);
+		return sh;
+	}
+
+	public Freehand setFreeHand2(final Freehand sh) {
+		sh.setInterval(2);
+		sh.setType(FreeHandStyle.CURVES);
 		return sh;
 	}
 }

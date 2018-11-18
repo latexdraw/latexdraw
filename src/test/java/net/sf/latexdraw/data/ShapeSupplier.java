@@ -8,7 +8,10 @@ import java.util.stream.Stream;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Axes;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.Closable;
+import net.sf.latexdraw.model.api.shape.ControlPointShape;
 import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Freehand;
 import net.sf.latexdraw.model.api.shape.Grid;
 import net.sf.latexdraw.model.api.shape.Picture;
 import net.sf.latexdraw.model.api.shape.Plot;
@@ -58,6 +61,19 @@ public class ShapeSupplier extends ParameterSupplier {
 	public static Stream<Dot> createDiversifiedDot() {
 		return Stream.of(createDot(), ParameteriseShapeData.INST.setDotData1(createDot()),
 			ParameteriseShapeData.INST.setDotData2(createDot()), ParameteriseShapeData.INST.setDotData3(createDot()));
+	}
+
+	public static Stream<ControlPointShape> createDiversifiedCtrlPtShape() {
+		return Stream.of(createBezierCurve());
+	}
+
+	public static Stream<Closable> createDiversifiedOpenedShape() {
+		return Stream.of(ParameteriseShapeData.INST.setClosableOpened(createBezierCurve()), ParameteriseShapeData.INST.setClosableClosed(createBezierCurve()),
+			ParameteriseShapeData.INST.setClosableOpened(createFreeHand()), ParameteriseShapeData.INST.setClosableClosed(createFreeHand()));
+	}
+
+	public static Stream<Freehand> createDiversifiedFreeHand() {
+		return Stream.of(ParameteriseShapeData.INST.setFreeHand1(createFreeHand()), ParameteriseShapeData.INST.setFreeHand2(createFreeHand()));
 	}
 
 	public static Axes createAxes() {
@@ -111,16 +127,18 @@ public class ShapeSupplier extends ParameterSupplier {
 			ShapeFactory.INST.createPoint(251d, 33d)));
 	}
 
+	public static Freehand createFreeHand() {
+		return ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
+			ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d)));
+	}
+
 	public static Stream<Shape> getDiversifiedShapes() throws IOException {
 		return
 			Stream.concat(createDiversifiedRectangle(), Stream.concat(ArcSupplier.createDiversifiedArc(),
 				Stream.concat(createDiversifiedDot(), Stream.concat(createDiversifiedPlot(),
 				Stream.concat(createDiversifiedGrid(), Stream.concat(createDiversifiedAxes(),
-				Stream.concat(createDiversifiedText(),
-					Stream.of((Shape) EllSupplier.createEllipse(), createBezierCurve(), CircleSupplier.createCircle(), createPolyline(), createPolygon(), createSquare(),
-			ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
-				ShapeFactory.INST.createPoint(251d, 33d), ShapeFactory.INST.createPoint(251d, 35d), ShapeFactory.INST.createPoint(151d, 233d))),
-			createRhombus(), createTriangle(),
+				Stream.concat(createDiversifiedText(), Stream.of((Shape) EllSupplier.createEllipse(), createBezierCurve(), CircleSupplier.createCircle(),
+					createPolyline(), createPolygon(), createSquare(), createFreeHand(), createRhombus(), createTriangle(),
 			ParameteriseShapeData.INST.setPictureData1(createPicture()))))))))).
 			map(sh -> Arrays.asList(ParameteriseShapeData.INST.setShapeData1(sh.duplicate()),
 				ParameteriseShapeData.INST.setShapeData2(sh.duplicate()),
