@@ -1,13 +1,13 @@
 package net.sf.latexdraw.parser.pst;
 
-import net.sf.latexdraw.data.StringData;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Dot;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.experimental.theories.Theory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,14 +26,15 @@ public class TestTextParsing extends TestPSTParser {
 		assertEquals("( )", txt.getText());
 	}
 
-	@Theory
-	public void testSingleText(@StringData(vals = {"foo", "\\bf coucou", "\\sc coucou", "\\sl coucou", "\\it coucou", "\\scshape coucou", "\\slshape coucou",
+	@ParameterizedTest
+	@ValueSource(strings = {"foo", "\\bf coucou", "\\sc coucou", "\\sl coucou", "\\it coucou", "\\scshape coucou", "\\slshape coucou",
 		"\\itshape coucou", "\\upshape coucou", "\\bfseries coucou", "\\mdseries coucou", "\\ttfamily coucou", "\\sffamily coucou", "\\rmfamily coucou",
 		"\\textsf{coucou}", "\\foo command unknown", "\\(coucou\\)", "121", "121.1248 -.1 ++1", "foo \\bloodyCmd $math formula_{r}$ bar",
 		"\\[foo_{test}\\]", "\\[\\|\\]", "\\[\\mathcal{M}\\]", "\\[coucou\\]", "\\(foo_{test}\\)", "\\(\\|\\)", "\\(\\mathcal{M}\\)",
 		"$foo_{test}$", "$\\|$", "$\\mathcal{M}$", "$coucou$", "\\t e", "\\t{ee}", "\\b e", "\\= e", "\\~ e", "\\#", "\\.{ee}", "\\={ee}", "\\~{ee}",
 		"\\^ e", "\\^{ee}", "\\'{ee}", "\\`{ee}", "\\\"{ee}", "\\\" e", "\\` a", "\\@", "\\. o", "\\/", "\\,", "\\*", "\\' e", "\\\" e", "\\$", "\\{",
-		"\\}", "\\&", "\\_", "\\%", "\\\\"}) final String txt) {
+		"\\}", "\\&", "\\_", "\\%", "\\\\", "word second word"})
+	public void testSingleText(final String txt) {
 		parser(txt);
 		assertEquals(1, parsedShapes.size());
 		assertEquals(txt, ((Text) getShapeAt(0)).getText());

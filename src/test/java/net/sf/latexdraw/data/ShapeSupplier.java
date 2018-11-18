@@ -85,7 +85,7 @@ public class ShapeSupplier extends ParameterSupplier {
 	}
 
 	public static Text createText() {
-		return ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(51d, 73d), "$foo");
+		return ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(51d, 73d), "foo");
 	}
 
 	public static Stream<Text> createDiversifiedText() {
