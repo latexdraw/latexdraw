@@ -10,10 +10,7 @@ Version 4.0.0
 
 - Fixed
     - Multiple fixes in the SVG save/load
-    - rotated PST shapes not correctly imported
-    - psplot not correctly imported
-    - rotated arcs not correctly exported as PST code
-    - PST filling colour not export with hatchings
+    - Multiple fixes in the PSTricks save/load
 
 Improvements:
 - can scroll on a spinner to change its value.

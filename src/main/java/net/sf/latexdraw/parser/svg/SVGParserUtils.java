@@ -18,12 +18,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.model.MathUtils;
-import net.sf.latexdraw.parser.svg.path.SVGPathHandler;
+import net.sf.latexdraw.parser.svg.path.SVGPathSeg;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegArc;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegClosePath;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegCurvetoCubic;
@@ -116,7 +117,7 @@ public final class SVGParserUtils {
 	}
 
 
-	public void parseSVGPath(final @NotNull String code, final @NotNull SVGPathHandler handler) {
+	public void parseSVGPath(final @NotNull String code, final @NotNull Consumer<SVGPathSeg> handler) {
 		if(code.isEmpty()) {
 			return;
 		}
@@ -138,16 +139,16 @@ public final class SVGParserUtils {
 	}
 
 	private static class SVGPathListener extends net.sf.latexdraw.parser.svg.SVGPathBaseListener {
-		private final @NotNull SVGPathHandler handler;
+		private final @NotNull Consumer<SVGPathSeg> handler;
 
-		SVGPathListener(final @NotNull SVGPathHandler handler) {
+		SVGPathListener(final @NotNull Consumer<SVGPathSeg> handler) {
 			super();
 			this.handler = handler;
 		}
 
 		@Override
 		public void exitClosePath(final net.sf.latexdraw.parser.svg.SVGPathParser.ClosePathContext ctx) {
-			handler.onPathSeg(new SVGPathSegClosePath());
+			handler.accept(new SVGPathSegClosePath());
 		}
 
 		@Override
@@ -156,7 +157,7 @@ public final class SVGParserUtils {
 		}
 
 		private void processEllArc(final net.sf.latexdraw.parser.svg.SVGPathParser.EllipticalArcArgumentContext ctx, final boolean rel) {
-			handler.onPathSeg(new SVGPathSegArc(Double.parseDouble(ctx.p.x.getText()), Double.parseDouble(ctx.p.y.getText()),
+			handler.accept(new SVGPathSegArc(Double.parseDouble(ctx.p.x.getText()), Double.parseDouble(ctx.p.y.getText()),
 				Double.parseDouble(ctx.rx.getText()), Double.parseDouble(ctx.ry.getText()), Double.parseDouble(ctx.xAxisRot.getText()),
 				"1".equals(ctx.largeArcFlag.getText()), "1".equals(ctx.sweepFlag.getText()), rel));
 		}
@@ -168,13 +169,13 @@ public final class SVGParserUtils {
 
 		@Override
 		public void exitSmoothQuadraBezierCurveToRel(final net.sf.latexdraw.parser.svg.SVGPathParser.SmoothQuadraBezierCurveToRelContext ctx) {
-			handler.onPathSeg(new SVGPathSegCurvetoQuadraticSmooth(
+			handler.accept(new SVGPathSegCurvetoQuadraticSmooth(
 				Double.parseDouble(ctx.coordPairSeq().coordPair(0).x.getText()), Double.parseDouble(ctx.coordPairSeq().coordPair(0).y.getText()), true));
 		}
 
 		@Override
 		public void exitSmoothQuadraBezierCurveToAbs(final net.sf.latexdraw.parser.svg.SVGPathParser.SmoothQuadraBezierCurveToAbsContext ctx) {
-			handler.onPathSeg(new SVGPathSegCurvetoQuadraticSmooth(
+			handler.accept(new SVGPathSegCurvetoQuadraticSmooth(
 				Double.parseDouble(ctx.coordPairSeq().coordPair(0).x.getText()), Double.parseDouble(ctx.coordPairSeq().coordPair(0).y.getText()), false));
 		}
 
@@ -184,7 +185,7 @@ public final class SVGParserUtils {
 		}
 
 		private void processQuadraBezierCurveTo(final net.sf.latexdraw.parser.svg.SVGPathParser.CoordPairDoubleContext ctx, final boolean rel) {
-			handler.onPathSeg(new SVGPathSegCurvetoQuadratic(Double.parseDouble(ctx.p.x.getText()), Double.parseDouble(ctx.p.y.getText()),
+			handler.accept(new SVGPathSegCurvetoQuadratic(Double.parseDouble(ctx.p.x.getText()), Double.parseDouble(ctx.p.y.getText()),
 				Double.parseDouble(ctx.p2.x.getText()), Double.parseDouble(ctx.p2.y.getText()), rel));
 		}
 
@@ -199,7 +200,7 @@ public final class SVGParserUtils {
 		}
 
 		private void processSmoothCurveTo(final net.sf.latexdraw.parser.svg.SVGPathParser.CoordPairDoubleContext ctx, final boolean rel) {
-			handler.onPathSeg(new SVGPathSegCurvetoCubicSmooth(Double.parseDouble(ctx.p.x.getText()),
+			handler.accept(new SVGPathSegCurvetoCubicSmooth(Double.parseDouble(ctx.p.x.getText()),
 				Double.parseDouble(ctx.p.y.getText()), Double.parseDouble(ctx.p2.x.getText()), Double.parseDouble(ctx.p2.y.getText()), rel));
 		}
 
@@ -214,7 +215,7 @@ public final class SVGParserUtils {
 		}
 
 		private void processCurveTo(final net.sf.latexdraw.parser.svg.SVGPathParser.CoordTripleContext ctx, final boolean rel) {
-			handler.onPathSeg(new SVGPathSegCurvetoCubic(
+			handler.accept(new SVGPathSegCurvetoCubic(
 				Double.parseDouble(ctx.p.x.getText()), Double.parseDouble(ctx.p.y.getText()),
 				Double.parseDouble(ctx.p1.x.getText()), Double.parseDouble(ctx.p1.y.getText()),
 				Double.parseDouble(ctx.p2.x.getText()), Double.parseDouble(ctx.p2.y.getText()), rel));
@@ -227,42 +228,42 @@ public final class SVGParserUtils {
 
 		@Override
 		public void exitHLineToRel(final net.sf.latexdraw.parser.svg.SVGPathParser.HLineToRelContext ctx) {
-			handler.onPathSeg(new SVGPathSegLinetoHorizontal(Double.parseDouble(ctx.x.coord(0).value.getText()), true));
+			handler.accept(new SVGPathSegLinetoHorizontal(Double.parseDouble(ctx.x.coord(0).value.getText()), true));
 		}
 
 		@Override
 		public void exitHLineToAbs(final net.sf.latexdraw.parser.svg.SVGPathParser.HLineToAbsContext ctx) {
-			handler.onPathSeg(new SVGPathSegLinetoHorizontal(Double.parseDouble(ctx.x.coord(0).value.getText()), false));
+			handler.accept(new SVGPathSegLinetoHorizontal(Double.parseDouble(ctx.x.coord(0).value.getText()), false));
 		}
 
 		@Override
 		public void exitVLineToRel(final net.sf.latexdraw.parser.svg.SVGPathParser.VLineToRelContext ctx) {
-			handler.onPathSeg(new SVGPathSegLinetoVertical(Double.parseDouble(ctx.y.coord(0).value.getText()), true));
+			handler.accept(new SVGPathSegLinetoVertical(Double.parseDouble(ctx.y.coord(0).value.getText()), true));
 		}
 
 		@Override
 		public void exitVLineToAbs(final net.sf.latexdraw.parser.svg.SVGPathParser.VLineToAbsContext ctx) {
-			handler.onPathSeg(new SVGPathSegLinetoVertical(Double.parseDouble(ctx.y.coord(0).value.getText()), false));
+			handler.accept(new SVGPathSegLinetoVertical(Double.parseDouble(ctx.y.coord(0).value.getText()), false));
 		}
 
 		@Override
 		public void exitLineToRel(final net.sf.latexdraw.parser.svg.SVGPathParser.LineToRelContext ctx) {
-			handler.onPathSeg(new SVGPathSegLineto(Double.parseDouble(ctx.p.coordPair(0).x.getText()), Double.parseDouble(ctx.p.coordPair(0).y.getText()), true));
+			handler.accept(new SVGPathSegLineto(Double.parseDouble(ctx.p.coordPair(0).x.getText()), Double.parseDouble(ctx.p.coordPair(0).y.getText()), true));
 		}
 
 		@Override
 		public void exitLineToAbs(final net.sf.latexdraw.parser.svg.SVGPathParser.LineToAbsContext ctx) {
-			handler.onPathSeg(new SVGPathSegLineto(Double.parseDouble(ctx.p.coordPair(0).x.getText()), Double.parseDouble(ctx.p.coordPair(0).y.getText()), false));
+			handler.accept(new SVGPathSegLineto(Double.parseDouble(ctx.p.coordPair(0).x.getText()), Double.parseDouble(ctx.p.coordPair(0).y.getText()), false));
 		}
 
 		@Override
 		public void exitMoveToRel(final net.sf.latexdraw.parser.svg.SVGPathParser.MoveToRelContext ctx) {
-			handler.onPathSeg(new SVGPathSegMoveto(Double.parseDouble(ctx.p.coordPair(0).x.getText()), Double.parseDouble(ctx.p.coordPair(0).y.getText()), true));
+			handler.accept(new SVGPathSegMoveto(Double.parseDouble(ctx.p.coordPair(0).x.getText()), Double.parseDouble(ctx.p.coordPair(0).y.getText()), true));
 		}
 
 		@Override
 		public void exitMoveToAbs(final net.sf.latexdraw.parser.svg.SVGPathParser.MoveToAbsContext ctx) {
-			handler.onPathSeg(new SVGPathSegMoveto(Double.parseDouble(ctx.p.coordPair(0).x.getText()), Double.parseDouble(ctx.p.coordPair(0).y.getText()), false));
+			handler.accept(new SVGPathSegMoveto(Double.parseDouble(ctx.p.coordPair(0).x.getText()), Double.parseDouble(ctx.p.coordPair(0).y.getText()), false));
 		}
 	}
 

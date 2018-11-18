@@ -10,7 +10,9 @@
  */
 package net.sf.latexdraw.view.svg;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
+import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.FreeHandStyle;
 import net.sf.latexdraw.model.api.shape.Freehand;
@@ -19,8 +21,8 @@ import net.sf.latexdraw.parser.svg.SVGAttributes;
 import net.sf.latexdraw.parser.svg.SVGDocument;
 import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
-import net.sf.latexdraw.parser.svg.SVGPathElement;
 import net.sf.latexdraw.parser.svg.SVGParserUtils;
+import net.sf.latexdraw.parser.svg.SVGPathElement;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegClosePath;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegCurvetoCubic;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
@@ -45,20 +47,31 @@ class SVGFreeHand extends SVGShape<Freehand> {
 
 		final SVGElement main = getLaTeXDrawElement(elt, null);
 
-		try {
-			shape.setInterval(Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_INTERVAL)).intValue());
-		}catch(final NumberFormatException ignored) {
-		}
+		MathUtils.INST.parserDouble(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_INTERVAL)).
+			ifPresent(val -> shape.setInterval((int) val));
 
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
+		setOpened(main);
 		shape.setType(FreeHandStyle.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE)));
 
 		if(withTransformation) {
 			applyTransformations(elt);
 		}
 	}
+
+	private final void setOpened(final SVGElement svgElt) {
+		// The latest path segment of the path may be a closing path element
+		final AtomicBoolean hasClosedSeg = new AtomicBoolean(false);
+		SVGParserUtils.INSTANCE.parseSVGPath(svgElt.getAttribute(SVGAttributes.SVG_D), pathSeg -> {
+			if(pathSeg instanceof SVGPathSegClosePath) {
+				hasClosedSeg.set(true);
+			}
+		});
+		shape.setOpened(!hasClosedSeg.get());
+	}
+
 
 	/**
 	 * Fills the given SVG path with elements corresponding to the Freehand curved path.
