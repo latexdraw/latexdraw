@@ -46,13 +46,17 @@ public final class ParameteriseShapeData implements HelperTest {
 
 	public Path getTestPNG(final TemporaryFolder folder) throws IOException {
 		final Path path = Paths.get(folder.getRoot().toPath().toString(), "LaTeXDrawSmall.png");
-		Files.copy(Paths.get("src/test/resources/LaTeXDrawSmall.png"), path);
+		if(!path.toFile().exists()) {
+			Files.copy(Paths.get("src/test/resources/LaTeXDrawSmall.png"), path);
+		}
 		return path;
 	}
 
 	public Path getTestPNG(final Path folder) throws IOException {
 		final Path path = Paths.get(folder.toString(), "LaTeXDrawSmall.png");
-		Files.copy(Paths.get("src/test/resources/LaTeXDrawSmall.png"), path);
+		if(!path.toFile().exists()) {
+			Files.copy(Paths.get("src/test/resources/LaTeXDrawSmall.png"), path);
+		}
 		return path;
 	}
 

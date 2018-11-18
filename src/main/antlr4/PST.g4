@@ -195,7 +195,9 @@ pscustom[PSTContext pstctx] : cmd=('\\pscustom*' | '\\pscustom') paramBlock[pstc
 
 definecolor[PSTContext pstctx] : '\\definecolor' BRACE_OPEN name=WORD BRACE_CLOSE BRACE_OPEN colortype=WORD BRACE_CLOSE BRACE_OPEN (NUMBER (',' NUMBER)* | HEXA) BRACE_CLOSE ;
 
-includegraphics[PSTContext pstctx] : '\\includegraphics' paramBlock[pstctx]? BRACE_OPEN path=.*? ~(BRACE_CLOSE) BRACE_CLOSE ;
+includegraphics[PSTContext pstctx] : '\\includegraphics' paramBlock[pstctx]? BRACE_OPEN path=valueText BRACE_CLOSE ;
+
+valueText: .+?;
 
 pspicturecmd[PSTContext pstctx] : '\\pspicture' p1=coord? p2=coord? {$pstctx.setPspicturePoints($p1.ctx, $p2.ctx);} pstCode[pstctx] '\\endpspicture' ;
 

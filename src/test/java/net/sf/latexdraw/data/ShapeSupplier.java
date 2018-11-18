@@ -92,6 +92,10 @@ public class ShapeSupplier extends ParameterSupplier {
 		return Stream.of(createText(), ParameteriseShapeData.INST.setTextData1(createText()));
 	}
 
+	public static Stream<Picture> createDiversifiedPicture() {
+		return Stream.of(createPicture());
+	}
+
 	public static Picture createPicture() {
 		return ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint(76, 45));
 	}
