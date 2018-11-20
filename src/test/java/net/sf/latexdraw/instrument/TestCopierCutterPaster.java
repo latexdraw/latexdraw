@@ -118,7 +118,9 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes).execute();
 		Platform.runLater(() -> canvas.requestFocus());
 		waitFXEvents.execute();
-		press(KeyCode.CONTROL).type(KeyCode.C).sleep(5).type(KeyCode.V).release(KeyCode.CONTROL);
+		press(KeyCode.CONTROL).type(KeyCode.C);
+		waitFXEvents.execute();
+		type(KeyCode.V).release(KeyCode.CONTROL);
 		waitFXEvents.execute();
 		assertEquals(4, canvas.getDrawing().size());
 	}

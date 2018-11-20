@@ -95,7 +95,9 @@ public class TestTextSetter extends BaseTestCanvas {
 	public void testTypeTextFieldOKAddShape() {
 		editing.setCurrentChoice(EditionChoice.TEXT);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(10).write("gridGapProp bar").type(KeyCode.ENTER);
+		moveTo(pos).clickOn(MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		write("gridGapProp bar").type(KeyCode.ENTER);
 		waitFXEvents.execute();
 
 		assertEquals(1, canvas.getDrawing().size());
@@ -110,7 +112,9 @@ public class TestTextSetter extends BaseTestCanvas {
 	public void testTypeEqFieldOKAddShape() {
 		editing.setCurrentChoice(EditionChoice.PLOT);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(10).write("x 2 mul").type(KeyCode.ENTER);
+		moveTo(pos).clickOn(MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		write("x 2 mul").type(KeyCode.ENTER);
 		waitFXEvents.execute();
 
 		assertEquals(1, canvas.getDrawing().size());
@@ -125,7 +129,9 @@ public class TestTextSetter extends BaseTestCanvas {
 	public void testHideTextFieldOnOK() {
 		editing.setCurrentChoice(EditionChoice.TEXT);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(10).write("gridGapProp bar").type(KeyCode.ENTER);
+		moveTo(pos).clickOn(MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		write("gridGapProp bar").type(KeyCode.ENTER);
 		waitFXEvents.execute();
 		assertFalse(setter.isActivated());
 	}
@@ -134,7 +140,9 @@ public class TestTextSetter extends BaseTestCanvas {
 	public void testHidePlotFieldOnOK() {
 		editing.setCurrentChoice(EditionChoice.PLOT);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(10).write("x 2 mul").type(KeyCode.ENTER);
+		moveTo(pos).clickOn(MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		write("x 2 mul").type(KeyCode.ENTER);
 		waitFXEvents.execute();
 		assertFalse(setter.isActivated());
 	}
@@ -143,7 +151,9 @@ public class TestTextSetter extends BaseTestCanvas {
 	public void testNotHidePlotFieldOnKO() {
 		editing.setCurrentChoice(EditionChoice.PLOT);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(10).write("not a valid formula").type(KeyCode.ENTER);
+		moveTo(pos).clickOn(MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		write("not a valid formula").type(KeyCode.ENTER);
 		waitFXEvents.execute();
 		assertTrue(setter.isActivated());
 		assertFalse(setter.getTextField().isValidText());
@@ -153,7 +163,9 @@ public class TestTextSetter extends BaseTestCanvas {
 	public void testNotHideTextFieldOnEmptyField() {
 		editing.setCurrentChoice(EditionChoice.TEXT);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(10).write("foo").eraseText(3).type(KeyCode.ENTER);
+		moveTo(pos).clickOn(MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		write("foo").eraseText(3).type(KeyCode.ENTER);
 		waitFXEvents.execute();
 		assertTrue(setter.isActivated());
 	}
@@ -162,7 +174,9 @@ public class TestTextSetter extends BaseTestCanvas {
 	public void testNotHidePlotFieldOnEmptyField() {
 		editing.setCurrentChoice(EditionChoice.PLOT);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(10).write("x").eraseText(1).type(KeyCode.ENTER);
+		moveTo(pos).clickOn(MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		write("x").eraseText(1).type(KeyCode.ENTER);
 		waitFXEvents.execute();
 		assertTrue(setter.isActivated());
 	}
@@ -171,7 +185,9 @@ public class TestTextSetter extends BaseTestCanvas {
 	public void testEscapeText() {
 		editing.setCurrentChoice(EditionChoice.TEXT);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(10).write("gridGapProp").type(KeyCode.ESCAPE);
+		moveTo(pos).clickOn(MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		write("gridGapProp").type(KeyCode.ESCAPE);
 		waitFXEvents.execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 		assertFalse(setter.isActivated());
@@ -181,7 +197,9 @@ public class TestTextSetter extends BaseTestCanvas {
 	public void testEscapePlot() {
 		editing.setCurrentChoice(EditionChoice.PLOT);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).sleep(10).write("x").type(KeyCode.ESCAPE);
+		moveTo(pos).clickOn(MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		write("x").type(KeyCode.ESCAPE);
 		waitFXEvents.execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 		assertFalse(setter.isActivated());

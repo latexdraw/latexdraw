@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.instrument.robot.FxRobotListSelection;
 import net.sf.latexdraw.instrument.robot.FxRobotSpinner;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -73,13 +74,13 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 
 	@Test
 	public void testSetCaption() {
-		new CompositeGUIVoidCommand(typeTitle, () -> sleep(1200L)).execute();
+		new CompositeGUIVoidCommand(typeTitle, () -> HelperTest.waitForTimeoutTransitions()).execute();
 		assertEquals("new Title", data.getCaption());
 	}
 
 	@Test
 	public void testSetLabel() {
-		new CompositeGUIVoidCommand(typeLabel, () -> sleep(1200L)).execute();
+		new CompositeGUIVoidCommand(typeLabel, () -> HelperTest.waitForTimeoutTransitions()).execute();
 		assertEquals("newLabel", data.getLabel());
 	}
 

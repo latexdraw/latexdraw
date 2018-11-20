@@ -4,11 +4,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.stage.Stage;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Injector;
 import org.junit.After;
 import org.junit.Before;
@@ -33,6 +33,7 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 				bindAsEagerSingleton(PreferencesService.class);
 				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindAsEagerSingleton(ExceptionsManager.class);
+				bindToInstance(BadaboomController.class, Mockito.mock(BadaboomController.class));
 			}
 		};
 	}
@@ -45,13 +46,6 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 	@Before
 	public void setUp() {
 		manager = injector.getInstance(ExceptionsManager.class);
-		try {
-			final Field field = ExceptionsManager.class.getDeclaredField("stageEx");
-			field.setAccessible(true);
-			field.set(manager, Mockito.mock(Stage.class));
-		}catch(final IllegalAccessException | NoSuchFieldException ex) {
-			fail(ex.getMessage());
-		}
 	}
 
 	@Override
@@ -59,7 +53,6 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 	public void tearDown() throws TimeoutException {
 		super.tearDown();
 		BadaboomCollector.INSTANCE.clear();
-		BadaboomCollector.INSTANCE.removeHandler(manager);
 	}
 
 	private Node getButton() {
@@ -74,6 +67,7 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 	@Test
 	public void testActivatedOnCrash() {
 		BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
+		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(manager.isActivated());
 		assertFalse(getButton().isDisabled());
 	}
@@ -97,15 +91,9 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 		BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
 		clickOn(getButton());
 		waitFXEvents.execute();
-		Mockito.verify(manager.getStageEx(), Mockito.times(1)).show();
-	}
-
-	@Test
-	public void testActivatedOnAddedAsHandlerWithErrors() {
-		BadaboomCollector.INSTANCE.removeHandler(manager);
-		BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
-		manager.setActivated(false);
-		BadaboomCollector.INSTANCE.addHandler(manager);
-		assertTrue(manager.isActivated());
+		final AtomicBoolean visible = new AtomicBoolean(false);
+		Platform.runLater(() -> visible.set(manager.getStageEx().isShowing()));
+		waitFXEvents.execute();
+		assertTrue(visible.get());
 	}
 }

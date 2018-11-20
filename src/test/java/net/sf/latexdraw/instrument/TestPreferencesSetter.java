@@ -7,6 +7,7 @@ import java.util.Locale;
 import javafx.application.Platform;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.instrument.robot.FxRobotListSelection;
 import net.sf.latexdraw.instrument.robot.FxRobotSpinner;
 import net.sf.latexdraw.service.PreferencesService;
@@ -103,8 +104,8 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 	@Test
 	public void testIncludes() {
 		prefs.includesProperty().setValue("");
-		clickOn(setter.latexIncludes).write("fooo").sleep(1000L);
-		waitFXEvents.execute();
+		clickOn(setter.latexIncludes).write("fooo");
+		HelperTest.waitForTimeoutTransitions();
 		assertEquals("fooo", prefs.includesProperty().get());
 	}
 

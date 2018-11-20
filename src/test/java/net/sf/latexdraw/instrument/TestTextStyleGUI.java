@@ -3,6 +3,7 @@ package net.sf.latexdraw.instrument;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
+import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.model.api.shape.TextPosition;
 import net.sf.latexdraw.service.LaTeXDataService;
 import org.junit.Before;
@@ -35,7 +36,8 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 
 	@Test
 	public void testEditPackagesField() {
-		clickOn(packagesField).type(KeyCode.A).type(KeyCode.B).sleep(1300L);
+		clickOn(packagesField).type(KeyCode.A).type(KeyCode.B);
+		HelperTest.waitForTimeoutTransitions();
 		assertEquals("ab", injector.getInstance(LaTeXDataService.class).getPackages());
 	}
 }

@@ -12,7 +12,7 @@ import javafx.util.BuilderFactory;
 import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.LatexdrawBuilderFactory;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Rectangle;
@@ -165,16 +165,14 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 		tabPane.lookupAll(".tab").forEach(n -> {
 			clickOn(n);
 			WaitForAsyncUtils.waitForFxEvents();
-			sleep(200L);
 		});
-		assertTrue(BadaboomCollector.INSTANCE.isEmpty());
+		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty());
 	}
 
 	@Test
 	public void testClickPrefActivations() {
 		clickOn(tabPane.lookup("#prefTab"));
 		WaitForAsyncUtils.waitForFxEvents();
-		sleep(100L);
 
 		Mockito.verify(selector, Mockito.times(1)).setActivated(false, false);
 		Mockito.verify(paster, Mockito.times(1)).setActivated(false, false);
@@ -189,7 +187,6 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 	public void testClickPSTActivations() {
 		clickOn(tabPane.lookup("#tabPST"));
 		WaitForAsyncUtils.waitForFxEvents();
-		sleep(100L);
 
 		Mockito.verify(selector, Mockito.times(1)).setActivated(false, false);
 		Mockito.verify(paster, Mockito.times(1)).setActivated(false, false);
@@ -204,7 +201,6 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 		clickOn(tabPane.lookup("#tabPST"));
 		clickOn(tabPane.lookup("#canvasTab"));
 		WaitForAsyncUtils.waitForFxEvents();
-		sleep(100L);
 
 		Mockito.verify(selector, Mockito.times(1)).setActivated(true);
 		Mockito.verify(paster, Mockito.times(1)).setActivated(true);
@@ -226,7 +222,6 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 		clickOn(tabPane.lookup("#tabPST"));
 		clickOn(tabPane.lookup("#canvasTab"));
 		WaitForAsyncUtils.waitForFxEvents();
-		sleep(100L);
 
 		Mockito.verify(deleter, Mockito.times(1)).setActivated(true);
 	}

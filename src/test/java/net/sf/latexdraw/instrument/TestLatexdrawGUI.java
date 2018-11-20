@@ -15,7 +15,7 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.service.PreferencesService;
@@ -135,6 +135,6 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 
 	@Test
 	public void testLaunchNoCrash() {
-		assertTrue(BadaboomCollector.INSTANCE.isEmpty());
+		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty());
 	}
 }

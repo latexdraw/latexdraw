@@ -1,13 +1,12 @@
 package net.sf.latexdraw.instrument.robot;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import javafx.scene.control.Spinner;
 import javafx.scene.input.MouseButton;
+import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.instrument.GUIVoidCommand;
 import org.testfx.api.FxRobotInterface;
-import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -34,7 +33,7 @@ public interface FxRobotSpinner extends FxRobotInterface {
 		cmdsConfig.execute();
 		final T val = spinner.getValue();
 		cmdSpinner.execute();
-		WaitForAsyncUtils.sleep(700, TimeUnit.MILLISECONDS);
+		HelperTest.waitForTimeoutTransitions();
 		oracles.forEach(oracle -> assertEquals(spinner.getValue().doubleValue(), oracle.get().doubleValue(), 0.0001));
 		assertNotEquals(val.doubleValue(), spinner.getValue().doubleValue(), 0.0001);
 	}

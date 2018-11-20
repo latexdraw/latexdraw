@@ -63,7 +63,9 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 		Platform.runLater(() -> hand.canvas.getDrawing().addShape(txt));
 		WaitForAsyncUtils.waitForFxEvents();
 		final ViewShape<?> view = hand.canvas.getViewFromShape(txt).orElseThrow();
-		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.ENTER);
+		doubleClickOn(view, MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		type(KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals("abc$gridGapProp", txt.getText());
 	}
@@ -76,7 +78,9 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
 		WaitForAsyncUtils.waitForFxEvents();
 		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
-		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.END).eraseText(10).write("x x mul").type(KeyCode.ENTER);
+		doubleClickOn(view, MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		type(KeyCode.END).eraseText(10).write("x x mul").type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertEquals("x x mul", plot.getPlotEquation());
 	}
@@ -89,7 +93,9 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
 		WaitForAsyncUtils.waitForFxEvents();
 		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
-		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.END).eraseText(10).write("y").type(KeyCode.ENTER);
+		doubleClickOn(view, MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		type(KeyCode.END).eraseText(10).write("y").type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(setter.getTextField().isVisible());
 		assertTrue(setter.getTextField().getMessageField().isVisible());
@@ -104,7 +110,9 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
 		WaitForAsyncUtils.waitForFxEvents();
 		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
-		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.END).eraseText(10).write("x log").type(KeyCode.ENTER);
+		doubleClickOn(view, MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		type(KeyCode.END).eraseText(10).write("x log").type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(setter.getTextField().isVisible());
 		assertTrue(setter.getTextField().getMessageField().isVisible());
@@ -119,7 +127,9 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
 		WaitForAsyncUtils.waitForFxEvents();
 		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
-		doubleClickOn(view, MouseButton.PRIMARY).sleep(200L).type(KeyCode.END).eraseText(10).write("x 0 div").type(KeyCode.ENTER);
+		doubleClickOn(view, MouseButton.PRIMARY);
+		waitFXEvents.execute();
+		type(KeyCode.END).eraseText(10).write("x 0 div").type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(setter.getTextField().isVisible());
 		assertTrue(setter.getTextField().getMessageField().isVisible());

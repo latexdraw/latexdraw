@@ -12,7 +12,8 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
+import org.malai.fsm.TimeoutTransition;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.hamcrest.number.IsCloseTo.closeTo;
@@ -20,6 +21,20 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
 public interface HelperTest {
+	static void waitForTimeoutTransitions() {
+		Thread.getAllStackTraces().keySet()
+			.stream()
+			.filter(thread -> thread.getName().startsWith(TimeoutTransition.TIMEOUT_THREAD_NAME_BASE))
+			.forEach(thread -> {
+				try {
+					thread.join();
+				}catch(final InterruptedException ex) {
+					Thread.currentThread().interrupt();
+				}
+			});
+		WaitForAsyncUtils.waitForFxEvents();
+	}
+
 	default <T> List<T> cloneList(final List<T> list, final Function<T, T> cloner) {
 		final List<T> clone = new ArrayList<>(list.size());
 		list.forEach(elt -> clone.add(cloner.apply(elt)));
@@ -35,7 +50,7 @@ public interface HelperTest {
 	}
 
 	static String getBadaboomMessages() {
-		return BadaboomCollector.INSTANCE.stream().map(ex -> ex.getMessage()).collect(Collectors.joining(System.getProperty("line.separator")));
+		return BadaboomCollector.INSTANCE.errorsProperty().stream().map(ex -> ex.getMessage()).collect(Collectors.joining(System.getProperty("line.separator")));
 	}
 
 	default <T extends Node> void assertNotEqualsSnapshot(final T node, final Runnable toExecBetweenSnap) {
