@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,8 +24,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.BuilderFactory;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.badaboom.BadaboomHandler;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +36,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * This instrument allows to see exceptions launched during the execution of the program.
  * @author Arnaud Blouin
  */
-public final class ExceptionsManager extends JfxInstrument implements BadaboomHandler, Initializable {
+public final class ExceptionsManager extends JfxInstrument implements Initializable {
 	private final @NotNull ResourceBundle lang;
 	private final @NotNull Injector injector;
 	/** The button used to shows the panel of exceptions. */
@@ -49,7 +49,6 @@ public final class ExceptionsManager extends JfxInstrument implements BadaboomHa
 		super();
 		this.lang = Objects.requireNonNull(lang);
 		this.injector = Objects.requireNonNull(injector);
-		BadaboomCollector.INSTANCE.addHandler(this);
 	}
 
 	/**
@@ -74,8 +73,14 @@ public final class ExceptionsManager extends JfxInstrument implements BadaboomHa
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		exceptionB.managedProperty().bind(exceptionB.visibleProperty());
-		exceptionB.visibleProperty().bind(activatedProp);
-		setActivated(false);
+		BadaboomCollector.INSTANCE.errorsProperty().addListener((ListChangeListener<Throwable>) c -> setActivated(!c.getList().isEmpty()));
+		setActivated(!BadaboomCollector.INSTANCE.errorsProperty().isEmpty());
+	}
+
+	@Override
+	public void setActivated(final boolean activ) {
+		super.setActivated(activ);
+		exceptionB.setVisible(activ);
 	}
 
 	@Override
@@ -84,15 +89,5 @@ public final class ExceptionsManager extends JfxInstrument implements BadaboomHa
 			c.setWidget(getStageEx());
 			c.setVisible(true);
 		}).bind();
-	}
-
-	@Override
-	public void notifyEvent(final Throwable ex) {
-		setActivated(true);
-	}
-
-	@Override
-	public void notifyEvents() {
-		setActivated(true);
 	}
 }

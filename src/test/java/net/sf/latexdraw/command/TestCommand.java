@@ -1,6 +1,6 @@
 package net.sf.latexdraw.command;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import org.junit.After;

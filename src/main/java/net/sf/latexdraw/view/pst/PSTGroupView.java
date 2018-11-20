@@ -39,7 +39,8 @@ public class PSTGroupView extends PSTShapeView<Group> {
 		final List<PSTShapeView<?>> pstViews = shape.getShapes().stream().map(sh -> producer.createView(sh)).
 			filter(Optional::isPresent).map(opt -> opt.get()).collect(Collectors.toList());
 
-		coloursName = pstViews.stream().map(view -> view.coloursName).filter(col -> col != null).flatMap(s -> s.stream()).collect(Collectors.toSet());
+		coloursName.clear();
+		coloursName.addAll(pstViews.stream().map(view -> view.coloursName).flatMap(s -> s.stream()).collect(Collectors.toSet()));
 
 		return pstViews.stream().map(v -> v.getCode(origin, ppc)).collect(Collectors.joining("\n"));
 	}

@@ -14,7 +14,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Color;

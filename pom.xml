@@ -178,8 +178,6 @@
                         --add-opens latexdraw/net.sf.latexdraw.service=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.model=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.util=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.badaboom=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.badaboom=javafx.fxml
                         --add-opens latexdraw/net.sf.latexdraw.handler=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.parser=ALL-UNNAMED
                         --add-opens latexdraw/net.sf.latexdraw.parser.svg=ALL-UNNAMED

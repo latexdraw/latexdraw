@@ -8,7 +8,7 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  */
-package net.sf.latexdraw.badaboom;
+package net.sf.latexdraw.instrument;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -17,7 +17,6 @@ import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,12 +24,14 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import net.sf.latexdraw.util.BadaboomCollector;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * The controller of the exceptions frame.
  * @author Arnaud Blouin
  */
-public class BadaboomController implements Initializable {
+public class BadaboomController extends JfxInstrument implements Initializable {
 	@FXML private TableView<Throwable> table;
 	@FXML private TextArea stack;
 
@@ -41,7 +42,16 @@ public class BadaboomController implements Initializable {
 		super();
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+	protected void configureBindings() {
+	}
+
+	@Override
+	public void uninstallBindings() {
+		super.uninstallBindings();
+		table.itemsProperty().unbind();
+	}
+
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		final ObservableList<TableColumn<Throwable, ?>> cols = table.getColumns();
@@ -53,7 +63,7 @@ public class BadaboomController implements Initializable {
 			return new ReadOnlyStringWrapper(msg);
 		});
 		cols.forEach(col -> col.prefWidthProperty().bind(table.widthProperty().divide(3)));
-		table.setItems(FXCollections.observableArrayList(BadaboomCollector.INSTANCE));
+		table.itemsProperty().bind(BadaboomCollector.INSTANCE.errorsProperty());
 		table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 		final Callable<String> converter = () -> {

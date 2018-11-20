@@ -75,8 +75,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		opened.managedProperty().bind(opened.visibleProperty());
 		linePane.managedProperty().bind(linePane.visibleProperty());
 
-		linePane.visibleProperty().bind(activatedProp.and(thicknessField.visibleProperty().or(lineCB.visibleProperty()).or(lineColButton.visibleProperty()).
-				or(bordersPosCB.visibleProperty()).or(frameArcField.visibleProperty()).or(showPoints.visibleProperty())));
+		linePane.visibleProperty().bind(thicknessField.visibleProperty().or(lineCB.visibleProperty()).or(lineColButton.visibleProperty()).
+				or(bordersPosCB.visibleProperty()).or(frameArcField.visibleProperty()).or(showPoints.visibleProperty()));
 
 		final Map<BorderPos, Image> cachePos = new EnumMap<>(BorderPos.class);
 		cachePos.put(BorderPos.INTO, new Image("/res/doubleBoundary/double.boundary.into.png")); //NON-NLS

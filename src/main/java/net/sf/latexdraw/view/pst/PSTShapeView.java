@@ -33,12 +33,11 @@ import static java.lang.Math.toDegrees;
 public abstract class PSTShapeView<S extends Shape> {
 	/** The shape model. */
 	protected final @NotNull S shape;
-
 	/**
 	 * The list of name of the colours added to the generated code. Useful when generating
 	 * the code to define the colours in the latex document.
 	 */
-	protected Set<String> coloursName;
+	protected final @NotNull Set<String> coloursName;
 
 
 	/**
@@ -48,28 +47,15 @@ public abstract class PSTShapeView<S extends Shape> {
 	protected PSTShapeView(final @NotNull S model) {
 		super();
 		shape = model;
+		coloursName = new HashSet<>();
 	}
-
-
-	/**
-	 * @return The mode of the view.
-	 */
-	public @NotNull S getShape() {
-		return shape;
-	}
-
 
 	/**
 	 * Saves a colour coming from the generated code.
 	 * @param name The name of the generated colour.
 	 */
-	protected void addColour(final String name) {
-		if(name != null) {
-			if(coloursName == null) {
-				coloursName = new HashSet<>();
-			}
-			coloursName.add(name);
-		}
+	protected void addColour(final @NotNull String name) {
+		coloursName.add(name);
 	}
 
 
@@ -78,10 +64,6 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * @param addedColours The PST colours already generated.
 	 */
 	public @NotNull String generateColourCode(final Set<String> addedColours) {
-		if(coloursName == null) {
-			return "";
-		}
-
 		return coloursName.stream().
 			filter(col -> !addedColours.contains(col) && !DviPsColors.INSTANCE.getPredefinedColour(col).isPresent()).
 			peek(col -> addedColours.add(col)).
@@ -186,7 +168,7 @@ public abstract class PSTShapeView<S extends Shape> {
 
 		if(shape.isShowPts()) {
 			code = new StringBuilder();
-			code.append("showpoints=true"); //NON-NLS //TODO add arrow params
+			code.append("showpoints=true"); //NON-NLS
 		}else {
 			code = null;
 		}
@@ -223,7 +205,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * not exist yet, it is created.
 	 * @return The name of a predefined or a newly generated colour.
 	 */
-	protected String getColourName(final Color colour) {
+	protected @NotNull String getColourName(final Color colour) {
 		final String name = DviPsColors.INSTANCE.getColourName(colour).orElseGet(() -> DviPsColors.INSTANCE.addUserColour(colour).orElse(""));
 		addColour(name);
 		return name;
@@ -259,7 +241,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * @return The PSTricks code of the border position.
 	 */
 	protected StringBuilder getBorderPositionCode() {
-		final StringBuilder code;
+		StringBuilder code = null;
 
 		if(shape.isBordersMovable()) {
 			switch(shape.getBordersPosition()) {
@@ -272,12 +254,7 @@ public abstract class PSTShapeView<S extends Shape> {
 				case OUT:
 					code = new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_OUTSIDE); //NON-NLS
 					break;
-				default:
-					code = null;
-					break;
 			}
-		}else {
-			code = null;
 		}
 
 		return code;
@@ -419,13 +396,10 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * @return The PSTricks code for the filling of the shape. Null if there is no filling.
 	 */
 	protected StringBuilder getFillingCode(final float ppc) {
-		StringBuilder code;
+		StringBuilder code = null;
 		final Color interiorColor = shape.getFillingCol();
 
 		switch(shape.getFillingStyle()) {
-			case NONE:
-				code = null;
-				break;
 			case PLAIN:
 				code = getFillingPlain();
 				break;
@@ -439,9 +413,6 @@ public abstract class PSTShapeView<S extends Shape> {
 			case VLINES:
 			case VLINES_PLAIN:
 				code = getFillingHatchings(ppc);
-				break;
-			default:
-				code = null;
 				break;
 		}
 

@@ -19,7 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import org.jetbrains.annotations.NotNull;
 import org.malai.command.CommandsRegistry;
 import org.malai.javafx.command.IOCommand;

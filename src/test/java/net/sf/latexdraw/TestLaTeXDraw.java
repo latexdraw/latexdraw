@@ -11,7 +11,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.command.SaveDrawing;
 import net.sf.latexdraw.instrument.ExceptionsManager;
 import net.sf.latexdraw.service.PreferencesService;
@@ -73,7 +73,7 @@ public class TestLaTeXDraw {
 
 	@Test
 	public void testNoException() {
-		assertTrue(BadaboomCollector.INSTANCE.isEmpty());
+		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty());
 	}
 
 	@Test
@@ -103,7 +103,7 @@ public class TestLaTeXDraw {
 		Platform.runLater(() -> app.reinit());
 		WaitForAsyncUtils.waitForFxEvents();
 		assertFalse(app.isModified());
-		assertTrue(BadaboomCollector.INSTANCE.isEmpty());
+		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty());
 	}
 
 	@Test
@@ -138,7 +138,7 @@ public class TestLaTeXDraw {
 		robot.clickOn("#fileMenu").clickOn("#saveMenu").sleep(1000L);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(CommandsRegistry.INSTANCE.getCommands().size() - 1) instanceof SaveDrawing);
-		assertTrue(BadaboomCollector.INSTANCE.isEmpty());
+		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty());
 		assertFalse(app.getInjector().getInstance(ExceptionsManager.class).isActivated());
 	}
 }

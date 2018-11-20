@@ -26,7 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.jetbrains.annotations.NotNull;

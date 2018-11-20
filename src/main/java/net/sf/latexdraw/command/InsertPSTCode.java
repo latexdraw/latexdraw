@@ -14,7 +14,7 @@ package net.sf.latexdraw.command;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;

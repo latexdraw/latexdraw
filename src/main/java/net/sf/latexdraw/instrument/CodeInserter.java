@@ -27,7 +27,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.BuilderFactory;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.command.InsertPSTCode;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.parser.pst.PSTContext;

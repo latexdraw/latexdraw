@@ -9,7 +9,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import net.sf.latexdraw.HelperTest;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Text;
 import org.junit.jupiter.api.AfterAll;
@@ -93,7 +93,7 @@ public class TestViewText extends TestViewShape<ViewText, Text> {
 		model.setText("$hello$");
 		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertTrue(BadaboomCollector.INSTANCE.isEmpty(), () -> HelperTest.getBadaboomMessages());
+		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty(), () -> HelperTest.getBadaboomMessages());
 		assertNull(getTooltip(), () -> getTooltip().getText());
 	}
 
@@ -102,7 +102,7 @@ public class TestViewText extends TestViewShape<ViewText, Text> {
 		model.setText("$hello$");
 		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertTrue(BadaboomCollector.INSTANCE.isEmpty(), () -> HelperTest.getBadaboomMessages());
+		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty(), () -> HelperTest.getBadaboomMessages());
 		assertTrue(view.getCompilationData().isPresent());
 	}
 
@@ -113,7 +113,7 @@ public class TestViewText extends TestViewShape<ViewText, Text> {
 		model.setText("hello");
 		view.getCurrentCompilation().get(5, TimeUnit.SECONDS);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertTrue(BadaboomCollector.INSTANCE.isEmpty(), () -> HelperTest.getBadaboomMessages());
+		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty(), () -> HelperTest.getBadaboomMessages());
 		assertFalse(getImage().isDisable());
 		assertTrue(getImage().isVisible());
 	}

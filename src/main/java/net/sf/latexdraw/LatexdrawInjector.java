@@ -17,6 +17,7 @@ import javafx.application.HostServices;
 import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.instrument.AboutController;
+import net.sf.latexdraw.instrument.BadaboomController;
 import net.sf.latexdraw.instrument.Border;
 import net.sf.latexdraw.instrument.CanvasController;
 import net.sf.latexdraw.instrument.CodeInserter;
@@ -97,6 +98,7 @@ public class LatexdrawInjector extends Injector {
 		bindToInstance(BuilderFactory.class, new LatexdrawBuilderFactory(this));
 		bindAsEagerSingleton(LaTeXDataService.class);
 		bindAsEagerSingleton(PreferencesService.class);
+		bindAsEagerSingleton(BadaboomController.class);
 		bindAsEagerSingleton(EditingService.class);
 		bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 		bindAsEagerSingleton(ViewFactory.class);

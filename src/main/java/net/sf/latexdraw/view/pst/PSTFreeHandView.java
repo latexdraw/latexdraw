@@ -132,10 +132,6 @@ public class PSTFreeHandView extends PSTClassicalView<Freehand> {
 
 	@Override
 	public @NotNull String getCode(final @NotNull Point origin, final float ppc) {
-		if(shape.getNbPoints() < 2) {
-			return "";
-		}
-
 		final StringBuilder coord = new StringBuilder();
 		final StringBuilder rot = getRotationHeaderCode(ppc, origin);
 		final StringBuilder code = new StringBuilder();

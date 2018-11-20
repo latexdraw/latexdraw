@@ -49,8 +49,12 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 				evt.consume();
 			}
 		});
+	}
 
-		zoom.visibleProperty().bind(activatedProp);
+	@Override
+	public void setActivated(final boolean activ) {
+		super.setActivated(activ);
+		zoom.setDisable(!activ);
 	}
 
 	@Override

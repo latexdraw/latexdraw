@@ -24,7 +24,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.command.LatexProperties;
 import net.sf.latexdraw.command.ModifyLatexProperties;
 import net.sf.latexdraw.command.shape.ShapeProperties;

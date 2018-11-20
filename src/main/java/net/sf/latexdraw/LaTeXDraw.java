@@ -33,12 +33,12 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.BuilderFactory;
 import javafx.util.Duration;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instrument.PreferencesSetter;
 import net.sf.latexdraw.instrument.StatusBarController;
 import net.sf.latexdraw.instrument.TabSelector;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.MagneticGrid;
@@ -66,7 +66,6 @@ public class LaTeXDraw extends JfxUI {
 //			System.setProperty("sun.java2d.opengl", "false");
 //		}
 
-		Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE);
 		UndoCollector.INSTANCE.setSizeMax(30);
 		CommandsRegistry.INSTANCE.setSizeMax(30);
 	}

@@ -168,10 +168,10 @@ public class Pencil extends CanvasInstrument {
 			}).
 			then((i, c) -> updateShapeFromCentre((SquaredShape) c.getShape(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()).getX())).
 			endOrCancel((i, c) -> canvas.setTempView(null)).
-			when(i -> i.getButton() == MouseButton.PRIMARY).
+			when(i -> i.getButton() == MouseButton.PRIMARY && (editing.getCurrentChoice() == EditionChoice.SQUARE ||
+				editing.getCurrentChoice() == EditionChoice.CIRCLE || editing.getCurrentChoice() == EditionChoice.CIRCLE_ARC)).
 			strictStart().
-			bind().activationProperty().bind(activatedProp.and(editing.currentChoiceProperty().isEqualTo(EditionChoice.SQUARE).
-			or(editing.currentChoiceProperty().isEqualTo(EditionChoice.CIRCLE).or(editing.currentChoiceProperty().isEqualTo(EditionChoice.CIRCLE_ARC)))));
+			bind();
 	}
 
 	/**
@@ -187,9 +187,9 @@ public class Pencil extends CanvasInstrument {
 			endOrCancel((a, i) -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY).
 			strictStart().
-			bind().activationProperty().bind(activatedProp.and(editing.currentChoiceProperty().isEqualTo(EditionChoice.RECT).
-			or(editing.currentChoiceProperty().isEqualTo(EditionChoice.ELLIPSE).or(editing.currentChoiceProperty().isEqualTo(EditionChoice.RHOMBUS).
-				or(editing.currentChoiceProperty().isEqualTo(EditionChoice.TRIANGLE))))));
+			when(() -> editing.getCurrentChoice() == EditionChoice.RECT || editing.getCurrentChoice() == EditionChoice.ELLIPSE ||
+				editing.getCurrentChoice() == EditionChoice.RHOMBUS || editing.getCurrentChoice() == EditionChoice.TRIANGLE).
+			bind();
 	}
 
 	/**
@@ -211,7 +211,8 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			}).
 			endOrCancel((i, c) -> canvas.setTempView(null)).
-			bind().activationProperty().bind(editing.currentChoiceProperty().isEqualTo(EditionChoice.POLYGON).and(activatedProp));
+			when(() -> editing.getCurrentChoice() == EditionChoice.POLYGON).
+			bind();
 
 		// Binding for polyline
 		nodeBinder(new MultiClick(), creation).on(canvas).
@@ -225,7 +226,8 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			}).
 			endOrCancel((i, c) -> canvas.setTempView(null)).
-			bind().activationProperty().bind(editing.currentChoiceProperty().isEqualTo(EditionChoice.LINES).and(activatedProp));
+			when(() -> editing.getCurrentChoice() == EditionChoice.LINES).
+			bind();
 
 		// Binding for bézier curves
 		nodeBinder(new MultiClick(), creation).on(canvas).
@@ -240,7 +242,8 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			}).
 			endOrCancel((i, c) -> canvas.setTempView(null)).
-			bind().activationProperty().bind(editing.currentChoiceProperty().isEqualTo(EditionChoice.BEZIER_CURVE).and(activatedProp));
+			when(() -> editing.getCurrentChoice() == EditionChoice.BEZIER_CURVE).
+			bind();
 	}
 
 	/**
@@ -252,18 +255,18 @@ public class Pencil extends CanvasInstrument {
 			final PositionShape sh = (PositionShape) editing.createShapeInstance();
 			sh.setPosition(getAdaptedPoint(i.getSrcLocalPoint()));
 			return new AddShape(sh, canvas.getDrawing());
-		}).on(canvas).
-			when(i -> i.getButton() == MouseButton.PRIMARY).
-			bind().activationProperty().bind(activatedProp.and(editing.currentChoiceProperty().isEqualTo(EditionChoice.GRID).
-			or(editing.currentChoiceProperty().isEqualTo(EditionChoice.DOT)).or(editing.currentChoiceProperty().isEqualTo(EditionChoice.AXES))));
+		}).on(canvas)
+		.when(i -> i.getButton() == MouseButton.PRIMARY && (editing.getCurrentChoice() == EditionChoice.GRID ||
+			editing.getCurrentChoice() == EditionChoice.DOT || editing.getCurrentChoice() == EditionChoice.AXES))
+		.bind();
 
 		// When a user starts to type a text using the text setter and then he clicks somewhere else in the canvas,
 		// the text typed must be added (if possible to the canvas) before starting typing a new text.
 		nodeBinder(new Press(),
 			i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(textSetter.getPosition()), textSetter.getTextField().getText()),
 			canvas.getDrawing())).on(canvas).
-			when(i -> textSetter.isActivated() && !textSetter.getTextField().getText().isEmpty()).
-			bind().activationProperty().bind(editing.currentChoiceProperty().isEqualTo(EditionChoice.TEXT).and(activatedProp));
+			when(i -> textSetter.isActivated() && !textSetter.getTextField().getText().isEmpty() && editing.getCurrentChoice() == EditionChoice.TEXT).
+			bind();
 	}
 
 	/**

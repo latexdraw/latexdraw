@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.parser.svg.path.SVGPathSeg;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegArc;

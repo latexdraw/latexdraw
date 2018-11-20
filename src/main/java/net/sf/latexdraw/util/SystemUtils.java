@@ -30,7 +30,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import javafx.scene.input.KeyCode;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import org.jetbrains.annotations.NotNull;
 
 /**

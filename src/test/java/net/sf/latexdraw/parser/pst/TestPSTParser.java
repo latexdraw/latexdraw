@@ -3,7 +3,7 @@ package net.sf.latexdraw.parser.pst;
 import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.antlr.v4.runtime.BaseErrorListener;

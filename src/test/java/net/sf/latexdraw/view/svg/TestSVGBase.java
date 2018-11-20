@@ -1,7 +1,7 @@
 package net.sf.latexdraw.view.svg;
 
 import java.lang.reflect.InvocationTargetException;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.model.api.shape.Drawing;

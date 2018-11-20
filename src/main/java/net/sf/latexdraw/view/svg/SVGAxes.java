@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Arrow;

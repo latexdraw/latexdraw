@@ -13,7 +13,7 @@ package net.sf.latexdraw.parser.svg;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Tuple;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

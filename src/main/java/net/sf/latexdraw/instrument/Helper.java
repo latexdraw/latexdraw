@@ -24,7 +24,7 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.BuilderFactory;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
 import org.jetbrains.annotations.NotNull;

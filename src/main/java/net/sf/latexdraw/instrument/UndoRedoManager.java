@@ -52,8 +52,8 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	public void initialize(final URL location, final ResourceBundle resources) {
 		setActivated(true);
 
-		undoB.disableProperty().bind(FXUndoCollector.INSTANCE.lastUndoProperty().isNull().or(activatedProp.not()));
-		redoB.disableProperty().bind(FXUndoCollector.INSTANCE.lastRedoProperty().isNull().or(activatedProp.not()));
+		undoB.disableProperty().bind(FXUndoCollector.INSTANCE.lastUndoProperty().isNull());
+		redoB.disableProperty().bind(FXUndoCollector.INSTANCE.lastRedoProperty().isNull());
 		undoB.tooltipProperty().bind(Bindings.createObjectBinding(() -> UndoCollector.INSTANCE.getLastUndo().
 			map(undo -> new Tooltip(undo.getUndoName(lang))).orElse(null), FXUndoCollector.INSTANCE.lastUndoProperty()));
 		redoB.tooltipProperty().bind(Bindings.createObjectBinding(() -> UndoCollector.INSTANCE.getLastRedo().
