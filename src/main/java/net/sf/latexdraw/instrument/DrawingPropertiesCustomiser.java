@@ -85,35 +85,27 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	}
 
 	@Override
-	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
-		super.save(generalPreferences, nsURI, document, root);
+	public void save(final boolean generalPreferences, final String nsURI, final Document doc, final Element root) {
+		super.save(generalPreferences, nsURI, doc, root);
 
-		if(document == null || root == null || generalPreferences) {
+		if(doc == null || root == null || generalPreferences) {
 			return;
 		}
 
 		final String ns = SystemUtils.getInstance().getNormaliseNamespaceURI(nsURI);
 
 		if(!latexData.getCaption().isEmpty()) {
-			final Element elt = document.createElement(ns + LNamespace.XML_CAPTION);
-			elt.appendChild(document.createTextNode(latexData.getCaption()));
+			final Element elt = doc.createElement(ns + LNamespace.XML_CAPTION);
+			elt.appendChild(doc.createTextNode(latexData.getCaption()));
 			root.appendChild(elt);
 		}
 		if(!latexData.getLabel().isEmpty()) {
-			final Element elt = document.createElement(ns + LNamespace.XML_LABEL);
-			elt.appendChild(document.createTextNode(latexData.getLabel()));
+			final Element elt = doc.createElement(ns + LNamespace.XML_LABEL);
+			elt.appendChild(doc.createTextNode(latexData.getLabel()));
 			root.appendChild(elt);
 		}
-		if(latexData.isPositionHoriCentre()) {
-			final Element elt = document.createElement(ns + LNamespace.XML_POSITION_HORIZ);
-			elt.setTextContent(String.valueOf(latexData.isPositionHoriCentre()));
-			root.appendChild(elt);
-		}
-		if(latexData.getPositionVertToken() != VerticalPosition.NONE) {
-			final Element elt = document.createElement(ns + LNamespace.XML_POSITION_VERT);
-			elt.setTextContent(latexData.getPositionVertToken().toString());
-			root.appendChild(elt);
-		}
+		SystemUtils.getInstance().createElement(doc, ns + LNamespace.XML_POSITION_HORIZ, String.valueOf(latexData.isPositionHoriCentre()), root);
+		SystemUtils.getInstance().createElement(doc, ns + LNamespace.XML_POSITION_VERT, latexData.getPositionVertToken().toString(), root);
 	}
 
 	@Override

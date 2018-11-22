@@ -13,7 +13,7 @@ import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;

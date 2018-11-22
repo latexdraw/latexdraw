@@ -46,7 +46,7 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Position;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;

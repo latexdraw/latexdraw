@@ -41,7 +41,6 @@ import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.VersionChecker;
-import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.command.CommandsRegistry;
 import org.malai.javafx.instrument.JfxInstrument;
@@ -167,7 +166,6 @@ public class LaTeXDraw extends JfxUI {
 					mainStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, WindowEvent::consume);
 					mainStage.getIcons().add(new Image("/res/LaTeXDrawIcon.png")); //NON-NLS
 					mainStage.centerOnScreen();
-					injector.getInstance(MagneticGrid.class).update();
 					injector.getInstance(TabSelector.class).centreViewport();
 					injector.getInstance(Canvas.class).requestFocus();
 					// Checking a new version if required.

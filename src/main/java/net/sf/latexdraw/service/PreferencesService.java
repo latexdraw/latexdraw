@@ -12,24 +12,17 @@ package net.sf.latexdraw.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Optional;
-import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -45,7 +38,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -55,8 +47,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.util.SystemUtils;
@@ -72,6 +64,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
 public class PreferencesService {
@@ -94,9 +87,11 @@ public class PreferencesService {
 	private final @NotNull ObjectProperty<GridStyle> gridStyle;
 	private final @NotNull ObjectProperty<Unit> unit;
 	private final @NotNull ObjectProperty<Page> page;
+	private final @NotNull String prefsPath;
 
-	public PreferencesService() {
+	PreferencesService(final @NotNull String prefsPath) {
 		super();
+		this.prefsPath = prefsPath;
 		lang = new SimpleObjectProperty<>(readLang());
 		bundle = loadResourceBundle(lang.get()).orElseThrow(() -> new IllegalArgumentException("Cannot read any resource bundle."));
 		nbRecentFiles = new SimpleIntegerProperty(5);
@@ -105,7 +100,7 @@ public class PreferencesService {
 		checkVersion = new SimpleBooleanProperty(true);
 		gridStyle = new SimpleObjectProperty<>(GridStyle.NONE);
 		unit = new SimpleObjectProperty<>(Unit.CM);
-		magneticGrid = new SimpleBooleanProperty(true);
+		magneticGrid = new SimpleBooleanProperty(false);
 		pathExport = new SimpleStringProperty("");
 		pathOpen = new SimpleStringProperty("");
 		includes = new SimpleStringProperty("");
@@ -121,6 +116,10 @@ public class PreferencesService {
 		});
 
 		UndoCollector.INSTANCE.setBundle(bundle);
+	}
+
+	public PreferencesService() {
+		this(SystemUtils.getInstance().getPathLocalUser() + File.separator + ".preferences.xml"); //NON-NLS;
 	}
 
 	public @NotNull StringProperty includesProperty() {
@@ -206,15 +205,10 @@ public class PreferencesService {
 	}
 
 
-	private @NotNull Optional<ResourceBundle> loadResourceBundle(final Locale locale) {
+	private @NotNull Optional<ResourceBundle> loadResourceBundle(final @NotNull Locale locale) {
 		try {
-			try {
-				return Optional.ofNullable(ResourceBundle.getBundle("lang.bundle", locale, new UTF8Control())); //NON-NLS
-			}catch(final UnsupportedOperationException ex) {
-				// Java 9+ do not support 'control' anymore
-				return Optional.ofNullable(ResourceBundle.getBundle("lang.bundle", locale)); //NON-NLS
-			}
-		}catch(final MissingResourceException | NullPointerException ex) {
+			return Optional.ofNullable(ResourceBundle.getBundle("lang.bundle", locale)); //NON-NLS
+		}catch(final MissingResourceException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			return Optional.empty();
 		}
@@ -248,8 +242,11 @@ public class PreferencesService {
 		return nbRecentFiles.get();
 	}
 
-	public void setNbRecentFiles(final int nbRecentFiles) {
-		this.nbRecentFiles.set(nbRecentFiles);
+	public void setNbRecentFiles(final int nbFiles) {
+		this.nbRecentFiles.set(nbFiles);
+		while(recentFileNames.size() > nbRecentFiles.get()) {
+			recentFileNames.remove(recentFileNames.size() - 1);
+		}
 	}
 
 	public @NotNull StringProperty pathExportProperty() {
@@ -280,19 +277,20 @@ public class PreferencesService {
 		return recentFileNames;
 	}
 
-	private void setRecentFiles(final Node node) {
+	private void setRecentFiles(final @NotNull Node node) {
 		final NodeList nl = node.getChildNodes();
 		final NamedNodeMap nnm = node.getAttributes();
 
 		if(nnm != null && nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES) != null) {
-			Optional.ofNullable(nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES)).ifPresent(attr -> nbRecentFiles.setValue(Integer.valueOf(attr.getTextContent())));
+			MathUtils.INST.parseInt(nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES).getTextContent()).ifPresent(val -> nbRecentFiles.setValue(val));
 		}
 
-		recentFileNames.setAll(IntStream.range(0, Math.min(nbRecentFiles.get(), nl.getLength())).
-			mapToObj(i -> nl.item(i)).
-			filter(n -> LNamespace.XML_RECENT_FILE.equals(n.getNodeName()) && n.getTextContent() != null).
-			map(n -> n.getTextContent()).
-			collect(Collectors.toList()));
+		recentFileNames.setAll(IntStream
+			.range(0, Math.min(nbRecentFiles.get(), nl.getLength()))
+			.mapToObj(i -> nl.item(i))
+			.filter(n -> LNamespace.XML_RECENT_FILE.equals(n.getNodeName()) && n.getTextContent() != null)
+			.map(n -> n.getTextContent())
+			.collect(Collectors.toList()));
 	}
 
 	public void addRecentFile(final @NotNull String absolutePath) {
@@ -302,7 +300,7 @@ public class PreferencesService {
 			recentFileNames.remove(i);
 		}
 
-		while(recentFileNames.size() >= nbRecentFiles.get()) {
+		if(recentFileNames.size() == nbRecentFiles.get()) {
 			recentFileNames.remove(nbRecentFiles.get() - 1);
 		}
 
@@ -310,83 +308,53 @@ public class PreferencesService {
 	}
 
 
-	private @NotNull String getPreferencesPath() {
-		return SystemUtils.getInstance().getPathLocalUser() + File.separator + ".preferences.xml"; //NON-NLS
+	@NotNull String getPreferencesPath() {
+		return prefsPath;
 	}
 
 
 	public void writePreferences() {
+		final Optional<Document> opt = SystemUtils.getInstance().createXMLDocumentBuilder().map(b -> b.newDocument());
+
+		if(opt.isEmpty()) {
+			return;
+		}
+
+		final Document document = opt.get();
+		final Element root = document.createElement(LNamespace.XML_ROOT_PREFERENCES);
+
+		document.setXmlVersion("1.0"); //NON-NLS
+		document.setXmlStandalone(true);
+		document.appendChild(root);
+
+		final Attr attr = document.createAttribute(LNamespace.XML_VERSION);
+		attr.setTextContent(VersionChecker.VERSION);
+		root.setAttributeNode(attr);
+
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_OPENGL, String.valueOf(openGL.get()), root);
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_PATH_EXPORT, pathExport.get(), root);
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_PATH_OPEN, pathOpen.get(), root);
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_UNIT, unit.get().name(), root);
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_PAGE, page.get().name(), root);
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_CHECK_VERSION, String.valueOf(checkVersion.get()), root);
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_LANG, lang.get().toLanguageTag(), root);
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_MAGNETIC_GRID, String.valueOf(magneticGrid.get()), root);
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_GRID_STYLE, gridStyle.get().name(), root);
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_GRID_GAP, String.valueOf(gridGap.get()), root);
+		SystemUtils.getInstance().createElement(document, LNamespace.XML_LATEX_INCLUDES, includes.get(), root);
+		final Element recent = document.createElement(LNamespace.XML_RECENT_FILES);
+		root.appendChild(recent);
+		recent.setAttribute(LNamespace.XML_NB_RECENT_FILES, String.valueOf(nbRecentFiles.get()));
+		recentFileNames.forEach(n -> SystemUtils.getInstance().createElement(document, LNamespace.XML_RECENT_FILE, n, recent));
+
 		try {
 			try(final OutputStream fos = Files.newOutputStream(Path.of(getPreferencesPath()))) {
-				final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-				final Element root = document.createElement(LNamespace.XML_ROOT_PREFERENCES);
-				Element elt;
-				Element elt2;
-
-				document.setXmlVersion("1.0"); //NON-NLS
-				document.setXmlStandalone(true);
-				document.appendChild(root);
-
-				final Attr attr = document.createAttribute(LNamespace.XML_VERSION);
-				attr.setTextContent(VersionChecker.VERSION);
-				root.setAttributeNode(attr);
-
-				elt = document.createElement(LNamespace.XML_OPENGL);
-				elt.setTextContent(String.valueOf(openGL));
-				root.appendChild(elt);
-
-				elt = document.createElement(LNamespace.XML_PATH_EXPORT);
-				elt.setTextContent(pathExport.get());
-				root.appendChild(elt);
-
-				elt = document.createElement(LNamespace.XML_PATH_OPEN);
-				elt.setTextContent(pathOpen.get());
-				root.appendChild(elt);
-
-				elt = document.createElement(LNamespace.XML_UNIT);
-				elt.setTextContent(unit.getName());
-				root.appendChild(elt);
-
-				elt = document.createElement(LNamespace.XML_CHECK_VERSION);
-				elt.setTextContent(String.valueOf(checkVersion));
-				root.appendChild(elt);
-
-				elt = document.createElement(LNamespace.XML_LANG);
-				elt.setTextContent(lang.get().toLanguageTag());
-				root.appendChild(elt);
-
-				elt = document.createElement(LNamespace.XML_MAGNETIC_GRID);
-				elt.setTextContent(String.valueOf(magneticGrid.get()));
-				root.appendChild(elt);
-
-				elt = document.createElement(LNamespace.XML_GRID_STYLE);
-				elt.setTextContent(gridStyle.get().name());
-				root.appendChild(elt);
-
-				elt = document.createElement(LNamespace.XML_GRID_GAP);
-				elt.setTextContent(String.valueOf(gridGap.get()));
-				root.appendChild(elt);
-
-				elt = document.createElement(LNamespace.XML_LATEX_INCLUDES);
-				elt.setTextContent(includes.get());
-				root.appendChild(elt);
-
-				elt = document.createElement(LNamespace.XML_RECENT_FILES);
-				elt.setAttribute(LNamespace.XML_NB_RECENT_FILES, String.valueOf(nbRecentFiles.get()));
-				root.appendChild(elt);
-
-				for(final String recentFile : recentFileNames) {
-					elt2 = document.createElement(LNamespace.XML_RECENT_FILE);
-					elt2.setTextContent(recentFile);
-					elt.appendChild(elt2);
-				}
-
 				final Transformer transformer = TransformerFactory.newInstance().newTransformer();
 				transformer.setOutputProperty(OutputKeys.INDENT, "yes"); //NON-NLS
 				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); //NON-NLS
 				transformer.transform(new DOMSource(document), new StreamResult(fos));
 			}
-		}catch(final TransformerException | IllegalArgumentException | DOMException | IOException | ParserConfigurationException | FactoryConfigurationError ex) {
+		}catch(final TransformerException | IllegalArgumentException | DOMException | IOException | FactoryConfigurationError ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 	}
@@ -397,102 +365,70 @@ public class PreferencesService {
 	}
 
 
-	private Map<String, Node> readPreferencesFromFile(final File xmlFile) {
-		if(xmlFile == null || !xmlFile.canRead()) {
-			return Collections.emptyMap();
-		}
-
-		try {
-			final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true); //NON-NLS
-			factory.setFeature("http://xml.org/sax/features/external-general-entities", false); //NON-NLS
-			factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false); //NON-NLS
-			factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false); //NON-NLS
-			factory.setXIncludeAware(false);
-			factory.setExpandEntityReferences(false);
-			final DocumentBuilder builder = factory.newDocumentBuilder();
-			builder.setErrorHandler(null);
-			final Node root = builder.parse(xmlFile).getFirstChild();
-
-			if(root == null || !LNamespace.XML_ROOT_PREFERENCES.equals(root.getNodeName())) {
-				return Collections.emptyMap();
+	private Map<String, Node> readPreferencesFromFile(final @NotNull File xmlFile) {
+		return SystemUtils.getInstance().createXMLDocumentBuilder().map(builder -> {
+			try {
+				final NodeList nl = builder.parse(xmlFile).getFirstChild().getChildNodes();
+				// Transforming the list of nodes in a map.
+				return Collections.unmodifiableMap(IntStream
+					.range(0, nl.getLength())
+					.mapToObj(index -> nl.item(index))
+					.filter(node -> node.getNodeName() != null && !node.getNodeName().isEmpty() && !(node instanceof Text))
+					.collect(Collectors.toMap(n -> n.getNodeName(), n -> n)));
+			}catch(final IOException | SAXException ignored) {
+				return Collections.<String, Node>emptyMap();
 			}
-
-			final Map<String, Node> preferences = new HashMap<>();
-			final NodeList nl = root.getChildNodes();
-
-			for(int i = 0, size = nl.getLength(); i < size; i++) {
-				final Node node = nl.item(i);
-				final String name = node.getNodeName();
-
-				if(name != null && !name.isEmpty()) {
-					preferences.put(name, node);
-				}
-			}
-
-			return Collections.unmodifiableMap(preferences);
-		}catch(final IOException | SAXException | FactoryConfigurationError | ParserConfigurationException ignored) {
-			// Empty file or not ok
-		}
-		return Collections.emptyMap();
+		}).orElse(Collections.emptyMap());
 	}
 
 
-	private void processXMLDataPreference(final Map<String, Node> prefMap) {
-		includes.setValue(Optional.ofNullable(prefMap.get(LNamespace.XML_LATEX_INCLUDES)).map(n -> n.getTextContent()).orElse(""));
+	private void processXMLDataPreference(final @NotNull Map<String, Node> prefMap) {
+		final Optional<Element> opt = SystemUtils.getInstance().createXMLDocumentBuilder().map(b -> b.newDocument().createElement("STUB")); //NON-NLS
 
-		openGL.setValue(Optional.ofNullable(prefMap.get(LNamespace.XML_OPENGL)).map(n -> Boolean.valueOf(n.getTextContent())).orElse(Boolean.TRUE));
-
-		checkVersion.setValue(Optional.ofNullable(prefMap.get(LNamespace.XML_CHECK_VERSION)).map(n -> Boolean.valueOf(n.getTextContent())).orElse(Boolean.TRUE));
-
-		gridStyle.set(Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_STYLE)).
-			map(n -> GridStyle.getStylefromName(n.getTextContent()).orElse(GridStyle.NONE)).orElse(GridStyle.NONE));
-
-		gridGap.set(Optional.ofNullable(prefMap.get(LNamespace.XML_GRID_GAP)).
-			map(node -> MathUtils.INST.parseInt(node.getTextContent()).orElse(10)).orElse(10));
-
-		magneticGrid.setValue(Optional.ofNullable(prefMap.get(LNamespace.XML_MAGNETIC_GRID)).map(n -> Boolean.valueOf(n.getTextContent())).orElse(Boolean.TRUE));
-
-		pathExport.set(Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_EXPORT)).map(node -> node.getTextContent()).orElse(""));
-
-		pathOpen.set(Optional.ofNullable(prefMap.get(LNamespace.XML_PATH_OPEN)).map(node -> node.getTextContent()).orElse(""));
-
-		unit.set(Optional.ofNullable(prefMap.get(LNamespace.XML_UNIT)).map(node -> Unit.getUnit(node.getTextContent())).orElse(Unit.CM));
-
-		Optional.ofNullable(prefMap.get(LNamespace.XML_RECENT_FILES)).ifPresent(node -> setRecentFiles(node));
-	}
-
-	private static class UTF8Control extends ResourceBundle.Control {
-		@Override
-		public ResourceBundle newBundle(final String base, final Locale loc, final String fmt, final ClassLoader load, final boolean reload) throws IOException {
-			final String bundleName = toBundleName(base, loc);
-			final String resourceName = toResourceName(bundleName, "properties"); //NON-NLS
-			ResourceBundle bundle = null;
-			InputStream stream = null;
-			if(reload) {
-				final URL url = load.getResource(resourceName);
-				if(url != null) {
-					final URLConnection connection = url.openConnection();
-					if(connection != null) {
-						connection.setUseCaches(false);
-						stream = connection.getInputStream();
-					}
-				}
-			}else {
-				stream = load.getResourceAsStream(resourceName);
-			}
-			if(stream != null) {
-				try {
-					bundle = new PropertyResourceBundle(new InputStreamReader(stream, Charset.forName("UTF-8")));
-				}finally {
-					try {
-						stream.close();
-					}catch(final IOException ex) {
-						BadaboomCollector.INSTANCE.add(ex);
-					}
-				}
-			}
-			return bundle;
+		if(opt.isEmpty()) {
+			return;
 		}
+
+		final Element noElt = opt.get();
+
+		final String incl = prefMap.getOrDefault(LNamespace.XML_LATEX_INCLUDES, noElt).getTextContent();
+		if(incl != null) {
+			includes.setValue(incl);
+		}
+
+		final String gl = prefMap.getOrDefault(LNamespace.XML_OPENGL, noElt).getTextContent();
+		if(gl != null) {
+			openGL.setValue(Boolean.valueOf(gl));
+		}
+
+		final String check = prefMap.getOrDefault(LNamespace.XML_CHECK_VERSION, noElt).getTextContent();
+		if(check != null) {
+			checkVersion.setValue(Boolean.valueOf(check));
+		}
+
+		GridStyle.getStylefromName(prefMap.getOrDefault(LNamespace.XML_GRID_STYLE, noElt).getTextContent()).ifPresent(style -> gridStyle.set(style));
+
+		MathUtils.INST.parseInt(prefMap.getOrDefault(LNamespace.XML_GRID_GAP, noElt).getTextContent()).ifPresent(gap -> gridGap.set(gap));
+
+		final String magnet = prefMap.getOrDefault(LNamespace.XML_MAGNETIC_GRID, noElt).getTextContent();
+		if(magnet != null) {
+			magneticGrid.setValue(Boolean.valueOf(magnet));
+		}
+
+		final String export = prefMap.getOrDefault(LNamespace.XML_PATH_EXPORT, noElt).getTextContent();
+		if(export != null) {
+			pathExport.set(export);
+		}
+
+		final String open = prefMap.getOrDefault(LNamespace.XML_PATH_OPEN, noElt).getTextContent();
+		if(open != null) {
+			pathOpen.set(open);
+		}
+
+		Unit.getUnit(prefMap.getOrDefault(LNamespace.XML_UNIT, noElt).getTextContent()).ifPresent(u -> unit.set(u));
+
+		Page.getPage(prefMap.getOrDefault(LNamespace.XML_PAGE, noElt).getTextContent()).ifPresent(p -> page.set(p));
+
+		setRecentFiles(prefMap.getOrDefault(LNamespace.XML_RECENT_FILES, noElt));
 	}
 }

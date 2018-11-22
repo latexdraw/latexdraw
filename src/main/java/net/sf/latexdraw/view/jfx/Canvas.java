@@ -48,7 +48,6 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.view.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -100,7 +99,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	private final @NotNull Rectangle ongoingSelectionBorder;
 	private final @NotNull Map<Shape, ViewShape<?>> shapesToViewMap;
 	/** The magnetic grid of the canvas. */
-	private final @NotNull MagneticGridImpl magneticGrid;
+	private final @NotNull MagneticGrid magneticGrid;
 	/** Defined whether the canvas has been modified. */
 	private boolean modified;
 	/** The temporary view that the canvas may contain. */
@@ -119,7 +118,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		zoom = new SimpleDoubleProperty(1d);
 		tempView = Optional.empty();
 		page = new PageView(prefs, getOrigin());
-		magneticGrid = new MagneticGridImpl(this, prefs);
+		magneticGrid = new MagneticGrid(this, prefs);
 
 		widgetsPane = new Group();
 		shapesPane = new Group();
@@ -310,8 +309,6 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 			elt.appendChild(document.createTextNode(MathUtils.INST.format.format(getScrollPane().getVvalue())));
 			root.appendChild(elt);
 		}
-
-		magneticGrid.save(generalPreferences, nsURI, document, root);
 	}
 
 	@Override
@@ -340,20 +337,16 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 				}
 			}
 		}
-		magneticGrid.load(generalPreferences, nsURI, meta);
 	}
 
 	@Override
 	public boolean isModified() {
-		return modified || magneticGrid.isModified();
+		return modified;
 	}
 
 	@Override
 	public void setModified(final boolean modif) {
 		modified = modif;
-		if(!modif) {
-			magneticGrid.setModified(false);
-		}
 	}
 
 	@Override

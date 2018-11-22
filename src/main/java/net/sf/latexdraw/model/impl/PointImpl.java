@@ -214,7 +214,7 @@ class PointImpl implements Point {
 
 	@Override
 	public double magnitude() {
-		return Math.sqrt(getX() * getX() + getY() * getY());
+		return Math.hypot(getX(), getY());
 	}
 
 	@Override
@@ -248,7 +248,7 @@ class PointImpl implements Point {
 
 	@Override
 	public double distance(final double xCoord, final double yCoord) {
-		return Math.sqrt(Math.pow(xCoord - x.get(), 2) + Math.pow(yCoord - y.get(), 2));
+		return Math.hypot(xCoord - x.get(), yCoord - y.get());
 	}
 
 	@Override

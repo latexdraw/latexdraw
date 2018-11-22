@@ -37,7 +37,7 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.SquaredShape;
 import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.jetbrains.annotations.NotNull;

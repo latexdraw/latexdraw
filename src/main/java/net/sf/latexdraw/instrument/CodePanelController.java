@@ -18,7 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import org.jetbrains.annotations.NotNull;

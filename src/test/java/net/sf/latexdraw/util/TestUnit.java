@@ -9,12 +9,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestUnit {
 	@ParameterizedTest
 	@EnumSource(Unit.class)
 	public void testGetUnit(final Unit unit) {
-		assertEquals(unit, Unit.getUnit(unit.name()));
+		assertEquals(unit, Unit.getUnit(unit.name()).orElseThrow());
 	}
 
 	@ParameterizedTest
@@ -26,12 +27,12 @@ public class TestUnit {
 	@ParameterizedTest
 	@EnumSource(Unit.class)
 	public void testGetUnitNULL() {
-		assertEquals(Unit.CM, Unit.getUnit(null));
+		assertTrue(Unit.getUnit(null).isEmpty());
 	}
 
 	@ParameterizedTest
 	@EnumSource(Unit.class)
 	public void testGetUnitKO() {
-		assertEquals(Unit.CM, Unit.getUnit("bad"));
+		assertTrue(Unit.getUnit("bad").isEmpty());
 	}
 }

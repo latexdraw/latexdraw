@@ -19,7 +19,7 @@ import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import org.jetbrains.annotations.NotNull;
 import org.malai.undo.Undoable;
 

@@ -11,6 +11,7 @@
 package net.sf.latexdraw.util;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -35,10 +36,10 @@ public enum Unit {
 
 	/**
 	 * @param name The name to test.
-	 * @return The unit corresponding to the given label, or CM.
+	 * @return The unit corresponding to the given label, or nothing.
 	 */
-	public static Unit getUnit(final String name) {
-		return Arrays.stream(values()).filter(it -> it.name().equals(name)).findFirst().orElse(CM);
+	public static Optional<Unit> getUnit(final String name) {
+		return Arrays.stream(values()).filter(it -> it.name().equals(name)).findFirst();
 	}
 
 	/**

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,6 +20,12 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 public class TestMathUtils {
+	@ParameterizedTest
+	@CsvSource(value = {"11, 10, 10", "26, 10, 30", "154, 50, 150", "200, 200, 200"})
+	void testGetClosestModuloValue(final double value, final double mod, final double res) {
+		assertEquals(res, MathUtils.INST.getClosestModuloValue(value, mod), 0.0001);
+	}
+
 	@Test
 	void testIsValidPointNull() {
 		assertFalse(MathUtils.INST.isValidPt(null));

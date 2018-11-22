@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.function.Supplier;
 import javafx.fxml.FXML;
@@ -21,10 +22,12 @@ import net.sf.latexdraw.command.shape.CopyShapes;
 import net.sf.latexdraw.command.shape.CutShapes;
 import net.sf.latexdraw.command.shape.PasteShapes;
 import net.sf.latexdraw.command.shape.SelectShapes;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.malai.command.Command;
 import org.malai.command.CommandsRegistry;
@@ -40,6 +43,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	@FXML protected MenuItem pasteMenu;
 	/** The menu item to cut the shapes. */
 	@FXML protected MenuItem cutMenu;
+	private final @NotNull PreferencesService prefs;
 
 	private final Supplier<Boolean> isShapeSelected = () -> {
 		final SelectShapes cmd = (SelectShapes) CommandsRegistry.INSTANCE.getCommands().parallelStream().
@@ -49,9 +53,10 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 
 	@Inject
-	public CopierCutterPaster(final Canvas canvas, final MagneticGrid grid) {
+	public CopierCutterPaster(final Canvas canvas, final MagneticGrid grid, final PreferencesService prefs) {
 		super(canvas, grid);
 		CommandsRegistry.INSTANCE.addHandler(this);
+		this.prefs = Objects.requireNonNull(prefs);
 	}
 
 	@Override
@@ -78,11 +83,11 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	@Override
 	protected void configureBindings() {
 		// menu to paste shapes.
-		menuItemBinder(i -> new PasteShapes(getCopyCutCmd(), grid, canvas.getDrawing())).on(pasteMenu).
+		menuItemBinder(i -> new PasteShapes(getCopyCutCmd(), prefs, canvas.getDrawing())).on(pasteMenu).
 			when(i -> getCopyCutCmd().isPresent()).bind();
 
 		// Key shortcut ctrl+V to paste shapes.
-		keyNodeBinder(i -> new PasteShapes(getCopyCutCmd(), grid, canvas.getDrawing())).
+		keyNodeBinder(i -> new PasteShapes(getCopyCutCmd(), prefs, canvas.getDrawing())).
 			on(canvas).with(KeyCode.V, SystemUtils.getInstance().getControlKey()).when(i -> getCopyCutCmd().isPresent()).bind();
 
 		// menu to copy shapes.

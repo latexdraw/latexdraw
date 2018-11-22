@@ -24,6 +24,7 @@ import net.sf.latexdraw.model.api.shape.Polyline;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Square;
 import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -73,7 +74,7 @@ public class TestCanvasCreation extends BaseTestCanvas {
 		when(setter.getTextField()).thenReturn(textAutoSize);
 		pencil.setActivated(true);
 		drawing = canvas.getDrawing();
-		canvas.getMagneticGrid().setMagnetic(false);
+		injector.getInstance(PreferencesService.class).magneticGridProperty().set(false);
 		WaitForAsyncUtils.waitForFxEvents(100);
 		canvas.toFront();
 	}

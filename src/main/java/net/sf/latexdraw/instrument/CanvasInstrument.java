@@ -14,7 +14,7 @@ import java.util.Objects;
 import javafx.geometry.Point3D;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Point;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.instrument.JfxInstrument;

@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.util;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 /**
  * The different page formats.
  */
@@ -39,5 +42,13 @@ public enum Page {
 	 */
 	public double getHeight() {
 		return height;
+	}
+
+	/**
+	 * @param name The name of the page to search for.
+	 * @return The found page or nothing.
+	 */
+	public static Optional<Page> getPage(final String name) {
+		return Arrays.stream(values()).filter(it -> it.name().equals(name)).findFirst();
 	}
 }

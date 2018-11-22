@@ -128,6 +128,20 @@ public final class MathUtils {
 	}
 
 
+	/**
+	 * Value 104 and modulo 10 => 100
+	 * Value 206 and modulo 10 => 210
+	 * Gives the closest value rounded to the given modulo
+	 * @param value The source value
+	 * @param modulo The modulo
+	 * @return The closest value rounded to the given modulo
+	 */
+	public double getClosestModuloValue(final double value, final double modulo) {
+		final int quotient = (int) (value / modulo);
+		return (value % modulo) < (modulo / 2d) ? quotient * modulo : quotient * modulo + modulo;
+	}
+
+
 	public OptionalInt parseInt(final String intvalue) {
 		try {
 			return OptionalInt.of(Integer.parseInt(intvalue));

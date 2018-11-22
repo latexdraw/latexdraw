@@ -87,7 +87,7 @@ public abstract class LaTeXGenerator {
 	public Optional<File> createEPSFile(final String pathExportEPS) {
 		final Optional<File> optDir = SystemUtils.getInstance().createTempDir();
 
-		if(!optDir.isPresent()) {
+		if(optDir.isEmpty()) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a tmp dir"));
 			return Optional.empty();
 		}
@@ -95,7 +95,7 @@ public abstract class LaTeXGenerator {
 		final File tmpDir = optDir.get();
 		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + SystemUtils.getInstance().FILE_SEP + "tmpPSFile.ps", tmpDir); //NON-NLS
 
-		if(!optFile.isPresent()) {
+		if(optFile.isEmpty()) {
 			return Optional.empty();
 		}
 
@@ -148,7 +148,7 @@ public abstract class LaTeXGenerator {
 		final String path = tmpDir2.getAbsolutePath() + SystemUtils.getInstance().FILE_SEP;
 		final Optional<File> optFile = SystemUtils.getInstance().saveFile(path + name + ExportFormat.TEX.getFileExtension(), getDocumentCode());
 
-		if(!optFile.isPresent()) {
+		if(optFile.isEmpty()) {
 			return Optional.empty();
 		}
 
@@ -204,7 +204,7 @@ public abstract class LaTeXGenerator {
 
 		final Optional<File> optDir = SystemUtils.getInstance().createTempDir();
 
-		if(!optDir.isPresent()) {
+		if(optDir.isEmpty()) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //NON-NLS
 			return Optional.empty();
 		}

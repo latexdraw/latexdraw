@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.PageView;
 import net.sf.latexdraw.view.jfx.ViewRectangle;

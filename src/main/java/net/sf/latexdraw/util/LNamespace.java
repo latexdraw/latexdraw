@@ -54,7 +54,7 @@ public final class LNamespace {
 	public static final String XML_COMMENTS				= "comments"; //NON-NLS
 	public static final String XML_ZOOM					= "zoom"; //NON-NLS
 	public static final String XML_UNIT					= "unit"; //NON-NLS
-	public static final String XML_MAGNETIC_GRID_STYLE	= "magneticGridStyle"; //NON-NLS
+	public static final String XML_PAGE					= "page"; //NON-NLS
 	public static final String XML_GRID_GAP				= "gridGap"; //NON-NLS
 	public static final String XML_MAGNETIC_GRID		= "magneticGrid"; //NON-NLS
 	public static final String XML_VERSION				= "version"; //NON-NLS

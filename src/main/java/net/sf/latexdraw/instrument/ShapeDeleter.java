@@ -22,7 +22,7 @@ import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.command.shape.DeleteShapes;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
 

@@ -116,7 +116,7 @@ public class SVGPathSegArc extends SVGPathPointSeg {
 		final double vx = (-x1 - cx1) / rx2;
 		final double vy = (-y1 - cy1) / ry2;
 		double p = ux;
-		double n = Math.sqrt(ux * ux + uy * uy);
+		double n = Math.hypot(ux, uy);
 
 		sign = uy < 0 ? -1. : 1.;
 		final double angleStart = Math.toDegrees(sign * Math.acos(p / n));

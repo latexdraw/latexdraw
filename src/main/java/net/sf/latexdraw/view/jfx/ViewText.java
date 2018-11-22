@@ -178,7 +178,7 @@ public class ViewText extends ViewPositionShape<Text> {
 	private Tuple<Image, String> createImage() {
 		final Optional<File> optDir = SystemUtils.getInstance().createTempDir();
 
-		if(!optDir.isPresent()) {
+		if(optDir.isEmpty()) {
 			return new Tuple<>(null, "A temporary file cannot be created."); //NON-NLS
 		}
 

@@ -11,7 +11,7 @@ import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.junit.Before;
 import org.junit.Test;

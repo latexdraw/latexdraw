@@ -30,7 +30,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import javafx.scene.input.KeyCode;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Defines some routines that provides information about the operating system currently used.
@@ -61,6 +67,35 @@ public final class SystemUtils {
 	private SystemUtils() {
 		super();
 		checkDirectories();
+	}
+
+	public @NotNull Element createElement(final @NotNull Document doc, final @NotNull String tag, final @NotNull String text, final @NotNull Element parent) {
+		final Element elt = doc.createElement(tag);
+		elt.setTextContent(text);
+		parent.appendChild(elt);
+		return elt;
+	}
+
+	/**
+	 * Creates an XML document builder.
+	 * @return The builder or nothing if a configuration issue occurs.
+	 */
+	public Optional<DocumentBuilder> createXMLDocumentBuilder() {
+		try {
+			final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true); //NON-NLS
+			factory.setFeature("http://xml.org/sax/features/external-general-entities", false); //NON-NLS
+			factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false); //NON-NLS
+			factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false); //NON-NLS
+			factory.setXIncludeAware(false);
+			factory.setExpandEntityReferences(false);
+			final DocumentBuilder builder = factory.newDocumentBuilder();
+			builder.setErrorHandler(null);
+			return Optional.of(builder);
+		}catch(final FactoryConfigurationError | ParserConfigurationException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+		}
+		return Optional.empty();
 	}
 
 	public @NotNull String getPathCacheShareDir() {

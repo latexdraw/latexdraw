@@ -19,7 +19,7 @@ import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.service.PreferencesService;
 import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
 import org.malai.undo.Undoable;
@@ -32,13 +32,13 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 	/** The cut or copy command. */
 	private final @NotNull Optional<CopyShapes> copy;
 	/** The magnetic grid to use. */
-	private final @NotNull MagneticGrid grid;
+	private final @NotNull PreferencesService prefs;
 	private final @NotNull List<Shape> pastedShapes;
 
-	public PasteShapes(final @NotNull Optional<CopyShapes> copyCmd, final @NotNull MagneticGrid magnetGrid, final @NotNull Drawing drawing) {
+	public PasteShapes(final @NotNull Optional<CopyShapes> copyCmd, final @NotNull PreferencesService prefs, final @NotNull Drawing drawing) {
 		super(drawing);
 		copy = copyCmd;
-		grid = magnetGrid;
+		this.prefs = prefs;
 		pastedShapes = new ArrayList<>();
 	}
 
@@ -56,7 +56,7 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 				cop.nbTimeCopied++;
 			}
 
-			final int gapPaste = grid.isMagnetic() ? grid.getGridSpacing() : 10;
+			final int gapPaste = prefs.isMagneticGrid() ? prefs.gridGapProperty().get() : 10;
 			final int gap = cop.nbTimeCopied * gapPaste;
 
 			cop.copiedShapes.forEach(shape -> ShapeFactory.INST.duplicate(shape).ifPresent(sh -> {

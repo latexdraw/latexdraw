@@ -14,6 +14,7 @@ import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.Polyline;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
@@ -132,7 +133,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 		pencil = injector.getInstance(Pencil.class);
 		hand = injector.getInstance(Hand.class);
 		canvas = injector.getInstance(Canvas.class);
-		canvas.getMagneticGrid().setMagnetic(false);
+		injector.getInstance(PreferencesService.class).magneticGridProperty().set(false);
 
 		Platform.runLater(() -> {
 			final int width = 800;

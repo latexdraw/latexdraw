@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.service.EditingService;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.junit.Before;
@@ -50,7 +51,7 @@ public class TestTextSetter extends BaseTestCanvas {
 		editing.getGroupParams().setNbPlottedPoints(10);
 		setter = injector.getInstance(TextSetter.class);
 		pencil.setActivated(true);
-		canvas.getMagneticGrid().setMagnetic(false);
+		injector.getInstance(PreferencesService.class).magneticGridProperty().set(false);
 		Platform.runLater(() -> setter.initialize(null, null));
 		WaitForAsyncUtils.waitForFxEvents(100);
 		canvas.toFront();

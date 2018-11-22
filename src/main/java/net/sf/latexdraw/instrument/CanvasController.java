@@ -17,7 +17,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.javafx.command.MoveCamera;
 import org.malai.javafx.interaction.library.DnD;

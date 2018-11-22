@@ -35,9 +35,10 @@ import net.sf.latexdraw.model.api.shape.Plot;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Text;
+import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
-import net.sf.latexdraw.view.MagneticGrid;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
@@ -55,11 +56,13 @@ import org.malai.javafx.interaction.library.SrcTgtPointsData;
  */
 public class Hand extends CanvasInstrument {
 	private final @NotNull TextSetter textSetter;
+	private final @NotNull PreferencesService prefs;
 
 	@Inject
-	public Hand(final Canvas canvas, final MagneticGrid grid, final TextSetter textSetter) {
+	public Hand(final Canvas canvas, final MagneticGrid grid, final TextSetter textSetter, final PreferencesService prefs) {
 		super(canvas, grid);
 		this.textSetter = Objects.requireNonNull(textSetter);
+		this.prefs = Objects.requireNonNull(prefs);
 	}
 
 	private final ListChangeListener<Node> viewHandler = evt -> {
@@ -104,7 +107,7 @@ public class Hand extends CanvasInstrument {
 
 		keyNodeBinder(() -> new UpdateToGrid(canvas.getMagneticGrid(), canvas.getDrawing().getSelection().duplicateDeep(false))).
 			on(canvas).with(KeyCode.U, SystemUtils.getInstance().getControlKey()).
-			when(i -> canvas.getMagneticGrid().isMagnetic()).bind();
+			when(i -> prefs.isMagneticGrid()).bind();
 	}
 
 	/**
