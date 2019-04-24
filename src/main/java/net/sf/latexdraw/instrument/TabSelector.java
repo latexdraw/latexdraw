@@ -20,7 +20,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
@@ -36,9 +35,6 @@ public class TabSelector extends JfxInstrument implements Initializable {
 	@FXML private TabPane tabPane;
 	@FXML private ScrollPane scrollPane;
 	@FXML private Pane canvasPane;
-	@FXML private ScaleRuler xruler;
-	@FXML private ScaleRuler yruler;
-	@FXML private Pane rulersScrollerPane;
 	private final @NotNull EditingSelector selector;
 	private final @NotNull CopierCutterPaster paster;
 	private final @NotNull UndoRedoManager undo;
@@ -96,40 +92,9 @@ public class TabSelector extends JfxInstrument implements Initializable {
 			return new Rectangle(x, y, vpWidth, vpHeight);
 		}, scrollPane.vvalueProperty(), scrollPane.hvalueProperty(), scrollPane.viewportBoundsProperty()));
 
-		initScaleRulers();
-
 		setActivated(true);
 	}
 
-	private void initScaleRulers() {
-		xruler.setCanvas(canvas);
-		yruler.setCanvas(canvas);
-
-		canvas.zoomProperty().addListener((observable, oldValue, newValue) -> xruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
-
-		rulersScrollerPane.widthProperty().addListener((observable, oldValue, newValue) -> xruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
-		rulersScrollerPane.heightProperty().addListener((observable, oldValue, newValue) -> yruler.update(rulersScrollerPane.getWidth(), rulersScrollerPane.getHeight()));
-
-		xruler.getGroup().translateXProperty().bind(Bindings.createDoubleBinding(() -> {
-			final int gap = 100; // 100mm = 1cm
-			int val = (int) (canvas.getWidth() * scrollPane.getHvalue() - Canvas.getMargins());
-			while(val < 0) {
-				val += gap;
-			}
-			val %= gap;
-			return (double) val;
-		}, scrollPane.hvalueProperty()));
-
-		yruler.getGroup().translateYProperty().bind(Bindings.createDoubleBinding(() -> {
-			final int gap = 100; // 100mm = 1cm
-			int val = (int) (canvas.getHeight() * scrollPane.getVvalue() - Canvas.getMargins());
-			while(val < 0) {
-				val += gap;
-			}
-			val %= gap;
-			return (double) val;
-		}, scrollPane.vvalueProperty()));
-	}
 
 	@Override
 	public void reinit() {
