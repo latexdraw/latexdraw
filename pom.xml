@@ -12,9 +12,9 @@
         <malai.version>3.1-SNAPSHOT</malai.version>
         <antlr.version>4.7.1</antlr.version>
         <java.version>11</java.version>
-        <junit.version>5.3.1</junit.version>
+        <junit.version>5.4.2</junit.version>
         <testfx.version>4.0.15-alpha</testfx.version>
-        <mockito.version>2.23.0</mockito.version>
+        <mockito.version>2.27.0</mockito.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -80,7 +80,7 @@
 
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.1</version>
                 <configuration>
                     <outputDirectory>${project.build.directory}/modules</outputDirectory>
                 </configuration>
@@ -292,7 +292,7 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>8.14</version>
+                        <version>8.20</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -300,7 +300,7 @@
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
-                <version>1.4.0</version>
+                <version>1.4.7</version>
                 <configuration>
                     <mutationEngine>descartes</mutationEngine>
                     <excludedTestClasses>
@@ -315,7 +315,7 @@
                     <dependency>
                         <groupId>eu.stamp-project</groupId>
                         <artifactId>descartes</artifactId>
-                        <version>1.2</version>
+                        <version>1.2.4</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -323,7 +323,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.6</version>
+                <version>3.1.11</version>
                 <configuration>
                     <includeTests>false</includeTests>
                     <effort>Max</effort>
@@ -356,7 +356,7 @@
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
                         <artifactId>spotbugs</artifactId>
-                        <version>3.1.7</version>
+                        <version>3.1.12</version>
                         <scope>compile</scope>
                     </dependency>
                 </dependencies>
@@ -386,7 +386,7 @@
         <dependency>
             <groupId>org.junit-pioneer</groupId>
             <artifactId>junit-pioneer</artifactId>
-            <version>0.2.2</version>
+            <version>0.3.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -450,7 +450,7 @@
         <dependency>
             <groupId>com.codepoetics</groupId>
             <artifactId>protonpack</artifactId>
-            <version>1.13</version>
+            <version>1.15</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
