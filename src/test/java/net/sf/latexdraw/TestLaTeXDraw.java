@@ -11,10 +11,10 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
-import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.command.SaveDrawing;
 import net.sf.latexdraw.instrument.ExceptionsManager;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.hamcrest.Matchers;
@@ -24,7 +24,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junitpioneer.jupiter.TempDirectory;
+import org.junit.jupiter.api.io.TempDir;
 import org.malai.command.CommandsRegistry;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
@@ -127,8 +127,7 @@ public class TestLaTeXDraw {
 
 	@Disabled("does not work on CI, do not know why for the moment")
 	@Test
-	@ExtendWith(TempDirectory.class)
-	void testIntegrationSaveNoCrash(final FxRobot robot, @TempDirectory.TempDir final Path dir) {
+	void testIntegrationSaveNoCrash(final FxRobot robot, @TempDir final Path dir) {
 		final File file = Paths.get(dir.toString(), "foo.svg").toFile();
 		app.getInjector().getInstance(PreferencesService.class).setCurrentFile(file);
 		Platform.runLater(() -> app.getInjector().getInstance(Canvas.class).requestFocus());

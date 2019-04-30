@@ -16,7 +16,7 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junitpioneer.jupiter.TempDirectory;
+import org.junit.jupiter.api.io.TempDir;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -26,14 +26,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(ApplicationExtension.class)
-@ExtendWith(TempDirectory.class)
 public class TestPicture {
 	Picture shape;
 	Path path;
 	Path folder;
 
 	@BeforeEach
-	public void setUp(@TempDirectory.TempDir final Path dir) throws IOException {
+	public void setUp(@TempDir final Path dir) throws IOException {
 		WaitForAsyncUtils.waitForFxEvents();
 		shape = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		folder = dir;

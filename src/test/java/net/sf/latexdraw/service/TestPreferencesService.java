@@ -10,14 +10,12 @@ import org.assertj.core.util.Files;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junitpioneer.jupiter.TempDirectory;
+import org.junit.jupiter.api.io.TempDir;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ExtendWith(TempDirectory.class)
 class TestPreferencesService {
 	PreferencesService prefs;
 
@@ -40,7 +38,7 @@ class TestPreferencesService {
 	@Nested
 	class TestEmptyPrefFile {
 		@BeforeEach
-		void setUp(@TempDirectory.TempDir final Path tempDir) {
+		void setUp(@TempDir final Path tempDir) {
 			prefs = new PreferencesService(tempDir.toString() + File.separator + "emptyFile.xml");
 		}
 
@@ -178,7 +176,7 @@ class TestPreferencesService {
 		}
 
 		@Test
-		void setCurrentFile(@TempDirectory.TempDir final Path tempDir) {
+		void setCurrentFile(@TempDir final Path tempDir) {
 			final File file = Files.newFile(tempDir.toString() + File.separator + "afile.svg");
 			prefs.setCurrentFile(file);
 			assertEquals(file, prefs.getCurrentFile().orElseThrow());
@@ -203,7 +201,7 @@ class TestPreferencesService {
 		}
 
 		@Test
-		void testWritePreferences(@TempDirectory.TempDir final Path tempDir) {
+		void testWritePreferences(@TempDir final Path tempDir) {
 			final File file = Files.newFile(tempDir.toString() + File.separator + "afile.svg");
 
 			prefs.pathOpenProperty().set("pathopen");
@@ -233,7 +231,7 @@ class TestPreferencesService {
 	@Nested
 	class InvalidExistingPrefFile {
 		@BeforeEach
-		void setUp(@TempDirectory.TempDir final Path tempDir) {
+		void setUp(@TempDir final Path tempDir) {
 			prefs = new PreferencesService(tempDir.toString());
 		}
 
