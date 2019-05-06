@@ -13,8 +13,11 @@
         <antlr.version>4.7.1</antlr.version>
         <java.version>11</java.version>
         <junit.version>5.4.2</junit.version>
+        <jfx.version>11.0.2</jfx.version>
         <testfx.version>4.0.15-alpha</testfx.version>
         <mockito.version>2.27.0</mockito.version>
+        <javafx.platform>linux</javafx.platform>
+        <jmods.path>${java.home}</jmods.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -42,6 +45,23 @@
             <releases><enabled>true</enabled></releases>
         </repository>
     </repositories>
+
+    <profiles>
+        <profile>
+            <id>win</id>
+            <properties>
+                <javafx.platform>win</javafx.platform>
+                <jmods.path>/opt/jdk-11-win</jmods.path>
+            </properties>
+        </profile>
+        <profile>
+            <id>mac</id>
+            <properties>
+                <javafx.platform>mac</javafx.platform>
+                <jmods.path>/opt/jdk-11-mac/Contents/Home</jmods.path>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
@@ -92,11 +112,28 @@
                 <version>3.1.1</version>
                 <executions>
                     <execution>
+                        <id>main deps</id>
                         <phase>package</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
+                            <excludeClassifiers>linux,win,mac</excludeClassifiers>
+                            <outputDirectory>
+                                ${project.build.directory}/modules
+                            </outputDirectory>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>JFX deps</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>${javafx.platform}</classifier>
                             <outputDirectory>
                                 ${project.build.directory}/modules
                             </outputDirectory>
@@ -112,7 +149,7 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>module-main-class</id>
+                        <id>main module linux</id>
                         <phase>package</phase>
                         <goals>
                             <goal>exec</goal>
@@ -137,7 +174,7 @@
                         <configuration>
                             <executable>${java.home}/bin/jlink</executable>
                             <arguments>
-                                <argument>--module-path=${project.build.directory}/modules:${java.home}/jmods</argument>
+                                <argument>--module-path=${project.build.directory}/modules:${jmods.path}/jmods</argument>
                                 <argument>--add-modules=latexdraw</argument>
                                 <argument>--launcher=latexdraw-run=latexdraw/net.sf.latexdraw.LaTeXDraw</argument>
                                 <argument>--output=${project.build.directory}/dist</argument>
@@ -243,28 +280,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!--<plugin>-->
-                <!--<groupId>sh.tak.appbundler</groupId>-->
-                <!--<artifactId>appbundle-maven-plugin</artifactId>-->
-                <!--<version>1.1.1</version>-->
-                <!--<configuration>-->
-                    <!--<buildDirectory>${project.build.directory}</buildDirectory>-->
-                    <!--<mainClass>net.sf.latexdraw.LaTeXDraw</mainClass>-->
-                    <!--<iconFile>../svg/latexdraw.icns</iconFile>-->
-                    <!--<bundleName>LaTeXDraw</bundleName>-->
-                    <!--<version>${project.version}</version>-->
-                    <!--<jvmVersion>1.8+</jvmVersion>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>bundle</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -383,12 +398,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.junit-pioneer</groupId>-->
-<!--            <artifactId>junit-pioneer</artifactId>-->
-<!--            <version>0.3.0</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -416,6 +425,12 @@
             <groupId>org.malai</groupId>
             <artifactId>malai.javafx</artifactId>
             <version>${malai.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
@@ -446,12 +461,48 @@
             <artifactId>openjfx-monocle</artifactId>
             <version>jdk-11+26</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.codepoetics</groupId>
             <artifactId>protonpack</artifactId>
             <version>1.15</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${jfx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${jfx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${jfx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${jfx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>${jfx.version}</version>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
     </dependencies>
 </project>
