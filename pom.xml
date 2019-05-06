@@ -17,6 +17,7 @@
         <testfx.version>4.0.15-alpha</testfx.version>
         <mockito.version>2.27.0</mockito.version>
         <javafx.platform>linux</javafx.platform>
+        <assembly.script>linux.xml</assembly.script>
         <jmods.path>${java.home}</jmods.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -52,6 +53,7 @@
             <properties>
                 <javafx.platform>win</javafx.platform>
                 <jmods.path>/opt/jdk-11-win</jmods.path>
+                <assembly.script>win.xml</assembly.script>
             </properties>
         </profile>
         <profile>
@@ -59,6 +61,7 @@
             <properties>
                 <javafx.platform>mac</javafx.platform>
                 <jmods.path>/opt/jdk-11-mac/Contents/Home</jmods.path>
+                <assembly.script>mac.xml</assembly.script>
             </properties>
         </profile>
     </profiles>
@@ -177,13 +180,32 @@
                                 <argument>--module-path=${project.build.directory}/modules:${jmods.path}/jmods</argument>
                                 <argument>--add-modules=latexdraw</argument>
                                 <argument>--launcher=latexdraw-run=latexdraw/net.sf.latexdraw.LaTeXDraw</argument>
-                                <argument>--output=${project.build.directory}/dist</argument>
+                                <argument>--output=${project.build.directory}/LaTeXDraw-${project.version}</argument>
                                 <argument>--strip-debug</argument>
                                 <argument>--compress=2</argument>
                                 <argument>--no-man-pages</argument>
                                 <argument>--no-header-files</argument>
                             </arguments>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/${assembly.script}</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -260,122 +282,122 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.3</version>
-                <executions>
-                    <execution>
-                        <id>pre-unit-test</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>post-unit-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.jacoco</groupId>-->
+<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--                <version>0.8.3</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>pre-unit-test</id>-->
+<!--                        <goals>-->
+<!--                            <goal>prepare-agent</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>post-unit-test</id>-->
+<!--                        <phase>test</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>report</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <sourceDirectories>
-                        <sourceDirectory>src/main/java</sourceDirectory>
-                        <sourceDirectory>src/test/java</sourceDirectory>
-                    </sourceDirectories>
-                    <failsOnError>true</failsOnError>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <consoleOutput>true</consoleOutput>
-                    <linkXRef>false</linkXRef>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>checkstyle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>8.20</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--                <version>3.0.0</version>-->
+<!--                <configuration>-->
+<!--                    <sourceDirectories>-->
+<!--                        <sourceDirectory>src/main/java</sourceDirectory>-->
+<!--                        <sourceDirectory>src/test/java</sourceDirectory>-->
+<!--                    </sourceDirectories>-->
+<!--                    <failsOnError>true</failsOnError>-->
+<!--                    <configLocation>checkstyle.xml</configLocation>-->
+<!--                    <consoleOutput>true</consoleOutput>-->
+<!--                    <linkXRef>false</linkXRef>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>checkstyle</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.puppycrawl.tools</groupId>-->
+<!--                        <artifactId>checkstyle</artifactId>-->
+<!--                        <version>8.20</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.4.7</version>
-                <configuration>
-                    <mutationEngine>descartes</mutationEngine>
-                    <excludedTestClasses>
-                        <param>net.sf.latexdraw.parsers*</param>
-                        <param>net.sf.latexdraw.TestLaTeXDraw</param>
-                        <param>net.sf.latexdraw.instruments*</param>
-                        <param>net.sf.latexdraw.view*</param>
-                    </excludedTestClasses>
-                    <threads>1</threads>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>eu.stamp-project</groupId>
-                        <artifactId>descartes</artifactId>
-                        <version>1.2.4</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.pitest</groupId>-->
+<!--                <artifactId>pitest-maven</artifactId>-->
+<!--                <version>1.4.7</version>-->
+<!--                <configuration>-->
+<!--                    <mutationEngine>descartes</mutationEngine>-->
+<!--                    <excludedTestClasses>-->
+<!--                        <param>net.sf.latexdraw.parsers*</param>-->
+<!--                        <param>net.sf.latexdraw.TestLaTeXDraw</param>-->
+<!--                        <param>net.sf.latexdraw.instruments*</param>-->
+<!--                        <param>net.sf.latexdraw.view*</param>-->
+<!--                    </excludedTestClasses>-->
+<!--                    <threads>1</threads>-->
+<!--                </configuration>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>eu.stamp-project</groupId>-->
+<!--                        <artifactId>descartes</artifactId>-->
+<!--                        <version>1.2.4</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.11</version>
-                <configuration>
-                    <includeTests>false</includeTests>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
-                    <plugins>
-                        <plugin>
-                            <groupId>com.mebigfatguy.fb-contrib</groupId>
-                            <artifactId>fb-contrib</artifactId>
-                            <version>7.4.3.sb</version>
-                        </plugin>
-                    </plugins>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>findbugs-test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs</artifactId>
-                        <version>3.1.12</version>
-                        <scope>compile</scope>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.github.spotbugs</groupId>-->
+<!--                <artifactId>spotbugs-maven-plugin</artifactId>-->
+<!--                <version>3.1.11</version>-->
+<!--                <configuration>-->
+<!--                    <includeTests>false</includeTests>-->
+<!--                    <effort>Max</effort>-->
+<!--                    <threshold>Low</threshold>-->
+<!--                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>-->
+<!--                    <plugins>-->
+<!--                        <plugin>-->
+<!--                            <groupId>com.mebigfatguy.fb-contrib</groupId>-->
+<!--                            <artifactId>fb-contrib</artifactId>-->
+<!--                            <version>7.4.3.sb</version>-->
+<!--                        </plugin>-->
+<!--                    </plugins>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>findbugs-test-compile</id>-->
+<!--                        <phase>test-compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.github.spotbugs</groupId>-->
+<!--                        <artifactId>spotbugs</artifactId>-->
+<!--                        <version>3.1.12</version>-->
+<!--                        <scope>compile</scope>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
