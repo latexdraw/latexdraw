@@ -17,7 +17,6 @@
         <testfx.version>4.0.15-alpha</testfx.version>
         <mockito.version>2.27.0</mockito.version>
         <javafx.platform>linux</javafx.platform>
-        <assembly.script>linux.xml</assembly.script>
         <jmods.path>${java.home}</jmods.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -53,7 +52,6 @@
             <properties>
                 <javafx.platform>win</javafx.platform>
                 <jmods.path>/opt/jdk-11-win</jmods.path>
-                <assembly.script>win.xml</assembly.script>
             </properties>
         </profile>
         <profile>
@@ -61,7 +59,6 @@
             <properties>
                 <javafx.platform>mac</javafx.platform>
                 <jmods.path>/opt/jdk-11-mac/Contents/Home</jmods.path>
-                <assembly.script>mac.xml</assembly.script>
             </properties>
         </profile>
     </profiles>
@@ -196,7 +193,7 @@
                 <version>3.1.1</version>
                 <configuration>
                     <descriptors>
-                        <descriptor>src/assembly/${assembly.script}</descriptor>
+                        <descriptor>src/assembly/${javafx.platform}.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>
