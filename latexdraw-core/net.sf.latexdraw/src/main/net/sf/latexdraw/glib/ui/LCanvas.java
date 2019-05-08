@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.ui;
 
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
@@ -20,6 +22,7 @@ import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.swing.action.library.MoveCamera;
 import org.malai.swing.widget.MPanel;
+import org.malai.swing.widget.MScrollPane;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -123,8 +126,8 @@ public class LCanvas extends MPanel implements ICanvas {
 	 * @since 3.0
 	 */
 	public LCanvas(final IDrawing theDrawing){
-		super(true, true);
-
+		super(false, true);
+		scrollpane = new MScrollPane(this);
 		drawing				= theDrawing;
 		modified			= false;
 		userSelectionBorder	= null;
@@ -137,6 +140,9 @@ public class LCanvas extends MPanel implements ICanvas {
 		zoom				= new ActiveUnary<>(1.);
 		page 				= Page.USLETTER;
 
+		scrollpane.getVerticalScrollBar().setUnitIncrement(5);
+		scrollpane.getHorizontalScrollBar().setUnitIncrement(5);
+
 		FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
 		borderIns.addEventable(this);
@@ -147,6 +153,20 @@ public class LCanvas extends MPanel implements ICanvas {
 
 		// Adding a mapping between the views and its subset containing only tooltipable views.
 		MappingRegistry.REGISTRY.addMapping(new ViewList2TooltipableList(views, tooltipableView));
+
+		addMouseWheelListener(new MouseWheelListener() {
+			@Override
+			public void mouseWheelMoved(final MouseWheelEvent evt) {
+				final double wheelRotation = evt.getPreciseWheelRotation();
+				final int scrollAmount = (int)(wheelRotation * 10);
+
+				if(scrollAmount == 0) {
+					return;
+				}
+
+				scroll(-scrollAmount, getScrollbar(true).isVisible());
+			}
+		});
 
 		addMouseListener(new MouseAdapter() {
 			@Override public void mouseEntered(final MouseEvent e) {
@@ -306,9 +326,12 @@ public class LCanvas extends MPanel implements ICanvas {
 	@Override
 	public void updatePreferredSize() {
 		final double zoomValue = getZoom();
-		setPreferredSize(new Dimension(
-				(int)(Math.max(border.getWidth(), page.getWidth())*zoomValue)+MARGINS*2,
-				(int)(Math.max(border.getHeight(), page.getHeight())*zoomValue)+MARGINS*2));
+		final Dimension dim = new Dimension(
+			(int) (Math.max(border.getWidth(), page.getWidth()) * zoomValue) + MARGINS * 2,
+			(int) (Math.max(border.getHeight(), page.getHeight()) * zoomValue) + MARGINS * 2);
+		setPreferredSize(dim);
+		getScrollpane().setPreferredSize(dim);
+		getScrollpane().setMinimumSize(dim);
 	}
 
 

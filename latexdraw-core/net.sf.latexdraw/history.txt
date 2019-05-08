@@ -1,4 +1,9 @@
 ************************************************************
+Version 3.3.9
+
+fixed: scroll did not work properly on MacOS thanks to a JDK issue
+
+************************************************************
 Version 3.3.8 -- 2017-12-03
 
 fixed: crash while saving an SVG document and running the app with Java 9

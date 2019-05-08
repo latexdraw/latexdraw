@@ -123,9 +123,6 @@ object LaTeXDraw {
 	    	action.flush
     	}
 
-//		frame.getCanvas.getDrawing.addShape(ShapeFactory.createPlot(true, ShapeFactory.createPoint(100, 500), 0, 90, "x sin dup mul"))
-//		frame.getCanvas.getDrawing.addShape(ShapeFactory.createPlot(true, ShapeFactory.createPoint(100, 500), 10, 90, "x sin x 2 div 2 exp cos mul"))
-
       Preference.flushPreferencesCache
 
     	// Checking a new version if required.

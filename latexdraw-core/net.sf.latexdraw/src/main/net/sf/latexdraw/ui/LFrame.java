@@ -14,7 +14,6 @@ import net.sf.latexdraw.util.VersionChecker;
 import org.malai.instrument.Instrument;
 import org.malai.mapping.MappingRegistry;
 import org.malai.presentation.Presentation;
-import org.malai.swing.instrument.library.Scroller;
 import org.malai.swing.instrument.library.UndoRedoManager;
 import org.malai.swing.instrument.library.WidgetZoomer;
 import org.malai.swing.ui.SwingUI;
@@ -72,9 +71,6 @@ public class LFrame extends SwingUI {
 
 	/** The instrument that zoomes in/out the canvas. */
 	protected WidgetZoomer zoomer;
-
-	/** The scroller used to scroll the canvas. */
-	protected Scroller scroller;
 
 	/** The instrument that saves and loads SVG documents. */
 	protected FileLoaderSaver fileLoader;
@@ -228,8 +224,6 @@ public class LFrame extends SwingUI {
 		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, gen); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scaleRulersCustomiser = new ScaleRulersCustomiser(xScaleRuler, yScaleRuler); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { scroller		= new Scroller(canvas); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { zoomer		= new WidgetZoomer(canvas, true, true,
 							LResources.ZOOM_DEFAULT_ICON, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.113"), //$NON-NLS-1$
@@ -406,7 +400,7 @@ public class LFrame extends SwingUI {
 	@Override
 	public Instrument[] getInstruments() {
 		return new Instrument[]{editingSelector, exporter, fileLoader, hand, pencil, metaShapeCustomiser, undoManager,
-								zoomer, scaleRulersCustomiser, scroller, gridCustomiser, helper, textSetter, exceptionsManager,
+								zoomer, scaleRulersCustomiser, gridCustomiser, helper, textSetter, exceptionsManager,
 								deleter, prefActivator, prefSetters, paster, getCanvas().getBorderInstrument(), tabSelector,
 								drawingPropCustomiser, templateManager};
 	}

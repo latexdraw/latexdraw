@@ -4,12 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-
 import javax.swing.BoxLayout;
-
+import javax.swing.JPanel;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.lang.LangTool;
-
 import org.malai.instrument.Instrument;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MComboBox;
@@ -77,7 +75,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 	}
 
 
-	// FIXME SCALA: When a trait will be used, this trait could be used as type of the parameter instead of several operations.
 	protected static void addSpinner(final Container cont, final MSpinner spinner, final int width) {
 		spinner.setPreferredSize(new Dimension(width, HEIGHT_TEXTFIELD));
 		if(spinner.getLabel()!=null)
@@ -172,7 +169,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 
 		widget.prefActivator.addEventable(menubarBuilder.editMenu);
 		widget.exceptionsManager.addEventable(toolbar);
-		widget.scroller.addEventable(canvas);
 		widget.editingSelector.addEventable(toolbar);
 		widget.hand.addEventable(canvas);
 		widget.pencil.addEventable(canvas);
@@ -216,7 +212,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 		widget.prefActivator.setActivated(true);
 		widget.helper.setActivated(true);
 		widget.gridCustomiser.setActivated(true);
-		widget.scroller.setActivated(true);
 		widget.exporter.setActivated(false);
 		widget.editingSelector.setActivated(true);
 		widget.hand.setActivated(true);
