@@ -36,12 +36,12 @@ import org.malai.action.library.OpenWebPage;
  */
 public class VersionChecker extends Thread {
 	/** The version of the application */
-    public static final String VERSION   = "3.3.8";//$NON-NLS-1$
+    public static final String VERSION   = "3.3.9";//$NON-NLS-1$
 
 	public static final String VERSION_STABILITY = ""; //$NON-NLS-1$
 
 	/** The identifier of the build */
-	public static final String ID_BUILD = "20171203";//$NON-NLS-1$
+	public static final String ID_BUILD = "20190509";//$NON-NLS-1$
 
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;

@@ -1,2 +1,5 @@
 ************************************************************
-Version 3.3.9 -- 
+Version 3.3.9 -- 2019-05-11
+
+fixed: scroll did not work properly on MacOS thanks to a JDK issue
+
