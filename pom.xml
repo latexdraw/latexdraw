@@ -210,11 +210,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
+                <version>3.0.0-M3</version>
                 <configuration>
                     <testFailureIgnore>false</testFailureIgnore>
-                    <!--<skipTests>true</skipTests>-->
-                    <!--<reuseForks>false</reuseForks>-->
+                    <useModulePath>false</useModulePath>
                     <argLine>@{argLine}
                         -Xmx4000m
                         -Dglass.platform=Monocle
@@ -222,42 +221,7 @@
                         -Djava.awt.headless=true
                         -Dtestfx.robot=glass
                         -Dtestfx.headless=true
-                        -Dprism.order=sw
-                        --add-opens java.base/java.lang=ALL-UNNAMED
-                        --add-opens java.base/java.lang.reflect=latexdraw
-                        --add-opens javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
-                        --add-opens javafx.graphics/com.sun.glass.ui.delegate=ALL-UNNAMED
-                        --add-opens javafx.graphics/com.sun.glass.utils=ALL-UNNAMED
-                        --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.data=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.service=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.model=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.util=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.handler=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.parser=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.parser.svg=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.parser.svg.path=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.parser.pst=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.parser.ps=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.parser.css=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.ui=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.instrument=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.instrument.pencil=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.instrument.hand=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.instrument.editing=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.instrument.robot=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.command=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.command.shape=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.view=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.view.jfx=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.view.latex=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.view.pst=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.view.svg=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.model.api=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.model.api.shape=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.model.api.prop=ALL-UNNAMED
-                        --add-opens latexdraw/net.sf.latexdraw.model.impl=ALL-UNNAMED</argLine>
+                        -Dprism.order=sw</argLine>
                 </configuration>
             </plugin>
 
