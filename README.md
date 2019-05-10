@@ -10,13 +10,22 @@ latexdraw
 
 A vector drawing editor for LaTeX.
 
-Its manual:
+Documentation:
 https://github.com/arnobl/latexdraw/wiki/Manual
 
-Distributed by Ubuntu and Debian.
-
-Binaries downloadable on the sourceforge page:
+Binaries to download on Sourceforge:
 http://sourceforge.net/projects/latexdraw/
+
+**Development version**
+
+You can test the next 4.0 development verion using the following binaries.
+- for Linux (the tgz file): https://ci.inria.fr/malai/job/latexdraw4/net.sf.latexdraw$latexdraw/
+- for Windows (the zip file): https://ci.inria.fr/malai/job/latexdraw4%20win/net.sf.latexdraw$latexdraw/
+- MacOsX (the zip file): https://ci.inria.fr/malai/job/latexdraw4%20mac/net.sf.latexdraw$latexdraw/
+
+*These binaries do not require any Java installation anymore.*
+They embed a sliced JVM directly.
+Run the app by launching the latexdraw-run file located in the bin folder.
 
 
 **Support**
@@ -25,12 +34,13 @@ You can support this software by making a donation:
 http://sourceforge.net/donate/index.php?group_id=156523
 
 
-**Linux packaging:** 
+**Linux packaging** 
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/latexdraw.svg)](https://repology.org/metapackage/latexdraw)
 
 
 **Documentation**
+
 Look at the online manual to see the installation requirements (in particular regarding LaTeX):
 https://github.com/arnobl/latexdraw/wiki/Manual
 
@@ -53,7 +63,7 @@ files in dedicated directories such as "Program Files". It may ask you your pass
 
 **Debian/Ubuntu/Fedora/Opensuse**
 
-The scripts `install_debian_ubuntu`, `install_fedora`, or `install_opensuse` will ask
+The scripts `install_debian_ubuntu`, `install_fedora` or `install_opensuse` will ask
 administrator privileges before launching the installer.
 
 Warning: on Fedora 25 with Wayland, the installation will fail since Wayland forbids graphical applications
@@ -72,8 +82,8 @@ The shared templates are located in the following folder:
  - for Vista, `ProgramData\latexdraw`
  - for other Windows, `All Users\Application Data\latexdraw`
 
-For Linux, a script will be created in /usr/bin to launch LaTeXDraw (if the installer is launched as root).
-A shortcut is created for Windows.
+For Linux, the installer will create a script in `/usr/bin` to launch LaTeXDraw (if the installer is launched as root).
+On Windows the installer creates a shortcut.
 
 The first execution of LaTeXDraw will create the profile of the current user in the following location:
  - for Unix, `~/.latexdraw`
