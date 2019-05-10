@@ -43,6 +43,7 @@ public class CanvasController extends CanvasInstrument implements Initializable 
 			}).
 			when(i -> i.getButton() == MouseButton.MIDDLE).
 			feedback(() -> canvas.setCursor(Cursor.MOVE)).
+			endOrCancel((i, c) -> canvas.setCursor(Cursor.DEFAULT)).
 			exec().
 			bind();
 	}
