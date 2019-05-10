@@ -37,8 +37,8 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.SquaredShape;
 import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.jetbrains.annotations.NotNull;
 import org.malai.javafx.interaction.library.DnD;
@@ -185,10 +185,10 @@ public class Pencil extends CanvasInstrument {
 			}).
 			then((i, c) -> updateShapeFromDiag((RectangularShape) c.getShape(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()))).
 			endOrCancel((a, i) -> canvas.setTempView(null)).
-			when(i -> i.getButton() == MouseButton.PRIMARY).
 			strictStart().
-			when(() -> editing.getCurrentChoice() == EditionChoice.RECT || editing.getCurrentChoice() == EditionChoice.ELLIPSE ||
-				editing.getCurrentChoice() == EditionChoice.RHOMBUS || editing.getCurrentChoice() == EditionChoice.TRIANGLE).
+			when(i -> i.getButton() == MouseButton.PRIMARY &&
+				(editing.getCurrentChoice() == EditionChoice.RECT || editing.getCurrentChoice() == EditionChoice.ELLIPSE ||
+				editing.getCurrentChoice() == EditionChoice.RHOMBUS || editing.getCurrentChoice() == EditionChoice.TRIANGLE)).
 			bind();
 	}
 
