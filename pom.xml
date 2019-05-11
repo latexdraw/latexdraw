@@ -5,11 +5,11 @@
     <groupId>net.sf.latexdraw</groupId>
     <artifactId>latexdraw</artifactId>
     <name>LaTeXDraw</name>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0-beta2</version>
     <packaging>jar</packaging>
 
     <properties>
-        <malai.version>3.1-SNAPSHOT</malai.version>
+        <malai.version>3.1</malai.version>
         <antlr.version>4.7.1</antlr.version>
         <java.version>11</java.version>
         <junit.version>5.4.2</junit.version>
@@ -149,7 +149,7 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>main module linux</id>
+                        <id>main module</id>
                         <phase>package</phase>
                         <goals>
                             <goal>exec</goal>
