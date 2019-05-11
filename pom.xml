@@ -406,6 +406,11 @@
         </dependency>
         <dependency>
             <groupId>org.malai</groupId>
+            <artifactId>malai.core</artifactId>
+            <version>${malai.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.malai</groupId>
             <artifactId>malai.javafx</artifactId>
             <version>${malai.version}</version>
             <exclusions>
