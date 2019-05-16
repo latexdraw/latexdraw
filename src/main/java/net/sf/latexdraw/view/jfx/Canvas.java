@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -28,6 +31,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener.Change;
+import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -46,6 +50,7 @@ import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.Flushable;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
@@ -67,7 +72,8 @@ import org.w3c.dom.NodeList;
  * The JFX canvas where shapes are painted.
  * @author Arnaud Blouin
  */
-public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitialisable, CmdHandler, Zoomable, ViewsSynchroniserHandler {
+public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitialisable, CmdHandler, Zoomable,
+	ViewsSynchroniserHandler, Flushable {
 	/** The margin used to surround the drawing. */
 	static int margins = 1500;
 
@@ -105,6 +111,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	/** The temporary view that the canvas may contain. */
 	private @NotNull Optional<ViewShape<?>> tempView;
 	private final @NotNull ViewFactory viewFactory;
+	private final @NotNull List<Disposable> disposables;
 
 	/**
 	 * Creates the canvas.
@@ -144,7 +151,21 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		shapesPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 
 		defineShapeListToViewBinding();
-		configureSelection();
+
+		selectionBorder.setFocusTraversable(false);
+		selectionBorder.setVisible(false);
+		selectionBorder.setFill(null);
+		selectionBorder.setStroke(Color.GRAY);
+		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
+		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
+		selectionBorder.addEventHandler(MouseEvent.MOUSE_ENTERED, evt -> setCursor(Cursor.HAND));
+		selectionBorder.addEventHandler(MouseEvent.MOUSE_EXITED, evt -> setCursor(Cursor.DEFAULT));
+
+		disposables = new ArrayList<>();
+		// Instead of triggering the update on each change, wait for 20 ms
+		disposables.add(JavaFxObservable.<ObservableList<Shape>>changesOf(drawing.getSelection().getShapes())
+			.throttleLast(20, TimeUnit.MILLISECONDS)
+			.subscribe(next -> updateSelectionBorders()));
 
 		CommandsRegistry.INSTANCE.addHandler(this);
 
@@ -155,31 +176,24 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 
+	@Override
+	public void flush() {
+		disposables.forEach(disposable -> disposable.dispose());
+		disposables.clear();
+	}
+
 	public @NotNull MagneticGrid getMagneticGrid() {
 		return magneticGrid;
 	}
-
-	private final void configureSelection() {
-		selectionBorder.setFocusTraversable(false);
-		selectionBorder.setVisible(false);
-		selectionBorder.setFill(null);
-		selectionBorder.setStroke(Color.GRAY);
-		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
-		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
-		selectionBorder.addEventHandler(MouseEvent.MOUSE_ENTERED, evt -> setCursor(Cursor.HAND));
-		selectionBorder.addEventHandler(MouseEvent.MOUSE_EXITED, evt -> setCursor(Cursor.DEFAULT));
-
-		drawing.getSelection().getShapes().addListener((Change<? extends Shape> evt) -> updateSelectionBorders());
-	}
-
 
 	private void updateSelectionBorders() {
 		if(selectionBorder.isDisable()) {
 			return;
 		}
 
+		final List<Shape> selection = List.copyOf(drawing.getSelection().getShapes());
+
 		Platform.runLater(() -> {
-			final List<Shape> selection = new ArrayList<>(drawing.getSelection().getShapes());
 			if(selection.isEmpty()) {
 				selectionBorder.setVisible(false);
 			}else {

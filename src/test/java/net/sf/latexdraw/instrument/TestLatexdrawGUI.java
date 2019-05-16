@@ -50,7 +50,10 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 		stage.minHeightProperty().unbind();
 		stage.minWidthProperty().unbind();
 
-		injector.getInstances().stream().filter(obj -> obj instanceof Instrument<?>).forEach(ins -> ((Instrument<?>) ins).uninstallBindings());
+		injector.getInstances()
+			.stream()
+			.filter(obj -> obj instanceof Instrument<?>)
+			.forEach(ins -> ((Instrument<?>) ins).uninstallBindings());
 		injector.clear();
 		stage = null;
 

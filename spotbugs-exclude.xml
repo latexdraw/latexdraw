@@ -183,4 +183,7 @@
     <Match>
         <Bug pattern="SEC_SIDE_EFFECT_CONSTRUCTOR" />
     </Match>
+    <Match>
+        <Bug pattern="MDM_WAIT_WITHOUT_TIMEOUT" />
+    </Match>
 </FindBugsFilter>

@@ -21,13 +21,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
+import net.sf.latexdraw.util.Flushable;
 
 /**
  * The base class of a JFX shape view.
  * @param <S> The type of the model.
  * @author Arnaud Blouin
  */
-public abstract class ViewShape<S extends Shape> extends Group {
+public abstract class ViewShape<S extends Shape> extends Group implements Flushable {
 	protected static void checkToExecuteOnUIThread(final Runnable cmd) {
 		if(Platform.isFxApplicationThread()) {
 			cmd.run();
@@ -81,9 +82,7 @@ public abstract class ViewShape<S extends Shape> extends Group {
 		return shapes;
 	}
 
-	/**
-	 * Flushes the view.
-	 */
+	@Override
 	public void flush() {
 		setUserData(null);
 		getChildren().clear();

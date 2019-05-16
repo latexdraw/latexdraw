@@ -16,7 +16,6 @@ import net.sf.latexdraw.command.DrawingCmdImpl;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.command.ShapesCmd;
 import net.sf.latexdraw.model.api.shape.Drawing;
-import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
 import org.malai.command.Command;
@@ -36,22 +35,7 @@ public class SelectShapes extends DrawingCmdImpl implements ShapesCmd, Modifying
 
 	@Override
 	public void doCmdBody() {
-		final Group selection = drawing.getSelection();
-
-		if(shapes.isEmpty()) {
-			selection.clear();
-		}else {
-			for(int i = selection.size() - 1; i >= 0; i--) {
-				if(selection.getShapeAt(i).filter(s -> shapes.contains(s)).isEmpty()) {
-					selection.removeShape(i);
-				}
-			}
-			shapes.forEach(sh -> {
-				if(!selection.contains(sh)) {
-					selection.addShape(sh);
-				}
-			});
-		}
+		drawing.setSelection(shapes);
 	}
 
 	@Override

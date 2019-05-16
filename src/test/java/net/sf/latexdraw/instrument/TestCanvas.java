@@ -1,11 +1,14 @@
 package net.sf.latexdraw.instrument;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.stream.Collectors;
 import javafx.scene.Group;
 import javafx.stage.Stage;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.PageView;
 import net.sf.latexdraw.view.jfx.ViewRectangle;
 import org.junit.Before;
@@ -41,6 +44,11 @@ public class TestCanvas extends BaseTestCanvas {
 		super.setUp();
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
+	}
+
+	@Test
+	public void testSetSelectionMustNotCrash() throws IOException {
+		canvas.getDrawing().setSelection(ShapeSupplier.getDiversifiedShapes().collect(Collectors.toList()));
 	}
 
 	@Test

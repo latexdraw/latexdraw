@@ -23,6 +23,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 /**
  * The base class for performing dependency injection.
@@ -211,6 +212,11 @@ public abstract class Injector {
 	}
 
 	public void clear() {
+		// Flushing objects
+		Stream.concat(singletons.stream(), Stream.concat(instances.values().stream(), bindingsBetweenTypes.values().stream()))
+			.filter(elt -> elt instanceof Flushable)
+			.forEach(elt -> ((Flushable) elt).flush());
+
 		singletons.clear();
 		instances.clear();
 		bindingsBetweenTypes.clear();

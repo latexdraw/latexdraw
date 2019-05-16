@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instrument;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.TimeoutException;
 import javafx.application.Platform;
 import net.sf.latexdraw.command.shape.SelectShapes;
@@ -96,7 +97,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 
 	final GUICommand<Integer> selectShape = index -> {
 		Platform.runLater(() -> {
-			canvas.getDrawing().getSelection().clear();
+			canvas.getDrawing().setSelection(Collections.emptyList());
 			canvas.getDrawing().getSelection().addShape(canvas.getDrawing().getShapeAt(index).orElseThrow());
 		});
 		WaitForAsyncUtils.waitForFxEvents();
@@ -157,8 +158,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	@After
 	public void tearDown() throws TimeoutException {
 		Platform.runLater(() -> {
-			canvas.getDrawing().getSelection().clear();
-			canvas.getDrawing().getShapes().clear();
+			canvas.getDrawing().clear();
 			canvas.getChildren().clear();
 		});
 		WaitForAsyncUtils.waitForFxEvents();

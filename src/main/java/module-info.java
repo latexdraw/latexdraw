@@ -19,6 +19,9 @@ module latexdraw {
 	requires malai.javafx;
 	requires antlr4.runtime;
 	requires annotations;
+	requires rxjavafx;
+	requires org.reactivestreams;
+	requires io.reactivex.rxjava2;
 
 	exports net.sf.latexdraw to javafx.graphics;
 	exports net.sf.latexdraw.ui to javafx.fxml;
