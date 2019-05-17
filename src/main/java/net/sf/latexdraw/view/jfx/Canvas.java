@@ -50,6 +50,7 @@ import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Flushable;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.LNamespace;
@@ -165,7 +166,8 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		// Instead of triggering the update on each change, wait for 20 ms
 		disposables.add(JavaFxObservable.<ObservableList<Shape>>changesOf(drawing.getSelection().getShapes())
 			.throttleLast(20, TimeUnit.MILLISECONDS)
-			.subscribe(next -> updateSelectionBorders()));
+			.subscribe(next -> updateSelectionBorders(),
+			ex -> BadaboomCollector.INSTANCE.add(ex)));
 
 		CommandsRegistry.INSTANCE.addHandler(this);
 
