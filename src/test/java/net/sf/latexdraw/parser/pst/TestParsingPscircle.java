@@ -5,8 +5,7 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestParsingPscircle extends TestPSTParser {
@@ -83,8 +82,8 @@ public class TestParsingPscircle extends TestPSTParser {
 	public void testNegativeRadius() {
 		parser("\\pscircle(0,0){-1}");
 		final Circle cir = getShapeAt(0);
-		assertThat(cir.getWidth(), greaterThan(0d));
-		assertThat(cir.getHeight(), greaterThan(0d));
+		assertThat(cir.getWidth()).isPositive();
+		assertThat(cir.getHeight()).isPositive();
 	}
 
 	@Test

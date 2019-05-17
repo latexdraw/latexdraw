@@ -3,10 +3,7 @@ package net.sf.latexdraw.util;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -36,6 +33,6 @@ public class TestTriple {
 
 	@Test
 	void testToString() {
-		assertThat(triple.toString(), not(is(emptyOrNullString())));
+		assertThat(triple.toString()).isNotEmpty();
 	}
 }

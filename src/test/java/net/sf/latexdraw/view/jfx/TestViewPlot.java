@@ -11,9 +11,6 @@ import net.sf.latexdraw.model.api.shape.PlotStyle;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.junit.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -161,7 +158,7 @@ public class TestViewPlot extends TestViewShape<ViewPlot, Plot> {
 		final int nbYDiff = (int) view.getChildren().stream().map(node -> ((ViewDot) node).dot.centerYProperty().get()).distinct().count();
 		// The points of the plot must all differ
 		WaitForAsyncUtils.waitForFxEvents();
-		assertThat(view.getChildren().size(), anyOf(equalTo(nbXDiff), equalTo(nbYDiff)));
+		assertTrue(view.getChildren().size() == nbXDiff || view.getChildren().size() == nbYDiff);
 	}
 
 	@Test

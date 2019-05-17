@@ -25,13 +25,11 @@ import org.junit.experimental.theories.Theory;
 import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class TestPlot implements HelperTest {
@@ -94,7 +92,7 @@ public class TestPlot implements HelperTest {
 
 	@Theory
 	public void testValidPlotXMax(@DoubleData final double value) {
-		assumeThat(value, greaterThan(shape.getPlotMinX()));
+		assumeTrue(value > shape.getPlotMinX());
 		shape.setPlotMaxX(value);
 		assertEqualsDouble(value, shape.getPlotMaxX());
 	}
@@ -107,7 +105,7 @@ public class TestPlot implements HelperTest {
 
 	@Theory
 	public void testValidPlotXMin(@DoubleData final double value) {
-		assumeThat(value, lessThan(10d));
+		assumeTrue(value < 10d);
 
 		shape.setPlotMinX(value);
 		assertEqualsDouble(value, shape.getPlotMinX());

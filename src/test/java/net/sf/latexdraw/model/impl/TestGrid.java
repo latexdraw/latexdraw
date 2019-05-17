@@ -17,13 +17,11 @@ import org.junit.experimental.theories.Theory;
 import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class TestGrid implements HelperTest {
@@ -36,7 +34,7 @@ public class TestGrid implements HelperTest {
 
 	@Theory
 	public void testGetStep(@DoubleData final double value) {
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 
 		shape.setUnit(value);
 		assertEqualsDouble(value * Shape.PPC, shape.getStep());
@@ -82,7 +80,7 @@ public class TestGrid implements HelperTest {
 
 	@Theory
 	public void testGetSetGridWidth(@DoubleData final double value) {
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 
 		shape.setGridWidth(value);
 		assertEqualsDouble(value, shape.getGridWidth());
@@ -129,7 +127,7 @@ public class TestGrid implements HelperTest {
 
 	@Theory
 	public void testGetSetSubGridWidth(@DoubleData final double value) {
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 
 		shape.setSubGridWidth(value);
 		assertEqualsDouble(value, shape.getSubGridWidth());
@@ -144,7 +142,7 @@ public class TestGrid implements HelperTest {
 
 	@Theory
 	public void testGetSetUnit(@DoubleData final double value) {
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 
 		shape.setUnit(value);
 		assertEqualsDouble(value, shape.getUnit());
@@ -295,8 +293,8 @@ public class TestGrid implements HelperTest {
 	@Test
 	public void testConstructors() {
 		final Grid grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
-		assertThat(grid.getGridEndX(), greaterThanOrEqualTo(grid.getGridStartX()));
-		assertThat(grid.getGridEndY(), greaterThanOrEqualTo(grid.getGridStartY()));
+		assertThat(grid.getGridEndX()).isGreaterThanOrEqualTo(grid.getGridStartX());
+		assertThat(grid.getGridEndY()).isGreaterThanOrEqualTo(grid.getGridStartY());
 		assertEqualsDouble(0d, grid.getPosition().getX());
 		assertEqualsDouble(0d, grid.getPosition().getY());
 	}

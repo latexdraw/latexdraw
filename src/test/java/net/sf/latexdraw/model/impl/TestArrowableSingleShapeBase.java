@@ -9,10 +9,8 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class TestArrowableSingleShapeBase implements HelperTest {
@@ -27,7 +25,7 @@ public class TestArrowableSingleShapeBase implements HelperTest {
 
 	@Theory
 	public void setTBarSizeDim(@ArrowableData final ArrowableSingleShape sh, @DoubleData final double value) {
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 
 		sh.setTBarSizeDim(value);
 		assertEqualsDouble(value, sh.getTBarSizeDim());
@@ -35,7 +33,7 @@ public class TestArrowableSingleShapeBase implements HelperTest {
 
 	@Theory
 	public void setTBarSizeNum(@ArrowableData final ArrowableSingleShape sh, @DoubleData final double value) {
-		assumeThat(value, greaterThanOrEqualTo(0d));
+		assumeTrue(value >= 0d);
 
 		sh.setTBarSizeNum(value);
 		assertEqualsDouble(value, sh.getTBarSizeNum());
@@ -43,7 +41,7 @@ public class TestArrowableSingleShapeBase implements HelperTest {
 
 	@Theory
 	public void setDotSizeDim(@ArrowableData final ArrowableSingleShape sh, @DoubleData final double value) {
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 
 		sh.setDotSizeDim(value);
 		assertEqualsDouble(value, sh.getDotSizeDim());
@@ -51,7 +49,7 @@ public class TestArrowableSingleShapeBase implements HelperTest {
 
 	@Theory
 	public void setDotSizeNum(@ArrowableData final ArrowableSingleShape sh, @DoubleData final double value) {
-		assumeThat(value, greaterThanOrEqualTo(0.1));
+		assumeTrue(value >= 0.1);
 
 		sh.setDotSizeNum(value);
 		assertEqualsDouble(value, sh.getDotSizeNum());
@@ -59,7 +57,7 @@ public class TestArrowableSingleShapeBase implements HelperTest {
 
 	@Theory
 	public void setBracketNum(@ArrowableData final ArrowableSingleShape sh, @DoubleData final double value) {
-		assumeThat(value, greaterThanOrEqualTo(0d));
+		assumeTrue(value >= 0d);
 
 		sh.setBracketNum(value);
 		assertEqualsDouble(value, sh.getBracketNum());
@@ -67,7 +65,7 @@ public class TestArrowableSingleShapeBase implements HelperTest {
 
 	@Theory
 	public void setArrowSizeNum(@ArrowableData final ArrowableSingleShape sh, @DoubleData final double value) {
-		assumeThat(value, greaterThanOrEqualTo(0d));
+		assumeTrue(value >= 0d);
 
 		sh.setArrowSizeNum(value);
 		assertEqualsDouble(value, sh.getArrowSizeNum());
@@ -75,7 +73,7 @@ public class TestArrowableSingleShapeBase implements HelperTest {
 
 	@Theory
 	public void setArrowSizeDim(@ArrowableData final ArrowableSingleShape sh, @DoubleData final double value) {
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 
 		sh.setArrowSizeDim(value);
 		assertEqualsDouble(value, sh.getArrowSizeDim());
@@ -83,7 +81,7 @@ public class TestArrowableSingleShapeBase implements HelperTest {
 
 	@Theory
 	public void setArrowInset(@ArrowableData final ArrowableSingleShape sh, @DoubleData final double value) {
-		assumeThat(value, greaterThanOrEqualTo(0d));
+		assumeTrue(value >= 0d);
 
 		sh.setArrowInset(value);
 		assertEqualsDouble(value, sh.getArrowInset());
@@ -91,7 +89,7 @@ public class TestArrowableSingleShapeBase implements HelperTest {
 
 	@Theory
 	public void setArrowLength(@ArrowableData final ArrowableSingleShape sh, @DoubleData final double value) {
-		assumeThat(value, greaterThanOrEqualTo(0d));
+		assumeTrue(value >= 0d);
 
 		sh.setArrowLength(value);
 		assertEqualsDouble(value, sh.getArrowLength());
@@ -99,7 +97,7 @@ public class TestArrowableSingleShapeBase implements HelperTest {
 
 	@Theory
 	public void setRBracketNum(@ArrowableData final ArrowableSingleShape sh, @DoubleData final double value) {
-		assumeThat(value, greaterThanOrEqualTo(0d));
+		assumeTrue(value >= 0d);
 
 		sh.setRBracketNum(value);
 		assertEqualsDouble(value, sh.getRBracketNum());

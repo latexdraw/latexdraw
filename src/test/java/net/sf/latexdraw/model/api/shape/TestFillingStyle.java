@@ -1,13 +1,11 @@
 package net.sf.latexdraw.model.api.shape;
 
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.junit.MatcherAssume.assumeThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -51,7 +49,7 @@ public class TestFillingStyle {
 
 	@Theory
 	public void testIsGradientKO(final FillingStyle style) {
-		assumeThat(style, Matchers.not(Matchers.equalTo(FillingStyle.GRAD)));
+		assumeTrue(style != FillingStyle.GRAD);
 		assertFalse(style.isGradient());
 	}
 

@@ -15,19 +15,18 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class TestEllipse implements HelperTest {
 	@Theory
 	public void testGetAB(@EllData final Ellipse shape, @DoubleData final double w, @DoubleData final double h,
 						@DoubleData final double x, @DoubleData final double y) {
-		assumeThat(w, greaterThan(0d));
-		assumeThat(h, greaterThan(0d));
+		assumeTrue(w > 0d);
+		assumeTrue(h > 0d);
 
 		shape.setPosition(x, y);
 		shape.setWidth(w);

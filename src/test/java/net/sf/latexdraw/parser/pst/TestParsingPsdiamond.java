@@ -5,8 +5,7 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestParsingPsdiamond extends TestPSTParser {
@@ -134,8 +133,8 @@ public class TestParsingPsdiamond extends TestPSTParser {
 	public void testParse2WidthHeight0() {
 		parser("\\psdiamond(0,0)(0,0)");
 		final Rhombus rh = getShapeAt(0);
-		assertThat(rh.getWidth(), greaterThan(0d));
-		assertThat(rh.getHeight(), greaterThan(0d));
+		assertThat(rh.getWidth()).isPositive();
+		assertThat(rh.getHeight()).isPositive();
 	}
 
 	@Test

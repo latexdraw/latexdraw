@@ -10,9 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.closeTo;
-import static org.hamcrest.Matchers.is;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Java6Assertions.within;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -64,17 +63,17 @@ public class TestMathUtils {
 	@ParameterizedTest
 	@MethodSource(value = "net.sf.latexdraw.data.DoubleSupplier#okDoubles")
 	void testEquals(final double value) {
-		assertThat(MathUtils.INST.equalsDouble(value, 0d, Math.abs(value)), is(true));
-		assertThat(MathUtils.INST.equalsDouble(value, value, 0.000000001), is(true));
-		assertThat(MathUtils.INST.equalsDouble(value, value + 0.000001, 0.0000001), is(false));
-		assertThat(MathUtils.INST.equalsDouble(value, value + 0.000001, 0.00001), is(true));
+		assertThat(MathUtils.INST.equalsDouble(value, 0d, Math.abs(value))).isTrue();
+		assertThat(MathUtils.INST.equalsDouble(value, value, 0.000000001)).isTrue();
+		assertThat(MathUtils.INST.equalsDouble(value, value + 0.000001, 0.0000001)).isTrue();
+		assertThat(MathUtils.INST.equalsDouble(value, value + 0.000001, 0.00001)).isTrue();
 	}
 
 	@ParameterizedTest
 	@MethodSource(value = "net.sf.latexdraw.data.DoubleSupplier#twoOkDoubles")
 	void testGetCutNumberNotCut(final double value, final double threshold) {
 		assumingThat(Math.abs(threshold) > Math.abs(value), () ->
-			assertThat(MathUtils.INST.getCutNumber(value, threshold), closeTo(0d, 0.00001))
+			assertThat(MathUtils.INST.getCutNumber(value, threshold)).isCloseTo(0d, within(0.00001))
 		);
 	}
 
@@ -82,7 +81,7 @@ public class TestMathUtils {
 	@MethodSource(value = "net.sf.latexdraw.data.DoubleSupplier#twoOkDoubles")
 	void testGetCutNumberCut(final double value, final double threshold) {
 		assumingThat(Math.abs(value) > Math.abs(threshold), () ->
-			assertThat(MathUtils.INST.getCutNumber(value, threshold), closeTo(value, 0.00001))
+			assertThat(MathUtils.INST.getCutNumber(value, threshold)).isCloseTo(value, within(0.00001))
 		);
 	}
 
@@ -90,7 +89,7 @@ public class TestMathUtils {
 	Stream<DynamicTest> testGetCutNumberNotCutFloat() {
 		return Stream.of(-0.00001f, -1.34f, -83.12f, 0f, 0.00001f, 1.34f, 83.12f).map(value ->
 			DoubleSupplier.okDoubles().filter(threshold -> Math.abs(threshold) > Math.abs((double) value)).
-			mapToObj(t -> dynamicTest("testcutNumberNotCutFloat", () -> assertThat(MathUtils.INST.getCutNumber(value, t), is(0f)))
+			mapToObj(t -> dynamicTest("testcutNumberNotCutFloat", () -> assertThat(MathUtils.INST.getCutNumber(value, t)).isEqualTo(0f))
 		)).flatMap(s -> s);
 	}
 
@@ -98,7 +97,7 @@ public class TestMathUtils {
 	Stream<DynamicTest> testGetCutNumberCutFloat() {
 		return Stream.of(-0.00001f, -1.34f, -83.12f, 0f, 0.00001f, 1.34f, 83.12f).map(value ->
 			DoubleSupplier.okDoubles().filter(threshold -> Math.abs((double) value) > Math.abs(threshold)).
-			mapToObj(t -> dynamicTest("testCutNumberCutFloat", () -> assertThat(MathUtils.INST.getCutNumber(value, t), is(value)))
+			mapToObj(t -> dynamicTest("testCutNumberCutFloat", () -> assertThat(MathUtils.INST.getCutNumber(value, t)).isEqualTo(value))
 		)).flatMap(s -> s);
 	}
 

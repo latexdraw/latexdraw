@@ -26,9 +26,8 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.closeTo;
-import static org.hamcrest.Matchers.empty;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -53,7 +52,7 @@ public class TestGroup implements HelperTest {
 	@Test
 	public void testCannotAddShapeWhichIsEmptyGroup() {
 		shape.addShape(ShapeFactory.INST.createGroup());
-		assertThat(shape.getShapes(), empty());
+		assertThat(shape.getShapes()).isEmpty();
 	}
 
 	@Test
@@ -75,9 +74,9 @@ public class TestGroup implements HelperTest {
 		shape.addShape(sh3);
 		shape.setRotationAngle(0d);
 		shape.addToRotationAngle(ShapeFactory.INST.createPoint(), 10d);
-		assertThat(sh2.getRotationAngle(), closeTo(10d, 0.0001));
-		assertThat(sh3.getRotationAngle(), closeTo(10d, 0.0001));
-		assertThat(shape.getRotationAngle(), closeTo(10d, 0.0001));
+		assertThat(sh2.getRotationAngle()).isCloseTo(10d, within(0.0001));
+		assertThat(sh3.getRotationAngle()).isCloseTo(10d, within(0.0001));
+		assertThat(shape.getRotationAngle()).isCloseTo(10d, within(0.0001));
 	}
 
 	@Test

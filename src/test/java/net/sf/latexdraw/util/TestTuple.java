@@ -3,10 +3,7 @@ package net.sf.latexdraw.util;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.emptyOrNullString;
-import static org.hamcrest.core.IsNot.not;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTuple {
@@ -29,6 +26,6 @@ public class TestTuple {
 
 	@Test
 	void testToString() {
-		assertThat(tuple.toString(), not(is(emptyOrNullString())));
+		assertThat(tuple.toString()).isNotEmpty();
 	}
 }

@@ -17,13 +17,10 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
@@ -262,7 +259,7 @@ public class TestShape implements HelperTest {
 	@Theory
 	public void testGetSetHatchingsSep(@ShapeData final Shape shape, @DoubleData final double value) {
 		assumeTrue(shape.isInteriorStylable());
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 		shape.setHatchingsSep(value);
 		assertEqualsDouble(value, shape.getHatchingsSep());
 	}
@@ -270,7 +267,7 @@ public class TestShape implements HelperTest {
 	@Theory
 	public void testGetSetHatchingsSepKO(@ShapeData final Shape shape, @DoubleData(vals = {0d, -1d}, bads = true) final double value) {
 		assumeTrue(shape.isInteriorStylable());
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 		shape.setHatchingsSep(20d);
 		shape.setHatchingsSep(value);
 		assertEqualsDouble(20d, shape.getHatchingsSep());
@@ -301,7 +298,7 @@ public class TestShape implements HelperTest {
 	@Theory
 	public void testGetSetHatchingsWidth(@ShapeData final Shape shape, @DoubleData final double value) {
 		assumeTrue(shape.isInteriorStylable());
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 		shape.setHatchingsWidth(value);
 		assertEqualsDouble(value, shape.getHatchingsWidth());
 	}
@@ -351,7 +348,7 @@ public class TestShape implements HelperTest {
 	@Theory
 	public void testGetSetDbleBordSep(@ShapeData final Shape shape, @DoubleData final double value) {
 		assumeTrue(shape.isDbleBorderable());
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 		shape.setDbleBordSep(value);
 		assertEqualsDouble(value, shape.getDbleBordSep());
 	}
@@ -417,7 +414,7 @@ public class TestShape implements HelperTest {
 	@Theory
 	public void testGetSetShadowSize(@ShapeData final Shape shape, @DoubleData final double value) {
 		assumeTrue(shape.isShadowable());
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 		shape.setShadowSize(value);
 		assertEqualsDouble(value, shape.getShadowSize());
 	}
@@ -518,7 +515,7 @@ public class TestShape implements HelperTest {
 	@Theory
 	public void testSetGetThickness(@ShapeData final Shape shape, @DoubleData final double value) {
 		assumeTrue(shape.isThicknessable());
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 		shape.setThickness(value);
 		assertEqualsDouble(value, shape.getThickness());
 	}
@@ -547,7 +544,7 @@ public class TestShape implements HelperTest {
 	@Theory
 	public void testSetGetDashSepWhite(@ShapeData final Shape shape, @DoubleData final double value) {
 		assumeTrue(shape.isLineStylable());
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 		shape.setDashSepWhite(value);
 		assertEqualsDouble(value, shape.getDashSepWhite());
 	}
@@ -563,7 +560,7 @@ public class TestShape implements HelperTest {
 	@Theory
 	public void testSetGetDashSepBlack(@ShapeData final Shape shape, @DoubleData final double value) {
 		assumeTrue(shape.isLineStylable());
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 		shape.setDashSepBlack(value);
 		assertEqualsDouble(value, shape.getDashSepBlack());
 	}
@@ -579,7 +576,7 @@ public class TestShape implements HelperTest {
 	@Theory
 	public void testSetGetDotSep(@ShapeData final Shape shape, @DoubleData final double value) {
 		assumeTrue(shape.isLineStylable());
-		assumeThat(value, greaterThanOrEqualTo(0d));
+		assumeTrue(value >= 0d);
 		shape.setDotSep(value);
 		assertEqualsDouble(value, shape.getDotSep());
 	}

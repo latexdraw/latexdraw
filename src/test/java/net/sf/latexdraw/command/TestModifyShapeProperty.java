@@ -59,10 +59,9 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.closeTo;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 @RunWith(Parameterized.class)
@@ -226,7 +225,8 @@ public class TestModifyShapeProperty extends TestUndoableCommand<ModifyShapeProp
 					if(Double.isNaN(value)) {
 						fail();
 					}else {
-						assertThat((Double) valueToCheckCmd.apply(group.getShapeAt(i.get()).orElseThrow()), closeTo(value, 0.0001));
+						assertThat((Double) valueToCheckCmd.apply(group.getShapeAt(i.get()).orElseThrow()))
+							.isCloseTo(value, within(0.0001));
 					}
 				}else {
 					assertEquals(String.format("Incorrect value for shape %s", group.getShapeAt(i.get())), obj,
@@ -346,6 +346,6 @@ public class TestModifyShapeProperty extends TestUndoableCommand<ModifyShapeProp
 
 	@Override
 	protected void checkDo() {
-		assertThat(valueToCheckCmd.apply(group), equalTo(value));
+		assertThat(valueToCheckCmd.apply(group)).isEqualTo(value);
 	}
 }

@@ -8,8 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestParsingPswedge extends TestPSTParser {
@@ -108,8 +107,8 @@ public class TestParsingPswedge extends TestPSTParser {
 	public void testNegativeRadius(final String cmd) {
 		parser(cmd + "(0,0){-1}{10}{20}");
 		final Arc arc = getShapeAt(0);
-		assertThat(arc.getWidth(), greaterThan(0d));
-		assertThat(arc.getHeight(), greaterThan(0d));
+		assertThat(arc.getWidth()).isPositive();
+		assertThat(arc.getHeight()).isPositive();
 	}
 
 	@ParameterizedTest

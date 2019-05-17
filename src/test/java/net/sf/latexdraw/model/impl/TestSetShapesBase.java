@@ -21,9 +21,7 @@ import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 
 import static java.lang.annotation.ElementType.PARAMETER;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.empty;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -51,39 +49,39 @@ public class TestSetShapesBase {
 	public void testAddShapeIShape(@SetShapeData final SetShapesProp shape) {
 		shape.addShape(sh1);
 		shape.addShape(sh2);
-		assertThat(shape.getShapes(), contains(sh1, sh2));
+		assertThat(shape.getShapes()).containsExactly(sh1, sh2);
 	}
 
 	@Theory
 	public void testAddShapeIShapeIntKO1(@SetShapeData final SetShapesProp shape) {
 		shape.addShape(ShapeFactory.INST.createRectangle(), 1);
-		assertThat(shape.getShapes(), empty());
+		assertThat(shape.getShapes()).isEmpty();
 	}
 
 	@Theory
 	public void testAddShapeIShapeIntKO2(@SetShapeData final SetShapesProp shape) {
 		shape.addShape(ShapeFactory.INST.createRectangle(), -2);
-		assertThat(shape.getShapes(), empty());
+		assertThat(shape.getShapes()).isEmpty();
 	}
 
 	@Theory
 	public void testAddShapeIShapeInt(@SetShapeData final SetShapesProp shape) {
 		shape.addShape(sh1);
 		shape.addShape(sh2, 0);
-		assertThat(shape.getShapes(), contains(sh2, sh1));
+		assertThat(shape.getShapes()).containsExactly(sh2, sh1);
 	}
 
 	@Theory
 	public void testRemoveShapeKO(@SetShapeData final SetShapesProp shape) {
 		shape.removeShape(ShapeFactory.INST.createRectangle());
-		assertThat(shape.getShapes(), empty());
+		assertThat(shape.getShapes()).isEmpty();
 	}
 
 	@Theory
 	public void testRemoveShape1(@SetShapeData final SetShapesProp shape) {
 		shape.getShapes().addAll(sh1, sh2, sh3);
 		shape.removeShape(sh2);
-		assertThat(shape.getShapes(), contains(sh1, sh3));
+		assertThat(shape.getShapes()).containsExactly(sh1, sh3);
 	}
 
 	@Theory
@@ -91,7 +89,7 @@ public class TestSetShapesBase {
 		shape.getShapes().addAll(sh1, sh2, sh3);
 		shape.removeShape(sh1);
 		shape.removeShape(sh2);
-		assertThat(shape.getShapes(), contains(sh3));
+		assertThat(shape.getShapes()).containsExactly(sh3);
 	}
 
 	@Theory
@@ -100,7 +98,7 @@ public class TestSetShapesBase {
 		shape.removeShape(sh3);
 		shape.removeShape(sh1);
 		shape.removeShape(sh2);
-		assertThat(shape.getShapes(), empty());
+		assertThat(shape.getShapes()).isEmpty();
 	}
 
 	@Theory
@@ -113,21 +111,21 @@ public class TestSetShapesBase {
 	public void testRemoveShapeIntOK1(@SetShapeData final SetShapesProp shape) {
 		shape.getShapes().add(sh1);
 		shape.removeShape(0);
-		assertThat(shape.getShapes(), empty());
+		assertThat(shape.getShapes()).isEmpty();
 	}
 
 	@Theory
 	public void testRemoveShapeIntOK2(@SetShapeData final SetShapesProp shape) {
 		shape.getShapes().addAll(sh1, sh2, sh3);
 		shape.removeShape(0);
-		assertThat(shape.getShapes(), contains(sh2, sh3));
+		assertThat(shape.getShapes()).containsExactly(sh2, sh3);
 	}
 
 	@Theory
 	public void testRemoveShapeIntOK3(@SetShapeData final SetShapesProp shape) {
 		shape.getShapes().addAll(sh1, sh2, sh3);
 		shape.removeShape(2);
-		assertThat(shape.getShapes(), contains(sh1, sh2));
+		assertThat(shape.getShapes()).containsExactly(sh1, sh2);
 	}
 
 	@Theory
@@ -173,7 +171,7 @@ public class TestSetShapesBase {
 	public void testClear(@SetShapeData final SetShapesProp shape) {
 		shape.getShapes().addAll(sh1, sh2);
 		shape.clear();
-		assertThat(shape.getShapes(), empty());
+		assertThat(shape.getShapes()).isEmpty();
 	}
 
 

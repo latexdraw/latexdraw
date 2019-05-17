@@ -16,11 +16,10 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
 import net.sf.latexdraw.model.api.shape.Point;
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.hamcrest.junit.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -112,7 +111,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		WaitForAsyncUtils.waitForFxEvents();
 		final List<Point> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
 			map(ell -> ShapeFactory.INST.createPoint(((Ellipse) ell).getCenterX(), ((Ellipse) ell).getCenterY())).collect(Collectors.toList());
-		model.getPoints().forEach(pt -> assertThat(centers, CoreMatchers.hasItem(pt)));
+		model.getPoints().forEach(pt -> assertThat(centers).contains(pt));
 	}
 
 	@Test
@@ -121,7 +120,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		WaitForAsyncUtils.waitForFxEvents();
 		final List<Point> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
 			map(ell -> ShapeFactory.INST.createPoint(((Ellipse) ell).getCenterX(), ((Ellipse) ell).getCenterY())).collect(Collectors.toList());
-		model.getFirstCtrlPts().forEach(pt -> assertThat(centers, CoreMatchers.hasItem(pt)));
+		model.getFirstCtrlPts().forEach(pt -> assertThat(centers).contains(pt));
 	}
 
 	@Test
@@ -130,7 +129,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		WaitForAsyncUtils.waitForFxEvents();
 		final List<Point> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
 			map(ell -> ShapeFactory.INST.createPoint(((Ellipse) ell).getCenterX(), ((Ellipse) ell).getCenterY())).collect(Collectors.toList());
-		model.getSecondCtrlPts().forEach(pt -> assertThat(centers, CoreMatchers.hasItem(pt)));
+		model.getSecondCtrlPts().forEach(pt -> assertThat(centers).contains(pt));
 	}
 
 	@Test

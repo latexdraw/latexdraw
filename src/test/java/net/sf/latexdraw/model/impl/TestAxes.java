@@ -4,13 +4,13 @@ import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
-import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.Axes;
+import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.Circle;
+import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.StandardGrid;
-import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,13 +18,11 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class TestAxes implements HelperTest {
@@ -94,7 +92,7 @@ public class TestAxes implements HelperTest {
 
 	@Theory
 	public void testGetSetIncrementX(@DoubleData final double val) {
-		assumeThat(val, greaterThan(0d));
+		assumeTrue(val > 0d);
 
 		shape.setIncrementX(val);
 		assertEqualsDouble(val, shape.getIncrementX());
@@ -109,7 +107,7 @@ public class TestAxes implements HelperTest {
 
 	@Theory
 	public void testGetSetIncrementY(@DoubleData final double val) {
-		assumeThat(val, greaterThan(0d));
+		assumeTrue(val > 0d);
 
 		shape.setIncrementY(val);
 		assertEqualsDouble(val, shape.getIncrementY());
@@ -124,7 +122,7 @@ public class TestAxes implements HelperTest {
 
 	@Theory
 	public void testGetSetDistLabelsX(@DoubleData final double val) {
-		assumeThat(val, greaterThan(0d));
+		assumeTrue(val > 0d);
 
 		shape.setDistLabelsX(val);
 		assertEqualsDouble(val, shape.getDistLabelsX());
@@ -139,7 +137,7 @@ public class TestAxes implements HelperTest {
 
 	@Theory
 	public void testGetSetDistLabelsY(@DoubleData final double val) {
-		assumeThat(val, greaterThan(0d));
+		assumeTrue(val > 0d);
 
 		shape.setDistLabelsY(val);
 		assertEqualsDouble(val, shape.getDistLabelsY());
@@ -186,7 +184,7 @@ public class TestAxes implements HelperTest {
 
 	@Theory
 	public void testGetSetTicksSize(@DoubleData final double val) {
-		assumeThat(val, greaterThan(0d));
+		assumeTrue(val > 0d);
 
 		shape.setTicksSize(val);
 		assertEqualsDouble(val, shape.getTicksSize());
@@ -266,8 +264,8 @@ public class TestAxes implements HelperTest {
 	@Theory
 	public void testGetBottomRightPoint(@DoubleData final double x, @DoubleData final double y, @DoubleData final double endX,
 										@DoubleData final double startY) {
-		assumeThat(endX, greaterThan(-200d));
-		assumeThat(startY, lessThan(75d));
+		assumeTrue(endX > -200d);
+		assumeTrue(startY < 75d);
 
 		shape.setPosition(x, y);
 		shape.setGridStart(-200d, startY);
@@ -280,8 +278,8 @@ public class TestAxes implements HelperTest {
 	@Theory
 	public void testGetTopLeftPoint(@DoubleData final double x, @DoubleData final double y, @DoubleData final double startX,
 									@DoubleData final double endY) {
-		assumeThat(endY, greaterThan(-100d));
-		assumeThat(startX, lessThan(50d));
+		assumeTrue(endY > -100d);
+		assumeTrue(startX < 50d);
 
 		shape.setPosition(x, y);
 		shape.setGridStart(startX, -100d);
@@ -294,8 +292,8 @@ public class TestAxes implements HelperTest {
 	@Theory
 	public void testGetTopRightPoint(@DoubleData final double startX, @DoubleData final double endX,
 									@DoubleData final double startY, @DoubleData final double endY) {
-		assumeThat(endY, greaterThan(startY));
-		assumeThat(startX, lessThan(endX));
+		assumeTrue(endY > startY);
+		assumeTrue(startX < endX);
 
 		shape.setPosition(0d, 0d);
 		shape.setGridStart(startX, startY);

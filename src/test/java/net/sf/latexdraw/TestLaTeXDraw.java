@@ -17,7 +17,6 @@ import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +30,7 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -121,8 +120,8 @@ public class TestLaTeXDraw {
 		final double vvalue = pane.getVvalue();
 		robot.drag("#canvas", MouseButton.MIDDLE).dropBy(100d, 200d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertThat(hvalue, Matchers.greaterThan(pane.getHvalue()));
-		assertThat(vvalue, Matchers.greaterThan(pane.getVvalue()));
+		assertThat(hvalue).isGreaterThan(pane.getHvalue());
+		assertThat(vvalue).isGreaterThan(pane.getVvalue());
 	}
 
 	@Disabled("does not work on CI, do not know why for the moment")

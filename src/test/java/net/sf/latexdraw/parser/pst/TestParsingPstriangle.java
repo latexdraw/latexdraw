@@ -5,8 +5,7 @@ import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestParsingPstriangle extends TestPSTParser {
@@ -153,7 +152,7 @@ public class TestParsingPstriangle extends TestPSTParser {
 	public void testParse2WidthHeight0() {
 		parser("\\pstriangle(0,0)(0,0)");
 		final Triangle tri = getShapeAt(0);
-		assertThat(tri.getWidth(), greaterThan(0d));
-		assertThat(tri.getHeight(), greaterThan(0d));
+		assertThat(tri.getWidth()).isGreaterThan(0d);
+		assertThat(tri.getHeight()).isGreaterThan(0d);
 	}
 }

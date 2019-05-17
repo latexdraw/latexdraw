@@ -3,9 +3,9 @@ package net.sf.latexdraw.model.impl;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.model.ShapeFactory;
-import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.Circle;
 import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.DotStyle;
 import net.sf.latexdraw.model.api.shape.PositionShape;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
@@ -15,12 +15,11 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class TestDot implements HelperTest {
@@ -70,7 +69,7 @@ public class TestDot implements HelperTest {
 
 	@Theory
 	public void testGetSetRadius(@DoubleData final double value) {
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 
 		shape.setDiametre(value);
 		assertEqualsDouble(value, shape.getDiametre());

@@ -8,9 +8,8 @@ import net.sf.latexdraw.model.api.shape.Group;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.contains;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class TestGroupArcBase {
 	Group group;
@@ -49,7 +48,8 @@ public class TestGroupArcBase {
 
 	@Test
 	public void testGetArcStyleAll() {
-		assertThat(group.getArcStyleList(), contains(Optional.empty(), Optional.of(ArcStyle.CHORD), Optional.empty(), Optional.of(ArcStyle.WEDGE)));
+		assertThat(group.getArcStyleList())
+			.containsExactly(Optional.empty(), Optional.of(ArcStyle.CHORD), Optional.empty(), Optional.of(ArcStyle.WEDGE));
 	}
 
 	@Test
@@ -66,7 +66,8 @@ public class TestGroupArcBase {
 
 	@Test
 	public void testGetAngleStartAll() {
-		assertThat(group.getAngleStartList(), contains(Optional.empty(), Optional.of(1.1), Optional.empty(), Optional.of(1.6)));
+		assertThat(group.getAngleStartList())
+			.containsExactly(Optional.empty(), Optional.of(1.1), Optional.empty(), Optional.of(1.6));
 	}
 
 	@Test
@@ -83,6 +84,7 @@ public class TestGroupArcBase {
 
 	@Test
 	public void testGetAngleEndAll() {
-		assertThat(group.getAngleEndList(), contains(Optional.empty(), Optional.of(2.6), Optional.empty(), Optional.of(3.1)));
+		assertThat(group.getAngleEndList())
+			.containsExactly(Optional.empty(), Optional.of(2.6), Optional.empty(), Optional.of(3.1));
 	}
 }

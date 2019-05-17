@@ -2,6 +2,7 @@ package net.sf.latexdraw.model.impl;
 
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
+import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Line;
 import net.sf.latexdraw.model.api.shape.Point;
@@ -13,16 +14,13 @@ import org.junit.experimental.theories.Theory;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThan;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class TestLine implements HelperTest {
@@ -87,7 +85,7 @@ public class TestLine implements HelperTest {
 
 	@Theory
 	public void testLineAngleHoriz1(@DoubleData final double x1, @DoubleData final double x2) {
-		assumeThat(x1, greaterThan(x2));
+		assumeTrue(x1 > x2);
 		line.setLine(x1, 100d, x2, 100d);
 		line.updateAandB();
 		assertEqualsDouble(0d, line.getLineAngle());
@@ -95,7 +93,7 @@ public class TestLine implements HelperTest {
 
 	@Theory
 	public void testLineAngleHoriz2(@DoubleData final double x1, @DoubleData final double x2) {
-		assumeThat(x1, lessThan(x2));
+		assumeTrue(x1 < x2);
 		line.setLine(x1, 100d, x2, 100d);
 		line.updateAandB();
 		assertEqualsDouble(Math.PI, line.getLineAngle());
@@ -103,7 +101,7 @@ public class TestLine implements HelperTest {
 
 	@Theory
 	public void testLineAngleVert(@DoubleData final double y1, @DoubleData final double y2) {
-		assumeThat(y1, not(closeTo(y2, 0.0001)));
+		assumeFalse(MathUtils.INST.equalsDouble(y1, y2));
 		line.setLine(-100d, y1, -100d, y2);
 		line.updateAandB();
 		assertEqualsDouble(Math.PI / 2d, line.getLineAngle() % Math.PI);

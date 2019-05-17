@@ -16,9 +16,9 @@ import net.sf.latexdraw.util.BadaboomCollector;
 import org.malai.fsm.TimeoutTransition;
 import org.testfx.util.WaitForAsyncUtils;
 
-import static org.hamcrest.number.IsCloseTo.closeTo;
+import static org.assertj.core.api.Assertions.within;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
 
 public interface HelperTest {
 	static void waitForTimeoutTransitions() {
@@ -42,11 +42,11 @@ public interface HelperTest {
 	}
 
 	default void assertEqualsDouble(final double v1, final double v2) {
-		assertThat(v2, closeTo(v1, 0.0000001));
+		assertThat(v2).isCloseTo(v1, within(0.0000001));
 	}
 
 	default void assertEqualsDouble(final String msg, final double v1, final double v2) {
-		assertThat(msg, v2, closeTo(v1, 0.0000001));
+		assertThat(v2).as(msg).isCloseTo(v1, within(0.0000001));
 	}
 
 	static String getBadaboomMessages() {

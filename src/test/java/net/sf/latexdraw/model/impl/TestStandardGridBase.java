@@ -9,10 +9,8 @@ import org.junit.experimental.theories.Theory;
 import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class TestStandardGridBase implements HelperTest {
@@ -31,7 +29,7 @@ public class TestStandardGridBase implements HelperTest {
 
 	@Theory
 	public void testGetSetGridEndX(@StdGridData final StandardGrid shape, @DoubleData final double value) {
-		assumeThat(value, greaterThan(-10d));
+		assumeTrue(value > -10d);
 
 		shape.setGridStartX(-10d);
 		shape.setGridEndX(value);
@@ -48,7 +46,7 @@ public class TestStandardGridBase implements HelperTest {
 
 	@Theory
 	public void testGetSetGridEndY(@StdGridData final StandardGrid shape, @DoubleData final double value) {
-		assumeThat(value, greaterThan(-10d));
+		assumeTrue(value > -10d);
 
 		shape.setGridStartY(-10d);
 		shape.setGridEndY(value);
@@ -65,7 +63,7 @@ public class TestStandardGridBase implements HelperTest {
 
 	@Theory
 	public void testGetSetGridStartY(@StdGridData final StandardGrid shape, @DoubleData final double value) {
-		assumeThat(value, lessThan(10d));
+		assumeTrue(value < 10d);
 
 		shape.setGridEndY(10d);
 		shape.setGridStartY(value);
@@ -82,7 +80,7 @@ public class TestStandardGridBase implements HelperTest {
 
 	@Theory
 	public void testGetSetGridStartX(@StdGridData final StandardGrid shape, @DoubleData final double value) {
-		assumeThat(value, lessThan(10d));
+		assumeTrue(value < 10d);
 
 		shape.setGridEndX(10d);
 		shape.setGridStartX(value);
@@ -99,8 +97,8 @@ public class TestStandardGridBase implements HelperTest {
 
 	@Theory
 	public void testSetGridStart(@StdGridData final StandardGrid shape, @DoubleData final double x, @DoubleData final double y) {
-		assumeThat(x, lessThan(20d));
-		assumeThat(y, lessThan(20d));
+		assumeTrue(x < 20d);
+		assumeTrue(y < 20d);
 
 		shape.setGridEnd(20, 20);
 		shape.setGridStart(x, y);
@@ -110,8 +108,8 @@ public class TestStandardGridBase implements HelperTest {
 
 	@Theory
 	public void testSetGridEnd(@StdGridData final StandardGrid shape, @DoubleData final double x, @DoubleData final double y) {
-		assumeThat(x, greaterThan(-20d));
-		assumeThat(y, greaterThan(-20d));
+		assumeTrue(x > -20d);
+		assumeTrue(y > -20d);
 
 		shape.setGridStart(-20, -20);
 		shape.setGridEnd(x, y);

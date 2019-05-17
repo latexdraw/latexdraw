@@ -8,12 +8,10 @@ import net.sf.latexdraw.model.api.shape.Rectangle;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class TestCopyShapes extends TestCommand<CopyShapes> {
@@ -31,7 +29,7 @@ public class TestCopyShapes extends TestCommand<CopyShapes> {
 	protected void checkDo() {
 		assertNotNull(cmd.copiedShapes);
 		assertEquals(1, cmd.copiedShapes.size());
-		assertThat(shape, not(sameInstance(cmd.copiedShapes.get(0))));
+		assertThat(shape).isNotSameAs(cmd.copiedShapes.get(0));
 	}
 
 	@Test

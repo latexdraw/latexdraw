@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import net.sf.latexdraw.command.TestUndoableCommand;
+import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Factory;
 import net.sf.latexdraw.model.api.shape.Group;
@@ -23,9 +24,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mockito;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Every.everyItem;
-import static org.hamcrest.number.IsCloseTo.closeTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
@@ -89,28 +88,28 @@ public class TestAlignShape extends TestUndoableCommand<AlignShapes, List<Tuple<
 	protected void checkDo() {
 		switch(alignment) {
 			case TOP:
-				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getTopLeftPoint().getY()).boxed().collect(Collectors.toList()),
-					everyItem(closeTo(-2d, 0.000001d)));
+				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getTopLeftPoint().getY()).boxed().collect(Collectors.toList()))
+					.allMatch(value -> MathUtils.INST.equalsDouble(value, -2d, 0.000001d));
 				break;
 			case BOTTOM:
-				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getBottomRightPoint().getY()).boxed().collect(Collectors.toList()),
-					everyItem(closeTo(76d, 0.000001d)));
+				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getBottomRightPoint().getY()).boxed().collect(Collectors.toList()))
+					.allMatch(value -> MathUtils.INST.equalsDouble(value, 76d, 0.000001d));
 				break;
 			case LEFT:
-				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getTopLeftPoint().getX()).boxed().collect(Collectors.toList()),
-					everyItem(closeTo(-5d, 0.000001d)));
+				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getTopLeftPoint().getX()).boxed().collect(Collectors.toList()))
+					.allMatch(value -> MathUtils.INST.equalsDouble(value, -5d, 0.000001d));
 				break;
 			case RIGHT:
-				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getBottomRightPoint().getX()).boxed().collect(Collectors.toList()),
-					everyItem(closeTo(34d, 0.000001d)));
+				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getBottomRightPoint().getX()).boxed().collect(Collectors.toList()))
+					.allMatch(value -> MathUtils.INST.equalsDouble(value, 34d, 0.000001d));
 				break;
 			case MID_HORIZ:
-				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getGravityCentre().getY()).boxed().collect(Collectors.toList()),
-					everyItem(closeTo(37d, 0.000001d)));
+				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getGravityCentre().getY()).boxed().collect(Collectors.toList()))
+					.allMatch(value -> MathUtils.INST.equalsDouble(value, 37d, 0.000001d));
 				break;
 			case MID_VERT:
-				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getGravityCentre().getX()).boxed().collect(Collectors.toList()),
-					everyItem(closeTo(14.5d, 0.000001d)));
+				assertThat(shapes.getShapes().stream().mapToDouble(sh -> sh.getGravityCentre().getX()).boxed().collect(Collectors.toList()))
+					.allMatch(value -> MathUtils.INST.equalsDouble(value, 14.5d, 0.000001d));
 				break;
 		}
 	}

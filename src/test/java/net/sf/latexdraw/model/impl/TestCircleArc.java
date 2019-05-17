@@ -15,11 +15,10 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.lessThan;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Theories.class)
@@ -68,7 +67,7 @@ public class TestCircleArc implements HelperTest {
 		shape.setAngleEnd(Math.PI * 1.5);
 		shape.setArrowStyle(ArrowStyle.RIGHT_ARROW, 0);
 		final Line line = shape.getArrowLine(0);
-		assertThat(line.getX1(), lessThan(line.getX2()));
+		assertThat(line.getX1()).isLessThan(line.getX2());
 		assertTrue(line.getY1() > line.getY2());
 	}
 

@@ -12,9 +12,8 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.StandardGrid;
 import net.sf.latexdraw.model.api.shape.Text;
 
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.closeTo;
-import static org.hamcrest.junit.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class CompareShapeMatcher implements HelperTest {
@@ -79,7 +78,9 @@ public final class CompareShapeMatcher implements HelperTest {
 	public void assertEqualShapeShadow(final Shape s1, final Shape s2) {
 		assertEquals(s2.hasShadow(), s1.hasShadow());
 		if(s2.hasShadow()) {
-			assertThat(s2.getShadowAngle(), anyOf(closeTo(s1.getShadowAngle(), 0.0001), closeTo(s1.getShadowAngle() + 2d * Math.PI, 0.001)));
+
+			assertThat((s2.getShadowAngle() + 2d * Math.PI) % (2d * Math.PI))
+				.isCloseTo((s1.getShadowAngle() + 2d * Math.PI) % (2d * Math.PI), within(0.0001));
 			assertEquals(s2.getShadowSize(), s1.getShadowSize(), 0.001);
 			assertEquals(s2.getShadowCol(), s1.getShadowCol());
 		}

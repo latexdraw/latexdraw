@@ -20,17 +20,15 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 import static java.lang.annotation.ElementType.PARAMETER;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(Theories.class)
 public class TestSquaredShapeBase implements HelperTest {
 	@Theory
 	public void testGetSetWidth(@SquaredData final SquaredShape shape, @DoubleData final double value) {
-		assumeThat(value, greaterThan(0d));
+		assumeTrue(value > 0d);
 		shape.setWidth(value);
 		assertEqualsDouble(value, shape.getWidth());
 		assertEqualsDouble(value, shape.getHeight());
@@ -39,7 +37,7 @@ public class TestSquaredShapeBase implements HelperTest {
 
 	@Theory
 	public void testGetSetWidthKO(@SquaredData final SquaredShape shape, @DoubleData(bads = true) final double value) {
-		assumeThat(value, lessThanOrEqualTo(0d));
+		assumeTrue(value <= 0d);
 		shape.setWidth(30d);
 		shape.setWidth(value);
 		assertEqualsDouble(30d, shape.getWidth());
