@@ -44,5 +44,4 @@
             <Tooltip text="%LaTeXDrawFrame.15"/>
         </tooltip>
     </LSpinner>
-    <CheckBox fx:id="openGL" layoutX="14.0" layoutY="500.0" mnemonicParsing="false" text="OpenGL"/>
 </AnchorPane>

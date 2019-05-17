@@ -31,7 +31,6 @@ class TestPreferencesService {
 		assertEquals(p1.getUnit(), p2.getUnit());
 		assertEquals(p1.includesProperty().get(), p2.includesProperty().get());
 		assertEquals(p1.getLang(), p2.getLang());
-		assertEquals(p1.openGLProperty().get(), p2.openGLProperty().get());
 		assertEquals(p1.nbRecentFilesProperty().get(), p2.nbRecentFilesProperty().get());
 	}
 
@@ -218,7 +217,6 @@ class TestPreferencesService {
 			prefs.unitProperty().set(Unit.INCH);
 			prefs.includesProperty().set("include text");
 			prefs.langProperty().set(prefs.getSupportedLocales().stream().filter(l -> l != prefs.langProperty().get()).findFirst().orElseThrow());
-			prefs.openGLProperty().set(!prefs.openGLProperty().get());
 			prefs.nbRecentFilesProperty().set(prefs.nbRecentFilesProperty().get() * 3);
 
 			prefs.writePreferences();

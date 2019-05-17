@@ -51,14 +51,6 @@ public class TestPreferencesSetter extends TestLatexdrawGUI implements FxRobotLi
 	}
 
 	@Test
-	public void testOpenGL() {
-		final boolean openGL = prefs.openGLProperty().get();
-		clickOn(setter.openGL);
-		waitFXEvents.execute();
-		assertNotEquals(openGL, prefs.openGLProperty().get());
-	}
-
-	@Test
 	public void testCheckVersion() {
 		final boolean version = prefs.checkVersionProperty().get();
 		clickOn(setter.checkNewVersion);

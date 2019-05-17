@@ -66,7 +66,6 @@ public final class LNamespace {
 	public static final String XML_SIZE 				= "size"; //NON-NLS
 	public static final String XML_GRID_STYLE = "gridStyle"; //NON-NLS
 	public static final String XML_ROOT_PREFERENCES 	= "preferences"; //NON-NLS
-	public static final String XML_OPENGL	 			= "openGL"; //NON-NLS
 	public static final String XML_PATH_EXPORT 			= "pathExport"; //NON-NLS
 	public static final String XML_PATH_OPEN 			= "pathOpen"; //NON-NLS
 	public static final String XML_CHECK_VERSION 		= "checkVersion"; //NON-NLS

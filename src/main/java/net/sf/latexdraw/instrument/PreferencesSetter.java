@@ -44,7 +44,6 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	@FXML protected CheckBox magneticCB;
 	/** Allows the set if the program must check new version on start up. */
 	@FXML protected CheckBox checkNewVersion;
-	@FXML protected CheckBox openGL;
 	/** This textField allows to set the default directories for open/save commands. */
 	@FXML protected TextField pathOpenField;
 	/** This textField allows to set the default directories for exporting commands. */
@@ -103,8 +102,6 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		langList.valueProperty().bindBidirectional(prefsService.langProperty());
 
 		magneticCB.selectedProperty().bindBidirectional(prefsService.magneticGridProperty());
-
-		openGL.selectedProperty().bindBidirectional(prefsService.openGLProperty());
 
 		checkNewVersion.selectedProperty().bindBidirectional(prefsService.checkVersionProperty());
 

@@ -76,7 +76,6 @@ public class PreferencesService {
 	private @NotNull Optional<File> currentFolder;
 	private final @NotNull IntegerProperty nbRecentFiles;
 	private final @NotNull IntegerProperty gridGap;
-	private final @NotNull BooleanProperty openGL;
 	private final @NotNull BooleanProperty checkVersion;
 	private final @NotNull BooleanProperty magneticGrid;
 	private final @NotNull StringProperty pathExport;
@@ -96,7 +95,6 @@ public class PreferencesService {
 		bundle = loadResourceBundle(lang.get()).orElseThrow(() -> new IllegalArgumentException("Cannot read any resource bundle."));
 		nbRecentFiles = new SimpleIntegerProperty(5);
 		gridGap = new SimpleIntegerProperty(10);
-		openGL = new SimpleBooleanProperty(true);
 		checkVersion = new SimpleBooleanProperty(true);
 		gridStyle = new SimpleObjectProperty<>(GridStyle.NONE);
 		unit = new SimpleObjectProperty<>(Unit.CM);
@@ -214,10 +212,6 @@ public class PreferencesService {
 		}
 	}
 
-	public @NotNull BooleanProperty openGLProperty() {
-		return openGL;
-	}
-
 	public @NotNull BooleanProperty checkVersionProperty() {
 		return checkVersion;
 	}
@@ -331,7 +325,6 @@ public class PreferencesService {
 		attr.setTextContent(VersionChecker.VERSION);
 		root.setAttributeNode(attr);
 
-		SystemUtils.getInstance().createElement(document, LNamespace.XML_OPENGL, String.valueOf(openGL.get()), root);
 		SystemUtils.getInstance().createElement(document, LNamespace.XML_PATH_EXPORT, pathExport.get(), root);
 		SystemUtils.getInstance().createElement(document, LNamespace.XML_PATH_OPEN, pathOpen.get(), root);
 		SystemUtils.getInstance().createElement(document, LNamespace.XML_UNIT, unit.get().name(), root);
@@ -394,11 +387,6 @@ public class PreferencesService {
 		final String incl = prefMap.getOrDefault(LNamespace.XML_LATEX_INCLUDES, noElt).getTextContent();
 		if(incl != null) {
 			includes.setValue(incl);
-		}
-
-		final String gl = prefMap.getOrDefault(LNamespace.XML_OPENGL, noElt).getTextContent();
-		if(gl != null) {
-			openGL.setValue(Boolean.valueOf(gl));
 		}
 
 		final String check = prefMap.getOrDefault(LNamespace.XML_CHECK_VERSION, noElt).getTextContent();
