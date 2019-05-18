@@ -127,6 +127,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		tempView = Optional.empty();
 		page = new PageView(prefs, getOrigin());
 		magneticGrid = new MagneticGrid(this, prefs);
+		disposables = new ArrayList<>();
 
 		widgetsPane = new Group();
 		shapesPane = new Group();
@@ -159,10 +160,11 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		selectionBorder.setStroke(Color.GRAY);
 		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
 		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
-		selectionBorder.addEventHandler(MouseEvent.MOUSE_ENTERED, evt -> setCursor(Cursor.HAND));
-		selectionBorder.addEventHandler(MouseEvent.MOUSE_EXITED, evt -> setCursor(Cursor.DEFAULT));
+		disposables.add(JavaFxObservable.eventsOf(selectionBorder, MouseEvent.MOUSE_ENTERED)
+			.subscribe(evt -> setCursor(Cursor.HAND), ex -> BadaboomCollector.INSTANCE.add(ex)));
+		disposables.add(JavaFxObservable.eventsOf(selectionBorder, MouseEvent.MOUSE_EXITED)
+			.subscribe(evt -> setCursor(Cursor.DEFAULT), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
-		disposables = new ArrayList<>();
 		// Instead of triggering the update on each change, wait for 20 ms
 		disposables.add(JavaFxObservable.<ObservableList<Shape>>changesOf(drawing.getSelection().getShapes())
 			.throttleLast(20, TimeUnit.MILLISECONDS)
