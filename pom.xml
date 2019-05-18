@@ -313,7 +313,7 @@
                     <dependency>
                         <groupId>eu.stamp-project</groupId>
                         <artifactId>descartes</artifactId>
-                        <version>1.2.4</version>
+                        <version>1.2.5</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -354,7 +354,7 @@
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
                         <artifactId>spotbugs</artifactId>
-                        <version>3.1.12</version>
+                        <version>4.0.0-beta1</version>
                         <scope>compile</scope>
                     </dependency>
                 </dependencies>
