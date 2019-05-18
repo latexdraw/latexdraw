@@ -157,7 +157,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	@Override
 	@After
 	public void tearDown() throws TimeoutException {
-		canvas.getDrawing().clear();
+		Platform.runLater(() -> canvas.getDrawing().clear());
 		WaitForAsyncUtils.waitForFxEvents();
 		super.tearDown();
 		CommandsRegistry.INSTANCE.removeHandler(canvas);
