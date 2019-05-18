@@ -201,8 +201,9 @@ public class Pencil extends CanvasInstrument {
 			i.getPointsData().get(0).getSrcLocalPoint()), canvas.getDrawing());
 
 		// Binding for polygons
-		nodeBinder(new MultiClick(3), creation).on(canvas).
-			then((i, c) -> {
+		nodeBinder(new MultiClick(3), creation)
+			.on(canvas)
+			.then((i, c) -> {
 				final Point currPoint = getAdaptedPoint(i.getCurrentPosition());
 				if(c.getShape().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
 					c.setShape(ShapeFactory.INST.createPolygonFrom((Polygon) c.getShape(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
@@ -210,14 +211,16 @@ public class Pencil extends CanvasInstrument {
 					((ModifiablePointsShape) c.getShape()).setPoint(currPoint.getX(), currPoint.getY(), -1);
 				}
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
-			}).
-			endOrCancel((i, c) -> canvas.setTempView(null)).
-			when(() -> editing.getCurrentChoice() == EditionChoice.POLYGON).
-			bind();
+			})
+			.strictStart()
+			.endOrCancel((i, c) -> canvas.setTempView(null))
+			.when(() -> editing.getCurrentChoice() == EditionChoice.POLYGON)
+			.bind();
 
 		// Binding for polyline
-		nodeBinder(new MultiClick(), creation).on(canvas).
-			then((i, c) -> {
+		nodeBinder(new MultiClick(), creation)
+			.on(canvas)
+			.then((i, c) -> {
 				final Point currPoint = getAdaptedPoint(i.getCurrentPosition());
 				if(c.getShape().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
 					c.setShape(ShapeFactory.INST.createPolylineFrom((Polyline) c.getShape(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
@@ -225,14 +228,16 @@ public class Pencil extends CanvasInstrument {
 					((ModifiablePointsShape) c.getShape()).setPoint(currPoint.getX(), currPoint.getY(), -1);
 				}
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
-			}).
-			endOrCancel((i, c) -> canvas.setTempView(null)).
-			when(() -> editing.getCurrentChoice() == EditionChoice.LINES).
-			bind();
+			})
+			.strictStart()
+			.endOrCancel((i, c) -> canvas.setTempView(null))
+			.when(() -> editing.getCurrentChoice() == EditionChoice.LINES)
+			.bind();
 
 		// Binding for bézier curves
-		nodeBinder(new MultiClick(), creation).on(canvas).
-			then((i, c) -> {
+		nodeBinder(new MultiClick(), creation)
+			.on(canvas)
+			.then((i, c) -> {
 				final Point currPoint = getAdaptedPoint(i.getCurrentPosition());
 				if(c.getShape().getNbPoints() == i.getPointsData().size() && i.getLastButton().orElse(MouseButton.NONE) == MouseButton.PRIMARY) {
 					c.setShape(ShapeFactory.INST.createBezierCurveFrom((BezierCurve) c.getShape(), ShapeFactory.INST.createPoint(currPoint.getX(), currPoint.getY())));
@@ -241,10 +246,11 @@ public class Pencil extends CanvasInstrument {
 				}
 				((ControlPointShape) c.getShape()).balance();
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
-			}).
-			endOrCancel((i, c) -> canvas.setTempView(null)).
-			when(() -> editing.getCurrentChoice() == EditionChoice.BEZIER_CURVE).
-			bind();
+			})
+			.strictStart()
+			.endOrCancel((i, c) -> canvas.setTempView(null))
+			.when(() -> editing.getCurrentChoice() == EditionChoice.BEZIER_CURVE)
+			.bind();
 	}
 
 	/**
