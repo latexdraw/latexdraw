@@ -204,17 +204,18 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 					return (Rectangle2D) new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
 				}).reduce(Rectangle2D::createUnion).orElseGet(() -> new Rectangle2D.Double());
 
-				setVisibleSelectionBorder(rec.getMinX(), rec.getMinY(), rec.getWidth(), rec.getHeight());
+				setVisibleSelectionBorder(rec.getMinX(), rec.getMinY(), rec.getWidth(), rec.getHeight(), false);
 			}
 		});
 	}
 
-	private void setVisibleSelectionBorder(final double x, final double y, final double w, final double h) {
-		selectionBorder.setLayoutX(x);
-		selectionBorder.setLayoutY(y);
-		selectionBorder.setWidth(w);
-		selectionBorder.setHeight(h);
-		selectionBorder.setVisible(true);
+	private void setVisibleSelectionBorder(final double x, final double y, final double w, final double h, final boolean ongoing) {
+		final Rectangle rec = ongoing ? ongoingSelectionBorder : selectionBorder;
+		rec.setLayoutX(x);
+		rec.setLayoutY(y);
+		rec.setWidth(w);
+		rec.setHeight(h);
+		rec.setVisible(true);
 	}
 
 
@@ -222,7 +223,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		if(bounds == null) {
 			ongoingSelectionBorder.setVisible(false);
 		}else {
-			setVisibleSelectionBorder(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+			setVisibleSelectionBorder(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight(), true);
 		}
 	}
 
