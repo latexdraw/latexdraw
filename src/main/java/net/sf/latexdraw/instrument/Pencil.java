@@ -41,6 +41,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.jetbrains.annotations.NotNull;
+import org.malai.javafx.interaction.library.Click;
 import org.malai.javafx.interaction.library.DnD;
 import org.malai.javafx.interaction.library.MultiClick;
 import org.malai.javafx.interaction.library.PointsData;
@@ -120,7 +121,7 @@ public class Pencil extends CanvasInstrument {
 		bindMultiClic2AddShape();
 
 		// Binds a pressure to show the text setter
-		nodeBinder(new Press(), i -> new InitTextSetter(textSetter, textSetter, "", getAdaptedPoint(i.getSrcLocalPoint()), null, null)).
+		nodeBinder(new Click(), i -> new InitTextSetter(textSetter, textSetter, "", getAdaptedPoint(i.getSrcLocalPoint()), null, null)).
 			on(canvas).when(i -> (editing.getCurrentChoice() == EditionChoice.TEXT || editing.getCurrentChoice() == EditionChoice.PLOT) &&
 			i.getButton() == MouseButton.PRIMARY).bind();
 	}
