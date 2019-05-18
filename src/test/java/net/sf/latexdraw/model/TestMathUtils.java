@@ -65,7 +65,7 @@ public class TestMathUtils {
 	void testEquals(final double value) {
 		assertThat(MathUtils.INST.equalsDouble(value, 0d, Math.abs(value))).isTrue();
 		assertThat(MathUtils.INST.equalsDouble(value, value, 0.000000001)).isTrue();
-		assertThat(MathUtils.INST.equalsDouble(value, value + 0.000001, 0.0000001)).isTrue();
+		assertThat(MathUtils.INST.equalsDouble(value, value + 0.000001, 0.0000001)).isFalse();
 		assertThat(MathUtils.INST.equalsDouble(value, value + 0.000001, 0.00001)).isTrue();
 	}
 
