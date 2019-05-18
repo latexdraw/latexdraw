@@ -10,19 +10,24 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.reactivex.rxjavafx.sources.ListChange;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
@@ -36,10 +41,13 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.BadaboomCollector;
+import net.sf.latexdraw.util.Flushable;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
+import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewText;
@@ -54,46 +62,51 @@ import org.malai.javafx.interaction.library.SrcTgtPointsData;
  * This instrument allows to manipulate (e.g. move or select) shapes.
  * @author Arnaud BLOUIN
  */
-public class Hand extends CanvasInstrument {
+public class Hand extends CanvasInstrument implements Flushable {
 	private final @NotNull TextSetter textSetter;
 	private final @NotNull PreferencesService prefs;
+	private final @NotNull List<Disposable> disposables;
+	private final @NotNull Map<Node, Tuple<Disposable, Disposable>> cursorsEvents;
 
 	@Inject
 	public Hand(final Canvas canvas, final MagneticGrid grid, final TextSetter textSetter, final PreferencesService prefs) {
 		super(canvas, grid);
 		this.textSetter = Objects.requireNonNull(textSetter);
 		this.prefs = Objects.requireNonNull(prefs);
+		disposables = new ArrayList<>();
+		cursorsEvents = new HashMap<>();
 	}
 
-	private final ListChangeListener<Node> viewHandler = evt -> {
-		while(evt.next()) {
-			if(evt.wasAdded()) {
-				evt.getAddedSubList().forEach(v -> {
-					v.setOnMouseEntered(mouseEvt -> {
-						if(isActivated()) {
-							canvas.setCursor(Cursor.HAND);
-						}
+	/**
+	 * Adds RX features to change the cursor when mouse hovering a shape
+	 * @param evt The added/removed shape to process
+	 */
+	private void setUpCursorOnShapeView(final ListChange<Node> evt) {
+		switch(evt.getFlag()) {
+			case ADDED:
+				final Disposable disposable1 = JavaFxObservable.eventsOf(evt.getValue(), MouseEvent.MOUSE_ENTERED)
+					.filter(mouseEnter -> isActivated())
+					.subscribe(mouseEnter -> canvas.setCursor(Cursor.HAND));
+				final Disposable disposable2 = JavaFxObservable.eventsOf(evt.getValue(), MouseEvent.MOUSE_EXITED)
+					.filter(mouseEnter -> isActivated())
+					.subscribe(mouseEnter -> canvas.setCursor(Cursor.DEFAULT));
+				cursorsEvents.put(evt.getValue(), new Tuple<>(disposable1, disposable2));
+				break;
+			case REMOVED:
+				Optional.ofNullable(cursorsEvents.get(evt.getValue()))
+					.ifPresent(tuple -> {
+						tuple.a.dispose();
+						tuple.b.dispose();
 					});
-					v.setOnMouseExited(mouseEvt -> {
-						if(isActivated()) {
-							canvas.setCursor(Cursor.DEFAULT);
-						}
-					});
-				});
-			}
+				break;
+
 		}
-	};
-
-	@Override
-	public void uninstallBindings() {
-		canvas.getViews().getChildren().removeListener(viewHandler);
-		super.uninstallBindings();
-
 	}
 
 	@Override
 	protected void configureBindings() {
-		canvas.getViews().getChildren().addListener(viewHandler);
+		disposables.add(JavaFxObservable.changesOf(canvas.getViews().getChildren())
+			.subscribe(next -> setUpCursorOnShapeView(next), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
 		addBinding(new DnD2Select(this));
 
@@ -102,12 +115,17 @@ public class Hand extends CanvasInstrument {
 
 		dbleClickToInitTextSetter();
 
-		keyNodeBinder(() -> new SelectShapes(canvas.getDrawing())).on(canvas).with(KeyCode.A, SystemUtils.getInstance().getControlKey()).
-			first(c -> c.getShapes().addAll(canvas.getDrawing().getShapes())).bind();
+		keyNodeBinder(() -> new SelectShapes(canvas.getDrawing()))
+			.on(canvas)
+			.with(KeyCode.A, SystemUtils.getInstance().getControlKey())
+			.first(c -> c.getShapes().addAll(canvas.getDrawing().getShapes()))
+			.bind();
 
-		keyNodeBinder(() -> new UpdateToGrid(canvas.getMagneticGrid(), canvas.getDrawing().getSelection().duplicateDeep(false))).
-			on(canvas).with(KeyCode.U, SystemUtils.getInstance().getControlKey()).
-			when(i -> prefs.isMagneticGrid()).bind();
+		keyNodeBinder(() -> new UpdateToGrid(canvas.getMagneticGrid(), canvas.getDrawing().getSelection().duplicateDeep(false)))
+			.on(canvas).
+			with(KeyCode.U, SystemUtils.getInstance().getControlKey())
+			.when(i -> prefs.isMagneticGrid())
+			.bind();
 	}
 
 	/**
@@ -233,6 +251,15 @@ public class Hand extends CanvasInstrument {
 			return Optional.ofNullable(getRealViewShape((ViewShape<?>) parent));
 		}
 		return Optional.empty();
+	}
+
+	@Override
+	public void flush() {
+		disposables.forEach(d -> d.dispose());
+		cursorsEvents.values().forEach(tuple -> {
+			tuple.a.dispose();
+			tuple.b.dispose();
+		});
 	}
 
 
