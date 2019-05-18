@@ -112,6 +112,15 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		assertNotSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
+	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
+	@Test
+	public void testCtrlASelectAll() {
+		new CompositeGUIVoidCommand(addRec, addRec2).execute();
+		clickOn(canvas).press(KeyCode.CONTROL).type(KeyCode.A).release(KeyCode.CONTROL);
+		waitFXEvents.execute();
+		assertEquals(2, canvas.getDrawing().getSelection().size());
+	}
+
 	@Test
 	public void testClickArrowSelectsShape() {
 		new CompositeGUIVoidCommand(addLines).execute();

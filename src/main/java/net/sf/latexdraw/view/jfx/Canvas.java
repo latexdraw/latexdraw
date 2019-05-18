@@ -166,8 +166,12 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		// Instead of triggering the update on each change, wait for 20 ms
 		disposables.add(JavaFxObservable.<ObservableList<Shape>>changesOf(drawing.getSelection().getShapes())
 			.throttleLast(20, TimeUnit.MILLISECONDS)
-			.subscribe(next -> updateSelectionBorders(),
-			ex -> BadaboomCollector.INSTANCE.add(ex)));
+			.subscribe(next -> updateSelectionBorders(), ex -> BadaboomCollector.INSTANCE.add(ex)));
+
+		// Bloody key shortcuts. To work the canvas must grab the focus
+		// Must be a MOUSE_CLICKED, not a MOUSE_PRESSED, do not know why...
+		disposables.add(JavaFxObservable.eventsOf(this, MouseEvent.MOUSE_CLICKED)
+			.subscribe(evt -> requestFocus(), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
 		CommandsRegistry.INSTANCE.addHandler(this);
 
