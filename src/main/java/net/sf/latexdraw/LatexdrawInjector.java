@@ -106,7 +106,7 @@ public class LatexdrawInjector extends Injector {
 		bindAsEagerSingleton(SVGShapesFactory.class);
 		bindAsEagerSingleton(ExceptionsManager.class);
 		bindAsEagerSingleton(ShortcutsController.class);
-		bindWithCommand(HostServices.class, Application.class, app -> app.getHostServices());
+		bindWithCommand(HostServices.class, Application.class, fxApp -> fxApp.getHostServices());
 		bindAsEagerSingleton(StatusBarController.class);
 		bindAsEagerSingleton(AboutController.class);
 		bindAsEagerSingleton(Canvas.class);
