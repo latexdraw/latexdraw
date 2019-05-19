@@ -81,7 +81,7 @@ class PointImpl implements Point {
 
 	@Override
 	public Point zoom(final double zoomLevel) {
-		return ShapeFactory.INST.createPoint(getX() * zoomLevel, getX() * zoomLevel);
+		return ShapeFactory.INST.createPoint(getX() * zoomLevel, getY() * zoomLevel);
 	}
 
 	@Override

@@ -10,6 +10,8 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -198,5 +200,13 @@ public class TestPoint implements HelperTest {
 	public void testVerticalSymmetry(@DoubleData final double y) {
 		pt.setPoint(10d, 20d);
 		assertEquals(ShapeFactory.INST.createPoint(10d, 2d * y - pt.getY()), pt.verticalSymmetry(y));
+	}
+
+	@Test
+	public void testZoom() {
+		pt.setPoint(10d, 20d);
+		final Point zoomed = this.pt.zoom(1.5);
+		assertThat(zoomed.getX()).isEqualTo(15d, within(0.00001));
+		assertThat(zoomed.getY()).isEqualTo(30d, within(0.00001));
 	}
 }
