@@ -221,7 +221,7 @@ public final class ViewFactory implements PathElementProducer, JfxViewProducer {
 	private static class EqClosePath extends ClosePath {
 		@Override
 		public boolean equals(final Object obj) {
-			return obj != null && (obj == this || obj instanceof ClosePath);
+			return obj == this || obj instanceof ClosePath;
 		}
 
 		@Override
