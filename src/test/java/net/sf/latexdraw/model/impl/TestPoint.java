@@ -1,5 +1,7 @@
 package net.sf.latexdraw.model.impl;
 
+import java.awt.geom.Point2D;
+import javafx.geometry.Point3D;
 import net.sf.latexdraw.HelperTest;
 import net.sf.latexdraw.data.DoubleData;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -132,6 +134,25 @@ public class TestPoint implements HelperTest {
 		assertTrue(ShapeFactory.INST.createPoint(0, 0).equals(ShapeFactory.INST.createPoint(0, 0.000001), 0.0001));
 	}
 
+	@Test
+	public void testEqualsNotPoint() {
+		assertThat(pt.equals(new Object())).isFalse();
+	}
+
+	@Test
+	public void testHashCodeSym() {
+		pt.setPoint(22.1, -154.36);
+		final Point p = ShapeFactory.INST.createPoint(22.1, -154.36);
+		assertThat(pt.hashCode()).isEqualTo(p.hashCode());
+	}
+
+	@Test
+	public void testHashCodeDiff() {
+		pt.setPoint(22.1, -154.36);
+		final Point p = ShapeFactory.INST.createPoint(22.1, 154.36);
+		assertThat(pt.hashCode()).isNotEqualTo(p.hashCode());
+	}
+
 	@Theory
 	public void testGetMiddlePoint(@DoubleData final double x1, @DoubleData final double x2, @DoubleData final double y1, @DoubleData final double y2) {
 		assertEquals(ShapeFactory.INST.createPoint((x1 + x2) / 2d, (y1 + y2) / 2d), ShapeFactory.INST.createPoint(x1, y1).
@@ -208,5 +229,151 @@ public class TestPoint implements HelperTest {
 		final Point zoomed = this.pt.zoom(1.5);
 		assertThat(zoomed.getX()).isEqualTo(15d, within(0.00001));
 		assertThat(zoomed.getY()).isEqualTo(30d, within(0.00001));
+	}
+
+	@Test
+	public void testSetPointPointOK() {
+		pt.setPoint(10d, 11d);
+		pt.setPoint(ShapeFactory.INST.createPoint(5.2, -3.3));
+		assertThat(pt.getX()).isEqualTo(5.2, within(0.00001d));
+		assertThat(pt.getY()).isEqualTo(-3.3, within(0.00001d));
+	}
+
+	@Test
+	public void testSetPointPointKO() {
+		pt.setPoint(10d, 11d);
+		pt.setPoint(null);
+		assertThat(pt.getX()).isEqualTo(10d, within(0.00001d));
+		assertThat(pt.getY()).isEqualTo(11d, within(0.00001d));
+	}
+
+	@Test
+	public void testDistanceKO() {
+		assertThat(pt.distance(null)).isNaN();
+	}
+
+	@Test
+	public void testDistanceOKY() {
+		pt.setPoint(20d, 10d);
+		assertThat(pt.distance(ShapeFactory.INST.createPoint(20d, 4d))).isEqualTo(6d, within(0.00001d));
+	}
+
+	@Test
+	public void testDistanceOKX() {
+		pt.setPoint(40d, 10d);
+		assertThat(pt.distance(ShapeFactory.INST.createPoint(-20d, 10d))).isEqualTo(60d, within(0.00001d));
+	}
+
+	@Test
+	public void testToPoint2D() {
+		pt.setPoint(10d, 11d);
+		final Point2D.Double p = pt.toPoint2D();
+		assertThat(p.getX()).isEqualTo(10d, within(0.00001d));
+		assertThat(p.getY()).isEqualTo(11d, within(0.00001d));
+	}
+
+	@Test
+	public void testToPoint3D() {
+		pt.setPoint(10d, 11d);
+		final Point3D p = pt.toPoint3D();
+		assertThat(p.getX()).isEqualTo(10d, within(0.00001d));
+		assertThat(p.getY()).isEqualTo(11d, within(0.00001d));
+		assertThat(p.getZ()).isZero();
+	}
+
+	@Test
+	public void testSetPoint2DKO() {
+		pt.setPoint(10d, 11d);
+		pt.setPoint2D(null);
+		assertThat(pt.getX()).isEqualTo(10d, within(0.00001d));
+		assertThat(pt.getY()).isEqualTo(11d, within(0.00001d));
+	}
+
+	@Test
+	public void testSetPoint2DOK() {
+		pt.setPoint(10d, 11d);
+		pt.setPoint2D(new Point2D.Double(-2d, 4d));
+		assertThat(pt.getX()).isEqualTo(-2d, within(0.00001d));
+		assertThat(pt.getY()).isEqualTo(4d, within(0.00001d));
+	}
+
+	@Test
+	public void testSubstractKO() {
+		pt.setPoint(10d, 11d);
+		final Point p = pt.substract(null);
+		assertThat(p.getX()).isEqualTo(10d, within(0.00001d));
+		assertThat(p.getY()).isEqualTo(11d, within(0.00001d));
+	}
+
+	@Test
+	public void testSubstractOK() {
+		pt.setPoint(10d, 11d);
+		final Point p = pt.substract(ShapeFactory.INST.createPoint(4d, -5d));
+		assertThat(p.getX()).isEqualTo(6d, within(0.00001d));
+		assertThat(p.getY()).isEqualTo(16d, within(0.00001d));
+	}
+
+	@Test
+	public void testNormalise() {
+		pt.setPoint(10d, -11d);
+		final double magnitude = pt.magnitude();
+		final Point p = pt.normalise();
+		assertThat(p.getX()).isEqualTo(10d / magnitude, within(0.00001d));
+		assertThat(p.getY()).isEqualTo(-11d / magnitude, within(0.00001d));
+	}
+
+	@Test
+	public void testMagnitude() {
+		pt.setPoint(10d, -11d);
+		assertThat(pt.magnitude()).isEqualTo(Math.hypot(pt.getX(), pt.getY()), within(0.00001d));
+	}
+
+	@Test
+	public void testAddKO() {
+		pt.setPoint(10d, 11d);
+		final Point p = pt.add(null);
+		assertThat(p.getX()).isEqualTo(10d, within(0.00001d));
+		assertThat(p.getY()).isEqualTo(11d, within(0.00001d));
+	}
+
+	@Test
+	public void testAddOK() {
+		pt.setPoint(10d, 11d);
+		final Point p = pt.add(ShapeFactory.INST.createPoint(4d, -5d));
+		assertThat(p.getX()).isEqualTo(14d, within(0.00001d));
+		assertThat(p.getY()).isEqualTo(6d, within(0.00001d));
+	}
+
+	@Test
+	public void testSetGetX() {
+		pt.setX(2.3);
+		assertThat(pt.getX()).isEqualTo(2.3, within(0.00001d));
+	}
+
+	@Test
+	public void testSetGetY() {
+		pt.setY(-2.1);
+		assertThat(pt.getY()).isEqualTo(-2.1, within(0.00001d));
+	}
+
+	@Test
+	public void testSetXKO() {
+		pt.setX(2.3);
+		pt.setX(Double.NaN);
+		assertThat(pt.getX()).isEqualTo(2.3, within(0.00001d));
+	}
+
+	@Test
+	public void testSetYKO() {
+		pt.setY(22.3);
+		pt.setY(Double.NaN);
+		assertThat(pt.getY()).isEqualTo(22.3, within(0.00001d));
+	}
+
+	@Test
+	public void testSetPointDoubles() {
+		pt.setPoint(-12.1, 3.45);
+		assertThat(pt.getX()).isEqualTo(-12.1, within(0.00001d));
+		assertThat(pt.getY()).isEqualTo(3.45, within(0.00001d));
 	}
 }
