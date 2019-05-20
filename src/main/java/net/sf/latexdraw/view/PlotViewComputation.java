@@ -46,12 +46,10 @@ public interface PlotViewComputation {
 			for(int i = 0; i < shape.getNbPlottedPoints(); i++, x += step) {
 				pts.add(getPolarPoint(shape, x, xs, ys, posX, posY));
 			}
-			pts.add(getPolarPoint(shape, maxX, xs, ys, posX, posY));
 		}else {
 			for(int i = 0; i < shape.getNbPlottedPoints(); i++, x += step) {
 				pts.add(ShapeFactory.INST.createPoint(x * Shape.PPC * xs + posX, -shape.getY(x) * Shape.PPC * ys + posY));
 			}
-			pts.add(ShapeFactory.INST.createPoint(maxX * Shape.PPC * xs + posX, -shape.getY(maxX) * Shape.PPC * ys + posY));
 		}
 
 		return pts;

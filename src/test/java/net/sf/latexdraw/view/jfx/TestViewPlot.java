@@ -168,6 +168,14 @@ public class TestViewPlot extends TestViewShape<ViewPlot, Plot> {
 		assertEquals(model.getNbPlottedPoints(), view.getChildren().size());
 	}
 
+	@Test
+	void testOnDotNbPointsOnPolar() {
+		model.setPlotStyle(PlotStyle.DOTS);
+		model.setPolar(true);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertEquals(model.getNbPlottedPoints(), view.getChildren().size());
+	}
+
 
 	@Override
 	@Test
