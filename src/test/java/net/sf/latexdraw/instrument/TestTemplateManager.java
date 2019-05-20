@@ -1,6 +1,5 @@
 package net.sf.latexdraw.instrument;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -24,7 +23,6 @@ import org.malai.command.CommandsRegistry;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 public class TestTemplateManager extends BaseTestCanvas {
@@ -51,23 +49,19 @@ public class TestTemplateManager extends BaseTestCanvas {
 	}
 
 	@Override
-	public void start(final Stage aStage) {
+	public void start(final Stage aStage) throws Exception {
 		super.start(aStage);
-		try {
-			final TitledPane root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Template.fxml"), injector.getInstance(ResourceBundle.class),
-				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
-			final BorderPane pane = new BorderPane();
-			pane.setTop(root.getContent());
-			pane.setCenter(stage.getScene().getRoot());
-			stage.getScene().setRoot(pane);
-		}catch(final IOException ex) {
-			fail(ex.getMessage());
-		}
+		final TitledPane root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Template.fxml"), injector.getInstance(ResourceBundle.class),
+			injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
+		final BorderPane pane = new BorderPane();
+		pane.setTop(root.getContent());
+		pane.setCenter(stage.getScene().getRoot());
+		stage.getScene().setRoot(pane);
 	}
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		handler = Mockito.mock(CmdHandler.class);
 		hand.setActivated(true);

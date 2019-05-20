@@ -43,7 +43,7 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		setter = injector.getInstance(TextSetter.class);
 		final EditingService editing = injector.getInstance(EditingService.class);

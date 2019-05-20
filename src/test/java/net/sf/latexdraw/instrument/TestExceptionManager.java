@@ -19,7 +19,6 @@ import org.testfx.util.WaitForAsyncUtils;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class TestExceptionManager extends TestLatexdrawGUI {
 	ExceptionsManager manager;
@@ -73,14 +72,10 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 	}
 
 	@Test
-	public void testGetStageCreatesStage() {
-		try {
-			final Field field = ExceptionsManager.class.getDeclaredField("stageEx");
-			field.setAccessible(true);
-			field.set(manager, null);
-		}catch(final IllegalAccessException | NoSuchFieldException ex) {
-			fail(ex.getMessage());
-		}
+	public void testGetStageCreatesStage() throws IllegalAccessException, NoSuchFieldException {
+		final Field field = ExceptionsManager.class.getDeclaredField("stageEx");
+		field.setAccessible(true);
+		field.set(manager, null);
 		Platform.runLater(() -> manager.getStageEx());
 		WaitForAsyncUtils.waitForFxEvents();
 		assertNotNull(manager.getStageEx());

@@ -59,7 +59,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		setter = injector.getInstance(TextSetter.class);
 		Platform.runLater(() -> setter.initialize(null, null));

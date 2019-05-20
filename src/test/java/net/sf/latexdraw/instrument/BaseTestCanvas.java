@@ -129,7 +129,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	}
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		editing = injector.getInstance(EditingService.class);
 		pencil = injector.getInstance(Pencil.class);
 		hand = injector.getInstance(Hand.class);

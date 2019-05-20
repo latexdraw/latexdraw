@@ -43,7 +43,7 @@ public class TestTextSetter extends BaseTestCanvas {
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		final EditingService editing = injector.getInstance(EditingService.class);
 		editing.getGroupParams().setPlotMinX(0d);

@@ -63,7 +63,7 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);

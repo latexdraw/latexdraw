@@ -1,6 +1,5 @@
 package net.sf.latexdraw.instrument;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -26,7 +25,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 public class TestUndoRedoManager extends BaseTestCanvas {
@@ -61,23 +59,19 @@ public class TestUndoRedoManager extends BaseTestCanvas {
 	}
 
 	@Override
-	public void start(final Stage aStage) {
+	public void start(final Stage aStage) throws Exception {
 		super.start(aStage);
-		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Undo.fxml"), injector.getInstance(ResourceBundle.class),
-				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
-			final BorderPane pane = new BorderPane();
-			pane.setTop(root);
-			pane.setCenter(stage.getScene().getRoot());
-			stage.getScene().setRoot(pane);
-		}catch(final IOException ex) {
-			fail(ex.getMessage());
-		}
+		final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Undo.fxml"), injector.getInstance(ResourceBundle.class),
+			injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
+		final BorderPane pane = new BorderPane();
+		pane.setTop(root);
+		pane.setCenter(stage.getScene().getRoot());
+		stage.getScene().setRoot(pane);
 	}
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);

@@ -53,7 +53,7 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 	@Mock PreferencesSetter prefSetter;
 
 	@Override
-	public void start(final Stage aStage) {
+	public void start(final Stage aStage) throws Exception {
 		super.start(aStage);
 
 		tabPane = find("#tabPane");

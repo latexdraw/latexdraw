@@ -65,7 +65,7 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		setter = injector.getInstance(TextSetter.class);
 		when(hand.isActivated()).thenReturn(false);

@@ -1,6 +1,5 @@
 package net.sf.latexdraw.instrument;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -20,7 +19,6 @@ import org.testfx.util.WaitForAsyncUtils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 public class TestCopierCutterPaster extends BaseTestCanvas {
@@ -59,23 +57,19 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 	}
 
 	@Override
-	public void start(final Stage aStage) {
+	public void start(final Stage aStage) throws Exception {
 		super.start(aStage);
-		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/CopyPaste.fxml"), injector.getInstance(ResourceBundle.class),
-				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
-			final BorderPane pane = new BorderPane();
-			pane.setTop(root);
-			pane.setCenter(aStage.getScene().getRoot());
-			aStage.getScene().setRoot(pane);
-		}catch(final IOException ex) {
-			fail(ex.getMessage());
-		}
+		final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/CopyPaste.fxml"), injector.getInstance(ResourceBundle.class),
+			injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
+		final BorderPane pane = new BorderPane();
+		pane.setTop(root);
+		pane.setCenter(aStage.getScene().getRoot());
+		aStage.getScene().setRoot(pane);
 	}
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		copier = injector.getInstance(CopierCutterPaster.class);
 		hand.setActivated(true);

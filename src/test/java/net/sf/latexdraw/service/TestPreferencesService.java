@@ -42,17 +42,17 @@ class TestPreferencesService {
 		}
 
 		@Test
-		void getLang() {
+		void testGetLang() {
 			assertEquals(Locale.getDefault(), prefs.getLang());
 		}
 
 		@Test
-		void getPage() {
+		void testGetPage() {
 			assertEquals(Page.USLETTER, prefs.getPage());
 		}
 
 		@Test
-		void setPage() {
+		void testSetPage() {
 			prefs.setPage(Page.HORIZONTAL);
 			assertEquals(Page.HORIZONTAL, prefs.getPage());
 		}
@@ -63,58 +63,58 @@ class TestPreferencesService {
 		}
 
 		@Test
-		void gridGapProperty() {
+		void testGridGapProperty() {
 			assertEquals(10, prefs.gridGapProperty().get());
 		}
 
 		@Test
-		void isMagneticGrid() {
+		void testIsMagneticGrid() {
 			assertFalse(prefs.isMagneticGrid());
 		}
 
 		@Test
-		void getGridStyle() {
+		void testGetGridStyle() {
 			assertEquals(GridStyle.NONE, prefs.getGridStyle());
 		}
 
 		@Test
-		void getUnit() {
+		void testGetUnit() {
 			assertEquals(Unit.CM, prefs.getUnit());
 		}
 
 		@Test
-		void checkVersionProperty() {
+		void testCheckVersionProperty() {
 			assertTrue(prefs.checkVersionProperty().get());
 		}
 
 		@Test
-		void getPathExport() {
+		void testGetPathExport() {
 			assertTrue(prefs.getPathExport().isEmpty());
 		}
 
 		@Test
-		void getPathOpen() {
+		void testGetPathOpen() {
 			assertTrue(prefs.getPathOpen().isEmpty());
 		}
 
 		@Test
-		void getNbRecentFiles() {
+		void testGetNbRecentFiles() {
 			assertEquals(5, prefs.getNbRecentFiles());
 		}
 
 		@Test
-		void setNbRecentFiles() {
+		void testSetNbRecentFiles() {
 			prefs.setNbRecentFiles(20);
 			assertEquals(20, prefs.getNbRecentFiles());
 		}
 
 		@Test
-		void getCurrentFolder() {
+		void testGetCurrentFolder() {
 			assertTrue(prefs.getCurrentFolder().isEmpty());
 		}
 
 		@Test
-		void setCurrentFolder() {
+		void testSetCurrentFolder() {
 			final File file = new File(System.getProperty("user.home"));
 			prefs.setCurrentFolder(file);
 			assertEquals(file, prefs.getCurrentFolder().orElseThrow());
@@ -170,24 +170,24 @@ class TestPreferencesService {
 		}
 
 		@Test
-		void getCurrentFile() {
+		void testGetCurrentFile() {
 			assertTrue(prefs.getCurrentFile().isEmpty());
 		}
 
 		@Test
-		void setCurrentFile(@TempDir final Path tempDir) {
+		void testSetCurrentFile(@TempDir final Path tempDir) {
 			final File file = Files.newFile(tempDir.toString() + File.separator + "afile.svg");
 			prefs.setCurrentFile(file);
 			assertEquals(file, prefs.getCurrentFile().orElseThrow());
 		}
 
 		@Test
-		void getRecentFiles() {
+		void testGetRecentFiles() {
 			assertTrue(prefs.getRecentFiles().isEmpty());
 		}
 
 		@Test
-		void addRecentFile() {
+		void testAddRecentFile() {
 			final String v1 = "foo";
 			final String v2 = "bar";
 			final String v3 = "third";
@@ -246,7 +246,7 @@ class TestPreferencesService {
 		}
 
 		@Test
-		void getLang() {
+		void testGetLang() {
 			assertEquals(Locale.getDefault(), prefs.getLang());
 		}
 	}

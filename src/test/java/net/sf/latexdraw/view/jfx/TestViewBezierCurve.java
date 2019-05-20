@@ -55,7 +55,7 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 	}
 
 	@Test
-	void showPointsContained() {
+	void testShowPointsContained() {
 		assertTrue(view.getChildren().contains(view.showPoint));
 	}
 

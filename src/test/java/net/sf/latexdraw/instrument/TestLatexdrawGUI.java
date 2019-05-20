@@ -1,6 +1,5 @@
 package net.sf.latexdraw.instrument;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeoutException;
@@ -15,10 +14,10 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import net.sf.latexdraw.LaTeXDraw;
-import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
@@ -65,51 +64,47 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	}
 
 	@Override
-	public void start(final Stage aStage) {
+	public void start(final Stage aStage) throws Exception {
 		Canvas.setMargins(20);
 		stage = aStage;
 
-		try {
-			injector = createInjector();
-			injector.initialise();
-			injector.getInstance(PreferencesService.class).setPage(Page.HORIZONTAL);
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), injector.getInstance(ResourceBundle.class),
-				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
+		injector = createInjector();
+		injector.initialise();
+		injector.getInstance(PreferencesService.class).setPage(Page.HORIZONTAL);
+		final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), injector.getInstance(ResourceBundle.class),
+			injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 
-			Parent parent = root;
+		Parent parent = root;
 
 
-			// If the root is not a pane, its content may not be visible.
-			// So, need to add a fictive pane to contain the widgets.
-			if(root instanceof Pane) {
-				parent = root;
-			}else {
-				// TitledPane leads to flaky tests with TestFX. So, replacing the TitlePane with a classical pane.
-				if(parent instanceof TitledPane) {
-					titledPane = (TitledPane) parent;
-					final Node content = ((TitledPane) parent).getContent();
-					if(content instanceof Parent) {
-						parent = (Parent) content;
-					}else {
-						final BorderPane pane = new BorderPane();
-						pane.setCenter(content);
-						parent = pane;
-					}
+		// If the root is not a pane, its content may not be visible.
+		// So, need to add a fictive pane to contain the widgets.
+		if(root instanceof Pane) {
+			parent = root;
+		}else {
+			// TitledPane leads to flaky tests with TestFX. So, replacing the TitlePane with a classical pane.
+			if(parent instanceof TitledPane) {
+				titledPane = (TitledPane) parent;
+				final Node content = ((TitledPane) parent).getContent();
+				if(content instanceof Parent) {
+					parent = (Parent) content;
+				}else {
+					final BorderPane pane = new BorderPane();
+					pane.setCenter(content);
+					parent = pane;
 				}
 			}
-
-			final Scene scene = new Scene(parent);
-			aStage.setScene(scene);
-			aStage.show();
-			aStage.toFront();
-			if(root instanceof Region) {
-				aStage.minHeightProperty().bind(((Region) root).heightProperty());
-				aStage.minWidthProperty().bind(((Region) root).widthProperty());
-			}
-			aStage.sizeToScene();
-		}catch(final IOException ex) {
-			ex.printStackTrace();
 		}
+
+		final Scene scene = new Scene(parent);
+		aStage.setScene(scene);
+		aStage.show();
+		aStage.toFront();
+		if(root instanceof Region) {
+			aStage.minHeightProperty().bind(((Region) root).heightProperty());
+			aStage.minWidthProperty().bind(((Region) root).widthProperty());
+		}
+		aStage.sizeToScene();
 	}
 
 	public <T extends Node> T find(final String query) {

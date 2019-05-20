@@ -17,7 +17,7 @@ public class TestUnit {
 
 	@ParameterizedTest
 	@EnumSource(Unit.class)
-	public void testgetLabel(final Unit unit) {
+	public void testGetLabel(final Unit unit) {
 		assertThat(unit.getLabel(new PreferencesService().getBundle())).isNotEmpty();
 	}
 

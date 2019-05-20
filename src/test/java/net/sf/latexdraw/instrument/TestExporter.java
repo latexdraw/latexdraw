@@ -1,6 +1,5 @@
 package net.sf.latexdraw.instrument;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
@@ -36,7 +35,6 @@ import org.testfx.util.WaitForAsyncUtils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 @RunWith(Theories.class)
@@ -69,23 +67,19 @@ public class TestExporter extends BaseTestCanvas {
 	}
 
 	@Override
-	public void start(final Stage aStage) {
+	public void start(final Stage aStage) throws Exception {
 		super.start(aStage);
-		try {
-			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Export.fxml"), injector.getInstance(ResourceBundle.class),
-				injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
-			final BorderPane pane = new BorderPane();
-			pane.setTop(root);
-			pane.setCenter(stage.getScene().getRoot());
-			stage.getScene().setRoot(pane);
-		}catch(final IOException ex) {
-			fail(ex.getMessage());
-		}
+		final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource("/fxml/Export.fxml"), injector.getInstance(ResourceBundle.class),
+			injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
+		final BorderPane pane = new BorderPane();
+		pane.setTop(root);
+		pane.setCenter(stage.getScene().getRoot());
+		stage.getScene().setRoot(pane);
 	}
 
 	@Override
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		super.setUp();
 		exporter = injector.getInstance(Exporter.class);
 		hand.setActivated(true);
@@ -101,15 +95,11 @@ public class TestExporter extends BaseTestCanvas {
 
 		chooser = Mockito.mock(FileChooser.class);
 		Mockito.when(chooser.getExtensionFilters()).thenReturn(FXCollections.observableArrayList());
-		try {
-			Mockito.when(chooser.showOpenDialog(Mockito.any())).thenReturn(tmp.newFile());
-			Mockito.when(chooser.showSaveDialog(Mockito.any())).thenReturn(tmp.newFile());
-			final Field field = Exporter.class.getDeclaredField("fileChooserExport");
-			field.setAccessible(true);
-			field.set(exporter, chooser);
-		}catch(final IllegalAccessException | NoSuchFieldException | IOException ex) {
-			fail(ex.getMessage());
-		}
+		Mockito.when(chooser.showOpenDialog(Mockito.any())).thenReturn(tmp.newFile());
+		Mockito.when(chooser.showSaveDialog(Mockito.any())).thenReturn(tmp.newFile());
+		final Field field = Exporter.class.getDeclaredField("fileChooserExport");
+		field.setAccessible(true);
+		field.set(exporter, chooser);
 	}
 
 	@Test
