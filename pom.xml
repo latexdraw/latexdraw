@@ -5,7 +5,7 @@
     <groupId>net.sf.latexdraw</groupId>
     <artifactId>latexdraw</artifactId>
     <name>LaTeXDraw</name>
-    <version>4.0-beta2</version>
+    <version>4.0-beta3</version>
     <packaging>jar</packaging>
 
     <properties>
