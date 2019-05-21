@@ -114,7 +114,7 @@ public class LaTeXDataService implements Modifiable {
 	 * @return The comments with the '%' tag at the beginning of each line. Cannot be null.
 	 */
 	public @NotNull String getCommentWithTag() {
-		return Stream.of(comment.split(SystemUtils.getInstance().EOL)).map(commentLine -> "% " + commentLine).collect(Collectors.joining(SystemUtils.getInstance().EOL));
+		return Stream.of(comment.split(SystemUtils.getInstance().eol)).map(commentLine -> "% " + commentLine).collect(Collectors.joining(SystemUtils.getInstance().eol));
 	}
 
 	/**

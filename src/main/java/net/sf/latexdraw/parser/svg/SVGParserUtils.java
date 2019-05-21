@@ -79,7 +79,7 @@ public final class SVGParserUtils {
 		final double value = Double.parseDouble(matcher.group(1));
 		final SVGLength.LengthType length = matcher.group(2) == null ? SVGLength.LengthType.UNKNOWN : SVGLength.LengthType.valueOf(matcher.group(2));
 
-		return Optional.of(new SVGLength(toUserUnit(value, length), SVGLength.LengthType.px, matcher.group(1)));
+		return Optional.of(new SVGLength(toUserUnit(value, length), SVGLength.LengthType.PX, matcher.group(1)));
 	}
 
 
@@ -269,29 +269,29 @@ public final class SVGParserUtils {
 
 
 	/**
-	 * Transforms a value in the user unit (in pixels) according to the given unit (%, em and ex are not managed).
+	 * Transforms a value in the user unit (in pixels) according to the given unit (%, EM and EX are not managed).
 	 * @param value The value to transform.
 	 * @param lgthType The type of the value.
 	 * @return The value in the user unit (in pixels).
 	 */
 	public double toUserUnit(final double value, final @NotNull SVGLength.LengthType lgthType) {
 		switch(lgthType) {
-			case cm:
+			case CM:
 				return value * 35.43307;
-			case in:
+			case IN:
 				return value * 90d;
-			case mm:
+			case MM:
 				return value * 3.543307;
-			case pc:
+			case PC:
 				return value * 15d;
-			case pt:
+			case PT:
 				return value * 1.25;
-			case em:
-			case ex:
+			case EM:
+			case EX:
 			case PERCENTAGE:
 				throw new IllegalArgumentException("Not yet managed."); //NON-NLS
 			case NUMBER:
-			case px:
+			case PX:
 			case UNKNOWN:
 				return value;
 			default:

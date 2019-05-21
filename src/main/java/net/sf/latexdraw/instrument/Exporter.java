@@ -102,10 +102,10 @@ public class Exporter extends JfxInstrument implements Initializable {
 		final String name = root.getNodeName();
 
 		if(name.endsWith(LNamespace.XML_LATEX_INCLUDES)) {
-			final String[] lines = root.getTextContent().split(SystemUtils.getInstance().EOL);
+			final String[] lines = root.getTextContent().split(SystemUtils.getInstance().eol);
 			final String pkgs = latexData.getPackages();
 			latexData.setPackages(latexData.getPackages() +
-				Arrays.stream(lines).filter(line -> !pkgs.contains(line)).collect(Collectors.joining(SystemUtils.getInstance().EOL, SystemUtils.getInstance().EOL, "")));
+				Arrays.stream(lines).filter(line -> !pkgs.contains(line)).collect(Collectors.joining(SystemUtils.getInstance().eol, SystemUtils.getInstance().eol, "")));
 		}
 	}
 

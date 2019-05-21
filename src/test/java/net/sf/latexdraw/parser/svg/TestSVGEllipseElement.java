@@ -86,7 +86,7 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_CY, "40 cm");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(40, SVGLength.LengthType.cm), ell.getCy(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(40, SVGLength.LengthType.CM), ell.getCy(), 0.0001);
 	}
 
 	@Test
@@ -121,7 +121,7 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_CX, "40 cm");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(40, SVGLength.LengthType.cm), ell.getCx(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(40, SVGLength.LengthType.CM), ell.getCx(), 0.0001);
 	}
 
 	@ParameterizedTest
@@ -155,7 +155,7 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_RY, "20 pt");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(20, SVGLength.LengthType.pt), ell.getRy(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(20, SVGLength.LengthType.PT), ell.getRy(), 0.0001);
 	}
 
 	@Test
@@ -172,7 +172,7 @@ public class TestSVGEllipseElement extends TestBaseSVGElement {
 		node.setAttribute(SVGAttributes.SVG_RY, "20");
 		node.setAttribute(SVGAttributes.SVG_RX, "10mm");
 		final SVGEllipseElement ell = new SVGEllipseElement(node, null);
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(10, SVGLength.LengthType.mm), ell.getRx(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(10, SVGLength.LengthType.MM), ell.getRx(), 0.0001);
 	}
 
 	@Override

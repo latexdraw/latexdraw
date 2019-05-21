@@ -93,7 +93,7 @@ public abstract class LaTeXGenerator {
 		}
 
 		final File tmpDir = optDir.get();
-		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + SystemUtils.getInstance().FILE_SEP + "tmpPSFile.ps", tmpDir); //NON-NLS
+		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + SystemUtils.getInstance().fileSep + "tmpPSFile.ps", tmpDir); //NON-NLS
 
 		if(optFile.isEmpty()) {
 			return Optional.empty();
@@ -107,7 +107,7 @@ public abstract class LaTeXGenerator {
 		final String log = SystemUtils.getInstance().execute(paramsLatex, tmpDir).b;
 
 		if(!fileEPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + SystemUtils.getInstance().EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + SystemUtils.getInstance().eol + log));
 			return Optional.empty();
 		}
 
@@ -136,7 +136,7 @@ public abstract class LaTeXGenerator {
 			return Optional.empty();
 		}
 
-		final int lastSep = pathExportPs.lastIndexOf(SystemUtils.getInstance().FILE_SEP) + 1;
+		final int lastSep = pathExportPs.lastIndexOf(SystemUtils.getInstance().fileSep) + 1;
 		final String name = pathExportPs.substring(lastSep, pathExportPs.lastIndexOf(".ps")); //NON-NLS
 		final File tmpDir2 = tmpDir == null ? SystemUtils.getInstance().createTempDir().orElse(null) : tmpDir;
 
@@ -145,7 +145,7 @@ public abstract class LaTeXGenerator {
 			return Optional.empty();
 		}
 
-		final String path = tmpDir2.getAbsolutePath() + SystemUtils.getInstance().FILE_SEP;
+		final String path = tmpDir2.getAbsolutePath() + SystemUtils.getInstance().fileSep;
 		final Optional<File> optFile = SystemUtils.getInstance().saveFile(path + name + ExportFormat.TEX.getFileExtension(), getDocumentCode());
 
 		if(optFile.isEmpty()) {
@@ -177,7 +177,7 @@ public abstract class LaTeXGenerator {
 		finalPS = new File(pathExportPs);
 
 		if(!finalPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + SystemUtils.getInstance().EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + SystemUtils.getInstance().eol + log));
 			finalPS = null;
 		}
 
@@ -210,9 +210,9 @@ public abstract class LaTeXGenerator {
 		}
 
 		final File tmpDir = optDir.get();
-		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(SystemUtils.getInstance().FILE_SEP) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
+		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(SystemUtils.getInstance().fileSep) + 1, pathExportPdf.lastIndexOf(ExportFormat.PDF.getFileExtension()));
 		final File psFile;
-		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + SystemUtils.getInstance().FILE_SEP + name + ".ps"); //NON-NLS
+		final Optional<File> optFile = createPSFile(tmpDir.getAbsolutePath() + SystemUtils.getInstance().fileSep + name + ".ps"); //NON-NLS
 
 		if(optFile.isPresent()) {
 			psFile = optFile.get();
@@ -232,7 +232,7 @@ public abstract class LaTeXGenerator {
 			crop ? name + ExportFormat.PDF.getFileExtension() : pathExportPdf}, tmpDir).b;
 
 		if(crop) {
-			pdfFile = new File(tmpDir.getAbsolutePath() + SystemUtils.getInstance().FILE_SEP + name + ExportFormat.PDF.getFileExtension());
+			pdfFile = new File(tmpDir.getAbsolutePath() + SystemUtils.getInstance().fileSep + name + ExportFormat.PDF.getFileExtension());
 			log = SystemUtils.getInstance().execute(new String[] {os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir).b;
 			try {
 				Files.move(pdfFile.toPath(), Paths.get(pathExportPdf), StandardCopyOption.REPLACE_EXISTING);
@@ -245,7 +245,7 @@ public abstract class LaTeXGenerator {
 		pdfFile = new File(pathExportPdf);
 
 		if(!pdfFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + SystemUtils.getInstance().EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getDocumentCode() + SystemUtils.getInstance().eol + log));
 			pdfFile = null;
 		}
 

@@ -34,23 +34,23 @@ class TestSVGParserUtils {
 	void testParseLengthOKMM() {
 		final SVGLength length = SVGParserUtils.INSTANCE.parseLength("0.65mm").orElseThrow();
 		assertEquals("0.65", length.getValueAsString());
-		assertEquals(SVGLength.LengthType.px, length.getLengthType());
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(0.65, SVGLength.LengthType.mm), length.getValue(), 0.001);
+		assertEquals(SVGLength.LengthType.PX, length.getLengthType());
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(0.65, SVGLength.LengthType.MM), length.getValue(), 0.001);
 	}
 
 	@Test
 	void testParseLengthOKSpace() {
 		final SVGLength length = SVGParserUtils.INSTANCE.parseLength("\t -10.65  \t \n pc").orElseThrow();
 		assertEquals("-10.65", length.getValueAsString());
-		assertEquals(SVGLength.LengthType.px, length.getLengthType());
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(-10.65, SVGLength.LengthType.pc), length.getValue(), 0.001);
+		assertEquals(SVGLength.LengthType.PX, length.getLengthType());
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(-10.65, SVGLength.LengthType.PC), length.getValue(), 0.001);
 	}
 
 	@Test
 	void testParseLengthOKDouble() {
 		final SVGLength length = SVGParserUtils.INSTANCE.parseLength("-1.1").orElseThrow();
 		assertEquals("-1.1", length.getValueAsString());
-		assertEquals(SVGLength.LengthType.px, length.getLengthType());
+		assertEquals(SVGLength.LengthType.PX, length.getLengthType());
 		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(-1.1, SVGLength.LengthType.NUMBER), length.getValue(), 0.001);
 	}
 
@@ -58,7 +58,7 @@ class TestSVGParserUtils {
 	void testParseNumberOrPercentdouble() {
 		final SVGLength l = SVGParserUtils.INSTANCE.parseLength("0.876").orElseThrow();
 		assertEquals("0.876", l.getValueAsString());
-		assertEquals(SVGLength.LengthType.px, l.getLengthType());
+		assertEquals(SVGLength.LengthType.PX, l.getLengthType());
 		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(0.876, SVGLength.LengthType.NUMBER), l.getValue(), 0.001);
 	}
 
@@ -66,31 +66,31 @@ class TestSVGParserUtils {
 	void testParseCoordinateOKMM() {
 		final SVGLength length = SVGParserUtils.INSTANCE.parseLength("0.65mm").orElseThrow();
 		assertEquals("0.65", length.getValueAsString());
-		assertEquals(SVGLength.LengthType.px, length.getLengthType());
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(0.65, SVGLength.LengthType.mm), length.getValue(), 0.001);
+		assertEquals(SVGLength.LengthType.PX, length.getLengthType());
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(0.65, SVGLength.LengthType.MM), length.getValue(), 0.001);
 	}
 
 	@Test
 	void testParseCoordinateOKSpace() {
 		final SVGLength length = SVGParserUtils.INSTANCE.parseLength("-10.65  \t \n pc").orElseThrow();
 		assertEquals("-10.65", length.getValueAsString());
-		assertEquals(SVGLength.LengthType.px, length.getLengthType());
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(-10.65, SVGLength.LengthType.pc), length.getValue(), 0.001);
+		assertEquals(SVGLength.LengthType.PX, length.getLengthType());
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(-10.65, SVGLength.LengthType.PC), length.getValue(), 0.001);
 	}
 
 	@Test
 	void testParseCoordinateOKin() {
 		final SVGLength length = SVGParserUtils.INSTANCE.parseLength("-1.0in").orElseThrow();
 		assertEquals("-1.0", length.getValueAsString());
-		assertEquals(SVGLength.LengthType.px, length.getLengthType());
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(-1., SVGLength.LengthType.in), length.getValue(), 0.001);
+		assertEquals(SVGLength.LengthType.PX, length.getLengthType());
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(-1., SVGLength.LengthType.IN), length.getValue(), 0.001);
 	}
 
 	@Test
 	void testParseCoordinateOKDouble() {
 		final SVGLength length = SVGParserUtils.INSTANCE.parseLength("-1.0").orElseThrow();
 		assertEquals("-1.0", length.getValueAsString());
-		assertEquals(SVGLength.LengthType.px, length.getLengthType());
+		assertEquals(SVGLength.LengthType.PX, length.getLengthType());
 		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(-1., SVGLength.LengthType.NUMBER), length.getValue(), 0.001);
 	}
 
@@ -120,27 +120,27 @@ class TestSVGParserUtils {
 
 	@Test
 	void testToUserUnitCM() {
-		assertEquals(35.43307, SVGParserUtils.INSTANCE.toUserUnit(1d, SVGLength.LengthType.cm), 0.001);
+		assertEquals(35.43307, SVGParserUtils.INSTANCE.toUserUnit(1d, SVGLength.LengthType.CM), 0.001);
 	}
 
 	@Test
 	void testToUserUnitMM() {
-		assertEquals(3.543307, SVGParserUtils.INSTANCE.toUserUnit(1d, SVGLength.LengthType.mm), 0.001);
+		assertEquals(3.543307, SVGParserUtils.INSTANCE.toUserUnit(1d, SVGLength.LengthType.MM), 0.001);
 	}
 
 	@Test
 	void testToUserUnitPT() {
-		assertEquals(1.25, SVGParserUtils.INSTANCE.toUserUnit(1d, SVGLength.LengthType.pt), 0.001);
+		assertEquals(1.25, SVGParserUtils.INSTANCE.toUserUnit(1d, SVGLength.LengthType.PT), 0.001);
 	}
 
 	@Test
 	void testToUserUnitPC() {
-		assertEquals(15d, SVGParserUtils.INSTANCE.toUserUnit(1d, SVGLength.LengthType.pc), 0.001);
+		assertEquals(15d, SVGParserUtils.INSTANCE.toUserUnit(1d, SVGLength.LengthType.PC), 0.001);
 	}
 
 	@Test
 	void testToUserUnitIN() {
-		assertEquals(90d, SVGParserUtils.INSTANCE.toUserUnit(1d, SVGLength.LengthType.in), 0.001);
+		assertEquals(90d, SVGParserUtils.INSTANCE.toUserUnit(1d, SVGLength.LengthType.IN), 0.001);
 	}
 
 	@Test

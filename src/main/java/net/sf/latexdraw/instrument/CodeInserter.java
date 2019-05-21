@@ -82,31 +82,31 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 			@Override
 			public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol, final int line, final int charPositionInLine,
 									final String msg, final RecognitionException e) {
-				errorLog.setText(errorLog.getText() + "Syntax error: " + msg + SystemUtils.getInstance().EOL); //NON-NLS
+				errorLog.setText(errorLog.getText() + "Syntax error: " + msg + SystemUtils.getInstance().eol); //NON-NLS
 			}
 		};
 
 		final PSTLatexdrawListener listener = new PSTLatexdrawListener() {
 			@Override
 			public void exitUnknowncmds(final PSTParser.UnknowncmdsContext ctx) {
-				errorLog.setText(errorLog.getText() + "Unknown command: " + ctx.LATEXCMD().getSymbol().getText() + SystemUtils.getInstance().EOL); //NON-NLS
+				errorLog.setText(errorLog.getText() + "Unknown command: " + ctx.LATEXCMD().getSymbol().getText() + SystemUtils.getInstance().eol); //NON-NLS
 			}
 
 			@Override
 			public void enterUnknownParamSetting(final PSTParser.UnknownParamSettingContext ctx) {
-				errorLog.setText(errorLog.getText() + "Unknown parameter: " + ctx.name.getText() + SystemUtils.getInstance().EOL); //NON-NLS
+				errorLog.setText(errorLog.getText() + "Unknown parameter: " + ctx.name.getText() + SystemUtils.getInstance().eol); //NON-NLS
 			}
 
 			@Override
 			public void visitErrorNode(final ErrorNode node) {
-				errorLog.setText(errorLog.getText() + "Error: " + node.getText() + SystemUtils.getInstance().EOL); //NON-NLS
+				errorLog.setText(errorLog.getText() + "Error: " + node.getText() + SystemUtils.getInstance().eol); //NON-NLS
 			}
 
 			@Override
 			public void exitText(final PSTParser.TextContext ctx) {
 				super.exitText(ctx);
 				if(ctx.getText().startsWith("\\")) {
-					errorLog.setText(errorLog.getText() + "Bad command: '" + ctx.getText() + "'?" + SystemUtils.getInstance().EOL); //NON-NLS
+					errorLog.setText(errorLog.getText() + "Bad command: '" + ctx.getText() + "'?" + SystemUtils.getInstance().eol); //NON-NLS
 				}
 			}
 		};
@@ -114,7 +114,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 		listener.log.addHandler(new Handler() {
 			@Override
 			public void publish(final LogRecord record) {
-				errorLog.setText(errorLog.getText() + record.getMessage() + SystemUtils.getInstance().EOL);
+				errorLog.setText(errorLog.getText() + record.getMessage() + SystemUtils.getInstance().eol);
 			}
 
 			@Override

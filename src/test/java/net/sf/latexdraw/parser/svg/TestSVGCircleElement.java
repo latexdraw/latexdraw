@@ -72,7 +72,7 @@ public class TestSVGCircleElement extends TestBaseSVGElement {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		node.setAttribute(SVGAttributes.SVG_CY, " 40 cm ");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(40, SVGLength.LengthType.cm), e.getCy(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(40, SVGLength.LengthType.CM), e.getCy(), 0.0001);
 	}
 
 	@Test
@@ -103,7 +103,7 @@ public class TestSVGCircleElement extends TestBaseSVGElement {
 		node.setAttribute(SVGAttributes.SVG_R, "10");
 		node.setAttribute(SVGAttributes.SVG_CX, " 30.5 mm ");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(30.5, SVGLength.LengthType.mm), e.getCx(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(30.5, SVGLength.LengthType.MM), e.getCx(), 0.0001);
 	}
 
 	@Test
@@ -131,7 +131,7 @@ public class TestSVGCircleElement extends TestBaseSVGElement {
 	void testGetRpt() {
 		node.setAttribute(SVGAttributes.SVG_R, "20 pt");
 		final SVGCircleElement e = new SVGCircleElement(node, null);
-		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(20, SVGLength.LengthType.pt), e.getR(), 0.0001);
+		assertEquals(SVGParserUtils.INSTANCE.toUserUnit(20, SVGLength.LengthType.PT), e.getR(), 0.0001);
 	}
 
 	@Override

@@ -54,15 +54,15 @@ public final class SystemUtils {
 	}
 
 	/** The line separator of the current system. */
-	public final String EOL = System.getProperty("line.separator");
+	public final String eol = System.getProperty("line.separator");
 	/** The file separator of the current system. */
-	public final String FILE_SEP = System.getProperty("file.separator");
+	public final String fileSep = System.getProperty("file.separator");
 	/** The name of the cache directory */
-	public final String CACHE_DIR = ".cache"; //NON-NLS
+	public final String cacheDir = ".cache"; //NON-NLS
 	/** The name of the cache directory for shared templates */
-	public final String CACHE_SHARED_DIR = ".cacheShared"; //NON-NLS
+	public final String cacheSharedDir = ".cacheShared"; //NON-NLS
 	/** The name of the templates directory */
-	public final String TEMPLATE_DIR = "templates"; //NON-NLS
+	public final String templateDir = "templates"; //NON-NLS
 
 	private SystemUtils() {
 		super();
@@ -99,15 +99,15 @@ public final class SystemUtils {
 	}
 
 	public @NotNull String getPathCacheShareDir() {
-		return getPathLocalUser() + File.separator + CACHE_SHARED_DIR;
+		return getPathLocalUser() + File.separator + cacheSharedDir;
 	}
 
 	public @NotNull String getPathCacheDir() {
-		return getPathLocalUser() + File.separator + CACHE_DIR;
+		return getPathLocalUser() + File.separator + cacheDir;
 	}
 
 	public @NotNull String getPathTemplatesDirUser() {
-		return getPathLocalUser() + File.separator + TEMPLATE_DIR;
+		return getPathLocalUser() + File.separator + templateDir;
 	}
 
 	/**
@@ -305,7 +305,7 @@ public final class SystemUtils {
 				String line = br.readLine();
 
 				while(line != null) {
-					log.append(line).append(EOL);
+					log.append(line).append(eol);
 					line = br.readLine();
 				}
 			}
@@ -435,7 +435,7 @@ public final class SystemUtils {
 			String line = br.readLine();
 
 			while(line != null) {
-				txt.append(line).append(EOL);
+				txt.append(line).append(eol);
 				line = br.readLine();
 			}
 		}catch(final IOException ex) {
@@ -452,7 +452,7 @@ public final class SystemUtils {
 	 */
 	public @NotNull Optional<File> createTempDir() {
 		final String pathTmp = System.getProperty("java.io.tmpdir"); //NON-NLS
-		final String path = pathTmp + (pathTmp.endsWith(FILE_SEP) ? "" : FILE_SEP) + "latexdraw" + FILE_SEP + "latexdrawTmp" + //NON-NLS
+		final String path = pathTmp + (pathTmp.endsWith(fileSep) ? "" : fileSep) + "latexdraw" + fileSep + "latexdrawTmp" + //NON-NLS
 			System.currentTimeMillis() + ThreadLocalRandom.current().nextInt(100000);
 		final File tmpDir = new File(path);
 
@@ -511,7 +511,7 @@ public final class SystemUtils {
 	 * @return The path of the directory where the templates shared by the different users are located.
 	 */
 	public @NotNull String getPathTemplatesShared() {
-		return getPathShared() + File.separator + TEMPLATE_DIR;
+		return getPathShared() + File.separator + templateDir;
 	}
 
 

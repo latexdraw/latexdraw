@@ -158,7 +158,7 @@ public class ViewText extends ViewPositionShape<Text> {
 		if(!PSTricksConstants.DEFAULT_LINE_COLOR.equals(textColour)) {
 			final String name = DviPsColors.INSTANCE.getColourName(textColour).orElseGet(() -> DviPsColors.INSTANCE.addUserColour(textColour).orElse(""));
 			coloured = true;
-			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append(SystemUtils.getInstance().EOL).append("\\textcolor{").append(name).append('}').append('{'); //NON-NLS
+			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append(SystemUtils.getInstance().eol).append("\\textcolor{").append(name).append('}').append('{'); //NON-NLS
 		}
 
 		doc.append(code);
@@ -186,7 +186,7 @@ public class ViewText extends ViewPositionShape<Text> {
 		String log = ""; //NON-NLS
 		final File tmpDir = optDir.get();
 		final String doc = getLaTeXDocument();
-		final String basePathPic = tmpDir.getAbsolutePath() + SystemUtils.getInstance().FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
+		final String basePathPic = tmpDir.getAbsolutePath() + SystemUtils.getInstance().fileSep + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
 		final String pathTex = basePathPic + ExportFormat.TEX.getFileExtension();
 		final OperatingSystem os = SystemUtils.getInstance().getSystem().orElse(OperatingSystem.LINUX);
 
