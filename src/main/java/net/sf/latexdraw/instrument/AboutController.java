@@ -44,7 +44,7 @@ public class AboutController implements Initializable {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		aboutText.setText(lang.getString("LaTeXDrawFrame.219") + ' ' +  //NON-NLS
-			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + ", build " + VersionChecker.ID_BUILD + SystemUtils.getInstance().eol +  //NON-NLS
+			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + SystemUtils.getInstance().eol +  //NON-NLS
 			LaTeXDraw.LABEL_APP + lang.getString("LaTeXDrawFrame.221") + SystemUtils.getInstance().eol + //NON-NLS
 			"Copyright(c) 2005-2018 - Arnaud BLOUIN" + SystemUtils.getInstance().eol + //NON-NLS
 			"http://latexdraw.sourceforge.net/"); //NON-NLS

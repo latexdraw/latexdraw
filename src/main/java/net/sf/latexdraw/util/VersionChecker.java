@@ -31,9 +31,6 @@ public final class VersionChecker implements Runnable {
 	/** The stability of the build. */
 	public static final String VERSION_STABILITY = "-snapshot"; //NON-NLS
 
-	/** The identifier of the build */
-	public static final String ID_BUILD = "20170419"; //NON-NLS
-
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;
 
