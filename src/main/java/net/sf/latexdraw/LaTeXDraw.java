@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -87,20 +86,18 @@ public class LaTeXDraw extends JfxUI {
 		splashLayout.setEffect(new DropShadow());
 		loadProgress.setPrefWidth(img.getWidth());
 
-		task.stateProperty().addListener((observableValue, oldState, newState) -> {
-			if(newState == Worker.State.SUCCEEDED) {
-				loadProgress.progressProperty().unbind();
-				loadProgress.setProgress(1d);
-				final FadeTransition fadeSplash = new FadeTransition(Duration.seconds(0.8), splashLayout);
-				fadeSplash.setFromValue(1d);
-				fadeSplash.setToValue(0d);
-				fadeSplash.setOnFinished(evt -> {
-					initStage.hide();
-					mainStage.setIconified(false);
-					mainStage.toFront();
-				});
-				fadeSplash.play();
-			}
+		task.setOnSucceeded(ignore -> {
+			loadProgress.progressProperty().unbind();
+			loadProgress.setProgress(1d);
+			final FadeTransition fadeSplash = new FadeTransition(Duration.seconds(0.8), splashLayout);
+			fadeSplash.setFromValue(1d);
+			fadeSplash.setToValue(0d);
+			fadeSplash.setOnFinished(evt -> {
+				initStage.hide();
+				mainStage.setIconified(false);
+				mainStage.toFront();
+			});
+			fadeSplash.play();
 		});
 
 		final Scene splashScene = new Scene(splashLayout);
