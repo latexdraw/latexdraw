@@ -77,7 +77,7 @@ public final class SVGParserUtils {
 		}
 
 		final double value = Double.parseDouble(matcher.group(1));
-		final SVGLength.LengthType length = matcher.group(2) == null ? SVGLength.LengthType.UNKNOWN : SVGLength.LengthType.valueOf(matcher.group(2));
+		final SVGLength.LengthType length = matcher.group(2) == null ? SVGLength.LengthType.UNKNOWN : SVGLength.LengthType.valueOf(matcher.group(2).toUpperCase());
 
 		return Optional.of(new SVGLength(toUserUnit(value, length), SVGLength.LengthType.PX, matcher.group(1)));
 	}
