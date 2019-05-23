@@ -3,7 +3,7 @@ package net.sf.latexdraw.instrument.hand;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -44,54 +44,54 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelectionArc() {
-		new CompositeGUIVoidCommand(selectionAddArc, activateHand, updateIns).execute();
+		Cmds.of(selectionAddArc, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotArc() {
-		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
+		Cmds.of(selectionAddRec, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
+		Cmds.of(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testArcTypeChordSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectWedge, selectChord).execute();
+		Cmds.of(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectWedge, selectChord).execute();
 		assertEquals(ArcStyle.CHORD, ((Arc) drawing.getSelection().getShapeAt(0).orElseThrow()).getArcStyle());
 		assertEquals(ArcStyle.CHORD, ((Arc) drawing.getSelection().getShapeAt(2).orElseThrow()).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeArcSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectArc).execute();
+		Cmds.of(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectArc).execute();
 		assertEquals(ArcStyle.ARC, ((Arc) drawing.getSelection().getShapeAt(0).orElseThrow()).getArcStyle());
 		assertEquals(ArcStyle.ARC, ((Arc) drawing.getSelection().getShapeAt(2).orElseThrow()).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeWedgeSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectWedge).execute();
+		Cmds.of(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectWedge).execute();
 		assertEquals(ArcStyle.WEDGE, ((Arc) drawing.getSelection().getShapeAt(0).orElseThrow()).getArcStyle());
 		assertEquals(ArcStyle.WEDGE, ((Arc) drawing.getSelection().getShapeAt(2).orElseThrow()).getArcStyle());
 	}
 
 	@Test
 	public void testArcEndAngleSelection() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns), endAngleS,
+		doTestSpinner(Cmds.of(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns), endAngleS,
 			incrementEndAngle, Arrays.asList(
 			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(0).orElseThrow()).getAngleEnd()),
 			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(2).orElseThrow()).getAngleEnd())));
@@ -99,7 +99,7 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testArcStartAngleSelection() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns), startAngleS,
+		doTestSpinner(Cmds.of(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns), startAngleS,
 			incrementStartAngle, Arrays.asList(
 			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(0).orElseThrow()).getAngleStart()),
 			() ->  Math.toDegrees(((Arc) drawing.getSelection().getShapeAt(2).orElseThrow()).getAngleStart())));

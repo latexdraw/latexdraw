@@ -11,10 +11,10 @@ public abstract class TestShadowStyleGUI extends TestShapePropGUI<ShapeShadowCus
 	protected Spinner<Double> shadowSizeField;
 	protected Spinner<Double> shadowAngleField;
 
-	protected final GUIVoidCommand checkShadow = () -> clickOn(shadowCB);
-	protected final GUIVoidCommand pickShadCol = () -> pickColour(shadowColB);
-	protected final GUIVoidCommand incrementshadowSizeField = () -> incrementSpinner(shadowSizeField);
-	protected final GUIVoidCommand incrementshadowAngleField = () -> incrementSpinner(shadowAngleField);
+	protected final CmdVoid checkShadow = () -> clickOn(shadowCB);
+	protected final CmdVoid pickShadCol = () -> pickColour(shadowColB);
+	protected final CmdVoid incrementshadowSizeField = () -> incrementSpinner(shadowSizeField);
+	protected final CmdVoid incrementshadowAngleField = () -> incrementSpinner(shadowAngleField);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

@@ -3,7 +3,7 @@ package net.sf.latexdraw.instrument.pencil;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -43,65 +43,65 @@ public class TestPencilStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns, checkInsActivated).execute();
+		Cmds.of(activatePencil, pencilCreatesGrid, updateIns, checkInsActivated).execute();
 	}
 
 	@Test
 	public void testControllerNotActivatedWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesGrid, updateIns).execute();
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testIncrLabelsSizePencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), labelsSizeS,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), labelsSizeS,
 			incrementlabelsSizeS, Collections.singletonList(() ->  ((IStdGridProp) editing.createShapeInstance()).getLabelsSize()));
 	}
 
 	@Test
 	public void testIncrxEndSPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), xEndS,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), xEndS,
 			incrementxEndS, Collections.singletonList(() ->  ((IStdGridProp) editing.createShapeInstance()).getGridEndX()));
 	}
 
 	@Test
 	public void testIncryEndSPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), yEndS,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), yEndS,
 			incrementyEndS, Collections.singletonList(() ->  ((IStdGridProp) editing.createShapeInstance()).getGridEndY()));
 	}
 
 	@Test
 	public void testIncrxStartSPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), xStartS,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), xStartS,
 			decrementxStartS, Collections.singletonList(() ->  ((IStdGridProp) editing.createShapeInstance()).getGridStartX()));
 	}
 
 	@Test
 	public void testIncryStartSPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), yStartS,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), yStartS,
 			decrementyStartS, Collections.singletonList(() ->  ((IStdGridProp) editing.createShapeInstance()).getGridStartY()));
 	}
 
 	@Test
 	public void testIncrxOriginSPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), xOriginS,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), xOriginS,
 			incrementxOriginS, Collections.singletonList(() ->  ((IStdGridProp) editing.createShapeInstance()).getOriginX()));
 	}
 
 	@Test
 	public void testIncryOriginSPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), yOriginS,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), yOriginS,
 			incrementyOriginS, Collections.singletonList(() ->  ((IStdGridProp) editing.createShapeInstance()).getOriginY()));
 	}
 }

@@ -2,7 +2,7 @@ package net.sf.latexdraw.instrument.pencil;
 
 import java.lang.reflect.InvocationTargetException;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -44,104 +44,86 @@ public class TestPencilTextStyle extends TestTextStyleGUI {
 
 	@Test
 	public void testSelectBLPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
-		selectPosition.execute(TextPosition.BOT_LEFT);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns, () -> selectPosition.execute(TextPosition.BOT_LEFT)).execute();
 		assertEquals(TextPosition.BOT_LEFT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.BOT_LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectBRPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
-		selectPosition.execute(TextPosition.BOT_RIGHT);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns, () -> selectPosition.execute(TextPosition.BOT_RIGHT)).execute();
 		assertEquals(TextPosition.BOT_RIGHT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.BOT_RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectBPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
-		selectPosition.execute(TextPosition.BOT);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns, () -> selectPosition.execute(TextPosition.BOT)).execute();
 		assertEquals(TextPosition.BOT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.BOT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectTPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
-		selectPosition.execute(TextPosition.TOP);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns, () -> selectPosition.execute(TextPosition.TOP)).execute();
 		assertEquals(TextPosition.TOP, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.TOP, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectTLPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
-		selectPosition.execute(TextPosition.TOP_LEFT);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns, () -> selectPosition.execute(TextPosition.TOP_LEFT)).execute();
 		assertEquals(TextPosition.TOP_LEFT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.TOP_LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectTRPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
-		selectPosition.execute(TextPosition.TOP_RIGHT);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns, () -> selectPosition.execute(TextPosition.TOP_RIGHT)).execute();
 		assertEquals(TextPosition.TOP_RIGHT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.TOP_RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectRPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
-		selectPosition.execute(TextPosition.RIGHT);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns, () -> selectPosition.execute(TextPosition.RIGHT)).execute();
 		assertEquals(TextPosition.RIGHT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.RIGHT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectLPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
-		selectPosition.execute(TextPosition.LEFT);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns, () -> selectPosition.execute(TextPosition.LEFT)).execute();
 		assertEquals(TextPosition.LEFT, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.LEFT, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectCentrePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
-		selectPosition.execute(TextPosition.CENTER);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns, () -> selectPosition.execute(TextPosition.CENTER)).execute();
 		assertEquals(TextPosition.CENTER, ((Text) editing.createShapeInstance()).getTextPosition());
 		assertEquals(TextPosition.CENTER, textPos.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns, checkInsActivated).execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns, checkInsActivated).execute();
 	}
 
 	@Test
 	public void testControllerNotActivatedWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesText, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesText, updateIns).execute();
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertFalse(titledPane.isVisible());
 	}
 }

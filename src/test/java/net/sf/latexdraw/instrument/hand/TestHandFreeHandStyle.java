@@ -3,7 +3,7 @@ package net.sf.latexdraw.instrument.hand;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -44,33 +44,33 @@ public class TestHandFreeHandStyle extends TestFreeHandStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelectionDot() {
-		new CompositeGUIVoidCommand(selectionAddFreehand, activateHand, updateIns).execute();
+		Cmds.of(selectionAddFreehand, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotDot() {
-		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
+		Cmds.of(selectionAddRec, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
+		Cmds.of(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testIncrementgapPointsSelection() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddFreehand, selectionAddFreehand, updateIns), gapPoints,
+		doTestSpinner(Cmds.of(activateHand, selectionAddArc, selectionAddFreehand, selectionAddFreehand, updateIns), gapPoints,
 			incrementgapPoints, Arrays.asList(
 			() ->  ((Freehand) drawing.getSelection().getShapeAt(1).orElseThrow()).getInterval(),
 			() ->  ((Freehand) drawing.getSelection().getShapeAt(2).orElseThrow()).getInterval()));
@@ -78,9 +78,7 @@ public class TestHandFreeHandStyle extends TestFreeHandStyleGUI {
 
 	@Test
 	public void testSelectLineStyleSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddFreehand, selectionAddFreehand, updateIns).execute();
-		selectLineStyle.execute();
-		waitFXEvents.execute();
+		Cmds.of(activateHand, selectionAddArc, selectionAddFreehand, selectionAddFreehand, updateIns, selectLineStyle).execute();
 		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((Freehand) drawing.getSelection().getShapeAt(1).orElseThrow()).getType());
 		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((Freehand) drawing.getSelection().getShapeAt(2).orElseThrow()).getType());
 		assertEquals(FreeHandStyle.LINES, freeHandType.getSelectionModel().getSelectedItem());
@@ -88,9 +86,7 @@ public class TestHandFreeHandStyle extends TestFreeHandStyleGUI {
 
 	@Test
 	public void testSelectCurveStyleSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddFreehand, selectionAddFreehand, updateIns).execute();
-		selectCurveStyle.execute();
-		waitFXEvents.execute();
+		Cmds.of(activateHand, selectionAddArc, selectionAddFreehand, selectionAddFreehand, updateIns, selectCurveStyle).execute();
 		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((Freehand) drawing.getSelection().getShapeAt(1).orElseThrow()).getType());
 		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((Freehand) drawing.getSelection().getShapeAt(2).orElseThrow()).getType());
 		assertEquals(FreeHandStyle.CURVES, freeHandType.getSelectionModel().getSelectedItem());

@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -46,76 +46,67 @@ public class TestPencilDotStyle extends TestDotStyleGUI {
 
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns, checkInsActivated).execute();
+		Cmds.of(activatePencil, pencilCreatesDot, updateIns, checkInsActivated).execute();
 	}
 
 	@Test
 	public void testControllerNotActivatedWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesDot, updateIns).execute();
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testIncrementDotSizePencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns), dotSizeField,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesDot, updateIns), dotSizeField,
 			incrementDotSize, Collections.singletonList(() ->  ((Dot) editing.createShapeInstance()).getDiametre()));
 	}
 
 	@Test
 	public void testSelectBARStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
-		setDotStyle.execute(DotStyle.BAR);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesDot, updateIns, () -> setDotStyle.execute(DotStyle.BAR)).execute();
 		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((Dot) editing.createShapeInstance()).getDotStyle());
 	}
 
 	@Test
 	public void testSelectASTERISKStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
-		setDotStyle.execute(DotStyle.ASTERISK);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesDot, updateIns, () -> setDotStyle.execute(DotStyle.ASTERISK)).execute();
 		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((Dot) editing.createShapeInstance()).getDotStyle());
 	}
 
 	@Test
 	public void testSelectDOTStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
-		setDotStyle.execute(DotStyle.DOT);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesDot, updateIns, () -> setDotStyle.execute(DotStyle.DOT)).execute();
 		assertEquals(dotCB.getSelectionModel().getSelectedItem(), ((Dot) editing.createShapeInstance()).getDotStyle());
 	}
 
 	@Test
 	public void testSelectFillingNotEnabledWhenNonFillableStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns).execute();
-		setDotStyle.execute(DotStyle.ASTERISK);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesDot, updateIns, () -> setDotStyle.execute(DotStyle.ASTERISK)).execute();
 		assertTrue(fillingB.isDisabled());
 	}
 
 	@Test
 	public void testSelectFillingEnabledWhenFillableStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns, setDotStyleFillable).execute();
+		Cmds.of(activatePencil, pencilCreatesDot, updateIns, setDotStyleFillable).execute();
 		assertFalse(fillingB.isDisabled());
 	}
 
 	@Test
 	public void testPickLineColourPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, setDotStyleFillable, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesDot, setDotStyleFillable, updateIns).execute();
 		final Color col = fillingB.getValue();
-		pickFillingColour.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickFillingColour).execute();
 		assertEquals(fillingB.getValue(), ((Dot) editing.createShapeInstance()).getDotFillingCol().toJFX());
 		assertNotEquals(col, fillingB.getValue());
 	}

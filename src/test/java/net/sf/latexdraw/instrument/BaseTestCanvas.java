@@ -37,91 +37,81 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	BezierCurve addedBezier;
 	Group addedGroup;
 
-	final GUIVoidCommand requestFocusCanvas = () -> {
-		Platform.runLater(() -> canvas.requestFocus());
-		waitFXEvents.execute();
-	};
+	final CmdFXVoid requestFocusCanvas = () -> canvas.requestFocus();
 
-	final GUIVoidCommand addText = () -> Platform.runLater(() ->
-		canvas.getDrawing().addShape(ShapeFactory.INST.createText(
-			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), "$gridGapProp bar")));
+	final CmdFXVoid addText = () -> canvas.getDrawing().addShape(ShapeFactory.INST.createText(
+			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), "$gridGapProp bar"));
 
-	final GUIVoidCommand addGroup = () -> Platform.runLater(() -> {
+	final CmdFXVoid addGroup = () -> {
 		final Rectangle r1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
 		final Rectangle r2 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), 100, 100);
 		addedGroup = ShapeFactory.INST.createGroup();
 		addedGroup.addShape(r1);
 		addedGroup.addShape(r2);
 		canvas.getDrawing().addShape(addedGroup);
-	});
+	};
 
-	final GUIVoidCommand addGrid = () -> Platform.runLater(() -> {
+	final CmdFXVoid addGrid = () -> {
 		addedGrid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 200, -Canvas.ORIGIN.getY() + 200));
 		canvas.getDrawing().addShape(addedGrid);
-	});
+	};
 
-	final GUIVoidCommand addLines = () -> Platform.runLater(() -> {
+	final CmdFXVoid addLines = () -> {
 		addedPolyline = ShapeFactory.INST.createPolyline(Arrays.asList(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 250),
 			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 350),
 			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 120, -Canvas.ORIGIN.getY() + 500)));
 		addedPolyline.setArrowStyle(ArrowStyle.LEFT_ARROW, 0);
 		addedPolyline.setThickness(20d);
 		canvas.getDrawing().addShape(addedPolyline);
-	});
+	};
 
-	final GUIVoidCommand addPlot = () -> Platform.runLater(() -> {
+	final CmdFXVoid addPlot = () -> {
 		addedPlot = ShapeFactory.INST.createPlot(
 			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 400), 0d, 5d, "x", false);
 		addedPlot.setThickness(10d);
 		canvas.getDrawing().addShape(addedPlot);
-	});
+	};
 
-	final GUIVoidCommand addBezier = () -> Platform.runLater(() -> {
+	final CmdFXVoid addBezier = () -> {
 		addedBezier = ShapeFactory.INST.createBezierCurve(
 			Arrays.asList(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 250),
 			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 350),
 			ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 120, -Canvas.ORIGIN.getY() + 500)));
 		addedBezier.setThickness(5d);
 		canvas.getDrawing().addShape(addedBezier);
-	});
+	};
 
-	final GUIVoidCommand selectAllShapes = () -> {
+	final CmdFXVoid selectAllShapes = () -> {
 		final SelectShapes cmd = new SelectShapes(canvas.getDrawing());
 		canvas.getDrawing().getShapes().forEach(sh -> cmd.addShape(sh));
-		Platform.runLater(() -> {
-			cmd.doIt();
-			CommandsRegistry.INSTANCE.addCommand(cmd, null);
-		});
-		WaitForAsyncUtils.waitForFxEvents();
+		cmd.doIt();
+		CommandsRegistry.INSTANCE.addCommand(cmd, null);
 	};
 
-	final GUICommand<Integer> selectShape = index -> {
-		Platform.runLater(() -> {
-			canvas.getDrawing().setSelection(Collections.emptyList());
-			canvas.getDrawing().getSelection().addShape(canvas.getDrawing().getShapeAt(index).orElseThrow());
-		});
-		WaitForAsyncUtils.waitForFxEvents();
+	final CmdFX<Integer> selectShape = index -> {
+		canvas.getDrawing().setSelection(Collections.emptyList());
+		canvas.getDrawing().getSelection().addShape(canvas.getDrawing().getShapeAt(index).orElseThrow());
 	};
 
-	final GUIVoidCommand addRec = () -> Platform.runLater(() -> {
+	final CmdFXVoid addRec = () -> {
 		addedRec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
 		addedRec.setFilled(true);
 		addedRec.setFillingCol(DviPsColors.APRICOT);
 		canvas.getDrawing().addShape(addedRec);
-	});
+	};
 
-	final GUIVoidCommand addRec2 = () -> Platform.runLater(() -> {
+	final CmdFXVoid addRec2 = () -> {
 		final Rectangle rec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), 100, 100);
 		rec.setFilled(true);
 		rec.setFillingCol(DviPsColors.APRICOT);
 		canvas.getDrawing().addShape(rec);
-	});
+	};
 
-	final GUIVoidCommand addArc = () -> Platform.runLater(() -> {
+	final CmdFXVoid addArc = () -> {
 		addedArc = ShapeFactory.INST.createCircleArc(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 200, -Canvas.ORIGIN.getY() + 500), 450);
 		addedArc.setFilled(true);
 		canvas.getDrawing().addShape(addedArc);
-	});
+	};
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
@@ -136,7 +126,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 		canvas = injector.getInstance(Canvas.class);
 		injector.getInstance(PreferencesService.class).magneticGridProperty().set(false);
 
-		Platform.runLater(() -> {
+		Cmds.of(CmdFXVoid.of(() -> {
 			final int width = 800;
 			final int height = 600;
 			stage.minHeightProperty().unbind();
@@ -151,7 +141,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 			stage.setMinHeight(height);
 			stage.centerOnScreen();
 			stage.toFront();
-		});
+		})).execute();
 	}
 
 	@Override

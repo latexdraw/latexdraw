@@ -59,47 +59,43 @@ public class TestShapePositioner extends SelectionBasedTesting<ShapePositioner> 
 
 	@Test
 	public void testOneShapeBackground() {
-		new CompositeGUIVoidCommand(selectOneShape, selectOneShape).execute();
+		Cmds.of(selectOneShape, selectOneShape).execute();
 		final Shape s1 = drawing.getShapeAt(0).orElseThrow();
 		final Shape s2 = drawing.getShapeAt(1).orElseThrow();
-		clickOn("#backgroundB");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#backgroundB")).execute();
 		assertEquals(s2, drawing.getShapeAt(0).orElseThrow());
 		assertEquals(s1, drawing.getShapeAt(1).orElseThrow());
 	}
 
 	@Test
 	public void testOneShapeForeground() {
-		new CompositeGUIVoidCommand(selectOneShape, selectOneShape).execute();
+		Cmds.of(selectOneShape, selectOneShape).execute();
 		selectShapeAt.execute(Collections.singletonList(0));
 		final Shape s1 = drawing.getShapeAt(0).orElseThrow();
 		final Shape s2 = drawing.getShapeAt(1).orElseThrow();
-		clickOn("#foregroundB");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#foregroundB")).execute();
 		assertEquals(s2, drawing.getShapeAt(0).orElseThrow());
 		assertEquals(s1, drawing.getShapeAt(1).orElseThrow());
 	}
 
 	@Test
 	public void testSeveralShapesBackground() {
-		new CompositeGUIVoidCommand(selectThreeShapes, selectTwoShapes).execute();
+		Cmds.of(selectThreeShapes, selectTwoShapes).execute();
 		selectShapeAt.execute(Arrays.asList(1, 2));
 		final Shape s2 = drawing.getShapeAt(1).orElseThrow();
 		final Shape s3 = drawing.getShapeAt(2).orElseThrow();
-		clickOn("#backgroundB");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#backgroundB")).execute();
 		assertEquals(s2, drawing.getShapeAt(0).orElseThrow());
 		assertEquals(s3, drawing.getShapeAt(1).orElseThrow());
 	}
 
 	@Test
 	public void testSeveralShapesForeground() {
-		new CompositeGUIVoidCommand(selectThreeShapes, selectTwoShapes).execute();
+		Cmds.of(selectThreeShapes, selectTwoShapes).execute();
 		selectShapeAt.execute(Arrays.asList(1, 2));
 		final Shape s2 = drawing.getShapeAt(1).orElseThrow();
 		final Shape s3 = drawing.getShapeAt(2).orElseThrow();
-		clickOn("#foregroundB");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#foregroundB")).execute();
 		assertEquals(s2, drawing.getShapeAt(drawing.size() - 2).orElseThrow());
 		assertEquals(s3, drawing.getShapeAt(-1).orElseThrow());
 	}

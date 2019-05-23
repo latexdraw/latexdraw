@@ -16,7 +16,7 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 	protected TextArea packagesField;
 	protected TextArea logField;
 
-	protected final GUICommand<TextPosition> selectPosition = item -> selectGivenComboBoxItem(textPos, item);
+	protected final Cmd<TextPosition> selectPosition = item -> selectGivenComboBoxItem(textPos, item);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

@@ -52,11 +52,11 @@ public class ViewGrid extends ViewStdGrid<Grid> {
 			subgrid.setStrokeLineCap(newv.doubleValue() > 0d ? StrokeLineCap.ROUND : StrokeLineCap.SQUARE);
 			updatePath(false, true, false);
 		};
-		gridUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(true, true, true));
-		labelUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, false, true));
+		gridUpdate = (o, formerv, newv) -> updatePath(true, true, true);
+		labelUpdate = (o, formerv, newv) -> updatePath(false, false, true);
 		gridWidthUpdate = (o, formerv, newv) -> {
 			maingrid.setStrokeWidth(model.getGridWidth());
-			checkToExecuteOnUIThread(() -> updatePath(false, false, true));
+			updatePath(false, false, true);
 		};
 		subGridUpdate = (o, formerv, newv) -> updatePath(false, true, false);
 

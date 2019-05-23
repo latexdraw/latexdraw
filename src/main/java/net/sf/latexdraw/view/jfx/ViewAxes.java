@@ -44,11 +44,11 @@ public class ViewAxes extends ViewStdGrid<Axes> implements GenericAxes<Text> {
 	 */
 	ViewAxes(final Axes sh, final PathElementProducer pathProducer) {
 		super(sh, pathProducer);
-		labelUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, false, true));
-		labelTicksUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, true, true));
-		fullAxesUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(true, true, true));
-		ticksUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(false, true, false));
-		axesUpdate = (o, formerv, newv) -> checkToExecuteOnUIThread(() -> updatePath(true, false, false));
+		labelUpdate = (o, formerv, newv) -> updatePath(false, false, true);
+		labelTicksUpdate = (o, formerv, newv) -> updatePath(false, true, true);
+		fullAxesUpdate = (o, formerv, newv) -> updatePath(true, true, true);
+		ticksUpdate = (o, formerv, newv) -> updatePath(false, true, false);
+		axesUpdate = (o, formerv, newv) -> updatePath(true, false, false);
 
 		framePath = new Path();
 		pathTicks = new Path();

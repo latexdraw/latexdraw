@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -44,36 +44,35 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelectionGrid() {
-		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
+		Cmds.of(selectionAddRec, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotGrid() {
-		new CompositeGUIVoidCommand(selectionAddGrid, activateHand, updateIns).execute();
+		Cmds.of(selectionAddGrid, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
+		Cmds.of(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testSelectShadowCBHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, updateIns).execute();
+		Cmds.of(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, updateIns).execute();
 		final boolean sel = shadowCB.isSelected();
-		checkShadow.execute();
-		waitFXEvents.execute();
+		Cmds.of(checkShadow).execute();
 		assertEquals(shadowCB.isSelected(), drawing.getSelection().getShapeAt(1).orElseThrow().hasShadow());
 		assertEquals(shadowCB.isSelected(), drawing.getSelection().getShapeAt(2).orElseThrow().hasShadow());
 		assertNotEquals(sel, shadowCB.isSelected());
@@ -81,10 +80,9 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 
 	@Test
 	public void testPickShadowColourHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns).execute();
+		Cmds.of(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns).execute();
 		final Color col = shadowColB.getValue();
-		pickShadCol.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickShadCol).execute();
 		assertEquals(shadowColB.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getShadowCol().toJFX());
 		assertEquals(shadowColB.getValue(), drawing.getSelection().getShapeAt(2).orElseThrow().getShadowCol().toJFX());
 		assertNotEquals(col, shadowColB.getValue());
@@ -92,7 +90,7 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 
 	@Test
 	public void testIncrementShadowSizeHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns), shadowSizeField,
+		doTestSpinner(Cmds.of(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns), shadowSizeField,
 			incrementshadowSizeField, Arrays.asList(
 			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getShadowSize(),
 			() ->  drawing.getSelection().getShapeAt(2).orElseThrow().getShadowSize()));
@@ -100,7 +98,7 @@ public class TestHandShadowStyle extends TestShadowStyleGUI {
 
 	@Test
 	public void testIncrementShadowAngleHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns), shadowAngleField,
+		doTestSpinner(Cmds.of(activateHand, selectionAddGrid, selectionAddRec, selectionAddRec, checkShadow, updateIns), shadowAngleField,
 			incrementshadowAngleField, Arrays.asList(
 			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).orElseThrow().getShadowAngle()),
 			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).orElseThrow().getShadowAngle())));

@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -45,92 +45,88 @@ public class TestPencilGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns, checkInsActivated).execute();
+		Cmds.of(activatePencil, pencilCreatesGrid, updateIns, checkInsActivated).execute();
 	}
 
 	@Test
 	public void testControllerNotActivatedWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesGrid, updateIns).execute();
 		assertTrue(mainPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
 	public void testPickcolourLabelsColourPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesGrid, updateIns).execute();
 		final Color col = colourLabels.getValue();
-		pickcolourLabels.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickcolourLabels).execute();
 		assertEquals(colourLabels.getValue(), ((Grid) editing.createShapeInstance()).getGridLabelsColour().toJFX());
 		assertNotEquals(col, colourLabels.getValue());
 	}
 
 	@Test
 	public void testPickLineColourPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesGrid, updateIns).execute();
 		final Color col = colourSubGrid.getValue();
-		pickcolourSubGrid.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickcolourSubGrid).execute();
 		assertEquals(colourSubGrid.getValue(), ((Grid) editing.createShapeInstance()).getSubGridColour().toJFX());
 		assertNotEquals(col, colourSubGrid.getValue());
 	}
 
 	@Test
 	public void testIncrementgridWidthPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), gridWidth,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), gridWidth,
 			incrementgridWidth, Collections.singletonList(() ->  ((Grid) editing.createShapeInstance()).getGridWidth()));
 	}
 
 	@Test
 	public void testIncrementsubGridWidthPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridWidth,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), subGridWidth,
 			incrementsubGridWidth, Collections.singletonList(() ->  ((Grid) editing.createShapeInstance()).getSubGridWidth()));
 	}
 
 	@Test
 	public void testIncrementgridDotsPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), gridDots,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), gridDots,
 			incrementgridDots, Collections.singletonList(() ->  ((Grid) editing.createShapeInstance()).getGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDotsPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridDots,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), subGridDots,
 			incrementsubGridDots, Collections.singletonList(() ->  ((Grid) editing.createShapeInstance()).getSubGridDots()));
 	}
 
 	@Test
 	public void testIncrementsubGridDivPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns), subGridDiv,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesGrid, updateIns), subGridDiv,
 			incrementsubGridDiv, Collections.singletonList(() ->  ((Grid) editing.createShapeInstance()).getSubGridDiv()));
 	}
 
 	@Test
 	public void testSelectlabelsYInvertedCBPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesGrid, updateIns).execute();
 		final boolean sel = labelsYInvertedCB.isSelected();
-		clicklabelsYInvertedCB.execute();
-		waitFXEvents.execute();
+		Cmds.of(clicklabelsYInvertedCB).execute();
 		assertEquals(sel, ((Grid) editing.createShapeInstance()).isXLabelSouth());
 		assertNotEquals(sel, labelsYInvertedCB.isSelected());
 	}
 
 	@Test
 	public void testSelectlabelsXInvertedCBPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesGrid, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesGrid, updateIns).execute();
 		final boolean sel = labelsXInvertedCB.isSelected();
-		clicklabelsXInvertedCB.execute();
-		waitFXEvents.execute();
+		Cmds.of(clicklabelsXInvertedCB).execute();
 		assertEquals(sel, ((Grid) editing.createShapeInstance()).isYLabelWest());
 		assertNotEquals(sel, labelsXInvertedCB.isSelected());
 	}

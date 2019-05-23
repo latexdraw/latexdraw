@@ -3,7 +3,6 @@ package net.sf.latexdraw.instrument;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import javafx.application.HostServices;
-import javafx.application.Platform;
 import javafx.scene.control.Hyperlink;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
@@ -32,13 +31,10 @@ public class TestStatusBarController extends TestLatexdrawGUI {
 	@Test
 	public void testClickHyperlink() {
 		final Hyperlink link = find("#link");
-		Platform.runLater(() -> {
+		Cmds.of(CmdFXVoid.of(() -> {
 			link.setText("gridGapProp");
 			link.setVisible(true);
-		});
-		waitFXEvents.execute();
-		clickOn(link);
-		waitFXEvents.execute();
+		}), () -> clickOn(link)).execute();
 		Mockito.verify(injector.getInstance(HostServices.class), Mockito.times(1)).showDocument("gridGapProp");
 	}
 }

@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Function;
-import javafx.application.Platform;
 import javafx.geometry.Point3D;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
@@ -136,7 +135,7 @@ public class Pencil extends CanvasInstrument {
 			sh.getPoints().get(0).setPoint(pt.getX(), pt.getY());
 			return new AddShape(sh, canvas.getDrawing());
 		}).on(canvas).
-			first((i, c) -> Platform.runLater(() -> canvas.requestFocus())).
+			first((i, c) -> canvas.requestFocus()).
 			then((i, c) -> {
 				final Point last = c.getShape().getPtAt(-1);
 				final Point endPt = getAdaptedPoint(i.getTgtLocalPoint());
@@ -164,7 +163,7 @@ public class Pencil extends CanvasInstrument {
 			return new AddShape(sq, canvas.getDrawing());
 		}).on(canvas).
 			first((i, c) -> {
-				Platform.runLater(() -> canvas.requestFocus());
+				canvas.requestFocus();
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			}).
 			then((i, c) -> updateShapeFromCentre((SquaredShape) c.getShape(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()).getX())).
@@ -181,7 +180,7 @@ public class Pencil extends CanvasInstrument {
 	private void bindDnDToDrawRectangularShape() {
 		nodeBinder(new DnD(false, true), i -> new AddShape(editing.createShapeInstance(), canvas.getDrawing())).on(canvas).
 			first((i, c) -> {
-				Platform.runLater(() -> canvas.requestFocus());
+				canvas.requestFocus();
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			}).
 			then((i, c) -> updateShapeFromDiag((RectangularShape) c.getShape(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()))).

@@ -38,7 +38,7 @@ import org.testfx.util.WaitForAsyncUtils;
 import static org.junit.Assert.assertTrue;
 
 public abstract class TestLatexdrawGUI extends ApplicationTest {
-	protected final GUIVoidCommand waitFXEvents = WaitForAsyncUtils::waitForFxEvents;
+	protected final CmdVoid waitFXEvents = WaitForAsyncUtils::waitForFxEvents;
 
 	protected TitledPane titledPane;
 	protected Stage stage;

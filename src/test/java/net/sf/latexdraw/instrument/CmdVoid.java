@@ -1,11 +1,15 @@
 package net.sf.latexdraw.instrument;
 
 @FunctionalInterface
-public interface GUIVoidCommand extends GUICommand<Void> {
+public interface CmdVoid extends Cmd<Void> {
 	@Override
 	default void execute(final Void param) {
 		execute();
 	}
 
-	void execute();
+	default void execute() {
+		bodyCmd();
+	}
+
+	void bodyCmd();
 }

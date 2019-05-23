@@ -6,6 +6,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
+import net.sf.latexdraw.instrument.CmdFXVoid;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.BorderPos;
 import net.sf.latexdraw.model.api.shape.FillingStyle;
@@ -366,88 +368,77 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	@Test
 	void testFillHatchingsCLINES() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.CLINES);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.CLINES))).execute();
 		assertTrue(border.getFill() instanceof ImagePattern);
 	}
 
 	@Test
 	void testFillHatchingsVLINES() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.VLINES);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.VLINES))).execute();
 		assertTrue(border.getFill() instanceof ImagePattern);
 	}
 
 	@Test
 	void testFillHatchingsCLINESPLAIN() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.CLINES_PLAIN);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.CLINES_PLAIN))).execute();
 		assertTrue(border.getFill() instanceof ImagePattern);
 	}
 
 	@Test
 	void testFillHatchingsVLINESPLAIN() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.VLINES_PLAIN);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.VLINES_PLAIN))).execute();
 		assertTrue(border.getFill() instanceof ImagePattern);
 	}
 
 	@Test
 	void testFillHatchingsHLINES() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.HLINES);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.HLINES))).execute();
 		assertTrue(border.getFill() instanceof ImagePattern);
 	}
 
 	@Test
 	void testFillHatchingsHLINESPLAIN() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.HLINES_PLAIN);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.HLINES_PLAIN))).execute();
 		assertTrue(border.getFill() instanceof ImagePattern);
 	}
 
 	@Test
 	void testFillHatchingsWidth() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.HLINES);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.HLINES))).execute();
 		assertNotEqualsSnapshot(view, () -> model.setHatchingsWidth(model.getHatchingsWidth() + 10d));
 	}
 
 	@Test
 	void testFillHatchingsSep() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.HLINES);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.HLINES))).execute();
 		assertNotEqualsSnapshot(view, () -> model.setHatchingsSep(model.getHatchingsSep() + 10d));
 	}
 
 	@Test
 	void testFillHatchingsAngle() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.HLINES);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.HLINES))).execute();
 		assertNotEqualsSnapshot(view, () -> model.setHatchingsAngle(model.getHatchingsAngle() + Math.PI / 3d));
 	}
 
 	@Test
 	void testFillHatchingsCol() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.HLINES);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.HLINES))).execute();
 		assertNotEqualsSnapshot(view, () -> model.setHatchingsCol(DviPsColors.FUSHIA));
 	}
 
 	@Test
 	void testFillHatchingsFillingCol() {
 		assumeTrue(model.isFillable());
-		model.setFillingStyle(FillingStyle.HLINES);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.HLINES))).execute();
 		assertNotEqualsSnapshot(view, () -> {
 			model.setFillingStyle(FillingStyle.HLINES_PLAIN);
 			model.setFillingCol(DviPsColors.FUSHIA);
@@ -469,26 +460,23 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	@Test
 	void testShadowEnable() {
 		assumeTrue(model.isShadowable());
-		model.setHasShadow(true);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setHasShadow(true))).execute();
 		assertFalse(view.getShadow().orElseThrow().isDisable());
 	}
 
 	@Test
 	void testShadowDisable() {
 		assumeTrue(model.isShadowable());
-		model.setHasShadow(true);
-		model.setHasShadow(false);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setHasShadow(true)),
+			CmdFXVoid.of(() -> model.setHasShadow(false))).execute();
 		assertTrue(view.getShadow().orElseThrow().isDisable());
 	}
 
 	@Test
 	void testShadowColorStroke() {
 		assumeTrue(model.isShadowable());
-		model.setHasShadow(true);
-		model.setShadowCol(DviPsColors.NAVYBLUE);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setHasShadow(true)),
+			CmdFXVoid.of(() -> model.setShadowCol(DviPsColors.NAVYBLUE))).execute();
 		assertEquals(DviPsColors.NAVYBLUE.toJFX(), view.getShadow().orElseThrow().getStroke());
 	}
 
@@ -496,10 +484,9 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	void testShadowColorFillWhenFilled() {
 		assumeTrue(model.isShadowable());
 		assumeTrue(model.isFillable());
-		model.setHasShadow(true);
-		model.setFillingStyle(FillingStyle.PLAIN);
-		model.setShadowCol(DviPsColors.APRICOT);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setHasShadow(true)),
+			CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.PLAIN)),
+			CmdFXVoid.of(() -> model.setShadowCol(DviPsColors.APRICOT))).execute();
 		assertEquals(DviPsColors.APRICOT.toJFX(), view.getShadow().orElseThrow().getFill());
 	}
 
@@ -508,9 +495,8 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 		assumeTrue(model.isShadowable());
 		assumeTrue(model.isFillable());
 		assumeFalse(model.shadowFillsShape());
-		model.setHasShadow(true);
-		model.setFillingStyle(FillingStyle.NONE);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setHasShadow(true)),
+			CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.NONE))).execute();
 		assertNull(view.getShadow().orElseThrow().getFill());
 	}
 
@@ -519,10 +505,9 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 		assumeTrue(model.isShadowable());
 		assumeTrue(model.isFillable());
 		assumeTrue(model.shadowFillsShape());
-		model.setHasShadow(true);
-		model.setFillingStyle(FillingStyle.NONE);
-		model.setShadowCol(DviPsColors.APRICOT);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setHasShadow(true)),
+			CmdFXVoid.of(() -> model.setFillingStyle(FillingStyle.NONE)),
+			CmdFXVoid.of(() -> model.setShadowCol(DviPsColors.APRICOT))).execute();
 		assertEquals(DviPsColors.APRICOT.toJFX(), view.getShadow().orElseThrow().getFill());
 	}
 
@@ -530,8 +515,7 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	@Test
 	void testShadowBoundNotSamePositionThanBorder() {
 		assumeTrue(model.isShadowable());
-		model.setHasShadow(true);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setHasShadow(true))).execute();
 		assertNotEquals(border.getBoundsInParent().getMinX(), view.getShadow().orElseThrow().getBoundsInParent().getMinX());
 		assertNotEquals(border.getBoundsInParent().getMinY(), view.getShadow().orElseThrow().getBoundsInParent().getMinY());
 	}
@@ -539,24 +523,21 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	@Test
 	void testLineSizeShadowSameThanBorder() {
 		assumeTrue(model.isThicknessable());
-		model.setThickness(20d);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setThickness(20d))).execute();
 		assertEquals(20d, view.getShadow().orElseThrow().getStrokeWidth(), 0.001);
 	}
 
 	@Test
 	void testLinePositionShadowSameThanBorder() {
 		assumeTrue(model.isThicknessable());
-		model.setBordersPosition(BorderPos.INTO);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setBordersPosition(BorderPos.INTO))).execute();
 		assertEquals(border.getStrokeType(), view.getShadow().orElseThrow().getStrokeType());
 	}
 
 	@Test
 	void testShadowBoundSizeSameThanBorder() {
 		assumeTrue(model.isShadowable());
-		model.setHasShadow(true);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> model.setHasShadow(true))).execute();
 		assertEquals(border.getBoundsInLocal().getWidth(), view.getShadow().orElseThrow().getBoundsInLocal().getWidth(), 0.001);
 		assertEquals(border.getBoundsInLocal().getHeight(), view.getShadow().orElseThrow().getBoundsInLocal().getHeight(), 0.001);
 	}
@@ -565,9 +546,10 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	@Test
 	void testShadowAngle0Translate() {
 		assumeTrue(model.isShadowable());
-		model.setHasShadow(true);
-		model.setShadowAngle(0d);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> {
+			model.setHasShadow(true);
+			model.setShadowAngle(0d);
+		})).execute();
 		assertEquals(model.getShadowSize(), view.getShadow().orElseThrow().getTranslateX(), 0.01);
 		assertEquals(0d, view.getShadow().orElseThrow().getTranslateY(), 0.01);
 	}
@@ -575,10 +557,11 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	@Test
 	void testShadowSizeAngle0Translate() {
 		assumeTrue(model.isShadowable());
-		model.setHasShadow(true);
-		model.setShadowAngle(0d);
-		model.setShadowSize(100.21d);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> {
+			model.setHasShadow(true);
+			model.setShadowAngle(0d);
+			model.setShadowSize(100.21d);
+		})).execute();
 		assertEquals(100.21, view.getShadow().orElseThrow().getTranslateX(), 0.01);
 		assertEquals(0d, view.getShadow().orElseThrow().getTranslateY(), 0.01);
 	}
@@ -587,9 +570,10 @@ abstract class TestViewBorderedShape<T extends ViewSingleShape<S, R>, S extends 
 	@Test
 	void testShadowAngle90Translate() {
 		assumeTrue(model.isShadowable());
-		model.setHasShadow(true);
-		model.setShadowAngle(Math.PI / 2d);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> {
+			model.setHasShadow(true);
+			model.setShadowAngle(Math.PI / 2d);
+		})).execute();
 		assertEquals(0d, view.getShadow().orElseThrow().getTranslateX(), 0.01);
 		assertEquals(-model.getShadowSize(), view.getShadow().orElseThrow().getTranslateY(), 0.01);
 	}

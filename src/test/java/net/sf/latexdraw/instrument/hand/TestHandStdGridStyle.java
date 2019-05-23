@@ -3,7 +3,7 @@ package net.sf.latexdraw.instrument.hand;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -42,33 +42,33 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelectionGrid() {
-		new CompositeGUIVoidCommand(selectionAddGrid, activateHand, updateIns).execute();
+		Cmds.of(selectionAddGrid, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotGrid() {
-		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
+		Cmds.of(selectionAddRec, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
+		Cmds.of(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testIncrLabelsSizeHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			labelsSizeS, incrementlabelsSizeS, Arrays.asList(
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getLabelsSize(),
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getLabelsSize()));
@@ -76,7 +76,7 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testScrollLabelsSizeHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			labelsSizeS, scrolllabelsSizeS, Arrays.asList(
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getLabelsSize(),
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getLabelsSize()));
@@ -84,7 +84,7 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testIncrxEndSHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			xEndS, incrementxEndS, Arrays.asList(
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridEndX(),
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridEndX()));
@@ -92,7 +92,7 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testScrollIncrxEndSHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			xEndS, scrollxEndS, Arrays.asList(
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridEndX(),
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridEndX()));
@@ -100,7 +100,7 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testIncryEndSHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			yEndS, incrementyEndS, Arrays.asList(
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridEndY(),
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridEndY()));
@@ -108,7 +108,7 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testScrollIncryEndSHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			yEndS, scrollyEndS, Arrays.asList(
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridEndY(),
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridEndY()));
@@ -116,7 +116,7 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testIncrxStartSHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			xStartS, decrementxStartS, Arrays.asList(
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridStartX(),
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridStartX()));
@@ -124,7 +124,7 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testScrollIncrxStartSHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			xStartS, scrollxStartS, Arrays.asList(
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridStartX(),
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridStartX()));
@@ -132,7 +132,7 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testIncryStartSHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			yStartS, decrementyStartS, Arrays.asList(
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridStartY(),
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridStartY()));
@@ -140,7 +140,7 @@ public class TestHandStdGridStyle extends TestStdGridStyleGUI {
 
 	@Test
 	public void testScrollIncryStartSHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddAxes, updateIns),
 			yStartS, scrollyStartS, Arrays.asList(
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridStartY(),
 				() -> ((IStdGridProp) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridStartY()));

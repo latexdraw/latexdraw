@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import javafx.application.Platform;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
@@ -191,7 +190,7 @@ public class Hand extends CanvasInstrument implements Flushable {
 			when(i -> i.getButton() == MouseButton.PRIMARY && !canvas.getDrawing().getSelection().isEmpty()).
 			exec().
 			first((i, c) -> {
-				i.getSrcObject().ifPresent(node -> Platform.runLater(() -> node.requestFocus()));
+				i.getSrcObject().ifPresent(node -> node.requestFocus());
 				canvas.setCursor(Cursor.MOVE);
 			}).
 			cancel((i, c) -> canvas.update()).
@@ -277,7 +276,7 @@ public class Hand extends CanvasInstrument implements Flushable {
 		public void first() {
 			selectedShapes = new ArrayList<>(instrument.canvas.getDrawing().getSelection().getShapes());
 			selectedViews = instrument.canvas.getSelectedViews();
-			Platform.runLater(() -> instrument.canvas.requestFocus());
+			instrument.canvas.requestFocus();
 		}
 
 		@Override

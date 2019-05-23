@@ -28,9 +28,10 @@ public class TestShapeRotationCustomiser extends SelectionBasedTesting<ShapeRota
 		super.setUp();
 		ins = injector.getInstance(ShapeRotationCustomiser.class);
 		drawing = injector.getInstance(Drawing.class);
-		ins.setActivated(true);
-		ins.update();
-		selectTwoShapes.execute();
+		Cmds.of(CmdFXVoid.of(() -> {
+			ins.setActivated(true);
+			ins.update();
+		}), selectTwoShapes).execute();
 	}
 
 	@Override
@@ -67,32 +68,28 @@ public class TestShapeRotationCustomiser extends SelectionBasedTesting<ShapeRota
 
 	@Test
 	public void testRotate90() {
-		clickOn("#rotate90Button");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#rotate90Button")).execute();
 		assertEquals(Math.PI / 2d, drawing.getShapeAt(0).orElseThrow().getRotationAngle(), 0.0001);
 		assertEquals(Math.PI / 2d, drawing.getShapeAt(1).orElseThrow().getRotationAngle(), 0.0001);
 	}
 
 	@Test
 	public void testRotate180() {
-		clickOn("#rotate180Button");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#rotate180Button")).execute();
 		assertEquals(Math.PI, drawing.getShapeAt(0).orElseThrow().getRotationAngle(), 0.0001);
 		assertEquals(Math.PI, drawing.getShapeAt(1).orElseThrow().getRotationAngle(), 0.0001);
 	}
 
 	@Test
 	public void testRotate270() {
-		clickOn("#rotate270Button");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#rotate270Button")).execute();
 		assertEquals(-Math.PI / 2d, drawing.getShapeAt(0).orElseThrow().getRotationAngle(), 0.0001);
 		assertEquals(-Math.PI / 2d, drawing.getShapeAt(1).orElseThrow().getRotationAngle(), 0.0001);
 	}
 
 	@Test
 	public void testIncrRotation() {
-		incrementSpinner(find("#rotationField"));
-		waitFXEvents.execute();
+		Cmds.of(() -> incrementSpinner(find("#rotationField"))).execute();
 		assertEquals(1d, Math.toDegrees(drawing.getShapeAt(0).orElseThrow().getRotationAngle()), 0.0001);
 		assertEquals(1d, Math.toDegrees(drawing.getShapeAt(1).orElseThrow().getRotationAngle()), 0.0001);
 	}

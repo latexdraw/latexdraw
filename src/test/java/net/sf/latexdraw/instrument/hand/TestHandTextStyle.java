@@ -2,7 +2,7 @@ package net.sf.latexdraw.instrument.hand;
 
 import java.lang.reflect.InvocationTargetException;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -44,33 +44,33 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelectionGrid() {
-		new CompositeGUIVoidCommand(selectionAddText, activateHand, updateIns).execute();
+		Cmds.of(selectionAddText, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotGrid() {
-		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
+		Cmds.of(selectionAddRec, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
+		Cmds.of(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testSelectBLPencil() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
+		Cmds.of(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.BOT_LEFT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.BOT_LEFT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
@@ -80,7 +80,7 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 
 	@Test
 	public void testSelectBRPencil() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
+		Cmds.of(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.BOT_RIGHT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.BOT_RIGHT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
@@ -90,7 +90,7 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 
 	@Test
 	public void testSelectBPencil() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
+		Cmds.of(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.BOT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.BOT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
@@ -100,7 +100,7 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 
 	@Test
 	public void testSelectTPencil() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
+		Cmds.of(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.TOP);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.TOP, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
@@ -110,7 +110,7 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 
 	@Test
 	public void testSelectTLPencil() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
+		Cmds.of(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.TOP_LEFT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.TOP_LEFT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
@@ -120,7 +120,7 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 
 	@Test
 	public void testSelectTRPencil() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
+		Cmds.of(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.TOP_RIGHT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.TOP_RIGHT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
@@ -130,7 +130,7 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 
 	@Test
 	public void testSelectRPencil() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
+		Cmds.of(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.RIGHT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.RIGHT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
@@ -140,7 +140,7 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 
 	@Test
 	public void testSelectLPencil() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
+		Cmds.of(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.LEFT);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.LEFT, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());
@@ -150,7 +150,7 @@ public class TestHandTextStyle extends TestTextStyleGUI {
 
 	@Test
 	public void testSelectCentrePencil() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
+		Cmds.of(activateHand, selectionAddText, selectionAddGrid, selectionAddText, updateIns).execute();
 		selectPosition.execute(TextPosition.CENTER);
 		waitFXEvents.execute();
 		assertEquals(TextPosition.CENTER, ((Text) drawing.getSelection().getShapeAt(0).orElseThrow()).getTextPosition());

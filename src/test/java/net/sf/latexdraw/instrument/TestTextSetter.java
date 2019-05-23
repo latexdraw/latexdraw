@@ -24,6 +24,11 @@ import static org.junit.Assert.assertTrue;
 public class TestTextSetter extends BaseTestCanvas {
 	TextSetter setter;
 
+	final CmdVoid clickCanvas = () -> moveTo(point(canvas).query()).clickOn(MouseButton.PRIMARY);
+	final CmdFXVoid plotMode = () -> editing.setCurrentChoice(EditionChoice.PLOT);
+	final CmdFXVoid textMode = () -> editing.setCurrentChoice(EditionChoice.TEXT);
+	Point2D pos;
+
 	@Override
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
@@ -54,24 +59,19 @@ public class TestTextSetter extends BaseTestCanvas {
 		injector.getInstance(PreferencesService.class).magneticGridProperty().set(false);
 		Platform.runLater(() -> setter.initialize(null, null));
 		WaitForAsyncUtils.waitForFxEvents(100);
-		canvas.toFront();
+		Cmds.of(CmdFXVoid.of(() -> canvas.toFront())).execute();
+		pos = point(canvas).query();
 	}
 
 	@Test
 	public void testNotActivated() {
-		editing.setCurrentChoice(EditionChoice.DOT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.DOT)), clickCanvas).execute();
 		assertFalse(setter.isActivated());
 	}
 
 	@Test
 	public void testShowTextTextField() {
-		editing.setCurrentChoice(EditionChoice.TEXT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
+		Cmds.of(textMode, clickCanvas).execute();
 		assertTrue(setter.isActivated());
 		assertTrue(setter.getTextField().isVisible());
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), setter.getTextField().getLayoutX(), 1d);
@@ -81,10 +81,7 @@ public class TestTextSetter extends BaseTestCanvas {
 
 	@Test
 	public void testShowPlotTextField() {
-		editing.setCurrentChoice(EditionChoice.PLOT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
+		Cmds.of(plotMode, clickCanvas).execute();
 		assertTrue(setter.isActivated());
 		assertTrue(setter.getTextField().isVisible());
 		assertEquals(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), setter.getTextField().getLayoutX(), 1d);
@@ -94,13 +91,7 @@ public class TestTextSetter extends BaseTestCanvas {
 
 	@Test
 	public void testTypeTextFieldOKAddShape() {
-		editing.setCurrentChoice(EditionChoice.TEXT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		write("gridGapProp bar").type(KeyCode.ENTER);
-		waitFXEvents.execute();
-
+		Cmds.of(textMode, clickCanvas, () -> write("gridGapProp bar").type(KeyCode.ENTER)).execute();
 		assertEquals(1, canvas.getDrawing().size());
 		assertTrue(canvas.getDrawing().getShapeAt(0).orElseThrow() instanceof Text);
 		final Text sh = (Text) canvas.getDrawing().getShapeAt(0).orElseThrow();
@@ -111,13 +102,7 @@ public class TestTextSetter extends BaseTestCanvas {
 
 	@Test
 	public void testTypeEqFieldOKAddShape() {
-		editing.setCurrentChoice(EditionChoice.PLOT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		write("x 2 mul").type(KeyCode.ENTER);
-		waitFXEvents.execute();
-
+		Cmds.of(plotMode, clickCanvas, () -> write("x 2 mul").type(KeyCode.ENTER)).execute();
 		assertEquals(1, canvas.getDrawing().size());
 		assertTrue(canvas.getDrawing().getShapeAt(0).orElseThrow() instanceof Plot);
 		final Plot sh = (Plot) canvas.getDrawing().getShapeAt(0).orElseThrow();
@@ -128,87 +113,52 @@ public class TestTextSetter extends BaseTestCanvas {
 
 	@Test
 	public void testHideTextFieldOnOK() {
-		editing.setCurrentChoice(EditionChoice.TEXT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		write("gridGapProp bar").type(KeyCode.ENTER);
-		waitFXEvents.execute();
+		Cmds.of(textMode, clickCanvas, () -> write("gridGapProp bar").type(KeyCode.ENTER)).execute();
 		assertFalse(setter.isActivated());
 	}
 
 	@Test
 	public void testHidePlotFieldOnOK() {
-		editing.setCurrentChoice(EditionChoice.PLOT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		write("x 2 mul").type(KeyCode.ENTER);
-		waitFXEvents.execute();
+		Cmds.of(plotMode, clickCanvas, () -> write("x 2 mul").type(KeyCode.ENTER)).execute();
 		assertFalse(setter.isActivated());
 	}
 
 	@Test
 	public void testNotHidePlotFieldOnKO() {
-		editing.setCurrentChoice(EditionChoice.PLOT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		write("not a valid formula").type(KeyCode.ENTER);
-		waitFXEvents.execute();
+		Cmds.of(plotMode, clickCanvas, () -> write("not a valid formula").type(KeyCode.ENTER)).execute();
 		assertTrue(setter.isActivated());
 		assertFalse(setter.getTextField().isValidText());
 	}
 
 	@Test
 	public void testNotHideTextFieldOnEmptyField() {
-		editing.setCurrentChoice(EditionChoice.TEXT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		write("foo").eraseText(3).type(KeyCode.ENTER);
-		waitFXEvents.execute();
+		Cmds.of(textMode, clickCanvas, () -> write("foo").eraseText(3).type(KeyCode.ENTER)).execute();
 		assertTrue(setter.isActivated());
 	}
 
 	@Test
 	public void testNotHidePlotFieldOnEmptyField() {
-		editing.setCurrentChoice(EditionChoice.PLOT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		write("x").eraseText(1).type(KeyCode.ENTER);
-		waitFXEvents.execute();
+		Cmds.of(plotMode, clickCanvas, () -> write("x").eraseText(1).type(KeyCode.ENTER)).execute();
 		assertTrue(setter.isActivated());
 	}
 
 	@Test
 	public void testEscapeText() {
-		editing.setCurrentChoice(EditionChoice.TEXT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		write("gridGapProp").type(KeyCode.ESCAPE);
-		waitFXEvents.execute();
+		Cmds.of(textMode, clickCanvas, () -> write("gridGapProp").type(KeyCode.ESCAPE)).execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 		assertFalse(setter.isActivated());
 	}
 
 	@Test
 	public void testEscapePlot() {
-		editing.setCurrentChoice(EditionChoice.PLOT);
-		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		write("x").type(KeyCode.ESCAPE);
-		waitFXEvents.execute();
+		Cmds.of(plotMode, clickCanvas, () -> write("x").type(KeyCode.ESCAPE)).execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 		assertFalse(setter.isActivated());
 	}
 
 	@Test
 	public void testNotCrashDeactivate() {
-		setter.setActivated(true);
-		setter.setActivated(false);
+		Cmds.of(CmdFXVoid.of(() -> setter.setActivated(true)),
+		CmdFXVoid.of(() -> setter.setActivated(false))).execute();
 	}
 }

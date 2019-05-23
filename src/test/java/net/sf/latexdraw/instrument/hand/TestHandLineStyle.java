@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -48,12 +48,12 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelectionNotEmpty() {
-		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
+		Cmds.of(selectionAddRec, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(thicknessField.isVisible());
 		assertFalse(thicknessField.isDisabled());
@@ -71,13 +71,13 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 
 	@Test
 	public void testOpenVisibleIfBezierAndActivated() {
-		new CompositeGUIVoidCommand(selectionAddBezier, activateHand, updateIns).execute();
+		Cmds.of(selectionAddBezier, activateHand, updateIns).execute();
 		assertTrue(opened.isVisible());
 	}
 
 	@Test
 	public void testChangeFrameArcSelection() {
-		doTestSpinner(new CompositeGUIVoidCommand(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns)), frameArcField,
+		doTestSpinner(Cmds.of(Cmds.of(activateHand, selectionAddRec, selectionAddRec, updateIns)), frameArcField,
 			incrementFrameArc, Arrays.asList(
 				() -> ((Rectangle) drawing.getSelection().getShapeAt(0).orElseThrow()).getLineArc(),
 				() -> ((Rectangle) drawing.getSelection().getShapeAt(1).orElseThrow()).getLineArc()));
@@ -85,7 +85,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 
 	@Test
 	public void testChangeThicknessSelection() {
-		doTestSpinner(new CompositeGUIVoidCommand(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns)), thicknessField,
+		doTestSpinner(Cmds.of(Cmds.of(activateHand, selectionAddRec, selectionAddRec, updateIns)), thicknessField,
 			incrementThickness, Arrays.asList(
 				() -> drawing.getSelection().getShapeAt(0).orElseThrow().getThickness(),
 				() -> drawing.getSelection().getShapeAt(1).orElseThrow().getThickness()));
@@ -93,10 +93,9 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 
 	@Test
 	public void testSelectBorderPosSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		Cmds.of(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		final BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
-		selectBorderPos.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectBorderPos).execute();
 		final BorderPos newStyle = bordersPosCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(0).orElseThrow().getBordersPosition());
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).orElseThrow().getBordersPosition());
@@ -105,10 +104,9 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 
 	@Test
 	public void testSelectLineStyleSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		Cmds.of(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		final LineStyle style = lineCB.getSelectionModel().getSelectedItem();
-		selectLineStyle.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectLineStyle).execute();
 		final LineStyle newStyle = lineCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(0).orElseThrow().getLineStyle());
 		assertEquals(newStyle, drawing.getSelection().getShapeAt(1).orElseThrow().getLineStyle());
@@ -117,36 +115,33 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 
 	@Test
 	public void testCheckShowPointSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddBezier, updateIns).execute();
+		Cmds.of(activateHand, selectionAddBezier, selectionAddBezier, updateIns).execute();
 		final boolean sel = showPoints.isSelected();
-		checkShowPts.execute();
-		waitFXEvents.execute();
+		Cmds.of(checkShowPts).execute();
 		assertEquals(!sel, drawing.getSelection().getShapeAt(0).orElseThrow().isShowPts());
 		assertEquals(!sel, drawing.getSelection().getShapeAt(1).orElseThrow().isShowPts());
 	}
 
 	@Test
 	public void testCheckCloseOKSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddFreehand, updateIns).execute();
+		Cmds.of(activateHand, selectionAddBezier, selectionAddFreehand, updateIns).execute();
 		assertEquals(((ClosableProp) drawing.getSelection().getShapeAt(0).orElseThrow()).isOpened(), opened.isSelected());
 	}
 
 	@Test
 	public void testCheckCloseSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddFreehand, updateIns).execute();
+		Cmds.of(activateHand, selectionAddBezier, selectionAddFreehand, updateIns).execute();
 		final boolean isOpen = opened.isSelected();
-		checkOpened.execute();
-		waitFXEvents.execute();
+		Cmds.of(checkOpened).execute();
 		assertEquals(!isOpen, ((ClosableProp) drawing.getSelection().getShapeAt(0).orElseThrow()).isOpened());
 		assertEquals(!isOpen, ((ClosableProp) drawing.getSelection().getShapeAt(1).orElseThrow()).isOpened());
 	}
 
 	@Test
 	public void testPickLineColourSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddBezier, updateIns).execute();
+		Cmds.of(activateHand, selectionAddRec, selectionAddBezier, updateIns).execute();
 		final Color col = lineColButton.getValue();
-		pickLineCol.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickLineCol).execute();
 		assertEquals(lineColButton.getValue(), drawing.getSelection().getShapeAt(0).orElseThrow().getLineColour().toJFX());
 		assertEquals(lineColButton.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getLineColour().toJFX());
 		assertNotEquals(col, lineColButton.getValue());

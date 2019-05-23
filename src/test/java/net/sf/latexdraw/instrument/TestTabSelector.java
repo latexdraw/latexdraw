@@ -3,7 +3,6 @@ package net.sf.latexdraw.instrument;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import javafx.application.HostServices;
-import javafx.application.Platform;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -12,17 +11,17 @@ import javafx.util.BuilderFactory;
 import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.LatexdrawBuilderFactory;
-import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
@@ -82,6 +81,7 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 	public void tearDown() {
 		release(new KeyCode[] {});
 		release(new MouseButton[] {});
+		waitFXEvents.execute();
 	}
 
 	@Override
@@ -214,15 +214,13 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 	public void testClickCanvasActivationsOnSelectedShape() {
 		final Rectangle rectangle = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(), 100, 50);
 		final Canvas canvas = injector.getInstance(Canvas.class);
-		Platform.runLater(() -> {
-			canvas.getDrawing().addShape(rectangle);
-			canvas.getDrawing().getSelection().addShape(rectangle);
-		});
-		WaitForAsyncUtils.waitForFxEvents();
-		clickOn(tabPane.lookup("#tabPST"));
-		clickOn(tabPane.lookup("#canvasTab"));
-		WaitForAsyncUtils.waitForFxEvents();
-
+		Cmds.of(
+			CmdFXVoid.of(() -> {
+				canvas.getDrawing().addShape(rectangle);
+				canvas.getDrawing().getSelection().addShape(rectangle);
+			}),
+			() -> clickOn(tabPane.lookup("#tabPST")),
+			() -> clickOn(tabPane.lookup("#canvasTab"))).execute();
 		Mockito.verify(deleter, Mockito.times(1)).setActivated(true);
 	}
 }

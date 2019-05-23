@@ -3,7 +3,7 @@ package net.sf.latexdraw.instrument.pencil;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -44,29 +44,29 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, checkInsActivated).execute();
+		Cmds.of(activatePencil, pencilCreatesArc, updateIns, checkInsActivated).execute();
 	}
 
 	@Test
 	public void testControllerNotActivatedWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesArc, updateIns).execute();
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testClickChordUnselectOthersPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectWedge, selectChord).execute();
+		Cmds.of(activatePencil, pencilCreatesArc, updateIns, selectWedge, selectChord).execute();
 		assertFalse(arcB.isSelected());
 		assertFalse(wedgeB.isSelected());
 		assertTrue(chordB.isSelected());
@@ -74,7 +74,7 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testClickWedgeUnselectOthersPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectWedge).execute();
+		Cmds.of(activatePencil, pencilCreatesArc, updateIns, selectChord, selectWedge).execute();
 		assertFalse(arcB.isSelected());
 		assertTrue(wedgeB.isSelected());
 		assertFalse(chordB.isSelected());
@@ -82,7 +82,7 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testClickArcUnselectOthersPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectArc).execute();
+		Cmds.of(activatePencil, pencilCreatesArc, updateIns, selectChord, selectArc).execute();
 		assertTrue(arcB.isSelected());
 		assertFalse(wedgeB.isSelected());
 		assertFalse(chordB.isSelected());
@@ -90,31 +90,31 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testArcEndAnglePencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns), endAngleS, incrementEndAngle,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesArc, updateIns), endAngleS, incrementEndAngle,
 			Collections.singletonList(() -> Math.toDegrees(((Arc) editing.createShapeInstance()).getAngleEnd())));
 	}
 
 	@Test
 	public void testArcStartAnglePencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns), startAngleS, incrementStartAngle,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesArc, updateIns), startAngleS, incrementStartAngle,
 			Collections.singletonList(() -> Math.toDegrees(((Arc) editing.createShapeInstance()).getAngleStart())));
 	}
 
 	@Test
 	public void testArcTypeWedgePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectWedge).execute();
+		Cmds.of(activatePencil, pencilCreatesArc, updateIns, selectChord, selectWedge).execute();
 		assertEquals(ArcStyle.WEDGE, ((Arc) editing.createShapeInstance()).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeArcPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectArc).execute();
+		Cmds.of(activatePencil, pencilCreatesArc, updateIns, selectChord, selectArc).execute();
 		assertEquals(ArcStyle.ARC, ((Arc) editing.createShapeInstance()).getArcStyle());
 	}
 
 	@Test
 	public void testArcTypeChordPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectArc, selectChord).execute();
+		Cmds.of(activatePencil, pencilCreatesArc, updateIns, selectArc, selectChord).execute();
 		assertEquals(ArcStyle.CHORD, ((Arc) editing.createShapeInstance()).getArcStyle());
 	}
 }

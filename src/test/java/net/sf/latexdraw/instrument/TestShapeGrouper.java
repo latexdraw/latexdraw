@@ -25,10 +25,10 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	Button sepB;
 	AnchorPane mainPane;
 
-	final GUIVoidCommand clickGroup = () -> clickOn(groupB);
-	final GUIVoidCommand clickSep = () -> clickOn(sepB);
+	final CmdVoid clickGroup = () -> clickOn(groupB);
+	final CmdVoid clickSep = () -> clickOn(sepB);
 
-	final GUIVoidCommand selectOneGroup = () -> {
+	final CmdFXVoid selectOneGroup = () -> {
 		final Group group = ShapeFactory.INST.createGroup();
 		group.addShape(ShapeFactory.INST.createCircle());
 		group.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(20, 30), 10));
@@ -83,29 +83,25 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 
 	@Test
 	public void testActivateOnGroupSelected() {
-		selectOneGroup.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectOneGroup).execute();
 		assertTrue(ins.isActivated());
 	}
 
 	@Test
 	public void testActivateOnTwoShapesSelected() {
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		assertTrue(ins.isActivated());
 	}
 
 	@Test
 	public void testNotActivateOnOneShapeNotGroupSelected() {
-		selectOneShape.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectOneShape).execute();
 		assertFalse(ins.isActivated());
 	}
 
 	@Test
 	public void testNotVisibleOnOneShapeNotGroupSelected() {
-		selectOneShape.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectOneShape).execute();
 		assertFalse(mainPane.isVisible());
 	}
 
@@ -113,8 +109,7 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	public void testNotVisiblePencil() {
 		when(pencil.isActivated()).thenReturn(true);
 		when(hand.isActivated()).thenReturn(false);
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		assertFalse(mainPane.isVisible());
 	}
 
@@ -122,25 +117,22 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 	public void testNotActivatedPencil() {
 		when(pencil.isActivated()).thenReturn(true);
 		when(hand.isActivated()).thenReturn(false);
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		assertFalse(ins.isActivated());
 	}
 
 	@Test
 	public void testGroupTwoShapes() {
-		new CompositeGUIVoidCommand(selectTwoShapes, clickGroup).execute();
+		Cmds.of(selectTwoShapes, clickGroup).execute();
 		assertEquals(1, drawing.size());
-		waitFXEvents.execute();
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Group);
 	}
 
 	@Test
 	public void testUnGroup() {
-		selectOneGroup.execute();
+		Cmds.of(selectOneGroup).execute();
 		final Group group = (Group) drawing.getShapeAt(0).orElseThrow();
-		clickSep.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickSep).execute();
 		assertEquals(2, drawing.size());
 		assertEquals(group.getShapeAt(0).orElseThrow(), drawing.getShapeAt(0).orElseThrow());
 		assertEquals(group.getShapeAt(1).orElseThrow(), drawing.getShapeAt(1).orElseThrow());

@@ -13,7 +13,6 @@ package net.sf.latexdraw.view.jfx;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -29,14 +28,6 @@ import net.sf.latexdraw.util.Flushable;
  * @author Arnaud Blouin
  */
 public abstract class ViewShape<S extends Shape> extends Group implements Flushable {
-	protected static void checkToExecuteOnUIThread(final Runnable cmd) {
-		if(Platform.isFxApplicationThread()) {
-			cmd.run();
-		}else {
-			Platform.runLater(cmd);
-		}
-	}
-
 	/** The model of the view. */
 	protected final S model;
 

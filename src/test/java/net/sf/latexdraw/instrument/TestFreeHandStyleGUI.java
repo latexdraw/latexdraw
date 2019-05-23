@@ -9,9 +9,9 @@ public abstract class TestFreeHandStyleGUI extends TestShapePropGUI<ShapeFreeHan
 	protected ComboBox<FreeHandStyle> freeHandType;
 	protected Spinner<Integer> gapPoints;
 
-	protected final GUIVoidCommand selectLineStyle = () -> selectGivenComboBoxItem(freeHandType, FreeHandStyle.LINES);
-	protected final GUIVoidCommand selectCurveStyle = () -> selectGivenComboBoxItem(freeHandType, FreeHandStyle.CURVES);
-	protected final GUIVoidCommand incrementgapPoints = () -> incrementSpinner(gapPoints);
+	protected final CmdVoid selectLineStyle = () -> selectGivenComboBoxItem(freeHandType, FreeHandStyle.LINES);
+	protected final CmdVoid selectCurveStyle = () -> selectGivenComboBoxItem(freeHandType, FreeHandStyle.CURVES);
+	protected final CmdVoid incrementgapPoints = () -> incrementSpinner(gapPoints);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

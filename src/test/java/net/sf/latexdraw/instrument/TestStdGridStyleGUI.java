@@ -12,20 +12,20 @@ public abstract class TestStdGridStyleGUI extends TestShapePropGUI<ShapeStdGridC
 	protected Spinner<Double> xOriginS;
 	protected Spinner<Double> yOriginS;
 
-	protected final GUIVoidCommand decrementxStartS = () -> decrementSpinner(xStartS);
-	protected final GUIVoidCommand decrementyStartS = () -> decrementSpinner(yStartS);
-	protected final GUIVoidCommand incrementxEndS = () -> incrementSpinner(xEndS);
-	protected final GUIVoidCommand incrementyEndS = () -> incrementSpinner(yEndS);
-	protected final GUIVoidCommand incrementlabelsSizeS = () -> incrementSpinner(labelsSizeS);
-	protected final GUIVoidCommand incrementxOriginS = () -> incrementSpinner(xOriginS);
-	protected final GUIVoidCommand incrementyOriginS = () -> incrementSpinner(yOriginS);
-	protected final GUIVoidCommand scrollxStartS = () -> scrollOnSpinner(xStartS, -2);
-	protected final GUIVoidCommand scrollyStartS = () -> scrollOnSpinner(yStartS, -2);
-	protected final GUIVoidCommand scrollxEndS = () -> scrollOnSpinner(xEndS, -2);
-	protected final GUIVoidCommand scrollyEndS = () -> scrollOnSpinner(yEndS, -2);
-	protected final GUIVoidCommand scrolllabelsSizeS = () -> scrollOnSpinner(labelsSizeS, -2);
-	protected final GUIVoidCommand scrollxOriginS = () -> scrollOnSpinner(xOriginS, -2);
-	protected final GUIVoidCommand scrollyOriginS = () -> scrollOnSpinner(yOriginS, -2);
+	protected final CmdVoid decrementxStartS = () -> decrementSpinner(xStartS);
+	protected final CmdVoid decrementyStartS = () -> decrementSpinner(yStartS);
+	protected final CmdVoid incrementxEndS = () -> incrementSpinner(xEndS);
+	protected final CmdVoid incrementyEndS = () -> incrementSpinner(yEndS);
+	protected final CmdVoid incrementlabelsSizeS = () -> incrementSpinner(labelsSizeS);
+	protected final CmdVoid incrementxOriginS = () -> incrementSpinner(xOriginS);
+	protected final CmdVoid incrementyOriginS = () -> incrementSpinner(yOriginS);
+	protected final CmdVoid scrollxStartS = () -> scrollOnSpinner(xStartS, -2);
+	protected final CmdVoid scrollyStartS = () -> scrollOnSpinner(yStartS, -2);
+	protected final CmdVoid scrollxEndS = () -> scrollOnSpinner(xEndS, -2);
+	protected final CmdVoid scrollyEndS = () -> scrollOnSpinner(yEndS, -2);
+	protected final CmdVoid scrolllabelsSizeS = () -> scrollOnSpinner(labelsSizeS, -2);
+	protected final CmdVoid scrollxOriginS = () -> scrollOnSpinner(xOriginS, -2);
+	protected final CmdVoid scrollyOriginS = () -> scrollOnSpinner(yOriginS, -2);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

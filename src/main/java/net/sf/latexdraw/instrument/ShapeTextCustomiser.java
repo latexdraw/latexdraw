@@ -17,14 +17,12 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
-import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.command.LatexProperties;
 import net.sf.latexdraw.command.ModifyLatexProperties;
 import net.sf.latexdraw.command.shape.ShapeProperties;
@@ -35,6 +33,7 @@ import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.TextPosition;
 import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.service.LaTeXDataService;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
@@ -99,7 +98,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 			}
 
 			// Updating the log field.
-			Platform.runLater(() -> shape.getShapes().stream().filter(sh -> sh instanceof Text &&
+			shape.getShapes().stream().filter(sh -> sh instanceof Text &&
 				canvas.getViewFromShape(sh).orElse(null) instanceof ViewText &&
 				((ViewText) canvas.getViewFromShape(sh).get()).getCompilationData().isPresent()).findFirst().ifPresent(txt -> {
 					final ViewText view = (ViewText) canvas.getViewFromShape(txt).get();
@@ -117,7 +116,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 					}
 
 					logField.setText(view.getCompilationData().orElse(""));
-				}));
+				});
 		}else {
 			setActivated(false);
 		}

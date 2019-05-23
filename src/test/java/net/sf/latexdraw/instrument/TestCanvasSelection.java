@@ -19,7 +19,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -30,11 +29,11 @@ import static org.mockito.Mockito.when;
 public class TestCanvasSelection extends BaseTestCanvas {
 	TextSetter setter;
 
-	final GUIVoidCommand clickOnAddedFirstShape = () -> rightClickOn(getPane().getChildren().get(0));
+	final CmdVoid clickOnAddedFirstShape = () -> rightClickOn(getPane().getChildren().get(0));
 
-	final GUIVoidCommand ctrlClickOnAddedRec2 = () -> press(KeyCode.CONTROL).rightClickOn(getPane().getChildren().get(1)).release(KeyCode.CONTROL);
+	final CmdVoid ctrlClickOnAddedRec2 = () -> press(KeyCode.CONTROL).rightClickOn(getPane().getChildren().get(1)).release(KeyCode.CONTROL);
 
-	final GUIVoidCommand shiftClickOnAddedRec = () -> press(KeyCode.SHIFT).rightClickOn(getPane().getChildren().get(0)).release(KeyCode.SHIFT);
+	final CmdVoid shiftClickOnAddedRec = () -> press(KeyCode.SHIFT).rightClickOn(getPane().getChildren().get(0)).release(KeyCode.SHIFT);
 
 	@Override
 	protected Injector createInjector() {
@@ -62,43 +61,43 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	public void setUp() throws Exception {
 		super.setUp();
 		setter = injector.getInstance(TextSetter.class);
-		Platform.runLater(() -> setter.initialize(null, null));
-		hand.setActivated(true);
+		Platform.runLater(() -> {
+			setter.initialize(null, null);
+			hand.setActivated(true);
+		});
 		when(pencil.isActivated()).thenReturn(false);
 	}
 
 	@Test
 	public void testOneClickOnShapeSelectsIt() {
-		new CompositeGUIVoidCommand(addRec, clickOnAddedFirstShape).execute();
+		Cmds.of(addRec, clickOnAddedFirstShape).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
 	public void testClickOnCanvasUnselects() {
-		new CompositeGUIVoidCommand(addRec, clickOnAddedFirstShape).execute();
-		clickOn(canvas);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(addRec, clickOnAddedFirstShape, () -> clickOn(canvas)).execute();
 		assertTrue(canvas.getDrawing().getSelection().isEmpty());
 	}
 
 	@Test
 	public void testTwoClicksOnShapeSelectsItOneTime() {
-		new CompositeGUIVoidCommand(addRec, clickOnAddedFirstShape, clickOnAddedFirstShape).execute();
+		Cmds.of(addRec, clickOnAddedFirstShape, clickOnAddedFirstShape).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 	}
 
 	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testShiftClickOnShapeDeselectsIt() {
-		new CompositeGUIVoidCommand(addRec, clickOnAddedFirstShape, shiftClickOnAddedRec).execute();
+		Cmds.of(addRec, clickOnAddedFirstShape, shiftClickOnAddedRec).execute();
 		assertTrue(canvas.getDrawing().getSelection().isEmpty());
 	}
 
 	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testCtrlClickOnShapeAddsSelection() {
-		new CompositeGUIVoidCommand(addRec, addRec2, clickOnAddedFirstShape, ctrlClickOnAddedRec2).execute();
+		Cmds.of(addRec, addRec2, clickOnAddedFirstShape, ctrlClickOnAddedRec2).execute();
 		assertEquals(2, canvas.getDrawing().getSelection().size());
 		assertNotSame(canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow(), canvas.getDrawing().getSelection().getShapeAt(1).orElseThrow());
 	}
@@ -106,7 +105,7 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testTwoAddsAndShiftClickSelectsOneShape() {
-		new CompositeGUIVoidCommand(addRec, addRec2, clickOnAddedFirstShape, ctrlClickOnAddedRec2,
+		Cmds.of(addRec, addRec2, clickOnAddedFirstShape, ctrlClickOnAddedRec2,
 			shiftClickOnAddedRec).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertNotSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
@@ -115,35 +114,34 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testCtrlASelectAll() {
-		new CompositeGUIVoidCommand(addRec, addRec2).execute();
-		clickOn(canvas).press(KeyCode.CONTROL).type(KeyCode.A).release(KeyCode.CONTROL);
-		waitFXEvents.execute();
+		Cmds.of(addRec, addRec2,
+			() -> clickOn(canvas).press(KeyCode.CONTROL).type(KeyCode.A).release(KeyCode.CONTROL)).execute();
 		assertEquals(2, canvas.getDrawing().getSelection().size());
 	}
 
 	@Test
 	public void testClickArrowSelectsShape() {
-		new CompositeGUIVoidCommand(addLines).execute();
+		Cmds.of(addLines).execute();
 		final ViewPolyline vlines = (ViewPolyline) getPane().getChildren().get(0);
-		new CompositeGUIVoidCommand(() -> clickOn(vlines.lookup("#" + ViewArrow.ID))).execute();
+		Cmds.of(() -> clickOn(vlines.lookup("#" + ViewArrow.ID))).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
 	public void testClickPlotSelectsShape() {
-		new CompositeGUIVoidCommand(addPlot).execute();
+		Cmds.of(addPlot).execute();
 		final ViewPlot vplot = (ViewPlot) getPane().getChildren().get(0);
-		new CompositeGUIVoidCommand(() -> clickOn(vplot)).execute();
+		Cmds.of(() -> clickOn(vplot)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedPlot, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test
 	public void testClickInsideEmptyShapeDoesNotSelectIt() {
-		new CompositeGUIVoidCommand(addLines).execute();
+		Cmds.of(addLines).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
-		new CompositeGUIVoidCommand(() -> clickOn(canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() + bounds.getWidth() / 2d,
+		Cmds.of(() -> clickOn(canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() + bounds.getWidth() / 2d,
 			canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY() + bounds.getHeight() / 2d),
 			waitFXEvents).execute();
 		assertTrue(canvas.getDrawing().getSelection().isEmpty());
@@ -151,31 +149,31 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 	@Test
 	public void testDnDInsideEmptyShapeDoesNotSelectIt() {
-		new CompositeGUIVoidCommand(addLines).execute();
+		Cmds.of(addLines).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() + bounds.getWidth() / 2d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY() + bounds.getHeight() / 2d;
-		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 5, y + 5)).execute();
+		Cmds.of(() -> clickOn(x, y), () -> drag(x + 5, y + 5)).execute();
 		assertTrue(canvas.getDrawing().getSelection().isEmpty());
 	}
 
 	@Test
 	public void testClickInsideBOundsButOutsideShapeDoesNotSelectIt() {
-		new CompositeGUIVoidCommand(addLines).execute();
+		Cmds.of(addLines).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMaxX() - 5;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY() + 5;
-		new CompositeGUIVoidCommand(() -> clickOn(x, y)).execute();
+		Cmds.of(() -> clickOn(x, y)).execute();
 		assertTrue(canvas.getDrawing().getSelection().isEmpty());
 	}
 
 	@Test
 	public void testDnDToSelectShapeSelectsIt() {
-		new CompositeGUIVoidCommand(addLines).execute();
+		Cmds.of(addLines).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() + bounds.getWidth() / 2d - 20d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY() + bounds.getHeight() / 2d;
-		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 10),
+		Cmds.of(() -> clickOn(x, y), () -> drag(x + 10, y + 10),
 			() -> drag(x + 50, y), () -> drag(x + 100, y)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
@@ -183,11 +181,11 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 	@Test
 	public void testDnDToSelectShapeSelectsIt2() {
-		new CompositeGUIVoidCommand(addLines).execute();
+		Cmds.of(addLines).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() - 10d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY();
-		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 10),
+		Cmds.of(() -> clickOn(x, y), () -> drag(x + 10, y + 10),
 			() -> drag(x + 60, y + 10), () -> drag(x + 70, y + 10)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedPolyline, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
@@ -195,11 +193,11 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 	@Test
 	public void testDnDToSelectRecOutToIn() {
-		new CompositeGUIVoidCommand(addRec).execute();
+		Cmds.of(addRec).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() - 20d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY();
-		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
+		Cmds.of(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 50, y + 20), () -> drag(x + 100, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
@@ -207,11 +205,11 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 	@Test
 	public void testDnDToSelectRecInsideFill() {
-		new CompositeGUIVoidCommand(addRec).execute();
+		Cmds.of(addRec).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() + bounds.getWidth() / 2d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY() + bounds.getHeight() / 2d;
-		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
+		Cmds.of(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 50, y + 20), () -> drag(x + 100, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
@@ -219,23 +217,22 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 	@Test
 	public void testDnDToNotSelectRecInsideEmpty() {
-		new CompositeGUIVoidCommand(addRec).execute();
-		addedRec.setFillingStyle(FillingStyle.NONE);
+		Cmds.of(addRec, CmdFXVoid.of(() -> addedRec.setFillingStyle(FillingStyle.NONE))).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() + bounds.getWidth() / 2d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY() + bounds.getHeight() / 2d;
-		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
+		Cmds.of(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 50, y + 20), () -> drag(x + 60, y + 20)).execute();
 		assertTrue(canvas.getDrawing().getSelection().isEmpty());
 	}
 
 	@Test
 	public void testDnDToSelectGroup() {
-		new CompositeGUIVoidCommand(addGroup).execute();
+		Cmds.of(addGroup).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInLocal();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() - 20d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY();
-		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
+		Cmds.of(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 50, y + 20), () -> drag(x + 60, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedGroup, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
@@ -243,11 +240,11 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 	@Test
 	public void testDnDToSelectGrid() {
-		new CompositeGUIVoidCommand(addGrid).execute();
+		Cmds.of(addGrid).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() - 20d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY();
-		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
+		Cmds.of(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 50, y + 20), () -> drag(x + 60, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedGrid, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
@@ -255,13 +252,11 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 	@Test
 	public void testDnDToSelectRecOutToInRotated() {
-		new CompositeGUIVoidCommand(addRec).execute();
-		addedRec.setRotationAngle(Math.PI / 8d);
-		waitFXEvents.execute();
+		Cmds.of(addRec, CmdFXVoid.of(() -> addedRec.setRotationAngle(Math.PI / 8d))).execute();
 		final Bounds bounds = getPane().getChildren().get(0).getBoundsInParent();
 		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() - 20d;
 		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY();
-		new CompositeGUIVoidCommand(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
+		Cmds.of(() -> clickOn(x, y), () -> drag(x + 10, y + 20),
 			() -> drag(x + 60, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
@@ -271,14 +266,11 @@ public class TestCanvasSelection extends BaseTestCanvas {
 	public void testEditTextDoesNotCreateANewOne() {
 		when(editing.getCurrentChoice()).thenReturn(EditionChoice.TEXT);
 		when(editing.createShapeInstance()).thenReturn(ShapeFactory.INST.createText());
-		new CompositeGUIVoidCommand(addText).execute();
+		Cmds.of(addText).execute();
 		final ViewText v = (ViewText) canvas.getViews().getChildren().get(0);
-		doubleClickOn(v);
-		waitFXEvents.execute();
-		write("@bar bar");
-		waitFXEvents.execute();
-		type(KeyCode.ENTER);
-		waitFXEvents.execute();
+		Cmds.of(() -> doubleClickOn(v),
+			() -> write("@bar bar"),
+			() -> type(KeyCode.ENTER)).execute();
 		assertEquals(1, canvas.getDrawing().size());
 		assertEquals(1, canvas.getViews().getChildren().size());
 	}
@@ -295,14 +287,13 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		when(plot.minXSpinner.getValue()).thenReturn(0d);
 		when(plot.nbPtsSpinner.getValue()).thenReturn(10);
 
-		new CompositeGUIVoidCommand(addPlot).execute();
+		Cmds.of(addPlot).execute();
 		final ViewPlot v = (ViewPlot) canvas.getViews().getChildren().get(0);
-		doubleClickOn(v);
-		waitFXEvents.execute();
-		type(KeyCode.DELETE).write("x 2 mul");
-		waitFXEvents.execute();
-		type(KeyCode.ENTER);
-		waitFXEvents.execute();
+
+		Cmds.of(() -> doubleClickOn(v),
+			() -> type(KeyCode.DELETE).write("x 2 mul"),
+			() -> type(KeyCode.ENTER)).execute();
+
 		assertEquals(1, canvas.getDrawing().size());
 		assertEquals(1, canvas.getViews().getChildren().size());
 	}

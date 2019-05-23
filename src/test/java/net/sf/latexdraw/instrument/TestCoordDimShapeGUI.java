@@ -7,8 +7,8 @@ public abstract class TestCoordDimShapeGUI extends TestShapePropGUI<ShapeCoordDi
 	protected Spinner<Double> tlxS;
 	protected Spinner<Double> tlyS;
 
-	protected final GUIVoidCommand incrementX = () -> incrementSpinner(tlxS);
-	protected final GUIVoidCommand incrementY = () -> incrementSpinner(tlyS);
+	protected final CmdVoid incrementX = () -> incrementSpinner(tlxS);
+	protected final CmdVoid incrementY = () -> incrementSpinner(tlyS);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

@@ -15,13 +15,13 @@ public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomi
 	protected CheckBox polarCB;
 	protected ComboBox<PlotStyle> plotStyleCB;
 
-	protected final GUICommand<PlotStyle> selectplotStyleCB = style -> selectGivenComboBoxItem(plotStyleCB, style);
-	protected final GUIVoidCommand incrementnbPtsSpinner = () -> incrementSpinner(nbPtsSpinner);
-	protected final GUIVoidCommand incrementminXSpinner = () -> incrementSpinner(minXSpinner);
-	protected final GUIVoidCommand incrementmaxXSpinner = () -> incrementSpinner(maxXSpinner);
-	protected final GUIVoidCommand incrementxScaleSpinner = () -> incrementSpinner(xScaleSpinner);
-	protected final GUIVoidCommand incrementyScaleSpinner = () -> incrementSpinner(yScaleSpinner);
-	protected final GUIVoidCommand clickpolarCB = () -> clickOn(polarCB);
+	protected final Cmd<PlotStyle> selectplotStyleCB = style -> selectGivenComboBoxItem(plotStyleCB, style);
+	protected final CmdVoid incrementnbPtsSpinner = () -> incrementSpinner(nbPtsSpinner);
+	protected final CmdVoid incrementminXSpinner = () -> incrementSpinner(minXSpinner);
+	protected final CmdVoid incrementmaxXSpinner = () -> incrementSpinner(maxXSpinner);
+	protected final CmdVoid incrementxScaleSpinner = () -> incrementSpinner(xScaleSpinner);
+	protected final CmdVoid incrementyScaleSpinner = () -> incrementSpinner(yScaleSpinner);
+	protected final CmdVoid clickpolarCB = () -> clickOn(polarCB);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

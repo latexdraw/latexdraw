@@ -3,7 +3,7 @@ package net.sf.latexdraw.instrument.pencil;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -45,32 +45,31 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns, checkInsActivated).execute();
+		Cmds.of(activatePencil, pencilCreatesPlot, updateIns, checkInsActivated).execute();
 	}
 
 	@Test
 	public void testControllerNotActivatedWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesPlot, updateIns).execute();
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testSelectDOTSStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesPlot, updateIns).execute();
 		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
-		selectplotStyleCB.execute(PlotStyle.DOTS);
-		waitFXEvents.execute();
+		Cmds.of(() -> selectplotStyleCB.execute(PlotStyle.DOTS)).execute();
 		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((Plot) editing.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
@@ -78,10 +77,9 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 
 	@Test
 	public void testSelectCCURVEStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesPlot, updateIns).execute();
 		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
-		selectplotStyleCB.execute(PlotStyle.CCURVE);
-		waitFXEvents.execute();
+		Cmds.of(() -> selectplotStyleCB.execute(PlotStyle.CCURVE)).execute();
 		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((Plot) editing.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
@@ -89,10 +87,9 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 
 	@Test
 	public void testSelectPOLYGONStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesPlot, updateIns).execute();
 		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
-		selectplotStyleCB.execute(PlotStyle.POLYGON);
-		waitFXEvents.execute();
+		Cmds.of(() -> selectplotStyleCB.execute(PlotStyle.POLYGON)).execute();
 		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((Plot) editing.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
@@ -100,10 +97,9 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 
 	@Test
 	public void testSelectECURVEStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesPlot, updateIns).execute();
 		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
-		selectplotStyleCB.execute(PlotStyle.ECURVE);
-		waitFXEvents.execute();
+		Cmds.of(() -> selectplotStyleCB.execute(PlotStyle.ECURVE)).execute();
 		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((Plot) editing.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
@@ -111,12 +107,9 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 
 	@Test
 	public void testSelectCURVEStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
-		selectplotStyleCB.execute(PlotStyle.ECURVE);
-		waitFXEvents.execute();
+		Cmds.of(activatePencil, pencilCreatesPlot, updateIns, () -> selectplotStyleCB.execute(PlotStyle.ECURVE)).execute();
 		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
-		selectplotStyleCB.execute(PlotStyle.CURVE);
-		waitFXEvents.execute();
+		Cmds.of(() -> selectplotStyleCB.execute(PlotStyle.CURVE)).execute();
 		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((Plot) editing.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
@@ -124,10 +117,9 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 
 	@Test
 	public void testSelectLINEStylePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesPlot, updateIns).execute();
 		final PlotStyle style = plotStyleCB.getSelectionModel().getSelectedItem();
-		selectplotStyleCB.execute(PlotStyle.LINE);
-		waitFXEvents.execute();
+		Cmds.of(() -> selectplotStyleCB.execute(PlotStyle.LINE)).execute();
 		final PlotStyle newStyle = plotStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((Plot) editing.createShapeInstance()).getPlotStyle());
 		assertNotEquals(style, newStyle);
@@ -135,40 +127,39 @@ public class TestPencilPlotStyle extends TestPlotStyleGUI {
 
 	@Test
 	public void testIncrementnbPtsSpinnerPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns), nbPtsSpinner,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesPlot, updateIns), nbPtsSpinner,
 			incrementnbPtsSpinner, Collections.singletonList(() ->  ((Plot) editing.createShapeInstance()).getNbPlottedPoints()));
 	}
 
 	@Test
 	public void testIncrementminXSpinnerPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns), minXSpinner,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesPlot, updateIns), minXSpinner,
 			incrementminXSpinner, Collections.singletonList(() ->  ((Plot) editing.createShapeInstance()).getPlotMinX()));
 	}
 
 	@Test
 	public void testIncrementmaxXSpinnerPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns), maxXSpinner,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesPlot, updateIns), maxXSpinner,
 			incrementmaxXSpinner, Collections.singletonList(() ->  ((Plot) editing.createShapeInstance()).getPlotMaxX()));
 	}
 
 	@Test
 	public void testIncrementxScaleSpinnerPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns), xScaleSpinner,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesPlot, updateIns), xScaleSpinner,
 			incrementxScaleSpinner, Collections.singletonList(() ->  ((Plot) editing.createShapeInstance()).getXScale()));
 	}
 
 	@Test
 	public void testIncrementyScaleSpinnerPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns), yScaleSpinner,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesPlot, updateIns), yScaleSpinner,
 			incrementyScaleSpinner, Collections.singletonList(() ->  ((Plot) editing.createShapeInstance()).getYScale()));
 	}
 
 	@Test
 	public void testSelectpolarCBPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPlot, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesPlot, updateIns).execute();
 		final boolean sel = polarCB.isSelected();
-		clickpolarCB.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickpolarCB).execute();
 		assertEquals(!sel, ((Plot) editing.createShapeInstance()).isPolar());
 		assertNotEquals(sel, polarCB.isSelected());
 	}

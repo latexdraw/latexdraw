@@ -25,22 +25,22 @@ public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCusto
 	protected AnchorPane bracketPane;
 	protected AnchorPane rbracketPane;
 
-	protected final GUICommand<ArrowStyle> selectArrowLeftCB = style -> selectGivenComboBoxItem(arrowLeftCB, style);
-	protected final GUICommand<ArrowStyle> selectArrowRightCB = style -> selectGivenComboBoxItem(arrowRightCB, style);
-	protected final GUIVoidCommand incrementdotSizeNum = () -> incrementSpinner(dotSizeNum);
-	protected final GUIVoidCommand incrementdotSizeDim = () -> incrementSpinner(dotSizeDim);
-	protected final GUIVoidCommand incrementbracketNum = () -> incrementSpinner(bracketNum);
-	protected final GUIVoidCommand incrementrbracketNum = () -> incrementSpinner(rbracketNum);
-	protected final GUIVoidCommand incrementtbarsizeNum = () -> incrementSpinner(tbarsizeNum);
-	protected final GUIVoidCommand incrementtbarsizeDim = () -> incrementSpinner(tbarsizeDim);
-	protected final GUIVoidCommand incrementarrowSizeDim = () -> incrementSpinner(arrowSizeDim);
-	protected final GUIVoidCommand incrementarrowSizeNum = () -> incrementSpinner(arrowSizeNum);
-	protected final GUIVoidCommand incrementarrowLength = () -> incrementSpinner(arrowLength);
-	protected final GUIVoidCommand incrementarrowInset = () -> incrementSpinner(arrowInset);
-	protected final GUIVoidCommand selectArrowStyleArrow = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.LEFT_ARROW);
-	protected final GUIVoidCommand selectArrowStyleRBrack = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.LEFT_ROUND_BRACKET);
-	protected final GUIVoidCommand selectArrowStyleSBrack = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.LEFT_SQUARE_BRACKET);
-	protected final GUIVoidCommand selectArrowStyleDot = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.DISK_END);
+	protected final Cmd<ArrowStyle> selectArrowLeftCB = style -> selectGivenComboBoxItem(arrowLeftCB, style);
+	protected final Cmd<ArrowStyle> selectArrowRightCB = style -> selectGivenComboBoxItem(arrowRightCB, style);
+	protected final CmdVoid incrementdotSizeNum = () -> incrementSpinner(dotSizeNum);
+	protected final CmdVoid incrementdotSizeDim = () -> incrementSpinner(dotSizeDim);
+	protected final CmdVoid incrementbracketNum = () -> incrementSpinner(bracketNum);
+	protected final CmdVoid incrementrbracketNum = () -> incrementSpinner(rbracketNum);
+	protected final CmdVoid incrementtbarsizeNum = () -> incrementSpinner(tbarsizeNum);
+	protected final CmdVoid incrementtbarsizeDim = () -> incrementSpinner(tbarsizeDim);
+	protected final CmdVoid incrementarrowSizeDim = () -> incrementSpinner(arrowSizeDim);
+	protected final CmdVoid incrementarrowSizeNum = () -> incrementSpinner(arrowSizeNum);
+	protected final CmdVoid incrementarrowLength = () -> incrementSpinner(arrowLength);
+	protected final CmdVoid incrementarrowInset = () -> incrementSpinner(arrowInset);
+	protected final CmdVoid selectArrowStyleArrow = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.LEFT_ARROW);
+	protected final CmdVoid selectArrowStyleRBrack = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.LEFT_ROUND_BRACKET);
+	protected final CmdVoid selectArrowStyleSBrack = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.LEFT_SQUARE_BRACKET);
+	protected final CmdVoid selectArrowStyleDot = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.DISK_END);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

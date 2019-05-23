@@ -110,7 +110,7 @@ public class TestExporter extends BaseTestCanvas {
 
 	@Test
 	public void testExportOnShapeAdded() {
-		new CompositeGUIVoidCommand(addRec).execute();
+		Cmds.of(addRec).execute();
 		assertTrue(exporter.isActivated());
 		assertFalse(exporter.exportMenu.isDisabled());
 	}
@@ -118,27 +118,27 @@ public class TestExporter extends BaseTestCanvas {
 
 	@Test
 	public void testExportTemplateKOOnNoSelection() {
-		new CompositeGUIVoidCommand(addRec).execute();
+		Cmds.of(addRec).execute();
 		assertTrue(exporter.exportTemplateMenu.isDisable());
 	}
 
 	@Test
 	public void testExportTemplateOKOnSelection() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		assertFalse(exporter.exportTemplateMenu.isDisable());
 	}
 
 	@Theory
 	public void testExportPicture(@StringData(vals = {"#menuItemBMP", "#menuItemPST", "#menuItemPNG",
 		"#menuItemBMP", "#menuItemPDF", "#menuItemEPSLatex", "#menuItemPDFcrop"}) final String widgetID) {
-		new CompositeGUIVoidCommand(addRec, () -> clickOn(exporter.exportMenu), () -> clickOn(widgetID)).execute();
+		Cmds.of(addRec, () -> clickOn(exporter.exportMenu), () -> clickOn(widgetID)).execute();
 		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
 		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof Export);
 	}
 
 	@Test
 	public void testExportTemplateNotExits() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes, () -> clickOn(exporter.exportMenu), () -> clickOn("#exportTemplateMenu"),
+		Cmds.of(addRec, selectAllShapes, () -> clickOn(exporter.exportMenu), () -> clickOn("#exportTemplateMenu"),
 			() -> write("fooo2"), () -> type(KeyCode.ENTER), () -> type(KeyCode.ENTER)).execute();
 		assertEquals(2, CommandsRegistry.INSTANCE.getCommands().size());
 		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(1) instanceof ExportTemplate);

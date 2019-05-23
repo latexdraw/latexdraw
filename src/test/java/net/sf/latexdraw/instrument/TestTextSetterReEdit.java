@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
-import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
@@ -15,13 +14,19 @@ import net.sf.latexdraw.view.jfx.ViewShape;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestTextSetterReEdit extends BaseTestCanvas {
 	TextSetter setter;
+	Plot plot;
+
+	final CmdFXVoid setPlot = () -> {
+		plot.setNbPlottedPoints(5);
+		hand.canvas.getDrawing().addShape(plot);
+	};
+	final CmdVoid clickPlot = () -> doubleClickOn(hand.canvas.getViewFromShape(plot).get(), MouseButton.PRIMARY);
 
 	@Override
 	protected Injector createInjector() {
@@ -47,56 +52,38 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 		super.setUp();
 		setter = injector.getInstance(TextSetter.class);
 		final EditingService editing = injector.getInstance(EditingService.class);
-		editing.getGroupParams().setPlotMinX(0d);
-		editing.getGroupParams().setPlotMaxX(10d);
-		editing.getGroupParams().setNbPlottedPoints(10);
-		editing.setCurrentChoice(EditionChoice.HAND);
-		hand.setActivated(true);
-		Platform.runLater(() -> setter.initialize(null, null));
-		WaitForAsyncUtils.waitForFxEvents(100);
-		canvas.toFront();
+		Cmds.of(CmdFXVoid.of(() -> {
+			editing.getGroupParams().setPlotMinX(0d);
+			editing.getGroupParams().setPlotMaxX(10d);
+			editing.getGroupParams().setNbPlottedPoints(10);
+			editing.setCurrentChoice(EditionChoice.HAND);
+			hand.setActivated(true);
+			setter.initialize(null, null);
+			canvas.toFront();
+		})).execute();
+		plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 300), 0, 3, "x 2.5 div", false);
 	}
 
 	@Test
 	public void testEditText() {
 		final Text txt = ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 200), "$gridGapProp");
-		Platform.runLater(() -> hand.canvas.getDrawing().addShape(txt));
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> hand.canvas.getDrawing().addShape(txt))).execute();
 		final ViewShape<?> view = hand.canvas.getViewFromShape(txt).orElseThrow();
-		doubleClickOn(view, MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		type(KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.ENTER);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(() -> doubleClickOn(view, MouseButton.PRIMARY), () -> type(KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.ENTER)).execute();
 		assertEquals("abc$gridGapProp", txt.getText());
 	}
 
 	@Test
 	public void testEditPlot() {
-		final Plot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 300),
+		plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 300),
 			0, 2, "x 2.5 div", false);
-		plot.setNbPlottedPoints(5);
-		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
-		WaitForAsyncUtils.waitForFxEvents();
-		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
-		doubleClickOn(view, MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		type(KeyCode.END).eraseText(10).write("x x mul").type(KeyCode.ENTER);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(setPlot, clickPlot, () -> type(KeyCode.END).eraseText(10).write("x x mul").type(KeyCode.ENTER)).execute();
 		assertEquals("x x mul", plot.getPlotEquation());
 	}
 
 	@Test
 	public void testEditBadPlot1() {
-		final Plot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 300),
-			0, 3, "x 2.5 div", false);
-		plot.setNbPlottedPoints(5);
-		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
-		WaitForAsyncUtils.waitForFxEvents();
-		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
-		doubleClickOn(view, MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		type(KeyCode.END).eraseText(10).write("y").type(KeyCode.ENTER);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(setPlot, clickPlot, () -> type(KeyCode.END).eraseText(10).write("y").type(KeyCode.ENTER)).execute();
 		assertTrue(setter.getTextField().isVisible());
 		assertTrue(setter.getTextField().getMessageField().isVisible());
 		assertEquals("x 2.5 div", plot.getPlotEquation());
@@ -104,16 +91,7 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 
 	@Test
 	public void testEditBadPlotLog() {
-		final Plot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 300),
-			0, 3, "x 2.5 div", false);
-		plot.setNbPlottedPoints(5);
-		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
-		WaitForAsyncUtils.waitForFxEvents();
-		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
-		doubleClickOn(view, MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		type(KeyCode.END).eraseText(10).write("x log").type(KeyCode.ENTER);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(setPlot, clickPlot, () -> type(KeyCode.END).eraseText(10).write("x log").type(KeyCode.ENTER)).execute();
 		assertTrue(setter.getTextField().isVisible());
 		assertTrue(setter.getTextField().getMessageField().isVisible());
 		assertEquals("x 2.5 div", plot.getPlotEquation());
@@ -121,16 +99,7 @@ public class TestTextSetterReEdit extends BaseTestCanvas {
 
 	@Test
 	public void testEditBadPlotDiv0() {
-		final Plot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 100, -Canvas.ORIGIN.getY() + 300),
-			0, 3, "x 2.5 div", false);
-		plot.setNbPlottedPoints(5);
-		Platform.runLater(() -> hand.canvas.getDrawing().addShape(plot));
-		WaitForAsyncUtils.waitForFxEvents();
-		final ViewShape<?> view = hand.canvas.getViewFromShape(plot).get();
-		doubleClickOn(view, MouseButton.PRIMARY);
-		waitFXEvents.execute();
-		type(KeyCode.END).eraseText(10).write("x 0 div").type(KeyCode.ENTER);
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(setPlot, clickPlot, () -> type(KeyCode.END).eraseText(10).write("x 0 div").type(KeyCode.ENTER)).execute();
 		assertTrue(setter.getTextField().isVisible());
 		assertTrue(setter.getTextField().getMessageField().isVisible());
 		assertEquals("x 2.5 div", plot.getPlotEquation());

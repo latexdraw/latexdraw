@@ -36,6 +36,8 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 	Drawing drawing;
 	Hand hand;
 
+	final CmdVoid clickHand = () -> clickOn(selector.handB);
+
 	@Override
 	protected String getFXMLPathFromLatexdraw() {
 		return "/fxml/EditingModes.fxml";
@@ -139,8 +141,7 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 		final TextAreaAutoSize textfield = Mockito.mock(TextAreaAutoSize.class);
 		Mockito.when(textSetter.getTextField()).thenReturn(textfield);
 		Mockito.when(textSetter.isActivated()).thenReturn(false);
-		clickOn(selector.handB);
-		waitFXEvents.execute();
+		Cmds.of(clickHand).execute();
 		assertTrue(drawing.isEmpty());
 	}
 
@@ -150,8 +151,7 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 		Mockito.when(textSetter.getTextField()).thenReturn(textfield);
 		Mockito.when(textSetter.isActivated()).thenReturn(true);
 		Mockito.when(textfield.getText()).thenReturn("");
-		clickOn(selector.handB);
-		waitFXEvents.execute();
+		Cmds.of(clickHand).execute();
 		assertTrue(drawing.isEmpty());
 	}
 
@@ -162,8 +162,7 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 		Mockito.when(textSetter.isActivated()).thenReturn(true);
 		Mockito.when(textfield.getText()).thenReturn("gridGapProp");
 
-		clickOn(selector.handB);
-		waitFXEvents.execute();
+		Cmds.of(clickHand).execute();
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Text);
 		assertEquals("gridGapProp", ((Text) drawing.getShapeAt(0).orElseThrow()).getText());
@@ -171,8 +170,7 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 
 	@Test
 	public void testClickHandActivationNoSelection() {
-		clickOn(selector.handB);
-		waitFXEvents.execute();
+		Cmds.of(clickHand).execute();
 		Mockito.verify(pencil, Mockito.times(1)).setActivated(false, false);
 		Mockito.verify(injector.getInstance(Border.class), Mockito.times(1)).setActivated(false, false);
 		Mockito.verify(injector.getInstance(MetaShapeCustomiser.class), Mockito.times(1)).setActivated(false, false);
@@ -181,8 +179,7 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 	@Test
 	public void testClickHandActivationSelection() {
 		drawing.getSelection().addShape(ShapeFactory.INST.createRectangle());
-		clickOn(selector.handB);
-		waitFXEvents.execute();
+		Cmds.of(clickHand).execute();
 		Mockito.verify(injector.getInstance(ShapeDeleter.class), Mockito.times(1)).setActivated(true);
 		Mockito.verify(pencil, Mockito.times(1)).setActivated(false, false);
 		Mockito.verify(injector.getInstance(Border.class), Mockito.times(1)).setActivated(true);
@@ -191,8 +188,7 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 
 	@Test
 	public void testClickCodeInsert() {
-		clickOn(selector.codeB);
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn(selector.codeB)).execute();
 		Mockito.verify(injector.getInstance(Hand.class), Mockito.times(1)).setActivated(true);
 	}
 }

@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -46,33 +46,33 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelectionDot() {
-		new CompositeGUIVoidCommand(selectionAddDot, activateHand, updateIns).execute();
+		Cmds.of(selectionAddDot, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotDot() {
-		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
+		Cmds.of(selectionAddRec, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
+		Cmds.of(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testDotSizeSelection() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns), dotSizeField,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns), dotSizeField,
 			incrementDotSize, Arrays.asList(
 			() ->  ((Dot) drawing.getSelection().getShapeAt(0).orElseThrow()).getDiametre(),
 			() ->  ((Dot) drawing.getSelection().getShapeAt(2).orElseThrow()).getDiametre()));
@@ -80,10 +80,9 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 
 	@Test
 	public void testSelectDotStyleSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns).execute();
 		final DotStyle style = dotCB.getSelectionModel().getSelectedItem();
-		selectNextDotStyle.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectNextDotStyle).execute();
 		final DotStyle newStyle = dotCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((Dot) drawing.getSelection().getShapeAt(0).orElseThrow()).getDotStyle());
 		assertEquals(newStyle, ((Dot) drawing.getSelection().getShapeAt(2).orElseThrow()).getDotStyle());
@@ -92,7 +91,7 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 
 	@Test
 	public void testSelectFillingNotEnabledWhenNonFillableStyleSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, updateIns).execute();
 		setDotStyle.execute(DotStyle.ASTERISK);
 		waitFXEvents.execute();
 		assertTrue(fillingB.isDisabled());
@@ -100,16 +99,15 @@ public class TestHandDotStyle extends TestDotStyleGUI {
 
 	@Test
 	public void testSelectFillingEnabledWhenFillableStyleSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns, setDotStyleFillable).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddDot, updateIns, setDotStyleFillable).execute();
 		assertFalse(fillingB.isDisabled());
 	}
 
 	@Test
 	public void testPickLineColourSelection() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddBezier, selectionAddDot, setDotStyleFillable, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddBezier, selectionAddDot, setDotStyleFillable, updateIns).execute();
 		final Color col = fillingB.getValue();
-		pickFillingColour.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickFillingColour).execute();
 		assertEquals(fillingB.getValue(), ((Dot) drawing.getSelection().getShapeAt(0).orElseThrow()).getDotFillingCol().toJFX());
 		assertEquals(fillingB.getValue(), ((Dot) drawing.getSelection().getShapeAt(2).orElseThrow()).getDotFillingCol().toJFX());
 		assertNotEquals(col, fillingB.getValue());

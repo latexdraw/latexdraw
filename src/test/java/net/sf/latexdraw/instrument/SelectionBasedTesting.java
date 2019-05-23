@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends TestShapePropGUI<T> {
 	@Mock CmdHandler handler;
 
-	final GUIVoidCommand selectTwoShapes = () -> {
+	final CmdFXVoid selectTwoShapes = () -> {
 		drawing.addShape(ShapeFactory.INST.createCircle());
 		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(20, 30), 10));
 		drawing.setSelection(Arrays.asList(drawing.getShapeAt(0).orElseThrow(), drawing.getShapeAt(1).orElseThrow()));
@@ -31,7 +31,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		ins.update();
 	};
 
-	final GUIVoidCommand selectThreeShapes = () -> {
+	final CmdFXVoid selectThreeShapes = () -> {
 		drawing.addShape(ShapeFactory.INST.createCircle(ShapeFactory.INST.createPoint(1, 3), 11));
 		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(270, 335), 13));
 		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(412, 711), 15));
@@ -44,7 +44,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		ins.update();
 	};
 
-	final GUIVoidCommand selectOneShape = () -> {
+	final CmdFXVoid selectOneShape = () -> {
 		drawing.addShape(ShapeFactory.INST.createCircle());
 		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(-1).orElseThrow()));
 		final SelectShapes cmd = new SelectShapes(drawing);
@@ -53,7 +53,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		ins.update();
 	};
 
-	final GUICommand<List<Integer>> selectShapeAt = indexes -> {
+	final Cmd<List<Integer>> selectShapeAt = indexes -> {
 		final List<Shape> selectedShapes = indexes.stream().map(i -> drawing.getShapeAt(i).orElseThrow()).collect(Collectors.toList());
 		drawing.setSelection(selectedShapes);
 		final SelectShapes cmd = new SelectShapes(drawing);

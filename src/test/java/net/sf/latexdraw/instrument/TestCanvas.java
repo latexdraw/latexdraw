@@ -75,13 +75,13 @@ public class TestCanvas extends BaseTestCanvas {
 
 	@Test
 	public void testShapeAddedViewCreated() {
-		new CompositeGUIVoidCommand(addRec).execute();
+		Cmds.of(addRec).execute();
 		assertEquals(1, getPane().getChildren().size());
 	}
 
 	@Test
 	public void testShapeAddedViewRecCreated() {
-		new CompositeGUIVoidCommand(addRec).execute();
+		Cmds.of(addRec).execute();
 		assertTrue(getPane().getChildren().get(0) instanceof ViewRectangle);
 	}
 }

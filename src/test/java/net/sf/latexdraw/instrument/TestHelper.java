@@ -3,7 +3,6 @@ package net.sf.latexdraw.instrument;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import javafx.application.HostServices;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
@@ -47,51 +46,43 @@ public class TestHelper extends TestLatexdrawGUI {
 
 	@Test
 	public void testClickAboutFrame() {
-		clickOn("#helpMenu").clickOn("#aboutItem");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#helpMenu").clickOn("#aboutItem")).execute();
 		final Stage frame = helper.getAboutFrame();
 		assertTrue(frame.isShowing());
-		Platform.runLater(() -> helper.getAboutFrame().close());
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> helper.getAboutFrame().close())).execute();
 		assertEquals(frame, helper.getAboutFrame());
 	}
 
 	@Test
 	public void testClickShortCutsFrame() {
-		clickOn("#helpMenu").clickOn("#shortcutItem");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#helpMenu").clickOn("#shortcutItem")).execute();
 		final Stage frame = helper.getShortcutsFrame();
 		assertTrue(frame.isShowing());
-		Platform.runLater(() -> helper.getShortcutsFrame().close());
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> helper.getShortcutsFrame().close())).execute();
 		assertEquals(frame, helper.getShortcutsFrame());
 	}
 
 	@Test
 	public void testClickDonateItemFrame() {
-		clickOn("#helpMenu").clickOn("#donateItem");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#helpMenu").clickOn("#donateItem")).execute();
 		Mockito.verify(services, Mockito.times(1)).showDocument("http://sourceforge.net/project/project_donations.php?group_id=156523");
 	}
 
 	@Test
 	public void testClickManualItemFrame() {
-		clickOn("#helpMenu").clickOn("#manuelItem");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#helpMenu").clickOn("#manuelItem")).execute();
 		Mockito.verify(services, Mockito.times(1)).showDocument("https://github.com/arnobl/latexdraw/wiki/Manual");
 	}
 
 	@Test
 	public void testClickReportItemFrame() {
-		clickOn("#helpMenu").clickOn("#reportBugItem");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#helpMenu").clickOn("#reportBugItem")).execute();
 		Mockito.verify(services, Mockito.times(1)).showDocument("https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug");
 	}
 
 	@Test
 	public void testClickForumItemFrame() {
-		clickOn("#helpMenu").clickOn("#forumItem");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#helpMenu").clickOn("#forumItem")).execute();
 		Mockito.verify(services, Mockito.times(1)).showDocument("https://sourceforge.net/p/latexdraw/discussion/");
 	}
 }

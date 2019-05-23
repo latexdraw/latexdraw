@@ -65,34 +65,28 @@ public class TestZoomer extends BaseTestCanvas implements FxRobotSpinner {
 
 	@Test
 	public void testIncrZoom() {
-		incrementSpinner(find("#zoom"));
-		waitFXEvents.execute();
+		Cmds.of(() -> incrementSpinner(find("#zoom"))).execute();
 		assertEquals(zoom + canvas.getZoomIncrement(), canvas.getZoom(), 0.00001);
 	}
 
 	@Ignore("Monocle does not manage num padd correctly https://bugs.openjdk.java.net/browse/JDK-8182572")
 	@Test
 	public void testIncrZoomKey() {
-		requestFocusCanvas.execute();
-		type(KeyCode.ADD);
-		waitFXEvents.execute();
+		Cmds.of(requestFocusCanvas, () -> type(KeyCode.ADD)).execute();
 		assertEquals(zoom + canvas.getZoomIncrement(), canvas.getZoom(), 0.00001);
 	}
 
 	@Test
 	public void testDecrZoomKey() {
-		requestFocusCanvas.execute();
-		type(KeyCode.MINUS);
-		waitFXEvents.execute();
+		Cmds.of(requestFocusCanvas, () -> type(KeyCode.MINUS)).execute();
 		assertEquals(zoom - canvas.getZoomIncrement(), canvas.getZoom(), 0.00001);
 	}
 
 	@Ignore("Monocle does not support modifier yet")
 	@Test
 	public void testScrollZoom() {
-		requestFocusCanvas.execute();
-		press(KeyCode.CONTROL).scroll(1, VerticalDirection.UP).release(KeyCode.CONTROL);
-		waitFXEvents.execute();
+		Cmds.of(requestFocusCanvas,
+			() -> press(KeyCode.CONTROL).scroll(1, VerticalDirection.UP).release(KeyCode.CONTROL)).execute();
 		assertEquals(zoom + canvas.getZoomIncrement(), canvas.getZoom(), 0.00001);
 	}
 }

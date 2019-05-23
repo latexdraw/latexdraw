@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -44,29 +44,29 @@ public class TestPencilDoubleLineStyle extends TestDoubleLineStyleGUI {
 
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsActivated).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns, checkInsActivated).execute();
 	}
 
 	@Test
 	public void testControllerNotActivatedWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesDot, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activatePencil, pencilCreatesDot, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesPic, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesPic, updateIns).execute();
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testNotDbledWidgetsNotEnabledPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertFalse(dbleBoundCB.isDisabled());
 		assertTrue(dbleBoundColB.isDisabled());
 		assertTrue(dbleSepField.isDisabled());
@@ -74,7 +74,7 @@ public class TestPencilDoubleLineStyle extends TestDoubleLineStyleGUI {
 
 	@Test
 	public void testDbledWidgetsEnabledPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectdbleLine, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, selectdbleLine, updateIns).execute();
 		assertFalse(dbleBoundCB.isDisabled());
 		assertFalse(dbleBoundColB.isDisabled());
 		assertFalse(dbleSepField.isDisabled());
@@ -82,26 +82,24 @@ public class TestPencilDoubleLineStyle extends TestDoubleLineStyleGUI {
 
 	@Test
 	public void testSelectDbleLinePencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, updateIns).execute();
 		final boolean sel = dbleBoundCB.isSelected();
-		selectdbleLine.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectdbleLine).execute();
 		assertEquals(!sel, editing.createShapeInstance().hasDbleBord());
 		assertNotEquals(sel, dbleBoundCB.isSelected());
 	}
 
 	@Test
 	public void testIncrementDbleSpacingPencil() {
-		doTestSpinner(new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectdbleLine, updateIns), dbleSepField,
+		doTestSpinner(Cmds.of(activatePencil, pencilCreatesRec, selectdbleLine, updateIns), dbleSepField,
 			incrementDbleSep, Collections.singletonList(() ->  editing.createShapeInstance().getDbleBordSep()));
 	}
 
 	@Test
 	public void testPickDbleColourPencil() {
-		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, selectdbleLine, updateIns).execute();
+		Cmds.of(activatePencil, pencilCreatesRec, selectdbleLine, updateIns).execute();
 		final Color col = dbleBoundColB.getValue();
-		pickDbleColour.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickDbleColour).execute();
 		assertEquals(dbleBoundColB.getValue(), editing.createShapeInstance().getDbleBordCol().toJFX());
 		assertNotEquals(col, dbleBoundColB.getValue());
 	}

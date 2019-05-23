@@ -22,16 +22,16 @@ public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomi
 	protected CheckBox showOrigin;
 	protected Pane mainPane;
 
-	protected final GUIVoidCommand selectAxeStyle = () -> selectNextComboBoxItem(shapeAxes);
-	protected final GUIVoidCommand selectTicksStyle = () -> selectNextComboBoxItem(shapeTicks);
-	protected final GUIVoidCommand selectPlotTicks = () -> selectNextComboBoxItem(showTicks);
-	protected final GUIVoidCommand selectPlotLabel = () -> selectNextComboBoxItem(showLabels);
-	protected final GUIVoidCommand incrementLabelX = () -> incrementSpinner(incrLabelX);
-	protected final GUIVoidCommand incrementLabelY = () -> incrementSpinner(incrLabelY);
-	protected final GUIVoidCommand incrementTicksSize = () -> incrementSpinner(ticksSize);
-	protected final GUIVoidCommand incrementDistLabelX = () -> incrementSpinner(distLabelsX);
-	protected final GUIVoidCommand incrementDistLabelY = () -> incrementSpinner(distLabelsY);
-	protected final GUIVoidCommand selectShowOrigin = () -> clickOn(showOrigin);
+	protected final CmdVoid selectAxeStyle = () -> selectNextComboBoxItem(shapeAxes);
+	protected final CmdVoid selectTicksStyle = () -> selectNextComboBoxItem(shapeTicks);
+	protected final CmdVoid selectPlotTicks = () -> selectNextComboBoxItem(showTicks);
+	protected final CmdVoid selectPlotLabel = () -> selectNextComboBoxItem(showLabels);
+	protected final CmdVoid incrementLabelX = () -> incrementSpinner(incrLabelX);
+	protected final CmdVoid incrementLabelY = () -> incrementSpinner(incrLabelY);
+	protected final CmdVoid incrementTicksSize = () -> incrementSpinner(ticksSize);
+	protected final CmdVoid incrementDistLabelX = () -> incrementSpinner(distLabelsX);
+	protected final CmdVoid incrementDistLabelY = () -> incrementSpinner(distLabelsY);
+	protected final CmdVoid selectShowOrigin = () -> clickOn(showOrigin);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

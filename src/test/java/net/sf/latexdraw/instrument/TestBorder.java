@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
-import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.transform.Rotate;
@@ -28,7 +27,8 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 	Border border;
 	final double txDown = 50;
 	final double tyDown = 200d;
-	final GUIVoidCommand rotateDown = () -> drag(border.rotHandler).dropBy(txDown, tyDown);
+	final CmdVoid rotateDown = () -> drag(border.rotHandler).dropBy(txDown, tyDown);
+	final CmdFXVoid setRotPI = () -> addedPolyline.setRotationAngle(Math.PI);
 
 	@Override
 	protected Injector createInjector() {
@@ -79,19 +79,19 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testSelectPointsShapeSameNbHandlers() {
-		new CompositeGUIVoidCommand(addLines, selectAllShapes).execute();
+		Cmds.of(addLines, selectAllShapes).execute();
 		assertEquals(addedPolyline.getNbPoints(), border.mvPtHandlers.size());
 	}
 
 	@Test
 	public void testSelectPointsShapeAllHandlersVisible() {
-		new CompositeGUIVoidCommand(addLines, selectAllShapes).execute();
+		Cmds.of(addLines, selectAllShapes).execute();
 		assertAllTrue(border.mvPtHandlers.stream(), handler -> handler.isVisible());
 	}
 
 	@Test
 	public void testSelectPointsShapeAllHandlersCoordOK() {
-		new CompositeGUIVoidCommand(addLines, selectAllShapes).execute();
+		Cmds.of(addLines, selectAllShapes).execute();
 		for(int i = 0, size = addedPolyline.getNbPoints(); i < size; i++) {
 			assertEquals(addedPolyline.getPtAt(i), border.mvPtHandlers.get(i).getPoint());
 		}
@@ -99,7 +99,7 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testSelectPointsShapeAllHandlersTranslationOK() {
-		new CompositeGUIVoidCommand(addLines, selectAllShapes).execute();
+		Cmds.of(addLines, selectAllShapes).execute();
 		for(int i = 0, size = addedPolyline.getNbPoints(); i < size; i++) {
 			assertEquals(addedPolyline.getPtAt(i).getX() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateX(), 0.00001);
 			assertEquals(addedPolyline.getPtAt(i).getY() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateY(), 0.00001);
@@ -112,43 +112,39 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 	@Test
 	public void testUpdateHandlersOKOnSelectionChanges() {
 		// Keep in the same test method to limit the number of GUI tests
-		new CompositeGUIVoidCommand(addBezier, addRec, addArc, addLines).execute();
-		selectShape.execute(0);
+		Cmds.of(addBezier, addRec, addArc, addLines, () -> selectShape.execute(0)).execute();
 		assertFalse(border.arcHandlerStart.isVisible());
 		assertFalse(border.arcHandlerEnd.isVisible());
 		assertAllTrue(border.mvPtHandlers.stream(), h -> h.isVisible());
 		assertAllTrue(border.ctrlPt2Handlers.stream(), h -> h.isVisible());
 		assertAllTrue(border.ctrlPt1Handlers.stream(), h -> h.isVisible());
-		selectShape.execute(1);
+		Cmds.of(() -> selectShape.execute(1)).execute();
 		assertAllFalse(border.mvPtHandlers.stream(), h -> h.isVisible());
 		assertAllFalse(border.ctrlPt2Handlers.stream(), h -> h.isVisible());
 		assertAllFalse(border.ctrlPt1Handlers.stream(), h -> h.isVisible());
-		selectShape.execute(2);
+		Cmds.of(() -> selectShape.execute(2)).execute();
 		assertTrue(border.arcHandlerStart.isVisible());
 		assertTrue(border.arcHandlerEnd.isVisible());
-		selectShape.execute(3);
+		Cmds.of(() -> selectShape.execute(3)).execute();
 		assertAllTrue(border.mvPtHandlers.stream(), h -> h.isVisible());
 		assertAllFalse(border.ctrlPt2Handlers.stream(), h -> h.isVisible());
 		assertAllFalse(border.ctrlPt1Handlers.stream(), h -> h.isVisible());
-		selectShape.execute(0);
 	}
 
 	@Test
 	public void testMovePtHandlerMovePt() {
-		new CompositeGUIVoidCommand(addLines, selectAllShapes).execute();
+		Cmds.of(addLines, selectAllShapes).execute();
 		final Point point = ShapeFactory.INST.createPoint(addedPolyline.getPtAt(1));
 		point.translate(100d, 20d);
-		drag(border.mvPtHandlers.get(1)).dropBy(100d, 20d);
-		waitFXEvents.execute();
+		Cmds.of(() -> drag(border.mvPtHandlers.get(1)).dropBy(100d, 20d)).execute();
 		assertEquals(point.getX(), addedPolyline.getPtAt(1).getX(), 1d);
 		assertEquals(point.getY(), addedPolyline.getPtAt(1).getY(), 1d);
 	}
 
 	@Test
 	public void testMovePtHandlerGoodPositionWithRotation() {
-		new CompositeGUIVoidCommand(addLines, selectAllShapes).execute();
-		addedPolyline.setRotationAngle(Math.PI);
-		waitFXEvents.execute();
+		Cmds.of(addLines, selectAllShapes, setRotPI).execute();
+
 		for(int i = 0, size = addedPolyline.getNbPoints(); i < size; i++) {
 			assertEquals(addedPolyline.getPtAt(i).getX() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateX(), 0.00001);
 			assertEquals(addedPolyline.getPtAt(i).getY() - Handler.DEFAULT_SIZE / 2d, border.mvPtHandlers.get(i).getTranslateY(), 0.00001);
@@ -159,45 +155,40 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testMovePtHandlerMovePtWithRotation() {
-		new CompositeGUIVoidCommand(addLines, selectAllShapes).execute();
-		addedPolyline.setRotationAngle(Math.PI);
-		waitFXEvents.execute();
+		Cmds.of(addLines, selectAllShapes, setRotPI).execute();
 		final Point point = ShapeFactory.INST.createPoint(addedPolyline.getPtAt(1));
 		point.translate(100d, 20d);
-		drag(border.mvPtHandlers.get(1)).dropBy(100d, 20d);
-		waitFXEvents.execute();
+		Cmds.of(() -> drag(border.mvPtHandlers.get(1)).dropBy(100d, 20d)).execute();
 		assertEquals(point.getX(), addedPolyline.getPtAt(1).getX(), 1d);
 		assertEquals(point.getY(), addedPolyline.getPtAt(1).getY(), 1d);
 	}
 
 	@Test
 	public void testMoveCtrl1PtHandlerMovePt() {
-		new CompositeGUIVoidCommand(addBezier, selectAllShapes).execute();
+		Cmds.of(addBezier, selectAllShapes).execute();
 		final Point point = ShapeFactory.INST.createPoint(addedBezier.getFirstCtrlPtAt(1));
 		point.translate(100d, 20d);
-		drag(border.ctrlPt1Handlers.get(1)).dropBy(100d, 20d);
-		waitFXEvents.execute();
+		Cmds.of(() -> drag(border.ctrlPt1Handlers.get(1)).dropBy(100d, 20d)).execute();
 		assertEquals(point.getX(), addedBezier.getFirstCtrlPtAt(1).getX(), 1d);
 		assertEquals(point.getY(), addedBezier.getFirstCtrlPtAt(1).getY(), 1d);
 	}
 
 	@Test
 	public void testMoveCtrl2PtHandlerMovePt() {
-		new CompositeGUIVoidCommand(addBezier, selectAllShapes).execute();
+		Cmds.of(addBezier, selectAllShapes).execute();
 		final Point point = ShapeFactory.INST.createPoint(addedBezier.getSecondCtrlPtAt(2));
 		point.translate(100d, 20d);
-		drag(border.ctrlPt2Handlers.get(2)).dropBy(100d, 20d);
-		waitFXEvents.execute();
+		Cmds.of(() -> drag(border.ctrlPt2Handlers.get(2)).dropBy(100d, 20d)).execute();
 		assertEquals(point.getX(), addedBezier.getSecondCtrlPtAt(2).getX(), 1d);
 		assertEquals(point.getY(), addedBezier.getSecondCtrlPtAt(2).getY(), 1d);
 	}
 
 	@Test
 	public void testRotateRectangle() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		final Point pt1 = ShapeFactory.INST.createPoint(point(border.rotHandler).query());
 		final Point gc = ShapeFactory.INST.createPoint(point(getPane().getChildren().get(0)).query());
-		new CompositeGUIVoidCommand(rotateDown).execute();
+		Cmds.of(rotateDown).execute();
 		final double a1 = ShapeFactory.INST.createLine(pt1, gc).getLineAngle();
 		final double a2 = 2d * Math.PI - ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(pt1.getX() + txDown, pt1.getY() + tyDown), gc).getLineAngle();
 		assertFalse("No rotation", ((ViewRectangle) canvas.getSelectedViews().get(0)).getBorder().getTransforms().isEmpty());
@@ -208,12 +199,11 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testRotateTwoRectangles() {
-		new CompositeGUIVoidCommand(addRec, addRec).execute();
-		Platform.runLater(() -> canvas.getDrawing().getShapeAt(1).orElseThrow().translate(150, 60));
-		selectAllShapes.execute();
+		final CmdFXVoid tr = () -> canvas.getDrawing().getShapeAt(1).orElseThrow().translate(150, 60);
+		Cmds.of(addRec, addRec, tr, selectAllShapes).execute();
 		final Point pt1 = ShapeFactory.INST.createPoint(point(border.rotHandler).query());
 		final Point gc = ShapeFactory.INST.createPoint(point(getPane().getChildren().get(0)).query());
-		new CompositeGUIVoidCommand(rotateDown).execute();
+		Cmds.of(rotateDown).execute();
 		final double a1 = ShapeFactory.INST.createLine(pt1, gc).getLineAngle();
 		final double a2 = 2d * Math.PI - ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(pt1.getX() + txDown, pt1.getY() + tyDown), gc).getLineAngle();
 		assertFalse("No rotation", ((ViewRectangle) canvas.getSelectedViews().get(0)).getBorder().getTransforms().isEmpty());
@@ -227,12 +217,11 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testArcStartHandler() {
-		new CompositeGUIVoidCommand(addArc, selectAllShapes).execute();
+		Cmds.of(addArc, selectAllShapes).execute();
 		final Point gc = addedArc.getGravityCentre();
 		final Point point = ShapeFactory.INST.createPoint(addedArc.getStartPoint());
 		final Point newpoint = point.rotatePoint(gc, -Math.PI / 4d);
-		drag(border.arcHandlerStart).dropBy(newpoint.getX() - point.getX(), newpoint.getY() - point.getY());
-		waitFXEvents.execute();
+		Cmds.of(() -> drag(border.arcHandlerStart).dropBy(newpoint.getX() - point.getX(), newpoint.getY() - point.getY())).execute();
 		final Line l1 = ShapeFactory.INST.createLine(gc, ShapeFactory.INST.createPoint(addedArc.getStartPoint()));
 		final Line l2 = ShapeFactory.INST.createLine(gc, newpoint);
 		assertEquals(l1.getA(), l2.getA(), 0.02);
@@ -240,12 +229,11 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testArcEndHandler() {
-		new CompositeGUIVoidCommand(addArc, selectAllShapes).execute();
+		Cmds.of(addArc, selectAllShapes).execute();
 		final Point gc = addedArc.getGravityCentre();
 		final Point point = ShapeFactory.INST.createPoint(addedArc.getEndPoint());
 		final Point newpoint = point.rotatePoint(gc, Math.PI / 3d);
-		drag(border.arcHandlerEnd).dropBy(newpoint.getX() - point.getX(), newpoint.getY() - point.getY());
-		waitFXEvents.execute();
+		Cmds.of(() -> drag(border.arcHandlerEnd).dropBy(newpoint.getX() - point.getX(), newpoint.getY() - point.getY())).execute();
 		final Line l1 = ShapeFactory.INST.createLine(gc, ShapeFactory.INST.createPoint(addedArc.getEndPoint()));
 		final Line l2 = ShapeFactory.INST.createLine(gc, newpoint);
 		assertEquals(l1.getA(), l2.getA(), 0.02);
@@ -253,14 +241,11 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testArcStartHandlerRotated() {
-		new CompositeGUIVoidCommand(addArc, selectAllShapes).execute();
-		Platform.runLater(() -> addedArc.setRotationAngle(0.5));
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(addArc, selectAllShapes, () -> addedArc.setRotationAngle(0.5)).execute();
 		final Point gc = addedArc.getGravityCentre();
 		final Point point = addedArc.getStartPoint().rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle());
 		final Point newpoint = point.rotatePoint(gc, -Math.PI / 4d).rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle());
-		drag(border.arcHandlerStart).dropBy(newpoint.getX() - point.getX(), newpoint.getY() - point.getY());
-		waitFXEvents.execute();
+		Cmds.of(() -> drag(border.arcHandlerStart).dropBy(newpoint.getX() - point.getX(), newpoint.getY() - point.getY())).execute();
 		final Line l1 = ShapeFactory.INST.createLine(gc, addedArc.getStartPoint().rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle()));
 		final Line l2 = ShapeFactory.INST.createLine(gc, newpoint);
 		assertEquals(l1.getA(), l2.getA(), 0.02);
@@ -268,14 +253,11 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testArcEndHandlerRotated() {
-		new CompositeGUIVoidCommand(addArc, selectAllShapes).execute();
-		Platform.runLater(() -> addedArc.setRotationAngle(0.5));
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(addArc, selectAllShapes, () -> addedArc.setRotationAngle(0.5)).execute();
 		final Point gc = addedArc.getGravityCentre();
 		final Point point = addedArc.getEndPoint().rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle());
 		final Point newpoint = point.rotatePoint(gc, Math.PI / 3d).rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle());
-		drag(border.arcHandlerEnd).dropBy(newpoint.getX() - point.getX(), newpoint.getY() - point.getY());
-		waitFXEvents.execute();
+		Cmds.of(() -> drag(border.arcHandlerEnd).dropBy(newpoint.getX() - point.getX(), newpoint.getY() - point.getY())).execute();
 		final Line l1 = ShapeFactory.INST.createLine(gc, addedArc.getEndPoint().rotatePoint(addedArc.getGravityCentre(), addedArc.getRotationAngle()));
 		final Line l2 = ShapeFactory.INST.createLine(gc, newpoint);
 		assertEquals(l1.getA(), l2.getA(), 0.02);
@@ -283,13 +265,12 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testScaleWRectangle() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		final double width = addedRec.getWidth();
 		final double height = addedRec.getHeight();
 		final Point tl = addedRec.getTopLeftPoint();
-		tl.translate(50d, 0d);
-		drag(border.scaleHandlers.get(3)).dropBy(50d, 10d);
-		waitFXEvents.execute();
+		final CmdFXVoid tr = () -> tl.translate(50d, 0d);
+		Cmds.of(tr, () -> drag(border.scaleHandlers.get(3)).dropBy(50d, 10d)).execute();
 		assertEquals(height, addedRec.getHeight(), 0.001);
 		assertEquals(width - 50d, addedRec.getWidth(), 3d);
 		assertEquals(tl.getX(), addedRec.getTopLeftPoint().getX(), 2d);
@@ -298,13 +279,12 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testScaleERectangle() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		final double width = addedRec.getWidth();
 		final double height = addedRec.getHeight();
 		final Point tr = addedRec.getTopRightPoint();
-		tr.translate(50d, 0d);
-		drag(border.scaleHandlers.get(4)).dropBy(50d, 10d);
-		waitFXEvents.execute();
+		final CmdFXVoid trCmd = () -> tr.translate(50d, 0d);
+		Cmds.of(trCmd, () -> drag(border.scaleHandlers.get(4)).dropBy(50d, 10d)).execute();
 		assertEquals(height, addedRec.getHeight(), 0.001);
 		assertEquals(width + 50d, addedRec.getWidth(), 3d);
 		assertEquals(tr.getX(), addedRec.getTopRightPoint().getX(), 2d);
@@ -313,13 +293,12 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testScaleNRectangle() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		final double width = addedRec.getWidth();
 		final double height = addedRec.getHeight();
 		final Point tr = addedRec.getTopRightPoint();
-		tr.translate(0d, -20d);
-		drag(border.scaleHandlers.get(1)).dropBy(30d, -20d);
-		waitFXEvents.execute();
+		final CmdFXVoid trCmd = () -> tr.translate(0d, -20d);
+		Cmds.of(trCmd, () -> drag(border.scaleHandlers.get(1)).dropBy(30d, -20d)).execute();
 		assertEquals(width, addedRec.getWidth(), 0.001);
 		assertEquals(height + 20d, addedRec.getHeight(), 3d);
 		assertEquals(tr.getX(), addedRec.getTopRightPoint().getX(), 3d);
@@ -328,13 +307,12 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testScaleSRectangle() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		final double width = addedRec.getWidth();
 		final double height = addedRec.getHeight();
 		final Point bl = addedRec.getBottomLeftPoint();
-		bl.translate(0d, 50d);
-		drag(border.scaleHandlers.get(6)).dropBy(30d, 50d);
-		waitFXEvents.execute();
+		final CmdFXVoid trCmd = () -> bl.translate(0d, 50d);
+		Cmds.of(trCmd, () -> drag(border.scaleHandlers.get(6)).dropBy(30d, 50d)).execute();
 		assertEquals(width, addedRec.getWidth(), 0.001);
 		assertEquals(height + 50d, addedRec.getHeight(), 3d);
 		assertEquals(bl.getX(), addedRec.getBottomLeftPoint().getX(), 3d);
@@ -343,13 +321,12 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testScaleNORectangle() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		final double width = addedRec.getWidth();
 		final double height = addedRec.getHeight();
 		final Point tl = addedRec.getTopLeftPoint();
-		tl.translate(50d, 70d);
-		drag(border.scaleHandlers.get(0)).dropBy(50d, 70d);
-		waitFXEvents.execute();
+		final CmdFXVoid trCmd = () -> tl.translate(50d, 70d);
+		Cmds.of(trCmd, () -> drag(border.scaleHandlers.get(0)).dropBy(50d, 70d)).execute();
 		assertEquals(width - 50d, addedRec.getWidth(), 3d);
 		assertEquals(height - 70d, addedRec.getHeight(), 3d);
 		assertEquals(tl.getX(), addedRec.getTopLeftPoint().getX(), 3d);
@@ -358,13 +335,12 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testScaleNERectangle() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		final double width = addedRec.getWidth();
 		final double height = addedRec.getHeight();
 		final Point tr = addedRec.getTopRightPoint();
-		tr.translate(50d, -40d);
-		drag(border.scaleHandlers.get(2)).dropBy(50d, -40d);
-		waitFXEvents.execute();
+		final CmdFXVoid trCmd = () -> tr.translate(50d, -40d);
+		Cmds.of(trCmd, () -> drag(border.scaleHandlers.get(2)).dropBy(50d, -40d)).execute();
 		assertEquals(width + 50d, addedRec.getWidth(), 3d);
 		assertEquals(height + 40d, addedRec.getHeight(), 3d);
 		assertEquals(tr.getX(), addedRec.getTopRightPoint().getX(), 3d);
@@ -373,12 +349,12 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testScaleSORectangle() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		final double width = addedRec.getWidth();
 		final double height = addedRec.getHeight();
 		final Point bl = addedRec.getBottomLeftPoint();
-		bl.translate(50d, 70d);
-		drag(border.scaleHandlers.get(5)).dropBy(50d, 70d);
+		final CmdFXVoid trCmd = () -> bl.translate(50d, 70d);
+		Cmds.of(trCmd, () -> drag(border.scaleHandlers.get(5)).dropBy(50d, 70d)).execute();
 		waitFXEvents.execute();
 		assertEquals(width - 50d, addedRec.getWidth(), 3d);
 		assertEquals(height + 70d, addedRec.getHeight(), 3d);
@@ -388,13 +364,12 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 
 	@Test
 	public void testScaleSERectangle() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		final double width = addedRec.getWidth();
 		final double height = addedRec.getHeight();
 		final Point br = addedRec.getBottomRightPoint();
-		br.translate(-55d, 45d);
-		drag(border.scaleHandlers.get(7)).dropBy(-55d, 45d);
-		waitFXEvents.execute();
+		final CmdFXVoid trCmd = () -> br.translate(-55d, 45d);
+		Cmds.of(trCmd, () -> drag(border.scaleHandlers.get(7)).dropBy(-55d, 45d)).execute();
 		assertEquals(width - 55d, addedRec.getWidth(), 3d);
 		assertEquals(height + 45d, addedRec.getHeight(), 3d);
 		assertEquals(br.getX(), addedRec.getBottomRightPoint().getX(), 3d);

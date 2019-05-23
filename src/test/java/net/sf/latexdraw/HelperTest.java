@@ -12,6 +12,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import net.sf.latexdraw.instrument.CmdFXVoid;
 import net.sf.latexdraw.util.BadaboomCollector;
 import org.malai.fsm.TimeoutTransition;
 import org.testfx.util.WaitForAsyncUtils;
@@ -53,7 +54,7 @@ public interface HelperTest {
 		return BadaboomCollector.INSTANCE.errorsProperty().stream().map(ex -> ex.getMessage()).collect(Collectors.joining(System.getProperty("line.separator")));
 	}
 
-	default <T extends Node> void assertNotEqualsSnapshot(final T node, final Runnable toExecBetweenSnap) {
+	default <T extends Node> void assertNotEqualsSnapshot(final T node, final CmdFXVoid toExecBetweenSnap) {
 		Bounds bounds = node.getBoundsInLocal();
 		final SnapshotParameters params = new SnapshotParameters();
 
@@ -62,7 +63,7 @@ public interface HelperTest {
 		WaitForAsyncUtils.waitForFxEvents();
 
 		if(toExecBetweenSnap != null) {
-			toExecBetweenSnap.run();
+			toExecBetweenSnap.execute();
 		}
 
 		bounds = node.getBoundsInLocal();

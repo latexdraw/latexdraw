@@ -3,7 +3,7 @@ package net.sf.latexdraw.instrument.hand;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -40,12 +40,12 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelection() {
-		new CompositeGUIVoidCommand(selectionAddArc, activateHand, updateIns).execute();
+		Cmds.of(selectionAddArc, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(tlxS.isVisible());
 		assertTrue(tlyS.isVisible());
@@ -53,7 +53,7 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 
 	@Test
 	public void testSetYSelection() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns), tlyS,
+		doTestSpinner(Cmds.of(activateHand, selectionAddRec, selectionAddRec, updateIns), tlyS,
 			incrementY, Arrays.asList(
 			() ->  drawing.getSelection().getShapeAt(0).orElseThrow().getTopLeftPoint().getY(),
 			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getTopLeftPoint().getY()));
@@ -61,7 +61,7 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 
 	@Test
 	public void testSetXSelection() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns), tlxS,
+		doTestSpinner(Cmds.of(activateHand, selectionAddRec, selectionAddRec, updateIns), tlxS,
 			incrementX, Arrays.asList(
 			() ->  drawing.getSelection().getShapeAt(0).orElseThrow().getTopLeftPoint().getX(),
 			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getTopLeftPoint().getX()));

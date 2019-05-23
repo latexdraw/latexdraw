@@ -18,19 +18,19 @@ public abstract class TestFillingStyleGUI extends TestShapePropGUI<ShapeFillingC
 	protected Spinner<Double> hatchAngleField;
 	protected Spinner<Double> hatchWidthField;
 
-	protected final GUIVoidCommand pickfillCol = () -> pickColour(fillColButton);
-	protected final GUIVoidCommand pickhatchCol = () -> pickColour(hatchColButton);
-	protected final GUIVoidCommand pickgradStartCol = () -> pickColour(gradStartColButton);
-	protected final GUIVoidCommand pickgradEndCol = () -> pickColour(gradEndColButton);
-	protected final GUIVoidCommand incrementgradMidPt = () -> incrementSpinner(gradMidPtField);
-	protected final GUIVoidCommand incrementgradAngle = () -> incrementSpinner(gradAngleField);
-	protected final GUIVoidCommand incrementhatchSep = () -> incrementSpinner(hatchSepField);
-	protected final GUIVoidCommand incrementhatchAngle = () -> incrementSpinner(hatchAngleField);
-	protected final GUIVoidCommand incrementhatchWidth = () -> incrementSpinner(hatchWidthField);
-	protected final GUIVoidCommand selectPlainStyle = () -> selectGivenComboBoxItem(fillStyleCB, FillingStyle.PLAIN);
-	protected final GUIVoidCommand selectHatchingsStyle = () -> selectGivenComboBoxItem(fillStyleCB, FillingStyle.HLINES_PLAIN);
-	protected final GUIVoidCommand selectGradStyle = () -> selectGivenComboBoxItem(fillStyleCB, FillingStyle.GRAD);
-	protected final GUICommand<FillingStyle> selectStyle = (FillingStyle style) -> selectGivenComboBoxItem(fillStyleCB, style);
+	protected final CmdVoid pickfillCol = () -> pickColour(fillColButton);
+	protected final CmdVoid pickhatchCol = () -> pickColour(hatchColButton);
+	protected final CmdVoid pickgradStartCol = () -> pickColour(gradStartColButton);
+	protected final CmdVoid pickgradEndCol = () -> pickColour(gradEndColButton);
+	protected final CmdVoid incrementgradMidPt = () -> incrementSpinner(gradMidPtField);
+	protected final CmdVoid incrementgradAngle = () -> incrementSpinner(gradAngleField);
+	protected final CmdVoid incrementhatchSep = () -> incrementSpinner(hatchSepField);
+	protected final CmdVoid incrementhatchAngle = () -> incrementSpinner(hatchAngleField);
+	protected final CmdVoid incrementhatchWidth = () -> incrementSpinner(hatchWidthField);
+	protected final CmdVoid selectPlainStyle = () -> selectGivenComboBoxItem(fillStyleCB, FillingStyle.PLAIN);
+	protected final CmdVoid selectHatchingsStyle = () -> selectGivenComboBoxItem(fillStyleCB, FillingStyle.HLINES_PLAIN);
+	protected final CmdVoid selectGradStyle = () -> selectGivenComboBoxItem(fillStyleCB, FillingStyle.GRAD);
+	protected final Cmd<FillingStyle> selectStyle = (FillingStyle style) -> selectGivenComboBoxItem(fillStyleCB, style);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

@@ -2,7 +2,6 @@ package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -28,14 +27,14 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 public class TestUndoRedoManager extends BaseTestCanvas {
-	final GUIVoidCommand addRecCmd = () -> Platform.runLater(() -> {
+	final CmdFXVoid addRecCmd = () -> {
 		addedRec = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
 		addedRec.setFilled(true);
 		addedRec.setFillingCol(DviPsColors.APRICOT);
 		final AddShape cmd = new AddShape(addedRec, canvas.getDrawing());
 		cmd.doIt();
 		CommandsRegistry.INSTANCE.addCommand(cmd, null);
-	});
+	};
 
 	@Override
 	protected Injector createInjector() {
@@ -85,41 +84,34 @@ public class TestUndoRedoManager extends BaseTestCanvas {
 
 	@Test
 	public void testUndoButtonOK() {
-		new CompositeGUIVoidCommand(addRecCmd).execute();
+		Cmds.of(addRecCmd).execute();
 		assertNotNull(((Button) find("#undoB")).getTooltip());
 		assertNull(((Button) find("#redoB")).getTooltip());
-		clickOn("#undoB");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#undoB")).execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 	}
 
 	@Test
 	public void testRedoButtonOK() {
-		new CompositeGUIVoidCommand(addRecCmd).execute();
-		clickOn("#undoB");
-		waitFXEvents.execute();
+		Cmds.of(addRecCmd, () -> clickOn("#undoB")).execute();
 		assertNull(((Button) find("#undoB")).getTooltip());
 		assertNotNull(((Button) find("#redoB")).getTooltip());
-		clickOn("#redoB");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#redoB")).execute();
 		assertEquals(1, canvas.getDrawing().size());
 	}
 
 	@Test
 	public void testUndoKeyOK() {
-		new CompositeGUIVoidCommand(addRecCmd, requestFocusCanvas).execute();
-		press(KeyCode.CONTROL).type(KeyCode.Z).release(KeyCode.CONTROL);
-		waitFXEvents.execute();
+		Cmds.of(addRecCmd, requestFocusCanvas,
+			() -> press(KeyCode.CONTROL).type(KeyCode.Z).release(KeyCode.CONTROL)).execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 	}
 
 	@Test
 	public void testRedoKeyOK() {
-		new CompositeGUIVoidCommand(addRecCmd, requestFocusCanvas).execute();
-		press(KeyCode.CONTROL).type(KeyCode.Z).release(KeyCode.CONTROL);
-		waitFXEvents.execute();
-		press(KeyCode.CONTROL).type(KeyCode.Y).release(KeyCode.CONTROL);
-		waitFXEvents.execute();
+		Cmds.of(addRecCmd, requestFocusCanvas,
+			() -> press(KeyCode.CONTROL).type(KeyCode.Z).release(KeyCode.CONTROL),
+			() -> press(KeyCode.CONTROL).type(KeyCode.Y).release(KeyCode.CONTROL)).execute();
 		assertEquals(1, canvas.getDrawing().size());
 	}
 }

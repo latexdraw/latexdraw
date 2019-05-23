@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
-import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -76,21 +75,18 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 			((Picture) sh).setPathSource(getClass().getResource("/Arc.png").getFile());
 		}
 
-		canvas.getSelectionBorder().setFill(new Color(1d, 1d, 1d, 0.1d));
-		sh.setFilled(true);
-		sh.translate(-canvas.getOrigin().getX(), -canvas.getOrigin().getY());
-		Platform.runLater(() -> {
+		Cmds.of(CmdFXVoid.of(() -> {
+			canvas.getSelectionBorder().setFill(new Color(1d, 1d, 1d, 0.1d));
+			sh.setFilled(true);
+			sh.translate(-canvas.getOrigin().getX(), -canvas.getOrigin().getY());
 			canvas.getDrawing().addShape(sh);
-			canvas.requestFocus();
-		});
-		WaitForAsyncUtils.waitForFxEvents();
+		}), requestFocusCanvas).execute();
+
 		final Point tl = sh.getTopLeftPoint();
-		clickOn(canvas).press(KeyCode.CONTROL, KeyCode.A);
-		waitFXEvents.execute();
-		release(KeyCode.CONTROL, KeyCode.A);
-		waitFXEvents.execute();
-		drag(canvas.getSelectionBorder()).dropBy(101, 163);
-		waitFXEvents.execute();
+
+		Cmds.of(() -> clickOn(canvas).press(KeyCode.CONTROL, KeyCode.A),
+		() -> release(KeyCode.CONTROL, KeyCode.A),
+		() -> drag(canvas.getSelectionBorder()).dropBy(101, 163)).execute();
 
 		assertEquals(tl.getX() + 101d, sh.getTopLeftPoint().getX(), 5d);
 		assertEquals(tl.getY() + 163d, sh.getTopLeftPoint().getY(), 5d);
@@ -98,14 +94,14 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 
 	@Test
 	public void testTranslateSeveralShapesUsingOne() {
-		new CompositeGUIVoidCommand(addRec, addRec2, selectAllShapes).execute();
-		canvas.getDrawing().getShapes().forEach(sh -> sh.setFilled(true));
+		Cmds.of(addRec, addRec2, selectAllShapes,
+			CmdFXVoid.of(() -> canvas.getDrawing().getShapes().forEach(sh -> sh.setFilled(true)))).execute();
 		final Point tl1 = canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint();
 		final Point tl2 = canvas.getDrawing().getShapeAt(1).orElseThrow().getTopLeftPoint();
-		drag(canvas.getViews().getChildren().get(1));
-		waitFXEvents.execute();
-		dropBy(100d, 200d);
-		waitFXEvents.execute();
+
+		Cmds.of(() -> drag(canvas.getViews().getChildren().get(1)),
+			() -> dropBy(100d, 200d)).execute();
+
 		assertEquals(2, canvas.getDrawing().getSelection().size());
 		assertEquals(tl1.getX() + 100d, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint().getX(), 1d);
 		assertEquals(tl1.getY() + 200d, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint().getY(), 1d);
@@ -116,16 +112,14 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 
 	@Test
 	public void testTranslateCorrectSelectedShape() {
-		new CompositeGUIVoidCommand(addRec, addRec2).execute();
-		canvas.getDrawing().getShapes().forEach(sh -> sh.setFilled(true));
+		Cmds.of(addRec, addRec2,
+			CmdFXVoid.of(() -> canvas.getDrawing().getShapes().forEach(sh -> sh.setFilled(true)))).execute();
 		final Point tl1 = canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint();
 		final Point tl2 = canvas.getDrawing().getShapeAt(1).orElseThrow().getTopLeftPoint();
-		clickOn(canvas.getViews().getChildren().get(0));
-		waitFXEvents.execute();
-		drag(canvas.getViews().getChildren().get(1));
-		waitFXEvents.execute();
-		dropBy(100d, 200d);
-		waitFXEvents.execute();
+
+		Cmds.of(() -> clickOn(canvas.getViews().getChildren().get(0)),
+			() -> drag(canvas.getViews().getChildren().get(1)),
+			() -> dropBy(100d, 200d)).execute();
 
 		assertEquals(tl1, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint());
 		assertEquals(tl2.getX() + 100d, canvas.getDrawing().getShapeAt(1).orElseThrow().getTopLeftPoint().getX(), 1d);
@@ -134,29 +128,29 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 
 	@Test
 	public void testTranslateOnSelectionRectangle() {
-		new CompositeGUIVoidCommand(addRec).execute();
+		Cmds.of(addRec).execute();
 		final Point tl = canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint();
 
-		clickOn(canvas.getViews().getChildren().get(0));
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn(canvas.getViews().getChildren().get(0))).execute();
+
 		final Point2D bounds = canvas.localToScreen(canvas.getSelectionBorder().getLayoutX() + Canvas.getMargins(),
 			canvas.getSelectionBorder().getLayoutY() + Canvas.getMargins());
-		drag(bounds.getX() + 150, bounds.getY());
-		waitFXEvents.execute();
-		dropBy(100d, 200d);
-		waitFXEvents.execute();
+
+		Cmds.of(() -> drag(bounds.getX() + 150, bounds.getY()),
+			() -> dropBy(100d, 200d)).execute();
+
 		assertEquals(tl.getX() + 100d, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint().getX(), 1d);
 		assertEquals(tl.getY() + 200d, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint().getY(), 1d);
 	}
 
 	@Test
 	public void testTranslateAbortOK() {
-		new CompositeGUIVoidCommand(addRec).execute();
+		Cmds.of(addRec).execute();
 		final Point tl = canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint();
-		drag(canvas.getViews().getChildren().get(0));
-		waitFXEvents.execute();
-		moveBy(100d, 200d).type(KeyCode.ESCAPE);
-		waitFXEvents.execute();
+
+		Cmds.of(() -> drag(canvas.getViews().getChildren().get(0)),
+			() -> moveBy(100d, 200d).type(KeyCode.ESCAPE)).execute();
+
 		assertEquals(tl, canvas.getDrawing().getShapeAt(0).orElseThrow().getTopLeftPoint());
 	}
 }

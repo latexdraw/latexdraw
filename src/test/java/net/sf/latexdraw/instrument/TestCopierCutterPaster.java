@@ -2,7 +2,6 @@ package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
@@ -24,18 +23,9 @@ import static org.mockito.Mockito.when;
 public class TestCopierCutterPaster extends BaseTestCanvas {
 	CopierCutterPaster copier;
 
-	final GUIVoidCommand clickCopy = () -> {
-		clickOn("#copierMenu").clickOn("#copyMenu");
-		WaitForAsyncUtils.waitForFxEvents();
-	};
-	final GUIVoidCommand clickCut = () -> {
-		clickOn("#copierMenu").clickOn("#cutMenu");
-		WaitForAsyncUtils.waitForFxEvents();
-	};
-	final GUIVoidCommand clickPaste = () -> {
-		clickOn("#copierMenu").clickOn("#pasteMenu");
-		WaitForAsyncUtils.waitForFxEvents();
-	};
+	final CmdVoid clickCopy = () -> clickOn("#copierMenu").clickOn("#copyMenu");
+	final CmdVoid clickCut = () -> clickOn("#copierMenu").clickOn("#cutMenu");
+	final CmdVoid clickPaste = () -> clickOn("#copierMenu").clickOn("#pasteMenu");
 
 	@Override
 	protected Injector createInjector() {
@@ -87,7 +77,7 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 
 	@Test
 	public void testPasteCustMenuStatusOK() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(addRec, selectAllShapes).execute();
 		assertFalse(copier.copyMenu.isDisable());
 		assertTrue(copier.pasteMenu.isDisable());
 		assertFalse(copier.cutMenu.isDisable());
@@ -95,7 +85,7 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 
 	@Test
 	public void testPasteCustMenuStatusOKAfterCopy() {
-		new CompositeGUIVoidCommand(addRec, selectAllShapes, clickCopy).execute();
+		Cmds.of(addRec, selectAllShapes, clickCopy).execute();
 		assertFalse(copier.copyMenu.isDisable());
 		assertFalse(copier.pasteMenu.isDisable());
 		assertFalse(copier.cutMenu.isDisable());
@@ -103,41 +93,34 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 
 	@Test
 	public void testCopyPasteOKNbShapes() {
-		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes, clickCopy, clickPaste).execute();
+		Cmds.of(addRec, addLines, selectAllShapes, clickCopy, clickPaste).execute();
 		assertEquals(4, canvas.getDrawing().size());
 	}
 
 	@Test
 	public void testCopyPasteKeyOKNbShapes() {
-		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes).execute();
-		Platform.runLater(() -> canvas.requestFocus());
-		waitFXEvents.execute();
-		press(KeyCode.CONTROL).type(KeyCode.C);
-		waitFXEvents.execute();
-		type(KeyCode.V).release(KeyCode.CONTROL);
-		waitFXEvents.execute();
+		Cmds.of(addRec, addLines, selectAllShapes, requestFocusCanvas,
+			() -> press(KeyCode.CONTROL).type(KeyCode.C),
+			() -> type(KeyCode.V).release(KeyCode.CONTROL)).execute();
 		assertEquals(4, canvas.getDrawing().size());
 	}
 
 	@Test
 	public void testCutKeyOKNbShapes() {
-		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes).execute();
-		Platform.runLater(() -> canvas.requestFocus());
-		waitFXEvents.execute();
-		press(KeyCode.CONTROL).type(KeyCode.X).release(KeyCode.CONTROL);
-		waitFXEvents.execute();
+		Cmds.of(addRec, addLines, selectAllShapes, requestFocusCanvas,
+			() -> press(KeyCode.CONTROL).type(KeyCode.X).release(KeyCode.CONTROL)).execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 	}
 
 	@Test
 	public void testCutOKNbShapes() {
-		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes, clickCut).execute();
+		Cmds.of(addRec, addLines, selectAllShapes, clickCut).execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 	}
 
 	@Test
 	public void testCutPasteOKNbShapes() {
-		new CompositeGUIVoidCommand(addRec, addLines, selectAllShapes, clickCut, clickPaste).execute();
+		Cmds.of(addRec, addLines, selectAllShapes, clickCut, clickPaste).execute();
 		assertEquals(2, canvas.getDrawing().size());
 	}
 }

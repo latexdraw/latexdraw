@@ -2,7 +2,6 @@ package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
@@ -56,36 +55,28 @@ public class TestShapeDeleter extends BaseTestCanvas {
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		hand.setActivated(true);
+		Cmds.of(CmdFXVoid.of(() -> hand.setActivated(true))).execute();
 		when(pencil.isActivated()).thenReturn(false);
 	}
 
 	@Test
 	public void testKeyDelRemoveShape() {
-		Platform.runLater(() -> canvas.requestFocus());
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
-		type(KeyCode.DELETE);
-		waitFXEvents.execute();
+		Cmds.of(requestFocusCanvas, addRec, selectAllShapes, () -> type(KeyCode.DELETE)).execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 	}
 
 	@Test
 	public void testClickDelRemoveShape() {
-		Platform.runLater(() -> canvas.requestFocus());
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
-		clickOn("#deleteB");
-		waitFXEvents.execute();
+		Cmds.of(requestFocusCanvas, addRec, selectAllShapes, () -> clickOn("#deleteB")).execute();
 		assertTrue(canvas.getDrawing().isEmpty());
 		assertTrue(find("#deleteB").isDisabled());
 	}
 
 	@Test
 	public void testActivationShape() {
-		Platform.runLater(() -> canvas.requestFocus());
-		new CompositeGUIVoidCommand(addRec, selectAllShapes).execute();
+		Cmds.of(requestFocusCanvas, addRec, selectAllShapes).execute();
 		assertFalse(find("#deleteB").isDisabled());
-		type(KeyCode.DELETE);
-		waitFXEvents.execute();
+		Cmds.of(() -> type(KeyCode.DELETE)).execute();
 		assertTrue(find("#deleteB").isDisabled());
 	}
 }

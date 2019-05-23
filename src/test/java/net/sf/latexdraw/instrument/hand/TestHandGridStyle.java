@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -45,36 +45,35 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelectionGrid() {
-		new CompositeGUIVoidCommand(selectionAddGrid, activateHand, updateIns).execute();
+		Cmds.of(selectionAddGrid, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(mainPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotGrid() {
-		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
+		Cmds.of(selectionAddRec, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
+		Cmds.of(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
 	public void testPickcolourLabelsColourHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		final Color col = colourLabels.getValue();
-		pickcolourLabels.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickcolourLabels).execute();
 		assertEquals(colourLabels.getValue(), ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridLabelsColour().toJFX());
 		assertEquals(colourLabels.getValue(), ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridLabelsColour().toJFX());
 		assertNotEquals(col, colourLabels.getValue());
@@ -82,10 +81,9 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testPickLineColourHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		final Color col = colourSubGrid.getValue();
-		pickcolourSubGrid.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickcolourSubGrid).execute();
 		assertEquals(colourSubGrid.getValue(), ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getSubGridColour().toJFX());
 		assertEquals(colourSubGrid.getValue(), ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getSubGridColour().toJFX());
 		assertNotEquals(col, colourSubGrid.getValue());
@@ -93,7 +91,7 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testIncrementgridWidthHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), gridWidth,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), gridWidth,
 			incrementgridWidth, Arrays.asList(
 			() ->  ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridWidth(),
 			() ->  ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridWidth()));
@@ -101,7 +99,7 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testIncrementsubGridWidthHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridWidth,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridWidth,
 			incrementsubGridWidth, Arrays.asList(
 			() ->  ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getSubGridWidth(),
 			() ->  ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getSubGridWidth()));
@@ -109,7 +107,7 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testIncrementgridDotsHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), gridDots,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), gridDots,
 			incrementgridDots, Arrays.asList(
 			() ->  ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getGridDots(),
 			() ->  ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getGridDots()));
@@ -117,7 +115,7 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testIncrementsubGridDotsHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridDots,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridDots,
 			incrementsubGridDots, Arrays.asList(
 			() ->  ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getSubGridDots(),
 			() ->  ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getSubGridDots()));
@@ -125,7 +123,7 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testIncrementsubGridDivHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridDiv,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns), subGridDiv,
 			incrementsubGridDiv, Arrays.asList(
 			() ->  ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).getSubGridDiv(),
 			() ->  ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).getSubGridDiv()));
@@ -133,10 +131,9 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testSelectlabelsYInvertedCBHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		final boolean sel = labelsYInvertedCB.isSelected();
-		clicklabelsYInvertedCB.execute();
-		waitFXEvents.execute();
+		Cmds.of(clicklabelsYInvertedCB).execute();
 		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).isXLabelSouth());
 		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).isXLabelSouth());
 		assertNotEquals(sel, labelsYInvertedCB.isSelected());
@@ -144,10 +141,9 @@ public class TestHandGridStyle extends TestGridStyleGUI {
 
 	@Test
 	public void testSelectlabelsXInvertedCBHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddGrid, selectionAddGrid, updateIns).execute();
 		final boolean sel = labelsXInvertedCB.isSelected();
-		clicklabelsXInvertedCB.execute();
-		waitFXEvents.execute();
+		Cmds.of(clicklabelsXInvertedCB).execute();
 		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(1).orElseThrow()).isYLabelWest());
 		assertEquals(sel, ((Grid) drawing.getSelection().getShapeAt(2).orElseThrow()).isYLabelWest());
 		assertNotEquals(sel, labelsXInvertedCB.isSelected());

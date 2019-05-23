@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import javafx.scene.control.Spinner;
 import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.HelperTest;
-import net.sf.latexdraw.instrument.GUIVoidCommand;
+import net.sf.latexdraw.instrument.CmdVoid;
 import org.testfx.api.FxRobotInterface;
 
 import static org.junit.Assert.assertEquals;
@@ -28,8 +28,8 @@ public interface FxRobotSpinner extends FxRobotInterface {
 		clickOn(combo).scroll(amount);
 	}
 
-	default <T extends Number> void doTestSpinner(final GUIVoidCommand cmdsConfig, final Spinner<T> spinner,
-												final GUIVoidCommand cmdSpinner, final List<Supplier<T>> oracles) {
+	default <T extends Number> void doTestSpinner(final CmdVoid cmdsConfig, final Spinner<T> spinner,
+												final CmdVoid cmdSpinner, final List<Supplier<T>> oracles) {
 		cmdsConfig.execute();
 		final T val = spinner.getValue();
 		cmdSpinner.execute();

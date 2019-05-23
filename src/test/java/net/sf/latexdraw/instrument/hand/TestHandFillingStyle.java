@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import net.sf.latexdraw.instrument.CompositeGUIVoidCommand;
+import net.sf.latexdraw.instrument.Cmds;
 import net.sf.latexdraw.instrument.Hand;
 import net.sf.latexdraw.instrument.MetaShapeCustomiser;
 import net.sf.latexdraw.instrument.Pencil;
@@ -45,51 +45,51 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
+		Cmds.of(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelection() {
-		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
+		Cmds.of(selectionAddRec, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotFillable() {
-		new CompositeGUIVoidCommand(selectionAddAxes, activateHand, updateIns).execute();
+		Cmds.of(selectionAddAxes, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
-		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
+		Cmds.of(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(titledPane.isVisible());
 	}
 
 	@Test
 	public void testNotFillingWidgetsNotEnabledHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectGradStyle, updateIns).execute();
+		Cmds.of(activateHand, selectionAddRec, selectGradStyle, updateIns).execute();
 		assertFalse(fillColButton.getParent().isVisible());
 	}
 
 	@Test
 	public void testNotGradWidgetsNotEnabledHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectHatchingsStyle, updateIns).execute();
+		Cmds.of(activateHand, selectionAddRec, selectHatchingsStyle, updateIns).execute();
 		assertFalse(gradAngleField.getParent().isVisible());
 	}
 
 	@Test
 	public void testNotHatchWidgetsNotEnabledHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectGradStyle, updateIns).execute();
+		Cmds.of(activateHand, selectionAddRec, selectGradStyle, updateIns).execute();
 		assertFalse(hatchAngleField.getParent().isVisible());
 	}
 
 	@Test
 	public void testSelectFillingPlainHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns).execute();
 		final FillingStyle style = fillStyleCB.getSelectionModel().getSelectedItem();
 		selectStyle.execute(FillingStyle.PLAIN);
 		waitFXEvents.execute();
@@ -101,10 +101,9 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testPickFillingColourHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectPlainStyle, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectPlainStyle, updateIns).execute();
 		final Color col = fillColButton.getValue();
-		pickfillCol.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickfillCol).execute();
 		assertEquals(fillColButton.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getFillingCol().toJFX());
 		assertEquals(fillColButton.getValue(), drawing.getSelection().getShapeAt(2).orElseThrow().getFillingCol().toJFX());
 		assertNotEquals(col, fillColButton.getValue());
@@ -112,10 +111,9 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testPickHatchingsColourHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectHatchingsStyle, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectHatchingsStyle, updateIns).execute();
 		final Color col = hatchColButton.getValue();
-		pickhatchCol.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickhatchCol).execute();
 		assertEquals(hatchColButton.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getHatchingsCol().toJFX());
 		assertEquals(hatchColButton.getValue(), drawing.getSelection().getShapeAt(2).orElseThrow().getHatchingsCol().toJFX());
 		assertNotEquals(col, hatchColButton.getValue());
@@ -123,10 +121,9 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testPickGradStartColourHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectGradStyle, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectGradStyle, updateIns).execute();
 		final Color col = gradStartColButton.getValue();
-		pickgradStartCol.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickgradStartCol).execute();
 		assertEquals(gradStartColButton.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getGradColStart().toJFX());
 		assertEquals(gradStartColButton.getValue(), drawing.getSelection().getShapeAt(2).orElseThrow().getGradColStart().toJFX());
 		assertNotEquals(col, gradStartColButton.getValue());
@@ -134,10 +131,9 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testPickGradEndColourHand() {
-		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectGradStyle, updateIns).execute();
+		Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, selectGradStyle, updateIns).execute();
 		final Color col = gradEndColButton.getValue();
-		pickgradEndCol.execute();
-		waitFXEvents.execute();
+		Cmds.of(pickgradEndCol).execute();
 		assertEquals(gradEndColButton.getValue(), drawing.getSelection().getShapeAt(1).orElseThrow().getGradColEnd().toJFX());
 		assertEquals(gradEndColButton.getValue(), drawing.getSelection().getShapeAt(2).orElseThrow().getGradColEnd().toJFX());
 		assertNotEquals(col, gradEndColButton.getValue());
@@ -145,7 +141,7 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testIncrementGradMidHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectGradStyle), gradMidPtField,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectGradStyle), gradMidPtField,
 			incrementgradMidPt, Arrays.asList(
 			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getGradMidPt(),
 			() ->  drawing.getSelection().getShapeAt(2).orElseThrow().getGradMidPt()));
@@ -153,7 +149,7 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testIncrementGradAngleHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectGradStyle), gradAngleField,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectGradStyle), gradAngleField,
 			incrementgradAngle, Arrays.asList(
 			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).orElseThrow().getGradAngle()),
 			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).orElseThrow().getGradAngle())));
@@ -161,7 +157,7 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testIncrementHatchAngleHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchAngleField,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchAngleField,
 			incrementhatchAngle, Arrays.asList(
 			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(1).orElseThrow().getHatchingsAngle()),
 			() ->  Math.toDegrees(drawing.getSelection().getShapeAt(2).orElseThrow().getHatchingsAngle())));
@@ -169,7 +165,7 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testIncrementHatchWidthHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchWidthField,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchWidthField,
 			incrementhatchWidth, Arrays.asList(
 			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getHatchingsWidth(),
 			() ->  drawing.getSelection().getShapeAt(2).orElseThrow().getHatchingsWidth()));
@@ -177,7 +173,7 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 
 	@Test
 	public void testIncrementHatchSepHand() {
-		doTestSpinner(new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchSepField,
+		doTestSpinner(Cmds.of(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns, selectHatchingsStyle), hatchSepField,
 			incrementhatchSep, Arrays.asList(
 			() ->  drawing.getSelection().getShapeAt(1).orElseThrow().getHatchingsSep(),
 			() ->  drawing.getSelection().getShapeAt(2).orElseThrow().getHatchingsSep()));

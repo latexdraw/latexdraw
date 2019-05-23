@@ -2,7 +2,6 @@ package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
@@ -64,7 +63,7 @@ public class TestTemplateManager extends BaseTestCanvas {
 	public void setUp() throws Exception {
 		super.setUp();
 		handler = Mockito.mock(CmdHandler.class);
-		hand.setActivated(true);
+		Cmds.of(CmdFXVoid.of(() -> hand.setActivated(true))).execute();
 		when(pencil.isActivated()).thenReturn(false);
 		CommandsRegistry.INSTANCE.addHandler(handler);
 	}
@@ -80,18 +79,16 @@ public class TestTemplateManager extends BaseTestCanvas {
 		final ImageView view = new ImageView(new Image(getClass().getResourceAsStream("/Condenser.svg.png"))); //NON-NLS
 		view.setUserData(getClass().getResource("/Condenser.svg").getPath());
 		final FlowPane pane = find("#templatePane");
-		Platform.runLater(() -> pane.getChildren().add(0, view));
-		waitFXEvents.execute();
-		drag(pane.getChildren().get(0)).dropTo(canvas);
-		waitFXEvents.execute();
+		Cmds.of(
+			CmdFXVoid.of(() -> pane.getChildren().add(0, view)),
+			() -> drag(pane.getChildren().get(0)).dropTo(canvas)).execute();
 		assertEquals(1, canvas.getDrawing().size());
 		Mockito.verify(handler, Mockito.times(1)).onCmdDone(Mockito.any(LoadTemplate.class));
 	}
 
 	@Test
 	public void testClickRefreshTemplates() {
-		clickOn("#updateTemplates");
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn("#updateTemplates")).execute();
 		Mockito.verify(handler, Mockito.times(1)).onCmdDone(Mockito.any(UpdateTemplates.class));
 	}
 }

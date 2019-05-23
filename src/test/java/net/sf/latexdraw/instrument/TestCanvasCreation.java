@@ -81,10 +81,9 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawRectangle() {
-		editing.setCurrentChoice(EditionChoice.RECT);
 		final Point2D pos = point(canvas).query();
-		drag(pos, MouseButton.PRIMARY).dropBy(100d, 200d);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.RECT)),
+			() -> drag(pos, MouseButton.PRIMARY).dropBy(100d, 200d)).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Rectangle);
@@ -97,10 +96,9 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawEllipse() {
-		editing.setCurrentChoice(EditionChoice.ELLIPSE);
 		final Point2D pos = point(canvas).atOffset(-10d, -200d).query();
-		drag(pos, MouseButton.PRIMARY).dropBy(100d, 200d);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.ELLIPSE)),
+			() -> drag(pos, MouseButton.PRIMARY).dropBy(100d, 200d)).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Ellipse);
@@ -113,10 +111,9 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawSquare() {
-		editing.setCurrentChoice(EditionChoice.SQUARE);
 		final Point2D pos = point(canvas).query();
-		drag(pos, MouseButton.PRIMARY).dropBy(101d, 11d);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.SQUARE)),
+			() -> drag(pos, MouseButton.PRIMARY).dropBy(101d, 11d)).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Square);
@@ -129,10 +126,9 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawCircle() {
-		editing.setCurrentChoice(EditionChoice.CIRCLE);
 		final Point2D pos = point(canvas).query();
-		drag(pos, MouseButton.PRIMARY).dropBy(101d, 11d);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.CIRCLE)),
+			() -> drag(pos, MouseButton.PRIMARY).dropBy(101d, 11d)).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Circle);
@@ -144,10 +140,9 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawCircleArc() {
-		editing.setCurrentChoice(EditionChoice.CIRCLE_ARC);
 		final Point2D pos = point(canvas).query();
-		drag(pos, MouseButton.PRIMARY).dropBy(101d, 11d);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.CIRCLE_ARC)),
+			() -> drag(pos, MouseButton.PRIMARY).dropBy(101d, 11d)).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof CircleArc);
@@ -160,11 +155,10 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawFreeHand() {
-		editing.setCurrentChoice(EditionChoice.FREE_HAND);
-		editing.getGroupParams().setInterval(1);
 		final Point2D pos = point(canvas).query();
-		drag(pos, MouseButton.PRIMARY).dropBy(100d, 200d);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.FREE_HAND)),
+			CmdFXVoid.of(() -> editing.getGroupParams().setInterval(1)),
+			() -> drag(pos, MouseButton.PRIMARY).dropBy(100d, 200d)).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Freehand);
@@ -177,10 +171,10 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawPolygon() {
-		editing.setCurrentChoice(EditionChoice.POLYGON);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).moveBy(-20d, -100d).clickOn(MouseButton.PRIMARY).moveBy(-100d, 50d).clickOn(MouseButton.SECONDARY);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.POLYGON)),
+			() -> moveTo(pos).clickOn(MouseButton.PRIMARY).moveBy(-20d, -100d).clickOn(MouseButton.PRIMARY).moveBy(-100d, 50d).clickOn(MouseButton.SECONDARY)
+		).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Polygon);
@@ -192,10 +186,10 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawPolylines() {
-		editing.setCurrentChoice(EditionChoice.LINES);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).moveBy(-20d, -100d).clickOn(MouseButton.PRIMARY).moveBy(-100d, 50d).clickOn(MouseButton.SECONDARY);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.LINES)),
+			() -> moveTo(pos).clickOn(MouseButton.PRIMARY).moveBy(-20d, -100d).clickOn(MouseButton.PRIMARY).moveBy(-100d, 50d).clickOn(MouseButton.SECONDARY)
+		).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Polyline);
@@ -207,10 +201,10 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawBezierCurve() {
-		editing.setCurrentChoice(EditionChoice.BEZIER_CURVE);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY).moveBy(-20d, -100d).clickOn(MouseButton.PRIMARY).moveBy(-100d, 50d).clickOn(MouseButton.SECONDARY);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.BEZIER_CURVE)),
+			() -> moveTo(pos).clickOn(MouseButton.PRIMARY).moveBy(-20d, -100d).clickOn(MouseButton.PRIMARY).moveBy(-100d, 50d).clickOn(MouseButton.SECONDARY)
+		).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof BezierCurve);
@@ -223,10 +217,9 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawDot() {
-		editing.setCurrentChoice(EditionChoice.DOT);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.DOT)),
+			() -> moveTo(pos).clickOn(MouseButton.PRIMARY)).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Dot);
@@ -237,10 +230,9 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawGrid() {
-		editing.setCurrentChoice(EditionChoice.GRID);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.GRID)),
+			() -> moveTo(pos).clickOn(MouseButton.PRIMARY)).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Grid);
@@ -251,10 +243,9 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawAxes() {
-		editing.setCurrentChoice(EditionChoice.AXES);
 		final Point2D pos = point(canvas).query();
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> editing.setCurrentChoice(EditionChoice.AXES)),
+			() -> moveTo(pos).clickOn(MouseButton.PRIMARY)).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Axes);
@@ -265,14 +256,15 @@ public class TestCanvasCreation extends BaseTestCanvas {
 
 	@Test
 	public void testDrawText() {
-		editing.setCurrentChoice(EditionChoice.TEXT);
-		when(setter.isActivated()).thenReturn(true);
-		textAutoSize.setText("gridGapProp");
 		final Point2D pos = point(canvas).query();
+		when(setter.isActivated()).thenReturn(true);
 		when(setter.getPosition()).thenReturn(
 			ShapeFactory.INST.createPoint(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(), -Canvas.getMargins() + canvas.screenToLocal(pos).getY()));
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
+
+		Cmds.of(CmdFXVoid.of(() -> {
+			editing.setCurrentChoice(EditionChoice.TEXT);
+			textAutoSize.setText("gridGapProp");
+		}), () -> moveTo(pos).clickOn(MouseButton.PRIMARY)).execute();
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Text);
@@ -286,17 +278,19 @@ public class TestCanvasCreation extends BaseTestCanvas {
 	public void testDrawPicture() {
 		final FileChooser c = Mockito.mock(FileChooser.class);
 		final URL resource = getClass().getResource("/LaTeXDrawSmall.png");
-
-		editing.setCurrentChoice(EditionChoice.PICTURE);
-		when(c.showOpenDialog(Mockito.any())).thenReturn(new File(resource.getPath()));
-		pencil.setPictureFileChooser(c);
-		when(setter.isActivated()).thenReturn(true);
-		textAutoSize.setText("gridGapProp");
 		final Point2D pos = point(canvas).query();
+
+		when(c.showOpenDialog(Mockito.any())).thenReturn(new File(resource.getPath()));
+		when(setter.isActivated()).thenReturn(true);
 		when(setter.getPosition()).thenReturn(ShapeFactory.INST.createPoint(-Canvas.getMargins() + canvas.screenToLocal(pos).getX(),
 			-Canvas.getMargins() + canvas.screenToLocal(pos).getY()));
-		moveTo(pos).clickOn(MouseButton.PRIMARY);
-		waitFXEvents.execute();
+
+		Cmds.of(CmdFXVoid.of(() -> {
+			editing.setCurrentChoice(EditionChoice.PICTURE);
+			pencil.setPictureFileChooser(c);
+			textAutoSize.setText("gridGapProp");
+		}), () -> moveTo(pos).clickOn(MouseButton.PRIMARY)).execute();
+
 
 		assertEquals(1, drawing.size());
 		assertTrue(drawing.getShapeAt(0).orElseThrow() instanceof Picture);

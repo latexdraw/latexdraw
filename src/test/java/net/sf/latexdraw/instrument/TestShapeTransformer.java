@@ -37,22 +37,22 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	Button distribHorizRight;
 	VBox mainPane;
 
-	final GUIVoidCommand clickAlignBot = () -> clickOn(alignBot);
-	final GUIVoidCommand clickAlignTop = () -> clickOn(alignTop);
-	final GUIVoidCommand clickAlignLeft = () -> clickOn(alignLeft);
-	final GUIVoidCommand clickAlignRight = () -> clickOn(alignRight);
-	final GUIVoidCommand clickAlignMidHoriz = () -> clickOn(alignMidHoriz);
-	final GUIVoidCommand clickAlignMidVert = () -> clickOn(alignMidVert);
-	final GUIVoidCommand clickMirrorH = () -> clickOn(mirrorH);
-	final GUIVoidCommand clickMirrorV = () -> clickOn(mirrorV);
-	final GUIVoidCommand clickDistribVertBot = () -> clickOn(distribVertBot);
-	final GUIVoidCommand clickDistribVertEq = () -> clickOn(distribVertEq);
-	final GUIVoidCommand clickDistribVertMid = () -> clickOn(distribVertMid);
-	final GUIVoidCommand clickDistribVertTop = () -> clickOn(distribVertTop);
-	final GUIVoidCommand clickDistribHorizEq = () -> clickOn(distribHorizEq);
-	final GUIVoidCommand clickDistribHorizLeft = () -> clickOn(distribHorizLeft);
-	final GUIVoidCommand clickDistribHorizMid = () -> clickOn(distribHorizMid);
-	final GUIVoidCommand clickDistribHorizRight = () -> clickOn(distribHorizRight);
+	final CmdVoid clickAlignBot = () -> clickOn(alignBot);
+	final CmdVoid clickAlignTop = () -> clickOn(alignTop);
+	final CmdVoid clickAlignLeft = () -> clickOn(alignLeft);
+	final CmdVoid clickAlignRight = () -> clickOn(alignRight);
+	final CmdVoid clickAlignMidHoriz = () -> clickOn(alignMidHoriz);
+	final CmdVoid clickAlignMidVert = () -> clickOn(alignMidVert);
+	final CmdVoid clickMirrorH = () -> clickOn(mirrorH);
+	final CmdVoid clickMirrorV = () -> clickOn(mirrorV);
+	final CmdVoid clickDistribVertBot = () -> clickOn(distribVertBot);
+	final CmdVoid clickDistribVertEq = () -> clickOn(distribVertEq);
+	final CmdVoid clickDistribVertMid = () -> clickOn(distribVertMid);
+	final CmdVoid clickDistribVertTop = () -> clickOn(distribVertTop);
+	final CmdVoid clickDistribHorizEq = () -> clickOn(distribHorizEq);
+	final CmdVoid clickDistribHorizLeft = () -> clickOn(distribHorizLeft);
+	final CmdVoid clickDistribHorizMid = () -> clickOn(distribHorizMid);
+	final CmdVoid clickDistribHorizRight = () -> clickOn(distribHorizRight);
 
 	@Override
 	protected String getFXMLPathFromLatexdraw() {
@@ -122,15 +122,13 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 
 	@Test
 	public void testNotActivateOnOneShapeSelected() {
-		selectOneShape.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectOneShape).execute();
 		assertFalse(ins.isActivated());
 	}
 
 	@Test
 	public void testNotVisibleOnOneShapeSelected() {
-		selectOneShape.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectOneShape).execute();
 		assertFalse(mainPane.isVisible());
 	}
 
@@ -138,8 +136,7 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	public void testNotVisiblePencil() {
 		when(pencil.isActivated()).thenReturn(true);
 		when(hand.isActivated()).thenReturn(false);
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		assertFalse(mainPane.isVisible());
 	}
 
@@ -147,168 +144,137 @@ public class TestShapeTransformer extends SelectionBasedTesting<ShapeTransformer
 	public void testNotActivatedPencil() {
 		when(pencil.isActivated()).thenReturn(true);
 		when(hand.isActivated()).thenReturn(false);
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		assertFalse(ins.isActivated());
 	}
 
 	@Test
 	public void testAlignBot() {
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickAlignBot.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickAlignBot).execute();
 		assertNotEquals(dups.get(0).getPoints(), drawing.getShapes().get(0).getPoints());
 	}
 
 	@Test
 	public void testAlignTop() {
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickAlignTop.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickAlignTop).execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testAlignLeft() {
-		selectTwoShapes.execute();
+		Cmds.of(selectTwoShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickAlignLeft.execute();
+		Cmds.of(clickAlignLeft).execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testAlignRight() {
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickAlignRight.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickAlignRight).execute();
 		assertNotEquals(dups.get(0).getPoints(), drawing.getShapes().get(0).getPoints());
 	}
 
 	@Test
 	public void testAlignMidHoriz() {
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickAlignMidHoriz.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickAlignMidHoriz).execute();
 		assertNotEquals(dups.get(0).getPoints(), drawing.getShapes().get(0).getPoints());
 	}
 
 	@Test
 	public void testAlignMidVert() {
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickAlignMidVert.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickAlignMidVert).execute();
 		assertNotEquals(dups.get(0).getPoints(), drawing.getShapes().get(0).getPoints());
 	}
 
 	@Test
 	public void testMirrorH() {
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickMirrorH.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickMirrorH).execute();
 		assertNotEquals(dups.get(0).getPoints(), drawing.getShapes().get(0).getPoints());
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testMirrorV() {
-		selectTwoShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectTwoShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickMirrorV.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickMirrorV).execute();
 		assertNotEquals(dups.get(0).getPoints(), drawing.getShapes().get(0).getPoints());
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testDistribVertBot() {
-		selectThreeShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectThreeShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickDistribVertBot.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickDistribVertBot).execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testDistribVertEq() {
-		selectThreeShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectThreeShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickDistribVertEq.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickDistribVertEq).execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testDistribVertMid() {
-		selectThreeShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectThreeShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickDistribVertMid.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickDistribVertMid).execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testDistribVertTop() {
-		selectThreeShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectThreeShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickDistribVertTop.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickDistribVertTop).execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testDistribHorizEq() {
-		selectThreeShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectThreeShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickDistribHorizEq.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickDistribHorizEq).execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testDistribHorizLeft() {
-		selectThreeShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectThreeShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickDistribHorizLeft.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickDistribHorizLeft).execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testDistribHorizMid() {
-		selectThreeShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectThreeShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickDistribHorizMid.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickDistribHorizMid).execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 
 	@Test
 	public void testDistribHorizRight() {
-		selectThreeShapes.execute();
-		waitFXEvents.execute();
+		Cmds.of(selectThreeShapes).execute();
 		final List<Shape> dups = drawing.getShapes().stream().map(sh -> sh.duplicate()).collect(Collectors.toList());
-		clickDistribHorizRight.execute();
-		waitFXEvents.execute();
+		Cmds.of(clickDistribHorizRight).execute();
 		assertNotEquals(dups.get(1).getPoints(), drawing.getShapes().get(1).getPoints());
 	}
 }

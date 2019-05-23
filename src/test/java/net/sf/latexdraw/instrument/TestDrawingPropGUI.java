@@ -33,11 +33,11 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 	DrawingPropertiesCustomiser ins;
 	LaTeXDataService data;
 
-	final GUIVoidCommand typeLabel = () -> clickOn(labelField).write("newLabel");
-	final GUIVoidCommand typeTitle = () -> clickOn(titleField).write("new Title");
-	final GUIVoidCommand changeScale = () -> incrementSpinner(scaleField);
-	final GUIVoidCommand checkMiddleHoriz = () -> clickOn(middleHorizPosCB);
-	final GUICommand<VerticalPosition> changePosition = pos -> selectGivenComboBoxItem(positionCB, pos);
+	final CmdVoid typeLabel = () -> clickOn(labelField).write("newLabel");
+	final CmdVoid typeTitle = () -> clickOn(titleField).write("new Title");
+	final CmdVoid changeScale = () -> incrementSpinner(scaleField);
+	final CmdVoid checkMiddleHoriz = () -> clickOn(middleHorizPosCB);
+	final Cmd<VerticalPosition> changePosition = pos -> selectGivenComboBoxItem(positionCB, pos);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
@@ -74,60 +74,60 @@ public class TestDrawingPropGUI extends TestLatexdrawGUI implements FxRobotSpinn
 
 	@Test
 	public void testSetCaption() {
-		new CompositeGUIVoidCommand(typeTitle, () -> HelperTest.waitForTimeoutTransitions()).execute();
+		Cmds.of(typeTitle, () -> HelperTest.waitForTimeoutTransitions()).execute();
 		assertEquals("new Title", data.getCaption());
 	}
 
 	@Test
 	public void testSetLabel() {
-		new CompositeGUIVoidCommand(typeLabel, () -> HelperTest.waitForTimeoutTransitions()).execute();
+		Cmds.of(typeLabel, () -> HelperTest.waitForTimeoutTransitions()).execute();
 		assertEquals("newLabel", data.getLabel());
 	}
 
 	@Test
 	public void testSetScale() {
-		doTestSpinner(new CompositeGUIVoidCommand(), scaleField, changeScale, Collections.singletonList(() -> data.getScale()));
+		doTestSpinner(Cmds.of(), scaleField, changeScale, Collections.singletonList(() -> data.getScale()));
 	}
 
 	@Test
 	public void testSetMiddleHoriz() {
-		checkMiddleHoriz.execute();
+		Cmds.of(checkMiddleHoriz).execute();
 		assertEquals(middleHorizPosCB.isSelected(), data.isPositionHoriCentre());
 	}
 
 	@Test
 	public void testSePositionBOTTOM() {
-		changePosition.execute(VerticalPosition.BOTTOM);
+		Cmds.of(() -> changePosition.execute(VerticalPosition.BOTTOM)).execute();
 		assertEquals(VerticalPosition.BOTTOM, data.getPositionVertToken());
 	}
 
 	@Test
 	public void testSePositionFLOAT() {
-		changePosition.execute(VerticalPosition.FLOATS_PAGE);
+		Cmds.of(() -> changePosition.execute(VerticalPosition.FLOATS_PAGE)).execute();
 		assertEquals(VerticalPosition.FLOATS_PAGE, data.getPositionVertToken());
 	}
 
 	@Test
 	public void testSePositionHERE() {
-		changePosition.execute(VerticalPosition.HERE);
+		Cmds.of(() -> changePosition.execute(VerticalPosition.HERE)).execute();
 		assertEquals(VerticalPosition.HERE, data.getPositionVertToken());
 	}
 
 	@Test
 	public void testSePositionHEREHERE() {
-		changePosition.execute(VerticalPosition.HERE_HERE);
+		Cmds.of(() -> changePosition.execute(VerticalPosition.HERE_HERE)).execute();
 		assertEquals(VerticalPosition.HERE_HERE, data.getPositionVertToken());
 	}
 
 	@Test
 	public void testSePositionTOP() {
-		changePosition.execute(VerticalPosition.TOP);
+		Cmds.of(() -> changePosition.execute(VerticalPosition.TOP)).execute();
 		assertEquals(VerticalPosition.TOP, data.getPositionVertToken());
 	}
 
 	@Test
 	public void testSePositionNONE() {
-		changePosition.execute(VerticalPosition.NONE);
+		Cmds.of(() -> changePosition.execute(VerticalPosition.NONE)).execute();
 		assertEquals(VerticalPosition.NONE, data.getPositionVertToken());
 	}
 

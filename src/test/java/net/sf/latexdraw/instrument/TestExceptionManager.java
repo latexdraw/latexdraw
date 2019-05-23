@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.BadaboomCollector;
@@ -14,7 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -65,8 +63,7 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 
 	@Test
 	public void testActivatedOnCrash() {
-		BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> BadaboomCollector.INSTANCE.add(new IllegalArgumentException()))).execute();
 		assertTrue(manager.isActivated());
 		assertFalse(getButton().isDisabled());
 	}
@@ -76,19 +73,16 @@ public class TestExceptionManager extends TestLatexdrawGUI {
 		final Field field = ExceptionsManager.class.getDeclaredField("stageEx");
 		field.setAccessible(true);
 		field.set(manager, null);
-		Platform.runLater(() -> manager.getStageEx());
-		WaitForAsyncUtils.waitForFxEvents();
+		Cmds.of(CmdFXVoid.of(() -> manager.getStageEx())).execute();
 		assertNotNull(manager.getStageEx());
 	}
 
 	@Test
 	public void testClickShowErrorStage() {
 		BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
-		clickOn(getButton());
-		waitFXEvents.execute();
+		Cmds.of(() -> clickOn(getButton())).execute();
 		final AtomicBoolean visible = new AtomicBoolean(false);
-		Platform.runLater(() -> visible.set(manager.getStageEx().isShowing()));
-		waitFXEvents.execute();
+		Cmds.of(CmdFXVoid.of(() -> visible.set(manager.getStageEx().isShowing()))).execute();
 		assertTrue(visible.get());
 	}
 }

@@ -67,7 +67,7 @@ public class TextSetter extends JfxInstrument implements Initializable {
 	@Override
 	public void onCmdDone(final Command cmd) {
 		super.onCmdDone(cmd);
-		Platform.runLater(() -> canvas.requestFocus());
+		canvas.requestFocus();
 	}
 
 	/**

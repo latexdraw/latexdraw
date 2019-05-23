@@ -13,7 +13,6 @@ package net.sf.latexdraw.view.jfx;
 import java.awt.geom.Point2D;
 import java.util.Optional;
 import java.util.function.Supplier;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
@@ -246,7 +245,7 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 		}
 
 		final WritableImage image = new WritableImage((int) bounds.getWidth(), (int) bounds.getHeight());
-		Platform.runLater(() -> hatchings.snapshot(new SnapshotParameters(), image));
+		hatchings.snapshot(new SnapshotParameters(), image);
 		return new ImagePattern(image, 0, 0, 1, 1, true);
 	}
 
