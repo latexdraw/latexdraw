@@ -12,6 +12,7 @@ package net.sf.latexdraw.view.jfx;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -160,18 +161,22 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
 		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
 		disposables.add(JavaFxObservable.eventsOf(selectionBorder, MouseEvent.MOUSE_ENTERED)
+			.observeOn(JavaFxScheduler.platform())
 			.subscribe(evt -> setCursor(Cursor.HAND), ex -> BadaboomCollector.INSTANCE.add(ex)));
 		disposables.add(JavaFxObservable.eventsOf(selectionBorder, MouseEvent.MOUSE_EXITED)
+			.observeOn(JavaFxScheduler.platform())
 			.subscribe(evt -> setCursor(Cursor.DEFAULT), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
 		// Instead of triggering the update on each change, wait for 20 ms
 		disposables.add(JavaFxObservable.<ObservableList<Shape>>changesOf(drawing.getSelection().getShapes())
 			.throttleLast(20, TimeUnit.MILLISECONDS)
+			.observeOn(JavaFxScheduler.platform())
 			.subscribe(next -> updateSelectionBorders(), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
 		// Bloody key shortcuts. To work the canvas must grab the focus
 		// Must be a MOUSE_CLICKED, not a MOUSE_PRESSED, do not know why...
 		disposables.add(JavaFxObservable.eventsOf(this, MouseEvent.MOUSE_CLICKED)
+			.observeOn(JavaFxScheduler.platform())
 			.subscribe(evt -> requestFocus(), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
 		CommandsRegistry.INSTANCE.addHandler(this);

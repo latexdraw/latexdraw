@@ -12,6 +12,7 @@ package net.sf.latexdraw.instrument;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.rxjavafx.sources.ListChange;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,9 +86,11 @@ public class Hand extends CanvasInstrument implements Flushable {
 			case ADDED:
 				final Disposable disposable1 = JavaFxObservable.eventsOf(evt.getValue(), MouseEvent.MOUSE_ENTERED)
 					.filter(mouseEnter -> isActivated())
+					.observeOn(JavaFxScheduler.platform())
 					.subscribe(mouseEnter -> canvas.setCursor(Cursor.HAND));
 				final Disposable disposable2 = JavaFxObservable.eventsOf(evt.getValue(), MouseEvent.MOUSE_EXITED)
 					.filter(mouseEnter -> isActivated())
+					.observeOn(JavaFxScheduler.platform())
 					.subscribe(mouseEnter -> canvas.setCursor(Cursor.DEFAULT));
 				cursorsEvents.put(evt.getValue(), new Tuple<>(disposable1, disposable2));
 				break;
@@ -105,6 +108,7 @@ public class Hand extends CanvasInstrument implements Flushable {
 	@Override
 	protected void configureBindings() {
 		disposables.add(JavaFxObservable.changesOf(canvas.getViews().getChildren())
+			.observeOn(JavaFxScheduler.platform())
 			.subscribe(next -> setUpCursorOnShapeView(next), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
 		addBinding(new DnD2Select(this));
