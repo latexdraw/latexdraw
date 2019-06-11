@@ -159,11 +159,11 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage)).on(saveAsMenu).bind();
 
 		// Load menu
-		menuItemBinder(i -> new LoadDrawing(prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
+		menuItemBinder(i -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
 			getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage)).on(loadMenu).bind();
 
 		// Load shortcut
-		keyWindowBinder(i -> new LoadDrawing(prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
+		keyWindowBinder(i -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
 			getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage)).on(mainstage).with(KeyCode.O, SystemUtils.getInstance().getControlKey()).bind();
 
 		// New menu
