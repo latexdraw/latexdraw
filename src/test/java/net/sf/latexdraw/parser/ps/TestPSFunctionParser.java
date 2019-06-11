@@ -1,6 +1,8 @@
 package net.sf.latexdraw.parser.ps;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -159,9 +161,22 @@ public class TestPSFunctionParser {
 		assertEquals(5.0, parser.getY(3), 0.0001);
 	}
 
-	@Test
-	void testGetYXAddnotOK() throws InvalidFormatPSFunctionException {
-		final PSFunctionParser parser = new PSFunctionParser("x add");
+	@ParameterizedTest
+	@ValueSource(strings = {"x add", "  x    add    "})
+	void testGetYXAddnotOK(final String cmd) throws InvalidFormatPSFunctionException {
+		final PSFunctionParser parser = new PSFunctionParser(cmd);
 		assertThrows(InvalidFormatPSFunctionException.class, () -> parser.getY(3));
+	}
+
+	@Test
+	void testGetYNoCmd() {
+		final PSFunctionParser parser = new PSFunctionParser("clear");
+		assertThrows(InvalidFormatPSFunctionException.class, () -> parser.getY(0));
+	}
+
+	@Test
+	void testNoCmd() {
+		final PSFunctionParser parser = new PSFunctionParser("    ");
+		assertThrows(InvalidFormatPSFunctionException.class, () -> parser.getY(0));
 	}
 }

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import net.sf.latexdraw.util.Tuple;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A postscript function parser.
@@ -157,11 +158,7 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 * @throws NumberFormatException If the function is not correct.
 	 */
-	protected PSArithemticCommand identifyCommand(final String cmd) {
-		if(cmd == null || cmd.isEmpty()) {
-			throw new InvalidFormatPSFunctionException();
-		}
-
+	protected PSArithemticCommand identifyCommand(final @NotNull String cmd) {
 		try {
 			return factoryMap.getOrDefault(cmd, () -> new PSValue(Double.parseDouble(cmd))).get();
 		}catch(final NumberFormatException ex) {
