@@ -5,18 +5,12 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.malai.command.Command;
 import org.malai.command.CommandsRegistry;
-import org.malai.javafx.ui.JfxUI;
-import org.malai.javafx.ui.OpenSaver;
 import org.malai.undo.UndoCollector;
 import org.malai.undo.Undoable;
 import org.mockito.Mock;
@@ -30,25 +24,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(ApplicationExtension.class)
 @ExtendWith(MockitoExtension.class)
-public class TestNewDrawing {
-	@Mock
-	File file;
-	@Mock
-	OpenSaver<Label> openSaver;
-	@Mock
-	ProgressBar progressBar;
-	@Mock
-	Label statusWidget;
-	@Mock
-	JfxUI ui;
-	@Mock
-	FileChooser fileChooser;
-	@Mock
-	File currentFolder;
+public class TestNewDrawing extends IOCmdBaseTest {
 	@Mock
 	ResourceBundle lang;
-	@Mock
-	Stage mainstage;
 	NewDrawing cmd;
 
 

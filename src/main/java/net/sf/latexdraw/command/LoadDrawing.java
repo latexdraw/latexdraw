@@ -49,37 +49,32 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 	protected void doCmdBody() {
 		if(ui.isModified()) {
 			final ButtonType type = SaveDrawing.showAskModificationsDialog(lang);
-
 			if(type == ButtonType.NO) {
 				load();
-				done();
-				return;
-			}
-			if(type == ButtonType.YES && saveAndLoad()) {
-				done();
+			}else {
+				if(type == ButtonType.YES) {
+					saveAndLoad();
+				}
 			}
 		}else {
 			load();
-			done();
 		}
 	}
 
-	private boolean saveAndLoad() {
-		return SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui, mainstage).map(f -> {
+	private void saveAndLoad() {
+		SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui, mainstage).ifPresent(f -> {
 			final Task<Boolean> saveTask = openSaveManager.save(f.getPath(), progressBar, statusWidget);
 			try {
 				if(saveTask.get()) {
 					ui.setModified(false);
 					load();
-					return Boolean.TRUE;
 				}
-			}catch(InterruptedException ex) {
+			}catch(final InterruptedException ignored) {
 				Thread.currentThread().interrupt();
-			}catch(ExecutionException ex) {
+			}catch(final ExecutionException ignored) {
 				// ignored.
 			}
-			return Boolean.FALSE;
-		}).orElse(Boolean.FALSE);
+		});
 	}
 
 	@Override
