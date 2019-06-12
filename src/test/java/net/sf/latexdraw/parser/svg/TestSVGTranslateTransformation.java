@@ -45,7 +45,7 @@ public class TestSVGTranslateTransformation {
 	}
 
 	@Nested
-	class WithDoubles {
+	class TestWithDoubles {
 		SVGTransform.SVGTranslateTransformation transfo;
 
 		@BeforeEach

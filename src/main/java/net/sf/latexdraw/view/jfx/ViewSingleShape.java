@@ -466,7 +466,7 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 					border.getStrokeDashArray().clear();
 					border.getStrokeDashArray().addAll(model.getDashSepBlack(), model.getDashSepWhite());
 					break;
-				case DOTTED:// FIXME problem when dotted line + INTO/OUT border position.
+				case DOTTED:
 					border.setStrokeLineCap(StrokeLineCap.ROUND);
 					border.getStrokeDashArray().clear();
 					border.getStrokeDashArray().addAll(0d, model.getDotSep() + model.getFullThickness());

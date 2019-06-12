@@ -36,7 +36,6 @@ import org.jetbrains.annotations.Nullable;
 interface GroupShapeBase extends Group {
 	@Override
 	default void copy(final Shape sh) {
-		//TODO
 	}
 
 	@Override
@@ -102,7 +101,6 @@ interface GroupShapeBase extends Group {
 
 	@Override
 	default void scaleWithRatio(final double x, final double x2, final @NotNull Position x3, final @NotNull Rectangle2D x4) {
-		//TODO ?
 	}
 
 	@Override

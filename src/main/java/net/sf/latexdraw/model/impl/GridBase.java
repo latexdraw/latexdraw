@@ -101,7 +101,6 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 	public @NotNull Point getTopRightPoint() {
 		final Point pos = getPosition();
 		final double step = getStep();
-		//FIXME strange: different from getTopLeftPoint and co. but works for scale.
 		return ShapeFactory.INST.createPoint(pos.getX() + step * (getGridEndX() - getGridStartX()), pos.getY() - step * (getGridEndY() - getGridStartY()));
 	}
 

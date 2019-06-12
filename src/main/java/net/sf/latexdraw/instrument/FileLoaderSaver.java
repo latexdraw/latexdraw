@@ -211,4 +211,12 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 		setActivated(true);
 	}
+
+	/**
+	 * For testing purpose only.
+	 * @param fc The file chooser to use.
+	 */
+	void setFileChooser(final @Nullable FileChooser fc) {
+		fileChooser = fc;
+	}
 }

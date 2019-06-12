@@ -186,6 +186,5 @@ interface ArrowableShapeBase extends ArrowableSingleShape {
 
 	@Override
 	default void onChanges(final Runnable run) {
-		//TODO
 	}
 }

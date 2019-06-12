@@ -58,7 +58,6 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	public ShapeTextCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing,
 		final LaTeXDataService latexData) {
 		super(hand, pencil, canvas, drawing, editing);
-		//FIXME update the instrument when text property commands are done.
 		this.latexData = Objects.requireNonNull(latexData);
 	}
 

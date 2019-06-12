@@ -227,7 +227,7 @@ class TestPreferencesService {
 	}
 
 	@Nested
-	class InvalidExistingPrefFile {
+	class TestInvalidExistingPrefFile {
 		@BeforeEach
 		void setUp(@TempDir final Path tempDir) {
 			prefs = new PreferencesService(tempDir.toString());

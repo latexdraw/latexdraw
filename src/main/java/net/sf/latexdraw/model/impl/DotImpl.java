@@ -188,7 +188,7 @@ class DotImpl extends PositionShapeBase implements Dot {
 		// Each dot shape has a special shape computed from the parameters
 		// defined below.
 		switch(getDotStyle()) {
-			case ASTERISK:// TODO: to check, I do not think it works.
+			case ASTERISK:
 				final double radiusAst = tly + diam / 5d - (bry - diam / 5d) / 2d + dec;
 				tl.setX(Math.cos(7d * Math.PI / 6d) * radiusAst + x);
 				tl.setY(tly + diam / 5d - dec);
@@ -201,7 +201,6 @@ class DotImpl extends PositionShapeBase implements Dot {
 				tl.setX(x - barThickness);
 				tl.setY(tly);
 				br.setX(x + barThickness);
-				// TODO: check if it is not radius*(1/1.875+1/8.): the bar
 				// thickness may be used into radius/1.875
 				br.setY(bry + diam / 1.875);
 				break;
@@ -225,7 +224,7 @@ class DotImpl extends PositionShapeBase implements Dot {
 				br.setY(0.25 * (Math.sqrt(5d) + 1d) * dist + y + dec);
 				break;
 			case FSQUARE:
-			case SQUARE:// TODO may be wrong, to compare with 2d.
+			case SQUARE:
 				tl.setX(tlx);
 				tl.setY(tly);
 				br.setX(brx);
@@ -247,14 +246,14 @@ class DotImpl extends PositionShapeBase implements Dot {
 				br.setX(brx);
 				br.setY(bry);
 				break;
-			case PLUS:// TODO may be wrong, to compare with 2d.
+			case PLUS:
 				final double plusGap = diam / 80d;
 				tl.setX(tlx - plusGap);
 				tl.setY(tly - plusGap);
 				br.setX(brx + plusGap);
 				br.setY(bry + plusGap);
 				break;
-			case X:// TODO may be wrong, to compare with 2d.
+			case X:
 				final double crossGap = diam / 5d;
 				tl.setX(tlx - crossGap);
 				tl.setY(tly - crossGap);

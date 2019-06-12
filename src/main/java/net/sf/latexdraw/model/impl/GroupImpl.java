@@ -1189,6 +1189,6 @@ class GroupImpl implements GroupArcBase, GroupArrowableBase, GroupAxesBase, Grou
 
 	@Override
 	public @NotNull List<Arrow> getArrows() {
-		return Collections.emptyList(); // FIXME: collect all the arrows?
+		return Collections.emptyList();
 	}
 }

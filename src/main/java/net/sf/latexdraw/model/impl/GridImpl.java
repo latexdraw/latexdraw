@@ -285,7 +285,7 @@ class GridImpl extends GridBase implements Grid {
 
 	@Override
 	public void setUnit(final double un) {
-		if(un > 0d && MathUtils.INST.isValidCoord(un)) { //TODO unit may be lesser than 0.
+		if(un > 0d && MathUtils.INST.isValidCoord(un)) {
 			unit.set(un);
 		}
 	}

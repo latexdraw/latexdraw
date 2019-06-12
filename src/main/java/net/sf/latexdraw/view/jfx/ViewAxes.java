@@ -172,7 +172,6 @@ public class ViewAxes extends ViewStdGrid<Axes> implements GenericAxes<Text> {
 		model.ticksStyleProperty().removeListener(ticksUpdate);
 		model.ticksSizeProperty().removeListener(ticksUpdate);
 		model.axesStyleProperty().removeListener(axesUpdate);
-		//TODO unbind arrows
 		super.flush();
 	}
 

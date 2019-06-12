@@ -40,7 +40,6 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 	@Inject
 	public ShapeCoordDimCustomiser(final Hand hand, final Pencil pencil, final Canvas canvas, final Drawing drawing, final EditingService editing) {
 		super(hand, pencil, canvas, drawing, editing);
-		//FIXME update when shapes are moved.
 	}
 
 	@Override

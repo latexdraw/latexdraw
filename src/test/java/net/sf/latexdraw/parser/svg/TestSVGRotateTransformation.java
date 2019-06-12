@@ -35,7 +35,7 @@ public class TestSVGRotateTransformation {
 	}
 
 	@Nested
-	class WithDoubles {
+	class TestWithDoubles {
 		SVGTransform.SVGRotateTransformation transfo;
 
 		@BeforeEach

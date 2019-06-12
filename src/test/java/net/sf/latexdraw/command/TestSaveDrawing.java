@@ -89,7 +89,7 @@ public class TestSaveDrawing extends IOCmdBaseTest {
 	}
 
 	@Nested
-	class NotSaveOnClose {
+	class TestNotSaveOnClose {
 		@BeforeEach
 		protected void configCorrectCmd() {
 			cmd = new SaveDrawing(false, false, Optional.of(currentFolder), fileChooser, prefs, file, openSaver, progressBar, ui, statusWidget, mainstage);
@@ -123,7 +123,7 @@ public class TestSaveDrawing extends IOCmdBaseTest {
 		}
 
 		@Nested
-		class DoIt {
+		class TestDoIt {
 			@Mock Task<Boolean> task;
 
 			@BeforeEach

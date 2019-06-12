@@ -50,7 +50,7 @@ public class TestCheckConvertExists {
 	}
 
 	@Nested
-	class WithDataOK {
+	class TestWithDataOK {
 		@BeforeEach
 		void setUp() {
 			cmd = new CheckConvertExists(label, link);
