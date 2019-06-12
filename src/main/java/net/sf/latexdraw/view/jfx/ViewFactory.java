@@ -61,7 +61,7 @@ public final class ViewFactory implements PathElementProducer, JfxViewProducer {
 		fillProducers(Objects.requireNonNull(latexdata));
 	}
 
-	private final void fillProducers(final LaTeXDataService latexdata) {
+	private void fillProducers(final LaTeXDataService latexdata) {
 		producers.add(new Tuple<>(Group.class, sh -> new ViewGroup((Group) sh, this)));
 		producers.add(new Tuple<>(Plot.class, sh -> new ViewPlot((Plot) sh, this)));
 		producers.add(new Tuple<>(Square.class, sh -> new ViewSquare((Square) sh)));

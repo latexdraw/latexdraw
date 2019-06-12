@@ -36,7 +36,7 @@ public final class SVGElementsFactory {
 		fillProducers();
 	}
 
-	private final void fillProducers() {
+	private void fillProducers() {
 		producers.add(new Tuple<>(SVGElements.SVG_SVG, (n, p) -> new SVGSVGElement(n, p)));
 		producers.add(new Tuple<>(SVGElements.SVG_G, (n, p) -> new SVGGElement(n, p)));
 		producers.add(new Tuple<>(SVGElements.SVG_RECT, (n, p) -> new SVGRectElement(n, p)));

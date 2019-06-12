@@ -53,7 +53,7 @@ public final class PSTViewsFactory implements PSTViewProducer {
 		fillProducers(Objects.requireNonNull(lang));
 	}
 
-	private final void fillProducers(final @NotNull ResourceBundle lang) {
+	private void fillProducers(final @NotNull ResourceBundle lang) {
 		producers.add(new Tuple<>(Group.class, sh -> new PSTGroupView((Group) sh, this)));
 		producers.add(new Tuple<>(Plot.class, sh -> new PSTPlotView((Plot) sh)));
 		producers.add(new Tuple<>(Square.class, sh -> new PSTSquareView((Square) sh)));

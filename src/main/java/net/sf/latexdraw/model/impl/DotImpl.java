@@ -223,13 +223,6 @@ class DotImpl extends PositionShapeBase implements Dot {
 				br.setX(xValue + x);
 				br.setY(0.25 * (Math.sqrt(5d) + 1d) * dist + y + dec);
 				break;
-			case FSQUARE:
-			case SQUARE:
-				tl.setX(tlx);
-				tl.setY(tly);
-				br.setX(brx);
-				br.setY(bry);
-				break;
 			case FTRIANGLE:
 			case TRIANGLE:
 				tl.setX(tlx - 0.3 * dec);
@@ -237,6 +230,8 @@ class DotImpl extends PositionShapeBase implements Dot {
 				br.setX(brx + 0.3 * dec);
 				br.setY(bry - 3d * dec);
 				break;
+			case FSQUARE:
+			case SQUARE:
 			case DOT:
 			case O:
 			case OPLUS:

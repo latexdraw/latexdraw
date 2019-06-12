@@ -15,7 +15,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import net.sf.latexdraw.instrument.StatusBarController;
@@ -51,7 +51,7 @@ public final class VersionChecker implements Runnable {
 	@Override
 	public void run() {
 		try(final BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(
-				new URL("http://latexdraw.sourceforge.net/news.txt").openStream()), Charset.forName("UTF-8")))) { //NON-NLS
+				new URL("http://latexdraw.sourceforge.net/news.txt").openStream()), StandardCharsets.UTF_8))) { //NON-NLS
 			final String line = br.readLine();
 			final String[] div = line == null ? null : line.split("_"); //NON-NLS
 

@@ -366,7 +366,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parser.pst.PSTBase
 		final Optional<Color> colour = DviPsColors.INSTANCE.getColour(txtColor);
 
 		if(colour.isEmpty()) {
-			log.severe("The following colour is unknown: " + txtColor);
+			log.log(Level.SEVERE, "The following colour is unknown: {0}", txtColor);
 		}
 
 		return colour;
