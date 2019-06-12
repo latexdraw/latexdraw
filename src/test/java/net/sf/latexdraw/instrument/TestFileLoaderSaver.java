@@ -73,15 +73,13 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 	}
 
 	@Before
-	public void setUp() throws NoSuchFieldException, IllegalAccessException, IOException {
+	public void setUp() throws IOException {
 		loader = injector.getInstance(FileLoaderSaver.class);
 		prefs = injector.getInstance(PreferencesService.class);
 
 		chooser = Mockito.mock(FileChooser.class);
 		Mockito.when(chooser.getExtensionFilters()).thenReturn(FXCollections.observableArrayList());
-		final Field field = FileLoaderSaver.class.getDeclaredField("fileChooser");
-		field.setAccessible(true);
-		field.set(loader, chooser);
+		loader.setFileChooser(chooser);
 		prefs.setCurrentFile(tmp.newFile());
 
 		Mockito.when(injector.getInstance(StatusBarController.class).getProgressBar()).thenReturn(new ProgressBar());
@@ -115,8 +113,8 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 	@Test
 	public void testLoadMenu() {
 		final File file = new File(getClass().getResource("/test.svg").getFile());
-		prefs.setCurrentFile(file);
 		Mockito.when(injector.getInstance(JfxUI.class).isModified()).thenReturn(false);
+		Mockito.when(chooser.showOpenDialog(stage)).thenReturn(file);
 		Cmds.of(() -> clickOn("#fileMenu").clickOn("#loadMenu")).execute();
 		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
 		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof LoadDrawing);
