@@ -97,45 +97,49 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			setActivated(false);
 		}else {
 			setActivated(true);
-			final boolean isTh = shape.isThicknessable();
-			final boolean isStylable = shape.isLineStylable();
-			final boolean isMvble = shape.isBordersMovable();
-			final boolean isColor = shape.isColourable();
-			final boolean supportRound = shape.isTypeOf(LineArcProp.class);
-			final boolean showPts = shape.isShowPtsable();
-			final boolean curve = shape.isTypeOf(ClosableProp.class);
+			updateOnActivation(shape);
+		}
+	}
 
-			thicknessField.setVisible(isTh);
-			thicknessPic.setVisible(isTh);
-			lineCB.setVisible(isStylable);
-			lineColButton.setVisible(isColor);
-			bordersPosCB.setVisible(isMvble);
-			frameArcField.setVisible(supportRound);
-			frameArcPic.setVisible(supportRound);
-			showPoints.setVisible(showPts);
-			opened.setVisible(curve);
+	private void updateOnActivation(final Group shape) {
+		final boolean isTh = shape.isThicknessable();
+		final boolean isStylable = shape.isLineStylable();
+		final boolean isMvble = shape.isBordersMovable();
+		final boolean isColor = shape.isColourable();
+		final boolean supportRound = shape.isTypeOf(LineArcProp.class);
+		final boolean showPts = shape.isShowPtsable();
+		final boolean curve = shape.isTypeOf(ClosableProp.class);
 
-			if(isColor) {
-				lineColButton.setValue(shape.getLineColour().toJFX());
-			}
-			if(isTh) {
-				thicknessField.getValueFactory().setValue(shape.getThickness());
-			}
-			if(isStylable) {
-				lineCB.getSelectionModel().select(shape.getLineStyle());
-			}
-			if(isMvble) {
-				bordersPosCB.getSelectionModel().select(shape.getBordersPosition());
-			}
-			if(supportRound) {
-				frameArcField.getValueFactory().setValue(shape.getLineArc());
-			}
-			if(showPts) {
-				showPoints.setSelected(shape.isShowPts());
-			}
-			if(curve) {
-				opened.setSelected(shape.isOpened());
-			}
+		thicknessField.setVisible(isTh);
+		thicknessPic.setVisible(isTh);
+		lineCB.setVisible(isStylable);
+		lineColButton.setVisible(isColor);
+		bordersPosCB.setVisible(isMvble);
+		frameArcField.setVisible(supportRound);
+		frameArcPic.setVisible(supportRound);
+		showPoints.setVisible(showPts);
+		opened.setVisible(curve);
+
+		if(isColor) {
+			lineColButton.setValue(shape.getLineColour().toJFX());
+		}
+		if(isTh) {
+			thicknessField.getValueFactory().setValue(shape.getThickness());
+		}
+		if(isStylable) {
+			lineCB.getSelectionModel().select(shape.getLineStyle());
+		}
+		if(isMvble) {
+			bordersPosCB.getSelectionModel().select(shape.getBordersPosition());
+		}
+		if(supportRound) {
+			frameArcField.getValueFactory().setValue(shape.getLineArc());
+		}
+		if(showPts) {
+			showPoints.setSelected(shape.isShowPts());
+		}
+		if(curve) {
+			opened.setSelected(shape.isOpened());
 		}
 	}
 

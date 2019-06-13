@@ -52,30 +52,34 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 	@Override
 	protected void doCmdBody() {
 		if(ui.isModified()) {
-			final ButtonType type = SaveDrawing.showAskModificationsDialog(lang);
-
-			if(type == ButtonType.NO) {
-				newDrawing();
-			}else {
-				if(type == ButtonType.YES) {
-					SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui, mainstage).ifPresent(f -> {
-						try {
-							openSaveManager.save(f.getPath(), progressBar, statusWidget).get();
-						}catch(final InterruptedException ex) {
-							Thread.currentThread().interrupt();
-							BadaboomCollector.INSTANCE.add(ex);
-						}catch(final ExecutionException ex) {
-							BadaboomCollector.INSTANCE.add(ex);
-						}
-						ui.setModified(false);
-						newDrawing();
-						ok = true;
-					});
-				}
-			}
+			doModified();
 		}else {
 			newDrawing();
 			ok = true;
+		}
+	}
+
+	private void doModified() {
+		final ButtonType type = SaveDrawing.showAskModificationsDialog(lang);
+
+		if(type == ButtonType.NO) {
+			newDrawing();
+			return;
+		}
+		if(type == ButtonType.YES) {
+			SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui, mainstage).ifPresent(f -> {
+				try {
+					openSaveManager.save(f.getPath(), progressBar, statusWidget).get();
+				}catch(final InterruptedException ex) {
+					Thread.currentThread().interrupt();
+					BadaboomCollector.INSTANCE.add(ex);
+				}catch(final ExecutionException ex) {
+					BadaboomCollector.INSTANCE.add(ex);
+				}
+				ui.setModified(false);
+				newDrawing();
+				ok = true;
+			});
 		}
 	}
 

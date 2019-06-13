@@ -12,7 +12,7 @@ package net.sf.latexdraw.view.svg;
 
 import java.util.Map;
 import java.util.Optional;
-import net.sf.latexdraw.util.BadaboomCollector;
+import java.util.function.Predicate;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Arrow;
@@ -36,16 +36,17 @@ import net.sf.latexdraw.parser.svg.SVGGElement;
 import net.sf.latexdraw.parser.svg.SVGLineElement;
 import net.sf.latexdraw.parser.svg.SVGLinearGradientElement;
 import net.sf.latexdraw.parser.svg.SVGMarkerElement;
+import net.sf.latexdraw.parser.svg.SVGParserUtils;
 import net.sf.latexdraw.parser.svg.SVGPathElement;
 import net.sf.latexdraw.parser.svg.SVGPatternElement;
 import net.sf.latexdraw.parser.svg.SVGRectElement;
 import net.sf.latexdraw.parser.svg.SVGStopElement;
 import net.sf.latexdraw.parser.svg.SVGTransform;
 import net.sf.latexdraw.parser.svg.SVGTransformList;
-import net.sf.latexdraw.parser.svg.SVGParserUtils;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.jetbrains.annotations.NotNull;
@@ -91,28 +92,18 @@ abstract class SVGShape<S extends Shape> {
 		int i = 0;
 		final int size = nl.getLength();
 		Node ltdElt = null;
-		Node n;
 		final String bis = elt.lookupPrefixUsable(LNamespace.LATEXDRAW_NAMESPACE_URI);
+		final Predicate<Node> test = type == null ?
+			node -> ((SVGElement) node).getAttribute(bis + LNamespace.XML_TYPE).isEmpty() :
+			node -> type.equals(((SVGElement) node).getAttribute(bis + LNamespace.XML_TYPE));
 
-		if(type == null) {
-			while(i < size && ltdElt == null) {
-				n = nl.item(i);
+		while(i < size && ltdElt == null) {
+			final Node n = nl.item(i);
 
-				if(((SVGElement) n).getAttribute(bis + LNamespace.XML_TYPE).isEmpty()) {
-					ltdElt = n;
-				}else {
-					i++;
-				}
-			}
-		}else {
-			while(i < size && ltdElt == null) {
-				n = nl.item(i);
-
-				if(type.equals(((SVGElement) n).getAttribute(bis + LNamespace.XML_TYPE))) {
-					ltdElt = n;
-				}else {
-					i++;
-				}
+			if(test.test(n)) {
+				ltdElt = n;
+			}else {
+				i++;
 			}
 		}
 

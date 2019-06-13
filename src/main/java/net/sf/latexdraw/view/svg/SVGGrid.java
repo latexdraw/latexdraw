@@ -430,41 +430,64 @@ class SVGGrid extends SVGShape<Grid> {
 	private final void produceSVGGridLabelsTexts(final SVGDocument document, final SVGElement texts, final double gridWidth, final double xorigin,
 		final double yorigin, final Text fooText, final double minX, final double maxX, final double minY, final double maxY, final double tlx,
 		final double tly, final double labelWidth, final double labelHeight, final double absStep) {
-		final boolean isXLabelSouth = shape.isXLabelSouth();
 		final boolean isYLabelWest = shape.isYLabelWest();
+
+		produceSVGGridXLabelsTexts(document, texts, yorigin, minX, maxX, tlx, labelWidth, gridWidth, absStep);
+
+		if(isYLabelWest) {
+			produceSVGGridYWestLabelsTexts(document, texts, xorigin, tly, gridWidth, fooText, minY,
+				maxY, labelHeight, absStep);
+		}else {
+			produceSVGGridYEastLabelsTexts(document, texts, xorigin, tly, gridWidth, minY, maxY, labelHeight, absStep);
+		}
+	}
+
+	private final void produceSVGGridXLabelsTexts(final SVGDocument document, final SVGElement texts, final double yorigin, final double minX, final double maxX,
+												final double tlx, final double labelWidth, final double gridWidth, final double absStep) {
 		final int gridLabelsSize = shape.getLabelsSize();
 		final double width = gridWidth / 2d;
-		final double tmp = isXLabelSouth ? width : -width;
+		final double tmp =  shape.isXLabelSouth() ? width : -width;
 
-		for(double i = tlx + (isYLabelWest ? width + gridLabelsSize / 4d : -width - labelWidth - gridLabelsSize / 4d), j = minX; j <= maxX; i += absStep, j++) {
+		for(double i = tlx + (shape.isYLabelWest() ? width + gridLabelsSize / 4d : -width - labelWidth - gridLabelsSize / 4d), j = minX; j <= maxX; i += absStep, j++) {
 			final SVGElement text = new SVGTextElement(document);
 			text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int) i));
 			text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int) (yorigin + tmp)));
 			text.setTextContent(String.valueOf((int) j));
 			texts.appendChild(text);
 		}
+	}
 
-		if(isYLabelWest) {
-			for(double i = tly + (isXLabelSouth ? -width - gridLabelsSize / 4d : width + labelHeight), j = maxY; j >= minY; i += absStep, j--) {
-				final String label = String.valueOf((int) j);
-				final SVGElement text = new SVGTextElement(document);
-				fooText.setText(label);
-				text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int) (xorigin - fooText.getLayoutBounds().getWidth() - gridLabelsSize / 4d - width)));
-				text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int) i));
-				text.setTextContent(label);
-				texts.appendChild(text);
-			}
-		}else {
-			for(double i = tly + (isXLabelSouth ? -width - gridLabelsSize / 4d : width + labelHeight), j = maxY; j >= minY; i += absStep, j--) {
-				final String label = String.valueOf((int) j);
-				final SVGElement text = new SVGTextElement(document);
-				text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int) (xorigin + gridLabelsSize / 4d + width)));
-				text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int) i));
-				text.setTextContent(label);
-				texts.appendChild(text);
-			}
+	private final void produceSVGGridYWestLabelsTexts(final SVGDocument document, final SVGElement texts, final double xorigin, final double tly,
+									final double gridWidth, final Text fooText, final double minY, final double maxY, final double labelHeight, final double absStep) {
+		final double width = gridWidth / 2d;
+		final int gridLabelsSize = shape.getLabelsSize();
+
+		for(double i = tly + (shape.isXLabelSouth() ? -width - gridLabelsSize / 4d : width + labelHeight), j = maxY; j >= minY; i += absStep, j--) {
+			final String label = String.valueOf((int) j);
+			final SVGElement text = new SVGTextElement(document);
+			fooText.setText(label);
+			text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int) (xorigin - fooText.getLayoutBounds().getWidth() - gridLabelsSize / 4d - width)));
+			text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int) i));
+			text.setTextContent(label);
+			texts.appendChild(text);
 		}
 	}
+
+	private final void produceSVGGridYEastLabelsTexts(final SVGDocument document, final SVGElement texts, final double xorigin, final double tly,
+								final double gridWidth, final double minY, final double maxY, final double labelHeight, final double absStep) {
+		final double width = gridWidth / 2d;
+		final int gridLabelsSize = shape.getLabelsSize();
+
+		for(double i = tly + (shape.isXLabelSouth() ? -width - gridLabelsSize / 4d : width + labelHeight), j = maxY; j >= minY; i += absStep, j--) {
+			final String label = String.valueOf((int) j);
+			final SVGElement text = new SVGTextElement(document);
+			text.setAttribute(SVGAttributes.SVG_X, String.valueOf((int) (xorigin + gridLabelsSize / 4d + width)));
+			text.setAttribute(SVGAttributes.SVG_Y, String.valueOf((int) i));
+			text.setTextContent(label);
+			texts.appendChild(text);
+		}
+	}
+
 
 	/**
 	 * Creates the SVG element corresponding to the labels of the grid.

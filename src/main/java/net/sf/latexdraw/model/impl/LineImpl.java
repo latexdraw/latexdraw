@@ -172,55 +172,60 @@ class LineImpl extends Line2D.Double implements Line {
 	}
 
 
-	@Override
-	public Point getIntersection(final Line l) {
-		if(l == null) {
-			return null;
-		}
-		if(MathUtils.INST.equalsDouble(a, l.getA(), 0.00000000001)) {
+	private Point getIntersectionOnVerticalLine(final Line line) {
+		// The two lines a parallels
+		// Points of the line 'line' are equal.
+		if(isVerticalLine() || line.isHorizontalLine()) {
 			return null;
 		}
 
-		final boolean verticalLine1 = isVerticalLine();
-		final boolean verticalLine2 = l.isVerticalLine();
 		final double x;
 		final double y;
 
-		if(verticalLine2) {
-			if(verticalLine1) { // The two lines a parallels
-				return null;
-			}
-
-			if(l.isHorizontalLine()) { // Points of the line l are equal.
-				return null;
-			}
-
-			if(isHorizontalLine()) {
-				x = l.getX1();
-				y = getY1();
-			}else {
-				y = a * l.getX1() + b;
-				x = (y - b) / a;
-			}
+		if(isHorizontalLine()) {
+			x = line.getX1();
+			y = getY1();
 		}else {
-			final double la = l.getA();
-			final double lb = l.getB();
-
-			if(verticalLine1) {
-				if(l.isHorizontalLine()) {
-					x = getX1();
-					y = l.getY1();
-				}else {
-					y = la * getX1() + lb;
-					x = (y - lb) / la;
-				}
-			}else {
-				x = (b - lb) / (la - a);
-				y = a * x + b;
-			}
+			y = a * line.getX1() + b;
+			x = (y - b) / a;
 		}
 
 		return ShapeFactory.INST.createPoint(x, y);
+	}
+
+	private Point getIntersectionOnHorizLine(final Line line) {
+		final double x;
+		final double y;
+		final double la = line.getA();
+		final double lb = line.getB();
+
+		if(isVerticalLine()) {
+			if(line.isHorizontalLine()) {
+				x = getX1();
+				y = line.getY1();
+			}else {
+				y = la * getX1() + lb;
+				x = (y - lb) / la;
+			}
+		}else {
+			x = (b - lb) / (la - a);
+			y = a * x + b;
+		}
+
+		return ShapeFactory.INST.createPoint(x, y);
+	}
+
+	@Override
+	public Point getIntersection(final Line line) {
+		if(line == null || MathUtils.INST.equalsDouble(a, line.getA(), 0.00000000001)) {
+			return null;
+		}
+
+		if(line.isVerticalLine()) {
+			return getIntersectionOnVerticalLine(line);
+		}
+
+		return getIntersectionOnHorizLine(line);
 	}
 
 

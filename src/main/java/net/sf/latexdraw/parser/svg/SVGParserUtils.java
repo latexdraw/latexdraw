@@ -45,7 +45,7 @@ import org.antlr.v4.runtime.atn.ATNDeserializer;
 import org.jetbrains.annotations.NotNull;
 
 public final class SVGParserUtils {
-	public static final SVGParserUtils INSTANCE = new SVGParserUtils();
+	public static final @NotNull SVGParserUtils INSTANCE = new SVGParserUtils();
 
 	private SVGParserUtils() {
 		super();

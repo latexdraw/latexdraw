@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.parser.svg;
 
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -35,7 +36,7 @@ public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 	/**
 	 * @return The text of the SVG text element.
 	 */
-	public String getText() {
+	public @NotNull String getText() {
 		final NodeList nl = getChildNodes();
 		int i;
 		final int size = nl.getLength();

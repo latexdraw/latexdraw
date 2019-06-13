@@ -12,6 +12,7 @@ package net.sf.latexdraw.parser.svg;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.NodeList;
 
 /**
@@ -20,7 +21,7 @@ import org.w3c.dom.NodeList;
  */
 public class SVGNodeList implements NodeList {
 	/** The nodes of the list. */
-	private final List<SVGElement> nodes;
+	private final @NotNull List<SVGElement> nodes;
 
 
 	/**
@@ -34,13 +35,13 @@ public class SVGNodeList implements NodeList {
 
 	@Override
 	public int getLength() {
-		return nodes == null ? 0 : nodes.size();
+		return nodes.size();
 	}
 
 
 	@Override
 	public SVGElement item(final int index) {
-		return nodes == null || index < 0 || index >= nodes.size() ? null : nodes.get(index);
+		return index < 0 || index >= nodes.size() ? null : nodes.get(index);
 	}
 
 
@@ -59,7 +60,7 @@ public class SVGNodeList implements NodeList {
 	/**
 	 * @return the nodes.
 	 */
-	public List<SVGElement> getNodes() {
+	public @NotNull List<SVGElement> getNodes() {
 		return nodes;
 	}
 }

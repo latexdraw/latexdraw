@@ -248,27 +248,34 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		drawing.getShapes().addListener((Change<? extends Shape> evt) -> {
 			while(evt.next()) {
 				if(evt.wasAdded()) {
-					evt.getAddedSubList().forEach(sh -> viewFactory.createView(sh).ifPresent(v -> {
-						final int index = drawing.getShapes().indexOf(sh);
-						if(index != -1) {
-							shapesToViewMap.put(sh, v);
-							if(index == drawing.size()) {
-								shapesPane.getChildren().add(v);
-							}else {
-								shapesPane.getChildren().add(index, v);
-							}
-						}
-					}));
-				}else {
-					if(evt.wasRemoved()) {
-						evt.getRemoved().forEach(sh -> {
-							final ViewShape<?> toRemove = shapesToViewMap.remove(sh);
-							shapesPane.getChildren().remove(toRemove);
-							toRemove.flush();
-						});
-					}
+					defineShapeListBindingOnAdd(evt);
+				}
+				if(evt.wasRemoved()) {
+					defineShapeListBindingOnRemoved(evt);
 				}
 			}
+		});
+	}
+
+	private void defineShapeListBindingOnAdd(final @NotNull Change<? extends Shape> evt) {
+		evt.getAddedSubList().forEach(sh -> viewFactory.createView(sh).ifPresent(v -> {
+			final int index = drawing.getShapes().indexOf(sh);
+			if(index != -1) {
+				shapesToViewMap.put(sh, v);
+				if(index == drawing.size()) {
+					shapesPane.getChildren().add(v);
+				}else {
+					shapesPane.getChildren().add(index, v);
+				}
+			}
+		}));
+	}
+
+	private void defineShapeListBindingOnRemoved(final @NotNull Change<? extends Shape> evt) {
+		evt.getRemoved().forEach(sh -> {
+			final ViewShape<?> toRemove = shapesToViewMap.remove(sh);
+			shapesPane.getChildren().remove(toRemove);
+			toRemove.flush();
 		});
 	}
 

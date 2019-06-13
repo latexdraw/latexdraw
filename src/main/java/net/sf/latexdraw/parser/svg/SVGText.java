@@ -12,6 +12,7 @@ package net.sf.latexdraw.parser.svg;
 
 
 import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
@@ -24,7 +25,7 @@ public class SVGText extends SVGElement implements Text {
 	public static final String TEXT_NODE_NAME = "#text"; //NON-NLS
 
 	/** The content of the text node. */
-	private String data;
+	private @NotNull String data;
 
 
 	/**
@@ -56,7 +57,7 @@ public class SVGText extends SVGElement implements Text {
 
 
 	@Override
-	public String getData() {
+	public @NotNull String getData() {
 		return data;
 	}
 

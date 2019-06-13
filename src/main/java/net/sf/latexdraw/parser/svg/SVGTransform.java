@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.util.Tuple;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines an SVG transformation.
@@ -65,7 +66,7 @@ public abstract class SVGTransform {
 
 
 	/** The matrix of the transformation. */
-	public final SVGMatrix matrix;
+	public final @NotNull SVGMatrix matrix;
 
 	/**
 	 * Creates a transformation with no type.

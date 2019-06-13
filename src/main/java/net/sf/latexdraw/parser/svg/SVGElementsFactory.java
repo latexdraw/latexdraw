@@ -26,7 +26,7 @@ import org.w3c.dom.Node;
  */
 public final class SVGElementsFactory {
 	/** The singleton. */
-	public static final SVGElementsFactory INSTANCE = new SVGElementsFactory();
+	public static final @NotNull SVGElementsFactory INSTANCE = new SVGElementsFactory();
 
 	private final @NotNull List<Tuple<String, BiFunction<Node, SVGElement, SVGElement>>> producers;
 

@@ -87,38 +87,42 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	protected void update(final Group shape) {
 		if(shape.isTypeOf(TextProp.class)) {
 			setActivated(true);
-			final TextPosition tp = shape.getTextPosition();
-
-			textPos.getSelectionModel().select(tp);
-
-			// Otherwise it means that this field is currently being edited and must not be updated.
-			if(!packagesField.isFocused()) {
-				packagesField.setText(latexData.getPackages());
-			}
-
-			// Updating the log field.
-			shape.getShapes().stream().filter(sh -> sh instanceof Text &&
-				canvas.getViewFromShape(sh).orElse(null) instanceof ViewText &&
-				((ViewText) canvas.getViewFromShape(sh).get()).getCompilationData().isPresent()).findFirst().ifPresent(txt -> {
-					final ViewText view = (ViewText) canvas.getViewFromShape(txt).get();
-					final Future<?> currentCompil = view.getCurrentCompilation();
-
-					if(currentCompil != null) {
-						try {
-							currentCompil.get();
-						}catch(final InterruptedException ex) {
-							Thread.currentThread().interrupt();
-							BadaboomCollector.INSTANCE.add(ex);
-						}catch(final ExecutionException ex) {
-							BadaboomCollector.INSTANCE.add(ex);
-						}
-					}
-
-					logField.setText(view.getCompilationData().orElse(""));
-				});
+			updateOnTextPropShape(shape);
 		}else {
 			setActivated(false);
 		}
+	}
+
+	private void updateOnTextPropShape(final Group shape) {
+		final TextPosition tp = shape.getTextPosition();
+
+		textPos.getSelectionModel().select(tp);
+
+		// Otherwise it means that this field is currently being edited and must not be updated.
+		if(!packagesField.isFocused()) {
+			packagesField.setText(latexData.getPackages());
+		}
+
+		// Updating the log field.
+		shape.getShapes().stream().filter(sh -> sh instanceof Text &&
+			canvas.getViewFromShape(sh).orElse(null) instanceof ViewText &&
+			((ViewText) canvas.getViewFromShape(sh).orElseThrow()).getCompilationData().isPresent()).findFirst().ifPresent(txt -> {
+				final ViewText view = (ViewText) canvas.getViewFromShape(txt).orElseThrow();
+				final Future<?> currentCompil = view.getCurrentCompilation();
+
+				if(currentCompil != null) {
+					try {
+						currentCompil.get();
+					}catch(final InterruptedException ex) {
+						Thread.currentThread().interrupt();
+						BadaboomCollector.INSTANCE.add(ex);
+					}catch(final ExecutionException ex) {
+						BadaboomCollector.INSTANCE.add(ex);
+					}
+				}
+
+				logField.setText(view.getCompilationData().orElse(""));
+			});
 	}
 
 	@Override

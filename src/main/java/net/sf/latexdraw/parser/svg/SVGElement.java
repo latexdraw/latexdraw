@@ -31,10 +31,10 @@ import org.w3c.dom.UserDataHandler;
  */
 public abstract class SVGElement implements LElement, Cloneable {
 	/** The attributes of the element. */
-	protected final SVGNamedNodeMap attributes;
+	protected final @NotNull SVGNamedNodeMap attributes;
 
 	/** The children of this element. */
-	protected final SVGNodeList children;
+	protected final @NotNull SVGNodeList children;
 
 	/** The parent SVGElement of this element. */
 	protected SVGElement parent;
@@ -223,9 +223,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 		str.append("attributes="); //NON-NLS
 
-		if(attributes != null) {
-			str.append(attributes);
-		}
+		str.append(attributes);
 
 		str.append(", children={"); //NON-NLS
 
@@ -260,7 +258,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public @NotNull String getAttribute(final String nameAttr) {
-		if(attributes == null || nameAttr == null) {
+		if(nameAttr == null) {
 			return "";
 		}
 
@@ -272,7 +270,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public @Nullable Attr getAttributeNode(final String nameAttr) {
-		return attributes == null ? null : (Attr) attributes.getNamedItem(nameAttr);
+		return (Attr) attributes.getNamedItem(nameAttr);
 	}
 
 
@@ -335,7 +333,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public boolean hasAttributes() {
-		return attributes != null && !attributes.getAttributes().isEmpty();
+		return !attributes.getAttributes().isEmpty();
 	}
 
 
@@ -373,15 +371,14 @@ public abstract class SVGElement implements LElement, Cloneable {
 		final String val = getNodeValue();
 		final boolean valEq = val == null ? elt.getNodeValue() == null : val.equals(elt.getNodeValue());
 		final boolean uriEq = uri == null ? elt.lookupNamespaceURI(null) == null : uri.equals(elt.lookupNamespaceURI(null));
-		final boolean attrEq = attributes == null ? elt.attributes == null : attributes.equals(elt.attributes);
 
-		return uriEq && valEq && attrEq && name.equals(elt.name) && getUsablePrefix().equals(elt.getUsablePrefix());
+		return uriEq && valEq && Objects.equals(attributes, elt.attributes) && name.equals(elt.name) && getUsablePrefix().equals(elt.getUsablePrefix());
 	}
 
 
 	@Override
 	public boolean isSameNode(final Node other) {
-		return other != null && other == this;
+		return other == this;
 	}
 
 
@@ -416,23 +413,21 @@ public abstract class SVGElement implements LElement, Cloneable {
 		String pref = null;
 		final String xmlns = "xmlns"; //NON-NLS
 
-		if(attributes != null) {
-			int i = 0;
-			final int size = attributes.getLength();
-			boolean again = true;
+		int i = 0;
+		final int size = attributes.getLength();
+		boolean again = true;
 
-			while(i < size && again) {
-				final SVGAttr attr = attributes.getAttributes().get(i);
-				final String attrName = attr.getName();
+		while(i < size && again) {
+			final SVGAttr attr = attributes.getAttributes().get(i);
+			final String attrName = attr.getName();
 
-				if(attrName.startsWith(xmlns) && namespaceURI.equals(attr.getValue())) {
-					final int index = attrName.indexOf(':');
+			if(attrName.startsWith(xmlns) && namespaceURI.equals(attr.getValue())) {
+				final int index = attrName.indexOf(':');
 
-					pref = index == -1 ? "" : attrName.substring(index + 1); //NON-NLS
-					again = false;
-				}else {
-					i++;
-				}
+				pref = index == -1 ? "" : attrName.substring(index + 1); //NON-NLS
+				again = false;
+			}else {
+				i++;
 			}
 		}
 
@@ -450,7 +445,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public boolean hasAttribute(final String nameAttr) {
-		return attributes != null && attributes.getLength() > 0;
+		return attributes.getLength() > 0;
 	}
 
 
@@ -462,11 +457,9 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public String lookupNamespaceURI(final String prefix) {
-		if(attributes != null) {
-			final String uri = lookupNamespaceURIWithAttributes(prefix);
-			if(uri != null) {
-				return uri;
-			}
+		final String uri = lookupNamespaceURIWithAttributes(prefix);
+		if(uri != null) {
+			return uri;
 		}
 
 		return parent == null ? null : parent.lookupNamespaceURI(prefix);
@@ -669,7 +662,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	@Override
 	public void removeAttribute(final String nameAttr) {
 		try {
-			if(nameAttr != null && attributes != null) {
+			if(nameAttr != null) {
 				attributes.removeNamedItem(nameAttr);
 			}
 		}catch(final DOMException ex) {
