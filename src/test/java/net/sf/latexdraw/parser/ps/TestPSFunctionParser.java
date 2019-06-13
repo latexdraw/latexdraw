@@ -1,9 +1,11 @@
 package net.sf.latexdraw.parser.ps;
 
+import net.sf.latexdraw.util.Tuple;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -178,5 +180,54 @@ public class TestPSFunctionParser {
 	void testNoCmd() {
 		final PSFunctionParser parser = new PSFunctionParser("    ");
 		assertThrows(InvalidFormatPSFunctionException.class, () -> parser.getY(0));
+	}
+
+	@Test
+	void testIsValidPostFixEquationOK() {
+		final Tuple<Boolean, String> res = PSFunctionParser.isValidPostFixEquation("x", 0, 10, 10);
+		assertThat(res.b).isEmpty();
+		assertThat(res.a).isTrue();
+	}
+
+	@Test
+	void testIsValidPostFixEquationKOInfinite() {
+		final Tuple<Boolean, String> res = PSFunctionParser.isValidPostFixEquation("x log", 0, 10, 10);
+		assertThat(res.b).isNotEmpty();
+		assertThat(res.a).isFalse();
+	}
+
+	@Test
+	void testIsValidPostFixEquationKONaN() {
+		final Tuple<Boolean, String> res = PSFunctionParser.isValidPostFixEquation("x log", -10, -1, 10);
+		assertThat(res.b).isNotEmpty();
+		assertThat(res.a).isFalse();
+	}
+
+	@Test
+	void testIsValidPostFixEquationKOInfiniteEnd() {
+		final Tuple<Boolean, String> res = PSFunctionParser.isValidPostFixEquation("x log", 10, 0, 10);
+		assertThat(res.b).isNotEmpty();
+		assertThat(res.a).isFalse();
+	}
+
+	@Test
+	void testIsValidPostFixEquationKONaNEnd() {
+		final Tuple<Boolean, String> res = PSFunctionParser.isValidPostFixEquation("x log", 0.1, -10, 10);
+		assertThat(res.b).isNotEmpty();
+		assertThat(res.a).isFalse();
+	}
+
+	@Test
+	void testIsValidPostFixEquationKOArithmEx() {
+		final Tuple<Boolean, String> res = PSFunctionParser.isValidPostFixEquation("x 0 div", 0, 10, 10);
+		assertThat(res.b).isNotEmpty();
+		assertThat(res.a).isFalse();
+	}
+
+	@Test
+	void testIsValidPostFixEquationKOFormat() {
+		final Tuple<Boolean, String> res = PSFunctionParser.isValidPostFixEquation("foo", 0, 10, 10);
+		assertThat(res.b).isNotEmpty();
+		assertThat(res.a).isFalse();
 	}
 }
