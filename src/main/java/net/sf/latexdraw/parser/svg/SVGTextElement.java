@@ -64,21 +64,6 @@ public class SVGTextElement extends SVGElement implements SVGRectParseTrait {
 	}
 
 
-	/**
-	 * @return The value of the dx attribute (0 if there it does not exist or it is not a length).
-	 */
-	public double getDX() {
-		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_DX)).map(v -> v.getValue()).orElse(0d);
-	}
-
-
-	/**
-	 * @return The value of the dy attribute (0 if there it does not exist or it is not a length).
-	 */
-	public double getDY() {
-		return SVGParserUtils.INSTANCE.parseLength(getAttribute(getUsablePrefix() + SVGAttributes.SVG_DY)).map(v -> v.getValue()).orElse(0d);
-	}
-
 	@Override
 	public boolean isDimensionsRequired() {
 		return false;

@@ -48,8 +48,6 @@ public final class SVGAttributes {
 	public static final String SVG_R						= "r";								//NON-NLS
 	public static final String SVG_CX						= "cx";								//NON-NLS
 	public static final String SVG_CY						= "cy";								//NON-NLS
-	public static final String SVG_DX						= "dx";								//NON-NLS
-	public static final String SVG_DY						= "dy";								//NON-NLS
 	public static final String SVG_FONT_SIZE				= "font-size";						//NON-NLS
 	public static final String SVG_VERSION					= "version";						//NON-NLS
 	public static final String SVG_PATTERN_CONTENTS_UNITS	= "patternContentUnits";			//NON-NLS

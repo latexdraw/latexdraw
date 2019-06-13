@@ -303,13 +303,13 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public @Nullable Node getFirstChild() {
-		return children.getNodes() == null || children.getNodes().isEmpty() ? null : children.getNodes().get(0);
+		return children.getNodes().isEmpty() ? null : children.getNodes().get(0);
 	}
 
 
 	@Override
 	public @Nullable Node getLastChild() {
-		return children.getNodes() == null || children.getNodes().isEmpty() ? null : children.getNodes().get(children.getNodes().size() - 1);
+		return children.getNodes().isEmpty() ? null : children.getNodes().get(children.getNodes().size() - 1);
 	}
 
 
@@ -339,7 +339,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 
 	@Override
 	public boolean hasChildNodes() {
-		return children.getNodes() != null && !children.getNodes().isEmpty();
+		return !children.getNodes().isEmpty();
 	}
 
 

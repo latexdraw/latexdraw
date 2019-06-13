@@ -94,9 +94,7 @@ public class SVGSVGElement extends SVGElement implements SVGRectParseTrait {
 		final StringBuilder str = new StringBuilder().append('[').append("attributes="); //NON-NLS
 		final String eol = System.getProperty("line.separator");
 
-		if(attributes != null) {
-			str.append(attributes).append(eol);
-		}
+		str.append(attributes).append(eol);
 
 		if(meta != null) {
 			str.append(", meta=").append(meta).append(eol); //NON-NLS

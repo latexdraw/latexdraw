@@ -292,7 +292,7 @@ public class SVGDocument implements Document {
 
 	@Override
 	public boolean isSameNode(final Node other) {
-		return other != null && other == this;
+		return other == this;
 	}
 
 
