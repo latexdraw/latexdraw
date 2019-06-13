@@ -119,10 +119,12 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 
 			@Override
 			public void flush() {
+				// Nothing to flush
 			}
 
 			@Override
 			public void close() {
+				// Nothing to close
 			}
 		});
 

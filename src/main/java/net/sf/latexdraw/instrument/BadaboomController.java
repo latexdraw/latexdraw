@@ -44,6 +44,7 @@ public class BadaboomController extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
+		// Nothing to bind
 	}
 
 	@Override

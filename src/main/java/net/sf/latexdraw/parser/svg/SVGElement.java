@@ -93,7 +93,7 @@ public abstract class SVGElement implements LElement, Cloneable {
 	 * @param p The parent SVG element.
 	 * @throws IllegalArgumentException If the element is not well formed.
 	 */
-	protected SVGElement(final Node n, final SVGElement p) throws IllegalArgumentException {
+	protected SVGElement(final Node n, final SVGElement p) {
 		this();
 
 		if(n == null) {

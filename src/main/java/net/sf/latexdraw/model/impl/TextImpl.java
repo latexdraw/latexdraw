@@ -52,9 +52,9 @@ class TextImpl extends PositionShapeBase implements net.sf.latexdraw.model.api.s
 
 	@Override
 	public @NotNull Text duplicate() {
-		final Text text = ShapeFactory.INST.createText();
-		text.copy(this);
-		return text;
+		final Text txt = ShapeFactory.INST.createText();
+		txt.copy(this);
+		return txt;
 	}
 
 	@Override

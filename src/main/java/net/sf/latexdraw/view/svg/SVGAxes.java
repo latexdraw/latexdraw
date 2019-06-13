@@ -138,7 +138,6 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 				setAxesStyleFromSVG(elt);
 				break;
 			case FRAME:
-				break;
 			case NONE:
 				break;
 		}
@@ -334,6 +333,7 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 
 	@Override
 	public void disablePathTicks(final boolean disable) {
+		// Nothing to do.
 	}
 
 	@Override
