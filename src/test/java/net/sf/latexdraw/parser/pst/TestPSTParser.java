@@ -22,13 +22,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 public abstract class TestPSTParser {
 	PSTLatexdrawListener listener;
 	List<Shape> parsedShapes;
+	Handler parserLogHandler;
 
 	@BeforeEach
 	void setUp() {
-		DviPsColors.INSTANCE.clearUserColours();
-
-		listener = new ErrorPSTLatexdrawListener();
-		listener.log.addHandler(new Handler() {
+		parserLogHandler = new Handler() {
 			@Override
 			public void publish(final LogRecord record) {
 				fail(record.getMessage());
@@ -41,7 +39,11 @@ public abstract class TestPSTParser {
 			@Override
 			public void close() throws SecurityException {
 			}
-		});
+		};
+		DviPsColors.INSTANCE.clearUserColours();
+
+		listener = new ErrorPSTLatexdrawListener();
+		listener.log.addHandler(parserLogHandler);
 	}
 
 	@AfterEach

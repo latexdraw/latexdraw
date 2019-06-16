@@ -23,6 +23,7 @@ import org.testfx.util.WaitForAsyncUtils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(ApplicationExtension.class)
@@ -191,5 +192,10 @@ public class TestPicture {
 		assertTrue(shape.isTypeOf(PositionShape.class));
 		assertTrue(shape.isTypeOf(Picture.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
+	}
+
+	@Test
+	void testImageDoesNotExist() {
+		assertThrows(IllegalArgumentException.class, () -> shape.setPathSource("fooo/barr.png"));
 	}
 }

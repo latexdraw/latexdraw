@@ -1,11 +1,13 @@
 package net.sf.latexdraw.parser.pst;
 
+import net.sf.latexdraw.model.api.shape.Arc;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.Polyline;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -125,5 +127,20 @@ public class TestParsingPsline extends TestPSTParser {
 		assertEquals(-50.5 * Shape.PPC, line.getPtAt(0).getY(), 0.0001);
 		assertEquals(12d * Shape.PPC, line.getPtAt(1).getX(), 0.0001);
 		assertEquals(-1d * Shape.PPC, line.getPtAt(1).getY(), 0.0001);
+	}
+
+	@Test
+	void testLineWithArc() {
+		parser("\\psarc(2.84,0.6){2.82}{0.0}{270.0}\\psline(5.66,0.6)(2.84,-2.22)");
+		assertThat(parsedShapes.size()).isEqualTo(1);
+		assertThat(parsedShapes.get(0)).isInstanceOf(Arc.class);
+	}
+
+	@Test
+	void testLineWithArcKO() {
+		parser("\\psarc(2.84,0.6){2.82}{0.0}{270.0}\\psline(5.66,0.6)(3.84,-2.22)");
+		assertThat(parsedShapes.size()).isEqualTo(2);
+		assertThat(parsedShapes.get(0)).isInstanceOf(Arc.class);
+		assertThat(parsedShapes.get(1)).isInstanceOf(Polyline.class);
 	}
 }

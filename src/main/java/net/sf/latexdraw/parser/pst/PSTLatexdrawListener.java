@@ -79,26 +79,34 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	 * Removes empty groups of shapes.
 	 */
 	public List<Shape> flatShapes() {
-		final List<Shape> flatten = shapes.stream().map(gp -> flatGroup(gp)).filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList());
+		final List<Shape> flatten = shapes
+			.stream()
+			.map(gp -> flatGroup(gp))
+			.filter(opt -> opt.isPresent())
+			.map(opt -> opt.get())
+			.collect(Collectors.toList());
+
 		if(flatten.size() == 1 && flatten.get(0) instanceof Group) {
 			return ((Group) flatten.get(0)).getShapes();
 		}
 		return flatten;
 	}
 
+	/**
+	 * Flatting a group of shapes.
+	 * @param gp The group to flat
+	 * @return The optional resulting shape: nothing if the group is empty,
+	 * the unique shape if the group contains a single shape, the group otherwise.
+	 */
 	private Optional<Shape> flatGroup(final Group gp) {
-		if(gp.isEmpty()) {
-			return Optional.empty();
+		switch(gp.size()) {
+			case 0:
+				return Optional.empty();
+			case 1:
+				return gp.getShapeAt(0);
+			default:
+				return Optional.of(gp);
 		}
-
-		final Group group = ShapeFactory.INST.createGroup();
-		group.getShapes().addAll(gp.getShapes().stream().map(sh -> sh instanceof Group ? flatGroup((Group) sh) : Optional.of(sh)).
-			filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.toList()));
-
-		if(group.size() == 1) {
-			return group.getShapeAt(0);
-		}
-		return Optional.of(group);
 	}
 
 	@Override
@@ -157,10 +165,16 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		}
 
 		final Polyline line = createLine(ctx.pstctx.starredCmd(ctx.cmd), stream.collect(Collectors.toList()), ctx.pstctx, false);
-		final Arc arc = line.getNbPoints() != 2 || shapes.getLast().isEmpty() || !shapes.getLast().getShapeAt(-1).filter(s -> s instanceof Arc).isPresent() ?
-			null : (Arc) shapes.getLast().getShapeAt(-1).orElseThrow();
+		final Arc arc = line.getNbPoints() != 2 ||
+			shapes.getLast().isEmpty() ||
+			shapes.getLast().getShapeAt(-1)
+				.filter(s -> s instanceof Arc)
+				.isEmpty() ?
+			null :
+			(Arc) shapes.getLast().getShapeAt(-1).orElseThrow();
 
-		if(arc == null || !line.getPtAt(0).rotatePoint(arc.getGravityCentre(), -arc.getRotationAngle()).equals(arc.getStartPoint(), 0.5) ||
+		if(arc == null ||
+			!line.getPtAt(0).rotatePoint(arc.getGravityCentre(), -arc.getRotationAngle()).equals(arc.getStartPoint(), 0.5) ||
 			!line.getPtAt(1).rotatePoint(arc.getGravityCentre(), -arc.getRotationAngle()).equals(arc.getEndPoint(), 0.5)) {
 			shapes.getLast().addShape(line);
 		}else {
@@ -332,9 +346,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		final List<Point> pts = IntStream.range(0, allPts.size()).filter(i -> i % 3 == 0).mapToObj(i -> allPts.get(i)).collect(Collectors.toList());
 		final List<Point> ctrls = IntStream.range(2, allPts.size()).filter(i -> i % 3 == 2).mapToObj(i -> allPts.get(i)).collect(Collectors.toList());
 
-		if(allPts.size() > 1) {
-			ctrls.add(0, allPts.get(1));
-		}
+		ctrls.add(0, allPts.get(1));
 
 		boolean closed = false;
 

@@ -2,13 +2,18 @@ package net.sf.latexdraw.parser.pst;
 
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Dot;
+import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
+import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -69,6 +74,12 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 	@Test
 	void testBeginCenterokWithBeginPsPicture() {
 		parser("\\begin{center}\\begin{pspicture}(1,1)\\psline(1,1)(1,0)\\end{pspicture}\\end{center}");
+		assertEquals(1, parsedShapes.size());
+	}
+
+	@Test
+	void testBeginCenterokWithBeginPsPictureWithNoCoord() {
+		parser("\\begin{center}\\begin{pspicture}(,)\\psline(1,1)(1,0)\\end{pspicture}\\end{center}");
 		assertEquals(1, parsedShapes.size());
 	}
 
@@ -158,11 +169,57 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 		assertTrue(getShapeAt(0) instanceof Rectangle);
 	}
 
-
 	@Test
 	void testParseUnkownColor() {
 		listener = new PSTLatexdrawListener();
 		parser("\\psframe[linecolor=col23](5,10)");
 		assertTrue(getShapeAt(0) instanceof Rectangle);
+	}
+
+	@Test
+	void testFlatShapeSingle() {
+		parser("{\\psline(5,10)}");
+		assertThat(parsedShapes).hasSize(1);
+	}
+
+	@Test
+	void testFlatShapeNested() {
+		parser("{\\psline(5,10) \\psline(5,10) {\\psline(5,10) \\psline(5,10) {\\psline(5,10) \\psline(5,10)}}}");
+		assertThat(parsedShapes).hasSize(3);
+		assertThat(parsedShapes.get(0)).isInstanceOf(Group.class);
+		assertThat(parsedShapes.get(1)).isInstanceOf(Group.class);
+		assertThat(parsedShapes.get(2)).isInstanceOf(Group.class);
+	}
+
+	@Test
+	void testFlatShapeEmpty() {
+		parser("{{} {{}}}");
+		assertThat(parsedShapes).isEmpty();
+	}
+
+	@ParameterizedTest
+	@ValueSource(doubles = {-1d, 2d})
+	void testStrokeopacityKO(final double op) {
+		parser("{\\psline[strokeopacity=" + op + "](5,10)(5,11)(5,12)}");
+		assertThat(parsedShapes.get(0).getLineColour().getO()).isEqualTo(1d, Offset.offset(0.000001));
+	}
+
+	@Test
+	void testStrokeopacityOK() {
+		parser("{\\psline[strokeopacity=0.33](5,10)(5,11)(5,12)}");
+		assertThat(parsedShapes.get(0).getLineColour().getO()).isEqualTo(0.33d, Offset.offset(0.000001));
+	}
+
+	@ParameterizedTest
+	@ValueSource(doubles = {-1d, 2d})
+	void testOpacityKO(final double op) {
+		parser("{\\psline[fillstyle=solid, opacity=" + op + "](5,10)(5,11)(5,12)}");
+		assertThat(parsedShapes.get(0).getFillingCol().getO()).isEqualTo(1d, Offset.offset(0.000001));
+	}
+
+	@Test
+	void testOpacityOK() {
+		parser("{\\psline[fillstyle=solid, opacity=0.33](5,10)(5,11)(5,12)}");
+		assertThat(parsedShapes.get(0).getFillingCol().getO()).isEqualTo(0.33d, Offset.offset(0.000001));
 	}
 }

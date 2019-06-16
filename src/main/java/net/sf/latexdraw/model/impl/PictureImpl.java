@@ -59,7 +59,13 @@ class PictureImpl extends PositionShapeBase implements Picture {
 			searchOrCreateImg();
 		}
 
-		image = new Image(new File(pathSource).toURI().toString());
+		final File picFile = new File(pathSource);
+
+		if(!picFile.canRead()) {
+			throw new IllegalArgumentException("The picture " + pathSource + " cannot be read");
+		}
+
+		image = new Image(picFile.toURI().toString());
 		createEPSImage();
 	}
 

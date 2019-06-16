@@ -20,6 +20,7 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.jetbrains.annotations.NotNull;
 
 import static net.sf.latexdraw.view.pst.PSTricksConstants.DEFAULT_ORIGIN;
 
@@ -32,14 +33,13 @@ public class PSTContext {
 
 	static double doubleUnitToUnit(final double value, final String unit) {
 		switch(unit) {
-			case PSTricksConstants.TOKEN_CM:
-				return value;
 			case PSTricksConstants.TOKEN_MM:
 				return value / 10d;
 			case PSTricksConstants.TOKEN_PS_PT:
 				return value / PSTricksConstants.CM_VAL_PT;
 			case PSTricksConstants.TOKEN_INCH:
 				return value / PSTricksConstants.INCH_VAL_CM;
+			case PSTricksConstants.TOKEN_CM:
 			default:
 				return value;
 		}
@@ -125,7 +125,7 @@ public class PSTContext {
 	double strokeopacity = 1d;
 	boolean polarPlot = false;
 	/** Text chunks parsed in the current context. */
-	List<String> textParsed = new ArrayList<>();
+	@NotNull List<String> textParsed = new ArrayList<>();
 
 	public PSTContext() {
 		super();
@@ -220,7 +220,7 @@ public class PSTContext {
 		}
 	}
 
-	Point2D originToPoint() {
+	@NotNull Point2D originToPoint() {
 		return new Point2D(doubleUnitToUnit(originX.a, originX.b), doubleUnitToUnit(originY.a, originY.b));
 	}
 
@@ -229,10 +229,8 @@ public class PSTContext {
 		final Point2D p2 = coordToRawPoint(coord2);
 
 		if(coord1 == null) {
-			if(coord2 == null) {
-				pictureSWPt = new Point2D(0d, 0d);
-				pictureNEPt = new Point2D(10d, 10d);
-			}
+			pictureSWPt = new Point2D(0d, 0d);
+			pictureNEPt = new Point2D(10d, 10d);
 		}else {
 			if(coord2 == null) {
 				pictureSWPt = new Point2D(0d, 0d);
@@ -245,7 +243,15 @@ public class PSTContext {
 	}
 
 	void setRputAngle(final Token star, final net.sf.latexdraw.parser.pst.PSTParser.ValueDimContext valDim, final ParseTree put) {
-		if(put != null) {
+		if(put == null) {
+			// This means that valDim is not null
+			final double angle = -Math.toRadians(valDimtoDouble(valDim));
+			if(star != null) {
+				rputAngle = angle;
+			}else {
+				rputAngle += angle;
+			}
+		}else {
 			switch(put.getText()) {
 				case "L": //NON-NLS
 					rputAngle += -Math.PI / 2d;
@@ -268,13 +274,6 @@ public class PSTContext {
 				case "E": //NON-NLS
 					rputAngle = -3d * Math.PI / 2d;
 					break;
-			}
-		}else {
-			final double angle = -Math.toRadians(valDimtoDouble(valDim));
-			if(star != null) {
-				rputAngle = angle;
-			}else {
-				rputAngle += angle;
 			}
 		}
 	}
@@ -301,7 +300,7 @@ public class PSTContext {
 		return new Tuple<>(valDimtoDouble(valdim), numberOrZero(number));
 	}
 
-	String unitOrEmpty(final ParseTree unit) {
+	@NotNull String unitOrEmpty(final ParseTree unit) {
 		return unit == null ? "" : unit.getText();
 	}
 
@@ -334,7 +333,7 @@ public class PSTContext {
 	 * @param coord The coord to convert.
 	 * @return The transformed point. Cannot be null.
 	 */
-	Point2D coordToRawPoint(final net.sf.latexdraw.parser.pst.PSTParser.CoordContext coord) {
+	@NotNull Point2D coordToRawPoint(final net.sf.latexdraw.parser.pst.PSTParser.CoordContext coord) {
 		if(coord == null) {
 			return new Point2D(PSTContext.doubleUnitToUnit(originX.a, originX.b), PSTContext.doubleUnitToUnit(originY.a, originY.b));
 		}
@@ -346,7 +345,7 @@ public class PSTContext {
 	 * @param coord The coord to convert.
 	 * @return The transformed point. Cannot be null.
 	 */
-	Point2D coordToAdjustedPoint(final net.sf.latexdraw.parser.pst.PSTParser.CoordContext coord) {
+	@NotNull Point2D coordToAdjustedPoint(final net.sf.latexdraw.parser.pst.PSTParser.CoordContext coord) {
 		if(coord == null) {
 			return new Point2D(PSTContext.doubleUnitToUnit(originX.a, originX.b) * ppc, PSTContext.doubleUnitToUnit(originY.a, originY.b) * ppc);
 		}
