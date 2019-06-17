@@ -117,7 +117,7 @@ public class PreferencesService {
 	}
 
 	public PreferencesService() {
-		this(SystemUtils.getInstance().getPathLocalUser() + File.separator + ".preferences.xml"); //NON-NLS;
+		this(SystemUtils.getInstance().getPathLocalUser() + File.separator + ".preferences.xml"); //NON-NLS
 	}
 
 	public @NotNull StringProperty includesProperty() {

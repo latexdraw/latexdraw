@@ -347,7 +347,7 @@ public final class ShapeProperties<T> {
 
 	/** Modification of the size of dots. */
 	public static final ShapeProperties<Double> DOT_SIZE = new ShapeProperties<>(
-		(v, g) -> g.setDiametre(v), (v, g) -> g.setDotSizeList(v), g -> g.getDotSizeList(), g -> g.isTypeOf(DotProp.class), "Actions.29"); //NON-NLS;
+		(v, g) -> g.setDiametre(v), (v, g) -> g.setDotSizeList(v), g -> g.getDotSizeList(), g -> g.isTypeOf(DotProp.class), "Actions.29"); //NON-NLS
 
 	private final @NotNull BiConsumer<T, Group> setValue;
 	private final @NotNull BiConsumer<List<Optional<T>>, Group> setListValue;

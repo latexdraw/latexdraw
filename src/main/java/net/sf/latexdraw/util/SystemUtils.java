@@ -43,14 +43,14 @@ import org.w3c.dom.Element;
  * @author Arnaud BLOUIN, Jan-Cornelius MOLNAR
  */
 public final class SystemUtils {
-	private static SystemUtils INSTANCE = new SystemUtils();
+	private static SystemUtils instance = new SystemUtils();
 
 	public static void setSingleton(final @NotNull SystemUtils instance) {
-		INSTANCE = instance;
+		SystemUtils.instance = instance;
 	}
 
 	public static SystemUtils getInstance() {
-		return INSTANCE;
+		return instance;
 	}
 
 	/** The line separator of the current system. */

@@ -1,6 +1,5 @@
 package net.sf.latexdraw.parser.svg;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,7 +32,7 @@ public class TestSVGDocument {
 
 	@Test
 	void testSVGDocumentInvalidStr() {
-		assertThrows(FileNotFoundException.class, () -> new SVGDocument(new URI("dfqsfg")));
+		assertThrows(IOException.class, () -> new SVGDocument(new URI("dfqsfg")));
 	}
 
 	@Test

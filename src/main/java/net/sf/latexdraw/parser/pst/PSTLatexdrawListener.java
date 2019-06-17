@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -522,30 +523,31 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			setShapeForStar(customshapes);
 		}
 
-		Freehand fh = null;
+		final AtomicReference<Freehand> fh = new AtomicReference<>();
 		final Group gp = ShapeFactory.INST.createGroup();
 		// The different created freehand shapes must be merged into a single one.
-		for(final Shape sh : customshapes.getShapes()) {
-			if(sh instanceof Freehand) {
-				final Freehand ifh = (Freehand) sh;
-				if(fh == null) {
+		customshapes.getShapes()
+			.stream()
+			.filter(sh -> sh instanceof Freehand)
+			.map(sh -> (Freehand) sh)
+			.forEach(ifh -> {
+				if(fh.get() == null) {
 					gp.addShape(ifh);
-					fh = ifh;
-					fh.setInterval(1); // This shape is now the reference shape used for the merge.
+					fh.set(ifh);
+					ifh.setInterval(1); // This shape is now the reference shape used for the merge.
 				}else {
 					if(ifh.getNbPoints() == 0) {
 						// If the shape has a single point, it means it is a closepath command
-						fh.setOpened(ifh.isOpened());
+						fh.get().setOpened(ifh.isOpened());
 					}else {
 						// Otherwise, the shape has two points. So, we take the last one and add it to the first shape.
-						final Freehand fh2 = ShapeFactory.INST.createFreeHandFrom(fh, ifh.getPtAt(ifh.getNbPoints() - 1));
-						gp.getShapes().set(gp.getShapes().indexOf(fh), fh2);
-						fh = fh2;
-						fh.setType(ifh.getType());
+						final Freehand fh2 = ShapeFactory.INST.createFreeHandFrom(fh.get(), ifh.getPtAt(ifh.getNbPoints() - 1));
+						gp.getShapes().set(gp.getShapes().indexOf(fh.get()), fh2);
+						fh.set(fh2);
+						fh2.setType(ifh.getType());
 					}
 				}
-			}
-		}
+			});
 
 		customshapes.getShapes().setAll(gp.getShapes());
 		gp.getShapes().clear();

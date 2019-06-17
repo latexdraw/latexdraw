@@ -13,15 +13,15 @@ package net.sf.latexdraw.parser.svg;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import net.sf.latexdraw.util.BadaboomCollector;
+import net.sf.latexdraw.util.SystemUtils;
+import org.jetbrains.annotations.NonNls;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
@@ -80,42 +80,32 @@ public class SVGDocument implements Document {
 			throw new IllegalArgumentException();
 		}
 
-		try {
-			final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true); //NON-NLS
-			factory.setFeature("http://xml.org/sax/features/external-general-entities", false); //NON-NLS
-			factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false); //NON-NLS
-			factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false); //NON-NLS
-			factory.setXIncludeAware(false);
-			factory.setExpandEntityReferences(false);
-			final DocumentBuilder builder = factory.newDocumentBuilder();
+		final DocumentBuilder builder = SystemUtils.getInstance().createXMLDocumentBuilder()
+			.orElseThrow(() -> new IllegalArgumentException());
 
-			builder.setEntityResolver(new SVGEntityResolver());
-			Document doc;
-			try {
-				doc = builder.parse(uri.getPath());
-			}catch(final MalformedURLException ex) {
-				doc = builder.parse("file:" + uri.getPath()); //NON-NLS
+		builder.setEntityResolver(new SVGEntityResolver());
+		final Document doc = readXMLDocument(builder, uri.getPath())
+			.orElseGet(() -> readXMLDocument(builder, "file:" + uri.getPath()).orElse(null));
+
+		if(doc == null) {
+			throw new IOException("Cannot open the XML document " + uri);
+		}
+
+		final NodeList nl;
+
+		setXmlStandalone(doc.getXmlStandalone());
+		setXmlVersion(doc.getXmlVersion());
+		xmlEncoding = doc.getXmlEncoding();
+		root = null;
+		nl = doc.getChildNodes();
+		Node n;
+
+		for(int i = 0, size = nl.getLength(); i < size && root == null; i++) {
+			n = nl.item(i);
+
+			if(n instanceof Element && n.getNodeName().endsWith(SVGElements.SVG_SVG)) {
+				root = new SVGSVGElement(this, nl.item(i));
 			}
-			final NodeList nl;
-
-			setXmlStandalone(doc.getXmlStandalone());
-			setXmlVersion(doc.getXmlVersion());
-			xmlEncoding = doc.getXmlEncoding();
-			root = null;
-			nl = doc.getChildNodes();
-			Node n;
-
-			for(int i = 0, size = nl.getLength(); i < size && root == null; i++) {
-				n = nl.item(i);
-
-				if(n instanceof Element && n.getNodeName().endsWith(SVGElements.SVG_SVG)) {
-					root = new SVGSVGElement(this, nl.item(i));
-				}
-			}
-		}catch(final SAXException | ParserConfigurationException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-			throw new IllegalArgumentException(ex);
 		}
 	}
 
@@ -132,6 +122,13 @@ public class SVGDocument implements Document {
 		root = new SVGSVGElement(this);
 	}
 
+	private Optional<Document> readXMLDocument(final DocumentBuilder builder, @NonNls final String path) {
+		try {
+			return Optional.of(builder.parse(path));
+		}catch(final SAXException | IOException ex) {
+			return Optional.empty();
+		}
+	}
 
 	@Override
 	public String toString() {
