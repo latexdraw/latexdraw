@@ -11,7 +11,6 @@
 package net.sf.latexdraw.handler;
 
 import java.util.List;
-import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.LineTo;
@@ -33,11 +32,10 @@ public class ScaleHandler extends Path implements Handler {
 	/**
 	 * Creates the handler.
 	 * @param handlerPosition The position of the handler.
-	 * @throws NullPointerException If one of the given arguments is null.
 	 */
 	public ScaleHandler(final @NotNull Position handlerPosition, final @NotNull Rectangle border) {
 		super();
-		position = Objects.requireNonNull(handlerPosition);
+		position = handlerPosition;
 		setStroke(null);
 		setFill(DEFAULT_COLOR);
 

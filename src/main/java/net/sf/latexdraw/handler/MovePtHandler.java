@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.handler;
 
-import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.model.api.shape.Point;
@@ -26,11 +25,10 @@ public class MovePtHandler extends Rectangle implements Handler {
 
 	/**
 	 * The constructor by default.
-	 * @throws NullPointerException If the given point is null.
 	 */
 	public MovePtHandler(final @NotNull Point pt) {
 		super();
-		point = Objects.requireNonNull(pt);
+		point = pt;
 		setWidth(DEFAULT_SIZE);
 		setHeight(DEFAULT_SIZE);
 		translateXProperty().bind(Bindings.createDoubleBinding(() -> pt.getX() - DEFAULT_SIZE / 2d, pt.xProperty()));

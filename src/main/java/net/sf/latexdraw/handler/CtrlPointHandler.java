@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.handler;
 
-import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.scene.shape.Ellipse;
 import net.sf.latexdraw.model.api.shape.Point;
@@ -27,11 +26,10 @@ public class CtrlPointHandler extends Ellipse implements Handler {
 	/**
 	 * Creates the handler.
 	 * @param pt The control point to move.
-	 * @throws NullPointerException If the given point is null.
 	 */
 	public CtrlPointHandler(final @NotNull Point pt) {
 		super();
-		point = Objects.requireNonNull(pt);
+		point = pt;
 		setRadiusX(DEFAULT_SIZE / 2d);
 		setRadiusY(DEFAULT_SIZE / 2d);
 		translateXProperty().bind(Bindings.createDoubleBinding(() -> pt.getX() - DEFAULT_SIZE / 2d, pt.xProperty()));
