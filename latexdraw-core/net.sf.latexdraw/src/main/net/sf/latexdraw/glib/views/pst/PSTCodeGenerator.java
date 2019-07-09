@@ -3,6 +3,8 @@ package net.sf.latexdraw.glib.views.pst;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
@@ -111,7 +113,9 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		cache.append(PACKAGE_PSTRICKS).append("% ").append(PACKAGE_FOR_SPACE_PICTURE.replaceAll(LResources.EOL, LResources.EOL+"% "));
 		
 		if(!pkg.isEmpty()) {
-			pkg = "% User Packages:" + LResources.EOL + "% " + pkg.replace(LResources.EOL, LResources.EOL + "% "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			pkg = Stream.of(pkg.split("\\r\\n|\\r|\\n")) //NON-NLS
+				.map(s -> "% " + s)
+				.collect(Collectors.joining(LResources.EOL, "% User Packages: ", "")); //NON-NLS
 			cache.append(pkg).append(LResources.EOL);
 		}
 
