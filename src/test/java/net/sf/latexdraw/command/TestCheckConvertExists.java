@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.malai.command.Command;
+import io.github.interacto.command.Command;
 import org.mockito.Mockito;
 import org.testfx.framework.junit5.ApplicationExtension;
 

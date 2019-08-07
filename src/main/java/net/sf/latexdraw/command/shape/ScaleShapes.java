@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.undo.Undoable;
 import java.awt.geom.Rectangle2D;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.command.Modifying;
@@ -20,7 +21,6 @@ import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Position;
 import org.jetbrains.annotations.NotNull;
-import org.malai.undo.Undoable;
 
 /**
  * This command scales a shape.

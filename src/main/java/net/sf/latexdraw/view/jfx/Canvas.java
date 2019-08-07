@@ -10,6 +10,13 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import io.github.interacto.command.CmdHandler;
+import io.github.interacto.command.Command;
+import io.github.interacto.command.CommandsRegistry;
+import io.github.interacto.properties.Modifiable;
+import io.github.interacto.properties.Preferenciable;
+import io.github.interacto.properties.Reinitialisable;
+import io.github.interacto.properties.Zoomable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
@@ -57,13 +64,6 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.malai.command.CmdHandler;
-import org.malai.command.Command;
-import org.malai.command.CommandsRegistry;
-import org.malai.properties.Modifiable;
-import org.malai.properties.Preferenciable;
-import org.malai.properties.Reinitialisable;
-import org.malai.properties.Zoomable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.Command;
+import io.github.interacto.jfx.instrument.JfxInstrument;
+import io.github.interacto.undo.Undoable;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import javafx.scene.control.CheckBox;
@@ -29,9 +32,6 @@ import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.Command;
-import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.undo.Undoable;
 
 /**
  * This abstract instrument defines the base definition of instruments that customise shape properties.

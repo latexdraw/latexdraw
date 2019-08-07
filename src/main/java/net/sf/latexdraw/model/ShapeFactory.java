@@ -10,8 +10,8 @@
  */
 package net.sf.latexdraw.model;
 
-import net.sf.latexdraw.model.impl.ShapeFactoryImpl;
 import net.sf.latexdraw.model.api.shape.Factory;
+import net.sf.latexdraw.model.impl.ShapeFactoryImpl;
 import org.jetbrains.annotations.NotNull;
 
 /**

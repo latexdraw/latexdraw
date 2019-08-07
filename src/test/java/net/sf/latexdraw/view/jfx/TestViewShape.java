@@ -22,8 +22,8 @@ import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.malai.command.CommandsRegistry;
-import org.malai.undo.UndoCollector;
+import io.github.interacto.command.CommandsRegistry;
+import io.github.interacto.undo.UndoCollector;
 import org.testfx.framework.junit5.ApplicationExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

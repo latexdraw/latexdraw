@@ -31,7 +31,7 @@ import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.malai.javafx.ui.JfxUI;
+import io.github.interacto.jfx.ui.JfxUI;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;

@@ -6,9 +6,9 @@ import net.sf.latexdraw.model.api.shape.Drawing;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.command.Command;
-import org.malai.command.CommandsRegistry;
-import org.malai.undo.UndoCollector;
+import io.github.interacto.command.Command;
+import io.github.interacto.command.CommandsRegistry;
+import io.github.interacto.undo.UndoCollector;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

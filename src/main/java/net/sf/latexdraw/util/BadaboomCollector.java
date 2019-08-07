@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.util;
 
+import io.github.interacto.error.ErrorCatcher;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.ListProperty;
@@ -19,7 +20,6 @@ import javafx.collections.FXCollections;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import org.jetbrains.annotations.NotNull;
-import org.malai.error.ErrorCatcher;
 
 /**
  * An error collector.

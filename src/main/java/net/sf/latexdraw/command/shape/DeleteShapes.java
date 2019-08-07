@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.undo.Undoable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,7 +21,6 @@ import net.sf.latexdraw.command.ShapesCmd;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
-import org.malai.undo.Undoable;
 
 /**
  * This command removes shapes from a drawing.

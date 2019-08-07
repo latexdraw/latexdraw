@@ -9,8 +9,8 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.malai.command.CmdHandler;
-import org.malai.command.CommandsRegistry;
+import io.github.interacto.command.CmdHandler;
+import io.github.interacto.command.CommandsRegistry;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 

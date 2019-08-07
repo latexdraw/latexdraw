@@ -11,8 +11,8 @@
 package net.sf.latexdraw.model.api.property;
 
 import net.sf.latexdraw.model.api.shape.AxesStyle;
-import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
+import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
 import org.jetbrains.annotations.NotNull;
 

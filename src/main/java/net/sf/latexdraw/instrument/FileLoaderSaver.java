@@ -10,6 +10,11 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.Command;
+import io.github.interacto.jfx.command.IOCommand;
+import io.github.interacto.jfx.instrument.JfxInstrument;
+import io.github.interacto.jfx.interaction.library.WindowClosed;
+import io.github.interacto.jfx.ui.JfxUI;
 import java.io.File;
 import java.net.URL;
 import java.util.Objects;
@@ -32,11 +37,6 @@ import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.malai.command.Command;
-import org.malai.javafx.command.IOCommand;
-import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.interaction.library.WindowClosed;
-import org.malai.javafx.ui.JfxUI;
 
 /**
  * Saves and loads documents.

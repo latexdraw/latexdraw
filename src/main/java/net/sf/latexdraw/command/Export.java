@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.command.CommandImpl;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
@@ -30,7 +31,6 @@ import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.CommandImpl;
 
 /**
  * This command allows to export a drawing in different formats.

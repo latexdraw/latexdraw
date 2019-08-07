@@ -10,6 +10,12 @@
  */
 package net.sf.latexdraw;
 
+import io.github.interacto.command.CommandsRegistry;
+import io.github.interacto.jfx.instrument.JfxInstrument;
+import io.github.interacto.jfx.ui.JfxUI;
+import io.github.interacto.properties.Modifiable;
+import io.github.interacto.properties.Reinitialisable;
+import io.github.interacto.undo.UndoCollector;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,12 +47,6 @@ import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.jfx.Canvas;
-import org.malai.command.CommandsRegistry;
-import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.ui.JfxUI;
-import org.malai.properties.Modifiable;
-import org.malai.properties.Reinitialisable;
-import org.malai.undo.UndoCollector;
 
 /**
  * The main class of the project.

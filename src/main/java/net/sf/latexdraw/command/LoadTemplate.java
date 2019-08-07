@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.jfx.command.IOCommand;
+import io.github.interacto.undo.Undoable;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 import net.sf.latexdraw.model.api.shape.Drawing;
@@ -17,8 +19,6 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.command.IOCommand;
-import org.malai.undo.Undoable;
 
 /**
  * This command loads a given template.

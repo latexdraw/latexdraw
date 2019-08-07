@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.library.InactivateInstrument;
+import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -27,13 +29,13 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.BuilderFactory;
-import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.command.InsertPSTCode;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.parser.pst.PSTContext;
 import net.sf.latexdraw.parser.pst.PSTLatexdrawListener;
 import net.sf.latexdraw.parser.pst.PSTLexer;
 import net.sf.latexdraw.parser.pst.PSTParser;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.SystemUtils;
@@ -45,8 +47,6 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.library.InactivateInstrument;
-import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument converts PST code into graphical shapes.

@@ -10,11 +10,11 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.undo.Undoable;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.model.api.shape.ControlPointShape;
 import net.sf.latexdraw.model.api.shape.Point;
 import org.jetbrains.annotations.NotNull;
-import org.malai.undo.Undoable;
 
 /**
  * This command moves control points.

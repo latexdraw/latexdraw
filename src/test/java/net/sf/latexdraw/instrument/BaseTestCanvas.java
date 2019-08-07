@@ -20,7 +20,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.After;
 import org.junit.Before;
-import org.malai.command.CommandsRegistry;
+import io.github.interacto.command.CommandsRegistry;
 import org.testfx.util.WaitForAsyncUtils;
 
 abstract class BaseTestCanvas extends TestLatexdrawGUI {

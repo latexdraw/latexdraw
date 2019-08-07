@@ -10,12 +10,12 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import io.github.interacto.properties.Modifiable;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 import javafx.beans.property.DoubleProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.malai.properties.Modifiable;
 
 /**
  * The API for abstract shapes.

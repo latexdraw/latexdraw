@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.service;
 
+import io.github.interacto.undo.UndoCollector;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -56,7 +57,6 @@ import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.util.VersionChecker;
 import net.sf.latexdraw.view.GridStyle;
 import org.jetbrains.annotations.NotNull;
-import org.malai.undo.UndoCollector;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;

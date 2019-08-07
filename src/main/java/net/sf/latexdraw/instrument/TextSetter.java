@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.Command;
+import io.github.interacto.jfx.command.ActivateInactivateInstruments;
+import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Objects;
@@ -32,9 +35,6 @@ import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.Command;
-import org.malai.javafx.command.ActivateInactivateInstruments;
-import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * An instrument for adding and modifying texts of the drawing.

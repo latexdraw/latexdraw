@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.library.Zoom;
+import io.github.interacto.jfx.instrument.BasicZoomer;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -19,8 +21,6 @@ import javafx.scene.control.Spinner;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.library.Zoom;
-import org.malai.javafx.instrument.BasicZoomer;
 
 /**
  * The instrument for zooming on the canvas.

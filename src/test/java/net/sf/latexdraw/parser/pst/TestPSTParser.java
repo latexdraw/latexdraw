@@ -14,8 +14,8 @@ import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNDeserializer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.malai.command.CommandsRegistry;
-import org.malai.undo.UndoCollector;
+import io.github.interacto.command.CommandsRegistry;
+import io.github.interacto.undo.UndoCollector;
 
 import static org.junit.jupiter.api.Assertions.fail;
 

@@ -10,11 +10,11 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.command.CommandImpl;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import net.sf.latexdraw.util.SystemUtils;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.CommandImpl;
 
 /**
  * This command checks whether ImageMagick (its 'convert' binary) is installed.

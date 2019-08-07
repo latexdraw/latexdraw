@@ -28,7 +28,7 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
-import org.malai.command.CommandsRegistry;
+import io.github.interacto.command.CommandsRegistry;
 import org.mockito.Mockito;
 import org.testfx.util.WaitForAsyncUtils;
 

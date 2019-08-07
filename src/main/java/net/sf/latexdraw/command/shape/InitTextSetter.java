@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.command.library.ActivateInstrument;
+import io.github.interacto.instrument.Instrument;
 import net.sf.latexdraw.instrument.TextSetter;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Plot;
@@ -17,8 +19,6 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Text;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.malai.command.library.ActivateInstrument;
-import org.malai.instrument.Instrument;
 
 /**
  * This command activates and moves the text setter to a given position.

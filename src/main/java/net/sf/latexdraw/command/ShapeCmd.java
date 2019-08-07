@@ -10,9 +10,9 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.command.Command;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.Command;
 
 /**
  * This trait encapsulates a shape attribute.

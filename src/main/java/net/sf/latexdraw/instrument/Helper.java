@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.binding.MenuItem2OpenWebPage;
+import io.github.interacto.jfx.binding.MenuItem2ShowLazyStage;
+import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -28,9 +31,6 @@ import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.binding.MenuItem2OpenWebPage;
-import org.malai.javafx.binding.MenuItem2ShowLazyStage;
-import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument manages help features.

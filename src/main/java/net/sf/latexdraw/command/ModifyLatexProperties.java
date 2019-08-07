@@ -10,12 +10,12 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.command.CommandImpl;
+import io.github.interacto.undo.Undoable;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.CommandImpl;
-import org.malai.undo.Undoable;
 
 /**
  * This command modifies the latex properties of the current drawing.

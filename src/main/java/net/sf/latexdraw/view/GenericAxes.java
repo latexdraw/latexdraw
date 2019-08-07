@@ -16,8 +16,8 @@ import javafx.scene.text.Text;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.Axes;
-import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.PlottingStyle;
+import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
 import org.jetbrains.annotations.NotNull;
 

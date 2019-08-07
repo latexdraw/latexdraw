@@ -10,16 +10,16 @@
  */
 package net.sf.latexdraw.view.svg;
 
-import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Dot;
 import net.sf.latexdraw.model.api.shape.Plot;
-import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.PlotStyle;
+import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.parser.svg.SVGAttributes;
 import net.sf.latexdraw.parser.svg.SVGDocument;
 import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
+import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.PlotViewComputation;
 import org.jetbrains.annotations.NotNull;

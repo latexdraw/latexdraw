@@ -10,6 +10,10 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.Command;
+import io.github.interacto.jfx.binding.JfXWidgetBinding;
+import io.github.interacto.jfx.interaction.library.DnD;
+import io.github.interacto.jfx.interaction.library.SrcTgtPointsData;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
@@ -46,13 +50,9 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Position;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.Command;
-import org.malai.javafx.binding.JfXWidgetBinding;
-import org.malai.javafx.interaction.library.DnD;
-import org.malai.javafx.interaction.library.SrcTgtPointsData;
 
 /**
  * This instrument manages the selected views.

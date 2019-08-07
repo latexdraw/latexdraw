@@ -20,8 +20,8 @@ import net.sf.latexdraw.parser.svg.SVGAttributes;
 import net.sf.latexdraw.parser.svg.SVGDocument;
 import net.sf.latexdraw.parser.svg.SVGElement;
 import net.sf.latexdraw.parser.svg.SVGGElement;
-import net.sf.latexdraw.parser.svg.SVGPolygonElement;
 import net.sf.latexdraw.parser.svg.SVGParserUtils;
+import net.sf.latexdraw.parser.svg.SVGPolygonElement;
 import net.sf.latexdraw.util.LNamespace;
 import org.jetbrains.annotations.NotNull;
 

@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.instrument.JfxInstrument;
+import io.github.interacto.undo.Undoable;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -27,8 +29,6 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

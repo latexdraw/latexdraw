@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.Command;
+import io.github.interacto.jfx.instrument.JfxInstrument;
+import io.github.interacto.jfx.ui.JfxUI;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
@@ -35,9 +38,6 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.Command;
-import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.ui.JfxUI;
 import org.w3c.dom.Element;
 
 /**

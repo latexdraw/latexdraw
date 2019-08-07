@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.instrument.JfxInstrument;
+import io.github.interacto.jfx.interaction.library.ButtonPressed;
 import java.io.File;
 import java.net.URL;
 import java.util.Locale;
@@ -32,8 +34,6 @@ import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.GridStyle;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.interaction.library.ButtonPressed;
 
 /**
  * This instrument modifies the preferences.

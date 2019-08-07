@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.undo.Undoable;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.beans.property.IntegerProperty;
@@ -21,7 +22,6 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import org.jetbrains.annotations.NotNull;
-import org.malai.undo.Undoable;
 
 /**
  * Factorises code between align and distribute commands.

@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.undo.Undoable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,6 @@ import java.util.stream.IntStream;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
-import org.malai.undo.Undoable;
 
 /**
  * This command cuts the selected shapes.

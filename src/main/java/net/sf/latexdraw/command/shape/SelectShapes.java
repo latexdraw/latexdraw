@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.command.Command;
 import java.util.ArrayList;
 import java.util.List;
 import net.sf.latexdraw.command.DrawingCmdImpl;
@@ -18,7 +19,6 @@ import net.sf.latexdraw.command.ShapesCmd;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.Command;
 
 /**
  * This command allows to (un-)select shapes.

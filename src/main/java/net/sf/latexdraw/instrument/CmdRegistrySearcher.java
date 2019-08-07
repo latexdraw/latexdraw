@@ -10,11 +10,11 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.CommandsRegistry;
 import java.util.Optional;
 import net.sf.latexdraw.command.shape.CopyShapes;
 import net.sf.latexdraw.command.shape.SelectShapes;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.CommandsRegistry;
 
 /**
  * A helper to search in the command registry.

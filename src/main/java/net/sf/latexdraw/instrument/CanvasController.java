@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.command.MoveCamera;
+import io.github.interacto.jfx.interaction.library.DnD;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -17,10 +19,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
-import org.malai.javafx.command.MoveCamera;
-import org.malai.javafx.interaction.library.DnD;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 
 /**
  * Control of standard canvas user interactions.

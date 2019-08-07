@@ -25,8 +25,8 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import net.sf.latexdraw.model.MathUtils;
-import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.Arrow;
+import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.Line;
 import net.sf.latexdraw.view.GenericViewArrow;
 

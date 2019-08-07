@@ -10,11 +10,11 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.command.Command;
 import java.util.List;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.malai.command.Command;
 
 /**
  * A command that handles a set of shapes attribute.

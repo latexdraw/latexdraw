@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.command.Command;
+import io.github.interacto.undo.Undoable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +23,6 @@ import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.PreferencesService;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.Command;
-import org.malai.undo.Undoable;
 
 /**
  * This command pastes the copied or cut shapes.

@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -25,7 +26,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import net.sf.latexdraw.util.BadaboomCollector;
-import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * The controller of the exceptions frame.

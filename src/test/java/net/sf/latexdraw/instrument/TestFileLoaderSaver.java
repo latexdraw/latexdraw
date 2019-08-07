@@ -28,8 +28,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.malai.command.CommandsRegistry;
-import org.malai.javafx.ui.JfxUI;
+import io.github.interacto.command.CommandsRegistry;
+import io.github.interacto.jfx.ui.JfxUI;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;

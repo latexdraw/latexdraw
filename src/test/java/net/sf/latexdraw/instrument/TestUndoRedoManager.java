@@ -17,7 +17,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.command.CommandsRegistry;
+import io.github.interacto.command.CommandsRegistry;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
-import org.malai.instrument.Instrument;
+import io.github.interacto.instrument.Instrument;
 
 public class InjectionExtension implements BeforeEachCallback, AfterEachCallback, ParameterResolver, BeforeAllCallback {
 	Injector injector;

@@ -10,9 +10,9 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.command.library.ModifyValue;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.malai.command.library.ModifyValue;
 
 /**
  * This command modifies a shape property of an object.

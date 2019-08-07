@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.jfx.command.Save;
+import io.github.interacto.jfx.ui.JfxUI;
+import io.github.interacto.jfx.ui.OpenSaver;
 import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -22,9 +25,6 @@ import javafx.stage.Stage;
 import net.sf.latexdraw.service.PreferencesService;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.malai.javafx.command.Save;
-import org.malai.javafx.ui.JfxUI;
-import org.malai.javafx.ui.OpenSaver;
 
 /**
  * A command for saving a drawing as an SVG document.

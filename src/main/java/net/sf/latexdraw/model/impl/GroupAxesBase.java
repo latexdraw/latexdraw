@@ -17,9 +17,9 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.property.AxesProp;
 import net.sf.latexdraw.model.api.shape.AxesStyle;
 import net.sf.latexdraw.model.api.shape.Group;
+import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.model.api.shape.PlottingStyle;
 import net.sf.latexdraw.model.api.shape.TicksStyle;
 import org.jetbrains.annotations.NotNull;
 

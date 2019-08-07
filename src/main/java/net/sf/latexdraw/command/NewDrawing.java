@@ -10,6 +10,11 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.command.CommandsRegistry;
+import io.github.interacto.jfx.command.IOCommand;
+import io.github.interacto.jfx.ui.JfxUI;
+import io.github.interacto.jfx.ui.OpenSaver;
+import io.github.interacto.undo.UndoCollector;
 import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -21,11 +26,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.sf.latexdraw.util.BadaboomCollector;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.CommandsRegistry;
-import org.malai.javafx.command.IOCommand;
-import org.malai.javafx.ui.JfxUI;
-import org.malai.javafx.ui.OpenSaver;
-import org.malai.undo.UndoCollector;
 
 /**
  * This command permits to create a new drawing and initialises the application as required.

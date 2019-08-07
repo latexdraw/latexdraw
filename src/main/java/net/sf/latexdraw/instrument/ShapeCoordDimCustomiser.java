@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.Command;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -24,7 +25,6 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
-import org.malai.command.Command;
 
 /**
  * This instrument modifies arc dimensions and coordinates of shapes or pencil parameters.

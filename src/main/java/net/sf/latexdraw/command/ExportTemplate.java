@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.jfx.command.IOCommand;
+import io.github.interacto.jfx.ui.JfxUI;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -22,8 +24,6 @@ import javafx.scene.layout.Pane;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.command.IOCommand;
-import org.malai.javafx.ui.JfxUI;
 
 /**
  * This command exports a set of shapes as a template.

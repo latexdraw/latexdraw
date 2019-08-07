@@ -12,8 +12,8 @@ package net.sf.latexdraw.view.pst;
 
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Plot;
-import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.PlotStyle;
+import net.sf.latexdraw.model.api.shape.Point;
 import org.jetbrains.annotations.NotNull;
 
 /**

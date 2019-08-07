@@ -10,14 +10,14 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.command.Command;
+import io.github.interacto.command.CommandImpl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.Command;
-import org.malai.command.CommandImpl;
 
 /**
  * This command copies the selected shapes.

@@ -15,8 +15,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.model.api.property.PlotProp;
 import net.sf.latexdraw.model.api.shape.Group;
-import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.PlotStyle;
+import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
 
 /**

@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.service;
 
+import io.github.interacto.properties.Modifiable;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.property.ObjectProperty;
@@ -17,7 +18,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import org.jetbrains.annotations.NotNull;
-import org.malai.properties.Modifiable;
 
 public class LaTeXDataService implements Modifiable {
 	/**

@@ -10,6 +10,11 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.interaction.library.Click;
+import io.github.interacto.jfx.interaction.library.DnD;
+import io.github.interacto.jfx.interaction.library.MultiClick;
+import io.github.interacto.jfx.interaction.library.PointsData;
+import io.github.interacto.jfx.interaction.library.Press;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Function;
@@ -40,11 +45,6 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.interaction.library.Click;
-import org.malai.javafx.interaction.library.DnD;
-import org.malai.javafx.interaction.library.MultiClick;
-import org.malai.javafx.interaction.library.PointsData;
-import org.malai.javafx.interaction.library.Press;
 
 /**
  * This instrument allows to draw shapes.

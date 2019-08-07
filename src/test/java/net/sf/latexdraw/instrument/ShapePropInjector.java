@@ -20,7 +20,7 @@ import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.view.pst.PSTViewsFactory;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.view.svg.SVGShapesFactory;
-import org.malai.javafx.ui.JfxUI;
+import io.github.interacto.jfx.ui.JfxUI;
 import org.mockito.Mockito;
 
 public class ShapePropInjector extends Injector {

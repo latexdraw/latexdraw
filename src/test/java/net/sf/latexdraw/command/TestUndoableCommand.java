@@ -3,8 +3,8 @@ package net.sf.latexdraw.command;
 import net.sf.latexdraw.service.PreferencesService;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.command.Command;
-import org.malai.undo.Undoable;
+import io.github.interacto.command.Command;
+import io.github.interacto.undo.Undoable;
 
 import static org.junit.Assert.assertNotNull;
 

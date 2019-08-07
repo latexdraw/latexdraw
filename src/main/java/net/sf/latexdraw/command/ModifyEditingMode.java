@@ -10,10 +10,10 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.command.CommandImpl;
 import net.sf.latexdraw.instrument.EditionChoice;
 import net.sf.latexdraw.service.EditingService;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.CommandImpl;
 
 /**
  * This command allows to set the kind of shape that the pencil must draw.

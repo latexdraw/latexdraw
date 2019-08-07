@@ -15,8 +15,8 @@ module latexdraw {
 	requires javafx.controls;
 	requires javafx.swing;
 	requires java.logging;
-	requires malai.core;
-	requires malai.javafx;
+	requires interacto.java.api;
+	requires interacto.javafx;
 	requires antlr4.runtime;
 	requires annotations;
 	requires rxjavafx;

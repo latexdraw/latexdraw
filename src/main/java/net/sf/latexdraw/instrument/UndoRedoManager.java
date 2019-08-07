@@ -10,6 +10,10 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.library.Redo;
+import io.github.interacto.command.library.Undo;
+import io.github.interacto.jfx.undo.FXUndoCollector;
+import io.github.interacto.undo.UndoCollector;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -21,13 +25,9 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.library.Redo;
-import org.malai.command.library.Undo;
-import org.malai.javafx.undo.FXUndoCollector;
-import org.malai.undo.UndoCollector;
 
 /**
  * This instrument allows to undo and redo saved commands.

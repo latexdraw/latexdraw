@@ -10,9 +10,9 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.command.CommandImpl;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.CommandImpl;
 
 /**
  * @author Arnaud Blouin

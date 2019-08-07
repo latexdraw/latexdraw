@@ -14,7 +14,7 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import net.sf.latexdraw.instrument.CmdFXVoid;
 import net.sf.latexdraw.util.BadaboomCollector;
-import org.malai.fsm.TimeoutTransition;
+import io.github.interacto.fsm.TimeoutTransition;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static org.assertj.core.api.Assertions.within;

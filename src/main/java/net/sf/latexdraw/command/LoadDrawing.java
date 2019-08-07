@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.jfx.command.Load;
+import io.github.interacto.jfx.ui.JfxUI;
+import io.github.interacto.jfx.ui.OpenSaver;
 import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -21,9 +24,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.command.Load;
-import org.malai.javafx.ui.JfxUI;
-import org.malai.javafx.ui.OpenSaver;
 
 /**
  * This command loads an SVG document into the app.

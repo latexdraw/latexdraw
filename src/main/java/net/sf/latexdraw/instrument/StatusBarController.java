@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.instrument.JfxInstrument;
+import io.github.interacto.jfx.interaction.library.HyperlinkClicked;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -21,8 +23,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import net.sf.latexdraw.util.Inject;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.interaction.library.HyperlinkClicked;
 
 /**
  * The controller for the status bar.

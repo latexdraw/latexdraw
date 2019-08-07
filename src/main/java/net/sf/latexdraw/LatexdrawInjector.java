@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw;
 
+import io.github.interacto.jfx.ui.JfxUI;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import javafx.application.Application;
@@ -74,7 +75,6 @@ import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.view.pst.PSTViewsFactory;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.view.svg.SVGShapesFactory;
-import org.malai.javafx.ui.JfxUI;
 
 /**
  * @author Arnaud Blouin

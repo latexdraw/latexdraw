@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.command.ActivateInactivateInstruments;
+import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -23,8 +25,6 @@ import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.command.ActivateInactivateInstruments;
-import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument (de-)activates instruments while changing of tab (drawing tab, PST tab, etc.) and

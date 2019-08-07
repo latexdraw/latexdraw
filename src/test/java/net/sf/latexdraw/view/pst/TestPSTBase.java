@@ -30,7 +30,7 @@ import org.antlr.v4.runtime.atn.ATNDeserializer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.malai.undo.UndoCollector;
+import io.github.interacto.undo.UndoCollector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -10,10 +10,10 @@
  */
 package net.sf.latexdraw.command;
 
+import io.github.interacto.command.CommandImpl;
 import javafx.scene.layout.Pane;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.CommandImpl;
 
 /**
  * This command updates the templates.

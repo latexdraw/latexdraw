@@ -10,6 +10,11 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.binding.JfXWidgetBinding;
+import io.github.interacto.jfx.interaction.library.DnD;
+import io.github.interacto.jfx.interaction.library.DoubleClick;
+import io.github.interacto.jfx.interaction.library.Press;
+import io.github.interacto.jfx.interaction.library.SrcTgtPointsData;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
@@ -52,11 +57,6 @@ import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewText;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.binding.JfXWidgetBinding;
-import org.malai.javafx.interaction.library.DnD;
-import org.malai.javafx.interaction.library.DoubleClick;
-import org.malai.javafx.interaction.library.Press;
-import org.malai.javafx.interaction.library.SrcTgtPointsData;
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.

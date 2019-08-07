@@ -10,14 +10,14 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.util.Objects;
 import javafx.geometry.Point3D;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Point;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This abstract instrument encapsulates common operations dealing with a canvas.

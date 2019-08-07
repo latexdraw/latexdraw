@@ -17,8 +17,8 @@ import net.sf.latexdraw.util.Injector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.command.CmdHandler;
-import org.malai.command.CommandsRegistry;
+import io.github.interacto.command.CmdHandler;
+import io.github.interacto.command.CommandsRegistry;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;

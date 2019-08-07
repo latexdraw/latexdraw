@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.undo.Undoable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,6 @@ import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.model.api.shape.Group;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.malai.undo.Undoable;
 
 /**
  * This command modifies a shape property of the given shape.

@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.Command;
+import io.github.interacto.command.CommandsRegistry;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -25,12 +27,10 @@ import net.sf.latexdraw.command.shape.SelectShapes;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.SystemUtils;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.malai.command.Command;
-import org.malai.command.CommandsRegistry;
 
 /**
  * This instrument permits to copy, cut and paste the selected shapes.

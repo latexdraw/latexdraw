@@ -10,11 +10,11 @@
  */
 package net.sf.latexdraw.command.shape;
 
+import io.github.interacto.command.CommandImpl;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Point;
 import org.jetbrains.annotations.NotNull;
-import org.malai.command.CommandImpl;
 
 /**
  * This abstract command moves any kind of points.

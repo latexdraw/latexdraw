@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.view.svg;
 
+import io.github.interacto.jfx.instrument.JfxInstrument;
+import io.github.interacto.jfx.ui.JfxUI;
+import io.github.interacto.jfx.ui.OpenSaver;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -62,9 +65,6 @@ import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.ui.JfxUI;
-import org.malai.javafx.ui.OpenSaver;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.command.ShowStage;
+import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -29,8 +31,6 @@ import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.malai.javafx.command.ShowStage;
-import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument allows to see exceptions launched during the execution of the program.

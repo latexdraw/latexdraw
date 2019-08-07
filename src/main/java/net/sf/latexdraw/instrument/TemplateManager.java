@@ -10,6 +10,9 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.instrument.JfxInstrument;
+import io.github.interacto.jfx.interaction.library.DnD;
+import io.github.interacto.jfx.ui.JfxUI;
 import java.io.File;
 import java.net.URL;
 import java.util.Objects;
@@ -35,9 +38,6 @@ import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.jetbrains.annotations.NotNull;
-import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.javafx.interaction.library.DnD;
-import org.malai.javafx.ui.JfxUI;
 
 /**
  * This instrument manages the templates.

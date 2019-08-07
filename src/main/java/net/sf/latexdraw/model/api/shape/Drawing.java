@@ -10,12 +10,12 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import io.github.interacto.properties.Modifiable;
+import io.github.interacto.properties.Reinitialisable;
 import java.util.List;
 import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.model.api.property.SetShapesProp;
 import org.jetbrains.annotations.NotNull;
-import org.malai.properties.Modifiable;
-import org.malai.properties.Reinitialisable;
 
 /**
  * The API for drawings that contains a set of shapes and a set of selected shapes.

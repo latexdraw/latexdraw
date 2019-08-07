@@ -11,7 +11,7 @@ import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.command.CommandsRegistry;
+import io.github.interacto.command.CommandsRegistry;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
