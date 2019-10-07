@@ -3,7 +3,7 @@
 [![Code Coverage](https://sonarcloud.io/api/project_badges/measure?project=net.sf.latexdraw%3Alatexdraw&metric=coverage)](https://sonarcloud.io/dashboard?id=net.sf.latexdraw%3Alatexdraw)
 [![ncloc](https://sonarcloud.io/api/project_badges/measure?project=net.sf.latexdraw%3Alatexdraw&metric=ncloc)](https://sonarcloud.io/dashboard?id=net.sf.latexdraw%3Alatexdraw)
 [![java](https://img.shields.io/badge/java-11-blue.svg)](https://www.oracle.com/technetwork/java/javase/overview/index.html)
-[![java](https://img.shields.io/badge/license-GPL2-green.svg)](https://github.com/arnobl/latexdraw/blob/master/latexdraw-core/net.sf.latexdraw/license.txt)<br/>
+[![java](https://img.shields.io/badge/license-GPL3-green.svg)](https://github.com/arnobl/latexdraw/blob/master/latexdraw-core/net.sf.latexdraw/license.txt)<br/>
 
 latexdraw
 =========
