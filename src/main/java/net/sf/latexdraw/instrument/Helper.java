@@ -71,12 +71,12 @@ public final class Helper extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		addBinding(new MenuItem2ShowLazyStage(this, aboutItem, this::getAboutFrame, true));
-		addBinding(new MenuItem2ShowLazyStage(this, shortcutItem, this::getShortcutsFrame, true));
-		addBinding(new MenuItem2OpenWebPage(this, reportBugItem, "https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug", services)); //NON-NLS
-		addBinding(new MenuItem2OpenWebPage(this, forumItem, "https://sourceforge.net/p/latexdraw/discussion/", services)); //NON-NLS
-		addBinding(new MenuItem2OpenWebPage(this, donateItem, "http://sourceforge.net/project/project_donations.php?group_id=156523", services)); //NON-NLS
-		addBinding(new MenuItem2OpenWebPage(this, manuelItem, "https://github.com/arnobl/latexdraw/wiki/Manual", services)); //NON-NLS
+		addBinding(new MenuItem2ShowLazyStage(aboutItem, this::getAboutFrame, true));
+		addBinding(new MenuItem2ShowLazyStage(shortcutItem, this::getShortcutsFrame, true));
+		addBinding(new MenuItem2OpenWebPage(reportBugItem, "https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug", services)); //NON-NLS
+		addBinding(new MenuItem2OpenWebPage(forumItem, "https://sourceforge.net/p/latexdraw/discussion/", services)); //NON-NLS
+		addBinding(new MenuItem2OpenWebPage(donateItem, "http://sourceforge.net/project/project_donations.php?group_id=156523", services)); //NON-NLS
+		addBinding(new MenuItem2OpenWebPage(manuelItem, "https://github.com/arnobl/latexdraw/wiki/Manual", services)); //NON-NLS
 	}
 
 	/** @return The created latexdraw dialogue box. */

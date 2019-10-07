@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <interacto.version>3.4-SNAPSHOT</interacto.version>
+        <interacto.version>3.3-SNAPSHOT</interacto.version>
         <antlr.version>4.7.1</antlr.version>
         <java.version>11</java.version>
         <junit.version>5.4.2</junit.version>

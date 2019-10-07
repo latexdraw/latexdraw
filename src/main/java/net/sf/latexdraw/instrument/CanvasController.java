@@ -34,18 +34,21 @@ public class CanvasController extends CanvasInstrument implements Initializable 
 
 	@Override
 	protected void configureBindings() {
-		nodeBinder(new DnD(), MoveCamera::new).on(canvas).
-			first((i, c) -> c.setScrollPane(canvas.getScrollPane())).
-			then((i, c) -> {
+		nodeBinder(new DnD(), MoveCamera::new)
+			.on(canvas)
+			.first((i, c) -> {
+				c.setScrollPane(canvas.getScrollPane());
+				canvas.setCursor(Cursor.MOVE);
+			})
+			.then((i, c) -> {
 				final ScrollPane pane = canvas.getScrollPane();
 				c.setPx(pane.getHvalue() - (i.getTgtLocalPoint().getX() - i.getSrcLocalPoint().getX()) / canvas.getWidth());
 				c.setPy(pane.getVvalue() - (i.getTgtLocalPoint().getY() - i.getSrcLocalPoint().getY()) / canvas.getHeight());
-			}).
-			when(i -> i.getButton() == MouseButton.MIDDLE).
-			feedback(() -> canvas.setCursor(Cursor.MOVE)).
-			endOrCancel((i, c) -> canvas.setCursor(Cursor.DEFAULT)).
-			exec().
-			bind();
+			})
+			.when(i -> i.getButton() == MouseButton.MIDDLE)
+			.endOrCancel(i -> canvas.setCursor(Cursor.DEFAULT))
+			.continuousExecution()
+			.bind();
 	}
 
 	@Override

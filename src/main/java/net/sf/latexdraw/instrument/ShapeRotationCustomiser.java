@@ -68,16 +68,20 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 	protected void configureBindings() {
 		spinnerBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(),
 			canvas.getDrawing().getSelection().duplicateDeep(false),
-			Math.toRadians(rotationField.getValue()) - canvas.getDrawing().getSelection().getRotationAngle())).
-			on(rotationField).
-			then(c -> c.setRotationAngle(Math.toRadians(rotationField.getValue()) - canvas.getDrawing().getSelection().getRotationAngle())).
-			exec().bind();
+			Math.toRadians(rotationField.getValue()) - canvas.getDrawing().getSelection().getRotationAngle()))
+			.on(rotationField)
+			.then(c -> c.setRotationAngle(Math.toRadians(rotationField.getValue()) - canvas.getDrawing().getSelection().getRotationAngle()))
+			.continuousExecution()
+			.bind();
 
-		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI / 2d)).
-			on(rotate90Button).bind();
-		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI)).
-			on(rotate180Button).bind();
-		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), -Math.PI / 2d)).
-			on(rotate270Button).bind();
+		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI / 2d))
+			.on(rotate90Button)
+			.bind();
+		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI))
+			.on(rotate180Button)
+			.bind();
+		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), -Math.PI / 2d))
+			.on(rotate270Button)
+			.bind();
 	}
 }

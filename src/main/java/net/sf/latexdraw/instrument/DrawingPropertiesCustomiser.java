@@ -149,18 +149,28 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 
 	@Override
 	protected void configureBindings() {
-		textInputBinder(() -> new ModifyLatexProperties(latexData, LatexProperties.LABEL, null)).on(labelField).
-			then((i, c) -> c.setValue(i.getWidget().getText())).bind();
+		textInputBinder(() -> new ModifyLatexProperties(latexData, LatexProperties.LABEL, null))
+			.on(labelField)
+			.then((i, c) -> c.setValue(i.getWidget().getText()))
+			.bind();
 
-		textInputBinder(() -> new ModifyLatexProperties(latexData, LatexProperties.CAPTION, null)).on(titleField).
-			then((i, c) -> c.setValue(i.getWidget().getText())).bind();
+		textInputBinder(() -> new ModifyLatexProperties(latexData, LatexProperties.CAPTION, null))
+			.on(titleField)
+			.then((i, c) -> c.setValue(i.getWidget().getText()))
+			.bind();
 
-		checkboxBinder(i -> new ModifyLatexProperties(latexData, LatexProperties.POSITION_HORIZONTAL, i.getWidget().isSelected())).on(middleHorizPosCB).bind();
+		checkboxBinder(i -> new ModifyLatexProperties(latexData, LatexProperties.POSITION_HORIZONTAL, i.getWidget().isSelected()))
+			.on(middleHorizPosCB)
+			.bind();
 
-		comboboxBinder(i -> new ModifyLatexProperties(latexData, LatexProperties.POSITION_VERTICAL, i.getWidget().getSelectionModel().getSelectedItem())).
-			on(positionCB).bind();
+		comboboxBinder(i -> new ModifyLatexProperties(latexData, LatexProperties.POSITION_VERTICAL, i.getWidget().getSelectionModel().getSelectedItem()))
+			.on(positionCB)
+			.bind();
 
-		spinnerBinder(i -> new ModifyLatexProperties(latexData, LatexProperties.SCALE, i.getWidget().getValue())).on(scaleField).exec().
-			then(c -> c.setValue(scaleField.getValue())).bind();
+		spinnerBinder(i -> new ModifyLatexProperties(latexData, LatexProperties.SCALE, i.getWidget().getValue()))
+			.on(scaleField)
+			.continuousExecution()
+			.then(c -> c.setValue(scaleField.getValue()))
+			.bind();
 	}
 }

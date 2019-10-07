@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Function;
 import javafx.geometry.Point3D;
-import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.command.shape.AddShape;
@@ -99,11 +98,6 @@ public class Pencil extends CanvasInstrument {
 		}
 	}
 
-	@Override
-	public void interimFeedback() {
-		canvas.setTempView(null);
-		canvas.setCursor(Cursor.DEFAULT);
-	}
 
 	@Override
 	protected void configureBindings() {
@@ -145,7 +139,7 @@ public class Pencil extends CanvasInstrument {
 				}
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			}).
-			endOrCancel((i, c) -> canvas.setTempView(null)).
+			endOrCancel(i -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY && editing.getCurrentChoice() == EditionChoice.FREE_HAND).
 			strictStart().
 			bind();
@@ -167,7 +161,7 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			}).
 			then((i, c) -> updateShapeFromCentre((SquaredShape) c.getShape(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()).getX())).
-			endOrCancel((i, c) -> canvas.setTempView(null)).
+			endOrCancel(i -> canvas.setTempView(null)).
 			when(i -> i.getButton() == MouseButton.PRIMARY && (editing.getCurrentChoice() == EditionChoice.SQUARE ||
 				editing.getCurrentChoice() == EditionChoice.CIRCLE || editing.getCurrentChoice() == EditionChoice.CIRCLE_ARC)).
 			strictStart().
@@ -184,7 +178,7 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			}).
 			then((i, c) -> updateShapeFromDiag((RectangularShape) c.getShape(), getAdaptedPoint(i.getSrcLocalPoint()), getAdaptedPoint(i.getTgtLocalPoint()))).
-			endOrCancel((a, i) -> canvas.setTempView(null)).
+			endOrCancel(i -> canvas.setTempView(null)).
 			strictStart().
 			when(i -> i.getButton() == MouseButton.PRIMARY &&
 				(editing.getCurrentChoice() == EditionChoice.RECT || editing.getCurrentChoice() == EditionChoice.ELLIPSE ||
@@ -212,7 +206,7 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			})
 			.strictStart()
-			.endOrCancel((i, c) -> canvas.setTempView(null))
+			.endOrCancel(i -> canvas.setTempView(null))
 			.when(() -> editing.getCurrentChoice() == EditionChoice.POLYGON)
 			.bind();
 
@@ -229,7 +223,7 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			})
 			.strictStart()
-			.endOrCancel((i, c) -> canvas.setTempView(null))
+			.endOrCancel(i -> canvas.setTempView(null))
 			.when(() -> editing.getCurrentChoice() == EditionChoice.LINES)
 			.bind();
 
@@ -247,7 +241,7 @@ public class Pencil extends CanvasInstrument {
 				canvas.setTempView(viewFactory.createView(c.getShape()).orElse(null));
 			})
 			.strictStart()
-			.endOrCancel((i, c) -> canvas.setTempView(null))
+			.endOrCancel(i -> canvas.setTempView(null))
 			.when(() -> editing.getCurrentChoice() == EditionChoice.BEZIER_CURVE)
 			.bind();
 	}

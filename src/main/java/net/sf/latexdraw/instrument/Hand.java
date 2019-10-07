@@ -111,7 +111,7 @@ public class Hand extends CanvasInstrument implements Flushable {
 			.observeOn(JavaFxScheduler.platform())
 			.subscribe(next -> setUpCursorOnShapeView(next), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
-		addBinding(new DnD2Select(this));
+		addBinding(new DnD2Select());
 
 		bindPressureToSelectShape();
 		bindDnDTranslate();
@@ -184,22 +184,24 @@ public class Hand extends CanvasInstrument implements Flushable {
 	 * A DnD on a shape view allows to translate the underlying shape.
 	 */
 	private void bindDnDTranslate() {
-		nodeBinder(new DnD(true, true), i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false))).
-			on(canvas.getViews().getChildren()).on(canvas.getSelectionBorder()).
-			then((i, c) -> {
+		nodeBinder(new DnD(true, true),
+			i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false)))
+			.on(canvas.getViews().getChildren()).on(canvas.getSelectionBorder())
+			.then((i, c) -> {
 				final Point startPt = grid.getTransformedPointToGrid(i.getSrcScenePoint());
 				final Point endPt = grid.getTransformedPointToGrid(i.getTgtScenePoint());
 				c.setT(endPt.getX() - startPt.getX(), endPt.getY() - startPt.getY());
-			}).
-			when(i -> i.getButton() == MouseButton.PRIMARY && !canvas.getDrawing().getSelection().isEmpty()).
-			exec().
-			first((i, c) -> {
+			})
+			.when(i -> i.getButton() == MouseButton.PRIMARY && !canvas.getDrawing().getSelection().isEmpty())
+			.continuousExecution()
+			.first((i, c) -> {
 				i.getSrcObject().ifPresent(node -> node.requestFocus());
 				canvas.setCursor(Cursor.MOVE);
-			}).
-			cancel((i, c) -> canvas.update()).
-			strictStart().
-			bind();
+			})
+			.endOrCancel(i -> canvas.setCursor(Cursor.DEFAULT))
+			.cancel(i -> canvas.update())
+			.strictStart()
+			.bind();
 	}
 
 	@Override
@@ -212,13 +214,6 @@ public class Hand extends CanvasInstrument implements Flushable {
 				canvas.update();
 			}
 		}
-	}
-
-	@Override
-	public void interimFeedback() {
-		// The rectangle used for the interim feedback of the selection is removed.
-		canvas.setOngoingSelectionBorder(null);
-		canvas.setCursor(Cursor.DEFAULT);
 	}
 
 
@@ -266,27 +261,27 @@ public class Hand extends CanvasInstrument implements Flushable {
 	}
 
 
-	private static class DnD2Select extends JfXWidgetBinding<SelectShapes, DnD, Hand, SrcTgtPointsData> {
-		/** The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
-		private Bounds selectionBorder;
+	private class DnD2Select extends JfXWidgetBinding<SelectShapes, DnD, SrcTgtPointsData> {
 		private List<Shape> selectedShapes;
 		private List<ViewShape<?>> selectedViews;
 
-		DnD2Select(final Hand hand) {
-			super(hand, true, new DnD(), i -> new SelectShapes(hand.canvas.getDrawing()), Collections.singletonList(hand.canvas), false, null);
+		DnD2Select() {
+			super(true, new DnD(), i -> new SelectShapes(canvas.getDrawing()), Collections.singletonList(canvas), false, null);
 		}
 
 		@Override
 		public void first() {
-			selectedShapes = new ArrayList<>(instrument.canvas.getDrawing().getSelection().getShapes());
-			selectedViews = instrument.canvas.getSelectedViews();
-			instrument.canvas.requestFocus();
+			selectedShapes = new ArrayList<>(canvas.getDrawing().getSelection().getShapes());
+			selectedViews = canvas.getSelectedViews();
+			canvas.requestFocus();
 		}
 
 		@Override
 		public void then() {
-			final Point start = instrument.getAdaptedOriginPoint(interaction.getSrcLocalPoint());
-			final Point end = instrument.getAdaptedOriginPoint(interaction.getTgtLocalPoint());
+			/* The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
+			final Bounds selectionBorder;
+			final Point start = getAdaptedOriginPoint(interaction.getSrcLocalPoint());
+			final Point end = getAdaptedOriginPoint(interaction.getTgtLocalPoint());
 			final double minX = Math.min(start.getX(), end.getX());
 			final double maxX = Math.max(start.getX(), end.getX());
 			final double minY = Math.min(start.getY(), end.getY());
@@ -305,17 +300,19 @@ public class Hand extends CanvasInstrument implements Flushable {
 				selectedShapes.forEach(sh -> cmd.addShape(sh));
 			}
 			if(!selectionBorder.isEmpty()) {
-				updateSelection();
+				updateSelection(selectionBorder);
 			}
+
+			canvas.setOngoingSelectionBorder(selectionBorder);
 		}
 
-		private void updateSelection() {
+		private void updateSelection(final Bounds selectionBorder) {
 			final Rectangle selectionRec = new Rectangle(selectionBorder.getMinX() + Canvas.ORIGIN.getX(),
 				selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
 			// Transforming the selection rectangle to match the transformation of the canvas.
-			selectionRec.getTransforms().setAll(getInstrument().canvas.getLocalToSceneTransform());
+			selectionRec.getTransforms().setAll(canvas.getLocalToSceneTransform());
 
-			instrument.canvas.getViews().getChildren().stream().filter(view -> {
+			canvas.getViews().getChildren().stream().filter(view -> {
 				Bounds bounds;
 				final Transform transform = view.getLocalToParentTransform();
 				if(transform.isIdentity()) {
@@ -334,13 +331,13 @@ public class Hand extends CanvasInstrument implements Flushable {
 
 		@Override
 		public boolean when() {
-			return interaction.getButton() == MouseButton.PRIMARY && interaction.getSrcObject().orElse(null) == instrument.canvas;
+			return interaction.getButton() == MouseButton.PRIMARY && interaction.getSrcObject().orElse(null) == canvas;
 		}
 
 		@Override
-		public void feedback() {
-			instrument.canvas.setOngoingSelectionBorder(selectionBorder);
-			selectionBorder = null;
+		public void endOrCancel() {
+			canvas.setOngoingSelectionBorder(null);
+			canvas.setCursor(Cursor.DEFAULT);
 		}
 	}
 }

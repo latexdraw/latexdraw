@@ -610,8 +610,6 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 
 					// Updating the possible widgets of the instruments.
 					instruments.forEach(ins -> {
-						ins.interimFeedback();
-
 						if(ldMeta != null) {
 							app.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
 						}

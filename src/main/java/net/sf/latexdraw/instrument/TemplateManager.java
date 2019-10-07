@@ -78,6 +78,7 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 		}
 		cmd.flush();
 		setActivated(true);
+		templatePane.setCursor(Cursor.MOVE);
 	}
 
 	@Override
@@ -86,33 +87,33 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 		mainPane.setVisible(activated);
 	}
 
-	@Override
-	public void interimFeedback() {
-		templatePane.setCursor(Cursor.MOVE);
-	}
-
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(() -> new UpdateTemplates(templatePane, svgGen, true)).on(updateTemplates).bind();
+		buttonBinder(() -> new UpdateTemplates(templatePane, svgGen, true))
+			.on(updateTemplates)
+			.bind();
 
-		nodeBinder(new DnD(), () -> new LoadTemplate(svgGen, drawing)).on(templatePane).
-			first((i, c) -> {
+		nodeBinder(new DnD(), () -> new LoadTemplate(svgGen, drawing))
+			.on(templatePane)
+			.first((i, c) -> {
 				c.setFile(new File((String) i.getSrcObject().orElseThrow().getUserData()));
 				c.setProgressBar(statusController.getProgressBar());
 				c.setStatusWidget(statusController.getLabel());
 				c.setUi(app);
-			}).
-			then((i, c) -> {
+
+				templatePane.setCursor(Cursor.CLOSED_HAND);
+			})
+			.then((i, c) -> {
 				final Node srcObj = i.getSrcObject().orElseThrow();
 				final Point3D pt3d = i.getTgtObject().orElseThrow().sceneToLocal(srcObj.localToScene(i.getTgtLocalPoint())).
 					subtract(Canvas.ORIGIN.getX() + srcObj.getLayoutX(), Canvas.ORIGIN.getY() + srcObj.getLayoutY(), 0d);
 				c.setPosition(ShapeFactory.INST.createPoint(pt3d));
-			}).
-			feedback(() -> templatePane.setCursor(Cursor.CLOSED_HAND)).
-			when(i -> i.getSrcObject().orElse(null) instanceof ImageView &&
+			})
+			.when(i -> i.getSrcObject().orElse(null) instanceof ImageView &&
 				i.getSrcObject().get().getUserData() instanceof String &&
-				i.getTgtObject().orElse(null) instanceof Canvas).
-			bind();
+				i.getTgtObject().orElse(null) instanceof Canvas)
+			.endOrCancel(i -> templatePane.setCursor(Cursor.MOVE))
+			.bind();
 	}
 }

@@ -60,18 +60,16 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	@Override
 	protected void configureBindings() {
 		super.configureBindings();
-		spinnerBinder(Zoom::new).on(zoom).exec().
-			first(c -> c.setZoomable(zoomable)).
-			then((i, c) -> c.setZoomLevel(Double.parseDouble(i.getWidget().getValue().toString()) / 100d)).bind();
+		spinnerBinder(Zoom::new)
+			.on(zoom)
+			.continuousExecution()
+			.first(c -> c.setZoomable(zoomable))
+			.then((i, c) -> c.setZoomLevel(Double.parseDouble(i.getWidget().getValue().toString()) / 100d))
+			.bind();
 	}
 
 	@Override
 	public void reinit() {
-		interimFeedback();
-	}
-
-	@Override
-	public void interimFeedback() {
 		zoom.getValueFactory().setValue(zoomable.getZoom() * 100d);
 	}
 }
