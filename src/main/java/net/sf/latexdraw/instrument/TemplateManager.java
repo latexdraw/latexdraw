@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.Command;
 import io.github.interacto.jfx.instrument.JfxInstrument;
 import io.github.interacto.jfx.interaction.library.DnD;
 import io.github.interacto.jfx.ui.JfxUI;
@@ -71,12 +72,8 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 		emptyLabel.visibleProperty().bind(Bindings.createBooleanBinding(() -> templatePane.getChildren().isEmpty(), templatePane.getChildren()));
 		emptyLabel.setFont(Font.font(emptyLabel.getFont().getFamily(), FontPosture.ITALIC, emptyLabel.getFont().getSize()));
 
-		final UpdateTemplates cmd = new UpdateTemplates(templatePane, svgGen, false);
+		Command.executeAndFlush(new UpdateTemplates(templatePane, svgGen, false));
 
-		if(cmd.canDo()) {
-			cmd.doIt();
-		}
-		cmd.flush();
 		setActivated(true);
 		templatePane.setCursor(Cursor.MOVE);
 	}
