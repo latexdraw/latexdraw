@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.command.shape;
 
-import io.github.interacto.command.Command;
 import io.github.interacto.undo.Undoable;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +68,7 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 				cop.nbTimeCopied++;
 			}
 
+			drawing.setSelection(pastedShapes);
 			drawing.setModified(true);
 		});
 	}
@@ -102,6 +102,7 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 				cop.nbTimeCopied++;
 			}
 
+			drawing.setSelection(pastedShapes);
 			drawing.setModified(true);
 		});
 	}
@@ -109,15 +110,6 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("LaTeXDrawFrame.43");
-	}
-
-	@Override
-	public @NotNull List<Command> followingCmds() {
-		final List<Command> list = new ArrayList<>();
-		final SelectShapes selectCmd = new SelectShapes(drawing);
-		pastedShapes.forEach(selectCmd::addShape);
-		list.add(selectCmd);
-		return list;
 	}
 
 	public @NotNull Optional<CopyShapes> getCopy() {
