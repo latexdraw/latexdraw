@@ -165,9 +165,16 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void configureBindings() {
-		buttonBinder(i -> new InsertPSTCode(text.getText(), statusBar.getLabel(), drawing, lang)).on(ok).bind();
+		buttonBinder()
+			.toProduce(i -> new InsertPSTCode(text.getText(), statusBar.getLabel(), drawing, lang))
+			.on(ok)
+			.bind();
 
-		buttonBinder(() -> new InactivateInstrument()).on(cancel, ok).first(cmd -> cmd.setInstrument(this)).bind();
+		buttonBinder()
+			.toProduce(() -> new InactivateInstrument())
+			.on(cancel, ok)
+			.first(cmd -> cmd.setInstrument(this))
+			.bind();
 	}
 
 	@Override

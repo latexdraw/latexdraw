@@ -60,7 +60,9 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	@Override
 	protected void configureBindings() {
 		super.configureBindings();
-		spinnerBinder(Zoom::new)
+
+		spinnerBinder()
+			.toProduce(Zoom::new)
 			.on(zoom)
 			.continuousExecution()
 			.first(c -> c.setZoomable(zoomable))

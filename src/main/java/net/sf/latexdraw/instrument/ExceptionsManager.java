@@ -85,9 +85,12 @@ public final class ExceptionsManager extends JfxInstrument implements Initializa
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(ShowStage::new).on(exceptionB).first(c -> {
-			c.setWidget(getStageEx());
-			c.setVisible(true);
-		}).bind();
+		buttonBinder()
+			.toProduce(ShowStage::new)
+			.on(exceptionB)
+			.first(c -> {
+				c.setWidget(getStageEx());
+				c.setVisible(true);
+			}).bind();
 	}
 }

@@ -34,7 +34,9 @@ public class CanvasController extends CanvasInstrument implements Initializable 
 
 	@Override
 	protected void configureBindings() {
-		nodeBinder(new DnD(), MoveCamera::new)
+		nodeBinder()
+			.usingInteraction(DnD::new)
+			.toProduce(MoveCamera::new)
 			.on(canvas)
 			.first((i, c) -> {
 				c.setScrollPane(canvas.getScrollPane());

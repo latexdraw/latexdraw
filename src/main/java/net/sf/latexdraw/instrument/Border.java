@@ -192,12 +192,12 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 	private void configureMovePointBinding() {
-		nodeBinder(new DnD(),
-			i -> new MovePointShape((ModifiablePointsShape) canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow(),
+		nodeBinder()
+			.usingInteraction(DnD::new)
+			.toProduce(i -> new MovePointShape((ModifiablePointsShape) canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow(),
 				i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> ((MovePtHandler) o).getPoint()).orElseThrow()))
 			.on(mvPtHandlers)
-			.first((i, c) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> {
-			}))
+//			.first((i, c) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> { }))
 			.then((i, c) -> i.getSrcObject().ifPresent(node -> {
 				final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
 				final Point3D endPt = node.localToParent(i.getTgtLocalPoint());
@@ -215,9 +215,12 @@ public class Border extends CanvasInstrument implements Initializable {
 	@Override
 	protected void configureBindings() {
 		addBinding(new DnD2Scale());
+
 		configureMovePointBinding();
-		nodeBinder(new DnD(),
-			i -> new MoveCtrlPoint((ControlPointShape) canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow(),
+
+		nodeBinder()
+			.usingInteraction(DnD::new)
+			.toProduce(i -> new MoveCtrlPoint((ControlPointShape) canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow(),
 				i.getSrcObject().map(h -> ((CtrlPointHandler) h).getPoint()).orElseThrow(), ctrlPt1Handlers.contains(i.getSrcObject().orElseThrow())))
 			.on(ctrlPt1Handlers)
 			.on(ctrlPt2Handlers)
@@ -233,9 +236,10 @@ public class Border extends CanvasInstrument implements Initializable {
 			.continuousExecution()
 			.bind();
 
-		nodeBinder(new DnD(),
-			() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre().add(canvas.getOrigin()),
-									canvas.getDrawing().getSelection().duplicateDeep(false), 0d))
+		nodeBinder()
+			.usingInteraction(DnD::new)
+			.toProduce(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre().add(canvas.getOrigin()),
+				canvas.getDrawing().getSelection().duplicateDeep(false), 0d))
 			.on(rotHandler)
 			.then((i, c) -> c.setRotationAngle(c.getGc().computeRotationAngle(
 				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getSrcScenePoint())),
@@ -247,8 +251,10 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 	private void bindArcHandler() {
-		nodeBinder(new DnD(), i -> new ModifyShapeProperty<>(i.getSrcObject().orElse(null) == arcHandlerStart ?
-			ShapeProperties.ARC_START_ANGLE : ShapeProperties.ARC_END_ANGLE, canvas.getDrawing().getSelection().duplicateDeep(false), null))
+		nodeBinder()
+			.usingInteraction(DnD::new)
+			.toProduce(i -> new ModifyShapeProperty<>(i.getSrcObject().orElse(null) == arcHandlerStart ?
+				ShapeProperties.ARC_START_ANGLE : ShapeProperties.ARC_END_ANGLE, canvas.getDrawing().getSelection().duplicateDeep(false), null))
 			.on(arcHandlerStart, arcHandlerEnd)
 			.then((i, c) -> canvas.getDrawing().getSelection().getShapeAt(0).map(s -> (Arc) s)
 				.ifPresent(shape -> {

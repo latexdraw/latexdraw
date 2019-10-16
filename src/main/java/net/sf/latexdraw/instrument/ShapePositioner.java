@@ -41,10 +41,15 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 
 	@Override
 	protected void configureBindings() {
-		buttonBinder(() -> new MoveBackForegroundShapes(canvas.getDrawing().getSelection().duplicateDeep(false), true, canvas.getDrawing())).
-			on(foregroundB).bind();
-		buttonBinder(() -> new MoveBackForegroundShapes(canvas.getDrawing().getSelection().duplicateDeep(false), false, canvas.getDrawing())).
-			on(backgroundB).bind();
+		buttonBinder()
+			.toProduce(() -> new MoveBackForegroundShapes(canvas.getDrawing().getSelection().duplicateDeep(false), true, canvas.getDrawing()))
+			.on(foregroundB)
+			.bind();
+
+		buttonBinder()
+			.toProduce(() -> new MoveBackForegroundShapes(canvas.getDrawing().getSelection().duplicateDeep(false), false, canvas.getDrawing()))
+			.on(backgroundB)
+			.bind();
 	}
 
 	@Override

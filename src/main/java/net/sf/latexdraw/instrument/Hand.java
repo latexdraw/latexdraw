@@ -118,15 +118,17 @@ public class Hand extends CanvasInstrument implements Flushable {
 
 		dbleClickToInitTextSetter();
 
-		keyNodeBinder(() -> new SelectShapes(canvas.getDrawing()))
+		shortcutBinder()
+			.toProduce(() -> new SelectShapes(canvas.getDrawing()))
 			.on(canvas)
 			.with(KeyCode.A, SystemUtils.getInstance().getControlKey())
 			.first(c -> c.getShapes().addAll(canvas.getDrawing().getShapes()))
 			.bind();
 
-		keyNodeBinder(() -> new UpdateToGrid(canvas.getMagneticGrid(), canvas.getDrawing().getSelection().duplicateDeep(false)))
-			.on(canvas).
-			with(KeyCode.U, SystemUtils.getInstance().getControlKey())
+		shortcutBinder()
+			.toProduce(() -> new UpdateToGrid(canvas.getMagneticGrid(), canvas.getDrawing().getSelection().duplicateDeep(false)))
+			.on(canvas)
+			.with(KeyCode.U, SystemUtils.getInstance().getControlKey())
 			.when(i -> prefs.isMagneticGrid())
 			.bind();
 	}
@@ -136,56 +138,72 @@ public class Hand extends CanvasInstrument implements Flushable {
 	 */
 	private void dbleClickToInitTextSetter() {
 		// For text shapes.
-		nodeBinder(new DoubleClick(), i -> {
-			final Text text = ((ViewText) i.getSrcObject().orElseThrow().getParent()).getModel();
-			return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(text.getPosition().getX() * canvas.getZoom(),
-				text.getPosition().getY() * canvas.getZoom()), text, null);
-		}).on(canvas.getViews().getChildren()).
-			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() instanceof ViewText).
-			strictStart().
-			bind();
+		nodeBinder()
+			.usingInteraction(DoubleClick::new)
+			.toProduce(i -> {
+				final Text text = ((ViewText) i.getSrcObject().orElseThrow().getParent()).getModel();
+				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(text.getPosition().getX() * canvas.getZoom(),
+					text.getPosition().getY() * canvas.getZoom()), text, null);
+			})
+			.on(canvas.getViews().getChildren())
+			.when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() instanceof ViewText)
+			.strictStart()
+			.bind();
 
 		// For plot shapes.
-		nodeBinder(new DoubleClick(), i -> {
-			final Plot plot = getViewShape(i.getSrcObject()).map(view -> ((ViewPlot) view).getModel()).orElseThrow();
-			return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(plot.getPosition().getX() * canvas.getZoom(),
-				plot.getPosition().getY() * canvas.getZoom()), null, plot);
-		}).on(canvas.getViews().getChildren()).
-			when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() != null && getViewShape(i.getSrcObject()).orElse(null) instanceof ViewPlot).
-			strictStart().
-			bind();
+		nodeBinder()
+			.usingInteraction(DoubleClick::new)
+			.toProduce(i -> {
+				final Plot plot = getViewShape(i.getSrcObject()).map(view -> ((ViewPlot) view).getModel()).orElseThrow();
+				return new InitTextSetter(textSetter, textSetter, null, ShapeFactory.INST.createPoint(plot.getPosition().getX() * canvas.getZoom(),
+					plot.getPosition().getY() * canvas.getZoom()), null, plot);
+			})
+			.on(canvas.getViews().getChildren())
+			.when(i -> i.getSrcObject().isPresent() && i.getSrcObject().get().getParent() != null && getViewShape(i.getSrcObject()).orElse(null) instanceof ViewPlot)
+			.strictStart()
+			.bind();
 	}
 
 	/**
 	 * Pressure to select shapes
 	 */
 	private void bindPressureToSelectShape() {
-		nodeBinder(new Press(), () -> new SelectShapes(canvas.getDrawing())).on(canvas.getViews().getChildren()).first((i, c) ->
-			getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
-				if(i.isShiftPressed()) {
-					canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> c.addShape(sh));
-					return;
-				}
-				if(i.isCtrlPressed()) {
-					canvas.getDrawing().getSelection().getShapes().forEach(sh -> c.addShape(sh));
-					c.addShape(targetSh);
-					return;
-				}
-				c.setShape(targetSh);
-			})).when(i -> !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null))).bind();
+		nodeBinder()
+			.usingInteraction(Press::new)
+			.toProduce(() -> new SelectShapes(canvas.getDrawing()))
+			.on(canvas.getViews().getChildren())
+			.first((i, c) ->
+				getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
+					if(i.isShiftPressed()) {
+						canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> c.addShape(sh));
+						return;
+					}
+					if(i.isCtrlPressed()) {
+						canvas.getDrawing().getSelection().getShapes().forEach(sh -> c.addShape(sh));
+						c.addShape(targetSh);
+						return;
+					}
+					c.setShape(targetSh);
+				}))
+			.when(i -> !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null)))
+			.bind();
 
 		// A simple pressure on the canvas deselects the shapes
-		nodeBinder(new Press(), () -> new SelectShapes(canvas.getDrawing())).on(canvas).
-			when(i -> i.getSrcObject().orElse(null) instanceof Canvas).
-			bind();
+		nodeBinder()
+			.usingInteraction(Press::new)
+			.toProduce(() -> new SelectShapes(canvas.getDrawing()))
+			.on(canvas)
+			.when(i -> i.getSrcObject().orElse(null) instanceof Canvas)
+			.bind();
 	}
 
 	/**
 	 * A DnD on a shape view allows to translate the underlying shape.
 	 */
 	private void bindDnDTranslate() {
-		nodeBinder(new DnD(true, true),
-			i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false)))
+		nodeBinder()
+			.usingInteraction(() -> new DnD(true, true))
+			.toProduce(i -> new TranslateShapes(canvas.getDrawing(), canvas.getDrawing().getSelection().duplicateDeep(false)))
 			.on(canvas.getViews().getChildren()).on(canvas.getSelectionBorder())
 			.then((i, c) -> {
 				final Point startPt = grid.getTransformedPointToGrid(i.getSrcScenePoint());

@@ -100,21 +100,33 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 		addComboPropBinding(plotStyleCB, ShapeProperties.PLOT_STYLE);
 		addSpinnerPropBinding(nbPtsSpinner, ShapeProperties.PLOT_NB_PTS);
 
-		spinnerBinder(i -> mapModShProp(null, ShapeProperties.PLOT_MIN_X)).on(minXSpinner).
-			then((i, c) -> c.setValue((Double) i.getWidget().getValue())).
-			when(i -> hand.isActivated() && checkValidPlotFct()).bind();
+		spinnerBinder()
+			.toProduce(i -> createModShProp(null, ShapeProperties.PLOT_MIN_X))
+			.on(minXSpinner)
+			.then((i, c) -> c.setValue((Double) i.getWidget().getValue()))
+			.when(i -> hand.isActivated() && checkValidPlotFct())
+			.bind();
 
-		spinnerBinder(i -> firstPropPen(null, ShapeProperties.PLOT_MIN_X)).on(minXSpinner).
-			then((i, c) -> c.setValue((Double) i.getWidget().getValue())).
-			when(pencilActiv).bind();
+		spinnerBinder()
+			.toProduce(i -> firstPropPen(null, ShapeProperties.PLOT_MIN_X))
+			.on(minXSpinner)
+			.then((i, c) -> c.setValue((Double) i.getWidget().getValue()))
+			.when(pencilActiv)
+			.bind();
 
-		spinnerBinder(i -> mapModShProp(null, ShapeProperties.PLOT_MAX_X)).on(maxXSpinner).
-			then((i, c) -> c.setValue((Double) i.getWidget().getValue())).
-			when(i -> hand.isActivated() && checkValidPlotFct()).bind();
+		spinnerBinder()
+			.toProduce(i -> createModShProp(null, ShapeProperties.PLOT_MAX_X))
+			.on(maxXSpinner)
+			.then((i, c) -> c.setValue((Double) i.getWidget().getValue()))
+			.when(i -> hand.isActivated() && checkValidPlotFct())
+			.bind();
 
-		spinnerBinder(i -> firstPropPen(null, ShapeProperties.PLOT_MAX_X)).on(maxXSpinner).
-			then((i, c) -> c.setValue((Double) i.getWidget().getValue())).
-			when(pencilActiv).bind();
+		spinnerBinder()
+			.toProduce(i -> firstPropPen(null, ShapeProperties.PLOT_MAX_X))
+			.on(maxXSpinner)
+			.then((i, c) -> c.setValue((Double) i.getWidget().getValue()))
+			.when(pencilActiv)
+			.bind();
 
 		addSpinnerPropBinding(xScaleSpinner, ShapeProperties.X_SCALE);
 		addSpinnerPropBinding(yScaleSpinner, ShapeProperties.Y_SCALE);

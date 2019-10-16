@@ -114,19 +114,25 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		anonCmdBinder(new ButtonPressed(), () -> {
+		anonCmdBinder(() -> {
 			final File file = getFileChooser().showDialog(null);
 			if(file != null) {
 				pathOpenField.setText(file.getPath());
 			}
-		}).on(buttonOpen).bind();
+		})
+			.usingInteraction(ButtonPressed::new)
+			.on(buttonOpen)
+			.bind();
 
-		anonCmdBinder(new ButtonPressed(), () -> {
+		anonCmdBinder(() -> {
 			final File file = getFileChooser().showDialog(null);
 			if(file != null) {
 				pathExportField.setText(file.getPath());
 			}
-		}).on(buttonExport).bind();
+		})
+			.usingInteraction(ButtonPressed::new)
+			.on(buttonExport)
+			.bind();
 	}
 
 	/**

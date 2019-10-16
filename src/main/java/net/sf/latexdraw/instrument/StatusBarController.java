@@ -70,6 +70,9 @@ public class StatusBarController extends JfxInstrument implements Initializable 
 
 	@Override
 	protected void configureBindings() {
-		anonCmdBinder(new HyperlinkClicked(), () -> services.showDocument(link.getText())).on(link).bind();
+		anonCmdBinder(() -> services.showDocument(link.getText()))
+			.usingInteraction(HyperlinkClicked::new)
+			.on(link)
+			.bind();
 	}
 }

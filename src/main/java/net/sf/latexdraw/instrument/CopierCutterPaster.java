@@ -83,26 +83,49 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	@Override
 	protected void configureBindings() {
 		// menu to paste shapes.
-		menuItemBinder(i -> new PasteShapes(getCopyCutCmd(), prefs, canvas.getDrawing())).on(pasteMenu).
-			when(i -> getCopyCutCmd().isPresent()).bind();
+		menuItemBinder()
+			.toProduce(i -> new PasteShapes(getCopyCutCmd(), prefs, canvas.getDrawing()))
+			.on(pasteMenu)
+			.when(i -> getCopyCutCmd().isPresent())
+			.bind();
 
 		// Key shortcut ctrl+V to paste shapes.
-		keyNodeBinder(i -> new PasteShapes(getCopyCutCmd(), prefs, canvas.getDrawing())).
-			on(canvas).with(KeyCode.V, SystemUtils.getInstance().getControlKey()).when(i -> getCopyCutCmd().isPresent()).bind();
+		shortcutBinder()
+			.toProduce(i -> new PasteShapes(getCopyCutCmd(), prefs, canvas.getDrawing()))
+			.on(canvas)
+			.with(KeyCode.V, SystemUtils.getInstance().getControlKey())
+			.when(i -> getCopyCutCmd().isPresent())
+			.bind();
 
 		// menu to copy shapes.
-		menuItemBinder(i -> new CopyShapes(getSelectCmd())).on(copyMenu).when(i -> isShapeSelected.get()).bind();
+		menuItemBinder()
+			.toProduce(i -> new CopyShapes(getSelectCmd()))
+			.on(copyMenu)
+			.when(i -> isShapeSelected.get())
+			.bind();
 
 		// Key shortcut ctrl+C to copy shapes.
-		keyNodeBinder(i -> new CopyShapes(getSelectCmd())).on(canvas).with(KeyCode.C, SystemUtils.getInstance().getControlKey()).
-			when(i -> isShapeSelected.get()).bind();
+		shortcutBinder()
+			.toProduce(i -> new CopyShapes(getSelectCmd()))
+			.on(canvas)
+			.with(KeyCode.C, SystemUtils.getInstance().getControlKey())
+			.when(i -> isShapeSelected.get())
+			.bind();
 
 		// menu to cut shapes.
-		menuItemBinder(i -> new CutShapes(getSelectCmd())).on(cutMenu).when(i -> isShapeSelected.get()).bind();
+		menuItemBinder()
+			.toProduce(i -> new CutShapes(getSelectCmd()))
+			.on(cutMenu)
+			.when(i -> isShapeSelected.get())
+			.bind();
 
 		// Key shortcut ctrl+X to cut shapes.
-		keyNodeBinder(i -> new CutShapes(getSelectCmd())).on(canvas).with(KeyCode.X, SystemUtils.getInstance().getControlKey()).
-			when(i -> isShapeSelected.get()).bind();
+		shortcutBinder()
+			.toProduce(i -> new CutShapes(getSelectCmd()))
+			.on(canvas)
+			.with(KeyCode.X, SystemUtils.getInstance().getControlKey())
+			.when(i -> isShapeSelected.get())
+			.bind();
 	}
 
 	@Override

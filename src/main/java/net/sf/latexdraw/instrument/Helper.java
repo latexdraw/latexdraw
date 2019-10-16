@@ -10,8 +10,7 @@
  */
 package net.sf.latexdraw.instrument;
 
-import io.github.interacto.jfx.binding.MenuItem2OpenWebPage;
-import io.github.interacto.jfx.binding.MenuItem2ShowLazyStage;
+import io.github.interacto.jfx.binding.Bindings;
 import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.io.IOException;
 import java.net.URL;
@@ -71,12 +70,29 @@ public final class Helper extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		addBinding(new MenuItem2ShowLazyStage(aboutItem, this::getAboutFrame, true));
-		addBinding(new MenuItem2ShowLazyStage(shortcutItem, this::getShortcutsFrame, true));
-		addBinding(new MenuItem2OpenWebPage(reportBugItem, "https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug", services)); //NON-NLS
-		addBinding(new MenuItem2OpenWebPage(forumItem, "https://sourceforge.net/p/latexdraw/discussion/", services)); //NON-NLS
-		addBinding(new MenuItem2OpenWebPage(donateItem, "http://sourceforge.net/project/project_donations.php?group_id=156523", services)); //NON-NLS
-		addBinding(new MenuItem2OpenWebPage(manuelItem, "https://github.com/arnobl/latexdraw/wiki/Manual", services)); //NON-NLS
+		Bindings.menuItem2OpenStage(this::getAboutFrame, true, this)
+			.on(aboutItem)
+			.bind();
+
+		Bindings.menuItem2OpenStage(this::getShortcutsFrame, true, this)
+			.on(shortcutItem)
+			.bind();
+
+		Bindings.menuItem2OpenWebPage("https://github.com/arnobl/latexdraw/wiki/Manual#how-to-report-a-bug", services, this) //NON-NLS
+			.on(reportBugItem)
+			.bind();
+
+		Bindings.menuItem2OpenWebPage("https://sourceforge.net/p/latexdraw/discussion/", services, this) //NON-NLS
+			.on(forumItem)
+			.bind();
+
+		Bindings.menuItem2OpenWebPage("http://sourceforge.net/project/project_donations.php?group_id=156523", services, this) //NON-NLS
+			.on(donateItem)
+			.bind();
+
+		Bindings.menuItem2OpenWebPage("https://github.com/arnobl/latexdraw/wiki/Manual", services, this) //NON-NLS
+			.on(manuelItem)
+			.bind();
 	}
 
 	/** @return The created latexdraw dialogue box. */

@@ -66,21 +66,27 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	protected void configureBindings() {
-		spinnerBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(),
-			canvas.getDrawing().getSelection().duplicateDeep(false),
-			Math.toRadians(rotationField.getValue()) - canvas.getDrawing().getSelection().getRotationAngle()))
+		spinnerBinder()
+			.toProduce(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(),
+				canvas.getDrawing().getSelection().duplicateDeep(false),
+				Math.toRadians(rotationField.getValue()) - canvas.getDrawing().getSelection().getRotationAngle()))
 			.on(rotationField)
 			.then(c -> c.setRotationAngle(Math.toRadians(rotationField.getValue()) - canvas.getDrawing().getSelection().getRotationAngle()))
 			.continuousExecution()
 			.bind();
 
-		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI / 2d))
+		buttonBinder()
+			.toProduce(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI / 2d))
 			.on(rotate90Button)
 			.bind();
-		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI))
+
+		buttonBinder()
+			.toProduce(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), Math.PI))
 			.on(rotate180Button)
 			.bind();
-		buttonBinder(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), -Math.PI / 2d))
+
+		buttonBinder()
+			.toProduce(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre(), canvas.getDrawing().getSelection().duplicateDeep(false), -Math.PI / 2d))
 			.on(rotate270Button)
 			.bind();
 	}

@@ -135,49 +135,83 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	@Override
 	protected void configureBindings() {
 		// Close window
-		windowBinder(new WindowClosed(), i -> new SaveDrawing(true, true, prefService.getCurrentFolder(), getDialog(true),
-			prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage)).
-			on(mainstage).bind();
+		windowBinder()
+			.usingInteraction(WindowClosed::new)
+			.toProduce(() -> new SaveDrawing(true, true, prefService.getCurrentFolder(), getDialog(true),
+				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
+				statusBar.getLabel(), mainstage))
+			.on(mainstage)
+			.bind();
 
 		// Quit shortcut
-		keyWindowBinder(i -> new SaveDrawing(true, true, prefService.getCurrentFolder(), getDialog(true), prefService,
-			prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage)).
-			on(mainstage).with(KeyCode.W, SystemUtils.getInstance().getControlKey()).bind();
+		shortcutWindowBinder()
+			.toProduce(() -> new SaveDrawing(true, true, prefService.getCurrentFolder(), getDialog(true),
+				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
+				statusBar.getLabel(), mainstage))
+			.on(mainstage)
+			.with(KeyCode.W, SystemUtils.getInstance().getControlKey())
+			.bind();
 
 		// Save menu
-		menuItemBinder(i -> new SaveDrawing(false, false, prefService.getCurrentFolder(), getDialog(true),
-			prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage)).
-			on(saveMenu).bind();
+		menuItemBinder()
+			.toProduce(() -> new SaveDrawing(false, false, prefService.getCurrentFolder(), getDialog(true),
+				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
+				statusBar.getLabel(), mainstage))
+			.on(saveMenu)
+			.bind();
 
 		// Save shortcut
-		keyWindowBinder(i -> new SaveDrawing(false, false, prefService.getCurrentFolder(), getDialog(true), prefService,
-			prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage)).
-			on(mainstage).with(KeyCode.S, SystemUtils.getInstance().getControlKey()).bind();
+		shortcutWindowBinder()
+			.toProduce(() -> new SaveDrawing(false, false, prefService.getCurrentFolder(), getDialog(true),
+				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
+				statusBar.getLabel(), mainstage))
+			.on(mainstage)
+			.with(KeyCode.S, SystemUtils.getInstance().getControlKey())
+			.bind();
 
 		// Save as menu
-		menuItemBinder(i -> new SaveDrawing(true, false, prefService.getCurrentFolder(), getDialog(true), prefService, null,
-			svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage)).on(saveAsMenu).bind();
+		menuItemBinder()
+			.toProduce(() -> new SaveDrawing(true, false, prefService.getCurrentFolder(), getDialog(true),
+				prefService, null, svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage))
+			.on(saveAsMenu)
+			.bind();
 
 		// Load menu
-		menuItemBinder(i -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
-			getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage)).on(loadMenu).bind();
+		menuItemBinder()
+			.toProduce(() -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
+				getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
+			.on(loadMenu)
+			.bind();
 
 		// Load shortcut
-		keyWindowBinder(i -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
-			getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage)).on(mainstage).with(KeyCode.O, SystemUtils.getInstance().getControlKey()).bind();
+		shortcutWindowBinder()
+			.toProduce(() -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
+				getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
+			.on(mainstage)
+			.with(KeyCode.O, SystemUtils.getInstance().getControlKey())
+			.bind();
 
 		// New menu
-		menuItemBinder(i -> new NewDrawing(prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
-			getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage)).on(newMenu).bind();
+		menuItemBinder()
+			.toProduce(() -> new NewDrawing(prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(),
+				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
+			.on(newMenu)
+			.bind();
 
 		// New shortcut
-		keyWindowBinder(i -> new NewDrawing(prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
-			getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage)).on(mainstage).with(KeyCode.N, SystemUtils.getInstance().getControlKey()).bind();
+		shortcutWindowBinder()
+			.toProduce(() -> new NewDrawing(prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(),
+				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
+			.on(mainstage)
+			.with(KeyCode.N, SystemUtils.getInstance().getControlKey())
+			.bind();
 
 		// Recent files menus
-		menuItemBinder(i -> new LoadDrawing(new File((String) i.getWidget().getUserData()), svgGen,
-			statusBar.getProgressBar(), statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage)).
-			onMenu(recentFilesMenu.getItems()).bind();
+		menuItemBinder()
+			.toProduce(i -> new LoadDrawing(new File((String) i.getWidget().getUserData()), svgGen, statusBar.getProgressBar(),
+				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
+			.on(recentFilesMenu.getItems())
+			.bind();
 	}
 
 	/**

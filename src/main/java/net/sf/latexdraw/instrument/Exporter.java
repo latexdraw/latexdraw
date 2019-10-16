@@ -123,13 +123,16 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		menuItemBinder(i -> new Export(canvas, pstGen, (ExportFormat) i.getWidget().getUserData(), getExportDialog((ExportFormat) i.getWidget().getUserData()))).
-			on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST).
-			when(i -> i.getWidget().getUserData() instanceof ExportFormat).
-			bind();
+		menuItemBinder()
+			.toProduce(i -> new Export(canvas, pstGen, (ExportFormat) i.getWidget().getUserData(), getExportDialog((ExportFormat) i.getWidget().getUserData())))
+			.on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST)
+			.when(i -> i.getWidget().getUserData() instanceof ExportFormat)
+			.bind();
 
-		menuItemBinder(() -> new ExportTemplate(templateManager.templatePane, svgGen, prefs.getBundle(), app, statusBar.getProgressBar(), statusBar.getLabel())).
-			on(exportTemplateMenu).bind();
+		menuItemBinder()
+			.toProduce(() -> new ExportTemplate(templateManager.templatePane, svgGen, prefs.getBundle(), app, statusBar.getProgressBar(), statusBar.getLabel()))
+			.on(exportTemplateMenu)
+			.bind();
 
 		exportTemplateMenu.disableProperty().bind(canvas.getDrawing().getSelection().getShapes().emptyProperty());
 	}

@@ -108,32 +108,36 @@ public class TabSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		tabBinder(ActivateInactivateInstruments::new).on(tabPane).first((i, c) -> {
-			if(i.getWidget().getSelectionModel().getSelectedIndex() == 0) {
-				c.addInstrumentToActivate(selector);
-				c.addInstrumentToActivate(paster);
-				c.addInstrumentToActivate(undo);
-				c.addInstrumentToActivate(zoomer);
-				c.addInstrumentToInactivate(prefSetter);
-				if(canvas.getDrawing().getSelection().getShapes().isEmpty()) {
-					c.addInstrumentToInactivate(deleter);
-				}else {
-					c.addInstrumentToActivate(deleter);
-				}
-			}else {
-				c.setHideWidgets(false);
-				c.addInstrumentToInactivate(selector);
-				c.addInstrumentToInactivate(paster);
-				c.addInstrumentToInactivate(undo);
-				c.addInstrumentToInactivate(zoomer);
-				// The deleter must be added to use the hideWidgets parameter of the
-				c.addInstrumentToInactivate(deleter);
-				if(i.getWidget().getSelectionModel().getSelectedIndex() == 1) {
+		tabBinder()
+			.toProduce(ActivateInactivateInstruments::new)
+			.on(tabPane)
+			.first((i, c) -> {
+				if(i.getWidget().getSelectionModel().getSelectedIndex() == 0) {
+					c.addInstrumentToActivate(selector);
+					c.addInstrumentToActivate(paster);
+					c.addInstrumentToActivate(undo);
+					c.addInstrumentToActivate(zoomer);
 					c.addInstrumentToInactivate(prefSetter);
+					if(canvas.getDrawing().getSelection().getShapes().isEmpty()) {
+						c.addInstrumentToInactivate(deleter);
+					}else {
+						c.addInstrumentToActivate(deleter);
+					}
 				}else {
-					c.addInstrumentToActivate(prefSetter);
+					c.setHideWidgets(false);
+					c.addInstrumentToInactivate(selector);
+					c.addInstrumentToInactivate(paster);
+					c.addInstrumentToInactivate(undo);
+					c.addInstrumentToInactivate(zoomer);
+					// The deleter must be added to use the hideWidgets parameter of the
+					c.addInstrumentToInactivate(deleter);
+					if(i.getWidget().getSelectionModel().getSelectedIndex() == 1) {
+						c.addInstrumentToInactivate(prefSetter);
+					}else {
+						c.addInstrumentToActivate(prefSetter);
+					}
 				}
-			}
-		}).bind();
+			})
+			.bind();
 	}
 }

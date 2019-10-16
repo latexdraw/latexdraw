@@ -52,9 +52,4 @@ public class AddShape extends ShapeCmdImpl<Shape> implements Undoable, Modifying
 		drawing.removeShape(shape);
 		drawing.setModified(true);
 	}
-
-	@Override
-	public boolean canDo() {
-		return true;
-	}
 }

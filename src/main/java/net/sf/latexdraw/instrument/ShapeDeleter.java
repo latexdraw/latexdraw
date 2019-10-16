@@ -74,8 +74,18 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Cmd
 	protected void configureBindings() {
 		final Consumer<DeleteShapes> first = c -> getSelectCmd().ifPresent(sel -> sel.getShapes().forEach(sh -> c.addShape(sh)));
 
-		buttonBinder(() -> new DeleteShapes(canvas.getDrawing())).on(deleteB).first(first).bind();
-		keyNodeBinder(() -> new DeleteShapes(canvas.getDrawing())).on(canvas).with(KeyCode.DELETE).first(first).bind();
+		buttonBinder()
+			.toProduce(() -> new DeleteShapes(canvas.getDrawing()))
+			.on(deleteB)
+			.first(first)
+			.bind();
+
+		shortcutBinder()
+			.toProduce(() -> new DeleteShapes(canvas.getDrawing()))
+			.on(canvas)
+			.with(KeyCode.DELETE)
+			.first(first)
+			.bind();
 	}
 }
 

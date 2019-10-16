@@ -68,13 +68,15 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	protected void configureBindings() {
-		spinnerBinder(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false)))
+		spinnerBinder()
+			.toProduce(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false)))
 			.on(tlxS)
 			.then((i, c) -> c.setT((Double) i.getWidget().getValue() - c.getShape().getTopLeftPoint().getX(), 0d))
 			.continuousExecution()
 			.bind();
 
-		spinnerBinder(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false)))
+		spinnerBinder()
+			.toProduce(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false)))
 			.on(tlyS)
 			.then((i, c) -> c.setT(0d, (Double) i.getWidget().getValue() - c.getShape().getTopLeftPoint().getY()))
 			.continuousExecution()

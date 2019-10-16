@@ -154,51 +154,67 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[0]);
 
 		// Checking that converting pictures can be done.
-		toggleButtonBinder(i -> new CheckConvertExists(status.getLabel(), status.getLink())).on(picB).bind();
+		toggleButtonBinder()
+			.toProduce(i -> new CheckConvertExists(status.getLabel(), status.getLink()))
+			.on(picB)
+			.bind();
 
-		toggleButtonBinder(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(textSetter.getPosition()),
-								textSetter.getTextField().getText()), canvas.getDrawing())).
-			on(handB).when(i -> textSetter.isActivated() && !textSetter.getTextField().getText().isEmpty()).bind();
+		toggleButtonBinder()
+			.toProduce(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(textSetter.getPosition()),
+				textSetter.getTextField().getText()), canvas.getDrawing()))
+			.on(handB)
+			.when(i -> textSetter.isActivated() && !textSetter.getTextField().getText().isEmpty())
+			.bind();
 
-		toggleButtonBinder(i -> new ModifyEditingMode(editing, button2EditingChoiceMap.get(i.getWidget()))).on(nodes).bind();
+		toggleButtonBinder()
+			.toProduce(i -> new ModifyEditingMode(editing, button2EditingChoiceMap.get(i.getWidget())))
+			.on(nodes)
+			.bind();
 
-		toggleButtonBinder(ActivateInactivateInstruments::new).on(nodes).first((i, c) -> {
-			final ToggleButton button = i.getWidget();
+		toggleButtonBinder()
+			.toProduce(ActivateInactivateInstruments::new)
+			.on(nodes)
+			.first((i, c) -> {
+				final ToggleButton button = i.getWidget();
 
-			c.setActivateFirst(false);
+				c.setActivateFirst(false);
 
-			if(button != textB) {
-				c.addInstrumentToInactivate(textSetter);
-			}
-
-			/* Selection of the instruments to activate/deactivate. */
-			if(button == handB) {
-				final boolean noSelection = canvas.getDrawing().getSelection().isEmpty();
-				c.addInstrumentToActivate(hand);
-
-				if(!noSelection) {
-					c.addInstrumentToActivate(deleter);
+				if(button != textB) {
+					c.addInstrumentToInactivate(textSetter);
 				}
 
-				c.addInstrumentToInactivate(pencil);
+				/* Selection of the instruments to activate/deactivate. */
+				if(button == handB) {
+					final boolean noSelection = canvas.getDrawing().getSelection().isEmpty();
+					c.addInstrumentToActivate(hand);
 
-				if(noSelection) {
-					c.addInstrumentToInactivate(metaShapeCustomiser);
-					c.addInstrumentToInactivate(border);
+					if(!noSelection) {
+						c.addInstrumentToActivate(deleter);
+					}
+
+					c.addInstrumentToInactivate(pencil);
+
+					if(noSelection) {
+						c.addInstrumentToInactivate(metaShapeCustomiser);
+						c.addInstrumentToInactivate(border);
+					}else {
+						c.addInstrumentToActivate(metaShapeCustomiser);
+						c.addInstrumentToActivate(border);
+					}
 				}else {
+					c.addInstrumentToInactivate(hand);
+					c.addInstrumentToInactivate(border);
+					c.addInstrumentToInactivate(deleter);
+					c.addInstrumentToActivate(pencil);
 					c.addInstrumentToActivate(metaShapeCustomiser);
-					c.addInstrumentToActivate(border);
 				}
-			}else {
-				c.addInstrumentToInactivate(hand);
-				c.addInstrumentToInactivate(border);
-				c.addInstrumentToInactivate(deleter);
-				c.addInstrumentToActivate(pencil);
-				c.addInstrumentToActivate(metaShapeCustomiser);
-			}
-		}).bind();
+			}).bind();
 
-		buttonBinder(ActivateInactivateInstruments::new).on(codeB).first(cmd -> cmd.addInstrumentToActivate(codeInserter)).bind();
+		buttonBinder()
+			.toProduce(ActivateInactivateInstruments::new)
+			.on(codeB)
+			.first(cmd -> cmd.addInstrumentToActivate(codeInserter))
+			.bind();
 	}
 
 	@Override
