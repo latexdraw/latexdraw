@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instrument;
 
-import io.github.interacto.command.Command;
 import io.github.interacto.jfx.command.ActivateInactivateInstruments;
 import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.net.URL;
@@ -64,12 +63,6 @@ public class TextSetter extends JfxInstrument implements Initializable {
 		textField = new TextAreaAutoSize();
 	}
 
-	@Override
-	public void onCmdDone(final Command cmd) {
-		super.onCmdDone(cmd);
-		canvas.requestFocus();
-	}
-
 	/**
 	 * Sets the text to modify throw this instrument.
 	 * @param sh The plot to modify.
@@ -98,58 +91,56 @@ public class TextSetter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		// Key Enter to validate the text.
-		shortcutBinder()
-			.toProduce(i -> new ModifyShapeProperty<>(ShapeProperties.TEXT, ShapeFactory.INST.createGroup(text), textField.getText()))
+		final var bindingFragment = shortcutBinder()
 			.on(textField)
+			.end(() -> canvas.requestFocus());
+
+		// Key Enter to validate the text.
+		bindingFragment
+			.toProduce(i -> new ModifyShapeProperty<>(ShapeProperties.TEXT, ShapeFactory.INST.createGroup(text), textField.getText()))
 			.with(KeyCode.ENTER)
 			.when(i -> text != null && editing.getCurrentChoice() == EditionChoice.HAND && !textField.getText().isEmpty())
 			.bind();
 
 		// Key Enter to validate the equation of a plot shape.
-		shortcutBinder()
+		bindingFragment
 			.toProduce(i -> new ModifyShapeProperty<>(ShapeProperties.PLOT_EQ, ShapeFactory.INST.createGroup(plot), textField.getText()))
-			.on(textField)
 			.with(KeyCode.ENTER)
 			.when(i -> plot != null && editing.getCurrentChoice() == EditionChoice.HAND && checkValidPlotFct())
 			.bind();
 
 		// Key Enter to add a text shape.
-		shortcutBinder()
+		bindingFragment
 			.toProduce(i -> {
 				text = (Text) editing.createShapeInstance();
 				text.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY()));
 				text.setText(textField.getText());
 				return new AddShape(text, drawing);
 			})
-			.on(textField)
 			.with(KeyCode.ENTER)
 			.when(i -> editing.getCurrentChoice() == EditionChoice.TEXT && !textField.getText().isEmpty())
 			.bind();
 
 		// Key Enter to add a plot shape.
-		shortcutBinder()
+		bindingFragment
 			.toProduce(i -> {
 				plot = (Plot) editing.createShapeInstance();
 				plot.setPosition(ShapeFactory.INST.createPoint(position.getX(), position.getY() + textField.getHeight()));
 				plot.setPlotEquation(textField.getText());
 				return new AddShape(plot, drawing);
 			})
-			.on(textField)
 			.with(KeyCode.ENTER)
 			.when(i -> editing.getCurrentChoice() == EditionChoice.PLOT && checkValidPlotFct())
 			.bind();
 
-		shortcutBinder()
+		bindingFragment
 			.toProduce(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false))
-			.on(textField)
 			.with(KeyCode.ENTER)
 			.when(i -> textField.isValidText() && !textField.getText().isEmpty())
 			.bind();
 
-		shortcutBinder()
+		bindingFragment
 			.toProduce(i -> new ActivateInactivateInstruments(null, Collections.singletonList(this), false, false))
-			.on(textField)
 			.with(KeyCode.ESCAPE)
 			.bind();
 	}

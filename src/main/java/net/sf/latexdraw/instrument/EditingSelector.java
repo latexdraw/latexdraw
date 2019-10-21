@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instrument;
 
-import io.github.interacto.command.Command;
 import io.github.interacto.jfx.command.ActivateInactivateInstruments;
 import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.net.URL;
@@ -157,6 +156,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		toggleButtonBinder()
 			.toProduce(i -> new CheckConvertExists(status.getLabel(), status.getLink()))
 			.on(picB)
+			.end(i -> canvas.requestFocus())
 			.bind();
 
 		toggleButtonBinder()
@@ -164,11 +164,13 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 				textSetter.getTextField().getText()), canvas.getDrawing()))
 			.on(handB)
 			.when(i -> textSetter.isActivated() && !textSetter.getTextField().getText().isEmpty())
+			.end(i -> canvas.requestFocus())
 			.bind();
 
 		toggleButtonBinder()
 			.toProduce(i -> new ModifyEditingMode(editing, button2EditingChoiceMap.get(i.getWidget())))
 			.on(nodes)
+			.end(i -> canvas.requestFocus())
 			.bind();
 
 		toggleButtonBinder()
@@ -208,12 +210,15 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 					c.addInstrumentToActivate(pencil);
 					c.addInstrumentToActivate(metaShapeCustomiser);
 				}
-			}).bind();
+			})
+			.end(i -> canvas.requestFocus())
+			.bind();
 
 		buttonBinder()
 			.toProduce(ActivateInactivateInstruments::new)
 			.on(codeB)
 			.first(cmd -> cmd.addInstrumentToActivate(codeInserter))
+			.end(i -> canvas.requestFocus())
 			.bind();
 	}
 
@@ -223,12 +228,5 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		button2EditingChoiceMap.keySet().forEach(but -> but.setVisible(activated));
 		handB.setVisible(activated);
 		codeB.setVisible(activated);
-	}
-
-
-	@Override
-	public void onCmdDone(final Command cmd) {
-		super.onCmdDone(cmd);
-		canvas.requestFocus();
 	}
 }

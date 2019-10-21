@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.Pane;
@@ -28,7 +27,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * This instrument modifies the rotation angle of selected shapes.
  * @author Arnaud BLOUIN
  */
-public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 	/** The rotation button to perform 90 degree rotation. */
 	@FXML private Button rotate90Button;
 	/** The rotation button to perform 180 degree rotation. */
@@ -51,6 +50,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 

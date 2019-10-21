@@ -11,7 +11,7 @@
 package net.sf.latexdraw.instrument;
 
 import io.github.interacto.jfx.instrument.JfxInstrument;
-import io.github.interacto.undo.Undoable;
+import io.github.interacto.jfx.undo.FXUndoCollector;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -60,18 +60,8 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	public void initialize(final URL location, final ResourceBundle resources) {
 		positionCB.getItems().addAll(VerticalPosition.values());
 		setActivated(true);
-	}
-
-	@Override
-	public void onUndoableUndo(final Undoable undoable) {
-		super.onUndoableUndo(undoable);
-		updateWidgets();
-	}
-
-	@Override
-	public void onUndoableRedo(final Undoable undoable) {
-		super.onUndoableRedo(undoable);
-		updateWidgets();
+		FXUndoCollector.INSTANCE.lastRedoProperty().addListener((observableValue, undoable, t1) -> updateWidgets());
+		FXUndoCollector.INSTANCE.lastUndoProperty().addListener((observableValue, undoable, t1) -> updateWidgets());
 	}
 
 	@Override

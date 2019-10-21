@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instrument;
 
-import io.github.interacto.command.Command;
 import io.github.interacto.jfx.binding.JfXWidgetBinding;
 import io.github.interacto.jfx.interaction.library.DnD;
 import io.github.interacto.jfx.interaction.library.SrcTgtPointsData;
@@ -131,12 +130,6 @@ public class Border extends CanvasInstrument implements Initializable {
 		}
 	}
 
-	@Override
-	public void onCmdDone(final Command cmd) {
-		if(cmd instanceof MoveCtrlPoint || cmd instanceof MovePointShape || cmd instanceof ScaleShapes) {
-			metaCustomiser.dimPosCustomiser.update();
-		}
-	}
 
 	private void updatePointsHandlers() {
 		final Group selection = canvas.getDrawing().getSelection();
@@ -197,7 +190,6 @@ public class Border extends CanvasInstrument implements Initializable {
 			.toProduce(i -> new MovePointShape((ModifiablePointsShape) canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow(),
 				i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> ((MovePtHandler) o).getPoint()).orElseThrow()))
 			.on(mvPtHandlers)
-//			.first((i, c) -> i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> (MovePtHandler) o).ifPresent(handler -> { }))
 			.then((i, c) -> i.getSrcObject().ifPresent(node -> {
 				final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
 				final Point3D endPt = node.localToParent(i.getTgtLocalPoint());
@@ -209,6 +201,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			.continuousExecution()
 			.when(i -> i.getSrcLocalPoint() != null && i.getTgtLocalPoint() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler &&
 				canvas.getDrawing().getSelection().size() == 1 && canvas.getDrawing().getSelection().getShapeAt(0).filter(s -> s instanceof ModifiablePointsShape).isPresent())
+			.end(i -> metaCustomiser.dimPosCustomiser.update())
 			.bind();
 	}
 
@@ -234,6 +227,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			})
 			.when(i -> canvas.getDrawing().getSelection().size() == 1 && canvas.getDrawing().getSelection().getShapeAt(0).filter(s -> s instanceof ControlPointShape).isPresent())
 			.continuousExecution()
+			.end(i -> metaCustomiser.dimPosCustomiser.update())
 			.bind();
 
 		nodeBinder()
@@ -389,6 +383,11 @@ public class Border extends CanvasInstrument implements Initializable {
 		@Override
 		public void endOrCancel() {
 			canvas.setCursor(Cursor.DEFAULT);
+		}
+
+		@Override
+		public void end() {
+			metaCustomiser.dimPosCustomiser.update();
 		}
 
 		@Override

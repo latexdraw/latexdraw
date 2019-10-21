@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
@@ -44,7 +43,7 @@ import org.jetbrains.annotations.NotNull;
  * This instrument modifies texts.
  * @author Arnaud BLOUIN
  */
-public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
+public class ShapeTextCustomiser extends ShapePropertyCustomiser implements JFXWidgetCreator {
 	/** The list to select the text position. */
 	@FXML private ComboBox<TextPosition> textPos;
 	/** This text field permits to add latex packages that will be used during compilation. */
@@ -67,7 +66,8 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	public void initialize(final URL url, final ResourceBundle bundle) {
+	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 
 		final Map<TextPosition, Image> cachePos = new EnumMap<>(TextPosition.class);

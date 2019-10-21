@@ -15,7 +15,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
@@ -34,7 +33,7 @@ import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
  * This instrument modifies free hand properties of shapes or the pencil.
  * @author Arnaud BLOUIN
  */
-public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
+public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements JFXWidgetCreator {
 	/** The type of the freehand. */
 	@FXML private ComboBox<FreeHandStyle> freeHandType;
 	/** The gap to consider between the points. */
@@ -48,6 +47,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 
 		final Map<FreeHandStyle, Image> cache = new EnumMap<>(FreeHandStyle.class);

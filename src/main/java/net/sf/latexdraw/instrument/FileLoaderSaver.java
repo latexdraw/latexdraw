@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.instrument;
 
-import io.github.interacto.command.Command;
-import io.github.interacto.jfx.command.IOCommand;
 import io.github.interacto.jfx.instrument.JfxInstrument;
 import io.github.interacto.jfx.interaction.library.WindowClosed;
 import io.github.interacto.jfx.ui.JfxUI;
@@ -79,26 +77,20 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		fileChooser = null;
 	}
 
-	@Override
-	public void onCmdDone(final Command cmd) {
-		super.onCmdDone(cmd);
 
+	private void updateOnIOCommand(final File file) {
 		fileMenu.hide();
 
-		// Updating the recent files on I/O commands.
-		if(cmd instanceof IOCommand && cmd.hadEffect()) {
-			final IOCommand<?> ioCmd = (IOCommand<?>) cmd;
-			prefService.setCurrentFile(ioCmd.getFile());
+		prefService.setCurrentFile(file);
 
-			prefService.getCurrentFile().ifPresent(cFile -> {
-				prefService.setCurrentFolder(cFile.getParentFile());
-				if(!cFile.getPath().endsWith(".svg")) { //NON-NLS
-					prefService.setCurrentFile(new File(cFile.getPath() + ".svg")); //NON-NLS
-				}
-			});
+		prefService.getCurrentFile().ifPresent(cFile -> {
+			prefService.setCurrentFolder(cFile.getParentFile());
+			if(!cFile.getPath().endsWith(".svg")) { //NON-NLS
+				prefService.setCurrentFile(new File(cFile.getPath() + ".svg")); //NON-NLS
+			}
+		});
 
-			prefService.addRecentFile(((IOCommand<?>) cmd).getFile().getPath());
-		}
+		prefService.addRecentFile(file.getPath());
 	}
 
 	@Override
@@ -124,12 +116,9 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		setActivated(activated, true);
 	}
 
-	@Override
-	public void onCmdExecuted(final Command cmd) {
-		if(cmd instanceof LoadDrawing) {
-			prefService.setCurrentFile(((LoadDrawing) cmd).getFile());
-			prefService.getCurrentFile().ifPresent(f -> prefService.setCurrentFolder(f.getParentFile()));
-		}
+	public void updateOnLoad(final File file) {
+		prefService.setCurrentFile(file);
+		prefService.getCurrentFile().ifPresent(f -> prefService.setCurrentFolder(f.getParentFile()));
 	}
 
 	@Override
@@ -141,6 +130,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
 				statusBar.getLabel(), mainstage))
 			.on(mainstage)
+			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
 
 		// Quit shortcut
@@ -150,6 +140,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 				statusBar.getLabel(), mainstage))
 			.on(mainstage)
 			.with(KeyCode.W, SystemUtils.getInstance().getControlKey())
+			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
 
 		// Save menu
@@ -158,6 +149,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
 				statusBar.getLabel(), mainstage))
 			.on(saveMenu)
+			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
 
 		// Save shortcut
@@ -167,6 +159,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 				statusBar.getLabel(), mainstage))
 			.on(mainstage)
 			.with(KeyCode.S, SystemUtils.getInstance().getControlKey())
+			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
 
 		// Save as menu
@@ -174,6 +167,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			.toProduce(() -> new SaveDrawing(true, false, prefService.getCurrentFolder(), getDialog(true),
 				prefService, null, svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage))
 			.on(saveAsMenu)
+			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
 
 		// Load menu
@@ -181,6 +175,10 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			.toProduce(() -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
 				getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
 			.on(loadMenu)
+			.ifHadEffects((i, c) -> {
+				updateOnIOCommand(c.getFile());
+				updateOnLoad(c.getFile());
+			})
 			.bind();
 
 		// Load shortcut
@@ -189,6 +187,10 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 				getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
 			.on(mainstage)
 			.with(KeyCode.O, SystemUtils.getInstance().getControlKey())
+			.ifHadEffects((i, c) -> {
+				updateOnIOCommand(c.getFile());
+				updateOnLoad(c.getFile());
+			})
 			.bind();
 
 		// New menu
@@ -211,6 +213,10 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			.toProduce(i -> new LoadDrawing(new File((String) i.getWidget().getUserData()), svgGen, statusBar.getProgressBar(),
 				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
 			.on(recentFilesMenu.getItems())
+			.ifHadEffects((i, c) -> {
+				updateOnIOCommand(c.getFile());
+				updateOnLoad(c.getFile());
+			})
 			.bind();
 	}
 

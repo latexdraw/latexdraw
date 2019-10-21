@@ -15,7 +15,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -35,7 +34,7 @@ import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
  * This instrument modifies filling properties of shapes or the pencil.
  * @author Arnaud BLOUIN
  */
-public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
+public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements JFXWidgetCreator {
 	/** Sets the colour of the interior of a shape. */
 	@FXML private ColorPicker fillColButton;
 	/** Sets the colour of the hatchings. */
@@ -68,6 +67,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 		fillPane.managedProperty().bind(fillPane.visibleProperty());
 		hatchingsPane.managedProperty().bind(hatchingsPane.visibleProperty());

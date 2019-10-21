@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import net.sf.latexdraw.command.shape.AlignShapes;
@@ -29,7 +28,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * This instrument transforms (mirror, etc.) the selected shapes.
  * @author Arnaud Blouin
  */
-public class ShapeTransformer extends ShapePropertyCustomiser implements Initializable {
+public class ShapeTransformer extends ShapePropertyCustomiser {
 	/** The widget to mirror horizontally. */
 	@FXML private Button mirrorH;
 	/** The widget to mirror vertically. */
@@ -71,6 +70,7 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 		alignBot.setUserData(AlignShapes.Alignment.BOTTOM);
 		alignLeft.setUserData(AlignShapes.Alignment.LEFT);

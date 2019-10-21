@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
@@ -29,7 +28,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * This instrument modifies double border properties of shapes or the pencil.
  * @author Arnaud BLOUIN
  */
-public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 	/** Sets if the shape has double borders or not. */
 	@FXML private CheckBox dbleBoundCB;
 	/** Allows to change the colour of the space between the double boundaries. */
@@ -45,6 +44,7 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser impleme
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 

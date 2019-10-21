@@ -15,7 +15,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -35,7 +34,7 @@ import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
  * This instrument modifies dot parameters.
  * @author Arnaud BLOUIN
  */
-public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
+public class ShapeDotCustomiser extends ShapePropertyCustomiser implements JFXWidgetCreator {
 	/** Allows to define the size of a dot. */
 	@FXML private Spinner<Double> dotSizeField;
 	/** Allows the selection of a dot shape. */
@@ -51,6 +50,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 
 		final Map<DotStyle, Image> cache = new EnumMap<>(DotStyle.class);

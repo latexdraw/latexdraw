@@ -69,14 +69,14 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 	}
 
 	@Test
-	public void testPasteCustMenuStatusKO() {
+	public void testPasteCutMenuStatusKO() {
 		assertTrue(copier.copyMenu.isDisable());
 		assertTrue(copier.pasteMenu.isDisable());
 		assertTrue(copier.cutMenu.isDisable());
 	}
 
 	@Test
-	public void testPasteCustMenuStatusOK() {
+	public void testPasteCutMenuStatusOK() {
 		Cmds.of(addRec, selectAllShapes).execute();
 		assertFalse(copier.copyMenu.isDisable());
 		assertTrue(copier.pasteMenu.isDisable());
@@ -84,7 +84,7 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 	}
 
 	@Test
-	public void testPasteCustMenuStatusOKAfterCopy() {
+	public void testPasteCutMenuStatusOKAfterCopy() {
 		Cmds.of(addRec, selectAllShapes, clickCopy).execute();
 		assertFalse(copier.copyMenu.isDisable());
 		assertFalse(copier.pasteMenu.isDisable());

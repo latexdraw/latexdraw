@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
@@ -29,7 +28,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * This instrument modifies shadow properties of shapes or the pencil.
  * @author Arnaud BLOUIN
  */
-public class ShapeShadowCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 	/** Sets if the a shape has a shadow or not. */
 	@FXML private CheckBox shadowCB;
 	/** Sets the colour of the shadow of a figure. */
@@ -48,6 +47,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser implements In
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 

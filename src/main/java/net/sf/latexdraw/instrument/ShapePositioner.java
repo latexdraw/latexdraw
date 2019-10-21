@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import net.sf.latexdraw.command.shape.MoveBackForegroundShapes;
@@ -27,7 +26,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * Puts shapes in background / foreground.
  * @author Arnaud BLOUIN
  */
-public class ShapePositioner extends ShapePropertyCustomiser implements Initializable {
+public class ShapePositioner extends ShapePropertyCustomiser {
 	/** The foreground button. */
 	@FXML private Button foregroundB;
 	/** The background button. */
@@ -54,6 +53,7 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 

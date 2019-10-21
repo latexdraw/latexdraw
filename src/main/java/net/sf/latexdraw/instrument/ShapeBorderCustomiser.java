@@ -15,7 +15,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -39,7 +38,7 @@ import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
  * This instrument modifies border properties of shapes or the pencil.
  * @author Arnaud BLOUIN
  */
-public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
+public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements JFXWidgetCreator {
 	/** For changing shapes thickness. */
 	@FXML private Spinner<Double> thicknessField;
 	@FXML private ImageView thicknessPic;
@@ -64,6 +63,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		thicknessPic.managedProperty().bind(thicknessPic.visibleProperty());
 		thicknessField.managedProperty().bind(thicknessField.visibleProperty());
 		lineCB.managedProperty().bind(lineCB.visibleProperty());

@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.command.shape.JoinShapes;
@@ -28,7 +27,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * This instrument groups and separates shapes.
  * @author Arnaud Blouin
  */
-public class ShapeGrouper extends ShapePropertyCustomiser implements Initializable, CmdRegistrySearcher {
+public class ShapeGrouper extends ShapePropertyCustomiser implements CmdRegistrySearcher {
 	/** The widget to group shapes. */
 	@FXML private Button groupB;
 	/** The widget to separate shapes. */
@@ -44,7 +43,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 	protected void update(final Group shape) {
 		if(hand.isActivated()) {
 			groupB.setDisable(shape.size() < 2 || !hand.isActivated());
-			sepB.setDisable(shape.size() != 1 || !shape.getShapeAt(0).filter(s -> s instanceof Group).isPresent());
+			sepB.setDisable(shape.size() != 1 || shape.getShapeAt(0).filter(s -> s instanceof Group).isEmpty());
 			setActivated(!groupB.isDisable() || !sepB.isDisable());
 		}else {
 			setActivated(false);
@@ -53,6 +52,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 

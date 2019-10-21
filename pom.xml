@@ -99,29 +99,29 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <release>${java.version}</release>
-                    <compilerArgs combine.children="append">
-                        <arg>-XDcompilePolicy=simple</arg>
-                        <arg>-Xplugin:ErrorProne
-                            -Xep:InvalidParam:ERROR
-                            -Xep:InvalidTag:ERROR
-                            -Xep:InvalidThrows:ERROR
-                            -Xep:TypeParameterNaming:ERROR
-                            -Xep:ClassNamedLikeTypeParameter:ERROR
-                            -Xep:EqualsBrokenForNull:ERROR
-                            -Xep:RedundantThrows:ERROR
-                            -Xep:WildcardImport:ERROR
-                            -Xep:LambdaFunctionalInterface:ERROR
-                            -Xep:StringSplitter:OFF
-                            -Xep:DefaultCharset:OFF
-                            -XepExcludedPaths:.*/(generated-sources|test)/.*</arg>
-                    </compilerArgs>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>com.google.errorprone</groupId>
-                            <artifactId>error_prone_core</artifactId>
-                            <version>2.3.2</version>
-                        </path>
-                    </annotationProcessorPaths>
+<!--                    <compilerArgs combine.children="append">-->
+<!--                        <arg>-XDcompilePolicy=simple</arg>-->
+<!--                        <arg>-Xplugin:ErrorProne-->
+<!--                            -Xep:InvalidParam:ERROR-->
+<!--                            -Xep:InvalidTag:ERROR-->
+<!--                            -Xep:InvalidThrows:ERROR-->
+<!--                            -Xep:TypeParameterNaming:ERROR-->
+<!--                            -Xep:ClassNamedLikeTypeParameter:ERROR-->
+<!--                            -Xep:EqualsBrokenForNull:ERROR-->
+<!--                            -Xep:RedundantThrows:ERROR-->
+<!--                            -Xep:WildcardImport:ERROR-->
+<!--                            -Xep:LambdaFunctionalInterface:ERROR-->
+<!--                            -Xep:StringSplitter:OFF-->
+<!--                            -Xep:DefaultCharset:OFF-->
+<!--                            -XepExcludedPaths:.*/(generated-sources|test)/.*</arg>-->
+<!--                    </compilerArgs>-->
+<!--                    <annotationProcessorPaths>-->
+<!--                        <path>-->
+<!--                            <groupId>com.google.errorprone</groupId>-->
+<!--                            <artifactId>error_prone_core</artifactId>-->
+<!--                            <version>2.3.2</version>-->
+<!--                        </path>-->
+<!--                    </annotationProcessorPaths>-->
                 </configuration>
             </plugin>
 

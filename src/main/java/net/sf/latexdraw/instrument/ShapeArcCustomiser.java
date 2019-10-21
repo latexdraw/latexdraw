@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
@@ -30,7 +29,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * This instrument modifies arc parameters.
  * @author Arnaud BLOUIN
  */
-public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	/** The toggle button that selects the arc style. */
 	@FXML private ToggleButton arcB;
 	/** The toggle button that selects the wedge style. */
@@ -50,6 +49,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initi
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 

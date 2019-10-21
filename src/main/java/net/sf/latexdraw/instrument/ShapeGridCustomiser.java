@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
@@ -30,7 +29,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * This instrument modifies grids properties of shapes or the pencil.
  * @author Arnaud BLOUIN
  */
-public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** Changes the colour of the labels. */
 	@FXML private ColorPicker colourLabels;
 	/** Changes the colour of the sub-grid. */
@@ -58,6 +57,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 

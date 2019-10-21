@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.TitledPane;
@@ -29,7 +28,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * This instrument modifies the parameters of grids and axes.
  * @author Arnaud BLOUIN
  */
-public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeStdGridCustomiser extends ShapePropertyCustomiser {
 	/** The field that sets the X-coordinate of the starting point of the grid. */
 	@FXML private Spinner<Double> xStartS;
 	/** The field that sets the Y-coordinate of the starting point of the grid. */
@@ -53,6 +52,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 		((DoubleSpinnerValueFactory) xStartS.getValueFactory()).maxProperty().bind(xEndS.valueProperty());
 		((DoubleSpinnerValueFactory) yStartS.getValueFactory()).maxProperty().bind(yEndS.valueProperty());

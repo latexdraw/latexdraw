@@ -14,7 +14,6 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -36,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
  * This instrument modifies plot parameters.
  * @author Arnaud BLOUIN
  */
-public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 	@FXML Spinner<Integer> nbPtsSpinner;
 	@FXML Spinner<Double> minXSpinner;
 	@FXML Spinner<Double> maxXSpinner;
@@ -56,6 +55,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 		plotStyleCB.getItems().addAll(PlotStyle.values());
 		((DoubleSpinnerValueFactory) minXSpinner.getValueFactory()).maxProperty().bind(maxXSpinner.valueProperty());

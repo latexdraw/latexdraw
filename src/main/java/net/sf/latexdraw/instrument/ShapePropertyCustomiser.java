@@ -10,11 +10,13 @@
  */
 package net.sf.latexdraw.instrument;
 
-import io.github.interacto.command.Command;
 import io.github.interacto.jfx.instrument.JfxInstrument;
-import io.github.interacto.undo.Undoable;
+import io.github.interacto.jfx.undo.FXUndoCollector;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.function.BooleanSupplier;
+import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -37,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
  * This abstract instrument defines the base definition of instruments that customise shape properties.
  * @author Arnaud BLOUIN
  */
-public abstract class ShapePropertyCustomiser extends JfxInstrument {
+public abstract class ShapePropertyCustomiser extends JfxInstrument implements Initializable {
 	protected final @NotNull Hand hand;
 	protected final @NotNull Pencil pencil;
 	protected final @NotNull Canvas canvas;
@@ -59,18 +61,9 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	}
 
 	@Override
-	public void onCmdDone(final Command cmd) {
-		update();
-	}
-
-	@Override
-	public void onUndoableUndo(final Undoable undoable) {
-		update();
-	}
-
-	@Override
-	public void onUndoableRedo(final Undoable undoable) {
-		update();
+	public void initialize(final URL url, final ResourceBundle resourceBundle) {
+		FXUndoCollector.INSTANCE.lastRedoProperty().addListener((observableValue, undoable, t1) -> update());
+		FXUndoCollector.INSTANCE.lastUndoProperty().addListener((observableValue, undoable, t1) -> update());
 	}
 
 	/**
@@ -116,12 +109,14 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.toProduce(i -> createModShProp((T) i.getWidget().getSelectionModel().getSelectedItem(), prop))
 			.on(combo)
 			.when(handActiv)
+			.end(i -> update())
 			.bind();
 
 		comboboxBinder()
 			.toProduce(i -> firstPropPen((T) i.getWidget().getSelectionModel().getSelectedItem(), prop))
 			.on(combo)
 			.when(pencilActiv)
+			.end(i -> update())
 			.bind();
 	}
 
@@ -131,6 +126,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.on(spinner)
 			.then((i, c) -> c.setValue(Math.toRadians(((Number) i.getWidget().getValue()).doubleValue())))
 			.when(handActiv)
+			.end(i -> update())
 			.bind();
 
 		spinnerBinder()
@@ -138,6 +134,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.on(spinner)
 			.then((i, c) -> c.setValue(Math.toRadians(((Number) i.getWidget().getValue()).doubleValue())))
 			.when(pencilActiv)
+			.end(i -> update())
 			.bind();
 	}
 
@@ -148,6 +145,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.on(spinner)
 			.then((i, c) -> c.setValue((T) i.getWidget().getValue()))
 			.when(handActiv)
+			.end(i -> update())
 			.bind();
 
 		spinnerBinder()
@@ -155,6 +153,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.on(spinner)
 			.then((i, c) -> c.setValue((T) i.getWidget().getValue()))
 			.when(pencilActiv)
+			.end(i -> update())
 			.bind();
 	}
 
@@ -163,12 +162,14 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.toProduce(i -> createModShProp(ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop))
 			.on(picker)
 			.when(handActiv)
+			.end(i -> update())
 			.bind();
 
 		colorPickerBinder()
 			.toProduce(i -> firstPropPen(ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop))
 			.on(picker)
 			.when(pencilActiv)
+			.end(i -> update())
 			.bind();
 	}
 
@@ -177,12 +178,14 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.toProduce(i -> createModShProp(i.getWidget().isSelected(), prop))
 			.on(cb)
 			.when(handActiv)
+			.end(i -> update())
 			.bind();
 
 		checkboxBinder()
 			.toProduce(i -> firstPropPen(i.getWidget().isSelected(), prop))
 			.on(cb)
 			.when(pencilActiv)
+			.end(i -> update())
 			.bind();
 	}
 
@@ -191,12 +194,14 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.toProduce(i -> createModShProp(i.getWidget().isSelected() ^ invert, prop))
 			.on(button)
 			.when(handActiv)
+			.end(i -> update())
 			.bind();
 
 		toggleButtonBinder()
 			.toProduce(i -> firstPropPen(i.getWidget().isSelected() ^ invert, prop))
 			.on(button)
 			.when(pencilActiv)
+			.end(i -> update())
 			.bind();
 	}
 
@@ -205,12 +210,14 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.toProduce(i -> createModShProp(value, prop))
 			.on(button)
 			.when(handActiv)
+			.end(i -> update())
 			.bind();
 
 		toggleButtonBinder()
 			.toProduce(i -> firstPropPen(value, prop))
 			.on(button)
 			.when(pencilActiv)
+			.end(i -> update())
 			.bind();
 	}
 
@@ -221,6 +228,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.on(spinnerX, spinnerY)
 			.then(c -> c.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue())))
 			.when(handActiv)
+			.end(i -> update())
 			.bind();
 
 		spinnerBinder()
@@ -228,6 +236,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 			.on(spinnerX, spinnerY)
 			.then(c -> c.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue())))
 			.when(pencilActiv)
+			.end(i -> update())
 			.bind();
 	}
 }

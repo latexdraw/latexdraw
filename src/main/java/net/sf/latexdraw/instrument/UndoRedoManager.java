@@ -45,7 +45,6 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	public UndoRedoManager(final Canvas canvas, final MagneticGrid grid, final ResourceBundle lang) {
 		super(canvas, grid);
 		this.lang = Objects.requireNonNull(lang);
-		UndoCollector.INSTANCE.addHandler(this);
 	}
 
 	@Override

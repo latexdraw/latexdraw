@@ -10,7 +10,6 @@
  */
 package net.sf.latexdraw.instrument;
 
-import io.github.interacto.command.Command;
 import io.github.interacto.jfx.instrument.JfxInstrument;
 import io.github.interacto.jfx.ui.JfxUI;
 import java.io.File;
@@ -123,13 +122,16 @@ public class Exporter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		menuItemBinder()
+		final var bindingFragment = menuItemBinder()
+			.end(() -> statusBar.getLabel().setText(prefs.getBundle().getString("LaTeXDrawFrame.184")));
+
+		bindingFragment
 			.toProduce(i -> new Export(canvas, pstGen, (ExportFormat) i.getWidget().getUserData(), getExportDialog((ExportFormat) i.getWidget().getUserData())))
 			.on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST)
 			.when(i -> i.getWidget().getUserData() instanceof ExportFormat)
 			.bind();
 
-		menuItemBinder()
+		bindingFragment
 			.toProduce(() -> new ExportTemplate(templateManager.templatePane, svgGen, prefs.getBundle(), app, statusBar.getProgressBar(), statusBar.getLabel()))
 			.on(exportTemplateMenu)
 			.bind();
@@ -152,11 +154,6 @@ public class Exporter extends JfxInstrument implements Initializable {
 		}
 
 		return fileChooserExport;
-	}
-
-	@Override
-	public void onCmdExecuted(final Command cmd) {
-		statusBar.getLabel().setText(prefs.getBundle().getString("LaTeXDrawFrame.184"));
 	}
 
 	@Override

@@ -14,7 +14,6 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.collections.ListChangeListener;
-import javafx.fxml.Initializable;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
@@ -28,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
  * Facade pattern for all the instruments that handle shape's properties.
  * @author Arnaud BLOUIN
  */
-public class MetaShapeCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument customises the line properties of shapes and the pencil. */
 	protected final @NotNull ShapeBorderCustomiser borderCustomiser;
 	/** This instrument customises the double line properties of shapes and the pencil. */
@@ -177,6 +176,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		drawing.getSelection().getShapes().addListener((ListChangeListener.Change<? extends Shape> change) -> {
 			while(change.next()) {
 				if(change.wasRemoved()) {

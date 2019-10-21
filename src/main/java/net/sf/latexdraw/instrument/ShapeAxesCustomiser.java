@@ -13,7 +13,6 @@ package net.sf.latexdraw.instrument;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -33,7 +32,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
  * This instrument modifies axes properties of shapes or the pencil.
  * @author Arnaud BLOUIN
  */
-public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	/** The widget that permits to select the style of the axes. */
 	@FXML private ComboBox<AxesStyle> shapeAxes;
 	/** The widget that permits to select the style of the ticks. */
@@ -62,6 +61,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		super.initialize(location, resources);
 		mainPane.managedProperty().bind(mainPane.visibleProperty());
 
 		shapeAxes.getItems().addAll(AxesStyle.values());
