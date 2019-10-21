@@ -10,8 +10,6 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import io.github.interacto.command.CmdHandler;
-import io.github.interacto.command.Command;
 import io.github.interacto.command.CommandsRegistry;
 import io.github.interacto.properties.Modifiable;
 import io.github.interacto.properties.Preferenciable;
@@ -73,8 +71,7 @@ import org.w3c.dom.NodeList;
  * The JFX canvas where shapes are painted.
  * @author Arnaud Blouin
  */
-public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitialisable, CmdHandler, Zoomable,
-	ViewsSynchroniserHandler, Flushable {
+public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitialisable, Zoomable, ViewsSynchroniserHandler, Flushable {
 	/** The margin used to surround the drawing. */
 	static int margins = 1500;
 
@@ -179,7 +176,9 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 			.observeOn(JavaFxScheduler.platform())
 			.subscribe(evt -> requestFocus(), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
-		CommandsRegistry.INSTANCE.addHandler(this);
+		disposables.add(CommandsRegistry.INSTANCE.commands()
+			.filter(c -> c instanceof Modifying)
+			.subscribe(c -> update()));
 
 		shapesPane.setFocusTraversable(false);
 
@@ -314,13 +313,6 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 
 	public @NotNull DoubleProperty zoomProperty() {
 		return zoom;
-	}
-
-	@Override
-	public void onCmdExecuted(final Command cmd) {
-		if(cmd instanceof Modifying) {
-			update();
-		}
 	}
 
 	@Override

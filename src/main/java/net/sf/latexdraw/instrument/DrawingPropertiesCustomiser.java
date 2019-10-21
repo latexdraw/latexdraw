@@ -11,7 +11,7 @@
 package net.sf.latexdraw.instrument;
 
 import io.github.interacto.jfx.instrument.JfxInstrument;
-import io.github.interacto.jfx.undo.FXUndoCollector;
+import io.github.interacto.undo.UndoCollector;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -60,8 +60,8 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	public void initialize(final URL location, final ResourceBundle resources) {
 		positionCB.getItems().addAll(VerticalPosition.values());
 		setActivated(true);
-		FXUndoCollector.INSTANCE.lastRedoProperty().addListener((observableValue, undoable, t1) -> updateWidgets());
-		FXUndoCollector.INSTANCE.lastUndoProperty().addListener((observableValue, undoable, t1) -> updateWidgets());
+		addDisposable(UndoCollector.INSTANCE.redos().subscribe(undoable -> updateWidgets()));
+		addDisposable(UndoCollector.INSTANCE.undos().subscribe(undoable -> updateWidgets()));
 	}
 
 	@Override

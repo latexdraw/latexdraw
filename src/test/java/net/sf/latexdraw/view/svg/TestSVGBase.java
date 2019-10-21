@@ -61,7 +61,6 @@ abstract class TestSVGBase<T extends Shape> implements PolymorphicConversion<T> 
 	public void tearDown() {
 		DviPsColors.INSTANCE.clearUserColours();
 		CommandsRegistry.INSTANCE.clear();
-		CommandsRegistry.INSTANCE.removeAllHandlers();
 		BadaboomCollector.INSTANCE.clear();
 		UndoCollector.INSTANCE.clear();
 	}

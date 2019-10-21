@@ -26,7 +26,6 @@ public abstract class TestCommand<T extends Command> {
 	@After
 	public void tearDown() {
 		CommandsRegistry.INSTANCE.clear();
-		CommandsRegistry.INSTANCE.removeAllHandlers();
 		BadaboomCollector.INSTANCE.clear();
 		UndoCollector.INSTANCE.clear();
 	}

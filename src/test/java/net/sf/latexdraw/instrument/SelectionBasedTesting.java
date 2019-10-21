@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.CommandsRegistry;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -9,17 +10,12 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import io.github.interacto.command.CmdHandler;
-import io.github.interacto.command.CommandsRegistry;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends TestShapePropGUI<T> {
-	@Mock CmdHandler handler;
-
 	final CmdFXVoid selectTwoShapes = () -> {
 		drawing.addShape(ShapeFactory.INST.createCircle());
 		drawing.addShape(ShapeFactory.INST.createSquare(ShapeFactory.INST.createPoint(20, 30), 10));
@@ -27,7 +23,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		final SelectShapes cmd = new SelectShapes(drawing);
 		cmd.addShape(drawing.getShapeAt(0).orElseThrow());
 		cmd.addShape(drawing.getShapeAt(1).orElseThrow());
-		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
+		CommandsRegistry.INSTANCE.addCommand(cmd);
 		ins.update();
 	};
 
@@ -40,7 +36,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		cmd.addShape(drawing.getShapeAt(0).orElseThrow());
 		cmd.addShape(drawing.getShapeAt(1).orElseThrow());
 		cmd.addShape(drawing.getShapeAt(2).orElseThrow());
-		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
+		CommandsRegistry.INSTANCE.addCommand(cmd);
 		ins.update();
 	};
 
@@ -49,7 +45,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(-1).orElseThrow()));
 		final SelectShapes cmd = new SelectShapes(drawing);
 		cmd.addShape(drawing.getShapeAt(-1).orElseThrow());
-		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
+		CommandsRegistry.INSTANCE.addCommand(cmd);
 		ins.update();
 	};
 
@@ -58,7 +54,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		drawing.setSelection(selectedShapes);
 		final SelectShapes cmd = new SelectShapes(drawing);
 		selectedShapes.forEach(sh -> cmd.addShape(sh));
-		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
+		CommandsRegistry.INSTANCE.addCommand(cmd);
 		ins.update();
 	};
 

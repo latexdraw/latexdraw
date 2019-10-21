@@ -80,7 +80,6 @@ abstract class TestViewShape<T extends ViewShape<S>, S extends SingleShape> impl
 	void tearDown() {
 		view.flush();
 		CommandsRegistry.INSTANCE.clear();
-		CommandsRegistry.INSTANCE.removeAllHandlers();
 		BadaboomCollector.INSTANCE.clear();
 		UndoCollector.INSTANCE.clear();
 		DviPsColors.INSTANCE.clearUserColours();

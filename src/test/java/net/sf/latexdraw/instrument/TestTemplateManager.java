@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TitledPane;
@@ -14,19 +15,16 @@ import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.command.LoadTemplate;
 import net.sf.latexdraw.command.UpdateTemplates;
 import net.sf.latexdraw.util.Injector;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import io.github.interacto.command.CmdHandler;
 import io.github.interacto.command.CommandsRegistry;
 import org.mockito.Mockito;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class TestTemplateManager extends BaseTestCanvas {
-	CmdHandler handler;
-
 	@Override
 	protected Injector createInjector() {
 		return new ShapePropInjector() {
@@ -62,20 +60,14 @@ public class TestTemplateManager extends BaseTestCanvas {
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		handler = Mockito.mock(CmdHandler.class);
 		Cmds.of(CmdFXVoid.of(() -> hand.setActivated(true))).execute();
 		when(pencil.isActivated()).thenReturn(false);
-		CommandsRegistry.INSTANCE.addHandler(handler);
-	}
-
-	@Override
-	@After
-	public void tearDown() {
-		CommandsRegistry.INSTANCE.removeHandler(handler);
 	}
 
 	@Test
 	public void testDnDInsertTemplate() {
+		final var producedCmds = new ArrayList<>();
+		final var disposable = CommandsRegistry.INSTANCE.commands().subscribe(producedCmds::add);
 		final ImageView view = new ImageView(new Image(getClass().getResourceAsStream("/Condenser.svg.png"))); //NON-NLS
 		view.setUserData(getClass().getResource("/Condenser.svg").getPath());
 		final FlowPane pane = find("#templatePane");
@@ -83,12 +75,17 @@ public class TestTemplateManager extends BaseTestCanvas {
 			CmdFXVoid.of(() -> pane.getChildren().add(0, view)),
 			() -> drag(pane.getChildren().get(0)).dropTo(canvas)).execute();
 		assertEquals(1, canvas.getDrawing().size());
-		Mockito.verify(handler, Mockito.times(1)).onCmdDone(Mockito.any(LoadTemplate.class));
+		assertThat(producedCmds).hasSize(1);
+		assertThat(producedCmds.get(0)).isInstanceOf(LoadTemplate.class);
 	}
 
 	@Test
 	public void testClickRefreshTemplates() {
+		final var producedCmds = new ArrayList<>();
+		final var disposable = CommandsRegistry.INSTANCE.commands().subscribe(producedCmds::add);
 		Cmds.of(() -> clickOn("#updateTemplates")).execute();
-		Mockito.verify(handler, Mockito.times(1)).onCmdDone(Mockito.any(UpdateTemplates.class));
+		disposable.dispose();
+		assertThat(producedCmds).hasSize(1);
+		assertThat(producedCmds.get(0)).isInstanceOf(UpdateTemplates.class);
 	}
 }

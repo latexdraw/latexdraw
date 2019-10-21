@@ -57,7 +57,6 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 		stage = null;
 
 		CommandsRegistry.INSTANCE.clear();
-		CommandsRegistry.INSTANCE.removeAllHandlers();
 		BadaboomCollector.INSTANCE.clear();
 		UndoCollector.INSTANCE.clear();
 		DviPsColors.INSTANCE.clearUserColours();

@@ -12,12 +12,10 @@ package net.sf.latexdraw.instrument;
 
 import io.github.interacto.command.library.Redo;
 import io.github.interacto.command.library.Undo;
-import io.github.interacto.jfx.undo.FXUndoCollector;
 import io.github.interacto.undo.UndoCollector;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -51,12 +49,17 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 	public void initialize(final URL location, final ResourceBundle resources) {
 		setActivated(true);
 
-		undoB.disableProperty().bind(FXUndoCollector.INSTANCE.lastUndoProperty().isNull());
-		redoB.disableProperty().bind(FXUndoCollector.INSTANCE.lastRedoProperty().isNull());
-		undoB.tooltipProperty().bind(Bindings.createObjectBinding(() -> UndoCollector.INSTANCE.getLastUndo().
-			map(undo -> new Tooltip(undo.getUndoName(lang))).orElse(null), FXUndoCollector.INSTANCE.lastUndoProperty()));
-		redoB.tooltipProperty().bind(Bindings.createObjectBinding(() -> UndoCollector.INSTANCE.getLastRedo().
-			map(redo -> new Tooltip(redo.getUndoName(lang))).orElse(null), FXUndoCollector.INSTANCE.lastRedoProperty()));
+		undoB.setDisable(true);
+		redoB.setDisable(true);
+
+		addDisposable(UndoCollector.INSTANCE.redos().subscribe(redoable -> {
+			redoB.setDisable(redoable.isEmpty());
+			redoB.setTooltip(redoable.map(u -> new Tooltip(u.getUndoName(lang))).orElse(null));
+		}));
+		addDisposable(UndoCollector.INSTANCE.undos().subscribe(undoable -> {
+			undoB.setDisable(undoable.isEmpty());
+			undoB.setTooltip(undoable.map(u -> new Tooltip(u.getUndoName(lang))).orElse(null));
+		}));
 	}
 
 	@Override

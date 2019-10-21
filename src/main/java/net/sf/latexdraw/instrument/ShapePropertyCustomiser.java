@@ -11,7 +11,7 @@
 package net.sf.latexdraw.instrument;
 
 import io.github.interacto.jfx.instrument.JfxInstrument;
-import io.github.interacto.jfx.undo.FXUndoCollector;
+import io.github.interacto.undo.UndoCollector;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -62,8 +62,8 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument implements I
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle resourceBundle) {
-		FXUndoCollector.INSTANCE.lastRedoProperty().addListener((observableValue, undoable, t1) -> update());
-		FXUndoCollector.INSTANCE.lastUndoProperty().addListener((observableValue, undoable, t1) -> update());
+		addDisposable(UndoCollector.INSTANCE.redos().subscribe(undoable -> update()));
+		addDisposable(UndoCollector.INSTANCE.undos().subscribe(undoable -> update()));
 	}
 
 	/**

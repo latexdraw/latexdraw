@@ -36,7 +36,7 @@ public class TestShapeGrouper extends SelectionBasedTesting<ShapeGrouper> {
 		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(0).orElseThrow()));
 		final SelectShapes cmd = new SelectShapes(drawing);
 		cmd.addShape(drawing.getShapeAt(0).orElseThrow());
-		CommandsRegistry.INSTANCE.addCommand(cmd, handler);
+		CommandsRegistry.INSTANCE.addCommand(cmd);
 		ins.update();
 	};
 

@@ -85,7 +85,7 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 		final SelectShapes cmd = new SelectShapes(canvas.getDrawing());
 		canvas.getDrawing().getShapes().forEach(sh -> cmd.addShape(sh));
 		cmd.doIt();
-		CommandsRegistry.INSTANCE.addCommand(cmd, null);
+		CommandsRegistry.INSTANCE.addCommand(cmd);
 	};
 
 	final CmdFX<Integer> selectShape = index -> {
@@ -150,7 +150,6 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 		Platform.runLater(() -> canvas.getDrawing().clear());
 		WaitForAsyncUtils.waitForFxEvents();
 		super.tearDown();
-		CommandsRegistry.INSTANCE.removeHandler(canvas);
 	}
 
 	javafx.scene.Group getPane() {

@@ -55,8 +55,8 @@ public class TestNewDrawing extends IOCmdBaseTest {
 
 	@Test
 	void testDoNotModified() {
-		UndoCollector.INSTANCE.add(Mockito.mock(Undoable.class), null);
-		CommandsRegistry.INSTANCE.addCommand(Mockito.mock(Command.class), null);
+		UndoCollector.INSTANCE.add(Mockito.mock(Undoable.class));
+		CommandsRegistry.INSTANCE.addCommand(Mockito.mock(Command.class));
 		Mockito.when(ui.isModified()).thenReturn(Boolean.FALSE);
 		cmd.doIt();
 		cmd.done();
@@ -68,8 +68,8 @@ public class TestNewDrawing extends IOCmdBaseTest {
 
 	@Test
 	void testModifiedSave(final FxRobot robot) {
-		UndoCollector.INSTANCE.add(Mockito.mock(Undoable.class), null);
-		CommandsRegistry.INSTANCE.addCommand(Mockito.mock(Command.class), null);
+		UndoCollector.INSTANCE.add(Mockito.mock(Undoable.class));
+		CommandsRegistry.INSTANCE.addCommand(Mockito.mock(Command.class));
 		final Task<Boolean> task = Mockito.mock(Task.class);
 		final File file = new File("foo.svg");
 		Mockito.when(ui.isModified()).thenReturn(Boolean.TRUE);
@@ -89,8 +89,8 @@ public class TestNewDrawing extends IOCmdBaseTest {
 
 	@Test
 	void testModifiedDoNotSave(final FxRobot robot) {
-		UndoCollector.INSTANCE.add(Mockito.mock(Undoable.class), null);
-		CommandsRegistry.INSTANCE.addCommand(Mockito.mock(Command.class), null);
+		UndoCollector.INSTANCE.add(Mockito.mock(Undoable.class));
+		CommandsRegistry.INSTANCE.addCommand(Mockito.mock(Command.class));
 		Mockito.when(ui.isModified()).thenReturn(Boolean.TRUE);
 		Platform.runLater(() -> cmd.doIt());
 		WaitForAsyncUtils.waitForFxEvents();
