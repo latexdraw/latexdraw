@@ -235,25 +235,22 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 		protected Boolean call() {
 			try {
 				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
+				final List<Shape> shapes = toLatexdraw(svgDoc, 0);
 
-				Platform.runLater(() -> {
-					final List<Shape> shapes = toLatexdraw(svgDoc, 0);
+				if(shapes.size() == 1) {
+					insertedShapes = shapes.get(0);
+				}else {
+					final Group gp = ShapeFactory.INST.createGroup();
+					shapes.forEach(sh -> gp.addShape(sh));
+					insertedShapes = gp;
+				}
 
-					if(shapes.size() == 1) {
-						insertedShapes = shapes.get(0);
-					}else {
-						final Group gp = ShapeFactory.INST.createGroup();
-						shapes.forEach(sh -> gp.addShape(sh));
-						insertedShapes = gp;
-					}
+				if(position != null) {
+					final Point tp = insertedShapes.getTopLeftPoint();
+					insertedShapes.translate(position.getX() - tp.getX(), position.getY() - tp.getY());
+				}
 
-					if(position != null) {
-						final Point tp = insertedShapes.getTopLeftPoint();
-						insertedShapes.translate(position.getX() - tp.getX(), position.getY() - tp.getY());
-					}
-
-					drawing.addShape(insertedShapes);
-				});
+				drawing.addShape(insertedShapes);
 				return Boolean.TRUE;
 			}catch(final IOException | IllegalArgumentException ex) {
 				BadaboomCollector.INSTANCE.add(ex);
@@ -532,7 +529,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 		protected List<Shape> toLatexdraw(final SVGDocument doc, final double incrProgressBar) {
 			final NodeList elts = doc.getDocumentElement().getChildNodes();
 			final List<Shape> shapes = IntStream.range(0, elts.getLength()).mapToObj(i -> {
-				updateProgress(getProgress() + incrProgressBar, 100d);
+				Platform.runLater(() -> updateProgress(getProgress() + incrProgressBar, 100d));
 				return elts.item(i);
 			}).filter(node -> node instanceof SVGElement).map(node -> svgFactory.createShape((SVGElement) node)).
 				filter(sh -> sh != null).collect(Collectors.toList());

@@ -39,6 +39,7 @@ public class LoadTemplate extends IOCommand<Label> implements Undoable, Modifyin
 	@Override
 	protected void doCmdBody() {
 		insertedShapes = svgGen.insert(file.getPath(), position);
+		System.out.println(">>" + insertedShapes);
 		ok = insertedShapes != null;
 	}
 

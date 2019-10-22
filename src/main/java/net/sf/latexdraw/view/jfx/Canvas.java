@@ -32,6 +32,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -257,7 +258,8 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	private void defineShapeListBindingOnAdd(final @NotNull Change<? extends Shape> evt) {
-		evt.getAddedSubList().forEach(sh -> viewFactory.createView(sh).ifPresent(v -> {
+		final List<? extends Shape> added = evt.getAddedSubList();
+		Platform.runLater(() -> added.forEach(sh -> viewFactory.createView(sh).ifPresent(v -> {
 			final int index = drawing.getShapes().indexOf(sh);
 			if(index != -1) {
 				shapesToViewMap.put(sh, v);
@@ -267,7 +269,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 					shapesPane.getChildren().add(index, v);
 				}
 			}
-		}));
+		})));
 	}
 
 	private void defineShapeListBindingOnRemoved(final @NotNull Change<? extends Shape> evt) {

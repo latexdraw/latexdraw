@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import javafx.application.HostServices;
 import javafx.collections.FXCollections;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -83,6 +84,7 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 		prefs.setCurrentFile(tmp.newFile());
 
 		Mockito.when(injector.getInstance(StatusBarController.class).getProgressBar()).thenReturn(new ProgressBar());
+		Mockito.when(injector.getInstance(StatusBarController.class).getLabel()).thenReturn(new Label());
 	}
 
 	@Test

@@ -74,6 +74,7 @@ public class TestTemplateManager extends BaseTestCanvas {
 		Cmds.of(
 			CmdFXVoid.of(() -> pane.getChildren().add(0, view)),
 			() -> drag(pane.getChildren().get(0)).dropTo(canvas)).execute();
+		disposable.dispose();
 		assertEquals(1, canvas.getDrawing().size());
 		assertThat(producedCmds).hasSize(1);
 		assertThat(producedCmds.get(0)).isInstanceOf(LoadTemplate.class);
