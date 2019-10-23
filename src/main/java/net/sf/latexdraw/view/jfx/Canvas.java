@@ -177,7 +177,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 			.observeOn(JavaFxScheduler.platform())
 			.subscribe(evt -> requestFocus(), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
-		disposables.add(CommandsRegistry.INSTANCE.commands()
+		disposables.add(CommandsRegistry.getInstance().commands()
 			.filter(c -> c instanceof Modifying)
 			.subscribe(c -> update()));
 

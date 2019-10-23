@@ -52,11 +52,11 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 		undoB.setDisable(true);
 		redoB.setDisable(true);
 
-		addDisposable(UndoCollector.INSTANCE.redos().subscribe(redoable -> {
+		addDisposable(UndoCollector.getInstance().redos().subscribe(redoable -> {
 			redoB.setDisable(redoable.isEmpty());
 			redoB.setTooltip(redoable.map(u -> new Tooltip(u.getUndoName(lang))).orElse(null));
 		}));
-		addDisposable(UndoCollector.INSTANCE.undos().subscribe(undoable -> {
+		addDisposable(UndoCollector.getInstance().undos().subscribe(undoable -> {
 			undoB.setDisable(undoable.isEmpty());
 			undoB.setTooltip(undoable.map(u -> new Tooltip(u.getUndoName(lang))).orElse(null));
 		}));

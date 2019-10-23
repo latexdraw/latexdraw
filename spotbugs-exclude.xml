@@ -186,4 +186,8 @@
     <Match>
         <Bug pattern="MDM_WAIT_WITHOUT_TIMEOUT" />
     </Match>
+    <Match>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED" />
+        <Class name="~.*\.BadaboomCollector" />
+    </Match>
 </FindBugsFilter>

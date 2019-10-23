@@ -40,10 +40,11 @@ public final class BadaboomCollector implements EventHandler<WorkerStateEvent> {
 	/**
 	 * Creates an empty collector.
 	 */
+	@SuppressWarnings("CheckReturnValue")
 	private BadaboomCollector() {
 		super();
 		errors = new SimpleListProperty<>(FXCollections.observableArrayList());
-		ErrorCatcher.INSTANCE.setNotifier(ex -> add(ex));
+		ErrorCatcher.getInstance().getErrors().subscribe(ex -> errors.add(ex));
 	}
 
 	public void add(final @NotNull Throwable ex) {

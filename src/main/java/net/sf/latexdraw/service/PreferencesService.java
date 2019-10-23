@@ -113,7 +113,7 @@ public class PreferencesService {
 			}
 		});
 
-		UndoCollector.INSTANCE.setBundle(bundle);
+		UndoCollector.getInstance().setBundle(bundle);
 	}
 
 	public PreferencesService() {

@@ -56,8 +56,8 @@ public class LaTeXDraw extends JfxUI {
 	public static final String LABEL_APP = "LaTeXDraw"; //NON-NLS
 
 	static {
-		UndoCollector.INSTANCE.setSizeMax(30);
-		CommandsRegistry.INSTANCE.setSizeMax(30);
+		UndoCollector.getInstance().setSizeMax(30);
+		CommandsRegistry.getInstance().setSizeMax(30);
 	}
 
 	/**

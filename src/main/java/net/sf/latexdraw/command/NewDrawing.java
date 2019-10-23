@@ -86,8 +86,8 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 
 	protected void newDrawing() {
 		ui.reinit();
-		UndoCollector.INSTANCE.clear();
-		CommandsRegistry.INSTANCE.clear();
+		UndoCollector.getInstance().clear();
+		CommandsRegistry.getInstance().clear();
 	}
 
 

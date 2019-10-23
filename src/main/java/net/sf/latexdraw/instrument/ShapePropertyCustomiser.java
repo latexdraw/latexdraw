@@ -62,8 +62,8 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument implements I
 
 	@Override
 	public void initialize(final URL url, final ResourceBundle resourceBundle) {
-		addDisposable(UndoCollector.INSTANCE.redos().subscribe(undoable -> update()));
-		addDisposable(UndoCollector.INSTANCE.undos().subscribe(undoable -> update()));
+		addDisposable(UndoCollector.getInstance().redos().subscribe(undoable -> update()));
+		addDisposable(UndoCollector.getInstance().undos().subscribe(undoable -> update()));
 	}
 
 	/**

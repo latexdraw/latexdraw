@@ -22,12 +22,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface CmdRegistrySearcher {
 	default @NotNull Optional<CopyShapes> getCopyCutCmd() {
-		return CommandsRegistry.INSTANCE.getCommands().parallelStream().
+		return CommandsRegistry.getInstance().getCommands().parallelStream().
 			filter(cmd -> cmd instanceof CopyShapes).map(cmd -> (CopyShapes) cmd).findFirst();
 	}
 
 	default @NotNull Optional<SelectShapes> getSelectCmd() {
-		return CommandsRegistry.INSTANCE.getCommands().parallelStream().
+		return CommandsRegistry.getInstance().getCommands().parallelStream().
 			filter(cmd -> cmd instanceof SelectShapes).map(cmd -> (SelectShapes) cmd).findFirst();
 	}
 }

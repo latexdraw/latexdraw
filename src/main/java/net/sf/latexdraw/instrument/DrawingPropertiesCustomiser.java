@@ -60,8 +60,8 @@ public class DrawingPropertiesCustomiser extends JfxInstrument implements Initia
 	public void initialize(final URL location, final ResourceBundle resources) {
 		positionCB.getItems().addAll(VerticalPosition.values());
 		setActivated(true);
-		addDisposable(UndoCollector.INSTANCE.redos().subscribe(undoable -> updateWidgets()));
-		addDisposable(UndoCollector.INSTANCE.undos().subscribe(undoable -> updateWidgets()));
+		addDisposable(UndoCollector.getInstance().redos().subscribe(undoable -> updateWidgets()));
+		addDisposable(UndoCollector.getInstance().undos().subscribe(undoable -> updateWidgets()));
 	}
 
 	@Override

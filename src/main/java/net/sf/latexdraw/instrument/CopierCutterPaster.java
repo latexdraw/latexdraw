@@ -44,7 +44,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	private final @NotNull PreferencesService prefs;
 
 	private final Supplier<Boolean> isShapeSelected = () -> {
-		final SelectShapes cmd = (SelectShapes) CommandsRegistry.INSTANCE.getCommands().parallelStream().
+		final SelectShapes cmd = (SelectShapes) CommandsRegistry.getInstance().getCommands().parallelStream().
 			filter(command -> command instanceof SelectShapes).findFirst().orElse(null);
 		return cmd != null && !cmd.getShapes().isEmpty();
 	};
@@ -59,7 +59,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		setActivated(true);
-		addDisposable(CommandsRegistry.INSTANCE.commands().subscribe(c -> updateWidgets()));
+		addDisposable(CommandsRegistry.getInstance().commands().subscribe(c -> updateWidgets()));
 	}
 
 	@Override
