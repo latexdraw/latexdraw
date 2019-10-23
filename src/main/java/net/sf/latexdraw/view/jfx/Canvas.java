@@ -258,7 +258,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	}
 
 	private void defineShapeListBindingOnAdd(final @NotNull Change<? extends Shape> evt) {
-		final List<? extends Shape> added = evt.getAddedSubList();
+		final List<? extends Shape> added = List.copyOf(evt.getAddedSubList());
 		Platform.runLater(() -> added.forEach(sh -> viewFactory.createView(sh).ifPresent(v -> {
 			final int index = drawing.getShapes().indexOf(sh);
 			if(index != -1) {
