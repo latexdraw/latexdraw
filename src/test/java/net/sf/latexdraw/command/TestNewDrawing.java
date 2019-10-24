@@ -55,21 +55,21 @@ public class TestNewDrawing extends IOCmdBaseTest {
 
 	@Test
 	void testDoNotModified() {
-		UndoCollector.INSTANCE.add(Mockito.mock(Undoable.class));
-		CommandsRegistry.INSTANCE.addCommand(Mockito.mock(Command.class));
+		UndoCollector.getInstance().add(Mockito.mock(Undoable.class));
+		CommandsRegistry.getInstance().addCommand(Mockito.mock(Command.class));
 		Mockito.when(ui.isModified()).thenReturn(Boolean.FALSE);
 		cmd.doIt();
 		cmd.done();
 		assertThat(cmd.hadEffect()).isTrue();
 		Mockito.verify(ui, Mockito.times(1)).reinit();
-		assertThat(UndoCollector.INSTANCE.getUndo()).isEmpty();
-		assertThat(CommandsRegistry.INSTANCE.getCommands()).isEmpty();
+		assertThat(UndoCollector.getInstance().getUndo()).isEmpty();
+		assertThat(CommandsRegistry.getInstance().getCommands()).isEmpty();
 	}
 
 	@Test
 	void testModifiedSave(final FxRobot robot) {
-		UndoCollector.INSTANCE.add(Mockito.mock(Undoable.class));
-		CommandsRegistry.INSTANCE.addCommand(Mockito.mock(Command.class));
+		UndoCollector.getInstance().add(Mockito.mock(Undoable.class));
+		CommandsRegistry.getInstance().addCommand(Mockito.mock(Command.class));
 		final Task<Boolean> task = Mockito.mock(Task.class);
 		final File file = new File("foo.svg");
 		Mockito.when(ui.isModified()).thenReturn(Boolean.TRUE);
@@ -83,14 +83,14 @@ public class TestNewDrawing extends IOCmdBaseTest {
 		Mockito.verify(openSaver, Mockito.times(1)).save(file.getPath(), progressBar, statusWidget);
 		assertThat(cmd.hadEffect()).isTrue();
 		Mockito.verify(ui, Mockito.times(1)).reinit();
-		assertThat(UndoCollector.INSTANCE.getUndo()).isEmpty();
-		assertThat(CommandsRegistry.INSTANCE.getCommands()).isEmpty();
+		assertThat(UndoCollector.getInstance().getUndo()).isEmpty();
+		assertThat(CommandsRegistry.getInstance().getCommands()).isEmpty();
 	}
 
 	@Test
 	void testModifiedDoNotSave(final FxRobot robot) {
-		UndoCollector.INSTANCE.add(Mockito.mock(Undoable.class));
-		CommandsRegistry.INSTANCE.addCommand(Mockito.mock(Command.class));
+		UndoCollector.getInstance().add(Mockito.mock(Undoable.class));
+		CommandsRegistry.getInstance().addCommand(Mockito.mock(Command.class));
 		Mockito.when(ui.isModified()).thenReturn(Boolean.TRUE);
 		Platform.runLater(() -> cmd.doIt());
 		WaitForAsyncUtils.waitForFxEvents();
@@ -98,8 +98,8 @@ public class TestNewDrawing extends IOCmdBaseTest {
 		WaitForAsyncUtils.waitForFxEvents();
 		assertThat(cmd.hadEffect()).isFalse();
 		Mockito.verify(ui, Mockito.times(1)).reinit();
-		assertThat(UndoCollector.INSTANCE.getUndo()).isEmpty();
-		assertThat(CommandsRegistry.INSTANCE.getCommands()).isEmpty();
+		assertThat(UndoCollector.getInstance().getUndo()).isEmpty();
+		assertThat(CommandsRegistry.getInstance().getCommands()).isEmpty();
 	}
 
 	@Test

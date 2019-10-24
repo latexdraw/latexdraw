@@ -23,7 +23,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		final SelectShapes cmd = new SelectShapes(drawing);
 		cmd.addShape(drawing.getShapeAt(0).orElseThrow());
 		cmd.addShape(drawing.getShapeAt(1).orElseThrow());
-		CommandsRegistry.INSTANCE.addCommand(cmd);
+		CommandsRegistry.getInstance().addCommand(cmd);
 		ins.update();
 	};
 
@@ -36,7 +36,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		cmd.addShape(drawing.getShapeAt(0).orElseThrow());
 		cmd.addShape(drawing.getShapeAt(1).orElseThrow());
 		cmd.addShape(drawing.getShapeAt(2).orElseThrow());
-		CommandsRegistry.INSTANCE.addCommand(cmd);
+		CommandsRegistry.getInstance().addCommand(cmd);
 		ins.update();
 	};
 
@@ -45,7 +45,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		drawing.setSelection(Collections.singletonList(drawing.getShapeAt(-1).orElseThrow()));
 		final SelectShapes cmd = new SelectShapes(drawing);
 		cmd.addShape(drawing.getShapeAt(-1).orElseThrow());
-		CommandsRegistry.INSTANCE.addCommand(cmd);
+		CommandsRegistry.getInstance().addCommand(cmd);
 		ins.update();
 	};
 
@@ -54,7 +54,7 @@ abstract class SelectionBasedTesting<T extends ShapePropertyCustomiser> extends 
 		drawing.setSelection(selectedShapes);
 		final SelectShapes cmd = new SelectShapes(drawing);
 		selectedShapes.forEach(sh -> cmd.addShape(sh));
-		CommandsRegistry.INSTANCE.addCommand(cmd);
+		CommandsRegistry.getInstance().addCommand(cmd);
 		ins.update();
 	};
 

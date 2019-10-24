@@ -67,7 +67,7 @@ public class TestTemplateManager extends BaseTestCanvas {
 	@Test
 	public void testDnDInsertTemplate() {
 		final var producedCmds = new ArrayList<>();
-		final var disposable = CommandsRegistry.INSTANCE.commands().subscribe(producedCmds::add);
+		final var disposable = CommandsRegistry.getInstance().commands().subscribe(producedCmds::add);
 		final ImageView view = new ImageView(new Image(getClass().getResourceAsStream("/Condenser.svg.png"))); //NON-NLS
 		view.setUserData(getClass().getResource("/Condenser.svg").getPath());
 		final FlowPane pane = find("#templatePane");
@@ -83,7 +83,7 @@ public class TestTemplateManager extends BaseTestCanvas {
 	@Test
 	public void testClickRefreshTemplates() {
 		final var producedCmds = new ArrayList<>();
-		final var disposable = CommandsRegistry.INSTANCE.commands().subscribe(producedCmds::add);
+		final var disposable = CommandsRegistry.getInstance().commands().subscribe(producedCmds::add);
 		Cmds.of(() -> clickOn("#updateTemplates")).execute();
 		disposable.dispose();
 		assertThat(producedCmds).hasSize(1);

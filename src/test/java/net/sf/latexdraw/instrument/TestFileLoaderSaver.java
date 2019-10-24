@@ -91,16 +91,16 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 	public void testNewMenu() {
 		Mockito.when(injector.getInstance(JfxUI.class).isModified()).thenReturn(false);
 		Cmds.of(() -> clickOn("#fileMenu").clickOn("#newMenu")).execute();
-		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof NewDrawing);
+		assertEquals(1, CommandsRegistry.getInstance().getCommands().size());
+		assertTrue(CommandsRegistry.getInstance().getCommands().get(0) instanceof NewDrawing);
 	}
 
 	@Test
 	public void testSaveMenu() {
 		Mockito.when(injector.getInstance(JfxUI.class).isModified()).thenReturn(true);
 		Cmds.of(() -> clickOn("#fileMenu").clickOn("#saveMenu")).execute();
-		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof SaveDrawing);
+		assertEquals(1, CommandsRegistry.getInstance().getCommands().size());
+		assertTrue(CommandsRegistry.getInstance().getCommands().get(0) instanceof SaveDrawing);
 	}
 
 	@Test
@@ -108,8 +108,8 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 		Mockito.when(chooser.showSaveDialog(Mockito.any())).thenReturn(tmp.newFile());
 		Mockito.when(injector.getInstance(JfxUI.class).isModified()).thenReturn(true);
 		Cmds.of(() -> clickOn("#fileMenu").clickOn("#saveAsMenu")).execute();
-		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof SaveDrawing);
+		assertEquals(1, CommandsRegistry.getInstance().getCommands().size());
+		assertTrue(CommandsRegistry.getInstance().getCommands().get(0) instanceof SaveDrawing);
 	}
 
 	@Test
@@ -118,8 +118,8 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 		Mockito.when(injector.getInstance(JfxUI.class).isModified()).thenReturn(false);
 		Mockito.when(chooser.showOpenDialog(stage)).thenReturn(file);
 		Cmds.of(() -> clickOn("#fileMenu").clickOn("#loadMenu")).execute();
-		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof LoadDrawing);
+		assertEquals(1, CommandsRegistry.getInstance().getCommands().size());
+		assertTrue(CommandsRegistry.getInstance().getCommands().get(0) instanceof LoadDrawing);
 	}
 
 	@Test
@@ -129,8 +129,8 @@ public class TestFileLoaderSaver extends TestLatexdrawGUI {
 		prefs.addRecentFile(getClass().getResource("/test.svg").getFile());
 		Mockito.when(injector.getInstance(JfxUI.class).isModified()).thenReturn(false);
 		Cmds.of(() -> clickOn("#fileMenu").clickOn("#recentFilesMenu").clickOn("#recent0")).execute();
-		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof LoadDrawing);
+		assertEquals(1, CommandsRegistry.getInstance().getCommands().size());
+		assertTrue(CommandsRegistry.getInstance().getCommands().get(0) instanceof LoadDrawing);
 	}
 
 	@Test

@@ -48,9 +48,9 @@ public abstract class TestPSTParser {
 
 	@AfterEach
 	void tearDown() {
-		CommandsRegistry.INSTANCE.clear();
+		CommandsRegistry.getInstance().clear();
 		BadaboomCollector.INSTANCE.clear();
-		UndoCollector.INSTANCE.clear();
+		UndoCollector.getInstance().clear();
 		DviPsColors.INSTANCE.clearUserColours();
 	}
 

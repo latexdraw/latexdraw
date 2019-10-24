@@ -59,13 +59,13 @@ public class TestLaTeXDraw {
 	static void afterAll() throws TimeoutException {
 		FxToolkit.cleanupApplication(app);
 		BadaboomCollector.INSTANCE.clear();
-		CommandsRegistry.INSTANCE.clear();
+		CommandsRegistry.getInstance().clear();
 		app = null;
 	}
 
 	@BeforeEach
 	public void setUp() {
-		CommandsRegistry.INSTANCE.clear();
+		CommandsRegistry.getInstance().clear();
 		BadaboomCollector.INSTANCE.clear();
 		app.getInjector().getInstance(PreferencesService.class).setPage(Page.HORIZONTAL);
 	}
@@ -135,7 +135,7 @@ public class TestLaTeXDraw {
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.clickOn("#fileMenu").clickOn("#saveMenu").sleep(1000L);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(CommandsRegistry.INSTANCE.getCommands().size() - 1) instanceof SaveDrawing);
+		assertTrue(CommandsRegistry.getInstance().getCommands().get(CommandsRegistry.getInstance().getCommands().size() - 1) instanceof SaveDrawing);
 		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty());
 		assertFalse(app.getInjector().getInstance(ExceptionsManager.class).isActivated());
 	}

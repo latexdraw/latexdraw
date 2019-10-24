@@ -33,7 +33,7 @@ public class TestUndoRedoManager extends BaseTestCanvas {
 		addedRec.setFillingCol(DviPsColors.APRICOT);
 		final AddShape cmd = new AddShape(addedRec, canvas.getDrawing());
 		cmd.doIt();
-		CommandsRegistry.INSTANCE.addCommand(cmd);
+		CommandsRegistry.getInstance().addCommand(cmd);
 	};
 
 	@Override

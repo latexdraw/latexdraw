@@ -59,7 +59,7 @@ abstract class TestPSTBase<T extends Shape> implements PolymorphicConversion<T> 
 	public void tearDown() {
 		DviPsColors.INSTANCE.clearUserColours();
 		BadaboomCollector.INSTANCE.clear();
-		UndoCollector.INSTANCE.clear();
+		UndoCollector.getInstance().clear();
 	}
 
 	@Override

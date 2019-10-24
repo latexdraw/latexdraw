@@ -132,15 +132,15 @@ public class TestExporter extends BaseTestCanvas {
 	public void testExportPicture(@StringData(vals = {"#menuItemBMP", "#menuItemPST", "#menuItemPNG",
 		"#menuItemBMP", "#menuItemPDF", "#menuItemEPSLatex", "#menuItemPDFcrop"}) final String widgetID) {
 		Cmds.of(addRec, () -> clickOn(exporter.exportMenu), () -> clickOn(widgetID)).execute();
-		assertEquals(1, CommandsRegistry.INSTANCE.getCommands().size());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(0) instanceof Export);
+		assertEquals(1, CommandsRegistry.getInstance().getCommands().size());
+		assertTrue(CommandsRegistry.getInstance().getCommands().get(0) instanceof Export);
 	}
 
 	@Test
 	public void testExportTemplateNotExits() {
 		Cmds.of(addRec, selectAllShapes, () -> clickOn(exporter.exportMenu), () -> clickOn("#exportTemplateMenu"),
 			() -> write("fooo2"), () -> type(KeyCode.ENTER), () -> type(KeyCode.ENTER)).execute();
-		assertEquals(2, CommandsRegistry.INSTANCE.getCommands().size());
-		assertTrue(CommandsRegistry.INSTANCE.getCommands().get(1) instanceof ExportTemplate);
+		assertEquals(2, CommandsRegistry.getInstance().getCommands().size());
+		assertTrue(CommandsRegistry.getInstance().getCommands().get(1) instanceof ExportTemplate);
 	}
 }
