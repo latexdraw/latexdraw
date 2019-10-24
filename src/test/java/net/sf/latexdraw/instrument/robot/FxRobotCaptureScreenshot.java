@@ -13,6 +13,8 @@ import javafx.scene.image.WritableImage;
 import javax.imageio.ImageIO;
 import org.testfx.api.FxRobotInterface;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  * TestFX does not provide all the required routines to test GUIs. This trait defines routines for
  * taking screen shots.
@@ -25,9 +27,9 @@ public interface FxRobotCaptureScreenshot extends FxRobotInterface {
 			}
 			return Files.createDirectory(Paths.get(folderName));
 		}catch(final IOException ex) {
-			ex.printStackTrace();
-			return null;
+			fail(ex);
 		}
+		return null;
 	}
 
 	static Path createScreenshotFolder() {
@@ -44,8 +46,8 @@ public interface FxRobotCaptureScreenshot extends FxRobotInterface {
 			final WritableImage img = node.snapshot(null, null);
 			try {
 				ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", captureFile);
-			}catch(final Exception e) {
-				e.printStackTrace();
+			}catch(final IOException ex) {
+				fail(ex);
 			}
 		});
 		return captureFile;

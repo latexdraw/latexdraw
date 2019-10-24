@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
-    <!--<module name="Header">-->
-        <!--<property name="headerFile" value="header.txt"/>-->
-        <!--<property name="fileExtensions" value="java"/>-->
-    <!--</module>-->
+<!--    <module name="Header">-->
+<!--        <property name="headerFile" value="header.txt"/>-->
+<!--        <property name="fileExtensions" value="java"/>-->
+<!--    </module>-->
 
     <module name="BeforeExecutionExclusionFileFilter">
         <property name="fileNamePattern" value="module\-info\.java$"/>
@@ -25,6 +25,11 @@
     </module>
 
     <module name="TreeWalker">
+        <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
+        <module name="OneStatementPerLineCheck" />
+<!--        <module name="SummaryJavadoc" />-->
+        <module name="UnnecessarySemicolonInTryWithResources" />
+
         <module name="Indentation">
             <property name="basicOffset" value="8"/>
             <property name="lineWrappingIndentation" value="0"/>
@@ -35,7 +40,7 @@
         <module name="FinalClass"/>
         <module name="FinalLocalVariable"/>
         <module name="FinalParameters"/>
-        <!--<module name="IllegalCatch"/>-->
+        <module name="IllegalCatch"/>
         <module name="IllegalThrows"/>
         <module name="IllegalToken" />
         <module name="IllegalTokenText" />

@@ -15,7 +15,7 @@
         <junit.version>5.4.2</junit.version>
         <jfx.version>11.0.2</jfx.version>
         <testfx.version>4.0.15-alpha</testfx.version>
-        <mockito.version>2.27.0</mockito.version>
+        <mockito.version>3.1.0</mockito.version>
         <javafx.platform>linux</javafx.platform>
         <jmods.path>${java.home}</jmods.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -273,7 +273,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.3</version>
+                <version>0.8.4</version>
                 <executions>
                     <execution>
                         <id>pre-unit-test</id>
@@ -294,7 +294,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
                 <configuration>
                     <sourceDirectories>
                         <sourceDirectory>src/main/java</sourceDirectory>
@@ -317,7 +317,7 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>8.20</version>
+                        <version>8.25</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -348,7 +348,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.11</version>
+                <version>3.1.12.2</version>
                 <configuration>
                     <includeTests>false</includeTests>
                     <effort>Max</effort>
@@ -381,7 +381,7 @@
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
                         <artifactId>spotbugs</artifactId>
-                        <version>4.0.0-beta1</version>
+                        <version>4.0.0-beta4</version>
                         <scope>compile</scope>
                     </dependency>
                 </dependencies>
