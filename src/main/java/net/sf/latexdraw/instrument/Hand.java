@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instrument;
 
-import io.github.interacto.jfx.binding.JfXWidgetBinding;
+import io.github.interacto.jfx.binding.JfxWidgetBinding;
 import io.github.interacto.jfx.interaction.library.DnD;
 import io.github.interacto.jfx.interaction.library.DoubleClick;
 import io.github.interacto.jfx.interaction.library.Press;
@@ -279,7 +279,7 @@ public class Hand extends CanvasInstrument implements Flushable {
 	}
 
 
-	private class DnD2Select extends JfXWidgetBinding<SelectShapes, DnD, SrcTgtPointsData> {
+	private class DnD2Select extends JfxWidgetBinding<SelectShapes, DnD, SrcTgtPointsData> {
 		private List<Shape> selectedShapes;
 		private List<ViewShape<?>> selectedViews;
 

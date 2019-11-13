@@ -10,7 +10,7 @@
  */
 package net.sf.latexdraw.instrument;
 
-import io.github.interacto.jfx.binding.JfXWidgetBinding;
+import io.github.interacto.jfx.binding.JfxWidgetBinding;
 import io.github.interacto.jfx.interaction.library.DnD;
 import io.github.interacto.jfx.interaction.library.SrcTgtPointsData;
 import java.net.URL;
@@ -269,7 +269,7 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 
-	private class DnD2Scale extends JfXWidgetBinding<ScaleShapes, DnD, SrcTgtPointsData> {
+	private class DnD2Scale extends JfxWidgetBinding<ScaleShapes, DnD, SrcTgtPointsData> {
 		/** The point corresponding to the 'press' position. */
 		private Point p1;
 		/** The x gap (gap between the pressed position and the targeted position) of the X-scaling. */
