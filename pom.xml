@@ -126,6 +126,118 @@
             </plugin>
 
             <plugin>
+                <groupId>org.moditect</groupId>
+                <artifactId>moditect-maven-plugin</artifactId>
+                <version>1.0.0.Beta2</version>
+                <executions>
+                    <execution>
+                        <id>generate-module-info</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate-module-info</goal>
+                        </goals>
+                        <configuration>
+                            <modules>
+                                <module>
+                                    <artifact>
+                                        <groupId>io.reactivex.rxjava2</groupId>
+                                        <artifactId>rxjava</artifactId>
+                                        <version>2.2.4</version>
+                                    </artifact>
+                                    <moduleInfo>
+                                        <name>io.reactivex.rxjava2</name>
+                                        <exports>*;</exports>
+                                        <requires>*;</requires>
+                                    </moduleInfo>
+                                </module>
+                                <module>
+                                    <artifact>
+                                        <groupId>org.reactivestreams</groupId>
+                                        <artifactId>reactive-streams</artifactId>
+                                        <version>1.0.2</version>
+                                    </artifact>
+                                    <moduleInfo>
+                                        <name>org.reactivestreams</name>
+                                        <exports>*;</exports>
+                                        <requires>*;</requires>
+                                    </moduleInfo>
+                                </module>
+                                <module>
+                                    <artifact>
+                                        <groupId>org.jetbrains</groupId>
+                                        <artifactId>annotations</artifactId>
+                                        <version>16.0.1</version>
+                                    </artifact>
+                                    <moduleInfo>
+                                        <name>org.jetbrains</name>
+                                        <exports>*;</exports>
+                                        <requires>*;</requires>
+                                    </moduleInfo>
+                                </module>
+                                <module>
+                                    <artifact>
+                                        <groupId>org.antlr</groupId>
+                                        <artifactId>antlr4-runtime</artifactId>
+                                        <version>4.7.1</version>
+                                    </artifact>
+                                    <moduleInfo>
+                                        <name>org.antlr</name>
+                                        <exports>*;</exports>
+                                        <requires>*;</requires>
+                                    </moduleInfo>
+                                </module>
+                            </modules>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>add-module-infos</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-module-info</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/modules</outputDirectory>
+                            <modules>
+                                <module>
+                                    <artifact>
+                                        <groupId>io.reactivex.rxjava2</groupId>
+                                        <artifactId>rxjava</artifactId>
+                                        <version>2.2.4</version>
+                                    </artifact>
+                                    <moduleInfoFile>${project.build.directory}/moditect/io.reactivex.rxjava2/module-info.java</moduleInfoFile>
+                                </module>
+                                <module>
+                                    <artifact>
+                                        <groupId>org.reactivestreams</groupId>
+                                        <artifactId>reactive-streams</artifactId>
+                                        <version>1.0.2</version>
+                                    </artifact>
+                                    <moduleInfoFile>${project.build.directory}/moditect/org.reactivestreams/module-info.java</moduleInfoFile>
+                                </module>
+                                <module>
+                                    <artifact>
+                                        <groupId>org.jetbrains</groupId>
+                                        <artifactId>annotations</artifactId>
+                                        <version>16.0.1</version>
+                                    </artifact>
+                                    <moduleInfoFile>${project.build.directory}/moditect/annotations/module-info.java</moduleInfoFile>
+                                </module>
+                                <module>
+                                    <artifact>
+                                        <groupId>org.antlr</groupId>
+                                        <artifactId>antlr4-runtime</artifactId>
+                                        <version>4.7.1</version>
+                                    </artifact>
+                                    <moduleInfoFile>${project.build.directory}/moditect/antlr4.runtime/module-info.java</moduleInfoFile>
+                                </module>
+                            </modules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
@@ -423,12 +535,12 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
-            <version>4.7.1-j11</version>
+            <version>4.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>16.0.1-j11</version>
+            <version>16.0.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -517,16 +629,6 @@
             <groupId>io.reactivex</groupId>
             <artifactId>rxjavafx</artifactId>
             <version>2.11.0-RC33</version>
-        </dependency>
-        <dependency>
-            <groupId>org.reactivestreams</groupId>
-            <artifactId>reactive-streams</artifactId>
-            <version>1.0.2-j9</version>
-        </dependency>
-        <dependency>
-            <groupId>io.reactivex.rxjava2</groupId>
-            <artifactId>rxjava</artifactId>
-            <version>2.2.4-j9</version>
         </dependency>
     </dependencies>
 </project>
