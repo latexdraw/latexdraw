@@ -5,11 +5,12 @@
     <groupId>net.sf.latexdraw</groupId>
     <artifactId>latexdraw</artifactId>
     <name>LaTeXDraw</name>
+    <description>A vector drawing editor for LaTeX</description>
     <version>4.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
-        <interacto.version>4.0-SNAPSHOT</interacto.version>
+        <interacto.version>4.0</interacto.version>
         <antlr.version>4.7.1</antlr.version>
         <java.version>11</java.version>
         <junit.version>5.4.2</junit.version>
@@ -29,6 +30,12 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>Arnaud Blouin</name>
+        </developer>
+    </developers>
 
     <organization>
         <name>LaTeXDraw</name>
@@ -62,13 +69,6 @@
             <snapshots><enabled>true</enabled></snapshots>
             <releases><enabled>false</enabled></releases>
         </repository>
-        <repository>
-            <id>mavenInriaRelease</id>
-            <name>http://maven.inria.fr-releases</name>
-            <url>http://maven.inria.fr/artifactory/malai-public-release</url>
-            <snapshots><enabled>false</enabled></snapshots>
-            <releases><enabled>true</enabled></releases>
-        </repository>
     </repositories>
 
     <profiles>
@@ -99,29 +99,29 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <release>${java.version}</release>
-<!--                    <compilerArgs combine.children="append">-->
-<!--                        <arg>-XDcompilePolicy=simple</arg>-->
-<!--                        <arg>-Xplugin:ErrorProne-->
-<!--                            -Xep:InvalidParam:ERROR-->
-<!--                            -Xep:InvalidTag:ERROR-->
-<!--                            -Xep:InvalidThrows:ERROR-->
-<!--                            -Xep:TypeParameterNaming:ERROR-->
-<!--                            -Xep:ClassNamedLikeTypeParameter:ERROR-->
-<!--                            -Xep:EqualsBrokenForNull:ERROR-->
-<!--                            -Xep:RedundantThrows:ERROR-->
-<!--                            -Xep:WildcardImport:ERROR-->
-<!--                            -Xep:LambdaFunctionalInterface:ERROR-->
-<!--                            -Xep:StringSplitter:OFF-->
-<!--                            -Xep:DefaultCharset:OFF-->
-<!--                            -XepExcludedPaths:.*/(generated-sources|test)/.*</arg>-->
-<!--                    </compilerArgs>-->
-<!--                    <annotationProcessorPaths>-->
-<!--                        <path>-->
-<!--                            <groupId>com.google.errorprone</groupId>-->
-<!--                            <artifactId>error_prone_core</artifactId>-->
-<!--                            <version>2.3.2</version>-->
-<!--                        </path>-->
-<!--                    </annotationProcessorPaths>-->
+                    <compilerArgs combine.children="append">
+                        <arg>-XDcompilePolicy=simple</arg>
+                        <arg>-Xplugin:ErrorProne
+                            -Xep:InvalidParam:ERROR
+                            -Xep:InvalidTag:ERROR
+                            -Xep:InvalidThrows:ERROR
+                            -Xep:TypeParameterNaming:ERROR
+                            -Xep:ClassNamedLikeTypeParameter:ERROR
+                            -Xep:EqualsBrokenForNull:ERROR
+                            -Xep:RedundantThrows:ERROR
+                            -Xep:WildcardImport:ERROR
+                            -Xep:LambdaFunctionalInterface:ERROR
+                            -Xep:StringSplitter:OFF
+                            -Xep:DefaultCharset:OFF
+                            -XepExcludedPaths:.*/(generated-sources|test)/.*</arg>
+                    </compilerArgs>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>com.google.errorprone</groupId>
+                            <artifactId>error_prone_core</artifactId>
+                            <version>2.3.2</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
