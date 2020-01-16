@@ -25,7 +25,11 @@
     </module>
 
     <module name="TreeWalker">
+        <module name="JavadocContentLocationCheck"/>
+        <module name="NoArrayTrailingComma"/>
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
+        <module name="UnnecessarySemicolonInEnumeration"/>
+        <module name="UnnecessaryParentheses"/>
         <module name="OneStatementPerLineCheck" />
 <!--        <module name="SummaryJavadoc" />-->
         <module name="UnnecessarySemicolonInTryWithResources" />
