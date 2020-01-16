@@ -42,8 +42,10 @@ import org.jetbrains.annotations.NotNull;
 public class TextSetter extends JfxInstrument implements Initializable {
 	/** The text field. */
 	private final @NotNull TextAreaAutoSize textField;
-	/** The position where texts are added. It may not corresponds with the location of the text field since the text field position is absolute
-	 * (does not consider the zoom level). */
+	/**
+	 * The position where texts are added. It may not corresponds with the location of the text field since the text field position is absolute
+	 * (does not consider the zoom level).
+	 * */
 	private Point position;
 	/** The text to modify throw this instrument. If it is not set, a new text will be created. */
 	private Text text;

@@ -15,7 +15,9 @@ public @interface DoubleData {
 
 	boolean bads() default false;
 
-	/** Defines whether the double values will be angles. If true <code>vals</code> is replaced by a set of predefined and representative
-	 * angle values */
+	/**
+	 * Defines whether the double values will be angles. If true <code>vals</code> is replaced by a set of predefined and representative
+	 * angle values
+	 * */
 	boolean angle() default false;
 }
