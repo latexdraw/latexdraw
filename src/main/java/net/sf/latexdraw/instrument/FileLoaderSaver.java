@@ -123,6 +123,8 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
+		final var shortcutBaseBinder = shortcutWindowBinder().on(mainstage);
+
 		// Close window
 		windowBinder()
 			.usingInteraction(WindowClosed::new)
@@ -134,11 +136,10 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			.bind();
 
 		// Quit shortcut
-		shortcutWindowBinder()
+		shortcutBaseBinder
 			.toProduce(() -> new SaveDrawing(true, true, prefService.getCurrentFolder(), getDialog(true),
 				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
 				statusBar.getLabel(), mainstage))
-			.on(mainstage)
 			.with(KeyCode.W, SystemUtils.getInstance().getControlKey())
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
@@ -153,11 +154,10 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			.bind();
 
 		// Save shortcut
-		shortcutWindowBinder()
+		shortcutBaseBinder
 			.toProduce(() -> new SaveDrawing(false, false, prefService.getCurrentFolder(), getDialog(true),
 				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
 				statusBar.getLabel(), mainstage))
-			.on(mainstage)
 			.with(KeyCode.S, SystemUtils.getInstance().getControlKey())
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
@@ -182,10 +182,9 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			.bind();
 
 		// Load shortcut
-		shortcutWindowBinder()
+		shortcutBaseBinder
 			.toProduce(() -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
 				getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
-			.on(mainstage)
 			.with(KeyCode.O, SystemUtils.getInstance().getControlKey())
 			.ifHadEffects((i, c) -> {
 				updateOnIOCommand(c.getFile());
@@ -201,10 +200,9 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			.bind();
 
 		// New shortcut
-		shortcutWindowBinder()
+		shortcutBaseBinder
 			.toProduce(() -> new NewDrawing(prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(),
 				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
-			.on(mainstage)
 			.with(KeyCode.N, SystemUtils.getInstance().getControlKey())
 			.bind();
 

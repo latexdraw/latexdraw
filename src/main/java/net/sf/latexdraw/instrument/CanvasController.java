@@ -38,7 +38,7 @@ public class CanvasController extends CanvasInstrument implements Initializable 
 			.usingInteraction(DnD::new)
 			.toProduce(MoveCamera::new)
 			.on(canvas)
-			.first((i, c) -> {
+			.first(c -> {
 				c.setScrollPane(canvas.getScrollPane());
 				canvas.setCursor(Cursor.MOVE);
 			})

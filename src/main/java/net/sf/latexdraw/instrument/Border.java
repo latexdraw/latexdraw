@@ -201,7 +201,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			.continuousExecution()
 			.when(i -> i.getSrcLocalPoint() != null && i.getTgtLocalPoint() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler &&
 				canvas.getDrawing().getSelection().size() == 1 && canvas.getDrawing().getSelection().getShapeAt(0).filter(s -> s instanceof ModifiablePointsShape).isPresent())
-			.end(i -> metaCustomiser.dimPosCustomiser.update())
+			.end(() -> metaCustomiser.dimPosCustomiser.update())
 			.bind();
 	}
 
@@ -225,9 +225,9 @@ public class Border extends CanvasInstrument implements Initializable {
 				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
 				c.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
 			})
-			.when(i -> canvas.getDrawing().getSelection().size() == 1 && canvas.getDrawing().getSelection().getShapeAt(0).filter(s -> s instanceof ControlPointShape).isPresent())
+			.when(() -> canvas.getDrawing().getSelection().size() == 1 && canvas.getDrawing().getSelection().getShapeAt(0).filter(s -> s instanceof ControlPointShape).isPresent())
 			.continuousExecution()
-			.end(i -> metaCustomiser.dimPosCustomiser.update())
+			.end(() -> metaCustomiser.dimPosCustomiser.update())
 			.bind();
 
 		nodeBinder()

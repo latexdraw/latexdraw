@@ -105,138 +105,138 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument implements I
 
 	@SuppressWarnings("unchecked")
 	protected <T> void addComboPropBinding(final @NotNull ComboBox<T> combo, final @NotNull ShapeProperties<T> prop) {
-		comboboxBinder()
-			.toProduce(i -> createModShProp((T) i.getWidget().getSelectionModel().getSelectedItem(), prop))
+		final var spinnerBaseBinder = comboboxBinder()
 			.on(combo)
+			.end(() -> update());
+
+		spinnerBaseBinder
+			.toProduce(i -> createModShProp((T) i.getWidget().getSelectionModel().getSelectedItem(), prop))
 			.when(handActiv)
-			.end(i -> update())
 			.bind();
 
-		comboboxBinder()
+		spinnerBaseBinder
 			.toProduce(i -> firstPropPen((T) i.getWidget().getSelectionModel().getSelectedItem(), prop))
-			.on(combo)
 			.when(pencilActiv)
-			.end(i -> update())
 			.bind();
 	}
 
 	protected void addSpinnerAnglePropBinding(final @NotNull Spinner<Double> spinner, final @NotNull ShapeProperties<Double> prop) {
-		spinnerBinder()
-			.toProduce(i -> createModShProp(null, prop))
+		final var spinnerBaseBinder = spinnerBinder()
 			.on(spinner)
-			.then((i, c) -> c.setValue(Math.toRadians(((Number) i.getWidget().getValue()).doubleValue())))
+			.end(() -> update());
+
+		spinnerBaseBinder
+			.toProduce(() -> createModShProp(null, prop))
+			.then((i, c) -> c.setValue(Math.toRadians((Double) i.getWidget().getValue())))
 			.when(handActiv)
-			.end(i -> update())
 			.bind();
 
-		spinnerBinder()
-			.toProduce(i -> firstPropPen(null, prop))
-			.on(spinner)
-			.then((i, c) -> c.setValue(Math.toRadians(((Number) i.getWidget().getValue()).doubleValue())))
+		spinnerBaseBinder
+			.toProduce(() -> firstPropPen(null, prop))
+			.then((i, c) -> c.setValue(Math.toRadians((Double) i.getWidget().getValue())))
 			.when(pencilActiv)
-			.end(i -> update())
 			.bind();
 	}
 
 	@SuppressWarnings("unchecked")
 	protected <T extends Number> void addSpinnerPropBinding(final @NotNull Spinner<T> spinner, final @NotNull ShapeProperties<T> prop) {
-		spinnerBinder()
-			.toProduce(i -> createModShProp(null, prop))
+		final var spinnerBaseBinder = spinnerBinder()
 			.on(spinner)
+			.end(() -> update());
+
+		spinnerBaseBinder
+			.toProduce(() -> createModShProp(null, prop))
 			.then((i, c) -> c.setValue((T) i.getWidget().getValue()))
 			.when(handActiv)
-			.end(i -> update())
 			.bind();
 
-		spinnerBinder()
-			.toProduce(i -> firstPropPen(null, prop))
-			.on(spinner)
+		spinnerBaseBinder
+			.toProduce(() -> firstPropPen(null, prop))
 			.then((i, c) -> c.setValue((T) i.getWidget().getValue()))
 			.when(pencilActiv)
-			.end(i -> update())
 			.bind();
 	}
 
 	protected void addColorPropBinding(final @NotNull ColorPicker picker, final @NotNull ShapeProperties<Color> prop) {
-		colorPickerBinder()
-			.toProduce(i -> createModShProp(ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop))
+		final var basePickerBinder = colorPickerBinder()
 			.on(picker)
+			.end(() -> update());
+
+		basePickerBinder
+			.toProduce(i -> createModShProp(ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop))
 			.when(handActiv)
-			.end(i -> update())
 			.bind();
 
-		colorPickerBinder()
+		basePickerBinder
 			.toProduce(i -> firstPropPen(ShapeFactory.INST.createColorFX(i.getWidget().getValue()), prop))
-			.on(picker)
 			.when(pencilActiv)
-			.end(i -> update())
 			.bind();
 	}
 
 	protected void addCheckboxPropBinding(final @NotNull CheckBox cb, final @NotNull ShapeProperties<Boolean> prop) {
-		checkboxBinder()
-			.toProduce(i -> createModShProp(i.getWidget().isSelected(), prop))
+		final var baseBoxBinder = checkboxBinder()
 			.on(cb)
+			.end(() -> update());
+
+		baseBoxBinder
+			.toProduce(i -> createModShProp(i.getWidget().isSelected(), prop))
 			.when(handActiv)
-			.end(i -> update())
 			.bind();
 
-		checkboxBinder()
+		baseBoxBinder
 			.toProduce(i -> firstPropPen(i.getWidget().isSelected(), prop))
-			.on(cb)
 			.when(pencilActiv)
-			.end(i -> update())
 			.bind();
 	}
 
 	protected void addTogglePropBinding(final @NotNull ToggleButton button, final @NotNull ShapeProperties<Boolean> prop, final boolean invert) {
-		toggleButtonBinder()
-			.toProduce(i -> createModShProp(i.getWidget().isSelected() ^ invert, prop))
+		final var baseButtonBinder = toggleButtonBinder()
 			.on(button)
+			.end(() -> update());
+
+		baseButtonBinder
+			.toProduce(i -> createModShProp(i.getWidget().isSelected() ^ invert, prop))
 			.when(handActiv)
-			.end(i -> update())
 			.bind();
 
-		toggleButtonBinder()
+		baseButtonBinder
 			.toProduce(i -> firstPropPen(i.getWidget().isSelected() ^ invert, prop))
-			.on(button)
 			.when(pencilActiv)
-			.end(i -> update())
 			.bind();
 	}
 
 	protected <T> void addTogglePropBinding(final @NotNull ToggleButton button, final @NotNull ShapeProperties<T> prop, final T value) {
-		toggleButtonBinder()
-			.toProduce(i -> createModShProp(value, prop))
+		final var baseButtonBinder = toggleButtonBinder()
 			.on(button)
+			.end(() -> update());
+
+		baseButtonBinder
+			.toProduce(() -> createModShProp(value, prop))
 			.when(handActiv)
-			.end(i -> update())
 			.bind();
 
-		toggleButtonBinder()
-			.toProduce(i -> firstPropPen(value, prop))
-			.on(button)
+		baseButtonBinder
+			.toProduce(() -> firstPropPen(value, prop))
 			.when(pencilActiv)
-			.end(i -> update())
 			.bind();
 	}
 
 	protected void addSpinnerXYPropBinding(final @NotNull Spinner<Double> spinnerX, final @NotNull Spinner<Double> spinnerY,
 			final @NotNull ShapeProperties<Point> property) {
-		spinnerBinder()
-			.toProduce(i -> new ModifyShapeProperty<>(property, canvas.getDrawing().getSelection().duplicateDeep(false), null))
+		final var baseBinder = spinnerBinder()
 			.on(spinnerX, spinnerY)
+			.end(() -> update());
+
+		baseBinder
+			.toProduce(() -> new ModifyShapeProperty<>(property, canvas.getDrawing().getSelection().duplicateDeep(false), null))
 			.then(c -> c.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue())))
 			.when(handActiv)
-			.end(i -> update())
 			.bind();
 
-		spinnerBinder()
-			.toProduce(i -> new ModifyEditingParameter<>(property, editing, null))
-			.on(spinnerX, spinnerY)
+		baseBinder
+			.toProduce(() -> new ModifyEditingParameter<>(property, editing, null))
 			.then(c -> c.setValue(ShapeFactory.INST.createPoint(spinnerX.getValue(), spinnerY.getValue())))
 			.when(pencilActiv)
-			.end(i -> update())
 			.bind();
 	}
 }

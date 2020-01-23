@@ -13,8 +13,7 @@ package net.sf.latexdraw.instrument;
 import io.github.interacto.jfx.command.ActivateInactivateInstruments;
 import io.github.interacto.jfx.instrument.JfxInstrument;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -92,7 +91,6 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	private final @NotNull Canvas canvas;
 	private final @NotNull CodeInserter codeInserter;
 	private final @NotNull StatusBarController status;
-	private final @NotNull Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
 
 
 	@Inject
@@ -109,29 +107,28 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		this.canvas = Objects.requireNonNull(canvas);
 		this.codeInserter = Objects.requireNonNull(codeInserter);
 		this.status = Objects.requireNonNull(status);
-		button2EditingChoiceMap = new HashMap<>();
 	}
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		button2EditingChoiceMap.put(dotB, EditionChoice.DOT);
-		button2EditingChoiceMap.put(textB, EditionChoice.TEXT);
-		button2EditingChoiceMap.put(freeHandB, EditionChoice.FREE_HAND);
-		button2EditingChoiceMap.put(arcB, EditionChoice.CIRCLE_ARC);
-		button2EditingChoiceMap.put(axesB, EditionChoice.AXES);
-		button2EditingChoiceMap.put(bezierB, EditionChoice.BEZIER_CURVE);
-		button2EditingChoiceMap.put(circleB, EditionChoice.CIRCLE);
-		button2EditingChoiceMap.put(ellipseB, EditionChoice.ELLIPSE);
-		button2EditingChoiceMap.put(gridB, EditionChoice.GRID);
-		button2EditingChoiceMap.put(linesB, EditionChoice.LINES);
-		button2EditingChoiceMap.put(polygonB, EditionChoice.POLYGON);
-		button2EditingChoiceMap.put(recB, EditionChoice.RECT);
-		button2EditingChoiceMap.put(rhombusB, EditionChoice.RHOMBUS);
-		button2EditingChoiceMap.put(squareB, EditionChoice.SQUARE);
-		button2EditingChoiceMap.put(triangleB, EditionChoice.TRIANGLE);
-		button2EditingChoiceMap.put(picB, EditionChoice.PICTURE);
-		button2EditingChoiceMap.put(plotB, EditionChoice.PLOT);
-		button2EditingChoiceMap.put(handB, EditionChoice.HAND);
+		dotB.setUserData(EditionChoice.DOT);
+		textB.setUserData(EditionChoice.TEXT);
+		freeHandB.setUserData(EditionChoice.FREE_HAND);
+		arcB.setUserData(EditionChoice.CIRCLE_ARC);
+		axesB.setUserData(EditionChoice.AXES);
+		bezierB.setUserData(EditionChoice.BEZIER_CURVE);
+		circleB.setUserData(EditionChoice.CIRCLE);
+		ellipseB.setUserData(EditionChoice.ELLIPSE);
+		gridB.setUserData(EditionChoice.GRID);
+		linesB.setUserData(EditionChoice.LINES);
+		polygonB.setUserData(EditionChoice.POLYGON);
+		recB.setUserData(EditionChoice.RECT);
+		rhombusB.setUserData(EditionChoice.RHOMBUS);
+		squareB.setUserData(EditionChoice.SQUARE);
+		triangleB.setUserData(EditionChoice.TRIANGLE);
+		picB.setUserData(EditionChoice.PICTURE);
+		plotB.setUserData(EditionChoice.PLOT);
+		handB.setUserData(EditionChoice.HAND);
 		setActivated(true);
 		handB.setSelected(true);
 		codeInserter.setActivated(false);
@@ -147,85 +144,92 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		});
 	}
 
+	private ToggleButton[] getShapeButtons() {
+		return new ToggleButton[] {textB, recB, linesB, dotB, plotB, gridB, picB, axesB, bezierB, ellipseB,
+			polygonB, arcB, circleB, squareB, triangleB, rhombusB, freeHandB};
+	}
+
 
 	@Override
 	protected void configureBindings() {
-		final ToggleButton[] nodes = button2EditingChoiceMap.keySet().toArray(new ToggleButton[0]);
+		final var shapeBaseBinder = toggleButtonBinder()
+			.on(getShapeButtons())
+			.end(() -> canvas.requestFocus());
 
 		// Checking that converting pictures can be done.
 		toggleButtonBinder()
-			.toProduce(i -> new CheckConvertExists(status.getLabel(), status.getLink()))
+			.toProduce(() -> new CheckConvertExists(status.getLabel(), status.getLink()))
 			.on(picB)
-			.end(i -> canvas.requestFocus())
+			.end(() -> canvas.requestFocus())
 			.bind();
 
 		toggleButtonBinder()
-			.toProduce(i -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(textSetter.getPosition()),
+			.toProduce(() -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(textSetter.getPosition()),
 				textSetter.getTextField().getText()), canvas.getDrawing()))
 			.on(handB)
-			.when(i -> textSetter.isActivated() && !textSetter.getTextField().getText().isEmpty())
-			.end(i -> canvas.requestFocus())
+			.when(() -> textSetter.isActivated() && !textSetter.getTextField().getText().isEmpty())
+			.end(() -> canvas.requestFocus())
 			.bind();
 
-		toggleButtonBinder()
-			.toProduce(i -> new ModifyEditingMode(editing, button2EditingChoiceMap.get(i.getWidget())))
-			.on(nodes)
-			.end(i -> canvas.requestFocus())
+		shapeBaseBinder
+			.on(handB)
+			.toProduce(i -> new ModifyEditingMode(editing, (EditionChoice) i.getWidget().getUserData()))
 			.bind();
 
 		toggleButtonBinder()
 			.toProduce(ActivateInactivateInstruments::new)
-			.on(nodes)
-			.first((i, c) -> {
-				final ToggleButton button = i.getWidget();
-
+			.on(handB)
+			.first(c -> {
+				final boolean noSelection = canvas.getDrawing().getSelection().isEmpty();
 				c.setActivateFirst(false);
+				c.addInstrumentToActivate(hand);
 
-				if(button != textB) {
-					c.addInstrumentToInactivate(textSetter);
+				if(!noSelection) {
+					c.addInstrumentToActivate(deleter);
 				}
 
-				/* Selection of the instruments to activate/deactivate. */
-				if(button == handB) {
-					final boolean noSelection = canvas.getDrawing().getSelection().isEmpty();
-					c.addInstrumentToActivate(hand);
+				c.addInstrumentToInactivate(pencil);
 
-					if(!noSelection) {
-						c.addInstrumentToActivate(deleter);
-					}
-
-					c.addInstrumentToInactivate(pencil);
-
-					if(noSelection) {
-						c.addInstrumentToInactivate(metaShapeCustomiser);
-						c.addInstrumentToInactivate(border);
-					}else {
-						c.addInstrumentToActivate(metaShapeCustomiser);
-						c.addInstrumentToActivate(border);
-					}
-				}else {
-					c.addInstrumentToInactivate(hand);
+				if(noSelection) {
+					c.addInstrumentToInactivate(metaShapeCustomiser);
 					c.addInstrumentToInactivate(border);
-					c.addInstrumentToInactivate(deleter);
-					c.addInstrumentToActivate(pencil);
+				}else {
 					c.addInstrumentToActivate(metaShapeCustomiser);
+					c.addInstrumentToActivate(border);
 				}
 			})
 			.end(i -> canvas.requestFocus())
 			.bind();
 
+		shapeBaseBinder
+			.toProduce(ActivateInactivateInstruments::new)
+			.first((i, c) -> {
+				c.setActivateFirst(false);
+
+				if(i.getWidget() != textB) {
+					c.addInstrumentToInactivate(textSetter);
+				}
+
+				c.addInstrumentToInactivate(hand);
+				c.addInstrumentToInactivate(border);
+				c.addInstrumentToInactivate(deleter);
+				c.addInstrumentToActivate(pencil);
+				c.addInstrumentToActivate(metaShapeCustomiser);
+			})
+			.bind();
+
 		buttonBinder()
 			.toProduce(ActivateInactivateInstruments::new)
 			.on(codeB)
-			.first(cmd -> cmd.addInstrumentToActivate(codeInserter))
-			.end(i -> canvas.requestFocus())
+			.first(c -> c.addInstrumentToActivate(codeInserter))
+			.end(() -> canvas.requestFocus())
 			.bind();
 	}
 
 	@Override
 	public void setActivated(final boolean isActivated) {
 		super.setActivated(isActivated);
-		button2EditingChoiceMap.keySet().forEach(but -> but.setVisible(activated));
+		Arrays.asList(getShapeButtons()).forEach(but -> but.setVisible(activated));
 		handB.setVisible(activated);
 		codeB.setVisible(activated);
 	}

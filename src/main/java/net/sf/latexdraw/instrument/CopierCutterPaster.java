@@ -79,55 +79,54 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 	@Override
 	protected void configureBindings() {
+		final var baseMenuBinder = menuItemBinder()
+			.end(() -> updateWidgets());
+		final var baseShortcutBinder = shortcutBinder()
+			.end(() -> updateWidgets());
+
 		// menu to paste shapes.
-		menuItemBinder()
+		baseMenuBinder
 			.toProduce(() -> new PasteShapes(getCopyCutCmd(), prefs, canvas.getDrawing()))
 			.on(pasteMenu)
 			.when(() -> getCopyCutCmd().isPresent())
-			.end(() -> updateWidgets())
 			.bind();
 
 		// Key shortcut ctrl+V to paste shapes.
-		shortcutBinder()
+		baseShortcutBinder
 			.toProduce(() -> new PasteShapes(getCopyCutCmd(), prefs, canvas.getDrawing()))
 			.on(canvas)
 			.with(KeyCode.V, SystemUtils.getInstance().getControlKey())
 			.when(() -> getCopyCutCmd().isPresent())
-			.end(() -> updateWidgets())
 			.bind();
 
 		// menu to copy shapes.
-		menuItemBinder()
+		baseMenuBinder
 			.toProduce(() -> new CopyShapes(getSelectCmd()))
 			.on(copyMenu)
 			.when(() -> isShapeSelected.get())
-			.end(() -> updateWidgets())
 			.bind();
 
 		// Key shortcut ctrl+C to copy shapes.
-		shortcutBinder()
+		baseShortcutBinder
 			.toProduce(i -> new CopyShapes(getSelectCmd()))
 			.on(canvas)
 			.with(KeyCode.C, SystemUtils.getInstance().getControlKey())
 			.when(() -> isShapeSelected.get())
-			.end(() -> updateWidgets())
 			.bind();
 
 		// menu to cut shapes.
-		menuItemBinder()
+		baseMenuBinder
 			.toProduce(() -> new CutShapes(getSelectCmd()))
 			.on(cutMenu)
 			.when(() -> isShapeSelected.get())
-			.end(() -> updateWidgets())
 			.bind();
 
 		// Key shortcut ctrl+X to cut shapes.
-		shortcutBinder()
+		baseShortcutBinder
 			.toProduce(() -> new CutShapes(getSelectCmd()))
 			.on(canvas)
 			.with(KeyCode.X, SystemUtils.getInstance().getControlKey())
 			.when(() -> isShapeSelected.get())
-			.end(() -> updateWidgets())
 			.bind();
 	}
 }
