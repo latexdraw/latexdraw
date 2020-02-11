@@ -14,6 +14,7 @@ import java.util.Arrays;
 import net.sf.latexdraw.model.CompareShapeMatcher;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
+import net.sf.latexdraw.model.api.shape.FreeHandStyle;
 import net.sf.latexdraw.model.api.shape.Freehand;
 import net.sf.latexdraw.model.api.shape.Polygon;
 import net.sf.latexdraw.model.api.shape.Shape;
@@ -22,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 public class TestPSTShape extends TestPSTBase<Shape> implements PolymorphShapeTest {
@@ -39,15 +41,36 @@ public class TestPSTShape extends TestPSTBase<Shape> implements PolymorphShapeTe
 	@MethodSource("net.sf.latexdraw.data.ShapeSupplier#getDiversifiedShapes")
 	public void testPointsEquals(final Shape sh) {
 		assumeFalse(sh instanceof Freehand);
-		final Shape s2 = produceOutputShapeFrom(sh);
-		assertListEquals(sh.getPoints(), s2.getPoints(), (p1, p2) -> p1.equals(p2, 0.001));
+		assertThat(sh.getPoints()).isEqualTo(produceOutputShapeFrom(sh).getPoints());
 	}
 
 	@Test
-	public void testFreeHandPoints() {
-		final Freehand fh = ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d)));
+	public void testFreeHandPointsLines() {
+		final Freehand fh = ShapeFactory.INST.createFreeHand(Arrays.asList(ShapeFactory.INST.createPoint(50d, 70d),
+			ShapeFactory.INST.createPoint(100d, 90d),
+			ShapeFactory.INST.createPoint(132d, 112d),
+			ShapeFactory.INST.createPoint(150d, 180d)));
 		fh.setInterval(1);
+		fh.setType(FreeHandStyle.LINES);
+
 		final Shape s2 = produceOutputShapeFrom(fh);
-		assertListEquals(fh.getPoints(), s2.getPoints(), (p1, p2) -> p1.equals(p2, 0.001));
+		assertThat(s2.getPoints()).isEqualTo(produceOutputShapeFrom(s2).getPoints());
+	}
+
+	@Test
+	public void testFreeHandPointsCurves() {
+		final Freehand fh = ShapeFactory.INST.createFreeHand(Arrays.asList(
+			ShapeFactory.INST.createPoint(50d, 70d),
+			ShapeFactory.INST.createPoint(100d, 90d),
+			ShapeFactory.INST.createPoint(110d, 100d),
+			ShapeFactory.INST.createPoint(150d, 180d)));
+		fh.setInterval(1);
+		fh.setType(FreeHandStyle.CURVES);
+		final Shape s2 = produceOutputShapeFrom(fh);
+		assertThat(s2.getPoints()).isEqualTo(Arrays.asList(
+			ShapeFactory.INST.createPoint(50d, 70d),
+			ShapeFactory.INST.createPoint(75d, 80d),
+			ShapeFactory.INST.createPoint(105d, 95d),
+			ShapeFactory.INST.createPoint(130d, 140d)));
 	}
 }

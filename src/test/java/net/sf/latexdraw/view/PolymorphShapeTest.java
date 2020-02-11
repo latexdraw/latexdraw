@@ -12,7 +12,6 @@ package net.sf.latexdraw.view;
 
 import java.util.concurrent.TimeoutException;
 import javafx.stage.Stage;
-import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.data.ParameteriseShapeData;
 import net.sf.latexdraw.model.CompareShapeMatcher;
 import net.sf.latexdraw.model.api.shape.Shape;
@@ -25,9 +24,10 @@ import org.testfx.framework.junit5.ApplicationAdapter;
 import org.testfx.framework.junit5.ApplicationFixture;
 import org.testfx.util.WaitForAsyncUtils;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-public interface PolymorphShapeTest extends PolymorphicConversion<Shape>, CollectionMatcher {
+public interface PolymorphShapeTest extends PolymorphicConversion<Shape> {
 	@BeforeAll
 	static void beforeAll() throws TimeoutException {
 		FxToolkit.registerPrimaryStage();
@@ -117,6 +117,6 @@ public interface PolymorphShapeTest extends PolymorphicConversion<Shape>, Collec
 	default void testPointsEquals(final Shape sh) {
 		WaitForAsyncUtils.waitForFxEvents();
 		final Shape s2 = produceOutputShapeFrom(sh);
-		assertListEquals(sh.getPoints(), s2.getPoints(), (p1, p2) -> p1.equals(p2, 0.001));
+		assertThat(sh.getPoints()).isEqualTo(s2.getPoints());
 	}
 }

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.ui.JfxUI;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import javafx.application.HostServices;
@@ -8,7 +9,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
-import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.LatexdrawBuilderFactory;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -31,16 +31,16 @@ import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import io.github.interacto.jfx.ui.JfxUI;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.util.WaitForAsyncUtils;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatcher {
+public class TestTabSelector extends TestLatexdrawGUI {
 	TabPane tabPane;
 	@Mock EditingSelector selector;
 	@Mock CopierCutterPaster paster;
@@ -157,7 +157,7 @@ public class TestTabSelector extends TestLatexdrawGUI implements CollectionMatch
 
 	@Test
 	public void testNotTabsClosable() {
-		assertAllFalse(tabPane.getTabs().stream(), tab -> tab.isClosable());
+		assertThat(tabPane.getTabs()).noneMatch(tab -> tab.isClosable());
 	}
 
 	@Test

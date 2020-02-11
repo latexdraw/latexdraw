@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.handler.Handler;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Line;
@@ -18,12 +17,13 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.testfx.util.WaitForAsyncUtils;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
+public class TestBorder extends BaseTestCanvas {
 	Border border;
 	final double txDown = 50;
 	final double tyDown = 200d;
@@ -86,7 +86,7 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 	@Test
 	public void testSelectPointsShapeAllHandlersVisible() {
 		Cmds.of(addLines, selectAllShapes).execute();
-		assertAllTrue(border.mvPtHandlers.stream(), handler -> handler.isVisible());
+		assertThat(border.mvPtHandlers).allMatch(h -> h.isVisible());
 	}
 
 	@Test
@@ -115,20 +115,20 @@ public class TestBorder extends BaseTestCanvas implements CollectionMatcher {
 		Cmds.of(addBezier, addRec, addArc, addLines, () -> selectShape.execute(0)).execute();
 		assertFalse(border.arcHandlerStart.isVisible());
 		assertFalse(border.arcHandlerEnd.isVisible());
-		assertAllTrue(border.mvPtHandlers.stream(), h -> h.isVisible());
-		assertAllTrue(border.ctrlPt2Handlers.stream(), h -> h.isVisible());
-		assertAllTrue(border.ctrlPt1Handlers.stream(), h -> h.isVisible());
+		assertThat(border.mvPtHandlers).allMatch(h -> h.isVisible());
+		assertThat(border.ctrlPt2Handlers).allMatch(h -> h.isVisible());
+		assertThat(border.ctrlPt1Handlers).allMatch(h -> h.isVisible());
 		Cmds.of(() -> selectShape.execute(1)).execute();
-		assertAllFalse(border.mvPtHandlers.stream(), h -> h.isVisible());
-		assertAllFalse(border.ctrlPt2Handlers.stream(), h -> h.isVisible());
-		assertAllFalse(border.ctrlPt1Handlers.stream(), h -> h.isVisible());
+		assertThat(border.mvPtHandlers).noneMatch(h -> h.isVisible());
+		assertThat(border.ctrlPt2Handlers).noneMatch(h -> h.isVisible());
+		assertThat(border.ctrlPt1Handlers).noneMatch(h -> h.isVisible());
 		Cmds.of(() -> selectShape.execute(2)).execute();
 		assertTrue(border.arcHandlerStart.isVisible());
 		assertTrue(border.arcHandlerEnd.isVisible());
 		Cmds.of(() -> selectShape.execute(3)).execute();
-		assertAllTrue(border.mvPtHandlers.stream(), h -> h.isVisible());
-		assertAllFalse(border.ctrlPt2Handlers.stream(), h -> h.isVisible());
-		assertAllFalse(border.ctrlPt1Handlers.stream(), h -> h.isVisible());
+		assertThat(border.mvPtHandlers).allMatch(h -> h.isVisible());
+		assertThat(border.ctrlPt2Handlers).noneMatch(h -> h.isVisible());
+		assertThat(border.ctrlPt1Handlers).noneMatch(h -> h.isVisible());
 	}
 
 	@Test

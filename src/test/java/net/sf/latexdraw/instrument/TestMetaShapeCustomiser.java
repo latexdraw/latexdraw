@@ -4,23 +4,23 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
-import net.sf.latexdraw.CollectionMatcher;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TestMetaShapeCustomiser implements CollectionMatcher {
+public class TestMetaShapeCustomiser {
 	Injector injector;
 	MetaShapeCustomiser meta;
 	List<ShapePropertyCustomiser> ins;
@@ -76,7 +76,7 @@ public class TestMetaShapeCustomiser implements CollectionMatcher {
 	@Test
 	public void testAllInstrumentsNotActivated() {
 		meta.setActivated(false);
-		assertAllFalse(getPropInstruments(), obj -> obj.isActivated());
+		assertThat(getPropInstruments()).noneMatch(obj -> obj.isActivated());
 	}
 
 	@Test

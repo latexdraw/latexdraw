@@ -11,7 +11,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Shape;
-import net.sf.latexdraw.CollectionMatcher;
+import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.ArrowStyle;
 import net.sf.latexdraw.model.api.shape.BezierCurve;
@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, BezierCurve, Path> implements CollectionMatcher {
+public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, BezierCurve, Path> {
 	@Override
 	protected BezierCurve createModel() {
 		return ShapeFactory.INST.createBezierCurve(Arrays.asList(ShapeFactory.INST.createPoint(51d, 73d), ShapeFactory.INST.createPoint(151d, 173d),
@@ -94,7 +94,9 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		model.setShowPts(true);
 		model.setLineColour(ShapeFactory.INST.createColorFX(Color.RED));
 		WaitForAsyncUtils.waitForFxEvents();
-		assertAllEquals(view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse), elt -> ((Shape) elt).getFill(), Color.RED);
+		assertThat(view.showPoint.getChildren())
+			.filteredOn(n -> n instanceof Ellipse)
+			.allMatch(elt -> Color.RED.equals(((Shape) elt).getFill()));
 	}
 
 	@Test
@@ -102,7 +104,9 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		model.setShowPts(true);
 		model.setLineColour(ShapeFactory.INST.createColorFX(Color.RED));
 		WaitForAsyncUtils.waitForFxEvents();
-		assertAllEquals(view.showPoint.getChildren().stream().filter(n -> n instanceof Line), elt -> ((Shape) elt).getStroke(), Color.RED);
+		assertThat(view.showPoint.getChildren())
+			.filteredOn(n -> n instanceof Line)
+			.allMatch(elt -> Color.RED.equals(((Shape) elt).getStroke()));
 	}
 
 	@Test
@@ -111,7 +115,8 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		WaitForAsyncUtils.waitForFxEvents();
 		final List<Point> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
 			map(ell -> ShapeFactory.INST.createPoint(((Ellipse) ell).getCenterX(), ((Ellipse) ell).getCenterY())).collect(Collectors.toList());
-		model.getPoints().forEach(pt -> assertThat(centers).contains(pt));
+		assertThat(model.getPoints())
+			.allMatch(pt -> centers.contains(pt));
 	}
 
 	@Test
@@ -120,7 +125,9 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		WaitForAsyncUtils.waitForFxEvents();
 		final List<Point> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
 			map(ell -> ShapeFactory.INST.createPoint(((Ellipse) ell).getCenterX(), ((Ellipse) ell).getCenterY())).collect(Collectors.toList());
-		model.getFirstCtrlPts().forEach(pt -> assertThat(centers).contains(pt));
+
+		assertThat(model.getFirstCtrlPts())
+			.allMatch(pt -> centers.contains(pt));
 	}
 
 	@Test
@@ -129,7 +136,9 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		WaitForAsyncUtils.waitForFxEvents();
 		final List<Point> centers = view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse).
 			map(ell -> ShapeFactory.INST.createPoint(((Ellipse) ell).getCenterX(), ((Ellipse) ell).getCenterY())).collect(Collectors.toList());
-		model.getSecondCtrlPts().forEach(pt -> assertThat(centers).contains(pt));
+
+		assertThat(model.getSecondCtrlPts())
+			.allMatch(pt -> centers.contains(pt));
 	}
 
 	@Test
@@ -139,8 +148,12 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		model.setHasDbleBord(true);
 		model.setDbleBordSep(12d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertAllEquals(view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse), elt -> ((Ellipse) elt).getRadiusX(),
-			(model.getArrowAt(0).getDotSizeDim() + model.getArrowAt(0).getDotSizeNum() * model.getFullThickness()) / 2d);
+
+		assertThat(view.showPoint.getChildren())
+			.filteredOn(n -> n instanceof Ellipse)
+			.allMatch(elt -> MathUtils.INST.equalsDouble(
+				((Ellipse) elt).getRadiusX(),
+				(model.getArrowAt(0).getDotSizeDim() + model.getArrowAt(0).getDotSizeNum() * model.getFullThickness()) / 2d));
 	}
 
 	@Test
@@ -149,8 +162,12 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		model.getArrowAt(0).setDotSizeDim(1.1);
 		model.getArrowAt(0).setDotSizeNum(3.3);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertAllEquals(view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse), elt -> ((Ellipse) elt).getRadiusX(),
-			(model.getArrowAt(0).getDotSizeDim() + model.getArrowAt(0).getDotSizeNum() * model.getThickness()) / 2d);
+
+		assertThat(view.showPoint.getChildren())
+			.filteredOn(n -> n instanceof Ellipse)
+			.allMatch(elt -> MathUtils.INST.equalsDouble(
+				((Ellipse) elt).getRadiusX(),
+				(model.getArrowAt(0).getDotSizeDim() + model.getArrowAt(0).getDotSizeNum() * model.getThickness()) / 2d));
 	}
 
 	@Test
@@ -158,7 +175,9 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		model.setShowPts(true);
 		model.setThickness(10d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertAllEquals(view.showPoint.getChildren().stream().filter(n -> n instanceof Line), elt -> ((Shape) elt).getStrokeWidth(), 5d);
+		assertThat(view.showPoint.getChildren())
+			.filteredOn(n -> n instanceof Line)
+			.allMatch(elt -> MathUtils.INST.equalsDouble(((Shape) elt).getStrokeWidth(), 5d));
 	}
 
 	@Test
@@ -168,14 +187,19 @@ public class TestViewBezierCurve extends TestViewBorderedShape<ViewBezierCurve, 
 		model.setDbleBordSep(12d);
 		model.setThickness(5d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertAllEquals(view.showPoint.getChildren().stream().filter(n -> n instanceof Line), elt -> ((Shape) elt).getStrokeWidth(), 11d);
+		assertThat(view.showPoint.getChildren())
+			.filteredOn(n -> n instanceof Line)
+			.allMatch(elt -> MathUtils.INST.equalsDouble(((Shape) elt).getStrokeWidth(), 11d));
 	}
 
 	@Test
 	void testShowPtsCtrlEllNoStroke() {
 		model.setShowPts(true);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertAllNull(view.showPoint.getChildren().stream().filter(n -> n instanceof Ellipse), elt -> ((Shape) elt).getStroke());
+		assertThat(view.showPoint.getChildren())
+			.filteredOn(n -> n instanceof Ellipse)
+			.extracting(n -> ((Shape) n).getStroke())
+			.containsOnlyNulls();
 	}
 
 	@Test
