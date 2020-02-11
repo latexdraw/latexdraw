@@ -270,7 +270,7 @@ class PointImpl implements Point {
 		if(!(obj instanceof Point)) {
 			return false;
 		}
-		return equals((Point) obj, 0.0000001);
+		return equals((Point) obj, 0.0001);
 	}
 
 	@Override
