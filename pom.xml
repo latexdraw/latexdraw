@@ -355,6 +355,11 @@
                     <testFailureIgnore>false</testFailureIgnore>
                     <useModulePath>false</useModulePath>
                     <argLine>@{argLine}
+                        --add-exports latexdraw/net.sf.latexdraw.data=ALL-UNNAMED
+                        --add-exports latexdraw/net.sf.latexdraw.view=ALL-UNNAMED
+                        --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                        --add-exports javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
+                        --add-opens javafx.graphics/com.sun.glass.ui=ALL-UNNAMED
                         -Xmx4000m
                         -Dglass.platform=Monocle
                         -Dheadless.geometry=1280x1024-32
