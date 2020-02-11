@@ -1,21 +1,21 @@
 package net.sf.latexdraw.model.api.shape;
 
-import net.sf.latexdraw.data.StringData;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(Theories.class)
 public class TestFreeHandType {
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetType(final FreeHandStyle style) {
 		assertEquals(style, FreeHandStyle.getType(style.toString()));
 	}
 
-	@Theory
-	public void testGetTypeKO(@StringData(vals = {"", "ds qoqs"}, withNull = true) final String value) {
+	@ParameterizedTest
+	@ValueSource(strings = {"", "ds qoqs"})
+	public void testGetTypeKO(final String value) {
 		assertEquals(FreeHandStyle.CURVES, FreeHandStyle.getType(value));
 	}
 }

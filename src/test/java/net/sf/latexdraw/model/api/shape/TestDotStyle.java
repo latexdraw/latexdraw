@@ -1,16 +1,14 @@
 package net.sf.latexdraw.model.api.shape;
 
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Theories.class)
 public class TestDotStyle {
 	@Test
 	public void testIsFillable() {
@@ -52,12 +50,14 @@ public class TestDotStyle {
 		assertEquals(DotStyle.X, DotStyle.getStyle(PSTricksConstants.X_STYLE));
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetStyleOKDotStyle(final DotStyle style) {
 		assertEquals(style, DotStyle.getStyle(style.toString()));
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetStyleOKDotStylePST(final DotStyle style) {
 		assertEquals(style, DotStyle.getStyle(style.getPSTToken()));
 	}

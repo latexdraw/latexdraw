@@ -1,16 +1,14 @@
 package net.sf.latexdraw.model.api.shape;
 
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Theories.class)
 public class TestPlottingStyle {
 	@Test
 	public void testIsX() {
@@ -42,12 +40,14 @@ public class TestPlottingStyle {
 		assertEquals(PlottingStyle.ALL, PlottingStyle.getStyle(""));
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetStyle(final PlottingStyle style) {
 		assertEquals(PlottingStyle.getStyle(style.toString()), style);
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetStylePST(final PlottingStyle style) {
 		assertEquals(PlottingStyle.getStyle(style.getPSTToken()), style);
 	}

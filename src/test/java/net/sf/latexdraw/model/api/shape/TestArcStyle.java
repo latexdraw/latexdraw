@@ -19,7 +19,7 @@ public class TestArcStyle {
 	}
 
 	@ParameterizedTest
-	@EnumSource(ArcStyle.class)
+	@EnumSource
 	void testGetLabel(final ArcStyle style) {
 		final ResourceBundle bundle = new PreferencesService().getBundle();
 		assertNotNull(style.getLabel(bundle));

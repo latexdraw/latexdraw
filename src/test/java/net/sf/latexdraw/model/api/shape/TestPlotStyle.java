@@ -1,13 +1,11 @@
 package net.sf.latexdraw.model.api.shape;
 
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(Theories.class)
 public class TestPlotStyle {
 	@Test
 	public void testGetPSTToken() {
@@ -34,7 +32,8 @@ public class TestPlotStyle {
 		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle("dfs@fgd"));
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetPlotStyleOK(final PlotStyle style) {
 		assertEquals(style, PlotStyle.getPlotStyle(style.getPSTToken()));
 	}

@@ -1,14 +1,12 @@
 package net.sf.latexdraw.model.api.shape;
 
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(Theories.class)
 public class TestLineStyle {
 	@Test
 	public void testGetLatexToken() {
@@ -23,12 +21,14 @@ public class TestLineStyle {
 		assertEquals(LineStyle.SOLID, LineStyle.getStyle(""));
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetStyle(final LineStyle style) {
 		assertEquals(style, LineStyle.getStyle(style.toString()));
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetStyleFromTeX(final LineStyle style) {
 		assertEquals(style, LineStyle.getStyle(style.getLatexToken()));
 	}

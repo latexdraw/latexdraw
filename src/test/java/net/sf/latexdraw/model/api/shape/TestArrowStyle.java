@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestArrowStyle {
 	@Test
@@ -31,7 +31,7 @@ public class TestArrowStyle {
 	}
 
 	@ParameterizedTest
-	@EnumSource(ArrowStyle.class)
+	@EnumSource
 	void testGetArrowStylePSTConst(final ArrowStyle style) {
 		assertEquals(style, ArrowStyle.getArrowStyle(style.getPSTToken()));
 	}
@@ -48,7 +48,7 @@ public class TestArrowStyle {
 	}
 
 	@ParameterizedTest
-	@EnumSource(ArrowStyle.class)
+	@EnumSource
 	void testGetArrowStyleArrowStyle(final ArrowStyle style) {
 		assertEquals(style, ArrowStyle.getArrowStyle(style.toString()));
 	}

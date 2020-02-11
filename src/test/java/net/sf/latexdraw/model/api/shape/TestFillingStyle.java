@@ -1,26 +1,26 @@
 package net.sf.latexdraw.model.api.shape;
 
 import net.sf.latexdraw.view.pst.PSTricksConstants;
-import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-@RunWith(Theories.class)
 public class TestFillingStyle {
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetFilledStyle(final FillingStyle style) {
 		assumeTrue(style.isFilled());
 		assertEquals(style, style.getFilledStyle());
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetUnfilledStyle(final FillingStyle style) {
 		assumeFalse(style.isFilled());
 		assertEquals(style, style.getUnfilledStyle());
@@ -47,7 +47,8 @@ public class TestFillingStyle {
 		assertTrue(FillingStyle.GRAD.isGradient());
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testIsGradientKO(final FillingStyle style) {
 		assumeTrue(style != FillingStyle.GRAD);
 		assertFalse(style.isGradient());
@@ -79,7 +80,8 @@ public class TestFillingStyle {
 		assertEquals(PSTricksConstants.TOKEN_FILL_VLINES_F, FillingStyle.VLINES_PLAIN.getLatexToken());
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetStyleFromLatexOK(final FillingStyle style) {
 		assertEquals(style, FillingStyle.getStyleFromLatex(style.getLatexToken()));
 	}
@@ -90,7 +92,8 @@ public class TestFillingStyle {
 		assertEquals(FillingStyle.NONE, FillingStyle.getStyleFromLatex(""));
 	}
 
-	@Theory
+	@ParameterizedTest
+	@EnumSource
 	public void testGetStyle(final FillingStyle style) {
 		assertEquals(style, FillingStyle.getStyle(style.toString()));
 	}

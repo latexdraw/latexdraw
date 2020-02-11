@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestAxesStyle {
 	@Test
@@ -28,7 +28,7 @@ public class TestAxesStyle {
 	}
 
 	@ParameterizedTest
-	@EnumSource(AxesStyle.class)
+	@EnumSource
 	void testGetStylePSTConst(final AxesStyle style) {
 		assertEquals(AxesStyle.getStyle(style.getPSTToken()), style);
 	}
@@ -40,13 +40,13 @@ public class TestAxesStyle {
 	}
 
 	@ParameterizedTest
-	@EnumSource(AxesStyle.class)
+	@EnumSource
 	void testGetStyleAxesStyle(final AxesStyle style) {
 		assertEquals(AxesStyle.getStyle(style.name()), style);
 	}
 
 	@ParameterizedTest
-	@EnumSource(AxesStyle.class)
+	@EnumSource
 	void testGetLabel(final AxesStyle style) {
 		final ResourceBundle lang = new PreferencesService().getBundle();
 		assertNotNull(style.getLabel(lang));

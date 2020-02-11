@@ -13,7 +13,7 @@
         <interacto.version>4.0</interacto.version>
         <antlr.version>4.7.1</antlr.version>
         <java.version>11</java.version>
-        <junit.version>5.5.2</junit.version>
+        <junit.version>5.6.0</junit.version>
         <jfx.version>11.0.2</jfx.version>
         <testfx.version>4.0.15-alpha</testfx.version>
         <mockito.version>3.2.4</mockito.version>
