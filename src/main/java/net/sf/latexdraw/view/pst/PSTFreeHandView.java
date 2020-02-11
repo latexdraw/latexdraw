@@ -122,7 +122,7 @@ public class PSTFreeHandView extends PSTClassicalView<Freehand> {
 			coord.append(',').append(MathUtils.INST.getCutNumberFloat((originy - p.getY()) / ppc)).append(')').append('\n');
 		}
 
-		if(i - interval < size) {
+		if(size % interval > 0) {
 			coord.append("\\lineto(").append(MathUtils.INST.getCutNumberFloat((pts.get(pts.size() - 1).getX() - originx) / ppc)).append(//NON-NLS
 				',').append(MathUtils.INST.getCutNumberFloat((originy - pts.get(pts.size() - 1).getY()) / ppc)).append(')').append('\n');
 		}
