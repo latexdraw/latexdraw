@@ -150,6 +150,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		final Picture picture = ShapeFactory.INST.createPicture(ShapeFactory.INST.createPoint());
 		try {
 			picture.setPathSource(ctx.path.getText());
+			picture.translate(-picture.getImage().getWidth() / 2d, -picture.getImage().getHeight() / 2d);
 			shapes.getLast().addShape(picture);
 		}catch(final IllegalArgumentException ex) {
 			log.log(Level.SEVERE, "Cannot load the picture with the path: " + ctx.path.getText());
