@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <interacto.version>4.0</interacto.version>
+        <interacto.version>4.1-SNAPSHOT</interacto.version>
         <antlr.version>4.7.1</antlr.version>
         <java.version>11</java.version>
         <junit.version>5.6.0</junit.version>
@@ -599,6 +599,12 @@
             <groupId>com.codepoetics</groupId>
             <artifactId>protonpack</artifactId>
             <version>1.15</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.interacto</groupId>
+            <artifactId>interacto-javafx-test</artifactId>
+            <version>${interacto.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
