@@ -209,6 +209,7 @@ public class Hand extends CanvasInstrument implements Flushable {
 				final Point startPt = grid.getTransformedPointToGrid(i.getSrcScenePoint());
 				final Point endPt = grid.getTransformedPointToGrid(i.getTgtScenePoint());
 				c.setT(endPt.getX() - startPt.getX(), endPt.getY() - startPt.getY());
+				canvas.update();
 			})
 			.when(i -> i.getButton() == MouseButton.PRIMARY && !canvas.getDrawing().getSelection().isEmpty())
 			.continuousExecution()
