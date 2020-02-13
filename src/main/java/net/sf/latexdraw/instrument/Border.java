@@ -190,14 +190,17 @@ public class Border extends CanvasInstrument implements Initializable {
 			.toProduce(i -> new MovePointShape((ModifiablePointsShape) canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow(),
 				i.getSrcObject().filter(o -> o instanceof MovePtHandler).map(o -> ((MovePtHandler) o).getPoint()).orElseThrow()))
 			.on(mvPtHandlers)
-			.then((i, c) -> i.getSrcObject().ifPresent(node -> {
-				final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
-				final Point3D endPt = node.localToParent(i.getTgtLocalPoint());
-				final Point ptToMove = ((MovePtHandler) node).getPoint();
-				final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
-				final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
-				c.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
-			}))
+			.then((i, c) -> {
+				i.getSrcObject().ifPresent(node -> {
+					final Point3D startPt = node.localToParent(i.getSrcLocalPoint());
+					final Point3D endPt = node.localToParent(i.getTgtLocalPoint());
+					final Point ptToMove = ((MovePtHandler) node).getPoint();
+					final double x = ptToMove.getX() + endPt.getX() - startPt.getX();
+					final double y = ptToMove.getY() + endPt.getY() - startPt.getY();
+					c.setNewCoord(grid.getTransformedPointToGrid(new Point3D(x, y, 0d)));
+				});
+				canvas.update();
+			})
 			.continuousExecution()
 			.when(i -> i.getSrcLocalPoint() != null && i.getTgtLocalPoint() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler &&
 				canvas.getDrawing().getSelection().size() == 1 && canvas.getDrawing().getSelection().getShapeAt(0).filter(s -> s instanceof ModifiablePointsShape).isPresent())
@@ -235,9 +238,12 @@ public class Border extends CanvasInstrument implements Initializable {
 			.toProduce(() -> new RotateShapes(canvas.getDrawing().getSelection().getGravityCentre().add(canvas.getOrigin()),
 				canvas.getDrawing().getSelection().duplicateDeep(false), 0d))
 			.on(rotHandler)
-			.then((i, c) -> c.setRotationAngle(c.getGc().computeRotationAngle(
-				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getSrcScenePoint())),
-				ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getTgtScenePoint())))))
+			.then((i, c) -> {
+				c.setRotationAngle(c.getGc().computeRotationAngle(
+					ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getSrcScenePoint())),
+					ShapeFactory.INST.createPoint(canvas.sceneToLocal(i.getTgtScenePoint()))));
+				canvas.update();
+			})
 			.continuousExecution()
 			.bind();
 
@@ -250,18 +256,20 @@ public class Border extends CanvasInstrument implements Initializable {
 			.toProduce(i -> new ModifyShapeProperty<>(i.getSrcObject().orElse(null) == arcHandlerStart ?
 				ShapeProperties.ARC_START_ANGLE : ShapeProperties.ARC_END_ANGLE, canvas.getDrawing().getSelection().duplicateDeep(false), null))
 			.on(arcHandlerStart, arcHandlerEnd)
-			.then((i, c) -> canvas.getDrawing().getSelection().getShapeAt(0).map(s -> (Arc) s)
-				.ifPresent(shape -> {
-					final Point gc = c.getShapes().getGravityCentre();
-					final Point gap = ShapeFactory.INST.createPoint(i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(null)).
-						rotatePoint(shape.getGravityCentre(), -shape.getRotationAngle()).
-						substract(i.getSrcObject().orElse(null) == arcHandlerStart ? shape.getStartPoint() : shape.getEndPoint());
-					final Point position = ShapeFactory.INST.createPoint(i.getSrcObject().map(n -> n.localToParent(i.getTgtLocalPoint())).orElse(null)).
-						rotatePoint(c.getShapes().getGravityCentre(), -c.getShapes().getRotationAngle()).
-						substract(gap);
-					final double angle = Math.acos((position.getX() - gc.getX()) / position.distance(gc));
-					c.setValue(position.getY() > gc.getY() ? 2d * Math.PI - angle : angle);
-				})
+			.then((i, c) -> {
+					canvas.getDrawing().getSelection().getShapeAt(0).map(s -> (Arc) s).ifPresent(shape -> {
+						final Point gc = c.getShapes().getGravityCentre();
+						final Point gap = ShapeFactory.INST.createPoint(i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(null)).
+							rotatePoint(shape.getGravityCentre(), -shape.getRotationAngle()).
+							substract(i.getSrcObject().orElse(null) == arcHandlerStart ? shape.getStartPoint() : shape.getEndPoint());
+						final Point position = ShapeFactory.INST.createPoint(i.getSrcObject().map(n -> n.localToParent(i.getTgtLocalPoint())).orElse(null)).
+							rotatePoint(c.getShapes().getGravityCentre(), -c.getShapes().getRotationAngle()).
+							substract(gap);
+						final double angle = Math.acos((position.getX() - gc.getX()) / position.distance(gc));
+						c.setValue(position.getY() > gc.getY() ? 2d * Math.PI - angle : angle);
+					});
+					canvas.update();
+				}
 			)
 			.when(i -> i.getSrcObject().isPresent() && i.getSrcLocalPoint() != null && i.getTgtLocalPoint() != null && canvas.getDrawing().getSelection().size() == 1)
 			.continuousExecution()
@@ -378,6 +386,7 @@ public class Border extends CanvasInstrument implements Initializable {
 					cmd.setNewX(pt.getX() + xGap);
 				}
 			}
+			canvas.update();
 		}
 
 		@Override
