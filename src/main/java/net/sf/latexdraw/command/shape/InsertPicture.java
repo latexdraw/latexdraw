@@ -54,18 +54,12 @@ public class InsertPicture extends AddShape {
 	}
 
 	@Override
-	public void redo() {
-		drawing.addShape(shape);
-		drawing.setModified(true);
-	}
-
-	@Override
 	public boolean hadEffect() {
 		return loaded && super.hadEffect();
 	}
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && shape instanceof Picture;
+		return shape instanceof Picture;
 	}
 }

@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 public class AddShape extends ShapeCmdImpl<Shape> implements Undoable, Modifying {
 	/** The drawing that will be handled by the command. */
 	protected final @NotNull Drawing drawing;
+	private boolean mementoModified;
 
 	public AddShape(final @NotNull Shape sh, final @NotNull Drawing dr) {
 		super(sh);
@@ -33,8 +34,8 @@ public class AddShape extends ShapeCmdImpl<Shape> implements Undoable, Modifying
 
 	@Override
 	protected void doCmdBody() {
-		drawing.addShape(shape);
-		drawing.setModified(true);
+		mementoModified = drawing.isModified();
+		redo();
 	}
 
 	@Override
@@ -44,12 +45,13 @@ public class AddShape extends ShapeCmdImpl<Shape> implements Undoable, Modifying
 
 	@Override
 	public void redo() {
-		doCmdBody();
+		drawing.addShape(shape);
+		drawing.setModified(true);
 	}
 
 	@Override
 	public void undo() {
 		drawing.removeShape(shape);
-		drawing.setModified(true);
+		drawing.setModified(mementoModified);
 	}
 }

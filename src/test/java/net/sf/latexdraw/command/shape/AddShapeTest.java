@@ -40,6 +40,7 @@ class AddShapeTest extends UndoableCmdTest<AddShape> {
 		return () -> {
 			assertThat(drawing.contains(shape)).isTrue();
 			assertThat(drawing.size()).isEqualTo(1);
+			assertThat(drawing.isModified()).isTrue();
 		};
 	}
 
@@ -48,6 +49,7 @@ class AddShapeTest extends UndoableCmdTest<AddShape> {
 		return () -> {
 			assertThat(drawing.contains(shape)).isFalse();
 			assertThat(drawing.isEmpty()).isTrue();
+			assertThat(drawing.isModified()).isFalse();
 		};
 	}
 
