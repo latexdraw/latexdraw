@@ -26,11 +26,17 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 	/** True: it is a first control point which is moved. */
 	private final boolean isFirstCtrlPt;
+	private boolean mementoModified;
 
 	public MoveCtrlPoint(final @NotNull ControlPointShape sh, final @NotNull Point coord, final boolean firstCtrl) {
 		super(coord);
 		shape = sh;
 		isFirstCtrlPt = firstCtrl;
+	}
+
+	@Override
+	protected void createMemento() {
+		mementoModified = shape.isModified();
 	}
 
 	@Override
@@ -70,6 +76,8 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 		}else {
 			move(point.centralSymmetry(shape.getPtAt(getIndexCtrlPt())), point);
 		}
+
+		shape.setModified(mementoModified);
 	}
 
 	@Override
