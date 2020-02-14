@@ -11,12 +11,10 @@
 package net.sf.latexdraw.command.shape;
 
 import io.github.interacto.undo.Undoable;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.api.shape.Drawing;
@@ -37,11 +35,17 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<Group> implements Und
 	private int[] formerId;
 	/** The shapes sorted by their position. */
 	private List<Shape> sortedSh;
+	private boolean mementoModified;
 
 	public MoveBackForegroundShapes(final @NotNull Group gp, final boolean foreground, final @NotNull Drawing drawing) {
 		super(gp);
 		this.drawing = drawing;
 		this.foreground = foreground;
+	}
+
+	@Override
+	protected void createMemento() {
+		mementoModified = drawing.isModified();
 	}
 
 	@Override
@@ -53,16 +57,21 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<Group> implements Und
 		}
 	}
 
-	/** Puts the shapes in the foreground. */
-	private void moveForeground() {
+	private void prepareMove() {
 		final int size = shape.size();
 		formerId = new int[size];
 		final List<Shape> drshapes = drawing.getShapes();
-		sortedSh = shape.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
+		sortedSh = shape.getShapes().stream().sorted(Comparator.comparingInt(sh -> drshapes.indexOf(sh))).collect(Collectors.toList());
+	}
+
+	/** Puts the shapes in the foreground. */
+	private void moveForeground() {
+		final int size = shape.size();
+		prepareMove();
 
 		for(int i = 0; i < size; i++) {
 			final Shape sh = sortedSh.get(i);
-			formerId[i] = drshapes.indexOf(sh);
+			formerId[i] = drawing.getShapes().indexOf(sh);
 			drawing.removeShape(sh);
 			drawing.addShape(sh);
 		}
@@ -73,13 +82,11 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<Group> implements Und
 	/** Puts the shapes in the background. */
 	private void moveBackground() {
 		final int size = shape.size();
-		formerId = new int[size];
-		final List<Shape> drshapes = drawing.getShapes();
-		sortedSh = shape.getShapes().stream().sorted((a, b) -> drshapes.indexOf(a) < drshapes.indexOf(b) ? -1 : 1).collect(Collectors.toList());
+		prepareMove();
 
 		for(int i = size - 1; i >= 0; i--) {
 			final Shape sh = sortedSh.get(i);
-			formerId[i] = drshapes.indexOf(sh);
+			formerId[i] = drawing.getShapes().indexOf(sh);
 			drawing.removeShape(sh);
 			drawing.addShape(sh, 0);
 		}
@@ -94,22 +101,18 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<Group> implements Und
 	@Override
 	public void undo() {
 		if(foreground) {
-			final IntegerProperty i = new SimpleIntegerProperty(formerId.length - 1);
-			sortedSh.stream().sorted(Collections.reverseOrder()).forEach(sh -> {
-				drawing.removeShape(sh);
-				drawing.addShape(sh, formerId[i.get()]);
-				i.set(i.get() - 1);
-			});
+			for(int i = formerId.length - 1; i >= 0; i--) {
+				drawing.removeShape(sortedSh.get(i));
+				drawing.addShape(sortedSh.get(i), formerId[i]);
+			}
 		}else {
-			final IntegerProperty i = new SimpleIntegerProperty(0);
-			sortedSh.forEach(sh -> {
-				drawing.removeShape(sh);
-				drawing.addShape(sh, formerId[i.get()]);
-				i.set(i.get() + 1);
-			});
+			for(int i = 0, size = sortedSh.size(); i < size; i++) {
+				drawing.removeShape(sortedSh.get(i));
+				drawing.addShape(sortedSh.get(i), formerId[i]);
+			}
 		}
 
-		drawing.setModified(true);
+		drawing.setModified(mementoModified);
 	}
 
 	@Override
