@@ -8,7 +8,6 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Picture;
 import net.sf.latexdraw.service.PreferencesService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.mockito.Mockito;
@@ -82,11 +81,11 @@ class InsertPictureTest extends UndoableCmdTest<InsertPicture> {
 		};
 	}
 
-	@AfterEach
-	void tearDownInsertPictureTest() {
-		fileChooser = null;
-		drawing = null;
-		shape = null;
-		file = null;
-	}
+//	@AfterEach
+//	void tearDownInsertPictureTest() {
+//		fileChooser = null;
+//		drawing = null;
+//		shape = null;
+//		file = null;
+//	}
 }

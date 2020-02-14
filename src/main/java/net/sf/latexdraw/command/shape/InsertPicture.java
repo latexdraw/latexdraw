@@ -49,7 +49,7 @@ public class InsertPicture extends AddShape {
 		}
 
 		if(loaded) {
-			redo();
+			super.redo();
 		}
 	}
 
@@ -61,5 +61,19 @@ public class InsertPicture extends AddShape {
 	@Override
 	public boolean canDo() {
 		return shape instanceof Picture;
+	}
+
+	@Override
+	public void redo() {
+		if(hadEffect()) {
+			super.redo();
+		}
+	}
+
+	@Override
+	public void undo() {
+		if(hadEffect()) {
+			super.undo();
+		}
 	}
 }
