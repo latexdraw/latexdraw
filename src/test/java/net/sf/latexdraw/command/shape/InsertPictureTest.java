@@ -21,7 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("command")
 class InsertPictureTest extends UndoableCmdTest<InsertPicture> {
 	FileChooser fileChooser;
-	boolean loaded;
 	Drawing drawing;
 	Picture shape;
 	File file;
@@ -85,9 +84,9 @@ class InsertPictureTest extends UndoableCmdTest<InsertPicture> {
 
 	@AfterEach
 	void tearDownInsertPictureTest() {
-		this.fileChooser = null;
-		this.loaded = false;
-		this.drawing = null;
-		this.shape = null;
+		fileChooser = null;
+		drawing = null;
+		shape = null;
+		file = null;
 	}
 }

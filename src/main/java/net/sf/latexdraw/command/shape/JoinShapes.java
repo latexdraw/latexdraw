@@ -12,6 +12,7 @@ package net.sf.latexdraw.command.shape;
 
 import io.github.interacto.undo.Undoable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -34,6 +35,8 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 	private final @NotNull Group addedGroup;
 	/** The shapes to handle. */
 	private final @NotNull List<Shape> shapes;
+	private Map<Shape, Integer> mementoIndexes;
+	private boolean mementoModified;
 
 	public JoinShapes(final @NotNull Drawing theDrawing) {
 		super(theDrawing);
@@ -43,7 +46,9 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 
 	@Override
 	protected void doCmdBody() {
-		joinShapes();
+		mementoModified = drawing.isModified();
+		mementoIndexes = shapes.stream().collect(Collectors.toMap(sh -> sh, sh -> drawing.getShapes().indexOf(sh)));
+		redo();
 	}
 
 	@Override
@@ -51,31 +56,29 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 		return !shapes.isEmpty();
 	}
 
-	private void joinShapes() {
-		final List<Shape> drawingSh = drawing.getShapes();
-		shapes.stream().sorted((s1, s2) -> drawingSh.indexOf(s1) < drawingSh.indexOf(s2) ? -1 : 1).forEach(sh -> {
+	@Override
+	public void undo() {
+		drawing.removeShape(addedGroup);
+		addedGroup.clear();
+
+		mementoIndexes
+			.entrySet()
+			.stream()
+			.sorted(Comparator.comparingInt(entry -> entry.getValue()))
+			.forEach(sh -> drawing.addShape(sh.getKey(), sh.getValue()));
+
+		drawing.setModified(mementoModified);
+	}
+
+	@Override
+	public void redo() {
+		shapes.stream().sorted(Comparator.comparingInt(sh -> drawing.getShapes().indexOf(sh))).forEach(sh -> {
 			drawing.removeShape(sh);
 			addedGroup.addShape(sh);
 		});
 
 		drawing.addShape(addedGroup);
 		drawing.setModified(true);
-	}
-
-	@Override
-	public void undo() {
-		final List<Shape> drawingSh = drawing.getShapes();
-		final Map<Shape, Integer> map = shapes.stream().collect(Collectors.toMap(sh -> sh, drawingSh::indexOf));
-
-		drawing.removeShape(addedGroup);
-		addedGroup.getShapes().forEach(sh -> drawing.addShape(sh, map.get(sh)));
-		addedGroup.clear();
-		drawing.setModified(true);
-	}
-
-	@Override
-	public void redo() {
-		joinShapes();
 	}
 
 	@Override
