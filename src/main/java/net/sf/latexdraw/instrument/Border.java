@@ -257,20 +257,19 @@ public class Border extends CanvasInstrument implements Initializable {
 				ShapeProperties.ARC_START_ANGLE : ShapeProperties.ARC_END_ANGLE, canvas.getDrawing().getSelection().duplicateDeep(false), null))
 			.on(arcHandlerStart, arcHandlerEnd)
 			.then((i, c) -> {
-					canvas.getDrawing().getSelection().getShapeAt(0).map(s -> (Arc) s).ifPresent(shape -> {
-						final Point gc = c.getShapes().getGravityCentre();
-						final Point gap = ShapeFactory.INST.createPoint(i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(null)).
-							rotatePoint(shape.getGravityCentre(), -shape.getRotationAngle()).
-							substract(i.getSrcObject().orElse(null) == arcHandlerStart ? shape.getStartPoint() : shape.getEndPoint());
-						final Point position = ShapeFactory.INST.createPoint(i.getSrcObject().map(n -> n.localToParent(i.getTgtLocalPoint())).orElse(null)).
-							rotatePoint(c.getShapes().getGravityCentre(), -c.getShapes().getRotationAngle()).
-							substract(gap);
-						final double angle = Math.acos((position.getX() - gc.getX()) / position.distance(gc));
-						c.setValue(position.getY() > gc.getY() ? 2d * Math.PI - angle : angle);
-					});
-					canvas.update();
-				}
-			)
+				canvas.getDrawing().getSelection().getShapeAt(0).map(s -> (Arc) s).ifPresent(shape -> {
+					final Point gc = c.getShapes().getGravityCentre();
+					final Point gap = ShapeFactory.INST.createPoint(i.getSrcObject().map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(null)).
+						rotatePoint(shape.getGravityCentre(), -shape.getRotationAngle()).
+						substract(i.getSrcObject().orElse(null) == arcHandlerStart ? shape.getStartPoint() : shape.getEndPoint());
+					final Point position = ShapeFactory.INST.createPoint(i.getSrcObject().map(n -> n.localToParent(i.getTgtLocalPoint())).orElse(null)).
+						rotatePoint(c.getShapes().getGravityCentre(), -c.getShapes().getRotationAngle()).
+						substract(gap);
+					final double angle = Math.acos((position.getX() - gc.getX()) / position.distance(gc));
+					c.setValue(position.getY() > gc.getY() ? 2d * Math.PI - angle : angle);
+				});
+				canvas.update();
+			})
 			.when(i -> i.getSrcObject().isPresent() && i.getSrcLocalPoint() != null && i.getTgtLocalPoint() != null && canvas.getDrawing().getSelection().size() == 1)
 			.continuousExecution()
 			.bind();
