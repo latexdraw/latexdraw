@@ -53,6 +53,7 @@ import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.MagneticGrid;
+import net.sf.latexdraw.view.jfx.ViewGroup;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewShape;
 import net.sf.latexdraw.view.jfx.ViewText;
@@ -248,26 +249,34 @@ public class Hand extends CanvasInstrument implements Flushable {
 			return null;
 		}
 
-		ViewShape<?> parent = view;
-		while(parent.getUserData() instanceof ViewShape) {
-			parent = (ViewShape<?>) parent.getUserData();
+		// Checking whether the shape is not part of another shape
+		ViewShape<?> currView = view;
+
+		while(currView.getUserData() instanceof ViewShape) {
+			currView = (ViewShape<?>) currView.getUserData();
 		}
 
-		return parent;
+		// Checking whether the shape is not part of a group
+		Node parent = currView;
+		while(parent.getParent() != null && !(parent.getParent() instanceof ViewGroup)) {
+			parent = parent.getParent();
+		}
+
+		if(parent.getParent() instanceof ViewGroup) {
+			return (ViewShape<?>) parent.getParent();
+		}
+
+		return currView;
 	}
 
 	private static Optional<ViewShape<?>> getViewShape(final Optional<Node> node) {
-		if(node.isPresent()) {
-			final Node value = node.get();
-			Node parent = value.getParent();
-
+		return node.map(n -> {
+			Node parent = n.getParent();
 			while(parent != null && !(parent instanceof ViewShape<?>)) {
 				parent = parent.getParent();
 			}
-
-			return Optional.ofNullable(getRealViewShape((ViewShape<?>) parent));
-		}
-		return Optional.empty();
+			return getRealViewShape((ViewShape<?>) parent);
+		});
 	}
 
 	@Override

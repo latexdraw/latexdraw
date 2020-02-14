@@ -3,6 +3,7 @@ package net.sf.latexdraw.instrument;
 import java.lang.reflect.InvocationTargetException;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
+import javafx.scene.Group;
 import javafx.scene.control.Spinner;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -12,6 +13,7 @@ import net.sf.latexdraw.service.EditingService;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.ViewArrow;
+import net.sf.latexdraw.view.jfx.ViewGroup;
 import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewPolyline;
 import net.sf.latexdraw.view.jfx.ViewText;
@@ -296,5 +298,14 @@ public class TestCanvasSelection extends BaseTestCanvas {
 
 		assertEquals(1, canvas.getDrawing().size());
 		assertEquals(1, canvas.getViews().getChildren().size());
+	}
+
+	@Test
+	public void testClickGroupOfShapesSelectTheGroup() {
+		Cmds.of(addGroup, () -> rightClickOn(
+			((Group) ((ViewGroup) canvas.getViews().getChildren().get(0)).getChildren().get(0)).getChildren().get(0)))
+			.execute();
+		assertEquals(1, canvas.getDrawing().getSelection().size());
+		assertSame(addedGroup, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 }

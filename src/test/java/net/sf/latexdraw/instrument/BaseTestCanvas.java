@@ -45,6 +45,8 @@ abstract class BaseTestCanvas extends TestLatexdrawGUI {
 	final CmdFXVoid addGroup = () -> {
 		final Rectangle r1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 50, -Canvas.ORIGIN.getY() + 50), 200, 100);
 		final Rectangle r2 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(-Canvas.ORIGIN.getX() + 300, -Canvas.ORIGIN.getY() + 300), 100, 100);
+		r1.setFilled(true);
+		r2.setFilled(true);
 		addedGroup = ShapeFactory.INST.createGroup();
 		addedGroup.addShape(r1);
 		addedGroup.addShape(r2);
