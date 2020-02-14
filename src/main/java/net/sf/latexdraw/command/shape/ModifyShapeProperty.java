@@ -76,6 +76,6 @@ public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoa
 
 	@Override
 	protected boolean isPropertySupported() {
-		return super.isPropertySupported() && property.accept(shapes);
+		return property.accept(shapes);
 	}
 }

@@ -45,9 +45,13 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 	}
 
 	@Override
-	protected void doCmdBody() {
+	protected void createMemento() {
 		mementoModified = drawing.isModified();
 		mementoIndexes = shapes.stream().collect(Collectors.toMap(sh -> sh, sh -> drawing.getShapes().indexOf(sh)));
+	}
+
+	@Override
+	protected void doCmdBody() {
 		redo();
 	}
 

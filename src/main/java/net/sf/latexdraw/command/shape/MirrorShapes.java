@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 public class MirrorShapes extends ShapeCmdImpl<Shape> implements Undoable, Modifying {
 	/** If true, the mirroring is horizontal. */
 	private final boolean horizontally;
+	private boolean mementoModified;
 
 
 	public MirrorShapes(final boolean horizontally, final @NotNull Shape sh) {
@@ -32,18 +33,28 @@ public class MirrorShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	}
 
 	@Override
-	protected void doCmdBody() {
+	protected void createMemento() {
+		mementoModified = shape.isModified();
+	}
+
+	private void doMirror() {
 		if(horizontally) {
 			shape.mirrorHorizontal(shape.getGravityCentre().getX());
 		}else {
 			shape.mirrorVertical(shape.getGravityCentre().getY());
 		}
+	}
+
+	@Override
+	protected void doCmdBody() {
+		doMirror();
 		shape.setModified(true);
 	}
 
 	@Override
 	public void undo() {
-		doCmdBody();
+		doMirror();
+		shape.setModified(mementoModified);
 	}
 
 	@Override
@@ -52,7 +63,7 @@ public class MirrorShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	}
 
 	@Override
-	public @NotNull  String getUndoName(final @NotNull ResourceBundle bundle) {
+	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("Actions.7");
 	}
 }
