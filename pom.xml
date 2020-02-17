@@ -558,12 +558,6 @@
             <groupId>io.github.interacto</groupId>
             <artifactId>interacto-javafx</artifactId>
             <version>${interacto.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.openjfx</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
