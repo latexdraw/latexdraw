@@ -86,14 +86,14 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 		// menu to paste shapes.
 		baseMenuBinder
-			.toProduce(() -> new PasteShapes(getCopyCutCmd(), prefs, canvas.getDrawing()))
+			.toProduce(() -> new PasteShapes(getCopyCutCmd().orElseThrow(), prefs, canvas.getDrawing()))
 			.on(pasteMenu)
 			.when(() -> getCopyCutCmd().isPresent())
 			.bind();
 
 		// Key shortcut ctrl+V to paste shapes.
 		baseShortcutBinder
-			.toProduce(() -> new PasteShapes(getCopyCutCmd(), prefs, canvas.getDrawing()))
+			.toProduce(() -> new PasteShapes(getCopyCutCmd().orElseThrow(), prefs, canvas.getDrawing()))
 			.on(canvas)
 			.with(KeyCode.V, SystemUtils.getInstance().getControlKey())
 			.when(() -> getCopyCutCmd().isPresent())
@@ -101,14 +101,14 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 		// menu to copy shapes.
 		baseMenuBinder
-			.toProduce(() -> new CopyShapes(getSelectCmd()))
+			.toProduce(() -> new CopyShapes(getSelectCmd().orElseThrow()))
 			.on(copyMenu)
 			.when(() -> isShapeSelected.get())
 			.bind();
 
 		// Key shortcut ctrl+C to copy shapes.
 		baseShortcutBinder
-			.toProduce(i -> new CopyShapes(getSelectCmd()))
+			.toProduce(i -> new CopyShapes(getSelectCmd().orElseThrow()))
 			.on(canvas)
 			.with(KeyCode.C, SystemUtils.getInstance().getControlKey())
 			.when(() -> isShapeSelected.get())
@@ -116,14 +116,14 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 
 		// menu to cut shapes.
 		baseMenuBinder
-			.toProduce(() -> new CutShapes(getSelectCmd()))
+			.toProduce(() -> new CutShapes(getSelectCmd().orElseThrow()))
 			.on(cutMenu)
 			.when(() -> isShapeSelected.get())
 			.bind();
 
 		// Key shortcut ctrl+X to cut shapes.
 		baseShortcutBinder
-			.toProduce(() -> new CutShapes(getSelectCmd()))
+			.toProduce(() -> new CutShapes(getSelectCmd().orElseThrow()))
 			.on(canvas)
 			.with(KeyCode.X, SystemUtils.getInstance().getControlKey())
 			.when(() -> isShapeSelected.get())

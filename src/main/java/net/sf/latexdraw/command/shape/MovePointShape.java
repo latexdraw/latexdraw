@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 public class MovePointShape extends MovePoint implements Undoable {
 	/** The shape to modify. */
 	private final @NotNull ModifiablePointsShape shape;
+	private boolean mementoModified;
 
 	public MovePointShape(final @NotNull ModifiablePointsShape shape, final @NotNull Point coord) {
 		super(coord);
@@ -30,10 +31,19 @@ public class MovePointShape extends MovePoint implements Undoable {
 	}
 
 	@Override
-	protected void doCmdBody() {
+	protected void createMemento() {
+		mementoModified = shape.isModified();
 		tx += newCoord.getX() - point.getX();
 		ty += newCoord.getY() - point.getY();
-		redo();
+	}
+
+	@Override
+	protected void doCmdBody() {
+		final int index = shape.getPoints().indexOf(point);
+		if(index != -1) {
+			shape.setPoint(newCoord.getX(), newCoord.getY(), index);
+			shape.setModified(true);
+		}
 	}
 
 	@Override
@@ -47,17 +57,13 @@ public class MovePointShape extends MovePoint implements Undoable {
 		if(index != -1) {
 			// Must use setPoint since other attributes of the shape may depend on the point (e.g. control points).
 			shape.setPoint(point.getX() - tx, point.getY() - ty, index);
-			shape.setModified(true);
+			shape.setModified(mementoModified);
 		}
 	}
 
 	@Override
 	public void redo() {
-		final int index = shape.getPoints().indexOf(point);
-		if(index != -1) {
-			shape.setPoint(newCoord.getX(), newCoord.getY(), index);
-			shape.setModified(true);
-		}
+		doCmdBody();
 	}
 
 	@Override

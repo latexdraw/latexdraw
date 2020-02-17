@@ -8,7 +8,6 @@ import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.PreferencesService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -92,11 +91,5 @@ class JoinShapesTest extends UndoableCmdTest<JoinShapes> {
 	void testGetShapes(final Runnable doConfig) {
 		doConfig.run();
 		assertThat(cmd.getShapes()).isEqualTo(shapes);
-	}
-
-	@AfterEach
-	void tearDownJoinShapesTest() {
-		shapes = null;
-		drawing = null;
 	}
 }

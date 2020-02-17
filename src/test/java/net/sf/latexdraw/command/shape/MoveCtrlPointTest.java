@@ -51,13 +51,12 @@ class MoveCtrlPointTest extends UndoableCmdTest<MoveCtrlPoint> {
 
 	@Override
 	protected Stream<Runnable> cannotDoFixtures() {
-		return Stream.of(() -> {
-			cmd = new MoveCtrlPoint(ShapeFactory.INST.createBezierCurve(List.of(ShapeFactory.INST.createPoint())),
-				ShapeFactory.INST.createPoint(1, 2), true);
-		}, () -> {
-			cmd = new MoveCtrlPoint(ShapeFactory.INST.createBezierCurve(List.of(ShapeFactory.INST.createPoint())),
-				ShapeFactory.INST.createPoint(1, 2), false);
-		}, () -> {
+		return Stream.of(
+			() -> cmd = new MoveCtrlPoint(ShapeFactory.INST.createBezierCurve(
+				List.of(ShapeFactory.INST.createPoint())), ShapeFactory.INST.createPoint(1, 2), true),
+			() -> cmd = new MoveCtrlPoint(ShapeFactory.INST.createBezierCurve(
+				List.of(ShapeFactory.INST.createPoint())), ShapeFactory.INST.createPoint(1, 2), false),
+			() -> {
 			fixtureShape();
 			point = shape.getFirstCtrlPtAt(1);
 			cmd = new MoveCtrlPoint(shape, point, true);

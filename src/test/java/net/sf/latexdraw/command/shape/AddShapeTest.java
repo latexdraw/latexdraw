@@ -6,7 +6,6 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.PreferencesService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.mockito.Mockito;
@@ -51,11 +50,5 @@ class AddShapeTest extends UndoableCmdTest<AddShape> {
 			assertThat(drawing.isEmpty()).isTrue();
 			assertThat(drawing.isModified()).isFalse();
 		};
-	}
-
-	@AfterEach
-	void tearDownAddShapeTest() {
-		this.drawing = null;
-		this.shape = null;
 	}
 }

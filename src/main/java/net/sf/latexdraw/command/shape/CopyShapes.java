@@ -13,7 +13,6 @@ package net.sf.latexdraw.command.shape;
 import io.github.interacto.command.Command;
 import io.github.interacto.command.CommandImpl;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Shape;
@@ -25,13 +24,13 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CopyShapes extends CommandImpl {
 	/** The selection command. */
-	protected final @NotNull Optional<SelectShapes> selection;
+	protected final @NotNull SelectShapes selection;
 	/** The copied shapes from the selection. */
 	protected List<Shape> copiedShapes;
 	/** The number of times that the shapes have been copied. Use to compute the gap while pasting. */
 	protected int nbTimeCopied;
 
-	public CopyShapes(final @NotNull Optional<SelectShapes> selection) {
+	public CopyShapes(final @NotNull SelectShapes selection) {
 		super();
 		this.selection = selection;
 		nbTimeCopied = 0;
@@ -39,8 +38,13 @@ public class CopyShapes extends CommandImpl {
 
 	@Override
 	protected void doCmdBody() {
-		copiedShapes = selection.map(sel -> sel.getShapes().stream().map(ShapeFactory.INST::duplicate).filter(s -> s.isPresent()).
-			map(s -> s.get()).collect(Collectors.toList())).orElse(null);
+		copiedShapes = selection
+			.getShapes()
+			.stream()
+			.map(ShapeFactory.INST::duplicate)
+			.filter(s -> s.isPresent())
+			.map(s -> s.get())
+			.collect(Collectors.toList());
 	}
 
 	@Override
@@ -50,12 +54,12 @@ public class CopyShapes extends CommandImpl {
 
 	@Override
 	public boolean canDo() {
-		return selection.isPresent() && !selection.get().getShapes().isEmpty();
+		return !selection.getShapes().isEmpty();
 	}
 
-	public @NotNull Optional<SelectShapes> getSelection() {
-		return selection;
-	}
+//	public @NotNull Optional<SelectShapes> getSelection() {
+//		return selection;
+//	}
 
 	@Override
 	public void flush() {

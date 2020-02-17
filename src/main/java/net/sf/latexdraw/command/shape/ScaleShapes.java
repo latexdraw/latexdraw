@@ -47,6 +47,7 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 
 	/** The drawing that will be handled by the command. */
 	private final @NotNull Drawing drawing;
+	private boolean mementoModified;
 
 
 	public ScaleShapes(final @NotNull Group gp, final @NotNull Drawing drawing, final @NotNull Position refPosition) {
@@ -54,44 +55,49 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 		this.drawing = drawing;
 		this.refPosition = refPosition;
 		bound = new Rectangle2D.Double();
+		newX = Double.NaN;
+		newY = Double.NaN;
 		setShape(gp);
 	}
 
 	@Override
 	public boolean hadEffect() {
-		return isDone() && (!MathUtils.INST.equalsDouble(oldWidth, bound.getWidth()) || !MathUtils.INST.equalsDouble(oldHeight, bound.getHeight()));
+		return isDone() && (!MathUtils.INST.equalsDouble(oldWidth, bound.getWidth())
+			|| !MathUtils.INST.equalsDouble(oldHeight, bound.getHeight()));
 	}
 
 	@Override
 	public boolean canDo() {
-		return isValidScales();
-	}
-
-	private boolean isValidScales() {
 		switch(refPosition) {
 			case EAST:
-				return MathUtils.INST.isValidCoord(newX) && scaledWidth(newX) > 1d;
+				return MathUtils.INST.isValidCoord(newX);
 			case WEST:
-				return MathUtils.INST.isValidCoord(newX) && scaledWidth(newX) > 1d;
+				return MathUtils.INST.isValidCoord(newX);
 			case NORTH:
-				return MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1d;
+				return MathUtils.INST.isValidCoord(newY);
 			case SOUTH:
-				return MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1d;
+				return MathUtils.INST.isValidCoord(newY);
 			default:
-				return MathUtils.INST.isValidCoord(newX) && MathUtils.INST.isValidCoord(newY) && scaledHeight(newY) > 1d && scaledWidth(newX) > 1d;
+				return MathUtils.INST.isValidCoord(newX) && MathUtils.INST.isValidCoord(newY);
 		}
+	}
+
+
+	@Override
+	protected void createMemento() {
+		mementoModified = drawing.isModified();
+		final Point br = shape.getBottomRightPoint();
+		final Point tl = shape.getTopLeftPoint();
+		oldWidth = br.getX() - tl.getX();
+		oldHeight = br.getY() - tl.getY();
+		updateBound(tl, br);
 	}
 
 	@Override
 	protected void doCmdBody() {
-		if(Double.isNaN(oldWidth)) {
-			final Point br = shape.getBottomRightPoint();
-			final Point tl = shape.getTopLeftPoint();
-			oldWidth = br.getX() - tl.getX();
-			oldHeight = br.getY() - tl.getY();
-			updateBound(tl, br);
-		}
-		redo();
+		shape.scale(scaledWidth(newX), scaledHeight(newY), refPosition, bound);
+		drawing.setModified(true);
+		updateBound(shape.getTopLeftPoint(), shape.getBottomRightPoint());
 	}
 
 	private void updateBound(final @NotNull Point tl, final @NotNull Point br) {
@@ -101,8 +107,7 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 	@Override
 	public void undo() {
 		shape.scale(oldWidth, oldHeight, refPosition, bound);
-		shape.setModified(true);
-		drawing.setModified(true);
+		drawing.setModified(mementoModified);
 		updateBound(shape.getTopLeftPoint(), shape.getBottomRightPoint());
 	}
 
@@ -134,10 +139,7 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 
 	@Override
 	public void redo() {
-		shape.scale(scaledWidth(newX), scaledHeight(newY), refPosition, bound);
-		shape.setModified(true);
-		drawing.setModified(true);
-		updateBound(shape.getTopLeftPoint(), shape.getBottomRightPoint());
+		doCmdBody();
 	}
 
 	@Override
@@ -150,12 +152,14 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 	}
 
 	public void setNewX(final double x) {
+		System.out.println(scaledWidth(x));
 		if(scaledWidth(x) > 1d) {
 			newX = x;
 		}
 	}
 
 	public void setNewY(final double y) {
+		System.out.println(scaledHeight(y));
 		if(scaledHeight(y) > 1d) {
 			newY = y;
 		}

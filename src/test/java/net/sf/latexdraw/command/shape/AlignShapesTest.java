@@ -32,7 +32,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AlignShapesTest extends UndoableCmdTest<AlignShapes> {
 	List<Tuple<Point, Point>> memento;
 	AlignShapes.Alignment alignment;
-	List<Point> oldPositions;
 	List<ViewShape<?>> views;
 	Canvas canvas;
 	Group shape;
@@ -116,11 +115,5 @@ class AlignShapesTest extends UndoableCmdTest<AlignShapes> {
 		if(shape != null) {
 			shape.clear();
 		}
-		this.alignment = null;
-		this.oldPositions = null;
-		this.views = null;
-		this.canvas = null;
-		this.shape = null;
-		this.memento = null;
 	}
 }

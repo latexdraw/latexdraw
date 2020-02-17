@@ -13,7 +13,6 @@ package net.sf.latexdraw.command.shape;
 import io.github.interacto.undo.Undoable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import net.sf.latexdraw.command.DrawingCmdImpl;
 import net.sf.latexdraw.command.Modifying;
@@ -29,90 +28,69 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 	/** The cut or copy command. */
-	private final @NotNull Optional<CopyShapes> copy;
+	private final @NotNull CopyShapes copy;
 	/** The magnetic grid to use. */
 	private final @NotNull PreferencesService prefs;
-	private final @NotNull List<Shape> pastedShapes;
+	private boolean mementoModified;
 
-	public PasteShapes(final @NotNull Optional<CopyShapes> copyCmd, final @NotNull PreferencesService prefs, final @NotNull Drawing drawing) {
+	public PasteShapes(final @NotNull CopyShapes copyCmd, final @NotNull PreferencesService prefs, final @NotNull Drawing drawing) {
 		super(drawing);
 		copy = copyCmd;
 		this.prefs = prefs;
-		pastedShapes = new ArrayList<>();
 	}
 
 	@Override
-	public boolean canDo() {
-		return copy.isPresent();
+	protected void createMemento() {
+		mementoModified = drawing.isModified();
 	}
 
 	@Override
 	public void doCmdBody() {
-		copy.ifPresent(cop -> {
-			// While pasting cut shapes, the first paste must be at the same position that the original shapes.
-			// But for pasting after just copying, a initial gap must be used.
-			if(!(cop instanceof CutShapes)) {
-				cop.nbTimeCopied++;
-			}
+		// While pasting cut shapes, the first paste must be at the same position that the original shapes.
+		// But for pasting after just copying, a initial gap must be used.
+		if(!(copy instanceof CutShapes)) {
+			copy.nbTimeCopied++;
+		}
 
-			final int gapPaste = prefs.isMagneticGrid() ? prefs.gridGapProperty().get() : 10;
-			final int gap = cop.nbTimeCopied * gapPaste;
+		final int gapPaste = prefs.isMagneticGrid() ? prefs.gridGapProperty().get() : 10;
+		final int gap = copy.nbTimeCopied * gapPaste;
+		final List<Shape> pastedShapes = new ArrayList<>();
 
-			cop.copiedShapes.forEach(shape -> ShapeFactory.INST.duplicate(shape).ifPresent(sh -> {
-				pastedShapes.add(sh);
-				sh.translate(gap, gap);
-				drawing.addShape(sh);
-			}));
+		copy.copiedShapes.forEach(shape -> ShapeFactory.INST.duplicate(shape).ifPresent(sh -> {
+			pastedShapes.add(sh);
+			sh.translate(gap, gap);
+			drawing.addShape(sh);
+		}));
 
-			if(cop instanceof CutShapes) {
-				cop.nbTimeCopied++;
-			}
+		if(copy instanceof CutShapes) {
+			copy.nbTimeCopied++;
+		}
 
-			drawing.setSelection(pastedShapes);
-			drawing.setModified(true);
-		});
+		drawing.setSelection(pastedShapes);
+		drawing.setModified(true);
 	}
 
 	@Override
 	public void undo() {
-		copy.ifPresent(cop -> {
-			int i = 0;
-			final int nbShapes = cop.copiedShapes.size();
+		int i = 0;
+		final int nbShapes = copy.copiedShapes.size();
 
-			while(i < nbShapes && !drawing.isEmpty()) {
-				drawing.removeShape(drawing.size() - 1);
-				i++;
-			}
+		while(i < nbShapes) {
+			drawing.removeShape(drawing.size() - 1);
+			i++;
+		}
 
-			cop.nbTimeCopied--;
-			drawing.setModified(true);
-		});
+		copy.nbTimeCopied--;
+		drawing.setModified(mementoModified);
 	}
 
 	@Override
 	public void redo() {
-		copy.ifPresent(cop -> {
-			if(!(cop instanceof CutShapes)) {
-				cop.nbTimeCopied++;
-			}
-
-			pastedShapes.forEach(drawing::addShape);
-
-			if(cop instanceof CutShapes) {
-				cop.nbTimeCopied++;
-			}
-
-			drawing.setSelection(pastedShapes);
-			drawing.setModified(true);
-		});
+		doCmdBody();
 	}
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("LaTeXDrawFrame.43");
-	}
-
-	public @NotNull Optional<CopyShapes> getCopy() {
-		return copy;
 	}
 }

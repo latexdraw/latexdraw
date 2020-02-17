@@ -30,6 +30,7 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	private final @NotNull Point gc;
 	/** The last increment performed on shapes. Used to execute several times the command. */
 	private double lastRotationAngle;
+	private boolean mementoModified;
 
 
 	public RotateShapes(final @NotNull Point gc, final @NotNull Shape sh, final double rotation) {
@@ -37,6 +38,11 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 		this.gc = gc;
 		lastRotationAngle = 0d;
 		rotationAngle = rotation;
+	}
+
+	@Override
+	protected void createMemento() {
+		mementoModified = shape.isModified();
 	}
 
 	@Override
@@ -48,6 +54,7 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	public void doCmdBody() {
 		rotateShapes(rotationAngle - lastRotationAngle);
 		lastRotationAngle = rotationAngle;
+		shape.setModified(true);
 	}
 
 	/**
@@ -56,17 +63,18 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 	 */
 	private void rotateShapes(final double angleIncrement) {
 		shape.addToRotationAngle(gc, angleIncrement);
-		shape.setModified(true);
 	}
 
 	@Override
 	public void undo() {
 		rotateShapes(-rotationAngle);
+		shape.setModified(mementoModified);
 	}
 
 	@Override
 	public void redo() {
 		rotateShapes(rotationAngle);
+		shape.setModified(true);
 	}
 
 	@Override
@@ -76,10 +84,6 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 
 	public void setRotationAngle(final double angle) {
 		rotationAngle = angle;
-	}
-
-	public double getRotationAngle() {
-		return rotationAngle;
 	}
 
 	public @NotNull Point getGc() {

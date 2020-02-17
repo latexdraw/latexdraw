@@ -80,12 +80,4 @@ class InsertPictureTest extends UndoableCmdTest<InsertPicture> {
 			assertThat(drawing.isModified()).isFalse();
 		};
 	}
-
-//	@AfterEach
-//	void tearDownInsertPictureTest() {
-//		fileChooser = null;
-//		drawing = null;
-//		shape = null;
-//		file = null;
-//	}
 }

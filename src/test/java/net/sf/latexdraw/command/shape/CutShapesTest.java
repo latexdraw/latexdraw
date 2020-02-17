@@ -2,13 +2,11 @@ package net.sf.latexdraw.command.shape;
 
 import io.github.interacto.jfx.test.UndoableCmdTest;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.PreferencesService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.mockito.Mockito;
@@ -33,7 +31,7 @@ class CutShapesTest extends UndoableCmdTest<CutShapes> {
 		return Stream.of(() -> {
 			drawing = ShapeFactory.INST.createDrawing();
 			final SelectShapes selectShapes = new SelectShapes(drawing);
-			cmd = new CutShapes(Optional.of(selectShapes));
+			cmd = new CutShapes(selectShapes);
 			copiedShapes = List.of(
 				ShapeFactory.INST.createRectangle(),
 				ShapeFactory.INST.createRectangle(),
@@ -46,12 +44,11 @@ class CutShapesTest extends UndoableCmdTest<CutShapes> {
 
 	@Override
 	protected Stream<Runnable> cannotDoFixtures() {
-		return Stream.of(() -> cmd = new CutShapes(Optional.empty()),
-			() -> {
-				final var drawing = Mockito.mock(Drawing.class);
-				Mockito.when(drawing.getSelection()).thenReturn(ShapeFactory.INST.createGroup());
-				cmd = new CutShapes(Optional.of(new SelectShapes(drawing)));
-			});
+		return Stream.of(() -> {
+			final var drawing = Mockito.mock(Drawing.class);
+			Mockito.when(drawing.getSelection()).thenReturn(ShapeFactory.INST.createGroup());
+			cmd = new CutShapes(new SelectShapes(drawing));
+		});
 	}
 
 	@Override
@@ -68,10 +65,5 @@ class CutShapesTest extends UndoableCmdTest<CutShapes> {
 			assertThat(drawing.size()).isEqualTo(3);
 			assertThat(drawing.getShapes()).isEqualTo(copiedShapes);
 		};
-	}
-
-	@AfterEach
-	void tearDownCutShapesTest() {
-		this.copiedShapes = null;
 	}
 }

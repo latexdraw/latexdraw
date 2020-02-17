@@ -57,7 +57,6 @@ import net.sf.latexdraw.model.api.shape.TicksStyle;
 import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -308,11 +307,5 @@ class ModifyShapePropertyTest extends UndoableCmdTest<ModifyShapeProperty<Object
 	void testGetShapes() {
 		canDoFixtures().collect(Collectors.toList()).get(0).run();
 		assertThat(cmd.getShapes()).isSameAs(shapes);
-	}
-
-	@AfterEach
-	void tearDownModifyShapePropertyTest() {
-		shapes = null;
-		currentData = null;
 	}
 }

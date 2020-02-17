@@ -13,7 +13,6 @@ package net.sf.latexdraw.command.shape;
 import io.github.interacto.undo.Undoable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -30,32 +29,28 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 	private List<Integer> positionShapes;
 
 
-	public CutShapes(final @NotNull Optional<SelectShapes> selection) {
+	public CutShapes(final @NotNull SelectShapes selection) {
 		super(selection);
 	}
 
 	@Override
 	public void doCmdBody() {
-		selection.ifPresent(sel -> {
-			// Removing the shapes.
-			final List<Shape> drawingSh = sel.getDrawing().getShapes();
+		// Removing the shapes.
+		final List<Shape> drawingSh = selection.getDrawing().getShapes();
 
-			copiedShapes = new ArrayList<>(sel.getShapes());
-			positionShapes = sel.getShapes().stream().map(drawingSh::indexOf).collect(Collectors.toList());
+		copiedShapes = new ArrayList<>(selection.getShapes());
+		positionShapes = selection.getShapes().stream().map(drawingSh::indexOf).collect(Collectors.toList());
 
-			deleteShapes();
-			sel.getShapes().clear();
-		});
+		deleteShapes();
+		selection.getShapes().clear();
 	}
 
 	/**
 	 * Delete the shapes from the drawing.
 	 */
 	private void deleteShapes() {
-		selection.ifPresent(sel -> {
-			copiedShapes.forEach(s -> sel.getDrawing().removeShape(s));
-			sel.getDrawing().setModified(true);
-		});
+		copiedShapes.forEach(s -> selection.getDrawing().removeShape(s));
+		selection.getDrawing().setModified(true);
 	}
 
 	@Override
@@ -65,10 +60,10 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 
 	@Override
 	public void undo() {
-		selection.ifPresent(sel -> {
-			IntStream.range(0, positionShapes.size()).forEach(i -> sel.getDrawing().addShape(copiedShapes.get(i), positionShapes.get(i)));
-			sel.getDrawing().setModified(true);
-		});
+		IntStream
+			.range(0, positionShapes.size())
+			.forEach(i -> selection.getDrawing().addShape(copiedShapes.get(i), positionShapes.get(i)));
+		selection.getDrawing().setModified(true);
 	}
 
 	@Override

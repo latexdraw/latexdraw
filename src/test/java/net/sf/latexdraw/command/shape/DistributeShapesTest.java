@@ -30,7 +30,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("command")
 class DistributeShapesTest extends UndoableCmdTest<DistributeShapes> {
 	DistributeShapes.Distribution distribution;
-	List<Point> oldPositions;
 	List<ViewShape<?>> views;
 	Canvas canvas;
 	Group shape;
@@ -156,11 +155,5 @@ class DistributeShapesTest extends UndoableCmdTest<DistributeShapes> {
 		if(shape != null) {
 			shape.clear();
 		}
-		this.distribution = null;
-		this.oldPositions = null;
-		this.views = null;
-		this.canvas = null;
-		this.shape = null;
-		this.memento = null;
 	}
 }
