@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -30,8 +31,8 @@ import org.jetbrains.annotations.NotNull;
 public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modifying {
 	/** The magnetic grid to use. */
 	private final @NotNull MagneticGrid grid;
-	private final @NotNull List<List<Point>> listPts;
-
+	private List<List<Point>> listPts;
+	private boolean mementoModified;
 
 	public UpdateToGrid(final @NotNull MagneticGrid grid, final @NotNull Group gp) {
 		super(gp);
@@ -40,13 +41,29 @@ public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modif
 	}
 
 	@Override
+	protected void createMemento() {
+		mementoModified = shape.isModified();
+		listPts = shape
+			.getShapes()
+			.stream()
+			.map(sh -> sh
+				.getPoints()
+				.stream()
+				.map(pt -> ShapeFactory.INST.createPoint(pt))
+				.collect(Collectors.toList()))
+			.collect(Collectors.toList());
+	}
+
+	@Override
 	protected void doCmdBody() {
 		shape.getShapes().forEach(sh -> {
-			final List<Point> list = new ArrayList<>();
-			listPts.add(list);
-			sh.getPoints().forEach(pt -> list.add(ShapeFactory.INST.createPoint(pt)));
+			sh.getPoints().forEach(pt -> {
+				System.out.println(pt.toPoint3D());
+				pt.setPoint(grid.getTransformedPointToGrid(pt.toPoint3D()));
+			});
+			System.out.println("---");
 		});
-		redo();
+		shape.setModified(true);
 	}
 
 	@Override
@@ -60,26 +77,15 @@ public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modif
 				pt.setPoint(listPts.get(i.get()).get(j.get()).getX(), listPts.get(i.get()).get(j.get()).getY());
 				j.incrementAndGet();
 			});
-			i.set(i.get() + 1);
-			sh.setModified(true);
+			i.incrementAndGet();
 		});
+		shape.setModified(mementoModified);
 	}
 
 
 	@Override
 	public void redo() {
-		final AtomicInteger i = new AtomicInteger();
-		final AtomicInteger j = new AtomicInteger();
-
-		shape.getShapes().forEach(sh -> {
-			j.set(0);
-			sh.getPoints().forEach(pt -> {
-				pt.setPoint(grid.getTransformedPointToGrid(pt.toPoint3D()));
-				j.incrementAndGet();
-			});
-			i.set(i.get() + 1);
-			sh.setModified(true);
-		});
+		doCmdBody();
 	}
 
 	@Override

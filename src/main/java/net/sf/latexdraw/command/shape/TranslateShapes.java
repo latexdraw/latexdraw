@@ -40,6 +40,7 @@ public class TranslateShapes extends ShapeCmdImpl<Group> implements Undoable, Mo
 	private double performedTy;
 	/** The drawing that will be handled by the command. */
 	private final @NotNull Drawing drawing;
+	private boolean mementoModified;
 
 
 	public TranslateShapes(final @NotNull Drawing dr, final @NotNull Group sh) {
@@ -50,6 +51,11 @@ public class TranslateShapes extends ShapeCmdImpl<Group> implements Undoable, Mo
 	}
 
 	@Override
+	protected void createMemento() {
+		mementoModified = drawing.isModified();
+	}
+
+	@Override
 	public boolean hadEffect() {
 		return !MathUtils.INST.equalsDouble(performedTx, 0d) || !MathUtils.INST.equalsDouble(performedTy, 0d);
 	}
@@ -57,7 +63,6 @@ public class TranslateShapes extends ShapeCmdImpl<Group> implements Undoable, Mo
 	@Override
 	protected void doCmdBody() {
 		shape.translate(tx, ty);
-		shape.setModified(true);
 		drawing.setModified(true);
 		performedTx += tx;
 		performedTy += ty;
@@ -65,20 +70,21 @@ public class TranslateShapes extends ShapeCmdImpl<Group> implements Undoable, Mo
 
 	@Override
 	public boolean canDo() {
-		return !shape.isEmpty() && MathUtils.INST.isValidPt(tx, ty) && (!MathUtils.INST.equalsDouble(tx, 0d) || !MathUtils.INST.equalsDouble(ty, 0d));
+		return !shape.isEmpty()
+			&& MathUtils.INST.isValidPt(tx, ty)
+			&& (!MathUtils.INST.equalsDouble(tx, 0d)
+			|| !MathUtils.INST.equalsDouble(ty, 0d));
 	}
 
 	@Override
 	public void undo() {
 		shape.translate(-performedTx, -performedTy);
-		shape.setModified(true);
-		drawing.setModified(true);
+		drawing.setModified(mementoModified);
 	}
 
 	@Override
 	public void redo() {
 		shape.translate(performedTx, performedTy);
-		shape.setModified(true);
 		drawing.setModified(true);
 	}
 

@@ -44,11 +44,6 @@ public class SelectShapes extends DrawingCmdImpl implements ShapesCmd, Modifying
 	}
 
 	@Override
-	public boolean canDo() {
-		return true;
-	}
-
-	@Override
 	public boolean unregisteredBy(final Command cmd) {
 		return cmd instanceof SelectShapes || cmd instanceof CutShapes || cmd instanceof DeleteShapes;
 	}
