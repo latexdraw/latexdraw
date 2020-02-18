@@ -10,15 +10,13 @@
  */
 package net.sf.latexdraw.instrument;
 
-import io.github.interacto.jfx.binding.JfxWidgetBinding;
 import io.github.interacto.jfx.interaction.library.DnD;
-import io.github.interacto.jfx.interaction.library.SrcTgtPointsData;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -59,7 +57,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Border extends CanvasInstrument implements Initializable {
 	/** The handlers that scale shapes. */
-	final ObservableList<ScaleHandler> scaleHandlers;
+	final List<ScaleHandler> scaleHandlers;
 	/** The handlers that move points. */
 	final ObservableList<MovePtHandler> mvPtHandlers;
 	/** The handlers that move first control points. */
@@ -210,7 +208,7 @@ public class Border extends CanvasInstrument implements Initializable {
 
 	@Override
 	protected void configureBindings() {
-		addBinding(new DnD2Scale());
+		configureDnD2ScaleBinding();
 
 		configureMovePointBinding();
 
@@ -276,131 +274,87 @@ public class Border extends CanvasInstrument implements Initializable {
 	}
 
 
-	private class DnD2Scale extends JfxWidgetBinding<ScaleShapes, DnD, SrcTgtPointsData> {
-		/** The point corresponding to the 'press' position. */
-		private Point p1;
-		/** The x gap (gap between the pressed position and the targeted position) of the X-scaling. */
-		private double xGap;
-		/** The y gap (gap between the pressed position and the targeted position) of the Y-scaling. */
-		private double yGap;
+	private void configureDnD2ScaleBinding() {
+		final AtomicInteger xgap = new AtomicInteger();
+		final AtomicInteger ygap = new AtomicInteger();
 
-		DnD2Scale() {
-			super(true, new DnD(),
-				i -> new ScaleShapes(canvas.getDrawing().getSelection().duplicateDeep(false), canvas.getDrawing(),
-				i.getSrcObject().map(h -> ((ScaleHandler) h).getPosition().getOpposite()).orElse(Position.SW)),
-				scaleHandlers.stream().map(h -> (Node) h).collect(Collectors.toList()), false, null);
-		}
+		nodeBinder()
+			.usingInteraction(DnD::new)
+			.toProduce(i -> new ScaleShapes(canvas.getDrawing().getSelection().duplicateDeep(false), canvas.getDrawing(),
+					i.getSrcObject().map(h -> ((ScaleHandler) h).getPosition().getOpposite()).orElse(Position.SW)))
+			.on(scaleHandlers.toArray(new Node[0]))
+			.continuousExecution()
+			.first((i, c) -> {
+				final Drawing drawing = canvas.getDrawing();
+				final Point br = drawing.getSelection().getBottomRightPoint();
+				final Point tl = drawing.getSelection().getTopLeftPoint();
+				final Point srcPt = ShapeFactory.INST.createPoint(i.getSrcObject()
+					.map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(null));
 
-		private void setXGap(final Position refPosition, final Point tl, final Point br) {
-			switch(refPosition) {
-				case NW:
-				case SW:
-				case WEST:
-					xGap = p1.getX() - br.getX();
-					break;
-				case NE:
-				case SE:
-				case EAST:
-					xGap = tl.getX() - p1.getX();
-					break;
-				default:
-					xGap = 0d;
-			}
-		}
-
-		private void setYGap(final Position refPosition, final Point tl, final Point br) {
-			switch(refPosition) {
-				case NW:
-				case NE:
-				case NORTH:
-					yGap = p1.getY() - br.getY();
-					break;
-				case SW:
-				case SE:
-				case SOUTH:
-					yGap = tl.getY() - p1.getY();
-					break;
-				default:
-					yGap = 0d;
-			}
-		}
-
-		@Override
-		public void first() {
-			final Drawing drawing = canvas.getDrawing();
-			final Point br = drawing.getSelection().getBottomRightPoint();
-			final Point tl = drawing.getSelection().getTopLeftPoint();
-
-			p1 = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getSrcLocalPoint())).orElse(null));
-
-			setXGap(cmd.getRefPosition(), tl, br);
-			setYGap(cmd.getRefPosition(), tl, br);
-
-			switch(cmd.getRefPosition()) {
-				case EAST:
-					canvas.setCursor(Cursor.W_RESIZE);
-					break;
-				case NE:
-					canvas.setCursor(Cursor.SW_RESIZE);
-					break;
-				case NORTH:
-					canvas.setCursor(Cursor.S_RESIZE);
-					break;
-				case NW:
-					canvas.setCursor(Cursor.SE_RESIZE);
-					break;
-				case SE:
-					canvas.setCursor(Cursor.NW_RESIZE);
-					break;
-				case SOUTH:
-					canvas.setCursor(Cursor.N_RESIZE);
-					break;
-				case SW:
-					canvas.setCursor(Cursor.NE_RESIZE);
-					break;
-				case WEST:
-					canvas.setCursor(Cursor.E_RESIZE);
-					break;
-			}
-		}
-
-
-		@Override
-		public void then() {
-			final Point pt = ShapeFactory.INST.createPoint(interaction.getSrcObject().map(n -> n.localToParent(interaction.getTgtLocalPoint())).orElse(null));
-			final Position refPosition = cmd.getRefPosition();
-
-			if(refPosition.isSouth()) {
-				cmd.setNewY(pt.getY() + yGap);
-			}else {
-				if(refPosition.isNorth()) {
-					cmd.setNewY(pt.getY() - yGap);
+				switch(c.getRefPosition()) {
+					case EAST:
+						xgap.set((int) (tl.getX() - srcPt.getX()));
+						canvas.setCursor(Cursor.W_RESIZE);
+						break;
+					case NE:
+						xgap.set((int) (tl.getX() - srcPt.getX()));
+						ygap.set((int) (srcPt.getY() - br.getY()));
+						canvas.setCursor(Cursor.SW_RESIZE);
+						break;
+					case NORTH:
+						ygap.set((int) (srcPt.getY() - br.getY()));
+						canvas.setCursor(Cursor.S_RESIZE);
+						break;
+					case NW:
+						xgap.set((int) (srcPt.getX() - br.getX()));
+						ygap.set((int) (srcPt.getY() - br.getY()));
+						canvas.setCursor(Cursor.SE_RESIZE);
+						break;
+					case SE:
+						xgap.set((int) (tl.getX() - srcPt.getX()));
+						ygap.set((int) (tl.getY() - srcPt.getY()));
+						canvas.setCursor(Cursor.NW_RESIZE);
+						break;
+					case SOUTH:
+						ygap.set((int) (tl.getY() - srcPt.getY()));
+						canvas.setCursor(Cursor.N_RESIZE);
+						break;
+					case SW:
+						xgap.set((int) (srcPt.getX() - br.getX()));
+						ygap.set((int) (tl.getY() - srcPt.getY()));
+						canvas.setCursor(Cursor.NE_RESIZE);
+						break;
+					case WEST:
+						xgap.set((int) (srcPt.getX() - br.getX()));
+						canvas.setCursor(Cursor.E_RESIZE);
+						break;
 				}
-			}
+			})
+			.then((i, c) -> {
+				final Point pt = ShapeFactory.INST.createPoint(i.getSrcObject()
+					.map(n -> n.localToParent(i.getTgtLocalPoint())).orElse(null));
+				final Position refPosition = c.getRefPosition();
 
-			if(refPosition.isWest()) {
-				cmd.setNewX(pt.getX() - xGap);
-			}else {
-				if(refPosition.isEast()) {
-					cmd.setNewX(pt.getX() + xGap);
+				if(refPosition.isSouth()) {
+					c.setNewY(pt.getY() + ygap.get());
+				}else {
+					if(refPosition.isNorth()) {
+						c.setNewY(pt.getY() - ygap.get());
+					}
 				}
-			}
-			canvas.update();
-		}
 
-		@Override
-		public void endOrCancel() {
-			canvas.setCursor(Cursor.DEFAULT);
-		}
-
-		@Override
-		public void end() {
-			metaCustomiser.dimPosCustomiser.update();
-		}
-
-		@Override
-		public boolean when() {
-			return interaction.getSrcObject().isPresent() && interaction.getSrcLocalPoint() != null && interaction.getTgtLocalPoint() != null;
-		}
+				if(refPosition.isWest()) {
+					c.setNewX(pt.getX() - xgap.get());
+				}else {
+					if(refPosition.isEast()) {
+						c.setNewX(pt.getX() + xgap.get());
+					}
+				}
+				canvas.update();
+			})
+			.when(i -> i.getSrcObject().isPresent() && i.getSrcLocalPoint() != null && i.getTgtLocalPoint() != null)
+			.endOrCancel(i -> canvas.setCursor(Cursor.DEFAULT))
+			.end(() -> metaCustomiser.dimPosCustomiser.update())
+			.bind();
 	}
 }
