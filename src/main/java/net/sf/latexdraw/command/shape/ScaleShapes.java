@@ -152,14 +152,12 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 	}
 
 	public void setNewX(final double x) {
-		System.out.println(scaledWidth(x));
 		if(scaledWidth(x) > 1d) {
 			newX = x;
 		}
 	}
 
 	public void setNewY(final double y) {
-		System.out.println(scaledHeight(y));
 		if(scaledHeight(y) > 1d) {
 			newY = y;
 		}
