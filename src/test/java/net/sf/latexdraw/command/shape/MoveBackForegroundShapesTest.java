@@ -70,29 +70,28 @@ class MoveBackForegroundShapesTest extends UndoableCmdTest<MoveBackForegroundSha
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
-			if(foreground) {
-				assertThat(drawing.getShapeAt(0).orElseThrow()).isSameAs(s1);
-				assertThat(drawing.getShapeAt(1).orElseThrow()).isSameAs(s3);
-				assertThat(drawing.getShapeAt(2).orElseThrow()).isSameAs(s0);
-				assertThat(drawing.getShapeAt(3).orElseThrow()).isSameAs(s2);
-			}else {
-				assertThat(drawing.getShapeAt(0).orElseThrow()).isSameAs(s2);
-				assertThat(drawing.getShapeAt(1).orElseThrow()).isSameAs(s3);
-				assertThat(drawing.getShapeAt(2).orElseThrow()).isSameAs(s0);
-				assertThat(drawing.getShapeAt(3).orElseThrow()).isSameAs(s1);
-			}
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
+			assertThat(drawing.getShapeAt(0).orElseThrow()).isSameAs(s1);
+			assertThat(drawing.getShapeAt(1).orElseThrow()).isSameAs(s3);
+			assertThat(drawing.getShapeAt(2).orElseThrow()).isSameAs(s0);
+			assertThat(drawing.getShapeAt(3).orElseThrow()).isSameAs(s2);
 			assertThat(drawing.isModified()).isTrue();
-		};
+		}, () -> {
+			assertThat(drawing.getShapeAt(0).orElseThrow()).isSameAs(s2);
+			assertThat(drawing.getShapeAt(1).orElseThrow()).isSameAs(s3);
+			assertThat(drawing.getShapeAt(2).orElseThrow()).isSameAs(s0);
+			assertThat(drawing.getShapeAt(3).orElseThrow()).isSameAs(s1);
+			assertThat(drawing.isModified()).isTrue();
+		});
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			assertThat(drawing.getShapes())
 				.allSatisfy(sh -> assertThat(drawing.getShapes().indexOf(sh)).isEqualTo(mementoIndexes.get(sh)));
 			assertThat(drawing.isModified()).isFalse();
-		};
+		});
 	}
 }

@@ -69,8 +69,8 @@ class AlignShapesTest extends UndoableCmdTest<AlignShapes> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
 			switch(alignment) {
 				case TOP:
 					assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getTopLeftPoint().getY()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, -2d, 0.000001d));
@@ -91,19 +91,19 @@ class AlignShapesTest extends UndoableCmdTest<AlignShapes> {
 					assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getGravityCentre().getX()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, 14.5d, 0.000001d));
 					break;
 			}
-		};
+		});
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			int i = 0;
 			for(final Shape shape : shape.getShapes()) {
 				assertThat(shape.getTopLeftPoint()).isEqualTo(memento.get(i).a);
 				assertThat(shape.getBottomRightPoint()).isEqualTo(memento.get(i).b);
 				i++;
 			}
-		};
+		});
 	}
 
 	@AfterEach

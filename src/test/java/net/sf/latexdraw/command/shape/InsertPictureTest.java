@@ -59,25 +59,27 @@ class InsertPictureTest extends UndoableCmdTest<InsertPicture> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
-			if(file != null && file.canRead()) {
-				assertThat(drawing.contains(shape)).isTrue();
-				assertThat(drawing.isModified()).isTrue();
-				assertThat(cmd.hadEffect()).isTrue();
-			}else {
-				assertThat(drawing.contains(shape)).isFalse();
-				assertThat(drawing.isModified()).isFalse();
-				assertThat(cmd.hadEffect()).isFalse();
-			}
-		};
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
+			assertThat(drawing.contains(shape)).isTrue();
+			assertThat(drawing.isModified()).isTrue();
+			assertThat(cmd.hadEffect()).isTrue();
+		}, () -> {
+			assertThat(drawing.contains(shape)).isFalse();
+			assertThat(drawing.isModified()).isFalse();
+			assertThat(cmd.hadEffect()).isFalse();
+		}, () -> {
+			assertThat(drawing.contains(shape)).isFalse();
+			assertThat(drawing.isModified()).isFalse();
+			assertThat(cmd.hadEffect()).isFalse();
+		});
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			assertThat(drawing.contains(shape)).isFalse();
 			assertThat(drawing.isModified()).isFalse();
-		};
+		});
 	}
 }

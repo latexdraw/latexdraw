@@ -43,31 +43,30 @@ class MirrorShapesTest extends UndoableCmdTest<MirrorShapes> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
-			if(horizontally) {
-				assertThat(shape.getShapeAt(0).orElseThrow().getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(160, 20));
-				assertThat(shape.getShapeAt(0).orElseThrow().getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(260, 220));
-				assertThat(shape.getShapeAt(1).orElseThrow().getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(10, 250));
-				assertThat(shape.getShapeAt(1).orElseThrow().getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(120, 270));
-			}else {
-				assertThat(shape.getShapeAt(0).orElseThrow().getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(10, 70));
-				assertThat(shape.getShapeAt(0).orElseThrow().getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(110, 270));
-				assertThat(shape.getShapeAt(1).orElseThrow().getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(150, 20));
-				assertThat(shape.getShapeAt(1).orElseThrow().getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(260, 40));
-			}
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
+			assertThat(shape.getShapeAt(0).orElseThrow().getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(160, 20));
+			assertThat(shape.getShapeAt(0).orElseThrow().getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(260, 220));
+			assertThat(shape.getShapeAt(1).orElseThrow().getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(10, 250));
+			assertThat(shape.getShapeAt(1).orElseThrow().getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(120, 270));
 			assertThat(shape.getShapes()).allMatch(sh -> sh.isModified());
-		};
+		}, () -> {
+			assertThat(shape.getShapeAt(0).orElseThrow().getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(10, 70));
+			assertThat(shape.getShapeAt(0).orElseThrow().getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(110, 270));
+			assertThat(shape.getShapeAt(1).orElseThrow().getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(150, 20));
+			assertThat(shape.getShapeAt(1).orElseThrow().getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(260, 40));
+			assertThat(shape.getShapes()).allMatch(sh -> sh.isModified());
+		});
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			assertThat(shape.getShapeAt(0).orElseThrow().getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(10, 20));
 			assertThat(shape.getShapeAt(0).orElseThrow().getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(110, 220));
 			assertThat(shape.getShapeAt(1).orElseThrow().getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(150, 250));
 			assertThat(shape.getShapeAt(1).orElseThrow().getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(260, 270));
 			assertThat(shape.getShapes()).allMatch(sh -> !sh.isModified());
-		};
+		});
 	}
 }

@@ -62,19 +62,19 @@ class MovePointShapeTest extends UndoableCmdTest<MovePointShape> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
 			assertThat(shape.getPtAt(1)).isEqualTo(newCoord);
 			assertThat(shape.isModified()).isTrue();
-		};
+		});
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			assertThat(shape.getPtAt(1)).isEqualTo(point);
 			assertThat(shape.isModified()).isFalse();
-		};
+		});
 	}
 
 	@ParameterizedTest

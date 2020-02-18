@@ -35,20 +35,20 @@ class AddShapeTest extends UndoableCmdTest<AddShape> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
 			assertThat(drawing.contains(shape)).isTrue();
 			assertThat(drawing.size()).isEqualTo(1);
 			assertThat(drawing.isModified()).isTrue();
-		};
+		});
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			assertThat(drawing.contains(shape)).isFalse();
 			assertThat(drawing.isEmpty()).isTrue();
 			assertThat(drawing.isModified()).isFalse();
-		};
+		});
 	}
 }

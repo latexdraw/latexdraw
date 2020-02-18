@@ -69,8 +69,8 @@ class DistributeShapesTest extends UndoableCmdTest<DistributeShapes> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
 			switch(distribution) {
 				case VERT_BOT:
 					checkVertBase();
@@ -113,7 +113,7 @@ class DistributeShapesTest extends UndoableCmdTest<DistributeShapes> {
 					assertThat(shape.getShapeAt(1).orElseThrow().getBottomRightPoint().getX()).isEqualTo(165);
 					break;
 			}
-		};
+		});
 	}
 
 	private void checkVertBase() {
@@ -135,15 +135,15 @@ class DistributeShapesTest extends UndoableCmdTest<DistributeShapes> {
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			int i = 0;
 			for(final Shape shape : shape.getShapes()) {
 				assertThat(shape.getTopLeftPoint()).isEqualTo(memento.get(i).a);
 				assertThat(shape.getBottomRightPoint()).isEqualTo(memento.get(i).b);
 				i++;
 			}
-		};
+		});
 	}
 
 	@AfterEach

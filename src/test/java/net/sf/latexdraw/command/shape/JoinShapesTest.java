@@ -60,8 +60,8 @@ class JoinShapesTest extends UndoableCmdTest<JoinShapes> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
 			assertThat(drawing.getShapes()).hasSize(3);
 			assertThat(drawing.getShapes().get(0)).isEqualTo(s1);
 			assertThat(drawing.getShapes().get(1)).isEqualTo(s3);
@@ -71,19 +71,19 @@ class JoinShapesTest extends UndoableCmdTest<JoinShapes> {
 			assertThat(group.getShapeAt(1).orElseThrow()).isEqualTo(s2);
 			assertThat(group.getShapeAt(2).orElseThrow()).isEqualTo(s4);
 			assertThat(drawing.isModified()).isTrue();
-		};
+		});
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			assertThat(drawing.getShapes().get(0)).isEqualTo(s0);
 			assertThat(drawing.getShapes().get(1)).isEqualTo(s1);
 			assertThat(drawing.getShapes().get(2)).isEqualTo(s2);
 			assertThat(drawing.getShapes().get(3)).isEqualTo(s3);
 			assertThat(drawing.getShapes().get(4)).isEqualTo(s4);
 			assertThat(drawing.isModified()).isFalse();
-		};
+		});
 	}
 
 	@ParameterizedTest

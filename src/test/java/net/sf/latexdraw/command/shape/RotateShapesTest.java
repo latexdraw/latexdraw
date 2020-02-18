@@ -46,19 +46,19 @@ class RotateShapesTest extends UndoableCmdTest<RotateShapes> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
 			assertThat(shape.getRotationAngle()).isEqualTo(rotationAngle, Offset.offset(0.0001));
 			assertThat(shape.isModified()).isTrue();
-		};
+		});
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			assertThat(shape.getRotationAngle()).isEqualTo(0d, Offset.offset(0.0001));
 			assertThat(shape.isModified()).isFalse();
-		};
+		});
 	}
 
 	@ParameterizedTest
@@ -69,14 +69,14 @@ class RotateShapesTest extends UndoableCmdTest<RotateShapes> {
 	}
 
 	@ParameterizedTest
-	@MethodSource({"canDoFixtures"})
-	void testDoTwoTimes(final Runnable config) {
+	@MethodSource({"doProvider"})
+	void testDoTwoTimes(final Runnable config, final Runnable oracle) {
 		config.run();
 		cmd.doIt();
 		rotationAngle = Math.PI / 3d;
 		cmd.setRotationAngle(rotationAngle);
 		cmd.doIt();
 		cmd.done();
-		doChecker().run();
+		oracle.run();
 	}
 }

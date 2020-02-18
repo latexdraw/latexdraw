@@ -77,8 +77,8 @@ class PasteShapesTest extends UndoableCmdTest<PasteShapes> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
 			final double gap = prefs.isMagneticGrid() ? -24 : -20;
 			assertThat(drawing.getShapes()).hasSize(6);
 			assertThat(drawing.getShapeAt(4).orElseThrow()).isInstanceOf(CircleArc.class);
@@ -90,18 +90,18 @@ class PasteShapesTest extends UndoableCmdTest<PasteShapes> {
 			CompareShapeMatcher.INST.assertEqualsDot((Dot) drawing.getShapeAt(3).orElseThrow(),
 				(Dot) drawing.getShapeAt(5).orElseThrow());
 			assertThat(drawing.isModified()).isTrue();
-		};
+		});
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			assertThat(drawing.getShapes()).hasSize(4);
 			assertThat(drawing.isModified()).isFalse();
 			assertThat(drawing.getShapeAt(0).orElseThrow()).isSameAs(s1);
 			assertThat(drawing.getShapeAt(1).orElseThrow()).isSameAs(s2);
 			assertThat(drawing.getShapeAt(2).orElseThrow()).isSameAs(s3);
 			assertThat(drawing.getShapeAt(3).orElseThrow()).isSameAs(s4);
-		};
+		});
 	}
 }

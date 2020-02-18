@@ -66,14 +66,14 @@ class InitTextSetterTest extends CommandTest<InitTextSetter> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
 			Mockito.verify(instrument).setActivated(true);
 			Mockito.verify(field).setText(text);
 			Mockito.verify(setter).setPosition(position);
 			Mockito.verify(setter).setPlot(plotShape);
 			Mockito.verify(setter).setText(textShape);
-		};
+		});
 	}
 
 	@AfterEach

@@ -52,18 +52,18 @@ class CutShapesTest extends UndoableCmdTest<CutShapes> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
 			assertThat(drawing.size()).isEqualTo(1);
 			assertThat(drawing.getShapeAt(0).orElseThrow()).isEqualTo(copiedShapes.get(1));
-		};
+		});
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			assertThat(drawing.size()).isEqualTo(3);
 			assertThat(drawing.getShapes()).isEqualTo(copiedShapes);
-		};
+		});
 	}
 }

@@ -65,15 +65,14 @@ class MoveCtrlPointTest extends UndoableCmdTest<MoveCtrlPoint> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
-			if(isFirstCtrlPt) {
-				assertThat(shape.getFirstCtrlPts().get(1)).isEqualTo(ShapeFactory.INST.createPoint(20, -50));
-			}else {
-				assertThat(shape.getSecondCtrlPts().get(1)).isEqualTo(ShapeFactory.INST.createPoint(-100, 500));
-			}
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
+			assertThat(shape.getFirstCtrlPts().get(1)).isEqualTo(ShapeFactory.INST.createPoint(20, -50));
 			assertThat(shape.isModified()).isTrue();
-		};
+		}, () -> {
+			assertThat(shape.getSecondCtrlPts().get(1)).isEqualTo(ShapeFactory.INST.createPoint(-100, 500));
+			assertThat(shape.isModified()).isTrue();
+		});
 	}
 
 	private void fixtureShape() {
@@ -84,14 +83,13 @@ class MoveCtrlPointTest extends UndoableCmdTest<MoveCtrlPoint> {
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			assertThat(shape.isModified()).isFalse();
-			if(isFirstCtrlPt) {
-				assertThat(shape.getFirstCtrlPts().get(1)).isEqualTo(memento);
-			}else {
-				assertThat(shape.getSecondCtrlPts().get(1)).isEqualTo(memento);
-			}
-		};
+			assertThat(shape.getFirstCtrlPts().get(1)).isEqualTo(memento);
+		}, () -> {
+			assertThat(shape.isModified()).isFalse();
+			assertThat(shape.getSecondCtrlPts().get(1)).isEqualTo(memento);
+		});
 	}
 }

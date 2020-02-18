@@ -177,13 +177,13 @@ class ModifyShapePropertyTest extends UndoableCmdTest<ModifyShapeProperty<Object
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> assertThat(((Function<Shape, Object>) currentData[3]).apply(shapes)).isEqualTo(currentData[1]);
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> assertThat(((Function<Shape, Object>) currentData[3]).apply(shapes)).isEqualTo(currentData[1]));
 	}
 
 	@Override
-	protected Runnable undoChecker() {
-		return () -> {
+	protected Stream<Runnable> undoCheckers() {
+		return Stream.of(() -> {
 			final Function<Shape, Object> valueToCheckCmd = (Function<Shape, Object>) currentData[3];
 			final AtomicInteger i = new AtomicInteger(0);
 			for(final Optional<Object> mem : memento) {
@@ -199,7 +199,7 @@ class ModifyShapePropertyTest extends UndoableCmdTest<ModifyShapeProperty<Object
 				});
 				i.incrementAndGet();
 			}
-		};
+		});
 	}
 
 	private void configureShapes() {

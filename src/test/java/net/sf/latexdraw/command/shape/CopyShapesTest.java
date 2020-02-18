@@ -40,12 +40,12 @@ class CopyShapesTest extends CommandTest<CopyShapes> {
 	}
 
 	@Override
-	protected Runnable doChecker() {
-		return () -> {
+	protected Stream<Runnable> doCheckers() {
+		return Stream.of(() -> {
 			assertThat(cmd.copiedShapes).isNotNull();
 			assertThat(cmd.copiedShapes).hasSize(1);
 			assertThat(shape).isNotSameAs(cmd.copiedShapes.get(0));
-		};
+		});
 	}
 
 
