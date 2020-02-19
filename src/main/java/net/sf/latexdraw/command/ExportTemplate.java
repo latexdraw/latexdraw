@@ -65,9 +65,4 @@ public class ExportTemplate extends IOCommand<Label> {
 			}
 		});
 	}
-
-	@Override
-	public boolean canDo() {
-		return ui != null;
-	}
 }

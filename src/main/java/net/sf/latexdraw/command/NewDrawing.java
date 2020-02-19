@@ -89,10 +89,4 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 		UndoCollector.getInstance().clear();
 		CommandsRegistry.getInstance().clear();
 	}
-
-
-	@Override
-	public boolean canDo() {
-		return ui != null && openSaveManager != null;
-	}
 }

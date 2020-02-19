@@ -77,11 +77,6 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 		});
 	}
 
-	@Override
-	public boolean canDo() {
-		return ui != null && openSaveManager != null;
-	}
-
 
 	private void load() {
 		if(file == null) {

@@ -83,11 +83,6 @@ public class SaveDrawing extends Save<Label> {
 	}
 
 	@Override
-	public boolean canDo() {
-		return openSaveManager != null && ui != null;
-	}
-
-	@Override
 	protected void doCmdBody() {
 		if(saveOnClose) {
 			saveOnClose();

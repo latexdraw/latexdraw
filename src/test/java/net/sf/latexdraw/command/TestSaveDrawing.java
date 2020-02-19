@@ -89,6 +89,14 @@ public class TestSaveDrawing extends IOCmdBaseTest {
 	}
 
 	@Nested
+	class TestFileNull {
+		@BeforeEach
+		protected void configCorrectCmd() {
+			cmd = new SaveDrawing(false, false, Optional.of(currentFolder), fileChooser, prefs, null, openSaver, progressBar, ui, statusWidget, mainstage);
+		}
+	}
+
+	@Nested
 	class TestNotSaveOnClose {
 		@BeforeEach
 		protected void configCorrectCmd() {
@@ -96,30 +104,9 @@ public class TestSaveDrawing extends IOCmdBaseTest {
 		}
 
 		@Test
-		void testCanDoKO1() {
-			cmd.setOpenSaveManager(null);
-			assertThat(cmd.canDo()).isFalse();
-		}
-
-		@Test
-		void testCanDoKO2() {
-			cmd.setUi(null);
-			assertThat(cmd.canDo()).isFalse();
-		}
-
-		@Test
 		void testCanDoOK() {
 			assertThat(cmd.canDo()).isTrue();
 			assertThat(cmd.hadEffect()).isFalse();
-		}
-
-		@Test
-		void testNotSaveCloseFileNullKO() {
-			cmd.setFile(null);
-			cmd.doIt();
-			cmd.done();
-			assertThat(cmd.hadEffect()).isFalse();
-			Mockito.verify(openSaver, Mockito.never()).save(Mockito.any(), Mockito.any(), Mockito.any());
 		}
 
 		@Nested
@@ -142,9 +129,9 @@ public class TestSaveDrawing extends IOCmdBaseTest {
 
 			@Test
 			void testNotSaveCloseFileNullOK() {
+				cmd = new SaveDrawing(false, false, Optional.of(currentFolder), fileChooser, prefs, null, openSaver, progressBar, ui, statusWidget, mainstage);
 				Mockito.when(openSaver.save("fooo.svg", progressBar, statusWidget)).thenReturn(task);
 				final File stubFile = new File("fooo");
-				cmd.setFile(null);
 				Mockito.when(ui.isModified()).thenReturn(Boolean.TRUE);
 				Mockito.when(fileChooser.showSaveDialog(Mockito.any())).thenReturn(stubFile);
 				cmd.doIt();

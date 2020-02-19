@@ -11,9 +11,12 @@
 package net.sf.latexdraw.command;
 
 import io.github.interacto.jfx.command.IOCommand;
+import io.github.interacto.jfx.ui.JfxUI;
 import io.github.interacto.undo.Undoable;
+import java.io.File;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
@@ -30,8 +33,9 @@ public class LoadTemplate extends IOCommand<Label> implements Undoable, Modifyin
 	private Point position;
 	private final @NotNull SVGDocumentGenerator svgGen;
 
-	public LoadTemplate(final @NotNull SVGDocumentGenerator svgGen, final @NotNull Drawing drawing) {
-		super();
+	public LoadTemplate(final @NotNull SVGDocumentGenerator svgGen, final @NotNull Drawing drawing,
+		final @NotNull File file, final @NotNull ProgressBar progressBar, final @NotNull Label label, final @NotNull JfxUI ui) {
+		super(file, null, progressBar, label, ui);
 		this.svgGen = svgGen;
 		this.drawing = drawing;
 	}
@@ -39,7 +43,6 @@ public class LoadTemplate extends IOCommand<Label> implements Undoable, Modifyin
 	@Override
 	protected void doCmdBody() {
 		insertedShapes = svgGen.insert(file.getPath(), position);
-		System.out.println(">>" + insertedShapes);
 		ok = insertedShapes != null;
 	}
 
@@ -60,7 +63,7 @@ public class LoadTemplate extends IOCommand<Label> implements Undoable, Modifyin
 
 	@Override
 	public boolean canDo() {
-		return ui != null;
+		return true;
 	}
 
 	@Override

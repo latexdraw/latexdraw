@@ -31,18 +31,6 @@ public class TestLoadDrawing extends IOCmdBaseTest {
 	}
 
 	@Test
-	void testCanDoKO2() {
-		cmd.setUi(null);
-		assertThat(cmd.canDo()).isFalse();
-	}
-
-	@Test
-	void testCanDoKO1() {
-		cmd.setOpenSaveManager(null);
-		assertThat(cmd.canDo()).isFalse();
-	}
-
-	@Test
 	void testCanDoOK() {
 		assertThat(cmd.canDo()).isTrue();
 		assertThat(cmd.hadEffect()).isFalse();
@@ -56,24 +44,6 @@ public class TestLoadDrawing extends IOCmdBaseTest {
 		Mockito.when(file.canRead()).thenReturn(Boolean.TRUE);
 		Mockito.when(file.getPath()).thenReturn("bar");
 		Mockito.when(openSaver.open(file.getPath(), progressBar, statusWidget)).thenReturn(task);
-		cmd.doIt();
-		cmd.done();
-		Mockito.verify(ui, Mockito.times(1)).reinit();
-		Mockito.verify(openSaver, Mockito.times(1)).open("bar", progressBar, statusWidget);
-		assertThat(cmd.hadEffect()).isTrue();
-	}
-
-	@Test
-	void testIsNotModifiedFileNull() throws ExecutionException, InterruptedException {
-		cmd.setFile(null);
-		final File stubFile = Mockito.mock(File.class);
-		final Task<Boolean> task = Mockito.mock(Task.class);
-		Mockito.when(task.get()).thenReturn(Boolean.TRUE);
-		Mockito.when(ui.isModified()).thenReturn(Boolean.FALSE);
-		Mockito.when(stubFile.canRead()).thenReturn(Boolean.TRUE);
-		Mockito.when(stubFile.getPath()).thenReturn("bar");
-		Mockito.when(openSaver.open(stubFile.getPath(), progressBar, statusWidget)).thenReturn(task);
-		Mockito.when(fileChooser.showOpenDialog(mainstage)).thenReturn(stubFile);
 		cmd.doIt();
 		cmd.done();
 		Mockito.verify(ui, Mockito.times(1)).reinit();
@@ -116,10 +86,10 @@ public class TestLoadDrawing extends IOCmdBaseTest {
 
 	@Test
 	void testIsModifiedAndSaveNoFile(final FxRobot robot) throws ExecutionException, InterruptedException {
+		cmd = new LoadDrawing(null, openSaver, progressBar, statusWidget, ui, fileChooser, Optional.of(currentFolder), lang, mainstage);
 		final File stubFile = Mockito.mock(File.class);
 		final Task<Boolean> taskSave = Mockito.mock(Task.class);
 		final Task<Boolean> taskLoad = Mockito.mock(Task.class);
-		cmd.setFile(null);
 		Mockito.when(taskSave.get()).thenReturn(Boolean.TRUE);
 		Mockito.when(taskLoad.get()).thenReturn(Boolean.TRUE);
 		Mockito.when(ui.isModified()).thenReturn(Boolean.TRUE);
@@ -177,9 +147,9 @@ public class TestLoadDrawing extends IOCmdBaseTest {
 
 	@Test
 	void testIsModifiedAndSaveStop(final FxRobot robot) throws ExecutionException, InterruptedException {
+		cmd = new LoadDrawing(null, openSaver, progressBar, statusWidget, ui, fileChooser, Optional.of(currentFolder), lang, mainstage);
 		final File stubFile = Mockito.mock(File.class);
 		final Task<Boolean> taskSave = Mockito.mock(Task.class);
-		cmd.setFile(null);
 		Mockito.when(taskSave.get()).thenReturn(Boolean.TRUE);
 		Mockito.when(ui.isModified()).thenReturn(Boolean.TRUE);
 		Mockito.when(stubFile.getPath()).thenReturn("bar.svg");

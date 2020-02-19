@@ -42,18 +42,6 @@ public class TestNewDrawing extends IOCmdBaseTest {
 	}
 
 	@Test
-	void testCanDoKO1() {
-		cmd.setOpenSaveManager(null);
-		assertThat(cmd.canDo()).isFalse();
-	}
-
-	@Test
-	void testCanDoKO2() {
-		cmd.setUi(null);
-		assertThat(cmd.canDo()).isFalse();
-	}
-
-	@Test
 	void testDoNotModified() {
 		UndoCollector.getInstance().add(Mockito.mock(Undoable.class));
 		CommandsRegistry.getInstance().addCommand(Mockito.mock(Command.class));

@@ -94,16 +94,10 @@ public class TemplateManager extends JfxInstrument implements Initializable {
 
 		nodeBinder()
 			.usingInteraction(DnD::new)
-			.toProduce(() -> new LoadTemplate(svgGen, drawing))
+			.toProduce(i -> new LoadTemplate(svgGen, drawing, new File((String) i.getSrcObject().orElseThrow().getUserData()),
+				statusController.getProgressBar(), statusController.getLabel(), app))
 			.on(templatePane)
-			.first((i, c) -> {
-				c.setFile(new File((String) i.getSrcObject().orElseThrow().getUserData()));
-				c.setProgressBar(statusController.getProgressBar());
-				c.setStatusWidget(statusController.getLabel());
-				c.setUi(app);
-
-				templatePane.setCursor(Cursor.CLOSED_HAND);
-			})
+			.first(c -> templatePane.setCursor(Cursor.CLOSED_HAND))
 			.then((i, c) -> {
 				final Node srcObj = i.getSrcObject().orElseThrow();
 				final Point3D pt3d = i.getTgtObject().orElseThrow().sceneToLocal(srcObj.localToScene(i.getTgtLocalPoint())).
