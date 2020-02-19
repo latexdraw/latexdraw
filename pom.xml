@@ -424,13 +424,13 @@
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
-                <version>1.4.10</version>
+                <version>1.4.11</version>
                 <configuration>
                     <mutationEngine>descartes</mutationEngine>
                     <excludedTestClasses>
-                        <param>net.sf.latexdraw.parsers*</param>
+                        <param>net.sf.latexdraw.parser*</param>
                         <param>net.sf.latexdraw.TestLaTeXDraw</param>
-                        <param>net.sf.latexdraw.instruments*</param>
+                        <param>net.sf.latexdraw.instrument*</param>
                         <param>net.sf.latexdraw.view*</param>
                     </excludedTestClasses>
                     <threads>1</threads>
