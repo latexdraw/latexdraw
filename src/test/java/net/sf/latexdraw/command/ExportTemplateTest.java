@@ -99,12 +99,16 @@ class ExportTemplateTest extends CommandTest<ExportTemplate> {
 	protected Stream<Runnable> doCheckers() {
 		return Stream.of(() -> {
 			assertThat(cmd.hadEffect()).isFalse();
+			Mockito.verify(svgGen, Mockito.never()).saveTemplate(Mockito.anyString(), Mockito.any(), Mockito.any(), Mockito.any());
 		}, () -> {
 			assertThat(cmd.hadEffect()).isTrue();
+			Mockito.verify(svgGen, Mockito.times(1)).saveTemplate(Mockito.anyString(), Mockito.any(), Mockito.any(), Mockito.any());
 		}, () -> {
 			assertThat(cmd.hadEffect()).isFalse();
+			Mockito.verify(svgGen, Mockito.never()).saveTemplate(Mockito.anyString(), Mockito.any(), Mockito.any(), Mockito.any());
 		}, () -> {
 			assertThat(cmd.hadEffect()).isTrue();
+			Mockito.verify(svgGen, Mockito.times(1)).saveTemplate(Mockito.anyString(), Mockito.any(), Mockito.any(), Mockito.any());
 		});
 	}
 }
