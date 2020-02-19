@@ -24,12 +24,9 @@ import net.sf.latexdraw.parser.pst.PSTContext;
 import net.sf.latexdraw.parser.pst.PSTLatexdrawListener;
 import net.sf.latexdraw.parser.pst.PSTLexer;
 import net.sf.latexdraw.parser.pst.PSTParser;
-import net.sf.latexdraw.util.BadaboomCollector;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.RecognitionException;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * This command converts PST code into shapes and add them to the drawing.
@@ -39,13 +36,15 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 	/** The code to parse. */
 	private final @NotNull String code;
 	/** The status bar. */
-	private final @Nullable Label statusBar;
+	private final @NotNull Label statusBar;
 	/** The added shapes. */
 	private @NotNull Optional<Shape> shapes;
 	private final @NotNull ResourceBundle lang;
+	private boolean mementoModified;
 
 
-	public InsertPSTCode(final @NotNull String codeToInsert, final @Nullable Label status, final @NotNull Drawing drawingToFill, final @NotNull ResourceBundle lang) {
+	public InsertPSTCode(final @NotNull String codeToInsert, final @NotNull Label status, final @NotNull Drawing drawingToFill,
+			final @NotNull ResourceBundle lang) {
 		super(drawingToFill);
 		code = codeToInsert;
 		statusBar = status;
@@ -54,48 +53,42 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 	}
 
 	@Override
+	protected void createMemento() {
+		mementoModified = drawing.isModified();
+	}
+
+	@Override
 	protected void doCmdBody() {
-		try {
-			final PSTLatexdrawListener listener = new PSTLatexdrawListener();
-			final PSTLexer lexer = new PSTLexer(CharStreams.fromString(code));
-			final PSTParser parser = new PSTParser(new CommonTokenStream(lexer));
-			parser.addParseListener(listener);
-			parser.pstCode(new PSTContext());
+		final PSTLatexdrawListener listener = new PSTLatexdrawListener();
+		final PSTLexer lexer = new PSTLexer(CharStreams.fromString(code));
+		final PSTParser parser = new PSTParser(new CommonTokenStream(lexer));
+		parser.addParseListener(listener);
+		parser.pstCode(new PSTContext());
 
-			final Group group = ShapeFactory.INST.createGroup();
-			group.getShapes().addAll(listener.flatShapes());
+		final Group group = ShapeFactory.INST.createGroup();
+		group.getShapes().addAll(listener.flatShapes());
 
-			if(!group.isEmpty()) {
-				final Shape sh = group.size() > 1 ? group : group.getShapeAt(0).orElseThrow();
-				final Point tl = sh.getTopLeftPoint();
-				final double tx = tl.getX() < 0d ? -tl.getX() + 50d : 0d;
-				final double ty = tl.getY() < 0d ? -tl.getY() + 50d : 0d;
+		if(!group.isEmpty()) {
+			final Shape sh = group.size() > 1 ? group : group.getShapeAt(0).orElseThrow();
+			final Point tl = sh.getTopLeftPoint();
+			final double tx = tl.getX() < 0d ? -tl.getX() + 50d : 0d;
+			final double ty = tl.getY() < 0d ? -tl.getY() + 50d : 0d;
 
-				shapes = Optional.of(sh);
-				sh.translate(tx, ty);
-				redo();
+			shapes = Optional.of(sh);
+			sh.translate(tx, ty);
+			redo();
 
-				if(statusBar != null) {
-					statusBar.setText(lang.getString("LaTeXDrawFrame.36"));
-				}
-			}
-			parser.getInterpreter().clearDFA();
-			lexer.getInterpreter().clearDFA();
-		}catch(final RecognitionException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-			if(statusBar != null) {
-				statusBar.setText(lang.getString("LaTeXDrawFrame.34"));
-			}
+			statusBar.setText(lang.getString("LaTeXDrawFrame.36"));
 		}
-
-		done();
+		parser.getInterpreter().clearDFA();
+		lexer.getInterpreter().clearDFA();
 	}
 
 	@Override
 	public void undo() {
 		shapes.ifPresent(sh -> {
 			drawing.removeShape(sh);
-			drawing.setModified(true);
+			drawing.setModified(mementoModified);
 		});
 	}
 
