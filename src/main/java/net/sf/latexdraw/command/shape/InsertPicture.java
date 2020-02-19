@@ -55,7 +55,7 @@ public class InsertPicture extends AddShape {
 
 	@Override
 	public boolean hadEffect() {
-		return loaded && super.hadEffect();
+		return loaded;
 	}
 
 	@Override
