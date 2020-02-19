@@ -9,6 +9,8 @@ import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.service.PreferencesService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -91,5 +93,17 @@ class MoveCtrlPointTest extends UndoableCmdTest<MoveCtrlPoint> {
 			assertThat(shape.isModified()).isFalse();
 			assertThat(shape.getSecondCtrlPts().get(1)).isEqualTo(memento);
 		});
+	}
+
+	@ParameterizedTest
+	@MethodSource({"undoProvider"})
+	void testTwoTimesUndo(final Runnable fixture, final Runnable undoOracle) {
+		fixture.run();
+		cmd.doIt();
+		cmd.setNewCoord(ShapeFactory.INST.createPoint(20, 40));
+		cmd.doIt();
+		cmd.done();
+		cmd.undo();
+		undoOracle.run();
 	}
 }

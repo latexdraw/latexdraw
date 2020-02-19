@@ -13,6 +13,7 @@ package net.sf.latexdraw.command.shape;
 import io.github.interacto.command.CommandImpl;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.model.MathUtils;
+import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Point;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,11 +28,7 @@ public abstract class MovePoint extends CommandImpl implements Modifying {
 	/** The new coordinates of the point to move. */
 	protected Point newCoord;
 
-	/** The X-translation vector performed by the command. For undo/redo. */
-	protected double tx;
-
-	/** The Y-translation vector performed by the command. For undo/redo. */
-	protected double ty;
+	protected final @NotNull Point mementoPoint;
 
 
 	/**
@@ -40,8 +37,7 @@ public abstract class MovePoint extends CommandImpl implements Modifying {
 	protected MovePoint(final @NotNull Point pt) {
 		super();
 		point = pt;
-		tx = 0d;
-		ty = 0d;
+		mementoPoint = ShapeFactory.INST.createPoint(point);
 	}
 
 	@Override
@@ -51,7 +47,7 @@ public abstract class MovePoint extends CommandImpl implements Modifying {
 
 	@Override
 	public boolean hadEffect() {
-		return super.hadEffect() && (!MathUtils.INST.equalsDouble(tx, 0d) || !MathUtils.INST.equalsDouble(ty, 0d));
+		return super.hadEffect() && !mementoPoint.equals(point, 0.001);
 	}
 
 	/**

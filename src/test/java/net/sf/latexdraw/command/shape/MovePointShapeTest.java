@@ -2,15 +2,19 @@ package net.sf.latexdraw.command.shape;
 
 import io.github.interacto.jfx.test.UndoableCmdTest;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.ModifiablePointsShape;
 import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.model.api.shape.Polyline;
 import net.sf.latexdraw.service.PreferencesService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -58,6 +62,14 @@ class MovePointShapeTest extends UndoableCmdTest<MovePointShape> {
 				point = shape.getPtAt(1);
 				cmd = new MovePointShape(shape, point);
 				cmd.setNewCoord(ShapeFactory.INST.createPoint(10, Double.NaN));
+			}, () -> {
+				final Point pt = Mockito.mock(Point.class);
+				final List<Point> pts = List.of(pt);
+				shape = Mockito.mock(Polyline.class);
+				Mockito.when(shape.getPoints()).thenReturn(pts);
+				Mockito.when(pt.getX()).thenReturn(Double.NaN);
+				cmd = new MovePointShape(shape, pt);
+				cmd.setNewCoord(ShapeFactory.INST.createPoint(10, Double.NaN));
 			});
 	}
 
@@ -66,6 +78,7 @@ class MovePointShapeTest extends UndoableCmdTest<MovePointShape> {
 		return Stream.of(() -> {
 			assertThat(shape.getPtAt(1)).isEqualTo(newCoord);
 			assertThat(shape.isModified()).isTrue();
+			assertThat(cmd.hadEffect()).isTrue();
 		});
 	}
 
@@ -82,5 +95,28 @@ class MovePointShapeTest extends UndoableCmdTest<MovePointShape> {
 	void testGetShape(final Runnable doConfig) {
 		doConfig.run();
 		assertThat(cmd.getShape()).isSameAs(shape);
+	}
+
+	@Test
+	void testTwoTimesNothing() {
+		canDoFixtures().collect(Collectors.toList()).get(0).run();
+		cmd.doIt();
+		cmd.setNewCoord(ShapeFactory.INST.createPoint(-11, 42));
+		cmd.doIt();
+		cmd.done();
+		assertThat(cmd.hadEffect()).isFalse();
+	}
+
+
+	@ParameterizedTest
+	@MethodSource({"undoProvider"})
+	void testTwoTimesUndo(final Runnable fixture, final Runnable undoOracle) {
+		fixture.run();
+		cmd.doIt();
+		cmd.setNewCoord(ShapeFactory.INST.createPoint(20, 40));
+		cmd.doIt();
+		cmd.done();
+		cmd.undo();
+		undoOracle.run();
 	}
 }

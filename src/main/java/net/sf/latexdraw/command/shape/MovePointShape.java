@@ -33,8 +33,6 @@ public class MovePointShape extends MovePoint implements Undoable {
 	@Override
 	protected void createMemento() {
 		mementoModified = shape.isModified();
-		tx += newCoord.getX() - point.getX();
-		ty += newCoord.getY() - point.getY();
 	}
 
 	@Override
@@ -51,7 +49,7 @@ public class MovePointShape extends MovePoint implements Undoable {
 	@Override
 	public void undo() {
 		// Must use setPoint since other attributes of the shape may depend on the point (e.g. control points).
-		shape.setPoint(point.getX() - tx, point.getY() - ty, shape.getPoints().indexOf(point));
+		shape.setPoint(mementoPoint.getX(), mementoPoint.getY(), shape.getPoints().indexOf(point));
 		shape.setModified(mementoModified);
 	}
 

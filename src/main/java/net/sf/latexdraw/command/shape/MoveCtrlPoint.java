@@ -41,8 +41,6 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 	@Override
 	protected void doCmdBody() {
-		tx += newCoord.getX() - point.getX();
-		ty += newCoord.getY() - point.getY();
 		redo();
 	}
 
@@ -69,7 +67,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 	@Override
 	public void undo() {
-		point.translate(-tx, -ty);
+		point.setPoint(mementoPoint);
 
 		if(isFirstCtrlPt) {
 			move(point, point.centralSymmetry(shape.getPtAt(getIndexCtrlPt())));
