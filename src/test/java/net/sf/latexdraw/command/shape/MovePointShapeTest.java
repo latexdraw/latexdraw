@@ -32,22 +32,22 @@ class MovePointShapeTest extends UndoableCmdTest<MovePointShape> {
 		bundle = new PreferencesService().getBundle();
 	}
 
-	private void fixtureShape() {
-		shape = ShapeFactory.INST.createPolyline(List.of(
-			ShapeFactory.INST.createPoint(),
-			ShapeFactory.INST.createPoint(-11, 42),
-			ShapeFactory.INST.createPoint(75, -50)));
-	}
-
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
 		return Stream.of(() -> {
-			fixtureShape();
 			point = ShapeFactory.INST.createPoint(shape.getPtAt(1));
 			newCoord = ShapeFactory.INST.createPoint(10, 20);
 			cmd = new MovePointShape(shape, shape.getPtAt(1));
 			cmd.setNewCoord(newCoord);
 		});
+	}
+
+	@Override
+	protected void commonCanDoFixture() {
+		shape = ShapeFactory.INST.createPolyline(List.of(
+			ShapeFactory.INST.createPoint(),
+			ShapeFactory.INST.createPoint(-11, 42),
+			ShapeFactory.INST.createPoint(75, -50)));
 	}
 
 	@Override
@@ -58,7 +58,7 @@ class MovePointShapeTest extends UndoableCmdTest<MovePointShape> {
 			() -> cmd = new MovePointShape(ShapeFactory.INST.createPolyline(
 				List.of(ShapeFactory.INST.createPoint())), ShapeFactory.INST.createPoint(1, 2)),
 			() -> {
-				fixtureShape();
+				commonCanDoFixture();
 				point = shape.getPtAt(1);
 				cmd = new MovePointShape(shape, point);
 				cmd.setNewCoord(ShapeFactory.INST.createPoint(10, Double.NaN));
@@ -99,6 +99,7 @@ class MovePointShapeTest extends UndoableCmdTest<MovePointShape> {
 
 	@Test
 	void testTwoTimesNothing() {
+		commonCanDoFixture();
 		canDoFixtures().collect(Collectors.toList()).get(0).run();
 		cmd.doIt();
 		cmd.setNewCoord(ShapeFactory.INST.createPoint(-11, 42));
@@ -111,6 +112,7 @@ class MovePointShapeTest extends UndoableCmdTest<MovePointShape> {
 	@ParameterizedTest
 	@MethodSource({"undoProvider"})
 	void testTwoTimesUndo(final Runnable fixture, final Runnable undoOracle) {
+		commonCanDoFixture();
 		fixture.run();
 		cmd.doIt();
 		cmd.setNewCoord(ShapeFactory.INST.createPoint(20, 40));

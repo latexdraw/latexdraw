@@ -32,17 +32,16 @@ class InsertPictureTest extends UndoableCmdTest<InsertPicture> {
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
 		return Stream.of(() -> {
-			fixtureCmd();
 			Mockito.when(fileChooser.showOpenDialog(null)).thenReturn(file);
 			Mockito.when(file.canRead()).thenReturn(true);
 		}, () -> {
-			fixtureCmd();
 			Mockito.when(fileChooser.showOpenDialog(null)).thenReturn(file);
 			Mockito.when(file.canRead()).thenReturn(false);
-		}, () -> fixtureCmd());
+		}, () -> { });
 	}
 
-	private void fixtureCmd() {
+	@Override
+	protected void commonCanDoFixture() {
 		fileChooser = Mockito.mock(FileChooser.class);
 		drawing = ShapeFactory.INST.createDrawing();
 		shape = Mockito.mock(Picture.class);

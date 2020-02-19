@@ -34,7 +34,6 @@ class SeparateShapesTest extends UndoableCmdTest<SeparateShapes> {
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
 		return Stream.of(() -> {
-			shapeFixture();
 			shape.addShape(sg2);
 			drawing.addShape(s0);
 			drawing.addShape(shape);
@@ -42,7 +41,6 @@ class SeparateShapesTest extends UndoableCmdTest<SeparateShapes> {
 			drawing.addShape(s4);
 			cmd = new SeparateShapes(drawing, shape);
 		}, () -> {
-			shapeFixture();
 			shape.addShape(sg2);
 			drawing.addShape(s0);
 			drawing.addShape(s2);
@@ -50,7 +48,6 @@ class SeparateShapesTest extends UndoableCmdTest<SeparateShapes> {
 			drawing.addShape(shape);
 			cmd = new SeparateShapes(drawing, shape);
 		}, () -> {
-			shapeFixture();
 			drawing.addShape(s0);
 			drawing.addShape(sg2);
 			drawing.addShape(s2);
@@ -58,7 +55,6 @@ class SeparateShapesTest extends UndoableCmdTest<SeparateShapes> {
 			drawing.addShape(shape);
 			cmd = new SeparateShapes(drawing, shape);
 		}, () -> {
-			shapeFixture();
 			drawing.addShape(shape);
 			drawing.addShape(s0);
 			drawing.addShape(sg2);
@@ -68,7 +64,8 @@ class SeparateShapesTest extends UndoableCmdTest<SeparateShapes> {
 		});
 	}
 
-	private void shapeFixture() {
+	@Override
+	protected void commonCanDoFixture() {
 		drawing = ShapeFactory.INST.createDrawing();
 		shape = ShapeFactory.INST.createGroup();
 		s0 = ShapeFactory.INST.createRectangle();
@@ -88,35 +85,29 @@ class SeparateShapesTest extends UndoableCmdTest<SeparateShapes> {
 
 	@Override
 	protected Stream<Runnable> doCheckers() {
-		return Stream.of(() -> {
-			assertThat(drawing.isModified()).isTrue();
-			assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, sg1, sg2, s2, s4));
-		}, () -> {
-			assertThat(drawing.isModified()).isTrue();
-			assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, s2, s4, sg1, sg2));
-		}, () -> {
-			assertThat(drawing.isModified()).isTrue();
-			assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, sg2, s2, s4, sg1));
-		}, () -> {
-			assertThat(drawing.isModified()).isTrue();
-			assertThat(drawing.getShapes().get()).isEqualTo(List.of(sg1, s0, sg2, s2, s4));
-		});
+		return Stream.of(
+			() -> assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, sg1, sg2, s2, s4)),
+			() -> assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, s2, s4, sg1, sg2)),
+			() -> assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, sg2, s2, s4, sg1)),
+			() -> assertThat(drawing.getShapes().get()).isEqualTo(List.of(sg1, s0, sg2, s2, s4)));
+	}
+
+	@Override
+	protected void commonDoCheckers() {
+		assertThat(drawing.isModified()).isTrue();
 	}
 
 	@Override
 	protected Stream<Runnable> undoCheckers() {
-		return Stream.of(() -> {
-			assertThat(drawing.isModified()).isFalse();
-			assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, shape, s2, s4));
-		}, () -> {
-			assertThat(drawing.isModified()).isFalse();
-			assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, s2, s4, shape));
-		}, () -> {
-			assertThat(drawing.isModified()).isFalse();
-			assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, sg2, s2, s4, shape));
-		}, () -> {
-			assertThat(drawing.isModified()).isFalse();
-			assertThat(drawing.getShapes().get()).isEqualTo(List.of(shape, s0, sg2, s2, s4));
-		});
+		return Stream.of(
+			() -> assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, shape, s2, s4)),
+			() -> assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, s2, s4, shape)),
+			() -> assertThat(drawing.getShapes().get()).isEqualTo(List.of(s0, sg2, s2, s4, shape)),
+			() -> assertThat(drawing.getShapes().get()).isEqualTo(List.of(shape, s0, sg2, s2, s4)));
+	}
+
+	@Override
+	protected void commonUndoCheckers() {
+		assertThat(drawing.isModified()).isFalse();
 	}
 }

@@ -41,18 +41,15 @@ class PasteShapesTest extends UndoableCmdTest<PasteShapes> {
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
 		return Stream.of(() -> {
-			canDoCommonFixture();
 			Mockito.when(prefs.isMagneticGrid()).thenReturn(false);
 			cmd = new PasteShapes(copy, prefs, drawing);
 		}, () -> {
-			canDoCommonFixture();
 			Mockito.when(prefs.isMagneticGrid()).thenReturn(false);
 			copy = new CutShapes(new SelectShapes(drawing));
 			copy.nbTimeCopied = 2;
 			copy.copiedShapes = List.of(drawing.getShapeAt(1).orElseThrow(), drawing.getShapeAt(3).orElseThrow());
 			cmd = new PasteShapes(copy, prefs, drawing);
 		}, () -> {
-			canDoCommonFixture();
 			Mockito.when(prefs.isMagneticGrid()).thenReturn(true);
 			gap = new SimpleIntegerProperty(12);
 			Mockito.when(prefs.gridGapProperty()).thenReturn(gap);
@@ -60,7 +57,8 @@ class PasteShapesTest extends UndoableCmdTest<PasteShapes> {
 		});
 	}
 
-	private void canDoCommonFixture() {
+	@Override
+	protected void commonCanDoFixture() {
 		drawing = ShapeFactory.INST.createDrawing();
 		s1 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(202, 33), 10, 20);
 		s2 = ShapeFactory.INST.createCircleArc(ShapeFactory.INST.createPoint(220, 363), 200);

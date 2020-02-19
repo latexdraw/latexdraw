@@ -33,7 +33,6 @@ class MoveCtrlPointTest extends UndoableCmdTest<MoveCtrlPoint> {
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
 		return Stream.of(() -> {
-			fixtureShape();
 			point = shape.getFirstCtrlPtAt(1);
 			memento = ShapeFactory.INST.createPoint(point);
 			isFirstCtrlPt = true;
@@ -41,7 +40,6 @@ class MoveCtrlPointTest extends UndoableCmdTest<MoveCtrlPoint> {
 			cmd = new MoveCtrlPoint(shape, point, isFirstCtrlPt);
 			cmd.setNewCoord(newCoord);
 		}, () -> {
-			fixtureShape();
 			point = shape.getSecondCtrlPtAt(1);
 			memento = ShapeFactory.INST.createPoint(point);
 			isFirstCtrlPt = false;
@@ -52,6 +50,14 @@ class MoveCtrlPointTest extends UndoableCmdTest<MoveCtrlPoint> {
 	}
 
 	@Override
+	protected void commonCanDoFixture() {
+		shape = ShapeFactory.INST.createBezierCurve(List.of(
+			ShapeFactory.INST.createPoint(),
+			ShapeFactory.INST.createPoint(10, 23),
+			ShapeFactory.INST.createPoint(45, 2)));
+	}
+
+	@Override
 	protected Stream<Runnable> cannotDoFixtures() {
 		return Stream.of(
 			() -> cmd = new MoveCtrlPoint(ShapeFactory.INST.createBezierCurve(
@@ -59,7 +65,7 @@ class MoveCtrlPointTest extends UndoableCmdTest<MoveCtrlPoint> {
 			() -> cmd = new MoveCtrlPoint(ShapeFactory.INST.createBezierCurve(
 				List.of(ShapeFactory.INST.createPoint())), ShapeFactory.INST.createPoint(1, 2), false),
 			() -> {
-			fixtureShape();
+			commonCanDoFixture();
 			point = shape.getFirstCtrlPtAt(1);
 			cmd = new MoveCtrlPoint(shape, point, true);
 			cmd.setNewCoord(ShapeFactory.INST.createPoint(10, Double.NaN));
@@ -68,31 +74,24 @@ class MoveCtrlPointTest extends UndoableCmdTest<MoveCtrlPoint> {
 
 	@Override
 	protected Stream<Runnable> doCheckers() {
-		return Stream.of(() -> {
-			assertThat(shape.getFirstCtrlPts().get(1)).isEqualTo(ShapeFactory.INST.createPoint(20, -50));
-			assertThat(shape.isModified()).isTrue();
-		}, () -> {
-			assertThat(shape.getSecondCtrlPts().get(1)).isEqualTo(ShapeFactory.INST.createPoint(-100, 500));
-			assertThat(shape.isModified()).isTrue();
-		});
+		return Stream.of(() -> assertThat(shape.getFirstCtrlPts().get(1)).isEqualTo(ShapeFactory.INST.createPoint(20, -50)),
+			() -> assertThat(shape.getSecondCtrlPts().get(1)).isEqualTo(ShapeFactory.INST.createPoint(-100, 500)));
 	}
 
-	private void fixtureShape() {
-		shape = ShapeFactory.INST.createBezierCurve(List.of(
-			ShapeFactory.INST.createPoint(),
-			ShapeFactory.INST.createPoint(10, 23),
-			ShapeFactory.INST.createPoint(45, 2)));
+	@Override
+	protected void commonDoCheckers() {
+		assertThat(shape.isModified()).isTrue();
 	}
 
 	@Override
 	protected Stream<Runnable> undoCheckers() {
-		return Stream.of(() -> {
-			assertThat(shape.isModified()).isFalse();
-			assertThat(shape.getFirstCtrlPts().get(1)).isEqualTo(memento);
-		}, () -> {
-			assertThat(shape.isModified()).isFalse();
-			assertThat(shape.getSecondCtrlPts().get(1)).isEqualTo(memento);
-		});
+		return Stream.of(() -> assertThat(shape.getFirstCtrlPts().get(1)).isEqualTo(memento),
+			() -> assertThat(shape.getSecondCtrlPts().get(1)).isEqualTo(memento));
+	}
+
+	@Override
+	protected void commonUndoCheckers() {
+		assertThat(shape.isModified()).isFalse();
 	}
 
 	@ParameterizedTest

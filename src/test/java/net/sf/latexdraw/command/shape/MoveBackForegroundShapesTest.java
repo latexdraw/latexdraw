@@ -36,13 +36,11 @@ class MoveBackForegroundShapesTest extends UndoableCmdTest<MoveBackForegroundSha
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
 		return Stream.of(() -> {
-			fixtureDrawing();
 			foreground = true;
 			shape.addShape(drawing.getShapeAt(0).orElseThrow());
 			shape.addShape(drawing.getShapeAt(2).orElseThrow());
 			cmd = new MoveBackForegroundShapes(shape, foreground, drawing);
 		}, () -> {
-			fixtureDrawing();
 			foreground = false;
 			shape.addShape(drawing.getShapeAt(2).orElseThrow());
 			shape.addShape(drawing.getShapeAt(3).orElseThrow());
@@ -50,7 +48,8 @@ class MoveBackForegroundShapesTest extends UndoableCmdTest<MoveBackForegroundSha
 		});
 	}
 
-	private void fixtureDrawing() {
+	@Override
+	protected void commonCanDoFixture() {
 		drawing = ShapeFactory.INST.createDrawing();
 		s0 = ShapeFactory.INST.createEllipse();
 		s1 = ShapeFactory.INST.createRectangle();
@@ -76,14 +75,17 @@ class MoveBackForegroundShapesTest extends UndoableCmdTest<MoveBackForegroundSha
 			assertThat(drawing.getShapeAt(1).orElseThrow()).isSameAs(s3);
 			assertThat(drawing.getShapeAt(2).orElseThrow()).isSameAs(s0);
 			assertThat(drawing.getShapeAt(3).orElseThrow()).isSameAs(s2);
-			assertThat(drawing.isModified()).isTrue();
 		}, () -> {
 			assertThat(drawing.getShapeAt(0).orElseThrow()).isSameAs(s2);
 			assertThat(drawing.getShapeAt(1).orElseThrow()).isSameAs(s3);
 			assertThat(drawing.getShapeAt(2).orElseThrow()).isSameAs(s0);
 			assertThat(drawing.getShapeAt(3).orElseThrow()).isSameAs(s1);
-			assertThat(drawing.isModified()).isTrue();
 		});
+	}
+
+	@Override
+	protected void commonDoCheckers() {
+		assertThat(drawing.isModified()).isTrue();
 	}
 
 	@Override

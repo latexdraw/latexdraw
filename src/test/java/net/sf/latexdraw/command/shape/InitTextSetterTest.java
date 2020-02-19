@@ -32,24 +32,22 @@ class InitTextSetterTest extends CommandTest<InitTextSetter> {
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
 		return Stream.of(() -> {
-			setAttrs();
 			text = "foo";
 			plotShape = Mockito.mock(Plot.class);
 			cmd = new InitTextSetter(instrument, setter, text, position, null, plotShape);
 		}, () -> {
-			setAttrs();
 			textShape = Mockito.mock(Text.class);
 			plotShape = Mockito.mock(Plot.class);
 			cmd = new InitTextSetter(instrument, setter, null, position, textShape, plotShape);
 		}, () -> {
-			setAttrs();
 			text = "bar";
 			textShape = Mockito.mock(Text.class);
 			cmd = new InitTextSetter(instrument, setter, text, position, textShape, null);
 		});
 	}
 
-	private void setAttrs() {
+	@Override
+	protected void commonCanDoFixture() {
 		instrument = Mockito.mock(Instrument.class);
 		setter = Mockito.mock(TextSetter.class);
 		position = ShapeFactory.INST.createPoint(10, 20);

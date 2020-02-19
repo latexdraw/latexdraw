@@ -35,16 +35,14 @@ class CheckConvertExistsTest extends CommandTest<CheckConvertExists> {
 
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
-		return Stream.of(() -> {
-			commonFixture();
-			cmd = new CheckConvertExists(statusLabel, link);
-		}, () -> {
-			commonFixture();
-			final SystemUtils mockSys = Mockito.mock(SystemUtils.class);
-			Mockito.when(mockSys.execute(Mockito.any(), Mockito.any())).thenReturn(new Tuple<>(false, ""));
-			SystemUtils.setSingleton(mockSys);
-			cmd = new CheckConvertExists(statusLabel, link);
-		});
+		return Stream.of(
+			() -> cmd = new CheckConvertExists(statusLabel, link),
+			() -> {
+				final SystemUtils mockSys = Mockito.mock(SystemUtils.class);
+				Mockito.when(mockSys.execute(Mockito.any(), Mockito.any())).thenReturn(new Tuple<>(false, ""));
+				SystemUtils.setSingleton(mockSys);
+				cmd = new CheckConvertExists(statusLabel, link);
+			});
 	}
 
 	@Override
@@ -59,7 +57,8 @@ class CheckConvertExistsTest extends CommandTest<CheckConvertExists> {
 		});
 	}
 
-	private void commonFixture() {
+	@Override
+	protected void commonCanDoFixture() {
 		statusLabel = new Label();
 		link = new Hyperlink();
 		statusLabel.setVisible(false);

@@ -27,16 +27,13 @@ class TranslateShapesTest extends UndoableCmdTest<TranslateShapes> {
 
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
-		return Stream.of(() -> {
-			commonFixture();
-			cmd.setT(10, -20);
-		}, () -> {
-			commonFixture();
-			cmd.setT(0, 30);
-		});
+		return Stream.of(
+			() -> cmd.setT(10, -20),
+			() -> cmd.setT(0, 30));
 	}
 
-	private void commonFixture() {
+	@Override
+	protected void commonCanDoFixture() {
 		drawing = ShapeFactory.INST.createDrawing();
 		shape = ShapeFactory.INST.createGroup(
 			ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(30, 50), 40, 70));
@@ -58,16 +55,18 @@ class TranslateShapesTest extends UndoableCmdTest<TranslateShapes> {
 	@Override
 	protected Stream<Runnable> doCheckers() {
 		return Stream.of(() -> {
-			assertThat(drawing.isModified()).isTrue();
 			assertThat(shape.getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(40, 30));
 			assertThat(shape.getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(80, 100));
-			assertThat(cmd.hadEffect()).isTrue();
 		}, () -> {
-			assertThat(drawing.isModified()).isTrue();
 			assertThat(shape.getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(30, 80));
 			assertThat(shape.getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(70, 150));
-			assertThat(cmd.hadEffect()).isTrue();
 		});
+	}
+
+	@Override
+	protected void commonDoCheckers() {
+		assertThat(drawing.isModified()).isTrue();
+		assertThat(cmd.hadEffect()).isTrue();
 	}
 
 	@Override
@@ -81,7 +80,7 @@ class TranslateShapesTest extends UndoableCmdTest<TranslateShapes> {
 
 	@Test
 	void testTwoTimesNothing() {
-		commonFixture();
+		commonCanDoFixture();
 		cmd.setT(10, -20);
 		cmd.doIt();
 		cmd.setT(-10, 20);

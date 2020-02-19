@@ -26,17 +26,16 @@ class MirrorShapesTest extends UndoableCmdTest<MirrorShapes> {
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
 		return Stream.of(() -> {
-			createShapes();
 			horizontally = true;
 			cmd = new MirrorShapes(horizontally, shape);
 		}, () -> {
-			createShapes();
 			horizontally = false;
 			cmd = new MirrorShapes(horizontally, shape);
 		});
 	}
 
-	private void createShapes() {
+	@Override
+	protected void commonCanDoFixture() {
 		shape = ShapeFactory.INST.createGroup();
 		shape.addShape(ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(10, 20), 100, 200));
 		shape.addShape(ShapeFactory.INST.createEllipse(ShapeFactory.INST.createPoint(150, 250), ShapeFactory.INST.createPoint(260, 270)));

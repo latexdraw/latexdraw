@@ -160,8 +160,6 @@ class ModifyShapePropertyTest extends UndoableCmdTest<ModifyShapeProperty<Object
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
 		return data().map(info -> () -> {
-			shapes = ShapeFactory.INST.createGroup();
-			configureShapes();
 			currentData = info;
 			memento = ((Function<Group, List<Optional<Object>>>) currentData[2]).apply(shapes);
 			cmd = new ModifyShapeProperty((ShapeProperties) info[0], shapes, info[1]);
@@ -202,7 +200,9 @@ class ModifyShapePropertyTest extends UndoableCmdTest<ModifyShapeProperty<Object
 		});
 	}
 
-	private void configureShapes() {
+	@Override
+	protected void commonCanDoFixture() {
+		shapes = ShapeFactory.INST.createGroup();
 		final Grid grid = ShapeFactory.INST.createGrid(ShapeFactory.INST.createPoint());
 		final Axes axes = ShapeFactory.INST.createAxes(ShapeFactory.INST.createPoint());
 		final Dot dot = ShapeFactory.INST.createDot(ShapeFactory.INST.createPoint());

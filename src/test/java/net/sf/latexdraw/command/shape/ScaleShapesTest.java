@@ -36,7 +36,6 @@ class ScaleShapesTest extends UndoableCmdTest<ScaleShapes> {
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
 		return Stream.of(Position.values()).map(pos -> () -> {
-			fixtureCommonShapes();
 			refPosition = pos;
 			cmd = new ScaleShapes(shape, drawing, refPosition);
 			switch(pos) {
@@ -78,7 +77,8 @@ class ScaleShapesTest extends UndoableCmdTest<ScaleShapes> {
 		});
 	}
 
-	private void fixtureCommonShapes() {
+	@Override
+	protected void commonCanDoFixture() {
 		s0 = ShapeFactory.INST.createRectangle(ShapeFactory.INST.createPoint(20, 60), 100, 200);
 		shape = ShapeFactory.INST.createGroup(s0);
 		drawing = ShapeFactory.INST.createDrawing();
@@ -92,12 +92,12 @@ class ScaleShapesTest extends UndoableCmdTest<ScaleShapes> {
 			() -> cmd = new ScaleShapes(ShapeFactory.INST.createGroup(), ShapeFactory.INST.createDrawing(), Position.NORTH),
 			() -> cmd = new ScaleShapes(ShapeFactory.INST.createGroup(), ShapeFactory.INST.createDrawing(), Position.SOUTH),
 			() -> {
-				fixtureCommonShapes();
+				commonCanDoFixture();
 				cmd = new ScaleShapes(shape, drawing, Position.SE);
 				cmd.setNewX(110);
 			},
 			() -> {
-				fixtureCommonShapes();
+				commonCanDoFixture();
 				cmd = new ScaleShapes(shape, drawing, Position.NE);
 				cmd.setNewY(65);
 			});
@@ -158,13 +158,14 @@ class ScaleShapesTest extends UndoableCmdTest<ScaleShapes> {
 	@ParameterizedTest
 	@MethodSource({"canDoFixtures"})
 	void testGetRefPosition(final Runnable config) {
+		commonCanDoFixture();
 		config.run();
 		assertThat(cmd.getRefPosition()).isSameAs(refPosition);
 	}
 
 	@Test
 	void testHadEffectsY() {
-		fixtureCommonShapes();
+		commonCanDoFixture();
 		cmd = new ScaleShapes(shape, drawing, Position.NORTH);
 		cmd.setNewY(65);
 		cmd.doIt();
@@ -176,7 +177,7 @@ class ScaleShapesTest extends UndoableCmdTest<ScaleShapes> {
 
 	@Test
 	void testHadEffectsX() {
-		fixtureCommonShapes();
+		commonCanDoFixture();
 		cmd = new ScaleShapes(shape, drawing, Position.EAST);
 		cmd.setNewX(55);
 		cmd.doIt();
@@ -188,7 +189,7 @@ class ScaleShapesTest extends UndoableCmdTest<ScaleShapes> {
 
 	@Test
 	void testHadEffectsNotDone() {
-		fixtureCommonShapes();
+		commonCanDoFixture();
 		cmd = new ScaleShapes(shape, drawing, Position.NE);
 		cmd.setNewX(55);
 		cmd.setNewY(65);
