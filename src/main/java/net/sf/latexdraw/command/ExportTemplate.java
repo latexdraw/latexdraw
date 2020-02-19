@@ -12,9 +12,7 @@ package net.sf.latexdraw.command;
 
 import io.github.interacto.jfx.command.IOCommand;
 import io.github.interacto.jfx.ui.JfxUI;
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.ResourceBundle;
+import java.nio.file.Path;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -32,35 +30,26 @@ import org.jetbrains.annotations.NotNull;
 public class ExportTemplate extends IOCommand<Label> {
 	private final @NotNull SVGDocumentGenerator svgGen;
 	private final @NotNull Pane templatesPane;
-	private final @NotNull ResourceBundle lang;
+	private final @NotNull TextInputDialog nameInput;
+	private final @NotNull Alert alertName;
 
-	public ExportTemplate(final @NotNull Pane templatesPane, final @NotNull SVGDocumentGenerator svgGen, final @NotNull ResourceBundle lang,
-						final @NotNull JfxUI ui, final @NotNull ProgressBar progressBar, final @NotNull Label statusWidget) {
+	public ExportTemplate(final @NotNull Pane templatesPane, final @NotNull SVGDocumentGenerator svgGen, final @NotNull JfxUI ui,
+			final @NotNull ProgressBar progressBar, final @NotNull Label statusWidget, final @NotNull Alert alertName,
+			final @NotNull TextInputDialog nameInput) {
 		super(null, svgGen, progressBar, statusWidget, ui);
 		this.templatesPane = templatesPane;
 		this.svgGen = svgGen;
-		this.lang = lang;
+		this.nameInput = nameInput;
+		this.alertName = alertName;
 	}
 
 	@Override
 	protected void doCmdBody() {
-		final TextInputDialog dialog = new TextInputDialog("templateFileName"); //NON-NLS
-		dialog.setHeaderText(lang.getString("DrawContainer.nameTemplate"));
+		nameInput.showAndWait().ifPresent(name -> {
+			final Path path = Path.of(SystemUtils.getInstance().getPathTemplatesDirUser(), name + ".svg");
 
-		dialog.showAndWait().ifPresent(name -> {
-			final String path = SystemUtils.getInstance().getPathTemplatesDirUser() + File.separator + name + ".svg"; //NON-NLS
-
-			if(Paths.get(path).toFile().exists()) {
-				final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-				alert.setHeaderText(lang.getString("DrawContainer.overwriteTemplate"));
-				alert.setTitle(lang.getString("LaTeXDrawFrame.42"));
-
-				if(alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
-					svgGen.saveTemplate(path, progressBar, statusWidget, templatesPane);
-					ok = true;
-				}
-			}else {
-				svgGen.saveTemplate(path, progressBar, statusWidget, templatesPane);
+			if(!path.toFile().exists() || alertName.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+				svgGen.saveTemplate(path.toString(), progressBar, statusWidget, templatesPane);
 				ok = true;
 			}
 		});

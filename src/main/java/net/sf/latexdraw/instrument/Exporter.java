@@ -21,8 +21,10 @@ import java.util.stream.Collectors;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.command.Export;
 import net.sf.latexdraw.command.ExportFormat;
@@ -37,6 +39,7 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.pst.PSTCodeGenerator;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Element;
 
 /**
@@ -77,6 +80,9 @@ public class Exporter extends JfxInstrument implements Initializable {
 	private final @NotNull Canvas canvas;
 	private final @NotNull SVGDocumentGenerator svgGen;
 
+	private @Nullable TextInputDialog templateNameInput;
+	private @Nullable Alert alertReplace;
+
 
 	@Inject
 	public Exporter(final PreferencesService prefs, final PSTCodeGenerator pstGen, final StatusBarController statusBar, final TemplateManager templateManager,
@@ -92,6 +98,23 @@ public class Exporter extends JfxInstrument implements Initializable {
 		this.svgGen = Objects.requireNonNull(svgGen);
 		fileChooserExport = new FileChooser();
 		fileChooserExport.setTitle(prefs.getBundle().getString("Exporter.1"));
+	}
+
+	private @NotNull TextInputDialog getTemplateNameInput() {
+		if(templateNameInput == null) {
+			templateNameInput = new TextInputDialog("templateFileName"); //NON-NLS
+			templateNameInput.setHeaderText(prefs.getBundle().getString("DrawContainer.nameTemplate"));
+		}
+		return templateNameInput;
+	}
+
+	private @NotNull Alert getTemplateNameAlert() {
+		if(alertReplace == null) {
+			alertReplace = new Alert(Alert.AlertType.CONFIRMATION);
+			alertReplace.setHeaderText(prefs.getBundle().getString("DrawContainer.overwriteTemplate"));
+			alertReplace.setTitle(prefs.getBundle().getString("LaTeXDrawFrame.42"));
+		}
+		return alertReplace;
 	}
 
 	@Override
@@ -132,7 +155,8 @@ public class Exporter extends JfxInstrument implements Initializable {
 			.bind();
 
 		bindingFragment
-			.toProduce(() -> new ExportTemplate(templateManager.templatePane, svgGen, prefs.getBundle(), app, statusBar.getProgressBar(), statusBar.getLabel()))
+			.toProduce(() -> new ExportTemplate(templateManager.templatePane, svgGen, app, statusBar.getProgressBar(), statusBar.getLabel(),
+				getTemplateNameAlert(), getTemplateNameInput()))
 			.on(exportTemplateMenu)
 			.bind();
 
