@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeoutException;
 import javafx.application.HostServices;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -32,18 +34,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestCodeInserter {
 	Drawing drawing;
 	CodeInserter inserter;
+	StatusBarController status;
+	private Label label;
+	private ProgressBar progressBar;
 
 	@ConfigureInjection
 	Injector createInjector() {
 		return new Injector() {
 			@Override
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+				status = Mockito.mock(StatusBarController.class);
 				bindToInstance(Injector.class, this);
 				bindAsEagerSingleton(PreferencesService.class);
 				bindWithCommand(ResourceBundle.class, PreferencesService.class, pref -> pref.getBundle());
 				bindToInstance(HostServices.class, Mockito.mock(HostServices.class));
 				bindToInstance(CopierCutterPaster.class, Mockito.mock(CopierCutterPaster.class));
-				bindAsEagerSingleton(StatusBarController.class);
+				bindToInstance(StatusBarController.class, status);
 				bindToInstance(Drawing.class, ShapeFactory.INST.createDrawing());
 				bindAsEagerSingleton(CodeInserter.class);
 			}
@@ -52,6 +58,10 @@ public class TestCodeInserter {
 
 	@BeforeEach
 	public void setUp(final Drawing drawing, final CodeInserter codeInserter) {
+		label = new Label();
+		progressBar = new ProgressBar();
+		Mockito.when(status.getLabel()).thenReturn(label);
+		Mockito.when(status.getProgressBar()).thenReturn(progressBar);
 		this.drawing = drawing;
 		inserter = codeInserter;
 		Cmds.of(CmdFXVoid.of(() -> {
@@ -62,12 +72,10 @@ public class TestCodeInserter {
 				BadaboomCollector.INSTANCE.add(ex);
 			}
 			inserter.setActivated(true);
-		}), CmdFXVoid.of(() -> {
-			inserter.getInsertCodeDialogue().ifPresent(stage -> {
-				stage.show();
-				stage.toFront();
-			});
-		})).execute();
+		}), CmdFXVoid.of(() -> inserter.getInsertCodeDialogue().ifPresent(stage -> {
+			stage.show();
+			stage.toFront();
+		}))).execute();
 	}
 
 	@Test
