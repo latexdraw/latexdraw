@@ -61,7 +61,6 @@ public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modif
 				System.out.println(pt.toPoint3D());
 				pt.setPoint(grid.getTransformedPointToGrid(pt.toPoint3D()));
 			});
-			System.out.println("---");
 		});
 		shape.setModified(true);
 	}
