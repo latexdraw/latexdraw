@@ -29,14 +29,12 @@ class DeleteShapesTest extends UndoableCmdTest<DeleteShapes> {
 	protected Stream<Runnable> canDoFixtures() {
 		return Stream.of(() -> {
 			drawing = ShapeFactory.INST.createDrawing();
-			cmd = new DeleteShapes(drawing);
 			shapes = List.of(
 				ShapeFactory.INST.createRectangle(),
 				ShapeFactory.INST.createRectangle(),
 				ShapeFactory.INST.createRectangle());
 			shapes.forEach(s -> drawing.addShape(s));
-			cmd.setShape(shapes.get(0));
-			cmd.addShape(shapes.get(2));
+			cmd = new DeleteShapes(drawing, List.of(shapes.get(0), shapes.get(2)));
 		});
 	}
 
@@ -44,7 +42,7 @@ class DeleteShapesTest extends UndoableCmdTest<DeleteShapes> {
 	protected Stream<Runnable> cannotDoFixtures() {
 		return Stream.of(() -> {
 			drawing = ShapeFactory.INST.createDrawing();
-			cmd = new DeleteShapes(drawing);
+			cmd = new DeleteShapes(drawing, List.of());
 		});
 	}
 
@@ -53,6 +51,7 @@ class DeleteShapesTest extends UndoableCmdTest<DeleteShapes> {
 		return Stream.of(() -> {
 			assertThat(drawing.size()).isEqualTo(1);
 			assertThat(drawing.getShapeAt(0).orElseThrow()).isEqualTo(shapes.get(1));
+			assertThat(drawing.isModified()).isTrue();
 		});
 	}
 
@@ -61,6 +60,7 @@ class DeleteShapesTest extends UndoableCmdTest<DeleteShapes> {
 		return Stream.of(() -> {
 			assertThat(drawing.size()).isEqualTo(3);
 			assertThat(drawing.getShapes()).isEqualTo(shapes);
+			assertThat(drawing.isModified()).isFalse();
 		});
 	}
 }

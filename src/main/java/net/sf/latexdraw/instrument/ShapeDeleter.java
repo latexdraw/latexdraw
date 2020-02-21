@@ -11,9 +11,10 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
+import java.util.function.Supplier;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -72,19 +73,17 @@ public class ShapeDeleter extends CanvasInstrument implements Initializable, Cmd
 
 	@Override
 	protected void configureBindings() {
-		final Consumer<DeleteShapes> first = c -> getSelectCmd().ifPresent(sel -> sel.getShapes().forEach(sh -> c.addShape(sh)));
+		final Supplier<DeleteShapes> cmdCreation = () -> new DeleteShapes(canvas.getDrawing(), getSelectCmd().map(sel -> sel.getShapes()).orElse(List.of()));
 
 		buttonBinder()
-			.toProduce(() -> new DeleteShapes(canvas.getDrawing()))
+			.toProduce(cmdCreation)
 			.on(deleteB)
-			.first(first)
 			.bind();
 
 		shortcutBinder()
-			.toProduce(() -> new DeleteShapes(canvas.getDrawing()))
+			.toProduce(cmdCreation)
 			.on(canvas)
 			.with(KeyCode.DELETE)
-			.first(first)
 			.bind();
 	}
 }
