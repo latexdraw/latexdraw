@@ -11,6 +11,7 @@
 package net.sf.latexdraw.instrument;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -72,9 +73,8 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements CmdRegistry
 			.bind();
 
 		buttonBinder()
-			.toProduce(() -> new JoinShapes(canvas.getDrawing()))
+			.toProduce(() -> new JoinShapes(canvas.getDrawing(), getSelectCmd().map(sel -> sel.getShapes()).orElse(List.of())))
 			.on(groupB)
-			.first(c -> getSelectCmd().ifPresent(sel -> sel.getShapes().forEach(sh -> c.addShape(sh))))
 			.bind();
 	}
 }

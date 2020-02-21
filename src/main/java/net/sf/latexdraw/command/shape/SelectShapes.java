@@ -15,16 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 import net.sf.latexdraw.command.DrawingCmdImpl;
 import net.sf.latexdraw.command.Modifying;
-import net.sf.latexdraw.command.ShapesCmd;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Shape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This command allows to (un-)select shapes.
  * @author Arnaud Blouin
  */
-public class SelectShapes extends DrawingCmdImpl implements ShapesCmd, Modifying {
+public class SelectShapes extends DrawingCmdImpl implements Modifying {
 	/** The shapes to handle. */
 	private final @NotNull List<Shape> shapes;
 
@@ -48,8 +48,29 @@ public class SelectShapes extends DrawingCmdImpl implements ShapesCmd, Modifying
 		return cmd instanceof SelectShapes || cmd instanceof CutShapes || cmd instanceof DeleteShapes;
 	}
 
-	@Override
 	public @NotNull List<Shape> getShapes() {
 		return shapes;
+	}
+
+	/**
+	 * Sets the shape to handle.
+	 * @param shape The shape to handle. Can be null.
+	 */
+	public void setShape(final @Nullable Shape shape) {
+		getShapes().clear();
+
+		if(shape != null) {
+			getShapes().add(shape);
+		}
+	}
+
+	/**
+	 * Add a shape to the list of shapes to handle.
+	 * @param shape The shape to handle.
+	 */
+	public void addShape(final @Nullable Shape shape) {
+		if(shape != null) {
+			getShapes().add(shape);
+		}
 	}
 }

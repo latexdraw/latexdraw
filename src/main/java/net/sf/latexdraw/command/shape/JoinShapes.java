@@ -11,7 +11,6 @@
 package net.sf.latexdraw.command.shape;
 
 import io.github.interacto.undo.Undoable;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import net.sf.latexdraw.command.DrawingCmdImpl;
 import net.sf.latexdraw.command.Modifying;
-import net.sf.latexdraw.command.ShapesCmd;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Group;
@@ -30,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
  * This command joins shapes.
  * @author Arnaud Blouin
  */
-public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, Modifying {
+public class JoinShapes extends DrawingCmdImpl implements Undoable, Modifying {
 	/** The added group of shapes. */
 	private final @NotNull Group addedGroup;
 	/** The shapes to handle. */
@@ -38,10 +36,10 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 	private Map<Shape, Integer> mementoIndexes;
 	private boolean mementoModified;
 
-	public JoinShapes(final @NotNull Drawing theDrawing) {
+	public JoinShapes(final @NotNull Drawing theDrawing, final List<Shape> shapes) {
 		super(theDrawing);
 		addedGroup = ShapeFactory.INST.createGroup();
-		shapes = new ArrayList<>();
+		this.shapes = List.copyOf(shapes);
 	}
 
 	@Override
@@ -88,10 +86,5 @@ public class JoinShapes extends DrawingCmdImpl implements ShapesCmd, Undoable, M
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
 		return bundle.getString("UndoRedoManager.join");
-	}
-
-	@Override
-	public @NotNull List<Shape> getShapes() {
-		return shapes;
 	}
 }

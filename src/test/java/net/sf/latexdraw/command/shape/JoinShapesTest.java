@@ -10,8 +10,6 @@ import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.PreferencesService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,14 +47,13 @@ class JoinShapesTest extends UndoableCmdTest<JoinShapes> {
 			drawing.addShape(s4);
 			shapes = List.of(s2, s4, s0);
 
-			cmd = new JoinShapes(drawing);
-			shapes.forEach(sh -> cmd.addShape(sh));
+			cmd = new JoinShapes(drawing, shapes);
 		});
 	}
 
 	@Override
 	protected Stream<Runnable> cannotDoFixtures() {
-		return Stream.of(() -> cmd = new JoinShapes(ShapeFactory.INST.createDrawing()));
+		return Stream.of(() -> cmd = new JoinShapes(ShapeFactory.INST.createDrawing(), List.of()));
 	}
 
 	@Override
@@ -84,12 +81,5 @@ class JoinShapesTest extends UndoableCmdTest<JoinShapes> {
 			assertThat(drawing.getShapes().get(4)).isEqualTo(s4);
 			assertThat(drawing.isModified()).isFalse();
 		});
-	}
-
-	@ParameterizedTest
-	@MethodSource({"canDoFixtures"})
-	void testGetShapes(final Runnable doConfig) {
-		doConfig.run();
-		assertThat(cmd.getShapes()).isEqualTo(shapes);
 	}
 }
