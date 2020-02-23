@@ -18,6 +18,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -55,7 +58,8 @@ public class Export extends CommandImpl {
 	/**
 	 * Creates the command.
 	 */
-	public Export(final @NotNull Canvas canvas, final @NotNull PSTCodeGenerator pstGen, final @NotNull ExportFormat format, final @NotNull FileChooser dialogueBox) {
+	public Export(final @NotNull Canvas canvas, final @NotNull PSTCodeGenerator pstGen, final @NotNull ExportFormat format,
+				final @NotNull FileChooser dialogueBox) {
 		super();
 		this.canvas = canvas;
 		this.pstGen = pstGen;
@@ -107,7 +111,7 @@ public class Export extends CommandImpl {
 
 	@Override
 	public boolean hadEffect() {
-		return exported && super.hadEffect();
+		return exported;
 	}
 
 
@@ -210,10 +214,21 @@ public class Export extends CommandImpl {
 		final double scale = 3d;
 		final WritableImage img = new WritableImage((int) (bounds.getWidth() * scale), (int) (bounds.getHeight() * scale));
 		final SnapshotParameters snapshotParameters = new SnapshotParameters();
+		final CountDownLatch latch = new CountDownLatch(1);
 
 		snapshotParameters.setFill(Color.WHITE);
 		snapshotParameters.setTransform(new Scale(scale, scale));
-		views.snapshot(snapshotParameters, img);
+
+		Platform.runLater(() -> {
+			views.snapshot(snapshotParameters, img);
+			latch.countDown();
+		});
+
+		try {
+			exported = latch.await(10, TimeUnit.SECONDS);
+		}catch(final InterruptedException ex) {
+			BadaboomCollector.INSTANCE.add(ex);
+		}
 
 		return SwingFXUtils.fromFXImage(img, null);
 	}
