@@ -55,11 +55,10 @@ class ExportTemplateTest extends CommandTest<ExportTemplate> {
 
 	@Override
 	protected Stream<Runnable> canDoFixtures() {
-		return Stream.of(() -> {
-			Mockito.when(inputName.showAndWait()).thenReturn(Optional.empty());
-		}, () -> {
-			Mockito.when(inputName.showAndWait()).thenReturn(Optional.of("foobarrrrrr"));
-		}, () -> {
+		return Stream.of(
+			() -> Mockito.when(inputName.showAndWait()).thenReturn(Optional.empty()),
+			() -> Mockito.when(inputName.showAndWait()).thenReturn(Optional.of("foobarrrrrr")),
+			() -> {
 			final Path path = dir.resolve("foo.svg");
 			try {
 				Files.write(path, List.of("foo"));

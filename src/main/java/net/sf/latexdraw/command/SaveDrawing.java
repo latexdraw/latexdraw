@@ -15,7 +15,6 @@ import io.github.interacto.jfx.ui.JfxUI;
 import io.github.interacto.jfx.ui.OpenSaver;
 import java.io.File;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -52,13 +51,6 @@ public class SaveDrawing extends Save<Label> {
 		return Optional.ofNullable(f);
 	}
 
-	protected static ButtonType showAskModificationsDialog(final ResourceBundle lang) {
-		final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle(lang.getString("Actions.2"));
-		alert.setHeaderText(lang.getString("LaTeXDrawFrame.188"));
-		alert.getButtonTypes().setAll(ButtonType.NO, ButtonType.YES, ButtonType.CANCEL);
-		return alert.showAndWait().orElse(ButtonType.CANCEL);
-	}
 
 	/** True: A dialog bow will be always shown to ask the location to save. */
 	private boolean saveAs;
@@ -69,10 +61,11 @@ public class SaveDrawing extends Save<Label> {
 	private final @NotNull FileChooser fileChooser;
 	private final @NotNull PreferencesService prefService;
 	private final @NotNull Stage mainstage;
+	private final @NotNull Alert modifiedAlert;
 
 	public SaveDrawing(final boolean saveAs, final boolean saveOnClose, final @NotNull Optional<File> currentFolder, final @NotNull FileChooser fileChooser,
 				final @NotNull PreferencesService prefService, final File file, final @NotNull OpenSaver<Label> openSaveManager, final @NotNull ProgressBar bar,
-		final @NotNull JfxUI ui, final @NotNull Label statusWidget, final @NotNull Stage mainstage) {
+		final @NotNull JfxUI ui, final @NotNull Label statusWidget, final @NotNull Stage mainstage, final @NotNull Alert modifiedAlert) {
 		super(file, openSaveManager, bar, statusWidget, ui);
 		this.saveAs = saveAs;
 		this.saveOnClose = saveOnClose;
@@ -80,6 +73,7 @@ public class SaveDrawing extends Save<Label> {
 		this.fileChooser = fileChooser;
 		this.prefService = prefService;
 		this.mainstage = mainstage;
+		this.modifiedAlert = modifiedAlert;
 	}
 
 	@Override
@@ -104,7 +98,7 @@ public class SaveDrawing extends Save<Label> {
 	private void saveOnClose() {
 		if(ui.isModified()) {
 			saveAs = true;
-			final ButtonType type = showAskModificationsDialog(prefService.getBundle());
+			final ButtonType type = modifiedAlert.showAndWait().orElse(ButtonType.CANCEL);
 			if(type == ButtonType.NO) {
 				quit();
 			}else {

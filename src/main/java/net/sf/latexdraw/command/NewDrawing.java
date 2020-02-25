@@ -17,8 +17,8 @@ import io.github.interacto.jfx.ui.OpenSaver;
 import io.github.interacto.undo.UndoCollector;
 import java.io.File;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -26,6 +26,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.sf.latexdraw.util.BadaboomCollector;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This command permits to create a new drawing and initialises the application as required.
@@ -36,17 +37,17 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 	private final @NotNull FileChooser fileChooser;
 	/** The instrument used that manage the preferences. */
 	private final @NotNull Optional<File> currentFolder;
-	private final @NotNull ResourceBundle lang;
 	private final @NotNull Stage mainstage;
+	private final @NotNull Alert modifiedAlert;
 
-	public NewDrawing(final File file, final @NotNull OpenSaver<Label> openSaveManager, final @NotNull ProgressBar progressBar,
+	public NewDrawing(final @Nullable File file, final @NotNull OpenSaver<Label> openSaveManager, final @NotNull ProgressBar progressBar,
 		final @NotNull Label statusWidget, final @NotNull JfxUI ui, final @NotNull FileChooser fileChooser, final @NotNull Optional<File> currentFolder,
-		final @NotNull ResourceBundle lang, final @NotNull Stage mainstage) {
+		final @NotNull Stage mainstage, final @NotNull Alert modifiedAlert) {
 		super(file, openSaveManager, progressBar, statusWidget, ui);
 		this.fileChooser = fileChooser;
 		this.currentFolder = currentFolder;
-		this.lang = lang;
 		this.mainstage = mainstage;
+		this.modifiedAlert = modifiedAlert;
 	}
 
 	@Override
@@ -55,12 +56,11 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 			doModified();
 		}else {
 			newDrawing();
-			ok = true;
 		}
 	}
 
 	private void doModified() {
-		final ButtonType type = SaveDrawing.showAskModificationsDialog(lang);
+		final ButtonType type = modifiedAlert.showAndWait().orElse(ButtonType.CANCEL);
 
 		if(type == ButtonType.NO) {
 			newDrawing();
@@ -70,21 +70,21 @@ public class NewDrawing extends IOCommand<Label> implements Modifying {
 			SaveDrawing.showDialog(fileChooser, true, file, currentFolder, ui, mainstage).ifPresent(f -> {
 				try {
 					openSaveManager.save(f.getPath(), progressBar, statusWidget).get();
+					ui.setModified(false);
+					newDrawing();
 				}catch(final InterruptedException ex) {
 					Thread.currentThread().interrupt();
 					BadaboomCollector.INSTANCE.add(ex);
 				}catch(final ExecutionException ex) {
 					BadaboomCollector.INSTANCE.add(ex);
 				}
-				ui.setModified(false);
-				newDrawing();
-				ok = true;
 			});
 		}
 	}
 
 
 	protected void newDrawing() {
+		ok = true;
 		ui.reinit();
 		UndoCollector.getInstance().clear();
 		CommandsRegistry.getInstance().clear();

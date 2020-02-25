@@ -15,15 +15,16 @@ import io.github.interacto.jfx.ui.JfxUI;
 import io.github.interacto.jfx.ui.OpenSaver;
 import java.io.File;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import javafx.concurrent.Task;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This command loads an SVG document into the app.
@@ -33,22 +34,24 @@ public class LoadDrawing extends Load<Label> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	private final @NotNull FileChooser fileChooser;
 	private final @NotNull Optional<File> currentFolder;
-	private final @NotNull ResourceBundle lang;
 	private final @NotNull Stage mainstage;
+	private final @NotNull Alert modifiedAlert;
 
-	public LoadDrawing(final File file, final OpenSaver<Label> openSaveManager, final ProgressBar progressBar, final Label statusWidget, final JfxUI ui,
-				final @NotNull FileChooser fileChooser, final @NotNull Optional<File> currentFolder, final @NotNull ResourceBundle lang, final @NotNull Stage mainstage) {
+	public LoadDrawing(final @Nullable File file, final @NotNull OpenSaver<Label> openSaveManager, final @NotNull ProgressBar progressBar,
+			final @NotNull Label statusWidget, final @NotNull JfxUI ui, final @NotNull FileChooser fileChooser,
+			final @NotNull Optional<File> currentFolder, final @NotNull Stage mainstage,
+			final @NotNull Alert modifiedAlert) {
 		super(file, openSaveManager, progressBar, statusWidget, ui);
 		this.fileChooser = fileChooser;
 		this.currentFolder = currentFolder;
-		this.lang = lang;
 		this.mainstage = mainstage;
+		this.modifiedAlert = modifiedAlert;
 	}
 
 	@Override
 	protected void doCmdBody() {
 		if(ui.isModified()) {
-			final ButtonType type = SaveDrawing.showAskModificationsDialog(lang);
+			final ButtonType type = modifiedAlert.showAndWait().orElse(ButtonType.CANCEL);
 			if(type == ButtonType.NO) {
 				load();
 			}else {

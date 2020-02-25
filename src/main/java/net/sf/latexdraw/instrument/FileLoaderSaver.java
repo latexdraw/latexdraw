@@ -19,6 +19,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -54,6 +56,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	@FXML private MenuButton fileMenu;
 	/** The fileChooser used to save drawings. */
 	private @Nullable FileChooser fileChooser;
+	private @Nullable Alert modifiedAlert;
 	private final @NotNull StatusBarController statusBar;
 	private final @NotNull SVGDocumentGenerator svgGen;
 	private final @NotNull JfxUI app;
@@ -130,7 +133,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			.usingInteraction(WindowClosed::new)
 			.toProduce(() -> new SaveDrawing(true, true, prefService.getCurrentFolder(), getDialog(true),
 				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
-				statusBar.getLabel(), mainstage))
+				statusBar.getLabel(), mainstage, getAskModificationsDialog()))
 			.on(mainstage)
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
@@ -139,7 +142,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		shortcutBaseBinder
 			.toProduce(() -> new SaveDrawing(true, true, prefService.getCurrentFolder(), getDialog(true),
 				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
-				statusBar.getLabel(), mainstage))
+				statusBar.getLabel(), mainstage, getAskModificationsDialog()))
 			.with(KeyCode.W, SystemUtils.getInstance().getControlKey())
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
@@ -148,7 +151,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		menuItemBinder()
 			.toProduce(() -> new SaveDrawing(false, false, prefService.getCurrentFolder(), getDialog(true),
 				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
-				statusBar.getLabel(), mainstage))
+				statusBar.getLabel(), mainstage, getAskModificationsDialog()))
 			.on(saveMenu)
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
@@ -157,7 +160,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		shortcutBaseBinder
 			.toProduce(() -> new SaveDrawing(false, false, prefService.getCurrentFolder(), getDialog(true),
 				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
-				statusBar.getLabel(), mainstage))
+				statusBar.getLabel(), mainstage, getAskModificationsDialog()))
 			.with(KeyCode.S, SystemUtils.getInstance().getControlKey())
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
@@ -165,7 +168,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		// Save as menu
 		menuItemBinder()
 			.toProduce(() -> new SaveDrawing(true, false, prefService.getCurrentFolder(), getDialog(true),
-				prefService, null, svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage))
+				prefService, null, svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage, getAskModificationsDialog()))
 			.on(saveAsMenu)
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
@@ -173,7 +176,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		// Load menu
 		menuItemBinder()
 			.toProduce(() -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
-				getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
+				getDialog(false), prefService.getCurrentFolder(), mainstage, getAskModificationsDialog()))
 			.on(loadMenu)
 			.ifHadEffects((i, c) -> {
 				updateOnIOCommand(c.getFile());
@@ -184,7 +187,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		// Load shortcut
 		shortcutBaseBinder
 			.toProduce(() -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
-				getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
+				getDialog(false), prefService.getCurrentFolder(), mainstage, getAskModificationsDialog()))
 			.with(KeyCode.O, SystemUtils.getInstance().getControlKey())
 			.ifHadEffects((i, c) -> {
 				updateOnIOCommand(c.getFile());
@@ -195,21 +198,21 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		// New menu
 		menuItemBinder()
 			.toProduce(() -> new NewDrawing(prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(),
-				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
+				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), mainstage, getAskModificationsDialog()))
 			.on(newMenu)
 			.bind();
 
 		// New shortcut
 		shortcutBaseBinder
 			.toProduce(() -> new NewDrawing(prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(),
-				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
+				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), mainstage, getAskModificationsDialog()))
 			.with(KeyCode.N, SystemUtils.getInstance().getControlKey())
 			.bind();
 
 		// Recent files menus
 		menuItemBinder()
 			.toProduce(i -> new LoadDrawing(new File((String) i.getWidget().getUserData()), svgGen, statusBar.getProgressBar(),
-				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), prefService.getBundle(), mainstage))
+				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), mainstage, getAskModificationsDialog()))
 			.on(recentFilesMenu.getItems())
 			.ifHadEffects((i, c) -> {
 				updateOnIOCommand(c.getFile());
@@ -222,7 +225,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	 * @param save True: the dialogue box will be configured in a saving purpose. Otherwise, in an loading purpose.
 	 * @return The dialogue box to open or save drawings.
 	 */
-	public @NotNull FileChooser getDialog(final boolean save) {
+	public  @NotNull FileChooser getDialog(final boolean save) {
 		if(fileChooser == null) {
 			fileChooser = new FileChooser();
 			fileChooser.getExtensionFilters().clear();
@@ -234,6 +237,17 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 
 		return fileChooser;
 	}
+
+	public @NotNull Alert getAskModificationsDialog() {
+		if(modifiedAlert == null) {
+			modifiedAlert = new Alert(Alert.AlertType.CONFIRMATION);
+			modifiedAlert.setTitle(prefService.getBundle().getString("Actions.2"));
+			modifiedAlert.setHeaderText(prefService.getBundle().getString("LaTeXDrawFrame.188"));
+			modifiedAlert.getButtonTypes().setAll(ButtonType.NO, ButtonType.YES, ButtonType.CANCEL);
+		}
+		return modifiedAlert;
+	}
+
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {

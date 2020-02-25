@@ -228,6 +228,7 @@ public class Export extends CommandImpl {
 			exported = latch.await(10, TimeUnit.SECONDS);
 		}catch(final InterruptedException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
+			Thread.currentThread().interrupt();
 		}
 
 		return SwingFXUtils.fromFXImage(img, null);

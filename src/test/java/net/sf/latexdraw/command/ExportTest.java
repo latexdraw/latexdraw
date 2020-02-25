@@ -127,9 +127,7 @@ class ExportTest extends CommandTest<Export> {
 				assertThat(cmd.hadEffect()).isFalse();
 				assertThat(BadaboomCollector.INSTANCE.errorsProperty().size()).isEqualTo(1);
 			}),
-			Stream.of(ExportFormat.values()).map(f -> () -> {
-				assertThat(cmd.hadEffect()).isTrue();
-			}));
+			Stream.of(ExportFormat.values()).map(f -> () -> assertThat(cmd.hadEffect()).isTrue()));
 	}
 
 	@AfterEach
