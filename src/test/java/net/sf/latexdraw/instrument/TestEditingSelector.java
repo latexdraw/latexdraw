@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.application.HostServices;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Drawing;
 import net.sf.latexdraw.model.api.shape.Text;
@@ -13,8 +16,8 @@ import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.MagneticGrid;
 import net.sf.latexdraw.view.jfx.ViewFactory;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
 import org.junit.Before;
@@ -98,6 +101,9 @@ public class TestEditingSelector extends TestLatexdrawGUI {
 		pencil = injector.getInstance(Pencil.class);
 		hand = injector.getInstance(Hand.class);
 		Mockito.when(injector.getInstance(Canvas.class).getDrawing()).thenReturn(drawing);
+		Mockito.when(injector.getInstance(StatusBarController.class).getLabel()).thenReturn(new Label());
+		Mockito.when(injector.getInstance(StatusBarController.class).getProgressBar()).thenReturn(new ProgressBar());
+		Mockito.when(injector.getInstance(StatusBarController.class).getLink()).thenReturn(new Hyperlink());
 	}
 
 	@Theory

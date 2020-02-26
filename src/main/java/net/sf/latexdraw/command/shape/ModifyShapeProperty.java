@@ -37,6 +37,10 @@ public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoa
 		oldValue = Collections.emptyList();
 	}
 
+	@Override
+	protected void createMemento() {
+		oldValue = property.getPropertyValues(shapes);
+	}
 
 	@Override
 	public void undo() {
@@ -47,7 +51,7 @@ public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoa
 
 	@Override
 	public void redo() {
-		applyValue(value);
+		doCmdBody();
 	}
 
 
@@ -58,17 +62,11 @@ public class ModifyShapeProperty<T> extends ShapePropertyCmd<T> implements Undoa
 
 
 	@Override
-	protected void applyValue(final @NotNull T obj) {
-		property.setPropertyValue(shapes, obj);
+	protected void applyValue() {
+		property.setPropertyValue(shapes, value);
 		shapes.setModified(true);
 	}
 
-
-	@Override
-	protected void doCmdBody() {
-		oldValue = property.getPropertyValues(shapes);
-		applyValue(value);
-	}
 
 	public @NotNull Group getShapes() {
 		return shapes;

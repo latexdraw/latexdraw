@@ -14,7 +14,7 @@ import io.github.interacto.command.CommandsRegistry;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.function.Supplier;
+import java.util.function.BooleanSupplier;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
@@ -43,7 +43,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	@FXML protected MenuItem cutMenu;
 	private final @NotNull PreferencesService prefs;
 
-	private final Supplier<Boolean> isShapeSelected = () -> {
+	private final BooleanSupplier isShapeSelected = () -> {
 		final SelectShapes cmd = (SelectShapes) CommandsRegistry.getInstance().getCommands().parallelStream().
 			filter(command -> command instanceof SelectShapes).findFirst().orElse(null);
 		return cmd != null && !cmd.getShapes().isEmpty();
@@ -72,7 +72,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 	 * Updates the widgets of the instrument.
 	 */
 	private void updateWidgets() {
-		copyMenu.setDisable(!activated || !isShapeSelected.get());
+		copyMenu.setDisable(!activated || !isShapeSelected.getAsBoolean());
 		cutMenu.setDisable(!activated || copyMenu.isDisable());
 		pasteMenu.setDisable(!activated || getCopyCutCmd().isEmpty());
 	}
@@ -103,7 +103,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 		baseMenuBinder
 			.toProduce(() -> new CopyShapes(getSelectCmd().orElseThrow()))
 			.on(copyMenu)
-			.when(() -> isShapeSelected.get())
+			.when(isShapeSelected)
 			.bind();
 
 		// Key shortcut ctrl+C to copy shapes.
@@ -111,14 +111,14 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 			.toProduce(i -> new CopyShapes(getSelectCmd().orElseThrow()))
 			.on(canvas)
 			.with(KeyCode.C, SystemUtils.getInstance().getControlKey())
-			.when(() -> isShapeSelected.get())
+			.when(isShapeSelected)
 			.bind();
 
 		// menu to cut shapes.
 		baseMenuBinder
 			.toProduce(() -> new CutShapes(getSelectCmd().orElseThrow()))
 			.on(cutMenu)
-			.when(() -> isShapeSelected.get())
+			.when(isShapeSelected)
 			.bind();
 
 		// Key shortcut ctrl+X to cut shapes.
@@ -126,7 +126,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 			.toProduce(() -> new CutShapes(getSelectCmd().orElseThrow()))
 			.on(canvas)
 			.with(KeyCode.X, SystemUtils.getInstance().getControlKey())
-			.when(() -> isShapeSelected.get())
+			.when(isShapeSelected)
 			.bind();
 	}
 }

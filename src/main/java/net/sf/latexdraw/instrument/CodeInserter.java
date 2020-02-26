@@ -171,9 +171,8 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 			.bind();
 
 		buttonBinder()
-			.toProduce(() -> new InactivateInstrument())
+			.toProduce(() -> new InactivateInstrument(this))
 			.on(cancel, ok)
-			.first(c -> c.setInstrument(this))
 			.bind();
 	}
 

@@ -33,13 +33,7 @@ public class ModifyEditingParameter<T> extends ShapePropertyCmd<T> {
 	}
 
 	@Override
-	protected void doCmdBody() {
-		// Modification of the editing.
-		applyValue(value);
-	}
-
-	@Override
-	protected void applyValue(final T obj) {
+	protected void applyValue() {
 		property.setPropertyValue(editing.getGroupParams(), value);
 	}
 }

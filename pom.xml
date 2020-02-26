@@ -104,6 +104,7 @@
                     <compilerArgs combine.children="append">
                         <arg>-XDcompilePolicy=simple</arg>
                         <arg>-Xplugin:ErrorProne
+                            -Xep:HidingField:ERROR
                             -Xep:InvalidParam:ERROR
                             -Xep:InvalidThrows:ERROR
                             -Xep:TypeParameterNaming:ERROR

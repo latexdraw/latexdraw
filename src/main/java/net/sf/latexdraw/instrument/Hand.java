@@ -66,7 +66,6 @@ import org.jetbrains.annotations.NotNull;
 public class Hand extends CanvasInstrument implements Flushable {
 	private final @NotNull TextSetter textSetter;
 	private final @NotNull PreferencesService prefs;
-	private final @NotNull List<Disposable> disposables;
 	private final @NotNull Map<Node, Tuple<Disposable, Disposable>> cursorsEvents;
 
 	@Inject
@@ -74,7 +73,6 @@ public class Hand extends CanvasInstrument implements Flushable {
 		super(canvas, grid);
 		this.textSetter = Objects.requireNonNull(textSetter);
 		this.prefs = Objects.requireNonNull(prefs);
-		disposables = new ArrayList<>();
 		cursorsEvents = new HashMap<>();
 	}
 
@@ -102,7 +100,8 @@ public class Hand extends CanvasInstrument implements Flushable {
 						tuple.b.dispose();
 					});
 				break;
-
+			case UPDATED:
+				break;
 		}
 	}
 
@@ -281,7 +280,6 @@ public class Hand extends CanvasInstrument implements Flushable {
 
 	@Override
 	public void flush() {
-		disposables.forEach(d -> d.dispose());
 		cursorsEvents.values().forEach(tuple -> {
 			tuple.a.dispose();
 			tuple.b.dispose();

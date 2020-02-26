@@ -34,11 +34,4 @@ class UpdateTemplatesTest extends CommandTest<UpdateTemplates> {
 			() -> Mockito.verify(svgGen, Mockito.times(1)).updateTemplates(templatesPane, true),
 			() -> Mockito.verify(svgGen, Mockito.times(1)).updateTemplates(templatesPane, false));
 	}
-
-//	@AfterEach
-//	void tearDownUpdateTemplatesTest() {
-//		this.updateThumbnails = false;
-//		this.templatesPane = null;
-//		this.svgGen = null;
-//	}
 }

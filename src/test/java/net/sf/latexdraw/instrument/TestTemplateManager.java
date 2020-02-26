@@ -1,9 +1,12 @@
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.CommandsRegistry;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,7 +20,6 @@ import net.sf.latexdraw.command.UpdateTemplates;
 import net.sf.latexdraw.util.Injector;
 import org.junit.Before;
 import org.junit.Test;
-import io.github.interacto.command.CommandsRegistry;
 import org.mockito.Mockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,6 +64,8 @@ public class TestTemplateManager extends BaseTestCanvas {
 		super.setUp();
 		Cmds.of(CmdFXVoid.of(() -> hand.setActivated(true))).execute();
 		when(pencil.isActivated()).thenReturn(false);
+		Mockito.when(injector.getInstance(StatusBarController.class).getLabel()).thenReturn(new Label());
+		Mockito.when(injector.getInstance(StatusBarController.class).getProgressBar()).thenReturn(new ProgressBar());
 	}
 
 	@Test

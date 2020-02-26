@@ -56,12 +56,9 @@ public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modif
 
 	@Override
 	protected void doCmdBody() {
-		shape.getShapes().forEach(sh -> {
-			sh.getPoints().forEach(pt -> {
-				System.out.println(pt.toPoint3D());
-				pt.setPoint(grid.getTransformedPointToGrid(pt.toPoint3D()));
-			});
-		});
+		shape.getShapes()
+			.forEach(sh -> sh.getPoints()
+				.forEach(pt -> pt.setPoint(grid.getTransformedPointToGrid(pt.toPoint3D()))));
 		shape.setModified(true);
 	}
 

@@ -86,8 +86,4 @@ public class EditingService {
 	public void setCurrentChoice(final @NotNull EditionChoice choice) {
 		currentChoice.set(choice);
 	}
-
-	public @NotNull ObjectProperty<EditionChoice> currentChoiceProperty() {
-		return currentChoice;
-	}
 }

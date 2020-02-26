@@ -62,10 +62,9 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 		super.configureBindings();
 
 		spinnerBinder()
-			.toProduce(Zoom::new)
+			.toProduce(() -> new Zoom(zoomable))
 			.on(zoom)
 			.continuousExecution()
-			.first(c -> c.setZoomable(zoomable))
 			.then((i, c) -> c.setZoomLevel(Double.parseDouble(i.getWidget().getValue().toString()) / 100d))
 			.bind();
 	}
